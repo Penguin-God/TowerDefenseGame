@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class CreateDefenser : MonoBehaviour
 {
+    // public GameObject Soldierprefab;
     private GameObject Soldier;
     
     
@@ -22,7 +23,8 @@ public class CreateDefenser : MonoBehaviour
     public void create()
     {
         int randomnumber = Random.Range(0, 4);
-        Soldier = transform.GetChild(randomnumber).gameObject;
+        // Soldier = transform.GetChild(randomnumber).gameObject;
+        Soldier = Instantiate(transform.GetChild(randomnumber).gameObject, transform.position, transform.rotation);
 
         Soldier.transform.position = new Vector3(-Random.Range(20, 40), 0, Random.Range(90, 110));
         Soldier.SetActive(true);

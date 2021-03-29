@@ -8,16 +8,9 @@ public class CreateDefenser : MonoBehaviour
     // public GameObject Soldierprefab;
     private GameObject Soldier;
     
-    
     void Start()
     {
       gameObject.SetActive(true);
-    }
-
-    
-    void Update()
-    {
-        
     }
 
     public void create()
@@ -26,7 +19,15 @@ public class CreateDefenser : MonoBehaviour
         // Soldier = transform.GetChild(randomnumber).gameObject;
         Soldier = Instantiate(transform.GetChild(randomnumber).gameObject, transform.position, transform.rotation);
 
-        Soldier.transform.position = new Vector3(-Random.Range(20, 40), 0, Random.Range(90, 110));
+        Soldier.transform.position = RandomPosition(10, 0 ,10);
         Soldier.SetActive(true);
+    }
+
+    Vector3 RandomPosition(float x, float y, float z)
+    {
+        float randomX = Random.Range(-x, x);
+        float randomY = Random.Range(-y, y);
+        float randomZ = Random.Range(-z, z);
+        return new Vector3(randomX, randomY, randomZ);
     }
 }

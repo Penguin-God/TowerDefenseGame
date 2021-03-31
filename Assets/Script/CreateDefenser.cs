@@ -30,4 +30,6 @@ public class CreateDefenser : MonoBehaviour
         float randomZ = Random.Range(-z, z);
         return new Vector3(randomX, randomY, randomZ);
     }
+
+    
 }

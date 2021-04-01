@@ -5,14 +5,15 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
+    // 상태 변수
     public float speed = 10f;
     public float maxHp;
     public float currentHp;
     public bool isDead;
-
-    public TurnPoint turnPoint;
     public Slider hpSlider;
-    
+
+    // 이동, 회전 관련 변수
+    private Transform parent;
     private Transform target;
     private Vector3 dir;
     private int pointIndex = 0;
@@ -28,27 +29,28 @@ public class Enemy : MonoBehaviour
 
     void Start()
     {
-        GetNextPoint();
+        parent = transform.parent.GetComponent<Transform>();
+        target = TurnPoint.enemyTurnPoints[pointIndex];
+        dir = target.position - this.transform.position;
     }
 
-    void Update()
+    private void Update()
     {
         EnemyMove();
-        //hpSlider.value = currentHp;
     }
 
     void EnemyMove()
     {
-        transform.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
-        if (Vector3.Distance(target.position, this.transform.position) <= 0.2f) GetNextPoint();
+        parent.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
     }
 
     void GetNextPoint()
     {
-        if (pointIndex >= turnPoint.enemyTurnPoints.Length) pointIndex = 0; // 무한반복을 위한 조건
+        if (pointIndex >= TurnPoint.enemyTurnPoints.Length) pointIndex = 0; // 무한반복을 위한 조건
 
         transform.rotation = Quaternion.Euler(0, -90 * pointIndex, 0);
-        target = turnPoint.enemyTurnPoints[pointIndex];
+        Debug.Log(pointIndex);
+        target = TurnPoint.enemyTurnPoints[pointIndex];
         dir = target.position - this.transform.position;
         pointIndex++;
     }
@@ -57,5 +59,14 @@ public class Enemy : MonoBehaviour
     {
         currentHp -= damage;
         hpSlider.value = currentHp;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("aa");
+        if(other.tag == "WayPoint")
+        {
+            GetNextPoint();
+        }
     }
 }

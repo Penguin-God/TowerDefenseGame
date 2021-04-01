@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TurnPoint : MonoBehaviour
 {
-    public Transform[] enemyTurnPoints;
+    static public Transform[] enemyTurnPoints;
 
     private void Awake()
     {

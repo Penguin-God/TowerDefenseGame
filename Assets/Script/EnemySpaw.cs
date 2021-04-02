@@ -8,7 +8,7 @@ public class EnemySpaw : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(Stage(enemyPrefab, 15, 2));
+        StartCoroutine(Stage(enemyPrefab, 8, 2));
     }
 
     IEnumerator Stage(GameObject instantEnemy, int enemyCount, int waitTime)
@@ -18,6 +18,7 @@ public class EnemySpaw : MonoBehaviour
         {
             GameObject enemy = Instantiate(instantEnemy, transform.position, transform.rotation);
             yield return new WaitForSeconds(waitTime);
+            enemyCount--;
         }
     }
 }

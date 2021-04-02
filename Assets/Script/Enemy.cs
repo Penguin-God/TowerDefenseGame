@@ -46,13 +46,11 @@ public class Enemy : MonoBehaviour
 
     void GetNextPoint()
     {
-        if (pointIndex >= TurnPoint.enemyTurnPoints.Length) pointIndex = 0; // 무한반복을 위한 조건
-
         transform.rotation = Quaternion.Euler(0, -90 * pointIndex, 0);
-        Debug.Log(pointIndex);
-        target = TurnPoint.enemyTurnPoints[pointIndex];
-        dir = target.position - this.transform.position;
         pointIndex++;
+        if (pointIndex >= TurnPoint.enemyTurnPoints.Length) pointIndex = 0; // 무한반복을 위한 조건
+        target = TurnPoint.enemyTurnPoints[pointIndex];
+        dir = target.position - parent.transform.position;
     }
 
     void OnDamage(float damage)
@@ -63,7 +61,6 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("aa");
         if(other.tag == "WayPoint")
         {
             GetNextPoint();

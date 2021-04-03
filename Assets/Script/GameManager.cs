@@ -6,6 +6,13 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     private int Stage;
+    public int Gold;
+    public RaycastHit hit;
+
+    //public GameObject target;
+
+
+
 
     public static GameManager instance
     {
@@ -32,7 +39,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        Gold = 20;
+        UIManager.instance.UpdateGoldText(Gold);
     }
 
     
@@ -40,6 +48,23 @@ public class GameManager : MonoBehaviour
     {
         
     }
+
+    public void Chilk()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            
+            if (Physics.Raycast(ray, out hit))
+            {
+                Debug.Log(hit.transform.gameObject);
+            }
+        }
+    }
+
+   
+
+
 
     
 }

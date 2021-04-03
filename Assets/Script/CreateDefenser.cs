@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class CreateDefenser : MonoBehaviour
 {
     // public GameObject Soldierprefab;
@@ -15,12 +16,21 @@ public class CreateDefenser : MonoBehaviour
 
     public void create()
     {
-        int randomnumber = Random.Range(0, 4);
-        // Soldier = transform.GetChild(randomnumber).gameObject;
-        Soldier = Instantiate(transform.GetChild(randomnumber).gameObject, transform.position, transform.rotation);
+        if (GameManager.instance.Gold >= 5)
+        {
+            int randomnumber = Random.Range(0, 4);
+            // Soldier = transform.GetChild(randomnumber).gameObject;
+            Soldier = Instantiate(transform.GetChild(randomnumber).gameObject, transform.position, transform.rotation);
 
-        Soldier.transform.position = RandomPosition(10, 0 ,10);
-        Soldier.SetActive(true);
+            Soldier.transform.position = RandomPosition(10, 0, 10);
+            Soldier.SetActive(true);
+
+            GameManager.instance.Gold -= 5;
+            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+        }
+        
+
+        
     }
 
     Vector3 RandomPosition(float x, float y, float z)

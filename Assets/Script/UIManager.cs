@@ -20,10 +20,16 @@ public class UIManager : MonoBehaviour
     private static UIManager m_instance;
 
     public Text StageText;
+    public Text GoldText;
 
     public void UpdateStageText(int Stage)
     {
         StageText.text = "Stage :" + Stage;
+    }
+
+    public void UpdateGoldText(int Gold)
+    {
+        GoldText.text = ""+Gold;
     }
 }
 

@@ -3,30 +3,51 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class TeamSoldier : MonoBehaviour
 {
-    public Button Soldierclick;
-    private GameObject CombineSoldier;
+    public Button SoldierCombine;
+    public Button SellSoldier;
+  
+    //private GameObject CombineSoldier;
     void Start()
     {
-        Soldierclick.GetComponent<Button>();
+        SoldierCombine.GetComponent<Button>();
+        SellSoldier.GetComponent<Button>();
+        
     }
 
     
     void Update()
     {
-        
+       
     }
 
     private void OnMouseDown()
     {
-        Soldierclick.gameObject.SetActive(true);
+        SoldierCombine.gameObject.SetActive(true);
+        SellSoldier.gameObject.SetActive(true);
+        GameManager.instance.Chilk();
+        
     }
 
-    public void Combine()
+    public void CombineSolider()
     {
+
+        SoldierCombine.gameObject.SetActive(false);
+        SellSoldier.gameObject.SetActive(false);
+
+    }
+
+    public void SellSolider()
+    {
+        GameManager.instance.Gold += 3; 
+        SoldierCombine.gameObject.SetActive(false);
+        SellSoldier.gameObject.SetActive(false);
+        Destroy(GameManager.instance.hit.transform.gameObject);
         
-        Soldierclick.gameObject.SetActive(false);
+
+        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
     }
 }

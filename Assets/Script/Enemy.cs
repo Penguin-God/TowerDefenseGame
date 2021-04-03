@@ -16,7 +16,7 @@ public class Enemy : MonoBehaviour
     private Transform parent;
     private Transform target;
     private Vector3 dir;
-    private int pointIndex = 0;
+    private int pointIndex = -1;
 
 
     void OnEnable()
@@ -25,13 +25,12 @@ public class Enemy : MonoBehaviour
         currentHp = maxHp;
         hpSlider.maxValue = maxHp;
         hpSlider.value = maxHp;
+        SetNextPoint();
     }
 
-    void Start()
+    private void Awake()
     {
         parent = transform.parent.GetComponent<Transform>();
-        target = TurnPoint.enemyTurnPoints[pointIndex];
-        dir = target.position - this.transform.position;
     }
 
     private void Update()
@@ -44,13 +43,18 @@ public class Enemy : MonoBehaviour
         parent.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
     }
 
-    void GetNextPoint()
+    void SetNextPoint()
     {
-        transform.rotation = Quaternion.Euler(0, -90 * pointIndex, 0);
         pointIndex++;
         if (pointIndex >= TurnPoint.enemyTurnPoints.Length) pointIndex = 0; // 무한반복을 위한 조건
         target = TurnPoint.enemyTurnPoints[pointIndex];
         dir = target.position - parent.transform.position;
+    }
+
+    void SetTransfrom()
+    {
+        transform.rotation = Quaternion.Euler(0, -90 * pointIndex, 0);
+        parent.transform.position = target.position;
     }
 
     void OnDamage(float damage)
@@ -63,7 +67,8 @@ public class Enemy : MonoBehaviour
     {
         if(other.tag == "WayPoint")
         {
-            GetNextPoint();
+            SetTransfrom();
+            SetNextPoint();
         }
     }
 }

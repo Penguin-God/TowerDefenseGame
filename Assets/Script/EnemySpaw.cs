@@ -8,7 +8,7 @@ public class EnemySpaw : MonoBehaviour
     public int stageNumber;
     //public int startEnemyCount;
     //private int EnemyCount;
-    Dictionary<int, int[]> stageDictionary; // 0 : 소환할 enemy, 1 : enemy 수, 2 : 대기 시간 
+    Dictionary<int, int[]> stageDictionary; // 0 : enemyPrefab에 대입할 수 즉 소환할 enemy, 1 : enemy 수, 2 : 대기 시간
 
     private void Awake()
     {
@@ -16,7 +16,7 @@ public class EnemySpaw : MonoBehaviour
         stageDictionary.Add(1, new int[] { 0, 8, 2});
         stageDictionary.Add(2, new int[] { 1, 8, 2 });
         stageDictionary.Add(3, new int[] { 2, 8, 1 });
-        NextStage();
+        StageStart();
     }
 
     //void Update()
@@ -28,7 +28,7 @@ public class EnemySpaw : MonoBehaviour
     //    }
     //}
 
-    IEnumerator StageCoroutine(int instantEnemyNumber, int enemyCount, int waitTime)
+    IEnumerator StageCoroutine(int instantEnemyNumber, int enemyCount, int waitTime) // 재귀함수 무한반복
     {
         while (enemyCount > 0)
         {
@@ -38,7 +38,7 @@ public class EnemySpaw : MonoBehaviour
         }
         stageNumber += 1;
         yield return new WaitForSeconds(3f);
-        NextStage();
+        StageStart();
     }
 
     int[] SetStageData(int currentStage)
@@ -50,7 +50,7 @@ public class EnemySpaw : MonoBehaviour
         return stageData;
     }
 
-    void NextStage()
+    void StageStart()
     {
         UIManager.instance.UpdateStageText(stageNumber);
         int[] stageData = SetStageData(stageNumber);

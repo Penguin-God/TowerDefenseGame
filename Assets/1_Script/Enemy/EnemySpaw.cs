@@ -6,8 +6,6 @@ public class EnemySpaw : MonoBehaviour
 {
     public GameObject[] enemyPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
     public int stageNumber;
-    //public int startEnemyCount;
-    //private int EnemyCount;
     Dictionary<int, int[]> stageDictionary; // 0 : enemyPrefab에 대입할 수 즉 소환할 enemy, 1 : enemy 수, 2 : 대기 시간
 
     private void Awake()
@@ -18,15 +16,6 @@ public class EnemySpaw : MonoBehaviour
         stageDictionary.Add(3, new int[] { 2, 8, 1 });
         StageStart();
     }
-
-    //void Update()
-    //{
-    //    if (stageNumber + 7 == EnemyCount)
-    //    {
-    //        stageNumber += 1;
-    //        StartCoroutine(StageCoroutine(0, EnemyCount, 2));
-    //    }
-    //}
 
     IEnumerator StageCoroutine(int instantEnemyNumber, int enemyCount, int waitTime) // 재귀함수 무한반복
     {

@@ -6,41 +6,48 @@ using UnityEngine.UI;
 
 public class TeamSoldier : MonoBehaviour
 {
-    public DefenserManager defenserManager;
-    public int sellPrice; // 유닛에 따른 판매가격
-    //public Button SoldierCombine;
-    //public Button SellSoldier;
+    public Button SoldierCombine;
+    public Button SellSoldier;
+
+    //private GameObject CombineSoldier;
+    void Start()
+    {
+        SoldierCombine.GetComponent<Button>();
+        SellSoldier.GetComponent<Button>();
+
+    }
+
+
+    void Update()
+    {
+
+    }
 
     private void OnMouseDown()
     {
-        defenserManager.SetActiveButton(true);
-        defenserManager.Chilk();
+        SoldierCombine.gameObject.SetActive(true);
+        SellSoldier.gameObject.SetActive(true);
+        GameManager.instance.Chilk();
+
     }
 
-    //void Start()
-    //{
-    //    SoldierCombine.GetComponent<Button>();
-    //    SellSoldier.GetComponent<Button>();
+    public void CombineSolider()
+    {
 
-    //}
+        SoldierCombine.gameObject.SetActive(false);
+        SellSoldier.gameObject.SetActive(false);
 
-    //public void CombineSolider()
-    //{
+    }
 
-    //    SoldierCombine.gameObject.SetActive(false);
-    //    SellSoldier.gameObject.SetActive(false);
-
-    //}
-
-    //public void SellSolider()
-    //{
-    //    GameManager.instance.Gold += 3; 
-    //    SoldierCombine.gameObject.SetActive(false);
-    //    SellSoldier.gameObject.SetActive(false);
-    //    Destroy(GameManager.instance.hitSoldier);
+    public void SellSolider()
+    {
+        GameManager.instance.Gold += 3;
+        SoldierCombine.gameObject.SetActive(false);
+        SellSoldier.gameObject.SetActive(false);
+        Destroy(GameManager.instance.hit.transform.gameObject);
 
 
-    //    UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
-    //}
+    }
 }

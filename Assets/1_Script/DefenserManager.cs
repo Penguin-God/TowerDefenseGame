@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-public class DefenserManager : MonoBehaviour
+public class DefenserManager : MonoBehaviour // UI 버튼에서 사용되는 함수는 DarwSoldier(), SellSolider()
 {
     public int drawPrice; // 뽑기 가격
     // public GameObject Soldierprefab;
@@ -25,24 +25,15 @@ public class DefenserManager : MonoBehaviour
 
     public void DarwSoldier() // 유닛 뽑기
     {
-        if(GameManager.instance.Gold >= 5)
+        if(GameManager.instance.Gold >= drawPrice)
         {
             CreatSoldier();
             ExpenditrueGold();
         }
     }
 
-    Vector3 SetRandomPosition(float x, float y, float z)
-    {
-        float randomX = Random.Range(-x, x);
-        float randomY = Random.Range(-y, y);
-        float randomZ = Random.Range(-z, z);
-        return new Vector3(randomX, randomY, randomZ);
-    }
-
     void CreatSoldier()
     {
-        // Soldier = transform.GetChild(randomnumber).gameObject;
         int randomnumber = Random.Range(0, 4);
         Soldier = Instantiate(transform.GetChild(randomnumber).gameObject, SetRandomPosition(10, 0, 10), transform.rotation);
         Soldier.SetActive(true);
@@ -55,6 +46,39 @@ public class DefenserManager : MonoBehaviour
     }
 
 
+    public void SellSolider() // 유닛 판매
+    {
+        RemoveSolider();
+        IncomeSellSolider();
+    } 
+
+    void RemoveSolider()
+    {
+        SetActiveButton(false);
+        Destroy(hitSoldier);
+    }
+
+    void IncomeSellSolider() // 판매한 솔져 수익
+    {
+        TeamSoldier teamSoldier = hitSoldier.GetComponent<TeamSoldier>(); // 클릭한 유닛의 스크립트를 가져옴
+        GameManager.instance.Gold += teamSoldier.sellPrice;
+        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+    }
+
+    public void SetActiveButton(bool show) // 인수로 받은 값을 SetActive에 적용시킴
+    {
+        SoldierCombineButton.gameObject.SetActive(show);
+        SellSoldierButton.gameObject.SetActive(show);
+    }
+
+    Vector3 SetRandomPosition(float x, float y, float z)
+    {
+        float randomX = Random.Range(-x, x);
+        float randomY = Random.Range(-y, y);
+        float randomZ = Random.Range(-z, z);
+        return new Vector3(randomX, randomY, randomZ);
+    }
+
     public void CombineSolider()
     {
 
@@ -63,20 +87,18 @@ public class DefenserManager : MonoBehaviour
 
     }
 
-
-    public void SellSolider()
+    GameObject hitSoldier;
+    public void Chilk()
     {
-        TeamSoldier teamSoldier = GameManager.instance.hitSoldier.GetComponent<TeamSoldier>();
-        GameManager.instance.Gold += teamSoldier.sellPrice;
-        SetActiveButton(false);
-        Destroy(GameManager.instance.hitSoldier);
-
-        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-    }
-
-    public void SetActiveButton(bool show)
-    {
-        SoldierCombineButton.gameObject.SetActive(show);
-        SellSoldierButton.gameObject.SetActive(show);
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                Debug.Log(hit.transform.gameObject);
+                hitSoldier = hit.transform.gameObject; // 클릭한 게임오브젝트를 변수에 담아서 사용할 수 있도록 함
+            }
+        }
     }
 }

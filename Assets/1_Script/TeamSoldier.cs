@@ -7,15 +7,14 @@ using UnityEngine.UI;
 public class TeamSoldier : MonoBehaviour
 {
     public DefenserManager defenserManager;
-    public int price;
-    public int sellPrice;
+    public int sellPrice; // 유닛에 따른 판매가격
     //public Button SoldierCombine;
     //public Button SellSoldier;
 
     private void OnMouseDown()
     {
         defenserManager.SetActiveButton(true);
-        GameManager.instance.Chilk();
+        defenserManager.Chilk();
     }
 
     //void Start()

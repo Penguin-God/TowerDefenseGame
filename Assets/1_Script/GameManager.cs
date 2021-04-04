@@ -7,7 +7,6 @@ public class GameManager : MonoBehaviour
 {
     private int Stage;
     public int Gold;
-    public RaycastHit hit;
 
     //public GameObject target;
 
@@ -49,15 +48,17 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public GameObject hitSolider;
     public void Chilk()
     {
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
+            RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
                 Debug.Log(hit.transform.gameObject);
+                hitSolider = hit.transform.gameObject;
             }
         }
     }

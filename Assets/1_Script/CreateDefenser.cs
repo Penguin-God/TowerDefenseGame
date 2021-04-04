@@ -14,23 +14,29 @@ public class CreateDefenser : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void create()
+    public void DrawSoldier()
     {
         if (GameManager.instance.Gold >= 5)
         {
-            int randomnumber = Random.Range(0, 4);
-            // Soldier = transform.GetChild(randomnumber).gameObject;
-            Soldier = Instantiate(transform.GetChild(randomnumber).gameObject, transform.position, transform.rotation);
-
-            Soldier.transform.position = RandomPosition(10, 0, 10);
-            Soldier.SetActive(true);
-
-            GameManager.instance.Gold -= 5;
-            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+            CreateSoldier();
+            ExpenditureGold();
         }
+    }
 
+    void CreateSoldier()
+    {
+        int randomnumber = Random.Range(0, 4);
+        // Soldier = transform.GetChild(randomnumber).gameObject;
+        Soldier = Instantiate(transform.GetChild(randomnumber).gameObject, transform.position, transform.rotation);
 
+        Soldier.transform.position = RandomPosition(10, 0, 10);
+        Soldier.SetActive(true);
+    }
 
+    void ExpenditureGold()
+    {
+        GameManager.instance.Gold -= 5;
+        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
     }
 
     Vector3 RandomPosition(float x, float y, float z)

@@ -21,6 +21,8 @@ public class UIManager : MonoBehaviour
 
     public Text StageText;
     public Text GoldText;
+    public Button SoldierCombine;
+    public Button SellSoldier;
 
     public void UpdateStageText(int Stage)
     {
@@ -30,6 +32,12 @@ public class UIManager : MonoBehaviour
     public void UpdateGoldText(int Gold)
     {
         GoldText.text = ""+Gold;
+    }
+
+    public void SetActiveButton(bool show)
+    {
+        SoldierCombine.gameObject.SetActive(show);
+        SellSoldier.gameObject.SetActive(show);
     }
 }
 

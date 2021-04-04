@@ -351,8 +351,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoldierCombine: {fileID: 353933817}
-  SellSoldier: {fileID: 1189473404}
+  sellDefenser: {fileID: 1189473407}
 --- !u!1001 &31499612
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1925,7 +1924,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1894275679}
+      - m_Target: {fileID: 0}
         m_MethodName: CombineSolider
         m_Mode: 1
         m_Arguments:
@@ -4365,6 +4364,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gold: 0
+  hitSolider: {fileID: 0}
 --- !u!4 &986474379
 Transform:
   m_ObjectHideFlags: 0
@@ -5369,6 +5369,7 @@ GameObject:
   - component: {fileID: 1189473406}
   - component: {fileID: 1189473405}
   - component: {fileID: 1189473404}
+  - component: {fileID: 1189473407}
   m_Layer: 5
   m_Name: Sell Soldier Button
   m_TagString: Untagged
@@ -5439,7 +5440,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1894275679}
+      - m_Target: {fileID: 1189473407}
         m_MethodName: SellSolider
         m_Mode: 1
         m_Arguments:
@@ -5487,6 +5488,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1189473402}
   m_CullTransparentMesh: 0
+--- !u!114 &1189473407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1189473402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3461404da2c9d264ab3418745b98fd14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1195923854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6076,8 +6089,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoldierCombine: {fileID: 353933817}
-  SellSoldier: {fileID: 1189473404}
+  sellDefenser: {fileID: 1189473407}
 --- !u!1001 &1351233028
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6745,8 +6757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoldierCombine: {fileID: 353933817}
-  SellSoldier: {fileID: 1189473404}
+  sellDefenser: {fileID: 1189473407}
 --- !u!1 &1511829461
 GameObject:
   m_ObjectHideFlags: 0
@@ -7017,8 +7028,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoldierCombine: {fileID: 353933817}
-  SellSoldier: {fileID: 1189473404}
+  sellDefenser: {fileID: 1189473407}
 --- !u!1001 &1548058303
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7654,6 +7664,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StageText: {fileID: 1777091811}
   GoldText: {fileID: 709616255}
+  SoldierCombine: {fileID: 353933817}
+  SellSoldier: {fileID: 1189473404}
 --- !u!1001 &1703826457
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7999,8 +8011,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SoldierCombine: {fileID: 353933817}
-  SellSoldier: {fileID: 1189473404}
+  sellDefenser: {fileID: 1189473407}
 --- !u!1 &1777091809
 GameObject:
   m_ObjectHideFlags: 0
@@ -8647,7 +8658,6 @@ GameObject:
   - component: {fileID: 1894275677}
   - component: {fileID: 1894275678}
   - component: {fileID: 1894275676}
-  - component: {fileID: 1894275679}
   m_Layer: 0
   m_Name: Team Soldier
   m_TagString: Untagged
@@ -8703,20 +8713,6 @@ MonoBehaviour:
     callback:
       m_PersistentCalls:
         m_Calls: []
---- !u!114 &1894275679
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1894275675}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SoldierCombine: {fileID: 353933817}
-  SellSoldier: {fileID: 1189473404}
 --- !u!1001 &1900719028
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8950,7 +8946,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1894275676}
-        m_MethodName: create
+        m_MethodName: DrawSoldier
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class EnemySpaw : MonoBehaviour
 {
     public GameObject[] enemyPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
     public int stageNumber;
     Dictionary<int, int[]> stageDictionary; // 0 : enemyPrefab에 대입할 수 즉 소환할 enemy, 1 : enemy 수, 2 : 대기 시간
+    public int EnemyofCount;
 
     private void Awake()
     {
@@ -22,6 +24,7 @@ public class EnemySpaw : MonoBehaviour
         while (enemyCount > 0)
         {
             GameObject enemy = Instantiate(enemyPrefab[instantEnemyNumber], transform.position, transform.rotation);
+            EnemyofCount += 1;
             enemyCount--;
             yield return new WaitForSeconds(waitTime);
         }

@@ -7,8 +7,8 @@ public class Enemy : MonoBehaviour
 {
     // 상태 변수
     public float speed = 10f;
-    public float maxHp;
-    public float currentHp;
+    public int maxHp;
+    public int currentHp;
     public bool isDead;
     public Slider hpSlider;
 
@@ -26,11 +26,6 @@ public class Enemy : MonoBehaviour
         hpSlider.maxValue = maxHp;
         hpSlider.value = maxHp;
         SetNextPoint();
-    }
-
-    private void Awake()
-    {
-        parent = transform.parent.GetComponent<Transform>();
     }
 
     private void Update()
@@ -57,7 +52,7 @@ public class Enemy : MonoBehaviour
         parent.transform.position = target.position;
     }
 
-    void OnDamage(float damage)
+    void OnDamage(int damage)
     {
         currentHp -= damage;
         hpSlider.value = currentHp;
@@ -69,6 +64,11 @@ public class Enemy : MonoBehaviour
         {
             SetTransfrom();
             SetNextPoint();
+        }
+        else if(other.tag == "Attack")
+        {
+            TeamSoldier teamSoldier = other.GetComponent<TeamSoldier>();
+            OnDamage(teamSoldier.damage);
         }
     }
 }

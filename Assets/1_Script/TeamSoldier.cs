@@ -7,12 +7,17 @@ using UnityEngine.UI;
 public class TeamSoldier : MonoBehaviour
 {
     public SellDefenser sellDefenser;
-    //private GameObject CombineSoldier;
+    public int damage;
 
-
-    void Update()
+    private void Awake()
     {
+        StartCoroutine(SwordAttack());
+    }
 
+    public Rigidbody arrowRigidbody;
+    void ArrowAttack()
+    {
+        arrowRigidbody.velocity = Vector3.back * 10;
     }
 
     private void OnMouseDown()
@@ -21,11 +26,14 @@ public class TeamSoldier : MonoBehaviour
         GameManager.instance.Chilk();
 
     }
-
-    //public void CombineSolider()
-    //{
-
-    //    sellDefenser.SetActiveButton(false);
-
-    //}
+    public Animator animator;
+    public BoxCollider swordCollider;
+    IEnumerator SwordAttack() 
+    {
+        animator.SetTrigger("isSword");
+        yield return new WaitForSeconds(0.15f);
+        swordCollider.enabled = true;
+        yield return new WaitForSeconds(0.15f);
+        swordCollider.enabled = false;
+    }
 }

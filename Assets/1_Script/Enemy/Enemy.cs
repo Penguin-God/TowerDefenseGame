@@ -18,6 +18,10 @@ public class Enemy : MonoBehaviour
     private Vector3 dir;
     private int pointIndex = -1;
 
+    private void Awake()
+    {
+        parent = transform.parent.GetComponent<Transform>();
+    }
 
     void OnEnable()
     {

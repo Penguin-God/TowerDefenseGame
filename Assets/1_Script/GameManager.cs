@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
 {
     private int Stage;
     public int Gold;
+    public EnemySpaw enemySpaw;
 
     //public GameObject target;
 
@@ -33,6 +34,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        enemySpaw.GetComponent<EnemySpaw>();
     }
 
 
@@ -45,7 +48,8 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
+        UIManager.instance.UpdateCountEnemyText(enemySpaw.EnemyofCount);
+        
     }
 
     public GameObject hitSolider;

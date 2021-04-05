@@ -25,7 +25,7 @@ public class CreateDefenser : MonoBehaviour
 
     void CreateSoldier()
     {
-        int randomnumber = Random.Range(0, 4);
+        int randomnumber = Random.Range(0, 24);
         // Soldier = transform.GetChild(randomnumber).gameObject;
         Soldier = Instantiate(transform.GetChild(randomnumber).gameObject, transform.position, transform.rotation);
 

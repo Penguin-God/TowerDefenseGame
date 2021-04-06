@@ -12,7 +12,6 @@ public class Unit_Archer : TeamSoldier
     {
         archerRigidbody = GetComponent<Rigidbody>();
         trail = GetComponentInChildren<TrailRenderer>();
-        Invoke("ArrowAttack", 2);
     }
 
     void ArrowAttack()

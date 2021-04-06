@@ -8,12 +8,13 @@ public class EnemySpaw : MonoBehaviour
     public GameObject[] enemyPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
     public int stageNumber;
     Dictionary<int, int[]> stageDictionary; // 0 : enemyPrefab에 대입할 수 즉 소환할 enemy, 1 : enemy 수, 2 : 대기 시간
+    public List<GameObject> currentEnemyList;
     public int EnemyofCount;
 
     private void Awake()
     {
         stageDictionary = new Dictionary<int, int[]>();
-        stageDictionary.Add(1, new int[] { 0, 8, 2});
+        stageDictionary.Add(1, new int[] { 0, 8, 7});
         stageDictionary.Add(2, new int[] { 1, 8, 2 });
         stageDictionary.Add(3, new int[] { 2, 8, 1 });
         stageDictionary.Add(4, new int[] { 2, 8, 1 });
@@ -28,6 +29,7 @@ public class EnemySpaw : MonoBehaviour
         while (enemyCount > 0)
         {
             GameObject enemy = Instantiate(enemyPrefab[instantEnemyNumber], transform.position, transform.rotation);
+            currentEnemyList.Add(enemy);
             EnemyofCount += 1;
             enemyCount--;
             yield return new WaitForSeconds(waitTime);

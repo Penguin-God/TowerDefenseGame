@@ -7,9 +7,10 @@ using UnityEngine.AI;
 public class TeamSoldier : MonoBehaviour
 {
     public Transform target;
-    public SellDefenser sellDefenser;
+    // public SellDefenser sellDefenser;
     public int damage;
     public NavMeshAgent nav;
+    public CombineSoldier Combine;
 
     //private void Awake()
     //{
@@ -29,7 +30,7 @@ public class TeamSoldier : MonoBehaviour
 
     private void OnMouseDown()
     {
-        UIManager.instance.SetActiveButton(true);
+        Combine.ButtonOn();
         GameManager.instance.Chilk();
     }
 

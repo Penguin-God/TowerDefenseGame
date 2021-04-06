@@ -22,6 +22,8 @@ public class UIManager : MonoBehaviour
     public Text StageText;
     public Text GoldText;
     public Text EnemyCount;
+    public Text GameOverText;
+    public Text RestartText;
     public Button SoldierCombine;
     public Button SellSoldier;
 
@@ -44,6 +46,12 @@ public class UIManager : MonoBehaviour
     public void UpdateCountEnemyText(int EnemyofCount)
     {
         EnemyCount.text = "Enemy :" + EnemyofCount;
+    }
+
+    public void SetActiveGameOverUI()
+    {
+        GameOverText.gameObject.SetActive(true);
+        RestartText.gameObject.SetActive(true);
     }
 }
 

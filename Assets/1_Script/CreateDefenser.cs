@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class CreateDefenser : MonoBehaviour
 {
     // public GameObject Soldierprefab;
-    private GameObject Soldier;
+    public GameObject Soldier;
 
     void Start()
     {
@@ -23,14 +23,15 @@ public class CreateDefenser : MonoBehaviour
         }
     }
 
-    void CreateSoldier()
+    public void CreateSoldier()
     {
-        int randomnumber = Random.Range(0, 24);
+        int randomnumber = Random.Range(0, 6);
         // Soldier = transform.GetChild(randomnumber).gameObject;
         Soldier = Instantiate(transform.GetChild(randomnumber).gameObject, transform.position, transform.rotation);
 
         Soldier.transform.position = RandomPosition(10, 0, 10);
         Soldier.SetActive(true);
+        
     }
 
     void ExpenditureGold()

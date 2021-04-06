@@ -16,6 +16,10 @@ public class EnemySpaw : MonoBehaviour
         stageDictionary.Add(1, new int[] { 0, 8, 2});
         stageDictionary.Add(2, new int[] { 1, 8, 2 });
         stageDictionary.Add(3, new int[] { 2, 8, 1 });
+        stageDictionary.Add(4, new int[] { 2, 8, 1 });
+        stageDictionary.Add(5, new int[] { 2, 8, 1 });
+        stageDictionary.Add(6, new int[] { 2, 8, 1 });
+        stageDictionary.Add(7, new int[] { 2, 8, 1 });
         StageStart();
     }
 

@@ -6,15 +6,15 @@ using UnityEngine.AI;
 
 public class TeamSoldier : MonoBehaviour
 {
-    public int damage;
     public float attackRange;
     public bool isAttack;
 
     private NavMeshAgent nav;
     public Transform target;
-    public Transform parent;
+    private Transform parent;
 
     private EnemySpaw enemySpaw;
+    public Enemy targetEnemy;
     public CombineSoldier Combine;
 
     private void Start()
@@ -28,7 +28,8 @@ public class TeamSoldier : MonoBehaviour
     {
         if(target != null)
         {
-            if(Vector3.Distance(target.position, this.transform.position) < attackRange && !isAttack)
+            targetEnemy = target.gameObject.GetComponentInChildren<Enemy>();
+            if (Vector3.Distance(target.position, this.transform.position) < attackRange && !isAttack)
             {
                 NormalAttack();
             }
@@ -53,7 +54,10 @@ public class TeamSoldier : MonoBehaviour
             }
         }
 
-        if (targetObject != null) return targetObject.transform;
+        if (targetObject != null)
+        {
+            return targetObject.transform;
+        }
         else return null;
     }
 

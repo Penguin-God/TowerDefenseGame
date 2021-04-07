@@ -445,11 +445,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41994ea9982d5ec48997957fd750e3c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 3
   maxHp: 200
   currentHp: 200
   isDead: 0
   hpSlider: {fileID: 8692699530051610424}
+  dir: {x: 0, y: 0, z: 0}
 --- !u!1001 &8692699529629337176
 PrefabInstance:
   m_ObjectHideFlags: 0

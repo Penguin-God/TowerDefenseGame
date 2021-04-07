@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     // 상태 변수
-    public float speed = 10f;
+    public float speed;
     public int maxHp;
     public int currentHp;
     public bool isDead;
@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     // 이동, 회전 관련 변수
     private Transform parent;
     private Transform target;
-    private Vector3 dir;
+    public Vector3 dir;
     private int pointIndex = -1;
 
     private void Awake()
@@ -71,8 +71,9 @@ public class Enemy : MonoBehaviour
         }
         else if(other.tag == "Attack")
         {
-            TeamSoldier teamSoldier = other.GetComponent<TeamSoldier>();
-            OnDamage(teamSoldier.damage);
+            AttackWeapon attackWeapon = other.GetComponentInParent<AttackWeapon>();
+            OnDamage(attackWeapon.damage);
+            Debug.Log(other.gameObject.name + "아파요");
         }
     }
 }

@@ -25,11 +25,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41994ea9982d5ec48997957fd750e3c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
+  speed: 2
   maxHp: 80
   currentHp: 80
   isDead: 0
   hpSlider: {fileID: 1112035910167443037}
+  dir: {x: 0, y: 0, z: 0}
 --- !u!1 &1112035909230054255
 GameObject:
   m_ObjectHideFlags: 0

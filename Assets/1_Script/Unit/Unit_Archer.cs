@@ -4,28 +4,33 @@ using UnityEngine;
 
 public class Unit_Archer : TeamSoldier
 {
+    private GameObject trail;
+    public GameObject arrow;
+    public Transform arrowTransform;
     private Rigidbody archerRigidbody;
-    public Rigidbody arrowRigidbody;
 
     private void Awake()
     {
+        trail = GetComponentInChildren<TrailRenderer>().gameObject;
         archerRigidbody = GetComponent<Rigidbody>();
     }
-
 
     public override void NormalAttack()
     {
         base.NormalAttack();
-
-        arrowRigidbody.gameObject.transform.rotation = Quaternion.Euler(new Vector3(parent.transform.rotation.x, parent.transform.rotation.y, parent.transform.rotation.z));
-        arrowRigidbody.velocity = Vector3.back * 10;
-        archerRigidbody.AddForce(Vector3.back * 2, ForceMode.Impulse);
-        Invoke("StopKnockback", 1);
+        StartCoroutine(ArrowAttack());
     }
 
-    void StopKnockback()
+    IEnumerator ArrowAttack()
     {
-        archerRigidbody.velocity = Vector3.zero;
+        GameObject instantArrow = Instantiate(arrow, arrowTransform.position, arrowTransform.rotation);
+        Rigidbody arrowRigid = instantArrow.GetComponent<Rigidbody>();
+        Vector3 dir = target.position - instantArrow.transform.position;
+        arrowRigid.velocity = (targetEnemy.dir.normalized*targetEnemy.speed + dir).normalized * 30;
+        trail.SetActive(false);
+        //archerRigidbody.AddForce(Vector3.back * 2, ForceMode.Impulse);
+        yield return new WaitForSeconds(2f);
+        trail.SetActive(true);
         AttackEnd();
     }
 }

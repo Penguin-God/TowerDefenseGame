@@ -28,10 +28,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8826b5e26af7b0140a6f7e8fbabc32e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  damage: 25
+  attackRange: 40
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
   Combine: {fileID: 0}
   arrowRigidbody: {fileID: 3343415014031770109}
 --- !u!1 &3343415014031770108
@@ -59,12 +59,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3343415014031770108}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 2, z: -2.5}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 1, y: 2, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3344448314477998188}
-  m_RootOrder: 3
+  m_Father: {fileID: 3343415014830645100}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &3343415014031770110
 TrailRenderer:
@@ -226,6 +226,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3344448314477998188}
+  - {fileID: 3343415014031770111}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

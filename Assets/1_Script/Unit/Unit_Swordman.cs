@@ -8,9 +8,10 @@ public class Unit_Swordman : TeamSoldier
     public BoxCollider swordCollider;
     public GameObject trail;
 
-    private void Awake()
+    public override void NormalAttack()
     {
-        
+        base.NormalAttack();
+        StartCoroutine(SwordAttack());
     }
 
     IEnumerator SwordAttack()
@@ -23,5 +24,7 @@ public class Unit_Swordman : TeamSoldier
         yield return new WaitForSeconds(0.4f);
         swordCollider.enabled = false;
         trail.SetActive(false);
+
+        AttackEnd();
     }
 }

@@ -7,23 +7,35 @@ using UnityEngine.AI;
 public class TeamSoldier : MonoBehaviour
 {
     public int damage;
-    public NavMeshAgent nav;
-    public Transform target;
+    public float attackRange;
+    public bool isAttack;
 
-    public EnemySpaw enemySpaw;
+    private NavMeshAgent nav;
+    public Transform target;
+    public Transform parent;
+
+    private EnemySpaw enemySpaw;
     public CombineSoldier Combine;
 
     private void Start()
     {
+        parent = GetComponentInParent<Transform>();
         nav = GetComponentInParent<NavMeshAgent>();
         enemySpaw = FindObjectOfType<EnemySpaw>();
-        target = UpdateTarget();
     }
 
     private void Update()
     {
         if(target != null)
+        {
+            if(Vector3.Distance(target.position, this.transform.position) < attackRange && !isAttack)
+            {
+                NormalAttack();
+            }
             nav.SetDestination(target.position);
+        }
+        else
+            target = UpdateTarget();
     }
 
     Transform UpdateTarget()
@@ -43,6 +55,18 @@ public class TeamSoldier : MonoBehaviour
 
         if (targetObject != null) return targetObject.transform;
         else return null;
+    }
+
+    public virtual void NormalAttack()
+    {
+        nav.isStopped = true;
+        isAttack = true;
+    }
+
+    protected void AttackEnd()
+    {
+        nav.isStopped = false;
+        isAttack = false;
     }
 
     private void OnMouseDown()

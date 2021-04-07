@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9199773262359240796}
   - component: {fileID: 9199773262359240797}
   m_Layer: 0
-  m_Name: SwordMan 1
+  m_Name: Blue_SwordMan
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -229,11 +229,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab90d213f6373964b87dc3f64890b28a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  damage: 40
+  attackRange: 2
+  isAttack: 0
   target: {fileID: 0}
+  parent: {fileID: 0}
   Combine: {fileID: 0}
-  arrowRigidbody: {fileID: 0}
   animator: {fileID: 5811332866082718194}
   swordCollider: {fileID: 9199773262820173412}
   trail: {fileID: 9199773262726743696}
@@ -327,7 +328,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 2
+  m_Time: 1
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 1

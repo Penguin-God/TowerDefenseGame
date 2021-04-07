@@ -6,12 +6,10 @@ TagManager:
   tags:
   - WayPoint
   - Attack
-  - Red
-  - Yellow
-  - Violet
-  - Orange
-  - Blue
-  - Green
+  - Swordman
+  - Spearman
+  - Mage
+  - Archer
   layers:
   - Default
   - TransparentFX

@@ -14,27 +14,27 @@ public class CreateDefenser : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public void DrawSoldier()
+    public void DrawSoldier(int Colornumber, int Soldiernumber)
     {
         if (GameManager.instance.Gold >= 5)
         {
-            CreateSoldier();
+            CreateSoldier(Colornumber, Soldiernumber);
             ExpenditureGold();
         }
     }
 
-    public void CreateSoldier()
+    public void CreateSoldier(int Colornumber,int Soldiernumber)
     {
-        int randomnumber = Random.Range(0, 6);
+        
         // Soldier = transform.GetChild(randomnumber).gameObject;
-        Soldier = Instantiate(transform.GetChild(randomnumber).gameObject, transform.position, transform.rotation);
+        Soldier = Instantiate(transform.GetChild(Colornumber).gameObject.transform.GetChild(Soldiernumber).gameObject, transform.position, transform.rotation);
 
         Soldier.transform.position = RandomPosition(10, 0, 10);
         Soldier.SetActive(true);
         
     }
 
-    void ExpenditureGold()
+    public void ExpenditureGold()
     {
         GameManager.instance.Gold -= 5;
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);

@@ -9,56 +9,70 @@ public class TeamSoldier : MonoBehaviour
     public float attackRange;
     public bool isAttack;
 
-    private NavMeshAgent nav;
+    public NavMeshAgent nav;
     public Transform target;
-    private Transform parent;
 
     private EnemySpaw enemySpaw;
-    public Enemy targetEnemy;
     public CombineSoldier Combine;
 
     private void Start()
     {
-        parent = GetComponentInParent<Transform>();
         nav = GetComponentInParent<NavMeshAgent>();
         enemySpaw = FindObjectOfType<EnemySpaw>();
+        UpdateTarget();
+        StartCoroutine(NavCoroutine());
     }
 
-    private void Update()
+    IEnumerator NavCoroutine()
     {
-        if(target != null)
+        while (true)
         {
-            targetEnemy = target.gameObject.GetComponentInChildren<Enemy>();
-            if (Vector3.Distance(target.position, this.transform.position) < attackRange && !isAttack)
+            if (target != null)
             {
-                NormalAttack();
+                float dir = Vector3.Distance(target.position, this.transform.position);
+                if (dir < attackRange && !isAttack)
+                {
+                    NormalAttack();
+                }
+                nav.SetDestination(target.position);
             }
-            //nav.SetDestination(target.position); 렉걸림 
+            else
+            {
+                UpdateTarget();
+            }
+            yield return new WaitForSeconds(0.1f);
         }
-        else
-            target = UpdateTarget();
     }
 
-    Transform UpdateTarget()
+    public void UpdateTarget()
     {
         float shortDistance = 1000f;
         GameObject targetObject = null;
-
-        foreach(GameObject enemy in enemySpaw.currentEnemyList)
+        if (enemySpaw.currentEnemyList.Count > 0)
         {
-            float distanceToEnemy = Vector3.Distance(this.transform.position, enemy.transform.position);
-            if(distanceToEnemy < shortDistance)
+            foreach (GameObject enemyObject in enemySpaw.currentEnemyList)
             {
-                shortDistance = distanceToEnemy;
-                targetObject = enemy;
+                if (enemyObject != null)
+                {
+                    float distanceToEnemy = Vector3.Distance(this.transform.position, enemyObject.transform.position);
+                    if (distanceToEnemy < shortDistance)
+                    {
+                        shortDistance = distanceToEnemy;
+                        targetObject = enemyObject;
+                    }
+                }
             }
         }
-
         if (targetObject != null)
         {
-            return targetObject.transform;
+            target = targetObject.transform;
         }
-        else return null;
+    }
+
+    public void NextUpdateTarget()
+    {
+        enemySpaw.currentEnemyList.Remove(target.gameObject);
+        UpdateTarget();
     }
 
     public virtual void NormalAttack()

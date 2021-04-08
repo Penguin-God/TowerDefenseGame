@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class AttackWeapon : MonoBehaviour
 {
+    public GameObject attackUnit;
     public int damage;
 }

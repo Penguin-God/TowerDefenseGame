@@ -14,7 +14,7 @@ public class EnemySpaw : MonoBehaviour
     private void Awake()
     {
         stageDictionary = new Dictionary<int, int[]>();
-        stageDictionary.Add(1, new int[] { 0, 8, 7});
+        stageDictionary.Add(1, new int[] { 0, 8, 3});
         stageDictionary.Add(2, new int[] { 1, 8, 2 });
         stageDictionary.Add(3, new int[] { 2, 8, 1 });
         stageDictionary.Add(4, new int[] { 2, 8, 1 });

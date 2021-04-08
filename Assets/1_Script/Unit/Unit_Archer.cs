@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Unit_Archer : TeamSoldier
 {
+    private Enemy targetEnemy;
     private GameObject trail;
     public GameObject arrow;
     public Transform arrowTransform;
@@ -23,10 +24,14 @@ public class Unit_Archer : TeamSoldier
 
     IEnumerator ArrowAttack()
     {
+        targetEnemy = target.GetComponent<Enemy>();
         GameObject instantArrow = Instantiate(arrow, arrowTransform.position, arrowTransform.rotation);
+        AttackWeapon attackWeapon = instantArrow.GetComponent<AttackWeapon>();
+        attackWeapon.attackUnit = this.gameObject;
+
         Rigidbody arrowRigid = instantArrow.GetComponent<Rigidbody>();
         Vector3 dir = target.position - instantArrow.transform.position;
-        arrowRigid.velocity = (targetEnemy.dir.normalized*targetEnemy.speed + dir).normalized * 30;
+        arrowRigid.velocity = dir.normalized * 50;
         trail.SetActive(false);
         //archerRigidbody.AddForce(Vector3.back * 2, ForceMode.Impulse);
         yield return new WaitForSeconds(2f);

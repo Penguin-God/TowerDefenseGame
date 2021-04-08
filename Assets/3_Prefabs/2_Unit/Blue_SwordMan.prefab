@@ -229,11 +229,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab90d213f6373964b87dc3f64890b28a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 40
   attackRange: 2
   isAttack: 0
+  nav: {fileID: 0}
   target: {fileID: 0}
-  targetEnemy: {fileID: 0}
   Combine: {fileID: 0}
   animator: {fileID: 5811332866082718194}
   swordCollider: {fileID: 9199773262820173412}
@@ -501,6 +500,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15ad5adace7d8ad4dbe30ee8c9a3a850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackUnit: {fileID: 9199773262703147232}
   damage: 40
 --- !u!1 &9199773263048669819
 GameObject:

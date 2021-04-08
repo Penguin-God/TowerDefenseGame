@@ -28,10 +28,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8826b5e26af7b0140a6f7e8fbabc32e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 25
   attackRange: 40
   isAttack: 0
+  nav: {fileID: 0}
   target: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 0}
   arrow: {fileID: 3088359444298159365, guid: d220ddf7a9904a84f9032002803fc3df, type: 3}
   arrowTransform: {fileID: 3343415014031770111}
@@ -176,7 +177,8 @@ PrefabInstance:
       propertyPath: m_Parameters.widthCurve.m_Curve.Array.data[1].value
       value: 0.27403027
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1490930096575968293, guid: d220ddf7a9904a84f9032002803fc3df, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: d220ddf7a9904a84f9032002803fc3df, type: 3}
 --- !u!4 &3343415014031770111 stripped
 Transform:

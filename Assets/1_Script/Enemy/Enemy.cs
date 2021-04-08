@@ -62,6 +62,11 @@ public class Enemy : MonoBehaviour
         hpSlider.value = currentHp;
     }
 
+    public void Dead() // 임시
+    {
+        Destroy(parent.gameObject);
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "WayPoint")
@@ -69,11 +74,17 @@ public class Enemy : MonoBehaviour
             SetTransfrom();
             SetNextPoint();
         }
-        else if(other.tag == "Attack")
+        else if(other.tag == "Attack") // 임시
         {
             AttackWeapon attackWeapon = other.GetComponentInParent<AttackWeapon>();
+            TeamSoldier teamSoldier = attackWeapon.attackUnit.GetComponent<TeamSoldier>();
+            
             OnDamage(attackWeapon.damage);
-            Debug.Log(other.gameObject.name + "아파요");
+            if(currentHp <= 0)
+            {
+                Dead();
+                teamSoldier.NextUpdateTarget();
+            }
         }
     }
 }

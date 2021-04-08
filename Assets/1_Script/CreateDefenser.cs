@@ -8,6 +8,7 @@ public class CreateDefenser : MonoBehaviour
 {
     // public GameObject Soldierprefab;
     public GameObject Soldier;
+    
 
     void Start()
     {
@@ -28,6 +29,7 @@ public class CreateDefenser : MonoBehaviour
         
         // Soldier = transform.GetChild(randomnumber).gameObject;
         Soldier = Instantiate(transform.GetChild(Colornumber).gameObject.transform.GetChild(Soldiernumber).gameObject, transform.position, transform.rotation);
+        //GameManager.instance.Soldiers.Add(Soldier);
 
         Soldier.transform.position = RandomPosition(10, 0, 10);
         Soldier.SetActive(true);

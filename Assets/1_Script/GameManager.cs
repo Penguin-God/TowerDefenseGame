@@ -10,6 +10,12 @@ public class GameManager : MonoBehaviour
     public int Gold;
     public EnemySpaw enemySpaw;
     private bool isGameover;
+    public List<GameObject> Soldiers;
+    public List<GameObject> RedSwordman;
+    public List<GameObject> RedArcher;
+    public List<GameObject> RedSpearman;
+    public List<GameObject> RedMage;
+ 
 
     //public GameObject target;
 
@@ -44,7 +50,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         isGameover = false;
-        Gold = 20;
+        Gold = 300;
         UIManager.instance.UpdateGoldText(Gold);
     }
 
@@ -92,6 +98,18 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
+    //public void SoldiersList()
+    //{
+        
+        //for(int i = 0;i <= Soldiers.Count; i++)
+        //{
+            //if(Soldiers[i].gameObject.name == "TB_Soldier_Swordman_Red(Clone)")
+            //{
+                //RedSwordman.Add(Soldiers[i]);
+            //}
+        //}
+    //}
 
 
 

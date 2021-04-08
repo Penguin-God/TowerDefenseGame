@@ -33,7 +33,7 @@ public class TeamSoldier : MonoBehaviour
             {
                 NormalAttack();
             }
-            nav.SetDestination(target.position);
+            //nav.SetDestination(target.position); 렉걸림 
         }
         else
             target = UpdateTarget();

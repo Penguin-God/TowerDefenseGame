@@ -22,8 +22,16 @@ public class CombineSoldier : MonoBehaviour
 
     public void Combine()
     {
-        if (GameManager.instance.hitSolider.gameObject.tag == "Swardman")
+        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Red(Clone)")
         {
+            //GameManager.instance.SoldiersList();
+            //Destroy(GameManager.instance.RedSwordman[0]);
+            Destroy(GameObject.Find("TB_Soldier_Swordman_Red(Clone)"));
+            
+
+            SoldierChoose(0, 0, 1, 1);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.SetActiveButton(false);
 
         }
     }
@@ -34,10 +42,11 @@ public class CombineSoldier : MonoBehaviour
         {
             GameManager.instance.Chilk();
         }
-        if (GameManager.instance.hitSolider.transform.gameObject.tag == "Swordman")
-        {
-            UIManager.instance.SetActiveButton(true);
-        }
+        //if (GameManager.instance.hitSolider.transform.gameObject.tag == "Swordman" && GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Red")
+        //{
+            //UIManager.instance.SetActiveButton(true);
+        //}
+        UIManager.instance.SetActiveButton(true);
     }
 
     private void SoldierChoose(int Colornumber1, int Colornumber2, int Soldiernumber1,int Soldiernumber2)

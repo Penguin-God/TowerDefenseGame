@@ -420,10 +420,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1001 &31499612
 PrefabInstance:
@@ -528,10 +528,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1001 &86637276
 PrefabInstance:
@@ -1379,10 +1379,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1001 &180387732
 PrefabInstance:
@@ -2297,10 +2297,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1001 &320215091
 PrefabInstance:
@@ -2391,10 +2391,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1 &353933815
 GameObject:
@@ -2478,8 +2478,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: CombineSolider
+      - m_Target: {fileID: 144813813}
+        m_MethodName: Combine
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2558,10 +2558,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1001 &373592158
 PrefabInstance:
@@ -2864,10 +2864,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1 &412259154
 GameObject:
@@ -3863,10 +3863,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1001 &648139855
 PrefabInstance:
@@ -4630,10 +4630,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1001 &777684210
 PrefabInstance:
@@ -5563,10 +5563,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1001 &971372204
 PrefabInstance:
@@ -5654,6 +5654,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gold: 0
   enemySpaw: {fileID: 1138677222}
+  Soldiers: []
+  RedSwordman: []
+  RedArcher: []
+  RedSpearman: []
+  RedMage: []
   hitSolider: {fileID: 0}
 --- !u!4 &986474379
 Transform:
@@ -6677,10 +6682,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1 &1138677220
 GameObject:
@@ -6835,10 +6840,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1 &1189473402
 GameObject:
@@ -7491,10 +7496,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1 &1288258270 stripped
 GameObject:
@@ -7528,10 +7533,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1 &1308305218
 GameObject:
@@ -7717,10 +7722,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1 &1346887799 stripped
 GameObject:
@@ -7754,10 +7759,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1001 &1351233028
 PrefabInstance:
@@ -8127,10 +8132,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1001 &1416682979
 PrefabInstance:
@@ -8540,10 +8545,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1 &1511829461
 GameObject:
@@ -8815,10 +8820,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1001 &1548058303
 PrefabInstance:
@@ -9059,10 +9064,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!4 &1588803404 stripped
 Transform:
@@ -9212,10 +9217,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1001 &1599606556
 PrefabInstance:
@@ -10140,10 +10145,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!4 &1775587025 stripped
 Transform:
@@ -10599,10 +10604,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1 &1826941731
 GameObject:
@@ -10671,10 +10676,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 0
-  nav: {fileID: 0}
+  attackRange: 0
+  isAttack: 0
   target: {fileID: 0}
-  enemySpaw: {fileID: 0}
+  targetEnemy: {fileID: 0}
   Combine: {fileID: 144813813}
 --- !u!1001 &1834109584
 PrefabInstance:

@@ -22,12 +22,13 @@ public class CombineSoldier : MonoBehaviour
 
     public void Combine()
     {
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Red(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Red(Clone)" && GameManager.instance.RedSwordman.Length >=2)
         {
-            //GameManager.instance.SoldiersList();
+            //GameManager.instance.SoldiersTag();
             //Destroy(GameManager.instance.RedSwordman[0]);
-            Destroy(GameObject.Find("TB_Soldier_Swordman_Red(Clone)"));
-            
+            Destroy(GameManager.instance.RedSwordman[0]);
+            Destroy(GameManager.instance.RedSwordman[1]);
+
 
             SoldierChoose(0, 0, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);

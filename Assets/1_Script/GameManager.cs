@@ -10,11 +10,11 @@ public class GameManager : MonoBehaviour
     public int Gold;
     public EnemySpaw enemySpaw;
     private bool isGameover;
-    public List<GameObject> Soldiers;
-    public List<GameObject> RedSwordman;
-    public List<GameObject> RedArcher;
-    public List<GameObject> RedSpearman;
-    public List<GameObject> RedMage;
+    // public GameObject[] Soldiers;
+    public GameObject[] RedSwordman;
+    public GameObject[] RedArcher;
+    public GameObject[] RedSpearman;
+    public GameObject[] RedMage;
 
 
     //public GameObject target;
@@ -80,7 +80,8 @@ public class GameManager : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.transform.gameObject);
+                //Debug.Log(hit.transform.gameObject);
+                SoldiersTag();
                 hitSolider = hit.transform.gameObject;
             }
         }
@@ -100,17 +101,15 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    //public void SoldiersList()
-    //{
-        
-        //for(int i = 0;i <= Soldiers.Count; i++)
-        //{
-            //if(Soldiers[i].gameObject.name == "TB_Soldier_Swordman_Red(Clone)")
-            //{
-                //RedSwordman.Add(Soldiers[i]);
-            //}
-        //}
-    //}
+    public void SoldiersTag()
+    {
+        RedSwordman = GameObject.FindGameObjectsWithTag("RedSwordman");
+        RedArcher = GameObject.FindGameObjectsWithTag("RedArcher");
+        RedSpearman = GameObject.FindGameObjectsWithTag("RedSpearman");
+        RedMage = GameObject.FindGameObjectsWithTag("RedMage");
+
+    }
+
 
 
 

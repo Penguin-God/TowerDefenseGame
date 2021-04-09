@@ -15,11 +15,11 @@ public class GameManager : MonoBehaviour
     public List<GameObject> RedArcher;
     public List<GameObject> RedSpearman;
     public List<GameObject> RedMage;
- 
+
 
     //public GameObject target;
 
-
+    public int enemyCount; // EnemySpaw에 있던거 옮김
 
 
     public static GameManager instance
@@ -57,8 +57,9 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        UIManager.instance.UpdateCountEnemyText(enemySpaw.EnemyofCount);
-        if (enemySpaw.EnemyofCount >= 50)
+        enemyCount = enemySpaw.currentEnemyList.Count; // 리스트 크기를 enemyCount에 대입
+        UIManager.instance.UpdateCountEnemyText(enemyCount);
+        if (enemyCount >= 50)
         {
             Lose();
             //enemySpaw.EnemyofCount -= 1;

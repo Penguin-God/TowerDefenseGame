@@ -6,6 +6,8 @@ using UnityEngine.AI;
 
 public class TeamSoldier : MonoBehaviour
 {
+    public float speed;
+    public float attackDelayTime;
     public float attackRange;
     public bool isAttack;
 
@@ -30,10 +32,12 @@ public class TeamSoldier : MonoBehaviour
             if (target != null)
             {
                 float dir = Vector3.Distance(target.position, this.transform.position);
-                if (dir < attackRange && !isAttack)
+                if (dir < attackRange)
                 {
-                    NormalAttack();
+                    nav.speed = 0.5f;
+                    if (!isAttack) NormalAttack();
                 }
+                else nav.speed = speed;
                 nav.SetDestination(target.position);
             }
             else
@@ -53,7 +57,7 @@ public class TeamSoldier : MonoBehaviour
             foreach (GameObject enemyObject in enemySpaw.currentEnemyList)
             {
                 if (enemyObject != null)
-                {
+                { 
                     float distanceToEnemy = Vector3.Distance(this.transform.position, enemyObject.transform.position);
                     if (distanceToEnemy < shortDistance)
                     {
@@ -71,7 +75,8 @@ public class TeamSoldier : MonoBehaviour
 
     public void NextUpdateTarget()
     {
-        enemySpaw.currentEnemyList.Remove(target.gameObject);
+        bool hasRemoveEnemy = enemySpaw.currentEnemyList.Contains(target.gameObject);
+        if (hasRemoveEnemy) enemySpaw.currentEnemyList.Remove(target.gameObject);
         UpdateTarget();
     }
 
@@ -81,10 +86,15 @@ public class TeamSoldier : MonoBehaviour
         isAttack = true;
     }
 
+    void ReadyAttack()
+    {
+        isAttack = false;
+    }
+
     protected void AttackEnd()
     {
         nav.isStopped = false;
-        isAttack = false;
+        Invoke("ReadyAttack", attackDelayTime);
     }
 
     private void OnMouseDown()

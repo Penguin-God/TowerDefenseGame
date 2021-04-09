@@ -28,11 +28,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8826b5e26af7b0140a6f7e8fbabc32e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 3
+  attackDelayTime: 1
   attackRange: 40
   isAttack: 0
   nav: {fileID: 0}
   target: {fileID: 0}
-  targetEnemy: {fileID: 0}
   Combine: {fileID: 0}
   arrow: {fileID: 3088359444298159365, guid: d220ddf7a9904a84f9032002803fc3df, type: 3}
   arrowTransform: {fileID: 3343415014031770111}

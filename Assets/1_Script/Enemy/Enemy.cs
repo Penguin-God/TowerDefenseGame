@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
 
     void EnemyMove()
     {
-        parent.Translate(dir.normalized * speed * Time.deltaTime, Space.World);
+        parent.Translate(dir * speed * Time.deltaTime, Space.World);
     }
 
     void SetNextPoint()
@@ -47,7 +47,7 @@ public class Enemy : MonoBehaviour
         pointIndex++;
         if (pointIndex >= TurnPoint.enemyTurnPoints.Length) pointIndex = 0; // 무한반복을 위한 조건
         target = TurnPoint.enemyTurnPoints[pointIndex];
-        dir = target.position - parent.transform.position;
+        dir = (target.position - parent.transform.position).normalized;
     }
 
     void SetTransfrom()

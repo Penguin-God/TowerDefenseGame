@@ -8,6 +8,12 @@ public class Unit_Swordman : TeamSoldier
     public BoxCollider swordCollider;
     public GameObject trail;
 
+    private void Awake()
+    {
+        attackDelayTime = 2f;
+        attackRange = 7f;
+    }
+
     public override void NormalAttack()
     {
         base.NormalAttack();
@@ -17,14 +23,12 @@ public class Unit_Swordman : TeamSoldier
     IEnumerator SwordAttack()
     {
         animator.SetTrigger("isSword");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         trail.SetActive(true);
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.25f);
         swordCollider.enabled = true;
-        yield return new WaitForSeconds(0.4f);
+        yield return new WaitForSeconds(0.3f);
         swordCollider.enabled = false;
         trail.SetActive(false);
-
-        AttackEnd();
     }
 }

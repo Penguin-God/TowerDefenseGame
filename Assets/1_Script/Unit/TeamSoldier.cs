@@ -6,6 +6,8 @@ using UnityEngine.AI;
 
 public class TeamSoldier : MonoBehaviour
 {
+    public enum Type { rangeUnit, meleeUnit } // rangeUnit = 원거리 공격 유닛,  meleeUnit = 근거리 공격 유닛
+    public Type unitType;
     public float speed;
     public float attackDelayTime;
     public float attackRange;
@@ -34,7 +36,7 @@ public class TeamSoldier : MonoBehaviour
                 float dir = Vector3.Distance(target.position, this.transform.position);
                 if (dir < attackRange)
                 {
-                    nav.speed = 0.5f;
+                    if (unitType == Type.rangeUnit) nav.speed = 0.1f;
                     if (!isAttack) NormalAttack();
                 }
                 else nav.speed = speed;
@@ -69,8 +71,10 @@ public class TeamSoldier : MonoBehaviour
         }
         if (targetObject != null)
         {
+            nav.isStopped = false;
             target = targetObject.transform;
         }
+        else nav.isStopped = true;
     }
 
     public void NextUpdateTarget()
@@ -82,19 +86,13 @@ public class TeamSoldier : MonoBehaviour
 
     public virtual void NormalAttack()
     {
-        nav.isStopped = true;
         isAttack = true;
+        Invoke("ReadyAttack", attackDelayTime);
     }
 
     void ReadyAttack()
     {
         isAttack = false;
-    }
-
-    protected void AttackEnd()
-    {
-        nav.isStopped = false;
-        Invoke("ReadyAttack", attackDelayTime);
     }
 
     private void OnMouseDown()

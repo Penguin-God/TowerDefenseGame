@@ -80,7 +80,8 @@ public class Enemy : MonoBehaviour
             TeamSoldier teamSoldier = attackWeapon.attackUnit.GetComponent<TeamSoldier>();
             
             OnDamage(attackWeapon.damage);
-            if(currentHp <= 0)
+            if (teamSoldier.unitType == TeamSoldier.Type.rangeUnit) Destroy(other.gameObject);
+            if (currentHp <= 0)
             {
                 Dead();
                 teamSoldier.NextUpdateTarget();

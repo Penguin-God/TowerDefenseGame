@@ -4490,7 +4490,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gold: 0
   enemySpaw: {fileID: 1138677222}
-  Soldiers: []
   RedSwordman: []
   RedArcher: []
   RedSpearman: []

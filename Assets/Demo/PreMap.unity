@@ -420,6 +420,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -530,6 +532,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -1187,6 +1191,7 @@ GameObject:
   m_Component:
   - component: {fileID: 144813814}
   - component: {fileID: 144813813}
+  - component: {fileID: 144813815}
   m_Layer: 0
   m_Name: Combiner
   m_TagString: Untagged
@@ -1207,6 +1212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createdefenser: {fileID: 649841933}
+  TagSoldier: {fileID: 144813815}
 --- !u!4 &144813814
 Transform:
   m_ObjectHideFlags: 0
@@ -1221,6 +1227,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &144813815
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 144813812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87a7f1e9ab90b6644a0b26a723331f61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  RedSwordman: []
+  RedArcher: []
+  RedSpearman: []
+  RedMage: []
+  BlueSwordman: []
+  BlueArcher: []
+  BlueSpearman: []
+  BlueMage: []
+  YellowSwordman: []
+  YellowArcher: []
+  YellowSpearman: []
+  YellowMage: []
 --- !u!1001 &149586134
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1383,6 +1413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -2303,6 +2335,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -2399,6 +2433,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -2568,6 +2604,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -2876,6 +2914,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -3877,6 +3917,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -4646,6 +4688,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -5581,6 +5625,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -5674,10 +5720,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gold: 0
   enemySpaw: {fileID: 1138677222}
-  RedSwordman: []
-  RedArcher: []
-  RedSpearman: []
-  RedMage: []
   enemyCount: 0
   hitSolider: {fileID: 0}
 --- !u!4 &986474379
@@ -6702,6 +6744,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -6861,6 +6905,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -7519,6 +7565,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -7558,6 +7606,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -7749,6 +7799,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -7788,6 +7840,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -8163,6 +8217,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -8578,6 +8634,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -8855,6 +8913,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -9101,6 +9161,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -9256,6 +9318,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -10186,6 +10250,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -10647,6 +10713,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0
@@ -10721,6 +10789,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
+  unitType: 0
   speed: 0
   attackDelayTime: 0
   attackRange: 0

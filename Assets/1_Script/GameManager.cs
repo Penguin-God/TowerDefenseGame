@@ -12,10 +12,7 @@ public class GameManager : MonoBehaviour
     private bool isGameover;
     // public GameObject[] Soldiers;
 
-    public GameObject[] RedSwordman;
-    public GameObject[] RedArcher;
-    public GameObject[] RedSpearman;
-    public GameObject[] RedMage;
+
 
 
     //public GameObject target;
@@ -82,7 +79,7 @@ public class GameManager : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 //Debug.Log(hit.transform.gameObject);
-                SoldiersTag();
+                //SoldiersTag();
                 hitSolider = hit.transform.gameObject;
             }
         }
@@ -102,14 +99,9 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void SoldiersTag()
-    {
-        RedSwordman = GameObject.FindGameObjectsWithTag("RedSwordman");
-        RedArcher = GameObject.FindGameObjectsWithTag("RedArcher");
-        RedSpearman = GameObject.FindGameObjectsWithTag("RedSpearman");
-        RedMage = GameObject.FindGameObjectsWithTag("RedMage");
 
-    }
+
+ 
 
 
 

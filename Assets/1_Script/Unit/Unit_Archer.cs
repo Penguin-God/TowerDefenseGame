@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Unit_Archer : TeamSoldier
 {
@@ -12,7 +13,7 @@ public class Unit_Archer : TeamSoldier
     private void Awake()
     {
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
-        attackDelayTime = 2.5f;
+        attackDelayTime = 3f;
         attackRange = 40f;
     }
 
@@ -24,6 +25,10 @@ public class Unit_Archer : TeamSoldier
 
     IEnumerator ArrowAttack()
     {
+        Transform parent = GetComponentInParent<Transform>();
+        parent.LookAt(target.position);
+        transform.Rotate(Vector3.up * 180);
+
         nav.isStopped = true;
         trail.SetActive(false);
 
@@ -42,4 +47,12 @@ public class Unit_Archer : TeamSoldier
         nav.isStopped = false;
         trail.SetActive(true);
     }
+
+    // 스킬 코드
+    //NavMeshAgent arrowNav = instantArrow.GetComponent<NavMeshAgent>();
+    //    while (instantArrow != null)
+    //    {
+    //        arrowNav.SetDestination(target.position);
+    //        yield return new WaitForSeconds(0.08f);
+    //    }
 }

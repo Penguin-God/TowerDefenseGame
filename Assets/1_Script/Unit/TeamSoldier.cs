@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class TeamSoldier : MonoBehaviour
 {
+    public string unitColor;
     public enum Type { rangeUnit, meleeUnit } // rangeUnit = 원거리 공격 유닛,  meleeUnit = 근거리 공격 유닛
     public Type unitType;
     public float speed;

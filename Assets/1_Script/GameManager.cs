@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public EnemySpaw enemySpaw;
     private bool isGameover;
     // public GameObject[] Soldiers;
+
     public GameObject[] RedSwordman;
     public GameObject[] RedArcher;
     public GameObject[] RedSpearman;
@@ -20,7 +21,6 @@ public class GameManager : MonoBehaviour
     //public GameObject target;
 
     public int enemyCount; // EnemySpaw에 있던거 옮김
-
 
     public static GameManager instance
     {
@@ -71,6 +71,7 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public Queue<GameObject> hitSoliderColor;
     public GameObject hitSolider;
     public void Chilk()
     {

@@ -11,7 +11,7 @@ public class Unit_Swordman : TeamSoldier
     private void Awake()
     {
         attackDelayTime = 2f;
-        attackRange = 7f;
+        attackRange = 6f;
     }
 
     public override void NormalAttack()

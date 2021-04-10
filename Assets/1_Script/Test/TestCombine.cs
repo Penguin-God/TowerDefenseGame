@@ -53,7 +53,7 @@ public class TestCombine : MonoBehaviour
         {
             for(int i = 0; i < 2; i++) 
             {
-                GameObject removeUnit = colorsQueue[colorNumber].Dequeue();
+                GameObject removeUnit = colorsQueue[colorNumber].Dequeue(); // 맨처음을 뺌
                 Destroy(removeUnit);
             }
 

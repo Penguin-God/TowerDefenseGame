@@ -229,6 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab90d213f6373964b87dc3f64890b28a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitColor: 
   unitType: 1
   speed: 15
   attackDelayTime: 0

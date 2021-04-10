@@ -9,7 +9,7 @@ public class TestCreateUnit : MonoBehaviour
     GameObject Soldier;
     Transform[] unitColors;
 
-    // 추가
+    // 급식줄
     public Queue<GameObject> blueSowrdman;
     public Queue<GameObject> yellowSowrdman;
     public Queue<GameObject> greenSowrdman;
@@ -18,7 +18,7 @@ public class TestCreateUnit : MonoBehaviour
 
     private void Awake()
     {
-        // 추가 
+        // 추가
         blueSowrdman = new Queue<GameObject>();
         yellowSowrdman = new Queue<GameObject>();
         greenSowrdman = new Queue<GameObject>();
@@ -66,7 +66,6 @@ public class TestCreateUnit : MonoBehaviour
         GameObject solider = Instantiate(unitColors[1].GetChild(0).gameObject, transform.position, transform.rotation);
         solider.transform.position = RandomPosition(10, 0, 10);
         solider.SetActive(true);
-        Debug.Log(solider);
     }
 
     void AddQueue(int colorNumber, GameObject addUnit)
@@ -74,28 +73,21 @@ public class TestCreateUnit : MonoBehaviour
         switch (colorNumber)
         {
             case 0:
-                blueSowrdman.Enqueue(addUnit);
-                Debug.Log(blueSowrdman.Contains(addUnit));
+                blueSowrdman.Enqueue(addUnit); // addUnit을 넣음
                 break;
             case 1:
                 yellowSowrdman.Enqueue(addUnit);
-                Debug.Log(yellowSowrdman.Contains(addUnit));
                 break;
             case 2:
                 greenSowrdman.Enqueue(addUnit);
-                Debug.Log(greenSowrdman.Contains(addUnit));
                 break;
             case 3:
                 orangeSowrdman.Enqueue(addUnit);
-                Debug.Log(orangeSowrdman.Contains(addUnit));
                 break;
             case 4:
                 violetSowrdman.Enqueue(addUnit);
-                Debug.Log(violetSowrdman.Contains(addUnit));
                 break;
         }
-        Debug.Log(addUnit);
-
     }
 
     public void ExpenditureGold()

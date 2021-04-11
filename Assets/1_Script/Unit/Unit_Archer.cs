@@ -13,8 +13,9 @@ public class Unit_Archer : TeamSoldier
     private void Awake()
     {
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
+        speed = 6f;
         attackDelayTime = 3f;
-        attackRange = 40f;
+        attackRange = 30f;
     }
 
     public override void NormalAttack()
@@ -25,23 +26,16 @@ public class Unit_Archer : TeamSoldier
 
     IEnumerator ArrowAttack()
     {
-        Transform parent = GetComponentInParent<Transform>();
-        parent.LookAt(target.position);
-        transform.Rotate(Vector3.up * 180);
-
+        LookEnemy();
+        yield return new WaitForSeconds(0.2f);
         nav.isStopped = true;
         trail.SetActive(false);
 
         GameObject instantArrow = Instantiate(arrow, arrowTransform.position, arrowTransform.rotation);
         AttackWeapon attackWeapon = instantArrow.GetComponent<AttackWeapon>();
-        attackWeapon.attackUnit = this.gameObject; // 충돌감지를 위한 대입
+        attackWeapon.attackUnit = this.gameObject; // 화살과 적의 충돌감지를 위한 대입
 
-        Rigidbody arrowRigid = instantArrow.GetComponent<Rigidbody>();
-        Vector3 dir = target.position - instantArrow.transform.position;
-        enemy = target.gameObject.GetComponentInChildren<Enemy>();
-        float enemyWeightDir = Mathf.Lerp(0, enemy.speed, (2 * Vector3.Distance(target.position, this.transform.position)) / 100);
-        dir += enemy.dir * enemyWeightDir;
-        arrowRigid.velocity = dir.normalized * 50;
+        ShotBullet(instantArrow, 2f, 50f);
 
         yield return new WaitForSeconds(1.5f);
         nav.isStopped = false;

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4497105, g: 0.49977976, b: 0.5756375, a: 1}
+  m_IndirectSpecularColor: {r: 0.44971025, g: 0.49977946, b: 0.57563627, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1015,7 +1015,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: Green
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -1427,7 +1426,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: 
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -2218,7 +2216,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: 
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -3259,7 +3256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: 
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -3294,7 +3290,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: Yellow
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -4023,7 +4018,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: 
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -4778,7 +4772,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: 
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -5027,7 +5020,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: 
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -5459,10 +5451,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gold: 0
   enemySpaw: {fileID: 1138677222}
-  RedSwordman: []
-  RedArcher: []
-  RedSpearman: []
-  RedMage: []
   enemyCount: 0
   hitSolider: {fileID: 0}
 --- !u!4 &986474379
@@ -6386,7 +6374,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: Violet
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -6750,7 +6737,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: 
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -6785,7 +6771,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: Orange
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -6953,7 +6938,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: 
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -7512,7 +7496,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: 
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -7930,7 +7913,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: 
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -9276,7 +9258,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567118079}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 4.768807}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1888028423}
@@ -9284,7 +9266,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 165, y: 159}
+  m_AnchoredPosition: {x: 165, y: 158.61913}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1578751098
@@ -9381,7 +9363,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: 
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -9737,7 +9718,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: 
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -10101,7 +10081,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: 
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -10465,7 +10444,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1808241950}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 14.6667595}
+  m_LocalPosition: {x: 0, y: 0, z: 19.435568}
   m_LocalScale: {x: 0.32593, y: 0.32593, z: 0.32593}
   m_Children:
   - {fileID: 897189212}
@@ -10476,7 +10455,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 568, y: 145}
+  m_AnchoredPosition: {x: 568, y: 144.61913}
   m_SizeDelta: {x: -428, y: -282}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1808241952
@@ -10731,7 +10710,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: 
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -11004,7 +10982,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: 
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -11396,7 +11373,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39e610ffb0f0a484cb333fc2e8bd76b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: Blue
   unitType: 0
   speed: 0
   attackDelayTime: 0
@@ -11483,6 +11459,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createdefenser: {fileID: 0}
+  TagSoldier: {fileID: 0}
 --- !u!4 &1935670632
 Transform:
   m_ObjectHideFlags: 0

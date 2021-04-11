@@ -6,7 +6,8 @@ using UnityEngine.AI;
 
 public class TeamSoldier : MonoBehaviour
 {
-    public string unitColor;
+    Transform parentTransform;
+    //public string unitColor;
     public enum Type { rangeUnit, meleeUnit } // rangeUnit = 원거리 공격 유닛,  meleeUnit = 근거리 공격 유닛
     public Type unitType;
     public float speed;
@@ -22,10 +23,21 @@ public class TeamSoldier : MonoBehaviour
 
     private void Start()
     {
+        parentTransform = GetComponentInParent<Transform>();
         nav = GetComponentInParent<NavMeshAgent>();
         enemySpaw = FindObjectOfType<EnemySpaw>();
         UpdateTarget();
         StartCoroutine(NavCoroutine());
+    }
+
+    public virtual void NormalAttack()
+    {
+        isAttack = true;
+        Invoke("ReadyAttack", attackDelayTime);
+    }
+    void ReadyAttack()
+    {
+        isAttack = false;
     }
 
     IEnumerator NavCoroutine()
@@ -85,15 +97,20 @@ public class TeamSoldier : MonoBehaviour
         UpdateTarget();
     }
 
-    public virtual void NormalAttack()
+    protected void LookEnemy()
     {
-        isAttack = true;
-        Invoke("ReadyAttack", attackDelayTime);
+        parentTransform.LookAt(target.position);
+        transform.Rotate(Vector3.up * 180);
     }
 
-    void ReadyAttack()
+    protected void ShotBullet(GameObject bullet, float weightRate, float velocity) // 원거리 유닛 총알 발사
     {
-        isAttack = false;
+        Rigidbody bulletRigid = bullet.GetComponent<Rigidbody>();
+        Vector3 dir = target.position - bullet.transform.position;
+        Enemy enemy = target.gameObject.GetComponentInChildren<Enemy>();
+        float enemyWeightDir = Mathf.Lerp(0, enemy.speed, (weightRate * Vector3.Distance(target.position, this.transform.position)) / 100);
+        dir += enemy.dir * enemyWeightDir;
+        bulletRigid.velocity = dir.normalized * velocity;
     }
 
     private void OnMouseDown()

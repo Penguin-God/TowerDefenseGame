@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Unit_Swordman : TeamSoldier
 {
-    public Animator animator;
+    private Animator animator;
     public BoxCollider swordCollider;
     public GameObject trail;
 
     private void Awake()
     {
+        animator = GetComponent<Animator>();
         attackDelayTime = 2f;
         attackRange = 6f;
     }

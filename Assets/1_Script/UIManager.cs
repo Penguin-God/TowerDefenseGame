@@ -24,8 +24,9 @@ public class UIManager : MonoBehaviour
     public Text EnemyCount;
     public Text GameOverText;
     public Text RestartText;
-    public Button SoldierCombine;
+   // public Button SoldierCombine;
     public Button SellSoldier;
+    public GameObject SoldiersCombineButton;
 
     public void UpdateStageText(int Stage)
     {
@@ -37,10 +38,11 @@ public class UIManager : MonoBehaviour
         GoldText.text = ""+Gold;
     }
 
-    public void SetActiveButton(bool show)
+    public void SetActiveButton(bool show, int SoldiersColornumber, int Soldiersnumber)
     {
-        SoldierCombine.gameObject.SetActive(show);
+        //SoldierCombine.gameObject.SetActive(show);
         SellSoldier.gameObject.SetActive(show);
+        SoldiersCombineButton.transform.GetChild(SoldiersColornumber).transform.GetChild(Soldiersnumber).gameObject.SetActive(show);
     }
 
     public void UpdateCountEnemyText(int EnemyofCount)
@@ -52,6 +54,13 @@ public class UIManager : MonoBehaviour
     {
         GameOverText.gameObject.SetActive(true);
         RestartText.gameObject.SetActive(true);
+    }
+
+    public void ButtonDown()
+    {
+        SetActiveButton(false, 0, 0);
+        SetActiveButton(false, 1, 0);
+        SetActiveButton(false, 2, 0);
     }
 }
 

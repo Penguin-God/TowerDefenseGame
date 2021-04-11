@@ -58,7 +58,7 @@ public class TestCombine : MonoBehaviour
             }
 
             testCreateUnit.CombineCreateSoldier();
-            UIManager.instance.SetActiveButton(false);
+            //UIManager.instance.SetActiveButton(false);
         }
     }
 }

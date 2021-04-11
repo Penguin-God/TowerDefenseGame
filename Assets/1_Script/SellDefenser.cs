@@ -10,6 +10,8 @@ public class SellDefenser : MonoBehaviour
         GameManager.instance.Gold += 3;
         Destroy(GameManager.instance.hitSolider);
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-        UIManager.instance.SetActiveButton(false);
+        UIManager.instance.SetActiveButton(false,0,0);
+        UIManager.instance.SetActiveButton(false, 1, 0);
+        UIManager.instance.SetActiveButton(false, 2, 0);
     }
 }

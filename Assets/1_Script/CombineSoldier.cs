@@ -35,7 +35,7 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(0, 0, 1, 1);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false);
+                UIManager.instance.SetActiveButton(false,0,0);
             }
         }
 
@@ -51,7 +51,7 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(1, 1, 1, 1);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false);
+                UIManager.instance.SetActiveButton(false,1,0);
             }
         }
 
@@ -67,11 +67,28 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(2, 2, 1, 1);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false);
+                UIManager.instance.SetActiveButton(false,2,0);
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Archer_Red(Clone)")
+        //if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Green(Clone)")
+        //{
+            //TagSoldier.BlueSwordmanTag();
+            //TagSoldier.YellowSwordmanTag();
+            //if (TagSoldier.GreenSwordman.Length >= 2)
+            //{
+
+                //Destroy(TagSoldier.YellowSwordman[0]);
+                //Destroy(TagSoldier.BlueSwordman[0]);
+
+
+                //SoldierChoose(3, 3, 0, 0);
+                //createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+                //UIManager.instance.SetActiveButton(false);
+            //}
+        //}
+
+        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Archer_Red(Clone)") 
         {
             TagSoldier.RedSwordmanTag();
             TagSoldier.RedArcherTag();
@@ -86,7 +103,7 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(0, 0, 2, 2);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false);
+                UIManager.instance.SetActiveButton(false,0,1);
             }
         }
 
@@ -105,7 +122,7 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(1, 1, 2, 2);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false);
+                UIManager.instance.SetActiveButton(false,1,1);
             }
         }
 
@@ -124,7 +141,7 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(2, 2, 2, 2);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false);
+                UIManager.instance.SetActiveButton(false,2,1);
             }
         }
 
@@ -140,7 +157,7 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(0, 0, 3, 3);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false);
+                UIManager.instance.SetActiveButton(false,0,2);
             }
         }
 
@@ -156,7 +173,7 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(1, 1, 3, 3);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false);
+                UIManager.instance.SetActiveButton(false,1,2);
             }
         }
 
@@ -172,29 +189,39 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(2, 2, 3, 3);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false);
+                UIManager.instance.SetActiveButton(false,2,2);
             }
         }
     }
 
-    public void ButtonOn()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            GameManager.instance.Chilk();
-        }
-        //if (GameManager.instance.hitSolider.transform.gameObject.tag == "Swordman" && GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Red")
-        //{
-            //UIManager.instance.SetActiveButton(true);
-        //}
-        UIManager.instance.SetActiveButton(true);
-    }
 
     private void SoldierChoose(int Colornumber1, int Colornumber2, int Soldiernumber1,int Soldiernumber2)
     {
         Colornumber = Random.Range(Colornumber1, Colornumber2);
         Soldiernumber = Random.Range(Soldiernumber1, Soldiernumber2);
         
+    }
+
+    public void ButtonOn()
+    {
+
+        GameManager.instance.Chilk();
+        UIManager.instance.ButtonDown();
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "RedSwordman")
+        {
+            UIManager.instance.SetActiveButton(true,0,0);
+        }
+
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "BlueSwordman")
+        {
+            UIManager.instance.SetActiveButton(true, 1, 0);
+        }
+
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "YellowSwordman")
+        {
+            UIManager.instance.SetActiveButton(true, 2, 0);
+        }
+
     }
 
     public void Sommon()

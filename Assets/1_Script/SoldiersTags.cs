@@ -16,6 +16,10 @@ public class SoldiersTags : MonoBehaviour
     public GameObject[] YellowArcher;
     public GameObject[] YellowSpearman;
     public GameObject[] YellowMage;
+    public GameObject[] GreenSwordman;
+    public GameObject[] GreenArcher;
+    public GameObject[] GreenSpearman;
+    public GameObject[] GreenMage;
     void Start()
     {
         
@@ -81,6 +85,27 @@ public class SoldiersTags : MonoBehaviour
     public void YellowMageTag()
     {
         YellowMage = GameObject.FindGameObjectsWithTag("YellowMage");
+
+    }
+
+    public void GreenSwordmanTag()
+    {
+        GreenSwordman = GameObject.FindGameObjectsWithTag("GreenSwordman");
+
+    }
+    public void GreenArcherTag()
+    {
+        GreenArcher = GameObject.FindGameObjectsWithTag("GreenArcher");
+
+    }
+    public void GreenSpearmanTag()
+    {
+        GreenSpearman = GameObject.FindGameObjectsWithTag("GreenSpearman");
+
+    }
+    public void GreenMageTag()
+    {
+        GreenMage = GameObject.FindGameObjectsWithTag("GreenMage");
 
     }
 }

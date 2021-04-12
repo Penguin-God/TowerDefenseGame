@@ -25,10 +25,10 @@ public class Unit_Spearman : TeamSoldier
     IEnumerator SwordAttack()
     {
         animator.SetTrigger("isAttack");
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.75f);
         trail.SetActive(true);
         spearCollider.enabled = true;
-        yield return new WaitForSeconds(0.25f);
+        yield return new WaitForSeconds(0.5f);
         spearCollider.enabled = false;
         trail.SetActive(false);
     }

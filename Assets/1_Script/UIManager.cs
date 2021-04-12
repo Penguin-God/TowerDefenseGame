@@ -61,6 +61,12 @@ public class UIManager : MonoBehaviour
         SetActiveButton(false, 0, 0);
         SetActiveButton(false, 1, 0);
         SetActiveButton(false, 2, 0);
+        SetActiveButton(false, 0, 1);
+        SetActiveButton(false, 1, 1);
+        SetActiveButton(false, 2, 1);
+        SetActiveButton(false, 0, 2);
+        SetActiveButton(false, 1, 2);
+        SetActiveButton(false, 2, 2);
     }
 }
 

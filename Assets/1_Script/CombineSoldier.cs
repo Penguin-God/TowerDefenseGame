@@ -8,6 +8,7 @@ public class CombineSoldier : MonoBehaviour
     private int Soldiernumber;
     public CreateDefenser createdefenser;
     public SoldiersTags TagSoldier;
+    
 
     void Start()
     {
@@ -209,7 +210,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         if (GameManager.instance.hitSolider.transform.gameObject.tag == "RedSwordman")
         {
-            UIManager.instance.SetActiveButton(true,0,0);
+            UIManager.instance.SetActiveButton(true, 0, 0);
         }
 
         if (GameManager.instance.hitSolider.transform.gameObject.tag == "BlueSwordman")
@@ -220,6 +221,51 @@ public class CombineSoldier : MonoBehaviour
         if (GameManager.instance.hitSolider.transform.gameObject.tag == "YellowSwordman")
         {
             UIManager.instance.SetActiveButton(true, 2, 0);
+        }
+
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "GreenSwordman")
+        {
+            UIManager.instance.SetActiveButton(true, 3, 0);
+        }
+
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "RedArcher")
+        {
+            UIManager.instance.SetActiveButton(true, 0, 1);
+        }
+
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "BlueArcher")
+        {
+            UIManager.instance.SetActiveButton(true, 1, 1);
+        }
+
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "YellowArcher")
+        {
+            UIManager.instance.SetActiveButton(true, 2, 1);
+        }
+
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "GreenArcher")
+        {
+            UIManager.instance.SetActiveButton(true, 3, 1);
+        }
+
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "RedSpearman")
+        {
+            UIManager.instance.SetActiveButton(true, 0, 2);
+        }
+
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "BlueSpearman")
+        {
+            UIManager.instance.SetActiveButton(true, 1, 2);
+        }
+
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "YellowSpearman")
+        {
+            UIManager.instance.SetActiveButton(true, 2, 2);
+        }
+
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "GreenSpearman")
+        {
+            UIManager.instance.SetActiveButton(true, 3, 2);
         }
 
     }

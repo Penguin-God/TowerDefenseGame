@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
 {
     private int Stage;
     public int Gold;
-    public EnemySpaw enemySpaw;
+    public EnemySpawn enemySpawn;
     private bool isGameover;
     // public GameObject[] Soldiers;
 
@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        enemySpaw.GetComponent<EnemySpaw>();
+        enemySpawn.GetComponent<EnemySpawn>();
     }
 
 
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        enemyCount = enemySpaw.currentEnemyList.Count; // 리스트 크기를 enemyCount에 대입
+        enemyCount = enemySpawn.currentEnemyList.Count; // 리스트 크기를 enemyCount에 대입
         UIManager.instance.UpdateCountEnemyText(enemyCount);
         if (enemyCount >= 50)
         {

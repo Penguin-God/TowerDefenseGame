@@ -229,7 +229,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab90d213f6373964b87dc3f64890b28a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitColor: 
   unitType: 1
   speed: 15
   attackDelayTime: 0
@@ -238,7 +237,6 @@ MonoBehaviour:
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
-  animator: {fileID: 5811332866082718194}
   swordCollider: {fileID: 9199773262820173412}
   trail: {fileID: 9199773262726743696}
 --- !u!95 &5811332866082718194

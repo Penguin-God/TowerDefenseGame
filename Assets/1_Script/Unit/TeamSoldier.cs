@@ -18,14 +18,14 @@ public class TeamSoldier : MonoBehaviour
     public NavMeshAgent nav;
     public Transform target;
 
-    private EnemySpaw enemySpaw;
+    private EnemySpawn enemySpawn;
     public CombineSoldier Combine;
 
     private void Start()
     {
         parentTransform = GetComponentInParent<Transform>();
         nav = GetComponentInParent<NavMeshAgent>();
-        enemySpaw = FindObjectOfType<EnemySpaw>();
+        enemySpawn = FindObjectOfType<EnemySpawn>();
         UpdateTarget();
         StartCoroutine(NavCoroutine());
     }
@@ -46,30 +46,34 @@ public class TeamSoldier : MonoBehaviour
         {
             if (target != null)
             {
-                float dir = Vector3.Distance(target.position, this.transform.position);
-                if (dir < attackRange)
+                if (Vector3.Distance(transform.position, target.position) < 150f)
                 {
-                    if (unitType == Type.rangeUnit) nav.speed = 0.1f;
-                    if (!isAttack) NormalAttack();
+                    float dir = Vector3.Distance(target.position, this.transform.position);
+                    if (dir < attackRange)
+                    {
+                        if (unitType == Type.rangeUnit) nav.speed = 0.1f;
+                        if (!isAttack) NormalAttack();
+                    }
+                    else nav.speed = speed;
+                    nav.SetDestination(target.position);
                 }
-                else nav.speed = speed;
-                nav.SetDestination(target.position);
+                else
+                {
+                    UpdateTarget();
+                }
             }
-            else
-            {
-                UpdateTarget();
-            }
+            else UpdateTarget();
             yield return new WaitForSeconds(0.1f);
         }
     }
 
     public void UpdateTarget()
     {
-        float shortDistance = 1000f;
+        float shortDistance = 150f;
         GameObject targetObject = null;
-        if (enemySpaw.currentEnemyList.Count > 0)
+        if (enemySpawn.currentEnemyList.Count > 0)
         {
-            foreach (GameObject enemyObject in enemySpaw.currentEnemyList)
+            foreach (GameObject enemyObject in enemySpawn.currentEnemyList)
             {
                 if (enemyObject != null)
                 { 
@@ -87,13 +91,17 @@ public class TeamSoldier : MonoBehaviour
             nav.isStopped = false;
             target = targetObject.transform;
         }
-        else nav.isStopped = true;
+        else 
+        {
+            nav.isStopped = true;
+            target = null;
+        } 
     }
 
     public void NextUpdateTarget()
     {
-        bool hasRemoveEnemy = enemySpaw.currentEnemyList.Contains(target.gameObject);
-        if (hasRemoveEnemy) enemySpaw.currentEnemyList.Remove(target.gameObject);
+        bool hasRemoveEnemy = enemySpawn.currentEnemyList.Contains(target.gameObject);
+        if (hasRemoveEnemy) enemySpawn.currentEnemyList.Remove(target.gameObject);
         UpdateTarget();
     }
 
@@ -105,6 +113,7 @@ public class TeamSoldier : MonoBehaviour
 
     protected void ShotBullet(GameObject bullet, float weightRate, float velocity) // 원거리 유닛 총알 발사
     {
+        if (target == null) return;
         Rigidbody bulletRigid = bullet.GetComponent<Rigidbody>();
         Vector3 dir = target.position - bullet.transform.position;
         Enemy enemy = target.gameObject.GetComponentInChildren<Enemy>();

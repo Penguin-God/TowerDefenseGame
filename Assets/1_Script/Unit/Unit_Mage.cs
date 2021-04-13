@@ -33,11 +33,13 @@ public class Unit_Mage : TeamSoldier
         yield return new WaitForSeconds(0.6f);
         light.SetActive(true);
 
-        GameObject instantEnergyBall = Instantiate(energyBall, energyBallTransform.position, energyBallTransform.rotation);
-        AttackWeapon attackWeapon = instantEnergyBall.GetComponent<AttackWeapon>();
-        attackWeapon.attackUnit = this.gameObject; // 화살과 적의 충돌감지를 위한 대입
-
-        ShotBullet(instantEnergyBall, 2f, 35f);
+        if (target != null && Vector3.Distance(target.position, transform.position) < 150f)
+        {
+            GameObject instantEnergyBall = Instantiate(energyBall, energyBallTransform.position, energyBallTransform.rotation);
+            AttackWeapon attackWeapon = instantEnergyBall.GetComponent<AttackWeapon>();
+            attackWeapon.attackUnit = this.gameObject; // 화살과 적의 충돌감지를 위한 대입
+            ShotBullet(instantEnergyBall, 2f, 35f);
+        }
 
         yield return new WaitForSeconds(0.5f);
         light.SetActive(false);

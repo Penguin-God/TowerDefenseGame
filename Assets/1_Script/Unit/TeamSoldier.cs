@@ -113,13 +113,13 @@ public class TeamSoldier : MonoBehaviour
 
     protected void ShotBullet(GameObject bullet, float weightRate, float velocity) // 원거리 유닛 총알 발사
     {
-        if (target == null) return;
         Rigidbody bulletRigid = bullet.GetComponent<Rigidbody>();
         Vector3 dir = target.position - bullet.transform.position;
         Enemy enemy = target.gameObject.GetComponentInChildren<Enemy>();
         float enemyWeightDir = Mathf.Lerp(0, enemy.speed, (weightRate * Vector3.Distance(target.position, this.transform.position)) / 100);
         dir += enemy.dir * enemyWeightDir;
         bulletRigid.velocity = dir.normalized * velocity;
+        Debug.Log(bulletRigid.velocity);
     }
 
     private void OnMouseDown()

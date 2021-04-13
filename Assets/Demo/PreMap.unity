@@ -9288,7 +9288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Gold: 300
-  enemySpawn: {fileID: 0}
+  enemySpawn: {fileID: 1138677222}
   enemyCount: 0
   hitSolider: {fileID: 0}
 --- !u!4 &986474379

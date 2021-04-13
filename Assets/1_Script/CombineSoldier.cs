@@ -195,6 +195,26 @@ public class CombineSoldier : MonoBehaviour
         }
     }
 
+    public void otherCombine()
+    {
+        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Red(Clone)")
+        {
+            TagSoldier.RedSwordmanTag();
+            TagSoldier.BlueSwordmanTag();
+            if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.BlueSwordman.Length >= 1)
+            {
+
+                Destroy(TagSoldier.RedSwordman[0]);
+                Destroy(TagSoldier.BlueSwordman[0]);
+
+
+                SoldierChoose(5, 5, 0, 0);
+                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+                UIManager.instance.SetActiveButton(false, 0, 0);
+            }
+        }
+    }
+
 
     private void SoldierChoose(int Colornumber1, int Colornumber2, int Soldiernumber1,int Soldiernumber2)
     {
@@ -211,6 +231,7 @@ public class CombineSoldier : MonoBehaviour
         if (GameManager.instance.hitSolider.transform.gameObject.tag == "RedSwordman")
         {
             UIManager.instance.SetActiveButton(true, 0, 0);
+            UIManager.instance.SetActiveButton2(true, 0, 0);
         }
 
         if (GameManager.instance.hitSolider.transform.gameObject.tag == "BlueSwordman")

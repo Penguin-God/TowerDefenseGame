@@ -119,7 +119,6 @@ public class TeamSoldier : MonoBehaviour
         float enemyWeightDir = Mathf.Lerp(0, enemy.speed, (weightRate * Vector3.Distance(target.position, this.transform.position)) / 100);
         dir += enemy.dir * enemyWeightDir;
         bulletRigid.velocity = dir.normalized * velocity;
-        Debug.Log(bulletRigid.velocity);
     }
 
     private void OnMouseDown()

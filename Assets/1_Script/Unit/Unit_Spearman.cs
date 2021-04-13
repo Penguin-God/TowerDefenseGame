@@ -11,7 +11,7 @@ public class Unit_Spearman : TeamSoldier
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        speed = 10f;
+        speed = 20f;
         attackDelayTime = 2.5f;
         attackRange = 3f;
     }

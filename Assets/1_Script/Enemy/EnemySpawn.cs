@@ -101,7 +101,7 @@ public class EnemySpawn : MonoBehaviour
         int[] stageData = new int[3];
         stageData[0] = Random.Range(0, 4);
         stageData[1] = Random.Range(5, 16);
-        stageData[2] = Random.Range(2, 6);
+        stageData[2] = Random.Range(1, 4);
         return stageData;
     }
 

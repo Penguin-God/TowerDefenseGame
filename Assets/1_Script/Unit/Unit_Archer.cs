@@ -31,11 +31,11 @@ public class Unit_Archer : TeamSoldier
         nav.isStopped = true;
         trail.SetActive(false);
 
-        GameObject instantArrow = Instantiate(arrow, arrowTransform.position, arrowTransform.rotation);
-        AttackWeapon attackWeapon = instantArrow.GetComponent<AttackWeapon>();
-        attackWeapon.attackUnit = this.gameObject; // 화살과 적의 충돌감지를 위한 대입
-
-        ShotBullet(instantArrow, 2f, 50f);
+        if (target != null && Vector3.Distance(target.position, transform.position) < 150f)
+        {
+            GameObject instantArrow = CreateBullte(arrow, arrowTransform);
+            ShotBullet(instantArrow, 2f, 50f);
+        }
 
         yield return new WaitForSeconds(1.5f);
         nav.isStopped = false;

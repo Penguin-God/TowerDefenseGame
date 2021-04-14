@@ -204,7 +204,7 @@ MonoBehaviour:
   Combine: {fileID: 0}
   energyBall: {fileID: 273563849445638938, guid: a8e98f7b8ecd5904283053b0c6439f96,
     type: 3}
-  light: {fileID: 7721362944655043704}
+  magicLight: {fileID: 7721362944655043704}
   energyBallTransform: {fileID: 7721362943555022681}
 --- !u!1 &7721362943555022686
 GameObject:

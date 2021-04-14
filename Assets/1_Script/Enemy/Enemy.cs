@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Enemy : MonoBehaviour
 {
+    EnemySpawn enemySpawn;
     // 상태 변수
     public float speed;
     public int maxHp;
@@ -14,40 +15,43 @@ public class Enemy : MonoBehaviour
 
     // 이동, 회전 관련 변수
     private Transform parent;
+    private Rigidbody parentRigidbody;
     private Transform wayPoint;
     public Vector3 dir;
     private int pointIndex = -1;
 
     private void Awake()
     {
+        enemySpawn = GetComponentInParent<EnemySpawn>();
         parent = transform.parent.GetComponent<Transform>();
+        parentRigidbody = GetComponentInParent<Rigidbody>();
     }
 
-    void OnEnable()
+    void OnEnable() // 리스폰 시 상태 초기화
     {
+        enemySpawn.currentEnemyList.Add(this.gameObject);
         isDead = false;
-        currentHp = maxHp;
-        hpSlider.maxValue = maxHp;
-        hpSlider.value = maxHp;
         SetNextPoint();
     }
 
-    private void Update()
+    public void ResetStatus(int hp, float speed)
     {
-        EnemyMove();
-    }
-
-    void EnemyMove()
-    {
-        parent.Translate(dir * speed * Time.deltaTime, Space.World);
+        maxHp = hp;
+        currentHp = maxHp;
+        hpSlider.maxValue = maxHp;
+        hpSlider.value = maxHp;
+        this.speed = speed;
     }
 
     void SetNextPoint()
     {
         pointIndex++;
         if (pointIndex >= TurnPoint.enemyTurnPoints.Length) pointIndex = 0; // 무한반복을 위한 조건
+
+        // 실제 이동을 위한 속도 설정
         wayPoint = TurnPoint.enemyTurnPoints[pointIndex];
         dir = (wayPoint.position - parent.transform.position).normalized;
+        parentRigidbody.velocity = dir * speed;
     }
 
     void SetTransfrom()
@@ -66,6 +70,7 @@ public class Enemy : MonoBehaviour
     {
         parent.gameObject.SetActive(false);
         parent.position = new Vector3(500, 500, 500);
+        enemySpawn.currentEnemyList.Remove(this.gameObject);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -86,7 +91,7 @@ public class Enemy : MonoBehaviour
             if (currentHp <= 0)
             {
                 Dead();
-                teamSoldier.NextUpdateTarget();
+                teamSoldier.UpdateTarget();
             }
         }
     }

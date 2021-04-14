@@ -445,7 +445,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41994ea9982d5ec48997957fd750e3c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  enemySpawnObject: {fileID: 3362108960618488973, guid: 22d4f9f2cf30d4442acafb1be1f61c28,
+    type: 3}
+  speed: 0
   maxHp: 200
   currentHp: 200
   isDead: 0

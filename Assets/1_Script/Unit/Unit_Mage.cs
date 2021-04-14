@@ -6,8 +6,9 @@ public class Unit_Mage : TeamSoldier
 {
     private Enemy enemy;
     private Animator animator;
+    public GameObject magicLight;
+
     public GameObject energyBall;
-    public GameObject light;
     public Transform energyBallTransform;
 
     private void Awake()
@@ -31,18 +32,16 @@ public class Unit_Mage : TeamSoldier
         animator.SetTrigger("isAttack");
         nav.isStopped = true;
         yield return new WaitForSeconds(0.6f);
-        light.SetActive(true);
+        magicLight.SetActive(true);
 
         if (target != null && Vector3.Distance(target.position, transform.position) < 150f)
         {
-            GameObject instantEnergyBall = Instantiate(energyBall, energyBallTransform.position, energyBallTransform.rotation);
-            AttackWeapon attackWeapon = instantEnergyBall.GetComponent<AttackWeapon>();
-            attackWeapon.attackUnit = this.gameObject; // 화살과 적의 충돌감지를 위한 대입
+            GameObject instantEnergyBall = CreateBullte(energyBall, energyBallTransform);
             ShotBullet(instantEnergyBall, 2f, 35f);
         }
 
         yield return new WaitForSeconds(0.5f);
-        light.SetActive(false);
+        magicLight.SetActive(false);
         yield return new WaitForSeconds(1f);
         nav.isStopped = false;
     }

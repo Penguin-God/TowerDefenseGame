@@ -111,6 +111,14 @@ public class TeamSoldier : MonoBehaviour
         transform.Rotate(Vector3.up * 180);
     }
 
+    protected GameObject CreateBullte(GameObject instantObject, Transform createPositon)
+    {
+        GameObject instantBullet = Instantiate(instantObject, createPositon.position, createPositon.rotation);
+        AttackWeapon attackWeapon = instantBullet.GetComponent<AttackWeapon>();
+        attackWeapon.attackUnit = this.gameObject; // 화살과 적의 충돌감지를 위한 대입
+        return instantBullet;
+    }
+
     protected void ShotBullet(GameObject bullet, float weightRate, float velocity) // 원거리 유닛 총알 발사
     {
         Rigidbody bulletRigid = bullet.GetComponent<Rigidbody>();

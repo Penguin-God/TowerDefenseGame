@@ -15,66 +15,46 @@ public class EnemySpawn : MonoBehaviour
 
     int enemyCount;
     GameObject[,] enemyArrays;
-    GameObject[] archerArray;
-    GameObject[] mageArray;
-    GameObject[] spearmanArray;
-    GameObject[] swordmanArray;
     int[] countArray;
-    int archerCount = 0;
-    int mageCount = 0;
-    int spearmanCount = 0;
-    int swordmanCount = 0;
     Vector3 poolPosition = new Vector3(500, 500, 500);
-    Vector3 respawnPosition = new Vector3(500, 500, 500);
 
     public List<GameObject> currentEnemyList; // 생성된 enemy의 게임 오브젝트가 담겨있음
 
     private void Awake()
     {
-        enemyCount = 100;
-        // 풀링 관련 배열 인스턴스화
-        archerArray = new GameObject[enemyCount];
-        mageArray = new GameObject[enemyCount];
-        spearmanArray = new GameObject[enemyCount];
-        swordmanArray = new GameObject[enemyCount];
+        // 풀링 관련 변수 설정
+        enemyCount = 51;
+        enemyArrays = new GameObject[enemyPrefab.Length, enemyCount];
 
-        enemyArrays = new GameObject[enemyPrefab.Length, 100];
-
-        for(int i = 0; i < enemyPrefab.Length; i++)
+        for (int i = 0; i < enemyPrefab.Length; i++)
         {
             for(int k = 0; k < enemyCount; k++)
             {
                 GameObject instantEnemy = Instantiate(enemyPrefab[i], poolPosition, Quaternion.identity);
+                instantEnemy.transform.SetParent(transform);
                 enemyArrays[i, k] = instantEnemy;
             }
         }
-
         countArray = new int[enemyPrefab.Length];
-        countArray[0] = archerCount;
-        countArray[1] = mageCount;
-        countArray[2] = spearmanCount;
-        countArray[3] = swordmanCount;
 
         StageStart();
     }
 
     IEnumerator StageCoroutine(int instantEnemyNumber, int enemyCount, int waitTime) // 재귀함수 무한반복
     {
-        ResetEnemyCount(instantEnemyNumber, enemyCount);
         int hp = SetRandomHp();
         float speed = SetRandomSeepd();
         while (enemyCount > 0)
         {
-            //GameObject enemy = enemyArrays[instantEnemyNumber, countArray[instantEnemyNumber]];
-            //countArray[instantEnemyNumber]++;
-            //enemy.transform.position = this.transform.position;
-            //enemy.SetActive(true);
-            //SetEnemyData(enemy, hp, speed);
-            //currentEnemyList.Add(enemy);
-            GameObject enemy = RespawnEnemy(instantEnemyNumber);
-            currentEnemyList.Add(enemy);
+            GameObject enemy = enemyArrays[instantEnemyNumber, countArray[instantEnemyNumber]];
             SetEnemyData(enemy, hp, speed);
+            RespawnEnemy(instantEnemyNumber);
+
+            //currentEnemyList.Add(enemy);
+            countArray[instantEnemyNumber]++;
             enemyCount--;
+
+            ResetEnemyCount(instantEnemyNumber);
             yield return new WaitForSeconds(waitTime);
         }
         stageNumber += 1;
@@ -85,15 +65,20 @@ public class EnemySpawn : MonoBehaviour
     GameObject RespawnEnemy(int instantEnemyNumber)
     {
         GameObject enemy = enemyArrays[instantEnemyNumber, countArray[instantEnemyNumber]];
-        countArray[instantEnemyNumber]++;
         enemy.transform.position = this.transform.position;
         enemy.SetActive(true);
         return enemy;
     }
 
-    void ResetEnemyCount(int enemyNumber, int creatEnemyCount)
+    void SetEnemyData(GameObject enemyObject, int hp, float speed) // enemy에 값 부여
     {
-        if (countArray[enemyNumber] + creatEnemyCount > enemyCount) countArray[enemyNumber] = 0;
+        Enemy enemy = enemyObject.GetComponentInChildren<Enemy>();
+        enemy.ResetStatus(hp, speed);
+    }
+
+    void ResetEnemyCount(int enemyNumber)
+    {
+        if (countArray[enemyNumber] > enemyCount - 1) countArray[enemyNumber] = 0;
     }
 
     int[] SetStageData()
@@ -110,18 +95,6 @@ public class EnemySpawn : MonoBehaviour
         UIManager.instance.UpdateStageText(stageNumber);
         int[] stageData = SetStageData();
         StartCoroutine(StageCoroutine(stageData[0], stageData[1], stageData[2]));
-    }
-
-    GameObject SetEnemyData(GameObject enemyObject, int hp, float speed)
-    {
-        // enemy에 값 부여
-        Enemy enemy = enemyObject.GetComponentInChildren<Enemy>();
-        enemy.speed = speed;
-        enemy.maxHp = hp;
-        enemy.currentHp = hp;
-        enemy.hpSlider.maxValue = hp;
-        enemy.hpSlider.value = hp;
-        return enemyObject;
     }
 
     int SetRandomHp()

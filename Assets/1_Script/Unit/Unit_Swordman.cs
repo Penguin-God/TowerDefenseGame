@@ -11,8 +11,6 @@ public class Unit_Swordman : TeamSoldier
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        attackDelayTime = 2f;
-        attackRange = 6f;
     }
 
     public override void NormalAttack()

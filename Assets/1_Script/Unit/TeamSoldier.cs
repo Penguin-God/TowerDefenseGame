@@ -27,6 +27,7 @@ public class TeamSoldier : MonoBehaviour
         nav = GetComponentInParent<NavMeshAgent>();
         enemySpawn = FindObjectOfType<EnemySpawn>();
         UpdateTarget();
+        nav.speed = this.speed;
         StartCoroutine(NavCoroutine());
     }
 
@@ -49,12 +50,20 @@ public class TeamSoldier : MonoBehaviour
                 if (Vector3.Distance(transform.position, target.position) < 150f)
                 {
                     float dir = Vector3.Distance(target.position, this.transform.position);
+                    if (unitType == Type.meleeUnit && dir < 15f) MeleeMove();
                     if (dir < attackRange)
                     {
                         if (unitType == Type.rangeUnit) nav.speed = 0.1f;
-                        if (!isAttack) NormalAttack();
+
+                        if (!isAttack)
+                        {
+                            NormalAttack();
+                        }
                     }
-                    else nav.speed = speed;
+                    else if(unitType == Type.rangeUnit)
+                    {
+                        nav.speed = speed;
+                    } 
                     nav.SetDestination(target.position);
                 }
                 else
@@ -127,6 +136,15 @@ public class TeamSoldier : MonoBehaviour
         float enemyWeightDir = Mathf.Lerp(0, enemy.speed, (weightRate * Vector3.Distance(target.position, this.transform.position)) / 100);
         dir += enemy.dir * enemyWeightDir;
         bulletRigid.velocity = dir.normalized * velocity;
+    }
+
+    protected void MeleeMove() // 근접 공격 시 상대방이 유닛 쪽으로 움직이고 있으면 정지 아니면 이동
+    {
+        Enemy enemy = target.gameObject.GetComponentInChildren<Enemy>();
+        float enemyDot = Vector3.Dot(enemy.dir.normalized, (target.position - this.transform.position).normalized);
+        if (enemyDot < -0.7f) nav.speed = 0.1f;
+        else nav.speed = this.speed;
+        Debug.Log(enemyDot);
     }
 
     private void OnMouseDown()

@@ -13,9 +13,6 @@ public class Unit_Archer : TeamSoldier
     private void Awake()
     {
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
-        speed = 6f;
-        attackDelayTime = 3f;
-        attackRange = 30f;
     }
 
     public override void NormalAttack()

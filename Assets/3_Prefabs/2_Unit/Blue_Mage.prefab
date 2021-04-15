@@ -195,16 +195,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitType: 0
-  speed: 0
-  attackDelayTime: 0
-  attackRange: 0
+  speed: 3
+  attackDelayTime: 3
+  attackRange: 40
   isAttack: 0
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
+  magicLight: {fileID: 7721362944655043704}
   energyBall: {fileID: 273563849445638938, guid: a8e98f7b8ecd5904283053b0c6439f96,
     type: 3}
-  magicLight: {fileID: 7721362944655043704}
   energyBallTransform: {fileID: 7721362943555022681}
 --- !u!1 &7721362943555022686
 GameObject:

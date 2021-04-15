@@ -14,9 +14,6 @@ public class Unit_Mage : TeamSoldier
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        speed = 3f;
-        attackDelayTime = 3f;
-        attackRange = 40f;
     }
 
     public override void NormalAttack()

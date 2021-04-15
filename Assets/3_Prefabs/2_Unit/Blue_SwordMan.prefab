@@ -231,8 +231,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitType: 1
   speed: 15
-  attackDelayTime: 0
-  attackRange: 2
+  attackDelayTime: 2
+  attackRange: 6
   isAttack: 0
   nav: {fileID: 0}
   target: {fileID: 0}

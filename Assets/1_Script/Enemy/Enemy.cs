@@ -71,6 +71,18 @@ public class Enemy : MonoBehaviour
         parent.gameObject.SetActive(false);
         parent.position = new Vector3(500, 500, 500);
         enemySpawn.currentEnemyList.Remove(this.gameObject);
+        ResetVariable();
+    }
+
+    void ResetVariable()
+    {
+        pointIndex = -1;
+        maxHp = 0;
+        currentHp = 0;
+        hpSlider.maxValue = 0;
+        hpSlider.value = 0;
+        isDead = true;
+        this.speed = 0;
     }
 
     private void OnTriggerEnter(Collider other)

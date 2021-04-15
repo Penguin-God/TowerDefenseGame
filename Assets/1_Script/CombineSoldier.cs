@@ -36,7 +36,7 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(0, 0, 1, 1);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false,0,0);
+                UIManager.instance.ButtonDown();
             }
         }
 
@@ -52,7 +52,7 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(1, 1, 1, 1);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false,1,0);
+                UIManager.instance.ButtonDown();
             }
         }
 
@@ -68,7 +68,7 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(2, 2, 1, 1);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false,2,0);
+                UIManager.instance.ButtonDown();
             }
         }
 
@@ -104,7 +104,7 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(0, 0, 2, 2);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false,0,1);
+                UIManager.instance.ButtonDown();
             }
         }
 
@@ -123,7 +123,7 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(1, 1, 2, 2);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false,1,1);
+                UIManager.instance.ButtonDown();
             }
         }
 
@@ -142,7 +142,7 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(2, 2, 2, 2);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false,2,1);
+                UIManager.instance.ButtonDown();
             }
         }
 
@@ -158,7 +158,7 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(0, 0, 3, 3);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false,0,2);
+                UIManager.instance.ButtonDown();
             }
         }
 
@@ -174,7 +174,7 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(1, 1, 3, 3);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false,1,2);
+                UIManager.instance.ButtonDown();
             }
         }
 
@@ -190,9 +190,10 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(2, 2, 3, 3);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false,2,2);
+                UIManager.instance.ButtonDown();
             }
         }
+        //UIManager.instance.ButtonDown();
     }
 
     public void otherCombine()
@@ -210,9 +211,44 @@ public class CombineSoldier : MonoBehaviour
 
                 SoldierChoose(5, 5, 0, 0);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.SetActiveButton(false, 0, 0);
+                UIManager.instance.ButtonDown();
             }
         }
+
+        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Blue(Clone)")
+        {
+            TagSoldier.YellowSwordmanTag();
+            TagSoldier.BlueSwordmanTag();
+            if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1)
+            {
+
+                Destroy(TagSoldier.YellowSwordman[0]);
+                Destroy(TagSoldier.BlueSwordman[0]);
+
+
+                SoldierChoose(3, 3, 0, 0);
+                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+                UIManager.instance.ButtonDown();
+            }
+        }
+
+        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Yellow(Clone)")
+        {
+            TagSoldier.YellowSwordmanTag();
+            TagSoldier.RedSwordmanTag();
+            if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1)
+            {
+
+                Destroy(TagSoldier.YellowSwordman[0]);
+                Destroy(TagSoldier.RedSwordman[0]);
+
+
+                SoldierChoose(4, 4, 0, 0);
+                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+                UIManager.instance.ButtonDown();
+            }
+        }
+        //UIManager.instance.ButtonDown();
     }
 
 
@@ -237,11 +273,13 @@ public class CombineSoldier : MonoBehaviour
         if (GameManager.instance.hitSolider.transform.gameObject.tag == "BlueSwordman")
         {
             UIManager.instance.SetActiveButton(true, 1, 0);
+            UIManager.instance.SetActiveButton2(true, 1, 0);
         }
 
         if (GameManager.instance.hitSolider.transform.gameObject.tag == "YellowSwordman")
         {
             UIManager.instance.SetActiveButton(true, 2, 0);
+            UIManager.instance.SetActiveButton2(true, 2, 0);
         }
 
         if (GameManager.instance.hitSolider.transform.gameObject.tag == "GreenSwordman")

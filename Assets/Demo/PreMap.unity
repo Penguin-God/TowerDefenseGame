@@ -8894,7 +8894,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB178\uB780\uC544\uCC98"
+  m_Text: "\uC8FC\uD669\uAE30\uC0AC"
 --- !u!222 &960544048
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10266,7 +10266,7 @@ GameObject:
   - component: {fileID: 1058414591}
   - component: {fileID: 1058414590}
   m_Layer: 5
-  m_Name: BlueSwordmanButton
+  m_Name: BluePlusGreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10289,7 +10289,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 133, y: -132}
+  m_AnchoredPosition: {x: 133, y: -100}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1058414590
@@ -10336,7 +10336,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 144813813}
-        m_MethodName: Combine
+        m_MethodName: otherCombine
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -17651,7 +17651,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB780\uC544\uCC98"
+  m_Text: "\uCD08\uB85D\uAE30\uC0AC"
 --- !u!222 &1899748574
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18233,7 +18233,7 @@ GameObject:
   - component: {fileID: 1953291902}
   - component: {fileID: 1953291901}
   m_Layer: 5
-  m_Name: YellowSwordmanButton
+  m_Name: YellowPlusOrange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18256,7 +18256,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 133, y: -132}
+  m_AnchoredPosition: {x: 133, y: -100}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1953291901
@@ -18303,7 +18303,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 144813813}
-        m_MethodName: Combine
+        m_MethodName: otherCombine
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

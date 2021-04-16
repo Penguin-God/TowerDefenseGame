@@ -5612,7 +5612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1956685970226034, guid: b9f94378ef2a09f4bbd71a85779d32af, type: 3}
       propertyPath: m_TagString
-      value: OrangeSwordman
+      value: GreenSpearman
       objectReference: {fileID: 0}
     - target: {fileID: 4677081757285244, guid: b9f94378ef2a09f4bbd71a85779d32af, type: 3}
       propertyPath: m_RootOrder
@@ -12683,7 +12683,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCD08\uB85D\uC544\uCC98"
+  m_Text: "\uCD08\uB85D\uB9C8\uBC95\uC0AC"
 --- !u!222 &1322534848
 CanvasRenderer:
   m_ObjectHideFlags: 0

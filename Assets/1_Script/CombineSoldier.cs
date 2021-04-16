@@ -72,28 +72,27 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        //if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Green(Clone)")
-        //{
-            //TagSoldier.BlueSwordmanTag();
-            //TagSoldier.YellowSwordmanTag();
-            //if (TagSoldier.GreenSwordman.Length >= 2)
-            //{
+        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Green(Clone)")
+        {
+            TagSoldier.GreenSwordmanTag();
+            if (TagSoldier.GreenSwordman.Length >= 2)
+            {
 
-                //Destroy(TagSoldier.YellowSwordman[0]);
-                //Destroy(TagSoldier.BlueSwordman[0]);
+                Destroy(TagSoldier.GreenSwordman[0]);
+                Destroy(TagSoldier.GreenSwordman[1]);
 
 
-                //SoldierChoose(3, 3, 0, 0);
-                //createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                //UIManager.instance.SetActiveButton(false);
-            //}
-        //}
+                SoldierChoose(3, 3, 1, 1);
+                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+                UIManager.instance.ButtonDown();
+            }
+        }
 
         if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Archer_Red(Clone)") 
         {
             TagSoldier.RedSwordmanTag();
             TagSoldier.RedArcherTag();
-            if (TagSoldier.RedSwordman.Length >= 2 && TagSoldier.RedArcher.Length >=1)
+            if (TagSoldier.RedSwordman.Length >= 2 && TagSoldier.RedArcher.Length >=2)
             {
 
                 Destroy(TagSoldier.RedSwordman[0]);
@@ -112,7 +111,7 @@ public class CombineSoldier : MonoBehaviour
         {
             TagSoldier.BlueSwordmanTag();
             TagSoldier.BlueArcherTag();
-            if (TagSoldier.BlueSwordman.Length >= 2 && TagSoldier.BlueArcher.Length >= 1)
+            if (TagSoldier.BlueSwordman.Length >= 2 && TagSoldier.BlueArcher.Length >= 2)
             {
 
                 Destroy(TagSoldier.BlueSwordman[0]);
@@ -131,7 +130,7 @@ public class CombineSoldier : MonoBehaviour
         {
             TagSoldier.YellowSwordmanTag();
             TagSoldier.YellowArcherTag();
-            if (TagSoldier.YellowSwordman.Length >= 2 && TagSoldier.YellowArcher.Length >= 1)
+            if (TagSoldier.YellowSwordman.Length >= 2 && TagSoldier.YellowArcher.Length >= 2)
             {
 
                 Destroy(TagSoldier.YellowSwordman[0]);
@@ -141,6 +140,26 @@ public class CombineSoldier : MonoBehaviour
 
 
                 SoldierChoose(2, 2, 2, 2);
+                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+                UIManager.instance.ButtonDown();
+            }
+        }
+
+        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Archer_Green(Clone)")
+        {
+            TagSoldier.BlueSwordmanTag();
+            TagSoldier.YellowArcherTag();
+            TagSoldier.GreenArcherTag();
+            if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.GreenArcher.Length >= 2)
+            {
+
+                Destroy(TagSoldier.BlueSwordman[0]);
+                Destroy(TagSoldier.YellowSwordman[0]);
+                Destroy(TagSoldier.GreenArcher[0]);
+                Destroy(TagSoldier.GreenArcher[1]);
+
+
+                SoldierChoose(3, 3, 2, 2);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
             }
@@ -189,6 +208,26 @@ public class CombineSoldier : MonoBehaviour
 
 
                 SoldierChoose(2, 2, 3, 3);
+                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+                UIManager.instance.ButtonDown();
+            }
+        }
+
+        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Spearman_Green(Clone)")
+        {
+            TagSoldier.GreenSpearmanTag();
+            TagSoldier.BlueArcherTag();
+            TagSoldier.YellowArcherTag();
+            if (TagSoldier.GreenSpearman.Length >= 2 && TagSoldier.BlueArcher.Length >= 1 && TagSoldier.YellowArcher.Length >= 1)
+            {
+
+                Destroy(TagSoldier.GreenSpearman[0]);
+                Destroy(TagSoldier.GreenSpearman[1]);
+                Destroy(TagSoldier.BlueArcher[0]);
+                Destroy(TagSoldier.YellowArcher[0]);
+
+
+                SoldierChoose(3, 3, 3, 3);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
             }

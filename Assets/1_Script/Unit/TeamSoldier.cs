@@ -158,7 +158,7 @@ public class TeamSoldier : MonoBehaviour
 
     private void OnMouseDown()
     {
-        Combine.ButtonOn();
         GameManager.instance.Chilk();
+        Combine.ButtonOn();
     }
 }

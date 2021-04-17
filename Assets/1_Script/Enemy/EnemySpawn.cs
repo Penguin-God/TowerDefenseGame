@@ -92,6 +92,11 @@ public class EnemySpawn : MonoBehaviour
 
     void StageStart()
     {
+        if (stageNumber == 20)
+        {
+            Time.timeScale = 0;
+            return;
+        }
         UIManager.instance.UpdateStageText(stageNumber);
         int[] stageData = SetStageData();
         StartCoroutine(StageCoroutine(stageData[0], stageData[1], stageData[2]));

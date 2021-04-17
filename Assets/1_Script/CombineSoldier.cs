@@ -16,15 +16,15 @@ public class CombineSoldier : MonoBehaviour
     }
 
     
-    void Update()
-    {
+    //void Update()
+    //{
         
         
-    }
+    //}
 
-    public void Combine()
+    public void Combine() // 태그로 바꾸기
     {
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Red(Clone)" )
+        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Swordman_Red(Clone)" )
         {
             TagSoldier.RedSwordmanTag();
             if (TagSoldier.RedSwordman.Length >= 2)
@@ -40,7 +40,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Blue(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "BlueSwordman") // 태그로 바꿔듬
         {
             TagSoldier.BlueSwordmanTag();
             if (TagSoldier.BlueSwordman.Length >= 2)
@@ -56,7 +56,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Yellow(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Swordman_Yellow(Clone)")
         {
             TagSoldier.YellowSwordmanTag();
             if (TagSoldier.YellowSwordman.Length >= 2)
@@ -72,7 +72,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Green(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Swordman_Green(Clone)")
         {
             TagSoldier.GreenSwordmanTag();
             if (TagSoldier.GreenSwordman.Length >= 2)
@@ -88,7 +88,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Archer_Red(Clone)") 
+        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Archer_Red(Clone)") 
         {
             TagSoldier.RedSwordmanTag();
             TagSoldier.RedArcherTag();
@@ -107,7 +107,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Archer_Blue(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "BlueArcher")
         {
             TagSoldier.BlueSwordmanTag();
             TagSoldier.BlueArcherTag();
@@ -126,7 +126,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Archer_Yellow(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Archer_Yellow(Clone)")
         {
             TagSoldier.YellowSwordmanTag();
             TagSoldier.YellowArcherTag();
@@ -145,7 +145,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Archer_Green(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Archer_Green(Clone)")
         {
             TagSoldier.BlueSwordmanTag();
             TagSoldier.YellowArcherTag();
@@ -165,7 +165,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Spearman_Red(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Spearman_Red(Clone)")
         {
             TagSoldier.RedSpearmanTag();
             if (TagSoldier.RedSpearman.Length >= 2)
@@ -181,7 +181,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Spearman_Blue(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "BlueSpearman")
         {
             TagSoldier.BlueSpearmanTag();
             if (TagSoldier.BlueSpearman.Length >= 2)
@@ -197,7 +197,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Spearman_Yellow(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Spearman_Yellow(Clone)")
         {
             TagSoldier.YellowSpearmanTag();
             if (TagSoldier.YellowSpearman.Length >= 2)
@@ -213,7 +213,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Spearman_Green(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Spearman_Green(Clone)")
         {
             TagSoldier.GreenSpearmanTag();
             TagSoldier.BlueArcherTag();
@@ -237,7 +237,7 @@ public class CombineSoldier : MonoBehaviour
 
     public void otherCombine()
     {
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Red(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Swordman_Red(Clone)")
         {
             TagSoldier.RedSwordmanTag();
             TagSoldier.BlueSwordmanTag();
@@ -254,7 +254,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Blue(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Swordman_Blue(Clone)")
         {
             TagSoldier.YellowSwordmanTag();
             TagSoldier.BlueSwordmanTag();
@@ -271,7 +271,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.name == "TB_Soldier_Swordman_Yellow(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Swordman_Yellow(Clone)")
         {
             TagSoldier.YellowSwordmanTag();
             TagSoldier.RedSwordmanTag();
@@ -301,7 +301,7 @@ public class CombineSoldier : MonoBehaviour
     public void ButtonOn()
     {
 
-        GameManager.instance.Chilk();
+        //GameManager.instance.Chilk();
         UIManager.instance.ButtonDown();
         if (GameManager.instance.hitSolider.transform.gameObject.tag == "RedSwordman")
         {

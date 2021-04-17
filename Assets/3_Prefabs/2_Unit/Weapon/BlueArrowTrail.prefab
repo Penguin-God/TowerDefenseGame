@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: -2853822698858989865}
   - component: {fileID: 1490930096575968293}
   m_Layer: 0
-  m_Name: ArrowTrail
+  m_Name: BlueArrowTrail
   m_TagString: Attack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -122,8 +122,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.9471503, g: 1, b: 0.35294116, a: 1}
-      key1: {r: 0.58862185, g: 0.8773585, b: 0.120016046, a: 1}
+      key0: {r: 0.35294116, g: 0.8411436, b: 1, a: 1}
+      key1: {r: 0.121568635, g: 0.28571475, b: 0.8784314, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -199,5 +199,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15ad5adace7d8ad4dbe30ee8c9a3a850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackUnit: {fileID: 0}
   damage: 30
+  attackUnit: {fileID: 0}

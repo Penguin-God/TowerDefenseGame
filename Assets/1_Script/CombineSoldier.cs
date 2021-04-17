@@ -24,7 +24,7 @@ public class CombineSoldier : MonoBehaviour
 
     public void Combine() // 태그로 바꾸기
     {
-        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Swordman_Red(Clone)" )
+        if (GameManager.instance.hitSolider.gameObject.tag == "RedSwordman" )
         {
             TagSoldier.RedSwordmanTag();
             if (TagSoldier.RedSwordman.Length >= 2)
@@ -56,7 +56,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Swordman_Yellow(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "YellowSwordman")
         {
             TagSoldier.YellowSwordmanTag();
             if (TagSoldier.YellowSwordman.Length >= 2)
@@ -72,7 +72,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Swordman_Green(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "GreenSwordman")
         {
             TagSoldier.GreenSwordmanTag();
             if (TagSoldier.GreenSwordman.Length >= 2)
@@ -88,7 +88,39 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Archer_Red(Clone)") 
+        if (GameManager.instance.hitSolider.gameObject.tag == "OrangeSwordman")
+        {
+            TagSoldier.OrangeSwordmanTag();
+            if (TagSoldier.OrangeSwordman.Length >= 2)
+            {
+
+                Destroy(TagSoldier.OrangeSwordman[0]);
+                Destroy(TagSoldier.OrangeSwordman[1]);
+
+
+                SoldierChoose(4, 4, 1, 1);
+                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+                UIManager.instance.ButtonDown();
+            }
+        }
+
+        if (GameManager.instance.hitSolider.gameObject.tag == "VioletSwordman")
+        {
+            TagSoldier.VioletSwordmanTag();
+            if (TagSoldier.VioletSwordman.Length >= 2)
+            {
+
+                Destroy(TagSoldier.VioletSwordman[0]);
+                Destroy(TagSoldier.VioletSwordman[1]);
+
+
+                SoldierChoose(5, 5, 1, 1);
+                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+                UIManager.instance.ButtonDown();
+            }
+        }
+
+        if (GameManager.instance.hitSolider.gameObject.tag == "RedArcher") 
         {
             TagSoldier.RedSwordmanTag();
             TagSoldier.RedArcherTag();
@@ -126,7 +158,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Archer_Yellow(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "YellowArcher")
         {
             TagSoldier.YellowSwordmanTag();
             TagSoldier.YellowArcherTag();
@@ -145,10 +177,10 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Archer_Green(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "GreenArcher")
         {
             TagSoldier.BlueSwordmanTag();
-            TagSoldier.YellowArcherTag();
+            TagSoldier.YellowSwordmanTag();
             TagSoldier.GreenArcherTag();
             if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.GreenArcher.Length >= 2)
             {
@@ -165,7 +197,47 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Spearman_Red(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "OrangeArcher")
+        {
+            TagSoldier.RedSwordmanTag();
+            TagSoldier.YellowSwordmanTag();
+            TagSoldier.OrangeArcherTag();
+            if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.OrangeArcher.Length >= 2)
+            {
+
+                Destroy(TagSoldier.RedSwordman[0]);
+                Destroy(TagSoldier.YellowSwordman[0]);
+                Destroy(TagSoldier.OrangeArcher[0]);
+                Destroy(TagSoldier.OrangeArcher[1]);
+
+
+                SoldierChoose(4, 4, 2, 2);
+                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+                UIManager.instance.ButtonDown();
+            }
+        }
+
+        if (GameManager.instance.hitSolider.gameObject.tag == "VioletArcher")
+        {
+            TagSoldier.BlueSwordmanTag();
+            TagSoldier.RedSwordmanTag();
+            TagSoldier.VioletArcherTag();
+            if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.RedSwordman.Length >= 1 && TagSoldier.VioletArcher.Length >= 2)
+            {
+
+                Destroy(TagSoldier.RedSwordman[0]);
+                Destroy(TagSoldier.YellowSwordman[0]);
+                Destroy(TagSoldier.VioletArcher[0]);
+                Destroy(TagSoldier.VioletArcher[1]);
+
+
+                SoldierChoose(5, 5, 2, 2);
+                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+                UIManager.instance.ButtonDown();
+            }
+        }
+
+        if (GameManager.instance.hitSolider.gameObject.tag == "RedSpearman")
         {
             TagSoldier.RedSpearmanTag();
             if (TagSoldier.RedSpearman.Length >= 2)
@@ -197,7 +269,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Spearman_Yellow(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "YellowSpearman")
         {
             TagSoldier.YellowSpearmanTag();
             if (TagSoldier.YellowSpearman.Length >= 2)
@@ -213,7 +285,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Spearman_Green(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "GreenSpearman")
         {
             TagSoldier.GreenSpearmanTag();
             TagSoldier.BlueArcherTag();
@@ -232,12 +304,52 @@ public class CombineSoldier : MonoBehaviour
                 UIManager.instance.ButtonDown();
             }
         }
-        //UIManager.instance.ButtonDown();
+
+        if (GameManager.instance.hitSolider.gameObject.tag == "OrangeSpearman")
+        {
+            TagSoldier.OrangeSpearmanTag();
+            TagSoldier.RedArcherTag();
+            TagSoldier.YellowArcherTag();
+            if (TagSoldier.OrangeSpearman.Length >= 2 && TagSoldier.RedArcher.Length >= 1 && TagSoldier.YellowArcher.Length >= 1)
+            {
+
+                Destroy(TagSoldier.OrangeSpearman[0]);
+                Destroy(TagSoldier.OrangeSpearman[1]);
+                Destroy(TagSoldier.RedArcher[0]);
+                Destroy(TagSoldier.YellowArcher[0]);
+
+
+                SoldierChoose(4, 4, 3, 3);
+                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+                UIManager.instance.ButtonDown();
+            }
+        }
+
+        if (GameManager.instance.hitSolider.gameObject.tag == "VioletSpearman")
+        {
+            TagSoldier.VioletSpearmanTag();
+            TagSoldier.BlueArcherTag();
+            TagSoldier.RedArcherTag();
+            if (TagSoldier.VioletSpearman.Length >= 2 && TagSoldier.BlueArcher.Length >= 1 && TagSoldier.RedArcher.Length >= 1)
+            {
+
+                Destroy(TagSoldier.VioletSpearman[0]);
+                Destroy(TagSoldier.VioletSpearman[1]);
+                Destroy(TagSoldier.RedArcher[0]);
+                Destroy(TagSoldier.YellowArcher[0]);
+
+
+                SoldierChoose(5, 5, 3, 3);
+                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+                UIManager.instance.ButtonDown();
+            }
+        }
+
     }
 
     public void otherCombine()
     {
-        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Swordman_Red(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "RedSwordman")
         {
             TagSoldier.RedSwordmanTag();
             TagSoldier.BlueSwordmanTag();
@@ -254,7 +366,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Swordman_Blue(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "BlueSwordman")
         {
             TagSoldier.YellowSwordmanTag();
             TagSoldier.BlueSwordmanTag();
@@ -271,7 +383,7 @@ public class CombineSoldier : MonoBehaviour
             }
         }
 
-        if (GameManager.instance.hitSolider.gameObject.tag == "TB_Soldier_Swordman_Yellow(Clone)")
+        if (GameManager.instance.hitSolider.gameObject.tag == "YellowSwordman")
         {
             TagSoldier.YellowSwordmanTag();
             TagSoldier.RedSwordmanTag();
@@ -326,6 +438,16 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.SetActiveButton(true, 3, 0);
         }
 
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "OrangeSwordman")
+        {
+            UIManager.instance.SetActiveButton(true, 4, 0);
+        }
+
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "VioletSwordman")
+        {
+            UIManager.instance.SetActiveButton(true, 5, 0);
+        }
+
         if (GameManager.instance.hitSolider.transform.gameObject.tag == "RedArcher")
         {
             UIManager.instance.SetActiveButton(true, 0, 1);
@@ -346,6 +468,16 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.SetActiveButton(true, 3, 1);
         }
 
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "OrangeArcher")
+        {
+            UIManager.instance.SetActiveButton(true, 4, 1);
+        }
+
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "VioletArcher")
+        {
+            UIManager.instance.SetActiveButton(true, 5, 1);
+        }
+
         if (GameManager.instance.hitSolider.transform.gameObject.tag == "RedSpearman")
         {
             UIManager.instance.SetActiveButton(true, 0, 2);
@@ -364,6 +496,16 @@ public class CombineSoldier : MonoBehaviour
         if (GameManager.instance.hitSolider.transform.gameObject.tag == "GreenSpearman")
         {
             UIManager.instance.SetActiveButton(true, 3, 2);
+        }
+
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "OrangeSpearman")
+        {
+            UIManager.instance.SetActiveButton(true, 4, 2);
+        }
+
+        if (GameManager.instance.hitSolider.transform.gameObject.tag == "VioletSpearman")
+        {
+            UIManager.instance.SetActiveButton(true, 5, 2);
         }
 
     }

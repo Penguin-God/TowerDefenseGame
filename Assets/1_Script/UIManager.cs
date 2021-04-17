@@ -70,14 +70,20 @@ public class UIManager : MonoBehaviour
         SetActiveButton(false, 1, 0);
         SetActiveButton(false, 2, 0);
         SetActiveButton(false, 3, 0);
+        SetActiveButton(false, 4, 0);
+        SetActiveButton(false, 5, 0);
         SetActiveButton(false, 0, 1);
         SetActiveButton(false, 1, 1);
         SetActiveButton(false, 2, 1);
         SetActiveButton(false, 3, 1);
+        SetActiveButton(false, 4, 1);
+        SetActiveButton(false, 5, 1);
         SetActiveButton(false, 0, 2);
         SetActiveButton(false, 1, 2);
         SetActiveButton(false, 2, 2);
         SetActiveButton(false, 3, 2);
+        SetActiveButton(false, 4, 2);
+        SetActiveButton(false, 5, 2);
 
         SetActiveButton2(false, 0, 0);
         SetActiveButton2(false, 1, 0);

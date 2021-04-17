@@ -20,6 +20,14 @@ public class SoldiersTags : MonoBehaviour
     public GameObject[] GreenArcher;
     public GameObject[] GreenSpearman;
     public GameObject[] GreenMage;
+    public GameObject[] OrangeSwordman;
+    public GameObject[] OrangeArcher;
+    public GameObject[] OrangeSpearman;
+    public GameObject[] OrangeMage;
+    public GameObject[] VioletSwordman;
+    public GameObject[] VioletArcher;
+    public GameObject[] VioletSpearman;
+    public GameObject[] VioletMage;
     void Start()
     {
         
@@ -106,6 +114,48 @@ public class SoldiersTags : MonoBehaviour
     public void GreenMageTag()
     {
         GreenMage = GameObject.FindGameObjectsWithTag("GreenMage");
+
+    }
+
+    public void OrangeSwordmanTag()
+    {
+        OrangeSwordman = GameObject.FindGameObjectsWithTag("OrangeSwordman");
+
+    }
+    public void OrangeArcherTag()
+    {
+        OrangeArcher = GameObject.FindGameObjectsWithTag("OrangeArcher");
+
+    }
+    public void OrangeSpearmanTag()
+    {
+        OrangeSpearman = GameObject.FindGameObjectsWithTag("OrangeSpearman");
+
+    }
+    public void OrangeMageTag()
+    {
+        OrangeMage = GameObject.FindGameObjectsWithTag("OrangeMage");
+
+    }
+
+    public void VioletSwordmanTag()
+    {
+        VioletSwordman = GameObject.FindGameObjectsWithTag("VioletSwordman");
+
+    }
+    public void VioletArcherTag()
+    {
+        VioletArcher = GameObject.FindGameObjectsWithTag("VioletArcher");
+
+    }
+    public void VioletSpearmanTag()
+    {
+        VioletSpearman = GameObject.FindGameObjectsWithTag("VioletSpearman");
+
+    }
+    public void VioletMageTag()
+    {
+        VioletMage = GameObject.FindGameObjectsWithTag("VioletMage");
 
     }
 }

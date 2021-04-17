@@ -78,6 +78,8 @@ public class Enemy : MonoBehaviour
         parent.position = new Vector3(500, 500, 500);
         enemySpawn.currentEnemyList.Remove(this.gameObject);
         ResetVariable();
+        GameManager.instance.Gold += 1;
+        UIManager.instance.UpdateGoldText(GameManager.instance.Gold); // 돈벌기 추가
     }
 
     void ResetVariable()

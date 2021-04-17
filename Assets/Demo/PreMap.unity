@@ -333,7 +333,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBE68\uAC04\uC544\uCC98"
+  m_Text: "\uD30C\uB780\uB9C8\uBC95\uC0AC"
 --- !u!222 &9594988
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2863,6 +2863,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8993878285500084639, guid: 8cf4d672d4e5e3848b00ac195b387355,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993878285500084639, guid: 8cf4d672d4e5e3848b00ac195b387355,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993878285500084639, guid: 8cf4d672d4e5e3848b00ac195b387355,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993878285500084639, guid: 8cf4d672d4e5e3848b00ac195b387355,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3283,6 +3298,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 464004088055449516, guid: 37b7d41650b96c345b2cf8ce48fcf98a,
         type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 464004088055449516, guid: 37b7d41650b96c345b2cf8ce48fcf98a,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 464004088055449516, guid: 37b7d41650b96c345b2cf8ce48fcf98a,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 464004088055449516, guid: 37b7d41650b96c345b2cf8ce48fcf98a,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -3330,6 +3360,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 464004088101323761, guid: 37b7d41650b96c345b2cf8ce48fcf98a,
+        type: 3}
+      propertyPath: Combine
+      value: 
+      objectReference: {fileID: 1076024915}
+    - target: {fileID: 1391705231825972432, guid: 37b7d41650b96c345b2cf8ce48fcf98a,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37b7d41650b96c345b2cf8ce48fcf98a, type: 3}
@@ -4738,6 +4778,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 638153077}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &648649257 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3121596322090877764, guid: 611e0c79108bf4540898c3ddebd5387c,
+    type: 3}
+  m_PrefabInstance: {fileID: 1409602837}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &648649263
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648649257}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.2178977
+  m_Height: 2.8291357
+  m_Direction: 1
+  m_Center: {x: 0.21789765, y: 1.8617955, z: -0.27206933}
 --- !u!1 &649217757
 GameObject:
   m_ObjectHideFlags: 0
@@ -5255,7 +5315,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC8FC\uD669\uC544\uCC98"
+  m_Text: "\uC8FC\uD669\uB9C8\uBC95\uC0AC"
 --- !u!222 &674673346
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5541,6 +5601,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931745909913792144, guid: b99cdff4ee30fa44798e20a945776310,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931745909913792144, guid: b99cdff4ee30fa44798e20a945776310,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931745909913792144, guid: b99cdff4ee30fa44798e20a945776310,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6931745909913792144, guid: b99cdff4ee30fa44798e20a945776310,
         type: 3}
@@ -7997,6 +8072,14 @@ MonoBehaviour:
   GreenArcher: []
   GreenSpearman: []
   GreenMage: []
+  OrangeSwordman: []
+  OrangeArcher: []
+  OrangeSpearman: []
+  OrangeMage: []
+  VioletSwordman: []
+  VioletArcher: []
+  VioletSpearman: []
+  VioletMage: []
 --- !u!114 &1076024917
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8554,6 +8637,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1126132347}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1132800570 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8148257199348242115, guid: 1e059af96a94cf44f8b4ce6202c501c5,
+    type: 3}
+  m_PrefabInstance: {fileID: 1733705499}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1132800576
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1132800570}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.2310736
+  m_Height: 4.39017
+  m_Direction: 1
+  m_Center: {x: 0.21007752, y: 2.522077, z: -0.095807076}
 --- !u!1 &1137670001
 GameObject:
   m_ObjectHideFlags: 0
@@ -12134,6 +12237,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
+    - target: {fileID: 3121596322090877766, guid: 611e0c79108bf4540898c3ddebd5387c,
+        type: 3}
+      propertyPath: Combine
+      value: 
+      objectReference: {fileID: 1076024915}
     - target: {fileID: 7679401171088106676, guid: 611e0c79108bf4540898c3ddebd5387c,
         type: 3}
       propertyPath: m_Name
@@ -12143,6 +12251,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679401171088106678, guid: 611e0c79108bf4540898c3ddebd5387c,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679401171088106678, guid: 611e0c79108bf4540898c3ddebd5387c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7679401171088106678, guid: 611e0c79108bf4540898c3ddebd5387c,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 7679401171088106678, guid: 611e0c79108bf4540898c3ddebd5387c,
         type: 3}
@@ -12533,7 +12656,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBCF4\uB77C\uC544\uCC98"
+  m_Text: "\uBCF4\uB77C\uB9C8\uBC95\uC0AC"
 --- !u!222 &1436285356
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13864,6 +13987,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
+    - target: {fileID: 31673267759872258, guid: d42acb3c35a75354181bcb3cba82f4f2,
+        type: 3}
+      propertyPath: Combine
+      value: 
+      objectReference: {fileID: 1076024915}
     - target: {fileID: 4583945138574837633, guid: d42acb3c35a75354181bcb3cba82f4f2,
         type: 3}
       propertyPath: m_Name
@@ -13873,6 +14001,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583945138574837646, guid: d42acb3c35a75354181bcb3cba82f4f2,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583945138574837646, guid: d42acb3c35a75354181bcb3cba82f4f2,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583945138574837646, guid: d42acb3c35a75354181bcb3cba82f4f2,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4583945138574837646, guid: d42acb3c35a75354181bcb3cba82f4f2,
         type: 3}
@@ -14064,7 +14207,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBE68\uAC04\uC544\uCC98"
+  m_Text: "\uB178\uB780\uB9C8\uBC95\uC0AC"
 --- !u!222 &1587981762
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15410,6 +15553,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
+    - target: {fileID: 6050898850487632020, guid: 1e059af96a94cf44f8b4ce6202c501c5,
+        type: 3}
+      propertyPath: Combine
+      value: 
+      objectReference: {fileID: 1076024915}
     - target: {fileID: 8148257199809515133, guid: 1e059af96a94cf44f8b4ce6202c501c5,
         type: 3}
       propertyPath: m_Name
@@ -15419,6 +15567,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8148257199809515135, guid: 1e059af96a94cf44f8b4ce6202c501c5,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8148257199809515135, guid: 1e059af96a94cf44f8b4ce6202c501c5,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8148257199809515135, guid: 1e059af96a94cf44f8b4ce6202c501c5,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8148257199809515135, guid: 1e059af96a94cf44f8b4ce6202c501c5,
         type: 3}
@@ -15613,6 +15776,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9199773262359240796, guid: 5d62ab9f6e012bb41940e8f669a9ae7c,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9199773262359240796, guid: 5d62ab9f6e012bb41940e8f669a9ae7c,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 9199773262359240796, guid: 5d62ab9f6e012bb41940e8f669a9ae7c,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 9199773262359240796, guid: 5d62ab9f6e012bb41940e8f669a9ae7c,
         type: 3}
@@ -16126,6 +16304,26 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1770357639}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1782824238 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5454637040427765980, guid: d42acb3c35a75354181bcb3cba82f4f2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1566892778}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &1782824244
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782824238}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.3116744
+  m_Height: 4.2802835
+  m_Direction: 1
+  m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
 --- !u!1 &1786423467 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 9199773262703147232, guid: 5d62ab9f6e012bb41940e8f669a9ae7c,
@@ -16249,7 +16447,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBE68\uAC04\uC544\uCC98"
+  m_Text: "\uBE68\uAC04\uB9C8\uBC95\uC0AC"
 --- !u!222 &1808553954
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16634,6 +16832,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343415014830645100, guid: 2a0805aa1bacd58469d5655b8e173611,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343415014830645100, guid: 2a0805aa1bacd58469d5655b8e173611,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343415014830645100, guid: 2a0805aa1bacd58469d5655b8e173611,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 3343415014830645100, guid: 2a0805aa1bacd58469d5655b8e173611,
         type: 3}
@@ -18615,7 +18828,7 @@ MonoBehaviour:
   damage: 50
   nav: {fileID: 0}
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  Combine: {fileID: 1076024915}
   magicLight: {fileID: 2912166253203895019}
   energyBall: {fileID: 273563849445638938, guid: d89438b7480e2134db2d7b0e1f6cba09,
     type: 3}
@@ -18641,7 +18854,7 @@ MonoBehaviour:
   damage: 50
   nav: {fileID: 0}
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  Combine: {fileID: 1076024915}
   magicLight: {fileID: 2912166254425992598}
   energyBall: {fileID: 273563849445638938, guid: d89438b7480e2134db2d7b0e1f6cba09,
     type: 3}
@@ -18667,7 +18880,7 @@ MonoBehaviour:
   damage: 50
   nav: {fileID: 0}
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  Combine: {fileID: 1076024915}
   magicLight: {fileID: 2912166253813785556}
   energyBall: {fileID: 273563849445638938, guid: d89438b7480e2134db2d7b0e1f6cba09,
     type: 3}
@@ -18693,7 +18906,7 @@ MonoBehaviour:
   damage: 50
   nav: {fileID: 0}
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  Combine: {fileID: 1076024915}
   magicLight: {fileID: 2912166253752904536}
   energyBall: {fileID: 273563849445638938, guid: d89438b7480e2134db2d7b0e1f6cba09,
     type: 3}
@@ -19597,7 +19810,7 @@ Transform:
   m_GameObject: {fileID: 464004085997988538}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 468257239058089397}
   m_Father: {fileID: 491011130}
@@ -19641,7 +19854,7 @@ MonoBehaviour:
   damage: 30
   nav: {fileID: 0}
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  Combine: {fileID: 1076024915}
   arrow: {fileID: 3088359444298159365, guid: e9e6b2938da7ee9459ba9b132e9e841d, type: 3}
   arrowTransform: {fileID: 464004087598232614}
 --- !u!54 &464004086119362283
@@ -19846,7 +20059,7 @@ Transform:
   m_GameObject: {fileID: 464004086691992412}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 468257239438097491}
   m_Father: {fileID: 151015499}
@@ -19906,7 +20119,7 @@ MonoBehaviour:
   damage: 30
   nav: {fileID: 0}
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  Combine: {fileID: 1076024915}
   arrow: {fileID: 3088359444298159365, guid: e9e6b2938da7ee9459ba9b132e9e841d, type: 3}
   arrowTransform: {fileID: 464004087977430464}
 --- !u!4 &464004086944933492
@@ -20101,7 +20314,7 @@ MonoBehaviour:
   damage: 30
   nav: {fileID: 0}
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  Combine: {fileID: 1076024915}
   arrow: {fileID: 3088359444298159365, guid: e9e6b2938da7ee9459ba9b132e9e841d, type: 3}
   arrowTransform: {fileID: 464004086303602045}
 --- !u!1 &464004087299894241
@@ -20130,7 +20343,7 @@ Transform:
   m_GameObject: {fileID: 464004087299894241}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 468257237764900078}
   m_Father: {fileID: 1843802991}
@@ -20350,7 +20563,7 @@ MonoBehaviour:
   damage: 30
   nav: {fileID: 0}
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  Combine: {fileID: 1076024915}
   arrow: {fileID: 3088359444298159365, guid: e9e6b2938da7ee9459ba9b132e9e841d, type: 3}
   arrowTransform: {fileID: 464004086944933492}
 --- !u!195 &464004087722866918
@@ -20384,7 +20597,7 @@ Transform:
   m_GameObject: {fileID: 464004087722866920}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 468257238472038375}
   m_Father: {fileID: 856121791}
@@ -20994,7 +21207,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465619794630690805}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1.1375299
   m_Height: 2.903198
@@ -21008,7 +21221,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465619793953439251}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1.1375299
   m_Height: 2.903198
@@ -21022,7 +21235,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465619793478796974}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1.1375299
   m_Height: 2.903198
@@ -21036,7 +21249,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 465619793038005671}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1.1375299
   m_Height: 2.903198
@@ -22635,7 +22848,7 @@ MonoBehaviour:
   damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  Combine: {fileID: 1076024915}
   trail: {fileID: 3670309884793431970}
 --- !u!95 &3121596320517061958
 Animator:
@@ -22669,6 +22882,7 @@ GameObject:
   - component: {fileID: 3099176234786475843}
   - component: {fileID: 3121596320517061958}
   - component: {fileID: 3121596320517061957}
+  - component: {fileID: 3121596320517061960}
   m_Layer: 0
   m_Name: TB_Soldier_Spearman_Yellow
   m_TagString: YellowSpearman
@@ -22676,6 +22890,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!136 &3121596320517061960
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3121596320517061959}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.2178977
+  m_Height: 2.8291357
+  m_Direction: 1
+  m_Center: {x: 0.21789765, y: 1.8617955, z: -0.27206933}
 --- !u!114 &3121596321258015288
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22697,7 +22925,7 @@ MonoBehaviour:
   damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  Combine: {fileID: 1076024915}
   trail: {fileID: 3670309884729118943}
 --- !u!1 &3121596321258015290
 GameObject:
@@ -22712,6 +22940,7 @@ GameObject:
   - component: {fileID: 3099176235521161278}
   - component: {fileID: 3121596321258015291}
   - component: {fileID: 3121596321258015288}
+  - component: {fileID: 3121596321258015292}
   m_Layer: 0
   m_Name: TB_Soldier_Spearman_Orange
   m_TagString: OrangeSpearman
@@ -22738,6 +22967,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!136 &3121596321258015292
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3121596321258015290}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.2178977
+  m_Height: 2.8291357
+  m_Direction: 1
+  m_Center: {x: 0.21789765, y: 1.8617955, z: -0.27206933}
 --- !u!1 &3121596321912932032
 GameObject:
   m_ObjectHideFlags: 0
@@ -22751,6 +22994,7 @@ GameObject:
   - component: {fileID: 3099176236108969156}
   - component: {fileID: 3121596321912932033}
   - component: {fileID: 3121596321912932034}
+  - component: {fileID: 3121596321912932035}
   m_Layer: 0
   m_Name: TB_Soldier_Spearman_Green
   m_TagString: GreenSpearman
@@ -22798,8 +23042,22 @@ MonoBehaviour:
   damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  Combine: {fileID: 1076024915}
   trail: {fileID: 3670309883974720549}
+--- !u!136 &3121596321912932035
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3121596321912932032}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.2178977
+  m_Height: 2.8291357
+  m_Direction: 1
+  m_Center: {x: 0.21789765, y: 1.8617955, z: -0.27206933}
 --- !u!95 &3121596322294991944
 Animator:
   serializedVersion: 3
@@ -22832,6 +23090,7 @@ GameObject:
   - component: {fileID: 3099176236499156557}
   - component: {fileID: 3121596322294991944}
   - component: {fileID: 3121596322294991947}
+  - component: {fileID: 3121596322294991946}
   m_Layer: 0
   m_Name: TB_Soldier_Spearman_Violet
   m_TagString: VioletSpearman
@@ -22839,6 +23098,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!136 &3121596322294991946
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3121596322294991945}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.2178977
+  m_Height: 2.8291357
+  m_Direction: 1
+  m_Center: {x: 0.21789765, y: 1.8617955, z: -0.27206933}
 --- !u!114 &3121596322294991947
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22860,7 +23133,7 @@ MonoBehaviour:
   damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  Combine: {fileID: 1076024915}
   trail: {fileID: 3670309883551241900}
 --- !u!1 &3122570672845648259
 GameObject:
@@ -23625,7 +23898,7 @@ Transform:
   m_GameObject: {fileID: 4583945138524598398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 5456553728908874257}
   m_Father: {fileID: 856121791}
@@ -23696,7 +23969,7 @@ Transform:
   m_GameObject: {fileID: 4583945138925057712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 5456553729309332703}
   m_Father: {fileID: 151015499}
@@ -23733,7 +24006,7 @@ Transform:
   m_GameObject: {fileID: 4583945138985811516}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 5456553729252777043}
   m_Father: {fileID: 491011130}
@@ -23782,7 +24055,7 @@ Transform:
   m_GameObject: {fileID: 4583945139458338563}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 5456553727703616876}
   m_Father: {fileID: 1843802991}
@@ -23842,6 +24115,7 @@ GameObject:
   - component: {fileID: 5468839687234656191}
   - component: {fileID: 5454637040343738146}
   - component: {fileID: 31673267810012925}
+  - component: {fileID: 5454637040343738148}
   m_Layer: 0
   m_Name: TB_Soldier_Mage_Violet
   m_TagString: VioletMage
@@ -23849,6 +24123,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!136 &5454637040343738148
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454637040343738147}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.3116744
+  m_Height: 4.2802835
+  m_Direction: 1
+  m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
 --- !u!95 &5454637041281327596
 Animator:
   serializedVersion: 3
@@ -23881,6 +24169,7 @@ GameObject:
   - component: {fileID: 5468839686829805937}
   - component: {fileID: 5454637041281327596}
   - component: {fileID: 31673268210731059}
+  - component: {fileID: 5454637041281327598}
   m_Layer: 0
   m_Name: TB_Soldier_Mage_Orange
   m_TagString: OrangeMage
@@ -23888,6 +24177,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!136 &5454637041281327598
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454637041281327597}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.3116744
+  m_Height: 4.2802835
+  m_Direction: 1
+  m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
 --- !u!95 &5454637041358989664
 Animator:
   serializedVersion: 3
@@ -23920,6 +24223,7 @@ GameObject:
   - component: {fileID: 5468839686907468285}
   - component: {fileID: 5454637041358989664}
   - component: {fileID: 31673268137263295}
+  - component: {fileID: 5454637041358989666}
   m_Layer: 0
   m_Name: TB_Soldier_Mage_Green
   m_TagString: GreenMage
@@ -23927,6 +24231,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!136 &5454637041358989666
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454637041358989665}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.3116744
+  m_Height: 4.2802835
+  m_Direction: 1
+  m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
 --- !u!1 &5454637041822840926
 GameObject:
   m_ObjectHideFlags: 0
@@ -23940,6 +24258,7 @@ GameObject:
   - component: {fileID: 5468839686305204418}
   - component: {fileID: 5454637041822840927}
   - component: {fileID: 31673266596270464}
+  - component: {fileID: 5454637041822840928}
   m_Layer: 0
   m_Name: TB_Soldier_Mage_Yellow
   m_TagString: YellowMage
@@ -23966,6 +24285,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!136 &5454637041822840928
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454637041822840926}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.3116744
+  m_Height: 4.2802835
+  m_Direction: 1
+  m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
 --- !u!1 &5454817337076585469
 GameObject:
   m_ObjectHideFlags: 0
@@ -24559,7 +24892,7 @@ MonoBehaviour:
   damage: 25
   nav: {fileID: 0}
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  Combine: {fileID: 1076024915}
   trail: {fileID: 8148257199408843405}
 --- !u!114 &6050898851554690293
 MonoBehaviour:
@@ -24582,7 +24915,7 @@ MonoBehaviour:
   damage: 25
   nav: {fileID: 0}
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  Combine: {fileID: 1076024915}
   trail: {fileID: 8148257198301883602}
 --- !u!114 &6050898852014288270
 MonoBehaviour:
@@ -24605,7 +24938,7 @@ MonoBehaviour:
   damage: 25
   nav: {fileID: 0}
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  Combine: {fileID: 1076024915}
   trail: {fileID: 8148257197974898089}
 --- !u!114 &6050898852363149368
 MonoBehaviour:
@@ -24628,7 +24961,7 @@ MonoBehaviour:
   damage: 25
   nav: {fileID: 0}
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  Combine: {fileID: 1076024915}
   trail: {fileID: 8148257198030293023}
 --- !u!114 &6662870981021779429
 MonoBehaviour:
@@ -24810,7 +25143,7 @@ Transform:
   m_GameObject: {fileID: 7679401171425389497}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 3118382421700373673}
   m_Father: {fileID: 856121791}
@@ -24842,7 +25175,7 @@ Transform:
   m_GameObject: {fileID: 7679401171848601904}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 3118382421276599840}
   m_Father: {fileID: 491011130}
@@ -24879,7 +25212,7 @@ Transform:
   m_GameObject: {fileID: 7679401172402728394}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 3118382420522101466}
   m_Father: {fileID: 151015499}
@@ -24955,7 +25288,7 @@ Transform:
   m_GameObject: {fileID: 7679401172601248439}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 3118382420460510631}
   m_Father: {fileID: 1843802991}
@@ -24991,6 +25324,7 @@ GameObject:
   - component: {fileID: 8148257197921942495}
   - component: {fileID: 6050898852014288270}
   - component: {fileID: 6781934752007930571}
+  - component: {fileID: 8148257197921942490}
   m_Layer: 0
   m_Name: TB_Soldier_Swordman_Yellow
   m_TagString: YellowSwordman
@@ -24998,6 +25332,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!136 &8148257197921942490
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8148257197921942489}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.2310736
+  m_Height: 4.39017
+  m_Direction: 1
+  m_Center: {x: 0.21007752, y: 2.522077, z: -0.095807076}
 --- !u!33 &8148257197921942492
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -25110,7 +25458,7 @@ Transform:
   m_GameObject: {fileID: 8148257197925887697}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 8148257197984708203}
   m_Father: {fileID: 856121791}
@@ -25363,7 +25711,7 @@ Transform:
   m_GameObject: {fileID: 8148257197980754791}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 8148257197921942493}
   m_Father: {fileID: 1843802991}
@@ -25463,6 +25811,7 @@ GameObject:
   - component: {fileID: 8148257197984708201}
   - component: {fileID: 6050898852363149368}
   - component: {fileID: 6781934752346836861}
+  - component: {fileID: 8148257197984708208}
   m_Layer: 0
   m_Name: TB_Soldier_Swordman_Violet
   m_TagString: VioletSwordman
@@ -25470,6 +25819,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!136 &8148257197984708208
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8148257197984708207}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.2310736
+  m_Height: 4.39017
+  m_Direction: 1
+  m_Center: {x: 0.21007752, y: 2.522077, z: -0.095807076}
 --- !u!23 &8148257198004811364
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -25859,6 +26222,7 @@ GameObject:
   - component: {fileID: 8148257198249988772}
   - component: {fileID: 6050898851554690293}
   - component: {fileID: 6781934752620522416}
+  - component: {fileID: 8148257198249988771}
   m_Layer: 0
   m_Name: TB_Soldier_Swordman_Orange
   m_TagString: OrangeSwordman
@@ -25866,6 +26230,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!136 &8148257198249988771
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8148257198249988770}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.2310736
+  m_Height: 4.39017
+  m_Direction: 1
+  m_Center: {x: 0.21007752, y: 2.522077, z: -0.095807076}
 --- !u!23 &8148257198249988772
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -26093,7 +26471,7 @@ Transform:
   m_GameObject: {fileID: 8148257198728038940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 8148257198249988774}
   m_Father: {fileID: 151015499}
@@ -26574,13 +26952,28 @@ GameObject:
   - component: {fileID: 8148257199424075003}
   - component: {fileID: 6050898850514313898}
   - component: {fileID: 6781934753728138735}
+  - component: {fileID: 8148257199424075006}
   m_Layer: 0
   m_Name: TB_Soldier_Swordman_Green
-  m_TagString: OrangeSwordman
+  m_TagString: GreenSwordman
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!136 &8148257199424075006
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8148257199424075005}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.2310736
+  m_Height: 4.39017
+  m_Direction: 1
+  m_Center: {x: 0.21007752, y: 2.522077, z: -0.095807076}
 --- !u!1 &8148257199451124980
 GameObject:
   m_ObjectHideFlags: 0
@@ -26932,7 +27325,7 @@ Transform:
   m_GameObject: {fileID: 8148257199768038467}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 8148257199424075001}
   m_Father: {fileID: 491011130}

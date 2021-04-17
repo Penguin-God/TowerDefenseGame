@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         isGameover = false;
-        Gold = 300;
+        Gold = 25;
         UIManager.instance.UpdateGoldText(Gold);
     }
 

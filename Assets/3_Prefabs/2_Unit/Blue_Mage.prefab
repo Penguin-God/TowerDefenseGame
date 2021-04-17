@@ -199,6 +199,8 @@ MonoBehaviour:
   attackDelayTime: 3
   attackRange: 40
   isAttack: 0
+  chaseRange: 0
+  damage: 50
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}

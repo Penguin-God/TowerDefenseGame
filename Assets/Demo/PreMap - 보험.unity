@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44971025, g: 0.49977946, b: 0.57563627, a: 1}
+  m_IndirectSpecularColor: {r: 0.4497105, g: 0.49977976, b: 0.5756375, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1020,6 +1020,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 1935670631}
@@ -1048,6 +1050,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Blue_Mage
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993878285500084624, guid: 8cf4d672d4e5e3848b00ac195b387355,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8993878285500084639, guid: 8cf4d672d4e5e3848b00ac195b387355,
         type: 3}
@@ -1435,6 +1442,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
@@ -2225,6 +2234,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
@@ -3265,6 +3276,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
@@ -3299,6 +3312,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 1935670631}
@@ -4092,6 +4107,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
@@ -4305,6 +4322,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Blue_Archer
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343415014830645091, guid: 2a0805aa1bacd58469d5655b8e173611,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3343415014830645100, guid: 2a0805aa1bacd58469d5655b8e173611,
         type: 3}
@@ -4915,6 +4937,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
@@ -5171,6 +5195,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
@@ -6525,6 +6551,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 1935670631}
@@ -6888,6 +6916,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
@@ -6922,6 +6952,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 1935670631}
@@ -7089,6 +7121,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
@@ -7647,6 +7681,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
@@ -7908,6 +7944,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blue_Spearman
       objectReference: {fileID: 0}
+    - target: {fileID: 6931745909913792146, guid: b99cdff4ee30fa44798e20a945776310,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b99cdff4ee30fa44798e20a945776310, type: 3}
 --- !u!1 &1308305218
@@ -8133,6 +8174,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
@@ -9583,6 +9626,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
@@ -9938,6 +9983,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
@@ -10021,6 +10068,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Blue_SwordMan
+      objectReference: {fileID: 0}
+    - target: {fileID: 9199773262359240798, guid: 5d62ab9f6e012bb41940e8f669a9ae7c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d62ab9f6e012bb41940e8f669a9ae7c, type: 3}
@@ -10370,6 +10422,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
@@ -10999,6 +11053,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
@@ -11271,6 +11327,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
@@ -11663,6 +11721,8 @@ MonoBehaviour:
   attackDelayTime: 0
   attackRange: 0
   isAttack: 0
+  chaseRange: 150
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 1935670631}

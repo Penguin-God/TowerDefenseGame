@@ -234,10 +234,11 @@ MonoBehaviour:
   attackDelayTime: 2
   attackRange: 6
   isAttack: 0
+  chaseRange: 0
+  damage: 25
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
-  swordCollider: {fileID: 9199773262820173412}
   trail: {fileID: 9199773262726743696}
 --- !u!95 &5811332866082718194
 Animator:
@@ -406,7 +407,6 @@ GameObject:
   - component: {fileID: 9199773262820173415}
   - component: {fileID: 9199773262820173413}
   - component: {fileID: 9199773262820173414}
-  - component: {fileID: 9199773262820173412}
   - component: {fileID: 5966988104332259239}
   m_Layer: 0
   m_Name: TB_Soldier_Swordman_Hand
@@ -477,19 +477,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &9199773262820173412
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9199773262820173408}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 7, z: 1}
-  m_Center: {x: -0.19450784, y: 1.6238313, z: -0.010872486}
 --- !u!114 &5966988104332259239
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -502,8 +489,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15ad5adace7d8ad4dbe30ee8c9a3a850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackUnit: {fileID: 9199773262703147232}
   damage: 40
+  attackUnit: {fileID: 9199773262703147232}
 --- !u!1 &9199773263048669819
 GameObject:
   m_ObjectHideFlags: 0

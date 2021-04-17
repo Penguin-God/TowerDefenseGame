@@ -5,7 +5,7 @@ using UnityEngine;
 public class Unit_Spearman : TeamSoldier
 {
     private Animator animator;
-    public BoxCollider spearCollider;
+    //public BoxCollider spearCollider;
     public GameObject trail;
 
     private void Awake()
@@ -21,12 +21,12 @@ public class Unit_Spearman : TeamSoldier
 
     IEnumerator SwordAttack()
     {
+        yield return new WaitForSeconds(0.3f);
         animator.SetTrigger("isAttack");
-        yield return new WaitForSeconds(0.75f);
+        yield return new WaitForSeconds(0.45f);
         trail.SetActive(true);
-        spearCollider.enabled = true;
-        yield return new WaitForSeconds(0.5f);
-        spearCollider.enabled = false;
+        yield return new WaitForSeconds(0.3f);
+        HitMeeleAttack();
         trail.SetActive(false);
     }
 }

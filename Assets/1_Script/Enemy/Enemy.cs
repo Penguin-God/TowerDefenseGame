@@ -60,10 +60,16 @@ public class Enemy : MonoBehaviour
         parent.transform.position = wayPoint.position;
     }
 
-    void OnDamage(int damage)
+    public void OnDamage(int damage)
     {
         currentHp -= damage;
         hpSlider.value = currentHp;
+        if (currentHp <= 0)
+        {
+            Dead();
+            if(teamSoldier != null) teamSoldier.UpdateTarget();
+        }
+
     }
 
     public void Dead() // 임시
@@ -85,6 +91,7 @@ public class Enemy : MonoBehaviour
         this.speed = 0;
     }
 
+    private TeamSoldier teamSoldier;
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "WayPoint")
@@ -95,16 +102,10 @@ public class Enemy : MonoBehaviour
         else if(other.tag == "Attack") // 임시
         {
             AttackWeapon attackWeapon = other.GetComponentInParent<AttackWeapon>();
-            TeamSoldier teamSoldier = attackWeapon.attackUnit.GetComponent<TeamSoldier>();
-
+            teamSoldier = attackWeapon.attackUnit.GetComponent<TeamSoldier>();
             if (teamSoldier.unitType == TeamSoldier.Type.rangeUnit) Destroy(other.gameObject); // 원거리 공격이면 총알 삭제
 
             OnDamage(attackWeapon.damage);
-            if (currentHp <= 0)
-            {
-                Dead();
-                teamSoldier.UpdateTarget();
-            }
         }
     }
 }

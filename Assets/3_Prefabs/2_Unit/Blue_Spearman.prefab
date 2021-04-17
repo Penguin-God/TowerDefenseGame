@@ -199,10 +199,11 @@ MonoBehaviour:
   attackDelayTime: 2.5
   attackRange: 6
   isAttack: 0
+  chaseRange: 0
+  damage: 40
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
-  spearCollider: {fileID: 2446085877156265040}
   trail: {fileID: 4057668380961248135}
 --- !u!1 &2446085877156265042
 GameObject:
@@ -215,7 +216,6 @@ GameObject:
   - component: {fileID: 2442959013490941192}
   - component: {fileID: 2418108325095426492}
   - component: {fileID: 2424566249226954840}
-  - component: {fileID: 2446085877156265040}
   - component: {fileID: 2446085877156265043}
   m_Layer: 0
   m_Name: TB_Soldier_Spearman_Hand
@@ -286,19 +286,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &2446085877156265040
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2446085877156265042}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 0
-  serializedVersion: 2
-  m_Size: {x: 0.58383286, y: 6.334586, z: 1.2256835}
-  m_Center: {x: -0.29306036, y: 1.842793, z: 0.46284163}
 --- !u!114 &2446085877156265043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -311,8 +298,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15ad5adace7d8ad4dbe30ee8c9a3a850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damage: 0
   attackUnit: {fileID: 2446043732783778146}
-  damage: 50
 --- !u!1 &2447053268781909414
 GameObject:
   m_ObjectHideFlags: 0
@@ -472,7 +459,7 @@ TrailRenderer:
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
+        value: 0.72727203
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -480,8 +467,8 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.8835165
-        value: 0
+        time: 1
+        value: 0.2402649
         inSlope: 0
         outSlope: 0
         tangentMode: 0
@@ -571,7 +558,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 20
+  m_Speed: 16
   m_Acceleration: 12
   avoidancePriority: 50
   m_AngularSpeed: 1500

@@ -47,7 +47,7 @@ public class SoldiersTags : MonoBehaviour
     }
     public void RedSpearmanTag()
     {
-        RedSwordman = GameObject.FindGameObjectsWithTag("RedSpearman");
+        RedSpearman = GameObject.FindGameObjectsWithTag("RedSpearman");
 
     }
     public void RedMageTag()

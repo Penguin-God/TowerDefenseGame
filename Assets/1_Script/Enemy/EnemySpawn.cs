@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class EnemySpawn : MonoBehaviour
@@ -49,9 +50,9 @@ public class EnemySpawn : MonoBehaviour
 
     void StageStart() // 재귀함수 무한반복
     {
-        if (stageNumber == 20)
+        if (stageNumber == 50 && currentEnemyList.Count == 0)
         {
-            Time.timeScale = 0;
+            GameManager.instance.Clear();
             return;
         }
         UIManager.instance.UpdateStageText(stageNumber);

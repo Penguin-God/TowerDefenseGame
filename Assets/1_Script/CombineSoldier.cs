@@ -328,7 +328,7 @@ public class CombineSoldier : MonoBehaviour
                 Destroy(TagSoldier.VioletSpearman[0]);
                 Destroy(TagSoldier.VioletSpearman[1]);
                 Destroy(TagSoldier.RedArcher[0]);
-                Destroy(TagSoldier.YellowArcher[0]);
+                Destroy(TagSoldier.BlueArcher[0]);
 
 
                 SoldierChoose(5, 5, 3, 3);

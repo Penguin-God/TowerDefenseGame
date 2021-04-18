@@ -24,7 +24,8 @@ public class UIManager : MonoBehaviour
     public Text EnemyCount;
     public Text GameOverText;
     public Text RestartText;
-   // public Button SoldierCombine;
+    public Text ClearText;
+    // public Button SoldierCombine;
     public Button SellSoldier;
     public GameObject SoldiersCombineButton;
     public GameObject SoldiersCombineButton2;
@@ -61,6 +62,12 @@ public class UIManager : MonoBehaviour
     public void SetActiveGameOverUI()
     {
         GameOverText.gameObject.SetActive(true);
+        RestartText.gameObject.SetActive(true);
+    }
+
+    public void SetActiveClearUI()
+    {
+        ClearText.gameObject.SetActive(true);
         RestartText.gameObject.SetActive(true);
     }
 

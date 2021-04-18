@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public int Gold;
     public EnemySpawn enemySpawn;
     private bool isGameover;
+    public bool isClear;
     // public GameObject[] Soldiers;
 
 
@@ -47,7 +48,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         isGameover = false;
-        Gold = 25;
+        Gold = 20;
         UIManager.instance.UpdateGoldText(Gold);
     }
 
@@ -62,6 +63,11 @@ public class GameManager : MonoBehaviour
             //enemySpaw.EnemyofCount -= 1;
         }
         if (isGameover && Input.anyKeyDown)
+        {
+            Restart();
+        }
+
+        if (isClear && Input.anyKeyDown)
         {
             Restart();
         }
@@ -91,6 +97,14 @@ public class GameManager : MonoBehaviour
         UIManager.instance.SetActiveGameOverUI();
         Time.timeScale = 0;
         
+    }
+
+    public void Clear()
+    {
+        isClear = true;
+        UIManager.instance.SetActiveClearUI();
+        Time.timeScale = 0;
+
     }
 
     public void Restart()

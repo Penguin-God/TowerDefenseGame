@@ -72,12 +72,13 @@ public class Enemy : MonoBehaviour
 
     }
 
-    public void Dead() // 임시
+    public void Dead()
     {
         parent.gameObject.SetActive(false);
         parent.position = new Vector3(500, 500, 500);
         enemySpawn.currentEnemyList.Remove(this.gameObject);
         ResetVariable();
+
         GameManager.instance.Gold += 1;
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold); // 돈벌기 추가
     }

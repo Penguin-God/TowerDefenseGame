@@ -8,19 +8,11 @@ public class CombineSoldier : MonoBehaviour
     private int Soldiernumber;
     public CreateDefenser createdefenser;
     public SoldiersTags TagSoldier;
-    
 
     void Start()
     {
         TagSoldier = GetComponent<SoldiersTags>();
     }
-
-    
-    //void Update()
-    //{
-        
-        
-    //}
 
     public void Combine() // 태그로 바꾸기
     {
@@ -409,8 +401,8 @@ public class CombineSoldier : MonoBehaviour
         Soldiernumber = Random.Range(Soldiernumber1, Soldiernumber2);
         
     }
-
-    public void ButtonOn()
+    
+    public void ButtonOn() // 박준 메모 - Dictionary 자료구조랑 swich문 사용해서 바꿀 예정
     {
 
         //GameManager.instance.Chilk();

@@ -5,10 +5,14 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
-    private int maxHp = 30;
-    private int minHp = 50;
+    private int maxHp = 50;
+    private int minHp = 75;
     private float maxSpeed = 10f;
     private float minSpeed = 5f;
+
+    private int respawnEnemyCount;
+    private float maxRespawnDelayTime = 1f;
+    private float minRespawnDelayTime = 4f;
 
     public GameObject[] enemyPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
     public int stageNumber;
@@ -20,9 +24,9 @@ public class EnemySpawn : MonoBehaviour
 
     public List<GameObject> currentEnemyList; // 생성된 enemy의 게임 오브젝트가 담겨있음
 
-    private void Awake()
+    private void Start()
     {
-        // 풀링 관련 변수 설정
+        // 게임 관련 변수 설정
         enemyCount = 51;
         enemyArrays = new GameObject[enemyPrefab.Length, enemyCount];
 
@@ -36,26 +40,45 @@ public class EnemySpawn : MonoBehaviour
             }
         }
         countArray = new int[enemyPrefab.Length];
+        respawnEnemyCount = 15;
 
+        // 스테이지 시작
         StageStart();
     }
 
-    IEnumerator StageCoroutine(int instantEnemyNumber, int enemyCount, int waitTime) // 재귀함수 무한반복
+
+    void StageStart() // 재귀함수 무한반복
     {
+        if (stageNumber == 20)
+        {
+            Time.timeScale = 0;
+            return;
+        }
+        UIManager.instance.UpdateStageText(stageNumber);
+        StartCoroutine(StageCoroutine(respawnEnemyCount));
+    }
+
+    IEnumerator StageCoroutine(int enemyCount)
+    {
+        // 관련 변수 세팅
+        int instantEnemyNumber = Random.Range(0, enemyPrefab.Length);
         int hp = SetRandomHp();
         float speed = SetRandomSeepd();
+        float respawnDelayTime = SetRandom_RespawnDelayTime();
+
         while (enemyCount > 0)
         {
+            // enemy 소환
             GameObject enemy = enemyArrays[instantEnemyNumber, countArray[instantEnemyNumber]];
             SetEnemyData(enemy, hp, speed);
             RespawnEnemy(instantEnemyNumber);
 
-            //currentEnemyList.Add(enemy);
+            // 변수 설정
             countArray[instantEnemyNumber]++;
             enemyCount--;
 
             ResetEnemyCount(instantEnemyNumber);
-            yield return new WaitForSeconds(waitTime);
+            yield return new WaitForSeconds(respawnDelayTime);
         }
         stageNumber += 1;
         yield return new WaitForSeconds(3f);
@@ -70,45 +93,21 @@ public class EnemySpawn : MonoBehaviour
         return enemy;
     }
 
-    void SetEnemyData(GameObject enemyObject, int hp, float speed) // enemy에 값 부여
+    void SetEnemyData(GameObject enemyObject, int hp, float speed) // enemy 능력치 설정
     {
         Enemy enemy = enemyObject.GetComponentInChildren<Enemy>();
         enemy.ResetStatus(hp, speed);
     }
 
-    void ResetEnemyCount(int enemyNumber)
-    {
-        if (countArray[enemyNumber] > enemyCount - 1) countArray[enemyNumber] = 0;
-    }
 
-    int[] SetStageData()
-    {
-        int[] stageData = new int[3];
-        stageData[0] = Random.Range(0, 4);
-        stageData[1] = Random.Range(5, 16);
-        stageData[2] = Random.Range(1, 4);
-        return stageData;
-    }
-
-    void StageStart()
-    {
-        if (stageNumber == 20)
-        {
-            Time.timeScale = 0;
-            return;
-        }
-        UIManager.instance.UpdateStageText(stageNumber);
-        int[] stageData = SetStageData();
-        StartCoroutine(StageCoroutine(stageData[0], stageData[1], stageData[2]));
-    }
 
     int SetRandomHp()
     {
         // satge에 따른 가중치 변수들
-        int stageHpWeight = stageNumber * 2;
+        int stageHpWeight = stageNumber * 3;
 
         int enemyMinHp = minHp + stageHpWeight;
-        int enemyMaxHp = maxHp + stageHpWeight;
+        int enemyMaxHp = maxHp + (stageHpWeight * 2);
         int hp = Random.Range(enemyMinHp, enemyMaxHp);
         return hp;
     }
@@ -122,5 +121,16 @@ public class EnemySpawn : MonoBehaviour
         float enemyMaxSpeed = maxSpeed + stageSpeedWeight;
         float speed = Random.Range(enemyMinSpeed, enemyMaxSpeed);
         return speed;
+    }
+
+    float SetRandom_RespawnDelayTime()
+    {
+        float delayRime = Random.Range(minRespawnDelayTime, maxRespawnDelayTime);
+        return delayRime;
+    }
+
+    void ResetEnemyCount(int enemyNumber) // 풀링 배열 index의 range가 오버되면 0으로 초기화
+    {
+        if (countArray[enemyNumber] > enemyCount - 1) countArray[enemyNumber] = 0;
     }
 }

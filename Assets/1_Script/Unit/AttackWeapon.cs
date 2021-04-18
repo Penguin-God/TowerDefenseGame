@@ -10,6 +10,8 @@ public class AttackWeapon : MonoBehaviour
 
     private void Start()
     {
-        this.damage = attackUnit.GetComponent<TeamSoldier>().damage;
+        TeamSoldier teamSoldier = attackUnit.GetComponent<TeamSoldier>();
+        this.damage = teamSoldier.damage;
+        if(teamSoldier.unitType == TeamSoldier.Type.rangeUnit) Destroy(gameObject, 5);
     }
 }

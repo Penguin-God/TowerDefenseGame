@@ -44,24 +44,21 @@ public class TeamSoldier : MonoBehaviour
         isAttack = false;
     }
 
-    IEnumerator NavCoroutine()
+    IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
     {
         while (true)
         {
-            if (target != null && Vector3.Distance(target.position, this.transform.position) < chaseRange)
+            if (target != null && Vector3.Distance(target.position, this.transform.position) < chaseRange) // target이 추적범위 안에 있으면
             {
                 float dir = Vector3.Distance(target.position, this.transform.position);
-                if (unitType == Type.meleeUnit && dir < 15f) MeleeMove();
 
-                if (dir < attackRange)
+                // 유닛 타입에 따른 움직임
+                if (unitType == Type.meleeUnit && dir < 15f) MeleeMove();
+                else RangeChaseMove(dir);
+
+                if (dir < attackRange) // 적이 사정거리 안에 있을때
                 {
                     if (!isAttack) NormalAttack();
-
-                    if (unitType == Type.rangeUnit) nav.speed = 0.1f;
-                }
-                else if (unitType == Type.rangeUnit)
-                {
-                    nav.speed = speed;
                 }
                 nav.SetDestination(target.position);
             }
@@ -70,7 +67,7 @@ public class TeamSoldier : MonoBehaviour
         }
     }
 
-    public void UpdateTarget()
+    public void UpdateTarget() // 가장 짧은 거리에 있는 적으로 타겟을 바꿈
     {
         float shortDistance = chaseRange;
         GameObject targetObject = null;
@@ -90,23 +87,27 @@ public class TeamSoldier : MonoBehaviour
             }
         }
         // 위에서 업데이트된 targetObject의 정보를 가지고 nav 및 변수 설정
-        if (targetObject != null) 
+        SetChaseSetting(targetObject); 
+    }
+
+    void SetChaseSetting(GameObject targetObject) // 추적 관련 변수 설정
+    {
+        if (targetObject != null)
         {
             nav.isStopped = false;
             target = targetObject.transform;
         }
-        else 
+        else
         {
             nav.isStopped = true;
             target = null;
-        } 
+        }
     }
 
-    public void NextUpdateTarget()
+    void RangeChaseMove(float distance)
     {
-        bool hasRemoveEnemy = enemySpawn.currentEnemyList.Contains(target.gameObject);
-        if (hasRemoveEnemy) enemySpawn.currentEnemyList.Remove(target.gameObject);
-        UpdateTarget();
+        if (distance < attackRange) nav.speed = 0.1f;
+        else nav.speed = this.speed;
     }
 
     protected void LookEnemy()
@@ -149,7 +150,7 @@ public class TeamSoldier : MonoBehaviour
         else nav.speed = this.speed;
     }
 
-    protected void HitMeeleAttack()
+    protected void HitMeeleAttack() // 근접공격 타겟팅
     {
         Enemy enemy = GetEnemyScript();
         if (enemy != null && Vector3.Distance(enemy.transform.position, this.transform.position) < attackRange) 

@@ -21,6 +21,7 @@ public class UIManager : MonoBehaviour
 
     public Text StageText;
     public Text GoldText;
+    public Text FoodText;
     public Text EnemyCount;
     public Text GameOverText;
     public Text RestartText;
@@ -38,6 +39,11 @@ public class UIManager : MonoBehaviour
     public void UpdateGoldText(int Gold)
     {
         GoldText.text = ""+Gold;
+    }
+
+    public void UpdateFoodText(int Food)
+    {
+        FoodText.text = "" + Food;
     }
 
     public void SetActiveButton(bool show, int SoldiersColornumber, int Soldiersnumber)

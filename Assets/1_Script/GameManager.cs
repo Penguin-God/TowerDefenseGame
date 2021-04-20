@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
 {
     private int Stage;
     public int Gold;
+    public int Food;
     public EnemySpawn enemySpawn;
     private bool isGameover;
     public bool isClear;
@@ -49,7 +50,9 @@ public class GameManager : MonoBehaviour
     {
         isGameover = false;
         Gold = 20;
+        Food = 0;
         UIManager.instance.UpdateGoldText(Gold);
+        UIManager.instance.UpdateFoodText(Food);
     }
 
 

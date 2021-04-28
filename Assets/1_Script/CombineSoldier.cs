@@ -402,7 +402,7 @@ public class CombineSoldier : MonoBehaviour
         
     }
     
-    public void ButtonOn() // 박준 메모 - Dictionary 자료구조랑 swich문 사용해서 바꿀 예정
+    public void ButtonOn()
     {
 
         //GameManager.instance.Chilk();

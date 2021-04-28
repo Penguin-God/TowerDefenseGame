@@ -23,7 +23,7 @@ public class Unit_Archer : TeamSoldier
 
     IEnumerator ArrowAttack()
     {
-        LookEnemy();
+        //LookEnemy();
         yield return new WaitForSeconds(0.2f);
         nav.isStopped = true;
         trail.SetActive(false);
@@ -38,12 +38,13 @@ public class Unit_Archer : TeamSoldier
         nav.isStopped = false;
         trail.SetActive(true);
     }
-
-    // 스킬 코드
-    //NavMeshAgent arrowNav = instantArrow.GetComponent<NavMeshAgent>();
-    //    while (instantArrow != null)
-    //    {
-    //        arrowNav.SetDestination(target.position);
-    //        yield return new WaitForSeconds(0.08f);
-    //    }
 }
+
+
+// 스킬 코드
+//NavMeshAgent arrowNav = instantArrow.GetComponent<NavMeshAgent>();
+//    while (instantArrow != null)
+//    {
+//        arrowNav.SetDestination(target.position);
+//        yield return new WaitForSeconds(0.08f);
+//    }

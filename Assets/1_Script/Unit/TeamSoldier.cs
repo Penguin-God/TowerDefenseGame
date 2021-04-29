@@ -150,6 +150,13 @@ public class TeamSoldier : MonoBehaviour
         else nav.speed = this.speed;
     }
 
+    protected float Check_EnemyToUnit_Deg()
+    {
+        Enemy enemy = GetEnemyScript();
+        float enemyDot = Vector3.Dot(enemy.dir.normalized, (target.position - this.transform.position).normalized);
+        return enemyDot;
+    }
+
     protected void HitMeeleAttack() // 근접공격 타겟팅
     {
         Enemy enemy = GetEnemyScript();

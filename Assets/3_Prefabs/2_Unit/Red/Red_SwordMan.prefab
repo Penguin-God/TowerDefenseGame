@@ -187,6 +187,7 @@ GameObject:
   - component: {fileID: 8148257199348242117}
   - component: {fileID: 6050898850487632020}
   - component: {fileID: 6781934753668706257}
+  - component: {fileID: 1132800576}
   m_Layer: 0
   m_Name: TB_Soldier_Swordman_Red
   m_TagString: RedSwordman
@@ -276,7 +277,7 @@ MonoBehaviour:
   attackRange: 6
   isAttack: 0
   chaseRange: 0
-  damage: 25
+  damage: 8
   nav: {fileID: 0}
   target: {fileID: 0}
   Combine: {fileID: 0}
@@ -300,6 +301,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!136 &1132800576
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8148257199348242115}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.2310736
+  m_Height: 4.39017
+  m_Direction: 1
+  m_Center: {x: 0.21007752, y: 2.522077, z: -0.095807076}
 --- !u!1 &8148257199367628979
 GameObject:
   m_ObjectHideFlags: 0
@@ -463,7 +478,7 @@ Transform:
   m_GameObject: {fileID: 8148257199809515133}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 8148257199348242119}
   m_Father: {fileID: 0}

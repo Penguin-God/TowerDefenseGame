@@ -23,7 +23,7 @@ public class Unit_Archer : TeamSoldier
 
     IEnumerator ArrowAttack()
     {
-        //LookEnemy();
+        LookEnemy();
         yield return new WaitForSeconds(0.2f);
         nav.isStopped = true;
         trail.SetActive(false);

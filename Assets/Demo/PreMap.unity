@@ -647,7 +647,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uD30C\uB780\uC544\uCC98 : 1"
 --- !u!222 &48853310
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -922,7 +922,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 81592013}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikVioletMageButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1129,7 +1129,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 88943065}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikOrangeSwordmanButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1967,7 +1967,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 120222428}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikOrangeSpearmanButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2424,7 +2424,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBE68\uAC04\uAE30\uC0AC : 1\n"
+  m_Text: "\uBE68\uAC04\uCC3D\uBCD1 : 1"
 --- !u!222 &153399528
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2557,7 +2557,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uCD08\uB85D\uCC3D\uBCD1 : 1"
 --- !u!222 &175620662
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4019,7 +4019,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uBCF4\uB77C\uCC3D\uBCD1 : 1"
 --- !u!222 &311093961
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4241,7 +4241,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uBCF4\uB77C\uAE30\uC0AC : 0"
 --- !u!222 &332866899
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4508,7 +4508,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uCD08\uB85D\uAE30\uC0AC : 0"
 --- !u!222 &353062670
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4622,7 +4622,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 354458838}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikOrangeMageButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5459,7 +5459,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uD30C\uB780\uB9C8\uBCCD\uC0AC: 1"
 --- !u!222 &405861769
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5765,7 +5765,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uBCF4\uB77C\uC544\uCC98 : 1"
 --- !u!222 &428172584
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7036,7 +7036,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uC8FC\uD669\uB9C8\uBCCD\uC0AC: 1"
 --- !u!222 &560247460
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7657,7 +7657,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 618876640}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikBlueMageButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8186,7 +8186,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 660754910}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikBlueArcherButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8675,7 +8675,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uC8FC\uD669\uC544\uCC98 : 1"
 --- !u!222 &677742045
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8746,6 +8746,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4011419109529354, guid: 78d033e56acf71b4aaaaf15258f7d948,
     type: 3}
   m_PrefabInstance: {fileID: 684220751}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &688607091 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4324885144169672, guid: a8502fe342b2aa542ad7a8270f622c7a,
+    type: 3}
+  m_PrefabInstance: {fileID: 964142658}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &692228926
 PrefabInstance:
@@ -9643,8 +9649,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: FirstChilk
+      - m_Target: {fileID: 1726173157}
+        m_MethodName: ChlikRedSwordmanButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10039,7 +10045,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uB178\uB780\uC544\uCC98 : 1"
 --- !u!222 &766837095
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10153,7 +10159,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 775654219}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikVioletSpearmanButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -10737,7 +10743,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uCD08\uB85D\uC544\uCC98 : 1"
 --- !u!222 &839386610
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11324,7 +11330,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBE68\uAC04\uAE30\uC0AC : 1\n"
+  m_Text: "\uBE68\uAC04\uAE30\uC0AC : 0\n"
 --- !u!222 &905074427
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11968,6 +11974,75 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 960027795}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &964142658
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1513012276}
+    m_Modifications:
+    - target: {fileID: 1405821561356086, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
+      propertyPath: m_Name
+      value: TB_ArcherTower_Lvl1_Cons
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324885144169672, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324885144169672, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324885144169672, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324885144169672, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324885144169672, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324885144169672, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324885144169672, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324885144169672, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324885144169672, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324885144169672, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324885144169672, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324885144169672, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324885144169672, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4324885144169672, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
 --- !u!1001 &970973658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12324,7 +12399,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uC8FC\uD669\uCC3D\uBCD1 : 1"
 --- !u!222 &1008147468
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13512,7 +13587,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1112554920}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikBlueSwordmanButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14089,7 +14164,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1181125951}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikYellowSwordmanButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15059,7 +15134,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1231006834}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikVioletSwordmanButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -15305,7 +15380,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBE68\uAC04\uAE30\uC0AC : 1\n"
+  m_Text: "\uBCF4\uB77C\uB9C8\uBCCD\uC0AC: 1"
 --- !u!222 &1242635657
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15408,9 +15483,16 @@ MonoBehaviour:
   GameOverText: {fileID: 471040327}
   RestartText: {fileID: 1677124502}
   ClearText: {fileID: 612136387}
+  SoldiersTag: {fileID: 1076024916}
   SellSoldier: {fileID: 9098162}
   SoldiersCombineButton: {fileID: 195027588}
   SoldiersCombineButton2: {fileID: 1830339238}
+  RedSwordmanText: {fileID: 905074426}
+  BlueSwordmanText: {fileID: 1783574030}
+  YellowSwordmanText: {fileID: 1451654186}
+  GreenSwordmanText: {fileID: 353062669}
+  OrangeSwordmanText: {fileID: 1821890854}
+  VioletSwordmanText: {fileID: 332866898}
 --- !u!114 &1261802213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16235,7 +16317,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1291137042}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikVioletArcherButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16465,7 +16547,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1297050217}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikRedSpearmanButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16817,7 +16899,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uD30C\uB780\uCC3D\uBCD1 : 1"
 --- !u!222 &1307997887
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -17655,7 +17737,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1363455321}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikGreenArcherButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18055,7 +18137,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1381310772}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikBlueSpearmanButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18386,7 +18468,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uCD08\uB85D\uB9C8\uBCCD\uC0AC: 1"
 --- !u!222 &1413881422
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18648,7 +18730,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uB178\uB780\uB9C8\uBCCD\uC0AC: 1"
 --- !u!222 &1432750668
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19064,7 +19146,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uB178\uB780\uAE30\uC0AC : 0"
 --- !u!222 &1451654187
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19839,6 +19921,7 @@ Transform:
   - {fileID: 531815965}
   - {fileID: 139059795}
   - {fileID: 656434843}
+  - {fileID: 688607091}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20014,7 +20097,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1517225285}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikYellowArcherButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -20542,7 +20625,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uBCF4\uB77C\uB9C8\uBCCD\uC0AC: 1"
 --- !u!222 &1545346539
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21719,7 +21802,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1640251743}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikGreenSwordmanButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -22621,6 +22704,7 @@ MonoBehaviour:
   Gold: 300
   Food: 0
   enemySpawn: {fileID: 763533793}
+  SoldiersTag: {fileID: 0}
   isClear: 0
   enemyCount: 0
   hitSolider: {fileID: 0}
@@ -22743,7 +22827,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1701503910}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikGreenSpearmanButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -23092,7 +23176,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1724215274}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikRedArcherButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -23176,7 +23260,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 611.5, y: 245.5}
+  m_AnchoredPosition: {x: 611, y: 245.5}
   m_SizeDelta: {x: 100, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1726173157
@@ -23917,7 +24001,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1747631371}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikYellowSpearmanButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -24645,7 +24729,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uD30C\uB780\uAE30\uC0AC : 0\n"
 --- !u!222 &1783574031
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24855,7 +24939,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uC8FC\uD669\uAE30\uC0AC : 0"
 --- !u!222 &1821890855
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25863,7 +25947,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1892303315}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikRedMageButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -27115,7 +27199,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2009221300}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikOrangeArcherButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -28190,7 +28274,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2074261707}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikYellowMageButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -28342,7 +28426,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2075477807}
-        m_MethodName: FirstChilk
+        m_MethodName: ChlikGreenMageButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -28458,7 +28542,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB\uAD00\uB9AC\n"
+  m_Text: "\uB178\uB780\uCC3D\uBCD1 : 1"
 --- !u!222 &2090093385
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -28833,7 +28917,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBE68\uAC04\uAE30\uC0AC : 1\n"
+  m_Text: "\uBE68\uAC04\uC544\uCC98 : 1"
 --- !u!222 &2122146325
 CanvasRenderer:
   m_ObjectHideFlags: 0

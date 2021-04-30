@@ -26,6 +26,7 @@ public class UIManager : MonoBehaviour
     public Text GameOverText;
     public Text RestartText;
     public Text ClearText;
+    public SoldiersTags SoldiersTag;
     // public Button SoldierCombine;
     public Button SellSoldier;
     public GameObject SoldiersCombineButton;
@@ -101,6 +102,41 @@ public class UIManager : MonoBehaviour
         SetActiveButton2(false, 0, 0);
         SetActiveButton2(false, 1, 0);
         SetActiveButton2(false, 2, 0);
+    }
+
+    public Text RedSwordmanText;
+    public Text BlueSwordmanText;
+    public Text YellowSwordmanText;
+    public Text GreenSwordmanText;
+    public Text OrangeSwordmanText;
+    public Text VioletSwordmanText;
+
+    public void UpdateSwordmanText(int RedSwordman,int BlueSwordman, int YellowSwordman, int GreenSwordman, int OrangeSwordman, int VioletSwordman)
+    {
+        RedSwordmanText.text = "빨간기사 :" + RedSwordman;
+        BlueSwordmanText.text = "파란기사 :" + BlueSwordman;
+        YellowSwordmanText.text = "노란기사 :" + YellowSwordman;
+        GreenSwordmanText.text = "초록기사 :" + GreenSwordman;
+        OrangeSwordmanText.text = "주황기사 :" + OrangeSwordman;
+        VioletSwordmanText.text = "보라기사 :" + VioletSwordman;
+    }
+
+    public void UpdateSwordmanCount()
+    {
+        SoldiersTag.RedSwordmanTag();
+        SoldiersTag.BlueSwordmanTag();
+        SoldiersTag.YellowSwordmanTag();
+        SoldiersTag.GreenSwordmanTag();
+        SoldiersTag.OrangeSwordmanTag();
+        SoldiersTag.VioletSwordmanTag();
+        int RedSwordmanCount = SoldiersTag.RedSwordman.Length;
+        int BlueSwordmanCount = SoldiersTag.BlueSwordman.Length;
+        int YellowSwordmanCount = SoldiersTag.YellowSwordman.Length;
+        int GreenSwordmanCount = SoldiersTag.GreenSwordman.Length;
+        int OrangeSwordmanCount = SoldiersTag.OrangeSwordman.Length;
+        int VioletSwordmanCount = SoldiersTag.VioletSwordman.Length;
+
+        UpdateSwordmanText(RedSwordmanCount, BlueSwordmanCount, YellowSwordmanCount, GreenSwordmanCount, OrangeSwordmanCount, VioletSwordmanCount);
     }
 }
 

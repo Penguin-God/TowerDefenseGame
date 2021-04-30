@@ -29,6 +29,7 @@ public class CombineSoldier : MonoBehaviour
                 SoldierChoose(0, 0, 1, 1);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
+                UIManager.instance.UpdateSwordmanCount();
             }
         }
 
@@ -45,6 +46,7 @@ public class CombineSoldier : MonoBehaviour
                 SoldierChoose(1, 1, 1, 1);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
+                UIManager.instance.UpdateSwordmanCount();
             }
         }
 
@@ -61,6 +63,7 @@ public class CombineSoldier : MonoBehaviour
                 SoldierChoose(2, 2, 1, 1);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
+                UIManager.instance.UpdateSwordmanCount();
             }
         }
 
@@ -77,6 +80,7 @@ public class CombineSoldier : MonoBehaviour
                 SoldierChoose(3, 3, 1, 1);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
+                UIManager.instance.UpdateSwordmanCount();
             }
         }
 
@@ -93,6 +97,7 @@ public class CombineSoldier : MonoBehaviour
                 SoldierChoose(4, 4, 1, 1);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
+                UIManager.instance.UpdateSwordmanCount();
             }
         }
 
@@ -109,6 +114,7 @@ public class CombineSoldier : MonoBehaviour
                 SoldierChoose(5, 5, 1, 1);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
+                UIManager.instance.UpdateSwordmanCount();
             }
         }
 
@@ -355,6 +361,7 @@ public class CombineSoldier : MonoBehaviour
                 SoldierChoose(5, 5, 0, 0);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
+                UIManager.instance.UpdateSwordmanCount();
             }
         }
 
@@ -372,6 +379,7 @@ public class CombineSoldier : MonoBehaviour
                 SoldierChoose(3, 3, 0, 0);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
+                UIManager.instance.UpdateSwordmanCount();
             }
         }
 
@@ -389,6 +397,7 @@ public class CombineSoldier : MonoBehaviour
                 SoldierChoose(4, 4, 0, 0);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
+                UIManager.instance.UpdateSwordmanCount();
             }
         }
         //UIManager.instance.ButtonDown();
@@ -506,6 +515,7 @@ public class CombineSoldier : MonoBehaviour
     {
         SoldierChoose(0, 3, 0, 0);
         createdefenser.DrawSoldier(Colornumber, Soldiernumber);
+        UIManager.instance.UpdateSwordmanCount();
         // createdefenser.CreateSoldier(Colornumber, Soldiernumber);
         // createdefenser.ExpenditureGold();
     }

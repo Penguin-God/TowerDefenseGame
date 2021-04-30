@@ -206,7 +206,7 @@ MonoBehaviour:
   target: {fileID: 0}
   Combine: {fileID: 0}
   magicLight: {fileID: 7721362944655043704}
-  energyBall: {fileID: 273563849445638938, guid: a8e98f7b8ecd5904283053b0c6439f96,
+  energyBall: {fileID: 7013429795276733673, guid: 5f5d0ee08b27e17499a56c2175922faa,
     type: 3}
   energyBallTransform: {fileID: 7721362943555022681}
 --- !u!136 &915967926

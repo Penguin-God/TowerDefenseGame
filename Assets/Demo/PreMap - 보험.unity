@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44971025, g: 0.49977946, b: 0.57563627, a: 1}
+  m_IndirectSpecularColor: {r: 0.4497105, g: 0.49977976, b: 0.5756375, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -12792,7 +12792,7 @@ GameObject:
   - component: {fileID: 1076024916}
   - component: {fileID: 1076024917}
   m_Layer: 0
-  m_Name: Combiner (2)
+  m_Name: Combiner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15248,9 +15248,16 @@ MonoBehaviour:
   GameOverText: {fileID: 471040327}
   RestartText: {fileID: 1677124502}
   ClearText: {fileID: 612136387}
+  SoldiersTag: {fileID: 0}
   SellSoldier: {fileID: 9098162}
   SoldiersCombineButton: {fileID: 195027588}
   SoldiersCombineButton2: {fileID: 1830339238}
+  RedSwordmanText: {fileID: 0}
+  BlueSwordmanText: {fileID: 0}
+  YellowSwordmanText: {fileID: 0}
+  GreenSwordmanText: {fileID: 0}
+  OrangeSwordmanText: {fileID: 0}
+  VioletSwordmanText: {fileID: 0}
 --- !u!114 &1261802213
 MonoBehaviour:
   m_ObjectHideFlags: 0

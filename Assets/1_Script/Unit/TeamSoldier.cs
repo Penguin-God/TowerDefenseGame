@@ -6,6 +6,8 @@ using UnityEngine.AI;
 
 public class TeamSoldier : MonoBehaviour
 {
+    // 타입 세분화시키기
+
     Transform parentTransform;
     public enum Type { rangeUnit, meleeUnit } // rangeUnit = 원거리 공격 유닛,  meleeUnit = 근거리 공격 유닛
     public Type unitType;
@@ -125,7 +127,8 @@ public class TeamSoldier : MonoBehaviour
 
     protected GameObject CreateBullte(GameObject instantObject, Transform createPositon)
     {
-        GameObject instantBullet = Instantiate(instantObject, createPositon.position, createPositon.rotation);
+        Vector3 instantPosition = new Vector3(createPositon.position.x, 2f, createPositon.position.z);
+        GameObject instantBullet = Instantiate(instantObject, instantPosition, createPositon.rotation);
         AttackWeapon attackWeapon = instantBullet.GetComponent<AttackWeapon>();
         attackWeapon.attackUnit = this.gameObject; // 화살과 적의 충돌감지를 위한 대입
         return instantBullet;

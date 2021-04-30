@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Unit_Mage : TeamSoldier
 {
-    private Enemy enemy;
     private Animator animator;
     public GameObject magicLight;
 
@@ -34,7 +33,7 @@ public class Unit_Mage : TeamSoldier
         if (target != null && Vector3.Distance(target.position, transform.position) < 150f)
         {
             GameObject instantEnergyBall = CreateBullte(energyBall, energyBallTransform);
-            ShotBullet(instantEnergyBall, 2f, 35f);
+            ShotBullet(instantEnergyBall, 2f, 50f);
         }
 
         yield return new WaitForSeconds(0.5f);

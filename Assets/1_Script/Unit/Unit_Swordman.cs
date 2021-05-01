@@ -11,6 +11,14 @@ public class Unit_Swordman : TeamSoldier
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        StartCoroutine(InfiniteAttack());
+    }
+
+    IEnumerator InfiniteAttack()
+    {
+        NormalAttack();
+        yield return new WaitForSeconds(2f);
+        StartCoroutine(InfiniteAttack());
     }
 
     public override void NormalAttack()
@@ -22,10 +30,11 @@ public class Unit_Swordman : TeamSoldier
     IEnumerator SwordAttack()
     {
         animator.SetTrigger("isSword");
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.6f);
         trail.SetActive(true);
         yield return new WaitForSeconds(0.4f);
         HitMeeleAttack(); // 공격 시작 때 적과 HitMeeleAttack() 작동 시 적과 같은 적인지 비교하는 코드 필요
+        yield return new WaitForSeconds(0.2f);
         trail.SetActive(false);
     }
 }

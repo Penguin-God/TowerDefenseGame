@@ -647,7 +647,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB780\uC544\uCC98 : 1"
+  m_Text: "\uD30C\uB780\uC544\uCC98 : 0"
 --- !u!222 &48853310
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5765,7 +5765,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBCF4\uB77C\uC544\uCC98 : 1"
+  m_Text: "\uBCF4\uB77C\uC544\uCC98 : 0"
 --- !u!222 &428172584
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8675,7 +8675,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC8FC\uD669\uC544\uCC98 : 1"
+  m_Text: "\uC8FC\uD669\uC544\uCC98 : 0"
 --- !u!222 &677742045
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10045,7 +10045,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB178\uB780\uC544\uCC98 : 1"
+  m_Text: "\uB178\uB780\uC544\uCC98 : 0"
 --- !u!222 &766837095
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10743,7 +10743,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCD08\uB85D\uC544\uCC98 : 1"
+  m_Text: "\uCD08\uB85D\uC544\uCC98 : 0"
 --- !u!222 &839386610
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15493,6 +15493,12 @@ MonoBehaviour:
   GreenSwordmanText: {fileID: 353062669}
   OrangeSwordmanText: {fileID: 1821890854}
   VioletSwordmanText: {fileID: 332866898}
+  RedArcherText: {fileID: 2122146324}
+  BlueArcherText: {fileID: 48853309}
+  YellowArcherText: {fileID: 766837094}
+  GreenArcherText: {fileID: 839386609}
+  OrangeArcherText: {fileID: 677742044}
+  VioletArcherText: {fileID: 428172583}
 --- !u!114 &1261802213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22704,7 +22710,6 @@ MonoBehaviour:
   Gold: 300
   Food: 0
   enemySpawn: {fileID: 763533793}
-  SoldiersTag: {fileID: 0}
   isClear: 0
   enemyCount: 0
   hitSolider: {fileID: 0}
@@ -28917,7 +28922,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBE68\uAC04\uC544\uCC98 : 1"
+  m_Text: "\uBE68\uAC04\uC544\uCC98 : 0"
 --- !u!222 &2122146325
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -111,6 +111,13 @@ public class UIManager : MonoBehaviour
     public Text OrangeSwordmanText;
     public Text VioletSwordmanText;
 
+    public Text RedArcherText;
+    public Text BlueArcherText;
+    public Text YellowArcherText;
+    public Text GreenArcherText;
+    public Text OrangeArcherText;
+    public Text VioletArcherText;
+
     public void UpdateSwordmanText(int RedSwordman,int BlueSwordman, int YellowSwordman, int GreenSwordman, int OrangeSwordman, int VioletSwordman)
     {
         RedSwordmanText.text = "빨간기사 :" + RedSwordman;
@@ -119,6 +126,16 @@ public class UIManager : MonoBehaviour
         GreenSwordmanText.text = "초록기사 :" + GreenSwordman;
         OrangeSwordmanText.text = "주황기사 :" + OrangeSwordman;
         VioletSwordmanText.text = "보라기사 :" + VioletSwordman;
+    }
+
+    public void UpdateArcherText(int RedArcher, int BlueArcher, int YellowArcher, int GreenArcher, int OrangeArcher, int VioletArcher)
+    {
+        RedArcherText.text = "빨간아처 :" + RedArcher;
+        BlueArcherText.text = "파란아처 :" + BlueArcher;
+        YellowArcherText.text = "노란아처 :" + YellowArcher;
+        GreenArcherText.text = "초록아처 :" + GreenArcher;
+        OrangeArcherText.text = "주황아처 :" + OrangeArcher;
+        VioletArcherText.text = "보라아처 :" + VioletArcher;
     }
 
     public void UpdateSwordmanCount()
@@ -137,6 +154,24 @@ public class UIManager : MonoBehaviour
         int VioletSwordmanCount = SoldiersTag.VioletSwordman.Length;
 
         UpdateSwordmanText(RedSwordmanCount, BlueSwordmanCount, YellowSwordmanCount, GreenSwordmanCount, OrangeSwordmanCount, VioletSwordmanCount);
+    }
+
+    public void UpdateArcherCount()
+    {
+        SoldiersTag.RedArcherTag();
+        SoldiersTag.BlueArcherTag();
+        SoldiersTag.YellowArcherTag();
+        SoldiersTag.GreenArcherTag();
+        SoldiersTag.OrangeArcherTag();
+        SoldiersTag.VioletArcherTag();
+        int RedArcherCount = SoldiersTag.RedSwordman.Length;
+        int BlueArcherCount = SoldiersTag.BlueSwordman.Length;
+        int YellowArcherCount = SoldiersTag.YellowSwordman.Length;
+        int GreenArcherCount = SoldiersTag.GreenSwordman.Length;
+        int OrangeArcherCount = SoldiersTag.OrangeSwordman.Length;
+        int VioletArcherCount = SoldiersTag.VioletSwordman.Length;
+
+        UpdateArcherText(RedArcherCount, BlueArcherCount, YellowArcherCount, GreenArcherCount, OrangeArcherCount, VioletArcherCount);
     }
 }
 

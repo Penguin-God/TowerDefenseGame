@@ -30,6 +30,7 @@ public class CombineSoldier : MonoBehaviour
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
                 UIManager.instance.UpdateSwordmanCount();
+                UIManager.instance.UpdateArcherCount();
             }
         }
 
@@ -47,6 +48,7 @@ public class CombineSoldier : MonoBehaviour
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
                 UIManager.instance.UpdateSwordmanCount();
+                UIManager.instance.UpdateArcherCount();
             }
         }
 
@@ -64,6 +66,7 @@ public class CombineSoldier : MonoBehaviour
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
                 UIManager.instance.UpdateSwordmanCount();
+                UIManager.instance.UpdateArcherCount();
             }
         }
 
@@ -81,6 +84,7 @@ public class CombineSoldier : MonoBehaviour
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
                 UIManager.instance.UpdateSwordmanCount();
+                UIManager.instance.UpdateArcherCount();
             }
         }
 
@@ -98,6 +102,7 @@ public class CombineSoldier : MonoBehaviour
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
                 UIManager.instance.UpdateSwordmanCount();
+                UIManager.instance.UpdateArcherCount();
             }
         }
 
@@ -115,6 +120,7 @@ public class CombineSoldier : MonoBehaviour
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
                 UIManager.instance.UpdateSwordmanCount();
+                UIManager.instance.UpdateArcherCount();
             }
         }
 
@@ -134,6 +140,7 @@ public class CombineSoldier : MonoBehaviour
                 SoldierChoose(0, 0, 2, 2);
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
+                UIManager.instance.UpdateArcherCount();
             }
         }
 

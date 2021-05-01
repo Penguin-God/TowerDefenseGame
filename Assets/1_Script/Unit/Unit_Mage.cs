@@ -23,8 +23,8 @@ public class Unit_Mage : TeamSoldier
 
     IEnumerator MageAttack()
     {
-        LookEnemy();
-        yield return new WaitForSeconds(0.2f);
+        //LookEnemy();
+        //yield return new WaitForSeconds(0.2f);
         animator.SetTrigger("isAttack");
         nav.isStopped = true;
         yield return new WaitForSeconds(0.6f);

@@ -12,6 +12,6 @@ public class AttackWeapon : MonoBehaviour
     {
         TeamSoldier teamSoldier = attackUnit.GetComponent<TeamSoldier>();
         this.damage = teamSoldier.damage;
-        if(teamSoldier.unitType == TeamSoldier.Type.rangeUnit) Destroy(gameObject, 5);
+        if(teamSoldier.unitType == TeamSoldier.Type.archer || teamSoldier.unitType == TeamSoldier.Type.mage) Destroy(gameObject, 5);
     }
 }

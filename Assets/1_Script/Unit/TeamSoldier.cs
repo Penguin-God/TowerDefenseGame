@@ -6,10 +6,10 @@ using UnityEngine.AI;
 
 public class TeamSoldier : MonoBehaviour
 {
-    // 타입 세분화시키기
+    // 원거리 유닛은 target이 움직이는 방향에 가중치를 준 값 추적하기
 
     Transform parentTransform;
-    public enum Type { rangeUnit, meleeUnit } // rangeUnit = 원거리 공격 유닛,  meleeUnit = 근거리 공격 유닛
+    public enum Type { sowrdman, archer, spearman, mage } // rangeUnit = 원거리 공격 유닛,  meleeUnit = 근거리 공격 유닛
     public Type unitType;
 
     public float speed;
@@ -55,7 +55,7 @@ public class TeamSoldier : MonoBehaviour
                 float dir = Vector3.Distance(target.position, this.transform.position);
 
                 // 유닛 타입에 따른 움직임
-                if (unitType == Type.meleeUnit && dir < 15f) MeleeMove();
+                if ((unitType == Type.spearman || unitType == Type.sowrdman) && dir < 15f) MeleeMove();
                 else RangeChaseMove(dir);
 
                 if (dir < attackRange) // 적이 사정거리 안에 있을때

@@ -106,7 +106,7 @@ public class Enemy : MonoBehaviour
         {
             AttackWeapon attackWeapon = other.GetComponentInParent<AttackWeapon>();
             teamSoldier = attackWeapon.attackUnit.GetComponent<TeamSoldier>();
-            if (teamSoldier.unitType == TeamSoldier.Type.rangeUnit) Destroy(other.gameObject); // 원거리 공격이면 총알 삭제
+            if (teamSoldier.unitType == TeamSoldier.Type.archer) Destroy(other.gameObject); // 원거리 공격이면 총알 삭제
 
             OnDamage(attackWeapon.damage);
         }

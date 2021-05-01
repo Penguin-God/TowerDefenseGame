@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class Unit_Archer : TeamSoldier
 {
-    private Enemy enemy;
     private GameObject trail;
     public GameObject arrow;
     public Transform arrowTransform;
@@ -23,7 +22,7 @@ public class Unit_Archer : TeamSoldier
 
     IEnumerator ArrowAttack()
     {
-        LookEnemy();
+        //LookEnemy();
         yield return new WaitForSeconds(0.2f);
         nav.isStopped = true;
         trail.SetActive(false);

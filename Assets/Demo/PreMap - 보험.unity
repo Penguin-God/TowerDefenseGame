@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4497105, g: 0.49977976, b: 0.5756375, a: 1}
+  m_IndirectSpecularColor: {r: 0.44971025, g: 0.49977946, b: 0.57563627, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -15258,6 +15258,12 @@ MonoBehaviour:
   GreenSwordmanText: {fileID: 0}
   OrangeSwordmanText: {fileID: 0}
   VioletSwordmanText: {fileID: 0}
+  RedArcherText: {fileID: 0}
+  BlueArcherText: {fileID: 0}
+  YellowArcherText: {fileID: 0}
+  GreenArcherText: {fileID: 0}
+  OrangeArcherText: {fileID: 0}
+  VioletArcherText: {fileID: 0}
 --- !u!114 &1261802213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29152,6 +29158,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Violet_SwordMan
       objectReference: {fileID: 0}
+    - target: {fileID: 4614286893760708883, guid: fe89360992dadd4418670d0ad705097b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7125906036297420794, guid: fe89360992dadd4418670d0ad705097b,
         type: 3}
       propertyPath: Combine
@@ -29416,6 +29427,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Yellow_SwordMan
+      objectReference: {fileID: 0}
+    - target: {fileID: 1174998771481908396, guid: e89b457be8ba6fd44bbc96cd4187cab5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1174998771481908398, guid: e89b457be8ba6fd44bbc96cd4187cab5,
         type: 3}
@@ -29741,6 +29757,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Orange_SwordMan
+      objectReference: {fileID: 0}
+    - target: {fileID: 416985800426705626, guid: f19bbd67bad198e4aa7e2647ffbcf8c9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2820413154886425651, guid: f19bbd67bad198e4aa7e2647ffbcf8c9,
         type: 3}

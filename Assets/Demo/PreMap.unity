@@ -13990,7 +13990,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f44066f6a70b2404dbb593766d180618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitManagementButton: {fileID: 1112554918}
+  UnitManagementButton: {fileID: 1726173155}
   SwordmansButton: {fileID: 595686701}
   ArchersButton: {fileID: 883826401}
   SpearmansButton: {fileID: 1995693645}
@@ -16030,6 +16030,12 @@ MonoBehaviour:
   GreenArcherText: {fileID: 839386609}
   OrangeArcherText: {fileID: 677742044}
   VioletArcherText: {fileID: 428172583}
+  RedSpearmanText: {fileID: 0}
+  BlueSpearmanText: {fileID: 0}
+  YellowSpearmanText: {fileID: 0}
+  GreenSpearmanText: {fileID: 0}
+  OrangeSpearmanText: {fileID: 0}
+  VioletSpearmanText: {fileID: 0}
 --- !u!114 &1261802213
 MonoBehaviour:
   m_ObjectHideFlags: 0

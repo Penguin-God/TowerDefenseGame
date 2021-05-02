@@ -2424,7 +2424,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBE68\uAC04\uCC3D\uBCD1 : 1"
+  m_Text: "\uBE68\uAC04\uCC3D\uBCD1 : 0"
 --- !u!222 &153399528
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2557,7 +2557,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCD08\uB85D\uCC3D\uBCD1 : 1"
+  m_Text: "\uCD08\uB85D\uCC3D\uBCD1 : 0"
 --- !u!222 &175620662
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4019,7 +4019,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBCF4\uB77C\uCC3D\uBCD1 : 1"
+  m_Text: "\uBCF4\uB77C\uCC3D\uBCD1 : 0"
 --- !u!222 &311093961
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12399,7 +12399,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC8FC\uD669\uCC3D\uBCD1 : 1"
+  m_Text: "\uC8FC\uD669\uCC3D\uBCD1 : 0"
 --- !u!222 &1008147468
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13534,7 +13534,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f44066f6a70b2404dbb593766d180618, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  UnitManagementButton: {fileID: 1112554918}
+  UnitManagementButton: {fileID: 1726173155}
   SwordmansButton: {fileID: 595686701}
   ArchersButton: {fileID: 883826401}
   SpearmansButton: {fileID: 1995693645}
@@ -15499,6 +15499,12 @@ MonoBehaviour:
   GreenArcherText: {fileID: 839386609}
   OrangeArcherText: {fileID: 677742044}
   VioletArcherText: {fileID: 428172583}
+  RedSpearmanText: {fileID: 153399527}
+  BlueSpearmanText: {fileID: 1307997886}
+  YellowSpearmanText: {fileID: 2090093384}
+  GreenSpearmanText: {fileID: 175620661}
+  OrangeSpearmanText: {fileID: 1008147467}
+  VioletSpearmanText: {fileID: 311093960}
 --- !u!114 &1261802213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16905,7 +16911,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB780\uCC3D\uBCD1 : 1"
+  m_Text: "\uD30C\uB780\uCC3D\uBCD1 : 0"
 --- !u!222 &1307997887
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -28547,7 +28553,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB178\uB780\uCC3D\uBCD1 : 1"
+  m_Text: "\uB178\uB780\uCC3D\uBCD1 : 0"
 --- !u!222 &2090093385
 CanvasRenderer:
   m_ObjectHideFlags: 0

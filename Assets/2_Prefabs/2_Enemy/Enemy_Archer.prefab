@@ -433,7 +433,7 @@ GameObject:
   - component: {fileID: 7551659547658573872}
   - component: {fileID: 7536897029117085252}
   - component: {fileID: 1536430543819091092}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TB_Soldier_Archer_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -516,8 +516,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41994ea9982d5ec48997957fd750e3c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawnObject: {fileID: 3362108960618488973, guid: 22d4f9f2cf30d4442acafb1be1f61c28,
-    type: 3}
   speed: 0
   maxHp: 100
   currentHp: 0
@@ -548,7 +546,7 @@ GameObject:
   - component: {fileID: 7536358827924476918}
   - component: {fileID: 7561225505730878868}
   - component: {fileID: 7551448911403554356}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TB_Soldier_Archer_Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -627,7 +625,7 @@ GameObject:
   - component: {fileID: 7536365749778130890}
   - component: {fileID: 7561319560395922300}
   - component: {fileID: 7551131130937862532}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TB_Soldier_Archer_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -706,7 +704,7 @@ GameObject:
   - component: {fileID: 7532591539215776482}
   - component: {fileID: 7560736577434478672}
   - component: {fileID: 7550798656929533096}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: TB_Soldier_Archer_Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}

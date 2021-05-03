@@ -59,9 +59,9 @@ public class TeamSoldier : MonoBehaviour
                 if ((unitType == Type.spearman || unitType == Type.sowrdman) && dir < 15f) MeleeMove();
                 else RangeChaseMove(dir);
 
-                if (dir < attackRange) // 적이 사정거리 안에 있을때
+                if (dir < attackRange && !isAttack) // 적이 사정거리 안에 있을때
                 {
-                    if (!isAttack) NormalAttack();
+                    NormalAttack();
                 }
                 nav.SetDestination(target.position);
             }
@@ -166,6 +166,27 @@ public class TeamSoldier : MonoBehaviour
         Enemy enemy = GetEnemyScript();
         if (enemy != null && Vector3.Distance(enemy.transform.position, this.transform.position) < attackRange) 
             enemy.OnDamage(this.damage);
+    }
+
+    bool enemyIsForward = true;
+    private void FixedUpdate()
+    {
+        //Debug.DrawRay(transform.position + Vector3.up * 2, transform.forward * -attackRange, Color.green);
+        //enemyIsForward = Physics.Raycast(transform.position + Vector3.up * 2, transform.forward, -attackRange, LayerMask.GetMask("Enemy"));
+        if(CanAttack()) Debug.Log(CanAttack());
+        CanAttack();
+    }
+
+    float enemyDistance;
+    bool CanAttack()
+    {
+        Debug.DrawRay(transform.position + Vector3.up, transform.forward * -3, Color.green);
+        Physics.Raycast(transform.position + Vector3.up, transform.forward, out RaycastHit hit, -3);
+        if(target != null) enemyDistance = Vector3.Distance(this.transform.position, target.position);
+
+        if (hit.transform != null) Debug.Log("aa");
+        if (hit.transform != null && hit.transform.gameObject.layer == 8 && enemyDistance < attackRange) return true;
+        else return false;
     }
 
     private void OnMouseDown()

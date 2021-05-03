@@ -445,8 +445,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41994ea9982d5ec48997957fd750e3c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawnObject: {fileID: 3362108960618488973, guid: 22d4f9f2cf30d4442acafb1be1f61c28,
-    type: 3}
   speed: 0
   maxHp: 200
   currentHp: 200
@@ -463,6 +461,22 @@ PrefabInstance:
     - target: {fileID: 1246070444819080, guid: a6271366fabb2364382b95436057922e, type: 3}
       propertyPath: m_Name
       value: TB_Soldier_Spearman_Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 1246070444819080, guid: a6271366fabb2364382b95436057922e, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1262353465354870, guid: a6271366fabb2364382b95436057922e, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1814076539729930, guid: a6271366fabb2364382b95436057922e, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1975261523290938, guid: a6271366fabb2364382b95436057922e, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4096475833891026, guid: a6271366fabb2364382b95436057922e, type: 3}
       propertyPath: m_RootOrder

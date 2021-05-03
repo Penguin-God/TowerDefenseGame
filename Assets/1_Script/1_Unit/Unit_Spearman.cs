@@ -15,24 +15,17 @@ public class Unit_Spearman : TeamSoldier
     public override void NormalAttack()
     {
         base.NormalAttack();
-        StartCoroutine(SwordAttack());
+        StartCoroutine(SpaerAttack());
     }
 
-    IEnumerator SwordAttack()
+    IEnumerator SpaerAttack()
     {
         animator.SetTrigger("isAttack");
         yield return new WaitForSeconds(0.55f);
-        if (Check_EnemyToUnit_Deg() < 0f)
-        {
-            nav.angularSpeed = 0.1f;
-            nav.speed = 0.1f;
-        }
         trail.SetActive(true);
         yield return new WaitForSeconds(0.3f);
         HitMeeleAttack();
         yield return new WaitForSeconds(0.3f);
-        nav.angularSpeed = 1500;
-        nav.speed = this.speed;
         trail.SetActive(false);
     }
 }

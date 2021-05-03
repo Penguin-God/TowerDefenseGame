@@ -25,8 +25,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41994ea9982d5ec48997957fd750e3c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemySpawnObject: {fileID: 3362108960618488973, guid: 22d4f9f2cf30d4442acafb1be1f61c28,
-    type: 3}
   speed: 0
   maxHp: 80
   currentHp: 80
@@ -460,9 +458,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1112035910525321254}
     m_Modifications:
+    - target: {fileID: 1155426756677996, guid: 1df10b60c8b0fa64fb806e64fe509b56, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1350674450777910, guid: 1df10b60c8b0fa64fb806e64fe509b56, type: 3}
       propertyPath: m_Name
       value: TB_Soldier_Mage_Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350674450777910, guid: 1df10b60c8b0fa64fb806e64fe509b56, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4544626439013454, guid: 1df10b60c8b0fa64fb806e64fe509b56, type: 3}
       propertyPath: m_RootOrder

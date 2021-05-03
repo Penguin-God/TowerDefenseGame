@@ -125,6 +125,13 @@ public class UIManager : MonoBehaviour
     public Text OrangeSpearmanText;
     public Text VioletSpearmanText;
 
+    public Text RedMageText;
+    public Text BlueMageText;
+    public Text YellowMageText;
+    public Text GreenMageText;
+    public Text OrangeMageText;
+    public Text VioletMageText;
+
     public void UpdateSwordmanText(int RedSwordman,int BlueSwordman, int YellowSwordman, int GreenSwordman, int OrangeSwordman, int VioletSwordman)
     {
         RedSwordmanText.text = "빨간기사 :" + RedSwordman;
@@ -155,6 +162,16 @@ public class UIManager : MonoBehaviour
         VioletSpearmanText.text = "보라창병 :" + VioletSpearman;
     }
 
+    public void UpdateMageText(int RedMage, int BlueMage, int YellowMage, int GreenMage, int OrangeMage, int VioletMage)
+    {
+        RedMageText.text = "빨간마법사 :" + RedMage;
+        BlueMageText.text = "파란마법사 :" + BlueMage;
+        YellowMageText.text = "노란마법사 :" + YellowMage;
+        GreenMageText.text = "초록마법사 :" + GreenMage;
+        OrangeMageText.text = "주황마법사 :" + OrangeMage;
+        VioletMageText.text = "보라마법사 :" + VioletMage;
+    }
+
     public void UpdateSwordmanCount()
     {
         SoldiersTag.RedSwordmanTag();
@@ -175,7 +192,6 @@ public class UIManager : MonoBehaviour
 
     public void UpdateArcherCount()
     {
-        SoldiersTag.RedArcherTag();
         SoldiersTag.BlueArcherTag();
         SoldiersTag.YellowArcherTag();
         SoldiersTag.GreenArcherTag();
@@ -206,7 +222,25 @@ public class UIManager : MonoBehaviour
         int OrangeSpearmanCount = SoldiersTag.OrangeSpearman.Length;
         int VioletSpearmanCount = SoldiersTag.VioletSpearman.Length;
 
-        UpdateArcherText(RedSpearmanCount, BlueSpearmanCount, YellowSpearmanCount, GreenSpearmanCount, OrangeSpearmanCount, VioletSpearmanCount);
+        UpdateSpearmanText(RedSpearmanCount, BlueSpearmanCount, YellowSpearmanCount, GreenSpearmanCount, OrangeSpearmanCount, VioletSpearmanCount);
+    }
+
+    public void UpdateMageCount()
+    {
+        SoldiersTag.RedMageTag();
+        SoldiersTag.BlueMageTag();
+        SoldiersTag.YellowMageTag();
+        SoldiersTag.GreenMageTag();
+        SoldiersTag.OrangeMageTag();
+        SoldiersTag.VioletMageTag();
+        int RedMageCount = SoldiersTag.RedMage.Length;
+        int BlueMageCount = SoldiersTag.BlueMage.Length;
+        int YellowMageCount = SoldiersTag.YellowMage.Length;
+        int GreenMageCount = SoldiersTag.GreenMage.Length;
+        int OrangeMageCount = SoldiersTag.OrangeMage.Length;
+        int VioletMageCount = SoldiersTag.VioletMage.Length;
+
+        UpdateMageText(RedMageCount, BlueMageCount, YellowMageCount, GreenMageCount, OrangeMageCount, VioletMageCount);
     }
 }
 

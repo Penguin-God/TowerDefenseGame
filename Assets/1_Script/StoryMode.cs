@@ -17,6 +17,11 @@ public class StoryMode : MonoBehaviour
         
     }
 
+    public void SoldiersEnterStoryMode()
+    {
+
+    }
+
 
 
 }

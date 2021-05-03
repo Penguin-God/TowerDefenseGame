@@ -35,6 +35,12 @@ public class GameManager : MonoBehaviour
 
     private static GameManager m_instance;
 
+    public enum World
+    {
+        StoryWorld,
+        SoldiersWorld
+    }
+
     private void Awake()
     {
         if (instance != this)

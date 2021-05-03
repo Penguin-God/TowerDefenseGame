@@ -273,6 +273,7 @@ public class CombineSoldier : MonoBehaviour
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
                 UIManager.instance.UpdateSpearmanCount();
+                UIManager.instance.UpdateMageCount();
             }
         }
 
@@ -290,6 +291,7 @@ public class CombineSoldier : MonoBehaviour
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
                 UIManager.instance.UpdateSpearmanCount();
+                UIManager.instance.UpdateMageCount();
             }
         }
 
@@ -307,6 +309,7 @@ public class CombineSoldier : MonoBehaviour
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
                 UIManager.instance.UpdateSpearmanCount();
+                UIManager.instance.UpdateMageCount();
             }
         }
 
@@ -328,6 +331,7 @@ public class CombineSoldier : MonoBehaviour
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
                 UIManager.instance.UpdateSpearmanCount();
+                UIManager.instance.UpdateMageCount();
             }
         }
 
@@ -349,6 +353,7 @@ public class CombineSoldier : MonoBehaviour
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
                 UIManager.instance.UpdateSpearmanCount();
+                UIManager.instance.UpdateMageCount();
             }
         }
 
@@ -370,6 +375,7 @@ public class CombineSoldier : MonoBehaviour
                 createdefenser.CreateSoldier(Colornumber, Soldiernumber);
                 UIManager.instance.ButtonDown();
                 UIManager.instance.UpdateSpearmanCount();
+                UIManager.instance.UpdateMageCount();
             }
         }
 

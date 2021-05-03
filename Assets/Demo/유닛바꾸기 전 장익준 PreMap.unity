@@ -831,7 +831,7 @@ GameObject:
   - component: {fileID: 81592014}
   - component: {fileID: 81592013}
   m_Layer: 5
-  m_Name: VioletSpearmanManage
+  m_Name: VioletMageManage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4531,7 +4531,7 @@ GameObject:
   - component: {fileID: 354458839}
   - component: {fileID: 354458838}
   m_Layer: 5
-  m_Name: OrangeSpearmanManage
+  m_Name: OrangeMageManage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5459,7 +5459,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB780\uB9C8\uBCCD\uC0AC: 1"
+  m_Text: "\uD30C\uB780\uB9C8\uBCCD\uC0AC: 0"
 --- !u!222 &405861769
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7036,7 +7036,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC8FC\uD669\uB9C8\uBCCD\uC0AC: 1"
+  m_Text: "\uC8FC\uD669\uB9C8\uBCCD\uC0AC: 0"
 --- !u!222 &560247460
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7566,7 +7566,7 @@ GameObject:
   - component: {fileID: 618876641}
   - component: {fileID: 618876640}
   m_Layer: 5
-  m_Name: BlueSpearmanManage
+  m_Name: BlueMageManage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15380,7 +15380,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBCF4\uB77C\uB9C8\uBCCD\uC0AC: 1"
+  m_Text: "\uBE68\uAC04\uB9C8\uBCCD\uC0AC: 0"
 --- !u!222 &1242635657
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15505,6 +15505,12 @@ MonoBehaviour:
   GreenSpearmanText: {fileID: 175620661}
   OrangeSpearmanText: {fileID: 1008147467}
   VioletSpearmanText: {fileID: 311093960}
+  RedMageText: {fileID: 1242635656}
+  BlueMageText: {fileID: 405861768}
+  YellowMageText: {fileID: 1432750667}
+  GreenMageText: {fileID: 1413881421}
+  OrangeMageText: {fileID: 560247459}
+  VioletMageText: {fileID: 1545346538}
 --- !u!114 &1261802213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15590,6 +15596,7 @@ RectTransform:
   - {fileID: 1908225851}
   - {fileID: 717411401}
   - {fileID: 1336704017}
+  - {fileID: 1494491666}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18480,7 +18487,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCD08\uB85D\uB9C8\uBCCD\uC0AC: 1"
+  m_Text: "\uCD08\uB85D\uB9C8\uBCCD\uC0AC: 0"
 --- !u!222 &1413881422
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18742,7 +18749,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB178\uB780\uB9C8\uBCCD\uC0AC: 1"
+  m_Text: "\uB178\uB780\uB9C8\uBCCD\uC0AC: 0"
 --- !u!222 &1432750668
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19595,6 +19602,80 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1489378131}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1494491665
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1494491666}
+  - component: {fileID: 1494491668}
+  - component: {fileID: 1494491667}
+  m_Layer: 5
+  m_Name: BackGround
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &1494491666
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494491665}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1261802216}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 262, y: 4}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1494491667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494491665}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.2830189, g: 0.2830189, b: 0.2830189, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 25e1682a2ce1340808943633c36f5e0a, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1494491668
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1494491665}
+  m_CullTransparentMesh: 0
 --- !u!1001 &1499656738
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20637,7 +20718,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBCF4\uB77C\uB9C8\uBCCD\uC0AC: 1"
+  m_Text: "\uBCF4\uB77C\uB9C8\uBCCD\uC0AC: 0"
 --- !u!222 &1545346539
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25867,7 +25948,7 @@ GameObject:
   - component: {fileID: 1892303316}
   - component: {fileID: 1892303315}
   m_Layer: 5
-  m_Name: RedSpearmanManage
+  m_Name: RedMageManage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28194,7 +28275,7 @@ GameObject:
   - component: {fileID: 2074261708}
   - component: {fileID: 2074261707}
   m_Layer: 5
-  m_Name: YellowSpearmanManage
+  m_Name: YellowMageManage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28346,7 +28427,7 @@ GameObject:
   - component: {fileID: 2075477808}
   - component: {fileID: 2075477807}
   m_Layer: 5
-  m_Name: GreenSpearmanManage
+  m_Name: GreenMageManage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

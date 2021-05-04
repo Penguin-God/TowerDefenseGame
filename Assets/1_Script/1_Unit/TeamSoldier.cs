@@ -13,11 +13,13 @@ public class TeamSoldier : MonoBehaviour
     public Type unitType;
 
     public float speed;
+    public float stopDistanc;
     public float attackDelayTime;
     public float attackRange;
-    public bool isAttack;
+    public bool isAttack; // 공격 쿨타임 중에 true인 함수
     public float chaseRange;
     public int damage;
+    public int layerMask;
 
     public NavMeshAgent nav;
     public Transform target;
@@ -34,6 +36,7 @@ public class TeamSoldier : MonoBehaviour
         enemySpawn = FindObjectOfType<EnemySpawn>();
         UpdateTarget();
         nav.speed = this.speed;
+        layerMask = 1 << LayerMask.NameToLayer("Enemy"); // Enemy 레이어만 충돌 체크함
         StartCoroutine(NavCoroutine());
     }
 
@@ -47,25 +50,44 @@ public class TeamSoldier : MonoBehaviour
         isAttack = false;
     }
 
+    
+    public virtual bool CanAttack() // 자식들이 Attack가능 여부 판단
+    {
+        return false;
+    }
+
+    protected float enemyDistance;
     IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
     {
         while (true)
         {
-            if (target != null && Vector3.Distance(target.position, this.transform.position) < chaseRange) // target이 추적범위 안에 있으면
+            //if (target != null && Vector3.Distance(target.position, this.transform.position) < chaseRange) // target이 추적범위 안에 있으면
+            //{
+            //    float dir = Vector3.Distance(target.position, this.transform.position);
+
+            //    // 유닛 타입에 따른 움직임
+            //    if ((unitType == Type.spearman || unitType == Type.sowrdman) && dir < 15f) MeleeMove();
+            //    else RangeChaseMove(dir);
+
+            //    if (dir < attackRange && !isAttack) // 적이 사정거리 안에 있을때
+            //    {
+            //        NormalAttack();
+            //    }
+            //    nav.SetDestination(target.position);
+            //}
+
+            // UpdateTarget을 작동할 조건 만족시 함수 실행하고 return하기
+            if(target == null || Vector3.Distance(this.transform.position, target.position) > chaseRange)
             {
-                float dir = Vector3.Distance(target.position, this.transform.position);
-
-                // 유닛 타입에 따른 움직임
-                if ((unitType == Type.spearman || unitType == Type.sowrdman) && dir < 15f) MeleeMove();
-                else RangeChaseMove(dir);
-
-                if (dir < attackRange && !isAttack) // 적이 사정거리 안에 있을때
-                {
-                    NormalAttack();
-                }
-                nav.SetDestination(target.position);
+                UpdateTarget();
+                continue;
             }
-            else UpdateTarget();
+            //if (target != null) enemyDistance = Vector3.Distance(this.transform.position, target.position);
+            //if (target != null && enemyDistance < chaseRange)
+            nav.SetDestination(target.position);
+            if (CanAttack() && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
+                NormalAttack();
+            //else UpdateTarget();
             yield return new WaitForSeconds(0.1f);
         }
     }
@@ -166,27 +188,6 @@ public class TeamSoldier : MonoBehaviour
         Enemy enemy = GetEnemyScript();
         if (enemy != null && Vector3.Distance(enemy.transform.position, this.transform.position) < attackRange) 
             enemy.OnDamage(this.damage);
-    }
-
-    bool enemyIsForward = true;
-    private void FixedUpdate()
-    {
-        //Debug.DrawRay(transform.position + Vector3.up * 2, transform.forward * -attackRange, Color.green);
-        //enemyIsForward = Physics.Raycast(transform.position + Vector3.up * 2, transform.forward, -attackRange, LayerMask.GetMask("Enemy"));
-        if(CanAttack()) Debug.Log(CanAttack());
-        CanAttack();
-    }
-
-    float enemyDistance;
-    bool CanAttack()
-    {
-        Debug.DrawRay(transform.position + Vector3.up, transform.forward * -3, Color.green);
-        Physics.Raycast(transform.position + Vector3.up, transform.forward, out RaycastHit hit, -3);
-        if(target != null) enemyDistance = Vector3.Distance(this.transform.position, target.position);
-
-        if (hit.transform != null) Debug.Log("aa");
-        if (hit.transform != null && hit.transform.gameObject.layer == 8 && enemyDistance < attackRange) return true;
-        else return false;
     }
 
     private void OnMouseDown()

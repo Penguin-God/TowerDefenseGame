@@ -410,6 +410,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitType: 0
   speed: 15
+  stopDistanc: 3
   attackDelayTime: 2
   attackRange: 6
   isAttack: 0

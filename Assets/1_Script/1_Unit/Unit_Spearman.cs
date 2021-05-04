@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit_Spearman : TeamSoldier
+public class Unit_Spearman : MeeleUnit
 {
     private Animator animator;
     public GameObject trail;

@@ -5905,6 +5905,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Blue_SwordMan
       objectReference: {fileID: 0}
+    - target: {fileID: 9199773262359240798, guid: 5d62ab9f6e012bb41940e8f669a9ae7c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d62ab9f6e012bb41940e8f669a9ae7c, type: 3}
 --- !u!1001 &476469415
@@ -24564,10 +24569,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6931745909913792145, guid: b99cdff4ee30fa44798e20a945776310,
+        type: 3}
+      propertyPath: m_Acceleration
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931745909913792145, guid: b99cdff4ee30fa44798e20a945776310,
+        type: 3}
+      propertyPath: m_AngularSpeed
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931745909913792145, guid: b99cdff4ee30fa44798e20a945776310,
+        type: 3}
+      propertyPath: m_StoppingDistance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6931745909913792146, guid: b99cdff4ee30fa44798e20a945776310,
         type: 3}
       propertyPath: m_Name
       value: Blue_Spearman
+      objectReference: {fileID: 0}
+    - target: {fileID: 6931745909913792146, guid: b99cdff4ee30fa44798e20a945776310,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b99cdff4ee30fa44798e20a945776310, type: 3}

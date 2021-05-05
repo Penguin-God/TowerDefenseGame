@@ -7,12 +7,12 @@ public class MeeleUnit : TeamSoldier
     bool rayHit;
     RaycastHit rayHitObject;
     bool enemyIsForward;
-    //int layerMask;
 
-    //private void Start()
-    //{
-    //    layerMask = 1 << LayerMask.NameToLayer("Enemy"); // Enemy 레이어만 충돌 체크함
-    //}
+    public override bool CanAttack()
+    {
+        if (enemyIsForward) return true;
+        else return false;
+    }
 
     private void FixedUpdate()
     {
@@ -21,13 +21,10 @@ public class MeeleUnit : TeamSoldier
             -1 * transform.forward, out rayHitObject, attackRange, layerMask);
         if (rayHit)
         {
-            Debug.Log(rayHitObject.transform.gameObject);
-            Debug.Log(target.GetChild(0).gameObject);
             if (rayHitObject.transform.gameObject == target.parent.gameObject) enemyIsForward = true;
             else enemyIsForward = false;
         }
         else enemyIsForward = false;
-        //enemyIsForward = Physics.Raycast(transform.parent.position + Vector3.up, -1 * transform.forward, out hit, attackRange, LayerMask.GetMask("Enemy"));
         Stop_or_Move();
     }
 
@@ -36,14 +33,25 @@ public class MeeleUnit : TeamSoldier
         if (enemyIsForward && enemyDistance < stopDistanc)
         {
             nav.isStopped = true;
-            //Debug.Log("isStop");
         }
         else nav.isStopped = false;
+        //else if ((Check_EnemyToUnit_Deggre() < -0.6f && enemyDistance < attackRange * 2.2))
+        //{
+        //    nav.speed = 0.1f;
+        //}
     }
 
-    public override bool CanAttack()
+    protected float Check_EnemyToUnit_Deggre()
     {
-        if (enemyIsForward && enemyDistance < attackRange) return true;
-        else return false;
+        Enemy enemy = GetEnemyScript();
+        float enemyDot = Vector3.Dot(enemy.dir.normalized, (target.position - this.transform.position).normalized);
+        return enemyDot;
+    }
+
+    protected void HitMeeleAttack() // 근접공격 타겟팅
+    {
+        Enemy enemy = GetEnemyScript();
+        if (enemy != null && Vector3.Distance(enemy.transform.position, this.transform.position) < attackRange)
+            enemy.OnDamage(this.damage);
     }
 }

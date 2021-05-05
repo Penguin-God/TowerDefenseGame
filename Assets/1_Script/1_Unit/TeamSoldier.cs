@@ -76,8 +76,8 @@ public class TeamSoldier : MonoBehaviour
             //    nav.SetDestination(target.position);
             //}
 
-            // UpdateTarget을 작동할 조건 만족시 함수 실행하고 return하기
-            if(target == null || Vector3.Distance(this.transform.position, target.position) > chaseRange)
+            if(target != null) enemyDistance = Vector3.Distance(this.transform.position, target.position);
+            if (target == null || enemyDistance > chaseRange)
             {
                 UpdateTarget();
                 continue;
@@ -174,20 +174,6 @@ public class TeamSoldier : MonoBehaviour
         float enemyDot = Vector3.Dot(enemy.dir.normalized, (target.position - this.transform.position).normalized);
         if (enemyDot < -0.7f) nav.speed = 1.5f;
         else nav.speed = this.speed;
-    }
-
-    protected float Check_EnemyToUnit_Deg()
-    {
-        Enemy enemy = GetEnemyScript();
-        float enemyDot = Vector3.Dot(enemy.dir.normalized, (target.position - this.transform.position).normalized);
-        return enemyDot;
-    }
-
-    protected void HitMeeleAttack() // 근접공격 타겟팅
-    {
-        Enemy enemy = GetEnemyScript();
-        if (enemy != null && Vector3.Distance(enemy.transform.position, this.transform.position) < attackRange) 
-            enemy.OnDamage(this.damage);
     }
 
     private void OnMouseDown()

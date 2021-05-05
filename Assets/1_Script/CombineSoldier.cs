@@ -14,430 +14,427 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier = GetComponent<SoldiersTags>();
     }
 
-    public void Combine() // 태그로 바꾸기
+    public void CombineRedArcher()
     {
-        if (GameManager.instance.hitSolider.gameObject.tag == "RedSwordman" )
+        TagSoldier.RedSwordmanTag();
+        if (TagSoldier.RedSwordman.Length >= 2)
         {
-            TagSoldier.RedSwordmanTag();
-            if (TagSoldier.RedSwordman.Length >= 2)
-            {
-                
-                Destroy(TagSoldier.RedSwordman[0]);
-                Destroy(TagSoldier.RedSwordman[1]);
+
+            Destroy(TagSoldier.RedSwordman[0]);
+            Destroy(TagSoldier.RedSwordman[1]);
 
 
-                SoldierChoose(0, 0, 1, 1);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSwordmanCount();
-                UIManager.instance.UpdateArcherCount();
-            }
+            SoldierChoose(0, 0, 1, 1);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSwordmanCount();
+            UIManager.instance.UpdateArcherCount();
         }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "BlueSwordman") // 태그로 바꿔듬
-        {
-            TagSoldier.BlueSwordmanTag();
-            if (TagSoldier.BlueSwordman.Length >= 2)
-            {
-
-                Destroy(TagSoldier.BlueSwordman[0]);
-                Destroy(TagSoldier.BlueSwordman[1]);
-
-
-                SoldierChoose(1, 1, 1, 1);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSwordmanCount();
-                UIManager.instance.UpdateArcherCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "YellowSwordman")
-        {
-            TagSoldier.YellowSwordmanTag();
-            if (TagSoldier.YellowSwordman.Length >= 2)
-            {
-
-                Destroy(TagSoldier.YellowSwordman[0]);
-                Destroy(TagSoldier.YellowSwordman[1]);
-
-
-                SoldierChoose(2, 2, 1, 1);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSwordmanCount();
-                UIManager.instance.UpdateArcherCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "GreenSwordman")
-        {
-            TagSoldier.GreenSwordmanTag();
-            if (TagSoldier.GreenSwordman.Length >= 2)
-            {
-
-                Destroy(TagSoldier.GreenSwordman[0]);
-                Destroy(TagSoldier.GreenSwordman[1]);
-
-
-                SoldierChoose(3, 3, 1, 1);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSwordmanCount();
-                UIManager.instance.UpdateArcherCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "OrangeSwordman")
-        {
-            TagSoldier.OrangeSwordmanTag();
-            if (TagSoldier.OrangeSwordman.Length >= 2)
-            {
-
-                Destroy(TagSoldier.OrangeSwordman[0]);
-                Destroy(TagSoldier.OrangeSwordman[1]);
-
-
-                SoldierChoose(4, 4, 1, 1);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSwordmanCount();
-                UIManager.instance.UpdateArcherCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "VioletSwordman")
-        {
-            TagSoldier.VioletSwordmanTag();
-            if (TagSoldier.VioletSwordman.Length >= 2)
-            {
-
-                Destroy(TagSoldier.VioletSwordman[0]);
-                Destroy(TagSoldier.VioletSwordman[1]);
-
-
-                SoldierChoose(5, 5, 1, 1);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSwordmanCount();
-                UIManager.instance.UpdateArcherCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "RedArcher") 
-        {
-            TagSoldier.RedSwordmanTag();
-            TagSoldier.RedArcherTag();
-            if (TagSoldier.RedSwordman.Length >= 2 && TagSoldier.RedArcher.Length >=2)
-            {
-
-                Destroy(TagSoldier.RedSwordman[0]);
-                Destroy(TagSoldier.RedSwordman[1]);
-                Destroy(TagSoldier.RedArcher[0]);
-                Destroy(TagSoldier.RedArcher[1]);
-
-
-                SoldierChoose(0, 0, 2, 2);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSwordmanCount();
-                UIManager.instance.UpdateArcherCount();
-                UIManager.instance.UpdateSpearmanCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "BlueArcher")
-        {
-            TagSoldier.BlueSwordmanTag();
-            TagSoldier.BlueArcherTag();
-            if (TagSoldier.BlueSwordman.Length >= 2 && TagSoldier.BlueArcher.Length >= 2)
-            {
-
-                Destroy(TagSoldier.BlueSwordman[0]);
-                Destroy(TagSoldier.BlueSwordman[1]);
-                Destroy(TagSoldier.BlueArcher[0]);
-                Destroy(TagSoldier.BlueArcher[1]);
-
-
-                SoldierChoose(1, 1, 2, 2);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSwordmanCount();
-                UIManager.instance.UpdateArcherCount();
-                UIManager.instance.UpdateSpearmanCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "YellowArcher")
-        {
-            TagSoldier.YellowSwordmanTag();
-            TagSoldier.YellowArcherTag();
-            if (TagSoldier.YellowSwordman.Length >= 2 && TagSoldier.YellowArcher.Length >= 2)
-            {
-
-                Destroy(TagSoldier.YellowSwordman[0]);
-                Destroy(TagSoldier.YellowSwordman[1]);
-                Destroy(TagSoldier.YellowArcher[0]);
-                Destroy(TagSoldier.YellowArcher[1]);
-
-
-                SoldierChoose(2, 2, 2, 2);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSwordmanCount();
-                UIManager.instance.UpdateArcherCount();
-                UIManager.instance.UpdateSpearmanCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "GreenArcher")
-        {
-            TagSoldier.BlueSwordmanTag();
-            TagSoldier.YellowSwordmanTag();
-            TagSoldier.GreenArcherTag();
-            if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.GreenArcher.Length >= 2)
-            {
-
-                Destroy(TagSoldier.BlueSwordman[0]);
-                Destroy(TagSoldier.YellowSwordman[0]);
-                Destroy(TagSoldier.GreenArcher[0]);
-                Destroy(TagSoldier.GreenArcher[1]);
-
-
-                SoldierChoose(3, 3, 2, 2);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSwordmanCount();
-                UIManager.instance.UpdateArcherCount();
-                UIManager.instance.UpdateSpearmanCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "OrangeArcher")
-        {
-            TagSoldier.RedSwordmanTag();
-            TagSoldier.YellowSwordmanTag();
-            TagSoldier.OrangeArcherTag();
-            if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.OrangeArcher.Length >= 2)
-            {
-
-                Destroy(TagSoldier.RedSwordman[0]);
-                Destroy(TagSoldier.YellowSwordman[0]);
-                Destroy(TagSoldier.OrangeArcher[0]);
-                Destroy(TagSoldier.OrangeArcher[1]);
-
-
-                SoldierChoose(4, 4, 2, 2);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSwordmanCount();
-                UIManager.instance.UpdateArcherCount();
-                UIManager.instance.UpdateSpearmanCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "VioletArcher")
-        {
-            TagSoldier.BlueSwordmanTag();
-            TagSoldier.RedSwordmanTag();
-            TagSoldier.VioletArcherTag();
-            if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.RedSwordman.Length >= 1 && TagSoldier.VioletArcher.Length >= 2)
-            {
-
-                Destroy(TagSoldier.RedSwordman[0]);
-                Destroy(TagSoldier.YellowSwordman[0]);
-                Destroy(TagSoldier.VioletArcher[0]);
-                Destroy(TagSoldier.VioletArcher[1]);
-
-
-                SoldierChoose(5, 5, 2, 2);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSwordmanCount();
-                UIManager.instance.UpdateArcherCount();
-                UIManager.instance.UpdateSpearmanCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "RedSpearman")
-        {
-            TagSoldier.RedSpearmanTag();
-            if (TagSoldier.RedSpearman.Length >= 2)
-            {
-
-                Destroy(TagSoldier.RedSpearman[0]);
-                Destroy(TagSoldier.RedSpearman[1]);
-
-
-                SoldierChoose(0, 0, 3, 3);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSpearmanCount();
-                UIManager.instance.UpdateMageCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "BlueSpearman")
-        {
-            TagSoldier.BlueSpearmanTag();
-            if (TagSoldier.BlueSpearman.Length >= 2)
-            {
-
-                Destroy(TagSoldier.BlueSpearman[0]);
-                Destroy(TagSoldier.BlueSpearman[1]);
-
-
-                SoldierChoose(1, 1, 3, 3);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSpearmanCount();
-                UIManager.instance.UpdateMageCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "YellowSpearman")
-        {
-            TagSoldier.YellowSpearmanTag();
-            if (TagSoldier.YellowSpearman.Length >= 2)
-            {
-
-                Destroy(TagSoldier.YellowSpearman[0]);
-                Destroy(TagSoldier.YellowSpearman[1]);
-
-
-                SoldierChoose(2, 2, 3, 3);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSpearmanCount();
-                UIManager.instance.UpdateMageCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "GreenSpearman")
-        {
-            TagSoldier.GreenSpearmanTag();
-            TagSoldier.BlueArcherTag();
-            TagSoldier.YellowArcherTag();
-            if (TagSoldier.GreenSpearman.Length >= 2 && TagSoldier.BlueArcher.Length >= 1 && TagSoldier.YellowArcher.Length >= 1)
-            {
-
-                Destroy(TagSoldier.GreenSpearman[0]);
-                Destroy(TagSoldier.GreenSpearman[1]);
-                Destroy(TagSoldier.BlueArcher[0]);
-                Destroy(TagSoldier.YellowArcher[0]);
-
-
-                SoldierChoose(3, 3, 3, 3);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSpearmanCount();
-                UIManager.instance.UpdateMageCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "OrangeSpearman")
-        {
-            TagSoldier.OrangeSpearmanTag();
-            TagSoldier.RedArcherTag();
-            TagSoldier.YellowArcherTag();
-            if (TagSoldier.OrangeSpearman.Length >= 2 && TagSoldier.RedArcher.Length >= 1 && TagSoldier.YellowArcher.Length >= 1)
-            {
-
-                Destroy(TagSoldier.OrangeSpearman[0]);
-                Destroy(TagSoldier.OrangeSpearman[1]);
-                Destroy(TagSoldier.RedArcher[0]);
-                Destroy(TagSoldier.YellowArcher[0]);
-
-
-                SoldierChoose(4, 4, 3, 3);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSpearmanCount();
-                UIManager.instance.UpdateMageCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "VioletSpearman")
-        {
-            TagSoldier.VioletSpearmanTag();
-            TagSoldier.BlueArcherTag();
-            TagSoldier.RedArcherTag();
-            if (TagSoldier.VioletSpearman.Length >= 2 && TagSoldier.BlueArcher.Length >= 1 && TagSoldier.RedArcher.Length >= 1)
-            {
-
-                Destroy(TagSoldier.VioletSpearman[0]);
-                Destroy(TagSoldier.VioletSpearman[1]);
-                Destroy(TagSoldier.RedArcher[0]);
-                Destroy(TagSoldier.BlueArcher[0]);
-
-
-                SoldierChoose(5, 5, 3, 3);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSpearmanCount();
-                UIManager.instance.UpdateMageCount();
-            }
-        }
-
     }
 
-    public void otherCombine()
+    public void CombineRedSpearman()
     {
-        if (GameManager.instance.hitSolider.gameObject.tag == "RedSwordman")
+        TagSoldier.RedSwordmanTag();
+        TagSoldier.RedArcherTag();
+        if (TagSoldier.RedSwordman.Length >= 2 && TagSoldier.RedArcher.Length >= 2)
         {
-            TagSoldier.RedSwordmanTag();
-            TagSoldier.BlueSwordmanTag();
-            if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.BlueSwordman.Length >= 1)
-            {
 
-                Destroy(TagSoldier.RedSwordman[0]);
-                Destroy(TagSoldier.BlueSwordman[0]);
+            Destroy(TagSoldier.RedSwordman[0]);
+            Destroy(TagSoldier.RedSwordman[1]);
+            Destroy(TagSoldier.RedArcher[0]);
+            Destroy(TagSoldier.RedArcher[1]);
 
 
-                SoldierChoose(5, 5, 0, 0);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSwordmanCount();
-            }
+            SoldierChoose(0, 0, 2, 2);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSwordmanCount();
+            UIManager.instance.UpdateArcherCount();
+            UIManager.instance.UpdateSpearmanCount();
         }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "BlueSwordman")
-        {
-            TagSoldier.YellowSwordmanTag();
-            TagSoldier.BlueSwordmanTag();
-            if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1)
-            {
-
-                Destroy(TagSoldier.YellowSwordman[0]);
-                Destroy(TagSoldier.BlueSwordman[0]);
-
-
-                SoldierChoose(3, 3, 0, 0);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSwordmanCount();
-            }
-        }
-
-        if (GameManager.instance.hitSolider.gameObject.tag == "YellowSwordman")
-        {
-            TagSoldier.YellowSwordmanTag();
-            TagSoldier.RedSwordmanTag();
-            if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1)
-            {
-
-                Destroy(TagSoldier.YellowSwordman[0]);
-                Destroy(TagSoldier.RedSwordman[0]);
-
-
-                SoldierChoose(4, 4, 0, 0);
-                createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-                UIManager.instance.ButtonDown();
-                UIManager.instance.UpdateSwordmanCount();
-            }
-        }
-        //UIManager.instance.ButtonDown();
     }
+
+    public void CombineRedMage()
+    {
+        TagSoldier.RedSpearmanTag();
+        if (TagSoldier.RedSpearman.Length >= 2)
+        {
+
+            Destroy(TagSoldier.RedSpearman[0]);
+            Destroy(TagSoldier.RedSpearman[1]);
+
+
+            SoldierChoose(0, 0, 3, 3);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSpearmanCount();
+            UIManager.instance.UpdateMageCount();
+        }
+    }
+
+    public void CombineBlueArcher()
+    {
+        TagSoldier.BlueSwordmanTag();
+        if (TagSoldier.BlueSwordman.Length >= 2)
+        {
+
+            Destroy(TagSoldier.BlueSwordman[0]);
+            Destroy(TagSoldier.BlueSwordman[1]);
+
+
+            SoldierChoose(1, 1, 1, 1);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSwordmanCount();
+            UIManager.instance.UpdateArcherCount();
+        }
+    }
+
+    public void CombineBlueSpearman()
+    {
+        TagSoldier.BlueSwordmanTag();
+        TagSoldier.BlueArcherTag();
+        if (TagSoldier.BlueSwordman.Length >= 2 && TagSoldier.BlueArcher.Length >= 2)
+        {
+
+            Destroy(TagSoldier.BlueSwordman[0]);
+            Destroy(TagSoldier.BlueSwordman[1]);
+            Destroy(TagSoldier.BlueArcher[0]);
+            Destroy(TagSoldier.BlueArcher[1]);
+
+
+            SoldierChoose(1, 1, 2, 2);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSwordmanCount();
+            UIManager.instance.UpdateArcherCount();
+            UIManager.instance.UpdateSpearmanCount();
+        }
+    }
+
+    public void CombineBlueMage()
+    {
+        TagSoldier.BlueSpearmanTag();
+        if (TagSoldier.BlueSpearman.Length >= 2)
+        {
+
+            Destroy(TagSoldier.BlueSpearman[0]);
+            Destroy(TagSoldier.BlueSpearman[1]);
+
+
+            SoldierChoose(1, 1, 3, 3);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSpearmanCount();
+            UIManager.instance.UpdateMageCount();
+        }
+    }
+
+    public void CombineYellowArcher()
+    {
+        TagSoldier.YellowSwordmanTag();
+        if (TagSoldier.YellowSwordman.Length >= 2)
+        {
+
+            Destroy(TagSoldier.YellowSwordman[0]);
+            Destroy(TagSoldier.YellowSwordman[1]);
+
+
+            SoldierChoose(2, 2, 1, 1);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSwordmanCount();
+            UIManager.instance.UpdateArcherCount();
+        }
+    }
+
+    public void CombineYellowSpearman()
+    {
+        TagSoldier.YellowSwordmanTag();
+        TagSoldier.YellowArcherTag();
+        if (TagSoldier.YellowSwordman.Length >= 2 && TagSoldier.YellowArcher.Length >= 2)
+        {
+
+            Destroy(TagSoldier.YellowSwordman[0]);
+            Destroy(TagSoldier.YellowSwordman[1]);
+            Destroy(TagSoldier.YellowArcher[0]);
+            Destroy(TagSoldier.YellowArcher[1]);
+
+
+            SoldierChoose(2, 2, 2, 2);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSwordmanCount();
+            UIManager.instance.UpdateArcherCount();
+            UIManager.instance.UpdateSpearmanCount();
+        }
+    }
+
+    public void CombineYellowMage()
+    {
+        TagSoldier.YellowSpearmanTag();
+        if (TagSoldier.YellowSpearman.Length >= 2)
+        {
+
+            Destroy(TagSoldier.YellowSpearman[0]);
+            Destroy(TagSoldier.YellowSpearman[1]);
+
+
+            SoldierChoose(2, 2, 3, 3);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSpearmanCount();
+            UIManager.instance.UpdateMageCount();
+        }
+    }
+
+    public void CombineGreenArcher()
+    {
+        TagSoldier.GreenSwordmanTag();
+        if (TagSoldier.GreenSwordman.Length >= 2)
+        {
+
+            Destroy(TagSoldier.GreenSwordman[0]);
+            Destroy(TagSoldier.GreenSwordman[1]);
+
+
+            SoldierChoose(3, 3, 1, 1);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSwordmanCount();
+            UIManager.instance.UpdateArcherCount();
+        }
+    }
+
+    public void CombineGreenSpearman()
+    {
+        TagSoldier.BlueSwordmanTag();
+        TagSoldier.YellowSwordmanTag();
+        TagSoldier.GreenArcherTag();
+        if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.GreenArcher.Length >= 2)
+        {
+
+            Destroy(TagSoldier.BlueSwordman[0]);
+            Destroy(TagSoldier.YellowSwordman[0]);
+            Destroy(TagSoldier.GreenArcher[0]);
+            Destroy(TagSoldier.GreenArcher[1]);
+
+
+            SoldierChoose(3, 3, 2, 2);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSwordmanCount();
+            UIManager.instance.UpdateArcherCount();
+            UIManager.instance.UpdateSpearmanCount();
+        }
+    }
+
+    public void CombineGreenMage()
+    {
+        TagSoldier.GreenSpearmanTag();
+        TagSoldier.BlueArcherTag();
+        TagSoldier.YellowArcherTag();
+        if (TagSoldier.GreenSpearman.Length >= 2 && TagSoldier.BlueArcher.Length >= 1 && TagSoldier.YellowArcher.Length >= 1)
+        {
+
+            Destroy(TagSoldier.GreenSpearman[0]);
+            Destroy(TagSoldier.GreenSpearman[1]);
+            Destroy(TagSoldier.BlueArcher[0]);
+            Destroy(TagSoldier.YellowArcher[0]);
+
+
+            SoldierChoose(3, 3, 3, 3);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSpearmanCount();
+            UIManager.instance.UpdateMageCount();
+        }
+        
+    }
+
+    public void CombineOrangeArcher()
+    {
+        TagSoldier.OrangeSwordmanTag();
+        if (TagSoldier.OrangeSwordman.Length >= 2)
+        {
+
+            Destroy(TagSoldier.OrangeSwordman[0]);
+            Destroy(TagSoldier.OrangeSwordman[1]);
+
+
+            SoldierChoose(4, 4, 1, 1);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSwordmanCount();
+            UIManager.instance.UpdateArcherCount();
+        }
+    }
+
+    public void CombineOrangeSpearman()
+    {
+        TagSoldier.RedSwordmanTag();
+        TagSoldier.YellowSwordmanTag();
+        TagSoldier.OrangeArcherTag();
+        if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.OrangeArcher.Length >= 2)
+        {
+
+            Destroy(TagSoldier.RedSwordman[0]);
+            Destroy(TagSoldier.YellowSwordman[0]);
+            Destroy(TagSoldier.OrangeArcher[0]);
+            Destroy(TagSoldier.OrangeArcher[1]);
+
+
+            SoldierChoose(4, 4, 2, 2);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSwordmanCount();
+            UIManager.instance.UpdateArcherCount();
+            UIManager.instance.UpdateSpearmanCount();
+        }
+    }
+
+    public void CombineOrangeMage()
+    {
+        TagSoldier.OrangeSpearmanTag();
+        TagSoldier.RedArcherTag();
+        TagSoldier.YellowArcherTag();
+        if (TagSoldier.OrangeSpearman.Length >= 2 && TagSoldier.RedArcher.Length >= 1 && TagSoldier.YellowArcher.Length >= 1)
+        {
+
+            Destroy(TagSoldier.OrangeSpearman[0]);
+            Destroy(TagSoldier.OrangeSpearman[1]);
+            Destroy(TagSoldier.RedArcher[0]);
+            Destroy(TagSoldier.YellowArcher[0]);
+
+
+            SoldierChoose(4, 4, 3, 3);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSpearmanCount();
+            UIManager.instance.UpdateMageCount();
+        }
+    }
+
+    public void CombineVioletArcher()
+    {
+        TagSoldier.VioletSwordmanTag();
+        if (TagSoldier.VioletSwordman.Length >= 2)
+        {
+
+            Destroy(TagSoldier.VioletSwordman[0]);
+            Destroy(TagSoldier.VioletSwordman[1]);
+
+
+            SoldierChoose(5, 5, 1, 1);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSwordmanCount();
+            UIManager.instance.UpdateArcherCount();
+        }
+    }
+
+    public void CombineVioletSpearman()
+    {
+        TagSoldier.BlueSwordmanTag();
+        TagSoldier.RedSwordmanTag();
+        TagSoldier.VioletArcherTag();
+        if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.RedSwordman.Length >= 1 && TagSoldier.VioletArcher.Length >= 2)
+        {
+
+            Destroy(TagSoldier.RedSwordman[0]);
+            Destroy(TagSoldier.YellowSwordman[0]);
+            Destroy(TagSoldier.VioletArcher[0]);
+            Destroy(TagSoldier.VioletArcher[1]);
+
+
+            SoldierChoose(5, 5, 2, 2);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSwordmanCount();
+            UIManager.instance.UpdateArcherCount();
+            UIManager.instance.UpdateSpearmanCount();
+        }
+    }
+
+    public void CombineVioletMage()
+    {
+        TagSoldier.VioletSpearmanTag();
+        TagSoldier.BlueArcherTag();
+        TagSoldier.RedArcherTag();
+        if (TagSoldier.VioletSpearman.Length >= 2 && TagSoldier.BlueArcher.Length >= 1 && TagSoldier.RedArcher.Length >= 1)
+        {
+
+            Destroy(TagSoldier.VioletSpearman[0]);
+            Destroy(TagSoldier.VioletSpearman[1]);
+            Destroy(TagSoldier.RedArcher[0]);
+            Destroy(TagSoldier.BlueArcher[0]);
+
+
+            SoldierChoose(5, 5, 3, 3);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSpearmanCount();
+            UIManager.instance.UpdateMageCount();
+        }
+    }
+
+
+
+    public void CombineGreenSwordman()
+    {
+        TagSoldier.RedSwordmanTag();
+        TagSoldier.BlueSwordmanTag();
+        if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.BlueSwordman.Length >= 1)
+        {
+
+            Destroy(TagSoldier.RedSwordman[0]);
+            Destroy(TagSoldier.BlueSwordman[0]);
+
+
+            SoldierChoose(5, 5, 0, 0);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSwordmanCount();
+        }
+    }
+
+    public void CombineOrangeSwordman()
+    {
+        TagSoldier.YellowSwordmanTag();
+        TagSoldier.BlueSwordmanTag();
+        if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1)
+        {
+
+            Destroy(TagSoldier.YellowSwordman[0]);
+            Destroy(TagSoldier.BlueSwordman[0]);
+
+
+            SoldierChoose(3, 3, 0, 0);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSwordmanCount();
+        }
+    }
+
+    public void CombineVioletSwordman()
+    {
+        TagSoldier.YellowSwordmanTag();
+        TagSoldier.RedSwordmanTag();
+        if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1)
+        {
+
+            Destroy(TagSoldier.YellowSwordman[0]);
+            Destroy(TagSoldier.RedSwordman[0]);
+
+
+            SoldierChoose(4, 4, 0, 0);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            UIManager.instance.ButtonDown();
+            UIManager.instance.UpdateSwordmanCount();
+        }
+    }
+
+
 
 
     private void SoldierChoose(int Colornumber1, int Colornumber2, int Soldiernumber1,int Soldiernumber2)

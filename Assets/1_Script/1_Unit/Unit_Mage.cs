@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit_Mage : TeamSoldier
+public class Unit_Mage : RangeUnit
 {
     private Animator animator;
     public GameObject magicLight;

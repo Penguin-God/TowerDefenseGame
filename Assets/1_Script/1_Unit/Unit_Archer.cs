@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Unit_Archer : TeamSoldier
+public class Unit_Archer : RangeUnit
 {
     private GameObject trail;
     public GameObject arrow;
@@ -22,9 +22,6 @@ public class Unit_Archer : TeamSoldier
 
     IEnumerator ArrowAttack()
     {
-        //LookEnemy();
-        yield return new WaitForSeconds(0.2f);
-        nav.isStopped = true;
         trail.SetActive(false);
 
         if (target != null && Vector3.Distance(target.position, transform.position) < 150f)
@@ -33,8 +30,7 @@ public class Unit_Archer : TeamSoldier
             ShotBullet(instantArrow, 2f, 50f);
         }
 
-        yield return new WaitForSeconds(1.5f);
-        nav.isStopped = false;
+        yield return new WaitForSeconds(1f);
         trail.SetActive(true);
     }
 }

@@ -6,13 +6,27 @@ public class RangeUnit : TeamSoldier
 { 
     public override bool CanAttack()
     {
-        if (enemyDistance < attackRange) return true;
+        if (enemyIsForward) return true;
         else return false;
     }
 
     private void Update()
     {
         RangeChaseMove(enemyDistance);
+    }
+
+    bool rayHit;
+    RaycastHit rayHitObject;
+    bool enemyIsForward;
+    private void FixedUpdate()
+    {
+        Debug.DrawRay(transform.position + Vector3.up, transform.parent.forward * attackRange, Color.green);
+        rayHit = Physics.Raycast(transform.parent.position + Vector3.up, transform.parent.forward, out rayHitObject, attackRange, layerMask);
+        if (rayHit)
+        {
+            if (rayHitObject.transform.gameObject == target.parent.gameObject) enemyIsForward = true;
+            else enemyIsForward = false;
+        }
     }
 
     void RangeChaseMove(float distance)
@@ -38,7 +52,7 @@ public class RangeUnit : TeamSoldier
 
         Vector3 dir = target.position - bullet.transform.position;
         float enemyWeightDir = Mathf.Lerp(0, enemy.speed, (weightRate * Vector3.Distance(target.position, this.transform.position)) / 100);
-        Debug.Log(enemyWeightDir);
+        //Debug.Log(enemyWeightDir);
         dir += enemy.dir * enemyWeightDir;
         bulletRigid.velocity = dir.normalized * velocity;
     }

@@ -16,9 +16,9 @@ public class MeeleUnit : TeamSoldier
 
     private void FixedUpdate()
     {
-        Debug.DrawRay(transform.position + Vector3.up, -1 * transform.forward * attackRange, Color.green);
-        rayHit = Physics.Raycast(transform.parent.position + Vector3.up, 
-            -1 * transform.forward, out rayHitObject, attackRange, layerMask);
+        Debug.DrawRay(transform.position + Vector3.up, transform.parent.forward * attackRange, Color.green);
+        rayHit = Physics.Raycast(transform.parent.position + Vector3.up,
+            transform.parent.forward , out rayHitObject, attackRange, layerMask);
         if (rayHit)
         {
             if (rayHitObject.transform.gameObject == target.parent.gameObject) enemyIsForward = true;

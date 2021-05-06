@@ -57,6 +57,11 @@ public class TeamSoldier : MonoBehaviour
         return false;
     }
 
+    public virtual void EenmyChase() // 추적
+    {
+        
+    }
+
     protected float enemyDistance;
     IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
     {
@@ -84,11 +89,16 @@ public class TeamSoldier : MonoBehaviour
                 yield return null; // 튕김 방지
                 continue;
             }
+            if (unitType == Type.archer || unitType == Type.mage) 
+            {
+                Vector3 enemySpeed = target.GetComponent<Enemy>().dir * 5f;
+                nav.SetDestination(target.position + enemySpeed);
+            } 
+            else nav.SetDestination(target.position);
 
-            nav.SetDestination(target.position + new Vector3(12f, 0, 12f));
             if (CanAttack() && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
                 NormalAttack();
-            yield return new WaitForSeconds(0.1f);
+            yield return null;
         }
     }
 

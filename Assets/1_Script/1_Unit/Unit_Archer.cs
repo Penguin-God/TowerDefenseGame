@@ -22,6 +22,7 @@ public class Unit_Archer : RangeUnit
 
     IEnumerator ArrowAttack()
     {
+        nav.angularSpeed = 1;
         trail.SetActive(false);
 
         if (target != null && Vector3.Distance(target.position, transform.position) < 150f)
@@ -32,6 +33,7 @@ public class Unit_Archer : RangeUnit
 
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
+        nav.angularSpeed = 1000;
     }
 }
 

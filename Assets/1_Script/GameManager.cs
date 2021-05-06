@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public EnemySpawn enemySpawn;
     private bool isGameover;
     public bool isClear;
+    public World world;
     // public GameObject[] Soldiers;
 
 

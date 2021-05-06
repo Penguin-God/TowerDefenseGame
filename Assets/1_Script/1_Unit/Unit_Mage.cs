@@ -23,10 +23,8 @@ public class Unit_Mage : RangeUnit
 
     IEnumerator MageAttack()
     {
-        //LookEnemy();
-        //yield return new WaitForSeconds(0.2f);
+        nav.angularSpeed = 1;
         animator.SetTrigger("isAttack");
-        nav.isStopped = true;
         yield return new WaitForSeconds(0.6f);
         magicLight.SetActive(true);
 
@@ -38,7 +36,6 @@ public class Unit_Mage : RangeUnit
 
         yield return new WaitForSeconds(0.5f);
         magicLight.SetActive(false);
-        yield return new WaitForSeconds(1f);
-        nav.isStopped = false;
+        nav.angularSpeed = 1000;
     }
 }

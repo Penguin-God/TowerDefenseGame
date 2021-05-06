@@ -38,7 +38,7 @@ public class RangeUnit : TeamSoldier
     protected GameObject CreateBullte(GameObject instantObject, Transform createPositon)
     {
         Vector3 instantPosition = new Vector3(createPositon.position.x, 2f, createPositon.position.z);
-        GameObject instantBullet = Instantiate(instantObject, instantPosition, Quaternion.identity);
+        GameObject instantBullet = Instantiate(instantObject, instantPosition, (unitType == Type.archer) ? Quaternion.identity : transform.parent.rotation);
 
         AttackWeapon attackWeapon = instantBullet.GetComponent<AttackWeapon>();
         attackWeapon.attackUnit = this.gameObject; // 화살과 적의 충돌감지를 위한 대입
@@ -52,7 +52,6 @@ public class RangeUnit : TeamSoldier
 
         Vector3 dir = target.position - bullet.transform.position;
         float enemyWeightDir = Mathf.Lerp(0, enemy.speed, (weightRate * Vector3.Distance(target.position, this.transform.position)) / 100);
-        //Debug.Log(enemyWeightDir);
         dir += enemy.dir * enemyWeightDir;
         bulletRigid.velocity = dir.normalized * velocity;
     }

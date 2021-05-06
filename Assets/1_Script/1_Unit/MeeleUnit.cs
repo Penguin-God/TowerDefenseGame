@@ -21,6 +21,7 @@ public class MeeleUnit : TeamSoldier
             transform.parent.forward , out rayHitObject, attackRange, layerMask);
         if (rayHit)
         {
+            //Debug.Log(rayHitObject);
             if (rayHitObject.transform.gameObject == target.parent.gameObject) enemyIsForward = true;
             else enemyIsForward = false;
         }
@@ -35,10 +36,6 @@ public class MeeleUnit : TeamSoldier
             nav.isStopped = true;
         }
         else nav.isStopped = false;
-        //else if ((Check_EnemyToUnit_Deggre() < -0.6f && enemyDistance < attackRange * 2.2))
-        //{
-        //    nav.speed = 0.1f;
-        //}
     }
 
     protected float Check_EnemyToUnit_Deggre()

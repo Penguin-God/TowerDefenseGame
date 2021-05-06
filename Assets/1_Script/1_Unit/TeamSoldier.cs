@@ -57,31 +57,16 @@ public class TeamSoldier : MonoBehaviour
         return false;
     }
 
-    public virtual void EenmyChase() // 추적
-    {
+    //public virtual void EenmyChase() // 추적
+    //{
         
-    }
+    //}
 
     protected float enemyDistance;
     IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
     {
         while (true)
         {
-            //if (target != null && Vector3.Distance(target.position, this.transform.position) < chaseRange) // target이 추적범위 안에 있으면
-            //{
-            //    float dir = Vector3.Distance(target.position, this.transform.position);
-
-            //    // 유닛 타입에 따른 움직임
-            //    if ((unitType == Type.spearman || unitType == Type.sowrdman) && dir < 15f) MeleeMove();
-            //    else RangeChaseMove(dir);
-
-            //    if (dir < attackRange && !isAttack) // 적이 사정거리 안에 있을때
-            //    {
-            //        NormalAttack();
-            //    }
-            //    nav.SetDestination(target.position);
-            //}
-
             if(target != null) enemyDistance = Vector3.Distance(this.transform.position, target.position);
             if (target == null || enemyDistance > chaseRange)
             {
@@ -89,6 +74,7 @@ public class TeamSoldier : MonoBehaviour
                 yield return null; // 튕김 방지
                 continue;
             }
+
             if (unitType == Type.archer || unitType == Type.mage) 
             {
                 Vector3 enemySpeed = target.GetComponent<Enemy>().dir * 5f;
@@ -145,14 +131,6 @@ public class TeamSoldier : MonoBehaviour
         if (target != null) enemy = target.gameObject.GetComponentInChildren<Enemy>();
         return enemy;
     }
-
-    //private void MeleeMove() // 근접 공격 시 상대방이 유닛 쪽으로 움직이고 있으면 정지 아니면 이동
-    //{
-    //    Enemy enemy = GetEnemyScript();
-    //    float enemyDot = Vector3.Dot(enemy.dir.normalized, (target.position - this.transform.position).normalized);
-    //    if (enemyDot < -0.7f) nav.speed = 1.5f;
-    //    else nav.speed = this.speed;
-    //}
 
     private void OnMouseDown()
     {

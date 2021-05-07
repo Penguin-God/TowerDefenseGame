@@ -16704,7 +16704,7 @@ PrefabInstance:
     - target: {fileID: 3343415014830645100, guid: 2a0805aa1bacd58469d5655b8e173611,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 470
       objectReference: {fileID: 0}
     - target: {fileID: 3343415014830645100, guid: 2a0805aa1bacd58469d5655b8e173611,
         type: 3}
@@ -25144,10 +25144,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 318e67155f164e248b16a62433b3011f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 0
   maxHp: 1000
   currentHp: 1000
   isDead: 0
   hpSlider: {fileID: 977351701}
+  dir: {x: 0, y: 0, z: 0}
 --- !u!65 &1747718932
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26283,6 +26285,10 @@ PrefabInstance:
     - target: {fileID: 1405821561356086, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
       propertyPath: m_Layer
       value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1405821561356086, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
+      propertyPath: m_TagString
+      value: Tower
       objectReference: {fileID: 0}
     - target: {fileID: 4324885144169672, guid: a8502fe342b2aa542ad7a8270f622c7a, type: 3}
       propertyPath: m_RootOrder

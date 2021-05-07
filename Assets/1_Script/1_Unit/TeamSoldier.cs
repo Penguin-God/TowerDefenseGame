@@ -38,7 +38,7 @@ public class TeamSoldier : MonoBehaviour
         UpdateTarget();
         nav.speed = this.speed;
         layerMask = 1 << LayerMask.NameToLayer("Enemy"); // Ray가 Enemy 레이어만 충돌 체크함
-        StartCoroutine(NavCoroutine());
+        StartCoroutine("NavCoroutine");
     }
 
     public virtual void NormalAttack()
@@ -63,6 +63,10 @@ public class TeamSoldier : MonoBehaviour
     //}
 
     protected float enemyDistance;
+    protected bool rayHit;
+    protected RaycastHit rayHitObject;
+    [SerializeField]
+    protected bool enemyIsForward;
     IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
     {
         while (true)
@@ -122,6 +126,33 @@ public class TeamSoldier : MonoBehaviour
         {
             nav.isStopped = true;
             target = null;
+        }
+    }
+
+    // 타워 때리는 무한반복 코루틴
+    IEnumerator TowerNavCoroutine() 
+    {
+        while (true)
+        {
+            if(target != null)
+            {
+                nav.SetDestination(target.position);
+                if (rayHit)
+                {
+                    if (rayHitObject.transform.gameObject.CompareTag("Tower") && !isAttack) NormalAttack();
+                }
+            }
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Tower")
+        {
+            StopCoroutine("NavCoroutine");
+            nav.isStopped = false;
+            StartCoroutine("TowerNavCoroutine");
         }
     }
 

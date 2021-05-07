@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class MeeleUnit : TeamSoldier
 {
-    bool rayHit;
-    RaycastHit rayHitObject;
-    bool enemyIsForward;
+    //bool rayHit;
+    //RaycastHit rayHitObject;
+    //bool enemyIsForward;
 
     public override bool CanAttack()
     {
@@ -16,12 +16,11 @@ public class MeeleUnit : TeamSoldier
 
     private void FixedUpdate()
     {
-        Debug.DrawRay(transform.position + Vector3.up, transform.parent.forward * attackRange, Color.green);
+        Debug.DrawRay(transform.parent.position + Vector3.up, transform.parent.forward * attackRange, Color.green);
         rayHit = Physics.Raycast(transform.parent.position + Vector3.up,
             transform.parent.forward , out rayHitObject, attackRange, layerMask);
         if (rayHit)
         {
-            //Debug.Log(rayHitObject);
             if (rayHitObject.transform.gameObject == target.parent.gameObject) enemyIsForward = true;
             else enemyIsForward = false;
         }
@@ -31,7 +30,8 @@ public class MeeleUnit : TeamSoldier
 
     void Stop_or_Move()
     {
-        if (enemyIsForward && enemyDistance < stopDistanc)
+        // 정지조건 3개
+        if ((enemyIsForward && enemyDistance < stopDistanc) || enemyDistance < 0.2f || (Check_EnemyToUnit_Deggre() < 0.6f && enemyIsForward))
         {
             nav.isStopped = true;
         }

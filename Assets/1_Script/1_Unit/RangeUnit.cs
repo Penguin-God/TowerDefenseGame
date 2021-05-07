@@ -15,15 +15,16 @@ public class RangeUnit : TeamSoldier
         RangeChaseMove(enemyDistance);
     }
 
-    bool rayHit;
-    RaycastHit rayHitObject;
-    bool enemyIsForward;
+    //bool rayHit;
+    //RaycastHit rayHitObject;
+    //bool enemyIsForward;
     private void FixedUpdate()
     {
         Debug.DrawRay(transform.position + Vector3.up, transform.parent.forward * attackRange, Color.green);
         rayHit = Physics.Raycast(transform.parent.position + Vector3.up, transform.parent.forward, out rayHitObject, attackRange, layerMask);
         if (rayHit)
         {
+            //Debug.Log(rayHitObject.transform.gameObject);
             if (rayHitObject.transform.gameObject == target.parent.gameObject) enemyIsForward = true;
             else enemyIsForward = false;
         }

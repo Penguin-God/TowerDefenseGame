@@ -3,14 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class EnemyTower : MonoBehaviour
+public class EnemyTower : Enemy
 {
-    // 상태 변수
-    public int maxHp;
-    public int currentHp;
-    public bool isDead;
-    public Slider hpSlider;
-
     private void Awake()
     {
         hpSlider.maxValue = maxHp;

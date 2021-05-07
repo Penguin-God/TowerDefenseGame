@@ -30,6 +30,7 @@ TagManager:
   - VioletSpearman
   - VioletMage
   - RedArcher
+  - Tower
   layers:
   - Default
   - TransparentFX

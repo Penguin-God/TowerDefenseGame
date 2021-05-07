@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class CombineSoldier : MonoBehaviour
 {
-    private int Colornumber;
-    private int Soldiernumber;
+    public int Colornumber;
+    public int Soldiernumber;
     public CreateDefenser createdefenser;
     public SoldiersTags TagSoldier;
 
@@ -437,7 +437,7 @@ public class CombineSoldier : MonoBehaviour
 
 
 
-    private void SoldierChoose(int Colornumber1, int Colornumber2, int Soldiernumber1,int Soldiernumber2)
+    public void SoldierChoose(int Colornumber1, int Colornumber2, int Soldiernumber1,int Soldiernumber2)
     {
         Colornumber = Random.Range(Colornumber1, Colornumber2);
         Soldiernumber = Random.Range(Soldiernumber1, Soldiernumber2);
@@ -552,4 +552,6 @@ public class CombineSoldier : MonoBehaviour
         // createdefenser.CreateSoldier(Colornumber, Soldiernumber);
         // createdefenser.ExpenditureGold();
     }
+
+
 }

@@ -4,10 +4,6 @@ using UnityEngine;
 
 public class MeeleUnit : TeamSoldier
 {
-    //bool rayHit;
-    //RaycastHit rayHitObject;
-    //bool enemyIsForward;
-
     public override bool CanAttack()
     {
         if (enemyIsForward) return true;
@@ -19,6 +15,10 @@ public class MeeleUnit : TeamSoldier
         Debug.DrawRay(transform.parent.position + Vector3.up, transform.parent.forward * attackRange, Color.green);
         rayHit = Physics.Raycast(transform.parent.position + Vector3.up,
             transform.parent.forward , out rayHitObject, attackRange, layerMask);
+    }
+
+    private void Update()
+    {
         if (rayHit)
         {
             if (rayHitObject.transform.gameObject == target.parent.gameObject) enemyIsForward = true;
@@ -31,7 +31,7 @@ public class MeeleUnit : TeamSoldier
     void Stop_or_Move()
     {
         // 정지조건 3개
-        if ((enemyIsForward && enemyDistance < stopDistanc) || enemyDistance < 0.2f || (Check_EnemyToUnit_Deggre() < 0.6f && enemyIsForward))
+        if ((enemyIsForward && enemyDistance < stopDistanc) || enemyDistance < 1f || (Check_EnemyToUnit_Deggre() < 0.6f && enemyIsForward))
         {
             nav.isStopped = true;
         }
@@ -45,8 +45,9 @@ public class MeeleUnit : TeamSoldier
         return enemyDot;
     }
 
-    protected void HitMeeleAttack() // 근접공격 타겟팅
+    protected void HitMeeleAttack() // 근접공격 타겟팅, damage는 델리게이트 통일을 위한 잉여 변수
     {
+        // 공격 시작 때 적과 HitMeeleAttack() 작동 시 적과 같은 적인지 비교하는 코드 필요
         Enemy enemy = GetEnemyScript();
         if (enemy != null && Vector3.Distance(enemy.transform.position, this.transform.position) < attackRange)
             enemy.OnDamage(this.damage);

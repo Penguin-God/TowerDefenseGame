@@ -12,6 +12,9 @@ public class TeamSoldier : MonoBehaviour
     public enum Type { sowrdman, archer, spearman, mage } // rangeUnit = 원거리 공격 유닛,  meleeUnit = 근거리 공격 유닛
     public Type unitType;
 
+    public enum UnitColor { red, blue, yellow, green, orange, violet};
+    public UnitColor unitColor;
+
     public float speed;
     public float attackDelayTime;
     public float attackRange;
@@ -35,10 +38,30 @@ public class TeamSoldier : MonoBehaviour
         Combine = FindObjectOfType<CombineSoldier>();
         nav = GetComponentInParent<NavMeshAgent>();
         enemySpawn = FindObjectOfType<EnemySpawn>();
+        SetPassive();
         UpdateTarget();
         nav.speed = this.speed;
         layerMask = 1 << LayerMask.NameToLayer("Enemy"); // Ray가 Enemy 레이어만 충돌 체크함
         StartCoroutine("NavCoroutine");
+    }
+
+    public virtual void SetPassive()
+    {
+        switch (unitColor)
+        {
+            case UnitColor.red:
+                break;
+            case UnitColor.blue:
+                break;
+            case UnitColor.yellow:
+                break;
+            case UnitColor.green:
+                break;
+            case UnitColor.orange:
+                break;
+            case UnitColor.violet:
+                break;
+        }
     }
 
     public virtual void NormalAttack()
@@ -65,7 +88,7 @@ public class TeamSoldier : MonoBehaviour
     protected float enemyDistance;
     protected bool rayHit;
     protected RaycastHit rayHitObject;
-    [SerializeField]
+    //[SerializeField]
     protected bool enemyIsForward;
     IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
     {
@@ -159,8 +182,26 @@ public class TeamSoldier : MonoBehaviour
     protected Enemy GetEnemyScript()
     {
         Enemy enemy = null;
-        if (target != null) enemy = target.gameObject.GetComponentInChildren<Enemy>();
+        if (target != null) enemy = target.gameObject.GetComponent<Enemy>();
         return enemy;
+    }
+
+    protected void EnemySlow(int slowPercent)
+    {
+        Enemy enemy = GetEnemyScript();
+        enemy.speed *= (slowPercent / 100);
+    }
+
+    protected IEnumerator PoisonAttack(int poisonPercent, int poisonCount, float poisonDelay)
+    {
+        Enemy enemy = GetEnemyScript();
+        int poisonDamage = Mathf.RoundToInt(enemy.currentHp * poisonPercent / 100);
+        for (int i = 0; i < poisonCount; i++)
+        {
+            if (poisonDamage <= 0) poisonDamage = 1;
+            if(enemy.currentHp > 1) enemy.currentHp -= poisonDamage; // 독으로는 못죽임
+            yield return new WaitForSeconds(poisonDelay);
+        }
     }
 
     private void OnMouseDown()

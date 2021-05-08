@@ -14,6 +14,27 @@ public class Unit_Archer : RangeUnit
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
     }
 
+    public override void SetPassive()
+    {
+        switch (unitColor)
+        {
+            case UnitColor.red:
+                attackDelayTime *= 0.5f;
+                break;
+            case UnitColor.blue:
+                break;
+            case UnitColor.yellow:
+                break;
+            case UnitColor.green:
+                speed *= 2;
+                break;
+            case UnitColor.orange:
+                break;
+            case UnitColor.violet:
+                break;
+        }
+    }
+
     public override void NormalAttack()
     {
         base.NormalAttack();

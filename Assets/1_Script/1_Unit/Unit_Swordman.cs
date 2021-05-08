@@ -12,6 +12,27 @@ public class Unit_Swordman : MeeleUnit
         animator = GetComponent<Animator>();
     }
 
+    public override void SetPassive()
+    {
+        switch (unitColor)
+        {
+            case UnitColor.red:
+                attackDelayTime *= 0.5f;
+                break;
+            case UnitColor.blue:
+                break;
+            case UnitColor.yellow:
+                break;
+            case UnitColor.green:
+                speed *= 2;
+                break;
+            case UnitColor.orange:
+                break;
+            case UnitColor.violet:
+                break;
+        }
+    }
+
     public override void NormalAttack()
     {
         base.NormalAttack();
@@ -24,7 +45,27 @@ public class Unit_Swordman : MeeleUnit
         yield return new WaitForSeconds(0.8f);
         trail.SetActive(true);
         yield return new WaitForSeconds(0.3f);
-        HitMeeleAttack(); // 공격 시작 때 적과 HitMeeleAttack() 작동 시 적과 같은 적인지 비교하는 코드 필요
+        if (target != null && Vector3.Distance(target.position, this.transform.position) < attackRange)
+        {
+            HitMeeleAttack();
+            switch (unitColor)
+            {
+                case UnitColor.red:
+                    break;
+                case UnitColor.blue:
+                    EnemySlow(10);
+                    break;
+                case UnitColor.yellow:
+                    break;
+                case UnitColor.green:
+                    break;
+                case UnitColor.orange:
+                    break;
+                case UnitColor.violet:
+                    StartCoroutine(PoisonAttack(3, 5, 0.3f));
+                    break;
+            }
+        }
         trail.SetActive(false);
     }
 }

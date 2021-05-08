@@ -1,12 +1,42 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class StoryMode : MonoBehaviour
 {
     public SoldiersTags soldiersTags;
     public CombineSoldier combineSoldier;
     public CreateDefenser createDefenser;
+    
+    public void TranslateUnit()
+    {
+        Transform hitUnit = GameManager.instance.hitSolider.transform.parent;
+        if (hitUnit == null) return; // null이면 return
+        if (hitUnit.position.x < 300)
+        {
+            Instantiate(hitUnit.gameObject, SetRandomPosition(460, 540, 20, -20, true), hitUnit.rotation);
+            Destroy(hitUnit.gameObject);
+        }
+        else
+        {
+            Instantiate(hitUnit.gameObject, SetRandomPosition(10, -10, 10, -10, false), hitUnit.rotation);
+            Destroy(hitUnit.gameObject);
+        }
+    }
+
+    Vector3 SetRandomPosition(float maxX, float minX, float maxZ, float minZ, bool isTower)
+    {
+        float randomX = 0f;
+        if (isTower)
+        {
+            float randomX_1 = Random.Range(minX, 520);
+            float randomX_2 = Random.Range(520, maxX);
+            int xArea = Random.Range(0, 2);
+            randomX = (xArea == 0) ? randomX_1 : randomX_2;
+        }
+        else randomX = Random.Range(minX, maxX);
+        float randomZ = Random.Range(minZ, maxZ);
+        return new Vector3(randomX, 0, randomZ);
+    }
+
 
 
     public void EnterStoryMode()
@@ -25,7 +55,7 @@ public class StoryMode : MonoBehaviour
     public void RedSwordmanEnterStoryMode()
     {
         soldiersTags.RedSwordmanTag();
-        for(int i = 0; i <= soldiersTags.RedSwordman.Length; i ++)
+        for(int i = 0; i <= soldiersTags.RedSwordman.Length; i++)
         {
             if(soldiersTags.RedSwordman[i].transform.position.x < 300)
             {

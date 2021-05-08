@@ -169,11 +169,15 @@ public class TeamSoldier : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    bool enterStoryWorld;
+    private void OnTriggerStay(Collider other)
     {
-        if(other.tag == "Tower")
+        if(other.tag == "Tower" && !enterStoryWorld)
         {
+            Debug.Log("a");
+            enterStoryWorld = true;
             StopCoroutine("NavCoroutine");
+            target = other.transform;
             nav.isStopped = false;
             StartCoroutine("TowerNavCoroutine");
         }

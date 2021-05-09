@@ -223,6 +223,7 @@ public class TeamSoldier : MonoBehaviour
     private void OnMouseDown()
     {
         GameManager.instance.Chilk();
-        Combine.ButtonOn();
+        //Combine.ButtonOn();
+        UIManager.instance.SellSoldier.gameObject.SetActive(true);
     }
 }

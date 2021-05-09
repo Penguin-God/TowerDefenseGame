@@ -8,6 +8,7 @@ public class CombineSoldier : MonoBehaviour
     public int Soldiernumber;
     public CreateDefenser createdefenser;
     public SoldiersTags TagSoldier;
+    public UnitManageButton unitmanage;
 
     void Start()
     {
@@ -26,10 +27,12 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(0, 0, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSwordmanCount();
-            UIManager.instance.UpdateArcherCount();
         }
+        UIManager.instance.UpdateSwordmanCount();
+        UIManager.instance.UpdateArcherCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void CombineRedSpearman()
@@ -47,11 +50,14 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(0, 0, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSwordmanCount();
-            UIManager.instance.UpdateArcherCount();
-            UIManager.instance.UpdateSpearmanCount();
+
         }
+        UIManager.instance.UpdateSwordmanCount();
+        UIManager.instance.UpdateArcherCount();
+        UIManager.instance.UpdateSpearmanCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void CombineRedMage()
@@ -66,10 +72,13 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(0, 0, 3, 3);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSpearmanCount();
-            UIManager.instance.UpdateMageCount();
+
         }
+        UIManager.instance.UpdateSpearmanCount();
+        UIManager.instance.UpdateMageCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void CombineBlueArcher()
@@ -84,10 +93,13 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(1, 1, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSwordmanCount();
-            UIManager.instance.UpdateArcherCount();
+
         }
+        UIManager.instance.UpdateSwordmanCount();
+        UIManager.instance.UpdateArcherCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void CombineBlueSpearman()
@@ -105,11 +117,14 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(1, 1, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSwordmanCount();
-            UIManager.instance.UpdateArcherCount();
-            UIManager.instance.UpdateSpearmanCount();
+
         }
+        UIManager.instance.UpdateSwordmanCount();
+        UIManager.instance.UpdateArcherCount();
+        UIManager.instance.UpdateSpearmanCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void CombineBlueMage()
@@ -124,10 +139,13 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(1, 1, 3, 3);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSpearmanCount();
-            UIManager.instance.UpdateMageCount();
+
         }
+        UIManager.instance.UpdateSpearmanCount();
+        UIManager.instance.UpdateMageCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void CombineYellowArcher()
@@ -142,10 +160,13 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(2, 2, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSwordmanCount();
-            UIManager.instance.UpdateArcherCount();
+
         }
+        UIManager.instance.UpdateSwordmanCount();
+        UIManager.instance.UpdateArcherCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void CombineYellowSpearman()
@@ -163,11 +184,16 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(2, 2, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
             UIManager.instance.UpdateSwordmanCount();
             UIManager.instance.UpdateArcherCount();
             UIManager.instance.UpdateSpearmanCount();
         }
+        UIManager.instance.UpdateSwordmanCount();
+        UIManager.instance.UpdateArcherCount();
+        UIManager.instance.UpdateSpearmanCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void CombineYellowMage()
@@ -182,10 +208,14 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(2, 2, 3, 3);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
             UIManager.instance.UpdateSpearmanCount();
             UIManager.instance.UpdateMageCount();
         }
+        UIManager.instance.UpdateSpearmanCount();
+        UIManager.instance.UpdateMageCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void CombineGreenArcher()
@@ -200,10 +230,14 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(3, 3, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
             UIManager.instance.UpdateSwordmanCount();
             UIManager.instance.UpdateArcherCount();
         }
+        UIManager.instance.UpdateSwordmanCount();
+        UIManager.instance.UpdateArcherCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void CombineGreenSpearman()
@@ -222,11 +256,14 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(3, 3, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSwordmanCount();
-            UIManager.instance.UpdateArcherCount();
-            UIManager.instance.UpdateSpearmanCount();
+
         }
+        UIManager.instance.UpdateSwordmanCount();
+        UIManager.instance.UpdateArcherCount();
+        UIManager.instance.UpdateSpearmanCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void CombineGreenMage()
@@ -245,11 +282,14 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(3, 3, 3, 3);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSpearmanCount();
-            UIManager.instance.UpdateMageCount();
+
         }
-        
+        UIManager.instance.UpdateSpearmanCount();
+        UIManager.instance.UpdateMageCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
+
     }
 
     public void CombineOrangeArcher()
@@ -264,10 +304,13 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(4, 4, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSwordmanCount();
-            UIManager.instance.UpdateArcherCount();
+
         }
+        UIManager.instance.UpdateSwordmanCount();
+        UIManager.instance.UpdateArcherCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void CombineOrangeSpearman()
@@ -286,11 +329,14 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(4, 4, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSwordmanCount();
-            UIManager.instance.UpdateArcherCount();
-            UIManager.instance.UpdateSpearmanCount();
+
         }
+        UIManager.instance.UpdateSwordmanCount();
+        UIManager.instance.UpdateArcherCount();
+        UIManager.instance.UpdateSpearmanCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void CombineOrangeMage()
@@ -309,10 +355,13 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(4, 4, 3, 3);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSpearmanCount();
-            UIManager.instance.UpdateMageCount();
+
         }
+        UIManager.instance.UpdateSpearmanCount();
+        UIManager.instance.UpdateMageCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void CombineVioletArcher()
@@ -327,10 +376,13 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(5, 5, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSwordmanCount();
-            UIManager.instance.UpdateArcherCount();
+
         }
+        UIManager.instance.UpdateSwordmanCount();
+        UIManager.instance.UpdateArcherCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void CombineVioletSpearman()
@@ -349,11 +401,14 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(5, 5, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSwordmanCount();
-            UIManager.instance.UpdateArcherCount();
-            UIManager.instance.UpdateSpearmanCount();
+
         }
+        UIManager.instance.UpdateSwordmanCount();
+        UIManager.instance.UpdateArcherCount();
+        UIManager.instance.UpdateSpearmanCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void CombineVioletMage()
@@ -372,37 +427,22 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(5, 5, 3, 3);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSpearmanCount();
-            UIManager.instance.UpdateMageCount();
+
         }
+        UIManager.instance.UpdateSpearmanCount();
+        UIManager.instance.UpdateMageCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
 
 
     public void CombineGreenSwordman()
     {
-        TagSoldier.RedSwordmanTag();
-        TagSoldier.BlueSwordmanTag();
-        if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.BlueSwordman.Length >= 1)
-        {
-
-            Destroy(TagSoldier.RedSwordman[0]);
-            Destroy(TagSoldier.BlueSwordman[0]);
-
-
-            SoldierChoose(5, 5, 0, 0);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSwordmanCount();
-        }
-    }
-
-    public void CombineOrangeSwordman()
-    {
         TagSoldier.YellowSwordmanTag();
         TagSoldier.BlueSwordmanTag();
-        if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1)
+        if (TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.BlueSwordman.Length >= 1)
         {
 
             Destroy(TagSoldier.YellowSwordman[0]);
@@ -411,12 +451,15 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(3, 3, 0, 0);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSwordmanCount();
+
         }
+        UIManager.instance.UpdateSwordmanCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
-    public void CombineVioletSwordman()
+    public void CombineOrangeSwordman()
     {
         TagSoldier.YellowSwordmanTag();
         TagSoldier.RedSwordmanTag();
@@ -429,21 +472,53 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(4, 4, 0, 0);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.ButtonDown();
-            UIManager.instance.UpdateSwordmanCount();
+
+
         }
+        UIManager.instance.UpdateSwordmanCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
+    }
+
+    public void CombineVioletSwordman()
+    {
+        TagSoldier.BlueSwordmanTag();
+        TagSoldier.RedSwordmanTag();
+        if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.BlueSwordman.Length >= 1)
+        {
+
+            Destroy(TagSoldier.BlueSwordman[0]);
+            Destroy(TagSoldier.RedSwordman[0]);
+
+
+            SoldierChoose(5, 5, 0, 0);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+
+        }
+        UIManager.instance.UpdateSwordmanCount();
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
+    }
+
+    public void ComeBackButton()
+    {
+        UIManager.instance.ButtonDown();
+        unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
 
 
 
-    public void SoldierChoose(int Colornumber1, int Colornumber2, int Soldiernumber1,int Soldiernumber2)
+    public void SoldierChoose(int Colornumber1, int Colornumber2, int Soldiernumber1, int Soldiernumber2)
     {
         Colornumber = Random.Range(Colornumber1, Colornumber2);
         Soldiernumber = Random.Range(Soldiernumber1, Soldiernumber2);
-        
+
     }
-    
+
     public void ButtonOn()
     {
 

@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
     public Button SellSoldier;
     public GameObject SoldiersCombineButton;
     public GameObject SoldiersCombineButton2;
+    public GameObject BackGround;
 
     public void UpdateStageText(int Stage)
     {
@@ -39,7 +40,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateGoldText(int Gold)
     {
-        GoldText.text = ""+Gold;
+        GoldText.text = "" + Gold;
     }
 
     public void UpdateFoodText(int Food)
@@ -49,8 +50,8 @@ public class UIManager : MonoBehaviour
 
     public void SetActiveButton(bool show, int SoldiersColornumber, int Soldiersnumber)
     {
-        //SoldierCombine.gameObject.SetActive(show);
-        SellSoldier.gameObject.SetActive(show);
+        //SoldierCombine.gameObject.SetActive(show)
+        //SellSoldier.gameObject.SetActive(show);
         SoldiersCombineButton.transform.GetChild(SoldiersColornumber).transform.GetChild(Soldiersnumber).gameObject.SetActive(show);
     }
 
@@ -80,6 +81,7 @@ public class UIManager : MonoBehaviour
 
     public void ButtonDown()
     {
+        SellSoldier.gameObject.SetActive(false);
         SetActiveButton(false, 0, 0);
         SetActiveButton(false, 1, 0);
         SetActiveButton(false, 2, 0);
@@ -98,6 +100,12 @@ public class UIManager : MonoBehaviour
         SetActiveButton(false, 3, 2);
         SetActiveButton(false, 4, 2);
         SetActiveButton(false, 5, 2);
+        SetActiveButton(false, 0, 3);
+        SetActiveButton(false, 1, 3);
+        SetActiveButton(false, 2, 3);
+        SetActiveButton(false, 3, 3);
+        SetActiveButton(false, 4, 3);
+        SetActiveButton(false, 5, 3);
 
         SetActiveButton2(false, 0, 0);
         SetActiveButton2(false, 1, 0);
@@ -132,7 +140,7 @@ public class UIManager : MonoBehaviour
     public Text OrangeMageText;
     public Text VioletMageText;
 
-    public void UpdateSwordmanText(int RedSwordman,int BlueSwordman, int YellowSwordman, int GreenSwordman, int OrangeSwordman, int VioletSwordman)
+    public void UpdateSwordmanText(int RedSwordman, int BlueSwordman, int YellowSwordman, int GreenSwordman, int OrangeSwordman, int VioletSwordman)
     {
         RedSwordmanText.text = "빨간기사 :" + RedSwordman;
         BlueSwordmanText.text = "파란기사 :" + BlueSwordman;

@@ -28,10 +28,10 @@ public class SoldiersTags : MonoBehaviour
     public GameObject[] VioletArcher;
     public GameObject[] VioletSpearman;
     public GameObject[] VioletMage;
-    void Start()
-    {
+    //void Start()
+    //{
         
-    }
+    //}
 
 
 

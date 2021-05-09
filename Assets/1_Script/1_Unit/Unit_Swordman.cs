@@ -45,7 +45,7 @@ public class Unit_Swordman : MeeleUnit
         yield return new WaitForSeconds(0.8f);
         trail.SetActive(true);
         yield return new WaitForSeconds(0.3f);
-        if (target != null && Vector3.Distance(target.position, this.transform.position) < attackRange)
+        if (target != null && (enemyDistance < attackRange || target.gameObject.CompareTag("Tower")))
         {
             HitMeeleAttack();
             switch (unitColor)

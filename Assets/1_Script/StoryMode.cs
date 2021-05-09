@@ -6,28 +6,31 @@ public class StoryMode : MonoBehaviour
     public CombineSoldier combineSoldier;
     public CreateDefenser createDefenser;
     
-    public void TranslateUnit()
+    public void TranslateUnit(GameObject moveUnit)
     {
-        Transform hitUnit = GameManager.instance.hitSolider.transform.parent;
-        if (hitUnit == null) return; // null이면 return
-        if (hitUnit.position.x < 300)
+        if (moveUnit == null) return; // null이면 return
+
+        Transform unitParent = moveUnit.transform.parent;
+        if (unitParent.transform.position.x < 300)
         {
-            Instantiate(hitUnit.gameObject, SetRandomPosition(460, 540, 20, -20, true), hitUnit.rotation);
-            Destroy(hitUnit.gameObject);
+            GameObject instantUnit = Instantiate(unitParent.gameObject, SetRandomPosition(460, 540, -20, -30, true), unitParent.rotation);
+            instantUnit.GetComponentInChildren<TeamSoldier>().enterStoryWorld = true;
+            Destroy(unitParent.gameObject);
         }
         else
         {
-            Instantiate(hitUnit.gameObject, SetRandomPosition(10, -10, 10, -10, false), hitUnit.rotation);
-            Destroy(hitUnit.gameObject);
+            GameObject instantUnit = Instantiate(unitParent.gameObject, SetRandomPosition(10, -10, 10, -10, false), unitParent.rotation);
+            instantUnit.GetComponentInChildren<TeamSoldier>().enterStoryWorld = false;
+            Destroy(unitParent.gameObject);
         }
     }
 
     Vector3 SetRandomPosition(float maxX, float minX, float maxZ, float minZ, bool isTower)
     {
-        float randomX = 0f;
+        float randomX;
         if (isTower)
         {
-            float randomX_1 = Random.Range(minX, 520);
+            float randomX_1 = Random.Range(minX, 480);
             float randomX_2 = Random.Range(520, maxX);
             int xArea = Random.Range(0, 2);
             randomX = (xArea == 0) ? randomX_1 : randomX_2;
@@ -51,6 +54,15 @@ public class StoryMode : MonoBehaviour
         }
         
     }
+
+    public void UnitEnterStoryMode(string unit_Tag)
+    {
+        GameObject moveUnit = GameObject.FindGameObjectWithTag(unit_Tag);
+        if (moveUnit != null) 
+        {
+            TranslateUnit(moveUnit);
+        }
+    } 
 
     public void RedSwordmanEnterStoryMode()
     {

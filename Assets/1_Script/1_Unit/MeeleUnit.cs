@@ -14,14 +14,15 @@ public class MeeleUnit : TeamSoldier
     {
         Debug.DrawRay(transform.parent.position + Vector3.up, transform.parent.forward * attackRange, Color.green);
         rayHit = Physics.Raycast(transform.parent.position + Vector3.up,
-            transform.parent.forward , out rayHitObject, attackRange, layerMask);
+            transform.parent.forward , out rayHitObject, attackRange + 2, layerMask);
     }
 
     private void Update()
     {
         if (rayHit)
         {
-            if (rayHitObject.transform.gameObject == target.parent.gameObject) enemyIsForward = true;
+            if (rayHitObject.transform.gameObject == target.parent.gameObject || rayHitObject.transform.gameObject.CompareTag("Tower")) 
+                enemyIsForward = true;
             else enemyIsForward = false;
         }
         else enemyIsForward = false;
@@ -31,7 +32,8 @@ public class MeeleUnit : TeamSoldier
     void Stop_or_Move()
     {
         // 정지조건 3개
-        if ((enemyIsForward && enemyDistance < stopDistanc) || enemyDistance < 1f || (Check_EnemyToUnit_Deggre() < 0.6f && enemyIsForward))
+        if ((enemyIsForward && enemyDistance < stopDistanc) || (enemyDistance < 2f && !enemyIsForward) || 
+            (Check_EnemyToUnit_Deggre() < 0.6f && enemyIsForward) || (enemyIsForward && target.gameObject.tag == "Tower"))
         {
             nav.isStopped = true;
         }
@@ -41,6 +43,8 @@ public class MeeleUnit : TeamSoldier
     protected float Check_EnemyToUnit_Deggre()
     {
         Enemy enemy = GetEnemyScript();
+        if (enemy.gameObject.tag == "Tower") return 1f;
+
         float enemyDot = Vector3.Dot(enemy.dir.normalized, (target.position - this.transform.position).normalized);
         return enemyDot;
     }
@@ -49,7 +53,9 @@ public class MeeleUnit : TeamSoldier
     {
         // 공격 시작 때 적과 HitMeeleAttack() 작동 시 적과 같은 적인지 비교하는 코드 필요
         Enemy enemy = GetEnemyScript();
-        if (enemy != null && Vector3.Distance(enemy.transform.position, this.transform.position) < attackRange)
+        if (enemy != null && (enemyDistance < attackRange || target.gameObject.CompareTag("Tower")))
+        {
             enemy.OnDamage(this.damage);
+        }
     }
 }

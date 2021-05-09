@@ -10,13 +10,4 @@ public class EnemyTower : Enemy
         hpSlider.maxValue = maxHp;
         hpSlider.value = maxHp;
     }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        TeamSoldier teamSoldier = other.GetComponent<TeamSoldier>();
-        if (teamSoldier != null)
-        {
-            teamSoldier.target = this.transform;
-        }
-    }
 }

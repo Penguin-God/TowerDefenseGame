@@ -36,13 +36,22 @@ public class TeamSoldier : MonoBehaviour
     {
         chaseRange = 150f;
         Combine = FindObjectOfType<CombineSoldier>();
-        nav = GetComponentInParent<NavMeshAgent>();
         enemySpawn = FindObjectOfType<EnemySpawn>();
-        SetPassive();
-        UpdateTarget();
+        nav = GetComponentInParent<NavMeshAgent>();
         nav.speed = this.speed;
         layerMask = 1 << LayerMask.NameToLayer("Enemy"); // Ray가 Enemy 레이어만 충돌 체크함
-        StartCoroutine("NavCoroutine");
+
+        if (!enterStoryWorld) 
+        {
+            SetPassive();
+            UpdateTarget();
+            StartCoroutine("NavCoroutine");
+        }
+        else
+        {
+            SoldierMove_To_StoryMode();
+            Debug.Log(target.position - transform.position);
+        }
     }
 
     public virtual void SetPassive()
@@ -84,11 +93,11 @@ public class TeamSoldier : MonoBehaviour
     //{
         
     //}
-
+    [SerializeField]
     protected float enemyDistance;
     protected bool rayHit;
     protected RaycastHit rayHitObject;
-    //[SerializeField]
+    [SerializeField]
     protected bool enemyIsForward;
     IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
     {
@@ -155,31 +164,34 @@ public class TeamSoldier : MonoBehaviour
     // 타워 때리는 무한반복 코루틴
     IEnumerator TowerNavCoroutine() 
     {
+        Physics.Raycast(transform.parent.position + Vector3.up, target.position - transform.position, out RaycastHit sktt1, 100f, layerMask);
         while (true)
         {
             if(target != null)
             {
-                nav.SetDestination(target.position);
-                if (rayHit)
-                {
-                    if (rayHitObject.transform.gameObject.CompareTag("Tower") && !isAttack) NormalAttack();
-                }
+                nav.SetDestination(sktt1.point);
+                if ((towerEnter || enemyIsForward) && !isAttack) NormalAttack();
             }
             yield return new WaitForSeconds(0.5f);
         }
     }
-
-    bool enterStoryWorld;
-    private void OnTriggerStay(Collider other)
+    [SerializeField]
+    bool towerEnter;
+    public bool enterStoryWorld;
+    public void SoldierMove_To_StoryMode()
     {
-        if(other.tag == "Tower" && !enterStoryWorld)
+        target = GameObject.FindGameObjectWithTag("Tower").transform;
+        nav.isStopped = false;
+        StartCoroutine("TowerNavCoroutine");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("aa");
+        if (other.tag == "Tower")
         {
-            Debug.Log("a");
-            enterStoryWorld = true;
-            StopCoroutine("NavCoroutine");
-            target = other.transform;
-            nav.isStopped = false;
-            StartCoroutine("TowerNavCoroutine");
+            Debug.Log("aaaa");
+            towerEnter = true;
         }
     }
 

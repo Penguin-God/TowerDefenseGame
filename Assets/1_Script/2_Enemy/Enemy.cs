@@ -29,7 +29,7 @@ public class Enemy : MonoBehaviour
 
     void OnEnable() // 리스폰 시 상태 초기화
     {
-        if (this.GetComponent<EnemyTower>() != null) return;
+        if (this.GetComponent<EnemyTower>() != null) return; // 타워는 X
         enemySpawn.currentEnemyList.Add(this.gameObject);
         isDead = false;
         SetNextPoint();

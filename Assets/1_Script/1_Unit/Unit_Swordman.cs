@@ -36,7 +36,7 @@ public class Unit_Swordman : MeeleUnit
     public override void NormalAttack()
     {
         base.NormalAttack();
-        StartCoroutine(SwordAttack());
+        StartCoroutine("SwordAttack");
     }
 
     IEnumerator SwordAttack()

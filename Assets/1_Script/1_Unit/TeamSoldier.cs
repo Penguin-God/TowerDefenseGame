@@ -40,18 +40,20 @@ public class TeamSoldier : MonoBehaviour
         nav = GetComponentInParent<NavMeshAgent>();
         nav.speed = this.speed;
         layerMask = 1 << LayerMask.NameToLayer("Enemy"); // Ray가 Enemy 레이어만 충돌 체크함
-
-        if (!enterStoryWorld) 
-        {
-            SetPassive();
-            UpdateTarget();
-            StartCoroutine("NavCoroutine");
-        }
-        else
-        {
-            SoldierMove_To_StoryMode();
-            Debug.Log(target.position - transform.position);
-        }
+        SetPassive();
+        UpdateTarget();
+        StartCoroutine("NavCoroutine");
+        //if (!enterStoryWorld) 
+        //{
+        //    SetPassive();
+        //    UpdateTarget();
+        //    StartCoroutine("NavCoroutine");
+        //}
+        //else
+        //{
+        //    SoldierMove_To_StoryMode();
+        //    Debug.Log(target.position - transform.position);
+        //}
     }
 
     public virtual void SetPassive()
@@ -84,26 +86,56 @@ public class TeamSoldier : MonoBehaviour
     }
 
     
-    public virtual bool CanAttack() // 자식들이 Attack가능 여부 판단
-    {
-        return false;
-    }
+    //public virtual bool CanAttack() // 자식들이 Attack가능 여부 판단
+    //{
+    //    return false;
+    //}
 
     //public virtual void EenmyChase() // 추적
     //{
         
     //}
+
     [SerializeField]
     protected float enemyDistance;
     protected bool rayHit;
     protected RaycastHit rayHitObject;
+
     [SerializeField]
     protected bool enemyIsForward;
+
+    private void FixedUpdate()
+    {
+        Debug.DrawRay(transform.parent.position + Vector3.up, transform.parent.forward * attackRange, Color.green);
+        rayHit = Physics.Raycast(transform.parent.position + Vector3.up, transform.parent.forward, out rayHitObject, attackRange, layerMask);
+    }
+
+
+
+    private void Update()
+    {
+        UnitTypeMove();
+        enemyIsForward = Set_EnemyIsForword();
+    }
+
+    public virtual void UnitTypeMove() {} // 유닛에 따른 이동
+
+    bool Set_EnemyIsForword()
+    {
+        if (rayHit)
+        {
+            if (rayHitObject.transform.gameObject == target.parent.gameObject || rayHitObject.transform.gameObject.CompareTag("Tower"))
+                return true;
+            else return false;
+        }
+        else return false;
+    }
+
     IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
     {
         while (true)
         {
-            if(target != null) enemyDistance = Vector3.Distance(this.transform.position, target.position);
+            if (target != null) enemyDistance = Vector3.Distance(this.transform.position, target.position);
             if (target == null || enemyDistance > chaseRange)
             {
                 UpdateTarget();
@@ -118,7 +150,7 @@ public class TeamSoldier : MonoBehaviour
             } 
             else nav.SetDestination(target.position);
 
-            if (CanAttack() && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
+            if (enemyIsForward && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
                 NormalAttack();
             yield return null;
         }
@@ -164,33 +196,75 @@ public class TeamSoldier : MonoBehaviour
     // 타워 때리는 무한반복 코루틴
     IEnumerator TowerNavCoroutine() 
     {
-        Physics.Raycast(transform.parent.position + Vector3.up, target.position - transform.position, out RaycastHit sktt1, 100f, layerMask);
+        Physics.Raycast(transform.parent.position + Vector3.up, target.position - transform.position, out RaycastHit towerHit, 100f, layerMask);
         while (true)
         {
             if(target != null)
             {
-                nav.SetDestination(sktt1.point);
-                if ((towerEnter || enemyIsForward) && !isAttack) NormalAttack();
+                enemyDistance = Vector3.Distance(this.transform.position, target.position);
+                nav.SetDestination(towerHit.point);
+                if ((towerEnter || enemyIsForward) && !isAttack) 
+                { 
+                    NormalAttack();
+                }
             }
             yield return new WaitForSeconds(0.5f);
         }
     }
+
     [SerializeField]
-    bool towerEnter;
+    bool towerEnter; // 타워 충돌감지
     public bool enterStoryWorld;
-    public void SoldierMove_To_StoryMode()
+
+    public void Unit_WorldChange()
     {
-        target = GameObject.FindGameObjectWithTag("Tower").transform;
+        StartCoroutine(Unit_WorldChange_Coroutine());
+    }
+
+    IEnumerator Unit_WorldChange_Coroutine() // 월드 바꾸는 함수
+    {
+        yield return new WaitUntil(() => !isAttack);
         nav.isStopped = false;
-        StartCoroutine("TowerNavCoroutine");
+        transform.parent.gameObject.SetActive(false);
+        if (!enterStoryWorld)
+        {
+            transform.parent.position = SetRandomPosition(460, 540, -20, -30, true);
+            enterStoryWorld = true;
+            transform.parent.gameObject.SetActive(true);
+            StopCoroutine("NavCoroutine");
+            target = GameObject.FindGameObjectWithTag("Tower").transform;
+            StartCoroutine("TowerNavCoroutine");
+        }
+        else
+        {
+            transform.parent.position = SetRandomPosition(20, -20, 10, -10, false);
+            enterStoryWorld = false;
+            transform.parent.gameObject.SetActive(true);
+            StopCoroutine("TowerNavCoroutine");
+            UpdateTarget();
+            StartCoroutine("NavCoroutine");
+        }
+    }
+
+    Vector3 SetRandomPosition(float maxX, float minX, float maxZ, float minZ, bool isTower)
+    {
+        float randomX;
+        if (isTower)
+        {
+            float randomX_1 = Random.Range(minX, 480);
+            float randomX_2 = Random.Range(520, maxX);
+            int xArea = Random.Range(0, 2);
+            randomX = (xArea == 0) ? randomX_1 : randomX_2;
+        }
+        else randomX = Random.Range(minX, maxX);
+        float randomZ = Random.Range(minZ, maxZ);
+        return new Vector3(randomX, 0, randomZ);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        Debug.Log("aa");
         if (other.tag == "Tower")
         {
-            Debug.Log("aaaa");
             towerEnter = true;
         }
     }
@@ -202,10 +276,10 @@ public class TeamSoldier : MonoBehaviour
         return enemy;
     }
 
-    protected void EnemySlow(int slowPercent)
+    protected void EnemySlow(float slowPercent)
     {
         Enemy enemy = GetEnemyScript();
-        enemy.speed *= (slowPercent / 100);
+        enemy.speed -= enemy.speed * (slowPercent / 100);
     }
 
     protected IEnumerator PoisonAttack(int poisonPercent, int poisonCount, float poisonDelay)

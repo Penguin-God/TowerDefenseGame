@@ -11,7 +11,7 @@ public class Unit_Archer : RangeUnit
 
     private void Awake()
     {
-        trail = GetComponentInChildren<TrailRenderer>().gameObject;
+        if(!enterStoryWorld) trail = GetComponentInChildren<TrailRenderer>().gameObject;
     }
 
     public override void SetPassive()
@@ -38,19 +38,15 @@ public class Unit_Archer : RangeUnit
     public override void NormalAttack()
     {
         base.NormalAttack();
-        StartCoroutine(ArrowAttack());
+        StartCoroutine("ArrowAttack");
     }
 
     IEnumerator ArrowAttack()
     {
         nav.angularSpeed = 1;
         trail.SetActive(false);
-
-        if (target != null && Vector3.Distance(target.position, transform.position) < 150f)
-        {
-            GameObject instantArrow = CreateBullte(arrow, arrowTransform);
-            ShotBullet(instantArrow, 2f, 50f);
-        }
+        GameObject instantArrow = CreateBullte(arrow, arrowTransform);
+        ShotBullet(instantArrow, 2f, 50f);
 
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);

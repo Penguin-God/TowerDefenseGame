@@ -4,35 +4,32 @@ using UnityEngine;
 
 public class RangeUnit : TeamSoldier
 { 
-    public override bool CanAttack()
-    {
-        if (enemyIsForward) return true;
-        else return false;
-    }
+    //public override bool CanAttack()
+    //{
+    //    if (enemyIsForward) return true;
+    //    else return false;
+    //}
 
-    private void Update()
-    {
-        RangeChaseMove(enemyDistance);
-    }
+    //private void Update()
+    //{
+    //    RangeChaseMove(enemyDistance);
+    //}
 
-    //bool rayHit;
-    //RaycastHit rayHitObject;
-    //bool enemyIsForward;
-    private void FixedUpdate()
-    {
-        Debug.DrawRay(transform.position + Vector3.up, transform.parent.forward * attackRange, Color.green);
-        rayHit = Physics.Raycast(transform.parent.position + Vector3.up, transform.parent.forward, out rayHitObject, attackRange, layerMask);
-        if (rayHit)
-        {
-            //Debug.Log(rayHitObject.transform.gameObject);
-            if (rayHitObject.transform.gameObject == target.parent.gameObject) enemyIsForward = true;
-            else enemyIsForward = false;
-        }
-    }
+    //private void FixedUpdate()
+    //{
+        //Debug.DrawRay(transform.position + Vector3.up, transform.parent.forward * attackRange, Color.green);
+        //rayHit = Physics.Raycast(transform.parent.position + Vector3.up, transform.parent.forward, out rayHitObject, attackRange, layerMask);
+        //if (rayHit)
+        //{
+        //    //Debug.Log(rayHitObject.transform.gameObject);
+        //    if (rayHitObject.transform.gameObject == target.parent.gameObject) enemyIsForward = true;
+        //    else enemyIsForward = false;
+        //}
+    //}
 
-    void RangeChaseMove(float distance)
+    public override void UnitTypeMove()
     {
-        if (distance < attackRange) nav.speed = 0.1f;
+        if (enemyDistance < attackRange) nav.speed = 0.1f;
         else nav.speed = this.speed;
     }
 

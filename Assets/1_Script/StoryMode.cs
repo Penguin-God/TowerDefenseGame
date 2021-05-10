@@ -5,42 +5,15 @@ public class StoryMode : MonoBehaviour
     public SoldiersTags soldiersTags;
     public CombineSoldier combineSoldier;
     public CreateDefenser createDefenser;
-    
-    public void TranslateUnit(GameObject moveUnit)
-    {
-        if (moveUnit == null) return; // null이면 return
 
-        Transform unitParent = moveUnit.transform.parent;
-        if (unitParent.transform.position.x < 300)
+    public void TranslateUnit(string unit_Tag)
+    {
+        GameObject moveUnit = GameObject.FindGameObjectWithTag(unit_Tag);
+        if (moveUnit != null)
         {
-            GameObject instantUnit = Instantiate(unitParent.gameObject, SetRandomPosition(460, 540, -20, -30, true), unitParent.rotation);
-            instantUnit.GetComponentInChildren<TeamSoldier>().enterStoryWorld = true;
-            Destroy(unitParent.gameObject);
-        }
-        else
-        {
-            GameObject instantUnit = Instantiate(unitParent.gameObject, SetRandomPosition(10, -10, 10, -10, false), unitParent.rotation);
-            instantUnit.GetComponentInChildren<TeamSoldier>().enterStoryWorld = false;
-            Destroy(unitParent.gameObject);
+            moveUnit.GetComponent<TeamSoldier>().Unit_WorldChange();
         }
     }
-
-    Vector3 SetRandomPosition(float maxX, float minX, float maxZ, float minZ, bool isTower)
-    {
-        float randomX;
-        if (isTower)
-        {
-            float randomX_1 = Random.Range(minX, 480);
-            float randomX_2 = Random.Range(520, maxX);
-            int xArea = Random.Range(0, 2);
-            randomX = (xArea == 0) ? randomX_1 : randomX_2;
-        }
-        else randomX = Random.Range(minX, maxX);
-        float randomZ = Random.Range(minZ, maxZ);
-        return new Vector3(randomX, 0, randomZ);
-    }
-
-
 
     public void EnterStoryMode()
     {
@@ -55,14 +28,9 @@ public class StoryMode : MonoBehaviour
         
     }
 
-    public void UnitEnterStoryMode(string unit_Tag)
-    {
-        GameObject moveUnit = GameObject.FindGameObjectWithTag(unit_Tag);
-        if (moveUnit != null) 
-        {
-            TranslateUnit(moveUnit);
-        }
-    } 
+
+
+
 
     public void RedSwordmanEnterStoryMode()
     {

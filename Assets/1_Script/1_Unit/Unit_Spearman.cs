@@ -15,7 +15,7 @@ public class Unit_Spearman : MeeleUnit
     public override void NormalAttack()
     {
         base.NormalAttack();
-        StartCoroutine(SpaerAttack());
+        StartCoroutine("SpaerAttack");
     }
 
     IEnumerator SpaerAttack()

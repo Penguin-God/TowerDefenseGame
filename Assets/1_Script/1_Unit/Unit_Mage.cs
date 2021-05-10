@@ -18,7 +18,7 @@ public class Unit_Mage : RangeUnit
     public override void NormalAttack()
     {
         base.NormalAttack();
-        StartCoroutine(MageAttack());
+        StartCoroutine("MageAttack");
     }
 
     IEnumerator MageAttack()

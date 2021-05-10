@@ -207,6 +207,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3461404da2c9d264ab3418745b98fd14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitManageButton: {fileID: 0}
 --- !u!114 &9098164
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11017,7 +11018,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 717411400}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -16212,6 +16213,7 @@ MonoBehaviour:
   Soldiernumber: 0
   createdefenser: {fileID: 2069937148}
   TagSoldier: {fileID: 1076024916}
+  unitmanage: {fileID: 0}
 --- !u!114 &1076024916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19706,6 +19708,7 @@ MonoBehaviour:
   SellSoldier: {fileID: 9098162}
   SoldiersCombineButton: {fileID: 195027588}
   SoldiersCombineButton2: {fileID: 1830339238}
+  BackGround: {fileID: 0}
   RedSwordmanText: {fileID: 905074426}
   BlueSwordmanText: {fileID: 1783574030}
   YellowSwordmanText: {fileID: 1451654186}
@@ -33436,6 +33439,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3461404da2c9d264ab3418745b98fd14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  unitManageButton: {fileID: 0}
 --- !u!114 &1996429796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33480,7 +33484,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1513012277}
-        m_MethodName: UnitEnterStoryMode
+        m_MethodName: TranslateUnit
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

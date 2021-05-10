@@ -4,32 +4,31 @@ using UnityEngine;
 
 public class MeeleUnit : TeamSoldier
 {
-    public override bool CanAttack()
-    {
-        if (enemyIsForward) return true;
-        else return false;
-    }
+    //public override bool CanAttack()
+    //{
+    //    if (enemyIsForward) return true;
+    //    else return false;
+    //}
 
-    private void FixedUpdate()
-    {
-        Debug.DrawRay(transform.parent.position + Vector3.up, transform.parent.forward * attackRange, Color.green);
-        rayHit = Physics.Raycast(transform.parent.position + Vector3.up,
-            transform.parent.forward , out rayHitObject, attackRange + 2, layerMask);
-    }
+    //private void FixedUpdate()
+    //{
+    //    Debug.DrawRay(transform.parent.position + Vector3.up, transform.parent.forward * attackRange, Color.green);
+    //    rayHit = Physics.Raycast(transform.parent.position + Vector3.up, transform.parent.forward , out rayHitObject, attackRange, layerMask);
+    //}
 
-    private void Update()
-    {
-        if (rayHit)
-        {
-            if (rayHitObject.transform.gameObject == target.parent.gameObject || rayHitObject.transform.gameObject.CompareTag("Tower")) 
-                enemyIsForward = true;
-            else enemyIsForward = false;
-        }
-        else enemyIsForward = false;
-        Stop_or_Move();
-    }
+    //private void Update()
+    //{
+        //if (rayHit)
+        //{
+        //    if (rayHitObject.transform.gameObject == target.parent.gameObject || rayHitObject.transform.gameObject.CompareTag("Tower")) 
+        //        enemyIsForward = true;
+        //    else enemyIsForward = false;
+        //}
+        //else enemyIsForward = false;
+        //Stop_or_Move();
+    //}
 
-    void Stop_or_Move()
+    public override void UnitTypeMove()
     {
         // 정지조건 3개
         if ((enemyIsForward && enemyDistance < stopDistanc) || (enemyDistance < 2f && !enemyIsForward) || 

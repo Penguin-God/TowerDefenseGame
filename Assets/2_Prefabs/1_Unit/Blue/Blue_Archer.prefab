@@ -43,15 +43,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitType: 1
+  unitColor: 1
   speed: 6
   attackDelayTime: 3
   attackRange: 50
-  isAttack: 0
-  chaseRange: 0
   damage: 24
-  nav: {fileID: 0}
+  stopDistanc: 0
+  isAttack: 0
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  enemyDistance: 0
+  enemyIsForward: 0
+  towerEnter: 0
+  enterStoryWorld: 0
   arrow: {fileID: 3088359444298159365, guid: d220ddf7a9904a84f9032002803fc3df, type: 3}
   arrowTransform: {fileID: 3343415014031770111}
 --- !u!1 &3343415014031770108

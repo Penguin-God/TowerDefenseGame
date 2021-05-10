@@ -231,16 +231,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitType: 0
+  unitColor: 1
   speed: 15
-  stopDistanc: 3
   attackDelayTime: 2
   attackRange: 6
-  isAttack: 0
-  chaseRange: 0
   damage: 8
-  nav: {fileID: 0}
+  stopDistanc: 3
+  isAttack: 0
   target: {fileID: 0}
-  Combine: {fileID: 0}
+  enemyDistance: 0
+  enemyIsForward: 0
+  towerEnter: 0
+  enterStoryWorld: 0
   trail: {fileID: 9199773262726743696}
 --- !u!95 &5811332866082718194
 Animator:

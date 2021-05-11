@@ -89,8 +89,8 @@ public class EnemySpawn : MonoBehaviour
 
     void SetEnemyData(GameObject enemyObject, int hp, float speed) // enemy 능력치 설정
     {
-        Enemy enemy = enemyObject.GetComponentInChildren<Enemy>();
-        enemy.ResetStatus(hp, speed);
+        NomalEnemy nomalEnemy = enemyObject.GetComponentInChildren<NomalEnemy>();
+        nomalEnemy.ResetStatus(hp, speed);
     }
 
 

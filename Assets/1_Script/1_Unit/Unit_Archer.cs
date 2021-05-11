@@ -52,6 +52,29 @@ public class Unit_Archer : RangeUnit
         trail.SetActive(true);
         nav.angularSpeed = 1000;
     }
+
+    public override void RangeUnit_PassiveAttack()
+    {
+        Enemy enemy = GetEnemyScript();
+        switch (unitColor)
+        {
+            case UnitColor.red:
+                break;
+            case UnitColor.blue:
+                enemy.EnemySlow(30);
+                break;
+            case UnitColor.yellow:
+                Add_PassiveGold(1, 2);
+                break;
+            case UnitColor.green:
+                break;
+            case UnitColor.orange:
+                break;
+            case UnitColor.violet:
+                enemy.EnemyStern(5, 2);
+                break;
+        }
+    }
 }
 
 

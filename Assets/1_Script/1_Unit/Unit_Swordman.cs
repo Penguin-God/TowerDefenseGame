@@ -48,24 +48,28 @@ public class Unit_Swordman : MeeleUnit
         if (target != null && (enemyDistance < attackRange || target.gameObject.CompareTag("Tower")))
         {
             HitMeeleAttack();
-            switch (unitColor)
-            {
-                case UnitColor.red:
-                    break;
-                case UnitColor.blue:
-                    EnemySlow(10);
-                    break;
-                case UnitColor.yellow:
-                    break;
-                case UnitColor.green:
-                    break;
-                case UnitColor.orange:
-                    break;
-                case UnitColor.violet:
-                    StartCoroutine(PoisonAttack(3, 5, 0.3f));
-                    break;
-            }
         }
         trail.SetActive(false);
+    }
+
+    public override void MeeleUnit_PassiveAttack(Enemy enemy)
+    {
+        switch (unitColor)
+        {
+            case UnitColor.red:
+                break;
+            case UnitColor.blue:
+                enemy.EnemySlow(10);
+                break;
+            case UnitColor.yellow:
+                break;
+            case UnitColor.green:
+                break;
+            case UnitColor.orange:
+                break;
+            case UnitColor.violet:
+                StartCoroutine(enemy.PoisonAttack(3, 5, 0.3f));
+                break;
+        }
     }
 }

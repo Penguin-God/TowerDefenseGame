@@ -16,6 +16,7 @@ public class TeamSoldier : MonoBehaviour
     public float attackDelayTime;
     public float attackRange;
     public int damage;
+    public int bossDamage;
 
     public float stopDistanc;
     public bool isAttack; // 공격 쿨타임 중에 true인 함수
@@ -24,17 +25,19 @@ public class TeamSoldier : MonoBehaviour
 
     protected NavMeshAgent nav;
     public Transform target;
+    protected NomalEnemy nomalEnemy;
 
     protected TeamSoldier teamSoldier;
     private EnemySpawn enemySpawn;
-    private CombineSoldier Combine;
+    //private CombineSoldier Combine;
 
     private float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
     private void Start()
     {
+        //Combine = FindObjectOfType<CombineSoldier>();
+        bossDamage = damage;
         chaseRange = 150f;
         teamSoldier = GetComponent<TeamSoldier>();
-        Combine = FindObjectOfType<CombineSoldier>();
         enemySpawn = FindObjectOfType<EnemySpawn>();
         nav = GetComponentInParent<NavMeshAgent>();
         nav.speed = this.speed;
@@ -92,8 +95,6 @@ public class TeamSoldier : MonoBehaviour
         rayHit = Physics.Raycast(transform.parent.position + Vector3.up, transform.parent.forward, out rayHitObject, attackRange, layerMask);
     }
 
-
-
     private void Update()
     {
         UnitTypeMove();
@@ -127,7 +128,7 @@ public class TeamSoldier : MonoBehaviour
 
             if (unitType == Type.archer || unitType == Type.mage) 
             {
-                Vector3 enemySpeed = target.GetComponent<Enemy>().dir * 5f;
+                Vector3 enemySpeed = target.GetComponent<NomalEnemy>().dir * 5f;
                 nav.SetDestination(target.position + enemySpeed);
             } 
             else nav.SetDestination(target.position);
@@ -167,6 +168,7 @@ public class TeamSoldier : MonoBehaviour
         {
             nav.isStopped = false;
             target = targetObject.transform;
+            nomalEnemy = target.GetComponent<NomalEnemy>();
         }
         else
         {
@@ -258,21 +260,13 @@ public class TeamSoldier : MonoBehaviour
         return enemy;
     }
 
-    protected void EnemySlow(float slowPercent)
+    protected void Add_PassiveGold(int percent, int addGold)
     {
-        Enemy enemy = GetEnemyScript();
-        enemy.speed -= enemy.speed * (slowPercent / 100);
-    }
-
-    protected IEnumerator PoisonAttack(int poisonPercent, int poisonCount, float poisonDelay)
-    {
-        Enemy enemy = GetEnemyScript();
-        int poisonDamage = Mathf.RoundToInt(enemy.currentHp * poisonPercent / 100);
-        for (int i = 0; i < poisonCount; i++)
+        int random = Random.Range(0, 100);
+        if(random < percent)
         {
-            if (poisonDamage <= 0) poisonDamage = 1; // 독 최소뎀
-            if(enemy.currentHp > 1) enemy.OnDamage(poisonDamage, teamSoldier); // 독으로는 못죽임
-            yield return new WaitForSeconds(poisonDelay);
+            GameManager.instance.Gold += addGold;
+            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
         }
     }
 

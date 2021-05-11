@@ -29445,12 +29445,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 318e67155f164e248b16a62433b3011f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 0
   maxHp: 1000
   currentHp: 1000
   isDead: 0
   hpSlider: {fileID: 357901571}
-  dir: {x: 0, y: 0, z: 0}
 --- !u!65 &1720386837
 BoxCollider:
   m_ObjectHideFlags: 0

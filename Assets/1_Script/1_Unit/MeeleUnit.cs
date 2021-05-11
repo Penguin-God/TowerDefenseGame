@@ -41,11 +41,14 @@ public class MeeleUnit : TeamSoldier
 
     protected float Check_EnemyToUnit_Deggre()
     {
-        Enemy enemy = GetEnemyScript();
-        if (enemy.gameObject.tag == "Tower") return 1f;
-
-        float enemyDot = Vector3.Dot(enemy.dir.normalized, (target.position - this.transform.position).normalized);
+        if (nomalEnemy == null) return 1f;
+        float enemyDot = Vector3.Dot(nomalEnemy.dir.normalized, (target.position - this.transform.position).normalized);
         return enemyDot;
+    }
+
+    public virtual void MeeleUnit_PassiveAttack(Enemy enemy)
+    {
+
     }
 
     protected void HitMeeleAttack() // 근접공격 타겟팅, damage는 델리게이트 통일을 위한 잉여 변수
@@ -54,7 +57,8 @@ public class MeeleUnit : TeamSoldier
         Enemy enemy = GetEnemyScript();
         if (enemy != null && (enemyDistance < attackRange || target.gameObject.CompareTag("Tower")))
         {
-            enemy.OnDamage(this.damage, teamSoldier);
+            enemy.OnDamage(this.damage);
+            if(!enemy.isDead) MeeleUnit_PassiveAttack(enemy);
         }
     }
 }

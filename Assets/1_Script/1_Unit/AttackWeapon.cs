@@ -15,4 +15,15 @@ public class AttackWeapon : MonoBehaviour
         this.damage = teamSoldier.damage;
         if(teamSoldier.unitType == TeamSoldier.Type.archer || teamSoldier.unitType == TeamSoldier.Type.mage) Destroy(gameObject, 5);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.layer == 8)
+        {
+            teamSoldier.target.GetComponent<Enemy>().OnDamage(damage);
+            if(!teamSoldier.target.GetComponent<Enemy>().isDead)
+                attackUnit.GetComponent<RangeUnit>().RangeUnit_PassiveAttack();
+        }
+        Destroy(gameObject);
+    }
 }

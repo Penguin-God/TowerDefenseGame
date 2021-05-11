@@ -15,6 +15,27 @@ public class Unit_Mage : RangeUnit
         animator = GetComponent<Animator>();
     }
 
+    public override void SetPassive()
+    {
+        switch (unitColor)
+        {
+            case UnitColor.red:
+                break;
+            case UnitColor.blue:
+                break;
+            case UnitColor.yellow:
+                break;
+            case UnitColor.green:
+                attackRange *= 2;
+                break;
+            case UnitColor.orange:
+                bossDamage *= 6;
+                break;
+            case UnitColor.violet:
+                break;
+        }
+    }
+
     public override void NormalAttack()
     {
         base.NormalAttack();
@@ -37,5 +58,27 @@ public class Unit_Mage : RangeUnit
         yield return new WaitForSeconds(0.5f);
         magicLight.SetActive(false);
         nav.angularSpeed = 1000;
+    }
+
+    public override void RangeUnit_PassiveAttack()
+    {
+        Enemy enemy = GetEnemyScript();
+        switch (unitColor)
+        {
+            case UnitColor.red:
+                break;
+            case UnitColor.blue:
+                enemy.EnemySlow(30);
+                break;
+            case UnitColor.yellow:
+                break;
+            case UnitColor.green:
+                break;
+            case UnitColor.orange:
+                break;
+            case UnitColor.violet:
+                enemy.EnemyStern(60, 3);
+                break;
+        }
     }
 }

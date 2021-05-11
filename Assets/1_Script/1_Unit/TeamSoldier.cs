@@ -5,10 +5,7 @@ using UnityEngine.AI;
 
 
 public class TeamSoldier : MonoBehaviour
-{
-    // 원거리 유닛은 target이 움직이는 방향에 가중치를 준 값 추적하기
-
-    
+{    
     public enum Type { sowrdman, archer, spearman, mage } // rangeUnit = 원거리 공격 유닛,  meleeUnit = 근거리 공격 유닛
     public Type unitType;
 
@@ -28,6 +25,7 @@ public class TeamSoldier : MonoBehaviour
     protected NavMeshAgent nav;
     public Transform target;
 
+    protected TeamSoldier teamSoldier;
     private EnemySpawn enemySpawn;
     private CombineSoldier Combine;
 
@@ -35,6 +33,7 @@ public class TeamSoldier : MonoBehaviour
     private void Start()
     {
         chaseRange = 150f;
+        teamSoldier = GetComponent<TeamSoldier>();
         Combine = FindObjectOfType<CombineSoldier>();
         enemySpawn = FindObjectOfType<EnemySpawn>();
         nav = GetComponentInParent<NavMeshAgent>();
@@ -43,17 +42,6 @@ public class TeamSoldier : MonoBehaviour
         SetPassive();
         UpdateTarget();
         StartCoroutine("NavCoroutine");
-        //if (!enterStoryWorld) 
-        //{
-        //    SetPassive();
-        //    UpdateTarget();
-        //    StartCoroutine("NavCoroutine");
-        //}
-        //else
-        //{
-        //    SoldierMove_To_StoryMode();
-        //    Debug.Log(target.position - transform.position);
-        //}
     }
 
     public virtual void SetPassive()
@@ -84,12 +72,6 @@ public class TeamSoldier : MonoBehaviour
     {
         isAttack = false;
     }
-
-    
-    //public virtual bool CanAttack() // 자식들이 Attack가능 여부 판단
-    //{
-    //    return false;
-    //}
 
     //public virtual void EenmyChase() // 추적
     //{
@@ -288,8 +270,8 @@ public class TeamSoldier : MonoBehaviour
         int poisonDamage = Mathf.RoundToInt(enemy.currentHp * poisonPercent / 100);
         for (int i = 0; i < poisonCount; i++)
         {
-            if (poisonDamage <= 0) poisonDamage = 1;
-            if(enemy.currentHp > 1) enemy.currentHp -= poisonDamage; // 독으로는 못죽임
+            if (poisonDamage <= 0) poisonDamage = 1; // 독 최소뎀
+            if(enemy.currentHp > 1) enemy.OnDamage(poisonDamage, teamSoldier); // 독으로는 못죽임
             yield return new WaitForSeconds(poisonDelay);
         }
     }

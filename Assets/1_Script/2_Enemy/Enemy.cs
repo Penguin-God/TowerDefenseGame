@@ -61,19 +61,139 @@ public class Enemy : MonoBehaviour
         parent.transform.position = wayPoint.position;
     }
 
-    public void OnDamage(int damage)
+
+    // 대미지 관련 함수
+    public void OnDamage(int damage, TeamSoldier teamSoldier)
     {
         currentHp -= damage;
         hpSlider.value = currentHp;
         if (currentHp <= 0)
         {
             Dead();
-            if(teamSoldier != null) teamSoldier.UpdateTarget();
         }
-
+        else OnUnitPassive(teamSoldier);
     }
 
-    public void Dead()
+    // 모든 유닛의 패시브
+    void OnUnitPassive(TeamSoldier teamSoldier)
+    {
+        if(teamSoldier == null)
+        {
+            Debug.Log("TeamSoldier가 널이다ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ");
+            return;
+        }
+        switch (teamSoldier.unitType)
+        {
+            case TeamSoldier.Type.sowrdman:
+                SwordmanPassive(teamSoldier);
+                break;
+            case TeamSoldier.Type.archer:
+                ArcherPassive(teamSoldier);
+                break;
+            case TeamSoldier.Type.spearman:
+                SpearmanPassive(teamSoldier);
+                break;
+            case TeamSoldier.Type.mage:
+                MagePassive(teamSoldier);
+                break;
+        }
+    }
+
+    void SwordmanPassive(TeamSoldier teamSoldier)
+    {
+        switch (teamSoldier.unitColor)
+        {
+            case TeamSoldier.UnitColor.red:
+                break;
+            case TeamSoldier.UnitColor.blue:
+                break;
+            case TeamSoldier.UnitColor.yellow:
+                break;
+            case TeamSoldier.UnitColor.green:
+                break;
+            case TeamSoldier.UnitColor.orange:
+                break;
+            case TeamSoldier.UnitColor.violet:
+                break;
+        }
+    }
+
+    void ArcherPassive(TeamSoldier teamSoldier)
+    {
+        switch (teamSoldier.unitColor)
+        {
+            case TeamSoldier.UnitColor.red:
+                break;
+            case TeamSoldier.UnitColor.blue:
+                break;
+            case TeamSoldier.UnitColor.yellow:
+                break;
+            case TeamSoldier.UnitColor.green:
+                break;
+            case TeamSoldier.UnitColor.orange:
+                break;
+            case TeamSoldier.UnitColor.violet:
+                Stern(5, 2);
+                break;
+        }
+    }
+
+    void SpearmanPassive(TeamSoldier teamSoldier)
+    {
+        switch (teamSoldier.unitColor)
+        {
+            case TeamSoldier.UnitColor.red:
+                break;
+            case TeamSoldier.UnitColor.blue:
+                break;
+            case TeamSoldier.UnitColor.yellow:
+                break;
+            case TeamSoldier.UnitColor.green:
+                break;
+            case TeamSoldier.UnitColor.orange:
+                break;
+            case TeamSoldier.UnitColor.violet:
+                break;
+        }
+    }
+
+    void MagePassive(TeamSoldier teamSoldier)
+    {
+        switch (teamSoldier.unitColor)
+        {
+            case TeamSoldier.UnitColor.red:
+                break;
+            case TeamSoldier.UnitColor.blue:
+                break;
+            case TeamSoldier.UnitColor.yellow:
+                break;
+            case TeamSoldier.UnitColor.green:
+                break;
+            case TeamSoldier.UnitColor.orange:
+                break;
+            case TeamSoldier.UnitColor.violet:
+                break;
+        }
+    }
+
+    void Stern(int sternPercent, float sternTime)
+    {
+        int random = Random.Range(0, 100);
+        if (random < sternPercent)
+        {
+            StopAllCoroutines();
+            StartCoroutine(SternCoroutine(sternTime));
+        }
+    }
+
+    IEnumerator SternCoroutine(float sternTime)
+    {
+        parentRigidbody.velocity = Vector3.zero;
+        yield return new WaitForSeconds(sternTime);
+        parentRigidbody.velocity = dir * speed;
+    }
+
+    void Dead()
     {
         parent.gameObject.SetActive(false);
         parent.position = new Vector3(500, 500, 500);
@@ -95,7 +215,7 @@ public class Enemy : MonoBehaviour
         this.speed = 0;
     }
 
-    private TeamSoldier teamSoldier;
+    //private TeamSoldier teamSoldier;
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "WayPoint")
@@ -106,10 +226,10 @@ public class Enemy : MonoBehaviour
         else if(other.tag == "Attack") // 임시
         {
             AttackWeapon attackWeapon = other.GetComponentInParent<AttackWeapon>();
-            teamSoldier = attackWeapon.attackUnit.GetComponent<TeamSoldier>();
+            TeamSoldier teamSoldier = attackWeapon.attackUnit.GetComponent<TeamSoldier>();
             if (teamSoldier.unitType == TeamSoldier.Type.archer) Destroy(other.gameObject); // 아처 공격이면 총알 삭제
 
-            OnDamage(attackWeapon.damage);
+            OnDamage(attackWeapon.damage, teamSoldier);
         }
     }
 }

@@ -33,6 +33,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
     }
 
     public void CombineRedSpearman()
@@ -58,6 +59,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
     }
 
     public void CombineRedMage()
@@ -79,6 +81,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
     }
 
     public void CombineBlueArcher()
@@ -100,6 +103,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
     }
 
     public void CombineBlueSpearman()
@@ -125,6 +129,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
     }
 
     public void CombineBlueMage()
@@ -146,6 +151,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(2).gameObject.SetActive(false);
     }
 
     public void CombineYellowArcher()
@@ -167,6 +173,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(0).gameObject.SetActive(false);
     }
 
     public void CombineYellowSpearman()
@@ -194,6 +201,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(1).gameObject.SetActive(false);
     }
 
     public void CombineYellowMage()
@@ -216,6 +224,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(2).gameObject.SetActive(false);
     }
 
     public void CombineGreenArcher()
@@ -238,6 +247,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(0).gameObject.SetActive(false);
     }
 
     public void CombineGreenSpearman()
@@ -264,6 +274,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(1).gameObject.SetActive(false);
     }
 
     public void CombineGreenMage()
@@ -289,6 +300,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(2).gameObject.SetActive(false);
 
     }
 
@@ -311,6 +323,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(4).GetChild(0).gameObject.SetActive(false);
     }
 
     public void CombineOrangeSpearman()
@@ -337,6 +350,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(4).GetChild(1).gameObject.SetActive(false);
     }
 
     public void CombineOrangeMage()
@@ -362,6 +376,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(4).GetChild(2).gameObject.SetActive(false);
     }
 
     public void CombineVioletArcher()
@@ -383,6 +398,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(5).GetChild(0).gameObject.SetActive(false);
     }
 
     public void CombineVioletSpearman()
@@ -409,6 +425,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(5).GetChild(1).gameObject.SetActive(false);
     }
 
     public void CombineVioletMage()
@@ -434,6 +451,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(5).GetChild(2).gameObject.SetActive(false);
     }
 
 
@@ -457,6 +475,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
     }
 
     public void CombineOrangeSwordman()
@@ -479,6 +498,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(0).gameObject.SetActive(false);
     }
 
     public void CombineVioletSwordman()
@@ -500,6 +520,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
     }
 
     public void ComeBackButton()
@@ -507,6 +528,12 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(0).gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(1).gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(2).gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(3).gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(4).gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(5).gameObject.SetActive(false);
     }
 
 

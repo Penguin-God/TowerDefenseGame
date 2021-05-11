@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour
     public GameObject SoldiersCombineButton;
     public GameObject SoldiersCombineButton2;
     public GameObject BackGround;
+    public GameObject ExPlanationTexts;
 
     public void UpdateStageText(int Stage)
     {

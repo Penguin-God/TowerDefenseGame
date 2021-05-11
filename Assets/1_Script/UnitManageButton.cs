@@ -67,6 +67,7 @@ public class UnitManageButton : MonoBehaviour
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 0, 0);
         UIManager.instance.SetActiveButton2(true, 0, 0);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(0).gameObject.SetActive(true);
         //UIManager.instance.SellSoldier.gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
@@ -77,6 +78,7 @@ public class UnitManageButton : MonoBehaviour
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 1, 0);
         UIManager.instance.SetActiveButton2(true, 1, 0);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(0).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -86,6 +88,7 @@ public class UnitManageButton : MonoBehaviour
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 2, 0);
         UIManager.instance.SetActiveButton2(true, 2, 0);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(0).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -94,6 +97,7 @@ public class UnitManageButton : MonoBehaviour
         ColorSwordmansButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 3, 0);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(0).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -102,6 +106,7 @@ public class UnitManageButton : MonoBehaviour
         ColorSwordmansButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 4, 0);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(4).GetChild(0).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -110,6 +115,7 @@ public class UnitManageButton : MonoBehaviour
         ColorSwordmansButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 5, 0);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(5).GetChild(0).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -118,6 +124,7 @@ public class UnitManageButton : MonoBehaviour
         ColorArchersButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 0, 1);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(1).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -126,6 +133,7 @@ public class UnitManageButton : MonoBehaviour
         ColorArchersButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 1, 1);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(1).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -134,6 +142,7 @@ public class UnitManageButton : MonoBehaviour
         ColorArchersButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 2, 1);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(1).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -142,6 +151,7 @@ public class UnitManageButton : MonoBehaviour
         ColorArchersButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 3, 1);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(1).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -150,6 +160,7 @@ public class UnitManageButton : MonoBehaviour
         ColorArchersButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 4, 1);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(4).GetChild(1).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -158,6 +169,7 @@ public class UnitManageButton : MonoBehaviour
         ColorArchersButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 5, 1);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(5).GetChild(1).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -166,6 +178,7 @@ public class UnitManageButton : MonoBehaviour
         ColorSpearmansButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 0, 2);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(2).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -174,6 +187,7 @@ public class UnitManageButton : MonoBehaviour
         ColorSpearmansButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 1, 2);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(2).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -182,6 +196,7 @@ public class UnitManageButton : MonoBehaviour
         ColorSpearmansButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 2, 2);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(2).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -190,6 +205,7 @@ public class UnitManageButton : MonoBehaviour
         ColorSpearmansButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 3, 2);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(2).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -198,6 +214,7 @@ public class UnitManageButton : MonoBehaviour
         ColorSpearmansButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 4, 2);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(4).GetChild(2).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -206,6 +223,7 @@ public class UnitManageButton : MonoBehaviour
         ColorSpearmansButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 5, 2);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(5).GetChild(2).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -214,6 +232,7 @@ public class UnitManageButton : MonoBehaviour
         ColorMagesButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 0, 3);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(3).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -222,6 +241,7 @@ public class UnitManageButton : MonoBehaviour
         ColorMagesButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 1, 3);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(3).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -230,6 +250,7 @@ public class UnitManageButton : MonoBehaviour
         ColorMagesButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 2, 3);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(3).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -238,6 +259,7 @@ public class UnitManageButton : MonoBehaviour
         ColorMagesButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 3, 3);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(3).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -246,6 +268,7 @@ public class UnitManageButton : MonoBehaviour
         ColorMagesButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 4, 3);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(4).GetChild(3).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 
@@ -254,6 +277,7 @@ public class UnitManageButton : MonoBehaviour
         ColorMagesButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.SetActiveButton(true, 5, 3);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(5).GetChild(3).gameObject.SetActive(true);
         //UnitManagementButton.gameObject.SetActive(true);
     }
 

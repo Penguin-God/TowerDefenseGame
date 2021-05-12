@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 2332014458094341519}
   - component: {fileID: 7754845740141683792}
   - component: {fileID: 2332014458094341552}
-  m_Layer: 0
+  - component: {fileID: 1551878129}
+  m_Layer: 9
   m_Name: TB_Soldier_Mage_Yellow
   m_TagString: YellowMage
   m_Icon: {fileID: 0}
@@ -120,6 +121,7 @@ MonoBehaviour:
   attackDelayTime: 3
   attackRange: 40
   damage: 300
+  bossDamage: 0
   stopDistanc: 0
   isAttack: 0
   target: {fileID: 0}
@@ -145,6 +147,20 @@ CapsuleCollider:
   m_Height: 4.2802835
   m_Direction: 1
   m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
+--- !u!136 &1551878129
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2332014458094341518}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 15
+  m_Height: 4.2802835
+  m_Direction: 1
+  m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
 --- !u!1 &2332124369005625246
 GameObject:
   m_ObjectHideFlags: 0
@@ -156,7 +172,7 @@ GameObject:
   - component: {fileID: 2330397720320232084}
   - component: {fileID: 2319240522039942198}
   - component: {fileID: 2308853955708956444}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TB_Soldier_Mage_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -236,7 +252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4865064561278535480}
   - component: {fileID: 4865064561278535481}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -327,7 +343,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4865064562382619674}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EnergyBallTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -358,7 +374,8 @@ GameObject:
   m_Component:
   - component: {fileID: 6085287130237147868}
   - component: {fileID: 6085287130237147869}
-  m_Layer: 0
+  - component: {fileID: 12383553}
+  m_Layer: 9
   m_Name: Yellow_Mage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -402,3 +419,19 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &12383553
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6085287130237147859}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0

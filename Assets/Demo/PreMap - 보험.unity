@@ -30768,6 +30768,7 @@ MonoBehaviour:
   SoldiersCombineButton: {fileID: 16044242}
   SoldiersCombineButton2: {fileID: 755150984}
   BackGround: {fileID: 2044274470}
+  ExPlanationTexts: {fileID: 0}
   RedSwordmanText: {fileID: 310534580}
   BlueSwordmanText: {fileID: 1164544268}
   YellowSwordmanText: {fileID: 328792674}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5813298061542945232}
   - component: {fileID: 5824840292126761714}
   - component: {fileID: 5832331736035020076}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TB_Soldier_Archer_Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -89,7 +89,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5810574155117103331}
   - component: {fileID: 5810574155117103330}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arrow Instant Position
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -226,7 +226,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5810574156436100720}
   - component: {fileID: 5810574156436100721}
-  m_Layer: 0
+  - component: {fileID: 818565955}
+  m_Layer: 9
   m_Name: Orange_Archer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -270,6 +271,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &818565955
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5810574156436100735}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5811052640835435312
 GameObject:
   m_ObjectHideFlags: 0
@@ -281,10 +298,9 @@ GameObject:
   - component: {fileID: 5813199685839305072}
   - component: {fileID: 5826355942746696946}
   - component: {fileID: 5834343340518291078}
-  - component: {fileID: 5810574156314726958}
   - component: {fileID: 5008956759254351116}
   - component: {fileID: 5810574156314726957}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TB_Soldier_Archer_Orange
   m_TagString: OrangeArcher
   m_Icon: {fileID: 0}
@@ -355,22 +371,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!54 &5810574156314726958
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5811052640835435312}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!136 &5008956759254351116
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -403,6 +403,7 @@ MonoBehaviour:
   attackDelayTime: 3
   attackRange: 50
   damage: 35
+  bossDamage: 0
   stopDistanc: 0
   isAttack: 0
   target: {fileID: 0}
@@ -423,7 +424,7 @@ GameObject:
   - component: {fileID: 5815129228286706954}
   - component: {fileID: 5824655355948260608}
   - component: {fileID: 5834164139640057652}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TB_Soldier_Archer_Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -502,7 +503,7 @@ GameObject:
   - component: {fileID: 5814985126778190632}
   - component: {fileID: 5825087587287120892}
   - component: {fileID: 5834139300328340414}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TB_Soldier_Archer_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}

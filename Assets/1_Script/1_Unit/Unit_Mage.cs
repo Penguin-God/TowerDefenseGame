@@ -13,6 +13,7 @@ public class Unit_Mage : RangeUnit
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        //enemiesQueue = new Queue<Enemy>();
     }
 
     public override void SetPassive()
@@ -68,7 +69,6 @@ public class Unit_Mage : RangeUnit
             case UnitColor.red:
                 break;
             case UnitColor.blue:
-                enemy.EnemySlow(30);
                 break;
             case UnitColor.yellow:
                 break;
@@ -81,4 +81,101 @@ public class Unit_Mage : RangeUnit
                 break;
         }
     }
+
+    //Queue<Enemy> enemiesQueue;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == 8)
+        {
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            switch (unitColor)
+            {
+                case UnitColor.red:
+                    break;
+                case UnitColor.blue:
+                    enemy.EnemySlow(50);
+                    break;
+                case UnitColor.yellow:
+                    break;
+                case UnitColor.green:
+                    break;
+                case UnitColor.orange:
+                    break;
+                case UnitColor.violet:
+                    break;
+            }
+        }
+
+        if(other.gameObject.layer == 9)
+        {
+            TeamSoldier otherTeamSoldier = other.gameObject.GetComponent<TeamSoldier>();
+            switch (unitColor)
+            {
+                case UnitColor.red:
+                    otherTeamSoldier.damage *= 2;
+                    break;
+                case UnitColor.blue:
+                    break;
+                case UnitColor.yellow:
+                    otherTeamSoldier.attackDelayTime *= 0.5f;
+                    break;
+                case UnitColor.green:
+                    break;
+                case UnitColor.orange:
+                    break;
+                case UnitColor.violet:
+                    break;
+            }
+        }
+    }
+
+
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 8)
+        {
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            switch (unitColor)
+            {
+                case UnitColor.red:
+                    break;
+                case UnitColor.blue:
+                    enemy.ExitSlow();
+                    break;
+                case UnitColor.yellow:
+                    break;
+                case UnitColor.green:
+                    break;
+                case UnitColor.orange:
+                    break;
+                case UnitColor.violet:
+                    break;
+            }
+        }
+
+        if (other.gameObject.layer == 8)
+        {
+            TeamSoldier otherTeamSoldier = other.gameObject.GetComponent<TeamSoldier>();
+            switch (unitColor)
+            {
+                case UnitColor.red:
+                    otherTeamSoldier.damage /= 2;
+                    break;
+                case UnitColor.blue:
+                    break;
+                case UnitColor.yellow:
+                    otherTeamSoldier.attackDelayTime *= 2f;
+                    break;
+                case UnitColor.green:
+                    break;
+                case UnitColor.orange:
+                    break;
+                case UnitColor.violet:
+                    break;
+            }
+        }
+    }
+
+
 }

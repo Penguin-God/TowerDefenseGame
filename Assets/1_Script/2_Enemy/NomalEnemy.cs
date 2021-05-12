@@ -6,7 +6,8 @@ using UnityEngine.UI;
 public class NomalEnemy : Enemy
 {
     EnemySpawn enemySpawn;
-    // 상태 변수
+    // 능력치 변수
+    public float maxSpeed;
     public float speed;
 
     // 이동, 회전 관련 변수
@@ -17,6 +18,7 @@ public class NomalEnemy : Enemy
 
     private void Awake()
     {
+        nomalEnemy = GetComponent<NomalEnemy>();
         enemySpawn = GetComponentInParent<EnemySpawn>();
         parent = transform.parent.GetComponent<Transform>();
         parentRigidbody = GetComponentInParent<Rigidbody>();
@@ -35,7 +37,8 @@ public class NomalEnemy : Enemy
         currentHp = maxHp;
         hpSlider.maxValue = maxHp;
         hpSlider.value = maxHp;
-        this.speed = speed;
+        this.maxSpeed = speed;
+        this.speed = maxSpeed;
     }
 
     void SetNextPoint()

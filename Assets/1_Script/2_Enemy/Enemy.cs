@@ -29,11 +29,7 @@ public class Enemy : MonoBehaviour
 
     }
 
-    NomalEnemy nomalEnemy;
-    private void Start()
-    {
-        nomalEnemy = GetComponent<NomalEnemy>();
-    }
+    protected NomalEnemy nomalEnemy;
 
     public void EnemyStern(int sternPercent, float sternTime)
     {
@@ -42,7 +38,6 @@ public class Enemy : MonoBehaviour
         int random = Random.Range(0, 100);
         if (random < sternPercent)
         {
-            StopAllCoroutines();
             StartCoroutine(SternCoroutine(sternTime));
         }
     }
@@ -54,11 +49,24 @@ public class Enemy : MonoBehaviour
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
     }
 
+    //public bool isSlow;
     public void EnemySlow(float slowPercent)
     {
         if (this.gameObject.CompareTag("Tower")) return;
+        // 만약 더 높은 슬로우가 공격을 받으면큰 슬로우 적용후 return
+        if (nomalEnemy.maxSpeed - nomalEnemy.maxSpeed * (slowPercent / 100) < nomalEnemy.speed)
+        {
+            nomalEnemy.speed = nomalEnemy.maxSpeed - nomalEnemy.maxSpeed * (slowPercent / 100);
+            parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
+        }
+        //isSlow = true;
+        //nomalEnemy.speed -= nomalEnemy.speed * (slowPercent / 100);
+        //parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
+    }
 
-        nomalEnemy.speed -= nomalEnemy.speed * (slowPercent / 100);
+    public void ExitSlow()
+    {
+        parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
     }
 
     public IEnumerator PoisonAttack(int poisonPercent, int poisonCount, float poisonDelay)

@@ -6,7 +6,7 @@ using UnityEngine.AI;
 
 public class TeamSoldier : MonoBehaviour
 {    
-    public enum Type { sowrdman, archer, spearman, mage } // rangeUnit = 원거리 공격 유닛,  meleeUnit = 근거리 공격 유닛
+    public enum Type { sowrdman, archer, spearman, mage }
     public Type unitType;
 
     public enum UnitColor { red, blue, yellow, green, orange, violet};
@@ -27,8 +27,8 @@ public class TeamSoldier : MonoBehaviour
     public Transform target;
     protected NomalEnemy nomalEnemy;
 
-    protected TeamSoldier teamSoldier;
-    private EnemySpawn enemySpawn;
+    //protected TeamSoldier teamSoldier;
+    protected EnemySpawn enemySpawn;
     //private CombineSoldier Combine;
 
     private float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
@@ -37,7 +37,7 @@ public class TeamSoldier : MonoBehaviour
         //Combine = FindObjectOfType<CombineSoldier>();
         bossDamage = damage;
         chaseRange = 150f;
-        teamSoldier = GetComponent<TeamSoldier>();
+        //teamSoldier = GetComponent<TeamSoldier>();
         enemySpawn = FindObjectOfType<EnemySpawn>();
         nav = GetComponentInParent<NavMeshAgent>();
         nav.speed = this.speed;
@@ -168,7 +168,7 @@ public class TeamSoldier : MonoBehaviour
         {
             nav.isStopped = false;
             target = targetObject.transform;
-            nomalEnemy = target.GetComponent<NomalEnemy>();
+            nomalEnemy = target.gameObject.GetComponent<NomalEnemy>();
         }
         else
         {

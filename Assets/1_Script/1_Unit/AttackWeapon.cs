@@ -23,7 +23,8 @@ public class AttackWeapon : MonoBehaviour
             teamSoldier.target.GetComponent<Enemy>().OnDamage(damage);
             if(!teamSoldier.target.GetComponent<Enemy>().isDead)
                 attackUnit.GetComponent<RangeUnit>().RangeUnit_PassiveAttack();
+
+            if(teamSoldier.unitType == TeamSoldier.Type.archer) Destroy(gameObject);
         }
-        Destroy(gameObject);
     }
 }

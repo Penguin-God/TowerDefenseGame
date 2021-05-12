@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7450338147803077734}
   - component: {fileID: 7422160299309538482}
   - component: {fileID: 7431247196703710448}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TB_Soldier_Archer_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,10 +91,9 @@ GameObject:
   - component: {fileID: 7456469405364264510}
   - component: {fileID: 7425678118103550908}
   - component: {fileID: 7431451073720685000}
-  - component: {fileID: 7454969569672131936}
   - component: {fileID: 8238617098175552066}
   - component: {fileID: 7454969569672131939}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TB_Soldier_Archer_Violet
   m_TagString: VioletArcher
   m_Icon: {fileID: 0}
@@ -165,22 +164,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!54 &7454969569672131936
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7454320144240893054}
-  serializedVersion: 2
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 0
-  m_CollisionDetection: 0
 --- !u!136 &8238617098175552066
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -213,6 +196,7 @@ MonoBehaviour:
   attackDelayTime: 3
   attackRange: 50
   damage: 35
+  bossDamage: 0
   stopDistanc: 0
   isAttack: 0
   target: {fileID: 0}
@@ -233,7 +217,7 @@ GameObject:
   - component: {fileID: 7450479917161407044}
   - component: {fileID: 7422851463892466254}
   - component: {fileID: 7431234485166950522}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TB_Soldier_Archer_Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -311,7 +295,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7454969568457469869}
   - component: {fileID: 7454969568457469868}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Arrow Instant Position
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -448,7 +432,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7454969569692840254}
   - component: {fileID: 7454969569692840255}
-  m_Layer: 0
+  - component: {fileID: 1117621583}
+  m_Layer: 9
   m_Name: Violet_Archer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -492,6 +477,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &1117621583
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7454969569692840241}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7455321588993156510
 GameObject:
   m_ObjectHideFlags: 0
@@ -503,7 +504,7 @@ GameObject:
   - component: {fileID: 7456530462063253150}
   - component: {fileID: 7423036481692370364}
   - component: {fileID: 7432782079022721634}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TB_Soldier_Archer_Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}

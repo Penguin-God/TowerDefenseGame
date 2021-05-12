@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2912166253428939080}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EnergyBallTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2912166254476401258}
   - component: {fileID: 2912166254476401259}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -132,7 +132,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4583945138574837646}
   - component: {fileID: 4583945138574837647}
-  m_Layer: 0
+  - component: {fileID: 1855128709}
+  m_Layer: 9
   m_Name: Red_Mage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -176,6 +177,22 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!54 &1855128709
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4583945138574837633}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &5454637040427765980
 GameObject:
   m_ObjectHideFlags: 0
@@ -190,7 +207,8 @@ GameObject:
   - component: {fileID: 5454637040427765981}
   - component: {fileID: 31673267759872258}
   - component: {fileID: 1782824244}
-  m_Layer: 0
+  - component: {fileID: 2040425398}
+  m_Layer: 9
   m_Name: TB_Soldier_Mage_Red
   m_TagString: RedMage
   m_Icon: {fileID: 0}
@@ -296,6 +314,7 @@ MonoBehaviour:
   attackDelayTime: 3
   attackRange: 40
   damage: 300
+  bossDamage: 0
   stopDistanc: 0
   isAttack: 0
   target: {fileID: 0}
@@ -321,6 +340,20 @@ CapsuleCollider:
   m_Height: 4.2802835
   m_Direction: 1
   m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
+--- !u!136 &2040425398
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454637040427765980}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 15
+  m_Height: 4.2802835
+  m_Direction: 1
+  m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
 --- !u!1 &5454817337263252172
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,7 +365,7 @@ GameObject:
   - component: {fileID: 5456398846621521862}
   - component: {fileID: 5458821527187915108}
   - component: {fileID: 5468649533558944334}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: TB_Soldier_Mage_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}

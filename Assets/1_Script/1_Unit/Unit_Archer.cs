@@ -37,12 +37,14 @@ public class Unit_Archer : RangeUnit
 
     public override void NormalAttack()
     {
-        base.NormalAttack();
         StartCoroutine("ArrowAttack");
     }
 
     IEnumerator ArrowAttack()
     {
+        isAttack = true;
+        isAttackDelayTime = true;
+
         nav.angularSpeed = 1;
         trail.SetActive(false);
         GameObject instantArrow = CreateBullte(arrow, arrowTransform);
@@ -51,6 +53,9 @@ public class Unit_Archer : RangeUnit
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
         nav.angularSpeed = 1000;
+
+        isAttack = false;
+        base.NormalAttack();
     }
 
     public override void RangeUnit_PassiveAttack()

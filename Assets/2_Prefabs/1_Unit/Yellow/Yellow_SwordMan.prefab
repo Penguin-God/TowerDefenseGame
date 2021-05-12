@@ -424,12 +424,13 @@ MonoBehaviour:
   unitType: 0
   unitColor: 2
   speed: 15
-  attackDelayTime: 2
+  attackDelayTime: 1
   attackRange: 6
   damage: 8
   bossDamage: 0
   stopDistanc: 3
   isAttack: 0
+  isAttackDelayTime: 0
   target: {fileID: 0}
   enemyDistance: 0
   enemyIsForward: 0

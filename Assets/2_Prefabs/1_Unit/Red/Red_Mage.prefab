@@ -311,12 +311,13 @@ MonoBehaviour:
   unitType: 3
   unitColor: 0
   speed: 3
-  attackDelayTime: 3
+  attackDelayTime: 2
   attackRange: 40
   damage: 300
   bossDamage: 0
   stopDistanc: 0
   isAttack: 0
+  isAttackDelayTime: 0
   target: {fileID: 0}
   enemyDistance: 0
   enemyIsForward: 0

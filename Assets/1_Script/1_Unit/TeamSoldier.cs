@@ -19,9 +19,8 @@ public class TeamSoldier : MonoBehaviour
     public int bossDamage;
 
     public float stopDistanc;
-    public bool isAttack; // 공격 쿨타임 중에 true인 함수
-
-    protected int layerMask; // Ray 감지용
+    public bool isAttack; // 공격 중에 true인 변수
+    public bool isAttackDelayTime; // 공격 못할 때 true 변수
 
     protected NavMeshAgent nav;
     public Transform target;
@@ -65,22 +64,38 @@ public class TeamSoldier : MonoBehaviour
                 break;
         }
     }
-
+    int specialAttackPercent = 30;
+    public void UnitAttack()
+    {
+        int random = Random.Range(0, 100);
+        if(random < specialAttackPercent)
+        {
+            SpecialAttack();
+        }
+        else
+        {
+            NormalAttack();
+        }
+    }
     public virtual void NormalAttack()
     {
-        isAttack = true;
         Invoke("ReadyAttack", attackDelayTime);
     }
     void ReadyAttack()
     {
-        isAttack = false;
+        isAttackDelayTime = false;
+    }
+
+    void SpecialAttack()
+    {
+
     }
 
     //public virtual void EenmyChase() // 추적
     //{
-        
-    //}
 
+    //}
+    protected int layerMask; // Ray 감지용
     [SerializeField]
     protected float enemyDistance;
     protected bool rayHit;
@@ -133,8 +148,11 @@ public class TeamSoldier : MonoBehaviour
             } 
             else nav.SetDestination(target.position);
 
-            if (enemyIsForward && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
+            if (enemyIsForward && !isAttackDelayTime) // Attack가능하고 쿨타임이 아니면 공격
+            {
+                //Debug.Log(isAttackDelayTime);
                 NormalAttack();
+            }
             yield return null;
         }
     }
@@ -187,7 +205,7 @@ public class TeamSoldier : MonoBehaviour
             {
                 enemyDistance = Vector3.Distance(this.transform.position, target.position);
                 nav.SetDestination(towerHit.point);
-                if ((towerEnter || enemyIsForward) && !isAttack) 
+                if ((towerEnter || enemyIsForward) && !isAttackDelayTime) 
                 { 
                     NormalAttack();
                 }

@@ -39,12 +39,14 @@ public class Unit_Mage : RangeUnit
 
     public override void NormalAttack()
     {
-        base.NormalAttack();
         StartCoroutine("MageAttack");
     }
 
     IEnumerator MageAttack()
     {
+        isAttack = true;
+        isAttackDelayTime = true;
+
         nav.angularSpeed = 1;
         animator.SetTrigger("isAttack");
         yield return new WaitForSeconds(0.6f);
@@ -59,6 +61,9 @@ public class Unit_Mage : RangeUnit
         yield return new WaitForSeconds(0.5f);
         magicLight.SetActive(false);
         nav.angularSpeed = 1000;
+        
+        isAttack = false;
+        base.NormalAttack();
     }
 
     public override void RangeUnit_PassiveAttack()

@@ -35,12 +35,14 @@ public class Unit_Swordman : MeeleUnit
 
     public override void NormalAttack()
     {
-        base.NormalAttack();
         StartCoroutine("SwordAttack");
     }
 
     IEnumerator SwordAttack()
     {
+        isAttack = true;
+        isAttackDelayTime = true;
+        
         animator.SetTrigger("isSword");
         yield return new WaitForSeconds(0.8f);
         trail.SetActive(true);
@@ -50,6 +52,9 @@ public class Unit_Swordman : MeeleUnit
             HitMeeleAttack();
         }
         trail.SetActive(false);
+
+        isAttack = false;
+        base.NormalAttack();
     }
 
     public override void MeeleUnit_PassiveAttack(Enemy enemy)

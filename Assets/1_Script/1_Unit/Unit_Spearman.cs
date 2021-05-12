@@ -34,12 +34,14 @@ public class Unit_Spearman : MeeleUnit
 
     public override void NormalAttack()
     {
-        base.NormalAttack();
         StartCoroutine("SpaerAttack");
     }
 
     IEnumerator SpaerAttack()
     {
+        isAttack = true;
+        isAttackDelayTime = true;
+
         animator.SetTrigger("isAttack");
         yield return new WaitForSeconds(0.55f);
         trail.SetActive(true);
@@ -47,6 +49,9 @@ public class Unit_Spearman : MeeleUnit
         HitMeeleAttack();
         yield return new WaitForSeconds(0.3f);
         trail.SetActive(false);
+
+        isAttack = false;
+        base.NormalAttack();
     }
 
     public override void MeeleUnit_PassiveAttack(Enemy enemy)

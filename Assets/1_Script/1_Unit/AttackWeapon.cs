@@ -20,9 +20,18 @@ public class AttackWeapon : MonoBehaviour
     {
         if(other.gameObject.layer == 8)
         {
-            teamSoldier.target.GetComponent<Enemy>().OnDamage(damage);
-            if(!teamSoldier.target.GetComponent<Enemy>().isDead)
-                attackUnit.GetComponent<RangeUnit>().RangeUnit_PassiveAttack();
+            if(teamSoldier.unitType == TeamSoldier.Type.archer)
+            {
+                teamSoldier.target.GetComponent<Enemy>().OnDamage(damage);
+                if (!teamSoldier.target.GetComponent<Enemy>().isDead)
+                    attackUnit.GetComponent<RangeUnit>().RangeUnit_PassiveAttack();
+            }
+            else if(teamSoldier.unitType == TeamSoldier.Type.mage)
+            {
+                other.gameObject.GetComponent<Enemy>().OnDamage(damage);
+                if (!other.gameObject.GetComponent<Enemy>().isDead)
+                    attackUnit.GetComponent<RangeUnit>().RangeUnit_PassiveAttack();
+            }
 
             if(teamSoldier.unitType == TeamSoldier.Type.archer) Destroy(gameObject);
         }

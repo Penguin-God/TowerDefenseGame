@@ -104,11 +104,11 @@ public class TeamSoldier : MonoBehaviour
     [SerializeField]
     protected bool enemyIsForward;
 
-    private void FixedUpdate()
-    {
-        Debug.DrawRay(transform.parent.position + Vector3.up, transform.parent.forward * attackRange, Color.green);
-        rayHit = Physics.Raycast(transform.parent.position + Vector3.up, transform.parent.forward, out rayHitObject, attackRange, layerMask);
-    }
+    //private void FixedUpdate()
+    //{
+    //    Debug.DrawRay(transform.parent.position + Vector3.up, transform.parent.forward * attackRange, Color.green);
+    //    rayHit = Physics.Raycast(transform.parent.position + Vector3.up, transform.parent.forward, out rayHitObject, attackRange, layerMask);
+    //}
 
     private void Update()
     {
@@ -122,6 +122,7 @@ public class TeamSoldier : MonoBehaviour
     {
         if (rayHit)
         {
+            //Debug.Log(rayHitObject);
             if (rayHitObject.transform.gameObject == target.parent.gameObject || rayHitObject.transform.gameObject.CompareTag("Tower"))
                 return true;
             else return false;

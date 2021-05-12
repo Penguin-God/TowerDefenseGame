@@ -159,7 +159,7 @@ public class Unit_Mage : RangeUnit
             }
         }
 
-        if (other.gameObject.layer == 8)
+        if (other.gameObject.layer == 9)
         {
             TeamSoldier otherTeamSoldier = other.gameObject.GetComponent<TeamSoldier>();
             switch (unitColor)

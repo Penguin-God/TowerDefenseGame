@@ -55,7 +55,7 @@ public class Unit_Mage : RangeUnit
         if (target != null && Vector3.Distance(target.position, transform.position) < 150f)
         {
             GameObject instantEnergyBall = CreateBullte(energyBall, energyBallTransform);
-            ShotBullet(instantEnergyBall, 2f, 50f);
+            ShotBullet(instantEnergyBall, 2f, 50f, target);
         }
 
         yield return new WaitForSeconds(0.5f);
@@ -66,9 +66,9 @@ public class Unit_Mage : RangeUnit
         base.NormalAttack();
     }
 
-    public override void RangeUnit_PassiveAttack()
+    public override void RangeUnit_PassiveAttack(Enemy enemy)
     {
-        Enemy enemy = GetEnemyScript();
+        //Enemy enemy = GetEnemyScript();
         switch (unitColor)
         {
             case UnitColor.red:

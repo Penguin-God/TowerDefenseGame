@@ -20,25 +20,25 @@ public class RangeUnit : TeamSoldier
         return instantBullet;
     }
 
-    protected void ShotBullet(GameObject bullet, float weightRate, float velocity) // 원거리 유닛 총알 발사
+    protected void ShotBullet(GameObject bullet, float weightRate, float velocity, Transform targetEnemy) // 원거리 유닛 총알 발사
     {
         Rigidbody bulletRigid = bullet.GetComponent<Rigidbody>();
 
-        Vector3 dir = target.position - bullet.transform.position;
-        float enemyWeightDir = Mathf.Lerp(0, nomalEnemy.speed, (weightRate * Vector3.Distance(target.position, this.transform.position)) / 100);
-        dir += nomalEnemy.dir * enemyWeightDir;
+        Vector3 dir = targetEnemy.position - bullet.transform.position;
+        float enemyWeightDir = Mathf.Lerp(0, nomalEnemy.speed, (weightRate * (Vector3.Distance(targetEnemy.position, this.transform.position) * 2)) / 100);
+        dir += nomalEnemy.dir.normalized * enemyWeightDir;
         bulletRigid.velocity = dir.normalized * velocity;
     }
 
-    public virtual void RangeUnit_PassiveAttack()
+    public virtual void RangeUnit_PassiveAttack(Enemy enemy)
     {
 
     }
 
     private void FixedUpdate()
     {
-        rayHit = Physics.BoxCast(transform.parent.position, transform.lossyScale * 3,
-            transform.parent.forward, out rayHitObject, transform.parent.rotation, attackRange);
+        rayHit = Physics.BoxCast(transform.parent.position + Vector3.up, transform.lossyScale,
+            transform.parent.forward, out rayHitObject, transform.parent.rotation, attackRange, layerMask);
     }
 
     void OnDrawGizmos()
@@ -50,7 +50,7 @@ public class RangeUnit : TeamSoldier
         //if (isHit) Debug.Log("맞았다!!!!!!!!!!!");
 
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.parent.position, transform.parent.forward * attackRange);
-        Gizmos.DrawWireCube(transform.parent.position + transform.parent.forward * attackRange, transform.lossyScale * 3);
+        Gizmos.DrawRay(transform.parent.position + Vector3.up, transform.parent.forward * attackRange);
+        Gizmos.DrawWireCube(transform.parent.position + Vector3.up + transform.parent.forward * attackRange, transform.lossyScale);
     }
 }

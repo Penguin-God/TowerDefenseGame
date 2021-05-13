@@ -29,6 +29,7 @@ public class Unit_Archer : RangeUnit
                 speed *= 2;
                 break;
             case UnitColor.orange:
+                damage *= 2;
                 break;
             case UnitColor.violet:
                 break;
@@ -37,7 +38,8 @@ public class Unit_Archer : RangeUnit
 
     public override void NormalAttack()
     {
-        StartCoroutine("ArrowAttack");
+        SpecialAttack();
+        //StartCoroutine("ArrowAttack");
     }
 
     IEnumerator ArrowAttack()
@@ -48,7 +50,7 @@ public class Unit_Archer : RangeUnit
         nav.angularSpeed = 1;
         trail.SetActive(false);
         GameObject instantArrow = CreateBullte(arrow, arrowTransform);
-        ShotBullet(instantArrow, 2f, 50f);
+        ShotBullet(instantArrow, 2f, 50f, target);
 
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
@@ -58,9 +60,78 @@ public class Unit_Archer : RangeUnit
         base.NormalAttack();
     }
 
-    public override void RangeUnit_PassiveAttack()
+    public override void SpecialAttack()
     {
-        Enemy enemy = GetEnemyScript();
+        StartCoroutine(Special_ArcherAttack());
+    }
+
+    IEnumerator Special_ArcherAttack()
+    {
+        isAttack = true;
+        isAttackDelayTime = true;
+        nav.angularSpeed = 1;
+        trail.SetActive(false);
+
+        int enemyCount = 3;
+        Transform[] targetArray = Set_AttackTarget(target, enemySpawn.currentEnemyList, enemyCount);
+        for (int i = 0; i < targetArray.Length; i++)
+        {
+            GameObject instantArrow = CreateBullte(arrow, arrowTransform);
+            ShotBullet(instantArrow, 4f, 50f, targetArray[i]);
+        }
+
+        yield return new WaitForSeconds(1f);
+        trail.SetActive(true);
+        nav.angularSpeed = 1000;
+        isAttack = false;
+        base.NormalAttack();
+    }
+
+    Transform[] Set_AttackTarget(Transform targetTransform, List<GameObject> currentEnemyList, int count)
+    {
+        if (currentEnemyList.Count == 0) return null;
+
+        List<GameObject> enemyList = new List<GameObject>();
+        for(int i = 0; i < currentEnemyList.Count; i++)
+        {
+            enemyList.Add(currentEnemyList[i]);
+        }
+        Transform[] targetArray = new Transform[count];
+        targetArray[0] = targetTransform;
+        enemyList.Remove(targetTransform.gameObject);
+
+        float shortDistance = 150f;
+        GameObject targetObject = null;
+        Debug.Log(targetTransform);
+        for (int i = 1; i < count; i++)
+        {
+            if(enemyList.Count != 0)
+            {
+                foreach (GameObject enemyObject in enemyList)
+                {
+                    if (enemyObject != null)
+                    {
+                        float distanceToEnemy = Vector3.Distance(targetTransform.position, enemyObject.transform.position);
+                        Debug.Log(distanceToEnemy);
+                        if (distanceToEnemy < shortDistance)
+                        {
+                            shortDistance = distanceToEnemy;
+                            targetObject = enemyObject; 
+                        }
+                    }
+                }
+                shortDistance = 150f;
+                targetArray[i] = targetObject.transform;
+                enemyList.Remove(targetObject);
+            }
+            else targetArray[i] = targetTransform;
+        }
+        return targetArray;
+    }
+
+    public override void RangeUnit_PassiveAttack(Enemy enemy)
+    {
+        //Enemy enemy = GetEnemyScript();
         switch (unitColor)
         {
             case UnitColor.red:

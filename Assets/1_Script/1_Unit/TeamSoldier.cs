@@ -65,7 +65,7 @@ public class TeamSoldier : MonoBehaviour
         }
     }
     int specialAttackPercent = 30;
-    public void UnitAttack()
+    void UnitAttack()
     {
         int random = Random.Range(0, 100);
         if(random < specialAttackPercent)
@@ -86,7 +86,7 @@ public class TeamSoldier : MonoBehaviour
         isAttackDelayTime = false;
     }
 
-    void SpecialAttack()
+    public virtual void SpecialAttack()
     {
 
     }
@@ -167,7 +167,7 @@ public class TeamSoldier : MonoBehaviour
             foreach (GameObject enemyObject in enemySpawn.currentEnemyList)
             {
                 if (enemyObject != null)
-                { 
+                {
                     float distanceToEnemy = Vector3.Distance(this.transform.position, enemyObject.transform.position);
                     if (distanceToEnemy < shortDistance)
                     {

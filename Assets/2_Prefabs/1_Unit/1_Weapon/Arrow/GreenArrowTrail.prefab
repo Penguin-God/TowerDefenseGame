@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3088359444298159366}
   - component: {fileID: 3088359444298159367}
   - component: {fileID: 3088359444298159364}
-  - component: {fileID: -2853822698858989865}
   - component: {fileID: 1490930096575968293}
+  - component: {fileID: 2875596543097108506}
   m_Layer: 0
   m_Name: GreenArrowTrail
   m_TagString: Attack
@@ -174,19 +174,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
---- !u!65 &-2853822698858989865
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3088359444298159365}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 3, y: 3, z: 3}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1490930096575968293
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,3 +188,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 30
   attackUnit: {fileID: 0}
+--- !u!135 &2875596543097108506
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3088359444298159365}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 4
+  m_Center: {x: 0, y: 0, z: 0}

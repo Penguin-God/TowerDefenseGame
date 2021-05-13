@@ -6,10 +6,12 @@ public class Unit_Spearman : MeeleUnit
 {
     private Animator animator;
     public GameObject trail;
+    public GameObject spear;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        StartCoroutine(Spearman_SpecialAttack());
     }
 
     public override void SetPassive()
@@ -52,6 +54,19 @@ public class Unit_Spearman : MeeleUnit
 
         isAttack = false;
         base.NormalAttack();
+    }
+
+    IEnumerator Spearman_SpecialAttack()
+    {
+        //nav.isStopped = true;
+
+        animator.SetTrigger("isSpecialAttack");
+        yield return new WaitForSeconds(1f);
+
+        trail.SetActive(true);
+        spear.GetComponent<BoxCollider>().enabled = true;
+        spear.GetComponent<Rigidbody>().velocity = Vector3.forward * 30;
+        //Debug.Log(spear.GetComponent<Rigidbody>().velocity);
     }
 
     public override void MeeleUnit_PassiveAttack(Enemy enemy)

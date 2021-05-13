@@ -112,6 +112,8 @@ public class TeamSoldier : MonoBehaviour
 
     private void Update()
     {
+        if (target == null) return;
+
         UnitTypeMove();
         enemyIsForward = Set_EnemyIsForword();
     }

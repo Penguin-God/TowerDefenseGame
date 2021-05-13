@@ -12,6 +12,21 @@ public class Enemy : MonoBehaviour
     public Slider hpSlider;
 
     protected Rigidbody parentRigidbody;
+    protected List<MeshRenderer> meshList;
+    [SerializeField]
+    private Material mat;
+    private void Start()
+    {
+        meshList = new List<MeshRenderer>();
+
+        meshList.Add(GetComponent<MeshRenderer>());
+        MeshRenderer[] addMeshs = GetComponentsInChildren<MeshRenderer>();
+        
+        for(int i = 0; i < addMeshs.Length; i++)
+        {
+            meshList.Add(addMeshs[i]);
+        }
+    }
 
     // 대미지 관련 함수
     public void OnDamage(int damage)
@@ -58,6 +73,7 @@ public class Enemy : MonoBehaviour
         {
             nomalEnemy.speed = nomalEnemy.maxSpeed - nomalEnemy.maxSpeed * (slowPercent / 100);
             parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
+            ChangeColor(new Color32(50, 175, 222, 1));
         }
         //isSlow = true;
         //nomalEnemy.speed -= nomalEnemy.speed * (slowPercent / 100);
@@ -71,12 +87,22 @@ public class Enemy : MonoBehaviour
 
     public IEnumerator PoisonAttack(int poisonPercent, int poisonCount, float poisonDelay)
     {
+        ChangeColor(new Color32(141, 49, 231, 255));
         int poisonDamage = Mathf.RoundToInt(currentHp * poisonPercent / 100);
         for (int i = 0; i < poisonCount; i++)
         {
             if (poisonDamage <= 0) poisonDamage = 1; // 독 최소뎀
             if (currentHp > 1) OnDamage(poisonDamage); // 독으로는 못죽임
             yield return new WaitForSeconds(poisonDelay);
+        }
+        ChangeColor(mat.color);
+    }
+
+    void ChangeColor(Color32 colorColor)
+    {
+        foreach(MeshRenderer mesh in meshList)
+        {
+            mesh.material.color = colorColor;
         }
     }
 }

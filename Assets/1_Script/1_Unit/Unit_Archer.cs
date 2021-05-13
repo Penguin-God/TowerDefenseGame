@@ -38,8 +38,8 @@ public class Unit_Archer : RangeUnit
 
     public override void NormalAttack()
     {
-        SpecialAttack();
-        //StartCoroutine("ArrowAttack");
+        //SpecialAttack();
+        StartCoroutine("ArrowAttack");
     }
 
     IEnumerator ArrowAttack()
@@ -102,7 +102,7 @@ public class Unit_Archer : RangeUnit
 
         float shortDistance = 150f;
         GameObject targetObject = null;
-        Debug.Log(targetTransform);
+        //Debug.Log(targetTransform);
         for (int i = 1; i < count; i++)
         {
             if(enemyList.Count != 0)
@@ -112,7 +112,6 @@ public class Unit_Archer : RangeUnit
                     if (enemyObject != null)
                     {
                         float distanceToEnemy = Vector3.Distance(targetTransform.position, enemyObject.transform.position);
-                        Debug.Log(distanceToEnemy);
                         if (distanceToEnemy < shortDistance)
                         {
                             shortDistance = distanceToEnemy;

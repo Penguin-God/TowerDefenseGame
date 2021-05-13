@@ -33,7 +33,8 @@ public class UIManager : MonoBehaviour
     public GameObject SoldiersCombineButton2;
     public GameObject BackGround;
     public GameObject ExPlanationTexts;
-    public GameObject TowerButton;
+    public GameObject BlackTowerButton;
+    public GameObject WhiteTowerButton;
 
     public void UpdateStageText(int Stage)
     {

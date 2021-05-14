@@ -35,6 +35,8 @@ public class UIManager : MonoBehaviour
     public GameObject ExPlanationTexts;
     public GameObject BlackTowerButton;
     public GameObject WhiteTowerButton;
+    public GameObject FailText;
+    public GameObject SuccessText;
 
     public void UpdateStageText(int Stage)
     {

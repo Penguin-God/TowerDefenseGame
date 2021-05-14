@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     private bool isGameover;
     public bool isClear;
     public World world;
+    public float timer;
+    public int waitingTime;
+
     // public GameObject[] Soldiers;
 
 
@@ -53,6 +56,8 @@ public class GameManager : MonoBehaviour
     }
 
 
+
+
     void Start()
     {
         isGameover = false;
@@ -60,6 +65,8 @@ public class GameManager : MonoBehaviour
         Food = 0;
         UIManager.instance.UpdateGoldText(Gold);
         UIManager.instance.UpdateFoodText(Food);
+        timer = 0.0f;
+        waitingTime = 2;
     }
 
 
@@ -80,6 +87,13 @@ public class GameManager : MonoBehaviour
         if (isClear && Input.anyKeyDown)
         {
             Restart();
+        }
+
+        timer += Time.deltaTime;
+
+        if (timer > waitingTime)
+        {
+            timer = 0;
         }
 
     }

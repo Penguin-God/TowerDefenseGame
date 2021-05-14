@@ -7,6 +7,9 @@ public class Unit_Spearman : MeeleUnit
     private Animator animator;
     public GameObject trail;
     public GameObject spear;
+    public GameObject skileSpaer; // 발사할 때 생성하는 창
+    public Transform spearCreatePosition;
+    public GameObject dontMoveGameObject;
 
     private void Awake()
     {
@@ -63,11 +66,17 @@ public class Unit_Spearman : MeeleUnit
         animator.SetTrigger("isSpecialAttack");
         yield return new WaitForSeconds(1f);
 
-        trail.SetActive(true);
-        spear.GetComponent<BoxCollider>().enabled = true;
-        spear.GetComponent<Rigidbody>().velocity = Vector3.forward * 30;
-        //Debug.Log(spear.GetComponent<Rigidbody>().velocity);
+        spear.SetActive(false);
+        Vector3 createRotation = new Vector3(-90f, transform.parent.rotation.y, spearCreatePosition.rotation.z);
+        Debug.Log(createRotation);
+        GameObject instantSpear = Instantiate(skileSpaer, spearCreatePosition);
+        instantSpear.transform.SetParent(dontMoveGameObject.transform);
+        //instantSpear.transform.rotation = Quaternion.Euler(new Vector3(-90f, 0, 0));
+        instantSpear.GetComponent<AttackWeapon>().attackUnit = this.gameObject;
+        instantSpear.GetComponent<Rigidbody>().velocity = (-1 * transform.forward) * 30;
     }
+
+    
 
     public override void MeeleUnit_PassiveAttack(Enemy enemy)
     {

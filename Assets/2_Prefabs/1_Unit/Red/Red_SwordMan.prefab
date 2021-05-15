@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 6662870982120817028}
   m_Layer: 9
   m_Name: TB_Soldier_Swordman_Hand
-  m_TagString: Attack
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -189,8 +189,8 @@ GameObject:
   - component: {fileID: 6781934753668706257}
   - component: {fileID: 1132800576}
   m_Layer: 9
-  m_Name: TB_Soldier_Swordman_Red
-  m_TagString: RedSwordman
+  m_Name: TB_Soldier_Swordman_Black
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -238,7 +238,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
+  - {fileID: 2100000, guid: 705653f68370b9b4b864cd0871bd5330, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -282,6 +282,7 @@ MonoBehaviour:
   isAttack: 0
   isAttackDelayTime: 0
   target: {fileID: 0}
+  specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0
   towerEnter: 0

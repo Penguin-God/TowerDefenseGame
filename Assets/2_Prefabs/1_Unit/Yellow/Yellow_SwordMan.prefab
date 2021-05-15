@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4408256796817922901}
   m_Layer: 9
   m_Name: TB_Soldier_Swordman_Hand
-  m_TagString: Attack
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -432,6 +432,7 @@ MonoBehaviour:
   isAttack: 0
   isAttackDelayTime: 0
   target: {fileID: 0}
+  specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0
   towerEnter: 0

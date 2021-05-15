@@ -2026,7 +2026,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 299.00006, y: 1.9999895}
+  m_AnchoredPosition: {x: -303.8999, y: 85.599976}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &108076448
@@ -18196,10 +18196,25 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Untagged
       objectReference: {fileID: 0}
+    - target: {fileID: 8148257199348242115, guid: 1e059af96a94cf44f8b4ce6202c501c5,
+        type: 3}
+      propertyPath: m_TagString
+      value: RedSwordman
+      objectReference: {fileID: 0}
+    - target: {fileID: 8148257199348242117, guid: 1e059af96a94cf44f8b4ce6202c501c5,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
     - target: {fileID: 8148257199809515133, guid: 1e059af96a94cf44f8b4ce6202c501c5,
         type: 3}
       propertyPath: m_Name
       value: Red_SwordMan
+      objectReference: {fileID: 0}
+    - target: {fileID: 8148257199809515133, guid: 1e059af96a94cf44f8b4ce6202c501c5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8148257199809515135, guid: 1e059af96a94cf44f8b4ce6202c501c5,
         type: 3}
@@ -38793,7 +38808,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 299, y: 2}
+  m_AnchoredPosition: {x: -303.9, y: 85.6}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1789436873

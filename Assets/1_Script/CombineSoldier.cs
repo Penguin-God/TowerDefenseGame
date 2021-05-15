@@ -162,6 +162,8 @@ public class CombineSoldier : MonoBehaviour
 
             Destroy(TagSoldier.YellowSwordman[0]);
             Destroy(TagSoldier.YellowSwordman[1]);
+            GameManager.instance.Gold += 2;
+            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
 
             SoldierChoose(2, 2, 1, 1);
@@ -187,6 +189,8 @@ public class CombineSoldier : MonoBehaviour
             Destroy(TagSoldier.YellowSwordman[1]);
             Destroy(TagSoldier.YellowArcher[0]);
             Destroy(TagSoldier.YellowArcher[1]);
+            GameManager.instance.Gold += 2;
+            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
 
             SoldierChoose(2, 2, 2, 2);
@@ -262,6 +266,8 @@ public class CombineSoldier : MonoBehaviour
             Destroy(TagSoldier.YellowSwordman[0]);
             Destroy(TagSoldier.GreenArcher[0]);
             Destroy(TagSoldier.GreenArcher[1]);
+            GameManager.instance.Gold += 1;
+            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
 
             SoldierChoose(3, 3, 2, 2);
@@ -338,6 +344,8 @@ public class CombineSoldier : MonoBehaviour
             Destroy(TagSoldier.YellowSwordman[0]);
             Destroy(TagSoldier.OrangeArcher[0]);
             Destroy(TagSoldier.OrangeArcher[1]);
+            GameManager.instance.Gold += 1;
+            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
 
             SoldierChoose(4, 4, 2, 2);
@@ -413,6 +421,8 @@ public class CombineSoldier : MonoBehaviour
             Destroy(TagSoldier.YellowSwordman[0]);
             Destroy(TagSoldier.VioletArcher[0]);
             Destroy(TagSoldier.VioletArcher[1]);
+            GameManager.instance.Gold += 1;
+            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
 
             SoldierChoose(5, 5, 2, 2);
@@ -465,6 +475,8 @@ public class CombineSoldier : MonoBehaviour
 
             Destroy(TagSoldier.YellowSwordman[0]);
             Destroy(TagSoldier.BlueSwordman[0]);
+            GameManager.instance.Gold += 1;
+            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
 
             SoldierChoose(3, 3, 0, 0);
@@ -487,6 +499,8 @@ public class CombineSoldier : MonoBehaviour
 
             Destroy(TagSoldier.YellowSwordman[0]);
             Destroy(TagSoldier.RedSwordman[0]);
+            GameManager.instance.Gold += 1;
+            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
 
             SoldierChoose(4, 4, 0, 0);

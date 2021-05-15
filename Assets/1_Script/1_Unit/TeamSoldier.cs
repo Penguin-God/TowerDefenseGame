@@ -64,7 +64,7 @@ public class TeamSoldier : MonoBehaviour
                 break;
         }
     }
-    int specialAttackPercent = 30;
+    public int specialAttackPercent = 30;
     void UnitAttack()
     {
         int random = Random.Range(0, 100);
@@ -154,7 +154,8 @@ public class TeamSoldier : MonoBehaviour
             if (enemyIsForward && !isAttackDelayTime) // Attack가능하고 쿨타임이 아니면 공격
             {
                 //Debug.Log(isAttackDelayTime);
-                NormalAttack();
+                //NormalAttack();
+                UnitAttack();
             }
             yield return null;
         }

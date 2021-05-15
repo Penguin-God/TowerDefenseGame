@@ -38,7 +38,6 @@ public class Unit_Archer : RangeUnit
 
     public override void NormalAttack()
     {
-        //SpecialAttack();
         StartCoroutine("ArrowAttack");
     }
 

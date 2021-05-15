@@ -14,7 +14,6 @@ public class Unit_Spearman : MeeleUnit
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        StartCoroutine(Spearman_SpecialAttack());
     }
 
     public override void SetPassive()
@@ -59,21 +58,33 @@ public class Unit_Spearman : MeeleUnit
         base.NormalAttack();
     }
 
+    public override void SpecialAttack()
+    {
+        //base.SpecialAttack(); // 나중에 스킬 쿨타임을 따로 만들수도 있음
+        StartCoroutine("Spearman_SpecialAttack");
+    }
+
     IEnumerator Spearman_SpecialAttack()
     {
-        //nav.isStopped = true;
-
+        isAttack = true;
+        isAttackDelayTime = true;
         animator.SetTrigger("isSpecialAttack");
         yield return new WaitForSeconds(1f);
 
         spear.SetActive(false);
-        Vector3 createRotation = new Vector3(-90f, transform.parent.rotation.y, spearCreatePosition.rotation.z);
-        Debug.Log(createRotation);
+        nav.isStopped = true;
+        //Vector3 createRotation = new Vector3(-90f, transform.parent.rotation.y, spearCreatePosition.rotation.z);
+        //Debug.Log(createRotation);
         GameObject instantSpear = Instantiate(skileSpaer, spearCreatePosition);
         instantSpear.transform.SetParent(dontMoveGameObject.transform);
-        //instantSpear.transform.rotation = Quaternion.Euler(new Vector3(-90f, 0, 0));
         instantSpear.GetComponent<AttackWeapon>().attackUnit = this.gameObject;
-        instantSpear.GetComponent<Rigidbody>().velocity = (-1 * transform.forward) * 30;
+        instantSpear.GetComponent<Rigidbody>().velocity = (-1 * transform.forward) * 50;
+
+        yield return new WaitForSeconds(0.5f);
+        nav.isStopped = false;
+        spear.SetActive(true);
+        isAttack = false;
+        base.NormalAttack();
     }
 
     

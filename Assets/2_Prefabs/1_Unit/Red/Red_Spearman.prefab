@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3121197265978246238
+--- !u!1 &295579245483654288
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3123799070582694188}
-  - component: {fileID: 3107960208346422856}
-  - component: {fileID: 3099694861152849476}
+  - component: {fileID: 294927708365459032}
+  - component: {fileID: 318829370276750000}
+  - component: {fileID: 309970873512734190}
   m_Layer: 9
-  m_Name: TB_Soldier_Spearman_Leg_L
+  m_Name: TB_Soldier_Spearman_Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3123799070582694188
+--- !u!4 &294927708365459032
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121197265978246238}
+  m_GameObject: {fileID: 295579245483654288}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.40243912, y: 0.57538015, z: 0.0000000034859156}
+  m_LocalPosition: {x: -0.40243912, y: 0.57538015, z: -0.00000012269521}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3118382421908546468}
-  m_RootOrder: 1
+  m_Father: {fileID: 290828455461556404}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3107960208346422856
+--- !u!33 &318829370276750000
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121197265978246238}
-  m_Mesh: {fileID: 4300004, guid: bebef20717bf2cb42adfe83c7edc5a06, type: 3}
---- !u!23 &3099694861152849476
+  m_GameObject: {fileID: 295579245483654288}
+  m_Mesh: {fileID: 4300002, guid: bebef20717bf2cb42adfe83c7edc5a06, type: 3}
+--- !u!23 &309970873512734190
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121197265978246238}
+  m_GameObject: {fileID: 295579245483654288}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -79,7 +79,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &3121569197222458996
+--- !u!1 &296542819077326180
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,47 +87,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3118486314491975470}
-  - component: {fileID: 3111684107394548634}
-  - component: {fileID: 3100163916833202814}
-  - component: {fileID: 3121569197222458997}
+  - component: {fileID: 290645444277888062}
+  - component: {fileID: 315655011961532554}
+  - component: {fileID: 309195942146429294}
   m_Layer: 9
   m_Name: TB_Soldier_Spearman_Hand
-  m_TagString: Attack
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3118486314491975470
+--- !u!4 &290645444277888062
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121569197222458996}
+  m_GameObject: {fileID: 296542819077326180}
   m_LocalRotation: {x: -0.5, y: 0, z: 0, w: 0.8660254}
   m_LocalPosition: {x: -0.89484406, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3670309883343198626}
-  m_Father: {fileID: 3118382421908546468}
+  - {fileID: 2134721472750693042}
+  m_Father: {fileID: 290828455461556404}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -60, y: 0, z: 0}
---- !u!33 &3111684107394548634
+--- !u!33 &315655011961532554
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121569197222458996}
+  m_GameObject: {fileID: 296542819077326180}
   m_Mesh: {fileID: 4300006, guid: bebef20717bf2cb42adfe83c7edc5a06, type: 3}
---- !u!23 &3100163916833202814
+--- !u!23 &309195942146429294
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121569197222458996}
+  m_GameObject: {fileID: 296542819077326180}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -160,21 +159,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &3121569197222458997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121569197222458996}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15ad5adace7d8ad4dbe30ee8c9a3a850, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
-  attackUnit: {fileID: 3121596322090877764}
---- !u!1 &3121596322090877764
+--- !u!1 &296571180890353748
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,12 +167,12 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3118382421908546468}
-  - component: {fileID: 3108484515991765560}
-  - component: {fileID: 3099176236286914880}
-  - component: {fileID: 3121596322090877765}
-  - component: {fileID: 3121596322090877766}
-  - component: {fileID: 648649263}
+  - component: {fileID: 290828455461556404}
+  - component: {fileID: 318643454786613544}
+  - component: {fileID: 310184221438394960}
+  - component: {fileID: 296571180890353749}
+  - component: {fileID: 296571180890353750}
+  - component: {fileID: 3409087179112802623}
   m_Layer: 9
   m_Name: TB_Soldier_Spearman_Red
   m_TagString: RedSpearman
@@ -195,38 +180,39 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3118382421908546468
+--- !u!4 &290828455461556404
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121596322090877764}
+  m_GameObject: {fileID: 296571180890353748}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 3118486314491975470}
-  - {fileID: 3123799070582694188}
-  - {fileID: 3123327199214173512}
-  m_Father: {fileID: 7679401171088106678}
+  - {fileID: 290645444277888062}
+  - {fileID: 294550430027092540}
+  - {fileID: 294927708365459032}
+  - {fileID: 7637815587256254410}
+  m_Father: {fileID: 5034237234067150758}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!33 &3108484515991765560
+--- !u!33 &318643454786613544
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121596322090877764}
+  m_GameObject: {fileID: 296571180890353748}
   m_Mesh: {fileID: 4300000, guid: bebef20717bf2cb42adfe83c7edc5a06, type: 3}
---- !u!23 &3099176236286914880
+--- !u!23 &310184221438394960
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121596322090877764}
+  m_GameObject: {fileID: 296571180890353748}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -259,14 +245,14 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!95 &3121596322090877765
+--- !u!95 &296571180890353749
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121596322090877764}
+  m_GameObject: {fileID: 296571180890353748}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 1dde302cb11d81e4f863889faa6cc576, type: 2}
@@ -278,13 +264,13 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3121596322090877766
+--- !u!114 &296571180890353750
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121596322090877764}
+  m_GameObject: {fileID: 296571180890353748}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9fbabbbac803a54ab965809c885ef1f, type: 3}
@@ -301,18 +287,24 @@ MonoBehaviour:
   isAttack: 0
   isAttackDelayTime: 0
   target: {fileID: 0}
+  specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0
   towerEnter: 0
   enterStoryWorld: 0
-  trail: {fileID: 3670309883343198625}
---- !u!136 &648649263
+  trail: {fileID: 2134721472750693041}
+  spear: {fileID: 296542819077326180}
+  skileSpaer: {fileID: 4947818212191654679, guid: 1f4742ade3332aa4fa4c23a36eee4436,
+    type: 3}
+  spearCreatePosition: {fileID: 7637815587256254410}
+  dontMoveGameObject: {fileID: 0}
+--- !u!136 &3409087179112802623
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3121596322090877764}
+  m_GameObject: {fileID: 296571180890353748}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -320,7 +312,7 @@ CapsuleCollider:
   m_Height: 2.8291357
   m_Direction: 1
   m_Center: {x: 0.21789765, y: 1.8617955, z: -0.27206933}
---- !u!1 &3122570674304257920
+--- !u!1 &297020810042750798
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -328,45 +320,45 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3123327199214173512}
-  - component: {fileID: 3108388801861144992}
-  - component: {fileID: 3099248847327813374}
+  - component: {fileID: 294550430027092540}
+  - component: {fileID: 319249720004013400}
+  - component: {fileID: 309577083807104340}
   m_Layer: 9
-  m_Name: TB_Soldier_Spearman_Leg_R
+  m_Name: TB_Soldier_Spearman_Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3123327199214173512
+--- !u!4 &294550430027092540
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3122570674304257920}
+  m_GameObject: {fileID: 297020810042750798}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.40243912, y: 0.57538015, z: -0.00000012269521}
+  m_LocalPosition: {x: 0.40243912, y: 0.57538015, z: 0.0000000034859156}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3118382421908546468}
-  m_RootOrder: 2
+  m_Father: {fileID: 290828455461556404}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &3108388801861144992
+--- !u!33 &319249720004013400
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3122570674304257920}
-  m_Mesh: {fileID: 4300002, guid: bebef20717bf2cb42adfe83c7edc5a06, type: 3}
---- !u!23 &3099248847327813374
+  m_GameObject: {fileID: 297020810042750798}
+  m_Mesh: {fileID: 4300004, guid: bebef20717bf2cb42adfe83c7edc5a06, type: 3}
+--- !u!23 &309577083807104340
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3122570674304257920}
+  m_GameObject: {fileID: 297020810042750798}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -399,7 +391,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &3670309883343198625
+--- !u!1 &2134721472750693041
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -407,8 +399,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3670309883343198626}
-  - component: {fileID: 3670309883343198627}
+  - component: {fileID: 2134721472750693042}
+  - component: {fileID: 2134721472750693043}
   m_Layer: 9
   m_Name: Trail
   m_TagString: Untagged
@@ -416,28 +408,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &3670309883343198626
+--- !u!4 &2134721472750693042
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3670309883343198625}
+  m_GameObject: {fileID: 2134721472750693041}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 5.2, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3118486314491975470}
+  m_Father: {fileID: 290645444277888062}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!96 &3670309883343198627
+--- !u!96 &2134721472750693043
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3670309883343198625}
+  m_GameObject: {fileID: 2134721472750693041}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -545,7 +537,7 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!1 &7679401171088106676
+--- !u!1 &3592104989605310416
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -553,9 +545,39 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7679401171088106678}
-  - component: {fileID: 7679401171088106679}
-  - component: {fileID: 640433178}
+  - component: {fileID: 7637815587256254410}
+  m_Layer: 9
+  m_Name: Spear Create Position
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7637815587256254410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3592104989605310416}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.9, y: 1.5, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 290828455461556404}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5034237234067150756
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5034237234067150758}
+  - component: {fileID: 5034237234067150759}
+  - component: {fileID: 3409087179121413898}
   m_Layer: 9
   m_Name: Red_Spearman
   m_TagString: Untagged
@@ -563,28 +585,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &7679401171088106678
+--- !u!4 &5034237234067150758
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7679401171088106676}
+  m_GameObject: {fileID: 5034237234067150756}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
-  - {fileID: 3118382421908546468}
+  - {fileID: 290828455461556404}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!195 &7679401171088106679
+--- !u!195 &5034237234067150759
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7679401171088106676}
+  m_GameObject: {fileID: 5034237234067150756}
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
@@ -600,13 +622,13 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!54 &640433178
+--- !u!54 &3409087179121413898
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7679401171088106676}
+  m_GameObject: {fileID: 5034237234067150756}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0

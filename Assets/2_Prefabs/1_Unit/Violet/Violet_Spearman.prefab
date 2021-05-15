@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2712552059338482092
+--- !u!1 &392146240671753428
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,8 +8,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2712552059338482095}
-  - component: {fileID: 2712552059338482094}
+  - component: {fileID: 392146240671753431}
+  - component: {fileID: 392146240671753430}
   m_Layer: 9
   m_Name: Trail
   m_TagString: Untagged
@@ -17,28 +17,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &2712552059338482095
+--- !u!4 &392146240671753431
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2712552059338482092}
+  m_GameObject: {fileID: 392146240671753428}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 5.2, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4326958801009717027}
+  m_Father: {fileID: 2078894251987331675}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!96 &2712552059338482094
+--- !u!96 &392146240671753430
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2712552059338482092}
+  m_GameObject: {fileID: 392146240671753428}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -146,7 +146,7 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!1 &4330571189786098505
+--- !u!1 &2074814669134852853
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -154,12 +154,91 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4327357358414453673}
-  - component: {fileID: 4352987355337259573}
-  - component: {fileID: 4344030255823948109}
-  - component: {fileID: 4330571189786098504}
-  - component: {fileID: 4330571189786098507}
-  - component: {fileID: 4330571189786098506}
+  - component: {fileID: 2073599778855419965}
+  - component: {fileID: 2070977070846192853}
+  - component: {fileID: 2061557840333185931}
+  m_Layer: 9
+  m_Name: TB_Soldier_Spearman_Leg_R
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2073599778855419965
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074814669134852853}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.40243912, y: 0.57538015, z: -0.00000012269521}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2078439554965446353}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &2070977070846192853
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074814669134852853}
+  m_Mesh: {fileID: 4300002, guid: bebef20717bf2cb42adfe83c7edc5a06, type: 3}
+--- !u!23 &2061557840333185931
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2074814669134852853}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ed9f29ddef3dac64dbba787a64fa05ba, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &2075177400942788145
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2078439554965446353}
+  - component: {fileID: 2070863886919515981}
+  - component: {fileID: 2061766636180786229}
+  - component: {fileID: 2075177400942788144}
+  - component: {fileID: 2075177400942788147}
+  - component: {fileID: 2075177400942788146}
   m_Layer: 9
   m_Name: TB_Soldier_Spearman_Violet
   m_TagString: VioletSpearman
@@ -167,38 +246,39 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4327357358414453673
+--- !u!4 &2078439554965446353
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4330571189786098505}
+  m_GameObject: {fileID: 2075177400942788145}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4326958801009717027}
-  - {fileID: 4328683173004171553}
-  - {fileID: 4328853519686747461}
-  m_Father: {fileID: 9068510707153493179}
+  - {fileID: 2078894251987331675}
+  - {fileID: 2073722073682713689}
+  - {fileID: 2073599778855419965}
+  - {fileID: 2596895945517167973}
+  m_Father: {fileID: 6704759391202351555}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!33 &4352987355337259573
+--- !u!33 &2070863886919515981
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4330571189786098505}
+  m_GameObject: {fileID: 2075177400942788145}
   m_Mesh: {fileID: 4300000, guid: bebef20717bf2cb42adfe83c7edc5a06, type: 3}
---- !u!23 &4344030255823948109
+--- !u!23 &2061766636180786229
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4330571189786098505}
+  m_GameObject: {fileID: 2075177400942788145}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -231,14 +311,14 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!95 &4330571189786098504
+--- !u!95 &2075177400942788144
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4330571189786098505}
+  m_GameObject: {fileID: 2075177400942788145}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 1dde302cb11d81e4f863889faa6cc576, type: 2}
@@ -250,13 +330,13 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &4330571189786098507
+--- !u!114 &2075177400942788147
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4330571189786098505}
+  m_GameObject: {fileID: 2075177400942788145}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b9fbabbbac803a54ab965809c885ef1f, type: 3}
@@ -273,18 +353,24 @@ MonoBehaviour:
   isAttack: 0
   isAttackDelayTime: 0
   target: {fileID: 0}
+  specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0
   towerEnter: 0
   enterStoryWorld: 0
-  trail: {fileID: 2712552059338482092}
---- !u!136 &4330571189786098506
+  trail: {fileID: 392146240671753428}
+  spear: {fileID: 2075221735745424129}
+  skileSpaer: {fileID: 4947818212191654679, guid: 313928c4322896f4d9f487c0ffd4ae9a,
+    type: 3}
+  spearCreatePosition: {fileID: 2596895945517167973}
+  dontMoveGameObject: {fileID: 0}
+--- !u!136 &2075177400942788146
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4330571189786098505}
+  m_GameObject: {fileID: 2075177400942788145}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -292,7 +378,7 @@ CapsuleCollider:
   m_Height: 2.8291357
   m_Direction: 1
   m_Center: {x: 0.21789765, y: 1.8617955, z: -0.27206933}
---- !u!1 &4330613978400542329
+--- !u!1 &2075221735745424129
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -300,47 +386,46 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4326958801009717027}
-  - component: {fileID: 4352035149058292631}
-  - component: {fileID: 4345580519229659763}
-  - component: {fileID: 4330613978400542328}
+  - component: {fileID: 2078894251987331675}
+  - component: {fileID: 2067237700976738031}
+  - component: {fileID: 2061345850380771083}
   m_Layer: 9
   m_Name: TB_Soldier_Spearman_Hand
-  m_TagString: Attack
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4326958801009717027
+--- !u!4 &2078894251987331675
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4330613978400542329}
+  m_GameObject: {fileID: 2075221735745424129}
   m_LocalRotation: {x: -0.5, y: 0, z: 0, w: 0.8660254}
   m_LocalPosition: {x: -0.89484406, y: 1.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 2712552059338482095}
-  m_Father: {fileID: 4327357358414453673}
+  - {fileID: 392146240671753431}
+  m_Father: {fileID: 2078439554965446353}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -60, y: 0, z: 0}
---- !u!33 &4352035149058292631
+--- !u!33 &2067237700976738031
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4330613978400542329}
+  m_GameObject: {fileID: 2075221735745424129}
   m_Mesh: {fileID: 4300006, guid: bebef20717bf2cb42adfe83c7edc5a06, type: 3}
---- !u!23 &4345580519229659763
+--- !u!23 &2061345850380771083
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4330613978400542329}
+  m_GameObject: {fileID: 2075221735745424129}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -373,21 +458,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &4330613978400542328
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4330613978400542329}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15ad5adace7d8ad4dbe30ee8c9a3a850, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
-  attackUnit: {fileID: 4330571189786098505}
---- !u!1 &4331298171211021395
+--- !u!1 &2075624968862153003
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -395,9 +466,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4328683173004171553}
-  - component: {fileID: 4353526781262734917}
-  - component: {fileID: 4345745838581462601}
+  - component: {fileID: 2073722073682713689}
+  - component: {fileID: 2071392902804792125}
+  - component: {fileID: 2061229729786557233}
   m_Layer: 9
   m_Name: TB_Soldier_Spearman_Leg_L
   m_TagString: Untagged
@@ -405,35 +476,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4328683173004171553
+--- !u!4 &2073722073682713689
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4331298171211021395}
+  m_GameObject: {fileID: 2075624968862153003}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.40243912, y: 0.57538015, z: 0.0000000034859156}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4327357358414453673}
+  m_Father: {fileID: 2078439554965446353}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4353526781262734917
+--- !u!33 &2071392902804792125
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4331298171211021395}
+  m_GameObject: {fileID: 2075624968862153003}
   m_Mesh: {fileID: 4300004, guid: bebef20717bf2cb42adfe83c7edc5a06, type: 3}
---- !u!23 &4345745838581462601
+--- !u!23 &2061229729786557233
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4331298171211021395}
+  m_GameObject: {fileID: 2075624968862153003}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -466,7 +537,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &4332178783469320077
+--- !u!1 &2883503013075049673
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -474,78 +545,29 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4328853519686747461}
-  - component: {fileID: 4352821364762438061}
-  - component: {fileID: 4344243810396169971}
+  - component: {fileID: 2596895945517167973}
   m_Layer: 9
-  m_Name: TB_Soldier_Spearman_Leg_R
+  m_Name: Spear Create Position
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4328853519686747461
+--- !u!4 &2596895945517167973
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4332178783469320077}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.40243912, y: 0.57538015, z: -0.00000012269521}
+  m_GameObject: {fileID: 2883503013075049673}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.9, y: 1.5, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4327357358414453673}
-  m_RootOrder: 2
+  m_Father: {fileID: 2078439554965446353}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &4352821364762438061
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4332178783469320077}
-  m_Mesh: {fileID: 4300002, guid: bebef20717bf2cb42adfe83c7edc5a06, type: 3}
---- !u!23 &4344243810396169971
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4332178783469320077}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: ed9f29ddef3dac64dbba787a64fa05ba, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!1 &9068510707153493177
+--- !u!1 &6704759391202351553
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -553,9 +575,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 9068510707153493179}
-  - component: {fileID: 9068510707153493178}
-  - component: {fileID: 487790987}
+  - component: {fileID: 6704759391202351555}
+  - component: {fileID: 6704759391202351554}
+  - component: {fileID: 2366014145594285299}
   m_Layer: 9
   m_Name: Violet_Spearman
   m_TagString: Untagged
@@ -563,28 +585,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &9068510707153493179
+--- !u!4 &6704759391202351555
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9068510707153493177}
+  m_GameObject: {fileID: 6704759391202351553}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
-  - {fileID: 4327357358414453673}
+  - {fileID: 2078439554965446353}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!195 &9068510707153493178
+--- !u!195 &6704759391202351554
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9068510707153493177}
+  m_GameObject: {fileID: 6704759391202351553}
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
@@ -600,13 +622,13 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!54 &487790987
+--- !u!54 &2366014145594285299
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9068510707153493177}
+  m_GameObject: {fileID: 6704759391202351553}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0

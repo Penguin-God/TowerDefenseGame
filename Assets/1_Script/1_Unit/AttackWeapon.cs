@@ -13,7 +13,8 @@ public class AttackWeapon : MonoBehaviour
     {
         teamSoldier = attackUnit.GetComponent<TeamSoldier>();
         this.damage = teamSoldier.damage;
-        if(teamSoldier.unitType == TeamSoldier.Type.archer || teamSoldier.unitType == TeamSoldier.Type.mage) Destroy(gameObject, 5);
+        //if(teamSoldier.unitType == TeamSoldier.Type.archer || teamSoldier.unitType == TeamSoldier.Type.mage) Destroy(gameObject, 5);
+        Destroy(gameObject, 5);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -23,7 +24,12 @@ public class AttackWeapon : MonoBehaviour
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             enemy.OnDamage(damage);
             if (!enemy.isDead)
-                attackUnit.GetComponent<RangeUnit>().RangeUnit_PassiveAttack(enemy);
+            {
+                if (teamSoldier.unitType == TeamSoldier.Type.archer || teamSoldier.unitType == TeamSoldier.Type.mage)
+                    attackUnit.GetComponent<RangeUnit>().RangeUnit_PassiveAttack(enemy);
+                else if (teamSoldier.unitType == TeamSoldier.Type.spearman)
+                    attackUnit.GetComponent<MeeleUnit>().MeeleUnit_PassiveAttack(enemy);
+            }
 
             if (teamSoldier.unitType == TeamSoldier.Type.archer) Destroy(gameObject);
         }

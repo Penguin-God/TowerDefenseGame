@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7382913692219501508}
   - component: {fileID: 7382913692219501510}
   - component: {fileID: 7382913692219501509}
-  - component: {fileID: 5410593332925604356}
   m_Layer: 9
   m_Name: TB_Soldier_Swordman_Hand
   m_TagString: Untagged
@@ -81,20 +80,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &5410593332925604356
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7382913692219501507}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15ad5adace7d8ad4dbe30ee8c9a3a850, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 40
-  attackUnit: {fileID: 7382913694249432387}
 --- !u!1 &7382913692464248792
 GameObject:
   m_ObjectHideFlags: 0
@@ -258,7 +243,7 @@ GameObject:
   - component: {fileID: 7382913693935706099}
   m_Layer: 9
   m_Name: TB_Soldier_Swordman_Leg_L
-  m_TagString: Attack
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

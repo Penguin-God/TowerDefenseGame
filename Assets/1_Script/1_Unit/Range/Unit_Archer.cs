@@ -26,7 +26,7 @@ public class Unit_Archer : RangeUnit
             case UnitColor.yellow:
                 break;
             case UnitColor.green:
-                speed *= 2;
+                specialAttackPercent *= 2;
                 break;
             case UnitColor.orange:
                 damage *= 2;
@@ -49,7 +49,7 @@ public class Unit_Archer : RangeUnit
         nav.angularSpeed = 1;
         trail.SetActive(false);
         GameObject instantArrow = CreateBullte(arrow, arrowTransform);
-        ShotBullet(instantArrow, 2f, 50f, target);
+        ShotBullet(instantArrow, 1.5f, 50f, target);
 
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
@@ -76,7 +76,8 @@ public class Unit_Archer : RangeUnit
         for (int i = 0; i < targetArray.Length; i++)
         {
             GameObject instantArrow = CreateBullte(arrow, arrowTransform);
-            ShotBullet(instantArrow, 4f, 50f, targetArray[i]);
+            instantArrow.GetComponent<SphereCollider>().radius = 5f; // 적이 잘 안맞아서 반지름 늘림
+            ShotBullet(instantArrow, 3f, 50f, targetArray[i]);
         }
 
         yield return new WaitForSeconds(1f);
@@ -86,6 +87,7 @@ public class Unit_Archer : RangeUnit
         base.NormalAttack();
     }
 
+    // 첫번째에 targetTransform을 넣고 currentEnemyList에서 targetTransform을 가장 가까운 transform을 count 크기만큼 가지는 array를 return하는 함수
     Transform[] Set_AttackTarget(Transform targetTransform, List<GameObject> currentEnemyList, int count)
     {
         if (currentEnemyList.Count == 0) return null;
@@ -101,8 +103,8 @@ public class Unit_Archer : RangeUnit
 
         float shortDistance = 150f;
         GameObject targetObject = null;
-        //Debug.Log(targetTransform);
-        for (int i = 1; i < count; i++)
+
+        for (int i = 1; i < count; i++) // 위에서 array에 targetTransform을 넣었으니 i가 1부타 시작
         {
             if(enemyList.Count != 0)
             {
@@ -129,7 +131,6 @@ public class Unit_Archer : RangeUnit
 
     public override void RangeUnit_PassiveAttack(Enemy enemy)
     {
-        //Enemy enemy = GetEnemyScript();
         switch (unitColor)
         {
             case UnitColor.red:

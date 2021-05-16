@@ -13,6 +13,7 @@ public class Unit_Spearman : MeeleUnit
 
     private void Awake()
     {
+        dontMoveGameObject = GameObject.Find("World");
         animator = GetComponent<Animator>();
     }
 

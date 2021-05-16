@@ -26,17 +26,13 @@ public class TeamSoldier : MonoBehaviour
     public Transform target;
     protected NomalEnemy nomalEnemy;
 
-    //protected TeamSoldier teamSoldier;
     protected EnemySpawn enemySpawn;
-    //private CombineSoldier Combine;
 
     private float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
     private void Start()
     {
-        //Combine = FindObjectOfType<CombineSoldier>();
         bossDamage = damage;
         chaseRange = 150f;
-        //teamSoldier = GetComponent<TeamSoldier>();
         enemySpawn = FindObjectOfType<EnemySpawn>();
         nav = GetComponentInParent<NavMeshAgent>();
         nav.speed = this.speed;
@@ -86,15 +82,16 @@ public class TeamSoldier : MonoBehaviour
         isAttackDelayTime = false;
     }
 
-    public virtual void SpecialAttack()
+    public virtual void SpecialAttack() // 유닛마다 다른 스킬공격 (기사, 법사는 없음)
     {
 
     }
 
-    //public virtual void EenmyChase() // 추적
-    //{
+    public virtual void EenmyChase() // 추적
+    {
 
-    //}
+    }
+
     protected int layerMask; // Ray 감지용
     [SerializeField]
     protected float enemyDistance;
@@ -103,12 +100,6 @@ public class TeamSoldier : MonoBehaviour
 
     [SerializeField]
     protected bool enemyIsForward;
-
-    //private void FixedUpdate()
-    //{
-    //    Debug.DrawRay(transform.parent.position + Vector3.up, transform.parent.forward * attackRange, Color.green);
-    //    rayHit = Physics.Raycast(transform.parent.position + Vector3.up, transform.parent.forward, out rayHitObject, attackRange, layerMask);
-    //}
 
     private void Update()
     {
@@ -146,14 +137,13 @@ public class TeamSoldier : MonoBehaviour
 
             if (unitType == Type.archer || unitType == Type.mage) 
             {
-                Vector3 enemySpeed = target.GetComponent<NomalEnemy>().dir * 5f;
+                Vector3 enemySpeed = target.GetComponent<NomalEnemy>().dir * 8f;
                 nav.SetDestination(target.position + enemySpeed);
             } 
             else nav.SetDestination(target.position);
 
             if (enemyIsForward && !isAttackDelayTime) // Attack가능하고 쿨타임이 아니면 공격
             {
-                //Debug.Log(isAttackDelayTime);
                 //NormalAttack();
                 UnitAttack();
             }

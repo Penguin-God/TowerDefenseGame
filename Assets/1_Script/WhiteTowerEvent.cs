@@ -9,6 +9,7 @@ public class WhiteTowerEvent : MonoBehaviour
     private void OnMouseDown()
     {
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(true);
+        UIManager.instance.BlackTowerButton.gameObject.SetActive(false);
     }
 
     public void ClickWhiteSwordmanButton()

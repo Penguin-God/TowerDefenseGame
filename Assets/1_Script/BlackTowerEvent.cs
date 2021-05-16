@@ -11,6 +11,7 @@ public class BlackTowerEvent : MonoBehaviour
     private void OnMouseDown()
     {
         UIManager.instance.BlackTowerButton.gameObject.SetActive(true);
+        UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
     }
 
     private void FailTextDown()

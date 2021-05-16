@@ -723,10 +723,10 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uBCF4\uC2A4\uC5D0\uAC8C 300% \uB370\uBBF8\uC9C0"
+  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uBCF4\uC2A4\uC5D0\uAC8C 300% \n\uB370\uBBF8\uC9C0"
 --- !u!222 &45632873
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1024,11 +1024,11 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uB54C\uB9B0 \uC720\uB2DB \uC774\uB3D9\uC18D\uB3C4
-    30% \uAC10\uC18C (\uC911\uCCA9 X)"
+  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uB54C\uB9B0 \uC720\uB2DB \uC774\uB3D9\uC18D\uB3C4\n30%
+    \uAC10\uC18C (\uC911\uCCA9 X)"
 --- !u!222 &69897089
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1282,7 +1282,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 17}
+  m_AnchoredPosition: {x: -45, y: 17}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &87968921
@@ -2096,7 +2096,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uAE30\uBCF8 \uACF5\uACA9\uC774 \uAD11\uC5ED
     \uD53C\uD574\uB97C\n\uC785\uD798"
@@ -2585,11 +2585,11 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uACF5\uACA9\uC2DC \uC801\uC5D0\uAC8C  1\uCD08\uB9C8\uB2E4
-    \uD604\uC7AC\uCCB4\uB825\uC758 1% \uB370\uBBF8\uC9C0\uB97C \uC785\uD788\uB294
+    \n\uD604\uC7AC\uCCB4\uB825\uC758 1% \uB370\uBBF8\uC9C0\uB97C \uC785\uD788\uB294
     \uB3C5\uC744 \uC0AC\uC6A9"
 --- !u!222 &124710780
 CanvasRenderer:
@@ -2970,7 +2970,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &143514699
@@ -3522,10 +3522,10 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uC8FC\uBCC0 \uC544\uAD70 \uB370\uBBF8\uC9C0
+  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uC8FC\uBCC0 \uC544\uAD70\n\uB370\uBBF8\uC9C0
     100% \uC99D\uAC00"
 --- !u!222 &157342747
 CanvasRenderer:
@@ -3608,7 +3608,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &162658374
@@ -3845,7 +3845,7 @@ PrefabInstance:
     - target: {fileID: 4583945138574837646, guid: d42acb3c35a75354181bcb3cba82f4f2,
         type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4583945138574837646, guid: d42acb3c35a75354181bcb3cba82f4f2,
         type: 3}
@@ -3981,7 +3981,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uB178\uB780\uC544\uCC98 + \uB178\uB9B0\uC544\uCC98 + \uB178\uB780\uAE30\uC0AC
     \n+ \uB178\uB780\uAE30\uC0AC  = \uB178\uB780\uCC3D\uBCD1 "
@@ -3993,96 +3993,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 179572089}
   m_CullTransparentMesh: 0
---- !u!1001 &185019914
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1338323525}
-    m_Modifications:
-    - target: {fileID: 3099176236286914880, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 705653f68370b9b4b864cd0871bd5330, type: 2}
-    - target: {fileID: 3121596322090877764, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: m_Name
-      value: TB_Soldier_Spearman_Black
-      objectReference: {fileID: 0}
-    - target: {fileID: 3121596322090877764, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: m_TagString
-      value: Untagged
-      objectReference: {fileID: 0}
-    - target: {fileID: 7679401171088106676, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: m_Name
-      value: Black_Spearman
-      objectReference: {fileID: 0}
-    - target: {fileID: 7679401171088106678, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 7679401171088106678, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7679401171088106678, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7679401171088106678, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7679401171088106678, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7679401171088106678, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7679401171088106678, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7679401171088106678, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7679401171088106678, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7679401171088106678, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7679401171088106678, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 611e0c79108bf4540898c3ddebd5387c, type: 3}
---- !u!4 &185019915 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5034237234067150758, guid: 611e0c79108bf4540898c3ddebd5387c,
-    type: 3}
-  m_PrefabInstance: {fileID: 185019914}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &187507314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4254,7 +4164,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 213, y: 9}
+  m_AnchoredPosition: {x: 206, y: 9}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &199222509
@@ -4953,7 +4863,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uACF5\uACA9\uC2DC 30% \uD655\uB960\uB85C\n\uCC3D
     \uD22C\uCC99"
@@ -5220,7 +5130,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uAE30\uBCF8 \uACF5\uACA9\uC774 \uAD11\uC5ED
     \uD53C\uD574\uB97C\n\uC785\uD798"
@@ -5409,10 +5319,10 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uACF5\uACA9\uC2DC 30% \uD655\uB960\uB85C \uC801
+  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uACF5\uACA9\uC2DC 30% \uD655\uB960\uB85C \n\uC801
     2\uCD08 \uC2A4\uD134"
 --- !u!222 &255364396
 CanvasRenderer:
@@ -5823,7 +5733,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uCD08\uB85D\uC544\uCC98 + \uCD08\uB85D\uC544\uCC98 + \uD30C\uB780\uAE30\uC0AC
     \n+ \uB178\uB780\uAE30\uC0AC  = \uCD08\uB85D\uCC3D\uBCD1 "
@@ -6487,11 +6397,11 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uC8FC\uBCC0 \uC801\uAD70 \uC774\uB3D9\uC18D\uB3C4
-    50% \uAC10\uC18C"
+    \n50% \uAC10\uC18C"
 --- !u!222 &330207701
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6645,7 +6555,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uBCF4\uB77C\uAE30\uC0AC + \uBCF4\uB77C\uAE30\uC0AC = \uBCF4\uB77C\uC544\uCC98"
 --- !u!222 &334191967
@@ -7902,7 +7812,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &404715776
@@ -9211,7 +9121,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &500042080
@@ -10036,7 +9946,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uACF5\uACA9\uC2DC 30% \uD655\uB960\uB85C\n\uCC3D
     \uD22C\uCC99"
@@ -10205,7 +10115,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &552471872
@@ -10477,7 +10387,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: 2\uC6D0 \uD68D\uB4DD"
 --- !u!222 &565213160
@@ -10932,7 +10842,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uAE30\uBCF8 \uACF5\uACA9\uC774 \uAD11\uC5ED
     \uD53C\uD574\uB97C\n\uC785\uD798"
@@ -12198,7 +12108,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &663727400
@@ -12576,11 +12486,11 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC:  \uACF5\uACA9\uC2DC 60% \uD655\uB960\uB85C
-    \uC801 3\uCD08 \uC2A4\uD134"
+    \n\uC801 3\uCD08 \uC2A4\uD134"
 --- !u!222 &680701081
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12719,7 +12629,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uBA54\uD14C\uC624\uB97C \uB5A8\uC5B4\uB728\uB824
     \uB9DE\uC740\n\uC801 5\uCD08 \uC2A4\uD134"
@@ -13824,7 +13734,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC8FC\uD669\uCC3D\uBCD1 + \uC8FC\uD669\uCC3D\uBCD1 + \uB178\uB780\uC544\uCC98
     \n+ \uBE68\uAC04\uC544\uCC98 = \uC8FC\uD669\uB9C8\uBC95\uC0AC "
@@ -15112,7 +15022,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uACF5\uACA9\uC2DC 30% \uD655\uB960\uB85C\n\uAD11\uC5ED\uD53C\uD574"
 --- !u!222 &816665606
@@ -15306,7 +15216,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uBE68\uAC04\uAE30\uC0AC + \uD30C\uB780\uAE30\uC0AC = \uBCF4\uB77C\uAE30\uC0AC\n\uBE68\uAC04\uAE30\uC0AC
     + \uBE68\uAC04\uAE30\uC0AC = \uBE68\uAC04\uC544\uCC98"
@@ -16020,11 +15930,11 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uBCF4\uC2A4\uB97C \uC81C\uC678\uD55C \uC801\uC5D0\uAC8C
-    500% \uB370\uBBF8\uC9C0"
+    \n500% \uB370\uBBF8\uC9C0"
 --- !u!222 &872491572
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16100,7 +16010,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC8FC\uD669\uC544\uCC98 + \uC8FC\uD669\uC544\uCC98 + \uB178\uB780\uAE30\uC0AC
     \n+ \uBE68\uAC04\uAE30\uC0AC  = \uC8FC\uD669\uCC3D\uBCD1 "
@@ -16217,11 +16127,11 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uC790\uC2E0\uC758 \uC9C1\uC5C5\uC2A4\uD0AC
-    \uBC1C\uB3D9\uD655\uB960 \uC99D\uAC00"
+    \n\uBC1C\uB3D9\uD655\uB960 \uC99D\uAC00"
 --- !u!222 &876748314
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16567,8 +16477,8 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uBCF4\uC2A4\uC5D0\uAC8C 600% \uB370\uBBF8\uC9C0\uB97C
     \uC785\uD798"
@@ -16874,8 +16784,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -7}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -6}
+  m_SizeDelta: {x: 0, y: -1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &905074426
 MonoBehaviour:
@@ -17451,7 +17361,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uB178\uB780\uAE30\uC0AC + \uBE68\uAC04\uAE30\uC0AC = \uC8FC\uD669\uAE30\uC0AC\n\uB178\uB780\uAE30\uC0AC
     + \uB178\uB780\uAE30\uC0AC = \uB178\uB780\uC544\uCC98"
@@ -17463,6 +17373,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935052543}
   m_CullTransparentMesh: 0
+--- !u!4 &939428343 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7099954146525974206, guid: 61f763558dff7dc4bbc8eea819606300,
+    type: 3}
+  m_PrefabInstance: {fileID: 1451480615}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &939810155
 GameObject:
   m_ObjectHideFlags: 0
@@ -18173,7 +18089,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &964821291
@@ -18578,7 +18494,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &1002194220
@@ -18999,7 +18915,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uD30C\uB780\uAE30\uC0AC + \uB178\uB780\uAE30\uC0AC = \uCD08\uB85D\uAE30\uC0AC\n\uD30C\uB780\uAE30\uC0AC
     + \uD30C\uB780\uAE30\uC0AC = \uD30C\uB780\uC544\uCC98"
@@ -19198,6 +19114,7 @@ Transform:
   m_Children:
   - {fileID: 1195200409}
   - {fileID: 151018824}
+  - {fileID: 939428343}
   - {fileID: 1744164004}
   m_Father: {fileID: 2069937149}
   m_RootOrder: 7
@@ -19269,7 +19186,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uD30C\uB780\uC544\uCC98 + \uD30C\uB780\uC544\uCC98 + \uD30C\uB780\uAE30\uC0AC\n+
     \uD30C\uB780\uAE30\uC0AC = \uD30C\uB780\uCC3D\uBCD1"
@@ -19624,8 +19541,8 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uC774\uB3D9 \uC18D\uB3C4 200% \uC99D\uAC00"
 --- !u!222 &1043211931
@@ -19973,7 +19890,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uCD08\uB85D\uCC3D\uBCD1 + \uCD08\uB85D\uCC3D\uBCD1 + \uD30C\uB780\uC544\uCC98
     \n+ \uB178\uB780\uC544\uCC98 = \uCD08\uB85D\uB9C8\uBC95\uC0AC "
@@ -20594,7 +20511,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uAE30\uBCF8 \uACF5\uACA9\uC774 \uAD11\uC5ED
     \uD53C\uD574\uB97C\n\uC785\uD798"
@@ -21156,11 +21073,11 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uACF5\uACA9\uD55C \uC801 \uC774\uB3D9\uC18D\uB3C4
-    50% \uAC10\uC18C (\uC911\uCCA9X)"
+    \n50% \uAC10\uC18C (\uC911\uCCA9X)"
 --- !u!222 &1108210858
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -21388,7 +21305,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uBCF4\uB77C\uCC3D\uBCD1 + \uBCF4\uB77C\uCC3D\uBCD1 + \uBE68\uAC04\uC544\uCC98
     \n+ \uD30C\uB780\uC544\uCC98 = \uBCF4\uB77C\uB9C8\uBC95\uC0AC "
@@ -21467,7 +21384,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &1118679637
@@ -21926,7 +21843,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uBCF4\uB77C\uC544\uCC98 + \uBCF4\uB77C\uC544\uCC98 + \uBE68\uAC04\uAE30\uC0AC
     \n+ \uD30C\uB791\uAE30\uC0AC  = \uBCF4\uB77C\uCC3D\uBCD1 "
@@ -22004,10 +21921,10 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uACF5\uACA9\uC2DC 5% \uD655\uB960\uB85C 2\uC6D0
+  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uACF5\uACA9\uC2DC 5% \uD655\uB960\uB85C \n2\uC6D0
     \uD68D\uB4DD"
 --- !u!222 &1136587828
 CanvasRenderer:
@@ -22236,7 +22153,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &1150196664
@@ -22611,7 +22528,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uACF5\uACA9\uC2DC 30% \uD655\uB960\uB85C\n\uCC3D
     \uD22C\uCC99"
@@ -23697,7 +23614,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &1210326219
@@ -24234,7 +24151,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &1239835121
@@ -24659,7 +24576,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uACF5\uACA9\uC2DC 30% \uD655\uB960\uB85C\n\uAD11\uC5ED\uD53C\uD574"
 --- !u!222 &1260190577
@@ -25027,7 +24944,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &1267574467
@@ -27126,7 +27043,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &1320969125
@@ -27546,7 +27463,7 @@ Transform:
   m_Children:
   - {fileID: 1462437961}
   - {fileID: 1708333261}
-  - {fileID: 185019915}
+  - {fileID: 7524366003144816454}
   - {fileID: 1398425502}
   m_Father: {fileID: 2069937149}
   m_RootOrder: 6
@@ -27968,7 +27885,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uACF5\uACA9\uC2DC 30% \uD655\uB960\uB85C\n\uCC3D
     \uD22C\uCC99"
@@ -28999,7 +28916,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uBE68\uAC04\uC544\uCC98 + \uBE68\uAC04\uC544\uCC98 + \uBE68\uAC04\uAE30\uC0AC
     \n+ \uBE68\uAC04\uAE30\uC0AC  = \uBE68\uAC04\uCC3D\uBCD1 "
@@ -30088,6 +30005,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1445105579}
   m_CullTransparentMesh: 0
+--- !u!1001 &1451480615
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1022020166}
+    m_Modifications:
+    - target: {fileID: 7099954146525974204, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: m_Name
+      value: White_Spearman
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099954146525974204, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099954146525974206, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099954146525974206, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099954146525974206, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099954146525974206, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099954146525974206, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099954146525974206, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099954146525974206, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099954146525974206, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099954146525974206, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099954146525974206, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099954146525974206, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 61f763558dff7dc4bbc8eea819606300, type: 3}
 --- !u!1 &1451654184
 GameObject:
   m_ObjectHideFlags: 0
@@ -30669,11 +30660,11 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uC870\uD569\uC5D0 \uC0AC\uC6A9 \uB420\uC2DC
-    1\uC6D0  \uD68D\uB4DD"
+    \n1\uC6D0  \uD68D\uB4DD"
 --- !u!222 &1482863968
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -30877,8 +30868,8 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uACF5\uACA9 \uC18D\uB3C4 100% \uC99D\uAC00"
 --- !u!222 &1484675469
@@ -30986,8 +30977,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 298, y: -40}
-  m_SizeDelta: {x: 200, y: 200}
+  m_AnchoredPosition: {x: 276.50003, y: -40}
+  m_SizeDelta: {x: 247, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1494491667
 MonoBehaviour:
@@ -31092,11 +31083,11 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uBCF4\uC2A4\uB97C \uC81C\uC678\uD55C \uC801\uC5D0\uAC8C
-    150% \uB370\uBBF8\uC9C0"
+    \n150% \uB370\uBBF8\uC9C0"
 --- !u!222 &1498706245
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -31946,7 +31937,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &1517611969
@@ -32290,7 +32281,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uACF5\uACA9\uC2DC 30% \uD655\uB960\uB85C\n\uAD11\uC5ED\uD53C\uD574"
 --- !u!222 &1525184552
@@ -32401,8 +32392,8 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uACF5\uACA9 \uC18D\uB3C4 100% \uC99D\uAC00"
 --- !u!222 &1535056348
@@ -32883,7 +32874,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &1554566522
@@ -32961,7 +32952,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uCD08\uB85D\uAE30\uC0AC + \uCD08\uB85D\uAE30\uC0AC = \uCD08\uB85D\uC544\uCC98"
 --- !u!222 &1557242328
@@ -34364,7 +34355,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uACF5\uACA9\uC2DC 30% \uD655\uB960\uB85C\n\uAD11\uC5ED\uD53C\uD574"
 --- !u!222 &1634111007
@@ -35051,10 +35042,10 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uACF5\uACA9\uC2DC 5% \uD655\uB960\uB85C \uC801
+  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uACF5\uACA9\uC2DC 5% \uD655\uB960\uB85C \n\uC801
     2\uCD08 \uC2A4\uD134"
 --- !u!222 &1656924694
 CanvasRenderer:
@@ -35697,7 +35688,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &1680115642
@@ -35939,7 +35930,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uACF5\uACA9\uC2DC 30% \uD655\uB960\uB85C\n\uCC3D
     \uD22C\uCC99"
@@ -36411,7 +36402,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &1702724360
@@ -38216,7 +38207,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uB178\uB780\uCC3D\uBCD1 + \uB178\uB780\uCC3D\uBCD1 + \uB178\uB780\uC544\uCC98
     \n+ \uB178\uB780\uC544\uCC98 = \uB178\uB780\uB9C8\uBC95\uC0AC "
@@ -38421,7 +38412,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &1777233007
@@ -38553,11 +38544,11 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uBCF4\uC2A4\uB97C \uC81C\uC678\uD55C \uC801\uC5D0\uAC8C
-    300% \uB370\uBBF8\uC9C0"
+    \n300% \uB370\uBBF8\uC9C0"
 --- !u!222 &1779445416
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -39177,7 +39168,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC8FC\uD669\uAE30\uC0AC + \uC8FC\uD669\uAE30\uC0AC = \uC8FC\uD669\uC544\uCC98"
 --- !u!222 &1804916773
@@ -39333,7 +39324,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &1817772523
@@ -39579,7 +39570,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 114.8, y: -22.999996}
+  m_AnchoredPosition: {x: 77, y: -22.999996}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1836189403
@@ -39801,7 +39792,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uBE68\uAC04\uCC3D\uBCD1 + \uBE68\uAC04\uCC3D\uBCD1 + \uBE68\uAC04\uC544\uCC98
     \n+ \uBE68\uAC04\uC544\uCC98 = \uBE68\uAC04\uB9C8\uBC95\uC0AC "
@@ -40683,7 +40674,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &1898806112
@@ -41121,11 +41112,11 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uB54C\uB9B0 \uC720\uB2DB \uC774\uB3D9\uC18D\uB3C4
-    10% \uAC10\uC18C (\uC911\uCCA9 X)"
+  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uB54C\uB9B0 \uC720\uB2DB \uC774\uB3D9\uC18D\uB3C4\n10%
+    \uAC10\uC18C (\uC911\uCCA9 X)"
 --- !u!222 &1948569775
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -41201,7 +41192,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uAE30\uBCF8 \uACF5\uACA9\uC774 \uAD11\uC5ED
     \uD53C\uD574\uB97C\n\uC785\uD798"
@@ -41397,11 +41388,11 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uBCF4\uC2A4\uB97C \uC81C\uC678\uD55C \uC720\uB2DB\uC5D0\uAC8C
-    200% \uB370\uBBF8\uC9C0"
+    \n200% \uB370\uBBF8\uC9C0"
 --- !u!222 &1954535160
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -41477,7 +41468,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &1958348514
@@ -41758,7 +41749,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uAE30\uBCF8 \uACF5\uACA9\uC774 \uAD11\uC5ED
     \uD53C\uD574\uB97C\n\uC785\uD798"
@@ -41837,7 +41828,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC8FC\uBCC0 \uC801\uAD70 10\uCD08\uB3D9\uC548
     \n\uC774\uB3D9\uC18D\uB3C4 99% \uAC10\uC18C"
@@ -43118,7 +43109,7 @@ GameObject:
   - component: {fileID: 2034483594}
   - component: {fileID: 2034483593}
   m_Layer: 5
-  m_Name: unitCreateButton
+  m_Name: unitCreateText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43140,7 +43131,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -1.5}
+  m_AnchoredPosition: {x: 0, y: -6}
   m_SizeDelta: {x: 0, y: -3}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2034483593
@@ -43251,7 +43242,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uACF5\uACA9\uC2DC 30% \uD655\uB960\uB85C\n\uCC3D
     \uD22C\uCC99"
@@ -43330,7 +43321,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uD30C\uB780\uCC3D\uBCD1 + \uD30C\uB780\uCC3D\uBCD1 + \uD30C\uB780\uC544\uCC98
     \n+ \uD30C\uB780\uC544\uCC98 = \uD30C\uB780\uB9C8\uBC95\uC0AC "
@@ -43409,7 +43400,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uACF5\uACA9\uC2DC 30% \uD655\uB960\uB85C\n\uAD11\uC5ED\uD53C\uD574"
 --- !u!222 &2048703576
@@ -43781,10 +43772,10 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uACF5\uACA9\uD55C \uC801\uC5D0\uAC8C 1\uCD08\uB9C8\uB2E4
-    \uD604\uC7AC\uCCB4\uB825\uC758 10% \uB370\uBBF8\uC9C0\uB97C \uC785\uD788\uB294
+    \n\uD604\uC7AC\uCCB4\uB825\uC758 10% \uB370\uBBF8\uC9C0\uB97C \uC785\uD788\uB294
     \uB3C5 \uC0AC\uC6A9"
 --- !u!222 &2065482871
 CanvasRenderer:
@@ -44353,7 +44344,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uACF5\uACA9\uC774 \uBCBD\uC5D0 \uD295\uAE40"
 --- !u!222 &2079961379
@@ -44639,7 +44630,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &2090475992
@@ -44910,8 +44901,8 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uACF5\uACA9\uD55C \uC801 \uBC29\uC5B4\uB825
     60% \uAC10\uC18C"
@@ -45157,11 +45148,11 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uC8FC\uBCC0 \uC544\uAD70 \uACF5\uACA9\uC18D\uB3C4
-    100% \uC99D\uAC00"
+    \n100% \uC99D\uAC00"
 --- !u!222 &2106659028
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -45292,7 +45283,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uC5C6\uC74C"
 --- !u!222 &2110796027
@@ -45369,10 +45360,10 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uACF5\uACA9\uC2DC 1%\uD655\uB960\uB85C 2\uC6D0
+  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uACF5\uACA9\uC2DC 1%\uD655\uB960\uB85C \n2\uC6D0
     \uD68D\uB4DD"
 --- !u!222 &2116515487
 CanvasRenderer:
@@ -46062,7 +46053,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC9C1\uC5C5\uC2A4\uD0AC: \uACF5\uACA9\uC2DC 30% \uD655\uB960\uB85C\n\uAD11\uC5ED\uD53C\uD574"
 --- !u!222 &2139635338
@@ -46218,7 +46209,7 @@ MonoBehaviour:
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC0AC\uAC70\uB9AC 2\uBC30\uB85C \uC99D\uAC00
     \n5\uCD08\uAC04 \uB370\uBBF8\uC9C0 500% \uC99D\uAC00"
@@ -46380,6 +46371,86 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.1779227, y: 5.4715853, z: 6.1779227}
   m_Center: {x: 0.00000023841858, y: 2.7357922, z: -0.00000023841858}
+--- !u!1001 &7524366003144816453
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1338323525}
+    m_Modifications:
+    - target: {fileID: 6848851408045497545, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: m_Name
+      value: Black_Spearman
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848851408045497545, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848851408045497547, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848851408045497547, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848851408045497547, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848851408045497547, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848851408045497547, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848851408045497547, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848851408045497547, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848851408045497547, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848851408045497547, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848851408045497547, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848851408045497547, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7fad8267bf4321940b7effc164c530d6, type: 3}
+--- !u!4 &7524366003144816454 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6848851408045497547, guid: 7fad8267bf4321940b7effc164c530d6,
+    type: 3}
+  m_PrefabInstance: {fileID: 7524366003144816453}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8349204739938302786
 PrefabInstance:
   m_ObjectHideFlags: 0

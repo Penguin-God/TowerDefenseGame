@@ -290,7 +290,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
+  - {fileID: 2100000, guid: 705653f68370b9b4b864cd0871bd5330, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -579,12 +579,12 @@ GameObject:
   - component: {fileID: 6848851408045497546}
   - component: {fileID: 3863724250745308263}
   m_Layer: 9
-  m_Name: Red_Spearman
+  m_Name: Black_Spearman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6848851408045497547
 Transform:
   m_ObjectHideFlags: 0

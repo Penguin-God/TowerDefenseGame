@@ -13,7 +13,6 @@ public class Unit_Mage : RangeUnit
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        //enemiesQueue = new Queue<Enemy>();
     }
 
     public override void SetPassive()
@@ -68,7 +67,6 @@ public class Unit_Mage : RangeUnit
 
     public override void RangeUnit_PassiveAttack(Enemy enemy)
     {
-        //Enemy enemy = GetEnemyScript();
         switch (unitColor)
         {
             case UnitColor.red:
@@ -87,7 +85,6 @@ public class Unit_Mage : RangeUnit
         }
     }
 
-    //Queue<Enemy> enemiesQueue;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 8)

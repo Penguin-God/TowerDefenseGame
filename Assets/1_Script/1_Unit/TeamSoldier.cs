@@ -32,12 +32,12 @@ public class TeamSoldier : MonoBehaviour
     private void Start()
     {
         bossDamage = damage;
+        SetPassive();
         chaseRange = 150f;
         enemySpawn = FindObjectOfType<EnemySpawn>();
         nav = GetComponentInParent<NavMeshAgent>();
         nav.speed = this.speed;
         layerMask = 1 << LayerMask.NameToLayer("Enemy"); // Ray가 Enemy 레이어만 충돌 체크함
-        SetPassive();
         UpdateTarget();
         StartCoroutine("NavCoroutine");
     }
@@ -60,7 +60,7 @@ public class TeamSoldier : MonoBehaviour
                 break;
         }
     }
-    public int specialAttackPercent = 30;
+    public int specialAttackPercent;
     void UnitAttack()
     {
         int random = Random.Range(0, 100);

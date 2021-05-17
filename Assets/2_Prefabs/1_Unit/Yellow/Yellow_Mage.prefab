@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2308940394178002194}
   - component: {fileID: 2332014458094341519}
   - component: {fileID: 7754845740141683792}
-  - component: {fileID: 2332014458094341552}
   - component: {fileID: 1551878129}
   m_Layer: 9
   m_Name: TB_Soldier_Mage_Yellow
@@ -126,6 +125,7 @@ MonoBehaviour:
   isAttack: 0
   isAttackDelayTime: 0
   target: {fileID: 0}
+  specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
   towerEnter: 0
@@ -134,20 +134,6 @@ MonoBehaviour:
   energyBall: {fileID: 273563849445638938, guid: 3e725d90e48ec1a4d85acdb8f545afca,
     type: 3}
   energyBallTransform: {fileID: 4865064562382619674}
---- !u!136 &2332014458094341552
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2332014458094341518}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 1.3116744
-  m_Height: 4.2802835
-  m_Direction: 1
-  m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
 --- !u!136 &1551878129
 CapsuleCollider:
   m_ObjectHideFlags: 0

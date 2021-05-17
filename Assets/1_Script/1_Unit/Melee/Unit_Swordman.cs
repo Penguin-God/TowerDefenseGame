@@ -24,9 +24,10 @@ public class Unit_Swordman : MeeleUnit
             case UnitColor.yellow:
                 break;
             case UnitColor.green:
-                speed *= 2;
+                speed += 5;
                 break;
             case UnitColor.orange:
+                damage = Mathf.RoundToInt(damage * 1.5f);
                 break;
             case UnitColor.violet:
                 break;

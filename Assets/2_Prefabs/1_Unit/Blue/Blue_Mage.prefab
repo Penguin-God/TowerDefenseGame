@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 624001226968258129}
   - component: {fileID: 648269900662941388}
   - component: {fileID: 4845129776438365971}
-  - component: {fileID: 915967926}
   - component: {fileID: 367565412}
   m_Layer: 9
   m_Name: TB_Soldier_Mage_Blue
@@ -207,6 +206,7 @@ MonoBehaviour:
   isAttack: 0
   isAttackDelayTime: 0
   target: {fileID: 0}
+  specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
   towerEnter: 0
@@ -215,20 +215,6 @@ MonoBehaviour:
   energyBall: {fileID: 7013429795276733673, guid: 5f5d0ee08b27e17499a56c2175922faa,
     type: 3}
   energyBallTransform: {fileID: 7721362943555022681}
---- !u!136 &915967926
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 648269900662941389}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  m_Radius: 1.3116744
-  m_Height: 4.2802835
-  m_Direction: 1
-  m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
 --- !u!136 &367565412
 CapsuleCollider:
   m_ObjectHideFlags: 0

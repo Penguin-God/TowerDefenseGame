@@ -399,6 +399,7 @@ MonoBehaviour:
   isAttack: 0
   isAttackDelayTime: 0
   target: {fileID: 0}
+  specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
   towerEnter: 0

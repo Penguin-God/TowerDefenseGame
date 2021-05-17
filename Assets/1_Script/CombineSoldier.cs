@@ -21,8 +21,8 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.RedSwordman.Length >= 2)
         {
 
-            Destroy(TagSoldier.RedSwordman[0]);
-            Destroy(TagSoldier.RedSwordman[1]);
+            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.RedSwordman[1].transform.parent.gameObject);
 
 
             SoldierChoose(0, 0, 1, 1);
@@ -43,10 +43,10 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.RedSwordman.Length >= 2 && TagSoldier.RedArcher.Length >= 2)
         {
 
-            Destroy(TagSoldier.RedSwordman[0]);
-            Destroy(TagSoldier.RedSwordman[1]);
-            Destroy(TagSoldier.RedArcher[0]);
-            Destroy(TagSoldier.RedArcher[1]);
+            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.RedSwordman[1].transform.parent.gameObject);
+            Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
+            Destroy(TagSoldier.RedArcher[1].transform.parent.gameObject);
 
 
             SoldierChoose(0, 0, 2, 2);
@@ -68,8 +68,8 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.RedSpearman.Length >= 2)
         {
 
-            Destroy(TagSoldier.RedSpearman[0]);
-            Destroy(TagSoldier.RedSpearman[1]);
+            Destroy(TagSoldier.RedSpearman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.RedSpearman[1].transform.parent.gameObject);
 
 
             SoldierChoose(0, 0, 3, 3);
@@ -90,8 +90,8 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.BlueSwordman.Length >= 2)
         {
 
-            Destroy(TagSoldier.BlueSwordman[0]);
-            Destroy(TagSoldier.BlueSwordman[1]);
+            Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.BlueSwordman[1].transform.parent.gameObject);
 
 
             SoldierChoose(1, 1, 1, 1);
@@ -113,10 +113,10 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.BlueSwordman.Length >= 2 && TagSoldier.BlueArcher.Length >= 2)
         {
 
-            Destroy(TagSoldier.BlueSwordman[0]);
-            Destroy(TagSoldier.BlueSwordman[1]);
-            Destroy(TagSoldier.BlueArcher[0]);
-            Destroy(TagSoldier.BlueArcher[1]);
+            Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.BlueSwordman[1].transform.parent.gameObject);
+            Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
+            Destroy(TagSoldier.BlueArcher[1].transform.parent.gameObject);
 
 
             SoldierChoose(1, 1, 2, 2);
@@ -138,8 +138,8 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.BlueSpearman.Length >= 2)
         {
 
-            Destroy(TagSoldier.BlueSpearman[0]);
-            Destroy(TagSoldier.BlueSpearman[1]);
+            Destroy(TagSoldier.BlueSpearman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.BlueSpearman[1].transform.parent.gameObject);
 
 
             SoldierChoose(1, 1, 3, 3);
@@ -159,9 +159,8 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.YellowSwordmanTag();
         if (TagSoldier.YellowSwordman.Length >= 2)
         {
-
-            Destroy(TagSoldier.YellowSwordman[0]);
-            Destroy(TagSoldier.YellowSwordman[1]);
+            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.YellowSwordman[1].transform.parent.gameObject);
             GameManager.instance.Gold += 2;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
@@ -184,14 +183,12 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.YellowArcherTag();
         if (TagSoldier.YellowSwordman.Length >= 2 && TagSoldier.YellowArcher.Length >= 2)
         {
-
-            Destroy(TagSoldier.YellowSwordman[0]);
-            Destroy(TagSoldier.YellowSwordman[1]);
-            Destroy(TagSoldier.YellowArcher[0]);
-            Destroy(TagSoldier.YellowArcher[1]);
+            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.YellowSwordman[1].transform.parent.gameObject);
+            Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
+            Destroy(TagSoldier.YellowArcher[1].transform.parent.gameObject);
             GameManager.instance.Gold += 2;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-
 
             SoldierChoose(2, 2, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
@@ -214,8 +211,8 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.YellowSpearman.Length >= 2)
         {
 
-            Destroy(TagSoldier.YellowSpearman[0]);
-            Destroy(TagSoldier.YellowSpearman[1]);
+            Destroy(TagSoldier.YellowSpearman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.YellowSpearman[1].transform.parent.gameObject);
 
 
             SoldierChoose(2, 2, 3, 3);
@@ -237,8 +234,8 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.GreenSwordman.Length >= 2)
         {
 
-            Destroy(TagSoldier.GreenSwordman[0]);
-            Destroy(TagSoldier.GreenSwordman[1]);
+            Destroy(TagSoldier.GreenSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.GreenSwordman[1].transform.parent.gameObject);
 
 
             SoldierChoose(3, 3, 1, 1);
@@ -261,14 +258,12 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.GreenArcherTag();
         if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.GreenArcher.Length >= 2)
         {
-
-            Destroy(TagSoldier.BlueSwordman[0]);
-            Destroy(TagSoldier.YellowSwordman[0]);
-            Destroy(TagSoldier.GreenArcher[0]);
-            Destroy(TagSoldier.GreenArcher[1]);
+            Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.GreenArcher[0].transform.parent.gameObject);
+            Destroy(TagSoldier.GreenArcher[1].transform.parent.gameObject);
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-
 
             SoldierChoose(3, 3, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
@@ -291,10 +286,10 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.GreenSpearman.Length >= 2 && TagSoldier.BlueArcher.Length >= 1 && TagSoldier.YellowArcher.Length >= 1)
         {
 
-            Destroy(TagSoldier.GreenSpearman[0]);
-            Destroy(TagSoldier.GreenSpearman[1]);
-            Destroy(TagSoldier.BlueArcher[0]);
-            Destroy(TagSoldier.YellowArcher[0]);
+            Destroy(TagSoldier.GreenSpearman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.GreenSpearman[1].transform.parent.gameObject);
+            Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
+            Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
 
 
             SoldierChoose(3, 3, 3, 3);
@@ -316,8 +311,8 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.OrangeSwordman.Length >= 2)
         {
 
-            Destroy(TagSoldier.OrangeSwordman[0]);
-            Destroy(TagSoldier.OrangeSwordman[1]);
+            Destroy(TagSoldier.OrangeSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.OrangeSwordman[1].transform.parent.gameObject);
 
 
             SoldierChoose(4, 4, 1, 1);
@@ -339,14 +334,12 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.OrangeArcherTag();
         if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.OrangeArcher.Length >= 2)
         {
-
-            Destroy(TagSoldier.RedSwordman[0]);
-            Destroy(TagSoldier.YellowSwordman[0]);
-            Destroy(TagSoldier.OrangeArcher[0]);
-            Destroy(TagSoldier.OrangeArcher[1]);
+            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.OrangeArcher[0].transform.parent.gameObject);
+            Destroy(TagSoldier.OrangeArcher[1].transform.parent.gameObject);
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-
 
             SoldierChoose(4, 4, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
@@ -369,10 +362,10 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.OrangeSpearman.Length >= 2 && TagSoldier.RedArcher.Length >= 1 && TagSoldier.YellowArcher.Length >= 1)
         {
 
-            Destroy(TagSoldier.OrangeSpearman[0]);
-            Destroy(TagSoldier.OrangeSpearman[1]);
-            Destroy(TagSoldier.RedArcher[0]);
-            Destroy(TagSoldier.YellowArcher[0]);
+            Destroy(TagSoldier.OrangeSpearman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.OrangeSpearman[1].transform.parent.gameObject);
+            Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
+            Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
 
 
             SoldierChoose(4, 4, 3, 3);
@@ -393,8 +386,8 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.VioletSwordman.Length >= 2)
         {
 
-            Destroy(TagSoldier.VioletSwordman[0]);
-            Destroy(TagSoldier.VioletSwordman[1]);
+            Destroy(TagSoldier.VioletSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.VioletSwordman[1].transform.parent.gameObject);
 
 
             SoldierChoose(5, 5, 1, 1);
@@ -416,14 +409,12 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.VioletArcherTag();
         if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.RedSwordman.Length >= 1 && TagSoldier.VioletArcher.Length >= 2)
         {
-
-            Destroy(TagSoldier.RedSwordman[0]);
-            Destroy(TagSoldier.YellowSwordman[0]);
-            Destroy(TagSoldier.VioletArcher[0]);
-            Destroy(TagSoldier.VioletArcher[1]);
+            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.VioletArcher[0].transform.parent.gameObject);
+            Destroy(TagSoldier.VioletArcher[1].transform.parent.gameObject);
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-
 
             SoldierChoose(5, 5, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
@@ -446,10 +437,10 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.VioletSpearman.Length >= 2 && TagSoldier.BlueArcher.Length >= 1 && TagSoldier.RedArcher.Length >= 1)
         {
 
-            Destroy(TagSoldier.VioletSpearman[0]);
-            Destroy(TagSoldier.VioletSpearman[1]);
-            Destroy(TagSoldier.RedArcher[0]);
-            Destroy(TagSoldier.BlueArcher[0]);
+            Destroy(TagSoldier.VioletSpearman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.VioletSpearman[1].transform.parent.gameObject);
+            Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
+            Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
 
 
             SoldierChoose(5, 5, 3, 3);
@@ -472,12 +463,10 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.BlueSwordmanTag();
         if (TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.BlueSwordman.Length >= 1)
         {
-
-            Destroy(TagSoldier.YellowSwordman[0]);
-            Destroy(TagSoldier.BlueSwordman[0]);
+            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-
 
             SoldierChoose(3, 3, 0, 0);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
@@ -495,18 +484,11 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.YellowSwordmanTag();
         TagSoldier.RedSwordmanTag();
         if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1)
-        {
-
-            Destroy(TagSoldier.YellowSwordman[0]);
-            Destroy(TagSoldier.RedSwordman[0]);
+        { 
+            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-
-
-            SoldierChoose(4, 4, 0, 0);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-
-
         }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.ButtonDown();
@@ -521,9 +503,8 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.RedSwordmanTag();
         if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.BlueSwordman.Length >= 1)
         {
-
-            Destroy(TagSoldier.BlueSwordman[0]);
-            Destroy(TagSoldier.RedSwordman[0]);
+            Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
 
 
             SoldierChoose(5, 5, 0, 0);

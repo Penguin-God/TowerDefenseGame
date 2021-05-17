@@ -14424,11 +14424,6 @@ PrefabInstance:
       objectReference: {fileID: 1338288019}
     - target: {fileID: 103836908467553592, guid: 4710141b2362e174b9ea566b6267949d,
         type: 3}
-      propertyPath: dontMoveGameObject
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 103836908467553592, guid: 4710141b2362e174b9ea566b6267949d,
-        type: 3}
       propertyPath: spearCreatePosition
       value: 
       objectReference: {fileID: 1338288018}

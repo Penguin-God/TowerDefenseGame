@@ -82,6 +82,8 @@ public class Enemy : MonoBehaviour
 
     public void ExitSlow()
     {
+        ChangeColor(mat.color);
+        nomalEnemy.speed = nomalEnemy.maxSpeed;
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
     }
 

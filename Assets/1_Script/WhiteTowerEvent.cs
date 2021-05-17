@@ -9,6 +9,7 @@ public class WhiteTowerEvent : MonoBehaviour
     private void OnMouseDown()
     {
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.BlackTowerButton.gameObject.SetActive(false);
     }
 
@@ -21,6 +22,7 @@ public class WhiteTowerEvent : MonoBehaviour
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
         }
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void ClickWhiteArcherButton()
@@ -32,6 +34,7 @@ public class WhiteTowerEvent : MonoBehaviour
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
         }
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void ClickWhiteSpearmanButton()
@@ -43,6 +46,7 @@ public class WhiteTowerEvent : MonoBehaviour
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
         }
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void ClickWhiteMageButton()
@@ -54,5 +58,6 @@ public class WhiteTowerEvent : MonoBehaviour
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
         }
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 }

@@ -11,6 +11,7 @@ public class BlackTowerEvent : MonoBehaviour
     private void OnMouseDown()
     {
         UIManager.instance.BlackTowerButton.gameObject.SetActive(true);
+        UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
     }
 
@@ -42,11 +43,13 @@ public class BlackTowerEvent : MonoBehaviour
             }
             GameManager.instance.Gold -= 10;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+            
 
         } 
 
         UIManager.instance.BlackTowerButton.gameObject.SetActive(false);
-        
+        UIManager.instance.BackGround.gameObject.SetActive(false);
+
     }
 
     public void ClickBlackArcherButton()
@@ -72,6 +75,7 @@ public class BlackTowerEvent : MonoBehaviour
 
         
         UIManager.instance.BlackTowerButton.gameObject.SetActive(false);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void ClickBlackSpearmanButton()
@@ -97,6 +101,7 @@ public class BlackTowerEvent : MonoBehaviour
 
 
         UIManager.instance.BlackTowerButton.gameObject.SetActive(false);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
     }
 
     public void ClickBlackMageButton()
@@ -120,6 +125,7 @@ public class BlackTowerEvent : MonoBehaviour
         }
 
         UIManager.instance.BlackTowerButton.gameObject.SetActive(false);
+        UIManager.instance.BackGround.gameObject.SetActive(false);
 
     }
 }

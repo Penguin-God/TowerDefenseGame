@@ -9,5 +9,10 @@ public class GameStartButton : MonoBehaviour
     {
         SceneManager.LoadScene("합친 씬 - 장익준");
     }
-    
+
+    public void ClickTutorialsButton()
+    {
+        SceneManager.LoadScene("Tutorials");
+    }
+
 }

@@ -110,8 +110,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.8666667, g: 0.13333334, b: 0.08627451, a: 1}
-      key1: {r: 0.8666667, g: 0.13333334, b: 0.08627451, a: 0.39215687}
+      key0: {r: 0, g: 0, b: 0, a: 1}
+      key1: {r: 0, g: 0, b: 0, a: 0.39215687}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -240,7 +240,7 @@ GameObject:
   - component: {fileID: 2219315760347757371}
   - component: {fileID: 3863724250736697938}
   m_Layer: 9
-  m_Name: TB_Soldier_Spearman_Red
+  m_Name: TB_Soldier_Spearman_Black
   m_TagString: RedSpearman
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -343,7 +343,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitType: 2
-  unitColor: 0
+  unitColor: 7
   speed: 15
   attackDelayTime: 1.5
   attackRange: 10
@@ -360,7 +360,7 @@ MonoBehaviour:
   enterStoryWorld: 0
   trail: {fileID: 536275632113738204}
   spear: {fileID: 2219357732911074825}
-  skileSpaer: {fileID: 4947818212191654679, guid: 1f4742ade3332aa4fa4c23a36eee4436,
+  skileSpaer: {fileID: 4947818212191654679, guid: 05f48d17278f54a4db431c3be234bd29,
     type: 3}
   spearCreatePosition: {fileID: 8300080002397631655}
   dontMoveGameObject: {fileID: 0}

@@ -9,7 +9,7 @@ public class TeamSoldier : MonoBehaviour
     public enum Type { sowrdman, archer, spearman, mage }
     public Type unitType;
 
-    public enum UnitColor { red, blue, yellow, green, orange, violet};
+    public enum UnitColor { red, blue, yellow, green, orange, violet, white, black};
     public UnitColor unitColor;
 
     public float speed;

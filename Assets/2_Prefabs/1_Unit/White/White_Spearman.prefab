@@ -118,7 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitType: 2
-  unitColor: 1
+  unitColor: 6
   speed: 15
   attackDelayTime: 1.5
   attackRange: 10
@@ -135,7 +135,7 @@ MonoBehaviour:
   enterStoryWorld: 0
   trail: {fileID: 4248340739640275881}
   spear: {fileID: 2542465218146737276}
-  skileSpaer: {fileID: 4947818212191654679, guid: 41bbbabd384afbe40b75b1c6a3df5396,
+  skileSpaer: {fileID: 4947818212191654679, guid: f8e3cda532f22a743819225d448b40e5,
     type: 3}
   spearCreatePosition: {fileID: 5188953049064694403}
   dontMoveGameObject: {fileID: 0}
@@ -501,8 +501,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0, g: 0.4764049, b: 1, a: 1}
-      key1: {r: 0, g: 0.6460879, b: 1, a: 0.39215687}
+      key0: {r: 1, g: 1, b: 1, a: 1}
+      key1: {r: 1, g: 1, b: 1, a: 0.39215687}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -510,7 +510,7 @@ TrailRenderer:
       key6: {r: 0, g: 0, b: 0, a: 0}
       key7: {r: 0, g: 0, b: 0, a: 0}
       ctime0: 0
-      ctime1: 38165
+      ctime1: 65535
       ctime2: 0
       ctime3: 0
       ctime4: 0

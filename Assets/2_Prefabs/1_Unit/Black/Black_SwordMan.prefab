@@ -260,8 +260,8 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 0.9622642, g: 0.3679332, b: 0.24964403, a: 1}
-      key1: {r: 0.9607843, g: 0.36862746, b: 0.2509804, a: 1}
+      key0: {r: 0, g: 0, b: 0, a: 1}
+      key1: {r: 0, g: 0, b: 0, a: 1}
       key2: {r: 0.80784315, g: 0.16078432, b: 0.22352941, a: 0}
       key3: {r: 1, g: 1, b: 1, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -394,7 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitType: 0
-  unitColor: 0
+  unitColor: 7
   speed: 15
   attackDelayTime: 1
   attackRange: 6

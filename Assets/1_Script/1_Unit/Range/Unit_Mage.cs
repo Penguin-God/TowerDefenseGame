@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class Unit_Mage : RangeUnit
+public class Unit_Mage : RangeUnit, IUnitMana
 {
     private Animator animator;
     public GameObject magicLight;
@@ -13,6 +14,11 @@ public class Unit_Mage : RangeUnit
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        if (unitColor == UnitColor.black || unitColor == UnitColor.white) return;
+        canvasRectTransform = transform.parent.GetComponentInChildren<RectTransform>();
+        manaSlider = transform.parent.GetComponentInChildren<Slider>();
+        manaSlider.maxValue = maxMana;
+        manaSlider.value = currentMana;
     }
 
     public override void SetPassive()
@@ -38,7 +44,8 @@ public class Unit_Mage : RangeUnit
 
     public override void NormalAttack()
     {
-        StartCoroutine("MageAttack");
+        if (currentMana < 100) StartCoroutine("MageAttack");
+        else MageSpecialAttack();
     }
 
     IEnumerator MageAttack()
@@ -48,7 +55,8 @@ public class Unit_Mage : RangeUnit
 
         nav.angularSpeed = 1;
         animator.SetTrigger("isAttack");
-        yield return new WaitForSeconds(0.6f);
+        yield return new WaitForSeconds(0.7f);
+        AddMana(30);
         magicLight.SetActive(true);
 
         if (target != null && Vector3.Distance(target.position, transform.position) < 150f)
@@ -63,6 +71,62 @@ public class Unit_Mage : RangeUnit
         
         isAttack = false;
         base.NormalAttack();
+    }
+
+    void MageSpecialAttack()
+    {
+        isAttack = true;
+        isAttackDelayTime = true;
+
+        Debug.Log("특별하다!!!!!!");
+        MageColorSpecialAttack();
+        ClearMana();
+
+        isAttack = false;
+        base.NormalAttack();
+    }
+
+    void MageColorSpecialAttack()
+    {
+        switch (unitColor)
+        {
+            case UnitColor.red:
+                break;
+            case UnitColor.blue:
+                break;
+            case UnitColor.yellow:
+                break;
+            case UnitColor.green:
+                break;
+            case UnitColor.orange:
+                break;
+            case UnitColor.violet:
+                break;
+        }
+    }
+
+    public RectTransform canvasRectTransform;
+    public Slider manaSlider;
+    public int maxMana;
+    public int currentMana;
+
+    public void SetCanvas()
+    {
+        if (unitColor == UnitColor.black || unitColor == UnitColor.white) return;
+        canvasRectTransform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+    }
+
+    public void AddMana(int addMana)
+    {
+        if (unitColor == UnitColor.black || unitColor == UnitColor.white) return;
+        currentMana += addMana;
+        manaSlider.value = currentMana;
+    }
+
+    public void ClearMana()
+    {
+        currentMana = 0;
+        manaSlider.value = 0;
     }
 
     public override void RangeUnit_PassiveAttack(Enemy enemy)
@@ -178,6 +242,5 @@ public class Unit_Mage : RangeUnit
             }
         }
     }
-
 
 }

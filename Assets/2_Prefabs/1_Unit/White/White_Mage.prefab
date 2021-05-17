@@ -197,7 +197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitType: 3
-  unitColor: 0
+  unitColor: 6
   speed: 3
   attackDelayTime: 2
   attackRange: 40
@@ -213,9 +213,13 @@ MonoBehaviour:
   towerEnter: 0
   enterStoryWorld: 0
   magicLight: {fileID: 5507084894366286642}
-  energyBall: {fileID: 273563849445638938, guid: d89438b7480e2134db2d7b0e1f6cba09,
+  energyBall: {fileID: 273563849445638938, guid: cf2ef2232a57f904990e1a4a0fec6a5e,
     type: 3}
   energyBallTransform: {fileID: 5507084895478759443}
+  canvasRectTransform: {fileID: 0}
+  manaSlider: {fileID: 0}
+  maxMana: 0
+  currentMana: 0
 --- !u!136 &7207746562790712431
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -286,7 +290,7 @@ Light:
   serializedVersion: 10
   m_Type: 2
   m_Shape: 0
-  m_Color: {r: 1, g: 0.17433167, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 15
   m_Range: 5
   m_SpotAngle: 30

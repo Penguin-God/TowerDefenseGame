@@ -74,7 +74,7 @@ public class Unit_Swordman : MeeleUnit
             case UnitColor.orange:
                 break;
             case UnitColor.violet:
-                StartCoroutine(enemy.PoisonAttack(3, 5, 0.3f));
+                enemy.EnemyPoisonAttack(3, 5, 0.3f);
                 break;
         }
     }

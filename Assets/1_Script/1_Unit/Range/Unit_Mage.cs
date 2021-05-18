@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+//public class MageSpecialAttacks
+//{
+//    public GameObject posionEffect;
+    
+//}
+
 public class Unit_Mage : RangeUnit, IUnitMana
 {
     private Animator animator;
@@ -44,7 +50,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
 
     public override void NormalAttack()
     {
-        if (currentMana < 100) StartCoroutine("MageAttack");
+        if (currentMana < maxMana) StartCoroutine("MageAttack");
         else MageSpecialAttack();
     }
 
@@ -86,7 +92,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
         base.NormalAttack();
     }
 
-    void MageColorSpecialAttack()
+    void MageColorSpecialAttack() // 실질적인 스킬
     {
         switch (unitColor)
         {
@@ -101,6 +107,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
             case UnitColor.orange:
                 break;
             case UnitColor.violet:
+                MagePosionSkill(target);
                 break;
         }
     }
@@ -127,6 +134,13 @@ public class Unit_Mage : RangeUnit, IUnitMana
     {
         currentMana = 0;
         manaSlider.value = 0;
+    }
+
+    public GameObject posionEffect;
+    void MagePosionSkill(Transform attackTarget)
+    {
+        GameObject instantPosionEffect = Instantiate(posionEffect, attackTarget.position, posionEffect.transform.rotation);
+        instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
     }
 
     public override void RangeUnit_PassiveAttack(Enemy enemy)

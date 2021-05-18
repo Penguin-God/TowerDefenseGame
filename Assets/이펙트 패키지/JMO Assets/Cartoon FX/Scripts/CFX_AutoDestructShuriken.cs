@@ -12,7 +12,8 @@ public class CFX_AutoDestructShuriken : MonoBehaviour
 {
 	// If true, deactivate the object instead of destroying it
 	public bool OnlyDeactivate;
-	
+	public float showTime = 0.5f;
+	public bool isSkill = false;
 	void OnEnable()
 	{
 		StartCoroutine("CheckIfAlive");
@@ -21,23 +22,31 @@ public class CFX_AutoDestructShuriken : MonoBehaviour
 	IEnumerator CheckIfAlive ()
 	{
 		ParticleSystem ps = this.GetComponent<ParticleSystem>();
-		
-		while(true && ps != null)
-		{
-			yield return new WaitForSeconds(0.5f);
-			if(!ps.IsAlive(true))
+
+        if (isSkill)
+        {
+			yield return new WaitForSeconds(showTime);
+			this.gameObject.SetActive(false);
+        }
+        else
+        {
+			while (true && ps != null)
 			{
-				if(OnlyDeactivate)
+				yield return new WaitForSeconds(showTime);
+				if (!ps.IsAlive(true))
 				{
-					#if UNITY_3_5
+					if (OnlyDeactivate)
+					{
+					#if UNITY_3_5	
 						this.gameObject.SetActiveRecursively(false);
 					#else
 						this.gameObject.SetActive(false);
 					#endif
+					}
+					else
+						GameObject.Destroy(this.gameObject);
+					break;
 				}
-				else
-					GameObject.Destroy(this.gameObject);
-				break;
 			}
 		}
 	}

@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
     {
         isGameover = false;
         Gold = 20;
-        Food = 0;
+        Food = 1;
         UIManager.instance.UpdateGoldText(Gold);
         UIManager.instance.UpdateFoodText(Food);
         timer = 0.0f;

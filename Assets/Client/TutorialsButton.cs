@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TutorialsButton : MonoBehaviour
 {
@@ -27,6 +28,7 @@ public class TutorialsButton : MonoBehaviour
     public GameObject CombineRedArcherButton;
     public GameObject WhiteSwordmanButton;
     public GameObject BlackArcherButton;
+    public GameObject ComeBackClientButton;
 
     public void ClickTutorialsButton()
     {
@@ -82,8 +84,16 @@ public class TutorialsButton : MonoBehaviour
                 break;
             case 10:
                 storyMode.EnterStoryMode();
+                this.transform.position = ComeBackClientButton.transform.position;
+                ComeBackClientButton.gameObject.SetActive(true);
                 Count += 1;
                 break;
+            case 11:
+                SceneManager.LoadScene("클라이언트");
+                Count += 1;
+                break;
+
+
 
         }
     }

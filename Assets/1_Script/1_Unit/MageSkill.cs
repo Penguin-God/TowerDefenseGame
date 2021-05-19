@@ -6,6 +6,7 @@ public class MageSkill : MonoBehaviour
 {
     SphereCollider sphereCollider;
     public TeamSoldier teamSoldier;
+    public float hitTime; // 콜라이더가 켜지는 등 공격 타임
     private void Awake()
     {
         sphereCollider = GetComponent<SphereCollider>();
@@ -13,13 +14,7 @@ public class MageSkill : MonoBehaviour
 
     private void OnEnable()
     {
-        StartCoroutine(PosionAttack());
-    }
-
-    IEnumerator PosionAttack()
-    {
-        yield return new WaitForSeconds(0.2f);
-        sphereCollider.enabled = true;
+        StartCoroutine(ShowEffect_Coroutine(hitTime));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -38,6 +33,7 @@ public class MageSkill : MonoBehaviour
             case TeamSoldier.UnitColor.red:
                 break;
             case TeamSoldier.UnitColor.blue:
+                enemy.EnemySlow(99);
                 break;
             case TeamSoldier.UnitColor.yellow:
                 break;
@@ -49,5 +45,11 @@ public class MageSkill : MonoBehaviour
                 enemy.EnemyPoisonAttack(25, 8, 0.3f);
                 break;
         }
+    }
+
+    IEnumerator ShowEffect_Coroutine(float delayTIme)
+    {
+        yield return new WaitForSeconds(delayTIme);
+        sphereCollider.enabled = true;
     }
 }

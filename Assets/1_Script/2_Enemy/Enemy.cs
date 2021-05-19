@@ -101,6 +101,7 @@ public class Enemy : MonoBehaviour
             yield return new WaitForSeconds(poisonDelay);
             if (poisonDamage <= 0) poisonDamage = 1; // 독 최소뎀
             //if (currentHp > 1) OnDamage(poisonDamage); // 독으로는 못죽임
+            if (poisonDamage >= 500) poisonDamage = 500; // 독 최대뎀
             OnDamage(poisonDamage);
         }
         ChangeColor(mat.color);

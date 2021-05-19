@@ -65113,7 +65113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   OnlyDeactivate: 1
-  showTime: 1.9
+  showTime: 1.7
   isSkill: 1
 --- !u!135 &6979960388138166947
 SphereCollider:
@@ -65141,6 +65141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamSoldier: {fileID: 0}
+  hitTime: 0.2
 --- !u!1 &217217858465142632
 GameObject:
   m_ObjectHideFlags: 0

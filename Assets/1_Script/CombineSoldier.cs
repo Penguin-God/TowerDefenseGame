@@ -65,9 +65,11 @@ public class CombineSoldier : MonoBehaviour
     public void CombineRedMage()
     {
         TagSoldier.RedSpearmanTag();
-        if (TagSoldier.RedSpearman.Length >= 2)
+        TagSoldier.RedArcherTag();
+        if (TagSoldier.RedSpearman.Length >= 2 && TagSoldier.RedArcher.Length >= 2)
         {
-
+            Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
+            Destroy(TagSoldier.RedArcher[1].transform.parent.gameObject);
             Destroy(TagSoldier.RedSpearman[0].transform.parent.gameObject);
             Destroy(TagSoldier.RedSpearman[1].transform.parent.gameObject);
 
@@ -76,6 +78,7 @@ public class CombineSoldier : MonoBehaviour
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
         }
+        UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
         UIManager.instance.ButtonDown();
@@ -135,9 +138,11 @@ public class CombineSoldier : MonoBehaviour
     public void CombineBlueMage()
     {
         TagSoldier.BlueSpearmanTag();
-        if (TagSoldier.BlueSpearman.Length >= 2)
+        TagSoldier.BlueArcherTag();
+        if (TagSoldier.BlueSpearman.Length >= 2 && TagSoldier.BlueArcher.Length >= 2)
         {
-
+            Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
+            Destroy(TagSoldier.BlueArcher[1].transform.parent.gameObject);
             Destroy(TagSoldier.BlueSpearman[0].transform.parent.gameObject);
             Destroy(TagSoldier.BlueSpearman[1].transform.parent.gameObject);
 
@@ -146,6 +151,7 @@ public class CombineSoldier : MonoBehaviour
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
         }
+        UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
         UIManager.instance.ButtonDown();
@@ -208,9 +214,11 @@ public class CombineSoldier : MonoBehaviour
     public void CombineYellowMage()
     {
         TagSoldier.YellowSpearmanTag();
-        if (TagSoldier.YellowSpearman.Length >= 2)
+        TagSoldier.YellowArcherTag();
+        if (TagSoldier.YellowSpearman.Length >= 2 && TagSoldier.YellowArcher.Length >= 2)
         {
-
+            Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
+            Destroy(TagSoldier.YellowArcher[1].transform.parent.gameObject);
             Destroy(TagSoldier.YellowSpearman[0].transform.parent.gameObject);
             Destroy(TagSoldier.YellowSpearman[1].transform.parent.gameObject);
 
@@ -220,6 +228,7 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.UpdateSpearmanCount();
             UIManager.instance.UpdateMageCount();
         }
+        UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
         UIManager.instance.ButtonDown();
@@ -296,6 +305,7 @@ public class CombineSoldier : MonoBehaviour
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
         }
+        UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
         UIManager.instance.ButtonDown();
@@ -372,6 +382,7 @@ public class CombineSoldier : MonoBehaviour
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
         }
+        UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
         UIManager.instance.ButtonDown();
@@ -447,6 +458,7 @@ public class CombineSoldier : MonoBehaviour
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
         }
+        UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
         UIManager.instance.ButtonDown();

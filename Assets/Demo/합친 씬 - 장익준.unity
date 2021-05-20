@@ -5971,7 +5971,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC8FC\uD669\uCC3D\uC9C0\uAE30"
+  m_Text: "\uC8FC\uD669\uCC3D\uBCD1"
 --- !u!222 &297310742
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11481,7 +11481,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -15637,7 +15637,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB178\uB780\uCC3D\uC9C0\uAE30"
+  m_Text: "\uB178\uB780\uCC3D\uBCD1"
 --- !u!222 &859719800
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15776,7 +15776,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCD08\uB85D\uCC3D\uC9C0\uAE30"
+  m_Text: "\uCD08\uB85D\uCC3D\uBCD1"
 --- !u!222 &865972343
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20478,7 +20478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -20520,9 +20520,9 @@ RectTransform:
   m_Father: {fileID: 1261802216}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 176.1, y: 180.2}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 171, y: -15}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1080728766
@@ -33401,7 +33401,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBCF4\uB77C\uCC3D\uC9C0\uAE30"
+  m_Text: "\uBCF4\uB77C\uCC3D\uBCD1"
 --- !u!222 &1559554249
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -43931,7 +43931,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBE68\uAC04\uCC3D\uC9C0\uAE30"
+  m_Text: "\uBE68\uAC04\uCC3D\uBCD1"
 --- !u!222 &2058399726
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -44009,7 +44009,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB780\uCC3D\uC9C0\uAE30"
+  m_Text: "\uD30C\uB780\uCC3D\uBCD1"
 --- !u!222 &2059079631
 CanvasRenderer:
   m_ObjectHideFlags: 0

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4497105, g: 0.49977976, b: 0.5756375, a: 1}
+  m_IndirectSpecularColor: {r: 0.44971025, g: 0.49977946, b: 0.57563627, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -27569,7 +27569,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4950992620309586, guid: acb9eeacca0ea814ab424f6393e71859, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4950992620309586, guid: acb9eeacca0ea814ab424f6393e71859, type: 3}
       propertyPath: m_LocalScale.x
@@ -30989,8 +30989,9 @@ Transform:
   - {fileID: 1706321356}
   - {fileID: 7128559560356019332}
   - {fileID: 8349204739938302789}
+  - {fileID: 2069937149}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1513012277
 MonoBehaviour:
@@ -31500,14 +31501,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
-    - target: {fileID: 150712471, guid: d42acb3c35a75354181bcb3cba82f4f2, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 150712471, guid: d42acb3c35a75354181bcb3cba82f4f2, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4583945138574837633, guid: d42acb3c35a75354181bcb3cba82f4f2,
         type: 3}
       propertyPath: m_Name
@@ -43104,8 +43097,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2069937147}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -500, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 915280004}
@@ -43116,8 +43109,8 @@ Transform:
   - {fileID: 856121791}
   - {fileID: 1338323525}
   - {fileID: 1022020166}
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_Father: {fileID: 1513012276}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2071771274
 GameObject:
@@ -45270,12 +45263,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Violet_Mage
       objectReference: {fileID: 0}
-    - target: {fileID: 3475061908579850590, guid: 4d7f63258f1081247abdd23060ca4778,
-        type: 3}
-      propertyPath: posionEffect
-      value: 
-      objectReference: {fileID: 217165572783591742, guid: 363496e031194604f91ae274cc2d13ac,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d7f63258f1081247abdd23060ca4778, type: 3}
 --- !u!1 &2139635335
@@ -45799,6 +45786,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Black_Mage
       objectReference: {fileID: 0}
+    - target: {fileID: 2032129247473008375, guid: 519a6c03cfb2e6d41b531720a81d4f16,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2032129247473008376, guid: 519a6c03cfb2e6d41b531720a81d4f16,
         type: 3}
       propertyPath: m_RootOrder
@@ -46025,7 +46017,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4230660994675174, guid: be0b768028397264d9c378dbd4f93277, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4230660994675174, guid: be0b768028397264d9c378dbd4f93277, type: 3}
       propertyPath: m_LocalPosition.x
@@ -46201,7 +46193,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4230660994675174, guid: be0b768028397264d9c378dbd4f93277, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 4230660994675174, guid: be0b768028397264d9c378dbd4f93277, type: 3}
       propertyPath: m_LocalScale.x

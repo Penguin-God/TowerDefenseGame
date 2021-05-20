@@ -31,6 +31,7 @@ TagManager:
   - VioletMage
   - RedArcher
   - Tower
+  - World
   layers:
   - Default
   - TransparentFX

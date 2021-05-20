@@ -54,6 +54,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
         else MageSpecialAttack();
     }
 
+    public int plusMana = 30;
     IEnumerator MageAttack()
     {
         isAttack = true;
@@ -62,7 +63,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
         nav.angularSpeed = 1;
         animator.SetTrigger("isAttack");
         yield return new WaitForSeconds(0.7f);
-        AddMana(30);
+        AddMana(plusMana);
         magicLight.SetActive(true);
 
         if (target != null && Vector3.Distance(target.position, transform.position) < 150f)
@@ -94,7 +95,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
     }
 
     public GameObject mageEffectObject = null;
-    void ShowMageSkillEffect(GameObject effectObject)
+    void ShowMageSkillEffect(GameObject effectObject) // 특정 색깔은 스킬이 effect에 콜라이더에 맞겨져서 이거 자체가 스킬임
     {
         if (effectObject == null) return;
 
@@ -106,6 +107,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
         switch (unitColor)
         {
             case UnitColor.red:
+                RedMageSkill();
                 break;
             case UnitColor.blue:
                 //BlueMageSkill(30f);
@@ -123,6 +125,74 @@ public class Unit_Mage : RangeUnit, IUnitMana
                 break;
         }
     }
+
+    void RedMageSkill() // 메테오 떨어뜨림
+    {
+        GameObject instantSkillEffect = Instantiate(mageEffectObject, mageEffectObject.transform.position, Quaternion.identity);
+        instantSkillEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
+    }
+
+    public GameObject posionEffect;
+    void VioletMageSkill(Transform attackTarget) // 독 공격
+    {
+        GameObject instantPosionEffect = Instantiate(posionEffect, attackTarget.position, posionEffect.transform.rotation);
+        instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
+    }
+
+    void YellowMageSkill(int addGold) // 골드 증가
+    {
+        GameManager.instance.Gold += addGold;
+        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+    }
+
+    void GreenMageSkill()
+    {
+        StartCoroutine(GreenMageSkile_Coroutine());
+    }
+    IEnumerator GreenMageSkile_Coroutine()
+    {
+        plusMana = 0;
+
+        // 스킬 사용 후 바로 공격하게 하기 위한 코드
+        attackDelayTime = 0;
+        yield return new WaitUntil(() => !isAttackDelayTime); 
+        attackDelayTime = 2f;
+
+        damage *= 5;
+        yield return new WaitForSeconds(5f);
+        damage /= 5;
+        plusMana = 30;
+    }
+
+    //void BlueMageSkill(float slowRange)
+    //{
+    //    List<GameObject> slowTargetList = Get_SlowTarget(slowRange);
+    //    if (slowTargetList.Count == 0) return;
+
+    //    for (int i = 0; i < slowTargetList.Count; i++)
+    //    {
+    //        slowTargetList[i].GetComponent<Enemy>().EnemySlow(99);
+    //    }
+    //}
+    //List<GameObject> Get_SlowTarget(float slowRange) // 거리 안에 있는 enemy들을 List로 가져옴
+    //{
+    //    List<GameObject> slowTargetEnemyList = new List<GameObject>();
+    //    foreach (GameObject enemyObject in enemySpawn.currentEnemyList)
+    //    {
+    //        if (enemyObject != null)
+    //        {
+    //            float distanceToEnemy = Vector3.Distance(this.transform.position, enemyObject.transform.position);
+    //            if (distanceToEnemy < slowRange)
+    //            {
+    //                slowTargetEnemyList.Add(enemyObject);
+    //            }
+    //        }
+    //    }
+
+    //    return slowTargetEnemyList;
+    //}
+
+
 
     public RectTransform canvasRectTransform;
     public Slider manaSlider;
@@ -146,58 +216,6 @@ public class Unit_Mage : RangeUnit, IUnitMana
     {
         currentMana = 0;
         manaSlider.value = 0;
-    }
-
-    public GameObject posionEffect;
-    void VioletMageSkill(Transform attackTarget) // 독 공격
-    {
-        GameObject instantPosionEffect = Instantiate(posionEffect, attackTarget.position, posionEffect.transform.rotation);
-        instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
-    }
-
-    void YellowMageSkill(int addGold) // 골드 증가
-    {
-        GameManager.instance.Gold += addGold;
-        UIManager.instance.UpdateGoldText(GameManager.instance.Gold); 
-    }
-
-    void GreenMageSkill()
-    {
-        StartCoroutine(GreenMageSkile_Coroutine());
-    }
-    IEnumerator GreenMageSkile_Coroutine()
-    {
-        damage *= 5;
-        yield return new WaitForSeconds(5f);
-        damage /= 5;
-    }
-
-    void BlueMageSkill(float slowRange)
-    {
-        List<GameObject> slowTargetList = Get_SlowTarget(slowRange);
-        if (slowTargetList.Count == 0) return;
-
-        for(int i = 0; i < slowTargetList.Count; i++)
-        {
-            slowTargetList[i].GetComponent<Enemy>().EnemySlow(99);
-        }
-    }
-    List<GameObject> Get_SlowTarget(float slowRange) // 거리 안에 있는 enemy들을 List로 가져옴
-    {
-        List<GameObject> slowTargetEnemyList = new List<GameObject>();
-        foreach (GameObject enemyObject in enemySpawn.currentEnemyList)
-        {
-            if (enemyObject != null)
-            {
-                float distanceToEnemy = Vector3.Distance(this.transform.position, enemyObject.transform.position);
-                if (distanceToEnemy < slowRange)
-                {
-                    slowTargetEnemyList.Add(enemyObject);
-                }
-            }
-        }
-
-        return slowTargetEnemyList;
     }
 
     public override void RangeUnit_PassiveAttack(Enemy enemy)

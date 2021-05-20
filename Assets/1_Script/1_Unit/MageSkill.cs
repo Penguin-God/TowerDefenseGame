@@ -5,6 +5,7 @@ using UnityEngine;
 public class MageSkill : MonoBehaviour
 {
     SphereCollider sphereCollider;
+    public bool moveEffect;
     public TeamSoldier teamSoldier;
     public float hitTime; // 콜라이더가 켜지는 등 공격 타임
     private void Awake()
@@ -15,6 +16,7 @@ public class MageSkill : MonoBehaviour
     private void OnEnable()
     {
         StartCoroutine(ShowEffect_Coroutine(hitTime));
+        if(moveEffect) StartCoroutine(ShotMeteor());
     }
 
     private void OnTriggerEnter(Collider other)
@@ -24,6 +26,10 @@ public class MageSkill : MonoBehaviour
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             MageSkile(enemy);
         }
+        else if(other.tag == "World" && moveEffect)
+        {
+            MeteotExplosion();
+        }
     }
 
     void MageSkile(Enemy enemy)
@@ -31,6 +37,9 @@ public class MageSkill : MonoBehaviour
         switch (teamSoldier.unitColor)
         {
             case TeamSoldier.UnitColor.red:
+                enemy.OnDamage(3000);
+                enemy.EnemyStern(100, 5);
+                Destroy(gameObject, 1);
                 break;
             case TeamSoldier.UnitColor.blue:
                 enemy.EnemySlow(99);
@@ -51,5 +60,27 @@ public class MageSkill : MonoBehaviour
     {
         yield return new WaitForSeconds(delayTIme);
         sphereCollider.enabled = true;
+    }
+
+    [Header("메테오 전용 변수")]
+    [SerializeField]
+    private float speed;
+    public GameObject explosionObject;
+    IEnumerator ShotMeteor()
+    {
+        yield return new WaitForSeconds(1f);
+        Vector3 enemyDirection = (teamSoldier.target.position - this.transform.position).normalized;
+        Rigidbody rigid = this.GetComponent<Rigidbody>();
+        rigid.velocity = enemyDirection * speed;
+    }
+
+    public GameObject[] meteors;
+    void MeteotExplosion()
+    {
+        foreach (GameObject meteor in meteors)
+            meteor.SetActive(false);
+        //this.gameObject.SetActive(false);
+        explosionObject.GetComponent<MageSkill>().teamSoldier = this.teamSoldier;
+        explosionObject.SetActive(true);
     }
 }

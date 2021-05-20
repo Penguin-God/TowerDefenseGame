@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour
 
     public void EnemyStern(int sternPercent, float sternTime)
     {
-        if (this.gameObject.CompareTag("Tower")) return;
+        if (this.gameObject.CompareTag("Tower") || isDead) return;
 
         int random = Random.Range(0, 100);
         if (random < sternPercent)
@@ -67,7 +67,7 @@ public class Enemy : MonoBehaviour
     //public bool isSlow;
     public void EnemySlow(float slowPercent)
     {
-        if (this.gameObject.CompareTag("Tower")) return;
+        if (this.gameObject.CompareTag("Tower") || isDead) return;
         // 만약 더 높은 슬로우가 공격을 받으면큰 슬로우 적용후 return
         if (nomalEnemy.maxSpeed - nomalEnemy.maxSpeed * (slowPercent / 100) < nomalEnemy.speed)
         {
@@ -89,6 +89,8 @@ public class Enemy : MonoBehaviour
 
     public void EnemyPoisonAttack(int poisonPercent, int poisonCount, float poisonDelay)
     {
+        if (isDead) return;
+
         StartCoroutine(PoisonAttack(poisonPercent, poisonCount, poisonDelay));
     }
 

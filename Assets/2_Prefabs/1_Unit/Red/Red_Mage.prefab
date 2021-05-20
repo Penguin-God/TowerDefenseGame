@@ -699,6 +699,10 @@ MonoBehaviour:
   energyBall: {fileID: 273563849445638938, guid: d89438b7480e2134db2d7b0e1f6cba09,
     type: 3}
   energyBallTransform: {fileID: 2912166253428939080}
+  plusMana: 30
+  mageEffectObject: {fileID: 4624219392482637300, guid: d6fccbbc807ddcf48ad83801f635ecf9,
+    type: 3}
+  posionEffect: {fileID: 0}
   canvasRectTransform: {fileID: 0}
   manaSlider: {fileID: 0}
   maxMana: 100

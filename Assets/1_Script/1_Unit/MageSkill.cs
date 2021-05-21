@@ -16,7 +16,10 @@ public class MageSkill : MonoBehaviour
     private void OnEnable()
     {
         StartCoroutine(ShowEffect_Coroutine(hitTime));
-        if(moveEffect) StartCoroutine(ShotMeteor());
+        if (moveEffect) 
+        {
+            StartCoroutine(MeteorWait());
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -66,10 +69,18 @@ public class MageSkill : MonoBehaviour
     [SerializeField]
     private float speed;
     public GameObject explosionObject;
-    IEnumerator ShotMeteor()
+
+    IEnumerator MeteorWait()
+    {
+        yield return new WaitUntil(() => teamSoldier != null);
+        Vector3 enemyPosition = teamSoldier.target.position + teamSoldier.target.GetComponent<NomalEnemy>().dir.normalized * teamSoldier.target.GetComponent<NomalEnemy>().speed * 2;
+        StartCoroutine(ShotMeteor(enemyPosition));
+    }
+
+    IEnumerator ShotMeteor(Vector3 enemyPosition)
     {
         yield return new WaitForSeconds(1f);
-        Vector3 enemyDirection = (teamSoldier.target.position - this.transform.position).normalized;
+        Vector3 enemyDirection = (enemyPosition - this.transform.position).normalized;
         Rigidbody rigid = this.GetComponent<Rigidbody>();
         rigid.velocity = enemyDirection * speed;
     }

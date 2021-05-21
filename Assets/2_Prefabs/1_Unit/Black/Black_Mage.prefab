@@ -328,9 +328,12 @@ MonoBehaviour:
   energyBall: {fileID: 273563849445638938, guid: 0253a9081c1db9c4fad68286d6b8794d,
     type: 3}
   energyBallTransform: {fileID: 848071866545184830}
+  plusMana: 30
+  mageEffectObject: {fileID: 0}
+  posionEffect: {fileID: 0}
   canvasRectTransform: {fileID: 0}
   manaSlider: {fileID: 0}
-  maxMana: 0
+  maxMana: 100
   currentMana: 0
 --- !u!136 &2571242137306596418
 CapsuleCollider:
@@ -420,7 +423,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ed9f29ddef3dac64dbba787a64fa05ba, type: 2}
+  - {fileID: 2100000, guid: 705653f68370b9b4b864cd0871bd5330, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

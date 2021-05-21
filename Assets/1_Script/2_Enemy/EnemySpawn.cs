@@ -5,10 +5,11 @@ using UnityEngine;
 
 public class EnemySpawn : MonoBehaviour
 {
+    public int stageNumber;
     private int respawnEnemyCount;
 
     public GameObject[] enemyPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
-    public int stageNumber;
+    public GameObject[] bossPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
 
     int poolEnemyCount; // 풀링을 위해 미리 생성하는 enemy 수
     GameObject[,] enemyArrays;
@@ -39,7 +40,6 @@ public class EnemySpawn : MonoBehaviour
         StageStart();
     }
 
-
     void StageStart()
     {
         if (stageNumber == 50 && currentEnemyList.Count == 0)
@@ -47,19 +47,26 @@ public class EnemySpawn : MonoBehaviour
             GameManager.instance.Clear();
             return;
         }
+
         UIManager.instance.UpdateStageText(stageNumber);
         StartCoroutine(StageCoroutine(respawnEnemyCount));
     }
 
-    IEnumerator StageCoroutine(int poolEnemyCount) // 재귀함수 무한반복
+    IEnumerator StageCoroutine(int stageRespawnEenemyCount) // 재귀함수 무한반복
     {
+        if (stageNumber % 10 == 0)
+        {
+            RespawnBoss();
+            stageRespawnEenemyCount = 0;
+        }
+
         // 관련 변수 세팅
         int instantEnemyNumber = Random.Range(0, enemyPrefab.Length);
         int hp = SetRandomHp();
         float speed = SetRandomSeepd();
         float respawnDelayTime = SetRandom_RespawnDelayTime();
-
-        while (poolEnemyCount > 0)
+        
+        while (stageRespawnEenemyCount > 0)
         {
             // enemy 소환
             GameObject enemy = enemyArrays[instantEnemyNumber, countArray[instantEnemyNumber]];
@@ -68,7 +75,7 @@ public class EnemySpawn : MonoBehaviour
 
             // 변수 설정
             countArray[instantEnemyNumber]++;
-            poolEnemyCount--;
+            stageRespawnEenemyCount--;
 
             ResetEnemyCount(instantEnemyNumber);
             yield return new WaitForSeconds(respawnDelayTime);
@@ -77,6 +84,16 @@ public class EnemySpawn : MonoBehaviour
         stageNumber += 1;
         yield return new WaitForSeconds(3f);
         StageStart();
+    }
+
+    void RespawnBoss()
+    {
+        int random = Random.Range(0, bossPrefab.Length);
+        GameObject instantBoss = Instantiate(bossPrefab[random], bossPrefab[random].transform.position, bossPrefab[random].transform.rotation);
+        int hp = 50000 * (stageNumber / 10);
+        SetEnemyData(instantBoss, hp, 10);
+        instantBoss.transform.position = this.transform.position;
+        instantBoss.SetActive(true);
     }
 
     GameObject RespawnEnemy(int instantEnemyNumber)
@@ -95,11 +112,11 @@ public class EnemySpawn : MonoBehaviour
 
 
     private int maxHp = 50;
-    private int minHp = 75;
+    private int minHp = 200;
     int SetRandomHp()
     {
         // satge에 따른 가중치 변수들
-        int stageHpWeight = stageNumber * 3;
+        int stageHpWeight = stageNumber * stageNumber * 30;
 
         int enemyMinHp = minHp + stageHpWeight;
         int enemyMaxHp = maxHp + (stageHpWeight * 2);

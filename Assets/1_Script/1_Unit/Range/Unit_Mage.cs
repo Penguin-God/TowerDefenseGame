@@ -119,6 +119,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
                 GreenMageSkill();
                 break;
             case UnitColor.orange:
+                OrangeMageSkill();
                 break;
             case UnitColor.violet:
                 VioletMageSkill(target);
@@ -161,6 +162,20 @@ public class Unit_Mage : RangeUnit, IUnitMana
         damage *= 5;
         yield return new WaitForSeconds(5f);
         damage /= 5;
+        plusMana = 30;
+    }
+
+    void OrangeMageSkill()
+    {
+        StartCoroutine(OrangeMageSkile_Coroutine());
+    }
+
+    IEnumerator OrangeMageSkile_Coroutine()
+    {
+        plusMana = 0;
+        attackDelayTime *= 0.2f;
+        yield return new WaitForSeconds(10f);
+        attackDelayTime *= 5;
         plusMana = 30;
     }
 

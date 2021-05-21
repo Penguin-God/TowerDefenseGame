@@ -56,12 +56,15 @@ public class Enemy : MonoBehaviour
             StartCoroutine(SternCoroutine(sternTime));
         }
     }
-
+    [SerializeField]
+    private GameObject sternEffect;
     IEnumerator SternCoroutine(float sternTime)
     {
+        sternEffect.SetActive(true);
         parentRigidbody.velocity = Vector3.zero;
         yield return new WaitForSeconds(sternTime);
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
+        sternEffect.SetActive(false);
     }
 
     //public bool isSlow;

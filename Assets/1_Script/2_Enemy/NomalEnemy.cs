@@ -26,7 +26,7 @@ public class NomalEnemy : Enemy
 
     void OnEnable() // 리스폰 시 상태 초기화
     {
-        enemySpawn.currentEnemyList.Add(this.gameObject);
+        if(enemySpawn != null) enemySpawn.currentEnemyList.Add(this.gameObject);
         isDead = false;
         SetNextPoint();
     }

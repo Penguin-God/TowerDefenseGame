@@ -13737,12 +13737,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f140c9481b92b47857b6ed486478e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageNumber: 0
   enemyPrefab:
   - {fileID: 7536897027791641786, guid: e21cc0963d2c4024898f7722d625d4d1, type: 3}
   - {fileID: 1112035910525321252, guid: 0dd01a4b13c4f814e912ef56d2b101da, type: 3}
   - {fileID: 8692699531293559831, guid: d6c26b3b2591c7449a51f8159e19b16c, type: 3}
   - {fileID: 2694985329993272948, guid: 37b090600465f664e8e8c60fb1464079, type: 3}
-  stageNumber: 1
+  bossPrefab:
+  - {fileID: 8562564955079998468, guid: 7961e06705c36a345ad09d290103d505, type: 3}
+  - {fileID: 3278321861748690573, guid: efaa9741092343b419579a0a097130ab, type: 3}
+  - {fileID: 5842820972880275658, guid: 5ef447b1added104da16e48d12c5aa5f, type: 3}
+  - {fileID: 2502174115710485866, guid: 330311eb1efb3f94da01389d197fec10, type: 3}
   currentEnemyList: []
 --- !u!4 &763533794
 Transform:

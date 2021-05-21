@@ -501,6 +501,8 @@ public class CombineSoldier : MonoBehaviour
             Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+            SoldierChoose(4,4,0,0);
+            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
         }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.ButtonDown();
@@ -535,12 +537,12 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
-        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(0).gameObject.SetActive(false);
-        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(1).gameObject.SetActive(false);
-        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(2).gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(3).gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(3).gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(3).gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(3).gameObject.SetActive(false);
-        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(4).gameObject.SetActive(false);
-        UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(5).gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(4).GetChild(3).gameObject.SetActive(false);
+        UIManager.instance.ExPlanationTexts.transform.GetChild(5).GetChild(3).gameObject.SetActive(false);
     }
 
 

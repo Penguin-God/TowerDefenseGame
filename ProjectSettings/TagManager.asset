@@ -33,6 +33,10 @@ TagManager:
   - Tower
   - World
   - Boss
+  - WhiteSwordman
+  - WhiteArcher
+  - WhiteSpearman
+  - WhiteMage
   layers:
   - Default
   - TransparentFX

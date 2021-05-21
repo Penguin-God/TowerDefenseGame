@@ -65,8 +65,6 @@ public class GameManager : MonoBehaviour
         Food = 1;
         UIManager.instance.UpdateGoldText(Gold);
         UIManager.instance.UpdateFoodText(Food);
-        timer = 0.0f;
-        waitingTime = 2;
     }
 
 
@@ -89,12 +87,7 @@ public class GameManager : MonoBehaviour
             Restart();
         }
 
-        timer += Time.deltaTime;
 
-        if (timer > waitingTime)
-        {
-            timer = 0;
-        }
 
     }
 

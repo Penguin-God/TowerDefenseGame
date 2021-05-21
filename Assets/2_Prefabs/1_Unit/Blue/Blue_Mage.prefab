@@ -572,7 +572,7 @@ MonoBehaviour:
   speed: 3
   attackDelayTime: 2
   attackRange: 40
-  damage: 300
+  damage: 2500
   bossDamage: 0
   stopDistanc: 0
   isAttack: 0
@@ -5368,8 +5368,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a725757752d9fff42929c9087684b1ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveEffect: 0
   teamSoldier: {fileID: 4845129776438365971}
   hitTime: 0.5
+  speed: 0
+  explosionObject: {fileID: 0}
+  meteors: []
 --- !u!1 &7721362943555022686
 GameObject:
   m_ObjectHideFlags: 0

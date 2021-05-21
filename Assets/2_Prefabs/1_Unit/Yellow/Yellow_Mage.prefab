@@ -490,7 +490,7 @@ MonoBehaviour:
   speed: 3
   attackDelayTime: 2
   attackRange: 40
-  damage: 300
+  damage: 2500
   bossDamage: 0
   stopDistanc: 0
   isAttack: 0
@@ -505,12 +505,13 @@ MonoBehaviour:
   energyBall: {fileID: 273563849445638938, guid: 3e725d90e48ec1a4d85acdb8f545afca,
     type: 3}
   energyBallTransform: {fileID: 4865064562382619674}
+  plusMana: 30
   mageEffectObject: {fileID: 87561992}
+  posionEffect: {fileID: 0}
   canvasRectTransform: {fileID: 0}
   manaSlider: {fileID: 0}
   maxMana: 100
   currentMana: 0
-  posionEffect: {fileID: 0}
 --- !u!1 &2332124369005625246
 GameObject:
   m_ObjectHideFlags: 0

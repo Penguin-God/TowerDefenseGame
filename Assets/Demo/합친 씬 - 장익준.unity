@@ -669,6 +669,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 671914661}
     m_Modifications:
+    - target: {fileID: 1512194081, guid: 65f973f2a240e1a4eaffb32b7f9ec1fb, type: 3}
+      propertyPath: soldiersTags
+      value: 
+      objectReference: {fileID: 1076024916}
+    - target: {fileID: 1512194081, guid: 65f973f2a240e1a4eaffb32b7f9ec1fb, type: 3}
+      propertyPath: createDefenser
+      value: 
+      objectReference: {fileID: 2069937148}
     - target: {fileID: 6600727425209638613, guid: 65f973f2a240e1a4eaffb32b7f9ec1fb,
         type: 3}
       propertyPath: m_RootOrder
@@ -19157,6 +19165,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 671914661}
     m_Modifications:
+    - target: {fileID: 1317218160, guid: 995c2df7b490e5140abbdf5c3a814e13, type: 3}
+      propertyPath: soldiersTags
+      value: 
+      objectReference: {fileID: 1076024916}
+    - target: {fileID: 1317218160, guid: 995c2df7b490e5140abbdf5c3a814e13, type: 3}
+      propertyPath: createDefenser
+      value: 
+      objectReference: {fileID: 2069937148}
     - target: {fileID: 5342952073431734853, guid: 995c2df7b490e5140abbdf5c3a814e13,
         type: 3}
       propertyPath: m_Name
@@ -30812,6 +30828,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 671914661}
     m_Modifications:
+    - target: {fileID: 741916916, guid: 61f763558dff7dc4bbc8eea819606300, type: 3}
+      propertyPath: soldiersTags
+      value: 
+      objectReference: {fileID: 1076024916}
+    - target: {fileID: 741916916, guid: 61f763558dff7dc4bbc8eea819606300, type: 3}
+      propertyPath: createDefenser
+      value: 
+      objectReference: {fileID: 2069937148}
     - target: {fileID: 7099954146525974204, guid: 61f763558dff7dc4bbc8eea819606300,
         type: 3}
       propertyPath: m_Name
@@ -36014,6 +36038,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 671914661}
     m_Modifications:
+    - target: {fileID: 428025413, guid: 3d754308acb1d5141b0b26a0d743439b, type: 3}
+      propertyPath: soldiersTags
+      value: 
+      objectReference: {fileID: 1076024916}
+    - target: {fileID: 428025413, guid: 3d754308acb1d5141b0b26a0d743439b, type: 3}
+      propertyPath: createDefenser
+      value: 
+      objectReference: {fileID: 2069937148}
     - target: {fileID: 5715507580820987079, guid: 3d754308acb1d5141b0b26a0d743439b,
         type: 3}
       propertyPath: m_Name

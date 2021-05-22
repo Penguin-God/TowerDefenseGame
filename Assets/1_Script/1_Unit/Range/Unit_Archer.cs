@@ -136,7 +136,7 @@ public class Unit_Archer : RangeUnit
             case UnitColor.red:
                 break;
             case UnitColor.blue:
-                enemy.EnemySlow(30);
+                enemy.EnemySlow(30, 2);
                 break;
             case UnitColor.yellow:
                 Add_PassiveGold(1, 2);

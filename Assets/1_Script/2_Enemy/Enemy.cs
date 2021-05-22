@@ -68,7 +68,7 @@ public class Enemy : MonoBehaviour
     }
 
     //public bool isSlow;
-    public void EnemySlow(float slowPercent)
+    public void EnemySlow(float slowPercent, float slowTIme)
     {
         if (this.gameObject.CompareTag("Tower") || isDead) return;
         // 만약 더 높은 슬로우가 공격을 받으면큰 슬로우 적용후 return
@@ -78,6 +78,7 @@ public class Enemy : MonoBehaviour
             parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
             ChangeColor(new Color32(50, 175, 222, 1));
         }
+        if(slowTIme > 0) Invoke("ExitSlow", slowTIme); // slowTIme이 0보다 작으면 무한 슬로우를 의미
         //isSlow = true;
         //nomalEnemy.speed -= nomalEnemy.speed * (slowPercent / 100);
         //parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;

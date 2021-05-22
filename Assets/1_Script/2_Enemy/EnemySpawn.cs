@@ -42,7 +42,7 @@ public class EnemySpawn : MonoBehaviour
 
     void StageStart()
     {
-        if (stageNumber == 50 && currentEnemyList.Count == 0)
+        if (stageNumber == 51)
         {
             GameManager.instance.Clear();
             return;
@@ -90,7 +90,7 @@ public class EnemySpawn : MonoBehaviour
     {
         int random = Random.Range(0, bossPrefab.Length);
         GameObject instantBoss = Instantiate(bossPrefab[random], bossPrefab[random].transform.position, bossPrefab[random].transform.rotation);
-        int hp = 50000 * (stageNumber / 10);
+        int hp = 10000 * (stageNumber / 10);
         SetEnemyData(instantBoss, hp, 10);
         instantBoss.transform.position = this.transform.position;
         instantBoss.SetActive(true);

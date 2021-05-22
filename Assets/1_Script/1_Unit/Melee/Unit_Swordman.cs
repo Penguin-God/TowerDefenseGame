@@ -65,7 +65,7 @@ public class Unit_Swordman : MeeleUnit
             case UnitColor.red:
                 break;
             case UnitColor.blue:
-                enemy.EnemySlow(10);
+                enemy.EnemySlow(10, 1);
                 break;
             case UnitColor.yellow:
                 break;

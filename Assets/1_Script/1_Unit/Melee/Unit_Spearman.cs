@@ -97,7 +97,7 @@ public class Unit_Spearman : MeeleUnit
             case UnitColor.red:
                 break;
             case UnitColor.blue:
-                enemy.EnemySlow(50);
+                enemy.EnemySlow(50, 3);
                 break;
             case UnitColor.yellow:
                 Add_PassiveGold(5, 2);

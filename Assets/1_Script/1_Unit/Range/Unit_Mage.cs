@@ -263,7 +263,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
                 case UnitColor.red:
                     break;
                 case UnitColor.blue:
-                    enemy.EnemySlow(50);
+                    enemy.EnemySlow(50, -1f); // 나가기 전까진 무한 슬로우
                     break;
                 case UnitColor.yellow:
                     break;

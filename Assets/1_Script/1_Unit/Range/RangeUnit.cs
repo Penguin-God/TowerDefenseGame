@@ -38,7 +38,7 @@ public class RangeUnit : TeamSoldier
 
     private void FixedUpdate()
     {
-        rayHit = Physics.BoxCast(transform.parent.position + Vector3.up, transform.lossyScale,
+        rayHit = Physics.BoxCast(transform.parent.position + Vector3.up, transform.lossyScale * 2,
             transform.parent.forward, out rayHitObject, transform.parent.rotation, attackRange, layerMask);
         if (GetComponent<IUnitMana>() != null) GetComponent<IUnitMana>().SetCanvas();
     }
@@ -53,6 +53,6 @@ public class RangeUnit : TeamSoldier
 
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.parent.position + Vector3.up, transform.parent.forward * attackRange);
-        Gizmos.DrawWireCube(transform.parent.position + Vector3.up + transform.parent.forward * attackRange, transform.lossyScale);
+        Gizmos.DrawWireCube(transform.parent.position + Vector3.up + transform.parent.forward * attackRange, transform.lossyScale * 2);
     }
 }

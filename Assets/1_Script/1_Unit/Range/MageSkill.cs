@@ -45,7 +45,7 @@ public class MageSkill : MonoBehaviour
                 Destroy(gameObject, 1);
                 break;
             case TeamSoldier.UnitColor.blue:
-                enemy.EnemySlow(99);
+                enemy.EnemySlow(99, 5);
                 break;
             case TeamSoldier.UnitColor.yellow:
                 break;
@@ -73,7 +73,7 @@ public class MageSkill : MonoBehaviour
     IEnumerator MeteorWait()
     {
         yield return new WaitUntil(() => teamSoldier != null);
-        Vector3 enemyPosition = teamSoldier.target.position + teamSoldier.target.GetComponent<NomalEnemy>().dir.normalized * teamSoldier.target.GetComponent<NomalEnemy>().speed * 2;
+        Vector3 enemyPosition = teamSoldier.target.position + teamSoldier.target.GetComponent<NomalEnemy>().dir.normalized * teamSoldier.target.GetComponent<NomalEnemy>().speed;
         StartCoroutine(ShotMeteor(enemyPosition));
     }
 

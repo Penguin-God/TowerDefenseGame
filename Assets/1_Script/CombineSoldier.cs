@@ -660,6 +660,7 @@ public class CombineSoldier : MonoBehaviour
         SoldierChoose(0, 3, 0, 0);
         createdefenser.DrawSoldier(Colornumber, Soldiernumber);
         UIManager.instance.UpdateSwordmanCount();
+        UIManager.instance.CreateButtonAuido.Play();
         // createdefenser.CreateSoldier(Colornumber, Soldiernumber);
         // createdefenser.ExpenditureGold();
     }

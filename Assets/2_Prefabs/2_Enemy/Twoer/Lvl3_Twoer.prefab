@@ -485,3 +485,6 @@ MonoBehaviour:
   mat: {fileID: 0}
   sternEffect: {fileID: 0}
   enemySpawn: {fileID: 0}
+  towerLevel: 3
+  rewardGold: 150
+  rewardFood: 150

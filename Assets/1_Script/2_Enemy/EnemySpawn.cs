@@ -64,7 +64,7 @@ public class EnemySpawn : MonoBehaviour
         int instantEnemyNumber = Random.Range(0, enemyPrefab.Length);
         int hp = SetRandomHp();
         float speed = SetRandomSeepd();
-        float respawnDelayTime = SetRandom_RespawnDelayTime();
+        //float respawnDelayTime = SetRandom_RespawnDelayTime();
         
         while (stageRespawnEenemyCount > 0)
         {
@@ -78,11 +78,11 @@ public class EnemySpawn : MonoBehaviour
             stageRespawnEenemyCount--;
 
             ResetEnemyCount(instantEnemyNumber);
-            yield return new WaitForSeconds(respawnDelayTime);
+            yield return new WaitForSeconds(2f);
         }
 
         stageNumber += 1;
-        yield return new WaitForSeconds(3f);
+        yield return new WaitForSeconds(10f);
         StageStart();
     }
 

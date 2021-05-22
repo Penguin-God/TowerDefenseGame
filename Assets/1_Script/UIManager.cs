@@ -205,6 +205,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateArcherCount()
     {
+        SoldiersTag.RedArcherTag();
         SoldiersTag.BlueArcherTag();
         SoldiersTag.YellowArcherTag();
         SoldiersTag.GreenArcherTag();

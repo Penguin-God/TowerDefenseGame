@@ -47,7 +47,7 @@ public class Unit_Swordman : MeeleUnit
         animator.SetTrigger("isSword");
         yield return new WaitForSeconds(0.8f);
         trail.SetActive(true);
-        audioSource.Play();
+        if(audioSource != null) audioSource.Play();
         yield return new WaitForSeconds(0.3f);
         if (target != null && (enemyDistance < attackRange || target.gameObject.CompareTag("Tower")))
         {

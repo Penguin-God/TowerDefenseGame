@@ -26,7 +26,6 @@ public class Unit_Archer : RangeUnit
             case UnitColor.yellow:
                 break;
             case UnitColor.green:
-                specialAttackPercent *= 2;
                 break;
             case UnitColor.orange:
                 damage *= 2;
@@ -50,7 +49,7 @@ public class Unit_Archer : RangeUnit
         trail.SetActive(false);
         GameObject instantArrow = CreateBullte(arrow, arrowTransform);
         ShotBullet(instantArrow, 1.5f, 50f, target);
-        audioSource.Play();
+        if (audioSource != null) audioSource.Play();
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
         nav.angularSpeed = 1000;
@@ -79,7 +78,7 @@ public class Unit_Archer : RangeUnit
             instantArrow.GetComponent<SphereCollider>().radius = 5f; // 적이 잘 안맞아서 반지름 늘림
             ShotBullet(instantArrow, 3f, 50f, targetArray[i]);
         }
-        audioSource.Play();
+        if (audioSource != null) audioSource.Play();
 
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);

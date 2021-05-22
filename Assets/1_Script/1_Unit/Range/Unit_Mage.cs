@@ -71,7 +71,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
             GameObject instantEnergyBall = CreateBullte(energyBall, energyBallTransform);
             ShotBullet(instantEnergyBall, 2f, 50f, target);
         }
-        audioSource.Play();
+        if (audioSource != null) audioSource.Play();
 
         yield return new WaitForSeconds(0.5f);
         magicLight.SetActive(false);

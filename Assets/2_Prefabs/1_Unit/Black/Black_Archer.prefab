@@ -481,7 +481,7 @@ MonoBehaviour:
   speed: 6
   attackDelayTime: 2
   attackRange: 50
-  damage: 24
+  damage: 300
   bossDamage: 0
   stopDistanc: 0
   isAttack: 0

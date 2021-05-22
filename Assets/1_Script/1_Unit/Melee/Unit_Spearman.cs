@@ -50,7 +50,7 @@ public class Unit_Spearman : MeeleUnit
         animator.SetTrigger("isAttack");
         yield return new WaitForSeconds(0.55f);
         trail.SetActive(true);
-        audioSource.Play();
+        if (audioSource != null) audioSource.Play();
         yield return new WaitForSeconds(0.3f);
         HitMeeleAttack();
         yield return new WaitForSeconds(0.3f);

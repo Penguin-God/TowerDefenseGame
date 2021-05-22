@@ -6,6 +6,8 @@ using UnityEngine;
 public class EnemySpawn : MonoBehaviour
 {
     public int stageNumber;
+    public List<GameObject> currentEnemyList; // 생성된 enemy의 게임 오브젝트가 담겨있음
+
     private int respawnEnemyCount;
 
     public GameObject[] enemyPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
@@ -15,8 +17,6 @@ public class EnemySpawn : MonoBehaviour
     GameObject[,] enemyArrays;
     int[] countArray;
     Vector3 poolPosition = new Vector3(500, 500, 500);
-
-    public List<GameObject> currentEnemyList; // 생성된 enemy의 게임 오브젝트가 담겨있음
 
     private void Start()
     {
@@ -90,7 +90,8 @@ public class EnemySpawn : MonoBehaviour
     {
         int random = Random.Range(0, bossPrefab.Length);
         GameObject instantBoss = Instantiate(bossPrefab[random], bossPrefab[random].transform.position, bossPrefab[random].transform.rotation);
-        int hp = 10000 * (stageNumber / 10);
+        currentEnemyList.Add(instantBoss);
+        int hp = 10000 * (stageNumber / 10); // boss hp 정함
         SetEnemyData(instantBoss, hp, 10);
         instantBoss.transform.position = this.transform.position;
         instantBoss.SetActive(true);
@@ -148,5 +149,16 @@ public class EnemySpawn : MonoBehaviour
     void ResetEnemyCount(int enemyNumber) // 풀링 배열 index의 range가 오버되면 0으로 초기화
     {
         if (countArray[enemyNumber] > poolEnemyCount - 1) countArray[enemyNumber] = 0;
+    }
+
+    public GameObject[] towers;
+    public int currentTowerLevel;
+    public void SetNextTower(int towerLevel)
+    {
+        if (towerLevel >= towers.Length) return;
+
+        towers[towerLevel - 1].SetActive(false);
+        towers[towerLevel].SetActive(true);
+        currentTowerLevel++;
     }
 }

@@ -116,7 +116,7 @@ public class TeamSoldier : MonoBehaviour
         if (rayHit)
         {
             //Debug.Log(rayHitObject);
-            if (rayHitObject.transform.gameObject == target.parent.gameObject || rayHitObject.transform.gameObject.CompareTag("Tower"))
+            if (rayHitObject.transform.gameObject.CompareTag("Tower") || rayHitObject.transform.gameObject == target.parent.gameObject)
                 return true;
             else return false;
         }
@@ -197,6 +197,9 @@ public class TeamSoldier : MonoBehaviour
         {
             if(target != null)
             {
+                if (target.GetComponent<EnemyTower>().isDead)
+                    target = enemySpawn.towers[enemySpawn.currentTowerLevel].transform;
+
                 enemyDistance = Vector3.Distance(this.transform.position, target.position);
                 nav.SetDestination(towerHit.point);
                 if ((towerEnter || enemyIsForward) && !isAttackDelayTime) 

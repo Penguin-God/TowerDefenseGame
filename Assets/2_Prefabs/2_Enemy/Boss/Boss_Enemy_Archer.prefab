@@ -246,7 +246,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8562564954006570699}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -284,7 +284,7 @@ GameObject:
   - component: {fileID: 8562564954158459774}
   - component: {fileID: 8562564954158459760}
   - component: {fileID: 8562564954158459761}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -359,7 +359,7 @@ GameObject:
   - component: {fileID: 8562564954777520600}
   - component: {fileID: 8562564954777520601}
   - component: {fileID: 8562564954777520614}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -456,7 +456,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8562564954953806588}
   - component: {fileID: 8562564954953806591}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hp Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -545,7 +545,7 @@ GameObject:
   - component: {fileID: 8562564955012751563}
   - component: {fileID: 8562564955012751565}
   - component: {fileID: 8562564955012751562}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -618,9 +618,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8562564955079998471}
   - component: {fileID: 323870643809022560}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boss_Enemy_Archer
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

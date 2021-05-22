@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 5842820972256502400}
   m_Layer: 8
   m_Name: TB_Soldier_Spearman_Red
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -365,7 +365,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5842820971301454820}
   - component: {fileID: 5842820971301454821}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hp Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -455,7 +455,7 @@ GameObject:
   - component: {fileID: 5842820971368560814}
   - component: {fileID: 5842820971368560813}
   - component: {fileID: 5842820971368560812}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -553,7 +553,7 @@ GameObject:
   - component: {fileID: 5842820971689102535}
   - component: {fileID: 5842820971689102529}
   - component: {fileID: 5842820971689102528}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -627,7 +627,7 @@ GameObject:
   - component: {fileID: 5842820971819664713}
   - component: {fileID: 5842820971819664715}
   - component: {fileID: 5842820971819664714}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -699,7 +699,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5842820971946362912}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -736,7 +736,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5842820972880275508}
   - component: {fileID: 5842820972880275659}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boss_Enemy_Spearman
   m_TagString: Boss
   m_Icon: {fileID: 0}

@@ -206,7 +206,7 @@ GameObject:
   - component: {fileID: 3278321861381858375}
   - component: {fileID: 3278321861381858369}
   - component: {fileID: 3278321861381858374}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -279,9 +279,9 @@ GameObject:
   m_Component:
   - component: {fileID: 3278321861748690575}
   - component: {fileID: 3278321861748690572}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boss_Enemy_Mage
-  m_TagString: Untagged
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -327,7 +327,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3278321861800022941}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -364,7 +364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3278321862198212853}
   - component: {fileID: 3278321862198212852}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hp Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -454,7 +454,7 @@ GameObject:
   - component: {fileID: 3278321863134646161}
   - component: {fileID: 3278321863134646166}
   - component: {fileID: 3278321863134646167}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -552,7 +552,7 @@ GameObject:
   - component: {fileID: 3278321863135610305}
   - component: {fileID: 3278321863135610307}
   - component: {fileID: 3278321863135610304}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2502174114364794264}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -47,7 +47,7 @@ GameObject:
   - component: {fileID: 2502174114666068601}
   - component: {fileID: 2502174114666068603}
   - component: {fileID: 2502174114666068600}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -120,7 +120,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2502174114925224129}
   - component: {fileID: 2502174114925224128}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Hp Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 2502174115584452943}
   - component: {fileID: 2502174115584452940}
   - component: {fileID: 2502174115584452941}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -307,7 +307,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2502174115710485868}
   - component: {fileID: 2502174115710485869}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Boss_Enemy_Sworaman
   m_TagString: Boss
   m_Icon: {fileID: 0}
@@ -357,7 +357,7 @@ GameObject:
   - component: {fileID: 2502174116033805581}
   - component: {fileID: 2502174116033805583}
   - component: {fileID: 2502174116033805580}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -114,10 +114,11 @@ public class EnemySpawn : MonoBehaviour
 
     private int maxHp = 50;
     private int minHp = 200;
+    public int enemyHpWeight;
     int SetRandomHp()
     {
         // satge에 따른 가중치 변수들
-        int stageHpWeight = stageNumber * stageNumber * 30;
+        int stageHpWeight = stageNumber * stageNumber * enemyHpWeight;
 
         int enemyMinHp = minHp + stageHpWeight;
         int enemyMaxHp = maxHp + (stageHpWeight * 2);

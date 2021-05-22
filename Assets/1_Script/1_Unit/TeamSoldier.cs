@@ -25,12 +25,14 @@ public class TeamSoldier : MonoBehaviour
     protected NavMeshAgent nav;
     public Transform target;
     protected NomalEnemy nomalEnemy;
+    protected AudioSource audioSource;
 
     protected EnemySpawn enemySpawn;
 
     private float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
     private void Start()
     {
+        audioSource = GetComponentInChildren<AudioSource>();
         bossDamage = damage;
         SetPassive();
         chaseRange = 150f;

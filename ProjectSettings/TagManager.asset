@@ -37,6 +37,10 @@ TagManager:
   - WhiteArcher
   - WhiteSpearman
   - WhiteMage
+  - BlackSwordman
+  - BlackArcher
+  - BlackSpearman
+  - BlackMage
   layers:
   - Default
   - TransparentFX

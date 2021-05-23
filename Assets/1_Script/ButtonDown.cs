@@ -5,6 +5,7 @@ using UnityEngine;
 public class ButtonDown : MonoBehaviour
 {
     public GameObject BackGround;
+    public AudioSource XButtonAudio;
 
     public GameObject BlackTowerUi;
     public GameObject WhiteTowerUi;
@@ -79,10 +80,14 @@ public class ButtonDown : MonoBehaviour
     public GameObject BluePlusGreen;
     public GameObject YellowPlusOrange;
 
+    public GameObject BlackSoldiersCombineButtons;
+
 
     public void AllButtonDown()
     {
+        XButtonAudio.Play();
         BackGround.gameObject.SetActive(false);
+        BlackSoldiersCombineButtons.gameObject.SetActive(false);
 
         BlackTowerUi.gameObject.SetActive(false);
         WhiteTowerUi.gameObject.SetActive(false);

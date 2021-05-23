@@ -5,6 +5,7 @@ public class StoryMode : MonoBehaviour
     public SoldiersTags soldiersTags;
     public CombineSoldier combineSoldier;
     public CreateDefenser createDefenser;
+    public AudioSource EnterStoryModeAudio;
 
     public void TranslateUnit(string unit_Tag)
     {
@@ -20,6 +21,7 @@ public class StoryMode : MonoBehaviour
 
     public void EnterStoryMode()
     {
+        EnterStoryModeAudio.Play();
         if(Camera.main.gameObject.transform.position.x == 500)
         {
             Camera.main.gameObject.transform.position = new Vector3(0, 100, -30);

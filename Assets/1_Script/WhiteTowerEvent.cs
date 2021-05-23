@@ -5,12 +5,14 @@ using UnityEngine;
 public class WhiteTowerEvent : MonoBehaviour
 {
     public CreateDefenser createDefenser;
+    public BlackTowerEvent blackTowerEvent;
 
     private void OnMouseDown()
     {
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(true);
         UIManager.instance.BlackTowerButton.gameObject.SetActive(false);
+        blackTowerEvent.BlackUiAudio.Play();
     }
 
     public void ClickWhiteSwordmanButton()
@@ -21,6 +23,8 @@ public class WhiteTowerEvent : MonoBehaviour
             GameManager.instance.Food -= 1;
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
         }
+
+        blackTowerEvent.BlackUiAudio.Play();
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(false);
     }
@@ -33,6 +37,8 @@ public class WhiteTowerEvent : MonoBehaviour
             GameManager.instance.Food -= 2;
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
         }
+
+        blackTowerEvent.BlackUiAudio.Play();
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(false);
     }
@@ -45,6 +51,8 @@ public class WhiteTowerEvent : MonoBehaviour
             GameManager.instance.Food -= 5;
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
         }
+
+        blackTowerEvent.BlackUiAudio.Play();
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(false);
     }
@@ -57,6 +65,8 @@ public class WhiteTowerEvent : MonoBehaviour
             GameManager.instance.Food -= 10;
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
         }
+
+        blackTowerEvent.BlackUiAudio.Play();
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(false);
     }

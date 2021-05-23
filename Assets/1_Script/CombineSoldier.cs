@@ -32,6 +32,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
+        UIManager.instance.CreateButtonAuido.Play();
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
     }
@@ -57,6 +58,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
@@ -82,6 +84,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
@@ -104,6 +107,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
@@ -130,6 +134,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
@@ -155,6 +160,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(2).gameObject.SetActive(false);
@@ -178,6 +184,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(0).gameObject.SetActive(false);
@@ -206,6 +213,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(1).gameObject.SetActive(false);
@@ -232,6 +240,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(2).gameObject.SetActive(false);
@@ -255,6 +264,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(0).gameObject.SetActive(false);
@@ -282,6 +292,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(1).gameObject.SetActive(false);
@@ -309,6 +320,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(2).gameObject.SetActive(false);
@@ -332,6 +344,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(4).GetChild(0).gameObject.SetActive(false);
@@ -359,6 +372,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(4).GetChild(1).gameObject.SetActive(false);
@@ -386,6 +400,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(4).GetChild(2).gameObject.SetActive(false);
@@ -408,6 +423,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(5).GetChild(0).gameObject.SetActive(false);
@@ -435,6 +451,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(5).GetChild(1).gameObject.SetActive(false);
@@ -462,6 +479,7 @@ public class CombineSoldier : MonoBehaviour
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(5).GetChild(2).gameObject.SetActive(false);
@@ -486,6 +504,7 @@ public class CombineSoldier : MonoBehaviour
         }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
@@ -506,6 +525,7 @@ public class CombineSoldier : MonoBehaviour
         }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(0).gameObject.SetActive(false);
@@ -527,6 +547,7 @@ public class CombineSoldier : MonoBehaviour
         }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.ButtonDown();
+        UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.BackGround.gameObject.SetActive(false);
         UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);

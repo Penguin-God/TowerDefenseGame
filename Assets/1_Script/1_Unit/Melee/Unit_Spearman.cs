@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Unit_Spearman : MeeleUnit
 {
+    [Header("창병 변수")]
     private Animator animator;
     public GameObject trail;
     public GameObject spear;
@@ -50,7 +51,7 @@ public class Unit_Spearman : MeeleUnit
         animator.SetTrigger("isAttack");
         yield return new WaitForSeconds(0.55f);
         trail.SetActive(true);
-        if (audioSource != null) audioSource.Play();
+        //if (audioSource != null) audioSource.Play();
         yield return new WaitForSeconds(0.3f);
         HitMeeleAttack();
         yield return new WaitForSeconds(0.3f);

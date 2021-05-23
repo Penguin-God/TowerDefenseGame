@@ -25,14 +25,12 @@ public class TeamSoldier : MonoBehaviour
     protected NavMeshAgent nav;
     public Transform target;
     protected NomalEnemy nomalEnemy;
-    protected AudioSource audioSource;
-
     protected EnemySpawn enemySpawn;
 
     private float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
     private void Start()
     {
-        audioSource = GetComponentInChildren<AudioSource>();
+        unitAudioSource = GetComponent<AudioSource>();
         bossDamage = damage;
         SetPassive();
         chaseRange = 150f;
@@ -220,7 +218,8 @@ public class TeamSoldier : MonoBehaviour
 
     public void Unit_WorldChange()
     {
-        StartCoroutine(Unit_WorldChange_Coroutine());
+        StopCoroutine("Unit_WorldChange_Coroutine");
+        StartCoroutine("Unit_WorldChange_Coroutine");
     }
 
     IEnumerator Unit_WorldChange_Coroutine() // 월드 바꾸는 함수
@@ -288,6 +287,10 @@ public class TeamSoldier : MonoBehaviour
         }
     }
 
+    [Header("오디오 변수")] // 헤더 정리하려고 아래에 둠
+    protected AudioSource unitAudioSource;
+    private AudioClip normalAttackClip;
+    
     private void OnMouseDown()
     {
         GameManager.instance.Chilk();

@@ -91,24 +91,25 @@ public class Enemy : MonoBehaviour
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
     }
 
-    public void EnemyPoisonAttack(int poisonPercent, int poisonCount, float poisonDelay)
+    public void EnemyPoisonAttack(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
     {
         if (isDead) return;
 
-        StartCoroutine(PoisonAttack(poisonPercent, poisonCount, poisonDelay));
+        StartCoroutine(PoisonAttack(poisonPercent, poisonCount, poisonDelay, maxDamage));
     }
 
-    IEnumerator PoisonAttack(int poisonPercent, int poisonCount, float poisonDelay)
+    IEnumerator PoisonAttack(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
     {
         if (!this.gameObject.CompareTag("Tower")) 
             ChangeColor(new Color32(141, 49, 231, 255));
+
         int poisonDamage = Mathf.RoundToInt(currentHp * poisonPercent / 100);
         for (int i = 0; i < poisonCount; i++)
         {
             yield return new WaitForSeconds(poisonDelay);
             if (poisonDamage <= 0) poisonDamage = 1; // 독 최소뎀
             //if (currentHp > 1) OnDamage(poisonDamage); // 독으로는 못죽임
-            if (poisonDamage >= 500) poisonDamage = 2000; // 독 최대뎀
+            if (poisonDamage >= maxDamage) poisonDamage = maxDamage; // 독 최대뎀
             OnDamage(poisonDamage);
         }
         if (!this.gameObject.CompareTag("Tower"))

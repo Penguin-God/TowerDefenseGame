@@ -14428,7 +14428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f140c9481b92b47857b6ed486478e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageNumber: 1
+  stageNumber: 40
   currentEnemyList: []
   enemyPrefab:
   - {fileID: 7536897027791641786, guid: e21cc0963d2c4024898f7722d625d4d1, type: 3}
@@ -15258,16 +15258,6 @@ PrefabInstance:
       propertyPath: spear
       value: 
       objectReference: {fileID: 1338288019}
-    - target: {fileID: 103836908467553592, guid: 4710141b2362e174b9ea566b6267949d,
-        type: 3}
-      propertyPath: dontMoveGameObject
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 103836908467553592, guid: 4710141b2362e174b9ea566b6267949d,
-        type: 3}
-      propertyPath: spearCreatePosition
-      value: 
-      objectReference: {fileID: 1338288018}
     - target: {fileID: 4661351935083864776, guid: 4710141b2362e174b9ea566b6267949d,
         type: 3}
       propertyPath: m_RootOrder
@@ -29064,12 +29054,6 @@ PrefabInstance:
 --- !u!4 &1338288017 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4071167457294870229, guid: 980c2ab93cdef544cb411595d34befb7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1338288016}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1338288018 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1296668591133233463, guid: 980c2ab93cdef544cb411595d34befb7,
     type: 3}
   m_PrefabInstance: {fileID: 1338288016}
   m_PrefabAsset: {fileID: 0}

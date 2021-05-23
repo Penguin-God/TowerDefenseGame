@@ -9,6 +9,7 @@ public class StoryMode : MonoBehaviour
     public void TranslateUnit(string unit_Tag)
     {
         GameObject moveUnit = GameObject.FindGameObjectWithTag(unit_Tag);
+        Debug.Log(moveUnit);
         if (moveUnit != null)
         {
             moveUnit.GetComponent<TeamSoldier>().Unit_WorldChange();

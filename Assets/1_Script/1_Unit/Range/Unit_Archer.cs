@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class Unit_Archer : RangeUnit
 {
+    [Header("아처 변수")]
     private GameObject trail;
     public GameObject arrow;
     public Transform arrowTransform;
@@ -49,7 +50,7 @@ public class Unit_Archer : RangeUnit
         trail.SetActive(false);
         GameObject instantArrow = CreateBullte(arrow, arrowTransform);
         ShotBullet(instantArrow, 1.5f, 50f, target);
-        if (audioSource != null) audioSource.Play();
+        //if (audioSource != null) audioSource.Play();
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
         nav.angularSpeed = 1000;
@@ -78,7 +79,7 @@ public class Unit_Archer : RangeUnit
             instantArrow.GetComponent<SphereCollider>().radius = 5f; // 적이 잘 안맞아서 반지름 늘림
             ShotBullet(instantArrow, 3f, 50f, targetArray[i]);
         }
-        if (audioSource != null) audioSource.Play();
+        //if (audioSource != null) audioSource.Play();
 
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);

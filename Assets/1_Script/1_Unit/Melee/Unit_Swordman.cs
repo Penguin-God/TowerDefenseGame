@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Unit_Swordman : MeeleUnit
 {
+    [Header("기사 변수")]
     private Animator animator;
     public GameObject trail;
 
@@ -47,7 +48,7 @@ public class Unit_Swordman : MeeleUnit
         animator.SetTrigger("isSword");
         yield return new WaitForSeconds(0.8f);
         trail.SetActive(true);
-        if(audioSource != null) audioSource.Play();
+        //if(audioSource != null) audioSource.Play();
         yield return new WaitForSeconds(0.3f);
         if (target != null && (enemyDistance < attackRange || target.gameObject.CompareTag("Tower")))
         {
@@ -75,7 +76,7 @@ public class Unit_Swordman : MeeleUnit
             case UnitColor.orange:
                 break;
             case UnitColor.violet:
-                enemy.EnemyPoisonAttack(3, 5, 0.3f);
+                enemy.EnemyPoisonAttack(3, 5, 0.3f, 10);
                 break;
         }
     }

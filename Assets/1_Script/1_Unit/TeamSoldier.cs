@@ -287,11 +287,13 @@ public class TeamSoldier : MonoBehaviour
         return enemy;
     }
 
+    public AudioClip getGoldClip;
     protected void Add_PassiveGold(int percent, int addGold)
     {
         int random = Random.Range(0, 100);
         if(random < percent)
         {
+            unitAudioSource.PlayOneShot(getGoldClip, 1f);
             GameManager.instance.Gold += addGold;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
         }

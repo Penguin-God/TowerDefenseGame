@@ -10,6 +10,9 @@ public class Unit_Spearman : MeeleUnit
     public GameObject skileSpaer; // 발사할 때 생성하는 창
     public Transform spearCreatePosition;
     public GameObject dontMoveGameObject;
+
+    [SerializeField]
+    private AudioClip skillAudioClip; 
     private Animator animator;
 
     private void Awake()
@@ -82,7 +85,7 @@ public class Unit_Spearman : MeeleUnit
         instantSpear.transform.SetParent(dontMoveGameObject.transform);
         instantSpear.GetComponent<AttackWeapon>().attackUnit = this.gameObject;
         instantSpear.GetComponent<Rigidbody>().velocity = (-1 * transform.forward) * 50;
-
+        unitAudioSource.PlayOneShot(skillAudioClip, 0.15f);
         yield return new WaitForSeconds(0.5f);
         nav.isStopped = false;
         spear.SetActive(true);

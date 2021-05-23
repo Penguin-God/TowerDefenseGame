@@ -208,6 +208,7 @@ MonoBehaviour:
   enemyIsForward: 0
   towerEnter: 0
   enterStoryWorld: 0
+  getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
   arrow: {fileID: 3088359444298159365, guid: 9e514e9df4ef0054e96ba63a50b5df72, type: 3}
   arrowTransform: {fileID: 8715698879809390191}
 --- !u!1 &8715202503755447900

@@ -76,8 +76,20 @@ public class Unit_Swordman : MeeleUnit
             case UnitColor.orange:
                 break;
             case UnitColor.violet:
-                enemy.EnemyPoisonAttack(3, 5, 0.3f, 10);
+                SowrdPoisonAttack(enemy);
                 break;
         }
+    }
+
+    private bool isPoisonAttack = false;
+    void SowrdPoisonAttack(Enemy enemy)
+    {
+        if (isPoisonAttack) return;
+        enemy.EnemyPoisonAttack(2, 5, 0.3f, 10);
+        Invoke("ExitPoisonAttack", 1.5f);
+    }
+    void ExitPoisonAttack()
+    {
+        isPoisonAttack = false;
     }
 }

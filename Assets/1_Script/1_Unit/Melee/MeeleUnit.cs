@@ -40,7 +40,7 @@ public class MeeleUnit : TeamSoldier
         if (enemy != null && (enemyDistance < attackRange || target.gameObject.CompareTag("Tower")))
         {
             enemy.OnDamage(this.damage);
-            if(!enemy.isDead) MeeleUnit_PassiveAttack(enemy);
+            MeeleUnit_PassiveAttack(enemy);
         }
     }
 }

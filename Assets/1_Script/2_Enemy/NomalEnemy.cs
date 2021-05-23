@@ -83,6 +83,8 @@ public class NomalEnemy : Enemy
         hpSlider.value = 0;
         isDead = true;
         this.speed = 0;
+        transform.rotation = Quaternion.identity;
+        ChangeColor(mat.color);
     }
 
     //private TeamSoldier teamSoldier;

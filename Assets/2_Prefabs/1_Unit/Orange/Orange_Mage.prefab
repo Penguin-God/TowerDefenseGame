@@ -14793,12 +14793,14 @@ MonoBehaviour:
   enemyIsForward: 0
   towerEnter: 0
   enterStoryWorld: 0
+  getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
   magicLight: {fileID: 4579925489470502222}
   energyBall: {fileID: 273563849445638938, guid: d264162bda6df8641aa6ee7c5932adb5,
     type: 3}
   energyBallTransform: {fileID: 4579925490580878959}
   plusMana: 30
   mageEffectObject: {fileID: 2015881133077794425}
+  mageSkillCilp: {fileID: 0}
   posionEffect: {fileID: 0}
   canvasRectTransform: {fileID: 0}
   manaSlider: {fileID: 0}

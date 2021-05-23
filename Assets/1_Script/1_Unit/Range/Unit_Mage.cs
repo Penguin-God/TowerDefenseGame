@@ -51,8 +51,14 @@ public class Unit_Mage : RangeUnit, IUnitMana
 
     public override void NormalAttack()
     {
-        if (currentMana < maxMana) StartCoroutine("MageAttack");
-        else MageSpecialAttack();
+        //if (currentMana < maxMana) StartCoroutine("MageAttack");
+        //else MageSpecialAttack();
+        StartCoroutine("MageAttack");
+    }
+
+    public override void SpecialAttack()
+    {
+        MageSpecialAttack();
     }
 
     public int plusMana = 30;
@@ -77,7 +83,8 @@ public class Unit_Mage : RangeUnit, IUnitMana
         yield return new WaitForSeconds(0.5f);
         magicLight.SetActive(false);
         nav.angularSpeed = 1000;
-        
+
+        UpdateTarget();
         isAttack = false;
         base.NormalAttack();
     }
@@ -88,7 +95,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
         isAttackDelayTime = true;
 
         Debug.Log("특별하다!!!!!!");
-        ShowMageSkillEffect(mageEffectObject);
+        //ShowMageSkillEffect(mageEffectObject);
         MageColorSpecialAttack();
         ClearMana();
 
@@ -112,7 +119,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
                 RedMageSkill();
                 break;
             case UnitColor.blue:
-                //BlueMageSkill(30f);
+                BlueMageSkill();
                 break;
             case UnitColor.yellow:
                 YellowMageSkill(2);
@@ -129,10 +136,24 @@ public class Unit_Mage : RangeUnit, IUnitMana
         }
     }
 
+    public AudioClip mageSkillCilp;
+
+    IEnumerator Play_SkillClip(AudioClip playClip, float audioSound, float audioDelay)
+    {
+        yield return new WaitForSeconds(audioDelay);
+        unitAudioSource.PlayOneShot(playClip, audioSound);
+    }
+
     void RedMageSkill() // 메테오 떨어뜨림
     {
         GameObject instantSkillEffect = Instantiate(mageEffectObject, mageEffectObject.transform.position, Quaternion.identity);
         instantSkillEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
+    }
+
+    void BlueMageSkill()
+    {
+        ShowMageSkillEffect(mageEffectObject);
+        StartCoroutine(Play_SkillClip(mageSkillCilp, 3f, 0.1f));
     }
 
     public GameObject posionEffect;
@@ -140,16 +161,20 @@ public class Unit_Mage : RangeUnit, IUnitMana
     {
         GameObject instantPosionEffect = Instantiate(posionEffect, attackTarget.position, posionEffect.transform.rotation);
         instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
+        //StartCoroutine(Play_SkillClip(mageSkillCilp, 7f, 0.3f));
     }
 
     void YellowMageSkill(int addGold) // 골드 증가
     {
+        StartCoroutine(Play_SkillClip(mageSkillCilp, 7f, 0.3f));
+        ShowMageSkillEffect(mageEffectObject);
         GameManager.instance.Gold += addGold;
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
     }
 
     void GreenMageSkill()
     {
+        ShowMageSkillEffect(mageEffectObject);
         StartCoroutine(GreenMageSkile_Coroutine());
     }
     IEnumerator GreenMageSkile_Coroutine()
@@ -169,6 +194,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
 
     void OrangeMageSkill()
     {
+        ShowMageSkillEffect(mageEffectObject);
         StartCoroutine(OrangeMageSkile_Coroutine());
     }
 
@@ -180,36 +206,6 @@ public class Unit_Mage : RangeUnit, IUnitMana
         attackDelayTime *= 5;
         plusMana = 30;
     }
-
-    //void BlueMageSkill(float slowRange)
-    //{
-    //    List<GameObject> slowTargetList = Get_SlowTarget(slowRange);
-    //    if (slowTargetList.Count == 0) return;
-
-    //    for (int i = 0; i < slowTargetList.Count; i++)
-    //    {
-    //        slowTargetList[i].GetComponent<Enemy>().EnemySlow(99);
-    //    }
-    //}
-    //List<GameObject> Get_SlowTarget(float slowRange) // 거리 안에 있는 enemy들을 List로 가져옴
-    //{
-    //    List<GameObject> slowTargetEnemyList = new List<GameObject>();
-    //    foreach (GameObject enemyObject in enemySpawn.currentEnemyList)
-    //    {
-    //        if (enemyObject != null)
-    //        {
-    //            float distanceToEnemy = Vector3.Distance(this.transform.position, enemyObject.transform.position);
-    //            if (distanceToEnemy < slowRange)
-    //            {
-    //                slowTargetEnemyList.Add(enemyObject);
-    //            }
-    //        }
-    //    }
-
-    //    return slowTargetEnemyList;
-    //}
-
-
 
     public RectTransform canvasRectTransform;
     public Slider manaSlider;
@@ -226,6 +222,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
     {
         if (unitColor == UnitColor.black || unitColor == UnitColor.white) return;
         currentMana += addMana;
+        if (currentMana >= maxMana) specialAttackPercent = 100;
         manaSlider.value = currentMana;
     }
 
@@ -233,6 +230,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
     {
         currentMana = 0;
         manaSlider.value = 0;
+        specialAttackPercent = 0;
     }
 
     public override void RangeUnit_PassiveAttack(Enemy enemy)

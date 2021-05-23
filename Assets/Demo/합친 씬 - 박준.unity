@@ -729,6 +729,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: White_Mage
       objectReference: {fileID: 0}
+    - target: {fileID: 7239406541485285465, guid: 65f973f2a240e1a4eaffb32b7f9ec1fb,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65f973f2a240e1a4eaffb32b7f9ec1fb, type: 3}
 --- !u!4 &43962563 stripped
@@ -1246,6 +1251,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &81592014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1498,6 +1504,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &88943066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2542,6 +2549,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &120222429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5212,6 +5220,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 856121791}
     m_Modifications:
+    - target: {fileID: 7454969569672131939, guid: be157ae2f2713564fba73e008821c617,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
     - target: {fileID: 7454969569692840241, guid: be157ae2f2713564fba73e008821c617,
         type: 3}
       propertyPath: m_Name
@@ -6596,6 +6609,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 464004088101323761, guid: 37b7d41650b96c345b2cf8ce48fcf98a,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37b7d41650b96c345b2cf8ce48fcf98a, type: 3}
 --- !u!1 &353062667
@@ -6737,6 +6755,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &354458839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8004,29 +8023,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2759235848976698467, guid: 52b4a853ad8a05c4680f7485653919b1,
         type: 3}
-      propertyPath: maxHp
-      value: 250000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2759235848976698467, guid: 52b4a853ad8a05c4680f7485653919b1,
-        type: 3}
-      propertyPath: currentHp
-      value: 250000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2759235848976698467, guid: 52b4a853ad8a05c4680f7485653919b1,
-        type: 3}
       propertyPath: enemySpawn
       value: 
       objectReference: {fileID: 763533793}
-    - target: {fileID: 2759235848976698467, guid: 52b4a853ad8a05c4680f7485653919b1,
-        type: 3}
-      propertyPath: rewardFood
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2759235848976698467, guid: 52b4a853ad8a05c4680f7485653919b1,
-        type: 3}
-      propertyPath: rewardGold
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 3208882251782419050, guid: 52b4a853ad8a05c4680f7485653919b1,
         type: 3}
       propertyPath: m_RootOrder
@@ -8108,6 +8107,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 151015499}
     m_Modifications:
+    - target: {fileID: 1699467413430769189, guid: 99955310471110444a40f9831802d773,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
     - target: {fileID: 2916168590735878310, guid: 99955310471110444a40f9831802d773,
         type: 3}
       propertyPath: m_Name
@@ -8476,29 +8480,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3737384079402376326, guid: 35afb69e039385242832fb21214d5ab6,
         type: 3}
-      propertyPath: maxHp
-      value: 3000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3737384079402376326, guid: 35afb69e039385242832fb21214d5ab6,
-        type: 3}
-      propertyPath: currentHp
-      value: 3000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3737384079402376326, guid: 35afb69e039385242832fb21214d5ab6,
-        type: 3}
       propertyPath: enemySpawn
       value: 
       objectReference: {fileID: 763533793}
-    - target: {fileID: 3737384079402376326, guid: 35afb69e039385242832fb21214d5ab6,
-        type: 3}
-      propertyPath: rewardFood
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 3737384079402376326, guid: 35afb69e039385242832fb21214d5ab6,
-        type: 3}
-      propertyPath: rewardGold
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35afb69e039385242832fb21214d5ab6, type: 3}
 --- !u!4 &447364447 stripped
@@ -11402,6 +11386,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &618876641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11973,6 +11958,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &660754911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12827,29 +12813,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4099796313275155112, guid: ff4eea62a1bc8d54fafa4cae3c331bd5,
         type: 3}
-      propertyPath: maxHp
-      value: 50000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4099796313275155112, guid: ff4eea62a1bc8d54fafa4cae3c331bd5,
-        type: 3}
-      propertyPath: currentHp
-      value: 50000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4099796313275155112, guid: ff4eea62a1bc8d54fafa4cae3c331bd5,
-        type: 3}
       propertyPath: enemySpawn
       value: 
       objectReference: {fileID: 763533793}
-    - target: {fileID: 4099796313275155112, guid: ff4eea62a1bc8d54fafa4cae3c331bd5,
-        type: 3}
-      propertyPath: rewardFood
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4099796313275155112, guid: ff4eea62a1bc8d54fafa4cae3c331bd5,
-        type: 3}
-      propertyPath: rewardGold
-      value: 40
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff4eea62a1bc8d54fafa4cae3c331bd5, type: 3}
 --- !u!4 &683437522 stripped
@@ -13897,6 +13863,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &745850497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14055,6 +14022,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7754845740141683792, guid: f41e58bb7af97f246b26cc9c43c4131d,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
+    - target: {fileID: 7754845740141683792, guid: f41e58bb7af97f246b26cc9c43c4131d,
+        type: 3}
+      propertyPath: mageSkillCilp
+      value: 
+      objectReference: {fileID: 8300000, guid: ccbb6361d50eb264183f03d797b631c0, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f41e58bb7af97f246b26cc9c43c4131d, type: 3}
 --- !u!1 &753089382
@@ -14579,6 +14556,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &775654220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15125,6 +15103,16 @@ PrefabInstance:
       propertyPath: spear
       value: 
       objectReference: {fileID: 1338288019}
+    - target: {fileID: 103836908467553592, guid: 4710141b2362e174b9ea566b6267949d,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
+    - target: {fileID: 103836908467553592, guid: 4710141b2362e174b9ea566b6267949d,
+        type: 3}
+      propertyPath: skillAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
     - target: {fileID: 4661351935083864776, guid: 4710141b2362e174b9ea566b6267949d,
         type: 3}
       propertyPath: m_RootOrder
@@ -16062,6 +16050,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2584615055267807348, guid: 519a6c03cfb2e6d41b531720a81d4f16,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 519a6c03cfb2e6d41b531720a81d4f16, type: 3}
 --- !u!4 &857429025 stripped
@@ -16298,10 +16291,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
+    - target: {fileID: 296571180890353750, guid: 611e0c79108bf4540898c3ddebd5387c,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
+    - target: {fileID: 296571180890353750, guid: 611e0c79108bf4540898c3ddebd5387c,
+        type: 3}
+      propertyPath: skillAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
     - target: {fileID: 5034237234067150756, guid: 611e0c79108bf4540898c3ddebd5387c,
         type: 3}
       propertyPath: m_Name
       value: Red_Spearman
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034237234067150756, guid: 611e0c79108bf4540898c3ddebd5387c,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5034237234067150758, guid: 611e0c79108bf4540898c3ddebd5387c,
         type: 3}
@@ -19325,6 +19333,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8715698880754834593, guid: 25ba6f77bfcfb844ca9f1efe22174244,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25ba6f77bfcfb844ca9f1efe22174244, type: 3}
 --- !u!1 &1008147465
@@ -21850,6 +21863,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &1112554921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22289,29 +22303,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8142801409504920414, guid: 88b7d606f97f80c41a46bbb93bece698,
         type: 3}
-      propertyPath: maxHp
-      value: 10000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8142801409504920414, guid: 88b7d606f97f80c41a46bbb93bece698,
-        type: 3}
-      propertyPath: currentHp
-      value: 10000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8142801409504920414, guid: 88b7d606f97f80c41a46bbb93bece698,
-        type: 3}
       propertyPath: enemySpawn
       value: 
       objectReference: {fileID: 763533793}
-    - target: {fileID: 8142801409504920414, guid: 88b7d606f97f80c41a46bbb93bece698,
-        type: 3}
-      propertyPath: rewardFood
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8142801409504920414, guid: 88b7d606f97f80c41a46bbb93bece698,
-        type: 3}
-      propertyPath: rewardGold
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88b7d606f97f80c41a46bbb93bece698, type: 3}
 --- !u!1001 &1126132347
@@ -22975,6 +22969,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 151015499}
     m_Modifications:
+    - target: {fileID: 5810574156314726957, guid: bb99327bd4a0bba4788703e0394afae7,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
     - target: {fileID: 5810574156436100720, guid: bb99327bd4a0bba4788703e0394afae7,
         type: 3}
       propertyPath: m_RootOrder
@@ -23262,6 +23261,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Black_Archer
       objectReference: {fileID: 0}
+    - target: {fileID: 1800201801504110413, guid: 3ebdb11443709774b955eea88589b5f2,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ebdb11443709774b955eea88589b5f2, type: 3}
 --- !u!4 &1176470796 stripped
@@ -23618,6 +23622,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &1181125952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24844,6 +24849,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &1231006835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25074,29 +25080,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 467168300982980946, guid: 2532013fb675d4f4a864967affefa91f,
         type: 3}
-      propertyPath: maxHp
-      value: 800000
-      objectReference: {fileID: 0}
-    - target: {fileID: 467168300982980946, guid: 2532013fb675d4f4a864967affefa91f,
-        type: 3}
-      propertyPath: currentHp
-      value: 800000
-      objectReference: {fileID: 0}
-    - target: {fileID: 467168300982980946, guid: 2532013fb675d4f4a864967affefa91f,
-        type: 3}
       propertyPath: enemySpawn
       value: 
       objectReference: {fileID: 763533793}
-    - target: {fileID: 467168300982980946, guid: 2532013fb675d4f4a864967affefa91f,
-        type: 3}
-      propertyPath: rewardFood
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 467168300982980946, guid: 2532013fb675d4f4a864967affefa91f,
-        type: 3}
-      propertyPath: rewardGold
-      value: 60
-      objectReference: {fileID: 0}
     - target: {fileID: 9175838405489211456, guid: 2532013fb675d4f4a864967affefa91f,
         type: 3}
       propertyPath: m_RootOrder
@@ -26916,6 +26902,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &1291137043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27146,6 +27133,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &1297050218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28738,6 +28726,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange_Spearman
       objectReference: {fileID: 0}
+    - target: {fileID: 8772771035943043365, guid: 980c2ab93cdef544cb411595d34befb7,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
+    - target: {fileID: 8772771035943043365, guid: 980c2ab93cdef544cb411595d34befb7,
+        type: 3}
+      propertyPath: skillAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 980c2ab93cdef544cb411595d34befb7, type: 3}
 --- !u!4 &1338288017 stripped
@@ -28819,6 +28817,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8457165952548286822, guid: b99cdff4ee30fa44798e20a945776310,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
+    - target: {fileID: 8457165952548286822, guid: b99cdff4ee30fa44798e20a945776310,
+        type: 3}
+      propertyPath: skillAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b99cdff4ee30fa44798e20a945776310, type: 3}
 --- !u!4 &1341542805 stripped
@@ -29245,6 +29253,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &1363455322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29930,6 +29939,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &1381310773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30226,6 +30236,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 671914661}
     m_Modifications:
+    - target: {fileID: 2542439566451042638, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
+    - target: {fileID: 2542439566451042638, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: skillAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
     - target: {fileID: 7099954146525974204, guid: 61f763558dff7dc4bbc8eea819606300,
         type: 3}
       propertyPath: m_Name
@@ -30729,29 +30749,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4630781631078874117, guid: e7f51a545e255ec469def14353b6ea8d,
         type: 3}
-      propertyPath: maxHp
-      value: 5000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4630781631078874117, guid: e7f51a545e255ec469def14353b6ea8d,
-        type: 3}
-      propertyPath: currentHp
-      value: 5000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4630781631078874117, guid: e7f51a545e255ec469def14353b6ea8d,
-        type: 3}
       propertyPath: enemySpawn
       value: 
       objectReference: {fileID: 763533793}
-    - target: {fileID: 4630781631078874117, guid: e7f51a545e255ec469def14353b6ea8d,
-        type: 3}
-      propertyPath: rewardFood
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4630781631078874117, guid: e7f51a545e255ec469def14353b6ea8d,
-        type: 3}
-      propertyPath: rewardGold
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 5686677952495856018, guid: e7f51a545e255ec469def14353b6ea8d,
         type: 3}
       propertyPath: m_Name
@@ -32818,6 +32818,7 @@ MonoBehaviour:
   soldiersTags: {fileID: 1076024916}
   combineSoldier: {fileID: 1076024915}
   createDefenser: {fileID: 2069937148}
+  EnterStoryModeAudio: {fileID: 0}
 --- !u!1 &1513554588
 GameObject:
   m_ObjectHideFlags: 0
@@ -33068,6 +33069,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &1517225286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33319,6 +33321,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
+    - target: {fileID: 31673267759872258, guid: d42acb3c35a75354181bcb3cba82f4f2,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
     - target: {fileID: 4583945138574837633, guid: d42acb3c35a75354181bcb3cba82f4f2,
         type: 3}
       propertyPath: m_Name
@@ -34398,6 +34405,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 856121791}
     m_Modifications:
+    - target: {fileID: 2075177400942788147, guid: e3e8368fe90d1c648beb49b119b9d686,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
+    - target: {fileID: 2075177400942788147, guid: e3e8368fe90d1c648beb49b119b9d686,
+        type: 3}
+      propertyPath: skillAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
     - target: {fileID: 6704759391202351553, guid: e3e8368fe90d1c648beb49b119b9d686,
         type: 3}
       propertyPath: m_Name
@@ -35356,6 +35373,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5715507580900939925, guid: 3d754308acb1d5141b0b26a0d743439b,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d754308acb1d5141b0b26a0d743439b, type: 3}
 --- !u!4 &1615580407 stripped
@@ -35941,6 +35963,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 491011130}
     m_Modifications:
+    - target: {fileID: 934792852262612338, guid: 1772a47c8d7f3e74baa9fbb660966ee4,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
     - target: {fileID: 934792852350429472, guid: 1772a47c8d7f3e74baa9fbb660966ee4,
         type: 3}
       propertyPath: m_Name
@@ -36064,6 +36091,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &1640251744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36509,6 +36537,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1899256002}
     m_Modifications:
+    - target: {fileID: 4845129776438365971, guid: 8cf4d672d4e5e3848b00ac195b387355,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
+    - target: {fileID: 4845129776438365971, guid: 8cf4d672d4e5e3848b00ac195b387355,
+        type: 3}
+      propertyPath: mageSkillCilp
+      value: 
+      objectReference: {fileID: 8300000, guid: 8b0e44500538f864ca0050a7317f7591, type: 3}
     - target: {fileID: 8993878285500084624, guid: 8cf4d672d4e5e3848b00ac195b387355,
         type: 3}
       propertyPath: m_Name
@@ -37715,6 +37753,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &1701503911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38290,6 +38329,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &1724215275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38572,6 +38612,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &1726173158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38838,6 +38879,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 951531119}
     m_Modifications:
+    - target: {fileID: 2219315760347757371, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
+    - target: {fileID: 2219315760347757371, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: skillAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
     - target: {fileID: 6848851408045497545, guid: 7fad8267bf4321940b7effc164c530d6,
         type: 3}
       propertyPath: m_Name
@@ -39182,6 +39233,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &1747631372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -41943,6 +41995,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &1892303316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42538,6 +42591,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8562050406989548928, guid: 9f5d49bb85a97274591d5a7fd662eea2,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f5d49bb85a97274591d5a7fd662eea2, type: 3}
 --- !u!1001 &1939065591
@@ -44061,6 +44119,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &2009221301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45692,6 +45751,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &2074261708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45844,6 +45904,7 @@ MonoBehaviour:
   ColorArchersButton: {fileID: 1636835530}
   ColorSpearmansButton: {fileID: 1564216738}
   ColorMagesButton: {fileID: 1968381583}
+  UnitManageAudio: {fileID: 0}
 --- !u!114 &2075477808
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47425,6 +47486,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yellow_Spearman
       objectReference: {fileID: 0}
+    - target: {fileID: 5621595234891671096, guid: 9bab28d49d345ab4f89b3bca582381a1,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
+    - target: {fileID: 5621595234891671096, guid: 9bab28d49d345ab4f89b3bca582381a1,
+        type: 3}
+      propertyPath: skillAudioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bab28d49d345ab4f89b3bca582381a1, type: 3}
 --- !u!4 &2125503231 stripped
@@ -47570,6 +47641,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1899256002}
     m_Modifications:
+    - target: {fileID: 3343415014717659953, guid: 2a0805aa1bacd58469d5655b8e173611,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
     - target: {fileID: 3343415014830645091, guid: 2a0805aa1bacd58469d5655b8e173611,
         type: 3}
       propertyPath: m_Name
@@ -47699,6 +47775,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Violet_Mage
       objectReference: {fileID: 0}
+    - target: {fileID: 3475061908579850590, guid: 4d7f63258f1081247abdd23060ca4778,
+        type: 3}
+      propertyPath: getGoldClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d7f63258f1081247abdd23060ca4778, type: 3}
 --- !u!1 &2139635335
@@ -48079,6 +48160,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createDefenser: {fileID: 2069937148}
+  blackTowerEvent: {fileID: 0}
 --- !u!4 &7128559560356019332 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4230660994675174, guid: be0b768028397264d9c378dbd4f93277,
@@ -48204,6 +48286,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   createDefenser: {fileID: 2069937148}
+  BlackUiAudio: {fileID: 0}
+  BlackCombineButtons: {fileID: 0}
+  soldiersTags: {fileID: 0}
 --- !u!4 &8349204739938302789 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4230660994675174, guid: be0b768028397264d9c378dbd4f93277,

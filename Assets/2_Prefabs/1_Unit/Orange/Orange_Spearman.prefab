@@ -717,12 +717,14 @@ MonoBehaviour:
   enemyIsForward: 0
   towerEnter: 0
   enterStoryWorld: 0
+  getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
   trail: {fileID: 6918242552824650690}
   spear: {fileID: 8772745113670710295}
   skileSpaer: {fileID: 4947818212191654679, guid: 6c01966fa0ee0af49931e2893f9b2ae6,
     type: 3}
   spearCreatePosition: {fileID: 1296668591133233463}
   dontMoveGameObject: {fileID: 0}
+  skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
 --- !u!136 &8772771035943043361
 CapsuleCollider:
   m_ObjectHideFlags: 0

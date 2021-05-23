@@ -50,13 +50,13 @@ public class Unit_Archer : RangeUnit
         trail.SetActive(false);
         GameObject instantArrow = CreateBullte(arrow, arrowTransform);
         ShotBullet(instantArrow, 1.5f, 50f, target);
-        //if (audioSource != null) audioSource.Play();
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
         nav.angularSpeed = 1000;
 
         isAttack = false;
         base.NormalAttack();
+        UpdateTarget();
     }
 
     public override void SpecialAttack()
@@ -79,13 +79,14 @@ public class Unit_Archer : RangeUnit
             instantArrow.GetComponent<SphereCollider>().radius = 5f; // 적이 잘 안맞아서 반지름 늘림
             ShotBullet(instantArrow, 3f, 50f, targetArray[i]);
         }
-        //if (audioSource != null) audioSource.Play();
+        unitAudioSource.PlayOneShot(normalAttackClip);
 
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
         nav.angularSpeed = 1000;
         isAttack = false;
         base.NormalAttack();
+        UpdateTarget();
     }
 
     // 첫번째에 targetTransform을 넣고 currentEnemyList에서 targetTransform을 가장 가까운 transform을 count 크기만큼 가지는 array를 return하는 함수

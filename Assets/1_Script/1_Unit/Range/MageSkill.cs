@@ -24,9 +24,10 @@ public class MageSkill : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == 8)
+        if (other.gameObject.layer == 8)
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            Debug.Log(enemy.transform.gameObject);
             MageSkile(enemy);
         }
         else if(other.tag == "World" && moveEffect)

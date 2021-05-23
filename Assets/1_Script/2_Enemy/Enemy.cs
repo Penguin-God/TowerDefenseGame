@@ -14,7 +14,7 @@ public class Enemy : MonoBehaviour
     protected Rigidbody parentRigidbody;
     protected List<MeshRenderer> meshList;
     [SerializeField]
-    private Material mat;
+    protected Material mat;
     private void Start()
     {
         meshList = new List<MeshRenderer>();
@@ -71,14 +71,14 @@ public class Enemy : MonoBehaviour
     public void EnemySlow(float slowPercent, float slowTIme)
     {
         if (this.gameObject.CompareTag("Tower") || isDead) return;
-        // 만약 더 높은 슬로우가 공격을 받으면큰 슬로우 적용후 return
+        // 만약 더 높은 슬로우 공격을 받으면큰 슬로우 적용후 return
         if (nomalEnemy.maxSpeed - nomalEnemy.maxSpeed * (slowPercent / 100) < nomalEnemy.speed)
         {
             nomalEnemy.speed = nomalEnemy.maxSpeed - nomalEnemy.maxSpeed * (slowPercent / 100);
             parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
             ChangeColor(new Color32(50, 175, 222, 1));
         }
-        if(slowTIme > 0) Invoke("ExitSlow", slowTIme); // slowTIme이 0보다 작으면 무한 슬로우를 의미
+        if(slowTIme > 0) Invoke("ExitSlow", slowTIme); // slowTIme이 0보다 작으면 무한 슬로우를 의미 ex) 파란법사 패시브
         //isSlow = true;
         //nomalEnemy.speed -= nomalEnemy.speed * (slowPercent / 100);
         //parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
@@ -93,7 +93,7 @@ public class Enemy : MonoBehaviour
 
     public void EnemyPoisonAttack(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
     {
-        if (isDead) return;
+        if (isDead) return; 
 
         StartCoroutine(PoisonAttack(poisonPercent, poisonCount, poisonDelay, maxDamage));
     }
@@ -103,20 +103,20 @@ public class Enemy : MonoBehaviour
         if (!this.gameObject.CompareTag("Tower")) 
             ChangeColor(new Color32(141, 49, 231, 255));
 
-        int poisonDamage = Mathf.RoundToInt(currentHp * poisonPercent / 100);
+        int poisonDamage = Mathf.RoundToInt(currentHp * poisonPercent / 100); 
         for (int i = 0; i < poisonCount; i++)
         {
             yield return new WaitForSeconds(poisonDelay);
             if (poisonDamage <= 0) poisonDamage = 1; // 독 최소뎀
-            //if (currentHp > 1) OnDamage(poisonDamage); // 독으로는 못죽임
             if (poisonDamage >= maxDamage) poisonDamage = maxDamage; // 독 최대뎀
             OnDamage(poisonDamage);
         }
+
         if (!this.gameObject.CompareTag("Tower"))
             ChangeColor(mat.color);
     }
 
-    void ChangeColor(Color32 colorColor)
+    protected void ChangeColor(Color32 colorColor)
     {
         foreach(MeshRenderer mesh in meshList)
         {

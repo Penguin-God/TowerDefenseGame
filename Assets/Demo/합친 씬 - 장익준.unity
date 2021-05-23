@@ -23480,6 +23480,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange_SwordMan
       objectReference: {fileID: 0}
+    - target: {fileID: 2820413154886425651, guid: f19bbd67bad198e4aa7e2647ffbcf8c9,
+        type: 3}
+      propertyPath: damage
+      value: 60
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f19bbd67bad198e4aa7e2647ffbcf8c9, type: 3}
 --- !u!1 &1130650581
@@ -24004,6 +24009,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 151015499}
     m_Modifications:
+    - target: {fileID: 5810574156314726957, guid: bb99327bd4a0bba4788703e0394afae7,
+        type: 3}
+      propertyPath: damage
+      value: 180
+      objectReference: {fileID: 0}
     - target: {fileID: 5810574156436100720, guid: bb99327bd4a0bba4788703e0394afae7,
         type: 3}
       propertyPath: m_RootOrder

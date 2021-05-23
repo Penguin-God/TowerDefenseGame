@@ -12,8 +12,8 @@ using UnityEngine.UI;
 public class Unit_Mage : RangeUnit, IUnitMana
 {
     [Header("메이지 변수")]
-    private Animator animator;
     public GameObject magicLight;
+    private Animator animator;
 
     public GameObject energyBall;
     public Transform energyBallTransform;

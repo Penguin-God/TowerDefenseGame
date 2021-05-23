@@ -27,10 +27,14 @@ public class TeamSoldier : MonoBehaviour
     protected NomalEnemy nomalEnemy;
     protected EnemySpawn enemySpawn;
 
+    protected AudioSource unitAudioSource;
+    public AudioClip normalAttackClip;
+    public float normalAttakc_AudioDelay;
+
     private float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
     private void Start()
     {
-        unitAudioSource = GetComponent<AudioSource>();
+        unitAudioSource = GetComponentInParent<AudioSource>();
         bossDamage = damage;
         SetPassive();
         chaseRange = 150f;
@@ -71,7 +75,13 @@ public class TeamSoldier : MonoBehaviour
         else
         {
             NormalAttack();
+            Invoke("NormalAttackAudioPlay", normalAttakc_AudioDelay);
         }
+    }
+
+    void NormalAttackAudioPlay()
+    {
+        unitAudioSource.PlayOneShot(normalAttackClip);
     }
     public virtual void NormalAttack()
     {
@@ -286,10 +296,6 @@ public class TeamSoldier : MonoBehaviour
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
         }
     }
-
-    [Header("오디오 변수")] // 헤더 정리하려고 아래에 둠
-    protected AudioSource unitAudioSource;
-    private AudioClip normalAttackClip;
     
     private void OnMouseDown()
     {

@@ -5,12 +5,12 @@ using UnityEngine;
 public class Unit_Spearman : MeeleUnit
 {
     [Header("창병 변수")]
-    private Animator animator;
     public GameObject trail;
     public GameObject spear;
     public GameObject skileSpaer; // 발사할 때 생성하는 창
     public Transform spearCreatePosition;
     public GameObject dontMoveGameObject;
+    private Animator animator;
 
     private void Awake()
     {

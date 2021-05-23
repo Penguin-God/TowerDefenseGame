@@ -6,9 +6,9 @@ using UnityEngine.AI;
 public class Unit_Archer : RangeUnit
 {
     [Header("아처 변수")]
-    private GameObject trail;
     public GameObject arrow;
     public Transform arrowTransform;
+    private GameObject trail;
 
     private void Awake()
     {

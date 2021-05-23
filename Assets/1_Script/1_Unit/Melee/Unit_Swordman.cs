@@ -5,8 +5,8 @@ using UnityEngine;
 public class Unit_Swordman : MeeleUnit
 {
     [Header("기사 변수")]
-    private Animator animator;
     public GameObject trail;
+    private Animator animator;
 
     private void Awake()
     {

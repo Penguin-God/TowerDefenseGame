@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44971025, g: 0.49977946, b: 0.57563627, a: 1}
+  m_IndirectSpecularColor: {r: 0.4497105, g: 0.49977976, b: 0.5756375, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -14518,6 +14518,7 @@ MonoBehaviour:
   - {fileID: 3278321861748690573, guid: efaa9741092343b419579a0a097130ab, type: 3}
   - {fileID: 5842820972880275658, guid: 5ef447b1added104da16e48d12c5aa5f, type: 3}
   - {fileID: 2502174115710485866, guid: 330311eb1efb3f94da01389d197fec10, type: 3}
+  enemyHpWeight: 20
   towers:
   - {fileID: 1502375967}
   - {fileID: 683437523}

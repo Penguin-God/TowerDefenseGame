@@ -201,7 +201,7 @@ public class TeamSoldier : MonoBehaviour
     }
 
     // 타워 때리는 무한반복 코루틴
-    IEnumerator TowerNavCoroutine() 
+    IEnumerator TowerNavCoroutine()
     {
         Physics.Raycast(transform.parent.position + Vector3.up, target.position - transform.position, out RaycastHit towerHit, 100f, layerMask);
         while (true)
@@ -214,7 +214,7 @@ public class TeamSoldier : MonoBehaviour
                 enemyDistance = Vector3.Distance(this.transform.position, target.position);
                 nav.SetDestination(towerHit.point);
                 if ((towerEnter || enemyIsForward) && !isAttackDelayTime) 
-                { 
+                {
                     NormalAttack();
                 }
             }

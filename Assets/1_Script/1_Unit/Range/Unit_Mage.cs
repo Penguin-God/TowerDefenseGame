@@ -84,7 +84,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
         magicLight.SetActive(false);
         nav.angularSpeed = 1000;
 
-        UpdateTarget();
+        //UpdateTarget(); 버그 유발
         isAttack = false;
         base.NormalAttack();
     }

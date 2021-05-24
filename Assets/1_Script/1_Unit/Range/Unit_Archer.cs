@@ -56,7 +56,7 @@ public class Unit_Archer : RangeUnit
 
         isAttack = false;
         base.NormalAttack();
-        UpdateTarget();
+        //UpdateTarget(); 버그 유발
     }
 
     public override void SpecialAttack()

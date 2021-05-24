@@ -56,7 +56,7 @@ public class Unit_Archer : RangeUnit
 
         isAttack = false;
         base.NormalAttack();
-        //UpdateTarget(); 버그 유발
+        if (!target.gameObject.CompareTag("Tower")) UpdateTarget();
     }
 
     public override void SpecialAttack()

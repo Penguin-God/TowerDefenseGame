@@ -84,9 +84,9 @@ public class Unit_Mage : RangeUnit, IUnitMana
         magicLight.SetActive(false);
         nav.angularSpeed = 1000;
 
-        //UpdateTarget(); 버그 유발
         isAttack = false;
         base.NormalAttack();
+        if (!target.gameObject.CompareTag("Tower")) UpdateTarget();
     }
 
     void MageSpecialAttack()
@@ -161,7 +161,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
     {
         GameObject instantPosionEffect = Instantiate(posionEffect, attackTarget.position, posionEffect.transform.rotation);
         instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
-        //StartCoroutine(Play_SkillClip(mageSkillCilp, 7f, 0.3f));
+        StartCoroutine(Play_SkillClip(mageSkillCilp, 1.5f, 0));
     }
 
     void YellowMageSkill(int addGold) // 골드 증가
@@ -176,6 +176,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
     {
         ShowMageSkillEffect(mageEffectObject);
         StartCoroutine(GreenMageSkile_Coroutine());
+        StartCoroutine(Play_SkillClip(mageSkillCilp, 2f, 0));
     }
     IEnumerator GreenMageSkile_Coroutine()
     {
@@ -196,6 +197,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
     {
         ShowMageSkillEffect(mageEffectObject);
         StartCoroutine(OrangeMageSkile_Coroutine());
+        StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0));
     }
 
     IEnumerator OrangeMageSkile_Coroutine()

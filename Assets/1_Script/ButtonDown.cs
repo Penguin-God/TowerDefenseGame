@@ -82,6 +82,8 @@ public class ButtonDown : MonoBehaviour
 
     public GameObject BlackSoldiersCombineButtons;
 
+    public GameObject storyModeEeterButton;
+
 
     public void AllButtonDown()
     {
@@ -166,7 +168,7 @@ public class ButtonDown : MonoBehaviour
         BluePlusGreen.gameObject.SetActive(false);
         YellowPlusOrange.gameObject.SetActive(false);
 
-
+        storyModeEeterButton.SetActive(false);
     }
 
 

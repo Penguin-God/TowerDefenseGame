@@ -6,10 +6,10 @@ public class StoryMode : MonoBehaviour
     public CombineSoldier combineSoldier;
     public CreateDefenser createDefenser;
     public AudioSource EnterStoryModeAudio;
-
-    public void TranslateUnit(string unit_Tag)
+    public string unitTagName = "";
+    public void TranslateUnit()
     {
-        GameObject moveUnit = GameObject.FindGameObjectWithTag(unit_Tag);
+        GameObject moveUnit = GameObject.FindGameObjectWithTag(unitTagName);
         Debug.Log(moveUnit);
         if (moveUnit != null)
         {

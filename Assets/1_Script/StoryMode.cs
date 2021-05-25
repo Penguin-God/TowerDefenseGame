@@ -25,10 +25,12 @@ public class StoryMode : MonoBehaviour
         if(Camera.main.gameObject.transform.position.x == 500)
         {
             Camera.main.gameObject.transform.position = new Vector3(0, 100, -30);
+            GameManager.instance.playerEnterStoryMode = false;
         }
         else
         {
             Camera.main.gameObject.transform.position = new Vector3(500, 100, -30);
+            GameManager.instance.playerEnterStoryMode = true;
         }
         
     }

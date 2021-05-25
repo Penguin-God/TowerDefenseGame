@@ -74,7 +74,9 @@ public class MageSkill : MonoBehaviour
     IEnumerator MeteorWait()
     {
         yield return new WaitUntil(() => teamSoldier != null);
-        Vector3 enemyPosition = teamSoldier.target.position + teamSoldier.target.GetComponent<NomalEnemy>().dir.normalized * teamSoldier.target.GetComponent<NomalEnemy>().speed;
+        yield return new WaitUntil(() => teamSoldier.target != null);
+        Vector3 enemyPosition = teamSoldier.target.position + (teamSoldier.target.gameObject.CompareTag("Tower") ? Vector3.zero : 
+            teamSoldier.target.GetComponent<NomalEnemy>().dir.normalized * teamSoldier.target.GetComponent<NomalEnemy>().speed);
         StartCoroutine(ShotMeteor(enemyPosition));
     }
 

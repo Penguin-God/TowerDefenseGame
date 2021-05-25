@@ -81,7 +81,8 @@ public class TeamSoldier : MonoBehaviour
 
     void NormalAttackAudioPlay()
     {
-        unitAudioSource.PlayOneShot(normalAttackClip);
+        if(enterStoryWorld == GameManager.instance.playerEnterStoryMode)
+            unitAudioSource.PlayOneShot(normalAttackClip);
     }
     public virtual void NormalAttack()
     {
@@ -215,7 +216,7 @@ public class TeamSoldier : MonoBehaviour
                 nav.SetDestination(towerHit.point);
                 if ((towerEnter || enemyIsForward) && !isAttackDelayTime) 
                 {
-                    NormalAttack();
+                    UnitAttack();
                 }
             }
             yield return new WaitForSeconds(0.5f);

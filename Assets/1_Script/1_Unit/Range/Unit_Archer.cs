@@ -79,7 +79,8 @@ public class Unit_Archer : RangeUnit
             instantArrow.GetComponent<SphereCollider>().radius = 5f; // 적이 잘 안맞아서 반지름 늘림
             ShotBullet(instantArrow, 3f, 50f, targetArray[i]);
         }
-        unitAudioSource.PlayOneShot(normalAttackClip);
+        if (enterStoryWorld == GameManager.instance.playerEnterStoryMode)
+            unitAudioSource.PlayOneShot(normalAttackClip);
 
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);

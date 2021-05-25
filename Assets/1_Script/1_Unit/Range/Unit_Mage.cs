@@ -71,6 +71,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
         animator.SetTrigger("isAttack");
         yield return new WaitForSeconds(0.7f);
         AddMana(plusMana);
+        if (currentMana >= maxMana) specialAttackPercent = 100; // 이번 공격 때 마나 채워지면 다음 공격은 스킬
         magicLight.SetActive(true);
 
         if (target != null && Vector3.Distance(target.position, transform.position) < 150f)
@@ -78,7 +79,6 @@ public class Unit_Mage : RangeUnit, IUnitMana
             GameObject instantEnergyBall = CreateBullte(energyBall, energyBallTransform);
             ShotBullet(instantEnergyBall, 2f, 50f, target);
         }
-        //if (audioSource != null) audioSource.Play();
 
         yield return new WaitForSeconds(0.5f);
         magicLight.SetActive(false);
@@ -141,12 +141,14 @@ public class Unit_Mage : RangeUnit, IUnitMana
     IEnumerator Play_SkillClip(AudioClip playClip, float audioSound, float audioDelay)
     {
         yield return new WaitForSeconds(audioDelay);
-        unitAudioSource.PlayOneShot(playClip, audioSound);
+        if (enterStoryWorld == GameManager.instance.playerEnterStoryMode)
+            unitAudioSource.PlayOneShot(playClip, audioSound);
     }
 
     void RedMageSkill() // 메테오 떨어뜨림
     {
-        GameObject instantSkillEffect = Instantiate(mageEffectObject, mageEffectObject.transform.position, Quaternion.identity);
+        Vector3 meteorPosition = transform.position + Vector3.up * 60;
+        GameObject instantSkillEffect = Instantiate(mageEffectObject, meteorPosition, Quaternion.identity);
         instantSkillEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
     }
 
@@ -224,7 +226,6 @@ public class Unit_Mage : RangeUnit, IUnitMana
     {
         if (unitColor == UnitColor.black || unitColor == UnitColor.white) return;
         currentMana += addMana;
-        if (currentMana >= maxMana) specialAttackPercent = 100;
         manaSlider.value = currentMana;
     }
 

@@ -31566,9 +31566,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1513012276}
   - component: {fileID: 1513012277}
+  - component: {fileID: 1513012278}
   m_Layer: 0
   m_Name: 'Story World '
-  m_TagString: Untagged
+  m_TagString: World
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 4294967295
@@ -31611,6 +31612,19 @@ MonoBehaviour:
   createDefenser: {fileID: 2069937148}
   EnterStoryModeAudio: {fileID: 717411405}
   unitTagName: 
+--- !u!65 &1513012278
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1513012275}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 120, y: 1, z: 80}
+  m_Center: {x: 0, y: 15, z: 0}
 --- !u!1001 &1513620194
 PrefabInstance:
   m_ObjectHideFlags: 0

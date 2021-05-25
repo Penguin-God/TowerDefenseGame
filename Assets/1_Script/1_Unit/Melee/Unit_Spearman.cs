@@ -85,7 +85,8 @@ public class Unit_Spearman : MeeleUnit
         instantSpear.transform.SetParent(dontMoveGameObject.transform);
         instantSpear.GetComponent<AttackWeapon>().attackUnit = this.gameObject;
         instantSpear.GetComponent<Rigidbody>().velocity = (-1 * transform.forward) * 50;
-        unitAudioSource.PlayOneShot(skillAudioClip, 0.15f);
+        if (enterStoryWorld == GameManager.instance.playerEnterStoryMode)
+            unitAudioSource.PlayOneShot(skillAudioClip, 0.15f);
         yield return new WaitForSeconds(0.5f);
         nav.isStopped = false;
         spear.SetActive(true);

@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public float timer;
     public int waitingTime;
 
+    public bool playerEnterStoryMode; // 박준 코드
     // public GameObject[] Soldiers;
 
 

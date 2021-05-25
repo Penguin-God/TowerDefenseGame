@@ -32,7 +32,7 @@ public class BlackTowerEvent : MonoBehaviour
 
     public void ClickBlackSwordmanButton()
     {
-        if (GameManager.instance.Gold >= 30)
+        if (GameManager.instance.Gold >= 5)
         {
             Randomnumber = Random.Range(0, 2); // 50%
             if (Randomnumber == 0)
@@ -46,7 +46,7 @@ public class BlackTowerEvent : MonoBehaviour
                 UIManager.instance.FailText.gameObject.SetActive(true);
                 Invoke("FailTextDown", 1f);
             }
-            GameManager.instance.Gold -= 30;
+            GameManager.instance.Gold -= 5;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
             
 
@@ -60,7 +60,7 @@ public class BlackTowerEvent : MonoBehaviour
 
     public void ClickBlackArcherButton()
     {
-        if (GameManager.instance.Gold >= 40)
+        if (GameManager.instance.Gold >= 10)
         {
             Randomnumber = Random.Range(0, 4); // 25%
             if (Randomnumber == 0)
@@ -76,7 +76,7 @@ public class BlackTowerEvent : MonoBehaviour
             }
 
             BlackUiAudio.Play();
-            GameManager.instance.Gold -= 40;
+            GameManager.instance.Gold -= 10;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
         }
@@ -88,7 +88,7 @@ public class BlackTowerEvent : MonoBehaviour
 
     public void ClickBlackSpearmanButton()
     {
-        if(GameManager.instance.Gold >= 50)
+        if(GameManager.instance.Gold >= 15)
         {
             Randomnumber = Random.Range(0, 10); // 10%
             if (Randomnumber == 0)
@@ -104,7 +104,7 @@ public class BlackTowerEvent : MonoBehaviour
             }
 
             BlackUiAudio.Play();
-            GameManager.instance.Gold -= 50;
+            GameManager.instance.Gold -= 15;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
         }
@@ -116,7 +116,7 @@ public class BlackTowerEvent : MonoBehaviour
 
     public void ClickBlackMageButton()
     {
-        if(GameManager.instance.Gold >= 60)
+        if(GameManager.instance.Gold >= 20)
         {
             Randomnumber = Random.Range(0, 25); // 4%
             if (Randomnumber == 0)
@@ -130,7 +130,7 @@ public class BlackTowerEvent : MonoBehaviour
                 UIManager.instance.FailText.gameObject.SetActive(true);
                 Invoke("FailTextDown", 1f);
             }
-            GameManager.instance.Gold -= 60;
+            GameManager.instance.Gold -= 20;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
         }
 

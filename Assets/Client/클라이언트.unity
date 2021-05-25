@@ -7340,13 +7340,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f140c9481b92b47857b6ed486478e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stageNumber: 1
+  currentEnemyList: []
   enemyPrefab:
   - {fileID: 7536897027791641786, guid: e21cc0963d2c4024898f7722d625d4d1, type: 3}
   - {fileID: 1112035910525321252, guid: 0dd01a4b13c4f814e912ef56d2b101da, type: 3}
   - {fileID: 8692699531293559831, guid: d6c26b3b2591c7449a51f8159e19b16c, type: 3}
   - {fileID: 2694985329993272948, guid: 37b090600465f664e8e8c60fb1464079, type: 3}
-  stageNumber: 1
-  currentEnemyList: []
+  bossPrefab: []
+  enemyHpWeight: 0
+  towers: []
+  currentTowerLevel: 0
 --- !u!4 &1256343148
 Transform:
   m_ObjectHideFlags: 0
@@ -10913,7 +10917,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1896975456
 RectTransform:
   m_ObjectHideFlags: 0

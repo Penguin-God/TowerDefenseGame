@@ -79,12 +79,12 @@ public class GameManager : MonoBehaviour
         }
         if (isGameover && Input.anyKeyDown)
         {
-            Restart();
+            ReTurnClient();
         }
 
         if (isClear && Input.anyKeyDown)
         {
-            Restart();
+            ReTurnClient();
         }
 
 
@@ -124,19 +124,25 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public void Restart()
+    public void ReTurnClient()
     {
         Time.timeScale = 1;
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene("클라이언트");
+    }
+
+    public void Reset()
+    {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    
-
-    
 
 
 
- 
+
+
+
+
 
 
 

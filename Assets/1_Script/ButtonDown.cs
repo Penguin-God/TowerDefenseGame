@@ -168,7 +168,7 @@ public class ButtonDown : MonoBehaviour
         BluePlusGreen.gameObject.SetActive(false);
         YellowPlusOrange.gameObject.SetActive(false);
 
-        storyModeEeterButton.SetActive(false);
+        //storyModeEeterButton.SetActive(false);
     }
 
 

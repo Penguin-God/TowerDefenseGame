@@ -16,7 +16,7 @@ public class UnitManageButton : MonoBehaviour
     public AudioSource UnitManageAudio;
 
     public StoryMode storyMode; // 스토리 모드용 변수
-    public GameObject storyModeEnterButton;
+    //public GameObject storyModeEnterButton;
 
 
     public void FirstChilk()
@@ -81,7 +81,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "RedSwordman";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikBlueSwordmanButton()
@@ -95,7 +95,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "BlueSwordman";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikYellowSwordmanButton()
@@ -109,7 +109,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "YellowSwordman";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikGreenSwordmanButton()
@@ -122,7 +122,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "GreenSwordman";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikOrangeSwordmanButton()
@@ -135,7 +135,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "OrangeSwordman";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikVioletSwordmanButton()
@@ -148,7 +148,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "VioletSwordman";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikRedArcherButton()  // 아처 6개 버튼
@@ -161,7 +161,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "RedArcher";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikBlueArcherButton()
@@ -174,7 +174,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "BlueArcher";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikYellowArcherButton()
@@ -187,7 +187,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "YellowArcher";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikGreenArcherButton()
@@ -200,7 +200,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "GreenArcher";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikOrangeArcherButton()
@@ -213,7 +213,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "OrangeArcher";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikVioletArcherButton()
@@ -226,7 +226,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "VioletArcher";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikRedSpearmanButton()  // 창병 6개 버튼
@@ -239,7 +239,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "RedSpearman";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikBlueSpearmanButton()
@@ -252,7 +252,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "BLueSpearman";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikYellowSpearmanButton()
@@ -265,7 +265,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "YellowSpearman";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikGreenSpearmanButton()
@@ -278,7 +278,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "GreenSpearman";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikOrangeSpearmanButton()
@@ -291,7 +291,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "OrangeSpearman";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikVioletSpearmanButton()
@@ -304,7 +304,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "VioletSpearman";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikRedMageButton()  // 마법사 6개 버튼
@@ -317,7 +317,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "RedMage";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikBlueMageButton()
@@ -330,7 +330,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "BlueMage";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikYellowMageButton()
@@ -343,7 +343,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "YellowMage";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikGreenMageButton()
@@ -356,7 +356,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "GreenMage";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikOrangeMageButton()
@@ -369,7 +369,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "OrangeMage";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
     public void ChlikVioletMageButton()
@@ -382,7 +382,7 @@ public class UnitManageButton : MonoBehaviour
         //UnitManagementButton.gameObject.SetActive(true);
 
         storyMode.unitTagName = "VioletMage";
-        storyModeEnterButton.SetActive(true);
+        //storyModeEnterButton.SetActive(true);
     }
 
 }

@@ -2,37 +2,51 @@
 
 public class StoryMode : MonoBehaviour
 {
-    public SoldiersTags soldiersTags;
-    public CombineSoldier combineSoldier;
-    public CreateDefenser createDefenser;
+    //public SoldiersTags soldiersTags;
+    //public CombineSoldier combineSoldier;
+    //public CreateDefenser createDefenser;
+    [SerializeField]
+    private GameObject unitStoryModeEnterButton;
+    [SerializeField]
+    private GameObject unitBackFiledButton;
+    
     public AudioSource EnterStoryModeAudio;
     public string unitTagName = "";
+
     public void TranslateUnit()
     {
-        GameObject moveUnit = GameObject.FindGameObjectWithTag(unitTagName);
-        Debug.Log(moveUnit);
-        if (moveUnit != null)
-        {
-            moveUnit.GetComponent<TeamSoldier>().Unit_WorldChange();
-        }
+        GameObject[] moveUnits = GameObject.FindGameObjectsWithTag(unitTagName);
+        //Debug.Log(moveUnit);
+        if (moveUnits.Length == 0) return;
 
-        //UIManager.instance.ButtonDown();
+        for(int i = 0; i < moveUnits.Length; i++)
+        {
+            TeamSoldier teamSoldier = moveUnits[i].GetComponent<TeamSoldier>();
+            if (teamSoldier.enterStoryWorld == GameManager.instance.playerEnterStoryMode)
+            {
+                teamSoldier.Unit_WorldChange();
+                break;
+            }
+        }
     }
 
     public void EnterStoryMode()
     {
         EnterStoryModeAudio.Play();
-        if(Camera.main.gameObject.transform.position.x == 500)
-        {
-            Camera.main.gameObject.transform.position = new Vector3(0, 100, -30);
-            GameManager.instance.playerEnterStoryMode = false;
-        }
-        else
+        if(!GameManager.instance.playerEnterStoryMode)
         {
             Camera.main.gameObject.transform.position = new Vector3(500, 100, -30);
             GameManager.instance.playerEnterStoryMode = true;
+            unitStoryModeEnterButton.SetActive(false);
+            unitBackFiledButton.SetActive(true);
         }
-        
+        else
+        {
+            Camera.main.gameObject.transform.position = new Vector3(0, 100, -30);
+            GameManager.instance.playerEnterStoryMode = false;
+            unitStoryModeEnterButton.SetActive(true);
+            unitBackFiledButton.SetActive(false);
+        }
     }
 
 

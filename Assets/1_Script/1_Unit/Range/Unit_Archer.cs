@@ -87,7 +87,7 @@ public class Unit_Archer : RangeUnit
         nav.angularSpeed = 1000;
         isAttack = false;
         base.NormalAttack();
-        UpdateTarget();
+        if (!target.gameObject.CompareTag("Tower")) UpdateTarget();
     }
 
     // 첫번째에 targetTransform을 넣고 currentEnemyList에서 targetTransform을 가장 가까운 transform을 count 크기만큼 가지는 array를 return하는 함수
@@ -109,7 +109,7 @@ public class Unit_Archer : RangeUnit
 
         for (int i = 1; i < count; i++) // 위에서 array에 targetTransform을 넣었으니 i가 1부타 시작
         {
-            if(enemyList.Count != 0)
+            if(enemyList.Count != 0 && !target.gameObject.CompareTag("Tower"))
             {
                 foreach (GameObject enemyObject in enemyList)
                 {
@@ -124,8 +124,11 @@ public class Unit_Archer : RangeUnit
                     }
                 }
                 shortDistance = 150f;
-                targetArray[i] = targetObject.transform;
-                enemyList.Remove(targetObject);
+                if (targetObject != null)
+                {
+                    targetArray[i] = targetObject.transform;
+                    enemyList.Remove(targetObject);
+                }
             }
             else targetArray[i] = targetTransform;
         }

@@ -16,7 +16,6 @@ public class StoryMode : MonoBehaviour
     public void TranslateUnit()
     {
         GameObject[] moveUnits = GameObject.FindGameObjectsWithTag(unitTagName);
-        //Debug.Log(moveUnit);
         if (moveUnits.Length == 0) return;
 
         for(int i = 0; i < moveUnits.Length; i++)
@@ -25,6 +24,7 @@ public class StoryMode : MonoBehaviour
             if (teamSoldier.enterStoryWorld == GameManager.instance.playerEnterStoryMode)
             {
                 teamSoldier.Unit_WorldChange();
+                //Debug.Log(moveUnit);
                 break;
             }
         }

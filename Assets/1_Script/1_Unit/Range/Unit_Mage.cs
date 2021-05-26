@@ -256,6 +256,9 @@ public class Unit_Mage : RangeUnit, IUnitMana
         }
     }
 
+
+    // 충돌 관련 패시브
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 8)
@@ -329,6 +332,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
 
         if (other.gameObject.layer == 9)
         {
+            //Debug.Log("Unit ㅃㅃ");
             TeamSoldier otherTeamSoldier = other.gameObject.GetComponent<TeamSoldier>();
             switch (unitColor)
             {

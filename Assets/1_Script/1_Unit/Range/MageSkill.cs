@@ -27,7 +27,7 @@ public class MageSkill : MonoBehaviour
         if (other.gameObject.layer == 8)
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            Debug.Log(enemy.transform.gameObject);
+            //Debug.Log(enemy.transform.gameObject);
             MageSkile(enemy);
         }
         else if(other.tag == "World" && moveEffect)

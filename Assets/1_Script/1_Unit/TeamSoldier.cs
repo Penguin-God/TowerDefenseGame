@@ -236,13 +236,16 @@ public class TeamSoldier : MonoBehaviour
     IEnumerator Unit_WorldChange_Coroutine() // 월드 바꾸는 함수
     {
         yield return new WaitUntil(() => !isAttack);
-        nav.isStopped = false;
-        transform.parent.gameObject.SetActive(false);
+        //nav.isStopped = false;
+        //transform.parent.gameObject.SetActive(false);
+        nav.enabled = false;
+
         if (!enterStoryWorld)
         {
             transform.parent.position = SetRandomPosition(460, 540, -20, -30, true);
             enterStoryWorld = true;
-            transform.parent.gameObject.SetActive(true);
+            //transform.parent.gameObject.SetActive(true);
+            nav.enabled = true;
             StopCoroutine("NavCoroutine");
             target = GameObject.FindGameObjectWithTag("Tower").transform;
             StartCoroutine("TowerNavCoroutine");
@@ -251,7 +254,8 @@ public class TeamSoldier : MonoBehaviour
         {
             transform.parent.position = SetRandomPosition(20, -20, 10, -10, false);
             enterStoryWorld = false;
-            transform.parent.gameObject.SetActive(true);
+            //transform.parent.gameObject.SetActive(true);
+            nav.enabled = true;
             StopCoroutine("TowerNavCoroutine");
             UpdateTarget();
             StartCoroutine("NavCoroutine");

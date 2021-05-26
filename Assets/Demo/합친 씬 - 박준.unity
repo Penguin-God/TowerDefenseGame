@@ -1297,7 +1297,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &81592014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1552,7 +1551,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &88943066
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2559,7 +2557,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &120222429
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6379,7 +6376,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &354458839
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11001,7 +10997,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &618876641
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11574,7 +11569,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &660754911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13726,7 +13720,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &745850497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14281,7 +14274,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &775654220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20655,7 +20647,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &1112554921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -22407,7 +22398,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &1181125952
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23787,7 +23777,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &1231006835
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25669,7 +25658,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &1291137043
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25902,7 +25890,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &1297050218
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28073,7 +28060,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &1363455322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28620,7 +28606,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &1381310773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31706,7 +31691,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &1517225286
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32036,6 +32020,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
+    - target: {fileID: 31673267759872258, guid: d42acb3c35a75354181bcb3cba82f4f2,
+        type: 3}
+      propertyPath: mageSkillCilp
+      value: 
+      objectReference: {fileID: 8300000, guid: e6f235e1a0f4c504bbb5a76c786d86b6, type: 3}
     - target: {fileID: 4583945138574837633, guid: d42acb3c35a75354181bcb3cba82f4f2,
         type: 3}
       propertyPath: m_Name
@@ -34625,7 +34614,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &1640251744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36072,7 +36060,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &1701503911
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36520,7 +36507,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &1724215275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36805,7 +36791,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &1726173158
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37345,7 +37330,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &1747631372
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39984,7 +39968,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &1892303316
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42106,7 +42089,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &2009221301
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43706,7 +43688,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &2074261708
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43861,7 +43842,6 @@ MonoBehaviour:
   ColorMagesButton: {fileID: 1968381583}
   UnitManageAudio: {fileID: 1336704018}
   storyMode: {fileID: 1513012277}
-  storyModeEnterButton: {fileID: 1457806353}
 --- !u!114 &2075477808
 MonoBehaviour:
   m_ObjectHideFlags: 0

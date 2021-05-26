@@ -8,9 +8,12 @@ public class MageSkill : MonoBehaviour
     public bool moveEffect;
     public TeamSoldier teamSoldier;
     public float hitTime; // 콜라이더가 켜지는 등 공격 타임
+
+    //AudioSource skillAudioSourec;
     private void Awake()
     {
         sphereCollider = GetComponent<SphereCollider>();
+        //skillAudioSourec = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
@@ -43,7 +46,7 @@ public class MageSkill : MonoBehaviour
             case TeamSoldier.UnitColor.red:
                 enemy.OnDamage(3000);
                 enemy.EnemyStern(100, 5);
-                Destroy(gameObject, 1);
+                Destroy(gameObject, 3);
                 break;
             case TeamSoldier.UnitColor.blue:
                 enemy.EnemySlow(99, 5);
@@ -89,12 +92,13 @@ public class MageSkill : MonoBehaviour
     }
 
     public GameObject[] meteors;
-    void MeteotExplosion()
+    void MeteotExplosion() // 메테오 폭발
     {
         foreach (GameObject meteor in meteors)
             meteor.SetActive(false);
         //this.gameObject.SetActive(false);
         explosionObject.GetComponent<MageSkill>().teamSoldier = this.teamSoldier;
         explosionObject.SetActive(true);
+        explosionObject.GetComponent<AudioSource>().Play();
     }
 }

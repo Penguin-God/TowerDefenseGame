@@ -86,7 +86,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
 
         isAttack = false;
         base.NormalAttack();
-        if (!target.gameObject.CompareTag("Tower")) UpdateTarget();
+        if (enemySpawn.currentEnemyList.Count != 0 && !target.gameObject.CompareTag("Tower")) UpdateTarget();
     }
 
     void MageSpecialAttack()
@@ -150,6 +150,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
         Vector3 meteorPosition = transform.position + Vector3.up * 60;
         GameObject instantSkillEffect = Instantiate(mageEffectObject, meteorPosition, Quaternion.identity);
         instantSkillEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
+        StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f));
     }
 
     void BlueMageSkill()

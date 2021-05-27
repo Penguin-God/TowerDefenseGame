@@ -22,7 +22,7 @@ public class EnemyTower : Enemy
 
         isDead = true;
         GetTowerReword();
-        enemySpawn.SetNextTower(towerLevel);
+        enemySpawn.RespawnNextTower(towerLevel, 2f); // 다음 타워 소환
     }
 
     void GetTowerReword()

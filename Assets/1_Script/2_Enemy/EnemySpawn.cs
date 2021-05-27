@@ -140,26 +140,34 @@ public class EnemySpawn : MonoBehaviour
         return speed;
     }
 
-    private float maxRespawnDelayTime = 1f;
-    private float minRespawnDelayTime = 4f;
-    float SetRandom_RespawnDelayTime()
-    {
-        float delayRime = Random.Range(minRespawnDelayTime, maxRespawnDelayTime);
-        return delayRime;
-    }
+    //private float maxRespawnDelayTime = 1f;
+    //private float minRespawnDelayTime = 4f;
+    //float SetRandom_RespawnDelayTime()
+    //{
+    //    float delayRime = Random.Range(minRespawnDelayTime, maxRespawnDelayTime);
+    //    return delayRime;
+    //}
 
     void ResetEnemyCount(int enemyNumber) // 풀링 배열 index의 range가 오버되면 0으로 초기화
     {
         if (countArray[enemyNumber] > poolEnemyCount - 1) countArray[enemyNumber] = 0;
     }
 
+
+    // 타워 코드
     public GameObject[] towers;
     public int currentTowerLevel;
-    public void SetNextTower(int towerLevel)
+
+    public void RespawnNextTower(int towerLevel, float delayTime)
     {
         if (towerLevel >= towers.Length) return;
+        StartCoroutine(SetNexTwoer_Coroutine(towerLevel, delayTime));
+    }
 
+    IEnumerator SetNexTwoer_Coroutine(int towerLevel, float delayTime)
+    {
         towers[towerLevel - 1].SetActive(false);
+        yield return new WaitForSeconds(delayTime);
         towers[towerLevel].SetActive(true);
         currentTowerLevel++;
     }

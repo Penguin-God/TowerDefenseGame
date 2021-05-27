@@ -44,7 +44,7 @@ public class MageSkill : MonoBehaviour
         switch (teamSoldier.unitColor)
         {
             case TeamSoldier.UnitColor.red:
-                enemy.OnDamage(3000);
+                enemy.OnDamage(15000);
                 enemy.EnemyStern(100, 5);
                 Destroy(gameObject, 3);
                 break;

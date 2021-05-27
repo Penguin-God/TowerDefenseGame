@@ -210,7 +210,11 @@ public class TeamSoldier : MonoBehaviour
             if(target != null)
             {
                 if (target.GetComponent<EnemyTower>().isDead)
+                {
                     target = enemySpawn.towers[enemySpawn.currentTowerLevel].transform;
+                    if (target == null) continue;
+                    yield return null;
+                }
 
                 enemyDistance = Vector3.Distance(this.transform.position, target.position);
                 nav.SetDestination(towerHit.point);

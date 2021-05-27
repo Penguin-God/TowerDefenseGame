@@ -17,7 +17,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
 
     public GameObject energyBall;
     public Transform energyBallTransform;
-
+    
     private void Awake()
     {
         animator = GetComponent<Animator>();
@@ -62,6 +62,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
     }
 
     public int plusMana = 30;
+    public float mageSkillCoolDownTime;
     IEnumerator MageAttack()
     {
         isAttack = true;
@@ -93,14 +94,17 @@ public class Unit_Mage : RangeUnit, IUnitMana
     {
         isAttack = true;
         isAttackDelayTime = true;
-
-        Debug.Log("특별하다!!!!!!");
-        //ShowMageSkillEffect(mageEffectObject);
+        //Debug.Log("특별하다!!!!!!");
+        
         MageColorSpecialAttack();
         ClearMana();
 
         isAttack = false;
+        // 스킬 쿨타임 적용
+        float saveAttackDelayTime = attackDelayTime;
+        attackDelayTime = mageSkillCoolDownTime;
         base.NormalAttack();
+        attackDelayTime = saveAttackDelayTime;
     }
 
     public GameObject mageEffectObject = null;
@@ -186,9 +190,9 @@ public class Unit_Mage : RangeUnit, IUnitMana
         plusMana = 0;
 
         // 스킬 사용 후 바로 공격하게 하기 위한 코드
-        attackDelayTime = 0;
-        yield return new WaitUntil(() => !isAttackDelayTime); 
-        attackDelayTime = 2f;
+        //attackDelayTime = 0;
+        //yield return new WaitUntil(() => !isAttackDelayTime); 
+        //attackDelayTime = 2f;
 
         damage *= 5;
         yield return new WaitForSeconds(5f);

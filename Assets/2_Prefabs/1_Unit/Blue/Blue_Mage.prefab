@@ -592,6 +592,7 @@ MonoBehaviour:
     type: 3}
   energyBallTransform: {fileID: 7721362943555022681}
   plusMana: 30
+  mageSkillCoolDownTime: 2
   mageEffectObject: {fileID: 2709943110040540525}
   mageSkillCilp: {fileID: 8300000, guid: 8b0e44500538f864ca0050a7317f7591, type: 3}
   posionEffect: {fileID: 0}

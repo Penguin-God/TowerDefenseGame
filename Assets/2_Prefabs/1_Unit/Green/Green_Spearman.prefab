@@ -210,6 +210,7 @@ MonoBehaviour:
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
   normalAttakc_AudioDelay: 0.55
+  tpAudioClip: {fileID: 8300000, guid: a27ce694edf98ef48bc63dd09fc57312, type: 3}
   specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0
@@ -217,10 +218,10 @@ MonoBehaviour:
   enterStoryWorld: 0
   getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
   trail: {fileID: 1787167272271011807}
-  spear: {fileID: 103810303289126922}
+  spear: {fileID: 0}
   skileSpaer: {fileID: 4947818212191654679, guid: d1076db00809d814c81b7e9eafbc5545,
     type: 3}
-  spearCreatePosition: {fileID: 1669453900946815634}
+  spearCreatePosition: {fileID: 0}
   dontMoveGameObject: {fileID: 0}
   skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
 --- !u!136 &103836908467553593

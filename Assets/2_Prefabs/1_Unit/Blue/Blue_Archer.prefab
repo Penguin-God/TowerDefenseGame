@@ -39,6 +39,7 @@ MonoBehaviour:
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 6d9fd95ba9e9dd34391d716574fd4873, type: 3}
   normalAttakc_AudioDelay: 0
+  tpAudioClip: {fileID: 8300000, guid: a27ce694edf98ef48bc63dd09fc57312, type: 3}
   specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0

@@ -30,6 +30,7 @@ public class TeamSoldier : MonoBehaviour
     protected AudioSource unitAudioSource;
     public AudioClip normalAttackClip;
     public float normalAttakc_AudioDelay;
+    public AudioClip tpAudioClip;
 
     private float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
     private void Start()
@@ -264,6 +265,7 @@ public class TeamSoldier : MonoBehaviour
             UpdateTarget();
             StartCoroutine("NavCoroutine");
         }
+        unitAudioSource.PlayOneShot(tpAudioClip, 0.4f);
     }
 
     Vector3 SetRandomPosition(float maxX, float minX, float maxZ, float minZ, bool isTower)

@@ -870,6 +870,7 @@ MonoBehaviour:
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
   normalAttakc_AudioDelay: 0.7
+  tpAudioClip: {fileID: 8300000, guid: a27ce694edf98ef48bc63dd09fc57312, type: 3}
   specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0

@@ -251,7 +251,7 @@ public class UnitManageButton : MonoBehaviour
         UnitManageAudio.Play();
         //UnitManagementButton.gameObject.SetActive(true);
 
-        storyMode.unitTagName = "BLueSpearman";
+        storyMode.unitTagName = "BlueSpearman";
         //storyModeEnterButton.SetActive(true);
     }
 

@@ -645,19 +645,21 @@ MonoBehaviour:
   speed: 15
   attackDelayTime: 1
   attackRange: 6
-  damage: 40
+  damage: 60
   bossDamage: 0
   stopDistanc: 3
   isAttack: 0
   isAttackDelayTime: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 819330f33b9ea014f990dd335112905e, type: 3}
-  normalAttakc_AudioDelay: 0.55
+  normalAttakc_AudioDelay: 0.7
+  tpAudioClip: {fileID: 8300000, guid: a27ce694edf98ef48bc63dd09fc57312, type: 3}
   specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
   towerEnter: 0
   enterStoryWorld: 0
+  getGoldClip: {fileID: 0}
   trail: {fileID: 416985800466052116}
 --- !u!95 &3081384746403902326
 Animator:

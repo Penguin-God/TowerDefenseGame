@@ -63,22 +63,22 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        if (starts == Starts.Easy)
-        {
-            enemySpawn.enemyHpWeight = 15;
-        }
-        else if (starts == Starts.Normal)
-        {
-            enemySpawn.enemyHpWeight = 25;
-        }
-        else if (starts == Starts.Hard)
-        {
-            enemySpawn.enemyHpWeight = 35;
-        }
-        else if (starts == Starts.Impossiable)
-        {
-            enemySpawn.enemyHpWeight = 45;
-        }
+        //if (starts == Starts.Easy)
+        //{
+            //enemySpawn.enemyHpWeight = 15;
+        //}
+       // else if (starts == Starts.Normal)
+        //{
+            //enemySpawn.enemyHpWeight = 25;
+        //}
+        //else if (starts == Starts.Hard)
+        //{
+            //enemySpawn.enemyHpWeight = 35;
+        //}
+        //else if (starts == Starts.Impossiable)
+        //{
+            //enemySpawn.enemyHpWeight = 45;
+        //}
         isGameover = false;
         Gold = 25;
         Food = 1;
@@ -147,12 +147,42 @@ public class GameManager : MonoBehaviour
     {
         Time.timeScale = 1;
         // SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-        SceneManager.LoadScene("클라이언트");
+        Loding.LoadScene("클라이언트");
     }
 
     public void Reset()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    public GameObject NaniDo;
+
+    public void ClickEasyButton()
+    {
+        enemySpawn.enemyHpWeight = 15;
+        NaniDo.SetActive(false);
+    
+    }
+
+    public void ClickNormalButton()
+    {
+        enemySpawn.enemyHpWeight = 25;
+        NaniDo.SetActive(false);
+
+    }
+
+    public void ClickHardButton()
+    {
+        enemySpawn.enemyHpWeight = 35;
+        NaniDo.SetActive(false);
+
+    }
+
+    public void ClickImpassiableButton()
+    {
+        enemySpawn.enemyHpWeight = 45;
+        NaniDo.SetActive(false);
+
     }
 
 

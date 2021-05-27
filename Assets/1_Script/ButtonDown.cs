@@ -162,11 +162,11 @@ public class ButtonDown : MonoBehaviour
 
         VioletSwordmanButton.gameObject.SetActive(false);
         VioletArcherButton.gameObject.SetActive(false);
-        VioletSpearmanButton.gameObject.SetActive(false);
+        VioletSpearmanButton.SetActive(false);
 
-        RedPlusViolet.gameObject.SetActive(false);
-        BluePlusGreen.gameObject.SetActive(false);
-        YellowPlusOrange.gameObject.SetActive(false);
+        RedPlusViolet.SetActive(false);
+        BluePlusGreen.SetActive(false);
+        YellowPlusOrange.SetActive(false);
 
         //storyModeEeterButton.SetActive(false);
     }

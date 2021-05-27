@@ -12,9 +12,9 @@ public class GameManager : MonoBehaviour
     public EnemySpawn enemySpawn;
     private bool isGameover;
     public bool isClear;
-    public World world;
     public float timer;
     public int waitingTime;
+    public Starts starts;
 
     public bool playerEnterStoryMode; // 박준 코드
     // public GameObject[] Soldiers;
@@ -40,10 +40,12 @@ public class GameManager : MonoBehaviour
 
     private static GameManager m_instance;
 
-    public enum World
+    public enum Starts
     {
-        StoryWorld,
-        SoldiersWorld
+        Easy,
+        Normal,
+        Hard,
+        Impossiable,
     }
 
     private void Awake()
@@ -61,6 +63,22 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        if (starts == Starts.Easy)
+        {
+            enemySpawn.enemyHpWeight = 15;
+        }
+        else if (starts == Starts.Normal)
+        {
+            enemySpawn.enemyHpWeight = 25;
+        }
+        else if (starts == Starts.Hard)
+        {
+            enemySpawn.enemyHpWeight = 35;
+        }
+        else if (starts == Starts.Impossiable)
+        {
+            enemySpawn.enemyHpWeight = 45;
+        }
         isGameover = false;
         Gold = 25;
         Food = 1;

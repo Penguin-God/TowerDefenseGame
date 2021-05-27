@@ -10,7 +10,6 @@ public class GameStartButton : MonoBehaviour
     public GameObject NormalButton;
     public GameObject HardButton;
     public GameObject ImpossiableButton;
-    public EnemySpawn enemySpawn;
 
     public void ClickStartButton()
     {
@@ -28,26 +27,30 @@ public class GameStartButton : MonoBehaviour
 
     public void ClickEasyButton()
     {
-        enemySpawn.enemyHpWeight = 15;
-        SceneManager.LoadScene("합친 씬 - 장익준");
+        Loding.LoadScene("합친 씬 - 장익준");
+        GameManager.instance.starts = GameManager.Starts.Easy;
+         
     }
 
     public void ClickNormalButton()
     {
-        enemySpawn.enemyHpWeight = 25;
-        SceneManager.LoadScene("합친 씬 - 장익준");
+        Loding.LoadScene("합친 씬 - 장익준");
+        GameManager.instance.starts = GameManager.Starts.Normal;
     }
 
     public void ClickHardButton()
     {
-        enemySpawn.enemyHpWeight = 35;
-        SceneManager.LoadScene("합친 씬 - 장익준");
+        Loding.LoadScene("합친 씬 - 장익준");
+        GameManager.instance.starts = GameManager.Starts.Hard;
+        
+        
     }
 
     public void ClickImpassiableButton()
     {
-        enemySpawn.enemyHpWeight = 45;
-        SceneManager.LoadScene("합친 씬 - 장익준");
+        Loding.LoadScene("합친 씬 - 장익준");
+        GameManager.instance.starts = GameManager.Starts.Impossiable;
+         
     }
 
 

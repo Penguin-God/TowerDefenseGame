@@ -18,6 +18,14 @@ public class EnemySpawn : MonoBehaviour
     int[] countArray;
     Vector3 poolPosition = new Vector3(500, 500, 500);
 
+    AudioSource enemyAudioSource;
+    public AudioClip towerDieClip;
+
+    private void Awake()
+    {
+        enemyAudioSource = GetComponent<AudioSource>();
+    }
+
     private void Start()
     {
         // 게임 관련 변수 설정
@@ -175,6 +183,7 @@ public class EnemySpawn : MonoBehaviour
 
     IEnumerator SetNexTwoer_Coroutine(int towerLevel, float delayTime)
     {
+        enemyAudioSource.PlayOneShot(towerDieClip, 1f);
         towers[towerLevel - 1].SetActive(false);
         yield return new WaitForSeconds(delayTime);
         towers[towerLevel].SetActive(true);

@@ -1,0 +1,41 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class UnitManager : MonoBehaviour
+{
+    public static UnitManager instance;
+
+    private void Awake()
+    {
+        if(instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Debug.LogWarning("UnitManager 2개");
+            Destroy(gameObject);
+        }
+    }
+
+    [SerializeField]
+    private GameObject[] tp_Effects;
+    int current_TPEffectIndex;
+    Vector3 effectPoolPosition = new Vector3(1000, 1000, 1000);
+    public void ShowTpEffect(Transform tpUnit)
+    {
+        StartCoroutine(ShowTpEffect_Coroutine(tpUnit));
+    }
+
+    IEnumerator ShowTpEffect_Coroutine(Transform tpUnit)
+    {
+        tp_Effects[current_TPEffectIndex].transform.position = tpUnit.position + Vector3.up;
+        tp_Effects[current_TPEffectIndex].SetActive(true);
+        yield return new WaitForSeconds(0.25f);
+        tp_Effects[current_TPEffectIndex].SetActive(false);
+        tp_Effects[current_TPEffectIndex].transform.position = effectPoolPosition;
+        current_TPEffectIndex++;
+        if (current_TPEffectIndex >= tp_Effects.Length) current_TPEffectIndex = 0;
+    }
+}

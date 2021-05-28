@@ -242,10 +242,8 @@ public class TeamSoldier : MonoBehaviour
     IEnumerator Unit_WorldChange_Coroutine() // 월드 바꾸는 함수
     {
         yield return new WaitUntil(() => !isAttack);
-        //nav.isStopped = false;
-        //transform.parent.gameObject.SetActive(false);
         nav.enabled = false;
-
+        UnitManager.instance.ShowTpEffect(transform);
         if (!enterStoryWorld)
         {
             transform.parent.position = SetRandomPosition(460, 540, -20, -30, true);
@@ -304,7 +302,7 @@ public class TeamSoldier : MonoBehaviour
         if (enemy.gameObject.CompareTag("Tower") || enemy.gameObject.CompareTag("Boss"))
         {
             enemy.OnDamage(bossDamage);
-            Debug.Log("OnBossDamage" + bossDamage);
+            //Debug.Log("OnBossDamage" + bossDamage);
         }
         else enemy.OnDamage(damage);
     }

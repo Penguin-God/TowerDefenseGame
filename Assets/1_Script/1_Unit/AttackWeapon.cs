@@ -22,14 +22,12 @@ public class AttackWeapon : MonoBehaviour
         if(other.gameObject.layer == 8)
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            enemy.OnDamage(damage);
+            //enemy.OnDamage(damage);
+            teamSoldier.AttackEnemy(enemy);
             if (teamSoldier.unitType == TeamSoldier.Type.archer || teamSoldier.unitType == TeamSoldier.Type.mage)
                 attackUnit.GetComponent<RangeUnit>().RangeUnit_PassiveAttack(enemy);
             else if (teamSoldier.unitType == TeamSoldier.Type.spearman)
                 attackUnit.GetComponent<MeeleUnit>().MeeleUnit_PassiveAttack(enemy);
-            //if (!enemy.isDead)
-            //{
-            //}
 
             if (teamSoldier.unitType == TeamSoldier.Type.archer) Destroy(gameObject);
         }

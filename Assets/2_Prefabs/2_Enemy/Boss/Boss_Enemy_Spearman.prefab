@@ -91,7 +91,7 @@ GameObject:
   - component: {fileID: 5864770161385710121}
   - component: {fileID: 5855835006334143759}
   - component: {fileID: 5842820972256502401}
-  - component: {fileID: 5842820972256502400}
+  - component: {fileID: 1930959293378624772}
   m_Layer: 8
   m_Name: TB_Soldier_Spearman_Red
   m_TagString: Boss
@@ -177,7 +177,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 3, z: 2}
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &5842820972256502400
+--- !u!114 &1930959293378624772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,15 +186,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5841648090275618829}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41994ea9982d5ec48997957fd750e3c8, type: 3}
+  m_Script: {fileID: 11500000, guid: 3269f3dca8b069840b42edfd32b0995f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 200
-  currentHp: 200
-  isDead: 0
+  maxHp: 0
+  currentHp: 0
+  isDead: 1
   hpSlider: {fileID: 5842820971301454821}
   mat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
-  sternEffect: {fileID: 0}
+  sternEffect: {fileID: 9028002085699136069}
   maxSpeed: 0
   speed: 0
   dir: {x: 0, y: 0, z: 0}

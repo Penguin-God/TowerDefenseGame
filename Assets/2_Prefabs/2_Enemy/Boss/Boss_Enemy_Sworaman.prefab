@@ -511,7 +511,7 @@ GameObject:
   - component: {fileID: 2508055051344177103}
   - component: {fileID: 2516242155073106869}
   - component: {fileID: 2502174115921034737}
-  - component: {fileID: 2502174115921034702}
+  - component: {fileID: 1395797406270381784}
   m_Layer: 8
   m_Name: TB_Soldier_Swordman_Red
   m_TagString: Boss
@@ -597,7 +597,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 3, z: 2}
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &2502174115921034702
+--- !u!114 &1395797406270381784
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -606,12 +606,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2503759362854192497}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41994ea9982d5ec48997957fd750e3c8, type: 3}
+  m_Script: {fileID: 11500000, guid: 3269f3dca8b069840b42edfd32b0995f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 150
-  currentHp: 150
-  isDead: 0
+  maxHp: 0
+  currentHp: 0
+  isDead: 1
   hpSlider: {fileID: 2502174114925224128}
   mat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
   sternEffect: {fileID: 6203533792144159298}

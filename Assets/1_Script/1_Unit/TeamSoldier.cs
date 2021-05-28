@@ -299,6 +299,16 @@ public class TeamSoldier : MonoBehaviour
         return enemy;
     }
 
+    public void AttackEnemy(Enemy enemy)
+    {
+        if (enemy.gameObject.CompareTag("Tower") || enemy.gameObject.CompareTag("Boss"))
+        {
+            enemy.OnDamage(bossDamage);
+            Debug.Log("OnBossDamage" + bossDamage);
+        }
+        else enemy.OnDamage(damage);
+    }
+
     public AudioClip getGoldClip;
     protected void Add_PassiveGold(int percent, int addGold)
     {

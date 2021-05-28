@@ -5329,8 +5329,8 @@ GameObject:
   - component: {fileID: 8564582471154115264}
   - component: {fileID: 8551466551095947236}
   - component: {fileID: 8539065440940849294}
-  - component: {fileID: 8562564953755559674}
   - component: {fileID: 801156877715115050}
+  - component: {fileID: 7806146168146716304}
   m_Layer: 8
   m_Name: TB_Soldier_Archer_Red
   m_TagString: Boss
@@ -5403,27 +5403,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &8562564953755559674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8563590828662217204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41994ea9982d5ec48997957fd750e3c8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHp: 100
-  currentHp: 0
-  isDead: 0
-  hpSlider: {fileID: 8562564954953806591}
-  mat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
-  sternEffect: {fileID: 7938204613660565911}
-  maxSpeed: 0
-  speed: 0
-  dir: {x: 0, y: 0, z: 0}
 --- !u!65 &801156877715115050
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -5437,3 +5416,24 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 3, z: 2}
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &7806146168146716304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8563590828662217204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3269f3dca8b069840b42edfd32b0995f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHp: 0
+  currentHp: 0
+  isDead: 1
+  hpSlider: {fileID: 8562564954953806591}
+  mat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
+  sternEffect: {fileID: 7938204613660565911}
+  maxSpeed: 0
+  speed: 0
+  dir: {x: 0, y: 0, z: 0}

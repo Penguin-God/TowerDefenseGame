@@ -157,6 +157,13 @@ public class GameManager : MonoBehaviour
 
     public GameObject NaniDo;
 
+
+    public void ClickUengaeButton()
+    {
+        enemySpawn.enemyHpWeight = 5;
+        NaniDo.SetActive(false);
+
+    }
     public void ClickEasyButton()
     {
         enemySpawn.enemyHpWeight = 15;
@@ -184,6 +191,8 @@ public class GameManager : MonoBehaviour
         NaniDo.SetActive(false);
 
     }
+
+
 
 
 

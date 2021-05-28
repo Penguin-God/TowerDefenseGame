@@ -88,80 +88,80 @@ public class ButtonDown : MonoBehaviour
     public void AllButtonDown()
     {
         XButtonAudio.Play();
-        BackGround.gameObject.SetActive(false);
-        BlackSoldiersCombineButtons.gameObject.SetActive(false);
+        BackGround.SetActive(false);
+        BlackSoldiersCombineButtons.SetActive(false);
 
-        BlackTowerUi.gameObject.SetActive(false);
-        WhiteTowerUi.gameObject.SetActive(false);
+        BlackTowerUi.SetActive(false);
+        WhiteTowerUi.SetActive(false);
 
-        UnitManageBUtton.gameObject.SetActive(true);
+        UnitManageBUtton.SetActive(true);
 
-        SwordmanManageButton.gameObject.SetActive(false);
-        ArcherManageButton.gameObject.SetActive(false);
-        SpearmanManageButton.gameObject.SetActive(false);
-        MageManageButton.gameObject.SetActive(false);
+        SwordmanManageButton.SetActive(false);
+        ArcherManageButton.SetActive(false);
+        SpearmanManageButton.SetActive(false);
+        MageManageButton.SetActive(false);
 
-        ManageColorswordmanButton.gameObject.SetActive(false);
-        ManageColorArcherButton.gameObject.SetActive(false);
-        ManageColorSpearmanButton.gameObject.SetActive(false);
-        ManageColorMageButton.gameObject.SetActive(false);
+        ManageColorswordmanButton.SetActive(false);
+        ManageColorArcherButton.SetActive(false);
+        ManageColorSpearmanButton.SetActive(false);
+        ManageColorMageButton.SetActive(false);
 
-        RedSwordmanExplanText.gameObject.SetActive(false);
-        RedArcherExplanText.gameObject.SetActive(false);
-        RedSpearmanExplanText.gameObject.SetActive(false);
-        RedMageExplanText.gameObject.SetActive(false);
+        RedSwordmanExplanText.SetActive(false);
+        RedArcherExplanText.SetActive(false);
+        RedSpearmanExplanText.SetActive(false);
+        RedMageExplanText.SetActive(false);
 
-        BlueSwordmanExplanText.gameObject.SetActive(false);
-        BlueArcherExplanText.gameObject.SetActive(false);
-        BlueSpearmanExplanText.gameObject.SetActive(false);
-        BlueMageExplanText.gameObject.SetActive(false);
+        BlueSwordmanExplanText.SetActive(false);
+        BlueArcherExplanText.SetActive(false);
+        BlueSpearmanExplanText.SetActive(false);
+        BlueMageExplanText.SetActive(false);
 
-        YellowSwordmanExplanText.gameObject.SetActive(false);
-        YellowArcherExplanText.gameObject.SetActive(false);
-        YellowSpearmanExplanText.gameObject.SetActive(false);
-        YellowMageExplanText.gameObject.SetActive(false);
+        YellowSwordmanExplanText.SetActive(false);
+        YellowArcherExplanText.SetActive(false);
+        YellowSpearmanExplanText.SetActive(false);
+        YellowMageExplanText.SetActive(false);
 
-        GreenSwordmanExplanText.gameObject.SetActive(false);
-        GreenArcherExplanText.gameObject.SetActive(false);
-        GreenSpearmanExplanText.gameObject.SetActive(false);
-        GreenMageExplanText.gameObject.SetActive(false);
+        GreenSwordmanExplanText.SetActive(false);
+        GreenArcherExplanText.SetActive(false);
+        GreenSpearmanExplanText.SetActive(false);
+        GreenMageExplanText.SetActive(false);
 
-        OrangeSwordmanExplanText.gameObject.SetActive(false);
-        OrangeArcherExplanText.gameObject.SetActive(false);
-        OrangeSpearmanExplanText.gameObject.SetActive(false);
-        OrangeMageExplanText.gameObject.SetActive(false);
+        OrangeSwordmanExplanText.SetActive(false);
+        OrangeArcherExplanText.SetActive(false);
+        OrangeSpearmanExplanText.SetActive(false);
+        OrangeMageExplanText.SetActive(false);
 
-        VioletSwordmanExplanText.gameObject.SetActive(false);
-        VioletArcherExplanText.gameObject.SetActive(false);
-        VioletSpearmanExplanText.gameObject.SetActive(false);
-        VioletMageExplanText.gameObject.SetActive(false);
+        VioletSwordmanExplanText.SetActive(false);
+        VioletArcherExplanText.SetActive(false);
+        VioletSpearmanExplanText.SetActive(false);
+        VioletMageExplanText.SetActive(false);
 
-        RedSwordmanButton.gameObject.SetActive(false);
-        RedArcherButton.gameObject.SetActive(false);
-        RedSpearmanButton.gameObject.SetActive(false);
-
-
-        BlueSwordmanButton.gameObject.SetActive(false);
-        BlueArcherButton.gameObject.SetActive(false);
-        BlueSpearmanButton.gameObject.SetActive(false);
+        RedSwordmanButton.SetActive(false);
+        RedArcherButton.SetActive(false);
+        RedSpearmanButton.SetActive(false);
 
 
-        YellowSwordmanButton.gameObject.SetActive(false);
-        YellowArcherButton.gameObject.SetActive(false);
-        YellowSpearmanButton.gameObject.SetActive(false);
+        BlueSwordmanButton.SetActive(false);
+        BlueArcherButton.SetActive(false);
+        BlueSpearmanButton.SetActive(false);
 
 
-        GreenSwordmanButton.gameObject.SetActive(false);
-        GreenArcherButton.gameObject.SetActive(false);
-        GreenSpearmanButton.gameObject.SetActive(false);
+        YellowSwordmanButton.SetActive(false);
+        YellowArcherButton.SetActive(false);
+        YellowSpearmanButton.SetActive(false);
 
 
-        OrangeSwordmanButton.gameObject.SetActive(false);
-        OrangeArcherButton.gameObject.SetActive(false);
-        OrangeSpearmanButton.gameObject.SetActive(false);
+        GreenSwordmanButton.SetActive(false);
+        GreenArcherButton.SetActive(false);
+        GreenSpearmanButton.SetActive(false);
 
-        VioletSwordmanButton.gameObject.SetActive(false);
-        VioletArcherButton.gameObject.SetActive(false);
+
+        OrangeSwordmanButton.SetActive(false);
+        OrangeArcherButton.SetActive(false);
+        OrangeSpearmanButton.SetActive(false);
+
+        VioletSwordmanButton.SetActive(false);
+        VioletArcherButton.SetActive(false);
         VioletSpearmanButton.SetActive(false);
 
         RedPlusViolet.SetActive(false);

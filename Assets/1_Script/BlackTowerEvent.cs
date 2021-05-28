@@ -116,7 +116,7 @@ public class BlackTowerEvent : MonoBehaviour
 
     public void ClickBlackMageButton()
     {
-        if(GameManager.instance.Gold >= 20)
+        if(GameManager.instance.Gold >= 30)
         {
             Randomnumber = Random.Range(0, 25); // 4%
             if (Randomnumber == 0)
@@ -130,7 +130,7 @@ public class BlackTowerEvent : MonoBehaviour
                 UIManager.instance.FailText.gameObject.SetActive(true);
                 Invoke("FailTextDown", 1f);
             }
-            GameManager.instance.Gold -= 20;
+            GameManager.instance.Gold -= 30;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
         }
 

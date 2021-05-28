@@ -27,7 +27,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHp: 150
   currentHp: 150
-  isDead: 0
+  isDead: 1
   hpSlider: {fileID: 2694985331357330398}
   mat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
   sternEffect: {fileID: 3938378221336168419}

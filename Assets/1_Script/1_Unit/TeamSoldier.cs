@@ -122,11 +122,12 @@ public class TeamSoldier : MonoBehaviour
     }
 
     public virtual void UnitTypeMove() {} // 유닛에 따른 이동
-
+    public Transform rayHitTransform;
     bool Set_EnemyIsForword()
     {
         if (rayHit)
         {
+            rayHitTransform = rayHitObject.transform;
             //Debug.Log(rayHitObject);
             if (rayHitObject.transform.gameObject.CompareTag("Tower") || rayHitObject.transform.gameObject.CompareTag("Boss"))
                 return true;

@@ -85,6 +85,7 @@ public class NomalEnemy : Enemy
         this.speed = 0;
         transform.rotation = Quaternion.identity;
         ChangeColor(mat.color);
+        sternEffect.SetActive(false);
     }
 
     //private TeamSoldier teamSoldier;

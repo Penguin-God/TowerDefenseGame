@@ -61,13 +61,21 @@ public class EnemySpawn : MonoBehaviour
         }
 
         // 관련 변수 세팅
-        int instantEnemyNumber = Random.Range(0, enemyPrefab.Length);
+        int instantEnemyNumber = 0; //Random.Range(0, enemyPrefab.Length);
         int hp = SetRandomHp();
         float speed = SetRandomSeepd();
         //float respawnDelayTime = SetRandom_RespawnDelayTime();
-        
+
         while (stageRespawnEenemyCount > 0)
         {
+            for (int i = 0; i < poolEnemyCount; i++)
+            {
+                NomalEnemy identfyEnemy = enemyArrays[instantEnemyNumber, countArray[instantEnemyNumber]].GetComponentInChildren<NomalEnemy>();
+                if (identfyEnemy.isDead) break;
+                countArray[instantEnemyNumber]++;
+                ResetEnemyCount(instantEnemyNumber);
+            }
+
             // enemy 소환
             GameObject enemy = enemyArrays[instantEnemyNumber, countArray[instantEnemyNumber]];
             SetEnemyData(enemy, hp, speed);
@@ -100,6 +108,7 @@ public class EnemySpawn : MonoBehaviour
 
     GameObject RespawnEnemy(int instantEnemyNumber)
     {
+        
         GameObject enemy = enemyArrays[instantEnemyNumber, countArray[instantEnemyNumber]];
         enemy.transform.position = this.transform.position;
         enemy.SetActive(true);

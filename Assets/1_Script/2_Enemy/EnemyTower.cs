@@ -14,6 +14,7 @@ public class EnemyTower : Enemy
     {
         hpSlider.maxValue = maxHp;
         hpSlider.value = maxHp;
+        isDead = false;
     }
 
     public override void Dead()

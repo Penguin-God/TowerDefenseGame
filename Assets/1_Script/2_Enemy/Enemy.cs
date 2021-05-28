@@ -8,7 +8,7 @@ public class Enemy : MonoBehaviour
     // 상태 변수
     public int maxHp;
     public int currentHp;
-    public bool isDead;
+    public bool isDead = true;
     public Slider hpSlider;
 
     protected Rigidbody parentRigidbody;
@@ -56,8 +56,8 @@ public class Enemy : MonoBehaviour
             StartCoroutine(SternCoroutine(sternTime));
         }
     }
-    [SerializeField]
-    private GameObject sternEffect;
+    
+    public GameObject sternEffect;
     IEnumerator SternCoroutine(float sternTime)
     {
         sternEffect.SetActive(true);

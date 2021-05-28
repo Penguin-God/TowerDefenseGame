@@ -13525,7 +13525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f140c9481b92b47857b6ed486478e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageNumber: 1
+  stageNumber: 9
   currentEnemyList: []
   enemyPrefab:
   - {fileID: 7536897027791641786, guid: e21cc0963d2c4024898f7722d625d4d1, type: 3}
@@ -20099,6 +20099,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f0654b112894ad143be245e6b7a2396f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentUnitList: []
   tp_Effects:
   - {fileID: 552626229}
   - {fileID: 942833498}

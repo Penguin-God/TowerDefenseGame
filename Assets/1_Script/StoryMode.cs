@@ -21,7 +21,7 @@ public class StoryMode : MonoBehaviour
         for(int i = 0; i < moveUnits.Length; i++)
         {
             TeamSoldier teamSoldier = moveUnits[i].GetComponent<TeamSoldier>();
-            if (teamSoldier.enterStoryWorld == GameManager.instance.playerEnterStoryMode)
+            if (teamSoldier.enterStoryWorld == GameManager.instance.playerEnterStoryMode) // unit과 player의 입장 필드가 같으면
             {
                 teamSoldier.Unit_WorldChange();
                 //Debug.Log(moveUnit);

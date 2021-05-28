@@ -77,8 +77,10 @@ public class Enemy : MonoBehaviour
             nomalEnemy.speed = nomalEnemy.maxSpeed - nomalEnemy.maxSpeed * (slowPercent / 100);
             parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
             ChangeColor(new Color32(50, 175, 222, 1));
+            if (slowTIme > 0) Invoke("ExitSlow", slowTIme); // slowTIme이 0보다 작으면 무한 슬로우를 의미 ex) 파란법사 패시브
+            Debug.Log(slowTIme);
+            Debug.Log(slowPercent);
         }
-        if(slowTIme > 0) Invoke("ExitSlow", slowTIme); // slowTIme이 0보다 작으면 무한 슬로우를 의미 ex) 파란법사 패시브
         //isSlow = true;
         //nomalEnemy.speed -= nomalEnemy.speed * (slowPercent / 100);
         //parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;

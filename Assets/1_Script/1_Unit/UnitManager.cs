@@ -17,7 +17,25 @@ public class UnitManager : MonoBehaviour
             Debug.LogWarning("UnitManager 2개");
             Destroy(gameObject);
         }
+
+        currentUnitList = new List<GameObject>();
+        StartCoroutine(UnitListCheck_Coroutine());
     }
+
+    public List<GameObject> currentUnitList;
+
+    IEnumerator UnitListCheck_Coroutine()
+    {
+        while (true)
+        {
+            for(int i = 0; i < currentUnitList.Count; i++)
+            {
+                if (currentUnitList[i] == null) currentUnitList.RemoveAt(i);
+            }
+            yield return new WaitForSeconds(0.1f);
+        }
+    }
+
 
     [SerializeField]
     private GameObject[] tp_Effects;

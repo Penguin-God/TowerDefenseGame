@@ -35,6 +35,7 @@ public class TeamSoldier : MonoBehaviour
     private float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
     private void Start()
     {
+        UnitManager.instance.currentUnitList.Add(gameObject);
         unitAudioSource = GetComponentInParent<AudioSource>();
         bossDamage = damage;
         SetPassive();
@@ -248,7 +249,6 @@ public class TeamSoldier : MonoBehaviour
         {
             transform.parent.position = SetRandomPosition(460, 540, -20, -30, true);
             enterStoryWorld = true;
-            //transform.parent.gameObject.SetActive(true);
             nav.enabled = true;
             StopCoroutine("NavCoroutine");
             target = GameObject.FindGameObjectWithTag("Tower").transform;
@@ -258,7 +258,6 @@ public class TeamSoldier : MonoBehaviour
         {
             transform.parent.position = SetRandomPosition(20, -20, 10, -10, false);
             enterStoryWorld = false;
-            //transform.parent.gameObject.SetActive(true);
             nav.enabled = true;
             StopCoroutine("TowerNavCoroutine");
             UpdateTarget();

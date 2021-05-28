@@ -56,7 +56,7 @@ public class Unit_Archer : RangeUnit
 
         isAttack = false;
         base.NormalAttack();
-        if (enemySpawn.currentEnemyList.Count != 0 && !target.gameObject.CompareTag("Tower")) UpdateTarget();
+        if (enemySpawn.currentEnemyList.Count != 0 && !target.gameObject.CompareTag("Tower") && !target.gameObject.CompareTag("Boss")) UpdateTarget();
     }
 
     public override void SpecialAttack()
@@ -87,7 +87,7 @@ public class Unit_Archer : RangeUnit
         nav.angularSpeed = 1000;
         isAttack = false;
         base.NormalAttack();
-        if (enemySpawn.currentEnemyList.Count != 0 && !target.gameObject.CompareTag("Tower")) UpdateTarget();
+        if (enemySpawn.currentEnemyList.Count != 0 && !target.gameObject.CompareTag("Tower") && !target.gameObject.CompareTag("Boss")) UpdateTarget();
     }
 
     // 첫번째에 targetTransform을 넣고 currentEnemyList에서 targetTransform을 가장 가까운 transform을 count 크기만큼 가지는 array를 return하는 함수

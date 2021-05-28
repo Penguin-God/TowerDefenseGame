@@ -4,6 +4,20 @@ using UnityEngine;
 
 public class EnemyBoss : NomalEnemy
 {
+    private void Awake()
+    {
+        nomalEnemy = GetComponent<NomalEnemy>();
+        enemySpawn = GetComponentInParent<EnemySpawn>();
+        parent = transform.parent.GetComponent<Transform>();
+        parentRigidbody = GetComponentInParent<Rigidbody>();
+
+        foreach (GameObject unit in UnitManager.instance.currentUnitList)
+        {
+            if (unit == null) continue;
+
+            unit.GetComponent<TeamSoldier>().target = transform;
+        }
+    }
 
     public override void Dead()
     {
@@ -11,7 +25,7 @@ public class EnemyBoss : NomalEnemy
         isDead = true;
         GetBossReword(10, 1);
         Destroy(transform.parent.gameObject);
-        Debug.Log("Hello World");
+        //Debug.Log("Hello World");
     }
 
     void GetBossReword(int rewardGold, int rewardFood)

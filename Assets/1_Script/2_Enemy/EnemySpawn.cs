@@ -15,7 +15,7 @@ public class EnemySpawn : MonoBehaviour
 
     int poolEnemyCount; // 풀링을 위해 미리 생성하는 enemy 수
     GameObject[,] enemyArrays;
-    int[] countArray;
+    int[] countArray; // 2차원 배열을 사용할 때 2번째 배열의 index가 담긴 배열
     Vector3 poolPosition = new Vector3(500, 500, 500);
 
     AudioSource enemyAudioSource;
@@ -76,13 +76,7 @@ public class EnemySpawn : MonoBehaviour
 
         while (stageRespawnEenemyCount > 0)
         {
-            for (int i = 0; i < poolEnemyCount; i++)
-            {
-                NomalEnemy identfyEnemy = enemyArrays[instantEnemyNumber, countArray[instantEnemyNumber]].GetComponentInChildren<NomalEnemy>();
-                if (identfyEnemy.isDead) break;
-                countArray[instantEnemyNumber]++;
-                ResetEnemyCount(instantEnemyNumber);
-            }
+            Check_RespawnEnemyIsDead(instantEnemyNumber);
 
             // enemy 소환
             GameObject enemy = enemyArrays[instantEnemyNumber, countArray[instantEnemyNumber]];
@@ -129,6 +123,17 @@ public class EnemySpawn : MonoBehaviour
         nomalEnemy.ResetStatus(hp, speed);
     }
 
+
+    void Check_RespawnEnemyIsDead(int instantEnemyNumber) // 풀링할 때 끌어쓸 enemy가 살아있는지 확인후 살아있으면 index++
+    {
+        for (int i = 0; i < poolEnemyCount; i++)
+        {
+            NomalEnemy identfyEnemy = enemyArrays[instantEnemyNumber, countArray[instantEnemyNumber]].GetComponentInChildren<NomalEnemy>();
+            if (identfyEnemy.isDead) break;
+            countArray[instantEnemyNumber]++;
+            ResetEnemyCount(instantEnemyNumber);
+        }
+    }
 
     private int maxHp = 50;
     private int minHp = 200;

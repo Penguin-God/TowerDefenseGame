@@ -14420,6 +14420,7 @@ MonoBehaviour:
   specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
   towerEnter: 0
   enterStoryWorld: 0
   getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
@@ -14575,7 +14576,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 5278064836055134979}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1.2
   m_Speed: 3
   m_Acceleration: 10
   avoidancePriority: 50

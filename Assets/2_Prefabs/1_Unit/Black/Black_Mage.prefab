@@ -165,7 +165,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 2032129247473008375}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1.2
   m_Speed: 3
   m_Acceleration: 10
   avoidancePriority: 50
@@ -307,7 +307,7 @@ GameObject:
   - component: {fileID: 2571242137050993344}
   m_Layer: 9
   m_Name: TB_Soldier_Mage_Black
-  m_TagString: Untagged
+  m_TagString: BlackMage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -418,9 +418,11 @@ MonoBehaviour:
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
   normalAttakc_AudioDelay: 0.7
+  tpAudioClip: {fileID: 0}
   specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
   towerEnter: 0
   enterStoryWorld: 0
   getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
@@ -429,6 +431,7 @@ MonoBehaviour:
     type: 3}
   energyBallTransform: {fileID: 848071866545184830}
   plusMana: 30
+  mageSkillCoolDownTime: 0
   mageEffectObject: {fileID: 0}
   mageSkillCilp: {fileID: 0}
   posionEffect: {fileID: 0}

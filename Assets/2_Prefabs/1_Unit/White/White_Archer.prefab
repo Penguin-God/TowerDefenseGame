@@ -181,7 +181,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 5715507580820987079}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 1.2
   m_Speed: 6
   m_Acceleration: 10
   avoidancePriority: 50
@@ -682,9 +682,11 @@ MonoBehaviour:
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 6d9fd95ba9e9dd34391d716574fd4873, type: 3}
   normalAttakc_AudioDelay: 0
+  tpAudioClip: {fileID: 0}
   specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
   towerEnter: 0
   enterStoryWorld: 0
   getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}

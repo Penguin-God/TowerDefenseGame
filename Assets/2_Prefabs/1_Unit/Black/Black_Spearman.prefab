@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 3863724250736697938}
   m_Layer: 9
   m_Name: TB_Soldier_Spearman_Black
-  m_TagString: RedSpearman
+  m_TagString: BlackSpearman
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -355,9 +355,11 @@ MonoBehaviour:
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
   normalAttakc_AudioDelay: 0.55
+  tpAudioClip: {fileID: 0}
   specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
   towerEnter: 0
   enterStoryWorld: 0
   getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
@@ -617,7 +619,7 @@ NavMeshAgent:
   m_Radius: 0.5
   m_Speed: 16
   m_Acceleration: 20
-  avoidancePriority: 50
+  avoidancePriority: 55
   m_AngularSpeed: 500
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1

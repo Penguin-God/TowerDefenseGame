@@ -206,7 +206,7 @@ NavMeshAgent:
   m_Radius: 0.5
   m_Speed: 12
   m_Acceleration: 15
-  avoidancePriority: 50
+  avoidancePriority: 55
   m_AngularSpeed: 500
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
@@ -531,12 +531,15 @@ MonoBehaviour:
   isAttackDelayTime: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 819330f33b9ea014f990dd335112905e, type: 3}
-  normalAttakc_AudioDelay: 0.55
+  normalAttakc_AudioDelay: 0.7
+  tpAudioClip: {fileID: 0}
   specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
   towerEnter: 0
   enterStoryWorld: 0
+  getGoldClip: {fileID: 0}
   trail: {fileID: 5342952073806494859}
 --- !u!95 &7291279297198898153
 Animator:

@@ -719,6 +719,11 @@ PrefabInstance:
       propertyPath: createDefenser
       value: 
       objectReference: {fileID: 2069937148}
+    - target: {fileID: 6600727425209638612, guid: 65f973f2a240e1a4eaffb32b7f9ec1fb,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6600727425209638613, guid: 65f973f2a240e1a4eaffb32b7f9ec1fb,
         type: 3}
       propertyPath: m_RootOrder
@@ -4870,6 +4875,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7454969569692840255, guid: be157ae2f2713564fba73e008821c617,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: be157ae2f2713564fba73e008821c617, type: 3}
 --- !u!1 &261420058
@@ -6232,6 +6242,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 464004088055449517, guid: 37b7d41650b96c345b2cf8ce48fcf98a,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37b7d41650b96c345b2cf8ce48fcf98a, type: 3}
@@ -7855,6 +7870,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Orange_Mage
+      objectReference: {fileID: 0}
+    - target: {fileID: 2916168590735878312, guid: 99955310471110444a40f9831802d773,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 2916168590735878313, guid: 99955310471110444a40f9831802d773,
         type: 3}
@@ -13745,6 +13765,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6085287130237147869, guid: f41e58bb7af97f246b26cc9c43c4131d,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f41e58bb7af97f246b26cc9c43c4131d, type: 3}
 --- !u!1 &753089382
@@ -13855,7 +13880,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f140c9481b92b47857b6ed486478e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageNumber: 1
+  stageNumber: 10
   currentEnemyList: []
   enemyPrefab:
   - {fileID: 7536897027791641786, guid: e21cc0963d2c4024898f7722d625d4d1, type: 3}
@@ -14747,6 +14772,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4661351935083864777, guid: 4710141b2362e174b9ea566b6267949d,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 4661351935083864778, guid: 4710141b2362e174b9ea566b6267949d,
         type: 3}
       propertyPath: m_Name
@@ -15602,6 +15632,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2032129247473008377, guid: 519a6c03cfb2e6d41b531720a81d4f16,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 7501906696358078890, guid: 519a6c03cfb2e6d41b531720a81d4f16,
         type: 3}
       propertyPath: m_TagString
@@ -15902,6 +15937,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5034237234067150759, guid: 611e0c79108bf4540898c3ddebd5387c,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 55
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 611e0c79108bf4540898c3ddebd5387c, type: 3}
@@ -17735,6 +17775,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Red_SwordMan
       objectReference: {fileID: 0}
+    - target: {fileID: 8148257199809515134, guid: 1e059af96a94cf44f8b4ce6202c501c5,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 8148257199809515135, guid: 1e059af96a94cf44f8b4ce6202c501c5,
         type: 3}
       propertyPath: m_RootOrder
@@ -17914,6 +17959,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: White_SwordMan
+      objectReference: {fileID: 0}
+    - target: {fileID: 5342952073431734854, guid: 995c2df7b490e5140abbdf5c3a814e13,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 5342952073431734855, guid: 995c2df7b490e5140abbdf5c3a814e13,
         type: 3}
@@ -18326,6 +18376,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8715698880742512893, guid: 25ba6f77bfcfb844ca9f1efe22174244,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25ba6f77bfcfb844ca9f1efe22174244, type: 3}
 --- !u!1 &1008147465
@@ -18643,6 +18698,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 856121791}
     m_Modifications:
+    - target: {fileID: 4614286893760708880, guid: fe89360992dadd4418670d0ad705097b,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 4614286893760708881, guid: fe89360992dadd4418670d0ad705097b,
         type: 3}
       propertyPath: m_RootOrder
@@ -19642,6 +19702,7 @@ MonoBehaviour:
   createdefenser: {fileID: 2069937148}
   TagSoldier: {fileID: 1076024916}
   unitmanage: {fileID: 1726173157}
+  buttonDown: {fileID: 1215867620}
 --- !u!114 &1076024916
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -21064,6 +21125,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 416985800426705625, guid: f19bbd67bad198e4aa7e2647ffbcf8c9,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 416985800426705626, guid: f19bbd67bad198e4aa7e2647ffbcf8c9,
         type: 3}
       propertyPath: m_Name
@@ -21291,6 +21357,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9199773262359240797, guid: 5d62ab9f6e012bb41940e8f669a9ae7c,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 9199773262359240798, guid: 5d62ab9f6e012bb41940e8f669a9ae7c,
         type: 3}
       propertyPath: m_Name
@@ -21476,6 +21547,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5810574156436100721, guid: bb99327bd4a0bba4788703e0394afae7,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 5810574156436100735, guid: bb99327bd4a0bba4788703e0394afae7,
         type: 3}
@@ -21740,6 +21816,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1800201801424679697, guid: 3ebdb11443709774b955eea88589b5f2,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 1800201801424679711, guid: 3ebdb11443709774b955eea88589b5f2,
         type: 3}
@@ -26442,6 +26523,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 624774111338365785, guid: fa097f847d808e4439989ccea0ad2256,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 624774111338365786, guid: fa097f847d808e4439989ccea0ad2256,
         type: 3}
       propertyPath: m_Name
@@ -27212,6 +27298,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 151015499}
     m_Modifications:
+    - target: {fileID: 4071167457294870228, guid: 980c2ab93cdef544cb411595d34befb7,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 4071167457294870229, guid: 980c2ab93cdef544cb411595d34befb7,
         type: 3}
       propertyPath: m_RootOrder
@@ -27358,6 +27449,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3791316604531463831, guid: b99cdff4ee30fa44798e20a945776310,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 55
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b99cdff4ee30fa44798e20a945776310, type: 3}
@@ -28041,6 +28137,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Green_SwordMan
       objectReference: {fileID: 0}
+    - target: {fileID: 7382913693922307582, guid: f0e598e29fdb24e43b89700864bd2938,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 7382913693922307583, guid: f0e598e29fdb24e43b89700864bd2938,
         type: 3}
       propertyPath: m_RootOrder
@@ -28524,6 +28625,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7099954146525974207, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 55
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61f763558dff7dc4bbc8eea819606300, type: 3}
@@ -31575,10 +31681,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
+    - target: {fileID: 150712471, guid: d42acb3c35a75354181bcb3cba82f4f2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 150712471, guid: d42acb3c35a75354181bcb3cba82f4f2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1855128709, guid: d42acb3c35a75354181bcb3cba82f4f2, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4583945138574837633, guid: d42acb3c35a75354181bcb3cba82f4f2,
         type: 3}
       propertyPath: m_Name
       value: Red_Mage
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583945138574837633, guid: d42acb3c35a75354181bcb3cba82f4f2,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4583945138574837646, guid: d42acb3c35a75354181bcb3cba82f4f2,
         type: 3}
@@ -31634,6 +31757,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4583945138574837647, guid: d42acb3c35a75354181bcb3cba82f4f2,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d42acb3c35a75354181bcb3cba82f4f2, type: 3}
@@ -32607,6 +32735,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Violet_Spearman
       objectReference: {fileID: 0}
+    - target: {fileID: 6704759391202351554, guid: e3e8368fe90d1c648beb49b119b9d686,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 55
+      objectReference: {fileID: 0}
     - target: {fileID: 6704759391202351555, guid: e3e8368fe90d1c648beb49b119b9d686,
         type: 3}
       propertyPath: m_RootOrder
@@ -33312,6 +33445,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5715507580820987081, guid: 3d754308acb1d5141b0b26a0d743439b,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d754308acb1d5141b0b26a0d743439b, type: 3}
 --- !u!4 &1615580407 stripped
@@ -33828,6 +33966,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Green_Archer
+      objectReference: {fileID: 0}
+    - target: {fileID: 934792852350429486, guid: 1772a47c8d7f3e74baa9fbb660966ee4,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 934792852350429487, guid: 1772a47c8d7f3e74baa9fbb660966ee4,
         type: 3}
@@ -34394,10 +34537,19 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1899256002}
     m_Modifications:
+    - target: {fileID: 534492221, guid: 8cf4d672d4e5e3848b00ac195b387355, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8993878285500084624, guid: 8cf4d672d4e5e3848b00ac195b387355,
         type: 3}
       propertyPath: m_Name
       value: Blue_Mage
+      objectReference: {fileID: 0}
+    - target: {fileID: 8993878285500084638, guid: 8cf4d672d4e5e3848b00ac195b387355,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 8993878285500084639, guid: 8cf4d672d4e5e3848b00ac195b387355,
         type: 3}
@@ -36402,6 +36554,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Black_Spearman
+      objectReference: {fileID: 0}
+    - target: {fileID: 6848851408045497546, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 6848851408045497547, guid: 7fad8267bf4321940b7effc164c530d6,
         type: 3}
@@ -39762,6 +39919,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5278064836055134989, guid: 9f5d49bb85a97274591d5a7fd662eea2,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f5d49bb85a97274591d5a7fd662eea2, type: 3}
@@ -44189,6 +44351,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1174998771481908399, guid: e89b457be8ba6fd44bbc96cd4187cab5,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 55
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e89b457be8ba6fd44bbc96cd4187cab5, type: 3}
 --- !u!1001 &2125503230
@@ -44252,6 +44419,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1135891072547242441, guid: 9bab28d49d345ab4f89b3bca582381a1,
+        type: 3}
+      propertyPath: avoidancePriority
+      value: 55
       objectReference: {fileID: 0}
     - target: {fileID: 1135891072547242442, guid: 9bab28d49d345ab4f89b3bca582381a1,
         type: 3}
@@ -44333,6 +44505,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3343415014830645101, guid: 2a0805aa1bacd58469d5655b8e173611,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2a0805aa1bacd58469d5655b8e173611, type: 3}
 --- !u!1001 &2134006995
@@ -44396,6 +44573,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1140555429105280979, guid: 4d7f63258f1081247abdd23060ca4778,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 1140555429105280989, guid: 4d7f63258f1081247abdd23060ca4778,
         type: 3}

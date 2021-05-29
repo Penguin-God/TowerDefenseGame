@@ -1237,7 +1237,7 @@ PrefabInstance:
     - target: {fileID: 3791316604531463830, guid: b99cdff4ee30fa44798e20a945776310,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 3791316604531463830, guid: b99cdff4ee30fa44798e20a945776310,
         type: 3}
@@ -7821,9 +7821,11 @@ MonoBehaviour:
   - {fileID: 8692699531293559831, guid: d6c26b3b2591c7449a51f8159e19b16c, type: 3}
   - {fileID: 2694985329993272948, guid: 37b090600465f664e8e8c60fb1464079, type: 3}
   bossPrefab: []
+  towerDieClip: {fileID: 0}
   enemyHpWeight: 0
   towers: []
   currentTowerLevel: 0
+  createDefenser: {fileID: 0}
 --- !u!4 &1256343148
 Transform:
   m_ObjectHideFlags: 0
@@ -11502,7 +11504,7 @@ PrefabInstance:
     - target: {fileID: 9199773262359240796, guid: 5d62ab9f6e012bb41940e8f669a9ae7c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9199773262359240796, guid: 5d62ab9f6e012bb41940e8f669a9ae7c,
         type: 3}

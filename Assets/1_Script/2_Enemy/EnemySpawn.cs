@@ -43,12 +43,9 @@ public class EnemySpawn : MonoBehaviour
         }
         countArray = new int[enemyPrefab.Length];
         respawnEnemyCount = 15;
-
-        // 스테이지 시작
-        StageStart();
     }
 
-    void StageStart()
+    public void StageStart()
     {
         if (stageNumber == 51)
         {

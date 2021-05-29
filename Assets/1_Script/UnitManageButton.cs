@@ -311,7 +311,7 @@ public class UnitManageButton : MonoBehaviour
     {
         ColorMagesButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
-        UIManager.instance.SetActiveButton(true, 0, 3);
+        //UIManager.instance.SetActiveButton(true, 0, 3);
         UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(3).gameObject.SetActive(true);
         UnitManageAudio.Play();
         //UnitManagementButton.gameObject.SetActive(true);
@@ -324,7 +324,7 @@ public class UnitManageButton : MonoBehaviour
     {
         ColorMagesButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
-        UIManager.instance.SetActiveButton(true, 1, 3);
+        //UIManager.instance.SetActiveButton(true, 1, 3);
         UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(3).gameObject.SetActive(true);
         UnitManageAudio.Play();
         //UnitManagementButton.gameObject.SetActive(true);
@@ -337,7 +337,7 @@ public class UnitManageButton : MonoBehaviour
     {
         ColorMagesButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
-        UIManager.instance.SetActiveButton(true, 2, 3);
+        //UIManager.instance.SetActiveButton(true, 2, 3);
         UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(3).gameObject.SetActive(true);
         UnitManageAudio.Play();
         //UnitManagementButton.gameObject.SetActive(true);
@@ -350,7 +350,7 @@ public class UnitManageButton : MonoBehaviour
     {
         ColorMagesButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
-        UIManager.instance.SetActiveButton(true, 3, 3);
+        //UIManager.instance.SetActiveButton(true, 3, 3);
         UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(3).gameObject.SetActive(true);
         UnitManageAudio.Play();
         //UnitManagementButton.gameObject.SetActive(true);
@@ -363,7 +363,7 @@ public class UnitManageButton : MonoBehaviour
     {
         ColorMagesButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
-        UIManager.instance.SetActiveButton(true, 4, 3);
+        //UIManager.instance.SetActiveButton(true, 4, 3);
         UIManager.instance.ExPlanationTexts.transform.GetChild(4).GetChild(3).gameObject.SetActive(true);
         UnitManageAudio.Play();
         //UnitManagementButton.gameObject.SetActive(true);
@@ -376,7 +376,7 @@ public class UnitManageButton : MonoBehaviour
     {
         ColorMagesButton.gameObject.SetActive(false);
         UIManager.instance.BackGround.gameObject.SetActive(true);
-        UIManager.instance.SetActiveButton(true, 5, 3);
+        //UIManager.instance.SetActiveButton(true, 5, 3);
         UIManager.instance.ExPlanationTexts.transform.GetChild(5).GetChild(3).gameObject.SetActive(true);
         UnitManageAudio.Play();
         //UnitManagementButton.gameObject.SetActive(true);

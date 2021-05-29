@@ -2,9 +2,6 @@
 
 public class StoryMode : MonoBehaviour
 {
-    //public SoldiersTags soldiersTags;
-    //public CombineSoldier combineSoldier;
-    //public CreateDefenser createDefenser;
     [SerializeField]
     private GameObject unitStoryModeEnterButton;
     [SerializeField]

@@ -10,19 +10,21 @@ public class BlackTowerEvent : MonoBehaviour
     public GameObject BlackCombineButtons;
     public SoldiersTags soldiersTags;
 
-    
+
+    public GameObject buyBackGround;
 
     private void OnMouseDown()
     {
         UIManager.instance.BlackTowerButton.gameObject.SetActive(true);
-        UIManager.instance.BackGround.gameObject.SetActive(true);
+        //UIManager.instance.BackGround.gameObject.SetActive(true);
+        Show_BuyBackGround(); // 버그 때문에 박준이 추가한 코드
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
         BlackUiAudio.Play();
     }
 
-    private void FailTextDown()
+    public void Show_BuyBackGround()
     {
-        UIManager.instance.FailText.gameObject.SetActive(false);
+        buyBackGround.SetActive(true);
     }
 
     private void SuccessTextDown()

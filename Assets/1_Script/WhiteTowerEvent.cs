@@ -10,7 +10,7 @@ public class WhiteTowerEvent : MonoBehaviour
     private void OnMouseDown()
     {
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(true);
-        UIManager.instance.BackGround.gameObject.SetActive(true);
+        blackTowerEvent.Show_BuyBackGround(); // 버그 때문에 박준이 추가한 코드
         UIManager.instance.BlackTowerButton.gameObject.SetActive(false);
         blackTowerEvent.BlackUiAudio.Play();
     }

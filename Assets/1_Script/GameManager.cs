@@ -155,8 +155,32 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    [Header("UI GameObject")]
+
+    public GameObject status_UI;
+    public GameObject unitControll_UI;
+    public GameObject buyUnit_UI;
+    public GameObject reStartButton;
+    public GameObject moveFiledButton;
     public GameObject NaniDo;
 
+    public void GameStart(int enemyHpWeight)
+    {
+        SelectDifficult(enemyHpWeight);
+        enemySpawn.StageStart();
+
+        status_UI.SetActive(true);
+        unitControll_UI.SetActive(true);
+        buyUnit_UI.SetActive(true);
+        reStartButton.SetActive(true);
+        moveFiledButton.SetActive(true);
+        NaniDo.SetActive(false);
+    }
+
+    public void SelectDifficult(int enemyHpWeight)
+    {
+        enemySpawn.enemyHpWeight = enemyHpWeight;
+    }
 
     public void ClickUengaeButton()
     {

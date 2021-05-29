@@ -12,6 +12,7 @@ public class MageSkill : MonoBehaviour
     //AudioSource skillAudioSourec;
     private void Awake()
     {
+        teamSoldier = GetComponentInParent<TeamSoldier>();
         sphereCollider = GetComponent<SphereCollider>();
         //skillAudioSourec = GetComponent<AudioSource>();
     }

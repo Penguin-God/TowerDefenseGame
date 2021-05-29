@@ -27,9 +27,19 @@ public class BlackTowerEvent : MonoBehaviour
         buyBackGround.SetActive(true);
     }
 
+    public void Hide_BuyBackGround()
+    {
+        buyBackGround.SetActive(false);
+    }
+
     private void SuccessTextDown()
     {
         UIManager.instance.SuccessText.gameObject.SetActive(false);
+    }
+
+    private void FailTextDown()
+    {
+        UIManager.instance.FailText.gameObject.SetActive(false);
     }
 
     public void ClickBlackSwordmanButton()
@@ -56,7 +66,7 @@ public class BlackTowerEvent : MonoBehaviour
 
         BlackUiAudio.Play();
         UIManager.instance.BlackTowerButton.gameObject.SetActive(false);
-        UIManager.instance.BackGround.gameObject.SetActive(false);
+        Hide_BuyBackGround();
 
     }
 
@@ -85,7 +95,7 @@ public class BlackTowerEvent : MonoBehaviour
 
         
         UIManager.instance.BlackTowerButton.gameObject.SetActive(false);
-        UIManager.instance.BackGround.gameObject.SetActive(false);
+    Hide_BuyBackGround();
     }
 
     public void ClickBlackSpearmanButton()
@@ -113,7 +123,7 @@ public class BlackTowerEvent : MonoBehaviour
 
 
         UIManager.instance.BlackTowerButton.gameObject.SetActive(false);
-        UIManager.instance.BackGround.gameObject.SetActive(false);
+        Hide_BuyBackGround();
     }
 
     public void ClickBlackMageButton()
@@ -138,7 +148,7 @@ public class BlackTowerEvent : MonoBehaviour
 
         BlackUiAudio.Play();
         UIManager.instance.BlackTowerButton.gameObject.SetActive(false);
-        UIManager.instance.BackGround.gameObject.SetActive(false);
+        Hide_BuyBackGround();
 
     }
 
@@ -166,7 +176,7 @@ public class BlackTowerEvent : MonoBehaviour
         BlackUiAudio.Play();
 
         BlackCombineButtons.gameObject.SetActive(false);
-        UIManager.instance.BackGround.gameObject.SetActive(false);
+        Hide_BuyBackGround();
 
     }
 
@@ -185,7 +195,7 @@ public class BlackTowerEvent : MonoBehaviour
         BlackUiAudio.Play();
 
         BlackCombineButtons.gameObject.SetActive(false);
-        UIManager.instance.BackGround.gameObject.SetActive(false);
+        Hide_BuyBackGround();
     }
 
     public void ClickCombineBlackMageButton()
@@ -203,6 +213,6 @@ public class BlackTowerEvent : MonoBehaviour
         BlackUiAudio.Play();
 
         BlackCombineButtons.gameObject.SetActive(false);
-        UIManager.instance.BackGround.gameObject.SetActive(false);
+        Hide_BuyBackGround();
     }
 }

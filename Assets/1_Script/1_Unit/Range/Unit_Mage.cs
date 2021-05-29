@@ -126,7 +126,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
                 BlueMageSkill();
                 break;
             case UnitColor.yellow:
-                YellowMageSkill(2);
+                YellowMageSkill(5);
                 break;
             case UnitColor.green:
                 GreenMageSkill();
@@ -173,7 +173,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
 
     void YellowMageSkill(int addGold) // 골드 증가
     {
-        StartCoroutine(Play_SkillClip(mageSkillCilp, 7f, 0.3f));
+        StartCoroutine(Play_SkillClip(mageSkillCilp, 7f, 1f));
         ShowMageSkillEffect(mageEffectObject);
         GameManager.instance.Gold += addGold;
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
@@ -274,7 +274,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
                 case UnitColor.red:
                     break;
                 case UnitColor.blue:
-                    enemy.EnemySlow(50, -1f); // 나가기 전까진 무한 슬로우
+                    //enemy.EnemySlow(50, -1f); // 나가기 전까진 무한 슬로우
                     break;
                 case UnitColor.yellow:
                     break;
@@ -311,6 +311,29 @@ public class Unit_Mage : RangeUnit, IUnitMana
     }
 
 
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer == 8)
+        {
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            switch (unitColor)
+            {
+                case UnitColor.red:
+                    break;
+                case UnitColor.blue:
+                    enemy.EnemySlow(50, -1f); // 나가기 전까진 무한 슬로우
+                    break;
+                case UnitColor.yellow:
+                    break;
+                case UnitColor.green:
+                    break;
+                case UnitColor.orange:
+                    break;
+                case UnitColor.violet:
+                    break;
+            }
+        }
+    }
 
     private void OnTriggerExit(Collider other)
     {

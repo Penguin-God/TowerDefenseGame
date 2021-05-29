@@ -177,9 +177,19 @@ public class EnemySpawn : MonoBehaviour
     public GameObject[] towers;
     public int currentTowerLevel;
 
+    [SerializeField]
+    public CreateDefenser createDefenser;
     public void RespawnNextTower(int towerLevel, float delayTime)
     {
-        if (towerLevel >= towers.Length) return;
+        currentTowerLevel++;
+        if (towerLevel >= towers.Length)
+        { 
+            if(towerLevel == towers.Length)
+            {
+                createDefenser.CreateSoldier(6, 3);
+            }
+            return; 
+        }
         StartCoroutine(SetNexTwoer_Coroutine(towerLevel, delayTime));
     }
 
@@ -189,6 +199,5 @@ public class EnemySpawn : MonoBehaviour
         towers[towerLevel - 1].SetActive(false);
         yield return new WaitForSeconds(delayTime);
         towers[towerLevel].SetActive(true);
-        currentTowerLevel++;
     }
 }

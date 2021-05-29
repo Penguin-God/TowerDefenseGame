@@ -26,7 +26,7 @@ public class WhiteTowerEvent : MonoBehaviour
 
         blackTowerEvent.BlackUiAudio.Play();
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
-        UIManager.instance.BackGround.gameObject.SetActive(false);
+        blackTowerEvent.Hide_BuyBackGround();
     }
 
     public void ClickWhiteArcherButton()
@@ -40,7 +40,7 @@ public class WhiteTowerEvent : MonoBehaviour
 
         blackTowerEvent.BlackUiAudio.Play();
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
-        UIManager.instance.BackGround.gameObject.SetActive(false);
+        blackTowerEvent.Hide_BuyBackGround();
     }
 
     public void ClickWhiteSpearmanButton()
@@ -54,7 +54,7 @@ public class WhiteTowerEvent : MonoBehaviour
 
         blackTowerEvent.BlackUiAudio.Play();
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
-        UIManager.instance.BackGround.gameObject.SetActive(false);
+        blackTowerEvent.Hide_BuyBackGround();
     }
 
     public void ClickWhiteMageButton()
@@ -68,6 +68,6 @@ public class WhiteTowerEvent : MonoBehaviour
 
         blackTowerEvent.BlackUiAudio.Play();
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
-        UIManager.instance.BackGround.gameObject.SetActive(false);
+        blackTowerEvent.Hide_BuyBackGround();
     }
 }

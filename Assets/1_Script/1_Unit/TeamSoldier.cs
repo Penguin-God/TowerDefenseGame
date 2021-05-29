@@ -231,7 +231,7 @@ public class TeamSoldier : MonoBehaviour
     }
 
     [SerializeField]
-    bool towerEnter; // 타워 충돌감지
+    protected bool towerEnter; // 타워 충돌감지
     public bool enterStoryWorld;
 
     public void Unit_WorldChange()
@@ -257,6 +257,7 @@ public class TeamSoldier : MonoBehaviour
         else
         {
             transform.parent.position = SetRandomPosition(20, -20, 10, -10, false);
+            towerEnter = false;
             enterStoryWorld = false;
             nav.enabled = true;
             StopCoroutine("TowerNavCoroutine");
@@ -264,6 +265,14 @@ public class TeamSoldier : MonoBehaviour
             StartCoroutine("NavCoroutine");
         }
         unitAudioSource.PlayOneShot(tpAudioClip, 0.4f);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Tower")
+        {
+            towerEnter = true;
+        }
     }
 
     Vector3 SetRandomPosition(float maxX, float minX, float maxZ, float minZ, bool isTower)
@@ -279,14 +288,6 @@ public class TeamSoldier : MonoBehaviour
         else randomX = Random.Range(minX, maxX);
         float randomZ = Random.Range(minZ, maxZ);
         return new Vector3(randomX, 0, randomZ);
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Tower")
-        {
-            towerEnter = true;
-        }
     }
 
     protected Enemy GetEnemyScript()
@@ -318,10 +319,10 @@ public class TeamSoldier : MonoBehaviour
         }
     }
     
-    private void OnMouseDown()
-    {
-        GameManager.instance.Chilk();
-        //Combine.ButtonOn();
-        UIManager.instance.SellSoldier.gameObject.SetActive(true);
-    }
+    //private void OnMouseDown()
+    //{
+    //    GameManager.instance.Chilk();
+    //    //Combine.ButtonOn();
+    //    UIManager.instance.SellSoldier.gameObject.SetActive(true);
+    //}
 }

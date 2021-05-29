@@ -67,23 +67,33 @@ public class Enemy : MonoBehaviour
         sternEffect.SetActive(false);
     }
 
-    //public bool isSlow;
+
+    protected bool isSlow;
+    Coroutine exitSlowCoroutine;
     public void EnemySlow(float slowPercent, float slowTIme)
     {
         if (this.gameObject.CompareTag("Tower") || isDead) return;
+        
         // 만약 더 높은 슬로우 공격을 받으면큰 슬로우 적용후 return
         if (nomalEnemy.maxSpeed - nomalEnemy.maxSpeed * (slowPercent / 100) < nomalEnemy.speed)
         {
+            if (isSlow) StopCoroutine(exitSlowCoroutine); // 더 강한 슬로우가 들어왔는데 이전 약한 슬로우 때문에 슬로우에서 빠져나가는거 방지
+
+            isSlow = true;
             nomalEnemy.speed = nomalEnemy.maxSpeed - nomalEnemy.maxSpeed * (slowPercent / 100);
             parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
             ChangeColor(new Color32(50, 175, 222, 1));
-            if (slowTIme > 0) Invoke("ExitSlow", slowTIme); // slowTIme이 0보다 작으면 무한 슬로우를 의미 ex) 파란법사 패시브
-            Debug.Log(slowTIme);
-            Debug.Log(slowPercent);
+            if (slowTIme > 0)
+            {
+                exitSlowCoroutine = StartCoroutine(ExitSlow_Coroutine(slowTIme)); // 더 강한 슬로우 적용 시 코루틴 중지를 위한 코드
+            }
         }
-        //isSlow = true;
-        //nomalEnemy.speed -= nomalEnemy.speed * (slowPercent / 100);
-        //parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
+    }
+
+    IEnumerator ExitSlow_Coroutine(float slowTime)
+    {
+        yield return new WaitForSeconds(slowTime);
+        ExitSlow();
     }
 
     public void ExitSlow()
@@ -91,7 +101,16 @@ public class Enemy : MonoBehaviour
         ChangeColor(mat.color);
         nomalEnemy.speed = nomalEnemy.maxSpeed;
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
+        isSlow = false;
     }
+
+    //public void ExitSlow()
+    //{
+    //    Debug.Log("슬로우 탈출 !!");
+    //    ChangeColor(mat.color);
+    //    nomalEnemy.speed = nomalEnemy.maxSpeed;
+    //    parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
+    //}
 
     public void EnemyPoisonAttack(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
     {

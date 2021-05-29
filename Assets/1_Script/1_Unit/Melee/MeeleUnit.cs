@@ -13,8 +13,8 @@ public class MeeleUnit : TeamSoldier
     public override void UnitTypeMove()
     {
         // 정지조건 3개
-        if ((enemyIsForward && enemyDistance < stopDistanc) || (enemyDistance < 2f && !enemyIsForward) || 
-            (Check_EnemyToUnit_Deggre() < 0.6f && enemyIsForward) || (enemyIsForward && target.gameObject.tag == "Tower"))
+        if ( (enemyIsForward && enemyDistance < stopDistanc) || (enemyDistance < 2f && !enemyIsForward) || 
+            (Check_EnemyToUnit_Deggre() < 0.6f && enemyIsForward) || (enemyIsForward && target.gameObject.tag == "Tower") )
         {
             nav.isStopped = true;
         }
@@ -41,6 +41,22 @@ public class MeeleUnit : TeamSoldier
         {
             AttackEnemy(enemy);
             MeeleUnit_PassiveAttack(enemy);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.layer == 8 && other.CompareTag("Boss"))
+        {
+            nav.isStopped = true;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 8 && other.CompareTag("Boss"))
+        {
+            nav.isStopped = false;
         }
     }
 }

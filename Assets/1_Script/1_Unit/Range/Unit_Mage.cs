@@ -188,12 +188,6 @@ public class Unit_Mage : RangeUnit, IUnitMana
     IEnumerator GreenMageSkile_Coroutine()
     {
         plusMana = 0;
-
-        // 스킬 사용 후 바로 공격하게 하기 위한 코드
-        //attackDelayTime = 0;
-        //yield return new WaitUntil(() => !isAttackDelayTime); 
-        //attackDelayTime = 2f;
-
         damage *= 5;
         yield return new WaitForSeconds(5f);
         damage /= 5;
@@ -266,26 +260,25 @@ public class Unit_Mage : RangeUnit, IUnitMana
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 8)
-        {
-            Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            switch (unitColor)
-            {
-                case UnitColor.red:
-                    break;
-                case UnitColor.blue:
-                    //enemy.EnemySlow(50, -1f); // 나가기 전까진 무한 슬로우
-                    break;
-                case UnitColor.yellow:
-                    break;
-                case UnitColor.green:
-                    break;
-                case UnitColor.orange:
-                    break;
-                case UnitColor.violet:
-                    break;
-            }
-        }
+        //if (other.gameObject.layer == 8)
+        //{
+        //    Enemy enemy = other.gameObject.GetComponent<Enemy>();
+        //    switch (unitColor)
+        //    {
+        //        case UnitColor.red:
+        //            break;
+        //        case UnitColor.blue:
+        //            break;
+        //        case UnitColor.yellow:
+        //            break;
+        //        case UnitColor.green:
+        //            break;
+        //        case UnitColor.orange:
+        //            break;
+        //        case UnitColor.violet:
+        //            break;
+        //    }
+        //}
 
         if(other.gameObject.layer == 9)
         {
@@ -365,7 +358,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
             switch (unitColor)
             {
                 case UnitColor.red:
-                    otherTeamSoldier.damage /= 2;
+                    otherTeamSoldier.damage = Mathf.RoundToInt(otherTeamSoldier.damage / 1.5f);
                     break;
                 case UnitColor.blue:
                     break;

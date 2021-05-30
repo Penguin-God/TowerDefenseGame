@@ -8,6 +8,7 @@ public class EnemyBoss : NomalEnemy
     {
         nomalEnemy = GetComponent<NomalEnemy>();
         enemySpawn = GetComponentInParent<EnemySpawn>();
+        enemySpawn.currentBossList.Add(gameObject);
         parent = transform.parent.GetComponent<Transform>();
         parentRigidbody = GetComponentInParent<Rigidbody>();
 
@@ -15,12 +16,16 @@ public class EnemyBoss : NomalEnemy
         {
             if (unit == null) continue;
 
-            unit.GetComponent<TeamSoldier>().target = transform;
+            TeamSoldier teamSoldier = unit.GetComponent<TeamSoldier>();
+            if(!teamSoldier.enterStoryWorld)
+                unit.GetComponent<TeamSoldier>().target = transform;
         }
     }
 
     public override void Dead()
     {
+        enemySpawn.currentBossList.Remove(gameObject);
+        enemySpawn.bossRespawn = false;
         transform.parent.transform.position = new Vector3(500, 500, 500);
         isDead = true;
         GetBossReword(10, 1);

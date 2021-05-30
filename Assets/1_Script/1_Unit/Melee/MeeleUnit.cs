@@ -37,7 +37,7 @@ public class MeeleUnit : TeamSoldier
     {
         // 공격 시작 때 적과 HitMeeleAttack() 작동 시 적과 같은 적인지 비교하는 코드 필요
         Enemy enemy = GetEnemyScript();
-        if (enemy != null && (enemyDistance < attackRange || target.gameObject.CompareTag("Tower")))
+        if (enemy != null && (enemyDistance < attackRange || target.gameObject.CompareTag("Tower") || target.gameObject.CompareTag("Boss") ) )
         {
             AttackEnemy(enemy);
             MeeleUnit_PassiveAttack(enemy);

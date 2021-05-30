@@ -109,7 +109,7 @@ public class Unit_Archer : RangeUnit
 
         for (int i = 1; i < count; i++) // 위에서 array에 targetTransform을 넣었으니 i가 1부타 시작
         {
-            if(enemyList.Count != 0 && !target.gameObject.CompareTag("Tower"))
+            if(enemyList.Count != 0 && !target.gameObject.CompareTag("Tower") &&  !target.gameObject.CompareTag("Boss"))
             {
                 foreach (GameObject enemyObject in enemyList)
                 {

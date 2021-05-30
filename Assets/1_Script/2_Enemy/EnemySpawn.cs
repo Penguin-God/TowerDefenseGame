@@ -57,12 +57,15 @@ public class EnemySpawn : MonoBehaviour
         StartCoroutine(StageCoroutine(respawnEnemyCount));
     }
 
+
+    public float stageWait_Time = 10f;
     IEnumerator StageCoroutine(int stageRespawnEenemyCount) // 재귀함수 무한반복
     {
         if (stageNumber % 10 == 0)
         {
             RespawnBoss();
             stageRespawnEenemyCount = 0;
+            stageWait_Time = 40f;
         }
 
         // 관련 변수 세팅
@@ -89,17 +92,21 @@ public class EnemySpawn : MonoBehaviour
         }
 
         stageNumber += 1;
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(stageWait_Time);
+        stageWait_Time = 10f;
         StageStart();
     }
 
+    public bool bossRespawn;
+    public List<GameObject> currentBossList;
     void RespawnBoss()
     {
+        bossRespawn = true;
         int random = Random.Range(0, bossPrefab.Length);
         GameObject instantBoss = Instantiate(bossPrefab[random], bossPrefab[random].transform.position, bossPrefab[random].transform.rotation);
         instantBoss.transform.SetParent(transform);
         //currentEnemyList.Add(instantBoss.transform.GetChild(0).gameObject);
-        int hp = 10000 * (stageNumber / 10); // boss hp 정함
+        int hp = 10000 * (stageNumber / 10 * (enemyHpWeight / 10)); // boss hp 정함
         SetEnemyData(instantBoss, hp, 10);
         instantBoss.transform.position = this.transform.position;
         instantBoss.SetActive(true);

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.4497105, g: 0.49977976, b: 0.5756375, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4679,16 +4679,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 856121791}
     m_Modifications:
-    - target: {fileID: 7454969569672131939, guid: be157ae2f2713564fba73e008821c617,
-        type: 3}
-      propertyPath: damage
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 7454969569672131939, guid: be157ae2f2713564fba73e008821c617,
-        type: 3}
-      propertyPath: bossDamage
-      value: 120
-      objectReference: {fileID: 0}
     - target: {fileID: 7454969569692840241, guid: be157ae2f2713564fba73e008821c617,
         type: 3}
       propertyPath: m_Name
@@ -4747,6 +4737,11 @@ PrefabInstance:
     - target: {fileID: 7454969569692840254, guid: be157ae2f2713564fba73e008821c617,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7454969569692840255, guid: be157ae2f2713564fba73e008821c617,
+        type: 3}
+      propertyPath: m_ObstacleAvoidanceType
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -6034,15 +6029,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 464004088101323761, guid: 37b7d41650b96c345b2cf8ce48fcf98a,
+    - target: {fileID: 464004088055449517, guid: 37b7d41650b96c345b2cf8ce48fcf98a,
         type: 3}
-      propertyPath: damage
-      value: 65
-      objectReference: {fileID: 0}
-    - target: {fileID: 464004088101323761, guid: 37b7d41650b96c345b2cf8ce48fcf98a,
-        type: 3}
-      propertyPath: bossDamage
-      value: 65
+      propertyPath: m_ObstacleAvoidanceType
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37b7d41650b96c345b2cf8ce48fcf98a, type: 3}
@@ -7740,16 +7730,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 151015499}
     m_Modifications:
-    - target: {fileID: 1699467413430769189, guid: 99955310471110444a40f9831802d773,
-        type: 3}
-      propertyPath: damage
-      value: 5000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1699467413430769189, guid: 99955310471110444a40f9831802d773,
-        type: 3}
-      propertyPath: bossDamage
-      value: 30000
-      objectReference: {fileID: 0}
     - target: {fileID: 2916168590735878310, guid: 99955310471110444a40f9831802d773,
         type: 3}
       propertyPath: m_Name
@@ -14109,16 +14089,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7754845740141683792, guid: f41e58bb7af97f246b26cc9c43c4131d,
-        type: 3}
-      propertyPath: damage
-      value: 2500
-      objectReference: {fileID: 0}
-    - target: {fileID: 7754845740141683792, guid: f41e58bb7af97f246b26cc9c43c4131d,
-        type: 3}
-      propertyPath: bossDamage
-      value: 2500
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f41e58bb7af97f246b26cc9c43c4131d, type: 3}
 --- !u!1 &753089382
@@ -14230,7 +14200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f140c9481b92b47857b6ed486478e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageNumber: 1
+  stageNumber: 10
   currentEnemyList: []
   enemyPrefab:
   - {fileID: 7536897027791641786, guid: e21cc0963d2c4024898f7722d625d4d1, type: 3}
@@ -14243,6 +14213,9 @@ MonoBehaviour:
   - {fileID: 5842820972880275658, guid: 5ef447b1added104da16e48d12c5aa5f, type: 3}
   - {fileID: 2502174115710485866, guid: 330311eb1efb3f94da01389d197fec10, type: 3}
   towerDieClip: {fileID: 8300000, guid: d1edaaa871b679e4ca2d92014ddc12a6, type: 3}
+  stageWait_Time: 10
+  bossRespawn: 0
+  currentBossList: []
   enemyHpWeight: 20
   towers:
   - {fileID: 1502375967}
@@ -16161,16 +16134,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584615055267807348, guid: 519a6c03cfb2e6d41b531720a81d4f16,
-        type: 3}
-      propertyPath: damage
-      value: 8000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584615055267807348, guid: 519a6c03cfb2e6d41b531720a81d4f16,
-        type: 3}
-      propertyPath: bossDamage
-      value: 8000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 519a6c03cfb2e6d41b531720a81d4f16, type: 3}
@@ -19320,10 +19283,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8715698880754834593, guid: 25ba6f77bfcfb844ca9f1efe22174244,
+    - target: {fileID: 8715698880742512893, guid: 25ba6f77bfcfb844ca9f1efe22174244,
         type: 3}
-      propertyPath: bossDamage
-      value: 65
+      propertyPath: m_ObstacleAvoidanceType
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25ba6f77bfcfb844ca9f1efe22174244, type: 3}
@@ -22589,11 +22552,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 151015499}
     m_Modifications:
-    - target: {fileID: 5810574156314726957, guid: bb99327bd4a0bba4788703e0394afae7,
-        type: 3}
-      propertyPath: bossDamage
-      value: 180
-      objectReference: {fileID: 0}
     - target: {fileID: 5810574156436100720, guid: bb99327bd4a0bba4788703e0394afae7,
         type: 3}
       propertyPath: m_RootOrder
@@ -22647,6 +22605,11 @@ PrefabInstance:
     - target: {fileID: 5810574156436100720, guid: bb99327bd4a0bba4788703e0394afae7,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5810574156436100721, guid: bb99327bd4a0bba4788703e0394afae7,
+        type: 3}
+      propertyPath: m_ObstacleAvoidanceType
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5810574156436100735, guid: bb99327bd4a0bba4788703e0394afae7,
@@ -22991,15 +22954,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1800201801424679697, guid: 3ebdb11443709774b955eea88589b5f2,
+        type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1800201801424679711, guid: 3ebdb11443709774b955eea88589b5f2,
         type: 3}
       propertyPath: m_Name
       value: Black_Archer
-      objectReference: {fileID: 0}
-    - target: {fileID: 1800201801504110413, guid: 3ebdb11443709774b955eea88589b5f2,
-        type: 3}
-      propertyPath: bossDamage
-      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ebdb11443709774b955eea88589b5f2, type: 3}
@@ -28645,16 +28608,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1899256002}
     m_Modifications:
-    - target: {fileID: 4845129776438365971, guid: 8cf4d672d4e5e3848b00ac195b387355,
-        type: 3}
-      propertyPath: damage
-      value: 2500
-      objectReference: {fileID: 0}
-    - target: {fileID: 4845129776438365971, guid: 8cf4d672d4e5e3848b00ac195b387355,
-        type: 3}
-      propertyPath: bossDamage
-      value: 2500
-      objectReference: {fileID: 0}
     - target: {fileID: 8993878285500084624, guid: 8cf4d672d4e5e3848b00ac195b387355,
         type: 3}
       propertyPath: m_Name
@@ -32830,11 +32783,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
-    - target: {fileID: 31673267759872258, guid: d42acb3c35a75354181bcb3cba82f4f2,
-        type: 3}
-      propertyPath: bossDamage
-      value: 2500
-      objectReference: {fileID: 0}
     - target: {fileID: 4583945138574837633, guid: d42acb3c35a75354181bcb3cba82f4f2,
         type: 3}
       propertyPath: m_Name
@@ -34667,6 +34615,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5715507580820987081, guid: 3d754308acb1d5141b0b26a0d743439b,
+        type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d754308acb1d5141b0b26a0d743439b, type: 3}
 --- !u!4 &1615580407 stripped
@@ -35179,15 +35132,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 491011130}
     m_Modifications:
-    - target: {fileID: 934792852262612338, guid: 1772a47c8d7f3e74baa9fbb660966ee4,
-        type: 3}
-      propertyPath: bossDamage
-      value: 120
-      objectReference: {fileID: 0}
     - target: {fileID: 934792852350429472, guid: 1772a47c8d7f3e74baa9fbb660966ee4,
         type: 3}
       propertyPath: m_Name
       value: Green_Archer
+      objectReference: {fileID: 0}
+    - target: {fileID: 934792852350429486, guid: 1772a47c8d7f3e74baa9fbb660966ee4,
+        type: 3}
+      propertyPath: m_ObstacleAvoidanceType
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 934792852350429487, guid: 1772a47c8d7f3e74baa9fbb660966ee4,
         type: 3}
@@ -41199,16 +41152,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8562050406989548928, guid: 9f5d49bb85a97274591d5a7fd662eea2,
-        type: 3}
-      propertyPath: damage
-      value: 12500
-      objectReference: {fileID: 0}
-    - target: {fileID: 8562050406989548928, guid: 9f5d49bb85a97274591d5a7fd662eea2,
-        type: 3}
-      propertyPath: bossDamage
-      value: 500
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f5d49bb85a97274591d5a7fd662eea2, type: 3}
 --- !u!1001 &1939065591
@@ -46109,11 +46052,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1899256002}
     m_Modifications:
-    - target: {fileID: 3343415014717659953, guid: 2a0805aa1bacd58469d5655b8e173611,
-        type: 3}
-      propertyPath: bossDamage
-      value: 65
-      objectReference: {fileID: 0}
     - target: {fileID: 3343415014830645091, guid: 2a0805aa1bacd58469d5655b8e173611,
         type: 3}
       propertyPath: m_Name
@@ -46172,6 +46110,11 @@ PrefabInstance:
     - target: {fileID: 3343415014830645100, guid: 2a0805aa1bacd58469d5655b8e173611,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343415014830645101, guid: 2a0805aa1bacd58469d5655b8e173611,
+        type: 3}
+      propertyPath: m_ObstacleAvoidanceType
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -46242,11 +46185,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Violet_Mage
-      objectReference: {fileID: 0}
-    - target: {fileID: 3475061908579850590, guid: 4d7f63258f1081247abdd23060ca4778,
-        type: 3}
-      propertyPath: bossDamage
-      value: 5000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d7f63258f1081247abdd23060ca4778, type: 3}
@@ -46875,7 +46813,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4230660994675174, guid: be0b768028397264d9c378dbd4f93277, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4230660994675174, guid: be0b768028397264d9c378dbd4f93277, type: 3}
       propertyPath: m_LocalPosition.y

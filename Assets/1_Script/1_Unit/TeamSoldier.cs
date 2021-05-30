@@ -140,6 +140,8 @@ public class TeamSoldier : MonoBehaviour
 
     IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
     {
+        // boss 있으면 보스만 추격
+        if (enemySpawn.bossRespawn && enemySpawn.currentBossList[0] != null) target = enemySpawn.currentBossList[0].transform;
         while (true)
         {
             if (target != null) enemyDistance = Vector3.Distance(this.transform.position, target.position);

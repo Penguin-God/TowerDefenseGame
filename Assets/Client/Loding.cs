@@ -35,7 +35,7 @@ public class Loding : MonoBehaviour
                 progressBar.fillAmount = Mathf.Lerp(progressBar.fillAmount, op.progress, timer);
                 if (progressBar.fillAmount >= op.progress)
                 {
-                    { timer = 0f; }
+                    { timer = -5f; }
                 }
             }
             else

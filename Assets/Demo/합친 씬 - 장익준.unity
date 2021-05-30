@@ -5215,7 +5215,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBCF4\uB77C\uAC80\uC0AC"
+  m_Text: "\uBCF4\uB77C\uAE30\uC0AC"
 --- !u!222 &295754144
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14243,6 +14243,9 @@ MonoBehaviour:
   - {fileID: 5842820972880275658, guid: 5ef447b1added104da16e48d12c5aa5f, type: 3}
   - {fileID: 2502174115710485866, guid: 330311eb1efb3f94da01389d197fec10, type: 3}
   towerDieClip: {fileID: 8300000, guid: d1edaaa871b679e4ca2d92014ddc12a6, type: 3}
+  stageWait_Time: 10
+  bossRespawn: 0
+  currentBossList: []
   enemyHpWeight: 20
   towers:
   - {fileID: 1502375967}
@@ -15240,7 +15243,7 @@ PrefabInstance:
     - target: {fileID: 103836908467553592, guid: 4710141b2362e174b9ea566b6267949d,
         type: 3}
       propertyPath: damage
-      value: 4800
+      value: 3200
       objectReference: {fileID: 0}
     - target: {fileID: 103836908467553592, guid: 4710141b2362e174b9ea566b6267949d,
         type: 3}
@@ -16591,7 +16594,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uC0AC\uAC70\uB9AC 2\uBC30 \uC99D\uAC00\n\uBCF4\uC2A4\uB97C
-    \uC81C\uC678\uD55C \uC720\uB2DB\uC5D0\uAC8C 250% \uB370\uBBF8\uC9C0"
+    \uC81C\uC678\uD55C \uC720\uB2DB\uC5D0\uAC8C 200% \uB370\uBBF8\uC9C0"
 --- !u!222 &872491572
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -38751,7 +38754,7 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uBCF4\uC2A4\uB97C \uC81C\uC678\uD55C \uC801\uC5D0\uAC8C
-    \n300% \uB370\uBBF8\uC9C0"
+    \n200% \uB370\uBBF8\uC9C0"
 --- !u!222 &1779445416
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -41202,12 +41205,12 @@ PrefabInstance:
     - target: {fileID: 8562050406989548928, guid: 9f5d49bb85a97274591d5a7fd662eea2,
         type: 3}
       propertyPath: damage
-      value: 12500
+      value: 10000
       objectReference: {fileID: 0}
     - target: {fileID: 8562050406989548928, guid: 9f5d49bb85a97274591d5a7fd662eea2,
         type: 3}
       propertyPath: bossDamage
-      value: 500
+      value: 5000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f5d49bb85a97274591d5a7fd662eea2, type: 3}
@@ -46665,8 +46668,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uC0AC\uAC70\uB9AC 2\uBC30\uB85C \uC99D\uAC00
-    \n5\uCD08\uAC04 \uB370\uBBF8\uC9C0 500% \uC99D\uAC00"
+  m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: 5\uCD08\uAC04 \uB370\uBBF8\uC9C0 500% \uC99D\uAC00"
 --- !u!222 &2145223102
 CanvasRenderer:
   m_ObjectHideFlags: 0

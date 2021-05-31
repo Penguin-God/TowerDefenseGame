@@ -6679,7 +6679,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -7822,6 +7822,9 @@ MonoBehaviour:
   - {fileID: 2694985329993272948, guid: 37b090600465f664e8e8c60fb1464079, type: 3}
   bossPrefab: []
   towerDieClip: {fileID: 0}
+  stageWait_Time: 10
+  bossRespawn: 0
+  currentBossList: []
   enemyHpWeight: 0
   towers: []
   currentTowerLevel: 0

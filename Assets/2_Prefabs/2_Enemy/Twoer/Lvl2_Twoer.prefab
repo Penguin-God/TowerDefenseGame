@@ -483,11 +483,12 @@ MonoBehaviour:
   currentHp: 50000
   isDead: 0
   hpSlider: {fileID: 1032549144}
-  mat: {fileID: 0}
+  originMat: {fileID: 0}
   sternEffect: {fileID: 0}
+  slowSkillMat: {fileID: 0}
   enemySpawn: {fileID: 0}
   towerLevel: 2
-  rewardGold: 40
+  rewardGold: 30
   rewardFood: 3
 --- !u!54 &683437528
 Rigidbody:

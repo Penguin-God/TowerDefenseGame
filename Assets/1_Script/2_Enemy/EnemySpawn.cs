@@ -69,7 +69,7 @@ public class EnemySpawn : MonoBehaviour
         }
 
         // 관련 변수 세팅
-        int instantEnemyNumber = 0; //Random.Range(0, enemyPrefab.Length);
+        int instantEnemyNumber = Random.Range(0, enemyPrefab.Length);
         int hp = SetRandomHp();
         float speed = SetRandomSeepd();
         //float respawnDelayTime = SetRandom_RespawnDelayTime();
@@ -106,7 +106,7 @@ public class EnemySpawn : MonoBehaviour
         GameObject instantBoss = Instantiate(bossPrefab[random], bossPrefab[random].transform.position, bossPrefab[random].transform.rotation);
         instantBoss.transform.SetParent(transform);
         //currentEnemyList.Add(instantBoss.transform.GetChild(0).gameObject);
-        int hp = 10000 * (stageNumber / 10 * (enemyHpWeight / 10)); // boss hp 정함
+        int hp = 10000 * ( (stageNumber / 10) * (enemyHpWeight / 5) ); // boss hp 정함
         SetEnemyData(instantBoss, hp, 10);
         instantBoss.transform.position = this.transform.position;
         instantBoss.SetActive(true);
@@ -195,7 +195,6 @@ public class EnemySpawn : MonoBehaviour
             {
                 createDefenser.CreateSoldier(6, 3);
             }
-            return; 
         }
         StartCoroutine(SetNexTwoer_Coroutine(towerLevel, delayTime));
     }
@@ -205,6 +204,6 @@ public class EnemySpawn : MonoBehaviour
         enemyAudioSource.PlayOneShot(towerDieClip, 1f);
         towers[towerLevel - 1].SetActive(false);
         yield return new WaitForSeconds(delayTime);
-        towers[towerLevel].SetActive(true);
+        if(towerLevel < towers.Length) towers[towerLevel].SetActive(true);
     }
 }

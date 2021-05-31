@@ -7626,29 +7626,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2759235848976698467, guid: 52b4a853ad8a05c4680f7485653919b1,
         type: 3}
-      propertyPath: maxHp
-      value: 250000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2759235848976698467, guid: 52b4a853ad8a05c4680f7485653919b1,
-        type: 3}
-      propertyPath: currentHp
-      value: 250000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2759235848976698467, guid: 52b4a853ad8a05c4680f7485653919b1,
-        type: 3}
       propertyPath: enemySpawn
       value: 
       objectReference: {fileID: 763533793}
-    - target: {fileID: 2759235848976698467, guid: 52b4a853ad8a05c4680f7485653919b1,
-        type: 3}
-      propertyPath: rewardFood
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 2759235848976698467, guid: 52b4a853ad8a05c4680f7485653919b1,
-        type: 3}
-      propertyPath: rewardGold
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 3208882251782419050, guid: 52b4a853ad8a05c4680f7485653919b1,
         type: 3}
       propertyPath: m_RootOrder
@@ -8098,29 +8078,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3737384079402376326, guid: 35afb69e039385242832fb21214d5ab6,
         type: 3}
-      propertyPath: maxHp
-      value: 3000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3737384079402376326, guid: 35afb69e039385242832fb21214d5ab6,
-        type: 3}
-      propertyPath: currentHp
-      value: 3000000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3737384079402376326, guid: 35afb69e039385242832fb21214d5ab6,
-        type: 3}
       propertyPath: enemySpawn
       value: 
       objectReference: {fileID: 763533793}
-    - target: {fileID: 3737384079402376326, guid: 35afb69e039385242832fb21214d5ab6,
-        type: 3}
-      propertyPath: rewardFood
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 3737384079402376326, guid: 35afb69e039385242832fb21214d5ab6,
-        type: 3}
-      propertyPath: rewardGold
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35afb69e039385242832fb21214d5ab6, type: 3}
 --- !u!4 &447364447 stripped
@@ -12711,29 +12671,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4099796313275155112, guid: ff4eea62a1bc8d54fafa4cae3c331bd5,
         type: 3}
-      propertyPath: maxHp
-      value: 50000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4099796313275155112, guid: ff4eea62a1bc8d54fafa4cae3c331bd5,
-        type: 3}
-      propertyPath: currentHp
-      value: 50000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4099796313275155112, guid: ff4eea62a1bc8d54fafa4cae3c331bd5,
-        type: 3}
       propertyPath: enemySpawn
       value: 
       objectReference: {fileID: 763533793}
-    - target: {fileID: 4099796313275155112, guid: ff4eea62a1bc8d54fafa4cae3c331bd5,
-        type: 3}
-      propertyPath: rewardFood
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4099796313275155112, guid: ff4eea62a1bc8d54fafa4cae3c331bd5,
-        type: 3}
-      propertyPath: rewardGold
-      value: 40
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ff4eea62a1bc8d54fafa4cae3c331bd5, type: 3}
 --- !u!4 &683437522 stripped
@@ -14200,7 +14140,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f140c9481b92b47857b6ed486478e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageNumber: 1
+  stageNumber: 10
   currentEnemyList: []
   enemyPrefab:
   - {fileID: 7536897027791641786, guid: e21cc0963d2c4024898f7722d625d4d1, type: 3}
@@ -24549,29 +24489,9 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 467168300982980946, guid: 2532013fb675d4f4a864967affefa91f,
         type: 3}
-      propertyPath: maxHp
-      value: 800000
-      objectReference: {fileID: 0}
-    - target: {fileID: 467168300982980946, guid: 2532013fb675d4f4a864967affefa91f,
-        type: 3}
-      propertyPath: currentHp
-      value: 800000
-      objectReference: {fileID: 0}
-    - target: {fileID: 467168300982980946, guid: 2532013fb675d4f4a864967affefa91f,
-        type: 3}
       propertyPath: enemySpawn
       value: 
       objectReference: {fileID: 763533793}
-    - target: {fileID: 467168300982980946, guid: 2532013fb675d4f4a864967affefa91f,
-        type: 3}
-      propertyPath: rewardFood
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 467168300982980946, guid: 2532013fb675d4f4a864967affefa91f,
-        type: 3}
-      propertyPath: rewardGold
-      value: 60
-      objectReference: {fileID: 0}
     - target: {fileID: 9175838405489211456, guid: 2532013fb675d4f4a864967affefa91f,
         type: 3}
       propertyPath: m_RootOrder

@@ -46,7 +46,7 @@ public class Enemy : MonoBehaviour
     }
 
     protected NomalEnemy nomalEnemy;
-
+    
     public void EnemyStern(int sternPercent, float sternTime)
     {
         if (this.gameObject.CompareTag("Tower") || isDead) return;
@@ -57,15 +57,18 @@ public class Enemy : MonoBehaviour
             StartCoroutine(SternCoroutine(sternTime));
         }
     }
-    
+    protected bool isSturn;
     public GameObject sternEffect;
     IEnumerator SternCoroutine(float sternTime)
     {
+        yield return new WaitUntil(() => !isSturn);
+        isSturn = true;
         sternEffect.SetActive(true);
         parentRigidbody.velocity = Vector3.zero;
         yield return new WaitForSeconds(sternTime);
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
         sternEffect.SetActive(false);
+        isSturn = false;
     }
 
 
@@ -105,6 +108,7 @@ public class Enemy : MonoBehaviour
     public void ExitSlow()
     {
         ChangeMat(originMat);
+        ChangeColor(new Color32(255, 255, 255, 255));
         nomalEnemy.speed = nomalEnemy.maxSpeed;
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
         isSlow = false;
@@ -132,7 +136,7 @@ public class Enemy : MonoBehaviour
         }
 
         if (!this.gameObject.CompareTag("Tower"))
-            ChangeColor(originMat.color);
+            ChangeColor(new Color32(255, 255, 255, 255));
     }
 
     protected void ChangeColor(Color32 colorColor)

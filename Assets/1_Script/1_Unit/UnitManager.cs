@@ -2,9 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class UnitArray
+{
+    public GameObject[] unitArray;
+}
+
 public class UnitManager : MonoBehaviour
 {
     public static UnitManager instance;
+    //public GameObject[,] unitArrays; // red, blue, yellow, green, orange, violet, black 순 7개 배열
+    public UnitArray[] unitArrays;
 
     private void Awake()
     {
@@ -17,7 +25,8 @@ public class UnitManager : MonoBehaviour
             Debug.LogWarning("UnitManager 2개");
             Destroy(gameObject);
         }
-
+        //Debug.Log(unitArrays[0].unitArray[0]);
+        //Debug.Log(unitArrays[0][1]);
         currentUnitList = new List<GameObject>();
         StartCoroutine(UnitListCheck_Coroutine());
     }

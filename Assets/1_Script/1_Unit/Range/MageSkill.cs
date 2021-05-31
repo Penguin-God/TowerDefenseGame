@@ -50,7 +50,7 @@ public class MageSkill : MonoBehaviour
                 Destroy(gameObject, 3);
                 break;
             case TeamSoldier.UnitColor.blue:
-                enemy.EnemySlow(99, 5);
+                enemy.EnemySlow(99, 5, true);
                 break;
             case TeamSoldier.UnitColor.yellow:
                 break;

@@ -21,7 +21,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
     private void Awake()
     {
         animator = GetComponent<Animator>();
-        if (unitColor == UnitColor.black || unitColor == UnitColor.white) return;
+        if (unitColor == UnitColor.white) return;
         canvasRectTransform = transform.parent.GetComponentInChildren<RectTransform>();
         manaSlider = transform.parent.GetComponentInChildren<Slider>();
         manaSlider.maxValue = maxMana;
@@ -137,6 +137,9 @@ public class Unit_Mage : RangeUnit, IUnitMana
             case UnitColor.violet:
                 VioletMageSkill(target);
                 break;
+            case UnitColor.black:
+                BlackMageSkill();
+                break;
         }
     }
 
@@ -210,6 +213,22 @@ public class Unit_Mage : RangeUnit, IUnitMana
         plusMana = 30;
     }
 
+    void BlackMageSkill() // 사운드 넣어야 됨
+    {
+        Transform skillTransform = transform.GetChild(1);
+
+        for(int i = 0; i < skillTransform.childCount; i++)
+        {
+            Transform instantTransform = skillTransform.GetChild(i);
+            if (target != null && Vector3.Distance(target.position, transform.position) < 150f)
+            {
+                GameObject instantEnergyBall = CreateBullte(energyBall, instantTransform);
+                instantEnergyBall.transform.rotation = skillTransform.GetChild(i).rotation;
+                instantEnergyBall.GetComponent<Rigidbody>().velocity = skillTransform.GetChild(i).rotation.normalized * Vector3.forward * 50;
+            }
+        }
+    }
+
     public RectTransform canvasRectTransform;
     public Slider manaSlider;
     public int maxMana;
@@ -223,7 +242,7 @@ public class Unit_Mage : RangeUnit, IUnitMana
 
     public void AddMana(int addMana)
     {
-        if (unitColor == UnitColor.black || unitColor == UnitColor.white) return;
+        if (unitColor == UnitColor.white) return;
         currentMana += addMana;
         manaSlider.value = currentMana;
     }

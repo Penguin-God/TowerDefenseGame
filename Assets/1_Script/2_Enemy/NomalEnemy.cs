@@ -84,7 +84,7 @@ public class NomalEnemy : Enemy
         isDead = true;
         this.speed = 0;
         transform.rotation = Quaternion.identity;
-        ChangeColor(mat.color);
+        ChangeColor(originMat.color);
         sternEffect.SetActive(false);
     }
 

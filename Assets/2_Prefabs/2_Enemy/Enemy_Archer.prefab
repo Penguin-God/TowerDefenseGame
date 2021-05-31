@@ -5182,8 +5182,9 @@ MonoBehaviour:
   currentHp: 0
   isDead: 1
   hpSlider: {fileID: 7536897028187312705}
-  mat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
+  originMat: {fileID: 0}
   sternEffect: {fileID: 1420947264}
+  slowSkillMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
   maxSpeed: 0
   speed: 0
   dir: {x: 0, y: 0, z: 0}

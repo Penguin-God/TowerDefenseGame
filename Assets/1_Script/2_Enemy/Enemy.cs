@@ -14,9 +14,10 @@ public class Enemy : MonoBehaviour
     protected Rigidbody parentRigidbody;
     protected List<MeshRenderer> meshList;
     [SerializeField]
-    protected Material mat;
+    protected Material originMat;
     private void Start()
     {
+        originMat = GetComponent<MeshRenderer>().material;
         meshList = new List<MeshRenderer>();
 
         meshList.Add(GetComponent<MeshRenderer>());
@@ -70,7 +71,9 @@ public class Enemy : MonoBehaviour
 
     protected bool isSlow;
     Coroutine exitSlowCoroutine = null;
-    public void EnemySlow(float slowPercent, float slowTIme)
+    [SerializeField]
+    private Material slowSkillMat;
+    public void EnemySlow(float slowPercent, float slowTIme, bool isSkill = false)
     {
         if (this.gameObject.CompareTag("Tower") || isDead) return;
         
@@ -82,7 +85,10 @@ public class Enemy : MonoBehaviour
             isSlow = true;
             nomalEnemy.speed = nomalEnemy.maxSpeed - nomalEnemy.maxSpeed * (slowPercent / 100);
             parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
-            ChangeColor(new Color32(50, 175, 222, 1));
+
+            if (!isSkill) ChangeColor(new Color32(50, 175, 222, 1));
+            else ChangeMat(slowSkillMat);
+
             if (slowTIme > 0)
             {
                 exitSlowCoroutine = StartCoroutine(ExitSlow_Coroutine(slowTIme)); // 더 강한 슬로우 적용 시 코루틴 중지를 위한 코드
@@ -98,19 +104,11 @@ public class Enemy : MonoBehaviour
 
     public void ExitSlow()
     {
-        ChangeColor(mat.color);
+        ChangeMat(originMat);
         nomalEnemy.speed = nomalEnemy.maxSpeed;
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
         isSlow = false;
     }
-
-    //public void ExitSlow()
-    //{
-    //    Debug.Log("슬로우 탈출 !!");
-    //    ChangeColor(mat.color);
-    //    nomalEnemy.speed = nomalEnemy.maxSpeed;
-    //    parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
-    //}
 
     public void EnemyPoisonAttack(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
     {
@@ -134,7 +132,7 @@ public class Enemy : MonoBehaviour
         }
 
         if (!this.gameObject.CompareTag("Tower"))
-            ChangeColor(mat.color);
+            ChangeColor(originMat.color);
     }
 
     protected void ChangeColor(Color32 colorColor)
@@ -142,6 +140,14 @@ public class Enemy : MonoBehaviour
         foreach(MeshRenderer mesh in meshList)
         {
             mesh.material.color = colorColor;
+        }
+    }
+
+    protected void ChangeMat(Material mat)
+    {
+        foreach (MeshRenderer mesh in meshList)
+        {
+            mesh.material = mat;
         }
     }
 }

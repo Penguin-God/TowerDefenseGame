@@ -37,7 +37,7 @@ public class TeamSoldier : MonoBehaviour
     {
         UnitManager.instance.currentUnitList.Add(gameObject);
         unitAudioSource = GetComponentInParent<AudioSource>();
-        bossDamage = damage;
+        //bossDamage = damage;
         SetPassive();
         chaseRange = 150f;
         enemySpawn = FindObjectOfType<EnemySpawn>();
@@ -50,21 +50,21 @@ public class TeamSoldier : MonoBehaviour
 
     public virtual void SetPassive()
     {
-        switch (unitColor)
-        {
-            case UnitColor.red:
-                break;
-            case UnitColor.blue:
-                break;
-            case UnitColor.yellow:
-                break;
-            case UnitColor.green:
-                break;
-            case UnitColor.orange:
-                break;
-            case UnitColor.violet:
-                break;
-        }
+        //switch (unitColor)
+        //{
+        //    case UnitColor.red:
+        //        break;
+        //    case UnitColor.blue:
+        //        break;
+        //    case UnitColor.yellow:
+        //        break;
+        //    case UnitColor.green:
+        //        break;
+        //    case UnitColor.orange:
+        //        break;
+        //    case UnitColor.violet:
+        //        break;
+        //}
     }
     public int specialAttackPercent;
     void UnitAttack()

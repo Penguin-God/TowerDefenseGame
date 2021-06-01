@@ -175,6 +175,8 @@ public class GameManager : MonoBehaviour
         reStartButton.SetActive(true);
         moveFiledButton.SetActive(true);
         NaniDo.SetActive(false);
+
+        EventManager.instance.SetEvent();
     }
 
     public void SelectDifficult(int enemyHpWeight)

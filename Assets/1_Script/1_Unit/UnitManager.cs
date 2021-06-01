@@ -55,7 +55,7 @@ public class UnitManager : MonoBehaviour
         StartCoroutine(ShowTpEffect_Coroutine(tpUnit));
     }
 
-    IEnumerator ShowTpEffect_Coroutine(Transform tpUnit)
+    IEnumerator ShowTpEffect_Coroutine(Transform tpUnit) // tp 이펙트 풀링
     {
         tp_Effects[current_TPEffectIndex].transform.position = tpUnit.position + Vector3.up;
         tp_Effects[current_TPEffectIndex].SetActive(true);

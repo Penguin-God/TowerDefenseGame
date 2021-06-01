@@ -454,11 +454,10 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.RedSwordman.Length >= 1 && TagSoldier.VioletArcher.Length >= 2)
         {
             Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
             Destroy(TagSoldier.VioletArcher[0].transform.parent.gameObject);
             Destroy(TagSoldier.VioletArcher[1].transform.parent.gameObject);
-            GameManager.instance.Gold += 1;
-            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+
 
             SoldierChoose(5, 5, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);

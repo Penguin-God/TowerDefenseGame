@@ -23,8 +23,8 @@ public class EventManager : MonoBehaviour
     //Func<GameObject[], string> event_PassiveReinforce;
     //Func<GameObject[], string> event_PassiveWeaken;
 
-    List<Func<GameObject[], string>> eventFuncList;
-
+    List<Func<GameObject[], string>> buffFuncList;
+    List<Func<GameObject[], string>> debuffFuncList;
     private void Awake()
     {
         if (instance == null)
@@ -37,36 +37,27 @@ public class EventManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        eventFuncList = new List<Func<GameObject[], string>>();
-    }
-
-    //void SetEventFunc()
-    //{
-    //    event_DamageUp = Up_UnitDamage;
-    //    event_BossDamageUp = Up_UnitBossDamage;
-
-    //    event_DamageDown = Down_UnitDamage;
-    //    event_BossDamageDown = Down_UnitBossDamage;
-    //}
-
-    private void Start()
-    {
-    }
-
-    public void SetEvent()
-    {
-        RandomBuffEvent();
-        RandomDebuffEvent();
+        // 이벤트는 GameManager의 GameStart에서 작동함
+        buffFuncList = new List<Func<GameObject[], string>>();
+        debuffFuncList = new List<Func<GameObject[], string>>();
+        SetEvent();
     }
 
     public Text buffText;
     public Text debuffText;
-    void ActionRandomEvent(Text eventText)
+    [SerializeField]
+    private bool[] unitColorIsEvent = new bool[] { false, false, false, false, false, false, false };  
+    void ActionRandomEvent(Text eventText, List<Func<GameObject[], string>> eventFuncList)
     {
         int unitNumber = Return_RandomUnitNumver();
+        if (unitColorIsEvent[unitNumber])
+        {
+            unitNumber++;
+            if (unitNumber >= eventFuncList.Count) unitNumber = 0;
+        }
+
+        unitColorIsEvent[unitNumber] = true;
         int eventNumber = UnityEngine.Random.Range(0, eventFuncList.Count);
-        //Func<GameObject[], string> eventFunc = eventFuncList[eventNumber];
-        //eventFuncList[eventNumber](UnitManager.instance.unitArrays[unitNumber].unitArray);
         eventText.text = ReturnUnitText(unitNumber) + eventFuncList[eventNumber](UnitManager.instance.unitArrays[unitNumber].unitArray);
     }
 
@@ -76,20 +67,38 @@ public class EventManager : MonoBehaviour
         return unitNumver;
     }
 
+    void SetEvent()
+    {
+        SetBuff();
+        SetDeBuff();
+    }
+
+    void SetBuff()
+    {
+        buffFuncList.Add(Up_UnitDamage);
+        buffFuncList.Add(Up_UnitBossDamage);
+    }
+
+    void SetDeBuff()
+    {
+        debuffFuncList.Add(Down_UnitDamage);
+        debuffFuncList.Add(Down_UnitBossDamage);
+    }
+
+    public void RandomUnitEvenet()
+    {
+        RandomBuffEvent();
+        RandomDebuffEvent();
+    }
+
     public void RandomBuffEvent()
     {
-        eventFuncList.Clear();
-        eventFuncList.Add(Up_UnitDamage);
-        eventFuncList.Add(Up_UnitBossDamage);
-        ActionRandomEvent(buffText);
+        ActionRandomEvent(buffText, buffFuncList);
     }
 
     public void RandomDebuffEvent()
     {
-        eventFuncList.Clear();
-        eventFuncList.Add(Down_UnitDamage);
-        eventFuncList.Add(Down_UnitBossDamage);
-        ActionRandomEvent(debuffText);
+        ActionRandomEvent(debuffText, debuffFuncList);
     }
 
     string Up_UnitDamage(GameObject[] unitArray)

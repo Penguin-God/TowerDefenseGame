@@ -162,21 +162,28 @@ public class GameManager : MonoBehaviour
     public GameObject buyUnit_UI;
     public GameObject reStartButton;
     public GameObject moveFiledButton;
-    public GameObject NaniDo;
+    public GameObject difficult_UI;
 
     public void GameStart(int enemyHpWeight)
     {
+        Set_UI();
+        EventManager.instance.RandomUnitEvenet(); // 랜덤 유닛 이벤트
+
         SelectDifficult(enemyHpWeight);
         enemySpawn.StageStart();
+    }
 
+    public void Set_UI()
+    {
+        // 키기
         status_UI.SetActive(true);
         unitControll_UI.SetActive(true);
         buyUnit_UI.SetActive(true);
         reStartButton.SetActive(true);
         moveFiledButton.SetActive(true);
-        NaniDo.SetActive(false);
 
-        EventManager.instance.SetEvent();
+        // 끄기
+        difficult_UI.SetActive(false);
     }
 
     public void SelectDifficult(int enemyHpWeight)
@@ -184,39 +191,39 @@ public class GameManager : MonoBehaviour
         enemySpawn.enemyHpWeight = enemyHpWeight;
     }
 
-    public void ClickUengaeButton()
-    {
-        enemySpawn.enemyHpWeight = 5;
-        NaniDo.SetActive(false);
+    //public void ClickUengaeButton()
+    //{
+    //    enemySpawn.enemyHpWeight = 5;
+    //    NaniDo.SetActive(false);
 
-    }
-    public void ClickEasyButton()
-    {
-        enemySpawn.enemyHpWeight = 15;
-        NaniDo.SetActive(false);
+    //}
+    //public void ClickEasyButton()
+    //{
+    //    enemySpawn.enemyHpWeight = 15;
+    //    NaniDo.SetActive(false);
     
-    }
+    //}
 
-    public void ClickNormalButton()
-    {
-        enemySpawn.enemyHpWeight = 25;
-        NaniDo.SetActive(false);
+    //public void ClickNormalButton()
+    //{
+    //    enemySpawn.enemyHpWeight = 25;
+    //    NaniDo.SetActive(false);
 
-    }
+    //}
 
-    public void ClickHardButton()
-    {
-        enemySpawn.enemyHpWeight = 35;
-        NaniDo.SetActive(false);
+    //public void ClickHardButton()
+    //{
+    //    enemySpawn.enemyHpWeight = 35;
+    //    NaniDo.SetActive(false);
 
-    }
+    //}
 
-    public void ClickImpassiableButton()
-    {
-        enemySpawn.enemyHpWeight = 45;
-        NaniDo.SetActive(false);
+    //public void ClickImpassiableButton()
+    //{
+    //    enemySpawn.enemyHpWeight = 45;
+    //    NaniDo.SetActive(false);
 
-    }
+    //}
 
 
 

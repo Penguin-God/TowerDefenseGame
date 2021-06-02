@@ -14615,7 +14615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6f140c9481b92b47857b6ed486478e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageNumber: 10
+  stageNumber: 1
   currentEnemyList: []
   enemyPrefab:
   - {fileID: 7536897027791641786, guid: e21cc0963d2c4024898f7722d625d4d1, type: 3}
@@ -34617,7 +34617,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1566586201
 RectTransform:
   m_ObjectHideFlags: 0
@@ -37362,7 +37362,7 @@ MonoBehaviour:
   buyUnit_UI: {fileID: 2137604829}
   reStartButton: {fileID: 1979758046}
   moveFiledButton: {fileID: 717411400}
-  NaniDo: {fileID: 595268640}
+  difficult_UI: {fileID: 595268640}
 --- !u!4 &1697914940
 Transform:
   m_ObjectHideFlags: 0

@@ -24,7 +24,7 @@ RenderSettings:
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -44,14 +44,14 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
     m_IndirectOutputScale: 1
     m_AlbedoBoost: 1
-    m_EnvironmentLightingMode: 0
-    m_EnableBakedLightmaps: 1
+    m_EnvironmentLightingMode: 1
+    m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 1
   m_LightmapEditorSettings:
     serializedVersion: 12
@@ -97,7 +97,8 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000000, guid: 816f605e282b88b45afb053a7f7845bf,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -8038,6 +8039,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 151015499}
     m_Modifications:
+    - target: {fileID: 1699467413430769189, guid: 99955310471110444a40f9831802d773,
+        type: 3}
+      propertyPath: plusMana
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 1699467413430769189, guid: 99955310471110444a40f9831802d773,
+        type: 3}
+      propertyPath: specialAttackPercent
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2916168590735878310, guid: 99955310471110444a40f9831802d773,
         type: 3}
       propertyPath: m_Name
@@ -14504,6 +14515,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7754845740141683792, guid: f41e58bb7af97f246b26cc9c43c4131d,
+        type: 3}
+      propertyPath: plusMana
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 7754845740141683792, guid: f41e58bb7af97f246b26cc9c43c4131d,
+        type: 3}
+      propertyPath: specialAttackPercent
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f41e58bb7af97f246b26cc9c43c4131d, type: 3}
 --- !u!1 &753089382
@@ -16577,6 +16598,16 @@ PrefabInstance:
     - target: {fileID: 2032129247473008376, guid: 519a6c03cfb2e6d41b531720a81d4f16,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2584615055267807348, guid: 519a6c03cfb2e6d41b531720a81d4f16,
+        type: 3}
+      propertyPath: plusMana
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 2584615055267807348, guid: 519a6c03cfb2e6d41b531720a81d4f16,
+        type: 3}
+      propertyPath: specialAttackPercent
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -29268,6 +29299,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1899256002}
     m_Modifications:
+    - target: {fileID: 4845129776438365971, guid: 8cf4d672d4e5e3848b00ac195b387355,
+        type: 3}
+      propertyPath: plusMana
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 4845129776438365971, guid: 8cf4d672d4e5e3848b00ac195b387355,
+        type: 3}
+      propertyPath: specialAttackPercent
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8993878285500084624, guid: 8cf4d672d4e5e3848b00ac195b387355,
         type: 3}
       propertyPath: m_Name
@@ -33449,6 +33490,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
+    - target: {fileID: 31673267759872258, guid: d42acb3c35a75354181bcb3cba82f4f2,
+        type: 3}
+      propertyPath: plusMana
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 31673267759872258, guid: d42acb3c35a75354181bcb3cba82f4f2,
+        type: 3}
+      propertyPath: specialAttackPercent
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4583945138574837633, guid: d42acb3c35a75354181bcb3cba82f4f2,
         type: 3}
       propertyPath: m_Name
@@ -34775,6 +34826,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffText: {fileID: 2102880951}
   debuffText: {fileID: 232964554}
+  unitColorIsEvent: 00000000000000
 --- !u!4 &1568701675
 Transform:
   m_ObjectHideFlags: 0
@@ -42032,6 +42084,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8562050406989548928, guid: 9f5d49bb85a97274591d5a7fd662eea2,
+        type: 3}
+      propertyPath: plusMana
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562050406989548928, guid: 9f5d49bb85a97274591d5a7fd662eea2,
+        type: 3}
+      propertyPath: specialAttackPercent
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f5d49bb85a97274591d5a7fd662eea2, type: 3}
 --- !u!1 &1932220520
@@ -47346,6 +47408,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Violet_Mage
+      objectReference: {fileID: 0}
+    - target: {fileID: 3475061908579850590, guid: 4d7f63258f1081247abdd23060ca4778,
+        type: 3}
+      propertyPath: plusMana
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3475061908579850590, guid: 4d7f63258f1081247abdd23060ca4778,
+        type: 3}
+      propertyPath: specialAttackPercent
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d7f63258f1081247abdd23060ca4778, type: 3}

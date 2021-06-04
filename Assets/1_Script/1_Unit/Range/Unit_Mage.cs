@@ -9,7 +9,7 @@ using UnityEngine.UI;
     
 //}
 
-public class Unit_Mage : RangeUnit, IUnitMana
+public class Unit_Mage : RangeUnit, IUnitMana, IEvent
 {
     [Header("메이지 변수")]
     public GameObject magicLight;
@@ -28,6 +28,12 @@ public class Unit_Mage : RangeUnit, IUnitMana
         manaSlider.value = currentMana;
     }
 
+    private float redPassiveFigure;
+    private int bluePassiveFigure;
+    private float yellowPassiveFigure;
+    private int greenPassiveFigure;
+    private float orangePassiveFigure;
+    private int violetPassiveFigure;
     public override void SetPassive()
     {
         switch (unitColor)
@@ -394,4 +400,31 @@ public class Unit_Mage : RangeUnit, IUnitMana
         }
     }
 
+
+
+    // 이벤트
+    public void SkillPercentUp()
+    {
+        plusMana += 10;
+    }
+
+    public void SkillPercentDown()
+    {
+        plusMana -= 10;
+    }
+
+    public void ReinforcePassive()
+    {
+
+    }
+
+    public void WeakenPassive()
+    {
+        redPassiveFigure = 0;
+        bluePassiveFigure = 0;
+        yellowPassiveFigure = 0;
+        greenPassiveFigure = 0;
+        orangePassiveFigure = 0;
+        violetPassiveFigure = 0;
+    }
 }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit_Spearman : MeeleUnit
+public class Unit_Spearman : MeeleUnit, IEvent
 {
     [Header("창병 변수")]
     public GameObject trail;
@@ -21,6 +21,13 @@ public class Unit_Spearman : MeeleUnit
         animator = GetComponent<Animator>();
     }
 
+
+    private float redPassiveFigure; 
+    private int bluePassiveFigure;
+    private float yellowPassiveFigure; 
+    private int greenPassiveFigure; 
+    private float orangePassiveFigure;
+    private int violetPassiveFigure;
     public override void SetPassive()
     {
         switch (unitColor)
@@ -116,5 +123,31 @@ public class Unit_Spearman : MeeleUnit
                 enemy.EnemyStern(30, 2);
                 break;
         }
+    }
+
+    // 이벤트
+    public void SkillPercentUp()
+    {
+        specialAttackPercent += 15;
+    }
+
+    public void SkillPercentDown()
+    {
+        specialAttackPercent -= 15;
+    }
+
+    public void ReinforcePassive()
+    {
+
+    }
+
+    public void WeakenPassive()
+    {
+        redPassiveFigure = 0;
+        bluePassiveFigure = 0;
+        yellowPassiveFigure = 0;
+        greenPassiveFigure = 0;
+        orangePassiveFigure = 0;
+        violetPassiveFigure = 0;
     }
 }

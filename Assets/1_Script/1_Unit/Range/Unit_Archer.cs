@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Unit_Archer : RangeUnit
+public class Unit_Archer : RangeUnit, IEvent
 {
     [Header("아처 변수")]
     public GameObject arrow;
@@ -15,6 +15,12 @@ public class Unit_Archer : RangeUnit
         if(!enterStoryWorld) trail = GetComponentInChildren<TrailRenderer>().gameObject;
     }
 
+    private float redPassiveFigure;
+    private int bluePassiveFigure;
+    private float yellowPassiveFigure;
+    private int greenPassiveFigure;
+    private float orangePassiveFigure;
+    private int violetPassiveFigure;
     public override void SetPassive()
     {
         switch (unitColor)
@@ -155,6 +161,33 @@ public class Unit_Archer : RangeUnit
                 enemy.EnemyStern(5, 2);
                 break;
         }
+    }
+
+
+    // 이벤트
+    public void SkillPercentUp()
+    {
+        specialAttackPercent += 20;
+    }
+
+    public void SkillPercentDown()
+    {
+        specialAttackPercent -= 20;
+    }
+
+    public void ReinforcePassive()
+    {
+
+    }
+
+    public void WeakenPassive()
+    {
+        redPassiveFigure = 0;
+        bluePassiveFigure = 0;
+        yellowPassiveFigure = 0;
+        greenPassiveFigure = 0;
+        orangePassiveFigure = 0;
+        violetPassiveFigure = 0;
     }
 }
 

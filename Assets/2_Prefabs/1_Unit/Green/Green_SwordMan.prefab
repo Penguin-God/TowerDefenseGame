@@ -508,8 +508,8 @@ MonoBehaviour:
   speed: 15
   attackDelayTime: 1
   attackRange: 6
-  damage: 40
-  bossDamage: 0
+  damage: 60
+  bossDamage: 60
   stopDistanc: 3
   isAttack: 0
   isAttackDelayTime: 0

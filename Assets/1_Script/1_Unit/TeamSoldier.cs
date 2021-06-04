@@ -327,7 +327,15 @@ public class TeamSoldier : MonoBehaviour
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
         }
     }
-    
+
+    //// 이벤트 관련 함수
+    //public virtual void SkillPercentUp() { }
+    //public virtual void SkillPercentDown() { }
+    //public virtual void ReinforcePassive() { }
+    //public virtual void WeakenPassive() { }
+
+
+
     //private void OnMouseDown()
     //{
     //    GameManager.instance.Chilk();

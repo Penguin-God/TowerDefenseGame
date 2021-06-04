@@ -155,6 +155,17 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public GameObject ResetOkButton;
+    public void OnResetButton()
+    {
+        ResetOkButton.SetActive(true);
+    }
+
+    public void DownResetButton()
+    {
+        ResetOkButton.SetActive(false);
+    }
+
     [Header("UI GameObject")]
 
     public GameObject status_UI;

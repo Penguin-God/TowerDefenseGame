@@ -22,12 +22,12 @@ public class Unit_Spearman : MeeleUnit, IEvent
     }
 
 
-    private float redPassiveFigure; 
-    private int bluePassiveFigure;
-    private float yellowPassiveFigure; 
-    private int greenPassiveFigure; 
-    private float orangePassiveFigure;
-    private int violetPassiveFigure;
+    private float redPassiveFigure; // 애는 없음 
+    private int bluePassiveFigure = 50;
+    private int yellowPassiveFigure = 5;
+    private int greenPassiveFigure = 3; 
+    private int orangePassiveFigure = 3;
+    private int violetPassiveFigure = 30;
     public override void SetPassive()
     {
         switch (unitColor)
@@ -39,9 +39,10 @@ public class Unit_Spearman : MeeleUnit, IEvent
             case UnitColor.yellow:
                 break;
             case UnitColor.green:
-                damage *= 3;
+                damage *= greenPassiveFigure;
                 break;
             case UnitColor.orange:
+                bossDamage *= orangePassiveFigure;
                 break;
             case UnitColor.violet:
                 break;
@@ -61,7 +62,6 @@ public class Unit_Spearman : MeeleUnit, IEvent
         animator.SetTrigger("isAttack");
         yield return new WaitForSeconds(0.55f);
         trail.SetActive(true);
-        //if (audioSource != null) audioSource.Play();
         yield return new WaitForSeconds(0.3f);
         HitMeeleAttack();
         yield return new WaitForSeconds(0.3f);
@@ -110,17 +110,17 @@ public class Unit_Spearman : MeeleUnit, IEvent
             case UnitColor.red:
                 break;
             case UnitColor.blue:
-                enemy.EnemySlow(50, 3);
+                enemy.EnemySlow(bluePassiveFigure, 3);
                 break;
             case UnitColor.yellow:
-                Add_PassiveGold(5, 2);
+                Add_PassiveGold(yellowPassiveFigure, 2);
                 break;
             case UnitColor.green:
                 break;
             case UnitColor.orange:
                 break;
             case UnitColor.violet:
-                enemy.EnemyStern(30, 2);
+                enemy.EnemyStern(violetPassiveFigure, 2);
                 break;
         }
     }
@@ -138,7 +138,12 @@ public class Unit_Spearman : MeeleUnit, IEvent
 
     public void ReinforcePassive()
     {
-
+        redPassiveFigure = 0;
+        bluePassiveFigure = 85;
+        yellowPassiveFigure = 15;
+        greenPassiveFigure = 5;
+        orangePassiveFigure = 5;
+        violetPassiveFigure = 60;
     }
 
     public void WeakenPassive()

@@ -28,12 +28,6 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         manaSlider.value = currentMana;
     }
 
-    private float redPassiveFigure;
-    private int bluePassiveFigure;
-    private float yellowPassiveFigure;
-    private int greenPassiveFigure;
-    private float orangePassiveFigure;
-    private int violetPassiveFigure;
     public override void SetPassive()
     {
         switch (unitColor)
@@ -41,14 +35,15 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
             case UnitColor.red:
                 break;
             case UnitColor.blue:
+                GetComponent<SphereCollider>().radius = bluePassiveFigure;
                 break;
             case UnitColor.yellow:
                 break;
             case UnitColor.green:
-                attackRange *= 2;
+                attackRange *= greenPassiveFigure;
                 break;
             case UnitColor.orange:
-                bossDamage *= 6;
+                bossDamage *= orangePassiveFigure;
                 break;
             case UnitColor.violet:
                 break;
@@ -275,7 +270,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
             case UnitColor.orange:
                 break;
             case UnitColor.violet:
-                enemy.EnemyStern(60, 3);
+                enemy.EnemyStern(violetPassiveFigure, 3);
                 break;
         }
     }
@@ -311,12 +306,12 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
             switch (unitColor)
             {
                 case UnitColor.red:
-                    otherTeamSoldier.damage *= 2;
+                    otherTeamSoldier.damage = Mathf.RoundToInt(redPassiveFigure * damage);
                     break;
                 case UnitColor.blue:
                     break;
                 case UnitColor.yellow:
-                    otherTeamSoldier.attackDelayTime *= 0.5f;
+                    otherTeamSoldier.attackDelayTime *= yellowPassiveFigure;
                     break;
                 case UnitColor.green:
                     break;
@@ -413,9 +408,21 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         plusMana -= 10;
     }
 
+
+    private float redPassiveFigure = 1.5f;
+    private int bluePassiveFigure = 25;
+    private float yellowPassiveFigure = 0.5f;
+    private int greenPassiveFigure = 2;
+    private int orangePassiveFigure = 6;
+    private int violetPassiveFigure = 60;
     public void ReinforcePassive()
     {
-
+        redPassiveFigure = 2f;
+        bluePassiveFigure = 40;
+        yellowPassiveFigure = 0.1f;
+        greenPassiveFigure = 3;
+        orangePassiveFigure = 10;
+        violetPassiveFigure = 99;
     }
 
     public void WeakenPassive()

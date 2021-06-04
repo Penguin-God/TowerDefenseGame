@@ -15,27 +15,28 @@ public class Unit_Archer : RangeUnit, IEvent
         if(!enterStoryWorld) trail = GetComponentInChildren<TrailRenderer>().gameObject;
     }
 
-    private float redPassiveFigure;
-    private int bluePassiveFigure;
-    private float yellowPassiveFigure;
-    private int greenPassiveFigure;
-    private float orangePassiveFigure;
-    private int violetPassiveFigure;
+    private float redPassiveFigure = 0.25f;
+    private int bluePassiveFigure = 30;
+    private int yellowPassiveFigure = 1;
+    private int greenPassiveFigure = 2;
+    private int orangePassiveFigure = 2;
+    private int violetPassiveFigure = 5;
     public override void SetPassive()
     {
         switch (unitColor)
         {
             case UnitColor.red:
-                attackDelayTime *= 0.5f;
+                attackDelayTime *= redPassiveFigure;
                 break;
             case UnitColor.blue:
                 break;
             case UnitColor.yellow:
                 break;
             case UnitColor.green:
+                specialAttackPercent *= greenPassiveFigure;
                 break;
             case UnitColor.orange:
-                damage *= 2;
+                damage *= orangePassiveFigure;
                 break;
             case UnitColor.violet:
                 break;
@@ -148,17 +149,17 @@ public class Unit_Archer : RangeUnit, IEvent
             case UnitColor.red:
                 break;
             case UnitColor.blue:
-                enemy.EnemySlow(30, 2);
+                enemy.EnemySlow(bluePassiveFigure, 2);
                 break;
             case UnitColor.yellow:
-                Add_PassiveGold(1, 2);
+                Add_PassiveGold(yellowPassiveFigure, 2);
                 break;
             case UnitColor.green:
                 break;
             case UnitColor.orange:
                 break;
             case UnitColor.violet:
-                enemy.EnemyStern(5, 2);
+                enemy.EnemyStern(violetPassiveFigure, 2);
                 break;
         }
     }
@@ -177,7 +178,12 @@ public class Unit_Archer : RangeUnit, IEvent
 
     public void ReinforcePassive()
     {
-
+        redPassiveFigure = 0.1f;
+        bluePassiveFigure = 60;
+        yellowPassiveFigure = 10;
+        greenPassiveFigure = 3;
+        orangePassiveFigure = 3;
+        violetPassiveFigure = 20;
     }
 
     public void WeakenPassive()

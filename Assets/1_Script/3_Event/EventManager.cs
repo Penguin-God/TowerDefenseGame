@@ -78,6 +78,7 @@ public class EventManager : MonoBehaviour
         buffFuncList.Add(Up_UnitDamage);
         buffFuncList.Add(Up_UnitBossDamage);
         buffFuncList.Add(Up_UnitSkillPercent);
+        buffFuncList.Add(Reinforce_UnitPassive);
     }
 
     void SetDeBuff()
@@ -85,6 +86,7 @@ public class EventManager : MonoBehaviour
         debuffFuncList.Add(Down_UnitDamage);
         debuffFuncList.Add(Down_UnitBossDamage);
         debuffFuncList.Add(Down_UnitSkillPercent);
+        debuffFuncList.Add(Weaken_UnitPassive);
     }
 
     public void RandomUnitEvenet()

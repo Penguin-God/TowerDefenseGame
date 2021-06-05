@@ -272,7 +272,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
             case UnitColor.orange:
                 break;
             case UnitColor.violet:
-                enemy.EnemyStern(violetPassiveFigure, 3);
+                enemy.EnemyStern(violetPassiveFigure, 7);
                 break;
         }
     }

@@ -57,7 +57,7 @@ public class EnemySpawn : MonoBehaviour
         StartCoroutine(StageCoroutine(respawnEnemyCount));
     }
 
-
+    public int stageGold;
     public float stageWait_Time = 10f;
     IEnumerator StageCoroutine(int stageRespawnEenemyCount) // 재귀함수 무한반복
     {
@@ -91,6 +91,8 @@ public class EnemySpawn : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
 
+        GameManager.instance.Gold += stageGold;
+        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
         stageNumber += 1;
         yield return new WaitForSeconds(stageWait_Time);
         stageWait_Time = 10f;
@@ -98,6 +100,8 @@ public class EnemySpawn : MonoBehaviour
     }
 
     public bool bossRespawn;
+    public int bossRewordGold;
+    public int bossRewordFood;
     public List<GameObject> currentBossList;
     void RespawnBoss()
     {
@@ -107,7 +111,7 @@ public class EnemySpawn : MonoBehaviour
         instantBoss.transform.SetParent(transform);
         //currentEnemyList.Add(instantBoss.transform.GetChild(0).gameObject);
         int hp = 10000 * ( (stageNumber / 10) * (enemyHpWeight / 5) ); // boss hp 정함
-        SetEnemyData(instantBoss, hp, 10);
+        SetEnemyData(instantBoss, hp, 15);
         instantBoss.transform.position = this.transform.position;
         instantBoss.SetActive(true);
     }

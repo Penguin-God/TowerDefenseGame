@@ -28,17 +28,18 @@ public class EnemyBoss : NomalEnemy
         enemySpawn.bossRespawn = false;
         transform.parent.transform.position = new Vector3(500, 500, 500);
         isDead = true;
-        GetBossReword(10, 1);
+        GetBossReword(enemySpawn.bossRewordGold, enemySpawn.bossRewordFood);
         Destroy(transform.parent.gameObject);
         //Debug.Log("Hello World");
     }
 
     void GetBossReword(int rewardGold, int rewardFood)
     {
-        GameManager.instance.Gold += rewardGold;
+        GameManager.instance.Gold += rewardGold * Mathf.FloorToInt(enemySpawn.stageNumber / 10);
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
-        GameManager.instance.Food += rewardFood;
+
+        GameManager.instance.Food += rewardGold * Mathf.FloorToInt(enemySpawn.stageNumber / 10);
         UIManager.instance.UpdateFoodText(GameManager.instance.Food);
     }
 }

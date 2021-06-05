@@ -70,8 +70,8 @@ public class NomalEnemy : Enemy
         enemySpawn.currentEnemyList.Remove(this.gameObject);
         ResetVariable();
 
-        GameManager.instance.Gold += 1;
-        UIManager.instance.UpdateGoldText(GameManager.instance.Gold); // 돈벌기 추가
+        //GameManager.instance.Gold += 1;
+        //UIManager.instance.UpdateGoldText(GameManager.instance.Gold); 
     }
 
     void ResetVariable()
@@ -84,8 +84,8 @@ public class NomalEnemy : Enemy
         isDead = true;
         this.speed = 0;
         transform.rotation = Quaternion.identity;
-        ChangeColor(new Color32(255, 255, 255, 255));
         ChangeMat(originMat);
+        ChangeColor(new Color32(255, 255, 255, 255));
         sternEffect.SetActive(false);
     }
 

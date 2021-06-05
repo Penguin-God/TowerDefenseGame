@@ -114,7 +114,7 @@ public class Unit_Spearman : MeeleUnit, IEvent
             case UnitColor.orange:
                 break;
             case UnitColor.violet:
-                enemy.EnemyStern(violetPassiveFigure, 2);
+                enemy.EnemyStern(violetPassiveFigure, 5);
                 break;
         }
     }

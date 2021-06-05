@@ -153,7 +153,7 @@ public class Unit_Archer : RangeUnit, IEvent
             case UnitColor.orange:
                 break;
             case UnitColor.violet:
-                enemy.EnemyStern(violetPassiveFigure, 2);
+                enemy.EnemyStern(violetPassiveFigure, 4);
                 break;
         }
     }

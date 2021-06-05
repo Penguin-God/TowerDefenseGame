@@ -859,6 +859,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitType: 3
   unitColor: 5
+  originDamage: 0
+  originAttackDelayTime: 0
   speed: 3
   attackDelayTime: 2
   attackRange: 40

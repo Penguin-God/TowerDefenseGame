@@ -384,6 +384,7 @@ GameObject:
   - component: {fileID: 2308940394178002194}
   - component: {fileID: 2332014458094341519}
   - component: {fileID: 7754845740141683792}
+  - component: {fileID: 1453244912}
   m_Layer: 9
   m_Name: TB_Soldier_Mage_Yellow
   m_TagString: YellowMage
@@ -487,6 +488,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitType: 3
   unitColor: 2
+  originDamage: 0
+  originAttackDelayTime: 0
   speed: 3
   attackDelayTime: 2
   attackRange: 40
@@ -519,6 +522,19 @@ MonoBehaviour:
   manaSlider: {fileID: 0}
   maxMana: 100
   currentMana: 0
+--- !u!135 &1453244912
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2332014458094341518}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 20
+  m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
 --- !u!1 &2332124369005625246
 GameObject:
   m_ObjectHideFlags: 0
@@ -1128,15 +1144,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 60bc526f4be1e044ab9e46340b82ffb3, type: 3}
---- !u!4 &354584015 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 400006, guid: 60bc526f4be1e044ab9e46340b82ffb3,
-    type: 3}
-  m_PrefabInstance: {fileID: 354721609}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &354753007 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3,
+    type: 3}
+  m_PrefabInstance: {fileID: 354721609}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &354584015 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400006, guid: 60bc526f4be1e044ab9e46340b82ffb3,
     type: 3}
   m_PrefabInstance: {fileID: 354721609}
   m_PrefabAsset: {fileID: 0}

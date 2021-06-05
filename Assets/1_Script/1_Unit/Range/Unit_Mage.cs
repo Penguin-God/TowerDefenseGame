@@ -38,9 +38,11 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
                 GetComponent<SphereCollider>().radius = bluePassiveFigure;
                 break;
             case UnitColor.yellow:
+                GetComponent<SphereCollider>().radius = yellowPassiveFigure;
                 break;
             case UnitColor.green:
-                attackRange *= greenPassiveFigure;
+                attackRange *= 2;
+                damage *= greenPassiveFigure;
                 break;
             case UnitColor.orange:
                 bossDamage *= orangePassiveFigure;
@@ -280,25 +282,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
 
     private void OnTriggerEnter(Collider other)
     {
-        //if (other.gameObject.layer == 8)
-        //{
-        //    Enemy enemy = other.gameObject.GetComponent<Enemy>();
-        //    switch (unitColor)
-        //    {
-        //        case UnitColor.red:
-        //            break;
-        //        case UnitColor.blue:
-        //            break;
-        //        case UnitColor.yellow:
-        //            break;
-        //        case UnitColor.green:
-        //            break;
-        //        case UnitColor.orange:
-        //            break;
-        //        case UnitColor.violet:
-        //            break;
-        //    }
-        //}
+        // 적에 닿는건 없음
 
         if(other.gameObject.layer == 9)
         {
@@ -306,12 +290,12 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
             switch (unitColor)
             {
                 case UnitColor.red:
-                    otherTeamSoldier.damage = Mathf.RoundToInt(redPassiveFigure * damage);
+                    otherTeamSoldier.damage = Mathf.RoundToInt(redPassiveFigure * otherTeamSoldier.damage);
                     break;
                 case UnitColor.blue:
                     break;
                 case UnitColor.yellow:
-                    otherTeamSoldier.attackDelayTime *= yellowPassiveFigure;
+                    otherTeamSoldier.attackDelayTime *= 0.3f;
                     break;
                 case UnitColor.green:
                     break;
@@ -378,12 +362,12 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
             switch (unitColor)
             {
                 case UnitColor.red:
-                    otherTeamSoldier.damage = Mathf.RoundToInt(otherTeamSoldier.damage / 1.5f);
+                    otherTeamSoldier.damage = otherTeamSoldier.originDamage;
                     break;
                 case UnitColor.blue:
                     break;
                 case UnitColor.yellow:
-                    otherTeamSoldier.attackDelayTime *= 2f;
+                    otherTeamSoldier.attackDelayTime *= otherTeamSoldier.originAttackDelayTime;
                     break;
                 case UnitColor.green:
                     break;
@@ -408,30 +392,30 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         plusMana -= 10;
     }
 
-
+    // 패시브 이벤트
     private float redPassiveFigure = 1.5f;
-    private int bluePassiveFigure = 25;
-    private float yellowPassiveFigure = 0.5f;
+    private float bluePassiveFigure = 20f;
+    private float yellowPassiveFigure = 20f;
     private int greenPassiveFigure = 2;
-    private int orangePassiveFigure = 6;
+    private int orangePassiveFigure = 5;
     private int violetPassiveFigure = 60;
     public void ReinforcePassive()
     {
         redPassiveFigure = 2f;
-        bluePassiveFigure = 40;
-        yellowPassiveFigure = 0.1f;
-        greenPassiveFigure = 3;
+        bluePassiveFigure = 40f;
+        yellowPassiveFigure = 40f;
+        greenPassiveFigure = 4;
         orangePassiveFigure = 10;
         violetPassiveFigure = 99;
     }
 
     public void WeakenPassive()
     {
-        redPassiveFigure = 0;
-        bluePassiveFigure = 0;
-        yellowPassiveFigure = 0;
-        greenPassiveFigure = 0;
-        orangePassiveFigure = 0;
+        redPassiveFigure = 1;
+        bluePassiveFigure = 0; // 콜라이더 범위 삭제
+        yellowPassiveFigure = 0; // 콜라이더 범위 삭제
+        greenPassiveFigure = 1;
+        orangePassiveFigure = 1;
         violetPassiveFigure = 0;
     }
 }

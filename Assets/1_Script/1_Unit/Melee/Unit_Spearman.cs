@@ -21,18 +21,12 @@ public class Unit_Spearman : MeeleUnit, IEvent
         animator = GetComponent<Animator>();
     }
 
-
-    private float redPassiveFigure; // 애는 없음 
-    private int bluePassiveFigure = 50;
-    private int yellowPassiveFigure = 5;
-    private int greenPassiveFigure = 3; 
-    private int orangePassiveFigure = 3;
-    private int violetPassiveFigure = 30;
     public override void SetPassive()
     {
         switch (unitColor)
         {
             case UnitColor.red:
+                specialAttackPercent = redPassiveFigure;
                 break;
             case UnitColor.blue:
                 break;
@@ -136,9 +130,16 @@ public class Unit_Spearman : MeeleUnit, IEvent
         specialAttackPercent -= 15;
     }
 
+    // 패시브 이벤트
+    private int redPassiveFigure = 80;
+    private int bluePassiveFigure = 50;
+    private int yellowPassiveFigure = 5;
+    private int greenPassiveFigure = 3;
+    private int orangePassiveFigure = 3;
+    private int violetPassiveFigure = 30;
     public void ReinforcePassive()
     {
-        redPassiveFigure = 0;
+        redPassiveFigure = 100;
         bluePassiveFigure = 85;
         yellowPassiveFigure = 15;
         greenPassiveFigure = 5;
@@ -148,11 +149,11 @@ public class Unit_Spearman : MeeleUnit, IEvent
 
     public void WeakenPassive()
     {
-        redPassiveFigure = 0;
+        redPassiveFigure = 30;
         bluePassiveFigure = 0;
         yellowPassiveFigure = 0;
-        greenPassiveFigure = 0;
-        orangePassiveFigure = 0;
+        greenPassiveFigure = 1;
+        orangePassiveFigure = 1;
         violetPassiveFigure = 0;
     }
 }

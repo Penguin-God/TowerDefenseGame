@@ -8039,16 +8039,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 151015499}
     m_Modifications:
-    - target: {fileID: 1699467413430769189, guid: 99955310471110444a40f9831802d773,
-        type: 3}
-      propertyPath: plusMana
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 1699467413430769189, guid: 99955310471110444a40f9831802d773,
-        type: 3}
-      propertyPath: specialAttackPercent
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2916168590735878310, guid: 99955310471110444a40f9831802d773,
         type: 3}
       propertyPath: m_Name
@@ -14515,16 +14505,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7754845740141683792, guid: f41e58bb7af97f246b26cc9c43c4131d,
-        type: 3}
-      propertyPath: plusMana
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 7754845740141683792, guid: f41e58bb7af97f246b26cc9c43c4131d,
-        type: 3}
-      propertyPath: specialAttackPercent
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f41e58bb7af97f246b26cc9c43c4131d, type: 3}
 --- !u!1 &753089382
@@ -16886,11 +16866,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
-    - target: {fileID: 296571180890353750, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: bossDamage
-      value: 500
-      objectReference: {fileID: 0}
     - target: {fileID: 5034237234067150756, guid: 611e0c79108bf4540898c3ddebd5387c,
         type: 3}
       propertyPath: m_Name
@@ -19162,12 +19137,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 962632421}
   m_CullTransparentMesh: 0
---- !u!1 &963013007 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 624774111338365786, guid: fa097f847d808e4439989ccea0ad2256,
-    type: 3}
-  m_PrefabInstance: {fileID: 1313780718}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &964821288
 GameObject:
   m_ObjectHideFlags: 0
@@ -19253,16 +19222,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
-    - target: {fileID: 6050898850487632020, guid: 1e059af96a94cf44f8b4ce6202c501c5,
-        type: 3}
-      propertyPath: damage
-      value: 25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6050898850487632020, guid: 1e059af96a94cf44f8b4ce6202c501c5,
-        type: 3}
-      propertyPath: bossDamage
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 8148257199809515133, guid: 1e059af96a94cf44f8b4ce6202c501c5,
         type: 3}
       propertyPath: m_Name
@@ -20267,16 +20226,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Violet_SwordMan
-      objectReference: {fileID: 0}
-    - target: {fileID: 7125906036297420794, guid: fe89360992dadd4418670d0ad705097b,
-        type: 3}
-      propertyPath: damage
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 7125906036297420794, guid: fe89360992dadd4418670d0ad705097b,
-        type: 3}
-      propertyPath: bossDamage
-      value: 60
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe89360992dadd4418670d0ad705097b, type: 3}
@@ -21873,11 +21822,6 @@ MonoBehaviour:
     - {fileID: 832688008}
     - {fileID: 954490415}
     - {fileID: 35759087}
-  - unitArray:
-    - {fileID: 963013007}
-    - {fileID: 1668710967}
-    - {fileID: 2131325400}
-    - {fileID: 1971809719}
   currentUnitList: []
   tp_Effects:
   - {fileID: 552626229}
@@ -22829,16 +22773,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange_SwordMan
       objectReference: {fileID: 0}
-    - target: {fileID: 2820413154886425651, guid: f19bbd67bad198e4aa7e2647ffbcf8c9,
-        type: 3}
-      propertyPath: damage
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 2820413154886425651, guid: f19bbd67bad198e4aa7e2647ffbcf8c9,
-        type: 3}
-      propertyPath: bossDamage
-      value: 90
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f19bbd67bad198e4aa7e2647ffbcf8c9, type: 3}
 --- !u!1 &1130972850
@@ -23006,11 +22940,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1899256002}
     m_Modifications:
-    - target: {fileID: 6719750767215374007, guid: 5d62ab9f6e012bb41940e8f669a9ae7c,
-        type: 3}
-      propertyPath: bossDamage
-      value: 25
-      objectReference: {fileID: 0}
     - target: {fileID: 9199773262359240796, guid: 5d62ab9f6e012bb41940e8f669a9ae7c,
         type: 3}
       propertyPath: m_RootOrder
@@ -29132,11 +29061,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange_Spearman
       objectReference: {fileID: 0}
-    - target: {fileID: 8772771035943043365, guid: 980c2ab93cdef544cb411595d34befb7,
-        type: 3}
-      propertyPath: bossDamage
-      value: 4800
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 980c2ab93cdef544cb411595d34befb7, type: 3}
 --- !u!4 &1338288017 stripped
@@ -29211,11 +29135,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8457165952548286822, guid: b99cdff4ee30fa44798e20a945776310,
-        type: 3}
-      propertyPath: bossDamage
-      value: 500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b99cdff4ee30fa44798e20a945776310, type: 3}
@@ -29299,16 +29218,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1899256002}
     m_Modifications:
-    - target: {fileID: 4845129776438365971, guid: 8cf4d672d4e5e3848b00ac195b387355,
-        type: 3}
-      propertyPath: plusMana
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 4845129776438365971, guid: 8cf4d672d4e5e3848b00ac195b387355,
-        type: 3}
-      propertyPath: specialAttackPercent
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8993878285500084624, guid: 8cf4d672d4e5e3848b00ac195b387355,
         type: 3}
       propertyPath: m_Name
@@ -29849,16 +29758,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 491011130}
     m_Modifications:
-    - target: {fileID: 4942718531445973780, guid: f0e598e29fdb24e43b89700864bd2938,
-        type: 3}
-      propertyPath: damage
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 4942718531445973780, guid: f0e598e29fdb24e43b89700864bd2938,
-        type: 3}
-      propertyPath: bossDamage
-      value: 60
-      objectReference: {fileID: 0}
     - target: {fileID: 7382913693922307581, guid: f0e598e29fdb24e43b89700864bd2938,
         type: 3}
       propertyPath: m_Name
@@ -33490,16 +33389,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
-    - target: {fileID: 31673267759872258, guid: d42acb3c35a75354181bcb3cba82f4f2,
-        type: 3}
-      propertyPath: plusMana
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 31673267759872258, guid: d42acb3c35a75354181bcb3cba82f4f2,
-        type: 3}
-      propertyPath: specialAttackPercent
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4583945138574837633, guid: d42acb3c35a75354181bcb3cba82f4f2,
         type: 3}
       propertyPath: m_Name
@@ -34532,16 +34421,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 856121791}
     m_Modifications:
-    - target: {fileID: 2075177400942788147, guid: e3e8368fe90d1c648beb49b119b9d686,
-        type: 3}
-      propertyPath: damage
-      value: 1600
-      objectReference: {fileID: 0}
-    - target: {fileID: 2075177400942788147, guid: e3e8368fe90d1c648beb49b119b9d686,
-        type: 3}
-      propertyPath: bossDamage
-      value: 1600
-      objectReference: {fileID: 0}
     - target: {fileID: 6704759391202351553, guid: e3e8368fe90d1c648beb49b119b9d686,
         type: 3}
       propertyPath: m_Name
@@ -34826,7 +34705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buffText: {fileID: 2102880951}
   debuffText: {fileID: 232964554}
-  unitColorIsEvent: 00000000000000
+  unitColorIsEvent: 000000000000
 --- !u!4 &1568701675
 Transform:
   m_ObjectHideFlags: 0
@@ -36620,12 +36499,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1656924691}
   m_CullTransparentMesh: 0
---- !u!1 &1668710967 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1800201801424679711, guid: 3ebdb11443709774b955eea88589b5f2,
-    type: 3}
-  m_PrefabInstance: {fileID: 1176470795}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1672169463
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -37409,6 +37282,7 @@ MonoBehaviour:
   playerEnterStoryMode: 0
   enemyCount: 0
   hitSolider: {fileID: 0}
+  ResetOkButton: {fileID: 0}
   status_UI: {fileID: 2012507223}
   unitControll_UI: {fileID: 1330758248}
   buyUnit_UI: {fileID: 2137604829}
@@ -42084,16 +41958,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8562050406989548928, guid: 9f5d49bb85a97274591d5a7fd662eea2,
-        type: 3}
-      propertyPath: plusMana
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 8562050406989548928, guid: 9f5d49bb85a97274591d5a7fd662eea2,
-        type: 3}
-      propertyPath: specialAttackPercent
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f5d49bb85a97274591d5a7fd662eea2, type: 3}
 --- !u!1 &1932220520
@@ -42942,12 +42806,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0.000030517578, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1971809719 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2032129247473008375, guid: 519a6c03cfb2e6d41b531720a81d4f16,
-    type: 3}
-  m_PrefabInstance: {fileID: 857429024}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1975825008
 GameObject:
   m_ObjectHideFlags: 0
@@ -47180,11 +47038,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3648794870320716357, guid: e89b457be8ba6fd44bbc96cd4187cab5,
-        type: 3}
-      propertyPath: bossDamage
-      value: 25
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e89b457be8ba6fd44bbc96cd4187cab5, type: 3}
 --- !u!1001 &2125503230
@@ -47254,11 +47107,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Yellow_Spearman
       objectReference: {fileID: 0}
-    - target: {fileID: 5621595234891671096, guid: 9bab28d49d345ab4f89b3bca582381a1,
-        type: 3}
-      propertyPath: bossDamage
-      value: 500
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bab28d49d345ab4f89b3bca582381a1, type: 3}
 --- !u!4 &2125503231 stripped
@@ -47266,12 +47114,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1135891072547242440, guid: 9bab28d49d345ab4f89b3bca582381a1,
     type: 3}
   m_PrefabInstance: {fileID: 2125503230}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &2131325400 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6848851408045497545, guid: 7fad8267bf4321940b7effc164c530d6,
-    type: 3}
-  m_PrefabInstance: {fileID: 1736276727}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2132233455
 PrefabInstance:
@@ -47408,16 +47250,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Violet_Mage
-      objectReference: {fileID: 0}
-    - target: {fileID: 3475061908579850590, guid: 4d7f63258f1081247abdd23060ca4778,
-        type: 3}
-      propertyPath: plusMana
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 3475061908579850590, guid: 4d7f63258f1081247abdd23060ca4778,
-        type: 3}
-      propertyPath: specialAttackPercent
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d7f63258f1081247abdd23060ca4778, type: 3}

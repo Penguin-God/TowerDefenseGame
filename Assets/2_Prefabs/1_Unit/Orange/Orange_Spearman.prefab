@@ -701,11 +701,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitType: 2
   unitColor: 4
+  originDamage: 0
+  originAttackDelayTime: 0
   speed: 15
   attackDelayTime: 1.5
   attackRange: 10
   damage: 1600
-  bossDamage: 4800
+  bossDamage: 1600
   stopDistanc: 6
   isAttack: 0
   isAttackDelayTime: 0

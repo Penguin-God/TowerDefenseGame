@@ -28,6 +28,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitType: 1
   unitColor: 1
+  originDamage: 0
+  originAttackDelayTime: 0
   speed: 6
   attackDelayTime: 2
   attackRange: 50

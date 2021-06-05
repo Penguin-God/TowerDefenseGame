@@ -8,23 +8,9 @@ public class EventManager : MonoBehaviour
 {
     public static EventManager instance;
 
-    //Func<GameObject[], string> event_DamageUp;
-    //Func<GameObject[], string> event_DamageDown;
-
-    //Func<GameObject[], string> event_SkillPercentUp;
-    //Func<GameObject[], string> event_SkillPercentDown;
-
-    //Func<GameObject[], string> event_BossDamageUp;
-    //Func<GameObject[], string> event_BossDamageDown;
-
-    //Func<GameObject[], string> event_SKillReinforce;
-    //Func<GameObject[], string> event_SkillWeaken;
-
-    //Func<GameObject[], string> event_PassiveReinforce;
-    //Func<GameObject[], string> event_PassiveWeaken;
-
-    List<Func<GameObject[], string>> buffFuncList;
-    List<Func<GameObject[], string>> debuffFuncList;
+    List<Action<GameObject[]>> buffActionList;
+    List<Action<GameObject[]>> debuffActionList;
+    Dictionary<Action<GameObject[]>, string> eventTextDictionary;
     private void Awake()
     {
         if (instance == null)
@@ -38,33 +24,60 @@ public class EventManager : MonoBehaviour
         }
 
         // 시작할 때 유닛 이벤트는 GameManager의 GameStart에서 작동함
-        buffFuncList = new List<Func<GameObject[], string>>();
-        debuffFuncList = new List<Func<GameObject[], string>>();
+        buffActionList = new List<Action<GameObject[]>>();
+        debuffActionList = new List<Action<GameObject[]>>();
         SetEvent();
+
+        // Dictonary 인스턴스
+        eventTextDictionary = new Dictionary<Action<GameObject[]>, string>();
+        SetEventText_Dictionary();
+    }
+
+    void SetEventText_Dictionary()
+    {
+        // 버프
+        eventTextDictionary.Add(Up_UnitDamage, "일반 몬스터 대미지 강화");
+        eventTextDictionary.Add(Up_UnitBossDamage, "보스 대미지 강화");
+        eventTextDictionary.Add(Up_UnitSkillPercent, "스킬 사용 빈도 증가");
+        eventTextDictionary.Add(Reinforce_UnitPassive, "패시브 강화");
+
+        // 디버프
+        eventTextDictionary.Add(Down_UnitDamage, "일반 몬스터 대미지 약화");
+        eventTextDictionary.Add(Down_UnitBossDamage, "보스 대미지 약화");
+        eventTextDictionary.Add(Down_UnitSkillPercent, "스킬 사용 빈도 감소");
+        eventTextDictionary.Add(Weaken_UnitPassive, "패시브 삭제");
     }
 
     public Text buffText;
     public Text debuffText;
     [SerializeField]
     private bool[] unitColorIsEvent = new bool[] { false, false, false, false, false, false, false };  
-    void ActionRandomEvent(Text eventText, List<Func<GameObject[], string>> eventFuncList)
+    void ActionRandomEvent(Text eventText, List<Action<GameObject[]>> eventActionList)
     {
-        int unitNumber = Return_RandomUnitNumver();
-        if (unitColorIsEvent[unitNumber])
-        {
-            unitNumber++;
-            if (unitNumber >= eventFuncList.Count) unitNumber = 0;
-        }
-
+        int unitNumber = Check_UnitIsEvnet();
         unitColorIsEvent[unitNumber] = true;
-        int eventNumber = UnityEngine.Random.Range(0, eventFuncList.Count);
-        eventText.text = ReturnUnitText(unitNumber) + eventFuncList[eventNumber](UnitManager.instance.unitArrays[unitNumber].unitArray);
+
+        int eventNumber = UnityEngine.Random.Range(0, eventActionList.Count);
+        eventActionList[eventNumber](UnitManager.instance.unitArrays[unitNumber].unitArray);
+        eventText.text = ReturnUnitText(unitNumber) + eventTextDictionary[eventActionList[eventNumber]];
     }
 
     int Return_RandomUnitNumver()
     {
         int unitNumver = UnityEngine.Random.Range(0, UnitManager.instance.unitArrays.Length);
         return unitNumver;
+    }
+
+    // 이벤트가 이미 적용된 유닛이면 다른 유닛넘버 리턴
+    int Check_UnitIsEvnet() 
+    {
+        int unitNumber = Return_RandomUnitNumver();
+        if (unitColorIsEvent[unitNumber])
+        {
+            unitNumber++;
+            if (unitNumber >= UnitManager.instance.unitArrays.Length) unitNumber = 0;
+        }
+        return unitNumber;
     }
 
     void SetEvent()
@@ -75,21 +88,21 @@ public class EventManager : MonoBehaviour
 
     void SetBuff()
     {
-        buffFuncList.Add(Up_UnitDamage);
-        buffFuncList.Add(Up_UnitBossDamage);
-        buffFuncList.Add(Up_UnitSkillPercent);
-        buffFuncList.Add(Reinforce_UnitPassive);
+        buffActionList.Add(Up_UnitDamage);
+        buffActionList.Add(Up_UnitBossDamage);
+        buffActionList.Add(Up_UnitSkillPercent);
+        buffActionList.Add(Reinforce_UnitPassive);
     }
 
     void SetDeBuff()
     {
-        debuffFuncList.Add(Down_UnitDamage);
-        debuffFuncList.Add(Down_UnitBossDamage);
-        debuffFuncList.Add(Down_UnitSkillPercent);
-        debuffFuncList.Add(Weaken_UnitPassive);
+        debuffActionList.Add(Down_UnitDamage);
+        debuffActionList.Add(Down_UnitBossDamage);
+        debuffActionList.Add(Down_UnitSkillPercent);
+        debuffActionList.Add(Weaken_UnitPassive);
     }
 
-    public void RandomUnitEvenet()
+    public void RandomUnitEvenet() // 실제 유닛 이벤트 작동
     {
         RandomBuffEvent();
         RandomDebuffEvent();
@@ -97,57 +110,53 @@ public class EventManager : MonoBehaviour
 
     public void RandomBuffEvent()
     {
-        ActionRandomEvent(buffText, buffFuncList);
+        ActionRandomEvent(buffText, buffActionList);
     }
 
     public void RandomDebuffEvent()
     {
-        ActionRandomEvent(debuffText, debuffFuncList);
+        ActionRandomEvent(debuffText, debuffActionList);
     }
 
 
-    // 가져올 때 GetComponentInChildren 써야됨
-    string Up_UnitDamage(GameObject[] unitArray)
+    // script 가져올 때 GetComponentInChildren 써야됨
+    void Up_UnitDamage(GameObject[] unitArray)
     {
         for (int i = 0; i < unitArray.Length; i++)
         {
             TeamSoldier teamSoldier = unitArray[i].GetComponentInChildren<TeamSoldier>();
             teamSoldier.damage *= 2;
         }
-        return "일반 몬스터 대미지 강화";
     }
 
-    string Down_UnitDamage(GameObject[] unitArray)
+    void Down_UnitDamage(GameObject[] unitArray)
     {
         for (int i = 0; i < unitArray.Length; i++)
         {
             TeamSoldier teamSoldier = unitArray[i].GetComponentInChildren<TeamSoldier>();
             teamSoldier.damage = Mathf.RoundToInt(teamSoldier.damage / 2);
         }
-        return "일반 몬스터 대미지 약화";
     }
 
-    string Up_UnitBossDamage(GameObject[] unitArray)
+    void Up_UnitBossDamage(GameObject[] unitArray)
     {
         for (int i = 0; i < unitArray.Length; i++)
         {
             TeamSoldier teamSoldier = unitArray[i].GetComponentInChildren<TeamSoldier>();
             teamSoldier.bossDamage *= 2;
         }
-        return "보스 대미지 강화";
     }
 
-    string Down_UnitBossDamage(GameObject[] unitArray)
+    void Down_UnitBossDamage(GameObject[] unitArray)
     {
         for (int i = 0; i < unitArray.Length; i++)
         {
             TeamSoldier teamSoldier = unitArray[i].GetComponentInChildren<TeamSoldier>();
             teamSoldier.bossDamage = Mathf.RoundToInt(teamSoldier.bossDamage / 2);
         }
-        return "보스 대미지 약화";
     }
 
-    string Up_UnitSkillPercent(GameObject[] unitArray) // Interface를 사용해 Up_Skill과 같은 함수를 만들것
+    void Up_UnitSkillPercent(GameObject[] unitArray) // Interface를 사용해 Up_Skill과 같은 함수를 만들것
     {
         for (int i = 0; i < unitArray.Length; i++)
         {
@@ -155,10 +164,9 @@ public class EventManager : MonoBehaviour
             interfaceEvent.SkillPercentUp();
         }
 
-        return "스킬 사용 빈도 증가";
     }
 
-    string Down_UnitSkillPercent(GameObject[] unitArray)
+    void Down_UnitSkillPercent(GameObject[] unitArray)
     {
         for (int i = 0; i < unitArray.Length; i++)
         {
@@ -166,27 +174,24 @@ public class EventManager : MonoBehaviour
             interfaceEvent.SkillPercentDown();
         }
 
-        return "스킬 사용 빈도 감소";
     }
 
-    string Reinforce_UnitPassive(GameObject[] unitArray)
+    void Reinforce_UnitPassive(GameObject[] unitArray)
     {
         for (int i = 0; i < unitArray.Length; i++)
         {
             IEvent interfaceEvent = unitArray[i].GetComponentInChildren<IEvent>();
             interfaceEvent.ReinforcePassive();
         }
-        return "패시브 강화"; 
     }
 
-    string Weaken_UnitPassive(GameObject[] unitArray)
+    void Weaken_UnitPassive(GameObject[] unitArray)
     {
         for (int i = 0; i < unitArray.Length; i++)
         {
             IEvent interfaceEvent = unitArray[i].GetComponentInChildren<IEvent>();
             interfaceEvent.WeakenPassive();
         }
-        return "패시브 약화";
     }
 
     string ReturnUnitText(int unitNumber)
@@ -212,9 +217,9 @@ public class EventManager : MonoBehaviour
             case 5:
                 unitColotText = "보라 유닛 : ";
                 break;
-            case 6:
-                unitColotText = "검정 유닛 : ";
-                break;
+            //case 6:
+            //    unitColotText = "검정 유닛 : ";
+            //    break;
         }
         return unitColotText;
     }

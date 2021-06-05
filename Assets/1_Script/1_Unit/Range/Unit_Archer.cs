@@ -15,12 +15,6 @@ public class Unit_Archer : RangeUnit, IEvent
         if(!enterStoryWorld) trail = GetComponentInChildren<TrailRenderer>().gameObject;
     }
 
-    private float redPassiveFigure = 0.25f;
-    private int bluePassiveFigure = 30;
-    private int yellowPassiveFigure = 1;
-    private int greenPassiveFigure = 2;
-    private int orangePassiveFigure = 2;
-    private int violetPassiveFigure = 5;
     public override void SetPassive()
     {
         switch (unitColor)
@@ -176,6 +170,13 @@ public class Unit_Archer : RangeUnit, IEvent
         specialAttackPercent -= 20;
     }
 
+    // 패시브 이벤트
+    private float redPassiveFigure = 0.25f;
+    private int bluePassiveFigure = 30;
+    private int yellowPassiveFigure = 1;
+    private int greenPassiveFigure = 2;
+    private int orangePassiveFigure = 2;
+    private int violetPassiveFigure = 5;
     public void ReinforcePassive()
     {
         redPassiveFigure = 0.1f;
@@ -188,11 +189,11 @@ public class Unit_Archer : RangeUnit, IEvent
 
     public void WeakenPassive()
     {
-        redPassiveFigure = 0;
+        redPassiveFigure = 1f;
         bluePassiveFigure = 0;
         yellowPassiveFigure = 0;
-        greenPassiveFigure = 0;
-        orangePassiveFigure = 0;
+        greenPassiveFigure = 1;
+        orangePassiveFigure = 1;
         violetPassiveFigure = 0;
     }
 }

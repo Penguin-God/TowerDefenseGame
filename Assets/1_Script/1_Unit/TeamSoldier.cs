@@ -12,6 +12,10 @@ public class TeamSoldier : MonoBehaviour
     public enum UnitColor { red, blue, yellow, green, orange, violet, white, black};
     public UnitColor unitColor;
 
+    // 원본 상태
+    public int originDamage;
+    public float originAttackDelayTime;
+
     public float speed;
     public float attackDelayTime;
     public float attackRange;
@@ -36,14 +40,18 @@ public class TeamSoldier : MonoBehaviour
     private void Start()
     {
         UnitManager.instance.currentUnitList.Add(gameObject);
+        // 인스턴스
         unitAudioSource = GetComponentInParent<AudioSource>();
-        //bossDamage = damage;
-        SetPassive();
-        chaseRange = 150f;
         enemySpawn = FindObjectOfType<EnemySpawn>();
         nav = GetComponentInParent<NavMeshAgent>();
+        // 변수 선언
+        SetPassive();
+        chaseRange = 150f;
         nav.speed = this.speed;
         layerMask = 1 << LayerMask.NameToLayer("Enemy"); // Ray가 Enemy 레이어만 충돌 체크함
+        originDamage = damage;
+        originAttackDelayTime = attackDelayTime;
+        // 적 추적
         UpdateTarget();
         StartCoroutine("NavCoroutine");
     }

@@ -13,13 +13,6 @@ public class Unit_Swordman : MeeleUnit, IEvent
         animator = GetComponent<Animator>();
     }
 
-    private float redPassiveFigure = 0.5f;
-    private int bluePassiveFigure = 10;
-    private float yellowPassiveFigure = 1; // 나중에 익준이 스크립트에 적용
-    private int greenPassiveFigure = 5;
-    private float orangePassiveFigure = 1.5f;
-    private int violetPassiveFigure = 10;
-
     public override void SetPassive()
     {
         switch (unitColor)
@@ -105,23 +98,30 @@ public class Unit_Swordman : MeeleUnit, IEvent
 
     public void SkillPercentDown() {}
 
+    // 패시브 이벤트
+    private float redPassiveFigure = 0.5f;
+    private int bluePassiveFigure = 10;
+    private float yellowPassiveFigure = 1; // 나중에 익준이 스크립트에 적용
+    private int greenPassiveFigure = 5;
+    private float orangePassiveFigure = 1.5f;
+    private int violetPassiveFigure = 10;
     public void ReinforcePassive()
     {
         redPassiveFigure = 0.25f;
         bluePassiveFigure = 20;
         yellowPassiveFigure = 2;
         greenPassiveFigure = 6;
-        orangePassiveFigure = 2f;
-        violetPassiveFigure = 30;
+        orangePassiveFigure = 2f; // 공업
+        violetPassiveFigure = 30; // 독 멕뎀
     }
 
     public void WeakenPassive()
     {
-        redPassiveFigure = 0;
+        redPassiveFigure = 1;
         bluePassiveFigure = 0;
         yellowPassiveFigure = 0;
         greenPassiveFigure = 0;
-        orangePassiveFigure = 0;
+        orangePassiveFigure = 1f;
         violetPassiveFigure = 0;
     }
 }

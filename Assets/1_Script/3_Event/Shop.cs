@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Shop : MonoBehaviour
 {
-
+    // Action을 담는 리스트를 다르게 만들어 상점 기능 구현 ex) 유닛 소환은 void로 int 인자를 받고, 이벤트는 다른 타입의 인자를 받음
     private int Productnumber;
 
     private int SetRandomNumber()
@@ -23,6 +23,13 @@ public class Shop : MonoBehaviour
 
 
     public CreateDefenser createDefenser;
+
+
+    private void OnMouseDown()
+    {
+        OnEventShop();
+    }
+
     public void OnEventShop()
     {
         EventShop.SetActive(true);
@@ -33,7 +40,6 @@ public class Shop : MonoBehaviour
         UpdateLeftText();
         UpdateCenterText();
         UpdateRightText();
-
     }
 
     public void UpdateLeftText() // 이미지로 바꾸면 좋을 듯
@@ -91,7 +97,13 @@ public class Shop : MonoBehaviour
         
     }
 
+    void BuyGoods(int price)
+    {
+        if (GameManager.instance.Gold < price) return;
 
+        GameManager.instance.Gold -= price;
+        EventShop.SetActive(false);
+    }
 
     public void ClickLeftGoods()
     {
@@ -179,4 +191,22 @@ public class Shop : MonoBehaviour
             EventShop.SetActive(false);
         }
     }
+
+    public bool enterShop;
+    public void EnterShopWlord()
+    {
+        if (!enterShop)
+        {
+            Camera.main.gameObject.transform.position = new Vector3(-500, 100, -30);
+            enterShop = true;
+        }
+        else
+        {
+            Camera.main.gameObject.transform.position = new Vector3(0, 100, -30);
+            enterShop = false;
+        }
+    }
+
+
+
 }

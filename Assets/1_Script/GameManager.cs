@@ -174,6 +174,7 @@ public class GameManager : MonoBehaviour
     public GameObject reStartButton;
     public GameObject moveFiledButton;
     public GameObject difficult_UI;
+    public GameObject event_UI;
 
     public void GameStart(int enemyHpWeight)
     {
@@ -192,6 +193,7 @@ public class GameManager : MonoBehaviour
         buyUnit_UI.SetActive(true);
         reStartButton.SetActive(true);
         moveFiledButton.SetActive(true);
+        event_UI.SetActive(true);
 
         // 끄기
         difficult_UI.SetActive(false);

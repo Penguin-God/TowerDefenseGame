@@ -488,8 +488,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitType: 3
   unitColor: 2
-  originDamage: 0
-  originAttackDelayTime: 0
+  originDamage: 2500
+  originBossDamage: 2500
+  originAttackDelayTime: 2
   speed: 3
   attackDelayTime: 2
   attackRange: 40
@@ -510,7 +511,7 @@ MonoBehaviour:
   enterStoryWorld: 0
   getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
   magicLight: {fileID: 4865064561278535483}
-  energyBall: {fileID: 273563849445638938, guid: 3e725d90e48ec1a4d85acdb8f545afca,
+  energyBall: {fileID: 7010148103123964683, guid: 19f8ca3693248454ab75c62a937b3812,
     type: 3}
   energyBallTransform: {fileID: 4865064562382619674}
   plusMana: 30

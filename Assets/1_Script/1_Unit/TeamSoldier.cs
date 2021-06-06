@@ -74,6 +74,7 @@ public class TeamSoldier : MonoBehaviour
 
     void NormalAttackAudioPlay()
     {
+        Debug.Log(113);
         if(enterStoryWorld == GameManager.instance.playerEnterStoryMode)
             unitAudioSource.PlayOneShot(normalAttackClip);
     }

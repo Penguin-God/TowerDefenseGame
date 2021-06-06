@@ -11,6 +11,7 @@ public class EventManager : MonoBehaviour
     List<Action<GameObject[]>> buffActionList;
     List<Action<GameObject[]>> debuffActionList;
     Dictionary<Action<GameObject[]>, string> eventTextDictionary;
+
     private void Awake()
     {
         if (instance == null)
@@ -105,7 +106,7 @@ public class EventManager : MonoBehaviour
     public void RandomUnitEvenet() // 실제 유닛 이벤트 작동
     {
         RandomBuffEvent();
-        RandomDebuffEvent();
+        //RandomDebuffEvent();
     }
 
     public void RandomBuffEvent()

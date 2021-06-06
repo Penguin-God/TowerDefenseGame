@@ -33,10 +33,10 @@ public class Unit_Spearman : MeeleUnit, IEvent
             case UnitColor.yellow:
                 break;
             case UnitColor.green:
-                damage *= greenPassiveFigure;
+                damage += (greenPassiveFigure - 1) * originDamage;
                 break;
             case UnitColor.orange:
-                bossDamage *= orangePassiveFigure;
+                bossDamage += (orangePassiveFigure - 1) * originBossDamage;
                 break;
             case UnitColor.violet:
                 break;

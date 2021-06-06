@@ -28,7 +28,7 @@ public class Unit_Swordman : MeeleUnit, IEvent
                 speed += greenPassiveFigure;
                 break;
             case UnitColor.orange:
-                damage = Mathf.RoundToInt(damage * orangePassiveFigure);
+                damage += Mathf.RoundToInt(damage * (orangePassiveFigure - 1));
                 break;
             case UnitColor.violet:
                 break;

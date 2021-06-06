@@ -12,8 +12,9 @@ public class TeamSoldier : MonoBehaviour
     public enum UnitColor { red, blue, yellow, green, orange, violet, white, black};
     public UnitColor unitColor;
 
-    // 원본 상태
+    // 아무 버프도 받지 않은 상태 변수 
     public int originDamage;
+    public int originBossDamage;
     public float originAttackDelayTime;
 
     public float speed;
@@ -49,31 +50,13 @@ public class TeamSoldier : MonoBehaviour
         chaseRange = 150f;
         nav.speed = this.speed;
         layerMask = 1 << LayerMask.NameToLayer("Enemy"); // Ray가 Enemy 레이어만 충돌 체크함
-        originDamage = damage;
-        originAttackDelayTime = attackDelayTime;
         // 적 추적
         UpdateTarget();
         StartCoroutine("NavCoroutine");
     }
 
-    public virtual void SetPassive()
-    {
-        //switch (unitColor)
-        //{
-        //    case UnitColor.red:
-        //        break;
-        //    case UnitColor.blue:
-        //        break;
-        //    case UnitColor.yellow:
-        //        break;
-        //    case UnitColor.green:
-        //        break;
-        //    case UnitColor.orange:
-        //        break;
-        //    case UnitColor.violet:
-        //        break;
-        //}
-    }
+    public virtual void SetPassive() {} // 나중에 Action 인자 받아서 깔끔하게 바꿀수도
+
     public int specialAttackPercent;
     void UnitAttack()
     {

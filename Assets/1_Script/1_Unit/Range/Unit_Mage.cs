@@ -42,10 +42,10 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
                 break;
             case UnitColor.green:
                 attackRange *= 2;
-                damage *= greenPassiveFigure;
+                damage += (greenPassiveFigure - 1) * originDamage;
                 break;
             case UnitColor.orange:
-                bossDamage *= orangePassiveFigure;
+                bossDamage += (orangePassiveFigure - 1) * originBossDamage;
                 break;
             case UnitColor.violet:
                 break;
@@ -261,16 +261,6 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
     {
         switch (unitColor)
         {
-            case UnitColor.red:
-                break;
-            case UnitColor.blue:
-                break;
-            case UnitColor.yellow:
-                break;
-            case UnitColor.green:
-                break;
-            case UnitColor.orange:
-                break;
             case UnitColor.violet:
                 enemy.EnemyStern(violetPassiveFigure, 7);
                 break;
@@ -290,12 +280,12 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
             switch (unitColor)
             {
                 case UnitColor.red:
-                    otherTeamSoldier.damage = Mathf.RoundToInt(redPassiveFigure * otherTeamSoldier.damage);
+                    otherTeamSoldier.damage += Mathf.RoundToInt( (redPassiveFigure - 1) * otherTeamSoldier.originDamage);
                     break;
                 case UnitColor.blue:
                     break;
                 case UnitColor.yellow:
-                    otherTeamSoldier.attackDelayTime *= 0.3f;
+                    otherTeamSoldier.attackDelayTime *= 0.5f;
                     break;
                 case UnitColor.green:
                     break;
@@ -315,18 +305,8 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             switch (unitColor)
             {
-                case UnitColor.red:
-                    break;
                 case UnitColor.blue:
                     enemy.EnemySlow(50, -1f); // 나가기 전까진 무한 슬로우
-                    break;
-                case UnitColor.yellow:
-                    break;
-                case UnitColor.green:
-                    break;
-                case UnitColor.orange:
-                    break;
-                case UnitColor.violet:
                     break;
             }
         }
@@ -346,12 +326,6 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
                     break;
                 case UnitColor.yellow:
                     break;
-                case UnitColor.green:
-                    break;
-                case UnitColor.orange:
-                    break;
-                case UnitColor.violet:
-                    break;
             }
         }
 
@@ -362,18 +336,12 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
             switch (unitColor)
             {
                 case UnitColor.red:
-                    otherTeamSoldier.damage = otherTeamSoldier.originDamage;
+                    otherTeamSoldier.damage -= Mathf.RoundToInt((redPassiveFigure - 1) * otherTeamSoldier.originDamage);
                     break;
                 case UnitColor.blue:
                     break;
                 case UnitColor.yellow:
-                    otherTeamSoldier.attackDelayTime *= otherTeamSoldier.originAttackDelayTime;
-                    break;
-                case UnitColor.green:
-                    break;
-                case UnitColor.orange:
-                    break;
-                case UnitColor.violet:
+                    otherTeamSoldier.attackDelayTime *= 2f;
                     break;
             }
         }

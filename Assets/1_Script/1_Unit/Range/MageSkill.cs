@@ -12,7 +12,7 @@ public class MageSkill : MonoBehaviour
     //AudioSource skillAudioSourec;
     private void Awake()
     {
-        teamSoldier = GetComponentInParent<TeamSoldier>();
+        if(!moveEffect && GetComponentInParent<TeamSoldier>()) teamSoldier = GetComponentInParent<TeamSoldier>();
         sphereCollider = GetComponent<SphereCollider>();
         //skillAudioSourec = GetComponent<AudioSource>();
     }
@@ -45,8 +45,8 @@ public class MageSkill : MonoBehaviour
         switch (teamSoldier.unitColor)
         {
             case TeamSoldier.UnitColor.red:
-                enemy.OnDamage(15000);
                 enemy.EnemyStern(100, 5);
+                enemy.OnDamage(15000);
                 Destroy(gameObject, 3);
                 break;
             case TeamSoldier.UnitColor.blue:
@@ -86,6 +86,7 @@ public class MageSkill : MonoBehaviour
 
     IEnumerator ShotMeteor(Vector3 enemyPosition)
     {
+        explosionObject.GetComponent<MageSkill>().teamSoldier = this.teamSoldier;
         yield return new WaitForSeconds(1f);
         Vector3 enemyDirection = (enemyPosition - this.transform.position).normalized;
         Rigidbody rigid = this.GetComponent<Rigidbody>();
@@ -97,8 +98,6 @@ public class MageSkill : MonoBehaviour
     {
         foreach (GameObject meteor in meteors)
             meteor.SetActive(false);
-        //this.gameObject.SetActive(false);
-        explosionObject.GetComponent<MageSkill>().teamSoldier = this.teamSoldier;
         explosionObject.SetActive(true);
         explosionObject.GetComponent<AudioSource>().Play();
     }

@@ -27,10 +27,10 @@ public class Unit_Archer : RangeUnit, IEvent
             case UnitColor.yellow:
                 break;
             case UnitColor.green:
-                specialAttackPercent *= greenPassiveFigure;
+                specialAttackPercent += (greenPassiveFigure - 1) * originDamage;
                 break;
             case UnitColor.orange:
-                damage *= orangePassiveFigure;
+                damage *= (orangePassiveFigure - 1) * originBossDamage;
                 break;
             case UnitColor.violet:
                 break;

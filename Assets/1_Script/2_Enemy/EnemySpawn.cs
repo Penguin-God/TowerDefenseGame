@@ -53,6 +53,8 @@ public class EnemySpawn : MonoBehaviour
             return;
         }
 
+        GameManager.instance.Gold += stageGold;
+        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
         UIManager.instance.UpdateStageText(stageNumber);
         StartCoroutine(StageCoroutine(respawnEnemyCount));
     }
@@ -91,8 +93,7 @@ public class EnemySpawn : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
 
-        GameManager.instance.Gold += stageGold;
-        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+        
         stageNumber += 1;
         yield return new WaitForSeconds(stageWait_Time);
         stageWait_Time = 10f;

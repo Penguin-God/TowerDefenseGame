@@ -967,7 +967,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 45
+          m_IntArgument: 35
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -14619,7 +14619,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 55
+          m_IntArgument: 45
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -16708,7 +16708,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 35
+          m_IntArgument: 25
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -17763,7 +17763,7 @@ MonoBehaviour:
   - {fileID: 5842820972880275658, guid: 5ef447b1added104da16e48d12c5aa5f, type: 3}
   - {fileID: 2502174115710485866, guid: 330311eb1efb3f94da01389d197fec10, type: 3}
   towerDieClip: {fileID: 8300000, guid: d1edaaa871b679e4ca2d92014ddc12a6, type: 3}
-  stageGold: 0
+  stageGold: 10
   stageWait_Time: 10
   bossRespawn: 0
   bossRewordGold: 10
@@ -41067,8 +41067,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -35}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 32.2, y: -76.6}
+  m_SizeDelta: {x: 224.41977, y: 113.27425}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1605438389
 MonoBehaviour:
@@ -41099,11 +41099,11 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
-    m_VerticalOverflow: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uC8FC\uBCC0 \uC544\uAD70\n\uB370\uBBF8\uC9C0
-    50% \uC99D\uAC00"
+  m_Text: "\uC720\uB2DB \uC2A4\uD0AC: \uC8FC\uBCC0 \uC544\uAD70 \uB370\uBBF8\uC9C0
+    100% \uC99D\uAC00 (\uC911\uCCA9 X)"
 --- !u!222 &1605438390
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -47366,7 +47366,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 25
+          m_IntArgument: 15
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0

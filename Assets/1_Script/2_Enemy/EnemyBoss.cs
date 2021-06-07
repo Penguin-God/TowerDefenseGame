@@ -39,7 +39,7 @@ public class EnemyBoss : NomalEnemy
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
 
-        GameManager.instance.Food += rewardGold * Mathf.FloorToInt(enemySpawn.stageNumber / 10);
+        GameManager.instance.Food += rewardFood * Mathf.FloorToInt(enemySpawn.stageNumber / 10);
         UIManager.instance.UpdateFoodText(GameManager.instance.Food);
     }
 }

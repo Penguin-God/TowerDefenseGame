@@ -307,7 +307,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 464004088055449507}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.8
+  m_Radius: 0.3
   m_Speed: 6
   m_Acceleration: 10
   avoidancePriority: 50
@@ -319,7 +319,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 0
+  m_ObstacleAvoidanceType: 1
 --- !u!54 &1993597198
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -704,8 +704,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitType: 1
   unitColor: 0
-  originDamage: 0
-  originAttackDelayTime: 0
+  originDamage: 65
+  originBossDamage: 65
+  originAttackDelayTime: 2
   speed: 6
   attackDelayTime: 2
   attackRange: 50

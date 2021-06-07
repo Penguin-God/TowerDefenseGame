@@ -167,9 +167,9 @@ public class BlackTowerEvent : MonoBehaviour
         if (soldiersTags.BlackSwordman.Length >= 3)
         {
             
-            Destroy(soldiersTags.BlackSwordman[0]);
-            Destroy(soldiersTags.BlackSwordman[1]);
-            Destroy(soldiersTags.BlackSwordman[2]);
+            Destroy(soldiersTags.BlackSwordman[0].transform.parent.gameObject);
+            Destroy(soldiersTags.BlackSwordman[1].transform.parent.gameObject);
+            Destroy(soldiersTags.BlackSwordman[2].transform.parent.gameObject);
 
             createDefenser.CreateSoldier(6, 1);
         }
@@ -186,9 +186,9 @@ public class BlackTowerEvent : MonoBehaviour
         if (soldiersTags.BlackArcher.Length >= 3)
         {
             
-            Destroy(soldiersTags.BlackArcher[0]);
-            Destroy(soldiersTags.BlackArcher[1]);
-            Destroy(soldiersTags.BlackArcher[2]);
+            Destroy(soldiersTags.BlackArcher[0].transform.parent.gameObject);
+            Destroy(soldiersTags.BlackArcher[1].transform.parent.gameObject);
+            Destroy(soldiersTags.BlackArcher[2].transform.parent.gameObject);
 
             createDefenser.CreateSoldier(6, 2);
         }
@@ -204,9 +204,9 @@ public class BlackTowerEvent : MonoBehaviour
         if (soldiersTags.BlackSpearman.Length >= 3)
         {
             
-            Destroy(soldiersTags.BlackSpearman[0]);
-            Destroy(soldiersTags.BlackSpearman[1]);
-            Destroy(soldiersTags.BlackSpearman[2]);
+            Destroy(soldiersTags.BlackSpearman[0].transform.parent.gameObject);
+            Destroy(soldiersTags.BlackSpearman[1].transform.parent.gameObject);
+            Destroy(soldiersTags.BlackSpearman[2].transform.parent.gameObject);
 
             createDefenser.CreateSoldier(6, 3);
         }

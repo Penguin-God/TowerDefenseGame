@@ -726,8 +726,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uBE68\uAC04\uC544\uCC98 + \uBE68\uAC04\uC544\uCC98 + \uBE68\uAC04\uAE30\uC0AC
-    \n+ \uBE68\uAC04\uAE30\uC0AC  = \uBE68\uAC04\uCC3D\uBCD1 "
+  m_Text: "\uBE68\uAC04\uC544\uCC98(2)+ \uBE68\uAC04\uAE30\uC0AC(2)  = \uBE68\uAC04\uCC3D\uBCD1 "
 --- !u!222 &32340359
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3437,8 +3436,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uBE68\uAC04\uAE30\uC0AC + \uD30C\uB780\uAE30\uC0AC = \uBCF4\uB77C\uAE30\uC0AC\n\uBE68\uAC04\uAE30\uC0AC
-    + \uBE68\uAC04\uAE30\uC0AC = \uBE68\uAC04\uC544\uCC98"
+  m_Text: "\uBE68\uAC04\uAE30\uC0AC(1) + \uD30C\uB780\uAE30\uC0AC(1) = \uBCF4\uB77C\uAE30\uC0AC\n\uBE68\uAC04\uAE30\uC0AC(2)
+    = \uBE68\uAC04\uC544\uCC98"
 --- !u!222 &144430164
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4905,8 +4904,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uBCF4\uB77C\uC544\uCC98 + \uBCF4\uB77C\uC544\uCC98 + \uBE68\uAC04\uAE30\uC0AC
-    \n+ \uD30C\uB791\uAE30\uC0AC  = \uBCF4\uB77C\uCC3D\uBCD1 "
+  m_Text: "\uBCF4\uB77C\uC544\uCC98(2) + \uBE68\uAC04\uAE30\uC0AC(1) + \uD30C\uB791\uAE30\uC0AC(1)\n=
+    \uBCF4\uB77C\uCC3D\uBCD1 "
 --- !u!222 &229977725
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5861,7 +5860,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 272613405}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -5869,8 +5868,8 @@ RectTransform:
   - {fileID: 368178997}
   - {fileID: 1305953804}
   - {fileID: 1496956470}
-  m_Father: {fileID: 1330758249}
-  m_RootOrder: 5
+  m_Father: {fileID: 1261802216}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6759,8 +6758,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB780\uC544\uCC98 + \uD30C\uB780\uC544\uCC98 + \uD30C\uB780\uAE30\uC0AC\n+
-    \uD30C\uB780\uAE30\uC0AC = \uD30C\uB780\uCC3D\uBCD1"
+  m_Text: "\uD30C\uB780\uC544\uCC98(2) + \uD30C\uB780\uAE30\uC0AC(2) = \uD30C\uB780\uCC3D\uBCD1"
 --- !u!222 &323267156
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6912,8 +6910,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB780\uCC3D\uBCD1 + \uD30C\uB780\uCC3D\uBCD1 + \uD30C\uB780\uC544\uCC98
-    \n+ \uD30C\uB780\uC544\uCC98 = \uD30C\uB780\uB9C8\uBC95\uC0AC "
+  m_Text: "\uD30C\uB780\uCC3D\uBCD1(3) + \uD30C\uB780\uC544\uCC98(2) = \uD30C\uB780\uB9C8\uBC95\uC0AC "
 --- !u!222 &323383889
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8589,8 +8586,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uB178\uB780\uC544\uCC98 + \uB178\uB9B0\uC544\uCC98 + \uB178\uB780\uAE30\uC0AC
-    \n+ \uB178\uB780\uAE30\uC0AC  = \uB178\uB780\uCC3D\uBCD1 "
+  m_Text: "\uB178\uB780\uC544\uCC98(2) + \uB178\uB780\uAE30\uC0AC(2) = \uB178\uB780\uCC3D\uBCD1 "
 --- !u!222 &387936738
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10357,7 +10353,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uCD08\uB85D\uAE30\uC0AC + \uCD08\uB85D\uAE30\uC0AC = \uCD08\uB85D\uC544\uCC98"
+  m_Text: "\uCD08\uB85D\uAE30\uC0AC(2) = \uCD08\uB85D\uC544\uCC98"
 --- !u!222 &453792312
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10435,8 +10431,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uCD08\uB85D\uCC3D\uBCD1 + \uCD08\uB85D\uCC3D\uBCD1 + \uD30C\uB780\uC544\uCC98
-    \n+ \uB178\uB780\uC544\uCC98 = \uCD08\uB85D\uB9C8\uBC95\uC0AC "
+  m_Text: "\uCD08\uB85D\uCC3D\uBCD1(3) + \uD30C\uB780\uC544\uCC98(1) + \uB178\uB780\uC544\uCC98(1)
+    \n= \uCD08\uB85D\uB9C8\uBC95\uC0AC "
 --- !u!222 &454662630
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10671,8 +10667,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uBE68\uAC04\uCC3D\uBCD1 + \uBE68\uAC04\uCC3D\uBCD1 + \uBE68\uAC04\uC544\uCC98
-    \n+ \uBE68\uAC04\uC544\uCC98 = \uBE68\uAC04\uB9C8\uBC95\uC0AC "
+  m_Text: "\uBE68\uAC04\uCC3D\uBCD1(3) + \uBE68\uAC04\uC544\uCC98(2) = \uBE68\uAC04\uB9C8\uBC95\uC0AC "
 --- !u!222 &463759701
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12230,7 +12225,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uBCF4\uB77C\uAE30\uC0AC + \uBCF4\uB77C\uAE30\uC0AC = \uBCF4\uB77C\uC544\uCC98"
+  m_Text: "\uBCF4\uB77C\uAE30\uC0AC(2) = \uBCF4\uB77C\uC544\uCC98"
 --- !u!222 &529110225
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14466,8 +14461,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC8FC\uD669\uC544\uCC98 + \uC8FC\uD669\uC544\uCC98 + \uB178\uB780\uAE30\uC0AC
-    \n+ \uBE68\uAC04\uAE30\uC0AC  = \uC8FC\uD669\uCC3D\uBCD1 "
+  m_Text: "\uC8FC\uD669\uC544\uCC98(2) + \uB178\uB780\uAE30\uC0AC(1) + \uBE68\uAC04\uAE30\uC0AC(1)\n=
+    \uC8FC\uD669\uCC3D\uBCD1 "
 --- !u!222 &636617625
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -26861,7 +26856,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC8FC\uD669\uAE30\uC0AC + \uC8FC\uD669\uAE30\uC0AC = \uC8FC\uD669\uC544\uCC98"
+  m_Text: "\uC8FC\uD669\uAE30\uC0AC(2) = \uC8FC\uD669\uC544\uCC98"
 --- !u!222 &1125401340
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -30595,6 +30590,7 @@ RectTransform:
   - {fileID: 1427952061}
   - {fileID: 595268641}
   - {fileID: 1119279350}
+  - {fileID: 272613406}
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -33147,7 +33143,6 @@ RectTransform:
   - {fileID: 1386990790}
   - {fileID: 195027589}
   - {fileID: 1830339239}
-  - {fileID: 272613406}
   m_Father: {fileID: 1261802216}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -34724,7 +34719,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -45.00003, y: 17}
+  m_AnchoredPosition: {x: -55, y: 10}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1398660916
@@ -35175,8 +35170,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uB178\uB780\uAE30\uC0AC + \uBE68\uAC04\uAE30\uC0AC = \uC8FC\uD669\uAE30\uC0AC\n\uB178\uB780\uAE30\uC0AC
-    + \uB178\uB780\uAE30\uC0AC = \uB178\uB780\uC544\uCC98"
+  m_Text: "\uB178\uB780\uAE30\uC0AC(1) + \uBE68\uAC04\uAE30\uC0AC(1) = \uC8FC\uD669\uAE30\uC0AC\n\uB178\uB780\uAE30\uC0AC(2)
+    = \uB178\uB780\uC544\uCC98"
 --- !u!222 &1410350552
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -35747,8 +35742,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB780\uAE30\uC0AC + \uB178\uB780\uAE30\uC0AC = \uCD08\uB85D\uAE30\uC0AC\n\uD30C\uB780\uAE30\uC0AC
-    + \uD30C\uB780\uAE30\uC0AC = \uD30C\uB780\uC544\uCC98"
+  m_Text: "\uD30C\uB780\uAE30\uC0AC(1) + \uB178\uB780\uAE30\uC0AC(1) = \uCD08\uB85D\uAE30\uC0AC\n\uD30C\uB780\uAE30\uC0AC(2)
+    = \uD30C\uB780\uC544\uCC98"
 --- !u!222 &1427606479
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -39677,8 +39672,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC8FC\uD669\uCC3D\uBCD1 + \uC8FC\uD669\uCC3D\uBCD1 + \uB178\uB780\uC544\uCC98
-    \n+ \uBE68\uAC04\uC544\uCC98 = \uC8FC\uD669\uB9C8\uBC95\uC0AC "
+  m_Text: "\uC8FC\uD669\uCC3D\uBCD1(3) + \uB178\uB780\uC544\uCC98(1) + \uBE68\uAC04\uC544\uCC98(1)\n=
+    \uC8FC\uD669\uB9C8\uBC95\uC0AC "
 --- !u!222 &1549098496
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -42672,8 +42667,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uCD08\uB85D\uC544\uCC98 + \uCD08\uB85D\uC544\uCC98 + \uD30C\uB780\uAE30\uC0AC
-    \n+ \uB178\uB780\uAE30\uC0AC  = \uCD08\uB85D\uCC3D\uBCD1 "
+  m_Text: "\uCD08\uB85D\uC544\uCC98(2) + \uD30C\uB780\uAE30\uC0AC(1) + \uB178\uB780\uAE30\uC0AC(1)\n=
+    \uCD08\uB85D\uCC3D\uBCD1 "
 --- !u!222 &1670589554
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -45232,8 +45227,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uB178\uB780\uCC3D\uBCD1 + \uB178\uB780\uCC3D\uBCD1 + \uB178\uB780\uC544\uCC98
-    \n+ \uB178\uB780\uC544\uCC98 = \uB178\uB780\uB9C8\uBC95\uC0AC "
+  m_Text: "\uB178\uB780\uCC3D\uBCD1(3) + \uB178\uB780\uC544\uCC98(2) = \uB178\uB780\uB9C8\uBC95\uC0AC "
 --- !u!222 &1755393220
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -48450,8 +48444,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uBCF4\uB77C\uCC3D\uBCD1 + \uBCF4\uB77C\uCC3D\uBCD1 + \uBE68\uAC04\uC544\uCC98
-    \n+ \uD30C\uB780\uC544\uCC98 = \uBCF4\uB77C\uB9C8\uBC95\uC0AC "
+  m_Text: "\uBCF4\uB77C\uCC3D\uBCD1(3)+ \uBE68\uAC04\uC544\uCC98(1) + \uD30C\uB780\uC544\uCC98(1)\n=
+    \uBCF4\uB77C\uB9C8\uBC95\uC0AC "
 --- !u!222 &1893118694
 CanvasRenderer:
   m_ObjectHideFlags: 0

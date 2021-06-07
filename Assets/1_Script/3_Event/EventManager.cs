@@ -9,7 +9,7 @@ public class EventManager : MonoBehaviour
     public static EventManager instance;
 
     List<Action<GameObject[]>> buffActionList;
-    List<Action<GameObject[]>> debuffActionList;
+    //List<Action<GameObject[]>> debuffActionList;
     Dictionary<Action<GameObject[]>, string> eventTextDictionary;
 
     private void Awake()
@@ -26,7 +26,7 @@ public class EventManager : MonoBehaviour
 
         // 시작할 때 유닛 이벤트는 GameManager의 GameStart에서 작동함
         buffActionList = new List<Action<GameObject[]>>();
-        debuffActionList = new List<Action<GameObject[]>>();
+        //debuffActionList = new List<Action<GameObject[]>>();
         SetEvent();
 
         // Dictonary 인스턴스
@@ -43,11 +43,28 @@ public class EventManager : MonoBehaviour
         eventTextDictionary.Add(Reinforce_UnitPassive, "패시브 강화");
 
         // 디버프
-        eventTextDictionary.Add(Down_UnitDamage, "일반 몬스터 대미지 약화");
-        eventTextDictionary.Add(Down_UnitBossDamage, "보스 대미지 약화");
-        eventTextDictionary.Add(Down_UnitSkillPercent, "스킬 사용 빈도 감소");
-        eventTextDictionary.Add(Weaken_UnitPassive, "패시브 삭제");
+        //eventTextDictionary.Add(Down_UnitDamage, "일반 몬스터 대미지 약화");
+        //eventTextDictionary.Add(Down_UnitBossDamage, "보스 대미지 약화");
+        //eventTextDictionary.Add(Down_UnitSkillPercent, "스킬 사용 빈도 감소");
+        //eventTextDictionary.Add(Weaken_UnitPassive, "패시브 삭제");
     }
+
+    public void RandomUnitEvenet() // 실제 유닛 이벤트 작동
+    {
+        RandomBuffEvent();
+        //RandomDebuffEvent();
+    }
+
+    void RandomBuffEvent()
+    {
+        ActionRandomEvent(buffText, buffActionList);
+    }
+
+    public void RandomDebuffEvent()
+    {
+        //ActionRandomEvent(debuffText, debuffActionList);
+    }
+
 
     public Text buffText;
     public Text debuffText;
@@ -84,7 +101,7 @@ public class EventManager : MonoBehaviour
     void SetEvent()
     {
         SetBuff();
-        SetDeBuff();
+        //SetDeBuff();
     }
 
     void SetBuff()
@@ -97,26 +114,10 @@ public class EventManager : MonoBehaviour
 
     void SetDeBuff()
     {
-        debuffActionList.Add(Down_UnitDamage);
-        debuffActionList.Add(Down_UnitBossDamage);
-        debuffActionList.Add(Down_UnitSkillPercent);
-        debuffActionList.Add(Weaken_UnitPassive);
-    }
-
-    public void RandomUnitEvenet() // 실제 유닛 이벤트 작동
-    {
-        RandomBuffEvent();
-        //RandomDebuffEvent();
-    }
-
-    public void RandomBuffEvent()
-    {
-        ActionRandomEvent(buffText, buffActionList);
-    }
-
-    public void RandomDebuffEvent()
-    {
-        ActionRandomEvent(debuffText, debuffActionList);
+        //debuffActionList.Add(Down_UnitDamage);
+        //debuffActionList.Add(Down_UnitBossDamage);
+        //debuffActionList.Add(Down_UnitSkillPercent);
+        //debuffActionList.Add(Weaken_UnitPassive);
     }
 
 
@@ -218,9 +219,6 @@ public class EventManager : MonoBehaviour
             case 5:
                 unitColotText = "보라 유닛 : ";
                 break;
-            //case 6:
-            //    unitColotText = "검정 유닛 : ";
-            //    break;
         }
         return unitColotText;
     }

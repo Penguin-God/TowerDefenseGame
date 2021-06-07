@@ -12,35 +12,92 @@ public class Shop : MonoBehaviour
     {
         Productnumber = Random.Range(0, 2);
         return Productnumber;
-    } 
+    }
 
     public Text LeftText;
     public Text CenterText;
     public Text RightText;
 
-    public GameObject EventShop;
+    public GameObject envetShop;
+    public GameObject leftGoldGoods;
+    public GameObject centerGoldGoods;
+    public GameObject rigthGoldGoods;
+    public GameObject foodGoods;
+    // 변수명 반대로 하기
+    public GameObject[] leftGoldStocks;
+    public GameObject[] centerGoldStocks;
+    public GameObject[] rigthGoldStocks;
+    public GameObject[] foodStocks;
 
+    private GameObject current_LeftGoldGoods;
+    private GameObject current_CenterGoldGoods;
+    private GameObject current_RigthGoldGoods;
+    private GameObject current_FoodGoldGoods;
 
+    private void Awake() // 배열 선언
+    {
+        leftGoldStocks = new GameObject[leftGoldGoods.transform.childCount];
+        for(int i = 0; i < leftGoldStocks.Length; i++)
+        {
+            leftGoldStocks[i] = leftGoldGoods.transform.GetChild(i).gameObject;
+        }
+
+        centerGoldStocks = new GameObject[centerGoldGoods.transform.childCount];
+        for (int i = 0; i < centerGoldStocks.Length; i++)
+        {
+            centerGoldStocks[i] = centerGoldGoods.transform.GetChild(i).gameObject;
+        }
+
+        rigthGoldStocks = new GameObject[rigthGoldGoods.transform.childCount];
+        for (int i = 0; i < rigthGoldStocks.Length; i++)
+        {
+            rigthGoldStocks[i] = rigthGoldGoods.transform.GetChild(i).gameObject;
+        }
+
+        foodStocks = new GameObject[foodGoods.transform.childCount];
+        for (int i = 0; i < foodStocks.Length; i++)
+        {
+            foodStocks[i] = foodGoods.transform.GetChild(i).gameObject;
+        }
+
+        Set_RandomShop();
+    }
 
     public CreateDefenser createDefenser;
 
 
-    private void OnMouseDown()
-    {
-        OnEventShop();
-    }
+    //private void OnMouseDown()
+    //{
+    //    OnEnvetShop();
+    //}
 
-    public void OnEventShop()
+    public void OnenvetShop()
     {
-        EventShop.SetActive(true);
+        //envetShop.SetActive(true);
 
-        SetRandomNumber();
+        //SetRandomNumber();
 
         // 랜덤하게 상품 변경 
-        UpdateLeftText();
-        UpdateCenterText();
-        UpdateRightText();
+        //UpdateLeftText();
+        //UpdateCenterText();
+        //UpdateRightText();
     }
+
+    void Set_RandomShop()
+    {
+        Show_RandomGoods(leftGoldStocks);
+        Show_RandomGoods(centerGoldStocks);
+        Show_RandomGoods(rigthGoldStocks);
+        Show_RandomGoods(foodStocks);
+    }
+
+    void Show_RandomGoods(GameObject[] goods)
+    {
+        int goodsIndex = Random.Range(0, goods.Length);
+        goods[goodsIndex].SetActive(true);
+    }
+
+
 
     public void UpdateLeftText() // 이미지로 바꾸면 좋을 듯
     {
@@ -97,12 +154,11 @@ public class Shop : MonoBehaviour
         
     }
 
-    void BuyGoods(int price)
+    public void BuyGoods(int price)
     {
         if (GameManager.instance.Gold < price) return;
 
         GameManager.instance.Gold -= price;
-        EventShop.SetActive(false);
     }
 
     public void ClickLeftGoods()
@@ -114,7 +170,7 @@ public class Shop : MonoBehaviour
             GameManager.instance.Gold -= 5;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
-            EventShop.SetActive(false);
+            envetShop.SetActive(false);
         }
 
         if (Productnumber == 1 && GameManager.instance.Gold >= 10)
@@ -124,7 +180,7 @@ public class Shop : MonoBehaviour
             GameManager.instance.Gold -= 10;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
-            EventShop.SetActive(false);
+            envetShop.SetActive(false);
         }
 
         if (Productnumber == 2 && GameManager.instance.Gold >= 15)
@@ -134,7 +190,7 @@ public class Shop : MonoBehaviour
             GameManager.instance.Gold -= 15;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
-            EventShop.SetActive(false);
+            envetShop.SetActive(false);
         }
     }
 
@@ -148,7 +204,7 @@ public class Shop : MonoBehaviour
             GameManager.instance.Gold -= 5;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
-            EventShop.SetActive(false);
+            envetShop.SetActive(false);
         }
 
         if (Productnumber == 1 && GameManager.instance.Gold >= 10)
@@ -159,7 +215,7 @@ public class Shop : MonoBehaviour
             GameManager.instance.Gold -= 10;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
-            EventShop.SetActive(false);
+            envetShop.SetActive(false);
         }
 
         if (Productnumber == 2 && GameManager.instance.Gold >= 15)
@@ -170,7 +226,7 @@ public class Shop : MonoBehaviour
             GameManager.instance.Gold -= 15;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
-            EventShop.SetActive(false);
+            envetShop.SetActive(false);
         }
     }
 
@@ -178,34 +234,47 @@ public class Shop : MonoBehaviour
     {
         if (Productnumber == 0)
         {
-            EventShop.SetActive(false);
+            envetShop.SetActive(false);
         }
 
         if (Productnumber == 1)
         {
-            EventShop.SetActive(false);
+            envetShop.SetActive(false);
         }
 
         if (Productnumber == 2)
         {
-            EventShop.SetActive(false);
+            envetShop.SetActive(false);
         }
     }
 
-    public bool enterShop;
-    public void EnterShopWlord()
+    public bool showShop;
+
+    public void ExitShop()
     {
-        if (!enterShop)
-        {
-            Camera.main.gameObject.transform.position = new Vector3(-500, 100, -30);
-            enterShop = true;
-        }
-        else
-        {
-            Camera.main.gameObject.transform.position = new Vector3(0, 100, -30);
-            enterShop = false;
-        }
+        envetShop.SetActive(false);
+        showShop = false;
     }
+
+    public void ShowShop()
+    {
+        envetShop.SetActive(true);
+        showShop = true;
+    }
+
+    //public void EnterShopWlord()
+    //{
+    //    if (!enterShop)
+    //    {
+    //        Camera.main.gameObject.transform.position = new Vector3(-500, 100, -30);
+    //        enterShop = true;
+    //    }
+    //    else
+    //    {
+    //        Camera.main.gameObject.transform.position = new Vector3(0, 100, -30);
+    //        enterShop = false;
+    //    }
+    //}
 
 
 

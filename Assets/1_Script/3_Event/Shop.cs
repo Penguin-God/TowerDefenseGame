@@ -25,19 +25,19 @@ public class Shop : MonoBehaviour
     public GameObject foodGoods;
     // 변수명 반대로 하기
     public GameObject[] leftGoldStocks;
-    public GameObject[] centerGoldStocks;
-    public GameObject[] rigthGoldStocks;
+    public GameObject[] centerGoldStocks; 
+    public GameObject[] rigthGoldStocks; 
     public GameObject[] foodStocks;
 
-    private GameObject current_LeftGoldGoods;
-    private GameObject current_CenterGoldGoods;
-    private GameObject current_RigthGoldGoods;
-    private GameObject current_FoodGoldGoods;
+    private GameObject current_LeftGoldGoods = null;
+    private GameObject current_CenterGoldGoods = null;
+    private GameObject current_RigthGoldGoods = null;
+    private GameObject current_FoodGoldGoods = null;
 
     private void Awake() // 배열 선언
     {
         leftGoldStocks = new GameObject[leftGoldGoods.transform.childCount];
-        for(int i = 0; i < leftGoldStocks.Length; i++)
+        for (int i = 0; i < leftGoldStocks.Length; i++)
         {
             leftGoldStocks[i] = leftGoldGoods.transform.GetChild(i).gameObject;
         }
@@ -59,8 +59,11 @@ public class Shop : MonoBehaviour
         {
             foodStocks[i] = foodGoods.transform.GetChild(i).gameObject;
         }
+    }
 
-        Set_RandomShop();
+    private void OnEnable()
+    {
+        //Set_RandomShop();
     }
 
     public CreateDefenser createDefenser;
@@ -73,28 +76,29 @@ public class Shop : MonoBehaviour
 
     public void OnenvetShop()
     {
-        //envetShop.SetActive(true);
-
-        //SetRandomNumber();
-
-        // 랜덤하게 상품 변경 
-        //UpdateLeftText();
-        //UpdateCenterText();
-        //UpdateRightText();
+        envetShop.SetActive(true);
+        Set_RandomShop();
     }
 
-    void Set_RandomShop()
+    void Set_RandomShop() // 랜덤하게 상품 변경 
     {
-        Show_RandomGoods(leftGoldStocks);
-        Show_RandomGoods(centerGoldStocks);
-        Show_RandomGoods(rigthGoldStocks);
-        Show_RandomGoods(foodStocks);
+        Show_RandomGoods(leftGoldGoods);
+        Show_RandomGoods(centerGoldGoods);
+        Show_RandomGoods(rigthGoldGoods);
+        Show_RandomGoods(foodGoods);
     }
 
-    void Show_RandomGoods(GameObject[] goods)
+    void Show_RandomGoods(GameObject goods)
     {
-        int goodsIndex = Random.Range(0, goods.Length);
-        goods[goodsIndex].SetActive(true);
+        // 휘귀도 선택 부분은 가중치 둬야함
+        int rarityIndex = Random.Range(0, goods.transform.childCount);
+        Transform goodsRarity = goods.transform.GetChild(rarityIndex);
+
+
+        int goodsIndex = Random.Range(0, goodsRarity.transform.childCount);
+        GameObject showGoods = goodsRarity.transform.GetChild(goodsIndex).gameObject;
+        Debug.Log(showGoods);
+        showGoods.SetActive(true);
     }
 
 

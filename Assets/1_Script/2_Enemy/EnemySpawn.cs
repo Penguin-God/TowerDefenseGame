@@ -191,9 +191,11 @@ public class EnemySpawn : MonoBehaviour
 
     [SerializeField]
     public CreateDefenser createDefenser;
+    public Shop shop;
     public void RespawnNextTower(int towerLevel, float delayTime)
     {
         currentTowerLevel++;
+        shop.OnenvetShop();
         if (towerLevel >= towers.Length)
         { 
             if(towerLevel == towers.Length)

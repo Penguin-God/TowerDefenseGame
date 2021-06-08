@@ -1551,6 +1551,7 @@ GameObject:
   - component: {fileID: 25579957}
   - component: {fileID: 25579956}
   - component: {fileID: 25579955}
+  - component: {fileID: 25579958}
   m_Layer: 5
   m_Name: Green Mage
   m_TagString: Untagged
@@ -1621,7 +1622,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 25579956}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 25579958}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &25579956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1659,6 +1671,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 25579953}
   m_CullTransparentMesh: 0
+--- !u!114 &25579958
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25579953}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 3
+  unitClassNumber: 3
 --- !u!1 &25761191
 GameObject:
   m_ObjectHideFlags: 0
@@ -3766,6 +3792,7 @@ GameObject:
   - component: {fileID: 71175334}
   - component: {fileID: 71175333}
   - component: {fileID: 71175332}
+  - component: {fileID: 71175335}
   m_Layer: 5
   m_Name: Blue Sowrdman
   m_TagString: Untagged
@@ -3836,7 +3863,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 71175333}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 71175335}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &71175333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3874,6 +3912,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 71175330}
   m_CullTransparentMesh: 0
+--- !u!114 &71175335
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 71175330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 1
+  unitClassNumber: 0
 --- !u!1 &73211304
 GameObject:
   m_ObjectHideFlags: 0
@@ -8873,6 +8925,7 @@ GameObject:
   - component: {fileID: 186815882}
   - component: {fileID: 186815881}
   - component: {fileID: 186815880}
+  - component: {fileID: 186815883}
   m_Layer: 5
   m_Name: Blue Spearman
   m_TagString: Untagged
@@ -8943,7 +8996,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 186815881}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 186815883}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &186815881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8981,6 +9045,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 186815878}
   m_CullTransparentMesh: 0
+--- !u!114 &186815883
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 186815878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 1
+  unitClassNumber: 2
 --- !u!1 &186937076
 GameObject:
   m_ObjectHideFlags: 0
@@ -19275,6 +19353,7 @@ GameObject:
   - component: {fileID: 391377703}
   - component: {fileID: 391377702}
   - component: {fileID: 391377701}
+  - component: {fileID: 391377704}
   m_Layer: 5
   m_Name: Blue Archer
   m_TagString: Untagged
@@ -19345,7 +19424,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 391377702}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 391377704}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &391377702
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19383,6 +19473,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 391377699}
   m_CullTransparentMesh: 0
+--- !u!114 &391377704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391377699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 1
+  unitClassNumber: 1
 --- !u!1 &391524619
 GameObject:
   m_ObjectHideFlags: 0
@@ -24428,6 +24532,7 @@ GameObject:
   - component: {fileID: 480085312}
   - component: {fileID: 480085311}
   - component: {fileID: 480085310}
+  - component: {fileID: 480085313}
   m_Layer: 5
   m_Name: Violet Mage
   m_TagString: Untagged
@@ -24498,7 +24603,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 480085311}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 480085313}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &480085311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24536,6 +24652,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 480085308}
   m_CullTransparentMesh: 0
+--- !u!114 &480085313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 480085308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 5
+  unitClassNumber: 3
 --- !u!1001 &482924349
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28694,6 +28824,7 @@ GameObject:
   - component: {fileID: 555239184}
   - component: {fileID: 555239183}
   - component: {fileID: 555239182}
+  - component: {fileID: 555239185}
   m_Layer: 5
   m_Name: Violet Sowrdman
   m_TagString: Untagged
@@ -28764,7 +28895,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 555239183}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 555239185}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &555239183
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28802,6 +28944,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 555239180}
   m_CullTransparentMesh: 0
+--- !u!114 &555239185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 555239180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 5
+  unitClassNumber: 0
 --- !u!1 &559793084 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 934792852350429472, guid: 1772a47c8d7f3e74baa9fbb660966ee4,
@@ -30826,6 +30982,7 @@ GameObject:
   - component: {fileID: 611615360}
   - component: {fileID: 611615359}
   - component: {fileID: 611615358}
+  - component: {fileID: 611615361}
   m_Layer: 5
   m_Name: Orange Mage
   m_TagString: Untagged
@@ -30896,7 +31053,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 611615359}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 611615361}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &611615359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30934,6 +31102,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 611615356}
   m_CullTransparentMesh: 0
+--- !u!114 &611615361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611615356}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 4
+  unitClassNumber: 3
 --- !u!1 &612136385
 GameObject:
   m_ObjectHideFlags: 0
@@ -39681,6 +39863,7 @@ GameObject:
   - component: {fileID: 756583769}
   - component: {fileID: 756583768}
   - component: {fileID: 756583767}
+  - component: {fileID: 756583770}
   m_Layer: 5
   m_Name: Orange Sowrdman
   m_TagString: Untagged
@@ -39751,7 +39934,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 756583768}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 756583770}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &756583768
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39789,6 +39983,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 756583765}
   m_CullTransparentMesh: 0
+--- !u!114 &756583770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 756583765}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 4
+  unitClassNumber: 0
 --- !u!1 &760895030
 GameObject:
   m_ObjectHideFlags: 0
@@ -42295,6 +42503,7 @@ GameObject:
   - component: {fileID: 797869154}
   - component: {fileID: 797869153}
   - component: {fileID: 797869152}
+  - component: {fileID: 797869155}
   m_Layer: 5
   m_Name: Red Mage
   m_TagString: Untagged
@@ -42365,7 +42574,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 797869153}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 797869155}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &797869153
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42403,6 +42623,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 797869150}
   m_CullTransparentMesh: 0
+--- !u!114 &797869155
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 797869150}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 0
+  unitClassNumber: 3
 --- !u!1 &798657250
 GameObject:
   m_ObjectHideFlags: 0
@@ -47357,6 +47591,7 @@ GameObject:
   - component: {fileID: 901303066}
   - component: {fileID: 901303065}
   - component: {fileID: 901303064}
+  - component: {fileID: 901303067}
   m_Layer: 5
   m_Name: Red Spearman
   m_TagString: Untagged
@@ -47427,7 +47662,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 901303065}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 901303067}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &901303065
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47465,6 +47711,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 901303062}
   m_CullTransparentMesh: 0
+--- !u!114 &901303067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901303062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 0
+  unitClassNumber: 2
 --- !u!1 &901322379
 GameObject:
   m_ObjectHideFlags: 0
@@ -49431,6 +49691,7 @@ GameObject:
   - component: {fileID: 934361733}
   - component: {fileID: 934361732}
   - component: {fileID: 934361731}
+  - component: {fileID: 934361734}
   m_Layer: 5
   m_Name: Violet Archer
   m_TagString: Untagged
@@ -49501,7 +49762,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 934361732}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 934361734}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &934361732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49539,6 +49811,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 934361729}
   m_CullTransparentMesh: 0
+--- !u!114 &934361734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 934361729}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 5
+  unitClassNumber: 1
 --- !u!1001 &936314094
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50862,6 +51148,7 @@ GameObject:
   - component: {fileID: 954389643}
   - component: {fileID: 954389642}
   - component: {fileID: 954389641}
+  - component: {fileID: 954389644}
   m_Layer: 5
   m_Name: Blue Mage
   m_TagString: Untagged
@@ -50932,7 +51219,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 954389642}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 954389644}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &954389642
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50970,6 +51268,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954389639}
   m_CullTransparentMesh: 0
+--- !u!114 &954389644
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954389639}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 1
+  unitClassNumber: 3
 --- !u!1 &954490415 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6704759391202351553, guid: e3e8368fe90d1c648beb49b119b9d686,
@@ -52759,6 +53071,7 @@ GameObject:
   - component: {fileID: 984496254}
   - component: {fileID: 984496253}
   - component: {fileID: 984496252}
+  - component: {fileID: 984496255}
   m_Layer: 5
   m_Name: Orange Spearman
   m_TagString: Untagged
@@ -52829,7 +53142,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 984496253}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 984496255}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &984496253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52867,6 +53191,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 984496250}
   m_CullTransparentMesh: 0
+--- !u!114 &984496255
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 984496250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 4
+  unitClassNumber: 2
 --- !u!1 &984653497
 GameObject:
   m_ObjectHideFlags: 0
@@ -66924,6 +67262,7 @@ GameObject:
   - component: {fileID: 1261355534}
   - component: {fileID: 1261355533}
   - component: {fileID: 1261355532}
+  - component: {fileID: 1261355535}
   m_Layer: 5
   m_Name: Green Archer
   m_TagString: Untagged
@@ -66994,7 +67333,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1261355533}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1261355535}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1261355533
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67032,6 +67382,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1261355530}
   m_CullTransparentMesh: 0
+--- !u!114 &1261355535
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261355530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 3
+  unitClassNumber: 1
 --- !u!1 &1261802211
 GameObject:
   m_ObjectHideFlags: 0
@@ -77520,6 +77884,7 @@ GameObject:
   - component: {fileID: 1441049506}
   - component: {fileID: 1441049505}
   - component: {fileID: 1441049504}
+  - component: {fileID: 1441049507}
   m_Layer: 5
   m_Name: Green Spearman
   m_TagString: Untagged
@@ -77590,7 +77955,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1441049505}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1441049507}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1441049505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77628,6 +78004,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1441049502}
   m_CullTransparentMesh: 0
+--- !u!114 &1441049507
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1441049502}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 3
+  unitClassNumber: 2
 --- !u!1 &1441361672
 GameObject:
   m_ObjectHideFlags: 0
@@ -79533,6 +79923,7 @@ GameObject:
   - component: {fileID: 1473934638}
   - component: {fileID: 1473934637}
   - component: {fileID: 1473934636}
+  - component: {fileID: 1473934639}
   m_Layer: 5
   m_Name: Green Sowrdman
   m_TagString: Untagged
@@ -79603,7 +79994,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1473934637}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1473934639}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1473934637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79641,6 +80043,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1473934634}
   m_CullTransparentMesh: 0
+--- !u!114 &1473934639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1473934634}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 3
+  unitClassNumber: 0
 --- !u!1 &1474582352
 GameObject:
   m_ObjectHideFlags: 0
@@ -82491,6 +82907,7 @@ GameObject:
   - component: {fileID: 1520770372}
   - component: {fileID: 1520770371}
   - component: {fileID: 1520770370}
+  - component: {fileID: 1520770373}
   m_Layer: 5
   m_Name: Yellow Spearman
   m_TagString: Untagged
@@ -82561,7 +82978,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1520770371}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1520770373}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1520770371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -82599,6 +83027,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1520770368}
   m_CullTransparentMesh: 0
+--- !u!114 &1520770373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1520770368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 2
+  unitClassNumber: 2
 --- !u!1 &1521720100
 GameObject:
   m_ObjectHideFlags: 0
@@ -96309,6 +96751,7 @@ GameObject:
   - component: {fileID: 1764184518}
   - component: {fileID: 1764184517}
   - component: {fileID: 1764184516}
+  - component: {fileID: 1764184519}
   m_Layer: 5
   m_Name: Yellow Sowrdman
   m_TagString: Untagged
@@ -96379,7 +96822,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1764184517}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1764184519}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1764184517
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96417,6 +96871,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1764184514}
   m_CullTransparentMesh: 0
+--- !u!114 &1764184519
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1764184514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 2
+  unitClassNumber: 0
 --- !u!1001 &1766262211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -97194,6 +97662,7 @@ GameObject:
   - component: {fileID: 1782081741}
   - component: {fileID: 1782081740}
   - component: {fileID: 1782081739}
+  - component: {fileID: 1782081742}
   m_Layer: 5
   m_Name: Violet Spearman
   m_TagString: Untagged
@@ -97264,7 +97733,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1782081740}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1782081742}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1782081740
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -97302,6 +97782,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1782081737}
   m_CullTransparentMesh: 0
+--- !u!114 &1782081742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1782081737}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 5
+  unitClassNumber: 2
 --- !u!1 &1782202198
 GameObject:
   m_ObjectHideFlags: 0
@@ -99592,6 +100086,7 @@ GameObject:
   - component: {fileID: 1844602981}
   - component: {fileID: 1844602980}
   - component: {fileID: 1844602979}
+  - component: {fileID: 1844602982}
   m_Layer: 5
   m_Name: Yellow Archer
   m_TagString: Untagged
@@ -99662,7 +100157,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1844602980}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1844602982}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1844602980
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -99700,6 +100206,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1844602977}
   m_CullTransparentMesh: 0
+--- !u!114 &1844602982
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1844602977}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 2
+  unitClassNumber: 1
 --- !u!1 &1845206889
 GameObject:
   m_ObjectHideFlags: 0
@@ -103425,6 +103945,7 @@ GameObject:
   - component: {fileID: 1910749385}
   - component: {fileID: 1910749384}
   - component: {fileID: 1910749383}
+  - component: {fileID: 1910749386}
   m_Layer: 5
   m_Name: Red Archer
   m_TagString: Untagged
@@ -103495,7 +104016,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1910749384}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1910749386}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1910749384
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -103533,6 +104065,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1910749381}
   m_CullTransparentMesh: 0
+--- !u!114 &1910749386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910749381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 0
+  unitClassNumber: 1
 --- !u!1 &1914572775
 GameObject:
   m_ObjectHideFlags: 0
@@ -105042,6 +105588,7 @@ GameObject:
   - component: {fileID: 1952167864}
   - component: {fileID: 1952167863}
   - component: {fileID: 1952167862}
+  - component: {fileID: 1952167865}
   m_Layer: 5
   m_Name: Orange Archer
   m_TagString: Untagged
@@ -105112,7 +105659,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1952167863}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1952167865}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1952167863
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -105150,6 +105708,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1952167860}
   m_CullTransparentMesh: 0
+--- !u!114 &1952167865
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1952167860}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 4
+  unitClassNumber: 1
 --- !u!1001 &1952921445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -106937,6 +107509,7 @@ GameObject:
   - component: {fileID: 1988324862}
   - component: {fileID: 1988324861}
   - component: {fileID: 1988324860}
+  - component: {fileID: 1988324863}
   m_Layer: 5
   m_Name: Yellow Mage
   m_TagString: Untagged
@@ -107007,7 +107580,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1988324861}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1988324863}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1988324861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107045,6 +107629,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1988324858}
   m_CullTransparentMesh: 0
+--- !u!114 &1988324863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1988324858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 2
+  unitClassNumber: 3
 --- !u!1 &1989849374
 GameObject:
   m_ObjectHideFlags: 0
@@ -107460,6 +108058,7 @@ GameObject:
   - component: {fileID: 1994569098}
   - component: {fileID: 1994569097}
   - component: {fileID: 1994569096}
+  - component: {fileID: 1994569099}
   m_Layer: 5
   m_Name: Red Sowrdman
   m_TagString: Untagged
@@ -107530,7 +108129,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1994569097}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1994569099}
+        m_MethodName: BuyUnitGoods
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 10
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1994569097
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -107568,6 +108178,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994569094}
   m_CullTransparentMesh: 0
+--- !u!114 &1994569099
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1994569094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 0
+  unitClassNumber: 0
 --- !u!1 &1994728278
 GameObject:
   m_ObjectHideFlags: 0

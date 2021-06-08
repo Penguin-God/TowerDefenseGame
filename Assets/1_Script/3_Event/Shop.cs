@@ -126,7 +126,19 @@ public class Shop : MonoBehaviour
         return showGoods;
     }
 
+    //public void BuyUnitGoods(int[] aa)
+    //{
+    //    //if (GameManager.instance.Gold < price) return;
+    //    //MinusGold(price);
 
+    //    //createDefenser.CreateSoldier(unitColor, unitClass);
+    //}
+
+    //void MinusGold(int subtractGold)
+    //{
+    //    GameManager.instance.Gold -= subtractGold;
+    //    UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+    //}
 
     public void UpdateLeftText() // 이미지로 바꾸면 좋을 듯
     {
@@ -183,12 +195,13 @@ public class Shop : MonoBehaviour
         
     }
 
-    public void BuyGoods(int price)
-    {
-        if (GameManager.instance.Gold < price) return;
+    //public void BuyGoods(int price)
+    //{
+    //    if (GameManager.instance.Gold < price) return;
 
-        GameManager.instance.Gold -= price;
-    }
+    //    GameManager.instance.Gold -= price;
+    //    UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+    //}
 
     public void ClickLeftGoods()
     {

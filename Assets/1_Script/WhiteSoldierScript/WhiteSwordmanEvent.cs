@@ -21,7 +21,7 @@ public class WhiteSwordmanEvent : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= 10f)
+        if (timer >= 30f)
         {
             soldiersTags.WhiteSwordmanTag();
             Destroy(soldiersTags.WhiteSwordman[0]);

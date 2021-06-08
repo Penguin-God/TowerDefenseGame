@@ -20,7 +20,7 @@ public class WhiteMageEvent : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= 10f)
+        if (timer >= 30f)
         {
             soldiersTags.WhiteMageTag();
             Destroy(soldiersTags.WhiteMage[0]);

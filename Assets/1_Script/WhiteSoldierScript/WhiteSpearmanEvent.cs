@@ -20,7 +20,7 @@ public class WhiteSpearmanEvent : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= 10f)
+        if (timer >= 30f)
         {
             soldiersTags.WhiteSpearmanTag();
             Destroy(soldiersTags.WhiteSpearman[0]);

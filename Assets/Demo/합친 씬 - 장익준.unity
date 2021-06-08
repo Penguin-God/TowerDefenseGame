@@ -18046,6 +18046,7 @@ MonoBehaviour:
   - {fileID: 1426073500}
   currentTowerLevel: 0
   createDefenser: {fileID: 2069937148}
+  shop: {fileID: 0}
 --- !u!4 &763533794
 Transform:
   m_ObjectHideFlags: 0
@@ -40688,7 +40689,15 @@ MonoBehaviour:
   LeftText: {fileID: 0}
   CenterText: {fileID: 0}
   RightText: {fileID: 0}
-  EventShop: {fileID: 1566586200}
+  envetShop: {fileID: 0}
+  leftGoldGoods: {fileID: 0}
+  centerGoldGoods: {fileID: 0}
+  rigthGoldGoods: {fileID: 0}
+  foodGoods: {fileID: 0}
+  leftGoldStocks: []
+  centerGoldStocks: []
+  rigthGoldStocks: []
+  foodStocks: []
   createDefenser: {fileID: 0}
   showShop: 0
 --- !u!1 &1566645842
@@ -54959,7 +54968,15 @@ MonoBehaviour:
   LeftText: {fileID: 0}
   CenterText: {fileID: 0}
   RightText: {fileID: 0}
-  EventShop: {fileID: 0}
+  envetShop: {fileID: 0}
+  leftGoldGoods: {fileID: 0}
+  centerGoldGoods: {fileID: 0}
+  rigthGoldGoods: {fileID: 0}
+  foodGoods: {fileID: 0}
+  leftGoldStocks: []
+  centerGoldStocks: []
+  rigthGoldStocks: []
+  foodStocks: []
   createDefenser: {fileID: 2069937148}
   showShop: 0
 --- !u!4 &4092120928962032 stripped

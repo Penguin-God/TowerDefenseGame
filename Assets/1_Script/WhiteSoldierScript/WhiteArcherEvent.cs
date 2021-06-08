@@ -20,7 +20,7 @@ public class WhiteArcherEvent : MonoBehaviour
     private void Update()
     {
         timer += Time.deltaTime;
-        if (timer >= 10f)
+        if (timer >= 30f)
         {
             soldiersTags.WhiteArcherTag();
             Destroy(soldiersTags.WhiteArcher[0]);

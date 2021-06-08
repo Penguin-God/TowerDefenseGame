@@ -63,7 +63,7 @@ public class Shop : MonoBehaviour
 
     private void OnEnable()
     {
-        //Set_RandomShop();
+        Set_RandomShop();
     }
 
     public CreateDefenser createDefenser;
@@ -74,6 +74,30 @@ public class Shop : MonoBehaviour
     //    OnEnvetShop();
     //}
 
+    public bool showShop;
+
+    public void ExitShop()
+    {
+        envetShop.SetActive(false);
+        showShop = false;
+
+        current_LeftGoldGoods.SetActive(false);
+        current_CenterGoldGoods.SetActive(false);
+        current_RigthGoldGoods.SetActive(false);
+        current_FoodGoldGoods.SetActive(false);
+
+        current_LeftGoldGoods = null;
+        current_CenterGoldGoods = null;
+        current_RigthGoldGoods = null;
+        current_FoodGoldGoods = null;
+    }
+
+    public void ShowShop()
+    {
+        envetShop.SetActive(true);
+        showShop = true;
+    }
+
     public void OnenvetShop()
     {
         envetShop.SetActive(true);
@@ -82,13 +106,13 @@ public class Shop : MonoBehaviour
 
     void Set_RandomShop() // 랜덤하게 상품 변경 
     {
-        Show_RandomGoods(leftGoldGoods);
-        Show_RandomGoods(centerGoldGoods);
-        Show_RandomGoods(rigthGoldGoods);
-        Show_RandomGoods(foodGoods);
+        current_LeftGoldGoods = Show_RandomGoods(leftGoldGoods);
+        current_CenterGoldGoods = Show_RandomGoods(centerGoldGoods);
+        current_RigthGoldGoods = Show_RandomGoods(rigthGoldGoods);
+        current_FoodGoldGoods = Show_RandomGoods(foodGoods);
     }
 
-    void Show_RandomGoods(GameObject goods)
+    GameObject Show_RandomGoods(GameObject goods)
     {
         // 휘귀도 선택 부분은 가중치 둬야함
         int rarityIndex = Random.Range(0, goods.transform.childCount);
@@ -97,8 +121,9 @@ public class Shop : MonoBehaviour
 
         int goodsIndex = Random.Range(0, goodsRarity.transform.childCount);
         GameObject showGoods = goodsRarity.transform.GetChild(goodsIndex).gameObject;
-        Debug.Log(showGoods);
+        //Debug.Log(showGoods);
         showGoods.SetActive(true);
+        return showGoods;
     }
 
 
@@ -250,20 +275,6 @@ public class Shop : MonoBehaviour
         {
             envetShop.SetActive(false);
         }
-    }
-
-    public bool showShop;
-
-    public void ExitShop()
-    {
-        envetShop.SetActive(false);
-        showShop = false;
-    }
-
-    public void ShowShop()
-    {
-        envetShop.SetActive(true);
-        showShop = true;
     }
 
     //public void EnterShopWlord()

@@ -37,10 +37,12 @@ public class EventManager : MonoBehaviour
     void SetEventText_Dictionary()
     {
         // 버프
-        eventTextDictionary.Add(Up_UnitDamage, "일반 몬스터 대미지 강화");
+        eventTextDictionary.Add(Up_UnitDamage, "대미지 강화");
         eventTextDictionary.Add(Up_UnitBossDamage, "보스 대미지 강화");
         eventTextDictionary.Add(Up_UnitSkillPercent, "스킬 사용 빈도 증가");
         eventTextDictionary.Add(Reinforce_UnitPassive, "패시브 강화");
+        // 장익준: 패시브 이런거 보다 유닛 스킬이나 직업스킬로 바꾸는게 좋을 듯.
+        // 뭐가 바뀌는지 몰라서 일단 놔둠
 
         // 디버프
         //eventTextDictionary.Add(Down_UnitDamage, "일반 몬스터 대미지 약화");

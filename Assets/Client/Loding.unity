@@ -879,7 +879,7 @@ GameObject:
   - component: {fileID: 1095849678}
   - component: {fileID: 1095849677}
   m_Layer: 5
-  m_Name: RedMageTip
+  m_Name: DamegeTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -936,8 +936,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Tip : \uBE68\uAC04 \uB9C8\uBC95\uC0AC\uB294 \uB370\uBBF8\uC9C0 \uBC84\uD504\uAC00
-    \uC788\uC2B5\uB2C8\uB2E4."
+  m_Text: "Tip : \uB370\uBBF8\uC9C0\uC640 \uBCF4\uC2A4 \uB370\uBBF8\uC9C0\uB294 \uB2E4\uB985\uB2C8\uB2E4."
 --- !u!222 &1095849678
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1036,7 +1035,7 @@ GameObject:
   - component: {fileID: 1309070800}
   - component: {fileID: 1309070799}
   m_Layer: 5
-  m_Name: BlueMageTip
+  m_Name: BossClearTip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1093,8 +1092,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Tip : \uD30C\uB780 \uB9C8\uBC95\uC0AC\uB294 \uC801\uC744 \uB290\uB9AC\uAC8C
-    \uD569\uB2C8\uB2E4."
+  m_Text: "Tip : \uBCF4\uC2A4\uAC00 \uB108\uBB34 \uBE60\uB974\uBA74 \uD30C\uB780
+    \uC720\uB2DB\uC774\uB098 \uBCF4\uB77C \uC720\uB2DB\uC744 \uC0AC\uC6A9\uD558\uC138\uC694"
 --- !u!222 &1309070800
 CanvasRenderer:
   m_ObjectHideFlags: 0

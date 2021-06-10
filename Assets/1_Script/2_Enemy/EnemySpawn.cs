@@ -195,7 +195,7 @@ public class EnemySpawn : MonoBehaviour
     public void RespawnNextTower(int towerLevel, float delayTime)
     {
         currentTowerLevel++;
-        shop.OnenvetShop();
+        //shop.OnenvetShop();
         if (towerLevel >= towers.Length)
         { 
             if(towerLevel == towers.Length)

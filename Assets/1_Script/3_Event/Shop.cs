@@ -72,6 +72,23 @@ public class Shop : MonoBehaviour
 
         GameManager.instance.Food += buyGoods.buyFoodCount;
         UIManager.instance.UpdateFoodText(GameManager.instance.Food);
+
+        ExitShop();
+    }
+
+    // 골드 판매
+    public void BuyGold(GameObject goldGoodsObject)
+    {
+        BuyGoods buyGoods = goldGoodsObject.GetComponent<BuyGoods>();
+        if (GameManager.instance.Food < buyGoods.price) return;
+
+        GameManager.instance.Food -= buyGoods.price;
+        UIManager.instance.UpdateFoodText(GameManager.instance.Food);
+
+        GameManager.instance.Gold += buyGoods.buyGoldAmount;
+        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+
+        ExitShop();
     }
 
     private void OnEnable()

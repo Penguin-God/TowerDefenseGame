@@ -11,6 +11,8 @@ public class BuyGoods : MonoBehaviour
     public int buyFoodCount;
     public int price;
 
+    public int buyGoldAmount;
+
     private Shop shop;
     CreateDefenser createDefenser;
     private void Awake()
@@ -23,10 +25,10 @@ public class BuyGoods : MonoBehaviour
     public void BuyUnitGoods(int price)
     {
         if (GameManager.instance.Gold < price) return;
+        
         MinusGold(price);
-
-        //createDefenser.CreateSoldier(unitColorNumber, unitClassNumber);
         if (createDefenser != null) createDefenser.CreateSoldier(unitColorNumber, unitClassNumber);
+        shop.ExitShop();
     }
 
     void MinusGold(int subtractGold)

@@ -11,8 +11,9 @@ public class UnitArray
 public class UnitManager : MonoBehaviour
 {
     public static UnitManager instance;
-    //public GameObject[,] unitArrays; // red, blue, yellow, green, orange, violet, black 순 7개 배열
-    public UnitArray[] unitArrays;
+    public UnitArray[] unitArrays; // red, blue, yellow, green, orange, violet, black 순 7개 배열
+
+
 
     private void Awake()
     {
@@ -26,7 +27,6 @@ public class UnitManager : MonoBehaviour
             Destroy(gameObject);
         }
         //Debug.Log(unitArrays[0].unitArray[0]);
-        //Debug.Log(unitArrays[0][1]);
         currentUnitList = new List<GameObject>();
         StartCoroutine(UnitListCheck_Coroutine());
     }

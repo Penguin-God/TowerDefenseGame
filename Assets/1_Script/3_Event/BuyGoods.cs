@@ -8,6 +8,9 @@ public class BuyGoods : MonoBehaviour
     public int unitColorNumber;
     public int unitClassNumber;
 
+    public int buyFoodCount;
+    public int price;
+
     private Shop shop;
     CreateDefenser createDefenser;
     private void Awake()
@@ -15,12 +18,6 @@ public class BuyGoods : MonoBehaviour
         //shop = transform.parent.transform.parent.gameObject.GetComponentInParent<Shop>();
         shop = GetComponentInParent<Shop>();
         createDefenser = shop.createDefenser;
-    }
-
-    private void Start()
-    {
-        createDefenser = FindObjectOfType<CreateDefenser>();
-        Debug.Log(createDefenser);
     }
 
     public void BuyUnitGoods(int price)

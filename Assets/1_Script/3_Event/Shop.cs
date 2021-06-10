@@ -61,6 +61,19 @@ public class Shop : MonoBehaviour
         }
     }
 
+    // 고기 판매
+    public void BuyFood(GameObject foodGoodsObject)
+    {
+        BuyGoods buyGoods = foodGoodsObject.GetComponent<BuyGoods>();
+        if (GameManager.instance.Gold < buyGoods.price) return;
+
+        GameManager.instance.Gold -= buyGoods.price;
+        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+
+        GameManager.instance.Food += buyGoods.buyFoodCount;
+        UIManager.instance.UpdateFoodText(GameManager.instance.Food);
+    }
+
     private void OnEnable()
     {
         Set_RandomShop();
@@ -125,20 +138,6 @@ public class Shop : MonoBehaviour
         showGoods.SetActive(true);
         return showGoods;
     }
-
-    //public void BuyUnitGoods(int[] aa)
-    //{
-    //    //if (GameManager.instance.Gold < price) return;
-    //    //MinusGold(price);
-
-    //    //createDefenser.CreateSoldier(unitColor, unitClass);
-    //}
-
-    //void MinusGold(int subtractGold)
-    //{
-    //    GameManager.instance.Gold -= subtractGold;
-    //    UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-    //}
 
     public void UpdateLeftText() // 이미지로 바꾸면 좋을 듯
     {

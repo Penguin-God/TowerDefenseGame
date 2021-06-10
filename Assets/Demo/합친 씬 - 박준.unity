@@ -1685,6 +1685,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 3
   unitClassNumber: 3
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &25761191
 GameObject:
   m_ObjectHideFlags: 0
@@ -1697,6 +1699,7 @@ GameObject:
   - component: {fileID: 25761195}
   - component: {fileID: 25761194}
   - component: {fileID: 25761193}
+  - component: {fileID: 25761196}
   m_Layer: 5
   m_Name: Five Food
   m_TagString: Untagged
@@ -1722,7 +1725,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000015258789, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 140, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &25761193
@@ -1767,7 +1770,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 25761194}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1782452922}
+        m_MethodName: BuyFood
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 25761191}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &25761194
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1805,6 +1819,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 25761191}
   m_CullTransparentMesh: 0
+--- !u!114 &25761196
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25761191}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 0
+  unitClassNumber: 0
+  buyFoodCount: 5
+  price: 30
 --- !u!1 &27959744
 GameObject:
   m_ObjectHideFlags: 0
@@ -3920,6 +3950,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 1
   unitClassNumber: 0
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &73211304
 GameObject:
   m_ObjectHideFlags: 0
@@ -9053,6 +9085,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 1
   unitClassNumber: 2
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &186937076
 GameObject:
   m_ObjectHideFlags: 0
@@ -19481,6 +19515,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 1
   unitClassNumber: 1
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &391524619
 GameObject:
   m_ObjectHideFlags: 0
@@ -24660,6 +24696,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 5
   unitClassNumber: 3
+  buyFoodCount: 0
+  price: 0
 --- !u!1001 &482924349
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28844,7 +28882,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 230.00002, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 140, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &555239182
@@ -28952,6 +28990,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 5
   unitClassNumber: 0
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &559793084 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 934792852350429472, guid: 1772a47c8d7f3e74baa9fbb660966ee4,
@@ -30423,7 +30463,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &595268641
 RectTransform:
   m_ObjectHideFlags: 0
@@ -31110,6 +31150,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 4
   unitClassNumber: 3
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &612136385
 GameObject:
   m_ObjectHideFlags: 0
@@ -38386,6 +38428,7 @@ GameObject:
   - component: {fileID: 734277090}
   - component: {fileID: 734277089}
   - component: {fileID: 734277088}
+  - component: {fileID: 734277091}
   m_Layer: 5
   m_Name: One Food
   m_TagString: Untagged
@@ -38411,7 +38454,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000015258789, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 150, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &734277088
@@ -38456,7 +38499,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 734277089}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1782452922}
+        m_MethodName: BuyFood
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 734277086}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &734277089
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38494,6 +38548,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 734277086}
   m_CullTransparentMesh: 0
+--- !u!114 &734277091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 734277086}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 0
+  unitClassNumber: 0
+  buyFoodCount: 1
+  price: 7
 --- !u!1 &735385028
 GameObject:
   m_ObjectHideFlags: 0
@@ -40080,7 +40150,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 230.00002, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 140, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &756583767
@@ -40188,6 +40258,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 4
   unitClassNumber: 0
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &760895030
 GameObject:
   m_ObjectHideFlags: 0
@@ -42828,6 +42900,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 0
   unitClassNumber: 3
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &798657250
 GameObject:
   m_ObjectHideFlags: 0
@@ -47916,6 +47990,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 0
   unitClassNumber: 2
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &901322379
 GameObject:
   m_ObjectHideFlags: 0
@@ -50094,6 +50170,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 5
   unitClassNumber: 1
+  buyFoodCount: 0
+  price: 0
 --- !u!1001 &936314094
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -51551,6 +51629,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 1
   unitClassNumber: 3
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &954490415 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6704759391202351553, guid: e3e8368fe90d1c648beb49b119b9d686,
@@ -53552,6 +53632,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 4
   unitClassNumber: 2
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &984653497
 GameObject:
   m_ObjectHideFlags: 0
@@ -67782,6 +67864,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 3
   unitClassNumber: 1
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &1261802211
 GameObject:
   m_ObjectHideFlags: 0
@@ -77082,7 +77166,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1427952061
 RectTransform:
   m_ObjectHideFlags: 0
@@ -78404,6 +78488,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 3
   unitClassNumber: 2
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &1441361672
 GameObject:
   m_ObjectHideFlags: 0
@@ -80337,7 +80423,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 230.00002, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 140, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1473934636
@@ -80445,6 +80531,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 3
   unitClassNumber: 0
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &1474582352
 GameObject:
   m_ObjectHideFlags: 0
@@ -83429,6 +83517,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 2
   unitClassNumber: 2
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &1521720100
 GameObject:
   m_ObjectHideFlags: 0
@@ -83653,6 +83743,7 @@ GameObject:
   - component: {fileID: 1526101434}
   - component: {fileID: 1526101433}
   - component: {fileID: 1526101432}
+  - component: {fileID: 1526101435}
   m_Layer: 5
   m_Name: Three Food
   m_TagString: Untagged
@@ -83678,7 +83769,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000015258789, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 150, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1526101432
@@ -83723,7 +83814,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1526101433}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1782452922}
+        m_MethodName: BuyFood
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1526101430}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1526101433
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -83761,6 +83863,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1526101430}
   m_CullTransparentMesh: 0
+--- !u!114 &1526101435
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1526101430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 0
+  unitClassNumber: 0
+  buyFoodCount: 3
+  price: 20
 --- !u!1 &1530361819
 GameObject:
   m_ObjectHideFlags: 0
@@ -88564,6 +88682,7 @@ GameObject:
   - component: {fileID: 1606874284}
   - component: {fileID: 1606874283}
   - component: {fileID: 1606874282}
+  - component: {fileID: 1606874285}
   m_Layer: 5
   m_Name: Ten Food
   m_TagString: Untagged
@@ -88589,7 +88708,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000030517578, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 140, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1606874282
@@ -88634,7 +88753,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1606874283}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1782452922}
+        m_MethodName: BuyFood
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 1606874280}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1606874283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -88672,6 +88802,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1606874280}
   m_CullTransparentMesh: 0
+--- !u!114 &1606874285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606874280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitColorNumber: 0
+  unitClassNumber: 0
+  buyFoodCount: 10
+  price: 60
 --- !u!1 &1609858848
 GameObject:
   m_ObjectHideFlags: 0
@@ -97273,6 +97419,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 2
   unitClassNumber: 0
+  buyFoodCount: 0
+  price: 0
 --- !u!1001 &1766262211
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -98184,6 +98332,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 5
   unitClassNumber: 2
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &1782202198
 GameObject:
   m_ObjectHideFlags: 0
@@ -98280,7 +98430,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1782452921
 RectTransform:
   m_ObjectHideFlags: 0
@@ -100608,6 +100758,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 2
   unitClassNumber: 1
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &1845206889
 GameObject:
   m_ObjectHideFlags: 0
@@ -104467,6 +104619,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 0
   unitClassNumber: 1
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &1914572775
 GameObject:
   m_ObjectHideFlags: 0
@@ -105725,7 +105879,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uACE0\uAE30 1\uAC1C\n"
+  m_Text: "\uACE0\uAE30 3\uAC1C\n"
 --- !u!222 &1945895509
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -106110,6 +106264,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 4
   unitClassNumber: 1
+  buyFoodCount: 0
+  price: 0
 --- !u!1001 &1952921445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -108031,6 +108187,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 2
   unitClassNumber: 3
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &1989849374
 GameObject:
   m_ObjectHideFlags: 0
@@ -108580,6 +108738,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitColorNumber: 0
   unitClassNumber: 0
+  buyFoodCount: 0
+  price: 0
 --- !u!1 &1994728278
 GameObject:
   m_ObjectHideFlags: 0

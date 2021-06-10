@@ -64,9 +64,11 @@ public class Enemy : MonoBehaviour
         yield return new WaitUntil(() => !isSturn);
         isSturn = true;
         sternEffect.SetActive(true);
-        parentRigidbody.velocity = Vector3.zero;
-        yield return new WaitForSeconds(sternTime);
+        nomalEnemy.speed = 0;
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
+        yield return new WaitForSeconds(sternTime);
+        nomalEnemy.speed = nomalEnemy.maxSpeed;
+        parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
         sternEffect.SetActive(false);
         isSturn = false;
     }
@@ -109,8 +111,11 @@ public class Enemy : MonoBehaviour
     {
         ChangeMat(originMat);
         ChangeColor(new Color32(255, 255, 255, 255));
-        nomalEnemy.speed = nomalEnemy.maxSpeed;
-        parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
+        if (!isSturn)
+        {
+            nomalEnemy.speed = nomalEnemy.maxSpeed;
+            parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
+        }
         isSlow = false;
     }
 

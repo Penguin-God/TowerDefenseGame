@@ -42,6 +42,7 @@ public class EventManager : MonoBehaviour
         eventTextDictionary.Add(Up_UnitSkillPercent, "스킬 사용 빈도 증가");
         eventTextDictionary.Add(Reinforce_UnitPassive, "패시브 강화");
         // 장익준: 패시브 이런거 보다 유닛 스킬이나 직업스킬로 바꾸는게 좋을 듯.
+        // 답장 : 그건 상점에 팔려고 안했음
         // 뭐가 바뀌는지 몰라서 일단 놔둠
 
         // 디버프

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class Shop : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class Shop : MonoBehaviour
 
     private int SetRandomNumber()
     {
-        Productnumber = Random.Range(0, 2);
+        Productnumber = UnityEngine.Random.Range(0, 2);
         return Productnumber;
     }
 
@@ -74,6 +75,24 @@ public class Shop : MonoBehaviour
         UIManager.instance.UpdateFoodText(GameManager.instance.Food);
 
         ExitShop();
+    }
+
+    public void TestButton(Button button)
+    {
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() => TestInt(100));
+        button.onClick.AddListener(() => TestString("Heelow "));
+
+    }
+
+    void TestInt(int aa)
+    {
+        Debug.Log(aa);
+    }
+
+    void TestString(string aaaaa)
+    {
+        Debug.Log(aaaaa);
     }
 
     // 골드 판매
@@ -145,11 +164,11 @@ public class Shop : MonoBehaviour
     GameObject Show_RandomGoods(GameObject goods)
     {
         // 휘귀도 선택 부분은 가중치 둬야함
-        int rarityIndex = Random.Range(0, goods.transform.childCount);
+        int rarityIndex = UnityEngine.Random.Range(0, goods.transform.childCount);
         Transform goodsRarity = goods.transform.GetChild(rarityIndex);
 
 
-        int goodsIndex = Random.Range(0, goodsRarity.transform.childCount);
+        int goodsIndex = UnityEngine.Random.Range(0, goodsRarity.transform.childCount);
         GameObject showGoods = goodsRarity.transform.GetChild(goodsIndex).gameObject;
         //Debug.Log(showGoods);
         showGoods.SetActive(true);

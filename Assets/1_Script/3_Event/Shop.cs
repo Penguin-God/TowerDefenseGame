@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System;
+using UnityEngine.EventSystems;
 
 public class Shop : MonoBehaviour
 {
@@ -21,6 +21,7 @@ public class Shop : MonoBehaviour
     private GameObject current_CenterGoldGoods = null;
     //private GameObject current_RigthGoldGoods = null;
     private GameObject current_FoodGoldGoods = null;
+    public CreateDefenser createDefenser;
 
     private void Awake() // 배열 선언
     {
@@ -42,14 +43,32 @@ public class Shop : MonoBehaviour
             foodStocks[i] = foodGoods.transform.GetChild(i).gameObject;
         }
     }
+    void MinusGold(int price)
+    {
+        GameManager.instance.Gold -= price;
+        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+    }
 
+    GameObject SetButton(Button clickButton, GameObject buyGoodsObject)
+    {
+        buyGoodsObject.SetActive(true);
+        clickButton.onClick.RemoveAllListeners();
+        return EventSystem.current.currentSelectedGameObject; // 현재 클릭한 오브젝트
+    }
+
+    // 고기 판매
+    public GameObject buyFoodObject;
+    public Button foodBuyButton;
+    public void Set_BuyFoodButton()
+    {
+        GameObject clickGoods = SetButton(foodBuyButton, buyFoodObject);
+        foodBuyButton.onClick.AddListener(() => BuyFood(clickGoods));
+    }
     public void BuyFood(GameObject foodGoodsObject)
     {
-        BuyGoods buyGoods = foodGoodsObject.GetComponent<BuyGoods>();
+        GoodsData buyGoods = foodGoodsObject.GetComponent<GoodsData>();
         if (GameManager.instance.Gold < buyGoods.price) return;
-
-        GameManager.instance.Gold -= buyGoods.price;
-        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+        MinusGold(buyGoods.price);
 
         GameManager.instance.Food += buyGoods.buyFoodCount;
         UIManager.instance.UpdateFoodText(GameManager.instance.Food);
@@ -57,24 +76,18 @@ public class Shop : MonoBehaviour
         ExitShop();
     }
 
-    GameObject current_SelectGoods = null;
-    public GameObject buyFoodObject;
-    public Button foodBuyButton;
-
-    public GameObject buyUnitObject;
-    public Button unitBuyButton;
-
-    public void Set_BuyFoodButton(GameObject foodGoodsObject)
-    {
-        foodBuyButton.onClick.RemoveAllListeners();
-        buyFoodObject.SetActive(true);
-        foodBuyButton.onClick.AddListener(() => BuyFood(foodGoodsObject));
-    }
 
     // 골드 판매
-    public void BuyGold(GameObject goldGoodsObject)
+    public GameObject buyGoldObject;
+    public Button goldBuyButton;
+    public void Set_BuyGoldButton()
+    { 
+        GameObject clickGoods = SetButton(goldBuyButton, buyGoldObject);
+        goldBuyButton.onClick.AddListener(() => BuyGold(clickGoods));
+    }
+    void BuyGold(GameObject goldGoodsObject)
     {
-        BuyGoods buyGoods = goldGoodsObject.GetComponent<BuyGoods>();
+        GoodsData buyGoods = goldGoodsObject.GetComponent<GoodsData>();
         if (GameManager.instance.Food < buyGoods.price) return;
 
         GameManager.instance.Food -= buyGoods.price;
@@ -86,18 +99,34 @@ public class Shop : MonoBehaviour
         ExitShop();
     }
 
+
+    // 유닛 판매
+    public GameObject buyUnitObject;
+    public Button unitBuyButton;
+    public void Set_BuyUnitButton()
+    {
+        GameObject clickGoods = SetButton(unitBuyButton, buyUnitObject);
+        unitBuyButton.onClick.AddListener(() => BuyUnit(clickGoods));
+    }
+    void BuyUnit(GameObject foodGoodsObject)
+    {
+        GoodsData buyGoods = foodGoodsObject.GetComponent<GoodsData>();
+        if (GameManager.instance.Gold < buyGoods.price) return;
+        MinusGold(buyGoods.price);
+
+        createDefenser.CreateSoldier(buyGoods.unitColorNumber, buyGoods.unitClassNumber);
+
+        ExitShop();
+    }
+
     private void OnEnable()
     {
         Set_RandomShop();
     }
 
-    public CreateDefenser createDefenser;
+    
 
 
-    //private void OnMouseDown()
-    //{
-    //    OnEnvetShop();
-    //}
 
     public bool showShop;
 
@@ -119,6 +148,17 @@ public class Shop : MonoBehaviour
         buyFoodObject.SetActive(false);
     }
 
+    public void CancleBuy()
+    {
+        buyGoldObject.SetActive(false);
+        buyUnitObject.SetActive(false);
+        buyFoodObject.SetActive(false);
+
+        unitBuyButton.onClick.RemoveAllListeners();
+        goldBuyButton.onClick.RemoveAllListeners();
+        foodBuyButton.onClick.RemoveAllListeners();
+    }
+
     public void ShowShop()
     {
         envetShop.SetActive(true);
@@ -135,7 +175,6 @@ public class Shop : MonoBehaviour
     {
         current_LeftGoldGoods = Show_RandomGoods(leftGoldGoods);
         current_CenterGoldGoods = Show_RandomGoods(centerGoldGoods);
-        //current_RigthGoldGoods = Show_RandomGoods(rigthGoldGoods);
         current_FoodGoldGoods = Show_RandomGoods(foodGoods);
     }
 
@@ -153,25 +192,6 @@ public class Shop : MonoBehaviour
         return showGoods;
     }
 
-    //public void UpdateRightText() // 이미지로 바꾸면 좋을 듯
-    //{
-    //    if (Productnumber == 0)
-    //    {
-
-    //        RightText.text = "데미지 증가";
-    //    }
-    //    if (Productnumber == 1)
-    //    { 
-    //       RightText.text = "보스 데미지 증가";
-    //    }
-
-    //    if (Productnumber == 2)
-    //    {
-    //        RightText.text = "다른 효과";
-    //    }
-        
-    //}
-
     //public void EnterShopWlord()
     //{
     //    if (!enterShop)
@@ -186,6 +206,11 @@ public class Shop : MonoBehaviour
     //    }
     //}
 
+
+    //private void OnMouseDown()
+    //{
+    //    OnEnvetShop();
+    //}
 
 
 }

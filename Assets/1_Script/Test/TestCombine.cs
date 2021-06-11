@@ -47,7 +47,7 @@ public class TestCombine : MonoBehaviour
     public void CombineUnit()
     {
         int colorNumber = -1;
-        TeamSoldier teamSoldier = GameManager.instance.hitSolider.GetComponent<TeamSoldier>();
+        TeamSoldier teamSoldier = GameManager.instance.HitEnemy.GetComponent<TeamSoldier>();
         //if (teamSoldier != null) colorNumber = SetCombineColor(teamSoldier.unitColor);
         if (colorNumber != -1 && colorsQueue[colorNumber].Count >= 2) // 나중에 들어가는 유닛수를 변수화 시켜서 2마리보다 많은 유닛 조합가능
         {

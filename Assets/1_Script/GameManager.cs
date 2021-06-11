@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     public float timer;
     public int waitingTime;
     public Starts starts;
+    public Enemy enemy;
 
     public bool playerEnterStoryMode; // 박준 코드
     // public GameObject[] Soldiers;
@@ -106,12 +107,37 @@ public class GameManager : MonoBehaviour
             ReTurnClient();
         }
 
+        if(Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                Debug.Log(hit.transform.gameObject);
+
+                HitEnemy = hit.transform.gameObject;
+
+                NomalEnemy nomalenemy = HitEnemy.transform.GetChild(0).GetComponent<NomalEnemy>();
+
+
+                if ( nomalenemy != null)
+                {
+                    nomalenemy.currentHp -= 2;
+                    nomalenemy.hpSlider.value = nomalenemy.currentHp;
+                    if (nomalenemy.currentHp <= 0)
+                    {
+                        nomalenemy.Dead();
+                    }
+                }
+            }
+        }
+
 
 
     }
 
     public Queue<GameObject> hitSoliderColor;
-    public GameObject hitSolider;
+    public GameObject HitEnemy;
     public void Chilk()
     {
         if (Input.GetMouseButtonDown(0))
@@ -120,9 +146,17 @@ public class GameManager : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                //Debug.Log(hit.transform.gameObject);
-                //SoldiersTag();
-                hitSolider = hit.transform.gameObject;
+                Debug.Log(hit.transform.gameObject);
+
+                HitEnemy = hit.transform.gameObject;
+
+                //Enemy enemy = HitEnemy.GetComponent<Enemy>();
+
+
+                //if ( enemy != null)
+                //{
+                    //enemy.currentHp -= 1;
+                //}
             }
         }
     }

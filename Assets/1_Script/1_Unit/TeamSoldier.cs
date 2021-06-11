@@ -161,6 +161,8 @@ public class TeamSoldier : MonoBehaviour
 
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
+        if (target.gameObject.tag == "Boss") return;
+
         float shortDistance = chaseRange;
         GameObject targetObject = null;
         if (enemySpawn.currentEnemyList.Count > 0)

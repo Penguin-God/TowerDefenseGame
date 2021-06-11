@@ -18,7 +18,7 @@ public class EnemyBoss : NomalEnemy
 
             TeamSoldier teamSoldier = unit.GetComponent<TeamSoldier>();
             if(!teamSoldier.enterStoryWorld)
-                unit.GetComponent<TeamSoldier>().target = transform;
+                teamSoldier.target = transform;
         }
     }
 

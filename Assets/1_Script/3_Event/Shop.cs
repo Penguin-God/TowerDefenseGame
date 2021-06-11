@@ -42,6 +42,9 @@ public class Shop : MonoBehaviour
         {
             foodStocks[i] = foodGoods.transform.GetChild(i).gameObject;
         }
+
+        itemWeighDictionary = new Dictionary<int, int[]>();
+        SetItemWeigh();
     }
     void MinusGold(int price)
     {
@@ -119,14 +122,10 @@ public class Shop : MonoBehaviour
         ExitShop();
     }
 
-    private void OnEnable()
-    {
-        Set_RandomShop();
-    }
-
-    
-
-
+    //private void OnEnable()
+    //{
+    //    Set_RandomShop();
+    //}
 
     public bool showShop;
 
@@ -165,7 +164,7 @@ public class Shop : MonoBehaviour
         showShop = true;
     }
 
-    public void OnenvetShop()
+    public void OnEnvetShop()
     {
         envetShop.SetActive(true);
         Set_RandomShop();
@@ -178,16 +177,35 @@ public class Shop : MonoBehaviour
         current_FoodGoldGoods = Show_RandomGoods(foodGoods);
     }
 
+    Dictionary<int, int[]> itemWeighDictionary;
+    int totalWeigh = 100;
+    void SetItemWeigh()
+    {
+        itemWeighDictionary.Add(1, new int[] { 70, 30, 0 });
+        itemWeighDictionary.Add(2, new int[] { 40, 50, 10 });
+        itemWeighDictionary.Add(3, new int[] { 15, 45, 40 });
+        itemWeighDictionary.Add(4, new int[] { 0, 30, 70 });
+    }
+
+    public EnemySpawn enemySpawn;
     GameObject Show_RandomGoods(GameObject goods)
     {
         // 휘귀도 선택 부분은 가중치 둬야함
-        int rarityIndex = UnityEngine.Random.Range(0, goods.transform.childCount);
-        Transform goodsRarity = goods.transform.GetChild(rarityIndex);
+        Transform goodsRarity = null;
+        int randomNumber = UnityEngine.Random.Range(0, totalWeigh);
+        for (int i = 0; i < goods.transform.childCount; i++)
+        {
+            if (itemWeighDictionary[enemySpawn.bossLevel][i] >= randomNumber)
+            {
+                goodsRarity = goods.transform.GetChild(i);
+                break;
+            }
+            else randomNumber -= itemWeighDictionary[enemySpawn.bossLevel][i];
+        }
 
-
+        // 휘귀도 선택 후 상품 랜덤 선택
         int goodsIndex = UnityEngine.Random.Range(0, goodsRarity.transform.childCount);
         GameObject showGoods = goodsRarity.transform.GetChild(goodsIndex).gameObject;
-        //Debug.Log(showGoods);
         showGoods.SetActive(true);
         return showGoods;
     }

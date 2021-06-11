@@ -101,11 +101,13 @@ public class EnemySpawn : MonoBehaviour
     }
 
     public bool bossRespawn;
+    public int bossLevel;
     public int bossRewordGold;
     public int bossRewordFood;
     public List<GameObject> currentBossList;
     void RespawnBoss()
     {
+        bossLevel++;
         bossRespawn = true;
         int random = Random.Range(0, bossPrefab.Length);
         GameObject instantBoss = Instantiate(bossPrefab[random], bossPrefab[random].transform.position, bossPrefab[random].transform.rotation);
@@ -195,7 +197,7 @@ public class EnemySpawn : MonoBehaviour
     public void RespawnNextTower(int towerLevel, float delayTime)
     {
         currentTowerLevel++;
-        //shop.OnenvetShop();
+        //shop.OnEnvetShop();
         if (towerLevel >= towers.Length)
         { 
             if(towerLevel == towers.Length)

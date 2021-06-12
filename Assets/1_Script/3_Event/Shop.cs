@@ -293,10 +293,11 @@ public class Shop : MonoBehaviour
 
     Dictionary<int, int[]> itemWeighDictionary;
     int totalWeigh = 100;
+    // 확률 가중치
     void SetItemWeigh()
     {
         itemWeighDictionary.Add(1, new int[] { 70, 30, 0 });
-        itemWeighDictionary.Add(2, new int[] { 40, 50, 10 });
+        itemWeighDictionary.Add(2, new int[] { 30, 60, 10 });
         itemWeighDictionary.Add(3, new int[] { 15, 45, 40 });
         itemWeighDictionary.Add(4, new int[] { 0, 30, 70 });
     }

@@ -24,13 +24,14 @@ public class EnemyBoss : NomalEnemy
 
     public override void Dead()
     {
-        //enemySpawn.shop.OnEnvetShop();
+        enemySpawn.shop.OnEnvetShop();
         enemySpawn.currentBossList.Remove(gameObject);
         enemySpawn.bossRespawn = false;
         transform.parent.transform.position = new Vector3(500, 500, 500);
         isDead = true;
         GetBossReword(enemySpawn.bossRewordGold, enemySpawn.bossRewordFood);
         Destroy(transform.parent.gameObject);
+        // enemySpawn.bossLevel  //보스 레밸
     }
 
     void GetBossReword(int rewardGold, int rewardFood)

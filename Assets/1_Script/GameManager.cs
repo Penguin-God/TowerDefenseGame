@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
 
                 if ( nomalenemy != null)
                 {
-                    nomalenemy.currentHp -= 2;
+                    nomalenemy.currentHp -= 10;
                     nomalenemy.hpSlider.value = nomalenemy.currentHp;
                     if (nomalenemy.currentHp <= 0)
                     {

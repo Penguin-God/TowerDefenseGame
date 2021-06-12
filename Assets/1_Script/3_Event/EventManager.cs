@@ -26,7 +26,6 @@ public class EventManager : MonoBehaviour
 
         // 시작할 때 유닛 이벤트는 GameManager의 GameStart에서 작동함
         buffActionList = new List<Action<GameObject[]>>();
-        //debuffActionList = new List<Action<GameObject[]>>();
         SetEvent();
 
         // Dictonary 인스턴스
@@ -41,31 +40,16 @@ public class EventManager : MonoBehaviour
         eventTextDictionary.Add(Up_UnitBossDamage, "보스 대미지 강화");
         eventTextDictionary.Add(Up_UnitSkillPercent, "스킬 사용 빈도 증가");
         eventTextDictionary.Add(Reinforce_UnitPassive, "패시브 강화");
-        // 장익준: 패시브 이런거 보다 유닛 스킬이나 직업스킬로 바꾸는게 좋을 듯.
-        // 답장 : 그건 상점에 팔려고 안했음
-        // 뭐가 바뀌는지 몰라서 일단 놔둠
-
-        // 디버프
-        //eventTextDictionary.Add(Down_UnitDamage, "일반 몬스터 대미지 약화");
-        //eventTextDictionary.Add(Down_UnitBossDamage, "보스 대미지 약화");
-        //eventTextDictionary.Add(Down_UnitSkillPercent, "스킬 사용 빈도 감소");
-        //eventTextDictionary.Add(Weaken_UnitPassive, "패시브 삭제");
     }
 
     public void RandomUnitEvenet() // 실제 유닛 이벤트 작동
     {
         RandomBuffEvent();
-        //RandomDebuffEvent();
     }
 
     void RandomBuffEvent()
     {
         ActionRandomEvent(buffText, buffActionList);
-    }
-
-    public void RandomDebuffEvent()
-    {
-        //ActionRandomEvent(debuffText, debuffActionList);
     }
 
 
@@ -81,6 +65,11 @@ public class EventManager : MonoBehaviour
         int eventNumber = UnityEngine.Random.Range(0, eventActionList.Count);
         eventActionList[eventNumber](UnitManager.instance.unitArrays[unitNumber].unitArray);
         eventText.text = ReturnUnitText(unitNumber) + eventTextDictionary[eventActionList[eventNumber]];
+    }
+
+    public void Action_SelectEvent(int eventNumber, int unitNumber)
+    {
+        buffActionList[eventNumber](UnitManager.instance.unitArrays[unitNumber].unitArray);
     }
 
     int Return_RandomUnitNumver()
@@ -104,7 +93,6 @@ public class EventManager : MonoBehaviour
     void SetEvent()
     {
         SetBuff();
-        //SetDeBuff();
     }
 
     void SetBuff()
@@ -115,31 +103,13 @@ public class EventManager : MonoBehaviour
         buffActionList.Add(Reinforce_UnitPassive);
     }
 
-    void SetDeBuff()
-    {
-        //debuffActionList.Add(Down_UnitDamage);
-        //debuffActionList.Add(Down_UnitBossDamage);
-        //debuffActionList.Add(Down_UnitSkillPercent);
-        //debuffActionList.Add(Weaken_UnitPassive);
-    }
-
-
     // script 가져올 때 GetComponentInChildren 써야됨
     void Up_UnitDamage(GameObject[] unitArray)
     {
         for (int i = 0; i < unitArray.Length; i++)
         {
             TeamSoldier teamSoldier = unitArray[i].GetComponentInChildren<TeamSoldier>();
-            teamSoldier.damage *= 2;
-        }
-    }
-
-    void Down_UnitDamage(GameObject[] unitArray)
-    {
-        for (int i = 0; i < unitArray.Length; i++)
-        {
-            TeamSoldier teamSoldier = unitArray[i].GetComponentInChildren<TeamSoldier>();
-            teamSoldier.damage = Mathf.RoundToInt(teamSoldier.damage / 2);
+            teamSoldier.damage += teamSoldier.originDamage;
         }
     }
 
@@ -148,16 +118,7 @@ public class EventManager : MonoBehaviour
         for (int i = 0; i < unitArray.Length; i++)
         {
             TeamSoldier teamSoldier = unitArray[i].GetComponentInChildren<TeamSoldier>();
-            teamSoldier.bossDamage *= 2;
-        }
-    }
-
-    void Down_UnitBossDamage(GameObject[] unitArray)
-    {
-        for (int i = 0; i < unitArray.Length; i++)
-        {
-            TeamSoldier teamSoldier = unitArray[i].GetComponentInChildren<TeamSoldier>();
-            teamSoldier.bossDamage = Mathf.RoundToInt(teamSoldier.bossDamage / 2);
+            teamSoldier.bossDamage += teamSoldier.originBossDamage;
         }
     }
 
@@ -171,31 +132,12 @@ public class EventManager : MonoBehaviour
 
     }
 
-    void Down_UnitSkillPercent(GameObject[] unitArray)
-    {
-        for (int i = 0; i < unitArray.Length; i++)
-        {
-            IEvent interfaceEvent = unitArray[i].GetComponentInChildren<IEvent>();
-            interfaceEvent.SkillPercentDown();
-        }
-
-    }
-
     void Reinforce_UnitPassive(GameObject[] unitArray)
     {
         for (int i = 0; i < unitArray.Length; i++)
         {
             IEvent interfaceEvent = unitArray[i].GetComponentInChildren<IEvent>();
             interfaceEvent.ReinforcePassive();
-        }
-    }
-
-    void Weaken_UnitPassive(GameObject[] unitArray)
-    {
-        for (int i = 0; i < unitArray.Length; i++)
-        {
-            IEvent interfaceEvent = unitArray[i].GetComponentInChildren<IEvent>();
-            interfaceEvent.WeakenPassive();
         }
     }
 

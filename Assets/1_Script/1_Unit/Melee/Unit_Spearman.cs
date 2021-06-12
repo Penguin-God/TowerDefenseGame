@@ -120,23 +120,20 @@ public class Unit_Spearman : MeeleUnit, IEvent
     }
 
     // 이벤트
+
+    // 스킬 사용 빈도 증가
     public void SkillPercentUp()
     {
-        specialAttackPercent += 15;
+        specialAttackPercent += 30;
     }
-
-    public void SkillPercentDown()
-    {
-        specialAttackPercent -= 15;
-    }
-
-    // 패시브 이벤트
+    // 패시브 관련 수치
     private int redPassiveFigure = 100;
     private int bluePassiveFigure = 50;
     private int yellowPassiveFigure = 5;
     private int greenPassiveFigure = 3;
     private int orangePassiveFigure = 3;
     private int violetPassiveFigure = 30;
+    // 패시브 강화
     public void ReinforcePassive()
     {
         //redPassiveFigure = 100;
@@ -145,15 +142,5 @@ public class Unit_Spearman : MeeleUnit, IEvent
         greenPassiveFigure = 5;
         orangePassiveFigure = 5;
         violetPassiveFigure = 60;
-    }
-
-    public void WeakenPassive()
-    {
-        redPassiveFigure = 30;
-        bluePassiveFigure = 0;
-        yellowPassiveFigure = 0;
-        greenPassiveFigure = 1;
-        orangePassiveFigure = 1;
-        violetPassiveFigure = 0;
     }
 }

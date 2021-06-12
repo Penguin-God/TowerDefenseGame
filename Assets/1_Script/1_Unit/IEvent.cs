@@ -5,9 +5,7 @@ using UnityEngine;
 interface IEvent
 {
     void SkillPercentUp();
-    void SkillPercentDown();
 
 
     void ReinforcePassive();
-    void WeakenPassive();
 }

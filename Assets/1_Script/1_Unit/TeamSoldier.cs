@@ -161,7 +161,7 @@ public class TeamSoldier : MonoBehaviour
 
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
-        if (target != null && target.gameObject.tag == "Boss") return;
+        if (enemySpawn.bossRespawn) target = enemySpawn.currentBossList[0].transform;
 
         float shortDistance = chaseRange;
         GameObject targetObject = null;
@@ -203,7 +203,7 @@ public class TeamSoldier : MonoBehaviour
     IEnumerator TowerNavCoroutine()
     {
         Physics.Raycast(transform.parent.position + Vector3.up, target.position - transform.position, out RaycastHit towerHit, 100f, layerMask);
-        Invoke("RangeNavStop", 4f);
+        Invoke("RangeNavStop", 4f); // 디버그용
         while (true)
         {
             if(target != null)
@@ -320,14 +320,6 @@ public class TeamSoldier : MonoBehaviour
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
         }
     }
-
-    //// 이벤트 관련 함수
-    //public virtual void SkillPercentUp() { }
-    //public virtual void SkillPercentDown() { }
-    //public virtual void ReinforcePassive() { }
-    //public virtual void WeakenPassive() { }
-
-
 
     //private void OnMouseDown()
     //{

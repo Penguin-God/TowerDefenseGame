@@ -11,7 +11,7 @@ public class Shop : MonoBehaviour
     public GameObject centerGoldGoods;
     //public GameObject rigthGoldGoods;
     public GameObject foodGoods;
-    // 변수명 반대로 하기
+
     public GameObject[] leftGoldStocks;
     public GameObject[] centerGoldStocks; 
     //public GameObject[] rigthGoldStocks; 
@@ -70,7 +70,13 @@ public class Shop : MonoBehaviour
     public void BuyFood(GameObject foodGoodsObject)
     {
         GoodsData buyGoods = foodGoodsObject.GetComponent<GoodsData>();
-        if (GameManager.instance.Gold < buyGoods.price) return;
+        if (GameManager.instance.Gold < buyGoods.price) 
+        {
+            CancleBuy();
+            LacksGold();
+            return;
+        }
+
         MinusGold(buyGoods.price);
 
         GameManager.instance.Food += buyGoods.buyFoodCount;
@@ -91,7 +97,12 @@ public class Shop : MonoBehaviour
     void BuyGold(GameObject goldGoodsObject)
     {
         GoodsData buyGoods = goldGoodsObject.GetComponent<GoodsData>();
-        if (GameManager.instance.Food < buyGoods.price) return;
+        if (GameManager.instance.Food < buyGoods.price)
+        {
+            CancleBuy();
+            LacksGold();
+            return;
+        }
 
         GameManager.instance.Food -= buyGoods.price;
         UIManager.instance.UpdateFoodText(GameManager.instance.Food);
@@ -114,7 +125,13 @@ public class Shop : MonoBehaviour
     void BuyUnit(GameObject foodGoodsObject)
     {
         GoodsData buyGoods = foodGoodsObject.GetComponent<GoodsData>();
-        if (GameManager.instance.Gold < buyGoods.price) return;
+        if (GameManager.instance.Gold < buyGoods.price) 
+        {
+            CancleBuy();
+            LacksGold();
+            return;
+        }
+
         MinusGold(buyGoods.price);
 
         createDefenser.CreateSoldier(buyGoods.unitColorNumber, buyGoods.unitClassNumber);
@@ -122,10 +139,79 @@ public class Shop : MonoBehaviour
         ExitShop();
     }
 
-    //private void OnEnable()
-    //{
-    //    Set_RandomShop();
-    //}
+
+    // 유닛 강화 판매
+    public GameObject buyUnitReinforce_Object;
+    public Button buyUnitReinforce_Button;
+
+    public void Set_BuyUnitReinforceButton()
+    {
+        GameObject clickGoods = SetButton(buyUnitReinforce_Button, buyUnitReinforce_Object);
+        buyUnitReinforce_Button.onClick.AddListener(() => BuyUnitReinforce(clickGoods));
+    }
+
+    void BuyUnitReinforce(GameObject unitReinForce_GoodsObject)
+    {
+        GoodsData buyGoodsData = unitReinForce_GoodsObject.GetComponent<GoodsData>();
+        if (GameManager.instance.Gold < buyGoodsData.price) 
+        {
+            CancleBuy();
+            LacksGold();
+            return;
+        }
+        
+        MinusGold(buyGoodsData.price);
+
+        int eventNumber = buyGoodsData.eventNumber;
+        int eventUnitNumber = buyGoodsData.eventUnitNumber;
+        EventManager.instance.Action_SelectEvent(eventNumber, eventUnitNumber);
+
+        ExitShop();
+    }
+
+
+    // 이벤트 판매
+    public GameObject buyEvent_Object;
+    public Button buyEvent_Button;
+
+    public void Set_BuyEventButton()
+    {
+        GameObject clickGoods = SetButton(buyEvent_Button, buyEvent_Object);
+        buyEvent_Button.onClick.AddListener(() => BuyEvent(clickGoods));
+    }
+
+    void BuyEvent(GameObject unitReinForce_GoodsObject)
+    {
+        GoodsData buyGoodsData = unitReinForce_GoodsObject.GetComponent<GoodsData>();
+        if (GameManager.instance.Gold < buyGoodsData.price)
+        {
+            CancleBuy();
+            LacksGold();
+            return;
+        }
+        MinusGold(buyGoodsData.price);
+
+        CurrentEnemyDie(10); // 이건 무조건 바꿔야함 액션 리스트 형식으로
+
+        ExitShop();
+    }
+
+    void CurrentEnemyDie(int dieEnemyCount)
+    {
+        for(int i = 0; i < dieEnemyCount; i++)
+        {
+            if (enemySpawn.currentEnemyList.Count == 0) break;
+
+            int dieEnemyNumber = Random.Range(0, enemySpawn.currentEnemyList.Count);
+            NomalEnemy enemy = enemySpawn.currentEnemyList[dieEnemyNumber].GetComponent<NomalEnemy>();
+            if (enemy != null) enemy.Dead();
+        }
+    }
+
+    private void OnEnable()
+    {
+        Set_RandomShop();
+    }
 
     public bool showShop;
 
@@ -136,15 +222,13 @@ public class Shop : MonoBehaviour
 
         current_LeftGoldGoods.SetActive(false);
         current_CenterGoldGoods.SetActive(false);
-        //current_RigthGoldGoods.SetActive(false);
         current_FoodGoldGoods.SetActive(false);
 
         current_LeftGoldGoods = null;
         current_CenterGoldGoods = null;
-        //current_RigthGoldGoods = null;
         current_FoodGoldGoods = null;
 
-        buyFoodObject.SetActive(false);
+        CancleBuy();
     }
 
     public void CancleBuy()
@@ -152,10 +236,40 @@ public class Shop : MonoBehaviour
         buyGoldObject.SetActive(false);
         buyUnitObject.SetActive(false);
         buyFoodObject.SetActive(false);
+        buyUnitReinforce_Object.SetActive(false);
+        buyEvent_Object.SetActive(false);
 
         unitBuyButton.onClick.RemoveAllListeners();
         goldBuyButton.onClick.RemoveAllListeners();
         foodBuyButton.onClick.RemoveAllListeners();
+        buyUnitReinforce_Button.onClick.RemoveAllListeners();
+        buyEvent_Button.onClick.RemoveAllListeners();
+    }
+
+    public Text lacksGuideText;
+    void LacksGold()
+    {
+        StopCoroutine("HideGoldText_Coroutine");
+        StartCoroutine("HideGoldText_Coroutine");
+    }
+
+    IEnumerator HideGoldText_Coroutine()
+    {
+        lacksGuideText.gameObject.SetActive(true);
+
+        lacksGuideText.color = new Color32(255,44, 35, 255);
+        Color textColor;
+        textColor = lacksGuideText.color;
+
+        yield return new WaitForSeconds(0.8f);
+        while (textColor.a > 0.1f)
+        {
+            textColor.a -= 0.02f;
+            lacksGuideText.color = textColor;
+            yield return null;
+        }
+
+        lacksGuideText.gameObject.SetActive(false);
     }
 
     public void ShowShop()

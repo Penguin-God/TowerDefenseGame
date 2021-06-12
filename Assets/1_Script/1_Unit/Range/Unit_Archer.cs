@@ -160,23 +160,21 @@ public class Unit_Archer : RangeUnit, IEvent
 
 
     // 이벤트
+
+    // 스킬 빈도 증가
     public void SkillPercentUp()
     {
         specialAttackPercent += 20;
     }
 
-    public void SkillPercentDown()
-    {
-        specialAttackPercent -= 20;
-    }
-
-    // 패시브 이벤트
+    // 패시브 관련 수치
     private float redPassiveFigure = 0.25f;
     private int bluePassiveFigure = 30;
     private int yellowPassiveFigure = 1;
     private int greenPassiveFigure = 2;
     private int orangePassiveFigure = 2;
     private int violetPassiveFigure = 5;
+    // 패시브 강화
     public void ReinforcePassive()
     {
         redPassiveFigure = 0.1f;
@@ -185,16 +183,6 @@ public class Unit_Archer : RangeUnit, IEvent
         greenPassiveFigure = 3;
         orangePassiveFigure = 3;
         violetPassiveFigure = 20;
-    }
-
-    public void WeakenPassive()
-    {
-        redPassiveFigure = 1f;
-        bluePassiveFigure = 0;
-        yellowPassiveFigure = 0;
-        greenPassiveFigure = 1;
-        orangePassiveFigure = 1;
-        violetPassiveFigure = 0;
     }
 }
 

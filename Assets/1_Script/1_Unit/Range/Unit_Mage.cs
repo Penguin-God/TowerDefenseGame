@@ -331,7 +331,6 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
 
         if (other.gameObject.layer == 9)
         {
-            //Debug.Log("Unit ㅃㅃ");
             TeamSoldier otherTeamSoldier = other.gameObject.GetComponent<TeamSoldier>();
             switch (unitColor)
             {
@@ -350,23 +349,21 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
 
 
     // 이벤트
+
+    // 스킬 빈도 증가
     public void SkillPercentUp()
     {
-        plusMana += 10;
+        plusMana += 15;
     }
 
-    public void SkillPercentDown()
-    {
-        plusMana -= 10;
-    }
-
-    // 패시브 이벤트
+    //패시브 관련 변수
     private float redPassiveFigure = 1.5f;
-    private float bluePassiveFigure = 20f;
+    private float bluePassiveFigure = 25f;
     private float yellowPassiveFigure = 20f;
     private int greenPassiveFigure = 2;
     private int orangePassiveFigure = 5;
     private int violetPassiveFigure = 60;
+    // 패시브 강화
     public void ReinforcePassive()
     {
         redPassiveFigure = 2f;
@@ -375,15 +372,5 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         greenPassiveFigure = 4;
         orangePassiveFigure = 10;
         violetPassiveFigure = 99;
-    }
-
-    public void WeakenPassive()
-    {
-        redPassiveFigure = 1;
-        bluePassiveFigure = 0; // 콜라이더 범위 삭제
-        yellowPassiveFigure = 0; // 콜라이더 범위 삭제
-        greenPassiveFigure = 1;
-        orangePassiveFigure = 1;
-        violetPassiveFigure = 0;
     }
 }

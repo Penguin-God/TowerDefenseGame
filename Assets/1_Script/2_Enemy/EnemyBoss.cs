@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EnemyBoss : NomalEnemy
 {
+
+    public CreateDefenser createDefenser;
     private void Awake()
     {
         nomalEnemy = GetComponent<NomalEnemy>();
@@ -31,6 +33,15 @@ public class EnemyBoss : NomalEnemy
         isDead = true;
         GetBossReword(enemySpawn.bossRewordGold, enemySpawn.bossRewordFood);
         Destroy(transform.parent.gameObject);
+
+        if (enemySpawn.bossLevel == 1 || enemySpawn.bossLevel == 2)
+        {
+            createDefenser.CreateSoldier(7, 1);
+        }
+        else if (enemySpawn.bossLevel == 3 || enemySpawn.bossLevel == 4)
+        {
+            createDefenser.CreateSoldier(7, 2);
+        }
         // enemySpawn.bossLevel  //보스 레밸
     }
 

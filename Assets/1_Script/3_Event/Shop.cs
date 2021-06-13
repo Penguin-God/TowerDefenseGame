@@ -62,6 +62,24 @@ public class Shop : MonoBehaviour
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
     }
 
+    void MinusFood(int price)
+    {
+        GameManager.instance.Food -= price;
+        UIManager.instance.UpdateFoodText(GameManager.instance.Food);
+    }
+
+    void AddGold(int buyAmount)
+    {
+        GameManager.instance.Gold += buyAmount;
+        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+    }
+
+    void AddFood(int buyAmount)
+    {
+        GameManager.instance.Food += buyAmount;
+        UIManager.instance.UpdateFoodText(GameManager.instance.Food);
+    }
+
     GameObject SetButton(Button clickButton, GameObject buyGoodsObject)
     {
         buyGoodsObject.SetActive(true);
@@ -89,8 +107,7 @@ public class Shop : MonoBehaviour
 
         MinusGold(buyGoods.price);
 
-        GameManager.instance.Food += buyGoods.buyFoodCount;
-        UIManager.instance.UpdateFoodText(GameManager.instance.Food);
+        AddFood(buyGoods.buyFoodCount);
 
         ExitShop();
     }
@@ -114,11 +131,9 @@ public class Shop : MonoBehaviour
             return;
         }
 
-        GameManager.instance.Food -= buyGoods.price;
-        UIManager.instance.UpdateFoodText(GameManager.instance.Food);
+        MinusFood(buyGoods.price);
 
-        GameManager.instance.Gold += buyGoods.buyGoldAmount;
-        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+        AddGold(buyGoods.buyGoldAmount);
 
         ExitShop();
     }
@@ -172,9 +187,9 @@ public class Shop : MonoBehaviour
         
         MinusGold(buyGoodsData.price);
 
-        int eventNumber = buyGoodsData.eventNumber;
+        int eventNumber = buyGoodsData.reinforceEventNumber;
         int eventUnitNumber = buyGoodsData.eventUnitNumber;
-        EventManager.instance.Action_SelectEvent(eventNumber, eventUnitNumber);
+        EventManager.instance.Action_SelectReinForceEvent(eventNumber, eventUnitNumber);
 
         ExitShop();
     }
@@ -201,24 +216,37 @@ public class Shop : MonoBehaviour
         }
         MinusGold(buyGoodsData.price);
 
-        CurrentEnemyDie(10); // 이건 무조건 바꿔야함 액션 리스트 형식으로
+        EventManager.instance.eventArray[buyGoodsData.eventNumber]();
 
         ExitShop();
     }
 
-    public EnemySpawn enemySpawn;
-    void CurrentEnemyDie(int dieEnemyCount)
-    {
-        for(int i = 0; i < dieEnemyCount; i++)
-        {
-            if (enemySpawn.currentEnemyList.Count == 0) break;
+    // 법사 스킬강화 판매
+    public GameObject buyMageUltimate_Object;
+    public Button buyMageUltimate_Button;
 
-            int dieEnemyNumber = Random.Range(0, enemySpawn.currentEnemyList.Count);
-            NomalEnemy enemy = enemySpawn.currentEnemyList[dieEnemyNumber].GetComponent<NomalEnemy>();
-            if (enemy != null) enemy.Dead();
-        }
+    public void Set_BuyMageUltimateButton()
+    {
+        GameObject clickGoods = SetButton(buyMageUltimate_Button, buyMageUltimate_Object);
+        buyMageUltimate_Button.onClick.AddListener(() => BuyMageUltimate(clickGoods));
     }
 
+    void BuyMageUltimate(GameObject unitReinForce_GoodsObject)
+    {
+        GoodsData buyGoodsData = unitReinForce_GoodsObject.GetComponent<GoodsData>();
+        if (GameManager.instance.Gold < buyGoodsData.price)
+        {
+            CancleBuy();
+            LacksGold();
+            return;
+        }
+        MinusGold(buyGoodsData.price);
+
+        GameObject mage = UnitManager.instance.unitArrays[buyGoodsData.ultimateMageNumber].unitArray[3];
+        mage.GetComponent<Unit_Mage>().isUltimate = true;
+
+        ExitShop();
+    }
     //private void OnEnable()
     //{
     //    OnShop(3, bossShopWeighDictionary);

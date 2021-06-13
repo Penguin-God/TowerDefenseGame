@@ -2247,8 +2247,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 2
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &70862172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4919,8 +4921,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 40
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &145412494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11266,8 +11270,10 @@ MonoBehaviour:
   unitClassNumber: 2
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &397190855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12775,8 +12781,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 1
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &424768765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19268,8 +19276,10 @@ MonoBehaviour:
   unitClassNumber: 2
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &629445748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24846,8 +24856,10 @@ MonoBehaviour:
   unitClassNumber: 2
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &784265922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26361,8 +26373,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 3
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &829668931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27357,8 +27371,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 10
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &850126454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28001,8 +28017,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &858393544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29200,8 +29218,10 @@ MonoBehaviour:
   unitClassNumber: 1
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &891584571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32433,7 +32453,8 @@ MonoBehaviour:
   buyUnitReinforce_Button: {fileID: 147772650}
   buyEvent_Object: {fileID: 1414755510}
   buyEvent_Button: {fileID: 1917552846}
-  enemySpawn: {fileID: 763533793}
+  buyMageUltimate_Object: {fileID: 0}
+  buyMageUltimate_Button: {fileID: 0}
   showShop: 0
   lacksGuideText: {fileID: 523860747}
 --- !u!114 &985309884
@@ -33432,8 +33453,10 @@ MonoBehaviour:
   unitClassNumber: 1
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1016518190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33773,8 +33796,10 @@ MonoBehaviour:
   unitClassNumber: 3
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1030496775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35405,8 +35430,10 @@ MonoBehaviour:
   unitClassNumber: 3
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1081850899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37716,8 +37743,10 @@ MonoBehaviour:
   unitClassNumber: 1
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1133276765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39798,8 +39827,10 @@ MonoBehaviour:
   unitClassNumber: 2
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1198587396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -40680,8 +40711,10 @@ MonoBehaviour:
   unitClassNumber: 3
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1223000086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42740,8 +42773,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 10
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1267831333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44662,8 +44697,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 70
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1303437375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45620,8 +45657,10 @@ MonoBehaviour:
   unitClassNumber: 1
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1316413028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47225,8 +47264,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1345365478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49201,8 +49242,10 @@ MonoBehaviour:
   unitClassNumber: 3
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1417290972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49649,8 +49692,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1426937291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51375,8 +51420,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 5
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1454846291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53490,6 +53537,7 @@ MonoBehaviour:
   unitBackFiledButton: {fileID: 413455930}
   EnterStoryModeAudio: {fileID: 717411405}
   unitTagName: 
+  enterButtonText: {fileID: 1019545129}
 --- !u!65 &1513012278
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -54610,8 +54658,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 4
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1535521662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54767,8 +54817,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1536921624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54918,8 +54970,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1538118875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56371,6 +56425,7 @@ MonoBehaviour:
   buffText: {fileID: 2102880951}
   debuffText: {fileID: 232964554}
   unitColorIsEvent: 000000000000
+  enemySpawn: {fileID: 763533793}
 --- !u!4 &1568701675
 Transform:
   m_ObjectHideFlags: 0
@@ -57291,8 +57346,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1599667028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -57647,8 +57704,10 @@ MonoBehaviour:
   unitClassNumber: 1
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1613016304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -58379,8 +58438,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 3
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1622299651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59683,8 +59744,10 @@ MonoBehaviour:
   unitClassNumber: 3
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1652208899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64349,8 +64412,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1777110550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65281,8 +65346,10 @@ MonoBehaviour:
   unitClassNumber: 3
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1798378186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66473,8 +66540,10 @@ MonoBehaviour:
   unitClassNumber: 2
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1833853784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67540,8 +67609,10 @@ MonoBehaviour:
   unitClassNumber: 1
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1850565184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69473,8 +69544,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1925720516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70918,8 +70991,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 1
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1977215903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71363,8 +71438,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 5
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1992276087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74141,8 +74218,10 @@ MonoBehaviour:
   unitClassNumber: 2
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &2047675803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -77016,7 +77095,8 @@ MonoBehaviour:
   buyUnitReinforce_Button: {fileID: 0}
   buyEvent_Object: {fileID: 0}
   buyEvent_Button: {fileID: 0}
-  enemySpawn: {fileID: 0}
+  buyMageUltimate_Object: {fileID: 0}
+  buyMageUltimate_Button: {fileID: 0}
   showShop: 0
   lacksGuideText: {fileID: 0}
 --- !u!4 &4092120928962032 stripped

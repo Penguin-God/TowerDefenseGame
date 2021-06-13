@@ -2163,13 +2163,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  price: 70
+  price: 60
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 2
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &70862172
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4761,8 +4763,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 40
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &145412494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10837,6 +10841,48 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 386182438}
   m_CullTransparentMesh: 0
+--- !u!1 &386347820
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 386347821}
+  m_Layer: 9
+  m_Name: Ultimate Skill Transfroms
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &386347821
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386347820}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1407717869}
+  - {fileID: 2113022735}
+  - {fileID: 1220911662}
+  - {fileID: 1325965680}
+  - {fileID: 1053720857}
+  - {fileID: 982595670}
+  - {fileID: 2054438023}
+  - {fileID: 1126710420}
+  - {fileID: 1423661187}
+  - {fileID: 588264413}
+  - {fileID: 1800655857}
+  - {fileID: 1336569081}
+  m_Father: {fileID: 857429026}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &387936735
 GameObject:
   m_ObjectHideFlags: 0
@@ -11028,8 +11074,10 @@ MonoBehaviour:
   unitClassNumber: 2
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &397190855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12329,8 +12377,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 1
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &424768765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12943,6 +12993,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 440361912}
   m_CullTransparentMesh: 0
+--- !u!1 &441882669 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 624774111338365786, guid: fa097f847d808e4439989ccea0ad2256,
+    type: 3}
+  m_PrefabInstance: {fileID: 1313780718}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &442447457
 GameObject:
   m_ObjectHideFlags: 0
@@ -17018,6 +17074,36 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000030517578, y: 0}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!1 &588264412
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 588264413}
+  m_Layer: 9
+  m_Name: GameObject (10)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &588264413
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 588264412}
+  m_LocalRotation: {x: 0, y: 0.8660254, z: -0, w: -0.5}
+  m_LocalPosition: {x: -1, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 386347821}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 240, z: 0}
 --- !u!1 &591547933
 GameObject:
   m_ObjectHideFlags: 0
@@ -18404,8 +18490,10 @@ MonoBehaviour:
   unitClassNumber: 2
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &629445748
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23978,8 +24066,10 @@ MonoBehaviour:
   unitClassNumber: 2
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &784265922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25415,8 +25505,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 3
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &829668931
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26333,8 +26425,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 10
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &850126454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26721,10 +26815,23 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 951531119}
     m_Modifications:
+    - target: {fileID: 1040221358, guid: 519a6c03cfb2e6d41b531720a81d4f16, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1040221358, guid: 519a6c03cfb2e6d41b531720a81d4f16, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2032129247473008375, guid: 519a6c03cfb2e6d41b531720a81d4f16,
         type: 3}
       propertyPath: m_Name
       value: Black_Mage
+      objectReference: {fileID: 0}
+    - target: {fileID: 2032129247473008375, guid: 519a6c03cfb2e6d41b531720a81d4f16,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2032129247473008376, guid: 519a6c03cfb2e6d41b531720a81d4f16,
         type: 3}
@@ -26799,6 +26906,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 857429024}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &857429026 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7500588694057655448, guid: 519a6c03cfb2e6d41b531720a81d4f16,
+    type: 3}
+  m_PrefabInstance: {fileID: 857429024}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &858393541
 GameObject:
   m_ObjectHideFlags: 0
@@ -26852,13 +26965,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  price: 70
+  price: 60
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &858393544
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28056,8 +28171,10 @@ MonoBehaviour:
   unitClassNumber: 1
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &891584571
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30590,6 +30707,36 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 5, z: 1}
   m_Center: {x: 0, y: 3, z: 1}
+--- !u!1 &982595669
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 982595670}
+  m_Layer: 9
+  m_Name: GameObject (3)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &982595670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982595669}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 386347821}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1001 &984010207
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30821,7 +30968,8 @@ MonoBehaviour:
   buyUnitReinforce_Button: {fileID: 147772650}
   buyEvent_Object: {fileID: 1414755510}
   buyEvent_Button: {fileID: 1917552846}
-  enemySpawn: {fileID: 763533793}
+  buyMageUltimate_Object: {fileID: 0}
+  buyMageUltimate_Button: {fileID: 0}
   showShop: 0
   lacksGuideText: {fileID: 523860747}
 --- !u!114 &985309884
@@ -31742,8 +31890,10 @@ MonoBehaviour:
   unitClassNumber: 1
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1016518190
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32083,8 +32233,10 @@ MonoBehaviour:
   unitClassNumber: 3
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1030496775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33037,6 +33189,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1053241244}
   m_CullTransparentMesh: 0
+--- !u!1 &1053720856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1053720857}
+  m_Layer: 9
+  m_Name: GameObject (9)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1053720857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053720856}
+  m_LocalRotation: {x: 0, y: -0.5, z: 0, w: 0.8660254}
+  m_LocalPosition: {x: -1, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 386347821}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: -60, z: 0}
 --- !u!1 &1057953538
 GameObject:
   m_ObjectHideFlags: 0
@@ -33636,8 +33818,10 @@ MonoBehaviour:
   unitClassNumber: 3
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1081850899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34132,6 +34316,11 @@ MonoBehaviour:
     - {fileID: 832688008}
     - {fileID: 954490415}
     - {fileID: 35759087}
+  - unitArray:
+    - {fileID: 441882669}
+    - {fileID: 1240540046}
+    - {fileID: 1979124576}
+    - {fileID: 1894954073}
   currentUnitList: []
   tp_Effects:
   - {fileID: 552626229}
@@ -35574,6 +35763,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1126132347}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1126710419
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1126710420}
+  m_Layer: 9
+  m_Name: GameObject (5)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1126710420
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1126710419}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 386347821}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1001 &1127687299
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35817,8 +36036,10 @@ MonoBehaviour:
   unitClassNumber: 1
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1133276765
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37768,8 +37989,10 @@ MonoBehaviour:
   unitClassNumber: 2
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1198587396
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -38496,6 +38719,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1220673351}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1220911661
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1220911662}
+  m_Layer: 9
+  m_Name: GameObject (8)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1220911662
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1220911661}
+  m_LocalRotation: {x: 0, y: 0.5, z: 0, w: 0.8660254}
+  m_LocalPosition: {x: 1, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 386347821}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 60, z: 0}
 --- !u!1 &1221433821
 GameObject:
   m_ObjectHideFlags: 0
@@ -38650,8 +38903,10 @@ MonoBehaviour:
   unitClassNumber: 3
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1223000086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39697,6 +39952,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1240459788}
   m_CullTransparentMesh: 0
+--- !u!1 &1240540046 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1800201801424679711, guid: 3ebdb11443709774b955eea88589b5f2,
+    type: 3}
+  m_PrefabInstance: {fileID: 1176470795}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1242325985
 GameObject:
   m_ObjectHideFlags: 0
@@ -40709,8 +40970,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 10
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1267831333
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42501,8 +42764,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 70
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1303437375
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43464,8 +43729,10 @@ MonoBehaviour:
   unitClassNumber: 1
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1316413028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43754,6 +44021,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1323189754}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1325965679
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1325965680}
+  m_Layer: 9
+  m_Name: GameObject (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1325965680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1325965679}
+  m_LocalRotation: {x: 0, y: -0.258819, z: 0, w: 0.9659259}
+  m_LocalPosition: {x: -1, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 386347821}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: -30, z: 0}
 --- !u!1001 &1329688334
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -44158,6 +44455,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1334311755}
   m_CullTransparentMesh: 0
+--- !u!1 &1336569080
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1336569081}
+  m_Layer: 9
+  m_Name: GameObject (11)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1336569081
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1336569080}
+  m_LocalRotation: {x: 0, y: 0.9659258, z: 0, w: 0.2588191}
+  m_LocalPosition: {x: 1, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 386347821}
+  m_RootOrder: 11
+  m_LocalEulerAnglesHint: {x: 0, y: 150, z: 0}
 --- !u!1 &1336704016
 GameObject:
   m_ObjectHideFlags: 0
@@ -44808,8 +45135,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1345365478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46183,6 +46512,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1407467157}
   m_CullTransparentMesh: 0
+--- !u!1 &1407717868
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1407717869}
+  m_Layer: 9
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1407717869
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1407717868}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 386347821}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1409871221
 GameObject:
   m_ObjectHideFlags: 0
@@ -46628,8 +46987,10 @@ MonoBehaviour:
   unitClassNumber: 3
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1417290972
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46932,6 +47293,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1421370289}
   m_CullTransparentMesh: 0
+--- !u!1 &1423661186
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1423661187}
+  m_Layer: 9
+  m_Name: GameObject (6)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1423661187
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423661186}
+  m_LocalRotation: {x: 0, y: 0.9659259, z: -0, w: -0.25881898}
+  m_LocalPosition: {x: -1, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 386347821}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 210, z: 0}
 --- !u!1001 &1426073498
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -47076,8 +47467,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1426937291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48670,8 +49063,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 5
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1454846291
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -50655,6 +51050,7 @@ MonoBehaviour:
   unitBackFiledButton: {fileID: 413455930}
   EnterStoryModeAudio: {fileID: 717411405}
   unitTagName: 
+  enterButtonText: {fileID: 1019545129}
 --- !u!65 &1513012278
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -51773,8 +52169,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 4
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1535521662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -51930,8 +52328,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1536921624
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52081,8 +52481,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1538118875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -53404,6 +53806,7 @@ MonoBehaviour:
   buffText: {fileID: 2102880951}
   debuffText: {fileID: 232964554}
   unitColorIsEvent: 000000000000
+  enemySpawn: {fileID: 763533793}
 --- !u!4 &1568701675
 Transform:
   m_ObjectHideFlags: 0
@@ -54324,8 +54727,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1599667028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54680,8 +55085,10 @@ MonoBehaviour:
   unitClassNumber: 1
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1613016304
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -55204,8 +55611,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 3
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1622299651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56508,8 +56917,10 @@ MonoBehaviour:
   unitClassNumber: 3
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1652208899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60768,8 +61179,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1777110550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61700,8 +62113,10 @@ MonoBehaviour:
   unitClassNumber: 3
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1798378186
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61867,6 +62282,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1798533414}
   m_CullTransparentMesh: 0
+--- !u!1 &1800655856
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1800655857}
+  m_Layer: 9
+  m_Name: GameObject (7)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1800655857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1800655856}
+  m_LocalRotation: {x: 0, y: 0.86602545, z: 0, w: 0.49999994}
+  m_LocalPosition: {x: 1, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 386347821}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 120, z: 0}
 --- !u!1 &1808553951
 GameObject:
   m_ObjectHideFlags: 0
@@ -62658,8 +63103,10 @@ MonoBehaviour:
   unitClassNumber: 2
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1833853784
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63465,8 +63912,10 @@ MonoBehaviour:
   unitClassNumber: 1
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1850565184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64580,6 +65029,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893118691}
   m_CullTransparentMesh: 0
+--- !u!1 &1894954073 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2032129247473008375, guid: 519a6c03cfb2e6d41b531720a81d4f16,
+    type: 3}
+  m_PrefabInstance: {fileID: 857429024}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1897800119
 GameObject:
   m_ObjectHideFlags: 0
@@ -65189,8 +65644,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1925720516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66628,13 +67085,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aa29313e4965f043942b2481dbde619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  price: 70
+  price: 60
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 1
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1977215903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66726,6 +67185,12 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1977215900}
   m_CullTransparentMesh: 0
+--- !u!1 &1979124576 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6848851408045497545, guid: 7fad8267bf4321940b7effc164c530d6,
+    type: 3}
+  m_PrefabInstance: {fileID: 1736276727}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1979758046
 GameObject:
   m_ObjectHideFlags: 0
@@ -67078,8 +67543,10 @@ MonoBehaviour:
   unitClassNumber: 0
   buyFoodCount: 5
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &1992276087
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69777,8 +70244,10 @@ MonoBehaviour:
   unitClassNumber: 2
   buyFoodCount: 0
   buyGoldAmount: 0
-  eventNumber: 0
+  reinforceEventNumber: 0
   eventUnitNumber: 0
+  eventNumber: 0
+  ultimateMageNumber: 0
 --- !u!114 &2047675803
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69929,6 +70398,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2052477298}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2054438022
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2054438023}
+  m_Layer: 9
+  m_Name: GameObject (4)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2054438023
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2054438022}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -1, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 386347821}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!1 &2058399723
 GameObject:
   m_ObjectHideFlags: 0
@@ -71429,6 +71928,36 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 320, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2113022734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2113022735}
+  m_Layer: 9
+  m_Name: GameObject (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2113022735
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2113022734}
+  m_LocalRotation: {x: 0, y: 0.2588191, z: 0, w: 0.9659258}
+  m_LocalPosition: {x: 1, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 386347821}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 30, z: 0}
 --- !u!1001 &2116948768
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -72057,6 +72586,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Violet_Mage
       objectReference: {fileID: 0}
+    - target: {fileID: 3475061908579850590, guid: 4d7f63258f1081247abdd23060ca4778,
+        type: 3}
+      propertyPath: mageEffectObject
+      value: 
+      objectReference: {fileID: 217165572783591742, guid: 363496e031194604f91ae274cc2d13ac,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d7f63258f1081247abdd23060ca4778, type: 3}
 --- !u!1 &2134371901
@@ -72652,7 +73187,8 @@ MonoBehaviour:
   buyUnitReinforce_Button: {fileID: 0}
   buyEvent_Object: {fileID: 0}
   buyEvent_Button: {fileID: 0}
-  enemySpawn: {fileID: 0}
+  buyMageUltimate_Object: {fileID: 0}
+  buyMageUltimate_Button: {fileID: 0}
   showShop: 0
   lacksGuideText: {fileID: 0}
 --- !u!4 &4092120928962032 stripped

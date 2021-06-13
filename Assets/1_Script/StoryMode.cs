@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class StoryMode : MonoBehaviour
 {
@@ -27,11 +28,13 @@ public class StoryMode : MonoBehaviour
         }
     }
 
+    public Text enterButtonText;
     public void EnterStoryMode()
     {
         EnterStoryModeAudio.Play();
         if(!GameManager.instance.playerEnterStoryMode)
         {
+            enterButtonText.text = "필드로";
             Camera.main.gameObject.transform.position = new Vector3(500, 100, -30);
             GameManager.instance.playerEnterStoryMode = true;
             unitStoryModeEnterButton.SetActive(false);
@@ -39,6 +42,7 @@ public class StoryMode : MonoBehaviour
         }
         else
         {
+            enterButtonText.text = "적군의 성으로";
             Camera.main.gameObject.transform.position = new Vector3(0, 100, -30);
             GameManager.instance.playerEnterStoryMode = false;
             unitStoryModeEnterButton.SetActive(true);

@@ -12,6 +12,10 @@ public class GoodsData : MonoBehaviour
     public int buyGoldAmount;
 
     [Tooltip("0 : 대미지 증가, 1 : 보스 대미지 증가, 2 : 스킬 사용 빈도 증가, 3 : 패시브 강화")]
-    public int eventNumber;
+    public int reinforceEventNumber;
     public int eventUnitNumber;
+
+    public int eventNumber;
+
+    public int ultimateMageNumber;
 }

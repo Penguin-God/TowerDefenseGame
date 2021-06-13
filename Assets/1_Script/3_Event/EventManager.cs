@@ -31,6 +31,9 @@ public class EventManager : MonoBehaviour
         // Dictonary 인스턴스
         eventTextDictionary = new Dictionary<Action<GameObject[]>, string>();
         SetEventText_Dictionary();
+
+        // 이벤트 배열 선언
+        Set_EventArray();
     }
 
     void SetEventText_Dictionary()
@@ -67,14 +70,14 @@ public class EventManager : MonoBehaviour
         eventText.text = ReturnUnitText(unitNumber) + eventTextDictionary[eventActionList[eventNumber]];
     }
 
-    public void Action_SelectEvent(int eventNumber, int unitNumber)
+    public void Action_SelectReinForceEvent(int eventNumber, int unitNumber)
     {
         buffActionList[eventNumber](UnitManager.instance.unitArrays[unitNumber].unitArray);
     }
 
     int Return_RandomUnitNumver()
     {
-        int unitNumver = UnityEngine.Random.Range(0, UnitManager.instance.unitArrays.Length);
+        int unitNumver = UnityEngine.Random.Range(0, UnitManager.instance.unitArrays.Length - 1); // 검은유닛 빼려고 -1
         return unitNumver;
     }
 
@@ -166,5 +169,36 @@ public class EventManager : MonoBehaviour
                 break;
         }
         return unitColotText;
+    }
+
+    public Action[] eventArray;
+
+    void Set_EventArray()
+    {
+        eventArray = new Action[] { CurrentEnemyDie , currnetUnitDamageUp };
+    }
+
+    // 상점에서 파는 이벤트
+    public EnemySpawn enemySpawn;
+    public void CurrentEnemyDie()
+    {
+        int dieEnemyCount = 10;
+        for (int i = 0; i < dieEnemyCount; i++)
+        {
+            if (enemySpawn.currentEnemyList.Count == 0) break;
+
+            int dieEnemyNumber = UnityEngine.Random.Range(0, enemySpawn.currentEnemyList.Count);
+            NomalEnemy enemy = enemySpawn.currentEnemyList[dieEnemyNumber].GetComponent<NomalEnemy>();
+            if (enemy != null) enemy.Dead();
+        }
+    }
+
+    public void currnetUnitDamageUp()
+    {
+        foreach(GameObject unit in UnitManager.instance.currentUnitList)
+        {
+            TeamSoldier teamSoldier = unit.GetComponentInParent<TeamSoldier>();
+            if (teamSoldier != null) teamSoldier.damage += teamSoldier.originDamage;
+        }
     }
 }

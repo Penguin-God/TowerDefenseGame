@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-//public class MageSpecialAttacks
-//{
-//    public GameObject posionEffect;
-    
-//}
-
 public class Unit_Mage : RangeUnit, IUnitMana, IEvent
 {
     [Header("메이지 변수")]
@@ -54,11 +48,10 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
 
     public override void NormalAttack()
     {
-        //if (currentMana < maxMana) StartCoroutine("MageAttack");
-        //else MageSpecialAttack();
         StartCoroutine("MageAttack");
     }
 
+    public bool isUltimate; // 스킬 강화
     public override void SpecialAttack()
     {
         MageSpecialAttack();
@@ -75,7 +68,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         animator.SetTrigger("isAttack");
         yield return new WaitForSeconds(0.7f);
         AddMana(plusMana);
-        if (currentMana >= maxMana) specialAttackPercent = 100; // 이번 공격 때 마나 채워지면 다음 공격은 스킬
+        if (currentMana >= maxMana) specialAttackPercent = 100; // 이번 공격 때 마나 채워지면 다음 공격은 스킬확률을 100퍼로 해서 무조건 스킬 씀
         magicLight.SetActive(true);
 
         if (target != null && Vector3.Distance(target.position, transform.position) < chaseRange)
@@ -163,19 +156,13 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f));
     }
 
+
     void BlueMageSkill()
     {
         ShowMageSkillEffect(mageEffectObject);
         StartCoroutine(Play_SkillClip(mageSkillCilp, 3f, 0.1f));
     }
 
-    public GameObject posionEffect;
-    void VioletMageSkill(Transform attackTarget) // 독 공격
-    {
-        GameObject instantPosionEffect = Instantiate(posionEffect, attackTarget.position, posionEffect.transform.rotation);
-        instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
-        StartCoroutine(Play_SkillClip(mageSkillCilp, 1.5f, 0));
-    }
 
     void YellowMageSkill(int addGold) // 골드 증가
     {
@@ -185,7 +172,8 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
     }
 
-    void GreenMageSkill()
+
+    void GreenMageSkill() // 대미지 5배
     {
         ShowMageSkillEffect(mageEffectObject);
         StartCoroutine(GreenMageSkile_Coroutine());
@@ -193,14 +181,16 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
     }
     IEnumerator GreenMageSkile_Coroutine()
     {
+        int originPlusMana = plusMana;
         plusMana = 0;
-        damage *= 5;
+        damage += originDamage * 5;
         yield return new WaitForSeconds(5f);
-        damage /= 5;
-        plusMana = 30;
+        damage -= originDamage * 5;
+        plusMana = originPlusMana;
     }
 
-    void OrangeMageSkill()
+
+    void OrangeMageSkill() // 공속 5배
     {
         ShowMageSkillEffect(mageEffectObject);
         StartCoroutine(OrangeMageSkile_Coroutine());
@@ -209,16 +199,25 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
 
     IEnumerator OrangeMageSkile_Coroutine()
     {
+        int originPlusMana = plusMana;
         plusMana = 0;
         attackDelayTime *= 0.2f;
         yield return new WaitForSeconds(10f);
         attackDelayTime *= 5;
-        plusMana = 30;
+        plusMana = originPlusMana;
+    }
+
+    void VioletMageSkill(Transform attackTarget) // 독 공격
+    {
+        GameObject instantPosionEffect = Instantiate(mageEffectObject, attackTarget.position, mageEffectObject.transform.rotation);
+        instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
+        StartCoroutine(Play_SkillClip(mageSkillCilp, 1.5f, 0));
     }
 
     void BlackMageSkill() // 사운드 넣어야 됨
     {
-        Transform skillTransform = transform.GetChild(1); // 자식 가져옴
+        int chiledNumber = (isUltimate) ? 2 : 1;
+        Transform skillTransform = transform.GetChild(chiledNumber); // 자식 가져옴
 
         for(int i = 0; i < skillTransform.childCount; i++)
         {
@@ -287,12 +286,6 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
                 case UnitColor.yellow:
                     otherTeamSoldier.attackDelayTime *= 0.5f;
                     break;
-                case UnitColor.green:
-                    break;
-                case UnitColor.orange:
-                    break;
-                case UnitColor.violet:
-                    break;
             }
         }
     }
@@ -319,12 +312,8 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             switch (unitColor)
             {
-                case UnitColor.red:
-                    break;
                 case UnitColor.blue:
                     enemy.ExitSlow();
-                    break;
-                case UnitColor.yellow:
                     break;
             }
         }
@@ -336,8 +325,6 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
             {
                 case UnitColor.red:
                     otherTeamSoldier.damage -= Mathf.RoundToInt((redPassiveFigure - 1) * otherTeamSoldier.originDamage);
-                    break;
-                case UnitColor.blue:
                     break;
                 case UnitColor.yellow:
                     otherTeamSoldier.attackDelayTime *= 2f;

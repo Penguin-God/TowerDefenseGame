@@ -78,7 +78,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         if (currentMana >= maxMana) specialAttackPercent = 100; // 이번 공격 때 마나 채워지면 다음 공격은 스킬
         magicLight.SetActive(true);
 
-        if (target != null && Vector3.Distance(target.position, transform.position) < 150f)
+        if (target != null && Vector3.Distance(target.position, transform.position) < chaseRange)
         {
             GameObject instantEnergyBall = CreateBullte(energyBall, energyBallTransform);
             ShotBullet(instantEnergyBall, 2f, 50f, target);
@@ -218,7 +218,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
 
     void BlackMageSkill() // 사운드 넣어야 됨
     {
-        Transform skillTransform = transform.GetChild(1);
+        Transform skillTransform = transform.GetChild(1); // 자식 가져옴
 
         for(int i = 0; i < skillTransform.childCount; i++)
         {

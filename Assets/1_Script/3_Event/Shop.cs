@@ -6,7 +6,8 @@ using UnityEngine.EventSystems;
 
 public class Shop : MonoBehaviour
 {
-    public GameObject envetShop;
+    public Text guideText;
+
     public GameObject leftGoldGoods;
     public GameObject centerGoldGoods;
     //public GameObject rigthGoldGoods;
@@ -23,8 +24,9 @@ public class Shop : MonoBehaviour
     private GameObject current_FoodGoldGoods = null;
     public CreateDefenser createDefenser;
 
-    private void Awake() // 배열 선언
+    private void Awake() 
     {
+        // 배열 선언
         leftGoldStocks = new GameObject[leftGoldGoods.transform.childCount];
         for (int i = 0; i < leftGoldStocks.Length; i++)
         {
@@ -43,8 +45,16 @@ public class Shop : MonoBehaviour
             foodStocks[i] = foodGoods.transform.GetChild(i).gameObject;
         }
 
-        itemWeighDictionary = new Dictionary<int, int[]>();
-        SetItemWeigh();
+        // 딕셔너리 세팅
+        bossShopWeighDictionary = new Dictionary<int, int[]>();
+        towerShopWeighDictionary = new Dictionary<int, int[]>();
+        Set_BossShopWeigh();
+        Set_TowerShopWeigh();
+
+        // 인스턴스 안되고 실행되는 버그 때문에 게임 시작시 Awake 실행 후 원위치
+        gameObject.SetActive(false);
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = new Vector3(0, 0, 0);
     }
     void MinusGold(int price)
     {
@@ -196,6 +206,7 @@ public class Shop : MonoBehaviour
         ExitShop();
     }
 
+    public EnemySpawn enemySpawn;
     void CurrentEnemyDie(int dieEnemyCount)
     {
         for(int i = 0; i < dieEnemyCount; i++)
@@ -208,17 +219,31 @@ public class Shop : MonoBehaviour
         }
     }
 
-    private void OnEnable()
-    {
-        Set_RandomShop();
-    }
+    //private void OnEnable()
+    //{
+    //    OnShop(3, bossShopWeighDictionary);
+    //}
 
     public bool showShop;
 
+    public void OnShop(int level, Dictionary<int, int[]> goodsWeighDictionary)
+    {
+        gameObject.SetActive(true);
+        Time.timeScale = 0;
+        showShop = true;
+        Show_RandomShop(level, goodsWeighDictionary);
+    }
+
+    public void SetGuideText(string message)
+    {
+        guideText.text = message;
+    }
+
     public void ExitShop()
     {
-        envetShop.SetActive(false);
+        gameObject.SetActive(false);
         showShop = false;
+        SetGuideText("");
 
         current_LeftGoldGoods.SetActive(false);
         current_CenterGoldGoods.SetActive(false);
@@ -229,6 +254,7 @@ public class Shop : MonoBehaviour
         current_FoodGoldGoods = null;
 
         CancleBuy();
+        Time.timeScale = 1;
     }
 
     public void CancleBuy()
@@ -257,11 +283,19 @@ public class Shop : MonoBehaviour
     {
         lacksGuideText.gameObject.SetActive(true);
 
-        lacksGuideText.color = new Color32(255,44, 35, 255);
+        lacksGuideText.color = new Color32(255, 44, 35, 255);
         Color textColor;
         textColor = lacksGuideText.color;
 
-        yield return new WaitForSeconds(0.8f);
+        // Time.timeScale의 영향을 받지 않게 하기 위한 코드 (코루틴은 안멈추는데 WaitForSecond가 멈춤)
+        float pastTime = 0;
+        float delayTime = 0.8f;
+        while (delayTime > pastTime)
+        {
+            pastTime += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
         while (textColor.a > 0.1f)
         {
             textColor.a -= 0.02f;
@@ -272,50 +306,54 @@ public class Shop : MonoBehaviour
         lacksGuideText.gameObject.SetActive(false);
     }
 
+
     public void ShowShop()
     {
-        envetShop.SetActive(true);
+        gameObject.SetActive(true);
         showShop = true;
     }
 
-    public void OnEnvetShop()
+    // 상품 세팅
+    void Show_RandomShop(int level, Dictionary<int, int[]> goodsWeighDictionary) // 랜덤하게 상품 변경 
     {
-        envetShop.SetActive(true);
-        Set_RandomShop();
+        current_LeftGoldGoods = Set_RandomGoods(leftGoldGoods, level, goodsWeighDictionary);
+        current_CenterGoldGoods = Set_RandomGoods(centerGoldGoods, level, goodsWeighDictionary);
+        current_FoodGoldGoods = Set_RandomGoods(foodGoods, level, goodsWeighDictionary);
     }
 
-    void Set_RandomShop() // 랜덤하게 상품 변경 
-    {
-        current_LeftGoldGoods = Show_RandomGoods(leftGoldGoods);
-        current_CenterGoldGoods = Show_RandomGoods(centerGoldGoods);
-        current_FoodGoldGoods = Show_RandomGoods(foodGoods);
-    }
-
-    Dictionary<int, int[]> itemWeighDictionary;
+    public Dictionary<int, int[]> bossShopWeighDictionary;
+    public Dictionary<int, int[]> towerShopWeighDictionary;
     int totalWeigh = 100;
     // 확률 가중치
-    void SetItemWeigh()
+    void Set_BossShopWeigh()
     {
-        itemWeighDictionary.Add(1, new int[] { 70, 30, 0 });
-        itemWeighDictionary.Add(2, new int[] { 30, 60, 10 });
-        itemWeighDictionary.Add(3, new int[] { 15, 45, 40 });
-        itemWeighDictionary.Add(4, new int[] { 0, 30, 70 });
+        bossShopWeighDictionary.Add(1, new int[] { 70, 30, 0 });
+        bossShopWeighDictionary.Add(2, new int[] { 30, 60, 10 });
+        bossShopWeighDictionary.Add(3, new int[] { 15, 45, 40 });
+        bossShopWeighDictionary.Add(4, new int[] { 0, 30, 70 });
+    }
+    void Set_TowerShopWeigh()
+    {
+        towerShopWeighDictionary.Add(1, new int[] { 85, 15, 0 });
+        towerShopWeighDictionary.Add(2, new int[] { 70, 30, 0 });
+        towerShopWeighDictionary.Add(3, new int[] { 55, 40, 5 });
+        towerShopWeighDictionary.Add(4, new int[] { 35, 55, 10 });
+        towerShopWeighDictionary.Add(5, new int[] { 10, 60, 30 });
+        towerShopWeighDictionary.Add(6, new int[] { 0, 30, 70 });
     }
 
-    public EnemySpawn enemySpawn;
-    GameObject Show_RandomGoods(GameObject goods)
+    GameObject Set_RandomGoods(GameObject goods, int level, Dictionary<int, int[]> goodsWeighDictionary)
     {
-        // 휘귀도 선택 부분은 가중치 둬야함
         Transform goodsRarity = null;
         int randomNumber = UnityEngine.Random.Range(0, totalWeigh);
         for (int i = 0; i < goods.transform.childCount; i++)
         {
-            if (itemWeighDictionary[enemySpawn.bossLevel][i] >= randomNumber)
+            if (goodsWeighDictionary[level][i] >= randomNumber)
             {
                 goodsRarity = goods.transform.GetChild(i);
                 break;
             }
-            else randomNumber -= itemWeighDictionary[enemySpawn.bossLevel][i];
+            else randomNumber -= goodsWeighDictionary[level][i];
         }
 
         // 휘귀도 선택 후 상품 랜덤 선택

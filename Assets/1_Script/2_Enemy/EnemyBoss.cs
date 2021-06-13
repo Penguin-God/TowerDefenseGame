@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyBoss : NomalEnemy
 {
-
-    public CreateDefenser createDefenser;
     private void Awake()
     {
         nomalEnemy = GetComponent<NomalEnemy>();
@@ -26,22 +24,35 @@ public class EnemyBoss : NomalEnemy
 
     public override void Dead()
     {
-        enemySpawn.shop.OnEnvetShop();
+        enemySpawn.shop.OnShop(enemySpawn.bossLevel, enemySpawn.shop.bossShopWeighDictionary);
+        enemySpawn.shop.SetGuideText("보스를 처치하였습니다");
         enemySpawn.currentBossList.Remove(gameObject);
         enemySpawn.bossRespawn = false;
         transform.parent.transform.position = new Vector3(500, 500, 500);
         isDead = true;
         GetBossReword(enemySpawn.bossRewordGold, enemySpawn.bossRewordFood);
-        Destroy(transform.parent.gameObject);
 
-        if (enemySpawn.bossLevel == 1 || enemySpawn.bossLevel == 2)
+        //if (enemySpawn.bossLevel == 1 || enemySpawn.bossLevel == 2)
+        //{
+        //    enemySpawn.createDefenser.CreateSoldier(7, 1);
+        //}
+        //else if (enemySpawn.bossLevel == 3 || enemySpawn.bossLevel == 4)
+        //{
+        //    enemySpawn.createDefenser.CreateSoldier(7, 2);
+        //}
+        switch (enemySpawn.bossLevel)
         {
-            createDefenser.CreateSoldier(7, 1);
+            case 1:
+            case 2:
+                enemySpawn.createDefenser.CreateSoldier(7, 1);
+                break;
+            case 3: 
+            case 4:
+                enemySpawn.createDefenser.CreateSoldier(7, 2);
+                break;
         }
-        else if (enemySpawn.bossLevel == 3 || enemySpawn.bossLevel == 4)
-        {
-            createDefenser.CreateSoldier(7, 2);
-        }
+
+        Destroy(transform.parent.gameObject);
         // enemySpawn.bossLevel  //보스 레밸
     }
 

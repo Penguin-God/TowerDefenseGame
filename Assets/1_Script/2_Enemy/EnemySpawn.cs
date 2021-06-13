@@ -197,7 +197,9 @@ public class EnemySpawn : MonoBehaviour
     public void RespawnNextTower(int towerLevel, float delayTime)
     {
         currentTowerLevel++;
-        //shop.OnEnvetShop();
+        shop.OnShop(towerLevel, shop.towerShopWeighDictionary);
+        shop.SetGuideText("적군의 성을 파괴하였습니다");
+
         if (towerLevel >= towers.Length)
         { 
             if(towerLevel == towers.Length)
@@ -213,6 +215,6 @@ public class EnemySpawn : MonoBehaviour
         enemyAudioSource.PlayOneShot(towerDieClip, 1f);
         towers[towerLevel - 1].SetActive(false);
         yield return new WaitForSeconds(delayTime);
-        if(towerLevel < towers.Length) towers[towerLevel].SetActive(true);
+        if(towerLevel < towers.Length) towers[towerLevel].SetActive(true); // 다음 타워가 있을때만 소환
     }
 }

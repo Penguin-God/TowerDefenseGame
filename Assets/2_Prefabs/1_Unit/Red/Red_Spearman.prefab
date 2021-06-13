@@ -406,8 +406,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitType: 2
   unitColor: 0
-  originDamage: 0
-  originAttackDelayTime: 0
+  originDamage: 500
+  originBossDamage: 500
+  originAttackDelayTime: 1.5
   speed: 15
   attackDelayTime: 1.5
   attackRange: 10

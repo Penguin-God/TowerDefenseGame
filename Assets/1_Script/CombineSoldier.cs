@@ -16,6 +16,16 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier = GetComponent<SoldiersTags>();
     }
 
+    private void CombineSuccessTextDown()
+    {
+        UIManager.instance.CombineSuccessText.gameObject.SetActive(false);
+    }
+
+    private void CombineFailTextDown()
+    {
+        UIManager.instance.CombineFailText.gameObject.SetActive(false);
+    }
+
     public void CombineRedArcher()
     {
         TagSoldier.RedSwordmanTag();
@@ -28,6 +38,11 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(0, 0, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+        }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
         }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
@@ -55,6 +70,11 @@ public class CombineSoldier : MonoBehaviour
             SoldierChoose(0, 0, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
+        }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
         }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
@@ -84,6 +104,11 @@ public class CombineSoldier : MonoBehaviour
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
         }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
+        }
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
@@ -108,6 +133,11 @@ public class CombineSoldier : MonoBehaviour
             SoldierChoose(1, 1, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
+        }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
         }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
@@ -135,6 +165,11 @@ public class CombineSoldier : MonoBehaviour
             SoldierChoose(1, 1, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
+        }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
         }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
@@ -164,6 +199,11 @@ public class CombineSoldier : MonoBehaviour
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
         }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
+        }
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
@@ -189,6 +229,11 @@ public class CombineSoldier : MonoBehaviour
             SoldierChoose(2, 2, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
+        }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
         }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
@@ -219,6 +264,11 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.UpdateArcherCount();
             UIManager.instance.UpdateSpearmanCount();
         }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
+        }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
@@ -248,6 +298,11 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.UpdateSpearmanCount();
             UIManager.instance.UpdateMageCount();
         }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
+        }
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
@@ -273,6 +328,11 @@ public class CombineSoldier : MonoBehaviour
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
             UIManager.instance.UpdateSwordmanCount();
             UIManager.instance.UpdateArcherCount();
+        }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
         }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
@@ -301,6 +361,11 @@ public class CombineSoldier : MonoBehaviour
             SoldierChoose(3, 3, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
+        }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
         }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
@@ -332,6 +397,11 @@ public class CombineSoldier : MonoBehaviour
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
         }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
+        }
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
@@ -357,6 +427,11 @@ public class CombineSoldier : MonoBehaviour
             SoldierChoose(4, 4, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
+        }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
         }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
@@ -385,6 +460,11 @@ public class CombineSoldier : MonoBehaviour
             SoldierChoose(4, 4, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
+        }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
         }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
@@ -416,6 +496,11 @@ public class CombineSoldier : MonoBehaviour
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
         }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
+        }
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
@@ -440,6 +525,11 @@ public class CombineSoldier : MonoBehaviour
             SoldierChoose(5, 5, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
+        }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
         }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
@@ -467,6 +557,11 @@ public class CombineSoldier : MonoBehaviour
             SoldierChoose(5, 5, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
+        }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
         }
         UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.UpdateArcherCount();
@@ -498,6 +593,11 @@ public class CombineSoldier : MonoBehaviour
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
         }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
+        }
         UIManager.instance.UpdateArcherCount();
         UIManager.instance.UpdateSpearmanCount();
         UIManager.instance.UpdateMageCount();
@@ -526,6 +626,11 @@ public class CombineSoldier : MonoBehaviour
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
         }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
+        }
         UIManager.instance.UpdateSwordmanCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
@@ -547,6 +652,11 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
             SoldierChoose(4,4,0,0);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+        }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
         }
         UIManager.instance.UpdateSwordmanCount();
         buttonDown.AllButtonDown();
@@ -570,6 +680,11 @@ public class CombineSoldier : MonoBehaviour
             SoldierChoose(5, 5, 0, 0);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
+        }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
         }
         UIManager.instance.UpdateSwordmanCount();
         buttonDown.AllButtonDown();

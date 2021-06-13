@@ -39,6 +39,8 @@ public class UIManager : MonoBehaviour
     public GameObject SuccessText;
     public GameObject XButton;
     public AudioSource CreateButtonAuido;
+    public GameObject CombineSuccessText;
+    public GameObject CombineFailText;
 
     public void UpdateStageText(int Stage)
     {

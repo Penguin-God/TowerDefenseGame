@@ -243,9 +243,54 @@ public class Shop : MonoBehaviour
         MinusGold(buyGoodsData.price);
 
         GameObject mage = UnitManager.instance.unitArrays[buyGoodsData.ultimateMageNumber].unitArray[3];
-        mage.GetComponent<Unit_Mage>().isUltimate = true;
+        mage.GetComponentInChildren<Unit_Mage>().isUltimate = true;
+        SetCurrentMageUltimate(buyGoodsData.ultimateMageNumber);
 
         ExitShop();
+    }
+
+    void SetCurrentMageUltimate(int mageColorNumber)
+    {
+        switch (mageColorNumber)
+        {
+            case 0:
+                GameObject[] redMages = GameObject.FindGameObjectsWithTag("RedMage");
+                SetMageUltimate(redMages);
+                break;
+            case 1:
+                GameObject[] blueMages = GameObject.FindGameObjectsWithTag("BlueMage");
+                SetMageUltimate(blueMages);
+                break;
+            case 2:
+                GameObject[] yellowMages = GameObject.FindGameObjectsWithTag("YellowMage");
+                SetMageUltimate(yellowMages);
+                break;
+            case 3:
+                GameObject[] greenMages = GameObject.FindGameObjectsWithTag("GreenMage");
+                SetMageUltimate(greenMages);
+                break;
+            case 4:
+                GameObject[] orangeMages = GameObject.FindGameObjectsWithTag("OrangeMage");
+                SetMageUltimate(orangeMages);
+                break;
+            case 5:
+                GameObject[] violetMages = GameObject.FindGameObjectsWithTag("VioletMage");
+                SetMageUltimate(violetMages);
+                break;
+            case 6:
+                GameObject[] blackMages = GameObject.FindGameObjectsWithTag("BlackMage");
+                SetMageUltimate(blackMages);
+                break;
+        }
+    }
+
+    void SetMageUltimate(GameObject[] mages)
+    {
+        for(int i = 0; i < mages.Length; i++)
+        {
+            Unit_Mage mage = mages[i].GetComponentInParent<Unit_Mage>();
+            mage.isUltimate = true;
+        }
     }
     //private void OnEnable()
     //{
@@ -292,12 +337,14 @@ public class Shop : MonoBehaviour
         buyFoodObject.SetActive(false);
         buyUnitReinforce_Object.SetActive(false);
         buyEvent_Object.SetActive(false);
+        buyMageUltimate_Object.SetActive(false);
 
         unitBuyButton.onClick.RemoveAllListeners();
         goldBuyButton.onClick.RemoveAllListeners();
         foodBuyButton.onClick.RemoveAllListeners();
         buyUnitReinforce_Button.onClick.RemoveAllListeners();
         buyEvent_Button.onClick.RemoveAllListeners();
+        buyMageUltimate_Button.onClick.RemoveAllListeners();
     }
 
     public Text lacksGuideText;

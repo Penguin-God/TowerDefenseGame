@@ -122,7 +122,8 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
                 BlueMageSkill();
                 break;
             case UnitColor.yellow:
-                YellowMageSkill(5);
+                int addGold = (isUltimate) ? 8 : 5;
+                YellowMageSkill(addGold);
                 break;
             case UnitColor.green:
                 GreenMageSkill();
@@ -183,9 +184,10 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
     {
         int originPlusMana = plusMana;
         plusMana = 0;
-        damage += originDamage * 5;
+        int addDamageRate = (isUltimate) ? 8 : 5;
+        damage += addDamageRate * 5;
         yield return new WaitForSeconds(5f);
-        damage -= originDamage * 5;
+        damage -= addDamageRate * 5;
         plusMana = originPlusMana;
     }
 
@@ -211,7 +213,19 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
     {
         GameObject instantPosionEffect = Instantiate(mageEffectObject, attackTarget.position, mageEffectObject.transform.rotation);
         instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
+        if (isUltimate) Ultimate_VioletMageSkill();
         StartCoroutine(Play_SkillClip(mageSkillCilp, 1.5f, 0));
+    }
+
+    void Ultimate_VioletMageSkill()
+    {
+        if (enemySpawn.currentEnemyList.Count <= 1) return;
+
+        int random = Random.Range(0, enemySpawn.currentEnemyList.Count);
+        GameObject instantPosionEffect = Instantiate(mageEffectObject, 
+                                        enemySpawn.currentEnemyList[random].transform.position, 
+                                        mageEffectObject.transform.rotation);
+        instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
     }
 
     void BlackMageSkill() // 사운드 넣어야 됨

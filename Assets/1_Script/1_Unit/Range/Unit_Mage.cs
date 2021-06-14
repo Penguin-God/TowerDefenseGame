@@ -73,6 +73,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
 
         if (target != null && Vector3.Distance(target.position, transform.position) < chaseRange)
         {
+            if (unitColor == UnitColor.orange && isUltimate && isOrangeSkill) MultiDirectionAttack(transform.GetChild(2));
             GameObject instantEnergyBall = CreateBullte(energyBall, energyBallTransform);
             ShotBullet(instantEnergyBall, 2f, 50f, target);
         }
@@ -191,7 +192,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         plusMana = originPlusMana;
     }
 
-
+    private bool isOrangeSkill = false;
     void OrangeMageSkill() // 공속 5배
     {
         ShowMageSkillEffect(mageEffectObject);
@@ -201,12 +202,14 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
 
     IEnumerator OrangeMageSkile_Coroutine()
     {
+        isOrangeSkill = true;
         int originPlusMana = plusMana;
         plusMana = 0;
         attackDelayTime *= 0.2f;
         yield return new WaitForSeconds(10f);
         attackDelayTime *= 5;
         plusMana = originPlusMana;
+        isOrangeSkill = false;
     }
 
     void VioletMageSkill(Transform attackTarget) // 독 공격
@@ -233,14 +236,19 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         int chiledNumber = (isUltimate) ? 2 : 1;
         Transform skillTransform = transform.GetChild(chiledNumber); // 자식 가져옴
 
-        for(int i = 0; i < skillTransform.childCount; i++)
+        MultiDirectionAttack(skillTransform);
+    }
+
+    void MultiDirectionAttack(Transform directions)
+    {
+        for (int i = 0; i < directions.childCount; i++)
         {
-            Transform instantTransform = skillTransform.GetChild(i);
-            if (target != null && Vector3.Distance(target.position, transform.position) < 150f)
+            Transform instantTransform = directions.GetChild(i);
+            if (target != null && Vector3.Distance(target.position, transform.position) < chaseRange)
             {
                 GameObject instantEnergyBall = CreateBullte(energyBall, instantTransform);
-                instantEnergyBall.transform.rotation = skillTransform.GetChild(i).rotation;
-                instantEnergyBall.GetComponent<Rigidbody>().velocity = skillTransform.GetChild(i).rotation.normalized * Vector3.forward * 50;
+                instantEnergyBall.transform.rotation = directions.GetChild(i).rotation;
+                instantEnergyBall.GetComponent<Rigidbody>().velocity = directions.GetChild(i).rotation.normalized * Vector3.forward * 50;
             }
         }
     }

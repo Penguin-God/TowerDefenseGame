@@ -51,6 +51,7 @@ public class MageSkill : MonoBehaviour
                 break;
             case TeamSoldier.UnitColor.blue:
                 enemy.EnemySlow(99, 5, true);
+                if (teamSoldier.GetComponent<Unit_Mage>().isUltimate) enemy.OnDamage(5000);
                 break;
             case TeamSoldier.UnitColor.yellow:
                 break;

@@ -39,8 +39,8 @@ public class UIManager : MonoBehaviour
     public GameObject SuccessText;
     public GameObject XButton;
     public AudioSource CreateButtonAuido;
-    public GameObject CombineSuccessText;
-    public GameObject CombineFailText;
+    public Text CombineSuccessText;
+    public Text CombineFailText;
 
     public void UpdateStageText(int Stage)
     {
@@ -55,6 +55,11 @@ public class UIManager : MonoBehaviour
     public void UpdateFoodText(int Food)
     {
         FoodText.text = "" + Food;
+    }
+
+    public void UpdateCombineSuccessText(string Moonja)
+    {
+        CombineSuccessText.text = Moonja;
     }
 
     public void SetActiveButton(bool show, int SoldiersColornumber, int Soldiersnumber)

@@ -38,6 +38,11 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(0, 0, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+
+            UIManager.instance.UpdateCombineSuccessText("빨간 아처 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
+
         }
         else
         {
@@ -69,6 +74,10 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(0, 0, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+
+            UIManager.instance.UpdateCombineSuccessText("빨간 창병 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
 
         }
         else
@@ -103,6 +112,10 @@ public class CombineSoldier : MonoBehaviour
             SoldierChoose(0, 0, 3, 3);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
+            UIManager.instance.UpdateCombineSuccessText("빨간 마법사 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
+
         }
         else
         {
@@ -132,6 +145,10 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(1, 1, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+
+            UIManager.instance.UpdateCombineSuccessText("파란 아처 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
 
         }
         else
@@ -164,6 +181,10 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(1, 1, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+
+            UIManager.instance.UpdateCombineSuccessText("파란 창병 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
 
         }
         else
@@ -198,6 +219,10 @@ public class CombineSoldier : MonoBehaviour
             SoldierChoose(1, 1, 3, 3);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
+            UIManager.instance.UpdateCombineSuccessText("파란 마법사 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
+
         }
         else
         {
@@ -228,6 +253,10 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(2, 2, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+
+            UIManager.instance.UpdateCombineSuccessText("노란 아처 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
 
         }
         else
@@ -260,9 +289,11 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(2, 2, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.UpdateSwordmanCount();
-            UIManager.instance.UpdateArcherCount();
-            UIManager.instance.UpdateSpearmanCount();
+
+            UIManager.instance.UpdateCombineSuccessText("노란 창병 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
+
         }
         else
         {
@@ -295,8 +326,11 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(2, 2, 3, 3);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.UpdateSpearmanCount();
-            UIManager.instance.UpdateMageCount();
+
+            UIManager.instance.UpdateCombineSuccessText("노란 마법사 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
+
         }
         else
         {
@@ -326,8 +360,11 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(3, 3, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-            UIManager.instance.UpdateSwordmanCount();
-            UIManager.instance.UpdateArcherCount();
+
+            UIManager.instance.UpdateCombineSuccessText("초록 아처 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
+
         }
         else
         {
@@ -360,6 +397,10 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(3, 3, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+
+            UIManager.instance.UpdateCombineSuccessText("초록 창병 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
 
         }
         else
@@ -396,6 +437,10 @@ public class CombineSoldier : MonoBehaviour
             SoldierChoose(3, 3, 3, 3);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
+            UIManager.instance.UpdateCombineSuccessText("초록 마법사 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
+
         }
         else
         {
@@ -426,6 +471,10 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(4, 4, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+
+            UIManager.instance.UpdateCombineSuccessText("주황 아처 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
 
         }
         else
@@ -459,6 +508,10 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(4, 4, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+
+            UIManager.instance.UpdateCombineSuccessText("주황 창병 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
 
         }
         else
@@ -495,6 +548,10 @@ public class CombineSoldier : MonoBehaviour
             SoldierChoose(4, 4, 3, 3);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
+            UIManager.instance.UpdateCombineSuccessText("주황 마법사 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
+
         }
         else
         {
@@ -524,6 +581,10 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(5, 5, 1, 1);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+
+            UIManager.instance.UpdateCombineSuccessText("보라 아처 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
 
         }
         else
@@ -556,6 +617,10 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(5, 5, 2, 2);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+
+            UIManager.instance.UpdateCombineSuccessText("보라 창병 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
 
         }
         else
@@ -592,6 +657,10 @@ public class CombineSoldier : MonoBehaviour
             SoldierChoose(5, 5, 3, 3);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
+            UIManager.instance.UpdateCombineSuccessText("보라 마법사 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
+
         }
         else
         {
@@ -625,6 +694,10 @@ public class CombineSoldier : MonoBehaviour
             SoldierChoose(3, 3, 0, 0);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
+            UIManager.instance.UpdateCombineSuccessText("초록 기사 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
+
         }
         else
         {
@@ -648,10 +721,16 @@ public class CombineSoldier : MonoBehaviour
         { 
             Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
             Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+
             SoldierChoose(4,4,0,0);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+
+            UIManager.instance.UpdateCombineSuccessText("주황 기사 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
         }
         else
         {
@@ -679,6 +758,10 @@ public class CombineSoldier : MonoBehaviour
 
             SoldierChoose(5, 5, 0, 0);
             createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+
+            UIManager.instance.UpdateCombineSuccessText("보라 기사 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
 
         }
         else

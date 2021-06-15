@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 public class EnemySpawn : MonoBehaviour
@@ -24,6 +25,8 @@ public class EnemySpawn : MonoBehaviour
     private void Awake()
     {
         enemyAudioSource = GetComponent<AudioSource>();
+        timerSlider.maxValue = stageTime;
+        timerSlider.value = stageTime;
     }
 
     private void Start()
@@ -61,6 +64,7 @@ public class EnemySpawn : MonoBehaviour
 
     public int stageGold;
     public float stageWait_Time = 10f;
+    float stageTime = 40f;
     IEnumerator StageCoroutine(int stageRespawnEenemyCount) // 재귀함수 무한반복
     {
         if (stageNumber % 10 == 0)
@@ -96,8 +100,17 @@ public class EnemySpawn : MonoBehaviour
         
         stageNumber += 1;
         yield return new WaitForSeconds(stageWait_Time);
+        yield return new WaitUntil(() => timerSlider.value <= 0); // 스테이지 타이머 0이되면
+        timerSlider.value = stageTime;
         stageWait_Time = 10f;
         StageStart();
+    }
+
+    public Slider timerSlider;
+    private void Update()
+    {
+        if(GameManager.instance.gameStart)
+            timerSlider.value -= Time.deltaTime;
     }
 
     public bool bossRespawn;
@@ -146,15 +159,14 @@ public class EnemySpawn : MonoBehaviour
         }
     }
 
-    private int maxHp = 50;
-    private int minHp = 200;
+    private int maxHp = 200;
     public int enemyHpWeight;
     int SetRandomHp()
     {
         // satge에 따른 가중치 변수들
         int stageHpWeight = stageNumber * stageNumber * enemyHpWeight;
 
-        int enemyMinHp = minHp + stageHpWeight;
+        int enemyMinHp = maxHp + stageHpWeight;
         int enemyMaxHp = maxHp + (stageHpWeight * 2);
         int hp = Random.Range(enemyMinHp, enemyMaxHp);
         return hp;
@@ -173,14 +185,6 @@ public class EnemySpawn : MonoBehaviour
         return speed;
     }
 
-    //private float maxRespawnDelayTime = 1f;
-    //private float minRespawnDelayTime = 4f;
-    //float SetRandom_RespawnDelayTime()
-    //{
-    //    float delayRime = Random.Range(minRespawnDelayTime, maxRespawnDelayTime);
-    //    return delayRime;
-    //}
-
     void ResetEnemyCount(int enemyNumber) // 풀링 배열 index의 range가 오버되면 0으로 초기화
     {
         if (countArray[enemyNumber] > poolEnemyCount - 1) countArray[enemyNumber] = 0;
@@ -197,6 +201,7 @@ public class EnemySpawn : MonoBehaviour
     public void RespawnNextTower(int towerLevel, float delayTime)
     {
         currentTowerLevel++;
+        // 상점 뜨게 하고 텍스트 설정
         shop.OnShop(towerLevel, shop.towerShopWeighDictionary);
         shop.SetGuideText("적군의 성을 파괴하였습니다");
 

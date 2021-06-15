@@ -219,8 +219,11 @@ public class GameManager : MonoBehaviour
         enemySpawn.StageStart();
     }
 
+    public bool gameStart;
     public void Set_UI()
     {
+        gameStart = true;
+
         // 키기
         status_UI.SetActive(true);
         unitControll_UI.SetActive(true);

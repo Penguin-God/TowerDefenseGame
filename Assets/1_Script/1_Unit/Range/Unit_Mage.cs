@@ -117,7 +117,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         switch (unitColor)
         {
             case UnitColor.red:
-                RedMageSkill();
+                RedMageSkill(target);
                 break;
             case UnitColor.blue:
                 BlueMageSkill();
@@ -150,14 +150,16 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
             unitAudioSource.PlayOneShot(playClip, audioSound);
     }
 
-    void RedMageSkill() // 메테오 떨어뜨림
+    void RedMageSkill(Transform attackTarget) // 메테오 떨어뜨림
     {
-        Vector3 meteorPosition = transform.position + Vector3.up * 60;
+        Vector3 meteorPosition = transform.position + Vector3.up * 60; // 높이 설정
         GameObject instantSkillEffect = Instantiate(mageEffectObject, meteorPosition, Quaternion.identity);
-        instantSkillEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
+        MageSkill mageSkill = instantSkillEffect.GetComponent<MageSkill>();
+        mageSkill.target = attackTarget;
+        mageSkill.teamSoldier = GetComponent<TeamSoldier>();
+        //if (isUltimate) RedMageSkill(Return_RandomCurrentEnemy(1)[0]); 재귀함수 오지게 선언해서 튕김
         StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f));
     }
-
 
     void BlueMageSkill()
     {
@@ -224,10 +226,8 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
     {
         if (enemySpawn.currentEnemyList.Count <= 1) return;
 
-        int random = Random.Range(0, enemySpawn.currentEnemyList.Count);
-        GameObject instantPosionEffect = Instantiate(mageEffectObject, 
-                                        enemySpawn.currentEnemyList[random].transform.position, 
-                                        mageEffectObject.transform.rotation);
+        Transform target = Return_RandomCurrentEnemy(1)[0];
+        GameObject instantPosionEffect = Instantiate(mageEffectObject, target.position, mageEffectObject.transform.rotation);
         instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
     }
 
@@ -251,6 +251,17 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
                 instantEnergyBall.GetComponent<Rigidbody>().velocity = directions.GetChild(i).rotation.normalized * Vector3.forward * 50;
             }
         }
+    }
+
+    Transform[] Return_RandomCurrentEnemy(int enemyCount) // enemyCount만큼의 적 트랜스폼 배열 반환
+    {
+        Transform[] enemys = new Transform[enemyCount];
+        for(int i = 0; i < enemyCount; i++)
+        {
+            int random = Random.Range(0, enemySpawn.currentEnemyList.Count);
+            enemys[i] = enemySpawn.currentEnemyList[random].transform;
+        }
+        return enemys;
     }
 
     public RectTransform canvasRectTransform;

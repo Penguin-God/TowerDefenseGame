@@ -117,7 +117,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         switch (unitColor)
         {
             case UnitColor.red:
-                RedMageSkill(target);
+                RedMageSkill();
                 break;
             case UnitColor.blue:
                 BlueMageSkill();
@@ -150,16 +150,21 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
             unitAudioSource.PlayOneShot(playClip, audioSound);
     }
 
-    void RedMageSkill(Transform attackTarget) // 메테오 떨어뜨림
+    void RedMageSkill()
+    {
+        RedMageSkillAttack(target);
+        if (isUltimate) RedMageSkillAttack(Return_RandomCurrentEnemy(1)[0]);
+    }
+    void RedMageSkillAttack(Transform attackTarget) // 메테오 떨어뜨림
     {
         Vector3 meteorPosition = transform.position + Vector3.up * 60; // 높이 설정
         GameObject instantSkillEffect = Instantiate(mageEffectObject, meteorPosition, Quaternion.identity);
         MageSkill mageSkill = instantSkillEffect.GetComponent<MageSkill>();
         mageSkill.target = attackTarget;
         mageSkill.teamSoldier = GetComponent<TeamSoldier>();
-        //if (isUltimate) RedMageSkill(Return_RandomCurrentEnemy(1)[0]); 재귀함수 오지게 선언해서 튕김
         StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f));
     }
+
 
     void BlueMageSkill()
     {
@@ -188,9 +193,9 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         int originPlusMana = plusMana;
         plusMana = 0;
         int addDamageRate = (isUltimate) ? 8 : 5;
-        damage += addDamageRate * 5;
+        damage += addDamageRate * originDamage;
         yield return new WaitForSeconds(5f);
-        damage -= addDamageRate * 5;
+        damage -= addDamageRate * originDamage;
         plusMana = originPlusMana;
     }
 

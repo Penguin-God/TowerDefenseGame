@@ -161,6 +161,32 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    int FasterCount = 0;
+
+    public void ClickFasterButton() // 클릭 할때 마다 게임 속도 증가
+    {
+        if (FasterCount == 0)
+        {
+            Time.timeScale = 2f;
+            FasterCount += 1;
+        }
+        else if (FasterCount == 1)
+        {
+            Time.timeScale = 3f;
+            FasterCount += 1;
+        }
+        else if (FasterCount == 2)
+        {
+            Time.timeScale = 4f;
+            FasterCount += 1;
+        }
+        else if (FasterCount == 3)
+        {
+            Time.timeScale = 1f;
+            FasterCount = 0;
+        }
+    }
+
     public void Lose()
     {
         isGameover = true;

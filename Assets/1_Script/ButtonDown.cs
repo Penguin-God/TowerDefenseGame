@@ -84,12 +84,15 @@ public class ButtonDown : MonoBehaviour
 
     public GameObject storyModeEeterButton;
 
+    public GameObject SettingMenu;
+
 
     public void AllButtonDown()
     {
         XButtonAudio.Play();
         BackGround.SetActive(false);
         BlackSoldiersCombineButtons.SetActive(false);
+        SettingMenu.gameObject.SetActive(false);
 
         BlackTowerUi.SetActive(false);
         WhiteTowerUi.SetActive(false);

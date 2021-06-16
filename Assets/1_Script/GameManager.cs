@@ -162,30 +162,46 @@ public class GameManager : MonoBehaviour
     }
 
     int FasterCount = 0;
+    public Text FasterText;
 
     public void ClickFasterButton() // 클릭 할때 마다 게임 속도 증가
     {
+        unitManageButton.UnitManageAudio.Play();
         if (FasterCount == 0)
         {
+            FasterText.text = "X2";
             Time.timeScale = 2f;
             FasterCount += 1;
         }
         else if (FasterCount == 1)
         {
+            FasterText.text = "X3";
             Time.timeScale = 3f;
             FasterCount += 1;
         }
         else if (FasterCount == 2)
         {
-            Time.timeScale = 4f;
-            FasterCount += 1;
-        }
-        else if (FasterCount == 3)
-        {
+            FasterText.text = "X1";
             Time.timeScale = 1f;
             FasterCount = 0;
         }
+        //else if (FasterCount == 3)
+        //{
+        //    Time.timeScale = 1f;
+        //    FasterCount = 0;
+        //}
     }
+
+    public GameObject SettingMenu;
+    public UnitManageButton unitManageButton;
+
+    public void ClickSettingButton()
+    {
+        SettingMenu.SetActive(true);
+        unitManageButton.UnitManageAudio.Play();
+    }
+
+
 
     public void Lose()
     {
@@ -212,17 +228,20 @@ public class GameManager : MonoBehaviour
 
     public void Reset()
     {
+        unitManageButton.UnitManageAudio.Play();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public GameObject ResetOkButton;
     public void OnResetButton()
     {
+        unitManageButton.UnitManageAudio.Play();
         ResetOkButton.SetActive(true);
     }
 
     public void DownResetButton()
     {
+        unitManageButton.UnitManageAudio.Play();
         ResetOkButton.SetActive(false);
     }
 

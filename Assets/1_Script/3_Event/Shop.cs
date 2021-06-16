@@ -87,6 +87,13 @@ public class Shop : MonoBehaviour
         return EventSystem.current.currentSelectedGameObject; // 현재 클릭한 오브젝트
     }
 
+    void Set_GoddsBuy_GuideText(GameObject buyGoodsObject, GameObject buyPanelObject)
+    {
+        string goodsText = buyGoodsObject.GetComponent<GoodsData>().goodsInformation;
+        Text gudieText = buyPanelObject.GetComponentInChildren<Text>();
+        gudieText.text = goodsText + " 구입하시겠습니까?";
+    }
+
     // 고기 판매
     public GameObject buyFoodObject;
     public Button foodBuyButton;
@@ -94,21 +101,21 @@ public class Shop : MonoBehaviour
     {
         GameObject clickGoods = SetButton(foodBuyButton, buyFoodObject);
         foodBuyButton.onClick.AddListener(() => BuyFood(clickGoods));
+        Set_GoddsBuy_GuideText(clickGoods, buyFoodObject);
     }
     public void BuyFood(GameObject foodGoodsObject)
     {
-        GoodsData buyGoods = foodGoodsObject.GetComponent<GoodsData>();
-        if (GameManager.instance.Gold < buyGoods.price) 
+        GoodsData buyGoodsData = foodGoodsObject.GetComponent<GoodsData>();
+        if (GameManager.instance.Gold < buyGoodsData.price) 
         {
             CancleBuy();
             LacksGold();
             return;
         }
 
-        MinusGold(buyGoods.price);
+        MinusGold(buyGoodsData.price);
 
-        AddFood(buyGoods.buyFoodCount);
-
+        AddFood(buyGoodsData.buyFoodCount);
         ExitShop();
     }
 
@@ -117,23 +124,24 @@ public class Shop : MonoBehaviour
     public GameObject buyGoldObject;
     public Button goldBuyButton;
     public void Set_BuyGoldButton()
-    { 
+    {
         GameObject clickGoods = SetButton(goldBuyButton, buyGoldObject);
         goldBuyButton.onClick.AddListener(() => BuyGold(clickGoods));
+        Set_GoddsBuy_GuideText(clickGoods, buyGoldObject);
     }
     void BuyGold(GameObject goldGoodsObject)
     {
-        GoodsData buyGoods = goldGoodsObject.GetComponent<GoodsData>();
-        if (GameManager.instance.Food < buyGoods.price)
+        GoodsData buyGoodsData = goldGoodsObject.GetComponent<GoodsData>();
+        if (GameManager.instance.Food < buyGoodsData.price)
         {
             CancleBuy();
             LacksGold();
             return;
         }
 
-        MinusFood(buyGoods.price);
+        MinusFood(buyGoodsData.price);
 
-        AddGold(buyGoods.buyGoldAmount);
+        AddGold(buyGoodsData.buyGoldAmount);
 
         ExitShop();
     }
@@ -146,20 +154,21 @@ public class Shop : MonoBehaviour
     {
         GameObject clickGoods = SetButton(unitBuyButton, buyUnitObject);
         unitBuyButton.onClick.AddListener(() => BuyUnit(clickGoods));
+        Set_GoddsBuy_GuideText(clickGoods, buyUnitObject);
     }
-    void BuyUnit(GameObject foodGoodsObject)
+    void BuyUnit(GameObject unitGoodsObject)
     {
-        GoodsData buyGoods = foodGoodsObject.GetComponent<GoodsData>();
-        if (GameManager.instance.Gold < buyGoods.price) 
+        GoodsData buyGoodsData = unitGoodsObject.GetComponent<GoodsData>();
+        if (GameManager.instance.Gold < buyGoodsData.price) 
         {
             CancleBuy();
             LacksGold();
             return;
         }
 
-        MinusGold(buyGoods.price);
+        MinusGold(buyGoodsData.price);
 
-        createDefenser.CreateSoldier(buyGoods.unitColorNumber, buyGoods.unitClassNumber);
+        createDefenser.CreateSoldier(buyGoodsData.unitColorNumber, buyGoodsData.unitClassNumber);
 
         ExitShop();
     }
@@ -173,12 +182,13 @@ public class Shop : MonoBehaviour
     {
         GameObject clickGoods = SetButton(buyUnitReinforce_Button, buyUnitReinforce_Object);
         buyUnitReinforce_Button.onClick.AddListener(() => BuyUnitReinforce(clickGoods));
+        Set_GoddsBuy_GuideText(clickGoods, buyUnitReinforce_Object);
     }
 
     void BuyUnitReinforce(GameObject unitReinForce_GoodsObject)
     {
         GoodsData buyGoodsData = unitReinForce_GoodsObject.GetComponent<GoodsData>();
-        if (GameManager.instance.Gold < buyGoodsData.price) 
+        if (GameManager.instance.Food < buyGoodsData.price) 
         {
             CancleBuy();
             LacksGold();
@@ -203,18 +213,19 @@ public class Shop : MonoBehaviour
     {
         GameObject clickGoods = SetButton(buyEvent_Button, buyEvent_Object);
         buyEvent_Button.onClick.AddListener(() => BuyEvent(clickGoods));
+        Set_GoddsBuy_GuideText(clickGoods, buyEvent_Object);
     }
 
-    void BuyEvent(GameObject unitReinForce_GoodsObject)
+    void BuyEvent(GameObject eventGoodsObject)
     {
-        GoodsData buyGoodsData = unitReinForce_GoodsObject.GetComponent<GoodsData>();
-        if (GameManager.instance.Gold < buyGoodsData.price)
+        GoodsData buyGoodsData = eventGoodsObject.GetComponent<GoodsData>();
+        if (GameManager.instance.Food < buyGoodsData.price)
         {
             CancleBuy();
             LacksGold();
             return;
         }
-        MinusGold(buyGoodsData.price);
+        MinusFood(buyGoodsData.price);
 
         EventManager.instance.eventArray[buyGoodsData.eventNumber]();
 
@@ -229,12 +240,13 @@ public class Shop : MonoBehaviour
     {
         GameObject clickGoods = SetButton(buyMageUltimate_Button, buyMageUltimate_Object);
         buyMageUltimate_Button.onClick.AddListener(() => BuyMageUltimate(clickGoods));
+        Set_GoddsBuy_GuideText(clickGoods, buyMageUltimate_Object);
     }
 
-    void BuyMageUltimate(GameObject unitReinForce_GoodsObject)
+    void BuyMageUltimate(GameObject mageUltimate_GoodsObject)
     {
-        GoodsData buyGoodsData = unitReinForce_GoodsObject.GetComponent<GoodsData>();
-        if (GameManager.instance.Gold < buyGoodsData.price)
+        GoodsData buyGoodsData = mageUltimate_GoodsObject.GetComponent<GoodsData>();
+        if (GameManager.instance.Food < buyGoodsData.price)
         {
             CancleBuy();
             LacksGold();
@@ -312,6 +324,7 @@ public class Shop : MonoBehaviour
         guideText.text = message;
     }
 
+    public GameObject ShopEixtPanel;
     public void ExitShop()
     {
         gameObject.SetActive(false);
@@ -327,6 +340,7 @@ public class Shop : MonoBehaviour
         current_FoodGoldGoods = null;
 
         CancleBuy();
+        ShopEixtPanel.SetActive(false);
         Time.timeScale = 1;
     }
 
@@ -458,5 +472,8 @@ public class Shop : MonoBehaviour
     //    OnEnvetShop();
     //}
 
-
+    private void OnEnable() // 테스트용
+    {
+        OnShop(4, bossShopWeighDictionary);
+    }
 }

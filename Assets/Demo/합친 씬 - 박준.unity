@@ -1887,6 +1887,84 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 48853307}
   m_CullTransparentMesh: 0
+--- !u!1 &48996155
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 48996156}
+  - component: {fileID: 48996158}
+  - component: {fileID: 48996157}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &48996156
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48996155}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1501033347}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &48996157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48996155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: e27d66ec4f20c0549be45df0296079a3, type: 3}
+    m_FontSize: 30
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "\uB124"
+--- !u!222 &48996158
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48996155}
+  m_CullTransparentMesh: 0
 --- !u!1 &56587504
 GameObject:
   m_ObjectHideFlags: 0
@@ -2016,7 +2094,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2505,6 +2583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 3
+  goodsInformation: "\uB178\uB791 \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -3251,7 +3330,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -10}
-  m_SizeDelta: {x: 300, y: 30}
+  m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &90853746
 MonoBehaviour:
@@ -3266,7 +3345,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -3403,7 +3482,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -10}
-  m_SizeDelta: {x: 300, y: 30}
+  m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &93760485
 MonoBehaviour:
@@ -3418,7 +3497,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -4243,7 +4322,7 @@ RectTransform:
   - {fileID: 1616492002}
   - {fileID: 1644829361}
   m_Father: {fileID: 985309882}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
@@ -5549,6 +5628,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 4
+  goodsInformation: "40 \uACE8\uB4DC\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -7192,7 +7272,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -10}
-  m_SizeDelta: {x: 300, y: 30}
+  m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &204159086
 MonoBehaviour:
@@ -7207,7 +7287,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -7437,7 +7517,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -9366,6 +9446,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
+  goodsInformation: "\uB178\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -9502,6 +9583,216 @@ RectTransform:
   m_AnchoredPosition: {x: -0.000030517578, y: 0}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!1 &269437239
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 269437240}
+  - component: {fileID: 269437242}
+  - component: {fileID: 269437241}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &269437240
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269437239}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 487820825}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &269437241
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269437239}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: e27d66ec4f20c0549be45df0296079a3, type: 3}
+    m_FontSize: 30
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "\uC544\uB2C8\uC694"
+--- !u!222 &269437242
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269437239}
+  m_CullTransparentMesh: 0
+--- !u!1 &270236320
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 270236321}
+  - component: {fileID: 270236324}
+  - component: {fileID: 270236323}
+  - component: {fileID: 270236322}
+  m_Layer: 5
+  m_Name: Exit Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &270236321
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270236320}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1501033347}
+  - {fileID: 487820825}
+  - {fileID: 1718569005}
+  m_Father: {fileID: 985309882}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 500, y: 200}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &270236322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270236320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 270236323}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 985309883}
+        m_MethodName: ExitShop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &270236323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270236320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 3288e8000aed14a0798358eaadea3e53, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &270236324
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 270236320}
+  m_CullTransparentMesh: 0
 --- !u!1 &272613405
 GameObject:
   m_ObjectHideFlags: 0
@@ -9596,6 +9887,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 3
+  goodsInformation: "\uCD08\uB85D \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -13013,6 +13305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 40
+  goodsInformation: "\uCD08\uB85D \uCC3D\uBCD1(1)\uC744"
   unitColorNumber: 3
   unitClassNumber: 2
   buyFoodCount: 0
@@ -14317,6 +14610,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 7
+  goodsInformation: "\uACE0\uAE30 1\uAC1C\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 1
@@ -14456,7 +14750,7 @@ RectTransform:
   - {fileID: 1585862177}
   - {fileID: 1203151009}
   m_Father: {fileID: 985309882}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
@@ -16976,6 +17270,136 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 485265653}
   m_CullTransparentMesh: 0
+--- !u!1 &487820824
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 487820825}
+  - component: {fileID: 487820828}
+  - component: {fileID: 487820827}
+  - component: {fileID: 487820826}
+  m_Layer: 5
+  m_Name: No Button
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &487820825
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487820824}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 269437240}
+  m_Father: {fileID: 270236321}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 100, y: -20}
+  m_SizeDelta: {x: 130, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &487820826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487820824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 487820827}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 270236320}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &487820827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487820824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 431680e4c1d544238a4745d795cc0ac9, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &487820828
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 487820824}
+  m_CullTransparentMesh: 0
 --- !u!1 &490970714
 GameObject:
   m_ObjectHideFlags: 0
@@ -17963,7 +18387,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -10}
-  m_SizeDelta: {x: 300, y: 30}
+  m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &515431045
 MonoBehaviour:
@@ -17978,7 +18402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -19269,6 +19693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
+  goodsInformation: "\uBE68\uAC15 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -19885,7 +20310,7 @@ RectTransform:
   - {fileID: 1540510}
   - {fileID: 523860746}
   m_Father: {fileID: 985309882}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -20227,7 +20652,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -10}
-  m_SizeDelta: {x: 300, y: 30}
+  m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &593865439
 MonoBehaviour:
@@ -20242,7 +20667,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -20402,7 +20827,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &595268641
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21297,7 +21722,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -21612,6 +22037,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 25
+  goodsInformation: "\uD30C\uB791 \uCC3D\uBCD1(1)\uC744"
   unitColorNumber: 1
   unitClassNumber: 2
   buyFoodCount: 0
@@ -27860,6 +28286,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 40
+  goodsInformation: "\uBCF4\uB77C \uCC3D\uBCD1(1)\uC744"
   unitColorNumber: 5
   unitClassNumber: 2
   buyFoodCount: 0
@@ -29374,6 +29801,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 20
+  goodsInformation: "\uACE0\uAE30 3\uAC1C\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 3
@@ -30332,6 +30760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 1
+  goodsInformation: "10 \uACE8\uB4DC\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -30923,6 +31352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 3
+  goodsInformation: "\uBE68\uAC15 \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -32199,6 +32629,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 12
+  goodsInformation: "\uB178\uB791 \uAD81\uC218(1)\uB97C"
   unitColorNumber: 2
   unitClassNumber: 1
   buyFoodCount: 0
@@ -34116,6 +34547,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
+  goodsInformation: "\uD30C\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -35303,11 +35735,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 86062856}
-  - {fileID: 1975620000}
   - {fileID: 425323630}
   - {fileID: 1921067932}
   - {fileID: 111138395}
   - {fileID: 578144136}
+  - {fileID: 1975620000}
+  - {fileID: 270236321}
   m_Father: {fileID: 1427952061}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -35349,6 +35782,7 @@ MonoBehaviour:
   buyMageUltimate_Object: {fileID: 1540509}
   buyMageUltimate_Button: {fileID: 471119480}
   showShop: 0
+  ShopEixtPanel: {fileID: 270236320}
   lacksGuideText: {fileID: 523860747}
 --- !u!114 &985309884
 MonoBehaviour:
@@ -36059,7 +36493,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -36375,6 +36809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 16
+  goodsInformation: "\uBCF4\uB77C \uAD81\uC218(1)\uB97C"
   unitColorNumber: 5
   unitClassNumber: 1
   buyFoodCount: 0
@@ -36793,6 +37228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 120
+  goodsInformation: "\uBCF4\uB77C \uBC95\uC0AC(1)\uB97C"
   unitColorNumber: 5
   unitClassNumber: 3
   buyFoodCount: 0
@@ -38188,7 +38624,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: e27d66ec4f20c0549be45df0296079a3, type: 3}
-    m_FontSize: 17
+    m_FontSize: 27
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -38534,6 +38970,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 80
+  goodsInformation: "\uB178\uB791 \uBC95\uC0AC(1)\uB97C"
   unitColorNumber: 2
   unitClassNumber: 3
   buyFoodCount: 0
@@ -40760,6 +41197,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 16
+  goodsInformation: "\uCD08\uB85D \uAD81\uC218(1)\uB97C"
   unitColorNumber: 3
   unitClassNumber: 1
   buyFoodCount: 0
@@ -41209,7 +41647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -42792,6 +43230,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 25
+  goodsInformation: "\uB178\uB791 \uCC3D\uBCD1(1)\uC744"
   unitColorNumber: 2
   unitClassNumber: 2
   buyFoodCount: 0
@@ -42926,7 +43365,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 10, y: -10}
-  m_SizeDelta: {x: 300, y: 30}
+  m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1202582719
 MonoBehaviour:
@@ -42941,7 +43380,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -42960,7 +43399,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC0C1\uD488\uC744 \uAD6C\uC785\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
+  m_Text: "\uC0C1\uD488\uC744 \uAD6C\uB9E4\uD558\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?"
 --- !u!222 &1202582720
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -43295,6 +43734,7 @@ MonoBehaviour:
   YellowPlusOrange: {fileID: 1192238557}
   BlackSoldiersCombineButtons: {fileID: 272613405}
   storyModeEeterButton: {fileID: 0}
+  SettingMenu: {fileID: 0}
 --- !u!1 &1218369153
 GameObject:
   m_ObjectHideFlags: 0
@@ -43677,6 +44117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 80
+  goodsInformation: "\uD30C\uB791 \uBC95\uC0AC(1)\uB97C"
   unitColorNumber: 1
   unitClassNumber: 3
   buyFoodCount: 0
@@ -45973,6 +46414,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 60
+  goodsInformation: "\uACE0\uAE30 10\uAC1C\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 10
@@ -47842,6 +48284,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 7
+  goodsInformation: "70 \uACE8\uB4DC\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -48180,7 +48623,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -48886,6 +49329,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 12
+  goodsInformation: "\uD30C\uB791 \uAD81\uC218(1)\uB97C"
   unitColorNumber: 1
   unitClassNumber: 1
   buyFoodCount: 0
@@ -49558,7 +50002,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -50233,6 +50677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 8
+  goodsInformation: "\uC8FC\uD669 \uAE30\uC0AC(1)\uB97C"
   unitColorNumber: 4
   unitClassNumber: 0
   buyFoodCount: 0
@@ -52166,6 +52611,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 80
+  goodsInformation: "\uBE68\uAC04 \uBC95\uC0AC(1)\uB97C"
   unitColorNumber: 0
   unitClassNumber: 3
   buyFoodCount: 0
@@ -52531,6 +52977,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 3
+  goodsInformation: "\uC8FC\uD669 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -52771,6 +53218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 8
+  goodsInformation: "\uCD08\uB85D \uAE30\uC0AC(1)\uB97C"
   unitColorNumber: 3
   unitClassNumber: 0
   buyFoodCount: 0
@@ -54442,6 +54890,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 5
+  goodsInformation: "\uBCF4\uB77C \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -55279,6 +55728,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 5
+  goodsInformation: "\uAC80\uC740 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -56345,6 +56795,136 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1499656738}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1501033346
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1501033347}
+  - component: {fileID: 1501033350}
+  - component: {fileID: 1501033349}
+  - component: {fileID: 1501033348}
+  m_Layer: 5
+  m_Name: Exit Yes Button
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1501033347
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501033346}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 48996156}
+  m_Father: {fileID: 270236321}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -100, y: -20}
+  m_SizeDelta: {x: 130, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1501033348
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501033346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1501033349}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 985309883}
+        m_MethodName: ExitShop
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &1501033349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501033346}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 0f349ec438c0c484abcbd6baa29126b2, type: 3}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1501033350
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501033346}
+  m_CullTransparentMesh: 0
 --- !u!1001 &1501170542
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -56529,7 +57109,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -57947,6 +58527,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 5
+  goodsInformation: "\uC8FC\uD669 \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -58107,6 +58688,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 3
+  goodsInformation: "\uC801 10\uB9C8\uB9AC \uCC98\uCE58\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -58261,6 +58843,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 6
+  goodsInformation: "\uD30C\uB791 \uAE30\uC0AC(1)\uB97C"
   unitColorNumber: 1
   unitClassNumber: 0
   buyFoodCount: 0
@@ -60656,6 +61239,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 6
+  goodsInformation: "\uBE68\uAC15 \uAE30\uC0AC(1)\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -61015,6 +61599,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 16
+  goodsInformation: "\uC8FC\uD669 \uAD81\uC218(1)\uB97C"
   unitColorNumber: 4
   unitClassNumber: 1
   buyFoodCount: 0
@@ -61542,6 +62127,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 5
+  goodsInformation: "\uCD08\uB85D \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -62856,6 +63442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 120
+  goodsInformation: "\uCD08\uB85D \uBC95\uC0AC(1)\uB97C"
   unitColorNumber: 3
   unitClassNumber: 3
   buyFoodCount: 0
@@ -63237,6 +63824,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 3
+  goodsInformation: "\uBCF4\uB77C \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -64433,6 +65021,9 @@ MonoBehaviour:
   playerEnterStoryMode: 0
   enemyCount: 0
   HitEnemy: {fileID: 0}
+  FasterText: {fileID: 0}
+  SettingMenu: {fileID: 0}
+  unitManageButton: {fileID: 0}
   ResetOkButton: {fileID: 1119279349}
   status_UI: {fileID: 2012507223}
   unitControll_UI: {fileID: 1330758248}
@@ -65207,6 +65798,85 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1003771138}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1718569004
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1718569005}
+  - component: {fileID: 1718569007}
+  - component: {fileID: 1718569006}
+  m_Layer: 5
+  m_Name: Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1718569005
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718569004}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 270236321}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 65}
+  m_SizeDelta: {x: 0, y: -130}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1718569006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718569004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 12800000, guid: e27d66ec4f20c0549be45df0296079a3, type: 3}
+    m_FontSize: 25
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 40
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: "\uC0C1\uC810\uC5D0\uC11C \uB098\uAC00\uC2DC\uACA0\uC2B5\uB2C8\uAE4C?\n\uD604\uC7AC
+    \uC0C1\uC810\uC73C\uB85C\uB294 \uB2E4\uC2DC \uB3CC\uC544\uC62C \uC218 \uC5C6\uC2B5\uB2C8\uB2E4"
+--- !u!222 &1718569007
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718569004}
+  m_CullTransparentMesh: 0
 --- !u!1 &1724215272
 GameObject:
   m_ObjectHideFlags: 0
@@ -66233,7 +66903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -67496,6 +68166,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 6
+  goodsInformation: "\uB178\uB791 \uAE30\uC0AC(1)\uB97C"
   unitColorNumber: 2
   unitClassNumber: 0
   buyFoodCount: 0
@@ -68431,6 +69102,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 120
+  goodsInformation: "\uC8FC\uD669 \uBC95\uC0AC(1)\uB97C"
   unitColorNumber: 4
   unitClassNumber: 3
   buyFoodCount: 0
@@ -69392,6 +70064,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 40
+  goodsInformation: "\uC8FC\uD669 \uCC3D\uBCD1(1)\uC744"
   unitColorNumber: 4
   unitClassNumber: 2
   buyFoodCount: 0
@@ -70350,6 +71023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 12
+  goodsInformation: "\uBE68\uAC04 \uAD81\uC218(1)\uB97C"
   unitColorNumber: 0
   unitClassNumber: 1
   buyFoodCount: 0
@@ -71981,7 +72655,7 @@ RectTransform:
   - {fileID: 131906148}
   - {fileID: 497087989}
   m_Father: {fileID: 985309882}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -72235,6 +72909,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 8
+  goodsInformation: "\uBCF4\uB77C \uAE30\uC0AC(1\uB97C"
   unitColorNumber: 5
   unitClassNumber: 0
   buyFoodCount: 0
@@ -72567,7 +73242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -73256,7 +73931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -73607,12 +74282,12 @@ RectTransform:
   m_Children:
   - {fileID: 1073506035}
   m_Father: {fileID: 985309882}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -10, y: -5}
-  m_SizeDelta: {x: 30, y: 30}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1975620001
 MonoBehaviour:
@@ -73657,16 +74332,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 985309883}
-        m_MethodName: ExitShop
-        m_Mode: 1
+      - m_Target: {fileID: 270236320}
+        m_MethodName: SetActive
+        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
-          m_BoolArgument: 0
+          m_BoolArgument: 1
         m_CallState: 2
 --- !u!114 &1975620002
 MonoBehaviour:
@@ -73760,6 +74435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 3
+  goodsInformation: "\uD30C\uB791 \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -74214,6 +74890,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 30
+  goodsInformation: "\uACE0\uAE30 5\uAC1C\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 5
@@ -77065,6 +77742,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 25
+  goodsInformation: "\uBE68\uAC04 \uCC3D\uBCD1(1)\uC744"
   unitColorNumber: 0
   unitClassNumber: 2
   buyFoodCount: 0
@@ -78881,7 +79559,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.09803922, g: 0.09803922, b: 0.09803922, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -79464,6 +80142,7 @@ MonoBehaviour:
   YellowPlusOrange: {fileID: 1192238557}
   BlackSoldiersCombineButtons: {fileID: 272613405}
   storyModeEeterButton: {fileID: 0}
+  SettingMenu: {fileID: 0}
 --- !u!114 &2134371904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -79949,6 +80628,7 @@ MonoBehaviour:
   buyMageUltimate_Object: {fileID: 0}
   buyMageUltimate_Button: {fileID: 0}
   showShop: 0
+  ShopEixtPanel: {fileID: 0}
   lacksGuideText: {fileID: 0}
 --- !u!4 &4092120928962032 stripped
 Transform:

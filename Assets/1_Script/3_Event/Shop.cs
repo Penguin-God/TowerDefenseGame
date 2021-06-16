@@ -185,7 +185,7 @@ public class Shop : MonoBehaviour
             return;
         }
         
-        MinusGold(buyGoodsData.price);
+        MinusFood(buyGoodsData.price);
 
         int eventNumber = buyGoodsData.reinforceEventNumber;
         int eventUnitNumber = buyGoodsData.eventUnitNumber;
@@ -240,7 +240,7 @@ public class Shop : MonoBehaviour
             LacksGold();
             return;
         }
-        MinusGold(buyGoodsData.price);
+        MinusFood(buyGoodsData.price);
 
         GameObject mage = UnitManager.instance.unitArrays[buyGoodsData.ultimateMageNumber].unitArray[3];
         mage.GetComponentInChildren<Unit_Mage>().isUltimate = true;

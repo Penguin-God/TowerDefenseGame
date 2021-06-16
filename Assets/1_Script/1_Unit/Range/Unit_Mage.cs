@@ -242,6 +242,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         Transform skillTransform = transform.GetChild(chiledNumber); // 자식 가져옴
 
         MultiDirectionAttack(skillTransform);
+        StartCoroutine(Play_SkillClip(mageSkillCilp, 0.5f, 0));
     }
 
     void MultiDirectionAttack(Transform directions)

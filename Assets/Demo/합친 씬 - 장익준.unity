@@ -33557,7 +33557,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &882118228
 RectTransform:
   m_ObjectHideFlags: 0
@@ -33593,7 +33593,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -69632,6 +69632,7 @@ MonoBehaviour:
   moveFiledButton: {fileID: 717411400}
   difficult_UI: {fileID: 595268640}
   event_UI: {fileID: 1427952060}
+  setting_UI: {fileID: 882118227}
   gameStart: 0
 --- !u!4 &1697914940
 Transform:
@@ -70370,7 +70371,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

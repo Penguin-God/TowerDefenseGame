@@ -115,6 +115,13 @@ public class Shop : MonoBehaviour
         gudieText.text = goodsText + " 구입하시겠습니까?";
     }
 
+    void GoodsPurchase(GameObject goodsObject)
+    {
+        shopAudioManagerSource.PlayOneShot(itemPurchaseClip);
+        Destroy(goodsObject, 0.5f);
+        ExitShop();
+    }
+
     // 고기 판매
     public GameObject buyFoodObject;
     public Button foodBuyButton;
@@ -138,9 +145,8 @@ public class Shop : MonoBehaviour
         MinusGold(buyGoodsData.price);
 
         AddFood(buyGoodsData.buyFoodCount);
-        shopAudioManagerSource.PlayOneShot(itemPurchaseClip);
 
-        ExitShop();
+        GoodsPurchase(foodGoodsObject);
     }
 
 
@@ -167,9 +173,8 @@ public class Shop : MonoBehaviour
         MinusFood(buyGoodsData.price);
 
         AddGold(buyGoodsData.buyGoldAmount);
-        shopAudioManagerSource.PlayOneShot(itemPurchaseClip);
 
-        ExitShop();
+        GoodsPurchase(goldGoodsObject);
     }
 
 
@@ -196,9 +201,8 @@ public class Shop : MonoBehaviour
         MinusGold(buyGoodsData.price);
 
         createDefenser.CreateSoldier(buyGoodsData.unitColorNumber, buyGoodsData.unitClassNumber);
-        shopAudioManagerSource.PlayOneShot(itemPurchaseClip);
 
-        ExitShop();
+        GoodsPurchase(unitGoodsObject);
     }
 
 
@@ -229,9 +233,8 @@ public class Shop : MonoBehaviour
         int eventNumber = buyGoodsData.reinforceEventNumber;
         int eventUnitNumber = buyGoodsData.eventUnitNumber;
         EventManager.instance.Action_SelectReinForceEvent(eventNumber, eventUnitNumber);
-        shopAudioManagerSource.PlayOneShot(itemPurchaseClip);
 
-        ExitShop();
+        GoodsPurchase(unitReinForce_GoodsObject);
     }
 
 
@@ -259,9 +262,8 @@ public class Shop : MonoBehaviour
         MinusFood(buyGoodsData.price);
 
         EventManager.instance.eventArray[buyGoodsData.eventNumber]();
-        shopAudioManagerSource.PlayOneShot(itemPurchaseClip);
 
-        ExitShop();
+        GoodsPurchase(eventGoodsObject);
     }
 
     // 법사 스킬강화 판매
@@ -290,9 +292,8 @@ public class Shop : MonoBehaviour
         GameObject mage = UnitManager.instance.unitArrays[buyGoodsData.ultimateMageNumber].unitArray[3];
         mage.GetComponentInChildren<Unit_Mage>().isUltimate = true;
         SetCurrentMageUltimate(buyGoodsData.ultimateMageNumber);
-        shopAudioManagerSource.PlayOneShot(itemPurchaseClip);
 
-        ExitShop();
+        GoodsPurchase(mageUltimate_GoodsObject);
     }
 
     void SetCurrentMageUltimate(int mageColorNumber)

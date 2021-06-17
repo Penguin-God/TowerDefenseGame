@@ -69617,19 +69617,18 @@ MonoBehaviour:
   isClear: 0
   timer: 0
   waitingTime: 0
-  starts: 0
   enemy: {fileID: 683437525}
   playerEnterStoryMode: 0
   enemyCount: 0
   HitEnemy: {fileID: 0}
   FasterText: {fileID: 1541351525}
+  gameTimeSpeed: 1
   SettingMenu: {fileID: 1713326794}
   unitManageButton: {fileID: 1726173157}
   ResetOkButton: {fileID: 1119279349}
   status_UI: {fileID: 2012507223}
   unitControll_UI: {fileID: 1330758248}
   buyUnit_UI: {fileID: 2137604829}
-  reStartButton: {fileID: 1979758046}
   moveFiledButton: {fileID: 717411400}
   difficult_UI: {fileID: 595268640}
   event_UI: {fileID: 1427952060}

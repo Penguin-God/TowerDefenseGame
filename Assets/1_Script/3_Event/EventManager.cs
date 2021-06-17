@@ -42,7 +42,7 @@ public class EventManager : MonoBehaviour
         eventTextDictionary.Add(Up_UnitDamage, "대미지 강화");
         eventTextDictionary.Add(Up_UnitBossDamage, "보스 대미지 강화");
         eventTextDictionary.Add(Up_UnitSkillPercent, "스킬 사용 빈도 증가");
-        eventTextDictionary.Add(Reinforce_UnitPassive, "패시브 강화");
+        eventTextDictionary.Add(Reinforce_UnitPassive, "유닛스킬 강화");
     }
 
     public void RandomUnitEvenet() // 실제 유닛 이벤트 작동

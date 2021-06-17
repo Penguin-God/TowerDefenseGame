@@ -89,11 +89,23 @@ public class Shop : MonoBehaviour
         UIManager.instance.UpdateFoodText(GameManager.instance.Food);
     }
 
+    GameObject currentBuyPanel;
     GameObject SetButton(Button clickButton, GameObject buyGoodsObject)
     {
+        // 판매창 겹치기 방지
+        if (currentBuyPanel != null && currentBuyPanel != buyGoodsObject) currentBuyPanel.SetActive(false);
+
         buyGoodsObject.SetActive(true);
+        currentBuyPanel = buyGoodsObject;
+
         clickButton.onClick.RemoveAllListeners();
         return EventSystem.current.currentSelectedGameObject; // 현재 클릭한 오브젝트
+    }
+    public void SetCurrentBuyPanel(GameObject buyPanel) // 판매창 겹치기 방지
+    {
+        if (currentBuyPanel == null || currentBuyPanel == buyPanel) return;
+
+        currentBuyPanel.SetActive(false);
     }
 
     void Set_GoddsBuy_GuideText(GameObject buyGoodsObject, GameObject buyPanelObject)
@@ -326,10 +338,6 @@ public class Shop : MonoBehaviour
             mage.isUltimate = true;
         }
     }
-    //private void OnEnable()
-    //{
-    //    OnShop(3, bossShopWeighDictionary);
-    //}
 
     public bool showShop;
 
@@ -363,24 +371,28 @@ public class Shop : MonoBehaviour
 
         CancleBuy();
         ShopEixtPanel.SetActive(false);
-        Time.timeScale = 1;
+        Time.timeScale = GameManager.instance.gameTimeSpeed;
     }
 
     public void CancleBuy()
     {
-        buyGoldObject.SetActive(false);
-        buyUnitObject.SetActive(false);
-        buyFoodObject.SetActive(false);
-        buyUnitReinforce_Object.SetActive(false);
-        buyEvent_Object.SetActive(false);
-        buyMageUltimate_Object.SetActive(false);
+        currentBuyPanel.SetActive(false);
+        currentBuyPanel.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
+        currentBuyPanel = null;
 
-        unitBuyButton.onClick.RemoveAllListeners();
-        goldBuyButton.onClick.RemoveAllListeners();
-        foodBuyButton.onClick.RemoveAllListeners();
-        buyUnitReinforce_Button.onClick.RemoveAllListeners();
-        buyEvent_Button.onClick.RemoveAllListeners();
-        buyMageUltimate_Button.onClick.RemoveAllListeners();
+        //buyGoldObject.SetActive(false);
+        //buyUnitObject.SetActive(false);
+        //buyFoodObject.SetActive(false);
+        //buyUnitReinforce_Object.SetActive(false);
+        //buyEvent_Object.SetActive(false);
+        //buyMageUltimate_Object.SetActive(false);
+
+        //unitBuyButton.onClick.RemoveAllListeners();
+        //goldBuyButton.onClick.RemoveAllListeners();
+        //foodBuyButton.onClick.RemoveAllListeners();
+        //buyUnitReinforce_Button.onClick.RemoveAllListeners();
+        //buyEvent_Button.onClick.RemoveAllListeners();
+        //buyMageUltimate_Button.onClick.RemoveAllListeners();
     }
 
     public Text lacksGuideText;

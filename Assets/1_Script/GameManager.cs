@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    private int Stage;
+    //private int Stage;
     public int Gold;
     public int Food;
     public EnemySpawn enemySpawn;
@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
     public bool isClear;
     public float timer;
     public int waitingTime;
-    public Starts starts;
+    //public Starts starts;
     public Enemy enemy;
 
     public bool playerEnterStoryMode; // 박준 코드
@@ -41,13 +41,13 @@ public class GameManager : MonoBehaviour
 
     private static GameManager m_instance;
 
-    public enum Starts
-    {
-        Easy,
-        Normal,
-        Hard,
-        Impossiable,
-    }
+    //public enum Starts
+    //{
+    //    Easy,
+    //    Normal,
+    //    Hard,
+    //    Impossiable,
+    //}
 
     private void Awake()
     {
@@ -163,6 +163,7 @@ public class GameManager : MonoBehaviour
 
     int FasterCount = 0;
     public Text FasterText;
+    public float gameTimeSpeed;
 
     public void ClickFasterButton() // 클릭 할때 마다 게임 속도 증가
     {
@@ -171,18 +172,21 @@ public class GameManager : MonoBehaviour
         {
             FasterText.text = "X2";
             Time.timeScale = 2f;
+            gameTimeSpeed = 2f;
             FasterCount += 1;
         }
         else if (FasterCount == 1)
         {
             FasterText.text = "X3";
             Time.timeScale = 3f;
+            gameTimeSpeed = 3f;
             FasterCount += 1;
         }
         else if (FasterCount == 2)
         {
             FasterText.text = "X1";
             Time.timeScale = 1f;
+            gameTimeSpeed = 1f;
             FasterCount = 0;
         }
         //else if (FasterCount == 3)
@@ -246,11 +250,10 @@ public class GameManager : MonoBehaviour
     }
 
     [Header("UI GameObject")]
-
     public GameObject status_UI;
     public GameObject unitControll_UI;
     public GameObject buyUnit_UI;
-    public GameObject reStartButton;
+    //public GameObject reStartButton;
     public GameObject moveFiledButton;
     public GameObject difficult_UI;
     public GameObject event_UI;
@@ -274,7 +277,7 @@ public class GameManager : MonoBehaviour
         status_UI.SetActive(true);
         unitControll_UI.SetActive(true);
         buyUnit_UI.SetActive(true);
-        reStartButton.SetActive(true);
+        //reStartButton.SetActive(true);
         moveFiledButton.SetActive(true);
         event_UI.SetActive(true);
         setting_UI.SetActive(true);
@@ -287,49 +290,6 @@ public class GameManager : MonoBehaviour
     {
         enemySpawn.enemyHpWeight = enemyHpWeight;
     }
-
-    //public void ClickUengaeButton()
-    //{
-    //    enemySpawn.enemyHpWeight = 5;
-    //    NaniDo.SetActive(false);
-
-    //}
-    //public void ClickEasyButton()
-    //{
-    //    enemySpawn.enemyHpWeight = 15;
-    //    NaniDo.SetActive(false);
-    
-    //}
-
-    //public void ClickNormalButton()
-    //{
-    //    enemySpawn.enemyHpWeight = 25;
-    //    NaniDo.SetActive(false);
-
-    //}
-
-    //public void ClickHardButton()
-    //{
-    //    enemySpawn.enemyHpWeight = 35;
-    //    NaniDo.SetActive(false);
-
-    //}
-
-    //public void ClickImpassiableButton()
-    //{
-    //    enemySpawn.enemyHpWeight = 45;
-    //    NaniDo.SetActive(false);
-
-    //}
-
-
-
-
-
-
-
-
-
 
 
 

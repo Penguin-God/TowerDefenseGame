@@ -81,7 +81,7 @@ public class GameManager : MonoBehaviour
             //enemySpawn.enemyHpWeight = 45;
         //}
         isGameover = false;
-        Gold = 25;
+        Gold = 15;
         Food = 1;
         UIManager.instance.UpdateGoldText(Gold);
         UIManager.instance.UpdateFoodText(Food);
@@ -122,7 +122,7 @@ public class GameManager : MonoBehaviour
 
                 if ( nomalenemy != null)
                 {
-                    nomalenemy.currentHp -= 10;
+                    nomalenemy.currentHp -= 10 * (Food+1);
                     nomalenemy.hpSlider.value = nomalenemy.currentHp;
                     if (nomalenemy.currentHp <= 0)
                     {

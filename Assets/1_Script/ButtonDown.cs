@@ -92,10 +92,11 @@ public class ButtonDown : MonoBehaviour
         XButtonAudio.Play();
         BackGround.SetActive(false);
         BlackSoldiersCombineButtons.SetActive(false);
-        SettingMenu.gameObject.SetActive(false);
+        
 
         BlackTowerUi.SetActive(false);
         WhiteTowerUi.SetActive(false);
+        SettingMenu.gameObject.SetActive(false);
 
         UnitManageBUtton.SetActive(true);
 

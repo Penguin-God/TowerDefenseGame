@@ -24,6 +24,13 @@ public class Shop : MonoBehaviour
     private GameObject current_FoodGoldGoods = null;
     public CreateDefenser createDefenser;
 
+    private AudioSource shopAudioSource;
+    public AudioClip shopClickClip;
+    public AudioClip goldLackSound;
+    [Tooltip("아이템 구매 시 상점이 꺼지면서 소리가 안들리는 버그 때문에 추가한 오디오 소스")]
+    public AudioSource shopAudioManagerSource;
+    public AudioClip itemPurchaseClip;
+
     private void Awake() 
     {
         // 배열 선언
@@ -50,6 +57,8 @@ public class Shop : MonoBehaviour
         towerShopWeighDictionary = new Dictionary<int, int[]>();
         Set_BossShopWeigh();
         Set_TowerShopWeigh();
+
+        shopAudioSource = GetComponent<AudioSource>();
 
         // 인스턴스 안되고 실행되는 버그 때문에 게임 시작시 Awake 실행 후 원위치
         gameObject.SetActive(false);
@@ -102,6 +111,7 @@ public class Shop : MonoBehaviour
         GameObject clickGoods = SetButton(foodBuyButton, buyFoodObject);
         foodBuyButton.onClick.AddListener(() => BuyFood(clickGoods));
         Set_GoddsBuy_GuideText(clickGoods, buyFoodObject);
+        shopAudioSource.PlayOneShot(shopClickClip);
     }
     public void BuyFood(GameObject foodGoodsObject)
     {
@@ -116,6 +126,8 @@ public class Shop : MonoBehaviour
         MinusGold(buyGoodsData.price);
 
         AddFood(buyGoodsData.buyFoodCount);
+        shopAudioManagerSource.PlayOneShot(itemPurchaseClip);
+
         ExitShop();
     }
 
@@ -128,6 +140,7 @@ public class Shop : MonoBehaviour
         GameObject clickGoods = SetButton(goldBuyButton, buyGoldObject);
         goldBuyButton.onClick.AddListener(() => BuyGold(clickGoods));
         Set_GoddsBuy_GuideText(clickGoods, buyGoldObject);
+        shopAudioSource.PlayOneShot(shopClickClip);
     }
     void BuyGold(GameObject goldGoodsObject)
     {
@@ -142,6 +155,7 @@ public class Shop : MonoBehaviour
         MinusFood(buyGoodsData.price);
 
         AddGold(buyGoodsData.buyGoldAmount);
+        shopAudioManagerSource.PlayOneShot(itemPurchaseClip);
 
         ExitShop();
     }
@@ -155,6 +169,7 @@ public class Shop : MonoBehaviour
         GameObject clickGoods = SetButton(unitBuyButton, buyUnitObject);
         unitBuyButton.onClick.AddListener(() => BuyUnit(clickGoods));
         Set_GoddsBuy_GuideText(clickGoods, buyUnitObject);
+        shopAudioSource.PlayOneShot(shopClickClip);
     }
     void BuyUnit(GameObject unitGoodsObject)
     {
@@ -169,6 +184,7 @@ public class Shop : MonoBehaviour
         MinusGold(buyGoodsData.price);
 
         createDefenser.CreateSoldier(buyGoodsData.unitColorNumber, buyGoodsData.unitClassNumber);
+        shopAudioManagerSource.PlayOneShot(itemPurchaseClip);
 
         ExitShop();
     }
@@ -183,6 +199,7 @@ public class Shop : MonoBehaviour
         GameObject clickGoods = SetButton(buyUnitReinforce_Button, buyUnitReinforce_Object);
         buyUnitReinforce_Button.onClick.AddListener(() => BuyUnitReinforce(clickGoods));
         Set_GoddsBuy_GuideText(clickGoods, buyUnitReinforce_Object);
+        shopAudioSource.PlayOneShot(shopClickClip);
     }
 
     void BuyUnitReinforce(GameObject unitReinForce_GoodsObject)
@@ -200,6 +217,7 @@ public class Shop : MonoBehaviour
         int eventNumber = buyGoodsData.reinforceEventNumber;
         int eventUnitNumber = buyGoodsData.eventUnitNumber;
         EventManager.instance.Action_SelectReinForceEvent(eventNumber, eventUnitNumber);
+        shopAudioManagerSource.PlayOneShot(itemPurchaseClip);
 
         ExitShop();
     }
@@ -214,6 +232,7 @@ public class Shop : MonoBehaviour
         GameObject clickGoods = SetButton(buyEvent_Button, buyEvent_Object);
         buyEvent_Button.onClick.AddListener(() => BuyEvent(clickGoods));
         Set_GoddsBuy_GuideText(clickGoods, buyEvent_Object);
+        shopAudioSource.PlayOneShot(shopClickClip);
     }
 
     void BuyEvent(GameObject eventGoodsObject)
@@ -228,6 +247,7 @@ public class Shop : MonoBehaviour
         MinusFood(buyGoodsData.price);
 
         EventManager.instance.eventArray[buyGoodsData.eventNumber]();
+        shopAudioManagerSource.PlayOneShot(itemPurchaseClip);
 
         ExitShop();
     }
@@ -241,6 +261,7 @@ public class Shop : MonoBehaviour
         GameObject clickGoods = SetButton(buyMageUltimate_Button, buyMageUltimate_Object);
         buyMageUltimate_Button.onClick.AddListener(() => BuyMageUltimate(clickGoods));
         Set_GoddsBuy_GuideText(clickGoods, buyMageUltimate_Object);
+        shopAudioSource.PlayOneShot(shopClickClip);
     }
 
     void BuyMageUltimate(GameObject mageUltimate_GoodsObject)
@@ -257,6 +278,7 @@ public class Shop : MonoBehaviour
         GameObject mage = UnitManager.instance.unitArrays[buyGoodsData.ultimateMageNumber].unitArray[3];
         mage.GetComponentInChildren<Unit_Mage>().isUltimate = true;
         SetCurrentMageUltimate(buyGoodsData.ultimateMageNumber);
+        shopAudioManagerSource.PlayOneShot(itemPurchaseClip);
 
         ExitShop();
     }
@@ -371,6 +393,7 @@ public class Shop : MonoBehaviour
     IEnumerator HideGoldText_Coroutine()
     {
         lacksGuideText.gameObject.SetActive(true);
+        shopAudioSource.PlayOneShot(goldLackSound);
 
         lacksGuideText.color = new Color32(255, 44, 35, 255);
         Color textColor;

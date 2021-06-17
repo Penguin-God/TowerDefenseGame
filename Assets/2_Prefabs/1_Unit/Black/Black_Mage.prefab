@@ -1490,7 +1490,7 @@ MonoBehaviour:
   plusMana: 30
   mageSkillCoolDownTime: 3
   mageEffectObject: {fileID: 0}
-  mageSkillCilp: {fileID: 0}
+  mageSkillCilp: {fileID: 8300000, guid: 34d13eea2f9cf254fa8de1ce2597c64a, type: 3}
   canvasRectTransform: {fileID: 0}
   manaSlider: {fileID: 0}
   maxMana: 100

@@ -512,6 +512,6 @@ public class Shop : MonoBehaviour
 
     private void OnEnable() // 테스트용
     {
-        OnShop(4, bossShopWeighDictionary);
+        //OnShop(4, bossShopWeighDictionary);
     }
 }

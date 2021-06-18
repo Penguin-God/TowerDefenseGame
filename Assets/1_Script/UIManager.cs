@@ -44,7 +44,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateStageText(int Stage)
     {
-        StageText.text = "Stage :" + Stage;
+        StageText.text = "현재 스테이지 : " + Stage;
     }
 
     public void UpdateGoldText(int Gold)
@@ -78,7 +78,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateCountEnemyText(int EnemyofCount)
     {
-        EnemyCount.text = "Enemy :" + EnemyofCount;
+        EnemyCount.text = "현재 적 유닛 카운트 : " + EnemyofCount;
     }
 
     public void SetActiveGameOverUI()

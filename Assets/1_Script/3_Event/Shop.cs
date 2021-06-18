@@ -377,6 +377,8 @@ public class Shop : MonoBehaviour
 
     public void CancleBuy()
     {
+        if (currentBuyPanel == null) return;
+
         currentBuyPanel.SetActive(false);
         currentBuyPanel.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
         currentBuyPanel = null;

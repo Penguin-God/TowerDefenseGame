@@ -201,4 +201,23 @@ public class EventManager : MonoBehaviour
             if (teamSoldier != null) teamSoldier.damage += teamSoldier.originDamage;
         }
     }
+
+    public List<int> Return_CurrentUnitColorList(int unitNumber)
+    {
+        List<int> current_UnitColorNumberList = new List<int>();
+        UnitArray[] unitArray = UnitManager.instance.unitArrays;
+        for(int i = 0; i < unitArray.Length; i++)
+        {
+            string unitTag = unitArray[i].unitArray[unitNumber].transform.GetChild(0).gameObject.tag;
+            GameObject unit = GameObject.FindGameObjectWithTag(unitTag);
+            if (unit != null) current_UnitColorNumberList.Add(i);
+        }
+
+        for(int i = 0; i < current_UnitColorNumberList.Count; i++)
+        {
+            Debug.Log(current_UnitColorNumberList[i]);
+        }
+
+        return current_UnitColorNumberList;
+    }
 }

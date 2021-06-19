@@ -129,6 +129,8 @@ public class TeamSoldier : MonoBehaviour
         else return false;
     }
 
+    protected bool contactEnemy = false;
+
     IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
     {
         // boss 있으면 보스만 추격
@@ -150,9 +152,8 @@ public class TeamSoldier : MonoBehaviour
             } 
             else nav.SetDestination(target.position);
 
-            if (enemyIsForward && !isAttackDelayTime) // Attack가능하고 쿨타임이 아니면 공격
+            if ( ( enemyIsForward || contactEnemy ) && !isAttackDelayTime) // Attack가능하고 쿨타임이 아니면 공격
             {
-                //NormalAttack();
                 UnitAttack();
             }
             yield return null;

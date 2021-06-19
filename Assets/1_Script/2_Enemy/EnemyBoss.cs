@@ -26,9 +26,10 @@ public class EnemyBoss : NomalEnemy
     {
         enemySpawn.shop.OnShop(enemySpawn.bossLevel, enemySpawn.shop.bossShopWeighDictionary);
         enemySpawn.shop.SetGuideText("보스를 처치하였습니다");
+
         enemySpawn.currentBossList.Remove(gameObject);
         enemySpawn.bossRespawn = false;
-        transform.parent.transform.position = new Vector3(500, 500, 500);
+        parent.position = new Vector3(500, 500, 500);
         isDead = true;
         GetBossReword(enemySpawn.bossRewordGold, enemySpawn.bossRewordFood);
 
@@ -40,6 +41,9 @@ public class EnemyBoss : NomalEnemy
         //{
         //    enemySpawn.createDefenser.CreateSoldier(7, 2);
         //}
+
+
+
         switch (enemySpawn.bossLevel)
         {
             case 1:

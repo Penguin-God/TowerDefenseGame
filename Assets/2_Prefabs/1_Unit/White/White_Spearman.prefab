@@ -587,8 +587,8 @@ GameObject:
   - component: {fileID: 7099954146525974206}
   - component: {fileID: 7099954146525974207}
   - component: {fileID: 196637210590413587}
-  - component: {fileID: 741916916}
   - component: {fileID: 352926853}
+  - component: {fileID: 8932502586889823104}
   m_Layer: 9
   m_Name: White_Spearman
   m_TagString: WhiteSpearman
@@ -649,21 +649,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &741916916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7099954146525974204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cb43dbdf3274d94f9e38a4c1b2950eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timer: 0
-  createDefenser: {fileID: 0}
-  soldiersTags: {fileID: 0}
 --- !u!82 &352926853
 AudioSource:
   m_ObjectHideFlags: 0
@@ -675,7 +660,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
@@ -760,3 +745,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8932502586889823104
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7099954146525974204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c93d9a3414cbea44ebc9f95324870946, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitNumber: 2
+  createDefenser: {fileID: 0}
+  timerObject: {fileID: 3550290449996104982, guid: cac34ecb35aa4b34984b6ecb2594f075,
+    type: 3}
+  unitTransformClip: {fileID: 8300000, guid: 2e68bdbb53485404b889a8f9c9e36082, type: 3}

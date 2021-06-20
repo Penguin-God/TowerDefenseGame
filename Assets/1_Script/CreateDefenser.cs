@@ -36,6 +36,14 @@ public class CreateDefenser : MonoBehaviour
 
     }
 
+    public void CreateSoldier(int Colornumber, int Soldiernumber, Transform creatPosition) // 박준이 만든 하얀유닛 소환용 함수
+    {
+        Transform unitTransform = transform.GetChild(Colornumber).gameObject.transform.GetChild(Soldiernumber);
+
+        Soldier = Instantiate(unitTransform.gameObject, creatPosition.position, creatPosition.rotation);
+        Soldier.SetActive(true);
+    }
+
     public void StoryModeCreateSoldier(int Colornumber, int Soldiernumber)
     {
 

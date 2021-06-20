@@ -13,6 +13,7 @@ public class UnitManager : MonoBehaviour
     public static UnitManager instance;
     public UnitArray[] unitArrays; // red, blue, yellow, green, orange, violet, black 순 7개 배열
 
+    public AudioSource unitAudioManagerSource;
 
 
     private void Awake()
@@ -29,11 +30,13 @@ public class UnitManager : MonoBehaviour
         //Debug.Log(unitArrays[0].unitArray[0]);
         currentUnitList = new List<GameObject>();
         StartCoroutine(UnitListCheck_Coroutine());
+
+        unitAudioManagerSource = GetComponent<AudioSource>();
     }
 
     public List<GameObject> currentUnitList;
 
-    IEnumerator UnitListCheck_Coroutine()
+    IEnumerator UnitListCheck_Coroutine() // 유닛 리스트 무한반복문
     {
         while (true)
         {

@@ -2654,11 +2654,8 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 671914661}
     m_Modifications:
-    - target: {fileID: 1512194081, guid: 65f973f2a240e1a4eaffb32b7f9ec1fb, type: 3}
-      propertyPath: soldiersTags
-      value: 
-      objectReference: {fileID: 1076024916}
-    - target: {fileID: 1512194081, guid: 65f973f2a240e1a4eaffb32b7f9ec1fb, type: 3}
+    - target: {fileID: 1500786162021583992, guid: 65f973f2a240e1a4eaffb32b7f9ec1fb,
+        type: 3}
       propertyPath: createDefenser
       value: 
       objectReference: {fileID: 2069937148}
@@ -50193,14 +50190,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 671914661}
     m_Modifications:
-    - target: {fileID: 1317218160, guid: 995c2df7b490e5140abbdf5c3a814e13, type: 3}
-      propertyPath: soldiersTags
-      value: 
-      objectReference: {fileID: 1076024916}
-    - target: {fileID: 1317218160, guid: 995c2df7b490e5140abbdf5c3a814e13, type: 3}
-      propertyPath: createDefenser
-      value: 
-      objectReference: {fileID: 2069937148}
     - target: {fileID: 5342952073431734853, guid: 995c2df7b490e5140abbdf5c3a814e13,
         type: 3}
       propertyPath: m_Name
@@ -50261,6 +50250,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6182193945204158815, guid: 995c2df7b490e5140abbdf5c3a814e13,
+        type: 3}
+      propertyPath: createDefenser
+      value: 
+      objectReference: {fileID: 2069937148}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 995c2df7b490e5140abbdf5c3a814e13, type: 3}
 --- !u!4 &984010208 stripped
@@ -55902,6 +55896,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1095168202}
   - component: {fileID: 1095168201}
+  - component: {fileID: 1095168203}
   m_Layer: 0
   m_Name: UnitManager
   m_TagString: Untagged
@@ -55952,6 +55947,7 @@ MonoBehaviour:
     - {fileID: 832688008}
     - {fileID: 954490415}
     - {fileID: 35759087}
+  unitAudioManagerSource: {fileID: 0}
   currentUnitList: []
   tp_Effects:
   - {fileID: 552626229}
@@ -55979,6 +55975,102 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1095168203
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1095168200}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1095563659
 GameObject:
   m_ObjectHideFlags: 0
@@ -73117,14 +73209,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 671914661}
     m_Modifications:
-    - target: {fileID: 741916916, guid: 61f763558dff7dc4bbc8eea819606300, type: 3}
-      propertyPath: soldiersTags
-      value: 
-      objectReference: {fileID: 1076024916}
-    - target: {fileID: 741916916, guid: 61f763558dff7dc4bbc8eea819606300, type: 3}
-      propertyPath: createDefenser
-      value: 
-      objectReference: {fileID: 2069937148}
     - target: {fileID: 7099954146525974204, guid: 61f763558dff7dc4bbc8eea819606300,
         type: 3}
       propertyPath: m_Name
@@ -73185,6 +73269,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8932502586889823104, guid: 61f763558dff7dc4bbc8eea819606300,
+        type: 3}
+      propertyPath: createDefenser
+      value: 
+      objectReference: {fileID: 2069937148}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 61f763558dff7dc4bbc8eea819606300, type: 3}
 --- !u!4 &1403656690 stripped
@@ -84029,11 +84118,8 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 671914661}
     m_Modifications:
-    - target: {fileID: 428025413, guid: 3d754308acb1d5141b0b26a0d743439b, type: 3}
-      propertyPath: soldiersTags
-      value: 
-      objectReference: {fileID: 1076024916}
-    - target: {fileID: 428025413, guid: 3d754308acb1d5141b0b26a0d743439b, type: 3}
+    - target: {fileID: 2617716583199210963, guid: 3d754308acb1d5141b0b26a0d743439b,
+        type: 3}
       propertyPath: createDefenser
       value: 
       objectReference: {fileID: 2069937148}

@@ -22,8 +22,9 @@ public class WhiteSpearmanEvent : MonoBehaviour
         timer += Time.deltaTime;
         if (timer >= 30f)
         {
-            soldiersTags.WhiteSpearmanTag();
-            Destroy(soldiersTags.WhiteSpearman[0]);
+            //soldiersTags.WhiteSpearmanTag();
+            //Destroy(soldiersTags.WhiteSpearman[0]);
+            Destroy(gameObject);
             createDefenser.CreateSoldier(Colornumber, 2);
             timer = 0f;
             return;

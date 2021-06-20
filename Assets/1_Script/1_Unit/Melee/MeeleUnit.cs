@@ -48,7 +48,7 @@ public class MeeleUnit : TeamSoldier
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 8 && other.gameObject == target.gameObject)
+        if ( other.gameObject.layer == 8 && other.gameObject == target.gameObject && !other.gameObject.CompareTag("Tower") )
         {
             contactEnemy = true;
         }

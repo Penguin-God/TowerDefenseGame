@@ -390,7 +390,7 @@ GameObject:
   m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &1444633671120831014
 Transform:
@@ -465,7 +465,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 6.4848948, y: 5.3236704, z: 6.756498}
+  m_Size: {x: 6, y: 5.3236704, z: 6.5}
   m_Center: {x: 0.00000059604645, y: 2.641955, z: -0.13580108}
 --- !u!114 &8142801409504920414
 MonoBehaviour:

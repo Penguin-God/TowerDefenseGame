@@ -69,7 +69,7 @@ public class EnemySpawn : MonoBehaviour
     IEnumerator StageCoroutine(int stageRespawnEenemyCount) // 재귀함수 무한반복
     {
         // 사운드 재생
-        enemyAudioSource.PlayOneShot(newStageClip, 0.7f);
+        enemyAudioSource.PlayOneShot(newStageClip, 0.6f);
         if (stageNumber % 10 == 0)
         {
             RespawnBoss();

@@ -18,6 +18,9 @@ public class MeeleUnit : TeamSoldier
             nav.isStopped = true;
         }
         else nav.isStopped = false;
+
+        if (enemyDistance < 2f) nav.speed = 2f;
+        else nav.speed = this.speed;
     }
 
     protected float Check_EnemyToUnit_Deggre()

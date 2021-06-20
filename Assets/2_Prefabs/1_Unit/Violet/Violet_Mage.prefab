@@ -861,9 +861,9 @@ MonoBehaviour:
   unitColor: 5
   originDamage: 6000
   originBossDamage: 6000
-  originAttackDelayTime: 2
+  originAttackDelayTime: 0.5
   speed: 3
-  attackDelayTime: 2
+  attackDelayTime: 0.5
   attackRange: 40
   damage: 6000
   bossDamage: 6000

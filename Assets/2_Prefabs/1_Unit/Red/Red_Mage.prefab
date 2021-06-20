@@ -908,9 +908,9 @@ MonoBehaviour:
   unitColor: 0
   originDamage: 3000
   originBossDamage: 3000
-  originAttackDelayTime: 2
+  originAttackDelayTime: 0.5
   speed: 3
-  attackDelayTime: 2
+  attackDelayTime: 0.5
   attackRange: 40
   damage: 3000
   bossDamage: 3000
@@ -932,12 +932,12 @@ MonoBehaviour:
   energyBall: {fileID: 4005321863399391286, guid: 0f47c58451f0d3e4e9a370c4f1de7a76,
     type: 3}
   energyBallTransform: {fileID: 2912166253428939080}
+  isUltimate: 0
   plusMana: 30
   mageSkillCoolDownTime: 3.5
   mageEffectObject: {fileID: 4624219392482637300, guid: d6fccbbc807ddcf48ad83801f635ecf9,
     type: 3}
   mageSkillCilp: {fileID: 8300000, guid: e6f235e1a0f4c504bbb5a76c786d86b6, type: 3}
-  posionEffect: {fileID: 0}
   canvasRectTransform: {fileID: 0}
   manaSlider: {fileID: 0}
   maxMana: 100

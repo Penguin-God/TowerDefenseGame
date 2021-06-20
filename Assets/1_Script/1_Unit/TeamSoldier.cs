@@ -204,7 +204,7 @@ public class TeamSoldier : MonoBehaviour
     IEnumerator TowerNavCoroutine()
     {
         Physics.Raycast(transform.parent.position + Vector3.up, target.position - transform.position, out RaycastHit towerHit, 100f, layerMask);
-        Invoke("RangeNavStop", 4f); // 디버그용
+        Invoke("RangeNavStop", 4f); // 원거리 타워에 다가가는거 막기
         while (true)
         {
             if(target != null)

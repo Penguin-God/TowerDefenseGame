@@ -2722,21 +2722,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: White_Mage
       objectReference: {fileID: 0}
-    - target: {fileID: 6600727425209638618, guid: 65f973f2a240e1a4eaffb32b7f9ec1fb,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7239406541485285465, guid: 65f973f2a240e1a4eaffb32b7f9ec1fb,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7239406541485285465, guid: 65f973f2a240e1a4eaffb32b7f9ec1fb,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 65f973f2a240e1a4eaffb32b7f9ec1fb, type: 3}
 --- !u!4 &43962563 stripped
@@ -12468,16 +12453,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 856121791}
     m_Modifications:
-    - target: {fileID: 7454969569672131939, guid: be157ae2f2713564fba73e008821c617,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7454969569672131939, guid: be157ae2f2713564fba73e008821c617,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 7454969569692840241, guid: be157ae2f2713564fba73e008821c617,
         type: 3}
       propertyPath: m_Name
@@ -16431,16 +16406,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 464004088101323761, guid: 37b7d41650b96c345b2cf8ce48fcf98a,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 464004088101323761, guid: 37b7d41650b96c345b2cf8ce48fcf98a,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 37b7d41650b96c345b2cf8ce48fcf98a, type: 3}
@@ -21357,16 +21322,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 151015499}
     m_Modifications:
-    - target: {fileID: 1699467413430769189, guid: 99955310471110444a40f9831802d773,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1699467413430769189, guid: 99955310471110444a40f9831802d773,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 2916168590735878310, guid: 99955310471110444a40f9831802d773,
         type: 3}
       propertyPath: m_Name
@@ -36821,16 +36776,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7754845740141683792, guid: f41e58bb7af97f246b26cc9c43c4131d,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7754845740141683792, guid: f41e58bb7af97f246b26cc9c43c4131d,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f41e58bb7af97f246b26cc9c43c4131d, type: 3}
 --- !u!1 &747912466
@@ -40399,16 +40344,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 491011130}
     m_Modifications:
-    - target: {fileID: 103836908467553592, guid: 4710141b2362e174b9ea566b6267949d,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 103836908467553592, guid: 4710141b2362e174b9ea566b6267949d,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 4661351935083864776, guid: 4710141b2362e174b9ea566b6267949d,
         type: 3}
       propertyPath: m_RootOrder
@@ -42891,21 +42826,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2584615055267807348, guid: 519a6c03cfb2e6d41b531720a81d4f16,
-        type: 3}
-      propertyPath: mageSkillCilp
-      value: 
-      objectReference: {fileID: 8300000, guid: 34d13eea2f9cf254fa8de1ce2597c64a, type: 3}
-    - target: {fileID: 2584615055267807348, guid: 519a6c03cfb2e6d41b531720a81d4f16,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2584615055267807348, guid: 519a6c03cfb2e6d41b531720a81d4f16,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 519a6c03cfb2e6d41b531720a81d4f16, type: 3}
 --- !u!4 &857429025 stripped
@@ -43815,16 +43735,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
-    - target: {fileID: 296571180890353750, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 296571180890353750, guid: 611e0c79108bf4540898c3ddebd5387c,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 5034237234067150756, guid: 611e0c79108bf4540898c3ddebd5387c,
         type: 3}
       propertyPath: m_Name
@@ -49062,16 +48972,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
-    - target: {fileID: 6050898850487632020, guid: 1e059af96a94cf44f8b4ce6202c501c5,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6050898850487632020, guid: 1e059af96a94cf44f8b4ce6202c501c5,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 8148257199809515133, guid: 1e059af96a94cf44f8b4ce6202c501c5,
         type: 3}
       propertyPath: m_Name
@@ -50356,16 +50256,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7550436680543311020, guid: 995c2df7b490e5140abbdf5c3a814e13,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7550436680543311020, guid: 995c2df7b490e5140abbdf5c3a814e13,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 995c2df7b490e5140abbdf5c3a814e13, type: 3}
 --- !u!4 &984010208 stripped
@@ -51468,16 +51358,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8715698880754834593, guid: 25ba6f77bfcfb844ca9f1efe22174244,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8715698880754834593, guid: 25ba6f77bfcfb844ca9f1efe22174244,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 25ba6f77bfcfb844ca9f1efe22174244, type: 3}
 --- !u!1 &1008147465
@@ -52005,16 +51885,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Violet_SwordMan
-      objectReference: {fileID: 0}
-    - target: {fileID: 7125906036297420794, guid: fe89360992dadd4418670d0ad705097b,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7125906036297420794, guid: fe89360992dadd4418670d0ad705097b,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe89360992dadd4418670d0ad705097b, type: 3}
@@ -58446,16 +58316,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange_SwordMan
       objectReference: {fileID: 0}
-    - target: {fileID: 2820413154886425651, guid: f19bbd67bad198e4aa7e2647ffbcf8c9,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2820413154886425651, guid: f19bbd67bad198e4aa7e2647ffbcf8c9,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f19bbd67bad198e4aa7e2647ffbcf8c9, type: 3}
 --- !u!1 &1128384164
@@ -59102,16 +58962,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1899256002}
     m_Modifications:
-    - target: {fileID: 6719750767215374007, guid: 5d62ab9f6e012bb41940e8f669a9ae7c,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6719750767215374007, guid: 5d62ab9f6e012bb41940e8f669a9ae7c,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 9199773262359240796, guid: 5d62ab9f6e012bb41940e8f669a9ae7c,
         type: 3}
       propertyPath: m_RootOrder
@@ -59505,16 +59355,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 151015499}
     m_Modifications:
-    - target: {fileID: 5810574156314726957, guid: bb99327bd4a0bba4788703e0394afae7,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5810574156314726957, guid: bb99327bd4a0bba4788703e0394afae7,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 5810574156436100720, guid: bb99327bd4a0bba4788703e0394afae7,
         type: 3}
       propertyPath: m_RootOrder
@@ -60294,16 +60134,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Black_Archer
-      objectReference: {fileID: 0}
-    - target: {fileID: 1800201801504110413, guid: 3ebdb11443709774b955eea88589b5f2,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 1800201801504110413, guid: 3ebdb11443709774b955eea88589b5f2,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ebdb11443709774b955eea88589b5f2, type: 3}
@@ -69122,16 +68952,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Black_SwordMan
       objectReference: {fileID: 0}
-    - target: {fileID: 3046355346188127667, guid: fa097f847d808e4439989ccea0ad2256,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3046355346188127667, guid: fa097f847d808e4439989ccea0ad2256,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fa097f847d808e4439989ccea0ad2256, type: 3}
 --- !u!4 &1313780719 stripped
@@ -70605,16 +70425,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange_Spearman
       objectReference: {fileID: 0}
-    - target: {fileID: 8772771035943043365, guid: 980c2ab93cdef544cb411595d34befb7,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8772771035943043365, guid: 980c2ab93cdef544cb411595d34befb7,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 980c2ab93cdef544cb411595d34befb7, type: 3}
 --- !u!4 &1338288017 stripped
@@ -70731,16 +70541,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8457165952548286822, guid: b99cdff4ee30fa44798e20a945776310,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8457165952548286822, guid: b99cdff4ee30fa44798e20a945776310,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b99cdff4ee30fa44798e20a945776310, type: 3}
@@ -71057,16 +70857,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1899256002}
     m_Modifications:
-    - target: {fileID: 4845129776438365971, guid: 8cf4d672d4e5e3848b00ac195b387355,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4845129776438365971, guid: 8cf4d672d4e5e3848b00ac195b387355,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 8993878285500084624, guid: 8cf4d672d4e5e3848b00ac195b387355,
         type: 3}
       propertyPath: m_Name
@@ -72358,16 +72148,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 491011130}
     m_Modifications:
-    - target: {fileID: 4942718531445973780, guid: f0e598e29fdb24e43b89700864bd2938,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4942718531445973780, guid: f0e598e29fdb24e43b89700864bd2938,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.3
-      objectReference: {fileID: 0}
     - target: {fileID: 7382913693922307581, guid: f0e598e29fdb24e43b89700864bd2938,
         type: 3}
       propertyPath: m_Name
@@ -73340,16 +73120,6 @@ PrefabInstance:
       propertyPath: createDefenser
       value: 
       objectReference: {fileID: 2069937148}
-    - target: {fileID: 2542439566451042638, guid: 61f763558dff7dc4bbc8eea819606300,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2542439566451042638, guid: 61f763558dff7dc4bbc8eea819606300,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 7099954146525974204, guid: 61f763558dff7dc4bbc8eea819606300,
         type: 3}
       propertyPath: m_Name
@@ -79795,16 +79565,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
-    - target: {fileID: 31673267759872258, guid: d42acb3c35a75354181bcb3cba82f4f2,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 31673267759872258, guid: d42acb3c35a75354181bcb3cba82f4f2,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 4583945138574837633, guid: d42acb3c35a75354181bcb3cba82f4f2,
         type: 3}
       propertyPath: m_Name
@@ -81854,16 +81614,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 856121791}
     m_Modifications:
-    - target: {fileID: 2075177400942788147, guid: e3e8368fe90d1c648beb49b119b9d686,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2075177400942788147, guid: e3e8368fe90d1c648beb49b119b9d686,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 6704759391202351553, guid: e3e8368fe90d1c648beb49b119b9d686,
         type: 3}
       propertyPath: m_Name
@@ -84342,16 +84092,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5715507580900939925, guid: 3d754308acb1d5141b0b26a0d743439b,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 5715507580900939925, guid: 3d754308acb1d5141b0b26a0d743439b,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d754308acb1d5141b0b26a0d743439b, type: 3}
 --- !u!4 &1615580407 stripped
@@ -85854,16 +85594,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 491011130}
     m_Modifications:
-    - target: {fileID: 934792852262612338, guid: 1772a47c8d7f3e74baa9fbb660966ee4,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 934792852262612338, guid: 1772a47c8d7f3e74baa9fbb660966ee4,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 934792852350429472, guid: 1772a47c8d7f3e74baa9fbb660966ee4,
         type: 3}
       propertyPath: m_Name
@@ -91504,16 +91234,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 951531119}
     m_Modifications:
-    - target: {fileID: 2219315760347757371, guid: 7fad8267bf4321940b7effc164c530d6,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2219315760347757371, guid: 7fad8267bf4321940b7effc164c530d6,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 6848851408045497545, guid: 7fad8267bf4321940b7effc164c530d6,
         type: 3}
       propertyPath: m_Name
@@ -101498,16 +101218,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8562050406989548928, guid: 9f5d49bb85a97274591d5a7fd662eea2,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8562050406989548928, guid: 9f5d49bb85a97274591d5a7fd662eea2,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f5d49bb85a97274591d5a7fd662eea2, type: 3}
@@ -111748,16 +111458,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3648794870320716357, guid: e89b457be8ba6fd44bbc96cd4187cab5,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3648794870320716357, guid: e89b457be8ba6fd44bbc96cd4187cab5,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e89b457be8ba6fd44bbc96cd4187cab5, type: 3}
 --- !u!1 &2125253483
@@ -111904,16 +111604,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Yellow_Spearman
-      objectReference: {fileID: 0}
-    - target: {fileID: 5621595234891671096, guid: 9bab28d49d345ab4f89b3bca582381a1,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 5621595234891671096, guid: 9bab28d49d345ab4f89b3bca582381a1,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bab28d49d345ab4f89b3bca582381a1, type: 3}
@@ -112440,16 +112130,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1899256002}
     m_Modifications:
-    - target: {fileID: 3343415014717659953, guid: 2a0805aa1bacd58469d5655b8e173611,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3343415014717659953, guid: 2a0805aa1bacd58469d5655b8e173611,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 3343415014830645091, guid: 2a0805aa1bacd58469d5655b8e173611,
         type: 3}
       propertyPath: m_Name
@@ -112578,16 +112258,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Violet_Mage
-      objectReference: {fileID: 0}
-    - target: {fileID: 3475061908579850590, guid: 4d7f63258f1081247abdd23060ca4778,
-        type: 3}
-      propertyPath: attackDelayTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3475061908579850590, guid: 4d7f63258f1081247abdd23060ca4778,
-        type: 3}
-      propertyPath: originAttackDelayTime
-      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d7f63258f1081247abdd23060ca4778, type: 3}

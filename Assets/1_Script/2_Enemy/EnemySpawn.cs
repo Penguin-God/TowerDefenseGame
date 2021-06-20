@@ -19,7 +19,7 @@ public class EnemySpawn : MonoBehaviour
     int[] countArray; // 2차원 배열을 사용할 때 2번째 배열의 index가 담긴 배열
     Vector3 poolPosition = new Vector3(500, 500, 500);
 
-    AudioSource enemyAudioSource;
+    public AudioSource enemyAudioSource;
     public AudioClip towerDieClip;
 
     private void Awake()
@@ -62,11 +62,14 @@ public class EnemySpawn : MonoBehaviour
         StartCoroutine(StageCoroutine(respawnEnemyCount));
     }
 
+    public AudioClip newStageClip;
     public int stageGold;
     public float stageWait_Time = 10f;
     float stageTime = 40f;
     IEnumerator StageCoroutine(int stageRespawnEenemyCount) // 재귀함수 무한반복
     {
+        // 사운드 재생
+        enemyAudioSource.PlayOneShot(newStageClip, 0.7f);
         if (stageNumber % 10 == 0)
         {
             RespawnBoss();
@@ -78,7 +81,6 @@ public class EnemySpawn : MonoBehaviour
         int instantEnemyNumber = Random.Range(0, enemyPrefab.Length);
         int hp = SetRandomHp();
         float speed = SetRandomSeepd();
-        //float respawnDelayTime = SetRandom_RespawnDelayTime();
 
         while (stageRespawnEenemyCount > 0)
         {
@@ -113,6 +115,7 @@ public class EnemySpawn : MonoBehaviour
             timerSlider.value -= Time.deltaTime;
     }
 
+    public AudioClip bossDeadClip;
     public bool bossRespawn;
     public int bossLevel;
     public int bossRewordGold;

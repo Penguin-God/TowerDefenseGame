@@ -153,10 +153,10 @@ public class EventManager : MonoBehaviour
                 unitColotText = "빨간 유닛 : ";
                 break;
             case 1:
-                unitColotText = "파랑 유닛 : ";
+                unitColotText = "파란 유닛 : ";
                 break;
             case 2:
-                unitColotText = "노랑 유닛 : ";
+                unitColotText = "노란 유닛 : ";
                 break;
             case 3:
                 unitColotText = "초록 유닛 : ";

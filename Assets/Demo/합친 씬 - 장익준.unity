@@ -5345,7 +5345,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
+  m_Text: "\uD30C\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
 --- !u!222 &103241661
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6524,7 +6524,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB178\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
+  m_Text: "\uB178\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
 --- !u!222 &126913731
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9494,7 +9494,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uBE68\uAC15 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uBE68\uAC04 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -13659,7 +13659,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uBE68\uAC15 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uBE68\uAC04 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -14297,7 +14297,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uD30C\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uD30C\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -14612,7 +14612,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB178\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
+  m_Text: "\uB178\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
 --- !u!222 &291503314
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15994,7 +15994,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
+  m_Text: "\uD30C\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
 --- !u!222 &316722948
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18370,7 +18370,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB791 \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00"
+  m_Text: "\uD30C\uB780 \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00"
 --- !u!222 &362473610
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -20232,7 +20232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uB178\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uB178\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -20387,7 +20387,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uB178\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uB178\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -20620,7 +20620,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uD30C\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uD30C\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -20870,7 +20870,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB178\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
+  m_Text: "\uB178\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
 --- !u!222 &401600727
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24719,7 +24719,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uBE68\uAC15 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uBE68\uAC04 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -27528,7 +27528,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &522377929
 RectTransform:
   m_ObjectHideFlags: 0
@@ -28546,7 +28546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uD30C\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uD30C\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -29920,7 +29920,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB178\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
+  m_Text: "\uB178\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
 --- !u!222 &575651434
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -31932,7 +31932,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 3
-  goodsInformation: "\uBE68\uAC15 \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00\uB97C"
+  goodsInformation: "\uBE68\uAC04 \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -34270,7 +34270,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB178\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
+  m_Text: "\uB178\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
 --- !u!222 &647614400
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -37003,7 +37003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uBE68\uAC15 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uBE68\uAC04 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -40598,7 +40598,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uB178\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uB178\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -40964,7 +40964,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 3
-  goodsInformation: "\uD30C\uB791 \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00\uB97C"
+  goodsInformation: "\uD30C\uB780 \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -41724,7 +41724,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
+  m_Text: "\uD30C\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
 --- !u!222 &786392174
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -44512,7 +44512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uBE68\uAC15 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uBE68\uAC04 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -46973,7 +46973,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB178\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
+  m_Text: "\uB178\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
 --- !u!222 &869833715
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -52891,7 +52891,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uD30C\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uD30C\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -60722,7 +60722,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
+  m_Text: "\uD30C\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
 --- !u!222 &1105834252
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -61477,7 +61477,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uD30C\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uD30C\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -65157,7 +65157,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB178\uB791 \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00"
+  m_Text: "\uB178\uB780 \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00"
 --- !u!222 &1183060648
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -66755,7 +66755,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uD30C\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uD30C\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -69849,7 +69849,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB178\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
+  m_Text: "\uB178\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
 --- !u!222 &1260265262
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -72221,7 +72221,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 3
-  goodsInformation: "\uB178\uB791 \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00\uB97C"
+  goodsInformation: "\uB178\uB780 \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -73370,7 +73370,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
+  m_Text: "\uD30C\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
 --- !u!222 &1308764491
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -87809,7 +87809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uD30C\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uD30C\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -93829,7 +93829,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBE68\uAC15 \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00"
+  m_Text: "\uBE68\uAC04 \uC720\uB2DB \uB370\uBBF8\uC9C0 \uC99D\uAC00"
 --- !u!222 &1680833446
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -101292,7 +101292,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
+  m_Text: "\uD30C\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
 --- !u!222 &1811108915
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -105741,7 +105741,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uB178\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uB178\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -106546,7 +106546,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uB178\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uB178\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -107058,7 +107058,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
+  m_Text: "\uD30C\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654"
 --- !u!222 &1908636036
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -108640,7 +108640,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uBE68\uAC15 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uBE68\uAC04 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -115213,7 +115213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uBE68\uAC15 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uBE68\uAC04 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -117563,7 +117563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uB178\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uB178\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0
@@ -118134,7 +118134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   price: 2
-  goodsInformation: "\uB178\uB791 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
+  goodsInformation: "\uB178\uB780 \uB9C8\uBC95\uC0AC \uC2A4\uD0AC \uAC15\uD654\uB97C"
   unitColorNumber: 0
   unitClassNumber: 0
   buyFoodCount: 0

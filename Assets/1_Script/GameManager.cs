@@ -196,6 +196,45 @@ public class GameManager : MonoBehaviour
         //}
     }
 
+    public GameObject PlayAgainBackGround;
+    public GameObject PauseBackGround;
+
+    public void ClickPlayAgainButton()
+    {
+        unitManageButton.UnitManageAudio.Play();
+
+        if (FasterCount == 1)
+        {
+            Time.timeScale = 2f;
+            gameTimeSpeed = 2f;
+        }
+        else if (FasterCount == 2)
+        {
+            Time.timeScale = 3f;
+            gameTimeSpeed = 3f;
+        }
+        else if (FasterCount == 0)
+        {
+            Time.timeScale = 1f;
+            gameTimeSpeed = 1f;
+        }
+
+        PlayAgainBackGround.SetActive(false);
+        PauseBackGround.SetActive(true);
+    }
+
+    public void ClickPauseButton()
+    {
+        unitManageButton.UnitManageAudio.Play();
+
+        Time.timeScale = 0f;
+        gameTimeSpeed = 0f;
+
+        PauseBackGround.SetActive(false);
+        PlayAgainBackGround.SetActive(true);
+
+    }
+
     public GameObject SettingMenu;
     public UnitManageButton unitManageButton;
 

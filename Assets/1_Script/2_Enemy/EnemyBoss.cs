@@ -24,14 +24,21 @@ public class EnemyBoss : NomalEnemy
 
     public override void Dead()
     {
-        enemySpawn.enemyAudioSource.PlayOneShot(enemySpawn.bossDeadClip, 0.7f);
-        enemySpawn.shop.OnShop(enemySpawn.bossLevel, enemySpawn.shop.bossShopWeighDictionary);
-        enemySpawn.shop.SetGuideText("보스를 처치하였습니다");
-
         enemySpawn.currentBossList.Remove(gameObject);
         enemySpawn.bossRespawn = false;
         parent.position = new Vector3(500, 500, 500);
         isDead = true;
+
+        if (enemySpawn.bossLevel == 5)
+        {
+            GameManager.instance.Clear();
+            return;
+        }
+
+        enemySpawn.enemyAudioSource.PlayOneShot(enemySpawn.bossDeadClip, 0.7f);
+        enemySpawn.shop.OnShop(enemySpawn.bossLevel, enemySpawn.shop.bossShopWeighDictionary);
+        enemySpawn.shop.SetGuideText("보스를 처치하였습니다");
+
         GetBossReword(enemySpawn.bossRewordGold, enemySpawn.bossRewordFood);
 
         //if (enemySpawn.bossLevel == 1 || enemySpawn.bossLevel == 2)

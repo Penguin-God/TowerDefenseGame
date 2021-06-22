@@ -78,6 +78,8 @@ public class UIManager : MonoBehaviour
 
     public void UpdateCountEnemyText(int EnemyofCount)
     {
+        if (EnemyofCount > 45) EnemyCount.color = new Color32(255, 0, 0, 255);
+        else EnemyCount.color = new Color32(255, 255, 255, 255);
         EnemyCount.text = "현재 적 유닛 카운트 : " + EnemyofCount;
     }
 
@@ -87,10 +89,12 @@ public class UIManager : MonoBehaviour
         RestartText.gameObject.SetActive(true);
     }
 
+    public GameObject clearObject;
     public void SetActiveClearUI()
     {
-        ClearText.gameObject.SetActive(true);
-        RestartText.gameObject.SetActive(true);
+        clearObject.SetActive(true);
+        //ClearText.gameObject.SetActive(true);
+        //RestartText.gameObject.SetActive(true);
     }
 
     public void ButtonDown()

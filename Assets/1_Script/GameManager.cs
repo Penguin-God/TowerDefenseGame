@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
         }
 
         enemySpawn.GetComponent<EnemySpawn>();
+        gameManagerAudio = GetComponent<AudioSource>();
     }
 
 
@@ -87,12 +88,13 @@ public class GameManager : MonoBehaviour
         UIManager.instance.UpdateFoodText(Food);
     }
 
-
+    public AudioClip gameLoseClip;
+    private AudioSource gameManagerAudio;
     void Update()
     {
         enemyCount = enemySpawn.currentEnemyList.Count; // 리스트 크기를 enemyCount에 대입
         UIManager.instance.UpdateCountEnemyText(enemyCount);
-        if (enemyCount >= 50)
+        if (enemyCount >= 50 && !isGameover)
         {
             Lose();
             //enemySpaw.EnemyofCount -= 1;
@@ -251,15 +253,22 @@ public class GameManager : MonoBehaviour
         isGameover = true;
         UIManager.instance.SetActiveGameOverUI();
         Time.timeScale = 0;
-        
+
+        gameManagerAudio.PlayOneShot(gameLoseClip);
     }
 
+    public AudioClip clearClip;
     public void Clear()
     {
         isClear = true;
+        for (int i = 0; i < enemySpawn.currentEnemyList.Count; i++)
+        {
+            NomalEnemy enemy = enemySpawn.currentEnemyList[i].GetComponent<NomalEnemy>();
+            enemy.Dead();
+        }
         UIManager.instance.SetActiveClearUI();
         Time.timeScale = 0;
-
+        gameManagerAudio.PlayOneShot(clearClip, 0.7f);
     }
 
     public void ReTurnClient()

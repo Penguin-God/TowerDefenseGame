@@ -28,12 +28,14 @@ public class NomalEnemy : Enemy
     {
         isDead = false;
         SetNextPoint();
-        Invoke("AddListMe", 0.05f);
+        if(gameObject.tag != "Boss") Invoke("AddListMe", 0.05f);
     }
 
     void AddListMe()
     {
         enemySpawn.currentEnemyList.Add(this.gameObject);
+        if (enemySpawn.currentEnemyList.Count > 45 && 50 > enemySpawn.currentEnemyList.Count)
+            enemySpawn.enemyAudioSource.PlayOneShot(enemySpawn.dengerClip, 0.8f);
     }
 
     public void ResetStatus(int hp, float speed)

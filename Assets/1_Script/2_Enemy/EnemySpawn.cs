@@ -50,11 +50,11 @@ public class EnemySpawn : MonoBehaviour
 
     public void StageStart()
     {
-        if (stageNumber == 51)
-        {
-            GameManager.instance.Clear();
-            return;
-        }
+        //if (stageNumber == 51)
+        //{
+        //    GameManager.instance.Clear();
+        //    return;
+        //}
 
         GameManager.instance.Gold += stageGold;
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
@@ -63,6 +63,7 @@ public class EnemySpawn : MonoBehaviour
     }
 
     public AudioClip newStageClip;
+    public AudioClip dengerClip;
     public int stageGold;
     public float stageWait_Time = 10f;
     float stageTime = 40f;

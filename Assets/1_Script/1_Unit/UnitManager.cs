@@ -68,4 +68,13 @@ public class UnitManager : MonoBehaviour
         current_TPEffectIndex++;
         if (current_TPEffectIndex >= tp_Effects.Length) current_TPEffectIndex = 0;
     }
+
+    public void UnitTranslate_To_EnterStroyMode()
+    {
+        for(int i = 0; i < currentUnitList.Count; i++)
+        {
+            TeamSoldier unit = currentUnitList[i].GetComponent<TeamSoldier>();
+            if (unit.enterStoryWorld) unit.Unit_WorldChange();
+        }
+    }
 }

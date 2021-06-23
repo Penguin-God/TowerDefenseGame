@@ -205,9 +205,6 @@ public class EnemySpawn : MonoBehaviour
     public void RespawnNextTower(int towerLevel, float delayTime)
     {
         currentTowerLevel++;
-        // 상점 뜨게 하고 텍스트 설정
-        shop.OnShop(towerLevel, shop.towerShopWeighDictionary);
-        shop.SetGuideText("적군의 성을 파괴하였습니다");
 
         if (towerLevel >= towers.Length)
         { 
@@ -217,13 +214,19 @@ public class EnemySpawn : MonoBehaviour
             }
         }
         StartCoroutine(SetNexTwoer_Coroutine(towerLevel, delayTime));
+
+        // 상점 뜨게 하고 텍스트 설정
+        shop.OnShop(towerLevel, shop.towerShopWeighDictionary);
+        shop.SetGuideText("적군의 성을 파괴하였습니다");
     }
 
     IEnumerator SetNexTwoer_Coroutine(int towerLevel, float delayTime)
     {
         enemyAudioSource.PlayOneShot(towerDieClip, 1f);
         towers[towerLevel - 1].SetActive(false);
+        towers[towerLevel - 1].transform.position = new Vector3(5000, 5000, 5000);
         yield return new WaitForSeconds(delayTime);
-        if(towerLevel < towers.Length) towers[towerLevel].SetActive(true); // 다음 타워가 있을때만 소환
+        if (towerLevel < towers.Length) towers[towerLevel].SetActive(true); // 다음 타워가 있을때만 소환
+        else UnitManager.instance.UnitTranslate_To_EnterStroyMode();
     }
 }

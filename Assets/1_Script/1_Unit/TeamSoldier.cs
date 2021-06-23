@@ -207,7 +207,7 @@ public class TeamSoldier : MonoBehaviour
         Invoke("RangeNavStop", 4f); // 원거리 타워에 다가가는거 막기
         while (true)
         {
-            if(target != null)
+            if(target != null && enemyDistance < chaseRange)
             {
                 if (target.GetComponent<EnemyTower>().isDead)
                 {

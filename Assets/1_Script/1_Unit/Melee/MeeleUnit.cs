@@ -13,22 +13,22 @@ public class MeeleUnit : TeamSoldier
     public override void UnitTypeMove()
     {
         // 정지조건 3개
-        if ( (Check_EnemyToUnit_Deggre() < 0.6f && enemyIsForward) || (enemyIsForward && target.gameObject.tag == "Tower") )
-        {
-            nav.isStopped = true;
-        }
-        else nav.isStopped = false;
+        //if (enemyIsForward && target.gameObject.tag == "Tower")
+        //{
+        //    nav.isStopped = true;
+        //}
+        //else nav.isStopped = false;
 
-        if (enemyDistance < 2f) nav.speed = 2f;
+        if (enemyDistance < stopDistanc) nav.speed = 0.15f;
         else nav.speed = this.speed;
     }
 
-    protected float Check_EnemyToUnit_Deggre()
-    {
-        if (nomalEnemy == null) return 1f;
-        float enemyDot = Vector3.Dot(nomalEnemy.dir.normalized, (target.position - this.transform.position).normalized);
-        return enemyDot;
-    }
+    //protected float Check_EnemyToUnit_Deggre()
+    //{
+    //    if (nomalEnemy == null) return 1f;
+    //    float enemyDot = Vector3.Dot(nomalEnemy.dir.normalized, (target.position - this.transform.position).normalized);
+    //    return enemyDot;
+    //}
 
     public virtual void MeeleUnit_PassiveAttack(Enemy enemy)
     {
@@ -39,7 +39,7 @@ public class MeeleUnit : TeamSoldier
     {
         // 공격 시작 때 적과 HitMeeleAttack() 작동 시 적과 같은 적인지 비교하는 코드 필요
         Enemy enemy = GetEnemyScript();
-        if (enemy != null && (enemyDistance < attackRange || target.gameObject.CompareTag("Tower") || target.gameObject.CompareTag("Boss") ) )
+        if (enemy != null && (enemyDistance < attackRange * 1.5f || target.gameObject.CompareTag("Tower") || target.gameObject.CompareTag("Boss") ) )
         {
             AttackEnemy(enemy);
             MeeleUnit_PassiveAttack(enemy);
@@ -53,6 +53,14 @@ public class MeeleUnit : TeamSoldier
             contactEnemy = true;
         }
         else
+        {
+            contactEnemy = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.layer == 8 && other.gameObject == target.gameObject && !other.gameObject.CompareTag("Tower"))
         {
             contactEnemy = false;
         }

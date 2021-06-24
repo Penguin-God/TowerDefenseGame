@@ -62,6 +62,12 @@ public class Unit_Archer : RangeUnit, IEvent
 
     public override void SpecialAttack()
     {
+        if (target.gameObject.CompareTag("Tower") || target.gameObject.CompareTag("Boss"))
+        {
+            Invoke("NormalAttackAudioPlay", normalAttakc_AudioDelay);
+            NormalAttack();
+            return;
+        }
         StartCoroutine(Special_ArcherAttack());
     }
 
@@ -88,7 +94,7 @@ public class Unit_Archer : RangeUnit, IEvent
         nav.angularSpeed = 1000;
         isAttack = false;
         base.NormalAttack();
-        if (enemySpawn.currentEnemyList.Count != 0 && !target.gameObject.CompareTag("Tower") && !target.gameObject.CompareTag("Boss")) UpdateTarget();
+        if (enemySpawn.currentEnemyList.Count != 0) UpdateTarget();
     }
 
     // 첫번째에 targetTransform을 넣고 currentEnemyList에서 targetTransform을 가장 가까운 transform을 count 크기만큼 가지는 array를 return하는 함수

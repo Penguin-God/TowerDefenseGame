@@ -72,7 +72,7 @@ public class TeamSoldier : MonoBehaviour
         }
     }
 
-    void NormalAttackAudioPlay()
+    protected void NormalAttackAudioPlay()
     {
         if(enterStoryWorld == GameManager.instance.playerEnterStoryMode)
             unitAudioSource.PlayOneShot(normalAttackClip);
@@ -129,11 +129,9 @@ public class TeamSoldier : MonoBehaviour
         else return false;
     }
 
-    protected bool contactEnemy = false;
-
     IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
     {
-        // boss 있으면 보스만 추격
+        // 적군의 성에서 돌아올 때 boss 있으면 보스만 추격
         if (enemySpawn.bossRespawn && enemySpawn.currentBossList[0] != null) target = enemySpawn.currentBossList[0].transform;
         while (true)
         {
@@ -152,13 +150,14 @@ public class TeamSoldier : MonoBehaviour
             } 
             else nav.SetDestination(target.position);
 
-            if ( ( enemyIsForward || contactEnemy ) && !isAttackDelayTime) // Attack가능하고 쿨타임이 아니면 공격
+            if ( (enemyIsForward || contactEnemy) && !isAttackDelayTime) // Attack가능하고 쿨타임이 아니면 공격
             {
                 UnitAttack();
             }
             yield return null;
         }
     }
+    public bool contactEnemy = false;
 
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
@@ -203,6 +202,7 @@ public class TeamSoldier : MonoBehaviour
     // 타워 때리는 무한반복 코루틴
     IEnumerator TowerNavCoroutine()
     {
+        if(target != null )enemyDistance = Vector3.Distance(this.transform.position, target.position);
         Physics.Raycast(transform.parent.position + Vector3.up, target.position - transform.position, out RaycastHit towerHit, 100f, layerMask);
         Invoke("RangeNavStop", 4f); // 원거리 타워에 다가가는거 막기
         while (true)
@@ -250,7 +250,8 @@ public class TeamSoldier : MonoBehaviour
         UnitManager.instance.ShowTpEffect(transform);
         if (!enterStoryWorld)
         {
-            transform.parent.position = SetRandomPosition(460, 540, -20, -30, true);
+            nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+            transform.parent.position = UnitManager.instance.Set_StroyModePosition();
             enterStoryWorld = true;
             nav.enabled = true;
             StopCoroutine("NavCoroutine");
@@ -259,6 +260,7 @@ public class TeamSoldier : MonoBehaviour
         }
         else
         {
+            nav.obstacleAvoidanceType = ObstacleAvoidanceType.GoodQualityObstacleAvoidance;
             transform.parent.position = SetRandomPosition(20, -20, 10, -10, false);
             towerEnter = false;
             enterStoryWorld = false;

@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
             //enemySpawn.enemyHpWeight = 45;
         //}
         isGameover = false;
-        Gold = 15;
+        Gold = 10;
         Food = 1;
         UIManager.instance.UpdateGoldText(Gold);
         UIManager.instance.UpdateFoodText(Food);
@@ -314,6 +314,7 @@ public class GameManager : MonoBehaviour
 
         SelectDifficult(enemyHpWeight);
         enemySpawn.StageStart();
+        UnitManager.instance.ReSpawnStartUnit();
     }
 
     public bool gameStart;

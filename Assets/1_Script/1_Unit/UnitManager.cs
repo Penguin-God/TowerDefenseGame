@@ -77,4 +77,13 @@ public class UnitManager : MonoBehaviour
             if (unit.enterStoryWorld) unit.Unit_WorldChange();
         }
     }
+
+    public GameObject[] startUnitArray;
+    public void ReSpawnStartUnit()
+    {
+        int random = Random.Range(0, startUnitArray.Length);
+
+        GameObject startUnit = Instantiate(startUnitArray[random], startUnitArray[random].transform.position, startUnitArray[random].transform.rotation);
+        startUnit.SetActive(true);
+    }
 }

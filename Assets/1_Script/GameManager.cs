@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
             //enemySpawn.enemyHpWeight = 45;
         //}
         isGameover = false;
-        Gold = 10;
+        Gold = 15;
         Food = 1;
         UIManager.instance.UpdateGoldText(Gold);
         UIManager.instance.UpdateFoodText(Food);

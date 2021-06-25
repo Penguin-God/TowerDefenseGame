@@ -62,10 +62,10 @@ public class GameManager : MonoBehaviour
 
 
 
-
+    public int AddGold;
     void Start()
     {
-        //if (starts == Starts.Easy)
+        //if (starts == Starts.Easy)s
         //{
             //enemySpawn.enemyHpWeight = 15;
         //}
@@ -82,7 +82,7 @@ public class GameManager : MonoBehaviour
             //enemySpawn.enemyHpWeight = 45;
         //}
         isGameover = false;
-        Gold = 15;
+        Gold = 15 + AddGold;
         Food = 1;
         UIManager.instance.UpdateGoldText(Gold);
         UIManager.instance.UpdateFoodText(Food);

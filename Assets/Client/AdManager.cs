@@ -33,7 +33,7 @@ public class AdManager : MonoBehaviour
         Debug.Log("클릭 됨");
         if (Advertisement.IsReady())
         {
-            Advertisement.Show("Video");
+            Advertisement.Show("Interstitial_Android");
         }
     }
 
@@ -42,7 +42,7 @@ public class AdManager : MonoBehaviour
         if (Advertisement.IsReady())
         {
             ShowOptions options = new ShowOptions { resultCallback = ResultedAds };
-            Advertisement.Show("rewardedVideo", options);
+            Advertisement.Show("Rewarded_Android", options);
         }
     }
 
@@ -58,6 +58,7 @@ public class AdManager : MonoBehaviour
                 break;
             case ShowResult.Finished:
                 GameManager.instance.Gold += 10;
+                UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
                 Debug.Log("광고 보기를 완료했습니다.");
                 break;
         }

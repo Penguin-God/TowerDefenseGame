@@ -211,9 +211,11 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
+  contactEnemy: 0
   towerEnter: 0
   enterStoryWorld: 0
   getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
+  reinforceEffect: {fileID: 0}
   arrow: {fileID: 3088359444298159365, guid: 9e514e9df4ef0054e96ba63a50b5df72, type: 3}
   arrowTransform: {fileID: 8715698879809390191}
 --- !u!1 &8715202503755447900
@@ -463,6 +465,7 @@ Transform:
   m_LocalScale: {x: 1.5000001, y: 1.5, z: 1.5000001}
   m_Children:
   - {fileID: 8717717411391879164}
+  - {fileID: 1141141974088518730}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -679,3 +682,78 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!1001 &1829602039
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8715698880742512892}
+    m_Modifications:
+    - target: {fileID: 1141141973736361661, guid: 7a5aeacb5d65eea4eac249563348c689,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141141973736361661, guid: 7a5aeacb5d65eea4eac249563348c689,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141141973736361661, guid: 7a5aeacb5d65eea4eac249563348c689,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141141973736361661, guid: 7a5aeacb5d65eea4eac249563348c689,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141141973736361661, guid: 7a5aeacb5d65eea4eac249563348c689,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141141973736361661, guid: 7a5aeacb5d65eea4eac249563348c689,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141141973736361661, guid: 7a5aeacb5d65eea4eac249563348c689,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141141973736361661, guid: 7a5aeacb5d65eea4eac249563348c689,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141141973736361661, guid: 7a5aeacb5d65eea4eac249563348c689,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141141973736361661, guid: 7a5aeacb5d65eea4eac249563348c689,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1141141973736361661, guid: 7a5aeacb5d65eea4eac249563348c689,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1143565392835739565, guid: 7a5aeacb5d65eea4eac249563348c689,
+        type: 3}
+      propertyPath: m_Name
+      value: Yellow ReinForce Effect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7a5aeacb5d65eea4eac249563348c689, type: 3}
+--- !u!4 &1141141974088518730 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1141141973736361661, guid: 7a5aeacb5d65eea4eac249563348c689,
+    type: 3}
+  m_PrefabInstance: {fileID: 1829602039}
+  m_PrefabAsset: {fileID: 0}

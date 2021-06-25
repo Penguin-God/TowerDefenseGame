@@ -57,7 +57,7 @@ public class Unit_Archer : RangeUnit, IEvent
 
         isAttack = false;
         base.NormalAttack();
-        if (enemySpawn.currentEnemyList.Count != 0 && !target.gameObject.CompareTag("Tower") && !target.gameObject.CompareTag("Boss")) UpdateTarget();
+        //if (enemySpawn.currentEnemyList.Count != 0 && !target.gameObject.CompareTag("Tower") && !target.gameObject.CompareTag("Boss")) UpdateTarget();
     }
 
     public override void SpecialAttack()

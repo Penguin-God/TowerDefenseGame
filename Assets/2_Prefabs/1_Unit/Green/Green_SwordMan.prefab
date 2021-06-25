@@ -190,6 +190,7 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 7382913694249432391}
+  - {fileID: 7531108424701477438}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -524,9 +525,11 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
+  contactEnemy: 0
   towerEnter: 0
   enterStoryWorld: 0
   getGoldClip: {fileID: 0}
+  reinforceEffect: {fileID: 0}
   trail: {fileID: 7382913694270933811}
 --- !u!95 &5296032616661503057
 Animator:
@@ -698,3 +701,78 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
+--- !u!1001 &1387880664
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7382913693922307583}
+    m_Modifications:
+    - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7533179724001874934, guid: af6230aacce63134594a8b6530b54fe7,
+        type: 3}
+      propertyPath: m_Name
+      value: Green ReinForce Effect
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: af6230aacce63134594a8b6530b54fe7, type: 3}
+--- !u!4 &7531108424701477438 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1387880664}
+  m_PrefabAsset: {fileID: 0}

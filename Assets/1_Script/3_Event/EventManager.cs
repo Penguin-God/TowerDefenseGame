@@ -62,9 +62,11 @@ public class EventManager : MonoBehaviour
     private bool[] unitColorIsEvent = new bool[] { false, false, false, false, false, false, false };  
     void ActionRandomEvent(Text eventText, List<Action<GameObject[]>> eventActionList)
     {
-        int unitNumber = Check_UnitIsEvnet();
+        int unitNumber = Check_UnitIsEvnet(); // unit 설정
+        UnitManager.instance.ShowReinforceEffect(unitNumber);
         unitColorIsEvent[unitNumber] = true;
 
+        // 이벤트 적용
         int eventNumber = UnityEngine.Random.Range(0, eventActionList.Count);
         eventActionList[eventNumber](UnitManager.instance.unitArrays[unitNumber].unitArray);
         eventText.text = ReturnUnitText(unitNumber) + eventTextDictionary[eventActionList[eventNumber]];

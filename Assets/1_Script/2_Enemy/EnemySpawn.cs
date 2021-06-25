@@ -176,12 +176,12 @@ public class EnemySpawn : MonoBehaviour
         return hp;
     }
 
-    private float maxSpeed = 10f;
-    private float minSpeed = 5f;
+    private float maxSpeed = 6f;
+    private float minSpeed = 3f;
     float SetRandomSeepd()
     {
         // satge에 따른 가중치 변수들
-        float stageSpeedWeight = stageNumber / 2;
+        float stageSpeedWeight = stageNumber / 5;
 
         float enemyMinSpeed = minSpeed + stageSpeedWeight;
         float enemyMaxSpeed = maxSpeed + stageSpeedWeight;

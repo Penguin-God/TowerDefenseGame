@@ -363,9 +363,11 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
+  contactEnemy: 0
   towerEnter: 0
   enterStoryWorld: 0
   getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
+  reinforceEffect: {fileID: 0}
   trail: {fileID: 392146240671753428}
   spear: {fileID: 2075221735745424129}
   skileSpaer: {fileID: 4947818212191654679, guid: 313928c4322896f4d9f487c0ffd4ae9a,
@@ -607,6 +609,7 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 2078439554965446353}
+  - {fileID: 7462278198872929410}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -744,3 +747,78 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!1001 &1142760815
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6704759391202351555}
+    m_Modifications:
+    - target: {fileID: 7460127304993480957, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_Name
+      value: Violet ReinForce Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: a2708bb195d494643bedb7beefb5ca69, type: 3}
+--- !u!4 &7462278198872929410 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+    type: 3}
+  m_PrefabInstance: {fileID: 1142760815}
+  m_PrefabAsset: {fileID: 0}

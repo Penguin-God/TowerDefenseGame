@@ -105,4 +105,14 @@ public class UnitManager : MonoBehaviour
         Debug.Log(rangeVector);
         return respawnPosition;
     }
+
+    public void ShowReinforceEffect(int colorNumber)
+    {
+        for(int i = 0; i < unitArrays[colorNumber].unitArray.Length; i++)
+        {
+
+            TeamSoldier unit = unitArrays[colorNumber].unitArray[i].transform.GetChild(0).GetComponent<TeamSoldier>();
+            unit.reinforceEffect.SetActive(true);
+        }
+    }
 }

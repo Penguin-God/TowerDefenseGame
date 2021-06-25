@@ -84,7 +84,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
 
         isAttack = false;
         base.NormalAttack();
-        if (enemySpawn.currentEnemyList.Count != 0 && !target.gameObject.CompareTag("Tower") && !target.gameObject.CompareTag("Boss")) UpdateTarget();
+        //if (enemySpawn.currentEnemyList.Count != 0 && !target.gameObject.CompareTag("Tower") && !target.gameObject.CompareTag("Boss")) UpdateTarget();
     }
 
     void MageSpecialAttack()

@@ -38,6 +38,7 @@ public class TeamSoldier : MonoBehaviour
     public AudioClip tpAudioClip;
 
     protected float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
+
     private void Start()
     {
         UnitManager.instance.currentUnitList.Add(gameObject);
@@ -79,6 +80,7 @@ public class TeamSoldier : MonoBehaviour
     }
     public virtual void NormalAttack()
     {
+        if (!target.gameObject.CompareTag("Tower") && !target.gameObject.CompareTag("Boss")) UpdateTarget();
         Invoke("ReadyAttack", attackDelayTime);
     }
     void ReadyAttack()
@@ -323,6 +325,8 @@ public class TeamSoldier : MonoBehaviour
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
         }
     }
+
+    public GameObject reinforceEffect;
 
     //private void OnMouseDown()
     //{

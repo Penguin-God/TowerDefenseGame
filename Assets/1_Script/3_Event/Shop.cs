@@ -118,7 +118,10 @@ public class Shop : MonoBehaviour
     void GoodsPurchase(GameObject goodsObject)
     {
         shopAudioManagerSource.PlayOneShot(itemPurchaseClip);
-        Destroy(goodsObject, 0.5f);
+        Destroy(goodsObject, 0.1f);
+
+        Transform goodsStock = goodsObject.transform.parent;
+        if (goodsStock.childCount == 1) Destroy(goodsStock.gameObject); // 물품을 다 샀으면 등급 파괴
         ExitShop();
     }
 
@@ -470,9 +473,11 @@ public class Shop : MonoBehaviour
             else randomNumber -= goodsWeighDictionary[level][i];
         }
 
+        if (goodsRarity == null) goodsRarity = goods.transform.GetChild(0); // 등급파괴되서 null이면 첫번째 등급으로
+
         // 휘귀도 선택 후 상품 랜덤 선택
         int goodsIndex = UnityEngine.Random.Range(0, goodsRarity.transform.childCount);
-        GameObject showGoods = goodsRarity.transform.GetChild(goodsIndex).gameObject;
+        GameObject showGoods = goodsRarity.GetChild(goodsIndex).gameObject;
         showGoods.SetActive(true);
         return showGoods;
     }

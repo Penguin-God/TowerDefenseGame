@@ -80,7 +80,7 @@ public class TeamSoldier : MonoBehaviour
     }
     public virtual void NormalAttack()
     {
-        if (!target.gameObject.CompareTag("Tower") && !target.gameObject.CompareTag("Boss")) UpdateTarget();
+        if (target != null && !target.gameObject.CompareTag("Tower") && !target.gameObject.CompareTag("Boss")) UpdateTarget();
         Invoke("ReadyAttack", attackDelayTime);
     }
     void ReadyAttack()
@@ -163,7 +163,11 @@ public class TeamSoldier : MonoBehaviour
 
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
-        if (enemySpawn.bossRespawn) target = enemySpawn.currentBossList[0].transform;
+        if (enemySpawn.bossRespawn) // 보스 있으면 보스가 타겟
+        {
+            SetChaseSetting(enemySpawn.currentBossList[0]);
+            return;
+        } 
 
         float shortDistance = chaseRange;
         GameObject targetObject = null;

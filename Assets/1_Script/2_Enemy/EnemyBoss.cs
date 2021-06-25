@@ -20,6 +20,8 @@ public class EnemyBoss : NomalEnemy
             if(!teamSoldier.enterStoryWorld)
                 teamSoldier.target = transform;
         }
+
+        GameManager.instance.ChangeBGM(GameManager.instance.bossbgmClip);
     }
 
     public override void Dead()
@@ -28,6 +30,8 @@ public class EnemyBoss : NomalEnemy
         enemySpawn.bossRespawn = false;
         parent.position = new Vector3(500, 500, 500);
         isDead = true;
+
+        GameManager.instance.ChangeBGM(GameManager.instance.bgmClip);
 
         if (enemySpawn.bossLevel == 5)
         {

@@ -89,7 +89,18 @@ public class GameManager : MonoBehaviour
     }
 
     public AudioClip gameLoseClip;
-    private AudioSource gameManagerAudio;
+
+    public AudioClip bossbgmClip;
+    public AudioClip bgmClip;
+
+    public AudioSource gameManagerAudio;
+
+    public void ChangeBGM(AudioClip bgmClip)
+    {
+        gameManagerAudio.clip = bgmClip;
+        gameManagerAudio.Play();
+    }
+
     void Update()
     {
         enemyCount = enemySpawn.currentEnemyList.Count; // 리스트 크기를 enemyCount에 대입
@@ -340,7 +351,11 @@ public class GameManager : MonoBehaviour
         enemySpawn.enemyHpWeight = enemyHpWeight;
     }
 
-
+    public void LoadClient()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(0);
+    }
 
 
 

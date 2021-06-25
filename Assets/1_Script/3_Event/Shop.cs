@@ -371,6 +371,7 @@ public class Shop : MonoBehaviour
         current_FoodGoldGoods = null;
 
         CancleBuy();
+        lacksGuideText.gameObject.SetActive(false);
         ShopEixtPanel.SetActive(false);
         Time.timeScale = GameManager.instance.gameTimeSpeed;
     }
@@ -382,20 +383,6 @@ public class Shop : MonoBehaviour
         currentBuyPanel.SetActive(false);
         currentBuyPanel.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
         currentBuyPanel = null;
-
-        //buyGoldObject.SetActive(false);
-        //buyUnitObject.SetActive(false);
-        //buyFoodObject.SetActive(false);
-        //buyUnitReinforce_Object.SetActive(false);
-        //buyEvent_Object.SetActive(false);
-        //buyMageUltimate_Object.SetActive(false);
-
-        //unitBuyButton.onClick.RemoveAllListeners();
-        //goldBuyButton.onClick.RemoveAllListeners();
-        //foodBuyButton.onClick.RemoveAllListeners();
-        //buyUnitReinforce_Button.onClick.RemoveAllListeners();
-        //buyEvent_Button.onClick.RemoveAllListeners();
-        //buyMageUltimate_Button.onClick.RemoveAllListeners();
     }
 
     public Text lacksGuideText;

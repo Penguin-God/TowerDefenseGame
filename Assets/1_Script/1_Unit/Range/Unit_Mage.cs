@@ -16,6 +16,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
     {
         animator = GetComponent<Animator>();
         if (unitColor == UnitColor.white) return;
+
         canvasRectTransform = transform.parent.GetComponentInChildren<RectTransform>();
         manaSlider = transform.parent.GetComponentInChildren<Slider>();
         manaSlider.maxValue = maxMana;

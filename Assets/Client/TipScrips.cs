@@ -7,7 +7,7 @@ public class TipScrips : MonoBehaviour
     public GameObject Tips;
     void Start()
     {
-        int RandomNumber = Random.Range(0, 5);
+        int RandomNumber = Random.Range(0, Tips.transform.childCount);
         Tips.transform.GetChild(RandomNumber).gameObject.SetActive(true);
     }
 

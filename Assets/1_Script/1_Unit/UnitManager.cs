@@ -97,12 +97,9 @@ public class UnitManager : MonoBehaviour
         float range_Z = rangeCollider.GetComponent<BoxCollider>().bounds.size.z;
         range_X = Random.Range(range_X / 2 * -1, range_X / 2);
         range_Z = Random.Range(range_Z / 2 * -1, range_Z / 2);
+
         Vector3 rangeVector= new Vector3(range_X, 0, range_Z);
-
-        Debug.Log(range_X);
-
         Vector3 respawnPosition = standardPosition + rangeVector;
-        Debug.Log(rangeVector);
         return respawnPosition;
     }
 

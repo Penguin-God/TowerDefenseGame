@@ -31,6 +31,15 @@ public class EnemyBoss : NomalEnemy
         parent.position = new Vector3(500, 500, 500);
         isDead = true;
 
+        foreach (GameObject unit in UnitManager.instance.currentUnitList)
+        {
+            if (unit == null) continue;
+
+            TeamSoldier teamSoldier = unit.GetComponent<TeamSoldier>();
+            if (!teamSoldier.enterStoryWorld)
+                teamSoldier.UpdateTarget();
+        }
+
         GameManager.instance.ChangeBGM(GameManager.instance.bgmClip);
 
         if (enemySpawn.bossLevel == 5)

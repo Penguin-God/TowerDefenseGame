@@ -131,7 +131,7 @@ public class EnemySpawn : MonoBehaviour
         instantBoss.transform.SetParent(transform);
 
         int hp = 10000 * ( (stageNumber / 10) * (enemyHpWeight / 5) ); // boss hp 정함
-        SetEnemyData(instantBoss, hp, 15);
+        SetEnemyData(instantBoss, hp, 10);
         instantBoss.transform.position = this.transform.position;
         instantBoss.SetActive(true);
     }
@@ -163,16 +163,14 @@ public class EnemySpawn : MonoBehaviour
         }
     }
 
-    private int maxHp = 200;
+    public int minHp = 200;
     public int enemyHpWeight;
     int SetRandomHp()
     {
         // satge에 따른 가중치 변수들
         int stageHpWeight = stageNumber * stageNumber * enemyHpWeight;
 
-        int enemyMinHp = maxHp + stageHpWeight;
-        int enemyMaxHp = maxHp + (stageHpWeight * 2);
-        int hp = Random.Range(enemyMinHp, enemyMaxHp);
+        int hp = minHp + stageHpWeight;
         return hp;
     }
 
@@ -204,29 +202,29 @@ public class EnemySpawn : MonoBehaviour
     public Shop shop;
     public void RespawnNextTower(int towerLevel, float delayTime)
     {
-        currentTowerLevel++;
-
-        if (towerLevel >= towers.Length)
-        { 
-            if(towerLevel == towers.Length)
-            {
-                createDefenser.CreateSoldier(6, 3);
-            }
-        }
-        StartCoroutine(SetNexTwoer_Coroutine(towerLevel, delayTime));
-
         // 상점 뜨게 하고 텍스트 설정
         shop.OnShop(towerLevel, shop.towerShopWeighDictionary);
         shop.SetGuideText("적군의 성을 파괴하였습니다");
+
+        enemyAudioSource.PlayOneShot(towerDieClip, 1f);
+
+        currentTowerLevel++;
+        if (towerLevel >= towers.Length) // 마지막 성 보상
+        {
+            for(int i = 0; i < 2; i++)
+            {
+                createDefenser.CreateSoldier(6, 2);
+            }
+            UnitManager.instance.UnitTranslate_To_EnterStroyMode();
+            return;
+        }
+
+        StartCoroutine(SetNexTwoer_Coroutine(towerLevel, delayTime));;
     }
 
     IEnumerator SetNexTwoer_Coroutine(int towerLevel, float delayTime)
     {
-        enemyAudioSource.PlayOneShot(towerDieClip, 1f);
-        towers[towerLevel - 1].SetActive(false);
-        towers[towerLevel - 1].transform.position = new Vector3(5000, 5000, 5000);
         yield return new WaitForSeconds(delayTime);
-        if (towerLevel < towers.Length) towers[towerLevel].SetActive(true); // 다음 타워가 있을때만 소환
-        else UnitManager.instance.UnitTranslate_To_EnterStroyMode();
+        towers[towerLevel].SetActive(true);
     }
 }

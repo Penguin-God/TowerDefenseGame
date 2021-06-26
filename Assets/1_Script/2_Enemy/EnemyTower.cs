@@ -22,6 +22,8 @@ public class EnemyTower : Enemy
         if (isDead) return;
 
         isDead = true;
+        gameObject.SetActive(false);
+        transform.position = new Vector3(5000, 5000, 5000);
         GetTowerReword();
         enemySpawn.RespawnNextTower(towerLevel, 0.5f); // 다음 타워 소환
     }
@@ -34,16 +36,4 @@ public class EnemyTower : Enemy
         GameManager.instance.Food += rewardFood;
         UIManager.instance.UpdateFoodText(GameManager.instance.Food);
     }
-
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.tag == "Attack") // 임시
-    //    {
-    //        AttackWeapon attackWeapon = other.GetComponentInParent<AttackWeapon>();
-    //        TeamSoldier teamSoldier = attackWeapon.attackUnit.GetComponent<TeamSoldier>();
-    //        if (teamSoldier.unitType == TeamSoldier.Type.archer) Destroy(other.gameObject); // 아처 공격이면 총알 삭제
-
-    //        OnDamage(attackWeapon.damage);
-    //    }
-    //}
 }

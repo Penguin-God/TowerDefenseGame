@@ -122,10 +122,10 @@ public class TeamSoldier : MonoBehaviour
         if (rayHit)
         {
             rayHitTransform = rayHitObject.transform;
-            //Debug.Log(rayHitObject);
-            if (rayHitObject.transform.gameObject.CompareTag("Tower") || rayHitObject.transform.gameObject.CompareTag("Boss"))
-                return true;
-            else if (rayHitObject.transform.gameObject == target.parent.gameObject) return true;
+            if (rayHitTransform == null) return false;
+
+            if (rayHitTransform.gameObject.CompareTag("Tower") || rayHitTransform.gameObject.CompareTag("Boss") 
+                || rayHitTransform == target.parent) return true;
             else return false;
         }
         else return false;

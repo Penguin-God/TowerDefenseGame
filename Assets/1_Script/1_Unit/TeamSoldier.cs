@@ -80,7 +80,10 @@ public class TeamSoldier : MonoBehaviour
     }
     public virtual void NormalAttack()
     {
-        if (target != null && !target.gameObject.CompareTag("Tower") && !target.gameObject.CompareTag("Boss")) UpdateTarget();
+        if (target != null && !target.gameObject.CompareTag("Tower") && !enemySpawn.bossRespawn)
+        {
+            UpdateTarget();
+        }
         Invoke("ReadyAttack", attackDelayTime);
     }
     void ReadyAttack()

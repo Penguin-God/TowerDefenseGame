@@ -349,7 +349,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.07
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -728,7 +728,7 @@ MonoBehaviour:
   towerEnter: 0
   enterStoryWorld: 0
   getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
-  reinforceEffect: {fileID: 0}
+  reinforceEffect: {fileID: 8862572028989302995}
   arrow: {fileID: 3088359444298159365, guid: e9e6b2938da7ee9459ba9b132e9e841d, type: 3}
   arrowTransform: {fileID: 464004086622951743}
 --- !u!1 &465707180998435084
@@ -879,6 +879,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26712ef667758bc4faf25b87a07b98d9, type: 3}
+--- !u!1 &8862572028989302995 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8862572027420421335, guid: 26712ef667758bc4faf25b87a07b98d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1653425156}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8860491915247163843 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8860491915742305735, guid: 26712ef667758bc4faf25b87a07b98d9,

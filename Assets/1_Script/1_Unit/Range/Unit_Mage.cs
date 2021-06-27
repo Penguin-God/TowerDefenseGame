@@ -158,7 +158,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
     }
     void RedMageSkillAttack(Transform attackTarget) // 메테오 떨어뜨림
     {
-        Vector3 meteorPosition = transform.position + Vector3.up * 60; // 높이 설정
+        Vector3 meteorPosition = transform.position + Vector3.up * 30; // 높이 설정
         GameObject instantSkillEffect = Instantiate(mageEffectObject, meteorPosition, Quaternion.identity);
         MageSkill mageSkill = instantSkillEffect.GetComponent<MageSkill>();
         mageSkill.target = attackTarget;

@@ -279,7 +279,7 @@ public class GameManager : MonoBehaviour
         }
         UIManager.instance.SetActiveClearUI();
         Time.timeScale = 0;
-        gameManagerAudio.PlayOneShot(clearClip, 0.7f);
+        gameManagerAudio.PlayOneShot(clearClip, 1.3f);
     }
 
     public void ReTurnClient()

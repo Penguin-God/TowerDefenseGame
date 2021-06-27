@@ -6,9 +6,10 @@ public class EnemyBoss : NomalEnemy
 {
     private void Awake()
     {
+        enemySpawn.currentBossList.Add(gameObject);
+
         nomalEnemy = GetComponent<NomalEnemy>();
         enemySpawn = GetComponentInParent<EnemySpawn>();
-        enemySpawn.currentBossList.Add(gameObject);
         parent = transform.parent.GetComponent<Transform>();
         parentRigidbody = GetComponentInParent<Rigidbody>();
 
@@ -17,8 +18,10 @@ public class EnemyBoss : NomalEnemy
             if (unit == null) continue;
 
             TeamSoldier teamSoldier = unit.GetComponent<TeamSoldier>();
-            if(!teamSoldier.enterStoryWorld)
-                teamSoldier.target = transform;
+            if (!teamSoldier.enterStoryWorld) 
+            {
+                teamSoldier.UpdateTarget();
+            }
         }
 
         GameManager.instance.ChangeBGM(GameManager.instance.bossbgmClip);
@@ -28,6 +31,7 @@ public class EnemyBoss : NomalEnemy
     {
         enemySpawn.currentBossList.Remove(gameObject);
         enemySpawn.bossRespawn = false;
+        parent.gameObject.SetActive(false);
         parent.position = new Vector3(500, 500, 500);
         isDead = true;
 

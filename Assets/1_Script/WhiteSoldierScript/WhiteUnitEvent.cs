@@ -21,7 +21,7 @@ public class WhiteUnitEvent : MonoBehaviour
 
     public void UnitTransform()
     {
-        UnitManager.instance.unitAudioManagerSource.PlayOneShot(unitTransformClip, 0.9f);
+        UnitManager.instance.unitAudioManagerSource.PlayOneShot(unitTransformClip, 1.1f);
         createDefenser.CreateSoldier(Colornumber, unitNumber, transform);
         Destroy(gameObject);
     }

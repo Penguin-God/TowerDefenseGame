@@ -163,7 +163,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.07
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -594,9 +594,11 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
+  contactEnemy: 0
   towerEnter: 0
   enterStoryWorld: 0
   getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
+  reinforceEffect: {fileID: 0}
   arrow: {fileID: 3088359444298159365, guid: 24bf7d0f0f8c86e4e90c688fcc41fa1d, type: 3}
   arrowTransform: {fileID: 1800201802974358915}
 --- !u!1 &1801023806665985748

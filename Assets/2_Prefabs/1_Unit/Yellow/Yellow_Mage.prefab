@@ -511,7 +511,7 @@ MonoBehaviour:
   towerEnter: 0
   enterStoryWorld: 0
   getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
-  reinforceEffect: {fileID: 0}
+  reinforceEffect: {fileID: 1143565391044235504}
   magicLight: {fileID: 4865064561278535483}
   energyBall: {fileID: 7010148103123964683, guid: 19f8ca3693248454ab75c62a937b3812,
     type: 3}
@@ -523,7 +523,7 @@ MonoBehaviour:
   mageSkillCilp: {fileID: 8300000, guid: ccbb6361d50eb264183f03d797b631c0, type: 3}
   canvasRectTransform: {fileID: 0}
   manaSlider: {fileID: 0}
-  maxMana: 100
+  maxMana: 250
   currentMana: 0
 --- !u!135 &1453244912
 SphereCollider:
@@ -827,7 +827,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.07
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -1232,6 +1232,12 @@ PrefabInstance:
 --- !u!4 &1141141973908857312 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1141141973736361661, guid: 7a5aeacb5d65eea4eac249563348c689,
+    type: 3}
+  m_PrefabInstance: {fileID: 2012753757}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1143565391044235504 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1143565392835739565, guid: 7a5aeacb5d65eea4eac249563348c689,
     type: 3}
   m_PrefabInstance: {fileID: 2012753757}
   m_PrefabAsset: {fileID: 0}

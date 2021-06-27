@@ -216,9 +216,11 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
+  contactEnemy: 0
   towerEnter: 0
   enterStoryWorld: 0
   getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
+  reinforceEffect: {fileID: 0}
   magicLight: {fileID: 5507084894366286642}
   energyBall: {fileID: 7010148103123964683, guid: 9fcbcf7d5c4481443bd51b14ffab4eb3,
     type: 3}
@@ -454,7 +456,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.07
+  m_Volume: 0.15
   m_Pitch: 1
   Loop: 0
   Mute: 0

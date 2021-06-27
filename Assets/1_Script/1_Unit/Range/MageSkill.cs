@@ -28,7 +28,7 @@ public class MageSkill : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 8)
+        if (other.gameObject.layer == 8 && !moveEffect)
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             //Debug.Log(enemy.transform.gameObject);
@@ -46,7 +46,7 @@ public class MageSkill : MonoBehaviour
         {
             case TeamSoldier.UnitColor.red:
                 enemy.EnemyStern(100, 5);
-                enemy.OnDamage(15000);
+                enemy.OnDamage(25000);
                 Destroy(gameObject, 3);
                 break;
             case TeamSoldier.UnitColor.blue:

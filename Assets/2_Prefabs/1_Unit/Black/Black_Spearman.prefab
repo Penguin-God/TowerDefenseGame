@@ -352,7 +352,7 @@ MonoBehaviour:
   attackRange: 10
   damage: 3000
   bossDamage: 3000
-  stopDistanc: 6
+  stopDistanc: 3
   isAttack: 0
   isAttackDelayTime: 0
   target: {fileID: 0}
@@ -363,9 +363,11 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
+  contactEnemy: 0
   towerEnter: 0
   enterStoryWorld: 0
   getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
+  reinforceEffect: {fileID: 0}
   trail: {fileID: 536275632113738204}
   spear: {fileID: 2219357732911074825}
   skileSpaer: {fileID: 4947818212191654679, guid: 05f48d17278f54a4db431c3be234bd29,
@@ -621,7 +623,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 16
-  m_Acceleration: 20
+  m_Acceleration: 40
   avoidancePriority: 55
   m_AngularSpeed: 500
   m_StoppingDistance: 0
@@ -660,7 +662,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0.75
   m_Pitch: 1
   Loop: 0
   Mute: 0

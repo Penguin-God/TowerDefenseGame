@@ -205,7 +205,7 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 12
-  m_Acceleration: 15
+  m_Acceleration: 40
   avoidancePriority: 55
   m_AngularSpeed: 500
   m_StoppingDistance: 0
@@ -244,7 +244,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -529,7 +529,7 @@ MonoBehaviour:
   towerEnter: 0
   enterStoryWorld: 0
   getGoldClip: {fileID: 0}
-  reinforceEffect: {fileID: 0}
+  reinforceEffect: {fileID: 7533179723174114094}
   trail: {fileID: 7382913694270933811}
 --- !u!95 &5296032616661503057
 Animator:
@@ -770,6 +770,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af6230aacce63134594a8b6530b54fe7, type: 3}
+--- !u!1 &7533179723174114094 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7533179724001874934, guid: af6230aacce63134594a8b6530b54fe7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1387880664}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &7531108424701477438 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,

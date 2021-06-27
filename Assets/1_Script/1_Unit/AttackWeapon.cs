@@ -12,8 +12,7 @@ public class AttackWeapon : MonoBehaviour
     private void Start()
     {
         teamSoldier = attackUnit.GetComponent<TeamSoldier>();
-        this.damage = teamSoldier.damage;
-        //if(teamSoldier.unitType == TeamSoldier.Type.archer || teamSoldier.unitType == TeamSoldier.Type.mage) Destroy(gameObject, 5);
+        this.damage = teamSoldier.damage; // 의미없음 어차피 유닛 고유 대미지로 들어감
         Destroy(gameObject, 5);
     }
 

@@ -58,15 +58,16 @@ public class EnemySpawn : MonoBehaviour
 
         GameManager.instance.Gold += stageGold;
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-        UIManager.instance.UpdateStageText(stageNumber);
+
+        enemyHpWeight++;
         StartCoroutine(StageCoroutine(respawnEnemyCount));
     }
 
     public AudioClip newStageClip;
     public AudioClip dengerClip;
     public int stageGold;
-    public float stageWait_Time = 10f;
-    float stageTime = 40f;
+    //public float stageWait_Time;
+    public float stageTime = 40f;
     IEnumerator StageCoroutine(int stageRespawnEenemyCount) // 재귀함수 무한반복
     {
         // 사운드 재생
@@ -75,13 +76,22 @@ public class EnemySpawn : MonoBehaviour
         {
             RespawnBoss();
             stageRespawnEenemyCount = 0;
-            stageWait_Time = 40f;
+
+            if (stageNumber >= 50) // 마지막 보스일시
+            {
+                UIManager.instance.StageText.text = "현재 스테이지 : 마지막";
+                UIManager.instance.StageText.color = new Color32(255, 0, 0, 255);
+                stageRespawnEenemyCount = 100;
+            }
         }
 
         // 관련 변수 세팅
         int instantEnemyNumber = Random.Range(0, enemyPrefab.Length);
         int hp = SetRandomHp();
         float speed = SetRandomSeepd();
+
+        timerSlider.maxValue = stageTime;
+        timerSlider.value = stageTime;
 
         while (stageRespawnEenemyCount > 0)
         {
@@ -100,19 +110,20 @@ public class EnemySpawn : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
 
-        
-        stageNumber += 1;
-        yield return new WaitForSeconds(stageWait_Time);
+        //yield return new WaitForSeconds(stageWait_Time);
         yield return new WaitUntil(() => timerSlider.value <= 0); // 스테이지 타이머 0이되면
-        timerSlider.value = stageTime;
-        stageWait_Time = 10f;
+        //timerSlider.value = stageTime;
+        //stageWait_Time = 10f;
+
+        stageNumber++;
+        UIManager.instance.UpdateStageText(stageNumber);
         StageStart();
     }
 
     public Slider timerSlider;
     private void Update()
     {
-        if(GameManager.instance.gameStart)
+        if(GameManager.instance.gameStart && stageNumber < 50)
             timerSlider.value -= Time.deltaTime;
     }
 
@@ -165,6 +176,7 @@ public class EnemySpawn : MonoBehaviour
 
     public int minHp = 200;
     public int enemyHpWeight;
+
     int SetRandomHp()
     {
         // satge에 따른 가중치 변수들
@@ -174,12 +186,12 @@ public class EnemySpawn : MonoBehaviour
         return hp;
     }
 
-    private float maxSpeed = 6f;
+    private float maxSpeed = 5f;
     private float minSpeed = 3f;
     float SetRandomSeepd()
     {
         // satge에 따른 가중치 변수들
-        float stageSpeedWeight = stageNumber / 5;
+        float stageSpeedWeight = stageNumber / 6;
 
         float enemyMinSpeed = minSpeed + stageSpeedWeight;
         float enemyMaxSpeed = maxSpeed + stageSpeedWeight;

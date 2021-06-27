@@ -177,7 +177,6 @@ public class GameManager : MonoBehaviour
     int FasterCount = 0;
     public Text FasterText;
     public float gameTimeSpeed;
-
     public void ClickFasterButton() // 클릭 할때 마다 게임 속도 증가
     {
         unitManageButton.UnitManageAudio.Play();

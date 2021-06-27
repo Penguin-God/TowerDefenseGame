@@ -344,12 +344,22 @@ public class Shop : MonoBehaviour
     }
 
     public bool showShop;
+    public Button[] dontClickButtons;
+
+    void SetButtonRayCast(bool isRaycast) // 상점 이용 시 특정 버튼 끄고 키기
+    {
+        for(int i = 0; i < dontClickButtons.Length; i++)
+        {
+            dontClickButtons[i].enabled = isRaycast;
+        }
+    }
 
     public void OnShop(int level, Dictionary<int, int[]> goodsWeighDictionary)
     {
         gameObject.SetActive(true);
         Time.timeScale = 0;
         showShop = true;
+        SetButtonRayCast(false); 
         Show_RandomShop(level, goodsWeighDictionary);
     }
 
@@ -377,6 +387,7 @@ public class Shop : MonoBehaviour
         lacksGuideText.gameObject.SetActive(false);
         ShopEixtPanel.SetActive(false);
         Time.timeScale = GameManager.instance.gameTimeSpeed;
+        SetButtonRayCast(true);
     }
 
     public void CancleBuy()

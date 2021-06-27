@@ -31,18 +31,18 @@ public class TutorialsButton : MonoBehaviour
     public GameObject BlackArcherButton;
     public GameObject ComeBackClientButton;
     public GameObject TutorialTexts;
-    public GameObject TutorialImages;
+    //public GameObject TutorialImages;
 
     public void TutorialProgressTrue(int number)
     {
         TutorialTexts.transform.GetChild(number + 1).gameObject.SetActive(true);
-        TutorialImages.transform.GetChild(number).gameObject.SetActive(true);
+        //TutorialImages.transform.GetChild(number).gameObject.SetActive(true);
     }
 
     public void TutorialProgressFalse(int number)
     {
         TutorialTexts.transform.GetChild(number + 1).gameObject.SetActive(false);
-        TutorialImages.transform.GetChild(number).gameObject.SetActive(false);
+        //TutorialImages.transform.GetChild(number).gameObject.SetActive(false);
     }
 
     public void ClickTutorialsButton()

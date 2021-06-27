@@ -275,7 +275,7 @@ public class TeamSoldier : MonoBehaviour
             UpdateTarget();
             StartCoroutine("NavCoroutine");
         }
-        unitAudioSource.PlayOneShot(tpAudioClip, 3f);
+        unitAudioSource.PlayOneShot(tpAudioClip, 2f);
     }
 
     private void OnTriggerEnter(Collider other)

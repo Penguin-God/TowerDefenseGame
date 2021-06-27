@@ -6,13 +6,12 @@ public class EnemyBoss : NomalEnemy
 {
     private void Awake()
     {
-        enemySpawn.currentBossList.Add(gameObject);
-
         nomalEnemy = GetComponent<NomalEnemy>();
         enemySpawn = GetComponentInParent<EnemySpawn>();
         parent = transform.parent.GetComponent<Transform>();
         parentRigidbody = GetComponentInParent<Rigidbody>();
 
+        enemySpawn.currentBossList.Add(gameObject);
         foreach (GameObject unit in UnitManager.instance.currentUnitList)
         {
             if (unit == null) continue;
@@ -20,7 +19,7 @@ public class EnemyBoss : NomalEnemy
             TeamSoldier teamSoldier = unit.GetComponent<TeamSoldier>();
             if (!teamSoldier.enterStoryWorld) 
             {
-                teamSoldier.UpdateTarget();
+                teamSoldier.SetChaseSetting(gameObject);
             }
         }
 

@@ -316,7 +316,7 @@ public class GameManager : MonoBehaviour
     public GameObject difficult_UI;
     public GameObject event_UI;
     public GameObject setting_UI;
-
+    public GameObject adManager_UI;
     public void GameStart(string difficult)
     {
         Set_UI();
@@ -343,6 +343,7 @@ public class GameManager : MonoBehaviour
 
         // 끄기
         difficult_UI.SetActive(false);
+        adManager_UI.SetActive(false);
     }
 
     public Text diffcultText;

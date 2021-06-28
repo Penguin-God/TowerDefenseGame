@@ -353,22 +353,27 @@ public class GameManager : MonoBehaviour
         switch (difficult)
         {
             case "Baby":
+                enemySpawn.enemyHpWeight = 20;
                 enemySpawn.plusEnemyHpWeight = 0;
                 enemySpawn.minHp = 200;
                 break;
             case "Easy":
+                enemySpawn.enemyHpWeight = 20;
                 enemySpawn.plusEnemyHpWeight = 1;
                 enemySpawn.minHp = 250;
                 break;
             case "Normal":
+                enemySpawn.enemyHpWeight = 30;
                 enemySpawn.plusEnemyHpWeight = 2;
                 enemySpawn.minHp = 300;
                 break;
             case "Hard":
+                enemySpawn.enemyHpWeight = 40;
                 enemySpawn.plusEnemyHpWeight = 3;
                 enemySpawn.minHp = 350;
                 break;
             case "Impossiable":
+                enemySpawn.enemyHpWeight = 50;
                 enemySpawn.plusEnemyHpWeight = 5;
                 enemySpawn.minHp = 400;
                 break;

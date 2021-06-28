@@ -60,7 +60,7 @@ public class EnemySpawn : MonoBehaviour
         GameManager.instance.Gold += stageGold;
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
-        if (stageNumber % 2 == 0) enemyHpWeight += plusEnemyHpWeight;
+        enemyHpWeight += plusEnemyHpWeight;
         StartCoroutine(StageCoroutine(respawnEnemyCount));
     }
 

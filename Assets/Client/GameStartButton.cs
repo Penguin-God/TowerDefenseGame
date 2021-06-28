@@ -22,7 +22,7 @@ public class GameStartButton : MonoBehaviour
 
     public void ClickTutorialsButton()
     {
-        SceneManager.LoadScene("Tutorials");
+        Loding.LoadScene("Tutorial");
     }
 
     //public void ClickEasyButton()

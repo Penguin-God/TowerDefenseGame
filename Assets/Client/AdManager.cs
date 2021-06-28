@@ -21,7 +21,7 @@ public class AdManager : MonoBehaviour
 
     private void Awake()
     {
-        Advertisement.Initialize("4174571", true);
+        Advertisement.Initialize("4174571", false);
     }
 
     //private void Update()

@@ -166,11 +166,11 @@ public class TeamSoldier : MonoBehaviour
 
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
-        //if (enemySpawn.bossRespawn) // 보스 있으면 보스가 타겟
-        //{
-        //    SetChaseSetting(enemySpawn.currentBossList[0]);
-        //    return;
-        //}
+        if (enemySpawn.bossRespawn) // 보스 있으면 보스가 타겟
+        {
+            SetChaseSetting(enemySpawn.currentBossList[0]);
+            return;
+        }
 
         float shortDistance = chaseRange;
         GameObject targetObject = null;

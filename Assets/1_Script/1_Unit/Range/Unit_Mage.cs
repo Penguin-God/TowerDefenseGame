@@ -124,7 +124,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
                 BlueMageSkill();
                 break;
             case UnitColor.yellow:
-                int addGold = (isUltimate) ? 8 : 5;
+                int addGold = (isUltimate) ? 3 : 5;
                 YellowMageSkill(addGold);
                 break;
             case UnitColor.green:
@@ -380,24 +380,24 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
     // 스킬 빈도 증가
     public void SkillPercentUp()
     {
-        plusMana += 15;
+        plusMana += 20;
     }
 
     //패시브 관련 변수
     private float redPassiveFigure = 1.5f;
     private float bluePassiveFigure = 25f;
     private float yellowPassiveFigure = 20f;
-    private int greenPassiveFigure = 2;
+    private int greenPassiveFigure = 4;
     private int orangePassiveFigure = 5;
     private int violetPassiveFigure = 60;
     // 패시브 강화
     public void ReinforcePassive()
     {
-        redPassiveFigure = 2f;
+        redPassiveFigure = 2.5f;
         bluePassiveFigure = 40f;
         yellowPassiveFigure = 40f;
-        greenPassiveFigure = 4;
+        greenPassiveFigure = 7;
         orangePassiveFigure = 10;
-        violetPassiveFigure = 99;
+        violetPassiveFigure = 100;
     }
 }

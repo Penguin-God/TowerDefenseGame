@@ -256,13 +256,13 @@ public class Shop : MonoBehaviour
     void BuyEvent(GameObject eventGoodsObject)
     {
         GoodsData buyGoodsData = eventGoodsObject.GetComponent<GoodsData>();
-        if (GameManager.instance.Food < buyGoodsData.price)
+        if (GameManager.instance.Gold < buyGoodsData.price)
         {
             CancleBuy();
             LacksGold();
             return;
         }
-        MinusFood(buyGoodsData.price);
+        MinusGold(buyGoodsData.price);
 
         EventManager.instance.eventArray[buyGoodsData.eventNumber]();
 

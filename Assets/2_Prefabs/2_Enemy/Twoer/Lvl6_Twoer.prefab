@@ -242,7 +242,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -639,8 +639,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 318e67155f164e248b16a62433b3011f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 5000000
-  currentHp: 5000000
+  maxHp: 500000
+  currentHp: 500000
   isDead: 0
   hpSlider: {fileID: 1887208191}
   originMat: {fileID: 0}

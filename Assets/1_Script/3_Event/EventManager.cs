@@ -114,7 +114,7 @@ public class EventManager : MonoBehaviour
         for (int i = 0; i < unitArray.Length; i++)
         {
             TeamSoldier teamSoldier = unitArray[i].GetComponentInChildren<TeamSoldier>();
-            teamSoldier.damage += teamSoldier.originDamage;
+            teamSoldier.damage += teamSoldier.originDamage * 3;
         }
     }
 
@@ -123,7 +123,7 @@ public class EventManager : MonoBehaviour
         for (int i = 0; i < unitArray.Length; i++)
         {
             TeamSoldier teamSoldier = unitArray[i].GetComponentInChildren<TeamSoldier>();
-            teamSoldier.bossDamage += teamSoldier.originBossDamage;
+            teamSoldier.bossDamage += teamSoldier.originBossDamage * 3;
         }
     }
 

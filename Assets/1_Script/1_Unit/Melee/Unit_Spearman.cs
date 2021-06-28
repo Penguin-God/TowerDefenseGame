@@ -128,7 +128,7 @@ public class Unit_Spearman : MeeleUnit, IEvent
         specialAttackPercent += 30;
     }
     // 패시브 관련 수치
-    private int redPassiveFigure = 100;
+    private int redPassiveFigure = 80;
     private int bluePassiveFigure = 50;
     private int yellowPassiveFigure = 5;
     private int greenPassiveFigure = 3;
@@ -137,7 +137,7 @@ public class Unit_Spearman : MeeleUnit, IEvent
     // 패시브 강화
     public void ReinforcePassive()
     {
-        //redPassiveFigure = 100;
+        redPassiveFigure = 100;
         bluePassiveFigure = 85;
         yellowPassiveFigure = 15;
         greenPassiveFigure = 5;

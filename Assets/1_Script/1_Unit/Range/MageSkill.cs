@@ -46,7 +46,7 @@ public class MageSkill : MonoBehaviour
         {
             case TeamSoldier.UnitColor.red:
                 enemy.EnemyStern(100, 5);
-                enemy.OnDamage(25000);
+                enemy.OnDamage(15000);
                 Destroy(gameObject, 3);
                 break;
             case TeamSoldier.UnitColor.blue:
@@ -60,7 +60,7 @@ public class MageSkill : MonoBehaviour
             case TeamSoldier.UnitColor.orange:
                 break;
             case TeamSoldier.UnitColor.violet:
-                enemy.EnemyPoisonAttack(25, 8, 0.3f, 2000);
+                enemy.EnemyPoisonAttack(25, 8, 0.3f, 8000);
                 break;
         }
     }

@@ -943,7 +943,7 @@ MonoBehaviour:
   mageSkillCilp: {fileID: 8300000, guid: e6f235e1a0f4c504bbb5a76c786d86b6, type: 3}
   canvasRectTransform: {fileID: 0}
   manaSlider: {fileID: 0}
-  maxMana: 100
+  maxMana: 150
   currentMana: 0
 --- !u!136 &2040425398
 CapsuleCollider:

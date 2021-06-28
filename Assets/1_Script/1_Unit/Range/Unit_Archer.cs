@@ -183,20 +183,11 @@ public class Unit_Archer : RangeUnit, IEvent
     // 패시브 강화
     public void ReinforcePassive()
     {
-        redPassiveFigure = 0.1f;
-        bluePassiveFigure = 60;
-        yellowPassiveFigure = 10;
+        redPassiveFigure = 0.01f;
+        bluePassiveFigure = 45;
+        yellowPassiveFigure = 5;
         greenPassiveFigure = 3;
         orangePassiveFigure = 3;
         violetPassiveFigure = 20;
     }
 }
-
-
-// 스킬 코드
-//NavMeshAgent arrowNav = instantArrow.GetComponent<NavMeshAgent>();
-//    while (instantArrow != null)
-//    {
-//        arrowNav.SetDestination(target.position);
-//        yield return new WaitForSeconds(0.08f);
-//    }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
+using UnityEngine.SceneManagement;
 
 public class AdManager : MonoBehaviour
 {
@@ -46,6 +47,7 @@ public class AdManager : MonoBehaviour
         }
     }
 
+    public GameObject ReWardButton;
     private void ResultedAds(ShowResult result)
     {
         switch (result)
@@ -60,6 +62,9 @@ public class AdManager : MonoBehaviour
                 GameManager.instance.Gold += 10;
                 UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
                 Debug.Log("광고 보기를 완료했습니다.");
+                ReWardButton.SetActive(false);
+
+
                 break;
         }
     }

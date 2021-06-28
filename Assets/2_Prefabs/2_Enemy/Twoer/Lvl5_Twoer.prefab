@@ -479,8 +479,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 318e67155f164e248b16a62433b3011f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 300000
-  currentHp: 300000
+  maxHp: 1000000
+  currentHp: 1000000
   isDead: 0
   hpSlider: {fileID: 386731574}
   originMat: {fileID: 0}

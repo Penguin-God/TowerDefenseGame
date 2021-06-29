@@ -6,7 +6,12 @@ public class RangeUnit : TeamSoldier
 { 
     public override void UnitTypeMove()
     {
-        if (enemyDistance < attackRange) nav.speed = 0.1f;
+        if (enemyDistance < attackRange)
+        {
+            nav.speed = 0.1f;
+            if(enemyDistance < stopDistanc) contactEnemy = true;
+            else contactEnemy = false;
+        }
         else nav.speed = this.speed;
     }
 

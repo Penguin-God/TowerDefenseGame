@@ -205,7 +205,7 @@ MonoBehaviour:
   attackRange: 40
   damage: 5000
   bossDamage: 0
-  stopDistanc: 0
+  stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
   target: {fileID: 0}

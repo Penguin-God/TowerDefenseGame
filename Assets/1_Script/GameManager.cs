@@ -182,11 +182,11 @@ public class GameManager : MonoBehaviour
     public AdManager adManager;
     public void ClickFasterButton() // 클릭 할때 마다 게임 속도 증가
     {
-        if(FasterAdCount == 0)
-        {
-            adManager.ShowRewardAd();
-            FasterAdCount += 1;
-        }
+        //if(FasterAdCount == 0)
+        //{
+        //    adManager.ShowRewardAd();
+        //    FasterAdCount += 1;
+        //}
         unitManageButton.UnitManageAudio.Play();
         if (FasterCount == 0)
         {

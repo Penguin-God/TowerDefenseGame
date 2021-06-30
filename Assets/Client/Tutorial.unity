@@ -10672,6 +10672,7 @@ MonoBehaviour:
   HitEnemy: {fileID: 0}
   FasterText: {fileID: 386907179}
   gameTimeSpeed: 1
+  adManager: {fileID: 0}
   PlayAgainBackGround: {fileID: 1428442938}
   PauseBackGround: {fileID: 2019331614}
   SettingMenu: {fileID: 593988762}
@@ -10685,6 +10686,7 @@ MonoBehaviour:
   difficult_UI: {fileID: 1732823273}
   event_UI: {fileID: 1375695582}
   setting_UI: {fileID: 976892560}
+  adManager_UI: {fileID: 0}
   gameStart: 0
   diffcultText: {fileID: 36891771}
 --- !u!82 &133429161
@@ -65155,7 +65157,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -7, y: 50}
+  m_AnchoredPosition: {x: -8, y: 50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1102804184

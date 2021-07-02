@@ -68495,8 +68495,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 251, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 141, y: -39.1}
+  m_SizeDelta: {x: 294.6679, y: 108.38876}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1167466253
 MonoBehaviour:
@@ -73712,8 +73712,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 251, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: 141.00005, y: -39.1}
+  m_SizeDelta: {x: 294.6679, y: 108.38876}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1245723954
 MonoBehaviour:
@@ -126738,7 +126738,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2137604830
 RectTransform:
   m_ObjectHideFlags: 0
@@ -127748,6 +127748,7 @@ MonoBehaviour:
   BlackUiAudio: {fileID: 2012507225}
   BlackCombineButtons: {fileID: 272613405}
   soldiersTags: {fileID: 1076024916}
+  combineSoldier: {fileID: 0}
   buyBackGround: {fileID: 2134371901}
 --- !u!65 &8349204739938302790
 BoxCollider:

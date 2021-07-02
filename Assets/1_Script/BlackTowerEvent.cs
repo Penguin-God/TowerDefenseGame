@@ -9,6 +9,7 @@ public class BlackTowerEvent : MonoBehaviour
     public AudioSource BlackUiAudio;
     public GameObject BlackCombineButtons;
     public SoldiersTags soldiersTags;
+    public CombineSoldier combineSoldier;
 
 
     public GameObject buyBackGround;
@@ -20,6 +21,16 @@ public class BlackTowerEvent : MonoBehaviour
         Show_BuyBackGround(); // 버그 때문에 박준이 추가한 코드
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
         BlackUiAudio.Play();
+    }
+
+    private void CombineSuccessTextDown()
+    {
+        UIManager.instance.CombineSuccessText.gameObject.SetActive(false);
+    }
+
+    private void CombineFailTextDown()
+    {
+        UIManager.instance.CombineFailText.gameObject.SetActive(false);
     }
 
     public void Show_BuyBackGround()
@@ -172,7 +183,18 @@ public class BlackTowerEvent : MonoBehaviour
             Destroy(soldiersTags.BlackSwordman[2].transform.parent.gameObject);
 
             createDefenser.CreateSoldier(6, 1);
+            UIManager.instance.UpdateCombineSuccessText("검은 아처 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
+
         }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
+        }
+
+
         BlackUiAudio.Play();
 
         BlackCombineButtons.gameObject.SetActive(false);
@@ -191,6 +213,16 @@ public class BlackTowerEvent : MonoBehaviour
             Destroy(soldiersTags.BlackArcher[2].transform.parent.gameObject);
 
             createDefenser.CreateSoldier(6, 2);
+
+            UIManager.instance.UpdateCombineSuccessText("검은 창병 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
+
+        }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
         }
         BlackUiAudio.Play();
 
@@ -209,7 +241,19 @@ public class BlackTowerEvent : MonoBehaviour
             Destroy(soldiersTags.BlackSpearman[2].transform.parent.gameObject);
 
             createDefenser.CreateSoldier(6, 3);
+
+            UIManager.instance.UpdateCombineSuccessText("검은 창병 조합");
+            UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
+            Invoke("CombineSuccessTextDown", 1f);
+
         }
+        else
+        {
+            UIManager.instance.CombineFailText.gameObject.SetActive(true);
+            Invoke("CombineFailTextDown", 1f);
+        }
+
+
         BlackUiAudio.Play();
 
         BlackCombineButtons.gameObject.SetActive(false);

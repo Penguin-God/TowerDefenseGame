@@ -171,7 +171,7 @@ PlayerSettings:
     Android: com.JP.ColorRandomDefense
   buildNumber: {}
   AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 30
+  AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 30
   AndroidPreferredInstallLocation: 1
   aotOptions: 

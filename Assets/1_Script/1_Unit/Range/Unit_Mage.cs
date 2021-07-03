@@ -65,7 +65,8 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         isAttack = true;
         isAttackDelayTime = true;
 
-        nav.angularSpeed = 1;
+        //nav.angularSpeed = 1;
+        nav.isStopped = true;
         animator.SetTrigger("isAttack");
         yield return new WaitForSeconds(0.7f);
         AddMana(plusMana);
@@ -81,7 +82,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
 
         yield return new WaitForSeconds(0.5f);
         magicLight.SetActive(false);
-        nav.angularSpeed = 1000;
+        nav.isStopped = false;
 
         isAttack = false;
         base.NormalAttack();

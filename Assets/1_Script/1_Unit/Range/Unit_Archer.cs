@@ -47,13 +47,15 @@ public class Unit_Archer : RangeUnit, IEvent
         isAttack = true;
         isAttackDelayTime = true;
 
-        nav.angularSpeed = 1;
+        //nav.angularSpeed = 1;
+        nav.isStopped = true;
         trail.SetActive(false);
         GameObject instantArrow = CreateBullte(arrow, arrowTransform);
         ShotBullet(instantArrow, 1.5f, 50f, target);
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
-        nav.angularSpeed = 1000;
+        nav.isStopped = false;
+        //nav.angularSpeed = 1000;
 
         isAttack = false;
         base.NormalAttack();

@@ -143,7 +143,8 @@ public class EnemySpawn : MonoBehaviour
         GameObject instantBoss = Instantiate(bossPrefab[random], bossPrefab[random].transform.position, bossPrefab[random].transform.rotation);
         instantBoss.transform.SetParent(transform);
 
-        int hp = 10000 * ( (stageNumber / 10) * (stageNumber / 10) * Mathf.CeilToInt(enemyHpWeight / 10f) ); // boss hp 정함
+        int stageWeigh = (stageNumber / 10) * (stageNumber / 10) * (stageNumber / 10);
+        int hp = 10000 * (stageWeigh * Mathf.CeilToInt(enemyHpWeight / 20f) ); // boss hp 정함
         SetEnemyData(instantBoss, hp, 10);
         instantBoss.transform.position = this.transform.position;
         instantBoss.SetActive(true);

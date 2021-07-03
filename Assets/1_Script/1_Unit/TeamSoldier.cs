@@ -289,7 +289,7 @@ public class TeamSoldier : MonoBehaviour
             UpdateTarget();
             StartCoroutine("NavCoroutine");
         }
-        unitAudioSource.PlayOneShot(tpAudioClip, 2f);
+        UnitManager.instance.unitAudioManagerSource.PlayOneShot(tpAudioClip, 0.5f);
     }
 
     private void OnTriggerEnter(Collider other)

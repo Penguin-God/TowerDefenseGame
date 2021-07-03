@@ -467,7 +467,7 @@ GameObject:
   - component: {fileID: 3938378221318250113}
   - component: {fileID: 3938378221318219553}
   - component: {fileID: 3938378222418857141}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Skill_Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5058,6 +5058,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: aae5c8d1fd84746428a2239fd95e4b98, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5125,11 +5126,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1227221187940876, guid: 36b906a3c26c4e246bc0c87ea1bbdd7f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1795172272913670, guid: 36b906a3c26c4e246bc0c87ea1bbdd7f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1866944711882940, guid: 36b906a3c26c4e246bc0c87ea1bbdd7f, type: 3}
       propertyPath: m_Name
@@ -5137,11 +5138,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1866944711882940, guid: 36b906a3c26c4e246bc0c87ea1bbdd7f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1911990075883896, guid: 36b906a3c26c4e246bc0c87ea1bbdd7f, type: 3}
       propertyPath: m_Layer
-      value: 8
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4088016960886202, guid: 36b906a3c26c4e246bc0c87ea1bbdd7f, type: 3}
       propertyPath: m_RootOrder

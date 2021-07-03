@@ -333,7 +333,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer == 8)
+        if (other.gameObject.GetComponent<NomalEnemy>() != null)
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             switch (unitColor)
@@ -347,7 +347,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.layer == 8)
+        if (other.gameObject.GetComponent<NomalEnemy>() != null)
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             switch (unitColor)
@@ -358,7 +358,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
             }
         }
 
-        if (other.gameObject.layer == 9)
+        if (other.gameObject.layer == 9) // 유닛 버프
         {
             TeamSoldier otherTeamSoldier = other.gameObject.GetComponent<TeamSoldier>();
             switch (unitColor)

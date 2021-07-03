@@ -120,30 +120,30 @@ public class GameManager : MonoBehaviour
             ReTurnClient();
         }
 
-        if(Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                //Debug.Log(hit.transform.gameObject);
+        //if(Input.GetMouseButtonDown(0))
+        //{
+        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //    RaycastHit hit;
+        //    if (Physics.Raycast(ray, out hit))
+        //    {
+        //        //Debug.Log(hit.transform.gameObject);
 
-                HitEnemy = hit.transform.gameObject;
+        //        HitEnemy = hit.transform.gameObject;
 
-                NomalEnemy nomalenemy = HitEnemy.transform.GetChild(0).GetComponent<NomalEnemy>();
+        //        NomalEnemy nomalenemy = HitEnemy.transform.GetChild(0).GetComponent<NomalEnemy>();
 
 
-                if ( nomalenemy != null)
-                {
-                    nomalenemy.currentHp -= 10 * (Food+1);
-                    nomalenemy.hpSlider.value = nomalenemy.currentHp;
-                    if (nomalenemy.currentHp <= 0)
-                    {
-                        nomalenemy.Dead();
-                    }
-                }
-            }
-        }
+        //        if ( nomalenemy != null)
+        //        {
+        //            nomalenemy.currentHp -= 10 * (Food+1);
+        //            nomalenemy.hpSlider.value = nomalenemy.currentHp;
+        //            if (nomalenemy.currentHp <= 0)
+        //            {
+        //                nomalenemy.Dead();
+        //            }
+        //        }
+        //    }
+        //}
 
 
 
@@ -339,7 +339,7 @@ public class GameManager : MonoBehaviour
     public void Set_UI()
     {
         gameStart = true;
-
+        //Time.timeScale = 0;
         // 키기
         status_UI.SetActive(true);
         unitControll_UI.SetActive(true);

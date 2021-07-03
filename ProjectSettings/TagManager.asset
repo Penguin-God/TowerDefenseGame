@@ -50,12 +50,12 @@ TagManager:
   - UI
   - 
   - 
-  - Enemy
+  - Boss
   - Unit
-  - 
-  - 
-  - 
-  - 
+  - SowrdmanEnemy
+  - ArcherEnemy
+  - SpearmanEnemy
+  - MageEnemy
   - 
   - 
   - 

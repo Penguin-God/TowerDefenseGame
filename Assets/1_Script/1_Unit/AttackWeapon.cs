@@ -18,7 +18,7 @@ public class AttackWeapon : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.layer == 8)
+        if(other.gameObject.GetComponent<Enemy>() != null)
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
             //enemy.OnDamage(damage);

@@ -789,7 +789,7 @@ GameObject:
   - component: {fileID: 4355595393931275302}
   - component: {fileID: 2287671401408161555}
   - component: {fileID: 8532262813371958757}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Sturn_Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ public class UnitArray
 public class UnitManager : MonoBehaviour
 {
     public static UnitManager instance;
-    public UnitArray[] unitArrays; // red, blue, yellow, green, orange, violet, black 순 7개 배열
+    public UnitArray[] unitArrays; // red, blue, yellow, green, orange, violet 순 6개 배열
 
     public AudioSource unitAudioManagerSource;
 
@@ -83,7 +83,8 @@ public class UnitManager : MonoBehaviour
     {
         int random = Random.Range(0, startUnitArray.Length);
 
-        GameObject startUnit = Instantiate(startUnitArray[random], startUnitArray[random].transform.position, startUnitArray[random].transform.rotation);
+        GameObject startUnit = Instantiate(startUnitArray[random], 
+            startUnitArray[random].transform.position, startUnitArray[random].transform.rotation);
         startUnit.SetActive(true);
     }
 

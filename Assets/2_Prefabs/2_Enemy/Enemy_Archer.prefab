@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1420947268}
   - component: {fileID: 1420947267}
   - component: {fileID: 1420947266}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Skill_Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4603,6 +4603,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: aae5c8d1fd84746428a2239fd95e4b98, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5094,7 +5095,7 @@ GameObject:
   - component: {fileID: 7551659547658573872}
   - component: {fileID: 7536897029117085252}
   - component: {fileID: 1536430543819091092}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: TB_Soldier_Archer_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5212,7 +5213,7 @@ GameObject:
   - component: {fileID: 7536358827924476918}
   - component: {fileID: 7561225505730878868}
   - component: {fileID: 7551448911403554356}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: TB_Soldier_Archer_Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5291,7 +5292,7 @@ GameObject:
   - component: {fileID: 7536365749778130890}
   - component: {fileID: 7561319560395922300}
   - component: {fileID: 7551131130937862532}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: TB_Soldier_Archer_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5370,7 +5371,7 @@ GameObject:
   - component: {fileID: 7532591539215776482}
   - component: {fileID: 7560736577434478672}
   - component: {fileID: 7550798656929533096}
-  m_Layer: 8
+  m_Layer: 11
   m_Name: TB_Soldier_Archer_Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}

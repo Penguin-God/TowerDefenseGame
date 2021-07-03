@@ -83,6 +83,7 @@ public class EnemySpawn : MonoBehaviour
                 UIManager.instance.StageText.text = "현재 스테이지 : 마지막";
                 UIManager.instance.StageText.color = new Color32(255, 0, 0, 255);
                 stageRespawnEenemyCount = 100;
+                yield return new WaitForSeconds(5f);
             }
         }
 

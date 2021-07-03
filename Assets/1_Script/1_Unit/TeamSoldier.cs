@@ -49,8 +49,9 @@ public class TeamSoldier : MonoBehaviour
         // 변수 선언
         SetPassive();
         chaseRange = 150f;
+        enemyDistance = 150f;
         nav.speed = this.speed;
-        layerMask = 1 << LayerMask.NameToLayer("Enemy"); // Ray가 Enemy 레이어만 충돌 체크함
+        //layerMask = 1 << LayerMask.NameToLayer("Enemy"); // Ray가 Enemy 레이어만 충돌 체크함
         // 적 추적
         UpdateTarget();
         StartCoroutine("NavCoroutine");
@@ -200,12 +201,20 @@ public class TeamSoldier : MonoBehaviour
             nav.isStopped = false;
             target = targetObject.transform;
             nomalEnemy = target.gameObject.GetComponent<NomalEnemy>();
+            SetLayerMask(target.gameObject);
         }
         else
         {
             nav.isStopped = true;
             target = null;
         }
+    }
+
+    void SetLayerMask(GameObject targetObject)
+    {
+        int layer = targetObject.layer;
+        string layerName = LayerMask.LayerToName(layer);
+        layerMask = 1 << LayerMask.NameToLayer(layerName);
     }
 
     // 타워 때리는 무한반복 코루틴
@@ -259,12 +268,14 @@ public class TeamSoldier : MonoBehaviour
         UnitManager.instance.ShowTpEffect(transform);
         if (!enterStoryWorld)
         {
+            // 적군의 성 때 겹치는 버그 방지
             nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
             transform.parent.position = UnitManager.instance.Set_StroyModePosition();
             enterStoryWorld = true;
             nav.enabled = true;
             StopCoroutine("NavCoroutine");
             target = GameObject.FindGameObjectWithTag("Tower").transform;
+            SetLayerMask(target.gameObject);
             StartCoroutine("TowerNavCoroutine");
         }
         else

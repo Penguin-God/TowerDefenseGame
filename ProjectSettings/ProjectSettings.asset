@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: JP
-  productName: ColorRandomDefense
+  companyName: JPCompany
+  productName: "\uCEEC\uB7EC\uB79C\uB364\uB514\uD39C\uC2A4"
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -170,7 +170,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.JP.ColorRandomDefense
   buildNumber: {}
-  AndroidBundleVersionCode: 1
+  AndroidBundleVersionCode: 3
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 30
   AndroidPreferredInstallLocation: 1
@@ -268,7 +268,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: 8aa7ed16d675a2d4bbdfce0117be9d9d, type: 3}
+      m_Icon: {fileID: 2800000, guid: df1f07f8a421efa4f8b3d877b22c7cd8, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0

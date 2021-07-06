@@ -48,7 +48,7 @@ public class RangeUnit : TeamSoldier
     {
         rayHit = Physics.BoxCast(transform.parent.position + Vector3.up, transform.lossyScale * 2,
             transform.parent.forward, out rayHitObject, transform.parent.rotation, attackRange, layerMask);
-        if (GetComponent<IUnitMana>() != null) GetComponent<IUnitMana>().SetCanvas();
+        if (GetComponent<Unit_Mage>() != null) GetComponent<Unit_Mage>().SetCanvas();
     }
 
     void OnDrawGizmos()

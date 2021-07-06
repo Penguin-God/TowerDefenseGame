@@ -449,10 +449,33 @@ public class Shop : MonoBehaviour
         current_FoodGoldGoods = Set_RandomGoods(foodGoods, level, goodsWeighDictionary);
     }
 
+    GameObject Set_RandomGoods(GameObject goods, int level, Dictionary<int, int[]> goodsWeighDictionary)
+    {
+        Transform goodsRarity = null;
+        int totalWeigh = 100;
+        int randomNumber = UnityEngine.Random.Range(0, totalWeigh);
+
+        for (int i = 0; i < goods.transform.childCount; i++) // 레벨 가중치에 따라 상품 등급 정함
+        {
+            if (goodsWeighDictionary[level][i] >= randomNumber)
+            {
+                goodsRarity = goods.transform.GetChild(i);
+                break;
+            }
+            else randomNumber -= goodsWeighDictionary[level][i];
+        }
+        if (goodsRarity == null) goodsRarity = goods.transform.GetChild(0); // 등급파괴되서 null이면 첫번째 등급으로
+
+        // 휘귀도 선택 후 상품 랜덤 선택
+        int goodsIndex = UnityEngine.Random.Range(0, goodsRarity.transform.childCount);
+        GameObject showGoods = goodsRarity.GetChild(goodsIndex).gameObject;
+        showGoods.SetActive(true);
+        return showGoods;
+    }
+
+    // 확률 가중치 딕셔너리
     public Dictionary<int, int[]> bossShopWeighDictionary;
     public Dictionary<int, int[]> towerShopWeighDictionary;
-    int totalWeigh = 100;
-    // 확률 가중치
     void Set_BossShopWeigh()
     {
         bossShopWeighDictionary.Add(1, new int[] { 70, 30, 0 });
@@ -470,51 +493,10 @@ public class Shop : MonoBehaviour
         towerShopWeighDictionary.Add(6, new int[] { 0, 30, 70 });
     }
 
-    GameObject Set_RandomGoods(GameObject goods, int level, Dictionary<int, int[]> goodsWeighDictionary)
-    {
-        Transform goodsRarity = null;
-        int randomNumber = UnityEngine.Random.Range(0, totalWeigh);
-        for (int i = 0; i < goods.transform.childCount; i++)
-        {
-            if (goodsWeighDictionary[level][i] >= randomNumber)
-            {
-                goodsRarity = goods.transform.GetChild(i);
-                break;
-            }
-            else randomNumber -= goodsWeighDictionary[level][i];
-        }
 
-        if (goodsRarity == null) goodsRarity = goods.transform.GetChild(0); // 등급파괴되서 null이면 첫번째 등급으로
 
-        // 휘귀도 선택 후 상품 랜덤 선택
-        int goodsIndex = UnityEngine.Random.Range(0, goodsRarity.transform.childCount);
-        GameObject showGoods = goodsRarity.GetChild(goodsIndex).gameObject;
-        showGoods.SetActive(true);
-        return showGoods;
-    }
-
-    //public void EnterShopWlord()
+    //private void OnEnable() // 테스트용
     //{
-    //    if (!enterShop)
-    //    {
-    //        Camera.main.gameObject.transform.position = new Vector3(-500, 100, -30);
-    //        enterShop = true;
-    //    }
-    //    else
-    //    {
-    //        Camera.main.gameObject.transform.position = new Vector3(0, 100, -30);
-    //        enterShop = false;
-    //    }
+    //    OnShop(4, bossShopWeighDictionary);
     //}
-
-
-    //private void OnMouseDown()
-    //{
-    //    OnEnvetShop();
-    //}
-
-    private void OnEnable() // 테스트용
-    {
-        //OnShop(4, bossShopWeighDictionary);
-    }
 }

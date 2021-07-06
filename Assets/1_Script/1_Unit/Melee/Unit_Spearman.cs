@@ -87,7 +87,7 @@ public class Unit_Spearman : MeeleUnit, IEvent
         instantSpear.GetComponent<Rigidbody>().velocity = (-1 * transform.forward) * 50;
 
         if (enterStoryWorld == GameManager.instance.playerEnterStoryMode)
-            unitAudioSource.PlayOneShot(skillAudioClip, 0.15f);
+            unitAudioSource.PlayOneShot(skillAudioClip, 0.12f);
 
         yield return new WaitForSeconds(0.5f);
         nav.isStopped = false;

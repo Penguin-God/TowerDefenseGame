@@ -46,7 +46,8 @@ public class Enemy : MonoBehaviour
     }
 
     protected NomalEnemy nomalEnemy;
-    
+
+    Coroutine sternCoroutine = null;
     public void EnemyStern(int sternPercent, float sternTime)
     {
         if (this.gameObject.CompareTag("Tower") || isDead) return;
@@ -54,14 +55,14 @@ public class Enemy : MonoBehaviour
         int random = Random.Range(0, 100);
         if (random < sternPercent)
         {
-            StartCoroutine(SternCoroutine(sternTime));
+            if (sternCoroutine != null) StopCoroutine(sternCoroutine);
+            sternCoroutine = StartCoroutine(SternCoroutine(sternTime));
         }
     }
     protected bool isSturn;
     public GameObject sternEffect;
     IEnumerator SternCoroutine(float sternTime)
     {
-        yield return new WaitUntil(() => !isSturn);
         isSturn = true;
         sternEffect.SetActive(true);
         nomalEnemy.speed = 0;
@@ -71,6 +72,7 @@ public class Enemy : MonoBehaviour
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
         sternEffect.SetActive(false);
         isSturn = false;
+        sternCoroutine = null;
     }
 
 
@@ -85,7 +87,8 @@ public class Enemy : MonoBehaviour
         // 만약 더 높은 슬로우 공격을 받으면큰 슬로우 적용후 return
         if (nomalEnemy.maxSpeed - nomalEnemy.maxSpeed * (slowPercent / 100) <= nomalEnemy.speed)
         {
-            if (isSlow && exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine); // 더 강한 슬로우가 들어왔는데 이전 약한 슬로우 때문에 슬로우에서 빠져나가는거 방지
+            // 더 강한 슬로우가 들어왔는데 이전 약한 슬로우 때문에 슬로우에서 빠져나가는거 방지
+            if (isSlow && exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine); 
 
             isSlow = true;
             nomalEnemy.speed = nomalEnemy.maxSpeed - nomalEnemy.maxSpeed * (slowPercent / 100);

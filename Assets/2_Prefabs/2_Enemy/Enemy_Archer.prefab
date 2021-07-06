@@ -11,9 +11,8 @@ GameObject:
   - component: {fileID: 1420947265}
   - component: {fileID: 1420947268}
   - component: {fileID: 1420947267}
-  - component: {fileID: 1420947266}
   m_Layer: 11
-  m_Name: Skill_Effect
+  m_Name: Sturn_Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4647,21 +4646,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &1420947266
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1420947264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fd2e8874f60266498a388d7229a1bac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  OnlyDeactivate: 1
-  showTime: 5
-  isSkill: 1
 --- !u!1 &7536897027791641786
 GameObject:
   m_ObjectHideFlags: 0

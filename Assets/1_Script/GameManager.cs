@@ -361,34 +361,30 @@ public class GameManager : MonoBehaviour
         switch (difficult)
         {
             case "Baby":
-                enemySpawn.enemyHpWeight = 20;
-                enemySpawn.plusEnemyHpWeight = 0;
-                enemySpawn.minHp = 200;
+                SetDifficult(20, 0, 200);
                 break;
             case "Easy":
-                enemySpawn.enemyHpWeight = 30;
-                enemySpawn.plusEnemyHpWeight = 1;
-                enemySpawn.minHp = 250;
+                SetDifficult(30, 1, 250);
                 break;
             case "Normal":
-                enemySpawn.enemyHpWeight = 30;
-                enemySpawn.plusEnemyHpWeight = 2;
-                enemySpawn.minHp = 300;
+                SetDifficult(30, 2, 300);
                 break;
             case "Hard":
-                enemySpawn.enemyHpWeight = 10;
-                enemySpawn.plusEnemyHpWeight = 8;
-                enemySpawn.minHp = 350;
+                SetDifficult(10, 8, 350);
                 break;
             case "Impossiable":
-                enemySpawn.enemyHpWeight = 20;
-                enemySpawn.plusEnemyHpWeight = 12;
-                enemySpawn.minHp = 400;
+                SetDifficult(20, 12, 400);
                 break;
             default: 
                 Debug.Log("난이도가 설정되지 않음");
                 break;
         }
+    }
+    void SetDifficult(int hpWeight, int plusHpWeigh, int minhp)
+    {
+        enemySpawn.enemyHpWeight = hpWeight;
+        enemySpawn.plusEnemyHpWeight = plusHpWeigh;
+        enemySpawn.minHp = minhp;
     }
 
     public void LoadClient()

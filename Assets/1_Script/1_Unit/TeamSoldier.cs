@@ -51,7 +51,7 @@ public class TeamSoldier : MonoBehaviour
         chaseRange = 150f;
         enemyDistance = 150f;
         nav.speed = this.speed;
-        //layerMask = 1 << LayerMask.NameToLayer("Enemy"); // Ray가 Enemy 레이어만 충돌 체크함
+
         // 적 추적
         UpdateTarget();
         StartCoroutine("NavCoroutine");

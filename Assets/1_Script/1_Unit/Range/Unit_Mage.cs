@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Unit_Mage : RangeUnit, IUnitMana, IEvent
+public class Unit_Mage : RangeUnit, IEvent
 {
     [Header("메이지 변수")]
     public GameObject magicLight;
@@ -65,7 +65,6 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         isAttack = true;
         isAttackDelayTime = true;
 
-        //nav.angularSpeed = 1;
         nav.isStopped = true;
         animator.SetTrigger("isAttack");
         yield return new WaitForSeconds(0.7f);
@@ -73,8 +72,9 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         if (currentMana >= maxMana) specialAttackPercent = 100; // 이번 공격 때 마나 채워지면 다음 공격은 스킬확률을 100퍼로 해서 무조건 스킬 씀
         magicLight.SetActive(true);
 
-        if (target != null && Vector3.Distance(target.position, transform.position) < chaseRange)
+        if (target != null && enemyDistance < chaseRange)
         {
+            // 주황색 스킬 강화 하늘이 두쪽으로 갈라져도 바꾸기
             if (unitColor == UnitColor.orange && isUltimate && isOrangeSkill) MultiDirectionAttack(transform.GetChild(2));
             GameObject instantEnergyBall = CreateBullte(energyBall, energyBallTransform);
             ShotBullet(instantEnergyBall, 2f, 50f, target);
@@ -86,7 +86,6 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
 
         isAttack = false;
         base.NormalAttack();
-        //if (enemySpawn.currentEnemyList.Count != 0 && !target.gameObject.CompareTag("Tower") && !target.gameObject.CompareTag("Boss")) UpdateTarget();
     }
 
     void MageSpecialAttack()
@@ -155,7 +154,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
     void RedMageSkill()
     {
         RedMageSkillAttack(target);
-        if (isUltimate) RedMageSkillAttack(Return_RandomCurrentEnemy(1)[0]);
+        if (isUltimate && enemySpawn.currentEnemyList.Count > 1) RedMageSkillAttack(Return_RandomCurrentEnemy(1)[0]);
     }
     void RedMageSkillAttack(Transform attackTarget) // 메테오 떨어뜨림
     {
@@ -238,7 +237,7 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
         instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
     }
 
-    void BlackMageSkill() // 사운드 넣어야 됨
+    void BlackMageSkill()
     {
         int chiledNumber = (isUltimate) ? 2 : 1;
         Transform skillTransform = transform.GetChild(chiledNumber); // 자식 가져옴
@@ -309,7 +308,6 @@ public class Unit_Mage : RangeUnit, IUnitMana, IEvent
 
 
     // 충돌 관련 패시브
-
     private void OnTriggerEnter(Collider other)
     {
         // 적에 닿는건 없음

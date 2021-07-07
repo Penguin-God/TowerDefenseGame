@@ -82,7 +82,7 @@ public class EnemySpawn : MonoBehaviour
             {
                 UIManager.instance.StageText.text = "현재 스테이지 : 마지막";
                 UIManager.instance.StageText.color = new Color32(255, 0, 0, 255);
-                stageRespawnEenemyCount = 100;
+                stageRespawnEenemyCount = 1000;
                 yield return new WaitForSeconds(5f);
             }
         }
@@ -112,10 +112,7 @@ public class EnemySpawn : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
 
-        //yield return new WaitForSeconds(stageWait_Time);
         yield return new WaitUntil(() => timerSlider.value <= 0); // 스테이지 타이머 0이되면
-        //timerSlider.value = stageTime;
-        //stageWait_Time = 10f;
 
         stageNumber++;
         UIManager.instance.UpdateStageText(stageNumber);
@@ -143,8 +140,8 @@ public class EnemySpawn : MonoBehaviour
         GameObject instantBoss = Instantiate(bossPrefab[random], bossPrefab[random].transform.position, bossPrefab[random].transform.rotation);
         instantBoss.transform.SetParent(transform);
 
-        int stageWeigh = (stageNumber / 10) * (stageNumber / 10) * (stageNumber / 10);
-        int hp = 10000 * (stageWeigh * Mathf.CeilToInt(enemyHpWeight / 20f) ); // boss hp 정함
+        int stageWeigh = (stageNumber / 10) * (stageNumber / 10);
+        int hp = 10000 * (stageWeigh * Mathf.CeilToInt(enemyHpWeight / 10f) ); // boss hp 정함
         SetEnemyData(instantBoss, hp, 10);
         instantBoss.transform.position = this.transform.position;
         instantBoss.SetActive(true);

@@ -57,17 +57,6 @@ public class EnemyBoss : NomalEnemy
 
         GetBossReword(enemySpawn.bossRewordGold, enemySpawn.bossRewordFood);
 
-        //if (enemySpawn.bossLevel == 1 || enemySpawn.bossLevel == 2)
-        //{
-        //    enemySpawn.createDefenser.CreateSoldier(7, 1);
-        //}
-        //else if (enemySpawn.bossLevel == 3 || enemySpawn.bossLevel == 4)
-        //{
-        //    enemySpawn.createDefenser.CreateSoldier(7, 2);
-        //}
-
-
-
         switch (enemySpawn.bossLevel)
         {
             case 1:
@@ -81,7 +70,6 @@ public class EnemyBoss : NomalEnemy
         }
 
         Destroy(transform.parent.gameObject);
-        // enemySpawn.bossLevel  //보스 레밸
     }
 
     void GetBossReword(int rewardGold, int rewardFood)

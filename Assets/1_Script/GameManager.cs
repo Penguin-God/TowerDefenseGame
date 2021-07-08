@@ -197,18 +197,25 @@ public class GameManager : MonoBehaviour
         }
         else if (FasterCount == 1)
         {
-            FasterText.text = "X3";
-            Time.timeScale = 3f;
-            gameTimeSpeed = 3f;
-            FasterCount += 1;
-        }
-        else if (FasterCount == 2)
-        {
             FasterText.text = "X1";
             Time.timeScale = 1f;
             gameTimeSpeed = 1f;
             FasterCount = 0;
         }
+        //else if (FasterCount == 1)
+        //{
+        //    FasterText.text = "X3";
+        //    Time.timeScale = 3f;
+        //    gameTimeSpeed = 3f;
+        //    FasterCount += 1;
+        //}
+        //else if (FasterCount == 2)
+        //{
+        //    FasterText.text = "X1";
+        //    Time.timeScale = 1f;
+        //    gameTimeSpeed = 1f;
+        //    FasterCount = 0;
+        //}
         //else if (FasterCount == 3)
         //{
         //    Time.timeScale = 1f;

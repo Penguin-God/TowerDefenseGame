@@ -47,6 +47,10 @@ public class Unit_Mage : RangeUnit, IEvent
         }
     }
 
+    // 평타강화 함수
+    delegate void AttackDelegate();
+    AttackDelegate attackReinforceDelegate = null;
+
     public override void NormalAttack()
     {
         StartCoroutine("MageAttack");
@@ -74,11 +78,12 @@ public class Unit_Mage : RangeUnit, IEvent
 
         if (target != null && enemyDistance < chaseRange)
         {
-            // 주황색 스킬 강화 하늘이 두쪽으로 갈라져도 바꾸기
-            if (unitColor == UnitColor.orange && isUltimate && isOrangeSkill) MultiDirectionAttack(transform.GetChild(2));
             GameObject instantEnergyBall = CreateBullte(energyBall, energyBallTransform);
             ShotBullet(instantEnergyBall, 2f, 50f, target);
         }
+
+        // 평타 강화 시 작동 (대미지가 아닌 3방향 공격 같은 효과 강화)
+        if (attackReinforceDelegate != null) attackReinforceDelegate();
 
         yield return new WaitForSeconds(0.5f);
         magicLight.SetActive(false);
@@ -200,7 +205,6 @@ public class Unit_Mage : RangeUnit, IEvent
         plusMana = originPlusMana;
     }
 
-    private bool isOrangeSkill = false;
     void OrangeMageSkill() // 공속 5배
     {
         ShowMageSkillEffect(mageEffectObject);
@@ -208,16 +212,31 @@ public class Unit_Mage : RangeUnit, IEvent
         StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0));
     }
 
+    void MultiDirectionAttack()
+    {
+        Transform directions = transform.GetChild(2);
+        for (int i = 0; i < directions.childCount; i++)
+        {
+            Transform instantTransform = directions.GetChild(i);
+            if (target != null && Vector3.Distance(target.position, transform.position) < chaseRange)
+            {
+                GameObject instantEnergyBall = CreateBullte(energyBall, instantTransform);
+                instantEnergyBall.transform.rotation = directions.GetChild(i).rotation;
+                instantEnergyBall.GetComponent<Rigidbody>().velocity = directions.GetChild(i).rotation.normalized * Vector3.forward * 50;
+            }
+        }
+    }
+
     IEnumerator OrangeMageSkile_Coroutine()
     {
-        isOrangeSkill = true;
+        if (isUltimate) attackReinforceDelegate += MultiDirectionAttack;
         int originPlusMana = plusMana;
         plusMana = 0;
         attackDelayTime *= 0.2f;
         yield return new WaitForSeconds(10f);
         attackDelayTime *= 5;
         plusMana = originPlusMana;
-        isOrangeSkill = false;
+        if (isUltimate) attackReinforceDelegate -= MultiDirectionAttack;
     }
 
     void VioletMageSkill(Transform attackTarget) // 독 공격

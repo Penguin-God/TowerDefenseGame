@@ -6,10 +6,15 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     // 상태 변수
+    public float maxSpeed;
+
+    public float speed;
     public int maxHp;
     public int currentHp;
     public bool isDead = true;
     public Slider hpSlider;
+
+    public Vector3 dir;
 
     protected Rigidbody parentRigidbody;
     protected List<MeshRenderer> meshList;

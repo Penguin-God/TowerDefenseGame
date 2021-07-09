@@ -7,13 +7,12 @@ public class NomalEnemy : Enemy
 {
     protected EnemySpawn enemySpawn;
     // 능력치 변수
-    public float maxSpeed;
-    public float speed;
+    //public float maxSpeed;
+    //public float speed;
 
     // 이동, 회전 관련 변수
     protected Transform parent;
     private Transform wayPoint;
-    public Vector3 dir;
     private int pointIndex = -1;
 
     private void Awake()

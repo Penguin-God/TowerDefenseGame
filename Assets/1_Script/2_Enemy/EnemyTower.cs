@@ -15,6 +15,9 @@ public class EnemyTower : Enemy
         hpSlider.maxValue = maxHp;
         hpSlider.value = maxHp;
         isDead = false;
+        speed = 0;
+        maxSpeed = 0;
+        dir = Vector3.zero;
     }
 
     public override void Dead()

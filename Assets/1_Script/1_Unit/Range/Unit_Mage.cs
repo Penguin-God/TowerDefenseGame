@@ -163,11 +163,14 @@ public class Unit_Mage : RangeUnit, IEvent
     }
     void RedMageSkillAttack(Transform attackTarget) // 메테오 떨어뜨림
     {
+        if (attackTarget == null) return;
+
         Vector3 meteorPosition = transform.position + Vector3.up * 30; // 높이 설정
         GameObject instantSkillEffect = Instantiate(mageEffectObject, meteorPosition, Quaternion.identity);
-        MageSkill mageSkill = instantSkillEffect.GetComponent<MageSkill>();
-        mageSkill.target = attackTarget;
-        mageSkill.teamSoldier = GetComponent<TeamSoldier>();
+        Meteor meteor = instantSkillEffect.GetComponent<Meteor>();
+        meteor.target = attackTarget;
+        meteor.teamSoldier = GetComponent<TeamSoldier>();
+        instantSkillEffect.SetActive(true);
         StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f));
     }
 

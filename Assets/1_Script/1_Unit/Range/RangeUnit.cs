@@ -30,12 +30,8 @@ public class RangeUnit : TeamSoldier
         Rigidbody bulletRigid = bullet.GetComponent<Rigidbody>();
 
         Vector3 dir = targetEnemy.position - bullet.transform.position;
-        if(target.gameObject.tag != "Tower")
-        {
-            float enemyWeightDir = Mathf.Lerp(0, weightRate, Vector3.Distance(targetEnemy.position, this.transform.position) * 2 / 100);
-            dir += nomalEnemy.dir.normalized * (0.5f * nomalEnemy.speed) * enemyWeightDir;
-        }
-        //Debug.Log(enemyWeightDir);
+        float enemyWeightDir = Mathf.Lerp(0, weightRate, Vector3.Distance(targetEnemy.position, this.transform.position) * 2 / 100);
+        dir += nomalEnemy.dir.normalized * (0.5f * nomalEnemy.speed) * enemyWeightDir;
         bulletRigid.velocity = dir.normalized * velocity;
     }
 

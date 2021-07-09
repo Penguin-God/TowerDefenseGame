@@ -121,12 +121,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a725757752d9fff42929c9087684b1ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveEffect: 0
   teamSoldier: {fileID: 0}
   hitTime: 0.2
-  speed: 0
-  explosionObject: {fileID: 0}
-  meteors: []
 --- !u!1 &4624219392482637300
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,16 +132,16 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4624219392482637305}
-  - component: {fileID: 4624219392482637302}
   - component: {fileID: 4624219392482637304}
   - component: {fileID: 4624219392482637303}
+  - component: {fileID: 5909494514963113024}
   m_Layer: 0
   m_Name: Meteor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4624219392482637305
 Transform:
   m_ObjectHideFlags: 0
@@ -165,28 +161,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4624219392482637302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4624219392482637300}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a725757752d9fff42929c9087684b1ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveEffect: 1
-  teamSoldier: {fileID: 0}
-  hitTime: 0
-  speed: 50
-  explosionObject: {fileID: 4623086259848035187}
-  meteors:
-  - {fileID: 4624219394074909694}
-  - {fileID: 4624219394386842144}
-  - {fileID: 4624219392717708555}
-  - {fileID: 4624219394284578554}
 --- !u!54 &4624219392482637304
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -212,10 +186,31 @@ SphereCollider:
   m_GameObject: {fileID: 4624219392482637300}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Radius: 4
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5909494514963113024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4624219392482637300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 88fd1f3db0c8f5846b86688ccc8bcae7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 50
+  explosionObject: {fileID: 4623086259848035187}
+  target: {fileID: 0}
+  teamSoldier: {fileID: 0}
+  meteors:
+  - {fileID: 4624219394074909694}
+  - {fileID: 4624219394386842144}
+  - {fileID: 4624219392717708555}
+  - {fileID: 4624219394284578554}
 --- !u!1 &4624219392717708555
 GameObject:
   m_ObjectHideFlags: 0
@@ -4926,6 +4921,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 9d59fd0bb2aa4e248b8cd728c1241ae9, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -9679,6 +9675,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 9d59fd0bb2aa4e248b8cd728c1241ae9, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14432,6 +14429,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: e5cf9e7358a8c2048b0ff260e9813b4d, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19185,6 +19183,7 @@ ParticleSystemRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 40f5bc870fb9f0645b0ddd9f6deeaf35, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19322,37 +19321,42 @@ PrefabInstance:
     - target: {fileID: 199028399385819452, guid: 7e48ba6b1b968764490bbc70b66e3fe1,
         type: 3}
       propertyPath: m_Materials.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 199299744803564144, guid: 7e48ba6b1b968764490bbc70b66e3fe1,
         type: 3}
       propertyPath: m_Materials.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 199543602475296610, guid: 7e48ba6b1b968764490bbc70b66e3fe1,
         type: 3}
       propertyPath: m_Materials.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 199552853782692164, guid: 7e48ba6b1b968764490bbc70b66e3fe1,
         type: 3}
       propertyPath: m_Materials.Array.size
-      value: 1
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 199552853782692164, guid: 7e48ba6b1b968764490bbc70b66e3fe1,
+        type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 199656329455034806, guid: 7e48ba6b1b968764490bbc70b66e3fe1,
         type: 3}
       propertyPath: m_Materials.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 199776920938144870, guid: 7e48ba6b1b968764490bbc70b66e3fe1,
         type: 3}
       propertyPath: m_Materials.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 199998227980983536, guid: 7e48ba6b1b968764490bbc70b66e3fe1,
         type: 3}
       propertyPath: m_Materials.Array.size
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e48ba6b1b968764490bbc70b66e3fe1, type: 3}

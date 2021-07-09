@@ -149,9 +149,10 @@ public class TeamSoldier : MonoBehaviour
                 continue;
             }
 
-            if (unitType == Type.archer || unitType == Type.mage) 
+            if (GetComponent<RangeUnit>() != null) 
             {
-                Vector3 enemySpeed = target.GetComponent<NomalEnemy>().dir * target.GetComponent<NomalEnemy>().speed;
+                Enemy enemy = target.GetComponent<Enemy>();
+                Vector3 enemySpeed = enemy.dir * enemy.speed;
                 nav.SetDestination(target.position + enemySpeed);
             } 
             else nav.SetDestination(target.position);

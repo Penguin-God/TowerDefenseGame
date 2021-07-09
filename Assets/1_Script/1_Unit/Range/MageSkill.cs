@@ -5,38 +5,26 @@ using UnityEngine;
 public class MageSkill : MonoBehaviour
 {
     SphereCollider sphereCollider;
-    public bool moveEffect;
     public TeamSoldier teamSoldier;
-    public float hitTime; // 콜라이더가 켜지는 등 공격 타임
+    public float hitTime; // 콜라이더가 켜지기 전 공격 대기 시간
 
-    //AudioSource skillAudioSourec;
     private void Awake()
     {
-        if(!moveEffect && GetComponentInParent<TeamSoldier>()) teamSoldier = GetComponentInParent<TeamSoldier>();
+        if(GetComponentInParent<TeamSoldier>() != null) teamSoldier = GetComponentInParent<TeamSoldier>();
         sphereCollider = GetComponent<SphereCollider>();
-        //skillAudioSourec = GetComponent<AudioSource>();
     }
 
     private void OnEnable()
     {
         StartCoroutine(ShowEffect_Coroutine(hitTime));
-        if (moveEffect) 
-        {
-            StartCoroutine(MeteorWait());
-        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.GetComponent<Enemy>() != null && !moveEffect)
+        if (other.gameObject.GetComponent<Enemy>() != null)
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            //Debug.Log(enemy.transform.gameObject);
             MageSkile(enemy);
-        }
-        else if(other.tag == "World" && moveEffect)
-        {
-            MeteotExplosion();
         }
     }
 
@@ -69,37 +57,5 @@ public class MageSkill : MonoBehaviour
     {
         yield return new WaitForSeconds(delayTIme);
         sphereCollider.enabled = true;
-    }
-
-    [Header("메테오 전용 변수")]
-    [SerializeField]
-    private float speed;
-    public GameObject explosionObject;
-    public Transform target;
-
-    IEnumerator MeteorWait()
-    {
-        yield return new WaitUntil(() => target != null);
-        NomalEnemy enemy = target.GetComponent<NomalEnemy>();
-        Vector3 enemyPosition = target.position + (target.gameObject.CompareTag("Tower") ? Vector3.zero :enemy.dir.normalized * enemy.speed);
-        StartCoroutine(ShotMeteor(enemyPosition));
-    }
-
-    IEnumerator ShotMeteor(Vector3 enemyPosition)
-    {
-        explosionObject.GetComponent<MageSkill>().teamSoldier = this.teamSoldier;
-        yield return new WaitForSeconds(1f);
-        Vector3 enemyDirection = (enemyPosition - this.transform.position).normalized;
-        Rigidbody rigid = this.GetComponent<Rigidbody>();
-        rigid.velocity = enemyDirection * speed;
-    }
-
-    public GameObject[] meteors;
-    void MeteotExplosion() // 메테오 폭발
-    {
-        foreach (GameObject meteor in meteors)
-            meteor.SetActive(false);
-        explosionObject.SetActive(true);
-        explosionObject.GetComponent<AudioSource>().Play();
     }
 }

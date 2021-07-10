@@ -860,14 +860,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitType: 3
   unitColor: 5
-  originDamage: 6000
-  originBossDamage: 6000
+  originDamage: 240000
+  originBossDamage: 240000
   originAttackDelayTime: 0.5
   speed: 3
   attackDelayTime: 0.5
   attackRange: 40
-  damage: 6000
-  bossDamage: 6000
+  damage: 240000
+  bossDamage: 240000
   stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
@@ -926,6 +926,26 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_LocalScale.x
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -938,6 +958,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
         type: 3}
@@ -956,16 +981,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
         type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
-        type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: -90
       objectReference: {fileID: 0}
@@ -978,21 +993,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a2708bb195d494643bedb7beefb5ca69, type: 3}

@@ -577,14 +577,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitType: 1
   unitColor: 3
-  originDamage: 120
-  originBossDamage: 120
+  originDamage: 2000
+  originBossDamage: 2000
   originAttackDelayTime: 0.5
   speed: 6
   attackDelayTime: 0.5
   attackRange: 50
-  damage: 120
-  bossDamage: 120
+  damage: 1000
+  bossDamage: 1000
   stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
@@ -691,6 +691,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
         type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
+        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -706,6 +711,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
         type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
+        type: 3}
       propertyPath: m_LocalRotation.x
       value: -0.7071068
       objectReference: {fileID: 0}
@@ -718,16 +728,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
         type: 3}

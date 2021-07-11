@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     public int waitingTime;
     //public Starts starts;
     public Enemy enemy;
+    //public AdManager adManager;
 
     public bool playerEnterStoryMode; // 박준 코드
     // public GameObject[] Soldiers;
@@ -86,6 +87,7 @@ public class GameManager : MonoBehaviour
         Food = 1;
         UIManager.instance.UpdateGoldText(Gold);
         UIManager.instance.UpdateFoodText(Food);
+        adManager.ShowAD();
     }
 
     public AudioClip gameLoseClip;
@@ -118,6 +120,10 @@ public class GameManager : MonoBehaviour
         if (isClear && Input.anyKeyDown)
         {
             ReTurnClient();
+        }
+        if (Input.GetKeyDown(KeyCode.K)) // 빠른 게임 클리어 테스트 용
+        {
+            Time.timeScale = 30f;
         }
 
         //if(Input.GetMouseButtonDown(0))
@@ -275,6 +281,7 @@ public class GameManager : MonoBehaviour
 
     public void Lose()
     {
+        adManager.ShowAD();
         isGameover = true;
         UIManager.instance.SetActiveGameOverUI();
         Time.timeScale = 0;
@@ -285,6 +292,7 @@ public class GameManager : MonoBehaviour
     public AudioClip clearClip;
     public void Clear()
     {
+        adManager.ShowAD();
         isClear = true;
         for (int i = 0; i < enemySpawn.currentEnemyList.Count; i++)
         {

@@ -121,35 +121,35 @@ public class GameManager : MonoBehaviour
         {
             ReTurnClient();
         }
-        if (Input.GetKeyDown(KeyCode.K)) // 빠른 게임 클리어 테스트 용
-        {
-            Time.timeScale = 30f;
-        }
-
-        //if(Input.GetMouseButtonDown(0))
+        //if (Input.GetKeyDown(KeyCode.K)) // 빠른 게임 클리어 테스트 용
         //{
-        //    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        //    RaycastHit hit;
-        //    if (Physics.Raycast(ray, out hit))
-        //    {
-        //        //Debug.Log(hit.transform.gameObject);
-
-        //        HitEnemy = hit.transform.gameObject;
-
-        //        NomalEnemy nomalenemy = HitEnemy.transform.GetChild(0).GetComponent<NomalEnemy>();
-
-
-        //        if ( nomalenemy != null)
-        //        {
-        //            nomalenemy.currentHp -= 10 * (Food+1);
-        //            nomalenemy.hpSlider.value = nomalenemy.currentHp;
-        //            if (nomalenemy.currentHp <= 0)
-        //            {
-        //                nomalenemy.Dead();
-        //            }
-        //        }
-        //    }
+        //    Time.timeScale = 30f;
         //}
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit))
+            {
+                //Debug.Log(hit.transform.gameObject);
+
+                HitEnemy = hit.transform.gameObject;
+
+                NomalEnemy nomalenemy = HitEnemy.transform.GetChild(0).GetComponent<NomalEnemy>();
+
+
+                if (nomalenemy != null)
+                {
+                    nomalenemy.currentHp -= 10 * (Food + 1);
+                    nomalenemy.hpSlider.value = nomalenemy.currentHp;
+                    if (nomalenemy.currentHp <= 0)
+                    {
+                        nomalenemy.Dead();
+                    }
+                }
+            }
+        }
 
 
 

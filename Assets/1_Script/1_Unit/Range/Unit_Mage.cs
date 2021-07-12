@@ -37,10 +37,10 @@ public class Unit_Mage : RangeUnit, IEvent
                 break;
             case UnitColor.green:
                 attackRange *= 2;
-                damage += (greenPassiveFigure - 1) * originDamage;
+                damage += greenPassiveFigure * originDamage;
                 break;
             case UnitColor.orange:
-                bossDamage += (orangePassiveFigure - 1) * originBossDamage;
+                bossDamage += orangePassiveFigure * originBossDamage;
                 break;
             case UnitColor.violet:
                 break;
@@ -191,24 +191,28 @@ public class Unit_Mage : RangeUnit, IEvent
     }
 
 
-    void GreenMageSkill() // 대미지 5배
+    void GreenMageSkill()
     {
-        ShowMageSkillEffect(mageEffectObject);
         StartCoroutine(GreenMageSkile_Coroutine());
-        StartCoroutine(Play_SkillClip(mageSkillCilp, 2f, 0));
+        StartCoroutine(Play_SkillClip(normalAttackClip, 1f, 0.7f));
     }
     IEnumerator GreenMageSkile_Coroutine()
     {
-        int originPlusMana = plusMana;
+        if (isUltimate) attackReinforceDelegate += MultiDirectionAttack;
+        GameObject saveEnergyball = energyBall;
+        energyBall = mageEffectObject;
+        int savePlusMana = plusMana;
         plusMana = 0;
-        int addDamageRate = (isUltimate) ? 8 : 5;
-        damage += addDamageRate * originDamage;
-        yield return new WaitForSeconds(5f);
-        damage -= addDamageRate * originDamage;
-        plusMana = originPlusMana;
+
+        StartCoroutine("MageAttack");
+        yield return new WaitUntil(() => !isAttackDelayTime);
+
+        plusMana = savePlusMana;
+        energyBall = saveEnergyball;
+        if (attackReinforceDelegate != null) attackReinforceDelegate -= MultiDirectionAttack;
     }
 
-    void OrangeMageSkill() // 공속 5배
+    void OrangeMageSkill()
     {
         ShowMageSkillEffect(mageEffectObject);
         StartCoroutine(OrangeMageSkile_Coroutine());
@@ -232,14 +236,12 @@ public class Unit_Mage : RangeUnit, IEvent
 
     IEnumerator OrangeMageSkile_Coroutine()
     {
-        if (isUltimate) attackReinforceDelegate += MultiDirectionAttack;
         int originPlusMana = plusMana;
         plusMana = 0;
-        attackDelayTime *= 0.2f;
+        bossDamage += originBossDamage * 5;
         yield return new WaitForSeconds(10f);
-        attackDelayTime *= 5;
+        attackDelayTime -= originBossDamage * 5;
         plusMana = originPlusMana;
-        if (isUltimate) attackReinforceDelegate -= MultiDirectionAttack;
     }
 
     void VioletMageSkill(Transform attackTarget) // 독 공격
@@ -408,8 +410,8 @@ public class Unit_Mage : RangeUnit, IEvent
     private float redPassiveFigure = 1.5f;
     private float bluePassiveFigure = 25f;
     private float yellowPassiveFigure = 20f;
-    private int greenPassiveFigure = 4;
-    private int orangePassiveFigure = 5;
+    private int greenPassiveFigure = 1;
+    private int orangePassiveFigure = 6;
     private int violetPassiveFigure = 60;
     // 패시브 강화
     public void ReinforcePassive()
@@ -417,7 +419,7 @@ public class Unit_Mage : RangeUnit, IEvent
         redPassiveFigure = 2.5f;
         bluePassiveFigure = 40f;
         yellowPassiveFigure = 40f;
-        greenPassiveFigure = 7;
+        greenPassiveFigure = 4;
         orangePassiveFigure = 10;
         violetPassiveFigure = 100;
     }

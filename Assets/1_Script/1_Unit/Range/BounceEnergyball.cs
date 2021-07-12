@@ -4,10 +4,12 @@ using UnityEngine;
 
 public class BounceEnergyball : MonoBehaviour
 {
+    AudioSource audioSource;
     Vector3 lastVelocity;
     Rigidbody rigid;
     private void Awake()
     {
+        audioSource = GetComponent<AudioSource>();
         rigid = GetComponent<Rigidbody>();
     }
 
@@ -23,10 +25,8 @@ public class BounceEnergyball : MonoBehaviour
             Debug.LogError("이건 아니야");
             return;
         }
-        float speed = lastVelocity.magnitude;
         Vector3 dir = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
-
-        //transform.rotation = Quaternion.Euler(new Vector3(0, dir.y, 0));
+        audioSource.Play();
 
         rigid.velocity = dir * 100;
     }

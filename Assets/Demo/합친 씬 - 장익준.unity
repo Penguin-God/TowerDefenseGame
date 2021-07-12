@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44971025, g: 0.49977946, b: 0.57563627, a: 1}
+  m_IndirectSpecularColor: {r: 0.4497105, g: 0.49977976, b: 0.5756375, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -51387,7 +51387,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uACF5\uACA9\uC18D\uB3C4 \uC99D\uAC00"
+  m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uBCF4\uC2A4 \uB300\uBBF8\uC9C0 \uC99D\uAC00"
 --- !u!222 &1035482727
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -98209,11 +98209,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5278064836055134988, guid: 9f5d49bb85a97274591d5a7fd662eea2,
         type: 3}
-      propertyPath: m_RootOrder
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5278064836055134988, guid: 9f5d49bb85a97274591d5a7fd662eea2,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -98229,11 +98224,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5278064836055134988, guid: 9f5d49bb85a97274591d5a7fd662eea2,
         type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5278064836055134988, guid: 9f5d49bb85a97274591d5a7fd662eea2,
-        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -98246,6 +98236,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5278064836055134988, guid: 9f5d49bb85a97274591d5a7fd662eea2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5278064836055134988, guid: 9f5d49bb85a97274591d5a7fd662eea2,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5278064836055134988, guid: 9f5d49bb85a97274591d5a7fd662eea2,
         type: 3}
@@ -107915,7 +107915,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: 5\uCD08\uAC04 \uB370\uBBF8\uC9C0 500% \uC99D\uAC00"
+  m_Text: "\uC0AC\uC6A9\uC2A4\uD0AC: \uAE30\uBCF8 \uACF5\uACA9\uC774 \uBCBD\uC5D0
+    \uD295\uAE40"
 --- !u!222 &2125253486
 CanvasRenderer:
   m_ObjectHideFlags: 0

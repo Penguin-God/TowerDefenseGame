@@ -376,19 +376,19 @@ public class GameManager : MonoBehaviour
         switch (difficult)
         {
             case "Baby":
-                SetDifficult(20, 0, 200);
+                SetDifficult(20, 1, 200);
                 break;
             case "Easy":
-                SetDifficult(30, 1, 250);
+                SetDifficult(30, 3, 250);
                 break;
             case "Normal":
-                SetDifficult(30, 2, 300);
+                SetDifficult(30, 5, 300);
                 break;
             case "Hard":
-                SetDifficult(10, 8, 350);
+                SetDifficult(10, 12, 350);
                 break;
             case "Impossiable":
-                SetDifficult(20, 12, 400);
+                SetDifficult(20, 15, 400);
                 break;
             default: 
                 Debug.Log("난이도가 설정되지 않음");

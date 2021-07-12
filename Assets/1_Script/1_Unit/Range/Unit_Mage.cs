@@ -302,7 +302,7 @@ public class Unit_Mage : RangeUnit, IEvent
 
     public void SetCanvas()
     {
-        if (unitColor == UnitColor.black || unitColor == UnitColor.white) return;
+        if (unitColor == UnitColor.white) return;
         canvasRectTransform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
     }
 

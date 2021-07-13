@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Unit_Mage : RangeUnit, IEvent
+public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
 {
     [Header("메이지 변수")]
     public GameObject magicLight;
@@ -95,19 +95,18 @@ public class Unit_Mage : RangeUnit, IEvent
 
     void MageSpecialAttack()
     {
-        isAttack = true;
-        isAttackDelayTime = true;
-        //Debug.Log("특별하다!!!!!!");
+        isSkillAttack = true;
         
         MageColorSpecialAttack();
         ClearMana();
 
-        isAttack = false;
         // 스킬 쿨타임 적용
-        float saveAttackDelayTime = attackDelayTime;
-        attackDelayTime = mageSkillCoolDownTime;
-        base.NormalAttack();
-        attackDelayTime = saveAttackDelayTime;
+        Invoke("SetSkillAttack", mageSkillCoolDownTime); // 이거 임시 방편이라 뭐 좀 해야함
+    }
+
+    void SetSkillAttack()
+    {
+        isSkillAttack = false;
     }
 
     public GameObject mageEffectObject = null;
@@ -280,6 +279,7 @@ public class Unit_Mage : RangeUnit, IEvent
                 GameObject instantEnergyBall = CreateBullte(energyBall, instantTransform);
                 instantEnergyBall.transform.rotation = directions.GetChild(i).rotation;
                 instantEnergyBall.GetComponent<Rigidbody>().velocity = directions.GetChild(i).rotation.normalized * Vector3.forward * 50;
+                instantEnergyBall.GetComponent<AttackWeapon>().isSkill = true;
             }
         }
     }
@@ -422,5 +422,21 @@ public class Unit_Mage : RangeUnit, IEvent
         greenPassiveFigure = 4;
         orangePassiveFigure = 10;
         violetPassiveFigure = 100;
+    }
+
+    public override void HitThrowWeapon(AttackWeapon attackWeapon, Enemy enemy)
+    {
+        base.HitThrowWeapon(attackWeapon, enemy);
+        RangeUnit_PassiveAttack(enemy);
+        if (attackWeapon.isSkill) enemy.OnDamage(skillDamage);  
+        else AttackEnemy(enemy);
+    }
+
+    public void HitThrowWeapon(Enemy enemy, AttackWeapon attackWeapon)
+    {
+        RangeUnit_PassiveAttack(enemy);
+
+        if (attackWeapon.isSkill) enemy.OnDamage(skillDamage);
+        else AttackEnemy(enemy);
     }
 }

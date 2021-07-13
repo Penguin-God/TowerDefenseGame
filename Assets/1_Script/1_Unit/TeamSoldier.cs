@@ -22,6 +22,7 @@ public class TeamSoldier : MonoBehaviour
     public float attackRange;
     public int damage;
     public int bossDamage;
+    public int skillDamage;
 
     public float stopDistanc;
     public bool isAttack; // 공격 중에 true인 변수
@@ -157,7 +158,7 @@ public class TeamSoldier : MonoBehaviour
             } 
             else nav.SetDestination(target.position);
 
-            if ( (enemyIsForward || contactEnemy) && !isAttackDelayTime) // Attack가능하고 쿨타임이 아니면 공격
+            if ( (enemyIsForward || contactEnemy) && !isAttackDelayTime && !isSkillAttack) // Attack가능하고 쿨타임이 아니면 공격
             {
                 UnitAttack();
             }
@@ -323,7 +324,7 @@ public class TeamSoldier : MonoBehaviour
         return enemy;
     }
 
-    public void AttackEnemy(Enemy enemy)
+    public void AttackEnemy(Enemy enemy) // Boss enemy랑 쫄병 구분
     {
         if (enemy.gameObject.CompareTag("Tower") || enemy.gameObject.CompareTag("Boss"))
         {
@@ -347,10 +348,9 @@ public class TeamSoldier : MonoBehaviour
 
     public GameObject reinforceEffect;
 
-    //private void OnMouseDown()
-    //{
-    //    GameManager.instance.Chilk();
-    //    //Combine.ButtonOn();
-    //    UIManager.instance.SellSoldier.gameObject.SetActive(true);
-    //}
+    public bool isSkillAttack;
+    public virtual void HitThrowWeapon(AttackWeapon attackWeapon, Enemy enemy) 
+    {
+        if (attackWeapon.teamSoldier == null) attackWeapon.teamSoldier = gameObject.GetComponent<TeamSoldier>();
+    }
 }

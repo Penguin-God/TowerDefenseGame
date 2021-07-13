@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Unit_Archer : RangeUnit, IEvent
+public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
 {
     [Header("아처 변수")]
     public GameObject arrow;
@@ -35,6 +35,8 @@ public class Unit_Archer : RangeUnit, IEvent
             case UnitColor.violet:
                 break;
         }
+
+        skillDamage = (int)(damage * 1.2f);
     }
 
     public override void NormalAttack()
@@ -72,6 +74,7 @@ public class Unit_Archer : RangeUnit, IEvent
 
     IEnumerator Special_ArcherAttack()
     {
+        isSkillAttack = true;
         isAttack = true;
         isAttackDelayTime = true;
         nav.angularSpeed = 1;
@@ -92,6 +95,7 @@ public class Unit_Archer : RangeUnit, IEvent
         trail.SetActive(true);
         nav.angularSpeed = 1000;
         isAttack = false;
+        isSkillAttack = false;
         base.NormalAttack();
         if (enemySpawn.currentEnemyList.Count != 0) UpdateTarget();
     }
@@ -188,5 +192,25 @@ public class Unit_Archer : RangeUnit, IEvent
         greenPassiveFigure = 3;
         orangePassiveFigure = 3;
         violetPassiveFigure = 20;
+    }
+
+    public override void HitThrowWeapon(AttackWeapon attackWeapon, Enemy enemy)
+    {
+        base.HitThrowWeapon(attackWeapon, enemy);
+        RangeUnit_PassiveAttack(enemy);
+        if (attackWeapon.isSkill) enemy.OnDamage(skillDamage);
+        else AttackEnemy(enemy);
+
+        Destroy(attackWeapon.gameObject);
+    }
+
+    public void HitThrowWeapon(Enemy enemy, AttackWeapon attackWeapon)
+    {
+        RangeUnit_PassiveAttack(enemy);
+
+        if (attackWeapon.isSkill) enemy.OnDamage(skillDamage);
+        else AttackEnemy(enemy);
+
+        Destroy(attackWeapon.gameObject);
     }
 }

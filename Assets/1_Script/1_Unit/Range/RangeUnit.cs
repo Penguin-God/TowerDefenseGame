@@ -59,4 +59,9 @@ public class RangeUnit : TeamSoldier
         Gizmos.DrawRay(transform.parent.position + Vector3.up, transform.parent.forward * attackRange);
         Gizmos.DrawWireCube(transform.parent.position + Vector3.up + transform.parent.forward * attackRange, transform.lossyScale * 2);
     }
+
+    protected void Set_ThrowWeapon()
+    {
+
+    }
 }

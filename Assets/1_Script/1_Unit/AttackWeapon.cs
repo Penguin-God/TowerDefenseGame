@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class AttackWeapon : MonoBehaviour
 {
-    TeamSoldier teamSoldier;
+    public bool isSkill;
+    public TeamSoldier teamSoldier;
     public int damage;
     public GameObject attackUnit; // 무기와 적이 충돌할때 Enemy script에서 관련 정보를 가져가도록 하기위한 변수 
     // attackUnit 변수 TeamSolider Script 변수로 만들기
 
     private void Start()
     {
-        teamSoldier = attackUnit.GetComponent<TeamSoldier>();
-        this.damage = teamSoldier.damage; // 의미없음 어차피 유닛 고유 대미지로 들어감
         Destroy(gameObject, 5);
+        if (attackUnit == null) return;
+        teamSoldier = attackUnit.GetComponent<TeamSoldier>();
+        isSkill = teamSoldier.isSkillAttack;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -21,14 +23,8 @@ public class AttackWeapon : MonoBehaviour
         if(other.gameObject.GetComponent<Enemy>() != null)
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            //enemy.OnDamage(damage);
-            teamSoldier.AttackEnemy(enemy);
-            if (teamSoldier.unitType == TeamSoldier.Type.archer || teamSoldier.unitType == TeamSoldier.Type.mage)
-                attackUnit.GetComponent<RangeUnit>().RangeUnit_PassiveAttack(enemy);
-            else if (teamSoldier.unitType == TeamSoldier.Type.spearman)
-                attackUnit.GetComponent<MeeleUnit>().MeeleUnit_PassiveAttack(enemy);
-
-            if (teamSoldier.unitType == TeamSoldier.Type.archer) Destroy(gameObject);
+            if (attackUnit.GetComponent<IHitThrowWeapon>() != null)
+                attackUnit.GetComponent<IHitThrowWeapon>().HitThrowWeapon(enemy, this);
         }
     }
 }

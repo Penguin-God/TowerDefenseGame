@@ -12670,6 +12670,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 856121791}
     m_Modifications:
+    - target: {fileID: 7454969569672131939, guid: be157ae2f2713564fba73e008821c617,
+        type: 3}
+      propertyPath: skillDamage
+      value: 2500
+      objectReference: {fileID: 0}
     - target: {fileID: 7454969569692840241, guid: be157ae2f2713564fba73e008821c617,
         type: 3}
       propertyPath: m_Name
@@ -20595,6 +20600,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 151015499}
     m_Modifications:
+    - target: {fileID: 1699467413430769189, guid: 99955310471110444a40f9831802d773,
+        type: 3}
+      propertyPath: mageSkillCoolDownTime
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2916168590735878310, guid: 99955310471110444a40f9831802d773,
         type: 3}
       propertyPath: m_Name
@@ -39935,6 +39945,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 491011130}
     m_Modifications:
+    - target: {fileID: 103836908467553592, guid: 4710141b2362e174b9ea566b6267949d,
+        type: 3}
+      propertyPath: skillDamage
+      value: 30000
+      objectReference: {fileID: 0}
     - target: {fileID: 4661351935083864776, guid: 4710141b2362e174b9ea566b6267949d,
         type: 3}
       propertyPath: m_RootOrder
@@ -42565,6 +42580,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2584615055267807348, guid: 519a6c03cfb2e6d41b531720a81d4f16,
+        type: 3}
+      propertyPath: skillDamage
+      value: 2000000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 519a6c03cfb2e6d41b531720a81d4f16, type: 3}
 --- !u!4 &857429025 stripped
@@ -43274,6 +43294,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 915280004}
     m_Modifications:
+    - target: {fileID: 296571180890353750, guid: 611e0c79108bf4540898c3ddebd5387c,
+        type: 3}
+      propertyPath: skillDamage
+      value: 11000
+      objectReference: {fileID: 0}
     - target: {fileID: 5034237234067150756, guid: 611e0c79108bf4540898c3ddebd5387c,
         type: 3}
       propertyPath: m_Name
@@ -57462,6 +57487,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 151015499}
     m_Modifications:
+    - target: {fileID: 5810574156314726957, guid: bb99327bd4a0bba4788703e0394afae7,
+        type: 3}
+      propertyPath: skillDamage
+      value: 2500
+      objectReference: {fileID: 0}
     - target: {fileID: 5810574156436100720, guid: bb99327bd4a0bba4788703e0394afae7,
         type: 3}
       propertyPath: m_RootOrder
@@ -58230,6 +58260,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Black_Archer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1800201801504110413, guid: 3ebdb11443709774b955eea88589b5f2,
+        type: 3}
+      propertyPath: skillDamage
+      value: 5000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3ebdb11443709774b955eea88589b5f2, type: 3}
@@ -68215,6 +68250,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Orange_Spearman
       objectReference: {fileID: 0}
+    - target: {fileID: 8772771035943043365, guid: 980c2ab93cdef544cb411595d34befb7,
+        type: 3}
+      propertyPath: skillDamage
+      value: 30000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 980c2ab93cdef544cb411595d34befb7, type: 3}
 --- !u!4 &1338288017 stripped
@@ -68387,6 +68427,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8457165952548286822, guid: b99cdff4ee30fa44798e20a945776310,
+        type: 3}
+      propertyPath: skillDamage
+      value: 11000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b99cdff4ee30fa44798e20a945776310, type: 3}
@@ -79291,6 +79336,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 856121791}
     m_Modifications:
+    - target: {fileID: 2075177400942788147, guid: e3e8368fe90d1c648beb49b119b9d686,
+        type: 3}
+      propertyPath: skillDamage
+      value: 30000
+      objectReference: {fileID: 0}
     - target: {fileID: 6704759391202351553, guid: e3e8368fe90d1c648beb49b119b9d686,
         type: 3}
       propertyPath: m_Name
@@ -81759,6 +81809,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5715507580900939925, guid: 3d754308acb1d5141b0b26a0d743439b,
+        type: 3}
+      propertyPath: skillDamage
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 5715507580900939925, guid: 3d754308acb1d5141b0b26a0d743439b,
+        type: 3}
+      propertyPath: originDamage
+      value: 120
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d754308acb1d5141b0b26a0d743439b, type: 3}
 --- !u!4 &1615580407 stripped
@@ -82961,6 +83021,11 @@ PrefabInstance:
         type: 3}
       propertyPath: bossDamage
       value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 934792852262612338, guid: 1772a47c8d7f3e74baa9fbb660966ee4,
+        type: 3}
+      propertyPath: skillDamage
+      value: 2500
       objectReference: {fileID: 0}
     - target: {fileID: 934792852350429472, guid: 1772a47c8d7f3e74baa9fbb660966ee4,
         type: 3}
@@ -88445,6 +88510,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 951531119}
     m_Modifications:
+    - target: {fileID: 2219315760347757371, guid: 7fad8267bf4321940b7effc164c530d6,
+        type: 3}
+      propertyPath: skillDamage
+      value: 100000
+      objectReference: {fileID: 0}
     - target: {fileID: 6848851408045497545, guid: 7fad8267bf4321940b7effc164c530d6,
         type: 3}
       propertyPath: m_Name
@@ -98262,6 +98332,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8562050406989548928, guid: 9f5d49bb85a97274591d5a7fd662eea2,
+        type: 3}
+      propertyPath: mageSkillCoolDownTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8562050406989548928, guid: 9f5d49bb85a97274591d5a7fd662eea2,
+        type: 3}
+      propertyPath: skillDamage
+      value: 500000
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9f5d49bb85a97274591d5a7fd662eea2, type: 3}
 --- !u!1001 &1927663078
@@ -107991,6 +108071,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Yellow_Spearman
+      objectReference: {fileID: 0}
+    - target: {fileID: 5621595234891671096, guid: 9bab28d49d345ab4f89b3bca582381a1,
+        type: 3}
+      propertyPath: skillDamage
+      value: 11000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9bab28d49d345ab4f89b3bca582381a1, type: 3}

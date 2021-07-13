@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit_Spearman : MeeleUnit, IEvent
+public class Unit_Spearman : MeeleUnit, IEvent, IHitThrowWeapon
 {
     [Header("창병 변수")]
     public GameObject trail;
@@ -41,6 +41,8 @@ public class Unit_Spearman : MeeleUnit, IEvent
             case UnitColor.violet:
                 break;
         }
+
+        skillDamage = (int)(damage * 1.5f);
     }
 
     public override void NormalAttack()
@@ -50,8 +52,8 @@ public class Unit_Spearman : MeeleUnit, IEvent
 
     IEnumerator SpaerAttack()
     {
-        isAttack = true;
         isAttackDelayTime = true;
+        isAttack = true;
 
         animator.SetTrigger("isAttack");
         yield return new WaitForSeconds(0.55f);
@@ -67,14 +69,13 @@ public class Unit_Spearman : MeeleUnit, IEvent
 
     public override void SpecialAttack()
     {
-        //base.SpecialAttack(); // 나중에 스킬 쿨타임을 따로 만들수도 있음
         StartCoroutine("Spearman_SpecialAttack");
     }
 
     IEnumerator Spearman_SpecialAttack()
     {
         isAttack = true;
-        isAttackDelayTime = true;
+        isSkillAttack = true;
         animator.SetTrigger("isSpecialAttack");
         yield return new WaitForSeconds(1f);
 
@@ -93,6 +94,7 @@ public class Unit_Spearman : MeeleUnit, IEvent
         nav.isStopped = false;
         spear.SetActive(true);
         isAttack = false;
+        isSkillAttack = false;
         base.NormalAttack();
     }
 
@@ -143,5 +145,22 @@ public class Unit_Spearman : MeeleUnit, IEvent
         greenPassiveFigure = 5;
         orangePassiveFigure = 5;
         violetPassiveFigure = 60;
+    }
+
+    public override void HitThrowWeapon(AttackWeapon attackWeapon, Enemy enemy)
+    {
+        base.HitThrowWeapon(attackWeapon, enemy);
+        MeeleUnit_PassiveAttack(enemy);
+
+        attackWeapon.damage = skillDamage;
+        enemy.OnDamage(attackWeapon.damage);
+    }
+
+    public void HitThrowWeapon(Enemy enemy, AttackWeapon attackWeapon)
+    {
+        MeeleUnit_PassiveAttack(enemy);
+
+        if (attackWeapon.isSkill) enemy.OnDamage(skillDamage);
+        else AttackEnemy(enemy);
     }
 }

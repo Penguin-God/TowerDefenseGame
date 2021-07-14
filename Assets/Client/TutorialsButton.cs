@@ -9,6 +9,8 @@ public class TutorialsButton : MonoBehaviour
     public GameObject TutorialsText;
     int Count = 1;
     int SommonCount = 0;
+
+    
     public void TutoriasDEF()
     {
         TutorialsText.transform.GetChild(Count).gameObject.SetActive(false);

@@ -12,7 +12,7 @@ public class MeeleUnit : TeamSoldier
 
     public override void UnitTypeMove()
     {
-        if (enemyDistance < stopDistanc && target != null)
+        if (enemyDistance < stopDistanc)
         {
             nav.speed = 0.15f;
             contactEnemy = true;
@@ -24,12 +24,12 @@ public class MeeleUnit : TeamSoldier
         }
     }
 
-    //protected float Check_EnemyToUnit_Deggre()
-    //{
-    //    if (nomalEnemy == null) return 1f;
-    //    float enemyDot = Vector3.Dot(nomalEnemy.dir.normalized, (target.position - this.transform.position).normalized);
-    //    return enemyDot;
-    //}
+    protected float Check_EnemyToUnit_Deggre()
+    {
+        if (nomalEnemy == null) return 1f;
+        float enemyDot = Vector3.Dot(nomalEnemy.dir.normalized, (target.position - this.transform.position).normalized);
+        return enemyDot;
+    }
 
     public virtual void MeeleUnit_PassiveAttack(Enemy enemy)
     {
@@ -46,26 +46,4 @@ public class MeeleUnit : TeamSoldier
             MeeleUnit_PassiveAttack(enemy);
         }
     }
-
-    //private void OnTriggerStay(Collider other)
-    //{
-    //    if (target == null) return;
-
-    //    if ( other.gameObject.layer == 8 && other.gameObject == target.gameObject && !other.gameObject.CompareTag("Tower") )
-    //    {
-    //        contactEnemy = true;
-    //    }
-    //    else
-    //    {
-    //        contactEnemy = false;
-    //    }
-    //}
-
-    //private void OnTriggerExit(Collider other)
-    //{
-    //    if (other.gameObject.layer == 8 && other.gameObject == target.gameObject && !other.gameObject.CompareTag("Tower"))
-    //    {
-    //        contactEnemy = false;
-    //    }
-    //}
 }

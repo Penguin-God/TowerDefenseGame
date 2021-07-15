@@ -109,8 +109,7 @@ public class TeamSoldier : MonoBehaviour
     protected bool rayHit;
     protected RaycastHit rayHitObject;
 
-    [SerializeField]
-    protected bool enemyIsForward;
+    public bool enemyIsForward;
 
     private void Update()
     {
@@ -131,9 +130,23 @@ public class TeamSoldier : MonoBehaviour
 
             if (rayHitTransform.gameObject.CompareTag("Tower") || rayHitTransform.gameObject.CompareTag("Boss") 
                 || rayHitTransform == target.parent) return true;
+            else if(ReturnLayerMask(rayHitTransform.GetChild(0).gameObject) == layerMask) // 나중에 리펙토링 해야함
+            {
+                if (GetComponent<RangeUnit>() == null) return false;
+                // ray에 맞은 적이 target은 아니지만 target과 같은 layer라면 두 enemy가 겹친 것으로 판단해 target을 바꾸고 true를 리턴
+                target = rayHitTransform.GetChild(0);
+                return true;
+            }
             else return false;
         }
         else return false;
+    }
+
+    int ReturnLayerMask(GameObject targetObject) // 인자의 layer를 반환하는 함수
+    {
+        int layer = targetObject.layer;
+        string layerName = LayerMask.LayerToName(layer);
+        return 1 << LayerMask.NameToLayer(layerName);
     }
 
     IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
@@ -203,20 +216,13 @@ public class TeamSoldier : MonoBehaviour
             nav.isStopped = false;
             target = targetObject.transform;
             nomalEnemy = target.gameObject.GetComponent<NomalEnemy>();
-            SetLayerMask(target.gameObject);
+            layerMask = ReturnLayerMask(target.gameObject);
         }
         else
         {
             nav.isStopped = true;
             target = null;
         }
-    }
-
-    void SetLayerMask(GameObject targetObject)
-    {
-        int layer = targetObject.layer;
-        string layerName = LayerMask.LayerToName(layer);
-        layerMask = 1 << LayerMask.NameToLayer(layerName);
     }
 
     // 타워 때리는 무한반복 코루틴
@@ -277,7 +283,7 @@ public class TeamSoldier : MonoBehaviour
             nav.enabled = true;
             StopCoroutine("NavCoroutine");
             target = GameObject.FindGameObjectWithTag("Tower").transform;
-            SetLayerMask(target.gameObject);
+            layerMask = ReturnLayerMask(target.gameObject);
             StartCoroutine("TowerNavCoroutine");
         }
         else

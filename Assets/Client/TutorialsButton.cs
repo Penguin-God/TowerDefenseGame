@@ -21,7 +21,7 @@ public class TutorialsButton : MonoBehaviour
     public CreateDefenser createDefenser;
     public void ClickTutorialSommonButton()
     {
-        if (GameManager.instance.Gold >= 5 && Count == 1)
+        if (GameManager.instance.Gold >= 5 && Count == 3)
         {
             createDefenser.CreateSoldier(0, 0);
             GameManager.instance.Gold -= 5;
@@ -39,7 +39,7 @@ public class TutorialsButton : MonoBehaviour
     public UnitManageButton unitManageButton;
     public void clickTutorialUnitManageButton()
     {
-        if (Count == 2 || Count == 6)
+        if (Count == 4 || Count == 8)
         {
             TutoriasDEF();
             unitManageButton.FirstChilk();
@@ -48,7 +48,7 @@ public class TutorialsButton : MonoBehaviour
 
     public void ClickSwordmanButton()
     {
-        if (Count == 3)
+        if (Count == 5)
         {
             TutoriasDEF();
             unitManageButton.ChlikSwordmanButton();
@@ -57,7 +57,7 @@ public class TutorialsButton : MonoBehaviour
 
     public void ClickRedSwordmanButton()
     {
-        if (Count == 4)
+        if (Count == 6)
         {
             TutoriasDEF();
             unitManageButton.ChlikRedSwordmanButton();
@@ -67,7 +67,7 @@ public class TutorialsButton : MonoBehaviour
     public CombineSoldier combineSoldier;
     public void ClickTutorialCombineRedArcherButton()
     {
-        if (Count == 5)
+        if (Count == 7)
         {
             TutoriasDEF();
             combineSoldier.CombineRedArcher();
@@ -77,7 +77,7 @@ public class TutorialsButton : MonoBehaviour
 
     public void ClickArcherutton()
     {
-        if (Count == 7)
+        if (Count == 9)
         {
             TutoriasDEF();
             unitManageButton.ChlikArcherButton();
@@ -86,7 +86,7 @@ public class TutorialsButton : MonoBehaviour
 
     public void ClickRedArcherButton()
     {
-        if (Count == 8)
+        if (Count == 10)
         {
             TutoriasDEF();
             unitManageButton.ChlikRedArcherButton();
@@ -97,7 +97,7 @@ public class TutorialsButton : MonoBehaviour
     
     public void ClickTutorialXButton()
     {
-        if(Count == 9)
+        if(Count == 11)
         {
             TutoriasDEF();
 
@@ -109,13 +109,13 @@ public class TutorialsButton : MonoBehaviour
     public GameObject ComeBackClientButton;
     public void ClickTutorialMove()
     {
-        if (Count == 10 )
+        if (Count == 12 )
         {
             TutoriasDEF();
 
             storyMode.EnterStoryMode();
         }
-        else if (Count == 13)
+        else if (Count == 15)
         {
             //Loding.LoadScene("클라이언트");
             TutoriasDEF();
@@ -135,7 +135,7 @@ public class TutorialsButton : MonoBehaviour
 
     public void ClickTutorialWhiteSwordmanButton()
     {
-        if (Count == 11)
+        if (Count == 13)
         {
             TutoriasDEF();
 
@@ -147,7 +147,7 @@ public class TutorialsButton : MonoBehaviour
 
     public void ClickTutorialBlackArcherButton()
     {
-        if(Count == 12)
+        if(Count == 14)
         {
             TutoriasDEF();
 

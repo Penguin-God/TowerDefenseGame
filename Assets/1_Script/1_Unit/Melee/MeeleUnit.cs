@@ -17,9 +17,22 @@ public class MeeleUnit : TeamSoldier
             nav.speed = 0.15f;
             contactEnemy = true;
         }
+        else if((enemyDistance < stopDistanc * 2 && Check_EnemyToUnit_Deggre() < -0.5f))
+        {
+            if (enemyIsForward)
+            {
+                nav.speed = 0.01f;
+                nav.angularSpeed = 1f;
+            }
+            else
+            {
+                nav.speed = 0.2f;
+            }
+        }
         else
         {
             nav.speed = this.speed;
+            nav.angularSpeed = 500f;
             contactEnemy = false;
         }
     }
@@ -36,7 +49,7 @@ public class MeeleUnit : TeamSoldier
 
     }
 
-    protected void HitMeeleAttack() // 근접공격 타겟팅, damage는 델리게이트 통일을 위한 잉여 변수
+    protected void HitMeeleAttack() // 근접공격 타겟팅
     {
         // 공격 시작 때 적과 HitMeeleAttack() 작동 시 적과 같은 적인지 비교하는 코드 필요
         Enemy enemy = GetEnemyScript();

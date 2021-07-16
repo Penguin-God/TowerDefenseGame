@@ -171,7 +171,7 @@ public class TeamSoldier : MonoBehaviour
             } 
             else nav.SetDestination(target.position);
 
-            if ( (enemyIsForward || contactEnemy) && !isAttackDelayTime && !isSkillAttack) // Attack가능하고 쿨타임이 아니면 공격
+            if ( (enemyIsForward || contactEnemy) && !isAttackDelayTime && !isSkillAttack && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
             {
                 UnitAttack();
             }

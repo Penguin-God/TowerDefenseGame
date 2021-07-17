@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class EnemyBoss : NomalEnemy
 {
@@ -12,64 +13,59 @@ public class EnemyBoss : NomalEnemy
         parentRigidbody = GetComponentInParent<Rigidbody>();
 
         enemySpawn.currentBossList.Add(gameObject);
-        foreach (GameObject unit in UnitManager.instance.currentUnitList)
-        {
-            if (unit == null) continue;
-
-            TeamSoldier teamSoldier = unit.GetComponent<TeamSoldier>();
-            if (!teamSoldier.enterStoryWorld) 
-            {
-                teamSoldier.SetChaseSetting(gameObject);
-            }
-        }
+        SetUnitTarget();
 
         GameManager.instance.ChangeBGM(GameManager.instance.bossbgmClip);
     }
 
-    public override void Dead()
+    void SetUnitTarget()
     {
-        enemySpawn.currentBossList.Remove(gameObject);
-        enemySpawn.bossRespawn = false;
-        parent.gameObject.SetActive(false);
-        parent.position = new Vector3(500, 500, 500);
-        isDead = true;
-
         foreach (GameObject unit in UnitManager.instance.currentUnitList)
         {
             if (unit == null) continue;
 
             TeamSoldier teamSoldier = unit.GetComponent<TeamSoldier>();
             if (!teamSoldier.enterStoryWorld)
+            {
                 teamSoldier.UpdateTarget();
+            }
         }
+    }
+
+    public override void Dead()
+    {
+        SetDeadVariable();
+        SetUnitTarget();
 
         GameManager.instance.ChangeBGM(GameManager.instance.bgmClip);
 
-        if (enemySpawn.bossLevel == 5)
+        if (enemySpawn.bossLevel == 5) // 게임클리어
         {
             GameManager.instance.Clear();
             return;
         }
 
+        GetBossReword(enemySpawn.bossRewordGold, enemySpawn.bossRewordFood); // 재화보상
+        ShowBossShop();
+        Get_UunitReword();
+
+        Destroy(parent.gameObject);
+    }
+
+    void SetDeadVariable()
+    {
+        enemySpawn.currentBossList.Remove(gameObject);
+        enemySpawn.bossRespawn = false;
+        parent.gameObject.SetActive(false);
+        parent.position = new Vector3(500, 500, 500);
+        isDead = true;
+    }
+
+    void ShowBossShop()
+    {
         enemySpawn.enemyAudioSource.PlayOneShot(enemySpawn.bossDeadClip, 0.7f);
         enemySpawn.shop.OnShop(enemySpawn.bossLevel, enemySpawn.shop.bossShopWeighDictionary);
         enemySpawn.shop.SetGuideText("보스를 처치하였습니다");
-
-        GetBossReword(enemySpawn.bossRewordGold, enemySpawn.bossRewordFood);
-
-        switch (enemySpawn.bossLevel)
-        {
-            case 1:
-            case 2:
-                enemySpawn.createDefenser.CreateSoldier(7, 1);
-                break;
-            case 3: 
-            case 4:
-                enemySpawn.createDefenser.CreateSoldier(7, 2);
-                break;
-        }
-
-        Destroy(transform.parent.gameObject);
     }
 
     void GetBossReword(int rewardGold, int rewardFood)
@@ -77,8 +73,22 @@ public class EnemyBoss : NomalEnemy
         GameManager.instance.Gold += rewardGold * Mathf.FloorToInt(enemySpawn.stageNumber / 10);
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
-
         GameManager.instance.Food += rewardFood * Mathf.FloorToInt(enemySpawn.stageNumber / 10);
         UIManager.instance.UpdateFoodText(GameManager.instance.Food);
+    }
+
+    void Get_UunitReword()
+    {
+        switch (enemySpawn.bossLevel)
+        {
+            case 1:
+            case 2:
+                enemySpawn.createDefenser.CreateSoldier(7, 1);
+                break;
+            case 3:
+            case 4:
+                enemySpawn.createDefenser.CreateSoldier(7, 2);
+                break;
+        }
     }
 }

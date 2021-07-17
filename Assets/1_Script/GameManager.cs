@@ -42,14 +42,6 @@ public class GameManager : MonoBehaviour
 
     private static GameManager m_instance;
 
-    //public enum Starts
-    //{
-    //    Easy,
-    //    Normal,
-    //    Hard,
-    //    Impossiable,
-    //}
-
     private void Awake()
     {
         if (instance != this)
@@ -68,22 +60,6 @@ public class GameManager : MonoBehaviour
     public int AddGold;
     void Start()
     {
-        //if (starts == Starts.Easy)s
-        //{
-            //enemySpawn.enemyHpWeight = 15;
-        //}
-       // else if (starts == Starts.Normal)
-        //{
-            //enemySpawn.enemyHpWeight = 25;
-        //}
-        //else if (starts == Starts.Hard)
-        //{
-            //enemySpawn.enemyHpWeight = 35;
-        //}
-        //else if (starts == Starts.Impossiable)
-        //{
-            //enemySpawn.enemyHpWeight = 45;
-        //}
         isGameover = false;
         Gold = 15 + AddGold;
         Food = 1;

@@ -6,9 +6,6 @@ using UnityEngine.UI;
 public class NomalEnemy : Enemy
 {
     protected EnemySpawn enemySpawn;
-    // 능력치 변수
-    //public float maxSpeed;
-    //public float speed;
 
     // 이동, 회전 관련 변수
     protected Transform parent;
@@ -37,7 +34,7 @@ public class NomalEnemy : Enemy
             enemySpawn.enemyAudioSource.PlayOneShot(enemySpawn.dengerClip, 0.8f);
     }
 
-    public void ResetStatus(int hp, float speed)
+    public void SetStatus(int hp, float speed)
     {
         maxHp = hp;
         currentHp = maxHp;
@@ -70,9 +67,6 @@ public class NomalEnemy : Enemy
         parent.position = new Vector3(500, 500, 500);
         enemySpawn.currentEnemyList.Remove(this.gameObject);
         ResetVariable();
-
-        //GameManager.instance.Gold += 1;
-        //UIManager.instance.UpdateGoldText(GameManager.instance.Gold); 
     }
 
     void ResetVariable()

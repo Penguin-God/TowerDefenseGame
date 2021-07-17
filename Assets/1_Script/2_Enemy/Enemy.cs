@@ -23,11 +23,8 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         originMat = GetComponent<MeshRenderer>().material;
-        meshList = new List<MeshRenderer>();
-
-        meshList.Add(GetComponent<MeshRenderer>());
+        meshList = new List<MeshRenderer> { GetComponent<MeshRenderer>() };
         MeshRenderer[] addMeshs = GetComponentsInChildren<MeshRenderer>();
-        
         for(int i = 0; i < addMeshs.Length; i++)
         {
             meshList.Add(addMeshs[i]);
@@ -52,6 +49,13 @@ public class Enemy : MonoBehaviour
 
     protected NomalEnemy nomalEnemy;
 
+
+    void Set_OriginSpeed() // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기
+    {
+        nomalEnemy.speed = nomalEnemy.maxSpeed;
+        parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
+    }
+
     Coroutine sternCoroutine = null;
     public void EnemyStern(int sternPercent, float sternTime)
     {
@@ -73,13 +77,15 @@ public class Enemy : MonoBehaviour
         nomalEnemy.speed = 0;
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
         yield return new WaitForSeconds(sternTime);
-        nomalEnemy.speed = nomalEnemy.maxSpeed;
-        parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
+        ExitSturn();
+    }
+    void ExitSturn()
+    {
         sternEffect.SetActive(false);
         isSturn = false;
         sternCoroutine = null;
+        Set_OriginSpeed();
     }
-
 
     protected bool isSlow;
     Coroutine exitSlowCoroutine = null;
@@ -119,12 +125,9 @@ public class Enemy : MonoBehaviour
     {
         ChangeMat(originMat);
         ChangeColor(new Color32(255, 255, 255, 255));
-        if (!isSturn)
-        {
-            nomalEnemy.speed = nomalEnemy.maxSpeed;
-            parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
-        }
         isSlow = false;
+
+        if (!isSturn) Set_OriginSpeed();
     }
 
     public void EnemyPoisonAttack(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)

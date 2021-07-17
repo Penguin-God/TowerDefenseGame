@@ -118,35 +118,6 @@ public class EnemySpawn : MonoBehaviour
         UIManager.instance.UpdateStageText(stageNumber);
         StageStart();
     }
-
-    public Slider timerSlider;
-    private void Update()
-    {
-        if(GameManager.instance.gameStart && stageNumber < 50)
-            timerSlider.value -= Time.deltaTime;
-    }
-
-    public AudioClip bossDeadClip;
-    public bool bossRespawn;
-    public int bossLevel;
-    public int bossRewordGold;
-    public int bossRewordFood;
-    public List<GameObject> currentBossList;
-    void RespawnBoss()
-    {
-        bossLevel++;
-        bossRespawn = true;
-        int random = Random.Range(0, bossPrefab.Length);
-        GameObject instantBoss = Instantiate(bossPrefab[random], bossPrefab[random].transform.position, bossPrefab[random].transform.rotation);
-        instantBoss.transform.SetParent(transform);
-
-        int stageWeigh = (stageNumber / 10) * (stageNumber / 10) * (stageNumber / 10);
-        int hp = 10000 * (stageWeigh * Mathf.CeilToInt(enemyHpWeight / 20f) ); // boss hp 정함
-        SetEnemyData(instantBoss, hp, 10);
-        instantBoss.transform.position = this.transform.position;
-        instantBoss.SetActive(true);
-    }
-
     GameObject RespawnEnemy(int instantEnemyNumber)
     {
         
@@ -156,10 +127,22 @@ public class EnemySpawn : MonoBehaviour
         return enemy;
     }
 
+    public Slider timerSlider;
+    private void Update()
+    {
+        if(GameManager.instance.gameStart && stageNumber < 50)
+            timerSlider.value -= Time.deltaTime;
+    }
+
+
+
+
+
+
     void SetEnemyData(GameObject enemyObject, int hp, float speed) // enemy 능력치 설정
     {
         NomalEnemy nomalEnemy = enemyObject.GetComponentInChildren<NomalEnemy>();
-        nomalEnemy.ResetStatus(hp, speed);
+        nomalEnemy.SetStatus(hp, speed);
     }
 
 
@@ -204,13 +187,33 @@ public class EnemySpawn : MonoBehaviour
         if (countArray[enemyNumber] > poolEnemyCount - 1) countArray[enemyNumber] = 0;
     }
 
+    // 보스 코드
+    public AudioClip bossDeadClip;
+    public bool bossRespawn;
+    public int bossLevel;
+    public int bossRewordGold;
+    public int bossRewordFood;
+    public List<GameObject> currentBossList;
+    void RespawnBoss()
+    {
+        bossLevel++;
+        bossRespawn = true;
+        int random = Random.Range(0, bossPrefab.Length);
+        GameObject instantBoss = Instantiate(bossPrefab[random], bossPrefab[random].transform.position, bossPrefab[random].transform.rotation);
+        instantBoss.transform.SetParent(transform);
+
+        int stageWeigh = (stageNumber / 10) * (stageNumber / 10) * (stageNumber / 10);
+        int hp = 10000 * (stageWeigh * Mathf.CeilToInt(enemyHpWeight / 20f) ); // boss hp 정함
+        SetEnemyData(instantBoss, hp, 10);
+        instantBoss.transform.position = this.transform.position;
+        instantBoss.SetActive(true);
+    }
 
     // 타워 코드
     public GameObject[] towers;
     public int[] arr_TowersHp;
     public int currentTowerLevel = 0;
 
-    [SerializeField]
     public CreateDefenser createDefenser;
     public Shop shop;
     public void RespawnNextTower(int towerLevel, float delayTime)

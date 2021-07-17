@@ -218,6 +218,16 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0));
     }
 
+    IEnumerator OrangeMageSkile_Coroutine()
+    {
+        int originPlusMana = plusMana;
+        plusMana = 0;
+        bossDamage += originBossDamage * 5;
+        yield return new WaitForSeconds(10f);
+        bossDamage -= originBossDamage * 5;
+        plusMana = originPlusMana;
+    }
+
     void MultiDirectionAttack()
     {
         Transform directions = transform.GetChild(2);
@@ -233,15 +243,6 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         }
     }
 
-    IEnumerator OrangeMageSkile_Coroutine()
-    {
-        int originPlusMana = plusMana;
-        plusMana = 0;
-        bossDamage += originBossDamage * 5;
-        yield return new WaitForSeconds(10f);
-        attackDelayTime -= originBossDamage * 5;
-        plusMana = originPlusMana;
-    }
 
     void VioletMageSkill(Transform attackTarget) // 독 공격
     {
@@ -411,7 +412,7 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
     private float bluePassiveFigure = 25f;
     private float yellowPassiveFigure = 20f;
     private int greenPassiveFigure = 1;
-    private int orangePassiveFigure = 6;
+    private int orangePassiveFigure = 5;
     private int violetPassiveFigure = 60;
     // 패시브 강화
     public void ReinforcePassive()

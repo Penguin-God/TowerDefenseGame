@@ -915,6 +915,7 @@ MonoBehaviour:
   attackRange: 40
   damage: 100000
   bossDamage: 100000
+  skillDamage: 0
   stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
@@ -931,13 +932,14 @@ MonoBehaviour:
   enterStoryWorld: 0
   getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
   reinforceEffect: {fileID: 8862572027123117244}
+  isSkillAttack: 0
   magicLight: {fileID: 2912166254476401257}
   energyBall: {fileID: 4005321863399391286, guid: 0f47c58451f0d3e4e9a370c4f1de7a76,
     type: 3}
   energyBallTransform: {fileID: 2912166253428939080}
   isUltimate: 0
   plusMana: 30
-  mageSkillCoolDownTime: 3.5
+  mageSkillCoolDownTime: 2.5
   mageEffectObject: {fileID: 4624219392482637300, guid: d6fccbbc807ddcf48ad83801f635ecf9,
     type: 3}
   mageSkillCilp: {fileID: 8300000, guid: e6f235e1a0f4c504bbb5a76c786d86b6, type: 3}

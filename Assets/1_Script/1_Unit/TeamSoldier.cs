@@ -245,7 +245,7 @@ public class TeamSoldier : MonoBehaviour
 
                 enemyDistance = Vector3.Distance(this.transform.position, target.position);
                 nav.SetDestination(towerHit.point);
-                if ((towerEnter || enemyIsForward) && !isAttackDelayTime) 
+                if ((towerEnter || enemyIsForward) && !isAttackDelayTime && !isSkillAttack && !isAttack) 
                 {
                     UnitAttack();
                 }

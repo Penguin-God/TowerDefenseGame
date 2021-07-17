@@ -204,7 +204,7 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public List<int> Return_CurrentUnitColorList(int unitNumber)
+    public List<int> Return_CurrentUnitColorList(int unitNumber) // 원하는 유닛 숫자를 받고 존재한 유닛들의 컬러 넘버가 담긴 리스트를 반환
     {
         List<int> current_UnitColorNumberList = new List<int>();
         UnitArray[] unitArray = UnitManager.instance.unitArrays;
@@ -213,11 +213,6 @@ public class EventManager : MonoBehaviour
             string unitTag = unitArray[i].unitArray[unitNumber].transform.GetChild(0).gameObject.tag;
             GameObject unit = GameObject.FindGameObjectWithTag(unitTag);
             if (unit != null) current_UnitColorNumberList.Add(i);
-        }
-
-        for(int i = 0; i < current_UnitColorNumberList.Count; i++)
-        {
-            Debug.Log(current_UnitColorNumberList[i]);
         }
 
         return current_UnitColorNumberList;

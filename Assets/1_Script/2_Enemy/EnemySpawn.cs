@@ -225,7 +225,7 @@ public class EnemySpawn : MonoBehaviour
 
         if (towerLevel >= towers.Length) // 마지막 성 클리어 시
         {
-            ClearLastTower();
+            StartCoroutine(ClearLastTower());
             return;
         }
 
@@ -238,8 +238,9 @@ public class EnemySpawn : MonoBehaviour
         towers[towerLevel].SetActive(true);
     }
 
-    void ClearLastTower() // 검은 창병 두마리 소환 후 모든 유닛 필드로 옮기기
+    IEnumerator ClearLastTower() // 검은 창병 두마리 소환 후 모든 유닛 필드로 옮기기
     {
+        yield return new WaitForSeconds(0.1f); // 상점 이용 후 유닛이동하기 위해서 대기
         for (int i = 0; i < 2; i++)
         {
             createDefenser.CreateSoldier(6, 2);

@@ -34,12 +34,12 @@ public class MageSkill : MonoBehaviour
         {
             case TeamSoldier.UnitColor.red:
                 enemy.EnemyStern(100, 5);
-                enemy.OnDamage(15000);
+                enemy.OnDamage(400000);
                 Destroy(transform.parent.gameObject, 3);
                 break;
             case TeamSoldier.UnitColor.blue:
                 enemy.EnemySlow(99, 5, true);
-                if (teamSoldier.GetComponent<Unit_Mage>().isUltimate) enemy.OnDamage(5000);
+                if (teamSoldier.GetComponent<Unit_Mage>().isUltimate) enemy.OnDamage(20000);
                 break;
             case TeamSoldier.UnitColor.yellow:
                 break;
@@ -48,7 +48,7 @@ public class MageSkill : MonoBehaviour
             case TeamSoldier.UnitColor.orange:
                 break;
             case TeamSoldier.UnitColor.violet:
-                enemy.EnemyPoisonAttack(25, 8, 0.3f, 8000);
+                enemy.EnemyPoisonAttack(25, 8, 0.3f, 120000);
                 break;
         }
     }

@@ -639,10 +639,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 318e67155f164e248b16a62433b3011f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHp: 50000000
-  currentHp: 50000000
+  maxSpeed: 0
+  speed: 0
+  maxHp: 0
+  currentHp: 0
   isDead: 0
   hpSlider: {fileID: 1887208191}
+  dir: {x: 0, y: 0, z: 0}
   originMat: {fileID: 0}
   sternEffect: {fileID: 0}
   slowSkillMat: {fileID: 0}

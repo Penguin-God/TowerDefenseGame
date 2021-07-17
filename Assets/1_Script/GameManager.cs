@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour
 
         enemySpawn.GetComponent<EnemySpawn>();
         gameManagerAudio = GetComponent<AudioSource>();
+
+        Set_EnemyTowerHpDictionary();
     }
 
 
@@ -347,6 +349,7 @@ public class GameManager : MonoBehaviour
 
         SelectDifficult(difficult);
         enemySpawn.StageStart();
+        enemySpawn.towers[0].SetActive(true);
         UnitManager.instance.ReSpawnStartUnit();
     }
 
@@ -370,25 +373,27 @@ public class GameManager : MonoBehaviour
     }
 
     public Text diffcultText;
+
     public void SelectDifficult(string difficult)
     {
         diffcultText.text = "난이도 : " + difficult;
+        enemySpawn.arr_TowersHp = Dic_enemyTowerHp[difficult];
         switch (difficult)
         {
             case "Baby":
                 SetDifficult(20, 1, 200);
                 break;
             case "Easy":
-                SetDifficult(30, 3, 250);
+                SetDifficult(20, 3, 250);
                 break;
             case "Normal":
-                SetDifficult(30, 5, 300);
+                SetDifficult(20, 8, 300);
                 break;
             case "Hard":
-                SetDifficult(10, 12, 350);
+                SetDifficult(25, 18, 350);
                 break;
             case "Impossiable":
-                SetDifficult(20, 15, 400);
+                SetDifficult(30, 30, 400);
                 break;
             default: 
                 Debug.Log("난이도가 설정되지 않음");
@@ -402,6 +407,18 @@ public class GameManager : MonoBehaviour
         enemySpawn.minHp = minhp;
     }
 
+    private Dictionary<string, int[]> Dic_enemyTowerHp;
+    void Set_EnemyTowerHpDictionary() // key : 난이도, value : 레벨 1~6 까지 적군의 성 체력
+    {
+        Dic_enemyTowerHp = new Dictionary<string, int[]>
+        {
+            { "Baby", new int[] { 20000, 40000, 150000, 400000, 1000000, 5000000 } },
+            { "Easy", new int[] { 30000, 60000, 200000, 750000, 2000000, 7500000 } },
+            { "Normal", new int[] { 40000, 80000, 300000, 1000000, 3000000, 10000000 } },
+            { "Hard", new int[] { 50000, 120000, 400000, 1500000, 4000000, 15000000 } },
+            { "Impossiable", new int[] { 75000, 200000, 750000, 2000000, 7000000, 25000000 } }
+        };
+    }
     public void LoadClient()
     {
         Time.timeScale = 1f;

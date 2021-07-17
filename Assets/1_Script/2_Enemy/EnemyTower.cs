@@ -12,6 +12,8 @@ public class EnemyTower : Enemy
 
     private void Awake()
     {
+        maxHp = enemySpawn.arr_TowersHp[enemySpawn.currentTowerLevel];
+        currentHp = maxHp;
         hpSlider.maxValue = maxHp;
         hpSlider.value = maxHp;
         isDead = false;
@@ -28,7 +30,7 @@ public class EnemyTower : Enemy
         gameObject.SetActive(false);
         transform.position = new Vector3(5000, 5000, 5000);
         GetTowerReword();
-        enemySpawn.RespawnNextTower(towerLevel, 0.5f); // 다음 타워 소환
+        enemySpawn.RespawnNextTower(towerLevel, 1.5f); // 다음 타워 소환
     }
 
     void GetTowerReword()

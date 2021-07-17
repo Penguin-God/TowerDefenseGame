@@ -140,7 +140,7 @@ public class EnemySpawn : MonoBehaviour
         GameObject instantBoss = Instantiate(bossPrefab[random], bossPrefab[random].transform.position, bossPrefab[random].transform.rotation);
         instantBoss.transform.SetParent(transform);
 
-        int stageWeigh = (stageNumber / 10) * (stageNumber / 10) *  ( (stageNumber == 10) ? 1 : 2 );
+        int stageWeigh = (stageNumber / 10) * (stageNumber / 10) * (stageNumber / 10);
         int hp = 10000 * (stageWeigh * Mathf.CeilToInt(enemyHpWeight / 20f) ); // boss hp 정함
         SetEnemyData(instantBoss, hp, 10);
         instantBoss.transform.position = this.transform.position;
@@ -207,7 +207,8 @@ public class EnemySpawn : MonoBehaviour
 
     // 타워 코드
     public GameObject[] towers;
-    public int currentTowerLevel;
+    public int[] arr_TowersHp;
+    public int currentTowerLevel = 0;
 
     [SerializeField]
     public CreateDefenser createDefenser;
@@ -221,22 +222,28 @@ public class EnemySpawn : MonoBehaviour
         enemyAudioSource.PlayOneShot(towerDieClip, 1f);
 
         currentTowerLevel++;
-        if (towerLevel >= towers.Length) // 마지막 성 보상
+
+        if (towerLevel >= towers.Length) // 마지막 성 클리어 시
         {
-            for(int i = 0; i < 2; i++)
-            {
-                createDefenser.CreateSoldier(6, 2);
-            }
-            UnitManager.instance.UnitTranslate_To_EnterStroyMode();
+            ClearLastTower();
             return;
         }
 
-        StartCoroutine(SetNexTwoer_Coroutine(towerLevel, delayTime));;
+        StartCoroutine(SetNexTwoer_Coroutine(towerLevel, delayTime));
     }
 
     IEnumerator SetNexTwoer_Coroutine(int towerLevel, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
         towers[towerLevel].SetActive(true);
+    }
+
+    void ClearLastTower() // 검은 창병 두마리 소환 후 모든 유닛 필드로 옮기기
+    {
+        for (int i = 0; i < 2; i++)
+        {
+            createDefenser.CreateSoldier(6, 2);
+        }
+        UnitManager.instance.UnitTranslate_To_EnterStroyMode();
     }
 }

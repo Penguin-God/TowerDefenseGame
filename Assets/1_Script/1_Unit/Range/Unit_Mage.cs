@@ -213,19 +213,15 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
 
     void OrangeMageSkill()
     {
-        ShowMageSkillEffect(mageEffectObject);
-        StartCoroutine(OrangeMageSkile_Coroutine());
-        StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0));
+        unitAudioSource.time = 0.6f;
+        unitAudioSource.volume = 0.25f;
+        VioletMageSkill(target);
+        Invoke("ReSetAudioTime", 0.5f);
     }
-
-    IEnumerator OrangeMageSkile_Coroutine()
+    void ReSetAudioTime()
     {
-        int originPlusMana = plusMana;
-        plusMana = 0;
-        bossDamage += originBossDamage * 5;
-        yield return new WaitForSeconds(10f);
-        bossDamage -= originBossDamage * 5;
-        plusMana = originPlusMana;
+        unitAudioSource.volume = 0.15f;
+        unitAudioSource.time = 0f;
     }
 
     void MultiDirectionAttack()

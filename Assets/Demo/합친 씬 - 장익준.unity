@@ -19620,20 +19620,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 151015499}
     m_Modifications:
-    - target: {fileID: 1699467413430769189, guid: 99955310471110444a40f9831802d773,
-        type: 3}
-      propertyPath: mageSkillCoolDownTime
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 2916168590735878310, guid: 99955310471110444a40f9831802d773,
         type: 3}
       propertyPath: m_Name
       value: Orange_Mage
-      objectReference: {fileID: 0}
-    - target: {fileID: 2916168590735878313, guid: 99955310471110444a40f9831802d773,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2916168590735878313, guid: 99955310471110444a40f9831802d773,
         type: 3}
@@ -19652,11 +19642,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2916168590735878313, guid: 99955310471110444a40f9831802d773,
         type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2916168590735878313, guid: 99955310471110444a40f9831802d773,
-        type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
@@ -19669,6 +19654,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2916168590735878313, guid: 99955310471110444a40f9831802d773,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2916168590735878313, guid: 99955310471110444a40f9831802d773,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2916168590735878313, guid: 99955310471110444a40f9831802d773,
         type: 3}
@@ -104485,14 +104480,14 @@ MonoBehaviour:
   stageGold: 10
   stageTime: 40
   timerSlider: {fileID: 1243077729}
+  minHp: 300
+  enemyHpWeight: 20
   bossDeadClip: {fileID: 8300000, guid: 771d8ce5ff8e78c469bc24323ad99373, type: 3}
   bossRespawn: 0
   bossLevel: 0
   bossRewordGold: 10
   bossRewordFood: 1
   currentBossList: []
-  minHp: 300
-  enemyHpWeight: 20
   towers:
   - {fileID: 1502375967}
   - {fileID: 683437523}

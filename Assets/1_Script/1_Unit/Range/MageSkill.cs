@@ -14,9 +14,15 @@ public class MageSkill : MonoBehaviour
         sphereCollider = GetComponent<SphereCollider>();
     }
 
+    private void Start()
+    {
+        if (teamSoldier.unitColor == TeamSoldier.UnitColor.orange) OrangeMageSkill();
+    }
+
     private void OnEnable()
     {
-        StartCoroutine(ShowEffect_Coroutine(hitTime));
+        if(sphereCollider != null)
+            StartCoroutine(ShowEffect_Coroutine(hitTime));
     }
 
     private void OnTriggerEnter(Collider other)
@@ -51,6 +57,13 @@ public class MageSkill : MonoBehaviour
                 enemy.EnemyPoisonAttack(25, 8, 0.3f, 120000);
                 break;
         }
+    }
+
+    void OrangeMageSkill()
+    {
+        Enemy enemy = teamSoldier.target.GetComponent<Enemy>();
+        int damage = teamSoldier.bossDamage + Mathf.RoundToInt((enemy.currentHp / 100) * 20);
+        enemy.OnDamage(damage);
     }
 
     IEnumerator ShowEffect_Coroutine(float delayTIme)

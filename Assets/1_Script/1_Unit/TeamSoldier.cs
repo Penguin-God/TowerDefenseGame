@@ -56,6 +56,7 @@ public class TeamSoldier : MonoBehaviour
         // 적 추적
         UpdateTarget();
         StartCoroutine("NavCoroutine");
+        Debug.Log(unitAudioSource.time);
     }
 
     public virtual void SetPassive() {} // 나중에 Action 인자 받아서 깔끔하게 바꿀수도
@@ -98,10 +99,10 @@ public class TeamSoldier : MonoBehaviour
 
     }
 
-    public virtual void EenmyChase() // 추적
-    {
+    //public virtual void EenmyChase() // 추적
+    //{
 
-    }
+    //}
 
     protected int layerMask; // Ray 감지용
     [SerializeField]

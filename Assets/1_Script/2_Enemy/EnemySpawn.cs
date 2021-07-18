@@ -232,7 +232,7 @@ public class EnemySpawn : MonoBehaviour
             return;
         }
 
-        StartCoroutine(SetNexTwoer_Coroutine(towerLevel, delayTime));
+        StartCoroutine(SetNexTwoer_Coroutine(currentTowerLevel, delayTime));
     }
 
     IEnumerator SetNexTwoer_Coroutine(int towerLevel, float delayTime)

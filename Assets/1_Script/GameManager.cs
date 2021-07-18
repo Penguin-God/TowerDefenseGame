@@ -99,10 +99,10 @@ public class GameManager : MonoBehaviour
         {
             ReTurnClient();
         }
-        //if (Input.GetKeyDown(KeyCode.K)) // 빠른 게임 클리어 테스트 용
-        //{
-        //    Time.timeScale = 30f;
-        //}
+        if (Input.GetKeyDown(KeyCode.K)) // 빠른 게임 클리어 테스트 용
+        {
+            Time.timeScale = 20f;
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -357,19 +357,19 @@ public class GameManager : MonoBehaviour
         switch (difficult)
         {
             case "Baby":
-                SetDifficult(20, 1, 200);
+                SetDifficult(20, 3, 200);
                 break;
             case "Easy":
-                SetDifficult(20, 3, 250);
+                SetDifficult(20, 8, 250);
                 break;
             case "Normal":
-                SetDifficult(20, 8, 300);
+                SetDifficult(20, 15, 300);
                 break;
             case "Hard":
-                SetDifficult(25, 18, 350);
+                SetDifficult(25, 30, 350);
                 break;
             case "Impossiable":
-                SetDifficult(30, 30, 400);
+                SetDifficult(30, 50, 400);
                 break;
             default: 
                 Debug.Log("난이도가 설정되지 않음");

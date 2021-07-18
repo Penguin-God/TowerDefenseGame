@@ -56,7 +56,6 @@ public class TeamSoldier : MonoBehaviour
         // 적 추적
         UpdateTarget();
         StartCoroutine("NavCoroutine");
-        Debug.Log(unitAudioSource.time);
     }
 
     public virtual void SetPassive() {} // 나중에 Action 인자 받아서 깔끔하게 바꿀수도
@@ -234,22 +233,19 @@ public class TeamSoldier : MonoBehaviour
         Invoke("RangeNavStop", 4f); // 원거리 타워에 다가가는거 막기
         while (true)
         {
-            if(target != null && enemyDistance < chaseRange)
+            if (target == null || enemyDistance < chaseRange)
             {
-                if (target.GetComponent<EnemyTower>().isDead)
-                {
-                    if(enemySpawn.currentTowerLevel < enemySpawn.towers.Length)
-                        target = enemySpawn.towers[enemySpawn.currentTowerLevel].transform;
-                    if (target == null) continue;
-                    yield return null;
-                }
+                yield return null;
+                EnemyTower currentTower = enemySpawn.towers[enemySpawn.currentTowerLevel].GetComponent<EnemyTower>();
+                if (currentTower.isRespawn) target = currentTower.transform;
+                else continue;
+            }
 
-                enemyDistance = Vector3.Distance(this.transform.position, target.position);
-                nav.SetDestination(towerHit.point);
-                if ((towerEnter || enemyIsForward) && !isAttackDelayTime && !isSkillAttack && !isAttack) 
-                {
-                    UnitAttack();
-                }
+            enemyDistance = Vector3.Distance(this.transform.position, target.position);
+            nav.SetDestination(towerHit.point);
+            if ((towerEnter || enemyIsForward) && !isAttackDelayTime && !isSkillAttack && !isAttack)
+            {
+                UnitAttack();
             }
             yield return new WaitForSeconds(0.5f);
         }

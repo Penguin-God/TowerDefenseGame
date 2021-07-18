@@ -9,9 +9,11 @@ public class EnemyTower : Enemy
     public int towerLevel;
     public int rewardGold;
     public int rewardFood;
+    public bool isRespawn;
 
     private void Awake()
     {
+        isRespawn = true;
         maxHp = enemySpawn.arr_TowersHp[enemySpawn.currentTowerLevel];
         currentHp = maxHp;
         hpSlider.maxValue = maxHp;
@@ -31,6 +33,18 @@ public class EnemyTower : Enemy
         transform.position = new Vector3(5000, 5000, 5000);
         GetTowerReword();
         enemySpawn.RespawnNextTower(towerLevel, 1.5f); // 다음 타워 소환
+        SetUnitTarget();
+    }
+
+    void SetUnitTarget()
+    {
+        foreach (GameObject unit in UnitManager.instance.currentUnitList)
+        {
+            if (unit == null) continue;
+
+            TeamSoldier teamSoldier = unit.GetComponent<TeamSoldier>();
+            if (teamSoldier.enterStoryWorld) teamSoldier.target = null;
+        }
     }
 
     void GetTowerReword()

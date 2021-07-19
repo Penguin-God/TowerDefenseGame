@@ -352,8 +352,4 @@ public class TeamSoldier : MonoBehaviour
     public GameObject reinforceEffect;
 
     public bool isSkillAttack;
-    public virtual void HitThrowWeapon(AttackWeapon attackWeapon, Enemy enemy) 
-    {
-        if (attackWeapon.teamSoldier == null) attackWeapon.teamSoldier = gameObject.GetComponent<TeamSoldier>();
-    }
 }

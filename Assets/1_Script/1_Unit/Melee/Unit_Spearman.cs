@@ -147,15 +147,6 @@ public class Unit_Spearman : MeeleUnit, IEvent, IHitThrowWeapon
         violetPassiveFigure = 60;
     }
 
-    public override void HitThrowWeapon(AttackWeapon attackWeapon, Enemy enemy)
-    {
-        base.HitThrowWeapon(attackWeapon, enemy);
-        MeeleUnit_PassiveAttack(enemy);
-
-        attackWeapon.damage = skillDamage;
-        enemy.OnDamage(attackWeapon.damage);
-    }
-
     public void HitThrowWeapon(Enemy enemy, AttackWeapon attackWeapon)
     {
         MeeleUnit_PassiveAttack(enemy);

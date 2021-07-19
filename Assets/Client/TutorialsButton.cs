@@ -13,6 +13,11 @@ public class TutorialsButton : MonoBehaviour
     
     public void TutoriasDEF()
     {
+        if (Count == 1)
+        {
+            GameManager.instance.Gold += 10;
+            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+        }
         TutorialsText.transform.GetChild(Count).gameObject.SetActive(false);
         Count += 1;
         TutorialsText.transform.GetChild(Count).gameObject.SetActive(true);

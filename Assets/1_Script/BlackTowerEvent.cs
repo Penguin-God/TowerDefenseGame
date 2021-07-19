@@ -57,7 +57,7 @@ public class BlackTowerEvent : MonoBehaviour
     {
         if (GameManager.instance.Gold >= 5)
         {
-            Randomnumber = Random.Range(0, 2); // 50%
+            Randomnumber = Random.Range(0, 1); // 50%
             if (Randomnumber == 0)
             {
                 createDefenser.CreateSoldier(6, 0);
@@ -85,7 +85,7 @@ public class BlackTowerEvent : MonoBehaviour
     {
         if (GameManager.instance.Gold >= 10)
         {
-            Randomnumber = Random.Range(0, 4); // 25%
+            Randomnumber = Random.Range(0, 3); // 25%
             if (Randomnumber == 0)
             {
                 createDefenser.CreateSoldier(6, 1);
@@ -113,7 +113,7 @@ public class BlackTowerEvent : MonoBehaviour
     {
         if(GameManager.instance.Gold >= 15)
         {
-            Randomnumber = Random.Range(0, 10); // 10%
+            Randomnumber = Random.Range(0, 9); // 10%
             if (Randomnumber == 0)
             {
                 createDefenser.CreateSoldier(6, 2);

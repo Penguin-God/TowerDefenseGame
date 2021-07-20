@@ -42,6 +42,7 @@ TagManager:
   - BlackSpearman
   - BlackMage
   - Structures
+  - Arrow
   layers:
   - Default
   - TransparentFX

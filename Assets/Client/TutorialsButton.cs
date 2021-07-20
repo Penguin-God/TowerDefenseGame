@@ -9,6 +9,7 @@ public class TutorialsButton : MonoBehaviour
     public GameObject TutorialsText;
     int Count = 1;
     int SommonCount = 0;
+    public TutorialArrows tutorialArrows;
 
     [SerializeField] GameObject obj_tutorialButton;
     public void ButtonTutoriasDEF()
@@ -16,6 +17,7 @@ public class TutorialsButton : MonoBehaviour
         TutorialsText.transform.GetChild(Count).gameObject.SetActive(false);
         Count += 1;
         TutorialsText.transform.GetChild(Count).gameObject.SetActive(true);
+        //tutorialArrows.ArrowStart(1);
         if (Count >= 3) obj_tutorialButton.SetActive(false);
     }
 
@@ -29,6 +31,16 @@ public class TutorialsButton : MonoBehaviour
         TutorialsText.transform.GetChild(Count).gameObject.SetActive(false);
         Count += 1;
         TutorialsText.transform.GetChild(Count).gameObject.SetActive(true);
+        tutorialArrows.ArrowStart(1);
+        //if (Count == 12 || Count == 13)
+        //{
+        //    tutorialArrows.ArrowStart(2);
+        //}
+        //else
+        //{
+        //    tutorialArrows.ArrowStart(1);
+        //}
+
     }
 
     public CreateDefenser createDefenser;

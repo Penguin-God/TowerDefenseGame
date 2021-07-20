@@ -3,27 +3,59 @@ using System.Collections;
 
 public class TutorialArrows : MonoBehaviour
 {
-    public GameObject Arrows;
+    public GameObject[] Arrows;
 
 
 
     // Use this for initialization
     void Start()
     {
-        Arrows.gameObject.SetActive(false);
-        StartCoroutine(ShowReady());
+        Arrows = GameObject.FindGameObjectsWithTag("Arrow");
+        Arrows[0].gameObject.SetActive(false);
+        StartCoroutine(ShowReady(1));
     }
 
-    IEnumerator ShowReady()
+    IEnumerator ShowReady(int ArrowCount)
     {
         int count = 0;
-        while (count < 30)
+        if (ArrowCount == 1)
         {
-            Arrows.gameObject.SetActive(true);
-            yield return new WaitForSeconds(0.5f);
-            Arrows.gameObject.SetActive(false);
-            yield return new WaitForSeconds(0.5f);
-            count++;
+            while (count < 100)
+            {
+                Arrows[0].gameObject.SetActive(true);
+                yield return new WaitForSeconds(0.5f);
+                Arrows[0].gameObject.SetActive(false);
+                yield return new WaitForSeconds(0.5f);
+                count++;
+            }
         }
+        else if (ArrowCount == 2)
+        {
+            while (count < 100)
+            {
+                Arrows[0].gameObject.SetActive(true);
+                Arrows[1].gameObject.SetActive(true);
+                yield return new WaitForSeconds(0.5f);
+                Arrows[0].gameObject.SetActive(false);
+                Arrows[1].gameObject.SetActive(false);
+                yield return new WaitForSeconds(0.5f);
+                count++;
+            }
+        }
+
+        //while (count < 100)
+        //{
+        //    Arrows.gameObject.SetActive(true);
+        //    yield return new WaitForSeconds(0.5f);
+        //    Arrows.gameObject.SetActive(false);
+        //    yield return new WaitForSeconds(0.5f);
+        //    count++;
+        //}
+    }
+
+    public void ArrowStart(int ArrowCount)
+    {
+        Arrows = GameObject.FindGameObjectsWithTag("Arrow");
+        StartCoroutine(ShowReady(ArrowCount));
     }
 }

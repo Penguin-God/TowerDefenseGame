@@ -194,16 +194,6 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
         violetPassiveFigure = 20;
     }
 
-    public override void HitThrowWeapon(AttackWeapon attackWeapon, Enemy enemy)
-    {
-        base.HitThrowWeapon(attackWeapon, enemy);
-        RangeUnit_PassiveAttack(enemy);
-        if (attackWeapon.isSkill) enemy.OnDamage(skillDamage);
-        else AttackEnemy(enemy);
-
-        Destroy(attackWeapon.gameObject);
-    }
-
     public void HitThrowWeapon(Enemy enemy, AttackWeapon attackWeapon)
     {
         RangeUnit_PassiveAttack(enemy);

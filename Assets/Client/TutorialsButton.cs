@@ -10,7 +10,15 @@ public class TutorialsButton : MonoBehaviour
     int Count = 1;
     int SommonCount = 0;
 
-    
+    [SerializeField] GameObject obj_tutorialButton;
+    public void ButtonTutoriasDEF()
+    {
+        TutorialsText.transform.GetChild(Count).gameObject.SetActive(false);
+        Count += 1;
+        TutorialsText.transform.GetChild(Count).gameObject.SetActive(true);
+        if (Count >= 3) obj_tutorialButton.SetActive(false);
+    }
+
     public void TutoriasDEF()
     {
         if (Count == 1)

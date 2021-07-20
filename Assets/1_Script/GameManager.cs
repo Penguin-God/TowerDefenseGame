@@ -18,13 +18,7 @@ public class GameManager : MonoBehaviour
     public Enemy enemy;
     //public AdManager adManager;
 
-    public bool playerEnterStoryMode; // 박준 코드
-    // public GameObject[] Soldiers;
-
-
-
-
-    //public GameObject target;
+    public bool playerEnterStoryMode;
 
     public int enemyCount; // EnemySpaw에 있던거 옮김
 
@@ -357,19 +351,19 @@ public class GameManager : MonoBehaviour
         switch (difficult)
         {
             case "Baby":
-                SetDifficult(20, 3, 200);
+                SetDifficult(20, 5, 200);
                 break;
             case "Easy":
-                SetDifficult(20, 8, 250);
+                SetDifficult(20, 10, 250);
                 break;
             case "Normal":
-                SetDifficult(20, 15, 300);
+                SetDifficult(20, 25, 300);
                 break;
             case "Hard":
-                SetDifficult(25, 30, 350);
+                SetDifficult(25, 45, 350);
                 break;
             case "Impossiable":
-                SetDifficult(30, 50, 400);
+                SetDifficult(30, 70, 400);
                 break;
             default: 
                 Debug.Log("난이도가 설정되지 않음");

@@ -421,14 +421,6 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         violetPassiveFigure = 100;
     }
 
-    public override void HitThrowWeapon(AttackWeapon attackWeapon, Enemy enemy)
-    {
-        base.HitThrowWeapon(attackWeapon, enemy);
-        RangeUnit_PassiveAttack(enemy);
-        if (attackWeapon.isSkill) enemy.OnDamage(skillDamage);  
-        else AttackEnemy(enemy);
-    }
-
     public void HitThrowWeapon(Enemy enemy, AttackWeapon attackWeapon)
     {
         RangeUnit_PassiveAttack(enemy);

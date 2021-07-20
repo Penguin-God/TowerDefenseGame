@@ -13,26 +13,14 @@ public class Unit_Swordman : MeeleUnit, IEvent
         animator = GetComponent<Animator>();
     }
 
-    public override void SetPassive()
+    public override void SetPassiveFigure()
     {
-        switch (unitColor)
-        {
-            case UnitColor.red:
-                attackDelayTime *= redPassiveFigure;
-                break;
-            case UnitColor.blue:
-                break;
-            case UnitColor.yellow:
-                break;
-            case UnitColor.green:
-                speed += greenPassiveFigure;
-                break;
-            case UnitColor.orange:
-                damage += Mathf.RoundToInt(damage * (orangePassiveFigure - 1));
-                break;
-            case UnitColor.violet:
-                break;
-        }
+        redPassiveFigure = 0.7f;
+        bluePassiveFigure = new Vector2(10, 2);
+        yellowPassiveFigure = Vector2.zero;
+        greenPassiveFigure = 1.1f;
+        orangePassiveFigure = 1.5f;
+        violetPassiveFigure = new Vector3(10, 2, 8);
     }
 
     public override void NormalAttack()
@@ -49,10 +37,6 @@ public class Unit_Swordman : MeeleUnit, IEvent
         yield return new WaitForSeconds(0.8f);
         trail.SetActive(true);
         yield return new WaitForSeconds(0.3f);
-        //if (target != null && (enemyDistance < attackRange || target.gameObject.CompareTag("Tower")))
-        //{
-            
-        //}
         HitMeeleAttack();
         trail.SetActive(false);
 
@@ -60,57 +44,17 @@ public class Unit_Swordman : MeeleUnit, IEvent
         base.NormalAttack();
     }
 
-    public override void MeeleUnit_PassiveAttack(Enemy enemy)
-    {
-        switch (unitColor)
-        {
-            case UnitColor.red:
-                break;
-            case UnitColor.blue:
-                enemy.EnemySlow(bluePassiveFigure, 1);
-                break;
-            case UnitColor.yellow:
-                break;
-            case UnitColor.green:
-                break;
-            case UnitColor.orange:
-                break;
-            case UnitColor.violet:
-                SowrdPoisonAttack(enemy);
-                break;
-        }
-    }
-
-    private bool isPoisonAttack = false;
-    void SowrdPoisonAttack(Enemy enemy)
-    {
-        if (isPoisonAttack) return;
-        enemy.EnemyPoisonAttack(2, 5, 0.3f, violetPassiveFigure);
-        Invoke("ExitPoisonAttack", 1.5f);
-    }
-    void ExitPoisonAttack()
-    {
-        isPoisonAttack = false;
-    }
-
     // 이벤트
     public void SkillPercentUp() {}
 
-    // 패시브 관련 수치
-    private float redPassiveFigure = 0.5f;
-    private int bluePassiveFigure = 10;
-    private float yellowPassiveFigure = 1; // 나중에 익준이 스크립트에 적용
-    private int greenPassiveFigure = 5;
-    private float orangePassiveFigure = 1.5f;
-    private int violetPassiveFigure = 10;
     // 패시브 강화
     public void ReinforcePassive()
     {
-        redPassiveFigure = 0.25f;
-        bluePassiveFigure = 20;
-        yellowPassiveFigure = 2;
-        greenPassiveFigure = 6;
-        orangePassiveFigure = 2f; // 공업
-        violetPassiveFigure = 30; // 독 멕뎀
+        redPassiveFigure = 0.5f;
+        bluePassiveFigure = new Vector2(30, 2);
+        yellowPassiveFigure = Vector2.zero;
+        greenPassiveFigure = 1.3f;
+        orangePassiveFigure = 2f;
+        violetPassiveFigure = new Vector3(25, 2, 10);
     }
 }

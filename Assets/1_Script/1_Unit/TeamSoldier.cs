@@ -48,7 +48,9 @@ public class TeamSoldier : MonoBehaviour
         enemySpawn = FindObjectOfType<EnemySpawn>();
         nav = GetComponentInParent<NavMeshAgent>();
         // 변수 선언
+        if(!passiveReinForce) SetPassiveFigure();
         SetPassive();
+
         chaseRange = 150f;
         enemyDistance = 150f;
         nav.speed = this.speed;
@@ -58,7 +60,85 @@ public class TeamSoldier : MonoBehaviour
         StartCoroutine("NavCoroutine");
     }
 
-    public virtual void SetPassive() {} // 나중에 Action 인자 받아서 깔끔하게 바꿀수도
+    
+
+    public virtual void SetPassive() 
+    {
+        switch (unitColor)
+        {
+            case UnitColor.red:
+                Passive_Red();
+                break;
+            case UnitColor.green:
+                Passive_Green();
+                break;
+            case UnitColor.orange:
+                Passive_Orange();
+                break;
+        }
+    }
+    [HideInInspector]
+    public bool passiveReinForce;
+    protected float redPassiveFigure = 0;
+    protected Vector2 bluePassiveFigure = Vector2.zero; // x는 슬로우 정도 y는 시간
+    protected Vector2 yellowPassiveFigure = Vector2.zero; // x는 확률 y는 얻는 골드
+    protected float greenPassiveFigure = 0;
+    protected float orangePassiveFigure = 0;
+    protected Vector3 violetPassiveFigure = Vector3.zero; // x는 확률 y는 스턴 시간 z는 독뎀
+    public virtual void SetPassiveFigure() {} // 패시브 관련 수치 조정
+
+    void Passive_Red()
+    {
+        attackDelayTime *= redPassiveFigure;
+    }
+
+    void Passive_Blue(Enemy p_Enemy)
+    {
+        if (GetComponent<Unit_Mage>() != null) return;
+
+        p_Enemy.EnemySlow(bluePassiveFigure.x, (int)bluePassiveFigure.y);
+    }
+
+    void Passive_Yellow(int percent, int addGold)
+    {
+        int random = Random.Range(0, 100);
+        if (random < percent)
+        {
+            unitAudioSource.PlayOneShot(getGoldClip, 1f);
+            GameManager.instance.Gold += addGold;
+            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+        }
+    }
+
+    void Passive_Green()
+    {
+        damage += Mathf.FloorToInt( (greenPassiveFigure - 1) * originDamage );
+    }
+    void Passive_Orange()
+    {
+        bossDamage += Mathf.FloorToInt( (orangePassiveFigure - 1) * originBossDamage );
+    }
+    void Passive_Violet(Enemy p_Enemy)
+    {
+        p_Enemy.EnemyStern((int)violetPassiveFigure.x, violetPassiveFigure.y);
+        p_Enemy.EnemyPoisonAttack(20, 4, 0.5f, (int)violetPassiveFigure.z);
+    }
+
+    public void Hit_Passive(Enemy p_Enemy)
+    {
+        switch (unitColor)
+        {
+            case UnitColor.blue:
+                Passive_Blue(p_Enemy);
+                break;
+            case UnitColor.yellow:
+                Passive_Yellow((int)yellowPassiveFigure.x, (int)yellowPassiveFigure.y);
+                break;
+            case UnitColor.violet:
+                Passive_Violet(p_Enemy);
+                break;
+        }
+    }
 
     public int specialAttackPercent;
     void UnitAttack()
@@ -97,11 +177,6 @@ public class TeamSoldier : MonoBehaviour
     {
 
     }
-
-    //public virtual void EenmyChase() // 추적
-    //{
-
-    //}
 
     protected int layerMask; // Ray 감지용
     [SerializeField]

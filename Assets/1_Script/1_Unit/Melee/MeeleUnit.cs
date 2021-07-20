@@ -44,11 +44,6 @@ public class MeeleUnit : TeamSoldier
         return enemyDot;
     }
 
-    public virtual void MeeleUnit_PassiveAttack(Enemy enemy)
-    {
-
-    }
-
     protected void HitMeeleAttack() // 근접공격 타겟팅
     {
         // 공격 시작 때 적과 HitMeeleAttack() 작동 시 적과 같은 적인지 비교하는 코드 필요
@@ -56,7 +51,7 @@ public class MeeleUnit : TeamSoldier
         if (enemy != null && (enemyDistance < attackRange * 1.5f || target.gameObject.CompareTag("Tower") || target.gameObject.CompareTag("Boss") ) )
         {
             AttackEnemy(enemy);
-            MeeleUnit_PassiveAttack(enemy);
+            Hit_Passive(enemy);
         }
     }
 }

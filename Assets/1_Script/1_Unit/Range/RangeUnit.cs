@@ -35,11 +35,6 @@ public class RangeUnit : TeamSoldier
         bulletRigid.velocity = dir.normalized * velocity;
     }
 
-    public virtual void RangeUnit_PassiveAttack(Enemy enemy)
-    {
-
-    }
-
     private void FixedUpdate()
     {
         rayHit = Physics.BoxCast(transform.parent.position + Vector3.up, transform.lossyScale * 2,

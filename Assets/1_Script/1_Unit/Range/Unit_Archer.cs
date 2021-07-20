@@ -13,30 +13,17 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
     private void Awake()
     {
         if(!enterStoryWorld) trail = GetComponentInChildren<TrailRenderer>().gameObject;
+        skillDamage = (int)(damage * 1.2f);
     }
 
-    public override void SetPassive()
+    public override void SetPassiveFigure()
     {
-        switch (unitColor)
-        {
-            case UnitColor.red:
-                attackDelayTime *= redPassiveFigure;
-                break;
-            case UnitColor.blue:
-                break;
-            case UnitColor.yellow:
-                break;
-            case UnitColor.green:
-                specialAttackPercent += (greenPassiveFigure - 1) * originDamage;
-                break;
-            case UnitColor.orange:
-                damage += (orangePassiveFigure - 1) * originDamage;
-                break;
-            case UnitColor.violet:
-                break;
-        }
-
-        skillDamage = (int)(damage * 1.2f);
+        redPassiveFigure = 0.4f;
+        bluePassiveFigure = new Vector2(40, 2);
+        yellowPassiveFigure = new Vector2(1, 1);
+        greenPassiveFigure = 1.3f;
+        orangePassiveFigure = 2f;
+        violetPassiveFigure = new Vector3(30, 2, 250);
     }
 
     public override void NormalAttack()
@@ -145,28 +132,6 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
         return targetArray;
     }
 
-    public override void RangeUnit_PassiveAttack(Enemy enemy)
-    {
-        switch (unitColor)
-        {
-            case UnitColor.red:
-                break;
-            case UnitColor.blue:
-                enemy.EnemySlow(bluePassiveFigure, 2);
-                break;
-            case UnitColor.yellow:
-                Add_PassiveGold(yellowPassiveFigure, 2);
-                break;
-            case UnitColor.green:
-                break;
-            case UnitColor.orange:
-                break;
-            case UnitColor.violet:
-                enemy.EnemyStern(violetPassiveFigure, 4);
-                break;
-        }
-    }
-
 
     // 이벤트
 
@@ -176,27 +141,20 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
         specialAttackPercent += 20;
     }
 
-    // 패시브 관련 수치
-    private float redPassiveFigure = 0.25f;
-    private int bluePassiveFigure = 30;
-    private int yellowPassiveFigure = 1;
-    private int greenPassiveFigure = 2;
-    private int orangePassiveFigure = 2;
-    private int violetPassiveFigure = 5;
     // 패시브 강화
     public void ReinforcePassive()
     {
-        redPassiveFigure = 0.01f;
-        bluePassiveFigure = 45;
-        yellowPassiveFigure = 5;
-        greenPassiveFigure = 3;
+        redPassiveFigure = 0.2f;
+        bluePassiveFigure = new Vector2(60, 3);
+        yellowPassiveFigure = new Vector2(3, 1);
+        greenPassiveFigure = 1.5f;
         orangePassiveFigure = 3;
-        violetPassiveFigure = 20;
+        violetPassiveFigure = new Vector3(50, 3, 400);
     }
 
     public void HitThrowWeapon(Enemy enemy, AttackWeapon attackWeapon)
     {
-        RangeUnit_PassiveAttack(enemy);
+        Hit_Passive(enemy);
 
         if (attackWeapon.isSkill) enemy.OnDamage(skillDamage);
         else AttackEnemy(enemy);

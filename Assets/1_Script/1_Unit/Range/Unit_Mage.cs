@@ -28,24 +28,85 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         switch (unitColor)
         {
             case UnitColor.red:
+                GetComponent<SphereCollider>().radius = redPassiveFigure;
                 break;
             case UnitColor.blue:
-                GetComponent<SphereCollider>().radius = bluePassiveFigure;
-                break;
-            case UnitColor.yellow:
-                GetComponent<SphereCollider>().radius = yellowPassiveFigure;
+                GetComponent<SphereCollider>().radius = bluePassiveFigure.y;
                 break;
             case UnitColor.green:
                 attackRange *= 2;
-                damage += greenPassiveFigure * originDamage;
+                damage += Mathf.FloorToInt( ( greenPassiveFigure - 1) * originDamage);
                 break;
             case UnitColor.orange:
-                bossDamage += orangePassiveFigure * originBossDamage;
-                break;
-            case UnitColor.violet:
+                bossDamage += Mathf.FloorToInt( ( orangePassiveFigure - 1 ) * originBossDamage);
                 break;
         }
     }
+
+    // 충돌 관련 패시브
+    private void OnTriggerEnter(Collider other)
+    {
+        // 적에 닿는건 없음
+
+        if (other.gameObject.layer == 9)
+        {
+            TeamSoldier otherTeamSoldier = other.gameObject.GetComponent<TeamSoldier>();
+            switch (unitColor)
+            {
+                case UnitColor.red:
+                    otherTeamSoldier.attackDelayTime *= 0.5f;
+                    break;
+            }
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.GetComponent<NomalEnemy>() != null)
+        {
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            switch (unitColor)
+            {
+                case UnitColor.blue:
+                    enemy.EnemySlow(bluePassiveFigure.y, -1f); // 나가기 전까진 무한 슬로우
+                    break;
+            }
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<NomalEnemy>() != null)
+        {
+            Enemy enemy = other.gameObject.GetComponent<Enemy>();
+            switch (unitColor)
+            {
+                case UnitColor.blue:
+                    enemy.ExitSlow();
+                    break;
+            }
+        }
+
+        if (other.gameObject.layer == 9) // 유닛 버프
+        {
+            TeamSoldier otherTeamSoldier = other.gameObject.GetComponent<TeamSoldier>();
+            switch (unitColor)
+            {
+                case UnitColor.red:
+                    otherTeamSoldier.attackDelayTime *= 2f;
+                    break;
+            }
+        }
+    }
+
+    public override void SetPassiveFigure()
+    {
+        redPassiveFigure = 15f;
+        bluePassiveFigure = new Vector2(50, 25); // x는 슬로우 정도 y는 콜라이더 범위
+        yellowPassiveFigure = new Vector2(10, 2);
+        greenPassiveFigure = 2f;
+        orangePassiveFigure = 6f;
+        violetPassiveFigure = new Vector3(70, 4, 30000);
+    }
+
 
     // 평타강화 함수
     delegate void AttackDelegate();
@@ -317,83 +378,6 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         specialAttackPercent = 0;
     }
 
-    public override void RangeUnit_PassiveAttack(Enemy enemy)
-    {
-        switch (unitColor)
-        {
-            case UnitColor.violet:
-                enemy.EnemyStern(violetPassiveFigure, 7);
-                break;
-        }
-    }
-
-
-    // 충돌 관련 패시브
-    private void OnTriggerEnter(Collider other)
-    {
-        // 적에 닿는건 없음
-
-        if(other.gameObject.layer == 9)
-        {
-            TeamSoldier otherTeamSoldier = other.gameObject.GetComponent<TeamSoldier>();
-            switch (unitColor)
-            {
-                case UnitColor.red:
-                    otherTeamSoldier.damage += Mathf.RoundToInt( (redPassiveFigure - 1) * otherTeamSoldier.originDamage);
-                    break;
-                case UnitColor.blue:
-                    break;
-                case UnitColor.yellow:
-                    otherTeamSoldier.attackDelayTime *= 0.5f;
-                    break;
-            }
-        }
-    }
-
-
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.GetComponent<NomalEnemy>() != null)
-        {
-            Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            switch (unitColor)
-            {
-                case UnitColor.blue:
-                    enemy.EnemySlow(50, -1f); // 나가기 전까진 무한 슬로우
-                    break;
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.GetComponent<NomalEnemy>() != null)
-        {
-            Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            switch (unitColor)
-            {
-                case UnitColor.blue:
-                    enemy.ExitSlow();
-                    break;
-            }
-        }
-
-        if (other.gameObject.layer == 9) // 유닛 버프
-        {
-            TeamSoldier otherTeamSoldier = other.gameObject.GetComponent<TeamSoldier>();
-            switch (unitColor)
-            {
-                case UnitColor.red:
-                    otherTeamSoldier.damage -= Mathf.RoundToInt((redPassiveFigure - 1) * otherTeamSoldier.originDamage);
-                    break;
-                case UnitColor.yellow:
-                    otherTeamSoldier.attackDelayTime *= 2f;
-                    break;
-            }
-        }
-    }
-
-
 
     // 이벤트
 
@@ -403,27 +387,20 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         plusMana += 20;
     }
 
-    //패시브 관련 변수
-    private float redPassiveFigure = 1.5f;
-    private float bluePassiveFigure = 25f;
-    private float yellowPassiveFigure = 20f;
-    private int greenPassiveFigure = 1;
-    private int orangePassiveFigure = 5;
-    private int violetPassiveFigure = 60;
     // 패시브 강화
     public void ReinforcePassive()
     {
-        redPassiveFigure = 2.5f;
-        bluePassiveFigure = 40f;
-        yellowPassiveFigure = 40f;
-        greenPassiveFigure = 4;
+        redPassiveFigure = 0.3f;
+        bluePassiveFigure = new Vector2(50, 40);
+        yellowPassiveFigure = new Vector2(20, 2);
+        greenPassiveFigure = 3.5f;
         orangePassiveFigure = 10;
-        violetPassiveFigure = 100;
+        violetPassiveFigure = new Vector3(80, 5, 50000);
     }
 
     public void HitThrowWeapon(Enemy enemy, AttackWeapon attackWeapon)
     {
-        RangeUnit_PassiveAttack(enemy);
+        Hit_Passive(enemy);
 
         if (attackWeapon.isSkill) enemy.OnDamage(skillDamage);
         else AttackEnemy(enemy);

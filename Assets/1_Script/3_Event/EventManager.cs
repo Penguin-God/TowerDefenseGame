@@ -9,7 +9,6 @@ public class EventManager : MonoBehaviour
     public static EventManager instance;
 
     List<Action<GameObject[]>> buffActionList;
-    //List<Action<GameObject[]>> debuffActionList;
     Dictionary<Action<GameObject[]>, string> eventTextDictionary;
 
     private void Awake()
@@ -57,7 +56,6 @@ public class EventManager : MonoBehaviour
 
 
     public Text buffText;
-    public Text debuffText;
     [SerializeField]
     private bool[] unitColorIsEvent = new bool[] { false, false, false, false, false, false, false };  
     void ActionRandomEvent(Text eventText, List<Action<GameObject[]>> eventActionList)
@@ -114,7 +112,7 @@ public class EventManager : MonoBehaviour
         for (int i = 0; i < unitArray.Length; i++)
         {
             TeamSoldier teamSoldier = unitArray[i].GetComponentInChildren<TeamSoldier>();
-            teamSoldier.damage += teamSoldier.originDamage * 3;
+            teamSoldier.damage += teamSoldier.originDamage * 1;
         }
     }
 
@@ -123,7 +121,7 @@ public class EventManager : MonoBehaviour
         for (int i = 0; i < unitArray.Length; i++)
         {
             TeamSoldier teamSoldier = unitArray[i].GetComponentInChildren<TeamSoldier>();
-            teamSoldier.bossDamage += teamSoldier.originBossDamage * 3;
+            teamSoldier.bossDamage += teamSoldier.originBossDamage * 2;
         }
     }
 
@@ -143,6 +141,7 @@ public class EventManager : MonoBehaviour
         {
             IEvent interfaceEvent = unitArray[i].GetComponentInChildren<IEvent>();
             interfaceEvent.ReinforcePassive();
+            unitArray[i].GetComponent<TeamSoldier>().passiveReinForce = true;
         }
     }
 

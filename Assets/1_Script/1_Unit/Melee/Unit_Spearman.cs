@@ -19,30 +19,17 @@ public class Unit_Spearman : MeeleUnit, IEvent, IHitThrowWeapon
     {
         dontMoveGameObject = GameObject.Find("World");
         animator = GetComponent<Animator>();
+        skillDamage = (int)(damage * 1.5f);
     }
 
-    public override void SetPassive()
+    public override void SetPassiveFigure()
     {
-        switch (unitColor)
-        {
-            case UnitColor.red:
-                specialAttackPercent = redPassiveFigure;
-                break;
-            case UnitColor.blue:
-                break;
-            case UnitColor.yellow:
-                break;
-            case UnitColor.green:
-                damage += (greenPassiveFigure - 1) * originDamage;
-                break;
-            case UnitColor.orange:
-                bossDamage += (orangePassiveFigure - 1) * originBossDamage;
-                break;
-            case UnitColor.violet:
-                break;
-        }
-
-        skillDamage = (int)(damage * 1.5f);
+        redPassiveFigure = 0.2f;
+        bluePassiveFigure = new Vector2(70 , 3);
+        yellowPassiveFigure = new Vector2(5 , 1);
+        greenPassiveFigure = 1.5f;
+        orangePassiveFigure = 3f;
+        violetPassiveFigure = new Vector3(50, 3, 3000);
     }
 
     public override void NormalAttack()
@@ -98,30 +85,6 @@ public class Unit_Spearman : MeeleUnit, IEvent, IHitThrowWeapon
         base.NormalAttack();
     }
 
-    
-
-    public override void MeeleUnit_PassiveAttack(Enemy enemy)
-    {
-        switch (unitColor)
-        {
-            case UnitColor.red:
-                break;
-            case UnitColor.blue:
-                enemy.EnemySlow(bluePassiveFigure, 3);
-                break;
-            case UnitColor.yellow:
-                Add_PassiveGold(yellowPassiveFigure, 2);
-                break;
-            case UnitColor.green:
-                break;
-            case UnitColor.orange:
-                break;
-            case UnitColor.violet:
-                enemy.EnemyStern(violetPassiveFigure, 5);
-                break;
-        }
-    }
-
     // 이벤트
 
     // 스킬 사용 빈도 증가
@@ -129,27 +92,21 @@ public class Unit_Spearman : MeeleUnit, IEvent, IHitThrowWeapon
     {
         specialAttackPercent += 30;
     }
-    // 패시브 관련 수치
-    private int redPassiveFigure = 80;
-    private int bluePassiveFigure = 50;
-    private int yellowPassiveFigure = 5;
-    private int greenPassiveFigure = 3;
-    private int orangePassiveFigure = 3;
-    private int violetPassiveFigure = 30;
+
     // 패시브 강화
     public void ReinforcePassive()
     {
-        redPassiveFigure = 100;
-        bluePassiveFigure = 85;
-        yellowPassiveFigure = 15;
-        greenPassiveFigure = 5;
+        redPassiveFigure = 0.1f;
+        bluePassiveFigure = new Vector2(80, 4);
+        yellowPassiveFigure = new Vector2(10, 1);
+        greenPassiveFigure = 2f;
         orangePassiveFigure = 5;
-        violetPassiveFigure = 60;
+        violetPassiveFigure = new Vector3(70, 4, 5000);
     }
 
     public void HitThrowWeapon(Enemy enemy, AttackWeapon attackWeapon)
     {
-        MeeleUnit_PassiveAttack(enemy);
+        Hit_Passive(enemy);
 
         if (attackWeapon.isSkill) enemy.OnDamage(skillDamage);
         else AttackEnemy(enemy);

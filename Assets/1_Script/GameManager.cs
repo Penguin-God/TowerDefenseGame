@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour
         Food = 1;
         UIManager.instance.UpdateGoldText(Gold);
         UIManager.instance.UpdateFoodText(Food);
-        adManager.ShowAD();
+        //adManager.ShowAD();
     }
 
     public AudioClip gameLoseClip;

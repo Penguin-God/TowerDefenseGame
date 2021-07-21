@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-
 public class TeamSoldier : MonoBehaviour
 {    
     public enum Type { sowrdman, archer, spearman, mage }
@@ -69,6 +68,9 @@ public class TeamSoldier : MonoBehaviour
             case UnitColor.red:
                 Passive_Red();
                 break;
+            case UnitColor.blue:
+                Passive_Blue = Hit_Passive_Blue;
+                break;
             case UnitColor.green:
                 Passive_Green();
                 break;
@@ -92,10 +94,10 @@ public class TeamSoldier : MonoBehaviour
         attackDelayTime *= redPassiveFigure;
     }
 
-    void Passive_Blue(Enemy p_Enemy)
+    delegate void Del_Passive_Blue(Enemy enemy);
+    Del_Passive_Blue Passive_Blue = null;
+    void Hit_Passive_Blue(Enemy p_Enemy)
     {
-        if (GetComponent<Unit_Mage>() != null) return;
-
         p_Enemy.EnemySlow(bluePassiveFigure.x, (int)bluePassiveFigure.y);
     }
 
@@ -129,7 +131,7 @@ public class TeamSoldier : MonoBehaviour
         switch (unitColor)
         {
             case UnitColor.blue:
-                Passive_Blue(p_Enemy);
+                if(Passive_Blue != null) Passive_Blue(p_Enemy);
                 break;
             case UnitColor.yellow:
                 Passive_Yellow((int)yellowPassiveFigure.x, (int)yellowPassiveFigure.y);

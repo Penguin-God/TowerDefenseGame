@@ -11,14 +11,15 @@ public class EnemySpawn : MonoBehaviour
 
     private int respawnEnemyCount;
 
-    public GameObject[] enemyPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
-    public GameObject[] bossPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
+    [SerializeField] GameObject[] enemyPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
+    [SerializeField] GameObject[] bossPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
 
     int poolEnemyCount; // 풀링을 위해 미리 생성하는 enemy 수
     GameObject[,] enemyArrays;
     int[] countArray; // 2차원 배열을 사용할 때 2번째 배열의 index가 담긴 배열
     Vector3 poolPosition = new Vector3(500, 500, 500);
 
+    [HideInInspector]
     public AudioSource enemyAudioSource;
     public AudioClip towerDieClip;
 
@@ -80,7 +81,7 @@ public class EnemySpawn : MonoBehaviour
 
             if (stageNumber >= 50) // 마지막 보스일시
             {
-                UIManager.instance.StageText.text = "현재 스테이지 : 마지막";
+                UIManager.instance.StageText.text = "현재 스테이지 : Final";
                 UIManager.instance.StageText.color = new Color32(255, 0, 0, 255);
                 stageRespawnEenemyCount = 1000;
                 yield return new WaitForSeconds(5f);
@@ -127,7 +128,7 @@ public class EnemySpawn : MonoBehaviour
         return enemy;
     }
 
-    public Slider timerSlider;
+    [SerializeField] Slider timerSlider;
     private void Update()
     {
         if(GameManager.instance.gameStart && stageNumber < 50)
@@ -157,7 +158,8 @@ public class EnemySpawn : MonoBehaviour
         }
     }
 
-    public int minHp = 200;
+    [HideInInspector]
+    public int minHp = 0;
     public int enemyHpWeight;
 
     int SetRandomHp()
@@ -193,6 +195,7 @@ public class EnemySpawn : MonoBehaviour
     public int bossLevel;
     public int bossRewordGold;
     public int bossRewordFood;
+    [HideInInspector]
     public List<GameObject> currentBossList;
     void RespawnBoss()
     {
@@ -211,7 +214,9 @@ public class EnemySpawn : MonoBehaviour
 
     // 타워 코드
     public GameObject[] towers;
+    [HideInInspector]
     public int[] arr_TowersHp;
+    [HideInInspector]
     public int currentTowerLevel = 0;
 
     public CreateDefenser createDefenser;

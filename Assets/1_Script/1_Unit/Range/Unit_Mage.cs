@@ -100,11 +100,11 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
     public override void SetPassiveFigure()
     {
         redPassiveFigure = 15f;
-        bluePassiveFigure = new Vector2(50, 25); // x는 슬로우 정도 y는 콜라이더 범위
-        yellowPassiveFigure = new Vector2(10, 2);
+        bluePassiveFigure = new Vector2(60, 25); // x는 슬로우 정도 y는 콜라이더 범위
+        yellowPassiveFigure = new Vector2(15, 2);
         greenPassiveFigure = 2f;
         orangePassiveFigure = 6f;
-        violetPassiveFigure = new Vector3(70, 4, 30000);
+        violetPassiveFigure = new Vector3(60, 5, 30000);
     }
 
 
@@ -391,11 +391,11 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
     public void ReinforcePassive()
     {
         redPassiveFigure = 0.3f;
-        bluePassiveFigure = new Vector2(50, 40);
-        yellowPassiveFigure = new Vector2(20, 2);
-        greenPassiveFigure = 3.5f;
+        bluePassiveFigure = new Vector2(60, 40);
+        yellowPassiveFigure = new Vector2(30, 2);
+        greenPassiveFigure = 4f;
         orangePassiveFigure = 10;
-        violetPassiveFigure = new Vector3(80, 5, 50000);
+        violetPassiveFigure = new Vector3(85, 6, 50000);
     }
 
     public void HitThrowWeapon(Enemy enemy, AttackWeapon attackWeapon)

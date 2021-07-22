@@ -583,8 +583,9 @@ MonoBehaviour:
   speed: 6
   attackDelayTime: 0.5
   attackRange: 50
-  damage: 1000
-  bossDamage: 1000
+  damage: 2000
+  bossDamage: 2000
+  skillDamage: 2500
   stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
@@ -592,7 +593,8 @@ MonoBehaviour:
   normalAttackClip: {fileID: 8300000, guid: 6d9fd95ba9e9dd34391d716574fd4873, type: 3}
   normalAttakc_AudioDelay: 0
   tpAudioClip: {fileID: 8300000, guid: a27ce694edf98ef48bc63dd09fc57312, type: 3}
-  specialAttackPercent: 100
+  passiveReinForce: 0
+  specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
@@ -601,6 +603,7 @@ MonoBehaviour:
   enterStoryWorld: 0
   getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
   reinforceEffect: {fileID: 7533179722810310005}
+  isSkillAttack: 0
   arrow: {fileID: 3088359444298159365, guid: 4d86472d68f9daf44b9304ae48878b3b, type: 3}
   arrowTransform: {fileID: 934792850779518908}
 --- !u!1 &936733680191573903

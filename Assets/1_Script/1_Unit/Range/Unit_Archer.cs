@@ -88,46 +88,46 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
     }
 
     // 첫번째에 targetTransform을 넣고 currentEnemyList에서 targetTransform을 가장 가까운 transform을 count 크기만큼 가지는 array를 return하는 함수
-    Transform[] Set_AttackTarget(Transform targetTransform, List<GameObject> currentEnemyList, int count)
+    Transform[] Set_AttackTarget(Transform p_Target, List<GameObject> currentEnemyList, int count)
     {
         if (currentEnemyList.Count == 0) return null;
 
-        List<GameObject> enemyList = new List<GameObject>();
+        List<Transform> tf_EnemyList = new List<Transform>(); // 새로운 리스트 생성
         for(int i = 0; i < currentEnemyList.Count; i++)
         {
-            enemyList.Add(currentEnemyList[i]);
+            tf_EnemyList.Add(currentEnemyList[i].transform);
         }
         Transform[] targetArray = new Transform[count];
-        targetArray[0] = targetTransform;
-        enemyList.Remove(targetTransform.gameObject);
+        targetArray[0] = p_Target;
+        tf_EnemyList.Remove(p_Target);
 
         float shortDistance = 150f;
-        GameObject targetObject = null;
+        Transform targetTransform= null;
 
         for (int i = 1; i < count; i++) // 위에서 array에 targetTransform을 넣었으니 i가 1부타 시작
         {
-            if(enemyList.Count != 0 && !target.gameObject.CompareTag("Tower") &&  !target.gameObject.CompareTag("Boss"))
+            if(tf_EnemyList.Count != 0 && !target.gameObject.CompareTag("Tower") &&  !target.gameObject.CompareTag("Boss"))
             {
-                foreach (GameObject enemyObject in enemyList)
+                foreach (Transform enemyTransform in tf_EnemyList)
                 {
-                    if (enemyObject != null)
+                    if (enemyTransform != null)
                     {
-                        float distanceToEnemy = Vector3.Distance(targetTransform.position, enemyObject.transform.position);
+                        float distanceToEnemy = Vector3.Distance(p_Target.position, enemyTransform .position);
                         if (distanceToEnemy < shortDistance)
                         {
                             shortDistance = distanceToEnemy;
-                            targetObject = enemyObject; 
+                            targetTransform = enemyTransform ; 
                         }
                     }
                 }
                 shortDistance = 150f;
-                if (targetObject != null)
+                if (targetTransform!= null)
                 {
-                    targetArray[i] = targetObject.transform;
-                    enemyList.Remove(targetObject);
+                    targetArray[i] = targetTransform;
+                    tf_EnemyList.Remove(targetTransform);
                 }
             }
-            else targetArray[i] = targetTransform;
+            else targetArray[i] = p_Target; // 적이 부족하거나 보스이면 1명한테 올인
         }
         return targetArray;
     }
@@ -158,7 +158,6 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
 
         if (attackWeapon.isSkill) enemy.OnDamage(skillDamage);
         else AttackEnemy(enemy);
-
         Destroy(attackWeapon.gameObject);
     }
 }

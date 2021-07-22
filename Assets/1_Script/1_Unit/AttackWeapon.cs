@@ -14,6 +14,7 @@ public class AttackWeapon : MonoBehaviour
     {
         Destroy(gameObject, 5);
         if (attackUnit == null) return;
+
         teamSoldier = attackUnit.GetComponent<TeamSoldier>();
         isSkill = teamSoldier.isSkillAttack;
     }

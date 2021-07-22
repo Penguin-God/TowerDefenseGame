@@ -3,7 +3,7 @@ using System.Collections;
 
 public class TutorialArrows : MonoBehaviour
 {
-    public GameObject[] Arrows;
+    GameObject[] Arrows;
 
 
 
@@ -29,19 +29,19 @@ public class TutorialArrows : MonoBehaviour
                 count++;
             }
         }
-        else if (ArrowCount == 2)
-        {
-            while (count < 100)
-            {
-                Arrows[0].gameObject.SetActive(true);
-                Arrows[1].gameObject.SetActive(true);
-                yield return new WaitForSeconds(0.5f);
-                Arrows[0].gameObject.SetActive(false);
-                Arrows[1].gameObject.SetActive(false);
-                yield return new WaitForSeconds(0.5f);
-                count++;
-            }
-        }
+        //else if (ArrowCount == 2)
+        //{
+        //    while (count < 100)
+        //    {
+        //        Arrows[0].gameObject.SetActive(true);
+        //        Arrows[1].gameObject.SetActive(true);
+        //        yield return new WaitForSeconds(0.5f);
+        //        Arrows[0].gameObject.SetActive(false);
+        //        Arrows[1].gameObject.SetActive(false);
+        //        yield return new WaitForSeconds(0.5f);
+        //        count++;
+        //    }
+        //}
 
         //while (count < 100)
         //{

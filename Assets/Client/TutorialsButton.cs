@@ -17,7 +17,7 @@ public class TutorialsButton : MonoBehaviour
         TutorialsText.transform.GetChild(Count).gameObject.SetActive(false);
         Count += 1;
         TutorialsText.transform.GetChild(Count).gameObject.SetActive(true);
-        //tutorialArrows.ArrowStart(1);
+        tutorialArrows.ArrowStart(1);
         if (Count >= 3) obj_tutorialButton.SetActive(false);
     }
 

@@ -58,4 +58,9 @@ public class TutorialArrows : MonoBehaviour
         Arrows = GameObject.FindGameObjectsWithTag("Arrow");
         StartCoroutine(ShowReady(ArrowCount));
     }
+
+    public void ArrowStop(int ArrowCount)
+    {
+        StopCoroutine(ShowReady(ArrowCount));
+    }
 }

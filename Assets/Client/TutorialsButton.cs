@@ -46,6 +46,7 @@ public class TutorialsButton : MonoBehaviour
     public CreateDefenser createDefenser;
     public void ClickTutorialSommonButton()
     {
+        tutorialArrows.ArrowStop(1);
         if (GameManager.instance.Gold >= 5 && Count == 3)
         {
             createDefenser.CreateSoldier(0, 0);

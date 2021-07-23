@@ -25,7 +25,7 @@ public class EventManager : MonoBehaviour
 
         // 시작할 때 유닛 이벤트는 GameManager의 GameStart에서 작동함
         buffActionList = new List<Action<GameObject[]>>();
-        SetEvent();
+        SetBuff();
 
         // Dictonary 인스턴스
         eventTextDictionary = new Dictionary<Action<GameObject[]>, string>();
@@ -93,11 +93,6 @@ public class EventManager : MonoBehaviour
         return unitNumber;
     }
 
-    void SetEvent()
-    {
-        SetBuff();
-    }
-
     void SetBuff()
     {
         buffActionList.Add(Up_UnitDamage);
@@ -141,7 +136,7 @@ public class EventManager : MonoBehaviour
         {
             IEvent interfaceEvent = unitArray[i].GetComponentInChildren<IEvent>();
             interfaceEvent.ReinforcePassive();
-            unitArray[i].GetComponent<TeamSoldier>().passiveReinForce = true;
+            unitArray[i].GetComponentInChildren<TeamSoldier>().passiveReinForce = true;
         }
     }
 

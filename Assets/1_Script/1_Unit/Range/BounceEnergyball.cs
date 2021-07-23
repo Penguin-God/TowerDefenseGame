@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class BounceEnergyball : MonoBehaviour
 {
+    [SerializeField] float speed;
     AudioSource audioSource;
     Vector3 lastVelocity;
     Rigidbody rigid;
-    private void Awake()
+    private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         rigid = GetComponent<Rigidbody>();
+        rigid.velocity = rigid.velocity.normalized * speed;
     }
 
     private void Update()
@@ -28,6 +30,6 @@ public class BounceEnergyball : MonoBehaviour
         Vector3 dir = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
         audioSource.Play();
 
-        rigid.velocity = dir * 100;
+        rigid.velocity = dir * speed;
     }
 }

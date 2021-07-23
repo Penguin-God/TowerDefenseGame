@@ -274,6 +274,7 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
 
     void OrangeMageSkill()
     {
+        // 찾은 클립이 처음부터 재생하면 딜레이가 좀 있어서 0.6초부터 재생함
         unitAudioSource.time = 0.6f;
         unitAudioSource.volume = 0.25f;
         VioletMageSkill(target);
@@ -353,8 +354,8 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         return enemys;
     }
 
-    public RectTransform canvasRectTransform;
-    public Slider manaSlider;
+    private RectTransform canvasRectTransform;
+    private Slider manaSlider;
     public int maxMana;
     public int currentMana;
 

@@ -18,7 +18,11 @@ public class TutorialsButton : MonoBehaviour
         Count += 1;
         TutorialsText.transform.GetChild(Count).gameObject.SetActive(true);
         tutorialArrows.ArrowStart(1);
-        if (Count >= 3) obj_tutorialButton.SetActive(false);
+        if (Count >= 3)
+        {
+            tutorialArrows.ArrowStop(1);
+            obj_tutorialButton.SetActive(false);
+        }
     }
 
     public void TutoriasDEF()
@@ -46,7 +50,7 @@ public class TutorialsButton : MonoBehaviour
     public CreateDefenser createDefenser;
     public void ClickTutorialSommonButton()
     {
-        tutorialArrows.ArrowStop(1);
+        //tutorialArrows.ArrowStop(1);
         if (GameManager.instance.Gold >= 5 && Count == 3)
         {
             createDefenser.CreateSoldier(0, 0);

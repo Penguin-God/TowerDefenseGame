@@ -50,7 +50,7 @@ public class UnitManager : MonoBehaviour
 
     private void Update()
     {
-        
+        SetUnitPresence();
     }
 
     // 현재 있는 유닛만 뜨게하기
@@ -64,10 +64,25 @@ public class UnitManager : MonoBehaviour
     bool orangeSowrdman;
     bool violetSowrdman;
 
+    [SerializeField] SoldiersTags unitCounts;
+    [HideInInspector] public bool thereIs_RedUnit;
+    [HideInInspector] public bool thereIs_BlueUnit;
+    [HideInInspector] public bool thereIs_YellowUnit;
+    [HideInInspector] public bool thereIs_GreenUnit;
+    [HideInInspector] public bool thereIs_OrangeUnit;
+    [HideInInspector] public bool thereIs_VioletUnit;
+
     void SetUnitPresence()
     {
-
+        if (unitCounts.RedSpearman.Length > 0) thereIs_RedUnit = true;
+        if (unitCounts.BlueSpearman.Length > 0) thereIs_BlueUnit = true;
+        if (unitCounts.YellowSwordman.Length > 0) thereIs_YellowUnit = true;
+        if (unitCounts.GreenSwordman.Length > 0) thereIs_GreenUnit = true;
+        if (unitCounts.OrangeSwordman.Length > 0) thereIs_OrangeUnit = true;
+        if (unitCounts.VioletSwordman.Length > 0) thereIs_VioletUnit = true;
     }
+
+
 
     [SerializeField]
     private GameObject[] tp_Effects;

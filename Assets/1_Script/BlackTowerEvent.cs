@@ -21,8 +21,7 @@ public class BlackTowerEvent : MonoBehaviour
         Show_BuyBackGround(); // 버그 때문에 박준이 추가한 코드
         UIManager.instance.WhiteTowerButton.gameObject.SetActive(false);
         BlackUiAudio.Play();
-    }
-
+    }                                          
     private void CombineSuccessTextDown()
     {
         UIManager.instance.CombineSuccessText.gameObject.SetActive(false);
@@ -242,7 +241,7 @@ public class BlackTowerEvent : MonoBehaviour
 
             createDefenser.CreateSoldier(6, 3);
 
-            UIManager.instance.UpdateCombineSuccessText("검은 창병 조합");
+            UIManager.instance.UpdateCombineSuccessText("검은 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
             Invoke("CombineSuccessTextDown", 1f);
 

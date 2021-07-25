@@ -45,7 +45,7 @@ public class WhiteTowerEvent : MonoBehaviour
 
     public void ClickWhiteSpearmanButton()
     {
-        if (GameManager.instance.Food >= 5)
+        if (GameManager.instance.Food >= 7)
         {
             createDefenser.CreateSoldier(7, 2);
             GameManager.instance.Food -= 5;
@@ -59,7 +59,7 @@ public class WhiteTowerEvent : MonoBehaviour
 
     public void ClickWhiteMageButton()
     {
-        if (GameManager.instance.Food >= 10)
+        if (GameManager.instance.Food >= 20)
         {
             createDefenser.CreateSoldier(7, 3);
             GameManager.instance.Food -= 10;

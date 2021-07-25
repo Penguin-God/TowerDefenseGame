@@ -21,7 +21,7 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
         redPassiveFigure = 0.4f;
         bluePassiveFigure = new Vector2(40, 2);
         yellowPassiveFigure = new Vector2(2, 1);
-        greenPassiveFigure = 1.3f;
+        greenPassiveFigure = 1.5f;
         orangePassiveFigure = 2f;
         violetPassiveFigure = new Vector3(30, 2, 250);
     }
@@ -147,9 +147,9 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
         redPassiveFigure = 0.2f;
         bluePassiveFigure = new Vector2(60, 3);
         yellowPassiveFigure = new Vector2(4, 1);
-        greenPassiveFigure = 1.5f;
+        greenPassiveFigure = 2f;
         orangePassiveFigure = 3;
-        violetPassiveFigure = new Vector3(50, 3, 400);
+        violetPassiveFigure = new Vector3(50, 3, 500);
     }
 
     public void HitThrowWeapon(Enemy enemy, AttackWeapon attackWeapon)

@@ -27,7 +27,7 @@ public class Unit_Spearman : MeeleUnit, IEvent, IHitThrowWeapon
         redPassiveFigure = 0.2f;
         bluePassiveFigure = new Vector2(70 , 3);
         yellowPassiveFigure = new Vector2(10 , 1);
-        greenPassiveFigure = 1.5f;
+        greenPassiveFigure = 2f;
         orangePassiveFigure = 3.5f;
         violetPassiveFigure = new Vector3(50, 3, 3000);
     }
@@ -99,9 +99,9 @@ public class Unit_Spearman : MeeleUnit, IEvent, IHitThrowWeapon
         redPassiveFigure = 0.1f;
         bluePassiveFigure = new Vector2(80, 4);
         yellowPassiveFigure = new Vector2(20, 1);
-        greenPassiveFigure = 2f;
+        greenPassiveFigure = 3f;
         orangePassiveFigure = 5;
-        violetPassiveFigure = new Vector3(70, 4, 5000);
+        violetPassiveFigure = new Vector3(70, 4, 6000);
     }
 
     public void HitThrowWeapon(Enemy enemy, AttackWeapon attackWeapon)

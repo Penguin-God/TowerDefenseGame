@@ -523,14 +523,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitType: 0
   unitColor: 6
-  originDamage: 60
+  originDamage: 100
   originBossDamage: 0
   originAttackDelayTime: 0.3
   speed: 15
   attackDelayTime: 0.3
   attackRange: 6
-  damage: 60
+  damage: 100
   bossDamage: 0
+  skillDamage: 0
   stopDistanc: 3
   isAttack: 0
   isAttackDelayTime: 0
@@ -538,6 +539,7 @@ MonoBehaviour:
   normalAttackClip: {fileID: 8300000, guid: 819330f33b9ea014f990dd335112905e, type: 3}
   normalAttakc_AudioDelay: 0.7
   tpAudioClip: {fileID: 0}
+  passiveReinForce: 0
   specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
@@ -547,6 +549,7 @@ MonoBehaviour:
   enterStoryWorld: 0
   getGoldClip: {fileID: 0}
   reinforceEffect: {fileID: 0}
+  isSkillAttack: 0
   trail: {fileID: 5342952073806494859}
 --- !u!95 &7291279297198898153
 Animator:

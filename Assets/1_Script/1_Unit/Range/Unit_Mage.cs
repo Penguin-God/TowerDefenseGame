@@ -102,9 +102,9 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         redPassiveFigure = 15f;
         bluePassiveFigure = new Vector2(60, 25); // x는 슬로우 정도 y는 콜라이더 범위
         yellowPassiveFigure = new Vector2(15, 2);
-        greenPassiveFigure = 2f;
+        greenPassiveFigure = 3f;
         orangePassiveFigure = 6f;
-        violetPassiveFigure = new Vector3(60, 5, 30000);
+        violetPassiveFigure = new Vector3(60, 5, 60000);
     }
 
 
@@ -394,9 +394,9 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         redPassiveFigure = 0.3f;
         bluePassiveFigure = new Vector2(60, 40);
         yellowPassiveFigure = new Vector2(30, 2);
-        greenPassiveFigure = 4f;
-        orangePassiveFigure = 10;
-        violetPassiveFigure = new Vector3(85, 6, 50000);
+        greenPassiveFigure = 5.5f;
+        orangePassiveFigure = 10f;
+        violetPassiveFigure = new Vector3(90, 6, 120000);
     }
 
     public void HitThrowWeapon(Enemy enemy, AttackWeapon attackWeapon)

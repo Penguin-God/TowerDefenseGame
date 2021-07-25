@@ -18,7 +18,7 @@ public class Unit_Swordman : MeeleUnit, IEvent
         redPassiveFigure = 0.7f;
         bluePassiveFigure = new Vector2(10, 2);
         yellowPassiveFigure = Vector2.zero;
-        greenPassiveFigure = 1.1f;
+        greenPassiveFigure = 1.2f;
         orangePassiveFigure = 1.5f;
         violetPassiveFigure = new Vector3(10, 2, 8);
     }
@@ -53,8 +53,8 @@ public class Unit_Swordman : MeeleUnit, IEvent
         redPassiveFigure = 0.5f;
         bluePassiveFigure = new Vector2(30, 2);
         yellowPassiveFigure = Vector2.zero;
-        greenPassiveFigure = 1.3f;
+        greenPassiveFigure = 1.5f;
         orangePassiveFigure = 2f;
-        violetPassiveFigure = new Vector3(25, 2, 10);
+        violetPassiveFigure = new Vector3(25, 2, 16);
     }
 }

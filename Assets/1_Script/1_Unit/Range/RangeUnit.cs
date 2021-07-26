@@ -8,7 +8,8 @@ public class RangeUnit : TeamSoldier
     {
         if (enemyDistance < attackRange)
         {
-            nav.speed = 0.1f;
+            if(!target.gameObject.CompareTag("Tower")) nav.speed = 0.1f;
+
             if(enemyDistance < stopDistanc) contactEnemy = true;
             else contactEnemy = false;
         }

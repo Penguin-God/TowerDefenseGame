@@ -35,7 +35,6 @@ public class TutorialsButton : MonoBehaviour
         TutorialsText.transform.GetChild(Count).gameObject.SetActive(false);
         Count += 1;
         TutorialsText.transform.GetChild(Count).gameObject.SetActive(true);
-        StopAllCoroutines();
         tutorialArrows.ArrowStart(1);
         //if (Count == 12 || Count == 13)
         //{

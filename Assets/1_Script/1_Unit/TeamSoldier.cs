@@ -307,12 +307,14 @@ public class TeamSoldier : MonoBehaviour
     {
         if(target != null )enemyDistance = Vector3.Distance(this.transform.position, target.position);
         Physics.Raycast(transform.parent.position + Vector3.up, target.position - transform.position, out RaycastHit towerHit, 100f, layerMask);
-        Invoke("RangeNavStop", 4f); // 원거리 타워에 다가가는거 막기
+        //StartCoroutine(Co_RangeNavStop());
+        Invoke("RangeNavStop", 5f); // 원거리 타워에 다가가는거 막기
         while (true)
         {
             if (target == null || enemyDistance < chaseRange)
             {
                 yield return null;
+                nav.speed = 0.1f;
                 EnemyTower currentTower = enemySpawn.towers[enemySpawn.currentTowerLevel].GetComponent<EnemyTower>();
                 if (currentTower.isRespawn) target = currentTower.transform;
                 else continue;
@@ -330,7 +332,11 @@ public class TeamSoldier : MonoBehaviour
 
     void RangeNavStop()
     {
-        if (GetComponent<RangeUnit>() != null) nav.isStopped = true;
+        if (GetComponent<RangeUnit>() != null) 
+        { 
+            nav.isStopped = true;
+            nav.speed = 0f;
+        }
     }
 
     [SerializeField]

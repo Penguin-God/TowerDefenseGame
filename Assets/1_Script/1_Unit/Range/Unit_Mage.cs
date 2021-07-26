@@ -103,7 +103,7 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         bluePassiveFigure = new Vector2(60, 25); // x는 슬로우 정도 y는 콜라이더 범위
         yellowPassiveFigure = new Vector2(15, 2);
         greenPassiveFigure = 3f;
-        orangePassiveFigure = 6f;
+        orangePassiveFigure = 5f;
         violetPassiveFigure = new Vector3(60, 5, 60000);
     }
 
@@ -272,18 +272,10 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         if (attackReinforceDelegate != null) attackReinforceDelegate -= MultiDirectionAttack;
     }
 
-    void OrangeMageSkill()
+    void OrangeMageSkill() // 애는 스킬 쪽에서 소리 재생
     {
-        // 찾은 클립이 처음부터 재생하면 딜레이가 좀 있어서 0.6초부터 재생함
-        unitAudioSource.time = 0.6f;
-        unitAudioSource.volume = 0.25f;
-        VioletMageSkill(target);
-        Invoke("ReSetAudioTime", 0.5f);
-    }
-    void ReSetAudioTime()
-    {
-        unitAudioSource.volume = 0.15f;
-        unitAudioSource.time = 0f;
+        GameObject instantPosionEffect = Instantiate(mageEffectObject, target.position, mageEffectObject.transform.rotation);
+        instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
     }
 
     void MultiDirectionAttack()
@@ -395,7 +387,7 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         bluePassiveFigure = new Vector2(60, 40);
         yellowPassiveFigure = new Vector2(30, 2);
         greenPassiveFigure = 5.5f;
-        orangePassiveFigure = 10f;
+        orangePassiveFigure = 8.5f;
         violetPassiveFigure = new Vector3(90, 6, 120000);
     }
 

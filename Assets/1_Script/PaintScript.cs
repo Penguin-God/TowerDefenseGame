@@ -47,15 +47,15 @@ public class PaintScript : MonoBehaviour
 
     public void ClickYellowPaintButton()
     {
-        PaintButton.color = new Color(200f, 200f, 0);
-        SwordmanImage.color = new Color(200f, 200f, 0);
-        ArcherImage.color = new Color(200f, 200f, 0);
-        SpearmanImage.color = new Color(200f, 200f, 0);
-        MageImage.color = new Color(200f, 200f, 0);
-        SwordmanTextBackground.color = new Color(200f, 200f, 0);
-        ArcherTextBackground.color = new Color(200f, 200f, 0);
-        SpearmanTextBackground.color = new Color(200f, 200f, 0);
-        MageTextBackground.color = new Color(200f, 200f, 0);
+        PaintButton.color = new Color32(230, 230, 0, 255);
+        SwordmanImage.color = new Color32(230, 230, 0, 255);
+        ArcherImage.color = new Color32(230, 230, 0, 255);
+        SpearmanImage.color = new Color32(230, 230, 0, 255);
+        MageImage.color = new Color32(230, 230, 0, 255);
+        SwordmanTextBackground.color = new Color32(230, 230, 0, 255);
+        ArcherTextBackground.color = new Color32(230, 230, 0, 255);
+        SpearmanTextBackground.color = new Color32(230, 230, 0, 255);
+        MageTextBackground.color = new Color32(230, 230, 0, 255);
     }
 
     public void ClickGreenPaintButton()
@@ -73,28 +73,28 @@ public class PaintScript : MonoBehaviour
 
     public void ClickOrangePaintButton()
     {
-        PaintButton.color = new Color(255f, 80f, 0);
-        SwordmanImage.color = new Color(255f, 80f, 0);
-        ArcherImage.color = new Color(255f, 80f, 0);
-        SpearmanImage.color = new Color(255f, 80f, 0);
-        MageImage.color = new Color(255f, 80f, 0);
-        SwordmanTextBackground.color = new Color(255f, 80f, 0);
-        ArcherTextBackground.color = new Color(255f, 80f, 0);
-        SpearmanTextBackground.color = new Color(255f, 80f, 0);
-        MageTextBackground.color = new Color(255f, 80f, 0);
+        PaintButton.color = new Color32(255, 80, 0, 255);
+        SwordmanImage.color = new Color32(255, 80, 0, 255);
+        ArcherImage.color = new Color32(255, 80, 0, 255);
+        SpearmanImage.color = new Color32(255, 80, 0, 255);
+        MageImage.color = new Color32(255, 80, 0, 255);
+        SwordmanTextBackground.color = new Color32(255, 80, 0, 255);
+        ArcherTextBackground.color = new Color32(255, 80, 0, 255);
+        SpearmanTextBackground.color = new Color32(255, 80, 0, 255);
+        MageTextBackground.color = new Color32(255, 80, 0, 255);
     }
 
     public void ClickVioletPaintButton()
     {
-        PaintButton.color = new Color(200f, 0, 255f);
-        SwordmanImage.color = new Color(200f, 0, 255f);
-        ArcherImage.color = new Color(200f, 0, 255f);
-        SpearmanImage.color = new Color(200f, 0, 255f);
-        MageImage.color = new Color(200f, 0, 255f);
-        SwordmanTextBackground.color = new Color(200f, 0, 255f);
-        ArcherTextBackground.color = new Color(200f, 0, 255f);
-        SpearmanTextBackground.color = new Color(200f, 0, 255f);
-        MageTextBackground.color = new Color(200f, 0, 255f);
+        PaintButton.color = new Color32(200, 0, 255, 255);
+        SwordmanImage.color = new Color32(200, 0, 255, 255);
+        ArcherImage.color = new Color32(200, 0, 255, 255);
+        SpearmanImage.color = new Color32(200, 0, 255, 255);
+        MageImage.color = new Color32(200, 0, 255, 255);
+        SwordmanTextBackground.color = new Color32(200, 0, 255, 255);
+        ArcherTextBackground.color = new Color32(200, 0, 255, 255);
+        SpearmanTextBackground.color = new Color32(200, 0, 255, 255);
+        MageTextBackground.color = new Color32(200, 0, 255, 255);
     }
 
 }

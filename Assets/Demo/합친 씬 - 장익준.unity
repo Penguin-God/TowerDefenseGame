@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4497105, g: 0.49977976, b: 0.5756375, a: 1}
+  m_IndirectSpecularColor: {r: 0.44971025, g: 0.49977946, b: 0.57563627, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2455,7 +2455,7 @@ GameObject:
   - component: {fileID: 40782930}
   - component: {fileID: 40782932}
   m_Layer: 5
-  m_Name: PaintButton
+  m_Name: YellowPaintButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2563,6 +2563,17 @@ MonoBehaviour:
       - m_Target: {fileID: 758975535}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1149540289}
+        m_MethodName: ClickYellowPaintButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -24611,7 +24622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 4487b6501f1381549872ae22738916a3, type: 2}
-  m_Color: {r: 1, g: 0.9238702, b: 0, a: 1}
+  m_Color: {r: 0.9019608, g: 0.9019608, b: 0, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -36482,7 +36493,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &758975536
 RectTransform:
   m_ObjectHideFlags: 0
@@ -46204,7 +46215,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &946422526
 RectTransform:
   m_ObjectHideFlags: 0
@@ -49003,7 +49014,7 @@ GameObject:
   - component: {fileID: 1007774754}
   - component: {fileID: 1007774756}
   m_Layer: 5
-  m_Name: PaintButton
+  m_Name: BluePaintButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -49111,6 +49122,17 @@ MonoBehaviour:
       - m_Target: {fileID: 758975535}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1149540289}
+        m_MethodName: ClickBluePaintButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -54129,7 +54151,7 @@ GameObject:
   - component: {fileID: 1120619258}
   - component: {fileID: 1120619260}
   m_Layer: 5
-  m_Name: PaintButton
+  m_Name: RedPaintButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -54237,6 +54259,17 @@ MonoBehaviour:
       - m_Target: {fileID: 758975535}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1149540289}
+        m_MethodName: ClickRedPaintButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -56121,6 +56154,7 @@ GameObject:
   - component: {fileID: 1149540286}
   - component: {fileID: 1149540288}
   - component: {fileID: 1149540287}
+  - component: {fileID: 1149540289}
   m_Layer: 5
   m_Name: PaintButtonBackGrounds
   m_TagString: Untagged
@@ -56186,6 +56220,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1149540285}
   m_CullTransparentMesh: 0
+--- !u!114 &1149540289
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1149540285}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c13922cf350c271498df8f58f2587a74, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PaintButton: {fileID: 851132886}
+  SwordmanImage: {fileID: 1381479957}
+  ArcherImage: {fileID: 1374827237}
+  SpearmanImage: {fileID: 1047248706}
+  MageImage: {fileID: 712525385}
+  SwordmanTextBackground: {fileID: 2067523858}
+  ArcherTextBackground: {fileID: 1549541261}
+  SpearmanTextBackground: {fileID: 1985822883}
+  MageTextBackground: {fileID: 2120622989}
 --- !u!1001 &1152836567
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -62767,7 +62822,7 @@ GameObject:
   - component: {fileID: 1264878796}
   - component: {fileID: 1264878798}
   m_Layer: 5
-  m_Name: PaintButton
+  m_Name: VioletPaintButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -62875,6 +62930,17 @@ MonoBehaviour:
       - m_Target: {fileID: 758975535}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1149540289}
+        m_MethodName: ClickVioletPaintButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -71446,7 +71512,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 4487b6501f1381549872ae22738916a3, type: 2}
-  m_Color: {r: 0, g: 0.0940752, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -79264,7 +79330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 4487b6501f1381549872ae22738916a3, type: 2}
-  m_Color: {r: 0.7169812, g: 0, b: 0.7169812, a: 1}
+  m_Color: {r: 0.78431374, g: 0, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -95527,7 +95593,7 @@ GameObject:
   - component: {fileID: 1893050620}
   - component: {fileID: 1893050622}
   m_Layer: 5
-  m_Name: PaintButton
+  m_Name: GreenPaintButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95635,6 +95701,17 @@ MonoBehaviour:
       - m_Target: {fileID: 758975535}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1149540289}
+        m_MethodName: ClickGreenPaintButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -97383,7 +97460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: 4487b6501f1381549872ae22738916a3, type: 2}
-  m_Color: {r: 1, g: 0.4448824, b: 0, a: 1}
+  m_Color: {r: 1, g: 0.3137255, b: 0, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -102734,7 +102811,7 @@ GameObject:
   - component: {fileID: 2017888121}
   - component: {fileID: 2017888123}
   m_Layer: 5
-  m_Name: PaintButton
+  m_Name: OrangePaintButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -102842,6 +102919,17 @@ MonoBehaviour:
       - m_Target: {fileID: 758975535}
         m_MethodName: SetActive
         m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1149540289}
+        m_MethodName: ClickOrangePaintButton
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine

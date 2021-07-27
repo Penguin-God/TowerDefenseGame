@@ -36,12 +36,67 @@ public class SoldiersTags : MonoBehaviour
     public GameObject[] WhiteArcher;
     public GameObject[] WhiteSpearman;
     public GameObject[] WhiteMage;
-    //void Start()
-    //{
 
-    //}
+    public static Dictionary<string, GameObject[]> dic_CurrentUnits;
 
+    private void Awake()
+    {
+        dic_CurrentUnits = new Dictionary<string, GameObject[]>();
 
+        dic_CurrentUnits.Add("RedSwordman", RedSwordman);
+        dic_CurrentUnits.Add("RedArcher", RedArcher);
+        dic_CurrentUnits.Add("RedSpearman", RedSpearman);
+        dic_CurrentUnits.Add("RedMage", RedMage);
+        dic_CurrentUnits.Add("BlueSwordman", BlueSwordman);
+        dic_CurrentUnits.Add("BlueArcher", BlueArcher);
+        dic_CurrentUnits.Add("BlueSpearman", BlueSpearman);
+        dic_CurrentUnits.Add("BlueMage", BlueMage);
+        dic_CurrentUnits.Add("YellowSwordman", YellowSwordman);
+        dic_CurrentUnits.Add("YellowArcher", YellowArcher);
+        dic_CurrentUnits.Add("YellowSpearman", YellowSpearman);
+        dic_CurrentUnits.Add("YellowMage", YellowMage);
+
+        dic_CurrentUnits.Add("GreenSwordman", GreenSwordman);
+        dic_CurrentUnits.Add("GreenArcher", GreenArcher);
+        dic_CurrentUnits.Add("GreenSpearman", GreenSpearman);
+        dic_CurrentUnits.Add("GreenMage", GreenMage);
+        dic_CurrentUnits.Add("OrangeSwordman", OrangeSwordman);
+        dic_CurrentUnits.Add("OrangeArcher", OrangeArcher);
+        dic_CurrentUnits.Add("OrangeSpearman", OrangeSpearman);
+        dic_CurrentUnits.Add("OrangeMage", OrangeMage);
+        dic_CurrentUnits.Add("VioletSwordman", VioletSwordman);
+        dic_CurrentUnits.Add("VioletArcher", VioletArcher);
+        dic_CurrentUnits.Add("VioletSpearman", VioletSpearman);
+        dic_CurrentUnits.Add("VioletMage", VioletMage);
+    }
+
+    private void Update()
+    {
+        dic_CurrentUnits["RedSwordman"] = RedSwordman;
+        dic_CurrentUnits["RedArcher"] = RedArcher;
+        dic_CurrentUnits["RedSpearman"] = RedSpearman;
+        dic_CurrentUnits["RedMage"] = RedMage;
+        dic_CurrentUnits["BlueSwordman"] = BlueSwordman;
+        dic_CurrentUnits["BlueArcher"] = BlueArcher;
+        dic_CurrentUnits["BlueSpearman"] = BlueSpearman;
+        dic_CurrentUnits["BlueMage"] = BlueMage;
+        dic_CurrentUnits["YellowSwordman"] = YellowSwordman;
+        dic_CurrentUnits["YellowArcher"] = YellowArcher;
+        dic_CurrentUnits["YellowSpearman"] = YellowSpearman;
+        dic_CurrentUnits["YellowMage"] = YellowMage;
+        dic_CurrentUnits["GreenSwordman"] = GreenSwordman;
+        dic_CurrentUnits["GreenArcher"] = GreenArcher;
+        dic_CurrentUnits["GreenSpearman"] = GreenSpearman;
+        dic_CurrentUnits["GreenMage"] = GreenMage;
+        dic_CurrentUnits["OrangeSwordman"] = OrangeSwordman;
+        dic_CurrentUnits["OrangeArcher"] = OrangeArcher;
+        dic_CurrentUnits["OrangeSpearman"] = OrangeSpearman;
+        dic_CurrentUnits["OrangeMage"] = OrangeMage;
+        dic_CurrentUnits["VioletSwordman"] = VioletSwordman;
+        dic_CurrentUnits["VioletArcher"] = VioletArcher;
+        dic_CurrentUnits["VioletSpearman"] = VioletSpearman;
+        dic_CurrentUnits["VioletMage"] = VioletMage;
+    }
 
     public void RedSwordmanTag()
     {

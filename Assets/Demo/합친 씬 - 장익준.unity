@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4497105, g: 0.49977976, b: 0.5756375, a: 1}
+  m_IndirectSpecularColor: {r: 0.44971025, g: 0.49977946, b: 0.57563627, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3180,7 +3180,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB780\uC544\uCC98 : 0"
+  m_Text: "\uD30C\uB780\uAD81\uC218 : 0"
 --- !u!222 &48853310
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -19443,7 +19443,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC544\uCC98"
+  m_Text: "\uAD81\uC218"
 --- !u!222 &377361333
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -22398,7 +22398,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBCF4\uB77C\uC544\uCC98 : 0"
+  m_Text: "\uBCF4\uB77C\uAD81\uC218 : 0"
 --- !u!222 &428172584
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -35891,7 +35891,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC8FC\uD669\uC544\uCC98 : 0"
+  m_Text: "\uC8FC\uD669\uAD81\uC218 : 0"
 --- !u!222 &677742045
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -40265,7 +40265,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB178\uB780\uC544\uCC98 : 0"
+  m_Text: "\uB178\uB780\uAD81\uC218 : 0"
 --- !u!222 &766837095
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -44177,7 +44177,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCD08\uB85D\uC544\uCC98 : 0"
+  m_Text: "\uCD08\uB85D\uAD81\uC218 : 0"
 --- !u!222 &839386610
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -116169,7 +116169,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBE68\uAC04\uC544\uCC98 : 0"
+  m_Text: "\uBE68\uAC04\uAD81\uC218 : 0"
 --- !u!222 &2122146325
 CanvasRenderer:
   m_ObjectHideFlags: 0

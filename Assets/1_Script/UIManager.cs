@@ -170,12 +170,12 @@ public class UIManager : MonoBehaviour
 
     public void UpdateArcherText(int RedArcher, int BlueArcher, int YellowArcher, int GreenArcher, int OrangeArcher, int VioletArcher)
     {
-        RedArcherText.text = "빨간아처 :" + RedArcher;
-        BlueArcherText.text = "파란아처 :" + BlueArcher;
-        YellowArcherText.text = "노란아처 :" + YellowArcher;
-        GreenArcherText.text = "초록아처 :" + GreenArcher;
-        OrangeArcherText.text = "주황아처 :" + OrangeArcher;
-        VioletArcherText.text = "보라아처 :" + VioletArcher;
+        RedArcherText.text = "빨간궁수 :" + RedArcher;
+        BlueArcherText.text = "파란궁수 :" + BlueArcher;
+        YellowArcherText.text = "노란궁수 :" + YellowArcher;
+        GreenArcherText.text = "초록궁수 :" + GreenArcher;
+        OrangeArcherText.text = "주황궁수 :" + OrangeArcher;
+        VioletArcherText.text = "보라궁수 :" + VioletArcher;
     }
 
     public void UpdateSpearmanText(int RedSpearman, int BlueSpearman, int YellowSpearman, int GreenSpearman, int OrangeSpearman, int VioletSpearman)

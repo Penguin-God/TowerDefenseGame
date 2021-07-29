@@ -6,8 +6,6 @@ public class TutorialArrows : MonoBehaviour
     GameObject[] Arrows;
 
 
-
-    // Use this for initialization
     void Start()
     {
         Arrows = GameObject.FindGameObjectsWithTag("Arrow");

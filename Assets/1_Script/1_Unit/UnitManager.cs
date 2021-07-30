@@ -48,39 +48,39 @@ public class UnitManager : MonoBehaviour
         }
     }
 
-    private void Update()
-    {
-        SetUnitPresence();
-    }
+    //private void Update()
+    //{
+    //    SetUnitPresence();
+    //}
 
     // 현재 있는 유닛만 뜨게하기
     // 유닛 담아논 배열들 있으니까 그 배열의 크기가 0보다 크면 관련 bool변수를 true로 하고 그 값은 UI의 SetActive값으로 넣어서 Update에서 돌리면 될 듯
     // UI마다 int변수
     // 현재 켜져있는 UI Object List를 만들고 UI마다 int변수를 줘서 int가 높을수록 뒤에가게 해서 int비교하면서 위치 정하면 될 듯 
-    bool redSowrdman;
-    bool blueSowrdman;
-    bool yellowSowrdman;
-    bool greenSowrdman;
-    bool orangeSowrdman;
-    bool violetSowrdman;
+    //bool redSowrdman;
+    //bool blueSowrdman;
+    //bool yellowSowrdman;
+    //bool greenSowrdman;
+    //bool orangeSowrdman;
+    //bool violetSowrdman;
 
-    [SerializeField] SoldiersTags unitCounts;
-    [HideInInspector] public bool thereIs_RedUnit;
-    [HideInInspector] public bool thereIs_BlueUnit;
-    [HideInInspector] public bool thereIs_YellowUnit;
-    [HideInInspector] public bool thereIs_GreenUnit;
-    [HideInInspector] public bool thereIs_OrangeUnit;
-    [HideInInspector] public bool thereIs_VioletUnit;
+    //[SerializeField] SoldiersTags unitCounts;
+    //[HideInInspector] public bool thereIs_RedUnit;
+    //[HideInInspector] public bool thereIs_BlueUnit;
+    //[HideInInspector] public bool thereIs_YellowUnit;
+    //[HideInInspector] public bool thereIs_GreenUnit;
+    //[HideInInspector] public bool thereIs_OrangeUnit;
+    //[HideInInspector] public bool thereIs_VioletUnit;
 
-    void SetUnitPresence()
-    {
-        if (unitCounts.RedSpearman.Length > 0) thereIs_RedUnit = true;
-        if (unitCounts.BlueSpearman.Length > 0) thereIs_BlueUnit = true;
-        if (unitCounts.YellowSwordman.Length > 0) thereIs_YellowUnit = true;
-        if (unitCounts.GreenSwordman.Length > 0) thereIs_GreenUnit = true;
-        if (unitCounts.OrangeSwordman.Length > 0) thereIs_OrangeUnit = true;
-        if (unitCounts.VioletSwordman.Length > 0) thereIs_VioletUnit = true;
-    }
+    //void SetUnitPresence()
+    //{
+    //    if (unitCounts.RedSpearman.Length > 0) thereIs_RedUnit = true;
+    //    if (unitCounts.BlueSpearman.Length > 0) thereIs_BlueUnit = true;
+    //    if (unitCounts.YellowSwordman.Length > 0) thereIs_YellowUnit = true;
+    //    if (unitCounts.GreenSwordman.Length > 0) thereIs_GreenUnit = true;
+    //    if (unitCounts.OrangeSwordman.Length > 0) thereIs_OrangeUnit = true;
+    //    if (unitCounts.VioletSwordman.Length > 0) thereIs_VioletUnit = true;
+    //}
 
 
 

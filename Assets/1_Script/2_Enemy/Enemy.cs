@@ -42,10 +42,7 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public virtual void Dead()
-    {
-
-    }
+    public virtual void Dead() {}
 
     protected NomalEnemy nomalEnemy;
 
@@ -57,6 +54,7 @@ public class Enemy : MonoBehaviour
     }
 
     Coroutine sternCoroutine = null;
+
     public void EnemyStern(int sternPercent, float sternTime)
     {
         if (this.gameObject.CompareTag("Tower") || isDead) return;
@@ -68,16 +66,20 @@ public class Enemy : MonoBehaviour
             sternCoroutine = StartCoroutine(SternCoroutine(sternTime));
         }
     }
+
+    Queue<int> queue_GetSturn = new Queue<int>();
     protected bool isSturn;
     public GameObject sternEffect;
     IEnumerator SternCoroutine(float sternTime)
     {
+        queue_GetSturn.Enqueue(-1);
         isSturn = true;
         sternEffect.SetActive(true);
         nomalEnemy.speed = 0;
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
         yield return new WaitForSeconds(sternTime);
-        ExitSturn();
+        queue_GetSturn.Dequeue();
+        if(queue_GetSturn.Count <= 0) ExitSturn();
     }
     void ExitSturn()
     {
@@ -86,6 +88,7 @@ public class Enemy : MonoBehaviour
         sternCoroutine = null;
         Set_OriginSpeed();
     }
+
 
     protected bool isSlow;
     Coroutine exitSlowCoroutine = null;
@@ -127,7 +130,7 @@ public class Enemy : MonoBehaviour
         ChangeColor(new Color32(255, 255, 255, 255));
         isSlow = false;
 
-        if (!isSturn) Set_OriginSpeed();
+        if (queue_GetSturn.Count <= 0) Set_OriginSpeed();
     }
 
     public void EnemyPoisonAttack(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
@@ -137,10 +140,12 @@ public class Enemy : MonoBehaviour
         StartCoroutine(PoisonAttack(poisonPercent, poisonCount, poisonDelay, maxDamage));
     }
 
+    // Queue를 사용해서 현재 독 공격중인 유닛이 없으면 색깔 복귀하기
+    Queue<int> queue_PoisoningUnit = new Queue<int>();
     IEnumerator PoisonAttack(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
     {
-        if (!this.gameObject.CompareTag("Tower")) 
-            ChangeColor(new Color32(141, 49, 231, 255));
+        queue_PoisoningUnit.Enqueue(-1);
+        ChangeColor(new Color32(141, 49, 231, 255));
 
         int poisonDamage = Mathf.RoundToInt(currentHp * poisonPercent / 100); 
         for (int i = 0; i < poisonCount; i++)
@@ -151,8 +156,8 @@ public class Enemy : MonoBehaviour
             OnDamage(poisonDamage);
         }
 
-        if (!this.gameObject.CompareTag("Tower"))
-            ChangeColor(new Color32(255, 255, 255, 255));
+        queue_PoisoningUnit.Dequeue();
+        if(queue_PoisoningUnit.Count <= 0) ChangeColor(new Color32(255, 255, 255, 255));
     }
 
     protected void ChangeColor(Color32 colorColor)

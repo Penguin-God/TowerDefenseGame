@@ -34,7 +34,7 @@ public class SetCurrentUnit : MonoBehaviour
     {
         while (true)
         {
-            SetButtons();
+            //SetButtons();
             Debug.Log(1);
             yield return new WaitForSeconds(0.2f);
             Debug.Log(2);
@@ -94,13 +94,13 @@ public class SetCurrentUnit : MonoBehaviour
         if (p_IsColor && buttonStatus != null) buttonStatus.isShow = true;
     }
 
-    void SetButtons()
-    {
-        SetButton(UnitManager.instance.thereIs_RedUnit, red);
-        SetButton(UnitManager.instance.thereIs_BlueUnit, blue);
-        SetButton(UnitManager.instance.thereIs_YellowUnit, yellow);
-        SetButton(UnitManager.instance.thereIs_GreenUnit, green);
-        SetButton(UnitManager.instance.thereIs_OrangeUnit, orange);
-        SetButton(UnitManager.instance.thereIs_VioletUnit, violet);
-    }
+    //void SetButtons()
+    //{
+    //    SetButton(UnitManager.instance.thereIs_RedUnit, red);
+    //    SetButton(UnitManager.instance.thereIs_BlueUnit, blue);
+    //    SetButton(UnitManager.instance.thereIs_YellowUnit, yellow);
+    //    SetButton(UnitManager.instance.thereIs_GreenUnit, green);
+    //    SetButton(UnitManager.instance.thereIs_OrangeUnit, orange);
+    //    SetButton(UnitManager.instance.thereIs_VioletUnit, violet);
+    //}
 }

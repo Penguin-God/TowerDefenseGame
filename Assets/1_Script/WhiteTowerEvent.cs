@@ -48,7 +48,7 @@ public class WhiteTowerEvent : MonoBehaviour
         if (GameManager.instance.Food >= 7)
         {
             createDefenser.CreateSoldier(7, 2);
-            GameManager.instance.Food -= 5;
+            GameManager.instance.Food -= 7;
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
         }
 
@@ -62,7 +62,7 @@ public class WhiteTowerEvent : MonoBehaviour
         if (GameManager.instance.Food >= 20)
         {
             createDefenser.CreateSoldier(7, 3);
-            GameManager.instance.Food -= 10;
+            GameManager.instance.Food -= 20;
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
         }
 

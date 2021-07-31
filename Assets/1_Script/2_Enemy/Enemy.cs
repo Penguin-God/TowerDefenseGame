@@ -79,7 +79,8 @@ public class Enemy : MonoBehaviour
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
         yield return new WaitForSeconds(sternTime);
         queue_GetSturn.Dequeue();
-        if(queue_GetSturn.Count <= 0) ExitSturn();
+        ExitSturn();
+        //if(queue_GetSturn.Count <= 0) ExitSturn();
     }
     void ExitSturn()
     {
@@ -156,8 +157,10 @@ public class Enemy : MonoBehaviour
             OnDamage(poisonDamage);
         }
 
+
         queue_PoisoningUnit.Dequeue();
-        if(queue_PoisoningUnit.Count <= 0) ChangeColor(new Color32(255, 255, 255, 255));
+        ChangeColor(new Color32(255, 255, 255, 255));
+        //if (queue_PoisoningUnit.Count <= 0) ChangeColor(new Color32(255, 255, 255, 255));
     }
 
     protected void ChangeColor(Color32 colorColor)

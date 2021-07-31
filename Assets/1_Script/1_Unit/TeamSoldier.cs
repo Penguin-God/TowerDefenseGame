@@ -168,7 +168,7 @@ public class TeamSoldier : MonoBehaviour
         {
             UpdateTarget();
         }
-        Invoke("ReadyAttack", attackDelayTime);
+        //Invoke("ReadyAttack", attackDelayTime);
     }
     void ReadyAttack()
     {

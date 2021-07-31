@@ -52,6 +52,8 @@ public class Unit_Spearman : MeeleUnit, IEvent, IHitThrowWeapon
 
         isAttack = false;
         base.NormalAttack();
+        yield return new WaitForSeconds(attackDelayTime);
+        isAttackDelayTime = false;
     }
 
     public override void SpecialAttack()
@@ -83,6 +85,8 @@ public class Unit_Spearman : MeeleUnit, IEvent, IHitThrowWeapon
         isAttack = false;
         isSkillAttack = false;
         base.NormalAttack();
+        yield return new WaitForSeconds(attackDelayTime);
+        isAttackDelayTime = false;
     }
 
     // 이벤트

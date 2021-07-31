@@ -42,6 +42,8 @@ public class Unit_Swordman : MeeleUnit, IEvent
 
         isAttack = false;
         base.NormalAttack();
+        yield return new WaitForSeconds(attackDelayTime);
+        isAttackDelayTime = false;
     }
 
     // 이벤트

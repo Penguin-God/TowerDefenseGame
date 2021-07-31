@@ -46,6 +46,8 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
 
         isAttack = false;
         base.NormalAttack();
+        yield return new WaitForSeconds(attackDelayTime);
+        isAttackDelayTime = false;
     }
 
     public override void SpecialAttack()
@@ -84,6 +86,8 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
         isAttack = false;
         isSkillAttack = false;
         base.NormalAttack();
+        yield return new WaitForSeconds(attackDelayTime);
+        isAttackDelayTime = false;
         if (enemySpawn.currentEnemyList.Count != 0) UpdateTarget();
     }
 

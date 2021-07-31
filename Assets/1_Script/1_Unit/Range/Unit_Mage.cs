@@ -152,6 +152,8 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
 
         isAttack = false;
         base.NormalAttack();
+        yield return new WaitForSeconds(attackDelayTime);
+        isAttackDelayTime = false;
     }
 
     void MageSpecialAttack()

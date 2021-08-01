@@ -153,25 +153,31 @@ public class TeamSoldier : MonoBehaviour
         else
         {
             NormalAttack();
-            Invoke("NormalAttackAudioPlay", normalAttakc_AudioDelay);
+            StartCoroutine(Co_NormalAttackClipPlay());
         }
     }
 
-    protected void NormalAttackAudioPlay()
+    IEnumerator Co_NormalAttackClipPlay()
     {
-        if(enterStoryWorld == GameManager.instance.playerEnterStoryMode)
+        yield return new WaitForSeconds(normalAttakc_AudioDelay);
+        if (enterStoryWorld == GameManager.instance.playerEnterStoryMode)
             unitAudioSource.PlayOneShot(normalAttackClip);
     }
+
     public virtual void NormalAttack()
     {
+        // override 코루틴 마지막 부분에서 실행하는 코드
+        StartCoroutine(Co_ResetAttactStatus());
         if (target != null && !target.gameObject.CompareTag("Tower") && !enemySpawn.bossRespawn)
         {
             UpdateTarget();
         }
-        //Invoke("ReadyAttack", attackDelayTime);
     }
-    void ReadyAttack()
+
+    IEnumerator Co_ResetAttactStatus()
     {
+        isAttack = false;
+        yield return new WaitForSeconds(attackDelayTime);
         isAttackDelayTime = false;
     }
 

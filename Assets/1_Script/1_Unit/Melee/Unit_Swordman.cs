@@ -40,10 +40,7 @@ public class Unit_Swordman : MeeleUnit, IEvent
         HitMeeleAttack();
         trail.SetActive(false);
 
-        isAttack = false;
         base.NormalAttack();
-        yield return new WaitForSeconds(attackDelayTime);
-        isAttackDelayTime = false;
     }
 
     // 이벤트

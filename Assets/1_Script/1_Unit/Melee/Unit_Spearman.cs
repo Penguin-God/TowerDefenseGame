@@ -50,10 +50,7 @@ public class Unit_Spearman : MeeleUnit, IEvent, IHitThrowWeapon
         yield return new WaitForSeconds(0.3f);
         trail.SetActive(false);
 
-        isAttack = false;
         base.NormalAttack();
-        yield return new WaitForSeconds(attackDelayTime);
-        isAttackDelayTime = false;
     }
 
     public override void SpecialAttack()
@@ -82,11 +79,9 @@ public class Unit_Spearman : MeeleUnit, IEvent, IHitThrowWeapon
         yield return new WaitForSeconds(0.5f);
         nav.isStopped = false;
         spear.SetActive(true);
-        isAttack = false;
+
         isSkillAttack = false;
         base.NormalAttack();
-        yield return new WaitForSeconds(attackDelayTime);
-        isAttackDelayTime = false;
     }
 
     // 이벤트

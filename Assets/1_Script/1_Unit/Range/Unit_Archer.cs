@@ -44,10 +44,7 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
         trail.SetActive(true);
         nav.isStopped = false;
 
-        isAttack = false;
         base.NormalAttack();
-        yield return new WaitForSeconds(attackDelayTime);
-        isAttackDelayTime = false;
     }
 
     public override void SpecialAttack()
@@ -83,11 +80,9 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
         nav.angularSpeed = 1000;
-        isAttack = false;
+
         isSkillAttack = false;
         base.NormalAttack();
-        yield return new WaitForSeconds(attackDelayTime);
-        isAttackDelayTime = false;
         if (enemySpawn.currentEnemyList.Count != 0) UpdateTarget();
     }
 

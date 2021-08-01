@@ -150,10 +150,7 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         magicLight.SetActive(false);
         nav.isStopped = false;
 
-        isAttack = false;
         base.NormalAttack();
-        yield return new WaitForSeconds(attackDelayTime);
-        isAttackDelayTime = false;
     }
 
     void MageSpecialAttack()
@@ -164,11 +161,12 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         ClearMana();
 
         // 스킬 쿨타임 적용
-        Invoke("SetSkillAttack", mageSkillCoolDownTime); // 이거 임시 방편이라 뭐 좀 해야함
+        StartCoroutine(Co_SkillCoolDown());
     }
 
-    void SetSkillAttack()
+    IEnumerator Co_SkillCoolDown()
     {
+        yield return new WaitForSeconds(mageSkillCoolDownTime);
         isSkillAttack = false;
     }
 

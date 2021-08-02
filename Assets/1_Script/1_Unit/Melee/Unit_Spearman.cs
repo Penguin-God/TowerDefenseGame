@@ -39,8 +39,7 @@ public class Unit_Spearman : MeeleUnit, IEvent, IHitThrowWeapon
 
     IEnumerator SpaerAttack()
     {
-        isAttackDelayTime = true;
-        isAttack = true;
+        base.StartAttack();
 
         animator.SetTrigger("isAttack");
         yield return new WaitForSeconds(0.55f);

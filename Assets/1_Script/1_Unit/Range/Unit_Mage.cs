@@ -127,8 +127,7 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
     public float mageSkillCoolDownTime;
     IEnumerator MageAttack()
     {
-        isAttack = true;
-        isAttackDelayTime = true;
+        base.StartAttack();
 
         nav.isStopped = true;
         animator.SetTrigger("isAttack");

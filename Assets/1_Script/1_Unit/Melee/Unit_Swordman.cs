@@ -30,9 +30,8 @@ public class Unit_Swordman : MeeleUnit, IEvent
 
     IEnumerator SwordAttack()
     {
-        isAttack = true;
-        isAttackDelayTime = true;
-        
+        base.StartAttack();
+
         animator.SetTrigger("isSword");
         yield return new WaitForSeconds(0.8f);
         trail.SetActive(true);

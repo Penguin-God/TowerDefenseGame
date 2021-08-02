@@ -164,6 +164,12 @@ public class TeamSoldier : MonoBehaviour
             unitAudioSource.PlayOneShot(normalAttackClip);
     }
 
+    protected void StartAttack()
+    {
+        isAttack = true;
+        isAttackDelayTime = true;
+    }
+
     public virtual void NormalAttack()
     {
         // override 코루틴 마지막 부분에서 실행하는 코드

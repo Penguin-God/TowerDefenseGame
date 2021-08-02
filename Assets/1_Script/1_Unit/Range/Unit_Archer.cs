@@ -33,8 +33,7 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
 
     IEnumerator ArrowAttack()
     {
-        isAttack = true;
-        isAttackDelayTime = true;
+        base.StartAttack();
 
         nav.isStopped = true;
         trail.SetActive(false);
@@ -60,8 +59,7 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
 
     IEnumerator Special_ArcherAttack()
     {
-        isSkillAttack = true;
-        isAttack = true;
+        base.StartAttack();
         isAttackDelayTime = true;
         nav.angularSpeed = 1;
         trail.SetActive(false);
@@ -83,7 +81,6 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
 
         isSkillAttack = false;
         base.NormalAttack();
-        if (enemySpawn.currentEnemyList.Count != 0) UpdateTarget();
     }
 
     // 첫번째에 targetTransform을 넣고 currentEnemyList에서 targetTransform을 가장 가까운 transform을 count 크기만큼 가지는 array를 return하는 함수

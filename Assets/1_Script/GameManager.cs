@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     //private int Stage;
     public int Gold;
     public int Food;
+    public int Iron = 0;
+    public int Wood = 0;
     public EnemySpawn enemySpawn;
     private bool isGameover;
     public bool isClear;
@@ -57,6 +59,10 @@ public class GameManager : MonoBehaviour
         isGameover = false;
         Gold = 15;
         Food = 1;
+        Wood += 1;
+        Iron += 1;
+        PlayerPrefs.SetInt("Iron", Iron);
+        PlayerPrefs.SetInt("Wood", Wood);
         UIManager.instance.UpdateGoldText(Gold);
         UIManager.instance.UpdateFoodText(Food);
         //adManager.ShowAD();
@@ -259,6 +265,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
 
         gameManagerAudio.PlayOneShot(gameLoseClip);
+        PlayerPrefs.SetInt("Iron", Iron);
+        PlayerPrefs.SetInt("Wood", Wood);
     }
 
     public AudioClip clearClip;
@@ -274,6 +282,8 @@ public class GameManager : MonoBehaviour
         UIManager.instance.SetActiveClearUI();
         Time.timeScale = 0;
         gameManagerAudio.PlayOneShot(clearClip, 1.3f);
+        PlayerPrefs.SetInt("Iron", Iron);
+        PlayerPrefs.SetInt("Wood", Wood);
     }
 
     public void ReTurnClient()

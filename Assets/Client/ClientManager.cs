@@ -7,13 +7,16 @@ public class ClientManager : MonoBehaviour
 {
     public Text IronText;
     public Text WoodText;
+    int ClientWood; 
+    int ClientIron; 
+
 
     void Start()
     {
-        PlayerPrefs.GetInt("Iron");
-        PlayerPrefs.GetInt("Wood");
-        UpdateWoodText(GameManager.instance.Wood);
-        UpdateIronText(GameManager.instance.Iron);
+        ClientWood = PlayerPrefs.GetInt("Wood");
+        ClientIron = PlayerPrefs.GetInt("Iron");
+        UpdateWoodText(ClientWood);
+        UpdateIronText(ClientIron);
     }
 
     void UpdateIronText(int Iron)

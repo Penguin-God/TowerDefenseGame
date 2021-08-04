@@ -5405,7 +5405,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC8FC\uD669\uC544\uCC98"
+  m_Text: "\uC8FC\uD669\uAD81\uC218"
 --- !u!222 &98354763
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6816,7 +6816,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD30C\uB780\uC544\uCC98"
+  m_Text: "\uD30C\uB780\uAD81\uC218"
 --- !u!222 &129631351
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -29957,7 +29957,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCD08\uB85D\uC544\uCC98"
+  m_Text: "\uCD08\uB85D\uAD81\uC218"
 --- !u!222 &580709669
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -32736,7 +32736,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBCF4\uB77C\uC544\uCC98"
+  m_Text: "\uBCF4\uB77C\uAD81\uC218"
 --- !u!222 &626516798
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -48793,7 +48793,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uB178\uB780\uC544\uCC98"
+  m_Text: "\uB178\uB780\uAD81\uC218"
 --- !u!222 &910701476
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -92679,7 +92679,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBE68\uAC04\uC544\uCC98"
+  m_Text: "\uBE68\uAC04\uAD81\uC218"
 --- !u!222 &1688997167
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -93304,6 +93304,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Gold: 300
   Food: 0
+  Iron: 0
+  Wood: 0
   enemySpawn: {fileID: 1821374131405554}
   isClear: 0
   timer: 0

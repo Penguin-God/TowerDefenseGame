@@ -9,8 +9,8 @@ public class GameManager : MonoBehaviour
     //private int Stage;
     public int Gold;
     public int Food;
-    public int Iron = 0;
-    public int Wood = 0;
+    public int Iron;
+    public int Wood;
     public EnemySpawn enemySpawn;
     private bool isGameover;
     public bool isClear;
@@ -59,10 +59,8 @@ public class GameManager : MonoBehaviour
         isGameover = false;
         Gold = 15;
         Food = 1;
-        Wood += 1;
-        Iron += 1;
-        PlayerPrefs.SetInt("Iron", Iron);
-        PlayerPrefs.SetInt("Wood", Wood);
+        //Wood += 1;
+        //Iron += 1;
         UIManager.instance.UpdateGoldText(Gold);
         UIManager.instance.UpdateFoodText(Food);
         //adManager.ShowAD();

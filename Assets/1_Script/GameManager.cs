@@ -112,7 +112,9 @@ public class GameManager : MonoBehaviour
 
                 HitEnemy = hit.transform.gameObject;
 
-                NomalEnemy nomalenemy = HitEnemy.transform.GetChild(0).GetComponent<NomalEnemy>();
+                NomalEnemy nomalenemy = null;
+                if (HitEnemy.transform.childCount > 0 && HitEnemy.transform.GetChild(0).GetComponent<NomalEnemy>() != null)
+                    nomalenemy = HitEnemy.transform.GetChild(0).GetComponent<NomalEnemy>();
 
 
                 if (nomalenemy != null)

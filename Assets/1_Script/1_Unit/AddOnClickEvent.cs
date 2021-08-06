@@ -5,21 +5,23 @@ using UnityEngine.UI;
 
 public class AddOnClickEvent : MonoBehaviour
 {
-    [SerializeField] Transform obj_UnitManageUI;
+    [SerializeField] GameObject[] obj_UnitImages;
+    [SerializeField] GameObject[] obj_UnitManageUI;
     GameObject currentShowUI = null;
     private void Start()
     {
-        for(int i = 0; i < transform.childCount; i++)
+        for(int i = 0; i < obj_UnitManageUI.Length; i++)
         {
-            Button button = transform.GetChild(i).GetComponent<Button>();
-            button.onClick.AddListener(() => obj_UnitManageUI.transform.GetChild(i).gameObject.SetActive(true));
-            button.onClick.AddListener(() => ShowUnitUI() );
-            button.onClick.AddListener(() => currentShowUI = obj_UnitManageUI.GetChild(i).gameObject);
+            int index = i;
+            obj_UnitImages[index].GetComponent<Button>().onClick.AddListener(() => SetOnClick(index));
         }
     }
 
-    void ShowUnitUI()
+    void SetOnClick(int i)
     {
+        Debug.Log(i);
+        obj_UnitManageUI[i].SetActive(true);
         if (currentShowUI != null) currentShowUI.SetActive(false);
+        currentShowUI = obj_UnitManageUI[i].gameObject;
     }
 }

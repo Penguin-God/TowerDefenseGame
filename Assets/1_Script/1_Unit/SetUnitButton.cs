@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class SetUnitButton : MonoBehaviour
 {
-    [SerializeField] string unitName;
+    public string unitName;
     Text txt_UnitCount;
 
     GameObject[] arr_CurrentUnits;
@@ -14,13 +14,28 @@ public class SetUnitButton : MonoBehaviour
     {
         txt_UnitCount = GetComponentInChildren<Text>();
         unitClass = txt_UnitCount.text;
-        txt_UnitCount.text = unitClass + " : 0"; 
+        txt_UnitCount.text = unitClass + " : 0";
         arr_CurrentUnits = SoldiersTags.dic_CurrentUnits[unitName];
     }
 
-    private void Update()
+    private void OnEnable()
     {
-        arr_CurrentUnits = SoldiersTags.dic_CurrentUnits[unitName];
-        txt_UnitCount.text = unitClass + " : " + arr_CurrentUnits.Length;
+        StartCoroutine("Co_UnitCount");
+    }
+
+    private void OnDisable()
+    {
+        StopCoroutine("Co_UnitCount");
+    }
+
+    int count = 0;
+    IEnumerator Co_UnitCount()
+    {
+        while (true)
+        {
+            count = GameObject.FindGameObjectsWithTag(unitName).Length;
+            txt_UnitCount.text = unitClass + " : " + count;
+            yield return new WaitForSeconds(0.4f);
+        }
     }
 }

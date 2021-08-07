@@ -803,7 +803,7 @@ GameObject:
   - component: {fileID: 5468839687284908096}
   - component: {fileID: 5454637040427765981}
   - component: {fileID: 31673267759872258}
-  - component: {fileID: 2040425398}
+  - component: {fileID: 8796098798028416998}
   m_Layer: 9
   m_Name: TB_Soldier_Mage_Red
   m_TagString: RedMage
@@ -923,6 +923,7 @@ MonoBehaviour:
   normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
   normalAttakc_AudioDelay: 0.7
   tpAudioClip: {fileID: 8300000, guid: a27ce694edf98ef48bc63dd09fc57312, type: 3}
+  passiveReinForce: 0
   specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
@@ -943,12 +944,10 @@ MonoBehaviour:
   mageEffectObject: {fileID: 4624219392482637300, guid: d6fccbbc807ddcf48ad83801f635ecf9,
     type: 3}
   mageSkillCilp: {fileID: 8300000, guid: e6f235e1a0f4c504bbb5a76c786d86b6, type: 3}
-  canvasRectTransform: {fileID: 0}
-  manaSlider: {fileID: 0}
   maxMana: 150
   currentMana: 0
---- !u!136 &2040425398
-CapsuleCollider:
+--- !u!135 &8796098798028416998
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -957,9 +956,8 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 15
-  m_Height: 4.2802835
-  m_Direction: 1
+  serializedVersion: 2
+  m_Radius: 20
   m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
 --- !u!1 &5454817337263252172
 GameObject:

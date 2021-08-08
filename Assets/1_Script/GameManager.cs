@@ -16,9 +16,7 @@ public class GameManager : MonoBehaviour
     public bool isClear;
     public float timer;
     public int waitingTime;
-    //public Starts starts;
     public Enemy enemy;
-    //public AdManager adManager;
 
     public bool playerEnterStoryMode;
 
@@ -312,44 +310,18 @@ public class GameManager : MonoBehaviour
         ResetOkButton.SetActive(false);
     }
 
-    [Header("UI GameObject")]
-    public GameObject status_UI;
-    public GameObject unitControll_UI;
-    public GameObject buyUnit_UI;
-    //public GameObject reStartButton;
-    public GameObject moveFiledButton;
-    public GameObject difficult_UI;
-    public GameObject event_UI;
-    public GameObject setting_UI;
-    public GameObject adManager_UI;
+    [HideInInspector]
+    public bool gameStart;
     public void GameStart(string difficult)
     {
-        Set_UI();
+        gameStart = true;
+        UIManager.instance.Set_GameUI();
         EventManager.instance.RandomUnitEvenet(); // 랜덤 유닛 이벤트
 
         SelectDifficult(difficult);
         enemySpawn.StageStart();
         enemySpawn.towers[0].SetActive(true);
         UnitManager.instance.ReSpawnStartUnit();
-    }
-
-    public bool gameStart;
-    public void Set_UI()
-    {
-        gameStart = true;
-        //Time.timeScale = 0;
-        // 키기
-        status_UI.SetActive(true);
-        unitControll_UI.SetActive(true);
-        buyUnit_UI.SetActive(true);
-        //reStartButton.SetActive(true);
-        moveFiledButton.SetActive(true);
-        event_UI.SetActive(true);
-        setting_UI.SetActive(true);
-
-        // 끄기
-        difficult_UI.SetActive(false);
-        adManager_UI.SetActive(false);
     }
 
     public Text diffcultText;

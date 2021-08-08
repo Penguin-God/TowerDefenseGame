@@ -17,6 +17,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    [SerializeField] GameObject title_UI;
+    [SerializeField] GameObject game_UI;
+    public void Set_GameUI()
+    {
+        title_UI.SetActive(false);
+        game_UI.SetActive(true);
+    }
+
     private static UIManager m_instance;
 
     public Text StageText;

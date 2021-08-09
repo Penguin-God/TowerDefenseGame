@@ -18,7 +18,6 @@ public class UnitManageButton : MonoBehaviour
     public StoryMode storyMode; // 스토리 모드용 변수
     //public GameObject storyModeEnterButton;
 
-
     public void FirstChilk()
     {
         UnitManagementButton.gameObject.SetActive(false);

@@ -13895,6 +13895,7 @@ MonoBehaviour:
   - {fileID: 2045260956}
   - {fileID: 1461664490}
   obj_showColor: {fileID: 1391480524}
+  obj_DefaultImage: {fileID: 0}
 --- !u!1 &283807074
 GameObject:
   m_ObjectHideFlags: 0
@@ -14424,6 +14425,7 @@ MonoBehaviour:
   - {fileID: 2045260956}
   - {fileID: 1461664490}
   obj_showColor: {fileID: 2045260956}
+  obj_DefaultImage: {fileID: 0}
 --- !u!1 &291100710
 GameObject:
   m_ObjectHideFlags: 0
@@ -14598,6 +14600,7 @@ MonoBehaviour:
   - {fileID: 2045260956}
   - {fileID: 1461664490}
   obj_showColor: {fileID: 996547412}
+  obj_DefaultImage: {fileID: 0}
 --- !u!1 &292903081
 GameObject:
   m_ObjectHideFlags: 0
@@ -48580,6 +48583,7 @@ MonoBehaviour:
   - {fileID: 2045260956}
   - {fileID: 1461664490}
   obj_showColor: {fileID: 1292318761}
+  obj_DefaultImage: {fileID: 0}
 --- !u!1 &911628574
 GameObject:
   m_ObjectHideFlags: 0
@@ -67936,6 +67940,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: caa503d0c421fa449b092e27bd202f70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  title_UI: {fileID: 0}
+  game_UI: {fileID: 0}
   StageText: {fileID: 649217758}
   GoldText: {fileID: 2018925872}
   FoodText: {fileID: 1674610539}
@@ -68014,7 +68020,7 @@ MonoBehaviour:
   m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 1920, y: 1080}
+  m_ReferenceResolution: {x: 800, y: 480}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
@@ -69564,7 +69570,6 @@ GameObject:
   - component: {fileID: 1290153365}
   - component: {fileID: 1290153364}
   - component: {fileID: 1290153363}
-  - component: {fileID: 1290153367}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -69645,18 +69650,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
---- !u!114 &1290153367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1290153362}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97449efbe26fac449b9dfde0ed601c99, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1291137040
 GameObject:
   m_ObjectHideFlags: 0
@@ -93023,14 +93016,6 @@ MonoBehaviour:
   unitManageButton: {fileID: 1726173157}
   clearClip: {fileID: 8300000, guid: 9bdadad359bbdb841a61b4f93f453406, type: 3}
   ResetOkButton: {fileID: 1119279349}
-  status_UI: {fileID: 2012507223}
-  unitControll_UI: {fileID: 1330758248}
-  buyUnit_UI: {fileID: 2137604829}
-  moveFiledButton: {fileID: 717411400}
-  difficult_UI: {fileID: 595268640}
-  event_UI: {fileID: 1856002534}
-  setting_UI: {fileID: 882118227}
-  adManager_UI: {fileID: 670338563}
   gameStart: 0
   diffcultText: {fileID: 655559539}
 --- !u!4 &1697914940
@@ -93318,6 +93303,7 @@ MonoBehaviour:
   - {fileID: 2045260956}
   - {fileID: 1461664490}
   obj_showColor: {fileID: 1461664490}
+  obj_DefaultImage: {fileID: 0}
 --- !u!1 &1699219417
 GameObject:
   m_ObjectHideFlags: 0
@@ -114636,6 +114622,7 @@ MonoBehaviour:
   - {fileID: 2045260956}
   - {fileID: 1461664490}
   obj_showColor: {fileID: 457271018}
+  obj_DefaultImage: {fileID: 0}
 --- !u!4 &2078284596 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4182821802320530, guid: f4bbac27c61f12d44bb8e2f30e29d2ae,

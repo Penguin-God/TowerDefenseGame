@@ -11,4 +11,15 @@ public class Paint : MonoBehaviour
         if (paint.activeSelf) paint.SetActive(false);
         else paint.SetActive(true);
     }
+
+    AudioSource audioSource;
+    private void Awake()
+    {
+        audioSource = GetComponentInParent<AudioSource>();
+    }
+
+    public void PlayClip()
+    {
+        audioSource.Play();
+    }
 }

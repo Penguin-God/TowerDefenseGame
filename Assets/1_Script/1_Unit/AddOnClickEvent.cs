@@ -10,8 +10,10 @@ public class AddOnClickEvent : MonoBehaviour
     GameObject currentShowUI = null;
 
     StoryMode storyMode;
+    AudioSource audioSource;
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         storyMode = FindObjectOfType<StoryMode>();
         for (int i = 0; i < obj_UnitManageUI.Length; i++)
         {
@@ -27,6 +29,7 @@ public class AddOnClickEvent : MonoBehaviour
         obj_UnitManageUI[i].SetActive(true);
         if (currentShowUI != null && currentShowUI != obj_UnitManageUI[i]) currentShowUI.SetActive(false);
         currentShowUI = obj_UnitManageUI[i];
+        audioSource.Play();
     }
 
     private void OnDisable()

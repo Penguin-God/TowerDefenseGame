@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class TutorialsButton : MonoBehaviour
 {
@@ -48,6 +49,7 @@ public class TutorialsButton : MonoBehaviour
     }
 
     public CreateDefenser createDefenser;
+    [SerializeField] GameObject paintButton;
     public void ClickTutorialSommonButton()
     {
         //tutorialArrows.ArrowStop(1);
@@ -60,6 +62,7 @@ public class TutorialsButton : MonoBehaviour
             if (SommonCount == 3)
             {
                 TutoriasDEF();
+                SetButton(paintButton);
             }
             
         }
@@ -165,25 +168,20 @@ public class TutorialsButton : MonoBehaviour
 
     public void ClickTutorialWhiteSwordmanButton()
     {
-        if (Count == 13)
-        {
-            TutoriasDEF();
-
-            whiteTowerEvent.ClickWhiteSwordmanButton();
-        }
+        TutoriasDEF();
+        whiteTowerEvent.ClickWhiteSwordmanButton();
     }
 
     public BlackTowerEvent blackTowerEvent;
 
     public void ClickTutorialBlackArcherButton()
     {
-        if(Count == 14)
-        {
-            TutoriasDEF();
-
-            blackTowerEvent.ClickBlackArcherButton();
-        }
+         TutoriasDEF();
+         blackTowerEvent.ClickBlackArcherButton();
     }
 
-
+    public void SetButton(GameObject buttonObject)
+    {
+        buttonObject.GetComponent<Button>().enabled = true;
+    }
 }

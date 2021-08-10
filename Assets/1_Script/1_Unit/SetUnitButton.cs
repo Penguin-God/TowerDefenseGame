@@ -15,7 +15,7 @@ public class SetUnitButton : MonoBehaviour
         txt_UnitCount = GetComponentInChildren<Text>();
         unitClass = txt_UnitCount.text;
         txt_UnitCount.text = unitClass + " : 0";
-        arr_CurrentUnits = SoldiersTags.dic_CurrentUnits[unitName];
+        //arr_CurrentUnits = SoldiersTags.dic_CurrentUnits[unitName];
     }
 
     private void OnEnable()

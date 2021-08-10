@@ -12,10 +12,9 @@ public class TutorialArrows : MonoBehaviour
         Arrows[0].gameObject.SetActive(false);
         StartCoroutine(ShowReady(1));
     }
-    int bugCount = 0;
+
     IEnumerator ShowReady(int ArrowCount)
     {
-        bugCount = 0;
         int count = 0;
         if (ArrowCount == 1)
         {
@@ -25,7 +24,6 @@ public class TutorialArrows : MonoBehaviour
                 yield return new WaitForSeconds(0.5f);
                 Arrows[0].gameObject.SetActive(false);
                 yield return new WaitForSeconds(0.5f);
-                Debug.Log(++bugCount);
                 count++;
             }
         }

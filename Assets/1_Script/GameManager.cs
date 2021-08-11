@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     public int waitingTime;
     public Enemy enemy;
 
-    public bool playerEnterStoryMode;
+    public bool playerEnterStoryMode = false;
 
     public int enemyCount; // EnemySpaw에 있던거 옮김
 

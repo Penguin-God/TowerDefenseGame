@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class TutorialsButton : MonoBehaviour
 {
-    
     public GameObject TutorialsText;
     int Count = 1;
     int SommonCount = 0;
@@ -37,15 +36,6 @@ public class TutorialsButton : MonoBehaviour
         Count += 1;
         TutorialsText.transform.GetChild(Count).gameObject.SetActive(true);
         tutorialArrows.ArrowStart(1);
-        //if (Count == 12 || Count == 13)
-        //{
-        //    tutorialArrows.ArrowStart(2);
-        //}
-        //else
-        //{
-        //    tutorialArrows.ArrowStart(1);
-        //}
-
     }
 
     public CreateDefenser createDefenser;
@@ -180,8 +170,12 @@ public class TutorialsButton : MonoBehaviour
          blackTowerEvent.ClickBlackArcherButton();
     }
 
+    // 그냥 스크립트하나 새로 만들어서 OnEnabled에 넣기
     public void SetButton(GameObject buttonObject)
     {
-        buttonObject.GetComponent<Button>().enabled = true;
+        Button button = buttonObject.GetComponent<Button>();
+        button.enabled = true;
+        button.onClick.AddListener(() => button.enabled = false);
+        button.onClick.AddListener(() => TutoriasDEF());
     }
 }

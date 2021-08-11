@@ -29,6 +29,27 @@ public class ClientManager : MonoBehaviour
         WoodText.text = "" + Wood;
     }
 
+    public void BuyStartGold()
+    {
+        if (ClientIron >= 1)
+        {
+            ClientIron -= 1;
+            PlayerPrefs.SetInt("Iron", ClientIron);
+            UpdateIronText(ClientIron);
+        }
+        
+    }
+
+    public void BuyStartFood()
+    {
+        if (ClientWood >= 1)
+        {
+            ClientWood -= 1;
+            PlayerPrefs.SetInt("Wood", ClientWood);
+            UpdateWoodText(ClientWood);
+            
+        }
+    }
 
 
 }

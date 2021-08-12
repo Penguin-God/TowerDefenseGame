@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     public int Food;
     public int Iron;
     public int Wood;
+    public int StartGold;
+    public int StartFood;
     public EnemySpawn enemySpawn;
     private bool isGameover;
     public bool isClear;
@@ -54,9 +56,11 @@ public class GameManager : MonoBehaviour
     public int AddGold;
     void Start()
     {
+        StartGold = PlayerPrefs.GetInt("StartGold");
+        StartFood = PlayerPrefs.GetInt("StartFood");
         isGameover = false;
-        Gold = 15;
-        Food = 1;
+        Gold = 15 + StartGold;
+        Food = 1  + StartFood;
         //Wood += 1;
         //Iron += 1;
         UIManager.instance.UpdateGoldText(Gold);

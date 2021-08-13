@@ -1,9 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class SetPaintButton : MonoBehaviour
 {
+    [SerializeField] Color color;
+    [SerializeField] Image paint;
     [SerializeField] GameObject[] obj_Colors;
     [SerializeField] GameObject obj_showColor;
     [SerializeField] GameObject obj_DefaultImage;
@@ -15,5 +16,7 @@ public class SetPaintButton : MonoBehaviour
         {
             if(obj_Colors[i] != obj_showColor) obj_Colors[i].SetActive(false);
         }
+        color = GetComponent<Image>().color;
+        paint.color = color;
     }
 }

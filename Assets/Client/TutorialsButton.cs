@@ -166,6 +166,7 @@ public class TutorialsButton : MonoBehaviour
 
     public void ClickTutorialBlackArcherButton()
     {
+         isLast = true;
          TutoriasDEF();
          blackTowerEvent.ClickBlackArcherButton();
     }
@@ -177,5 +178,19 @@ public class TutorialsButton : MonoBehaviour
         button.enabled = true;
         button.onClick.AddListener(() => button.enabled = false);
         button.onClick.AddListener(() => TutoriasDEF());
+    }
+
+    public void ActiveButton(GameObject buttonObject)
+    {
+        Button button = buttonObject.GetComponent<Button>();
+        button.enabled = true;
+        button.onClick.AddListener(() => TutoriasDEF());
+        button.onClick.AddListener(() => button.onClick.RemoveListener( () => TutoriasDEF()));
+    }
+
+    bool isLast = false;
+    public void LastButton(GameObject backButton)
+    {
+        if (isLast) backButton.SetActive(true);
     }
 }

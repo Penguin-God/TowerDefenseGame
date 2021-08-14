@@ -79,8 +79,8 @@ public class Enemy : MonoBehaviour
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
         yield return new WaitForSeconds(sternTime);
         queue_GetSturn.Dequeue();
-        ExitSturn();
-        //if(queue_GetSturn.Count <= 0) ExitSturn();
+        //ExitSturn();
+        if(queue_GetSturn.Count <= 0) ExitSturn();
     }
     void ExitSturn()
     {
@@ -142,12 +142,14 @@ public class Enemy : MonoBehaviour
     }
 
     // Queue를 사용해서 현재 독 공격중인 유닛이 없으면 색깔 복귀하기
-    Queue<int> queue_PoisoningUnit = new Queue<int>();
+    Queue<int> queue_HoldingPoison = new Queue<int>();
+    int debugCoung = 0;
     IEnumerator PoisonAttack(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
     {
-        queue_PoisoningUnit.Enqueue(-1);
+        debugCoung++;
+        queue_HoldingPoison.Enqueue(-1);
         ChangeColor(new Color32(141, 49, 231, 255));
-
+        //Debug.Log("시작" + debugCoung + " : " + queue_HoldingPoison.Count);
         int poisonDamage = Mathf.RoundToInt(currentHp * poisonPercent / 100); 
         for (int i = 0; i < poisonCount; i++)
         {
@@ -158,9 +160,10 @@ public class Enemy : MonoBehaviour
         }
 
 
-        queue_PoisoningUnit.Dequeue();
+        queue_HoldingPoison.Dequeue();
+        //Debug.Log("끝" + debugCoung + " : " + queue_HoldingPoison.Count);
         ChangeColor(new Color32(255, 255, 255, 255));
-        //if (queue_PoisoningUnit.Count <= 0) ChangeColor(new Color32(255, 255, 255, 255));
+        //if (queue_HoldingPoison.Count <= 0) ChangeColor(new Color32(255, 255, 255, 255));
     }
 
     protected void ChangeColor(Color32 colorColor)

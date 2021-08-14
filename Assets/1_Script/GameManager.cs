@@ -56,13 +56,13 @@ public class GameManager : MonoBehaviour
     public int AddGold;
     void Start()
     {
+        Wood = PlayerPrefs.GetInt("Wood");
+        Iron = PlayerPrefs.GetInt("Iron");
         StartGold = PlayerPrefs.GetInt("StartGold");
         StartFood = PlayerPrefs.GetInt("StartFood");
         isGameover = false;
         Gold = 15 + StartGold;
         Food = 1  + StartFood;
-        //Wood += 1;
-        //Iron += 1;
         UIManager.instance.UpdateGoldText(Gold);
         UIManager.instance.UpdateFoodText(Food);
         //adManager.ShowAD();

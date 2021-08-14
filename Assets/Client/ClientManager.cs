@@ -17,20 +17,42 @@ public class ClientManager : MonoBehaviour
     int StartFood;
     int StartGoldPrice;
     int StartFoodPrice;
+    public AudioSource ClientClickAudioSource;
 
 
     void Start()
     {
         StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
         StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
+        StartGold = PlayerPrefs.GetInt("StartGold");
+        StartFood = PlayerPrefs.GetInt("StartFood");
+        if (StartGoldPrice == 0)
+        {
+            PlayerPrefs.SetInt("StartGoldPrice", 10);
+            StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
+
+            
+        }
+        else
+        {
+            PlayerPrefs.SetInt("StartGoldPrice", StartGold + 10);
+            StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
+            
+        }
+        if (StartFoodPrice == 0)
+        {
+            PlayerPrefs.SetInt("StartFoodPrice", 10);
+            StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("StartFoodPrice", (StartFood + 1) * 10);
+            StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
+        }
         GoldCount = PlayerPrefs.GetInt("GoldCount");
         FoodCount = PlayerPrefs.GetInt("FoodCount");
         ClientWood = PlayerPrefs.GetInt("Wood");
-        ClientIron = PlayerPrefs.GetInt("Iron");
-        StartGold = PlayerPrefs.GetInt("StartGold");
-        StartFood = PlayerPrefs.GetInt("StartFood");
-        PlayerPrefs.SetInt("StartGoldPrice", StartGold);
-        PlayerPrefs.SetInt("StartFoodPrice", StartFood * 10);
+        ClientIron = PlayerPrefs.GetInt("Iron");     
         UpdateWoodText(ClientWood);
         UpdateIronText(ClientIron);
         UpdateStartGoldPrice();
@@ -64,16 +86,24 @@ public class ClientManager : MonoBehaviour
     {
         StartFoodPriceText.text = "나무 " + StartFoodPrice + "개";
     }
+    public void ClientClickSound()
+    {
+        ClientClickAudioSource.Play();
+    }
 
     public void BuyStartGold()
     {
+        ClientClickSound();
         if (ClientIron >= StartGoldPrice)
         {
             ClientIron -= StartGoldPrice;
             StartGold = 10 * (GoldCount + 1);
-            PlayerPrefs.SetInt("StartGoldPrice", StartGold);
+            PlayerPrefs.SetInt("StartGoldPrice", StartGold + 10);
             PlayerPrefs.SetInt("StartGold", StartGold);
             PlayerPrefs.SetInt("Iron", ClientIron);
+            ClientIron = PlayerPrefs.GetInt("Iron");
+            StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
+            UpdateStartGoldPrice();
             UpdateIronText(ClientIron);
             GoldCount += 1;
             PlayerPrefs.SetInt("GoldCount", GoldCount);
@@ -83,13 +113,17 @@ public class ClientManager : MonoBehaviour
 
     public void BuyStartFood()
     {
+        ClientClickSound();
         if (ClientWood >= StartFoodPrice)
         {
             ClientWood -= StartFoodPrice;
             StartFood = 1 * (FoodCount + 1);
-            PlayerPrefs.SetInt("StartFoodPrice", StartFood * 10);
+            PlayerPrefs.SetInt("StartFoodPrice", (StartFood + 1) * 10);
             PlayerPrefs.SetInt("StartFood", StartFood);
             PlayerPrefs.SetInt("Wood", ClientWood);
+            ClientWood = PlayerPrefs.GetInt("Wood");
+            StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
+            UpdateStartFoodPrice();
             UpdateWoodText(ClientWood);
             FoodCount += 1;
             PlayerPrefs.SetInt("FoodCount", FoodCount);

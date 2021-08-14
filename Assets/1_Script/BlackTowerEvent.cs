@@ -105,7 +105,7 @@ public class BlackTowerEvent : MonoBehaviour
 
         
         UIManager.instance.BlackTowerButton.gameObject.SetActive(false);
-    Hide_BuyBackGround();
+        Hide_BuyBackGround();
     }
 
     public void ClickBlackSpearmanButton()

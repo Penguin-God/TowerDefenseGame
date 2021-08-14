@@ -12,8 +12,8 @@ EditorBuildSettings:
     path: Assets/Client/Loding.unity
     guid: 95cf7c10d9decfb4aba9ccfb798e2c34
   - enabled: 1
-    path: "Assets/Client/Tutorial - \uBCF4\uD5D8.unity"
-    guid: 01cda0d964f83834397ed61ef4e8594f
+    path: Assets/Client/Tutorial.unity
+    guid: f411f8656586f5e4796b382598ecd77c
   - enabled: 1
     path: "Assets/Demo/\uD569\uCE5C \uC52C - \uC7A5\uC775\uC900.unity"
     guid: cb39200e69fe8e74daadbcacc0fd9a5b

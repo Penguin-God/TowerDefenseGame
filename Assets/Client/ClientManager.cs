@@ -37,6 +37,14 @@ public class ClientManager : MonoBehaviour
         UpdateStartFoodPrice();
     }
 
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            PlayerPrefs.DeleteAll();
+        }
+    }
+
     void UpdateIronText(int Iron)
     {
         IronText.text = "" + Iron;

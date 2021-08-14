@@ -49,8 +49,8 @@ public class EnemyTower : Enemy
 
     void GetTowerReword()
     {
-        GameManager.instance.Wood += 1; // 테스트용
-        GameManager.instance.Iron += 1; // 테스트용
+        GameManager.instance.Wood += towerLevel; // 테스트용
+        GameManager.instance.Iron += towerLevel; // 테스트용
 
         GameManager.instance.Gold += rewardGold;
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);

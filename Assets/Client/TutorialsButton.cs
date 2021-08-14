@@ -166,9 +166,15 @@ public class TutorialsButton : MonoBehaviour
 
     public void ClickTutorialBlackArcherButton()
     {
-         isLast = true;
-         TutoriasDEF();
-         blackTowerEvent.ClickBlackArcherButton();
+        isLast = true;
+        TutoriasDEF();
+
+        createDefenser.CreateSoldier(6, 1);
+        GameManager.instance.Gold -= 10;
+        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+        UIManager.instance.BlackTowerButton.gameObject.SetActive(false);
+        blackTowerEvent.BlackUiAudio.Play();
+        blackTowerEvent.Hide_BuyBackGround();
     }
 
     // 그냥 스크립트하나 새로 만들어서 OnEnabled에 넣기

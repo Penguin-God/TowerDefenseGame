@@ -97,6 +97,7 @@ public class GameManager : MonoBehaviour
 
         if (isClear && Input.anyKeyDown)
         {
+            GetClearReward();
             ReTurnClient();
         }
         if (Input.GetKeyDown(KeyCode.K)) // 빠른 게임 클리어 테스트 용
@@ -130,9 +131,35 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
+    }
 
+    void GetClearReward()
+    {
+        switch (currentDifficult)
+        {
+            case "Baby": 
+                Wood += 10; Iron += 10; break;
+            case "Easy":
+                Wood += 15; Iron += 15; break;
+            case "Normal":
+                Wood += 20; Iron += 20; break;
+            case "Hard":
+                Wood += 30; Iron += 30; break;
+            case "Impossiable":
+                Wood += 50; Iron += 50; break;
+            case "Challenge": 
+                GetChallengeReward(); break;
+            default:
+                Debug.Log("난이도가 설정되지 않음"); break;
+        }
+    }
 
-
+    void GetChallengeReward()
+    {
+        int reward = Mathf.FloorToInt(enemySpawn.stageNumber / 10);
+        reward = Mathf.RoundToInt(reward * reward * 1.5f);
+        Wood += reward; 
+        Iron += reward;
     }
 
     public Queue<GameObject> hitSoliderColor;
@@ -316,6 +343,7 @@ public class GameManager : MonoBehaviour
 
     [HideInInspector]
     public bool gameStart;
+    string currentDifficult;
     public void GameStart(string difficult)
     {
         gameStart = true;
@@ -332,6 +360,7 @@ public class GameManager : MonoBehaviour
 
     public void SelectDifficult(string difficult)
     {
+        currentDifficult = difficult;
         diffcultText.text = "난이도 : " + difficult;
         enemySpawn.arr_TowersHp = Dic_enemyTowerHp[difficult];
         switch (difficult)
@@ -343,13 +372,17 @@ public class GameManager : MonoBehaviour
                 SetDifficult(20, 10, 250);
                 break;
             case "Normal":
-                SetDifficult(20, 25, 300);
+                SetDifficult(20, 30, 300);
                 break;
             case "Hard":
-                SetDifficult(25, 45, 350);
+                SetDifficult(25, 55, 350);
                 break;
             case "Impossiable":
-                SetDifficult(30, 70, 400);
+                SetDifficult(100, 200, 1000);
+                break;
+            case "Challenge":
+                enemySpawn.maxStage = 100000;
+                SetDifficult(5, 90, 100);
                 break;
             default: 
                 Debug.Log("난이도가 설정되지 않음");
@@ -372,7 +405,8 @@ public class GameManager : MonoBehaviour
             { "Easy", new int[] { 60000, 120000, 400000, 1500000, 4000000, 15000000 } },
             { "Normal", new int[] { 80000, 160000, 600000, 2000000, 6000000, 20000000 } },
             { "Hard", new int[] { 100000, 240000, 800000, 3000000, 8000000, 30000000 } },
-            { "Impossiable", new int[] { 150000, 400000, 1500000, 4000000, 14000000, 50000000 } }
+            { "Impossiable", new int[] { 150000, 400000, 1500000, 4000000, 14000000, 50000000 } },
+            { "Challenge", new int[] { 100000, 240000, 800000, 3000000, 8000000, 30000000 } },
         };
     }
     public void LoadClient()

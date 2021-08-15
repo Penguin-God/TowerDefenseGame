@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class EnemySpawn : MonoBehaviour
 {
     public int stageNumber;
+    public int maxStage = 50;
     public List<GameObject> currentEnemyList; // 생성된 enemy의 게임 오브젝트가 담겨있음
 
     private int respawnEnemyCount;
@@ -52,12 +53,6 @@ public class EnemySpawn : MonoBehaviour
     public int plusEnemyHpWeight;
     public void StageStart()
     {
-        //if (stageNumber == 51)
-        //{
-        //    GameManager.instance.Clear();
-        //    return;
-        //}
-
         GameManager.instance.Gold += stageGold;
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
@@ -72,18 +67,18 @@ public class EnemySpawn : MonoBehaviour
     public float stageTime = 40f;
     IEnumerator StageCoroutine(int stageRespawnEenemyCount) // 재귀함수 무한반복
     {
-        // 사운드 재생
-        enemyAudioSource.PlayOneShot(newStageClip, 0.6f);
+        enemyAudioSource.PlayOneShot(newStageClip, 0.6f); // 사운드 재생
+
         if (stageNumber % 10 == 0)
         {
             RespawnBoss();
             stageRespawnEenemyCount = 0;
 
-            if (stageNumber >= 50) // 마지막 보스일시
+            if (stageNumber >= maxStage) // 마지막 보스일시
             {
                 UIManager.instance.StageText.text = "현재 스테이지 : Final";
                 UIManager.instance.StageText.color = new Color32(255, 0, 0, 255);
-                stageRespawnEenemyCount = 1000;
+                stageRespawnEenemyCount = 10000;
                 yield return new WaitForSeconds(5f);
             }
         }
@@ -131,7 +126,7 @@ public class EnemySpawn : MonoBehaviour
     [SerializeField] Slider timerSlider;
     private void Update()
     {
-        if(GameManager.instance.gameStart && stageNumber < 50)
+        if(GameManager.instance.gameStart && stageNumber < maxStage)
             timerSlider.value -= Time.deltaTime;
     }
 

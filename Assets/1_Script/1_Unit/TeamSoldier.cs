@@ -153,8 +153,13 @@ public class TeamSoldier : MonoBehaviour
         else
         {
             NormalAttack();
-            StartCoroutine(Co_NormalAttackClipPlay());
+            PlayNormalAttackClip();
         }
+    }
+
+    protected void PlayNormalAttackClip()
+    {
+        StartCoroutine(Co_NormalAttackClipPlay());
     }
 
     IEnumerator Co_NormalAttackClipPlay()

@@ -50,8 +50,8 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
     {
         if (target.gameObject.CompareTag("Tower") || target.gameObject.CompareTag("Boss"))
         {
-            Invoke("NormalAttackAudioPlay", normalAttakc_AudioDelay);
             NormalAttack();
+            PlayNormalAttackClip();
             return;
         }
         StartCoroutine(Special_ArcherAttack());

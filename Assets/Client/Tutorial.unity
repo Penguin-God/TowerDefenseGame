@@ -66636,6 +66636,7 @@ GameObject:
   - component: {fileID: 1105863472}
   - component: {fileID: 1105863471}
   - component: {fileID: 1105863470}
+  - component: {fileID: 1105863474}
   m_Layer: 0
   m_Name: Camera
   m_TagString: MainCamera
@@ -66716,6 +66717,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+--- !u!114 &1105863474
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1105863469}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97449efbe26fac449b9dfde0ed601c99, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1106099140
 GameObject:
   m_ObjectHideFlags: 0
@@ -92187,6 +92200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageNumber: 1
+  maxStage: 50
   currentEnemyList: []
   enemyPrefab:
   - {fileID: 7536897027791641786, guid: e21cc0963d2c4024898f7722d625d4d1, type: 3}

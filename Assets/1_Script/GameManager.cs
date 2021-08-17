@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     public float timer;
     public int waitingTime;
     public Enemy enemy;
+    
 
     public bool playerEnterStoryMode = false;
 
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviour
         isGameover = false;
         Gold = 15 + StartGold;
         Food = 1  + StartFood;
+        PlusTouchDamege = PlayerPrefs.GetInt("TouchDamege");
         UIManager.instance.UpdateGoldText(Gold);
         UIManager.instance.UpdateFoodText(Food);
         //adManager.ShowAD();
@@ -81,6 +83,7 @@ public class GameManager : MonoBehaviour
         gameManagerAudio.Play();
     }
 
+    int PlusTouchDamege;
     void Update()
     {
         enemyCount = enemySpawn.currentEnemyList.Count; // 리스트 크기를 enemyCount에 대입
@@ -122,7 +125,7 @@ public class GameManager : MonoBehaviour
 
                 if (nomalenemy != null)
                 {
-                    nomalenemy.currentHp -= 10 * (Food + 1);
+                    nomalenemy.currentHp -= 10 * (Food + 1 + PlusTouchDamege);
                     nomalenemy.hpSlider.value = nomalenemy.currentHp;
                     if (nomalenemy.currentHp <= 0)
                     {

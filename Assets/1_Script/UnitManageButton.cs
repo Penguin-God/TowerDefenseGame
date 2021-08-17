@@ -25,10 +25,10 @@ public class UnitManageButton : MonoBehaviour
         ArchersButton.gameObject.SetActive(true);
         SpearmansButton.gameObject.SetActive(true);
         MagesButton.gameObject.SetActive(true);
-        UIManager.instance.UpdateSwordmanCount();
-        UIManager.instance.UpdateArcherCount();
-        UIManager.instance.UpdateSpearmanCount();
-        UIManager.instance.UpdateMageCount();
+        //UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSpearmanCount();
+        //UIManager.instance.UpdateMageCount();
         UnitManageAudio.Play();
     }
 

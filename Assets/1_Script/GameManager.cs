@@ -150,8 +150,6 @@ public class GameManager : MonoBehaviour
                 Wood += 30; Iron += 30; break;
             case "Impossiable":
                 Wood += 50; Iron += 50; break;
-            case "Challenge": 
-                GetChallengeReward(); break;
             default:
                 Debug.Log("난이도가 설정되지 않음"); break;
         }
@@ -291,6 +289,7 @@ public class GameManager : MonoBehaviour
 
     public void Lose()
     {
+        GetChallengeReward(); 
         adManager.ShowAD();
         isGameover = true;
         UIManager.instance.SetActiveGameOverUI();

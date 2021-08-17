@@ -16,26 +16,27 @@ public class OrangeSkill : MonoBehaviour
         mageSkill = GetComponent<MageSkill>();
         this.teamSoldier = mageSkill.teamSoldier;
         if(teamSoldier != null) enemy = teamSoldier.target.GetComponent<Enemy>();
+        count = teamSoldier.gameObject.GetComponent<Unit_Mage>().isUltimate ? 5 : 3;
     }
 
-    [SerializeField] int count;
+    int count = -1;
 
     private void OnEnable()
     {
         StartCoroutine(Co_Wait());
+    }
+
+    IEnumerator Co_Wait()
+    {
+        yield return new WaitUntil(() => count != -1);
+        if (enemy == null) yield break; // 코루틴 끝내기
+        OrangeMageSkill();
 
         if (--count > 0)
         {
             ParticleSystem ps = GetComponent<ParticleSystem>();
             Invoke("SetOnEnalble", ps.startLifetime + 0.1f);
         }
-    }
-
-    IEnumerator Co_Wait()
-    {
-        yield return new WaitUntil(() => teamSoldier != null);
-        if (enemy == null) yield break; // 코루틴 끝내기
-        OrangeMageSkill();
     }
 
     void SetOnEnalble()

@@ -50,8 +50,8 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateSwordmanCount();
-        UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateArcherCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
@@ -87,9 +87,9 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateSwordmanCount();
-        UIManager.instance.UpdateArcherCount();
-        UIManager.instance.UpdateSpearmanCount();
+        //UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSpearmanCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -124,9 +124,9 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateArcherCount();
-        UIManager.instance.UpdateSpearmanCount();
-        UIManager.instance.UpdateMageCount();
+        //UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSpearmanCount();
+        //UIManager.instance.UpdateMageCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -159,8 +159,8 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateSwordmanCount();
-        UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateArcherCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -196,9 +196,9 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateSwordmanCount();
-        UIManager.instance.UpdateArcherCount();
-        UIManager.instance.UpdateSpearmanCount();
+        //UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSpearmanCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -233,9 +233,9 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateArcherCount();
-        UIManager.instance.UpdateSpearmanCount();
-        UIManager.instance.UpdateMageCount();
+        //UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSpearmanCount();
+        //UIManager.instance.UpdateMageCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -269,8 +269,8 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateSwordmanCount();
-        UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateArcherCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -306,9 +306,9 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateSwordmanCount();
-        UIManager.instance.UpdateArcherCount();
-        UIManager.instance.UpdateSpearmanCount();
+        //UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSpearmanCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -343,9 +343,9 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateArcherCount();
-        UIManager.instance.UpdateSpearmanCount();
-        UIManager.instance.UpdateMageCount();
+        //UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSpearmanCount();
+        //UIManager.instance.UpdateMageCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -378,8 +378,8 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateSwordmanCount();
-        UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateArcherCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -416,9 +416,9 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateSwordmanCount();
-        UIManager.instance.UpdateArcherCount();
-        UIManager.instance.UpdateSpearmanCount();
+        //UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSpearmanCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -455,9 +455,9 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateArcherCount();
-        UIManager.instance.UpdateSpearmanCount();
-        UIManager.instance.UpdateMageCount();
+        //UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSpearmanCount();
+        //UIManager.instance.UpdateMageCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -491,8 +491,8 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateSwordmanCount();
-        UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateArcherCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -529,9 +529,9 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateSwordmanCount();
-        UIManager.instance.UpdateArcherCount();
-        UIManager.instance.UpdateSpearmanCount();
+        //UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSpearmanCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -568,9 +568,9 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateArcherCount();
-        UIManager.instance.UpdateSpearmanCount();
-        UIManager.instance.UpdateMageCount();
+        //UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSpearmanCount();
+        //UIManager.instance.UpdateMageCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -603,8 +603,8 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateSwordmanCount();
-        UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateArcherCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -640,9 +640,9 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateSwordmanCount();
-        UIManager.instance.UpdateArcherCount();
-        UIManager.instance.UpdateSpearmanCount();
+        //UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSpearmanCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -679,9 +679,9 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateArcherCount();
-        UIManager.instance.UpdateSpearmanCount();
-        UIManager.instance.UpdateMageCount();
+        //UIManager.instance.UpdateArcherCount();
+        //UIManager.instance.UpdateSpearmanCount();
+        //UIManager.instance.UpdateMageCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -716,7 +716,7 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateSwordmanCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -749,7 +749,7 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateSwordmanCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -781,7 +781,7 @@ public class CombineSoldier : MonoBehaviour
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateSwordmanCount();
         buttonDown.AllButtonDown();
         //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
@@ -818,7 +818,7 @@ public class CombineSoldier : MonoBehaviour
     {
         SoldierChoose(0, 3, 0, 0);
         createdefenser.DrawSoldier(Colornumber, Soldiernumber);
-        UIManager.instance.UpdateSwordmanCount();
+        //UIManager.instance.UpdateSwordmanCount();
         UIManager.instance.CreateButtonAuido.Play();
         // createdefenser.CreateSoldier(Colornumber, Soldiernumber);
         // createdefenser.ExpenditureGold();

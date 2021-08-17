@@ -65,6 +65,13 @@ public class UIManager : MonoBehaviour
         FoodText.text = "" + Food;
     }
 
+    public void UpdateCountEnemyText(int EnemyofCount)
+    {
+        if (EnemyofCount > 45) EnemyCount.color = new Color32(255, 0, 0, 255);
+        else EnemyCount.color = new Color32(255, 255, 255, 255);
+        EnemyCount.text = "현재 적 유닛 카운트 : " + EnemyofCount;
+    }
+
     public void UpdateCombineSuccessText(string Moonja)
     {
         CombineSuccessText.text = Moonja;
@@ -84,12 +91,7 @@ public class UIManager : MonoBehaviour
         SoldiersCombineButton2.transform.GetChild(SoldiersColornumber).transform.GetChild(Soldiersnumber).gameObject.SetActive(show);
     }
 
-    public void UpdateCountEnemyText(int EnemyofCount)
-    {
-        if (EnemyofCount > 45) EnemyCount.color = new Color32(255, 0, 0, 255);
-        else EnemyCount.color = new Color32(255, 255, 255, 255);
-        EnemyCount.text = "현재 적 유닛 카운트 : " + EnemyofCount;
-    }
+
 
     public void SetActiveGameOverUI()
     {
@@ -138,144 +140,144 @@ public class UIManager : MonoBehaviour
         SetActiveButton2(false, 2, 0);
     }
 
-    public Text RedSwordmanText;
-    public Text BlueSwordmanText;
-    public Text YellowSwordmanText;
-    public Text GreenSwordmanText;
-    public Text OrangeSwordmanText;
-    public Text VioletSwordmanText;
+    //public Text RedSwordmanText;
+    //public Text BlueSwordmanText;
+    //public Text YellowSwordmanText;
+    //public Text GreenSwordmanText;
+    //public Text OrangeSwordmanText;
+    //public Text VioletSwordmanText;
 
-    public Text RedArcherText;
-    public Text BlueArcherText;
-    public Text YellowArcherText;
-    public Text GreenArcherText;
-    public Text OrangeArcherText;
-    public Text VioletArcherText;
+    //public Text RedArcherText;
+    //public Text BlueArcherText;
+    //public Text YellowArcherText;
+    //public Text GreenArcherText;
+    //public Text OrangeArcherText;
+    //public Text VioletArcherText;
 
-    public Text RedSpearmanText;
-    public Text BlueSpearmanText;
-    public Text YellowSpearmanText;
-    public Text GreenSpearmanText;
-    public Text OrangeSpearmanText;
-    public Text VioletSpearmanText;
+    //public Text RedSpearmanText;
+    //public Text BlueSpearmanText;
+    //public Text YellowSpearmanText;
+    //public Text GreenSpearmanText;
+    //public Text OrangeSpearmanText;
+    //public Text VioletSpearmanText;
 
-    public Text RedMageText;
-    public Text BlueMageText;
-    public Text YellowMageText;
-    public Text GreenMageText;
-    public Text OrangeMageText;
-    public Text VioletMageText;
+    //public Text RedMageText;
+    //public Text BlueMageText;
+    //public Text YellowMageText;
+    //public Text GreenMageText;
+    //public Text OrangeMageText;
+    //public Text VioletMageText;
 
-    public void UpdateSwordmanText(int RedSwordman, int BlueSwordman, int YellowSwordman, int GreenSwordman, int OrangeSwordman, int VioletSwordman)
-    {
-        RedSwordmanText.text = "빨간기사 :" + RedSwordman;
-        BlueSwordmanText.text = "파란기사 :" + BlueSwordman;
-        YellowSwordmanText.text = "노란기사 :" + YellowSwordman;
-        GreenSwordmanText.text = "초록기사 :" + GreenSwordman;
-        OrangeSwordmanText.text = "주황기사 :" + OrangeSwordman;
-        VioletSwordmanText.text = "보라기사 :" + VioletSwordman;
-    }
+    //public void UpdateSwordmanText(int RedSwordman, int BlueSwordman, int YellowSwordman, int GreenSwordman, int OrangeSwordman, int VioletSwordman)
+    //{
+    //    RedSwordmanText.text = "빨간기사 :" + RedSwordman;
+    //    BlueSwordmanText.text = "파란기사 :" + BlueSwordman;
+    //    YellowSwordmanText.text = "노란기사 :" + YellowSwordman;
+    //    GreenSwordmanText.text = "초록기사 :" + GreenSwordman;
+    //    OrangeSwordmanText.text = "주황기사 :" + OrangeSwordman;
+    //    VioletSwordmanText.text = "보라기사 :" + VioletSwordman;
+    //}
 
-    public void UpdateArcherText(int RedArcher, int BlueArcher, int YellowArcher, int GreenArcher, int OrangeArcher, int VioletArcher)
-    {
-        RedArcherText.text = "빨간궁수 :" + RedArcher;
-        BlueArcherText.text = "파란궁수 :" + BlueArcher;
-        YellowArcherText.text = "노란궁수 :" + YellowArcher;
-        GreenArcherText.text = "초록궁수 :" + GreenArcher;
-        OrangeArcherText.text = "주황궁수 :" + OrangeArcher;
-        VioletArcherText.text = "보라궁수 :" + VioletArcher;
-    }
+    //public void UpdateArcherText(int RedArcher, int BlueArcher, int YellowArcher, int GreenArcher, int OrangeArcher, int VioletArcher)
+    //{
+    //    RedArcherText.text = "빨간궁수 :" + RedArcher;
+    //    BlueArcherText.text = "파란궁수 :" + BlueArcher;
+    //    YellowArcherText.text = "노란궁수 :" + YellowArcher;
+    //    GreenArcherText.text = "초록궁수 :" + GreenArcher;
+    //    OrangeArcherText.text = "주황궁수 :" + OrangeArcher;
+    //    VioletArcherText.text = "보라궁수 :" + VioletArcher;
+    //}
 
-    public void UpdateSpearmanText(int RedSpearman, int BlueSpearman, int YellowSpearman, int GreenSpearman, int OrangeSpearman, int VioletSpearman)
-    {
-        RedSpearmanText.text = "빨간창병 :" + RedSpearman;
-        BlueSpearmanText.text = "파란창병 :" + BlueSpearman;
-        YellowSpearmanText.text = "노란창병 :" + YellowSpearman;
-        GreenSpearmanText.text = "초록창병 :" + GreenSpearman;
-        OrangeSpearmanText.text = "주황창병 :" + OrangeSpearman;
-        VioletSpearmanText.text = "보라창병 :" + VioletSpearman;
-    }
+    //public void UpdateSpearmanText(int RedSpearman, int BlueSpearman, int YellowSpearman, int GreenSpearman, int OrangeSpearman, int VioletSpearman)
+    //{
+    //    RedSpearmanText.text = "빨간창병 :" + RedSpearman;
+    //    BlueSpearmanText.text = "파란창병 :" + BlueSpearman;
+    //    YellowSpearmanText.text = "노란창병 :" + YellowSpearman;
+    //    GreenSpearmanText.text = "초록창병 :" + GreenSpearman;
+    //    OrangeSpearmanText.text = "주황창병 :" + OrangeSpearman;
+    //    VioletSpearmanText.text = "보라창병 :" + VioletSpearman;
+    //}
 
-    public void UpdateMageText(int RedMage, int BlueMage, int YellowMage, int GreenMage, int OrangeMage, int VioletMage)
-    {
-        RedMageText.text = "빨간마법사 :" + RedMage;
-        BlueMageText.text = "파란마법사 :" + BlueMage;
-        YellowMageText.text = "노란마법사 :" + YellowMage;
-        GreenMageText.text = "초록마법사 :" + GreenMage;
-        OrangeMageText.text = "주황마법사 :" + OrangeMage;
-        VioletMageText.text = "보라마법사 :" + VioletMage;
-    }
+    //public void UpdateMageText(int RedMage, int BlueMage, int YellowMage, int GreenMage, int OrangeMage, int VioletMage)
+    //{
+    //    RedMageText.text = "빨간마법사 :" + RedMage;
+    //    BlueMageText.text = "파란마법사 :" + BlueMage;
+    //    YellowMageText.text = "노란마법사 :" + YellowMage;
+    //    GreenMageText.text = "초록마법사 :" + GreenMage;
+    //    OrangeMageText.text = "주황마법사 :" + OrangeMage;
+    //    VioletMageText.text = "보라마법사 :" + VioletMage;
+    //}
 
-    public void UpdateSwordmanCount()
-    {
-        SoldiersTag.RedSwordmanTag();
-        SoldiersTag.BlueSwordmanTag();
-        SoldiersTag.YellowSwordmanTag();
-        SoldiersTag.GreenSwordmanTag();
-        SoldiersTag.OrangeSwordmanTag();
-        SoldiersTag.VioletSwordmanTag();
-        int RedSwordmanCount = SoldiersTag.RedSwordman.Length;
-        int BlueSwordmanCount = SoldiersTag.BlueSwordman.Length;
-        int YellowSwordmanCount = SoldiersTag.YellowSwordman.Length;
-        int GreenSwordmanCount = SoldiersTag.GreenSwordman.Length;
-        int OrangeSwordmanCount = SoldiersTag.OrangeSwordman.Length;
-        int VioletSwordmanCount = SoldiersTag.VioletSwordman.Length;
+    //public void UpdateSwordmanCount()
+    //{
+    //    SoldiersTag.RedSwordmanTag();
+    //    SoldiersTag.BlueSwordmanTag();
+    //    SoldiersTag.YellowSwordmanTag();
+    //    SoldiersTag.GreenSwordmanTag();
+    //    SoldiersTag.OrangeSwordmanTag();
+    //    SoldiersTag.VioletSwordmanTag();
+    //    int RedSwordmanCount = SoldiersTag.RedSwordman.Length;
+    //    int BlueSwordmanCount = SoldiersTag.BlueSwordman.Length;
+    //    int YellowSwordmanCount = SoldiersTag.YellowSwordman.Length;
+    //    int GreenSwordmanCount = SoldiersTag.GreenSwordman.Length;
+    //    int OrangeSwordmanCount = SoldiersTag.OrangeSwordman.Length;
+    //    int VioletSwordmanCount = SoldiersTag.VioletSwordman.Length;
 
-        UpdateSwordmanText(RedSwordmanCount, BlueSwordmanCount, YellowSwordmanCount, GreenSwordmanCount, OrangeSwordmanCount, VioletSwordmanCount);
-    }
+    //    UpdateSwordmanText(RedSwordmanCount, BlueSwordmanCount, YellowSwordmanCount, GreenSwordmanCount, OrangeSwordmanCount, VioletSwordmanCount);
+    //}
 
-    public void UpdateArcherCount()
-    {
-        SoldiersTag.RedArcherTag();
-        SoldiersTag.BlueArcherTag();
-        SoldiersTag.YellowArcherTag();
-        SoldiersTag.GreenArcherTag();
-        SoldiersTag.OrangeArcherTag();
-        SoldiersTag.VioletArcherTag();
-        int RedArcherCount = SoldiersTag.RedArcher.Length;
-        int BlueArcherCount = SoldiersTag.BlueArcher.Length;
-        int YellowArcherCount = SoldiersTag.YellowArcher.Length;
-        int GreenArcherCount = SoldiersTag.GreenArcher.Length;
-        int OrangeArcherCount = SoldiersTag.OrangeArcher.Length;
-        int VioletArcherCount = SoldiersTag.VioletArcher.Length;
+    //public void UpdateArcherCount()
+    //{
+    //    SoldiersTag.RedArcherTag();
+    //    SoldiersTag.BlueArcherTag();
+    //    SoldiersTag.YellowArcherTag();
+    //    SoldiersTag.GreenArcherTag();
+    //    SoldiersTag.OrangeArcherTag();
+    //    SoldiersTag.VioletArcherTag();
+    //    int RedArcherCount = SoldiersTag.RedArcher.Length;
+    //    int BlueArcherCount = SoldiersTag.BlueArcher.Length;
+    //    int YellowArcherCount = SoldiersTag.YellowArcher.Length;
+    //    int GreenArcherCount = SoldiersTag.GreenArcher.Length;
+    //    int OrangeArcherCount = SoldiersTag.OrangeArcher.Length;
+    //    int VioletArcherCount = SoldiersTag.VioletArcher.Length;
 
-        UpdateArcherText(RedArcherCount, BlueArcherCount, YellowArcherCount, GreenArcherCount, OrangeArcherCount, VioletArcherCount);
-    }
+    //    UpdateArcherText(RedArcherCount, BlueArcherCount, YellowArcherCount, GreenArcherCount, OrangeArcherCount, VioletArcherCount);
+    //}
 
-    public void UpdateSpearmanCount()
-    {
-        SoldiersTag.RedSpearmanTag();
-        SoldiersTag.BlueSpearmanTag();
-        SoldiersTag.YellowSpearmanTag();
-        SoldiersTag.GreenSpearmanTag();
-        SoldiersTag.OrangeSpearmanTag();
-        SoldiersTag.VioletSpearmanTag();
-        int RedSpearmanCount = SoldiersTag.RedSpearman.Length;
-        int BlueSpearmanCount = SoldiersTag.BlueSpearman.Length;
-        int YellowSpearmanCount = SoldiersTag.YellowSpearman.Length;
-        int GreenSpearmanCount = SoldiersTag.GreenSpearman.Length;
-        int OrangeSpearmanCount = SoldiersTag.OrangeSpearman.Length;
-        int VioletSpearmanCount = SoldiersTag.VioletSpearman.Length;
+    //public void UpdateSpearmanCount()
+    //{
+    //    SoldiersTag.RedSpearmanTag();
+    //    SoldiersTag.BlueSpearmanTag();
+    //    SoldiersTag.YellowSpearmanTag();
+    //    SoldiersTag.GreenSpearmanTag();
+    //    SoldiersTag.OrangeSpearmanTag();
+    //    SoldiersTag.VioletSpearmanTag();
+    //    int RedSpearmanCount = SoldiersTag.RedSpearman.Length;
+    //    int BlueSpearmanCount = SoldiersTag.BlueSpearman.Length;
+    //    int YellowSpearmanCount = SoldiersTag.YellowSpearman.Length;
+    //    int GreenSpearmanCount = SoldiersTag.GreenSpearman.Length;
+    //    int OrangeSpearmanCount = SoldiersTag.OrangeSpearman.Length;
+    //    int VioletSpearmanCount = SoldiersTag.VioletSpearman.Length;
 
-        UpdateSpearmanText(RedSpearmanCount, BlueSpearmanCount, YellowSpearmanCount, GreenSpearmanCount, OrangeSpearmanCount, VioletSpearmanCount);
-    }
+    //    UpdateSpearmanText(RedSpearmanCount, BlueSpearmanCount, YellowSpearmanCount, GreenSpearmanCount, OrangeSpearmanCount, VioletSpearmanCount);
+    //}
 
-    public void UpdateMageCount()
-    {
-        SoldiersTag.RedMageTag();
-        SoldiersTag.BlueMageTag();
-        SoldiersTag.YellowMageTag();
-        SoldiersTag.GreenMageTag();
-        SoldiersTag.OrangeMageTag();
-        SoldiersTag.VioletMageTag();
-        int RedMageCount = SoldiersTag.RedMage.Length;
-        int BlueMageCount = SoldiersTag.BlueMage.Length;
-        int YellowMageCount = SoldiersTag.YellowMage.Length;
-        int GreenMageCount = SoldiersTag.GreenMage.Length;
-        int OrangeMageCount = SoldiersTag.OrangeMage.Length;
-        int VioletMageCount = SoldiersTag.VioletMage.Length;
+    //public void UpdateMageCount()
+    //{
+    //    SoldiersTag.RedMageTag();
+    //    SoldiersTag.BlueMageTag();
+    //    SoldiersTag.YellowMageTag();
+    //    SoldiersTag.GreenMageTag();
+    //    SoldiersTag.OrangeMageTag();
+    //    SoldiersTag.VioletMageTag();
+    //    int RedMageCount = SoldiersTag.RedMage.Length;
+    //    int BlueMageCount = SoldiersTag.BlueMage.Length;
+    //    int YellowMageCount = SoldiersTag.YellowMage.Length;
+    //    int GreenMageCount = SoldiersTag.GreenMage.Length;
+    //    int OrangeMageCount = SoldiersTag.OrangeMage.Length;
+    //    int VioletMageCount = SoldiersTag.VioletMage.Length;
 
-        UpdateMageText(RedMageCount, BlueMageCount, YellowMageCount, GreenMageCount, OrangeMageCount, VioletMageCount);
-    }
+    //    UpdateMageText(RedMageCount, BlueMageCount, YellowMageCount, GreenMageCount, OrangeMageCount, VioletMageCount);
+    //}
 }
 

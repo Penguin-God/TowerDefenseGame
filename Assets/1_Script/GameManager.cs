@@ -64,7 +64,7 @@ public class GameManager : MonoBehaviour
         isGameover = false;
         Gold = 15 + StartGold;
         Food = 1  + StartFood;
-        PlusTouchDamege = PlayerPrefs.GetInt("TouchDamege");
+        PlusTouchDamege = PlayerPrefs.GetInt("PlusTouchDamege");
         UIManager.instance.UpdateGoldText(Gold);
         UIManager.instance.UpdateFoodText(Food);
         //adManager.ShowAD();
@@ -125,7 +125,7 @@ public class GameManager : MonoBehaviour
 
                 if (nomalenemy != null)
                 {
-                    nomalenemy.currentHp -= 10 * (Food + 1 + PlusTouchDamege);
+                    nomalenemy.currentHp -= (10 + PlusTouchDamege) * (Food + 1);
                     nomalenemy.hpSlider.value = nomalenemy.currentHp;
                     if (nomalenemy.currentHp <= 0)
                     {

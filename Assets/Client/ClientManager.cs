@@ -7,16 +7,22 @@ public class ClientManager : MonoBehaviour
 {
     public Text IronText;
     public Text WoodText;
+    public Text HammerText;
     public Text StartGoldPriceText;
     public Text StartFoodPriceText;
+    public Text PlusTouchDamegePriceText;
     int ClientWood; 
     int ClientIron;
+    int ClientHammer;
     int GoldCount;
     int FoodCount;
+    int HammerCount;
     int StartGold;
     int StartFood;
+    int PlusTouchDamege;
     int StartGoldPrice;
     int StartFoodPrice;
+    int PlusTouchDamegePrice;
     public AudioSource ClientClickAudioSource;
 
 
@@ -24,8 +30,10 @@ public class ClientManager : MonoBehaviour
     {
         StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
         StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
+        PlusTouchDamegePrice = PlayerPrefs.GetInt("PlusTouchDamegePrice");
         StartGold = PlayerPrefs.GetInt("StartGold");
         StartFood = PlayerPrefs.GetInt("StartFood");
+        PlusTouchDamege = PlayerPrefs.GetInt("PlusTouchDamege");
         if (StartGoldPrice == 0)
         {
             PlayerPrefs.SetInt("StartGoldPrice", 10);
@@ -49,14 +57,27 @@ public class ClientManager : MonoBehaviour
             PlayerPrefs.SetInt("StartFoodPrice", (StartFood + 1) * 10);
             StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
         }
+        if (PlusTouchDamegePrice == 0)
+        {
+            PlayerPrefs.SetInt("PlusTouchDamegePrice",1);
+            PlusTouchDamegePrice = PlayerPrefs.GetInt("PlusTouchDamegePrice");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("PlusTouchDamegePrice", (PlusTouchDamege + 1) * 1);
+        }
         GoldCount = PlayerPrefs.GetInt("GoldCount");
         FoodCount = PlayerPrefs.GetInt("FoodCount");
+        HammerCount = PlayerPrefs.GetInt("HammerCount");
         ClientWood = PlayerPrefs.GetInt("Wood");
-        ClientIron = PlayerPrefs.GetInt("Iron");     
+        ClientIron = PlayerPrefs.GetInt("Iron");
+        ClientHammer = PlayerPrefs.GetInt("Hammer");
         UpdateWoodText(ClientWood);
         UpdateIronText(ClientIron);
+        UpdateHammerText(ClientHammer);
         UpdateStartGoldPrice();
         UpdateStartFoodPrice();
+        UpdatePlusTouchDamegePrice();
     }
 
     void Update()
@@ -77,6 +98,11 @@ public class ClientManager : MonoBehaviour
         WoodText.text = "" + Wood;
     }
 
+    void UpdateHammerText(int Hammer)
+    {
+        HammerText.text = "" + Hammer;
+    }
+
     public void UpdateStartGoldPrice()
     {
         StartGoldPriceText.text = "철 " + StartGoldPrice + "개";
@@ -85,6 +111,11 @@ public class ClientManager : MonoBehaviour
     public void UpdateStartFoodPrice()
     {
         StartFoodPriceText.text = "나무 " + StartFoodPrice + "개";
+    }
+
+    public void UpdatePlusTouchDamegePrice()
+    {
+        PlusTouchDamegePriceText.text = "망치 " + PlusTouchDamegePrice + "개";
     }
     public void ClientClickSound()
     {
@@ -128,6 +159,25 @@ public class ClientManager : MonoBehaviour
             FoodCount += 1;
             PlayerPrefs.SetInt("FoodCount", FoodCount);
             
+        }
+    }
+    public void BuyPlusTouchDamege()
+    {
+        ClientClickSound();
+        if (ClientHammer >= PlusTouchDamegePrice)
+        {
+            ClientHammer -= PlusTouchDamegePrice;
+            PlusTouchDamege = 1 * (HammerCount + 1);
+            PlayerPrefs.SetInt("PlusTouchDamegePrice", (PlusTouchDamege + 1));
+            PlayerPrefs.SetInt("PlusTouchDamege", PlusTouchDamege);
+            PlayerPrefs.SetInt("Hammer", ClientHammer);
+            ClientHammer = PlayerPrefs.GetInt("Hammer");
+            PlusTouchDamegePrice = PlayerPrefs.GetInt("PlusTouchDamegePrice");
+            UpdatePlusTouchDamegePrice();
+            UpdateHammerText(ClientHammer);
+            HammerCount += 1;
+            PlayerPrefs.SetInt("HammerCount", HammerCount);
+
         }
     }
 

@@ -24857,30 +24857,6 @@ MonoBehaviour:
   CombineSuccessText: {fileID: 1275855601}
   CombineFailText: {fileID: 245263334}
   clearObject: {fileID: 1766952372}
-  RedSwordmanText: {fileID: 1126402490}
-  BlueSwordmanText: {fileID: 2044679782}
-  YellowSwordmanText: {fileID: 1369759522}
-  GreenSwordmanText: {fileID: 1915913353}
-  OrangeSwordmanText: {fileID: 555314411}
-  VioletSwordmanText: {fileID: 794241661}
-  RedArcherText: {fileID: 1110466286}
-  BlueArcherText: {fileID: 1248043473}
-  YellowArcherText: {fileID: 1832866808}
-  GreenArcherText: {fileID: 565069494}
-  OrangeArcherText: {fileID: 1536124098}
-  VioletArcherText: {fileID: 507840265}
-  RedSpearmanText: {fileID: 676201590}
-  BlueSpearmanText: {fileID: 48765110}
-  YellowSpearmanText: {fileID: 1901555397}
-  GreenSpearmanText: {fileID: 490761825}
-  OrangeSpearmanText: {fileID: 26167353}
-  VioletSpearmanText: {fileID: 34925603}
-  RedMageText: {fileID: 726850682}
-  BlueMageText: {fileID: 1561468561}
-  YellowMageText: {fileID: 1362360095}
-  GreenMageText: {fileID: 598250993}
-  OrangeMageText: {fileID: 151919904}
-  VioletMageText: {fileID: 373280545}
 --- !u!114 &372680503
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66724,6 +66700,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97449efbe26fac449b9dfde0ed601c99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  width: 800
+  height: 480
 --- !u!1 &1106099140
 GameObject:
   m_ObjectHideFlags: 0

@@ -26,6 +26,7 @@ public class TeamSoldier : MonoBehaviour
     public float stopDistanc;
     public bool isAttack; // 공격 중에 true인 변수
     public bool isAttackDelayTime; // 공격 못할 때 true 변수
+    public bool isSkillAttack;
 
     protected NavMeshAgent nav;
     public Transform target;
@@ -35,8 +36,8 @@ public class TeamSoldier : MonoBehaviour
     protected AudioSource unitAudioSource;
     public AudioClip normalAttackClip;
     public float normalAttakc_AudioDelay;
-    public AudioClip tpAudioClip;
 
+    public GameObject reinforceEffect;
     protected float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
 
     private void Start()
@@ -106,7 +107,7 @@ public class TeamSoldier : MonoBehaviour
         int random = Random.Range(0, 100);
         if (random < percent)
         {
-            unitAudioSource.PlayOneShot(getGoldClip, 1f);
+            SoundManager.instance.PlayEffectSound_ByName("GetPassiveAttackGold");
             GameManager.instance.Gold += addGold;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
         }
@@ -394,7 +395,7 @@ public class TeamSoldier : MonoBehaviour
             UpdateTarget();
             StartCoroutine("NavCoroutine");
         }
-        UnitManager.instance.unitAudioManagerSource.PlayOneShot(tpAudioClip, 0.5f);
+        SoundManager.instance.PlayEffectSound_ByName("TP_Unit");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -436,20 +437,4 @@ public class TeamSoldier : MonoBehaviour
         }
         else enemy.OnDamage(damage);
     }
-
-    public AudioClip getGoldClip;
-    protected void Add_PassiveGold(int percent, int addGold)
-    {
-        int random = Random.Range(0, 100);
-        if(random < percent)
-        {
-            unitAudioSource.PlayOneShot(getGoldClip, 1f);
-            GameManager.instance.Gold += addGold;
-            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-        }
-    }
-
-    public GameObject reinforceEffect;
-
-    public bool isSkillAttack;
 }

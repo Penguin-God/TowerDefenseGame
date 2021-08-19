@@ -10,8 +10,6 @@ public class WhiteUnitEvent : MonoBehaviour
     private int Colornumber;
     public GameObject timerObject;
 
-    public AudioClip unitTransformClip;
-
     private void Awake()
     {
         GameObject TimerCanavs = Instantiate(timerObject, timerObject.transform.position, timerObject.transform.rotation);
@@ -21,7 +19,7 @@ public class WhiteUnitEvent : MonoBehaviour
 
     public void UnitTransform()
     {
-        UnitManager.instance.unitAudioManagerSource.PlayOneShot(unitTransformClip, 1.1f);
+        SoundManager.instance.PlayEffectSound_ByName("TransformWhiteUnit");
         createDefenser.CreateSoldier(Colornumber, unitNumber, transform);
         Destroy(gameObject);
     }

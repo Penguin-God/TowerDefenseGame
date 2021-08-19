@@ -25,33 +25,32 @@ public class SoundManager : MonoBehaviour
     {
         if (instance != this) Destroy(gameObject);
 
-        SetClipDictionary(effectClips, dic_EffectClip);
-
         dic_EffectClip = new Dictionary<string, AudioClip>();
         for (int i = 0; i < effectClips.Length; i++)
         {
             dic_EffectClip.Add(effectClips[i].clipName, effectClips[i].playClip);
         }
         Debug.Log(dic_EffectClip.Count);
-
     }
 
     [SerializeField] AudioClip shopEnterClip;
     [SerializeField] AudioClip towerDeadClip;
 
+    [SerializeField] AudioSource effectAudio;
     [SerializeField] PlayClip[] effectClips;
     private Dictionary<string, AudioClip> dic_EffectClip;
-    void SetClipDictionary(PlayClip[] playClips, Dictionary<string, AudioClip> dic_EffectClip)
+
+    public void PlayEffectSound_ByName(string name, float volumeScale = 1f) // 사운드 조절 가능
     {
-        dic_EffectClip = new Dictionary<string, AudioClip>();
-        for(int i = 0; i < playClips.Length; i++)
-        {
-            dic_EffectClip.Add(playClips[i].clipName, playClips[i].playClip);
-        }
+        AudioClip audioClip = null;
+        if (dic_EffectClip.TryGetValue(name, out audioClip)) effectAudio.PlayOneShot(dic_EffectClip[name], volumeScale);
+        else Debug.LogWarning("찾을 수 없는 사운드 이름 : " + name);
     }
 
-    public void PlayTowerDeadClip()
+    public void PlayEffectClip_ByName(string name) // 사운드 조절 불가능 유니티 이벤트 용으로 만듬
     {
-
+        AudioClip audioClip = null;
+        if (dic_EffectClip.TryGetValue(name, out audioClip)) effectAudio.PlayOneShot(dic_EffectClip[name]);
+        else Debug.LogWarning("찾을 수 없는 사운드 이름 : " + name);
     }
 }

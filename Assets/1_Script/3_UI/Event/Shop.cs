@@ -10,26 +10,19 @@ public class Shop : MonoBehaviour
 
     public GameObject leftGoldGoods;
     public GameObject centerGoldGoods;
-    //public GameObject rigthGoldGoods;
     public GameObject foodGoods;
 
     public GameObject[] leftGoldStocks;
     public GameObject[] centerGoldStocks; 
-    //public GameObject[] rigthGoldStocks; 
     public GameObject[] foodStocks;
 
     private GameObject current_LeftGoldGoods = null;
     private GameObject current_CenterGoldGoods = null;
-    //private GameObject current_RigthGoldGoods = null;
     private GameObject current_FoodGoldGoods = null;
     public CreateDefenser createDefenser;
 
     private AudioSource shopAudioSource;
     public AudioClip shopClickClip;
-    public AudioClip goldLackSound;
-    [Tooltip("아이템 구매 시 상점이 꺼지면서 소리가 안들리는 버그 때문에 추가한 오디오 소스")]
-    public AudioSource shopAudioManagerSource;
-    public AudioClip itemPurchaseClip;
 
     private void Awake() 
     {
@@ -117,7 +110,7 @@ public class Shop : MonoBehaviour
 
     void GoodsPurchase(GameObject goodsObject)
     {
-        shopAudioManagerSource.PlayOneShot(itemPurchaseClip);
+        SoundManager.instance.PlayEffectSound_ByName("PurchaseItem");
         Destroy(goodsObject, 0.1f);
 
         Transform goodsStock = goodsObject.transform.parent;
@@ -409,7 +402,7 @@ public class Shop : MonoBehaviour
     IEnumerator HideGoldText_Coroutine()
     {
         lacksGuideText.gameObject.SetActive(true);
-        shopAudioSource.PlayOneShot(goldLackSound);
+        SoundManager.instance.PlayEffectSound_ByName("LackPurchaseGold");
 
         lacksGuideText.color = new Color32(255, 44, 35, 255);
         Color textColor;
@@ -497,6 +490,6 @@ public class Shop : MonoBehaviour
 
     //private void OnEnable() // 테스트용
     //{
-    //    OnShop(4, bossShopWeighDictionary);
+    //    OnShop(1, bossShopWeighDictionary);
     //}
 }

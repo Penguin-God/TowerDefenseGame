@@ -13,9 +13,6 @@ public class UnitManager : MonoBehaviour
     public static UnitManager instance;
     public UnitArray[] unitArrays; // red, blue, yellow, green, orange, violet 순 6개 배열
 
-    public AudioSource unitAudioManagerSource;
-
-
     private void Awake()
     {
         if(instance == null)
@@ -27,11 +24,8 @@ public class UnitManager : MonoBehaviour
             Debug.LogWarning("UnitManager 2개");
             Destroy(gameObject);
         }
-        //Debug.Log(unitArrays[0].unitArray[0]);
         currentUnitList = new List<GameObject>();
         StartCoroutine(UnitListCheck_Coroutine());
-
-        unitAudioManagerSource = GetComponent<AudioSource>();
     }
 
     public List<GameObject> currentUnitList;
@@ -143,7 +137,6 @@ public class UnitManager : MonoBehaviour
     {
         for(int i = 0; i < unitArrays[colorNumber].unitArray.Length; i++)
         {
-
             TeamSoldier unit = unitArrays[colorNumber].unitArray[i].transform.GetChild(0).GetComponent<TeamSoldier>();
             unit.reinforceEffect.SetActive(true);
         }

@@ -37,19 +37,33 @@ public class UIManager : MonoBehaviour
     public SoldiersTags SoldiersTag;
     // public Button SoldierCombine;
     public Button SellSoldier;
+
     public GameObject SoldiersCombineButton;
     public GameObject SoldiersCombineButton2;
+
     public GameObject BackGround;
+
     public GameObject ExPlanationTexts;
+
     public GameObject BlackTowerButton;
     public GameObject WhiteTowerButton;
+
     public GameObject FailText;
     public GameObject SuccessText;
+
     public GameObject XButton;
+
     public AudioSource CreateButtonAuido;
+
     public Text CombineSuccessText;
     public Text CombineFailText;
 
+    public Text HighScoreText;
+
+    public void UpdateHighScoreText(int HighScore)
+    {
+        HighScoreText.text = "최고 스테이지 : " + HighScore;
+    }
     public void UpdateStageText(int Stage)
     {
         StageText.text = "현재 스테이지 : " + Stage;

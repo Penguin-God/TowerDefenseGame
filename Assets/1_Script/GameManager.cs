@@ -55,8 +55,13 @@ public class GameManager : MonoBehaviour
 
 
     public int AddGold;
+    public int HighScore;
+    private int LastHighScore;
     void Start()
     {
+        HighScore = PlayerPrefs.GetInt("HighScore");
+        LastHighScore = PlayerPrefs.GetInt("HighScore");
+        UIManager.instance.UpdateHighScoreText(LastHighScore);
         Wood = PlayerPrefs.GetInt("Wood");
         Iron = PlayerPrefs.GetInt("Iron");
         StartGold = PlayerPrefs.GetInt("StartGold");
@@ -86,6 +91,11 @@ public class GameManager : MonoBehaviour
     int PlusTouchDamege;
     void Update()
     {
+        if(enemySpawn.stageNumber > HighScore)
+        {
+            HighScore += 1;
+            UIManager.instance.UpdateHighScoreText(HighScore);
+        }
         enemyCount = enemySpawn.currentEnemyList.Count; // 리스트 크기를 enemyCount에 대입
         UIManager.instance.UpdateCountEnemyText(enemyCount);
         if (enemyCount >= 50 && !isGameover)
@@ -298,6 +308,11 @@ public class GameManager : MonoBehaviour
         gameManagerAudio.PlayOneShot(gameLoseClip);
         PlayerPrefs.SetInt("Iron", Iron);
         PlayerPrefs.SetInt("Wood", Wood);
+        if (enemySpawn.maxStage == 100000)
+        {
+            PlayerPrefs.SetInt("HighScore", HighScore);
+            // HighScore - LastHighScore 보상 방식,,
+        }
     }
 
     public AudioClip clearClip;

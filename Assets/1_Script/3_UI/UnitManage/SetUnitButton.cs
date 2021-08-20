@@ -7,15 +7,22 @@ public class SetUnitButton : MonoBehaviour
 {
     public string unitName;
     Text txt_UnitCount;
+    UnitManageWindowDictionary unitWindowDic;
 
-    //GameObject[] arr_CurrentUnits;
     string unitClass;
     private void Awake()
     {
         txt_UnitCount = GetComponentInChildren<Text>();
         unitClass = txt_UnitCount.text;
         txt_UnitCount.text = unitClass + " : 0";
-        //arr_CurrentUnits = SoldiersTags.dic_CurrentUnits[unitName];
+
+        Button button = GetComponent<Button>();
+
+        unitWindowDic = GetComponentInParent<UnitManageWindowDictionary>();
+        button.onClick.AddListener(() => unitWindowDic.ShowUnitManageWindow(unitName));
+
+        button.onClick.AddListener( () => FindObjectOfType<StoryMode>().unitTagName = unitName);
+        button.onClick.AddListener(() => SoundManager.instance.PlayEffectSound_ByName("SelectColor"));
     }
 
     private void OnEnable()

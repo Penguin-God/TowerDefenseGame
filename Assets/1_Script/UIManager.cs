@@ -293,5 +293,7 @@ public class UIManager : MonoBehaviour
 
     //    UpdateMageText(RedMageCount, BlueMageCount, YellowMageCount, GreenMageCount, OrangeMageCount, VioletMageCount);
     //}
+
+
 }
 

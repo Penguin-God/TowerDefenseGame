@@ -311,7 +311,7 @@ public class GameManager : MonoBehaviour
         if (enemySpawn.maxStage == 100000)
         {
             PlayerPrefs.SetInt("HighScore", HighScore);
-            // HighScore - LastHighScore 보상 방식,,
+            int Reword = HighScore - LastHighScore; //보상 방식,,
         }
     }
 

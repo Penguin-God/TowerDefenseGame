@@ -7,7 +7,7 @@ public class SetPaintButton : MonoBehaviour
     [SerializeField] Image paint;
     [SerializeField] GameObject[] obj_Colors;
     [SerializeField] GameObject obj_showColor;
-    [SerializeField] GameObject obj_DefaultImage;
+    //[SerializeField] GameObject obj_DefaultImage;
     [SerializeField] Button colorButton;
 
     private void Start()
@@ -17,16 +17,18 @@ public class SetPaintButton : MonoBehaviour
 
     public void SettingPaintButton()
     {
-        if (obj_DefaultImage.activeSelf) obj_DefaultImage.SetActive(false);
-
         obj_showColor.SetActive(true);
         for(int i = 0; i < obj_Colors.Length; i++)
         {
             if(obj_Colors[i] != obj_showColor) obj_Colors[i].SetActive(false);
         }
 
-        color = GetComponent<Image>().color;
-        paint.color = color;
+        SetColor();
         SoundManager.instance.PlayEffectSound_ByName("SelectColor");
+    }
+
+    public void SetColor()
+    {
+        paint.color = color;
     }
 }

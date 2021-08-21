@@ -12,6 +12,7 @@ public class SetUnitButton : MonoBehaviour
     string unitClass;
     private void Awake()
     {
+        addClikcEvent = GetComponentInParent<AddOnClickEvent>();
         txt_UnitCount = GetComponentInChildren<Text>();
         unitClass = txt_UnitCount.text;
         txt_UnitCount.text = unitClass + " : 0";
@@ -21,12 +22,14 @@ public class SetUnitButton : MonoBehaviour
         unitWindowDic = GetComponentInParent<UnitManageWindowDictionary>();
         button.onClick.AddListener(() => unitWindowDic.ShowUnitManageWindow(unitName));
 
-        button.onClick.AddListener( () => FindObjectOfType<StoryMode>().unitTagName = unitName);
+        button.onClick.AddListener(() => FindObjectOfType<StoryMode>().unitTagName = unitName);
         button.onClick.AddListener(() => SoundManager.instance.PlayEffectSound_ByName("SelectColor"));
     }
 
+    AddOnClickEvent addClikcEvent = null;
     private void OnEnable()
     {
+        //if(addClikcEvent != null) 
         StartCoroutine("Co_UnitCount");
     }
 
@@ -36,13 +39,14 @@ public class SetUnitButton : MonoBehaviour
     }
 
     int count = 0;
+    WaitForSeconds ws = new WaitForSeconds(0.4f);
     IEnumerator Co_UnitCount()
     {
         while (true)
         {
             count = GameObject.FindGameObjectsWithTag(unitName).Length;
             txt_UnitCount.text = unitClass + " : " + count;
-            yield return new WaitForSeconds(0.4f);
+            yield return ws;
         }
     }
 }

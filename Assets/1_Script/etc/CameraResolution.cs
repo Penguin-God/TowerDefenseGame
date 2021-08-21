@@ -1,13 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraResolution : MonoBehaviour
 {
     [SerializeField] float width;
     [SerializeField] float height;
+    [SerializeField] CanvasScaler canvasScaler;
+
     private void Awake()
     {
+        canvasScaler = FindObjectOfType<CanvasScaler>();
         Camera camera = GetComponent<Camera>();
         Rect rect = camera.rect;
 
@@ -25,5 +29,8 @@ public class CameraResolution : MonoBehaviour
         }
 
         camera.rect = rect;
+
+        if (Screen.width >= width) canvasScaler.matchWidthOrHeight = 1;
+        else canvasScaler.matchWidthOrHeight = 0;
     }
 }

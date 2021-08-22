@@ -30,11 +30,7 @@ public class SoundManager : MonoBehaviour
         {
             dic_EffectClip.Add(effectClips[i].clipName, effectClips[i].playClip);
         }
-        Debug.Log(dic_EffectClip.Count);
     }
-
-    [SerializeField] AudioClip shopEnterClip;
-    [SerializeField] AudioClip towerDeadClip;
 
     [SerializeField] AudioSource effectAudio;
     [SerializeField] PlayClip[] effectClips;

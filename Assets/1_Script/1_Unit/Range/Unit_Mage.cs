@@ -21,6 +21,7 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         manaSlider = transform.parent.GetComponentInChildren<Slider>();
         manaSlider.maxValue = maxMana;
         manaSlider.value = currentMana;
+        StartCoroutine(Co_SetCanvas());
     }
 
     public override void SetPassive()
@@ -350,10 +351,14 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
     public int maxMana;
     public int currentMana;
 
-    public void SetCanvas()
+    IEnumerator Co_SetCanvas()
     {
-        if (unitColor == UnitColor.white) return;
-        canvasRectTransform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+        if (unitColor == UnitColor.white) yield break;
+        while (true)
+        {
+            canvasRectTransform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+            yield return new WaitForSeconds(0.2f);
+        }
     }
 
     public void AddMana(int addMana)

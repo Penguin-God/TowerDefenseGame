@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class RangeUnit : TeamSoldier
-{ 
+{
     public override void UnitTypeMove()
     {
         if (enemyDistance < attackRange)
@@ -38,26 +38,15 @@ public class RangeUnit : TeamSoldier
 
     private void FixedUpdate()
     {
+        // Physics.BoxCast (레이저를 발사할 위치, 사각형의 각 좌표의 절판 크기, 발사 방향, 충돌 결과, 회전 각도, 최대 거리)
         rayHit = Physics.BoxCast(transform.parent.position + Vector3.up, transform.lossyScale * 2,
             transform.parent.forward, out rayHitObject, transform.parent.rotation, attackRange, layerMask);
-        if (GetComponent<Unit_Mage>() != null) GetComponent<Unit_Mage>().SetCanvas();
     }
 
     void OnDrawGizmos()
     {
-        //RaycastHit hit;
-        //// Physics.BoxCast (레이저를 발사할 위치, 사각형의 각 좌표의 절판 크기, 발사 방향, 충돌 결과, 회전 각도, 최대 거리)
-        //bool isHit = Physics.BoxCast(transform.parent.position, transform.lossyScale * 10,
-        //    transform.parent.forward, out hit, transform.parent.rotation, attackRange);
-        //if (isHit) Debug.Log("맞았다!!!!!!!!!!!");
-
         Gizmos.color = Color.red;
         Gizmos.DrawRay(transform.parent.position + Vector3.up, transform.parent.forward * attackRange);
         Gizmos.DrawWireCube(transform.parent.position + Vector3.up + transform.parent.forward * attackRange, transform.lossyScale * 2);
-    }
-
-    protected void Set_ThrowWeapon()
-    {
-
     }
 }

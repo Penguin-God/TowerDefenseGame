@@ -24,9 +24,9 @@ public class TeamSoldier : MonoBehaviour
     public int skillDamage;
 
     public float stopDistanc;
-    public bool isAttack; // 공격 중에 true인 변수
-    public bool isAttackDelayTime; // 공격 못할 때 true 변수
-    public bool isSkillAttack;
+    public bool isAttack; // 공격 중에 true
+    public bool isAttackDelayTime; // 공격 쿨타임 중에 true
+    public bool isSkillAttack; // 스킬 공격 중에 true
 
     protected NavMeshAgent nav;
     public Transform target;

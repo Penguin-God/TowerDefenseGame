@@ -75,8 +75,6 @@ public class GameManager : MonoBehaviour
         //adManager.ShowAD();
     }
 
-    public AudioClip gameLoseClip;
-
     public AudioClip bossbgmClip;
     public AudioClip bgmClip;
 
@@ -305,7 +303,7 @@ public class GameManager : MonoBehaviour
         UIManager.instance.SetActiveGameOverUI();
         Time.timeScale = 0;
 
-        gameManagerAudio.PlayOneShot(gameLoseClip);
+        SoundManager.instance.PlayEffectSound_ByName("Lose");
         PlayerPrefs.SetInt("Iron", Iron);
         PlayerPrefs.SetInt("Wood", Wood);
         if (enemySpawn.maxStage == 100000)
@@ -315,7 +313,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public AudioClip clearClip;
     public void Clear()
     {
         adManager.ShowAD();
@@ -327,7 +324,7 @@ public class GameManager : MonoBehaviour
         }
         UIManager.instance.SetActiveClearUI();
         Time.timeScale = 0;
-        gameManagerAudio.PlayOneShot(clearClip, 1.3f);
+        SoundManager.instance.PlayEffectSound_ByName("Clear");
         PlayerPrefs.SetInt("Iron", Iron);
         PlayerPrefs.SetInt("Wood", Wood);
     }

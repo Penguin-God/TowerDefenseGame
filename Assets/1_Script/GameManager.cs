@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public int Food;
     public int Iron;
     public int Wood;
+    public int Hammer;
     public int StartGold;
     public int StartFood;
     public EnemySpawn enemySpawn;
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour
         UIManager.instance.UpdateHighScoreText(LastHighScore);
         Wood = PlayerPrefs.GetInt("Wood");
         Iron = PlayerPrefs.GetInt("Iron");
+        Hammer = PlayerPrefs.GetInt("Hammer");
         StartGold = PlayerPrefs.GetInt("StartGold");
         StartFood = PlayerPrefs.GetInt("StartFood");
         isGameover = false;
@@ -89,7 +91,7 @@ public class GameManager : MonoBehaviour
     int PlusTouchDamege;
     void Update()
     {
-        if(enemySpawn.stageNumber > HighScore)
+        if(enemySpawn.stageNumber > HighScore && isChallenge == true)
         {
             HighScore += 1;
             UIManager.instance.UpdateHighScoreText(HighScore);
@@ -316,6 +318,7 @@ public class GameManager : MonoBehaviour
     public void Clear()
     {
         adManager.ShowAD();
+        Hammer += 1;
         isClear = true;
         for (int i = 0; i < enemySpawn.currentEnemyList.Count; i++)
         {
@@ -327,6 +330,7 @@ public class GameManager : MonoBehaviour
         SoundManager.instance.PlayEffectSound_ByName("Clear");
         PlayerPrefs.SetInt("Iron", Iron);
         PlayerPrefs.SetInt("Wood", Wood);
+        PlayerPrefs.SetInt("Hammer", Hammer);
     }
 
     public void ReTurnClient()
@@ -371,6 +375,8 @@ public class GameManager : MonoBehaviour
     }
 
     public Text diffcultText;
+    public GameObject HighScorePanel;
+    public bool isChallenge;
 
     public void SelectDifficult(string difficult)
     {
@@ -395,6 +401,8 @@ public class GameManager : MonoBehaviour
                 SetDifficult(100, 200, 1000);
                 break;
             case "Challenge":
+                isChallenge = true;
+                HighScorePanel.gameObject.SetActive(true);
                 enemySpawn.maxStage = 100000;
                 SetDifficult(5, 90, 100);
                 break;

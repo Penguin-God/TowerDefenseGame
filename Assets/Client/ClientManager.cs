@@ -88,17 +88,17 @@ public class ClientManager : MonoBehaviour
         }
     }
 
-    void UpdateIronText(int Iron)
+    public void UpdateIronText(int Iron)
     {
         IronText.text = "" + Iron;
     }
 
-    void UpdateWoodText(int Wood)
+    public void UpdateWoodText(int Wood)
     {
         WoodText.text = "" + Wood;
     }
 
-    void UpdateHammerText(int Hammer)
+    public void UpdateHammerText(int Hammer)
     {
         HammerText.text = "" + Hammer;
     }

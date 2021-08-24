@@ -6,6 +6,18 @@ using UnityEngine.SceneManagement;
 
 public class AdManager : MonoBehaviour
 {
+
+    int Wood;
+    int Iron;
+    int Hammer;
+    public ClientManager clientManager;
+
+    private void Start()
+    {
+        Wood = PlayerPrefs.GetInt("Wood");
+        Iron = PlayerPrefs.GetInt("Iron");
+        Hammer = PlayerPrefs.GetInt("Hammer");
+    }
     //void Start()
     //{
     //    string gameId = null;
@@ -66,6 +78,92 @@ public class AdManager : MonoBehaviour
 
 
                 break;
+        }
+    }
+
+    private void IronResultedAds(ShowResult result)
+    {
+        switch (result)
+        {
+            case ShowResult.Failed:
+                Debug.LogError("광고 보기에 실패했습니다.");
+                break;
+            case ShowResult.Skipped:
+                Debug.Log("광고를 스킵했습니다.");
+                break;
+            case ShowResult.Finished:
+                Iron += 1;
+                PlayerPrefs.SetInt("Iron",Iron);
+                clientManager.UpdateIronText(Iron);
+                Debug.Log("광고 보기를 완료했습니다.");
+
+
+                break;
+        }
+    }
+    public void IronShowRewardAd()
+    {
+        if (Advertisement.IsReady())
+        {
+            ShowOptions options = new ShowOptions { resultCallback = IronResultedAds };
+            Advertisement.Show("Rewarded_Android", options);
+        }
+    }
+
+    private void WoodResultedAds(ShowResult result)
+    {
+        switch (result)
+        {
+            case ShowResult.Failed:
+                Debug.LogError("광고 보기에 실패했습니다.");
+                break;
+            case ShowResult.Skipped:
+                Debug.Log("광고를 스킵했습니다.");
+                break;
+            case ShowResult.Finished:
+                Wood += 1;
+                PlayerPrefs.SetInt("Wood", Wood);
+                clientManager.UpdateWoodText(Wood);
+                Debug.Log("광고 보기를 완료했습니다.");
+
+
+                break;
+        }
+    }
+    public void WoodShowRewardAd()
+    {
+        if (Advertisement.IsReady())
+        {
+            ShowOptions options = new ShowOptions { resultCallback = WoodResultedAds };
+            Advertisement.Show("Rewarded_Android", options);
+        }
+    }
+
+    private void HammerResultedAds(ShowResult result)
+    {
+        switch (result)
+        {
+            case ShowResult.Failed:
+                Debug.LogError("광고 보기에 실패했습니다.");
+                break;
+            case ShowResult.Skipped:
+                Debug.Log("광고를 스킵했습니다.");
+                break;
+            case ShowResult.Finished:
+                Hammer += 1;
+                PlayerPrefs.SetInt("Hammer", Hammer);
+                clientManager.UpdateHammerText(Hammer);
+                Debug.Log("광고 보기를 완료했습니다.");
+
+                break;
+        }
+    }
+    public void HammerShowRewardAd()
+    {
+        if (Advertisement.IsReady())
+        {
+            ShowOptions options = new ShowOptions { resultCallback = HammerResultedAds };
+            Advertisement.Show("Rewarded_Android", options);
         }
     }
 

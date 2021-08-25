@@ -179,6 +179,10 @@ public class ClientManager : MonoBehaviour
             PlayerPrefs.SetInt("HammerCount", HammerCount);
 
         }
+        else
+        {
+            Debug.Log("실패");
+        }
     }
 
 

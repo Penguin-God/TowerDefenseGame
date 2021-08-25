@@ -178,7 +178,7 @@ public class TutorialsButton : MonoBehaviour
     }
 
     // 그냥 스크립트하나 새로 만들어서 OnEnabled에 넣기
-    public void SetButton(GameObject buttonObject)
+    public void SetButton(GameObject buttonObject) // 튜토리얼 전 오브젝트에 함수 넣고 인수는 후에 튜토리얼 진행할 오브젝트
     {
         Button button = buttonObject.GetComponent<Button>();
         button.enabled = true;

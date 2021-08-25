@@ -211,7 +211,8 @@ public class GameManager : MonoBehaviour
         //    adManager.ShowRewardAd();
         //    FasterAdCount += 1;
         //}
-        unitManageButton.UnitManageAudio.Play();
+        SoundManager.instance.PlayEffectSound_ByName("PopSound", 0.6f);
+
         if (FasterCount == 0)
         {
             FasterText.text = "X2";
@@ -252,7 +253,7 @@ public class GameManager : MonoBehaviour
 
     public void ClickPlayAgainButton()
     {
-        unitManageButton.UnitManageAudio.Play();
+        SoundManager.instance.PlayEffectSound_ByName("PopSound", 0.6f);
 
         if (FasterCount == 1)
         {
@@ -276,7 +277,7 @@ public class GameManager : MonoBehaviour
 
     public void ClickPauseButton()
     {
-        unitManageButton.UnitManageAudio.Play();
+        SoundManager.instance.PlayEffectSound_ByName("PopSound", 0.6f);
 
         Time.timeScale = 0f;
         gameTimeSpeed = 0f;
@@ -287,12 +288,12 @@ public class GameManager : MonoBehaviour
     }
 
     public GameObject SettingMenu;
-    public UnitManageButton unitManageButton;
+    //public UnitManageButton SoundManager.instance.PlayEffectSound_ByName("PopSound", 0.6f);
 
     public void ClickSettingButton()
     {
         SettingMenu.SetActive(true);
-        unitManageButton.UnitManageAudio.Play();
+        SoundManager.instance.PlayEffectSound_ByName("PopSound", 0.6f);
     }
 
 
@@ -342,20 +343,20 @@ public class GameManager : MonoBehaviour
 
     public void Reset()
     {
-        unitManageButton.UnitManageAudio.Play();
+        SoundManager.instance.PlayEffectSound_ByName("PopSound", 0.6f);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public GameObject ResetOkButton;
     public void OnResetButton()
     {
-        unitManageButton.UnitManageAudio.Play();
+        SoundManager.instance.PlayEffectSound_ByName("PopSound", 0.6f);
         ResetOkButton.SetActive(true);
     }
 
     public void DownResetButton()
     {
-        unitManageButton.UnitManageAudio.Play();
+        SoundManager.instance.PlayEffectSound_ByName("PopSound", 0.6f);
         ResetOkButton.SetActive(false);
     }
 
@@ -401,9 +402,7 @@ public class GameManager : MonoBehaviour
                 SetDifficult(100, 200, 1000);
                 break;
             case "Challenge":
-                isChallenge = true;
-                HighScorePanel.gameObject.SetActive(true);
-                enemySpawn.maxStage = 100000;
+                SelectChallenge();
                 SetDifficult(5, 90, 100);
                 break;
             default: 
@@ -416,6 +415,13 @@ public class GameManager : MonoBehaviour
         enemySpawn.enemyHpWeight = hpWeight;
         enemySpawn.plusEnemyHpWeight = plusHpWeigh;
         enemySpawn.minHp = minhp;
+    }
+
+    void SelectChallenge()
+    {
+        isChallenge = true;
+        HighScorePanel.SetActive(true);
+        enemySpawn.maxStage = 100000;
     }
 
     private Dictionary<string, int[]> Dic_enemyTowerHp;

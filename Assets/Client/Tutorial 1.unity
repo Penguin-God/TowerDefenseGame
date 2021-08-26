@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44971025, g: 0.49977946, b: 0.57563627, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4605,7 +4605,7 @@ MonoBehaviour:
   - {fileID: 1520933169}
   - {fileID: 1565194195}
   obj_showColor: {fileID: 1813871735}
-  obj_DefaultImage: {fileID: 796733574}
+  colorButton: {fileID: 0}
 --- !u!114 &63780801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9773,6 +9773,7 @@ MonoBehaviour:
   Food: 0
   Iron: 0
   Wood: 0
+  Hammer: 0
   StartGold: 0
   StartFood: 0
   enemySpawn: {fileID: 1547890233}
@@ -9783,7 +9784,7 @@ MonoBehaviour:
   playerEnterStoryMode: 0
   enemyCount: 0
   AddGold: 0
-  gameLoseClip: {fileID: 8300000, guid: 629c0960b09ff094496d6262f8d0bd14, type: 3}
+  HighScore: 0
   bossbgmClip: {fileID: 8300000, guid: f7b6398cfc46c8f43b5743906490edcc, type: 3}
   bgmClip: {fileID: 8300000, guid: 9c23b40b98c24154f81380bc3eb8fbe6, type: 3}
   gameManagerAudio: {fileID: 0}
@@ -9794,11 +9795,11 @@ MonoBehaviour:
   PlayAgainBackGround: {fileID: 1428442938}
   PauseBackGround: {fileID: 2019331614}
   SettingMenu: {fileID: 593988762}
-  unitManageButton: {fileID: 0}
-  clearClip: {fileID: 8300000, guid: 9bdadad359bbdb841a61b4f93f453406, type: 3}
   ResetOkButton: {fileID: 578753909}
   gameStart: 0
   diffcultText: {fileID: 36891771}
+  HighScorePanel: {fileID: 0}
+  isChallenge: 0
 --- !u!82 &133429161
 AudioSource:
   m_ObjectHideFlags: 0
@@ -21327,7 +21328,6 @@ MonoBehaviour:
     - {fileID: 978803177}
     - {fileID: 70169202}
     - {fileID: 799461075}
-  unitAudioManagerSource: {fileID: 0}
   currentUnitList: []
   tp_Effects:
   - {fileID: 1423414536}
@@ -22186,16 +22186,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c63760c21a04a8a41b233f121ae06448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj_UnitImages:
-  - {fileID: 1277512513}
-  - {fileID: 962561753}
-  - {fileID: 170825846}
-  - {fileID: 1016421890}
-  obj_UnitManageUI:
-  - {fileID: 1661693817}
-  - {fileID: 1201424387}
-  - {fileID: 180895732}
-  - {fileID: 1544513120}
 --- !u!224 &318975148
 RectTransform:
   m_ObjectHideFlags: 0
@@ -24856,6 +24846,7 @@ MonoBehaviour:
   CreateButtonAuido: {fileID: 1680303882}
   CombineSuccessText: {fileID: 1275855601}
   CombineFailText: {fileID: 245263334}
+  HighScoreText: {fileID: 0}
   clearObject: {fileID: 1766952372}
 --- !u!114 &372680503
 MonoBehaviour:
@@ -25056,7 +25047,7 @@ MonoBehaviour:
   - {fileID: 1520933169}
   - {fileID: 1565194195}
   obj_showColor: {fileID: 318975145}
-  obj_DefaultImage: {fileID: 796733574}
+  colorButton: {fileID: 0}
 --- !u!114 &373403807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28283,8 +28274,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 12.5}
-  m_SizeDelta: {x: 0, y: 25}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &417791647
 GameObject:
@@ -30935,16 +30926,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c63760c21a04a8a41b233f121ae06448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj_UnitImages:
-  - {fileID: 1299249171}
-  - {fileID: 1420580914}
-  - {fileID: 1463126215}
-  - {fileID: 997841191}
-  obj_UnitManageUI:
-  - {fileID: 1955411051}
-  - {fileID: 1810766423}
-  - {fileID: 1632392631}
-  - {fileID: 920385935}
 --- !u!224 &456239883
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36988,7 +36969,7 @@ MonoBehaviour:
   - {fileID: 1520933169}
   - {fileID: 1565194195}
   obj_showColor: {fileID: 715892131}
-  obj_DefaultImage: {fileID: 796733574}
+  colorButton: {fileID: 0}
 --- !u!114 &588595296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44058,16 +44039,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c63760c21a04a8a41b233f121ae06448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj_UnitImages:
-  - {fileID: 1143136866}
-  - {fileID: 1674834424}
-  - {fileID: 711077222}
-  - {fileID: 370323298}
-  obj_UnitManageUI:
-  - {fileID: 675650447}
-  - {fileID: 1706736574}
-  - {fileID: 40348115}
-  - {fileID: 1032137196}
 --- !u!224 &715892134
 RectTransform:
   m_ObjectHideFlags: 0
@@ -66702,6 +66673,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 800
   height: 480
+  canvasScaler: {fileID: 0}
 --- !u!1 &1106099140
 GameObject:
   m_ObjectHideFlags: 0
@@ -84580,7 +84552,7 @@ MonoBehaviour:
   - {fileID: 1520933169}
   - {fileID: 1565194195}
   obj_showColor: {fileID: 456239880}
-  obj_DefaultImage: {fileID: 796733574}
+  colorButton: {fileID: 0}
 --- !u!114 &1402544613
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85474,7 +85446,7 @@ MonoBehaviour:
   - {fileID: 1520933169}
   - {fileID: 1565194195}
   obj_showColor: {fileID: 1565194195}
-  obj_DefaultImage: {fileID: 796733574}
+  colorButton: {fileID: 0}
 --- !u!114 &1424226990
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89928,7 +89900,7 @@ MonoBehaviour:
   - {fileID: 1520933169}
   - {fileID: 1565194195}
   obj_showColor: {fileID: 1520933169}
-  obj_DefaultImage: {fileID: 796733574}
+  colorButton: {fileID: 0}
 --- !u!114 &1508308817
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90820,16 +90792,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c63760c21a04a8a41b233f121ae06448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj_UnitImages:
-  - {fileID: 1586164951}
-  - {fileID: 1232886594}
-  - {fileID: 120259842}
-  - {fileID: 1493117432}
-  obj_UnitManageUI:
-  - {fileID: 91919029}
-  - {fileID: 35308697}
-  - {fileID: 1872139648}
-  - {fileID: 1721164216}
 --- !u!224 &1520933172
 RectTransform:
   m_ObjectHideFlags: 0
@@ -92912,16 +92874,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c63760c21a04a8a41b233f121ae06448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj_UnitImages:
-  - {fileID: 434610455}
-  - {fileID: 365556276}
-  - {fileID: 901692549}
-  - {fileID: 682563597}
-  obj_UnitManageUI:
-  - {fileID: 1748664425}
-  - {fileID: 27296684}
-  - {fileID: 621266039}
-  - {fileID: 1106099140}
 --- !u!224 &1565194198
 RectTransform:
   m_ObjectHideFlags: 0
@@ -97899,10 +97851,10 @@ RectTransform:
   m_Father: {fileID: 372680501}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 800, y: 480}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1649647955
 PrefabInstance:
@@ -105506,16 +105458,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c63760c21a04a8a41b233f121ae06448, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  obj_UnitImages:
-  - {fileID: 1991933256}
-  - {fileID: 995955728}
-  - {fileID: 898674842}
-  - {fileID: 933972956}
-  obj_UnitManageUI:
-  - {fileID: 233452264}
-  - {fileID: 1815780123}
-  - {fileID: 1290662157}
-  - {fileID: 813138967}
 --- !u!224 &1813871738
 RectTransform:
   m_ObjectHideFlags: 0
@@ -108312,10 +108254,10 @@ RectTransform:
   m_Father: {fileID: 372680501}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 160, y: 30}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1870861778
 MonoBehaviour:

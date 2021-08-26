@@ -78,6 +78,9 @@ public class ClientManager : MonoBehaviour
         UpdateStartGoldPrice();
         UpdateStartFoodPrice();
         UpdatePlusTouchDamegePrice();
+        UpdateAdIronCount(StartGoldPrice);
+        UpdateAdWoodCount(StartFoodPrice);
+        UpdateAdHammerCount(PlusTouchDamegePrice);
     }
 
     void Update()
@@ -122,9 +125,28 @@ public class ClientManager : MonoBehaviour
         ClientClickAudioSource.Play();
     }
 
+    public Text AdIronCount;
+    public void UpdateAdIronCount(int StartGoldPrice)
+    {
+        AdIronCount.text = "10 ~ " + StartGoldPrice;
+    }
+
+    public Text AdWoodCount;
+    public void UpdateAdWoodCount(int StartFoodPrice)
+    {
+        AdWoodCount.text = "10 ~ " + StartFoodPrice;
+    }
+
+    public Text AdHammerCount;
+    public void UpdateAdHammerCount(int PlusTouchDamegePrice)
+    {
+        AdHammerCount.text = "1 ~ " + PlusTouchDamegePrice;
+    }
+
     public void BuyStartGold()
     {
         ClientClickSound();
+        ClientIron = PlayerPrefs.GetInt("Iron");
         if (ClientIron >= StartGoldPrice)
         {
             ClientIron -= StartGoldPrice;
@@ -138,12 +160,18 @@ public class ClientManager : MonoBehaviour
             UpdateIronText(ClientIron);
             GoldCount += 1;
             PlayerPrefs.SetInt("GoldCount", GoldCount);
+            UpdateAdIronCount(StartGoldPrice);
         }
-        
+        else
+        {
+            Debug.Log("실패");
+        }
+
     }
 
     public void BuyStartFood()
     {
+        ClientWood = PlayerPrefs.GetInt("Wood");
         ClientClickSound();
         if (ClientWood >= StartFoodPrice)
         {
@@ -158,11 +186,17 @@ public class ClientManager : MonoBehaviour
             UpdateWoodText(ClientWood);
             FoodCount += 1;
             PlayerPrefs.SetInt("FoodCount", FoodCount);
-            
+            UpdateAdWoodCount(StartFoodPrice);
+
+        }
+        else
+        {
+            Debug.Log("실패");
         }
     }
     public void BuyPlusTouchDamege()
     {
+        ClientHammer = PlayerPrefs.GetInt("Hammer");
         ClientClickSound();
         if (ClientHammer >= PlusTouchDamegePrice)
         {
@@ -177,6 +211,7 @@ public class ClientManager : MonoBehaviour
             UpdateHammerText(ClientHammer);
             HammerCount += 1;
             PlayerPrefs.SetInt("HammerCount", HammerCount);
+            UpdateAdHammerCount(PlusTouchDamegePrice);
 
         }
         else

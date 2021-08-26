@@ -10,6 +10,10 @@ public class AdManager : MonoBehaviour
     int Wood;
     int Iron;
     int Hammer;
+    int StartGoldPrice;
+    int StartFoodPrice;
+    int PlusTouchDamegePrice;
+
     public ClientManager clientManager;
 
     private void Start()
@@ -17,6 +21,9 @@ public class AdManager : MonoBehaviour
         Wood = PlayerPrefs.GetInt("Wood");
         Iron = PlayerPrefs.GetInt("Iron");
         Hammer = PlayerPrefs.GetInt("Hammer");
+        StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
+        StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
+        PlusTouchDamegePrice = PlayerPrefs.GetInt("PlusTouchDamegePrice");
     }
     //void Start()
     //{
@@ -92,7 +99,7 @@ public class AdManager : MonoBehaviour
                 Debug.Log("광고를 스킵했습니다.");
                 break;
             case ShowResult.Finished:
-                Iron += 1;
+                Iron += Random.Range(10, StartGoldPrice);
                 PlayerPrefs.SetInt("Iron",Iron);
                 clientManager.UpdateIronText(Iron);
                 Debug.Log("광고 보기를 완료했습니다.");
@@ -121,7 +128,7 @@ public class AdManager : MonoBehaviour
                 Debug.Log("광고를 스킵했습니다.");
                 break;
             case ShowResult.Finished:
-                Wood += 1;
+                Wood += Random.Range(10, StartFoodPrice);
                 PlayerPrefs.SetInt("Wood", Wood);
                 clientManager.UpdateWoodText(Wood);
                 Debug.Log("광고 보기를 완료했습니다.");
@@ -150,7 +157,7 @@ public class AdManager : MonoBehaviour
                 Debug.Log("광고를 스킵했습니다.");
                 break;
             case ShowResult.Finished:
-                Hammer += 1;
+                Hammer += Random.Range(1, PlusTouchDamegePrice);
                 PlayerPrefs.SetInt("Hammer", Hammer);
                 clientManager.UpdateHammerText(Hammer);
                 Debug.Log("광고 보기를 완료했습니다.");

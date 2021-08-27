@@ -17,11 +17,12 @@ public class SetUnitButton : MonoBehaviour
         unitClass = txt_UnitCount.text;
         txt_UnitCount.text = unitClass + " : 0";
 
+        // 버튼 클릭 시 설명창 띄움
         Button button = GetComponent<Button>();
-
         unitWindowDic = GetComponentInParent<UnitManageWindowDictionary>();
         button.onClick.AddListener(() => unitWindowDic.ShowUnitManageWindow(unitName));
 
+        // 버튼 클릭 시 유닛 태그 추가 및 소리 재생
         button.onClick.AddListener(() => FindObjectOfType<StoryMode>().unitTagName = unitName);
         button.onClick.AddListener(() => SoundManager.instance.PlayEffectSound_ByName("SelectColor"));
     }

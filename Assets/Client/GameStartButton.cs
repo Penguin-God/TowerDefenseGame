@@ -13,7 +13,7 @@ public class GameStartButton : MonoBehaviour
 
     public void ClickStartButton()
     {
-        Loding.LoadScene("합친 씬 - 박준 복사 보험");
+        Loding.LoadScene("합친 씬 - 장익준");
         //EasyButton.gameObject.SetActive(true);
         //NormalButton.gameObject.SetActive(true);
         //HardButton.gameObject.SetActive(true);

@@ -23,11 +23,19 @@ public class ClientManager : MonoBehaviour
     int StartGoldPrice;
     int StartFoodPrice;
     int PlusTouchDamegePrice;
+    int StartGameCount;
     public AudioSource ClientClickAudioSource;
 
 
     void Start()
     {
+        StartGameCount = PlayerPrefs.GetInt("StartGameCount");
+        if (StartGameCount == 0)
+        {
+            PlayerPrefs.SetInt("Iron", 1000);
+            PlayerPrefs.SetInt("Wood", 1000);
+            PlayerPrefs.SetInt("StartGameCount", 1000);
+        }
         StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
         StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
         PlusTouchDamegePrice = PlayerPrefs.GetInt("PlusTouchDamegePrice");

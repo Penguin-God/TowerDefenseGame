@@ -42,7 +42,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public virtual void Dead() {}
+    public virtual void Dead() 
+    {
+        queue_GetSturn.Clear();
+        queue_HoldingPoison.Clear();
+    }
 
     protected NomalEnemy nomalEnemy;
 
@@ -62,31 +66,31 @@ public class Enemy : MonoBehaviour
         int random = Random.Range(0, 100);
         if (random < sternPercent)
         {
-            if (sternCoroutine != null) StopCoroutine(sternCoroutine);
-            sternCoroutine = StartCoroutine(SternCoroutine(sternTime));
+            //if (sternCoroutine != null) StopCoroutine(sternCoroutine);
+            //sternCoroutine = StartCoroutine(SternCoroutine(sternTime));
+            StartCoroutine(SternCoroutine(sternTime));
         }
     }
 
     Queue<int> queue_GetSturn = new Queue<int>();
-    protected bool isSturn;
     public GameObject sternEffect;
+    //public int debugCoung = 0;
+    //public int queueCount = 0;
     IEnumerator SternCoroutine(float sternTime)
     {
         queue_GetSturn.Enqueue(-1);
-        isSturn = true;
         sternEffect.SetActive(true);
         nomalEnemy.speed = 0;
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
         yield return new WaitForSeconds(sternTime);
-        queue_GetSturn.Dequeue();
-        //ExitSturn();
-        if(queue_GetSturn.Count <= 0) ExitSturn();
+
+        if (queue_GetSturn.Count > 0) queue_GetSturn.Dequeue();
+        if (queue_GetSturn.Count <= 0) ExitSturn();
     }
     void ExitSturn()
     {
         sternEffect.SetActive(false);
-        isSturn = false;
-        sternCoroutine = null;
+        //sternCoroutine = null;
         Set_OriginSpeed();
     }
 
@@ -143,13 +147,10 @@ public class Enemy : MonoBehaviour
 
     // Queue를 사용해서 현재 독 공격중인 유닛이 없으면 색깔 복귀하기
     Queue<int> queue_HoldingPoison = new Queue<int>();
-    int debugCoung = 0;
     IEnumerator PoisonAttack(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
     {
-        debugCoung++;
         queue_HoldingPoison.Enqueue(-1);
         ChangeColor(new Color32(141, 49, 231, 255));
-        //Debug.Log("시작" + debugCoung + " : " + queue_HoldingPoison.Count);
         int poisonDamage = Mathf.RoundToInt(currentHp * poisonPercent / 100); 
         for (int i = 0; i < poisonCount; i++)
         {
@@ -159,11 +160,8 @@ public class Enemy : MonoBehaviour
             OnDamage(poisonDamage);
         }
 
-
-        queue_HoldingPoison.Dequeue();
-        //Debug.Log("끝" + debugCoung + " : " + queue_HoldingPoison.Count);
-        ChangeColor(new Color32(255, 255, 255, 255));
-        //if (queue_HoldingPoison.Count <= 0) ChangeColor(new Color32(255, 255, 255, 255));
+        if(queue_HoldingPoison.Count > 0) queue_HoldingPoison.Dequeue();
+        if (queue_HoldingPoison.Count <= 0) ChangeColor(new Color32(255, 255, 255, 255));
     }
 
     protected void ChangeColor(Color32 colorColor)

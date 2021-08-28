@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class RangeUnit : TeamSoldier
 {
+    public bool isFix = false;
     public override void UnitTypeMove()
     {
+        if (enterStoryWorld) return;
+
         if (enemyDistance < attackRange)
         {
             if(!target.gameObject.CompareTag("Tower")) nav.speed = 0.1f;

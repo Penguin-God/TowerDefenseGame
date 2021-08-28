@@ -337,7 +337,7 @@ public class Shop : MonoBehaviour
     }
 
     public bool showShop;
-    public Button[] dontClickButtons;
+    [SerializeField] Button[] dontClickButtons;
 
     void SetButtonRayCast(bool isRaycast) // 상점 이용 시 특정 버튼 끄고 키기
     {

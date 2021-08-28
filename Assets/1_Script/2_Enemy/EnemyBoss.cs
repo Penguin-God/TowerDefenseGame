@@ -64,7 +64,7 @@ public class EnemyBoss : NomalEnemy
     void ShowBossShop()
     {
         enemySpawn.enemyAudioSource.PlayOneShot(enemySpawn.bossDeadClip, 0.7f);
-        enemySpawn.shop.OnShop(enemySpawn.bossLevel, enemySpawn.shop.bossShopWeighDictionary);
+        enemySpawn.shop.OnShop( (enemySpawn.bossLevel < 5) ? enemySpawn.bossLevel : 4, enemySpawn.shop.bossShopWeighDictionary);
         enemySpawn.shop.SetGuideText("보스를 처치하였습니다");
     }
 

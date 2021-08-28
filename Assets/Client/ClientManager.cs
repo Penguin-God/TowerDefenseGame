@@ -32,8 +32,8 @@ public class ClientManager : MonoBehaviour
         StartGameCount = PlayerPrefs.GetInt("StartGameCount");
         if (StartGameCount == 0)
         {
-            PlayerPrefs.SetInt("Iron", 1000);
-            PlayerPrefs.SetInt("Wood", 1000);
+            PlayerPrefs.SetInt("Iron", 3000);
+            PlayerPrefs.SetInt("Wood", 3000);
             PlayerPrefs.SetInt("StartGameCount", 1000);
         }
         StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");

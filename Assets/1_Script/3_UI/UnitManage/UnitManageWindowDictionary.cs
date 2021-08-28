@@ -21,4 +21,10 @@ public class UnitManageWindowDictionary : MonoBehaviour
         showObj.SetActive(true);
         currentShowWindow = showObj;
     }
+
+    public void HideCurrentWindow()
+    {
+        currentShowWindow.SetActive(false);
+        currentShowWindow = null;
+    }
 }

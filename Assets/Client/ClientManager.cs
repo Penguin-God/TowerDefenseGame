@@ -36,6 +36,7 @@ public class ClientManager : MonoBehaviour
             PlayerPrefs.SetInt("Wood", 3000);
             PlayerPrefs.SetInt("Hemmer", 30);
             PlayerPrefs.SetInt("StartGameCount", 1000);
+            StartGameCount = PlayerPrefs.GetInt("StartGameCount");
         }
         StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
         StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");

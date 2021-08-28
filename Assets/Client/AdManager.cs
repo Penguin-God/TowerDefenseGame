@@ -90,6 +90,8 @@ public class AdManager : MonoBehaviour
 
     private void IronResultedAds(ShowResult result)
     {
+        Iron = PlayerPrefs.GetInt("Iron");
+        StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
         switch (result)
         {
             case ShowResult.Failed:
@@ -99,7 +101,7 @@ public class AdManager : MonoBehaviour
                 Debug.Log("광고를 스킵했습니다.");
                 break;
             case ShowResult.Finished:
-                Iron += Random.Range(10, StartGoldPrice);
+                Iron += Random.Range(10, StartGoldPrice + 1);
                 PlayerPrefs.SetInt("Iron",Iron);
                 clientManager.UpdateIronText(Iron);
                 Debug.Log("광고 보기를 완료했습니다.");
@@ -119,6 +121,8 @@ public class AdManager : MonoBehaviour
 
     private void WoodResultedAds(ShowResult result)
     {
+        Wood = PlayerPrefs.GetInt("Wood");
+        StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
         switch (result)
         {
             case ShowResult.Failed:
@@ -128,7 +132,7 @@ public class AdManager : MonoBehaviour
                 Debug.Log("광고를 스킵했습니다.");
                 break;
             case ShowResult.Finished:
-                Wood += Random.Range(10, StartFoodPrice);
+                Wood += Random.Range(10, StartFoodPrice + 1);
                 PlayerPrefs.SetInt("Wood", Wood);
                 clientManager.UpdateWoodText(Wood);
                 Debug.Log("광고 보기를 완료했습니다.");
@@ -148,6 +152,8 @@ public class AdManager : MonoBehaviour
 
     private void HammerResultedAds(ShowResult result)
     {
+        Hammer = PlayerPrefs.GetInt("Hammer");
+        PlusTouchDamegePrice = PlayerPrefs.GetInt("PlusTouchDamegePrice");
         switch (result)
         {
             case ShowResult.Failed:
@@ -157,7 +163,7 @@ public class AdManager : MonoBehaviour
                 Debug.Log("광고를 스킵했습니다.");
                 break;
             case ShowResult.Finished:
-                Hammer += Random.Range(1, PlusTouchDamegePrice);
+                Hammer += Random.Range(1, PlusTouchDamegePrice + 1);
                 PlayerPrefs.SetInt("Hammer", Hammer);
                 clientManager.UpdateHammerText(Hammer);
                 Debug.Log("광고 보기를 완료했습니다.");

@@ -94747,7 +94747,6 @@ GameObject:
   - component: {fileID: 1581969799}
   - component: {fileID: 1581969796}
   - component: {fileID: 1581969797}
-  - component: {fileID: 1581969798}
   m_Layer: 0
   m_Name: Combiner (2)
   m_TagString: Untagged
@@ -94817,18 +94816,6 @@ MonoBehaviour:
   WhiteArcher: []
   WhiteSpearman: []
   WhiteMage: []
---- !u!114 &1581969798
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1581969795}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 043419a19c0ab6c4192ff3efe3f1ff32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1581969799
 Transform:
   m_ObjectHideFlags: 0

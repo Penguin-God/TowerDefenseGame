@@ -105,6 +105,7 @@ public class AdManager : MonoBehaviour
                 PlayerPrefs.SetInt("Iron",Iron);
                 clientManager.UpdateIronText(Iron);
                 Debug.Log("광고 보기를 완료했습니다.");
+                PlayerPrefs.Save();
 
 
                 break;
@@ -136,6 +137,7 @@ public class AdManager : MonoBehaviour
                 PlayerPrefs.SetInt("Wood", Wood);
                 clientManager.UpdateWoodText(Wood);
                 Debug.Log("광고 보기를 완료했습니다.");
+                PlayerPrefs.Save();
 
 
                 break;
@@ -167,6 +169,7 @@ public class AdManager : MonoBehaviour
                 PlayerPrefs.SetInt("Hammer", Hammer);
                 clientManager.UpdateHammerText(Hammer);
                 Debug.Log("광고 보기를 완료했습니다.");
+                PlayerPrefs.Save();
 
                 break;
         }

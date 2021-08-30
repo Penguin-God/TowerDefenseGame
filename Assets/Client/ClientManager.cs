@@ -32,8 +32,8 @@ public class ClientManager : MonoBehaviour
         StartGameCount = PlayerPrefs.GetInt("StartGameCount");
         if (StartGameCount == 0)
         {
-            PlayerPrefs.SetInt("Iron", 3000);
-            PlayerPrefs.SetInt("Wood", 3000);
+            PlayerPrefs.SetInt("Iron", 5000);
+            PlayerPrefs.SetInt("Wood", 5000);
             PlayerPrefs.SetInt("Hemmer", 30);
             PlayerPrefs.SetInt("StartGameCount", 1000);
             StartGameCount = PlayerPrefs.GetInt("StartGameCount");
@@ -171,6 +171,7 @@ public class ClientManager : MonoBehaviour
             GoldCount += 1;
             PlayerPrefs.SetInt("GoldCount", GoldCount);
             UpdateAdIronCount(StartGoldPrice);
+            PlayerPrefs.Save();
         }
         else
         {
@@ -197,6 +198,7 @@ public class ClientManager : MonoBehaviour
             FoodCount += 1;
             PlayerPrefs.SetInt("FoodCount", FoodCount);
             UpdateAdWoodCount(StartFoodPrice);
+            PlayerPrefs.Save();
 
         }
         else
@@ -222,6 +224,7 @@ public class ClientManager : MonoBehaviour
             HammerCount += 1;
             PlayerPrefs.SetInt("HammerCount", HammerCount);
             UpdateAdHammerCount(PlusTouchDamegePrice);
+            PlayerPrefs.Save();
 
         }
         else

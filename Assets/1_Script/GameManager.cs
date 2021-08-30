@@ -307,13 +307,15 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
 
         SoundManager.instance.PlayEffectSound_ByName("Lose");
-        PlayerPrefs.SetInt("Iron", Iron);
-        PlayerPrefs.SetInt("Wood", Wood);
         if (enemySpawn.maxStage == 100000)
         {
             PlayerPrefs.SetInt("HighScore", HighScore);
-            int Reword = HighScore - LastHighScore; //보상 방식,,
+            Iron += HighScore;
+            Wood += HighScore;//보상 방식,,
         }
+        PlayerPrefs.SetInt("Iron", Iron);
+        PlayerPrefs.SetInt("Wood", Wood);
+        PlayerPrefs.Save();
     }
 
     public void Clear()
@@ -332,6 +334,7 @@ public class GameManager : MonoBehaviour
         PlayerPrefs.SetInt("Iron", Iron);
         PlayerPrefs.SetInt("Wood", Wood);
         PlayerPrefs.SetInt("Hammer", Hammer);
+        PlayerPrefs.Save();
     }
 
     public void ReTurnClient()

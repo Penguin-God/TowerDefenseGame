@@ -24,7 +24,7 @@ public class UnitManageWindowDictionary : MonoBehaviour
 
     public void HideCurrentWindow()
     {
-        if(currentShowWindow == null)
+        if(currentShowWindow != null)
         {
             currentShowWindow.SetActive(false);
             currentShowWindow = null;

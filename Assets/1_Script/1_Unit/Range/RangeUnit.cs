@@ -32,10 +32,15 @@ public class RangeUnit : TeamSoldier
     protected void ShotBullet(GameObject bullet, float weightRate, float velocity, Transform targetEnemy) // 원거리 유닛 총알 발사
     {
         Rigidbody bulletRigid = bullet.GetComponent<Rigidbody>();
+        Vector3 dir;
 
-        Vector3 dir = targetEnemy.position - bullet.transform.position;
-        float enemyWeightDir = Mathf.Lerp(0, weightRate, Vector3.Distance(targetEnemy.position, this.transform.position) * 2 / 100);
-        dir += nomalEnemy.dir.normalized * (0.5f * nomalEnemy.speed) * enemyWeightDir;
+        if (targetEnemy != null)
+        {
+            dir = targetEnemy.position - bullet.transform.position;
+            float enemyWeightDir = Mathf.Lerp(0, weightRate, Vector3.Distance(targetEnemy.position, this.transform.position) * 2 / 100);
+            dir += nomalEnemy.dir.normalized * (0.5f * nomalEnemy.speed) * enemyWeightDir;
+        }
+        else dir = bullet.transform.forward * velocity;
         bulletRigid.velocity = dir.normalized * velocity;
     }
 

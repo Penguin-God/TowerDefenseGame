@@ -52,6 +52,7 @@ public class MeeleUnit : TeamSoldier
         {
             AttackEnemy(enemy);
             Hit_Passive(enemy);
+            if (delegate_OnHit != null) delegate_OnHit(enemy);
         }
     }
 }

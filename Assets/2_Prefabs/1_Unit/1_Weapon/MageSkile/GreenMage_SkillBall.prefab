@@ -4803,9 +4803,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15ad5adace7d8ad4dbe30ee8c9a3a850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isAOE: 1
   isSkill: 0
   teamSoldier: {fileID: 0}
-  damage: 0
   attackUnit: {fileID: 0}
 --- !u!54 &5270614461363283634
 Rigidbody:

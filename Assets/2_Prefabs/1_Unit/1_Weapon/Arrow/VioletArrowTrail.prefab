@@ -186,7 +186,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15ad5adace7d8ad4dbe30ee8c9a3a850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 30
+  isAOE: 0
+  isSkill: 0
+  teamSoldier: {fileID: 0}
   attackUnit: {fileID: 0}
 --- !u!135 &4592743161364928787
 SphereCollider:

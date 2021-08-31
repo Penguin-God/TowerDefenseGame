@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UnitPassive : MonoBehaviour
 {
-    TeamSoldier teamSoldier;
+    public TeamSoldier teamSoldier;
 
     private void Start()
     {
@@ -13,5 +13,12 @@ public class UnitPassive : MonoBehaviour
         {
             Debug.LogWarning("이상한 곳에 스크립트 배정함");
         }
+
+        SetPassive();
+    }
+
+    public virtual void SetPassive()
+    {
+
     }
 }

@@ -101,7 +101,7 @@ public class EventManager : MonoBehaviour
         buffActionList.Add(Reinforce_UnitPassive);
     }
 
-    public void ChangeUnitDamage(TeamSoldier teamSoldier, float changeDamageWeigh)
+    public void ChangeUnitDamage(TeamSoldier teamSoldier, float changeDamageWeigh) // 멀티에서 상대방 디버프도 고려
     {
         if (teamSoldier != null)
             teamSoldier.damage += Mathf.FloorToInt(teamSoldier.originDamage * changeDamageWeigh);

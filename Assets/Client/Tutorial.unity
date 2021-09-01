@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
+  m_IndirectSpecularColor: {r: 0.44971025, g: 0.49977946, b: 0.57563627, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -23415,7 +23415,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &339928411
 RectTransform:
   m_ObjectHideFlags: 0
@@ -25052,7 +25052,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &367331747
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29155,7 +29155,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &424679298
 RectTransform:
   m_ObjectHideFlags: 0
@@ -36728,7 +36728,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &578026659
 RectTransform:
   m_ObjectHideFlags: 0
@@ -37042,7 +37042,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &586070748
 RectTransform:
   m_ObjectHideFlags: 0
@@ -41105,7 +41105,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &665769518
 RectTransform:
   m_ObjectHideFlags: 0
@@ -55534,7 +55534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &904962214
 RectTransform:
   m_ObjectHideFlags: 0
@@ -68718,7 +68718,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1146585621
 RectTransform:
   m_ObjectHideFlags: 0
@@ -74181,7 +74181,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1248319745
 RectTransform:
   m_ObjectHideFlags: 0
@@ -75042,7 +75042,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1259744100
 RectTransform:
   m_ObjectHideFlags: 0
@@ -88115,7 +88115,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1492607302
 RectTransform:
   m_ObjectHideFlags: 0
@@ -94065,7 +94065,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1571612540
 RectTransform:
   m_ObjectHideFlags: 0
@@ -95301,7 +95301,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1588118407
 RectTransform:
   m_ObjectHideFlags: 0
@@ -113657,7 +113657,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1909418721
 RectTransform:
   m_ObjectHideFlags: 0
@@ -119654,7 +119654,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uD558\uC580\uC544\uCC98"
+  m_Text: "\uD558\uC580\uAD81\uC218"
 --- !u!222 &2018063434
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -119834,7 +119834,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2023034636
 RectTransform:
   m_ObjectHideFlags: 0
@@ -120630,7 +120630,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uAC80\uC815\uC544\uCC98"
+  m_Text: "\uAC80\uC815\uAD81\uC218"
 --- !u!222 &2033407378
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -127534,7 +127534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2135515226
 RectTransform:
   m_ObjectHideFlags: 0

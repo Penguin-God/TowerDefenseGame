@@ -101,13 +101,26 @@ public class EventManager : MonoBehaviour
         buffActionList.Add(Reinforce_UnitPassive);
     }
 
+    public void ChangeUnitDamage(TeamSoldier teamSoldier, float changeDamageWeigh) // 멀티에서 상대방 디버프도 고려
+    {
+        if (teamSoldier != null)
+            teamSoldier.damage += Mathf.FloorToInt(teamSoldier.originDamage * changeDamageWeigh);
+    }
+
+    public void ChangeUnitBossDamage(TeamSoldier teamSoldier, float changeDamageWeigh)
+    {
+        if (teamSoldier != null)
+            teamSoldier.bossDamage += Mathf.FloorToInt(teamSoldier.originBossDamage * changeDamageWeigh);
+    }
+
     // script 가져올 때 GetComponentInChildren 써야됨
     void Up_UnitDamage(GameObject[] unitArray)
     {
         for (int i = 0; i < unitArray.Length; i++)
         {
             TeamSoldier teamSoldier = unitArray[i].GetComponentInChildren<TeamSoldier>();
-            teamSoldier.damage += teamSoldier.originDamage * 1;
+            //teamSoldier.damage += teamSoldier.originDamage * 1;
+            ChangeUnitDamage(teamSoldier, 1);
         }
     }
 
@@ -116,7 +129,8 @@ public class EventManager : MonoBehaviour
         for (int i = 0; i < unitArray.Length; i++)
         {
             TeamSoldier teamSoldier = unitArray[i].GetComponentInChildren<TeamSoldier>();
-            teamSoldier.bossDamage += teamSoldier.originBossDamage * 2;
+            //teamSoldier.bossDamage += teamSoldier.originBossDamage * 2;
+            ChangeUnitBossDamage(teamSoldier, 2);
         }
     }
 

@@ -55,15 +55,20 @@ public class TeamSoldier : MonoBehaviour
         enemyDistance = 150f;
         nav.speed = this.speed;
 
+        delegate_OnHit += (Enemy enemy) => AttackEnemy(enemy);
+
         // 적 추적
         UpdateTarget();
         StartCoroutine("NavCoroutine");
     }
 
-    
+
+    public delegate void Delegate_OnHit(Enemy enemy);
+    public Delegate_OnHit delegate_OnHit;
 
     public virtual void SetPassive() 
     {
+        delegate_OnHit += (Enemy enemy) => Debug.Log(123);
         switch (unitColor)
         {
             case UnitColor.red:
@@ -146,7 +151,7 @@ public class TeamSoldier : MonoBehaviour
     public int specialAttackPercent;
     void UnitAttack()
     {
-        int random = Random.Range(0, 100);
+        int random = UnityEngine.Random.Range(0, 100);
         if(random < specialAttackPercent)
         {
             SpecialAttack();
@@ -431,11 +436,16 @@ public class TeamSoldier : MonoBehaviour
 
     public void AttackEnemy(Enemy enemy) // Boss enemy랑 쫄병 구분
     {
-        if (enemy.gameObject.CompareTag("Tower") || enemy.gameObject.CompareTag("Boss"))
+        if (isSkillAttack)
         {
-            enemy.OnDamage(bossDamage);
-            //Debug.Log("OnBossDamage" + bossDamage);
+            enemy.OnDamage(skillDamage);
+            return;
         }
-        else enemy.OnDamage(damage);
+
+        if (!enemy.gameObject.CompareTag("Tower") && !enemy.gameObject.CompareTag("Boss"))
+        {
+            enemy.OnDamage(damage);
+        }
+        else enemy.OnDamage(bossDamage);
     }
 }

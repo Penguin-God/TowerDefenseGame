@@ -32,8 +32,8 @@ public class ClientManager : MonoBehaviour
         StartGameCount = PlayerPrefs.GetInt("StartGameCount");
         if (StartGameCount == 0)
         {
-            PlayerPrefs.SetInt("Iron", 7000);
-            PlayerPrefs.SetInt("Wood", 7000);
+            PlayerPrefs.SetInt("Iron", 500);
+            PlayerPrefs.SetInt("Wood", 500);
             PlayerPrefs.SetInt("Hemmer", 30);
             PlayerPrefs.SetInt("StartGameCount", 1000);
             StartGameCount = PlayerPrefs.GetInt("StartGameCount");

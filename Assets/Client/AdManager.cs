@@ -13,6 +13,7 @@ public class AdManager : MonoBehaviour
     int StartGoldPrice;
     int StartFoodPrice;
     int PlusTouchDamegePrice;
+    int StartGold;
 
     public ClientManager clientManager;
 
@@ -21,6 +22,7 @@ public class AdManager : MonoBehaviour
         Wood = PlayerPrefs.GetInt("Wood");
         Iron = PlayerPrefs.GetInt("Iron");
         Hammer = PlayerPrefs.GetInt("Hammer");
+        StartGold = PlayerPrefs.GetInt("StartGold");
         StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
         StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
         PlusTouchDamegePrice = PlayerPrefs.GetInt("PlusTouchDamegePrice");
@@ -78,7 +80,7 @@ public class AdManager : MonoBehaviour
                 Debug.Log("광고를 스킵했습니다.");
                 break;
             case ShowResult.Finished:
-                GameManager.instance.Gold += 10;
+                GameManager.instance.Gold += StartGold;
                 UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
                 Debug.Log("광고 보기를 완료했습니다.");
                 ReWardButton.SetActive(false);

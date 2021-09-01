@@ -48,8 +48,9 @@ public class TeamSoldier : MonoBehaviour
         enemySpawn = FindObjectOfType<EnemySpawn>();
         nav = GetComponentInParent<NavMeshAgent>();
         // 변수 선언
-        if(!passiveReinForce) SetPassiveFigure();
-        SetPassive();
+
+        //if(!passiveReinForce) SetPassiveFigure();
+        //SetPassive();
 
         chaseRange = 150f;
         enemyDistance = 150f;
@@ -65,6 +66,8 @@ public class TeamSoldier : MonoBehaviour
 
     public delegate void Delegate_OnHit(Enemy enemy);
     public Delegate_OnHit delegate_OnHit;
+
+
 
     public virtual void SetPassive() 
     {
@@ -147,6 +150,8 @@ public class TeamSoldier : MonoBehaviour
                 break;
         }
     }
+
+
 
     public int specialAttackPercent;
     void UnitAttack()

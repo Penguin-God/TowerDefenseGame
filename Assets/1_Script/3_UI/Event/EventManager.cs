@@ -104,13 +104,13 @@ public class EventManager : MonoBehaviour
     public void ChangeUnitDamage(TeamSoldier teamSoldier, float changeDamageWeigh) // 멀티에서 상대방 디버프도 고려
     {
         if (teamSoldier != null)
-            teamSoldier.damage += Mathf.FloorToInt(teamSoldier.originDamage * changeDamageWeigh);
+            teamSoldier.damage += Mathf.FloorToInt(teamSoldier.originDamage * (changeDamageWeigh - 1));
     }
 
     public void ChangeUnitBossDamage(TeamSoldier teamSoldier, float changeDamageWeigh)
     {
         if (teamSoldier != null)
-            teamSoldier.bossDamage += Mathf.FloorToInt(teamSoldier.originBossDamage * changeDamageWeigh);
+            teamSoldier.bossDamage += Mathf.FloorToInt(teamSoldier.originBossDamage * (changeDamageWeigh - 1));
     }
 
     // script 가져올 때 GetComponentInChildren 써야됨

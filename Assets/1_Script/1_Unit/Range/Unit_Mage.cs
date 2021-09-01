@@ -22,9 +22,12 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         manaSlider.maxValue = maxMana;
         manaSlider.value = currentMana;
         StartCoroutine(Co_SetCanvas());
+
+        SetMagePassiveFigure();
+        SetMagePassive();
     }
 
-    public override void SetPassive()
+    public void SetMagePassive()
     {
         switch (unitColor)
         {
@@ -98,7 +101,7 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         }
     }
 
-    public override void SetPassiveFigure()
+    public void SetMagePassiveFigure()
     {
         redPassiveFigure = 15f;
         bluePassiveFigure = new Vector2(60, 25); // x는 슬로우 정도 y는 콜라이더 범위

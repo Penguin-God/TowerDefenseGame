@@ -50,8 +50,6 @@ public class MeeleUnit : TeamSoldier
         Enemy enemy = GetEnemyScript();
         if (enemy != null && (enemyDistance < attackRange * 1.5f || target.gameObject.CompareTag("Tower") || target.gameObject.CompareTag("Boss") ) )
         {
-            AttackEnemy(enemy);
-            Hit_Passive(enemy);
             if (delegate_OnHit != null) delegate_OnHit(enemy);
         }
     }

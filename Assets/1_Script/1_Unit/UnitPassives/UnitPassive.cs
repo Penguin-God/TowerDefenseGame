@@ -5,6 +5,7 @@ using UnityEngine;
 public class UnitPassive : MonoBehaviour
 {
     public TeamSoldier teamSoldier;
+    protected bool isPassiveReinforce = false; // 패시브가 강화되었으면 true
 
     private void Start()
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
+public class Unit_Mage : RangeUnit, IEvent
 {
     [Header("메이지 변수")]
     public GameObject magicLight;
@@ -396,13 +396,5 @@ public class Unit_Mage : RangeUnit, IEvent, IHitThrowWeapon
         greenPassiveFigure = 5.5f;
         orangePassiveFigure = 8.5f;
         violetPassiveFigure = new Vector3(90, 6, 120000);
-    }
-
-    public void HitThrowWeapon(Enemy enemy, AttackWeapon attackWeapon)
-    {
-        Hit_Passive(enemy);
-
-        if (attackWeapon.isSkill) enemy.OnDamage(skillDamage);
-        else AttackEnemy(enemy);
     }
 }

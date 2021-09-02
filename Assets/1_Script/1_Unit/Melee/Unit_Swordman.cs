@@ -13,16 +13,6 @@ public class Unit_Swordman : MeeleUnit, IEvent
         animator = GetComponent<Animator>();
     }
 
-    public override void SetPassiveFigure()
-    {
-        redPassiveFigure = 0.7f;
-        bluePassiveFigure = new Vector2(10, 2);
-        yellowPassiveFigure = Vector2.zero;
-        greenPassiveFigure = 1.2f;
-        orangePassiveFigure = 1.5f;
-        violetPassiveFigure = new Vector3(10, 2, 8);
-    }
-
     public override void NormalAttack()
     {
         StartCoroutine("SwordAttack");

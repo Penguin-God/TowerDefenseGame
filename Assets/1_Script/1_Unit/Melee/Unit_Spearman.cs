@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Unit_Spearman : MeeleUnit, IEvent, IHitThrowWeapon
+public class Unit_Spearman : MeeleUnit, IEvent
 {
     [Header("창병 변수")]
     public GameObject trail;
@@ -20,16 +20,6 @@ public class Unit_Spearman : MeeleUnit, IEvent, IHitThrowWeapon
         dontMoveGameObject = GameObject.Find("World");
         animator = GetComponent<Animator>();
         skillDamage = (int)(damage * 1.5f);
-    }
-
-    public override void SetPassiveFigure()
-    {
-        redPassiveFigure = 0.2f;
-        bluePassiveFigure = new Vector2(70 , 3);
-        yellowPassiveFigure = new Vector2(10 , 1);
-        greenPassiveFigure = 2f;
-        orangePassiveFigure = 3.5f;
-        violetPassiveFigure = new Vector3(50, 3, 3000);
     }
 
     public override void NormalAttack()
@@ -100,13 +90,5 @@ public class Unit_Spearman : MeeleUnit, IEvent, IHitThrowWeapon
         greenPassiveFigure = 3f;
         orangePassiveFigure = 5;
         violetPassiveFigure = new Vector3(70, 4, 6000);
-    }
-
-    public void HitThrowWeapon(Enemy enemy, AttackWeapon attackWeapon)
-    {
-        Hit_Passive(enemy);
-
-        if (attackWeapon.isSkill) enemy.OnDamage(skillDamage);
-        else AttackEnemy(enemy);
     }
 }

@@ -67,27 +67,6 @@ public class TeamSoldier : MonoBehaviour
     public delegate void Delegate_OnHit(Enemy enemy);
     public Delegate_OnHit delegate_OnHit;
 
-
-
-    public virtual void SetPassive() 
-    {
-        delegate_OnHit += (Enemy enemy) => Debug.Log(123);
-        switch (unitColor)
-        {
-            case UnitColor.red:
-                Passive_Red();
-                break;
-            case UnitColor.blue:
-                Passive_Blue = Hit_Passive_Blue;
-                break;
-            case UnitColor.green:
-                Passive_Green();
-                break;
-            case UnitColor.orange:
-                Passive_Orange();
-                break;
-        }
-    }
     [HideInInspector]
     public bool passiveReinForce;
     protected float redPassiveFigure = 0;
@@ -96,60 +75,6 @@ public class TeamSoldier : MonoBehaviour
     protected float greenPassiveFigure = 0;
     protected float orangePassiveFigure = 0;
     protected Vector3 violetPassiveFigure = Vector3.zero; // x는 확률 y는 스턴 시간 z는 독뎀
-    public virtual void SetPassiveFigure() {} // 패시브 관련 수치 조정
-
-    void Passive_Red()
-    {
-        attackDelayTime *= redPassiveFigure;
-    }
-
-    delegate void Del_Passive_Blue(Enemy enemy);
-    Del_Passive_Blue Passive_Blue = null;
-    void Hit_Passive_Blue(Enemy p_Enemy)
-    {
-        p_Enemy.EnemySlow(bluePassiveFigure.x, (int)bluePassiveFigure.y);
-    }
-
-    void Passive_Yellow(int percent, int addGold)
-    {
-        int random = Random.Range(0, 100);
-        if (random < percent)
-        {
-            SoundManager.instance.PlayEffectSound_ByName("GetPassiveAttackGold");
-            GameManager.instance.Gold += addGold;
-            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-        }
-    }
-
-    void Passive_Green()
-    {
-        damage += Mathf.FloorToInt( (greenPassiveFigure - 1) * originDamage );
-    }
-    void Passive_Orange()
-    {
-        bossDamage += Mathf.FloorToInt( (orangePassiveFigure - 1) * originBossDamage );
-    }
-    void Passive_Violet(Enemy p_Enemy)
-    {
-        p_Enemy.EnemyStern((int)violetPassiveFigure.x, violetPassiveFigure.y);
-        p_Enemy.EnemyPoisonAttack(20, 4, 0.5f, (int)violetPassiveFigure.z);
-    }
-
-    public void Hit_Passive(Enemy p_Enemy)
-    {
-        switch (unitColor)
-        {
-            case UnitColor.blue:
-                if(Passive_Blue != null) Passive_Blue(p_Enemy);
-                break;
-            case UnitColor.yellow:
-                Passive_Yellow((int)yellowPassiveFigure.x, (int)yellowPassiveFigure.y);
-                break;
-            case UnitColor.violet:
-                Passive_Violet(p_Enemy);
-                break;
-        }
-    }
 
 
 

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
+public class Unit_Archer : RangeUnit, IEvent
 {
     [Header("아처 변수")]
     public GameObject arrow;
@@ -14,16 +14,6 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
     {
         if(!enterStoryWorld) trail = GetComponentInChildren<TrailRenderer>().gameObject;
         skillDamage = (int)(damage * 1.2f);
-    }
-
-    public override void SetPassiveFigure()
-    {
-        redPassiveFigure = 0.4f;
-        bluePassiveFigure = new Vector2(40, 2);
-        yellowPassiveFigure = new Vector2(2, 1);
-        greenPassiveFigure = 1.5f;
-        orangePassiveFigure = 2f;
-        violetPassiveFigure = new Vector3(30, 2, 250);
     }
 
     public override void NormalAttack()
@@ -146,14 +136,5 @@ public class Unit_Archer : RangeUnit, IEvent, IHitThrowWeapon
         greenPassiveFigure = 2f;
         orangePassiveFigure = 3;
         violetPassiveFigure = new Vector3(50, 3, 500);
-    }
-
-    public void HitThrowWeapon(Enemy enemy, AttackWeapon attackWeapon)
-    {
-        Hit_Passive(enemy);
-
-        if (attackWeapon.isSkill) enemy.OnDamage(skillDamage);
-        else AttackEnemy(enemy);
-        Destroy(attackWeapon.gameObject);
     }
 }

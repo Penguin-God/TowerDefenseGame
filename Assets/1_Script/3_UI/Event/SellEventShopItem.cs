@@ -1,19 +1,19 @@
 ﻿using UnityEngine;
-
+using UnityEngine.UI;
 public enum GoodsType
 {
     Gold,
     Food,
 }
 
-public class GoodsData : MonoBehaviour
+public class SellEventShopItem : MonoBehaviour
 {
     public GoodsType goodsType;
     public int price;
     public string itemName;
     public string goodsInformation;
 
-    public bool BuyAble
+    public bool BuyAble // 골드 부족을 상점에서 뛰어서 조건 검사는 shop에서
     {
         get
         {
@@ -26,11 +26,30 @@ public class GoodsData : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        GetComponent<Button>().onClick.AddListener(() => SetByPanel());
+    }
+
+    void SetByPanel()
+    {
+        Set_BuyGuideText();
+        buyPanelObject.SetActive(true);
+        shop.onBuy = Sell_Item;
+    }
+    [SerializeField] Shop shop;
 
     public void Sell_Item()
     {
         SpendMoney(goodsType);
         GetComponent<ISellEventShopItem>().Sell_Item();
+    }
+
+    [SerializeField] GameObject buyPanelObject;
+    [SerializeField] Text guideText;
+    void Set_BuyGuideText()
+    {
+        guideText.text = goodsInformation + " 구입하시겠습니까?";
     }
 
     void SpendMoney(GoodsType goodsType)

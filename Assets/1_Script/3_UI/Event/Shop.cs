@@ -60,14 +60,34 @@ public class Shop : MonoBehaviour
     }
 
 
+    public delegate void OnBuy();
+    public OnBuy onBuy = null; // SellEventShopItem 에서 구독하는 이벤트
+    // 판매용 판넬을 하나로 만들고 관련 수치는 가격과 같은 공통 변수는 엑셀과 연동 
     public void BuyItem(GameObject item)
     {
-        GoodsData buyItem = item.GetComponent<GoodsData>();
-        if(buyItem != null && buyItem.BuyAble)
+        SellEventShopItem buyItem = item.GetComponent<SellEventShopItem>();
+        if (buyItem != null && buyItem.BuyAble)
         {
-            buyItem.Sell_Item();
+            if (onBuy != null) onBuy();
+            //buyItem.Sell_Item();
         }
         else LacksGold();
+    }
+
+    public void SetCurrentBuyPanel(GameObject buyPanel) // 판매창 겹치기 방지
+    {
+        if (currentBuyPanel != null && currentBuyPanel != buyPanel)
+        {
+            currentBuyPanel.SetActive(false);
+            currentBuyPanel = buyPanel;
+        }
+    }
+
+    void Set_GoddsBuy_GuideText(GameObject buyGoodsObject, GameObject buyPanelObject)
+    {
+        string goodsText = buyGoodsObject.GetComponent<SellEventShopItem>().goodsInformation;
+        Text gudieText = buyPanelObject.GetComponentInChildren<Text>();
+        gudieText.text = goodsText + " 구입하시겠습니까?";
     }
 
     void MinusGold(int price)
@@ -106,19 +126,8 @@ public class Shop : MonoBehaviour
         clickButton.onClick.RemoveAllListeners();
         return EventSystem.current.currentSelectedGameObject; // 현재 클릭한 오브젝트
     }
-    public void SetCurrentBuyPanel(GameObject buyPanel) // 판매창 겹치기 방지
-    {
-        if (currentBuyPanel == null || currentBuyPanel == buyPanel) return;
 
-        currentBuyPanel.SetActive(false);
-    }
 
-    void Set_GoddsBuy_GuideText(GameObject buyGoodsObject, GameObject buyPanelObject)
-    {
-        string goodsText = buyGoodsObject.GetComponent<GoodsData>().goodsInformation;
-        Text gudieText = buyPanelObject.GetComponentInChildren<Text>();
-        gudieText.text = goodsText + " 구입하시겠습니까?";
-    }
 
     void GoodsPurchase(GameObject goodsObject)
     {
@@ -142,17 +151,17 @@ public class Shop : MonoBehaviour
     }
     public void BuyFood(GameObject foodGoodsObject)
     {
-        GoodsData buyGoodsData = foodGoodsObject.GetComponent<GoodsData>();
-        if (GameManager.instance.Gold < buyGoodsData.price) 
+        SellEventShopItem buySellEventShopItem = foodGoodsObject.GetComponent<SellEventShopItem>();
+        if (GameManager.instance.Gold < buySellEventShopItem.price) 
         {
             CancleBuy();
             LacksGold();
             return;
         }
 
-        MinusGold(buyGoodsData.price);
+        MinusGold(buySellEventShopItem.price);
 
-        AddFood(buyGoodsData.buyFoodCount);
+        AddFood(buySellEventShopItem.buyFoodCount);
 
         GoodsPurchase(foodGoodsObject);
     }
@@ -170,17 +179,17 @@ public class Shop : MonoBehaviour
     }
     void BuyGold(GameObject goldGoodsObject)
     {
-        GoodsData buyGoodsData = goldGoodsObject.GetComponent<GoodsData>();
-        if (GameManager.instance.Food < buyGoodsData.price)
+        SellEventShopItem buySellEventShopItem = goldGoodsObject.GetComponent<SellEventShopItem>();
+        if (GameManager.instance.Food < buySellEventShopItem.price)
         {
             CancleBuy();
             LacksGold();
             return;
         }
 
-        MinusFood(buyGoodsData.price);
+        MinusFood(buySellEventShopItem.price);
 
-        AddGold(buyGoodsData.buyGoldAmount);
+        AddGold(buySellEventShopItem.buyGoldAmount);
 
         GoodsPurchase(goldGoodsObject);
     }
@@ -198,17 +207,17 @@ public class Shop : MonoBehaviour
     }
     void BuyUnit(GameObject unitGoodsObject)
     {
-        GoodsData buyGoodsData = unitGoodsObject.GetComponent<GoodsData>();
-        if (GameManager.instance.Gold < buyGoodsData.price) 
+        SellEventShopItem buySellEventShopItem = unitGoodsObject.GetComponent<SellEventShopItem>();
+        if (GameManager.instance.Gold < buySellEventShopItem.price) 
         {
             CancleBuy();
             LacksGold();
             return;
         }
 
-        MinusGold(buyGoodsData.price);
+        MinusGold(buySellEventShopItem.price);
 
-        createDefenser.CreateSoldier(buyGoodsData.unitColorNumber, buyGoodsData.unitClassNumber);
+        createDefenser.CreateSoldier(buySellEventShopItem.unitColorNumber, buySellEventShopItem.unitClassNumber);
 
         GoodsPurchase(unitGoodsObject);
     }
@@ -228,18 +237,18 @@ public class Shop : MonoBehaviour
 
     void BuyUnitReinforce(GameObject unitReinForce_GoodsObject)
     {
-        GoodsData buyGoodsData = unitReinForce_GoodsObject.GetComponent<GoodsData>();
-        if (GameManager.instance.Food < buyGoodsData.price) 
+        SellEventShopItem buySellEventShopItem = unitReinForce_GoodsObject.GetComponent<SellEventShopItem>();
+        if (GameManager.instance.Food < buySellEventShopItem.price) 
         {
             CancleBuy();
             LacksGold();
             return;
         }
         
-        MinusFood(buyGoodsData.price);
+        MinusFood(buySellEventShopItem.price);
 
-        int eventNumber = buyGoodsData.reinforceEventNumber;
-        int eventUnitNumber = buyGoodsData.eventUnitNumber;
+        int eventNumber = buySellEventShopItem.reinforceEventNumber;
+        int eventUnitNumber = buySellEventShopItem.eventUnitNumber;
         EventManager.instance.Action_SelectReinForceEvent(eventNumber, eventUnitNumber);
 
         GoodsPurchase(unitReinForce_GoodsObject);
@@ -260,16 +269,16 @@ public class Shop : MonoBehaviour
 
     void BuyEvent(GameObject eventGoodsObject)
     {
-        GoodsData buyGoodsData = eventGoodsObject.GetComponent<GoodsData>();
-        if (GameManager.instance.Gold < buyGoodsData.price)
+        SellEventShopItem buySellEventShopItem = eventGoodsObject.GetComponent<SellEventShopItem>();
+        if (GameManager.instance.Gold < buySellEventShopItem.price)
         {
             CancleBuy();
             LacksGold();
             return;
         }
-        MinusGold(buyGoodsData.price);
+        MinusGold(buySellEventShopItem.price);
 
-        EventManager.instance.eventArray[buyGoodsData.eventNumber]();
+        EventManager.instance.eventArray[buySellEventShopItem.eventNumber]();
 
         GoodsPurchase(eventGoodsObject);
     }
@@ -288,18 +297,18 @@ public class Shop : MonoBehaviour
 
     void BuyMageUltimate(GameObject mageUltimate_GoodsObject)
     {
-        GoodsData buyGoodsData = mageUltimate_GoodsObject.GetComponent<GoodsData>();
-        if (GameManager.instance.Food < buyGoodsData.price)
+        SellEventShopItem buySellEventShopItem = mageUltimate_GoodsObject.GetComponent<SellEventShopItem>();
+        if (GameManager.instance.Food < buySellEventShopItem.price)
         {
             CancleBuy();
             LacksGold();
             return;
         }
-        MinusFood(buyGoodsData.price);
+        MinusFood(buySellEventShopItem.price);
 
-        GameObject mage = UnitManager.instance.unitArrays[buyGoodsData.ultimateMageNumber].unitArray[3];
+        GameObject mage = UnitManager.instance.unitArrays[buySellEventShopItem.ultimateMageNumber].unitArray[3];
         mage.GetComponentInChildren<Unit_Mage>().isUltimate = true;
-        SetCurrentMageUltimate(buyGoodsData.ultimateMageNumber);
+        SetCurrentMageUltimate(buySellEventShopItem.ultimateMageNumber);
 
         GoodsPurchase(mageUltimate_GoodsObject);
     }

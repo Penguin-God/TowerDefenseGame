@@ -58,6 +58,18 @@ public class Shop : MonoBehaviour
         RectTransform rectTransform = GetComponent<RectTransform>();
         rectTransform.anchoredPosition = new Vector3(0, 0, 0);
     }
+
+
+    public void BuyItem(GameObject item)
+    {
+        GoodsData buyItem = item.GetComponent<GoodsData>();
+        if(buyItem != null && buyItem.BuyAble)
+        {
+            buyItem.Sell_Item();
+        }
+        else LacksGold();
+    }
+
     void MinusGold(int price)
     {
         GameManager.instance.Gold -= price;

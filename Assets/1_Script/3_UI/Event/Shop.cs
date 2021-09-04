@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class Shop : MonoBehaviour
 {
-    public Text guideText;
+    public Text shopGuideText;
 
     public GameObject leftGoldGoods;
     public GameObject centerGoldGoods;
@@ -21,8 +21,10 @@ public class Shop : MonoBehaviour
     private GameObject current_FoodGoldGoods = null;
     public CreateDefenser createDefenser;
 
-    private AudioSource shopAudioSource;
-    public AudioClip shopClickClip;
+    // 판매창 관련 변수
+    public GameObject buyPanel;
+    public Button buyButton;
+    public Text buyGuideText;
 
     private void Awake() 
     {
@@ -51,14 +53,15 @@ public class Shop : MonoBehaviour
         Set_BossShopWeigh();
         Set_TowerShopWeigh();
 
-        shopAudioSource = GetComponent<AudioSource>();
-
         // 인스턴스 안되고 실행되는 버그 때문에 게임 시작시 Awake 실행 후 원위치
         gameObject.SetActive(false);
         RectTransform rectTransform = GetComponent<RectTransform>();
         rectTransform.anchoredPosition = new Vector3(0, 0, 0);
     }
 
+
+    //[SerializeField] GameObject buyPanelObject;
+    //[SerializeField] Button buyButton;
 
     public delegate void OnBuy();
     public OnBuy onBuy = null; // SellEventShopItem 에서 구독하는 이벤트
@@ -68,12 +71,25 @@ public class Shop : MonoBehaviour
         SellEventShopItem buyItem = item.GetComponent<SellEventShopItem>();
         if (buyItem != null && buyItem.BuyAble)
         {
-            if (onBuy != null) onBuy();
-            //buyItem.Sell_Item();
+            buyItem.Sell_Item();
+            GoodsPurchase(item);
         }
         else LacksGold();
     }
 
+    void GoodsPurchase(GameObject goodsObject)
+    {
+        SoundManager.instance.PlayEffectSound_ByName("PurchaseItem");
+        Destroy(goodsObject, 0.1f);
+
+        Transform goodsStock = goodsObject.transform.parent;
+        // 조건에 1개인 이유는 0.1f 파괴 대기 중이라 아직 파괴가 안되서 1가 남아있음
+        if (goodsStock.childCount == 1) Destroy(goodsStock.gameObject); // 물품을 다 샀으면 등급 파괴
+        ExitShop();
+    }
+
+    /*
+    GameObject currentBuyPanel;
     public void SetCurrentBuyPanel(GameObject buyPanel) // 판매창 겹치기 방지
     {
         if (currentBuyPanel != null && currentBuyPanel != buyPanel)
@@ -83,6 +99,7 @@ public class Shop : MonoBehaviour
         }
     }
 
+    
     void Set_GoddsBuy_GuideText(GameObject buyGoodsObject, GameObject buyPanelObject)
     {
         string goodsText = buyGoodsObject.GetComponent<SellEventShopItem>().goodsInformation;
@@ -114,7 +131,7 @@ public class Shop : MonoBehaviour
         UIManager.instance.UpdateFoodText(GameManager.instance.Food);
     }
 
-    GameObject currentBuyPanel;
+    
     GameObject SetButton(Button clickButton, GameObject buyGoodsObject)
     {
         // 판매창 겹치기 방지
@@ -129,15 +146,7 @@ public class Shop : MonoBehaviour
 
 
 
-    void GoodsPurchase(GameObject goodsObject)
-    {
-        SoundManager.instance.PlayEffectSound_ByName("PurchaseItem");
-        Destroy(goodsObject, 0.1f);
 
-        Transform goodsStock = goodsObject.transform.parent;
-        if (goodsStock.childCount == 1) Destroy(goodsStock.gameObject); // 물품을 다 샀으면 등급 파괴
-        ExitShop();
-    }
 
     // 고기 판매
     public GameObject buyFoodObject;
@@ -357,6 +366,8 @@ public class Shop : MonoBehaviour
         }
     }
 
+    */
+
     public bool showShop;
     [SerializeField] Button[] dontClickButtons;
 
@@ -379,7 +390,7 @@ public class Shop : MonoBehaviour
 
     public void SetGuideText(string message)
     {
-        guideText.text = message;
+        shopGuideText.text = message;
     }
 
     public GameObject ShopEixtPanel;
@@ -406,11 +417,13 @@ public class Shop : MonoBehaviour
 
     public void CancleBuy()
     {
-        if (currentBuyPanel == null) return;
-
-        currentBuyPanel.SetActive(false);
-        currentBuyPanel.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
-        currentBuyPanel = null;
+        buyButton.onClick.RemoveAllListeners();
+        buyPanel.SetActive(false);
+        buyGuideText.text = "";
+        //if (currentBuyPanel == null) return;
+        //currentBuyPanel.SetActive(false);
+        //currentBuyPanel.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
+        //currentBuyPanel = null;
     }
 
     public Text lacksGuideText;
@@ -467,7 +480,7 @@ public class Shop : MonoBehaviour
     {
         Transform goodsRarity = null;
         int totalWeigh = 100;
-        int randomNumber = UnityEngine.Random.Range(0, totalWeigh);
+        int randomNumber = Random.Range(0, totalWeigh);
 
         for (int i = 0; i < goods.transform.childCount; i++) // 레벨 가중치에 따라 상품 등급 정함
         {
@@ -481,7 +494,7 @@ public class Shop : MonoBehaviour
         if (goodsRarity == null) goodsRarity = goods.transform.GetChild(0); // 등급파괴되서 null이면 첫번째 등급으로
 
         // 휘귀도 선택 후 상품 랜덤 선택
-        int goodsIndex = UnityEngine.Random.Range(0, goodsRarity.transform.childCount);
+        int goodsIndex = Random.Range(0, goodsRarity.transform.childCount);
         GameObject showGoods = goodsRarity.GetChild(goodsIndex).gameObject;
         showGoods.SetActive(true);
         return showGoods;
@@ -509,8 +522,8 @@ public class Shop : MonoBehaviour
 
 
 
-    //private void OnEnable() // 테스트용
-    //{
-    //    OnShop(1, bossShopWeighDictionary);
-    //}
+    private void OnEnable() // 테스트용
+    {
+        OnShop(4, bossShopWeighDictionary);
+    }
 }

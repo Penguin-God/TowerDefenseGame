@@ -59,12 +59,6 @@ public class Shop : MonoBehaviour
         rectTransform.anchoredPosition = new Vector3(0, 0, 0);
     }
 
-
-    //[SerializeField] GameObject buyPanelObject;
-    //[SerializeField] Button buyButton;
-
-    public delegate void OnBuy();
-    public OnBuy onBuy = null; // SellEventShopItem 에서 구독하는 이벤트
     // 판매용 판넬을 하나로 만들고 관련 수치는 가격과 같은 공통 변수는 엑셀과 연동 
     public void BuyItem(GameObject item)
     {
@@ -420,10 +414,6 @@ public class Shop : MonoBehaviour
         buyButton.onClick.RemoveAllListeners();
         buyPanel.SetActive(false);
         buyGuideText.text = "";
-        //if (currentBuyPanel == null) return;
-        //currentBuyPanel.SetActive(false);
-        //currentBuyPanel.GetComponentInChildren<Button>().onClick.RemoveAllListeners();
-        //currentBuyPanel = null;
     }
 
     public Text lacksGuideText;

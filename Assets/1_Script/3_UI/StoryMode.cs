@@ -1,9 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class StoryMode : MonoBehaviour
+public class StoryMode : MonoBehaviourPun
 {
-    [SerializeField]
+    /// <summary>
+    ///  Enter Story Mode에 if (!photonView.IsMine)
+        //{
+            //return;
+        //} 를 추가함
+/// </summary>
+[SerializeField]
     private GameObject unitStoryModeEnterButton;
     [SerializeField]
     private GameObject unitBackFiledButton;
@@ -31,6 +38,10 @@ public class StoryMode : MonoBehaviour
     public GameObject currentUnitWindow = null;
     public void EnterStoryMode()
     {
+        if (!photonView.IsMine)
+        {
+            return;
+        }
         EnterStoryModeAudio.Play();
         if (!GameManager.instance.playerEnterStoryMode) SetMapValue("필드로", new Vector3(500, 100, -62));
         else SetMapValue("적군의 성으로", new Vector3(0, 100, -62));

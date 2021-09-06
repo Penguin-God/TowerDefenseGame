@@ -8,11 +8,12 @@ public class CombineSoldier1 : MonoBehaviourPun
 {
     /// <summary>
     ///  번경 된 점 : if (!photonView.IsMine)
-        //{
-            //return;
-        //} 을 조합식에 전부 넣어줌.
-/// </summary>
-public int Colornumber;
+    //{
+    //return;
+    //} 을 조합식에 전부 넣어줌.
+    // Destroy 대신 PhotonNetwork.Destroy를 씀
+    /// </summary>
+    public int Colornumber;
     public int Soldiernumber;
     public CreateDefenser createdefenser;
     public SoldiersTags TagSoldier;
@@ -44,9 +45,9 @@ public int Colornumber;
         if (TagSoldier.RedSwordman.Length >= 3)
         {
 
-            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSwordman[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedSwordman[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedSwordman[2].transform.parent.gameObject);
 
 
             SoldierChoose(0, 0, 1, 1);
@@ -83,11 +84,11 @@ public int Colornumber;
         if (TagSoldier.RedSwordman.Length >= 2 && TagSoldier.RedArcher.Length >= 3)
         {
 
-            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.RedArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.RedArcher[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedSwordman[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedArcher[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedArcher[2].transform.parent.gameObject);
 
 
             SoldierChoose(0, 0, 2, 2);
@@ -124,11 +125,11 @@ public int Colornumber;
         TagSoldier.RedArcherTag();
         if (TagSoldier.RedSpearman.Length >= 3 && TagSoldier.RedArcher.Length >= 2)
         {
-            Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.RedArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSpearman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSpearman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSpearman[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedArcher[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedSpearman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedSpearman[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedSpearman[2].transform.parent.gameObject);
 
 
             SoldierChoose(0, 0, 3, 3);
@@ -165,9 +166,9 @@ public int Colornumber;
         if (TagSoldier.BlueSwordman.Length >= 3)
         {
 
-            Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueSwordman[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueSwordman[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueSwordman[2].transform.parent.gameObject);
 
 
             SoldierChoose(1, 1, 1, 1);
@@ -204,11 +205,11 @@ public int Colornumber;
         if (TagSoldier.BlueSwordman.Length >= 2 && TagSoldier.BlueArcher.Length >= 3)
         {
 
-            Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueArcher[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueSwordman[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueArcher[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueArcher[2].transform.parent.gameObject);
 
 
             SoldierChoose(1, 1, 2, 2);
@@ -245,11 +246,11 @@ public int Colornumber;
         TagSoldier.BlueArcherTag();
         if (TagSoldier.BlueSpearman.Length >= 3 && TagSoldier.BlueArcher.Length >= 2)
         {
-            Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueSpearman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueSpearman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueSpearman[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueArcher[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueSpearman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueSpearman[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueSpearman[2].transform.parent.gameObject);
 
 
             SoldierChoose(1, 1, 3, 3);
@@ -285,9 +286,9 @@ public int Colornumber;
         TagSoldier.YellowSwordmanTag();
         if (TagSoldier.YellowSwordman.Length >= 3)
         {
-            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSwordman[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[2].transform.parent.gameObject);
             GameManager.instance.Gold += 2;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
@@ -325,11 +326,11 @@ public int Colornumber;
         TagSoldier.YellowArcherTag();
         if (TagSoldier.YellowSwordman.Length >= 2 && TagSoldier.YellowArcher.Length >= 3)
         {
-            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowArcher[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowArcher[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowArcher[2].transform.parent.gameObject);
             GameManager.instance.Gold += 2;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
@@ -367,11 +368,11 @@ public int Colornumber;
         TagSoldier.YellowArcherTag();
         if (TagSoldier.YellowSpearman.Length >= 3 && TagSoldier.YellowArcher.Length >= 2)
         {
-            Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSpearman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSpearman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSpearman[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowArcher[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowSpearman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowSpearman[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowSpearman[2].transform.parent.gameObject);
 
 
             SoldierChoose(2, 2, 3, 3);
@@ -408,9 +409,9 @@ public int Colornumber;
         if (TagSoldier.GreenSwordman.Length >= 3)
         {
 
-            Destroy(TagSoldier.GreenSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.GreenSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.GreenSwordman[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.GreenSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.GreenSwordman[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.GreenSwordman[2].transform.parent.gameObject);
 
 
             SoldierChoose(3, 3, 1, 1);
@@ -447,11 +448,11 @@ public int Colornumber;
         TagSoldier.GreenArcherTag();
         if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.GreenArcher.Length >= 3)
         {
-            Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.GreenArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.GreenArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.GreenArcher[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.GreenArcher[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.GreenArcher[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.GreenArcher[2].transform.parent.gameObject);
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
@@ -491,11 +492,11 @@ public int Colornumber;
         if (TagSoldier.GreenSpearman.Length >= 3 && TagSoldier.BlueArcher.Length >= 1 && TagSoldier.YellowArcher.Length >= 1)
         {
 
-            Destroy(TagSoldier.GreenSpearman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.GreenSpearman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.GreenSpearman[2].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.GreenSpearman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.GreenSpearman[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.GreenSpearman[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
 
 
             SoldierChoose(3, 3, 3, 3);
@@ -533,9 +534,9 @@ public int Colornumber;
         if (TagSoldier.OrangeSwordman.Length >= 3)
         {
 
-            Destroy(TagSoldier.OrangeSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.OrangeSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.OrangeSwordman[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.OrangeSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.OrangeSwordman[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.OrangeSwordman[2].transform.parent.gameObject);
 
 
             SoldierChoose(4, 4, 1, 1);
@@ -572,11 +573,11 @@ public int Colornumber;
         TagSoldier.OrangeArcherTag();
         if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.OrangeArcher.Length >= 3)
         {
-            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.OrangeArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.OrangeArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.OrangeArcher[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.OrangeArcher[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.OrangeArcher[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.OrangeArcher[2].transform.parent.gameObject);
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
@@ -616,11 +617,11 @@ public int Colornumber;
         if (TagSoldier.OrangeSpearman.Length >= 3 && TagSoldier.RedArcher.Length >= 1 && TagSoldier.YellowArcher.Length >= 1)
         {
 
-            Destroy(TagSoldier.OrangeSpearman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.OrangeSpearman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.OrangeSpearman[2].transform.parent.gameObject);
-            Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.OrangeSpearman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.OrangeSpearman[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.OrangeSpearman[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
 
 
             SoldierChoose(4, 4, 3, 3);
@@ -657,9 +658,9 @@ public int Colornumber;
         if (TagSoldier.VioletSwordman.Length >= 3)
         {
 
-            Destroy(TagSoldier.VioletSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.VioletSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.VioletSwordman[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.VioletSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.VioletSwordman[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.VioletSwordman[2].transform.parent.gameObject);
 
 
             SoldierChoose(5, 5, 1, 1);
@@ -696,11 +697,11 @@ public int Colornumber;
         TagSoldier.VioletArcherTag();
         if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.RedSwordman.Length >= 1 && TagSoldier.VioletArcher.Length >= 3)
         {
-            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.VioletArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.VioletArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.VioletArcher[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.VioletArcher[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.VioletArcher[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.VioletArcher[2].transform.parent.gameObject);
 
 
             SoldierChoose(5, 5, 2, 2);
@@ -739,11 +740,11 @@ public int Colornumber;
         if (TagSoldier.VioletSpearman.Length >= 3 && TagSoldier.BlueArcher.Length >= 1 && TagSoldier.RedArcher.Length >= 1)
         {
 
-            Destroy(TagSoldier.VioletSpearman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.VioletSpearman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.VioletSpearman[2].transform.parent.gameObject);
-            Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.VioletSpearman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.VioletSpearman[1].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.VioletSpearman[2].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
 
 
             SoldierChoose(5, 5, 3, 3);
@@ -782,8 +783,8 @@ public int Colornumber;
         TagSoldier.BlueSwordmanTag();
         if (TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.BlueSwordman.Length >= 1)
         {
-            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
@@ -818,9 +819,9 @@ public int Colornumber;
         TagSoldier.YellowSwordmanTag();
         TagSoldier.RedSwordmanTag();
         if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1)
-        { 
-            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+        {
+            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
 
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
@@ -856,8 +857,8 @@ public int Colornumber;
         TagSoldier.RedSwordmanTag();
         if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.BlueSwordman.Length >= 1)
         {
-            Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
 
 
             SoldierChoose(5, 5, 0, 0);

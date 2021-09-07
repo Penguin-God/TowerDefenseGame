@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 public enum PriceType
 {
@@ -10,6 +9,18 @@ public enum PriceType
 
 public class SellEventShopItem : MonoBehaviour
 {
+    private void Awake()
+    {
+        EventShopItemDataBase dataBase = GetComponentInParent<EventShopItemDataBase>();
+        EventShopItemData data = dataBase.itemDatas.Find(itemData => itemData.name == itemName);
+        if(data != null)
+        {
+            price = data.price;
+            priceType = GetPriceType(data.type);
+            goodsInformation = data.info;
+        }
+    }
+
     public PriceType priceType;
     public int price;
     public string itemName;
@@ -29,6 +40,17 @@ public class SellEventShopItem : MonoBehaviour
         }
     }
 
+    PriceType GetPriceType(string type)
+    {
+        switch (type)
+        {
+            case "Gold": return PriceType.Gold;
+            case "Food": return PriceType.Food;
+        }
+
+        return PriceType.Gold;
+    }
+
     [SerializeField] Shop shop;
     private void Start()
     {
@@ -36,7 +58,6 @@ public class SellEventShopItem : MonoBehaviour
         buyPanelObject = shop.buyPanel;
         buyButton = shop.buyButton;
         guideText = shop.buyGuideText;
-        itemName = gameObject.name;
 
         GetComponent<Button>().onClick.AddListener(() => SetByPanel()); // 자기 자신 클릭 시
     }
@@ -89,20 +110,4 @@ public class SellEventShopItem : MonoBehaviour
         GameManager.instance.Food -= price;
         UIManager.instance.UpdateFoodText(GameManager.instance.Food);
     }
-
-
-    /* public int unitColorNumber;
-    public int unitClassNumber;
-
-    public int buyFoodCount;
-
-    public int buyGoldAmount;
-
-    [Tooltip("0 : 대미지 증가, 1 : 보스 대미지 증가, 2 : 스킬 사용 빈도 증가, 3 : 패시브 강화")]
-    public int reinforceEventNumber;
-    public int eventUnitNumber;
-
-    public int eventNumber;
-
-    public int ultimateMageNumber; */
 }

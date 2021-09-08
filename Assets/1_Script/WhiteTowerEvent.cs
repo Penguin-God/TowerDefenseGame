@@ -17,6 +17,11 @@ public class WhiteTowerEvent : MonoBehaviour
 
     public void ClickWhiteSwordmanButton()
     {
+        if (UnitManager.instance.UnitOver)
+        {
+
+            return;
+        }
         if (GameManager.instance.Food >= 1)
         {
             createDefenser.CreateSoldier(7, 0);
@@ -31,6 +36,11 @@ public class WhiteTowerEvent : MonoBehaviour
 
     public void ClickWhiteArcherButton()
     {
+        if(UnitManager.instance.UnitOver)
+        {
+
+            return;
+        }
         if (GameManager.instance.Food >= 2)
         {
             createDefenser.CreateSoldier(7, 1);
@@ -45,6 +55,11 @@ public class WhiteTowerEvent : MonoBehaviour
 
     public void ClickWhiteSpearmanButton()
     {
+        if(UnitManager.instance.UnitOver)
+        {
+
+            return;
+        }
         if (GameManager.instance.Food >= 7)
         {
             createDefenser.CreateSoldier(7, 2);
@@ -59,6 +74,11 @@ public class WhiteTowerEvent : MonoBehaviour
 
     public void ClickWhiteMageButton()
     {
+        if(UnitManager.instance.UnitOver)
+        {
+
+            return;
+        }
         if (GameManager.instance.Food >= 20)
         {
             createDefenser.CreateSoldier(7, 3);

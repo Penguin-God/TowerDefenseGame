@@ -11,7 +11,22 @@ public class UnitArray
 public class UnitManager : MonoBehaviour
 {
     public static UnitManager instance;
+    public int maxUnit;
     public UnitArray[] unitArrays; // red, blue, yellow, green, orange, violet 순 6개 배열
+    
+    public bool UnitOver
+    {
+        get
+        {
+            if(currentUnitList.Count >= maxUnit)
+            {
+                UnitOverGuide();
+                return true;
+            }
+
+            return false;
+        }
+    }
 
     private void Awake()
     {
@@ -29,6 +44,21 @@ public class UnitManager : MonoBehaviour
     }
 
     public List<GameObject> currentUnitList;
+
+    
+    [SerializeField] GameObject unitOverGuideTextObject = null;
+    public void UnitOverGuide()
+    {
+        SoundManager.instance.PlayEffectSound_ByName("LackPurchaseGold");
+        unitOverGuideTextObject.SetActive(true);
+        StartCoroutine(HideUnitOverGuide());
+    }
+
+    IEnumerator HideUnitOverGuide()
+    {
+        yield return new WaitForSeconds(1.5f);
+        unitOverGuideTextObject.SetActive(false);
+    }
 
     IEnumerator UnitListCheck_Coroutine() // 유닛 리스트 무한반복문
     {

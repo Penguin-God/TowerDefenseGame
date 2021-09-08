@@ -26,7 +26,11 @@ public class CreateDefenser : MonoBehaviour
 
     public void CreateSoldier(int Colornumber, int Soldiernumber)
     {
+        if(UnitManager.instance.UnitOver)
+        {
 
+            return;
+        }
         // Soldier = transform.GetChild(randomnumber).gameObject;
         Soldier = Instantiate(transform.GetChild(Colornumber).gameObject.transform.GetChild(Soldiernumber).gameObject, transform.position, transform.rotation);
         //GameManager.instance.Soldiers.Add(Soldier);
@@ -36,7 +40,7 @@ public class CreateDefenser : MonoBehaviour
 
     }
 
-    public void CreateSoldier(int Colornumber, int Soldiernumber, Transform creatPosition) // 박준이 만든 하얀유닛 소환용 함수
+    public void CreateWhiteUnit(int Colornumber, int Soldiernumber, Transform creatPosition)
     {
         Transform unitTransform = transform.GetChild(Colornumber).gameObject.transform.GetChild(Soldiernumber);
 

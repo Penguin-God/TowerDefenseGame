@@ -20,7 +20,7 @@ public class WhiteUnitEvent : MonoBehaviour
     public void UnitTransform()
     {
         SoundManager.instance.PlayEffectSound_ByName("TransformWhiteUnit");
-        createDefenser.CreateSoldier(Colornumber, unitNumber, transform);
+        createDefenser.CreateWhiteUnit(Colornumber, unitNumber, transform);
         Destroy(gameObject);
     }
 }

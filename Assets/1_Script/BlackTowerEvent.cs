@@ -54,6 +54,11 @@ public class BlackTowerEvent : MonoBehaviour
 
     public void ClickBlackSwordmanButton()
     {
+        if (UnitManager.instance.UnitOver)
+        {
+
+            return;
+        }
         if (GameManager.instance.Gold >= 5)
         {
             Randomnumber = Random.Range(0, 2); // 50%
@@ -82,6 +87,11 @@ public class BlackTowerEvent : MonoBehaviour
 
     public void ClickBlackArcherButton()
     {
+        if(UnitManager.instance.UnitOver)
+        {
+
+            return;
+        }
         if (GameManager.instance.Gold >= 10)
         {
             Randomnumber = Random.Range(0, 3); // 25%
@@ -110,6 +120,11 @@ public class BlackTowerEvent : MonoBehaviour
 
     public void ClickBlackSpearmanButton()
     {
+        if(UnitManager.instance.UnitOver)
+        {
+
+            return;
+        }
         if(GameManager.instance.Gold >= 15)
         {
             Randomnumber = Random.Range(0, 9); // 10%
@@ -138,6 +153,11 @@ public class BlackTowerEvent : MonoBehaviour
 
     public void ClickBlackMageButton()
     {
+        if(UnitManager.instance.UnitOver)
+        {
+
+            return;
+        }
         if(GameManager.instance.Gold >= 30)
         {
             Randomnumber = Random.Range(0, 25); // 4%

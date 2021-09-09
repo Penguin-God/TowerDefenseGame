@@ -11,9 +11,14 @@ public class UnitArray
 public class UnitManager : MonoBehaviour
 {
     public static UnitManager instance;
-    public int maxUnit;
-    public UnitArray[] unitArrays; // red, blue, yellow, green, orange, violet 순 6개 배열
+    [SerializeField] int maxUnit = 0;
+    public UnitArray[] unitArrays = null; // red, blue, yellow, green, orange, violet 순 6개 배열
     
+    public void ExpendMaxUnit(int addUnitCount)
+    {
+        maxUnit += addUnitCount;
+    }
+
     public bool UnitOver
     {
         get

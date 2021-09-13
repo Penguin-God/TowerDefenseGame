@@ -22,11 +22,21 @@ public class TeamSoldier : MonoBehaviour
     public int damage;
     public int bossDamage;
     public int skillDamage;
-
     public float stopDistanc;
+
+    // 상태 변수
     public bool isAttack; // 공격 중에 true
     public bool isAttackDelayTime; // 공격 쿨타임 중에 true
     public bool isSkillAttack; // 스킬 공격 중에 true
+    protected bool IsNormalEnemy
+    {
+        get
+        {
+            if (target != null && !target.gameObject.CompareTag("Tower") && !target.gameObject.CompareTag("Boss")) 
+                return true;
+            else return false;
+        }
+    }
 
     protected NavMeshAgent nav;
     public Transform target;
@@ -81,7 +91,7 @@ public class TeamSoldier : MonoBehaviour
     public int specialAttackPercent;
     void UnitAttack()
     {
-        int random = UnityEngine.Random.Range(0, 100);
+        int random = Random.Range(0, 100);
         if(random < specialAttackPercent)
         {
             SpecialAttack();

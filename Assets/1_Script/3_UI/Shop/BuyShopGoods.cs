@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BuyShopGoods : MonoBehaviour
 {
@@ -80,5 +81,17 @@ public class BuyShopGoods : MonoBehaviour
     {
         GameManager.instance.Food -= price;
         UIManager.instance.UpdateFoodText(GameManager.instance.Food);
+    }
+
+
+    private void OnMouseDown()
+    {
+        ShowShopWindow();
+    }
+
+    [SerializeField] GameObject obj_ShopWindow;
+    void ShowShopWindow()
+    {
+        obj_ShopWindow.SetActive(true);
     }
 }

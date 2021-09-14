@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour
     public Text GoldText;
     public Text FoodText;
     public Text EnemyCount;
+    public Text CurrnetUnitText;
     public Text GameOverText;
     public Text RestartText;
     public Text ClearText;
@@ -89,6 +90,12 @@ public class UIManager : MonoBehaviour
     public void UpdateCombineSuccessText(string Moonja)
     {
         CombineSuccessText.text = Moonja;
+    }
+
+    public void UpdateCurrentUnitText(int currentUnit, int maxUnit)
+    {
+        string text = currentUnit + "/" + maxUnit;
+        CurrnetUnitText.text = text;
     }
 
     public void SetActiveButton(bool show, int SoldiersColornumber, int Soldiersnumber)

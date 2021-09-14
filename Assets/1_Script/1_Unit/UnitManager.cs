@@ -65,6 +65,7 @@ public class UnitManager : MonoBehaviour
         unitOverGuideTextObject.SetActive(false);
     }
 
+    readonly WaitForSeconds ws = new WaitForSeconds(0.1f);
     IEnumerator UnitListCheck_Coroutine() // 유닛 리스트 무한반복문
     {
         while (true)
@@ -73,7 +74,9 @@ public class UnitManager : MonoBehaviour
             {
                 if (currentUnitList[i] == null) currentUnitList.RemoveAt(i);
             }
-            yield return new WaitForSeconds(0.1f);
+            // 유닛 카운트 갱신할 때 Text도 같이 갱신
+            UIManager.instance.UpdateCurrentUnitText(currentUnitList.Count, maxUnit);
+            yield return ws;
         }
     }
 

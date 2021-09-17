@@ -47,7 +47,7 @@ public class MeeleUnit : TeamSoldier
     protected void HitMeeleAttack() // 근접공격 타겟팅
     {
         Enemy enemy = GetEnemyScript();
-        if (enemy != null && (enemyDistance < attackRange * 1.5f || !IsNormalEnemy ) )
+        if (enemy != null && (enemyDistance < attackRange * 1.5f || !CheckEnemyIsNormal(enemy.gameObject) ) )
         {
             if (delegate_OnHit != null) delegate_OnHit(enemy);
         }

@@ -28,15 +28,6 @@ public class TeamSoldier : MonoBehaviour
     public bool isAttack; // 공격 중에 true
     public bool isAttackDelayTime; // 공격 쿨타임 중에 true
     public bool isSkillAttack; // 스킬 공격 중에 true
-    protected bool IsNormalEnemy
-    {
-        get
-        {
-            if (target != null && !target.gameObject.CompareTag("Tower") && !target.gameObject.CompareTag("Boss")) 
-                return true;
-            else return false;
-        }
-    }
 
     protected NavMeshAgent nav;
     public Transform target;
@@ -59,9 +50,6 @@ public class TeamSoldier : MonoBehaviour
         nav = GetComponentInParent<NavMeshAgent>();
         // 변수 선언
 
-        //if(!passiveReinForce) SetPassiveFigure();
-        //SetPassive();
-
         chaseRange = 150f;
         enemyDistance = 150f;
         nav.speed = this.speed;
@@ -73,10 +61,6 @@ public class TeamSoldier : MonoBehaviour
         StartCoroutine("NavCoroutine");
     }
 
-
-    public delegate void Delegate_OnHit(Enemy enemy);
-    public Delegate_OnHit delegate_OnHit;
-
     [HideInInspector]
     public bool passiveReinForce;
     protected float redPassiveFigure = 0;
@@ -86,7 +70,8 @@ public class TeamSoldier : MonoBehaviour
     protected float orangePassiveFigure = 0;
     protected Vector3 violetPassiveFigure = Vector3.zero; // x는 확률 y는 스턴 시간 z는 독뎀
 
-
+    public delegate void Delegate_OnHit(Enemy enemy);
+    public Delegate_OnHit delegate_OnHit;
 
     public int specialAttackPercent;
     void UnitAttack()
@@ -125,7 +110,7 @@ public class TeamSoldier : MonoBehaviour
     {
         // override 코루틴 마지막 부분에서 실행하는 코드
         StartCoroutine(Co_ResetAttactStatus());
-        if (target != null && !target.gameObject.CompareTag("Tower") && !enemySpawn.bossRespawn)
+        if (target != null && CheckEnemyIsNormal(target.gameObject))
         {
             UpdateTarget();
         }
@@ -168,18 +153,19 @@ public class TeamSoldier : MonoBehaviour
             rayHitTransform = rayHitObject.transform;
             if (rayHitTransform == null) return false;
 
-            if (rayHitTransform.gameObject.CompareTag("Tower") || rayHitTransform.gameObject.CompareTag("Boss") 
-                || rayHitTransform == target.parent) return true;
-            else if(ReturnLayerMask(rayHitTransform.GetChild(0).gameObject) == layerMask) // 나중에 리펙토링 해야함
+            if ( !CheckEnemyIsNormal(rayHitTransform.gameObject) || rayHitTransform == target.parent) return true;
+            else if(ReturnLayerMask(rayHitTransform.GetChild(0).gameObject) == layerMask)
             {
-                if (GetComponent<RangeUnit>() == null) return false;
-                // ray에 맞은 적이 target은 아니지만 target과 같은 layer라면 두 enemy가 겹친 것으로 판단해 target을 바꾸고 true를 리턴
-                target = rayHitTransform.GetChild(0);
-                return true;
+                if (GetComponent<RangeUnit>() != null)
+                {
+                    // ray에 맞은 적이 target은 아니지만 target과 같은 layer라면 두 enemy가 겹친 것으로 판단해 target을 바꾸고 true를 리턴
+                    target = rayHitTransform.GetChild(0);
+                    return true;
+                }
             }
-            else return false;
         }
-        else return false;
+
+        return false;
     }
 
     int ReturnLayerMask(GameObject targetObject) // 인자의 layer를 반환하는 함수
@@ -374,18 +360,21 @@ public class TeamSoldier : MonoBehaviour
         return enemy;
     }
 
+    protected bool CheckEnemyIsNormal(GameObject enemyObject)
+    {
+        if (enemyObject != null && !enemyObject.CompareTag("Tower") && !enemyObject.CompareTag("Boss")) return true;
+        else return false;
+    }
+
     public void AttackEnemy(Enemy enemy) // Boss enemy랑 쫄병 구분
     {
-        if (isSkillAttack)
+        if (isSkillAttack) // 스킬이면 skillDamage입히고 리턴
         {
             enemy.OnDamage(skillDamage);
             return;
         }
 
-        if (!enemy.gameObject.CompareTag("Tower") && !enemy.gameObject.CompareTag("Boss"))
-        {
-            enemy.OnDamage(damage);
-        }
+        if (CheckEnemyIsNormal(enemy.gameObject)) enemy.OnDamage(damage);
         else enemy.OnDamage(bossDamage);
     }
 }

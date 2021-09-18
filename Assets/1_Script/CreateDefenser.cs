@@ -26,11 +26,6 @@ public class CreateDefenser : MonoBehaviour
 
     public void CreateSoldier(int Colornumber, int Soldiernumber)
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         // Soldier = transform.GetChild(randomnumber).gameObject;
         Soldier = Instantiate(transform.GetChild(Colornumber).gameObject.transform.GetChild(Soldiernumber).gameObject, transform.position, transform.rotation);
         //GameManager.instance.Soldiers.Add(Soldier);

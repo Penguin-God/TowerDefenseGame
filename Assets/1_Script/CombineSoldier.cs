@@ -28,11 +28,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineRedArcher()
     {
-        if (UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.RedSwordmanTag();
         if (TagSoldier.RedSwordman.Length >= 3)
         {
@@ -67,11 +62,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineRedSpearman()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.RedSwordmanTag();
         TagSoldier.RedArcherTag();
         if (TagSoldier.RedSwordman.Length >= 2 && TagSoldier.RedArcher.Length >= 3)
@@ -110,11 +100,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineRedMage()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.RedSpearmanTag();
         TagSoldier.RedArcherTag();
         if (TagSoldier.RedSpearman.Length >= 3 && TagSoldier.RedArcher.Length >= 2)
@@ -152,11 +137,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineBlueArcher()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.BlueSwordmanTag();
         if (TagSoldier.BlueSwordman.Length >= 3)
         {
@@ -191,11 +171,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineBlueSpearman()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.BlueSwordmanTag();
         TagSoldier.BlueArcherTag();
         if (TagSoldier.BlueSwordman.Length >= 2 && TagSoldier.BlueArcher.Length >= 3)
@@ -234,11 +209,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineBlueMage()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.BlueSpearmanTag();
         TagSoldier.BlueArcherTag();
         if (TagSoldier.BlueSpearman.Length >= 3 && TagSoldier.BlueArcher.Length >= 2)
@@ -276,11 +246,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineYellowArcher()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.YellowSwordmanTag();
         if (TagSoldier.YellowSwordman.Length >= 3)
         {
@@ -316,11 +281,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineYellowSpearman()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.YellowSwordmanTag();
         TagSoldier.YellowArcherTag();
         if (TagSoldier.YellowSwordman.Length >= 2 && TagSoldier.YellowArcher.Length >= 3)
@@ -359,11 +319,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineYellowMage()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.YellowSpearmanTag();
         TagSoldier.YellowArcherTag();
         if (TagSoldier.YellowSpearman.Length >= 3 && TagSoldier.YellowArcher.Length >= 2)
@@ -401,11 +356,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineGreenArcher()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.GreenSwordmanTag();
         if (TagSoldier.GreenSwordman.Length >= 3)
         {
@@ -440,11 +390,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineGreenSpearman()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.BlueSwordmanTag();
         TagSoldier.YellowSwordmanTag();
         TagSoldier.GreenArcherTag();
@@ -484,11 +429,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineGreenMage()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.GreenSpearmanTag();
         TagSoldier.BlueArcherTag();
         TagSoldier.YellowArcherTag();
@@ -529,11 +469,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineOrangeArcher()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.OrangeSwordmanTag();
         if (TagSoldier.OrangeSwordman.Length >= 3)
         {
@@ -568,11 +503,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineOrangeSpearman()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.RedSwordmanTag();
         TagSoldier.YellowSwordmanTag();
         TagSoldier.OrangeArcherTag();
@@ -612,11 +542,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineOrangeMage()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.OrangeSpearmanTag();
         TagSoldier.RedArcherTag();
         TagSoldier.YellowArcherTag();
@@ -656,11 +581,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineVioletArcher()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.VioletSwordmanTag();
         if (TagSoldier.VioletSwordman.Length >= 3)
         {
@@ -695,11 +615,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineVioletSpearman()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.BlueSwordmanTag();
         TagSoldier.RedSwordmanTag();
         TagSoldier.VioletArcherTag();
@@ -738,11 +653,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineVioletMage()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.VioletSpearmanTag();
         TagSoldier.BlueArcherTag();
         TagSoldier.RedArcherTag();
@@ -784,11 +694,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineGreenSwordman()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.YellowSwordmanTag();
         TagSoldier.BlueSwordmanTag();
         if (TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.BlueSwordman.Length >= 1)
@@ -822,11 +727,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineOrangeSwordman()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.YellowSwordmanTag();
         TagSoldier.RedSwordmanTag();
         if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1)
@@ -860,11 +760,6 @@ public class CombineSoldier : MonoBehaviour
 
     public void CombineVioletSwordman()
     {
-        if(UnitManager.instance.UnitOver)
-        {
-
-            return;
-        }
         TagSoldier.BlueSwordmanTag();
         TagSoldier.RedSwordmanTag();
         if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.BlueSwordman.Length >= 1)

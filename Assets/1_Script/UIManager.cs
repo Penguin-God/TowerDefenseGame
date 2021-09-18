@@ -94,7 +94,7 @@ public class UIManager : MonoBehaviour
 
     public void UpdateCurrentUnitText(int currentUnit, int maxUnit)
     {
-        string text = currentUnit + "/" + maxUnit;
+        string text = "최대 유닛 갯수 " + currentUnit + "/" + maxUnit;
         CurrnetUnitText.text = text;
     }
 

@@ -57,7 +57,7 @@ public class BuyShopGoods : MonoBehaviour
         }
     }
 
-    void SpendMoney(PriceType priceType)
+    public void SpendMoney(PriceType priceType)
     {
         if (!BuyAble)
         {
@@ -68,6 +68,20 @@ public class BuyShopGoods : MonoBehaviour
         {
             case PriceType.Gold: SubTractGold(); break;
             case PriceType.Food: SubTractFood(); break;
+        }
+    }
+
+    public void SpendMoney(string priceType)
+    {
+        if (!BuyAble)
+        {
+            Debug.Log("못사요 못사");
+            return;
+        }
+        switch (priceType)
+        {
+            case "Gold":SubTractGold(); break;
+            case "Food": SubTractFood(); break;
         }
     }
 

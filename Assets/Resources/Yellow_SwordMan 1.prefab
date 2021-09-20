@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1174998770987061906
+--- !u!1 &203131281495688949
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,199 +8,41 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1174998770987061909}
-  - component: {fileID: 1174998770987061911}
-  - component: {fileID: 1174998770987061908}
+  - component: {fileID: 203131281495688951}
+  - component: {fileID: 203131281495688950}
+  - component: {fileID: 1342008897723178093}
+  - component: {fileID: 1342008897440582371}
+  - component: {fileID: 1342008896553569459}
   m_Layer: 9
-  m_Name: TB_Soldier_Swordman_Hand
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1174998770987061909
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998770987061906}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.8910141, y: 1.4107137, z: -0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1174998771961623140}
-  m_Father: {fileID: 1174998771943246870}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!33 &1174998770987061911
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998770987061906}
-  m_Mesh: {fileID: 4300006, guid: 24abc5cc9ec100d4e9468a7da08d77b8, type: 3}
---- !u!23 &1174998770987061908
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998770987061906}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: ed9f29ddef3dac64dbba787a64fa05ba, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!1 &1174998771094441609
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1174998771094441608}
-  - component: {fileID: 1174998771094441610}
-  - component: {fileID: 1174998771094441611}
-  m_Layer: 9
-  m_Name: TB_Soldier_Swordman_Leg_R
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1174998771094441608
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771094441609}
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.40244293, y: 0.57537985, z: 0.0000018144542}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1174998771943246870}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1174998771094441610
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771094441609}
-  m_Mesh: {fileID: 4300004, guid: 24abc5cc9ec100d4e9468a7da08d77b8, type: 3}
---- !u!23 &1174998771094441611
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771094441609}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: ed9f29ddef3dac64dbba787a64fa05ba, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
---- !u!1 &1174998771481908396
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1174998771481908398}
-  - component: {fileID: 1174998771481908399}
-  - component: {fileID: 936709684}
-  - component: {fileID: 616372410}
-  m_Layer: 9
-  m_Name: Yellow_SwordMan
+  m_Name: Yellow_SwordMan 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &1174998771481908398
+--- !u!4 &203131281495688951
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771481908396}
+  m_GameObject: {fileID: 203131281495688949}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
-  - {fileID: 1174998771943246870}
-  - {fileID: 1141141974742425970}
+  - {fileID: 203131281839726159}
+  - {fileID: 2110467967340671787}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!195 &1174998771481908399
+--- !u!195 &203131281495688950
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771481908396}
+  m_GameObject: {fileID: 203131281495688949}
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
@@ -216,13 +58,13 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!54 &936709684
+--- !u!54 &1342008897723178093
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771481908396}
+  m_GameObject: {fileID: 203131281495688949}
   serializedVersion: 2
   m_Mass: 1
   m_Drag: 0
@@ -232,13 +74,13 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!82 &616372410
+--- !u!82 &1342008897440582371
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771481908396}
+  m_GameObject: {fileID: 203131281495688949}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
@@ -328,7 +170,29 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!1 &1174998771492169376
+--- !u!114 &1342008896553569459
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203131281495688949}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!1 &203131281552094457
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -336,9 +200,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1174998771492169379}
-  - component: {fileID: 1174998771492169381}
-  - component: {fileID: 1174998771492169378}
+  - component: {fileID: 203131281552094458}
+  - component: {fileID: 203131281552094460}
+  - component: {fileID: 203131281552094459}
   m_Layer: 9
   m_Name: TB_Soldier_Swordman_Leg_L
   m_TagString: Untagged
@@ -346,35 +210,35 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1174998771492169379
+--- !u!4 &203131281552094458
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771492169376}
+  m_GameObject: {fileID: 203131281552094457}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.40244293, y: 0.5753799, z: 0.0000019108365}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1174998771943246870}
+  m_Father: {fileID: 203131281839726159}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &1174998771492169381
+--- !u!33 &203131281552094460
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771492169376}
+  m_GameObject: {fileID: 203131281552094457}
   m_Mesh: {fileID: 4300002, guid: 24abc5cc9ec100d4e9468a7da08d77b8, type: 3}
---- !u!23 &1174998771492169378
+--- !u!23 &203131281552094459
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771492169376}
+  m_GameObject: {fileID: 203131281552094457}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -407,7 +271,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!1 &1174998771943246866
+--- !u!1 &203131281839726155
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -415,12 +279,13 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1174998771943246870}
-  - component: {fileID: 1174998771943246871}
-  - component: {fileID: 1174998771943246868}
-  - component: {fileID: 3648794870320716357}
-  - component: {fileID: 4558846040116425984}
-  - component: {fileID: 1174998771943246865}
+  - component: {fileID: 203131281839726159}
+  - component: {fileID: 203131281839726158}
+  - component: {fileID: 203131281839726157}
+  - component: {fileID: 2322971619881568284}
+  - component: {fileID: 3304379520243787609}
+  - component: {fileID: 203131281839726152}
+  - component: {fileID: 1342008897656023135}
   m_Layer: 9
   m_Name: TB_Soldier_Swordman_Yellow
   m_TagString: YellowSwordman
@@ -428,38 +293,38 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1174998771943246870
+--- !u!4 &203131281839726159
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771943246866}
+  m_GameObject: {fileID: 203131281839726155}
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1174998770987061909}
-  - {fileID: 1174998771492169379}
-  - {fileID: 1174998771094441608}
-  m_Father: {fileID: 1174998771481908398}
+  - {fileID: 203131283064570060}
+  - {fileID: 203131281552094458}
+  - {fileID: 203131283293592785}
+  m_Father: {fileID: 203131281495688951}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
---- !u!33 &1174998771943246871
+--- !u!33 &203131281839726158
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771943246866}
+  m_GameObject: {fileID: 203131281839726155}
   m_Mesh: {fileID: 4300000, guid: 24abc5cc9ec100d4e9468a7da08d77b8, type: 3}
---- !u!23 &1174998771943246868
+--- !u!23 &203131281839726157
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771943246866}
+  m_GameObject: {fileID: 203131281839726155}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -492,13 +357,13 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &3648794870320716357
+--- !u!114 &2322971619881568284
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771943246866}
+  m_GameObject: {fileID: 203131281839726155}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab90d213f6373964b87dc3f64890b28a, type: 3}
@@ -514,13 +379,16 @@ MonoBehaviour:
   attackRange: 6
   damage: 25
   bossDamage: 25
+  skillDamage: 0
   stopDistanc: 3
   isAttack: 0
   isAttackDelayTime: 0
+  isSkillAttack: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 819330f33b9ea014f990dd335112905e, type: 3}
   normalAttakc_AudioDelay: 0.7
-  tpAudioClip: {fileID: 8300000, guid: a27ce694edf98ef48bc63dd09fc57312, type: 3}
+  reinforceEffect: {fileID: 2107974147082617403}
+  passiveReinForce: 0
   specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
@@ -528,17 +396,15 @@ MonoBehaviour:
   contactEnemy: 0
   towerEnter: 0
   enterStoryWorld: 0
-  getGoldClip: {fileID: 0}
-  reinforceEffect: {fileID: 1143565391829667938}
-  trail: {fileID: 1174998771961623138}
---- !u!95 &4558846040116425984
+  trail: {fileID: 203131281887453243}
+--- !u!95 &3304379520243787609
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771943246866}
+  m_GameObject: {fileID: 203131281839726155}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 9bc3f8107b8e0714da97dc96c968da79, type: 2}
@@ -550,13 +416,13 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!136 &1174998771943246865
+--- !u!136 &203131281839726152
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771943246866}
+  m_GameObject: {fileID: 203131281839726155}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
@@ -564,7 +430,22 @@ CapsuleCollider:
   m_Height: 4.39017
   m_Direction: 1
   m_Center: {x: 0.21007752, y: 2.522077, z: -0.095807076}
---- !u!1 &1174998771961623138
+--- !u!114 &1342008897656023135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203131281839726155}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 193e7ee31e0496947bf87a32f0dc26e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamSoldier: {fileID: 0}
+  addGold: 0
+  getGoldPercent: 0
+--- !u!1 &203131281887453243
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -572,8 +453,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1174998771961623140}
-  - component: {fileID: 1174998771961623141}
+  - component: {fileID: 203131281887453245}
+  - component: {fileID: 203131281887453244}
   m_Layer: 9
   m_Name: Trail
   m_TagString: Untagged
@@ -581,28 +462,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!4 &1174998771961623140
+--- !u!4 &203131281887453245
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771961623138}
+  m_GameObject: {fileID: 203131281887453243}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 3.7, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1174998770987061909}
+  m_Father: {fileID: 203131283064570060}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!96 &1174998771961623141
+--- !u!96 &203131281887453244
 TrailRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1174998771961623138}
+  m_GameObject: {fileID: 203131281887453243}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -701,12 +582,171 @@ TrailRenderer:
   m_MinVertexDistance: 0.1
   m_Autodestruct: 0
   m_Emitting: 1
---- !u!1001 &1142386639
+--- !u!1 &203131283064570059
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 203131283064570060}
+  - component: {fileID: 203131283064570062}
+  - component: {fileID: 203131283064570061}
+  m_Layer: 9
+  m_Name: TB_Soldier_Swordman_Hand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &203131283064570060
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203131283064570059}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -0.8910141, y: 1.4107137, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 203131281887453245}
+  m_Father: {fileID: 203131281839726159}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!33 &203131283064570062
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203131283064570059}
+  m_Mesh: {fileID: 4300006, guid: 24abc5cc9ec100d4e9468a7da08d77b8, type: 3}
+--- !u!23 &203131283064570061
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203131283064570059}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ed9f29ddef3dac64dbba787a64fa05ba, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1 &203131283293592784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 203131283293592785}
+  - component: {fileID: 203131283293592787}
+  - component: {fileID: 203131283293592786}
+  m_Layer: 9
+  m_Name: TB_Soldier_Swordman_Leg_R
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &203131283293592785
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203131283293592784}
+  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.40244293, y: 0.57537985, z: 0.0000018144542}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 203131281839726159}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &203131283293592787
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203131283293592784}
+  m_Mesh: {fileID: 4300004, guid: 24abc5cc9ec100d4e9468a7da08d77b8, type: 3}
+--- !u!23 &203131283293592786
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 203131283293592784}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: ed9f29ddef3dac64dbba787a64fa05ba, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!1001 &1342008895840091542
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1174998771481908398}
+    m_TransformParent: {fileID: 203131281495688951}
     m_Modifications:
     - target: {fileID: 1141141973736361661, guid: 7a5aeacb5d65eea4eac249563348c689,
         type: 3}
@@ -770,15 +810,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a5aeacb5d65eea4eac249563348c689, type: 3}
---- !u!1 &1143565391829667938 stripped
+--- !u!1 &2107974147082617403 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1143565392835739565, guid: 7a5aeacb5d65eea4eac249563348c689,
     type: 3}
-  m_PrefabInstance: {fileID: 1142386639}
+  m_PrefabInstance: {fileID: 1342008895840091542}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &1141141974742425970 stripped
+--- !u!4 &2110467967340671787 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1141141973736361661, guid: 7a5aeacb5d65eea4eac249563348c689,
     type: 3}
-  m_PrefabInstance: {fileID: 1142386639}
+  m_PrefabInstance: {fileID: 1342008895840091542}
   m_PrefabAsset: {fileID: 0}

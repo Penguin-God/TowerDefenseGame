@@ -909,10 +909,10 @@ public class CombineSoldier1 : MonoBehaviourPun
 
     public void Sommon()
     {
-        if (!photonView.IsMine)
-        {
-            return;
-        }
+        //if (!photonView.IsMine)
+        //{
+        //    return;
+        //}
         SoldierChoose(0, 3, 0, 0);
         createdefenser1.DrawSoldier(Colornumber, Soldiernumber);
         //UIManager.instance.UpdateSwordmanCount();

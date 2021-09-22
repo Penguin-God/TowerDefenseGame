@@ -8,6 +8,7 @@ using Photon.Realtime;
 public class MultiClientManager : MonoBehaviourPunCallbacks
 {
     private string GameVersion = "1";
+    public Text ConnectionInfoText;
 
     //public Text ConnectionInfoText;
     public Button MultiStartButton;
@@ -19,21 +20,21 @@ public class MultiClientManager : MonoBehaviourPunCallbacks
 
         MultiStartButton.interactable = false;
 
-        //ConnectionInfoText.text = "Loading...";
+        ConnectionInfoText.text = "Loading...";
     }
 
     public override void OnConnectedToMaster()
     {
         MultiStartButton.interactable = true;
 
-        //ConnectionInfoText.text = "연결 됨";
+        ConnectionInfoText.text = "연결 됨";
     }
 
     public override void OnDisconnected(DisconnectCause cause)
     {
         MultiStartButton.interactable = false;
 
-        //ConnectionInfoText.text = "연결 실패 재접속 중...";
+        ConnectionInfoText.text = "연결 실패 재접속 중...";
 
         PhotonNetwork.ConnectUsingSettings();
     }
@@ -44,26 +45,26 @@ public class MultiClientManager : MonoBehaviourPunCallbacks
 
         if (PhotonNetwork.IsConnected)
         {
-            //ConnectionInfoText.text = "방에 들어가는 중...";
+            ConnectionInfoText.text = "방에 들어가는 중...";
             PhotonNetwork.JoinRandomRoom();
         }
         else
         {
-            //ConnectionInfoText.text = "연결 실패 재접속 중...";
+            ConnectionInfoText.text = "연결 실패 재접속 중...";
             PhotonNetwork.ConnectUsingSettings();
         }
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        //ConnectionInfoText.text = "새로운 방 생성 중...";
+        ConnectionInfoText.text = "새로운 방 생성 중...";
 
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 2 });
     }
 
     public override void OnJoinedRoom()
     {
-        //ConnectionInfoText.text = "방 참가 성공";
+        ConnectionInfoText.text = "방 참가 성공";
 
         PhotonNetwork.LoadLevel("합친 씬 - 장익준 멀티");
     }

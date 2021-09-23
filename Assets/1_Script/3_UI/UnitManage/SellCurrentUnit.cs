@@ -12,26 +12,37 @@ public class SellCurrentUnit : MonoBehaviour
         }
     }
 
-    GameObject unit;
+    GameObject unit
+    {
+        get
+        {
+            return GameObject.FindGameObjectWithTag(unitName);
+        }
+    }
     public void SellActiveUnit()
     {
+        if (unit == null) return;
+
+        int reword = GetUnitReword();
         int random = Random.Range(0, 100);
-        int reword = CheckUnitType();
-        if (unit != null) Destroy(unit.transform.parent.gameObject);
-        else return;
 
         if (10 > random)
         {
             GameManager.instance.Food += reword;
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
             SoundManager.instance.PlayEffectSound_ByName("GetFood", 2f);
+            ShowText(successText);
         }
-        else SoundManager.instance.PlayEffectSound_ByName("TP_Unit", 0.3f);
+        else
+        {
+            SoundManager.instance.PlayEffectSound_ByName("PopSound16");
+            ShowText(failText);
+        }
+        Destroy(unit.transform.parent.gameObject);
     }
 
-    public int CheckUnitType()
+    public int GetUnitReword()
     {
-        unit = GameObject.FindGameObjectWithTag(unitName);
         TeamSoldier ts = unit.GetComponent<TeamSoldier>();
 
         int rewordFood = 0;
@@ -42,5 +53,17 @@ public class SellCurrentUnit : MonoBehaviour
         else Debug.Log("타잆 없음");
 
         return rewordFood;
+    }
+
+    [SerializeField] GameObject successText = null;
+    [SerializeField] GameObject failText = null;
+
+    void ShowText(GameObject textObj) => StartCoroutine(Co_ShowText(textObj));
+
+    IEnumerator Co_ShowText(GameObject textObj)
+    {
+        textObj.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        textObj.SetActive(false);
     }
 }

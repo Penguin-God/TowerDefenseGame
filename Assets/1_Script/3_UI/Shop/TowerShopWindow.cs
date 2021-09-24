@@ -12,11 +12,11 @@ public class TowerShopWindow : MonoBehaviour
         Sell = () => UnitManager.instance.ExpendMaxUnit(5);
     }
 
-    public void SpendMoney(int price)
+    public void SpendFood(int price)
     {
-        if(GameManager.instance.Gold >= price)
+        if(GameManager.instance.Food >= price)
         {
-            GameManager.instance.Gold -= price;
+            GameManager.instance.Food -= price;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
             Sell();
         }

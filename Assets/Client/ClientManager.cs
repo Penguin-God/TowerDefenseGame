@@ -11,18 +11,22 @@ public class ClientManager : MonoBehaviour
     public Text StartGoldPriceText;
     public Text StartFoodPriceText;
     public Text PlusTouchDamegePriceText;
+    public Text PlusMaxUnitPriceText;
     int ClientWood; 
     int ClientIron;
     int ClientHammer;
     int GoldCount;
     int FoodCount;
     int HammerCount;
+    int PlusMaxUnitCount;
     int StartGold;
     int StartFood;
     int PlusTouchDamege;
+    int PlusMaxUnit;
     int StartGoldPrice;
     int StartFoodPrice;
     int PlusTouchDamegePrice;
+    int PlusMaxUnitPrice;
     int StartGameCount;
     public AudioSource ClientClickAudioSource;
 
@@ -41,9 +45,11 @@ public class ClientManager : MonoBehaviour
         StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
         StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
         PlusTouchDamegePrice = PlayerPrefs.GetInt("PlusTouchDamegePrice");
+        PlusMaxUnitPrice = PlayerPrefs.GetInt("PlusMaxUnitPrice");
         StartGold = PlayerPrefs.GetInt("StartGold");
         StartFood = PlayerPrefs.GetInt("StartFood");
         PlusTouchDamege = PlayerPrefs.GetInt("PlusTouchDamege");
+        PlusMaxUnit = PlayerPrefs.GetInt("PlusMaxUnit");
         if (StartGoldPrice == 0)
         {
             PlayerPrefs.SetInt("StartGoldPrice", 10);
@@ -76,9 +82,19 @@ public class ClientManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("PlusTouchDamegePrice", (PlusTouchDamege + 1) * 1);
         }
+        if (PlusMaxUnitPrice == 0)
+        {
+            PlayerPrefs.SetInt("PlusMaxUnitPrice", 10);
+            PlusMaxUnitPrice = PlayerPrefs.GetInt("PlusMaxUnitPrice");
+        }
+        else
+        {
+            PlayerPrefs.SetInt("PlusMaxUnitPrice", (PlusMaxUnit + 1) * 10);
+        }
         GoldCount = PlayerPrefs.GetInt("GoldCount");
         FoodCount = PlayerPrefs.GetInt("FoodCount");
         HammerCount = PlayerPrefs.GetInt("HammerCount");
+        PlusMaxUnitCount = PlayerPrefs.GetInt("PlusMaxUnitCount");
         ClientWood = PlayerPrefs.GetInt("Wood");
         ClientIron = PlayerPrefs.GetInt("Iron");
         ClientHammer = PlayerPrefs.GetInt("Hammer");
@@ -129,6 +145,11 @@ public class ClientManager : MonoBehaviour
     public void UpdatePlusTouchDamegePrice()
     {
         PlusTouchDamegePriceText.text = "망치 " + PlusTouchDamegePrice + "개";
+    }
+
+    public void UpdatePlusMaxUnitPrice()
+    {
+        PlusMaxUnitPriceText.text = "망치 " + PlusMaxUnitPrice + "개";
     }
     public void ClientClickSound()
     {
@@ -230,6 +251,36 @@ public class ClientManager : MonoBehaviour
         else
         {
             Debug.Log("실패");
+        }
+    }
+
+    public void BuyPlusMaxUnit()
+    {
+        ClientHammer = PlayerPrefs.GetInt("Hammer");
+        ClientClickSound();
+        if (ClientHammer >= PlusMaxUnitPrice && PlusMaxUnitCount <= 4)
+        {
+            ClientHammer -= PlusMaxUnitPrice;
+            PlusMaxUnit = 1 * (PlusMaxUnitCount + 1);
+            PlayerPrefs.SetInt("PlusMaxUnitPrice", (PlusMaxUnit + 1) * 10);
+            PlayerPrefs.SetInt("PlusMaxUnit", PlusMaxUnit);
+            PlayerPrefs.SetInt("Hammer", ClientHammer);
+            ClientHammer = PlayerPrefs.GetInt("Hammer");
+            PlusMaxUnitPrice = PlayerPrefs.GetInt("PlusMaxUnitPrice");
+            UpdatePlusMaxUnitPrice();
+            UpdateHammerText(ClientHammer);
+            PlusMaxUnitCount += 1;
+            PlayerPrefs.SetInt("PlusMaxUnit", PlusMaxUnit);
+            PlayerPrefs.Save();
+
+        }
+        else
+        {
+            Debug.Log("실패");
+            if (PlusMaxUnitCount >= 5)
+            {
+                // 텍스트 바꾸기
+            }
         }
     }
 

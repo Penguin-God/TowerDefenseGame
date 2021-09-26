@@ -10,13 +10,14 @@ public class UnitArray
 
 public class UnitManager : MonoBehaviour
 {
+    int PlusMaxUnit;
     public static UnitManager instance;
     [SerializeField] int maxUnit = 0;
     public UnitArray[] unitArrays = null; // red, blue, yellow, green, orange, violet 순 6개 배열
     
     public void ExpendMaxUnit(int addUnitCount)
     {
-        maxUnit += addUnitCount;
+        maxUnit += addUnitCount + PlusMaxUnit;
     }
 
     public bool UnitOver
@@ -44,6 +45,7 @@ public class UnitManager : MonoBehaviour
             Debug.LogWarning("UnitManager 2개");
             Destroy(gameObject);
         }
+        PlusMaxUnit = PlayerPrefs.GetInt("PlusMaxUnit");
         currentUnitList = new List<GameObject>();
         StartCoroutine(UnitListCheck_Coroutine());
     }

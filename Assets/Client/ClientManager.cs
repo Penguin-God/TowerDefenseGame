@@ -104,6 +104,7 @@ public class ClientManager : MonoBehaviour
         UpdateStartGoldPrice();
         UpdateStartFoodPrice();
         UpdatePlusTouchDamegePrice();
+        UpdatePlusMaxUnitPrice();
         UpdateAdIronCount(StartGoldPrice);
         UpdateAdWoodCount(StartFoodPrice);
         UpdateAdHammerCount(PlusTouchDamegePrice);

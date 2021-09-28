@@ -287,17 +287,6 @@ public class GameManager : MonoBehaviour
 
     }
 
-    public GameObject SettingMenu;
-    //public UnitManageButton SoundManager.instance.PlayEffectSound_ByName("PopSound", 0.6f);
-
-    public void ClickSettingButton()
-    {
-        SettingMenu.SetActive(true);
-        SoundManager.instance.PlayEffectSound_ByName("PopSound", 0.6f);
-    }
-
-
-
     public void Lose()
     {
         GetChallengeReward(); 

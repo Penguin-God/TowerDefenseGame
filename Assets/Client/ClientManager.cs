@@ -271,6 +271,7 @@ public class ClientManager : MonoBehaviour
             UpdatePlusMaxUnitPrice();
             UpdateHammerText(ClientHammer);
             PlusMaxUnitCount += 1;
+            PlayerPrefs.SetInt("PlusMaxUnitCOunt", PlusMaxUnitCount);
             PlayerPrefs.SetInt("PlusMaxUnit", PlusMaxUnit);
             PlayerPrefs.Save();
 

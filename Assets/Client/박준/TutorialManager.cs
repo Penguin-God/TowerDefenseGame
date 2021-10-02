@@ -1,12 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using System;
+using System.Linq;
 
 public class TutorialManager : MonoBehaviour
 {
     [Header("튜토리얼 설명 텍스트들이 들어감")]
     [SerializeField] GameObject[] arr_TutorialExplanation = null;
+
+    [Header("튜토리얼 때 클릭하는 버튼")]
+    [SerializeField] GameObject[] arr_TutorialButton = null;
 
     [Space][Space][Space]
     [SerializeField] Light mainLight = null;
@@ -16,8 +22,32 @@ public class TutorialManager : MonoBehaviour
 
     public Dictionary<GameObject, Action> dic_TutorialAction = new Dictionary<GameObject, Action>();
 
+
+    public bool isTutorialExplanation = false;
+    public bool isUITutorial = true;
+
+    Button[] allButton = null;
+    
+    public void UIFalse(GameObject img)
+    {
+        isUITutorial = false;
+        img.SetActive(false);
+    }
+
+    private void Update()
+    {
+        if (isUITutorial)
+        {
+            for(int i = 0;  i < allButton.Length; i++)
+            {
+                if(!arr_TutorialButton.Contains(allButton[i].gameObject)) allButton[i].enabled = false;
+            }
+        } 
+    }
+
     private void Start()
     {
+        allButton = FindObjectsOfType<Button>();
         SetDictionary();
     }
 
@@ -31,19 +61,18 @@ public class TutorialManager : MonoBehaviour
     {
         StartCoroutine(Co_Tutorial());
     }
-
-    public bool isTutorial = false;
     IEnumerator Co_Tutorial()
     {
+        yield return new WaitUntil(() => !isUITutorial );
         yield return new WaitForSeconds(0.1f);
         // 인터페이스를 이용해 isTutorial를 false로 만드는 함수 강제하고 WaitUntil 조건에 사용하기
         for (int i = 0; i < arr_TutorialExplanation.Length; i++)
         {
-            GameObject tutor = arr_TutorialExplanation[i];
-            tutor.SetActive(true);
-            dic_TutorialAction[tutor]();
+            GameObject tutor_Text = arr_TutorialExplanation[i];
+            tutor_Text.SetActive(true);
+            dic_TutorialAction[tutor_Text]();
             yield return new WaitUntil(() => Input.GetMouseButtonDown(0)); // 임시
-            arr_TutorialExplanation[i].SetActive(false);
+            tutor_Text.SetActive(false);
             yield return null; // 임시 (마우스 입력 너무 빨리 받아서)
         }
     }

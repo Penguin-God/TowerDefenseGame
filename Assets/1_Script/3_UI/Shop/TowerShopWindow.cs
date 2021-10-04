@@ -17,7 +17,7 @@ public class TowerShopWindow : MonoBehaviour
         if(GameManager.instance.Food >= price)
         {
             GameManager.instance.Food -= price;
-            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+            UIManager.instance.UpdateFoodText(GameManager.instance.Food);
             Sell();
         }
     }

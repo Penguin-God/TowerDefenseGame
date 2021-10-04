@@ -252,7 +252,7 @@ public class CombineSoldier : MonoBehaviour
             Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
             Destroy(TagSoldier.YellowSwordman[1].transform.parent.gameObject);
             Destroy(TagSoldier.YellowSwordman[2].transform.parent.gameObject);
-            GameManager.instance.Gold += 2;
+            GameManager.instance.Gold += 3;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
 

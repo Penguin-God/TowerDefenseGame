@@ -1,30 +1,47 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class ClickTutorialButton : MonoBehaviour, ITutorial
 {
-    [SerializeField] GameObject BlindUI;
+    [SerializeField] TutorialFuntions tutorFuntions = null;
+    [SerializeField] RectTransform rectTransform = null;
+    [SerializeField] GameObject BlindUI = null;
     [SerializeField] Button tutorialButton = null;
+
+    bool isTutorialStart = false;
+
+    public void TutorialStart()
+    {
+        isTutorialStart = true;
+    }
 
     public bool EndCurrentTutorialAction()
     {
-        return EventSystem.current.currentSelectedGameObject == tutorialButton.gameObject && Input.GetMouseButtonUp(0);
+        return isTutorialStart;
     }
 
     public void TutorialAction()
     {
+        BlindUI.SetActive(true);
         Button[] allbutton = FindObjectsOfType<Button>();
-        for(int i = 0; i < allbutton.Length; i++)
+        for (int i = 0; i < allbutton.Length; i++)
         {
-            if (allbutton[i] == tutorialButton) tutorialButton.enabled = true;
+            if (allbutton[i] == tutorialButton) allbutton[i].enabled = true;
+            else allbutton[i].enabled = false;
         }
+        tutorialButton.onClick.AddListener( () => TutorialStart());
+
+        if (rectTransform != null) tutorFuntions.SetBlindUI(rectTransform);
     }
 
-    public void TutorialEndAction()
+    [SerializeField] bool isGameProgress;
+
+    private void OnDisable()
     {
         BlindUI.SetActive(false);
+
+        if (isGameProgress) tutorFuntions.GameProgress();
     }
 }

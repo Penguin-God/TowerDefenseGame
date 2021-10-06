@@ -39,6 +39,7 @@ public class CombineSoldier1 : MonoBehaviourPun
     {
         if (!photonView.IsMine)
         {
+            Debug.Log("막힘");
             return;
         }
         TagSoldier.RedSwordmanTag();
@@ -160,6 +161,7 @@ public class CombineSoldier1 : MonoBehaviourPun
     {
         if (!photonView.IsMine)
         {
+            Debug.Log("막힘");
             return;
         }
         TagSoldier.BlueSwordmanTag();
@@ -281,6 +283,7 @@ public class CombineSoldier1 : MonoBehaviourPun
     {
         if (!photonView.IsMine)
         {
+            Debug.Log("막힘");
             return;
         }
         TagSoldier.YellowSwordmanTag();

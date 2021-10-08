@@ -286,5 +286,23 @@ public class ClientManager : MonoBehaviour
         }
     }
 
+    public GameObject Category1;
+    public GameObject Category2;
+    public GameObject Category3;
+    public void TouchCategory1()
+    {
+
+    }
+
+    public void TouchCategory2()
+    {
+
+    }
+
+    public void TouchCategory3()
+    {
+
+    }
+
 
 }

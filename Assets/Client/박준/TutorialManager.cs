@@ -5,8 +5,8 @@ using UnityEngine.UI;
 public class TutorialManager : MonoBehaviour
 {
     [SerializeField] Transform tutorTextParent = null;
-    [Header("튜토리얼 설명 텍스트들이 들어감")]
-    [SerializeField] GameObject[] arr_TutorialExplanationText = null;
+    //[Header("튜토리얼 설명 텍스트들이 들어감")]
+    //[SerializeField] GameObject[] arr_TutorialExplanationText = null;
 
     [Header("튜토리얼 때 클릭하는 버튼")]
     [SerializeField] GameObject[] arr_TutorialButton = null;
@@ -16,30 +16,30 @@ public class TutorialManager : MonoBehaviour
 
     private void Start()
     {
-        arr_TutorialExplanationText = new GameObject[tutorTextParent.childCount];
-        for(int i = 0; i < arr_TutorialExplanationText.Length; i++)
+        TutorialStart(tutorTextParent);
+    }
+
+
+
+    public void TutorialStart(Transform tutorParent)
+    {
+        GameObject[] arr_TutorialExplanationText = new GameObject[tutorParent.childCount];
+        for (int i = 0; i < arr_TutorialExplanationText.Length; i++)
         {
-            arr_TutorialExplanationText[i] = tutorTextParent.GetChild(i).gameObject;
+            arr_TutorialExplanationText[i] = tutorParent.GetChild(i).gameObject;
         }
 
-        TutorialStart();
+        StartCoroutine(Co_Tutorial(arr_TutorialExplanationText));
     }
 
-
-
-    public void TutorialStart()
-    {
-        StartCoroutine(Co_Tutorial());
-    }
-
-    IEnumerator Co_Tutorial()
+    IEnumerator Co_Tutorial(GameObject[] arr_TutorExplanation)
     {
         yield return new WaitForSeconds(0.1f);
         // 인터페이스를 이용해 isTutorial를 false로 만드는 함수 강제하고 WaitUntil 조건에 사용하기
-        for (int i = 0; i < arr_TutorialExplanationText.Length; i++)
+        for (int i = 0; i < arr_TutorExplanation.Length; i++)
         {
             Time.timeScale = 0;
-            GameObject tutor_Text = arr_TutorialExplanationText[i];
+            GameObject tutor_Text = arr_TutorExplanation[i];
             tutor_Text.SetActive(true);
 
             ITutorial tutor = tutor_Text.GetComponent<ITutorial>();

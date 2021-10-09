@@ -15,12 +15,12 @@ public class ReadTutorialText : MonoBehaviour, ITutorial
 
     public void TutorialAction()
     {
+        tutorFuntions.OffLigth();
         UnityEngine.Object ligthObj = null;
         if (type != "") ligthObj = FindObjectOfType(Type.GetType(type));
 
         if (ligthObj != null)
         {
-            tutorFuntions.OffLigth();
             GameObject ligthGameObj = GameObject.Find(ligthObj.name);
             tutorFuntions.Set_SpotLight(ligthGameObj.transform.position);
         }

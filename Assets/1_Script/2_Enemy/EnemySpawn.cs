@@ -16,9 +16,7 @@ public class EnemySpawn : MonoBehaviour
     [SerializeField] GameObject[] bossPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
 
     int poolEnemyCount; // 풀링을 위해 미리 생성하는 enemy 수
-    GameObject[,] enemyArrays;
     Queue<GameObject>[] arr_DisabledEnemy_Queue;
-    int[] countArray; // 2차원 배열을 사용할 때 2번째 배열의 index가 담긴 배열
     Vector3 poolPosition = new Vector3(500, 500, 500);
 
     [HideInInspector]
@@ -53,19 +51,6 @@ public class EnemySpawn : MonoBehaviour
                 arr_DisabledEnemy_Queue[i].Enqueue(instantEnemy);
             }
         }
-
-        //enemyArrays = new GameObject[enemyPrefab.Length, poolEnemyCount];
-
-        //for (int i = 0; i < enemyPrefab.Length; i++)
-        //{
-        //    for(int k = 0; k < poolEnemyCount; k++)
-        //    {
-        //        GameObject instantEnemy = Instantiate(enemyPrefab[i], poolPosition, Quaternion.identity);
-        //        instantEnemy.transform.SetParent(transform); // 자기 자신 자식으로 둠(인스펙터 창에서 보기 편하게 하려고)
-        //        enemyArrays[i, k] = instantEnemy;
-        //    }
-        //}
-        //countArray = new int[enemyPrefab.Length];
         respawnEnemyCount = 15;
     }
 
@@ -84,7 +69,6 @@ public class EnemySpawn : MonoBehaviour
     public AudioClip newStageClip;
     public AudioClip dengerClip;
     public int stageGold;
-    //public float stageWait_Time;
     public float stageTime = 40f;
     IEnumerator StageCoroutine(int stageRespawnEenemyCount)
     {
@@ -113,18 +97,8 @@ public class EnemySpawn : MonoBehaviour
         // normal enemy를 정해진 숫자만큼 소환
         while (stageRespawnEenemyCount > 0)
         {
-            //Check_RespawnEnemyIsDead(instantEnemyNumber);
-
-            // enemy 소환
-            //GameObject enemy = enemyArrays[instantEnemyNumber, countArray[instantEnemyNumber]];
-            //SetEnemyData(enemy, hp, speed);
             RespawnEnemy(instantEnemyNumber, hp, speed);
-
-            // 변수 설정
-            //countArray[instantEnemyNumber]++;
             stageRespawnEenemyCount--;
-
-            //ResetEnemyCount(instantEnemyNumber);
             yield return new WaitForSeconds(2f);
         }
 
@@ -162,18 +136,6 @@ public class EnemySpawn : MonoBehaviour
         nomalEnemy.SetStatus(hp, speed);
     }
 
-
-    void Check_RespawnEnemyIsDead(int instantEnemyNumber) // 풀링할 때 끌어쓸 enemy가 살아있는지 확인후 살아있으면 index++
-    {
-        for (int i = 0; i < poolEnemyCount; i++)
-        {
-            NomalEnemy identfyEnemy = enemyArrays[instantEnemyNumber, countArray[instantEnemyNumber]].GetComponentInChildren<NomalEnemy>();
-            if (identfyEnemy.isDead) break;
-            countArray[instantEnemyNumber]++;
-            ResetEnemyCount(instantEnemyNumber);
-        }
-    }
-
     [HideInInspector]
     public int minHp = 0;
     public int enemyHpWeight;
@@ -198,11 +160,6 @@ public class EnemySpawn : MonoBehaviour
         float enemyMaxSpeed = maxSpeed + stageSpeedWeight;
         float speed = Random.Range(enemyMinSpeed, enemyMaxSpeed);
         return speed;
-    }
-
-    void ResetEnemyCount(int enemyNumber) // 풀링 배열 index의 range가 오버되면 0으로 초기화
-    {
-        if (countArray[enemyNumber] > poolEnemyCount - 1) countArray[enemyNumber] = 0;
     }
 
     // 보스 코드

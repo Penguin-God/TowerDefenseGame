@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ClickTutorialButton : MonoBehaviour, ITutorial
 {
     [SerializeField] TutorialFuntions tutorFuntions = null;
-    [SerializeField] RectTransform rectTransform = null;
+    [SerializeField] RectTransform showUITransform = null;
     [SerializeField] GameObject BlindUI = null;
     [SerializeField] Button tutorialButton = null;
 
@@ -31,9 +29,9 @@ public class ClickTutorialButton : MonoBehaviour, ITutorial
             if (allbutton[i] == tutorialButton) allbutton[i].enabled = true;
             else allbutton[i].enabled = false;
         }
-        tutorialButton.onClick.AddListener( () => TutorialStart());
 
-        if (rectTransform != null) tutorFuntions.SetBlindUI(rectTransform);
+        if(tutorialButton != null) tutorialButton.onClick.AddListener( () => TutorialStart());
+        if (showUITransform != null) tutorFuntions.SetBlindUI(showUITransform);
     }
 
     [SerializeField] bool isGameProgress;

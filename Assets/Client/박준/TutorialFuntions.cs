@@ -41,7 +41,8 @@ public class TutorialFuntions : MonoBehaviour
         RectTransform rect = blind_UI.GetComponent<RectTransform>();
         rect.anchorMin = rect_tf.anchorMin;
         rect.anchorMax = rect_tf.anchorMax;
-        rect.anchoredPosition = rect_tf.anchoredPosition;
+        rect.position = rect_tf.position;
+        //rect.anchoredPosition = rect_tf.anchoredPosition;
         rect.sizeDelta = rect_tf.sizeDelta;
         rect.pivot = rect_tf.pivot;
         Time.timeScale = 0;

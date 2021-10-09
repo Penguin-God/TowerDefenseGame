@@ -26,7 +26,6 @@ public class NomalEnemy : Enemy
         SetNextPoint();
         if(gameObject.tag != "Boss") Invoke("AddListMe", 0.05f);
     }
-
     void AddListMe()
     {
         enemySpawn.currentEnemyList.Add(this.gameObject);
@@ -61,12 +60,14 @@ public class NomalEnemy : Enemy
         parent.transform.position = wayPoint.position;
     }
 
+    [SerializeField] int enemyNumber = 0;
     public override void Dead()
     {
         base.Dead();
         parent.gameObject.SetActive(false);
         parent.position = new Vector3(500, 500, 500);
         enemySpawn.currentEnemyList.Remove(this.gameObject);
+        EnemySpawn.instance.ReturnObject_ByPoolQueue(enemyNumber, gameObject);
         ResetVariable();
     }
 

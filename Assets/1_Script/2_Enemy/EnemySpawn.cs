@@ -17,6 +17,7 @@ public class EnemySpawn : MonoBehaviour
 
     int poolEnemyCount; // 풀링을 위해 미리 생성하는 enemy 수
     GameObject[,] enemyArrays;
+    Queue<GameObject>[] arr_DisabledEnemy_Queue;
     int[] countArray; // 2차원 배열을 사용할 때 2번째 배열의 index가 담긴 배열
     Vector3 poolPosition = new Vector3(500, 500, 500);
 
@@ -24,8 +25,12 @@ public class EnemySpawn : MonoBehaviour
     public AudioSource enemyAudioSource;
     public AudioClip towerDieClip;
 
+    public static EnemySpawn instance;
     private void Awake()
     {
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+
         enemyAudioSource = GetComponent<AudioSource>();
         timerSlider.maxValue = stageTime;
         timerSlider.value = stageTime;
@@ -35,28 +40,44 @@ public class EnemySpawn : MonoBehaviour
     {
         // 게임 관련 변수 설정
         poolEnemyCount = 51;
-        enemyArrays = new GameObject[enemyPrefab.Length, poolEnemyCount];
 
-        for (int i = 0; i < enemyPrefab.Length; i++)
+        arr_DisabledEnemy_Queue = new Queue<GameObject>[enemyPrefab.Length];
+
+        for(int i = 0; i < enemyPrefab.Length; i++)
         {
-            for(int k = 0; k < poolEnemyCount; k++)
+            arr_DisabledEnemy_Queue[i] = new Queue<GameObject>();
+            for (int k = 0; k < poolEnemyCount; k++)
             {
                 GameObject instantEnemy = Instantiate(enemyPrefab[i], poolPosition, Quaternion.identity);
-                instantEnemy.transform.SetParent(transform);
-                enemyArrays[i, k] = instantEnemy;
+                instantEnemy.transform.SetParent(transform); // 자기 자신 자식으로 둠(인스펙터 창에서 보기 편하게 하려고)
+                arr_DisabledEnemy_Queue[i].Enqueue(instantEnemy);
             }
         }
-        countArray = new int[enemyPrefab.Length];
+
+        //enemyArrays = new GameObject[enemyPrefab.Length, poolEnemyCount];
+
+        //for (int i = 0; i < enemyPrefab.Length; i++)
+        //{
+        //    for(int k = 0; k < poolEnemyCount; k++)
+        //    {
+        //        GameObject instantEnemy = Instantiate(enemyPrefab[i], poolPosition, Quaternion.identity);
+        //        instantEnemy.transform.SetParent(transform); // 자기 자신 자식으로 둠(인스펙터 창에서 보기 편하게 하려고)
+        //        enemyArrays[i, k] = instantEnemy;
+        //    }
+        //}
+        //countArray = new int[enemyPrefab.Length];
         respawnEnemyCount = 15;
     }
 
     public int plusEnemyHpWeight;
-    public void StageStart()
+    public void StageStart() // 무한반복하는 재귀 함수( StageCoroutine() 마지막 부분에 다시 StageStart()를 호출함)
     {
         GameManager.instance.Gold += stageGold;
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
-        enemyHpWeight += plusEnemyHpWeight;
+        enemyHpWeight += plusEnemyHpWeight; // 적 체력 가중치 증가
+        enemyAudioSource.PlayOneShot(newStageClip, 0.6f); // 사운드 재생
+
         StartCoroutine(StageCoroutine(respawnEnemyCount));
     }
 
@@ -65,10 +86,8 @@ public class EnemySpawn : MonoBehaviour
     public int stageGold;
     //public float stageWait_Time;
     public float stageTime = 40f;
-    IEnumerator StageCoroutine(int stageRespawnEenemyCount) // 재귀함수 무한반복
+    IEnumerator StageCoroutine(int stageRespawnEenemyCount)
     {
-        enemyAudioSource.PlayOneShot(newStageClip, 0.6f); // 사운드 재생
-
         if (stageNumber % 10 == 0)
         {
             RespawnBoss();
@@ -91,20 +110,21 @@ public class EnemySpawn : MonoBehaviour
         timerSlider.maxValue = stageTime;
         timerSlider.value = stageTime;
 
+        // normal enemy를 정해진 숫자만큼 소환
         while (stageRespawnEenemyCount > 0)
         {
-            Check_RespawnEnemyIsDead(instantEnemyNumber);
+            //Check_RespawnEnemyIsDead(instantEnemyNumber);
 
             // enemy 소환
-            GameObject enemy = enemyArrays[instantEnemyNumber, countArray[instantEnemyNumber]];
-            SetEnemyData(enemy, hp, speed);
-            RespawnEnemy(instantEnemyNumber);
+            //GameObject enemy = enemyArrays[instantEnemyNumber, countArray[instantEnemyNumber]];
+            //SetEnemyData(enemy, hp, speed);
+            RespawnEnemy(instantEnemyNumber, hp, speed);
 
             // 변수 설정
-            countArray[instantEnemyNumber]++;
+            //countArray[instantEnemyNumber]++;
             stageRespawnEenemyCount--;
 
-            ResetEnemyCount(instantEnemyNumber);
+            //ResetEnemyCount(instantEnemyNumber);
             yield return new WaitForSeconds(2f);
         }
 
@@ -114,13 +134,18 @@ public class EnemySpawn : MonoBehaviour
         UIManager.instance.UpdateStageText(stageNumber);
         StageStart();
     }
-    GameObject RespawnEnemy(int instantEnemyNumber)
+    void RespawnEnemy(int enemyNumber, int hp, float speed)
     {
-        
-        GameObject enemy = enemyArrays[instantEnemyNumber, countArray[instantEnemyNumber]];
-        enemy.transform.position = this.transform.position;
-        enemy.SetActive(true);
-        return enemy;
+        GameObject respawnEnemy = arr_DisabledEnemy_Queue[enemyNumber].Dequeue();
+        respawnEnemy.GetComponentInChildren<NomalEnemy>().SetStatus(hp, speed);
+
+        respawnEnemy.transform.position = this.transform.position;
+        respawnEnemy.SetActive(true);
+    }
+
+    public void ReturnObject_ByPoolQueue(int num, GameObject obj)
+    {
+        arr_DisabledEnemy_Queue[num].Enqueue(obj);
     }
 
     [SerializeField] Slider timerSlider;
@@ -129,10 +154,6 @@ public class EnemySpawn : MonoBehaviour
         if(GameManager.instance.gameStart && stageNumber < maxStage)
             timerSlider.value -= Time.deltaTime;
     }
-
-
-
-
 
 
     void SetEnemyData(GameObject enemyObject, int hp, float speed) // enemy 능력치 설정

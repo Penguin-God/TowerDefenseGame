@@ -10,6 +10,13 @@ public class ClickTutorialButton : MonoBehaviour, ITutorial
 
     bool isTutorialStart = false;
 
+    public void SetTutorialUI(RectTransform rect)
+    {
+        showUITransform = rect;
+        if (rect.GetComponent<Button>() != null) tutorialButton = rect.GetComponent<Button>();
+        else if (rect.GetComponentInChildren<Button>() != null) tutorialButton = rect.GetComponentInChildren<Button>();
+    }
+
     public void TutorialStart()
     {
         isTutorialStart = true;
@@ -24,6 +31,7 @@ public class ClickTutorialButton : MonoBehaviour, ITutorial
     {
         BlindUI.SetActive(true);
         Button[] allbutton = FindObjectsOfType<Button>();
+        // 튜토리얼에 이용하는 버튼만 활성화
         for (int i = 0; i < allbutton.Length; i++)
         {
             if (allbutton[i] == tutorialButton) allbutton[i].enabled = true;

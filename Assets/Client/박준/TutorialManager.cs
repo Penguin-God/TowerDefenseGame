@@ -4,23 +4,6 @@ using UnityEngine.UI;
 
 public class TutorialManager : MonoBehaviour
 {
-    [SerializeField] Transform tutorTextParent = null;
-    //[Header("튜토리얼 설명 텍스트들이 들어감")]
-    //[SerializeField] GameObject[] arr_TutorialExplanationText = null;
-
-    [Header("튜토리얼 때 클릭하는 버튼")]
-    [SerializeField] GameObject[] arr_TutorialButton = null;
-
-    public bool isTutorialExplanation = false;
-    public bool isUITutorial = true;
-
-    private void Start()
-    {
-        TutorialStart(tutorTextParent);
-    }
-
-
-
     public void TutorialStart(Transform tutorParent)
     {
         GameObject[] arr_TutorialExplanationText = new GameObject[tutorParent.childCount];
@@ -35,7 +18,7 @@ public class TutorialManager : MonoBehaviour
     IEnumerator Co_Tutorial(GameObject[] arr_TutorExplanation)
     {
         yield return new WaitForSeconds(0.1f);
-        // 인터페이스를 이용해 isTutorial를 false로 만드는 함수 강제하고 WaitUntil 조건에 사용하기
+        // 인터페이스를 이용해 isTutorial를 false로 만드는 함수 강제하고 WaitUntil 조건에 사용함
         for (int i = 0; i < arr_TutorExplanation.Length; i++)
         {
             Time.timeScale = 0;

@@ -10,7 +10,7 @@ public class ReadTutorialText : MonoBehaviour, ITutorial
 
     public bool EndCurrentTutorialAction()
     {
-        return Input.GetMouseButtonDown(0);
+        return Input.GetMouseButtonUp(0);
     }
 
     public void TutorialAction()

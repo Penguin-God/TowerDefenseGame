@@ -2,28 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TutorialCombine : MonoBehaviour, ITutorailActionTrigger
+public class TutorialCombine : TutorialGuideTrigger
 {
-    [SerializeField] TutorialManager tutorialManager;
-    private void OnEnable()
-    {
-        StartCoroutine(Co_Action());
-    }
+    int combineCount = 3;
 
-    IEnumerator Co_Action()
-    {
-        yield return new WaitUntil(() => TutorialAction_Condition());
-
-        transform.GetChild(0).gameObject.SetActive(true);
-        tutorialManager.TutorialStart(transform);
-    }
-
-    public bool TutorialAction_Condition()
+    public override bool TutorialCondition()
     {
         GameObject[] reds = GameObject.FindGameObjectsWithTag("RedSwordman");
         GameObject[] blues = GameObject.FindGameObjectsWithTag("BlueSwordman");
         GameObject[] yellows = GameObject.FindGameObjectsWithTag("YellowSwordman");
-        bool condition = (reds.Length >= 3 || blues.Length >= 3 || yellows.Length >= 3);
+        bool condition = (reds.Length >= combineCount || blues.Length >= combineCount || yellows.Length >= combineCount);
+
+        if (condition)
+        {
+            if (reds.Length >= combineCount) SetCombineNumber(0);
+            else if (blues.Length >= combineCount) SetCombineNumber(1);
+            else if (yellows.Length >= combineCount) SetCombineNumber(2);
+        }
+
         return condition;
+    }
+
+    [SerializeField] Transform tf_CombineColorClick = null;
+    [SerializeField] Transform tf_CombineClick = null;
+    [SerializeField] RectTransform[] colorButtons = null;
+    [SerializeField] RectTransform[] combinButtons = null;
+    void SetCombineNumber(int colorNum)
+    {
+        tf_CombineColorClick.GetComponent<ClickTutorialButton>().SetTutorialUI(colorButtons[colorNum]);
+        tf_CombineClick.GetComponent<ClickTutorialButton>().SetTutorialUI(combinButtons[colorNum]);
     }
 }

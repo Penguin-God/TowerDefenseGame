@@ -153,13 +153,13 @@ public class GameManager : MonoBehaviour
             case "Baby": 
                 Wood += 10; Iron += 10; break;
             case "Easy":
-                Wood += 15; Iron += 15; break;
-            case "Normal":
-                Wood += 20; Iron += 20; break;
-            case "Hard":
                 Wood += 30; Iron += 30; break;
+            case "Normal":
+                Wood += 100; Iron += 100; break;
+            case "Hard":
+                Wood += 300; Iron += 300; break;
             case "Impossiable":
-                Wood += 50; Iron += 50; break;
+                Wood += 700; Iron += 700; break;
             default:
                 Debug.Log("난이도가 설정되지 않음"); break;
         }
@@ -299,8 +299,8 @@ public class GameManager : MonoBehaviour
         if (enemySpawn.maxStage == 100000)
         {
             PlayerPrefs.SetInt("HighScore", HighScore);
-            Iron += HighScore;
-            Wood += HighScore;//보상 방식,,
+            Iron += enemySpawn.stageNumber;
+            Wood += enemySpawn.stageNumber;//보상 방식,,
         }
         PlayerPrefs.SetInt("Iron", Iron);
         PlayerPrefs.SetInt("Wood", Wood);

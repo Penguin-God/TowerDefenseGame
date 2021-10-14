@@ -45,6 +45,7 @@ public class TutorialFuntions : MonoBehaviour
         //rect.anchoredPosition = rect_tf.anchoredPosition;
         rect.sizeDelta = rect_tf.sizeDelta;
         rect.pivot = rect_tf.pivot;
+        rect.localScale = rect_tf.localScale;
         Time.timeScale = 0;
     }
 

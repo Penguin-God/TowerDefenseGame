@@ -13,6 +13,7 @@ public class ClickTutorialButton : MonoBehaviour, ITutorial
     public void SetTutorialUI(RectTransform rect)
     {
         showUITransform = rect;
+
         if (rect.GetComponent<Button>() != null) tutorialButton = rect.GetComponent<Button>();
         else if (rect.GetComponentInChildren<Button>() != null) tutorialButton = rect.GetComponentInChildren<Button>();
     }

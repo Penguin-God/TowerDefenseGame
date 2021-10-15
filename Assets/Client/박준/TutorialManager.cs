@@ -17,7 +17,8 @@ public class TutorialManager : MonoBehaviour
 
     IEnumerator Co_Tutorial(GameObject[] arr_TutorExplanation)
     {
-        yield return new WaitForSeconds(0.1f);
+        // 타임 스케일의 영향을 받지 않음
+        yield return new WaitForSecondsRealtime(0.1f);
         // 인터페이스를 이용해 isTutorial를 false로 만드는 함수 강제하고 WaitUntil 조건에 사용함
         for (int i = 0; i < arr_TutorExplanation.Length; i++)
         {

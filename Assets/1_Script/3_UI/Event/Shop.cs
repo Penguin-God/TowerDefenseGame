@@ -59,6 +59,39 @@ public class Shop : MonoBehaviour
         rectTransform.anchoredPosition = new Vector3(0, 0, 0);
     }
 
+    [ContextMenu("SetData")]
+    void SetData()
+    {
+        leftGoldStocks = new GameObject[leftGoldGoods.transform.childCount];
+        for (int i = 0; i < leftGoldStocks.Length; i++)
+        {
+            leftGoldStocks[i] = leftGoldGoods.transform.GetChild(i).gameObject;
+        }
+
+        centerGoldStocks = new GameObject[centerGoldGoods.transform.childCount];
+        for (int i = 0; i < centerGoldStocks.Length; i++)
+        {
+            centerGoldStocks[i] = centerGoldGoods.transform.GetChild(i).gameObject;
+        }
+
+        foodStocks = new GameObject[foodGoods.transform.childCount];
+        for (int i = 0; i < foodStocks.Length; i++)
+        {
+            foodStocks[i] = foodGoods.transform.GetChild(i).gameObject;
+        }
+
+        // 딕셔너리 세팅
+        bossShopWeighDictionary = new Dictionary<int, int[]>();
+        towerShopWeighDictionary = new Dictionary<int, int[]>();
+        Set_BossShopWeigh();
+        Set_TowerShopWeigh();
+
+        // 인스턴스 안되고 실행되는 버그 때문에 게임 시작시 Awake 실행 후 원위치
+        gameObject.SetActive(false);
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = new Vector3(0, 0, 0);
+    }
+
     // 판매용 판넬을 하나로 만들고 관련 수치는 가격과 같은 공통 변수는 엑셀과 연동 
     public void BuyItem(GameObject item)
     {

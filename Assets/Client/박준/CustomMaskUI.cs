@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Rendering;
 
-public class CustomMaskUI : Image
+public class CustomMaskUI : Image // 이미지를 상속받아서 뭔가 하는듯
 {
     public override Material materialForRendering
     {

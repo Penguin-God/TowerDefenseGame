@@ -13,23 +13,7 @@ public class TutorialCombine : TutorialGuideTrigger
         GameObject[] yellows = GameObject.FindGameObjectsWithTag("YellowSwordman");
         bool condition = (reds.Length >= combineCount || blues.Length >= combineCount || yellows.Length >= combineCount);
 
-        if (condition)
-        {
-            if (reds.Length >= combineCount) SetCombineNumber(0);
-            else if (blues.Length >= combineCount) SetCombineNumber(1);
-            else if (yellows.Length >= combineCount) SetCombineNumber(2);
-        }
-
+        if (condition) GetComponent<SetCurrentUnitButton>().SetTutorialUI();
         return condition;
-    }
-
-    [SerializeField] Transform tf_CombineColorClick = null;
-    [SerializeField] Transform tf_CombineClick = null;
-    [SerializeField] RectTransform[] colorButtons = null;
-    [SerializeField] RectTransform[] combinButtons = null;
-    void SetCombineNumber(int colorNum)
-    {
-        tf_CombineColorClick.GetComponent<ClickTutorialButton>().SetTutorialUI(colorButtons[colorNum]);
-        tf_CombineClick.GetComponent<ClickTutorialButton>().SetTutorialUI(combinButtons[colorNum]);
     }
 }

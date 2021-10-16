@@ -61,13 +61,19 @@ public class UIManager : MonoBehaviour
 
     public Text HighScoreText;
 
+    private void Start()
+    {
+        GameManager.instance.OnStart += () => UpdateStageText(1);
+    }
+
     public void UpdateHighScoreText(int HighScore)
     {
         HighScoreText.text = "최고 스테이지 : " + HighScore;
     }
+
     public void UpdateStageText(int Stage)
     {
-        StageText.text = "현재 스테이지 : " + Stage;
+        StageText.text = "현재 스테이지 : " + Stage + " / " + ((GameManager.instance.isChallenge) ? "Infinity" : EnemySpawn.instance.maxStage.ToString());
     }
 
     public void UpdateGoldText(int Gold)

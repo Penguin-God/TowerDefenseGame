@@ -5,8 +5,8 @@ public class ClickTutorialButton : MonoBehaviour, ITutorial
 {
     [SerializeField] TutorialFuntions tutorFuntions = null;
     [SerializeField] RectTransform showUITransform = null;
-    [SerializeField] GameObject BlindUI = null;
     [SerializeField] Button tutorialButton = null;
+    [SerializeField] bool UI_TutorialEnd = false;
 
     bool isTutorialStart = false;
 
@@ -30,7 +30,6 @@ public class ClickTutorialButton : MonoBehaviour, ITutorial
 
     public void TutorialAction()
     {
-        BlindUI.SetActive(true);
         Button[] allbutton = FindObjectsOfType<Button>();
         // 튜토리얼에 이용하는 버튼만 활성화
         for (int i = 0; i < allbutton.Length; i++)
@@ -47,8 +46,7 @@ public class ClickTutorialButton : MonoBehaviour, ITutorial
 
     private void OnDisable()
     {
-        BlindUI.SetActive(false);
-
         if (isGameProgress) tutorFuntions.GameProgress();
+        else if (UI_TutorialEnd) tutorFuntions.Reset_FocusUI();
     }
 }

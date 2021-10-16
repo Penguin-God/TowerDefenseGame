@@ -39,7 +39,7 @@ public class EnemyBoss : NomalEnemy
 
         GameManager.instance.ChangeBGM(GameManager.instance.bgmClip);
 
-        if (enemySpawn.bossLevel == 5 && enemySpawn.maxStage == 50) // 게임클리어
+        if (enemySpawn.stageNumber >= enemySpawn.maxStage && !GameManager.instance.isChallenge) // 게임클리어
         {
             GameManager.instance.Clear();
             return;

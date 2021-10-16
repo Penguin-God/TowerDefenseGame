@@ -30,29 +30,30 @@ public class TutorialFuntions : MonoBehaviour
     }
 
 
-    [SerializeField] GameObject blind_UI = null;
-    public void SetBlindUI(bool active)
-    {
-        blind_UI.SetActive(active);
-    }
-
+    [SerializeField] GameObject lightFocus_UI = null;
     public void SetBlindUI(RectTransform rect_tf)
     {
-        RectTransform rect = blind_UI.GetComponent<RectTransform>();
+        lightFocus_UI.SetActive(true);
+        RectTransform rect = lightFocus_UI.GetComponent<RectTransform>();
+        rect.pivot = rect_tf.pivot;
         rect.anchorMin = rect_tf.anchorMin;
         rect.anchorMax = rect_tf.anchorMax;
         rect.position = rect_tf.position;
-        //rect.anchoredPosition = rect_tf.anchoredPosition;
+
         rect.sizeDelta = rect_tf.sizeDelta;
-        rect.pivot = rect_tf.pivot;
-        rect.localScale = rect_tf.localScale;
         Time.timeScale = 0;
+    }
+
+    public void Reset_FocusUI()
+    {
+        lightFocus_UI.SetActive(false);
+        lightFocus_UI.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
     }
 
     public void GameProgress()
     {
         spotLight.gameObject.SetActive(false);
-        SetBlindUI(false);
+        Reset_FocusUI();
         SetAllButton(true);
     }
 

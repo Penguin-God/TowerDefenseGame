@@ -309,7 +309,6 @@ public class GameManager : MonoBehaviour
 
     public void Clear()
     {
-        adManager.ShowAD();
         Hammer += 1;
         isClear = true;
         for (int i = 0; i < enemySpawn.currentEnemyList.Count; i++)
@@ -319,6 +318,7 @@ public class GameManager : MonoBehaviour
         }
         UIManager.instance.SetActiveClearUI();
         Time.timeScale = 0;
+        adManager.ShowAD();
         SoundManager.instance.PlayEffectSound_ByName("Clear");
         PlayerPrefs.SetInt("Iron", Iron);
         PlayerPrefs.SetInt("Wood", Wood);
@@ -355,6 +355,7 @@ public class GameManager : MonoBehaviour
     [HideInInspector]
     public bool gameStart;
     string currentDifficult;
+    public event System.Action OnStart;
     public void GameStart(string difficult)
     {
         gameStart = true;
@@ -365,6 +366,7 @@ public class GameManager : MonoBehaviour
         enemySpawn.StageStart();
         enemySpawn.towers[0].SetActive(true);
         UnitManager.instance.ReSpawnStartUnit();
+        OnStart();
     }
 
     public Text diffcultText;

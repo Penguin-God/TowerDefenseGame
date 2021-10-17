@@ -12,12 +12,14 @@ public class TutorialFuntions : MonoBehaviour
 
     public void OffLigth()
     {
+        Time.timeScale = 0;
         mainLight.intensity = mainLigth_OffIntensity;
         subLight.intensity = 0.1f;
     }
 
     public void OnLigth()
     {
+        Time.timeScale = 1;
         spotLight.gameObject.SetActive(false);
         mainLight.intensity = 1f;
         subLight.intensity = 0.3f;
@@ -52,17 +54,26 @@ public class TutorialFuntions : MonoBehaviour
 
     public void GameProgress()
     {
+        Time.timeScale = 1;
         spotLight.gameObject.SetActive(false);
         Reset_FocusUI();
         SetAllButton(true);
     }
 
+    [SerializeField] Button[] allButtons = null;
+
+    [ContextMenu("버튼 배열 세팅")]
+    void SettingButtonArray()
+    {
+        // 꺼져 있는 게임 오브젝트도 가져옴
+        allButtons = Resources.FindObjectsOfTypeAll<Button>();
+    }
+
     public void SetAllButton(bool active)
     {
-        Button[] allbutton = FindObjectsOfType<Button>();
-        for (int i = 0; i < allbutton.Length; i++)
+        for (int i = 0; i < allButtons.Length; i++)
         {
-            allbutton[i].enabled = active;
+            allButtons[i].enabled = active;
         }
     }
 }

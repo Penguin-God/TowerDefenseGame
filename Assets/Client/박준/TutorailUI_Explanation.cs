@@ -13,12 +13,7 @@ public class TutorailUI_Explanation : MonoBehaviour, ITutorial
 
     public void TutorialAction()
     {
+        tutorFuntions.SetAllButton(false);
         if (showUITransform != null) tutorFuntions.SetBlindUI(showUITransform);
-    }
-
-    [SerializeField] bool isGameProgress;
-    private void OnDisable()
-    {
-        if (isGameProgress) tutorFuntions.GameProgress();
     }
 }

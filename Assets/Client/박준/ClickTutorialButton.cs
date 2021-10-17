@@ -6,9 +6,9 @@ public class ClickTutorialButton : MonoBehaviour, ITutorial
     [SerializeField] TutorialFuntions tutorFuntions = null;
     [SerializeField] RectTransform showUITransform = null;
     [SerializeField] Button tutorialButton = null;
-    [SerializeField] bool UI_TutorialEnd = false;
+    
 
-    bool isTutorialStart = false;
+    bool clickTutorButton = false;
 
     public void SetTutorialUI(RectTransform rect)
     {
@@ -18,14 +18,9 @@ public class ClickTutorialButton : MonoBehaviour, ITutorial
         else if (rect.GetComponentInChildren<Button>() != null) tutorialButton = rect.GetComponentInChildren<Button>();
     }
 
-    public void TutorialStart()
-    {
-        isTutorialStart = true;
-    }
-
     public bool EndCurrentTutorialAction()
     {
-        return isTutorialStart;
+        return clickTutorButton;
     }
 
     public void TutorialAction()
@@ -38,15 +33,14 @@ public class ClickTutorialButton : MonoBehaviour, ITutorial
             else allbutton[i].enabled = false;
         }
 
-        if(tutorialButton != null) tutorialButton.onClick.AddListener( () => TutorialStart());
+        if(tutorialButton != null) tutorialButton.onClick.AddListener( () => clickTutorButton = true);
         if (showUITransform != null) tutorFuntions.SetBlindUI(showUITransform);
     }
 
-    [SerializeField] bool isGameProgress;
-
+    
+    [SerializeField] bool UI_TutorialEnd = false;
     private void OnDisable()
     {
-        if (isGameProgress) tutorFuntions.GameProgress();
-        else if (UI_TutorialEnd) tutorFuntions.Reset_FocusUI();
+        if (UI_TutorialEnd) tutorFuntions.Reset_FocusUI();
     }
 }

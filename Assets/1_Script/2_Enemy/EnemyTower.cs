@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class EnemyTower : Enemy
 {
-    public EnemySpawn enemySpawn;
     public int towerLevel;
     public int rewardGold;
     public int rewardFood;
@@ -13,8 +12,13 @@ public class EnemyTower : Enemy
 
     private void Awake()
     {
+        Set_RespawnStatus(EnemySpawn.instance.arr_TowersHp[EnemySpawn.instance.currentTowerLevel]);
+    }
+
+    public void Set_RespawnStatus(int hp)
+    {
         isRespawn = true;
-        maxHp = enemySpawn.arr_TowersHp[enemySpawn.currentTowerLevel];
+        maxHp = hp;
         currentHp = maxHp;
         hpSlider.maxValue = maxHp;
         hpSlider.value = maxHp;
@@ -32,7 +36,7 @@ public class EnemyTower : Enemy
         gameObject.SetActive(false);
         transform.position = new Vector3(5000, 5000, 5000);
         GetTowerReword();
-        enemySpawn.RespawnNextTower(towerLevel, 1.5f); // 다음 타워 소환
+        EnemySpawn.instance.RespawnNextTower(towerLevel, 1.5f);
         SetUnitTarget();
     }
 

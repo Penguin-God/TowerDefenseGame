@@ -27,10 +27,8 @@ public class ReadTutorialText : MonoBehaviour, ITutorial
     }
 
     [SerializeField] bool filedExplanationEnd = false;
-    [SerializeField] bool isGameProgress = false;
     private void OnDisable()
     {
         if (filedExplanationEnd) tutorFuntions.OnLigth();
-        if (isGameProgress) tutorFuntions.GameProgress();
     }
 }

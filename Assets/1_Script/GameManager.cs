@@ -103,10 +103,10 @@ public class GameManager : MonoBehaviour
             Lose();
             //enemySpaw.EnemyofCount -= 1;
         }
-        if (isGameover && Input.anyKeyDown)
-        {
-            ReTurnClient();
-        }
+        //if (isGameover && Input.anyKeyDown)
+        //{
+        //    ReTurnClient();
+        //}
 
         if (isClear && Input.anyKeyDown)
         {
@@ -287,12 +287,14 @@ public class GameManager : MonoBehaviour
 
     }
 
+    public GameObject GameoverUi;
+    public Text IronRewardText;
     public void Lose()
     {
-        GetChallengeReward(); 
+        //GetChallengeReward(); 
         adManager.ShowAD();
         isGameover = true;
-        UIManager.instance.SetActiveGameOverUI();
+        //UIManager.instance.SetActiveGameOverUI();
         Time.timeScale = 0;
 
         SoundManager.instance.PlayEffectSound_ByName("Lose");
@@ -301,7 +303,14 @@ public class GameManager : MonoBehaviour
             PlayerPrefs.SetInt("HighScore", HighScore);
             Iron += enemySpawn.stageNumber;
             Wood += enemySpawn.stageNumber;//보상 방식,,
+            if (enemySpawn.stageNumber >= 50)
+            {
+                Hammer += 10;
+            }
+            
+            
         }
+        GameoverUi.SetActive(true);
         PlayerPrefs.SetInt("Iron", Iron);
         PlayerPrefs.SetInt("Wood", Wood);
         PlayerPrefs.Save();

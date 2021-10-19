@@ -52,7 +52,7 @@ public class TutorialManager : MonoBehaviour
             }
 
             tutor_Text.SetActive(false);
-            yield return new WaitForSecondsRealtime(0.1f); // 마우스 입력 등 튜토리얼이 너무 빨리 넘어가서
+            yield return new WaitForSecondsRealtime(0.2f); // 마우스 입력 등 튜토리얼이 너무 빨리 넘어가서
         }
         // 모든 튜토리얼이 끝나면 게임 진행
         tutorialFuntions.GameProgress();

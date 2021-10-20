@@ -289,8 +289,11 @@ public class GameManager : MonoBehaviour
 
     public GameObject GameoverUi;
     public Text IronRewardText;
+    public Text WoodRewardText;
+    public Text HammerRewardText;
     public void Lose()
     {
+        
         //GetChallengeReward(); 
         adManager.ShowAD();
         isGameover = true;
@@ -306,9 +309,17 @@ public class GameManager : MonoBehaviour
             if (enemySpawn.stageNumber >= 50)
             {
                 Hammer += 10;
+                HammerRewardText.text = "+ 10";
             }
+            else
+            {
+                HammerRewardText.text = "+ 0";
+            }
+            IronRewardText.text = "+ " + enemySpawn.stageNumber;
+            WoodRewardText.text = "+ " + enemySpawn.stageNumber;
             
-            
+
+
         }
         GameoverUi.SetActive(true);
         PlayerPrefs.SetInt("Iron", Iron);

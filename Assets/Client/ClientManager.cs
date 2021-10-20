@@ -86,6 +86,7 @@ public class ClientManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("PlusMaxUnitPrice", 10);
             PlusMaxUnitPrice = PlayerPrefs.GetInt("PlusMaxUnitPrice");
+            Debug.Log("초기화");
         }
         else
         {
@@ -108,6 +109,10 @@ public class ClientManager : MonoBehaviour
         UpdateAdIronCount(StartGoldPrice);
         UpdateAdWoodCount(StartFoodPrice);
         UpdateAdHammerCount(PlusTouchDamegePrice);
+        if (PlusMaxUnitCount >= 5)
+        {
+            PlusMaxUnitPriceText.text = "품절";
+        }
     }
 
     void Update()
@@ -115,6 +120,15 @@ public class ClientManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.P))
         {
             PlayerPrefs.DeleteAll();
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            ClientIron += 10000;
+            ClientWood += 10000;
+            ClientHammer += 10000;
+            PlayerPrefs.SetInt("Iron", ClientIron);
+            PlayerPrefs.SetInt("Wood", ClientWood);
+            PlayerPrefs.SetInt("Hammer", ClientHammer);
         }
     }
 
@@ -265,15 +279,20 @@ public class ClientManager : MonoBehaviour
             PlusMaxUnit = 1 * (PlusMaxUnitCount + 1);
             PlayerPrefs.SetInt("PlusMaxUnitPrice", (PlusMaxUnit + 1) * 10);
             PlayerPrefs.SetInt("PlusMaxUnit", PlusMaxUnit);
-            PlayerPrefs.SetInt("Hammer", ClientHammer);
+            PlayerPrefs.SetInt("Hammer", ClientHammer);           
             ClientHammer = PlayerPrefs.GetInt("Hammer");
             PlusMaxUnitPrice = PlayerPrefs.GetInt("PlusMaxUnitPrice");
+            
             UpdatePlusMaxUnitPrice();
             UpdateHammerText(ClientHammer);
-            PlusMaxUnitCount += 1;
-            PlayerPrefs.SetInt("PlusMaxUnitCOunt", PlusMaxUnitCount);
+            PlusMaxUnitCount += 1;            
+            PlayerPrefs.SetInt("PlusMaxUnitCount", PlusMaxUnitCount);
             PlayerPrefs.SetInt("PlusMaxUnit", PlusMaxUnit);
             PlayerPrefs.Save();
+            if (PlusMaxUnitCount >= 5)
+            {
+                PlusMaxUnitPriceText.text = "품절";
+            }
 
         }
         else
@@ -281,7 +300,7 @@ public class ClientManager : MonoBehaviour
             Debug.Log("실패");
             if (PlusMaxUnitCount >= 5)
             {
-                // 텍스트 바꾸기
+                PlusMaxUnitPriceText.text = "품절";
             }
         }
     }

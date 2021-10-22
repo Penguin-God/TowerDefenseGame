@@ -55,7 +55,6 @@ public class ClientManager : MonoBehaviour
             PlayerPrefs.SetInt("StartGoldPrice", 10);
             StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
 
-            
         }
         else
         {
@@ -115,9 +114,10 @@ public class ClientManager : MonoBehaviour
         }
     }
 
-    void Update()
+    void Update() 
     {
-        if (Input.GetKeyDown(KeyCode.P))
+
+        if (Input.GetKeyDown(KeyCode.P)) // p 누르면 데이터 삭제
         {
             PlayerPrefs.DeleteAll();
         }
@@ -131,6 +131,7 @@ public class ClientManager : MonoBehaviour
             PlayerPrefs.SetInt("Hammer", ClientHammer);
         }
     }
+
 
     public void UpdateIronText(int Iron)
     {

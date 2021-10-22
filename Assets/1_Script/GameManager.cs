@@ -4,8 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
+
 public class GameManager : MonoBehaviour
 {
+    
     //private int Stage;
     public int Gold;
     public int Food;
@@ -21,11 +24,14 @@ public class GameManager : MonoBehaviour
     public int waitingTime;
     public Enemy enemy;
     
+    
 
     public bool playerEnterStoryMode = false;
 
     public int enemyCount; // EnemySpaw에 있던거 옮김
 
+
+  
     public static GameManager instance
     {
         get
@@ -291,9 +297,10 @@ public class GameManager : MonoBehaviour
     public Text IronRewardText;
     public Text WoodRewardText;
     public Text HammerRewardText;
+    public Text EndText;
     public void Lose()
     {
-        
+        EndText.text = "Lose!";
         //GetChallengeReward(); 
         adManager.ShowAD();
         isGameover = true;
@@ -321,6 +328,9 @@ public class GameManager : MonoBehaviour
 
 
         }
+        IronRewardText.text = "+ 0" ;
+        WoodRewardText.text = "+ 0" ;
+        HammerRewardText.text = "+ 0";
         GameoverUi.SetActive(true);
         PlayerPrefs.SetInt("Iron", Iron);
         PlayerPrefs.SetInt("Wood", Wood);
@@ -329,6 +339,7 @@ public class GameManager : MonoBehaviour
 
     public void Clear()
     {
+        EndText.text = "Clear!";
         Hammer += 1;
         isClear = true;
         for (int i = 0; i < enemySpawn.currentEnemyList.Count; i++)
@@ -340,6 +351,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         adManager.ShowAD();
         SoundManager.instance.PlayEffectSound_ByName("Clear");
+        GameoverUi.SetActive(true);
         PlayerPrefs.SetInt("Iron", Iron);
         PlayerPrefs.SetInt("Wood", Wood);
         PlayerPrefs.SetInt("Hammer", Hammer);

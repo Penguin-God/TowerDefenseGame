@@ -151,24 +151,36 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-
+    int ClearRewardvalue;
     void GetClearReward()
     {
+        
         switch (currentDifficult)
         {
             case "Baby": 
-                Wood += 10; Iron += 10; break;
+                Wood += 10; Iron += 10;
+                ClearRewardvalue = 10;
+                break;
             case "Easy":
-                Wood += 30; Iron += 30; break;
+                Wood += 30; Iron += 30;
+                ClearRewardvalue = 30;
+                break;
             case "Normal":
-                Wood += 100; Iron += 100; break;
+                Wood += 100; Iron += 100;
+                ClearRewardvalue = 100;
+                break;
             case "Hard":
-                Wood += 300; Iron += 300; break;
+                Wood += 300; Iron += 300;
+                ClearRewardvalue = 300;
+                break;
             case "Impossiable":
-                Wood += 700; Iron += 700; break;
+                Wood += 700; Iron += 700;
+                ClearRewardvalue = 700;
+                break;
             default:
                 Debug.Log("난이도가 설정되지 않음"); break;
         }
+        
     }
 
     void GetChallengeReward()
@@ -351,6 +363,10 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
         adManager.ShowAD();
         SoundManager.instance.PlayEffectSound_ByName("Clear");
+        GetClearReward();
+        IronRewardText.text = "+ " + ClearRewardvalue;
+        WoodRewardText.text = "+ " + ClearRewardvalue;
+        HammerRewardText.text = "+ 1";
         GameoverUi.SetActive(true);
         PlayerPrefs.SetInt("Iron", Iron);
         PlayerPrefs.SetInt("Wood", Wood);

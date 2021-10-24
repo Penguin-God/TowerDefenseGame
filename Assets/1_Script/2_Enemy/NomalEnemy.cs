@@ -67,7 +67,7 @@ public class NomalEnemy : Enemy
         parent.gameObject.SetActive(false);
         parent.position = new Vector3(500, 500, 500);
         enemySpawn.currentEnemyList.Remove(this.gameObject);
-        EnemySpawn.instance.ReturnObject_ByPoolQueue(enemyNumber, gameObject);
+        EnemySpawn.instance.ReturnObject_ByPoolQueue(enemyNumber, parent.gameObject);
         ResetVariable();
     }
 

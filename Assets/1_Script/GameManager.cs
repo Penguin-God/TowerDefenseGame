@@ -114,11 +114,11 @@ public class GameManager : MonoBehaviour
         //    ReTurnClient();
         //}
 
-        if (isClear && Input.anyKeyDown)
-        {
-            GetClearReward();
-            ReTurnClient();
-        }
+        //if (isClear && Input.anyKeyDown)
+        //{
+        //    GetClearReward();
+        //    ReTurnClient();
+        //}
         if (Input.GetKeyDown(KeyCode.K)) // 빠른 게임 클리어 테스트 용
         {
             Time.timeScale = 20f;
@@ -359,7 +359,7 @@ public class GameManager : MonoBehaviour
             NomalEnemy enemy = enemySpawn.currentEnemyList[i].GetComponent<NomalEnemy>();
             enemy.Dead();
         }
-        UIManager.instance.SetActiveClearUI();
+        //UIManager.instance.SetActiveClearUI();
         Time.timeScale = 0;
         adManager.ShowAD();
         SoundManager.instance.PlayEffectSound_ByName("Clear");

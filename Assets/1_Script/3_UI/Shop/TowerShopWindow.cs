@@ -1,6 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class TowerShopWindow : MonoBehaviour
 {
@@ -9,16 +8,25 @@ public class TowerShopWindow : MonoBehaviour
 
     private void Awake()
     {
-        Sell = () => UnitManager.instance.ExpendMaxUnit(5);
+        Sell = () => UnitManager.instance.ExpendMaxUnit(3);
     }
 
-    public void SpendFood(int price)
+    public void SpendFood()
     {
         if(GameManager.instance.Food >= price)
         {
             GameManager.instance.Food -= price;
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
             Sell();
+            UpdatePrice();
         }
+    }
+
+    int price = 5;
+    [SerializeField] Text text = null;
+    void UpdatePrice()
+    {
+        price++;
+        text.text = string.Format("구입 시 유닛의 최대 갯수를 늘릴 수 있습니다. \n\n 가격: 식량 {0}개", price);
     }
 }

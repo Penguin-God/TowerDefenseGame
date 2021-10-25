@@ -340,9 +340,13 @@ public class GameManager : MonoBehaviour
 
 
         }
-        IronRewardText.text = "+ 0" ;
-        WoodRewardText.text = "+ 0" ;
-        HammerRewardText.text = "+ 0";
+        else
+        {
+            IronRewardText.text = "+ 0";
+            WoodRewardText.text = "+ 0";
+            HammerRewardText.text = "+ 0";
+        }
+        
         GameoverUi.SetActive(true);
         PlayerPrefs.SetInt("Iron", Iron);
         PlayerPrefs.SetInt("Wood", Wood);

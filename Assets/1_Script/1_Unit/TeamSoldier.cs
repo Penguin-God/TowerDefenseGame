@@ -110,10 +110,7 @@ public class TeamSoldier : MonoBehaviour
     {
         // override 코루틴 마지막 부분에서 실행하는 코드
         StartCoroutine(Co_ResetAttactStatus());
-        if (target != null && CheckEnemyIsNormal(target.gameObject))
-        {
-            UpdateTarget();
-        }
+        if (target != null && TragetIsNormalEnemy) UpdateTarget();
     }
 
     IEnumerator Co_ResetAttactStatus()
@@ -123,10 +120,7 @@ public class TeamSoldier : MonoBehaviour
         isAttackDelayTime = false;
     }
 
-    public virtual void SpecialAttack() // 유닛마다 다른 스킬공격 (기사, 법사는 없음)
-    {
-
-    }
+    public virtual void SpecialAttack() { } // 유닛마다 다른 스킬공격 (기사, 법사는 없음)
 
     protected int layerMask; // Ray 감지용
     [SerializeField]
@@ -153,19 +147,21 @@ public class TeamSoldier : MonoBehaviour
             rayHitTransform = rayHitObject.transform;
             if (rayHitTransform == null) return false;
 
-            if ( !CheckEnemyIsNormal(rayHitTransform.gameObject) || rayHitTransform == target.parent) return true;
+            if (CheckObjectIsBoss(rayHitTransform.gameObject) || rayHitTransform == target.parent) return true;
             else if(ReturnLayerMask(rayHitTransform.GetChild(0).gameObject) == layerMask)
             {
-                if (GetComponent<RangeUnit>() != null)
-                {
-                    // ray에 맞은 적이 target은 아니지만 target과 같은 layer라면 두 enemy가 겹친 것으로 판단해 target을 바꾸고 true를 리턴
-                    target = rayHitTransform.GetChild(0);
-                    return true;
-                }
+                // ray에 맞은 적이 target은 아니지만 target과 같은 layer라면 두 enemy가 겹친 것으로 판단해 target을 바꾸고 true를 리턴
+                target = rayHitTransform.GetChild(0);
+                return true;
             }
         }
 
         return false;
+    }
+
+    bool CheckObjectIsBoss(GameObject enemy)
+    {
+        return enemy.CompareTag("Tower") || enemy.CompareTag("Boss");
     }
 
     int ReturnLayerMask(GameObject targetObject) // 인자의 layer를 반환하는 함수
@@ -254,28 +250,29 @@ public class TeamSoldier : MonoBehaviour
     // 타워 때리는 무한반복 코루틴
     IEnumerator TowerNavCoroutine()
     {
-        if(target != null )enemyDistance = Vector3.Distance(this.transform.position, target.position);
         Physics.Raycast(transform.parent.position + Vector3.up, target.position - transform.position, out RaycastHit towerHit, 100f, layerMask);
-        
-        //StartCoroutine(Co_RangeNavStop());
+        if (target != null) enemyDistance = Vector3.Distance(this.transform.position, towerHit.point);
+
         Invoke("RangeNavStop", 3f); // 원거리 타워에 다가가는거 막기
         while (true)
         {
             if (target == null || enemyDistance > chaseRange)
             {
-                yield return null;
-                nav.speed = 0;
                 EnemyTower currentTower = enemySpawn.towers[enemySpawn.currentTowerLevel].GetComponent<EnemyTower>();
                 if (currentTower.isRespawn) target = currentTower.transform;
-                else continue;
+                else
+                {
+                    yield return null;
+                    continue;
+                }
             }
 
-            enemyDistance = Vector3.Distance(this.transform.position, target.position);
             nav.SetDestination(towerHit.point);
+            enemyDistance = Vector3.Distance(this.transform.position, target.position);
+            
             if ((towerEnter || enemyIsForward) && !isAttackDelayTime && !isSkillAttack && !isAttack)
-            {
                 UnitAttack();
-            }
+
             yield return new WaitForSeconds(0.5f);
         }
     }
@@ -304,13 +301,12 @@ public class TeamSoldier : MonoBehaviour
         yield return new WaitUntil(() => !isAttack);
         nav.enabled = false;
         UnitManager.instance.ShowTpEffect(transform);
+        
         if (!enterStoryWorld)
         {
             // 적군의 성 때 겹치는 버그 방지
             nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
             transform.parent.position = UnitManager.instance.Set_StroyModePosition();
-            enterStoryWorld = true;
-            nav.enabled = true;
             StopCoroutine("NavCoroutine");
             target = GameObject.FindGameObjectWithTag("Tower").transform;
             layerMask = ReturnLayerMask(target.gameObject);
@@ -321,12 +317,13 @@ public class TeamSoldier : MonoBehaviour
             nav.obstacleAvoidanceType = ObstacleAvoidanceType.GoodQualityObstacleAvoidance;
             transform.parent.position = SetRandomPosition(20, -20, 10, -10, false);
             towerEnter = false;
-            enterStoryWorld = false;
-            nav.enabled = true;
             StopCoroutine("TowerNavCoroutine");
             UpdateTarget();
             StartCoroutine("NavCoroutine");
         }
+
+        nav.enabled = true;
+        enterStoryWorld = !enterStoryWorld;
         SoundManager.instance.PlayEffectSound_ByName("TP_Unit");
     }
 
@@ -353,18 +350,7 @@ public class TeamSoldier : MonoBehaviour
         return new Vector3(randomX, 0, randomZ);
     }
 
-    protected Enemy GetEnemyScript()
-    {
-        Enemy enemy = null;
-        if (target != null) enemy = target.gameObject.GetComponent<Enemy>();
-        return enemy;
-    }
-
-    protected bool CheckEnemyIsNormal(GameObject enemyObject)
-    {
-        if (enemyObject != null && !enemyObject.CompareTag("Tower") && !enemyObject.CompareTag("Boss")) return true;
-        else return false;
-    }
+    protected bool TragetIsNormalEnemy { get { return ( target != null && !target.CompareTag("Tower") && !target.CompareTag("Boss") ); } }
 
     public void AttackEnemy(Enemy enemy) // Boss enemy랑 쫄병 구분
     {
@@ -374,7 +360,7 @@ public class TeamSoldier : MonoBehaviour
             return;
         }
 
-        if (CheckEnemyIsNormal(enemy.gameObject)) enemy.OnDamage(damage);
+        if (TragetIsNormalEnemy) enemy.OnDamage(damage);
         else enemy.OnDamage(bossDamage);
     }
 }

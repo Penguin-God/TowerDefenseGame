@@ -33,8 +33,8 @@ public class SellEventShopItem : MonoBehaviour
         {
             switch (priceType)
             {
-                case PriceType.Gold: return GameManager.instance.Gold > price;
-                case PriceType.Food: return GameManager.instance.Food > price;
+                case PriceType.Gold: return GameManager.instance.Gold >= price;
+                case PriceType.Food: return GameManager.instance.Food >= price;
             }
             return false;
         }

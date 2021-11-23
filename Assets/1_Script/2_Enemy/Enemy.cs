@@ -23,12 +23,10 @@ public class Enemy : MonoBehaviour
     private void Start()
     {
         originMat = GetComponent<MeshRenderer>().material;
+
         meshList = new List<MeshRenderer> { GetComponent<MeshRenderer>() };
         MeshRenderer[] addMeshs = GetComponentsInChildren<MeshRenderer>();
-        for(int i = 0; i < addMeshs.Length; i++)
-        {
-            meshList.Add(addMeshs[i]);
-        }
+        for(int i = 0; i < addMeshs.Length; i++) meshList.Add(addMeshs[i]);
     }
 
     // 대미지 관련 함수
@@ -36,10 +34,8 @@ public class Enemy : MonoBehaviour
     {
         currentHp -= damage;
         hpSlider.value = currentHp;
-        if (currentHp <= 0)
-        {
-            Dead();
-        }
+
+        if (currentHp <= 0) Dead();
     }
 
     public virtual void Dead() 
@@ -64,12 +60,7 @@ public class Enemy : MonoBehaviour
         if (this.gameObject.CompareTag("Tower") || isDead) return;
 
         int random = Random.Range(0, 100);
-        if (random < sternPercent)
-        {
-            //if (sternCoroutine != null) StopCoroutine(sternCoroutine);
-            //sternCoroutine = StartCoroutine(SternCoroutine(sternTime));
-            StartCoroutine(SternCoroutine(sternTime));
-        }
+        if (random < sternPercent) StartCoroutine(SternCoroutine(sternTime));
     }
 
     Queue<int> queue_GetSturn = new Queue<int>();
@@ -84,8 +75,8 @@ public class Enemy : MonoBehaviour
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
         yield return new WaitForSeconds(sternTime);
 
-        if (queue_GetSturn.Count > 0) queue_GetSturn.Dequeue();
-        if (queue_GetSturn.Count <= 0) ExitSturn();
+        queue_GetSturn.Dequeue();
+        if (queue_GetSturn.Count == 0) ExitSturn();
     }
     void ExitSturn()
     {
@@ -145,23 +136,29 @@ public class Enemy : MonoBehaviour
         StartCoroutine(PoisonAttack(poisonPercent, poisonCount, poisonDelay, maxDamage));
     }
 
-    // Queue를 사용해서 현재 독 공격중인 유닛이 없으면 색깔 복귀하기
+    // Queue를 사용해서 현재 코루틴이 중복으로 돌아가고 있지 않으면 색깔 복귀하기
     Queue<int> queue_HoldingPoison = new Queue<int>();
     IEnumerator PoisonAttack(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
     {
         queue_HoldingPoison.Enqueue(-1);
         ChangeColor(new Color32(141, 49, 231, 255));
-        int poisonDamage = Mathf.RoundToInt(currentHp * poisonPercent / 100); 
+        int poisonDamage = GetPoisonDamage(poisonPercent, maxDamage);
         for (int i = 0; i < poisonCount; i++)
         {
             yield return new WaitForSeconds(poisonDelay);
-            if (poisonDamage <= 0) poisonDamage = 1; // 독 최소뎀
-            if (poisonDamage >= maxDamage) poisonDamage = maxDamage; // 독 최대뎀
             OnDamage(poisonDamage);
         }
 
-        if(queue_HoldingPoison.Count > 0) queue_HoldingPoison.Dequeue();
-        if (queue_HoldingPoison.Count <= 0) ChangeColor(new Color32(255, 255, 255, 255));
+        queue_HoldingPoison.Dequeue();
+        if (queue_HoldingPoison.Count == 0) ChangeColor(new Color32(255, 255, 255, 255));
+    }
+
+    int GetPoisonDamage(int poisonPercent, int maxDamage)
+    {
+        int poisonDamage = Mathf.RoundToInt(currentHp * poisonPercent / 100);
+        if (poisonDamage <= 0) poisonDamage = 1; // 독 최소뎀
+        if (poisonDamage >= maxDamage) poisonDamage = maxDamage; // 독 최대뎀
+        return poisonDamage;
     }
 
     protected void ChangeColor(Color32 colorColor)

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MeeleUnit : TeamSoldier
 {
@@ -46,10 +44,11 @@ public class MeeleUnit : TeamSoldier
 
     protected void HitMeeleAttack() // 근접공격 타겟팅
     {
-        Enemy enemy = GetEnemyScript();
-        if (enemy != null && (enemyDistance < attackRange * 1.5f || !CheckEnemyIsNormal(enemy.gameObject) ) )
+        Enemy enemy = target.GetComponent<Enemy>();
+        if (enemy != null && enemyDistance < attackRange * 1.5f) 
         {
-            if (delegate_OnHit != null) delegate_OnHit(enemy);
+            if (delegate_OnHit != null) 
+                delegate_OnHit(enemy);
         }
     }
 }

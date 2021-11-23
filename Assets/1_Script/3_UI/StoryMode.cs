@@ -20,18 +20,8 @@ public class StoryMode : MonoBehaviourPun
 
     public void TranslateUnit()
     {
-        GameObject[] moveUnits = GameObject.FindGameObjectsWithTag(unitTagName);
-        if (moveUnits.Length == 0) return;
-
-        for(int i = 0; i < moveUnits.Length; i++)
-        {
-            TeamSoldier teamSoldier = moveUnits[i].GetComponent<TeamSoldier>();
-            if (teamSoldier.enterStoryWorld == GameManager.instance.playerEnterStoryMode) // unit과 player의 입장 필드가 같으면
-            {
-                teamSoldier.Unit_WorldChange();
-                break;
-            }
-        }
+        GameObject moveUnits = GameObject.FindGameObjectWithTag(unitTagName);
+        if (moveUnits != null) moveUnits.GetComponent<TeamSoldier>().Unit_WorldChange();
     }
 
     public Text enterButtonText;

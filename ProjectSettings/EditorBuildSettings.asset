@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/Demo/\uD569\uCE5C \uC52C - \uC7A5\uC775\uC900.unity"
     guid: 1f992949b6e8415439956cc0f2998771
-  - enabled: 0
+  - enabled: 1
     path: "Assets/Demo/\uD569\uCE5C \uC52C - \uC7A5\uC775\uC900 \uBA40\uD2F0.unity"
     guid: 9b64104bc0701e84da28e135d72ef4a3
   - enabled: 1

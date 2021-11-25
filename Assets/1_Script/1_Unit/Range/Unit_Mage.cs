@@ -17,6 +17,9 @@ public class Unit_Mage : RangeUnit, IEvent
         animator = GetComponent<Animator>();
         if (unitColor == UnitColor.white) return;
 
+        mageSkill = 
+            Instantiate(mageEffectObject, mageEffectObject.transform.position, mageEffectObject.transform.rotation).GetComponent<MageSkill>();
+
         canvasRectTransform = transform.parent.GetComponentInChildren<RectTransform>();
         manaSlider = transform.parent.GetComponentInChildren<Slider>();
         manaSlider.maxValue = maxMana;
@@ -142,7 +145,7 @@ public class Unit_Mage : RangeUnit, IEvent
 
         if (target != null && enemyDistance < chaseRange)
         {
-            GameObject instantEnergyBall = CreateBullte(energyBall, energyBallTransform);
+            GameObject instantEnergyBall = CreateBullte(energyBall, energyBallTransform, delegate_OnHit);
             ShotBullet(instantEnergyBall, 2f, 50f, target);
         }
 
@@ -180,33 +183,23 @@ public class Unit_Mage : RangeUnit, IEvent
 
         effectObject.SetActive(true);
     }
-
+    MageSkill mageSkill = null;
     void MageColorSpecialAttack() // 색깔에 따른 실질적인 스킬
     {
+        if (mageSkill != null) mageSkill.OnSkile(this);
+        else Debug.Log("MageSkile 스크립트 없음");
+
         switch (unitColor)
         {
-            case UnitColor.red:
-                RedMageSkill();
-                break;
-            case UnitColor.blue:
-                BlueMageSkill();
-                break;
-            case UnitColor.yellow:
-                int addGold = (isUltimate) ? 3 : 5;
-                YellowMageSkill(addGold);
-                break;
-            case UnitColor.green:
-                GreenMageSkill();
-                break;
-            case UnitColor.orange:
-                OrangeMageSkill();
-                break;
-            case UnitColor.violet:
-                VioletMageSkill(target);
-                break;
-            case UnitColor.black:
-                BlackMageSkill();
-                break;
+            //case UnitColor.red: RedMageSkill(); break;
+            case UnitColor.blue: BlueMageSkill(); break;
+            case UnitColor.yellow: 
+                int addGold = (isUltimate) ? 3 : 5; 
+                YellowMageSkill(addGold); break;
+            case UnitColor.green: GreenMageSkill(); break;
+            case UnitColor.orange: OrangeMageSkill(); break;
+            case UnitColor.violet: VioletMageSkill(target); break;
+            case UnitColor.black: BlackMageSkill(); break;
         }
     }
 
@@ -230,9 +223,7 @@ public class Unit_Mage : RangeUnit, IEvent
 
         Vector3 meteorPosition = transform.position + Vector3.up * 30; // 높이 설정
         GameObject instantSkillEffect = Instantiate(mageEffectObject, meteorPosition, Quaternion.identity);
-        Meteor meteor = instantSkillEffect.GetComponent<Meteor>();
-        meteor.target = attackTarget;
-        meteor.teamSoldier = GetComponent<TeamSoldier>();
+
         instantSkillEffect.SetActive(true);
         StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f));
     }
@@ -278,7 +269,7 @@ public class Unit_Mage : RangeUnit, IEvent
     void OrangeMageSkill() // 애는 스킬 쪽에서 소리 재생
     {
         GameObject instantPosionEffect = Instantiate(mageEffectObject, target.position, mageEffectObject.transform.rotation);
-        instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
+        //instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
     }
 
     void MultiDirectionAttack()
@@ -289,7 +280,7 @@ public class Unit_Mage : RangeUnit, IEvent
             Transform instantTransform = directions.GetChild(i);
             if (target != null && Vector3.Distance(target.position, transform.position) < chaseRange)
             {
-                GameObject instantEnergyBall = CreateBullte(energyBall, instantTransform);
+                GameObject instantEnergyBall = CreateBullte(energyBall, instantTransform, delegate_OnHit);
                 instantEnergyBall.transform.rotation = directions.GetChild(i).rotation;
                 instantEnergyBall.GetComponent<Rigidbody>().velocity = directions.GetChild(i).rotation.normalized * Vector3.forward * 50;
             }
@@ -300,7 +291,7 @@ public class Unit_Mage : RangeUnit, IEvent
     void VioletMageSkill(Transform attackTarget) // 독 공격
     {
         GameObject instantPosionEffect = Instantiate(mageEffectObject, attackTarget.position, mageEffectObject.transform.rotation);
-        instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
+        //instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
         if (isUltimate) Ultimate_VioletMageSkill();
         StartCoroutine(Play_SkillClip(mageSkillCilp, 1.5f, 0));
     }
@@ -311,7 +302,7 @@ public class Unit_Mage : RangeUnit, IEvent
 
         Transform target = Return_RandomCurrentEnemy(1)[0];
         GameObject instantPosionEffect = Instantiate(mageEffectObject, target.position, mageEffectObject.transform.rotation);
-        instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
+        //instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
     }
 
     void BlackMageSkill()
@@ -330,7 +321,7 @@ public class Unit_Mage : RangeUnit, IEvent
             Transform instantTransform = directions.GetChild(i);
             if (target != null && Vector3.Distance(target.position, transform.position) < chaseRange)
             {
-                GameObject instantEnergyBall = CreateBullte(energyBall, instantTransform);
+                GameObject instantEnergyBall = CreateBullte(energyBall, instantTransform, delegate_OnHit);
                 instantEnergyBall.transform.rotation = directions.GetChild(i).rotation;
                 instantEnergyBall.GetComponent<Rigidbody>().velocity = directions.GetChild(i).rotation.normalized * Vector3.forward * 50;
                 instantEnergyBall.GetComponent<AttackWeapon>().isSkill = true;
@@ -360,7 +351,7 @@ public class Unit_Mage : RangeUnit, IEvent
         while (true)
         {
             canvasRectTransform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
-            yield return new WaitForSeconds(0.2f);
+            yield return null;
         }
     }
 

@@ -16,7 +16,7 @@ public class CollisionWeapon : MonoBehaviour
     {
         if (other.gameObject.GetComponent<Enemy>() != null)
         {
-            if (UnitOnDamage != null)  UnitOnDamage(other.gameObject.GetComponent<Enemy>());
+            if (UnitOnDamage != null) UnitOnDamage(other.GetComponent<Enemy>()); 
 
             if (!isAOE) Destroy(gameObject);
         }

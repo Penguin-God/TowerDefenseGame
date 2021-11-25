@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4673589025293324887}
   - component: {fileID: 8901822379770067143}
   - component: {fileID: 4681147686993388070}
-  - component: {fileID: 3953203420438825100}
   - component: {fileID: 1631909887969199429}
   - component: {fileID: 5411110099199305712}
+  - component: {fileID: -5210612279503971085}
   m_Layer: 9
   m_Name: Green_Spear
   m_TagString: Attack
@@ -83,22 +83,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &3953203420438825100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4947818212191654679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15ad5adace7d8ad4dbe30ee8c9a3a850, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isAOE: 1
-  isSkill: 0
-  teamSoldier: {fileID: 0}
-  attackUnit: {fileID: 0}
 --- !u!54 &1631909887969199429
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -128,6 +112,19 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 6, z: 2}
   m_Center: {x: -0.29306036, y: 2, z: 0.4628416}
+--- !u!114 &-5210612279503971085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4947818212191654679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9c18c991449614fb8d42e4edc0dcf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAOE: 1
 --- !u!1 &9005014395033615894
 GameObject:
   m_ObjectHideFlags: 0

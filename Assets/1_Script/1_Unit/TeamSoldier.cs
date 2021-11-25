@@ -77,10 +77,7 @@ public class TeamSoldier : MonoBehaviour
     void UnitAttack()
     {
         int random = Random.Range(0, 100);
-        if(random < specialAttackPercent)
-        {
-            SpecialAttack();
-        }
+        if(random < specialAttackPercent) SpecialAttack();
         else
         {
             NormalAttack();

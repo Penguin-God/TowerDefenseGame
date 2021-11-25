@@ -59,7 +59,7 @@ public class Unit_Spearman : MeeleUnit, IEvent
 
         GameObject instantSpear = Instantiate(skileSpaer, spearCreatePosition);
         instantSpear.transform.SetParent(dontMoveGameObject.transform);
-        instantSpear.GetComponent<AttackWeapon>().attackUnit = this.gameObject;
+        instantSpear.GetComponent<CollisionWeapon>().UnitOnDamage += (Enemy enemy) => delegate_OnHit(enemy);
         instantSpear.GetComponent<Rigidbody>().velocity = (-1 * transform.forward) * 50;
 
         if (enterStoryWorld == GameManager.instance.playerEnterStoryMode)

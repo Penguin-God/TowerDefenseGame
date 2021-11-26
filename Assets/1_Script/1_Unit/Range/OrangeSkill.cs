@@ -2,52 +2,46 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class OrangeSkill : MonoBehaviour
+public class OrangeSkill : MageSkill
 {
-    AudioSource audioSource;
-    MageSkill mageSkill;
-
-    public TeamSoldier teamSoldier;
-    Enemy enemy;
-
-    private void Start()
+    TeamSoldier teamSoldier;
+    private void Awake()
     {
+        teamSoldier = GetComponentInParent<TeamSoldier>();
         audioSource = GetComponent<AudioSource>();
-        mageSkill = GetComponent<MageSkill>();
-        this.teamSoldier = mageSkill.teamSoldier;
-        if(teamSoldier != null) enemy = teamSoldier.target.GetComponent<Enemy>();
-        count = teamSoldier.gameObject.GetComponent<Unit_Mage>().isUltimate ? 5 : 3;
+        ps = GetComponent<ParticleSystem>();
+    }
+
+    public override void MageSkile(Unit_Mage mage)
+    {
+        count = mage.isUltimate ? 3 : 5;
+        OrangeSkile(mage.target.GetComponent<Enemy>());
     }
 
     int count = -1;
 
-    private void OnEnable()
+    ParticleSystem ps = null;
+
+    void OrangeSkile(Enemy enemy)
     {
-        StartCoroutine(Co_Wait());
+        if (enemy == null) return;
+
+        OrangeMageSkill(enemy);
+        // 조건 검사하기 전에 이미 한번 실행해서 -- 써도 됨
+        if (--count > 0) StartCoroutine(Co_Move(ps.startLifetime + 0.1f));
     }
 
-    IEnumerator Co_Wait()
+    IEnumerator Co_Move(float delayTime)
     {
-        yield return new WaitUntil(() => count != -1);
-        if (enemy == null) yield break; // 코루틴 끝내기
-        OrangeMageSkill();
-
-        if (--count > 0)
-        {
-            ParticleSystem ps = GetComponent<ParticleSystem>();
-            Invoke("SetOnEnalble", ps.startLifetime + 0.1f);
-        }
-    }
-
-    void SetOnEnalble()
-    {
-        if(!enemy.isDead) transform.position = enemy.transform.position;
+        yield return new WaitForSeconds(delayTime);
+        // 껏다 킬때마다 조건을 확인하는 걸로 반복문 구현
         gameObject.SetActive(false);
         gameObject.SetActive(true);
     }
 
-    void OrangeMageSkill()
+    void OrangeMageSkill(Enemy enemy)
     {
+        if (!enemy.isDead) transform.position = enemy.transform.position;
         OrangePlayAudio();
 
         if (enemy != null && !enemy.isDead)
@@ -57,6 +51,7 @@ public class OrangeSkill : MonoBehaviour
         }
     }
 
+    AudioSource audioSource;
     [SerializeField] AudioClip audioClip;
     public void OrangePlayAudio()
     {

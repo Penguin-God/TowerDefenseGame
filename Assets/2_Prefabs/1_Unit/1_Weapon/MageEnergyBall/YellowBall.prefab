@@ -4764,8 +4764,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7010148103123799851}
   - component: {fileID: 2714316765572564589}
-  - component: {fileID: 1154866927266887116}
   - component: {fileID: 4096032877490187086}
+  - component: {fileID: 7937659477990221639}
   m_Layer: 0
   m_Name: YellowBall
   m_TagString: Untagged
@@ -4802,22 +4802,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 13, y: 5, z: 3}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1154866927266887116
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7010148103123964683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15ad5adace7d8ad4dbe30ee8c9a3a850, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isAOE: 1
-  isSkill: 0
-  teamSoldier: {fileID: 0}
-  attackUnit: {fileID: 0}
 --- !u!54 &4096032877490187086
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4834,6 +4818,19 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
+--- !u!114 &7937659477990221639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7010148103123964683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9c18c991449614fb8d42e4edc0dcf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAOE: 1
 --- !u!1 &7010148103123964687
 GameObject:
   m_ObjectHideFlags: 0

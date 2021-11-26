@@ -77,10 +77,7 @@ public class TeamSoldier : MonoBehaviour
     void UnitAttack()
     {
         int random = Random.Range(0, 100);
-        if(random < specialAttackPercent)
-        {
-            SpecialAttack();
-        }
+        if(random < specialAttackPercent) SpecialAttack();
         else
         {
             NormalAttack();
@@ -354,6 +351,7 @@ public class TeamSoldier : MonoBehaviour
 
     public void AttackEnemy(Enemy enemy) // Boss enemy랑 쫄병 구분
     {
+        // 이거 때문에 법사 스킬 쓰는 중에 일반 공격 안먹는 버그 뜸 즉 쓰레기 코드
         if (isSkillAttack) // 스킬이면 skillDamage입히고 리턴
         {
             enemy.OnDamage(skillDamage);

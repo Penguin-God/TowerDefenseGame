@@ -1,62 +1,70 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class MageSkill : MonoBehaviour
+abstract public class MageSkill : MonoBehaviour
 {
-    SphereCollider sphereCollider;
-    public TeamSoldier teamSoldier;
+    [SerializeField] string soundCilpName;
+
+    [SerializeField] protected SphereCollider sphereCollider;
     public float hitTime; // 콜라이더가 켜지기 전 공격 대기 시간
 
-    private void Awake()
+    // 법사 스킬 사용 가능 조건을 만들고 조건을 만족할 때까지 대기하고 무조건 스킬 사용하게 하기
+    public void OnSkile(Unit_Mage mage)
     {
-        if(GetComponentInParent<TeamSoldier>() != null) teamSoldier = GetComponentInParent<TeamSoldier>();
-        sphereCollider = GetComponent<SphereCollider>();
+        DoSkile = () => MageSkile(mage);
+        gameObject.SetActive(true);
+        if (sphereCollider != null) StartCoroutine(Co_OnCollider(hitTime));
     }
+
+    public abstract void MageSkile(Unit_Mage mage);
+
+    Action DoSkile;
 
     private void OnEnable()
     {
-        if(sphereCollider != null)
-            StartCoroutine(ShowEffect_Coroutine(hitTime));
+        if (DoSkile != null) DoSkile();
     }
+
+    protected IEnumerator Co_OnCollider(float delayTIme)
+    {
+        yield return new WaitForSeconds(delayTIme);
+        if(sphereCollider != null) sphereCollider.enabled = true;
+    }
+
+    public virtual void HitSkile(Enemy enemy) { }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<Enemy>() != null)
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            MageSkile(enemy);
+            HitSkile(enemy);
         }
     }
 
-    void MageSkile(Enemy enemy)
-    {
-        switch (teamSoldier.unitColor)
-        {
-            case TeamSoldier.UnitColor.red:
-                enemy.EnemyStern(100, 5);
-                enemy.OnDamage(400000);
-                Destroy(transform.parent.gameObject, 3);
-                break;
-            case TeamSoldier.UnitColor.blue:
-                enemy.EnemySlow(99, 5, true);
-                if (teamSoldier.GetComponent<Unit_Mage>().isUltimate) enemy.OnDamage(20000);
-                break;
-            case TeamSoldier.UnitColor.yellow:
-                break;
-            case TeamSoldier.UnitColor.green:
-                break;
-            case TeamSoldier.UnitColor.orange:
-                break;
-            case TeamSoldier.UnitColor.violet:
-                enemy.EnemyPoisonAttack(25, 8, 0.3f, 120000);
-                break;
-        }
-    }
-
-    IEnumerator ShowEffect_Coroutine(float delayTIme)
-    {
-        yield return new WaitForSeconds(delayTIme);
-        sphereCollider.enabled = true;
-    }
+    //void MageSkile(Enemy enemy)
+    //{
+    //    switch (teamSoldier.unitColor)
+    //    {
+    //        case TeamSoldier.UnitColor.red:
+    //            enemy.EnemyStern(100, 5);
+    //            enemy.OnDamage(400000);
+    //            Destroy(transform.parent.gameObject, 3);
+    //            break;
+    //        case TeamSoldier.UnitColor.blue:
+    //            enemy.EnemySlow(99, 5, true);
+    //            if (teamSoldier.GetComponent<Unit_Mage>().isUltimate) enemy.OnDamage(20000);
+    //            break;
+    //        case TeamSoldier.UnitColor.yellow:
+    //            break;
+    //        case TeamSoldier.UnitColor.green:
+    //            break;
+    //        case TeamSoldier.UnitColor.orange:
+    //            break;
+    //        case TeamSoldier.UnitColor.violet:
+    //            enemy.EnemyPoisonAttack(25, 8, 0.3f, 120000);
+    //            break;
+    //    }
+    //}
 }

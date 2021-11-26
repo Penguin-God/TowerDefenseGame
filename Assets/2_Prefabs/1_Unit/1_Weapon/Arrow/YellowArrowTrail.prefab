@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 3088359444298159366}
   - component: {fileID: 3088359444298159367}
   - component: {fileID: 3088359444298159364}
-  - component: {fileID: 1490930096575968293}
   - component: {fileID: 1262358951018078831}
+  - component: {fileID: 8589386699681892621}
   m_Layer: 0
   m_Name: YellowArrowTrail
   m_TagString: Attack
@@ -174,22 +174,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 4
   m_CollisionDetection: 0
---- !u!114 &1490930096575968293
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3088359444298159365}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15ad5adace7d8ad4dbe30ee8c9a3a850, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isAOE: 0
-  isSkill: 0
-  teamSoldier: {fileID: 0}
-  attackUnit: {fileID: 0}
 --- !u!135 &1262358951018078831
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -203,3 +187,16 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8589386699681892621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3088359444298159365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e9c18c991449614fb8d42e4edc0dcf2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAOE: 0

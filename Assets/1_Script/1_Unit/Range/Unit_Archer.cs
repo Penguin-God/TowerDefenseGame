@@ -27,7 +27,7 @@ public class Unit_Archer : RangeUnit, IEvent
 
         nav.isStopped = true;
         trail.SetActive(false);
-        GameObject instantArrow = CreateBullte(arrow, arrowTransform);
+        GameObject instantArrow = CreateBullte(arrow, arrowTransform, delegate_OnHit);
         ShotBullet(instantArrow, 1.5f, 50f, target);
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
@@ -58,7 +58,7 @@ public class Unit_Archer : RangeUnit, IEvent
         Transform[] targetArray = Set_AttackTarget(target, enemySpawn.currentEnemyList, enemyCount);
         for (int i = 0; i < targetArray.Length; i++)
         {
-            GameObject instantArrow = CreateBullte(arrow, arrowTransform);
+            GameObject instantArrow = CreateBullte(arrow, arrowTransform, delegate_OnHit);
             instantArrow.GetComponent<SphereCollider>().radius = 5f; // 적이 잘 안맞아서 반지름 늘림
             ShotBullet(instantArrow, 3f, 50f, targetArray[i]);
         }

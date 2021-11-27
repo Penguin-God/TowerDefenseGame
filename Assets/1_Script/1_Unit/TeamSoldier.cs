@@ -347,12 +347,13 @@ public class TeamSoldier : MonoBehaviour
         return new Vector3(randomX, 0, randomZ);
     }
 
+    // 현재 타겟이 노말인지 아닌지 나타내는 프로퍼티 (시발 태그 안쓰고 그냥 GetComponent<NormalEnemy>() 쓰면 되잖아 지금까지 뭐한거지 시발 )
     protected bool TragetIsNormalEnemy { get { return ( target != null && !target.CompareTag("Tower") && !target.CompareTag("Boss") ); } }
 
     public void AttackEnemy(Enemy enemy) // Boss enemy랑 쫄병 구분
     {
-        // 이거 때문에 법사 스킬 쓰는 중에 일반 공격 안먹는 버그 뜸 즉 쓰레기 코드
-        if (isSkillAttack) // 스킬이면 skillDamage입히고 리턴
+        // 법사 스킬 쓰는 중에 일반 공격 안먹는 버그 때문에 조건 추가 쓰레기 코드니까 나중에 바꾸기
+        if (isSkillAttack && !GetComponent<Unit_Mage>()) // 스킬이면 skillDamage입히고 중지
         {
             enemy.OnDamage(skillDamage);
             return;

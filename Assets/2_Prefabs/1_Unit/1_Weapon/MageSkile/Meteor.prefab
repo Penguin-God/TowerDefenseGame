@@ -25,7 +25,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 397ccfde872e1cc4181748d4dced8602, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.07
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -200,7 +200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88fd1f3db0c8f5846b86688ccc8bcae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundCilpName: 
   sphereCollider: {fileID: 4624219392778089399}
   hitTime: 0
   speed: 50

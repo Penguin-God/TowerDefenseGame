@@ -802,8 +802,9 @@ GameObject:
   - component: {fileID: 5462664237741637250}
   - component: {fileID: 5468839687284908096}
   - component: {fileID: 5454637040427765981}
-  - component: {fileID: 31673267759872258}
   - component: {fileID: 8796098798028416998}
+  - component: {fileID: 2760111201012713128}
+  - component: {fileID: 1182257668}
   m_Layer: 9
   m_Name: TB_Soldier_Mage_Red
   m_TagString: RedMage
@@ -893,7 +894,20 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &31673267759872258
+--- !u!135 &8796098798028416998
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5454637040427765980}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 20
+  m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
+--- !u!114 &2760111201012713128
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -902,7 +916,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5454637040427765980}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fdb13b87ffa5ea4e9b9e62fc29cf95c, type: 3}
+  m_Script: {fileID: 11500000, guid: 1b0bbf916f4458748bc80178ae8ec4ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitType: 3
@@ -919,10 +933,11 @@ MonoBehaviour:
   stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
+  isSkillAttack: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
   normalAttakc_AudioDelay: 0.7
-  tpAudioClip: {fileID: 8300000, guid: a27ce694edf98ef48bc63dd09fc57312, type: 3}
+  reinforceEffect: {fileID: 8862572027123117244}
   passiveReinForce: 0
   specialAttackPercent: 0
   enemyDistance: 0
@@ -931,34 +946,33 @@ MonoBehaviour:
   contactEnemy: 0
   towerEnter: 0
   enterStoryWorld: 0
-  getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
-  reinforceEffect: {fileID: 8862572027123117244}
-  isSkillAttack: 0
+  isFix: 0
   magicLight: {fileID: 2912166254476401257}
   energyBall: {fileID: 4005321863399391286, guid: 0f47c58451f0d3e4e9a370c4f1de7a76,
     type: 3}
   energyBallTransform: {fileID: 2912166253428939080}
   isUltimate: 0
   plusMana: 30
-  mageSkillCoolDownTime: 2.5
+  mageSkillCoolDownTime: 2
   mageEffectObject: {fileID: 4624219392482637300, guid: d6fccbbc807ddcf48ad83801f635ecf9,
     type: 3}
   mageSkillCilp: {fileID: 8300000, guid: e6f235e1a0f4c504bbb5a76c786d86b6, type: 3}
   maxMana: 150
   currentMana: 0
---- !u!135 &8796098798028416998
-SphereCollider:
+--- !u!114 &1182257668
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5454637040427765980}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 20
-  m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a3edb237df52a94e81be30ee20c4c1c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamSoldier: {fileID: 0}
+  downDelayWeigh: 0
 --- !u!1 &5454817337263252172
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,15 +1123,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 26712ef667758bc4faf25b87a07b98d9, type: 3}
---- !u!1 &8862572027123117244 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8862572027420421335, guid: 26712ef667758bc4faf25b87a07b98d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 306806891}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8860491915511193004 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8860491915742305735, guid: 26712ef667758bc4faf25b87a07b98d9,
+    type: 3}
+  m_PrefabInstance: {fileID: 306806891}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8862572027123117244 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8862572027420421335, guid: 26712ef667758bc4faf25b87a07b98d9,
     type: 3}
   m_PrefabInstance: {fileID: 306806891}
   m_PrefabAsset: {fileID: 0}

@@ -90,7 +90,7 @@ public class Enemy : MonoBehaviour
     Coroutine exitSlowCoroutine = null;
     [SerializeField]
     private Material slowSkillMat;
-    public void EnemySlow(float slowPercent, float slowTIme, bool isSkill = false)
+    public void EnemySlow(float slowPercent, float slowTime)
     {
         if (this.gameObject.CompareTag("Tower") || isDead) return;
         
@@ -104,14 +104,26 @@ public class Enemy : MonoBehaviour
             nomalEnemy.speed = nomalEnemy.maxSpeed - nomalEnemy.maxSpeed * (slowPercent / 100);
             parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
 
-            if (!isSkill) ChangeColor(new Color32(50, 175, 222, 1));
-            else ChangeMat(slowSkillMat);
+            ChangeColor(new Color32(50, 175, 222, 1));
 
-            if (slowTIme > 0)
-            {
-                exitSlowCoroutine = StartCoroutine(ExitSlow_Coroutine(slowTIme)); // 더 강한 슬로우 적용 시 코루틴 중지를 위한 코드
-            }
+            // 더 강한 슬로우 적용을 위한 코드
+            // 더 강한 슬로우가 들어오면 작동 준비중이던 슬로우 탈출 코루틴은 나가리 되고 새로운 탈출 코루틴이 돌아감
+            if (exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine);
+            if (slowTime > 0)
+                exitSlowCoroutine = StartCoroutine(ExitSlow_Coroutine(slowTime));
         }
+    }
+
+    // 얼리는 스킬
+    public void EnemyFreeze(float slowTime)
+    {
+        isSlow = true;
+        nomalEnemy.speed = 0;
+        parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
+        ChangeMat(slowSkillMat);
+        
+        if(exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine);
+        exitSlowCoroutine = StartCoroutine(ExitSlow_Coroutine(slowTime));
     }
 
     IEnumerator ExitSlow_Coroutine(float slowTime)
@@ -126,6 +138,7 @@ public class Enemy : MonoBehaviour
         ChangeColor(new Color32(255, 255, 255, 255));
         isSlow = false;
 
+        // 혹시 스턴중이 아니라면 속도 복구
         if (queue_GetSturn.Count <= 0) Set_OriginSpeed();
     }
 

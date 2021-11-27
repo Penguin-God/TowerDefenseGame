@@ -28,7 +28,10 @@ public class Unit_Mage : RangeUnit, IEvent
 
         SetMagePassiveFigure();
         SetMagePassive();
+        OnAwake();
     }
+
+    public virtual void OnAwake() {}
 
     public void SetMagePassive()
     {
@@ -132,7 +135,7 @@ public class Unit_Mage : RangeUnit, IEvent
 
     public int plusMana = 30;
     public float mageSkillCoolDownTime;
-    IEnumerator MageAttack()
+    protected IEnumerator MageAttack()
     {
         base.StartAttack();
 
@@ -162,7 +165,7 @@ public class Unit_Mage : RangeUnit, IEvent
     void MageSpecialAttack()
     {
         isSkillAttack = true;
-        
+
         MageColorSpecialAttack();
         ClearMana();
 
@@ -183,29 +186,51 @@ public class Unit_Mage : RangeUnit, IEvent
 
         effectObject.SetActive(true);
     }
-    MageSkill mageSkill = null;
+
+    protected void SetSkilObject(Vector3 _position)
+    {
+        mageSkill.transform.position = _position;
+        mageSkill.gameObject.SetActive(true);
+    }
+
+    protected MageSkill mageSkill = null;
     void MageColorSpecialAttack() // 색깔에 따른 실질적인 스킬
     {
-        if (mageSkill != null) mageSkill.OnSkile(this);
-        else Debug.Log("MageSkile 스크립트 없음");
+        MageSkile();
+        //if (mageSkill != null) mageSkill.OnSkile(this);
+        //else Debug.Log("MageSkile 스크립트 없음");
 
         switch (unitColor)
         {
             //case UnitColor.red: RedMageSkill(); break;
-            case UnitColor.blue: BlueMageSkill(); break;
-            case UnitColor.yellow: 
-                int addGold = (isUltimate) ? 3 : 5; 
-                YellowMageSkill(addGold); break;
-            case UnitColor.green: GreenMageSkill(); break;
-            case UnitColor.orange: OrangeMageSkill(); break;
-            case UnitColor.violet: VioletMageSkill(target); break;
-            case UnitColor.black: BlackMageSkill(); break;
+            //case UnitColor.blue: BlueMageSkill(); break;
+            //case UnitColor.yellow: 
+            //    int addGold = (isUltimate) ? 3 : 5; 
+            //    YellowMageSkill(addGold); break;
+            //case UnitColor.green: GreenMageSkill(); break;
+            //case UnitColor.orange: OrangeMageSkill(); break;
+            //case UnitColor.violet: VioletMageSkill(target); break;
+            //case UnitColor.black: BlackMageSkill(); break;
+        }
+    }
+
+    protected void PlaySkileAudioClip()
+    {
+        switch (unitColor)
+        {
+            case UnitColor.red: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0f));  break;
+            case UnitColor.blue: StartCoroutine(Play_SkillClip(mageSkillCilp, 3f, 0.1f)); break;
+            case UnitColor.yellow: StartCoroutine(Play_SkillClip(mageSkillCilp, 7f, 0.7f)); break;
+            case UnitColor.green: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f)); break;
+            case UnitColor.orange: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f)); break;
+            case UnitColor.violet: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f)); break;
+            case UnitColor.black: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f)); break;
         }
     }
 
     public AudioClip mageSkillCilp;
 
-    IEnumerator Play_SkillClip(AudioClip playClip, float audioSound, float audioDelay)
+    protected IEnumerator Play_SkillClip(AudioClip playClip, float audioSound, float audioDelay)
     {
         yield return new WaitForSeconds(audioDelay);
         if (enterStoryWorld == GameManager.instance.playerEnterStoryMode)
@@ -387,5 +412,13 @@ public class Unit_Mage : RangeUnit, IEvent
         greenPassiveFigure = 5.5f;
         orangePassiveFigure = 8.5f;
         violetPassiveFigure = new Vector3(90, 6, 120000);
+    }
+
+    public virtual void MageSkile() 
+    {
+        isSkillAttack = true;
+        ClearMana();
+        StartCoroutine(Co_SkillCoolDown());
+        PlaySkileAudioClip();
     }
 }

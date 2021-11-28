@@ -756,8 +756,9 @@ GameObject:
   - component: {fileID: 6641250473418854821}
   - component: {fileID: 6629305834880601959}
   - component: {fileID: 6654065485513359354}
-  - component: {fileID: 1699467413430769189}
   - component: {fileID: 6654065485513359352}
+  - component: {fileID: 846617868}
+  - component: {fileID: 846617872}
   m_Layer: 9
   m_Name: TB_Soldier_Mage_Orange
   m_TagString: OrangeMage
@@ -846,7 +847,21 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &1699467413430769189
+--- !u!136 &6654065485513359352
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6654065485513359355}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 1.3116744
+  m_Height: 4.2802835
+  m_Direction: 1
+  m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
+--- !u!114 &846617868
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -855,7 +870,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6654065485513359355}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fdb13b87ffa5ea4e9b9e62fc29cf95c, type: 3}
+  m_Script: {fileID: 11500000, guid: bd0b7230eff960146a9cc7bff178deb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitType: 3
@@ -872,10 +887,12 @@ MonoBehaviour:
   stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
+  isSkillAttack: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
   normalAttakc_AudioDelay: 0.7
-  tpAudioClip: {fileID: 8300000, guid: a27ce694edf98ef48bc63dd09fc57312, type: 3}
+  reinforceEffect: {fileID: 1989024323821041101}
+  passiveReinForce: 0
   specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
@@ -883,9 +900,7 @@ MonoBehaviour:
   contactEnemy: 0
   towerEnter: 0
   enterStoryWorld: 0
-  getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
-  reinforceEffect: {fileID: 1989024323821041101}
-  isSkillAttack: 0
+  isFix: 0
   magicLight: {fileID: 4579925489470502222}
   energyBall: {fileID: 5754238700893047354, guid: 85bb9a846cfdf6c4ebff3a2df2fc1b27,
     type: 3}
@@ -896,24 +911,22 @@ MonoBehaviour:
   mageEffectObject: {fileID: 8570377157077034868, guid: c70581f034c161840bd554e1de671ea2,
     type: 3}
   mageSkillCilp: {fileID: 8300000, guid: ce839c0dc1d6135468aa253fab1834b5, type: 3}
-  canvasRectTransform: {fileID: 0}
-  manaSlider: {fileID: 0}
   maxMana: 100
   currentMana: 0
---- !u!136 &6654065485513359352
-CapsuleCollider:
+--- !u!114 &846617872
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6654065485513359355}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 1.3116744
-  m_Height: 4.2802835
-  m_Direction: 1
-  m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7289ea019db29cb44aa8daee3c5cc51d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamSoldier: {fileID: 0}
+  upBossDamageWeigh: 5
 --- !u!1001 &464674616
 PrefabInstance:
   m_ObjectHideFlags: 0

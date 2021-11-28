@@ -9,7 +9,7 @@ public class YellowMage : Unit_Mage
         base.MageSkile();
         SetSkilObject(transform.position + (Vector3.up * 0.6f));
 
-        int addGold = isUltimate ? 3 : 5;
+        int addGold = isUltimate ? 5 : 3;
         GameManager.instance.Gold += addGold;
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
     }

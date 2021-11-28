@@ -499,8 +499,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3732079eea4a9704abf7d1c71728cd41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitType: 0
-  unitColor: 0
+  unitType: 3
+  unitColor: 2
   originDamage: 100000
   originBossDamage: 100000
   originAttackDelayTime: 0.5

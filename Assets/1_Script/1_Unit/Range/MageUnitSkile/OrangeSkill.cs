@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class OrangeSkill : MageSkill
@@ -11,37 +10,23 @@ public class OrangeSkill : MageSkill
         ps = GetComponent<ParticleSystem>();
     }
 
-    private void OnEnable()
+    public override void OnSkile(Enemy enemy)
     {
-        if(count == -1) count = team.GetComponent<Unit_Mage>().isUltimate ? 3 : 5;
-        OrangeSkile(team.target.GetComponent<Enemy>());
+        gameObject.SetActive(true);
+        int count = team.GetComponent<Unit_Mage>().isUltimate ? 5 : 3;
+        StartCoroutine(Co_OrangeSkile(count, enemy));
     }
-
-    int count = -1;
 
     ParticleSystem ps = null;
-
-    void OrangeSkile(Enemy enemy)
+    IEnumerator Co_OrangeSkile(int count, Enemy enemy)
     {
-        if (enemy == null) return;
-
-        // 조건과 상관없이 한번 실행해서 -- 써도 됨
-        if (--count > 0) StartCoroutine(Co_Move(ps.startLifetime + 0.1f));
-        else
+        for(int i = 0; i < count; i++)
         {
-            gameObject.SetActive(false);
-            count = -1;
+            OrangeMageSkill(enemy);
+            yield return new WaitForSeconds(ps.startLifetime + 0.1f);
         }
 
-        OrangeMageSkill(enemy);
-    }
-
-    IEnumerator Co_Move(float delayTime)
-    {
-        yield return new WaitForSeconds(delayTime);
-        // 껏다 킬때마다 조건을 확인하는 걸로 반복문 구현
         gameObject.SetActive(false);
-        gameObject.SetActive(true);
     }
 
     void OrangeMageSkill(Enemy enemy)
@@ -51,6 +36,7 @@ public class OrangeSkill : MageSkill
 
         if (enemy != null && !enemy.isDead)
         {
+            ps.Play();
             int damage = (team.bossDamage / 2) + Mathf.RoundToInt((enemy.currentHp / 100) * 5);
             enemy.OnDamage(damage);
         }

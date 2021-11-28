@@ -60455,13 +60455,14 @@ GameObject:
   - component: {fileID: 127989136779295588}
   - component: {fileID: 185639007674848226}
   - component: {fileID: 6979960388138166947}
+  - component: {fileID: 3560473507547638102}
   m_Layer: 0
   m_Name: MagePosionEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &221879257015135220
 Transform:
   m_ObjectHideFlags: 0
@@ -65141,6 +65142,20 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 1.7
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &3560473507547638102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 217165572783591742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40fe1acfba6956c4e97a67fb22166100, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sphereCollider: {fileID: 6979960388138166947}
+  hitTime: 0.2
 --- !u!1 &217217858465142632
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,4 +30,19 @@ public class MultiLoading : MonoBehaviourPun
         
 
     }
+
+    public void TestClickMultiStartButton()
+    {
+        //if (!photonView.IsMine)
+        //{
+        //    GameStartCount += 1;
+        //    return;
+        //}
+        MultiGameStartButton.interactable = false;
+
+        PhotonNetwork.LoadLevel("합친 씬 - 장익준 멀티");
+
+
+
+    }
 }

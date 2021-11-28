@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/Client/\uBC15\uC900/Tutorial - \uBC15\uC900.unity"
     guid: cfb55fdc87bddc346958b9fa9aafa226
+  - enabled: 1
+    path: Assets/Multi/MultiLoading.unity
+    guid: 0aea27f3bfa639c498a19e48f4650f36
   m_configObjects: {}

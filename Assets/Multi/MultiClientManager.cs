@@ -66,6 +66,6 @@ public class MultiClientManager : MonoBehaviourPunCallbacks
     {
         ConnectionInfoText.text = "방 참가 성공";
 
-        PhotonNetwork.LoadLevel("합친 씬 - 장익준 멀티");
+        PhotonNetwork.LoadLevel("MultiLoading");
     }
 }

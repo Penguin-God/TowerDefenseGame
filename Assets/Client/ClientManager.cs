@@ -110,7 +110,9 @@ public class ClientManager : MonoBehaviour
         UpdateAdHammerCount(PlusTouchDamegePrice);
         if (PlusMaxUnitCount >= 5)
         {
+            Debug.Log("품절로 바꿈");
             PlusMaxUnitPriceText.text = "품절";
+            Debug.Log("바꾸기 성공");
         }
     }
 
@@ -121,7 +123,7 @@ public class ClientManager : MonoBehaviour
         {
             PlayerPrefs.DeleteAll();
         }
-        if (Input.GetKeyDown(KeyCode.A))
+        if (Input.GetKeyDown(KeyCode.A)) // a 누르면 돈복사
         {
             ClientIron += 10000;
             ClientWood += 10000;
@@ -274,7 +276,7 @@ public class ClientManager : MonoBehaviour
     {
         ClientHammer = PlayerPrefs.GetInt("Hammer");
         ClientClickSound();
-        if (ClientHammer >= PlusMaxUnitPrice && PlusMaxUnitCount <= 4)
+        if (ClientHammer >= PlusMaxUnitPrice && PlusMaxUnitCount < 5)
         {
             ClientHammer -= PlusMaxUnitPrice;
             PlusMaxUnit = 1 * (PlusMaxUnitCount + 1);
@@ -292,17 +294,17 @@ public class ClientManager : MonoBehaviour
             PlayerPrefs.Save();
             if (PlusMaxUnitCount >= 5)
             {
+                
                 PlusMaxUnitPriceText.text = "품절";
+                Debug.Log("텍스트 바뀌기");
             }
 
         }
         else
         {
             Debug.Log("실패");
-            if (PlusMaxUnitCount >= 5)
-            {
-                PlusMaxUnitPriceText.text = "품절";
-            }
+            PlusMaxUnitPriceText.text = "품절";
+           
         }
     }
 

@@ -27,6 +27,7 @@ public class TeamSoldier : MonoBehaviour
     // 상태 변수
     public bool isAttack; // 공격 중에 true
     public bool isAttackDelayTime; // 공격 쿨타임 중에 true
+    // 나중에 유닛별 공격 조건 만들면서 없애기
     public bool isSkillAttack; // 스킬 공격 중에 true
 
     protected NavMeshAgent nav;

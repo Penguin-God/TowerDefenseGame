@@ -6,7 +6,7 @@ public class GreenMage : Unit_Mage
 {
     [SerializeField] Transform attackDirsParent = null;
     [SerializeField] GameObject originEnergyBall = null;
-    public override void OnAwake()
+    public override void SetSkileObject()
     {
         attackDelegate += () => StartCoroutine(Co_GreenMageSkile());
         StartCoroutine(Co_SkileReinforce());

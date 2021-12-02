@@ -50,7 +50,6 @@ public class Unit_Spearman : MeeleUnit, IEvent
     IEnumerator Spearman_SpecialAttack()
     {
         isAttack = true;
-        isSkillAttack = true;
         animator.SetTrigger("isSpecialAttack");
         yield return new WaitForSeconds(1f);
 
@@ -69,7 +68,6 @@ public class Unit_Spearman : MeeleUnit, IEvent
         nav.isStopped = false;
         spear.SetActive(true);
 
-        isSkillAttack = false;
         base.NormalAttack();
     }
 

@@ -17,8 +17,6 @@ public class Unit_Mage : RangeUnit, IEvent
         animator = GetComponent<Animator>();
         if (unitColor == UnitColor.white) return;
 
-        SetSkileObject();
-
         canvasRectTransform = transform.parent.GetComponentInChildren<RectTransform>();
         manaSlider = transform.parent.GetComponentInChildren<Slider>();
         manaSlider.maxValue = maxMana;
@@ -27,7 +25,7 @@ public class Unit_Mage : RangeUnit, IEvent
 
         SetMagePassiveFigure();
         SetMagePassive();
-        OnAwake();
+        SetSkileObject();
     }
 
     public virtual void SetSkileObject()
@@ -35,8 +33,6 @@ public class Unit_Mage : RangeUnit, IEvent
         mageSkill =
             Instantiate(mageEffectObject, mageEffectObject.transform.position, mageEffectObject.transform.rotation).GetComponent<MageSkill>();
     }
-
-    public virtual void OnAwake() {}
 
     public void SetMagePassive()
     {
@@ -122,11 +118,6 @@ public class Unit_Mage : RangeUnit, IEvent
         violetPassiveFigure = new Vector3(60, 5, 60000);
     }
 
-
-    // 평타강화 함수
-    delegate void AttackDelegate();
-    AttackDelegate attackReinforceDelegate = null;
-
     public override void NormalAttack()
     {
         StartCoroutine("MageAttack");
@@ -157,9 +148,6 @@ public class Unit_Mage : RangeUnit, IEvent
             ShotBullet(instantEnergyBall, 2f, 50f, target);
         }
 
-        // 평타 강화 시 작동 (대미지가 아닌 3방향 공격 같은 효과 강화)
-        if (attackReinforceDelegate != null) attackReinforceDelegate();
-
         yield return new WaitForSeconds(0.5f);
         magicLight.SetActive(false);
         nav.isStopped = false;
@@ -171,7 +159,7 @@ public class Unit_Mage : RangeUnit, IEvent
     {
         isSkillAttack = true;
 
-        MageColorSpecialAttack();
+        MageSkile();
         ClearMana();
 
         // 스킬 쿨타임 적용
@@ -185,12 +173,6 @@ public class Unit_Mage : RangeUnit, IEvent
     }
 
     public GameObject mageEffectObject = null;
-    void ShowMageSkillEffect(GameObject effectObject) // 특정 색깔은 스킬이 effect에 콜라이더에 맞겨져서 이거 자체가 스킬임
-    {
-        if (effectObject == null) return;
-
-        effectObject.SetActive(true);
-    }
 
     protected void SetSkilObject(Vector3 _position)
     {
@@ -199,13 +181,7 @@ public class Unit_Mage : RangeUnit, IEvent
     }
 
     protected MageSkill mageSkill = null;
-    void MageColorSpecialAttack() // 색깔에 따른 실질적인 스킬
-    {
-        MageSkile();
-        //if (mageSkill != null) mageSkill.OnSkile(this);
-        //else Debug.Log("MageSkile 스크립트 없음");
-    }
-
+    public AudioClip mageSkillCilp;
     protected void PlaySkileAudioClip()
     {
         switch (unitColor)
@@ -220,97 +196,11 @@ public class Unit_Mage : RangeUnit, IEvent
         }
     }
 
-    public AudioClip mageSkillCilp;
-
     protected IEnumerator Play_SkillClip(AudioClip playClip, float audioSound, float audioDelay)
     {
         yield return new WaitForSeconds(audioDelay);
         if (enterStoryWorld == GameManager.instance.playerEnterStoryMode)
             unitAudioSource.PlayOneShot(playClip, audioSound);
-    }
-
-    void RedMageSkill()
-    {
-        RedMageSkillAttack(target);
-        if (isUltimate && enemySpawn.currentEnemyList.Count > 1) RedMageSkillAttack(Return_RandomCurrentEnemy(1)[0]);
-    }
-    void RedMageSkillAttack(Transform attackTarget) // 메테오 떨어뜨림
-    {
-        if (attackTarget == null) return;
-
-        Vector3 meteorPosition = transform.position + Vector3.up * 30; // 높이 설정
-        GameObject instantSkillEffect = Instantiate(mageEffectObject, meteorPosition, Quaternion.identity);
-
-        instantSkillEffect.SetActive(true);
-        StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f));
-    }
-
-
-    void BlueMageSkill()
-    {
-        ShowMageSkillEffect(mageEffectObject);
-        StartCoroutine(Play_SkillClip(mageSkillCilp, 3f, 0.1f));
-    }
-
-
-    void YellowMageSkill(int addGold) // 골드 증가
-    {
-        StartCoroutine(Play_SkillClip(mageSkillCilp, 7f, 1f));
-        ShowMageSkillEffect(mageEffectObject);
-        GameManager.instance.Gold += addGold;
-        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-    }
-
-
-    void GreenMageSkill()
-    {
-        StartCoroutine(GreenMageSkile_Coroutine());
-        StartCoroutine(Play_SkillClip(normalAttackClip, 1f, 0.7f));
-    }
-    IEnumerator GreenMageSkile_Coroutine()
-    {
-        if (isUltimate) attackReinforceDelegate += MultiDirectionAttack;
-        GameObject saveEnergyball = energyBall;
-        energyBall = mageEffectObject;
-        int savePlusMana = plusMana;
-        plusMana = 0;
-
-        StartCoroutine("MageAttack");
-        yield return new WaitUntil(() => !isAttackDelayTime);
-
-        plusMana = savePlusMana;
-        energyBall = saveEnergyball;
-        if (attackReinforceDelegate != null) attackReinforceDelegate -= MultiDirectionAttack;
-    }
-
-    void OrangeMageSkill() // 애는 스킬 쪽에서 소리 재생
-    {
-        GameObject instantPosionEffect = Instantiate(mageEffectObject, target.position, mageEffectObject.transform.rotation);
-        //instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
-    }
-
-    void MultiDirectionAttack()
-    {
-        Transform directions = transform.GetChild(2);
-        for (int i = 0; i < directions.childCount; i++)
-        {
-            Transform instantTransform = directions.GetChild(i);
-            if (target != null && Vector3.Distance(target.position, transform.position) < chaseRange)
-            {
-                GameObject instantEnergyBall = CreateBullte(energyBall, instantTransform, delegate_OnHit);
-                instantEnergyBall.transform.rotation = directions.GetChild(i).rotation;
-                instantEnergyBall.GetComponent<Rigidbody>().velocity = directions.GetChild(i).rotation.normalized * Vector3.forward * 50;
-            }
-        }
-    }
-
-
-    void VioletMageSkill(Transform attackTarget) // 독 공격
-    {
-        GameObject instantPosionEffect = Instantiate(mageEffectObject, attackTarget.position, mageEffectObject.transform.rotation);
-        //instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
-        if (isUltimate) Ultimate_VioletMageSkill();
-        StartCoroutine(Play_SkillClip(mageSkillCilp, 1.5f, 0));
     }
 
     void Ultimate_VioletMageSkill()
@@ -320,30 +210,6 @@ public class Unit_Mage : RangeUnit, IEvent
         Transform target = Return_RandomCurrentEnemy(1)[0];
         GameObject instantPosionEffect = Instantiate(mageEffectObject, target.position, mageEffectObject.transform.rotation);
         //instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
-    }
-
-    void BlackMageSkill()
-    {
-        int chiledNumber = (isUltimate) ? 2 : 1;
-        Transform skillTransform = transform.GetChild(chiledNumber); // 자식 가져옴
-
-        MultiDirectionAttack(skillTransform);
-        StartCoroutine(Play_SkillClip(mageSkillCilp, 0.7f, 0));
-    }
-
-    void MultiDirectionAttack(Transform directions)
-    {
-        for (int i = 0; i < directions.childCount; i++)
-        {
-            Transform instantTransform = directions.GetChild(i);
-            if (target != null && Vector3.Distance(target.position, transform.position) < chaseRange)
-            {
-                GameObject instantEnergyBall = CreateBullte(energyBall, instantTransform, delegate_OnHit);
-                instantEnergyBall.transform.rotation = directions.GetChild(i).rotation;
-                instantEnergyBall.GetComponent<Rigidbody>().velocity = directions.GetChild(i).rotation.normalized * Vector3.forward * 50;
-                instantEnergyBall.GetComponent<AttackWeapon>().isSkill = true;
-            }
-        }
     }
 
     Transform[] Return_RandomCurrentEnemy(int enemyCount) // enemyCount만큼의 적 트랜스폼 배열 반환

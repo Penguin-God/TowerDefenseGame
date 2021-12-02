@@ -344,7 +344,6 @@ MonoBehaviour:
   createDefenser: {fileID: 0}
   timerObject: {fileID: 3550290449996104982, guid: cac34ecb35aa4b34984b6ecb2594f075,
     type: 3}
-  unitTransformClip: {fileID: 8300000, guid: 2e68bdbb53485404b889a8f9c9e36082, type: 3}
 --- !u!1 &5342952073470765129
 GameObject:
   m_ObjectHideFlags: 0
@@ -535,10 +534,11 @@ MonoBehaviour:
   stopDistanc: 3
   isAttack: 0
   isAttackDelayTime: 0
+  isSkillAttack: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 819330f33b9ea014f990dd335112905e, type: 3}
   normalAttakc_AudioDelay: 0.7
-  tpAudioClip: {fileID: 0}
+  reinforceEffect: {fileID: 0}
   passiveReinForce: 0
   specialAttackPercent: 0
   enemyDistance: 0
@@ -547,9 +547,6 @@ MonoBehaviour:
   contactEnemy: 0
   towerEnter: 0
   enterStoryWorld: 0
-  getGoldClip: {fileID: 0}
-  reinforceEffect: {fileID: 0}
-  isSkillAttack: 0
   trail: {fileID: 5342952073806494859}
 --- !u!95 &7291279297198898153
 Animator:

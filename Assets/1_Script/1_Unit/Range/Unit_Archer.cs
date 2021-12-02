@@ -69,7 +69,6 @@ public class Unit_Archer : RangeUnit, IEvent
         trail.SetActive(true);
         nav.angularSpeed = 1000;
 
-        isSkillAttack = false;
         base.NormalAttack();
     }
 

@@ -24,7 +24,7 @@ public class BlackMage : Unit_Mage
             Transform instantTransform = directions.GetChild(i);
 
             GameObject instantEnergyBall = Instantiate(shotObject, instantTransform.position, instantTransform.rotation);
-            instantEnergyBall.GetComponent<CollisionWeapon>().UnitOnDamage += (Enemy enemy) => AttackEnemy(enemy);
+            instantEnergyBall.GetComponent<CollisionWeapon>().UnitOnDamage += (Enemy enemy) => delegate_OnSkile(enemy);
             instantEnergyBall.GetComponent<Rigidbody>().velocity = directions.GetChild(i).rotation.normalized * Vector3.forward * 50;
         }
     }

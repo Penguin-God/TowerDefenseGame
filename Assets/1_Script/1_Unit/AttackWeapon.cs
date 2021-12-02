@@ -24,7 +24,7 @@ public class AttackWeapon : MonoBehaviour
         if(other.gameObject.GetComponent<Enemy>() != null)
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            if (teamSoldier.delegate_OnHit != null) teamSoldier.delegate_OnHit(enemy);
+            //if (teamSoldier.delegate_OnHit != null) teamSoldier.delegate_OnHit(enemy);
 
             if (!isAOE) Destroy(gameObject);
         }

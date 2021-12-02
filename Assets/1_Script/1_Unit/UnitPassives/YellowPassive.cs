@@ -8,7 +8,7 @@ public class YellowPassive : UnitPassive
     public override void SetPassive()
     {
         base.SetPassive();
-        teamSoldier.delegate_OnHit += (Enemy enemy) => Passive_Yellow(addGold, getGoldPercent);
+        teamSoldier.delegate_OnPassive += (Enemy enemy) => Passive_Yellow(addGold, getGoldPercent);
     }
 
     void Passive_Yellow(int addGold, int percent)

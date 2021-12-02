@@ -5,7 +5,6 @@ public class OrangePassive : UnitPassive
 
     public override void SetPassive()
     {
-        base.SetPassive();
         EventManager.instance.ChangeUnitBossDamage(teamSoldier, upBossDamageWeigh);
     }
 }

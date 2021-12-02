@@ -9,12 +9,6 @@ public class BluePassive : UnitPassive
 
     public override void SetPassive()
     {
-        base.SetPassive();
-        teamSoldier.delegate_OnHit += (Enemy enemy) => EnemySlow(enemy);
-    }
-
-    void EnemySlow(Enemy enemy)
-    {
-        enemy.EnemySlow(slowPercent, slowTime);
+        teamSoldier.delegate_OnPassive += (Enemy enemy) => enemy.EnemySlow(slowPercent, slowTime);
     }
 }

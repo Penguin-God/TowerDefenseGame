@@ -58,7 +58,7 @@ public class Unit_Archer : RangeUnit, IEvent
         Transform[] targetArray = Set_AttackTarget(target, enemySpawn.currentEnemyList, enemyCount);
         for (int i = 0; i < targetArray.Length; i++)
         {
-            GameObject instantArrow = CreateBullte(arrow, arrowTransform, delegate_OnHit);
+            GameObject instantArrow = CreateBullte(arrow, arrowTransform, delegate_OnSkile);
             instantArrow.GetComponent<SphereCollider>().radius = 5f; // 적이 잘 안맞아서 반지름 늘림
             ShotBullet(instantArrow, 3f, 50f, targetArray[i]);
         }

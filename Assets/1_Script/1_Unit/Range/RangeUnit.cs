@@ -25,9 +25,6 @@ public class RangeUnit : TeamSoldier
         Vector3 instantPosition = new Vector3(createPositon.position.x, 2f, createPositon.position.z);
         GameObject instantBullet = Instantiate(instantObject, instantPosition, (unitType == Type.archer) ? Quaternion.identity : transform.parent.rotation);
 
-        //AttackWeapon attackWeapon = instantBullet.GetComponent<AttackWeapon>();
-        //attackWeapon.attackUnit = this.gameObject; // 화살과 적의 충돌감지를 위한 대입
-
         CollisionWeapon weapon = instantBullet.GetComponent<CollisionWeapon>();
         if (weapon != null) weapon.UnitOnDamage += (Enemy enemy) => OnDamage(enemy);
         else Debug.LogWarning("아니 CollisionWeapon가 읎어요");
@@ -39,7 +36,7 @@ public class RangeUnit : TeamSoldier
     {
         Rigidbody bulletRigid = bullet.GetComponent<Rigidbody>();
         Vector3 dir;
-
+        // 속도 가중치 설정(적보다 약간 앞을 쏨)
         if (targetEnemy != null)
         {
             dir = targetEnemy.position - bullet.transform.position;

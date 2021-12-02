@@ -53,8 +53,12 @@ public class TeamSoldier : MonoBehaviour
         chaseRange = 150f;
         enemyDistance = 150f;
         nav.speed = this.speed;
-
+        // 평타 설정
         delegate_OnHit += (Enemy enemy) => AttackEnemy(enemy);
+        delegate_OnHit += delegate_OnPassive;
+        // 스킬 설정
+        delegate_OnSkile += (Enemy enemy) => enemy.OnDamage(skillDamage);
+        delegate_OnSkile += delegate_OnPassive;
 
         // 적 추적
         UpdateTarget();
@@ -70,8 +74,11 @@ public class TeamSoldier : MonoBehaviour
     protected float orangePassiveFigure = 0;
     protected Vector3 violetPassiveFigure = Vector3.zero; // x는 확률 y는 스턴 시간 z는 독뎀
 
+    // 적에게 대미지 입히기, 패시브 적용 등의 역할을 하는 델리게이트
     public delegate void Delegate_OnHit(Enemy enemy);
-    public Delegate_OnHit delegate_OnHit;
+    protected Delegate_OnHit delegate_OnHit; // 평타
+    protected Delegate_OnHit delegate_OnSkile; // 스킬
+    public Delegate_OnHit delegate_OnPassive; // 패시브
 
     public int specialAttackPercent;
     void UnitAttack()
@@ -352,13 +359,6 @@ public class TeamSoldier : MonoBehaviour
 
     public void AttackEnemy(Enemy enemy) // Boss enemy랑 쫄병 구분
     {
-        // 법사 스킬 쓰는 중에 일반 공격 안먹는 버그 때문에 조건 추가 쓰레기 코드니까 나중에 바꾸기
-        if (isSkillAttack && !GetComponent<Unit_Mage>()) // 스킬이면 skillDamage입히고 중지
-        {
-            enemy.OnDamage(skillDamage);
-            return;
-        }
-
         if (TragetIsNormalEnemy) enemy.OnDamage(damage);
         else enemy.OnDamage(bossDamage);
     }

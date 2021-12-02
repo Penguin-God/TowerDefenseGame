@@ -40,6 +40,5 @@ public class GreenMage : Unit_Mage
         yield return new WaitUntil(() => !isAttackDelayTime);
         plusMana = savePlusMana;
         energyBall = originEnergyBall;
-        Debug.Log(7);
     }
 }

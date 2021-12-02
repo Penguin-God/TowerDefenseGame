@@ -204,19 +204,6 @@ public class Unit_Mage : RangeUnit, IEvent
         MageSkile();
         //if (mageSkill != null) mageSkill.OnSkile(this);
         //else Debug.Log("MageSkile 스크립트 없음");
-
-        switch (unitColor)
-        {
-            //case UnitColor.red: RedMageSkill(); break;
-            //case UnitColor.blue: BlueMageSkill(); break;
-            //case UnitColor.yellow: 
-            //    int addGold = (isUltimate) ? 3 : 5; 
-            //    YellowMageSkill(addGold); break;
-            //case UnitColor.green: GreenMageSkill(); break;
-            //case UnitColor.orange: OrangeMageSkill(); break;
-            //case UnitColor.violet: VioletMageSkill(target); break;
-            //case UnitColor.black: BlackMageSkill(); break;
-        }
     }
 
     protected void PlaySkileAudioClip()

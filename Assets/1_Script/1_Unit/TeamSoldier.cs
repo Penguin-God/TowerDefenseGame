@@ -347,8 +347,8 @@ public class TeamSoldier : MonoBehaviour
         return new Vector3(randomX, 0, randomZ);
     }
 
-    // 현재 타겟이 노말인지 아닌지 나타내는 프로퍼티 (시발 태그 안쓰고 그냥 GetComponent<NormalEnemy>() 쓰면 되잖아 지금까지 뭐한거지 시발 )
-    protected bool TragetIsNormalEnemy { get { return ( target != null && !target.CompareTag("Tower") && !target.CompareTag("Boss") ); } }
+    // 현재 타겟이 노말인지 아닌지 나타내는 프로퍼티
+    protected bool TragetIsNormalEnemy { get { return (target != null && target.GetComponent<NomalEnemy>() ); } }
 
     public void AttackEnemy(Enemy enemy) // Boss enemy랑 쫄병 구분
     {

@@ -17,8 +17,7 @@ public class Unit_Mage : RangeUnit, IEvent
         animator = GetComponent<Animator>();
         if (unitColor == UnitColor.white) return;
 
-        mageSkill = 
-            Instantiate(mageEffectObject, mageEffectObject.transform.position, mageEffectObject.transform.rotation).GetComponent<MageSkill>();
+        SetSkileObject();
 
         canvasRectTransform = transform.parent.GetComponentInChildren<RectTransform>();
         manaSlider = transform.parent.GetComponentInChildren<Slider>();
@@ -29,6 +28,12 @@ public class Unit_Mage : RangeUnit, IEvent
         SetMagePassiveFigure();
         SetMagePassive();
         OnAwake();
+    }
+
+    public virtual void SetSkileObject()
+    {
+        mageSkill =
+            Instantiate(mageEffectObject, mageEffectObject.transform.position, mageEffectObject.transform.rotation).GetComponent<MageSkill>();
     }
 
     public virtual void OnAwake() {}

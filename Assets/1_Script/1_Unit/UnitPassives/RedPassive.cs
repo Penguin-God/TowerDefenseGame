@@ -7,7 +7,6 @@ public class RedPassive : UnitPassive
     [SerializeField] float downDelayWeigh;
     public override void SetPassive()
     {
-        base.SetPassive();
         teamSoldier.attackDelayTime *= downDelayWeigh;
     }
 }

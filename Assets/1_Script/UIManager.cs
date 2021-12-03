@@ -90,7 +90,7 @@ public class UIManager : MonoBehaviour
     {
         if (EnemyofCount > 45) EnemyCount.color = new Color32(255, 0, 0, 255);
         else EnemyCount.color = new Color32(255, 255, 255, 255);
-        EnemyCount.text = "현재 적 유닛 카운트 : " + EnemyofCount;
+        EnemyCount.text = "현재 적 유닛 카운트 : " + EnemyofCount + "/50";
     }
 
     public void UpdateCombineSuccessText(string Moonja)

@@ -8,7 +8,6 @@ public class GreenPassive : UnitPassive
 
     public override void SetPassive()
     {
-        base.SetPassive();
         EventManager.instance.ChangeUnitDamage(teamSoldier, upDamageWeigh);
     }
 }

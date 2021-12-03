@@ -42,15 +42,14 @@ public class Unit_Spearman : MeeleUnit, IEvent
         base.NormalAttack();
     }
 
+
     public override void SpecialAttack()
     {
         StartCoroutine("Spearman_SpecialAttack");
     }
-
     IEnumerator Spearman_SpecialAttack()
     {
         isAttack = true;
-        isSkillAttack = true;
         animator.SetTrigger("isSpecialAttack");
         yield return new WaitForSeconds(1f);
 
@@ -59,7 +58,7 @@ public class Unit_Spearman : MeeleUnit, IEvent
 
         GameObject instantSpear = Instantiate(skileSpaer, spearCreatePosition);
         instantSpear.transform.SetParent(dontMoveGameObject.transform);
-        instantSpear.GetComponent<CollisionWeapon>().UnitOnDamage += (Enemy enemy) => delegate_OnHit(enemy);
+        instantSpear.GetComponent<CollisionWeapon>().UnitOnDamage += (Enemy enemy) => delegate_OnSkile(enemy);
         instantSpear.GetComponent<Rigidbody>().velocity = (-1 * transform.forward) * 50;
 
         if (enterStoryWorld == GameManager.instance.playerEnterStoryMode)
@@ -69,7 +68,6 @@ public class Unit_Spearman : MeeleUnit, IEvent
         nav.isStopped = false;
         spear.SetActive(true);
 
-        isSkillAttack = false;
         base.NormalAttack();
     }
 

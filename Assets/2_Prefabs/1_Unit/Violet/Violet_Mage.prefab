@@ -756,8 +756,9 @@ GameObject:
   - component: {fileID: 8900846661199634142}
   - component: {fileID: 8911595034390528028}
   - component: {fileID: 8933914273901834369}
-  - component: {fileID: 3475061908579850590}
   - component: {fileID: 8933914273901834375}
+  - component: {fileID: 541063575}
+  - component: {fileID: 541063581}
   m_Layer: 9
   m_Name: TB_Soldier_Mage_Violet
   m_TagString: VioletMage
@@ -846,58 +847,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3475061908579850590
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8933914273901834368}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fdb13b87ffa5ea4e9b9e62fc29cf95c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitType: 3
-  unitColor: 5
-  originDamage: 240000
-  originBossDamage: 240000
-  originAttackDelayTime: 0.5
-  speed: 3
-  attackDelayTime: 0.5
-  attackRange: 40
-  damage: 240000
-  bossDamage: 240000
-  stopDistanc: 5
-  isAttack: 0
-  isAttackDelayTime: 0
-  target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
-  normalAttakc_AudioDelay: 0.7
-  tpAudioClip: {fileID: 8300000, guid: a27ce694edf98ef48bc63dd09fc57312, type: 3}
-  specialAttackPercent: 0
-  enemyDistance: 0
-  enemyIsForward: 0
-  rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
-  enterStoryWorld: 0
-  getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
-  reinforceEffect: {fileID: 7460127306296456347}
-  magicLight: {fileID: 1739364760763595317}
-  energyBall: {fileID: 4703403304667223421, guid: 6f1ddf31f554a5046954837dedda1b8d,
-    type: 3}
-  energyBallTransform: {fileID: 1739364759726487828}
-  isUltimate: 0
-  plusMana: 30
-  mageSkillCoolDownTime: 2
-  mageEffectObject: {fileID: 217165572783591742, guid: 363496e031194604f91ae274cc2d13ac,
-    type: 3}
-  mageSkillCilp: {fileID: 8300000, guid: c067ff29c7e175d4b901c10170e1745e, type: 3}
-  canvasRectTransform: {fileID: 0}
-  manaSlider: {fileID: 0}
-  maxMana: 100
-  currentMana: 0
 --- !u!136 &8933914273901834375
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -912,6 +861,74 @@ CapsuleCollider:
   m_Height: 4.2802835
   m_Direction: 1
   m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
+--- !u!114 &541063575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8933914273901834368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2f11f738847f55b4b8c5b8cb42f6cd63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitType: 3
+  unitColor: 5
+  originDamage: 240000
+  originBossDamage: 240000
+  originAttackDelayTime: 0.5
+  speed: 3
+  attackDelayTime: 0.5
+  attackRange: 40
+  damage: 240000
+  bossDamage: 240000
+  skillDamage: 0
+  stopDistanc: 5
+  isAttack: 0
+  isAttackDelayTime: 0
+  isSkillAttack: 0
+  target: {fileID: 0}
+  normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
+  normalAttakc_AudioDelay: 0.7
+  reinforceEffect: {fileID: 7460127306296456347}
+  passiveReinForce: 0
+  specialAttackPercent: 0
+  enemyDistance: 0
+  enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
+  contactEnemy: 0
+  towerEnter: 0
+  enterStoryWorld: 0
+  isFix: 0
+  magicLight: {fileID: 1739364760763595317}
+  energyBall: {fileID: 4703403304667223421, guid: 6f1ddf31f554a5046954837dedda1b8d,
+    type: 3}
+  energyBallTransform: {fileID: 1739364759726487828}
+  isUltimate: 0
+  plusMana: 30
+  mageSkillCoolDownTime: 2
+  mageEffectObject: {fileID: 217165572783591742, guid: 363496e031194604f91ae274cc2d13ac,
+    type: 3}
+  mageSkillCilp: {fileID: 8300000, guid: c067ff29c7e175d4b901c10170e1745e, type: 3}
+  maxMana: 100
+  currentMana: 0
+--- !u!114 &541063581
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8933914273901834368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbce39b5f4b2c0446a404f777de27015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamSoldier: {fileID: 0}
+  sturnPercent: 60
+  strunTime: 5
+  maxPoisonDamage: 60000
 --- !u!1001 &1604965478
 PrefabInstance:
   m_ObjectHideFlags: 0

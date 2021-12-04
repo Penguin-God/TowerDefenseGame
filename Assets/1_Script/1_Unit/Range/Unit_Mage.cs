@@ -24,6 +24,7 @@ public class Unit_Mage : RangeUnit, IEvent
         StartCoroutine(Co_SetCanvas());
 
         SetMagePassiveFigure();
+
         SetMagePassive();
         SetSkileObject();
     }
@@ -51,60 +52,6 @@ public class Unit_Mage : RangeUnit, IEvent
             case UnitColor.orange:
                 bossDamage += Mathf.FloorToInt( ( orangePassiveFigure - 1 ) * originBossDamage);
                 break;
-        }
-    }
-
-    // 충돌 관련 패시브
-    private void OnTriggerEnter(Collider other)
-    {
-        // 적에 닿는건 없음
-
-        if (other.gameObject.layer == 9)
-        {
-            TeamSoldier otherTeamSoldier = other.gameObject.GetComponent<TeamSoldier>();
-            switch (unitColor)
-            {
-                case UnitColor.red:
-                    otherTeamSoldier.attackDelayTime *= 0.5f;
-                    break;
-            }
-        }
-    }
-    private void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject.GetComponent<NomalEnemy>() != null)
-        {
-            Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            switch (unitColor)
-            {
-                case UnitColor.blue:
-                    enemy.EnemySlow(bluePassiveFigure.y, -1f); // 나가기 전까진 무한 슬로우
-                    break;
-            }
-        }
-    }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.GetComponent<NomalEnemy>() != null)
-        {
-            Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            switch (unitColor)
-            {
-                case UnitColor.blue:
-                    enemy.ExitSlow();
-                    break;
-            }
-        }
-
-        if (other.gameObject.layer == 9) // 유닛 버프
-        {
-            TeamSoldier otherTeamSoldier = other.gameObject.GetComponent<TeamSoldier>();
-            switch (unitColor)
-            {
-                case UnitColor.red:
-                    otherTeamSoldier.attackDelayTime *= 2f;
-                    break;
-            }
         }
     }
 

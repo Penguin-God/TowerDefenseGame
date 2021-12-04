@@ -4,10 +4,18 @@ using UnityEngine;
 
 public class OrangeMage : Unit_Mage
 {
+    MageSkill mageSkile;
+
+    public override void SetMageAwake()
+    {
+        base.SetMageAwake();
+        mageSkile = mageEffectObject.GetComponent<MageSkill>();
+    }
+
     public override void MageSkile()
     {
-        mageSkill.GetComponent<OrangeSkill>().team = this;
-        mageSkill.OnSkile(target.GetComponent<Enemy>());
+        mageSkile.GetComponent<OrangeSkill>().team = this;
+        mageSkile.OnSkile(target.GetComponent<Enemy>());
         base.MageSkile();
     }
 }

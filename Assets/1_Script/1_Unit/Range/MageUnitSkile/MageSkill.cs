@@ -5,7 +5,7 @@ using System;
 public class MageSkill : MonoBehaviour
 {
     [SerializeField] protected SphereCollider sphereCollider;
-    public float hitTime; // 콜라이더가 켜지기 전 공격 대기 시간
+    [SerializeField] private float hitTime; // 콜라이더가 켜지기 전 공격 대기 시간
 
     // 추적 등에서 필요한 함수
     public virtual void OnSkile(Enemy enemy) { }

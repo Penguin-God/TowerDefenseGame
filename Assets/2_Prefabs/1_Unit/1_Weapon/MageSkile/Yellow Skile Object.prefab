@@ -4730,7 +4730,6 @@ GameObject:
   - component: {fileID: 8968380790521882219}
   - component: {fileID: 8968380790521978827}
   - component: {fileID: 8968380790513437423}
-  - component: {fileID: 7562020715255209128}
   m_Layer: 0
   m_Name: Yellow Skile Object
   m_TagString: Untagged
@@ -9442,21 +9441,6 @@ MonoBehaviour:
   OnlyDeactivate: 1
   showTime: 2
   isSkill: 1
---- !u!114 &7562020715255209128
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8968380790502194955}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7b39e2466099eb44c9bbc2d81b305855, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  soundCilpName: 
-  sphereCollider: {fileID: 0}
-  hitTime: 0
 --- !u!1 &8968380790502194957
 GameObject:
   m_ObjectHideFlags: 0

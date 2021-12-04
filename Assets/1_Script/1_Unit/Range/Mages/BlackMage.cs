@@ -7,8 +7,6 @@ public class BlackMage : Unit_Mage
     [SerializeField] Transform skileShotPositions = null;
     [SerializeField] Transform ultimate_SkileShotPositions = null;
 
-    public override void SetSkileObject() {}
-
     public override void MageSkile()
     {
         base.MageSkile();

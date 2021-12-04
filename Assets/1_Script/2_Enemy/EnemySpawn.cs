@@ -222,10 +222,14 @@ public class EnemySpawn : MonoBehaviour
     IEnumerator ClearLastTower() // 검은 창병 두마리 소환 후 모든 유닛 필드로 옮기기
     {
         yield return new WaitForSeconds(0.1f); // 상점 이용 후 유닛이동하기 위해서 대기
-        for (int i = 0; i < 2; i++)
-        {
-            createDefenser.CreateSoldier(6, 2);
-        }
+        for (int i = 0; i < 2; i++) createDefenser.CreateSoldier(6, 2);
         UnitManager.instance.UnitTranslate_To_EnterStroyMode();
+    }
+
+    public Enemy GetRandom_CurrentEnemy()
+    {
+        int index = Random.Range(0, currentEnemyList.Count);
+        Enemy enemy = currentEnemyList[index].GetComponent<Enemy>();
+        return enemy;
     }
 }

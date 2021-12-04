@@ -4,11 +4,50 @@ using UnityEngine;
 
 public class RedMage : Unit_Mage
 {
+    MageSkill mageSkile = null;
+
+    public override void SetMageAwake()
+    {
+        base.SetMageAwake();
+        mageSkile = mageEffectObject.GetComponent<MageSkill>();
+        StartCoroutine(Co_SetHitSkile(mageEffectObject));
+        StartCoroutine(Co_UltimateSkile());
+    }
+
+    IEnumerator Co_SetHitSkile(GameObject skileObj)
+    {
+        yield return new WaitUntil(() => skileObj.GetComponentInChildren<HitSkile>() != null);
+        skileObj.GetComponentInChildren<HitSkile>().OnHitSkile += (Enemy enemy) => OnHitSkile(enemy);
+    }
+
+    GameObject ultimateSKileObj = null;
+    IEnumerator Co_UltimateSkile()
+    {
+        yield return new WaitUntil(() => isUltimate);
+        ultimateSKileObj = Instantiate(mageEffectObject);
+        StartCoroutine(Co_SetHitSkile(ultimateSKileObj));
+        OnUltimateSkile += () => UltimateSkile();
+    }
+
+    void UltimateSkile()
+    {
+        ultimateSKileObj.transform.position = transform.position + (Vector3.up * 30);
+        ultimateSKileObj.SetActive(true);
+        Enemy enemy = EnemySpawn.instance.GetRandom_CurrentEnemy();
+        ultimateSKileObj.GetComponent<MageSkill>().OnSkile(enemy);
+    }
+
     public override void MageSkile()
     {
         base.MageSkile();
         SetSkilObject(transform.position + (Vector3.up * 30));
-        mageSkill.OnSkile(target.GetComponent<Enemy>());
+        mageSkile.OnSkile(target.GetComponent<Enemy>());
+    }
+
+    void OnHitSkile(Enemy enemy)
+    {
+        enemy.EnemyStern(100, 5);
+        enemy.OnDamage(400000);
     }
 
     private void OnTriggerEnter(Collider other)

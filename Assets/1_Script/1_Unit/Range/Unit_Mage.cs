@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -26,13 +26,12 @@ public class Unit_Mage : RangeUnit, IEvent
         SetMagePassiveFigure();
 
         SetMagePassive();
-        SetSkileObject();
+        SetMageAwake();
     }
 
-    public virtual void SetSkileObject()
+    public virtual void SetMageAwake()
     {
-        mageSkill =
-            Instantiate(mageEffectObject, mageEffectObject.transform.position, mageEffectObject.transform.rotation).GetComponent<MageSkill>();
+        mageEffectObject = Instantiate(mageEffectObject, mageEffectObject.transform.position, mageEffectObject.transform.rotation);
     }
 
     public void SetMagePassive()
@@ -71,9 +70,11 @@ public class Unit_Mage : RangeUnit, IEvent
     }
 
     public bool isUltimate; // 스킬 강화
+    protected event Action OnUltimateSkile;
     public override void SpecialAttack()
     {
         MageSpecialAttack();
+        if (OnUltimateSkile != null) OnUltimateSkile();
     }
 
     public int plusMana = 30;
@@ -120,14 +121,12 @@ public class Unit_Mage : RangeUnit, IEvent
     }
 
     public GameObject mageEffectObject = null;
-
     protected void SetSkilObject(Vector3 _position)
     {
-        mageSkill.transform.position = _position;
-        mageSkill.gameObject.SetActive(true);
+        mageEffectObject.transform.position = _position;
+        mageEffectObject.SetActive(true);
     }
 
-    protected MageSkill mageSkill = null;
     public AudioClip mageSkillCilp;
     protected void PlaySkileAudioClip()
     {
@@ -164,7 +163,7 @@ public class Unit_Mage : RangeUnit, IEvent
         Transform[] enemys = new Transform[enemyCount];
         for(int i = 0; i < enemyCount; i++)
         {
-            int random = Random.Range(0, enemySpawn.currentEnemyList.Count);
+            int random = UnityEngine.Random.Range(0, enemySpawn.currentEnemyList.Count);
             enemys[i] = enemySpawn.currentEnemyList[random].transform;
         }
         return enemys;

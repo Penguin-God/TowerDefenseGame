@@ -109,7 +109,7 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &6623081617349110321
+--- !u!114 &4504907838718719482
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,9 +118,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4623086259848035187}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 07f1964196074fd4e8bde8277dacaab5, type: 3}
+  m_Script: {fileID: 11500000, guid: 46aa855588841bb47a3a00ab7d9bddae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sphereCollider: {fileID: 0}
+  hitTime: 0.1
 --- !u!1 &4624219392482637300
 GameObject:
   m_ObjectHideFlags: 0

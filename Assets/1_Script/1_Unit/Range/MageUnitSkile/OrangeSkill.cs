@@ -1,15 +1,16 @@
 ﻿using System.Collections;
 using UnityEngine;
+using System;
 
 public class OrangeSkill : MageSkill
 {
-    public TeamSoldier team;
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         ps = GetComponent<ParticleSystem>();
     }
 
+    public TeamSoldier team = null;
     public override void OnSkile(Enemy enemy)
     {
         gameObject.SetActive(true);

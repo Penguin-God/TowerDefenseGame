@@ -4,6 +4,19 @@ using UnityEngine;
 
 public class BlueMage : Unit_Mage
 {
+    public override void SetMageAwake()
+    {
+        base.SetMageAwake();
+        mageEffectObject.GetComponent<HitSkile>().OnHitSkile += (Enemy enemy) => enemy.EnemyFreeze(5f);
+        StartCoroutine(Co_SkilleReinForce());        
+    }
+
+    IEnumerator Co_SkilleReinForce()
+    {
+        yield return new WaitUntil(() => isUltimate);
+        mageEffectObject.GetComponent<HitSkile>().OnHitSkile += (Enemy enemy) => enemy.OnDamage(20000);
+    }
+
     public override void MageSkile()
     {
         base.MageSkile();

@@ -18,7 +18,7 @@ public class Shop : MonoBehaviour
 
     private GameObject current_LeftGoldGoods = null;
     private GameObject current_CenterGoldGoods = null;
-    private GameObject current_FoodGoldGoods = null;
+    [SerializeField] private GameObject current_FoodGoldGoods = null;
     public CreateDefenser createDefenser;
 
     // 판매창 관련 변수
@@ -126,8 +126,15 @@ public class Shop : MonoBehaviour
         }
     }
 
+    int currentLevel = 0;
+    Dictionary<int, int[]> currentGoodsWeigh = new Dictionary<int, int[]>();
+    [SerializeField] GameObject obj_ShopReset = null;
     public void OnShop(int level, Dictionary<int, int[]> goodsWeighDictionary)
     {
+        currentGoodsWeigh = goodsWeighDictionary;
+        currentLevel = level;
+
+        obj_ShopReset.SetActive(true);
         gameObject.SetActive(true);
         Time.timeScale = 0;
         showShop = true;
@@ -147,6 +154,17 @@ public class Shop : MonoBehaviour
         showShop = false;
         SetGuideText("");
 
+        Disabled_CurrentGoods();
+        CancleBuy();
+
+        lacksGuideText.gameObject.SetActive(false);
+        ShopEixtPanel.SetActive(false);
+        Time.timeScale = GameManager.instance.gameTimeSpeed;
+        SetButtonRayCast(true);
+    }
+
+    void Disabled_CurrentGoods()
+    {
         current_LeftGoldGoods.SetActive(false);
         current_CenterGoldGoods.SetActive(false);
         current_FoodGoldGoods.SetActive(false);
@@ -154,12 +172,6 @@ public class Shop : MonoBehaviour
         current_LeftGoldGoods = null;
         current_CenterGoldGoods = null;
         current_FoodGoldGoods = null;
-
-        CancleBuy();
-        lacksGuideText.gameObject.SetActive(false);
-        ShopEixtPanel.SetActive(false);
-        Time.timeScale = GameManager.instance.gameTimeSpeed;
-        SetButtonRayCast(true);
     }
 
     public void CancleBuy()
@@ -263,8 +275,32 @@ public class Shop : MonoBehaviour
         towerShopWeighDictionary.Add(6, new int[] { 0, 30, 70 });
     }
 
-    //private void OnEnable() // 테스트용
-    //{
-    //    OnShop(4, bossShopWeighDictionary);
-    //}
+    // 상점 재설정
+    [SerializeField] GameObject obj_ResetBuyPanel = null;
+    public void ResetShop()
+    {
+        if (GameManager.instance.Gold >= 10)
+        {
+            obj_ResetBuyPanel.SetActive(false);
+            obj_ShopReset.SetActive(false);
+
+            SoundManager.instance.PlayEffectSound_ByName("Click_XButton");
+            GameManager.instance.Gold -= 10;
+            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+
+            Disabled_CurrentGoods();
+            CancleBuy();
+            Show_RandomShop(currentLevel, currentGoodsWeigh);
+        }
+        else
+        {
+            obj_ResetBuyPanel.SetActive(false);
+            LacksGold();
+        }
+    }
+
+    private void OnEnable() // 테스트용
+    {
+        OnShop(4, bossShopWeighDictionary);
+    }
 }

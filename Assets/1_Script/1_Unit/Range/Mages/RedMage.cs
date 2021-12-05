@@ -4,12 +4,9 @@ using UnityEngine;
 
 public class RedMage : Unit_Mage
 {
-    MageSkill mageSkile = null;
-
     public override void SetMageAwake()
     {
         base.SetMageAwake();
-        mageSkile = mageEffectObject.GetComponent<MageSkill>();
         StartCoroutine(Co_SetHitSkile(mageEffectObject));
         StartCoroutine(Co_UltimateSkile());
     }
@@ -34,14 +31,14 @@ public class RedMage : Unit_Mage
         ultimateSKileObj.transform.position = transform.position + (Vector3.up * 30);
         ultimateSKileObj.SetActive(true);
         Enemy enemy = EnemySpawn.instance.GetRandom_CurrentEnemy();
-        ultimateSKileObj.GetComponent<MageSkill>().OnSkile(enemy);
+        ultimateSKileObj.GetComponent<Meteor>().OnChase(enemy);
     }
 
     public override void MageSkile()
     {
         base.MageSkile();
         SetSkilObject(transform.position + (Vector3.up * 30));
-        mageSkile.OnSkile(target.GetComponent<Enemy>());
+        mageEffectObject.GetComponent<Meteor>().OnChase(target.GetComponent<Enemy>());
     }
 
     void OnHitSkile(Enemy enemy)

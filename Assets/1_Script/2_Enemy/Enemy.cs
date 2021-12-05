@@ -53,8 +53,6 @@ public class Enemy : MonoBehaviour
         parentRigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
     }
 
-    Coroutine sternCoroutine = null;
-
     public void EnemyStern(int sternPercent, float sternTime)
     {
         if (this.gameObject.CompareTag("Tower") || isDead) return;

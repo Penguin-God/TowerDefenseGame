@@ -2,7 +2,7 @@
 using UnityEngine;
 using System;
 
-public class OrangeSkill : MageSkill
+public class OrangeSkill : MonoBehaviour
 {
     private void Awake()
     {
@@ -10,27 +10,26 @@ public class OrangeSkill : MageSkill
         ps = GetComponent<ParticleSystem>();
     }
 
-    public TeamSoldier team = null;
-    public override void OnSkile(Enemy enemy)
+    public void OnSkile(Enemy enemy, bool isUltimate, int damage)
     {
         gameObject.SetActive(true);
-        int count = team.GetComponent<Unit_Mage>().isUltimate ? 5 : 3;
-        StartCoroutine(Co_OrangeSkile(count, enemy));
+        int count = isUltimate ? 5 : 3;
+        StartCoroutine(Co_OrangeSkile(count, enemy, damage));
     }
 
     ParticleSystem ps = null;
-    IEnumerator Co_OrangeSkile(int count, Enemy enemy)
+    IEnumerator Co_OrangeSkile(int count, Enemy enemy, int damage)
     {
         for(int i = 0; i < count; i++)
         {
-            OrangeMageSkill(enemy);
+            OrangeMageSkill(enemy, damage);
             yield return new WaitForSeconds(ps.startLifetime + 0.1f);
         }
 
         gameObject.SetActive(false);
     }
 
-    void OrangeMageSkill(Enemy enemy)
+    void OrangeMageSkill(Enemy enemy, int damage)
     {
         if (!enemy.isDead) transform.position = enemy.transform.position;
         OrangePlayAudio();
@@ -38,8 +37,8 @@ public class OrangeSkill : MageSkill
         if (enemy != null && !enemy.isDead)
         {
             ps.Play();
-            int damage = (team.bossDamage / 2) + Mathf.RoundToInt((enemy.currentHp / 100) * 5);
-            enemy.OnDamage(damage);
+            int onDamage = (damage / 2) + Mathf.RoundToInt((enemy.currentHp / 100) * 5);
+            enemy.OnDamage(onDamage);
         }
     }
 

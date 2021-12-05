@@ -5,7 +5,7 @@ using UnityEngine;
 public class TutoaialShop : TutorialGuideTrigger
 {
     [SerializeField] Shop shop = null;
-    [SerializeField] GameObject ShopObject = null;
+    //[SerializeField] GameObject ShopObject = null;
     public override bool TutorialCondition()
     {
         return shop.showShop;

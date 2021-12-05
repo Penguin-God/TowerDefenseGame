@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Meteor : MageSkill
+public class Meteor : MonoBehaviour
 {
     Rigidbody rigid;
     private void Awake()
@@ -10,8 +10,9 @@ public class Meteor : MageSkill
         rigid = GetComponent<Rigidbody>();
     }
 
-    public override void OnSkile(Enemy enemy)
+    public void OnChase(Enemy enemy)
     {
+        gameObject.SetActive(true);
         StartCoroutine(Co_ShotMeteor(enemy));
     }
 

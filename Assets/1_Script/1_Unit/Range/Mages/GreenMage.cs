@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GreenMage : Unit_Mage
 {
-    [SerializeField] Transform attackDirsParent = null;
     [SerializeField] GameObject originEnergyBall = null;
     public override void SetMageAwake()
     {

@@ -9,8 +9,14 @@ public enum PriceType
 
 public class SellEventShopItem : MonoBehaviour
 {
+    protected Shop shop = null;
+    Button myButton = null;
+
     private void Awake()
     {
+        shop = GetComponentInParent<Shop>();
+        myButton = GetComponent<Button>();
+
         EventShopItemDataBase dataBase = GetComponentInParent<EventShopItemDataBase>();
         EventShopItemData data = dataBase.itemDatas.Find(itemData => itemData.name == itemName);
         if(data != null)
@@ -18,7 +24,10 @@ public class SellEventShopItem : MonoBehaviour
             price = data.price;
             priceType = GetPriceType(data.type);
             goodsInformation = data.info;
+            goodsInformation += " 구입하시겠습니까?";
         }
+
+        myButton.onClick.AddListener(() => shop.SetPanel(goodsInformation, () => shop.BuyItem(gameObject)));
     }
 
     public PriceType priceType;
@@ -51,29 +60,30 @@ public class SellEventShopItem : MonoBehaviour
         return PriceType.Gold;
     }
 
-    [SerializeField] Shop shop;
-    private void Start()
-    {
-        shop = GetComponentInParent<Shop>();
-        buyPanelObject = shop.buyPanel;
-        buyButton = shop.buyButton;
-        guideText = shop.buyGuideText;
+    //[SerializeField] Shop shop;
+    //private void Start()
+    //{
+    //    //shop = GetComponentInParent<Shop>();
+    //    //buyPanelObject = shop.buyPanel;
+    //    //buyButton = shop.buyButton;
+    //    //guideTexts = shop.buyGuideText;
 
-        GetComponent<Button>().onClick.AddListener(() => SetByPanel()); // 자기 자신 클릭 시
-    }
+    //    GetComponent<Button>().onClick.AddListener(() => SetByPanel()); // 자기 자신 클릭 시
+    //}
 
-    [SerializeField] GameObject buyPanelObject;
-    [SerializeField] Button buyButton;
-    void SetByPanel()
-    {
-        SoundManager.instance.PlayEffectSound_ByName("ShopItemClick");
-        buyButton.onClick.RemoveAllListeners();
-        Set_BuyGuideText();
-        buyPanelObject.SetActive(true);
-        buyButton.onClick.AddListener(() => shop.BuyItem(gameObject));
-    }
+    //[SerializeField] GameObject buyPanelObject;
+    //[SerializeField] Button buyButton;
+    //void SetByPanel()
+    //{
+    //    SoundManager.instance.PlayEffectSound_ByName("ShopItemClick");
 
+    //    buyButton.onClick.RemoveAllListeners();
+    //    Set_BuyGuideText();
+    //    buyPanelObject.SetActive(true);
+    //    buyButton.onClick.AddListener(() => shop.BuyItem(gameObject));
+    //}
 
+    // 아이템 판매
     public void Sell_Item()
     {
         if (GetComponent<ISellEventShopItem>() != null)
@@ -84,12 +94,13 @@ public class SellEventShopItem : MonoBehaviour
     }
 
     
-    [SerializeField] Text guideText;
-    void Set_BuyGuideText()
-    {
-        guideText.text = goodsInformation + " 구입하시겠습니까?";
-    }
+    //[SerializeField] Text guideTexts;
+    //void Set_BuyGuideText()
+    //{
+    //    guideTexts.text = goodsInformation + " 구입하시겠습니까?";
+    //}
 
+    // 재화 사용
     void SpendMoney(PriceType priceType)
     {
         switch (priceType)

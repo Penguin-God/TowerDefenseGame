@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 using UnityEngine.EventSystems;
 
 public class Shop : MonoBehaviour
@@ -18,13 +19,35 @@ public class Shop : MonoBehaviour
 
     private GameObject current_LeftGoldGoods = null;
     private GameObject current_CenterGoldGoods = null;
-    [SerializeField] private GameObject current_FoodGoldGoods = null;
+    private GameObject current_FoodGoldGoods = null;
     public CreateDefenser createDefenser;
 
-    // 판매창 관련 변수
-    public GameObject buyPanel;
-    public Button buyButton;
-    public Text buyGuideText;
+
+    // 나의 의도 : Panel을 하나로 묶어서 쉽고 편하게살자
+    [SerializeField] GameObject panelObject = null;
+    [SerializeField] Button panel_YesButton = null;
+    [SerializeField] Text panelGuideText = null;
+
+    public void SetPanel(string guideText, Action onClickYes)
+    {
+        SetPanelButton(ref panel_YesButton, onClickYes);
+
+        panelObject.SetActive(true);
+        panelGuideText.text = guideText;
+    }
+
+    void SetPanelButton(ref Button panelButton, Action action)
+    {
+        panelButton.onClick.RemoveAllListeners();
+        panelButton.onClick.AddListener(() => action());
+    }
+
+    public void CanclePanelAction()
+    {
+        panelObject.SetActive(false);
+        panel_YesButton.onClick.RemoveAllListeners();
+        panelGuideText.text = "";
+    }
 
     private void Awake() 
     {
@@ -92,7 +115,7 @@ public class Shop : MonoBehaviour
         rectTransform.anchoredPosition = new Vector3(0, 0, 0);
     }
 
-    // 판매용 판넬을 하나로 만들고 관련 수치는 가격과 같은 공통 변수는 엑셀과 연동 
+    // 이 부분도 뜯어고칠 여지가 많음 굳이 여기서 판매, 파괴를 구현할 이유가 없음
     public void BuyItem(GameObject item)
     {
         SellEventShopItem buyItem = item.GetComponent<SellEventShopItem>();
@@ -110,7 +133,7 @@ public class Shop : MonoBehaviour
         Destroy(goodsObject, 0.1f);
 
         Transform goodsStock = goodsObject.transform.parent;
-        // 조건에 1개인 이유는 0.1f 파괴 대기 중이라 아직 파괴가 안되서 1가 남아있음
+        // 조건에 childCount가 1개인 이유는 0.1f 파괴 대기 중이라 아직 파괴가 안되서 1가 남아있음
         if (goodsStock.childCount == 1) Destroy(goodsStock.gameObject); // 물품을 다 샀으면 등급 파괴
         ExitShop();
     }
@@ -154,8 +177,8 @@ public class Shop : MonoBehaviour
         showShop = false;
         SetGuideText("");
 
-        Disabled_CurrentGoods();
-        CancleBuy();
+        Disabled_CurrentShowGoods();
+        CanclePanelAction();
 
         lacksGuideText.gameObject.SetActive(false);
         ShopEixtPanel.SetActive(false);
@@ -163,22 +186,17 @@ public class Shop : MonoBehaviour
         SetButtonRayCast(true);
     }
 
-    void Disabled_CurrentGoods()
+    void Disabled_CurrentShowGoods()
     {
-        current_LeftGoldGoods.SetActive(false);
-        current_CenterGoldGoods.SetActive(false);
-        current_FoodGoldGoods.SetActive(false);
-
-        current_LeftGoldGoods = null;
-        current_CenterGoldGoods = null;
-        current_FoodGoldGoods = null;
+        Disabled_Goods(ref current_LeftGoldGoods);
+        Disabled_Goods(ref current_CenterGoldGoods);
+        Disabled_Goods(ref current_FoodGoldGoods);
     }
 
-    public void CancleBuy()
+    void Disabled_Goods(ref GameObject goods)
     {
-        buyButton.onClick.RemoveAllListeners();
-        buyPanel.SetActive(false);
-        buyGuideText.text = "";
+        if (goods != null) goods.SetActive(false);
+        goods = null;
     }
 
     public Text lacksGuideText;
@@ -235,7 +253,7 @@ public class Shop : MonoBehaviour
     {
         Transform goodsRarity = null;
         int totalWeigh = 100;
-        int randomNumber = Random.Range(0, totalWeigh);
+        int randomNumber = UnityEngine.Random.Range(0, totalWeigh);
 
         for (int i = 0; i < goods.transform.childCount; i++) // 레벨 가중치에 따라 상품 등급 정함
         {
@@ -249,7 +267,7 @@ public class Shop : MonoBehaviour
         if (goodsRarity == null) goodsRarity = goods.transform.GetChild(0); // 등급파괴되서 null이면 첫번째 등급으로
 
         // 휘귀도 선택 후 상품 랜덤 선택
-        int goodsIndex = Random.Range(0, goodsRarity.transform.childCount);
+        int goodsIndex = UnityEngine.Random.Range(0, goodsRarity.transform.childCount);
         GameObject showGoods = goodsRarity.GetChild(goodsIndex).gameObject;
         showGoods.SetActive(true);
         return showGoods;
@@ -275,32 +293,38 @@ public class Shop : MonoBehaviour
         towerShopWeighDictionary.Add(6, new int[] { 0, 30, 70 });
     }
 
+    public void SetShopExitPanel(string text)
+    {
+        SetPanel(text, ExitShop);
+    }
+
+    public void SetShopResetPanel(string text)
+    {
+        SetPanel(text, ResetShop);
+    }
+
     // 상점 재설정
-    [SerializeField] GameObject obj_ResetBuyPanel = null;
     public void ResetShop()
     {
         if (GameManager.instance.Gold >= 10)
         {
-            obj_ResetBuyPanel.SetActive(false);
-            obj_ShopReset.SetActive(false);
-
             SoundManager.instance.PlayEffectSound_ByName("Click_XButton");
             GameManager.instance.Gold -= 10;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
-            Disabled_CurrentGoods();
-            CancleBuy();
+            Disabled_CurrentShowGoods();
+            CanclePanelAction();
             Show_RandomShop(currentLevel, currentGoodsWeigh);
+
+            obj_ShopReset.SetActive(false);
         }
-        else
-        {
-            obj_ResetBuyPanel.SetActive(false);
-            LacksGold();
-        }
+        else LacksGold();
+
+        panelObject.SetActive(false);
     }
 
-    private void OnEnable() // 테스트용
-    {
-        OnShop(4, bossShopWeighDictionary);
-    }
+    //private void OnEnable() // 테스트용
+    //{
+    //    OnShop(4, bossShopWeighDictionary);
+    //}
 }

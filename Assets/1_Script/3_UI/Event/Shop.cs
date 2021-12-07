@@ -295,12 +295,19 @@ public class Shop : MonoBehaviour
 
     public void SetShopExitPanel(string text)
     {
+        text = GetEscapeText(text);
         SetPanel(text, ExitShop);
     }
 
     public void SetShopResetPanel(string text)
     {
+        text = GetEscapeText(text);
         SetPanel(text, ResetShop);
+    }
+
+    string GetEscapeText(string text)
+    {
+        return text.Replace("\\n", "\n");
     }
 
     // 상점 재설정

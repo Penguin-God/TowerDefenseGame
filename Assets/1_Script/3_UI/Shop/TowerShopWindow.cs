@@ -26,7 +26,7 @@ public class TowerShopWindow : MonoBehaviour
     [SerializeField] Text text = null;
     void UpdatePrice()
     {
-        price++;
+        price = price + 3;
         text.text = string.Format("구입 시 유닛의 최대 갯수를 늘릴 수 있습니다. \n\n 가격: 식량 {0}개", price);
     }
 }

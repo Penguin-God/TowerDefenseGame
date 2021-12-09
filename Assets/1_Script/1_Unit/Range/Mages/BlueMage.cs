@@ -11,6 +11,7 @@ public class BlueMage : Unit_Mage
         base.SetMageAwake();
         bluePassive = GetComponent<BluePassive>();
         GetComponent<SphereCollider>().radius = bluePassive.get_ColliderRange;
+        bluePassive.OnBeefup += () => GetComponent<SphereCollider>().radius = bluePassive.get_ColliderRange;
 
         mageEffectObject.GetComponent<HitSkile>().OnHitSkile += (Enemy enemy) => enemy.EnemyFreeze(5f);
         StartCoroutine(Co_SkilleReinForce());        

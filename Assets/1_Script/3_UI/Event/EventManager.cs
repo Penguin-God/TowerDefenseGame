@@ -229,6 +229,32 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    // 상점에 유닛 패시브 강화 판매를 추가하기 위한 빌드업 함수
+    public void Buy_Reinforce_UnitPassive(int colorNum, string unitColor)
+    {
+        Reinforce_UnitPassive(colorNum);
+        BeefUp_Passive(unitColor);
+    }
+
+    [ContextMenu("Reinforce")]
+    // 특정 색깔을 가진 유닛들 리턴
+    void BeefUp_Passive(string unitColor)
+    {
+        string[] arr_UnitClass = new string[4] { "Swordman", "Archer", "Spearman", "Mage" };
+
+        for(int i = 0; i < arr_UnitClass.Length; i++)
+        {
+            string tag = unitColor + arr_UnitClass[i];
+            GameObject[] units = GameObject.FindGameObjectsWithTag(tag);
+            Debug.Log(units.Length);
+            foreach(GameObject unitObj in units)
+            {
+                UnitPassive passive = unitObj.GetComponentInChildren<UnitPassive>();
+                if (passive != null) passive.Beefup_Passive();
+            }
+        }
+    }
+
     // 클래스 넘버를 인수로 받고 그 클래스의 유닛이 존재하면 유닛의 컬러 넘버를 List에 Add하고 반환
     public List<int> Return_CurrentUnitColorList(int unitClassNumber) //  원하는 유닛 숫자를 받고 존재한 유닛들의 컬러 넘버가 담긴 리스트를 반환
     {

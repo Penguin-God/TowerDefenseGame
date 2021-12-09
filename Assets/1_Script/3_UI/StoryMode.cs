@@ -20,18 +20,24 @@ public class StoryMode : MonoBehaviourPun
 
     public void TranslateUnit()
     {
-        GameObject moveUnits = GameObject.FindGameObjectWithTag(unitTagName);
-        if (moveUnits != null) moveUnits.GetComponent<TeamSoldier>().Unit_WorldChange();
+        GameObject[] moveUnits = GameObject.FindGameObjectsWithTag(unitTagName);
+        for (int i = 0; i < moveUnits.Length; i++)
+        {
+            TeamSoldier unit = moveUnits[i].GetComponent<TeamSoldier>();
+            if (moveUnits != null && unit.enterStoryWorld == GameManager.instance.playerEnterStoryMode)
+            { // 플레이어와 유닛의 입장 월드가 같으면 월드 이동 후 break
+                unit.Unit_WorldChange();
+                break;
+            }
+        }
     }
 
     public Text enterButtonText;
     public GameObject currentUnitWindow = null;
     public void EnterStoryMode()
     {
-        if (!photonView.IsMine)
-        {
-            return;
-        }
+        if (!photonView.IsMine) return;
+
         EnterStoryModeAudio.Play();
         if (!GameManager.instance.playerEnterStoryMode) SetMapValue("필드로", new Vector3(500, 100, -62));
         else SetMapValue("적군의 성으로", new Vector3(0, 100, -62));

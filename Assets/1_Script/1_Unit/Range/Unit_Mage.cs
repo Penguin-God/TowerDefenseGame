@@ -31,33 +31,6 @@ public class Unit_Mage : RangeUnit, IEvent
         mageEffectObject = Instantiate(mageEffectObject, mageEffectObject.transform.position, mageEffectObject.transform.rotation);
     }
 
-    //public void SetMagePassive()
-    //{
-    //    switch (unitColor)
-    //    {
-    //        case UnitColor.red:
-    //            GetComponent<SphereCollider>().radius = redPassiveFigure;
-    //            break;
-    //        case UnitColor.green:
-    //            attackRange *= 2;
-    //            damage += Mathf.FloorToInt((greenPassiveFigure - 1) * originDamage);
-    //            break;
-    //        case UnitColor.orange:
-    //            bossDamage += Mathf.FloorToInt((orangePassiveFigure - 1) * originBossDamage);
-    //            break;
-    //    }
-    //}
-
-    //public void SetMagePassiveFigure()
-    //{
-    //    redPassiveFigure = 15f;
-    //    bluePassiveFigure = new Vector2(60, 25); // x는 슬로우 정도 y는 콜라이더 범위
-    //    yellowPassiveFigure = new Vector2(15, 2);
-    //    greenPassiveFigure = 3f;
-    //    orangePassiveFigure = 5f;
-    //    violetPassiveFigure = new Vector3(60, 5, 60000);
-    //}
-
     public override void NormalAttack()
     {
         StartCoroutine("MageAttack");
@@ -143,26 +116,6 @@ public class Unit_Mage : RangeUnit, IEvent
             unitAudioSource.PlayOneShot(playClip, audioSound);
     }
 
-    void Ultimate_VioletMageSkill()
-    {
-        if (enemySpawn.currentEnemyList.Count <= 1) return;
-
-        Transform target = Return_RandomCurrentEnemy(1)[0];
-        GameObject instantPosionEffect = Instantiate(mageEffectObject, target.position, mageEffectObject.transform.rotation);
-        //instantPosionEffect.GetComponent<MageSkill>().teamSoldier = this.GetComponent<TeamSoldier>();
-    }
-
-    Transform[] Return_RandomCurrentEnemy(int enemyCount) // enemyCount만큼의 적 트랜스폼 배열 반환
-    {
-        Transform[] enemys = new Transform[enemyCount];
-        for(int i = 0; i < enemyCount; i++)
-        {
-            int random = UnityEngine.Random.Range(0, enemySpawn.currentEnemyList.Count);
-            enemys[i] = enemySpawn.currentEnemyList[random].transform;
-        }
-        return enemys;
-    }
-
     private RectTransform canvasRectTransform;
     private Slider manaSlider;
     public int maxMana;
@@ -192,31 +145,18 @@ public class Unit_Mage : RangeUnit, IEvent
         specialAttackPercent = 0;
     }
 
-
-    // 이벤트
-
-    // 스킬 빈도 증가
-    public void SkillPercentUp()
-    {
-        plusMana += 20;
-    }
-
-    // 패시브 강화
-    public void ReinforcePassive()
-    {
-    //    redPassiveFigure = 0.3f;
-    //    bluePassiveFigure = new Vector2(60, 40);
-    //    yellowPassiveFigure = new Vector2(30, 2);
-    //    greenPassiveFigure = 5.5f;
-    //    orangePassiveFigure = 8.5f;
-    //    violetPassiveFigure = new Vector3(90, 6, 120000);
-    }
-
     public virtual void MageSkile() 
     {
         isSkillAttack = true;
         ClearMana();
         StartCoroutine(Co_SkillCoolDown());
         PlaySkileAudioClip();
+    }
+
+
+    // 스킬 빈도 증가 이벤트
+    public void SkillPercentUp()
+    {
+        plusMana += 20;
     }
 }

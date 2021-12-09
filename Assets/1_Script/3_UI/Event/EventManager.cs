@@ -205,8 +205,6 @@ public class EventManager : MonoBehaviour
     }
 
 
-
-
     // 상점에서 파는 이벤트
     public EnemySpawn enemySpawn;
     public void CurrentEnemyDie()

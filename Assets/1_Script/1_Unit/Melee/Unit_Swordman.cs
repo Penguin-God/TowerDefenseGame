@@ -34,15 +34,4 @@ public class Unit_Swordman : MeeleUnit, IEvent
 
     // 이벤트
     public void SkillPercentUp() {}
-
-    // 패시브 강화
-    public void ReinforcePassive()
-    {
-        //redPassiveFigure = 0.5f;
-        //bluePassiveFigure = new Vector2(30, 2);
-        //yellowPassiveFigure = Vector2.zero;
-        //greenPassiveFigure = 1.5f;
-        //orangePassiveFigure = 2f;
-        //violetPassiveFigure = new Vector3(25, 2, 16);
-    }
 }

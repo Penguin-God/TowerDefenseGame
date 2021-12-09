@@ -478,6 +478,7 @@ GameObject:
   - component: {fileID: 913530433912277465}
   - component: {fileID: 1862556135576175187}
   - component: {fileID: 934792852262612338}
+  - component: {fileID: 2044289439}
   m_Layer: 9
   m_Name: TB_Soldier_Archer_Green
   m_TagString: GreenArcher
@@ -589,10 +590,11 @@ MonoBehaviour:
   stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
+  isSkillAttack: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 6d9fd95ba9e9dd34391d716574fd4873, type: 3}
   normalAttakc_AudioDelay: 0
-  tpAudioClip: {fileID: 8300000, guid: a27ce694edf98ef48bc63dd09fc57312, type: 3}
+  reinforceEffect: {fileID: 7533179722810310005}
   passiveReinForce: 0
   specialAttackPercent: 30
   enemyDistance: 0
@@ -601,11 +603,24 @@ MonoBehaviour:
   contactEnemy: 0
   towerEnter: 0
   enterStoryWorld: 0
-  getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
-  reinforceEffect: {fileID: 7533179722810310005}
-  isSkillAttack: 0
+  isFix: 0
   arrow: {fileID: 3088359444298159365, guid: 4d86472d68f9daf44b9304ae48878b3b, type: 3}
   arrowTransform: {fileID: 934792850779518908}
+--- !u!114 &2044289439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 936540755974734959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e51f1ee560ca3446a6e939741ea7f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamSoldier: {fileID: 0}
+  upDamageWeigh: 1.5
+  enhanced_UpDamageWeigh: 2
 --- !u!1 &936733680191573903
 GameObject:
   m_ObjectHideFlags: 0

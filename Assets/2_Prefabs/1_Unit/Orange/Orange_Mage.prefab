@@ -927,6 +927,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamSoldier: {fileID: 0}
   upBossDamageWeigh: 5
+  enhanced_UpBossDamageWeigh: 8.5
 --- !u!1001 &464674616
 PrefabInstance:
   m_ObjectHideFlags: 0

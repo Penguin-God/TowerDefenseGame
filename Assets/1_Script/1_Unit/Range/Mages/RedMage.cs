@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class RedMage : Unit_Mage
 {
+    RedPassive redPassive = null;
+
     public override void SetMageAwake()
     {
         base.SetMageAwake();
+        redPassive = GetComponent<RedPassive>();
         StartCoroutine(Co_SetHitSkile(mageEffectObject));
         StartCoroutine(Co_UltimateSkile());
     }
@@ -49,15 +52,15 @@ public class RedMage : Unit_Mage
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 9) Change_Unit_AttackDelayTime(other.gameObject, 0.5f);
+        if (other.gameObject.layer == 9) Change_Unit_AttackCollDown(other.gameObject, redPassive.get_DownDelayWeigh);
     }
     
     private void OnTriggerExit(Collider other)
-    { 
-        if (other.gameObject.layer == 9) Change_Unit_AttackDelayTime(other.gameObject, 2f);
+    { // redPassive.get_DownDelayWeigh 의 역수 곱해서 공속 되돌림
+        if (other.gameObject.layer == 9) Change_Unit_AttackCollDown(other.gameObject, (1 / redPassive.get_DownDelayWeigh));
     }
 
-    void Change_Unit_AttackDelayTime(GameObject unitObject, float rate)
+    void Change_Unit_AttackCollDown(GameObject unitObject, float rate)
     {
         unitObject.GetComponent<TeamSoldier>().attackDelayTime *= rate;
     }

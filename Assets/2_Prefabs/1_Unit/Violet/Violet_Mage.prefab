@@ -929,6 +929,9 @@ MonoBehaviour:
   sturnPercent: 60
   strunTime: 5
   maxPoisonDamage: 60000
+  enhanced_SturnPercent: 90
+  enhanced_StrunTime: 6
+  enhanced_MaxPoisonDamage: 120000
 --- !u!1001 &1604965478
 PrefabInstance:
   m_ObjectHideFlags: 0

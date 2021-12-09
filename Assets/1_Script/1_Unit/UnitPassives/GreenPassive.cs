@@ -10,4 +10,11 @@ public class GreenPassive : UnitPassive
     {
         EventManager.instance.ChangeUnitDamage(teamSoldier, upDamageWeigh);
     }
+
+    [Space]
+    [SerializeField] float enhanced_UpDamageWeigh;
+    public override void Beefup_Passive()
+    {
+        upDamageWeigh = enhanced_UpDamageWeigh;
+    }
 }

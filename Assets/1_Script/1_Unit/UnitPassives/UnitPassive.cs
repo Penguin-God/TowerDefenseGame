@@ -2,10 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitPassive : MonoBehaviour
+abstract public class UnitPassive : MonoBehaviour
 {
     public TeamSoldier teamSoldier;
-    protected bool isPassiveReinforce = false; // 패시브가 강화되었으면 true
 
     private void Awake()
     {
@@ -18,8 +17,7 @@ public class UnitPassive : MonoBehaviour
         SetPassive();
     }
 
-    public virtual void SetPassive()
-    {
+    public abstract void SetPassive();
 
-    }
+    public abstract void Beefup_Passive();
 }

@@ -239,6 +239,7 @@ GameObject:
   - component: {fileID: 2075177400942788144}
   - component: {fileID: 2075177400942788147}
   - component: {fileID: 2075177400942788146}
+  - component: {fileID: 1075818239}
   m_Layer: 9
   m_Name: TB_Soldier_Spearman_Violet
   m_TagString: VioletSpearman
@@ -352,13 +353,16 @@ MonoBehaviour:
   attackRange: 10
   damage: 24000
   bossDamage: 24000
+  skillDamage: 30000
   stopDistanc: 3
   isAttack: 0
   isAttackDelayTime: 0
+  isSkillAttack: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
   normalAttakc_AudioDelay: 0.55
-  tpAudioClip: {fileID: 8300000, guid: a27ce694edf98ef48bc63dd09fc57312, type: 3}
+  reinforceEffect: {fileID: 7460127306133603730}
+  passiveReinForce: 0
   specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0
@@ -366,8 +370,6 @@ MonoBehaviour:
   contactEnemy: 0
   towerEnter: 0
   enterStoryWorld: 0
-  getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
-  reinforceEffect: {fileID: 7460127306133603730}
   trail: {fileID: 392146240671753428}
   spear: {fileID: 2075221735745424129}
   skileSpaer: {fileID: 4947818212191654679, guid: 313928c4322896f4d9f487c0ffd4ae9a,
@@ -389,6 +391,25 @@ CapsuleCollider:
   m_Height: 2.8291357
   m_Direction: 1
   m_Center: {x: 0.21789765, y: 1.8617955, z: -0.27206933}
+--- !u!114 &1075818239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2075177400942788145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cbce39b5f4b2c0446a404f777de27015, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamSoldier: {fileID: 0}
+  sturnPercent: 50
+  strunTime: 3
+  maxPoisonDamage: 3000
+  enhanced_SturnPercent: 70
+  enhanced_StrunTime: 4
+  enhanced_MaxPoisonDamage: 6000
 --- !u!1 &2075221735745424129
 GameObject:
   m_ObjectHideFlags: 0

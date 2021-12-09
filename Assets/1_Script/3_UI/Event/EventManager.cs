@@ -160,8 +160,8 @@ public class EventManager : MonoBehaviour
         GameObject[] unitArray = ReturnColorSoldierObjects(colorNumber);
         for (int i = 0; i < unitArray.Length; i++)
         {
-            IEvent interfaceEvent = unitArray[i].GetComponentInChildren<IEvent>();
-            interfaceEvent.ReinforcePassive();
+            UnitPassive passive = unitArray[i].GetComponentInChildren<UnitPassive>();
+            passive.Beefup_Passive();
             unitArray[i].GetComponentInChildren<TeamSoldier>().passiveReinForce = true;
         }
     }

@@ -7,6 +7,7 @@ public class GreenMage : Unit_Mage
     [SerializeField] GameObject originEnergyBall = null;
     public override void SetMageAwake()
     {
+        attackRange *= 2;
         attackDelegate += () => StartCoroutine(Co_GreenMageSkile());
         StartCoroutine(Co_SkileReinforce());
     }

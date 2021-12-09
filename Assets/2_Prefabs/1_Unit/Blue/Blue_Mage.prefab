@@ -598,7 +598,7 @@ MonoBehaviour:
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
   normalAttakc_AudioDelay: 0.7
-  reinforceEffect: {fileID: 0}
+  reinforceEffect: {fileID: 3167153325221318406}
   passiveReinForce: 0
   specialAttackPercent: 0
   enemyDistance: 5
@@ -633,8 +633,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamSoldier: {fileID: 0}
-  slowPercent: 0
-  slowTime: 0
+  slowPercent: 60
+  slowTime: 25
+  enhanced_SlowPercent: 60
+  enhanced_SlowTime: 40
 --- !u!1 &7721362943555022686
 GameObject:
   m_ObjectHideFlags: 0
@@ -996,6 +998,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94ecbf9300eb6c04692488e5c506693a, type: 3}
+--- !u!1 &3167153325221318406 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3167153324664509711, guid: 94ecbf9300eb6c04692488e5c506693a,
+    type: 3}
+  m_PrefabInstance: {fileID: 1657854473}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3169154340849778198 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3169154342488646687, guid: 94ecbf9300eb6c04692488e5c506693a,

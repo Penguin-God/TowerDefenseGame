@@ -7,7 +7,6 @@ public class YellowPassive : UnitPassive
 
     public override void SetPassive()
     {
-        base.SetPassive();
         teamSoldier.delegate_OnPassive += (Enemy enemy) => Passive_Yellow(addGold, getGoldPercent);
     }
 
@@ -20,5 +19,14 @@ public class YellowPassive : UnitPassive
             GameManager.instance.Gold += addGold;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
         }
+    }
+
+    [Space] [Space]
+    [SerializeField] int enhanced_AddGold;
+    [SerializeField] int enhanced_GetGoldPercent;
+    public override void Beefup_Passive()
+    {
+        addGold = enhanced_AddGold;
+        getGoldPercent = enhanced_GetGoldPercent;
     }
 }

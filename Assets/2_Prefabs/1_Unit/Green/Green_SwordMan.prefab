@@ -421,6 +421,7 @@ GameObject:
   - component: {fileID: 4942718531445973780}
   - component: {fileID: 5296032616661503057}
   - component: {fileID: 7382913694249432384}
+  - component: {fileID: 432744850}
   m_Layer: 9
   m_Name: TB_Soldier_Swordman_Green
   m_TagString: GreenSwordman
@@ -514,13 +515,16 @@ MonoBehaviour:
   attackRange: 6
   damage: 60
   bossDamage: 60
+  skillDamage: 0
   stopDistanc: 3
   isAttack: 0
   isAttackDelayTime: 0
+  isSkillAttack: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 819330f33b9ea014f990dd335112905e, type: 3}
   normalAttakc_AudioDelay: 0.7
-  tpAudioClip: {fileID: 8300000, guid: a27ce694edf98ef48bc63dd09fc57312, type: 3}
+  reinforceEffect: {fileID: 7533179723174114094}
+  passiveReinForce: 0
   specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
@@ -528,8 +532,6 @@ MonoBehaviour:
   contactEnemy: 0
   towerEnter: 0
   enterStoryWorld: 0
-  getGoldClip: {fileID: 0}
-  reinforceEffect: {fileID: 7533179723174114094}
   trail: {fileID: 7382913694270933811}
 --- !u!95 &5296032616661503057
 Animator:
@@ -564,6 +566,21 @@ CapsuleCollider:
   m_Height: 4.39017
   m_Direction: 1
   m_Center: {x: 0.21007752, y: 2.522077, z: -0.095807076}
+--- !u!114 &432744850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7382913694249432387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e51f1ee560ca3446a6e939741ea7f15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamSoldier: {fileID: 0}
+  upDamageWeigh: 1.2
+  enhanced_UpDamageWeigh: 1.5
 --- !u!1 &7382913694270933811
 GameObject:
   m_ObjectHideFlags: 0

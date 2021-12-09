@@ -23,9 +23,6 @@ public class Unit_Mage : RangeUnit, IEvent
         manaSlider.value = currentMana;
         StartCoroutine(Co_SetCanvas());
 
-        SetMagePassiveFigure();
-
-        SetMagePassive();
         SetMageAwake();
     }
 
@@ -34,35 +31,32 @@ public class Unit_Mage : RangeUnit, IEvent
         mageEffectObject = Instantiate(mageEffectObject, mageEffectObject.transform.position, mageEffectObject.transform.rotation);
     }
 
-    public void SetMagePassive()
-    {
-        switch (unitColor)
-        {
-            case UnitColor.red:
-                GetComponent<SphereCollider>().radius = redPassiveFigure;
-                break;
-            case UnitColor.blue:
-                GetComponent<SphereCollider>().radius = bluePassiveFigure.y;
-                break;
-            case UnitColor.green:
-                attackRange *= 2;
-                damage += Mathf.FloorToInt( ( greenPassiveFigure - 1) * originDamage);
-                break;
-            case UnitColor.orange:
-                bossDamage += Mathf.FloorToInt( ( orangePassiveFigure - 1 ) * originBossDamage);
-                break;
-        }
-    }
+    //public void SetMagePassive()
+    //{
+    //    switch (unitColor)
+    //    {
+    //        case UnitColor.red:
+    //            GetComponent<SphereCollider>().radius = redPassiveFigure;
+    //            break;
+    //        case UnitColor.green:
+    //            attackRange *= 2;
+    //            damage += Mathf.FloorToInt((greenPassiveFigure - 1) * originDamage);
+    //            break;
+    //        case UnitColor.orange:
+    //            bossDamage += Mathf.FloorToInt((orangePassiveFigure - 1) * originBossDamage);
+    //            break;
+    //    }
+    //}
 
-    public void SetMagePassiveFigure()
-    {
-        redPassiveFigure = 15f;
-        bluePassiveFigure = new Vector2(60, 25); // x는 슬로우 정도 y는 콜라이더 범위
-        yellowPassiveFigure = new Vector2(15, 2);
-        greenPassiveFigure = 3f;
-        orangePassiveFigure = 5f;
-        violetPassiveFigure = new Vector3(60, 5, 60000);
-    }
+    //public void SetMagePassiveFigure()
+    //{
+    //    redPassiveFigure = 15f;
+    //    bluePassiveFigure = new Vector2(60, 25); // x는 슬로우 정도 y는 콜라이더 범위
+    //    yellowPassiveFigure = new Vector2(15, 2);
+    //    greenPassiveFigure = 3f;
+    //    orangePassiveFigure = 5f;
+    //    violetPassiveFigure = new Vector3(60, 5, 60000);
+    //}
 
     public override void NormalAttack()
     {
@@ -210,12 +204,12 @@ public class Unit_Mage : RangeUnit, IEvent
     // 패시브 강화
     public void ReinforcePassive()
     {
-        redPassiveFigure = 0.3f;
-        bluePassiveFigure = new Vector2(60, 40);
-        yellowPassiveFigure = new Vector2(30, 2);
-        greenPassiveFigure = 5.5f;
-        orangePassiveFigure = 8.5f;
-        violetPassiveFigure = new Vector3(90, 6, 120000);
+    //    redPassiveFigure = 0.3f;
+    //    bluePassiveFigure = new Vector2(60, 40);
+    //    yellowPassiveFigure = new Vector2(30, 2);
+    //    greenPassiveFigure = 5.5f;
+    //    orangePassiveFigure = 8.5f;
+    //    violetPassiveFigure = new Vector3(90, 6, 120000);
     }
 
     public virtual void MageSkile() 

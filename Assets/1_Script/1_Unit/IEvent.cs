@@ -5,7 +5,4 @@ using UnityEngine;
 interface IEvent
 {
     void SkillPercentUp();
-
-
-    void ReinforcePassive();
 }

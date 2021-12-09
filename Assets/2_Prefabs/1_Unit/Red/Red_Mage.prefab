@@ -905,7 +905,7 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 20
+  m_Radius: 15
   m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
 --- !u!114 &2760111201012713128
 MonoBehaviour:
@@ -972,7 +972,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamSoldier: {fileID: 0}
-  downDelayWeigh: 0
+  downDelayWeigh: 0.5
+  enhanced_DownDelayWeigh: 0.2
 --- !u!1 &5454817337263252172
 GameObject:
   m_ObjectHideFlags: 0

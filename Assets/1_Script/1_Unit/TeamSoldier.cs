@@ -68,12 +68,14 @@ public class TeamSoldier : MonoBehaviour
 
     [HideInInspector]
     public bool passiveReinForce;
-    protected float redPassiveFigure = 0;
-    protected Vector2 bluePassiveFigure = Vector2.zero; // x는 슬로우 정도 y는 시간
-    protected Vector2 yellowPassiveFigure = Vector2.zero; // x는 확률 y는 얻는 골드
-    protected float greenPassiveFigure = 0;
-    protected float orangePassiveFigure = 0;
-    protected Vector3 violetPassiveFigure = Vector3.zero; // x는 확률 y는 스턴 시간 z는 독뎀
+
+    //protected float redPassiveFigure = 0;
+    //protected Vector2 bluePassiveFigure = Vector2.zero; // x는 슬로우 정도 y는 시간
+    //protected Vector2 yellowPassiveFigure = Vector2.zero; // x는 확률 y는 얻는 골드
+    //protected float greenPassiveFigure = 0;
+    //protected float orangePassiveFigure = 0;
+    //protected Vector3 violetPassiveFigure = Vector3.zero; // x는 확률 y는 스턴 시간 z는 독뎀
+
 
     // 적에게 대미지 입히기, 패시브 적용 등의 역할을 하는 델리게이트
     public delegate void Delegate_OnHit(Enemy enemy);

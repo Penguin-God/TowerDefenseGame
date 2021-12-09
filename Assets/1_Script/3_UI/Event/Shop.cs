@@ -330,8 +330,8 @@ public class Shop : MonoBehaviour
         panelObject.SetActive(false);
     }
 
-    //private void OnEnable() // 테스트용
-    //{
-    //    OnShop(4, bossShopWeighDictionary);
-    //}
+    private void OnEnable() // 테스트용
+    {
+        OnShop(3, bossShopWeighDictionary);
+    }
 }

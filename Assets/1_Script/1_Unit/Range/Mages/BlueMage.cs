@@ -4,9 +4,14 @@ using UnityEngine;
 
 public class BlueMage : Unit_Mage
 {
+    BluePassive bluePassive = null;
+
     public override void SetMageAwake()
     {
         base.SetMageAwake();
+        bluePassive = GetComponent<BluePassive>();
+        GetComponent<SphereCollider>().radius = bluePassive.get_ColliderRange;
+
         mageEffectObject.GetComponent<HitSkile>().OnHitSkile += (Enemy enemy) => enemy.EnemyFreeze(5f);
         StartCoroutine(Co_SkilleReinForce());        
     }
@@ -28,7 +33,7 @@ public class BlueMage : Unit_Mage
         if (other.gameObject.GetComponent<NomalEnemy>() != null)
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            enemy.EnemySlow(bluePassiveFigure.y, -1f); // 나가기 전까진 무한 슬로우
+            enemy.EnemySlow(bluePassive.get_SlowPercent, -1f); // 나가기 전까진 무한 슬로우
         }
     }
 

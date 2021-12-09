@@ -421,6 +421,7 @@ GameObject:
   - component: {fileID: 3648794870320716357}
   - component: {fileID: 4558846040116425984}
   - component: {fileID: 1174998771943246865}
+  - component: {fileID: 1437579021}
   m_Layer: 9
   m_Name: TB_Soldier_Swordman_Yellow
   m_TagString: YellowSwordman
@@ -514,13 +515,16 @@ MonoBehaviour:
   attackRange: 6
   damage: 25
   bossDamage: 25
+  skillDamage: 0
   stopDistanc: 3
   isAttack: 0
   isAttackDelayTime: 0
+  isSkillAttack: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 819330f33b9ea014f990dd335112905e, type: 3}
   normalAttakc_AudioDelay: 0.7
-  tpAudioClip: {fileID: 8300000, guid: a27ce694edf98ef48bc63dd09fc57312, type: 3}
+  reinforceEffect: {fileID: 1143565391829667938}
+  passiveReinForce: 0
   specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
@@ -528,8 +532,6 @@ MonoBehaviour:
   contactEnemy: 0
   towerEnter: 0
   enterStoryWorld: 0
-  getGoldClip: {fileID: 0}
-  reinforceEffect: {fileID: 1143565391829667938}
   trail: {fileID: 1174998771961623138}
 --- !u!95 &4558846040116425984
 Animator:
@@ -564,6 +566,23 @@ CapsuleCollider:
   m_Height: 4.39017
   m_Direction: 1
   m_Center: {x: 0.21007752, y: 2.522077, z: -0.095807076}
+--- !u!114 &1437579021
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1174998771943246866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 193e7ee31e0496947bf87a32f0dc26e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamSoldier: {fileID: 0}
+  addGold: 0
+  getGoldPercent: 0
+  enhanced_AddGold: 0
+  enhanced_GetGoldPercent: 0
 --- !u!1 &1174998771961623138
 GameObject:
   m_ObjectHideFlags: 0

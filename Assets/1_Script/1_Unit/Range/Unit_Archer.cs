@@ -129,11 +129,11 @@ public class Unit_Archer : RangeUnit, IEvent
     // 패시브 강화
     public void ReinforcePassive()
     {
-        redPassiveFigure = 0.2f;
-        bluePassiveFigure = new Vector2(60, 3);
-        yellowPassiveFigure = new Vector2(4, 1);
-        greenPassiveFigure = 2f;
-        orangePassiveFigure = 3;
-        violetPassiveFigure = new Vector3(50, 3, 500);
+        //redPassiveFigure = 0.2f;
+        //bluePassiveFigure = new Vector2(60, 3);
+        //yellowPassiveFigure = new Vector2(4, 1);
+        //greenPassiveFigure = 2f;
+        //orangePassiveFigure = 3;
+        //violetPassiveFigure = new Vector3(50, 3, 500);
     }
 }

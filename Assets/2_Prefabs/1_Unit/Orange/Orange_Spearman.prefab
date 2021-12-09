@@ -597,6 +597,7 @@ GameObject:
   - component: {fileID: 8772771035943043366}
   - component: {fileID: 8772771035943043365}
   - component: {fileID: 8772771035943043361}
+  - component: {fileID: 1734225565}
   m_Layer: 9
   m_Name: TB_Soldier_Spearman_Orange
   m_TagString: OrangeSpearman
@@ -710,13 +711,16 @@ MonoBehaviour:
   attackRange: 10
   damage: 24000
   bossDamage: 24000
+  skillDamage: 30000
   stopDistanc: 3
   isAttack: 0
   isAttackDelayTime: 0
+  isSkillAttack: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
   normalAttakc_AudioDelay: 0.55
-  tpAudioClip: {fileID: 8300000, guid: a27ce694edf98ef48bc63dd09fc57312, type: 3}
+  reinforceEffect: {fileID: 1989024324094488823}
+  passiveReinForce: 0
   specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0
@@ -724,8 +728,6 @@ MonoBehaviour:
   contactEnemy: 0
   towerEnter: 0
   enterStoryWorld: 0
-  getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
-  reinforceEffect: {fileID: 1989024324094488823}
   trail: {fileID: 6918242552824650690}
   spear: {fileID: 8772745113670710295}
   skileSpaer: {fileID: 4947818212191654679, guid: 6c01966fa0ee0af49931e2893f9b2ae6,
@@ -747,6 +749,21 @@ CapsuleCollider:
   m_Height: 2.8291357
   m_Direction: 1
   m_Center: {x: 0.21789765, y: 1.8617955, z: -0.27206933}
+--- !u!114 &1734225565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8772771035943043367}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7289ea019db29cb44aa8daee3c5cc51d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teamSoldier: {fileID: 0}
+  upBossDamageWeigh: 3
+  enhanced_UpBossDamageWeigh: 5
 --- !u!1001 &168286722
 PrefabInstance:
   m_ObjectHideFlags: 0

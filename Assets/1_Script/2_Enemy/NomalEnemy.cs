@@ -64,6 +64,7 @@ public class NomalEnemy : Enemy
     public override void Dead()
     {
         base.Dead();
+
         parent.gameObject.SetActive(false);
         parent.position = new Vector3(500, 500, 500);
         enemySpawn.currentEnemyList.Remove(this.gameObject);
@@ -80,7 +81,6 @@ public class NomalEnemy : Enemy
         sternEffect.SetActive(false);
     }
 
-    //private TeamSoldier teamSoldier;
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "WayPoint")

@@ -441,7 +441,7 @@ public class GameManager : MonoBehaviour
     {
         isChallenge = true;
         HighScorePanel.SetActive(true);
-        enemySpawn.maxStage = 100000;
+        enemySpawn.maxStage = 10000000;
     }
 
     private Dictionary<string, int[]> Dic_enemyTowerHp;

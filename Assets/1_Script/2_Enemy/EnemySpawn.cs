@@ -110,6 +110,7 @@ public class EnemySpawn : MonoBehaviour
         UIManager.instance.UpdateStageText(stageNumber);
         StageStart();
     }
+
     void RespawnEnemy(int enemyNumber, int hp, float speed)
     {
         GameObject respawnEnemy = arr_DisabledEnemy_Queue[enemyNumber].Dequeue();
@@ -124,11 +125,21 @@ public class EnemySpawn : MonoBehaviour
         arr_DisabledEnemy_Queue[num].Enqueue(obj);
     }
 
+    public int count1 = 0;
+    public int count2 = 0;
+    public int count3 = 0;
+    public int count4 = 0;
+
     [SerializeField] Slider timerSlider;
     private void Update()
     {
         if(GameManager.instance.gameStart && stageNumber < maxStage)
             timerSlider.value -= Time.deltaTime;
+
+        count1 = arr_DisabledEnemy_Queue[0].Count;
+        count2 = arr_DisabledEnemy_Queue[1].Count;
+        count3 = arr_DisabledEnemy_Queue[2].Count;
+        count4 = arr_DisabledEnemy_Queue[3].Count;
     }
 
 

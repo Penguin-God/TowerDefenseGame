@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class EnemyTower : Enemy
 {
-    public int level; // 보상 때문에 임시로 놔둠
+    public int level;
     public int rewardGold;
     public int rewardFood;
     public bool isRespawn;

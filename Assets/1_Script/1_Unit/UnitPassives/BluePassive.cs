@@ -24,6 +24,6 @@ public class BluePassive : UnitPassive
     {
         slowPercent = enhanced_SlowPercent;
         slowTime = enhanced_SlowTime;
-        OnBeefup();
+        if(OnBeefup != null) OnBeefup();
     }
 }

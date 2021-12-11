@@ -5,6 +5,13 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.EventSystems;
 
+public enum TriggerType
+{
+    None,
+    Boss,
+    EnemyTower,
+}
+
 public class Shop : MonoBehaviour
 {
     public Text shopGuideText;
@@ -138,7 +145,6 @@ public class Shop : MonoBehaviour
         ExitShop();
     }
 
-    public bool showShop;
     [SerializeField] Button[] dontClickButtons;
 
     void SetButtonRayCast(bool isRaycast) // 상점 이용 시 특정 버튼 끄고 키기
@@ -149,20 +155,38 @@ public class Shop : MonoBehaviour
         }
     }
 
-    int currentLevel = 0;
-    Dictionary<int, int[]> currentGoodsWeigh = new Dictionary<int, int[]>();
-    [SerializeField] GameObject obj_ShopReset = null;
-    public void OnShop(int level, Dictionary<int, int[]> goodsWeighDictionary)
-    {
-        currentGoodsWeigh = goodsWeighDictionary;
-        currentLevel = level;
 
-        obj_ShopReset.SetActive(true);
+    private void OnEnable()
+    {
+        EnterEventShop(currentLevel, currentShopType);
+    }
+
+    public void OnShop(int level, TriggerType type)
+    {
+        Set_ShopData(level, type);
         gameObject.SetActive(true);
+    }
+
+    public int currentLevel = 0;
+    public TriggerType currentShopType = TriggerType.None;
+
+    void Set_ShopData(int level, TriggerType type)
+    {
+        currentShopType = type;
+        currentLevel = level;
+    }
+
+
+    void EnterEventShop(int level, TriggerType type)
+    {
+        obj_ShopReset.SetActive(true);
         Time.timeScale = 0;
-        showShop = true;
-        SetButtonRayCast(false); 
-        Show_RandomShop(level, goodsWeighDictionary);
+        SetButtonRayCast(false);
+
+        string guideText = (type == TriggerType.Boss) ? "보스를 처치하였습니다" : "적군의 성을 파괴하였습니다";
+        SetGuideText(guideText);
+
+        Show_RandomShop(level, type);
     }
 
     public void SetGuideText(string message)
@@ -170,18 +194,15 @@ public class Shop : MonoBehaviour
         shopGuideText.text = message;
     }
 
-    public GameObject ShopEixtPanel;
     public void ExitShop()
     {
         gameObject.SetActive(false);
-        showShop = false;
         SetGuideText("");
 
         Disabled_CurrentShowGoods();
         CanclePanelAction();
 
         lacksGuideText.gameObject.SetActive(false);
-        ShopEixtPanel.SetActive(false);
         Time.timeScale = GameManager.instance.gameTimeSpeed;
         SetButtonRayCast(true);
     }
@@ -238,12 +259,13 @@ public class Shop : MonoBehaviour
     public void ShowShop()
     {
         gameObject.SetActive(true);
-        showShop = true;
     }
 
     // 상품 세팅
-    void Show_RandomShop(int level, Dictionary<int, int[]> goodsWeighDictionary) // 랜덤하게 상품 변경 
+    void Show_RandomShop(int level, TriggerType type) // 랜덤하게 상품 변경 
     {
+        Dictionary<int, int[]> goodsWeighDictionary = (type == TriggerType.Boss) ? bossShopWeighDictionary : towerShopWeighDictionary;
+
         current_LeftGoldGoods = Set_RandomGoods(leftGoldGoods, level, goodsWeighDictionary);
         current_CenterGoldGoods = Set_RandomGoods(centerGoldGoods, level, goodsWeighDictionary);
         current_FoodGoldGoods = Set_RandomGoods(foodGoods, level, goodsWeighDictionary);
@@ -293,6 +315,7 @@ public class Shop : MonoBehaviour
         towerShopWeighDictionary.Add(6, new int[] { 0, 30, 70 });
     }
 
+
     public void SetShopExitPanel(string text)
     {
         text = GetEscapeText(text);
@@ -311,6 +334,7 @@ public class Shop : MonoBehaviour
     }
 
     // 상점 재설정
+    [SerializeField] GameObject obj_ShopReset = null;
     public void ResetShop()
     {
         if (GameManager.instance.Gold >= 10)
@@ -321,7 +345,7 @@ public class Shop : MonoBehaviour
 
             Disabled_CurrentShowGoods();
             CanclePanelAction();
-            Show_RandomShop(currentLevel, currentGoodsWeigh);
+            Show_RandomShop(currentLevel, currentShopType);
 
             obj_ShopReset.SetActive(false);
         }
@@ -329,9 +353,4 @@ public class Shop : MonoBehaviour
 
         panelObject.SetActive(false);
     }
-
-    //private void OnEnable() // 테스트용
-    //{
-    //    OnShop(3, bossShopWeighDictionary);
-    //}
 }

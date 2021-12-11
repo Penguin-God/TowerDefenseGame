@@ -8,6 +8,6 @@ public class TutoaialShop : TutorialGuideTrigger
     //[SerializeField] GameObject ShopObject = null;
     public override bool TutorialCondition()
     {
-        return shop.showShop;
+        return shop.gameObject.activeSelf;
     }
 }

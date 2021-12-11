@@ -5,15 +5,10 @@ using UnityEngine.UI;
 
 public class EnemyTower : Enemy
 {
-    public int towerLevel;
+    public int level; // 보상 때문에 임시로 놔둠
     public int rewardGold;
     public int rewardFood;
     public bool isRespawn;
-
-    private void Awake()
-    {
-        Set_RespawnStatus(EnemySpawn.instance.arr_TowersHp[EnemySpawn.instance.currentTowerLevel]);
-    }
 
     public void Set_RespawnStatus(int hp)
     {
@@ -30,13 +25,11 @@ public class EnemyTower : Enemy
 
     public override void Dead()
     {
-        if (isDead) return;
+        base.Dead();
 
-        isDead = true;
         gameObject.SetActive(false);
         transform.position = new Vector3(5000, 5000, 5000);
         GetTowerReword();
-        EnemySpawn.instance.RespawnNextTower(towerLevel, 1.5f);
         SetUnitTarget();
     }
 
@@ -53,8 +46,8 @@ public class EnemyTower : Enemy
 
     void GetTowerReword()
     {
-        GameManager.instance.Wood += towerLevel; // 테스트용
-        GameManager.instance.Iron += towerLevel; // 테스트용
+        GameManager.instance.Wood += level; // 테스트용
+        GameManager.instance.Iron += level; // 테스트용
 
         GameManager.instance.Gold += rewardGold;
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);

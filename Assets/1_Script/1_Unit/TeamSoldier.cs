@@ -173,7 +173,7 @@ public class TeamSoldier : MonoBehaviour
     IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
     {
         // 적군의 성에서 돌아올 때 boss 있으면 보스만 추격
-        if (enemySpawn.bossRespawn && enemySpawn.currentBossList[0] != null) SetChaseSetting(enemySpawn.currentBossList[0]);
+        if (enemySpawn.bossRespawn && enemySpawn.currentBossList[0] != null) SetChaseSetting(enemySpawn.currentBossList[0].gameObject);
         while (true)
         {
             if (target != null) enemyDistance = Vector3.Distance(this.transform.position, target.position);
@@ -205,7 +205,7 @@ public class TeamSoldier : MonoBehaviour
     {
         if (enemySpawn.bossRespawn) // 보스 있으면 보스가 타겟
         {
-            SetChaseSetting(enemySpawn.currentBossList[0]);
+            SetChaseSetting(enemySpawn.currentBossList[0].gameObject);
             return;
         }
 
@@ -257,7 +257,7 @@ public class TeamSoldier : MonoBehaviour
         {
             if (target == null || enemyDistance > chaseRange)
             {
-                EnemyTower currentTower = enemySpawn.towers[enemySpawn.currentTowerLevel].GetComponent<EnemyTower>();
+                EnemyTower currentTower = enemySpawn.currentTower;
                 if (currentTower.isRespawn) target = currentTower.transform;
                 else
                 {
@@ -352,7 +352,7 @@ public class TeamSoldier : MonoBehaviour
     // 현재 타겟이 노말인지 아닌지 나타내는 프로퍼티
     protected bool TragetIsNormalEnemy { get { return (target != null && target.GetComponent<NomalEnemy>() ); } }
 
-    public void AttackEnemy(Enemy enemy) // Boss enemy랑 쫄병 구분
+    void AttackEnemy(Enemy enemy) // Boss enemy랑 쫄병 구분
     {
         if (TragetIsNormalEnemy) enemy.OnDamage(damage);
         else enemy.OnDamage(bossDamage);

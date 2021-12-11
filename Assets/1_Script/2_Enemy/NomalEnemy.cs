@@ -24,7 +24,7 @@ public class NomalEnemy : Enemy
     {
         isDead = false;
         SetNextPoint();
-        if(gameObject.tag != "Boss") Invoke("AddListMe", 0.05f);
+        if(gameObject.tag != "Boss") Invoke("AddListMe", 0.05f); // 병신 코드
     }
     void AddListMe()
     {
@@ -74,12 +74,6 @@ public class NomalEnemy : Enemy
     void ResetVariable()
     {
         pointIndex = -1;
-        maxHp = 0;
-        currentHp = 0;
-        hpSlider.maxValue = 0;
-        hpSlider.value = 0;
-        isDead = true;
-        this.speed = 0;
         transform.rotation = Quaternion.identity;
         ChangeMat(originMat);
         ChangeColor(new Color32(255, 255, 255, 255));

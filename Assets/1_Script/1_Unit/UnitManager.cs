@@ -182,4 +182,18 @@ public class UnitManager : MonoBehaviour
             unit.reinforceEffect.SetActive(true);
         }
     }
+
+    public void UpdateTarget_CurrnetFieldUnit()
+    {
+        foreach (GameObject unit in currentUnitList)
+        {
+            if (unit == null) continue;
+
+            TeamSoldier teamSoldier = unit.GetComponent<TeamSoldier>();
+            if (!teamSoldier.enterStoryWorld)
+            {
+                teamSoldier.UpdateTarget();
+            }
+        }
+    }
 }

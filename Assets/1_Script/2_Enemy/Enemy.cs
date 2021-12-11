@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class Enemy : MonoBehaviour
 {
     // 상태 변수
-    public float maxSpeed;
-
-    public float speed;
-    public int maxHp;
-    public int currentHp;
+    public float maxSpeed = 0;
+    public float speed = 0;
+    public int maxHp = 0;
+    public int currentHp = 0;
     public bool isDead = true;
-    public Slider hpSlider;
+    public Slider hpSlider = null;
 
-    public Vector3 dir;
+    public Vector3 dir = Vector3.zero;
 
     protected Rigidbody parentRigidbody;
     protected List<MeshRenderer> meshList;
@@ -29,19 +29,36 @@ public class Enemy : MonoBehaviour
         for(int i = 0; i < addMeshs.Length; i++) meshList.Add(addMeshs[i]);
     }
 
-    // 대미지 관련 함수
+
+    public Action OnDeath = null;
+
     public void OnDamage(int damage)
     {
         currentHp -= damage;
         hpSlider.value = currentHp;
 
-        if (currentHp <= 0) Dead();
+        if (currentHp <= 0 && !isDead) Dead();
     }
 
     public virtual void Dead() 
     {
+        ResetValue();
+
+        if (OnDeath != null) OnDeath();
+    }
+
+    void ResetValue()
+    {
         queue_GetSturn.Clear();
         queue_HoldingPoison.Clear();
+
+        maxSpeed = 0;
+        speed = 0;
+        isDead = true;
+        maxHp = 0;
+        currentHp = 0;
+        hpSlider.maxValue = 0;
+        hpSlider.value = 0;
     }
 
     protected NomalEnemy nomalEnemy;
@@ -57,7 +74,7 @@ public class Enemy : MonoBehaviour
     {
         if (this.gameObject.CompareTag("Tower") || isDead) return;
 
-        int random = Random.Range(0, 100);
+        int random = UnityEngine.Random.Range(0, 100);
         if (random < sternPercent) StartCoroutine(SternCoroutine(sternTime));
     }
 

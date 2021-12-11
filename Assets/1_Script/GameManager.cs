@@ -220,15 +220,10 @@ public class GameManager : MonoBehaviour
     public Text FasterText;
     public float gameTimeSpeed;
 
-    int FasterAdCount = 0;
+    //int FasterAdCount = 0;
     public AdManager adManager;
     public void ClickFasterButton() // 클릭 할때 마다 게임 속도 증가
     {
-        //if(FasterAdCount == 0)
-        //{
-        //    adManager.ShowRewardAd();
-        //    FasterAdCount += 1;
-        //}
         SoundManager.instance.PlayEffectSound_ByName("PopSound", 0.6f);
 
         if (FasterCount == 0)
@@ -245,25 +240,6 @@ public class GameManager : MonoBehaviour
             gameTimeSpeed = 1f;
             FasterCount = 0;
         }
-        //else if (FasterCount == 1)
-        //{
-        //    FasterText.text = "X3";
-        //    Time.timeScale = 3f;
-        //    gameTimeSpeed = 3f;
-        //    FasterCount += 1;
-        //}
-        //else if (FasterCount == 2)
-        //{
-        //    FasterText.text = "X1";
-        //    Time.timeScale = 1f;
-        //    gameTimeSpeed = 1f;
-        //    FasterCount = 0;
-        //}
-        //else if (FasterCount == 3)
-        //{
-        //    Time.timeScale = 1f;
-        //    FasterCount = 0;
-        //}
     }
 
     public GameObject PlayAgainBackGround;
@@ -415,8 +391,6 @@ public class GameManager : MonoBehaviour
         EventManager.instance.RandomUnitEvenet(); // 랜덤 유닛 이벤트
 
         SelectDifficult(difficult);
-        enemySpawn.StageStart();
-        enemySpawn.towers[0].SetActive(true);
         UnitManager.instance.ReSpawnStartUnit();
         OnStart();
     }

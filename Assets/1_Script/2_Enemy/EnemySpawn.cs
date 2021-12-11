@@ -21,7 +21,6 @@ public class EnemySpawn : MonoBehaviour
 
     [HideInInspector]
     public AudioSource enemyAudioSource;
-    public AudioClip towerDieClip;
 
     public static EnemySpawn instance;
     private void Awake()
@@ -32,6 +31,9 @@ public class EnemySpawn : MonoBehaviour
         enemyAudioSource = GetComponent<AudioSource>();
         timerSlider.maxValue = stageTime;
         timerSlider.value = stageTime;
+
+        GameManager.instance.OnStart += StageStart;
+        GameManager.instance.OnStart += RespawnTower;
     }
 
     private void Start()
@@ -163,62 +165,129 @@ public class EnemySpawn : MonoBehaviour
     }
 
     // 보스 코드
-    public AudioClip bossDeadClip;
     public bool bossRespawn;
     public int bossLevel;
+
+    // 시발같은 코드
     public int bossRewordGold;
     public int bossRewordFood;
+
     [HideInInspector]
-    public List<GameObject> currentBossList;
+    public List<EnemyBoss> currentBossList;
+
     void RespawnBoss()
     {
         bossLevel++;
         bossRespawn = true;
+        GameManager.instance.ChangeBGM(GameManager.instance.bossbgmClip);
+
+        SetBossStatus();
+        UnitManager.instance.UpdateTarget_CurrnetFieldUnit();
+    }
+
+    void SetBossStatus()
+    {
         int random = Random.Range(0, bossPrefab.Length);
         GameObject instantBoss = Instantiate(bossPrefab[random], bossPrefab[random].transform.position, bossPrefab[random].transform.rotation);
         instantBoss.transform.SetParent(transform);
 
         int stageWeigh = (stageNumber / 10) * (stageNumber / 10) * (stageNumber / 10);
-        int hp = 10000 * (stageWeigh * Mathf.CeilToInt(enemyHpWeight / 15f) ); // boss hp 정함
+        int hp = 10000 * (stageWeigh * Mathf.CeilToInt(enemyHpWeight / 15f)); // boss hp 정함
         SetEnemyData(instantBoss, hp, 10);
         instantBoss.transform.position = this.transform.position;
+        currentBossList.Add(instantBoss.GetComponentInChildren<EnemyBoss>());
         instantBoss.SetActive(true);
+
+        SetBossDeadAction(instantBoss.GetComponentInChildren<EnemyBoss>());
     }
+
+    void SetBossDeadAction(EnemyBoss boss)
+    {
+        boss.OnDeath += () => GetBossReword(bossRewordGold, bossRewordFood);
+        boss.OnDeath += () => Get_UnitReword();
+        boss.OnDeath += () => SoundManager.instance.PlayEffectSound_ByName("BossDeadClip");
+        boss.OnDeath += () => GameManager.instance.ChangeBGM(GameManager.instance.bgmClip);
+        boss.OnDeath += ClearGame; // 이름 좀 바꾸기
+        boss.OnDeath += () => SetData(boss);
+        boss.OnDeath += () => shop.OnShop(bossLevel, TriggerType.Boss);
+        boss.OnDeath += () => UnitManager.instance.UpdateTarget_CurrnetFieldUnit();
+    }
+
+    void SetData(EnemyBoss boss)
+    {
+        currentBossList.Remove(boss);
+        bossRespawn = false;
+    }
+
+    // 이름 좀 바꾸기
+    void ClearGame() // 게임클리어 막보스 잡으면 게임 클리어
+    {
+        if (stageNumber >= maxStage && !GameManager.instance.isChallenge)
+            GameManager.instance.Clear();
+    }
+
+    void GetBossReword(int rewardGold, int rewardFood)
+    {
+        GameManager.instance.Gold += rewardGold * Mathf.FloorToInt(stageNumber / 10);
+        UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+
+        GameManager.instance.Food += rewardFood * Mathf.FloorToInt(stageNumber / 10);
+        UIManager.instance.UpdateFoodText(GameManager.instance.Food);
+    }
+
+    void Get_UnitReword()
+    {
+        switch (bossLevel)
+        {
+            case 1: case 2: createDefenser.CreateSoldier(7, 1); break;
+            case 3: case 4: createDefenser.CreateSoldier(7, 2); break;
+        }
+    }
+
+
 
     // 타워 코드
     public GameObject[] towers;
     [HideInInspector]
     public int[] arr_TowersHp;
     [HideInInspector]
-    public int currentTowerLevel = 0;
+    private int currentTowerLevel = 0;
+    public EnemyTower currentTower = null;
 
     public CreateDefenser createDefenser;
     public Shop shop;
-    public void RespawnNextTower(int towerLevel, float delayTime)
+
+    void RespawnTower()
     {
-        // 상점 뜨게 하고 텍스트 설정
-        shop.OnShop(towerLevel, shop.towerShopWeighDictionary);
-        shop.SetGuideText("적군의 성을 파괴하였습니다");
+        // 처음에는 0
+        currentTower = towers[currentTowerLevel].GetComponent<EnemyTower>();
+        currentTowerLevel = currentTower.level;
+        currentTower.Set_RespawnStatus(arr_TowersHp[currentTowerLevel - 1]);
 
-        enemyAudioSource.PlayOneShot(towerDieClip, 1f);
-
-        currentTowerLevel++;
-
-        if (towerLevel >= towers.Length) // 마지막 성 클리어 시
+        if(currentTower != null)
         {
-            StartCoroutine(ClearLastTower());
-            return;
+            SetDeadAction();
+            towers[currentTowerLevel - 1].SetActive(true);
         }
-
-        StartCoroutine(SetNexTwoer_Coroutine(currentTowerLevel, delayTime));
     }
 
-    IEnumerator SetNexTwoer_Coroutine(int towerLevel, float delayTime)
+    void SetDeadAction()
+    {
+        // tower 레밸에 따라 다음 타워 소환할지 안할지 결정
+        if (currentTowerLevel < towers.Length) currentTower.OnDeath += () => StartCoroutine(Co_AfterRespawnTower(1.5f));
+        else currentTower.OnDeath += () => StartCoroutine(ClearLastTower());
+
+        currentTower.OnDeath += () => SoundManager.instance.PlayEffectSound_ByName("TowerDieClip");
+        currentTower.OnDeath += () => shop.OnShop(currentTowerLevel, TriggerType.EnemyTower);
+    }
+
+    IEnumerator Co_AfterRespawnTower(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-        towers[towerLevel].SetActive(true);
+        RespawnTower();
     }
 
+    // 마지막 성 클리어 시
     IEnumerator ClearLastTower() // 검은 창병 두마리 소환 후 모든 유닛 필드로 옮기기
     {
         yield return new WaitForSeconds(0.1f); // 상점 이용 후 유닛이동하기 위해서 대기

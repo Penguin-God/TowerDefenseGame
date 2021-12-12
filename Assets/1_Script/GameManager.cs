@@ -296,7 +296,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
 
         SoundManager.instance.PlayEffectSound_ByName("Lose");
-        if (enemySpawn.maxStage == 100000)
+        if (enemySpawn.maxStage == 10000000)
         {
             PlayerPrefs.SetInt("HighScore", HighScore);
             Iron += enemySpawn.stageNumber;

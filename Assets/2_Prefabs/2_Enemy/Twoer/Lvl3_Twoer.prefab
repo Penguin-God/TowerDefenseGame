@@ -225,7 +225,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1492641409}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 5}
+  m_LocalPosition: {x: 0, y: 0, z: -3}
   m_LocalScale: {x: 3, y: 1.5, z: 1}
   m_Children:
   - {fileID: 816218541}
@@ -234,7 +234,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 6}
+  m_AnchoredPosition: {x: 0, y: 11}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &1492641413
@@ -489,10 +489,10 @@ MonoBehaviour:
   originMat: {fileID: 0}
   sternEffect: {fileID: 0}
   slowSkillMat: {fileID: 0}
-  enemySpawn: {fileID: 0}
-  towerLevel: 3
+  level: 3
   rewardGold: 40
   rewardFood: 4
+  isRespawn: 0
 --- !u!54 &418767609
 Rigidbody:
   m_ObjectHideFlags: 0

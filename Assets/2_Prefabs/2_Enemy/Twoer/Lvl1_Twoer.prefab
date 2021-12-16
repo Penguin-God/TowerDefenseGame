@@ -489,10 +489,10 @@ MonoBehaviour:
   originMat: {fileID: 0}
   sternEffect: {fileID: 0}
   slowSkillMat: {fileID: 0}
-  enemySpawn: {fileID: 0}
-  towerLevel: 1
+  level: 1
   rewardGold: 20
   rewardFood: 1
+  isRespawn: 0
 --- !u!54 &1502375973
 Rigidbody:
   m_ObjectHideFlags: 0

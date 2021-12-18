@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using System.Text;
+
 [System.Serializable]
 public class UnitData
 {
@@ -21,10 +23,63 @@ public class UnitDataList<T>
 
 public class UnitDataBase : MonoBehaviour
 {
+    [SerializeField] TextAsset unitData_CSV;
+
+    [ContextMenu("WrietCSV")]
+    void WriteCSV()
+    {
+        List<string[]> LowList = new List<string[]>();
+
+        string[] unitData = new string[5];
+        unitData[0] = "Name";
+        unitData[1] = "Damage";
+        unitData[2] = "BossDamage";
+        unitData[3] = "Speed";
+        unitData[4] = "attackRange";
+        LowList.Add(unitData);
+
+        for (int i = 0; i < unitDataList.Count; i++)
+        {
+            unitData = new string[5];
+            unitData[0] = unitDataList[i].unitName;
+            unitData[1] = unitDataList[i].unitDamage.ToString();
+            unitData[2] = unitDataList[i].unitDamage.ToString();
+            unitData[3] = unitDataList[i].unitSpeed.ToString();
+            unitData[4] = unitDataList[i].attackRange.ToString();
+            LowList.Add(unitData);
+        }
+
+        string delimiter = ",";
+        StringBuilder sb = new StringBuilder();
+
+        for (int index = 0; index < LowList.Count; index++)
+        {
+            sb.AppendLine(string.Join(delimiter, LowList[index]));
+        }
+
+        string filePath = "Assets/4_Data/UnitData.csv";
+
+        StreamWriter outStream = System.IO.File.CreateText(filePath);
+        outStream.WriteLine(sb);
+        outStream.Close();
+    }
+
+    private string getPath()
+    {
+#if UNITY_EDITOR
+        return Application.dataPath + "/CSV/“+”/Student Data.csv";
+#elif UNITY_ANDROID
+        return Application.persistentDataPath+"Student Data.csv";
+#elif UNITY_IPHONE
+        return Application.persistentDataPath+"/"+"Student Data.csv";
+#else
+        return Application.dataPath +"/"+"Student Data.csv";
+#endif
+    }
+
     public List<GameObject> unitList = new List<GameObject>();
 
     public List<UnitData> unitDataList;
-
     [ContextMenu("SetList")]
     void SetUnitList()
     {

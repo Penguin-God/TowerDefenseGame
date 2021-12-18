@@ -24,11 +24,17 @@ public class SetCurrentUnitButton : MonoBehaviour
         GameObject[] reds = GameObject.FindGameObjectsWithTag("RedSwordman");
         GameObject[] blues = GameObject.FindGameObjectsWithTag("BlueSwordman");
         GameObject[] yellows = GameObject.FindGameObjectsWithTag("YellowSwordman");
+        GameObject[] greens = GameObject.FindGameObjectsWithTag("GreenSwordman");
+        GameObject[] oranges = GameObject.FindGameObjectsWithTag("OrangeSwordman");
+        GameObject[] violets = GameObject.FindGameObjectsWithTag("VioletSwordman");
 
         if (reds.Length >= unitCount_MinCondition) Set_TutorialUI(0);
         else if (blues.Length >= unitCount_MinCondition) Set_TutorialUI(1);
         else if (yellows.Length >= unitCount_MinCondition) Set_TutorialUI(2);
-        
+        else if (greens.Length >= unitCount_MinCondition) Set_TutorialUI(3);
+        else if (oranges.Length >= unitCount_MinCondition) Set_TutorialUI(4);
+        else if (violets.Length >= unitCount_MinCondition) Set_TutorialUI(5);
+
     }
 
     void Set_TutorialUI(int colorNum)

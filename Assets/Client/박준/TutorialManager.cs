@@ -16,7 +16,10 @@ public class TutorialManager : MonoBehaviour
     IEnumerator Co_InitTutorial()
     {
         yield return new WaitUntil( () => GameUI.activeSelf);
+        // 버튼 비활성화
         tutorialFuntions.SetAllButton(false);
+        // EnemySpawn에서 정한 체력 덮어쓰기 위해 1초 대기 후 체력 정함
+        yield return new WaitForSeconds(1f);
         tutorialTower.Set_RespawnStatus(500);
     }
 

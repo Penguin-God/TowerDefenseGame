@@ -24,8 +24,9 @@ public class StoryMode : MonoBehaviourPun
         for (int i = 0; i < moveUnits.Length; i++)
         {
             TeamSoldier unit = moveUnits[i].GetComponent<TeamSoldier>();
+            // 플레이어와 유닛의 입장 월드가 같으면 월드 이동 후 break
             if (moveUnits != null && unit.enterStoryWorld == GameManager.instance.playerEnterStoryMode)
-            { // 플레이어와 유닛의 입장 월드가 같으면 월드 이동 후 break
+            {
                 unit.Unit_WorldChange();
                 break;
             }

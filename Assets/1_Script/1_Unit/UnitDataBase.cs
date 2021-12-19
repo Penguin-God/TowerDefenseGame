@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Text;
+using System;
+using System.Linq;
 
 [System.Serializable]
 public class UnitData
@@ -15,6 +17,20 @@ public class UnitData
     public float attackRange;
 }
 
+[System.Serializable]
+public struct UnitStruct
+{
+    public string name;
+    public TeamSoldier unit;
+
+    public UnitStruct(string _name, TeamSoldier _unit)
+    {
+        name = _name;
+        unit = _unit;
+    }
+}
+
+
 public class UnitDataList<T>
 {
     public UnitDataList(List<T> p_List) => dataList = p_List;
@@ -23,7 +39,85 @@ public class UnitDataList<T>
 
 public class UnitDataBase : MonoBehaviour
 {
+    //private void Awake()
+    //{
+    //    SetUnitDictionary();
+    //    ReadCSV();
+    //}
+
+    [SerializeField] List<UnitStruct> unitStructs = new List<UnitStruct>();
+    // ContextMenu 에서 설정한 변수들은 인스펙터 창에 노출되지 않으면 런타임 시작 시 초기화되서 사용 불가능
+    Dictionary<string, TeamSoldier> unitDic = new Dictionary<string, TeamSoldier>();
+
+    [ContextMenu("SetUnitDictionary")]
+    void SetUnitDictionary()
+    {
+        unitStructs.Clear();
+        unitDic.Clear();
+
+        string csvText = unitData_CSV.text.Substring(0, unitData_CSV.text.Length - 1);
+        string[] datas = csvText.Split(new char[] { '\n' }); // 줄바꿈(한 줄)을 기준으로 csv 파일을 쪼개서 string배열에 줄 순서대로 담음
+        for (int i = 1; i < datas.Length; i++)
+        {
+            string[] cells = datas[i].Split(',');
+            // TeamSoldier 타입 가져오기
+            TeamSoldier unit = unitTeamList.Find(TeamSoldier => TeamSoldier.gameObject.tag == cells[0].Trim());
+            if (unit != null)
+            {
+                string name = cells[0];
+                UnitStruct unitStruct = new UnitStruct(cells[0], unit);
+                unitStructs.Add(unitStruct);
+                unitDic.Add(cells[0].Trim(), unit);
+            }
+            else
+            {
+                Debug.Log("NONE");
+            }
+        }
+    }
+
+
+    [SerializeField] List<TeamSoldier> unitTeamList = new List<TeamSoldier>();
+    [ContextMenu("GetUnit")]
+    void GetUnit()
+    {
+        unitTeamList.AddRange(Resources.FindObjectsOfTypeAll<TeamSoldier>());
+    }
+
     [SerializeField] TextAsset unitData_CSV;
+    
+    void ReadCSV()
+    {
+        string csvText = unitData_CSV.text.Substring(0, unitData_CSV.text.Length - 1);
+        string[] datas = csvText.Split(new char[] { '\n' }); // 줄바꿈(한 줄)을 기준으로 csv 파일을 쪼개서 string배열에 줄 순서대로 담음
+
+        for(int i = 1; i < datas.Length; i++)
+        {
+            string[] cells = datas[i].Split(',');
+            // TeamSoldier 타입 가져오기
+            Debug.Log(cells[0].Trim());
+            Debug.Log(unitDic.Count);
+            unitDic.TryGetValue(cells[0].Trim(), out TeamSoldier unit);
+            if (unit != null)
+            {
+                unit.originDamage = Int32.Parse(cells[1]);
+                unit.damage = Int32.Parse(cells[1]);
+                unit.originBossDamage = Int32.Parse(cells[1]);
+                unit.bossDamage = Int32.Parse(cells[1]);
+
+                int speed = Int32.Parse(cells[3]);
+                int attackRange = Int32.Parse(cells[4]);
+                unit.speed = speed;
+                unit.attackRange = attackRange;
+
+                Debug.Log($"Name : {cells[0]}, Damage : {22} \n ");
+            }
+            else
+            {
+                Debug.Log("NONE");
+            }
+        }
+    }
 
     [ContextMenu("WrietCSV")]
     void WriteCSV()
@@ -41,7 +135,10 @@ public class UnitDataBase : MonoBehaviour
         for (int i = 0; i < unitDataList.Count; i++)
         {
             unitData = new string[5];
-            unitData[0] = unitDataList[i].unitName;
+            string[] names = unitDataList[i].unitName.Split('_');
+            if (names[1] == "SwordMan") names[1] = "Swordman";
+            string name = names[0] + names[1];
+            unitData[0] = name;
             unitData[1] = unitDataList[i].unitDamage.ToString();
             unitData[2] = unitDataList[i].unitDamage.ToString();
             unitData[3] = unitDataList[i].unitSpeed.ToString();
@@ -63,6 +160,8 @@ public class UnitDataBase : MonoBehaviour
         outStream.WriteLine(sb);
         outStream.Close();
     }
+
+
 
     private string getPath()
     {

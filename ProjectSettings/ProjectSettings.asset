@@ -170,7 +170,7 @@ PlayerSettings:
   applicationIdentifier:
     Android: com.JP.ColorRandomDefense
   buildNumber: {}
-  AndroidBundleVersionCode: 14
+  AndroidBundleVersionCode: 15
   AndroidMinSdkVersion: 19
   AndroidTargetSdkVersion: 30
   AndroidPreferredInstallLocation: 1

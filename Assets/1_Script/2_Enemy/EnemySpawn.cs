@@ -68,6 +68,7 @@ public class EnemySpawn : MonoBehaviour
         StartCoroutine(StageCoroutine(respawnEnemyCount));
     }
 
+    [SerializeField] GameObject skipButton = null;
     public AudioClip newStageClip;
     public AudioClip dengerClip;
     public int stageGold;
@@ -104,7 +105,9 @@ public class EnemySpawn : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
 
+        skipButton.SetActive(true);
         yield return new WaitUntil(() => timerSlider.value <= 0); // 스테이지 타이머 0이되면
+        skipButton.SetActive(false);
 
         stageNumber++;
         UIManager.instance.UpdateStageText(stageNumber);
@@ -125,21 +128,16 @@ public class EnemySpawn : MonoBehaviour
         arr_DisabledEnemy_Queue[num].Enqueue(obj);
     }
 
-    public int count1 = 0;
-    public int count2 = 0;
-    public int count3 = 0;
-    public int count4 = 0;
+    public void Skip()
+    {
+        timerSlider.value = 0;
+    }
 
     [SerializeField] Slider timerSlider;
     private void Update()
     {
         if(GameManager.instance.gameStart && stageNumber < maxStage)
             timerSlider.value -= Time.deltaTime;
-
-        count1 = arr_DisabledEnemy_Queue[0].Count;
-        count2 = arr_DisabledEnemy_Queue[1].Count;
-        count3 = arr_DisabledEnemy_Queue[2].Count;
-        count4 = arr_DisabledEnemy_Queue[3].Count;
     }
 
 

@@ -17,6 +17,13 @@ public class VioletPassive : UnitPassive
         p_Enemy.EnemyPoisonAttack(20, 4, 0.5f, maxPoisonDamage);
     }
 
+    public override void ApplyData(float P1, float P2 = 0, float P3 = 0)
+    {
+        sturnPercent = (int)P1;
+        strunTime = P2;
+        maxPoisonDamage = (int)P3;
+    }
+
     [Space] [Space] [Space]
     [SerializeField] int enhanced_SturnPercent;
     [SerializeField] float enhanced_StrunTime;

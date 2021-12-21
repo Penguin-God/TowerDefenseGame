@@ -21,6 +21,12 @@ public class YellowPassive : UnitPassive
         }
     }
 
+    public override void ApplyData(float P1, float P2 = 0, float P3 = 0)
+    {
+        addGold = (int)P1;
+        getGoldPercent = (int)P2;
+    }
+
     [Space] [Space]
     [SerializeField] int enhanced_AddGold;
     [SerializeField] int enhanced_GetGoldPercent;

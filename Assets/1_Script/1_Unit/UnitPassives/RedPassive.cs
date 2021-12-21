@@ -20,4 +20,9 @@ public class RedPassive : UnitPassive
     {
         downDelayWeigh = enhanced_DownDelayWeigh;
     }
+
+    public override void ApplyData(float P1, float P2 = 0, float P3 = 0)
+    {
+        downDelayWeigh = P1;
+    }
 }

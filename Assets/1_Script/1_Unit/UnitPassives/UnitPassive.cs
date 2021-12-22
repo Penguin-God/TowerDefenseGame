@@ -19,5 +19,7 @@ abstract public class UnitPassive : MonoBehaviour
 
     public abstract void SetPassive();
 
+    public abstract void ApplyData(float P1, float P2 = 0, float P3 = 0);
+
     public abstract void Beefup_Passive();
 }

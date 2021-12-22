@@ -39,40 +39,35 @@ public class UnitDataList<T>
 
 public class UnitDataBase : MonoBehaviour
 {
-    //private void Awake()
-    //{
-    //    SetUnitDictionary();
-    //    ReadCSV();
-    //}
+    private void Awake()
+    {
+        SetUnitDictionary();
+
+        ReadCSV();
+    }
 
     [SerializeField] List<UnitStruct> unitStructs = new List<UnitStruct>();
     // ContextMenu 에서 설정한 변수들은 인스펙터 창에 노출되지 않으면 런타임 시작 시 초기화되서 사용 불가능
     Dictionary<string, TeamSoldier> unitDic = new Dictionary<string, TeamSoldier>();
 
-    [ContextMenu("SetUnitDictionary")]
-    void SetUnitDictionary()
+    [ContextMenu("SetUnitStructs")]
+    void SetUnitStructs()
     {
         unitStructs.Clear();
-        unitDic.Clear();
 
         string csvText = unitData_CSV.text.Substring(0, unitData_CSV.text.Length - 1);
         string[] datas = csvText.Split(new char[] { '\n' }); // 줄바꿈(한 줄)을 기준으로 csv 파일을 쪼개서 string배열에 줄 순서대로 담음
         for (int i = 1; i < datas.Length; i++)
         {
             string[] cells = datas[i].Split(',');
-            // TeamSoldier 타입 가져오기
             TeamSoldier unit = unitTeamList.Find(TeamSoldier => TeamSoldier.gameObject.tag == cells[0].Trim());
             if (unit != null)
             {
                 string name = cells[0];
                 UnitStruct unitStruct = new UnitStruct(cells[0], unit);
                 unitStructs.Add(unitStruct);
-                unitDic.Add(cells[0].Trim(), unit);
             }
-            else
-            {
-                Debug.Log("NONE");
-            }
+            else Debug.Log("NONE");
         }
     }
 
@@ -86,6 +81,14 @@ public class UnitDataBase : MonoBehaviour
 
     [SerializeField] TextAsset unitData_CSV;
     
+
+
+    void SetUnitDictionary()
+    {
+        for (int i = 0; i < unitStructs.Count; i++)
+            unitDic.Add(unitStructs[i].name, unitStructs[i].unit);
+    }
+
     void ReadCSV()
     {
         string csvText = unitData_CSV.text.Substring(0, unitData_CSV.text.Length - 1);
@@ -94,10 +97,8 @@ public class UnitDataBase : MonoBehaviour
         for(int i = 1; i < datas.Length; i++)
         {
             string[] cells = datas[i].Split(',');
-            // TeamSoldier 타입 가져오기
-            Debug.Log(cells[0].Trim());
-            Debug.Log(unitDic.Count);
             unitDic.TryGetValue(cells[0].Trim(), out TeamSoldier unit);
+
             if (unit != null)
             {
                 unit.originDamage = Int32.Parse(cells[1]);
@@ -110,13 +111,51 @@ public class UnitDataBase : MonoBehaviour
                 unit.speed = speed;
                 unit.attackRange = attackRange;
 
-                Debug.Log($"Name : {cells[0]}, Damage : {22} \n ");
             }
-            else
+            else Debug.Log("NONE");
+        }
+    }
+
+
+    [ContextMenu("WrietPassiveCSV")]
+    void WritePassiveCSV()
+    {
+        List<string[]> LowList = new List<string[]>();
+        SetUnitDictionary();
+
+        string[] unitData = new string[4];
+        unitData[0] = "Name";
+        unitData[1] = "P1";
+        unitData[2] = "P2";
+        unitData[3] = "P3";
+        LowList.Add(unitData);
+
+        string[] unitColors = new string[8] {"Red", "Blue", "Yellow", "Green", "Orange", "Violet", "White", "Black"};
+        string[] unitClass = new string[4] { "Swordman", "Archer", "Spearman", "Mage" };
+
+        for (int i = 0; i < unitClass.Length; i++)
+        {
+            for (int j = 0; j < unitColors.Length; j++)
             {
-                Debug.Log("NONE");
+                string unitName = unitColors[j] + unitClass[i];
+                string[] test_names = new string[1] { unitName};
+                if(unitDic.ContainsKey(unitName)) LowList.Add(test_names);
             }
         }
+
+        string delimiter = ",";
+        StringBuilder sb = new StringBuilder();
+
+        for (int index = 0; index < LowList.Count; index++)
+        {
+            sb.AppendLine(string.Join(delimiter, LowList[index]));
+        }
+
+        string filePath = "Assets/4_Data/UnitPassiveData.csv";
+
+        StreamWriter outStream = System.IO.File.CreateText(filePath);
+        outStream.WriteLine(sb);
+        outStream.Close();
     }
 
     [ContextMenu("WrietCSV")]
@@ -161,8 +200,6 @@ public class UnitDataBase : MonoBehaviour
         outStream.Close();
     }
 
-
-
     private string getPath()
     {
 #if UNITY_EDITOR
@@ -175,6 +212,8 @@ public class UnitDataBase : MonoBehaviour
         return Application.dataPath +"/"+"Student Data.csv";
 #endif
     }
+
+
 
     public List<GameObject> unitList = new List<GameObject>();
 
@@ -191,45 +230,46 @@ public class UnitDataBase : MonoBehaviour
         }
     }
 
-    [ContextMenu("SaveJson")]
-    void SetJson()
-    {
-        unitDataList = new List<UnitData>();
-        for (int i = 0; i < unitList.Count; i++)
-        {
-            TeamSoldier team = unitList[i].GetComponentInChildren<TeamSoldier>();
+    //[ContextMenu("SaveJson")]
+    //void SetJson()
+    //{
+    //    unitDataList = new List<UnitData>();
+    //    for (int i = 0; i < unitList.Count; i++)
+    //    {
+    //        TeamSoldier team = unitList[i].GetComponentInChildren<TeamSoldier>();
 
-            unitDataList.Add(new UnitData(unitList[i].name, team.originDamage, team.speed, team.attackRange));
-        }
+    //        unitDataList.Add(new UnitData(unitList[i].name, team.originDamage, team.speed, team.attackRange));
+    //    }
 
-        string jsonData = JsonUtility.ToJson(new UnitDataList<UnitData>(unitDataList), true);
-        string path = Path.Combine(Application.dataPath, "4_Data", "unitData.txt");
-        File.WriteAllText(path, jsonData);
-    }
+    //    string jsonData = JsonUtility.ToJson(new UnitDataList<UnitData>(unitDataList), true);
+    //    string path = Path.Combine(Application.dataPath, "4_Data", "unitData.txt");
+    //    File.WriteAllText(path, jsonData);
+    //}
 
-    public List<UnitData> loadDataList;
-    [ContextMenu("LoadJson")]
-    void LoadJson()
-    {
-        loadDataList = new List<UnitData>();
-        string path = Path.Combine(Application.dataPath, "4_Data", "unitData.txt");
-        string jsonData = File.ReadAllText(path);
-        loadDataList = JsonUtility.FromJson<UnitDataList<UnitData>>(jsonData).dataList;
-    }
+    //public List<UnitData> loadDataList;
+    //[ContextMenu("LoadJson")]
+    //void LoadJson()
+    //{
+    //    loadDataList = new List<UnitData>();
+    //    string path = Path.Combine(Application.dataPath, "4_Data", "unitData.txt");
+    //    string jsonData = File.ReadAllText(path);
+    //    loadDataList = JsonUtility.FromJson<UnitDataList<UnitData>>(jsonData).dataList;
+    //}
 
-    [ContextMenu("SetUnitData")]
-    void SetUnitData()
-    {
-        int count = Mathf.Min(loadDataList.Count, unitList.Count);
-        for(int i = 0; i < count; i++) // TeamSoldier에 데이터 세팅 함수 만들기
-        {
-            TeamSoldier unit = unitList[i].GetComponentInChildren<TeamSoldier>();
-            unit.originDamage = loadDataList[i].unitDamage;
-            unit.damage = loadDataList[i].unitDamage;
-            unit.originBossDamage = loadDataList[i].unitDamage;
-            unit.bossDamage = loadDataList[i].unitDamage;
-            unit.speed = loadDataList[i].unitSpeed;
-            unit.attackRange = loadDataList[i].attackRange;
-        }
-    }
+    //[ContextMenu("SetUnitData")]
+    //void SetUnitData()
+    //{
+    //    int count = Mathf.Min(loadDataList.Count, unitList.Count);
+    //    for(int i = 0; i < count; i++) // TeamSoldier에 데이터 세팅 함수 만들기
+    //    {
+    //        TeamSoldier unit = unitList[i].GetComponentInChildren<TeamSoldier>();
+    //        unit.originDamage = loadDataList[i].unitDamage;
+    //        unit.damage = loadDataList[i].unitDamage;
+    //        unit.originBossDamage = loadDataList[i].unitDamage;
+    //        unit.bossDamage = loadDataList[i].unitDamage;
+    //        unit.speed = loadDataList[i].unitSpeed;
+    //        unit.attackRange = loadDataList[i].attackRange;
+    //    }
+    //}
+
 }

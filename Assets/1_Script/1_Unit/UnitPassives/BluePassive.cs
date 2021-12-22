@@ -17,6 +17,12 @@ public class BluePassive : UnitPassive
         teamSoldier.delegate_OnPassive += (Enemy enemy) => enemy.EnemySlow(slowPercent, slowTime);
     }
 
+    public override void ApplyData(float P1, float P2 = 0, float P3 = 0)
+    {
+        slowPercent = P1;
+        slowTime = P2;
+    }
+
     [Space] [Space] [Space]
     [SerializeField] float enhanced_SlowPercent;
     [SerializeField] float enhanced_SlowTime;

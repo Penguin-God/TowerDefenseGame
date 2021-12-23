@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class EnemySpawn : MonoBehaviour
 {
     public int stageNumber;
+    [SerializeField] int currentEenmyNumber = 0;
     public int maxStage = 50;
     public List<GameObject> currentEnemyList; // 생성된 enemy의 게임 오브젝트가 담겨있음
 
@@ -51,6 +52,10 @@ public class EnemySpawn : MonoBehaviour
                 GameObject instantEnemy = Instantiate(enemyPrefab[i], poolPosition, Quaternion.identity);
                 instantEnemy.transform.SetParent(transform); // 자기 자신 자식으로 둠(인스펙터 창에서 보기 편하게 하려고)
                 arr_DisabledEnemy_Queue[i].Enqueue(instantEnemy);
+
+                // 죽으면 Queue에 반환됨
+                NomalEnemy enemy = instantEnemy.GetComponentInChildren<NomalEnemy>();
+                enemy.OnDeath += () => arr_DisabledEnemy_Queue[enemy.GetEnemyNumber].Enqueue(instantEnemy);
             }
         }
         respawnEnemyCount = 15;
@@ -90,7 +95,7 @@ public class EnemySpawn : MonoBehaviour
         }
 
         // 관련 변수 세팅
-        int instantEnemyNumber = Random.Range(0, enemyPrefab.Length);
+        currentEenmyNumber = Random.Range(0, enemyPrefab.Length);
         int hp = SetRandomHp();
         float speed = SetRandomSeepd();
 
@@ -100,7 +105,7 @@ public class EnemySpawn : MonoBehaviour
         // normal enemy를 정해진 숫자만큼 소환
         while (stageRespawnEenemyCount > 0)
         {
-            RespawnEnemy(instantEnemyNumber, hp, speed);
+            RespawnEnemy(currentEenmyNumber, hp, speed);
             stageRespawnEenemyCount--;
             yield return new WaitForSeconds(2f);
         }
@@ -123,21 +128,26 @@ public class EnemySpawn : MonoBehaviour
         respawnEnemy.SetActive(true);
     }
 
-    public void ReturnObject_ByPoolQueue(int num, GameObject obj)
-    {
-        arr_DisabledEnemy_Queue[num].Enqueue(obj);
-    }
-
-    public void Skip()
+    public void Skip() // 버튼에서 사용
     {
         timerSlider.value = 0;
     }
+
+    public int queueCount1 = 0;
+    public int queueCount2 = 0;
+    public int queueCount3 = 0;
+    public int queueCount4 = 0;
 
     [SerializeField] Slider timerSlider;
     private void Update()
     {
         if(GameManager.instance.gameStart && stageNumber < maxStage)
             timerSlider.value -= Time.deltaTime;
+
+        queueCount1 = arr_DisabledEnemy_Queue[0].Count;
+        queueCount2 = arr_DisabledEnemy_Queue[1].Count;
+        queueCount3 = arr_DisabledEnemy_Queue[2].Count;
+        queueCount4 = arr_DisabledEnemy_Queue[3].Count;
     }
 
 
@@ -216,7 +226,7 @@ public class EnemySpawn : MonoBehaviour
         boss.OnDeath += () => Get_UnitReword();
         boss.OnDeath += () => SoundManager.instance.PlayEffectSound_ByName("BossDeadClip");
         boss.OnDeath += () => GameManager.instance.ChangeBGM(GameManager.instance.bgmClip);
-        boss.OnDeath += ClearGame; // 이름 좀 바꾸기
+        boss.OnDeath += ClearGame; // 보스가 마지막 보스일 때만 Clear하는 건데 이름 좀 바꾸기
         boss.OnDeath += () => SetData(boss);
         boss.OnDeath += () => shop.OnShop(bossLevel, TriggerType.Boss);
         boss.OnDeath += () => UnitManager.instance.UpdateTarget_CurrnetFieldUnit();
@@ -229,7 +239,7 @@ public class EnemySpawn : MonoBehaviour
     }
 
     // 이름 좀 바꾸기
-    void ClearGame() // 게임클리어 막보스 잡으면 게임 클리어
+    void ClearGame() // 막보스 잡으면 게임 클리어
     {
         if (stageNumber >= maxStage && !GameManager.instance.isChallenge)
             GameManager.instance.Clear();

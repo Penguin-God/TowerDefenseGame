@@ -25,6 +25,8 @@ public class NomalEnemy : Enemy
         isDead = false;
         SetNextPoint();
         if(gameObject.tag != "Boss") Invoke("AddListMe", 0.05f); // 병신 코드
+
+        Passive();
     }
     void AddListMe()
     {
@@ -61,6 +63,8 @@ public class NomalEnemy : Enemy
     }
 
     [SerializeField] int enemyNumber = 0;
+    public int GetEnemyNumber { get { return enemyNumber;  } }
+
     public override void Dead()
     {
         base.Dead();
@@ -68,7 +72,6 @@ public class NomalEnemy : Enemy
         parent.gameObject.SetActive(false);
         parent.position = new Vector3(500, 500, 500);
         enemySpawn.currentEnemyList.Remove(this.gameObject);
-        EnemySpawn.instance.ReturnObject_ByPoolQueue(enemyNumber, parent.gameObject);
         ResetVariable();
     }
 
@@ -80,6 +83,8 @@ public class NomalEnemy : Enemy
         ChangeColor(new Color32(255, 255, 255, 255));
         sternEffect.SetActive(false);
     }
+
+    public virtual void Passive() {}
 
     private void OnTriggerEnter(Collider other)
     {

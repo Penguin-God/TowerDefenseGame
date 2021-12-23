@@ -63,6 +63,9 @@ public class Enemy : MonoBehaviour
 
     protected NomalEnemy nomalEnemy;
 
+    // 타워에서 안쓰는 함수들은 NomalEnemy롤 옮기기
+    // 나중에 익준이랑 디테일한 부분들 정하고 고치기
+    public bool IsNoneSKile { get { return GetComponent<EnemyTower>() != null || GetComponent<MageEnemy>() != null; } }
 
     void Set_OriginSpeed() // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기
     {
@@ -72,7 +75,7 @@ public class Enemy : MonoBehaviour
 
     public void EnemyStern(int sternPercent, float sternTime)
     {
-        if (this.gameObject.CompareTag("Tower") || isDead) return;
+        if (IsNoneSKile || isDead) return;
 
         int random = UnityEngine.Random.Range(0, 100);
         if (random < sternPercent) StartCoroutine(SternCoroutine(sternTime));
@@ -107,7 +110,7 @@ public class Enemy : MonoBehaviour
     private Material slowSkillMat;
     public void EnemySlow(float slowPercent, float slowTime)
     {
-        if (this.gameObject.CompareTag("Tower") || isDead) return;
+        if (IsNoneSKile || isDead) return;
         
         // 만약 더 높은 슬로우 공격을 받으면큰 슬로우 적용후 return
         if (nomalEnemy.maxSpeed - nomalEnemy.maxSpeed * (slowPercent / 100) <= nomalEnemy.speed)
@@ -159,7 +162,7 @@ public class Enemy : MonoBehaviour
 
     public void EnemyPoisonAttack(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
     {
-        if (isDead) return; 
+        if (GetComponent<MageEnemy>() != null || isDead) return;
 
         StartCoroutine(PoisonAttack(poisonPercent, poisonCount, poisonDelay, maxDamage));
     }

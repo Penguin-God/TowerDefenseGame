@@ -30,6 +30,18 @@ public struct UnitStruct
     }
 }
 
+[System.Serializable]
+public struct UnitPassiveStruct
+{
+    public string name;
+    public UnitPassive unitPassive;
+
+    public UnitPassiveStruct(string _name, UnitPassive _unitPassive)
+    {
+        name = _name;
+        unitPassive = _unitPassive;
+    }
+}
 
 public class UnitDataList<T>
 {
@@ -42,8 +54,9 @@ public class UnitDataBase : MonoBehaviour
     private void Awake()
     {
         SetUnitDictionary();
-
         ReadCSV();
+
+        ApplyPassiveData();
     }
 
     [SerializeField] List<UnitStruct> unitStructs = new List<UnitStruct>();
@@ -71,6 +84,29 @@ public class UnitDataBase : MonoBehaviour
         }
     }
 
+
+    [SerializeField] List<UnitPassiveStruct> unitPassiveStructs = new List<UnitPassiveStruct>();
+    [ContextMenu("SetUnitPassiveStructs")]
+    void SetUnitPassiveStructs()
+    {
+        unitPassiveStructs.Clear();
+
+        string csvText = unitData_CSV.text.Substring(0, unitData_CSV.text.Length - 1);
+        string[] datas = csvText.Split(new char[] { '\n' }); // 줄바꿈(한 줄)을 기준으로 csv 파일을 쪼개서 string배열에 줄 순서대로 담음
+        for (int i = 1; i < datas.Length; i++)
+        {
+            string[] cells = datas[i].Split(',');
+            UnitPassive unitPassive = unitTeamList.Find(TeamSoldier => TeamSoldier.gameObject.tag == cells[0].Trim()).gameObject.GetComponent<UnitPassive>();
+
+            if (unitPassive != null)
+            {
+                string name = cells[0];
+                UnitPassiveStruct unitPassiveSturct = new UnitPassiveStruct(cells[0], unitPassive);
+                unitPassiveStructs.Add(unitPassiveSturct);
+            }
+            else Debug.Log("NONE");
+        }
+    }
 
     [SerializeField] List<TeamSoldier> unitTeamList = new List<TeamSoldier>();
     [ContextMenu("GetUnit")]
@@ -112,10 +148,40 @@ public class UnitDataBase : MonoBehaviour
                 unit.attackRange = attackRange;
 
             }
-            else Debug.Log("NONE");
+            else Debug.Log($"NONE : {cells[0]}");
         }
     }
 
+
+    [SerializeField] TextAsset Csv_UnitPassivedata = null;
+    void ApplyPassiveData()
+    {
+        Dictionary<string, UnitPassive> unitPassiveDic = new Dictionary<string, UnitPassive>();
+        for (int i = 0; i < unitPassiveStructs.Count; i++) unitPassiveDic.Add(unitPassiveStructs[i].name, unitPassiveStructs[i].unitPassive);
+
+
+        string csvText = Csv_UnitPassivedata.text.Substring(0, Csv_UnitPassivedata.text.Length - 1);
+        string[] datas = csvText.Split(new char[] { '\n' }); // 줄바꿈(한 줄)을 기준으로 csv 파일을 쪼개서 string배열에 줄 순서대로 담음
+
+        for (int i = 1; i < datas.Length; i++)
+        {
+            string[] cells = datas[i].Split(',');
+            unitPassiveDic.TryGetValue(cells[0], out UnitPassive unitPassive);
+
+            if (unitPassive != null)
+            {
+                float[] passive_datas = new float[3];
+                for (int data = 0; data < passive_datas.Length; data++)
+                {
+                    if (cells[data + 1].Trim() != "") passive_datas[data] = float.Parse(cells[data + 1]);
+                    else passive_datas[data] = 0;
+                }
+
+                unitPassive.ApplyData(passive_datas[0], passive_datas[1], passive_datas[2]);
+            }
+            else Debug.Log($"NONE : {cells[0]}");
+        }
+    }
 
     [ContextMenu("WrietPassiveCSV")]
     void WritePassiveCSV()
@@ -130,17 +196,26 @@ public class UnitDataBase : MonoBehaviour
         unitData[3] = "P3";
         LowList.Add(unitData);
 
-        string[] unitColors = new string[8] {"Red", "Blue", "Yellow", "Green", "Orange", "Violet", "White", "Black"};
-        string[] unitClass = new string[4] { "Swordman", "Archer", "Spearman", "Mage" };
+        //string[] unitColors = new string[6] {"Red", "Blue", "Yellow", "Green", "Orange", "Violet"};
+        //string[] unitClass = new string[4] { "Swordman", "Archer", "Spearman", "Mage" };
+        //for (int i = 0; i < unitClass.Length; i++)
+        //{
+        //    for (int j = 0; j < unitColors.Length; j++)
+        //    {
+        //        string unitName = unitColors[j] + unitClass[i];
+        //        string[] test_names = new string[1] { unitName };
+        //        if (unitDic.ContainsKey(unitName)) LowList.Add(test_names);
+        //    }
+        //}
 
-        for (int i = 0; i < unitClass.Length; i++)
+        for (int i = 0; i < unitDataList.Count; i++)
         {
-            for (int j = 0; j < unitColors.Length; j++)
-            {
-                string unitName = unitColors[j] + unitClass[i];
-                string[] test_names = new string[1] { unitName};
-                if(unitDic.ContainsKey(unitName)) LowList.Add(test_names);
-            }
+            unitData = new string[1];
+            string[] names = unitDataList[i].unitName.Split('_');
+            if (names[1] == "SwordMan") names[1] = "Swordman";
+            string name = names[0] + names[1];
+            unitData[0] = name;
+            LowList.Add(unitData);
         }
 
         string delimiter = ",";

@@ -12,6 +12,7 @@ abstract public class UnitPassive : MonoBehaviour
         if(teamSoldier == null)
         {
             Debug.LogWarning("이상한 곳에 스크립트 배정함");
+            Destroy(gameObject);
         }
 
         SetPassive();

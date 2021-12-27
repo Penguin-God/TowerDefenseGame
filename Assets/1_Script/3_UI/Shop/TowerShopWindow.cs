@@ -11,14 +11,16 @@ public class TowerShopWindow : MonoBehaviour
         Sell = () => UnitManager.instance.ExpendMaxUnit(3);
     }
 
+    int LimitCount = 0; // 유닛 최대 갯수 제한
     public void SpendFood()
     {
-        if(GameManager.instance.Food >= price)
+        if(GameManager.instance.Food >= price && LimitCount <= 4)
         {
             GameManager.instance.Food -= price;
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
             Sell();
             UpdatePrice();
+            LimitCount += 1;
         }
     }
 

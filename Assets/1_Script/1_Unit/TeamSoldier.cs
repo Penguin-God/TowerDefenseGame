@@ -32,7 +32,9 @@ public class TeamSoldier : MonoBehaviour
 
     protected NavMeshAgent nav;
     public Transform target;
-    protected NomalEnemy nomalEnemy;
+    protected Enemy TargetEnemy { get { return target.GetComponent<Enemy>(); } }
+    //protected Enemy 
+    //protected NomalEnemy nomalEnemy;
     protected EnemySpawn enemySpawn;
 
     protected AudioSource unitAudioSource;
@@ -236,7 +238,6 @@ public class TeamSoldier : MonoBehaviour
         {
             nav.isStopped = false;
             target = targetObject.transform;
-            nomalEnemy = target.gameObject.GetComponent<NomalEnemy>();
             layerMask = ReturnLayerMask(target.gameObject);
         }
         else
@@ -258,7 +259,7 @@ public class TeamSoldier : MonoBehaviour
             if (target == null || enemyDistance > chaseRange)
             {
                 EnemyTower currentTower = enemySpawn.currentTower;
-                if (currentTower.isRespawn) target = currentTower.transform;
+                if (currentTower.isRespawn) SetChaseSetting(currentTower.gameObject);
                 else
                 {
                     yield return null;

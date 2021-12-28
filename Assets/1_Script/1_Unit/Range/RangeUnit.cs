@@ -27,21 +27,21 @@ public class RangeUnit : TeamSoldier
 
         CollisionWeapon weapon = instantBullet.GetComponent<CollisionWeapon>();
         if (weapon != null) weapon.UnitOnDamage += (Enemy enemy) => OnDamage(enemy);
-        else Debug.LogWarning("아니 CollisionWeapon가 읎어요");
+        else Debug.LogWarning("아니 CollisionWeapon이 읎어요");
         return instantBullet;
     }
 
     // 원거리 유닛 무기 발사
-    protected void ShotBullet(GameObject bullet, float weightRate, float velocity, Transform targetEnemy)
+    protected void ShotBullet(GameObject bullet, float weightRate, float velocity, Transform shotTarget)
     {
         Rigidbody bulletRigid = bullet.GetComponent<Rigidbody>();
         Vector3 dir;
-        // 속도 가중치 설정(적보다 약간 앞을 쏨)
-        if (targetEnemy != null)
+        // 속도 가중치 설정(적보다 약간 앞을 쏨, 적군의 성은 의미 없음)
+        if (shotTarget != null)
         {
-            dir = targetEnemy.position - bullet.transform.position;
-            float enemyWeightDir = Mathf.Lerp(0, weightRate, Vector3.Distance(targetEnemy.position, this.transform.position) * 2 / 100);
-            dir += nomalEnemy.dir.normalized * (0.5f * nomalEnemy.speed) * enemyWeightDir;
+            dir = shotTarget.position - bullet.transform.position;
+            float enemyWeightDir = Mathf.Lerp(0, weightRate, Vector3.Distance(shotTarget.position, this.transform.position) * 2 / 100);
+            dir += TargetEnemy.dir.normalized * (0.5f * TargetEnemy.speed) * enemyWeightDir;
         }
         else dir = bullet.transform.forward;
 

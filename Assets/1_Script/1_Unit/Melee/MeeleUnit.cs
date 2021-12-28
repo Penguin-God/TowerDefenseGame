@@ -37,8 +37,8 @@ public class MeeleUnit : TeamSoldier
 
     protected float Check_EnemyToUnit_Deggre()
     {
-        if (nomalEnemy == null) return 1f;
-        float enemyDot = Vector3.Dot(nomalEnemy.dir.normalized, (target.position - this.transform.position).normalized);
+        if (target == null) return 1f;
+        float enemyDot = Vector3.Dot(TargetEnemy.dir.normalized, (target.position - this.transform.position).normalized);
         return enemyDot;
     }
 

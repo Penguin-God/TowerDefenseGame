@@ -80,7 +80,7 @@ public class UnitDataBase : MonoBehaviour
                 UnitStruct unitStruct = new UnitStruct(cells[0], unit);
                 unitStructs.Add(unitStruct);
             }
-            else Debug.Log("NONE");
+            else Debug.Log($"NONE : {cells[0]}");
         }
     }
 
@@ -96,7 +96,9 @@ public class UnitDataBase : MonoBehaviour
         for (int i = 1; i < datas.Length; i++)
         {
             string[] cells = datas[i].Split(',');
-            UnitPassive unitPassive = unitTeamList.Find(TeamSoldier => TeamSoldier.gameObject.tag == cells[0].Trim()).gameObject.GetComponent<UnitPassive>();
+            UnitPassive unitPassive = null;
+            if (unitTeamList.Find(TeamSoldier => TeamSoldier.gameObject.tag == cells[0].Trim()))
+                unitPassive = unitTeamList.Find(TeamSoldier => TeamSoldier.gameObject.tag == cells[0].Trim()).gameObject.GetComponent<UnitPassive>();
 
             if (unitPassive != null)
             {
@@ -104,20 +106,20 @@ public class UnitDataBase : MonoBehaviour
                 UnitPassiveStruct unitPassiveSturct = new UnitPassiveStruct(cells[0], unitPassive);
                 unitPassiveStructs.Add(unitPassiveSturct);
             }
-            else Debug.Log("NONE");
+            else Debug.Log($"NONE : {cells[0]}");
         }
     }
 
     [SerializeField] List<TeamSoldier> unitTeamList = new List<TeamSoldier>();
-    [ContextMenu("GetUnit")]
-    void GetUnit()
+    [ContextMenu("SetUnitTeamList")]
+    void SetUnitTeamList()
     {
-        unitTeamList.AddRange(Resources.FindObjectsOfTypeAll<TeamSoldier>());
+        unitTeamList.Clear();
+        for (int i = 0; i < unitList.Count; i++) unitTeamList.Add(unitList[i].GetComponentInChildren<TeamSoldier>());
     }
 
-    [SerializeField] TextAsset unitData_CSV;
-    
 
+    [SerializeField] TextAsset unitData_CSV;
 
     void SetUnitDictionary()
     {
@@ -296,11 +298,13 @@ public class UnitDataBase : MonoBehaviour
     [ContextMenu("SetList")]
     void SetUnitList()
     {
-        for (int i = 0; i < UnitManager.instance.unitArrays.Length; i++)
+        unitList.Clear();
+        UnitManager unitManager = GetComponent<UnitManager>();
+        for (int i = 0; i < unitManager.unitArrays.Length; i++)
         {
-            for (int k = 0; k < UnitManager.instance.unitArrays[i].unitArray.Length; k++)
+            for (int k = 0; k < unitManager.unitArrays[i].unitArray.Length; k++)
             {
-                unitList.Add(UnitManager.instance.unitArrays[i].unitArray[k]);
+                unitList.Add(unitManager.unitArrays[i].unitArray[k]);
             }
         }
     }

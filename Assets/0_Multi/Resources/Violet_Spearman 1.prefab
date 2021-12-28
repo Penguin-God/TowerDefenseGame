@@ -247,7 +247,7 @@ MonoBehaviour:
   normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
   normalAttakc_AudioDelay: 0.55
   reinforceEffect: {fileID: 6733893311791364087}
-  passiveReinForce: 0
+  passiveReinForce: 1
   specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0
@@ -289,9 +289,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamSoldier: {fileID: 0}
-  sturnPercent: 50
-  strunTime: 3
-  maxPoisonDamage: 3000
+  sturnPercent: 0
+  strunTime: 0
+  maxPoisonDamage: 0
+  enhanced_SturnPercent: 0
+  enhanced_StrunTime: 0
+  enhanced_MaxPoisonDamage: 0
 --- !u!1 &2754571163585694542
 GameObject:
   m_ObjectHideFlags: 0
@@ -799,6 +802,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Violet ReinForce Effect
+      objectReference: {fileID: 0}
+    - target: {fileID: 7460127304993480957, guid: a2708bb195d494643bedb7beefb5ca69,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
         type: 3}

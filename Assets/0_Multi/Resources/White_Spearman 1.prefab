@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 6399562802812082074}
   m_Layer: 9
   m_Name: White_Spearman 1
-  m_TagString: WhiteSpearman
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -58,7 +58,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4199548222911104336}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
@@ -558,7 +558,7 @@ GameObject:
   - component: {fileID: 6518196259232802396}
   m_Layer: 9
   m_Name: TB_Soldier_Spearman_White
-  m_TagString: Untagged
+  m_TagString: WhiteSwordman
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -30,9 +30,9 @@ public class CreateDefenser1 : MonoBehaviourPun
 
     public void CreateSoldier(int Colornumber, int Soldiernumber)
     {
-
         // Soldier = transform.GetChild(randomnumber).gameObject;
-        Soldier =  PhotonNetwork.Instantiate(transform.GetChild(Colornumber).gameObject.transform.GetChild(Soldiernumber).gameObject.name, transform.position, transform.rotation);
+
+        Soldier =  PhotonNetwork.Instantiate(transform.GetChild(Colornumber).GetChild(Soldiernumber).gameObject.name, transform.position, transform.rotation);
         //GameManager.instance.Soldiers.Add(Soldier);
 
         Soldier.transform.position = RandomPosition(10, 0, 10);

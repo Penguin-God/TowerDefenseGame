@@ -54,7 +54,7 @@ public class UnitDataBase : MonoBehaviour
     private void Awake()
     {
         SetUnitDictionary();
-        ReadCSV();
+        ApplyUnitData();
 
         ApplyPassiveData();
     }
@@ -125,7 +125,7 @@ public class UnitDataBase : MonoBehaviour
             unitDic.Add(unitStructs[i].name, unitStructs[i].unit);
     }
 
-    void ReadCSV()
+    void ApplyUnitData()
     {
         string csvText = unitData_CSV.text.Substring(0, unitData_CSV.text.Length - 1);
         string[] datas = csvText.Split(new char[] { '\n' }); // 줄바꿈(한 줄)을 기준으로 csv 파일을 쪼개서 string배열에 줄 순서대로 담음

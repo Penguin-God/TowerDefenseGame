@@ -29,6 +29,7 @@ public class ClientManager : MonoBehaviour
     int PlusMaxUnitPrice;
     int StartGameCount;
     int GoldSkillCount;
+    int Skill1 = 0;
     public AudioSource ClientClickAudioSource;
 
 
@@ -51,6 +52,7 @@ public class ClientManager : MonoBehaviour
         StartFood = PlayerPrefs.GetInt("StartFood");
         PlusTouchDamege = PlayerPrefs.GetInt("PlusTouchDamege");
         PlusMaxUnit = PlayerPrefs.GetInt("PlusMaxUnit");
+        Skill1 = PlayerPrefs.GetInt("Skill1");
         if (StartGoldPrice == 0)
         {
             PlayerPrefs.SetInt("StartGoldPrice", 10);
@@ -314,7 +316,7 @@ public class ClientManager : MonoBehaviour
 
         ClientClickSound();
 
-        if (ClientHammer >= 30 && ClientIron >= 1000 && ClientWood >= 1000)
+        if (ClientHammer >= 30 && ClientIron >= 1000 && ClientWood >= 1000 && Skill1 == 0)
         {
             ClientHammer -= 30;
             ClientIron -= 1000;
@@ -325,8 +327,8 @@ public class ClientManager : MonoBehaviour
 
             
             UpdateHammerText(ClientHammer);
-            
-            
+
+            PlayerPrefs.SetInt("Skill1", 1);
             PlayerPrefs.Save();
 
         }

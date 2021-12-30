@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     public bool isClear;
     public float timer;
     public int waitingTime;
-    public Enemy enemy;
+    //public Enemy enemy;
     
     
 

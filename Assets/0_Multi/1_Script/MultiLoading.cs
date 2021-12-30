@@ -11,7 +11,13 @@ public class MultiLoading : MonoBehaviourPun
     // 게임 시작 버튼으로 카운트를 올려서 2명이 누르면 게임 시작
     public Button MultiGameStartButton;
 
+    [SerializeField] Text stateText = null;
     int GameStartCount = 0;
+
+    void Update()
+    {
+        stateText.text = PhotonNetwork.CountOfPlayers.ToString();
+    }
 
     public void ClickMultiStartButton()
     {
@@ -39,9 +45,8 @@ public class MultiLoading : MonoBehaviourPun
         //    return;
         //}
         MultiGameStartButton.interactable = false;
-
-        PhotonNetwork.LoadLevel("합친 씬 - 장익준 멀티");
-
+        PhotonNetwork.LoadLevel("박준 멀티");
+        //PhotonNetwork.LoadLevel("합친 씬 - 장익준 멀티");
 
 
     }

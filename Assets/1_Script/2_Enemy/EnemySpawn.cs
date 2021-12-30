@@ -110,9 +110,9 @@ public class EnemySpawn : MonoBehaviour
             yield return new WaitForSeconds(2f);
         }
 
-        skipButton.SetActive(true);
+        if(skipButton != null) skipButton.SetActive(true);
         yield return new WaitUntil(() => timerSlider.value <= 0); // 스테이지 타이머 0이되면
-        skipButton.SetActive(false);
+        if (skipButton != null) skipButton.SetActive(false);
 
         stageNumber++;
         UIManager.instance.UpdateStageText(stageNumber);

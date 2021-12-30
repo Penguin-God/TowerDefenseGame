@@ -23,11 +23,16 @@ public class MultiClientManager : MonoBehaviourPunCallbacks
         ConnectionInfoText.text = "Loading...";
     }
 
+    private void Update()
+    {
+        
+    }
+
     public override void OnConnectedToMaster()
     {
         MultiStartButton.interactable = true;
 
-        ConnectionInfoText.text = "연결 됨";
+        ConnectionInfoText.text = $"연결 됨. Version : {GameVersion}";
     }
 
     public override void OnDisconnected(DisconnectCause cause)
@@ -57,7 +62,7 @@ public class MultiClientManager : MonoBehaviourPunCallbacks
 
     public override void OnJoinRandomFailed(short returnCode, string message)
     {
-        ConnectionInfoText.text = "새로운 방 생성 중...";
+        ConnectionInfoText.text = "빈 방 없음, 새로운 방 생성 중...";
 
         PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 2 });
     }

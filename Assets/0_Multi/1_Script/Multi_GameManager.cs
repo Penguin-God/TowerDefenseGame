@@ -7,7 +7,7 @@ using Photon.Pun;
 
 
 
-public class Multi_GameManager : MonoBehaviourPun
+public class Multi_GameManager : MonoBehaviourPun, IPunObservable
 {
     
     //private int Stage;
@@ -18,21 +18,14 @@ public class Multi_GameManager : MonoBehaviourPun
     public int Hammer;
     public int StartGold;
     public int StartFood;
-    public EnemySpawn enemySpawn;
     private bool isGameover;
     public bool isClear;
     public float timer;
     public int waitingTime;
-    //public Enemy enemy;
-    
-    
 
     public bool playerEnterStoryMode = false;
-
     public int enemyCount; // EnemySpaw에 있던거 옮김
 
-
-  
     public static Multi_GameManager instance
     {
         get
@@ -54,20 +47,29 @@ public class Multi_GameManager : MonoBehaviourPun
             Destroy(gameObject);
         }
 
-        enemySpawn.GetComponent<EnemySpawn>();
         gameManagerAudio = GetComponent<AudioSource>();
 
         Set_EnemyTowerHpDictionary();
-        SettingWolrd();
     }
 
-    [SerializeField] Camera main_camera = null;
-    [SerializeField] Vector3[] Wolrds = new Vector3[2];
-    void SettingWolrd()
-    {
-        if (PhotonNetwork.IsMasterClient) main_camera.transform.position = Wolrds[0];
-        else main_camera.transform.position = Wolrds[1];
-    }
+    //[SerializeField] Camera main_camera = null;
+    //[SerializeField] Vector3[] Wolrds = new Vector3[2];
+
+    //[SerializeField] TurnPoint[] enemyPoints = null;
+    //public Transform[] EnemyTurnPoints{ get; set; }
+
+    //void SetMultiData()
+    //{
+    //    if (PhotonNetwork.IsMasterClient)
+    //    {
+    //        main_camera.transform.position = Wolrds[0];
+           
+    //    }
+    //    else
+    //    {
+    //        main_camera.transform.position = Wolrds[1];
+    //    }
+    //}
 
     public int AddGold;
     public int HighScore;
@@ -105,12 +107,13 @@ public class Multi_GameManager : MonoBehaviourPun
     int PlusTouchDamege;
     void Update()
     {
-        if(enemySpawn.stageNumber > HighScore && isChallenge == true)
-        {
-            HighScore += 1;
-            UIManager.instance.UpdateHighScoreText(HighScore);
-        }
-        enemyCount = enemySpawn.currentEnemyList.Count; // 리스트 크기를 enemyCount에 대입
+        // 멀티는 챌린지 없음
+        //if(enemySpawn.stageNumber > HighScore && isChallenge == true)
+        //{
+        //    HighScore += 1;
+        //    UIManager.instance.UpdateHighScoreText(HighScore);
+        //}
+        enemyCount = Multi_EnemySpawner.instance.currentEnemyList.Count; // 리스트 크기를 enemyCount에 대입
         UIManager.instance.UpdateCountEnemyText(enemyCount);
         if (enemyCount >= 50 && !isGameover)
         {
@@ -159,45 +162,48 @@ public class Multi_GameManager : MonoBehaviourPun
             }
         }
     }
-    int ClearRewardvalue;
-    void GetClearReward()
-    {
-        
-        switch (currentDifficult)
-        {
-            case "Baby": 
-                Wood += 10; Iron += 10;
-                ClearRewardvalue = 10;
-                break;
-            case "Easy":
-                Wood += 30; Iron += 30;
-                ClearRewardvalue = 30;
-                break;
-            case "Normal":
-                Wood += 100; Iron += 100;
-                ClearRewardvalue = 100;
-                break;
-            case "Hard":
-                Wood += 300; Iron += 300;
-                ClearRewardvalue = 300;
-                break;
-            case "Impossiable":
-                Wood += 700; Iron += 700;
-                ClearRewardvalue = 700;
-                break;
-            default:
-                Debug.Log("난이도가 설정되지 않음"); break;
-        }
-        
-    }
 
-    void GetChallengeReward()
-    {
-        int reward = Mathf.FloorToInt(enemySpawn.stageNumber / 10);
-        reward = Mathf.RoundToInt(reward * reward * 1.5f);
-        Wood += reward; 
-        Iron += reward;
-    }
+    // 멀티는 보상 방식 바꿔야함
+    //int ClearRewardvalue;
+    //void GetClearReward()
+    //{
+        
+    //    switch (currentDifficult)
+    //    {
+    //        case "Baby": 
+    //            Wood += 10; Iron += 10;
+    //            ClearRewardvalue = 10;
+    //            break;
+    //        case "Easy":
+    //            Wood += 30; Iron += 30;
+    //            ClearRewardvalue = 30;
+    //            break;
+    //        case "Normal":
+    //            Wood += 100; Iron += 100;
+    //            ClearRewardvalue = 100;
+    //            break;
+    //        case "Hard":
+    //            Wood += 300; Iron += 300;
+    //            ClearRewardvalue = 300;
+    //            break;
+    //        case "Impossiable":
+    //            Wood += 700; Iron += 700;
+    //            ClearRewardvalue = 700;
+    //            break;
+    //        default:
+    //            Debug.Log("난이도가 설정되지 않음"); break;
+    //    }
+        
+    //}
+
+    // 멀티는 챌린지 없음
+    //void GetChallengeReward()
+    //{
+    //    int reward = Mathf.FloorToInt(enemySpawn.stageNumber / 10);
+    //    reward = Mathf.RoundToInt(reward * reward * 1.5f);
+    //    Wood += reward; 
+    //    Iron += reward;
+    //}
 
     public Queue<GameObject> hitSoliderColor;
     public GameObject HitEnemy;
@@ -212,14 +218,6 @@ public class Multi_GameManager : MonoBehaviourPun
                 Debug.Log(hit.transform.gameObject);
 
                 HitEnemy = hit.transform.gameObject;
-
-                //Enemy enemy = HitEnemy.GetComponent<Enemy>();
-
-
-                //if ( enemy != null)
-                //{
-                    //enemy.currentHp -= 1;
-                //}
             }
         }
     }
@@ -304,32 +302,31 @@ public class Multi_GameManager : MonoBehaviourPun
         Time.timeScale = 0;
 
         SoundManager.instance.PlayEffectSound_ByName("Lose");
-        if (enemySpawn.maxStage == 10000000)
-        {
-            PlayerPrefs.SetInt("HighScore", HighScore);
-            Iron += enemySpawn.stageNumber;
-            Wood += enemySpawn.stageNumber;//보상 방식,,
-            if (enemySpawn.stageNumber >= 50)
-            {
-                Hammer += 10;
-                HammerRewardText.text = "+ 10";
-            }
-            else
-            {
-                HammerRewardText.text = "+ 0";
-            }
-            IronRewardText.text = "+ " + enemySpawn.stageNumber;
-            WoodRewardText.text = "+ " + enemySpawn.stageNumber;
-            
 
-
-        }
-        else
-        {
-            IronRewardText.text = "+ 0";
-            WoodRewardText.text = "+ 0";
-            HammerRewardText.text = "+ 0";
-        }
+        // 멀티 보상 방식 바꿔야함
+        //if (enemySpawn.maxStage == 10000000)
+        //{
+        //    PlayerPrefs.SetInt("HighScore", HighScore);
+        //    Iron += enemySpawn.stageNumber;
+        //    Wood += enemySpawn.stageNumber;//보상 방식,,
+        //    if (enemySpawn.stageNumber >= 50)
+        //    {
+        //        Hammer += 10;
+        //        HammerRewardText.text = "+ 10";
+        //    }
+        //    else
+        //    {
+        //        HammerRewardText.text = "+ 0";
+        //    }
+        //    IronRewardText.text = "+ " + enemySpawn.stageNumber;
+        //    WoodRewardText.text = "+ " + enemySpawn.stageNumber;
+        //}
+        //else
+        //{
+        //    IronRewardText.text = "+ 0";
+        //    WoodRewardText.text = "+ 0";
+        //    HammerRewardText.text = "+ 0";
+        //}
         
         GameoverUi.SetActive(true);
         PlayerPrefs.SetInt("Iron", Iron);
@@ -337,30 +334,31 @@ public class Multi_GameManager : MonoBehaviourPun
         PlayerPrefs.Save();
     }
 
-    public void Clear()
-    {
-        EndText.text = "Clear!";
-        Hammer += 1;
-        isClear = true;
-        for (int i = 0; i < enemySpawn.currentEnemyList.Count; i++)
-        {
-            NomalEnemy enemy = enemySpawn.currentEnemyList[i].GetComponent<NomalEnemy>();
-            enemy.Dead();
-        }
-        //UIManager.instance.SetActiveClearUI();
-        Time.timeScale = 0;
-        adManager.ShowAD();
-        SoundManager.instance.PlayEffectSound_ByName("Clear");
-        GetClearReward();
-        IronRewardText.text = "+ " + ClearRewardvalue;
-        WoodRewardText.text = "+ " + ClearRewardvalue;
-        HammerRewardText.text = "+ 1";
-        GameoverUi.SetActive(true);
-        PlayerPrefs.SetInt("Iron", Iron);
-        PlayerPrefs.SetInt("Wood", Wood);
-        PlayerPrefs.SetInt("Hammer", Hammer);
-        PlayerPrefs.Save();
-    }
+    // 멀티니까 Clear가 아니라 Win으로 바꿔야함
+    //public void Clear()
+    //{
+    //    EndText.text = "Clear!";
+    //    Hammer += 1;
+    //    isClear = true;
+    //    for (int i = 0; i < enemySpawn.currentEnemyList.Count; i++)
+    //    {
+    //        NomalEnemy enemy = enemySpawn.currentEnemyList[i].GetComponent<NomalEnemy>();
+    //        enemy.Dead();
+    //    }
+    //    //UIManager.instance.SetActiveClearUI();
+    //    Time.timeScale = 0;
+    //    adManager.ShowAD();
+    //    SoundManager.instance.PlayEffectSound_ByName("Clear");
+    //    GetClearReward();
+    //    IronRewardText.text = "+ " + ClearRewardvalue;
+    //    WoodRewardText.text = "+ " + ClearRewardvalue;
+    //    HammerRewardText.text = "+ 1";
+    //    GameoverUi.SetActive(true);
+    //    PlayerPrefs.SetInt("Iron", Iron);
+    //    PlayerPrefs.SetInt("Wood", Wood);
+    //    PlayerPrefs.SetInt("Hammer", Hammer);
+    //    PlayerPrefs.Save();
+    //}
 
     public void ReTurnClient()
     {
@@ -404,14 +402,14 @@ public class Multi_GameManager : MonoBehaviourPun
     }
 
     public Text diffcultText;
-    public GameObject HighScorePanel;
-    public bool isChallenge;
+    //public GameObject HighScorePanel;
+    //public bool isChallenge;
 
-    public void SelectDifficult(string difficult)
+    void SelectDifficult(string difficult)
     {
         currentDifficult = difficult;
         diffcultText.text = "난이도 : " + difficult;
-        enemySpawn.arr_TowersHp = Dic_enemyTowerHp[difficult];
+        Multi_EnemySpawner.instance.arr_TowersHp = Dic_enemyTowerHp[difficult];
         switch (difficult)
         {
             case "Baby":
@@ -429,10 +427,11 @@ public class Multi_GameManager : MonoBehaviourPun
             case "Impossiable":
                 SetDifficult(120, 250, 1000);
                 break;
-            case "Challenge":
-                SelectChallenge();
-                SetDifficult(10, 100, 100);
-                break;
+            // 멀티는 챌린지 없음
+            //case "Challenge":
+            //    SelectChallenge();
+            //    SetDifficult(10, 100, 100);
+            //    break;
             default: 
                 Debug.Log("난이도가 설정되지 않음");
                 break;
@@ -440,17 +439,18 @@ public class Multi_GameManager : MonoBehaviourPun
     }
     void SetDifficult(int hpWeight, int plusHpWeigh, int minhp)
     {
-        enemySpawn.enemyHpWeight = hpWeight;
-        enemySpawn.plusEnemyHpWeight = plusHpWeigh;
-        enemySpawn.minHp = minhp;
+        Multi_EnemySpawner.instance.enemyHpWeight = hpWeight;
+        Multi_EnemySpawner.instance.plusEnemyHpWeight = plusHpWeigh;
+        Multi_EnemySpawner.instance.minHp = minhp;
     }
 
-    void SelectChallenge()
-    {
-        isChallenge = true;
-        HighScorePanel.SetActive(true);
-        enemySpawn.maxStage = 10000000;
-    }
+    // 멀티는 챌린지 없음
+    //void SelectChallenge()
+    //{
+    //    isChallenge = true;
+    //    HighScorePanel.SetActive(true);
+    //    enemySpawn.maxStage = 10000000;
+    //}
 
     private Dictionary<string, int[]> Dic_enemyTowerHp;
     void Set_EnemyTowerHpDictionary() // key : 난이도, value : 레벨 1~6 까지 적군의 성 체력
@@ -462,12 +462,16 @@ public class Multi_GameManager : MonoBehaviourPun
             { "Normal", new int[] { 600000, 2000000, 6000000, 20000000, 60000000, 100000000 } },
             { "Hard", new int[] { 1000000, 2400000, 8000000, 30000000, 80000000, 300000000 } },
             { "Impossiable", new int[] { 1500000, 4000000, 15000000, 40000000, 140000000, 500000000 } },
-            { "Challenge", new int[] { 1000000, 2400000, 8000000, 30000000, 80000000, 300000000 } },
         };
     }
     public void LoadClient()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        
     }
 }

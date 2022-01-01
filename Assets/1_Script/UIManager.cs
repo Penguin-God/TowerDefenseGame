@@ -63,7 +63,7 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        GameManager.instance.OnStart += () => UpdateStageText(1);
+        Multi_GameManager.instance.OnStart += () => UpdateStageText(1);
     }
 
     public void UpdateHighScoreText(int HighScore)

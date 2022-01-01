@@ -20,16 +20,12 @@ public class EnemySpawn : MonoBehaviour
     Queue<GameObject>[] arr_DisabledEnemy_Queue;
     Vector3 poolPosition = new Vector3(500, 500, 500);
 
-    [HideInInspector]
-    public AudioSource enemyAudioSource;
-
     public static EnemySpawn instance;
     private void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
 
-        enemyAudioSource = GetComponent<AudioSource>();
         timerSlider.maxValue = stageTime;
         timerSlider.value = stageTime;
 
@@ -68,14 +64,12 @@ public class EnemySpawn : MonoBehaviour
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
         enemyHpWeight += plusEnemyHpWeight; // 적 체력 가중치 증가
-        enemyAudioSource.PlayOneShot(newStageClip, 0.6f); // 사운드 재생
+        SoundManager.instance.PlayEffectSound_ByName("NewStageClip", 0.6f);
 
         StartCoroutine(StageCoroutine(respawnEnemyCount));
     }
 
     [SerializeField] GameObject skipButton = null;
-    public AudioClip newStageClip;
-    public AudioClip dengerClip;
     public int stageGold;
     public float stageTime = 40f;
     IEnumerator StageCoroutine(int stageRespawnEenemyCount)
@@ -122,10 +116,18 @@ public class EnemySpawn : MonoBehaviour
     void RespawnEnemy(int enemyNumber, int hp, float speed)
     {
         GameObject respawnEnemy = arr_DisabledEnemy_Queue[enemyNumber].Dequeue();
+        AddEnemyList(respawnEnemy);
         respawnEnemy.GetComponentInChildren<NomalEnemy>().SetStatus(hp, speed);
 
         respawnEnemy.transform.position = this.transform.position;
         respawnEnemy.SetActive(true);
+    }
+
+    void AddEnemyList(GameObject enemyObj)
+    {
+        currentEnemyList.Add(enemyObj.transform.GetChild(0).gameObject);
+        if (currentEnemyList.Count > 45 && 50 > currentEnemyList.Count)
+            SoundManager.instance.PlayEffectSound_ByName("Denger", 0.8f);
     }
 
     public void Skip() // 버튼에서 사용

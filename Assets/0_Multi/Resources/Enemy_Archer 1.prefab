@@ -4657,6 +4657,7 @@ GameObject:
   - component: {fileID: 7536897027791641785}
   - component: {fileID: 1887753977003397854}
   - component: {fileID: 5741179008820975619}
+  - component: {fileID: 7703216984937527758}
   m_Layer: 0
   m_Name: Enemy_Archer 1
   m_TagString: Untagged
@@ -4718,6 +4719,22 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &7703216984937527758
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7536897027791641786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &7536897028187312707
 GameObject:
   m_ObjectHideFlags: 0
@@ -5101,7 +5118,7 @@ GameObject:
   - component: {fileID: 7557270087368101722}
   - component: {fileID: 7551659547658573872}
   - component: {fileID: 1536430543819091092}
-  - component: {fileID: 8638706243637096825}
+  - component: {fileID: 8660081946199798102}
   m_Layer: 11
   m_Name: TB_Soldier_Archer_Red
   m_TagString: Untagged
@@ -5187,7 +5204,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 3, z: 3}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &8638706243637096825
+--- !u!114 &8660081946199798102
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5196,7 +5213,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7537834881976629578}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6930d66b0e435874a99f1cdd78ffa597, type: 3}
+  m_Script: {fileID: 11500000, guid: 7b6f5fd1ce9af4244bb5f3523e347546, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   maxSpeed: 0

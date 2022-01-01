@@ -39,11 +39,10 @@ public class Multi_EnemySpawner : MonoBehaviourPun
 
     private void Start()
     {
-        // 게임 관련 변수 설정
-        poolEnemyCount = 51;
-        poolList = Multi_Data.instance.NormalEnemyList;
-        poolList = new List<GameObject>();
+        if (!PhotonNetwork.IsMasterClient) return;
 
+        // 게임 관련 변수 설정
+        poolEnemyCount = 102;
         arr_DisabledEnemy_Queue = new Queue<GameObject>[enemyPrefab.Length];
 
         for (int i = 0; i < enemyPrefab.Length; i++)
@@ -90,6 +89,33 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         StartCoroutine(StageCoroutine(respawnEnemyCount));
     }
 
+
+    IEnumerator Co_HostStage(int enemyNum, int hp, int speed)
+    {
+        int respawnCount = respawnEnemyCount;
+        if (stageNumber % 10 == 0)
+        {
+            RespawnBoss();
+            respawnCount = 0;
+        }
+
+        // normal enemy를 정해진 숫자만큼 소환
+        while (respawnCount > 0)
+        {
+            RespawnEnemy(enemyNum, hp, speed);
+            respawnCount--;
+            yield return new WaitForSeconds(2f);
+        }
+
+        if (skipButton != null) skipButton.SetActive(true);
+        yield return new WaitUntil(() => timerSlider.value <= 0); // 스테이지 타이머 0이되면
+        if (skipButton != null) skipButton.SetActive(false);
+
+        stageNumber++;
+        //UIManager.instance.UpdateStageText(stageNumber);
+        StageStart();
+    }
+
     [SerializeField] GameObject skipButton = null;
     public int stageGold;
     public float stageTime = 40f;
@@ -99,14 +125,6 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         {
             RespawnBoss();
             stageRespawnEenemyCount = 0;
-
-            if (stageNumber >= maxStage) // 마지막 보스일시
-            {
-                UIManager.instance.StageText.text = "현재 스테이지 : Final";
-                UIManager.instance.StageText.color = new Color32(255, 0, 0, 255);
-                stageRespawnEenemyCount = 10000;
-                yield return new WaitForSeconds(5f);
-            }
         }
 
         // 관련 변수 세팅

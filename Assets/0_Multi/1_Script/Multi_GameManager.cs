@@ -113,13 +113,16 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
         //    HighScore += 1;
         //    UIManager.instance.UpdateHighScoreText(HighScore);
         //}
-        enemyCount = Multi_EnemySpawner.instance.currentEnemyList.Count; // 리스트 크기를 enemyCount에 대입
-        UIManager.instance.UpdateCountEnemyText(enemyCount);
-        if (enemyCount >= 50 && !isGameover)
-        {
-            Lose();
-            //enemySpaw.EnemyofCount -= 1;
-        }
+
+        // 서로 각자 다른 리스트를 카운트하도록 바꾸어야함
+        //enemyCount = Multi_EnemySpawner.instance.currentEnemyList.Count; // 리스트 크기를 enemyCount에 대입
+        //UIManager.instance.UpdateCountEnemyText(enemyCount);
+        //if (enemyCount >= 50 && !isGameover)
+        //{
+        //    Lose();
+        //    //enemySpaw.EnemyofCount -= 1;
+        //}
+
         //if (isGameover && Input.anyKeyDown)
         //{
         //    ReTurnClient();

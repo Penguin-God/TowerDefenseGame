@@ -9,19 +9,9 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     public int stageNumber;
     [SerializeField] int currentEenmyNumber = 0;
     public int maxStage = 50;
-    public List<GameObject> currentEnemyList; // 생성된 enemy의 게임 오브젝트가 담겨있음
-
-    private int respawnEnemyCount;
 
     [SerializeField] GameObject[] enemyPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
     [SerializeField] GameObject[] bossPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
-
-    int poolEnemyCount; // 풀링을 위해 미리 생성하는 enemy 수
-    Queue<GameObject>[] arr_DisabledEnemy_Queue;
-    Vector3 poolPosition = new Vector3(500, 500, 500);
-
-    [HideInInspector]
-    public AudioSource enemyAudioSource;
 
     public static Multi_EnemySpawner instance;
     private void Awake()
@@ -29,68 +19,99 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         if (instance == null) instance = this;
         else Destroy(gameObject);
 
-        enemyAudioSource = GetComponent<AudioSource>();
         timerSlider.maxValue = stageTime;
         timerSlider.value = stageTime;
 
-        Multi_GameManager.instance.OnStart += StageStart;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Multi_GameManager.instance.OnStart += NewStageStart;
+        }
         //Multi_GameManager.instance.OnStart += RespawnTower;
     }
+
+
+    int poolEnemyCount; // 풀링을 위해 미리 생성하는 enemy 수
+    Queue<GameObject>[] hostPool = new Queue<GameObject>[4];
+    Queue<GameObject>[] clientPool = new Queue<GameObject>[4];
+
+    public List<GameObject> hostCurrnetEnemyList = new List<GameObject>();
+    public List<GameObject> clientCurrnetEnemyList = new List<GameObject>();
+
+    private int respawnEnemyCount;
+    [SerializeField] Transform hostPoolParent = null;
+    [SerializeField] Transform clientPoolParent = null;
+
+    [SerializeField] Vector3 hostSpawnPos;
+    [SerializeField] Vector3 clientSpawnPos;
+
+    [SerializeField] Transform[] hostEnemyTurnPoints = null;
+    [SerializeField] Transform[] clientEnemyTurnPoints = null;
 
     private void Start()
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
-        // 게임 관련 변수 설정
-        poolEnemyCount = 102;
-        arr_DisabledEnemy_Queue = new Queue<GameObject>[enemyPrefab.Length];
+        // 풀링 준비
+        poolEnemyCount = 51;
+        CreatePoolingEnemy(poolEnemyCount, new Vector3(500, 500, 500), hostPool, hostPoolParent, hostCurrnetEnemyList, hostEnemyTurnPoints);
+        CreatePoolingEnemy(poolEnemyCount, new Vector3(1000, 1000, 1000), clientPool, clientPoolParent, clientCurrnetEnemyList, clientEnemyTurnPoints);
 
-        for (int i = 0; i < enemyPrefab.Length; i++)
-        {
-            arr_DisabledEnemy_Queue[i] = new Queue<GameObject>();
-            for (int k = 0; k < poolEnemyCount; k++)
-            {
-                GameObject instantEnemy = PhotonNetwork.Instantiate(enemyPrefab[i].name, poolPosition, Quaternion.identity);
-                instantEnemy.transform.SetParent(transform); // 자기 자신 자식으로 둠(인스펙터 창에서 보기 편하게 하려고)
-                arr_DisabledEnemy_Queue[i].Enqueue(instantEnemy);
-                poolList.Add(instantEnemy);
-
-                // 죽으면 Queue에 반환됨
-                Multi_NormalEnemy enemy = instantEnemy.GetComponentInChildren<Multi_NormalEnemy>();
-                enemy.OnDeath += () => arr_DisabledEnemy_Queue[enemy.GetEnemyNumber].Enqueue(instantEnemy);
-            }
-        }
-
-        photonView.RPC("DisabledObject", RpcTarget.All);
-        Debug.Log("Done");
         respawnEnemyCount = 15;
     }
 
-
-    List<GameObject> poolList = new List<GameObject>();
-    [PunRPC]
-    void DisabledObject()
+    void CreatePoolingEnemy(int count, Vector3 poolPos, Queue<GameObject>[] enemyPools, Transform parent, List<GameObject> currentList, Transform[] turnPoints)
     {
-        for(int i = 0; i < poolList.Count; i++)
+        for (int i = 0; i < enemyPrefab.Length; i++)
         {
-            poolList[i].SetActive(false);
+            enemyPools[i] = new Queue<GameObject>();
+            for (int k = 0; k < count; k++)
+            {
+                GameObject instantEnemy = PhotonNetwork.Instantiate(enemyPrefab[i].name, poolPos, Quaternion.identity);
+                instantEnemy.transform.SetParent(parent); // 자기 자신 자식으로 둠(인스펙터 창에서 보기 편하게 하려고)
+                enemyPools[i].Enqueue(instantEnemy);
+
+                // 죽으면 Queue에 반환됨
+                Multi_NormalEnemy enemy = instantEnemy.GetComponent<Multi_NormalEnemy>();
+                enemy.OnDeath += () => enemyPools[enemy.GetEnemyNumber].Enqueue(instantEnemy);
+                enemy.OnDeath += () => currentList.Remove(enemy.gameObject);
+                enemy.TurnPoints = turnPoints;
+            }
         }
+
+        Debug.Log("Done");
     }
 
     public int plusEnemyHpWeight;
-    public void StageStart() // 무한반복하는 재귀 함수( StageCoroutine() 마지막 부분에 다시 StageStart()를 호출함)
+    public void NewStageStart() // 무한반복하는 재귀 함수( StageCoroutine() 마지막 부분에 다시 StageStart()를 호출함)
     {
-        Multi_GameManager.instance.Gold += stageGold;
-        UIManager.instance.UpdateGoldText(Multi_GameManager.instance.Gold);
+        // RPC해야됨
+        //Multi_GameManager.instance.Gold += stageGold;
+        //UIManager.instance.UpdateGoldText(Multi_GameManager.instance.Gold);
+        //enemyHpWeight += plusEnemyHpWeight; // 적 체력 가중치 증가
+        //SoundManager.instance.PlayEffectSound_ByName("NewStageClip", 0.6f);
+        //timerSlider.maxValue = stageTime;
+        //timerSlider.value = stageTime;
 
-        enemyHpWeight += plusEnemyHpWeight; // 적 체력 가중치 증가
-        SoundManager.instance.PlayEffectSound_ByName("NewStageClip", 0.6f);
+        if (!PhotonNetwork.IsMasterClient) return;
 
-        StartCoroutine(StageCoroutine(respawnEnemyCount));
+        int _enemyNum = Random.Range(0, enemyPrefab.Length);
+        int _hp = SetRandomHp();
+        float _speed = SetRandomSeepd();
+
+
+        StartCoroutine(Co_Stage(hostPool[_enemyNum], _hp, _speed, hostSpawnPos, hostCurrnetEnemyList));
+
+        StartCoroutine(Co_Stage(clientPool[_enemyNum], _hp, _speed, clientSpawnPos, clientCurrnetEnemyList));
     }
 
+    void RespawnEnemy(GameObject respawnEnemy, int hp, float speed, Vector3 spawnPos)
+    {
+        respawnEnemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("SetPos", RpcTarget.All, spawnPos);
+        respawnEnemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("SetStatus", RpcTarget.All, hp, speed);
+        //respawnEnemy.transform.position = spawnPos;
+    }
 
-    IEnumerator Co_HostStage(int enemyNum, int hp, int speed)
+    IEnumerator Co_Stage(Queue<GameObject> pool, int hp, float speed, Vector3 spawnPos, List<GameObject> addList)
     {
         int respawnCount = respawnEnemyCount;
         if (stageNumber % 10 == 0)
@@ -102,7 +123,9 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         // normal enemy를 정해진 숫자만큼 소환
         while (respawnCount > 0)
         {
-            RespawnEnemy(enemyNum, hp, speed);
+            GameObject respawnEnemy = pool.Dequeue();
+            RespawnEnemy(respawnEnemy, hp, speed, spawnPos);
+            AddEnemyList(addList, respawnEnemy);
             respawnCount--;
             yield return new WaitForSeconds(2f);
         }
@@ -113,60 +136,17 @@ public class Multi_EnemySpawner : MonoBehaviourPun
 
         stageNumber++;
         //UIManager.instance.UpdateStageText(stageNumber);
-        StageStart();
+        NewStageStart();
     }
 
     [SerializeField] GameObject skipButton = null;
     public int stageGold;
     public float stageTime = 40f;
-    IEnumerator StageCoroutine(int stageRespawnEenemyCount)
+
+    void AddEnemyList(List<GameObject> addList, GameObject enemyObj)
     {
-        if (stageNumber % 10 == 0)
-        {
-            RespawnBoss();
-            stageRespawnEenemyCount = 0;
-        }
-
-        // 관련 변수 세팅
-        currentEenmyNumber = Random.Range(0, enemyPrefab.Length);
-        int hp = SetRandomHp();
-        float speed = SetRandomSeepd();
-
-        timerSlider.maxValue = stageTime;
-        timerSlider.value = stageTime;
-
-        // normal enemy를 정해진 숫자만큼 소환
-        while (stageRespawnEenemyCount > 0)
-        {
-            RespawnEnemy(currentEenmyNumber, hp, speed);
-            stageRespawnEenemyCount--;
-            yield return new WaitForSeconds(2f);
-        }
-
-        if (skipButton != null) skipButton.SetActive(true);
-        yield return new WaitUntil(() => timerSlider.value <= 0); // 스테이지 타이머 0이되면
-        if (skipButton != null) skipButton.SetActive(false);
-
-        stageNumber++;
-        //UIManager.instance.UpdateStageText(stageNumber);
-        StageStart();
-    }
-
-    void RespawnEnemy(int enemyNumber, int hp, float speed)
-    {
-        GameObject respawnEnemy = arr_DisabledEnemy_Queue[enemyNumber].Dequeue();
-        AddEnemyList(respawnEnemy);
-        respawnEnemy.GetComponentInChildren<Multi_NormalEnemy>().SetStatus(hp, speed);
-
-        respawnEnemy.transform.position = Multi_Data.instance.NormalEnemuSpawnPosition;
-        respawnEnemy.SetActive(true);
-    }
-
-    void AddEnemyList(GameObject enemyObj)
-    {
-        currentEnemyList.Add(enemyObj.transform.GetChild(0).gameObject);
-        if (currentEnemyList.Count > 45 && 50 > currentEnemyList.Count)
-            SoundManager.instance.PlayEffectSound_ByName("Denger", 0.8f);
+        addList.Add(enemyObj);
+        if (addList.Count > 45 && 50 > addList.Count) SoundManager.instance.PlayEffectSound_ByName("Denger", 0.8f);
     }
 
     public void Skip() // 버튼에서 사용
@@ -184,18 +164,13 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     {
         if (Multi_GameManager.instance.gameStart && stageNumber < maxStage)
             timerSlider.value -= Time.deltaTime;
-
-        queueCount1 = arr_DisabledEnemy_Queue[0].Count;
-        queueCount2 = arr_DisabledEnemy_Queue[1].Count;
-        queueCount3 = arr_DisabledEnemy_Queue[2].Count;
-        queueCount4 = arr_DisabledEnemy_Queue[3].Count;
     }
 
 
     void SetEnemyData(GameObject enemyObject, int hp, float speed) // enemy 능력치 설정
     {
         Multi_NormalEnemy nomalEnemy = enemyObject.GetComponentInChildren<Multi_NormalEnemy>();
-        nomalEnemy.SetStatus(hp, speed);
+        //nomalEnemy.SetStatus(hp, speed);
     }
 
     [HideInInspector]
@@ -353,10 +328,10 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         UnitManager.instance.UnitTranslate_To_EnterStroyMode();
     }
 
-    public Enemy GetRandom_CurrentEnemy()
+    public Enemy GetRandom_CurrentEnemy(List<GameObject> currentList)
     {
-        int index = Random.Range(0, currentEnemyList.Count);
-        Enemy enemy = currentEnemyList[index].GetComponent<Enemy>();
+        int index = Random.Range(0, currentList.Count);
+        Enemy enemy = currentList[index].GetComponent<Enemy>();
         return enemy;
     }
 }

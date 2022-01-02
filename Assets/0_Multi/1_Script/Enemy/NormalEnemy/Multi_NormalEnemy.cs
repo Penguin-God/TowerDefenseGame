@@ -2,30 +2,45 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
-public class Multi_NormalEnemy : Enemy
+public class Multi_NormalEnemy : Multi_Enemy
 {
     // 이동, 회전 관련 변수
-    protected Transform parent;
     private Transform wayPoint;
     private int pointIndex = -1;
 
     private void Awake()
     {
-        nomalEnemy = GetComponent<NomalEnemy>();
-        parent = transform.parent.GetComponent<Transform>();
-        parentRigidbody = GetComponentInParent<Rigidbody>();
+        nomalEnemy = GetComponent<Multi_NormalEnemy>();
+        Rigidbody = GetComponent<Rigidbody>();
+    }
+
+    private void Start()
+    {
+        gameObject.SetActive(false);
     }
 
     void OnEnable() // 리스폰 시 상태 초기화
     {
-        pointIndex = 0;
-        ChaseToPoint();
-        isDead = false;
+        if (TurnPoints == null || !PhotonNetwork.IsMasterClient)
+        {
+            return;
+        }
 
-        Passive();
+        pointIndex = 0;
+        isDead = false;
+        ChaseToPoint();
+        //Passive();
     }
 
+    [PunRPC]
+    public void SetPos(Vector3 pos)
+    {
+        transform.position = pos;
+    }
+
+    [PunRPC]
     public void SetStatus(int hp, float speed)
     {
         maxHp = hp;
@@ -34,21 +49,25 @@ public class Multi_NormalEnemy : Enemy
         hpSlider.value = maxHp;
         this.maxSpeed = speed;
         this.speed = maxSpeed;
+        gameObject.SetActive(true);
     }
 
+    [SerializeField] Transform[] asuwasfweuaki = null;
+    public Transform[] TurnPoints { get; set; } = null;
     void ChaseToPoint()
     {
-        if (pointIndex >= Multi_Data.instance.EnemyTurnPoints.Length) pointIndex = 0; // 무한반복을 위한 조건
+        if (pointIndex >= TurnPoints.Length) pointIndex = 0; // 무한반복을 위한 조건
 
         // 실제 이동을 위한 속도 설정
-        wayPoint = Multi_Data.instance.EnemyTurnPoints[pointIndex]; 
-        dir = (wayPoint.position - parent.transform.position).normalized;
-        parentRigidbody.velocity = dir * speed;
+        wayPoint = TurnPoints[pointIndex];
+        dir = (wayPoint.position - transform.position).normalized;
+        Rigidbody.velocity = dir * speed;
+        Debug.Log(wayPoint.position);
     }
 
     void SetTransfrom()
     {
-        parent.transform.position = wayPoint.position;
+        transform.position = wayPoint.position;
         transform.rotation = Quaternion.Euler(0, -90 * pointIndex, 0);
     }
 
@@ -59,9 +78,8 @@ public class Multi_NormalEnemy : Enemy
     {
         base.Dead();
 
-        parent.gameObject.SetActive(false);
-        parent.position = new Vector3(500, 500, 500);
-        Multi_EnemySpawner.instance.currentEnemyList.Remove(this.gameObject);
+        gameObject.SetActive(false);
+        transform.position = new Vector3(500, 500, 500);
         ResetVariable();
     }
 
@@ -78,7 +96,7 @@ public class Multi_NormalEnemy : Enemy
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "WayPoint")
+        if (other.tag == "WayPoint" && PhotonNetwork.IsMasterClient)
         {
             SetTransfrom();
 

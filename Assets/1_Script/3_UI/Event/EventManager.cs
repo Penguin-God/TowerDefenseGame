@@ -57,7 +57,7 @@ public class EventManager : MonoBehaviour
 
     public Text buffText;
     [SerializeField]
-    private bool[] unitColorIsEvent = new bool[] { false, false, false, false, false, false, false };  
+    private bool[] unitColorIsEvent = new bool[] { false, false, false, false, false, false };  
     void ActionRandomEvent(Text eventText, List<Action<int>> eventActionList)
     {
         int unitColorNumber = Check_UnitIsEvnet(); // unit 설정

@@ -6,6 +6,6 @@ public class Multi_ArcherEnemy : Multi_NormalEnemy
 {
     public override void Passive()
     {
-        SetStatus(maxHp, speed * 1.2f);
+        //SetStatus(maxHp, speed * 1.2f);
     }
 }

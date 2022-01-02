@@ -5029,6 +5029,7 @@ GameObject:
   - component: {fileID: 8692699531293559830}
   - component: {fileID: -12486921478557600}
   - component: {fileID: 5745096690978033230}
+  - component: {fileID: 1003421122827511954}
   m_Layer: 0
   m_Name: Enemy_Spearman 1
   m_TagString: Untagged
@@ -5086,7 +5087,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 5745096690978033230}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -5106,6 +5108,29 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &1003421122827511954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8692699531293559831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96fa09cbc5f130a419367cb6323d4e41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 0
+  speed: 0
+  maxHp: 200
+  currentHp: 200
+  isDead: 1
+  hpSlider: {fileID: 8692699530051610424}
+  dir: {x: 0, y: 0, z: 0}
+  originMat: {fileID: 0}
+  sternEffect: {fileID: 454276697}
+  slowSkillMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
+  enemyNumber: 2
 --- !u!1 &8693317057724153426
 GameObject:
   m_ObjectHideFlags: 0
@@ -5276,7 +5301,6 @@ GameObject:
   - component: {fileID: 8706773089808713460}
   - component: {fileID: 8715424553676188114}
   - component: {fileID: 8692699529629337180}
-  - component: {fileID: 6433772055299246338}
   m_Layer: 12
   m_Name: TB_Soldier_Spearman_Red
   m_TagString: Untagged
@@ -5362,29 +5386,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 3, y: 3, z: 3}
   m_Center: {x: 0, y: 2, z: 0}
---- !u!114 &6433772055299246338
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8693848757084194000}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96fa09cbc5f130a419367cb6323d4e41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 0
-  speed: 0
-  maxHp: 200
-  currentHp: 200
-  isDead: 1
-  hpSlider: {fileID: 8692699530051610424}
-  dir: {x: 0, y: 0, z: 0}
-  originMat: {fileID: 0}
-  sternEffect: {fileID: 454276697}
-  slowSkillMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
-  enemyNumber: 2
 --- !u!1 &8693865035314834478
 GameObject:
   m_ObjectHideFlags: 0

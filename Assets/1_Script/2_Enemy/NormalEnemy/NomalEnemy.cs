@@ -22,17 +22,11 @@ public class NomalEnemy : Enemy
 
     void OnEnable() // 리스폰 시 상태 초기화
     {
+        pointIndex = 0;
+        ChaseToPoint();
         isDead = false;
-        SetNextPoint();
-        if(gameObject.tag != "Boss") Invoke("AddListMe", 0.05f); // 병신 코드
 
         Passive();
-    }
-    void AddListMe()
-    {
-        enemySpawn.currentEnemyList.Add(this.gameObject);
-        if (enemySpawn.currentEnemyList.Count > 45 && 50 > enemySpawn.currentEnemyList.Count)
-            enemySpawn.enemyAudioSource.PlayOneShot(enemySpawn.dengerClip, 0.8f);
     }
 
     public void SetStatus(int hp, float speed)
@@ -45,9 +39,8 @@ public class NomalEnemy : Enemy
         this.speed = maxSpeed;
     }
 
-    void SetNextPoint()
+    void ChaseToPoint()
     {
-        pointIndex++;
         if (pointIndex >= TurnPoint.enemyTurnPoints.Length) pointIndex = 0; // 무한반복을 위한 조건
 
         // 실제 이동을 위한 속도 설정
@@ -58,8 +51,8 @@ public class NomalEnemy : Enemy
 
     void SetTransfrom()
     {
-        transform.rotation = Quaternion.Euler(0, -90 * pointIndex, 0);
         parent.transform.position = wayPoint.position;
+        transform.rotation = Quaternion.Euler(0, -90 * pointIndex, 0);
     }
 
     [SerializeField] int enemyNumber = 0;
@@ -91,7 +84,9 @@ public class NomalEnemy : Enemy
         if(other.tag == "WayPoint")
         {
             SetTransfrom();
-            SetNextPoint();
+
+            pointIndex++;
+            ChaseToPoint();
         }
     }
 }

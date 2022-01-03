@@ -57,7 +57,7 @@ public class EventManager : MonoBehaviour
 
     public Text buffText;
     [SerializeField]
-    private bool[] unitColorIsEvent = new bool[] { false, false, false, false, false, false, false };  
+    private bool[] unitColorIsEvent = new bool[] { false, false, false, false, false, false };  
     void ActionRandomEvent(Text eventText, List<Action<int>> eventActionList)
     {
         int unitColorNumber = Check_UnitIsEvnet(); // unit 설정
@@ -72,7 +72,7 @@ public class EventManager : MonoBehaviour
 
     int Return_RandomUnitNumver()
     {
-        int unitNumver = UnityEngine.Random.Range(0, UnitManager.instance.unitArrays.Length - 1); // 검은유닛 빼려고 -1
+        int unitNumver = UnityEngine.Random.Range(0, 6);
         return unitNumver;
     }
     // 이벤트가 이미 적용된 유닛이면 다른 유닛넘버 리턴

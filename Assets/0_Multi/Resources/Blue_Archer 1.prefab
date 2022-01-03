@@ -29,6 +29,8 @@ MonoBehaviour:
   teamSoldier: {fileID: 0}
   slowPercent: 40
   slowTime: 2
+  enhanced_SlowPercent: 0
+  enhanced_SlowTime: 0
 --- !u!114 &3192143453642560953
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -560,7 +562,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 3343415014031770111, guid: b2a66d2f990441f4ea87d9a6ee5f9093,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 3343415014717659953, guid: b2a66d2f990441f4ea87d9a6ee5f9093, type: 3}
+    - {fileID: 796092091, guid: b2a66d2f990441f4ea87d9a6ee5f9093, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b2a66d2f990441f4ea87d9a6ee5f9093, type: 3}
 --- !u!1 &3191515501974469796 stripped
 GameObject:

@@ -7,7 +7,7 @@ public class BlackMage : Unit_Mage
     [SerializeField] Transform skileShotPositions = null;
     [SerializeField] Transform ultimate_SkileShotPositions = null;
 
-    // 검마는 사전작업 필요 없는데 부모 SetMageAwake 실행해서 일부러 비워둠
+    // 검마는 사전작업 필요 없는데 놔두면 부모 SetMageAwake를 실행해 버려서 일부러 비워둠
     public override void SetMageAwake() {}
 
     public override void MageSkile()
@@ -25,7 +25,7 @@ public class BlackMage : Unit_Mage
             Transform instantTransform = directions.GetChild(i);
 
             GameObject instantEnergyBall = Instantiate(shotObject, instantTransform.position, instantTransform.rotation);
-            instantEnergyBall.GetComponent<CollisionWeapon>().UnitOnDamage += (Enemy enemy) => delegate_OnSkile(enemy);
+            //instantEnergyBall.GetComponent<CollisionWeapon>().UnitOnDamage += (Enemy enemy) => delegate_OnSkile(enemy);
             instantEnergyBall.GetComponent<Rigidbody>().velocity = directions.GetChild(i).rotation.normalized * Vector3.forward * 50;
         }
     }

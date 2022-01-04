@@ -37,6 +37,7 @@ public class TeamSoldier : MonoBehaviour
     //protected NomalEnemy nomalEnemy;
     protected EnemySpawn enemySpawn;
 
+    protected Animator animator;
     protected AudioSource unitAudioSource;
     public AudioClip normalAttackClip;
     public float normalAttakc_AudioDelay;
@@ -44,24 +45,71 @@ public class TeamSoldier : MonoBehaviour
     public GameObject reinforceEffect;
     protected float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
 
-    private void Start()
+    private void Awake()
     {
-        UnitManager.instance.currentUnitList.Add(gameObject);
-        // 인스턴스
-        unitAudioSource = GetComponentInParent<AudioSource>();
-        enemySpawn = FindObjectOfType<EnemySpawn>();
-        nav = GetComponentInParent<NavMeshAgent>();
         // 변수 선언
+        enemySpawn = FindObjectOfType<EnemySpawn>();
+        animator = GetComponent<Animator>();
+        unitAudioSource = GetComponentInParent<AudioSource>();
+        nav = GetComponentInParent<NavMeshAgent>();
 
         chaseRange = 150f;
         enemyDistance = 150f;
         nav.speed = this.speed;
+
         // 평타 설정
         delegate_OnHit += (Enemy enemy) => AttackEnemy(enemy);
         delegate_OnHit += delegate_OnPassive;
         // 스킬 설정
         delegate_OnSkile += (Enemy enemy) => enemy.OnDamage(skillDamage);
         delegate_OnSkile += delegate_OnPassive;
+
+        // 유닛별 세팅
+        OnAwake();
+    }
+
+    public virtual void OnAwake() {}
+
+    Queue<CollisionWeapon> weaponPool = new Queue<CollisionWeapon>();
+    protected void SettingWeaponPool(GameObject weaponObj, int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            CollisionWeapon weapon = Instantiate(weaponObj, new Vector3(-500, -500, -500), Quaternion.identity).GetComponent<CollisionWeapon>();
+            weapon.gameObject.SetActive(false);
+            weaponPool.Enqueue(weapon);
+        }
+    }
+
+    protected CollisionWeapon UsedWeapon(Transform weaponPos, Vector3 dir, int speed)
+    {
+        CollisionWeapon UseWeapon = GetWeapon_FromPool();
+        UseWeapon.transform.position = new Vector3(weaponPos.position.x, 2f, weaponPos.position.z);
+        UseWeapon.Shoot(dir, speed, (Enemy enemy) => delegate_OnHit(enemy));
+        return UseWeapon;
+    }
+
+    // 풀에서 잠깐 꺼내고 다시 들어감
+    protected CollisionWeapon GetWeapon_FromPool()
+    {
+        CollisionWeapon getWeapon = weaponPool.Dequeue();
+        getWeapon.gameObject.SetActive(true);
+        StartCoroutine(Co_ReturnWeapon_ToPool(getWeapon, 5f));
+        return getWeapon;
+    }
+
+    IEnumerator Co_ReturnWeapon_ToPool(CollisionWeapon _weapon, float time)
+    {
+        yield return new WaitForSeconds(time);
+        _weapon.gameObject.SetActive(false);
+        _weapon.transform.position = new Vector3(-500, -500, -500);
+        _weapon.transform.rotation = Quaternion.identity;
+        weaponPool.Enqueue(_weapon);
+    }
+
+    void OnEnable()
+    {
+        UnitManager.instance.currentUnitList.Add(gameObject);
 
         // 적 추적
         UpdateTarget();

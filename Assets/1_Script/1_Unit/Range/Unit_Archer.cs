@@ -10,10 +10,11 @@ public class Unit_Archer : RangeUnit, IEvent
     public Transform arrowTransform;
     private GameObject trail;
 
-    private void Awake()
+    public override void OnAwake()
     {
         if(!enterStoryWorld) trail = GetComponentInChildren<TrailRenderer>().gameObject;
         skillDamage = (int)(damage * 1.2f);
+        SettingWeaponPool(arrow, 15);
     }
 
     public override void NormalAttack()
@@ -27,8 +28,16 @@ public class Unit_Archer : RangeUnit, IEvent
 
         nav.isStopped = true;
         trail.SetActive(false);
-        GameObject instantArrow = CreateBullte(arrow, arrowTransform, delegate_OnHit);
-        ShotBullet(instantArrow, 1.5f, 50f, target);
+        if (target != null && enemyDistance < chaseRange)
+        {
+            UsedWeapon(arrowTransform, Get_ShootDirection(2f, target), 50);
+
+            //CollisionWeapon UseWeapon = GetWeapon_FromPool();
+            //UseWeapon.transform.position = arrowTransform.position;
+            //UseWeapon.Shoot(Get_ShootDirection(2f, target), 50, (Enemy enemy) => delegate_OnHit(enemy));
+            //GameObject instantEnergyBall = CreateBullte(energyBall, energyBallTransform, delegate_OnHit);
+            //ShotBullet(instantEnergyBall, 2f, 50f, target);
+        }
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
         nav.isStopped = false;
@@ -58,9 +67,15 @@ public class Unit_Archer : RangeUnit, IEvent
         Transform[] targetArray = Set_AttackTarget(target, enemySpawn.currentEnemyList, enemyCount);
         for (int i = 0; i < targetArray.Length; i++)
         {
-            GameObject instantArrow = CreateBullte(arrow, arrowTransform, delegate_OnSkile);
-            instantArrow.GetComponent<SphereCollider>().radius = 5f; // 적이 잘 안맞아서 반지름 늘림
-            ShotBullet(instantArrow, 3f, 50f, targetArray[i]);
+            UsedWeapon(arrowTransform, Get_ShootDirection(2f, targetArray[i]), 50);
+
+            //CollisionWeapon UseWeapon = GetWeapon_FromPool();
+            //UseWeapon.transform.position = arrowTransform.position;
+            //UseWeapon.Shoot(Get_ShootDirection(2f, targetArray[i]), 50, (Enemy enemy) => delegate_OnHit(enemy));
+
+            //GameObject instantArrow = CreateBullte(arrow, arrowTransform, delegate_OnSkile);
+            //instantArrow.GetComponent<SphereCollider>().radius = 5f; // 적이 잘 안맞아서 반지름 늘림
+            //ShotBullet(instantArrow, 3f, 50f, targetArray[i]);
         }
         if (enterStoryWorld == GameManager.instance.playerEnterStoryMode)
             unitAudioSource.PlayOneShot(normalAttackClip);

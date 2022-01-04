@@ -6,12 +6,6 @@ public class Unit_Swordman : MeeleUnit, IEvent
 {
     [Header("기사 변수")]
     public GameObject trail;
-    private Animator animator;
-
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
 
     public override void NormalAttack()
     {

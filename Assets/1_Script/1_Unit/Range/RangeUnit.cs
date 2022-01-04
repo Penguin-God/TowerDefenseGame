@@ -20,32 +20,31 @@ public class RangeUnit : TeamSoldier
         else nav.speed = this.speed;
     }
 
-    protected GameObject CreateBullte(GameObject instantObject, Transform createPositon, Delegate_OnHit OnDamage)
-    {
-        Vector3 instantPosition = new Vector3(createPositon.position.x, 2f, createPositon.position.z);
-        GameObject instantBullet = Instantiate(instantObject, instantPosition, (unitType == Type.archer) ? Quaternion.identity : transform.parent.rotation);
+    //protected GameObject CreateBullte(GameObject instantObject, Transform createPositon, Delegate_OnHit OnDamage)
+    //{
+    //    Vector3 instantPosition = new Vector3(createPositon.position.x, 2f, createPositon.position.z);
+    //    GameObject instantBullet = Instantiate(instantObject, instantPosition, (unitType == Type.archer) ? Quaternion.identity : transform.parent.rotation);
 
-        CollisionWeapon weapon = instantBullet.GetComponent<CollisionWeapon>();
-        if (weapon != null) weapon.UnitOnDamage += (Enemy enemy) => OnDamage(enemy);
-        else Debug.LogWarning("아니 CollisionWeapon이 읎어요");
-        return instantBullet;
-    }
+    //    CollisionWeapon weapon = instantBullet.GetComponent<CollisionWeapon>();
+    //    //if (weapon != null) weapon.UnitOnDamage += (Enemy enemy) => OnDamage(enemy);
+    //    //else Debug.LogWarning("아니 CollisionWeapon이 읎어요");
+    //    return instantBullet;
+    //}
 
     // 원거리 유닛 무기 발사
-    protected void ShotBullet(GameObject bullet, float weightRate, float velocity, Transform shotTarget)
+    protected Vector3 Get_ShootDirection(float weightRate, Transform _target)
     {
-        Rigidbody bulletRigid = bullet.GetComponent<Rigidbody>();
         Vector3 dir;
         // 속도 가중치 설정(적보다 약간 앞을 쏨, 적군의 성은 의미 없음)
-        if (shotTarget != null)
+        if (_target != null)
         {
-            dir = shotTarget.position - bullet.transform.position;
-            float enemyWeightDir = Mathf.Lerp(0, weightRate, Vector3.Distance(shotTarget.position, this.transform.position) * 2 / 100);
+            dir = _target.position - transform.position;
+            float enemyWeightDir = Mathf.Lerp(0, weightRate, Vector3.Distance(_target.position, this.transform.position) * 2 / 100);
             dir += TargetEnemy.dir.normalized * (0.5f * TargetEnemy.speed) * enemyWeightDir;
         }
-        else dir = bullet.transform.forward;
+        else dir = transform.forward;
 
-        bulletRigid.velocity = dir.normalized * velocity;
+        return dir.normalized;
     }
 
     private void FixedUpdate()

@@ -9,17 +9,16 @@ public class Unit_Spearman : MeeleUnit, IEvent
     public GameObject spear;
     public GameObject skileSpaer; // 발사할 때 생성하는 창
     public Transform spearCreatePosition;
-    public GameObject dontMoveGameObject;
+    //public GameObject dontMoveGameObject;
 
     [SerializeField]
     private AudioClip skillAudioClip;
-    private Animator animator;
 
-    private void Awake()
+    public override void OnAwake()
     {
-        dontMoveGameObject = GameObject.Find("World");
-        animator = GetComponent<Animator>();
+        //dontMoveGameObject = GameObject.Find("World");
         skillDamage = (int)(damage * 1.5f);
+        SettingWeaponPool(skileSpaer, 5);
     }
 
     public override void NormalAttack()
@@ -47,6 +46,7 @@ public class Unit_Spearman : MeeleUnit, IEvent
     {
         StartCoroutine("Spearman_SpecialAttack");
     }
+
     IEnumerator Spearman_SpecialAttack()
     {
         isAttack = true;
@@ -56,10 +56,16 @@ public class Unit_Spearman : MeeleUnit, IEvent
         spear.SetActive(false);
         nav.isStopped = true;
 
-        GameObject instantSpear = Instantiate(skileSpaer, spearCreatePosition);
-        instantSpear.transform.SetParent(dontMoveGameObject.transform);
-        instantSpear.GetComponent<CollisionWeapon>().UnitOnDamage += (Enemy enemy) => delegate_OnSkile(enemy);
-        instantSpear.GetComponent<Rigidbody>().velocity = (-1 * transform.forward) * 50;
+        CollisionWeapon weapon = UsedWeapon(spearCreatePosition, transform.forward * -1, 50);
+        weapon.transform.Rotate(90, 0, 0);
+
+        //CollisionWeapon UseWeapon = GetWeapon_FromPool();
+        //UseWeapon.transform.position = spearCreatePosition.position;
+        //UseWeapon.Shoot(transform.forward * -1, 50, (Enemy enemy) => delegate_OnHit(enemy));
+        //GameObject instantSpear = Instantiate(skileSpaer, spearCreatePosition);
+        //instantSpear.transform.SetParent(dontMoveGameObject.transform);
+        //instantSpear.GetComponent<CollisionWeapon>().UnitOnDamage += (Enemy enemy) => delegate_OnSkile(enemy);
+        //instantSpear.GetComponent<Rigidbody>().velocity = (-1 * transform.forward) * 50;
 
         if (enterStoryWorld == GameManager.instance.playerEnterStoryMode)
             unitAudioSource.PlayOneShot(skillAudioClip, 0.12f);

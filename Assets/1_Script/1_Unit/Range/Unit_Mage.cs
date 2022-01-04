@@ -7,14 +7,13 @@ public class Unit_Mage : RangeUnit, IEvent
 {
     [Header("메이지 변수")]
     public GameObject magicLight;
-    private Animator animator;
 
     public GameObject energyBall;
     public Transform energyBallTransform;
-    
-    private void Awake()
+
+    public override void OnAwake()
     {
-        animator = GetComponent<Animator>();
+        SettingWeaponPool(energyBall, 7);
         if (unitColor == UnitColor.white) return;
 
         canvasRectTransform = transform.parent.GetComponentInChildren<RectTransform>();
@@ -59,8 +58,12 @@ public class Unit_Mage : RangeUnit, IEvent
 
         if (target != null && enemyDistance < chaseRange)
         {
-            GameObject instantEnergyBall = CreateBullte(energyBall, energyBallTransform, delegate_OnHit);
-            ShotBullet(instantEnergyBall, 2f, 50f, target);
+            UsedWeapon(energyBallTransform, Get_ShootDirection(2f, target), 50);
+            //CollisionWeapon UseWeapon = GetWeapon_FromPool();
+            //UseWeapon.transform.position = energyBallTransform.position;
+            //UseWeapon.Shoot(Get_ShootDirection(2f, target), 50, (Enemy enemy) => delegate_OnHit(enemy));
+            //GameObject instantEnergyBall = CreateBullte(energyBall, energyBallTransform, delegate_OnHit);
+            //ShotBullet(instantEnergyBall, 2f, 50f, target);
         }
 
         yield return new WaitForSeconds(0.5f);

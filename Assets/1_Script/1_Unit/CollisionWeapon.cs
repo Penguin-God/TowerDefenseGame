@@ -5,20 +5,36 @@ public class CollisionWeapon : MonoBehaviour
 {
     [SerializeField] bool isAOE; // area of effect : 범위(광역) 공격
 
-    private void Start()
+    Rigidbody Rigidbody = null;
+    private void Awake()
     {
-        Destroy(gameObject, 5f);
+        Rigidbody = GetComponent<Rigidbody>();    
     }
 
-    public event Action<Enemy> UnitOnDamage;
+    public void Shoot(Vector3 dir, int speed, Action<Enemy> action)
+    {
+        OnHit = action;
+        Rigidbody.velocity = dir * speed;
+        Quaternion lookDir = Quaternion.LookRotation(dir);
+        transform.rotation = lookDir;
+    }
+
+    //private void Start()
+    //{
+    //    Destroy(gameObject, 5f);
+    //}
+
+
+
+    private Action<Enemy> OnHit = null;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<Enemy>() != null)
         {
-            if (UnitOnDamage != null) UnitOnDamage(other.GetComponent<Enemy>());
+            if (OnHit != null) OnHit(other.GetComponent<Enemy>());
 
-            if (!isAOE) Destroy(gameObject);
+            if (!isAOE) gameObject.SetActive(false);
         }
     }
 }

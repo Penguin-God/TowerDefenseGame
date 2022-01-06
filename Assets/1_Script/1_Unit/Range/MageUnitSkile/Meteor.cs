@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Meteor : MonoBehaviour
 {
@@ -12,7 +13,6 @@ public class Meteor : MonoBehaviour
 
     public void OnChase(Enemy enemy)
     {
-        gameObject.SetActive(true);
         StartCoroutine(Co_ShotMeteor(enemy));
     }
 

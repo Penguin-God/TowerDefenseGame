@@ -141,7 +141,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4624219392482637305
 Transform:
   m_ObjectHideFlags: 0
@@ -202,8 +202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 88fd1f3db0c8f5846b86688ccc8bcae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereCollider: {fileID: 4624219392778089399}
-  hitTime: 0
   speed: 50
   explosionObject: {fileID: 4623086259848035187}
   meteors:

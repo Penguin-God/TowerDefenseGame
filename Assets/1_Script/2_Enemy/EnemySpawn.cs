@@ -300,6 +300,7 @@ public class EnemySpawn : MonoBehaviour
 
         currentTower.OnDeath += () => SoundManager.instance.PlayEffectSound_ByName("TowerDieClip");
         currentTower.OnDeath += () => shop.OnShop(currentTowerLevel, TriggerType.EnemyTower);
+        currentTower.OnDeath += () => currentTower = null;
     }
 
     IEnumerator Co_AfterRespawnTower(float delayTime)

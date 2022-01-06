@@ -7,7 +7,7 @@ public class YellowMage : Unit_Mage
     public override void MageSkile()
     {
         base.MageSkile();
-        SetSkilObject(transform.position + (Vector3.up * 0.6f));
+        UsedSkill(transform.position + (Vector3.up * 0.6f));
 
         int addGold = isUltimate ? 5 : 3;
         GameManager.instance.Gold += addGold;

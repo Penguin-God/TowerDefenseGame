@@ -19,13 +19,6 @@ public class CollisionWeapon : MonoBehaviour
         transform.rotation = lookDir;
     }
 
-    //private void Start()
-    //{
-    //    Destroy(gameObject, 5f);
-    //}
-
-
-
     private Action<Enemy> OnHit = null;
 
     private void OnTriggerEnter(Collider other)

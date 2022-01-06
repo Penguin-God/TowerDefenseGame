@@ -8,25 +8,31 @@ public class BlueMage : Unit_Mage
 
     public override void SetMageAwake()
     {
-        base.SetMageAwake();
+        SettingSkilePool(mageSkillObject, 3, SetEnemyFreeze);
         bluePassive = GetComponent<BluePassive>();
         GetComponent<SphereCollider>().radius = bluePassive.get_ColliderRange;
         bluePassive.OnBeefup += () => GetComponent<SphereCollider>().radius = bluePassive.get_ColliderRange;
 
-        mageEffectObject.GetComponent<HitSkile>().OnHitSkile += (Enemy enemy) => enemy.EnemyFreeze(5f);
-        StartCoroutine(Co_SkilleReinForce());        
+        StartCoroutine(Co_SkilleReinForce());  
     }
+
+    void SetEnemyFreeze(GameObject _skill) => _skill.GetComponent<HitSkile>().OnHitSkile += (Enemy enemy) => enemy.EnemyFreeze(5f);
 
     IEnumerator Co_SkilleReinForce()
     {
         yield return new WaitUntil(() => isUltimate);
-        mageEffectObject.GetComponent<HitSkile>().OnHitSkile += (Enemy enemy) => enemy.OnDamage(20000);
+        UpdatePool(SkilleReinForce);
+    }
+
+    void SkilleReinForce(GameObject _skill)
+    {
+        _skill.GetComponent<HitSkile>().OnHitSkile += (Enemy enemy) => enemy.OnDamage(20000);
     }
 
     public override void MageSkile()
     {
         base.MageSkile();
-        SetSkilObject(transform.position + (Vector3.up * 2));
+        UsedSkill(transform.position + (Vector3.up * 2));
     }
 
     private void OnTriggerStay(Collider other)

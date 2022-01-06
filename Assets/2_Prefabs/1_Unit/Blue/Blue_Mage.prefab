@@ -330,7 +330,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -612,11 +612,11 @@ MonoBehaviour:
   energyBall: {fileID: 7765325521283653283, guid: 4456278e979f163459267b897c1312b8,
     type: 3}
   energyBallTransform: {fileID: 7721362943555022681}
-  isUltimate: 0
   plusMana: 30
   mageSkillCoolDownTime: 2
-  mageEffectObject: {fileID: 3088577275955018159, guid: e094cfdddf8245641879c7c3411f7e5c,
+  mageSkillObject: {fileID: 3088577275955018159, guid: e094cfdddf8245641879c7c3411f7e5c,
     type: 3}
+  isUltimate: 0
   mageSkillCilp: {fileID: 8300000, guid: 8b0e44500538f864ca0050a7317f7591, type: 3}
   maxMana: 200
   currentMana: 0

@@ -110,11 +110,25 @@ public class TeamSoldier : MonoBehaviour
     void OnEnable()
     {
         UnitManager.instance.currentUnitList.Add(gameObject);
+        animator.enabled = true;
+        nav.enabled = true;
 
         // 적 추적
         UpdateTarget();
         StartCoroutine("NavCoroutine");
     }
+
+    private void OnDisable()
+    {
+        SetChaseSetting(null);
+        StopAllCoroutines();
+        UnitManager.instance.currentUnitList.Remove(gameObject);
+        isAttack = false; 
+        isAttackDelayTime = false; 
+        isSkillAttack = false;
+        animator.enabled = false;
+        nav.enabled = false;
+}
 
     [HideInInspector]
     public bool passiveReinForce;
@@ -299,13 +313,14 @@ public class TeamSoldier : MonoBehaviour
     IEnumerator TowerNavCoroutine()
     {
         Physics.Raycast(transform.parent.position + Vector3.up, target.position - transform.position, out RaycastHit towerHit, 100f, layerMask);
-        if (target != null) enemyDistance = Vector3.Distance(this.transform.position, towerHit.point);
 
         Invoke("RangeNavStop", 3f); // 원거리 타워에 다가가는거 막기
         while (true)
         {
+            if (target != null) enemyDistance = Vector3.Distance(this.transform.position, towerHit.point);
             if (target == null || enemyDistance > chaseRange)
             {
+                yield return new WaitUntil(() => enemySpawn.currentTower != null);
                 EnemyTower currentTower = enemySpawn.currentTower;
                 if (currentTower.isRespawn) SetChaseSetting(currentTower.gameObject);
                 else

@@ -27,6 +27,7 @@ public class EnemyTower : Enemy
     {
         base.Dead();
 
+        isRespawn = false;
         gameObject.SetActive(false);
         transform.position = new Vector3(5000, 5000, 5000);
         GetTowerReword();

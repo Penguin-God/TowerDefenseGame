@@ -12,7 +12,6 @@ public class OrangeSkill : MonoBehaviour
 
     public void OnSkile(Enemy enemy, bool isUltimate, int damage)
     {
-        gameObject.SetActive(true);
         int count = isUltimate ? 5 : 3;
         StartCoroutine(Co_OrangeSkile(count, enemy, damage));
     }

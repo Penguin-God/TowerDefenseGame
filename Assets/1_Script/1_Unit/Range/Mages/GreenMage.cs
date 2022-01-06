@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class GreenMage : Unit_Mage
 {
-    [SerializeField] GameObject originEnergyBall = null;
+    [SerializeField] Transform UltimateTransform = null;
     public override void SetMageAwake()
     {
+        SettingSkilePool(mageSkillObject, 3);
         attackRange *= 2;
-        attackDelegate += () => StartCoroutine(Co_GreenMageSkile());
+        attackDelegate += () => ShootSkill(energyBallTransform.position);
         StartCoroutine(Co_SkileReinforce());
     }
 
     public override void MageSkile()
     {
         base.MageSkile();
-        attackDelegate();
+        StartCoroutine(Co_GreenMageSkile());
+        StartCoroutine(Co_FixMana());
     }
 
 
@@ -25,20 +27,46 @@ public class GreenMage : Unit_Mage
     IEnumerator Co_SkileReinforce()
     {
         yield return new WaitUntil(() => isUltimate);
-        attackDelegate += () => GetComponent<MultiDirectionAttack>().MultiDirectionShot(transform, energyBall);
+        SettingSkilePool(mageSkillObject, 7);
+        attackDelegate += Ultimate;
     }
 
+    void Ultimate()
+    {
+        for (int i = 0; i < UltimateTransform.childCount; i++)
+        {
+            GameObject _skill = UsedSkill(UltimateTransform.GetChild(i).position);
+            _skill.transform.rotation = UltimateTransform.GetChild(i).rotation;
+            _skill.transform.GetComponent<Rigidbody>().velocity = _skill.transform.forward * 50;
+        }
+    }
 
     IEnumerator Co_GreenMageSkile()
     {
-        energyBall = mageEffectObject;
+        nav.isStopped = true;
+        animator.SetTrigger("isAttack");
+        yield return new WaitForSeconds(0.7f);
+        magicLight.SetActive(true);
+        attackDelegate();
 
+        yield return new WaitForSeconds(0.5f);
+        magicLight.SetActive(false);
+        nav.isStopped = false;
+    }
+
+    void ShootSkill(Vector3 _pos)
+    {
+        GameObject _skill = UsedSkill(_pos);
+        _skill.transform.position = new Vector3(_pos.x, 1f, _pos.z);
+        _skill.GetComponent<CollisionWeapon>().Shoot(Get_ShootDirection(2f, target), 50, (Enemy enemy) => delegate_OnHit(enemy));
+    }
+
+    IEnumerator Co_FixMana()
+    {
         // 공 튕기는 동안에는 마나 충전 못하게 하기
         int savePlusMana = plusMana;
         plusMana = 0;
-        StartCoroutine("MageAttack");
-        yield return new WaitUntil(() => !isAttackDelayTime);
+        yield return new WaitUntil(() => !isSkillAttack);
         plusMana = savePlusMana;
-        energyBall = originEnergyBall;
     }
 }

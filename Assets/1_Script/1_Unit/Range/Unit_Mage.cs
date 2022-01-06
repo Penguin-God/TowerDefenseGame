@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
+using System.Collections;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
@@ -25,23 +26,7 @@ public class Unit_Mage : RangeUnit, IEvent
         SetMageAwake();
     }
 
-    public virtual void SetMageAwake()
-    {
-        mageEffectObject = Instantiate(mageEffectObject, mageEffectObject.transform.position, mageEffectObject.transform.rotation);
-    }
-
-    public override void NormalAttack()
-    {
-        StartCoroutine("MageAttack");
-    }
-
-    public bool isUltimate; // 스킬 강화
-    protected event Action OnUltimateSkile;
-    public override void SpecialAttack()
-    {
-        MageSpecialAttack();
-        if (OnUltimateSkile != null) OnUltimateSkile();
-    }
+    public override void NormalAttack() => StartCoroutine("MageAttack");
 
     public int plusMana = 30;
     public float mageSkillCoolDownTime;
@@ -73,6 +58,71 @@ public class Unit_Mage : RangeUnit, IEvent
         base.NormalAttack();
     }
 
+
+    Queue<GameObject> skillObjectPool = new Queue<GameObject>();
+    
+    protected void SettingSkilePool(GameObject skillObj, int count, Action<GameObject> SettingSkileAction = null)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            GameObject skill = Instantiate(skillObj, new Vector3(-200, -200, -200), skillObj.transform.rotation);
+            // Hit Event 설정해줘야 하는 법사들만 실행됨
+            if (SettingSkileAction != null) SettingSkileAction(skill);
+
+            skill.SetActive(false);
+            skillObjectPool.Enqueue(skill);
+        }
+    }
+
+    protected void UpdatePool(Action<GameObject> updateSkill)
+    {
+        if(updateSkill != null)
+        {
+            for (int i = 0; i < skillObjectPool.Count; i++)
+            {
+                GameObject _skill = skillObjectPool.Dequeue();
+                updateSkill(_skill);
+                skillObjectPool.Enqueue(_skill);
+            }
+        }
+    }
+
+    [SerializeField] protected GameObject mageSkillObject = null;
+    protected GameObject UsedSkill(Vector3 _position)
+    {
+        GameObject _skileObj = GetSkile_FromPool();
+        _skileObj.transform.position = _position;
+        return _skileObj;
+    }
+
+    GameObject GetSkile_FromPool()
+    {
+        GameObject getSkile = skillObjectPool.Dequeue();
+        getSkile.SetActive(true);
+        StartCoroutine(Co_ReturnSkile_ToPool(getSkile, 5f));
+        return getSkile;
+    }
+    IEnumerator Co_ReturnSkile_ToPool(GameObject _skill, float time)
+    {
+        yield return new WaitForSeconds(time);
+        _skill.SetActive(false);
+        _skill.transform.position = new Vector3(-200, -200, -200);
+        skillObjectPool.Enqueue(_skill);
+    }
+
+    public virtual void SetMageAwake()
+    {
+        SettingSkilePool(mageSkillObject, 3);
+    }
+
+    public virtual void MageSkile()
+    {
+        isSkillAttack = true;
+        ClearMana();
+        StartCoroutine(Co_SkillCoolDown());
+        PlaySkileAudioClip();
+    }
+
     void MageSpecialAttack()
     {
         isSkillAttack = true;
@@ -90,11 +140,12 @@ public class Unit_Mage : RangeUnit, IEvent
         isSkillAttack = false;
     }
 
-    public GameObject mageEffectObject = null;
-    protected void SetSkilObject(Vector3 _position)
+    public bool isUltimate; // 스킬 강화
+    protected event Action OnUltimateSkile; // 강화는 isUltimate가 true될 때까지 코루틴에서 WaitUntil로 대기 후 추가함
+    public override void SpecialAttack()
     {
-        mageEffectObject.transform.position = _position;
-        mageEffectObject.SetActive(true);
+        MageSpecialAttack();
+        if (OnUltimateSkile != null) OnUltimateSkile();
     }
 
     public AudioClip mageSkillCilp;
@@ -146,14 +197,6 @@ public class Unit_Mage : RangeUnit, IEvent
         currentMana = 0;
         manaSlider.value = 0;
         specialAttackPercent = 0;
-    }
-
-    public virtual void MageSkile() 
-    {
-        isSkillAttack = true;
-        ClearMana();
-        StartCoroutine(Co_SkillCoolDown());
-        PlaySkileAudioClip();
     }
 
 

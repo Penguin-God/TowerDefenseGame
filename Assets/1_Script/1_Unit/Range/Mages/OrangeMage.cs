@@ -6,7 +6,8 @@ public class OrangeMage : Unit_Mage
 {
     public override void MageSkile()
     {
-        mageEffectObject.GetComponent<OrangeSkill>().OnSkile(target.GetComponent<Enemy>(), isUltimate, bossDamage);
         base.MageSkile();
+        GameObject _skill = UsedSkill(Vector3.one);
+        _skill.GetComponent<OrangeSkill>().OnSkile(target.GetComponent<Enemy>(), isUltimate, bossDamage);
     }
 }

@@ -905,11 +905,11 @@ MonoBehaviour:
   energyBall: {fileID: 4703403304667223421, guid: 6f1ddf31f554a5046954837dedda1b8d,
     type: 3}
   energyBallTransform: {fileID: 1739364759726487828}
-  isUltimate: 0
   plusMana: 30
   mageSkillCoolDownTime: 2
-  mageEffectObject: {fileID: 217165572783591742, guid: 363496e031194604f91ae274cc2d13ac,
+  mageSkillObject: {fileID: 217165572783591742, guid: 363496e031194604f91ae274cc2d13ac,
     type: 3}
+  isUltimate: 0
   mageSkillCilp: {fileID: 8300000, guid: c067ff29c7e175d4b901c10170e1745e, type: 3}
   maxMana: 100
   currentMana: 0

@@ -13,8 +13,12 @@ public class Unit_Archer : RangeUnit, IEvent
     public override void OnAwake()
     {
         if(!enterStoryWorld) trail = GetComponentInChildren<TrailRenderer>().gameObject;
-        skillDamage = (int)(damage * 1.2f);
         poolManager.SettingWeaponPool(arrow, 15);
+    }
+
+    public override void SetInherenceData()
+    {
+        skillDamage = (int)(damage * 1.2f);
     }
 
     public override void NormalAttack()

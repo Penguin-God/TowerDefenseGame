@@ -6,7 +6,7 @@ using System.Text;
 using System;
 using System.Linq;
 
-[System.Serializable]
+[Serializable]
 public class UnitData
 {
     public UnitData(string name, int damage, float speed, float range) { unitName = name; unitDamage = damage; unitSpeed = speed; attackRange = range; }
@@ -16,6 +16,24 @@ public class UnitData
     public float unitSpeed;
     public float attackRange;
 }
+
+[Serializable]
+public struct PassiveData
+{
+    public string name;
+    public float p1;
+    public float p2;
+    public float p3;
+
+    public PassiveData(string _name, float _p1, float _p2, float _p3)
+    {
+        name = _name;
+        p1 = _p1;
+        p2 = _p2;
+        p3 = _p3;
+    }
+}
+
 
 [System.Serializable]
 public struct UnitStruct
@@ -53,10 +71,19 @@ public class UnitDataBase : MonoBehaviour
 {
     private void Awake()
     {
-        SetUnitDictionary();
-        ApplyUnitData();
+        //SetJson();
+        LoadJson();
+        SetUnitDataDictionary();
 
-        ApplyPassiveData();
+        //SetPassiveJson();
+        LoadPassiveJson();
+        SetPassiveDictionary();
+
+        //SetUnitDictionary();
+
+        //ApplyUnitData();
+
+        //ApplyPassiveData();
     }
 
     [SerializeField] List<UnitStruct> unitStructs = new List<UnitStruct>();
@@ -294,7 +321,7 @@ public class UnitDataBase : MonoBehaviour
 
     public List<GameObject> unitList = new List<GameObject>();
 
-    public List<UnitData> unitDataList;
+
     [ContextMenu("SetList")]
     void SetUnitList()
     {
@@ -309,31 +336,148 @@ public class UnitDataBase : MonoBehaviour
         }
     }
 
-    //[ContextMenu("SaveJson")]
-    //void SetJson()
-    //{
-    //    unitDataList = new List<UnitData>();
-    //    for (int i = 0; i < unitList.Count; i++)
-    //    {
-    //        TeamSoldier team = unitList[i].GetComponentInChildren<TeamSoldier>();
+    public List<UnitData> unitDataList;
+    [ContextMenu("SaveJson")]
+    void SetJson()
+    {
+        SetUnitDictionary();
+        unitDataList = new List<UnitData>();
 
-    //        unitDataList.Add(new UnitData(unitList[i].name, team.originDamage, team.speed, team.attackRange));
-    //    }
+        string csvText = unitData_CSV.text.Substring(0, unitData_CSV.text.Length - 1);
+        string[] datas = csvText.Split(new char[] { '\n' }); // 줄바꿈(한 줄)을 기준으로 csv 파일을 쪼개서 string배열에 줄 순서대로 담음
 
-    //    string jsonData = JsonUtility.ToJson(new UnitDataList<UnitData>(unitDataList), true);
-    //    string path = Path.Combine(Application.dataPath, "4_Data", "unitData.txt");
-    //    File.WriteAllText(path, jsonData);
-    //}
+        for (int i = 1; i < datas.Length; i++)
+        {
+            string[] cells = datas[i].Split(',');
+            if (unitDic.ContainsKey(cells[0]))
+            {
+                string _name = cells[0];
+                int _damage = Int32.Parse(cells[1]);
+                int _speed = Int32.Parse(cells[3]);
+                int _attackRange = Int32.Parse(cells[4]);
+                unitDataList.Add(new UnitData(_name, _damage, _speed, _attackRange));
+            }
+            else Debug.Log($"NONE : {cells[0]}");
+        }
 
-    //public List<UnitData> loadDataList;
-    //[ContextMenu("LoadJson")]
-    //void LoadJson()
-    //{
-    //    loadDataList = new List<UnitData>();
-    //    string path = Path.Combine(Application.dataPath, "4_Data", "unitData.txt");
-    //    string jsonData = File.ReadAllText(path);
-    //    loadDataList = JsonUtility.FromJson<UnitDataList<UnitData>>(jsonData).dataList;
-    //}
+        string jsonData = JsonUtility.ToJson(new UnitDataList<UnitData>(unitDataList), true);
+        string path = Path.Combine(Application.dataPath, "4_Data", "unitData.txt");
+        File.WriteAllText(path, jsonData);
+    }
+
+    [SerializeField] List<UnitData> loadDataList;
+    [ContextMenu("Test")]
+    void LoadJson()
+    {
+        loadDataList = new List<UnitData>();
+        string path = Path.Combine(Application.dataPath, "4_Data", "unitData.txt");
+        string jsonData = File.ReadAllText(path);
+        loadDataList = JsonUtility.FromJson<UnitDataList<UnitData>>(jsonData).dataList;
+    }
+
+    private Dictionary<string, UnitData> UnitDataDictionary;
+    void SetUnitDataDictionary()
+    {
+        UnitDataDictionary = new Dictionary<string, UnitData>();
+
+        for (int i = 0; i < loadDataList.Count; i++)
+        {
+            UnitData _data = new UnitData(loadDataList[i].unitName, loadDataList[i].unitDamage, loadDataList[i].unitSpeed, loadDataList[i].attackRange);
+            UnitDataDictionary.Add(loadDataList[i].unitName, _data);
+        }
+    }
+
+
+    public void ApplyData(string _name, TeamSoldier _team)
+    {
+        _team.originDamage = UnitDataDictionary[_name].unitDamage;
+        _team.damage = UnitDataDictionary[_name].unitDamage;
+        _team.originBossDamage = UnitDataDictionary[_name].unitDamage;
+        _team.bossDamage = UnitDataDictionary[_name].unitDamage;
+        _team.speed = UnitDataDictionary[_name].unitSpeed;
+        _team.attackRange = UnitDataDictionary[_name].attackRange;
+    }
+
+    public void ChangeLoadData(string _key, UnitData _data)
+    {
+        UnitDataDictionary[_key].unitDamage = _data.unitDamage;
+        UnitDataDictionary[_key].unitSpeed = _data.unitSpeed;
+        UnitDataDictionary[_key].attackRange = _data.attackRange;
+    }
+
+
+
+
+
+
+    
+    public List<PassiveData> passiveDataList;
+    public Dictionary<string, PassiveData> passiveDictionary;
+    [ContextMenu("SavePassiveJson")]
+    void SetPassiveJson()
+    {
+        SetUnitDictionary();
+        passiveDataList = new List<PassiveData>();
+
+        string csvText = Csv_UnitPassivedata.text.Substring(0, Csv_UnitPassivedata.text.Length - 1);
+        string[] datas = csvText.Split(new char[] { '\n' }); // 줄바꿈(한 줄)을 기준으로 csv 파일을 쪼개서 string배열에 줄 순서대로 담음
+
+        for (int i = 1; i < datas.Length; i++)
+        {
+            string[] cells = datas[i].Split(',');
+            if (unitDic.ContainsKey(cells[0]))
+            {
+                string _name = cells[0];
+                // 패시브는 공백인 경우가 있어서 삼항연산자 사용함
+                float _p1 = (cells[1].Trim() != "") ? float.Parse(cells[1]) : 0;
+                float _p2 = (cells[2].Trim() != "") ? float.Parse(cells[2]) : 0;
+                float _p3 = (cells[3].Trim() != "") ? float.Parse(cells[3]) : 0;
+
+                passiveDataList.Add(new PassiveData(_name, _p1, _p2, _p3));
+            }
+            else Debug.Log($"NONE : {cells[0]}");
+        }
+
+        string jsonData = JsonUtility.ToJson(new UnitDataList<PassiveData>(passiveDataList), true);
+        string path = Path.Combine(Application.dataPath, "4_Data", "UnitPassiveData.txt");
+        File.WriteAllText(path, jsonData);
+    }
+
+    [ContextMenu("Test2")]
+    void LoadPassiveJson()
+    {
+        passiveDataList = new List<PassiveData>();
+        string path = Path.Combine(Application.dataPath, "4_Data", "UnitPassiveData.txt");
+        string jsonData = File.ReadAllText(path);
+        passiveDataList = JsonUtility.FromJson<UnitDataList<PassiveData>>(jsonData).dataList;
+    }
+
+    void SetPassiveDictionary()
+    {
+        passiveDictionary = new Dictionary<string, PassiveData>();
+
+        for (int i = 0; i < passiveDataList.Count; i++)
+        {
+            PassiveData _data = new PassiveData(passiveDataList[i].name, passiveDataList[i].p1, passiveDataList[i].p2, passiveDataList[i].p3);
+            passiveDictionary.Add(passiveDataList[i].name, _data);
+        }
+    }
+
+    public float[] GetPassiveData(string _key)
+    {
+        float[] passive_datas = new float[3];
+        passive_datas[0] = passiveDictionary[_key].p1;
+        passive_datas[1] = passiveDictionary[_key].p2;
+        passive_datas[2] = passiveDictionary[_key].p3;
+        return passive_datas;
+    }
+
+    public void ChangeLoadPassiveData(string _key, PassiveData _data)
+    {
+        passiveDictionary[_key] = new PassiveData(passiveDictionary[_key].name, _data.p1, _data.p2, _data.p3);
+    }
+
+
 
     //[ContextMenu("SetUnitData")]
     //void SetUnitData()

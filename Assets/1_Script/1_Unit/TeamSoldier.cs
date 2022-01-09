@@ -126,6 +126,8 @@ public class TeamSoldier : MonoBehaviour
 
     void OnEnable()
     {
+        SetData(); 
+        SetPassiveData();
         UnitManager.instance.currentUnitList.Add(gameObject);
         if(animator != null) animator.enabled = true;
         nav.enabled = true;
@@ -147,10 +149,22 @@ public class TeamSoldier : MonoBehaviour
         nav.enabled = false;
     }
 
-    void SetData(string _tag)
+    void SetData()
     {
-
+        Debug.Log("Seccess");
+        UnitManager.instance.ApplyUnitData(gameObject.tag, this);
+        SetInherenceData();
     }
+
+    void SetPassiveData()
+    {
+        UnitPassive _passive = GetComponent<UnitPassive>();
+        if (_passive == null) return;
+        float[] _datas = UnitManager.instance.GetUnitPassiveData(gameObject.tag);
+        _passive.ApplyData(_datas[0], _datas[1], _datas[2]);
+    }
+
+    public virtual void SetInherenceData() { }
 
 
     public int specialAttackPercent;

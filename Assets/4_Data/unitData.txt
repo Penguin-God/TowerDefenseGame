@@ -1,193 +1,193 @@
 {
     "dataList": [
         {
-            "unitName": "Red_SwordMan",
+            "unitName": "RedSwordman",
             "unitDamage": 25,
             "unitSpeed": 15.0,
             "attackRange": 6.0
         },
         {
-            "unitName": "Red_Archer",
+            "unitName": "RedArcher",
             "unitDamage": 500,
             "unitSpeed": 6.0,
             "attackRange": 50.0
         },
         {
-            "unitName": "Red_Spearman",
+            "unitName": "RedSpearman",
             "unitDamage": 10000,
             "unitSpeed": 15.0,
             "attackRange": 10.0
         },
         {
-            "unitName": "Red_Mage",
+            "unitName": "RedMage",
             "unitDamage": 100000,
             "unitSpeed": 3.0,
             "attackRange": 40.0
         },
         {
-            "unitName": "Blue_SwordMan",
+            "unitName": "BlueSwordman",
             "unitDamage": 25,
             "unitSpeed": 15.0,
             "attackRange": 6.0
         },
         {
-            "unitName": "Blue_Archer",
+            "unitName": "BlueArcher",
             "unitDamage": 500,
             "unitSpeed": 6.0,
             "attackRange": 50.0
         },
         {
-            "unitName": "Blue_Spearman",
+            "unitName": "BlueSpearman",
             "unitDamage": 10000,
             "unitSpeed": 15.0,
             "attackRange": 10.0
         },
         {
-            "unitName": "Blue_Mage",
+            "unitName": "BlueMage",
             "unitDamage": 100000,
             "unitSpeed": 3.0,
             "attackRange": 40.0
         },
         {
-            "unitName": "Yellow_SwordMan",
+            "unitName": "YellowSwordman",
             "unitDamage": 25,
             "unitSpeed": 15.0,
             "attackRange": 6.0
         },
         {
-            "unitName": "Yellow_Archer",
+            "unitName": "YellowArcher",
             "unitDamage": 500,
             "unitSpeed": 6.0,
             "attackRange": 50.0
         },
         {
-            "unitName": "Yellow_Spearman",
+            "unitName": "YellowSpearman",
             "unitDamage": 10000,
             "unitSpeed": 15.0,
             "attackRange": 10.0
         },
         {
-            "unitName": "Yellow_Mage",
+            "unitName": "YellowMage",
             "unitDamage": 100000,
             "unitSpeed": 3.0,
             "attackRange": 40.0
         },
         {
-            "unitName": "Green_SwordMan",
+            "unitName": "GreenSwordman",
             "unitDamage": 60,
             "unitSpeed": 15.0,
             "attackRange": 6.0
         },
         {
-            "unitName": "Green_Archer",
+            "unitName": "GreenArcher",
             "unitDamage": 2000,
             "unitSpeed": 6.0,
             "attackRange": 50.0
         },
         {
-            "unitName": "Green_Spearman",
+            "unitName": "GreenSpearman",
             "unitDamage": 24000,
             "unitSpeed": 15.0,
             "attackRange": 10.0
         },
         {
-            "unitName": "Green_Mage",
+            "unitName": "GreenMage",
             "unitDamage": 240000,
             "unitSpeed": 3.0,
             "attackRange": 40.0
         },
         {
-            "unitName": "Orange_SwordMan",
+            "unitName": "OrangeSwordman",
             "unitDamage": 60,
             "unitSpeed": 15.0,
             "attackRange": 6.0
         },
         {
-            "unitName": "Orange_Archer",
+            "unitName": "OrangeArcher",
             "unitDamage": 2000,
             "unitSpeed": 6.0,
             "attackRange": 50.0
         },
         {
-            "unitName": "Orange_Spearman",
+            "unitName": "OrangeSpearman",
             "unitDamage": 24000,
             "unitSpeed": 15.0,
             "attackRange": 10.0
         },
         {
-            "unitName": "Orange_Mage",
+            "unitName": "OrangeMage",
             "unitDamage": 240000,
             "unitSpeed": 3.0,
             "attackRange": 40.0
         },
         {
-            "unitName": "Violet_SwordMan",
+            "unitName": "VioletSwordman",
             "unitDamage": 60,
             "unitSpeed": 15.0,
             "attackRange": 6.0
         },
         {
-            "unitName": "Violet_Archer",
+            "unitName": "VioletArcher",
             "unitDamage": 2000,
             "unitSpeed": 6.0,
             "attackRange": 50.0
         },
         {
-            "unitName": "Violet_Spearman",
+            "unitName": "VioletSpearman",
             "unitDamage": 24000,
             "unitSpeed": 15.0,
             "attackRange": 10.0
         },
         {
-            "unitName": "Violet_Mage",
+            "unitName": "VioletMage",
             "unitDamage": 240000,
             "unitSpeed": 3.0,
             "attackRange": 40.0
         },
         {
-            "unitName": "Black_SwordMan",
+            "unitName": "BlackSwordman",
             "unitDamage": 500,
             "unitSpeed": 15.0,
             "attackRange": 6.0
         },
         {
-            "unitName": "Black_Archer",
+            "unitName": "BlackArcher",
             "unitDamage": 3000,
             "unitSpeed": 6.0,
             "attackRange": 50.0
         },
         {
-            "unitName": "Black_Spearman",
+            "unitName": "BlackSpearman",
             "unitDamage": 50000,
             "unitSpeed": 15.0,
             "attackRange": 10.0
         },
         {
-            "unitName": "Black_Mage",
+            "unitName": "BlackMage",
             "unitDamage": 1000000,
             "unitSpeed": 3.0,
             "attackRange": 40.0
         },
         {
-            "unitName": "White_SwordMan",
+            "unitName": "WhiteSwordman",
             "unitDamage": 1000,
             "unitSpeed": 15.0,
             "attackRange": 6.0
         },
         {
-            "unitName": "White_Archer",
+            "unitName": "WhiteArcher",
             "unitDamage": 10000,
             "unitSpeed": 6.0,
             "attackRange": 50.0
         },
         {
-            "unitName": "White_Spearman",
+            "unitName": "WhiteSpearman",
             "unitDamage": 100000,
             "unitSpeed": 15.0,
             "attackRange": 10.0
         },
         {
-            "unitName": "White_Mage",
+            "unitName": "WhiteMage",
             "unitDamage": 1000000,
             "unitSpeed": 3.0,
             "attackRange": 40.0

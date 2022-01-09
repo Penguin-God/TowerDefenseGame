@@ -9,16 +9,18 @@ public class Unit_Spearman : MeeleUnit, IEvent
     public GameObject spear;
     public GameObject skileSpaer; // 발사할 때 생성하는 창
     public Transform spearCreatePosition;
-    //public GameObject dontMoveGameObject;
 
     [SerializeField]
     private AudioClip skillAudioClip;
 
     public override void OnAwake()
     {
-        //dontMoveGameObject = GameObject.Find("World");
-        skillDamage = (int)(damage * 1.5f);
         poolManager.SettingWeaponPool(skileSpaer, 5);
+    }
+
+    public override void SetInherenceData()
+    {
+        skillDamage = (int)(damage * 1.5f);
     }
 
     public override void NormalAttack()

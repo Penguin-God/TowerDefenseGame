@@ -45,10 +45,23 @@ public class UnitManager : MonoBehaviour
             Debug.LogWarning("UnitManager 2개");
             Destroy(gameObject);
         }
+
         PlusMaxUnit = PlayerPrefs.GetInt("PlusMaxUnit");
         maxUnit +=  PlusMaxUnit;
+        unitDB = GetComponent<UnitDataBase>();
         currentUnitList = new List<GameObject>();
+
         StartCoroutine(UnitListCheck_Coroutine());
+    }
+
+    UnitDataBase unitDB = null;
+    public void ApplyUnitData(string _tag, TeamSoldier _team)
+    {
+        unitDB.ApplyData(_tag, _team);
+    }
+    public float[] GetUnitPassiveData(string _key)
+    {
+        return unitDB.GetPassiveData(_key);
     }
 
     public List<GameObject> currentUnitList;

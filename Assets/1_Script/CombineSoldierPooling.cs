@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CombineSoldierPooling : MonoBehaviour
 {
-    // Type이 ObjectPool로 되있었는데 에러떠서 임시로 바꿔둠
     public static CombineSoldierPooling Instance;
     [SerializeField] private GameObject poolingObjectPrefab;
     Queue<Unit_Swordman> poolingObjectQueue = new Queue<Unit_Swordman>();

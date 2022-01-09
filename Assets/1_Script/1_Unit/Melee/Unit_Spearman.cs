@@ -18,7 +18,7 @@ public class Unit_Spearman : MeeleUnit, IEvent
     {
         //dontMoveGameObject = GameObject.Find("World");
         skillDamage = (int)(damage * 1.5f);
-        SettingWeaponPool(skileSpaer, 5);
+        poolManager.SettingWeaponPool(skileSpaer, 5);
     }
 
     public override void NormalAttack()
@@ -56,7 +56,7 @@ public class Unit_Spearman : MeeleUnit, IEvent
         spear.SetActive(false);
         nav.isStopped = true;
 
-        CollisionWeapon weapon = UsedWeapon(spearCreatePosition, transform.forward * -1, 50);
+        CollisionWeapon weapon = poolManager.UsedWeapon(spearCreatePosition, transform.forward * -1, 50, (Enemy enemy) => delegate_OnHit(enemy));
         weapon.transform.Rotate(90, 0, 0);
 
         //CollisionWeapon UseWeapon = GetWeapon_FromPool();

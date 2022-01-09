@@ -14,7 +14,7 @@ public class Unit_Mage : RangeUnit, IEvent
 
     public override void OnAwake()
     {
-        SettingWeaponPool(energyBall, 7);
+        poolManager.SettingWeaponPool(energyBall, 7);
         if (unitColor == UnitColor.white) return;
 
         canvasRectTransform = transform.parent.GetComponentInChildren<RectTransform>();
@@ -43,7 +43,7 @@ public class Unit_Mage : RangeUnit, IEvent
 
         if (target != null && enemyDistance < chaseRange)
         {
-            UsedWeapon(energyBallTransform, Get_ShootDirection(2f, target), 50);
+            poolManager.UsedWeapon(energyBallTransform, Get_ShootDirection(2f, target), 50, (Enemy enemy) => delegate_OnHit(enemy));
             //CollisionWeapon UseWeapon = GetWeapon_FromPool();
             //UseWeapon.transform.position = energyBallTransform.position;
             //UseWeapon.Shoot(Get_ShootDirection(2f, target), 50, (Enemy enemy) => delegate_OnHit(enemy));

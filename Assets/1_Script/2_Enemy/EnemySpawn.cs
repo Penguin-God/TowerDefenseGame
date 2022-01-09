@@ -186,8 +186,8 @@ public class EnemySpawn : MonoBehaviour
     }
 
     // 보스 코드
-    public bool bossRespawn;
-    public int bossLevel;
+    public bool BossRespawn { get; private set; } = false;
+    [SerializeField] int bossLevel;
 
     // 시발같은 코드
     public int bossRewordGold;
@@ -199,7 +199,7 @@ public class EnemySpawn : MonoBehaviour
     void RespawnBoss()
     {
         bossLevel++;
-        bossRespawn = true;
+        BossRespawn = true;
         GameManager.instance.ChangeBGM(GameManager.instance.bossbgmClip);
 
         SetBossStatus();
@@ -237,7 +237,7 @@ public class EnemySpawn : MonoBehaviour
     void SetData(EnemyBoss boss)
     {
         currentBossList.Remove(boss);
-        bossRespawn = false;
+        if(currentBossList.Count > 0) BossRespawn = false;
     }
 
     // 이름 좀 바꾸기
@@ -273,7 +273,7 @@ public class EnemySpawn : MonoBehaviour
     public int[] arr_TowersHp;
     [HideInInspector]
     private int currentTowerLevel = 0;
-    public EnemyTower currentTower = null;
+    public EnemyTower currentTower { get; private set; } = null;
 
     public CreateDefenser createDefenser;
     public Shop shop;

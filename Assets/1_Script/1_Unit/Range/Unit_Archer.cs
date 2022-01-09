@@ -14,7 +14,7 @@ public class Unit_Archer : RangeUnit, IEvent
     {
         if(!enterStoryWorld) trail = GetComponentInChildren<TrailRenderer>().gameObject;
         skillDamage = (int)(damage * 1.2f);
-        SettingWeaponPool(arrow, 15);
+        poolManager.SettingWeaponPool(arrow, 15);
     }
 
     public override void NormalAttack()
@@ -30,7 +30,7 @@ public class Unit_Archer : RangeUnit, IEvent
         trail.SetActive(false);
         if (target != null && enemyDistance < chaseRange)
         {
-            UsedWeapon(arrowTransform, Get_ShootDirection(2f, target), 50);
+            poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, target), 50, (Enemy enemy) => delegate_OnHit(enemy));
 
             //CollisionWeapon UseWeapon = GetWeapon_FromPool();
             //UseWeapon.transform.position = arrowTransform.position;
@@ -47,7 +47,7 @@ public class Unit_Archer : RangeUnit, IEvent
 
     public override void SpecialAttack()
     {
-        if (target.gameObject.CompareTag("Tower") || target.gameObject.CompareTag("Boss"))
+        if (TargetIsNormalEnemy)
         {
             NormalAttack();
             PlayNormalAttackClip();
@@ -67,7 +67,7 @@ public class Unit_Archer : RangeUnit, IEvent
         Transform[] targetArray = Set_AttackTarget(target, enemySpawn.currentEnemyList, enemyCount);
         for (int i = 0; i < targetArray.Length; i++)
         {
-            UsedWeapon(arrowTransform, Get_ShootDirection(2f, targetArray[i]), 50);
+            poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, targetArray[i]), 50, (Enemy enemy) => delegate_OnHit(enemy));
 
             //CollisionWeapon UseWeapon = GetWeapon_FromPool();
             //UseWeapon.transform.position = arrowTransform.position;
@@ -87,48 +87,32 @@ public class Unit_Archer : RangeUnit, IEvent
         base.NormalAttack();
     }
 
-    // 첫번째에 targetTransform을 넣고 currentEnemyList에서 targetTransform을 가장 가까운 transform을 count 크기만큼 가지는 array를 return하는 함수
+    // 현재 타겟을 포함해서 가장 가까운 적 count만큼의 Transform[]를 return하는 함수
     Transform[] Set_AttackTarget(Transform p_Target, List<GameObject> currentEnemyList, int count)
     {
         if (currentEnemyList.Count == 0) return null;
 
-        List<Transform> tf_EnemyList = new List<Transform>(); // 새로운 리스트 생성
-        for(int i = 0; i < currentEnemyList.Count; i++)
-        {
-            tf_EnemyList.Add(currentEnemyList[i].transform);
-        }
+        List<GameObject> _EnemyList = new List<GameObject>(); // 새로운 리스트 생성
+        for(int i = 0; i < currentEnemyList.Count; i++) _EnemyList.Add(currentEnemyList[i]);
+
         Transform[] targetArray = new Transform[count];
         targetArray[0] = p_Target;
-        tf_EnemyList.Remove(p_Target);
+        _EnemyList.Remove(p_Target.gameObject);
 
-        float shortDistance = 150f;
-        Transform targetTransform= null;
-
-        for (int i = 1; i < count; i++) // 위에서 array에 targetTransform을 넣었으니 i가 1부타 시작
+        for (int i = 1; i < count; i++) // 위에서 array에 targetTransform을 넣었으니 i가 1부터 시작
         {
-            if(tf_EnemyList.Count != 0 && !target.gameObject.CompareTag("Tower") &&  !target.gameObject.CompareTag("Boss"))
+            if(_EnemyList.Count != 0 && TargetIsNormalEnemy)
             {
-                foreach (Transform enemyTransform in tf_EnemyList)
+                GameObject _obj = GetProximateEnemy_AtList(_EnemyList);
+                if (_obj != null)
                 {
-                    if (enemyTransform != null)
-                    {
-                        float distanceToEnemy = Vector3.Distance(p_Target.position, enemyTransform .position);
-                        if (distanceToEnemy < shortDistance)
-                        {
-                            shortDistance = distanceToEnemy;
-                            targetTransform = enemyTransform ; 
-                        }
-                    }
-                }
-                shortDistance = 150f;
-                if (targetTransform!= null)
-                {
-                    targetArray[i] = targetTransform;
-                    tf_EnemyList.Remove(targetTransform);
+                    targetArray[i] = _obj.transform;
+                    _EnemyList.Remove(_obj);
                 }
             }
             else targetArray[i] = p_Target; // 적이 부족하거나 보스이면 1명한테 올인
         }
+
         return targetArray;
     }
 

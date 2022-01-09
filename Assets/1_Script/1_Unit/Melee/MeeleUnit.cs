@@ -22,10 +22,7 @@ public class MeeleUnit : TeamSoldier
                 nav.speed = 0.01f;
                 nav.angularSpeed = 1f;
             }
-            else
-            {
-                nav.speed = 0.2f;
-            }
+            else nav.speed = 0.2f;
         }
         else
         {

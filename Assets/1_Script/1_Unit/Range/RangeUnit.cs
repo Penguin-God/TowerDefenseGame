@@ -5,7 +5,6 @@ using System;
 
 public class RangeUnit : TeamSoldier
 {
-    public bool isFix = false;
     public override void UnitTypeMove()
     {
         if (enterStoryWorld) return;
@@ -19,17 +18,6 @@ public class RangeUnit : TeamSoldier
         }
         else nav.speed = this.speed;
     }
-
-    //protected GameObject CreateBullte(GameObject instantObject, Transform createPositon, Delegate_OnHit OnDamage)
-    //{
-    //    Vector3 instantPosition = new Vector3(createPositon.position.x, 2f, createPositon.position.z);
-    //    GameObject instantBullet = Instantiate(instantObject, instantPosition, (unitType == Type.archer) ? Quaternion.identity : transform.parent.rotation);
-
-    //    CollisionWeapon weapon = instantBullet.GetComponent<CollisionWeapon>();
-    //    //if (weapon != null) weapon.UnitOnDamage += (Enemy enemy) => OnDamage(enemy);
-    //    //else Debug.LogWarning("아니 CollisionWeapon이 읎어요");
-    //    return instantBullet;
-    //}
 
     // 원거리 유닛 무기 발사
     protected Vector3 Get_ShootDirection(float weightRate, Transform _target)

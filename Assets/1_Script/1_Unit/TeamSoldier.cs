@@ -3,6 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
+public class WeaponPoolManager : MonoBehaviour
+{
+    Queue<CollisionWeapon> weaponPool = new Queue<CollisionWeapon>();
+    public void SettingWeaponPool(GameObject weaponObj, int count)
+    {
+        for (int i = 0; i < count; i++)
+        {
+            CollisionWeapon weapon = Instantiate(weaponObj, new Vector3(-500, -500, -500), Quaternion.identity).GetComponent<CollisionWeapon>();
+            weapon.gameObject.SetActive(false);
+            weaponPool.Enqueue(weapon);
+        }
+    }
+
+    public CollisionWeapon UsedWeapon(Transform weaponPos, Vector3 dir, int speed, System.Action<Enemy> hitAction)
+    {
+        CollisionWeapon UseWeapon = GetWeapon_FromPool();
+        UseWeapon.transform.position = new Vector3(weaponPos.position.x, 2f, weaponPos.position.z);
+        UseWeapon.Shoot(dir, speed, (Enemy enemy) => hitAction(enemy));
+        return UseWeapon;
+    }
+
+    // 풀에서 잠깐 꺼내고 다시 들어감
+    public CollisionWeapon GetWeapon_FromPool()
+    {
+        CollisionWeapon getWeapon = weaponPool.Dequeue();
+        getWeapon.gameObject.SetActive(true);
+        StartCoroutine(Co_ReturnWeapon_ToPool(getWeapon, 5f));
+        return getWeapon;
+    }
+
+    IEnumerator Co_ReturnWeapon_ToPool(CollisionWeapon _weapon, float time)
+    {
+        yield return new WaitForSeconds(time);
+        _weapon.gameObject.SetActive(false);
+        _weapon.transform.position = new Vector3(-500, -500, -500);
+        _weapon.transform.rotation = Quaternion.identity;
+        weaponPool.Enqueue(_weapon);
+    }
+}
+
 public class TeamSoldier : MonoBehaviour
 {    
     public enum Type { sowrdman, archer, spearman, mage }
@@ -33,20 +73,33 @@ public class TeamSoldier : MonoBehaviour
     protected NavMeshAgent nav;
     public Transform target;
     protected Enemy TargetEnemy { get { return target.GetComponent<Enemy>(); } }
-    //protected Enemy 
-    //protected NomalEnemy nomalEnemy;
     protected EnemySpawn enemySpawn;
 
+    protected WeaponPoolManager poolManager = null;
     protected Animator animator;
     protected AudioSource unitAudioSource;
-    public AudioClip normalAttackClip;
+    [SerializeField] protected AudioClip normalAttackClip;
     public float normalAttakc_AudioDelay;
 
     public GameObject reinforceEffect;
     protected float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
 
+    [HideInInspector]
+    public bool passiveReinForce;
+
+    // 적에게 대미지 입히기, 패시브 적용 등의 역할을 하는 델리게이트
+    public delegate void Delegate_OnHit(Enemy enemy);
+    protected Delegate_OnHit delegate_OnHit; // 평타
+    protected Delegate_OnHit delegate_OnSkile; // 스킬
+    public Delegate_OnHit delegate_OnPassive; // 패시브
+
     private void Awake()
     {
+        // 유니티에서 class는 게임오브젝트의 컴포넌트로서만 작동하기 때문에 컴포넌트로 추가 후 사용해야한다.(폴더 내에 C#스크립트 생성 안해도 됨)
+        // Unity초보자가 많이 하는 실수^^
+        gameObject.AddComponent<WeaponPoolManager>();
+        poolManager = GetComponent<WeaponPoolManager>();
+
         // 변수 선언
         enemySpawn = FindObjectOfType<EnemySpawn>();
         animator = GetComponent<Animator>();
@@ -67,50 +120,14 @@ public class TeamSoldier : MonoBehaviour
         // 유닛별 세팅
         OnAwake();
     }
+    public virtual void OnAwake() { }
 
-    public virtual void OnAwake() {}
-
-    Queue<CollisionWeapon> weaponPool = new Queue<CollisionWeapon>();
-    protected void SettingWeaponPool(GameObject weaponObj, int count)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            CollisionWeapon weapon = Instantiate(weaponObj, new Vector3(-500, -500, -500), Quaternion.identity).GetComponent<CollisionWeapon>();
-            weapon.gameObject.SetActive(false);
-            weaponPool.Enqueue(weapon);
-        }
-    }
-
-    protected CollisionWeapon UsedWeapon(Transform weaponPos, Vector3 dir, int speed)
-    {
-        CollisionWeapon UseWeapon = GetWeapon_FromPool();
-        UseWeapon.transform.position = new Vector3(weaponPos.position.x, 2f, weaponPos.position.z);
-        UseWeapon.Shoot(dir, speed, (Enemy enemy) => delegate_OnHit(enemy));
-        return UseWeapon;
-    }
-
-    // 풀에서 잠깐 꺼내고 다시 들어감
-    protected CollisionWeapon GetWeapon_FromPool()
-    {
-        CollisionWeapon getWeapon = weaponPool.Dequeue();
-        getWeapon.gameObject.SetActive(true);
-        StartCoroutine(Co_ReturnWeapon_ToPool(getWeapon, 5f));
-        return getWeapon;
-    }
-
-    IEnumerator Co_ReturnWeapon_ToPool(CollisionWeapon _weapon, float time)
-    {
-        yield return new WaitForSeconds(time);
-        _weapon.gameObject.SetActive(false);
-        _weapon.transform.position = new Vector3(-500, -500, -500);
-        _weapon.transform.rotation = Quaternion.identity;
-        weaponPool.Enqueue(_weapon);
-    }
+    
 
     void OnEnable()
     {
         UnitManager.instance.currentUnitList.Add(gameObject);
-        animator.enabled = true;
+        if(animator != null) animator.enabled = true;
         nav.enabled = true;
 
         // 적 추적
@@ -123,21 +140,18 @@ public class TeamSoldier : MonoBehaviour
         SetChaseSetting(null);
         StopAllCoroutines();
         UnitManager.instance.currentUnitList.Remove(gameObject);
-        isAttack = false; 
+        isAttack = false;
         isAttackDelayTime = false; 
         isSkillAttack = false;
-        animator.enabled = false;
+        if (animator != null) animator.enabled = false;
         nav.enabled = false;
-}
+    }
 
-    [HideInInspector]
-    public bool passiveReinForce;
+    void SetData(string _tag)
+    {
 
-    // 적에게 대미지 입히기, 패시브 적용 등의 역할을 하는 델리게이트
-    public delegate void Delegate_OnHit(Enemy enemy);
-    protected Delegate_OnHit delegate_OnHit; // 평타
-    protected Delegate_OnHit delegate_OnSkile; // 스킬
-    public Delegate_OnHit delegate_OnPassive; // 패시브
+    }
+
 
     public int specialAttackPercent;
     void UnitAttack()
@@ -173,7 +187,7 @@ public class TeamSoldier : MonoBehaviour
     {
         // override 코루틴 마지막 부분에서 실행하는 코드
         StartCoroutine(Co_ResetAttactStatus());
-        if (target != null && TragetIsNormalEnemy) UpdateTarget();
+        if (target != null && TargetIsNormalEnemy) UpdateTarget();
     }
 
     IEnumerator Co_ResetAttactStatus()
@@ -222,7 +236,7 @@ public class TeamSoldier : MonoBehaviour
         return false;
     }
 
-    bool CheckObjectIsBoss(GameObject enemy)
+    bool CheckObjectIsBoss(GameObject enemy) // target을 사용하는게 아니라 킹쩔 수 없음
     {
         return enemy.CompareTag("Tower") || enemy.CompareTag("Boss");
     }
@@ -236,8 +250,6 @@ public class TeamSoldier : MonoBehaviour
 
     IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
     {
-        // 적군의 성에서 돌아올 때 boss 있으면 보스만 추격
-        if (enemySpawn.bossRespawn && enemySpawn.currentBossList[0] != null) SetChaseSetting(enemySpawn.currentBossList[0].gameObject);
         while (true)
         {
             if (target != null) enemyDistance = Vector3.Distance(this.transform.position, target.position);
@@ -263,34 +275,18 @@ public class TeamSoldier : MonoBehaviour
             yield return null;
         }
     }
-    public bool contactEnemy = false;
+    protected bool contactEnemy = false;
 
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
-        if (enemySpawn.bossRespawn) // 보스 있으면 보스가 타겟
+        if (EnemySpawn.instance.BossRespawn) // 보스 있으면 보스가 타겟
         {
             SetChaseSetting(enemySpawn.currentBossList[0].gameObject);
             return;
         }
 
-        float shortDistance = chaseRange;
-        GameObject targetObject = null;
-        if (enemySpawn.currentEnemyList.Count > 0)
-        {
-            foreach (GameObject enemyObject in enemySpawn.currentEnemyList)
-            {
-                if (enemyObject != null)
-                {
-                    float distanceToEnemy = Vector3.Distance(this.transform.position, enemyObject.transform.position);
-                    if (distanceToEnemy < shortDistance)
-                    {
-                        shortDistance = distanceToEnemy;
-                        targetObject = enemyObject;
-                    }
-                }
-            }
-        }
-        // 위에서 업데이트된 targetObject의 정보를 가지고 nav 및 변수 설정
+        // currnetEnemyList에서 가져온 가장 가까운 enemy의 정보를 가지고 nav 및 변수 설정
+        GameObject targetObject = GetProximateEnemy_AtList(EnemySpawn.instance.currentEnemyList);
         SetChaseSetting(targetObject); 
     }
 
@@ -308,6 +304,30 @@ public class TeamSoldier : MonoBehaviour
             target = null;
         }
     }
+    // Proximate : 가장 가까운
+    protected GameObject GetProximateEnemy_AtList(List<GameObject> _list)
+    {
+        float shortDistance = chaseRange;
+        GameObject returnObject = null;
+        if (_list.Count > 0)
+        {
+            foreach (GameObject enemyObject in enemySpawn.currentEnemyList)
+            {
+                if (enemyObject != null)
+                {
+                    float distanceToEnemy = Vector3.Distance(this.transform.position, enemyObject.transform.position);
+                    if (distanceToEnemy < shortDistance)
+                    {
+                        shortDistance = distanceToEnemy;
+                        returnObject = enemyObject;
+                    }
+                }
+            }
+        }
+        return returnObject;
+    }
+
+
 
     // 타워 때리는 무한반복 코루틴
     IEnumerator TowerNavCoroutine()
@@ -333,7 +353,7 @@ public class TeamSoldier : MonoBehaviour
             nav.SetDestination(towerHit.point);
             enemyDistance = Vector3.Distance(this.transform.position, towerHit.point);
             
-            if ((towerEnter || enemyIsForward) && !isAttackDelayTime && !isSkillAttack && !isAttack)
+            if ((contactEnemy || enemyIsForward) && !isAttackDelayTime && !isSkillAttack && !isAttack)
                 UnitAttack();
 
             yield return new WaitForSeconds(0.5f);
@@ -349,8 +369,7 @@ public class TeamSoldier : MonoBehaviour
         }
     }
 
-    [SerializeField]
-    protected bool towerEnter; // 타워 충돌감지
+    //protected bool towerEnter; // 타워 충돌감지
     public bool enterStoryWorld;
 
     public void Unit_WorldChange()
@@ -371,15 +390,13 @@ public class TeamSoldier : MonoBehaviour
             nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
             transform.parent.position = UnitManager.instance.Set_StroyModePosition();
             StopCoroutine("NavCoroutine");
-            target = GameObject.FindGameObjectWithTag("Tower").transform;
-            layerMask = ReturnLayerMask(target.gameObject);
+            SetChaseSetting(EnemySpawn.instance.currentTower.gameObject);
             StartCoroutine("TowerNavCoroutine");
         }
         else
         {
             nav.obstacleAvoidanceType = ObstacleAvoidanceType.GoodQualityObstacleAvoidance;
             transform.parent.position = SetRandomPosition(20, -20, 10, -10, false);
-            towerEnter = false;
             StopCoroutine("TowerNavCoroutine");
             UpdateTarget();
             StartCoroutine("NavCoroutine");
@@ -388,14 +405,6 @@ public class TeamSoldier : MonoBehaviour
         nav.enabled = true;
         enterStoryWorld = !enterStoryWorld;
         SoundManager.instance.PlayEffectSound_ByName("TP_Unit");
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.tag == "Tower")
-        {
-            towerEnter = true;
-        }
     }
 
     Vector3 SetRandomPosition(float maxX, float minX, float maxZ, float minZ, bool isTower)
@@ -414,11 +423,11 @@ public class TeamSoldier : MonoBehaviour
     }
 
     // 현재 타겟이 노말인지 아닌지 나타내는 프로퍼티
-    protected bool TragetIsNormalEnemy { get { return (target != null && target.GetComponent<NomalEnemy>() ); } }
+    protected bool TargetIsNormalEnemy { get { return (target != null && target.GetComponent<NomalEnemy>() ); } }
 
     void AttackEnemy(Enemy enemy) // Boss enemy랑 쫄병 구분
     {
-        if (TragetIsNormalEnemy) enemy.OnDamage(damage);
+        if (TargetIsNormalEnemy) enemy.OnDamage(damage);
         else enemy.OnDamage(bossDamage);
     }
 }

@@ -6,25 +6,37 @@ public class CombineSoldierPooling : MonoBehaviour
 {
     public static CombineSoldierPooling Instance;
     [SerializeField] private GameObject poolingObjectPrefab;
-    Queue<Unit_Swordman> poolingObjectQueue = new Queue<Unit_Swordman>();
+    Queue<GameObject> poolingObjectQueue = new Queue<GameObject>();
+
+    public CreateDefenser createDefenser;
+
+    
     private void Awake()
     {
-        Instance = this; Initialize(10);
+        Instance = this;
+        Initialize();
     }
-    private void Initialize(int initCount)
+    private void Initialize()
     {
-        for (int i = 0; i < initCount; i++)
+        for (int i = 0; i < 6; i++)
         {
-            poolingObjectQueue.Enqueue(CreateNewObject()); 
+            for (int j = 0; j < 4; j++)
+            {
+                poolingObjectQueue.Enqueue(createDefenser.CreateSoldier(i, j));
+            }
         } 
     }
-    private Unit_Swordman CreateNewObject() 
+    private GameObject CreateNewObject() 
     {
-        var newObj = Instantiate(poolingObjectPrefab).GetComponent<Unit_Swordman>(); newObj.gameObject.SetActive(false); newObj.transform.SetParent(transform); return newObj;
+        var newObj = Instantiate(poolingObjectPrefab).GetComponent<GameObject>();
+        newObj.gameObject.SetActive(false);
+        newObj.transform.SetParent(transform);
+        return newObj;
     }
-    public static Unit_Swordman GetObject() {
+    public static GameObject GetObject() {
         if (Instance.poolingObjectQueue.Count > 0)
-        { var obj = Instance.poolingObjectQueue.Dequeue();
+        { 
+            var obj = Instance.poolingObjectQueue.Dequeue();
             obj.transform.SetParent(null); obj.gameObject.SetActive(true);
             return obj;
         }
@@ -36,7 +48,7 @@ public class CombineSoldierPooling : MonoBehaviour
             return newObj; 
         } 
     }
-    public static void ReturnObject(Unit_Swordman obj) 
+    public static void ReturnObject(GameObject obj) 
     {
         obj.gameObject.SetActive(false);
         obj.transform.SetParent(Instance.transform);

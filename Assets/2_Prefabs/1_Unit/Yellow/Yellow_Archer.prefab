@@ -215,10 +215,7 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
   enterStoryWorld: 0
-  isFix: 0
   arrow: {fileID: 3088359444298159365, guid: 9e514e9df4ef0054e96ba63a50b5df72, type: 3}
   arrowTransform: {fileID: 8715698879809390191}
 --- !u!114 &813552571
@@ -234,10 +231,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamSoldier: {fileID: 0}
-  addGold: 1
-  getGoldPercent: 2
-  enhanced_AddGold: 4
-  enhanced_GetGoldPercent: 1
+  getGoldPercent: 0
+  addGold: 0
+  enhanced_AddGold: 0
+  enhanced_GetGoldPercent: 0
 --- !u!1 &8715202503755447900
 GameObject:
   m_ObjectHideFlags: 0

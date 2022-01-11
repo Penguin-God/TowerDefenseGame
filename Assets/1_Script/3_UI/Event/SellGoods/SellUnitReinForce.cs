@@ -11,7 +11,7 @@ public enum ReinForceType
 public class SellUnitReinForce : MonoBehaviour, ISellEventShopItem
 {
     public ReinForceType reinForceType;
-    [SerializeField] int unitColorNumber;
+    [SerializeField] string unitColor;
 
     delegate void ReinForceUnit();
     ReinForceUnit reinForceUnit = null;
@@ -26,10 +26,10 @@ public class SellUnitReinForce : MonoBehaviour, ISellEventShopItem
         switch (reinForceType)
         {
             case ReinForceType.DamageUp:
-                reinForceUnit = () => EventManager.instance.Up_UnitDamage(unitColorNumber);
+                reinForceUnit = () => EventManager.instance.Up_UnitDamage(unitColor);
                 break;
             case ReinForceType.BossDamageUp:
-                reinForceUnit = () => EventManager.instance.Up_UnitBossDamage(unitColorNumber);
+                reinForceUnit = () => EventManager.instance.Up_UnitBossDamage(unitColor);
                 break;
         }
     }

@@ -3,6 +3,11 @@ using UnityEngine;
 
 public class BluePassive : UnitPassive
 {
+    [SerializeField] float apply_SlowPercet;
+    [SerializeField] float apply_SlowTime;
+    
+    
+    [Space] [Space]
     [SerializeField] float slowPercent;
     [SerializeField] float slowTime;
 
@@ -14,13 +19,18 @@ public class BluePassive : UnitPassive
 
     public override void SetPassive()
     {
-        teamSoldier.delegate_OnPassive += (Enemy enemy) => enemy.EnemySlow(slowPercent, slowTime);
+        teamSoldier.delegate_OnPassive += (Enemy enemy) => enemy.EnemySlow(apply_SlowPercet, apply_SlowTime);
     }
 
-    public override void ApplyData(float P1, float P2 = 0, float P3 = 0)
+    public override void ApplyData(float p1, float en_p1, float p2 = 0, float en_p2 = 0, float p3 = 0, float en_p3 = 0)
     {
-        slowPercent = P1;
-        slowTime = P2;
+        slowPercent = p1;
+        enhanced_SlowPercent = en_p1;
+        slowTime = p2;
+        enhanced_SlowTime = en_p2;
+
+        apply_SlowPercet = slowPercent;
+        apply_SlowTime = slowTime;
     }
 
     [Space] [Space] [Space]
@@ -28,8 +38,8 @@ public class BluePassive : UnitPassive
     [SerializeField] float enhanced_SlowTime;
     public override void Beefup_Passive()
     {
-        slowPercent = enhanced_SlowPercent;
-        slowTime = enhanced_SlowTime;
+        apply_SlowPercet = enhanced_SlowPercent;
+        apply_SlowTime = enhanced_SlowTime;
         if(OnBeefup != null) OnBeefup();
     }
 }

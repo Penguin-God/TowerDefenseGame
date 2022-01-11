@@ -2,6 +2,12 @@
 
 public class VioletPassive : UnitPassive
 {
+    [SerializeField] int apply_SturnPercent;
+    [SerializeField] float apply_StrunTime;
+    [SerializeField] int apply_MaxPoisonDamage;
+
+    [Space]
+    [Space]
     [SerializeField] int sturnPercent;
     [SerializeField] float strunTime;
     [SerializeField] int maxPoisonDamage;
@@ -13,15 +19,23 @@ public class VioletPassive : UnitPassive
 
     void Passive_Violet(Enemy p_Enemy)
     {
-        p_Enemy.EnemyStern(sturnPercent, strunTime);
-        p_Enemy.EnemyPoisonAttack(20, 4, 0.5f, maxPoisonDamage);
+        p_Enemy.EnemyStern(apply_SturnPercent, apply_StrunTime);
+        p_Enemy.EnemyPoisonAttack(20, 4, 0.5f, apply_MaxPoisonDamage);
     }
 
-    public override void ApplyData(float P1, float P2 = 0, float P3 = 0)
+    public override void ApplyData(float p1, float en_p1, float p2 = 0, float en_p2 = 0, float p3 = 0, float en_p3 = 0)
     {
-        sturnPercent = (int)P1;
-        strunTime = P2;
-        maxPoisonDamage = (int)P3;
+        sturnPercent = (int)p1;
+        enhanced_SturnPercent = (int)en_p1;
+        strunTime = p2;
+        enhanced_StrunTime = en_p2;
+        maxPoisonDamage = (int)p3;
+        enhanced_MaxPoisonDamage = (int)en_p3;
+
+        apply_SturnPercent = sturnPercent;
+        apply_StrunTime = strunTime;
+        apply_MaxPoisonDamage = maxPoisonDamage;
+
     }
 
     [Space] [Space] [Space]
@@ -30,8 +44,8 @@ public class VioletPassive : UnitPassive
     [SerializeField] int enhanced_MaxPoisonDamage;
     public override void Beefup_Passive()
     {
-        sturnPercent = enhanced_SturnPercent;
-        strunTime = enhanced_StrunTime;
-        maxPoisonDamage = enhanced_MaxPoisonDamage;
+        apply_SturnPercent = enhanced_SturnPercent;
+        apply_StrunTime = enhanced_StrunTime;
+        apply_MaxPoisonDamage = enhanced_MaxPoisonDamage;
     }
 }

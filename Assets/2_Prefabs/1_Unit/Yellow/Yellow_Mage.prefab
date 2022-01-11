@@ -523,10 +523,7 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
   enterStoryWorld: 0
-  isFix: 0
   magicLight: {fileID: 4865064561278535483}
   energyBall: {fileID: 7010148103123964683, guid: 19f8ca3693248454ab75c62a937b3812,
     type: 3}
@@ -552,10 +549,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamSoldier: {fileID: 0}
-  addGold: 2
   getGoldPercent: 15
-  enhanced_AddGold: 2
-  enhanced_GetGoldPercent: 30
+  addGold: 2
+  enhanced_GetGoldPercent: 2
+  enhanced_AddGold: 30
 --- !u!1 &2332124369005625246
 GameObject:
   m_ObjectHideFlags: 0

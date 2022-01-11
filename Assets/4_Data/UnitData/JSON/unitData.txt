@@ -1,0 +1,292 @@
+{
+    "dataList": [
+        {
+            "unitName": "RedSwordman",
+            "damage": 25,
+            "bossDamage": 25,
+            "attackDelayTime": 0.30000001192092898,
+            "specialAttackPercent": 0,
+            "speed": 15.0,
+            "attackRange": 6.0
+        },
+        {
+            "unitName": "RedArcher",
+            "damage": 500,
+            "bossDamage": 500,
+            "attackDelayTime": 0.5,
+            "specialAttackPercent": 30,
+            "speed": 6.0,
+            "attackRange": 50.0
+        },
+        {
+            "unitName": "RedSpearman",
+            "damage": 10000,
+            "bossDamage": 10000,
+            "attackDelayTime": 0.4000000059604645,
+            "specialAttackPercent": 30,
+            "speed": 15.0,
+            "attackRange": 10.0
+        },
+        {
+            "unitName": "RedMage",
+            "damage": 100000,
+            "bossDamage": 100000,
+            "attackDelayTime": 0.5,
+            "specialAttackPercent": 0,
+            "speed": 3.0,
+            "attackRange": 40.0
+        },
+        {
+            "unitName": "BlueSwordman",
+            "damage": 25,
+            "bossDamage": 25,
+            "attackDelayTime": 0.30000001192092898,
+            "specialAttackPercent": 0,
+            "speed": 15.0,
+            "attackRange": 6.0
+        },
+        {
+            "unitName": "BlueArcher",
+            "damage": 500,
+            "bossDamage": 500,
+            "attackDelayTime": 0.5,
+            "specialAttackPercent": 30,
+            "speed": 6.0,
+            "attackRange": 50.0
+        },
+        {
+            "unitName": "BlueSpearman",
+            "damage": 10000,
+            "bossDamage": 10000,
+            "attackDelayTime": 0.4000000059604645,
+            "specialAttackPercent": 30,
+            "speed": 15.0,
+            "attackRange": 10.0
+        },
+        {
+            "unitName": "BlueMage",
+            "damage": 100000,
+            "bossDamage": 100000,
+            "attackDelayTime": 0.5,
+            "specialAttackPercent": 0,
+            "speed": 3.0,
+            "attackRange": 40.0
+        },
+        {
+            "unitName": "YellowSwordman",
+            "damage": 25,
+            "bossDamage": 25,
+            "attackDelayTime": 0.30000001192092898,
+            "specialAttackPercent": 0,
+            "speed": 15.0,
+            "attackRange": 6.0
+        },
+        {
+            "unitName": "YellowArcher",
+            "damage": 500,
+            "bossDamage": 500,
+            "attackDelayTime": 0.5,
+            "specialAttackPercent": 30,
+            "speed": 6.0,
+            "attackRange": 50.0
+        },
+        {
+            "unitName": "YellowSpearman",
+            "damage": 10000,
+            "bossDamage": 10000,
+            "attackDelayTime": 0.4000000059604645,
+            "specialAttackPercent": 30,
+            "speed": 15.0,
+            "attackRange": 10.0
+        },
+        {
+            "unitName": "YellowMage",
+            "damage": 100000,
+            "bossDamage": 100000,
+            "attackDelayTime": 0.5,
+            "specialAttackPercent": 0,
+            "speed": 3.0,
+            "attackRange": 40.0
+        },
+        {
+            "unitName": "GreenSwordman",
+            "damage": 60,
+            "bossDamage": 60,
+            "attackDelayTime": 0.30000001192092898,
+            "specialAttackPercent": 0,
+            "speed": 15.0,
+            "attackRange": 6.0
+        },
+        {
+            "unitName": "GreenArcher",
+            "damage": 2000,
+            "bossDamage": 2000,
+            "attackDelayTime": 0.5,
+            "specialAttackPercent": 30,
+            "speed": 6.0,
+            "attackRange": 50.0
+        },
+        {
+            "unitName": "GreenSpearman",
+            "damage": 24000,
+            "bossDamage": 24000,
+            "attackDelayTime": 0.4000000059604645,
+            "specialAttackPercent": 30,
+            "speed": 15.0,
+            "attackRange": 10.0
+        },
+        {
+            "unitName": "GreenMage",
+            "damage": 240000,
+            "bossDamage": 240000,
+            "attackDelayTime": 0.5,
+            "specialAttackPercent": 0,
+            "speed": 3.0,
+            "attackRange": 40.0
+        },
+        {
+            "unitName": "OrangeSwordman",
+            "damage": 60,
+            "bossDamage": 60,
+            "attackDelayTime": 0.30000001192092898,
+            "specialAttackPercent": 0,
+            "speed": 15.0,
+            "attackRange": 6.0
+        },
+        {
+            "unitName": "OrangeArcher",
+            "damage": 2000,
+            "bossDamage": 2000,
+            "attackDelayTime": 0.5,
+            "specialAttackPercent": 30,
+            "speed": 6.0,
+            "attackRange": 50.0
+        },
+        {
+            "unitName": "OrangeSpearman",
+            "damage": 24000,
+            "bossDamage": 24000,
+            "attackDelayTime": 0.4000000059604645,
+            "specialAttackPercent": 30,
+            "speed": 15.0,
+            "attackRange": 10.0
+        },
+        {
+            "unitName": "OrangeMage",
+            "damage": 240000,
+            "bossDamage": 240000,
+            "attackDelayTime": 0.5,
+            "specialAttackPercent": 0,
+            "speed": 3.0,
+            "attackRange": 40.0
+        },
+        {
+            "unitName": "VioletSwordman",
+            "damage": 60,
+            "bossDamage": 60,
+            "attackDelayTime": 0.30000001192092898,
+            "specialAttackPercent": 0,
+            "speed": 15.0,
+            "attackRange": 6.0
+        },
+        {
+            "unitName": "VioletArcher",
+            "damage": 2000,
+            "bossDamage": 2000,
+            "attackDelayTime": 0.5,
+            "specialAttackPercent": 30,
+            "speed": 6.0,
+            "attackRange": 50.0
+        },
+        {
+            "unitName": "VioletSpearman",
+            "damage": 24000,
+            "bossDamage": 24000,
+            "attackDelayTime": 0.4000000059604645,
+            "specialAttackPercent": 30,
+            "speed": 15.0,
+            "attackRange": 10.0
+        },
+        {
+            "unitName": "VioletMage",
+            "damage": 240000,
+            "bossDamage": 240000,
+            "attackDelayTime": 0.5,
+            "specialAttackPercent": 0,
+            "speed": 3.0,
+            "attackRange": 40.0
+        },
+        {
+            "unitName": "BlackSwordman",
+            "damage": 500,
+            "bossDamage": 500,
+            "attackDelayTime": 0.30000001192092898,
+            "specialAttackPercent": 0,
+            "speed": 15.0,
+            "attackRange": 6.0
+        },
+        {
+            "unitName": "BlackArcher",
+            "damage": 3000,
+            "bossDamage": 3000,
+            "attackDelayTime": 0.5,
+            "specialAttackPercent": 30,
+            "speed": 6.0,
+            "attackRange": 50.0
+        },
+        {
+            "unitName": "BlackSpearman",
+            "damage": 50000,
+            "bossDamage": 50000,
+            "attackDelayTime": 0.4000000059604645,
+            "specialAttackPercent": 30,
+            "speed": 15.0,
+            "attackRange": 10.0
+        },
+        {
+            "unitName": "BlackMage",
+            "damage": 1000000,
+            "bossDamage": 1000000,
+            "attackDelayTime": 0.5,
+            "specialAttackPercent": 0,
+            "speed": 3.0,
+            "attackRange": 40.0
+        },
+        {
+            "unitName": "WhiteSwordman",
+            "damage": 1000,
+            "bossDamage": 1000,
+            "attackDelayTime": 0.30000001192092898,
+            "specialAttackPercent": 0,
+            "speed": 15.0,
+            "attackRange": 6.0
+        },
+        {
+            "unitName": "WhiteArcher",
+            "damage": 10000,
+            "bossDamage": 10000,
+            "attackDelayTime": 0.5,
+            "specialAttackPercent": 30,
+            "speed": 6.0,
+            "attackRange": 50.0
+        },
+        {
+            "unitName": "WhiteSpearman",
+            "damage": 100000,
+            "bossDamage": 100000,
+            "attackDelayTime": 0.4000000059604645,
+            "specialAttackPercent": 30,
+            "speed": 15.0,
+            "attackRange": 10.0
+        },
+        {
+            "unitName": "WhiteMage",
+            "damage": 1000000,
+            "bossDamage": 1000000,
+            "attackDelayTime": 0.5,
+            "specialAttackPercent": 0,
+            "speed": 3.0,
+            "attackRange": 40.0
+        }
+    ]
+}

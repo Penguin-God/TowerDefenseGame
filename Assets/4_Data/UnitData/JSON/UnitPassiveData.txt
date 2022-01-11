@@ -1,0 +1,220 @@
+{
+    "dataList": [
+        {
+            "name": "RedSwordman",
+            "p1": 0.699999988079071,
+            "p2": 0.0,
+            "p3": 0.0,
+            "enhance_p1": 0.5,
+            "enhance_p2": 0.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "RedArcher",
+            "p1": 0.4000000059604645,
+            "p2": 0.0,
+            "p3": 0.0,
+            "enhance_p1": 0.20000000298023225,
+            "enhance_p2": 0.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "RedSpearman",
+            "p1": 0.20000000298023225,
+            "p2": 0.0,
+            "p3": 0.0,
+            "enhance_p1": 0.10000000149011612,
+            "enhance_p2": 0.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "RedMage",
+            "p1": 0.5,
+            "p2": 0.0,
+            "p3": 0.0,
+            "enhance_p1": 0.20000000298023225,
+            "enhance_p2": 0.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "BlueSwordman",
+            "p1": 10.0,
+            "p2": 2.0,
+            "p3": 0.0,
+            "enhance_p1": 30.0,
+            "enhance_p2": 2.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "BlueArcher",
+            "p1": 30.0,
+            "p2": 2.0,
+            "p3": 0.0,
+            "enhance_p1": 60.0,
+            "enhance_p2": 3.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "BlueSpearman",
+            "p1": 70.0,
+            "p2": 3.0,
+            "p3": 0.0,
+            "enhance_p1": 80.0,
+            "enhance_p2": 4.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "BlueMage",
+            "p1": 60.0,
+            "p2": 25.0,
+            "p3": 0.0,
+            "enhance_p1": 60.0,
+            "enhance_p2": 40.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "YellowSwordman",
+            "p1": 0.0,
+            "p2": 0.0,
+            "p3": 0.0,
+            "enhance_p1": 0.0,
+            "enhance_p2": 0.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "YellowArcher",
+            "p1": 2.0,
+            "p2": 1.0,
+            "p3": 0.0,
+            "enhance_p1": 4.0,
+            "enhance_p2": 1.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "YellowSpearman",
+            "p1": 10.0,
+            "p2": 1.0,
+            "p3": 0.0,
+            "enhance_p1": 20.0,
+            "enhance_p2": 1.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "YellowMage",
+            "p1": 15.0,
+            "p2": 2.0,
+            "p3": 0.0,
+            "enhance_p1": 30.0,
+            "enhance_p2": 2.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "GreenSwordman",
+            "p1": 1.2000000476837159,
+            "p2": 0.0,
+            "p3": 0.0,
+            "enhance_p1": 1.5,
+            "enhance_p2": 0.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "GreenArcher",
+            "p1": 1.5,
+            "p2": 0.0,
+            "p3": 0.0,
+            "enhance_p1": 2.0,
+            "enhance_p2": 0.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "GreenSpearman",
+            "p1": 2.0,
+            "p2": 0.0,
+            "p3": 0.0,
+            "enhance_p1": 3.0,
+            "enhance_p2": 0.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "GreenMage",
+            "p1": 3.0,
+            "p2": 0.0,
+            "p3": 0.0,
+            "enhance_p1": 5.0,
+            "enhance_p2": 0.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "OrangeSwordman",
+            "p1": 1.5,
+            "p2": 0.0,
+            "p3": 0.0,
+            "enhance_p1": 2.0,
+            "enhance_p2": 0.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "OrangeArcher",
+            "p1": 2.0,
+            "p2": 0.0,
+            "p3": 0.0,
+            "enhance_p1": 3.0,
+            "enhance_p2": 0.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "OrangeSpearman",
+            "p1": 3.0,
+            "p2": 0.0,
+            "p3": 0.0,
+            "enhance_p1": 5.0,
+            "enhance_p2": 0.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "OrangeMage",
+            "p1": 5.0,
+            "p2": 0.0,
+            "p3": 0.0,
+            "enhance_p1": 8.5,
+            "enhance_p2": 0.0,
+            "enhance_p3": 0.0
+        },
+        {
+            "name": "VioletSwordman",
+            "p1": 10.0,
+            "p2": 2.0,
+            "p3": 8.0,
+            "enhance_p1": 25.0,
+            "enhance_p2": 2.0,
+            "enhance_p3": 16.0
+        },
+        {
+            "name": "VioletArcher",
+            "p1": 30.0,
+            "p2": 2.0,
+            "p3": 250.0,
+            "enhance_p1": 50.0,
+            "enhance_p2": 3.0,
+            "enhance_p3": 500.0
+        },
+        {
+            "name": "VioletSpearman",
+            "p1": 50.0,
+            "p2": 3.0,
+            "p3": 3000.0,
+            "enhance_p1": 70.0,
+            "enhance_p2": 4.0,
+            "enhance_p3": 6000.0
+        },
+        {
+            "name": "VioletMage",
+            "p1": 60.0,
+            "p2": 5.0,
+            "p3": 60000.0,
+            "enhance_p1": 90.0,
+            "enhance_p2": 6.0,
+            "enhance_p3": 120000.0
+        }
+    ]
+}

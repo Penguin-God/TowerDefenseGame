@@ -15,9 +15,9 @@ public class SetCurrentUnitShop : MonoBehaviour
 
     void SetMageUltimateGoods()
     {
-        List<int> mageUltimateGoodsList = EventManager.instance.Return_CurrentUnitColorList(3);
+        List<int> mageUltimateGoodsList = null; //EventManager.instance.Return_CurrentUnitColorList(3);
 
-        if(mageUltimateGoodsList.Count == 0) // 현재 법사 없으면 그냥 랜덤
+        if(mageUltimateGoodsList == null || mageUltimateGoodsList.Count == 0) // 현재 법사 없으면 그냥 랜덤
         {
             SetRandomGoods();
             return;

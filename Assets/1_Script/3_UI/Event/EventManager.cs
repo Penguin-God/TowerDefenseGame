@@ -4,13 +4,23 @@ using UnityEngine;
 using System;
 using UnityEngine.UI;
 
+public enum MyEventType
+{
+    None,
+    Up_UnitDamage,
+    Up_UnitBossDamage,
+    Up_UnitSkillPercent,
+    Reinforce_UnitPassive,
+}
+
 public class EventManager : MonoBehaviour
 {
     public static EventManager instance;
 
-    List<Action<int>> buffActionList;
-    Dictionary<Action<int>, string> eventTextDictionary;
 
+    List<Action<string>> buffActionList;
+    Dictionary<Action<string>, string> eventTextDictionary;
+    [SerializeField] UnitDataBase unitDataBase = null;
     private void Awake()
     {
         if (instance == null)
@@ -24,15 +34,12 @@ public class EventManager : MonoBehaviour
         }
 
         // 시작할 때 유닛 이벤트는 GameManager의 GameStart에서 작동함
-        buffActionList = new List<Action<int>>();
-        SetBuff();
+        buffActionList = new List<Action<string>>();
+        //SetBuff();
 
         // Dictonary 인스턴스
-        eventTextDictionary = new Dictionary<Action<int>, string>();
-        SetEventText_Dictionary();
-
-        // 이벤트 배열 선언
-        //Set_EventArray();
+        eventTextDictionary = new Dictionary<Action<string>, string>();
+        //SetEventText_Dictionary();
     }
 
     void SetEventText_Dictionary()
@@ -58,15 +65,16 @@ public class EventManager : MonoBehaviour
     public Text buffText;
     [SerializeField]
     private bool[] unitColorIsEvent = new bool[] { false, false, false, false, false, false };  
-    void ActionRandomEvent(Text eventText, List<Action<int>> eventActionList)
+    void ActionRandomEvent(Text eventText, List<Action<string>> eventActionList)
     {
-        int unitColorNumber = Check_UnitIsEvnet(); // unit 설정
-        UnitManager.instance.ShowReinforceEffect(unitColorNumber);
+        int unitColorNumber = UnityEngine.Random.Range(0, eventTextDictionary.Count);
+        //int unitColorNumber = Check_UnitIsEvnet(); // unit 설정
+        //UnitManager.instance.ShowReinforceEffect(unitColorNumber);
         unitColorIsEvent[unitColorNumber] = true;
 
         // 이벤트 적용
         int eventNumber = UnityEngine.Random.Range(0, eventActionList.Count);
-        eventActionList[eventNumber](unitColorNumber);
+        eventActionList[eventNumber]("Red");
         eventText.text = ReturnUnitText(unitColorNumber) + eventTextDictionary[eventActionList[eventNumber]];
     }
 
@@ -82,7 +90,7 @@ public class EventManager : MonoBehaviour
         if (unitColorIsEvent[unitNumber])
         {
             unitNumber++;
-            if (unitNumber >= UnitManager.instance.unitArrays.Length) unitNumber = 0;
+            //if (unitNumber >= UnitManager.instance.unitArrays.Length) unitNumber = 0;
         }
         return unitNumber;
     }
@@ -123,31 +131,20 @@ public class EventManager : MonoBehaviour
     }
 
 
-
-
     // script 가져올 때 GetComponentInChildren 써야됨
-    public void Up_UnitDamage(int colorNumber)
-    {
-        TeamSoldier[] teams = ReturnColorTeamSoldiers(colorNumber);
-        for (int i = 0; i < teams.Length; i++)
-        {
-            ChangeUnitDamage(teams[i], 2);
-        }
+    public void Up_UnitDamage(string _key)
+    {    
+        unitDataBase.ChangeUnitData(_key, (UnitData _data) => _data.damage *= 2);
     }
 
-    public void Up_UnitBossDamage(int colorNumber)
+    public void Up_UnitBossDamage(string _key)
     {
-        TeamSoldier[] teams = ReturnColorTeamSoldiers(colorNumber);
-        for (int i = 0; i < teams.Length; i++)
-        {
-            //teamSoldier.bossDamage += teamSoldier.originBossDamage * 2;
-            ChangeUnitBossDamage(teams[i], 2);
-        }
+        unitDataBase.ChangeUnitData(_key, (UnitData _data) => _data.bossDamage *= 2);
     }
 
-    void Up_UnitSkillPercent(int colorNumber) // Interface를 사용해 Up_Skill과 같은 함수를 만들것
+    void Up_UnitSkillPercent(string _color) // Interface를 사용해 Up_Skill과 같은 함수를 만들것
     {
-        GameObject[] unitArray = ReturnColorSoldierObjects(colorNumber);
+        GameObject[] unitArray = null; // ReturnColorSoldierObjects(colorNumber);
         for (int i = 0; i < unitArray.Length; i++)
         {
             IEvent interfaceEvent = unitArray[i].GetComponentInChildren<IEvent>();
@@ -155,9 +152,9 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    void Reinforce_UnitPassive(int colorNumber)
+    void Reinforce_UnitPassive(string _color)
     {
-        GameObject[] unitArray = ReturnColorSoldierObjects(colorNumber);
+        GameObject[] unitArray = null; // ReturnColorSoldierObjects(colorNumber);
         for (int i = 0; i < unitArray.Length; i++)
         {
             UnitPassive passive = unitArray[i].GetComponentInChildren<UnitPassive>();
@@ -186,23 +183,23 @@ public class EventManager : MonoBehaviour
             teamSoldier.bossDamage += Mathf.FloorToInt(teamSoldier.originBossDamage * (changeDamageWeigh - 1));
     }
 
-    TeamSoldier[] ReturnColorTeamSoldiers(int colorNumber)
-    {
-        GameObject[] unitArray = UnitManager.instance.unitArrays[colorNumber].unitArray;
-        List<TeamSoldier> teamList = new List<TeamSoldier>();
-        for (int i = 0; i < unitArray.Length; i++)
-        {
-            teamList.Add(unitArray[i].GetComponentInChildren<TeamSoldier>());
-        }
-        return teamList.ToArray();
-    }
+    //TeamSoldier[] ReturnColorTeamSoldiers(int colorNumber)
+    //{
+    //    GameObject[] unitArray = UnitManager.instance.unitArrays[colorNumber].unitArray;
+    //    List<TeamSoldier> teamList = new List<TeamSoldier>();
+    //    for (int i = 0; i < unitArray.Length; i++)
+    //    {
+    //        teamList.Add(unitArray[i].GetComponentInChildren<TeamSoldier>());
+    //    }
+    //    return teamList.ToArray();
+    //}
 
-    GameObject[] ReturnColorSoldierObjects(int colorNumber)
-    {
-        GameObject[] unitArray = UnitManager.instance.unitArrays[colorNumber].unitArray;
+    //GameObject[] ReturnColorSoldierObjects(int colorNumber)
+    //{
+    //    GameObject[] unitArray = UnitManager.instance.unitArrays[colorNumber].unitArray;
 
-        return unitArray;
-    }
+    //    return unitArray;
+    //}
 
 
     // 상점에서 파는 이벤트
@@ -220,7 +217,7 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public void currnetUnitDamageUp()
+    public void CurrnetUnitDamageUp()
     {
         foreach(GameObject unit in UnitManager.instance.currentUnitList)
         {
@@ -230,11 +227,11 @@ public class EventManager : MonoBehaviour
     }
 
     // 상점에 유닛 패시브 강화 판매를 추가하기 위한 빌드업 함수
-    public void Buy_Reinforce_UnitPassive(int colorNum, string unitColor)
-    {
-        Reinforce_UnitPassive(colorNum);
-        BeefUp_Passive(unitColor);
-    }
+    //public void Buy_Reinforce_UnitPassive(int colorNum, string unitColor)
+    //{
+    //    Reinforce_UnitPassive(colorNum);
+    //    BeefUp_Passive(unitColor);
+    //}
 
     [ContextMenu("Reinforce")]
     // 특정 색깔을 가진 유닛들 리턴
@@ -256,17 +253,17 @@ public class EventManager : MonoBehaviour
     }
 
     // 클래스 넘버를 인수로 받고 그 클래스의 유닛이 존재하면 유닛의 컬러 넘버를 List에 Add하고 반환
-    public List<int> Return_CurrentUnitColorList(int unitClassNumber) //  원하는 유닛 숫자를 받고 존재한 유닛들의 컬러 넘버가 담긴 리스트를 반환
-    {
-        List<int> current_UnitColorNumberList = new List<int>();
-        UnitArray[] unitArray = UnitManager.instance.unitArrays;
-        for(int i = 0; i < unitArray.Length; i++)
-        {
-            string unitTag = unitArray[i].unitArray[unitClassNumber].transform.GetChild(0).gameObject.tag;
-            GameObject unit = GameObject.FindGameObjectWithTag(unitTag);
-            if (unit != null) current_UnitColorNumberList.Add(i);
-        }
+    //public List<int> Return_CurrentUnitColorList(int unitClassNumber) //  원하는 유닛 숫자를 받고 존재한 유닛들의 컬러 넘버가 담긴 리스트를 반환
+    //{
+    //    List<int> current_UnitColorNumberList = new List<int>();
+    //    UnitArray[] unitArray = UnitManager.instance.unitArrays;
+    //    for(int i = 0; i < unitArray.Length; i++)
+    //    {
+    //        string unitTag = unitArray[i].unitArray[unitClassNumber].transform.GetChild(0).gameObject.tag;
+    //        GameObject unit = GameObject.FindGameObjectWithTag(unitTag);
+    //        if (unit != null) current_UnitColorNumberList.Add(i);
+    //    }
 
-        return current_UnitColorNumberList;
-    }
+    //    return current_UnitColorNumberList;
+    //}
 }

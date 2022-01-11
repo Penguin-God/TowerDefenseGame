@@ -161,7 +161,7 @@ public class TeamSoldier : MonoBehaviour
         UnitPassive _passive = GetComponent<UnitPassive>();
         if (_passive == null) return;
         float[] _datas = UnitManager.instance.GetUnitPassiveData(gameObject.tag);
-        _passive.ApplyData(_datas[0], _datas[1], _datas[2]);
+        _passive.ApplyData(_datas[0], _datas[3], _datas[1], _datas[4], _datas[2], _datas[5]);
     }
 
     public virtual void SetInherenceData() { }

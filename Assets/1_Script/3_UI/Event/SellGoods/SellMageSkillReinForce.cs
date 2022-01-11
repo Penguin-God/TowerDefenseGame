@@ -13,7 +13,7 @@ public class SellMageSkillReinForce : MonoBehaviour, ISellEventShopItem
 
     void BuyMageUltimate()
     {
-        GameObject mage = UnitManager.instance.unitArrays[mageColorNumber].unitArray[3];
+        GameObject mage = new GameObject("");//UnitManager.instance.unitArrays[mageColorNumber].unitArray[3];
         mage.GetComponentInChildren<Unit_Mage>().isUltimate = true;
         SetCurrentMageUltimate(mageColorNumber);
     }

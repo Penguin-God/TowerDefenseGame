@@ -5,7 +5,7 @@ using UnityEngine;
 public class CombineSoldierPooling : MonoBehaviour
 {
     public static CombineSoldierPooling Instance;
-    [SerializeField] private GameObject poolingObjectPrefab;
+    //[SerializeField] private GameObject poolingObjectPrefab;
     Queue<GameObject> poolingObjectQueue = new Queue<GameObject>();
 
     public CreateDefenser createDefenser;
@@ -14,6 +14,9 @@ public class CombineSoldierPooling : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+        Initialize();
+        Initialize();
+        Initialize();
         Initialize();
     }
     private void Initialize()
@@ -26,25 +29,26 @@ public class CombineSoldierPooling : MonoBehaviour
             }
         } 
     }
-    private GameObject CreateNewObject() 
+    private GameObject CreateNewObject(int Colornumber, int Soldiernumber) 
     {
-        var newObj = Instantiate(poolingObjectPrefab).GetComponent<GameObject>();
+        var newObj = createDefenser.CreateSoldier(Colornumber,Soldiernumber).GetComponent<GameObject>();
         newObj.gameObject.SetActive(false);
         newObj.transform.SetParent(transform);
         return newObj;
     }
-    public static GameObject GetObject() {
+    public static GameObject GetObject(int Colornumber, int Soldiernumber) {
         if (Instance.poolingObjectQueue.Count > 0)
         { 
             var obj = Instance.poolingObjectQueue.Dequeue();
-            obj.transform.SetParent(null); obj.gameObject.SetActive(true);
+            //obj.transform.SetParent(null);
+            obj.gameObject.SetActive(true);
             return obj;
         }
         else 
         {
-            var newObj = Instance.CreateNewObject();
+            var newObj = Instance.CreateNewObject(Colornumber, Soldiernumber);
             newObj.gameObject.SetActive(true);
-            newObj.transform.SetParent(null);
+            //newObj.transform.SetParent(null);
             return newObj; 
         } 
     }

@@ -12,22 +12,32 @@ public class MeeleUnit : TeamSoldier
     {
         if (enemyDistance < stopDistanc)
         {
-            nav.speed = 0.15f;
+            nav.acceleration = 0.5f;
+            nav.angularSpeed = 500;
+            //nav.speed = 0.15f;
             contactEnemy = true;
         }
         else if((enemyDistance < stopDistanc * 2 && Check_EnemyToUnit_Deggre() < -0.5f))
         {
             if (enemyIsForward)
             {
-                nav.speed = 0.01f;
-                nav.angularSpeed = 1f;
+                nav.speed = 0.1f;
+                nav.acceleration = 0.1f;
+                nav.angularSpeed = 1;
+                //nav.speed = 0.01f;
+                //nav.angularSpeed = 1f;
             }
-            else nav.speed = 0.2f;
+            else
+            {
+                nav.angularSpeed = 5000;
+                nav.acceleration = 30;
+            }
         }
         else
         {
             nav.speed = this.speed;
-            nav.angularSpeed = 500f;
+            nav.angularSpeed = 500;
+            nav.acceleration = 40;
             contactEnemy = false;
         }
     }

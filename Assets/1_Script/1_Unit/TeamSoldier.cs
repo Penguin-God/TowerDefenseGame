@@ -204,12 +204,13 @@ public class TeamSoldier : MonoBehaviour
     {
         // override 코루틴 마지막 부분에서 실행하는 코드
         StartCoroutine(Co_ResetAttactStatus());
-        if (target != null && TargetIsNormalEnemy) UpdateTarget();
+        if (target != null && TargetIsNormalEnemy && enemyDistance > stopDistanc * 2) UpdateTarget();
     }
 
     IEnumerator Co_ResetAttactStatus()
     {
         isAttack = false;
+
         yield return new WaitForSeconds(attackDelayTime);
         isAttackDelayTime = false;
     }
@@ -277,13 +278,17 @@ public class TeamSoldier : MonoBehaviour
                 continue;
             }
 
+            // 유닛마다 고유한 추적 위치 지정하기
             if (GetComponent<RangeUnit>() != null) 
             {
                 Enemy enemy = target.GetComponent<Enemy>();
                 Vector3 enemySpeed = enemy.dir * enemy.speed;
                 nav.SetDestination(target.position + enemySpeed);
             } 
-            else nav.SetDestination(target.position);
+            else
+            {
+                nav.SetDestination(target.position - (TargetEnemy.dir * 3));
+            }
 
             if ( (enemyIsForward || contactEnemy) && !isAttackDelayTime && !isSkillAttack && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
             {
@@ -311,6 +316,7 @@ public class TeamSoldier : MonoBehaviour
     {
         if (targetObject != null)
         {
+            Debug.Log(123);
             nav.isStopped = false;
             target = targetObject.transform;
             layerMask = ReturnLayerMask(target.gameObject);

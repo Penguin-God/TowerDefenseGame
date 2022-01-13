@@ -84,8 +84,8 @@ public class TeamSoldier : MonoBehaviour
     public GameObject reinforceEffect;
     protected float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
 
-    [HideInInspector]
-    public bool passiveReinForce;
+    //[HideInInspector]
+    //public bool passiveReinForce;
 
     // 적에게 대미지 입히기, 패시브 적용 등의 역할을 하는 델리게이트
     public delegate void Delegate_OnHit(Enemy enemy);
@@ -128,7 +128,7 @@ public class TeamSoldier : MonoBehaviour
     {
         SetData(); 
         SetPassiveData();
-        UnitManager.instance.currentUnitList.Add(gameObject);
+        UnitManager.instance.CurrentUnitList.Add(gameObject);
         if(animator != null) animator.enabled = true;
         nav.enabled = true;
 
@@ -141,7 +141,7 @@ public class TeamSoldier : MonoBehaviour
     {
         SetChaseSetting(null);
         StopAllCoroutines();
-        UnitManager.instance.currentUnitList.Remove(gameObject);
+        UnitManager.instance.CurrentUnitList.Remove(gameObject);
         isAttack = false;
         isAttackDelayTime = false; 
         isSkillAttack = false;
@@ -155,16 +155,19 @@ public class TeamSoldier : MonoBehaviour
         UnitManager.instance.ApplyUnitData(gameObject.tag, this);
         SetInherenceData();
     }
+    // 기본 데이터를 기반으로 유닛 고유 데이터 세팅
+    public virtual void SetInherenceData() { }
+
 
     void SetPassiveData()
     {
         UnitPassive _passive = GetComponent<UnitPassive>();
         if (_passive == null) return;
-        float[] _datas = UnitManager.instance.GetUnitPassiveData(gameObject.tag);
-        _passive.ApplyData(_datas[0], _datas[3], _datas[1], _datas[4], _datas[2], _datas[5]);
+
+        UnitManager.instance.ApplyPassiveData(gameObject.tag, this);
     }
 
-    public virtual void SetInherenceData() { }
+
 
 
     public int specialAttackPercent;

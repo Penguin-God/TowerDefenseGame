@@ -51,13 +51,13 @@ public class RedMage : Unit_Mage
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 9) Change_Unit_AttackCollDown(other.gameObject, redPassive.get_DownDelayWeigh);
+        if (other.gameObject.layer == 9) Change_Unit_AttackCollDown(other.gameObject, redPassive.Get_DownDelayWeigh);
     }
     
     private void OnTriggerExit(Collider other)
     { 
         // redPassive.get_DownDelayWeigh 의 역수 곱해서 공속 되돌림
-        if (other.gameObject.layer == 9) Change_Unit_AttackCollDown(other.gameObject, (1 / redPassive.get_DownDelayWeigh));
+        if (other.gameObject.layer == 9) Change_Unit_AttackCollDown(other.gameObject, (1 / redPassive.Get_DownDelayWeigh));
     }
 
     void Change_Unit_AttackCollDown(GameObject unitObject, float rate)

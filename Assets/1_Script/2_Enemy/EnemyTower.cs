@@ -36,7 +36,7 @@ public class EnemyTower : Enemy
 
     void SetUnitTarget()
     {
-        foreach (GameObject unit in UnitManager.instance.currentUnitList)
+        foreach (GameObject unit in UnitManager.instance.CurrentUnitList)
         {
             if (unit == null) continue;
 

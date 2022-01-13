@@ -397,7 +397,7 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     {
         gameStart = true;
         UIManager.instance.Set_GameUI();
-        EventManager.instance.RandomUnitEvenet(); // 랜덤 유닛 이벤트
+        //EventManager.instance.RandomBuffEvent(); // 랜덤 유닛 이벤트
 
         SelectDifficult(difficult);
         UnitManager.instance.ReSpawnStartUnit();

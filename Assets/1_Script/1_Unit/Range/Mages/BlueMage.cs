@@ -10,8 +10,8 @@ public class BlueMage : Unit_Mage
     {
         SettingSkilePool(mageSkillObject, 3, SetEnemyFreeze);
         bluePassive = GetComponent<BluePassive>();
-        GetComponent<SphereCollider>().radius = bluePassive.get_ColliderRange;
-        bluePassive.OnBeefup += () => GetComponent<SphereCollider>().radius = bluePassive.get_ColliderRange;
+        GetComponent<SphereCollider>().radius = bluePassive.Get_ColliderRange;
+        bluePassive.OnBeefup += () => GetComponent<SphereCollider>().radius = bluePassive.Get_ColliderRange;
 
         StartCoroutine(Co_SkilleReinForce());  
     }
@@ -40,7 +40,7 @@ public class BlueMage : Unit_Mage
         if (other.gameObject.GetComponent<NomalEnemy>() != null)
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
-            enemy.EnemySlow(bluePassive.get_SlowPercent, -1f); // 나가기 전까진 무한 슬로우
+            enemy.EnemySlow(bluePassive.Get_SlowPercent, -1f); // 나가기 전까진 무한 슬로우
         }
     }
 

@@ -41,6 +41,8 @@ public struct PassiveData
 {
     [SerializeField] string name;
     public string Name => name;
+    public bool isEnhance;
+
     public float p1;
     public float p2;
     public float p3;
@@ -48,9 +50,10 @@ public struct PassiveData
     public float enhance_p2;
     public float enhance_p3;
 
-    public PassiveData(string _name, float _p1, float _p2, float _p3, float en_p1, float en_p2, float en_p3)
+    public PassiveData(string _name, bool _isEnhance,float _p1, float _p2, float _p3, float en_p1, float en_p2, float en_p3)
     {
         name = _name;
+        isEnhance = _isEnhance;
         p1 = _p1;
         p2 = _p2;
         p3 = _p3;
@@ -213,10 +216,13 @@ public class UnitDataBase : MonoBehaviour
         _team.attackRange = UnitDataDictionary[_name].attackRange;
     }
 
-    public void ChangeUnitData(string _key, Action<UnitData> ChangeData)
+    public void ChangeUnitDataOfColor(int _colorNum, Action<UnitData> OnChaneData)
     {
-        ChangeData(UnitDataDictionary[_key]);
+        string[] _keys = GetDataKeys(_colorNum);
+        for (int i = 0; i < _keys.Length; i++) ChangeUnitData(_keys[i], OnChaneData);
     }
+
+    public void ChangeUnitData(string _key, Action<UnitData> ChangeData) => ChangeData(UnitDataDictionary[_key]);
 
 
 
@@ -244,7 +250,7 @@ public class UnitDataBase : MonoBehaviour
                 float _p4 = (cells[5].Trim() != "") ? float.Parse(cells[5]) : 0;
                 float _p5 = (cells[6].Trim() != "") ? float.Parse(cells[6]) : 0;
                 float _p6 = (cells[7].Trim() != "") ? float.Parse(cells[7]) : 0;
-                passiveDataList.Add(new PassiveData(_name, _p1, _p2, _p3, _p4, _p5, _p6));
+                passiveDataList.Add(new PassiveData(_name, false,_p1, _p2, _p3, _p4, _p5, _p6));
             }
             else Debug.Log($"NONE : {cells[0]}");
         }
@@ -272,23 +278,50 @@ public class UnitDataBase : MonoBehaviour
         }
     }
 
-    public float[] GetPassiveData(string _key)
+    public void ApplyPassiveData(string _key, TeamSoldier _unit)
     {
-        float[] passive_datas = new float[6];
-        passive_datas[0] = passiveDictionary[_key].p1;
-        passive_datas[1] = passiveDictionary[_key].p2;
-        passive_datas[2] = passiveDictionary[_key].p3;
-        passive_datas[3] = passiveDictionary[_key].enhance_p1;
-        passive_datas[4] = passiveDictionary[_key].enhance_p2;
-        passive_datas[5] = passiveDictionary[_key].enhance_p3;
-        return passive_datas;
+        float[] passive_datas = new float[3];
+        bool _isEnhance = passiveDictionary[_key].isEnhance;
+        Debug.Log(_isEnhance);
+        passive_datas[0] = (_isEnhance) ? passiveDictionary[_key].enhance_p1 : passiveDictionary[_key].p1;
+        passive_datas[1] = (_isEnhance) ? passiveDictionary[_key].enhance_p2 : passiveDictionary[_key].p2;
+        passive_datas[2] = (_isEnhance) ? passiveDictionary[_key].enhance_p3 : passiveDictionary[_key].p3;
+
+        UnitPassive _passive = _unit.gameObject.GetComponent<UnitPassive>();
+        if (_passive == null) return;
+
+        _passive.ApplyData(passive_datas[0], passive_datas[1], passive_datas[2]);
+
+        //passive_datas[1] = passiveDictionary[_key].p2;
+        //passive_datas[2] = passiveDictionary[_key].p3;
+        //passive_datas[3] = passiveDictionary[_key].enhance_p1;
+        //passive_datas[4] = passiveDictionary[_key].enhance_p2;
+        //passive_datas[5] = passiveDictionary[_key].enhance_p3;
+        //return passive_datas;
     }
 
-    public void ChangePassiveData(string _key, Action<PassiveData> ChaneData)
+    public void ChangePassiveDataOfColor(int _colorNum, Func<PassiveData, PassiveData> OnChaneData)
     {
-        ChaneData(passiveDictionary[_key]);
+        string[] _keys = GetDataKeys(_colorNum);
+        for (int i = 0; i < _keys.Length; i++) ChangePassiveData(_keys[i], OnChaneData);
     }
 
+    public void ChangePassiveData(string _key, Func<PassiveData, PassiveData> ChaneData) => passiveDictionary[_key] = ChaneData(passiveDictionary[_key]);
+
+
+    public string[] GetDataKeys(int _colorNum)
+    {
+        int _startNum = _colorNum * 4;
+        int _endNum = _startNum + 4;
+
+        string[] _keys = new string[4];
+        for(int i = 0; i < _keys.Length; i++)
+        {
+            if(_startNum < _endNum)_keys[i] = unitTags[_startNum+i];
+            Debug.Log(_keys[i]);
+        }
+        return _keys;
+    }
 
     //[ContextMenu("SetUnitData")]
     //void SetUnitData()

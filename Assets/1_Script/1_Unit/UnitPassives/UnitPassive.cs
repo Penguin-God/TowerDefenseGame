@@ -20,7 +20,7 @@ abstract public class UnitPassive : MonoBehaviour
 
     public abstract void SetPassive();
 
-    public abstract void ApplyData(float p1, float en_p1, float p2 = 0, float en_p2 = 0, float p3 = 0, float en_p3 = 0);
+    public abstract void ApplyData(float p1, float p2 = 0, float p3 = 0);
 
-    public abstract void Beefup_Passive();
+    //public abstract void Beefup_Passive();
 }

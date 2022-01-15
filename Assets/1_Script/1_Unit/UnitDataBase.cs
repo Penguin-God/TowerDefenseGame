@@ -41,7 +41,6 @@ public struct PassiveData
 {
     [SerializeField] string name;
     public string Name => name;
-    public bool isEnhance;
 
     public float p1;
     public float p2;
@@ -50,10 +49,9 @@ public struct PassiveData
     public float enhance_p2;
     public float enhance_p3;
 
-    public PassiveData(string _name, bool _isEnhance,float _p1, float _p2, float _p3, float en_p1, float en_p2, float en_p3)
+    public PassiveData(string _name, float _p1, float _p2, float _p3, float en_p1, float en_p2, float en_p3)
     {
         name = _name;
-        isEnhance = _isEnhance;
         p1 = _p1;
         p2 = _p2;
         p3 = _p3;
@@ -196,15 +194,14 @@ public class UnitDataBase : MonoBehaviour
 
         for (int i = 0; i < loadDataList.Count; i++)
         {
-            UnitData _data = 
-                new UnitData(loadDataList[i].UnitName, loadDataList[i].damage, loadDataList[i].specialAttackPercent,
-                                loadDataList[i].attackDelayTime, loadDataList[i].speed, loadDataList[i].attackRange);
+            UnitData _data = new UnitData(loadDataList[i].UnitName, loadDataList[i].damage, loadDataList[i].specialAttackPercent,
+                            loadDataList[i].attackDelayTime, loadDataList[i].speed, loadDataList[i].attackRange);
             UnitDataDictionary.Add(loadDataList[i].UnitName, _data);
         }
     }
 
 
-    public void ApplyData(string _name, TeamSoldier _team)
+    public void ApplyUnitBaseData(string _name, TeamSoldier _team)
     {
         _team.originDamage = UnitDataDictionary[_name].OriginDamage;
         _team.damage = UnitDataDictionary[_name].damage;
@@ -214,6 +211,13 @@ public class UnitDataBase : MonoBehaviour
         _team.attackDelayTime = UnitDataDictionary[_name].attackDelayTime;
         _team.speed = UnitDataDictionary[_name].speed;
         _team.attackRange = UnitDataDictionary[_name].attackRange;
+
+        if(EventManager.instance.GetEventFlag(MyEventType.Up_UnitSkillPercent, (int)_team.unitColor))
+        {
+            IEvent @event = _team.GetComponent<IEvent>();
+            if (@event != null) @event.SkillPercentUp();
+            Debug.Log("HIHI");
+        }    
     }
 
     public void ChangeUnitDataOfColor(int _colorNum, Action<UnitData> OnChaneData)
@@ -250,7 +254,7 @@ public class UnitDataBase : MonoBehaviour
                 float _p4 = (cells[5].Trim() != "") ? float.Parse(cells[5]) : 0;
                 float _p5 = (cells[6].Trim() != "") ? float.Parse(cells[6]) : 0;
                 float _p6 = (cells[7].Trim() != "") ? float.Parse(cells[7]) : 0;
-                passiveDataList.Add(new PassiveData(_name, false,_p1, _p2, _p3, _p4, _p5, _p6));
+                passiveDataList.Add(new PassiveData(_name, _p1, _p2, _p3, _p4, _p5, _p6));
             }
             else Debug.Log($"NONE : {cells[0]}");
         }
@@ -281,8 +285,9 @@ public class UnitDataBase : MonoBehaviour
     public void ApplyPassiveData(string _key, TeamSoldier _unit)
     {
         float[] passive_datas = new float[3];
-        bool _isEnhance = passiveDictionary[_key].isEnhance;
+        bool _isEnhance = EventManager.instance.GetEventFlag(MyEventType.Reinforce_UnitPassive, (int)_unit.unitColor);
         Debug.Log(_isEnhance);
+        // 패시브 강화 여부에 따라 다른 값 적용
         passive_datas[0] = (_isEnhance) ? passiveDictionary[_key].enhance_p1 : passiveDictionary[_key].p1;
         passive_datas[1] = (_isEnhance) ? passiveDictionary[_key].enhance_p2 : passiveDictionary[_key].p2;
         passive_datas[2] = (_isEnhance) ? passiveDictionary[_key].enhance_p3 : passiveDictionary[_key].p3;
@@ -317,8 +322,8 @@ public class UnitDataBase : MonoBehaviour
         string[] _keys = new string[4];
         for(int i = 0; i < _keys.Length; i++)
         {
-            if(_startNum < _endNum)_keys[i] = unitTags[_startNum+i];
-            Debug.Log(_keys[i]);
+            if(_startNum < _endNum)
+                _keys[i] = unitTags[_startNum+i];
         }
         return _keys;
     }

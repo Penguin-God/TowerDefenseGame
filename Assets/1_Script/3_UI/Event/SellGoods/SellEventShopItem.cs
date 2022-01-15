@@ -1,5 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public enum PriceType
 {
@@ -26,8 +28,16 @@ public class SellEventShopItem : MonoBehaviour
             goodsInformation = data.info;
             goodsInformation += " 구입하시겠습니까?";
         }
+    }
 
-        myButton.onClick.AddListener(() => shop.SetPanel(goodsInformation, () => shop.BuyItem(gameObject)));
+    // shop에서 사용
+    public void AddListener(Action<bool, Action> OnClick)
+    {
+        if(OnClick != null)
+        {
+            myButton.onClick.RemoveAllListeners();
+            myButton.onClick.AddListener(() => OnClick(BuyAble, Get_SellAction()));
+        }
     }
 
     public PriceType priceType;
@@ -44,8 +54,8 @@ public class SellEventShopItem : MonoBehaviour
             {
                 case PriceType.Gold: return GameManager.instance.Gold >= price;
                 case PriceType.Food: return GameManager.instance.Food >= price;
+                default: return false;
             }
-            return false;
         }
     }
 
@@ -55,50 +65,21 @@ public class SellEventShopItem : MonoBehaviour
         {
             case "Gold": return PriceType.Gold;
             case "Food": return PriceType.Food;
+            default: return PriceType.Gold;
         }
-
-        return PriceType.Gold;
     }
-
-    //[SerializeField] Shop shop;
-    //private void Start()
-    //{
-    //    //shop = GetComponentInParent<Shop>();
-    //    //buyPanelObject = shop.buyPanel;
-    //    //buyButton = shop.buyButton;
-    //    //guideTexts = shop.buyGuideText;
-
-    //    GetComponent<Button>().onClick.AddListener(() => SetByPanel()); // 자기 자신 클릭 시
-    //}
-
-    //[SerializeField] GameObject buyPanelObject;
-    //[SerializeField] Button buyButton;
-    //void SetByPanel()
-    //{
-    //    SoundManager.instance.PlayEffectSound_ByName("ShopItemClick");
-
-    //    buyButton.onClick.RemoveAllListeners();
-    //    Set_BuyGuideText();
-    //    buyPanelObject.SetActive(true);
-    //    buyButton.onClick.AddListener(() => shop.BuyItem(gameObject));
-    //}
 
     // 아이템 판매
-    public void Sell_Item()
+    public Action Get_SellAction()
     {
+        Action _action = null;
         if (GetComponent<ISellEventShopItem>() != null)
         {
-            SpendMoney(priceType);
-            GetComponent<ISellEventShopItem>().Sell_Item();
+            _action += () => SpendMoney(priceType);
+            _action += GetComponent<ISellEventShopItem>().Sell_Item;
         }
+        return _action;
     }
-
-    
-    //[SerializeField] Text guideTexts;
-    //void Set_BuyGuideText()
-    //{
-    //    guideTexts.text = goodsInformation + " 구입하시겠습니까?";
-    //}
 
     // 재화 사용
     void SpendMoney(PriceType priceType)

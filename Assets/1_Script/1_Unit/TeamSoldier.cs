@@ -123,7 +123,6 @@ public class TeamSoldier : MonoBehaviour
     public virtual void OnAwake() { }
 
     
-
     void OnEnable()
     {
         SetData(); 

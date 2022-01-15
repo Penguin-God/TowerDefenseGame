@@ -829,11 +829,11 @@ public class CombineSoldier : MonoBehaviour
         {
             return;
         }
-        SoldierChoose(0, 3, 0, 0);
+        //SoldierChoose(0, 3, 0, 0);
 
         if (randomnumber == 0)
         {
-            CombineSoldierPooling.GetObject("RadSwordman", 0, 0);
+            CombineSoldierPooling.GetObject("RedSwordman", 0, 0);
         }
         //else if (randomnumber == 1)
         //{
@@ -845,7 +845,7 @@ public class CombineSoldier : MonoBehaviour
         //}
         else
         {
-            CombineSoldierPooling.GetObject("RadSwordman", 0, 0);
+            CombineSoldierPooling.GetObject("RedSwordman", 0, 0);
         }
         //createdefenser.DrawSoldier(Colornumber, Soldiernumber);
         //UIManager.instance.CreateButtonAuido.Play();

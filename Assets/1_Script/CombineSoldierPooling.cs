@@ -9,6 +9,7 @@ public class CombineSoldierPooling : MonoBehaviour
     Queue<GameObject> poolingObjectQueue = new Queue<GameObject>();
 
     public CreateDefenser createDefenser;
+    public UnitDataBase unitDataBase;
 
     Dictionary<string,Queue<GameObject>> poolingDictionary = new Dictionary<string, Queue<GameObject>>();
 
@@ -16,7 +17,13 @@ public class CombineSoldierPooling : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-        poolingDictionary.Add("RedSwordman", poolingObjectQueue);
+        for (int i = 0; i < 32; i++)
+        {
+            poolingDictionary.Add(unitDataBase.unitTags[i], new Queue<GameObject>());
+        }
+
+        
+
         InitSwordman(5);
         InitArcher(4);
         InitSpearman(3);
@@ -90,9 +97,7 @@ public class CombineSoldierPooling : MonoBehaviour
     }
     private GameObject CreateNewObject(int Colornumber, int Soldiernumber) 
     {
-        var newObj = createDefenser.CreateSoldier(Colornumber,Soldiernumber).GetComponent<GameObject>();
-        newObj.gameObject.SetActive(false);
-        newObj.transform.SetParent(transform);
+        var newObj = createDefenser.CreateSoldier(Colornumber,Soldiernumber);      
         return newObj;
     }
     //public static GameObject GetObject(int Colornumber, int Soldiernumber) {

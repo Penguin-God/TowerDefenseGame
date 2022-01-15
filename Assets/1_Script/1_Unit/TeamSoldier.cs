@@ -123,7 +123,6 @@ public class TeamSoldier : MonoBehaviour
     public virtual void OnAwake() { }
 
     
-
     void OnEnable()
     {
         SetData(); 
@@ -245,8 +244,7 @@ public class TeamSoldier : MonoBehaviour
             if (CheckObjectIsBoss(rayHitTransform.gameObject) || rayHitTransform == target.parent) return true;
             else if(ReturnLayerMask(rayHitTransform.GetChild(0).gameObject) == layerMask)
             {
-                // ray에 맞은 적이 target은 아니지만 target과 같은 layer라면 두 enemy가 겹친 것으로 판단해 target을 바꾸고 true를 리턴
-                target = rayHitTransform.GetChild(0);
+                // ray에 맞은 적이 target은 아니지만 target과 같은 layer라면 두 enemy가 겹친 것으로 판단해 true를 리턴
                 return true;
             }
         }
@@ -266,6 +264,9 @@ public class TeamSoldier : MonoBehaviour
         return 1 << LayerMask.NameToLayer(layerName);
     }
 
+
+    public virtual Vector3 DestinationPos { get; set; }
+
     IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
     {
         while (true)
@@ -278,17 +279,7 @@ public class TeamSoldier : MonoBehaviour
                 continue;
             }
 
-            // 유닛마다 고유한 추적 위치 지정하기
-            if (GetComponent<RangeUnit>() != null) 
-            {
-                Enemy enemy = target.GetComponent<Enemy>();
-                Vector3 enemySpeed = enemy.dir * enemy.speed;
-                nav.SetDestination(target.position + enemySpeed);
-            } 
-            else
-            {
-                nav.SetDestination(target.position - (TargetEnemy.dir * 3));
-            }
+            nav.SetDestination(DestinationPos);
 
             if ( (enemyIsForward || contactEnemy) && !isAttackDelayTime && !isSkillAttack && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
             {

@@ -5,6 +5,15 @@ using System;
 
 public class RangeUnit : TeamSoldier
 {
+    public override Vector3 DestinationPos
+    {
+        get
+        {
+            Vector3 enemySpeed = TargetEnemy.dir * TargetEnemy.speed;
+            return target.position + enemySpeed;
+        }
+    }
+
     public override void UnitTypeMove()
     {
         if (enterStoryWorld) return;

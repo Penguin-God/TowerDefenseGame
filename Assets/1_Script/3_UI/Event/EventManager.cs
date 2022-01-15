@@ -6,11 +6,31 @@ using UnityEngine.UI;
 
 public enum MyEventType
 {
-    None,
     Up_UnitDamage,
     Up_UnitBossDamage,
     Up_UnitSkillPercent,
     Reinforce_UnitPassive,
+}
+
+// 이벤트 상태를 바탕으로 Unit이 OnEnalbe() 에서 데이터를 세팅함
+[Serializable]
+public class UnitEventFlag
+{
+    //public Dictionary<MyEventType, bool> FlagDic { get; private set; }
+
+    [SerializeField]
+    private bool[] EventFlags;
+
+    public UnitEventFlag()
+    {
+        EventFlags = new bool[Enum.GetValues(typeof(MyEventType)).Length];
+    }
+
+    public void UpFlag(MyEventType _type) => EventFlags[(int)_type] = true;
+    public bool GetFlag(MyEventType _type)
+    {
+        return EventFlags[(int)_type];
+    }
 }
 
 public class EventManager : MonoBehaviour
@@ -29,12 +49,9 @@ public class EventManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        buffActionList = new List<Action<int>>();
-        SetBuff();
-
-        // Dictonary 인스턴스
-        eventTextDictionary = new Dictionary<Action<int>, string>();
-        SetEventText_Dictionary();
+        // 자료구조 세팅
+        SetEvenType_Dictionary();
+        SetEventFlagDic();
 
         Debug.LogError("박준 메세지 : 이벤트 마무리 후 상점, 법사 상점 물품 선택 코드 수정하기");
     }
@@ -42,70 +59,60 @@ public class EventManager : MonoBehaviour
     // Test
     private void Start()
     {
-        //Up_UnitDamage(2);
-        //Up_UnitBossDamage(3);
-        Reinforce_UnitPassive(1);
+        ActionRandomEvent();
     }
 
-    // 실제 유닛 이벤트 작동. GameManager의 GameStart에서 작동함
+    void SetEvenType_Dictionary()
+    {
+        eventDictionary = new Dictionary<MyEventType, Action<int>>();
+        eventDictionary.Add(MyEventType.Up_UnitDamage, Up_UnitDamage);
+        eventDictionary.Add(MyEventType.Up_UnitBossDamage, Up_UnitBossDamage);
+        eventDictionary.Add(MyEventType.Up_UnitSkillPercent, Up_UnitSkillPercent);
+        eventDictionary.Add(MyEventType.Reinforce_UnitPassive, Reinforce_UnitPassive);
+    }
+
+    Dictionary<MyEventType, Action<int>> eventDictionary;
+    // 모든 이벤트는 Used이벤트를 통해 실행됨
+    public void UsedEvent(MyEventType _type, int _colorNum)
+    {
+        if (eventDictionary.ContainsKey(_type))
+        {
+            EventFlagUp(_type, _colorNum);
+            eventDictionary[_type](_colorNum);
+        }
+    }
+
+    // 시작 시 랜덤 이벤트 GameManager의 GameStart에서 작동함
     [SerializeField] Text buffText;
-    public void RandomBuffEvent() => ActionRandomEvent(buffText, buffActionList);
+    void ActionRandomEvent()
+    {
+        MyEventType _myEvent = (MyEventType)UnityEngine.Random.Range(0, eventDictionary.Count);
+        int unitColorNumber = UnityEngine.Random.Range(0, unitEventFlags.Length);
+        UsedEvent(_myEvent, unitColorNumber);
+        // Text 세팅
+        buffText.text = ReturnUnitText(unitColorNumber) + GetEvnetText(_myEvent);
+    }
+
+    [SerializeField] int eventUnitCount = 0;
+    [SerializeField] UnitEventFlag[] unitEventFlags = null;
+    void SetEventFlagDic()
+    {
+        unitEventFlags = new UnitEventFlag[eventUnitCount];
+        for (int i = 0; i < unitEventFlags.Length; i++) unitEventFlags[i] = new UnitEventFlag();
+    }
+
+    void EventFlagUp(MyEventType _type, int _colorNum) => unitEventFlags[_colorNum].UpFlag(_type);
+    
+    public bool GetEventFlag(MyEventType _type, int _colorNum)
+    {
+        // 검정, 하양 예외처리
+        if (_colorNum >= unitEventFlags.Length) return false;
+
+        return unitEventFlags[_colorNum].GetFlag(_type);
+    }
 
 
-    List<Action<int>> buffActionList;
-    Dictionary<Action<int>, string> eventTextDictionary;
     [SerializeField] UnitDataBase unitDataBase = null;
-    void SetEventText_Dictionary()
-    {
-        // 버프
-        eventTextDictionary.Add(Up_UnitDamage, "대미지 강화");
-        eventTextDictionary.Add(Up_UnitBossDamage, "보스 대미지 강화");
-        eventTextDictionary.Add(Up_UnitSkillPercent, "스킬 사용 빈도 증가");
-        eventTextDictionary.Add(Reinforce_UnitPassive, "유닛스킬 강화");
-    }
-
-    [SerializeField]
-    private bool[] unitColorIsEvent = new bool[] { false, false, false, false, false, false };  
-    void ActionRandomEvent(Text eventText, List<Action<int>> eventActionList)
-    {
-        int unitColorNumber = UnityEngine.Random.Range(0, unitColorIsEvent.Length);
-        //int unitColorNumber = Check_UnitIsEvnet(); // unit 설정
-        //UnitManager.instance.ShowReinforceEffect(unitColorNumber);
-        unitColorIsEvent[unitColorNumber] = true;
-
-        // 이벤트 적용
-        int eventNumber = UnityEngine.Random.Range(0, eventActionList.Count);
-        eventActionList[eventNumber](unitColorNumber);
-        eventText.text = ReturnUnitText(unitColorNumber) + eventTextDictionary[eventActionList[eventNumber]];
-    }
-
-    //int Return_RandomUnitNumver()
-    //{
-    //    int unitNumver = UnityEngine.Random.Range(0, 6);
-    //    return unitNumver;
-    //}
-    //// 이벤트가 이미 적용된 유닛이면 다른 유닛넘버 리턴
-    //int Check_UnitIsEvnet() 
-    //{
-    //    int unitNumber = Return_RandomUnitNumver();
-    //    if (unitColorIsEvent[unitNumber])
-    //    {
-    //        unitNumber++;
-    //        //if (unitNumber >= UnitManager.instance.unitArrays.Length) unitNumber = 0;
-    //    }
-    //    return unitNumber;
-    //}
-
-
-
-    void SetBuff()
-    {
-        buffActionList.Add(Up_UnitDamage);
-        buffActionList.Add(Up_UnitBossDamage);
-        buffActionList.Add(Up_UnitSkillPercent);
-        buffActionList.Add(Reinforce_UnitPassive);
-    }
-
     // 풀 안에 있는 애들은 OnEnalbe() 실행하면서 수치를 초기화하기 때문에 현재 활성화된 유닛만 수치를 적용하면 됨
     // 색깔넘버를 받음
     public void Up_UnitDamage(int _colorNum)
@@ -132,7 +139,6 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    // 스킬강화같은 상태변수도 TeamSoldier에 추가해서 풀에 있던 애도 강화해야됨
     void Up_UnitSkillPercent(int _colorNum)
     {
         TeamSoldier[] _units = UnitManager.instance.GetItems(_colorNum);
@@ -145,8 +151,6 @@ public class EventManager : MonoBehaviour
 
     void Reinforce_UnitPassive(int _colorNum)
     {
-        unitDataBase.ChangePassiveDataOfColor(_colorNum, (PassiveData _data) => { _data.isEnhance = true; return _data; });
-
         TeamSoldier[] _units = UnitManager.instance.GetItems(_colorNum);
         for (int i = 0; i < _units.Length; i++)
         {
@@ -168,6 +172,7 @@ public class EventManager : MonoBehaviour
             _data.bossDamage += Mathf.FloorToInt(_data.OriginBossDamage * (changeDamageWeigh - 1));
     }
 
+    // 패시브 때문에 아직 필요
     public void ChangeUnitDamage(TeamSoldier _unit, float changeDamageWeigh) // 멀티에서 상대방 디버프도 고려
     {
         if (_unit != null)
@@ -204,6 +209,7 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    // 편의 이벤트
     string ReturnUnitText(int unitNumber)
     {
         string unitColotText = "";
@@ -217,6 +223,19 @@ public class EventManager : MonoBehaviour
             case 5: unitColotText = "보라 유닛 : "; break;
         }
         return unitColotText;
+    }
+
+    string GetEvnetText(MyEventType _myEventType)
+    {
+        string _eventText = "";
+        switch (_myEventType)
+        {
+            case MyEventType.Up_UnitDamage: _eventText = "대미지 강화"; break;
+            case MyEventType.Up_UnitBossDamage: _eventText = "보스 대미지 강화"; break;
+            case MyEventType.Up_UnitSkillPercent: _eventText = "스킬 사용 빈도 증가"; break;
+            case MyEventType.Reinforce_UnitPassive: _eventText = "유닛스킬 강화"; break;
+        }
+        return _eventText;
     }
 
     // 상점에 유닛 패시브 강화 판매를 추가하기 위한 빌드업 함수

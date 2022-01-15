@@ -5,21 +5,11 @@ using UnityEngine.UI;
 
 public class BuyShopGoods : MonoBehaviour
 {
-    private void Awake()
-    {
-        
-    }
 
     public string itemName;
     public PriceType priceType;
 
-    public int price
-    {
-        get
-        {
-            return prices[goodsLevel];
-        }
-    }
+    public int Price { get { return prices[goodsLevel]; } }
 
     int[] prices = null;
     int goodsLevel = 0;
@@ -30,8 +20,8 @@ public class BuyShopGoods : MonoBehaviour
         {
             switch (priceType)
             {
-                case PriceType.Gold: return GameManager.instance.Gold > price;
-                case PriceType.Food: return GameManager.instance.Food > price;
+                case PriceType.Gold: return GameManager.instance.Gold > Price;
+                case PriceType.Food: return GameManager.instance.Food > Price;
             }
             return false;
         }
@@ -87,13 +77,13 @@ public class BuyShopGoods : MonoBehaviour
 
     void SubTractGold()
     {
-        GameManager.instance.Gold -= price;
+        GameManager.instance.Gold -= Price;
         UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
     }
 
     void SubTractFood()
     {
-        GameManager.instance.Food -= price;
+        GameManager.instance.Food -= Price;
         UIManager.instance.UpdateFoodText(GameManager.instance.Food);
     }
 

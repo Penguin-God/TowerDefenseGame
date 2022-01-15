@@ -10,6 +10,7 @@ public class CombineSoldier : MonoBehaviour
     public SoldiersTags TagSoldier;
     public UnitManageButton unitmanage;
     public ButtonDown buttonDown;
+    //public CombineSoldierPooling combineSoldierPooling;
 
     void Start()
     {
@@ -32,13 +33,19 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.RedSwordman.Length >= 3)
         {
 
-            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSwordman[2].transform.parent.gameObject);
+            //Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            //Destroy(TagSoldier.RedSwordman[1].transform.parent.gameObject);
+            //Destroy(TagSoldier.RedSwordman[2].transform.parent.gameObject);
 
 
-            SoldierChoose(0, 0, 1, 1);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            //SoldierChoose(0, 0, 1, 1);
+            //createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedSwordman[0].transform.parent.gameObject, "RedSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedSwordman[0].transform.parent.gameObject, "RedSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedSwordman[0].transform.parent.gameObject, "RedSwordman");
+
+            CombineSoldierPooling.GetObject("RedArcher", 0, 0);
 
             UIManager.instance.UpdateCombineSuccessText("빨간 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -816,17 +823,37 @@ public class CombineSoldier : MonoBehaviour
 
     public void Sommon()
     {
+        int randomnumber = Random.Range(0, 3);
+
         if (UnitManager.instance.UnitOver)
         {
-
             return;
         }
         SoldierChoose(0, 3, 0, 0);
-        createdefenser.DrawSoldier(Colornumber, Soldiernumber);
-        //UIManager.instance.UpdateSwordmanCount();
-        UIManager.instance.CreateButtonAuido.Play();
-        // createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-        // createdefenser.ExpenditureGold();
+
+        if (randomnumber == 0)
+        {
+            CombineSoldierPooling.GetObject("RadSwordman", 0, 0);
+        }
+        //else if (randomnumber == 1)
+        //{
+        //    CombineSoldierPooling.GetObject("BlueSwordman", 1, 0);
+        //}
+        //else if (randomnumber == 2)
+        //{
+        //    CombineSoldierPooling.GetObject("YellowSwordman", 2, 0);
+        //}
+        else
+        {
+            CombineSoldierPooling.GetObject("RadSwordman", 0, 0);
+        }
+        //createdefenser.DrawSoldier(Colornumber, Soldiernumber);
+        //UIManager.instance.CreateButtonAuido.Play();
+
+
+        ////UIManager.instance.UpdateSwordmanCount();
+        //// createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+        //// createdefenser.ExpenditureGold();
     }
 
 

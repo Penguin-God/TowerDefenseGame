@@ -29,7 +29,7 @@ public class CreateDefenser : MonoBehaviour
         // Soldier = transform.GetChild(randomnumber).gameObject;
         Soldier = Instantiate(transform.GetChild(Colornumber).gameObject.transform.GetChild(Soldiernumber).gameObject, transform.position, transform.rotation);
         //GameManager.instance.Soldiers.Add(Soldier);
-        Soldier.SetActive(false);
+        //Soldier.SetActive(false);
         Soldier.transform.position = RandomPosition(10, 0, 10);
         //Soldier.SetActive(true);
         return Soldier;

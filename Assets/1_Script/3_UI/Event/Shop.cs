@@ -14,23 +14,44 @@ public enum TriggerType
 
 public class Shop : MonoBehaviour
 {
-    public Text shopGuideText;
+    [SerializeField] Text shopGuideText;
 
-    public GameObject leftGoldGoods;
-    public GameObject centerGoldGoods;
-    public GameObject foodGoods;
+    [SerializeField] GameObject leftGoldGoods;
+    [SerializeField] GameObject centerGoldGoods;
+    [SerializeField] GameObject foodGoods;
 
-    public GameObject[] leftGoldStocks;
-    public GameObject[] centerGoldStocks; 
-    public GameObject[] foodStocks;
+    //[SerializeField] GameObject[] leftGoldStocks;
+    //[SerializeField] GameObject[] centerGoldStocks; 
+    //[SerializeField] GameObject[] foodStocks;
 
-    private GameObject current_LeftGoldGoods = null;
-    private GameObject current_CenterGoldGoods = null;
-    private GameObject current_FoodGoldGoods = null;
-    public CreateDefenser createDefenser;
+    [SerializeField] GameObject current_LeftGoldGoods = null;
+    [SerializeField] GameObject current_CenterGoldGoods = null;
+    [SerializeField] GameObject current_FoodGoldGoods = null;
+
+    private void Awake()
+    {
+        // 물품 선언
+        //leftGoldStocks = SettingStocks(leftGoldGoods.transform);
+        //centerGoldStocks = SettingStocks(centerGoldGoods.transform);
+        //foodStocks = SettingStocks(foodGoods.transform);
+
+        // 딕셔너리 세팅
+        Set_BossShopWeigh();
+        Set_TowerShopWeigh();
+
+        // 인스턴스 안되고 실행되는 버그 때문에 게임 시작시 Awake 실행 후 원위치
+        gameObject.SetActive(false);
+        RectTransform rectTransform = GetComponent<RectTransform>();
+        rectTransform.anchoredPosition = new Vector3(0, 0, 0);
+    }
+    GameObject[] SettingStocks(Transform _stocksPrent)
+    {
+        GameObject[] _stocks = new GameObject[_stocksPrent.transform.childCount];
+        for (int i = 0; i < _stocks.Length; i++) _stocks[i] = _stocksPrent.transform.GetChild(i).gameObject;
+        return _stocks;
+    }
 
 
-    // 나의 의도 : Panel을 하나로 묶어서 쉽고 편하게살자
     [SerializeField] GameObject panelObject = null;
     [SerializeField] Button panel_YesButton = null;
     [SerializeField] Text panelGuideText = null;
@@ -56,59 +77,6 @@ public class Shop : MonoBehaviour
         panelGuideText.text = "";
     }
 
-    private void Awake() 
-    {
-        // 물품 선언
-        leftGoldStocks = SettingStocks(leftGoldGoods.transform);
-        centerGoldStocks = SettingStocks(centerGoldGoods.transform);
-        foodStocks = SettingStocks(foodGoods.transform);
-        //leftGoldStocks = new GameObject[leftGoldGoods.transform.childCount];
-        //for (int i = 0; i < leftGoldStocks.Length; i++)
-        //{
-        //    leftGoldStocks[i] = leftGoldGoods.transform.GetChild(i).gameObject;
-        //}
-
-        //centerGoldStocks = new GameObject[centerGoldGoods.transform.childCount];
-        //for (int i = 0; i < centerGoldStocks.Length; i++)
-        //{
-        //    centerGoldStocks[i] = centerGoldGoods.transform.GetChild(i).gameObject;
-        //}
-
-        //foodStocks = new GameObject[foodGoods.transform.childCount];
-        //for (int i = 0; i < foodStocks.Length; i++)
-        //{
-        //    foodStocks[i] = foodGoods.transform.GetChild(i).gameObject;
-        //}
-
-        // 딕셔너리 세팅
-        Set_BossShopWeigh();
-        Set_TowerShopWeigh();
-
-        // 인스턴스 안되고 실행되는 버그 때문에 게임 시작시 Awake 실행 후 원위치
-        gameObject.SetActive(false);
-        RectTransform rectTransform = GetComponent<RectTransform>();
-        rectTransform.anchoredPosition = new Vector3(0, 0, 0);
-    }
-
-    GameObject[] SettingStocks(Transform _stocksPrent)
-    {
-        GameObject[] _stocks = new GameObject[_stocksPrent.transform.childCount];
-        for (int i = 0; i < _stocks.Length; i++) _stocks[i] = _stocksPrent.transform.GetChild(i).gameObject;
-        return _stocks;
-    }
-
-    // 이 부분도 뜯어고칠 여지가 많음 굳이 여기서 판매, 파괴를 구현할 이유가 없음
-    //public void BuyItem(GameObject item)
-    //{
-    //    SellEventShopItem buyItem = item.GetComponent<SellEventShopItem>();
-    //    if (buyItem != null && buyItem.BuyAble)
-    //    {
-    //        buyItem.Sell_Item();
-    //        GoodsPurchase(item);
-    //    }
-    //    //else LacksGold();
-    //}
-
     void GoodsPurchase(GameObject goodsObject)
     {
         SoundManager.instance.PlayEffectSound_ByName("PurchaseItem");
@@ -121,15 +89,27 @@ public class Shop : MonoBehaviour
     }
 
     [SerializeField] Button[] dontClickButtons;
-
     void SetButtonRayCast(bool isRaycast) // 상점 이용 시 특정 버튼 끄고 키기
     {
         for(int i = 0; i < dontClickButtons.Length; i++)
-        {
             dontClickButtons[i].enabled = isRaycast;
-        }
     }
 
+
+    // 외부에서 상점 열때 사용
+    public void OnShop(int level, TriggerType type)
+    {
+        Set_ShopData(level, type);
+        gameObject.SetActive(true);
+    }
+
+    public int currentLevel = 0;
+    public TriggerType currentShopType = TriggerType.None;
+    void Set_ShopData(int level, TriggerType type)
+    {
+        currentShopType = type;
+        currentLevel = level;
+    }
 
     private void OnEnable()
     {
@@ -148,23 +128,9 @@ public class Shop : MonoBehaviour
         Show_RandomShop(level, type);
     }
 
-    // 외부에서 상점 열때 사용
-    public void OnShop(int level, TriggerType type)
-    {
-        Set_ShopData(level, type);
-        gameObject.SetActive(true);
-    }
-
-    public int currentLevel = 0;
-    public TriggerType currentShopType = TriggerType.None;
-
-    void Set_ShopData(int level, TriggerType type)
-    {
-        currentShopType = type;
-        currentLevel = level;
-    }
-
     public void SetGuideText(string message) => shopGuideText.text = message;
+
+
 
     public void ExitShop()
     {
@@ -206,19 +172,6 @@ public class Shop : MonoBehaviour
         SetGoodsEvent(ref current_FoodGoldGoods, current_FoodGoldGoods);
     }
 
-    void SetGoodsEvent(ref GameObject _goods, GameObject _destroyGoods)
-    {
-        _goods.GetComponent<SellEventShopItem>().AddListener((bool _byeAble, Action _OnSell) => 
-        {
-            if (_byeAble && _OnSell != null)
-            {
-                _OnSell();
-                GoodsPurchase(_destroyGoods);
-            }
-            else LacksGold();
-        });
-    }
-
     GameObject Set_RandomGoods(GameObject goods, int level, Dictionary<int, int[]> goodsWeighDictionary)
     {
         Transform goodsRarity = null;
@@ -243,6 +196,32 @@ public class Shop : MonoBehaviour
         return showGoods;
     }
 
+    // 인자값은 SellEventShopItem에서 넣어줌
+    void SetGoodsEvent(ref GameObject _goods, GameObject _destroyGoods)
+    {
+        _goods.GetComponent<SellEventShopItem>().AddListener((string _text, bool _byeAble, Action _OnSell) => 
+        {
+            if (_OnSell != null)
+            {
+                Action _BuyAction = null;
+
+                _BuyAction += () =>
+                {
+                    if (_byeAble)
+                    {
+                        _OnSell();
+                        GoodsPurchase(_destroyGoods);
+                    }
+                    else LacksGold();
+                };
+
+                SetPanel(_text, _BuyAction);
+            }
+        });
+    }
+
+    
+
     // 확률 가중치 딕셔너리
     public Dictionary<int, int[]> bossShopWeighDictionary;
     public Dictionary<int, int[]> towerShopWeighDictionary;
@@ -266,10 +245,15 @@ public class Shop : MonoBehaviour
     }
 
 
+    // Button Click Evnet 구독에 쓰이는 함수들
     public void SetShopExitPanel(string text)
     {
         text = GetEscapeText(text);
         SetPanel(text, ExitShop);
+    }
+    string GetEscapeText(string text)
+    {
+        return text.Replace("\\n", "\n");
     }
 
     public void SetShopResetPanel(string text)
@@ -278,11 +262,27 @@ public class Shop : MonoBehaviour
         SetPanel(text, ResetShop);
     }
 
-    string GetEscapeText(string text)
+    // 상점 재설정
+    [SerializeField] GameObject obj_ShopReset = null;
+    public void ResetShop()
     {
-        return text.Replace("\\n", "\n");
+        if (GameManager.instance.Gold >= 10)
+        {
+            SoundManager.instance.PlayEffectSound_ByName("Click_XButton");
+            GameManager.instance.Gold -= 10;
+            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
+
+            Disabled_CurrentShowGoods();
+            CanclePanelAction();
+            Show_RandomShop(currentLevel, currentShopType);
+
+            obj_ShopReset.SetActive(false);
+        }
+
+        panelObject.SetActive(false);
     }
 
+    // 골드 부족 안내
     [SerializeField] Text lacksGuideText;
     void LacksGold()
     {
@@ -316,25 +316,5 @@ public class Shop : MonoBehaviour
         }
 
         lacksGuideText.gameObject.SetActive(false);
-    }
-
-    // 상점 재설정
-    [SerializeField] GameObject obj_ShopReset = null;
-    public void ResetShop()
-    {
-        if (GameManager.instance.Gold >= 10)
-        {
-            SoundManager.instance.PlayEffectSound_ByName("Click_XButton");
-            GameManager.instance.Gold -= 10;
-            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-
-            Disabled_CurrentShowGoods();
-            CanclePanelAction();
-            Show_RandomShop(currentLevel, currentShopType);
-
-            obj_ShopReset.SetActive(false);
-        }
-
-        panelObject.SetActive(false);
     }
 }

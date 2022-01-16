@@ -11,8 +11,12 @@ public enum PriceType
 
 public class SellEventShopItem : MonoBehaviour
 {
-    protected Shop shop = null;
-    Button myButton = null;
+
+    public PriceType priceType;
+    public int price;
+    public string itemName;
+    [Tooltip("선언한 텍스트 뒤에 ' 구입하시겠습니까?'라는 문구가 붙음 ")]
+    public string goodsInformation;
 
     private void Awake()
     {
@@ -21,30 +25,28 @@ public class SellEventShopItem : MonoBehaviour
 
         EventShopItemDataBase dataBase = GetComponentInParent<EventShopItemDataBase>();
         EventShopItemData data = dataBase.itemDatas.Find(itemData => itemData.name == itemName);
-        if(data != null)
-        {
-            price = data.price;
-            priceType = GetPriceType(data.type);
-            goodsInformation = data.info;
-            goodsInformation += " 구입하시겠습니까?";
-        }
+        if(data != null) SetData(data.price, GetPriceType(data.type), data.info);
     }
 
+    public void SetData(int _price, PriceType _type, string _info)
+    {
+        price = _price;
+        priceType = _type;
+        goodsInformation = _info;
+        goodsInformation += " 구입하시겠습니까?";
+    }
+
+    protected Shop shop = null;
+    protected Button myButton = null;
     // shop에서 사용
-    public void AddListener(Action<bool, Action> OnClick)
+    public virtual void AddListener(Action<string ,bool, Action> OnClick)
     {
         if(OnClick != null)
         {
             myButton.onClick.RemoveAllListeners();
-            myButton.onClick.AddListener(() => OnClick(BuyAble, Get_SellAction()));
+            myButton.onClick.AddListener(() => OnClick(goodsInformation, BuyAble, Get_SellAction()));
         }
     }
-
-    public PriceType priceType;
-    public int price;
-    public string itemName;
-    [Tooltip("선언한 텍스트 뒤에 ' 구입하시겠습니까?'라는 문구가 붙음 ")]
-    public string goodsInformation;
 
     public bool BuyAble // 골드 부족을 상점에서 뛰어서 조건 검사는 shop에서
     {

@@ -150,7 +150,6 @@ public class TeamSoldier : MonoBehaviour
 
     void SetData()
     {
-        Debug.Log("Seccess");
         UnitManager.instance.ApplyUnitData(gameObject.tag, this);
         SetInherenceData();
     }
@@ -307,7 +306,6 @@ public class TeamSoldier : MonoBehaviour
     {
         if (targetObject != null)
         {
-            Debug.Log(123);
             nav.isStopped = false;
             target = targetObject.transform;
             layerMask = ReturnLayerMask(target.gameObject);

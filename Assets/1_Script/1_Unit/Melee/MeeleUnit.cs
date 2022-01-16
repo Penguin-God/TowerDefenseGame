@@ -7,25 +7,36 @@ public class MeeleUnit : TeamSoldier
 
     public override void UnitTypeMove()
     {
-        if(enemyDistance < stopDistanc * 2 && Check_EnemyToUnit_Deggre() < -0.5f && enemyIsForward)
+        if(Check_EnemyToUnit_Deggre() < - 0.8f && enemyDistance < 10)
         {
-            Debug.Log(1234);
-            destinationPos = target.position - (TargetEnemy.dir * -3);
-            nav.acceleration = 10f;
-            nav.angularSpeed = 100;
-            nav.speed = 0.5f;
+            //Debug.Log(1234);
+            
+            if (enemyIsForward || isAttack)
+            {
+                destinationPos = target.position - (TargetEnemy.dir * -1f);
+                nav.acceleration = 2f;
+                nav.angularSpeed = 5;
+                nav.speed = 1f;
+            }
+            else
+            {
+                destinationPos = target.position - (TargetEnemy.dir * -5f);
+                nav.acceleration = 20f;
+                nav.angularSpeed = 500;
+                nav.speed = 15f;
+            }
         }
         else if (enemyDistance < stopDistanc)
         {
-            destinationPos = target.position - (TargetEnemy.dir * 3);
-            nav.acceleration = 0.5f;
-            nav.angularSpeed = 500;
-            nav.speed = 0.15f;
+            destinationPos = target.position - (TargetEnemy.dir * 2);
+            nav.acceleration = 10f;
+            nav.angularSpeed = 200;
+            nav.speed = 5f;
             contactEnemy = true;
         }
         else
         {
-            destinationPos = target.position - (TargetEnemy.dir * 3);
+            destinationPos = target.position - (TargetEnemy.dir * 1);
             nav.speed = this.speed;
             nav.angularSpeed = 500;
             nav.acceleration = 40;
@@ -36,7 +47,7 @@ public class MeeleUnit : TeamSoldier
     protected float Check_EnemyToUnit_Deggre()
     {
         if (target == null) return 1f;
-        float enemyDot = Vector3.Dot(TargetEnemy.dir.normalized, (target.position - transform.position));
+        float enemyDot = Vector3.Dot(TargetEnemy.dir.normalized, (destinationPos - transform.position));
         return enemyDot;
     }
 

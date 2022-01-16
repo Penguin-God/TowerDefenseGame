@@ -286,7 +286,6 @@ public class UnitDataBase : MonoBehaviour
     {
         float[] passive_datas = new float[3];
         bool _isEnhance = EventManager.instance.GetEventFlag(MyEventType.Reinforce_UnitPassive, (int)_unit.unitColor);
-        Debug.Log(_isEnhance);
         // 패시브 강화 여부에 따라 다른 값 적용
         passive_datas[0] = (_isEnhance) ? passiveDictionary[_key].enhance_p1 : passiveDictionary[_key].p1;
         passive_datas[1] = (_isEnhance) ? passiveDictionary[_key].enhance_p2 : passiveDictionary[_key].p2;

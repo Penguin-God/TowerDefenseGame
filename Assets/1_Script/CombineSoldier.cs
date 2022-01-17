@@ -37,15 +37,15 @@ public class CombineSoldier : MonoBehaviour
             //Destroy(TagSoldier.RedSwordman[1].transform.parent.gameObject);
             //Destroy(TagSoldier.RedSwordman[2].transform.parent.gameObject);
 
-
+            
             //SoldierChoose(0, 0, 1, 1);
             //createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             CombineSoldierPooling.ReturnObject(TagSoldier.RedSwordman[0].transform.parent.gameObject, "RedSwordman");
-            CombineSoldierPooling.ReturnObject(TagSoldier.RedSwordman[0].transform.parent.gameObject, "RedSwordman");
-            CombineSoldierPooling.ReturnObject(TagSoldier.RedSwordman[0].transform.parent.gameObject, "RedSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedSwordman[1].transform.parent.gameObject, "RedSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedSwordman[2].transform.parent.gameObject, "RedSwordman");
 
-            CombineSoldierPooling.GetObject("RedArcher", 0, 0);
+            CombineSoldierPooling.GetObject("RedArcher", 0, 1);
 
             UIManager.instance.UpdateCombineSuccessText("빨간 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -74,15 +74,14 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.RedSwordman.Length >= 2 && TagSoldier.RedArcher.Length >= 3)
         {
 
-            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.RedArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.RedArcher[2].transform.parent.gameObject);
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedSwordman[0].transform.parent.gameObject,"RedSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedSwordman[1].transform.parent.gameObject, "RedSwordman");
 
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedArcher[0].transform.parent.gameObject, "RedArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedArcher[1].transform.parent.gameObject, "RedArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedArcher[2].transform.parent.gameObject, "RedArcher");
 
-            SoldierChoose(0, 0, 2, 2);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            CombineSoldierPooling.GetObject("RedSpearman", 0, 2);
 
             UIManager.instance.UpdateCombineSuccessText("빨간 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -111,16 +110,15 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.RedArcherTag();
         if (TagSoldier.RedSpearman.Length >= 3 && TagSoldier.RedArcher.Length >= 2)
         {
-            Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.RedArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSpearman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSpearman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSpearman[2].transform.parent.gameObject);
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedArcher[0].transform.parent.gameObject, "RedArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedArcher[1].transform.parent.gameObject, "RedArcher");
 
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedSpearman[0].transform.parent.gameObject, "RedSpearman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedSpearman[1].transform.parent.gameObject, "RedSpearman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedSpearman[2].transform.parent.gameObject, "RedSpearman");
 
-            SoldierChoose(0, 0, 3, 3);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-
+            CombineSoldierPooling.GetObject("RedMage", 0, 3);
+      
             UIManager.instance.UpdateCombineSuccessText("빨간 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
             Invoke("CombineSuccessTextDown", 1f);
@@ -148,13 +146,11 @@ public class CombineSoldier : MonoBehaviour
         if (TagSoldier.BlueSwordman.Length >= 3)
         {
 
-            Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueSwordman[2].transform.parent.gameObject);
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueSwordman[0].transform.parent.gameObject, "BlueSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueSwordman[1].transform.parent.gameObject, "BlueSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueSwordman[2].transform.parent.gameObject, "BlueSwordman");
 
-
-            SoldierChoose(1, 1, 1, 1);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            CombineSoldierPooling.GetObject("BlueArcher", 1, 1);
 
             UIManager.instance.UpdateCombineSuccessText("파란 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -182,17 +178,16 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.BlueArcherTag();
         if (TagSoldier.BlueSwordman.Length >= 2 && TagSoldier.BlueArcher.Length >= 3)
         {
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueSwordman[0].transform.parent.gameObject, "BlueSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueSwordman[1].transform.parent.gameObject, "BlueSwordman");
 
-            Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueArcher[2].transform.parent.gameObject);
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueArcher[0].transform.parent.gameObject, "BlueArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueArcher[1].transform.parent.gameObject, "BlueArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueArcher[2].transform.parent.gameObject, "BlueArcher");
 
+            CombineSoldierPooling.GetObject("BlueSpearman", 1, 2);
 
-            SoldierChoose(1, 1, 2, 2);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-
+            
             UIManager.instance.UpdateCombineSuccessText("파란 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
             Invoke("CombineSuccessTextDown", 1f);
@@ -220,16 +215,16 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.BlueArcherTag();
         if (TagSoldier.BlueSpearman.Length >= 3 && TagSoldier.BlueArcher.Length >= 2)
         {
-            Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueSpearman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueSpearman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueSpearman[2].transform.parent.gameObject);
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueArcher[0].transform.parent.gameObject, "BlueArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueArcher[1].transform.parent.gameObject, "BlueArcher");
 
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueSpearman[0].transform.parent.gameObject, "BlueSpearman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueSpearman[1].transform.parent.gameObject, "BlueSpearman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueSpearman[2].transform.parent.gameObject, "BlueSpearman");
 
-            SoldierChoose(1, 1, 3, 3);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            CombineSoldierPooling.GetObject("BlueMage", 1, 3);
 
+            
             UIManager.instance.UpdateCombineSuccessText("파란 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
             Invoke("CombineSuccessTextDown", 1f);
@@ -255,16 +250,17 @@ public class CombineSoldier : MonoBehaviour
     {
         TagSoldier.YellowSwordmanTag();
         if (TagSoldier.YellowSwordman.Length >= 3)
-        {
-            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSwordman[2].transform.parent.gameObject);
+        {           
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowSwordman[0].transform.parent.gameObject, "YellowSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowSwordman[1].transform.parent.gameObject, "YellowSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowSwordman[2].transform.parent.gameObject, "YellowSwordman");
+
+            CombineSoldierPooling.GetObject("YellowArcher", 2, 1);
+
+
             GameManager.instance.Gold += 3;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
-
-            SoldierChoose(2, 2, 1, 1);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("노란 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -292,16 +288,17 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.YellowArcherTag();
         if (TagSoldier.YellowSwordman.Length >= 2 && TagSoldier.YellowArcher.Length >= 3)
         {
-            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowArcher[2].transform.parent.gameObject);
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowSwordman[0].transform.parent.gameObject, "YellowSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowSwordman[1].transform.parent.gameObject, "YellowSwordman");
+
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowArcher[0].transform.parent.gameObject, "YellowArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowArcher[1].transform.parent.gameObject, "YellowArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowArcher[2].transform.parent.gameObject, "YellowArcher");
+
+            CombineSoldierPooling.GetObject("YellowSpearman", 2, 2);
+
             GameManager.instance.Gold += 2;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-
-            SoldierChoose(2, 2, 2, 2);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("노란 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -330,15 +327,14 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.YellowArcherTag();
         if (TagSoldier.YellowSpearman.Length >= 3 && TagSoldier.YellowArcher.Length >= 2)
         {
-            Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSpearman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSpearman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSpearman[2].transform.parent.gameObject);
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowArcher[0].transform.parent.gameObject, "YellowArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowArcher[1].transform.parent.gameObject, "YellowArcher");
 
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowSpearman[0].transform.parent.gameObject, "YellowSpearman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowSpearman[1].transform.parent.gameObject, "YellowSpearman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowSpearman[2].transform.parent.gameObject, "YellowSpearman");
 
-            SoldierChoose(2, 2, 3, 3);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            CombineSoldierPooling.GetObject("YellowMage", 2, 3);
 
             UIManager.instance.UpdateCombineSuccessText("노란 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -366,14 +362,11 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.GreenSwordmanTag();
         if (TagSoldier.GreenSwordman.Length >= 3)
         {
+            CombineSoldierPooling.ReturnObject(TagSoldier.GreenSwordman[0].transform.parent.gameObject, "GreenSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.GreenSwordman[1].transform.parent.gameObject, "GreenSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.GreenSwordman[2].transform.parent.gameObject, "GreenSwordman");
 
-            Destroy(TagSoldier.GreenSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.GreenSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.GreenSwordman[2].transform.parent.gameObject);
-
-
-            SoldierChoose(3, 3, 1, 1);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            CombineSoldierPooling.GetObject("GreenArcher", 3, 1);
 
             UIManager.instance.UpdateCombineSuccessText("초록 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -402,16 +395,18 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.GreenArcherTag();
         if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.GreenArcher.Length >= 3)
         {
-            Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.GreenArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.GreenArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.GreenArcher[2].transform.parent.gameObject);
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueSwordman[0].transform.parent.gameObject, "BlueSwordman");
+
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowSwordman[0].transform.parent.gameObject, "YellowSwordman");
+
+            CombineSoldierPooling.ReturnObject(TagSoldier.GreenArcher[0].transform.parent.gameObject, "GreenArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.GreenArcher[1].transform.parent.gameObject, "GreenArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.GreenArcher[2].transform.parent.gameObject, "GreenArcher");
+
+            CombineSoldierPooling.GetObject("GreenSpearman", 3, 2);
+
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-
-            SoldierChoose(3, 3, 2, 2);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("초록 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -441,16 +436,12 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.YellowArcherTag();
         if (TagSoldier.GreenSpearman.Length >= 3 && TagSoldier.BlueArcher.Length >= 1 && TagSoldier.YellowArcher.Length >= 1)
         {
+            CombineSoldierPooling.ReturnObject(TagSoldier.GreenSpearman[0].transform.parent.gameObject, "GreenSpearman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.GreenSpearman[1].transform.parent.gameObject, "GreenSpearman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.GreenSpearman[2].transform.parent.gameObject, "GreenSpearman");
 
-            Destroy(TagSoldier.GreenSpearman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.GreenSpearman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.GreenSpearman[2].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
-
-
-            SoldierChoose(3, 3, 3, 3);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueArcher[0].transform.parent.gameObject, "BlueArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowArcher[0].transform.parent.gameObject, "YellowArcher");
 
             UIManager.instance.UpdateCombineSuccessText("초록 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -479,15 +470,12 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.OrangeSwordmanTag();
         if (TagSoldier.OrangeSwordman.Length >= 3)
         {
+            CombineSoldierPooling.ReturnObject(TagSoldier.OrangeSwordman[0].transform.parent.gameObject, "OrangeSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.OrangeSwordman[1].transform.parent.gameObject, "OrangeSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.OrangeSwordman[2].transform.parent.gameObject, "OrangeSwordman");
 
-            Destroy(TagSoldier.OrangeSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.OrangeSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.OrangeSwordman[2].transform.parent.gameObject);
-
-
-            SoldierChoose(4, 4, 1, 1);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-
+            CombineSoldierPooling.GetObject("OrangeArcher", 4, 1);
+           
             UIManager.instance.UpdateCombineSuccessText("주황 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
             Invoke("CombineSuccessTextDown", 1f);
@@ -515,16 +503,17 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.OrangeArcherTag();
         if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.OrangeArcher.Length >= 3)
         {
-            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.OrangeArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.OrangeArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.OrangeArcher[2].transform.parent.gameObject);
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedSwordman[0].transform.parent.gameObject, "RedSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowSwordman[0].transform.parent.gameObject, "YellowSwordman");
+
+            CombineSoldierPooling.ReturnObject(TagSoldier.OrangeArcher[0].transform.parent.gameObject, "OrangeArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.OrangeArcher[1].transform.parent.gameObject, "OrangeArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.OrangeArcher[2].transform.parent.gameObject, "OrangeArcher");
+
+            CombineSoldierPooling.GetObject("OrangeSpearman", 4, 2);
+
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
-
-            SoldierChoose(4, 4, 2, 2);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("주황 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -554,16 +543,15 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.YellowArcherTag();
         if (TagSoldier.OrangeSpearman.Length >= 3 && TagSoldier.RedArcher.Length >= 1 && TagSoldier.YellowArcher.Length >= 1)
         {
+            CombineSoldierPooling.ReturnObject(TagSoldier.OrangeSpearman[0].transform.parent.gameObject, "OrangeSpearman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.OrangeSpearman[1].transform.parent.gameObject, "OrangeSpearman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.OrangeSpearman[2].transform.parent.gameObject, "OrangeSpearman");
 
-            Destroy(TagSoldier.OrangeSpearman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.OrangeSpearman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.OrangeSpearman[2].transform.parent.gameObject);
-            Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedArcher[0].transform.parent.gameObject, "RedArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowArcher[1].transform.parent.gameObject, "YellowArcher");
 
 
-            SoldierChoose(4, 4, 3, 3);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            CombineSoldierPooling.GetObject("OrangeMage", 4, 3);
 
             UIManager.instance.UpdateCombineSuccessText("주황 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -591,14 +579,11 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.VioletSwordmanTag();
         if (TagSoldier.VioletSwordman.Length >= 3)
         {
+            CombineSoldierPooling.ReturnObject(TagSoldier.VioletSwordman[0].transform.parent.gameObject, "VioletSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.VioletSwordman[1].transform.parent.gameObject, "VioletSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.VioletSwordman[2].transform.parent.gameObject, "VioletSwordman");
 
-            Destroy(TagSoldier.VioletSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.VioletSwordman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.VioletSwordman[2].transform.parent.gameObject);
-
-
-            SoldierChoose(5, 5, 1, 1);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            CombineSoldierPooling.GetObject("VioletArcher", 5, 1);
 
             UIManager.instance.UpdateCombineSuccessText("보라 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -627,15 +612,15 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.VioletArcherTag();
         if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.RedSwordman.Length >= 1 && TagSoldier.VioletArcher.Length >= 3)
         {
-            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.VioletArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.VioletArcher[1].transform.parent.gameObject);
-            Destroy(TagSoldier.VioletArcher[2].transform.parent.gameObject);
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedSwordman[0].transform.parent.gameObject, "RedSwordman");
 
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueSwordman[0].transform.parent.gameObject, "BlueSwordman");
 
-            SoldierChoose(5, 5, 2, 2);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            CombineSoldierPooling.ReturnObject(TagSoldier.VioletArcher[0].transform.parent.gameObject, "VioletArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.VioletArcher[1].transform.parent.gameObject, "VioletArcher");
+            CombineSoldierPooling.ReturnObject(TagSoldier.VioletArcher[2].transform.parent.gameObject, "VioletArcher");
+
+            CombineSoldierPooling.GetObject("VioletSpearman", 5, 2);
 
             UIManager.instance.UpdateCombineSuccessText("보라 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -665,16 +650,15 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.RedArcherTag();
         if (TagSoldier.VioletSpearman.Length >= 3 && TagSoldier.BlueArcher.Length >= 1 && TagSoldier.RedArcher.Length >= 1)
         {
+            CombineSoldierPooling.ReturnObject(TagSoldier.VioletSpearman[0].transform.parent.gameObject, "VioletSpearman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.VioletSpearman[1].transform.parent.gameObject, "VioletSpearman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.VioletSpearman[2].transform.parent.gameObject, "VioletSpearman");
 
-            Destroy(TagSoldier.VioletSpearman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.VioletSpearman[1].transform.parent.gameObject);
-            Destroy(TagSoldier.VioletSpearman[2].transform.parent.gameObject);
-            Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedArcher[0].transform.parent.gameObject, "RedArcher");
 
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueArcher[1].transform.parent.gameObject, "BlueArcher");
 
-            SoldierChoose(5, 5, 3, 3);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            CombineSoldierPooling.GetObject("VioletMage", 5, 3);
 
             UIManager.instance.UpdateCombineSuccessText("보라 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -705,13 +689,14 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.BlueSwordmanTag();
         if (TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.BlueSwordman.Length >= 1)
         {
-            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowSwordman[0].transform.parent.gameObject, "YellowSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueSwordman[0].transform.parent.gameObject, "BlueSwordman");
+
+            CombineSoldierPooling.GetObject("GreenSwordman", 3, 0);
+
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
-            SoldierChoose(3, 3, 0, 0);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("초록 기사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -737,15 +722,15 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.YellowSwordmanTag();
         TagSoldier.RedSwordmanTag();
         if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1)
-        { 
-            Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+        {
+            CombineSoldierPooling.ReturnObject(TagSoldier.YellowSwordman[0].transform.parent.gameObject, "YellowSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedSwordman[0].transform.parent.gameObject, "RedSwordman");
+
+            CombineSoldierPooling.GetObject("OrangeSwordman", 4, 0);
 
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
-            SoldierChoose(4,4,0,0);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("주황 기사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -771,12 +756,10 @@ public class CombineSoldier : MonoBehaviour
         TagSoldier.RedSwordmanTag();
         if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.BlueSwordman.Length >= 1)
         {
-            Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
-            Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            CombineSoldierPooling.ReturnObject(TagSoldier.BlueSwordman[0].transform.parent.gameObject, "BlueSwordman");
+            CombineSoldierPooling.ReturnObject(TagSoldier.RedSwordman[0].transform.parent.gameObject, "RedSwordman");
 
-
-            SoldierChoose(5, 5, 0, 0);
-            createdefenser.CreateSoldier(Colornumber, Soldiernumber);
+            CombineSoldierPooling.GetObject("VioletSwordman", 5, 0);
 
             UIManager.instance.UpdateCombineSuccessText("보라 기사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -835,14 +818,14 @@ public class CombineSoldier : MonoBehaviour
         {
             CombineSoldierPooling.GetObject("RedSwordman", 0, 0);
         }
-        //else if (randomnumber == 1)
-        //{
-        //    CombineSoldierPooling.GetObject("BlueSwordman", 1, 0);
-        //}
-        //else if (randomnumber == 2)
-        //{
-        //    CombineSoldierPooling.GetObject("YellowSwordman", 2, 0);
-        //}
+        else if (randomnumber == 1)
+        {
+            CombineSoldierPooling.GetObject("BlueSwordman", 1, 0);
+        }
+        else if (randomnumber == 2)
+        {
+            CombineSoldierPooling.GetObject("YellowSwordman", 2, 0);
+        }
         else
         {
             CombineSoldierPooling.GetObject("RedSwordman", 0, 0);

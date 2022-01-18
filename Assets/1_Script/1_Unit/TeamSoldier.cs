@@ -45,10 +45,7 @@ public class WeaponPoolManager : MonoBehaviour
 
 public class TeamSoldier : MonoBehaviour
 {    
-    public enum Type { sowrdman, archer, spearman, mage }
-    public Type unitType;
-
-    public enum UnitColor { red, blue, yellow, green, orange, violet, white, black};
+    public UnitClass unitClass;
     public UnitColor unitColor;
 
     // 아무 버프도 받지 않은 상태 변수 
@@ -127,7 +124,8 @@ public class TeamSoldier : MonoBehaviour
     {
         SetData(); 
         SetPassiveData();
-        UnitManager.instance.CurrentUnitList.Add(gameObject);
+        UnitManager.instance.AddCurrentUnit(this);
+
         if(animator != null) animator.enabled = true;
         nav.enabled = true;
 
@@ -136,17 +134,6 @@ public class TeamSoldier : MonoBehaviour
         StartCoroutine("NavCoroutine");
     }
 
-    private void OnDisable()
-    {
-        SetChaseSetting(null);
-        StopAllCoroutines();
-        UnitManager.instance.CurrentUnitList.Remove(gameObject);
-        isAttack = false;
-        isAttackDelayTime = false; 
-        isSkillAttack = false;
-        if (animator != null) animator.enabled = false;
-        nav.enabled = false;
-    }
 
     void SetData()
     {
@@ -156,7 +143,6 @@ public class TeamSoldier : MonoBehaviour
     // 기본 데이터를 기반으로 유닛 고유 데이터 세팅
     public virtual void SetInherenceData() { }
 
-
     void SetPassiveData()
     {
         UnitPassive _passive = GetComponent<UnitPassive>();
@@ -165,6 +151,18 @@ public class TeamSoldier : MonoBehaviour
         UnitManager.instance.ApplyPassiveData(gameObject.tag, this);
     }
 
+
+    private void OnDisable()
+    {
+        SetChaseSetting(null);
+        StopAllCoroutines();
+        UnitManager.instance.RemvoeCurrentUnit(this);
+        isAttack = false;
+        isAttackDelayTime = false; 
+        isSkillAttack = false;
+        if (animator != null) animator.enabled = false;
+        nav.enabled = false;
+    }
 
 
 

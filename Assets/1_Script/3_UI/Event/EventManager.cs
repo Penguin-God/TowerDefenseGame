@@ -119,7 +119,7 @@ public class EventManager : MonoBehaviour
     {
         unitDataBase.ChangeUnitDataOfColor(_colorNum, (UnitData _data) => ChangeUnitDamage(_data, 2));
 
-        TeamSoldier[] _units = UnitManager.instance.GetItems(_colorNum);
+        TeamSoldier[] _units = UnitManager.instance.GetCurrnetUnits((UnitColor)_colorNum);
         for (int i = 0; i < _units.Length; i++)
         {
             string _unitTag = _units[i].gameObject.tag;
@@ -131,7 +131,7 @@ public class EventManager : MonoBehaviour
     {
         unitDataBase.ChangeUnitDataOfColor(_colorNum, (UnitData _data) => ChangeUnitBossDamage(_data, 2));
 
-        TeamSoldier[] _units = UnitManager.instance.GetItems(_colorNum);
+        TeamSoldier[] _units = UnitManager.instance.GetCurrnetUnits((UnitColor)_colorNum);
         for (int i = 0; i < _units.Length; i++)
         {
             string _unitTag = _units[i].gameObject.tag;
@@ -141,7 +141,7 @@ public class EventManager : MonoBehaviour
 
     void Up_UnitSkillPercent(int _colorNum)
     {
-        TeamSoldier[] _units = UnitManager.instance.GetItems(_colorNum);
+        TeamSoldier[] _units = UnitManager.instance.GetCurrnetUnits((UnitColor)_colorNum);
         for (int i = 0; i < _units.Length; i++)
         {
             IEvent interfaceEvent = _units[i].GetComponent<IEvent>();
@@ -151,7 +151,7 @@ public class EventManager : MonoBehaviour
 
     void Reinforce_UnitPassive(int _colorNum)
     {
-        TeamSoldier[] _units = UnitManager.instance.GetItems(_colorNum);
+        TeamSoldier[] _units = UnitManager.instance.GetCurrnetUnits((UnitColor)_colorNum);
         for (int i = 0; i < _units.Length; i++)
         {
             string _unitTag = _units[i].gameObject.tag;
@@ -200,12 +200,11 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public void CurrnetUnitDamageUp()
+    public void CurrnetAllUnitDamageUp()
     {
-        foreach(GameObject unit in UnitManager.instance.CurrentUnitList)
+        foreach(TeamSoldier _unit in UnitManager.instance.CurrentAllUnits)
         {
-            TeamSoldier teamSoldier = unit.GetComponentInParent<TeamSoldier>();
-            if (teamSoldier != null) teamSoldier.damage += teamSoldier.originDamage;
+            if (_unit != null) _unit.damage += _unit.originDamage;
         }
     }
 

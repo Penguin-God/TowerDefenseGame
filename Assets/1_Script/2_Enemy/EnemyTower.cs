@@ -31,19 +31,19 @@ public class EnemyTower : Enemy
         gameObject.SetActive(false);
         transform.position = new Vector3(5000, 5000, 5000);
         GetTowerReword();
-        SetUnitTarget();
+        UnitManager.instance.UpdateTarget_CurrnetStroyWolrdUnit(null);
     }
 
-    void SetUnitTarget()
-    {
-        foreach (GameObject unit in UnitManager.instance.CurrentUnitList)
-        {
-            if (unit == null) continue;
+    //void SetUnitTarget()
+    //{
+    //    foreach (GameObject unit in UnitManager.instance.CurrentUnitList)
+    //    {
+    //        if (unit == null) continue;
 
-            TeamSoldier teamSoldier = unit.GetComponent<TeamSoldier>();
-            if (teamSoldier.enterStoryWorld) teamSoldier.target = null;
-        }
-    }
+    //        TeamSoldier teamSoldier = unit.GetComponent<TeamSoldier>();
+    //        if (teamSoldier.enterStoryWorld) teamSoldier.target = null;
+    //    }
+    //}
 
     void GetTowerReword()
     {

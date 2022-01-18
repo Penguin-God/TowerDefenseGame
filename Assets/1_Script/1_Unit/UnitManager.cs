@@ -2,43 +2,93 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum UnitColor { red, blue, yellow, green, orange, violet, white, black };
+public enum UnitClass { sowrdman, archer, spearman, mage }
+
 [System.Serializable]
-public class UnitListArray
+public class CurrentUnitManager
 {
-    private List<TeamSoldier>[,] allUnitArray = new List<TeamSoldier>[7, 4];
+    private Dictionary<string, List<TeamSoldier>> UnitDictionary = new Dictionary<string, List<TeamSoldier>>();
+    private Dictionary<UnitColor, List<TeamSoldier>> UnitColorDictionary = new Dictionary<UnitColor, List<TeamSoldier>>();
+    private Dictionary<UnitClass, List<TeamSoldier>> UnitClassDictionary = new Dictionary<UnitClass, List<TeamSoldier>>();
+    private List<TeamSoldier> AllUnit = new List<TeamSoldier>();
 
-    //private List<TeamSoldier>[] redUnitListArray = new List<TeamSoldier>[4];
-    //private List<TeamSoldier>[] blueUnitListArray = new List<TeamSoldier>[4];
-    //private List<TeamSoldier>[] yellowUnitListArray = new List<TeamSoldier>[4];
-    //private List<TeamSoldier>[] greenUnitListArray = new List<TeamSoldier>[4];
-    //private List<TeamSoldier>[] orangeUnitListArray = new List<TeamSoldier>[4];
-    //private List<TeamSoldier>[] violetUnitListArray = new List<TeamSoldier>[4];
-    //private List<TeamSoldier>[] blackUnitListArray = new List<TeamSoldier>[4];
-
-    public void ResetList()
+    public CurrentUnitManager(string[] _unitTags)
     {
-        for (int i = 0; i < allUnitArray.GetLength(0); i++)
-        {
-            for (int j = 0; j < allUnitArray.GetLength(1); j++)
-                allUnitArray[i, j] = new List<TeamSoldier>();
-        }
+        SettingUnitDictionary(_unitTags);
+        SettingColorDictionary();
+        SettingClassDictionary();
     }
 
-    public TeamSoldier[] GetCurrentUnits(int _colorNum)
+    void SettingUnitDictionary(string[] _unitTags)
     {
-        List<TeamSoldier> _currnetUnits = new List<TeamSoldier>();
-        for(int i = 0; i < allUnitArray.GetLength(1); i++)
-        {
-            for (int j = 0; j < allUnitArray[_colorNum, i].Count; j++)
-                _currnetUnits.Add(allUnitArray[_colorNum, i][j]);
-        }
-
-        return _currnetUnits.ToArray();
+        UnitDictionary = new Dictionary<string, List<TeamSoldier>>();
+        for (int i = 0; i < _unitTags.Length; i++) UnitDictionary.Add(_unitTags[i], new List<TeamSoldier>());
     }
 
-    public void AddUnit(int _colorNum, int classNum,TeamSoldier _unit) => allUnitArray[_colorNum, classNum].Add(_unit);
+    void SettingColorDictionary()
+    {
+        foreach (UnitColor _color in System.Enum.GetValues(typeof(UnitColor)))
+            UnitColorDictionary.Add(_color, new List<TeamSoldier>());
+    }
 
-    public void RemoveUnit(int _colorNum, int classNum,TeamSoldier _unit) => allUnitArray[_colorNum, classNum].Remove(_unit);
+    void SettingClassDictionary()
+    {
+        foreach (UnitClass _class in System.Enum.GetValues(typeof(UnitClass)))
+            UnitClassDictionary.Add(_class, new List<TeamSoldier>());
+    }
+
+    public void AddUnit(TeamSoldier _unit)
+    {
+        UnitDictionary[_unit.gameObject.tag].Add(_unit);
+        UnitColorDictionary[_unit.unitColor].Add(_unit);
+        UnitClassDictionary[_unit.unitClass].Add(_unit);
+        AllUnit.Add(_unit);
+    }
+
+    public void RemoveUnit(TeamSoldier _unit)
+    {
+        UnitDictionary[_unit.gameObject.tag].Remove(_unit);
+        UnitColorDictionary[_unit.unitColor].Remove(_unit);
+        UnitClassDictionary[_unit.unitClass].Remove(_unit);
+        AllUnit.Remove(_unit);
+    }
+
+    public TeamSoldier[] GetUnits(string _tag)
+    {
+        return UnitDictionary[_tag].ToArray();
+    }
+
+    public TeamSoldier[] GetUnits(string _tag, out int _count)
+    {
+        TeamSoldier[] _units = UnitDictionary[_tag].ToArray();
+        _count = _units.Length;
+        return _units;
+    }
+
+    public TeamSoldier[] GetUnits(UnitColor _color)
+    {
+        return UnitColorDictionary[_color].ToArray();
+    }
+
+
+    public TeamSoldier[] GetUnits(UnitColor _color, out int _count)
+    {
+        TeamSoldier[] _units = UnitColorDictionary[_color].ToArray();
+        _count = _units.Length;
+        return _units;
+    }
+
+    public TeamSoldier[] GetUnits(UnitClass _class)
+    {
+        return UnitClassDictionary[_class].ToArray();
+    }
+
+    //public int AllUnitCount => AllUnit.Count;
+    public TeamSoldier[] GetAllUnit()
+    {
+        return AllUnit.ToArray();
+    }
 }
 
 
@@ -46,7 +96,7 @@ public class UnitListArray
 public class UnitManager : MonoBehaviour
 {
     public static UnitManager instance;
-
+    [SerializeField] TeamSoldier[] debugCurrentAllUnit = null;
     private void Awake()
     {
         if (instance == null)
@@ -59,14 +109,18 @@ public class UnitManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        for (int i = 0; i < CurrentUnitListArray.Length; i++) CurrentUnitListArray[i] = new List<TeamSoldier>();
+        unitDB = GetComponent<UnitDataBase>();
+        CurrentUnitManager = new CurrentUnitManager(unitDB.unitTags);
 
         PlusMaxUnit = PlayerPrefs.GetInt("PlusMaxUnit");
         maxUnit +=  PlusMaxUnit;
-        unitDB = GetComponent<UnitDataBase>();
-        CurrentUnitList = new List<GameObject>();
 
-        StartCoroutine(UnitListCheck_Coroutine());
+        //StartCoroutine(UnitListCheck_Coroutine());
+    }
+
+    private void Update()
+    {
+        debugCurrentAllUnit = CurrentAllUnits;
     }
 
     public GameObject[] startUnitArray;
@@ -88,7 +142,7 @@ public class UnitManager : MonoBehaviour
     {
         get
         {
-            if (CurrentUnitList.Count >= maxUnit)
+            if (CurrentAllUnits.Length >= maxUnit)
             {
                 UnitOverGuide();
                 return true;
@@ -121,32 +175,50 @@ public class UnitManager : MonoBehaviour
     // 임시. 나중에 커스텀 클래스 Array로 바꿔서 사용할 거임
     //UnitListArray unitListArray = new UnitListArray();
 
-    public List<TeamSoldier>[] CurrentUnitListArray = new List<TeamSoldier>[7];
-    public TeamSoldier[] GetItems(int _colorNum)
+    //public List<TeamSoldier>[] CurrentAllUnitsArray = new List<TeamSoldier>[7];
+    //public TeamSoldier[] GetItems(int _colorNum)
+    //{
+    //    return CurrentAllUnitsArray[_colorNum].ToArray();
+    //}
+
+    //public void AddUnit(int _colorNum, TeamSoldier _unit) => CurrentUnitListArray[_colorNum].Add(_unit);
+
+    //public void RemoveItem(int _colorNum, TeamSoldier _unit) => CurrentUnitListArray[_colorNum].Remove(_unit);
+
+    public CurrentUnitManager CurrentUnitManager { get; private set; } = null;
+    public TeamSoldier[] CurrentAllUnits => CurrentUnitManager.GetAllUnit();
+
+    public void AddCurrentUnit(TeamSoldier _unit)
     {
-        return CurrentUnitListArray[_colorNum].ToArray();
+        CurrentUnitManager.AddUnit(_unit);
+        UIManager.instance.UpdateCurrentUnitText(CurrentAllUnits.Length, maxUnit);
     }
 
-    public void AddUnit(int _colorNum, TeamSoldier _unit) => CurrentUnitListArray[_colorNum].Add(_unit);
-
-    public void RemoveItem(int _colorNum, TeamSoldier _unit) => CurrentUnitListArray[_colorNum].Remove(_unit);
-
-
-    public List<GameObject> CurrentUnitList { get; private set; }
-    readonly WaitForSeconds ws = new WaitForSeconds(0.1f);
-    IEnumerator UnitListCheck_Coroutine() // 유닛 리스트 무한반복문
+    public void RemvoeCurrentUnit(TeamSoldier _unit)
     {
-        while (true)
-        {
-            for(int i = 0; i < CurrentUnitList.Count; i++)
-            {
-                if (CurrentUnitList[i] == null) CurrentUnitList.RemoveAt(i);
-            }
-            // 유닛 카운트 갱신할 때 Text도 같이 갱신
-            UIManager.instance.UpdateCurrentUnitText(CurrentUnitList.Count, maxUnit);
-            yield return ws;
-        }
+        CurrentUnitManager.RemoveUnit(_unit);
+        UIManager.instance.UpdateCurrentUnitText(CurrentAllUnits.Length, maxUnit);
     }
+
+    public TeamSoldier[] GetCurrnetUnits(string _tag) => CurrentUnitManager.GetUnits(_tag);
+    public TeamSoldier[] GetCurrnetUnits(UnitColor _color) => CurrentUnitManager.GetUnits(_color);
+    public TeamSoldier[] GetCurrnetUnits(UnitClass _class) => CurrentUnitManager.GetUnits(_class);
+
+
+    //readonly WaitForSeconds ws = new WaitForSeconds(0.1f);
+    //IEnumerator UnitListCheck_Coroutine() // 유닛 리스트 무한반복문
+    //{
+    //    while (true)
+    //    {
+    //        for(int i = 0; i < CurrentUnitList.Count; i++)
+    //        {
+    //            if (CurrentUnitList[i] == null) CurrentUnitList.RemoveAt(i);
+    //        }
+    //        // 유닛 카운트 갱신할 때 Text도 같이 갱신
+    //        UIManager.instance.UpdateCurrentUnitText(CurrentUnitList.Count, maxUnit);
+    //        yield return ws;
+    //    }
+    //}
 
 
     [SerializeField] private GameObject[] tp_Effects;
@@ -170,9 +242,9 @@ public class UnitManager : MonoBehaviour
 
     public void UnitTranslate_To_EnterStroyMode()
     {
-        for(int i = 0; i < CurrentUnitList.Count; i++)
+        for(int i = 0; i < CurrentAllUnits.Length; i++)
         {
-            TeamSoldier unit = CurrentUnitList[i].GetComponent<TeamSoldier>();
+            TeamSoldier unit = CurrentAllUnits[i].GetComponent<TeamSoldier>();
             if (unit.enterStoryWorld) unit.Unit_WorldChange();
         }
     }
@@ -207,12 +279,21 @@ public class UnitManager : MonoBehaviour
 
     public void UpdateTarget_CurrnetFieldUnit()
     {
-        foreach (GameObject unit in CurrentUnitList)
+        foreach (TeamSoldier unit in CurrentAllUnits)
         {
             if (unit == null) continue;
 
-            TeamSoldier teamSoldier = unit.GetComponent<TeamSoldier>();
-            if (!teamSoldier.enterStoryWorld) teamSoldier.UpdateTarget();
+            if (!unit.enterStoryWorld) unit.UpdateTarget();
+        }
+    }
+
+    public void UpdateTarget_CurrnetStroyWolrdUnit(Transform _newTarget)
+    {
+        foreach (TeamSoldier unit in CurrentAllUnits)
+        {
+            if (unit == null) continue;
+
+            if (unit.enterStoryWorld) unit.SetChaseSetting(_newTarget.gameObject);
         }
     }
 }

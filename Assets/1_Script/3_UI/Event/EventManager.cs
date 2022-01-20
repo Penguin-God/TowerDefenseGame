@@ -27,16 +27,29 @@ public class UnitEventFlag
     }
 
     public void UpFlag(MyEventType _type) => EventFlags[(int)_type] = true;
-    public bool GetFlag(MyEventType _type)
+    public bool GetFlag(MyEventType _type) => EventFlags[(int)_type];
+}
+
+[Serializable]
+public class MageEventFlag
+{
+    private Dictionary<UnitColor, bool> mageColorDic = new Dictionary<UnitColor, bool>();
+    public MageEventFlag()
     {
-        return EventFlags[(int)_type];
+        foreach (UnitColor _color in Enum.GetValues(typeof(UnitColor)))
+        {
+            if (_color == UnitColor.white) continue;
+            mageColorDic.Add(_color, false);
+        }
     }
+
+    public void UpFlag(UnitColor _color) => mageColorDic[_color] = true;
+    public bool GetFlag(UnitColor _color) => mageColorDic[_color];
 }
 
 public class EventManager : MonoBehaviour
 {
     public static EventManager instance;
-
     private void Awake()
     {
         if (instance == null)
@@ -52,33 +65,52 @@ public class EventManager : MonoBehaviour
         // 자료구조 세팅
         SetEvenType_Dictionary();
         SetEventFlagDic();
-
-        Debug.LogError("박준 메세지 : 이벤트 마무리 후 상점, 법사 상점 물품 선택 코드 수정하기");
     }
 
-    // Test
+    // Test GameManager에 Event구독하기
     private void Start()
     {
         ActionRandomEvent();
     }
 
+    [SerializeField]
+    private bool[] MageFlags = new bool[Enum.GetValues(typeof(UnitColor)).Length];
+    void DebugMageFlag()
+    {
+        foreach (UnitColor _color in Enum.GetValues(typeof(UnitColor)))
+        {
+            if (_color == UnitColor.white) continue;
+            MageFlags[(int)_color] = mageEventFlag.GetFlag(_color);
+        }
+    }
+    private void Update()
+    {
+        DebugMageFlag();
+    }
+
+    Dictionary<MyEventType, Action<UnitColor>> eventDictionary;
     void SetEvenType_Dictionary()
     {
-        eventDictionary = new Dictionary<MyEventType, Action<int>>();
+        eventDictionary = new Dictionary<MyEventType, Action<UnitColor>>();
         eventDictionary.Add(MyEventType.Up_UnitDamage, Up_UnitDamage);
         eventDictionary.Add(MyEventType.Up_UnitBossDamage, Up_UnitBossDamage);
         eventDictionary.Add(MyEventType.Up_UnitSkillPercent, Up_UnitSkillPercent);
         eventDictionary.Add(MyEventType.Reinforce_UnitPassive, Reinforce_UnitPassive);
     }
 
-    Dictionary<MyEventType, Action<int>> eventDictionary;
+    public Action GetEvent(MyEventType _eventType, UnitColor _color)
+    {
+        eventDictionary.TryGetValue(_eventType, out Action<UnitColor> _evnet);
+        return () => _evnet(_color);
+    }
+
     // 모든 이벤트는 Used이벤트를 통해 실행됨
-    public void UsedEvent(MyEventType _type, int _colorNum)
+    public void UsedEvent(MyEventType _type, UnitColor _color)
     {
         if (eventDictionary.ContainsKey(_type))
         {
-            EventFlagUp(_type, _colorNum);
-            eventDictionary[_type](_colorNum);
+            EventFlagUp(_type, (int)_color);
+            eventDictionary[_type](_color);
         }
     }
 
@@ -88,7 +120,7 @@ public class EventManager : MonoBehaviour
     {
         MyEventType _myEvent = (MyEventType)UnityEngine.Random.Range(0, eventDictionary.Count);
         int unitColorNumber = UnityEngine.Random.Range(0, unitEventFlags.Length);
-        UsedEvent(_myEvent, unitColorNumber);
+        UsedEvent(_myEvent, (UnitColor)unitColorNumber);
         // Text 세팅
         buffText.text = ReturnUnitText(unitColorNumber) + GetEvnetText(_myEvent);
     }
@@ -112,14 +144,19 @@ public class EventManager : MonoBehaviour
     }
 
 
+    private MageEventFlag mageEventFlag = new MageEventFlag();
+    public void UpMageUltimateFlag(UnitColor _color) => mageEventFlag.UpFlag(_color);
+    public bool GetMageUltimateFlag(UnitColor _color) => mageEventFlag.GetFlag(_color);    
+
+
     [SerializeField] UnitDataBase unitDataBase = null;
     // 풀 안에 있는 애들은 OnEnalbe() 실행하면서 수치를 초기화하기 때문에 현재 활성화된 유닛만 수치를 적용하면 됨
-    // 색깔넘버를 받음
-    public void Up_UnitDamage(int _colorNum)
+    // int가 아니라 UnitColor받게 하기
+    public void Up_UnitDamage(UnitColor _color)
     {
-        unitDataBase.ChangeUnitDataOfColor(_colorNum, (UnitData _data) => ChangeUnitDamage(_data, 2));
+        unitDataBase.ChangeUnitDataOfColor(_color, (UnitData _data) => ChangeUnitDamage(_data, 2));
 
-        TeamSoldier[] _units = UnitManager.instance.GetCurrnetUnits((UnitColor)_colorNum);
+        TeamSoldier[] _units = UnitManager.instance.GetCurrnetUnits(_color);
         for (int i = 0; i < _units.Length; i++)
         {
             string _unitTag = _units[i].gameObject.tag;
@@ -127,11 +164,11 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public void Up_UnitBossDamage(int _colorNum)
+    public void Up_UnitBossDamage(UnitColor _color)
     {
-        unitDataBase.ChangeUnitDataOfColor(_colorNum, (UnitData _data) => ChangeUnitBossDamage(_data, 2));
+        unitDataBase.ChangeUnitDataOfColor(_color, (UnitData _data) => ChangeUnitBossDamage(_data, 2));
 
-        TeamSoldier[] _units = UnitManager.instance.GetCurrnetUnits((UnitColor)_colorNum);
+        TeamSoldier[] _units = UnitManager.instance.GetCurrnetUnits(_color);
         for (int i = 0; i < _units.Length; i++)
         {
             string _unitTag = _units[i].gameObject.tag;
@@ -139,9 +176,9 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    void Up_UnitSkillPercent(int _colorNum)
+    void Up_UnitSkillPercent(UnitColor _color)
     {
-        TeamSoldier[] _units = UnitManager.instance.GetCurrnetUnits((UnitColor)_colorNum);
+        TeamSoldier[] _units = UnitManager.instance.GetCurrnetUnits(_color);
         for (int i = 0; i < _units.Length; i++)
         {
             IEvent interfaceEvent = _units[i].GetComponent<IEvent>();
@@ -149,9 +186,9 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    void Reinforce_UnitPassive(int _colorNum)
+    void Reinforce_UnitPassive(UnitColor _color)
     {
-        TeamSoldier[] _units = UnitManager.instance.GetCurrnetUnits((UnitColor)_colorNum);
+        TeamSoldier[] _units = UnitManager.instance.GetCurrnetUnits(_color);
         for (int i = 0; i < _units.Length; i++)
         {
             string _unitTag = _units[i].gameObject.tag;

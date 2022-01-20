@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class SellUnit : MonoBehaviour, ISellEventShopItem
 {
-    [SerializeField] int unitClassNumber;
-    [SerializeField] int unitColorNumber;
+    [SerializeField] UnitColor sellUnitColor;
+    [SerializeField] UnitClass sellUnitClass;
 
     public void Sell_Item()
     {
-        FindObjectOfType<CreateDefenser>().CreateSoldier(unitColorNumber, unitClassNumber);
+        string _tag = UnitDataBase.GetUnitTag(sellUnitColor, sellUnitClass);
+        CombineSoldierPooling.GetObject(_tag, (int)sellUnitColor, (int)sellUnitClass);
     }
-
 }

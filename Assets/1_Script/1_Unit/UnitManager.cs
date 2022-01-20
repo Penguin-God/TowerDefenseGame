@@ -11,6 +11,7 @@ public class CurrentUnitManager
     private Dictionary<string, List<TeamSoldier>> UnitDictionary = new Dictionary<string, List<TeamSoldier>>();
     private Dictionary<UnitColor, List<TeamSoldier>> UnitColorDictionary = new Dictionary<UnitColor, List<TeamSoldier>>();
     private Dictionary<UnitClass, List<TeamSoldier>> UnitClassDictionary = new Dictionary<UnitClass, List<TeamSoldier>>();
+    private Dictionary<KeyValuePair<UnitColor, UnitClass>, List<TeamSoldier>> UnitPairDictionary = new Dictionary<KeyValuePair<UnitColor, UnitClass>, List<TeamSoldier>>();
     private List<TeamSoldier> AllUnit = new List<TeamSoldier>();
 
     public CurrentUnitManager(string[] _unitTags)
@@ -18,6 +19,7 @@ public class CurrentUnitManager
         SettingUnitDictionary(_unitTags);
         SettingColorDictionary();
         SettingClassDictionary();
+        SettingPairDictionary();
     }
 
     void SettingUnitDictionary(string[] _unitTags)
@@ -38,11 +40,24 @@ public class CurrentUnitManager
             UnitClassDictionary.Add(_class, new List<TeamSoldier>());
     }
 
+    void SettingPairDictionary()
+    {
+        foreach (UnitColor _color in System.Enum.GetValues(typeof(UnitColor)))
+        {
+            foreach (UnitClass _class in System.Enum.GetValues(typeof(UnitClass)))
+            {
+                KeyValuePair<UnitColor, UnitClass> _pair = new KeyValuePair<UnitColor, UnitClass>(_color, _class);
+                UnitPairDictionary.Add(_pair, new List<TeamSoldier>());
+            }
+        }
+    }
+
     public void AddUnit(TeamSoldier _unit)
     {
         UnitDictionary[_unit.gameObject.tag].Add(_unit);
         UnitColorDictionary[_unit.unitColor].Add(_unit);
         UnitClassDictionary[_unit.unitClass].Add(_unit);
+        UnitPairDictionary[new KeyValuePair<UnitColor, UnitClass>(_unit.unitColor, _unit.unitClass)].Add(_unit);
         AllUnit.Add(_unit);
     }
 
@@ -51,6 +66,7 @@ public class CurrentUnitManager
         UnitDictionary[_unit.gameObject.tag].Remove(_unit);
         UnitColorDictionary[_unit.unitColor].Remove(_unit);
         UnitClassDictionary[_unit.unitClass].Remove(_unit);
+        UnitPairDictionary[new KeyValuePair<UnitColor, UnitClass>(_unit.unitColor, _unit.unitClass)].Remove(_unit);
         AllUnit.Remove(_unit);
     }
 
@@ -82,6 +98,12 @@ public class CurrentUnitManager
     public TeamSoldier[] GetUnits(UnitClass _class)
     {
         return UnitClassDictionary[_class].ToArray();
+    }
+
+    public TeamSoldier[] GetUnits(UnitColor _color, UnitClass _class)
+    {
+        TeamSoldier[] _units = UnitPairDictionary[new KeyValuePair<UnitColor, UnitClass>(_color, _class)].ToArray();
+        return _units;
     }
 
     //public int AllUnitCount => AllUnit.Count;
@@ -203,6 +225,8 @@ public class UnitManager : MonoBehaviour
     public TeamSoldier[] GetCurrnetUnits(string _tag) => CurrentUnitManager.GetUnits(_tag);
     public TeamSoldier[] GetCurrnetUnits(UnitColor _color) => CurrentUnitManager.GetUnits(_color);
     public TeamSoldier[] GetCurrnetUnits(UnitClass _class) => CurrentUnitManager.GetUnits(_class);
+
+    public TeamSoldier[] GetCurrnetUnits(UnitColor _color, UnitClass _class) => CurrentUnitManager.GetUnits(_color, _class);
 
 
     //readonly WaitForSeconds ws = new WaitForSeconds(0.1f);

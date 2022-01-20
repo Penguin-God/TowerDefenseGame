@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CombineSoldierPooling : MonoBehaviour
 {
@@ -13,24 +14,18 @@ public class CombineSoldierPooling : MonoBehaviour
 
     Dictionary<string,Queue<GameObject>> poolingDictionary = new Dictionary<string, Queue<GameObject>>();
 
-    
     private void Awake()
     {
         Instance = this;
-        for (int i = 0; i < 32; i++)
+        for (int i = 0; i < unitDataBase.unitTags.Length; i++)
         {
             poolingDictionary.Add(unitDataBase.unitTags[i], new Queue<GameObject>());
         }
-
-        
 
         InitSwordman(5);
         InitArcher(4);
         InitSpearman(3);
         InitMage(2);
-        
-        //poolingDictionary.Add("RedArcher",RedArcherQueue)
-        
     }
     private void InitSwordman(int Count)
     {
@@ -134,11 +129,11 @@ public class CombineSoldierPooling : MonoBehaviour
             return newObj;
         }
     }
+
     public static void ReturnObject(GameObject obj, string Soldier) 
     {
         obj.gameObject.SetActive(false);
         obj.transform.SetParent(Instance.transform);
         Instance.poolingDictionary[Soldier].Enqueue(obj);
     }
-
 }

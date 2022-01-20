@@ -62,31 +62,6 @@ public struct PassiveData
 }
 
 
-//[System.Serializable]
-//public struct UnitStruct
-//{
-//    public string name;
-//    public TeamSoldier unit;
-
-//    public UnitStruct(string _name, TeamSoldier _unit)
-//    {
-//        name = _name;
-//        unit = _unit;
-//    }
-//}
-
-//[System.Serializable]
-//public struct UnitPassiveStruct
-//{
-//    public string name;
-//    public UnitPassive unitPassive;
-
-//    public UnitPassiveStruct(string _name, UnitPassive _unitPassive)
-//    {
-//        name = _name;
-//        unitPassive = _unitPassive;
-//    }
-//}
 
 public class UnitDataList<T>
 {
@@ -116,6 +91,33 @@ public class UnitDataBase : MonoBehaviour
 
         LoadPassiveDataToJson();
         SetPassiveDictionary();
+
+        SettingTagDictionary();
+    }
+
+    static Dictionary<KeyValuePair<UnitColor, UnitClass>, string> UnitTagDictionary = new Dictionary<KeyValuePair<UnitColor, UnitClass>, string>();
+
+    void SettingTagDictionary()
+    {
+        int count = 0;
+        foreach (UnitColor _color in System.Enum.GetValues(typeof(UnitColor)))
+        {
+            foreach (UnitClass _class in System.Enum.GetValues(typeof(UnitClass)))
+            {
+                KeyValuePair<UnitColor, UnitClass> _pair = new KeyValuePair<UnitColor, UnitClass>(_color, _class);
+                //Debug.Log($"{_pair} : {unitTags[count]}");
+                UnitTagDictionary.Add(_pair, unitTags[count]);
+                count++;
+            }
+        }
+    }
+
+    public static string GetUnitTag(UnitColor _color, UnitClass _class)
+    {
+        KeyValuePair<UnitColor, UnitClass> _pair = new KeyValuePair<UnitColor, UnitClass>(_color, _class);
+        bool _isExist = UnitTagDictionary.TryGetValue(_pair, out string _tag);
+        if (_isExist) return _tag;
+        else return "";
     }
 
     private void OnValidate()
@@ -217,12 +219,19 @@ public class UnitDataBase : MonoBehaviour
             IEvent @event = _team.GetComponent<IEvent>();
             if (@event != null) @event.SkillPercentUp();
             Debug.Log("HIHI");
-        }    
+        }
+
+        if(_team.GetComponent<Unit_Mage>() != null)
+        {
+            Unit_Mage _mage = _team.GetComponent<Unit_Mage>();
+            _mage.isUltimate = EventManager.instance.GetMageUltimateFlag(_team.unitColor);
+            Debug.Log("Mage God");
+        }
     }
 
-    public void ChangeUnitDataOfColor(int _colorNum, Action<UnitData> OnChaneData)
+    public void ChangeUnitDataOfColor(UnitColor _color, Action<UnitData> OnChaneData)
     {
-        string[] _keys = GetDataKeys(_colorNum);
+        string[] _keys = GetDataKeys(_color);
         for (int i = 0; i < _keys.Length; i++) ChangeUnitData(_keys[i], OnChaneData);
     }
 
@@ -295,52 +304,25 @@ public class UnitDataBase : MonoBehaviour
         if (_passive == null) return;
 
         _passive.ApplyData(passive_datas[0], passive_datas[1], passive_datas[2]);
-
-        //passive_datas[1] = passiveDictionary[_key].p2;
-        //passive_datas[2] = passiveDictionary[_key].p3;
-        //passive_datas[3] = passiveDictionary[_key].enhance_p1;
-        //passive_datas[4] = passiveDictionary[_key].enhance_p2;
-        //passive_datas[5] = passiveDictionary[_key].enhance_p3;
-        //return passive_datas;
     }
 
-    public void ChangePassiveDataOfColor(int _colorNum, Func<PassiveData, PassiveData> OnChaneData)
+    public void ChangePassiveDataOfColor(UnitColor _color, Func<PassiveData, PassiveData> OnChaneData)
     {
-        string[] _keys = GetDataKeys(_colorNum);
+        string[] _keys = GetDataKeys(_color);
         for (int i = 0; i < _keys.Length; i++) ChangePassiveData(_keys[i], OnChaneData);
     }
 
     public void ChangePassiveData(string _key, Func<PassiveData, PassiveData> ChaneData) => passiveDictionary[_key] = ChaneData(passiveDictionary[_key]);
 
-
-    public string[] GetDataKeys(int _colorNum)
+    string[] GetDataKeys(UnitColor _color)
     {
-        int _startNum = _colorNum * 4;
-        int _endNum = _startNum + 4;
-
-        string[] _keys = new string[4];
-        for(int i = 0; i < _keys.Length; i++)
+        string[] _tags = new string[System.Enum.GetValues(typeof(UnitClass)).Length];
+        int _index = 0;
+        foreach (UnitClass _class in System.Enum.GetValues(typeof(UnitClass)))
         {
-            if(_startNum < _endNum)
-                _keys[i] = unitTags[_startNum+i];
+            _tags[_index] = GetUnitTag(_color, _class);
+            _index++;
         }
-        return _keys;
+        return _tags;
     }
-
-    //[ContextMenu("SetUnitData")]
-    //void SetUnitData()
-    //{
-    //    int count = Mathf.Min(loadDataList.Count, unitList.Count);
-    //    for(int i = 0; i < count; i++) // TeamSoldier에 데이터 세팅 함수 만들기
-    //    {
-    //        TeamSoldier unit = unitList[i].GetComponentInChildren<TeamSoldier>();
-    //        unit.originDamage = loadDataList[i].unitDamage;
-    //        unit.damage = loadDataList[i].unitDamage;
-    //        unit.originBossDamage = loadDataList[i].unitDamage;
-    //        unit.bossDamage = loadDataList[i].unitDamage;
-    //        unit.speed = loadDataList[i].unitSpeed;
-    //        unit.attackRange = loadDataList[i].attackRange;
-    //    }
-    //}
-
 }

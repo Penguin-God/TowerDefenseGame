@@ -11,7 +11,7 @@ public enum PriceType
 
 public class SellEventShopItem : MonoBehaviour
 {
-
+    public GoodsPosition Position;
     public PriceType priceType;
     public int price;
     public string itemName;
@@ -36,10 +36,16 @@ public class SellEventShopItem : MonoBehaviour
         goodsInformation += " 구입하시겠습니까?";
     }
 
+    private void OnEnable()
+    {
+        shop.ChangeGoods(Position, gameObject);
+        shop.SetGoodsEventAction(gameObject);
+    }
+
     protected Shop shop = null;
     protected Button myButton = null;
-    // shop에서 사용
-    public virtual void AddListener(Action<string ,bool, Action> OnClick)
+    // shop에서 사용, shop에서 팔 상품을 고르고 이 함수를 사용해서 클릭시 행동을 정의
+    public void AddListener(Action<string ,bool, Action> OnClick)
     {
         if(OnClick != null)
         {
@@ -48,7 +54,7 @@ public class SellEventShopItem : MonoBehaviour
         }
     }
 
-    public bool BuyAble // 골드 부족을 상점에서 뛰어서 조건 검사는 shop에서
+    public bool BuyAble
     {
         get
         {

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SellMageSkillReinForce : MonoBehaviour, ISellEventShopItem
 {
-    [SerializeField] int mageColorNumber;
+    [SerializeField] UnitColor mageColor;
 
     public void Sell_Item()
     {
@@ -13,52 +13,53 @@ public class SellMageSkillReinForce : MonoBehaviour, ISellEventShopItem
 
     void BuyMageUltimate()
     {
-        GameObject mage = new GameObject("");//UnitManager.instance.unitArrays[mageColorNumber].unitArray[3];
-        mage.GetComponentInChildren<Unit_Mage>().isUltimate = true;
-        SetCurrentMageUltimate(mageColorNumber);
-    }
-    // 현재 필드에 있는 법사 강화
-    void SetCurrentMageUltimate(int mageColorNumber)
-    {
-        switch (mageColorNumber)
-        {
-            case 0:
-                GameObject[] redMages = GameObject.FindGameObjectsWithTag("RedMage");
-                SetMageUltimate(redMages);
-                break;
-            case 1:
-                GameObject[] blueMages = GameObject.FindGameObjectsWithTag("BlueMage");
-                SetMageUltimate(blueMages);
-                break;
-            case 2:
-                GameObject[] yellowMages = GameObject.FindGameObjectsWithTag("YellowMage");
-                SetMageUltimate(yellowMages);
-                break;
-            case 3:
-                GameObject[] greenMages = GameObject.FindGameObjectsWithTag("GreenMage");
-                SetMageUltimate(greenMages);
-                break;
-            case 4:
-                GameObject[] orangeMages = GameObject.FindGameObjectsWithTag("OrangeMage");
-                SetMageUltimate(orangeMages);
-                break;
-            case 5:
-                GameObject[] violetMages = GameObject.FindGameObjectsWithTag("VioletMage");
-                SetMageUltimate(violetMages);
-                break;
-            case 6:
-                GameObject[] blackMages = GameObject.FindGameObjectsWithTag("BlackMage");
-                SetMageUltimate(blackMages);
-                break;
-        }
+        EventManager.instance.UpMageUltimateFlag(mageColor);
+        TeamSoldier[] _units = UnitManager.instance.GetCurrnetUnits(mageColor, UnitClass.mage);
+        SetMageUltimate(_units);
     }
 
-    void SetMageUltimate(GameObject[] mages)
+    // 현재 필드에 있는 법사 강화
+    //void SetCurrentMageUltimate(int mageColorNumber)
+    //{
+    //    switch (mageColorNumber)
+    //    {
+    //        case 0:
+    //            GameObject[] redMages = GameObject.FindGameObjectsWithTag("RedMage");
+    //            SetMageUltimate(redMages);
+    //            break;
+    //        case 1:
+    //            GameObject[] blueMages = GameObject.FindGameObjectsWithTag("BlueMage");
+    //            SetMageUltimate(blueMages);
+    //            break;
+    //        case 2:
+    //            GameObject[] yellowMages = GameObject.FindGameObjectsWithTag("YellowMage");
+    //            SetMageUltimate(yellowMages);
+    //            break;
+    //        case 3:
+    //            GameObject[] greenMages = GameObject.FindGameObjectsWithTag("GreenMage");
+    //            SetMageUltimate(greenMages);
+    //            break;
+    //        case 4:
+    //            GameObject[] orangeMages = GameObject.FindGameObjectsWithTag("OrangeMage");
+    //            SetMageUltimate(orangeMages);
+    //            break;
+    //        case 5:
+    //            GameObject[] violetMages = GameObject.FindGameObjectsWithTag("VioletMage");
+    //            SetMageUltimate(violetMages);
+    //            break;
+    //        case 6:
+    //            GameObject[] blackMages = GameObject.FindGameObjectsWithTag("BlackMage");
+    //            SetMageUltimate(blackMages);
+    //            break;
+    //    }
+    //}
+
+    void SetMageUltimate(TeamSoldier[] _mages)
     {
-        for (int i = 0; i < mages.Length; i++)
+        for (int i = 0; i < _mages.Length; i++)
         {
-            Unit_Mage mage = mages[i].GetComponentInParent<Unit_Mage>();
-            mage.isUltimate = true;
+            Unit_Mage _mage = _mages[i].GetComponent<Unit_Mage>();
+            _mage.isUltimate = true;
         }
     }
 }

@@ -12,6 +12,13 @@ public enum TriggerType
     EnemyTower,
 }
 
+public enum GoodsPosition
+{
+    Left,
+    Center,
+    Right
+}
+
 public class Shop : MonoBehaviour
 {
     [SerializeField] Text shopGuideText;
@@ -20,13 +27,17 @@ public class Shop : MonoBehaviour
     [SerializeField] GameObject centerGoldGoods;
     [SerializeField] GameObject foodGoods;
 
-    //[SerializeField] GameObject[] leftGoldStocks;
-    //[SerializeField] GameObject[] centerGoldStocks; 
-    //[SerializeField] GameObject[] foodStocks;
-
+    Dictionary<GoodsPosition, GameObject> GoodsPositionDic = new Dictionary<GoodsPosition, GameObject>();
     [SerializeField] GameObject current_LeftGoldGoods = null;
     [SerializeField] GameObject current_CenterGoldGoods = null;
     [SerializeField] GameObject current_FoodGoldGoods = null;
+
+    private void Update()
+    {
+        current_LeftGoldGoods = GoodsPositionDic[GoodsPosition.Left];
+        current_CenterGoldGoods = GoodsPositionDic[GoodsPosition.Center];
+        current_FoodGoldGoods = GoodsPositionDic[GoodsPosition.Right];
+    }
 
     private void Awake()
     {
@@ -36,6 +47,7 @@ public class Shop : MonoBehaviour
         //foodStocks = SettingStocks(foodGoods.transform);
 
         // 딕셔너리 세팅
+        SettingGoodsPosition();
         Set_BossShopWeigh();
         Set_TowerShopWeigh();
 
@@ -44,12 +56,24 @@ public class Shop : MonoBehaviour
         RectTransform rectTransform = GetComponent<RectTransform>();
         rectTransform.anchoredPosition = new Vector3(0, 0, 0);
     }
-    GameObject[] SettingStocks(Transform _stocksPrent)
+
+    void SettingGoodsPosition()
     {
-        GameObject[] _stocks = new GameObject[_stocksPrent.transform.childCount];
-        for (int i = 0; i < _stocks.Length; i++) _stocks[i] = _stocksPrent.transform.GetChild(i).gameObject;
-        return _stocks;
+        GoodsPositionDic.Add(GoodsPosition.Left, null);
+        GoodsPositionDic.Add(GoodsPosition.Center, null);
+        GoodsPositionDic.Add(GoodsPosition.Right, null);
     }
+
+    public void ChangeGoods(GoodsPosition _position, GameObject _goods)
+    {
+        if (GoodsPositionDic.ContainsKey(_position)) GoodsPositionDic[_position] = _goods;
+    }
+    //GameObject[] SettingStocks(Transform _stocksPrent)
+    //{
+    //    GameObject[] _stocks = new GameObject[_stocksPrent.transform.childCount];
+    //    for (int i = 0; i < _stocks.Length; i++) _stocks[i] = _stocksPrent.transform.GetChild(i).gameObject;
+    //    return _stocks;
+    //}
 
 
     [SerializeField] GameObject panelObject = null;
@@ -103,8 +127,8 @@ public class Shop : MonoBehaviour
         gameObject.SetActive(true);
     }
 
-    public int currentLevel = 0;
-    public TriggerType currentShopType = TriggerType.None;
+    [SerializeField] int currentLevel = 1;
+    [SerializeField] TriggerType currentShopType = TriggerType.Boss;
     void Set_ShopData(int level, TriggerType type)
     {
         currentShopType = type;
@@ -147,9 +171,13 @@ public class Shop : MonoBehaviour
 
     void Disabled_CurrentShowGoods()
     {
-        Disabled_Goods(ref current_LeftGoldGoods);
-        Disabled_Goods(ref current_CenterGoldGoods);
-        Disabled_Goods(ref current_FoodGoldGoods);
+        GoodsPositionDic[GoodsPosition.Left].SetActive(false);
+        GoodsPositionDic[GoodsPosition.Center].SetActive(false);
+        GoodsPositionDic[GoodsPosition.Right].SetActive(false);
+
+        GoodsPositionDic[GoodsPosition.Left] = null;
+        GoodsPositionDic[GoodsPosition.Center] = null;
+        GoodsPositionDic[GoodsPosition.Right] = null;
     }
 
     void Disabled_Goods(ref GameObject goods)
@@ -163,16 +191,16 @@ public class Shop : MonoBehaviour
     {
         Dictionary<int, int[]> goodsWeighDictionary = (type == TriggerType.Boss) ? bossShopWeighDictionary : towerShopWeighDictionary;
 
-        current_LeftGoldGoods = Set_RandomGoods(leftGoldGoods, level, goodsWeighDictionary);
-        current_CenterGoldGoods = Set_RandomGoods(centerGoldGoods, level, goodsWeighDictionary);
-        current_FoodGoldGoods = Set_RandomGoods(foodGoods, level, goodsWeighDictionary);
+        Set_RandomGoods(leftGoldGoods, level, goodsWeighDictionary);
+        Set_RandomGoods(centerGoldGoods, level, goodsWeighDictionary);
+        Set_RandomGoods(foodGoods, level, goodsWeighDictionary);
 
-        SetGoodsEvent(ref current_LeftGoldGoods, current_LeftGoldGoods);
-        SetGoodsEvent(ref current_CenterGoldGoods, current_CenterGoldGoods);
-        SetGoodsEvent(ref current_FoodGoldGoods, current_FoodGoldGoods);
+        //SetGoodsEvent(ref current_LeftGoldGoods, current_LeftGoldGoods);
+        //SetGoodsEvent(ref current_CenterGoldGoods, current_CenterGoldGoods);
+        //SetGoodsEvent(ref current_FoodGoldGoods, current_FoodGoldGoods);
     }
 
-    GameObject Set_RandomGoods(GameObject goods, int level, Dictionary<int, int[]> goodsWeighDictionary)
+    void Set_RandomGoods(GameObject goods, int level, Dictionary<int, int[]> goodsWeighDictionary)
     {
         Transform goodsRarity = null;
         int totalWeigh = 100;
@@ -192,12 +220,14 @@ public class Shop : MonoBehaviour
         // 휘귀도 선택 후 상품 랜덤 선택
         int goodsIndex = UnityEngine.Random.Range(0, goodsRarity.transform.childCount);
         GameObject showGoods = goodsRarity.GetChild(goodsIndex).gameObject;
+        if (showGoods.GetComponent<IGoodsSeleter>() != null) showGoods = showGoods.GetComponent<IGoodsSeleter>().GetGoods();
         showGoods.SetActive(true);
-        return showGoods;
     }
 
+    public Action<GameObject> SetGoodsEventAction => SetGoodsEvent;
+
     // 인자값은 SellEventShopItem에서 넣어줌
-    void SetGoodsEvent(ref GameObject _goods, GameObject _destroyGoods)
+    void SetGoodsEvent(GameObject _goods)
     {
         _goods.GetComponent<SellEventShopItem>().AddListener((string _text, bool _byeAble, Action _OnSell) => 
         {
@@ -210,7 +240,7 @@ public class Shop : MonoBehaviour
                     if (_byeAble)
                     {
                         _OnSell();
-                        GoodsPurchase(_destroyGoods);
+                        GoodsPurchase(_goods);
                     }
                     else LacksGold();
                 };

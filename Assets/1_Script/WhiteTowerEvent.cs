@@ -6,6 +6,7 @@ public class WhiteTowerEvent : MonoBehaviour
 {
     public CreateDefenser createDefenser;
     public BlackTowerEvent blackTowerEvent;
+    public SoldiersTags TagSoldier;
 
     private void OnMouseDown()
     {
@@ -24,7 +25,8 @@ public class WhiteTowerEvent : MonoBehaviour
         }
         if (GameManager.instance.Food >= 1)
         {
-            createDefenser.CreateSoldier(7, 0);
+            CombineSoldierPooling.GetObject("WhiteSwordman", 7, 0);
+            //createDefenser.CreateSoldier(7, 0);
             GameManager.instance.Food -= 1;
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
         }
@@ -43,7 +45,8 @@ public class WhiteTowerEvent : MonoBehaviour
         }
         if (GameManager.instance.Food >= 2)
         {
-            createDefenser.CreateSoldier(7, 1);
+            CombineSoldierPooling.GetObject("WhiteArcher", 7, 1);
+            //createDefenser.CreateSoldier(7, 1);
             GameManager.instance.Food -= 2;
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
         }
@@ -62,7 +65,8 @@ public class WhiteTowerEvent : MonoBehaviour
         }
         if (GameManager.instance.Food >= 7)
         {
-            createDefenser.CreateSoldier(7, 2);
+            CombineSoldierPooling.GetObject("WhiteSpearman", 7, 2);
+            //createDefenser.CreateSoldier(7, 2);
             GameManager.instance.Food -= 7;
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
         }
@@ -81,7 +85,8 @@ public class WhiteTowerEvent : MonoBehaviour
         }
         if (GameManager.instance.Food >= 20)
         {
-            createDefenser.CreateSoldier(7, 3);
+            CombineSoldierPooling.GetObject("WhiteMage", 7, 3);
+            //createDefenser.CreateSoldier(7, 3);
             GameManager.instance.Food -= 20;
             UIManager.instance.UpdateFoodText(GameManager.instance.Food);
         }

@@ -64,7 +64,8 @@ public class BlackTowerEvent : MonoBehaviour
             Randomnumber = Random.Range(0, 2); // 50%
             if (Randomnumber == 0)
             {
-                createDefenser.CreateSoldier(6, 0);
+                CombineSoldierPooling.GetObject("BlackSwordman", 6, 0);
+                //createDefenser.CreateSoldier(6, 0);
                 UIManager.instance.SuccessText.gameObject.SetActive(true);
                 Invoke("SuccessTextDown", 1f);
             }
@@ -97,7 +98,8 @@ public class BlackTowerEvent : MonoBehaviour
             Randomnumber = Random.Range(0, 3); // 25%
             if (Randomnumber == 0)
             {
-                createDefenser.CreateSoldier(6, 1);
+                CombineSoldierPooling.GetObject("BlackArcher", 6, 1);
+                //createDefenser.CreateSoldier(6, 1);
                 UIManager.instance.SuccessText.gameObject.SetActive(true);
                 Invoke("SuccessTextDown", 1f);
             }
@@ -130,7 +132,8 @@ public class BlackTowerEvent : MonoBehaviour
             Randomnumber = Random.Range(0, 9); // 10%
             if (Randomnumber == 0)
             {
-                createDefenser.CreateSoldier(6, 2);
+                CombineSoldierPooling.GetObject("BlackSpearman", 6, 2);
+                //createDefenser.CreateSoldier(6, 2);
                 UIManager.instance.SuccessText.gameObject.SetActive(true);
                 Invoke("SuccessTextDown", 1f);
             }
@@ -163,7 +166,8 @@ public class BlackTowerEvent : MonoBehaviour
             Randomnumber = Random.Range(0, 25); // 4%
             if (Randomnumber == 0)
             {
-                createDefenser.CreateSoldier(6, 3);
+                CombineSoldierPooling.GetObject("BlackMage", 6, 3);
+                //createDefenser.CreateSoldier(6, 3);
                 UIManager.instance.SuccessText.gameObject.SetActive(true);
                 Invoke("SuccessTextDown", 1f);
             }
@@ -196,12 +200,17 @@ public class BlackTowerEvent : MonoBehaviour
         soldiersTags.BlackSwordmanTag();
         if (soldiersTags.BlackSwordman.Length >= 3)
         {
+            CombineSoldierPooling.ReturnObject(soldiersTags.BlackSwordman[0].transform.parent.gameObject, "BlackSwordman");
+            CombineSoldierPooling.ReturnObject(soldiersTags.BlackSwordman[1].transform.parent.gameObject, "BlackSwordman");
+            CombineSoldierPooling.ReturnObject(soldiersTags.BlackSwordman[2].transform.parent.gameObject, "BlackSwordman");
             
-            Destroy(soldiersTags.BlackSwordman[0].transform.parent.gameObject);
-            Destroy(soldiersTags.BlackSwordman[1].transform.parent.gameObject);
-            Destroy(soldiersTags.BlackSwordman[2].transform.parent.gameObject);
 
-            createDefenser.CreateSoldier(6, 1);
+            CombineSoldierPooling.GetObject("BlackArcher", 6, 1);
+            //Destroy(soldiersTags.BlackSwordman[0].transform.parent.gameObject);
+            //Destroy(soldiersTags.BlackSwordman[1].transform.parent.gameObject);
+            //Destroy(soldiersTags.BlackSwordman[2].transform.parent.gameObject);
+
+            //createDefenser.CreateSoldier(6, 1);
             UIManager.instance.UpdateCombineSuccessText("검은 아처 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
             Invoke("CombineSuccessTextDown", 1f);
@@ -226,12 +235,18 @@ public class BlackTowerEvent : MonoBehaviour
         soldiersTags.BlackArcherTag();
         if (soldiersTags.BlackArcher.Length >= 3)
         {
-            
-            Destroy(soldiersTags.BlackArcher[0].transform.parent.gameObject);
-            Destroy(soldiersTags.BlackArcher[1].transform.parent.gameObject);
-            Destroy(soldiersTags.BlackArcher[2].transform.parent.gameObject);
+            CombineSoldierPooling.ReturnObject(soldiersTags.BlackArcher[0].transform.parent.gameObject, "BlackArcher");
+            CombineSoldierPooling.ReturnObject(soldiersTags.BlackArcher[1].transform.parent.gameObject, "BlackArcher");
+            CombineSoldierPooling.ReturnObject(soldiersTags.BlackArcher[2].transform.parent.gameObject, "BlackArcher");
 
-            createDefenser.CreateSoldier(6, 2);
+
+            CombineSoldierPooling.GetObject("BlackSpearman", 6, 2);
+
+            //Destroy(soldiersTags.BlackArcher[0].transform.parent.gameObject);
+            //Destroy(soldiersTags.BlackArcher[1].transform.parent.gameObject);
+            //Destroy(soldiersTags.BlackArcher[2].transform.parent.gameObject);
+
+            //createDefenser.CreateSoldier(6, 2);
 
             UIManager.instance.UpdateCombineSuccessText("검은 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -254,12 +269,18 @@ public class BlackTowerEvent : MonoBehaviour
         soldiersTags.BlackSpearmanTag();
         if (soldiersTags.BlackSpearman.Length >= 3)
         {
-            
-            Destroy(soldiersTags.BlackSpearman[0].transform.parent.gameObject);
-            Destroy(soldiersTags.BlackSpearman[1].transform.parent.gameObject);
-            Destroy(soldiersTags.BlackSpearman[2].transform.parent.gameObject);
+            CombineSoldierPooling.ReturnObject(soldiersTags.BlackSpearman[0].transform.parent.gameObject, "BlackSpearman");
+            CombineSoldierPooling.ReturnObject(soldiersTags.BlackSpearman[1].transform.parent.gameObject, "BlackSpearman");
+            CombineSoldierPooling.ReturnObject(soldiersTags.BlackSpearman[2].transform.parent.gameObject, "BlackSpearman");
 
-            createDefenser.CreateSoldier(6, 3);
+
+            CombineSoldierPooling.GetObject("BlackMAge", 6, 3);
+
+            //Destroy(soldiersTags.BlackSpearman[0].transform.parent.gameObject);
+            //Destroy(soldiersTags.BlackSpearman[1].transform.parent.gameObject);
+            //Destroy(soldiersTags.BlackSpearman[2].transform.parent.gameObject);
+
+            //createDefenser.CreateSoldier(6, 3);
 
             UIManager.instance.UpdateCombineSuccessText("검은 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);

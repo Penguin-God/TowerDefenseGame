@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19be68582eec9484a88d4abe3df39cb4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  transformTime: 30
   offSet: {x: 0, y: 4, z: 3}
   targetUnit: {fileID: 0}
 --- !u!1 &3550290450294667291

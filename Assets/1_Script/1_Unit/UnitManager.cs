@@ -70,10 +70,7 @@ public class CurrentUnitManager
         AllUnit.Remove(_unit);
     }
 
-    public TeamSoldier[] GetUnits(string _tag)
-    {
-        return UnitDictionary[_tag].ToArray();
-    }
+    public TeamSoldier[] GetUnits(string _tag) => UnitDictionary[_tag].ToArray();
 
     public TeamSoldier[] GetUnits(string _tag, out int _count)
     {
@@ -82,12 +79,7 @@ public class CurrentUnitManager
         return _units;
     }
 
-    public TeamSoldier[] GetUnits(UnitColor _color)
-    {
-        return UnitColorDictionary[_color].ToArray();
-    }
-
-
+    public TeamSoldier[] GetUnits(UnitColor _color) => UnitColorDictionary[_color].ToArray();
     public TeamSoldier[] GetUnits(UnitColor _color, out int _count)
     {
         TeamSoldier[] _units = UnitColorDictionary[_color].ToArray();
@@ -95,10 +87,7 @@ public class CurrentUnitManager
         return _units;
     }
 
-    public TeamSoldier[] GetUnits(UnitClass _class)
-    {
-        return UnitClassDictionary[_class].ToArray();
-    }
+    public TeamSoldier[] GetUnits(UnitClass _class) => UnitClassDictionary[_class].ToArray();
 
     public TeamSoldier[] GetUnits(UnitColor _color, UnitClass _class)
     {
@@ -106,11 +95,7 @@ public class CurrentUnitManager
         return _units;
     }
 
-    //public int AllUnitCount => AllUnit.Count;
-    public TeamSoldier[] GetAllUnit()
-    {
-        return AllUnit.ToArray();
-    }
+    public TeamSoldier[] GetAllUnit() =>AllUnit.ToArray();
 }
 
 
@@ -193,20 +178,6 @@ public class UnitManager : MonoBehaviour
 
     public void ApplyPassiveData(string _key, TeamSoldier _unit) => unitDB.ApplyPassiveData(_key, _unit);
 
-
-    // 임시. 나중에 커스텀 클래스 Array로 바꿔서 사용할 거임
-    //UnitListArray unitListArray = new UnitListArray();
-
-    //public List<TeamSoldier>[] CurrentAllUnitsArray = new List<TeamSoldier>[7];
-    //public TeamSoldier[] GetItems(int _colorNum)
-    //{
-    //    return CurrentAllUnitsArray[_colorNum].ToArray();
-    //}
-
-    //public void AddUnit(int _colorNum, TeamSoldier _unit) => CurrentUnitListArray[_colorNum].Add(_unit);
-
-    //public void RemoveItem(int _colorNum, TeamSoldier _unit) => CurrentUnitListArray[_colorNum].Remove(_unit);
-
     public CurrentUnitManager CurrentUnitManager { get; private set; } = null;
     public TeamSoldier[] CurrentAllUnits => CurrentUnitManager.GetAllUnit();
 
@@ -221,6 +192,8 @@ public class UnitManager : MonoBehaviour
         CurrentUnitManager.RemoveUnit(_unit);
         UIManager.instance.UpdateCurrentUnitText(CurrentAllUnits.Length, maxUnit);
     }
+
+    public string GetUnitKey(UnitColor _color, UnitClass _class) => unitDB.GetUnitKey(_color, _class);
 
     public TeamSoldier[] GetCurrnetUnits(string _tag) => CurrentUnitManager.GetUnits(_tag);
     public TeamSoldier[] GetCurrnetUnits(UnitColor _color) => CurrentUnitManager.GetUnits(_color);

@@ -133,7 +133,7 @@ public class CombineSoldierPooling : MonoBehaviour
     public static void ReturnObject(GameObject obj, string Soldier) 
     {
         obj.gameObject.SetActive(false);
-        obj.transform.SetParent(Instance.transform);
+        //obj.transform.SetParent(Instance.transform);
         Instance.poolingDictionary[Soldier].Enqueue(obj);
     }
 }

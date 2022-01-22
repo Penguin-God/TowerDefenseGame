@@ -325,4 +325,10 @@ public class UnitDataBase : MonoBehaviour
         }
         return _tags;
     }
+
+    public string GetUnitKey(UnitColor _color, UnitClass _class)
+    {
+        string[] _colors = GetDataKeys(_color);
+        return _colors[(int)_class];
+    }
 }

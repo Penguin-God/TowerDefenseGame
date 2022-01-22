@@ -260,8 +260,8 @@ public class EnemySpawn : MonoBehaviour
     {
         switch (bossLevel)
         {
-            case 1: case 2: createDefenser.CreateSoldier(7, 1); break;
-            case 3: case 4: createDefenser.CreateSoldier(7, 2); break;
+            case 1: case 2: CombineSoldierPooling.GetObject(UnitManager.instance.GetUnitKey(UnitColor.white, UnitClass.spearman), 7, 1); break;
+            case 3: case 4: CombineSoldierPooling.GetObject(UnitManager.instance.GetUnitKey(UnitColor.white, UnitClass.spearman), 7, 2); break;
         }
     }
 
@@ -275,7 +275,7 @@ public class EnemySpawn : MonoBehaviour
     private int currentTowerLevel = 0;
     public EnemyTower currentTower { get; private set; } = null;
 
-    public CreateDefenser createDefenser;
+    //public CreateDefenser createDefenser;
     public Shop shop;
 
     void RespawnTower()
@@ -313,7 +313,9 @@ public class EnemySpawn : MonoBehaviour
     IEnumerator ClearLastTower() // 검은 창병 두마리 소환 후 모든 유닛 필드로 옮기기
     {
         yield return new WaitForSeconds(0.1f); // 상점 이용 후 유닛이동하기 위해서 대기
-        for (int i = 0; i < 2; i++) createDefenser.CreateSoldier(6, 2);
+        for (int i = 0; i < 2; i++) 
+            CombineSoldierPooling.GetObject(UnitManager.instance.GetUnitKey(UnitColor.black, UnitClass.spearman), 6, 2);
+
         UnitManager.instance.UnitTranslate_To_EnterStroyMode();
     }
 

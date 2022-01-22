@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class WhiteUnitTimer : MonoBehaviour
 {
-    private float transformTime;
+    [SerializeField] float transformTime;
     private Slider timerSlider;
     public Vector3 offSet;
     public Transform targetUnit;
@@ -13,21 +13,30 @@ public class WhiteUnitTimer : MonoBehaviour
     private void Awake()
     {
         timerSlider = GetComponentInChildren<Slider>();
-        transformTime = 30;
         timerSlider.maxValue = transformTime;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnEnable()
     {
-        transformTime -= Time.deltaTime;
-        timerSlider.value = transformTime;
-        if(transformTime <= 0f)
-        {
-            targetUnit.gameObject.GetComponent<WhiteUnitEvent>().UnitTransform();
-            Destroy(gameObject);
-        }
+        transformTime = 30;
+        StartCoroutine(Co_Timer());
+    }
 
-        transform.position = targetUnit.position + offSet;
+    IEnumerator Co_Timer()
+    {
+        while (true)
+        {
+            transformTime -= Time.deltaTime;
+            timerSlider.value = transformTime;
+            if (transformTime <= 0f)
+            {
+                targetUnit.gameObject.GetComponent<WhiteUnitEvent>().UnitTransform();
+                gameObject.SetActive(false);
+                yield break;
+            }
+
+            if(targetUnit != null) transform.position = targetUnit.position + offSet;
+            yield return null;
+        }
     }
 }

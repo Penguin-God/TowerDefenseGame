@@ -154,8 +154,8 @@ public class TeamSoldier : MonoBehaviour
 
     private void OnDisable()
     {
-        SetChaseSetting(null);
         StopAllCoroutines();
+        SetChaseSetting(null);
         UnitManager.instance.RemvoeCurrentUnit(this);
         isAttack = false;
         isAttackDelayTime = false; 

@@ -4,23 +4,31 @@ using UnityEngine;
 
 public class WhiteUnitEvent : MonoBehaviour
 {
-    public int unitNumber;
-    public CreateDefenser createDefenser;
-    
-    private int Colornumber;
-    public GameObject timerObject;
+    public int classNumber;
+    [SerializeField] int unitColorCount = 0;
+    [SerializeField] GameObject timerObject;
+    GameObject realTimer = null;
 
-    private void Awake()
+    void Awake()
     {
-        GameObject TimerCanavs = Instantiate(timerObject, timerObject.transform.position, timerObject.transform.rotation);
-        TimerCanavs.GetComponent<WhiteUnitTimer>().targetUnit = transform;
-        Colornumber = Random.Range(0, 6);
+        realTimer = Instantiate(timerObject, timerObject.transform.position, timerObject.transform.rotation);
+        realTimer.GetComponent<WhiteUnitTimer>().targetUnit = transform;
+    }
+
+    void OnEnable()
+    {
+        realTimer.SetActive(true);
     }
 
     public void UnitTransform()
     {
+        UnitColor _color = (UnitColor)Random.Range(0, unitColorCount);
+        string _getUnit = UnitManager.instance.GetUnitKey(_color, (UnitClass)classNumber);
+        GameObject _newUnit = CombineSoldierPooling.GetObject(_getUnit, (int)_color, classNumber);
+        _newUnit.transform.position = transform.position;
+
+        CombineSoldierPooling.ReturnObject(gameObject, transform.GetChild(0).gameObject.tag);
+
         SoundManager.instance.PlayEffectSound_ByName("TransformWhiteUnit");
-        createDefenser.CreateWhiteUnit(Colornumber, unitNumber, transform);
-        Destroy(gameObject);
     }
 }

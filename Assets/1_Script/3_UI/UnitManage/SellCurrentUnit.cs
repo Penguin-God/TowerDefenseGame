@@ -4,24 +4,20 @@ using UnityEngine;
 
 public class SellCurrentUnit : MonoBehaviour
 {
-    string unitName
+    string UnitName { get { return FindObjectOfType<StoryMode>().unitTagName; } }
+    GameObject SellUnit
     {
         get
         {
-            return FindObjectOfType<StoryMode>().unitTagName;
+            TeamSoldier[] _units = UnitManager.instance.GetCurrnetUnits(UnitName);
+            if (_units != null && _units.Length > 0) return _units[0].gameObject;
+            else return null;
         }
     }
 
-    GameObject unit
-    {
-        get
-        {
-            return GameObject.FindGameObjectWithTag(unitName);
-        }
-    }
     public void SellActiveUnit()
     {
-        if (unit == null) return;
+        if (SellUnit == null) return;
 
         int reword = GetUnitReword();
         int random = Random.Range(0, 100);
@@ -38,12 +34,12 @@ public class SellCurrentUnit : MonoBehaviour
             SoundManager.instance.PlayEffectSound_ByName("PopSound16");
             ShowText(failText);
         }
-        Destroy(unit.transform.parent.gameObject);
+        CombineSoldierPooling.ReturnObject(SellUnit.transform.parent.gameObject, SellUnit.tag);
     }
 
     public int GetUnitReword()
     {
-        TeamSoldier ts = unit.GetComponent<TeamSoldier>();
+        TeamSoldier ts = SellUnit.GetComponent<TeamSoldier>();
 
         int rewordFood = 0;
         if(ts.GetComponent<Unit_Swordman>() != null) rewordFood = 1;

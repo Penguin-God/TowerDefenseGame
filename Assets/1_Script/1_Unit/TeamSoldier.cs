@@ -156,10 +156,17 @@ public class TeamSoldier : MonoBehaviour
     {
         StopAllCoroutines();
         SetChaseSetting(null);
+        rayHitTransform = null;
         UnitManager.instance.RemvoeCurrentUnit(this);
         isAttack = false;
-        isAttackDelayTime = false; 
+        isAttackDelayTime = false;
         isSkillAttack = false;
+        contactEnemy = false;
+        enemyIsForward = false;
+        enemyDistance = 1000f;
+
+        animator.Rebind();
+        animator.Update(0);
         if (animator != null) animator.enabled = false;
         nav.enabled = false;
     }

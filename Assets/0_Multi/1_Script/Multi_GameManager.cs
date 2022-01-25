@@ -48,17 +48,7 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
         }
 
         gameManagerAudio = GetComponent<AudioSource>();
-
-        Set_EnemyTowerHpDictionary();
     }
-
-    //[SerializeField] Camera main_camera = null;
-    //[SerializeField] Vector3[] Wolrds = new Vector3[2];
-
-    //[SerializeField] TurnPoint[] enemyPoints = null;
-    //public Transform[] EnemyTurnPoints{ get; set; }
-
-    //void SetMultiData()
     //{
     //    if (PhotonNetwork.IsMasterClient)
     //    {
@@ -137,33 +127,7 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
         {
             Time.timeScale = 20f;
         }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
-            {
-                //Debug.Log(hit.transform.gameObject);
-
-                HitEnemy = hit.transform.gameObject;
-
-                NomalEnemy nomalenemy = null;
-                if (HitEnemy.transform.childCount > 0 && HitEnemy.transform.GetChild(0).GetComponent<NomalEnemy>() != null)
-                    nomalenemy = HitEnemy.transform.GetChild(0).GetComponent<NomalEnemy>();
-
-
-                if (nomalenemy != null)
-                {
-                    nomalenemy.currentHp -= (10 + PlusTouchDamege) * (Food + 1);
-                    nomalenemy.hpSlider.value = nomalenemy.currentHp;
-                    if (nomalenemy.currentHp <= 0)
-                    {
-                        nomalenemy.Dead();
-                    }
-                }
-            }
-        }
+        Chilk();
     }
 
     // 멀티는 보상 방식 바꿔야함
@@ -218,9 +182,24 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit))
             {
-                Debug.Log(hit.transform.gameObject);
+                //Debug.Log(hit.transform.gameObject);
 
                 HitEnemy = hit.transform.gameObject;
+
+                NomalEnemy nomalenemy = null;
+                if (HitEnemy.transform.childCount > 0 && HitEnemy.transform.GetChild(0).GetComponent<NomalEnemy>() != null)
+                    nomalenemy = HitEnemy.transform.GetChild(0).GetComponent<NomalEnemy>();
+
+
+                if (nomalenemy != null)
+                {
+                    nomalenemy.currentHp -= (10 + PlusTouchDamege) * (Food + 1);
+                    nomalenemy.hpSlider.value = nomalenemy.currentHp;
+                    if (nomalenemy.currentHp <= 0)
+                    {
+                        nomalenemy.Dead();
+                    }
+                }
             }
         }
     }
@@ -295,6 +274,8 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     public Text WoodRewardText;
     public Text HammerRewardText;
     public Text EndText;
+
+    // 멀티 보상 방식 바꾸기
     public void Lose()
     {
         EndText.text = "Lose!";
@@ -396,11 +377,10 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     public void GameStart(string difficult)
     {
         gameStart = true;
-        UIManager.instance.Set_GameUI();
+        //UIManager.instance.Set_GameUI();
         //EventManager.instance.RandomBuffEvent(); // 랜덤 유닛 이벤트
 
-        SelectDifficult(difficult);
-        UnitManager.instance.ReSpawnStartUnit();
+        //UnitManager.instance.ReSpawnStartUnit();
         OnStart();
     }
 
@@ -408,6 +388,7 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     //public GameObject HighScorePanel;
     //public bool isChallenge;
 
+    // 난이도 구현 멀티에 맞게 바꿔야함
     void SelectDifficult(string difficult)
     {
         currentDifficult = difficult;

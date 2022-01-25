@@ -23,9 +23,9 @@ public class MultiClientManager : MonoBehaviourPunCallbacks
         ConnectionInfoText.text = "Loading...";
     }
 
-    private void Update()
+    void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.J)) Connect();
     }
 
     public override void OnConnectedToMaster()

@@ -33,10 +33,9 @@ public class MultiLoading : MonoBehaviourPun
         {
             PhotonNetwork.LoadLevel("합친 씬 - 장익준 멀티");
         }
-        
-
     }
 
+    // 이거 사용중
     public void TestClickMultiStartButton()
     {
         //if (!photonView.IsMine)

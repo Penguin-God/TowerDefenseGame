@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using Photon.Realtime;
 
 public class Multi_NormalEnemy : Multi_Enemy
 {
@@ -52,6 +53,13 @@ public class Multi_NormalEnemy : Multi_Enemy
         gameObject.SetActive(true);
     }
 
+    // 빠르게 자살하는 방법 : [PunRPC] 함수 private로 구현하기
+    [PunRPC]
+    public void SetVelocity(Vector3 _dir, float _speed)
+    {
+        Rigidbody.velocity = _dir * _speed;
+    }
+
     [SerializeField] Transform[] asuwasfweuaki = null;
     public Transform[] TurnPoints { get; set; } = null;
     void ChaseToPoint()
@@ -61,14 +69,14 @@ public class Multi_NormalEnemy : Multi_Enemy
         // 실제 이동을 위한 속도 설정
         wayPoint = TurnPoints[pointIndex];
         dir = (wayPoint.position - transform.position).normalized;
-        Rigidbody.velocity = dir * speed;
-        Debug.Log(wayPoint.position);
+        photonView.RPC("SetVelocity", RpcTarget.All, dir, speed);
     }
 
-    void SetTransfrom()
+    [PunRPC]
+    public void SetTransfrom(Vector3 _pos, int _pointIndex)
     {
-        transform.position = wayPoint.position;
-        transform.rotation = Quaternion.Euler(0, -90 * pointIndex, 0);
+        transform.position = _pos;
+        transform.rotation = Quaternion.Euler(0, -90 * _pointIndex, 0);
     }
 
     [SerializeField] int enemyNumber = 0;
@@ -98,7 +106,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         if (other.tag == "WayPoint" && PhotonNetwork.IsMasterClient)
         {
-            SetTransfrom();
+            photonView.RPC("SetTransfrom", RpcTarget.All, wayPoint.position, pointIndex);
 
             pointIndex++;
             ChaseToPoint();

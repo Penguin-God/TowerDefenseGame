@@ -5092,8 +5092,8 @@ GameObject:
   - component: {fileID: 1112035910525321254}
   - component: {fileID: 1112035910525321253}
   - component: {fileID: 3970577524642555026}
-  - component: {fileID: 1198629446243882865}
   - component: {fileID: 6885085033086736095}
+  - component: {fileID: 5024461232737972302}
   m_Layer: 0
   m_Name: Enemy_Mage 1
   m_TagString: Untagged
@@ -5152,26 +5152,10 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 1198629446243882865}
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1198629446243882865
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1112035910525321252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &6885085033086736095
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5194,7 +5178,24 @@ MonoBehaviour:
   originMat: {fileID: 0}
   sternEffect: {fileID: 1485506195}
   slowSkillMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
+  asuwasfweuaki: []
   enemyNumber: 1
+--- !u!114 &5024461232737972302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112035910525321252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
 --- !u!1 &1112035910574562603
 GameObject:
   m_ObjectHideFlags: 0

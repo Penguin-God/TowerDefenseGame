@@ -29,6 +29,20 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         //Multi_GameManager.instance.OnStart += RespawnTower;
     }
 
+    [ContextMenu("멀티 오브젝트 풀링")]
+    void Pooling()
+    {
+        poolEnemyCount = 51;
+        CreatePoolingEnemy(poolEnemyCount, new Vector3(500, 500, 500), hostPool, hostPoolParent, hostCurrnetEnemyList, hostEnemyTurnPoints);
+        CreatePoolingEnemy(poolEnemyCount, new Vector3(1000, 1000, 1000), clientPool, clientPoolParent, clientCurrnetEnemyList, clientEnemyTurnPoints);
+
+        respawnEnemyCount = 15;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Multi_GameManager.instance.OnStart += NewStageStart;
+        }
+    }
 
     int poolEnemyCount; // 풀링을 위해 미리 생성하는 enemy 수
     Queue<GameObject>[] hostPool = new Queue<GameObject>[4];

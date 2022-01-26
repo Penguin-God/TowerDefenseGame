@@ -41,6 +41,8 @@ MonoBehaviour:
   - RespawnSpaceship
   - SetPos
   - SetStatus
+  - SetTransfrom
+  - SetVelocity
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 0

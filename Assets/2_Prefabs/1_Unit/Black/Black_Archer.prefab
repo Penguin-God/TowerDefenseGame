@@ -573,7 +573,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8826b5e26af7b0140a6f7e8fbabc32e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitType: 1
+  unitClass: 1
   unitColor: 7
   originDamage: 3000
   originBossDamage: 3000
@@ -583,22 +583,20 @@ MonoBehaviour:
   attackRange: 50
   damage: 3000
   bossDamage: 3000
+  skillDamage: 0
   stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
+  isSkillAttack: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 6d9fd95ba9e9dd34391d716574fd4873, type: 3}
   normalAttakc_AudioDelay: 0
-  tpAudioClip: {fileID: 0}
+  reinforceEffect: {fileID: 0}
   specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
   enterStoryWorld: 0
-  getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
-  reinforceEffect: {fileID: 0}
   arrow: {fileID: 3088359444298159365, guid: 24bf7d0f0f8c86e4e90c688fcc41fa1d, type: 3}
   arrowTransform: {fileID: 1800201802974358915}
 --- !u!1 &1801023806665985748

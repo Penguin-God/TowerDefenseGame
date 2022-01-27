@@ -291,19 +291,17 @@ public class UnitDataBase : MonoBehaviour
         }
     }
 
-    public void ApplyPassiveData(string _key, TeamSoldier _unit)
+    public void ApplyPassiveData(string _key, UnitPassive _passive)
     {
         float[] passive_datas = new float[3];
-        bool _isEnhance = EventManager.instance.GetEventFlag(MyEventType.Reinforce_UnitPassive, (int)_unit.unitColor);
+        bool _isEnhance = EventManager.instance.GetEventFlag(MyEventType.Reinforce_UnitPassive, (int)_passive.teamSoldier.unitColor);
         // 패시브 강화 여부에 따라 다른 값 적용
         passive_datas[0] = (_isEnhance) ? passiveDictionary[_key].enhance_p1 : passiveDictionary[_key].p1;
         passive_datas[1] = (_isEnhance) ? passiveDictionary[_key].enhance_p2 : passiveDictionary[_key].p2;
         passive_datas[2] = (_isEnhance) ? passiveDictionary[_key].enhance_p3 : passiveDictionary[_key].p3;
 
-        UnitPassive _passive = _unit.gameObject.GetComponent<UnitPassive>();
-        if (_passive == null) return;
-
         _passive.ApplyData(passive_datas[0], passive_datas[1], passive_datas[2]);
+        _passive.SetPassive();
     }
 
     public void ChangePassiveDataOfColor(UnitColor _color, Func<PassiveData, PassiveData> OnChaneData)

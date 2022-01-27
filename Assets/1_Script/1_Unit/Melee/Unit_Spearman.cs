@@ -58,7 +58,7 @@ public class Unit_Spearman : MeeleUnit, IEvent
         spear.SetActive(false);
         nav.isStopped = true;
 
-        CollisionWeapon weapon = poolManager.UsedWeapon(spearCreatePosition, transform.forward * -1, 50, (Enemy enemy) => delegate_OnHit(enemy));
+        CollisionWeapon weapon = poolManager.UsedWeapon(spearCreatePosition, transform.forward * -1, 50, (Enemy enemy) => delegate_OnSkile(enemy));
         weapon.transform.Rotate(90, 0, 0);
 
         //CollisionWeapon UseWeapon = GetWeapon_FromPool();

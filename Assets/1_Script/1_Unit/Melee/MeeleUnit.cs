@@ -53,7 +53,7 @@ public class MeeleUnit : TeamSoldier
 
     protected void HitMeeleAttack() // 근접공격 타겟팅
     {
-        if (target != null && enemyDistance < attackRange * 1.5f) 
+        if (target != null && enemyDistance < attackRange * 2) 
         {
             Enemy enemy = target.GetComponent<Enemy>();
             if (delegate_OnHit != null) delegate_OnHit(enemy);

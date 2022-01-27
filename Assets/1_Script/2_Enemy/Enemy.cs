@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour
     protected NomalEnemy nomalEnemy;
 
     // 타워에서 안쓰는 함수들은 NomalEnemy로 옮기기
-    public bool IsNoneSKile { get { return GetComponent<EnemyTower>() != null || GetComponent<MageEnemy>() != null; } }
+    public bool IsNoneSKile { get { Debug.Log(GetComponent<EnemyTower>() != null || GetComponent<MageEnemy>() != null);  return  GetComponent<EnemyTower>() != null || GetComponent<MageEnemy>() != null; } }
 
     void Set_OriginSpeed() // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기
     {

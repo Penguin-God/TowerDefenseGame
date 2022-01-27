@@ -12,15 +12,16 @@ abstract public class UnitPassive : MonoBehaviour
         if(teamSoldier == null)
         {
             Debug.LogWarning("이상한 곳에 스크립트 배정함");
-            Destroy(gameObject);
+            return;
         }
+    }
 
-        SetPassive();
+    void OnEnable()
+    {
+        UnitManager.instance.ApplyPassiveData(gameObject.tag, this);
     }
 
     public abstract void SetPassive();
 
     public abstract void ApplyData(float p1, float p2 = 0, float p3 = 0);
-
-    //public abstract void Beefup_Passive();
 }

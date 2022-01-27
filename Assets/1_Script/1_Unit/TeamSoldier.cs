@@ -88,7 +88,7 @@ public class TeamSoldier : MonoBehaviour
     public delegate void Delegate_OnHit(Enemy enemy);
     protected Delegate_OnHit delegate_OnHit; // 평타
     protected Delegate_OnHit delegate_OnSkile; // 스킬
-    public Delegate_OnHit delegate_OnPassive; // 패시브
+    public event Delegate_OnHit delegate_OnPassive; // 패시브
 
     private void Awake()
     {
@@ -107,13 +107,6 @@ public class TeamSoldier : MonoBehaviour
         enemyDistance = 150f;
         nav.speed = this.speed;
 
-        // 평타 설정
-        delegate_OnHit += (Enemy enemy) => AttackEnemy(enemy);
-        delegate_OnHit += delegate_OnPassive;
-        // 스킬 설정
-        delegate_OnSkile += (Enemy enemy) => enemy.OnDamage(skillDamage);
-        delegate_OnSkile += delegate_OnPassive;
-
         // 유닛별 세팅
         OnAwake();
     }
@@ -122,11 +115,17 @@ public class TeamSoldier : MonoBehaviour
     
     void OnEnable()
     {
-        SetData(); 
-        SetPassiveData();
+        SetData();
         UnitManager.instance.AddCurrentUnit(this);
 
-        if(animator != null) animator.enabled = true;
+        // 평타 설정
+        delegate_OnHit += AttackEnemy;
+        delegate_OnHit += delegate_OnPassive;
+        // 스킬 설정
+        delegate_OnSkile += (Enemy enemy) => enemy.OnDamage(skillDamage);
+        delegate_OnSkile += delegate_OnPassive;
+
+        if (animator != null) animator.enabled = true;
         nav.enabled = true;
 
         // 적 추적
@@ -143,14 +142,6 @@ public class TeamSoldier : MonoBehaviour
     // 기본 데이터를 기반으로 유닛 고유 데이터 세팅
     public virtual void SetInherenceData() { }
 
-    void SetPassiveData()
-    {
-        UnitPassive _passive = GetComponent<UnitPassive>();
-        if (_passive == null) return;
-
-        UnitManager.instance.ApplyPassiveData(gameObject.tag, this);
-    }
-
 
     private void OnDisable()
     {
@@ -165,10 +156,17 @@ public class TeamSoldier : MonoBehaviour
         enemyIsForward = false;
         enemyDistance = 1000f;
 
-        animator.Rebind();
-        animator.Update(0);
-        if (animator != null) animator.enabled = false;
+        if (animator != null)
+        {
+            animator.Rebind();
+            animator.Update(0);
+            animator.enabled = false;
+        }
         nav.enabled = false;
+
+        delegate_OnHit = null;
+        delegate_OnSkile = null;
+        delegate_OnPassive = null;
     }
 
 
@@ -328,7 +326,7 @@ public class TeamSoldier : MonoBehaviour
         GameObject returnObject = null;
         if (_list.Count > 0)
         {
-            foreach (GameObject enemyObject in enemySpawn.currentEnemyList)
+            foreach (GameObject enemyObject in _list)
             {
                 if (enemyObject != null)
                 {

@@ -192,7 +192,7 @@ public class EventManager : MonoBehaviour
         for (int i = 0; i < _units.Length; i++)
         {
             string _unitTag = _units[i].gameObject.tag;
-            UnitManager.instance.ApplyPassiveData(_unitTag, _units[i]);
+            UnitManager.instance.ApplyPassiveData(_unitTag, _units[i].GetComponent<UnitPassive>());
         }
     }
 

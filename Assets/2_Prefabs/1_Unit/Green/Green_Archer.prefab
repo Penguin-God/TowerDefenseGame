@@ -576,7 +576,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8826b5e26af7b0140a6f7e8fbabc32e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitType: 1
+  unitClass: 1
   unitColor: 3
   originDamage: 2000
   originBossDamage: 2000
@@ -595,15 +595,11 @@ MonoBehaviour:
   normalAttackClip: {fileID: 8300000, guid: 6d9fd95ba9e9dd34391d716574fd4873, type: 3}
   normalAttakc_AudioDelay: 0
   reinforceEffect: {fileID: 7533179722810310005}
-  passiveReinForce: 0
   specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
   enterStoryWorld: 0
-  isFix: 0
   arrow: {fileID: 3088359444298159365, guid: 4d86472d68f9daf44b9304ae48878b3b, type: 3}
   arrowTransform: {fileID: 934792850779518908}
 --- !u!114 &2044289439
@@ -619,8 +615,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamSoldier: {fileID: 0}
-  upDamageWeigh: 1.5
-  enhanced_UpDamageWeigh: 2
+  apply_UpDamageWeigh: 0
 --- !u!1 &936733680191573903
 GameObject:
   m_ObjectHideFlags: 0

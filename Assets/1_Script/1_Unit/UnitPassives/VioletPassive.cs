@@ -13,7 +13,10 @@ public class VioletPassive : UnitPassive
     //[SerializeField] int maxPoisonDamage;
 
     
-    public override void SetPassive() => teamSoldier.delegate_OnPassive += (Enemy enemy) => Passive_Violet(enemy);
+    public override void SetPassive()
+    {
+        teamSoldier.delegate_OnPassive += (Enemy enemy) => Passive_Violet(enemy);
+    }
 
     void Passive_Violet(Enemy p_Enemy)
     {

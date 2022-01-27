@@ -446,7 +446,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9fbabbbac803a54ab965809c885ef1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitType: 2
+  unitClass: 2
   unitColor: 2
   originDamage: 10000
   originBossDamage: 10000
@@ -465,7 +465,6 @@ MonoBehaviour:
   normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
   normalAttakc_AudioDelay: 0.55
   reinforceEffect: {fileID: 1143565392077343549}
-  passiveReinForce: 0
   specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0
@@ -504,10 +503,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamSoldier: {fileID: 0}
-  getGoldPercent: 0
-  addGold: 0
-  enhanced_AddGold: 0
-  enhanced_GetGoldPercent: 0
+  apply_GetGoldPercent: 0
+  apply_AddGold: 0
 --- !u!1 &5621707569969933054
 GameObject:
   m_ObjectHideFlags: 0

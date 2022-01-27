@@ -198,7 +198,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9fbabbbac803a54ab965809c885ef1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitType: 2
+  unitClass: 2
   unitColor: 3
   originDamage: 24000
   originBossDamage: 24000
@@ -217,20 +217,16 @@ MonoBehaviour:
   normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
   normalAttakc_AudioDelay: 0.55
   reinforceEffect: {fileID: 7533179723832083022}
-  passiveReinForce: 0
   specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
   enterStoryWorld: 0
   trail: {fileID: 1787167272271011807}
   spear: {fileID: 103810303289126922}
   skileSpaer: {fileID: 4947818212191654679, guid: d1076db00809d814c81b7e9eafbc5545,
     type: 3}
   spearCreatePosition: {fileID: 1669453900946815634}
-  dontMoveGameObject: {fileID: 0}
   skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
 --- !u!136 &103836908467553593
 CapsuleCollider:
@@ -259,8 +255,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamSoldier: {fileID: 0}
-  upDamageWeigh: 2
-  enhanced_UpDamageWeigh: 3
+  apply_UpDamageWeigh: 0
 --- !u!1 &104282281432171040
 GameObject:
   m_ObjectHideFlags: 0

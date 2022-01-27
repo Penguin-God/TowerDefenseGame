@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b9fbabbbac803a54ab965809c885ef1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitType: 2
+  unitClass: 2
   unitColor: 7
   originDamage: 50000
   originBossDamage: 50000
@@ -352,28 +352,25 @@ MonoBehaviour:
   attackRange: 10
   damage: 50000
   bossDamage: 50000
+  skillDamage: 0
   stopDistanc: 3
   isAttack: 0
   isAttackDelayTime: 0
+  isSkillAttack: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
   normalAttakc_AudioDelay: 0.55
-  tpAudioClip: {fileID: 0}
+  reinforceEffect: {fileID: 0}
   specialAttackPercent: 30
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
   enterStoryWorld: 0
-  getGoldClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
-  reinforceEffect: {fileID: 0}
   trail: {fileID: 536275632113738204}
   spear: {fileID: 2219357732911074825}
   skileSpaer: {fileID: 4947818212191654679, guid: 05f48d17278f54a4db431c3be234bd29,
     type: 3}
   spearCreatePosition: {fileID: 8300080002397631655}
-  dontMoveGameObject: {fileID: 0}
   skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
 --- !u!136 &3863724250736697938
 CapsuleCollider:

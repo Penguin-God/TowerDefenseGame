@@ -51,7 +51,7 @@ public class Unit_Archer : RangeUnit, IEvent
 
     public override void SpecialAttack()
     {
-        if (TargetIsNormalEnemy)
+        if (!TargetIsNormalEnemy)
         {
             NormalAttack();
             PlayNormalAttackClip();
@@ -71,7 +71,7 @@ public class Unit_Archer : RangeUnit, IEvent
         Transform[] targetArray = Set_AttackTarget(target, enemySpawn.currentEnemyList, enemyCount);
         for (int i = 0; i < targetArray.Length; i++)
         {
-            poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, targetArray[i]), 50, (Enemy enemy) => delegate_OnHit(enemy));
+            poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, targetArray[i]), 50, (Enemy enemy) => delegate_OnSkile(enemy));
 
             //CollisionWeapon UseWeapon = GetWeapon_FromPool();
             //UseWeapon.transform.position = arrowTransform.position;

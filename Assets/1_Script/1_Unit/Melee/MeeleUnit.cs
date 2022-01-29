@@ -9,8 +9,6 @@ public class MeeleUnit : TeamSoldier
     {
         if(Check_EnemyToUnit_Deggre() < - 0.8f && enemyDistance < 10)
         {
-            //Debug.Log(1234);
-            
             if (enemyIsForward || isAttack)
             {
                 destinationPos = target.position - (TargetEnemy.dir * -1f);
@@ -29,7 +27,7 @@ public class MeeleUnit : TeamSoldier
         else if (enemyDistance < stopDistanc)
         {
             destinationPos = target.position - (TargetEnemy.dir * 2);
-            nav.acceleration = 10f;
+            nav.acceleration = 20f;
             nav.angularSpeed = 200;
             nav.speed = 5f;
             contactEnemy = true;

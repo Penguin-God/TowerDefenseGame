@@ -6,24 +6,13 @@ public class GreenPassive : UnitPassive
 {
     [SerializeField] float apply_UpDamageWeigh;
 
-    //[Space]
-    //[Space]
-    //[SerializeField] float upDamageWeigh;
-
-    public override void SetPassive()
+    public override void SetPassive(TeamSoldier _team)
     {
-        EventManager.instance.ChangeUnitDamage(teamSoldier, apply_UpDamageWeigh);
+        EventManager.instance.ChangeUnitDamage(_team, apply_UpDamageWeigh);
     }
 
     public override void ApplyData(float p1, float p2 = 0, float p3 = 0)
     {
         apply_UpDamageWeigh = p1;
     }
-
-    //[Space]
-    //[SerializeField] float enhanced_UpDamageWeigh;
-    //public override void Beefup_Passive()
-    //{
-    //    apply_UpDamageWeigh = enhanced_UpDamageWeigh;
-    //}
 }

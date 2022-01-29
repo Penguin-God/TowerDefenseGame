@@ -62,7 +62,6 @@ public struct PassiveData
 }
 
 
-
 public class UnitDataList<T>
 {
     public UnitDataList(List<T> p_List) => dataList = p_List;
@@ -86,26 +85,34 @@ public class UnitDataBase : MonoBehaviour
 
     private void Awake()
     {
+#if UNITY_EDITOR
+        Debug.LogError("개같이 멸망");
+#else
+        Debug.Log("개같이 부활");
+#endif
+
+        SaveUnitDataToJson();
         LoadUnitDataFromJson();
         SetUnitDataDictionary();
 
+        SavePassiveDataToJson();
         LoadPassiveDataToJson();
         SetPassiveDictionary();
 
         SettingTagDictionary();
     }
 
-    static Dictionary<KeyValuePair<UnitColor, UnitClass>, string> UnitTagDictionary = new Dictionary<KeyValuePair<UnitColor, UnitClass>, string>();
+    static Dictionary<KeyValuePair<UnitColor, UnitClass>, string> UnitTagDictionary;
 
     void SettingTagDictionary()
     {
+        UnitTagDictionary = new Dictionary<KeyValuePair<UnitColor, UnitClass>, string>();
         int count = 0;
         foreach (UnitColor _color in System.Enum.GetValues(typeof(UnitColor)))
         {
             foreach (UnitClass _class in System.Enum.GetValues(typeof(UnitClass)))
             {
                 KeyValuePair<UnitColor, UnitClass> _pair = new KeyValuePair<UnitColor, UnitClass>(_color, _class);
-                //Debug.Log($"{_pair} : {unitTags[count]}");
                 UnitTagDictionary.Add(_pair, unitTags[count]);
                 count++;
             }
@@ -122,28 +129,33 @@ public class UnitDataBase : MonoBehaviour
 
     private void OnValidate()
     {
-        SaveUnitDataToJson();
-        SavePassiveDataToJson();
-        Debug.Log("Save CSV Data To Json File");
+        //SaveUnitDataToJson();
+        //SavePassiveDataToJson();
+        //Debug.Log("Save CSV Data To Json File");
     }
 
 
     [SerializeField] TextAsset unitData_CSV;
     [SerializeField] TextAsset Csv_UnitPassivedata = null;
 
-
-    private string getPath()
+    private string GetUnitDataPath()
     {
 #if UNITY_EDITOR
-        return Application.dataPath + "/CSV/“+”/Student Data.csv";
-#elif UNITY_ANDROID
-        return Application.persistentDataPath+"Student Data.csv";
-#elif UNITY_IPHONE
-        return Application.persistentDataPath+"/"+"Student Data.csv";
+        return UnitJsonPath;
 #else
-        return Application.dataPath +"/"+"Student Data.csv";
+        return Application.dataPath + "/" + "unitData.txt";
 #endif
     }
+
+    private string GetUnitPassiveDataPath()
+    {
+#if UNITY_EDITOR
+        return PassiveJsonPath;
+#else
+        return Application.dataPath + "/" + "UnitPassiveData.txt";
+#endif
+    }
+
 
 
     private string UnitJsonPath => Path.Combine(Application.dataPath, "4_Data", "UnitData", "JSON", "unitData.txt");
@@ -177,7 +189,7 @@ public class UnitDataBase : MonoBehaviour
         }
 
         string jsonData = JsonUtility.ToJson(new UnitDataList<UnitData>(unitDataList), true);
-        File.WriteAllText(UnitJsonPath, jsonData);
+        File.WriteAllText(GetUnitDataPath(), jsonData);
     }
 
     [SerializeField] List<UnitData> loadDataList;
@@ -185,7 +197,7 @@ public class UnitDataBase : MonoBehaviour
     void LoadUnitDataFromJson()
     {
         loadDataList = new List<UnitData>();
-        string jsonData = File.ReadAllText(UnitJsonPath);
+        string jsonData = File.ReadAllText(GetUnitDataPath());
         loadDataList = JsonUtility.FromJson<UnitDataList<UnitData>>(jsonData).dataList;
     }
 
@@ -244,8 +256,7 @@ public class UnitDataBase : MonoBehaviour
     [ContextMenu("Save Passive To Json")]
     void SavePassiveDataToJson()
     {
-        passiveDataList = new List<PassiveData>();
-
+        List<PassiveData> _passiveDataList = new List<PassiveData>();
         string csvText = Csv_UnitPassivedata.text.Substring(0, Csv_UnitPassivedata.text.Length - 1);
         string[] datas = csvText.Split(new char[] { '\n' }); // 줄바꿈(한 줄)을 기준으로 csv 파일을 쪼개서 string배열에 줄 순서대로 담음
 
@@ -263,20 +274,20 @@ public class UnitDataBase : MonoBehaviour
                 float _p4 = (cells[5].Trim() != "") ? float.Parse(cells[5]) : 0;
                 float _p5 = (cells[6].Trim() != "") ? float.Parse(cells[6]) : 0;
                 float _p6 = (cells[7].Trim() != "") ? float.Parse(cells[7]) : 0;
-                passiveDataList.Add(new PassiveData(_name, _p1, _p2, _p3, _p4, _p5, _p6));
+                _passiveDataList.Add(new PassiveData(_name, _p1, _p2, _p3, _p4, _p5, _p6));
             }
             else if(cells[0] != "") Debug.Log($"NONE : {cells[0]}");
         }
 
-        string jsonData = JsonUtility.ToJson(new UnitDataList<PassiveData>(passiveDataList), true);
-        File.WriteAllText(PassiveJsonPath, jsonData);
+        string jsonData = JsonUtility.ToJson(new UnitDataList<PassiveData>(_passiveDataList), true);
+        File.WriteAllText(GetUnitPassiveDataPath(), jsonData);
     }
 
     [ContextMenu("Load Passive Data To Json")]
     void LoadPassiveDataToJson()
     {
         passiveDataList = new List<PassiveData>();
-        string jsonData = File.ReadAllText(PassiveJsonPath);
+        string jsonData = File.ReadAllText(GetUnitPassiveDataPath());
         passiveDataList = JsonUtility.FromJson<UnitDataList<PassiveData>>(jsonData).dataList;
     }
 
@@ -291,17 +302,16 @@ public class UnitDataBase : MonoBehaviour
         }
     }
 
-    public void ApplyPassiveData(string _key, UnitPassive _passive)
+    public void ApplyPassiveData(string _key, UnitPassive _passive, UnitColor _color)
     {
         float[] passive_datas = new float[3];
-        bool _isEnhance = EventManager.instance.GetEventFlag(MyEventType.Reinforce_UnitPassive, (int)_passive.teamSoldier.unitColor);
+        bool _isEnhance = EventManager.instance.GetEventFlag(MyEventType.Reinforce_UnitPassive, (int)_color);
         // 패시브 강화 여부에 따라 다른 값 적용
         passive_datas[0] = (_isEnhance) ? passiveDictionary[_key].enhance_p1 : passiveDictionary[_key].p1;
         passive_datas[1] = (_isEnhance) ? passiveDictionary[_key].enhance_p2 : passiveDictionary[_key].p2;
         passive_datas[2] = (_isEnhance) ? passiveDictionary[_key].enhance_p3 : passiveDictionary[_key].p3;
 
         _passive.ApplyData(passive_datas[0], passive_datas[1], passive_datas[2]);
-        _passive.SetPassive();
     }
 
     public void ChangePassiveDataOfColor(UnitColor _color, Func<PassiveData, PassiveData> OnChaneData)

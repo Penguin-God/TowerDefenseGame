@@ -81,9 +81,6 @@ public class TeamSoldier : MonoBehaviour
     public GameObject reinforceEffect;
     protected float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
 
-    //[HideInInspector]
-    //public bool passiveReinForce;
-
     // 적에게 대미지 입히기, 패시브 적용 등의 역할을 하는 델리게이트
     public delegate void Delegate_OnHit(Enemy enemy);
     protected Delegate_OnHit delegate_OnHit; // 평타
@@ -92,6 +89,16 @@ public class TeamSoldier : MonoBehaviour
 
     private void Awake()
     {
+        // 아래에서 평타랑 스킬 설정할 때 delegate_OnPassive가 null이면 에러가 떠서 에러 방지용으로 실행 후에 OnEnable에서 덮어쓰기 때문에 의미 없음
+        SetPassive();
+
+        // 평타 설정
+        delegate_OnHit += AttackEnemy;
+        delegate_OnHit += delegate_OnPassive;
+        // 스킬 설정
+        delegate_OnSkile += (Enemy enemy) => enemy.OnDamage(skillDamage);
+        delegate_OnSkile += delegate_OnPassive;
+
         // 유니티에서 class는 게임오브젝트의 컴포넌트로서만 작동하기 때문에 컴포넌트로 추가 후 사용해야한다.(폴더 내에 C#스크립트 생성 안해도 됨)
         // Unity초보자가 많이 하는 실수^^
         gameObject.AddComponent<WeaponPoolManager>();
@@ -112,18 +119,12 @@ public class TeamSoldier : MonoBehaviour
     }
     public virtual void OnAwake() { }
 
-    
+
     void OnEnable()
     {
         SetData();
+        SetPassive();
         UnitManager.instance.AddCurrentUnit(this);
-
-        // 평타 설정
-        delegate_OnHit += AttackEnemy;
-        delegate_OnHit += delegate_OnPassive;
-        // 스킬 설정
-        delegate_OnSkile += (Enemy enemy) => enemy.OnDamage(skillDamage);
-        delegate_OnSkile += delegate_OnPassive;
 
         if (animator != null) animator.enabled = true;
         nav.enabled = true;
@@ -133,7 +134,6 @@ public class TeamSoldier : MonoBehaviour
         StartCoroutine("NavCoroutine");
     }
 
-
     void SetData()
     {
         UnitManager.instance.ApplyUnitData(gameObject.tag, this);
@@ -142,6 +142,13 @@ public class TeamSoldier : MonoBehaviour
     // 기본 데이터를 기반으로 유닛 고유 데이터 세팅
     public virtual void SetInherenceData() { }
 
+    void SetPassive()
+    {
+        UnitPassive _passive = GetComponent<UnitPassive>();
+        if (delegate_OnPassive != null) delegate_OnPassive = null;
+        UnitManager.instance.ApplyPassiveData(gameObject.tag, _passive, unitColor);
+        _passive.SetPassive(this);
+    }
 
     private void OnDisable()
     {
@@ -163,10 +170,6 @@ public class TeamSoldier : MonoBehaviour
             animator.enabled = false;
         }
         nav.enabled = false;
-
-        delegate_OnHit = null;
-        delegate_OnSkile = null;
-        delegate_OnPassive = null;
     }
 
 

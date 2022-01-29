@@ -176,7 +176,7 @@ public class UnitManager : MonoBehaviour
     UnitDataBase unitDB = null;
     public void ApplyUnitData(string _tag, TeamSoldier _team) => unitDB.ApplyUnitBaseData(_tag, _team);
 
-    public void ApplyPassiveData(string _key, UnitPassive _passive) => unitDB.ApplyPassiveData(_key, _passive);
+    public void ApplyPassiveData(string _key, UnitPassive _passive, UnitColor _color) => unitDB.ApplyPassiveData(_key, _passive, _color);
 
     public CurrentUnitManager CurrentUnitManager { get; private set; } = null;
     public TeamSoldier[] CurrentAllUnits => CurrentUnitManager.GetAllUnit();

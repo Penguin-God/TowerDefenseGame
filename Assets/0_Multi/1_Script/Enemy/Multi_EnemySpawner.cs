@@ -22,10 +22,7 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         timerSlider.maxValue = stageTime;
         timerSlider.value = stageTime;
 
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Multi_GameManager.instance.OnStart += NewStageStart;
-        }
+        if (PhotonNetwork.IsMasterClient) Multi_GameManager.instance.OnStart += NewStageStart;
         //Multi_GameManager.instance.OnStart += RespawnTower;
     }
 
@@ -37,11 +34,6 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         CreatePoolingEnemy(poolEnemyCount, new Vector3(1000, 1000, 1000), clientPool, clientPoolParent, clientCurrnetEnemyList, clientEnemyTurnPoints);
 
         respawnEnemyCount = 15;
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Multi_GameManager.instance.OnStart += NewStageStart;
-        }
     }
 
     int poolEnemyCount; // 풀링을 위해 미리 생성하는 enemy 수

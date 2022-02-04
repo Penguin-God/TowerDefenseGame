@@ -61,7 +61,6 @@ public struct PassiveData
     }
 }
 
-
 public class UnitDataList<T>
 {
     public UnitDataList(List<T> p_List) => dataList = p_List;
@@ -85,11 +84,11 @@ public class UnitDataBase : MonoBehaviour
 
     private void Awake()
     {
-#if UNITY_EDITOR
-        Debug.LogError("개같이 멸망");
-#else
-        Debug.Log("개같이 부활");
-#endif
+//#if UNITY_EDITOR
+//        Debug.LogError("개같이 멸망");
+//#else
+//        Debug.Log("개같이 부활");
+//#endif
 
         SaveUnitDataToJson();
         LoadUnitDataFromJson();

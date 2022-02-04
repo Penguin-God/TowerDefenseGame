@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class Multi_NormalEnemy : Multi_Enemy
+public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
 {
     // 이동, 회전 관련 변수
     private Transform wayPoint;
@@ -51,6 +51,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         this.maxSpeed = speed;
         this.speed = maxSpeed;
         gameObject.SetActive(true);
+        currentPos = transform.position;
     }
 
     // 빠르게 자살하는 방법 : [PunRPC] 함수 private로 구현하기
@@ -110,6 +111,21 @@ public class Multi_NormalEnemy : Multi_Enemy
 
             pointIndex++;
             ChaseToPoint();
+        }
+    }
+
+    Vector3 currentPos;
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(transform.position);
+        }
+        else
+        {
+            currentPos = (Vector3)stream.ReceiveNext();
+            if ((transform.position - currentPos).sqrMagnitude <= 100) transform.position = currentPos;
+            else transform.position = Vector3.Lerp(transform.position, currentPos, Time.deltaTime * 10);
         }
     }
 }

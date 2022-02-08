@@ -5152,7 +5152,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 0}
+  - {fileID: 6885085033086736095}
+  - {fileID: 5024461232737972302}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -5178,7 +5179,6 @@ MonoBehaviour:
   originMat: {fileID: 0}
   sternEffect: {fileID: 1485506195}
   slowSkillMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
-  asuwasfweuaki: []
   enemyNumber: 1
 --- !u!114 &5024461232737972302
 MonoBehaviour:

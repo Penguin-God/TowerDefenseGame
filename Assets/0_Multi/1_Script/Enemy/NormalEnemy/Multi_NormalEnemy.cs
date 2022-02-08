@@ -28,21 +28,19 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     {
         if (TurnPoints != null && photonView.IsMine)
         {
-            pointIndex = 0;
-            isDead = false;
+            photonView.RPC("OnEnemy", RpcTarget.All); 
             ChaseToPoint(pointIndex);
         }
     }
 
     public virtual void Passive() { }
 
-    //[PunRPC]
-    //public void OnEnemy()
-    //{
-    //    pointIndex = 0;
-    //    isDead = false;
-    //    ChaseToPoint(pointIndex);
-    //}
+    [PunRPC]
+    public void OnEnemy()
+    {
+        pointIndex = 0;
+        isDead = false;
+    }
 
     [PunRPC]
     public void SetPos(Vector3 pos)

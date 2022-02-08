@@ -198,7 +198,7 @@ public class Multi_EnemySpawner : MonoBehaviourPun
             timerSlider.value -= Time.deltaTime;
     }
 
-    [HideInInspector]
+    
     public int minHp = 0;
     public int enemyHpWeight;
     int SetRandomHp()

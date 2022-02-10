@@ -31,8 +31,7 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     void Pooling()
     {
         poolEnemyCount = 51;
-        CreatePoolingEnemy(poolEnemyCount, poolQueues, poolPos, hostEnemyTurnPoints, hostPoolParent);
-        //CreatePoolingEnemy(poolEnemyCount, new Vector3(1000, 1000, 1000), clientPool, clientPoolParent, clientCurrnetEnemyList, clientEnemyTurnPoints);
+        CreatePoolingEnemy(poolEnemyCount, poolQueues, poolPos, enemyTurnPoints, poolParent);
 
         respawnEnemyCount = 15;
     }
@@ -40,20 +39,10 @@ public class Multi_EnemySpawner : MonoBehaviourPun
 
     int poolEnemyCount; // 풀링을 위해 미리 생성하는 enemy 수
     Queue<GameObject>[] poolQueues = new Queue<GameObject>[4];
-    //Queue<GameObject>[] clientPool = new Queue<GameObject>[4];
 
     public List<GameObject> currentNormalEnemyList = new List<GameObject>();
-    //public List<GameObject> clientCurrnetEnemyList = new List<GameObject>();
 
     private int respawnEnemyCount;
-    [SerializeField] Transform hostPoolParent = null;
-    [SerializeField] Transform clientPoolParent = null;
-
-    [SerializeField] Vector3 hostSpawnPos;
-    [SerializeField] Vector3 clientSpawnPos;
-
-    [SerializeField] Transform[] hostEnemyTurnPoints = null;
-    [SerializeField] Transform[] clientEnemyTurnPoints = null;
 
 
     [SerializeField] Vector3 spawnPos;
@@ -62,9 +51,9 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     [SerializeField] Vector3 poolPos;
     void SetMultiValue()
     {
-        spawnPos = (PhotonNetwork.IsMasterClient) ? hostSpawnPos : clientSpawnPos;
-        enemyTurnPoints = (PhotonNetwork.IsMasterClient) ? hostEnemyTurnPoints : clientEnemyTurnPoints;
-        poolParent = (PhotonNetwork.IsMasterClient) ? hostPoolParent : clientPoolParent;
+        spawnPos = Multi_Data.instance.EnemySpawnPos;
+        enemyTurnPoints = Multi_Data.instance.EnemyTurnPoints;
+        poolParent = Multi_Data.instance.EnemyPoolParent;
         poolPos = Vector3.one * ((PhotonNetwork.IsMasterClient) ? 500 : 1000);
     }
 
@@ -73,7 +62,6 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         // 풀링 오브젝트 생성
         poolEnemyCount = 51;
         CreatePoolingEnemy(poolEnemyCount, poolQueues, poolPos, enemyTurnPoints, poolParent);
-        //CreatePoolingEnemy(poolEnemyCount, new Vector3(1000, 1000, 1000), clientPool, clientPoolParent, clientCurrnetEnemyList, clientEnemyTurnPoints);
 
         respawnEnemyCount = 15;
     }
@@ -113,15 +101,23 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         normalSpeed = _speed;
     }
 
-    public void NewStageStart() // 무한반복하는 재귀 함수( StageCoroutine() 마지막 부분에 다시 StageStart()를 호출함)
+
+    void UpStage(int _addGold, int _plusEnemyHpWeight, int _upCount = 1)
     {
-        // RPC해야됨
-        //Multi_GameManager.instance.Gold += stageGold;
-        //UIManager.instance.UpdateGoldText(Multi_GameManager.instance.Gold);
-        //enemyHpWeight += plusEnemyHpWeight; // 적 체력 가중치 증가
+        stageNumber += _upCount;
+        Multi_UIManager.instance.UpdateStageText(stageNumber);
+
+        Multi_GameManager.instance.AddGold(_addGold);
+        // 적 체력 가중치 증가
+        enemyHpWeight += _plusEnemyHpWeight;
+        timerSlider.maxValue = stageTime;
+        timerSlider.value = stageTime;
+    }
+
+    public void NewStageStart() // 무한반복하는 재귀 함수( Co_Stage() 마지막 부분에 다시 NewStageStart()를 호출함)
+    {
+        UpStage(stageGold, plusEnemyHpWeight);
         //SoundManager.instance.PlayEffectSound_ByName("NewStageClip", 0.6f);
-        //timerSlider.maxValue = stageTime;
-        //timerSlider.value = stageTime;
 
         // 적 유닛의 능력치는 호스트에서만 결정
         if (PhotonNetwork.IsMasterClient)
@@ -133,8 +129,6 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         }
         
         StartCoroutine(Co_Stage(poolQueues[currentEenmyNumber], normalHp, normalSpeed, spawnPos));
-
-        //StartCoroutine(Co_Stage(clientPool[_enemyNum], _hp, _speed, clientSpawnPos, clientCurrnetEnemyList));
     }
 
     IEnumerator Co_Stage(Queue<GameObject> pool, int hp, float speed, Vector3 spawnPos)
@@ -151,7 +145,6 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         {
             GameObject respawnEnemy = pool.Dequeue();
             RespawnEnemy(respawnEnemy, hp, speed, spawnPos);
-            AddCurrentEnemyList(currentNormalEnemyList, respawnEnemy);
             respawnCount--;
             yield return new WaitForSeconds(2f);
         }
@@ -160,20 +153,20 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         yield return new WaitUntil(() => timerSlider.value <= 0); // 스테이지 타이머 0이되면
         if (skipButton != null) skipButton.SetActive(false);
 
-        stageNumber++;
-        //UIManager.instance.UpdateStageText(stageNumber);
         NewStageStart();
     }
 
     void RespawnEnemy(GameObject respawnEnemy, int hp, float speed, Vector3 spawnPos)
     {
         respawnEnemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("SetPos", RpcTarget.All, spawnPos);
-        respawnEnemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("SetStatus", RpcTarget.All, hp, speed);
+        respawnEnemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("Setup", RpcTarget.All, hp, speed);
+        AddCurrentEnemyList(currentNormalEnemyList, respawnEnemy);
     }
 
     void AddCurrentEnemyList(List<GameObject> addList, GameObject enemyObj)
     {
         addList.Add(enemyObj);
+        Multi_UIManager.instance.UpdateCountEnemyText(addList.Count);
         if (addList.Count > 45 && 50 > addList.Count) SoundManager.instance.PlayEffectSound_ByName("Denger", 0.8f);
     }
 
@@ -186,17 +179,18 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         timerSlider.value = 0;
     }
 
-    public int queueCount1 = 0;
-    public int queueCount2 = 0;
-    public int queueCount3 = 0;
-    public int queueCount4 = 0;
-
     [SerializeField] Slider timerSlider;
     private void Update()
     {
         if (Multi_GameManager.instance.gameStart && stageNumber < maxStage)
             timerSlider.value -= Time.deltaTime;
     }
+
+    // 풀링 디버그용
+    //public int queueCount1 = 0;
+    //public int queueCount2 = 0;
+    //public int queueCount3 = 0;
+    //public int queueCount4 = 0;
 
     
     public int minHp = 0;
@@ -222,8 +216,6 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         float speed = Random.Range(enemyMinSpeed, enemyMaxSpeed);
         return speed;
     }
-
-
 
 
 
@@ -278,7 +270,7 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         boss.OnDeath += () => Multi_GameManager.instance.ChangeBGM(Multi_GameManager.instance.bgmClip);
         //boss.OnDeath += ClearGame;
         boss.OnDeath += () => SetData(boss);
-        boss.OnDeath += () => shop.OnShop(bossLevel, TriggerType.Boss);
+        boss.OnDeath += () => Multi_GameManager.instance.OnEventShop(bossLevel, TriggerType.Boss);
         boss.OnDeath += () => UnitManager.instance.UpdateTarget_CurrnetFieldUnit();
     }
 
@@ -287,11 +279,6 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         currentBossList.Remove(boss);
         bossRespawn = false;
     }
-
-    //void ClearGame()
-    //{
-    //    if (stageNumber >= maxStage) Multi_GameManager.instance.Clear();
-    //}
 
     void GetBossReword(int rewardGold, int rewardFood)
     {
@@ -311,56 +298,11 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         }
     }
 
-
+    public CreateDefenser createDefenser;
 
     // 타워 코드
-    public GameObject[] towers;
-    [HideInInspector]
-    public int[] arr_TowersHp;
-    [HideInInspector]
-    private int currentTowerLevel = 0;
-    public EnemyTower currentTower = null;
-
-    public CreateDefenser createDefenser;
-    public Shop shop;
-
-    void RespawnTower()
-    {
-        // 처음에는 0
-        currentTower = towers[currentTowerLevel].GetComponent<EnemyTower>();
-        currentTowerLevel = currentTower.level;
-        currentTower.Set_RespawnStatus(arr_TowersHp[currentTowerLevel - 1]);
-
-        if (currentTower != null)
-        {
-            SetDeadAction();
-            towers[currentTowerLevel - 1].SetActive(true);
-        }
-    }
-
-    void SetDeadAction()
-    {
-        // tower 레밸에 따라 다음 타워 소환할지 안할지 결정
-        if (currentTowerLevel < towers.Length) currentTower.OnDeath += () => StartCoroutine(Co_AfterRespawnTower(1.5f));
-        else currentTower.OnDeath += () => StartCoroutine(ClearLastTower());
-
-        currentTower.OnDeath += () => SoundManager.instance.PlayEffectSound_ByName("TowerDieClip");
-        currentTower.OnDeath += () => shop.OnShop(currentTowerLevel, TriggerType.EnemyTower);
-    }
-
-    IEnumerator Co_AfterRespawnTower(float delayTime)
-    {
-        yield return new WaitForSeconds(delayTime);
-        RespawnTower();
-    }
-
-    // 마지막 성 클리어 시
-    IEnumerator ClearLastTower() // 검은 창병 두마리 소환 후 모든 유닛 필드로 옮기기
-    {
-        yield return new WaitForSeconds(0.1f); // 상점 이용 후 유닛이동하기 위해서 대기
-        for (int i = 0; i < 2; i++) createDefenser.CreateSoldier(6, 2);
-        UnitManager.instance.UnitTranslate_To_EnterStroyMode();
-    }
+    [SerializeField] EnemyTowerSpawner towerSpawner = null;
+    public Multi_EnemyTower CurrentTower => towerSpawner.currentTower;
 
     public Enemy GetRandom_CurrentEnemy(List<GameObject> currentList)
     {

@@ -15,23 +15,42 @@ public class Multi_Data : MonoBehaviourPun
         }
     }
 
+    int id;
+
     [SerializeField] Camera main_camera = null;
 
     // 카메라 포지션
     [SerializeField] Vector3[] cameraPositions = null;
-    public Vector3 CameraPosition { get; private set; }
+    public Vector3 CameraPosition => cameraPositions[id];
 
     // 타워 카메라 포지션
     [SerializeField] Vector3[] enemyTowerPositions = null;
-    public Vector3 EemeyTowerPosition { get; private set; }
+    public Vector3 EemeyTowerCamPosition => cameraPositions[id];
+
+
+    [SerializeField] Vector3[] enemySpawnPos = null;
+    public Vector3 EnemySpawnPos => enemySpawnPos[id];
+
+    [SerializeField] Transform[] enemyPoolParent = null;
+    public Transform EnemyPoolParent => enemyPoolParent[id];
 
     // 적 회전 지점
     [SerializeField] Transform[] enemyTurnPointParents = null;
-    public Transform[] EnemyTurnPoints { get { return enemyTurnPointParents; } }
+    public Transform[] EnemyTurnPoints
+    {
+        get
+        {
+            Transform[] _result = new Transform[enemyTurnPointParents[id].childCount];
+            for (int i = 0; i < _result.Length; i++) _result[i] = enemyTurnPointParents[id].GetChild(i);
+            return _result;
+        }
+    }
 
 
-    private List<GameObject>[] NormalEnemyLists = new List<GameObject>[2];
-    public List<GameObject> NormalEnemyList { get; private set; }
+    [SerializeField] Transform[] enemyTowerSpawnPos = null;
+    public Transform EnemyTowerParent => enemyTowerSpawnPos[id];
+    public Vector3 EnemyTowerSpawnPos => enemyTowerSpawnPos[id].position;
+
 
     private void Awake()
     {
@@ -47,19 +66,9 @@ public class Multi_Data : MonoBehaviourPun
 
     void SetMultiData()
     {
-        if (PhotonNetwork.IsMasterClient) ApplyMultiData(0);
-        else ApplyMultiData(1);
+        id = (PhotonNetwork.IsMasterClient) ? 0 : 1;
 
         main_camera.transform.position = CameraPosition;
-    }
-
-    void ApplyMultiData(int index)
-    {
-        CameraPosition = cameraPositions[index];
-        EemeyTowerPosition = enemyTowerPositions[index];
-
-        NormalEnemyLists[index] = new List<GameObject>();
-        NormalEnemyList = NormalEnemyLists[index];
     }
 
     [Space][Space][Space]
@@ -69,7 +78,7 @@ public class Multi_Data : MonoBehaviourPun
     void SetDebugData()
     {
         debug_cameraPosition = CameraPosition;
-        debug_enemyTowerPosition = EemeyTowerPosition;
+        debug_enemyTowerPosition = EemeyTowerCamPosition;
         debug_EnemyTurnPoints = EnemyTurnPoints;
     }
 }

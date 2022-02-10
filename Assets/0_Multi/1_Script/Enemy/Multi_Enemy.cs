@@ -22,10 +22,17 @@ public class Multi_Enemy : MonoBehaviourPun
     [SerializeField] protected Material originMat;
     private void Start()
     {
+        // 타워랑 일반 적들 구조가 달라서 나중에 수작업으로 넣어야됨
+        // originMat = GetComponentInChildren<MeshRenderer>().material;
+
         meshList = new List<MeshRenderer> { GetComponent<MeshRenderer>() };
         MeshRenderer[] addMeshs = GetComponentsInChildren<MeshRenderer>();
         for (int i = 0; i < addMeshs.Length; i++) meshList.Add(addMeshs[i]);
+        gameObject.SetActive(false);
     }
+
+    [PunRPC]
+    public virtual void Setup(int _hp, float _speed) { }
 
     public Action OnDeath = null;
 

@@ -49,26 +49,49 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
 
         gameManagerAudio = GetComponent<AudioSource>();
     }
-    //{
-    //    if (PhotonNetwork.IsMasterClient)
-    //    {
-    //        main_camera.transform.position = Wolrds[0];
-           
-    //    }
-    //    else
-    //    {
-    //        main_camera.transform.position = Wolrds[1];
-    //    }
-    //}
 
-    public int AddGold;
-    public int HighScore;
-    private int LastHighScore;
+
+    [HideInInspector]
+    public bool gameStart;
+    public string Difficult { get; private set; }
+    public event System.Action OnStart;
+    public void GameStart(string difficult)
+    {
+        gameStart = true;
+        Difficult = difficult;
+        //EventManager.instance.RandomBuffEvent(); // 랜덤 유닛 이벤트
+
+        //UnitManager.instance.ReSpawnStartUnit();
+        OnStart();
+        SelectDifficult(difficult);
+    }
+
+    [SerializeField] Text diffcultText;
+
+    // 난이도 구현 멀티에 맞게 바꿔야함
+    void SelectDifficult(string difficult)
+    {
+        diffcultText.text = "난이도 : " + difficult;
+        //Multi_EnemySpawner.instance.arr_TowersHp = Dic_enemyTowerHp[difficult];
+        switch (difficult)
+        {
+            case "Baby": SetDifficult(30, 10, 200); break;
+            case "Easy": SetDifficult(30, 15, 250); break;
+            case "Normal": SetDifficult(30, 35, 300); break;
+            case "Hard": SetDifficult(35, 70, 350); break;
+            case "Impossiable": SetDifficult(120, 250, 1000); break;
+        }
+    }
+    void SetDifficult(int hpWeight, int plusHpWeigh, int minhp)
+    {
+        Multi_EnemySpawner.instance.enemyHpWeight = hpWeight;
+        Multi_EnemySpawner.instance.plusEnemyHpWeight = plusHpWeigh;
+        Multi_EnemySpawner.instance.minHp = minhp;
+    }
+
+    //public int HighScore;
     void Start()
     {
-        HighScore = PlayerPrefs.GetInt("HighScore");
-        LastHighScore = PlayerPrefs.GetInt("HighScore");
-        UIManager.instance.UpdateHighScoreText(LastHighScore);
         Wood = PlayerPrefs.GetInt("Wood");
         Iron = PlayerPrefs.GetInt("Iron");
         Hammer = PlayerPrefs.GetInt("Hammer");
@@ -78,9 +101,20 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
         Gold = 15 + StartGold;
         Food = 1  + StartFood;
         PlusTouchDamege = PlayerPrefs.GetInt("PlusTouchDamege");
-        UIManager.instance.UpdateGoldText(Gold);
-        UIManager.instance.UpdateFoodText(Food);
-        //adManager.ShowAD();
+        Multi_UIManager.instance.UpdateGoldText(Gold);
+        Multi_UIManager.instance.UpdateFoodText(Food);
+    }
+
+    public void AddGold(int _addGold)
+    {
+        Gold += _addGold;
+        Multi_UIManager.instance.UpdateGoldText(Gold);
+    }
+
+    public void AddFood(int _addFood)
+    {
+        Food += _addFood;
+        Multi_UIManager.instance.UpdateFoodText(_addFood);
     }
 
     public AudioClip bossbgmClip;
@@ -257,18 +291,6 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
         PauseBackGround.SetActive(true);
     }
 
-    public void ClickPauseButton()
-    {
-        SoundManager.instance.PlayEffectSound_ByName("PopSound", 0.6f);
-
-        Time.timeScale = 0f;
-        gameTimeSpeed = 0f;
-
-        PauseBackGround.SetActive(false);
-        PlayAgainBackGround.SetActive(true);
-
-    }
-
     public GameObject GameoverUi;
     public Text IronRewardText;
     public Text WoodRewardText;
@@ -370,89 +392,14 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
         ResetOkButton.SetActive(false);
     }
 
-    [HideInInspector]
-    public bool gameStart;
-    string currentDifficult;
-    public event System.Action OnStart;
-    public void GameStart(string difficult)
-    {
-        gameStart = true;
-        //UIManager.instance.Set_GameUI();
-        //EventManager.instance.RandomBuffEvent(); // 랜덤 유닛 이벤트
-
-        //UnitManager.instance.ReSpawnStartUnit();
-        OnStart();
-    }
-
-    public Text diffcultText;
-    //public GameObject HighScorePanel;
-    //public bool isChallenge;
-
-    // 난이도 구현 멀티에 맞게 바꿔야함
-    void SelectDifficult(string difficult)
-    {
-        currentDifficult = difficult;
-        diffcultText.text = "난이도 : " + difficult;
-        Multi_EnemySpawner.instance.arr_TowersHp = Dic_enemyTowerHp[difficult];
-        switch (difficult)
-        {
-            case "Baby":
-                SetDifficult(30, 10, 200);
-                break;
-            case "Easy":
-                SetDifficult(30, 15, 250);
-                break;
-            case "Normal":
-                SetDifficult(30, 35, 300);
-                break;
-            case "Hard":
-                SetDifficult(35, 70, 350);
-                break;
-            case "Impossiable":
-                SetDifficult(120, 250, 1000);
-                break;
-            // 멀티는 챌린지 없음
-            //case "Challenge":
-            //    SelectChallenge();
-            //    SetDifficult(10, 100, 100);
-            //    break;
-            default: 
-                Debug.Log("난이도가 설정되지 않음");
-                break;
-        }
-    }
-    void SetDifficult(int hpWeight, int plusHpWeigh, int minhp)
-    {
-        Multi_EnemySpawner.instance.enemyHpWeight = hpWeight;
-        Multi_EnemySpawner.instance.plusEnemyHpWeight = plusHpWeigh;
-        Multi_EnemySpawner.instance.minHp = minhp;
-    }
-
-    // 멀티는 챌린지 없음
-    //void SelectChallenge()
-    //{
-    //    isChallenge = true;
-    //    HighScorePanel.SetActive(true);
-    //    enemySpawn.maxStage = 10000000;
-    //}
-
-    private Dictionary<string, int[]> Dic_enemyTowerHp;
-    void Set_EnemyTowerHpDictionary() // key : 난이도, value : 레벨 1~6 까지 적군의 성 체력
-    {
-        Dic_enemyTowerHp = new Dictionary<string, int[]>
-        {
-            { "Baby", new int[] { 40000, 80000, 300000, 800000, 2000000, 10000000 } },
-            { "Easy", new int[] { 80000, 200000, 600000, 2000000, 6000000, 20000000 } },
-            { "Normal", new int[] { 600000, 2000000, 6000000, 20000000, 60000000, 100000000 } },
-            { "Hard", new int[] { 1000000, 2400000, 8000000, 30000000, 80000000, 300000000 } },
-            { "Impossiable", new int[] { 1500000, 4000000, 15000000, 40000000, 140000000, 500000000 } },
-        };
-    }
     public void LoadClient()
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(0);
     }
+
+    [SerializeField] Shop shop;
+    public void OnEventShop(int _level, TriggerType _type) => shop.OnShop(_level, _type);
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

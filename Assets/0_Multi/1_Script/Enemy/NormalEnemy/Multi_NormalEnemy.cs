@@ -22,14 +22,13 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         Rigidbody = GetComponent<Rigidbody>();
     }
 
-    private void Start() => gameObject.SetActive(false);
 
     void OnEnable() // 리스폰 시 상태 초기화
     {
         if (TurnPoints != null && photonView.IsMine)
         {
             photonView.RPC("OnEnemy", RpcTarget.All); 
-            ChaseToPoint(pointIndex);
+            ChaseToPoint();
         }
     }
 
@@ -49,13 +48,13 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     }
 
     [PunRPC]
-    public void SetStatus(int hp, float speed)
+    public override void Setup(int _hp, float _speed)
     {
-        maxHp = hp;
+        maxHp = _hp;
         currentHp = maxHp;
         hpSlider.maxValue = maxHp;
         hpSlider.value = maxHp;
-        this.maxSpeed = speed;
+        this.maxSpeed = _speed;
         this.speed = maxSpeed;
         gameObject.SetActive(true);
         currentPos = transform.position;
@@ -69,9 +68,9 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         pointIndex++;
     }
 
-    public void ChaseToPoint(int _pointIndex)
+    public void ChaseToPoint()
     {
-        if (_pointIndex >= TurnPoints.Length) _pointIndex = 0; // 무한반복을 위한 조건
+        if (pointIndex >= TurnPoints.Length) pointIndex = 0; // 무한반복을 위한 조건
 
         // 실제 이동을 위한 속도 설정
         dir = (WayPoint.position - transform.position).normalized;
@@ -93,7 +92,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
             Vector3 _wayPoint = WayPoint.position;
             photonView.RPC("Turn", RpcTarget.All, _pointIndex, _wayPoint);
 
-            ChaseToPoint(pointIndex);
+            ChaseToPoint();
         }
     }
 

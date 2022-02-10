@@ -5176,7 +5176,7 @@ MonoBehaviour:
   isDead: 1
   hpSlider: {fileID: 1112035910167443037}
   dir: {x: 0, y: 0, z: 0}
-  originMat: {fileID: 0}
+  originMat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
   sternEffect: {fileID: 1485506195}
   slowSkillMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
   enemyNumber: 1

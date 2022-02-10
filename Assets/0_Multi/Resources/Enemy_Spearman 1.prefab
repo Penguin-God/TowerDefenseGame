@@ -5087,7 +5087,9 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 1003421122827511954}
+  - {fileID: 5314847492480864018}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -5110,10 +5112,9 @@ MonoBehaviour:
   isDead: 1
   hpSlider: {fileID: 8692699530051610424}
   dir: {x: 0, y: 0, z: 0}
-  originMat: {fileID: 0}
+  originMat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
   sternEffect: {fileID: 454276697}
   slowSkillMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
-  asuwasfweuaki: []
   enemyNumber: 2
 --- !u!114 &5314847492480864018
 MonoBehaviour:

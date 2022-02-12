@@ -9,9 +9,8 @@ public class MultiDevelopHelper : MonoBehaviourPunCallbacks
 {
     [SerializeField] Text guideText = null;
 
-    [ContextMenu("방 생성 및 입장")]
 
-    void EditorConnect()
+    public void EditorConnect()
     {
         PhotonNetwork.ConnectUsingSettings();
     }

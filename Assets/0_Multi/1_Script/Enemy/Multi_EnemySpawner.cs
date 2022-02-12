@@ -94,7 +94,9 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         Debug.Log("Done");
     }
 
-    
+    public GameObject GetPoolEnemy(int _num) => poolQueues[_num].Dequeue();
+
+
     Dictionary<int, NormalEnemyData> enemyDataDic = new Dictionary<int, NormalEnemyData>();
     void SetNormalEnemyData()
     {

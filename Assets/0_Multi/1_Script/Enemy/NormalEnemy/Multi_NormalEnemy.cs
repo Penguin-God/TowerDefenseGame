@@ -32,14 +32,15 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         }
     }
 
-    public virtual void Passive() { }
-
     [PunRPC]
     public void OnEnemy()
     {
         pointIndex = 0;
         isDead = false;
     }
+
+    public virtual void Passive() { }
+
 
     [PunRPC]
     public void SetPos(Vector3 pos)

@@ -9,7 +9,7 @@ using Photon.Pun;
 
 public class Multi_GameManager : MonoBehaviourPun, IPunObservable
 {
-    
+
     //private int Stage;
     public int Gold;
     public int Food;
@@ -48,6 +48,7 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
         }
 
         gameManagerAudio = GetComponent<AudioSource>();
+        OnStart += () => gameStart = true;
     }
 
 
@@ -55,16 +56,19 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     public bool gameStart;
     public string Difficult { get; private set; }
     public event System.Action OnStart;
+    [PunRPC]
+    void RPC_OnStart(string _difficult)
+    {
+        Difficult = _difficult;
+        //SelectDifficult(_difficult);
+        OnStart();
+    }
+
     public void GameStart(string difficult)
     {
-        gameStart = true;
-        Difficult = difficult;
-        //EventManager.instance.RandomBuffEvent(); // 랜덤 유닛 이벤트
-
-        //UnitManager.instance.ReSpawnStartUnit();
-        OnStart();
-        SelectDifficult(difficult);
+        if (PhotonNetwork.IsMasterClient) photonView.RPC("RPC_OnStart", RpcTarget.All, difficult);
     }
+
 
     [SerializeField] Text diffcultText;
 

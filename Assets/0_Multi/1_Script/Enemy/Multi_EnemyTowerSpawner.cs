@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class EnemyTowerSpawner : MonoBehaviourPun
+public class Multi_EnemyTowerSpawner : MonoBehaviourPun
 {
     [SerializeField] GameObject[] towerPrefabs;
     [SerializeField] GameObject[] towers;

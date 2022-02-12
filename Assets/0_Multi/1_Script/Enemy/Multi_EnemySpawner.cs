@@ -4,6 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 
+[System.Serializable]
+public struct NormalEnemyData
+{
+    public int number;
+    public int hp;
+    public float speed;
+
+    public NormalEnemyData(int _number, int _hp, float _speed)
+    {
+        number = _number;
+        hp = _hp;
+        speed = _speed;
+    }
+}
+
 public class Multi_EnemySpawner : MonoBehaviourPun
 {
     public int stageNumber;
@@ -23,26 +38,9 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         timerSlider.value = stageTime;
 
         Multi_GameManager.instance.OnStart += NewStageStart;
+        if (PhotonNetwork.IsMasterClient) SetNormalEnemyData();
         SetMultiValue();
-        //Multi_GameManager.instance.OnStart += RespawnTower;
     }
-
-    [ContextMenu("멀티 오브젝트 풀링")]
-    void Pooling()
-    {
-        poolEnemyCount = 51;
-        CreatePoolingEnemy(poolEnemyCount, poolQueues, poolPos, enemyTurnPoints, poolParent);
-
-        respawnEnemyCount = 15;
-    }
-
-
-    int poolEnemyCount; // 풀링을 위해 미리 생성하는 enemy 수
-    Queue<GameObject>[] poolQueues = new Queue<GameObject>[4];
-
-    public List<GameObject> currentNormalEnemyList = new List<GameObject>();
-
-    private int respawnEnemyCount;
 
 
     [SerializeField] Vector3 spawnPos;
@@ -66,6 +64,13 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         respawnEnemyCount = 15;
     }
 
+
+    int poolEnemyCount; // 풀링을 위해 미리 생성하는 enemy 수
+    Queue<GameObject>[] poolQueues = new Queue<GameObject>[4];
+
+    public List<GameObject> currentNormalEnemyList = new List<GameObject>();
+
+    private int respawnEnemyCount;
     void CreatePoolingEnemy(int count, Queue<GameObject>[] enemyPools, Vector3 poolPos, Transform[] turnPoints, Transform parent)
     {
         for (int i = 0; i < enemyPrefab.Length; i++)
@@ -89,46 +94,81 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         Debug.Log("Done");
     }
 
-    public int plusEnemyHpWeight;
-    int normalHp;
-    float normalSpeed;
+    
+    Dictionary<int, NormalEnemyData> enemyDataDic = new Dictionary<int, NormalEnemyData>();
+    void SetNormalEnemyData()
+    {
+        int maxNumber = enemyPrefab.Length;
+
+        for (int stage = 1; stage < 200; stage++)
+        {
+            enemyHpWeight += plusEnemyHpWeight;
+
+            int _rand = Random.Range(0, maxNumber);
+            int _hp = SetRandomHp(stage, enemyHpWeight);
+            float _speed = SetRandomSeepd(stage);
+            photonView.RPC("AddEnemyData", RpcTarget.All, stage, _rand, _hp, _speed);
+        }
+    }
+
+    public List<NormalEnemyData> debugData = new List<NormalEnemyData>();
 
     [PunRPC]
-    public void SetNormalEnemyStatus(int _enemyNum, int _hp, float _speed)
+    void AddEnemyData(int _stage, int _enemyNum, int _hp, float _speed)
     {
-        currentEenmyNumber = _enemyNum;
-        normalHp = _hp;
-        normalSpeed = _speed;
+        NormalEnemyData _data = new NormalEnemyData(_enemyNum, _hp, _speed);
+        enemyDataDic.Add(_stage, _data);
+
+        debugData.Add(_data);
+    }
+
+    public int minHp = 0;
+    public int enemyHpWeight;
+    public int plusEnemyHpWeight;
+    int SetRandomHp(int _stage, int _weight)
+    {
+        // satge에 따른 가중치 변수들
+        int stageHpWeight = _stage * _stage * _weight;
+
+        int hp = minHp + stageHpWeight;
+        return hp;
+    }
+
+    private float maxSpeed = 5f;
+    private float minSpeed = 3f;
+    float SetRandomSeepd(int _stage)
+    {
+        // satge에 따른 가중치 변수들
+        float stageSpeedWeight = _stage / 6;
+
+        float enemyMinSpeed = minSpeed + stageSpeedWeight;
+        float enemyMaxSpeed = maxSpeed + stageSpeedWeight;
+        float speed = Random.Range(enemyMinSpeed, enemyMaxSpeed);
+        return speed;
     }
 
 
-    void UpStage(int _addGold, int _plusEnemyHpWeight, int _upCount = 1)
+    void UpStage(int _addGold, int _upCount = 1)
     {
         stageNumber += _upCount;
         Multi_UIManager.instance.UpdateStageText(stageNumber);
 
         Multi_GameManager.instance.AddGold(_addGold);
-        // 적 체력 가중치 증가
-        enemyHpWeight += _plusEnemyHpWeight;
         timerSlider.maxValue = stageTime;
         timerSlider.value = stageTime;
+
+        //SoundManager.instance.PlayEffectSound_ByName("NewStageClip", 0.6f);
     }
 
     public void NewStageStart() // 무한반복하는 재귀 함수( Co_Stage() 마지막 부분에 다시 NewStageStart()를 호출함)
     {
-        UpStage(stageGold, plusEnemyHpWeight);
-        //SoundManager.instance.PlayEffectSound_ByName("NewStageClip", 0.6f);
+        UpStage(stageGold);
 
-        // 적 유닛의 능력치는 호스트에서만 결정
-        if (PhotonNetwork.IsMasterClient)
-        {
-            currentEenmyNumber = Random.Range(0, enemyPrefab.Length);
-            normalHp = SetRandomHp();
-            normalSpeed = SetRandomSeepd();
-            photonView.RPC("SetNormalEnemyStatus", RpcTarget.Others, currentEenmyNumber, normalHp, normalSpeed);
-        }
-        
-        StartCoroutine(Co_Stage(poolQueues[currentEenmyNumber], normalHp, normalSpeed, spawnPos));
+        currentEenmyNumber = enemyDataDic[stageNumber].number;
+        int _hp = enemyDataDic[stageNumber].hp;
+        float _speed = enemyDataDic[stageNumber].speed;
+
+        StartCoroutine(Co_Stage(poolQueues[currentEenmyNumber], _hp, _speed, spawnPos));
     }
 
     IEnumerator Co_Stage(Queue<GameObject> pool, int hp, float speed, Vector3 spawnPos)
@@ -192,32 +232,13 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     //public int queueCount3 = 0;
     //public int queueCount4 = 0;
 
-    
-    public int minHp = 0;
-    public int enemyHpWeight;
-    int SetRandomHp()
+
+    public Enemy GetRandom_CurrentEnemy(List<GameObject> currentList)
     {
-        // satge에 따른 가중치 변수들
-        int stageHpWeight = stageNumber * stageNumber * enemyHpWeight;
-
-        int hp = minHp + stageHpWeight;
-        return hp;
+        int index = Random.Range(0, currentList.Count);
+        Enemy enemy = currentList[index].GetComponent<Enemy>();
+        return enemy;
     }
-
-    private float maxSpeed = 5f;
-    private float minSpeed = 3f;
-    float SetRandomSeepd()
-    {
-        // satge에 따른 가중치 변수들
-        float stageSpeedWeight = stageNumber / 6;
-
-        float enemyMinSpeed = minSpeed + stageSpeedWeight;
-        float enemyMaxSpeed = maxSpeed + stageSpeedWeight;
-        float speed = Random.Range(enemyMinSpeed, enemyMaxSpeed);
-        return speed;
-    }
-
-
 
     void SetEnemyData(GameObject enemyObject, int hp, float speed) // enemy 능력치 설정
     {
@@ -301,13 +322,6 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     public CreateDefenser createDefenser;
 
     // 타워 코드
-    [SerializeField] EnemyTowerSpawner towerSpawner = null;
+    [SerializeField] Multi_EnemyTowerSpawner towerSpawner = null;
     public Multi_EnemyTower CurrentTower => towerSpawner.currentTower;
-
-    public Enemy GetRandom_CurrentEnemy(List<GameObject> currentList)
-    {
-        int index = Random.Range(0, currentList.Count);
-        Enemy enemy = currentList[index].GetComponent<Enemy>();
-        return enemy;
-    }
 }

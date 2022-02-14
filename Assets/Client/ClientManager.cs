@@ -313,6 +313,7 @@ public class ClientManager : MonoBehaviour
         ClientWood = PlayerPrefs.GetInt("Wood");
         ClientIron = PlayerPrefs.GetInt("Iron");
         ClientHammer = PlayerPrefs.GetInt("Hammer");
+        Skill1 = PlayerPrefs.GetInt("Skill1");
 
         ClientClickSound();
 

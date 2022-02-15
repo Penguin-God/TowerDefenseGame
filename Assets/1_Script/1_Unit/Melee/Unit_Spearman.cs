@@ -61,14 +61,6 @@ public class Unit_Spearman : MeeleUnit, IEvent
         CollisionWeapon weapon = poolManager.UsedWeapon(spearCreatePosition, transform.forward * -1, 50, (Enemy enemy) => delegate_OnSkile(enemy));
         weapon.transform.Rotate(90, 0, 0);
 
-        //CollisionWeapon UseWeapon = GetWeapon_FromPool();
-        //UseWeapon.transform.position = spearCreatePosition.position;
-        //UseWeapon.Shoot(transform.forward * -1, 50, (Enemy enemy) => delegate_OnHit(enemy));
-        //GameObject instantSpear = Instantiate(skileSpaer, spearCreatePosition);
-        //instantSpear.transform.SetParent(dontMoveGameObject.transform);
-        //instantSpear.GetComponent<CollisionWeapon>().UnitOnDamage += (Enemy enemy) => delegate_OnSkile(enemy);
-        //instantSpear.GetComponent<Rigidbody>().velocity = (-1 * transform.forward) * 50;
-
         if (enterStoryWorld == GameManager.instance.playerEnterStoryMode)
             unitAudioSource.PlayOneShot(skillAudioClip, 0.12f);
 

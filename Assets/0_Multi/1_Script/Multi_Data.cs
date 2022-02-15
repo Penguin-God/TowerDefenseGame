@@ -52,6 +52,20 @@ public class Multi_Data : MonoBehaviourPun
     public Vector3 EnemyTowerSpawnPos => enemyTowerSpawnPos[id].position;
 
 
+    [SerializeField] Vector3[] unitSpawnPos = null;
+    [SerializeField] Vector3[] unitTowerSpawnPos = null;
+
+    public Vector3 UnitSpawnPos => unitSpawnPos[id] + GetAddPosition(-20, 20, -10, 10);
+    //public Vector3 UnitTowerSpawnPos => unitTowerSpawnPos[id] + GetAddPosition(-20, 20, -10, 10);
+
+    Vector3 GetAddPosition(float xMin, float xMax, float zMin, float zMax)
+    {
+        float xPos = Random.Range(xMin, xMax);
+        float zPos = Random.Range(zMin, zMax);
+
+        return new Vector3(xPos, 0, zPos);
+    }
+
     private void Awake()
     {
         if(instance != this)

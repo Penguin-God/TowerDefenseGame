@@ -92,7 +92,8 @@ GameObject:
   - component: {fileID: 3889994109698189722}
   - component: {fileID: 3889994108746108130}
   - component: {fileID: 3889994110155592425}
-  - component: {fileID: 1117234179081087094}
+  - component: {fileID: 3374630697116967776}
+  - component: {fileID: 5495174199461114168}
   m_Layer: 9
   m_Name: Violet_SwordMan 1
   m_TagString: Untagged
@@ -268,11 +269,12 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 3374630697116967776}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1117234179081087094
+--- !u!114 &3374630697116967776
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -281,21 +283,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 8499757540850643633}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab90d213f6373964b87dc3f64890b28a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ef88ab751c931d4689bba35a53d3aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitClass: 0
-  unitColor: 5
-  originDamage: 60
-  originBossDamage: 60
+  unitColor: 0
+  originDamage: 0
+  originBossDamage: 0
   originAttackDelayTime: 0.3
   speed: 15
   attackDelayTime: 0.3
   attackRange: 6
-  damage: 60
-  bossDamage: 60
+  damage: 0
+  bossDamage: 0
   skillDamage: 0
-  stopDistanc: 3
+  stopDistanc: 0
   isAttack: 0
   isAttackDelayTime: 0
   isSkillAttack: 0
@@ -309,6 +311,25 @@ MonoBehaviour:
   rayHitTransform: {fileID: 0}
   enterStoryWorld: 0
   trail: {fileID: 8499757541274702975}
+--- !u!95 &5495174199461114168
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8499757540850643633}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9bc3f8107b8e0714da97dc96c968da79, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8499757541274702975
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +478,6 @@ GameObject:
   - component: {fileID: 8499757541328693771}
   - component: {fileID: 8499757541328693770}
   - component: {fileID: 8499757541328693769}
-  - component: {fileID: 6556991514285658909}
   - component: {fileID: 8499757541328693776}
   - component: {fileID: 3889994108207954780}
   m_Layer: 9
@@ -531,25 +551,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!95 &6556991514285658909
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8499757541328693775}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9bc3f8107b8e0714da97dc96c968da79, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!136 &8499757541328693776
 CapsuleCollider:
   m_ObjectHideFlags: 0

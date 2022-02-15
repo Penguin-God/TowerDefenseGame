@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class BlackTowerEvent1 : MonoBehaviourPun
 {
-    public CreateDefenser1 createDefenser1;
+    public Multi_CreateDefenser createDefenser1;
     private int Randomnumber;
     public AudioSource BlackUiAudio;
     public GameObject BlackCombineButtons;

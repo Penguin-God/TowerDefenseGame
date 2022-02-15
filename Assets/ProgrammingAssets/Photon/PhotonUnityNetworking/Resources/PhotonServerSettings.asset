@@ -57,6 +57,10 @@ MonoBehaviour:
   - SetDiffcult
   - RPC_OnStart
   - AddEnemyData
+  - NormalAttack
+  - CreateSoldier
+  - DrawSoldier
+  - CreateClientSoldier
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

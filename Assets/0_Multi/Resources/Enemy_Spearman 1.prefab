@@ -4655,7 +4655,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8692699529522113789}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4692,7 +4692,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8692699530051610425}
   - component: {fileID: 8692699530051610424}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Hp Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4782,7 +4782,7 @@ GameObject:
   - component: {fileID: 8692699530118700147}
   - component: {fileID: 8692699530118700144}
   - component: {fileID: 8692699530118700145}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4880,7 +4880,7 @@ GameObject:
   - component: {fileID: 8692699530200457620}
   - component: {fileID: 8692699530200457622}
   - component: {fileID: 8692699530200457623}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4954,7 +4954,7 @@ GameObject:
   - component: {fileID: 8692699530337282074}
   - component: {fileID: 8692699530337282076}
   - component: {fileID: 8692699530337282077}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5030,7 +5030,7 @@ GameObject:
   - component: {fileID: -12486921478557600}
   - component: {fileID: 1003421122827511954}
   - component: {fileID: 5314847492480864018}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Enemy_Spearman 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -347,7 +347,7 @@ GameObject:
   - component: {fileID: 8301984772538128271}
   - component: {fileID: 8973375408006738935}
   - component: {fileID: -585793683502056607}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy_Sworaman 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -459,7 +459,7 @@ GameObject:
   - component: {fileID: 2694985330316391955}
   - component: {fileID: 2694985330316391953}
   - component: {fileID: 2694985330316391954}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -534,7 +534,7 @@ GameObject:
   - component: {fileID: 2694985330941764177}
   - component: {fileID: 2694985330941764178}
   - component: {fileID: 2694985330941764179}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -632,7 +632,7 @@ GameObject:
   - component: {fileID: 2694985331096400231}
   - component: {fileID: 2694985331096400229}
   - component: {fileID: 2694985331096400230}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -705,7 +705,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2694985331357330399}
   - component: {fileID: 2694985331357330398}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Hp Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -792,7 +792,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2694985331867823750}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}

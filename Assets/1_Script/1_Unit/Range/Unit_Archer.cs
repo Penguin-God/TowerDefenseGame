@@ -35,12 +35,6 @@ public class Unit_Archer : RangeUnit, IEvent
         if (target != null && enemyDistance < chaseRange)
         {
             poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, target), 50, (Enemy enemy) => delegate_OnHit(enemy));
-
-            //CollisionWeapon UseWeapon = GetWeapon_FromPool();
-            //UseWeapon.transform.position = arrowTransform.position;
-            //UseWeapon.Shoot(Get_ShootDirection(2f, target), 50, (Enemy enemy) => delegate_OnHit(enemy));
-            //GameObject instantEnergyBall = CreateBullte(energyBall, energyBallTransform, delegate_OnHit);
-            //ShotBullet(instantEnergyBall, 2f, 50f, target);
         }
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
@@ -72,14 +66,6 @@ public class Unit_Archer : RangeUnit, IEvent
         for (int i = 0; i < targetArray.Length; i++)
         {
             poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, targetArray[i]), 50, (Enemy enemy) => delegate_OnSkile(enemy));
-
-            //CollisionWeapon UseWeapon = GetWeapon_FromPool();
-            //UseWeapon.transform.position = arrowTransform.position;
-            //UseWeapon.Shoot(Get_ShootDirection(2f, targetArray[i]), 50, (Enemy enemy) => delegate_OnHit(enemy));
-
-            //GameObject instantArrow = CreateBullte(arrow, arrowTransform, delegate_OnSkile);
-            //instantArrow.GetComponent<SphereCollider>().radius = 5f; // 적이 잘 안맞아서 반지름 늘림
-            //ShotBullet(instantArrow, 3f, 50f, targetArray[i]);
         }
         if (enterStoryWorld == GameManager.instance.playerEnterStoryMode)
             unitAudioSource.PlayOneShot(normalAttackClip);

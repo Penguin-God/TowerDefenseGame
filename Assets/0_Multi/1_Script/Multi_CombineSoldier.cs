@@ -4,21 +4,13 @@ using UnityEngine;
 using Photon.Pun;
 
 
-public class CombineSoldier1 : MonoBehaviourPun
+public class Multi_CombineSoldier : MonoBehaviourPun
 {
-    /// <summary>
-    ///  번경 된 점 : if (!photonView.IsMine)
-    //{
-    //return;
-    //} 을 조합식에 전부 넣어줌.
-    // Destroy 대신 PhotonNetwork.Destroy를 씀
-    /// </summary>
     public int Colornumber;
     public int Soldiernumber;
-    public CreateDefenser1 createdefenser1;
+    [SerializeField] Multi_CreateDefenser createDefenser;
     public SoldiersTags TagSoldier;
     public UnitManageButton unitmanage;
-    public ButtonDown buttonDown;
 
     void Start()
     {
@@ -52,7 +44,7 @@ public class CombineSoldier1 : MonoBehaviourPun
 
 
             SoldierChoose(0, 0, 1, 1);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("빨간 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -64,14 +56,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateSwordmanCount();
-        //UIManager.instance.UpdateArcherCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
         UIManager.instance.CreateButtonAuido.Play();
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
     }
 
     public void CombineRedSpearman()
@@ -93,7 +79,7 @@ public class CombineSoldier1 : MonoBehaviourPun
 
 
             SoldierChoose(0, 0, 2, 2);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("빨간 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -105,15 +91,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateSwordmanCount();
-        //UIManager.instance.UpdateArcherCount();
-        //UIManager.instance.UpdateSpearmanCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(1).gameObject.SetActive(false);
     }
 
     public void CombineRedMage()
@@ -134,7 +113,7 @@ public class CombineSoldier1 : MonoBehaviourPun
 
 
             SoldierChoose(0, 0, 3, 3);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("빨간 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -146,15 +125,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateArcherCount();
-        //UIManager.instance.UpdateSpearmanCount();
-        //UIManager.instance.UpdateMageCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(2).gameObject.SetActive(false);
     }
 
     public void CombineBlueArcher()
@@ -174,7 +146,7 @@ public class CombineSoldier1 : MonoBehaviourPun
 
 
             SoldierChoose(1, 1, 1, 1);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("파란 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -186,14 +158,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateSwordmanCount();
-        //UIManager.instance.UpdateArcherCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
     }
 
     public void CombineBlueSpearman()
@@ -215,7 +181,7 @@ public class CombineSoldier1 : MonoBehaviourPun
 
 
             SoldierChoose(1, 1, 2, 2);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("파란 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -227,15 +193,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateSwordmanCount();
-        //UIManager.instance.UpdateArcherCount();
-        //UIManager.instance.UpdateSpearmanCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(1).gameObject.SetActive(false);
     }
 
     public void CombineBlueMage()
@@ -256,7 +215,7 @@ public class CombineSoldier1 : MonoBehaviourPun
 
 
             SoldierChoose(1, 1, 3, 3);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("파란 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -268,15 +227,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateArcherCount();
-        //UIManager.instance.UpdateSpearmanCount();
-        //UIManager.instance.UpdateMageCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(2).gameObject.SetActive(false);
     }
 
     public void CombineYellowArcher()
@@ -297,7 +249,7 @@ public class CombineSoldier1 : MonoBehaviourPun
 
 
             SoldierChoose(2, 2, 1, 1);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("노란 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -309,14 +261,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateSwordmanCount();
-        //UIManager.instance.UpdateArcherCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(0).gameObject.SetActive(false);
     }
 
     public void CombineYellowSpearman()
@@ -338,7 +284,7 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
             SoldierChoose(2, 2, 2, 2);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("노란 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -350,15 +296,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateSwordmanCount();
-        //UIManager.instance.UpdateArcherCount();
-        //UIManager.instance.UpdateSpearmanCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(1).gameObject.SetActive(false);
     }
 
     public void CombineYellowMage()
@@ -379,7 +318,7 @@ public class CombineSoldier1 : MonoBehaviourPun
 
 
             SoldierChoose(2, 2, 3, 3);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("노란 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -391,15 +330,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateArcherCount();
-        //UIManager.instance.UpdateSpearmanCount();
-        //UIManager.instance.UpdateMageCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(2).gameObject.SetActive(false);
     }
 
     public void CombineGreenArcher()
@@ -418,7 +350,7 @@ public class CombineSoldier1 : MonoBehaviourPun
 
 
             SoldierChoose(3, 3, 1, 1);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("초록 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -430,14 +362,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateSwordmanCount();
-        //UIManager.instance.UpdateArcherCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(0).gameObject.SetActive(false);
     }
 
     public void CombineGreenSpearman()
@@ -460,7 +386,7 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
             SoldierChoose(3, 3, 2, 2);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("초록 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -472,15 +398,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateSwordmanCount();
-        //UIManager.instance.UpdateArcherCount();
-        //UIManager.instance.UpdateSpearmanCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(1).gameObject.SetActive(false);
     }
 
     public void CombineGreenMage()
@@ -503,7 +422,7 @@ public class CombineSoldier1 : MonoBehaviourPun
 
 
             SoldierChoose(3, 3, 3, 3);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("초록 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -515,15 +434,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateArcherCount();
-        //UIManager.instance.UpdateSpearmanCount();
-        //UIManager.instance.UpdateMageCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(2).gameObject.SetActive(false);
 
     }
 
@@ -543,7 +455,7 @@ public class CombineSoldier1 : MonoBehaviourPun
 
 
             SoldierChoose(4, 4, 1, 1);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("주황 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -555,14 +467,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateSwordmanCount();
-        //UIManager.instance.UpdateArcherCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(4).GetChild(0).gameObject.SetActive(false);
     }
 
     public void CombineOrangeSpearman()
@@ -585,7 +491,7 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
             SoldierChoose(4, 4, 2, 2);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("주황 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -597,15 +503,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateSwordmanCount();
-        //UIManager.instance.UpdateArcherCount();
-        //UIManager.instance.UpdateSpearmanCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(4).GetChild(1).gameObject.SetActive(false);
     }
 
     public void CombineOrangeMage()
@@ -628,7 +527,7 @@ public class CombineSoldier1 : MonoBehaviourPun
 
 
             SoldierChoose(4, 4, 3, 3);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("주황 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -640,15 +539,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateArcherCount();
-        //UIManager.instance.UpdateSpearmanCount();
-        //UIManager.instance.UpdateMageCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(4).GetChild(2).gameObject.SetActive(false);
     }
 
     public void CombineVioletArcher()
@@ -667,7 +559,7 @@ public class CombineSoldier1 : MonoBehaviourPun
 
 
             SoldierChoose(5, 5, 1, 1);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("보라 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -679,14 +571,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateSwordmanCount();
-        //UIManager.instance.UpdateArcherCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(5).GetChild(0).gameObject.SetActive(false);
     }
 
     public void CombineVioletSpearman()
@@ -708,7 +594,7 @@ public class CombineSoldier1 : MonoBehaviourPun
 
 
             SoldierChoose(5, 5, 2, 2);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("보라 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -720,15 +606,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateSwordmanCount();
-        //UIManager.instance.UpdateArcherCount();
-        //UIManager.instance.UpdateSpearmanCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(5).GetChild(1).gameObject.SetActive(false);
     }
 
     public void CombineVioletMage()
@@ -751,7 +630,7 @@ public class CombineSoldier1 : MonoBehaviourPun
 
 
             SoldierChoose(5, 5, 3, 3);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("보라 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -763,15 +642,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateArcherCount();
-        //UIManager.instance.UpdateSpearmanCount();
-        //UIManager.instance.UpdateMageCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(5).GetChild(2).gameObject.SetActive(false);
     }
 
 
@@ -792,7 +664,7 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
             SoldierChoose(3, 3, 0, 0);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("초록 기사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -804,13 +676,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateSwordmanCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(0).gameObject.SetActive(false);
     }
 
     public void CombineOrangeSwordman()
@@ -830,7 +697,7 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
             SoldierChoose(4,4,0,0);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("주황 기사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -841,13 +708,8 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateSwordmanCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(0).gameObject.SetActive(false);
     }
 
     public void CombineVioletSwordman()
@@ -865,7 +727,7 @@ public class CombineSoldier1 : MonoBehaviourPun
 
 
             SoldierChoose(5, 5, 0, 0);
-            createdefenser1.CreateSoldier(Colornumber, Soldiernumber);
+            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("보라 기사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -877,52 +739,28 @@ public class CombineSoldier1 : MonoBehaviourPun
             UIManager.instance.CombineFailText.gameObject.SetActive(true);
             Invoke("CombineFailTextDown", 1f);
         }
-        //UIManager.instance.UpdateSwordmanCount();
-        buttonDown.AllButtonDown();
-        //UIManager.instance.ButtonDown();
         UIManager.instance.CreateButtonAuido.Play();
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
-        //UIManager.instance.BackGround.gameObject.SetActive(false);
-        //UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(0).gameObject.SetActive(false);
     }
-
-    //public void ComeBackButton()
-    //{
-    //    UIManager.instance.ButtonDown();
-    //    unitmanage.UnitManagementButton.gameObject.SetActive(true);
-    //    UIManager.instance.BackGround.gameObject.SetActive(false);
-    //    UIManager.instance.ExPlanationTexts.transform.GetChild(0).GetChild(3).gameObject.SetActive(false);
-    //    UIManager.instance.ExPlanationTexts.transform.GetChild(1).GetChild(3).gameObject.SetActive(false);
-    //    UIManager.instance.ExPlanationTexts.transform.GetChild(2).GetChild(3).gameObject.SetActive(false);
-    //    UIManager.instance.ExPlanationTexts.transform.GetChild(3).GetChild(3).gameObject.SetActive(false);
-    //    UIManager.instance.ExPlanationTexts.transform.GetChild(4).GetChild(3).gameObject.SetActive(false);
-    //    UIManager.instance.ExPlanationTexts.transform.GetChild(5).GetChild(3).gameObject.SetActive(false);
-    //}
-
-
-
 
     public void SoldierChoose(int Colornumber1, int Colornumber2, int Soldiernumber1, int Soldiernumber2)
     {
         Colornumber = Random.Range(Colornumber1, Colornumber2);
         Soldiernumber = Random.Range(Soldiernumber1, Soldiernumber2);
-
     }
 
 
     public void Sommon()
     {
-        if (!photonView.IsMine)
-        {
-            return;
-        }
         SoldierChoose(0, 3, 0, 0);
-        createdefenser1.DrawSoldier(Colornumber, Soldiernumber);
-        //UIManager.instance.UpdateSwordmanCount();
-        UIManager.instance.CreateButtonAuido.Play();
-        // createdefenser.CreateSoldier(Colornumber, Soldiernumber);
-        // createdefenser.ExpenditureGold();
+        if (PhotonNetwork.IsMasterClient) createDefenser.DrawSoldier(Colornumber, Soldiernumber);
+        else
+        {
+            if (Multi_GameManager.instance.Gold >= 5)
+            {
+                createDefenser.photonView.RPC("CreateSoldier", RpcTarget.MasterClient, Colornumber, Soldiernumber, Multi_Data.instance.UnitSpawnPos);
+                Multi_GameManager.instance.AddGold(-5);
+            }
+        }
     }
-
-
 }

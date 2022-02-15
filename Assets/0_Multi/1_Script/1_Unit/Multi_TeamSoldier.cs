@@ -50,8 +50,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     private void Awake()
     {
+        PhotonNetwork.SendRate = 20;
+        PhotonNetwork.SerializationRate = 40;
+
         // 아래에서 평타랑 스킬 설정할 때 delegate_OnPassive가 null이면 에러가 떠서 에러 방지용으로 실행 후에 OnEnable에서 덮어쓰기 때문에 의미 없음
-        SetPassive();
+        //SetPassive();
 
         // 평타 설정
         delegate_OnHit += AttackEnemy;
@@ -83,8 +86,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     void OnEnable()
     {
-        SetData();
-        SetPassive();
+        //SetData();
+        //SetPassive();
         //UnitManager.instance.AddCurrentUnit(this);
 
         if (animator != null) animator.enabled = true;
@@ -103,13 +106,13 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     // 기본 데이터를 기반으로 유닛 고유 데이터 세팅
     public virtual void SetInherenceData() { }
 
-    void SetPassive()
-    {
-        UnitPassive _passive = GetComponent<UnitPassive>();
-        if (delegate_OnPassive != null) delegate_OnPassive = null;
-        UnitManager.instance.ApplyPassiveData(gameObject.tag, _passive, unitColor);
-        //_passive.SetPassive(this);
-    }
+    //void SetPassive()
+    //{
+    //    UnitPassive _passive = GetComponent<UnitPassive>();
+    //    if (delegate_OnPassive != null) delegate_OnPassive = null;
+    //    UnitManager.instance.ApplyPassiveData(gameObject.tag, _passive, unitColor);
+    //    //_passive.SetPassive(this);
+    //}
 
     private void OnDisable()
     {
@@ -155,7 +158,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     IEnumerator Co_NormalAttackClipPlay()
     {
         yield return new WaitForSeconds(normalAttakc_AudioDelay);
-        if (enterStoryWorld == GameManager.instance.playerEnterStoryMode)
+        if (enterStoryWorld == Multi_GameManager.instance.playerEnterStoryMode)
             unitAudioSource.PlayOneShot(normalAttackClip);
     }
 
@@ -208,8 +211,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             rayHitTransform = rayHitObject.transform;
             if (rayHitTransform == null) return false;
 
-            if (CheckObjectIsBoss(rayHitTransform.gameObject) || rayHitTransform == target.parent) return true;
-            else if (ReturnLayerMask(rayHitTransform.GetChild(0).gameObject) == layerMask)
+            if (CheckObjectIsBoss(rayHitTransform.gameObject) || rayHitTransform == target) return true;
+            else if (ReturnLayerMask(rayHitTransform.gameObject) == layerMask)
             {
                 // ray에 맞은 적이 target은 아니지만 target과 같은 layer라면 두 enemy가 겹친 것으로 판단해 true를 리턴
                 return true;
@@ -248,10 +251,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
             nav.SetDestination(DestinationPos);
 
-            if ((enemyIsForward || contactEnemy) && !isAttackDelayTime && !isSkillAttack && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
-            {
-                UnitAttack();
-            }
+            //if ((enemyIsForward || contactEnemy) && !isAttackDelayTime && !isSkillAttack && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
+            //{
+            //    UnitAttack();
+            //}
             yield return null;
         }
     }
@@ -306,7 +309,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     // 타워 때리는 무한반복 코루틴
     IEnumerator TowerNavCoroutine()
     {
-        Physics.Raycast(transform.parent.position + Vector3.up, target.position - transform.position, out RaycastHit towerHit, 100f, layerMask);
+        Physics.Raycast(transform.position + Vector3.up, target.position - transform.position, out RaycastHit towerHit, 100f, layerMask);
 
         Invoke("RangeNavStop", 3f); // 원거리 타워에 다가가는거 막기
         while (true)
@@ -362,7 +365,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         {
             // 적군의 성 때 겹치는 버그 방지
             nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-            transform.parent.position = UnitManager.instance.Set_StroyModePosition();
+            transform.position = UnitManager.instance.Set_StroyModePosition();
             StopCoroutine("NavCoroutine");
             SetChaseSetting(EnemySpawn.instance.currentTower.gameObject);
             StartCoroutine("TowerNavCoroutine");
@@ -370,7 +373,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         else
         {
             nav.obstacleAvoidanceType = ObstacleAvoidanceType.GoodQualityObstacleAvoidance;
-            transform.parent.position = SetRandomPosition(20, -20, 10, -10, false);
+            transform.position = SetRandomPosition(20, -20, 10, -10, false);
             StopCoroutine("TowerNavCoroutine");
             UpdateTarget();
             StartCoroutine("NavCoroutine");

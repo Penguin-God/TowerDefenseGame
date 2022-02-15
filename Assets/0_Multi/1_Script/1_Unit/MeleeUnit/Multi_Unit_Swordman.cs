@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Multi_Sowrdman : Multi_MeleeUnit
+public class Multi_Unit_Swordman : Multi_MeleeUnit
 {
     [Header("기사 변수")]
     [SerializeField] GameObject trail;

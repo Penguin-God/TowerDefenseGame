@@ -62,7 +62,7 @@ public class Multi_MeleeUnit : Multi_TeamSoldier
 
     private void FixedUpdate()
     {
-        Debug.DrawRay(transform.parent.position + Vector3.up, transform.parent.forward * attackRange, Color.green);
-        rayHit = Physics.Raycast(transform.parent.position + Vector3.up, transform.parent.forward, out rayHitObject, attackRange, layerMask);
+        Debug.DrawRay(transform.position + Vector3.up, transform.forward * attackRange, Color.green);
+        rayHit = Physics.Raycast(transform.position + Vector3.up, transform.forward, out rayHitObject, attackRange, layerMask);
     }
 }

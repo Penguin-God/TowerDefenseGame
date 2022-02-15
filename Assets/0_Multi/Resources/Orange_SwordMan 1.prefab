@@ -172,7 +172,8 @@ GameObject:
   - component: {fileID: 6900552964616587622}
   - component: {fileID: 6900552964007291095}
   - component: {fileID: 6900552965268172425}
-  - component: {fileID: 2519882595561041072}
+  - component: {fileID: 735986843403035977}
+  - component: {fileID: 6901596572408868375}
   m_Layer: 9
   m_Name: Orange_SwordMan 1
   m_TagString: Untagged
@@ -348,11 +349,12 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 735986843403035977}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &2519882595561041072
+--- !u!114 &735986843403035977
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -361,21 +363,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 6488242563762566422}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab90d213f6373964b87dc3f64890b28a, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ef88ab751c931d4689bba35a53d3aa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitClass: 0
-  unitColor: 4
-  originDamage: 60
-  originBossDamage: 60
+  unitColor: 0
+  originDamage: 0
+  originBossDamage: 0
   originAttackDelayTime: 0.3
   speed: 15
   attackDelayTime: 0.3
   attackRange: 6
-  damage: 60
-  bossDamage: 60
+  damage: 0
+  bossDamage: 0
   skillDamage: 0
-  stopDistanc: 3
+  stopDistanc: 0
   isAttack: 0
   isAttackDelayTime: 0
   isSkillAttack: 0
@@ -389,6 +391,25 @@ MonoBehaviour:
   rayHitTransform: {fileID: 0}
   enterStoryWorld: 0
   trail: {fileID: 6488242563841709016}
+--- !u!95 &6901596572408868375
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6488242563762566422}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9bc3f8107b8e0714da97dc96c968da79, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6488242563774908186
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,7 +500,6 @@ GameObject:
   - component: {fileID: 6488242563821252012}
   - component: {fileID: 6488242563821252013}
   - component: {fileID: 6488242563821252014}
-  - component: {fileID: 8431010381832770746}
   - component: {fileID: 6488242563821252009}
   - component: {fileID: 6900552965280033367}
   m_Layer: 9
@@ -553,25 +573,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!95 &8431010381832770746
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6488242563821252008}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9bc3f8107b8e0714da97dc96c968da79, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!136 &6488242563821252009
 CapsuleCollider:
   m_ObjectHideFlags: 0

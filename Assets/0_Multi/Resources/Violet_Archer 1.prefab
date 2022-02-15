@@ -229,7 +229,7 @@ GameObject:
   - component: {fileID: 1004225956946136948}
   - component: {fileID: 1004225955496047627}
   - component: {fileID: 1004225955410913683}
-  - component: {fileID: 8886078519501314667}
+  - component: {fileID: 1839688268}
   m_Layer: 9
   m_Name: Violet_Archer 1
   m_TagString: Untagged
@@ -405,11 +405,12 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 1839688268}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &8886078519501314667
+--- !u!114 &1839688268
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -418,20 +419,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 7681704439341560586}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8826b5e26af7b0140a6f7e8fbabc32e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e20cfe699f0bc54fafd5160815d5036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitClass: 1
   unitColor: 5
-  originDamage: 2000
-  originBossDamage: 2000
+  originDamage: 0
+  originBossDamage: 0
   originAttackDelayTime: 0.5
   speed: 6
   attackDelayTime: 0.5
   attackRange: 50
-  damage: 2000
-  bossDamage: 2000
-  skillDamage: 2500
+  damage: 0
+  bossDamage: 0
+  skillDamage: 0
   stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
@@ -445,7 +446,7 @@ MonoBehaviour:
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
   enterStoryWorld: 0
-  arrow: {fileID: 3088359444298159365, guid: a8690868fb9f17f49aa62d266bb61253, type: 3}
+  arrow: {fileID: 8803622629685511837, guid: bf758421531138e47a203b16d3933f63, type: 3}
   arrowTransform: {fileID: 7681704437988781462}
 --- !u!1 &7682043686961796517
 GameObject:

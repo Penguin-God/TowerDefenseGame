@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1149122762403360671}
   - component: {fileID: 5278813900898849649}
   - component: {fileID: 5278813901357198112}
-  - component: {fileID: 844252142217289971}
+  - component: {fileID: 940596332}
   m_Layer: 9
   m_Name: Green_Spearman 1
   m_TagString: Untagged
@@ -189,11 +189,12 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 940596332}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &844252142217289971
+--- !u!114 &940596332
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -202,21 +203,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 716758046504555196}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9fbabbbac803a54ab965809c885ef1f, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a8174b173cc1784f8712ec2190e02c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitClass: 2
   unitColor: 3
-  originDamage: 24000
-  originBossDamage: 24000
+  originDamage: 0
+  originBossDamage: 0
   originAttackDelayTime: 0.4
   speed: 15
   attackDelayTime: 0.4
   attackRange: 10
-  damage: 24000
-  bossDamage: 24000
-  skillDamage: 30000
-  stopDistanc: 3
+  damage: 0
+  bossDamage: 0
+  skillDamage: 0
+  stopDistanc: 0
   isAttack: 0
   isAttackDelayTime: 0
   isSkillAttack: 0
@@ -231,7 +232,7 @@ MonoBehaviour:
   enterStoryWorld: 0
   trail: {fileID: 5877011061837967273}
   spear: {fileID: 5202453262294089852}
-  skileSpaer: {fileID: 4947818212191654679, guid: d1076db00809d814c81b7e9eafbc5545,
+  skileSpaer: {fileID: 5780081832526976392, guid: b70c7b397670b0b4e9ea15fbbc45dd80,
     type: 3}
   spearCreatePosition: {fileID: 6802979966391503588}
   skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}

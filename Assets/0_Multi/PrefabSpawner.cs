@@ -7,7 +7,7 @@ public class PrefabSpawner : MonoBehaviourPun
 {
     public void SpawnUnit(string _name)
     {
-        PhotonNetwork.Instantiate(_name, Vector3.zero, Quaternion.identity);
+        PhotonNetwork.Instantiate(_name, Multi_Data.instance.UnitSpawnPos, Quaternion.identity);
     }
 
     public void SpawnNormalEnemy(string _name, int _enemyNum)

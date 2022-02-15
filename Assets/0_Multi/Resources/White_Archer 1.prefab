@@ -486,7 +486,7 @@ GameObject:
   - component: {fileID: 5059706904009522497}
   - component: {fileID: 7089879416045304430}
   - component: {fileID: 5059706905001125231}
-  - component: {fileID: 8217574519748043627}
+  - component: {fileID: 2015655338}
   m_Layer: 9
   m_Name: White_Archer 1
   m_TagString: Untagged
@@ -677,11 +677,12 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 2015655338}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &8217574519748043627
+--- !u!114 &2015655338
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -690,20 +691,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 677298355195616122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8826b5e26af7b0140a6f7e8fbabc32e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 1e20cfe699f0bc54fafd5160815d5036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitClass: 1
   unitColor: 6
-  originDamage: 10000
-  originBossDamage: 10000
+  originDamage: 0
+  originBossDamage: 0
   originAttackDelayTime: 0.5
   speed: 6
   attackDelayTime: 0.5
   attackRange: 50
-  damage: 10000
-  bossDamage: 10000
-  skillDamage: 120
+  damage: 0
+  bossDamage: 0
+  skillDamage: 0
   stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
@@ -717,5 +718,5 @@ MonoBehaviour:
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
   enterStoryWorld: 0
-  arrow: {fileID: 3088359444298159365, guid: 7ef3e70718be4d64da262d5cd6efcf92, type: 3}
+  arrow: {fileID: 9057039652622457467, guid: bf7a37f569266b84cbc6bb5135200ef1, type: 3}
   arrowTransform: {fileID: 677298353708877286}

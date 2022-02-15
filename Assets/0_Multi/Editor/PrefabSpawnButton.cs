@@ -21,7 +21,7 @@ public class PrefabSpawnButton : Editor
         EditorGUILayout.Space(10);
         for (int i = 0; i < _prefabs.Length; i++)
         {
-            if (_prefabs[i].GetComponentInChildren<TeamSoldier>() == null) continue;
+            if (_prefabs[i].GetComponent<Multi_TeamSoldier>() == null) continue;
 
             string _buttonName = _prefabs[i].name + " Spawn";
             _buttonName = _buttonName.Replace('1', ' ');

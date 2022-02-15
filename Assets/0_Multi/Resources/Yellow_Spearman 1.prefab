@@ -317,7 +317,6 @@ GameObject:
   - component: {fileID: 2289095766866428588}
   - component: {fileID: 2298368630261805524}
   - component: {fileID: 2284781978000933841}
-  - component: {fileID: 2284781978000933842}
   - component: {fileID: 2284781978000933855}
   - component: {fileID: 5888111328124191413}
   m_Layer: 9
@@ -411,52 +410,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &2284781978000933842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2284781978000933840}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9fbabbbac803a54ab965809c885ef1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitType: 2
-  unitColor: 2
-  originDamage: 10000
-  originBossDamage: 10000
-  originAttackDelayTime: 0.4
-  speed: 15
-  attackDelayTime: 0.4
-  attackRange: 10
-  damage: 10000
-  bossDamage: 10000
-  skillDamage: 11000
-  stopDistanc: 3
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
-  target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
-  normalAttakc_AudioDelay: 0.55
-  reinforceEffect: {fileID: 6802692340125904599}
-  passiveReinForce: 0
-  specialAttackPercent: 30
-  enemyDistance: 0
-  enemyIsForward: 0
-  rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
-  enterStoryWorld: 0
-  trail: {fileID: 434739402398734645}
-  spear: {fileID: 2284737810700154592}
-  skileSpaer: {fileID: 4947818212191654679, guid: c3678fea82599f34f8e1fdf65c0193c7,
-    type: 3}
-  spearCreatePosition: {fileID: 2303647920214416741}
-  dontMoveGameObject: {fileID: 0}
-  skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
 --- !u!136 &2284781978000933855
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -483,9 +436,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 193e7ee31e0496947bf87a32f0dc26e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamSoldier: {fileID: 0}
-  addGold: 1
-  getGoldPercent: 10
+  apply_GetGoldPercent: 0
+  apply_AddGold: 0
 --- !u!1 &2285495627504452810
 GameObject:
   m_ObjectHideFlags: 0
@@ -608,6 +560,7 @@ GameObject:
   - component: {fileID: 1940021080254906226}
   - component: {fileID: 5888111326303147377}
   - component: {fileID: 5888111327344503064}
+  - component: {fileID: 7237890721984868252}
   m_Layer: 9
   m_Name: Yellow_Spearman 1
   m_TagString: Untagged
@@ -622,7 +575,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6806549718009488416}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
@@ -784,9 +737,51 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 0
+  sceneViewId: 42
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &7237890721984868252
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6806549718009488416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9fbabbbac803a54ab965809c885ef1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitClass: 2
+  unitColor: 2
+  originDamage: 10000
+  originBossDamage: 10000
+  originAttackDelayTime: 0.4
+  speed: 15
+  attackDelayTime: 0.4
+  attackRange: 10
+  damage: 10000
+  bossDamage: 10000
+  skillDamage: 11000
+  stopDistanc: 3
+  isAttack: 0
+  isAttackDelayTime: 0
+  isSkillAttack: 0
+  target: {fileID: 0}
+  normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
+  normalAttakc_AudioDelay: 0.55
+  reinforceEffect: {fileID: 6802692340125904599}
+  specialAttackPercent: 30
+  enemyDistance: 0
+  enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
+  enterStoryWorld: 0
+  trail: {fileID: 434739402398734645}
+  spear: {fileID: 2284737810700154592}
+  skileSpaer: {fileID: 4947818212191654679, guid: c3678fea82599f34f8e1fdf65c0193c7,
+    type: 3}
+  spearCreatePosition: {fileID: 2303647920214416741}
+  skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
 --- !u!1001 &5888111327743758714
 PrefabInstance:
   m_ObjectHideFlags: 0

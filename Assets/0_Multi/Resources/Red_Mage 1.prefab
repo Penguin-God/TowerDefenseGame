@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1fdb13b87ffa5ea4e9b9e62fc29cf95c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitType: 3
+  unitClass: 3
   unitColor: 0
   originDamage: 100000
   originBossDamage: 100000
@@ -135,24 +135,19 @@ MonoBehaviour:
   normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
   normalAttakc_AudioDelay: 0.7
   reinforceEffect: {fileID: 1271379285823108260}
-  passiveReinForce: 0
   specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
   enterStoryWorld: 0
-  isFix: 0
   magicLight: {fileID: 4841617210835731057}
   energyBall: {fileID: 4005321863399391286, guid: 0f47c58451f0d3e4e9a370c4f1de7a76,
     type: 3}
   energyBallTransform: {fileID: 4841617211874935120}
-  isUltimate: 0
   plusMana: 30
   mageSkillCoolDownTime: 2.5
-  mageEffectObject: {fileID: 4624219392482637300, guid: d6fccbbc807ddcf48ad83801f635ecf9,
-    type: 3}
+  mageSkillObject: {fileID: 0}
+  isUltimate: 0
   mageSkillCilp: {fileID: 8300000, guid: e6f235e1a0f4c504bbb5a76c786d86b6, type: 3}
   maxMana: 150
   currentMana: 0
@@ -181,8 +176,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a3edb237df52a94e81be30ee20c4c1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamSoldier: {fileID: 0}
-  downDelayWeigh: 0
+  apply_DownDelayWeigh: 0
 --- !u!1 &2371586672032611028
 GameObject:
   m_ObjectHideFlags: 0
@@ -399,6 +393,7 @@ GameObject:
   - component: {fileID: 7735766840414641309}
   - component: {fileID: 7735766841510664579}
   - component: {fileID: 7735766840042786111}
+  - component: {fileID: 3827190142626663053}
   m_Layer: 9
   m_Name: Red_Mage 1
   m_TagString: Untagged
@@ -576,9 +571,56 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 0
+  sceneViewId: 56
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &3827190142626663053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6109000016361938841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fdb13b87ffa5ea4e9b9e62fc29cf95c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitClass: 3
+  unitColor: 0
+  originDamage: 100000
+  originBossDamage: 100000
+  originAttackDelayTime: 0.5
+  speed: 3
+  attackDelayTime: 0.5
+  attackRange: 40
+  damage: 100000
+  bossDamage: 100000
+  skillDamage: 0
+  stopDistanc: 5
+  isAttack: 0
+  isAttackDelayTime: 0
+  isSkillAttack: 0
+  target: {fileID: 0}
+  normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
+  normalAttakc_AudioDelay: 0.7
+  reinforceEffect: {fileID: 1271379285823108260}
+  specialAttackPercent: 0
+  enemyDistance: 0
+  enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
+  enterStoryWorld: 0
+  magicLight: {fileID: 4841617210835731057}
+  energyBall: {fileID: 4005321863399391286, guid: 0f47c58451f0d3e4e9a370c4f1de7a76,
+    type: 3}
+  energyBallTransform: {fileID: 4841617211874935120}
+  plusMana: 30
+  mageSkillCoolDownTime: 2.5
+  mageSkillObject: {fileID: 0}
+  isUltimate: 0
+  mageSkillCilp: {fileID: 8300000, guid: e6f235e1a0f4c504bbb5a76c786d86b6, type: 3}
+  maxMana: 150
+  currentMana: 0
 --- !u!1 &7735766840144101574
 GameObject:
   m_ObjectHideFlags: 0

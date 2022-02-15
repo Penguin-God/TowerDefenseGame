@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 6399562800867997545}
   - component: {fileID: 2538147485223757932}
   - component: {fileID: 6399562802812082074}
+  - component: {fileID: 6379686318072285451}
   m_Layer: 9
   m_Name: White_Spearman 1
   m_TagString: Untagged
@@ -212,8 +213,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c93d9a3414cbea44ebc9f95324870946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitNumber: 2
-  createDefenser: {fileID: 0}
+  classNumber: 0
+  unitColorCount: 0
   timerObject: {fileID: 3550290449996104982, guid: cac34ecb35aa4b34984b6ecb2594f075,
     type: 3}
 --- !u!114 &6399562802812082074
@@ -235,9 +236,51 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 0
+  sceneViewId: 46
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &6379686318072285451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4199548222911104336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9fbabbbac803a54ab965809c885ef1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitClass: 2
+  unitColor: 6
+  originDamage: 100000
+  originBossDamage: 100000
+  originAttackDelayTime: 0.4
+  speed: 15
+  attackDelayTime: 0.4
+  attackRange: 10
+  damage: 100000
+  bossDamage: 100000
+  skillDamage: 0
+  stopDistanc: 3
+  isAttack: 0
+  isAttackDelayTime: 0
+  isSkillAttack: 0
+  target: {fileID: 0}
+  normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
+  normalAttakc_AudioDelay: 0.55
+  reinforceEffect: {fileID: 0}
+  specialAttackPercent: 30
+  enemyDistance: 0
+  enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
+  enterStoryWorld: 0
+  trail: {fileID: 7078237026450372677}
+  spear: {fileID: 8901213837801248656}
+  skileSpaer: {fileID: 4947818212191654679, guid: f8e3cda532f22a743819225d448b40e5,
+    type: 3}
+  spearCreatePosition: {fileID: 1210638410598656367}
+  skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
 --- !u!1 &7078237026450372677
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,7 +597,6 @@ GameObject:
   - component: {fileID: 8932593288644158428}
   - component: {fileID: 8923601374124904612}
   - component: {fileID: 8901187808148136609}
-  - component: {fileID: 8901187808148136610}
   - component: {fileID: 6518196259232802396}
   m_Layer: 9
   m_Name: TB_Soldier_Spearman_White
@@ -647,52 +689,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8901187808148136610
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8901187808148136608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9fbabbbac803a54ab965809c885ef1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitType: 2
-  unitColor: 6
-  originDamage: 100000
-  originBossDamage: 100000
-  originAttackDelayTime: 0.4
-  speed: 15
-  attackDelayTime: 0.4
-  attackRange: 10
-  damage: 100000
-  bossDamage: 100000
-  skillDamage: 0
-  stopDistanc: 3
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
-  target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
-  normalAttakc_AudioDelay: 0.55
-  reinforceEffect: {fileID: 0}
-  passiveReinForce: 0
-  specialAttackPercent: 30
-  enemyDistance: 0
-  enemyIsForward: 0
-  rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
-  enterStoryWorld: 0
-  trail: {fileID: 7078237026450372677}
-  spear: {fileID: 8901213837801248656}
-  skileSpaer: {fileID: 4947818212191654679, guid: f8e3cda532f22a743819225d448b40e5,
-    type: 3}
-  spearCreatePosition: {fileID: 1210638410598656367}
-  dontMoveGameObject: {fileID: 0}
-  skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
 --- !u!136 &6518196259232802396
 CapsuleCollider:
   m_ObjectHideFlags: 0

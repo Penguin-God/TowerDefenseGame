@@ -24,4 +24,14 @@ public class PrefabSpawner : MonoBehaviourPun
         _enemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("SetPos", RpcTarget.All, _spawnPos);
         _enemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("Setup", RpcTarget.All, _hp, _speed);
     }
+
+    public void AllUnitSpawn_ByEditor()
+    {
+        GameObject[] _prefabs = Resources.LoadAll<GameObject>("");
+        foreach (GameObject _unit in _prefabs)
+        {
+            if (_unit.GetComponentInChildren<TeamSoldier>() == null) continue;
+            Instantiate(_unit);
+        }
+    }
 }

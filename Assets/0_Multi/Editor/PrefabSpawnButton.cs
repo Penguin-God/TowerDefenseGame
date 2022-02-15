@@ -17,6 +17,8 @@ public class PrefabSpawnButton : Editor
 
         EditorGUILayout.Space(10);
         EditorGUILayout.LabelField("유닛 소환");
+        if (GUILayout.Button("에디터에 모든 유닛 소환")) _spawner.AllUnitSpawn_ByEditor();
+        EditorGUILayout.Space(10);
         for (int i = 0; i < _prefabs.Length; i++)
         {
             if (_prefabs[i].GetComponentInChildren<TeamSoldier>() == null) continue;

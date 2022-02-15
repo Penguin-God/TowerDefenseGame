@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1149122762403360671}
   - component: {fileID: 5278813900898849649}
   - component: {fileID: 5278813901357198112}
+  - component: {fileID: 844252142217289971}
   m_Layer: 9
   m_Name: Green_Spearman 1
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716758046504555196}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
@@ -189,9 +190,51 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 0
+  sceneViewId: 69
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &844252142217289971
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 716758046504555196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9fbabbbac803a54ab965809c885ef1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitClass: 2
+  unitColor: 3
+  originDamage: 24000
+  originBossDamage: 24000
+  originAttackDelayTime: 0.4
+  speed: 15
+  attackDelayTime: 0.4
+  attackRange: 10
+  damage: 24000
+  bossDamage: 24000
+  skillDamage: 30000
+  stopDistanc: 3
+  isAttack: 0
+  isAttackDelayTime: 0
+  isSkillAttack: 0
+  target: {fileID: 0}
+  normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
+  normalAttakc_AudioDelay: 0.55
+  reinforceEffect: {fileID: 2434519189015343672}
+  specialAttackPercent: 30
+  enemyDistance: 0
+  enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
+  enterStoryWorld: 0
+  trail: {fileID: 5877011061837967273}
+  spear: {fileID: 5202453262294089852}
+  skileSpaer: {fileID: 4947818212191654679, guid: d1076db00809d814c81b7e9eafbc5545,
+    type: 3}
+  spearCreatePosition: {fileID: 6802979966391503588}
+  skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
 --- !u!1 &5201764671823000150
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,7 +406,6 @@ GameObject:
   - component: {fileID: 5207101502415418416}
   - component: {fileID: 5215913103502657352}
   - component: {fileID: 5202495776030651725}
-  - component: {fileID: 5202495776030651726}
   - component: {fileID: 5202495776030651727}
   - component: {fileID: 5278813900353934395}
   m_Layer: 9
@@ -457,52 +499,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5202495776030651726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5202495776030651724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9fbabbbac803a54ab965809c885ef1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitType: 2
-  unitColor: 3
-  originDamage: 24000
-  originBossDamage: 24000
-  originAttackDelayTime: 0.4
-  speed: 15
-  attackDelayTime: 0.4
-  attackRange: 10
-  damage: 24000
-  bossDamage: 24000
-  skillDamage: 30000
-  stopDistanc: 3
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
-  target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
-  normalAttakc_AudioDelay: 0.55
-  reinforceEffect: {fileID: 2434519189015343672}
-  passiveReinForce: 0
-  specialAttackPercent: 30
-  enemyDistance: 0
-  enemyIsForward: 0
-  rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
-  enterStoryWorld: 0
-  trail: {fileID: 5877011061837967273}
-  spear: {fileID: 5202453262294089852}
-  skileSpaer: {fileID: 4947818212191654679, guid: d1076db00809d814c81b7e9eafbc5545,
-    type: 3}
-  spearCreatePosition: {fileID: 6802979966391503588}
-  dontMoveGameObject: {fileID: 0}
-  skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
 --- !u!136 &5202495776030651727
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -529,8 +525,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e51f1ee560ca3446a6e939741ea7f15, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamSoldier: {fileID: 0}
-  upDamageWeigh: 2
+  apply_UpDamageWeigh: 0
 --- !u!1 &5203135808073595272
 GameObject:
   m_ObjectHideFlags: 0

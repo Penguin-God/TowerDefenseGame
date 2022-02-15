@@ -135,6 +135,7 @@ GameObject:
   - component: {fileID: 4775608584514328199}
   - component: {fileID: 4775608585878809612}
   - component: {fileID: 4775608584555885422}
+  - component: {fileID: 5140931189264197647}
   m_Layer: 9
   m_Name: Yellow_Mage 1
   m_TagString: Untagged
@@ -312,9 +313,56 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 0
+  sceneViewId: 43
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &5140931189264197647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600210341466093845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fdb13b87ffa5ea4e9b9e62fc29cf95c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitClass: 3
+  unitColor: 2
+  originDamage: 100000
+  originBossDamage: 100000
+  originAttackDelayTime: 0.5
+  speed: 3
+  attackDelayTime: 0.5
+  attackRange: 40
+  damage: 100000
+  bossDamage: 100000
+  skillDamage: 0
+  stopDistanc: 5
+  isAttack: 0
+  isAttackDelayTime: 0
+  isSkillAttack: 0
+  target: {fileID: 0}
+  normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
+  normalAttakc_AudioDelay: 0.7
+  reinforceEffect: {fileID: 5591390592667743030}
+  specialAttackPercent: 0
+  enemyDistance: 0
+  enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
+  enterStoryWorld: 0
+  magicLight: {fileID: 126787733794186493}
+  energyBall: {fileID: 7010148103123964683, guid: 19f8ca3693248454ab75c62a937b3812,
+    type: 3}
+  energyBallTransform: {fileID: 126787734837454812}
+  plusMana: 30
+  mageSkillCoolDownTime: 2
+  mageSkillObject: {fileID: 0}
+  isUltimate: 0
+  mageSkillCilp: {fileID: 8300000, guid: ccbb6361d50eb264183f03d797b631c0, type: 3}
+  maxMana: 300
+  currentMana: 0
 --- !u!1 &4775608584294086019
 GameObject:
   m_ObjectHideFlags: 0
@@ -698,7 +746,6 @@ GameObject:
   - component: {fileID: 7090688005812125718}
   - component: {fileID: 7083423044352548564}
   - component: {fileID: 7069143434157452873}
-  - component: {fileID: 3015408068904880022}
   - component: {fileID: 4775608585355420214}
   - component: {fileID: 4775608585483409744}
   m_Layer: 9
@@ -790,57 +837,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &3015408068904880022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7069143434157452872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fdb13b87ffa5ea4e9b9e62fc29cf95c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitType: 3
-  unitColor: 2
-  originDamage: 100000
-  originBossDamage: 100000
-  originAttackDelayTime: 0.5
-  speed: 3
-  attackDelayTime: 0.5
-  attackRange: 40
-  damage: 100000
-  bossDamage: 100000
-  skillDamage: 0
-  stopDistanc: 5
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
-  target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
-  normalAttakc_AudioDelay: 0.7
-  reinforceEffect: {fileID: 5591390592667743030}
-  passiveReinForce: 0
-  specialAttackPercent: 0
-  enemyDistance: 0
-  enemyIsForward: 0
-  rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
-  enterStoryWorld: 0
-  isFix: 0
-  magicLight: {fileID: 126787733794186493}
-  energyBall: {fileID: 7010148103123964683, guid: 19f8ca3693248454ab75c62a937b3812,
-    type: 3}
-  energyBallTransform: {fileID: 126787734837454812}
-  isUltimate: 0
-  plusMana: 30
-  mageSkillCoolDownTime: 2
-  mageEffectObject: {fileID: 4775608584338782761}
-  mageSkillCilp: {fileID: 8300000, guid: ccbb6361d50eb264183f03d797b631c0, type: 3}
-  maxMana: 300
-  currentMana: 0
 --- !u!135 &4775608585355420214
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -866,9 +862,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 193e7ee31e0496947bf87a32f0dc26e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamSoldier: {fileID: 0}
-  addGold: 2
-  getGoldPercent: 15
+  apply_GetGoldPercent: 0
+  apply_AddGold: 0
 --- !u!1 &7069244544619387992
 GameObject:
   m_ObjectHideFlags: 0
@@ -1190,12 +1185,6 @@ PrefabInstance:
 --- !u!4 &4775608584339072521 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400006, guid: 60bc526f4be1e044ab9e46340b82ffb3,
-    type: 3}
-  m_PrefabInstance: {fileID: 4775608584338685071}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4775608584338782761 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100006, guid: 60bc526f4be1e044ab9e46340b82ffb3,
     type: 3}
   m_PrefabInstance: {fileID: 4775608584338685071}
   m_PrefabAsset: {fileID: 0}

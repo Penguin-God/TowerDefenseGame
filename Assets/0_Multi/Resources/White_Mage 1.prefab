@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 8044777199245579412}
   - component: {fileID: 838731051470441402}
   - component: {fileID: 8044777197849543216}
+  - component: {fileID: 7858311413637140056}
   m_Layer: 9
   m_Name: White_Mage 1
   m_TagString: Untagged
@@ -192,8 +193,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c93d9a3414cbea44ebc9f95324870946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitNumber: 3
-  createDefenser: {fileID: 0}
+  classNumber: 0
+  unitColorCount: 0
   timerObject: {fileID: 3550290449996104982, guid: cac34ecb35aa4b34984b6ecb2594f075,
     type: 3}
 --- !u!82 &8044777199245579412
@@ -327,9 +328,56 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 0
+  sceneViewId: 47
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &7858311413637140056
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3764644954606831806}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1fdb13b87ffa5ea4e9b9e62fc29cf95c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitClass: 3
+  unitColor: 6
+  originDamage: 1000000
+  originBossDamage: 1000000
+  originAttackDelayTime: 0.5
+  speed: 3
+  attackDelayTime: 0.5
+  attackRange: 40
+  damage: 1000000
+  bossDamage: 1000000
+  skillDamage: 0
+  stopDistanc: 5
+  isAttack: 0
+  isAttackDelayTime: 0
+  isSkillAttack: 0
+  target: {fileID: 0}
+  normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
+  normalAttakc_AudioDelay: 0.7
+  reinforceEffect: {fileID: 0}
+  specialAttackPercent: 0
+  enemyDistance: 0
+  enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
+  enterStoryWorld: 0
+  magicLight: {fileID: 2578823938802799958}
+  energyBall: {fileID: 7010148103123964683, guid: 9fcbcf7d5c4481443bd51b14ffab4eb3,
+    type: 3}
+  energyBallTransform: {fileID: 2578823939848164983}
+  plusMana: 30
+  mageSkillCoolDownTime: 0
+  mageSkillObject: {fileID: 0}
+  isUltimate: 0
+  mageSkillCilp: {fileID: 0}
+  maxMana: 100
+  currentMana: 0
 --- !u!1 &4616367761895501299
 GameObject:
   m_ObjectHideFlags: 0
@@ -423,7 +471,6 @@ GameObject:
   - component: {fileID: 4642240744197632445}
   - component: {fileID: 4631668313242709887}
   - component: {fileID: 4616477758737735650}
-  - component: {fileID: 852099356740597309}
   - component: {fileID: 838731051523961355}
   m_Layer: 9
   m_Name: TB_Soldier_Mage_White
@@ -513,57 +560,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &852099356740597309
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4616477758737735651}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fdb13b87ffa5ea4e9b9e62fc29cf95c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitType: 3
-  unitColor: 6
-  originDamage: 1000000
-  originBossDamage: 1000000
-  originAttackDelayTime: 0.5
-  speed: 3
-  attackDelayTime: 0.5
-  attackRange: 40
-  damage: 1000000
-  bossDamage: 1000000
-  skillDamage: 0
-  stopDistanc: 5
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
-  target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
-  normalAttakc_AudioDelay: 0.7
-  reinforceEffect: {fileID: 0}
-  passiveReinForce: 0
-  specialAttackPercent: 0
-  enemyDistance: 0
-  enemyIsForward: 0
-  rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
-  enterStoryWorld: 0
-  isFix: 0
-  magicLight: {fileID: 2578823938802799958}
-  energyBall: {fileID: 7010148103123964683, guid: 9fcbcf7d5c4481443bd51b14ffab4eb3,
-    type: 3}
-  energyBallTransform: {fileID: 2578823939848164983}
-  isUltimate: 0
-  plusMana: 30
-  mageSkillCoolDownTime: 0
-  mageEffectObject: {fileID: 0}
-  mageSkillCilp: {fileID: 0}
-  maxMana: 100
-  currentMana: 0
 --- !u!136 &838731051523961355
 CapsuleCollider:
   m_ObjectHideFlags: 0

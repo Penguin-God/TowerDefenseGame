@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5342512971052386593}
   - component: {fileID: 9203914536018102173}
   - component: {fileID: 9203914537012878626}
+  - component: {fileID: 7239727759310488372}
   m_Layer: 9
   m_Name: Black_Spearman 1
   m_TagString: Untagged
@@ -188,9 +189,51 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 0
+  sceneViewId: 81
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &7239727759310488372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2357315067319308687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b9fbabbbac803a54ab965809c885ef1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitClass: 2
+  unitColor: 7
+  originDamage: 50000
+  originBossDamage: 50000
+  originAttackDelayTime: 0.4
+  speed: 15
+  attackDelayTime: 0.4
+  attackRange: 10
+  damage: 50000
+  bossDamage: 50000
+  skillDamage: 100000
+  stopDistanc: 3
+  isAttack: 0
+  isAttackDelayTime: 0
+  isSkillAttack: 0
+  target: {fileID: 0}
+  normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
+  normalAttakc_AudioDelay: 0.55
+  reinforceEffect: {fileID: 0}
+  specialAttackPercent: 30
+  enemyDistance: 0
+  enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
+  enterStoryWorld: 0
+  trail: {fileID: 8704301777556892826}
+  spear: {fileID: 7022907976665809743}
+  skileSpaer: {fileID: 4947818212191654679, guid: 05f48d17278f54a4db431c3be234bd29,
+    type: 3}
+  spearCreatePosition: {fileID: 906649903654631905}
+  skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
 --- !u!1 &6103030549796186619
 GameObject:
   m_ObjectHideFlags: 0
@@ -391,7 +434,6 @@ GameObject:
   - component: {fileID: 6991808800247215875}
   - component: {fileID: 7000308371968754811}
   - component: {fileID: 7022880302040495742}
-  - component: {fileID: 7022880302040495741}
   - component: {fileID: 5342512971060555540}
   m_Layer: 9
   m_Name: TB_Soldier_Spearman_Black
@@ -484,52 +526,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &7022880302040495741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7022880302040495743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b9fbabbbac803a54ab965809c885ef1f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitType: 2
-  unitColor: 7
-  originDamage: 50000
-  originBossDamage: 50000
-  originAttackDelayTime: 0.4
-  speed: 15
-  attackDelayTime: 0.4
-  attackRange: 10
-  damage: 50000
-  bossDamage: 50000
-  skillDamage: 100000
-  stopDistanc: 3
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
-  target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
-  normalAttakc_AudioDelay: 0.55
-  reinforceEffect: {fileID: 0}
-  passiveReinForce: 0
-  specialAttackPercent: 30
-  enemyDistance: 0
-  enemyIsForward: 0
-  rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
-  enterStoryWorld: 0
-  trail: {fileID: 8704301777556892826}
-  spear: {fileID: 7022907976665809743}
-  skileSpaer: {fileID: 4947818212191654679, guid: 05f48d17278f54a4db431c3be234bd29,
-    type: 3}
-  spearCreatePosition: {fileID: 906649903654631905}
-  dontMoveGameObject: {fileID: 0}
-  skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
 --- !u!136 &5342512971060555540
 CapsuleCollider:
   m_ObjectHideFlags: 0

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3640673758482859883}
   - component: {fileID: 3650971213306535199}
   - component: {fileID: 2872866655392208533}
-  - component: {fileID: 3674467572996536756}
   - component: {fileID: 7087850675380975986}
   m_Layer: 9
   m_Name: TB_Soldier_Archer_Orange
@@ -99,48 +98,6 @@ CapsuleCollider:
   m_Height: 2.903198
   m_Direction: 1
   m_Center: {x: 0.13752985, y: 1.911106, z: -0.000000059604645}
---- !u!114 &3674467572996536756
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3672715408001290409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8826b5e26af7b0140a6f7e8fbabc32e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitType: 1
-  unitColor: 4
-  originDamage: 2000
-  originBossDamage: 2000
-  originAttackDelayTime: 0.5
-  speed: 6
-  attackDelayTime: 0.5
-  attackRange: 50
-  damage: 2000
-  bossDamage: 2000
-  skillDamage: 2500
-  stopDistanc: 5
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
-  target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 6d9fd95ba9e9dd34391d716574fd4873, type: 3}
-  normalAttakc_AudioDelay: 0
-  reinforceEffect: {fileID: 8775111828297934686}
-  passiveReinForce: 0
-  specialAttackPercent: 30
-  enemyDistance: 0
-  enemyIsForward: 0
-  rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
-  enterStoryWorld: 0
-  isFix: 0
-  arrow: {fileID: 3088359444298159365, guid: 593242d4df4b1264cbda863e687c54dc, type: 3}
-  arrowTransform: {fileID: 3674467573677695866}
 --- !u!114 &7087850675380975986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,8 +110,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7289ea019db29cb44aa8daee3c5cc51d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamSoldier: {fileID: 0}
-  upBossDamageWeigh: 2
+  apply_UpBossDamageWeigh: 0
 --- !u!1 &3672874332184320841
 GameObject:
   m_ObjectHideFlags: 0
@@ -406,6 +362,7 @@ GameObject:
   - component: {fileID: 7087850675863320794}
   - component: {fileID: 7087850675665390697}
   - component: {fileID: 7087850675220805460}
+  - component: {fileID: 7000844656392002369}
   m_Layer: 9
   m_Name: Orange_Archer 1
   m_TagString: Untagged
@@ -582,9 +539,47 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 0
+  sceneViewId: 61
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &7000844656392002369
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3674467573017247206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8826b5e26af7b0140a6f7e8fbabc32e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitClass: 1
+  unitColor: 4
+  originDamage: 2000
+  originBossDamage: 2000
+  originAttackDelayTime: 0.5
+  speed: 6
+  attackDelayTime: 0.5
+  attackRange: 50
+  damage: 2000
+  bossDamage: 2000
+  skillDamage: 2500
+  stopDistanc: 5
+  isAttack: 0
+  isAttackDelayTime: 0
+  isSkillAttack: 0
+  target: {fileID: 0}
+  normalAttackClip: {fileID: 8300000, guid: 6d9fd95ba9e9dd34391d716574fd4873, type: 3}
+  normalAttakc_AudioDelay: 0
+  reinforceEffect: {fileID: 8775111828297934686}
+  specialAttackPercent: 30
+  enemyDistance: 0
+  enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
+  enterStoryWorld: 0
+  arrow: {fileID: 3088359444298159365, guid: 593242d4df4b1264cbda863e687c54dc, type: 3}
+  arrowTransform: {fileID: 3674467573677695866}
 --- !u!1 &3674467573677695865
 GameObject:
   m_ObjectHideFlags: 0

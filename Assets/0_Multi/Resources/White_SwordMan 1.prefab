@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 4419424434248360703}
   - component: {fileID: 7538853946317876359}
   - component: {fileID: 4419424434181142112}
+  - component: {fileID: 3717276905909105509}
   m_Layer: 9
   m_Name: White_SwordMan 1
   m_TagString: Untagged
@@ -261,8 +262,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c93d9a3414cbea44ebc9f95324870946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitNumber: 0
-  createDefenser: {fileID: 0}
+  classNumber: 0
+  unitColorCount: 0
   timerObject: {fileID: 3550290449996104982, guid: cac34ecb35aa4b34984b6ecb2594f075,
     type: 3}
 --- !u!114 &4419424434181142112
@@ -284,9 +285,46 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 0
+  sceneViewId: 45
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &3717276905909105509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8606670814876993437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab90d213f6373964b87dc3f64890b28a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitClass: 0
+  unitColor: 6
+  originDamage: 1000
+  originBossDamage: 1000
+  originAttackDelayTime: 0.3
+  speed: 15
+  attackDelayTime: 0.3
+  attackRange: 6
+  damage: 1000
+  bossDamage: 1000
+  skillDamage: 0
+  stopDistanc: 3
+  isAttack: 0
+  isAttackDelayTime: 0
+  isSkillAttack: 0
+  target: {fileID: 0}
+  normalAttackClip: {fileID: 8300000, guid: 819330f33b9ea014f990dd335112905e, type: 3}
+  normalAttakc_AudioDelay: 0.7
+  reinforceEffect: {fileID: 0}
+  specialAttackPercent: 0
+  enemyDistance: 0
+  enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
+  enterStoryWorld: 0
+  trail: {fileID: 8606670815029551443}
 --- !u!1 &8606670815029551443
 GameObject:
   m_ObjectHideFlags: 0
@@ -435,7 +473,6 @@ GameObject:
   - component: {fileID: 8606670815086681895}
   - component: {fileID: 8606670815086681894}
   - component: {fileID: 8606670815086681893}
-  - component: {fileID: 6168938853794040180}
   - component: {fileID: 6375725947467982385}
   - component: {fileID: 460885869773480864}
   m_Layer: 9
@@ -509,46 +546,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &6168938853794040180
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8606670815086681891}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab90d213f6373964b87dc3f64890b28a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitType: 0
-  unitColor: 6
-  originDamage: 1000
-  originBossDamage: 1000
-  originAttackDelayTime: 0.3
-  speed: 15
-  attackDelayTime: 0.3
-  attackRange: 6
-  damage: 1000
-  bossDamage: 1000
-  skillDamage: 0
-  stopDistanc: 3
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
-  target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 819330f33b9ea014f990dd335112905e, type: 3}
-  normalAttakc_AudioDelay: 0.7
-  reinforceEffect: {fileID: 0}
-  passiveReinForce: 0
-  specialAttackPercent: 0
-  enemyDistance: 0
-  enemyIsForward: 0
-  rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
-  enterStoryWorld: 0
-  trail: {fileID: 8606670815029551443}
 --- !u!95 &6375725947467982385
 Animator:
   serializedVersion: 3

@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 3060362180804884890}
   - component: {fileID: 3815521343825428657}
   - component: {fileID: 3815521342445584291}
+  - component: {fileID: 7538291486642965838}
   m_Layer: 9
   m_Name: Black_Archer 1
   m_TagString: Untagged
@@ -325,9 +326,47 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 0
+  sceneViewId: 84
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &7538291486642965838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3173048112267009847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8826b5e26af7b0140a6f7e8fbabc32e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitClass: 1
+  unitColor: 7
+  originDamage: 3000
+  originBossDamage: 3000
+  originAttackDelayTime: 0.5
+  speed: 6
+  attackDelayTime: 0.5
+  attackRange: 50
+  damage: 3000
+  bossDamage: 3000
+  skillDamage: 5000
+  stopDistanc: 5
+  isAttack: 0
+  isAttackDelayTime: 0
+  isSkillAttack: 0
+  target: {fileID: 0}
+  normalAttackClip: {fileID: 8300000, guid: 6d9fd95ba9e9dd34391d716574fd4873, type: 3}
+  normalAttakc_AudioDelay: 0
+  reinforceEffect: {fileID: 0}
+  specialAttackPercent: 30
+  enemyDistance: 0
+  enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
+  enterStoryWorld: 0
+  arrow: {fileID: 3088359444298159365, guid: 24bf7d0f0f8c86e4e90c688fcc41fa1d, type: 3}
+  arrowTransform: {fileID: 3173048111098773931}
 --- !u!1 &3173681340188560280
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,9 +617,6 @@ GameObject:
   - component: {fileID: 3202340564350625210}
   - component: {fileID: 3196535671050502094}
   - component: {fileID: 4118757057748005956}
-  - component: {fileID: 3173048112312884069}
-  - component: {fileID: 3815521344218049581}
-  - component: {fileID: 3815521344218049580}
   m_Layer: 9
   m_Name: TB_Soldier_Archer_Black
   m_TagString: BlackArcher
@@ -666,84 +702,3 @@ CapsuleCollider:
   m_Height: 2.903198
   m_Direction: 1
   m_Center: {x: 0.13752985, y: 1.911106, z: -0.000000059604645}
---- !u!114 &3173048112312884069
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3174652410706604664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8826b5e26af7b0140a6f7e8fbabc32e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitType: 1
-  unitColor: 7
-  originDamage: 3000
-  originBossDamage: 3000
-  originAttackDelayTime: 0.5
-  speed: 6
-  attackDelayTime: 0.5
-  attackRange: 50
-  damage: 3000
-  bossDamage: 3000
-  skillDamage: 5000
-  stopDistanc: 5
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
-  target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 6d9fd95ba9e9dd34391d716574fd4873, type: 3}
-  normalAttakc_AudioDelay: 0
-  reinforceEffect: {fileID: 0}
-  passiveReinForce: 0
-  specialAttackPercent: 30
-  enemyDistance: 0
-  enemyIsForward: 0
-  rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
-  enterStoryWorld: 0
-  isFix: 0
-  arrow: {fileID: 3088359444298159365, guid: 24bf7d0f0f8c86e4e90c688fcc41fa1d, type: 3}
-  arrowTransform: {fileID: 3173048111098773931}
---- !u!114 &3815521344218049581
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3174652410706604664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
---- !u!114 &3815521344218049580
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3174652410706604664}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 0
-  ObservedComponents:
-  - {fileID: 3815521344218049581}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0

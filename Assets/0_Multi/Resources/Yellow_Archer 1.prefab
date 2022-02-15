@@ -229,6 +229,7 @@ GameObject:
   - component: {fileID: 3992362177031620739}
   - component: {fileID: 3992362176183291586}
   - component: {fileID: 3992362175603233381}
+  - component: {fileID: 611801295744143004}
   m_Layer: 9
   m_Name: Yellow_Archer 1
   m_TagString: Untagged
@@ -405,9 +406,47 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents: []
-  sceneViewId: 0
+  sceneViewId: 44
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &611801295744143004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5734166218549510037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8826b5e26af7b0140a6f7e8fbabc32e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitClass: 1
+  unitColor: 2
+  originDamage: 500
+  originBossDamage: 500
+  originAttackDelayTime: 0.5
+  speed: 6
+  attackDelayTime: 0.5
+  attackRange: 50
+  damage: 500
+  bossDamage: 500
+  skillDamage: 0
+  stopDistanc: 5
+  isAttack: 0
+  isAttackDelayTime: 0
+  isSkillAttack: 0
+  target: {fileID: 0}
+  normalAttackClip: {fileID: 8300000, guid: 6d9fd95ba9e9dd34391d716574fd4873, type: 3}
+  normalAttakc_AudioDelay: 0
+  reinforceEffect: {fileID: 4087432917791775292}
+  specialAttackPercent: 30
+  enemyDistance: 0
+  enemyIsForward: 0
+  rayHitTransform: {fileID: 0}
+  enterStoryWorld: 0
+  arrow: {fileID: 3088359444298159365, guid: 9e514e9df4ef0054e96ba63a50b5df72, type: 3}
+  arrowTransform: {fileID: 5734166217079546121}
 --- !u!1 &5734532305354840378
 GameObject:
   m_ObjectHideFlags: 0
@@ -499,7 +538,6 @@ GameObject:
   - component: {fileID: 5758917000112325912}
   - component: {fileID: 5748660175942868844}
   - component: {fileID: 6535835773242299622}
-  - component: {fileID: 5734166218570742727}
   - component: {fileID: 3992362176415588831}
   m_Layer: 9
   m_Name: TB_Soldier_Archer_Yellow
@@ -586,48 +624,6 @@ CapsuleCollider:
   m_Height: 2.903198
   m_Direction: 1
   m_Center: {x: 0.13752985, y: 1.911106, z: -0.000000059604645}
---- !u!114 &5734166218570742727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5734654854917722842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8826b5e26af7b0140a6f7e8fbabc32e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitType: 1
-  unitColor: 2
-  originDamage: 500
-  originBossDamage: 500
-  originAttackDelayTime: 0.5
-  speed: 6
-  attackDelayTime: 0.5
-  attackRange: 50
-  damage: 500
-  bossDamage: 500
-  skillDamage: 0
-  stopDistanc: 5
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
-  target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 6d9fd95ba9e9dd34391d716574fd4873, type: 3}
-  normalAttakc_AudioDelay: 0
-  reinforceEffect: {fileID: 4087432917791775292}
-  passiveReinForce: 0
-  specialAttackPercent: 30
-  enemyDistance: 0
-  enemyIsForward: 0
-  rayHitTransform: {fileID: 0}
-  contactEnemy: 0
-  towerEnter: 0
-  enterStoryWorld: 0
-  isFix: 0
-  arrow: {fileID: 3088359444298159365, guid: 9e514e9df4ef0054e96ba63a50b5df72, type: 3}
-  arrowTransform: {fileID: 5734166217079546121}
 --- !u!114 &3992362176415588831
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -640,9 +636,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 193e7ee31e0496947bf87a32f0dc26e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  teamSoldier: {fileID: 0}
-  addGold: 1
-  getGoldPercent: 2
+  apply_GetGoldPercent: 0
+  apply_AddGold: 0
 --- !u!1 &5734989254581715550
 GameObject:
   m_ObjectHideFlags: 0

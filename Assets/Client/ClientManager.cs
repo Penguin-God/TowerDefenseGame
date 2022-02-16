@@ -12,6 +12,7 @@ public class ClientManager : MonoBehaviour
     public Text StartFoodPriceText;
     public Text PlusTouchDamegePriceText;
     public Text PlusMaxUnitPriceText;
+    public Text GoldSkillPriceText;
     int ClientWood; 
     int ClientIron;
     int ClientHammer;
@@ -117,6 +118,12 @@ public class ClientManager : MonoBehaviour
             PlusMaxUnitPriceText.text = "품절";
             Debug.Log("바꾸기 성공");
         }
+        //if (GoldSkillPriceText == 1)
+        //{
+        //    Debug.Log("품절로 바꿈");
+        //    PlusMaxUnitPriceText.text = "품절";
+        //    Debug.Log("바꾸기 성공");
+        //}
     }
 
     void Update() 

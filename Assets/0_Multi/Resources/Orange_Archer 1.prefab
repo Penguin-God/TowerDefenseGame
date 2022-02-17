@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3640673758482859883}
   - component: {fileID: 3650971213306535199}
   - component: {fileID: 2872866655392208533}
-  - component: {fileID: 7087850675380975986}
   m_Layer: 9
   m_Name: TB_Soldier_Archer_Orange
   m_TagString: OrangeArcher
@@ -98,19 +97,6 @@ CapsuleCollider:
   m_Height: 2.903198
   m_Direction: 1
   m_Center: {x: 0.13752985, y: 1.911106, z: -0.000000059604645}
---- !u!114 &7087850675380975986
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3672715408001290409}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7289ea019db29cb44aa8daee3c5cc51d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_UpBossDamageWeigh: 0
 --- !u!1 &3672874332184320841
 GameObject:
   m_ObjectHideFlags: 0
@@ -363,6 +349,7 @@ GameObject:
   - component: {fileID: 7087850675665390697}
   - component: {fileID: 7087850675220805460}
   - component: {fileID: 974208759}
+  - component: {fileID: 1632726078}
   m_Layer: 9
   m_Name: Orange_Archer 1
   m_TagString: Untagged
@@ -581,6 +568,18 @@ MonoBehaviour:
   enterStoryWorld: 0
   arrow: {fileID: 5831825776667280579, guid: 59b0e928ea166ca4e8b6f4013a1e7e10, type: 3}
   arrowTransform: {fileID: 3674467573677695866}
+--- !u!114 &1632726078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3674467573017247206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbda504c54e2ef146886435983a7e99e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3674467573677695865
 GameObject:
   m_ObjectHideFlags: 0

@@ -14,20 +14,6 @@ CapsuleCollider:
   m_Height: 2.903198
   m_Direction: 1
   m_Center: {x: 0.13752985, y: 1.911106, z: -0.000000059604645}
---- !u!114 &156209486391157980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3191515501974469796}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c71b5a3065045be47995c8e0c49329bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_SlowPercet: 0
-  apply_SlowTime: 0
 --- !u!1 &3192143453688435179
 GameObject:
   m_ObjectHideFlags: 0
@@ -42,6 +28,7 @@ GameObject:
   - component: {fileID: 156209485815704985}
   - component: {fileID: 156209486583295495}
   - component: {fileID: 1016070764}
+  - component: {fileID: 1623368292}
   m_Layer: 9
   m_Name: Blue_Archer 1
   m_TagString: Untagged
@@ -260,6 +247,18 @@ MonoBehaviour:
   enterStoryWorld: 0
   arrow: {fileID: 6327066443172086468, guid: 27c371b295229ec4a8d5a636b0f564e5, type: 3}
   arrowTransform: {fileID: 156209486517130305}
+--- !u!114 &1623368292
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3192143453688435179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae166f304a2091a4eb6c203a0771733e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &156209485599344212
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -230,6 +230,7 @@ GameObject:
   - component: {fileID: 3992362176183291586}
   - component: {fileID: 3992362175603233381}
   - component: {fileID: 1390773001}
+  - component: {fileID: 466975689}
   m_Layer: 9
   m_Name: Yellow_Archer 1
   m_TagString: Untagged
@@ -448,6 +449,18 @@ MonoBehaviour:
   enterStoryWorld: 0
   arrow: {fileID: 9149325268380532109, guid: 069be3e93825a6f48b35de0b6df8c04e, type: 3}
   arrowTransform: {fileID: 5734166217079546121}
+--- !u!114 &466975689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5734166218549510037}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71bee1abb9109194bba26d218a72367c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5734532305354840378
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,7 +552,6 @@ GameObject:
   - component: {fileID: 5758917000112325912}
   - component: {fileID: 5748660175942868844}
   - component: {fileID: 6535835773242299622}
-  - component: {fileID: 3992362176415588831}
   m_Layer: 9
   m_Name: TB_Soldier_Archer_Yellow
   m_TagString: YellowArcher
@@ -625,20 +637,6 @@ CapsuleCollider:
   m_Height: 2.903198
   m_Direction: 1
   m_Center: {x: 0.13752985, y: 1.911106, z: -0.000000059604645}
---- !u!114 &3992362176415588831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5734654854917722842}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 193e7ee31e0496947bf87a32f0dc26e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_GetGoldPercent: 0
-  apply_AddGold: 0
 --- !u!1 &5734989254581715550
 GameObject:
   m_ObjectHideFlags: 0

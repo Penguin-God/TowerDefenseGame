@@ -348,7 +348,6 @@ GameObject:
   - component: {fileID: 3991567853453359240}
   - component: {fileID: 3978009831434259085}
   - component: {fileID: 2046491912687031271}
-  - component: {fileID: 3686507694480790339}
   m_Layer: 9
   m_Name: TB_Soldier_Spearman_Red
   m_TagString: RedSpearman
@@ -454,19 +453,6 @@ CapsuleCollider:
   m_Height: 2.8291357
   m_Direction: 1
   m_Center: {x: 0.21789765, y: 1.8617955, z: -0.27206933}
---- !u!114 &3686507694480790339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3978009831434259084}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a3edb237df52a94e81be30ee20c4c1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_DownDelayWeigh: 0
 --- !u!1 &3978404622842711446
 GameObject:
   m_ObjectHideFlags: 0
@@ -560,6 +546,7 @@ GameObject:
   - component: {fileID: 3686507693192705194}
   - component: {fileID: 3686507693581357682}
   - component: {fileID: 1354689876}
+  - component: {fileID: 773194373}
   m_Layer: 9
   m_Name: Red_Spearman 1
   m_TagString: Untagged
@@ -782,6 +769,18 @@ MonoBehaviour:
     type: 3}
   spearCreatePosition: {fileID: 6545951238342133010}
   skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
+--- !u!114 &773194373
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8571527809299574140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 962ec30f2099e6d4d9eaec22ed2165aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &3686507695096061405
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -230,6 +230,7 @@ GameObject:
   - component: {fileID: 1004225955496047627}
   - component: {fileID: 1004225955410913683}
   - component: {fileID: 1839688268}
+  - component: {fileID: 723959189}
   m_Layer: 9
   m_Name: Violet_Archer 1
   m_TagString: Untagged
@@ -448,6 +449,18 @@ MonoBehaviour:
   enterStoryWorld: 0
   arrow: {fileID: 8803622629685511837, guid: bf758421531138e47a203b16d3933f63, type: 3}
   arrowTransform: {fileID: 7681704437988781462}
+--- !u!114 &723959189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7681704439341560586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a0233801a3d6f4c8020cdf9f5d6b72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7682043686961796517
 GameObject:
   m_ObjectHideFlags: 0
@@ -539,7 +552,6 @@ GameObject:
   - component: {fileID: 7701987454221928839}
   - component: {fileID: 7696206802052764659}
   - component: {fileID: 9203889474200361081}
-  - component: {fileID: 1004225956083665438}
   m_Layer: 9
   m_Name: TB_Soldier_Archer_Violet
   m_TagString: VioletArcher
@@ -625,21 +637,6 @@ CapsuleCollider:
   m_Height: 2.903198
   m_Direction: 1
   m_Center: {x: 0.13752985, y: 1.911106, z: -0.000000059604645}
---- !u!114 &1004225956083665438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7682202541909188165}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbce39b5f4b2c0446a404f777de27015, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_SturnPercent: 0
-  apply_StrunTime: 0
-  apply_MaxPoisonDamage: 0
 --- !u!1 &7683135333554720449
 GameObject:
   m_ObjectHideFlags: 0

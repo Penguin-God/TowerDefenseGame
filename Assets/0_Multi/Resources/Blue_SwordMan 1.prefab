@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 2056152425877374385}
   - component: {fileID: 2056152425789290276}
   - component: {fileID: 8707148674332097839}
+  - component: {fileID: 1989359703}
   m_Layer: 9
   m_Name: Blue_SwordMan 1
   m_TagString: Untagged
@@ -469,6 +470,18 @@ MonoBehaviour:
   rayHitTransform: {fileID: 0}
   enterStoryWorld: 0
   trail: {fileID: 7144048999577557517}
+--- !u!114 &1989359703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7144048999114734787}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae166f304a2091a4eb6c203a0771733e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7144048999577557517
 GameObject:
   m_ObjectHideFlags: 0
@@ -618,8 +631,7 @@ GameObject:
   - component: {fileID: 7144048999592780920}
   - component: {fileID: 7144048999592780923}
   - component: {fileID: 2056152424950953004}
-  - component: {fileID: 2056152425481945731}
-  - component: {fileID: 1989359703}
+  - component: {fileID: 8147185534935454232}
   m_Layer: 9
   m_Name: TB_Soldier_Swordman_Blue
   m_TagString: BlueSwordman
@@ -705,21 +717,7 @@ CapsuleCollider:
   m_Height: 4.39017
   m_Direction: 1
   m_Center: {x: 0.21007752, y: 2.522077, z: -0.095807076}
---- !u!114 &2056152425481945731
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7144048999592780925}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c71b5a3065045be47995c8e0c49329bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_SlowPercet: 0
-  apply_SlowTime: 0
---- !u!95 &1989359703
+--- !u!95 &8147185534935454232
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0

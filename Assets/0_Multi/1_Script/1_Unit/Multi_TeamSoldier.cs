@@ -108,13 +108,13 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     // 기본 데이터를 기반으로 유닛 고유 데이터 세팅
     public virtual void SetInherenceData() { }
 
-    //void SetPassive()
-    //{
-    //    UnitPassive _passive = GetComponent<UnitPassive>();
-    //    if (delegate_OnPassive != null) delegate_OnPassive = null;
-    //    UnitManager.instance.ApplyPassiveData(gameObject.tag, _passive, unitColor);
-    //    //_passive.SetPassive(this);
-    //}
+    void SetPassive()
+    {
+        UnitPassive _passive = GetComponent<UnitPassive>();
+        if (delegate_OnPassive != null) delegate_OnPassive = null;
+        UnitManager.instance.ApplyPassiveData(gameObject.tag, _passive, unitColor);
+        _passive.SetPassive(null);
+    }
 
     private void OnDisable()
     {

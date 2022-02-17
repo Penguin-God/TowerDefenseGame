@@ -92,7 +92,6 @@ GameObject:
   - component: {fileID: 6029609261915834214}
   - component: {fileID: 6017343646913994002}
   - component: {fileID: 5113069726270264984}
-  - component: {fileID: 6171357950420366427}
   m_Layer: 9
   m_Name: TB_Soldier_Archer_Red
   m_TagString: RedArcher
@@ -178,19 +177,6 @@ CapsuleCollider:
   m_Height: 2.903198
   m_Direction: 1
   m_Center: {x: 0.13752985, y: 1.911106, z: -0.000000059604645}
---- !u!114 &6171357950420366427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6040215400683557028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a3edb237df52a94e81be30ee20c4c1c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_DownDelayWeigh: 0
 --- !u!1 &6040338020612971332
 GameObject:
   m_ObjectHideFlags: 0
@@ -421,6 +407,7 @@ GameObject:
   - component: {fileID: 6171357950109799594}
   - component: {fileID: 6171357949173350815}
   - component: {fileID: 1582340599}
+  - component: {fileID: 782285628}
   m_Layer: 9
   m_Name: Red_Archer 1
   m_TagString: Untagged
@@ -639,6 +626,18 @@ MonoBehaviour:
   enterStoryWorld: 0
   arrow: {fileID: 3693878150325891987, guid: 47d69423ceeb1774a8f631b9f94b1f03, type: 3}
   arrowTransform: {fileID: 6040848934594880375}
+--- !u!114 &782285628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6040848935930658283}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 962ec30f2099e6d4d9eaec22ed2165aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6041200902548678980
 GameObject:
   m_ObjectHideFlags: 0

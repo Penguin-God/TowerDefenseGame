@@ -171,7 +171,6 @@ GameObject:
   - component: {fileID: 1244579244973554261}
   - component: {fileID: 1254601855915122721}
   - component: {fileID: 296567168252406699}
-  - component: {fileID: 2145048965541350796}
   m_Layer: 9
   m_Name: TB_Soldier_Archer_Green
   m_TagString: GreenArcher
@@ -257,19 +256,6 @@ CapsuleCollider:
   m_Height: 2.903198
   m_Direction: 1
   m_Center: {x: 0.13752985, y: 1.911106, z: -0.000000059604645}
---- !u!114 &2145048965541350796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1241863681529654679}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e51f1ee560ca3446a6e939741ea7f15, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_UpDamageWeigh: 0
 --- !u!1 &1242346495604130008
 GameObject:
   m_ObjectHideFlags: 0
@@ -284,6 +270,7 @@ GameObject:
   - component: {fileID: 2145048965240387130}
   - component: {fileID: 2145048964325306286}
   - component: {fileID: 1961679773}
+  - component: {fileID: 1440109171}
   m_Layer: 9
   m_Name: Green_Archer 1
   m_TagString: Untagged
@@ -502,6 +489,18 @@ MonoBehaviour:
   enterStoryWorld: 0
   arrow: {fileID: 1774899456207327249, guid: 0db5988cbd29ca94fb6a3780712dc0e2, type: 3}
   arrowTransform: {fileID: 1242346496465952324}
+--- !u!114 &1440109171
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242346495604130008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85c252ea550997540b1f8ea464e8aa43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1242346496465952327
 GameObject:
   m_ObjectHideFlags: 0

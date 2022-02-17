@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 3889994108746108130}
   - component: {fileID: 3889994110155592425}
   - component: {fileID: 3374630697116967776}
+  - component: {fileID: 1369023674}
   m_Layer: 9
   m_Name: Violet_SwordMan 1
   m_TagString: Untagged
@@ -310,6 +311,18 @@ MonoBehaviour:
   rayHitTransform: {fileID: 0}
   enterStoryWorld: 0
   trail: {fileID: 8499757541274702975}
+--- !u!114 &1369023674
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8499757540850643633}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a0233801a3d6f4c8020cdf9f5d6b72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8499757541274702975
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,8 +472,7 @@ GameObject:
   - component: {fileID: 8499757541328693770}
   - component: {fileID: 8499757541328693769}
   - component: {fileID: 8499757541328693776}
-  - component: {fileID: 3889994108207954780}
-  - component: {fileID: 1369023674}
+  - component: {fileID: 3654099159430983079}
   m_Layer: 9
   m_Name: TB_Soldier_Swordman_Violet
   m_TagString: VioletSwordman
@@ -546,22 +558,7 @@ CapsuleCollider:
   m_Height: 4.39017
   m_Direction: 1
   m_Center: {x: 0.21007752, y: 2.522077, z: -0.095807076}
---- !u!114 &3889994108207954780
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8499757541328693775}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbce39b5f4b2c0446a404f777de27015, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_SturnPercent: 0
-  apply_StrunTime: 0
-  apply_MaxPoisonDamage: 0
---- !u!95 &1369023674
+--- !u!95 &3654099159430983079
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0

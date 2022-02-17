@@ -44,6 +44,7 @@ GameObject:
   - component: {fileID: 1692198886313433569}
   - component: {fileID: 1692198884791013169}
   - component: {fileID: 1559299799}
+  - component: {fileID: 2075430822}
   m_Layer: 9
   m_Name: Blue_Spearman 1
   m_TagString: Untagged
@@ -266,6 +267,18 @@ MonoBehaviour:
     type: 3}
   spearCreatePosition: {fileID: 679010369364855511}
   skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
+--- !u!114 &2075430822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2586917449292900072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae166f304a2091a4eb6c203a0771733e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7071140013500861916
 GameObject:
   m_ObjectHideFlags: 0
@@ -437,7 +450,6 @@ GameObject:
   - component: {fileID: 7094956422869725980}
   - component: {fileID: 7072347186714149145}
   - component: {fileID: 4887550855038387684}
-  - component: {fileID: 1692198885086937706}
   m_Layer: 9
   m_Name: TB_Soldier_Spearman_Blue
   m_TagString: BlueSpearman
@@ -543,20 +555,6 @@ CapsuleCollider:
   m_Height: 2.8291357
   m_Direction: 1
   m_Center: {x: 0.21789765, y: 1.8617955, z: -0.27206933}
---- !u!114 &1692198885086937706
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7072347186714149144}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c71b5a3065045be47995c8e0c49329bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_SlowPercet: 0
-  apply_SlowTime: 0
 --- !u!1 &7072392758460085288
 GameObject:
   m_ObjectHideFlags: 0

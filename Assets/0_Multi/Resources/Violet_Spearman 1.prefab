@@ -123,7 +123,6 @@ GameObject:
   - component: {fileID: 2767734497678212688}
   - component: {fileID: 2754136790102576213}
   - component: {fileID: 2754136790102576215}
-  - component: {fileID: 4248066564056122967}
   m_Layer: 9
   m_Name: TB_Soldier_Spearman_Violet
   m_TagString: VioletSpearman
@@ -229,21 +228,6 @@ CapsuleCollider:
   m_Height: 2.8291357
   m_Direction: 1
   m_Center: {x: 0.21789765, y: 1.8617955, z: -0.27206933}
---- !u!114 &4248066564056122967
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2754136790102576212}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cbce39b5f4b2c0446a404f777de27015, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_SturnPercent: 0
-  apply_StrunTime: 0
-  apply_MaxPoisonDamage: 0
 --- !u!1 &2754571163585694542
 GameObject:
   m_ObjectHideFlags: 0
@@ -562,6 +546,7 @@ GameObject:
   - component: {fileID: 4248066563820601456}
   - component: {fileID: 4248066562839049880}
   - component: {fileID: 973265129}
+  - component: {fileID: 1738247827}
   m_Layer: 9
   m_Name: Violet_Spearman 1
   m_TagString: Untagged
@@ -784,6 +769,18 @@ MonoBehaviour:
     type: 3}
   spearCreatePosition: {fileID: 2233272020668843776}
   skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
+--- !u!114 &1738247827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7491805243092396964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a0233801a3d6f4c8020cdf9f5d6b72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &4248066563403929354
 PrefabInstance:
   m_ObjectHideFlags: 0

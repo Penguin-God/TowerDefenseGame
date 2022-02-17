@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2331747930322450173}
   - component: {fileID: 2331747928743672964}
   - component: {fileID: 1764443702}
+  - component: {fileID: 308024832}
   m_Layer: 9
   m_Name: Orange_Spearman 1
   m_TagString: Untagged
@@ -236,6 +237,18 @@ MonoBehaviour:
     type: 3}
   spearCreatePosition: {fileID: 3576624832871159445}
   skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
+--- !u!114 &308024832
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739437672444174709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbda504c54e2ef146886435983a7e99e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4638286030135204960
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,7 +567,6 @@ GameObject:
   - component: {fileID: 6463637058562684033}
   - component: {fileID: 6477069779273238148}
   - component: {fileID: 6477069779273238147}
-  - component: {fileID: 2331747930368495279}
   m_Layer: 9
   m_Name: TB_Soldier_Spearman_Orange
   m_TagString: OrangeSpearman
@@ -660,19 +672,6 @@ CapsuleCollider:
   m_Height: 2.8291357
   m_Direction: 1
   m_Center: {x: 0.21789765, y: 1.8617955, z: -0.27206933}
---- !u!114 &2331747930368495279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6477069779273238149}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7289ea019db29cb44aa8daee3c5cc51d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_UpBossDamageWeigh: 0
 --- !u!1 &6477467703504161345
 GameObject:
   m_ObjectHideFlags: 0

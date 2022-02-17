@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 4105374266166636683}
   - component: {fileID: 4084417286422265878}
   - component: {fileID: 4084417286422265876}
-  - component: {fileID: 7275915583539798193}
   m_Layer: 9
   m_Name: TB_Soldier_Mage_Orange
   m_TagString: OrangeMage
@@ -116,19 +115,6 @@ CapsuleCollider:
   m_Height: 4.2802835
   m_Direction: 1
   m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
---- !u!114 &7275915583539798193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4084417286422265879}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7289ea019db29cb44aa8daee3c5cc51d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_UpBossDamageWeigh: 0
 --- !u!1 &4084597646549807623
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +210,7 @@ GameObject:
   - component: {fileID: 7275915583076130961}
   - component: {fileID: 7275915581551054840}
   - component: {fileID: 4180348109821089608}
+  - component: {fileID: 1515424040}
   m_Layer: 9
   m_Name: Orange_Mage 1
   m_TagString: Untagged
@@ -451,6 +438,18 @@ MonoBehaviour:
   mageSkillCilp: {fileID: 8300000, guid: ce839c0dc1d6135468aa253fab1834b5, type: 3}
   maxMana: 100
   currentMana: 0
+--- !u!114 &1515424040
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5512811997297203018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbda504c54e2ef146886435983a7e99e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6590480786666523012
 GameObject:
   m_ObjectHideFlags: 0

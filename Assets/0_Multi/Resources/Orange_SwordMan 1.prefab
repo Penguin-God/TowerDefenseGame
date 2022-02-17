@@ -173,6 +173,7 @@ GameObject:
   - component: {fileID: 6900552964007291095}
   - component: {fileID: 6900552965268172425}
   - component: {fileID: 735986843403035977}
+  - component: {fileID: 1812630007}
   m_Layer: 9
   m_Name: Orange_SwordMan 1
   m_TagString: Untagged
@@ -390,6 +391,18 @@ MonoBehaviour:
   rayHitTransform: {fileID: 0}
   enterStoryWorld: 0
   trail: {fileID: 6488242563841709016}
+--- !u!114 &1812630007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6488242563762566422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbda504c54e2ef146886435983a7e99e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6488242563774908186
 GameObject:
   m_ObjectHideFlags: 0
@@ -481,8 +494,7 @@ GameObject:
   - component: {fileID: 6488242563821252013}
   - component: {fileID: 6488242563821252014}
   - component: {fileID: 6488242563821252009}
-  - component: {fileID: 6900552965280033367}
-  - component: {fileID: 1812630007}
+  - component: {fileID: 3432297385005799940}
   m_Layer: 9
   m_Name: TB_Soldier_Swordman_Orange
   m_TagString: OrangeSwordman
@@ -568,20 +580,7 @@ CapsuleCollider:
   m_Height: 4.39017
   m_Direction: 1
   m_Center: {x: 0.21007752, y: 2.522077, z: -0.095807076}
---- !u!114 &6900552965280033367
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6488242563821252008}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7289ea019db29cb44aa8daee3c5cc51d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_UpBossDamageWeigh: 0
---- !u!95 &1812630007
+--- !u!95 &3432297385005799940
 Animator:
   serializedVersion: 3
   m_ObjectHideFlags: 0

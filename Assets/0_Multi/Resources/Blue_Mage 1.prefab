@@ -28874,7 +28874,6 @@ GameObject:
   - component: {fileID: 836747779425535619}
   - component: {fileID: 849845975107237406}
   - component: {fileID: 3470857375278705664}
-  - component: {fileID: 230911062035441922}
   m_Layer: 9
   m_Name: TB_Soldier_Mage_Blue
   m_TagString: BlueMage
@@ -28977,20 +28976,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 25
   m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
---- !u!114 &230911062035441922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 849845975107237407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c71b5a3065045be47995c8e0c49329bc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_SlowPercet: 0
-  apply_SlowTime: 0
 --- !u!1 &7499503637847047338
 GameObject:
   m_ObjectHideFlags: 0
@@ -29127,6 +29112,7 @@ GameObject:
   - component: {fileID: 230911061742611338}
   - component: {fileID: 230911061378533086}
   - component: {fileID: 5879241612767396250}
+  - component: {fileID: 322052316}
   m_Layer: 9
   m_Name: Blue_Mage 1
   m_TagString: Untagged
@@ -29354,6 +29340,18 @@ MonoBehaviour:
   mageSkillCilp: {fileID: 8300000, guid: 8b0e44500538f864ca0050a7317f7591, type: 3}
   maxMana: 200
   currentMana: 0
+--- !u!114 &322052316
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9215755468416000322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae166f304a2091a4eb6c203a0771733e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &230911062202419931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29423,15 +29421,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94ecbf9300eb6c04692488e5c506693a, type: 3}
---- !u!1 &2938494612972232660 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3167153324664509711, guid: 94ecbf9300eb6c04692488e5c506693a,
-    type: 3}
-  m_PrefabInstance: {fileID: 230911062202419931}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2940645456333811396 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3169154342488646687, guid: 94ecbf9300eb6c04692488e5c506693a,
+    type: 3}
+  m_PrefabInstance: {fileID: 230911062202419931}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2938494612972232660 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3167153324664509711, guid: 94ecbf9300eb6c04692488e5c506693a,
     type: 3}
   m_PrefabInstance: {fileID: 230911062202419931}
   m_PrefabAsset: {fileID: 0}

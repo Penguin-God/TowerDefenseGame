@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 4775608585878809612}
   - component: {fileID: 4775608584555885422}
   - component: {fileID: 5140931189264197647}
+  - component: {fileID: 1041333908}
   m_Layer: 9
   m_Name: Yellow_Mage 1
   m_TagString: Untagged
@@ -363,6 +364,18 @@ MonoBehaviour:
   mageSkillCilp: {fileID: 8300000, guid: ccbb6361d50eb264183f03d797b631c0, type: 3}
   maxMana: 300
   currentMana: 0
+--- !u!114 &1041333908
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600210341466093845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71bee1abb9109194bba26d218a72367c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4775608584294086019
 GameObject:
   m_ObjectHideFlags: 0
@@ -747,7 +760,6 @@ GameObject:
   - component: {fileID: 7083423044352548564}
   - component: {fileID: 7069143434157452873}
   - component: {fileID: 4775608585355420214}
-  - component: {fileID: 4775608585483409744}
   m_Layer: 9
   m_Name: TB_Soldier_Mage_Yellow
   m_TagString: YellowMage
@@ -850,20 +862,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 20
   m_Center: {x: 0.06641263, y: 2.1401417, z: 0.14571542}
---- !u!114 &4775608585483409744
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7069143434157452872}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 193e7ee31e0496947bf87a32f0dc26e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_GetGoldPercent: 0
-  apply_AddGold: 0
 --- !u!1 &7069244544619387992
 GameObject:
   m_ObjectHideFlags: 0

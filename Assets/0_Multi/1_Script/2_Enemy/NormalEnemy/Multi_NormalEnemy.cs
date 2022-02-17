@@ -18,7 +18,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
 
     private void Awake()
     {
-        nomalEnemy = GetComponent<Multi_NormalEnemy>();
+        enemyType = EnemyType.Normal;
         Rigidbody = GetComponent<Rigidbody>();
     }
 

@@ -47,7 +47,6 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         if (!TargetIsNormalEnemy)
         {
             NormalAttack();
-            PlayNormalAttackClip();
             return;
         }
         StartCoroutine(Special_ArcherAttack());
@@ -66,8 +65,6 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         {
             //poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, targetArray[i]), 50, (Multi_Enemy enemy) => delegate_OnSkile(enemy));
         }
-        if (enterStoryWorld == GameManager.instance.playerEnterStoryMode)
-            unitAudioSource.PlayOneShot(normalAttackClip);
 
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);

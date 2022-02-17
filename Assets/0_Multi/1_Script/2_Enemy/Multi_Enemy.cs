@@ -5,6 +5,13 @@ using UnityEngine.UI;
 using System;
 using Photon.Pun;
 
+public enum EnemyType
+{
+    Normal,
+    Boss,
+    Tower,
+}
+
 public class Multi_Enemy : MonoBehaviourPun
 {
     // 상태 변수
@@ -14,6 +21,7 @@ public class Multi_Enemy : MonoBehaviourPun
     public int currentHp = 0;
     public bool isDead = true;
     public Slider hpSlider = null;
+    public EnemyType enemyType;
 
     public Vector3 dir = Vector3.zero;
 
@@ -22,10 +30,10 @@ public class Multi_Enemy : MonoBehaviourPun
     [SerializeField] protected Material originMat;
     private void Start()
     {
-        // 타워랑 일반 적들 구조가 달라서 나중에 수작업으로 넣어야됨
+        // 타워랑 일반 적들 구조가 달라서 나중에 if문으로 나눠야됨
         // originMat = GetComponentInChildren<MeshRenderer>().material;
 
-        meshList = new List<MeshRenderer> { GetComponent<MeshRenderer>() };
+        meshList = new List<MeshRenderer>();
         MeshRenderer[] addMeshs = GetComponentsInChildren<MeshRenderer>();
         for (int i = 0; i < addMeshs.Length; i++) meshList.Add(addMeshs[i]);
         gameObject.SetActive(false);
@@ -36,12 +44,29 @@ public class Multi_Enemy : MonoBehaviourPun
 
     public Action OnDeath = null;
 
+    [PunRPC]
     public void OnDamage(int damage)
     {
-        currentHp -= damage;
-        hpSlider.value = currentHp;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            currentHp -= damage;
+            hpSlider.value = currentHp;
 
+            photonView.RPC("UpdateHealth", RpcTarget.Others, currentHp);
+
+            // 조건문 밖의 Dead부분 실행을 위한 코드
+            photonView.RPC("OnDamage", RpcTarget.Others, 0);
+        }
+
+        // Dead는 개인적인 보상 등과 관련이 있으므로 그냥 전부 실행
         if (currentHp <= 0 && !isDead) Dead();
+    }
+
+    [PunRPC]
+    public void UpdateHealth(int _newHp)
+    {
+        currentHp = _newHp;
+        hpSlider.value = currentHp;
     }
 
     public virtual void Dead()
@@ -65,15 +90,13 @@ public class Multi_Enemy : MonoBehaviourPun
         hpSlider.value = 0;
     }
 
-    protected Multi_NormalEnemy nomalEnemy;
 
-    // 타워에서 안쓰는 함수들은 NomalEnemy롤 옮기기
     public bool IsNoneSKile { get { return GetComponent<EnemyTower>() != null || GetComponent<MageEnemy>() != null; } }
 
     void Set_OriginSpeed() // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기
     {
-        nomalEnemy.speed = nomalEnemy.maxSpeed;
-        Rigidbody.velocity = nomalEnemy.dir * nomalEnemy.maxSpeed;
+        speed = maxSpeed;
+        Rigidbody.velocity = dir * maxSpeed;
     }
 
     public void EnemyStern(int sternPercent, float sternTime)
@@ -86,14 +109,12 @@ public class Multi_Enemy : MonoBehaviourPun
 
     Queue<int> queue_GetSturn = new Queue<int>();
     public GameObject sternEffect;
-    //public int debugCoung = 0;
-    //public int queueCount = 0;
     IEnumerator SternCoroutine(float sternTime)
     {
         queue_GetSturn.Enqueue(-1);
         sternEffect.SetActive(true);
-        nomalEnemy.speed = 0;
-        Rigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
+        speed = 0;
+        Rigidbody.velocity = dir * speed;
         yield return new WaitForSeconds(sternTime);
 
         if (queue_GetSturn.Count != 0) queue_GetSturn.Dequeue();
@@ -102,28 +123,26 @@ public class Multi_Enemy : MonoBehaviourPun
     void ExitSturn()
     {
         sternEffect.SetActive(false);
-        //sternCoroutine = null;
         Set_OriginSpeed();
     }
 
 
     protected bool isSlow;
     Coroutine exitSlowCoroutine = null;
-    [SerializeField]
-    private Material slowSkillMat;
+    [SerializeField] private Material slowSkillMat;
     public void EnemySlow(float slowPercent, float slowTime)
     {
         if (IsNoneSKile || isDead) return;
 
         // 만약 더 높은 슬로우 공격을 받으면큰 슬로우 적용후 return
-        if (nomalEnemy.maxSpeed - nomalEnemy.maxSpeed * (slowPercent / 100) <= nomalEnemy.speed)
+        if (maxSpeed - maxSpeed * (slowPercent / 100) <= speed)
         {
             // 더 강한 슬로우가 들어왔는데 이전 약한 슬로우 때문에 슬로우에서 빠져나가는거 방지
             if (isSlow && exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine);
 
             isSlow = true;
-            nomalEnemy.speed = nomalEnemy.maxSpeed - nomalEnemy.maxSpeed * (slowPercent / 100);
-            Rigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
+            speed = maxSpeed - maxSpeed * (slowPercent / 100);
+            Rigidbody.velocity = dir * speed;
 
             ChangeColor(new Color32(50, 175, 222, 1));
 
@@ -139,8 +158,8 @@ public class Multi_Enemy : MonoBehaviourPun
     public void EnemyFreeze(float slowTime)
     {
         isSlow = true;
-        nomalEnemy.speed = 0;
-        Rigidbody.velocity = nomalEnemy.dir * nomalEnemy.speed;
+        speed = 0;
+        Rigidbody.velocity = dir * speed;
         ChangeMat(slowSkillMat);
 
         if (exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine);
@@ -197,17 +216,13 @@ public class Multi_Enemy : MonoBehaviourPun
 
     protected void ChangeColor(Color32 colorColor)
     {
-        foreach (MeshRenderer mesh in meshList)
-        {
+        foreach (MeshRenderer mesh in meshList) 
             mesh.material.color = colorColor;
-        }
     }
 
     protected void ChangeMat(Material mat)
     {
-        foreach (MeshRenderer mesh in meshList)
-        {
+        foreach (MeshRenderer mesh in meshList) 
             mesh.material = mat;
-        }
     }
 }

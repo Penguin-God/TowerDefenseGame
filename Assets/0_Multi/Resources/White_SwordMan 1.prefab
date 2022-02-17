@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 7538853946317876359}
   - component: {fileID: 4419424434181142112}
   - component: {fileID: 2342271511371248315}
-  - component: {fileID: 8200316696337383719}
   m_Layer: 9
   m_Name: White_SwordMan 1
   m_TagString: Untagged
@@ -303,7 +302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unitClass: 0
-  unitColor: 0
+  unitColor: 6
   originDamage: 0
   originBossDamage: 0
   originAttackDelayTime: 0.3
@@ -313,7 +312,7 @@ MonoBehaviour:
   damage: 0
   bossDamage: 0
   skillDamage: 0
-  stopDistanc: 0
+  stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
   isSkillAttack: 0
@@ -327,25 +326,6 @@ MonoBehaviour:
   rayHitTransform: {fileID: 0}
   enterStoryWorld: 0
   trail: {fileID: 8606670815029551443}
---- !u!95 &8200316696337383719
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8606670814876993437}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9bc3f8107b8e0714da97dc96c968da79, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8606670815029551443
 GameObject:
   m_ObjectHideFlags: 0
@@ -495,6 +475,7 @@ GameObject:
   - component: {fileID: 8606670815086681894}
   - component: {fileID: 8606670815086681893}
   - component: {fileID: 460885869773480864}
+  - component: {fileID: 1295284410}
   m_Layer: 9
   m_Name: TB_Soldier_Swordman_White
   m_TagString: WhiteSwordman
@@ -580,6 +561,25 @@ CapsuleCollider:
   m_Height: 4.39017
   m_Direction: 1
   m_Center: {x: 0.21007752, y: 2.522077, z: -0.095807076}
+--- !u!95 &1295284410
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8606670815086681891}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9bc3f8107b8e0714da97dc96c968da79, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &8606670816301473208
 GameObject:
   m_ObjectHideFlags: 0

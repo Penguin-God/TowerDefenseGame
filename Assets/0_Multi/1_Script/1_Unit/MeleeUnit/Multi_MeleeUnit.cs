@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Multi_MeleeUnit : Multi_TeamSoldier
 {
@@ -53,6 +54,8 @@ public class Multi_MeleeUnit : Multi_TeamSoldier
 
     protected void HitMeeleAttack() // 근접공격 타겟팅
     {
+        if (!pv.IsMine) return;
+
         if (target != null && enemyDistance < attackRange * 2)
         {
             Multi_Enemy enemy = target.GetComponent<Multi_Enemy>();

@@ -5,9 +5,15 @@ using Photon.Pun;
 
 public class PrefabSpawner : MonoBehaviourPun
 {
+    [PunRPC]
     public void SpawnUnit(string _name)
     {
         PhotonNetwork.Instantiate(_name, Multi_Data.instance.UnitSpawnPos, Quaternion.identity);
+    }
+
+    public void SpawnUnit_ByClient(string _name)
+    {
+        photonView.RPC("SpawnUnit", RpcTarget.Others, _name);
     }
 
     public void SpawnNormalEnemy(string _name, int _enemyNum)

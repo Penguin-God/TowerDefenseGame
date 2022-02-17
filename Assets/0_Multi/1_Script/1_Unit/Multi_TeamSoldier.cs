@@ -29,12 +29,13 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     // 나중에 유닛별 공격 조건 만들면서 없애기
     public bool isSkillAttack; // 스킬 공격 중에 true
 
-    protected NavMeshAgent nav;
     public Transform target;
     protected Multi_Enemy TargetEnemy { get { return target.GetComponent<Multi_Enemy>(); } }
 
     protected WeaponPoolManager poolManager = null;
+    protected NavMeshAgent nav;
     protected Animator animator;
+    protected PhotonView pv;
     protected AudioSource unitAudioSource;
     [SerializeField] protected AudioClip normalAttackClip;
     public float normalAttakc_AudioDelay;
@@ -70,7 +71,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         // 변수 선언
         //enemySpawn = FindObjectOfType<EnemySpawn>();
-        animator = GetComponent<Animator>();
+        pv = GetComponent<PhotonView>();
+        animator = GetComponentInChildren<Animator>();
         unitAudioSource = GetComponent<AudioSource>();
         nav = GetComponent<NavMeshAgent>();
 
@@ -95,7 +97,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         // 적 추적
         UpdateTarget();
-        if(photonView.IsMine) StartCoroutine("NavCoroutine");
+        if(pv.IsMine) StartCoroutine("NavCoroutine");
     }
 
     void SetData()
@@ -137,20 +139,98 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     }
 
 
-
-    public int specialAttackPercent;
-    void UnitAttack()
+    public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
-        int random = Random.Range(0, 100);
-        if (random < specialAttackPercent) SpecialAttack();
+        // currnetEnemyList에서 가져온 가장 가까운 enemy의 정보를 가지고 nav 및 변수 설정
+        GameObject targetObject = GetProximateEnemy_AtList(Multi_EnemySpawner.instance.currentNormalEnemyList);
+        SetChaseSetting(targetObject);
+    }
+
+    public void SetChaseSetting(GameObject targetObject) // 추적 관련 변수 설정
+    {
+        if (targetObject != null)
+        {
+            nav.isStopped = false;
+            target = targetObject.transform;
+            layerMask = ReturnLayerMask(target.gameObject);
+        }
         else
         {
-            NormalAttack();
-            PlayNormalAttackClip();
+            nav.isStopped = true;
+            target = null;
+        }
+    }
+    // Proximate : 가장 가까운
+    protected GameObject GetProximateEnemy_AtList(List<GameObject> _list)
+    {
+        float shortDistance = chaseRange;
+        GameObject returnObject = null;
+        if (_list.Count > 0)
+        {
+            foreach (GameObject enemyObject in _list)
+            {
+                if (enemyObject != null)
+                {
+                    float distanceToEnemy = Vector3.Distance(this.transform.position, enemyObject.transform.position);
+                    if (distanceToEnemy < shortDistance)
+                    {
+                        shortDistance = distanceToEnemy;
+                        returnObject = enemyObject;
+                    }
+                }
+            }
+        }
+        return returnObject;
+    }
+
+
+    public virtual Vector3 DestinationPos { get; set; }
+    protected bool contactEnemy = false;
+    IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
+    {
+        while (true)
+        {
+            if (target != null) enemyDistance = Vector3.Distance(this.transform.position, target.position);
+            if (target == null || enemyDistance > chaseRange)
+            {
+                UpdateTarget();
+                yield return null; // 튕김 방지
+                continue;
+            }
+
+            nav.SetDestination(DestinationPos);
+
+            if ((enemyIsForward || contactEnemy) && !isAttackDelayTime && !isSkillAttack && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
+            {
+                //Debug.Log("Attack Start!!!");
+                isAttack = true;
+                isAttackDelayTime = true;
+                pv.RPC("UnitAttack", RpcTarget.MasterClient);
+            }
+            yield return null;
         }
     }
 
-    protected void PlayNormalAttackClip()
+    [SerializeField] private int specialAttackPercent;
+    [PunRPC] // 마스터 클라이언트에서만 실행
+    public void UnitAttack()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        int random = Random.Range(0, 100);
+        if (random > specialAttackPercent) pv.RPC("NormalAttack", RpcTarget.All);
+        else SpecialAttack();
+    }
+
+    [PunRPC] // 유닛들의 고유한 공격을 구현하는 가상 함수
+    public virtual void NormalAttack()
+    {
+        // override 코루틴 마지막 부분에서 실행하는 코드
+        StartCoroutine(Co_ResetAttactStatus());
+        if (target != null && TargetIsNormalEnemy && enemyDistance > stopDistanc * 2) UpdateTarget();
+    }
+
+    protected void StartAttack()
     {
         StartCoroutine(Co_NormalAttackClipPlay());
     }
@@ -160,20 +240,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         yield return new WaitForSeconds(normalAttakc_AudioDelay);
         if (enterStoryWorld == Multi_GameManager.instance.playerEnterStoryMode)
             unitAudioSource.PlayOneShot(normalAttackClip);
-    }
-
-    protected void StartAttack()
-    {
-        isAttack = true;
-        isAttackDelayTime = true;
-    }
-
-    [PunRPC]
-    public virtual void NormalAttack()
-    {
-        // override 코루틴 마지막 부분에서 실행하는 코드
-        StartCoroutine(Co_ResetAttactStatus());
-        if (target != null && TargetIsNormalEnemy && enemyDistance > stopDistanc * 2) UpdateTarget();
     }
 
     IEnumerator Co_ResetAttactStatus()
@@ -235,74 +301,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     }
 
 
-    public virtual Vector3 DestinationPos { get; set; }
 
-    IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
-    {
-        while (true)
-        {
-            if (target != null) enemyDistance = Vector3.Distance(this.transform.position, target.position);
-            if (target == null || enemyDistance > chaseRange)
-            {
-                UpdateTarget();
-                yield return null; // 튕김 방지
-                continue;
-            }
+    
 
-            nav.SetDestination(DestinationPos);
 
-            //if ((enemyIsForward || contactEnemy) && !isAttackDelayTime && !isSkillAttack && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
-            //{
-            //    UnitAttack();
-            //}
-            yield return null;
-        }
-    }
-    protected bool contactEnemy = false;
-
-    public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
-    {
-        // currnetEnemyList에서 가져온 가장 가까운 enemy의 정보를 가지고 nav 및 변수 설정
-        GameObject targetObject = GetProximateEnemy_AtList(Multi_EnemySpawner.instance.currentNormalEnemyList);
-        SetChaseSetting(targetObject);
-    }
-
-    public void SetChaseSetting(GameObject targetObject) // 추적 관련 변수 설정
-    {
-        if (targetObject != null)
-        {
-            nav.isStopped = false;
-            target = targetObject.transform;
-            layerMask = ReturnLayerMask(target.gameObject);
-        }
-        else
-        {
-            nav.isStopped = true;
-            target = null;
-        }
-    }
-    // Proximate : 가장 가까운
-    protected GameObject GetProximateEnemy_AtList(List<GameObject> _list)
-    {
-        float shortDistance = chaseRange;
-        GameObject returnObject = null;
-        if (_list.Count > 0)
-        {
-            foreach (GameObject enemyObject in _list)
-            {
-                if (enemyObject != null)
-                {
-                    float distanceToEnemy = Vector3.Distance(this.transform.position, enemyObject.transform.position);
-                    if (distanceToEnemy < shortDistance)
-                    {
-                        shortDistance = distanceToEnemy;
-                        returnObject = enemyObject;
-                    }
-                }
-            }
-        }
-        return returnObject;
-    }
 
 
 
@@ -400,14 +402,17 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     }
 
     // 현재 타겟이 노말인지 아닌지 나타내는 프로퍼티
-    protected bool TargetIsNormalEnemy { get { return (target != null && target.GetComponent<NomalEnemy>()); } }
+    protected bool TargetIsNormalEnemy { get { return (target != null && target.GetComponent<Multi_Enemy>().enemyType == EnemyType.Normal); } }
 
     void AttackEnemy(Multi_Enemy enemy) // Boss enemy랑 쫄병 구분
     {
-        if (TargetIsNormalEnemy) enemy.OnDamage(damage);
+        damage = 100; // 테스트를 위한 임시 코드
+        if (TargetIsNormalEnemy) enemy.photonView.RPC("OnDamage", RpcTarget.MasterClient, damage);
         else enemy.OnDamage(bossDamage);
     }
 
+
+    // 동기화
     Vector3 currentPos;
     Quaternion currentDir;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Multi_Unit_Spearman : Multi_MeleeUnit
 {
@@ -24,6 +25,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         skillDamage = (int)(damage * 1.5f);
     }
 
+    [PunRPC]
     public override void NormalAttack()
     {
         StartCoroutine("SpaerAttack");
@@ -62,7 +64,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         //CollisionWeapon weapon = poolManager.UsedWeapon(spearCreatePosition, transform.forward * -1, 50, (Enemy enemy) => delegate_OnSkile(enemy));
         //weapon.transform.Rotate(90, 0, 0);
 
-        if (enterStoryWorld == GameManager.instance.playerEnterStoryMode)
+        if (enterStoryWorld == Multi_GameManager.instance.playerEnterStoryMode)
             unitAudioSource.PlayOneShot(skillAudioClip, 0.12f);
 
         yield return new WaitForSeconds(0.5f);

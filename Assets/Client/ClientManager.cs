@@ -30,8 +30,9 @@ public class ClientManager : MonoBehaviour
     int PlusMaxUnitPrice;
     int StartGameCount;
     int GoldSkillCount;
-    int Skill1 = 0;
+    int Skill1;
     public AudioSource ClientClickAudioSource;
+    
 
 
     void Start()
@@ -339,6 +340,10 @@ public class ClientManager : MonoBehaviour
             PlayerPrefs.SetInt("Skill1", 1);
             PlayerPrefs.Save();
 
+        }
+        else if (Skill1 == 1)
+        {
+            Debug.Log("품절");
         }
         else
         {

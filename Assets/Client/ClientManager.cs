@@ -254,12 +254,14 @@ public class ClientManager : MonoBehaviour
             Debug.Log("실패");
         }
     }
+    
     public void BuyPlusTouchDamege()
     {
         ClientHammer = PlayerPrefs.GetInt("Hammer");
         ClientClickSound();
         if (ClientHammer >= PlusTouchDamegePrice)
         {
+            Debug.Log("터치뎀");
             ClientHammer -= PlusTouchDamegePrice;
             PlusTouchDamege = 1 * (HammerCount + 1);
             PlayerPrefs.SetInt("PlusTouchDamegePrice", (PlusTouchDamege + 1));
@@ -276,6 +278,9 @@ public class ClientManager : MonoBehaviour
         }
         else
         {
+
+            Debug.Log(PlusTouchDamegePrice);
+            Debug.Log(ClientHammer);
             Debug.Log("실패");
         }
     }
@@ -286,6 +291,7 @@ public class ClientManager : MonoBehaviour
         ClientClickSound();
         if (ClientHammer >= PlusMaxUnitPrice && PlusMaxUnitCount < 5)
         {
+            Debug.Log("최대 유닛");
             ClientHammer -= PlusMaxUnitPrice;
             PlusMaxUnit = 1 * (PlusMaxUnitCount + 1);
             PlayerPrefs.SetInt("PlusMaxUnitPrice", (PlusMaxUnit + 1) * 10);
@@ -297,24 +303,18 @@ public class ClientManager : MonoBehaviour
             UpdateHammerText(ClientHammer);
             PlusMaxUnitCount += 1;            
             PlayerPrefs.SetInt("PlusMaxUnitCount", PlusMaxUnitCount);
-            PlayerPrefs.SetInt("PlusMaxUnit", PlusMaxUnit);
+            PlusMaxUnit =  PlayerPrefs.GetInt("PlusMaxUnit");
             PlayerPrefs.Save();
-            if (PlusMaxUnitCount >= 5)
-            {
-                
-                PlusMaxUnitPriceText.text = "품절";
-                Debug.Log("텍스트 바뀌기");
-            }
+            
 
         }
-        else
+        else if(PlusMaxUnitCount >= 5)
         {
-            Debug.Log("실패");
+
             PlusMaxUnitPriceText.text = "품절";
-           
+            Debug.Log("텍스트 바뀌기");
         }
     }
-
     public void BuyGoldSkill()
     {
         

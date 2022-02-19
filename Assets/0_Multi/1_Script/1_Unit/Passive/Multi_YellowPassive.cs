@@ -8,7 +8,10 @@ public class Multi_YellowPassive : Multi_UnitPassive
     [SerializeField] int apply_AddGold;
 
 
-    public override void SetPassive(TeamSoldier _team) => _team.delegate_OnPassive += (Enemy enemy) => Passive_Yellow(apply_AddGold, apply_GetGoldPercent);
+    public override void SetPassive(Multi_TeamSoldier _team) 
+    { 
+        _team.delegate_OnPassive += (Multi_Enemy enemy) => Passive_Yellow(apply_AddGold, apply_GetGoldPercent); 
+    }
 
     void Passive_Yellow(int addGold, int percent)
     {

@@ -55,7 +55,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         PhotonNetwork.SerializationRate = 40;
 
         // 아래에서 평타랑 스킬 설정할 때 delegate_OnPassive가 null이면 에러가 떠서 에러 방지용으로 실행 후에 OnEnable에서 덮어쓰기 때문에 의미 없음
-        //SetPassive();
+        SetPassive();
 
         // 평타 설정
         delegate_OnHit += AttackEnemy;
@@ -89,7 +89,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     void OnEnable()
     {
         //SetData();
-        //SetPassive();
+        SetPassive();
         //UnitManager.instance.AddCurrentUnit(this);
 
         if (animator != null) animator.enabled = true;
@@ -110,10 +110,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     void SetPassive()
     {
-        UnitPassive _passive = GetComponent<UnitPassive>();
+        Multi_UnitPassive _passive = GetComponent<Multi_UnitPassive>();
         if (delegate_OnPassive != null) delegate_OnPassive = null;
-        UnitManager.instance.ApplyPassiveData(gameObject.tag, _passive, unitColor);
-        _passive.SetPassive(null);
+        //UnitManager.instance.ApplyPassiveData(gameObject.tag, _passive, unitColor);
+        _passive.SetPassive(this);
     }
 
     private void OnDisable()
@@ -203,9 +203,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             if ((enemyIsForward || contactEnemy) && !isAttackDelayTime && !isSkillAttack && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
             {
                 //Debug.Log("Attack Start!!!");
-                isAttack = true;
-                isAttackDelayTime = true;
-                pv.RPC("UnitAttack", RpcTarget.MasterClient);
+                UnitAttack();
             }
             yield return null;
         }
@@ -215,19 +213,45 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     [PunRPC] // 마스터 클라이언트에서만 실행
     public void UnitAttack()
     {
+        isAttack = true;
+        isAttackDelayTime = true;
         if (!PhotonNetwork.IsMasterClient) return;
 
         int random = Random.Range(0, 100);
-        if (random > specialAttackPercent) pv.RPC("NormalAttack", RpcTarget.All);
+        bool isNormal = random > specialAttackPercent;
+        photonView.RPC("SelectAttack", RpcTarget.All, isNormal);
+    }
+
+    [PunRPC] 
+    public void SelectAttack(bool _isNormal)
+    {
+        if (_isNormal) NormalAttack();
         else SpecialAttack();
     }
 
     [PunRPC] // 유닛들의 고유한 공격을 구현하는 가상 함수
-    public virtual void NormalAttack()
+    public virtual void NormalAttack(){}
+
+    public void EndAttack()
     {
-        // override 코루틴 마지막 부분에서 실행하는 코드
-        StartCoroutine(Co_ResetAttactStatus());
+        if(PhotonNetwork.IsMasterClient) StartCoroutine(Co_ResetAttactStatus());
         if (target != null && TargetIsNormalEnemy && enemyDistance > stopDistanc * 2) UpdateTarget();
+    }
+
+    IEnumerator Co_ResetAttactStatus()
+    {
+        isAttack = false;
+
+        yield return new WaitForSeconds(attackDelayTime);
+        isAttackDelayTime = false;
+        photonView.RPC("SetAttackStatus", RpcTarget.Others, false);
+    }
+
+    [PunRPC]
+    public void SetAttackStatus(bool _isAttack)
+    {
+        isAttack = _isAttack;
+        isAttackDelayTime = false;
     }
 
     protected void StartAttack()
@@ -242,13 +266,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             unitAudioSource.PlayOneShot(normalAttackClip);
     }
 
-    IEnumerator Co_ResetAttactStatus()
-    {
-        isAttack = false;
-
-        yield return new WaitForSeconds(attackDelayTime);
-        isAttackDelayTime = false;
-    }
 
     public virtual void SpecialAttack() { } // 유닛마다 다른 스킬공격 (기사, 법사는 없음)
 
@@ -299,10 +316,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         string layerName = LayerMask.LayerToName(layer);
         return 1 << LayerMask.NameToLayer(layerName);
     }
-
-
-
-    
 
 
 
@@ -404,7 +417,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     // 현재 타겟이 노말인지 아닌지 나타내는 프로퍼티
     protected bool TargetIsNormalEnemy { get { return (target != null && target.GetComponent<Multi_Enemy>().enemyType == EnemyType.Normal); } }
 
-    void AttackEnemy(Multi_Enemy enemy) // Boss enemy랑 쫄병 구분
+    void AttackEnemy(Multi_Enemy enemy) // Boss랑 쫄병 구분해서 대미지 적용
     {
         damage = 100; // 테스트를 위한 임시 코드
         if (TargetIsNormalEnemy) enemy.photonView.RPC("OnDamage", RpcTarget.MasterClient, damage);

@@ -115,10 +115,11 @@ MonoBehaviour:
   currentHp: 0
   isDead: 0
   hpSlider: {fileID: 7777258309149922143}
+  enemyType: 2
   dir: {x: 0, y: 0, z: 0}
   originMat: {fileID: 0}
+  freezeMat: {fileID: 0}
   sternEffect: {fileID: 0}
-  slowSkillMat: {fileID: 0}
   level: 3
   rewardGold: 40
   rewardFood: 4

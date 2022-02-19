@@ -461,6 +461,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 96a0233801a3d6f4c8020cdf9f5d6b72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  apply_SturnPercent: 0
+  apply_StrunTime: 0
+  apply_MaxPoisonDamage: 0
 --- !u!1 &7682043686961796517
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,7 +735,7 @@ PrefabInstance:
     - target: {fileID: 7460127304993480957, guid: a2708bb195d494643bedb7beefb5ca69,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7462278200013050349, guid: a2708bb195d494643bedb7beefb5ca69,
         type: 3}

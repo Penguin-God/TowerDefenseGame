@@ -17,14 +17,17 @@ public class Multi_Unit_Swordman : Multi_MeleeUnit
     IEnumerator SwordAttack()
     {
         base.StartAttack();
-
         animator.SetTrigger("isSword");
         yield return new WaitForSeconds(0.8f);
         trail.SetActive(true);
         yield return new WaitForSeconds(0.3f);
-        HitMeeleAttack();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            HitMeeleAttack();
+        }
         trail.SetActive(false);
 
-        base.NormalAttack();
+
+        EndAttack();
     }
 }

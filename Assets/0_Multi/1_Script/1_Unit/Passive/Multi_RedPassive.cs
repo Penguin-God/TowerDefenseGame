@@ -9,7 +9,7 @@ public class Multi_RedPassive : Multi_UnitPassive
     // 법사를 위한 비율 관측용
     public float Get_DownDelayWeigh { get { return apply_DownDelayWeigh; } }
 
-    public override void SetPassive(TeamSoldier _team)
+    public override void SetPassive(Multi_TeamSoldier _team)
     {
         _team.attackDelayTime *= apply_DownDelayWeigh;
     }

@@ -42,7 +42,6 @@ public class Multi_Enemy : MonoBehaviourPun
     [PunRPC]
     public virtual void Setup(int _hp, float _speed) { }
 
-    public Action OnDeath = null;
 
     [PunRPC]
     public void OnDamage(int damage)
@@ -58,7 +57,7 @@ public class Multi_Enemy : MonoBehaviourPun
             photonView.RPC("OnDamage", RpcTarget.Others, 0);
         }
 
-        // Dead는 개인적인 보상 등과 관련이 있으므로 그냥 전부 실행
+        // Dead는 보상 등 개인적으로 실행되어야 하는 기능이 포함되어 있으므로 모두 실행
         if (currentHp <= 0 && !isDead) Dead();
     }
 
@@ -69,6 +68,7 @@ public class Multi_Enemy : MonoBehaviourPun
         hpSlider.value = currentHp;
     }
 
+    public Action OnDeath = null;
     public virtual void Dead()
     {
         ResetValue();
@@ -78,6 +78,7 @@ public class Multi_Enemy : MonoBehaviourPun
 
     void ResetValue()
     {
+        sternEffect.SetActive(false);
         queue_GetSturn.Clear();
         queue_HoldingPoison.Clear();
 
@@ -91,7 +92,111 @@ public class Multi_Enemy : MonoBehaviourPun
     }
 
 
-    public bool IsNoneSKile { get { return GetComponent<EnemyTower>() != null || GetComponent<MageEnemy>() != null; } }
+
+
+    // 메이지는 패시브가 스킬 무효화
+    // 패시브는 호스트에서 적용 후 다른 플레이어에게 동기화하는 방식
+    // 패시브 테스트하는데 꼴받아서 임시로 MageEnemy로 함
+    public bool IsNoneSKile { get { return GetComponent<MageEnemy>() != null; } }
+
+    private bool isSlow;
+    [PunRPC]
+    public void OnSlow(float slowPercent, float slowTime)
+    {
+        if (IsNoneSKile || isDead) return;
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            // 슬로우를 적용했을 때 현재 속도보다 느려져야만 슬로우 적용
+            if (maxSpeed - maxSpeed * (slowPercent / 100) <= speed)
+            {
+                speed = maxSpeed - maxSpeed * (slowPercent / 100);
+                Rigidbody.velocity = dir * speed;
+                photonView.RPC("SyncSpeed", RpcTarget.Others, speed);
+                photonView.RPC("ChangeColor", RpcTarget.All, 50, 175, 222, 1);
+
+                // 슬로우 시간 갱신 위한 코드
+                // 더 강하거나 비슷한 슬로우가 들어오면 작동 준비중이던 슬로우 탈출 코루틴은 나가리 되고 새로운 탈출 코루틴이 돌아감
+                if (exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine);
+                if (slowTime > 0) exitSlowCoroutine = StartCoroutine(Co_ExitSlow(slowTime));
+            }
+        }
+    }
+
+    [SerializeField] private Material freezeMat;
+    // 얼리는 스킬
+    public void OnFreeze(float slowTime)
+    {
+        speed = 0;
+        Rigidbody.velocity = Vector3.zero;
+        ChangeMat(freezeMat);
+
+        if (exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine);
+        exitSlowCoroutine = StartCoroutine(Co_ExitSlow(slowTime));
+    }
+
+    Coroutine exitSlowCoroutine = null;
+    IEnumerator Co_ExitSlow(float slowTime)
+    {
+        yield return new WaitForSeconds(slowTime);
+        photonView.RPC("ExitSlow", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void ExitSlow()
+    {
+        ChangeMat(originMat);
+        ChangeColor(255, 255, 255, 255);
+
+        // 스턴 상태가 아니라면 속도 복구
+        if (queue_GetSturn.Count <= 0) Set_OriginSpeed();
+    }
+
+
+
+    [PunRPC]
+    public void OnStern(int sternPercent, float sternTime)
+    {
+        if (IsNoneSKile || isDead || !PhotonNetwork.IsMasterClient) return;
+
+        int random = UnityEngine.Random.Range(0, 100);
+        if (random < sternPercent) StartCoroutine(SternCoroutine(sternTime));
+    }
+
+    Queue<int> queue_GetSturn = new Queue<int>();
+    [SerializeField] private GameObject sternEffect;
+    IEnumerator SternCoroutine(float sternTime)
+    {
+        queue_GetSturn.Enqueue(-1);
+        speed = 0;
+        Rigidbody.velocity = dir * speed;
+        photonView.RPC("SyncSpeed", RpcTarget.Others, 0f);
+        photonView.RPC("ShowSturnEffetc", RpcTarget.All);
+        yield return new WaitForSeconds(sternTime);
+
+        if (queue_GetSturn.Count != 0) queue_GetSturn.Dequeue();
+        if (queue_GetSturn.Count == 0) photonView.RPC("ExitSturn", RpcTarget.All);
+    }
+
+    [PunRPC]
+    public void ExitSturn()
+    {
+        sternEffect.SetActive(false);
+        Set_OriginSpeed();
+    }
+
+    [PunRPC]
+    public void ShowSturnEffetc()
+    {
+        sternEffect.SetActive(true);
+    }
+
+    [PunRPC] // sync : 동기화한다는 뜻의 동사
+    public void SyncSpeed(float _speed)
+    {
+        speed = _speed;
+        Rigidbody.velocity = dir * _speed;
+    }
 
     void Set_OriginSpeed() // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기
     {
@@ -99,102 +204,23 @@ public class Multi_Enemy : MonoBehaviourPun
         Rigidbody.velocity = dir * maxSpeed;
     }
 
-    public void EnemyStern(int sternPercent, float sternTime)
+
+
+    [PunRPC]
+    public void OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
     {
-        if (IsNoneSKile || isDead) return;
+        if (IsNoneSKile || isDead || !PhotonNetwork.IsMasterClient) return;
 
-        int random = UnityEngine.Random.Range(0, 100);
-        if (random < sternPercent) StartCoroutine(SternCoroutine(sternTime));
-    }
-
-    Queue<int> queue_GetSturn = new Queue<int>();
-    public GameObject sternEffect;
-    IEnumerator SternCoroutine(float sternTime)
-    {
-        queue_GetSturn.Enqueue(-1);
-        sternEffect.SetActive(true);
-        speed = 0;
-        Rigidbody.velocity = dir * speed;
-        yield return new WaitForSeconds(sternTime);
-
-        if (queue_GetSturn.Count != 0) queue_GetSturn.Dequeue();
-        if (queue_GetSturn.Count == 0) ExitSturn();
-    }
-    void ExitSturn()
-    {
-        sternEffect.SetActive(false);
-        Set_OriginSpeed();
-    }
-
-
-    protected bool isSlow;
-    Coroutine exitSlowCoroutine = null;
-    [SerializeField] private Material slowSkillMat;
-    public void EnemySlow(float slowPercent, float slowTime)
-    {
-        if (IsNoneSKile || isDead) return;
-
-        // 만약 더 높은 슬로우 공격을 받으면큰 슬로우 적용후 return
-        if (maxSpeed - maxSpeed * (slowPercent / 100) <= speed)
-        {
-            // 더 강한 슬로우가 들어왔는데 이전 약한 슬로우 때문에 슬로우에서 빠져나가는거 방지
-            if (isSlow && exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine);
-
-            isSlow = true;
-            speed = maxSpeed - maxSpeed * (slowPercent / 100);
-            Rigidbody.velocity = dir * speed;
-
-            ChangeColor(new Color32(50, 175, 222, 1));
-
-            // 더 강한 슬로우 적용을 위한 코드
-            // 더 강한 슬로우가 들어오면 작동 준비중이던 슬로우 탈출 코루틴은 나가리 되고 새로운 탈출 코루틴이 돌아감
-            if (exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine);
-            if (slowTime > 0)
-                exitSlowCoroutine = StartCoroutine(ExitSlow_Coroutine(slowTime));
-        }
-    }
-
-    // 얼리는 스킬
-    public void EnemyFreeze(float slowTime)
-    {
-        isSlow = true;
-        speed = 0;
-        Rigidbody.velocity = dir * speed;
-        ChangeMat(slowSkillMat);
-
-        if (exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine);
-        exitSlowCoroutine = StartCoroutine(ExitSlow_Coroutine(slowTime));
-    }
-
-    IEnumerator ExitSlow_Coroutine(float slowTime)
-    {
-        yield return new WaitForSeconds(slowTime);
-        ExitSlow();
-    }
-
-    public void ExitSlow()
-    {
-        ChangeMat(originMat);
-        ChangeColor(new Color32(255, 255, 255, 255));
-        isSlow = false;
-
-        // 혹시 스턴중이 아니라면 속도 복구
-        if (queue_GetSturn.Count <= 0) Set_OriginSpeed();
-    }
-
-    public void EnemyPoisonAttack(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
-    {
-        if (GetComponent<MageEnemy>() != null || isDead) return;
-
-        StartCoroutine(PoisonAttack(poisonPercent, poisonCount, poisonDelay, maxDamage));
+        StartCoroutine(Co_OnPoison(poisonPercent, poisonCount, poisonDelay, maxDamage));
     }
 
     // Queue를 사용해서 현재 코루틴이 중복으로 돌아가고 있지 않으면 색깔 복귀하기
     Queue<int> queue_HoldingPoison = new Queue<int>();
-    IEnumerator PoisonAttack(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
+    IEnumerator Co_OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
     {
         queue_HoldingPoison.Enqueue(-1);
-        ChangeColor(new Color32(141, 49, 231, 255));
+        photonView.RPC("ChangeColor", RpcTarget.All, 141, 49, 231, 255);
+
         int poisonDamage = GetPoisonDamage(poisonPercent, maxDamage);
         for (int i = 0; i < poisonCount; i++)
         {
@@ -203,7 +229,7 @@ public class Multi_Enemy : MonoBehaviourPun
         }
 
         if (queue_HoldingPoison.Count != 0) queue_HoldingPoison.Dequeue();
-        if (queue_HoldingPoison.Count == 0) ChangeColor(new Color32(255, 255, 255, 255));
+        if (queue_HoldingPoison.Count == 0) photonView.RPC("ChangeColor", RpcTarget.All, 255, 255, 255, 255);
     }
 
     int GetPoisonDamage(int poisonPercent, int maxDamage)
@@ -214,10 +240,13 @@ public class Multi_Enemy : MonoBehaviourPun
         return poisonDamage;
     }
 
-    protected void ChangeColor(Color32 colorColor)
+
+    [PunRPC]
+    public void ChangeColor(int r, int g, int b, int a )
     {
+        Color32 _newColor = new Color32((byte)r, (byte)g, (byte)b, (byte)a);
         foreach (MeshRenderer mesh in meshList) 
-            mesh.material.color = colorColor;
+            mesh.material.color = _newColor;
     }
 
     protected void ChangeMat(Material mat)

@@ -17,7 +17,6 @@ public class BluePassive : UnitPassive
         _team.delegate_OnPassive += (Enemy enemy) => enemy.EnemySlow(apply_SlowPercet, apply_SlowTime);
     }
 
-
     public override void ApplyData(float p1, float p2 = 0, float p3 = 0)
     {
         apply_SlowPercet = p1;

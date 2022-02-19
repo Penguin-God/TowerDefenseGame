@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Photon.Pun;
 
 public class Multi_BluePassive : Multi_UnitPassive
 {
@@ -14,9 +15,11 @@ public class Multi_BluePassive : Multi_UnitPassive
     public float Get_ColliderRange => apply_SlowTime;
     public event Action OnBeefup;
 
-    public override void SetPassive(TeamSoldier _team)
+    public override void SetPassive(Multi_TeamSoldier _team)
     {
-        _team.delegate_OnPassive += (Enemy enemy) => enemy.EnemySlow(apply_SlowPercet, apply_SlowTime);
+        apply_SlowPercet = 30;
+        apply_SlowTime = 2;
+        _team.delegate_OnPassive += (Multi_Enemy enemy) => enemy.photonView.RPC("OnSlow", RpcTarget.MasterClient, apply_SlowPercet, apply_SlowTime);
     }
 
 

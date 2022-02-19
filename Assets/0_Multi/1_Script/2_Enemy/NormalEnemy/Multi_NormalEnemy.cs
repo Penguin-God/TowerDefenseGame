@@ -128,8 +128,5 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     {
         pointIndex = -1;
         transform.rotation = Quaternion.identity;
-        ChangeMat(originMat);
-        ChangeColor(new Color32(255, 255, 255, 255));
-        sternEffect.SetActive(false);
     }
 }

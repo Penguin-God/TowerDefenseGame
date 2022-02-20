@@ -10,7 +10,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public UnitClass unitClass;
     public UnitColor unitColor;
 
-    // 아무 버프도 받지 않은 상태 변수 
     public int originDamage;
     public int originBossDamage;
     public float originAttackDelayTime;
@@ -23,7 +22,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public int skillDamage;
     public float stopDistanc;
 
-    // 상태 변수
+    // 상태 변수(동기화되지 않음)
     public bool isAttack; // 공격 중에 true
     public bool isAttackDelayTime; // 공격 쿨타임 중에 true
     // 나중에 유닛별 공격 조건 만들면서 없애기
@@ -186,7 +185,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     public virtual Vector3 DestinationPos { get; set; }
     protected bool contactEnemy = false;
-    IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴
+    IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴(로컬에서만 돌아감)
     {
         while (true)
         {
@@ -215,10 +214,15 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         isAttack = true;
         isAttackDelayTime = true;
-        if (!PhotonNetwork.IsMasterClient) return;
+        specialAttackPercent = 0; // 스킬 동기화하기 전까지 못 쓰게 하려고 작성한 코드
+        pv.RPC("AttackFromHost", RpcTarget.MasterClient);
+    }
 
+    [PunRPC]
+    public void AttackFromHost()
+    {
         int random = Random.Range(0, 100);
-        bool isNormal = random > specialAttackPercent;
+        bool isNormal = (random >= specialAttackPercent);
         photonView.RPC("SelectAttack", RpcTarget.All, isNormal);
     }
 
@@ -234,7 +238,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     public void EndAttack()
     {
-        if(PhotonNetwork.IsMasterClient) StartCoroutine(Co_ResetAttactStatus());
+        if (!pv.IsMine) return;
+
+        StartCoroutine(Co_ResetAttactStatus());
         if (target != null && TargetIsNormalEnemy && enemyDistance > stopDistanc * 2) UpdateTarget();
     }
 
@@ -243,14 +249,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         isAttack = false;
 
         yield return new WaitForSeconds(attackDelayTime);
-        isAttackDelayTime = false;
-        photonView.RPC("SetAttackStatus", RpcTarget.Others, false);
-    }
-
-    [PunRPC]
-    public void SetAttackStatus(bool _isAttack)
-    {
-        isAttack = _isAttack;
         isAttackDelayTime = false;
     }
 

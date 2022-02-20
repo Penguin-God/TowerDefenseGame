@@ -9,7 +9,9 @@ public class Multi_YellowPassive : Multi_UnitPassive
 
 
     public override void SetPassive(Multi_TeamSoldier _team) 
-    { 
+    {
+        apply_GetGoldPercent = 70;
+        apply_AddGold = 1;
         _team.delegate_OnPassive += (Multi_Enemy enemy) => Passive_Yellow(apply_AddGold, apply_GetGoldPercent); 
     }
 
@@ -18,9 +20,8 @@ public class Multi_YellowPassive : Multi_UnitPassive
         int random = Random.Range(0, 100);
         if (random < percent)
         {
+            Multi_GameManager.instance.AddGold(addGold);
             SoundManager.instance.PlayEffectSound_ByName("GetPassiveAttackGold");
-            GameManager.instance.Gold += addGold;
-            UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
         }
     }
 

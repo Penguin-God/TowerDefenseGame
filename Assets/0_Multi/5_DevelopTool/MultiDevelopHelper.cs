@@ -9,6 +9,10 @@ public class MultiDevelopHelper : MonoBehaviourPunCallbacks
 {
     [SerializeField] Text guideText = null;
 
+    void Awake()
+    {
+        Screen.SetResolution(960, 540, false);
+    }
 
     public void EditorConnect()
     {

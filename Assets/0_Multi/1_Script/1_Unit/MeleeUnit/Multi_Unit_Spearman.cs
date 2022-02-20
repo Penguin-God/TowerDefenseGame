@@ -39,11 +39,11 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         yield return new WaitForSeconds(0.55f);
         trail.SetActive(true);
         yield return new WaitForSeconds(0.3f);
-        HitMeeleAttack();
+        if(pv.IsMine) HitMeeleAttack();
         yield return new WaitForSeconds(0.3f);
         trail.SetActive(false);
 
-        base.NormalAttack();
+        EndAttack();
     }
 
 

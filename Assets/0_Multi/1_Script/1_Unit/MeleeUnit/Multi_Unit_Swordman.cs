@@ -21,7 +21,7 @@ public class Multi_Unit_Swordman : Multi_MeleeUnit
         yield return new WaitForSeconds(0.8f);
         trail.SetActive(true);
         yield return new WaitForSeconds(0.3f);
-        if (PhotonNetwork.IsMasterClient)
+        if (pv.IsMine)
         {
             HitMeeleAttack();
         }

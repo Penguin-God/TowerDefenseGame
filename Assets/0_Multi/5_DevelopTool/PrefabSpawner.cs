@@ -3,8 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
+[System.Serializable]
+public class DrawButtonUnits
+{
+    public GameObject[] units;
+}
+
 public class PrefabSpawner : MonoBehaviourPun
 {
+    public DrawButtonUnits[] allUnit;
+
     [PunRPC]
     public void SpawnUnit(string _name)
     {

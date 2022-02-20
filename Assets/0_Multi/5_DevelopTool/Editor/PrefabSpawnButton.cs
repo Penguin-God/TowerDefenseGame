@@ -12,36 +12,45 @@ public class PrefabSpawnButton : Editor
 
         GameObject[] _prefabs = Resources.LoadAll<GameObject>("");
         PrefabSpawner _spawner = (PrefabSpawner)target;
-        //Debug.Log(_prefabs.Length);
 
-        DrawUnitSpawnButton(_prefabs, _spawner);
+        DrawUnitSpawnButton(_spawner.allUnit, _spawner);
         DrawEnemySpawnButton(_prefabs, _spawner);
     }
 
-    void DrawUnitSpawnButton(GameObject[] _prefabs, PrefabSpawner _spawner)
+    bool showButton = true;
+    bool showButton2 = true;
+    void DrawUnitSpawnButton(DrawButtonUnits[] _units, PrefabSpawner _spawner)
     {
-        EditorGUILayout.Space(10);
-        EditorGUILayout.LabelField("유닛 소환");
-        if (GUILayout.Button("에디터에 모든 유닛 소환")) _spawner.AllUnitSpawn_ByEditor();
-        EditorGUILayout.Space(10);
-
-        for (int i = 0; i < _prefabs.Length; i++)
+        EditorGUILayout.Space(20);
+        showButton = EditorGUILayout.Foldout(showButton, "에디터에서 유닛 소환");
+        if (showButton)
         {
-            if (_prefabs[i].GetComponent<Multi_TeamSoldier>() == null) continue;
-
-            string _buttonName = _prefabs[i].name + " Spawn";
-            _buttonName = _buttonName.Replace('1', ' ');
-            if (GUILayout.Button(_buttonName)) _spawner.SpawnUnit(_prefabs[i].name);
+            for (int i = 0; i < _units.Length; i++)
+            {
+                for (int j = 0; j < _units[i].units.Length; j++)
+                {
+                    string _buttonName = _units[i].units[j].name + " Spawn";
+                    _buttonName = _buttonName.Replace('1', ' ');
+                    if (GUILayout.Button(_buttonName)) _spawner.SpawnUnit(_units[i].units[j].name);
+                }
+                EditorGUILayout.Space(5);
+            }
         }
 
-        EditorGUILayout.LabelField("클라이언트에서 유닛 소환");
-        for (int i = 0; i < _prefabs.Length; i++)
+        EditorGUILayout.Space(10);
+        showButton2 = EditorGUILayout.Foldout(showButton2, "에디터 외 기기에서 유닛 소환");
+        if (showButton2)
         {
-            if (_prefabs[i].GetComponent<Multi_TeamSoldier>() == null) continue;
-
-            string _buttonName = _prefabs[i].name + " Spawn";
-            _buttonName = _buttonName.Replace('1', ' ');
-            if (GUILayout.Button(_buttonName)) _spawner.SpawnUnit_ByClient(_prefabs[i].name);
+            for (int i = 0; i < _units.Length; i++)
+            {
+                for (int j = 0; j < _units[i].units.Length; j++)
+                {
+                    string _buttonName = _units[i].units[j].name + " Spawn";
+                    _buttonName = _buttonName.Replace('1', ' ');
+                    if (GUILayout.Button(_buttonName)) _spawner.SpawnUnit_ByClient(_units[i].units[j].name);
+                }
+                EditorGUILayout.Space(5);
+            }
         }
     }
 

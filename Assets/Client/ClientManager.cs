@@ -119,12 +119,12 @@ public class ClientManager : MonoBehaviour
             PlusMaxUnitPriceText.text = "품절";
             Debug.Log("바꾸기 성공");
         }
-        //if (GoldSkillPriceText == 1)
-        //{
-        //    Debug.Log("품절로 바꿈");
-        //    PlusMaxUnitPriceText.text = "품절";
-        //    Debug.Log("바꾸기 성공");
-        //}
+        if (Skill1 == 1)
+        {
+            Debug.Log("품절로 바꿈");
+            GoldSkillPriceText.text = "품절";
+            Debug.Log("바꾸기 성공");
+        }
     }
 
     void Update() 

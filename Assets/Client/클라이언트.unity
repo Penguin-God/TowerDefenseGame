@@ -12291,7 +12291,7 @@ GameObject:
   - component: {fileID: 583076908}
   - component: {fileID: 583076907}
   m_Layer: 5
-  m_Name: Text_Description
+  m_Name: PlusMaxUnitPriceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16678,7 +16678,7 @@ MonoBehaviour:
   StartFoodPriceText: {fileID: 1999542626}
   PlusTouchDamegePriceText: {fileID: 2079237418}
   PlusMaxUnitPriceText: {fileID: 583076909}
-  GoldSkillPriceText: {fileID: 0}
+  GoldSkillPriceText: {fileID: 1773921449}
   ClientClickAudioSource: {fileID: 792715570}
   AdIronCount: {fileID: 1950976686}
   AdWoodCount: {fileID: 1203556690}
@@ -35723,7 +35723,7 @@ GameObject:
   - component: {fileID: 1671861254}
   - component: {fileID: 1671861253}
   m_Layer: 5
-  m_Name: Text_Description
+  m_Name: StartGoldPriceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38243,7 +38243,7 @@ GameObject:
   - component: {fileID: 1773921448}
   - component: {fileID: 1773921447}
   m_Layer: 5
-  m_Name: Text_Description
+  m_Name: GoldSkillPriceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -42942,7 +42942,7 @@ GameObject:
   - component: {fileID: 1999542625}
   - component: {fileID: 1999542624}
   m_Layer: 5
-  m_Name: Text_Description
+  m_Name: StartFoodPriceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43649,7 +43649,7 @@ GameObject:
   - component: {fileID: 2079237417}
   - component: {fileID: 2079237416}
   m_Layer: 5
-  m_Name: Text_Description
+  m_Name: TouchDamegePriceText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

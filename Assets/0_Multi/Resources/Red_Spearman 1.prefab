@@ -750,7 +750,7 @@ MonoBehaviour:
   damage: 0
   bossDamage: 0
   skillDamage: 0
-  stopDistanc: 5
+  stopDistanc: 3
   isAttack: 0
   isAttackDelayTime: 0
   isSkillAttack: 0
@@ -765,7 +765,7 @@ MonoBehaviour:
   enterStoryWorld: 0
   trail: {fileID: 3353236591455031401}
   spear: {fileID: 3977966170949877692}
-  skileSpaer: {fileID: 6040848935930658283, guid: 9ab00e28296ec7b41b883a45f8e1cb21,
+  skileSpaer: {fileID: 2632546835915559380, guid: 13f3b0afc903d9e40a39cbb728ae75bf,
     type: 3}
   spearCreatePosition: {fileID: 6545951238342133010}
   skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
@@ -781,6 +781,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 962ec30f2099e6d4d9eaec22ed2165aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  apply_DownDelayWeigh: 0
 --- !u!1001 &3686507695096061405
 PrefabInstance:
   m_ObjectHideFlags: 0

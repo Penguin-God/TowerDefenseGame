@@ -750,7 +750,7 @@ MonoBehaviour:
   damage: 0
   bossDamage: 0
   skillDamage: 0
-  stopDistanc: 5
+  stopDistanc: 3
   isAttack: 0
   isAttackDelayTime: 0
   isSkillAttack: 0
@@ -781,6 +781,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71bee1abb9109194bba26d218a72367c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  apply_GetGoldPercent: 0
+  apply_AddGold: 0
 --- !u!1001 &5888111327743758714
 PrefabInstance:
   m_ObjectHideFlags: 0

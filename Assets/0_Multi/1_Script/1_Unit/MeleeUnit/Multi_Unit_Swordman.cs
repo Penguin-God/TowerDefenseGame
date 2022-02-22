@@ -27,7 +27,6 @@ public class Multi_Unit_Swordman : Multi_MeleeUnit
         }
         trail.SetActive(false);
 
-
         EndAttack();
     }
 }

@@ -25,12 +25,8 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         skillDamage = (int)(damage * 1.5f);
     }
 
-    [PunRPC]
-    public override void NormalAttack()
-    {
-        StartCoroutine("SpaerAttack");
-    }
 
+    public override void NormalAttack() => StartCoroutine("SpaerAttack");
     IEnumerator SpaerAttack()
     {
         base.StartAttack();
@@ -47,11 +43,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     }
 
 
-    public override void SpecialAttack()
-    {
-        StartCoroutine("Spearman_SpecialAttack");
-    }
-
+    public override void SpecialAttack() => StartCoroutine("Spearman_SpecialAttack");
     IEnumerator Spearman_SpecialAttack()
     {
         isAttack = true;
@@ -61,8 +53,11 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         spear.SetActive(false);
         nav.isStopped = true;
 
-        //CollisionWeapon weapon = poolManager.UsedWeapon(spearCreatePosition, transform.forward * -1, 50, (Enemy enemy) => delegate_OnSkile(enemy));
-        //weapon.transform.Rotate(90, 0, 0);
+        if (pv.IsMine)
+        {
+            Multi_Projectile weapon = poolManager.UsedWeapon(spearCreatePosition, transform.forward, 50, (Multi_Enemy enemy) => delegate_OnSkile(enemy));
+            weapon.GetComponent<MyPunRPC>().RPC_Rotate(new Vector3(90, 0, 0));
+        }
 
         if (enterStoryWorld == Multi_GameManager.instance.playerEnterStoryMode)
             unitAudioSource.PlayOneShot(skillAudioClip, 0.12f);
@@ -71,6 +66,6 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         nav.isStopped = false;
         spear.SetActive(true);
 
-        base.NormalAttack();
+        EndAttack();
     }
 }

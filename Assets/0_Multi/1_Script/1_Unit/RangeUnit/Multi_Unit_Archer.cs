@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Multi_Unit_Archer : Multi_RangeUnit
 {
@@ -31,15 +32,15 @@ public class Multi_Unit_Archer : Multi_RangeUnit
 
         nav.isStopped = true;
         trail.SetActive(false);
-        if (target != null && enemyDistance < chaseRange)
+        if (target != null && enemyDistance < chaseRange && pv.IsMine)
         {
-            //poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, target), 50, (Multi_Enemy enemy) => delegate_OnHit(enemy));
+            poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, target), 50, (Multi_Enemy enemy) => delegate_OnHit(enemy));
         }
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
         nav.isStopped = false;
 
-        base.NormalAttack();
+        EndAttack();
     }
 
     public override void SpecialAttack()
@@ -63,14 +64,14 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         Transform[] targetArray = Set_AttackTarget(target, Multi_EnemySpawner.instance.currentNormalEnemyList, enemyCount);
         for (int i = 0; i < targetArray.Length; i++)
         {
-            //poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, targetArray[i]), 50, (Multi_Enemy enemy) => delegate_OnSkile(enemy));
+            poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, targetArray[i]), 50, (Multi_Enemy enemy) => delegate_OnSkile(enemy));
         }
 
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
         nav.angularSpeed = 1000;
 
-        base.NormalAttack();
+        EndAttack();
     }
 
     // 현재 타겟을 포함해서 가장 가까운 적 count만큼의 Transform[]를 return하는 함수

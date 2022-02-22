@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 5512021257316344596}
   - component: {fileID: 1886392799566611575}
   - component: {fileID: 5156756621800662722}
-  - component: {fileID: 8500124114359580837}
+  - component: {fileID: -8959718834177707183}
+  - component: {fileID: -2506987200627013211}
   m_Layer: 9
   m_Name: Orange_Spear 1
   m_TagString: Attack
@@ -28,14 +29,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5197799757681758757}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.4999999, z: 1.4999999}
   m_Children:
   - {fileID: 3649549341471423438}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!33 &8575352243657570805
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -112,7 +113,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2, y: 6, z: 2}
   m_Center: {x: -0.29306036, y: 2, z: 0.4628416}
---- !u!114 &8500124114359580837
+--- !u!114 &-8959718834177707183
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -121,10 +122,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 5197799757681758757}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8e9c18c991449614fb8d42e4edc0dcf2, type: 3}
+  m_Script: {fileID: 11500000, guid: fea2ea37883d6e546bc40c02f2c0f523, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   isAOE: 1
+--- !u!114 &-2506987200627013211
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5197799757681758757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8102074434860236580
 GameObject:
   m_ObjectHideFlags: 0

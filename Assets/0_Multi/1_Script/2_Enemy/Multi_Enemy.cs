@@ -230,7 +230,7 @@ public class Multi_Enemy : MonoBehaviourPun
         for (int i = 0; i < poisonCount; i++)
         {
             yield return new WaitForSeconds(poisonDelay);
-            OnDamage(poisonDamage);
+            OnDamage(poisonDamage); // 포이즌 자체가 호스트에서만 돌아가기 때문에 그냥 써도 됨
         }
 
         if (queue_HoldingPoison.Count != 0) queue_HoldingPoison.Dequeue();

@@ -218,7 +218,7 @@ MonoBehaviour:
   damage: 0
   bossDamage: 0
   skillDamage: 0
-  stopDistanc: 5
+  stopDistanc: 3
   isAttack: 0
   isAttackDelayTime: 0
   isSkillAttack: 0
@@ -249,6 +249,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85c252ea550997540b1f8ea464e8aa43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  apply_UpDamageWeigh: 0
 --- !u!1 &5201764671823000150
 GameObject:
   m_ObjectHideFlags: 0

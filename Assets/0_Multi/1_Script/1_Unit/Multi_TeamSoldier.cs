@@ -5,6 +5,51 @@ using UnityEngine.AI;
 using Photon.Pun;
 using Photon.Realtime;
 
+public class Multi_WeaponPoolManager : MonoBehaviourPun
+{
+    Queue<Multi_Projectile> weaponPool = new Queue<Multi_Projectile>();
+    public Multi_Projectile[] SettingWeaponPool(GameObject weaponObj, int count)
+    {
+        Multi_Projectile[] _weapons = new Multi_Projectile[count];
+        for (int i = 0; i < count; i++)
+        {
+            Multi_Projectile weapon = 
+                PhotonNetwork.Instantiate(weaponObj.name, new Vector3(-500, -500, -500), weaponObj.transform.rotation).GetComponent<Multi_Projectile>();
+            weapon.gameObject.SetActive(false);
+            weaponPool.Enqueue(weapon);
+            _weapons[i] = weapon;
+        }
+        return _weapons;
+    }
+
+    
+    public Multi_Projectile UsedWeapon(Transform weaponPos, Vector3 dir, int speed, System.Action<Multi_Enemy> hitAction)
+    {
+        Multi_Projectile UseWeapon = GetWeapon_FromPool();
+        Vector3 pos = new Vector3(weaponPos.position.x, 2f, weaponPos.position.z);
+        UseWeapon.Shot(pos, dir, speed, (Multi_Enemy enemy) => hitAction(enemy));
+        return UseWeapon;
+    }
+
+
+    // 풀에서 잠깐 꺼내고 다시 들어감
+    public Multi_Projectile GetWeapon_FromPool()
+    {
+        Multi_Projectile getWeapon = weaponPool.Dequeue();
+        getWeapon.myRPC.RPC_Active(true);
+        StartCoroutine(Co_ReturnWeapon_ToPool(getWeapon, 5f));
+        return getWeapon;
+    }
+
+    IEnumerator Co_ReturnWeapon_ToPool(Multi_Projectile _weapon, float time)
+    {
+        yield return new WaitForSeconds(time);
+        _weapon.myRPC.RPC_Active(false);
+        _weapon.transform.position = new Vector3(-500, -500, -500);
+        weaponPool.Enqueue(_weapon);
+    }
+}
+
 public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 {
     public UnitClass unitClass;
@@ -20,6 +65,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public int damage;
     public int bossDamage;
     public int skillDamage;
+    public int ApplySkillDamage => skillDamage;
     public float stopDistanc;
 
     // 상태 변수(동기화되지 않음)
@@ -31,7 +77,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public Transform target;
     protected Multi_Enemy TargetEnemy { get { return target.GetComponent<Multi_Enemy>(); } }
 
-    protected WeaponPoolManager poolManager = null;
+    protected Multi_WeaponPoolManager poolManager = null;
     protected NavMeshAgent nav;
     protected Animator animator;
     protected PhotonView pv;
@@ -60,13 +106,14 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         delegate_OnHit += AttackEnemy;
         delegate_OnHit += delegate_OnPassive;
         // 스킬 설정
-        delegate_OnSkile += (Multi_Enemy enemy) => enemy.OnDamage(skillDamage);
+        skillDamage = 150; // 테스트 코드
+        delegate_OnSkile += (Multi_Enemy enemy) => enemy.photonView.RPC("OnDamage", RpcTarget.MasterClient, ApplySkillDamage);
         delegate_OnSkile += delegate_OnPassive;
 
         // 유니티에서 class는 게임오브젝트의 컴포넌트로서만 작동하기 때문에 컴포넌트로 추가 후 사용해야한다.(폴더 내에 C#스크립트 생성 안해도 됨)
         // Unity초보자가 많이 하는 실수^^
-        gameObject.AddComponent<WeaponPoolManager>();
-        poolManager = GetComponent<WeaponPoolManager>();
+        gameObject.AddComponent<Multi_WeaponPoolManager>();
+        poolManager = GetComponent<Multi_WeaponPoolManager>();
 
         // 변수 선언
         //enemySpawn = FindObjectOfType<EnemySpawn>();
@@ -214,14 +261,13 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         isAttack = true;
         isAttackDelayTime = true;
-        specialAttackPercent = 0; // 스킬 동기화하기 전까지 못 쓰게 하려고 작성한 코드
         pv.RPC("AttackFromHost", RpcTarget.MasterClient);
     }
 
     [PunRPC]
     public void AttackFromHost()
     {
-        int random = Random.Range(0, 100);
+        int random = Random.Range(1, 101);
         bool isNormal = (random >= specialAttackPercent);
         photonView.RPC("SelectAttack", RpcTarget.All, isNormal);
     }
@@ -233,8 +279,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         else SpecialAttack();
     }
 
-    [PunRPC] // 유닛들의 고유한 공격을 구현하는 가상 함수
-    public virtual void NormalAttack(){}
+    // 유닛들의 고유한 공격을 구현하는 가상 함수
+    public virtual void NormalAttack() {}
+
+    // 유닛마다 다른 스킬공격 (기사, 법사는 없음)
+    public virtual void SpecialAttack() {}
 
     public void EndAttack()
     {
@@ -264,8 +313,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             unitAudioSource.PlayOneShot(normalAttackClip);
     }
 
-
-    public virtual void SpecialAttack() { } // 유닛마다 다른 스킬공격 (기사, 법사는 없음)
 
     protected int layerMask; // Ray 감지용
     [SerializeField]

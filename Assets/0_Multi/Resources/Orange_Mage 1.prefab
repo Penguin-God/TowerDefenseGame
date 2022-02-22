@@ -209,8 +209,8 @@ GameObject:
   - component: {fileID: 7275915582185247237}
   - component: {fileID: 7275915583076130961}
   - component: {fileID: 7275915581551054840}
-  - component: {fileID: 4180348109821089608}
   - component: {fileID: 1515424040}
+  - component: {fileID: 1607135977233665466}
   m_Layer: 9
   m_Name: Orange_Mage 1
   m_TagString: Untagged
@@ -387,11 +387,12 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 1607135977233665466}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &4180348109821089608
+--- !u!114 &1515424040
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -400,19 +401,32 @@ MonoBehaviour:
   m_GameObject: {fileID: 5512811997297203018}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fdb13b87ffa5ea4e9b9e62fc29cf95c, type: 3}
+  m_Script: {fileID: 11500000, guid: fbda504c54e2ef146886435983a7e99e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  apply_UpBossDamageWeigh: 0
+--- !u!114 &1607135977233665466
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5512811997297203018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a1f6a62a16c82147bb9c0ad6ab7562e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitClass: 3
   unitColor: 4
-  originDamage: 240000
-  originBossDamage: 240000
+  originDamage: 0
+  originBossDamage: 0
   originAttackDelayTime: 0.5
   speed: 3
   attackDelayTime: 0.5
   attackRange: 40
-  damage: 240000
-  bossDamage: 240000
+  damage: 0
+  bossDamage: 0
   skillDamage: 0
   stopDistanc: 5
   isAttack: 0
@@ -427,29 +441,17 @@ MonoBehaviour:
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
   enterStoryWorld: 0
-  magicLight: {fileID: 6590480787772705442}
-  energyBall: {fileID: 5754238700893047354, guid: 85bb9a846cfdf6c4ebff3a2df2fc1b27,
+  magicLight: {fileID: 0}
+  energyBall: {fileID: 4707030899879111016, guid: b8f74a2a21b4e8b48a78902caed53985,
     type: 3}
-  energyBallTransform: {fileID: 6590480786666523011}
-  plusMana: 30
-  mageSkillCoolDownTime: 1
+  energyBallTransform: {fileID: 0}
   mageSkillObject: {fileID: 0}
+  plusMana: 30
   isUltimate: 0
-  mageSkillCilp: {fileID: 8300000, guid: ce839c0dc1d6135468aa253fab1834b5, type: 3}
+  mageSkillCoolDownTime: 1
   maxMana: 100
   currentMana: 0
---- !u!114 &1515424040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5512811997297203018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbda504c54e2ef146886435983a7e99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  mageSkillCilp: {fileID: 8300000, guid: ce839c0dc1d6135468aa253fab1834b5, type: 3}
 --- !u!1 &6590480786666523012
 GameObject:
   m_ObjectHideFlags: 0

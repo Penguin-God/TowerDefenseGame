@@ -201,6 +201,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAOE: 0
+  myRPC: {fileID: 0}
 --- !u!114 &2044870721636413215
 MonoBehaviour:
   m_ObjectHideFlags: 0

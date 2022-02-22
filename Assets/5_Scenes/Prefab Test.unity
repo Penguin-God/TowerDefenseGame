@@ -1356,6 +1356,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 390086568}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &390086570 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4841617211874935120, guid: 06d81a176f912094a9b7eb87f6e384cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 390086568}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &390086571 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4841617210835731057, guid: 06d81a176f912094a9b7eb87f6e384cc,
+    type: 3}
+  m_PrefabInstance: {fileID: 390086568}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &390325237
 GameObject:
   m_ObjectHideFlags: 0
@@ -4877,6 +4889,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 390325238}
     m_Modifications:
+    - target: {fileID: 1607135977233665466, guid: ad7edae7215404b4681413399a03bce4,
+        type: 3}
+      propertyPath: magicLight
+      value: 
+      objectReference: {fileID: 390086571}
+    - target: {fileID: 1607135977233665466, guid: ad7edae7215404b4681413399a03bce4,
+        type: 3}
+      propertyPath: energyBallTransform
+      value: 
+      objectReference: {fileID: 390086570}
     - target: {fileID: 5512811997297203013, guid: ad7edae7215404b4681413399a03bce4,
         type: 3}
       propertyPath: m_LocalPosition.x

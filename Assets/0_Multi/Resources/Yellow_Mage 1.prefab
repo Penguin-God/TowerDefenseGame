@@ -135,8 +135,8 @@ GameObject:
   - component: {fileID: 4775608584514328199}
   - component: {fileID: 4775608585878809612}
   - component: {fileID: 4775608584555885422}
-  - component: {fileID: 5140931189264197647}
   - component: {fileID: 1041333908}
+  - component: {fileID: 8336876593677247653}
   m_Layer: 9
   m_Name: Yellow_Mage 1
   m_TagString: Untagged
@@ -313,11 +313,12 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 8336876593677247653}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &5140931189264197647
+--- !u!114 &1041333908
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -326,19 +327,33 @@ MonoBehaviour:
   m_GameObject: {fileID: 1600210341466093845}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fdb13b87ffa5ea4e9b9e62fc29cf95c, type: 3}
+  m_Script: {fileID: 11500000, guid: 71bee1abb9109194bba26d218a72367c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  apply_GetGoldPercent: 0
+  apply_AddGold: 0
+--- !u!114 &8336876593677247653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600210341466093845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 354bc08c756ee0f43b532ad6b0af6971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitClass: 3
   unitColor: 2
-  originDamage: 100000
-  originBossDamage: 100000
+  originDamage: 0
+  originBossDamage: 0
   originAttackDelayTime: 0.5
   speed: 3
   attackDelayTime: 0.5
   attackRange: 40
-  damage: 100000
-  bossDamage: 100000
+  damage: 0
+  bossDamage: 0
   skillDamage: 0
   stopDistanc: 5
   isAttack: 0
@@ -354,28 +369,16 @@ MonoBehaviour:
   rayHitTransform: {fileID: 0}
   enterStoryWorld: 0
   magicLight: {fileID: 126787733794186493}
-  energyBall: {fileID: 7010148103123964683, guid: 19f8ca3693248454ab75c62a937b3812,
+  energyBall: {fileID: 3052143345438668326, guid: 408996ab28d9dc042930c54f3364de9b,
     type: 3}
   energyBallTransform: {fileID: 126787734837454812}
-  plusMana: 30
-  mageSkillCoolDownTime: 2
   mageSkillObject: {fileID: 0}
+  plusMana: 30
   isUltimate: 0
-  mageSkillCilp: {fileID: 8300000, guid: ccbb6361d50eb264183f03d797b631c0, type: 3}
+  mageSkillCoolDownTime: 2
   maxMana: 300
   currentMana: 0
---- !u!114 &1041333908
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1600210341466093845}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71bee1abb9109194bba26d218a72367c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  mageSkillCilp: {fileID: 8300000, guid: ccbb6361d50eb264183f03d797b631c0, type: 3}
 --- !u!1 &4775608584294086019
 GameObject:
   m_ObjectHideFlags: 0

@@ -368,7 +368,7 @@ MonoBehaviour:
   rayHitTransform: {fileID: 0}
   enterStoryWorld: 0
   magicLight: {fileID: 2578823938802799958}
-  energyBall: {fileID: 7010148103123964683, guid: 9fcbcf7d5c4481443bd51b14ffab4eb3,
+  energyBall: {fileID: 5513301234657635869, guid: d31f0847a34b04a4b8444f1492caf93c,
     type: 3}
   energyBallTransform: {fileID: 2578823939848164983}
   plusMana: 30

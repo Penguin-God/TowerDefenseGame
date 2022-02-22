@@ -211,7 +211,7 @@ GameObject:
   - component: {fileID: 5891293199668401778}
   - component: {fileID: 8245229905947816732}
   - component: {fileID: 8245229906533174899}
-  - component: {fileID: 1957708946555525613}
+  - component: {fileID: 544929882}
   m_Layer: 9
   m_Name: Black_Mage 1
   m_TagString: Untagged
@@ -387,11 +387,12 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 544929882}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1957708946555525613
+--- !u!114 &544929882
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -400,20 +401,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 7953183368782943606}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1fdb13b87ffa5ea4e9b9e62fc29cf95c, type: 3}
+  m_Script: {fileID: 11500000, guid: fd0c8847a554fa64da571fafa28a3c02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitClass: 3
   unitColor: 7
-  originDamage: 1000000
-  originBossDamage: 1000000
+  originDamage: 0
+  originBossDamage: 0
   originAttackDelayTime: 0.5
   speed: 3
   attackDelayTime: 0.5
-  attackRange: 40
-  damage: 1000000
-  bossDamage: 1000000
-  skillDamage: 2000000
+  attackRange: 50
+  damage: 0
+  bossDamage: 0
+  skillDamage: 0
   stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
@@ -428,16 +429,18 @@ MonoBehaviour:
   rayHitTransform: {fileID: 0}
   enterStoryWorld: 0
   magicLight: {fileID: 8766261299207850142}
-  energyBall: {fileID: 3969605988371735382, guid: 316134030cc5d504da56a3361b733587,
+  energyBall: {fileID: 4247385763262579710, guid: 79875af229d2b294a9f711182d77d593,
     type: 3}
   energyBallTransform: {fileID: 8766261300255312831}
-  plusMana: 30
-  mageSkillCoolDownTime: 3
   mageSkillObject: {fileID: 0}
+  plusMana: 30
   isUltimate: 0
-  mageSkillCilp: {fileID: 8300000, guid: 34d13eea2f9cf254fa8de1ce2597c64a, type: 3}
+  mageSkillCoolDownTime: 3
   maxMana: 100
   currentMana: 0
+  mageSkillCilp: {fileID: 8300000, guid: 34d13eea2f9cf254fa8de1ce2597c64a, type: 3}
+  skileShotPositions: {fileID: 0}
+  ultimate_SkileShotPositions: {fileID: 0}
 --- !u!1 &8245229905634424850
 GameObject:
   m_ObjectHideFlags: 0

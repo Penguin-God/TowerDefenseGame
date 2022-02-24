@@ -22,6 +22,7 @@ public class Multi_Data : MonoBehaviourPun
     // 카메라 포지션
     [SerializeField] Vector3[] cameraPositions = null;
     public Vector3 CameraPosition => cameraPositions[id];
+    public Vector3[] CameraPositions => cameraPositions;
 
     // 타워 카메라 포지션
     [SerializeField] Vector3[] enemyTowerPositions = null;

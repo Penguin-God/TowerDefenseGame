@@ -32,7 +32,7 @@ public class Multi_Enemy : MonoBehaviourPun
     {
         // 타워랑 일반 적들 구조가 달라서 나중에 if문으로 나눠야됨
         // originMat = GetComponentInChildren<MeshRenderer>().material;
-
+        IsNonePassive = (GetComponent<MageEnemy>() != null);
         meshList = new List<MeshRenderer>();
         MeshRenderer[] addMeshs = GetComponentsInChildren<MeshRenderer>();
         for (int i = 0; i < addMeshs.Length; i++) meshList.Add(addMeshs[i]);
@@ -97,13 +97,13 @@ public class Multi_Enemy : MonoBehaviourPun
     // 메이지는 패시브가 스킬 무효화
     // 패시브는 호스트에서 적용 후 다른 플레이어에게 동기화하는 방식
     // 패시브 테스트하는데 꼴받아서 임시로 MageEnemy로 함
-    public bool IsNoneSKile { get { return GetComponent<MageEnemy>() != null; } }
+    private bool IsNonePassive;
 
     private bool isSlow;
     [PunRPC]
     public void OnSlow(float slowPercent, float slowTime)
     {
-        if (IsNoneSKile || isDead) return;
+        if (IsNonePassive || isDead) return;
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -117,7 +117,7 @@ public class Multi_Enemy : MonoBehaviourPun
 
                 // 슬로우 시간 갱신 위한 코드
                 // 더 강하거나 비슷한 슬로우가 들어오면 작동 준비중이던 슬로우 탈출 코루틴은 나가리 되고 새로운 탈출 코루틴이 돌아감
-                if (exitSlowCoroutine != null)
+                if (exitSlowCoroutine != null && slowTime > 0) // 법사 패시브 때문에 slowTime > 0 조건 추가함
                 {
                     StopCoroutine(exitSlowCoroutine);
                 }
@@ -140,19 +140,26 @@ public class Multi_Enemy : MonoBehaviourPun
         ChangeColor(255, 255, 255, 255);
 
         // 스턴 상태가 아니라면 속도 복구
-        if (queue_GetSturn.Count <= 0) Set_OriginSpeed();
+        if (queue_GetSturn.Count <= 0 && photonView.IsMine) Set_OriginSpeed_ToAllPlayer();
     }
 
     [SerializeField] private Material freezeMat;
-    // 얼리는 스킬
+    [PunRPC] // 얼리는 스킬
     public void OnFreeze(float slowTime)
     {
-        speed = 0;
-        Rigidbody.velocity = Vector3.zero;
-        ChangeMat(freezeMat);
+        if (PhotonNetwork.IsMasterClient)
+        {
+            speed = 0;
+            Rigidbody.velocity = Vector3.zero;
+            photonView.RPC("SyncSpeed", RpcTarget.Others, speed);
 
-        if (exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine);
-        exitSlowCoroutine = StartCoroutine(Co_ExitSlow(slowTime));
+            if (exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine);
+            exitSlowCoroutine = StartCoroutine(Co_ExitSlow(slowTime));
+
+            photonView.RPC("OnFreeze", RpcTarget.Others, 0f); // if문 외의 코드 실행이 목적이므로 인자값은 의미없음
+        }
+
+        ChangeMat(freezeMat);
     }
 
 
@@ -162,7 +169,7 @@ public class Multi_Enemy : MonoBehaviourPun
     [PunRPC]
     public void OnStern(int sternPercent, float sternTime)
     {
-        if (IsNoneSKile || isDead || !PhotonNetwork.IsMasterClient) return;
+        if (IsNonePassive || isDead || !PhotonNetwork.IsMasterClient) return;
 
         int random = UnityEngine.Random.Range(0, 100);
         if (random < sternPercent) StartCoroutine(SternCoroutine(sternTime));
@@ -187,7 +194,7 @@ public class Multi_Enemy : MonoBehaviourPun
     public void ExitSturn()
     {
         sternEffect.SetActive(false);
-        Set_OriginSpeed();
+        Set_OriginSpeed_ToAllPlayer();
     }
 
     [PunRPC]
@@ -203,18 +210,15 @@ public class Multi_Enemy : MonoBehaviourPun
         Rigidbody.velocity = dir * _speed;
     }
 
-    void Set_OriginSpeed() // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기
-    {
-        speed = maxSpeed;
-        Rigidbody.velocity = dir * maxSpeed;
-    }
+    // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기
+    void Set_OriginSpeed_ToAllPlayer() => photonView.RPC("SyncSpeed", RpcTarget.All, maxSpeed);
 
 
 
     [PunRPC]
     public void OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
     {
-        if (IsNoneSKile || isDead || !PhotonNetwork.IsMasterClient) return;
+        if (IsNonePassive || isDead || !PhotonNetwork.IsMasterClient) return;
 
         StartCoroutine(Co_OnPoison(poisonPercent, poisonCount, poisonDelay, maxDamage));
     }

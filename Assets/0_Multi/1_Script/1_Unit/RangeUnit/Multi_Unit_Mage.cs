@@ -22,6 +22,30 @@ public class SkillObjectPoolManager : MonoBehaviourPun
         }
     }
 
+    public GameObject UsedSkill(Vector3 _position)
+    {
+        GameObject _skileObj = GetSkile_FromPool();
+        _skileObj.GetComponent<MyPunRPC>().RPC_Position(_position);
+        return _skileObj;
+    }
+
+    GameObject GetSkile_FromPool()
+    {
+        GameObject getSkile = skillObjectPool.Dequeue();
+        getSkile.GetComponent<MyPunRPC>().RPC_Active(true);
+        StartCoroutine(Co_ReturnSkile_ToPool(getSkile, 5f));
+        return getSkile;
+    }
+
+    IEnumerator Co_ReturnSkile_ToPool(GameObject _skill, float time)
+    {
+        yield return new WaitForSeconds(time);
+        _skill.GetComponent<MyPunRPC>().RPC_Active(false);
+        _skill.GetComponent<MyPunRPC>().RPC_Position(new Vector3(200, 200, 200));
+        skillObjectPool.Enqueue(_skill);
+    }
+
+    // 스킬 강화용
     public void UpdatePool(Action<GameObject> updateSkill)
     {
         if (updateSkill != null)
@@ -33,28 +57,6 @@ public class SkillObjectPoolManager : MonoBehaviourPun
                 skillObjectPool.Enqueue(_skill);
             }
         }
-    }
-
-    public GameObject UsedSkill(Vector3 _position)
-    {
-        GameObject _skileObj = GetSkile_FromPool();
-        _skileObj.transform.position = _position;
-        return _skileObj;
-    }
-
-    GameObject GetSkile_FromPool()
-    {
-        GameObject getSkile = skillObjectPool.Dequeue();
-        getSkile.SetActive(true);
-        StartCoroutine(Co_ReturnSkile_ToPool(getSkile, 5f));
-        return getSkile;
-    }
-    IEnumerator Co_ReturnSkile_ToPool(GameObject _skill, float time)
-    {
-        yield return new WaitForSeconds(time);
-        _skill.SetActive(false);
-        _skill.transform.position = new Vector3(-200, -200, -200);
-        skillObjectPool.Enqueue(_skill);
     }
 }
 
@@ -81,21 +83,18 @@ public class Multi_Unit_Mage : Multi_RangeUnit
 
         gameObject.AddComponent<SkillObjectPoolManager>();
         skillPoolManager = GetComponent<SkillObjectPoolManager>();
-        //SetMageAwake();
+        SetMageAwake();
     }
 
     // 법사 고유의 스킬 오브젝트 세팅 가상 함수
-    public virtual void SetMageAwake()
-    {
-        skillPoolManager.SettingSkilePool(mageSkillObject, 3);
-    }
+    public virtual void SetMageAwake() => skillPoolManager.SettingSkilePool(mageSkillObject, 3);
 
 
-    private bool isMageSkillAttack = false;
+    // 지금은 테스트를 위해 첫 공격이 무조건 스킬 쓰도록 놔둠
+    private bool isMageSkillAttack = true;
     public override void NormalAttack()
     {
-        // 임시
-        if (true) StartCoroutine("MageAttack");
+        if (!isMageSkillAttack) StartCoroutine("MageAttack");
         else SpecialAttack();
     }
 
@@ -127,6 +126,8 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     protected event Action OnUltimateSkile; // 강화는 isUltimate가 true될 때까지 코루틴에서 WaitUntil로 대기 후 추가함
     public override void SpecialAttack()
     {
+        isAttack = false;
+        isAttackDelayTime = false;
         MageSpecialAttack();
         if (OnUltimateSkile != null) OnUltimateSkile();
     }

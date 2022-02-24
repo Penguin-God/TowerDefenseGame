@@ -17,20 +17,17 @@ public class Multi_Projectile : MonoBehaviourPun
         myRPC = GetComponent<MyPunRPC>();
     }
 
-    //[PunRPC]
-    //public void SetActive(bool _isActive) => gameObject.SetActive(_isActive);
-
     private Action<Multi_Enemy> OnHit = null;
     public void Shot(Vector3 pos, Vector3 dir, int speed, Action<Multi_Enemy> action)
     {
         OnHit = null;
         OnHit = action;
         if (!isAOE) OnHit += (Multi_Enemy enemy) => myRPC.RPC_Active(false);
-        photonView.RPC("SetVector", RpcTarget.All, pos, dir, speed);
+        photonView.RPC("SetShotData", RpcTarget.All, pos, dir, speed);
     }
 
     [PunRPC]
-    public void SetVector(Vector3 _pos, Vector3 _dir, int _speed)
+    public void SetShotData(Vector3 _pos, Vector3 _dir, int _speed)
     {
         transform.position = _pos;
         Rigidbody.velocity = _dir * _speed;

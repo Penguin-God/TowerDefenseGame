@@ -444,8 +444,9 @@ MonoBehaviour:
   magicLight: {fileID: 0}
   energyBall: {fileID: 4707030899879111016, guid: b8f74a2a21b4e8b48a78902caed53985,
     type: 3}
-  energyBallTransform: {fileID: 0}
-  mageSkillObject: {fileID: 0}
+  energyBallTransform: {fileID: 6590480786666523011}
+  mageSkillObject: {fileID: 6070129563677219890, guid: f894d2491a0cb5f4d8c47c6ab4a2f98e,
+    type: 3}
   plusMana: 30
   isUltimate: 0
   mageSkillCoolDownTime: 1

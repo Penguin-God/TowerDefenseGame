@@ -251,7 +251,8 @@ MonoBehaviour:
   energyBall: {fileID: 764653912475919692, guid: 7bc2494f0d825bd47b005d75db6395c9,
     type: 3}
   energyBallTransform: {fileID: 1428039914236047671}
-  mageSkillObject: {fileID: 0}
+  mageSkillObject: {fileID: 6269822335907625535, guid: 3d04c93368856bd4eb50c61fefa0cda7,
+    type: 3}
   plusMana: 30
   isUltimate: 0
   mageSkillCoolDownTime: 2

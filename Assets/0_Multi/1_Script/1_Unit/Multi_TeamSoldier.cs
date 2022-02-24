@@ -259,6 +259,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     [PunRPC] // 마스터 클라이언트에서만 실행
     public void UnitAttack()
     {
+        // RPC딜레이 때문에 여기서 상태 변수 바꿈
         isAttack = true;
         isAttackDelayTime = true;
         pv.RPC("AttackFromHost", RpcTarget.MasterClient);

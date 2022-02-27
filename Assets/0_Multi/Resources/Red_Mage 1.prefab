@@ -574,6 +574,8 @@ MonoBehaviour:
   maxMana: 0
   currentMana: 0
   mageSkillCilp: {fileID: 8300000, guid: e6f235e1a0f4c504bbb5a76c786d86b6, type: 3}
+  meteorPos: {x: 0, y: 30, z: -5}
+  ultimateMeteorPos: {x: 0, y: 30, z: -5}
 --- !u!1 &7735766840144101574
 GameObject:
   m_ObjectHideFlags: 0

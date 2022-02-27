@@ -235,10 +235,10 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     //public int queueCount4 = 0;
 
 
-    public Enemy GetRandom_CurrentEnemy(List<GameObject> currentList)
+    public Multi_Enemy GetRandom_CurrentEnemy()
     {
-        int index = Random.Range(0, currentList.Count);
-        Enemy enemy = currentList[index].GetComponent<Enemy>();
+        int index = Random.Range(0, currentNormalEnemyList.Count);
+        Multi_Enemy enemy = currentNormalEnemyList[index].GetComponent<Multi_Enemy>();
         return enemy;
     }
 

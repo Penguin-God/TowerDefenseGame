@@ -89,6 +89,9 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     // 법사 고유의 스킬 오브젝트 세팅 가상 함수
     public virtual void SetMageAwake() => skillPoolManager.SettingSkilePool(mageSkillObject, 3);
 
+    protected GameObject UsedSkill(Vector3 _pos) => skillPoolManager.UsedSkill(_pos);
+    protected void UpdateSkill(Action<GameObject> _act) => skillPoolManager.UpdatePool(_act);
+
 
     // 지금은 테스트를 위해 첫 공격이 무조건 스킬 쓰도록 놔둠
     private bool isMageSkillAttack = true;
@@ -134,16 +137,14 @@ public class Multi_Unit_Mage : Multi_RangeUnit
 
     void MageSpecialAttack()
     {
-        isSkillAttack = true;
-
         MageSkile();
-        ClearMana();
-
-        // 스킬 쿨타임 적용
-        StartCoroutine(Co_SkillCoolDown());
+        SetMageSkillStatus();
     }
 
-    public virtual void MageSkile()
+    // 법사 스킬
+    public virtual void MageSkile() {}
+
+    protected void SetMageSkillStatus()
     {
         isSkillAttack = true;
         ClearMana();

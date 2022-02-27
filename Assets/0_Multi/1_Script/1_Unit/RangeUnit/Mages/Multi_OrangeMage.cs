@@ -6,8 +6,7 @@ public class Multi_OrangeMage : Multi_Unit_Mage
 {
     public override void MageSkile()
     {
-        base.MageSkile();
-        GameObject _skill = skillPoolManager.UsedSkill(Vector3.one);
-        _skill.GetComponent<OrangeSkill>().OnSkile(target.GetComponent<Enemy>(), isUltimate, bossDamage);
+        GameObject _skill = UsedSkill(Vector3.one);
+        if(pv.IsMine) _skill.GetComponent<Multi_OrangeSkill>().OnSkile(target.GetComponent<Multi_Enemy>(), isUltimate, bossDamage);
     }
 }

@@ -182,6 +182,7 @@ public class Multi_Enemy : MonoBehaviourPun
         queue_GetSturn.Enqueue(-1);
         speed = 0;
         Rigidbody.velocity = dir * speed;
+
         photonView.RPC("SyncSpeed", RpcTarget.Others, 0f);
         photonView.RPC("ShowSturnEffetc", RpcTarget.All);
         yield return new WaitForSeconds(sternTime);

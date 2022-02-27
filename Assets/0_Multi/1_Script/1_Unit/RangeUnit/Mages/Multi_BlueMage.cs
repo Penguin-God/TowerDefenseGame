@@ -23,11 +23,7 @@ public class Multi_BlueMage : Multi_Unit_Mage
     void SetEnemyFreeze(GameObject _skill) =>
         _skill.GetComponent<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => enemy.photonView.RPC("OnFreeze", RpcTarget.MasterClient, 5f);
 
-    public override void MageSkile()
-    {
-        base.MageSkile();
-        skillPoolManager.UsedSkill(transform.position + (Vector3.up * 2));
-    }
+    public override void MageSkile() => skillPoolManager.UsedSkill(transform.position + (Vector3.up * 2));
 
 
     IEnumerator Co_SkilleReinForce()

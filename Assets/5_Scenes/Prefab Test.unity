@@ -7502,8 +7502,28 @@ PrefabInstance:
       propertyPath: m_Name
       value: OrangeMage SkillEffect 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8428632922963827510, guid: f894d2491a0cb5f4d8c47c6ab4a2f98e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f894d2491a0cb5f4d8c47c6ab4a2f98e, type: 3}
+--- !u!1 &2507790519060903137 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6070129563677219890, guid: f894d2491a0cb5f4d8c47c6ab4a2f98e,
+    type: 3}
+  m_PrefabInstance: {fileID: 2507790519060903136}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2507790519060903138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2507790519060903137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd1d8a2456e9c44dbc236043e5b24c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: ce839c0dc1d6135468aa253fab1834b5, type: 3}
 --- !u!4 &3088577275803464489 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4270540001386718215, guid: 66b037f53d0161349bdeaa0116b3c840,
@@ -7599,8 +7619,64 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 47
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1767776642167505111, guid: 6f18a0f9e7422194fbef769d115ca77d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 6f18a0f9e7422194fbef769d115ca77d, type: 3}
+--- !u!1 &5371345811862469975 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 766274922650886116, guid: 6f18a0f9e7422194fbef769d115ca77d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5371345811862469974}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5371345811862469976 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 767403621168153197, guid: 6f18a0f9e7422194fbef769d115ca77d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5371345811862469974}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5371345811862469977 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 767403622571391388, guid: 6f18a0f9e7422194fbef769d115ca77d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5371345811862469974}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5371345811862469978 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 767403621002786487, guid: 6f18a0f9e7422194fbef769d115ca77d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5371345811862469974}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5371345811862469979 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 767403621243486057, guid: 6f18a0f9e7422194fbef769d115ca77d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5371345811862469974}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5371345811862469980 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 767403622873436515, guid: 6f18a0f9e7422194fbef769d115ca77d,
+    type: 3}
+  m_PrefabInstance: {fileID: 5371345811862469974}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &5371345811862469981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5371345811862469980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c89c60d0df822a42a7d90a6c807f01e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 50
+  explosionObject: {fileID: 5371345811862469975}
+  meteors:
+  - {fileID: 5371345811862469979}
+  - {fileID: 5371345811862469978}
+  - {fileID: 5371345811862469977}
+  - {fileID: 5371345811862469976}
 --- !u!1001 &5416402722651691279
 PrefabInstance:
   m_ObjectHideFlags: 0

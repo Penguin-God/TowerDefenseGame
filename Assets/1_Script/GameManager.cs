@@ -8,7 +8,11 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    
+
+    private static GameManager m_instance;
+    ResourceManager _resource = new ResourceManager();
+    public static ResourceManager Resource { get { return m_instance._resource; } }
+
     //private int Stage;
     public int Gold;
     public int Food;
@@ -25,13 +29,15 @@ public class GameManager : MonoBehaviour
     //public Enemy enemy;
     
     
-
+  
     public bool playerEnterStoryMode = false;
 
     public int enemyCount; // EnemySpaw에 있던거 옮김
 
+    
 
-  
+
+
     public static GameManager instance
     {
         get
@@ -44,7 +50,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private static GameManager m_instance;
+    
 
     private void Awake()
     {

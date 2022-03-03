@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Multi_YellowMage : Multi_Unit_Mage
 {
+    public override void SetMageAwake()
+    {
+        SetSkillPool(mageSkillObject, 3);
+    }
+
     public override void MageSkile()
     {
         UsedSkill(transform.position + (Vector3.up * 0.6f));

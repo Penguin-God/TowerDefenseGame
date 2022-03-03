@@ -12,7 +12,7 @@ public class Multi_HitSkill : MonoBehaviourPun
     public event Action<Multi_Enemy> OnHitSkile;
     private void OnTriggerEnter(Collider other)
     {
-        if (!PhotonNetwork.IsMasterClient) return;
+        if (!photonView.IsMine) return;
 
         if (other.GetComponentInParent<Multi_Enemy>() != null)
         {
@@ -20,6 +20,8 @@ public class Multi_HitSkill : MonoBehaviourPun
                 OnHitSkile(other.GetComponentInParent<Multi_Enemy>());
         }
     }
+
+
 
     [SerializeField] protected SphereCollider sphereCollider;
     [SerializeField] private float hitTime; // 콜라이더가 켜지기 전 공격 대기 시간

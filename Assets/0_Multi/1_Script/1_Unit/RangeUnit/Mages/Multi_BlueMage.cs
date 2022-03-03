@@ -10,7 +10,7 @@ public class Multi_BlueMage : Multi_Unit_Mage
 
     public override void SetMageAwake()
     {
-        skillPoolManager.SettingSkilePool(mageSkillObject, 3, SetEnemyFreeze);
+        SetSkillPool(mageSkillObject, 3, SetEnemyFreeze);
 
         bluePassive = GetComponent<Multi_BluePassive>();
         blueCollider = GetComponentInChildren<SphereCollider>();
@@ -23,13 +23,13 @@ public class Multi_BlueMage : Multi_Unit_Mage
     void SetEnemyFreeze(GameObject _skill) =>
         _skill.GetComponent<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => enemy.photonView.RPC("OnFreeze", RpcTarget.MasterClient, 5f);
 
-    public override void MageSkile() => skillPoolManager.UsedSkill(transform.position + (Vector3.up * 2));
+    public override void MageSkile() => UsedSkill(transform.position + (Vector3.up * 2));
 
 
     IEnumerator Co_SkilleReinForce()
     {
         yield return new WaitUntil(() => isUltimate);
-        skillPoolManager.UpdatePool(SkilleReinForce);
+        UpdateSkill(SkilleReinForce);
     }
 
     void SkilleReinForce(GameObject _skill)

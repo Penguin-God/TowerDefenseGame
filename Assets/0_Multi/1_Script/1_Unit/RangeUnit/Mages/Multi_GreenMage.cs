@@ -4,11 +4,10 @@ using UnityEngine;
 
 public class Multi_GreenMage : Multi_Unit_Mage
 {
-    
     System.Action skillAct = null;
     public override void SetMageAwake()
     {
-        skillPoolManager.SettingSkilePool(mageSkillObject, 3);
+        SetSkillPool(mageSkillObject, 3);
         attackRange *= 2; // 패시브
         skillAct += () => ShootSkill(energyBallTransform.position);
         StartCoroutine(Co_SkileReinforce());
@@ -16,7 +15,7 @@ public class Multi_GreenMage : Multi_Unit_Mage
 
     void ShootSkill(Vector3 _pos)
     {
-        GameObject _skill = skillPoolManager.UsedSkill(_pos);
+        GameObject _skill = UsedSkill(_pos);
         _skill.GetComponent<Multi_Projectile>().Shot(_pos, Get_ShootDirection(2f, target), 50, (Multi_Enemy enemy) => delegate_OnHit(enemy));
     }
 
@@ -52,7 +51,7 @@ public class Multi_GreenMage : Multi_Unit_Mage
     IEnumerator Co_SkileReinforce()
     {
         yield return new WaitUntil(() => isUltimate);
-        skillPoolManager.SettingSkilePool(mageSkillObject, 7);
+        SetSkillPool(mageSkillObject, 7);
         skillAct += Ultimate;
     }
 
@@ -61,7 +60,7 @@ public class Multi_GreenMage : Multi_Unit_Mage
     {
         for (int i = 0; i < UltimateTransform.childCount; i++)
         {
-            GameObject _skill = skillPoolManager.UsedSkill(UltimateTransform.GetChild(i).position);
+            GameObject _skill = UsedSkill(UltimateTransform.GetChild(i).position);
             _skill.GetComponent<MyPunRPC>().RPC_Rotation(UltimateTransform.GetChild(i).rotation);
         }
     }

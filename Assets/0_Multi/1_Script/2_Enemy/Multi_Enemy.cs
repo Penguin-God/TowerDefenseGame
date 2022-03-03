@@ -99,7 +99,6 @@ public class Multi_Enemy : MonoBehaviourPun
     // 패시브 테스트하는데 꼴받아서 임시로 MageEnemy로 함
     private bool IsNonePassive;
 
-    private bool isSlow;
     [PunRPC]
     public void OnSlow(float slowPercent, float slowTime)
     {
@@ -161,7 +160,6 @@ public class Multi_Enemy : MonoBehaviourPun
 
         ChangeMat(freezeMat);
     }
-
 
 
 

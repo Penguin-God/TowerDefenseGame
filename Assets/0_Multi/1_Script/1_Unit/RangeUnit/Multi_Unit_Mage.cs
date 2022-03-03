@@ -14,10 +14,12 @@ public class SkillObjectPoolManager : MonoBehaviourPun
         for (int i = 0; i < count; i++)
         {
             GameObject skill = PhotonNetwork.Instantiate(skillObj.name, new Vector3(-200, -200, -200), skillObj.transform.rotation);
+            skill.GetComponent<MyPunRPC>().RPC_Active(true);
+
             // Hit Event 설정해줘야 하는 법사들만 실행됨
             if (SettingSkileAction != null) SettingSkileAction(skill);
 
-            skill.SetActive(false);
+            skill.GetComponent<MyPunRPC>().RPC_Active(false);
             skillObjectPool.Enqueue(skill);
         }
     }
@@ -69,7 +71,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     [SerializeField] protected Transform energyBallTransform;
     [SerializeField] protected GameObject mageSkillObject = null;
 
-    protected SkillObjectPoolManager skillPoolManager = null;
+    private SkillObjectPoolManager skillPoolManager = null;
     public override void OnAwake()
     {
         SetPoolObj(energyBall, 7);
@@ -86,17 +88,25 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         SetMageAwake();
     }
 
-    // 법사 고유의 스킬 오브젝트 세팅 가상 함수
-    public virtual void SetMageAwake() 
+    // 법사 고유의 Awake 대체 가상 함수
+    public virtual void SetMageAwake() { }
+
+    // 스킬 오브젝트 풀 세팅 함수
+    protected void SetSkillPool(GameObject _obj, int _count, Action<GameObject> SettingSkileAction = null)
     {
-        if(pv.IsMine) skillPoolManager.SettingSkilePool(mageSkillObject, 3);
+        if(pv.IsMine) skillPoolManager.SettingSkilePool(_obj, _count, SettingSkileAction);
     }
 
-    protected GameObject UsedSkill(Vector3 _pos) => skillPoolManager.UsedSkill(_pos);
+    protected GameObject UsedSkill(Vector3 _pos)
+    {
+        if (!pv.IsMine) return null;
+        GameObject _obj = skillPoolManager.UsedSkill(_pos);
+        return _obj;
+    }
     protected void UpdateSkill(Action<GameObject> _act) => skillPoolManager.UpdatePool(_act);
 
 
-    // 지금은 테스트를 위해 첫 공격이 무조건 스킬 쓰도록 놔둠
+    // 지금은 테스트를 위해 첫 공격에 무조건 스킬 쓰도록 놔둠
     private bool isMageSkillAttack = true;
     public override void NormalAttack()
     {
@@ -135,17 +145,12 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     {
         isAttack = false;
         isAttackDelayTime = false;
-        MageSpecialAttack();
+        if(pv.IsMine) MageSkile();
+        SetMageSkillStatus();
         if (OnUltimateSkile != null) OnUltimateSkile();
     }
 
-    void MageSpecialAttack()
-    {
-        MageSkile();
-        SetMageSkillStatus();
-    }
-
-    // 법사 스킬
+    // 법사 스킬 구현하는 가상 함수
     public virtual void MageSkile() {}
 
     protected void SetMageSkillStatus()
@@ -163,6 +168,8 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         isSkillAttack = false;
     }
 
+
+    // 마나
     [SerializeField] private int maxMana;
     [SerializeField] private int currentMana;
     public void AddMana(int addMana)
@@ -180,7 +187,19 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         isMageSkillAttack = false;
     }
 
+    private RectTransform canvasRectTransform;
+    private Slider manaSlider;
+    IEnumerator Co_SetCanvas()
+    {
+        if (unitColor == UnitColor.white) yield break;
+        while (true)
+        {
+            canvasRectTransform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+            yield return null;
+        }
+    }
 
+    // 사운드
     [SerializeField] AudioClip mageSkillCilp;
     protected void PlaySkileAudioClip()
     {
@@ -201,18 +220,5 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         yield return new WaitForSeconds(audioDelay);
         if (enterStoryWorld == Multi_GameManager.instance.playerEnterStoryMode)
             unitAudioSource.PlayOneShot(playClip, audioSound);
-    }
-
-
-    private RectTransform canvasRectTransform;
-    private Slider manaSlider;
-    IEnumerator Co_SetCanvas()
-    {
-        if (unitColor == UnitColor.white) yield break;
-        while (true)
-        {
-            canvasRectTransform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
-            yield return null;
-        }
     }
 }

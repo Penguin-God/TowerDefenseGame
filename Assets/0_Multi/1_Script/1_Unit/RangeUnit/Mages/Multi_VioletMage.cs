@@ -7,7 +7,7 @@ public class Multi_VioletMage : Multi_Unit_Mage
 {
     public override void SetMageAwake()
     {
-        skillPoolManager.SettingSkilePool(mageSkillObject, 3, SetSkill);
+        SetSkillPool(mageSkillObject, 3, SetSkill);
         StartCoroutine(Co_SkilleReinForce());
     }
 
@@ -16,13 +16,13 @@ public class Multi_VioletMage : Multi_Unit_Mage
 
     public override void MageSkile()
     {
-        skillPoolManager.UsedSkill(target.position);
+        UsedSkill(target.position);
     }
 
     IEnumerator Co_SkilleReinForce()
     {
         yield return new WaitUntil(() => isUltimate);
-        skillPoolManager.SettingSkilePool(mageSkillObject, 3, SetSkill);
-        OnUltimateSkile += () => skillPoolManager.UsedSkill(EnemySpawn.instance.GetRandom_CurrentEnemy().transform.position);
+        SetSkillPool(mageSkillObject, 3, SetSkill);
+        OnUltimateSkile += () => UsedSkill(EnemySpawn.instance.GetRandom_CurrentEnemy().transform.position);
     }
 }

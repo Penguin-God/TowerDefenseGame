@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class Multi_OrangeMage : Multi_Unit_Mage
 {
+    public override void SetMageAwake()
+    {
+        SetSkillPool(mageSkillObject, 3);
+    }
+
     public override void MageSkile()
     {
         GameObject _skill = UsedSkill(Vector3.one);

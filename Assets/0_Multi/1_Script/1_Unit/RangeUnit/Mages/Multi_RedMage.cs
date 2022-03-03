@@ -9,23 +9,22 @@ public class Multi_RedMage : Multi_Unit_Mage
 
     public override void SetMageAwake()
     {
-        skillPoolManager.SettingSkilePool(mageSkillObject, 3, SetHitSkile);
+        SetSkillPool(mageSkillObject, 3, SetHitSkile);
         redPassive = GetComponent<Multi_RedPassive>();
         StartCoroutine(Co_UltimateSkile());
     }
 
-    void SetHitSkile(GameObject skileObj) => StartCoroutine(Co_SetHitSkile(skileObj));
-
-    IEnumerator Co_SetHitSkile(GameObject skileObj)
+    void SetHitSkile(GameObject skileObj)
     {
-        yield return new WaitUntil(() => skileObj.GetComponentInChildren<Multi_HitSkill>() != null);
-        skileObj.GetComponentInChildren<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => HitMeteor(enemy);
+        GameObject _obj = skileObj.GetComponentInChildren<Multi_HitSkill>().gameObject;
+        _obj.GetComponent<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => HitMeteor(enemy);
+        _obj.GetComponent<MyPunRPC>().RPC_Active(false);
     }
 
     void HitMeteor(Multi_Enemy enemy)
     {
-        enemy.photonView.RPC("OnStern", RpcTarget.MasterClient, 100, 5);
         enemy.photonView.RPC("OnDamage", RpcTarget.MasterClient, 400000);
+        enemy.photonView.RPC("OnStern", RpcTarget.MasterClient, 100, 5f);
     }
 
     [SerializeField] Vector3 meteorPos = (Vector3.up * 30) + (Vector3.forward * 5);
@@ -42,7 +41,7 @@ public class Multi_RedMage : Multi_Unit_Mage
     {
         yield return new WaitUntil(() => isUltimate);
 
-        skillPoolManager.SettingSkilePool(mageSkillObject, 2, SetHitSkile);
+        SetSkillPool(mageSkillObject, 2, SetHitSkile);
         OnUltimateSkile += () => ShootMeteor(transform.position + ultimateMeteorPos, Multi_EnemySpawner.instance.GetRandom_CurrentEnemy());
     }
 

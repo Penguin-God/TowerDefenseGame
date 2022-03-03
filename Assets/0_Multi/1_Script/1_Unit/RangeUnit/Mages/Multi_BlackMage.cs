@@ -9,7 +9,7 @@ public class Multi_BlackMage : Multi_Unit_Mage
 
     public override void SetMageAwake()
     {
-        skillPoolManager.SettingSkilePool(mageSkillObject, 50);
+        SetSkillPool(mageSkillObject, 50);
     }
 
     public override void MageSkile()
@@ -24,7 +24,7 @@ public class Multi_BlackMage : Multi_Unit_Mage
         {
             Transform instantTransform = directions.GetChild(i);
 
-            GameObject instantEnergyBall = skillPoolManager.UsedSkill(instantTransform.position);
+            GameObject instantEnergyBall = UsedSkill(instantTransform.position);
             instantEnergyBall.transform.rotation = instantTransform.rotation;
             instantEnergyBall.GetComponent<Multi_Projectile>()
                 .Shot(instantTransform.position, instantTransform.forward, 50, (Multi_Enemy enemy) => delegate_OnHit(enemy));

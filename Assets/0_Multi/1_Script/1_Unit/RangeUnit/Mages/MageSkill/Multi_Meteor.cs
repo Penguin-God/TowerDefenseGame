@@ -11,8 +11,8 @@ public class Multi_Meteor : MonoBehaviourPun
     public void OnChase(Multi_Enemy enemy) => StartCoroutine(Co_ShotMeteor(enemy));
     IEnumerator Co_ShotMeteor(Multi_Enemy enemy)
     {
+        Vector3 chasePosition = enemy.transform.position + (enemy.dir.normalized * enemy.speed);
         yield return new WaitForSeconds(1f);
-        Vector3 chasePosition = enemy.transform.position;
         ChasePosition(chasePosition);
     }
 
@@ -27,12 +27,13 @@ public class Multi_Meteor : MonoBehaviourPun
     {
         if (!PhotonNetwork.IsMasterClient) return;
 
-        if (other.tag == "World" && !isExplosion) MeteorExplosion();
+        if (other.tag == "World" && !isExplosion) photonView.RPC("MeteorExplosion", RpcTarget.All);
     }
 
     [SerializeField] GameObject explosionObject;
     [SerializeField] GameObject[] meteors;
     bool isExplosion = false; // 충돌 2번 감지되는 버그 방지용 변수
+    [PunRPC]
     void MeteorExplosion() // 메테오 폭발
     {
         foreach (GameObject meteor in meteors) meteor.SetActive(false);

@@ -4589,10 +4589,10 @@ GameObject:
   - component: {fileID: 6068175627798224524}
   - component: {fileID: 6234957186599622636}
   - component: {fileID: 6267666989465855364}
-  - component: {fileID: 8428632922963827510}
   - component: {fileID: 7395946078919531223}
   - component: {fileID: 2507790518346398536}
   - component: {fileID: 2507790519060903138}
+  - component: {fileID: -135969851839057063}
   m_Layer: 0
   m_Name: OrangeMage SkillEffect 1
   m_TagString: Untagged
@@ -9226,19 +9226,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &8428632922963827510
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6070129563677219890}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2142142da56494b478ec374d5c0fc4a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioClip: {fileID: 8300000, guid: ce839c0dc1d6135468aa253fab1834b5, type: 3}
 --- !u!82 &7395946078919531223
 AudioSource:
   m_ObjectHideFlags: 0
@@ -9369,6 +9356,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d50dbfb12cf6364f9afad5e688a8ebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-135969851839057063
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6070129563677219890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dd1d8a2456e9c44dbc236043e5b24c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioClip: {fileID: 8300000, guid: ce839c0dc1d6135468aa253fab1834b5, type: 3}
 --- !u!1 &6070213659934198414
 GameObject:
   m_ObjectHideFlags: 0

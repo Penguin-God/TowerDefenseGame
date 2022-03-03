@@ -10,19 +10,19 @@ GameObject:
   m_Component:
   - component: {fileID: 8677619185684567400}
   - component: {fileID: 148080548148164025}
-  - component: {fileID: 2888750803811351414}
-  - component: {fileID: 4939204050026442896}
   - component: {fileID: 5355087093094815885}
   - component: {fileID: 5416402722500662025}
   - component: {fileID: 8677619185684072775}
-  - component: {fileID: 5416402722651691281}
+  - component: {fileID: 6451403711688623773}
+  - component: {fileID: 797702187239893940}
+  - component: {fileID: 5212217459233695947}
   m_Layer: 14
   m_Name: GreenMage_SkillBall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8677619185684567400
 Transform:
   m_ObjectHideFlags: 0
@@ -53,34 +53,8 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 4
+  m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &2888750803811351414
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8677619185684072776}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 39be7059414db004ca2b1c392c6e4e8b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 100
---- !u!65 &4939204050026442896
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8677619185684072776}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 9, y: 5, z: 9}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!82 &5355087093094815885
 AudioSource:
   m_ObjectHideFlags: 0
@@ -213,7 +187,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAOE: 1
   myRPC: {fileID: 0}
---- !u!114 &5416402722651691281
+--- !u!114 &6451403711688623773
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -222,9 +196,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 8677619185684072776}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d50dbfb12cf6364f9afad5e688a8ebb, type: 3}
+  m_Script: {fileID: 11500000, guid: 3957dd93e5283584ea78e074b83cafd6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 100
+--- !u!65 &797702187239893940
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8677619185684072776}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 13, y: 5, z: 3}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!135 &5212217459233695947
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8677619185684072776}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8677619185684072778
 GameObject:
   m_ObjectHideFlags: 0

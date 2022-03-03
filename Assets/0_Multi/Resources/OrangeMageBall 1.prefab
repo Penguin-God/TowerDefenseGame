@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4707030899879111019}
   - component: {fileID: 4707030899879111017}
   m_Layer: 0
-  m_Name: OrangeBall 1
+  m_Name: OrangeMageBall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

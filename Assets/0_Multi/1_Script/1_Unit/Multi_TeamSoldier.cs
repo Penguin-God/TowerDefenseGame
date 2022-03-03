@@ -131,6 +131,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     }
     public virtual void OnAwake() { }
 
+    protected void SetPoolObj(GameObject _obj, int _count)
+    {
+        if(pv.IsMine) poolManager.SettingWeaponPool(_obj, _count);
+    }
 
     void OnEnable()
     {
@@ -157,6 +161,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     void SetPassive()
     {
         Multi_UnitPassive _passive = GetComponent<Multi_UnitPassive>();
+        if (_passive == null) return;
         if (delegate_OnPassive != null) delegate_OnPassive = null;
         //UnitManager.instance.ApplyPassiveData(gameObject.tag, _passive, unitColor);
         _passive.SetPassive(this);

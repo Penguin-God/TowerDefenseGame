@@ -27,7 +27,7 @@ public class Multi_OrangeSkill : MonoBehaviourPun
         for (int i = 0; i < count; i++)
         {
             OrangeMageSkill(enemy, damage);
-            yield return new WaitForSeconds(ps.time + 0.1f); // startLifetime
+            yield return new WaitForSeconds(ps.startLifetime + 0.1f); // startLifetime
         }
 
         myPunRPC.RPC_Active(false);

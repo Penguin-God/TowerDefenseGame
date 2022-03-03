@@ -765,7 +765,7 @@ MonoBehaviour:
   enterStoryWorld: 0
   trail: {fileID: 3353236591455031401}
   spear: {fileID: 3977966170949877692}
-  skileSpaer: {fileID: 2632546835915559380, guid: 13f3b0afc903d9e40a39cbb728ae75bf,
+  skillSpear: {fileID: 2632546835915559380, guid: 13f3b0afc903d9e40a39cbb728ae75bf,
     type: 3}
   spearCreatePosition: {fileID: 6545951238342133010}
   skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}

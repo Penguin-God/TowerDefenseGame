@@ -14,8 +14,6 @@ public class Multi_BlackMage : Multi_Unit_Mage
 
     public override void MageSkile()
     {
-        base.MageSkile();
-
         Transform useSkileTransform = (isUltimate) ? ultimate_SkileShotPositions : skileShotPositions;
         MultiDirectionShot(useSkileTransform);
     }
@@ -28,7 +26,8 @@ public class Multi_BlackMage : Multi_Unit_Mage
 
             GameObject instantEnergyBall = skillPoolManager.UsedSkill(instantTransform.position);
             instantEnergyBall.transform.rotation = instantTransform.rotation;
-            //instantEnergyBall.GetComponent<CollisionWeapon>().Shoot(instantTransform.forward, 50, (Enemy enemy) => delegate_OnHit(enemy));
+            instantEnergyBall.GetComponent<Multi_Projectile>()
+                .Shot(instantTransform.position, instantTransform.forward, 50, (Multi_Enemy enemy) => delegate_OnHit(enemy));
         }
     }
 }

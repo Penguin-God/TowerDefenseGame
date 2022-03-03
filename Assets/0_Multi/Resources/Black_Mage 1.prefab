@@ -440,8 +440,8 @@ MonoBehaviour:
   maxMana: 100
   currentMana: 0
   mageSkillCilp: {fileID: 8300000, guid: 34d13eea2f9cf254fa8de1ce2597c64a, type: 3}
-  skileShotPositions: {fileID: 0}
-  ultimate_SkileShotPositions: {fileID: 0}
+  skileShotPositions: {fileID: 8245229905990596193}
+  ultimate_SkileShotPositions: {fileID: 8245229907292084396}
 --- !u!1 &8245229905634424850
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
     [SerializeField] GameObject trail;
     [SerializeField] GameObject spear; // 평타칠 때 쓰는 창
-    [SerializeField] GameObject skileSpaer; // 발사할 때 생성하는 창
+    [SerializeField] GameObject skillSpear; // 발사할 때 생성하는 창
     [SerializeField] Transform spearCreatePosition;
 
     [SerializeField]
@@ -17,7 +17,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
     public override void OnAwake()
     {
-        poolManager.SettingWeaponPool(skileSpaer, 5);
+        SetPoolObj(skillSpear, 5);
     }
 
     public override void SetInherenceData()

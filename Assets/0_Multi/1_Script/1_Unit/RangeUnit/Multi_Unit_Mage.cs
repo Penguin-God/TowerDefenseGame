@@ -66,13 +66,13 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     [SerializeField] GameObject magicLight;
 
     [SerializeField] GameObject energyBall;
-    [SerializeField] Transform energyBallTransform;
+    [SerializeField] protected Transform energyBallTransform;
     [SerializeField] protected GameObject mageSkillObject = null;
 
     protected SkillObjectPoolManager skillPoolManager = null;
     public override void OnAwake()
     {
-        poolManager.SettingWeaponPool(energyBall, 7);
+        SetPoolObj(energyBall, 7);
         if (unitColor == UnitColor.white) return;
 
         canvasRectTransform = transform.GetComponentInChildren<RectTransform>();
@@ -87,7 +87,10 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     }
 
     // 법사 고유의 스킬 오브젝트 세팅 가상 함수
-    public virtual void SetMageAwake() => skillPoolManager.SettingSkilePool(mageSkillObject, 3);
+    public virtual void SetMageAwake() 
+    {
+        if(pv.IsMine) skillPoolManager.SettingSkilePool(mageSkillObject, 3);
+    }
 
     protected GameObject UsedSkill(Vector3 _pos) => skillPoolManager.UsedSkill(_pos);
     protected void UpdateSkill(Action<GameObject> _act) => skillPoolManager.UpdatePool(_act);
@@ -102,6 +105,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     }
 
     [SerializeField] int plusMana = 30;
+    public int PlusMana { get { return plusMana; } set { plusMana = value; }  }
     protected IEnumerator MageAttack()
     {
         base.StartAttack();

@@ -13,7 +13,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     public override void OnAwake()
     {
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
-        poolManager.SettingWeaponPool(arrow, 15);
+        SetPoolObj(arrow, 15);
     }
 
     public override void SetInherenceData()

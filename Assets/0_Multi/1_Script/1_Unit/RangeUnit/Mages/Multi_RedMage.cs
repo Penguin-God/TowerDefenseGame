@@ -30,10 +30,9 @@ public class Multi_RedMage : Multi_Unit_Mage
 
     [SerializeField] Vector3 meteorPos = (Vector3.up * 30) + (Vector3.forward * 5);
     public override void MageSkile() => ShootMeteor(transform.position + meteorPos, TargetEnemy);
-
     void ShootMeteor(Vector3 _pos, Multi_Enemy _enemy)
     {
-        // 메테오를 위에 띄우고 바닥에 꽂음. 지면에 닿을 시 폭발하는건 메테오 내부에서 실행됨
+        // 메테오를 위에 띄우고 발사시킴. 지면에 닿을 시 폭발하는건 메테오 내부에서 실행됨
         GameObject meteor = UsedSkill(_pos);
         meteor.GetComponent<Multi_Meteor>().OnChase(_enemy);
     }
@@ -47,6 +46,8 @@ public class Multi_RedMage : Multi_Unit_Mage
         OnUltimateSkile += () => ShootMeteor(transform.position + ultimateMeteorPos, Multi_EnemySpawner.instance.GetRandom_CurrentEnemy());
     }
 
+
+    // 패시브
     // 유닛 강화를 어떻게 적용할지 아직 정하지 않아서 일단 임시로 코드 사용
     private void OnTriggerEnter(Collider other)
     {

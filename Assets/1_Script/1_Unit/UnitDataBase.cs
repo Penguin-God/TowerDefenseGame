@@ -36,6 +36,7 @@ public class UnitData
     public float attackRange;
 }
 
+
 [Serializable]
 public struct PassiveData
 {
@@ -69,17 +70,14 @@ public class UnitDataList<T>
 
 public class UnitDataBase : MonoBehaviour
 {
-    public string[] unitTags;
+    [SerializeField] public string[] unitTags;
 
     [ContextMenu("unit tag 세팅")]
     void SetUnitTags()
     {
         LoadUnitDataFromJson();
         unitTags = new string[loadDataList.Count];
-        for (int i = 0; i < loadDataList.Count; i++)
-        {
-            unitTags[i] = loadDataList[i].UnitName;
-        }
+        for (int i = 0; i < loadDataList.Count; i++) unitTags[i] = loadDataList[i].UnitName;
     }
 
     private void Awake()
@@ -107,9 +105,9 @@ public class UnitDataBase : MonoBehaviour
     {
         UnitTagDictionary = new Dictionary<KeyValuePair<UnitColor, UnitClass>, string>();
         int count = 0;
-        foreach (UnitColor _color in System.Enum.GetValues(typeof(UnitColor)))
+        foreach (UnitColor _color in Enum.GetValues(typeof(UnitColor)))
         {
-            foreach (UnitClass _class in System.Enum.GetValues(typeof(UnitClass)))
+            foreach (UnitClass _class in Enum.GetValues(typeof(UnitClass)))
             {
                 KeyValuePair<UnitColor, UnitClass> _pair = new KeyValuePair<UnitColor, UnitClass>(_color, _class);
                 UnitTagDictionary.Add(_pair, unitTags[count]);
@@ -323,9 +321,9 @@ public class UnitDataBase : MonoBehaviour
 
     string[] GetDataKeys(UnitColor _color)
     {
-        string[] _tags = new string[System.Enum.GetValues(typeof(UnitClass)).Length];
+        string[] _tags = new string[Enum.GetValues(typeof(UnitClass)).Length];
         int _index = 0;
-        foreach (UnitClass _class in System.Enum.GetValues(typeof(UnitClass)))
+        foreach (UnitClass _class in Enum.GetValues(typeof(UnitClass)))
         {
             _tags[_index] = GetUnitTag(_color, _class);
             _index++;

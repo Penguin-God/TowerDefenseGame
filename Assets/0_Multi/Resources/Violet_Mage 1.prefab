@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 6651087845108253985}
   m_Layer: 9
   m_Name: Violet_Mage 1
-  m_TagString: Untagged
+  m_TagString: VioletMage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -229,7 +229,6 @@ MonoBehaviour:
   originBossDamage: 0
   originAttackDelayTime: 0.5
   speed: 3
-  attackDelayTime: 0.5
   attackRange: 40
   damage: 0
   bossDamage: 0
@@ -237,7 +236,9 @@ MonoBehaviour:
   stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
+  attackDelayTime: 0.5
   isSkillAttack: 0
+  skillCoolDownTime: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
   normalAttakc_AudioDelay: 0.7
@@ -254,8 +255,8 @@ MonoBehaviour:
   mageSkillObject: {fileID: 6269822335907625535, guid: 3d04c93368856bd4eb50c61fefa0cda7,
     type: 3}
   plusMana: 30
-  isUltimate: 0
   mageSkillCoolDownTime: 2
+  isUltimate: 0
   maxMana: 100
   currentMana: 0
   mageSkillCilp: {fileID: 8300000, guid: c067ff29c7e175d4b901c10170e1745e, type: 3}

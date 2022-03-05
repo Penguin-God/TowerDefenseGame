@@ -174,7 +174,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         StopAllCoroutines();
         SetChaseSetting(null);
         rayHitTransform = null;
-        //UnitManager.instance.RemvoeCurrentUnit(this);
+        Multi_SoldierPoolingManager.ReturnObject(this, gameObject.tag);
         isAttack = false;
         isAttackDelayTime = false;
         isSkillAttack = false;

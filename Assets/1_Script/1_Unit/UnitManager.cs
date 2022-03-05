@@ -99,7 +99,6 @@ public class CurrentUnitManager
 }
 
 
-
 public class UnitManager : MonoBehaviour
 {
     public static UnitManager instance;
@@ -198,7 +197,6 @@ public class UnitManager : MonoBehaviour
     public TeamSoldier[] GetCurrnetUnits(string _tag) => CurrentUnitManager.GetUnits(_tag);
     public TeamSoldier[] GetCurrnetUnits(UnitColor _color) => CurrentUnitManager.GetUnits(_color);
     public TeamSoldier[] GetCurrnetUnits(UnitClass _class) => CurrentUnitManager.GetUnits(_class);
-
     public TeamSoldier[] GetCurrnetUnits(UnitColor _color, UnitClass _class) => CurrentUnitManager.GetUnits(_color, _class);
 
 

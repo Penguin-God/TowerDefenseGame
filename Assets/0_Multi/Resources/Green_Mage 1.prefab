@@ -14720,7 +14720,7 @@ GameObject:
   - component: {fileID: 5466232920330778380}
   m_Layer: 9
   m_Name: Green_Mage 1
-  m_TagString: Untagged
+  m_TagString: GreenMage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

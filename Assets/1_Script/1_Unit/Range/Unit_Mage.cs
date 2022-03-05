@@ -44,11 +44,6 @@ public class Unit_Mage : RangeUnit, IEvent
         if (target != null && enemyDistance < chaseRange)
         {
             poolManager.UsedWeapon(energyBallTransform, Get_ShootDirection(2f, target), 50, (Enemy enemy) => delegate_OnHit(enemy));
-            //CollisionWeapon UseWeapon = GetWeapon_FromPool();
-            //UseWeapon.transform.position = energyBallTransform.position;
-            //UseWeapon.Shoot(Get_ShootDirection(2f, target), 50, (Enemy enemy) => delegate_OnHit(enemy));
-            //GameObject instantEnergyBall = CreateBullte(energyBall, energyBallTransform, delegate_OnHit);
-            //ShotBullet(instantEnergyBall, 2f, 50f, target);
         }
 
         yield return new WaitForSeconds(0.5f);

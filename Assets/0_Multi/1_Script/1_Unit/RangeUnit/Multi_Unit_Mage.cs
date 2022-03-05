@@ -123,12 +123,12 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         nav.isStopped = true;
         animator.SetTrigger("isAttack");
         yield return new WaitForSeconds(0.7f);
-
-        AddMana(plusMana);
         magicLight.SetActive(true);
+
         if (target != null && enemyDistance < chaseRange && pv.IsMine)
         {
             poolManager.UsedWeapon(energyBallTransform, Get_ShootDirection(2f, target), 50, (Multi_Enemy enemy) => delegate_OnHit(enemy));
+            pv.RPC("AddMana", RpcTarget.All, plusMana);
         }
 
         yield return new WaitForSeconds(0.5f);
@@ -138,15 +138,15 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         EndAttack();
     }
 
-
+    [SerializeField] float mageSkillCoolDownTime;
     public bool isUltimate; // 스킬 강화
     protected event Action OnUltimateSkile; // 강화는 isUltimate가 true될 때까지 코루틴에서 WaitUntil로 대기 후 추가함
     public override void SpecialAttack()
     {
-        isAttack = false;
-        isAttackDelayTime = false;
-        if(pv.IsMine) MageSkile();
         SetMageSkillStatus();
+        if (pv.IsMine) MageSkile();
+        PlaySkileAudioClip();
+        SkillCoolDown(mageSkillCoolDownTime);
         if (OnUltimateSkile != null) OnUltimateSkile();
     }
 
@@ -155,32 +155,25 @@ public class Multi_Unit_Mage : Multi_RangeUnit
 
     protected void SetMageSkillStatus()
     {
-        isSkillAttack = true;
+        base.SpecialAttack();
         ClearMana();
-        StartCoroutine(Co_SkillCoolDown());
-        PlaySkileAudioClip();
-    }
-
-    [SerializeField] float mageSkillCoolDownTime;
-    IEnumerator Co_SkillCoolDown()
-    {
-        yield return new WaitForSeconds(mageSkillCoolDownTime);
-        isSkillAttack = false;
     }
 
 
     // 마나
     [SerializeField] private int maxMana;
     [SerializeField] private int currentMana;
+    [PunRPC]
     public void AddMana(int addMana)
     {
         if (unitColor == UnitColor.white) return;
+
         currentMana += addMana;
         manaSlider.value = currentMana;
         if (currentMana >= maxMana) isMageSkillAttack = true;
     }
 
-    public void ClearMana()
+    void ClearMana()
     {
         currentMana = 0;
         manaSlider.value = 0;
@@ -189,15 +182,17 @@ public class Multi_Unit_Mage : Multi_RangeUnit
 
     private RectTransform canvasRectTransform;
     private Slider manaSlider;
+    Vector3 sliderDir = new Vector3(90, 0, 0);
     IEnumerator Co_SetCanvas()
     {
         if (unitColor == UnitColor.white) yield break;
         while (true)
         {
-            canvasRectTransform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+            canvasRectTransform.rotation = Quaternion.Euler(sliderDir);
             yield return null;
         }
     }
+
 
     // 사운드
     [SerializeField] AudioClip mageSkillCilp;

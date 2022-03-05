@@ -46,7 +46,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     public override void SpecialAttack() => StartCoroutine("Spearman_SpecialAttack");
     IEnumerator Spearman_SpecialAttack()
     {
-        isAttack = true;
+        base.SpecialAttack();
         animator.SetTrigger("isSpecialAttack");
         yield return new WaitForSeconds(1f);
 
@@ -66,6 +66,6 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         nav.isStopped = false;
         spear.SetActive(true);
 
-        EndAttack();
+        SkillCoolDown(skillCoolDownTime);
     }
 }

@@ -833,6 +833,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 614528472}
     m_Modifications:
+    - target: {fileID: 1764443702, guid: 6fb26cd5535979c4da4f7364775db525, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 1739437672444174709, guid: 6fb26cd5535979c4da4f7364775db525,
         type: 3}
       propertyPath: m_Name
@@ -947,6 +951,11 @@ PrefabInstance:
         type: 3}
       propertyPath: sceneViewId
       value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6293471264203749302, guid: fc9660ca2d4c8b14d96f5736b96ac310,
+        type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9215755468416000322, guid: fc9660ca2d4c8b14d96f5736b96ac310,
         type: 3}
@@ -1128,6 +1137,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 614528472}
     m_Modifications:
+    - target: {fileID: 1634604731, guid: 711ba7972069d144c857d37f97621a93, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 2357315067319308685, guid: 711ba7972069d144c857d37f97621a93,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1356,12 +1369,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 390086568}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &390086571 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4841617210835731057, guid: 06d81a176f912094a9b7eb87f6e384cc,
-    type: 3}
-  m_PrefabInstance: {fileID: 390086568}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &390325237
 GameObject:
   m_ObjectHideFlags: 0
@@ -1483,6 +1490,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 614528472}
     m_Modifications:
+    - target: {fileID: 727887930, guid: 0fdf2d2517fd64742b7c11e557b4fe81, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 4199548222911104336, guid: 0fdf2d2517fd64742b7c11e557b4fe81,
         type: 3}
       propertyPath: m_Name
@@ -1672,6 +1683,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1167776466}
     m_Modifications:
+    - target: {fileID: 1390773001, guid: 7c5360268753c724cadf6a18ce70196b, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3992362175603233381, guid: 7c5360268753c724cadf6a18ce70196b,
         type: 3}
       propertyPath: sceneViewId
@@ -1820,6 +1835,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 390325238}
     m_Modifications:
+    - target: {fileID: 544929882, guid: 18d5341e080ee52409c23a63c85af0f3, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7953183368782943606, guid: 18d5341e080ee52409c23a63c85af0f3,
         type: 3}
       propertyPath: m_Name
@@ -2352,6 +2371,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1167776466}
     m_Modifications:
+    - target: {fileID: 1839688268, guid: 393139d0287003a4ebd679ce6d64b0e2, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1004225955410913683, guid: 393139d0287003a4ebd679ce6d64b0e2,
         type: 3}
       propertyPath: sceneViewId
@@ -2630,6 +2653,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 614528472}
     m_Modifications:
+    - target: {fileID: 1354689876, guid: 954c46c9b754d264e854c719d6513caa, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 3686507693581357682, guid: 954c46c9b754d264e854c719d6513caa,
         type: 3}
       propertyPath: sceneViewId
@@ -2785,6 +2812,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1167776466}
     m_Modifications:
+    - target: {fileID: 1582340599, guid: 9ab00e28296ec7b41b883a45f8e1cb21, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6040848935930658276, guid: 9ab00e28296ec7b41b883a45f8e1cb21,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3973,6 +4004,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1167776466}
     m_Modifications:
+    - target: {fileID: 2015655338, guid: e352780835250a04ab423536560adad1, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 677298355195616117, guid: e352780835250a04ab423536560adad1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4128,6 +4163,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 614528472}
     m_Modifications:
+    - target: {fileID: 940596332, guid: 015f3949f4b1da64192a9961a092d373, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 716758046504555196, guid: 015f3949f4b1da64192a9961a092d373,
         type: 3}
       propertyPath: m_Name
@@ -4812,6 +4851,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1167776466}
     m_Modifications:
+    - target: {fileID: 1961679773, guid: 8f3316f19b0618f4aa017f9f3dbb6ca1, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1242346495604130007, guid: 8f3316f19b0618f4aa017f9f3dbb6ca1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -4926,11 +4969,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 390325238}
     m_Modifications:
-    - target: {fileID: 1607135977233665466, guid: ad7edae7215404b4681413399a03bce4,
-        type: 3}
-      propertyPath: magicLight
-      value: 
-      objectReference: {fileID: 390086571}
     - target: {fileID: 5512811997297203013, guid: ad7edae7215404b4681413399a03bce4,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -5244,6 +5282,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1167776466}
     m_Modifications:
+    - target: {fileID: 1016070764, guid: c2616e255ba235f4883f5c2741a2b1d3, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 156209486583295495, guid: c2616e255ba235f4883f5c2741a2b1d3,
         type: 3}
       propertyPath: sceneViewId
@@ -5324,6 +5366,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1167776466}
     m_Modifications:
+    - target: {fileID: 974208759, guid: 1d4e8481de007004ea6f7b9e8ec5cb52, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3674467573017247206, guid: 1d4e8481de007004ea6f7b9e8ec5cb52,
         type: 3}
       propertyPath: m_Name
@@ -5588,6 +5634,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 614528472}
     m_Modifications:
+    - target: {fileID: 973265129, guid: 19c48d3b26638124089e9af58530e924, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 4248066562839049880, guid: 19c48d3b26638124089e9af58530e924,
         type: 3}
       propertyPath: sceneViewId
@@ -5823,6 +5873,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 614528472}
     m_Modifications:
+    - target: {fileID: 530997523, guid: c57c9cf6c8eec9449bc5a543b6a383ca, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 5888111327344503064, guid: c57c9cf6c8eec9449bc5a543b6a383ca,
         type: 3}
       propertyPath: sceneViewId
@@ -6536,6 +6590,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1167776466}
     m_Modifications:
+    - target: {fileID: 1266299123, guid: 3fbf7bc0c9eaaeb48ba0c3eda18b9e33, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 3173048112267009847, guid: 3fbf7bc0c9eaaeb48ba0c3eda18b9e33,
         type: 3}
       propertyPath: m_Name
@@ -7091,6 +7149,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 614528472}
     m_Modifications:
+    - target: {fileID: 1559299799, guid: 43ecaead65d68ce4dab17ab0974cf84c, type: 3}
+      propertyPath: skillCoolDownTime
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 1692198884791013169, guid: 43ecaead65d68ce4dab17ab0974cf84c,
         type: 3}
       propertyPath: sceneViewId

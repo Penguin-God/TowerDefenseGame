@@ -6,7 +6,10 @@ using Photon.Pun;
 public class Multi_BounceEnergyball : MonoBehaviour
 {
     [SerializeField] float speed;
+    [SerializeField] float acceleration;
+    float originSpeed;
     AudioSource audioSource;
+
     Vector3 lastVelocity;
     Rigidbody rigid;
     MyPunRPC myPunRPC;
@@ -16,11 +19,12 @@ public class Multi_BounceEnergyball : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         rigid = GetComponent<Rigidbody>();
         myPunRPC = GetComponent<MyPunRPC>();
+        originSpeed = speed;
     }
 
     void OnEnable()
     {
-        myPunRPC.RPC_Velocity(transform.forward * speed);
+        speed = originSpeed;
     }
 
     private void Update()
@@ -43,6 +47,7 @@ public class Multi_BounceEnergyball : MonoBehaviour
         audioSource.Play();
 
         myPunRPC.RPC_Rotate(dir);
+        speed += acceleration;
         myPunRPC.RPC_Velocity(dir * speed);
     }
 }

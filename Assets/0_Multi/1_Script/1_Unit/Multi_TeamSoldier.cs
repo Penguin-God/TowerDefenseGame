@@ -60,7 +60,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public float originAttackDelayTime;
 
     public float speed;
-    public float attackDelayTime;
+    
     public float attackRange;
     public int damage;
     public int bossDamage;
@@ -71,8 +71,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     // 상태 변수(동기화되지 않음)
     public bool isAttack; // 공격 중에 true
     public bool isAttackDelayTime; // 공격 쿨타임 중에 true
+    public float attackDelayTime;
     // 나중에 유닛별 공격 조건 만들면서 없애기
     public bool isSkillAttack; // 스킬 공격 중에 true
+    public float skillCoolDownTime;
 
     public Transform target;
     protected Multi_Enemy TargetEnemy { get { return target.GetComponent<Multi_Enemy>(); } }
@@ -260,13 +262,14 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         }
     }
 
+    bool isRPC; // RPC딜레이 때문에 공격 2번 이상하는 버그 방지 변수
     [SerializeField] private int specialAttackPercent;
-    [PunRPC] // 마스터 클라이언트에서만 실행
-    public void UnitAttack()
+    void UnitAttack()
     {
-        // RPC딜레이 때문에 여기서 상태 변수 바꿈
-        isAttack = true;
-        isAttackDelayTime = true;
+        if (isRPC) return;
+        isRPC = true;
+        Debug.Log("22");
+
         pv.RPC("AttackFromHost", RpcTarget.MasterClient);
     }
 
@@ -283,13 +286,18 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         if (_isNormal) NormalAttack();
         else SpecialAttack();
+        isRPC = false;
     }
 
     // 유닛들의 고유한 공격을 구현하는 가상 함수
     public virtual void NormalAttack() {}
 
-    // 유닛마다 다른 스킬공격 (기사, 법사는 없음)
-    public virtual void SpecialAttack() {}
+    protected void StartAttack()
+    {
+        isAttack = true;
+        isAttackDelayTime = true;
+        StartCoroutine(Co_NormalAttackClipPlay());
+    }
 
     public void EndAttack()
     {
@@ -307,16 +315,24 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         isAttackDelayTime = false;
     }
 
-    protected void StartAttack()
-    {
-        StartCoroutine(Co_NormalAttackClipPlay());
-    }
-
     IEnumerator Co_NormalAttackClipPlay()
     {
         yield return new WaitForSeconds(normalAttakc_AudioDelay);
         if (enterStoryWorld == Multi_GameManager.instance.playerEnterStoryMode)
             unitAudioSource.PlayOneShot(normalAttackClip);
+    }
+
+    // 유닛마다 다른 스킬공격 (기사는 없음)
+    public virtual void SpecialAttack() 
+    {
+        isSkillAttack = true;
+    }
+
+    protected void SkillCoolDown(float _coolTime) => StartCoroutine(Co_SKillCoolDown(_coolTime));
+    IEnumerator Co_SKillCoolDown(float _coolTime)
+    {
+        yield return new WaitForSeconds(_coolTime);
+        isSkillAttack = false;
     }
 
 

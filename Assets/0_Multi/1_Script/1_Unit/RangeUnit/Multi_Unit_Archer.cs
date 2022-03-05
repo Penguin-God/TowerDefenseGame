@@ -21,11 +21,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         skillDamage = (int)(damage * 1.2f);
     }
 
-    public override void NormalAttack()
-    {
-        StartCoroutine("ArrowAttack");
-    }
-
+    public override void NormalAttack() => StartCoroutine("ArrowAttack");
     IEnumerator ArrowAttack()
     {
         base.StartAttack();
@@ -55,13 +51,12 @@ public class Multi_Unit_Archer : Multi_RangeUnit
 
     IEnumerator Special_ArcherAttack()
     {
-        base.StartAttack();
-        isAttackDelayTime = true;
+        base.SpecialAttack();
         nav.angularSpeed = 1;
         trail.SetActive(false);
 
         int enemyCount = 3;
-        Transform[] targetArray = Set_AttackTarget(target, Multi_EnemySpawner.instance.currentNormalEnemyList, enemyCount);
+        Transform[] targetArray = GetTargets(target, Multi_EnemySpawner.instance.currentNormalEnemyList, enemyCount);
         for (int i = 0; i < targetArray.Length; i++)
         {
             poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, targetArray[i]), 50, (Multi_Enemy enemy) => delegate_OnSkile(enemy));
@@ -71,11 +66,11 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         trail.SetActive(true);
         nav.angularSpeed = 1000;
 
-        EndAttack();
+        SkillCoolDown(skillCoolDownTime);
     }
 
     // 현재 타겟을 포함해서 가장 가까운 적 count만큼의 Transform[]를 return하는 함수
-    Transform[] Set_AttackTarget(Transform p_Target, List<GameObject> currentEnemyList, int count)
+    Transform[] GetTargets(Transform p_Target, List<GameObject> currentEnemyList, int count)
     {
         if (currentEnemyList.Count == 0) return null;
 

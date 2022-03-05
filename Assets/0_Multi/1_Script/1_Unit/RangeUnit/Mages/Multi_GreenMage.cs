@@ -16,7 +16,7 @@ public class Multi_GreenMage : Multi_Unit_Mage
     void ShootSkill(Vector3 _pos)
     {
         GameObject _skill = UsedSkill(_pos);
-        _skill.GetComponent<Multi_Projectile>().Shot(_pos, Get_ShootDirection(2f, target), 50, (Multi_Enemy enemy) => delegate_OnHit(enemy));
+        _skill.GetComponent<Multi_Projectile>().Shot(_pos, Get_ShootDirection(2f, target), 100, (Multi_Enemy enemy) => delegate_OnHit(enemy));
     }
 
     public override void MageSkile()
@@ -30,11 +30,9 @@ public class Multi_GreenMage : Multi_Unit_Mage
         nav.isStopped = true;
         animator.SetTrigger("isAttack");
         yield return new WaitForSeconds(0.7f);
-        //magicLight.SetActive(true);
         if(skillAct != null) skillAct();
 
         yield return new WaitForSeconds(0.5f);
-        //magicLight.SetActive(false);
         nav.isStopped = false;
     }
 
@@ -44,7 +42,7 @@ public class Multi_GreenMage : Multi_Unit_Mage
         // 공 튕기는 동안에는 마나 충전 못하게 하기
         int savePlusMana = PlusMana;
         PlusMana = 0;
-        yield return new WaitUntil(() => !isSkillAttack);
+        yield return new WaitForSeconds(skillCoolDownTime); // skillCoolDownTime을 마나 제한 시간으로 사용
         PlusMana = savePlusMana;
     }
 

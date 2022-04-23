@@ -171,6 +171,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     private void OnDisable()
     {
+        // TODO : 게임 끌 때 아래 코드 때문에 에러 뜨니까 풀링 구조 바꾸기
         StopAllCoroutines();
         SetChaseSetting(null);
         rayHitTransform = null;
@@ -268,7 +269,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         if (isRPC) return;
         isRPC = true;
-        Debug.Log("22");
 
         pv.RPC("AttackFromHost", RpcTarget.MasterClient);
     }

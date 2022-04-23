@@ -205,7 +205,7 @@ public class Multi_UnitDataBase : MonoBehaviour
                 float _p6 = (cells[7].Trim() != "") ? float.Parse(cells[7]) : 0;
                 _passiveDataList.Add(new PassiveData(_name, _p1, _p2, _p3, _p4, _p5, _p6));
             }
-            else if (cells[0] != "") Debug.Log($"NONE : {cells[0]}");
+            //else if (cells[0] != "") Debug.Log($"NONE : {cells[0]}");
         }
 
         string jsonData = JsonUtility.ToJson(new UnitDataList<PassiveData>(_passiveDataList), true);

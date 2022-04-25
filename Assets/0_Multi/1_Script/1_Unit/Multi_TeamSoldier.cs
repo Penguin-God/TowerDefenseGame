@@ -69,6 +69,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public float stopDistanc;
 
     // 상태 변수(동기화되지 않음)
+    public bool enterStoryWorld; // 적군의 성 입장시 true
     public bool isAttack; // 공격 중에 true
     public bool isAttackDelayTime; // 공격 쿨타임 중에 true
     public float attackDelayTime;
@@ -90,11 +91,22 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public GameObject reinforceEffect;
     protected float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
 
+
     // 적에게 대미지 입히기, 패시브 적용 등의 역할을 하는 델리게이트
     public delegate void Delegate_OnHit(Multi_Enemy enemy);
     protected Delegate_OnHit delegate_OnHit; // 평타
     protected Delegate_OnHit delegate_OnSkile; // 스킬
     public event Delegate_OnHit delegate_OnPassive; // 패시브
+
+
+    #region Virual Funtion
+    public virtual void OnAwake() { } // 유닛마다 다른 Awake 세팅
+    public virtual void SetInherenceData() { } // 기본 데이터를 기반으로 유닛 고유 데이터 세팅
+    public virtual void NormalAttack() { } // 유닛들의 고유한 공격
+    public virtual void SpecialAttack() => isSkillAttack = true; // 유닛마다 다른 스킬공격 (기사는 없음)
+    public virtual void UnitTypeMove() { } // 유닛에 따른 움직임
+    #endregion
+
 
     private void Awake()
     {
@@ -128,10 +140,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         enemyDistance = 150f;
         nav.speed = this.speed;
 
-        // 유닛별 세팅
-        OnAwake();
+        OnAwake(); // 유닛별 세팅
     }
-    public virtual void OnAwake() { }
 
     protected void SetPoolObj(GameObject _obj, int _count)
     {
@@ -157,8 +167,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         //UnitManager.instance.ApplyUnitData(gameObject.tag, this);
         SetInherenceData();
     }
-    // 기본 데이터를 기반으로 유닛 고유 데이터 세팅
-    public virtual void SetInherenceData() { }
 
     void SetPassive()
     {
@@ -195,9 +203,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
-        // currnetEnemyList에서 가져온 가장 가까운 enemy의 정보를 가지고 nav 및 변수 설정
-        GameObject targetObject = GetProximateEnemy_AtList(Multi_EnemySpawner.instance.currentNormalEnemyList);
-        SetChaseSetting(targetObject);
+        // 현재 살아있는 enemy 중 가장 가까운 enemy의 정보를 가지고 nav 및 변수 설정
+        Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange);
+        //GameObject targetObject = GetProximateEnemy_AtList(Multi_EnemySpawner.instance.currentNormalEnemyList);
+        if(_target != null) SetChaseSetting(_target.gameObject);
     }
 
     public void SetChaseSetting(GameObject targetObject) // 추적 관련 변수 설정
@@ -214,6 +223,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             target = null;
         }
     }
+
+    // TODO : enemyManager같은 곳으로 이동
     // Proximate : 가장 가까운
     protected GameObject GetProximateEnemy_AtList(List<GameObject> _list)
     {
@@ -289,9 +300,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         isRPC = false;
     }
 
-    // 유닛들의 고유한 공격을 구현하는 가상 함수
-    public virtual void NormalAttack() {}
-
     protected void StartAttack()
     {
         isAttack = true;
@@ -322,11 +330,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             unitAudioSource.PlayOneShot(normalAttackClip);
     }
 
-    // 유닛마다 다른 스킬공격 (기사는 없음)
-    public virtual void SpecialAttack() 
-    {
-        isSkillAttack = true;
-    }
 
     protected void SkillCoolDown(float _coolTime) => StartCoroutine(Co_SKillCoolDown(_coolTime));
     IEnumerator Co_SKillCoolDown(float _coolTime)
@@ -336,14 +339,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     }
 
 
-    protected int layerMask; // Ray 감지용
-    [SerializeField]
-    protected float enemyDistance;
-    protected bool rayHit;
-    protected RaycastHit rayHitObject;
-
-    public bool enemyIsForward;
-
+    #region Enemy 추적
     private void Update()
     {
         if (target == null) return;
@@ -352,7 +348,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         enemyIsForward = Set_EnemyIsForword();
     }
 
-    public virtual void UnitTypeMove() { } // 유닛에 따른 이동
+    protected int layerMask; // Ray 감지용
+    [SerializeField] protected float enemyDistance;
+    protected bool rayHit;
+    protected RaycastHit rayHitObject;
+    public bool enemyIsForward;
+
     public Transform rayHitTransform;
     bool Set_EnemyIsForword()
     {
@@ -361,7 +362,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             rayHitTransform = rayHitObject.transform;
             if (rayHitTransform == null) return false;
 
-            if (CheckObjectIsBoss(rayHitTransform.gameObject) || rayHitTransform == target) return true;
+            if (TransformIsBoss(rayHitTransform) || rayHitTransform == target) return true;
+            // TODO : 거리 체크하는 조건 추가하기
             else if (ReturnLayerMask(rayHitTransform.gameObject) == layerMask)
             {
                 // ray에 맞은 적이 target은 아니지만 target과 같은 layer라면 두 enemy가 겹친 것으로 판단해 true를 리턴
@@ -372,22 +374,22 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         return false;
     }
 
-    bool CheckObjectIsBoss(GameObject enemy) // target을 사용하는게 아니라 킹쩔 수 없음
-    {
-        return enemy.CompareTag("Tower") || enemy.CompareTag("Boss");
-    }
-
     int ReturnLayerMask(GameObject targetObject) // 인자의 layer를 반환하는 함수
     {
         int layer = targetObject.layer;
         string layerName = LayerMask.LayerToName(layer);
         return 1 << LayerMask.NameToLayer(layerName);
     }
+    #endregion
 
 
+    #region enemy 관련 bool 값들
+    protected bool TargetIsNormalEnemy { get { return (target != null && target.GetComponent<Multi_Enemy>().enemyType == EnemyType.Normal); } }
+    bool TransformIsBoss(Transform enemy) => enemy.CompareTag("Tower") || enemy.CompareTag("Boss");
+    #endregion
 
 
-
+    #region Enemy Tower
     // 타워 때리는 무한반복 코루틴
     IEnumerator TowerNavCoroutine()
     {
@@ -428,9 +430,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         }
     }
 
-    //protected bool towerEnter; // 타워 충돌감지
-    public bool enterStoryWorld;
-
     public void Unit_WorldChange()
     {
         StopCoroutine("Unit_WorldChange_Coroutine");
@@ -447,7 +446,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         {
             // 적군의 성 때 겹치는 버그 방지
             nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-            transform.position = UnitManager.instance.Set_StroyModePosition();
+            transform.position = Multi_WorldPosUtility.Instance.GetEnemyTower_TP_Position();
             StopCoroutine("NavCoroutine");
             SetChaseSetting(EnemySpawn.instance.currentTower.gameObject);
             StartCoroutine("TowerNavCoroutine");
@@ -455,7 +454,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         else
         {
             nav.obstacleAvoidanceType = ObstacleAvoidanceType.GoodQualityObstacleAvoidance;
-            transform.position = SetRandomPosition(20, -20, 10, -10, false);
+            transform.position = Multi_WorldPosUtility.Instance.GetUnitSpawnPositon();
             StopCoroutine("TowerNavCoroutine");
             UpdateTarget();
             StartCoroutine("NavCoroutine");
@@ -465,24 +464,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         enterStoryWorld = !enterStoryWorld;
         SoundManager.instance.PlayEffectSound_ByName("TP_Unit");
     }
+    #endregion
 
-    Vector3 SetRandomPosition(float maxX, float minX, float maxZ, float minZ, bool isTower)
-    {
-        float randomX;
-        if (isTower)
-        {
-            float randomX_1 = Random.Range(minX, 480);
-            float randomX_2 = Random.Range(520, maxX);
-            int xArea = Random.Range(0, 2);
-            randomX = (xArea == 0) ? randomX_1 : randomX_2;
-        }
-        else randomX = Random.Range(minX, maxX);
-        float randomZ = Random.Range(minZ, maxZ);
-        return new Vector3(randomX, 0, randomZ);
-    }
 
-    // 현재 타겟이 노말인지 아닌지 나타내는 프로퍼티
-    protected bool TargetIsNormalEnemy { get { return (target != null && target.GetComponent<Multi_Enemy>().enemyType == EnemyType.Normal); } }
+    #region callback funtion
 
     void AttackEnemy(Multi_Enemy enemy) // Boss랑 쫄병 구분해서 대미지 적용
     {
@@ -490,6 +475,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         if (TargetIsNormalEnemy) enemy.photonView.RPC("OnDamage", RpcTarget.MasterClient, damage);
         else enemy.OnDamage(bossDamage);
     }
+    #endregion
 
 
     // 동기화

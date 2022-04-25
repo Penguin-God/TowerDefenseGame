@@ -119,25 +119,6 @@ public class Multi_UnitManager : MonoBehaviour
         }
     }
 
-
-
-    public Transform rangeTransfrom;
-    public Vector3 Set_StroyModePosition()
-    {
-        Vector3 standardPosition = rangeTransfrom.position;
-
-        BoxCollider rangeCollider = rangeTransfrom.gameObject.GetComponent<BoxCollider>();
-        float range_X = rangeCollider.GetComponent<BoxCollider>().bounds.size.x;
-        float range_Z = rangeCollider.GetComponent<BoxCollider>().bounds.size.z;
-        range_X = Random.Range(range_X / 2 * -1, range_X / 2);
-        range_Z = Random.Range(range_Z / 2 * -1, range_Z / 2);
-
-        Vector3 rangeVector = new Vector3(range_X, 0, range_Z);
-        Vector3 respawnPosition = standardPosition + rangeVector;
-        return respawnPosition;
-    }
-
-
     //public void ShowReinforceEffect(int colorNumber)
     //{
     //    for (int i = 0; i < unitArrays[colorNumber].unitArray.Length; i++)

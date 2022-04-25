@@ -91,8 +91,11 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     }
 
     //public int HighScore;
+    int stageUpGold;
     void Start()
     {
+        Multi_EnemySpawner.instance.OnStartNewStage += _stage => AddGold(stageUpGold);
+
         Wood = PlayerPrefs.GetInt("Wood");
         Iron = PlayerPrefs.GetInt("Iron");
         Hammer = PlayerPrefs.GetInt("Hammer");

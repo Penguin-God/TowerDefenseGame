@@ -15,20 +15,53 @@ public class Multi_Data : MonoBehaviourPun
         }
     }
 
-    int id;
+    private void Awake()
+    {
+        if (instance != this)
+        {
+            Debug.LogWarning("Multi Data 2개");
+            Destroy(gameObject);
+        }
 
+        SetMultiData();
+        SetDebugData();
+    }
+
+    void SetMultiData()
+    {
+        id = (PhotonNetwork.IsMasterClient) ? 0 : 1;
+
+        main_camera.transform.position = CameraPosition;
+    }
+
+    // id가 0이면 호스트 1이면 클라이언트 이 아이디를 이용해서 데이터를 정함
+    [SerializeField] int id;
+
+    // 배열의 0번째는 호스트 값 1번째는 클라이언트 값
     [SerializeField] Camera main_camera = null;
 
+    [Header("Camera")]
     // 카메라 포지션
     [SerializeField] Vector3[] cameraPositions = null;
-    public Vector3 CameraPosition => cameraPositions[id];
     public Vector3[] CameraPositions => cameraPositions;
+    public Vector3 CameraPosition => cameraPositions[id];
 
-    // 타워 카메라 포지션
-    [SerializeField] Vector3[] enemyTowerPositions = null;
-    public Vector3 EemeyTowerCamPosition => cameraPositions[id];
+    // 타워를 보는 카메라 포지션
+    [SerializeField] Vector3[] cameraPositions_LookAtTower = null;
+    public Vector3[] CameraPositions_LookAtTower => cameraPositions_LookAtTower;
+    public Vector3 CameraPosition_LookAtTower => cameraPositions_LookAtTower[id];
+    
+    [Header("World")]
+    
+    [SerializeField] Vector3[] worldPostions = null;
+    public Vector3[] WorldPostions => worldPostions;
+    public Vector3 WorldPostion => worldPostions[id];
+    
+    [SerializeField] Vector3[] enemyTowerWorldPositions = null;
+    public Vector3[] EnemyTowerWorldPositions => enemyTowerWorldPositions;
+    public Vector3 EnemyTowerWorldPosition => enemyTowerWorldPositions[id];
 
-
+    [Header("Enemy")]
     [SerializeField] Vector3[] enemySpawnPos = null;
     public Vector3 EnemySpawnPos => enemySpawnPos[id];
 
@@ -52,48 +85,18 @@ public class Multi_Data : MonoBehaviourPun
     public Transform EnemyTowerParent => enemyTowerSpawnPos[id];
     public Vector3 EnemyTowerSpawnPos => enemyTowerSpawnPos[id].position;
 
-
+    [Header("Unit")]
     [SerializeField] Vector3[] unitSpawnPos = null;
     [SerializeField] Vector3[] unitTowerSpawnPos = null;
 
-    public Vector3 UnitSpawnPos => unitSpawnPos[id] + GetAddPosition(-20, 20, -10, 10);
-    //public Vector3 UnitTowerSpawnPos => unitTowerSpawnPos[id] + GetAddPosition(-20, 20, -10, 10);
-
-    Vector3 GetAddPosition(float xMin, float xMax, float zMin, float zMax)
-    {
-        float xPos = Random.Range(xMin, xMax);
-        float zPos = Random.Range(zMin, zMax);
-
-        return new Vector3(xPos, 0, zPos);
-    }
-
-    private void Awake()
-    {
-        if(instance != this)
-        {
-            Debug.LogWarning("Multi Data 2개");
-            Destroy(gameObject);
-        }
-
-        SetMultiData();
-        SetDebugData();
-    }
-
-    void SetMultiData()
-    {
-        id = (PhotonNetwork.IsMasterClient) ? 0 : 1;
-
-        main_camera.transform.position = CameraPosition;
-    }
-
-    [Space][Space][Space]
-    [SerializeField] Vector3 debug_cameraPosition;
-    [SerializeField] Vector3 debug_enemyTowerPosition;
-    [SerializeField] Transform[] debug_EnemyTurnPoints;
+    [Header("Debug data")]
+    [SerializeField] Vector3 my_cameraPosition;
+    [SerializeField] Vector3 my_enemyTowerPosition;
+    [SerializeField] Transform[] my_EnemyTurnPoints;
     void SetDebugData()
     {
-        debug_cameraPosition = CameraPosition;
-        debug_enemyTowerPosition = EemeyTowerCamPosition;
-        debug_EnemyTurnPoints = EnemyTurnPoints;
+        my_cameraPosition = CameraPosition;
+        my_enemyTowerPosition = CameraPosition_LookAtTower;
+        my_EnemyTurnPoints = EnemyTurnPoints;
     }
 }

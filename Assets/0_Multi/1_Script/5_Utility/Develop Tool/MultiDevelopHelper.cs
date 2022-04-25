@@ -20,7 +20,7 @@ public class MultiDevelopHelper : MonoBehaviourPunCallbacks
         else PhotonNetwork.ConnectUsingSettings();
     }
 
-    public override void OnJoinedRoom() => PhotonNetwork.LoadLevel("박준 멀티");
+    public override void OnJoinedRoom() => PhotonNetwork.LoadLevel("New_Scene");
 
     // 방 접속 실패 시 방 생성
     public override void OnJoinRandomFailed(short returnCode, string message) => PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 2 });

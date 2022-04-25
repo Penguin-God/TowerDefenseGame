@@ -22,6 +22,8 @@ public class Multi_UIManager : MonoBehaviour
     {
         Multi_GameManager.instance.OnStart += Set_GameUI;
         Multi_GameManager.instance.OnStart += () => UpdateStageText(1);
+
+        Multi_EnemySpawner.instance.OnStartNewStage += UpdateStageText;
     }
 
     [SerializeField] GameObject title_UI;

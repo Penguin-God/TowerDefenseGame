@@ -16,7 +16,7 @@ public class PrefabSpawner : MonoBehaviourPun
     [PunRPC]
     public void SpawnUnit(string _name)
     {
-        PhotonNetwork.Instantiate(_name, Multi_Data.instance.UnitSpawnPos, Quaternion.identity);
+        PhotonNetwork.Instantiate(_name, Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(), Quaternion.identity);
     }
 
     public void SpawnUnit_ByClient(string _name)

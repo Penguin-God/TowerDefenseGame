@@ -758,7 +758,8 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         {
             if (Multi_GameManager.instance.Gold >= 5)
             {
-                createDefenser.photonView.RPC("CreateSoldier", RpcTarget.MasterClient, Colornumber, Soldiernumber, Multi_Data.instance.UnitSpawnPos);
+                createDefenser.photonView.RPC("CreateSoldier", RpcTarget.MasterClient, 
+                    Colornumber, Soldiernumber, Multi_WorldPosUtility.Instance.GetUnitSpawnPositon());
                 Multi_GameManager.instance.AddGold(-5);
             }
         }

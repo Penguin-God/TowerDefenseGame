@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using System;
+using Random = UnityEngine.Random;
 
 [System.Serializable]
 public struct NormalEnemyData
@@ -19,15 +21,9 @@ public struct NormalEnemyData
     }
 }
 
+// 웨이브 관리, enemy spawn
 public class Multi_EnemySpawner : MonoBehaviourPun
 {
-    public int stageNumber;
-    [SerializeField] int currentEenmyNumber = 0;
-    public int maxStage = 50;
-
-    [SerializeField] GameObject[] enemyPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
-    [SerializeField] GameObject[] bossPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
-
     public static Multi_EnemySpawner instance;
     private void Awake()
     {
@@ -42,6 +38,18 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         SetMultiValue();
     }
 
+    public int stageNumber;
+    [SerializeField] int currentEenmyNumber = 0;
+    public int maxStage = 50;
+
+    [SerializeField] GameObject[] enemyPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
+    [SerializeField] GameObject[] bossPrefab; // 0 : 아처, 1 : 마법사, 2 : 창병, 3 : 검사
+
+    #region events
+    public event Action<Multi_Enemy> OnEnemySpawn = null;
+    public event Action<int> OnStartNewStage = null;
+    
+    #endregion
 
     [SerializeField] Vector3 spawnPos;
     [SerializeField] Transform[] enemyTurnPoints = null;
@@ -65,7 +73,7 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     }
 
 
-    int poolEnemyCount; // 풀링을 위해 미리 생성하는 enemy 수
+    [SerializeField] int poolEnemyCount; // 풀링을 위해 미리 생성하는 enemy 수
     Queue<GameObject>[] poolQueues = new Queue<GameObject>[4];
 
     public List<GameObject> currentNormalEnemyList = new List<GameObject>();
@@ -115,7 +123,7 @@ public class Multi_EnemySpawner : MonoBehaviourPun
 
     public List<NormalEnemyData> debugData = new List<NormalEnemyData>();
 
-    [PunRPC]
+    [PunRPC] //  RPC에서 사용
     void AddEnemyData(int _stage, int _enemyNum, int _hp, float _speed)
     {
         NormalEnemyData _data = new NormalEnemyData(_enemyNum, _hp, _speed);
@@ -150,12 +158,11 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     }
 
 
-    void UpStage(int _addGold, int _upCount = 1)
+    void UpdateStage() // 나중에 스테이지를 2개 이상 건너뛰는 기능을 만들지도?
     {
-        stageNumber += _upCount;
-        Multi_UIManager.instance.UpdateStageText(stageNumber);
+        stageNumber += 1;
+        OnStartNewStage?.Invoke(stageNumber);
 
-        Multi_GameManager.instance.AddGold(_addGold);
         timerSlider.maxValue = stageTime;
         timerSlider.value = stageTime;
 
@@ -164,7 +171,7 @@ public class Multi_EnemySpawner : MonoBehaviourPun
 
     public void NewStageStart() // 무한반복하는 재귀 함수( Co_Stage() 마지막 부분에 다시 NewStageStart()를 호출함)
     {
-        UpStage(stageGold);
+        UpdateStage();
 
         currentEenmyNumber = enemyDataDic[stageNumber].number;
         int _hp = enemyDataDic[stageNumber].hp;
@@ -202,9 +209,11 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     {
         respawnEnemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("SetPos", RpcTarget.All, spawnPos);
         respawnEnemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("Setup", RpcTarget.All, hp, speed);
+        OnEnemySpawn?.Invoke(respawnEnemy.GetComponent<Multi_Enemy>());
         AddCurrentEnemyList(currentNormalEnemyList, respawnEnemy);
     }
 
+    // TODO : enemyManager로 이동
     void AddCurrentEnemyList(List<GameObject> addList, GameObject enemyObj)
     {
         addList.Add(enemyObj);
@@ -213,7 +222,6 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     }
 
     [SerializeField] GameObject skipButton = null;
-    public int stageGold;
     public float stageTime = 40f;
 
     public void Skip() // 버튼에서 사용
@@ -228,27 +236,19 @@ public class Multi_EnemySpawner : MonoBehaviourPun
             timerSlider.value -= Time.deltaTime;
     }
 
-    // 풀링 디버그용
-    //public int queueCount1 = 0;
-    //public int queueCount2 = 0;
-    //public int queueCount3 = 0;
-    //public int queueCount4 = 0;
-
-
-    public Multi_Enemy GetRandom_CurrentEnemy()
-    {
-        int index = Random.Range(0, currentNormalEnemyList.Count);
-        Multi_Enemy enemy = currentNormalEnemyList[index].GetComponent<Multi_Enemy>();
-        return enemy;
-    }
-
     void SetEnemyData(GameObject enemyObject, int hp, float speed) // enemy 능력치 설정
     {
         Multi_NormalEnemy nomalEnemy = enemyObject.GetComponentInChildren<Multi_NormalEnemy>();
         //nomalEnemy.SetStatus(hp, speed);
     }
 
+
+    // TODO : Boss랑 타워 스폰 구조 바꾸기
     // 보스 코드
+
+    public event Action OnBossRespawn = null;
+    public event Action<int> OnBossDead = null;
+
     public bool bossRespawn;
     public int bossLevel;
 
@@ -257,15 +257,16 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     public int bossRewordFood;
 
     [HideInInspector]
-    public List<EnemyBoss> currentBossList;
+    public List<Multi_BossEnemy> currentBossList;
 
     void RespawnBoss()
     {
         bossLevel++;
         bossRespawn = true;
-        Multi_GameManager.instance.ChangeBGM(Multi_GameManager.instance.bossbgmClip);
-
+        OnBossRespawn?.Invoke(); // 아직은 구독 안함
         SetBossStatus();
+
+        Multi_GameManager.instance.ChangeBGM(Multi_GameManager.instance.bossbgmClip);
         UnitManager.instance.UpdateTarget_CurrnetFieldUnit();
     }
 
@@ -279,25 +280,27 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         int hp = 10000 * (stageWeigh * Mathf.CeilToInt(enemyHpWeight / 15f)); // boss hp 정함
         SetEnemyData(instantBoss, hp, 10);
         instantBoss.transform.position = this.transform.position;
-        currentBossList.Add(instantBoss.GetComponentInChildren<EnemyBoss>());
+        currentBossList.Add(instantBoss.GetComponentInChildren<Multi_BossEnemy>());
         instantBoss.SetActive(true);
 
-        SetBossDeadAction(instantBoss.GetComponentInChildren<EnemyBoss>());
+        SetBossDeadAction(instantBoss.GetComponentInChildren<Multi_BossEnemy>());
     }
 
-    void SetBossDeadAction(EnemyBoss boss)
+    void SetBossDeadAction(Multi_BossEnemy boss)
     {
+        boss.OnDeath += () => OnBossDead(boss.Level);
+        boss.OnDeath += () => SetData(boss);
+
+        // TODO : 다 구독으로 옮기기
         boss.OnDeath += () => GetBossReword(bossRewordGold, bossRewordFood);
         boss.OnDeath += () => Get_UnitReword();
         boss.OnDeath += () => SoundManager.instance.PlayEffectSound_ByName("BossDeadClip");
         boss.OnDeath += () => Multi_GameManager.instance.ChangeBGM(Multi_GameManager.instance.bgmClip);
-        //boss.OnDeath += ClearGame;
-        boss.OnDeath += () => SetData(boss);
         boss.OnDeath += () => Multi_GameManager.instance.OnEventShop(bossLevel, TriggerType.Boss);
         boss.OnDeath += () => UnitManager.instance.UpdateTarget_CurrnetFieldUnit();
     }
 
-    void SetData(EnemyBoss boss)
+    void SetData(Multi_BossEnemy boss)
     {
         currentBossList.Remove(boss);
         bossRespawn = false;

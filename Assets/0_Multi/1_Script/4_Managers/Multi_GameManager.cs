@@ -95,6 +95,10 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     void Start()
     {
         Multi_EnemySpawner.instance.OnStartNewStage += _stage => AddGold(stageUpGold);
+        Multi_EnemySpawner.instance.OnBossDead += _level => ChangeBGM(bgmClip);
+
+        Multi_UIManager.instance.UpdateGoldText(Gold);
+        Multi_UIManager.instance.UpdateFoodText(Food);
 
         Wood = PlayerPrefs.GetInt("Wood");
         Iron = PlayerPrefs.GetInt("Iron");
@@ -105,8 +109,6 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
         Gold = 15 + StartGold;
         Food = 1  + StartFood;
         PlusTouchDamege = PlayerPrefs.GetInt("PlusTouchDamege");
-        Multi_UIManager.instance.UpdateGoldText(Gold);
-        Multi_UIManager.instance.UpdateFoodText(Food);
     }
 
     public void AddGold(int _addGold)

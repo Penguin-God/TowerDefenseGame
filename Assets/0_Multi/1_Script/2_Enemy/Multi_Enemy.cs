@@ -40,7 +40,16 @@ public class Multi_Enemy : MonoBehaviourPun
     }
 
     [PunRPC]
-    public virtual void Setup(int _hp, float _speed) { }
+    public virtual void Setup(int _hp, float _speed)
+    {
+        maxHp = _hp;
+        currentHp = _hp;
+        hpSlider.maxValue = _hp;
+        hpSlider.value = _hp;
+        maxSpeed = _speed;
+        speed = _speed;
+        isDead = false;
+    }
 
 
     [PunRPC]

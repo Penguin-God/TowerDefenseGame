@@ -21,6 +21,11 @@ public class Multi_UnitManager : MonoBehaviour
         unitDB = GetComponent<Multi_UnitDataBase>();
     }
 
+    void Start()
+    {
+        Multi_EnemySpawner.instance.OnBossDead += _level => UpdateTarget_CurrnetFieldUnit();
+    }
+
     Multi_UnitDataBase unitDB = null;
     public void ApplyUnitData(string _tag, Multi_TeamSoldier _team) => unitDB.ApplyUnitBaseData(_tag, _team);
     public void ApplyPassiveData(string _key, Multi_UnitPassive _passive, UnitColor _color) => unitDB.ApplyPassiveData(_key, _passive, _color);

@@ -21,11 +21,6 @@ public class Multi_UnitManager : MonoBehaviour
         unitDB = GetComponent<Multi_UnitDataBase>();
     }
 
-    void Start()
-    {
-        Multi_EnemySpawner.instance.OnBossDead += _level => UpdateTarget_CurrnetFieldUnit();
-    }
-
     Multi_UnitDataBase unitDB = null;
     public void ApplyUnitData(string _tag, Multi_TeamSoldier _team) => unitDB.ApplyUnitBaseData(_tag, _team);
     public void ApplyPassiveData(string _key, Multi_UnitPassive _passive, UnitColor _color) => unitDB.ApplyPassiveData(_key, _passive, _color);
@@ -133,23 +128,25 @@ public class Multi_UnitManager : MonoBehaviour
     //    }
     //}
 
-    public void UpdateTarget_CurrnetFieldUnit()
-    {
-        foreach (Multi_TeamSoldier unit in CurrentAllUnits)
-        {
-            if (unit == null) continue;
 
-            if (!unit.enterStoryWorld) unit.UpdateTarget();
-        }
-    }
+    // TODO : 이제 쓸 일 없는 쓰레기인데 남겨는 둠
+    //public void UpdateTarget_CurrnetFieldUnit()
+    //{
+    //    foreach (Multi_TeamSoldier unit in CurrentAllUnits)
+    //    {
+    //        if (unit == null) continue;
 
-    public void UpdateTarget_CurrnetStroyWolrdUnit(Transform _newTarget)
-    {
-        foreach (Multi_TeamSoldier unit in CurrentAllUnits)
-        {
-            if (unit == null) continue;
+    //        if (!unit.enterStoryWorld) unit.UpdateTarget();
+    //    }
+    //}
 
-            if (unit.enterStoryWorld) unit.SetChaseSetting(_newTarget.gameObject);
-        }
-    }
+    //public void UpdateTarget_CurrnetStroyWolrdUnit(Transform _newTarget)
+    //{
+    //    foreach (Multi_TeamSoldier unit in CurrentAllUnits)
+    //    {
+    //        if (unit == null) continue;
+
+    //        if (unit.enterStoryWorld) unit.SetChaseSetting(_newTarget.gameObject);
+    //    }
+    //}
 }

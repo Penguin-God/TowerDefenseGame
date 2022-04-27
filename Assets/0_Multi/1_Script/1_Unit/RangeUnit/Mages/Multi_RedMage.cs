@@ -17,14 +17,14 @@ public class Multi_RedMage : Multi_Unit_Mage
     void SetHitSkile(GameObject skileObj)
     {
         GameObject _obj = skileObj.GetComponentInChildren<Multi_HitSkill>().gameObject;
-        _obj.GetComponent<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => HitMeteor(enemy);
+        _obj.GetComponent<Multi_HitSkill>().OnHitSkile += HitMeteor;
         _obj.GetComponent<MyPunRPC>().RPC_Active(false);
     }
 
     void HitMeteor(Multi_Enemy enemy)
     {
         enemy.photonView.RPC("OnDamage", RpcTarget.MasterClient, 400000);
-        enemy.photonView.RPC("OnStern", RpcTarget.MasterClient, 100, 5f);
+        enemy.OnStun(RpcTarget.MasterClient, 100, 5f);
     }
 
     [SerializeField] Vector3 meteorPos = (Vector3.up * 30) + (Vector3.forward * 5);

@@ -12,7 +12,7 @@ public class Multi_VioletMage : Multi_Unit_Mage
     }
 
     void SetSkill(GameObject _skill) => _skill.GetComponent<Multi_HitSkill>().OnHitSkile += 
-        (Multi_Enemy enemy) => enemy.photonView.RPC("OnPoison", RpcTarget.MasterClient, 25, 8, 0.3f, 120000);
+        (Multi_Enemy enemy) => enemy.OnPoison(RpcTarget.MasterClient, 25, 8, 0.3f, 120000);
 
     public override void MageSkile()
     {

@@ -143,6 +143,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         OnAwake(); // 유닛별 세팅
     }
 
+    void Start()
+    {
+        Multi_EnemySpawner.instance.OnBossSpawn += _boss => SetChaseSetting(_boss.gameObject);
+        Multi_EnemySpawner.instance.OnBossDead += _level => UpdateTarget();
+    }
+
     protected void SetPoolObj(GameObject _obj, int _count)
     {
         if(pv.IsMine) poolManager.SettingWeaponPool(_obj, _count);

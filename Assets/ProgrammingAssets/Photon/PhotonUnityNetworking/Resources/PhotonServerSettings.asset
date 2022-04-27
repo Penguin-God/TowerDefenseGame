@@ -34,62 +34,46 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
+  - AddEnemyData
+  - AddMana
+  - AttackFromHost
+  - ChangeColor
   - ClickRpc
+  - CreateClientSoldier
+  - CreateSoldier
   - DestroyRpc
   - DestroySpaceship
-  - Fire
-  - RespawnSpaceship
-  - SetPos
-  - SetStatus
-  - SetTransfrom
-  - SetVelocity
-  - SetNormalEnemyStatus
-  - Turn
-  - CreatePoolingEnemy
-  - OnEnemy
-  - ChaseToPoint
-  - SetFirstData
-  - SetUp
-  - Setup
-  - Spawn
-  - NewStageStart
-  - RPCOnStart
-  - SetDiffcult
-  - RPC_OnStart
-  - AddEnemyData
-  - NormalAttack
-  - CreateSoldier
-  - DrawSoldier
-  - CreateClientSoldier
-  - UnitAttack
-  - OnDamage
-  - UpdateHealth
-  - SpawnUnit
-  - Set_OriginSpeed
   - ExitSlow
-  - OnSlow
-  - SyncSpeed
-  - OnStern
-  - OnPoison
-  - OnAttack
-  - ChangeColor
   - ExitSturn
-  - ShowSturnEffetc
+  - Fire
+  - MeteorExplosion
+  - NormalAttack
+  - OnDamage
+  - OnEnemy
+  - OnFreeze
+  - OnPoison
+  - OnSkillEffect
+  - OnSlow
+  - OnStern
+  - RespawnSpaceship
+  - RPC_OnStart
   - SelectAttack
-  - EndAttack
-  - SetAttackStatus
-  - AttackFromHost
   - SetActive
-  - SetVector
-  - UsedWeapon
+  - SetPos
   - SetPosition
   - SetRotate
   - SetRotation
   - SetShotData
-  - OnFreeze
-  - OnSkillEffect
-  - MeteorExplosion
-  - AddMana
+  - Setup
+  - SetVelocity
+  - ShowSturnEffetc
+  - Spawn
+  - SpawnUnit
+  - SyncSpeed
+  - Turn
+  - UpdateHealth
+  - ExitStun
+  - OnStun
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

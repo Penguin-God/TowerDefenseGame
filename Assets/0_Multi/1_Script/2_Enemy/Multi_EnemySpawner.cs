@@ -6,7 +6,7 @@ using Photon.Pun;
 using System;
 using Random = UnityEngine.Random;
 
-[System.Serializable]
+[Serializable]
 public struct NormalEnemyData
 {
     public int number;
@@ -24,12 +24,17 @@ public struct NormalEnemyData
 // 웨이브 관리, enemy spawn
 public class Multi_EnemySpawner : MonoBehaviourPun
 {
+    // TODO : NormalEnemy Evnet 등록하기
     #region events
-    public event Action<Multi_Enemy> OnEnemySpawn = null;
+    public event Action<Multi_NormalEnemy> OnNormalEnemySpawn = null;
+    public event Action<Multi_NormalEnemy> OnNormalEnemyDead = null;
+
     public event Action<Multi_BossEnemy> OnBossSpawn = null;
     public event Action<int> OnBossDead = null;
+
     public event Action<Multi_EnemyTower> OnTowerSpawn = null;
     public event Action<int> OnTowerDead = null;
+
     public event Action<int> OnStartNewStage = null;
     #endregion
 
@@ -212,7 +217,7 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     {
         respawnEnemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("SetPos", RpcTarget.All, spawnPos);
         respawnEnemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("Setup", RpcTarget.All, hp, speed);
-        OnEnemySpawn?.Invoke(respawnEnemy.GetComponent<Multi_Enemy>());
+        OnNormalEnemySpawn?.Invoke(respawnEnemy.GetComponent<Multi_NormalEnemy>());
         AddCurrentEnemyList(currentNormalEnemyList, respawnEnemy);
     }
 

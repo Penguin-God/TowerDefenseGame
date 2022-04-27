@@ -28,17 +28,21 @@ public class Multi_Enemy : MonoBehaviourPun
     protected Rigidbody Rigidbody;
     protected List<MeshRenderer> meshList;
     [SerializeField] protected Material originMat;
+
+    PhotonView _PV;
+    public event Action OnDeath = null;
+
     private void Start()
     {
-        // 타워랑 일반 적들 구조가 달라서 나중에 if문으로 나눠야됨
         // originMat = GetComponentInChildren<MeshRenderer>().material;
-        IsNonePassive = (GetComponent<MageEnemy>() != null);
+        _PV = GetComponent<PhotonView>();
         meshList = new List<MeshRenderer>();
         MeshRenderer[] addMeshs = GetComponentsInChildren<MeshRenderer>();
         for (int i = 0; i < addMeshs.Length; i++) meshList.Add(addMeshs[i]);
         gameObject.SetActive(false);
     }
 
+    // TODO : Setup 부분 리펙토링하기
     [PunRPC]
     public virtual void Setup(int _hp, float _speed)
     {
@@ -51,7 +55,8 @@ public class Multi_Enemy : MonoBehaviourPun
         isDead = false;
     }
 
-
+    // TODO : OnDamage 구조 확인하고 문제 있으면 리펙토링하기
+    //public void OnDamage(RpcTarget target, int damage) => _PV.RPC("OnDamage", target, damage);
     [PunRPC]
     public void OnDamage(int damage)
     {
@@ -77,156 +82,45 @@ public class Multi_Enemy : MonoBehaviourPun
         hpSlider.value = currentHp;
     }
 
-    public Action OnDeath = null;
     public virtual void Dead()
     {
         ResetValue();
-
-        if (OnDeath != null) OnDeath();
+        OnDeath?.Invoke();
     }
 
-    void ResetValue()
+    protected virtual void ResetValue()
     {
-        sternEffect.SetActive(false);
-        queue_GetSturn.Clear();
         queue_HoldingPoison.Clear();
 
-        maxSpeed = 0;
-        speed = 0;
-        isDead = true;
         maxHp = 0;
         currentHp = 0;
         hpSlider.maxValue = 0;
         hpSlider.value = 0;
-    }
-
-
-
-
-    // 메이지는 패시브가 스킬 무효화
-    // 패시브는 호스트에서 적용 후 다른 플레이어에게 동기화하는 방식
-    // 패시브 테스트하는데 꼴받아서 임시로 MageEnemy로 함
-    private bool IsNonePassive;
-
-    [PunRPC]
-    public void OnSlow(float slowPercent, float slowTime)
-    {
-        if (IsNonePassive || isDead) return;
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            // 슬로우를 적용했을 때 현재 속도보다 느려져야만 슬로우 적용
-            if (maxSpeed - maxSpeed * (slowPercent / 100) <= speed)
-            {
-                speed = maxSpeed - maxSpeed * (slowPercent / 100);
-                Rigidbody.velocity = dir * speed;
-                photonView.RPC("SyncSpeed", RpcTarget.Others, speed);
-                photonView.RPC("ChangeColor", RpcTarget.All, 50, 175, 222, 1);
-
-                // 슬로우 시간 갱신 위한 코드
-                // 더 강하거나 비슷한 슬로우가 들어오면 작동 준비중이던 슬로우 탈출 코루틴은 나가리 되고 새로운 탈출 코루틴이 돌아감
-                if (exitSlowCoroutine != null && slowTime > 0) // 법사 패시브 때문에 slowTime > 0 조건 추가함
-                {
-                    StopCoroutine(exitSlowCoroutine);
-                }
-                if (slowTime > 0) exitSlowCoroutine = StartCoroutine(Co_ExitSlow(slowTime));
-            }
-        }
-    }
-
-    Coroutine exitSlowCoroutine = null;
-    IEnumerator Co_ExitSlow(float slowTime)
-    {
-        yield return new WaitForSeconds(slowTime);
-        photonView.RPC("ExitSlow", RpcTarget.All);
-    }
-
-    [PunRPC]
-    public void ExitSlow()
-    {
-        ChangeMat(originMat);
-        ChangeColor(255, 255, 255, 255);
-
-        // 스턴 상태가 아니라면 속도 복구
-        if (queue_GetSturn.Count <= 0 && photonView.IsMine) Set_OriginSpeed_ToAllPlayer();
-    }
-
-    [SerializeField] private Material freezeMat;
-    [PunRPC] // 얼리는 스킬
-    public void OnFreeze(float slowTime)
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            speed = 0;
-            Rigidbody.velocity = Vector3.zero;
-            photonView.RPC("SyncSpeed", RpcTarget.Others, speed);
-
-            if (exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine);
-            exitSlowCoroutine = StartCoroutine(Co_ExitSlow(slowTime));
-
-            photonView.RPC("OnFreeze", RpcTarget.Others, 0f); // if문 외의 코드 실행이 목적이므로 인자값은 의미없음
-        }
-
-        ChangeMat(freezeMat);
-    }
-
-
-
-
-    [PunRPC]
-    public void OnStern(int sternPercent, float sternTime)
-    {
-        if (IsNonePassive || isDead || !PhotonNetwork.IsMasterClient) return;
-
-        int random = UnityEngine.Random.Range(0, 100);
-        if (random < sternPercent) StartCoroutine(SternCoroutine(sternTime));
-    }
-
-    Queue<int> queue_GetSturn = new Queue<int>();
-    [SerializeField] private GameObject sternEffect;
-    IEnumerator SternCoroutine(float sternTime)
-    {
-        queue_GetSturn.Enqueue(-1);
+        maxSpeed = 0;
         speed = 0;
-        Rigidbody.velocity = dir * speed;
-
-        photonView.RPC("SyncSpeed", RpcTarget.Others, 0f);
-        photonView.RPC("ShowSturnEffetc", RpcTarget.All);
-        yield return new WaitForSeconds(sternTime);
-
-        if (queue_GetSturn.Count != 0) queue_GetSturn.Dequeue();
-        if (queue_GetSturn.Count == 0) photonView.RPC("ExitSturn", RpcTarget.All);
+        isDead = true;
     }
 
+    // 상태 이상은 호스트에서 적용 후 다른 플레이어에게 동기화하는 방식
+    public void OnSlow(RpcTarget _target, float slowPercent, float slowTime) => _PV.RPC("OnSlow", _target, slowPercent, slowTime);
+    [PunRPC] protected virtual void OnSlow(float slowPercent, float slowTime) { }
+
+    public void ExitSlow(RpcTarget _target) => _PV.RPC("ExitSlow", _target);
+    [PunRPC] protected virtual void ExitSlow() { }
+
+    public void OnFreeze(RpcTarget _target, float _freezeTime) => _PV.RPC("OnFreeze", _target, _freezeTime);
+    [PunRPC] protected virtual void OnFreeze(float slowTime) { } // 얼리는 스킬
+
+    public void OnStun(RpcTarget _target, int _stunPercent, float _stunTime) => _PV.RPC("OnStern", _target, _stunPercent, _stunTime);
+    [PunRPC] protected virtual void OnStun(int stunPercent, float stunTime) { }
+
+
+    public void OnPoison(RpcTarget _target, int poisonPercent, int poisonCount, float poisonDelay, int maxDamage) 
+        => _PV.RPC("OnPoison", _target, poisonPercent, poisonCount, poisonDelay, maxDamage);
     [PunRPC]
-    public void ExitSturn()
+    protected virtual void OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
     {
-        sternEffect.SetActive(false);
-        Set_OriginSpeed_ToAllPlayer();
-    }
-
-    [PunRPC]
-    public void ShowSturnEffetc()
-    {
-        sternEffect.SetActive(true);
-    }
-
-    [PunRPC] // sync : 동기화한다는 뜻의 동사
-    public void SyncSpeed(float _speed)
-    {
-        speed = _speed;
-        Rigidbody.velocity = dir * _speed;
-    }
-
-    // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기
-    void Set_OriginSpeed_ToAllPlayer() => photonView.RPC("SyncSpeed", RpcTarget.All, maxSpeed);
-
-
-
-    [PunRPC]
-    public void OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
-    {
-        if (IsNonePassive || isDead || !PhotonNetwork.IsMasterClient) return;
+        if (isDead || !PhotonNetwork.IsMasterClient) return;
 
         StartCoroutine(Co_OnPoison(poisonPercent, poisonCount, poisonDelay, maxDamage));
     }

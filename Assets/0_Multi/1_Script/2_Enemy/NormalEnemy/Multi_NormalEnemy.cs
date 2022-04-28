@@ -9,17 +9,21 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
 {
 
     [SerializeField] int enemyNumber = 0;
-    public int GetEnemyNumber { get { return enemyNumber; } }
+    public int GetEnemyNumber => enemyNumber;
 
     // 이동, 회전 관련 변수
     public Transform[] TurnPoints { get; set; } = null;
     private Transform WayPoint => TurnPoints[pointIndex];
     private int pointIndex = -1;
 
+    //private MyPunRPC myPunRPC;
+    //public MyPunRPC MyPunRPC => myPunRPC;
+
     private void Awake()
     {
         enemyType = EnemyType.Normal;
         Rigidbody = GetComponent<Rigidbody>();
+        //myPunRPC = GetComponent<MyPunRPC>();
     }
 
 
@@ -49,16 +53,11 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     }
 
     [PunRPC]
-    public override void Setup(int _hp, float _speed)
+    protected override void SetStatus(int _hp, float _speed, bool _isDead)
     {
-        maxHp = _hp;
-        currentHp = maxHp;
-        hpSlider.maxValue = maxHp;
-        hpSlider.value = maxHp;
-        this.maxSpeed = _speed;
-        this.speed = maxSpeed;
-        gameObject.SetActive(true);
+        base.SetStatus(_hp, _speed, _isDead);
         currentPos = transform.position;
+        gameObject.SetActive(true);
     }
 
     [PunRPC]

@@ -409,7 +409,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             {
                 Multi_EnemyTower currentTower = Multi_EnemySpawner.instance.CurrentTower;
                 yield return new WaitUntil(() => currentTower != null);
-                if (currentTower.isRespawn) SetChaseSetting(currentTower.gameObject);
+                if (!currentTower.isDead) SetChaseSetting(currentTower.gameObject);
                 else
                 {
                     yield return null;

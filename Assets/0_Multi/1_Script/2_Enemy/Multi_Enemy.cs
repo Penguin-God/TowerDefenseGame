@@ -42,9 +42,10 @@ public class Multi_Enemy : MonoBehaviourPun
         gameObject.SetActive(false);
     }
 
-    // TODO : Setup 부분 리펙토링하기
+    // TODO : SetStatus 부분 리펙토링하기
+    public void SetStatus(RpcTarget target, int _hp, float _speed, bool _isDead) => _PV.RPC("SetStatus", target, _hp, _speed, _isDead);
     [PunRPC]
-    public virtual void Setup(int _hp, float _speed)
+    protected virtual void SetStatus(int _hp, float _speed, bool _isDead)
     {
         maxHp = _hp;
         currentHp = _hp;
@@ -52,7 +53,7 @@ public class Multi_Enemy : MonoBehaviourPun
         hpSlider.value = _hp;
         maxSpeed = _speed;
         speed = _speed;
-        isDead = false;
+        isDead = _isDead;
     }
 
     // TODO : OnDamage 구조 확인하고 문제 있으면 리펙토링하기
@@ -91,14 +92,7 @@ public class Multi_Enemy : MonoBehaviourPun
     protected virtual void ResetValue()
     {
         queue_HoldingPoison.Clear();
-
-        maxHp = 0;
-        currentHp = 0;
-        hpSlider.maxValue = 0;
-        hpSlider.value = 0;
-        maxSpeed = 0;
-        speed = 0;
-        isDead = true;
+        SetStatus(0, 0, true);
     }
 
     // 상태 이상은 호스트에서 적용 후 다른 플레이어에게 동기화하는 방식

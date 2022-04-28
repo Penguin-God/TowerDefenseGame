@@ -49,6 +49,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         StartCoroutine(Special_ArcherAttack());
     }
 
+    // TODO : 아처 스킬 구조 뜯어 고치기
     IEnumerator Special_ArcherAttack()
     {
         base.SpecialAttack();
@@ -56,7 +57,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         trail.SetActive(false);
 
         int enemyCount = 3;
-        Transform[] targetArray = GetTargets(target, Multi_EnemySpawner.instance.currentNormalEnemyList, enemyCount);
+        Transform[] targetArray = null; //GetTargets(target, Multi_EnemySpawner.instance.currentNormalEnemyList, enemyCount);
         for (int i = 0; i < targetArray.Length; i++)
         {
             poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, targetArray[i]), 50, (Multi_Enemy enemy) => delegate_OnSkile(enemy));

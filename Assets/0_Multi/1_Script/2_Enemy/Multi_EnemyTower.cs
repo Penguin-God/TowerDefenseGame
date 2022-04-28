@@ -8,19 +8,11 @@ public class Multi_EnemyTower : Multi_Enemy
     public int level;
     public int rewardGold;
     public int rewardFood;
-    public bool isRespawn;
 
     [PunRPC]
-    public override void Setup(int _hp, float _speed)
+    protected override void SetStatus(int _hp, float _speed, bool _isDead)
     {
-        isRespawn = true;
-        maxHp = _hp;
-        currentHp = maxHp;
-        hpSlider.maxValue = maxHp;
-        hpSlider.value = maxHp;
-        isDead = false;
-        speed = 0;
-        maxSpeed = 0;
+        base.SetStatus(_hp, _speed, _isDead);
         dir = Vector3.zero;
     }
 
@@ -35,7 +27,6 @@ public class Multi_EnemyTower : Multi_Enemy
     {
         base.Dead();
 
-        isRespawn = false;
         gameObject.SetActive(false);
         transform.position = new Vector3(300, 300, 300);
         GetTowerReword();

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
+using Random = UnityEngine.Random;
 
 public class Multi_EnemyManager : MonoBehaviour
 {
@@ -25,9 +27,11 @@ public class Multi_EnemyManager : MonoBehaviour
     {
         Multi_EnemySpawner.instance.OnNormalEnemySpawn += AddEnemyAtList;
         Multi_EnemySpawner.instance.OnNormalEnemyDead += RemoveEnemyAtList;
+
         Multi_EnemySpawner.instance.OnBossSpawn += SetBoss;
         Multi_EnemySpawner.instance.OnBossDead += SetBoss;
         Multi_EnemySpawner.instance.OnBossDead += GetBossReward;
+
         Multi_EnemySpawner.instance.OnTowerSpawn += SetTower;
         Multi_EnemySpawner.instance.OnTowerDead += SetTower;
     }
@@ -36,7 +40,7 @@ public class Multi_EnemyManager : MonoBehaviour
     [SerializeField] List<Transform> allNormalEnemys = new List<Transform>();
     public IReadOnlyList<Transform> AllNormalEnemys => allNormalEnemys;
     public int EnemyCount => allNormalEnemys.Count;
-
+    public event Action<int> OnListChanged = null;
 
     [Header("Boss Enemy")]
     [SerializeField] Multi_BossEnemy currentBoss;
@@ -90,8 +94,16 @@ public class Multi_EnemyManager : MonoBehaviour
     }
 
     #region callback funtion
-    void AddEnemyAtList(Multi_NormalEnemy _enemy) => allNormalEnemys.Add(_enemy.transform);
-    void RemoveEnemyAtList(Multi_Enemy _enemy) => allNormalEnemys.Remove(_enemy.transform);
+    void AddEnemyAtList(Multi_NormalEnemy _enemy)
+    {
+        allNormalEnemys.Add(_enemy.transform);
+        OnListChanged?.Invoke(EnemyCount);
+    }
+    void RemoveEnemyAtList(Multi_Enemy _enemy)
+    {
+        allNormalEnemys.Remove(_enemy.transform);
+        OnListChanged?.Invoke(EnemyCount);
+    }
     void SetBoss(Multi_BossEnemy _spawnBoss) => currentBoss = _spawnBoss;
     void SetBoss(int _level) => currentBoss = null;
     void SetTower(Multi_EnemyTower _spawnTower) => currentEnemyTower = _spawnTower;

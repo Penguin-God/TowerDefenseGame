@@ -347,6 +347,7 @@ GameObject:
   - component: {fileID: 8301984772538128271}
   - component: {fileID: 8973375408006738935}
   - component: {fileID: -585793683502056607}
+  - component: {fileID: 1368214258582398593}
   m_Layer: 10
   m_Name: Enemy_Sworaman 1
   m_TagString: Untagged
@@ -430,9 +431,9 @@ MonoBehaviour:
   enemyType: 0
   dir: {x: 0, y: 0, z: 0}
   originMat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
+  enemyNumber: 3
   freezeMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
   sternEffect: {fileID: 3938378221336168419}
-  enemyNumber: 3
 --- !u!114 &-585793683502056607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -449,6 +450,18 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
+--- !u!114 &1368214258582398593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2694985329993272948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d50dbfb12cf6364f9afad5e688a8ebb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2694985330316391956
 GameObject:
   m_ObjectHideFlags: 0

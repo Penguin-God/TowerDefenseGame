@@ -56,7 +56,8 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         if (pv.IsMine)
         {
             Multi_Projectile weapon = poolManager.UsedWeapon(spearCreatePosition, transform.forward, 50, (Multi_Enemy enemy) => delegate_OnSkile(enemy));
-            weapon.GetComponent<MyPunRPC>().RPC_Rotate(new Vector3(90, 0, 0));
+            Multi_Managers.RPC.RPC_Rotate(weapon.photonView.ViewID, new Vector3(90, 0, 0));
+            //weapon.GetComponent<MyPunRPC>().RPC_Rotate(new Vector3(90, 0, 0));
         }
 
         if (enterStoryWorld == Multi_GameManager.instance.playerEnterStoryMode)

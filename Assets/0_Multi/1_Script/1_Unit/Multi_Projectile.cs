@@ -22,7 +22,7 @@ public class Multi_Projectile : MonoBehaviourPun
     {
         OnHit = null;
         OnHit = action;
-        if (!isAOE) OnHit += (Multi_Enemy enemy) => myRPC.RPC_Active(false);
+        if (!isAOE) OnHit += (Multi_Enemy enemy) => Multi_Managers.RPC.RPC_Active(photonView.ViewID, false);
         photonView.RPC("SetShotData", RpcTarget.All, pos, dir, speed);
     }
 

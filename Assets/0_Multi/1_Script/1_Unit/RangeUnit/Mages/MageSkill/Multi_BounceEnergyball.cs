@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Multi_BounceEnergyball : MonoBehaviour
+public class Multi_BounceEnergyball : MonoBehaviourPun
 {
     [SerializeField] float speed;
     [SerializeField] float acceleration;
@@ -46,8 +46,10 @@ public class Multi_BounceEnergyball : MonoBehaviour
         Vector3 dir = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
         audioSource.Play();
 
-        myPunRPC.RPC_Rotate(dir);
+        Multi_Managers.RPC.RPC_Rotate(photonView.ViewID, dir);
+        //myPunRPC.RPC_Rotate(dir);
         speed += acceleration;
-        myPunRPC.RPC_Velocity(dir * speed);
+        Multi_Managers.RPC.RPC_Velocity(photonView.ViewID, dir * speed);
+        //myPunRPC.RPC_Velocity(dir * speed);
     }
 }

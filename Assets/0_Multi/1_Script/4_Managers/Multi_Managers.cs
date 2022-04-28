@@ -20,9 +20,14 @@ public class Multi_Managers : MonoBehaviour
         }
     }
 
-    RPC_Manager _rpc = new RPC_Manager();
+    RPC_Manager _rpc;
     Multi_ResourcesManager _resources = new Multi_ResourcesManager();
 
     public static RPC_Manager RPC => Instance._rpc;
     public static Multi_ResourcesManager Resources => Instance._resources;
+
+    void Awake()
+    {
+        _rpc = GetComponent<RPC_Manager>();
+    }
 }

@@ -36,7 +36,8 @@ public class Multi_WeaponPoolManager : MonoBehaviourPun
     public Multi_Projectile GetWeapon_FromPool()
     {
         Multi_Projectile getWeapon = weaponPool.Dequeue();
-        getWeapon.myRPC.RPC_Active(true);
+        Multi_Managers.RPC.RPC_Active(getWeapon.photonView.ViewID, true);
+        //getWeapon.myRPC.RPC_Active(true);
         StartCoroutine(Co_ReturnWeapon_ToPool(getWeapon, 5f));
         return getWeapon;
     }
@@ -44,7 +45,8 @@ public class Multi_WeaponPoolManager : MonoBehaviourPun
     IEnumerator Co_ReturnWeapon_ToPool(Multi_Projectile _weapon, float time)
     {
         yield return new WaitForSeconds(time);
-        _weapon.myRPC.RPC_Active(false);
+        Multi_Managers.RPC.RPC_Active(_weapon.photonView.ViewID, true);
+        //_weapon.myRPC.RPC_Active(false);
         _weapon.transform.position = new Vector3(-500, -500, -500);
         weaponPool.Enqueue(_weapon);
     }

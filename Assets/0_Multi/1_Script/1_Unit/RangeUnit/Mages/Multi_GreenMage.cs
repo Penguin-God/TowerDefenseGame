@@ -59,7 +59,8 @@ public class Multi_GreenMage : Multi_Unit_Mage
         for (int i = 0; i < UltimateTransform.childCount; i++)
         {
             GameObject _skill = UsedSkill(UltimateTransform.GetChild(i).position);
-            _skill.GetComponent<MyPunRPC>().RPC_Rotation(UltimateTransform.GetChild(i).rotation);
+            Multi_Managers.RPC.RPC_Rotation(photonView.ViewID, UltimateTransform.GetChild(i).rotation);
+            //_skill.GetComponent<MyPunRPC>().RPC_Rotation(UltimateTransform.GetChild(i).rotation);
         }
     }
 }

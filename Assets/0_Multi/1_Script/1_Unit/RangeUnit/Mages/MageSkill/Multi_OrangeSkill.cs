@@ -30,7 +30,8 @@ public class Multi_OrangeSkill : MonoBehaviourPun
             yield return new WaitForSeconds(ps.startLifetime + 0.1f); // startLifetime
         }
 
-        myPunRPC.RPC_Active(false);
+        Multi_Managers.RPC.RPC_Active(photonView.ViewID, false);
+        //myPunRPC.RPC_Active(false);
     }
 
     void OrangeMageSkill(Multi_Enemy enemy, int damage)

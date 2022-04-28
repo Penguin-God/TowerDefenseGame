@@ -19,10 +19,13 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     //private MyPunRPC myPunRPC;
     //public MyPunRPC MyPunRPC => myPunRPC;
 
+    public virtual void Passive() { }
+
     private void Awake()
     {
         enemyType = EnemyType.Normal;
         Rigidbody = GetComponent<Rigidbody>();
+        TurnPoints = Multi_Data.instance.EnemyTurnPoints;
         //myPunRPC = GetComponent<MyPunRPC>();
     }
 
@@ -31,25 +34,8 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     {
         if (TurnPoints != null && photonView.IsMine)
         {
-            photonView.RPC("OnEnemy", RpcTarget.All); 
             ChaseToPoint();
         }
-    }
-
-    [PunRPC]
-    public void OnEnemy()
-    {
-        pointIndex = 0;
-        isDead = false;
-    }
-
-    public virtual void Passive() { }
-
-
-    [PunRPC]
-    public void SetPos(Vector3 pos)
-    {
-        transform.position = pos;
     }
 
     [PunRPC]
@@ -57,6 +43,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     {
         base.SetStatus(_hp, _speed, _isDead);
         currentPos = transform.position;
+        pointIndex = 0;
         gameObject.SetActive(true);
     }
 
@@ -68,20 +55,14 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         pointIndex++;
     }
 
-    public void ChaseToPoint()
+    private void ChaseToPoint()
     {
         if (pointIndex >= TurnPoints.Length) pointIndex = 0; // 무한반복을 위한 조건
 
         // 실제 이동을 위한 속도 설정
         dir = (WayPoint.position - transform.position).normalized;
-        photonView.RPC("SetVelocity", RpcTarget.All, dir, speed);
-    }
-
-    // 빠르게 자살하는 방법 : [PunRPC] 함수 private로 구현하기
-    [PunRPC]
-    public void SetVelocity(Vector3 _dir, float _speed)
-    {
-        Rigidbody.velocity = _dir * _speed;
+        Multi_Managers.RPC.RPC_Velocity(PV.ViewID, dir * speed);
+        //photonView.RPC("SetVelocity", RpcTarget.All, dir, speed);
     }
 
     private void OnTriggerEnter(Collider other)

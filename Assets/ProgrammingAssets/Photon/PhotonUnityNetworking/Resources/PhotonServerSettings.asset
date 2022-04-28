@@ -44,27 +44,25 @@ MonoBehaviour:
   - DestroyRpc
   - DestroySpaceship
   - ExitSlow
-  - ExitSturn
+  - ExitStun
   - Fire
   - MeteorExplosion
   - NormalAttack
   - OnDamage
-  - OnEnemy
   - OnFreeze
   - OnPoison
   - OnSkillEffect
   - OnSlow
-  - OnStern
+  - OnStun
   - RespawnSpaceship
   - RPC_OnStart
   - SelectAttack
   - SetActive
-  - SetPos
   - SetPosition
   - SetRotate
   - SetRotation
   - SetShotData
-  - Setup
+  - SetStatus
   - SetVelocity
   - ShowSturnEffetc
   - Spawn
@@ -72,9 +70,6 @@ MonoBehaviour:
   - SyncSpeed
   - Turn
   - UpdateHealth
-  - ExitStun
-  - OnStun
-  - SetStatus
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

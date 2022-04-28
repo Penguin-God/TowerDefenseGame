@@ -14,12 +14,14 @@ public class SkillObjectPoolManager : MonoBehaviourPun
         for (int i = 0; i < count; i++)
         {
             GameObject skill = PhotonNetwork.Instantiate(skillObj.name, new Vector3(-200, -200, -200), skillObj.transform.rotation);
-            skill.GetComponent<MyPunRPC>().RPC_Active(true);
+            Multi_Managers.RPC.RPC_Active(photonView.ViewID, true);
+            //skill.GetComponent<MyPunRPC>().RPC_Active(true);
 
             // Hit Event 설정해줘야 하는 법사들만 실행됨
             if (SettingSkileAction != null) SettingSkileAction(skill);
 
-            skill.GetComponent<MyPunRPC>().RPC_Active(false);
+            //skill.GetComponent<MyPunRPC>().RPC_Active(false);
+            Multi_Managers.RPC.RPC_Active(photonView.ViewID, false);
             skillObjectPool.Enqueue(skill);
         }
     }
@@ -27,14 +29,17 @@ public class SkillObjectPoolManager : MonoBehaviourPun
     public GameObject UsedSkill(Vector3 _position)
     {
         GameObject _skileObj = GetSkile_FromPool();
-        _skileObj.GetComponent<MyPunRPC>().RPC_Position(_position);
+
+        Multi_Managers.RPC.RPC_Position(photonView.ViewID, _position);
+        //_skileObj.GetComponent<MyPunRPC>().RPC_Position(_position);
         return _skileObj;
     }
 
     GameObject GetSkile_FromPool()
     {
         GameObject getSkile = skillObjectPool.Dequeue();
-        getSkile.GetComponent<MyPunRPC>().RPC_Active(true);
+        Multi_Managers.RPC.RPC_Active(photonView.ViewID, true);
+        //getSkile.GetComponent<MyPunRPC>().RPC_Active(true);
         StartCoroutine(Co_ReturnSkile_ToPool(getSkile, 5f));
         return getSkile;
     }
@@ -42,8 +47,10 @@ public class SkillObjectPoolManager : MonoBehaviourPun
     IEnumerator Co_ReturnSkile_ToPool(GameObject _skill, float time)
     {
         yield return new WaitForSeconds(time);
-        _skill.GetComponent<MyPunRPC>().RPC_Active(false);
-        _skill.GetComponent<MyPunRPC>().RPC_Position(new Vector3(200, 200, 200));
+        Multi_Managers.RPC.RPC_Active(photonView.ViewID, false);
+        Multi_Managers.RPC.RPC_Position(photonView.ViewID, new Vector3(200, 200, 200));
+        //_skill.GetComponent<MyPunRPC>().RPC_Active(false);
+        //_skill.GetComponent<MyPunRPC>().RPC_Position(new Vector3(200, 200, 200));
         skillObjectPool.Enqueue(_skill);
     }
 

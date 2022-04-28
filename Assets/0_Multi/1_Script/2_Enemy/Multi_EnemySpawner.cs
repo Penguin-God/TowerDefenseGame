@@ -31,7 +31,7 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     string GetJoinPath(string enemyTypePath, string enemyName) => $"{enemyTypePath}/{enemyName}";
     #endregion
 
-    // TODO : NormalEnemy Evnet 등록하기
+
     #region events
     public event Action<Multi_NormalEnemy> OnNormalEnemySpawn = null;
     public event Action<Multi_NormalEnemy> OnNormalEnemyDead = null;
@@ -226,10 +226,11 @@ public class Multi_EnemySpawner : MonoBehaviourPun
 
     void RespawnEnemy(GameObject respawnEnemy, int hp, float speed, Vector3 spawnPos)
     {
-        respawnEnemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("SetPos", RpcTarget.All, spawnPos);
-        respawnEnemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("Setup", RpcTarget.All, hp, speed);
+        Multi_NormalEnemy enemy = respawnEnemy.GetComponent<Multi_NormalEnemy>();
+        Multi_Managers.RPC.RPC_Position(enemy.PV.ViewID, spawnPos);
+        enemy.SetStatus(RpcTarget.All, hp, speed, false);
+        //respawnEnemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("Setup", RpcTarget.All, hp, speed);
         OnNormalEnemySpawn?.Invoke(respawnEnemy.GetComponent<Multi_NormalEnemy>());
-
     }
 
     void AddCurrentEnemyList(List<GameObject> addList, GameObject enemyObj)

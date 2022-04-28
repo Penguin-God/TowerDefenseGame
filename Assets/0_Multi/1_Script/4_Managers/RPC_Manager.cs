@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class RPC_Manager
+public class RPC_Manager : MonoBehaviourPun
 {
     // 위치
-    public void RPC_Position(PhotonView PV, Vector3 pos) => PV.RPC("SetPosition", RpcTarget.All, PV.ViewID, pos);
+    public void RPC_Position(int viewID, Vector3 pos) => photonView.RPC("SetPosition", RpcTarget.All, viewID, pos);
     [PunRPC] 
     private void SetPosition(int id, Vector3 pos)
     {
@@ -15,7 +15,7 @@ public class RPC_Manager
     }
 
     // 방향(쿼터니언) 대입
-    public void RPC_Rotation(PhotonView PV, Quaternion rot) => PV.RPC("SetRotation", RpcTarget.All, PV.ViewID, rot);
+    public void RPC_Rotation(int viewID, Quaternion rot) => photonView.RPC("SetRotation", RpcTarget.All, viewID, rot);
     [PunRPC] 
     private void SetRotation(int id, Quaternion rot)
     {
@@ -24,7 +24,7 @@ public class RPC_Manager
     }
 
     // 방향(백터) 회전
-    public void RPC_Rotate(PhotonView PV, Vector3 lookDir) => PV.RPC("SetRotate", RpcTarget.All, PV.ViewID, lookDir);
+    public void RPC_Rotate(int viewID, Vector3 lookDir) => photonView.RPC("SetRotate", RpcTarget.All, viewID, lookDir);
     [PunRPC] private void SetRotate(int id, Vector3 lookDir)
     {
         Transform target = GetTransformFromViewID(id);
@@ -32,7 +32,7 @@ public class RPC_Manager
     }
 
     // 활성상태
-    public void RPC_Active(PhotonView PV, bool isActive) => PV.RPC("SetActive", RpcTarget.All, PV.ViewID, isActive);
+    public void RPC_Active(int viewID, bool isActive) => photonView.RPC("SetActive", RpcTarget.All, viewID, isActive);
     [PunRPC] private void SetActive(int id, bool isActive)
     {
         GameObject target = GetGameObjectFromViewID(id);
@@ -40,7 +40,7 @@ public class RPC_Manager
     }
 
     // 속도
-    public void RPC_Velocity(PhotonView PV, Vector3 velo) => PV.RPC("SetVelocity", RpcTarget.All, PV.ViewID, velo);
+    public void RPC_Velocity(int viewID, Vector3 velo) => photonView.RPC("SetVelocity", RpcTarget.All, viewID, velo);
     [PunRPC]
     private void SetVelocity(int id, Vector3 velo)
     {

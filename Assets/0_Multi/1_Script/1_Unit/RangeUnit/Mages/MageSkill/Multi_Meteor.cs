@@ -20,7 +20,8 @@ public class Multi_Meteor : MonoBehaviourPun
     void ChasePosition(Vector3 chasePosition)
     {
         Vector3 _chaseVelocity = ((chasePosition - this.transform.position).normalized) * speed;
-        GetComponent<MyPunRPC>().RPC_Velocity(_chaseVelocity);
+        Multi_Managers.RPC.RPC_Velocity(photonView.ViewID, _chaseVelocity);
+        //GetComponent<MyPunRPC>().RPC_Velocity(_chaseVelocity);
     }
 
     private void OnTriggerEnter(Collider other)

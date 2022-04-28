@@ -30,6 +30,8 @@ public class Multi_Enemy : MonoBehaviourPun
     [SerializeField] protected Material originMat;
 
     PhotonView _PV;
+    public PhotonView PV => _PV;
+
     public event Action OnDeath = null;
 
     private void Start()

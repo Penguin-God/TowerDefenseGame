@@ -16,7 +16,7 @@ public class Multi_GreenMage : Multi_Unit_Mage
     void ShootSkill(Vector3 _pos)
     {
         GameObject _skill = UsedSkill(_pos);
-        _skill.GetComponent<Multi_Projectile>().Shot(_pos, Get_ShootDirection(2f, target), 100, (Multi_Enemy enemy) => delegate_OnHit(enemy));
+        _skill.GetComponent<Multi_Projectile>().Shot(_pos, Get_ShootDirection(2f, target), 100, (enemy) => OnSkile(enemy, ApplySkillDamage));
     }
 
     public override void MageSkile()
@@ -59,7 +59,7 @@ public class Multi_GreenMage : Multi_Unit_Mage
         for (int i = 0; i < UltimateTransform.childCount; i++)
         {
             GameObject _skill = UsedSkill(UltimateTransform.GetChild(i).position);
-            Multi_Managers.RPC.RPC_Rotation(photonView.ViewID, UltimateTransform.GetChild(i).rotation);
+            RPC_Utility.Instance.RPC_Rotation(photonView.ViewID, UltimateTransform.GetChild(i).rotation);
             //_skill.GetComponent<MyPunRPC>().RPC_Rotation(UltimateTransform.GetChild(i).rotation);
         }
     }

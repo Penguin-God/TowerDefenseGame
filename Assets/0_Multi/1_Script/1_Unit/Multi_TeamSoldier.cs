@@ -3,8 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
-using Photon.Realtime;
+using System;
+using Random = UnityEngine.Random;
 
+
+// TODO : 풀링 구조 바꾸기
+// TODO : 액션 사용하다가 실수했는데 그냥 구조 바꾸기
+// TODO : 액션을 사용하는 함수를 만들어서 투사체 인자값으로 전달하기
 public class Multi_WeaponPoolManager : MonoBehaviourPun
 {
     Queue<Multi_Projectile> weaponPool = new Queue<Multi_Projectile>();
@@ -23,7 +28,7 @@ public class Multi_WeaponPoolManager : MonoBehaviourPun
     }
 
     
-    public Multi_Projectile UsedWeapon(Transform weaponPos, Vector3 dir, int speed, System.Action<Multi_Enemy> hitAction)
+    public Multi_Projectile UsedWeapon(Transform weaponPos, Vector3 dir, int speed, Action<Multi_Enemy> hitAction)
     {
         Multi_Projectile UseWeapon = GetWeapon_FromPool();
         Vector3 pos = new Vector3(weaponPos.position.x, 2f, weaponPos.position.z);
@@ -36,7 +41,7 @@ public class Multi_WeaponPoolManager : MonoBehaviourPun
     public Multi_Projectile GetWeapon_FromPool()
     {
         Multi_Projectile getWeapon = weaponPool.Dequeue();
-        Multi_Managers.RPC.RPC_Active(getWeapon.photonView.ViewID, true);
+        RPC_Utility.Instance.RPC_Active(getWeapon.photonView.ViewID, true);
         //getWeapon.myRPC.RPC_Active(true);
         StartCoroutine(Co_ReturnWeapon_ToPool(getWeapon, 5f));
         return getWeapon;
@@ -45,7 +50,7 @@ public class Multi_WeaponPoolManager : MonoBehaviourPun
     IEnumerator Co_ReturnWeapon_ToPool(Multi_Projectile _weapon, float time)
     {
         yield return new WaitForSeconds(time);
-        Multi_Managers.RPC.RPC_Active(_weapon.photonView.ViewID, true);
+        RPC_Utility.Instance.RPC_Active(_weapon.photonView.ViewID, true);
         //_weapon.myRPC.RPC_Active(false);
         _weapon.transform.position = new Vector3(-500, -500, -500);
         weaponPool.Enqueue(_weapon);
@@ -95,11 +100,16 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
 
     // 적에게 대미지 입히기, 패시브 적용 등의 역할을 하는 델리게이트
-    public delegate void Delegate_OnHit(Multi_Enemy enemy);
-    protected Delegate_OnHit delegate_OnHit; // 평타
-    protected Delegate_OnHit delegate_OnSkile; // 스킬
-    public event Delegate_OnHit delegate_OnPassive; // 패시브
+    public delegate void AttactToEnemy(Multi_Enemy enemy);
+    //protected AttactToEnemy OnHit; // 평타
+    //protected AttactToEnemy OnSkile; // 스킬
+    //public event AttactToEnemy OnPassive; // 패시브
 
+    #region Events
+    public Action<Multi_Enemy, int, int> OnHit;
+    public Action<Multi_Enemy, int> OnSkile;
+    public event Action<Multi_Enemy> OnPassive;
+    #endregion
 
     #region Virual Funtion
     public virtual void OnAwake() { } // 유닛마다 다른 Awake 세팅
@@ -119,12 +129,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         SetPassive();
 
         // 평타 설정
-        delegate_OnHit += AttackEnemy;
-        delegate_OnHit += delegate_OnPassive;
+        OnHit += AttackEnemy;
+        OnHit += (enemy, dam, bossDam) => OnPassive(enemy);
         // 스킬 설정
         skillDamage = 150; // 테스트 코드
-        delegate_OnSkile += (Multi_Enemy enemy) => enemy.photonView.RPC("OnDamage", RpcTarget.MasterClient, ApplySkillDamage);
-        delegate_OnSkile += delegate_OnPassive;
+        OnSkile += AttackEnemy;
+        OnSkile += (enemy, dam) => OnPassive(enemy);
 
         // 유니티에서 class는 게임오브젝트의 컴포넌트로서만 작동하기 때문에 컴포넌트로 추가 후 사용해야한다.(폴더 내에 C#스크립트 생성 안해도 됨)
         // Unity초보자가 많이 하는 실수^^
@@ -180,7 +190,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         Multi_UnitPassive _passive = GetComponent<Multi_UnitPassive>();
         if (_passive == null) return;
-        if (delegate_OnPassive != null) delegate_OnPassive = null;
+        if (OnPassive != null) OnPassive = null;
         //UnitManager.instance.ApplyPassiveData(gameObject.tag, _passive, unitColor);
         _passive.SetPassive(this);
     }
@@ -477,12 +487,14 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     #region callback funtion
 
-    void AttackEnemy(Multi_Enemy enemy) // Boss랑 쫄병 구분해서 대미지 적용
+    void AttackEnemy(Multi_Enemy enemy, int _damage, int bossDamage) // Boss랑 쫄병 구분해서 대미지 적용
     {
-        damage = 100; // 테스트를 위한 임시 코드
-        if (TargetIsNormalEnemy) enemy.photonView.RPC("OnDamage", RpcTarget.MasterClient, damage);
-        else enemy.OnDamage(bossDamage);
+        _damage = 100;
+        if (TargetIsNormalEnemy) AttackEnemy(enemy, _damage);
+        else AttackEnemy(enemy, bossDamage);
     }
+
+    void AttackEnemy(Multi_Enemy enemy, int damage) => enemy.OnDamage(RpcTarget.MasterClient, damage);
     #endregion
 
 

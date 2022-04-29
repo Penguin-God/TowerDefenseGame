@@ -11,7 +11,8 @@ public class Multi_ResourcesManager
     }
 
     public GameObject PhotonInsantiate(string path, Transform parent = null) => PhotonInsantiate(path, Vector3.zero, Quaternion.identity, parent);
-
+    public GameObject PhotonInsantiate(string path, Vector3 position, Transform parent = null) 
+        => PhotonInsantiate(path, position, Quaternion.identity, parent);
     public GameObject PhotonInsantiate(string path, Vector3 position, Quaternion rotation, Transform parent = null)
     {
         GameObject prefab = Load<GameObject>($"Prefabs/{path}");

@@ -46,10 +46,10 @@ public class Multi_BounceEnergyball : MonoBehaviourPun
         Vector3 dir = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
         audioSource.Play();
 
-        Multi_Managers.RPC.RPC_Rotate(photonView.ViewID, dir);
+        RPC_Utility.Instance.RPC_Rotate(photonView.ViewID, dir);
         //myPunRPC.RPC_Rotate(dir);
         speed += acceleration;
-        Multi_Managers.RPC.RPC_Velocity(photonView.ViewID, dir * speed);
+        RPC_Utility.Instance.RPC_Velocity(photonView.ViewID, dir * speed);
         //myPunRPC.RPC_Velocity(dir * speed);
     }
 }

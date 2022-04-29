@@ -20,9 +20,7 @@ public class Multi_Projectile : MonoBehaviourPun
     private Action<Multi_Enemy> OnHit = null;
     public void Shot(Vector3 pos, Vector3 dir, int speed, Action<Multi_Enemy> action)
     {
-        OnHit = null;
         OnHit = action;
-        if (!isAOE) OnHit += (Multi_Enemy enemy) => Multi_Managers.RPC.RPC_Active(photonView.ViewID, false);
         photonView.RPC("SetShotData", RpcTarget.All, pos, dir, speed);
     }
 
@@ -35,16 +33,19 @@ public class Multi_Projectile : MonoBehaviourPun
         transform.rotation = lookDir;
     }
 
+    void HitEnemy(Multi_Enemy enemy)
+    {
+        OnHit?.Invoke(enemy);
+        if (!isAOE) RPC_Utility.Instance.RPC_Active(photonView.ViewID, false);
+        OnHit = null;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (photonView.IsMine)
         {
-            if (other.gameObject.GetComponentInParent<Multi_Enemy>() != null)
-            {
-                if (OnHit != null)
-                    OnHit(other.GetComponentInParent<Multi_Enemy>());
-            }
+            Multi_Enemy enemy = other.GetComponentInParent<Multi_Enemy>();
+            if (enemy != null) HitEnemy(enemy);
         }
     }
 }

@@ -18,7 +18,7 @@ public class Multi_RedMage : Multi_Unit_Mage
     {
         GameObject _obj = skileObj.GetComponentInChildren<Multi_HitSkill>().gameObject;
         _obj.GetComponent<Multi_HitSkill>().OnHitSkile += HitMeteor;
-        Multi_Managers.RPC.RPC_Active(photonView.ViewID, false);
+        RPC_Utility.Instance.RPC_Active(photonView.ViewID, false);
         //_obj.GetComponent<MyPunRPC>().RPC_Active(false);
     }
 

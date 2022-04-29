@@ -61,13 +61,13 @@ public class Multi_EnemyManager : MonoBehaviour
     public int CurrentEnemyTowerLevel => currentEnemyTowerLevel;
 
 
-    public Transform GetProximateEnemy(Vector3 _unitPos, float _startDistance)
+    public Transform GetProximateEnemy(Vector3 _unitPos, float _startDistance, List<Transform> _enemyList)
     {
-        Transform[] _enemys = allNormalEnemys.Select(x => x.transform).ToArray();
+        Transform[] _enemys = _enemyList.ToArray();
         float shortDistance = _startDistance;
         Transform _returnEnemy = null;
-        
-        if (_enemys.Length > 0)
+
+        if (_enemys != null && _enemys.Length > 0)
         {
             foreach (Transform _enemy in _enemys)
             {
@@ -84,6 +84,27 @@ public class Multi_EnemyManager : MonoBehaviour
         }
 
         return _returnEnemy;
+    }
+
+    public Transform GetProximateEnemy(Vector3 _unitPos, float _startDistance)
+        => GetProximateEnemy(_unitPos, _startDistance, allNormalEnemys);
+
+    public Transform[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int count, Transform currentTarget)
+    {
+        List<Transform> _enemys = new List<Transform>(allNormalEnemys);
+        Transform[] targets = new Transform[count];
+
+        for (int i = 0; i < count; i++)
+        {
+            print(allNormalEnemys.Count);
+            print(_enemys.Count);
+            if (_enemys.Count > 0) targets[i] = GetProximateEnemy(_unitPos, _startDistance);
+            else targets[i] = currentTarget;
+            print(allNormalEnemys.Count);
+            print(_enemys.Count);
+        }
+        
+        return targets;
     }
 
     public Multi_Enemy GetRandom_CurrentEnemy()

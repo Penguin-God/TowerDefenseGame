@@ -3,8 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class RPC_Manager : MonoBehaviourPun
+public class RPC_Utility : MonoBehaviourPun
 {
+    private static RPC_Utility instance;
+    public static RPC_Utility Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<RPC_Utility>();
+                if (instance == null)
+                {
+                    instance = new GameObject("RPC_Utility").AddComponent<RPC_Utility>();
+                    instance.gameObject.AddComponent<PhotonView>();
+                }
+            }
+
+            return instance;
+        }
+    }
+
     // 위치
     public void RPC_Position(int viewID, Vector3 pos) => photonView.RPC("SetPosition", RpcTarget.All, viewID, pos);
     [PunRPC] 

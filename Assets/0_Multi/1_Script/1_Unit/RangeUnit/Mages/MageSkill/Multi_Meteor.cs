@@ -20,7 +20,7 @@ public class Multi_Meteor : MonoBehaviourPun
     void ChasePosition(Vector3 chasePosition)
     {
         Vector3 _chaseVelocity = ((chasePosition - this.transform.position).normalized) * speed;
-        Multi_Managers.RPC.RPC_Velocity(photonView.ViewID, _chaseVelocity);
+        RPC_Utility.Instance.RPC_Velocity(photonView.ViewID, _chaseVelocity);
         //GetComponent<MyPunRPC>().RPC_Velocity(_chaseVelocity);
     }
 

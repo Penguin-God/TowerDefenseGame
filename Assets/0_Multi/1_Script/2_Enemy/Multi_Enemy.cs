@@ -58,8 +58,7 @@ public class Multi_Enemy : MonoBehaviourPun
         isDead = _isDead;
     }
 
-    // TODO : OnDamage 구조 확인하고 문제 있으면 리펙토링하기
-    //public void OnDamage(RpcTarget target, int damage) => _PV.RPC("OnDamage", target, damage);
+    public void OnDamage(RpcTarget target, int damage) => _PV.RPC("OnDamage", target, damage);
     [PunRPC]
     public void OnDamage(int damage)
     {
@@ -79,7 +78,7 @@ public class Multi_Enemy : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void UpdateHealth(int _newHp)
+    private void UpdateHealth(int _newHp)
     {
         currentHp = _newHp;
         hpSlider.value = currentHp;

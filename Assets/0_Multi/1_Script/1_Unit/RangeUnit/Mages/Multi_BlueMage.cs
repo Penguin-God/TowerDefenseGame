@@ -34,7 +34,7 @@ public class Multi_BlueMage : Multi_Unit_Mage
 
     void SkilleReinForce(GameObject _skill)
     {
-        _skill.GetComponent<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => enemy.OnDamage(20000);
+        _skill.GetComponent<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => enemy.OnDamage(RpcTarget.MasterClient, 20000);
     }
 
 

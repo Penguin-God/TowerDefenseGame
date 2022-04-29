@@ -33,8 +33,8 @@ public class Multi_CreateDefenser : MonoBehaviourPun
 
     public void CreateSoldier(int Colornumber, int Soldiernumber)
     {
-        Soldier =  
-            PhotonNetwork.Instantiate(allUnit[Colornumber].units[Soldiernumber].name, Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(), Quaternion.identity);
+        string soldierName = allUnit[Colornumber].units[Soldiernumber].name;
+        Soldier = Multi_Managers.Resources.PhotonInsantiate(soldierName, Multi_WorldPosUtility.Instance.GetUnitSpawnPositon());
         Soldier.SetActive(true);
     }
 

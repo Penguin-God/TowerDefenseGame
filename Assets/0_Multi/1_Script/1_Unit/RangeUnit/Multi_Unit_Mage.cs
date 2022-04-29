@@ -14,14 +14,14 @@ public class SkillObjectPoolManager : MonoBehaviourPun
         for (int i = 0; i < count; i++)
         {
             GameObject skill = PhotonNetwork.Instantiate(skillObj.name, new Vector3(-200, -200, -200), skillObj.transform.rotation);
-            Multi_Managers.RPC.RPC_Active(photonView.ViewID, true);
+            RPC_Utility.Instance.RPC_Active(photonView.ViewID, true);
             //skill.GetComponent<MyPunRPC>().RPC_Active(true);
 
             // Hit Event 설정해줘야 하는 법사들만 실행됨
             if (SettingSkileAction != null) SettingSkileAction(skill);
 
             //skill.GetComponent<MyPunRPC>().RPC_Active(false);
-            Multi_Managers.RPC.RPC_Active(photonView.ViewID, false);
+            RPC_Utility.Instance.RPC_Active(photonView.ViewID, false);
             skillObjectPool.Enqueue(skill);
         }
     }
@@ -30,7 +30,7 @@ public class SkillObjectPoolManager : MonoBehaviourPun
     {
         GameObject _skileObj = GetSkile_FromPool();
 
-        Multi_Managers.RPC.RPC_Position(photonView.ViewID, _position);
+        RPC_Utility.Instance.RPC_Position(photonView.ViewID, _position);
         //_skileObj.GetComponent<MyPunRPC>().RPC_Position(_position);
         return _skileObj;
     }
@@ -38,7 +38,7 @@ public class SkillObjectPoolManager : MonoBehaviourPun
     GameObject GetSkile_FromPool()
     {
         GameObject getSkile = skillObjectPool.Dequeue();
-        Multi_Managers.RPC.RPC_Active(photonView.ViewID, true);
+        RPC_Utility.Instance.RPC_Active(photonView.ViewID, true);
         //getSkile.GetComponent<MyPunRPC>().RPC_Active(true);
         StartCoroutine(Co_ReturnSkile_ToPool(getSkile, 5f));
         return getSkile;
@@ -47,8 +47,8 @@ public class SkillObjectPoolManager : MonoBehaviourPun
     IEnumerator Co_ReturnSkile_ToPool(GameObject _skill, float time)
     {
         yield return new WaitForSeconds(time);
-        Multi_Managers.RPC.RPC_Active(photonView.ViewID, false);
-        Multi_Managers.RPC.RPC_Position(photonView.ViewID, new Vector3(200, 200, 200));
+        RPC_Utility.Instance.RPC_Active(photonView.ViewID, false);
+        RPC_Utility.Instance.RPC_Position(photonView.ViewID, new Vector3(200, 200, 200));
         //_skill.GetComponent<MyPunRPC>().RPC_Active(false);
         //_skill.GetComponent<MyPunRPC>().RPC_Position(new Vector3(200, 200, 200));
         skillObjectPool.Enqueue(_skill);
@@ -134,7 +134,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
 
         if (target != null && enemyDistance < chaseRange && pv.IsMine)
         {
-            poolManager.UsedWeapon(energyBallTransform, Get_ShootDirection(2f, target), 50, (Multi_Enemy enemy) => delegate_OnHit(enemy));
+            poolManager.UsedWeapon(energyBallTransform, Get_ShootDirection(2f, target), 50, (enemy) => OnSkile(enemy, ApplySkillDamage));
             pv.RPC("AddMana", RpcTarget.All, plusMana);
         }
 

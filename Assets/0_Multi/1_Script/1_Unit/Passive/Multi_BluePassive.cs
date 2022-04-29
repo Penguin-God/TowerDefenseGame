@@ -20,7 +20,7 @@ public class Multi_BluePassive : Multi_UnitPassive
         apply_SlowPercet = 30;
         apply_SlowTime = 2;
         //_team.delegate_OnPassive += (Multi_Enemy enemy) => enemy.photonView.RPC("OnSlow", RpcTarget.MasterClient, apply_SlowPercet, apply_SlowTime);
-        _team.delegate_OnPassive += OnPassive;
+        _team.OnPassive += OnPassive;
     }
 
     public override void ApplyData(float p1, float p2 = 0, float p3 = 0)

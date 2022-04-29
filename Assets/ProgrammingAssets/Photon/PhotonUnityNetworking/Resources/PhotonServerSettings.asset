@@ -48,7 +48,6 @@ MonoBehaviour:
   - Fire
   - MeteorExplosion
   - NormalAttack
-  - OnDamage
   - OnFreeze
   - OnPoison
   - OnSkillEffect
@@ -69,6 +68,7 @@ MonoBehaviour:
   - SpawnUnit
   - SyncSpeed
   - Turn
+  - OnDamage
   - UpdateHealth
   DisableAutoOpenWizard: 1
   ShowSettings: 0

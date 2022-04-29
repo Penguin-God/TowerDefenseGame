@@ -30,7 +30,7 @@ public class Multi_OrangeSkill : MonoBehaviourPun
             yield return new WaitForSeconds(ps.startLifetime + 0.1f); // startLifetime
         }
 
-        Multi_Managers.RPC.RPC_Active(photonView.ViewID, false);
+        RPC_Utility.Instance.RPC_Active(photonView.ViewID, false);
         //myPunRPC.RPC_Active(false);
     }
 

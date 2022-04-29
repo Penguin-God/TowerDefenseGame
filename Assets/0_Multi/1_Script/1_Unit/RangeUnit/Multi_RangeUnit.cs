@@ -32,7 +32,7 @@ public class Multi_RangeUnit : Multi_TeamSoldier
     protected Vector3 Get_ShootDirection(float weightRate, Transform _target)
     {
         Vector3 dir;
-        // 속도 가중치 설정(적보다 약간 앞을 쏨, 적군의 성은 의미 없음)
+        // 속도 가중치 설정(적보다 약간 앞을 쏨, 적군의 성 공격할 때는 의미 없음)
         if (_target != null)
         {
             dir = _target.position - transform.position;

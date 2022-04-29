@@ -227,7 +227,7 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     void RespawnEnemy(GameObject respawnEnemy, int hp, float speed, Vector3 spawnPos)
     {
         Multi_NormalEnemy enemy = respawnEnemy.GetComponent<Multi_NormalEnemy>();
-        Multi_Managers.RPC.RPC_Position(enemy.PV.ViewID, spawnPos);
+        RPC_Utility.Instance.RPC_Position(enemy.PV.ViewID, spawnPos);
         enemy.SetStatus(RpcTarget.All, hp, speed, false);
         //respawnEnemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("Setup", RpcTarget.All, hp, speed);
         OnNormalEnemySpawn?.Invoke(respawnEnemy.GetComponent<Multi_NormalEnemy>());

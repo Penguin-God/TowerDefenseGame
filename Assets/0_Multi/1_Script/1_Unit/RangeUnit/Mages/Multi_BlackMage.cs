@@ -27,7 +27,7 @@ public class Multi_BlackMage : Multi_Unit_Mage
             GameObject instantEnergyBall = UsedSkill(instantTransform.position);
             instantEnergyBall.transform.rotation = instantTransform.rotation;
             instantEnergyBall.GetComponent<Multi_Projectile>()
-                .Shot(instantTransform.position, instantTransform.forward, 50, (Multi_Enemy enemy) => delegate_OnHit(enemy));
+                .Shot(instantTransform.position, instantTransform.forward, 50, (enemy) => OnSkile(enemy, ApplySkillDamage));
         }
     }
 }

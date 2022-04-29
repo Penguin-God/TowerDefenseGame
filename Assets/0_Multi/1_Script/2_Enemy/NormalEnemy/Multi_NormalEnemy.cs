@@ -61,7 +61,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
 
         // 실제 이동을 위한 속도 설정
         dir = (WayPoint.position - transform.position).normalized;
-        Multi_Managers.RPC.RPC_Velocity(PV.ViewID, dir * speed);
+        RPC_Utility.Instance.RPC_Velocity(PV.ViewID, dir * speed);
         //photonView.RPC("SetVelocity", RpcTarget.All, dir, speed);
     }
 

@@ -12,7 +12,7 @@ public class Multi_YellowPassive : Multi_UnitPassive
     {
         apply_GetGoldPercent = 70;
         apply_AddGold = 1;
-        _team.OnPassive += (Multi_Enemy enemy) => Passive_Yellow(apply_AddGold, apply_GetGoldPercent); 
+        _team.OnPassiveHit += enemy => Passive_Yellow(apply_AddGold, apply_GetGoldPercent); 
     }
 
     void Passive_Yellow(int addGold, int percent)

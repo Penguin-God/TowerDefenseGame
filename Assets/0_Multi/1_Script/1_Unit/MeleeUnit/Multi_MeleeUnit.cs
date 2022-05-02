@@ -59,7 +59,7 @@ public class Multi_MeleeUnit : Multi_TeamSoldier
         if (target != null && enemyDistance < attackRange * 2)
         {
             Multi_Enemy enemy = target.GetComponent<Multi_Enemy>();
-            OnHit?.Invoke(enemy, damage, bossDamage);
+            OnHit?.Invoke(enemy);
         }
     }
 

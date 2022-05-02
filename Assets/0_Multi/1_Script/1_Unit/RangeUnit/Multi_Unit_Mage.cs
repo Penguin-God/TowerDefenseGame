@@ -134,7 +134,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
 
         if (target != null && enemyDistance < chaseRange && pv.IsMine)
         {
-            poolManager.UsedWeapon(energyBallTransform, Get_ShootDirection(2f, target), 50, (enemy) => OnSkile(enemy, ApplySkillDamage));
+            poolManager.UsedWeapon(energyBallTransform, Get_ShootDirection(2f, target), 50, OnSkileHit);
             pv.RPC("AddMana", RpcTarget.All, plusMana);
         }
 

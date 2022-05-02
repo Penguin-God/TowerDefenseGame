@@ -16,7 +16,7 @@ public class Multi_GreenMage : Multi_Unit_Mage
     void ShootSkill(Vector3 _pos)
     {
         GameObject _skill = UsedSkill(_pos);
-        _skill.GetComponent<Multi_Projectile>().Shot(_pos, Get_ShootDirection(2f, target), 100, (enemy) => OnSkile(enemy, ApplySkillDamage));
+        _skill.GetComponent<Multi_Projectile>().Shot(_pos, Get_ShootDirection(2f, target), 100, OnSkileHit);
     }
 
     public override void MageSkile()

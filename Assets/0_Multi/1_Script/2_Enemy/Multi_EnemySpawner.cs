@@ -102,9 +102,7 @@ public class Multi_EnemySpawner : MonoBehaviourPun
             for (int k = 0; k < count; k++)
             {
                 GameObject instantEnemy = 
-                        Multi_Managers.Resources.PhotonInsantiate(GetJoinPath(NormalPath, enemyPrefab[i].name), poolPos, Quaternion.identity, parent);
-                //GameObject instantEnemy = PhotonNetwork.Instantiate(enemyPrefab[i].name, poolPos, Quaternion.identity);
-                //instantEnemy.transform.SetParent(parent); // 자기 자신 자식으로 둠(인스펙터 창에서 보기 편하게 하려고)
+                        Multi_Managers.Resources.PhotonInsantiate(GetJoinPath(NormalPath, enemyPrefab[i].name), poolPos, parent);
                 enemyPools[i].Enqueue(instantEnemy);
 
                 Multi_NormalEnemy enemy = instantEnemy.GetComponent<Multi_NormalEnemy>();
@@ -113,7 +111,7 @@ public class Multi_EnemySpawner : MonoBehaviourPun
                 // 죽으면 Queue에 반환되며 현재 리스트에서 삭제
                 enemy.OnDeath += () => OnNormalEnemyDead(enemy);
 
-                enemy.OnDeath += () => enemyPools[enemy.GetEnemyNumber].Enqueue(instantEnemy);
+                //enemy.OnDeath += () => enemyPools[enemy.GetEnemyNumber].Enqueue(instantEnemy);
                 //enemy.OnDeath += () => currentNormalEnemyList.Remove(enemy.gameObject);
             }
         }

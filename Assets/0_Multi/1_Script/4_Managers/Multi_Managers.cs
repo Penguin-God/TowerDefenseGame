@@ -21,6 +21,13 @@ public class Multi_Managers : MonoBehaviour
     }
 
     Multi_ResourcesManager _resources = new Multi_ResourcesManager();
+    Multi_PoolManager _pool = new Multi_PoolManager();
 
     public static Multi_ResourcesManager Resources => Instance._resources;
+    public static Multi_PoolManager Pool => Instance._pool;
+
+    void Start()
+    {
+        _pool.Init();
+    }
 }

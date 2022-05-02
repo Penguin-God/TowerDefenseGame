@@ -106,9 +106,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     //public event AttactToEnemy OnPassive; // 패시브
 
     #region Events
-    public Action<Multi_Enemy, int, int> OnHit;
-    public Action<Multi_Enemy, int> OnSkile;
-    public event Action<Multi_Enemy> OnPassive;
+    protected Action<Multi_Enemy> OnHit;
+    public Action<Multi_Enemy> OnPassiveHit;
+    protected Action<Multi_Enemy> OnSkileHit;
     #endregion
 
     #region Virual Funtion
@@ -130,11 +130,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         // 평타 설정
         OnHit += AttackEnemy;
-        OnHit += (enemy, dam, bossDam) => OnPassive(enemy);
+        OnHit += OnPassiveHit;
         // 스킬 설정
         skillDamage = 150; // 테스트 코드
-        OnSkile += AttackEnemy;
-        OnSkile += (enemy, dam) => OnPassive(enemy);
+        OnSkileHit += enemy => AttackEnemy(enemy, skillDamage);
+        OnSkileHit += OnPassiveHit;
 
         // 유니티에서 class는 게임오브젝트의 컴포넌트로서만 작동하기 때문에 컴포넌트로 추가 후 사용해야한다.(폴더 내에 C#스크립트 생성 안해도 됨)
         // Unity초보자가 많이 하는 실수^^
@@ -190,7 +190,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         Multi_UnitPassive _passive = GetComponent<Multi_UnitPassive>();
         if (_passive == null) return;
-        if (OnPassive != null) OnPassive = null;
+        if (OnPassiveHit != null) OnPassiveHit = null;
         //UnitManager.instance.ApplyPassiveData(gameObject.tag, _passive, unitColor);
         _passive.SetPassive(this);
     }
@@ -241,31 +241,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             target = null;
         }
     }
-
-    // TODO : enemyManager같은 곳으로 이동
-    // Proximate : 가장 가까운
-    protected GameObject GetProximateEnemy_AtList(List<GameObject> _list)
-    {
-        float shortDistance = chaseRange;
-        GameObject returnObject = null;
-        if (_list.Count > 0)
-        {
-            foreach (GameObject enemyObject in _list)
-            {
-                if (enemyObject != null)
-                {
-                    float distanceToEnemy = Vector3.Distance(this.transform.position, enemyObject.transform.position);
-                    if (distanceToEnemy < shortDistance)
-                    {
-                        shortDistance = distanceToEnemy;
-                        returnObject = enemyObject;
-                    }
-                }
-            }
-        }
-        return returnObject;
-    }
-
 
     public virtual Vector3 DestinationPos { get; set; }
     protected bool contactEnemy = false;
@@ -487,10 +462,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     #region callback funtion
 
-    void AttackEnemy(Multi_Enemy enemy, int _damage, int bossDamage) // Boss랑 쫄병 구분해서 대미지 적용
+    void AttackEnemy(Multi_Enemy enemy) // Boss랑 쫄병 구분해서 대미지 적용
     {
-        _damage = 100;
-        if (TargetIsNormalEnemy) AttackEnemy(enemy, _damage);
+        if (TargetIsNormalEnemy) AttackEnemy(enemy, 100); // 100은 test용 원래는 damage 넣어야 됨
         else AttackEnemy(enemy, bossDamage);
     }
 

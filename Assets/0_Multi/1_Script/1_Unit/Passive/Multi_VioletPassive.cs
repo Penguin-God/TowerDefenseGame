@@ -11,7 +11,7 @@ public class Multi_VioletPassive : Multi_UnitPassive
 
     public override void SetPassive(Multi_TeamSoldier _team)
     {
-        _team.OnPassive += Passive_Violet;
+        _team.OnPassiveHit += Passive_Violet;
     }
 
     void Passive_Violet(Multi_Enemy _enemy)

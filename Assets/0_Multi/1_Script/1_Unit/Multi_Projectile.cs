@@ -9,18 +9,17 @@ public class Multi_Projectile : MonoBehaviourPun
     [SerializeField] bool isAOE; // area of effect : 범위(광역) 공격
 
     Rigidbody Rigidbody = null;
-    [HideInInspector] public MyPunRPC myRPC = null;
+    private Action<Multi_Enemy> OnHit = null;
+    //[HideInInspector] public MyPunRPC myRPC = null;
+
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
-        gameObject.AddComponent<MyPunRPC>();
-        myRPC = GetComponent<MyPunRPC>();
     }
 
-    private Action<Multi_Enemy> OnHit = null;
-    public void Shot(Vector3 pos, Vector3 dir, int speed, Action<Multi_Enemy> action)
+    public void Shot(Vector3 pos, Vector3 dir, int speed, Action<Multi_Enemy> hitAction)
     {
-        OnHit = action;
+        OnHit = hitAction;
         photonView.RPC("SetShotData", RpcTarget.All, pos, dir, speed);
     }
 

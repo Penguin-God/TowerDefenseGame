@@ -29,22 +29,13 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         //myPunRPC = GetComponent<MyPunRPC>();
     }
 
-
-    void OnEnable() // 리스폰 시 상태 초기화
-    {
-        if (TurnPoints != null && photonView.IsMine)
-        {
-            ChaseToPoint();
-        }
-    }
-
     [PunRPC]
     protected override void SetStatus(int _hp, float _speed, bool _isDead)
     {
         base.SetStatus(_hp, _speed, _isDead);
         currentPos = transform.position;
         pointIndex = 0;
-        gameObject.SetActive(true);
+        if (TurnPoints != null && photonView.IsMine) ChaseToPoint();
     }
 
     [PunRPC]

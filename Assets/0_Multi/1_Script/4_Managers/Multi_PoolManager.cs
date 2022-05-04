@@ -7,17 +7,20 @@ class PoolGroup
     public Transform Root { get; set; }
     Dictionary<string, Pool> poolByPath = new Dictionary<string, Pool>();
 
-    public void Init(string folderName)
+    public void Init(string folderName, Transform root)
     {
         Root = new GameObject($"{folderName}_Root").transform;
+        Root.SetParent(root);
     }
 
-    public void CreatePool(GameObject go, string path, int count)
+    public Transform CreatePool(string path, int count)
     {
+        Debug.Log(path);
         Pool pool = new Pool();
-        pool.Init(go, path, count);
+        pool.Init(path, count);
         pool.Root.SetParent(Root);
-        poolByPath.Add(go.name, pool);
+        poolByPath.Add(path, pool);
+        return pool.Root;
     }
 
     public bool TryGetPool(string path, out Pool pool)  => poolByPath.TryGetValue(path, out pool);
@@ -31,11 +34,11 @@ class Pool
 
     Stack<Poolable> poolStack = new Stack<Poolable>();
 
-    public void Init(GameObject go, string path, int count)
+    public void Init(string path, int count)
     {
-        Root = new GameObject($"{go.name}_Root").transform;
+        string rootName = path.Split('/')[path.Split('/').Length - 1];
+        Root = new GameObject($"{rootName}_Root").transform;
         Path = path;
-
         for (int i = 0; i < count; i++)
             Push(CreateObject());
     }
@@ -43,7 +46,9 @@ class Pool
     Poolable CreateObject()
     {
         GameObject go = Multi_Managers.Resources.PhotonInsantiate(Path, Root);
-        return go.AddComponent<Poolable>();
+        if (go.GetComponent<Poolable>() == null) go.AddComponent<Poolable>();
+        if (Original == null) Original = go;
+        return go.GetComponent<Poolable>();
     }
 
     public void Push(Poolable poolable)
@@ -54,6 +59,7 @@ class Pool
         poolable.gameObject.SetActive(false);
         poolable.IsUsing = false;
         poolStack.Push(poolable);
+        Debug.Log($"is PUSH!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! {poolStack.Count}");
     }
 
     public Poolable Pop(Transform parent)
@@ -86,17 +92,18 @@ public class Multi_PoolManager
     }
 
 
-    public void CreatePool(GameObject go, string path, int count) => CreatePool(go, path, count, etcGroupName);
+    public Transform CreatePool(string path, int count) => CreatePool(path, count, etcGroupName);
 
-    public void CreatePool(GameObject go, string path, int count, string groupName)
+    public Transform CreatePool(string path, int count, string groupName)
     {
         if (_poolGroupByFolderName.TryGetValue(groupName, out PoolGroup poolGroup))
-            poolGroup.CreatePool(go, path, count);
+            return poolGroup.CreatePool(path, count);
         else
         {
             PoolGroup _newPoolGroup = new PoolGroup();
-            _newPoolGroup.Init(groupName);
-            _newPoolGroup.CreatePool(go, path, count);
+            _newPoolGroup.Init(groupName, _root);
+            _poolGroupByFolderName.Add(groupName, _newPoolGroup);
+            return _newPoolGroup.CreatePool(path, count);
         }
     }
 
@@ -117,6 +124,7 @@ public class Multi_PoolManager
     private Pool GetPool(string path)
     {
         string folderName = path.Split('/')[0];
+        Debug.Log(folderName);
         if (_poolGroupByFolderName.TryGetValue(folderName, out PoolGroup poolGroup))
         {
             if (poolGroup.TryGetPool(path, out Pool pool))
@@ -128,5 +136,10 @@ public class Multi_PoolManager
         return null;
     }
 
-    public GameObject GetOriginal(string path) => GetPool(path).Original;
+    public GameObject GetOriginal(string path)
+    {
+        Pool pool = GetPool(path);
+        if (pool != null) return pool.Original;
+        else return null;
+    }
 }

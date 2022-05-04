@@ -30,7 +30,14 @@ public class Multi_Enemy : MonoBehaviourPun
     [SerializeField] protected Material originMat;
 
     PhotonView _PV;
-    public PhotonView PV => _PV;
+    public PhotonView PV
+    {
+        get
+        {
+            if (_PV == null) return photonView;
+            else return _PV;
+        }
+    }
 
     public event Action OnDeath = null;
 
@@ -41,11 +48,10 @@ public class Multi_Enemy : MonoBehaviourPun
         meshList = new List<MeshRenderer>();
         MeshRenderer[] addMeshs = GetComponentsInChildren<MeshRenderer>();
         for (int i = 0; i < addMeshs.Length; i++) meshList.Add(addMeshs[i]);
-        gameObject.SetActive(false);
     }
 
     // TODO : SetStatus 부분 리펙토링하기
-    public void SetStatus(RpcTarget target, int _hp, float _speed, bool _isDead) => _PV.RPC("SetStatus", target, _hp, _speed, _isDead);
+    public void SetStatus(RpcTarget target, int _hp, float _speed, bool _isDead) => PV.RPC("SetStatus", target, _hp, _speed, _isDead);
     [PunRPC]
     protected virtual void SetStatus(int _hp, float _speed, bool _isDead)
     {

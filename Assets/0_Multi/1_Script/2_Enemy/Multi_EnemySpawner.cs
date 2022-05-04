@@ -98,23 +98,37 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     {
         for (int i = 0; i < enemyPrefab.Length; i++)
         {
-            enemyPools[i] = new Queue<GameObject>();
-            for (int k = 0; k < count; k++)
+            string path = GetJoinPath(NormalPath, enemyPrefab[i].name);
+            Transform root = Multi_Managers.Pool.CreatePool(path, count, "Enemy");
+
+            for (int k = 0; k < root.childCount; k++)
             {
-                GameObject instantEnemy = 
-                        Multi_Managers.Resources.PhotonInsantiate(GetJoinPath(NormalPath, enemyPrefab[i].name), poolPos, parent);
-                enemyPools[i].Enqueue(instantEnemy);
-
-                Multi_NormalEnemy enemy = instantEnemy.GetComponent<Multi_NormalEnemy>();
+                Multi_NormalEnemy enemy = root.GetChild(k).GetComponent<Multi_NormalEnemy>();
                 enemy.TurnPoints = turnPoints;
-
-                // 죽으면 Queue에 반환되며 현재 리스트에서 삭제
                 enemy.OnDeath += () => OnNormalEnemyDead(enemy);
-
-                //enemy.OnDeath += () => enemyPools[enemy.GetEnemyNumber].Enqueue(instantEnemy);
-                //enemy.OnDeath += () => currentNormalEnemyList.Remove(enemy.gameObject);
+                enemy.OnDeath += () => Multi_Managers.Pool.Push(enemy.gameObject, path);
             }
         }
+
+        //for (int i = 0; i < enemyPrefab.Length; i++)
+        //{
+        //    enemyPools[i] = new Queue<GameObject>();
+        //    for (int k = 0; k < count; k++)
+        //    {
+        //        GameObject instantEnemy =
+        //                PhotonNetwork.Instantiate(GetJoinPath(NormalPath, enemyPrefab[i].name), poolPos, Quaternion.identity);
+        //        enemyPools[i].Enqueue(instantEnemy);
+
+        //        Multi_NormalEnemy enemy = instantEnemy.GetComponent<Multi_NormalEnemy>();
+        //        enemy.TurnPoints = turnPoints;
+
+        //        // 죽으면 Queue에 반환되며 현재 리스트에서 삭제
+        //        enemy.OnDeath += () => OnNormalEnemyDead(enemy);
+
+        //        //enemy.OnDeath += () => enemyPools[enemy.GetEnemyNumber].Enqueue(instantEnemy);
+        //        //enemy.OnDeath += () => currentNormalEnemyList.Remove(enemy.gameObject);
+        //    }
+        //}
 
         Debug.Log("Done");
     }
@@ -190,14 +204,16 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     {
         UpdateStage();
 
-        currentEenmyNumber = enemyStatusDataByStageNumber[stageNumber].number;
+        //currentEenmyNumber = enemyStatusDataByStageNumber[stageNumber].number;
+
+        string path = GetJoinPath(NormalPath, enemyPrefab[enemyStatusDataByStageNumber[stageNumber].number].name);
         int _hp = enemyStatusDataByStageNumber[stageNumber].hp;
         float _speed = enemyStatusDataByStageNumber[stageNumber].speed;
-
-        StartCoroutine(Co_Stage(poolQueues[currentEenmyNumber], _hp, _speed, spawnPos));
+        
+        StartCoroutine(Co_Stage(path, _hp, _speed, spawnPos));
     }
 
-    IEnumerator Co_Stage(Queue<GameObject> pool, int hp, float speed, Vector3 spawnPos)
+    IEnumerator Co_Stage(string path, int hp, float speed, Vector3 spawnPos)
     {
         int respawnCount = respawnEnemyCount;
         if (stageNumber % 10 == 0)
@@ -209,8 +225,7 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         // normal enemy를 정해진 숫자만큼 소환
         while (respawnCount > 0)
         {
-            GameObject respawnEnemy = pool.Dequeue();
-            RespawnEnemy(respawnEnemy, hp, speed, spawnPos);
+            RespawnEnemy(path, hp, speed, spawnPos);
             respawnCount--;
             yield return new WaitForSeconds(2f);
         }
@@ -222,13 +237,13 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         NewStageStart();
     }
 
-    void RespawnEnemy(GameObject respawnEnemy, int hp, float speed, Vector3 spawnPos)
+    void RespawnEnemy(string path, int hp, float speed, Vector3 spawnPos)
     {
-        Multi_NormalEnemy enemy = respawnEnemy.GetComponent<Multi_NormalEnemy>();
+        Multi_NormalEnemy enemy = Multi_Managers.Resources.PhotonInsantiate(path).GetComponent<Multi_NormalEnemy>();
+        Debug.Log(enemy.gameObject.name);
         RPC_Utility.Instance.RPC_Position(enemy.PV.ViewID, spawnPos);
         enemy.SetStatus(RpcTarget.All, hp, speed, false);
-        //respawnEnemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("Setup", RpcTarget.All, hp, speed);
-        OnNormalEnemySpawn?.Invoke(respawnEnemy.GetComponent<Multi_NormalEnemy>());
+        OnNormalEnemySpawn?.Invoke(enemy);
     }
 
     void AddCurrentEnemyList(List<GameObject> addList, GameObject enemyObj)

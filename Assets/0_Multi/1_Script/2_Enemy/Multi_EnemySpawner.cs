@@ -25,6 +25,7 @@ public struct NormalEnemyData
 public class Multi_EnemySpawner : MonoBehaviourPun
 {
     #region enemy prefab path
+    const string PoolGroupName = "Enemys";
     const string NormalPath = "Enemy/Normal";
     const string BossPath = "Enemy/Boss";
     const string TowerPath = "Enemy/Tower";
@@ -82,7 +83,7 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     {
         // 풀링 오브젝트 생성
         poolEnemyCount = 51;
-        CreatePoolingEnemy(poolEnemyCount, poolQueues, poolPos, enemyTurnPoints, poolParent);
+        CreatePoolingEnemy(poolEnemyCount, poolPos, enemyTurnPoints);
 
         respawnEnemyCount = 15;
     }
@@ -94,12 +95,12 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     //public List<GameObject> currentNormalEnemyList = new List<GameObject>();
 
     private int respawnEnemyCount;
-    void CreatePoolingEnemy(int count, Queue<GameObject>[] enemyPools, Vector3 poolPos, Transform[] turnPoints, Transform parent)
+    void CreatePoolingEnemy(int count, Vector3 poolPos, Transform[] turnPoints)
     {
         for (int i = 0; i < enemyPrefab.Length; i++)
         {
             string path = GetJoinPath(NormalPath, enemyPrefab[i].name);
-            Transform root = Multi_Managers.Pool.CreatePool(path, count, "Enemy");
+            Transform root = Multi_Managers.Pool.CreatePool(enemyPrefab[i], path, count, PoolGroupName);
 
             for (int k = 0; k < root.childCount; k++)
             {

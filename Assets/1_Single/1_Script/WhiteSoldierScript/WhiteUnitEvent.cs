@@ -17,7 +17,7 @@ public class WhiteUnitEvent : MonoBehaviour
 
     void OnEnable()
     {
-        realTimer.SetActive(true);
+        //realTimer.SetActive(true); // 풀링 때문에 비활성화 해놓음
     }
 
     public void UnitTransform()

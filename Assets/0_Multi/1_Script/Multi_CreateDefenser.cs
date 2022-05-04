@@ -17,6 +17,15 @@ public class Multi_CreateDefenser : MonoBehaviourPun
 
     private GameObject Soldier;
 
+    // 임시 코드
+    string[] unitPaths = new string[4]
+    {
+        Multi_UnitManager.instance.SwordmanPath,
+        Multi_UnitManager.instance.ArcherPath,
+        Multi_UnitManager.instance.SpearmanPath,
+        Multi_UnitManager.instance.MagePath
+    };
+    string GetJoinPath(string enemyTypePath, string enemyName) => $"{enemyTypePath}/{enemyName}";
     void Start()
     {
         Multi_EnemySpawner.instance.OnBossDead += Give_BossReword;
@@ -33,8 +42,8 @@ public class Multi_CreateDefenser : MonoBehaviourPun
 
     public void CreateSoldier(int Colornumber, int Soldiernumber)
     {
-        string soldierName = allUnit[Colornumber].units[Soldiernumber].name;
-        Soldier = Multi_Managers.Resources.PhotonInsantiate(soldierName, Multi_WorldPosUtility.Instance.GetUnitSpawnPositon());
+        string path = GetJoinPath(unitPaths[Soldiernumber], allUnit[Colornumber].units[Soldiernumber].name);
+        Soldier = Multi_Managers.Resources.PhotonInsantiate(path, Multi_WorldPosUtility.Instance.GetUnitSpawnPositon());
         Soldier.SetActive(true);
     }
 

@@ -5,7 +5,6 @@ using UnityEngine;
 public class Multi_UnitManager : MonoBehaviour
 {
     public static Multi_UnitManager instance;
-    [SerializeField] Multi_TeamSoldier[] debugCurrentAllUnit = null;
     private void Awake()
     {
         if (instance == null)
@@ -21,11 +20,34 @@ public class Multi_UnitManager : MonoBehaviour
         unitDB = GetComponent<Multi_UnitDataBase>();
     }
 
+    [SerializeField] Multi_SoldierSpawner soldierSpawner; 
+    #region unit prefabs key
+    public string UnitGroupName => "Unit";
+    public string SwordmanPath => "Unit/Swordman";
+    public string ArcherPath => "Unit/Archer";
+    public string SpearmanPath => "Unit/Spearman";
+    public string MagePath => "Unit/Mage";
+    #endregion
+
+    string BuildPath(string path, string name) => $"{path}/{name}";
+
+    void Start()
+    {
+        CreateUnitPools(soldierSpawner.Swordmans, SwordmanPath, 5);
+        CreateUnitPools(soldierSpawner.Archers, ArcherPath, 5);
+        CreateUnitPools(soldierSpawner.Spearmans, SpearmanPath, 4);
+        CreateUnitPools(soldierSpawner.Mages, MagePath, 2);
+    }
+
+    void CreateUnitPools(GameObject[] units, string unitPath, int count)
+    {
+        for (int i = 0; i < units.Length; i++)
+            Multi_Managers.Pool.CreatePool(units[i], BuildPath(unitPath, units[i].name), count, UnitGroupName);
+    }
+
     Multi_UnitDataBase unitDB = null;
     public void ApplyUnitData(string _tag, Multi_TeamSoldier _team) => unitDB.ApplyUnitBaseData(_tag, _team);
     public void ApplyPassiveData(string _key, Multi_UnitPassive _passive, UnitColor _color) => unitDB.ApplyPassiveData(_key, _passive, _color);
-
-    private void Update() => debugCurrentAllUnit = Multi_SoldierPoolingManager.Instance.AllUnits;
 
     public GameObject[] startUnitArray;
     public void ReSpawnStartUnit()
@@ -125,28 +147,6 @@ public class Multi_UnitManager : MonoBehaviour
     //    {
     //        TeamSoldier unit = unitArrays[colorNumber].unitArray[i].transform.GetChild(0).GetComponent<TeamSoldier>();
     //        unit.reinforceEffect.SetActive(true);
-    //    }
-    //}
-
-
-    // TODO : 이제 쓸 일 없는 쓰레기인데 남겨는 둠
-    //public void UpdateTarget_CurrnetFieldUnit()
-    //{
-    //    foreach (Multi_TeamSoldier unit in CurrentAllUnits)
-    //    {
-    //        if (unit == null) continue;
-
-    //        if (!unit.enterStoryWorld) unit.UpdateTarget();
-    //    }
-    //}
-
-    //public void UpdateTarget_CurrnetStroyWolrdUnit(Transform _newTarget)
-    //{
-    //    foreach (Multi_TeamSoldier unit in CurrentAllUnits)
-    //    {
-    //        if (unit == null) continue;
-
-    //        if (unit.enterStoryWorld) unit.SetChaseSetting(_newTarget.gameObject);
     //    }
     //}
 }

@@ -3,14 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-class MultiSoldiers
+public class MultiSoldiers
 {
-    [SerializeField] GameObject[] soldiers;
+    [SerializeField] public GameObject[] soldiers;
 }
 
 public class Multi_SoldierSpawner : MonoBehaviour
 {
     [SerializeField] MultiSoldiers[] multiSoldiers;
+    public MultiSoldiers[] MultiSoldiers => multiSoldiers;
+
+    [SerializeField] GameObject[] swordmans;
+    [SerializeField] GameObject[] archers;
+    [SerializeField] GameObject[] spearmans;
+    [SerializeField] GameObject[] mages;
+
+    public GameObject[] Swordmans => swordmans;
+    public GameObject[] Archers => archers;
+    public GameObject[] Spearmans => spearmans;
+    public GameObject[] Mages => mages;
+
 
     public void DrawSoldier(int Colornumber, int Soldiernumber)
     {
@@ -45,13 +57,5 @@ public class Multi_SoldierSpawner : MonoBehaviour
         Soldier.transform.position = new Vector3(500, 0, 10);
         Soldier.SetActive(true);
 
-    }
-
-    Vector3 RandomPosition(float x, float y, float z)
-    {
-        float randomX = Random.Range(-x, x);
-        float randomY = Random.Range(-y, y);
-        float randomZ = Random.Range(-z, z);
-        return new Vector3(randomX, randomY, randomZ);
     }
 }

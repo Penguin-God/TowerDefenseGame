@@ -29,6 +29,7 @@ GameObject:
   - component: {fileID: 156209486583295495}
   - component: {fileID: 1016070764}
   - component: {fileID: 1623368292}
+  - component: {fileID: 6419629088717051158}
   m_Layer: 9
   m_Name: Blue_Archer 1
   m_TagString: BlueArcher
@@ -232,6 +233,7 @@ MonoBehaviour:
   bossDamage: 0
   skillDamage: 0
   stopDistanc: 5
+  enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
   attackDelayTime: 0.5
@@ -245,9 +247,9 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  enterStoryWorld: 0
   arrow: {fileID: 6327066443172086468, guid: 27c371b295229ec4a8d5a636b0f564e5, type: 3}
   arrowTransform: {fileID: 156209486517130305}
+  skillAttackTargetCount: 3
 --- !u!114 &1623368292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -262,6 +264,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   apply_SlowPercet: 0
   apply_SlowTime: 0
+--- !u!114 &6419629088717051158
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3192143453688435179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1001 &156209485599344212
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,6 +5,7 @@ using System;
 using UnityEngine.UI;
 using Photon.Pun;
 
+// TODO : 스킬 풀링 구조 리펙토링하기
 public class SkillObjectPoolManager : MonoBehaviourPun
 {
     Queue<GameObject> skillObjectPool = new Queue<GameObject>();
@@ -81,7 +82,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     private SkillObjectPoolManager skillPoolManager = null;
     public override void OnAwake()
     {
-        SetPoolObj(energyBall, 7);
+        //SetPoolObj(energyBall, 7);
         if (unitColor == UnitColor.white) return;
 
         canvasRectTransform = transform.GetComponentInChildren<RectTransform>();
@@ -134,7 +135,8 @@ public class Multi_Unit_Mage : Multi_RangeUnit
 
         if (target != null && enemyDistance < chaseRange && pv.IsMine)
         {
-            poolManager.UsedWeapon(energyBallTransform, Get_ShootDirection(2f, target), 50, OnSkileHit);
+            UsedWeapon(WeaponType.Mageball, energyBall, energyBallTransform, Get_ShootDirection(2f, target), 50, OnSkileHit);
+            //poolManager.UsedWeapon(energyBallTransform, Get_ShootDirection(2f, target), 50, OnSkileHit);
             pv.RPC("AddMana", RpcTarget.All, plusMana);
         }
 

@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 3815521343825428657}
   - component: {fileID: 3815521342445584291}
   - component: {fileID: 1266299123}
+  - component: {fileID: -5891004314367551375}
   m_Layer: 9
   m_Name: Black_Archer 1
   m_TagString: BlackArcher
@@ -353,6 +354,7 @@ MonoBehaviour:
   bossDamage: 0
   skillDamage: 0
   stopDistanc: 5
+  enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
   attackDelayTime: 0.5
@@ -366,9 +368,23 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  enterStoryWorld: 0
   arrow: {fileID: 6559935622711817611, guid: b8de03d1b853f1a40974897a26221e07, type: 3}
   arrowTransform: {fileID: 3173048111098773931}
+  skillAttackTargetCount: 3
+--- !u!114 &-5891004314367551375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3173048112267009847}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1 &3173681340188560280
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,12 +27,21 @@ public class Multi_UnitManager : MonoBehaviour
     public string ArcherPath => "Unit/Archer";
     public string SpearmanPath => "Unit/Spearman";
     public string MagePath => "Unit/Mage";
+
+    Dictionary<UnitClass, string> pathByUnitClass = new Dictionary<UnitClass, string>();
+
+    public string BuildPath(UnitClass unitClass, string unitName) => BuildPath(pathByUnitClass[unitClass], unitName);
+    string BuildPath(string path, string name) => $"{path}/{name}";
     #endregion
 
-    string BuildPath(string path, string name) => $"{path}/{name}";
 
     void Start()
     {
+        pathByUnitClass.Add(UnitClass.sowrdman, SwordmanPath);
+        pathByUnitClass.Add(UnitClass.archer, ArcherPath);
+        pathByUnitClass.Add(UnitClass.spearman, SpearmanPath);
+        pathByUnitClass.Add(UnitClass.mage, MagePath);
+
         CreateUnitPools(soldierSpawner.Swordmans, SwordmanPath, 5);
         CreateUnitPools(soldierSpawner.Archers, ArcherPath, 5);
         CreateUnitPools(soldierSpawner.Spearmans, SpearmanPath, 4);

@@ -271,6 +271,7 @@ GameObject:
   - component: {fileID: 2145048964325306286}
   - component: {fileID: 1961679773}
   - component: {fileID: 1440109171}
+  - component: {fileID: 2096047582356605100}
   m_Layer: 9
   m_Name: Green_Archer 1
   m_TagString: GreenArcher
@@ -474,6 +475,7 @@ MonoBehaviour:
   bossDamage: 0
   skillDamage: 0
   stopDistanc: 5
+  enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
   attackDelayTime: 0.5
@@ -487,9 +489,9 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  enterStoryWorld: 0
   arrow: {fileID: 1774899456207327249, guid: 0db5988cbd29ca94fb6a3780712dc0e2, type: 3}
   arrowTransform: {fileID: 1242346496465952324}
+  skillAttackTargetCount: 3
 --- !u!114 &1440109171
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -503,6 +505,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   apply_UpDamageWeigh: 0
+--- !u!114 &2096047582356605100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1242346495604130008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1 &1242346496465952327
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,16 +18,22 @@ public class Multi_CreateDefenser : MonoBehaviourPun
     private GameObject Soldier;
 
     // 임시 코드
-    string[] unitPaths = new string[4]
+    string[] unitPaths;
+
+    // 임시 코드
+    void Awake()
     {
-        Multi_UnitManager.instance.SwordmanPath,
-        Multi_UnitManager.instance.ArcherPath,
-        Multi_UnitManager.instance.SpearmanPath,
-        Multi_UnitManager.instance.MagePath
-    };
+        unitPaths = new string[4];
+        unitPaths[0] = Multi_UnitManager.instance.SwordmanPath;
+        unitPaths[1] = Multi_UnitManager.instance.ArcherPath;
+        unitPaths[2] = Multi_UnitManager.instance.SpearmanPath;
+        unitPaths[3] = Multi_UnitManager.instance.MagePath;
+    }
+
     string GetJoinPath(string enemyTypePath, string enemyName) => $"{enemyTypePath}/{enemyName}";
     void Start()
     {
+
         Multi_EnemySpawner.instance.OnBossDead += Give_BossReword;
     }
 

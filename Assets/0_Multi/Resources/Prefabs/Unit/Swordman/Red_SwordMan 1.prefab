@@ -301,6 +301,7 @@ GameObject:
   - component: {fileID: 421780123207165744}
   - component: {fileID: 2920540706766376438}
   - component: {fileID: 843200948}
+  - component: {fileID: -8162979948257466600}
   m_Layer: 9
   m_Name: Red_SwordMan 1
   m_TagString: RedSwordman
@@ -504,6 +505,7 @@ MonoBehaviour:
   bossDamage: 0
   skillDamage: 0
   stopDistanc: 5
+  enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
   attackDelayTime: 0.3
@@ -517,7 +519,6 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  enterStoryWorld: 0
   trail: {fileID: 8416693383700321331}
 --- !u!114 &843200948
 MonoBehaviour:
@@ -532,6 +533,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   apply_DownDelayWeigh: 0
+--- !u!114 &-8162979948257466600
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8416693383471264509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1 &8416693383498809585
 GameObject:
   m_ObjectHideFlags: 0

@@ -547,6 +547,7 @@ GameObject:
   - component: {fileID: 4248066562839049880}
   - component: {fileID: 973265129}
   - component: {fileID: 1738247827}
+  - component: {fileID: -1346789786179101476}
   m_Layer: 9
   m_Name: Violet_Spearman 1
   m_TagString: YellowSpearman
@@ -750,6 +751,7 @@ MonoBehaviour:
   bossDamage: 0
   skillDamage: 0
   stopDistanc: 3
+  enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
   attackDelayTime: 0.4
@@ -763,7 +765,6 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  enterStoryWorld: 0
   trail: {fileID: 4577069981757626033}
   spear: {fileID: 2754093163969542500}
   skillSpear: {fileID: 6970859879261398008, guid: 110956a89e52e77439abc9cea34c824f,
@@ -785,6 +786,20 @@ MonoBehaviour:
   apply_SturnPercent: 0
   apply_StrunTime: 0
   apply_MaxPoisonDamage: 0
+--- !u!114 &-1346789786179101476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7491805243092396964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1001 &4248066563403929354
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -25,7 +25,7 @@ public struct NormalEnemyData
 public class Multi_EnemySpawner : MonoBehaviourPun
 {
     #region enemy prefab path
-    const string PoolGroupName = "Enemys";
+    const string PoolGroupName = "Enemy";
     const string NormalPath = "Enemy/Normal";
     const string BossPath = "Enemy/Boss";
     const string TowerPath = "Enemy/Tower";
@@ -241,8 +241,9 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     void RespawnEnemy(string path, int hp, float speed, Vector3 spawnPos)
     {
         Multi_NormalEnemy enemy = Multi_Managers.Resources.PhotonInsantiate(path).GetComponent<Multi_NormalEnemy>();
-        Debug.Log(enemy.gameObject.name);
+        //Debug.Log(enemy.gameObject.name);
         RPC_Utility.Instance.RPC_Position(enemy.PV.ViewID, spawnPos);
+        RPC_Utility.Instance.RPC_Active(enemy.PV.ViewID, true);
         enemy.SetStatus(RpcTarget.All, hp, speed, false);
         OnNormalEnemySpawn?.Invoke(enemy);
     }

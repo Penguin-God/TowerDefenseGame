@@ -10,7 +10,7 @@ public class Multi_ResourcesManager
         if(typeof(T) == typeof(GameObject))
         {
             string goPath = path.Substring(path.IndexOf('/') + 1);
-            Debug.Log(goPath);
+            
             GameObject go = Multi_Managers.Pool.GetOriginal(goPath);
             if (go != null) return go as T;
         }
@@ -34,7 +34,7 @@ public class Multi_ResourcesManager
 
         if (prefab.GetComponent<Poolable>() != null)
             return Multi_Managers.Pool.Pop(path, parent).gameObject;
-        
+
         prefab = PhotonNetwork.Instantiate($"Prefabs/{path}", position, rotation);
         if (parent != null) prefab.transform.SetParent(parent);
         return prefab;

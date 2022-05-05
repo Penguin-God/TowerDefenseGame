@@ -26,7 +26,7 @@ public class Multi_Managers : MonoBehaviour
     public static Multi_ResourcesManager Resources => Instance._resources;
     public static Multi_PoolManager Pool => Instance._pool;
 
-    void Start()
+    void Awake()
     {
         _pool.Init();
     }

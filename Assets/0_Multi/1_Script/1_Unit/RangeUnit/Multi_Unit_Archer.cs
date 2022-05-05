@@ -14,7 +14,6 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     public override void OnAwake()
     {
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
-        SetPoolObj(arrow, 15);
     }
 
     public override void SetInherenceData()
@@ -31,7 +30,8 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         trail.SetActive(false);
         if (target != null && enemyDistance < chaseRange && pv.IsMine)
         {
-            poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, target), 50, OnHit);
+            UsedWeapon(WeaponType.Arrow, arrow, arrowTransform, Get_ShootDirection(2f, target), 50, OnSkileHit);
+            //poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, target), 50, OnHit);
         }
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
@@ -61,7 +61,8 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         Transform[] targetArray = Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target);
         for (int i = 0; i < targetArray.Length; i++)
         {
-            poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, targetArray[i]), 50, OnSkileHit);
+            UsedWeapon(WeaponType.Arrow, arrow, arrowTransform, Get_ShootDirection(2f, targetArray[i]), 50, OnSkileHit);
+            //poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, targetArray[i]), 50, OnSkileHit);
         }
 
         yield return new WaitForSeconds(1f);

@@ -14,9 +14,10 @@ public class PrefabSpawner : MonoBehaviourPun
     public DrawButtonUnits[] allUnit;
 
     [PunRPC]
-    public void SpawnUnit(string _name)
+    public void SpawnUnit(int classNumber, string _name)
     {
-        Multi_Managers.Resources.PhotonInsantiate(_name, Multi_WorldPosUtility.Instance.GetUnitSpawnPositon());
+        string path = Multi_UnitManager.instance.BuildPath((UnitClass)classNumber, _name);
+        Multi_Managers.Resources.PhotonInsantiate(path, Multi_WorldPosUtility.Instance.GetUnitSpawnPositon());
     }
 
     public void SpawnUnit_ByClient(string _name)

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 class PoolGroup
 {
@@ -20,11 +21,12 @@ class PoolGroup
             dicPool.Init(original, path, count);
             return dicPool.Root;
         }
-
         Pool pool = new Pool();
+        poolByPath.Add(path, pool);
+
         pool.Init(original, path, count);
         pool.Root.SetParent(Root);
-        poolByPath.Add(path, pool);
+        
         return pool.Root;
     }
 
@@ -38,12 +40,14 @@ class Pool
     public string Path { get; private set;}
 
     Stack<Poolable> poolStack = new Stack<Poolable>();
+    public int Count => poolStack.Count;
 
     public void Init(GameObject original, string path, int count)
     {
         //string rootName = path.Split('/')[path.Split('/').Length - 1];
         Root = new GameObject($"{original.name}_Root").transform;
-        Original = Original;
+        if(original.GetComponent<Poolable>() == null) original.AddComponent<Poolable>();
+        Original = original;
         Path = path;
         for (int i = 0; i < count; i++)
             Push(CreateObject());
@@ -51,8 +55,14 @@ class Pool
 
     Poolable CreateObject()
     {
-        GameObject go = Multi_Managers.Resources.PhotonInsantiate(Path, Root);
-        if (go.GetComponent<Poolable>() == null) go.AddComponent<Poolable>();
+        Poolable poolable;
+        GameObject go = PhotonNetwork.Instantiate($"Prefabs/{Path}", Vector3.zero, Quaternion.identity);
+        go.transform.SetParent(Root);
+
+        poolable = go.GetComponent<Poolable>();
+        if (poolable == null) poolable = go.AddComponent<Poolable>();
+        poolable.Path = Path;
+
         return go.GetComponent<Poolable>();
     }
 
@@ -111,6 +121,7 @@ public class Multi_PoolManager
         }
     }
 
+    public void Push(Poolable poolable) => Push(poolable.gameObject, poolable.Path);
     public void Push(GameObject go, string path)
     {
         Pool pool = GetPool(path);
@@ -120,10 +131,21 @@ public class Multi_PoolManager
             return;
         }
 
+        go.transform.SetParent(pool.Root);
+        PhotonView pv = go.GetComponent<PhotonView>();
+        if (pv != null) RPC_Utility.Instance.RPC_Active(pv.ViewID, false);
         pool.Push(go.GetComponent<Poolable>());
     }
 
-    public Poolable Pop(string path, Transform parent = null) => GetPool(path).Pop(parent);
+    public Poolable Pop(string path, Transform parent = null)
+    {
+        Poolable poolable = GetPool(path).Pop(parent);
+        Debug.Assert(poolable != null, "poolable not defind");
+
+        PhotonView pv = poolable.GetComponent<PhotonView>();
+        if (pv != null) RPC_Utility.Instance.RPC_Active(pv.ViewID, true);
+        return poolable;
+    }
 
     //private Pool GetPool(string path) => 
     private Pool GetPool(string path)

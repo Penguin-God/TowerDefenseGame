@@ -7,7 +7,7 @@ using Photon.Pun;
 public class Multi_Projectile : MonoBehaviourPun
 {
     [SerializeField] bool isAOE; // area of effect : 범위(광역) 공격
-
+    [SerializeField] float aliveTime = 5f; 
     Rigidbody Rigidbody = null;
     private Action<Multi_Enemy> OnHit = null;
     //[HideInInspector] public MyPunRPC myRPC = null;
@@ -15,6 +15,17 @@ public class Multi_Projectile : MonoBehaviourPun
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
+    }
+
+    void OnEnable()
+    {
+        StartCoroutine(Co_Inactive(aliveTime));
+    }
+
+    void OnDisable()
+    {
+        Poolable poolable = GetComponent<Poolable>();
+        if (poolable != null) Multi_Managers.Pool.Push(poolable);
     }
 
     public void Shot(Vector3 pos, Vector3 dir, int speed, Action<Multi_Enemy> hitAction)
@@ -35,8 +46,8 @@ public class Multi_Projectile : MonoBehaviourPun
     void HitEnemy(Multi_Enemy enemy)
     {
         OnHit?.Invoke(enemy);
-        if (!isAOE) RPC_Utility.Instance.RPC_Active(photonView.ViewID, false);
         OnHit = null;
+        if (!isAOE) ReturnObjet();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -46,5 +57,17 @@ public class Multi_Projectile : MonoBehaviourPun
             Multi_Enemy enemy = other.GetComponentInParent<Multi_Enemy>();
             if (enemy != null) HitEnemy(enemy);
         }
+    }
+
+    IEnumerator Co_Inactive(float delayTime)
+    {
+        yield return new WaitForSeconds(delayTime);
+        ReturnObjet();
+    }
+
+    void ReturnObjet()
+    {
+        Poolable poolable = GetComponent<Poolable>();
+        if (poolable != null) Multi_Managers.Pool.Push(poolable);
     }
 }

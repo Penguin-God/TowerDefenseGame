@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 4775608584555885422}
   - component: {fileID: 1041333908}
   - component: {fileID: 8336876593677247653}
+  - component: {fileID: -1302281549888455431}
   m_Layer: 9
   m_Name: Yellow_Mage 1
   m_TagString: YellowMage
@@ -355,6 +356,7 @@ MonoBehaviour:
   bossDamage: 0
   skillDamage: 0
   stopDistanc: 5
+  enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
   attackDelayTime: 0.5
@@ -368,7 +370,6 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  enterStoryWorld: 0
   magicLight: {fileID: 126787733794186493}
   energyBall: {fileID: 3052143345438668326, guid: 408996ab28d9dc042930c54f3364de9b,
     type: 3}
@@ -381,6 +382,20 @@ MonoBehaviour:
   maxMana: 300
   currentMana: 0
   mageSkillCilp: {fileID: 8300000, guid: ccbb6361d50eb264183f03d797b631c0, type: 3}
+--- !u!114 &-1302281549888455431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1600210341466093845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1 &4775608584294086019
 GameObject:
   m_ObjectHideFlags: 0

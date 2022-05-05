@@ -29113,6 +29113,7 @@ GameObject:
   - component: {fileID: 230911061378533086}
   - component: {fileID: 322052316}
   - component: {fileID: 6293471264203749302}
+  - component: {fileID: -5306665239761429037}
   m_Layer: 9
   m_Name: Blue_Mage 1
   m_TagString: BlueMage
@@ -29331,6 +29332,7 @@ MonoBehaviour:
   bossDamage: 0
   skillDamage: 0
   stopDistanc: 5
+  enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
   attackDelayTime: 0.5
@@ -29344,7 +29346,6 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  enterStoryWorld: 0
   magicLight: {fileID: 7499503637847047338}
   energyBall: {fileID: 5003480418987747992, guid: 7f7e5a71fc2162244a56e4878b3e98ef,
     type: 3}
@@ -29357,6 +29358,20 @@ MonoBehaviour:
   maxMana: 200
   currentMana: 0
   mageSkillCilp: {fileID: 8300000, guid: 8b0e44500538f864ca0050a7317f7591, type: 3}
+--- !u!114 &-5306665239761429037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9215755468416000322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1001 &230911062202419931
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -29426,15 +29441,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 94ecbf9300eb6c04692488e5c506693a, type: 3}
---- !u!4 &2940645456333811396 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3169154342488646687, guid: 94ecbf9300eb6c04692488e5c506693a,
-    type: 3}
-  m_PrefabInstance: {fileID: 230911062202419931}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2938494612972232660 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3167153324664509711, guid: 94ecbf9300eb6c04692488e5c506693a,
+    type: 3}
+  m_PrefabInstance: {fileID: 230911062202419931}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2940645456333811396 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3169154342488646687, guid: 94ecbf9300eb6c04692488e5c506693a,
     type: 3}
   m_PrefabInstance: {fileID: 230911062202419931}
   m_PrefabAsset: {fileID: 0}

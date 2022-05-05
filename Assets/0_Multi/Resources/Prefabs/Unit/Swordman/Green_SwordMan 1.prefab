@@ -348,6 +348,7 @@ GameObject:
   - component: {fileID: 175436345137919322}
   - component: {fileID: 7126146984450392841}
   - component: {fileID: 855357360}
+  - component: {fileID: 6892334134769605430}
   m_Layer: 9
   m_Name: Green_SwordMan 1
   m_TagString: GreenSwordman
@@ -551,6 +552,7 @@ MonoBehaviour:
   bossDamage: 0
   skillDamage: 0
   stopDistanc: 5
+  enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
   attackDelayTime: 0.3
@@ -564,7 +566,6 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  enterStoryWorld: 0
   trail: {fileID: 7213120144590655556}
 --- !u!114 &855357360
 MonoBehaviour:
@@ -579,6 +580,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   apply_UpDamageWeigh: 0
+--- !u!114 &6892334134769605430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7213120144975050378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1 &7213120146399456431
 GameObject:
   m_ObjectHideFlags: 0

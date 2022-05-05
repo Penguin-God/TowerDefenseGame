@@ -348,6 +348,7 @@ GameObject:
   - component: {fileID: 8973375408006738935}
   - component: {fileID: -585793683502056607}
   - component: {fileID: 1368214258582398593}
+  - component: {fileID: -6494953279022355678}
   m_Layer: 10
   m_Name: Enemy_Sworaman 1
   m_TagString: Untagged
@@ -462,6 +463,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d50dbfb12cf6364f9afad5e688a8ebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-6494953279022355678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2694985329993272948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1 &2694985330316391956
 GameObject:
   m_ObjectHideFlags: 0

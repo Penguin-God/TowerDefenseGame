@@ -487,6 +487,7 @@ GameObject:
   - component: {fileID: 7089879416045304430}
   - component: {fileID: 5059706905001125231}
   - component: {fileID: 2015655338}
+  - component: {fileID: -8746836687991847486}
   m_Layer: 9
   m_Name: White_Archer 1
   m_TagString: WhiteArcher
@@ -705,6 +706,7 @@ MonoBehaviour:
   bossDamage: 0
   skillDamage: 0
   stopDistanc: 5
+  enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
   attackDelayTime: 0.5
@@ -718,6 +720,20 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  enterStoryWorld: 0
   arrow: {fileID: 9057039652622457467, guid: bf7a37f569266b84cbc6bb5135200ef1, type: 3}
   arrowTransform: {fileID: 677298353708877286}
+  skillAttackTargetCount: 3
+--- !u!114 &-8746836687991847486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 677298355195616122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 

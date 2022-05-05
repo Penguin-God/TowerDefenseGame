@@ -211,6 +211,7 @@ GameObject:
   - component: {fileID: 7275915581551054840}
   - component: {fileID: 1515424040}
   - component: {fileID: 1607135977233665466}
+  - component: {fileID: 5734083610469489287}
   m_Layer: 9
   m_Name: Orange_Mage 1
   m_TagString: OrangeMage
@@ -428,6 +429,7 @@ MonoBehaviour:
   bossDamage: 0
   skillDamage: 0
   stopDistanc: 5
+  enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
   attackDelayTime: 0.5
@@ -441,7 +443,6 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  enterStoryWorld: 0
   magicLight: {fileID: 6590480787772705442}
   energyBall: {fileID: 4707030899879111016, guid: b8f74a2a21b4e8b48a78902caed53985,
     type: 3}
@@ -454,6 +455,20 @@ MonoBehaviour:
   maxMana: 100
   currentMana: 0
   mageSkillCilp: {fileID: 8300000, guid: ce839c0dc1d6135468aa253fab1834b5, type: 3}
+--- !u!114 &5734083610469489287
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5512811997297203018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1 &6590480786666523012
 GameObject:
   m_ObjectHideFlags: 0

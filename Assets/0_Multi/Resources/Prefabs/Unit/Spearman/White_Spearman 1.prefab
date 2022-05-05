@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 2538147485223757932}
   - component: {fileID: 6399562802812082074}
   - component: {fileID: 727887930}
+  - component: {fileID: -2285952888747225639}
   m_Layer: 9
   m_Name: White_Spearman 1
   m_TagString: WhiteSpearman
@@ -263,6 +264,7 @@ MonoBehaviour:
   bossDamage: 0
   skillDamage: 0
   stopDistanc: 3
+  enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
   attackDelayTime: 0.4
@@ -276,13 +278,26 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  enterStoryWorld: 0
   trail: {fileID: 7078237026450372677}
   spear: {fileID: 8901213837801248656}
   skillSpear: {fileID: 2752802535611164755, guid: bb732e90f9717a94b9b2ca9650a8458a,
     type: 3}
   spearCreatePosition: {fileID: 1210638410598656367}
   skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
+--- !u!114 &-2285952888747225639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4199548222911104336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1 &7078237026450372677
 GameObject:
   m_ObjectHideFlags: 0

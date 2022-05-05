@@ -212,6 +212,7 @@ GameObject:
   - component: {fileID: 8245229905947816732}
   - component: {fileID: 8245229906533174899}
   - component: {fileID: 544929882}
+  - component: {fileID: 419450569240662174}
   m_Layer: 9
   m_Name: Black_Mage 1
   m_TagString: BlackMage
@@ -415,6 +416,7 @@ MonoBehaviour:
   bossDamage: 0
   skillDamage: 0
   stopDistanc: 5
+  enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
   attackDelayTime: 0.5
@@ -428,7 +430,6 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  enterStoryWorld: 0
   magicLight: {fileID: 8766261299207850142}
   energyBall: {fileID: 4247385763262579710, guid: 79875af229d2b294a9f711182d77d593,
     type: 3}
@@ -443,6 +444,20 @@ MonoBehaviour:
   mageSkillCilp: {fileID: 8300000, guid: 34d13eea2f9cf254fa8de1ce2597c64a, type: 3}
   skileShotPositions: {fileID: 8245229905990596193}
   ultimate_SkileShotPositions: {fileID: 8245229907292084396}
+--- !u!114 &419450569240662174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7953183368782943606}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1 &8245229905634424850
 GameObject:
   m_ObjectHideFlags: 0

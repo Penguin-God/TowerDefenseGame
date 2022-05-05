@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 7538853946317876359}
   - component: {fileID: 4419424434181142112}
   - component: {fileID: 2342271511371248315}
+  - component: {fileID: 4653388475442759893}
   m_Layer: 9
   m_Name: White_SwordMan 1
   m_TagString: WhiteSwordman
@@ -312,6 +313,7 @@ MonoBehaviour:
   bossDamage: 0
   skillDamage: 0
   stopDistanc: 5
+  enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
   attackDelayTime: 0.3
@@ -325,8 +327,21 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  enterStoryWorld: 0
   trail: {fileID: 8606670815029551443}
+--- !u!114 &4653388475442759893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8606670814876993437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1 &8606670815029551443
 GameObject:
   m_ObjectHideFlags: 0

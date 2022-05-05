@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2331747928743672964}
   - component: {fileID: 1764443702}
   - component: {fileID: 308024832}
+  - component: {fileID: 8010610448321769205}
   m_Layer: 9
   m_Name: Orange_Spearman 1
   m_TagString: GreenSpearman
@@ -218,6 +219,7 @@ MonoBehaviour:
   bossDamage: 0
   skillDamage: 0
   stopDistanc: 3
+  enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
   attackDelayTime: 0.4
@@ -231,7 +233,6 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  enterStoryWorld: 0
   trail: {fileID: 4638286030135204960}
   spear: {fileID: 6477026531094148021}
   skillSpear: {fileID: 5197799757681758757, guid: 75ab53b65bedaba4789449d2f72a40c6,
@@ -251,6 +252,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   apply_UpBossDamageWeigh: 0
+--- !u!114 &8010610448321769205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1739437672444174709}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1 &4638286030135204960
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,6 +27,116 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         UIManager.instance.CombineFailText.gameObject.SetActive(false);
     }
 
+    #region Destory Soliders
+    void RedSwordman()
+    {
+        TagSoldier.RedSwordmanTag();
+        PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+    }
+
+    void RedArcher()
+    {
+        TagSoldier.RedArcherTag();
+        PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
+    }
+
+    void RedSpearman()
+    {
+        TagSoldier.RedSpearmanTag();
+        PhotonNetwork.Destroy(TagSoldier.RedSpearman[0].transform.parent.gameObject);
+    }
+
+    void BlueSwordman()
+    {
+        TagSoldier.BlueSwordmanTag();
+        PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+    }
+
+    void BlueArcher()
+    {
+        TagSoldier.BlueArcherTag();
+        PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
+    }
+
+    void BlueSpearman()
+    {
+        TagSoldier.BlueSpearmanTag();
+        PhotonNetwork.Destroy(TagSoldier.BlueSpearman[0].transform.parent.gameObject);
+    }
+
+    void YellowSwordman()
+    {
+        TagSoldier.YellowSwordmanTag();
+        PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+    }
+
+    void YellowArcher()
+    {
+        TagSoldier.RedArcherTag();
+        PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
+    }
+
+    void YellowSpearman()
+    {
+        TagSoldier.YellowSpearmanTag();
+        PhotonNetwork.Destroy(TagSoldier.YellowSpearman[0].transform.parent.gameObject);
+    }
+
+    void GreenSwordman()
+    {
+        TagSoldier.GreenSwordmanTag();
+        PhotonNetwork.Destroy(TagSoldier.GreenSwordman[0].transform.parent.gameObject);
+    }
+
+    void GreenArcher()
+    {
+        TagSoldier.RedArcherTag();
+        PhotonNetwork.Destroy(TagSoldier.GreenArcher[0].transform.parent.gameObject);
+    }
+
+    void GreenSpearman()
+    {
+        TagSoldier.RedSpearmanTag();
+        PhotonNetwork.Destroy(TagSoldier.GreenSpearman[0].transform.parent.gameObject);
+    }
+
+    void OrangeSwordman()
+    {
+        TagSoldier.RedSwordmanTag();
+        PhotonNetwork.Destroy(TagSoldier.OrangeSwordman[0].transform.parent.gameObject);
+    }
+
+    void OrangeArcher()
+    {
+        TagSoldier.RedArcherTag();
+        PhotonNetwork.Destroy(TagSoldier.OrangeArcher[0].transform.parent.gameObject);
+    }
+
+    void OrangeSpearman()
+    {
+        TagSoldier.RedSpearmanTag();
+        PhotonNetwork.Destroy(TagSoldier.OrangeSpearman[0].transform.parent.gameObject);
+    }
+
+    void VioletSwordman()
+    {
+        TagSoldier.RedSwordmanTag();
+        PhotonNetwork.Destroy(TagSoldier.VioletSwordman[0].transform.parent.gameObject);
+    }
+
+    void VioletArcher()
+    {
+        TagSoldier.RedArcherTag();
+        PhotonNetwork.Destroy(TagSoldier.VioletArcher[0].transform.parent.gameObject);
+    }
+
+    void VioletSpearman()
+    {
+        TagSoldier.RedSpearmanTag();
+        PhotonNetwork.Destroy(TagSoldier.VioletSpearman[0].transform.parent.gameObject);
+    }
+    #endregion
+
     public void CombineRedArcher()
     {
         if (!photonView.IsMine)
@@ -42,11 +152,9 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             //PhotonNetwork.Destroy(TagSoldier.RedSwordman[1].transform.parent.gameObject);
             //PhotonNetwork.Destroy(TagSoldier.RedSwordman[2].transform.parent.gameObject);
 
-            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            TagSoldier.RedSwordmanTag();
-            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            TagSoldier.RedSwordmanTag();
-            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            RedSwordman();
+            RedSwordman();
+            RedSwordman();
 
 
             SoldierChoose(0, 0, 1, 1);
@@ -76,12 +184,17 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         TagSoldier.RedArcherTag();
         if (TagSoldier.RedSwordman.Length >= 2 && TagSoldier.RedArcher.Length >= 3)
         {
+            //PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedSwordman[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedArcher[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedArcher[2].transform.parent.gameObject);
 
-            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.RedSwordman[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.RedArcher[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.RedArcher[2].transform.parent.gameObject);
+            RedSwordman();
+            RedSwordman();
+            RedArcher();
+            RedArcher();
+            RedArcher();
 
 
             SoldierChoose(0, 0, 2, 2);
@@ -111,12 +224,17 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         TagSoldier.RedArcherTag();
         if (TagSoldier.RedSpearman.Length >= 3 && TagSoldier.RedArcher.Length >= 2)
         {
-            PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.RedArcher[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.RedSpearman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.RedSpearman[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.RedSpearman[2].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedArcher[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedSpearman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedSpearman[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedSpearman[2].transform.parent.gameObject);
 
+            RedArcher();
+            RedArcher();
+            RedSpearman();
+            RedSpearman();
+            RedSpearman();
 
             SoldierChoose(0, 0, 3, 3);
             createDefenser.CreateSoldier(Colornumber, Soldiernumber);
@@ -146,9 +264,13 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         if (TagSoldier.BlueSwordman.Length >= 3)
         {
 
-            PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.BlueSwordman[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.BlueSwordman[2].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueSwordman[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueSwordman[2].transform.parent.gameObject);
+
+            BlueSwordman();
+            BlueSwordman();
+            BlueSwordman();
 
 
             SoldierChoose(1, 1, 1, 1);
@@ -179,11 +301,17 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         if (TagSoldier.BlueSwordman.Length >= 2 && TagSoldier.BlueArcher.Length >= 3)
         {
 
-            PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.BlueSwordman[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.BlueArcher[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.BlueArcher[2].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueSwordman[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueArcher[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueArcher[2].transform.parent.gameObject);
+
+            BlueSwordman();
+            BlueSwordman();
+            BlueArcher();
+            BlueArcher();
+            BlueArcher();
 
 
             SoldierChoose(1, 1, 2, 2);
@@ -213,11 +341,17 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         TagSoldier.BlueArcherTag();
         if (TagSoldier.BlueSpearman.Length >= 3 && TagSoldier.BlueArcher.Length >= 2)
         {
-            PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.BlueArcher[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.BlueSpearman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.BlueSpearman[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.BlueSpearman[2].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueArcher[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueSpearman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueSpearman[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueSpearman[2].transform.parent.gameObject);
+
+            BlueArcher();
+            BlueArcher();
+            BlueSpearman();
+            BlueSpearman();
+            BlueSpearman();
 
 
             SoldierChoose(1, 1, 3, 3);
@@ -247,9 +381,14 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         TagSoldier.YellowSwordmanTag();
         if (TagSoldier.YellowSwordman.Length >= 3)
         {
-            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[2].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowSwordman[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowSwordman[2].transform.parent.gameObject);
+
+            YellowSwordman();
+            YellowSwordman();
+            YellowSwordman();
+
             GameManager.instance.Gold += 2;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
@@ -281,11 +420,18 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         TagSoldier.YellowArcherTag();
         if (TagSoldier.YellowSwordman.Length >= 2 && TagSoldier.YellowArcher.Length >= 3)
         {
-            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.YellowArcher[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.YellowArcher[2].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowSwordman[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowArcher[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowArcher[2].transform.parent.gameObject);
+
+            YellowSwordman();
+            YellowSwordman();
+            YellowArcher();
+            YellowArcher();
+            YellowArcher();
+
             GameManager.instance.Gold += 2;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
@@ -316,12 +462,17 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         TagSoldier.YellowArcherTag();
         if (TagSoldier.YellowSpearman.Length >= 3 && TagSoldier.YellowArcher.Length >= 2)
         {
-            PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.YellowArcher[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.YellowSpearman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.YellowSpearman[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.YellowSpearman[2].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowArcher[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowSpearman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowSpearman[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowSpearman[2].transform.parent.gameObject);
 
+            YellowArcher();
+            YellowArcher();
+            YellowSpearman();
+            YellowSpearman();
+            YellowSpearman();
 
             SoldierChoose(2, 2, 3, 3);
             createDefenser.CreateSoldier(Colornumber, Soldiernumber);
@@ -350,9 +501,13 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         if (TagSoldier.GreenSwordman.Length >= 3)
         {
 
-            PhotonNetwork.Destroy(TagSoldier.GreenSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.GreenSwordman[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.GreenSwordman[2].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.GreenSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.GreenSwordman[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.GreenSwordman[2].transform.parent.gameObject);
+
+            GreenSwordman();
+            GreenSwordman();
+            GreenSwordman();
 
 
             SoldierChoose(3, 3, 1, 1);
@@ -383,11 +538,18 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         TagSoldier.GreenArcherTag();
         if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.GreenArcher.Length >= 3)
         {
-            PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.GreenArcher[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.GreenArcher[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.GreenArcher[2].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.GreenArcher[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.GreenArcher[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.GreenArcher[2].transform.parent.gameObject);
+
+            BlueSwordman();
+            YellowSwordman();
+            GreenArcher();
+            GreenArcher();
+            GreenArcher();
+
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
@@ -420,11 +582,17 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         if (TagSoldier.GreenSpearman.Length >= 3 && TagSoldier.BlueArcher.Length >= 1 && TagSoldier.YellowArcher.Length >= 1)
         {
 
-            PhotonNetwork.Destroy(TagSoldier.GreenSpearman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.GreenSpearman[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.GreenSpearman[2].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.GreenSpearman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.GreenSpearman[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.GreenSpearman[2].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
+
+            GreenSpearman();
+            GreenSpearman();
+            GreenSpearman();
+            BlueArcher();
+            YellowArcher();
 
 
             SoldierChoose(3, 3, 3, 3);
@@ -455,9 +623,13 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         if (TagSoldier.OrangeSwordman.Length >= 3)
         {
 
-            PhotonNetwork.Destroy(TagSoldier.OrangeSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.OrangeSwordman[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.OrangeSwordman[2].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.OrangeSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.OrangeSwordman[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.OrangeSwordman[2].transform.parent.gameObject);
+
+            OrangeSwordman();
+            OrangeSwordman();
+            OrangeSwordman();
 
 
             SoldierChoose(4, 4, 1, 1);
@@ -488,11 +660,18 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         TagSoldier.OrangeArcherTag();
         if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.OrangeArcher.Length >= 3)
         {
-            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.OrangeArcher[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.OrangeArcher[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.OrangeArcher[2].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.OrangeArcher[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.OrangeArcher[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.OrangeArcher[2].transform.parent.gameObject);
+
+            RedSwordman();
+            YellowSwordman();
+            OrangeArcher();
+            OrangeArcher();
+            OrangeArcher();
+
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
@@ -525,12 +704,17 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         if (TagSoldier.OrangeSpearman.Length >= 3 && TagSoldier.RedArcher.Length >= 1 && TagSoldier.YellowArcher.Length >= 1)
         {
 
-            PhotonNetwork.Destroy(TagSoldier.OrangeSpearman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.OrangeSpearman[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.OrangeSpearman[2].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.OrangeSpearman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.OrangeSpearman[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.OrangeSpearman[2].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
 
+            OrangeSpearman();
+            OrangeSpearman();
+            OrangeSpearman();
+            RedArcher();
+            YellowArcher();
 
             SoldierChoose(4, 4, 3, 3);
             createDefenser.CreateSoldier(Colornumber, Soldiernumber);
@@ -559,10 +743,13 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         if (TagSoldier.VioletSwordman.Length >= 3)
         {
 
-            PhotonNetwork.Destroy(TagSoldier.VioletSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.VioletSwordman[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.VioletSwordman[2].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.VioletSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.VioletSwordman[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.VioletSwordman[2].transform.parent.gameObject);
 
+            VioletSwordman();
+            VioletSwordman();
+            VioletSwordman();
 
             SoldierChoose(5, 5, 1, 1);
             createDefenser.CreateSoldier(Colornumber, Soldiernumber);
@@ -592,12 +779,17 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         TagSoldier.VioletArcherTag();
         if (TagSoldier.BlueSwordman.Length >= 1 && TagSoldier.RedSwordman.Length >= 1 && TagSoldier.VioletArcher.Length >= 3)
         {
-            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.VioletArcher[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.VioletArcher[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.VioletArcher[2].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.VioletArcher[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.VioletArcher[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.VioletArcher[2].transform.parent.gameObject);
 
+            RedSwordman();
+            RedSwordman();
+            VioletArcher();
+            VioletArcher();
+            VioletArcher();
 
             SoldierChoose(5, 5, 2, 2);
             createDefenser.CreateSoldier(Colornumber, Soldiernumber);
@@ -628,11 +820,17 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         if (TagSoldier.VioletSpearman.Length >= 3 && TagSoldier.BlueArcher.Length >= 1 && TagSoldier.RedArcher.Length >= 1)
         {
 
-            PhotonNetwork.Destroy(TagSoldier.VioletSpearman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.VioletSpearman[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.VioletSpearman[2].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.VioletSpearman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.VioletSpearman[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.VioletSpearman[2].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
+
+            VioletSpearman();
+            VioletSpearman();
+            VioletSpearman();
+            RedArcher();
+            BlueArcher();
 
 
             SoldierChoose(5, 5, 3, 3);
@@ -664,8 +862,12 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         TagSoldier.BlueSwordmanTag();
         if (TagSoldier.YellowSwordman.Length >= 1 && TagSoldier.BlueSwordman.Length >= 1)
         {
-            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+
+            YellowSwordman();
+            BlueSwordman();
+
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
@@ -696,8 +898,11 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         TagSoldier.RedSwordmanTag();
         if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.YellowSwordman.Length >= 1)
         {
-            PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+
+            YellowSwordman();
+            RedSwordman();
 
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
@@ -728,9 +933,11 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         TagSoldier.RedSwordmanTag();
         if (TagSoldier.RedSwordman.Length >= 1 && TagSoldier.BlueSwordman.Length >= 1)
         {
-            PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
 
+            BlueSwordman();
+            RedSwordman();
 
             SoldierChoose(5, 5, 0, 0);
             createDefenser.CreateSoldier(Colornumber, Soldiernumber);

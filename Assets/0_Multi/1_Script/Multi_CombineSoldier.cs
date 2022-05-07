@@ -38,9 +38,15 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         if (TagSoldier.RedSwordman.Length >= 3)
         {
 
+            //PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedSwordman[1].transform.parent.gameObject);
+            //PhotonNetwork.Destroy(TagSoldier.RedSwordman[2].transform.parent.gameObject);
+
             PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.RedSwordman[1].transform.parent.gameObject);
-            PhotonNetwork.Destroy(TagSoldier.RedSwordman[2].transform.parent.gameObject);
+            TagSoldier.RedSwordmanTag();
+            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+            TagSoldier.RedSwordmanTag();
+            PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
 
 
             SoldierChoose(0, 0, 1, 1);

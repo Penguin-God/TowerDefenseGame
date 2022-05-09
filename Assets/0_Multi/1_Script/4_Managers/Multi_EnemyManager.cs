@@ -91,6 +91,8 @@ public class Multi_EnemyManager : MonoBehaviour
 
     public Transform[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int count, Transform currentTarget)
     {
+        if (allNormalEnemys.Count == 0) return null;
+
         List<Transform> _enemys = new List<Transform>(allNormalEnemys);
         Transform[] targets = new Transform[count];
 

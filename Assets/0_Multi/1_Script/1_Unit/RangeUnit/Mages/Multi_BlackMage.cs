@@ -7,13 +7,9 @@ public class Multi_BlackMage : Multi_Unit_Mage
     [SerializeField] Transform skileShotPositions = null;
     [SerializeField] Transform ultimate_SkileShotPositions = null;
 
-    public override void SetMageAwake()
-    {
-        SetSkillPool(mageSkillObject, 50);
-    }
-
     public override void MageSkile()
     {
+        // TODO : Event로 옮기기
         Transform useSkileTransform = (isUltimate) ? ultimate_SkileShotPositions : skileShotPositions;
         MultiDirectionShot(useSkileTransform);
     }

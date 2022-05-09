@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class Multi_Managers : MonoBehaviour
+public class Multi_Managers : MonoBehaviourPun
 {
     private static Multi_Managers instance;
     private static Multi_Managers Instance
@@ -28,6 +29,8 @@ public class Multi_Managers : MonoBehaviour
 
     void Awake()
     {
+        if (photonView.IsMine) return;
+
         _pool.Init();
     }
 }

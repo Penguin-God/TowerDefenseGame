@@ -90,7 +90,6 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
 
         gameObject.SetActive(false);
         transform.position = new Vector3(500, 500, 500);
-        ResetValue();
     }
 
     protected override void ResetValue()

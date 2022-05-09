@@ -5,12 +5,6 @@ using Photon.Pun;
 
 public class Multi_VioletMage : Multi_Unit_Mage
 {
-    public override void SetMageAwake()
-    {
-        SetSkillPool(mageSkillObject, 3, SetSkill);
-        StartCoroutine(Co_SkilleReinForce());
-    }
-
     void SetSkill(GameObject _skill) => _skill.GetComponent<Multi_HitSkill>().OnHitSkile += 
         (Multi_Enemy enemy) => enemy.OnPoison(RpcTarget.MasterClient, 25, 8, 0.3f, 120000);
 
@@ -19,6 +13,7 @@ public class Multi_VioletMage : Multi_Unit_Mage
         UsedSkill(target.position);
     }
 
+    // TODO : Event로 옮기기
     IEnumerator Co_SkilleReinForce()
     {
         yield return new WaitUntil(() => isUltimate);

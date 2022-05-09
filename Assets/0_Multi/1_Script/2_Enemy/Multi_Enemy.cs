@@ -50,7 +50,6 @@ public class Multi_Enemy : MonoBehaviourPun
         for (int i = 0; i < addMeshs.Length; i++) meshList.Add(addMeshs[i]);
     }
 
-    // TODO : SetStatus 부분 리펙토링하기
     public void SetStatus(RpcTarget target, int _hp, float _speed, bool _isDead) => PV.RPC("SetStatus", target, _hp, _speed, _isDead);
     [PunRPC]
     protected virtual void SetStatus(int _hp, float _speed, bool _isDead)
@@ -98,7 +97,10 @@ public class Multi_Enemy : MonoBehaviourPun
 
     protected virtual void ResetValue()
     {
+        SetStatus(0, 0, true);
         queue_HoldingPoison.Clear();
+        ChangeColor(255, 255, 255, 255);
+        ChangeMat(originMat);
         SetStatus(0, 0, true);
     }
 
@@ -112,9 +114,8 @@ public class Multi_Enemy : MonoBehaviourPun
     public void OnFreeze(RpcTarget _target, float _freezeTime) => _PV.RPC("OnFreeze", _target, _freezeTime);
     [PunRPC] protected virtual void OnFreeze(float slowTime) { } // 얼리는 스킬
 
-    public void OnStun(RpcTarget _target, int _stunPercent, float _stunTime) => _PV.RPC("OnStern", _target, _stunPercent, _stunTime);
+    public void OnStun(RpcTarget _target, int _stunPercent, float _stunTime) => _PV.RPC("OnStun", _target, _stunPercent, _stunTime);
     [PunRPC] protected virtual void OnStun(int stunPercent, float stunTime) { }
-
 
     public void OnPoison(RpcTarget _target, int poisonPercent, int poisonCount, float poisonDelay, int maxDamage) 
         => _PV.RPC("OnPoison", _target, poisonPercent, poisonCount, poisonDelay, maxDamage);

@@ -7,10 +7,10 @@ public class Multi_GreenMage : Multi_Unit_Mage
     System.Action skillAct = null;
     public override void SetMageAwake()
     {
-        SetSkillPool(mageSkillObject, 3);
+        //SetSkillPool(mageSkillObject, 3);
         attackRange *= 2; // 패시브
         skillAct += () => ShootSkill(energyBallTransform.position);
-        StartCoroutine(Co_SkileReinforce());
+        //StartCoroutine(Co_SkileReinforce());
     }
 
     void ShootSkill(Vector3 _pos)
@@ -46,6 +46,7 @@ public class Multi_GreenMage : Multi_Unit_Mage
         PlusMana = savePlusMana;
     }
 
+    // TODO : Event로 구현 옮기기
     IEnumerator Co_SkileReinforce()
     {
         yield return new WaitUntil(() => isUltimate);

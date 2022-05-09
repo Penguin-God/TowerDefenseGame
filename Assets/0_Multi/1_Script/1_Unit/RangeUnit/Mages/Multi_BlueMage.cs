@@ -10,14 +10,14 @@ public class Multi_BlueMage : Multi_Unit_Mage
 
     public override void SetMageAwake()
     {
-        SetSkillPool(mageSkillObject, 3, SetEnemyFreeze);
+        //SetSkillPool(mageSkillObject, 3, SetEnemyFreeze);
 
         bluePassive = GetComponent<Multi_BluePassive>();
         blueCollider = GetComponentInChildren<SphereCollider>();
         blueCollider.radius = bluePassive.Get_ColliderRange;
         bluePassive.OnBeefup += () => blueCollider.radius = bluePassive.Get_ColliderRange;
 
-        StartCoroutine(Co_SkilleReinForce());
+        //StartCoroutine(Co_SkilleReinForce());
     }
 
     void SetEnemyFreeze(GameObject _skill) =>
@@ -26,10 +26,11 @@ public class Multi_BlueMage : Multi_Unit_Mage
     public override void MageSkile() => UsedSkill(transform.position + (Vector3.up * 2));
 
 
+    // TODO : Event로 옮기기
     IEnumerator Co_SkilleReinForce()
     {
         yield return new WaitUntil(() => isUltimate);
-        UpdateSkill(SkilleReinForce);
+        //UpdateSkill(SkilleReinForce);
     }
 
     void SkilleReinForce(GameObject _skill)

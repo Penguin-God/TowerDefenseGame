@@ -217,13 +217,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         nav.enabled = false;
     }
 
-
+    // 현재 살아있는 enemy 중 가장 가까운 enemy의 정보를 가지고 nav 및 변수 설정
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
-        // 현재 살아있는 enemy 중 가장 가까운 enemy의 정보를 가지고 nav 및 변수 설정
         Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange);
-        //GameObject targetObject = GetProximateEnemy_AtList(Multi_EnemySpawner.instance.currentNormalEnemyList);
-        if(_target != null) SetChaseSetting(_target.gameObject);
+        SetChaseSetting(_target.gameObject);
     }
 
     public void SetChaseSetting(GameObject targetObject) // 추적 관련 변수 설정
@@ -330,10 +328,18 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         isSkillAttack = false;
     }
 
+    protected GameObject GetWeapon(WeaponType weaponType, GameObject go, Transform weaponPos) => GetWeapon(weaponType, go, weaponPos.position);
+    protected GameObject GetWeapon(WeaponType weaponType, GameObject go, Vector3 weaponPos)
+    {
+        string path = Multi_WeaponManager.BuildPath(weaponType, go.name);
+        GameObject _usingWeapon = Multi_Managers.Resources.PhotonInsantiate(path, weaponPos);
+        return _usingWeapon;
+    }
+
     protected Multi_Projectile UsedWeapon(WeaponType weaponType, GameObject go, Transform weaponPos, Vector3 dir, int speed, Action<Multi_Enemy> hitAction)
     {
         string path = Multi_WeaponManager.BuildPath(weaponType, go.name);
-        Multi_Projectile UseWeapon = Multi_Managers.Resources.PhotonInsantiate(path, weaponPos.position).GetComponent<Multi_Projectile>();
+        Multi_Projectile UseWeapon = GetWeapon(weaponType, go, weaponPos).GetComponent<Multi_Projectile>();
 
         Vector3 pos = new Vector3(weaponPos.position.x, 2f, weaponPos.position.z);
         UseWeapon.Shot(pos, dir, speed, (Multi_Enemy enemy) => hitAction(enemy));

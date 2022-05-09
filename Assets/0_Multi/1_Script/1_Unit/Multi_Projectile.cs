@@ -46,17 +46,7 @@ public class Multi_Projectile : MonoBehaviourPun
     void HitEnemy(Multi_Enemy enemy)
     {
         OnHit?.Invoke(enemy);
-        OnHit = null;
         if (!isAOE) ReturnObjet();
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (photonView.IsMine)
-        {
-            Multi_Enemy enemy = other.GetComponentInParent<Multi_Enemy>();
-            if (enemy != null) HitEnemy(enemy);
-        }
     }
 
     IEnumerator Co_Inactive(float delayTime)
@@ -67,7 +57,17 @@ public class Multi_Projectile : MonoBehaviourPun
 
     void ReturnObjet()
     {
+        OnHit = null;
         Poolable poolable = GetComponent<Poolable>();
         if (poolable != null) Multi_Managers.Pool.Push(poolable);
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (photonView.IsMine)
+        {
+            Multi_Enemy enemy = other.GetComponentInParent<Multi_Enemy>();
+            if (enemy != null) HitEnemy(enemy);
+        }
     }
 }

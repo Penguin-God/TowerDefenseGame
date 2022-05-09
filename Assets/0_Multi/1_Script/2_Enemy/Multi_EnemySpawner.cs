@@ -205,9 +205,9 @@ public class Multi_EnemySpawner : MonoBehaviourPun
     {
         UpdateStage();
 
-        //currentEenmyNumber = enemyStatusDataByStageNumber[stageNumber].number;
+        currentEenmyNumber = enemyStatusDataByStageNumber[stageNumber].number;
 
-        string path = GetJoinPath(NormalPath, enemyPrefab[enemyStatusDataByStageNumber[stageNumber].number].name);
+        string path = GetJoinPath(NormalPath, enemyPrefab[currentEenmyNumber].name);
         int _hp = enemyStatusDataByStageNumber[stageNumber].hp;
         float _speed = enemyStatusDataByStageNumber[stageNumber].speed;
         
@@ -226,6 +226,7 @@ public class Multi_EnemySpawner : MonoBehaviourPun
         // normal enemy를 정해진 숫자만큼 소환
         while (respawnCount > 0)
         {
+            path = GetJoinPath(NormalPath, enemyPrefab[currentEenmyNumber].name);
             RespawnEnemy(path, hp, speed, spawnPos);
             respawnCount--;
             yield return new WaitForSeconds(2f);

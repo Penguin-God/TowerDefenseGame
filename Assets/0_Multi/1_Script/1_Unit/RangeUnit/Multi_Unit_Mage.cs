@@ -6,69 +6,69 @@ using UnityEngine.UI;
 using Photon.Pun;
 
 // TODO : 스킬 풀링 구조 리펙토링하기
-public class SkillObjectPoolManager : MonoBehaviourPun
-{
-    Queue<GameObject> skillObjectPool = new Queue<GameObject>();
+//public class SkillObjectPoolManager : MonoBehaviourPun
+//{
+//    Queue<GameObject> skillObjectPool = new Queue<GameObject>();
 
-    public void SettingSkilePool(GameObject skillObj, int count, Action<GameObject> SettingSkileAction = null)
-    {
-        for (int i = 0; i < count; i++)
-        {
-            GameObject skill = PhotonNetwork.Instantiate(skillObj.name, new Vector3(-200, -200, -200), skillObj.transform.rotation);
-            RPC_Utility.Instance.RPC_Active(photonView.ViewID, true);
-            //skill.GetComponent<MyPunRPC>().RPC_Active(true);
+//    public void SettingSkilePool(GameObject skillObj, int count, Action<GameObject> SettingSkileAction = null)
+//    {
+//        for (int i = 0; i < count; i++)
+//        {
+//            GameObject skill = PhotonNetwork.Instantiate(skillObj.name, new Vector3(-200, -200, -200), skillObj.transform.rotation);
+//            RPC_Utility.Instance.RPC_Active(photonView.ViewID, true);
+//            //skill.GetComponent<MyPunRPC>().RPC_Active(true);
 
-            // Hit Event 설정해줘야 하는 법사들만 실행됨
-            if (SettingSkileAction != null) SettingSkileAction(skill);
+//            // Hit Event 설정해줘야 하는 법사들만 실행됨
+//            if (SettingSkileAction != null) SettingSkileAction(skill);
 
-            //skill.GetComponent<MyPunRPC>().RPC_Active(false);
-            RPC_Utility.Instance.RPC_Active(photonView.ViewID, false);
-            skillObjectPool.Enqueue(skill);
-        }
-    }
+//            //skill.GetComponent<MyPunRPC>().RPC_Active(false);
+//            RPC_Utility.Instance.RPC_Active(photonView.ViewID, false);
+//            skillObjectPool.Enqueue(skill);
+//        }
+//    }
 
-    public GameObject UsedSkill(Vector3 _position)
-    {
-        GameObject _skileObj = GetSkile_FromPool();
+//    public GameObject UsedSkill(Vector3 _position)
+//    {
+//        GameObject _skileObj = GetSkile_FromPool();
 
-        RPC_Utility.Instance.RPC_Position(photonView.ViewID, _position);
-        //_skileObj.GetComponent<MyPunRPC>().RPC_Position(_position);
-        return _skileObj;
-    }
+//        RPC_Utility.Instance.RPC_Position(photonView.ViewID, _position);
+//        //_skileObj.GetComponent<MyPunRPC>().RPC_Position(_position);
+//        return _skileObj;
+//    }
 
-    GameObject GetSkile_FromPool()
-    {
-        GameObject getSkile = skillObjectPool.Dequeue();
-        RPC_Utility.Instance.RPC_Active(photonView.ViewID, true);
-        //getSkile.GetComponent<MyPunRPC>().RPC_Active(true);
-        StartCoroutine(Co_ReturnSkile_ToPool(getSkile, 5f));
-        return getSkile;
-    }
+//    GameObject GetSkile_FromPool()
+//    {
+//        GameObject getSkile = skillObjectPool.Dequeue();
+//        RPC_Utility.Instance.RPC_Active(photonView.ViewID, true);
+//        //getSkile.GetComponent<MyPunRPC>().RPC_Active(true);
+//        StartCoroutine(Co_ReturnSkile_ToPool(getSkile, 5f));
+//        return getSkile;
+//    }
 
-    IEnumerator Co_ReturnSkile_ToPool(GameObject _skill, float time)
-    {
-        yield return new WaitForSeconds(time);
-        RPC_Utility.Instance.RPC_Active(photonView.ViewID, false);
-        RPC_Utility.Instance.RPC_Position(photonView.ViewID, new Vector3(200, 200, 200));
-        //_skill.GetComponent<MyPunRPC>().RPC_Active(false);
-        //_skill.GetComponent<MyPunRPC>().RPC_Position(new Vector3(200, 200, 200));
-        skillObjectPool.Enqueue(_skill);
-    }
+//    IEnumerator Co_ReturnSkile_ToPool(GameObject _skill, float time)
+//    {
+//        yield return new WaitForSeconds(time);
+//        RPC_Utility.Instance.RPC_Active(photonView.ViewID, false);
+//        RPC_Utility.Instance.RPC_Position(photonView.ViewID, new Vector3(200, 200, 200));
+//        //_skill.GetComponent<MyPunRPC>().RPC_Active(false);
+//        //_skill.GetComponent<MyPunRPC>().RPC_Position(new Vector3(200, 200, 200));
+//        skillObjectPool.Enqueue(_skill);
+//    }
 
-    // 스킬 강화용
-    public void UpdatePool(Action<GameObject> updateSkill)
-    {
-        if (updateSkill != null)
-        {
-            for (int i = 0; i < skillObjectPool.Count; i++)
-            {
-                GameObject _skill = skillObjectPool.Dequeue();
-                updateSkill(_skill);
-                skillObjectPool.Enqueue(_skill);
-            }
-        }
-    }
-}
+//    // 스킬 강화용
+//    public void UpdatePool(Action<GameObject> updateSkill)
+//    {
+//        if (updateSkill != null)
+//        {
+//            for (int i = 0; i < skillObjectPool.Count; i++)
+//            {
+//                GameObject _skill = skillObjectPool.Dequeue();
+//                updateSkill(_skill);
+//                skillObjectPool.Enqueue(_skill);
+//            }
+//        }
+//    }
+//}
 
 public class Multi_Unit_Mage : Multi_RangeUnit
 {
@@ -79,7 +79,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     [SerializeField] protected Transform energyBallTransform;
     [SerializeField] protected GameObject mageSkillObject = null;
 
-    private SkillObjectPoolManager skillPoolManager = null;
+    //private SkillObjectPoolManager skillPoolManager = null;
     public override void OnAwake()
     {
         //SetPoolObj(energyBall, 7);
@@ -91,8 +91,8 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         manaSlider.value = currentMana;
         StartCoroutine(Co_SetCanvas());
 
-        gameObject.AddComponent<SkillObjectPoolManager>();
-        skillPoolManager = GetComponent<SkillObjectPoolManager>();
+        //gameObject.AddComponent<SkillObjectPoolManager>();
+        //skillPoolManager = GetComponent<SkillObjectPoolManager>();
         SetMageAwake();
     }
 
@@ -102,24 +102,29 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     // 스킬 오브젝트 풀 세팅 함수
     protected void SetSkillPool(GameObject _obj, int _count, Action<GameObject> SettingSkileAction = null)
     {
-        if(pv.IsMine) skillPoolManager.SettingSkilePool(_obj, _count, SettingSkileAction);
+        //if(pv.IsMine) skillPoolManager.SettingSkilePool(_obj, _count, SettingSkileAction);
+        //if(pv.IsMine) GetWeapon(WeaponType.MageSkill, _obj, )
     }
 
     protected GameObject UsedSkill(Vector3 _pos)
     {
         if (!pv.IsMine) return null;
-        GameObject _obj = skillPoolManager.UsedSkill(_pos);
+
+        GameObject _obj = GetWeapon(WeaponType.MageSkill, mageSkillObject, _pos);
         return _obj;
     }
-    protected void UpdateSkill(Action<GameObject> _act) => skillPoolManager.UpdatePool(_act);
+    // TODO : 스킬 강화 구현 방식 바꾸기
+    //protected void UpdateSkill(Action<GameObject> _act) => skillPoolManager.UpdatePool(_act);
 
 
     // 지금은 테스트를 위해 첫 공격에 무조건 스킬 쓰도록 놔둠
-    private bool isMageSkillAttack = true;
+    private bool isMageSkillAttack;
     public override void NormalAttack()
     {
-        if (!isMageSkillAttack) StartCoroutine("MageAttack");
-        else SpecialAttack();
+        // if (isMageSkillAttack) SpecialAttack();
+        // TODO : 스킬 쓰면 버그 있어서 스킬 막아둠
+        if (false) SpecialAttack();
+        else StartCoroutine("MageAttack");
     }
 
     [SerializeField] int plusMana = 30;

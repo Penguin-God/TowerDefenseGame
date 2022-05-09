@@ -9,9 +9,9 @@ public class Multi_RedMage : Multi_Unit_Mage
 
     public override void SetMageAwake()
     {
-        SetSkillPool(mageSkillObject, 3, SetHitSkile);
+        //SetSkillPool(mageSkillObject, 3, SetHitSkile);
         redPassive = GetComponent<Multi_RedPassive>();
-        StartCoroutine(Co_UltimateSkile());
+        //StartCoroutine(Co_UltimateSkile());
     }
 
     void SetHitSkile(GameObject skileObj)
@@ -37,6 +37,7 @@ public class Multi_RedMage : Multi_Unit_Mage
         meteor.GetComponent<Multi_Meteor>().OnChase(_enemy);
     }
 
+    // TODO : Event로 구현하기
     [SerializeField] Vector3 ultimateMeteorPos = (Vector3.up * 30) + (Vector3.forward * -5);
     IEnumerator Co_UltimateSkile()
     {
@@ -52,14 +53,14 @@ public class Multi_RedMage : Multi_Unit_Mage
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.layer == 9)
-            Change_Unit_AttackCollDown(other.GetComponentInParent<Multi_TeamSoldier>(), redPassive.Get_DownDelayWeigh);
+            Change_Unit_AttackCollDown(other.GetComponent<Multi_TeamSoldier>(), redPassive.Get_DownDelayWeigh);
     }
 
     private void OnTriggerExit(Collider other)
     {
         // redPassive.get_DownDelayWeigh 의 역수 곱해서 공속 되돌림
         if (other.gameObject.layer == 9) 
-            Change_Unit_AttackCollDown(other.GetComponentInParent<Multi_TeamSoldier>(), (1 / redPassive.Get_DownDelayWeigh));
+            Change_Unit_AttackCollDown(other.GetComponent<Multi_TeamSoldier>(), (1 / redPassive.Get_DownDelayWeigh));
     }
 
     void Change_Unit_AttackCollDown(Multi_TeamSoldier _unit, float rate)

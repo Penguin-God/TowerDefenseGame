@@ -105,6 +105,8 @@ public class Multi_PoolManager
         }
     }
 
+    // TODO : 구현하기 (지금은 틀만 만들어둠)
+    public Transform CreatePool(string path, int count) => null;
 
     public Transform CreatePool(GameObject original, string path, int count) => CreatePool(original, path, count, etcGroupName);
 

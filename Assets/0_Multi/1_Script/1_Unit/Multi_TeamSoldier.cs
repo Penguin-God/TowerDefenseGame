@@ -156,8 +156,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     void Start()
     {
-        Multi_EnemySpawner.instance.OnBossSpawn += _boss => SetChaseSetting(_boss.gameObject);
-        Multi_EnemySpawner.instance.OnBossDead += _level => UpdateTarget();
+        Multi_SpawnManagers.BossEnemy.OnSpawn += _boss => SetChaseSetting(_boss.gameObject);
+        Multi_SpawnManagers.BossEnemy.OnDead += _boss => UpdateTarget();
     }
 
     //protected void SetPoolObj(GameObject _obj, int _count)
@@ -408,7 +408,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             if (target != null) enemyDistance = Vector3.Distance(this.transform.position, towerHit.point);
             if (target == null || enemyDistance > chaseRange)
             {
-                Multi_EnemyTower currentTower = Multi_EnemySpawner.instance.CurrentTower;
+                // TOOD : 에너미 타워 구현하기
+                Multi_EnemyTower currentTower = null; // Multi_EnemySpawner.instance.CurrentTower;
                 yield return new WaitUntil(() => currentTower != null);
                 if (!currentTower.isDead) SetChaseSetting(currentTower.gameObject);
                 else

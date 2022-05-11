@@ -6,31 +6,20 @@ using Photon.Pun;
 class PoolGroup
 {
     public Transform Root { get; set; }
-    Dictionary<string, Pool> poolByPath = new Dictionary<string, Pool>();
-
-    public void Init(string folderName, Transform root)
+    
+    public void Init(string rootName)
     {
-        Root = new GameObject($"{folderName}_Root").transform;
-        Root.SetParent(root);
+        Root = new GameObject($"{rootName}_Root").transform;
     }
 
-    public Transform CreatePool(GameObject original, string path, int count)
-    {
-        if(poolByPath.TryGetValue(path, out Pool dicPool))
-        {
-            dicPool.Init(original, path, count);
-            return dicPool.Root;
-        }
-        Pool pool = new Pool();
-        poolByPath.Add(path, pool);
-
-        pool.Init(original, path, count);
-        pool.Root.SetParent(Root);
+    //public Transform CreatePool(GameObject original, string path, int count)
+    //{
+    //    Pool pool = new Pool();
+    //    pool.Init(original, path, count);
+    //    pool.Root.SetParent(Root);
         
-        return pool.Root;
-    }
-
-    public bool TryGetPool(string path, out Pool pool)  => poolByPath.TryGetValue(path, out pool);
+    //    return pool.Root;
+    //}
 }
 
 class Pool
@@ -44,7 +33,6 @@ class Pool
 
     public void Init(GameObject original, string path, int count)
     {
-        //string rootName = path.Split('/')[path.Split('/').Length - 1];
         Root = new GameObject($"{original.name}_Root").transform;
         if(original.GetComponent<Poolable>() == null) original.AddComponent<Poolable>();
         Original = original;
@@ -58,12 +46,12 @@ class Pool
         Poolable poolable;
         GameObject go = PhotonNetwork.Instantiate($"Prefabs/{Path}", Vector3.zero, Quaternion.identity);
         go.transform.SetParent(Root);
+        go.name = Original.name;
 
-        poolable = go.GetComponent<Poolable>();
-        if (poolable == null) poolable = go.AddComponent<Poolable>();
+        poolable = go.GetOrAddComponent<Poolable>();
         poolable.Path = Path;
 
-        return go.GetComponent<Poolable>();
+        return poolable;
     }
 
     public void Push(Poolable poolable)
@@ -94,8 +82,9 @@ public class Multi_PoolManager
 {
     Transform _root;
 
-    Dictionary<string, PoolGroup> _poolGroupByFolderName = new Dictionary<string, PoolGroup>();
-    const string etcGroupName = "etc";
+    Dictionary<string, PoolGroup> _poolGroupByName = new Dictionary<string, PoolGroup>();
+    Dictionary<string, Pool> _poolByName = new Dictionary<string, Pool>();
+
     public void Init()
     {
         if(_root == null)
@@ -105,28 +94,36 @@ public class Multi_PoolManager
         }
     }
 
-    // TODO : 구현하기 (지금은 틀만 만들어둠)
-    public Transform CreatePool(string path, int count) => null;
-
-    public Transform CreatePool(GameObject original, string path, int count) => CreatePool(original, path, count, etcGroupName);
-
-    public Transform CreatePool(GameObject original, string path, int count, string groupName)
+    public Transform CreatePool(GameObject go, string path, int count, Transform root = null)
     {
-        if (_poolGroupByFolderName.TryGetValue(groupName, out PoolGroup poolGroup))
-            return poolGroup.CreatePool(original, path, count);
-        else
+        Pool pool = new Pool();
+        pool.Init(go, path, count);
+        if(root == null) pool.Root.SetParent(_root);
+        else pool.Root.SetParent(root);
+        _poolByName.Add(go.name, pool);
+        return pool.Root;
+    }
+
+    public Transform CreatePool_InGroup(GameObject original, string path, int count, string groupName)
+    {
+        PoolGroup poolGroup;
+        if (_poolGroupByName.TryGetValue(groupName, out poolGroup))
+            return CreatePool(original, path, count, poolGroup.Root);
+        else // 없으면 새로운 풀 그룹 생성
         {
-            PoolGroup _newPoolGroup = new PoolGroup();
-            _newPoolGroup.Init(groupName, _root);
-            _poolGroupByFolderName.Add(groupName, _newPoolGroup);
-            return _newPoolGroup.CreatePool(original, path, count);
+            poolGroup = new PoolGroup();
+            poolGroup.Init(groupName);
+            poolGroup.Root.SetParent(_root);
+            _poolGroupByName.Add(groupName, poolGroup);
+            return CreatePool(original, path, count, poolGroup.Root);
         }
     }
 
     public void Push(Poolable poolable) => Push(poolable.gameObject, poolable.Path);
     public void Push(GameObject go, string path)
     {
-        Pool pool = GetPool(path);
+        Pool pool = _poolByName[go.name];
+
         if (pool == null)
         {
             Multi_Managers.Resources.PhotonDestroy(go);
@@ -134,39 +131,26 @@ public class Multi_PoolManager
         }
 
         go.transform.SetParent(pool.Root);
-        PhotonView pv = go.GetComponent<PhotonView>();
-        if (pv != null) RPC_Utility.Instance.RPC_Active(pv.ViewID, false);
+        PhotonView pv = go.GetOrAddComponent<PhotonView>();
+        RPC_Utility.Instance.RPC_Active(pv.ViewID, false);
         pool.Push(go.GetComponent<Poolable>());
     }
 
-    public Poolable Pop(string path, Transform parent = null)
+    public Poolable Pop(GameObject go, Transform parent = null)
     {
-        Poolable poolable = GetPool(path).Pop(parent);
+        Poolable poolable = _poolByName[go.name].Pop(parent);
         Debug.Assert(poolable != null, "poolable not defind");
 
-        PhotonView pv = poolable.GetComponent<PhotonView>();
-        if (pv != null) RPC_Utility.Instance.RPC_Active(pv.ViewID, true);
+        PhotonView pv = poolable.gameObject.GetOrAddComponent<PhotonView>();
+        RPC_Utility.Instance.RPC_Active(pv.ViewID, true);
         return poolable;
-    }
-
-    //private Pool GetPool(string path) => 
-    private Pool GetPool(string path)
-    {
-        string folderName = path.Split('/')[0];
-        if (_poolGroupByFolderName.TryGetValue(folderName, out PoolGroup poolGroup))
-        {
-            if (poolGroup.TryGetPool(path, out Pool pool))
-                return pool;
-            else
-                return null;
-        }
-        
-        return null;
     }
 
     public GameObject GetOriginal(string path)
     {
-        Pool pool = GetPool(path);
+        string name = path.Split('/')[path.Split('/').Length-1];
+        Debug.Log(name);
+        Pool pool = _poolByName[name];
         if (pool != null) return pool.Original;
         else return null;
     }

@@ -25,15 +25,15 @@ public class Multi_EnemyManager : MonoBehaviour
 
     void Start()
     {
-        Multi_EnemySpawner.instance.OnNormalEnemySpawn += AddEnemyAtList;
-        Multi_EnemySpawner.instance.OnNormalEnemyDead += RemoveEnemyAtList;
+        Multi_SpawnManagers.NormalEnemy.OnSpawn += AddEnemyAtList;
+        Multi_SpawnManagers.NormalEnemy.OnDead += RemoveEnemyAtList;
 
-        Multi_EnemySpawner.instance.OnBossSpawn += SetBoss;
-        Multi_EnemySpawner.instance.OnBossDead += SetBoss;
-        Multi_EnemySpawner.instance.OnBossDead += GetBossReward;
+        Multi_SpawnManagers.BossEnemy.OnSpawn += SetBoss;
+        Multi_SpawnManagers.BossEnemy.OnDead += SetBossDead;
+        Multi_SpawnManagers.BossEnemy.OnDead += GetBossReward;
 
-        Multi_EnemySpawner.instance.OnTowerSpawn += SetTower;
-        Multi_EnemySpawner.instance.OnTowerDead += SetTower;
+        Multi_SpawnManagers.TowerEnemy.OnSpawn += SetTower;
+        Multi_SpawnManagers.TowerEnemy.OnDead += SetTowerDead;
     }
 
     [Header("Normal Enemy")]
@@ -128,14 +128,19 @@ public class Multi_EnemyManager : MonoBehaviour
         OnListChanged?.Invoke(EnemyCount);
     }
     void SetBoss(Multi_BossEnemy _spawnBoss) => currentBoss = _spawnBoss;
-    void SetBoss(int _level) => currentBoss = null;
-    void SetTower(Multi_EnemyTower _spawnTower) => currentEnemyTower = _spawnTower;
-    void SetTower(int _level) => currentEnemyTower = null;
+    void SetBossDead(Multi_BossEnemy _spawnBoss) => currentBoss = null;
+
     // TODO : 리펙토링 할 수 있나 생각해보기
-    void GetBossReward(int _level)
+    void GetBossReward(Multi_BossEnemy _spawnBoss)
     {
+        int _level = _spawnBoss.Level;
         Multi_GameManager.instance.AddGold(bossGoldReward * _level);
         Multi_GameManager.instance.AddFood(BossFoodReward * _level);
     }
+
+    void SetTower(Multi_EnemyTower _spawnTower) => currentEnemyTower = _spawnTower;
+    void SetTowerDead(Multi_EnemyTower _spawnTower) => currentEnemyTower = null;
+
+
     #endregion
 }

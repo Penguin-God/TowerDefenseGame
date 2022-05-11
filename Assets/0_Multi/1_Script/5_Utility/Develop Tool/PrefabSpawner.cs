@@ -25,19 +25,9 @@ public class PrefabSpawner : MonoBehaviourPun
         photonView.RPC("SpawnUnit", RpcTarget.Others, _name);
     }
 
-    public void SpawnNormalEnemy(string _name, int _enemyNum)
+    public void SpawnNormalEnemy(int _enemyNum)
     {
-        Vector3 _spawnPos = Multi_Data.instance.EnemySpawnPos;
-
-        int _stage = Multi_EnemySpawner.instance.stageNumber;
-        if (_stage < 1) _stage = 1;
-
-        int _hp = Multi_EnemySpawner.instance.debugData[_stage - 1].hp;
-        float _speed = Multi_EnemySpawner.instance.debugData[_stage - 1].speed;
-        
-        GameObject _enemy = Multi_EnemySpawner.instance.GetPoolEnemy(_enemyNum);
-        _enemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("SetPos", RpcTarget.All, _spawnPos);
-        _enemy.GetComponent<Multi_NormalEnemy>().photonView.RPC("Setup", RpcTarget.All, _hp, _speed);
+        Multi_SpawnManagers.NormalEnemy.Spawn(_enemyNum);
     }
 
     public void AllUnitSpawn_ByEditor()

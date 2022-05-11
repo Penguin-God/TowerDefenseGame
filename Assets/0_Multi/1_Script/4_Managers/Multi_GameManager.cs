@@ -70,32 +70,34 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     [SerializeField] Text diffcultText;
 
     // TODO : 난이도 구현 멀티에 맞게 바꿔야함
-    void SelectDifficult(string difficult)
-    {
-        diffcultText.text = "난이도 : " + difficult;
-        //Multi_EnemySpawner.instance.arr_TowersHp = Dic_enemyTowerHp[difficult];
-        switch (difficult)
-        {
-            case "Baby": SetDifficult(30, 10, 200); break;
-            case "Easy": SetDifficult(30, 15, 250); break;
-            case "Normal": SetDifficult(30, 35, 300); break;
-            case "Hard": SetDifficult(35, 70, 350); break;
-            case "Impossiable": SetDifficult(120, 250, 1000); break;
-        }
-    }
-    void SetDifficult(int hpWeight, int plusHpWeigh, int minhp)
-    {
-        Multi_EnemySpawner.instance.enemyHpWeight = hpWeight;
-        Multi_EnemySpawner.instance.plusEnemyHpWeight = plusHpWeigh;
-        Multi_EnemySpawner.instance.minHp = minhp;
-    }
+    //void SelectDifficult(string difficult)
+    //{
+    //    diffcultText.text = "난이도 : " + difficult;
+    //    //Multi_EnemySpawner.instance.arr_TowersHp = Dic_enemyTowerHp[difficult];
+    //    switch (difficult)
+    //    {
+    //        case "Baby": SetDifficult(30, 10, 200); break;
+    //        case "Easy": SetDifficult(30, 15, 250); break;
+    //        case "Normal": SetDifficult(30, 35, 300); break;
+    //        case "Hard": SetDifficult(35, 70, 350); break;
+    //        case "Impossiable": SetDifficult(120, 250, 1000); break;
+    //    }
+    //}
+    //void SetDifficult(int hpWeight, int plusHpWeigh, int minhp)
+    //{
+    //    Multi_EnemySpawner.instance.enemyHpWeight = hpWeight;
+    //    Multi_EnemySpawner.instance.plusEnemyHpWeight = plusHpWeigh;
+    //    Multi_EnemySpawner.instance.minHp = minhp;
+    //}
 
     //public int HighScore;
-    int stageUpGold;
+
+    int stageUpGold = 10;
+
     void Start()
     {
-        Multi_EnemySpawner.instance.OnStartNewStage += _stage => AddGold(stageUpGold);
-        Multi_EnemySpawner.instance.OnBossDead += _level => ChangeBGM(bgmClip);
+        Multi_StageManager.Instance.OnUpdateStage += _stage => AddGold(stageUpGold);
+        Multi_SpawnManagers.BossEnemy.OnDead += boss => ChangeBGM(bgmClip);
 
         Multi_UIManager.instance.UpdateGoldText(Gold);
         Multi_UIManager.instance.UpdateFoodText(Food);

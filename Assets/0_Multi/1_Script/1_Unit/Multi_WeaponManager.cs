@@ -46,7 +46,7 @@ public class Multi_WeaponManager : MonoBehaviour
         foreach (var weapon in _weapons)
         {
             string _weaponPath = $"{_path}/{weapon.name}";
-            Multi_Managers.Pool.CreatePool(weapon, _weaponPath, count, GroupName);
+            Multi_Managers.Pool.CreatePool_InGroup(weapon, _weaponPath, count, GroupName);
         }
     }
 }

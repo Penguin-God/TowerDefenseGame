@@ -33,8 +33,8 @@ public class Multi_CreateDefenser : MonoBehaviourPun
     string GetJoinPath(string enemyTypePath, string enemyName) => $"{enemyTypePath}/{enemyName}";
     void Start()
     {
-
-        Multi_EnemySpawner.instance.OnBossDead += Give_BossReword;
+        
+        // Multi_EnemySpawner.instance.OnBossDead += Give_BossReword;
     }
 
     public void DrawSoldier(int Colornumber, int Soldiernumber)

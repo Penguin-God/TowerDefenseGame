@@ -386,6 +386,7 @@ GameObject:
   - component: {fileID: 5451800754522750213}
   - component: {fileID: 1282694530267751694}
   - component: {fileID: -8753769999107843917}
+  - component: {fileID: 3045235132418816773}
   m_Layer: 8
   m_Name: Lvl2_Twoer
   m_TagString: Tower
@@ -489,12 +490,9 @@ MonoBehaviour:
   enemyType: 2
   dir: {x: 0, y: 0, z: 0}
   originMat: {fileID: 0}
-  freezeMat: {fileID: 0}
-  sternEffect: {fileID: 0}
   level: 2
   rewardGold: 30
   rewardFood: 2
-  isRespawn: 0
 --- !u!54 &1282694530267751694
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -533,3 +531,17 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &3045235132418816773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3662538469695754542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 

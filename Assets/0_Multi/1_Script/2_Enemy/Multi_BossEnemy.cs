@@ -9,11 +9,6 @@ public class Multi_BossEnemy : Multi_Enemy
     [SerializeField] int level;
     public int Level => level;
 
-    void OnEnable()
-    {
-        enemyType = EnemyType.Boss;
-    }
-
     public override void Dead()
     {
         base.Dead();

@@ -310,6 +310,7 @@ GameObject:
   - component: {fileID: 1566040437763218498}
   - component: {fileID: 8111365183698115610}
   - component: {fileID: -5137449414792741418}
+  - component: {fileID: -2942972580237363105}
   m_Layer: 8
   m_Name: Boss_Enemy_Sworaman 1
   m_TagString: Boss
@@ -405,6 +406,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d50dbfb12cf6364f9afad5e688a8ebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-2942972580237363105
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2502174115710485866}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1 &2502174116033805578
 GameObject:
   m_ObjectHideFlags: 0

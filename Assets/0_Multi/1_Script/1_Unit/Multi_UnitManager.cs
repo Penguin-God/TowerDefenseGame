@@ -42,17 +42,17 @@ public class Multi_UnitManager : MonoBehaviour
         pathByUnitClass.Add(UnitClass.spearman, SpearmanPath);
         pathByUnitClass.Add(UnitClass.mage, MagePath);
 
-        CreateUnitPools(soldierSpawner.Swordmans, SwordmanPath, 5);
-        CreateUnitPools(soldierSpawner.Archers, ArcherPath, 5);
-        CreateUnitPools(soldierSpawner.Spearmans, SpearmanPath, 4);
-        CreateUnitPools(soldierSpawner.Mages, MagePath, 2);
+        //CreateUnitPools(soldierSpawner.Swordmans, SwordmanPath, 5);
+        //CreateUnitPools(soldierSpawner.Archers, ArcherPath, 5);
+        //CreateUnitPools(soldierSpawner.Spearmans, SpearmanPath, 4);
+        //CreateUnitPools(soldierSpawner.Mages, MagePath, 2);
     }
 
-    void CreateUnitPools(GameObject[] units, string unitPath, int count)
-    {
-        for (int i = 0; i < units.Length; i++)
-            Multi_Managers.Pool.CreatePool(units[i], BuildPath(unitPath, units[i].name), count, UnitGroupName);
-    }
+    //void CreateUnitPools(GameObject[] units, string unitPath, int count)
+    //{
+    //    for (int i = 0; i < units.Length; i++)
+    //        Multi_Managers.Pool.CreatePool(units[i], BuildPath(unitPath, units[i].name), count, UnitGroupName);
+    //}
 
     Multi_UnitDataBase unitDB = null;
     public void ApplyUnitData(string _tag, Multi_TeamSoldier _team) => unitDB.ApplyUnitBaseData(_tag, _team);

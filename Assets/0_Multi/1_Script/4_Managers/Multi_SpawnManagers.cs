@@ -19,23 +19,44 @@ public class Multi_SpawnManagers : MonoBehaviourPun
         }
     }
 
-    // TODO : 그냥 다 모노비헤비어 상속 받아서 스폰 각각 스폰할 오브젝트 가지고 있고 알아서 스폰하는 형태로 바꾸기
-    [SerializeField] GameObject[] normalEnemys;
-
-    Multi_NormalEnemySpawner _normalEnemy = new Multi_NormalEnemySpawner();
-    Multi_BossEnemySpawner _bossEnemy = new Multi_BossEnemySpawner();
-    Multi_TowerEnemySpawner _towerEnemy = new Multi_TowerEnemySpawner();
-    Multi_NormalUnitSpawner _normalUnit = new Multi_NormalUnitSpawner();
+    Multi_NormalEnemySpawner _normalEnemy;
+    Multi_BossEnemySpawner _bossEnemy;
+    Multi_TowerEnemySpawner _towerEnemy;
+    Multi_NormalUnitSpawner _normalUnit;
 
     public static Multi_NormalEnemySpawner NormalEnemy => Instance._normalEnemy;
     public static Multi_BossEnemySpawner BossEnemy => Instance._bossEnemy;
     public static Multi_TowerEnemySpawner TowerEnemy => Instance._towerEnemy;
     public static Multi_NormalUnitSpawner NormalUnit => Instance._normalUnit;
 
+    void Awake()
+    {
+        _normalEnemy = GetOrAddChildComponent<Multi_NormalEnemySpawner>();
+        _bossEnemy = GetOrAddChildComponent<Multi_BossEnemySpawner>();
+        _towerEnemy = GetOrAddChildComponent<Multi_TowerEnemySpawner>();
+        _normalUnit = GetOrAddChildComponent<Multi_NormalUnitSpawner>();
+    }
+
     void Start()
     {
-        if (!photonView.IsMine) return;
+        // 마스터 클라이언트만 풀링할 수 있고 나머지는 풀링을 요청하고 오브젝트를 받는 형식
+        if (!PhotonNetwork.IsMasterClient) return;
 
+        _normalEnemy.Init();
+        _bossEnemy.Init();
+        _towerEnemy.Init();
+        _normalUnit.Init();
+    }
 
+    T GetOrAddChildComponent<T>() where T : Component
+    {
+        T component = GetComponentInChildren<T>();
+        if (component == null)
+        {
+            component = new GameObject(typeof(T).Name).AddComponent<T>();
+            component.transform.SetParent(transform);
+        }
+
+        return component;
     }
 }

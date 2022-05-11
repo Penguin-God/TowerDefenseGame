@@ -23,7 +23,6 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
 
     private void Awake()
     {
-        enemyType = EnemyType.Normal;
         Rigidbody = GetComponent<Rigidbody>();
         TurnPoints = Multi_Data.instance.EnemyTurnPoints;
         //myPunRPC = GetComponent<MyPunRPC>();

@@ -29,7 +29,7 @@ public class Multi_Managers : MonoBehaviourPun
 
     void Awake()
     {
-        if (photonView.IsMine) return;
+        if (!photonView.IsMine) return;
 
         _pool.Init();
     }

@@ -65,7 +65,7 @@ public class PrefabSpawnButton : Editor
 
             string _buttonName = _prefabs[i].name + " Spawn";
             _buttonName = _buttonName.Replace('1', ' ');
-            if (GUILayout.Button(_buttonName)) _spawner.SpawnNormalEnemy(_prefabs[i].name, _enemyNumber);
+            if (GUILayout.Button(_buttonName)) _spawner.SpawnNormalEnemy(_enemyNumber);
             _enemyNumber++;
         }
     }

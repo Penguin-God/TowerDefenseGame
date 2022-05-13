@@ -36,9 +36,8 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     {
         for (int i = 0; i < _enemys.Length; i++)
         {
-            Multi_NormalEnemy[] enemys = CreatePool_InGroup<Multi_NormalEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
-
-            foreach (var enemy in enemys) SetEnemy(enemy);
+            foreach (var enemy in CreatePool_InGroup<Multi_NormalEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount)) 
+                SetEnemy(enemy);
         }
 
         _spawnPos = Multi_Data.instance.EnemySpawnPos;
@@ -122,6 +121,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
         return speed;
     }
     #endregion
+
 
 
     // 콜백용 코드

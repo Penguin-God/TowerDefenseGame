@@ -22,16 +22,11 @@ public class Multi_Projectile : MonoBehaviourPun
         StartCoroutine(Co_Inactive(aliveTime));
     }
 
-    void OnDisable()
-    {
-        Poolable poolable = GetComponent<Poolable>();
-        if (poolable != null) Multi_Managers.Pool.Push(poolable);
-    }
-
     public void Shot(Vector3 pos, Vector3 dir, int speed, Action<Multi_Enemy> hitAction)
     {
         OnHit = hitAction;
         photonView.RPC("SetShotData", RpcTarget.All, pos, dir, speed);
+        RPC_Utility.Instance.RPC_Active(photonView.ViewID, true);
     }
 
     [PunRPC]
@@ -46,7 +41,11 @@ public class Multi_Projectile : MonoBehaviourPun
     void HitEnemy(Multi_Enemy enemy)
     {
         OnHit?.Invoke(enemy);
-        if (!isAOE) ReturnObjet();
+        if (!isAOE)
+        {
+            StopAllCoroutines(); // 코루틴 하나만 있으니까 임시로 씀
+            ReturnObjet();
+        }
     }
 
     IEnumerator Co_Inactive(float delayTime)
@@ -58,8 +57,7 @@ public class Multi_Projectile : MonoBehaviourPun
     void ReturnObjet()
     {
         OnHit = null;
-        Poolable poolable = GetComponent<Poolable>();
-        if (poolable != null) Multi_Managers.Pool.Push(poolable);
+        Multi_Managers.Pool.Push(gameObject.GetOrAddComponent<Poolable>());
     }
 
     private void OnTriggerEnter(Collider other)

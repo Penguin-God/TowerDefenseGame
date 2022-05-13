@@ -20,7 +20,6 @@ public class Multi_UnitManager : MonoBehaviour
         unitDB = GetComponent<Multi_UnitDataBase>();
     }
 
-    [SerializeField] Multi_SoldierSpawner soldierSpawner; 
     #region unit prefabs key
     public string UnitGroupName => "Unit";
     public string SwordmanPath => "Unit/Swordman";

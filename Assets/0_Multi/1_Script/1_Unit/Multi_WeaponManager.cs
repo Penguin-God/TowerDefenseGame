@@ -2,14 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum WeaponType
-{
-    Arrow,
-    Spear,
-    Mageball,
-    MageSkill,
-}
-
 public class Multi_WeaponManager : MonoBehaviour
 {
     [SerializeField] GameObject[] arrows;

@@ -13,30 +13,7 @@ public class Units
 
 public class Multi_CreateDefenser : MonoBehaviourPun
 {
-    [SerializeField] Units[] allUnit;
-
-    private GameObject Soldier;
-
-    // 임시 코드
-    string[] unitPaths;
-
-    // 임시 코드
-    void Awake()
-    {
-        unitPaths = new string[4];
-        unitPaths[0] = Multi_UnitManager.instance.SwordmanPath;
-        unitPaths[1] = Multi_UnitManager.instance.ArcherPath;
-        unitPaths[2] = Multi_UnitManager.instance.SpearmanPath;
-        unitPaths[3] = Multi_UnitManager.instance.MagePath;
-    }
-
-    string GetJoinPath(string enemyTypePath, string enemyName) => $"{enemyTypePath}/{enemyName}";
-    void Start()
-    {
-        
-        // Multi_EnemySpawner.instance.OnBossDead += Give_BossReword;
-    }
-
+    // TODO : UI 구조 바꾸면 Button으로 옮기기
     public void DrawSoldier(int Colornumber, int Soldiernumber)
     {
         if (Multi_GameManager.instance.Gold >= 5)
@@ -48,24 +25,13 @@ public class Multi_CreateDefenser : MonoBehaviourPun
 
     public void CreateSoldier(int Colornumber, int Soldiernumber)
     {
-        string path = GetJoinPath(unitPaths[Soldiernumber], allUnit[Colornumber].units[Soldiernumber].name);
-        Soldier = Multi_Managers.Resources.PhotonInsantiate(path, Multi_WorldPosUtility.Instance.GetUnitSpawnPositon());
-        Soldier.SetActive(true);
+        Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
     }
-
 
     [PunRPC]
     public void CreateSoldier(int Colornumber, int Soldiernumber, Vector3 creatPos)
     {
-        photonView.RPC("CreateClientSoldier", RpcTarget.Others, Colornumber, Soldiernumber, creatPos);
-    }
-
-
-    [PunRPC]
-    void CreateClientSoldier(int Colornumber, int Soldiernumber, Vector3 creatPos)
-    {
-        Soldier = PhotonNetwork.Instantiate(allUnit[Colornumber].units[Soldiernumber].name, creatPos, Quaternion.identity);
-        Soldier.SetActive(true);
+        Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber, creatPos);
     }
 
     void Give_BossReword(int _bossLevel)

@@ -67,6 +67,7 @@ class Pool
     public Poolable Pop(Transform parent)
     {
         Poolable poolable;
+        
         if (poolStack.Count > 0) poolable = poolStack.Pop();
         else poolable = CreateObject();
 
@@ -119,8 +120,8 @@ public class Multi_PoolManager
         }
     }
 
-    public void Push(Poolable poolable) => Push(poolable.gameObject, poolable.Path);
-    public void Push(GameObject go, string path)
+    public void Push(Poolable poolable) => Push(poolable.gameObject);
+    public void Push(GameObject go)
     {
         Pool pool = _poolByName[go.name];
 
@@ -136,22 +137,29 @@ public class Multi_PoolManager
         pool.Push(go.GetComponent<Poolable>());
     }
 
-    public Poolable Pop(GameObject go, Transform parent = null)
+    
+    public Poolable Pop(GameObject go, Vector3 position, Quaternion rotation, Transform parent = null)
     {
         Poolable poolable = _poolByName[go.name].Pop(parent);
         Debug.Assert(poolable != null, "poolable not defind");
 
-        PhotonView pv = poolable.gameObject.GetOrAddComponent<PhotonView>();
-        RPC_Utility.Instance.RPC_Active(pv.ViewID, true);
+        PhotonView pv = poolable.GetComponent<PhotonView>();
+        if(pv != null)
+        {
+            RPC_Utility.Instance.RPC_Position(pv.ViewID, position);
+            RPC_Utility.Instance.RPC_Rotation(pv.ViewID, rotation);
+            RPC_Utility.Instance.RPC_Active(pv.ViewID, true);
+        }
         return poolable;
     }
+
+    public GameObject Pop(GameObject go, Transform parent = null)
+        => _poolByName[go.name].Pop(parent).gameObject;
 
     public GameObject GetOriginal(string path)
     {
         string name = path.Split('/')[path.Split('/').Length-1];
-        Debug.Log(name);
-        Pool pool = _poolByName[name];
-        if (pool != null) return pool.Original;
+        if (_poolByName.TryGetValue(name, out Pool pool)) return pool.Original;
         else return null;
     }
 }

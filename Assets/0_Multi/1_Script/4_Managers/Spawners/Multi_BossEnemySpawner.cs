@@ -69,11 +69,10 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
 
     void SetBossDeadAction(Multi_BossEnemy boss)
     {
-        boss.OnDeath += () => OnDead(boss);
-        boss.OnDeath += () => SetData(boss);
+        boss.OnDeath += () => SetVaryiable(boss);
     }
 
-    void SetData(Multi_BossEnemy boss)
+    void SetVaryiable(Multi_BossEnemy boss)
     {
         currentBossList.Remove(boss);
         bossRespawn = false;

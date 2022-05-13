@@ -6,55 +6,6 @@ using Photon.Pun;
 using System;
 using Random = UnityEngine.Random;
 
-
-// TODO : 풀링 구조 바꾸기
-//public class Multi_WeaponPoolManager : MonoBehaviourPun
-//{
-//    Queue<Multi_Projectile> weaponPool = new Queue<Multi_Projectile>();
-//    public Multi_Projectile[] SettingWeaponPool(GameObject weaponObj, int count)
-//    {
-//        Multi_Projectile[] _weapons = new Multi_Projectile[count];
-//        for (int i = 0; i < count; i++)
-//        {
-//            Multi_Projectile weapon = 
-//                PhotonNetwork.Instantiate(weaponObj.name, new Vector3(-500, -500, -500), weaponObj.transform.rotation).GetComponent<Multi_Projectile>();
-//            weapon.gameObject.SetActive(false);
-//            weaponPool.Enqueue(weapon);
-//            _weapons[i] = weapon;
-//        }
-//        return _weapons;
-//    }
-
-    
-//    public Multi_Projectile UsedWeapon(Transform weaponPos, Vector3 dir, int speed, Action<Multi_Enemy> hitAction)
-//    {
-//        Multi_Projectile UseWeapon = GetWeapon_FromPool();
-//        Vector3 pos = new Vector3(weaponPos.position.x, 2f, weaponPos.position.z);
-//        UseWeapon.Shot(pos, dir, speed, (Multi_Enemy enemy) => hitAction(enemy));
-//        return UseWeapon;
-//    }
-
-
-//    // 풀에서 잠깐 꺼내고 다시 들어감
-//    public Multi_Projectile GetWeapon_FromPool()
-//    {
-//        Multi_Projectile getWeapon = weaponPool.Dequeue();
-//        RPC_Utility.Instance.RPC_Active(getWeapon.photonView.ViewID, true);
-//        //getWeapon.myRPC.RPC_Active(true);
-//        StartCoroutine(Co_ReturnWeapon_ToPool(getWeapon, 5f));
-//        return getWeapon;
-//    }
-
-//    IEnumerator Co_ReturnWeapon_ToPool(Multi_Projectile _weapon, float time)
-//    {
-//        yield return new WaitForSeconds(time);
-//        RPC_Utility.Instance.RPC_Active(_weapon.photonView.ViewID, true);
-//        //_weapon.myRPC.RPC_Active(false);
-//        _weapon.transform.position = new Vector3(-500, -500, -500);
-//        weaponPool.Enqueue(_weapon);
-//    }
-//}
-
 public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 {
     public UnitClass unitClass;
@@ -122,10 +73,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         PhotonNetwork.SendRate = 20;
         PhotonNetwork.SerializationRate = 40;
-        //print("왜 켜짐???");
-        //print(gameObject.activeSelf);
-        // 아래에서 평타랑 스킬 설정할 때 delegate_OnPassive가 null이면 에러가 떠서 에러 방지용으로 실행 후에 OnEnable에서 덮어쓰기 때문에 의미 없음
-        SetPassive();
+
+        SetPassive(); // 아래에서 평타랑 스킬 설정할 때 delegate_OnPassive가 null이면 에러가 떠서 에러 방지용으로 실행 후에 OnEnable에서 덮어쓰기 때문에 의미 없는 코드임
 
         // 평타 설정
         OnHit += AttackEnemy;
@@ -221,7 +170,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
         Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange);
-        SetChaseSetting(_target.gameObject);
+        if (_target != null) SetChaseSetting(_target.gameObject);
+        else SetChaseSetting(null);
     }
 
     public void SetChaseSetting(GameObject targetObject) // 추적 관련 변수 설정
@@ -328,18 +278,20 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         isSkillAttack = false;
     }
 
-    protected GameObject GetWeapon(WeaponType weaponType, GameObject go, Transform weaponPos) => GetWeapon(weaponType, go, weaponPos.position);
-    protected GameObject GetWeapon(WeaponType weaponType, GameObject go, Vector3 weaponPos)
-    {
-        string path = Multi_WeaponManager.BuildPath(weaponType, go.name);
-        GameObject _usingWeapon = Multi_Managers.Resources.PhotonInsantiate(path, weaponPos);
-        return _usingWeapon;
-    }
+    //protected GameObject GetWeapon(WeaponType weaponType, GameObject go, Transform weaponPos) => GetWeapon(weaponType, go, weaponPos.position);
+    //protected GameObject GetWeapon(WeaponType weaponType, GameObject go, Vector3 weaponPos)
+    //{
+    //    string path = Multi_WeaponManager.BuildPath(weaponType, go.name);
+    //    GameObject _usingWeapon = Multi_Managers.Resources.PhotonInsantiate(path, weaponPos);
+    //    return _usingWeapon;
+    //}
 
     protected Multi_Projectile UsedWeapon(WeaponType weaponType, GameObject go, Transform weaponPos, Vector3 dir, int speed, Action<Multi_Enemy> hitAction)
     {
-        string path = Multi_WeaponManager.BuildPath(weaponType, go.name);
-        Multi_Projectile UseWeapon = GetWeapon(weaponType, go, weaponPos).GetComponent<Multi_Projectile>();
+        //string path = Multi_WeaponManager.BuildPath(weaponType, go.name);
+        //Multi_Projectile UseWeapon = GetWeapon(weaponType, go, weaponPos).GetComponent<Multi_Projectile>();
+
+        Multi_Projectile UseWeapon = Multi_SpawnManagers.Weapon.Spawn(go).GetComponent<Multi_Projectile>();
 
         Vector3 pos = new Vector3(weaponPos.position.x, 2f, weaponPos.position.z);
         UseWeapon.Shot(pos, dir, speed, (Multi_Enemy enemy) => hitAction(enemy));

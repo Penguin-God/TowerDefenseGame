@@ -110,7 +110,9 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     {
         if (!pv.IsMine) return null;
 
-        GameObject _obj = GetWeapon(WeaponType.MageSkill, mageSkillObject, _pos);
+        //GameObject _obj = GetWeapon(WeaponType.MageSkill, mageSkillObject, _pos);
+
+        GameObject _obj = Multi_SpawnManagers.Weapon.Spawn(WeaponType.MageSkill, mageSkillObject, _pos);
         return _obj;
     }
     // TODO : 스킬 강화 구현 방식 바꾸기

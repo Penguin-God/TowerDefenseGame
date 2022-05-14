@@ -27,115 +27,115 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         UIManager.instance.CombineFailText.gameObject.SetActive(false);
     }
 
-    //#region Destory Soliders
-    //void RedSwordman()
-    //{
-    //    TagSoldier.RedSwordmanTag();
-    //    PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-    //}
+    #region Destory Soliders
+    void RedSwordman()
+    {
+        TagSoldier.RedSwordmanTag();
+        PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+    }
 
-    //void RedArcher()
-    //{
-    //    TagSoldier.RedArcherTag();
-    //    PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
-    //}
+    void RedArcher()
+    {
+        TagSoldier.RedArcherTag();
+        PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
+    }
 
-    //void RedSpearman()
-    //{
-    //    TagSoldier.RedSpearmanTag();
-    //    PhotonNetwork.Destroy(TagSoldier.RedSpearman[0].transform.parent.gameObject);
-    //}
+    void RedSpearman()
+    {
+        TagSoldier.RedSpearmanTag();
+        PhotonNetwork.Destroy(TagSoldier.RedSpearman[0].transform.parent.gameObject);
+    }
 
-    //void BlueSwordman()
-    //{
-    //    TagSoldier.BlueSwordmanTag();
-    //    PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
-    //}
+    void BlueSwordman()
+    {
+        TagSoldier.BlueSwordmanTag();
+        PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+    }
 
-    //void BlueArcher()
-    //{
-    //    TagSoldier.BlueArcherTag();
-    //    PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
-    //}
+    void BlueArcher()
+    {
+        TagSoldier.BlueArcherTag();
+        PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
+    }
 
-    //void BlueSpearman()
-    //{
-    //    TagSoldier.BlueSpearmanTag();
-    //    PhotonNetwork.Destroy(TagSoldier.BlueSpearman[0].transform.parent.gameObject);
-    //}
+    void BlueSpearman()
+    {
+        TagSoldier.BlueSpearmanTag();
+        PhotonNetwork.Destroy(TagSoldier.BlueSpearman[0].transform.parent.gameObject);
+    }
 
-    //void YellowSwordman()
-    //{
-    //    TagSoldier.YellowSwordmanTag();
-    //    PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-    //}
+    void YellowSwordman()
+    {
+        TagSoldier.YellowSwordmanTag();
+        PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+    }
 
-    //void YellowArcher()
-    //{
-    //    TagSoldier.RedArcherTag();
-    //    PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
-    //}
+    void YellowArcher()
+    {
+        TagSoldier.RedArcherTag();
+        PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
+    }
 
-    //void YellowSpearman()
-    //{
-    //    TagSoldier.YellowSpearmanTag();
-    //    PhotonNetwork.Destroy(TagSoldier.YellowSpearman[0].transform.parent.gameObject);
-    //}
+    void YellowSpearman()
+    {
+        TagSoldier.YellowSpearmanTag();
+        PhotonNetwork.Destroy(TagSoldier.YellowSpearman[0].transform.parent.gameObject);
+    }
 
-    //void GreenSwordman()
-    //{
-    //    TagSoldier.GreenSwordmanTag();
-    //    PhotonNetwork.Destroy(TagSoldier.GreenSwordman[0].transform.parent.gameObject);
-    //}
+    void GreenSwordman()
+    {
+        TagSoldier.GreenSwordmanTag();
+        PhotonNetwork.Destroy(TagSoldier.GreenSwordman[0].transform.parent.gameObject);
+    }
 
-    //void GreenArcher()
-    //{
-    //    TagSoldier.RedArcherTag();
-    //    PhotonNetwork.Destroy(TagSoldier.GreenArcher[0].transform.parent.gameObject);
-    //}
+    void GreenArcher()
+    {
+        TagSoldier.RedArcherTag();
+        PhotonNetwork.Destroy(TagSoldier.GreenArcher[0].transform.parent.gameObject);
+    }
 
-    //void GreenSpearman()
-    //{
-    //    TagSoldier.RedSpearmanTag();
-    //    PhotonNetwork.Destroy(TagSoldier.GreenSpearman[0].transform.parent.gameObject);
-    //}
+    void GreenSpearman()
+    {
+        TagSoldier.RedSpearmanTag();
+        PhotonNetwork.Destroy(TagSoldier.GreenSpearman[0].transform.parent.gameObject);
+    }
 
-    //void OrangeSwordman()
-    //{
-    //    TagSoldier.RedSwordmanTag();
-    //    PhotonNetwork.Destroy(TagSoldier.OrangeSwordman[0].transform.parent.gameObject);
-    //}
+    void OrangeSwordman()
+    {
+        TagSoldier.RedSwordmanTag();
+        PhotonNetwork.Destroy(TagSoldier.OrangeSwordman[0].transform.parent.gameObject);
+    }
 
-    //void OrangeArcher()
-    //{
-    //    TagSoldier.RedArcherTag();
-    //    PhotonNetwork.Destroy(TagSoldier.OrangeArcher[0].transform.parent.gameObject);
-    //}
+    void OrangeArcher()
+    {
+        TagSoldier.RedArcherTag();
+        PhotonNetwork.Destroy(TagSoldier.OrangeArcher[0].transform.parent.gameObject);
+    }
 
-    //void OrangeSpearman()
-    //{
-    //    TagSoldier.RedSpearmanTag();
-    //    PhotonNetwork.Destroy(TagSoldier.OrangeSpearman[0].transform.parent.gameObject);
-    //}
+    void OrangeSpearman()
+    {
+        TagSoldier.RedSpearmanTag();
+        PhotonNetwork.Destroy(TagSoldier.OrangeSpearman[0].transform.parent.gameObject);
+    }
 
-    //void VioletSwordman()
-    //{
-    //    TagSoldier.RedSwordmanTag();
-    //    PhotonNetwork.Destroy(TagSoldier.VioletSwordman[0].transform.parent.gameObject);
-    //}
+    void VioletSwordman()
+    {
+        TagSoldier.RedSwordmanTag();
+        PhotonNetwork.Destroy(TagSoldier.VioletSwordman[0].transform.parent.gameObject);
+    }
 
-    //void VioletArcher()
-    //{
-    //    TagSoldier.RedArcherTag();
-    //    PhotonNetwork.Destroy(TagSoldier.VioletArcher[0].transform.parent.gameObject);
-    //}
+    void VioletArcher()
+    {
+        TagSoldier.RedArcherTag();
+        PhotonNetwork.Destroy(TagSoldier.VioletArcher[0].transform.parent.gameObject);
+    }
 
-    //void VioletSpearman()
-    //{
-    //    TagSoldier.RedSpearmanTag();
-    //    PhotonNetwork.Destroy(TagSoldier.VioletSpearman[0].transform.parent.gameObject);
-    //}
-    //#endregion
+    void VioletSpearman()
+    {
+        TagSoldier.RedSpearmanTag();
+        PhotonNetwork.Destroy(TagSoldier.VioletSpearman[0].transform.parent.gameObject);
+    }
+    #endregion
 
     public void CombineRedArcher()
     {
@@ -156,11 +156,11 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             //Multi_SoldierPoolingManager.ReturnObject(Multi_SoldierPoolingManager.GetCurrentSoldiers("RedSwordman")[1], "RedSwordman");
             //Multi_SoldierPoolingManager.ReturnObject(Multi_SoldierPoolingManager.GetCurrentSoldiers("RedSwordman")[2], "RedSwordman");
 
-            Multi_TeamSoldier _RedArcher = Multi_SoldierPoolingManager.GetSoldier("RedArcher", 0, 1);
-
+            //Multi_TeamSoldier _RedArcher = Multi_SoldierPoolingManager.GetSoldier("RedArcher", 0, 1);
+            
 
             SoldierChoose(0, 0, 1, 1);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("빨간 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -200,7 +200,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
 
 
             SoldierChoose(0, 0, 2, 2);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("빨간 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -239,7 +239,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             RedSpearman();
 
             SoldierChoose(0, 0, 3, 3);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("빨간 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -276,7 +276,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
 
 
             SoldierChoose(1, 1, 1, 1);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("파란 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -317,7 +317,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
 
 
             SoldierChoose(1, 1, 2, 2);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("파란 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -357,7 +357,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
 
 
             SoldierChoose(1, 1, 3, 3);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("파란 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -396,7 +396,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
 
 
             SoldierChoose(2, 2, 1, 1);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("노란 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -438,7 +438,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
             SoldierChoose(2, 2, 2, 2);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("노란 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -477,7 +477,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             YellowSpearman();
 
             SoldierChoose(2, 2, 3, 3);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("노란 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -513,7 +513,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
 
 
             SoldierChoose(3, 3, 1, 1);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("초록 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -556,7 +556,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
             SoldierChoose(3, 3, 2, 2);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("초록 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -598,7 +598,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
 
 
             SoldierChoose(3, 3, 3, 3);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("초록 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -635,7 +635,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
 
 
             SoldierChoose(4, 4, 1, 1);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("주황 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -678,7 +678,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
             SoldierChoose(4, 4, 2, 2);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("주황 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -719,7 +719,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             YellowArcher();
 
             SoldierChoose(4, 4, 3, 3);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("주황 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -754,7 +754,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             VioletSwordman();
 
             SoldierChoose(5, 5, 1, 1);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("보라 궁수 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -794,7 +794,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             VioletArcher();
 
             SoldierChoose(5, 5, 2, 2);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("보라 창병 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -836,7 +836,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
 
 
             SoldierChoose(5, 5, 3, 3);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("보라 마법사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -874,7 +874,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
             SoldierChoose(3, 3, 0, 0);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("초록 기사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -910,7 +910,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
             SoldierChoose(4,4,0,0);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("주황 기사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);
@@ -942,7 +942,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             RedSwordman();
 
             SoldierChoose(5, 5, 0, 0);
-            createDefenser.CreateSoldier(Colornumber, Soldiernumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("보라 기사 조합");
             UIManager.instance.CombineSuccessText.gameObject.SetActive(true);

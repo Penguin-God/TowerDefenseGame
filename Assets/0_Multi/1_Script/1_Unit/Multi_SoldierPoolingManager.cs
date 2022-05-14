@@ -222,7 +222,7 @@ public class Multi_SoldierPoolingManager : MonoBehaviour
     private static Multi_CurrentUnitManager currentUnitManager;
     public static int CurrentUnitCount => currentUnitManager.GetUnitCount();
     public Multi_TeamSoldier[] AllUnits => currentUnitManager.GetAllUnit();
-    public Multi_TeamSoldier[] GetCurrentSoldiers(string _tag) => currentUnitManager.GetUnits(_tag);
+    public static Multi_TeamSoldier[] GetCurrentSoldiers(string _tag) => currentUnitManager.GetUnits(_tag);
     public Multi_TeamSoldier[] GetCurrentSoldiers(UnitClass _class) => currentUnitManager.GetUnits(_class);
     public Multi_TeamSoldier[] GetCurrentSoldiers(UnitColor _color) => currentUnitManager.GetUnits(_color);
     public Multi_TeamSoldier[] GetCurrentSoldiers(UnitColor _color, UnitClass _class) => currentUnitManager.GetUnits(_color, _class);

@@ -27,115 +27,115 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         UIManager.instance.CombineFailText.gameObject.SetActive(false);
     }
 
-    #region Destory Soliders
-    void RedSwordman()
-    {
-        TagSoldier.RedSwordmanTag();
-        PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
-    }
+    //#region Destory Soliders
+    //void RedSwordman()
+    //{
+    //    TagSoldier.RedSwordmanTag();
+    //    PhotonNetwork.Destroy(TagSoldier.RedSwordman[0].transform.parent.gameObject);
+    //}
 
-    void RedArcher()
-    {
-        TagSoldier.RedArcherTag();
-        PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
-    }
+    //void RedArcher()
+    //{
+    //    TagSoldier.RedArcherTag();
+    //    PhotonNetwork.Destroy(TagSoldier.RedArcher[0].transform.parent.gameObject);
+    //}
 
-    void RedSpearman()
-    {
-        TagSoldier.RedSpearmanTag();
-        PhotonNetwork.Destroy(TagSoldier.RedSpearman[0].transform.parent.gameObject);
-    }
+    //void RedSpearman()
+    //{
+    //    TagSoldier.RedSpearmanTag();
+    //    PhotonNetwork.Destroy(TagSoldier.RedSpearman[0].transform.parent.gameObject);
+    //}
 
-    void BlueSwordman()
-    {
-        TagSoldier.BlueSwordmanTag();
-        PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
-    }
+    //void BlueSwordman()
+    //{
+    //    TagSoldier.BlueSwordmanTag();
+    //    PhotonNetwork.Destroy(TagSoldier.BlueSwordman[0].transform.parent.gameObject);
+    //}
 
-    void BlueArcher()
-    {
-        TagSoldier.BlueArcherTag();
-        PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
-    }
+    //void BlueArcher()
+    //{
+    //    TagSoldier.BlueArcherTag();
+    //    PhotonNetwork.Destroy(TagSoldier.BlueArcher[0].transform.parent.gameObject);
+    //}
 
-    void BlueSpearman()
-    {
-        TagSoldier.BlueSpearmanTag();
-        PhotonNetwork.Destroy(TagSoldier.BlueSpearman[0].transform.parent.gameObject);
-    }
+    //void BlueSpearman()
+    //{
+    //    TagSoldier.BlueSpearmanTag();
+    //    PhotonNetwork.Destroy(TagSoldier.BlueSpearman[0].transform.parent.gameObject);
+    //}
 
-    void YellowSwordman()
-    {
-        TagSoldier.YellowSwordmanTag();
-        PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
-    }
+    //void YellowSwordman()
+    //{
+    //    TagSoldier.YellowSwordmanTag();
+    //    PhotonNetwork.Destroy(TagSoldier.YellowSwordman[0].transform.parent.gameObject);
+    //}
 
-    void YellowArcher()
-    {
-        TagSoldier.RedArcherTag();
-        PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
-    }
+    //void YellowArcher()
+    //{
+    //    TagSoldier.RedArcherTag();
+    //    PhotonNetwork.Destroy(TagSoldier.YellowArcher[0].transform.parent.gameObject);
+    //}
 
-    void YellowSpearman()
-    {
-        TagSoldier.YellowSpearmanTag();
-        PhotonNetwork.Destroy(TagSoldier.YellowSpearman[0].transform.parent.gameObject);
-    }
+    //void YellowSpearman()
+    //{
+    //    TagSoldier.YellowSpearmanTag();
+    //    PhotonNetwork.Destroy(TagSoldier.YellowSpearman[0].transform.parent.gameObject);
+    //}
 
-    void GreenSwordman()
-    {
-        TagSoldier.GreenSwordmanTag();
-        PhotonNetwork.Destroy(TagSoldier.GreenSwordman[0].transform.parent.gameObject);
-    }
+    //void GreenSwordman()
+    //{
+    //    TagSoldier.GreenSwordmanTag();
+    //    PhotonNetwork.Destroy(TagSoldier.GreenSwordman[0].transform.parent.gameObject);
+    //}
 
-    void GreenArcher()
-    {
-        TagSoldier.RedArcherTag();
-        PhotonNetwork.Destroy(TagSoldier.GreenArcher[0].transform.parent.gameObject);
-    }
+    //void GreenArcher()
+    //{
+    //    TagSoldier.RedArcherTag();
+    //    PhotonNetwork.Destroy(TagSoldier.GreenArcher[0].transform.parent.gameObject);
+    //}
 
-    void GreenSpearman()
-    {
-        TagSoldier.RedSpearmanTag();
-        PhotonNetwork.Destroy(TagSoldier.GreenSpearman[0].transform.parent.gameObject);
-    }
+    //void GreenSpearman()
+    //{
+    //    TagSoldier.RedSpearmanTag();
+    //    PhotonNetwork.Destroy(TagSoldier.GreenSpearman[0].transform.parent.gameObject);
+    //}
 
-    void OrangeSwordman()
-    {
-        TagSoldier.RedSwordmanTag();
-        PhotonNetwork.Destroy(TagSoldier.OrangeSwordman[0].transform.parent.gameObject);
-    }
+    //void OrangeSwordman()
+    //{
+    //    TagSoldier.RedSwordmanTag();
+    //    PhotonNetwork.Destroy(TagSoldier.OrangeSwordman[0].transform.parent.gameObject);
+    //}
 
-    void OrangeArcher()
-    {
-        TagSoldier.RedArcherTag();
-        PhotonNetwork.Destroy(TagSoldier.OrangeArcher[0].transform.parent.gameObject);
-    }
+    //void OrangeArcher()
+    //{
+    //    TagSoldier.RedArcherTag();
+    //    PhotonNetwork.Destroy(TagSoldier.OrangeArcher[0].transform.parent.gameObject);
+    //}
 
-    void OrangeSpearman()
-    {
-        TagSoldier.RedSpearmanTag();
-        PhotonNetwork.Destroy(TagSoldier.OrangeSpearman[0].transform.parent.gameObject);
-    }
+    //void OrangeSpearman()
+    //{
+    //    TagSoldier.RedSpearmanTag();
+    //    PhotonNetwork.Destroy(TagSoldier.OrangeSpearman[0].transform.parent.gameObject);
+    //}
 
-    void VioletSwordman()
-    {
-        TagSoldier.RedSwordmanTag();
-        PhotonNetwork.Destroy(TagSoldier.VioletSwordman[0].transform.parent.gameObject);
-    }
+    //void VioletSwordman()
+    //{
+    //    TagSoldier.RedSwordmanTag();
+    //    PhotonNetwork.Destroy(TagSoldier.VioletSwordman[0].transform.parent.gameObject);
+    //}
 
-    void VioletArcher()
-    {
-        TagSoldier.RedArcherTag();
-        PhotonNetwork.Destroy(TagSoldier.VioletArcher[0].transform.parent.gameObject);
-    }
+    //void VioletArcher()
+    //{
+    //    TagSoldier.RedArcherTag();
+    //    PhotonNetwork.Destroy(TagSoldier.VioletArcher[0].transform.parent.gameObject);
+    //}
 
-    void VioletSpearman()
-    {
-        TagSoldier.RedSpearmanTag();
-        PhotonNetwork.Destroy(TagSoldier.VioletSpearman[0].transform.parent.gameObject);
-    }
-    #endregion
+    //void VioletSpearman()
+    //{
+    //    TagSoldier.RedSpearmanTag();
+    //    PhotonNetwork.Destroy(TagSoldier.VioletSpearman[0].transform.parent.gameObject);
+    //}
+    //#endregion
 
     public void CombineRedArcher()
     {
@@ -152,9 +152,11 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             //PhotonNetwork.Destroy(TagSoldier.RedSwordman[1].transform.parent.gameObject);
             //PhotonNetwork.Destroy(TagSoldier.RedSwordman[2].transform.parent.gameObject);
 
-            RedSwordman();
-            RedSwordman();
-            RedSwordman();
+            //Multi_SoldierPoolingManager.ReturnObject(Multi_SoldierPoolingManager.GetCurrentSoldiers("RedSwordman")[0],"RedSwordman");
+            //Multi_SoldierPoolingManager.ReturnObject(Multi_SoldierPoolingManager.GetCurrentSoldiers("RedSwordman")[1], "RedSwordman");
+            //Multi_SoldierPoolingManager.ReturnObject(Multi_SoldierPoolingManager.GetCurrentSoldiers("RedSwordman")[2], "RedSwordman");
+
+            Multi_TeamSoldier _RedArcher = Multi_SoldierPoolingManager.GetSoldier("RedArcher", 0, 1);
 
 
             SoldierChoose(0, 0, 1, 1);

@@ -29,4 +29,6 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
 
     public string BuildPath(string rooPath, GameObject go) => $"{rooPath}/{go.name}";
     public string BuildPath(string rooPath, string folderName, GameObject go) => $"{rooPath}/{folderName}/{go.name}";
+
+    public virtual void SettingPoolObject(object obj) { print("성공!!!"); }
 }

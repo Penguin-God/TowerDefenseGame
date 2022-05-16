@@ -25,6 +25,9 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     {
         Rigidbody = GetComponent<Rigidbody>();
         TurnPoints = Multi_Data.instance.EnemyTurnPoints;
+
+        //OnDeath += () => Multi_SpawnManagers.NormalEnemy.OnDead(this);
+
         //myPunRPC = GetComponent<MyPunRPC>();
     }
 

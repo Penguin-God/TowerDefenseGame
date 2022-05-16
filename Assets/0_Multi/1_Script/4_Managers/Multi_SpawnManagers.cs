@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System;
 
 public class Multi_SpawnManagers : MonoBehaviourPun
 {
@@ -18,6 +19,9 @@ public class Multi_SpawnManagers : MonoBehaviourPun
             return instance;
         }
     }
+
+    Dictionary<Type, Multi_SpawnerBase> _spawnerByType = new Dictionary<Type, Multi_SpawnerBase>();
+    public IReadOnlyDictionary<Type, Multi_SpawnerBase> SpawnerByType => _spawnerByType;
 
     Multi_NormalEnemySpawner _normalEnemy;
     Multi_BossEnemySpawner _bossEnemy;
@@ -38,6 +42,15 @@ public class Multi_SpawnManagers : MonoBehaviourPun
         _towerEnemy = GetOrAddChildComponent<Multi_TowerEnemySpawner>();
         _normalUnit = GetOrAddChildComponent<Multi_NormalUnitSpawner>();
         _weapon = GetOrAddChildComponent<Multi_WeaponSpawner>();
+
+        _spawnerByType.Add(typeof(Multi_NormalEnemy), _normalEnemy);
+        _spawnerByType.Add(typeof(Multi_ArcherEnemy), _normalEnemy);
+        _spawnerByType.Add(typeof(Multi_SpearmanEnemy), _normalEnemy);
+        _spawnerByType.Add(typeof(Multi_MageEnemy), _normalEnemy);
+        _spawnerByType.Add(typeof(Multi_BossEnemy), _bossEnemy);
+        _spawnerByType.Add(typeof(Multi_EnemyTower), _towerEnemy);
+        _spawnerByType.Add(typeof(Multi_TeamSoldier), _normalUnit);
+        _spawnerByType.Add(typeof(Multi_Projectile), _weapon);
     }
 
     void Start()

@@ -23,10 +23,11 @@ public struct NormalEnemyData
 public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 {
     public event Action<Multi_NormalEnemy> OnSpawn;
-    public event Action<Multi_NormalEnemy> OnDead;
+    public Action<Multi_NormalEnemy> OnDead;
 
     Dictionary<int, NormalEnemyData> _enemyDataByStage = new Dictionary<int, NormalEnemyData>();
 
+    [SerializeField] int currentSpawnEnemyNum = 0; // 테스트용 변수
     [SerializeField] float _spawnDelayTime = 2f;
     [SerializeField] int _stageSpawnCount = 15;
     public float EnemySpawnTime => _spawnDelayTime * _stageSpawnCount;
@@ -135,9 +136,10 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     IEnumerator Co_StageSpawn(int stage)
     {
         NormalEnemyData data = _enemyDataByStage[stage];
+        currentSpawnEnemyNum = data.number;
         for (int i = 0; i < _stageSpawnCount; i++)
         {
-            Spawn(data.number, data.hp, data.speed);
+            Spawn(currentSpawnEnemyNum, data.hp, data.speed);
             yield return new WaitForSeconds(_spawnDelayTime);
         }
     }

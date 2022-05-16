@@ -1,0 +1,22 @@
+﻿색깔 번호,클래스 번호,id,한국어 이름
+0,1,CombineRedArcher,빨간 궁수
+0,2,CombineRedSpearman,빨간 창병
+0,3,CombineRedMage,빨간 마법사
+1,1,CombineBlueArcher,파란 궁수
+1,2,CombineBlueSpearman,파란 창병
+1,3,CombineBlueMage,파란 마법사
+2,1,CombineYellowArcher,노란 궁수
+2,2,CombineYellowSpearman,노란 창병
+2,3,CombineYellowMage,노란 마법사
+4,0,CombineGreenSwordman,초록 기사
+4,1,CombineGreenArcher,초록 궁수
+4,2,CombineGreenSpearman,초록 창병
+4,3,CombineGreenMage,초록 마법사
+5,0,CombineOrangeSwordman,주황 기사
+5,1,CombineOrangeArcher,주황 궁수
+5,2,CombineOrangeSpearman,주황 창병
+5,3,CombineOrangeMage,주황 마법사
+6,0,CombineVioletSwordman,보라 기사
+6,1,CombineVioletArcher,보라 궁수
+6,2,CombineVioletSpearman,보라 창병
+6,3,CombineVioletMage,보라 마법사

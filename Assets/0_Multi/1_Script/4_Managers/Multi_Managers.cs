@@ -35,4 +35,9 @@ public class Multi_Managers : MonoBehaviourPun
         _pool.Init();
         _data.Init();
     }
+
+    #region Test
+    [ContextMenu("Init Data")]
+    void DataInit() => _data.Init();
+    #endregion
 }

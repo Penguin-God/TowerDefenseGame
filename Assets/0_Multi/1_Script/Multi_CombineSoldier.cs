@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System;
 
+using Random = UnityEngine.Random;
 
 public class Multi_CombineSoldier : MonoBehaviourPun
 {
@@ -11,7 +13,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
     [SerializeField] Multi_CreateDefenser createDefenser;
     public SoldiersTags TagSoldier;
     public UnitManageButton unitmanage;
-
+    
     void Start()
     {
         TagSoldier = GetComponent<SoldiersTags>();
@@ -136,6 +138,13 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         PhotonNetwork.Destroy(TagSoldier.VioletSpearman[0].transform.parent.gameObject);
     }
     #endregion
+
+    public event Action<CombineData> OnCombine = null;
+
+    public void Combine(string id)
+    {
+        OnCombine?.Invoke(Multi_Managers.Data.CombineDataByID[id]);
+    }
 
     public void CombineRedArcher()
     {

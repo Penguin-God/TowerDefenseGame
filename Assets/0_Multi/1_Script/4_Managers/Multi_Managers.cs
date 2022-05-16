@@ -23,14 +23,16 @@ public class Multi_Managers : MonoBehaviourPun
 
     Multi_ResourcesManager _resources = new Multi_ResourcesManager();
     Multi_PoolManager _pool = new Multi_PoolManager();
-
+    Multi_DataManager _data = new Multi_DataManager();
     public static Multi_ResourcesManager Resources => Instance._resources;
     public static Multi_PoolManager Pool => Instance._pool;
+    public static Multi_DataManager Data => Instance._data;
 
     void Awake()
     {
         if (!photonView.IsMine) return;
 
         _pool.Init();
+        _data.Init();
     }
 }

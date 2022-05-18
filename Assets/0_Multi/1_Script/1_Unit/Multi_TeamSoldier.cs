@@ -149,7 +149,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         StopAllCoroutines();
         SetChaseSetting(null);
         rayHitTransform = null;
-        Multi_SoldierPoolingManager.ReturnObject(this, gameObject.tag);
+        // TODO : OnDead로 event만들어서 스포너에서 구독하게 바꾸기
+        // Multi_SoldierPoolingManager.ReturnObject(this, gameObject.tag);
         isAttack = false;
         isAttackDelayTime = false;
         isSkillAttack = false;

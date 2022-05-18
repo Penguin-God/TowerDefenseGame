@@ -75,7 +75,7 @@ public class Multi_UnitManager : MonoBehaviour
     {
         get
         {
-            if (CurrentAllUnits.Length >= maxUnit)
+            if (CurrentUnitCount >= maxUnit)
             {
                 UnitOverGuide();
                 return true;
@@ -98,7 +98,10 @@ public class Multi_UnitManager : MonoBehaviour
         unitOverGuideTextObject.SetActive(false);
     }
 
-    public Multi_TeamSoldier[] CurrentAllUnits => Multi_SoldierPoolingManager.Instance.AllUnits;
+    public List<Multi_TeamSoldier> _currentUnits = new List<Multi_TeamSoldier>();
+    IReadOnlyList<Multi_TeamSoldier> CurrentUnits => _currentUnits;
+    public int CurrentUnitCount => _currentUnits.Count;
+    //public Multi_TeamSoldier[] CurrentAllUnits => Multi_SoldierPoolingManager.Instance.AllUnits;
     //public CurrentUnitManager CurrentUnitManager { get; private set; } = null;
 
     //public void AddCurrentUnit(TeamSoldier _unit)
@@ -142,9 +145,9 @@ public class Multi_UnitManager : MonoBehaviour
 
     public void UnitTranslate_To_EnterStroyMode()
     {
-        for (int i = 0; i < CurrentAllUnits.Length; i++)
+        for (int i = 0; i < CurrentUnitCount; i++)
         {
-            Multi_TeamSoldier unit = CurrentAllUnits[i].GetComponent<Multi_TeamSoldier>();
+            Multi_TeamSoldier unit = _currentUnits[i].GetComponent<Multi_TeamSoldier>();
             if (unit.enterStoryWorld) unit.Unit_WorldChange();
         }
     }

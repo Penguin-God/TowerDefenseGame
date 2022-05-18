@@ -1,19 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Photon.Pun;
-
-[System.Serializable]
-public class Units 
-{
-    public GameObject[] units = null;
-}
-
 
 public class Multi_CreateDefenser : MonoBehaviourPun
 {
-    // TODO : UI 구조 바꾸면 Button으로 옮기기
+    // TODO : UI 구조 바꾸면 Button 자체 기능으로 옮기기
     public void DrawSoldier(int Colornumber, int Soldiernumber)
     {
         if (Multi_GameManager.instance.Gold >= 5)

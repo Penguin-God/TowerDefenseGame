@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class Poolable : MonoBehaviour
 {
@@ -10,18 +11,11 @@ public class Poolable : MonoBehaviour
 
     void Awake()
     {
-        Component component = 
-            GetComponents<Component>().FirstOrDefault(x => Multi_SpawnManagers.Instance.SpawnerByType.ContainsKey(x.GetType()));
-
+        Component component = GetSpawnComponent();
         if (component != null)
-        {
-            Multi_SpawnerBase ba = Multi_SpawnManagers.Instance.SpawnerByType[component.GetType()];
-            print(ba == null);
-            if(ba != null)
-                Multi_SpawnManagers.Instance.SpawnerByType[component.GetType()].SettingPoolObject(component);
-        }
-
-
-        GetComponents<Component>().ToList().ForEach(x => print(x.GetType().Name));
+            Multi_SpawnManagers.Instance.SpawnerByType[component.GetType()].SettingPoolObject(component);
     }
+
+    Component GetSpawnComponent() 
+        => GetComponents<Component>().FirstOrDefault(x => Multi_SpawnManagers.Instance.SpawnerByType.ContainsKey(x.GetType()));
 }

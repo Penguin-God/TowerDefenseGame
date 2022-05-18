@@ -35,6 +35,7 @@ public class Multi_SpawnManagers : MonoBehaviourPun
     public static Multi_NormalUnitSpawner NormalUnit => Instance._normalUnit;
     public static Multi_WeaponSpawner Weapon => Instance._weapon;
 
+    // TODO : 딱 봐도 지옥인데 이거 좀 개선하기
     void Awake()
     {
         _normalEnemy = GetOrAddChildComponent<Multi_NormalEnemySpawner>();
@@ -50,6 +51,10 @@ public class Multi_SpawnManagers : MonoBehaviourPun
         _spawnerByType.Add(typeof(Multi_BossEnemy), _bossEnemy);
         _spawnerByType.Add(typeof(Multi_EnemyTower), _towerEnemy);
         _spawnerByType.Add(typeof(Multi_TeamSoldier), _normalUnit);
+        _spawnerByType.Add(typeof(Multi_Unit_Swordman), _normalUnit);
+        _spawnerByType.Add(typeof(Multi_Unit_Spearman), _normalUnit);
+        _spawnerByType.Add(typeof(Multi_Unit_Archer), _normalUnit);
+        _spawnerByType.Add(typeof(Multi_Unit_Mage), _normalUnit);
         _spawnerByType.Add(typeof(Multi_Projectile), _weapon);
     }
 

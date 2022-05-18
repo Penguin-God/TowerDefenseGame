@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+// TODO : 여기는 싹 다 구현이 안되있으니 구현하기
 public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
 {
     public event Action<Multi_EnemyTower> OnSpawn;
@@ -10,12 +11,20 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
     
     public override void Init()
     {
-        for (int i = 0; i < _enemys.Length; i++)
-        {
-            Multi_EnemyTower[] enemys = CreatePool_InGroup<Multi_EnemyTower>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
+        CreatePool();
+    }
 
-            foreach (var enemy in enemys) SetEnemy(enemy);
-        }
+    void CreatePool()
+    {
+        for (int i = 0; i < _enemys.Length; i++)
+            CreatePool_InGroup<Multi_EnemyTower>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
+    }
+
+    public override void SettingPoolObject(object obj)
+    {
+        Multi_EnemyTower enemy = obj as Multi_EnemyTower;
+        Debug.Assert(enemy != null, "캐스팅 실패!!");
+        SetEnemy(enemy);
     }
 
     void SetEnemy(Multi_EnemyTower enemy)

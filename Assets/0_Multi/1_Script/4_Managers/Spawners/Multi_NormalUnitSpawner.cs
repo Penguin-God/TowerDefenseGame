@@ -23,26 +23,24 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     [SerializeField] FolderPoolingData spearmanPoolData;
     [SerializeField] FolderPoolingData magePoolData;
 
+    // Init용 코드
+    // TODO Init class만들기
+    #region Init
     public override void Init()
     {
         SetAllUnit();
 
-        InitUnits(swordmanPoolData.gos, swordmanPoolData.folderName, swordmanPoolData.poolingCount);
-        InitUnits(archerPoolData.gos, archerPoolData.folderName, archerPoolData.poolingCount);
-        InitUnits(spearmanPoolData.gos, spearmanPoolData.folderName, spearmanPoolData.poolingCount);
-        InitUnits(magePoolData.gos, magePoolData.folderName, magePoolData.poolingCount);
+        CreatePool(swordmanPoolData.gos, swordmanPoolData.folderName, swordmanPoolData.poolingCount);
+        CreatePool(archerPoolData.gos, archerPoolData.folderName, archerPoolData.poolingCount);
+        CreatePool(spearmanPoolData.gos, spearmanPoolData.folderName, spearmanPoolData.poolingCount);
+        CreatePool(magePoolData.gos, magePoolData.folderName, magePoolData.poolingCount);
     }
 
-    void InitUnits(GameObject[] gos, string folderName,int count)
+    void CreatePool(GameObject[] gos, string folderName, int count)
     {
         for (int i = 0; i < gos.Length; i++)
-        {
-            Multi_TeamSoldier[] units = CreatePool_InGroup<Multi_TeamSoldier>(gos[i], BuildPath(_rootPath, folderName, gos[i]), count);
-
-            foreach (var unit in units) SetUnit(unit);
-        }
+            CreatePool_InGroup<Multi_TeamSoldier>(gos[i], BuildPath(_rootPath, folderName, gos[i]), count);
     }
-
 
     void SetAllUnit()
     {
@@ -53,20 +51,27 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
         allUnitDatas[3] = magePoolData;
     }
 
+    public override void SettingPoolObject(object obj)
+    {
+        Multi_TeamSoldier unit = obj as Multi_TeamSoldier;
+        Debug.Assert(unit != null, "캐스팅 실패!!");
+        SetUnit(unit);
+    }
+
     // TODO : 구현하기
     void SetUnit(Multi_TeamSoldier unit)
     {
-
+        print("안녕 세상");
     }
+    #endregion
 
-    // TODO : unitClass를 먼저 오게 하기
+
     public void Spawn(UnitColor unitColor, UnitClass unitClass) => Spawn((int)unitColor, (int)unitClass);
-    // TODO : 추가 풀링헤사 event가 비어있는 유닛들은 스폰할 때 event세팅 해주기
     public void Spawn(int unitColor, int unitClass)
     {
         Multi_Managers.Resources.PhotonInsantiate(
-            BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]), // path
-            Multi_WorldPosUtility.Instance.GetUnitSpawnPositon() // position
+            BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]),
+            Multi_WorldPosUtility.Instance.GetUnitSpawnPositon() // spawn position
             );
     }
 

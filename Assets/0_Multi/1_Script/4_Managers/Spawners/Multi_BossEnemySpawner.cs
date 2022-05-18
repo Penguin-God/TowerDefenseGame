@@ -10,17 +10,30 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     public event Action<Multi_BossEnemy> OnSpawn;
     public event Action<Multi_BossEnemy> OnDead;
     Vector3 spawnPos;
+
+    // Init용 코드
+    // TODO : 클래스로 옮기기
+    #region Init
+
     public override void Init()
     {
-        for (int i = 0; i < _enemys.Length; i++)
-        {
-            Multi_BossEnemy[] enemys = CreatePool_InGroup<Multi_BossEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
-
-            foreach (var enemy in enemys) SetEnemy(enemy);
-        }
+        CreatePool();
 
         spawnPos = Multi_Data.instance.EnemySpawnPos;
-        //Multi_StageManager.Instance.OnUpdateStage += RespawnBoss;
+        Multi_StageManager.Instance.OnUpdateStage += RespawnBoss;
+    }
+
+    void CreatePool()
+    {
+        for (int i = 0; i < _enemys.Length; i++)
+            CreatePool_InGroup<Multi_BossEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
+    }
+
+    public override void SettingPoolObject(object obj)
+    {
+        Multi_BossEnemy enemy = obj as Multi_BossEnemy;
+        Debug.Assert(enemy != null, "캐스팅 실패!!");
+        SetEnemy(enemy);
     }
 
     void SetEnemy(Multi_BossEnemy enemy)
@@ -30,6 +43,9 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
         enemy.OnDeath += () => OnDead(enemy);
         enemy.OnDeath += () => Multi_Managers.Pool.Push(enemy.GetComponent<Poolable>());
     }
+
+    #endregion
+
 
     public bool bossRespawn;
     public int bossLevel;

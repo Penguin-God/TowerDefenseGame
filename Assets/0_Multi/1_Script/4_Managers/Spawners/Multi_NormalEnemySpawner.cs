@@ -23,7 +23,7 @@ public struct NormalEnemyData
 public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 {
     public event Action<Multi_NormalEnemy> OnSpawn;
-    public Action<Multi_NormalEnemy> OnDead;
+    public event Action<Multi_NormalEnemy> OnDead;
 
     Dictionary<int, NormalEnemyData> _enemyDataByStage = new Dictionary<int, NormalEnemyData>();
 
@@ -35,18 +35,18 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
     public override void Init()
     {
-        for (int i = 0; i < _enemys.Length; i++)
-        {
-            foreach (var enemy in CreatePool_InGroup<Multi_NormalEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount)) 
-                SetEnemy(enemy);
-        }
-
+        CreatePool();
         _spawnPos = Multi_Data.instance.EnemySpawnPos;
 
         SetNormalEnemyData();
         Multi_StageManager.Instance.OnUpdateStage += StageSpawn;
     }
 
+    void CreatePool()
+    {
+        for (int i = 0; i < _enemys.Length; i++)
+            CreatePool_InGroup<Multi_NormalEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
+    }
 
     public void Spawn()
     {
@@ -70,6 +70,13 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
     // init 용 코드
     #region Init Funtions
+    public override void SettingPoolObject(object obj)
+    {
+        Multi_NormalEnemy enemy = obj as Multi_NormalEnemy;
+        Debug.Assert(enemy != null, "캐스팅 실패!!");
+        SetEnemy(enemy);
+    }
+
     void SetEnemy(Multi_NormalEnemy enemy)
     {
         enemy.enemyType = EnemyType.Normal;

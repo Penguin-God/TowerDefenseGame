@@ -39,10 +39,10 @@ public class CombineDatas : ILoader<string, CombineData>
         {
             string[] cells = rows[i].Split(',');
             combineDatas.Add( new CombineData(int.Parse(cells[0]), int.Parse(cells[1]), cells[2], cells[3]));
-            Debug.Log(cells[0]);
-            Debug.Log(cells[1]);
-            Debug.Log(cells[2]);
-            Debug.Log(cells[3]);
+            //Debug.Log(cells[0]);
+            //Debug.Log(cells[1]);
+            //Debug.Log(cells[2]);
+            //Debug.Log(cells[3]);
         }
     }
 

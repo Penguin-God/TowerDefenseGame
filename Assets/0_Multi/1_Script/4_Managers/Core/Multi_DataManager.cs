@@ -11,12 +11,12 @@ public interface ILoader<Key, Value>
 
 public class Multi_DataManager
 {
-    Dictionary<string, CombineData> _combineDataByID = new Dictionary<string, CombineData>();
-    public IReadOnlyDictionary<string, CombineData> CombineDataByID => _combineDataByID;
+    Dictionary<UnitNumber, CombineData> _combineDataByUnitNumbers = new Dictionary<UnitNumber, CombineData>();
+    public IReadOnlyDictionary<UnitNumber, CombineData> CombineDataByUnitNumbers => _combineDataByUnitNumbers;
 
     public void Init()
     {
-        _combineDataByID = LoadCSV<CombineDatas, string, CombineData>("CombineData_CSV").MakeDict();
+        _combineDataByUnitNumbers = LoadCSV<CombineDatas, UnitNumber, CombineData>("CombineData_CSV").MakeDict();
     }
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>

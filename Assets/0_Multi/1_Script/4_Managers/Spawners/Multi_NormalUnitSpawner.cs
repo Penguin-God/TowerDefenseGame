@@ -61,7 +61,7 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     // TODO : 구현하기
     void SetUnit(Multi_TeamSoldier unit)
     {
-        print("안녕 세상");
+        //print("안녕 세상");
     }
     #endregion
 

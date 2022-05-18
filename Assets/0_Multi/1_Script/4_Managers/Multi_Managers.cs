@@ -15,25 +15,39 @@ public class Multi_Managers : MonoBehaviourPun
                 instance = FindObjectOfType<Multi_Managers>();
                 if (instance == null)
                     instance = new GameObject("Multi_Managers").AddComponent<Multi_Managers>();
+
+                instance.Init();
             }
 
             return instance;
         }
     }
 
+    Multi_DataManager _data = new Multi_DataManager();
+    Multi_UI_Manager _ui = new Multi_UI_Manager();
     Multi_ResourcesManager _resources = new Multi_ResourcesManager();
     Multi_PoolManager _pool = new Multi_PoolManager();
-    Multi_DataManager _data = new Multi_DataManager();
+
+
+    public static Multi_DataManager Data => Instance._data;
+    public static Multi_UI_Manager UI => Instance._ui;
     public static Multi_ResourcesManager Resources => Instance._resources;
     public static Multi_PoolManager Pool => Instance._pool;
-    public static Multi_DataManager Data => Instance._data;
 
-    void Awake()
+    void Init()
     {
-        if (!photonView.IsMine) return;
-
-        _pool.Init();
+        // ui 테스트 때문에 잠시 비활성화
+        // if (!photonView.IsMine) return;
         _data.Init();
+        _pool.Init();
+
+        // temp code
+        _ui.ShowSceneUI<Multi_UI_Paint>("Paint");
+    }
+
+    public void Clear()
+    {
+        _ui.Clear();
     }
 
     #region Test

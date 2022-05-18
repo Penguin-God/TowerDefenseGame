@@ -141,9 +141,10 @@ public class Multi_CombineSoldier : MonoBehaviourPun
 
     public event Action<CombineData> OnCombine = null;
 
-    public void Combine(string id)
+    public void Combine()
     {
-        OnCombine?.Invoke(Multi_Managers.Data.CombineDataByID[id]);
+        // TODO : 구현 해줘
+        //OnCombine?.Invoke(null);
     }
 
     public void CombineRedArcher()

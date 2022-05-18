@@ -4,29 +4,56 @@ using UnityEngine;
 using System;
 
 [Serializable]
+public struct UnitNumber : IEquatable<UnitNumber>
+{
+    [SerializeField] int _colorNumber;
+    [SerializeField] int _classNumber;
+    
+    public UnitNumber(int colorNum, int classNum)
+    {
+        _colorNumber = colorNum;
+        _classNumber = classNum;
+    }
+
+    public int ColorNumber => _colorNumber;
+    public int ClassNumber => _classNumber;
+    public UnitColor UnitColor => (UnitColor)_colorNumber;
+    public UnitClass UnitClass => (UnitClass)_classNumber;
+
+    public bool Equals(UnitNumber other) 
+        => other.ColorNumber == _colorNumber && other.ClassNumber == _classNumber;
+
+    public override int GetHashCode() => (_colorNumber, _classNumber).GetHashCode();
+    public override bool Equals(object other) => base.Equals(other);
+}
+
+[Serializable]
+public class UnitNumbers
+{
+    public List<UnitNumber> unitNumbers = new List<UnitNumber>();
+}
+
+[Serializable]
 public struct CombineData
 {
-    [SerializeField] int _colorNum;
-    [SerializeField] int _classNum;
-    [SerializeField] string id;
+    [SerializeField] UnitNumber _unitNumber;
+    [SerializeField] string _name;
     [SerializeField] string _koearName;
 
     public CombineData(int colorNum, int classNum, string name, string koearName)
     {
-        _colorNum = colorNum;
-        _classNum = classNum;
-        id = name;
+        _unitNumber = new UnitNumber(colorNum, classNum);
+        _name = name;
         _koearName = koearName;
     }
 
-    public int ColorNum => _colorNum;
-    public int ClassNum => _classNum;
-    public string ID => id;
+    public UnitNumber UnitNumber => _unitNumber;
+    public string Name => _name;
     public string KoearName => _koearName;
 }
 
 [Serializable]
-public class CombineDatas : ILoader<string, CombineData>
+public class CombineDatas : ILoader<UnitNumber, CombineData>
 {
     public List<CombineData> combineDatas = new List<CombineData>();
 
@@ -39,19 +66,15 @@ public class CombineDatas : ILoader<string, CombineData>
         {
             string[] cells = rows[i].Split(',');
             combineDatas.Add( new CombineData(int.Parse(cells[0]), int.Parse(cells[1]), cells[2], cells[3]));
-            //Debug.Log(cells[0]);
-            //Debug.Log(cells[1]);
-            //Debug.Log(cells[2]);
-            //Debug.Log(cells[3]);
         }
     }
 
-    public Dictionary<string, CombineData> MakeDict()
+    public Dictionary<UnitNumber, CombineData> MakeDict()
     {
-        Dictionary<string, CombineData> dict = new Dictionary<string, CombineData>();
+        Dictionary<UnitNumber, CombineData> dict = new Dictionary<UnitNumber, CombineData>();
 
         foreach (CombineData data in combineDatas)
-            dict.Add(data.ID, data);
+            dict.Add(data.UnitNumber, data);
         return dict;
     }
 }

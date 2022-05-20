@@ -11,12 +11,20 @@ public interface ILoader<Key, Value>
 
 public class Multi_DataManager
 {
-    Dictionary<UnitNumber, CombineData> _combineDataByUnitNumbers = new Dictionary<UnitNumber, CombineData>();
-    public IReadOnlyDictionary<UnitNumber, CombineData> CombineDataByUnitNumbers => _combineDataByUnitNumbers;
+    Dictionary<UnitFlags, CombineData> _combineDataByUnitFlags = new Dictionary<UnitFlags, CombineData>();
+    public IReadOnlyDictionary<UnitFlags, CombineData> CombineDataByUnitFlags => _combineDataByUnitFlags;
+
+
+    Dictionary<UnitFlags, UI_UnitWindowData> _unitWindowDataByUnitFlags = new Dictionary<UnitFlags, UI_UnitWindowData>();
+    public IReadOnlyDictionary<UnitFlags, UI_UnitWindowData> UnitWindowDataByUnitFlags => _unitWindowDataByUnitFlags;
+
 
     public void Init()
     {
-        _combineDataByUnitNumbers = LoadCSV<CombineDatas, UnitNumber, CombineData>("CombineData_CSV").MakeDict();
+        _unitWindowDataByUnitFlags.Clear();
+        _combineDataByUnitFlags.Clear();
+        //_combineDataByUnitFlags = LoadCSV<CombineDatas, UnitFlags, CombineData>("CombineData_CSV").MakeDict();
+        _unitWindowDataByUnitFlags = LoadJson<UI_UnitWindowDatas, UnitFlags, UI_UnitWindowData>("UnitWindowUIDatas").MakeDict();
     }
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>

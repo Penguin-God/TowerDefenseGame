@@ -246,10 +246,10 @@ public class EventManager : MonoBehaviour
     }
 
     // 편의 이벤트
-    string ReturnUnitText(int unitNumber)
+    string ReturnUnitText(int UnitFlags)
     {
         string unitColotText = "";
-        switch (unitNumber)
+        switch (UnitFlags)
         {
             case 0: unitColotText = "빨간 유닛 : "; break;
             case 1: unitColotText = "파란 유닛 : "; break;

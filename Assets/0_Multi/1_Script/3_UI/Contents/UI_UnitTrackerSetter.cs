@@ -10,7 +10,7 @@ public class UI_UnitTrackerSetter : Multi_UI_Base
 
     protected override void Init()
     {
-        _unitTrackerData = new UI_UnitTrackerData(new UnitNumber(), null, GetComponent<Image>().color);
+        _unitTrackerData = new UI_UnitTrackerData(new UnitFlags(), null, GetComponent<Image>().color);
         //GetComponentInParent<Multi_UI_Paint>().OnPaintChanged +=
         //GetComponent<Button>().onClick.AddListener(() => )
     }

@@ -4,12 +4,12 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public struct UnitNumber : IEquatable<UnitNumber>
+public struct UnitFlags : IEquatable<UnitFlags>
 {
     [SerializeField] int _colorNumber;
     [SerializeField] int _classNumber;
     
-    public UnitNumber(int colorNum, int classNum)
+    public UnitFlags(int colorNum, int classNum)
     {
         _colorNumber = colorNum;
         _classNumber = classNum;
@@ -20,7 +20,7 @@ public struct UnitNumber : IEquatable<UnitNumber>
     public UnitColor UnitColor => (UnitColor)_colorNumber;
     public UnitClass UnitClass => (UnitClass)_classNumber;
 
-    public bool Equals(UnitNumber other) 
+    public bool Equals(UnitFlags other) 
         => other.ColorNumber == _colorNumber && other.ClassNumber == _classNumber;
 
     public override int GetHashCode() => (_colorNumber, _classNumber).GetHashCode();
@@ -28,34 +28,28 @@ public struct UnitNumber : IEquatable<UnitNumber>
 }
 
 [Serializable]
-public class UnitNumbers
-{
-    public List<UnitNumber> unitNumbers = new List<UnitNumber>();
-}
-
-[Serializable]
 public struct CombineData
 {
-    [SerializeField] UnitNumber _unitNumber;
+    [SerializeField] UnitFlags _UnitFlags;
     [SerializeField] string _name;
     [SerializeField] string _koearName;
 
     public CombineData(int colorNum, int classNum, string name, string koearName)
     {
-        _unitNumber = new UnitNumber(colorNum, classNum);
+        _UnitFlags = new UnitFlags(colorNum, classNum);
         _name = name;
         _koearName = koearName;
     }
 
-    public UnitNumber UnitNumber => _unitNumber;
+    public UnitFlags UnitFlags => _UnitFlags;
     public string Name => _name;
     public string KoearName => _koearName;
 }
 
 [Serializable]
-public class CombineDatas : ILoader<UnitNumber, CombineData>
+public class CombineDatas : ILoader<UnitFlags, CombineData>
 {
-    public List<CombineData> combineDatas = new List<CombineData>();
+    public List<CombineData> SerializtionDatas = new List<CombineData>();
 
     public void LoadCSV(TextAsset csv)
     {
@@ -65,16 +59,16 @@ public class CombineDatas : ILoader<UnitNumber, CombineData>
         for (int i = 1; i < rows.Length; i++)
         {
             string[] cells = rows[i].Split(',');
-            combineDatas.Add( new CombineData(int.Parse(cells[0]), int.Parse(cells[1]), cells[2], cells[3]));
+            SerializtionDatas.Add( new CombineData(int.Parse(cells[0]), int.Parse(cells[1]), cells[2], cells[3]));
         }
     }
 
-    public Dictionary<UnitNumber, CombineData> MakeDict()
+    public Dictionary<UnitFlags, CombineData> MakeDict()
     {
-        Dictionary<UnitNumber, CombineData> dict = new Dictionary<UnitNumber, CombineData>();
+        Dictionary<UnitFlags, CombineData> dict = new Dictionary<UnitFlags, CombineData>();
 
-        foreach (CombineData data in combineDatas)
-            dict.Add(data.UnitNumber, data);
+        foreach (CombineData data in SerializtionDatas)
+            dict.Add(data.UnitFlags, data);
         return dict;
     }
 }

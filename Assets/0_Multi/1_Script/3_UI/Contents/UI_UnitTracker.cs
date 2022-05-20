@@ -9,7 +9,7 @@ public class UI_UnitTracker : Multi_UI_Base
     [SerializeField] Image icon;
     [SerializeField] Text countText;
 
-    [SerializeField] UnitNumber unitNumber;
+    [SerializeField] UnitFlags UnitFlags;
 
     void Awake()
     {

@@ -65,7 +65,7 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     }
     #endregion
 
-
+    public void Spawn(UnitFlags flgas) => Spawn(flgas.ColorNumber, flgas.ClassNumber);
     public void Spawn(UnitColor unitColor, UnitClass unitClass) => Spawn((int)unitColor, (int)unitClass);
     public void Spawn(int unitColor, int unitClass)
     {

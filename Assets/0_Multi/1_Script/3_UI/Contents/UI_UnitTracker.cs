@@ -23,11 +23,16 @@ public class UI_UnitTracker : Multi_UI_Base
         GetComponentInChildren<Button>().onClick.AddListener(OnClicked);
     }
 
-    public void SetInfo(UI_UnitTrackerData data)
+    public void SetInfoByColor(UI_UnitTrackerData data)
     {
         unitFlags = new UnitFlags(data.UnitFlags.ColorNumber, unitFlags.ClassNumber);
         backGround.color = data.BackGroundColor;
-        //icon.sprite = data.Icon;
+    }
+
+    public void SetInfoByClass(UI_UnitTrackerData data)
+    {
+        unitFlags = new UnitFlags(unitFlags.ColorNumber, data.UnitFlags.ClassNumber);
+        icon.sprite = data.Icon;
     }
 
     void OnClicked()

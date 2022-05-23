@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Linq;
 
 public class UI_UnitByColor : Multi_UI_Base
 {
@@ -14,14 +15,9 @@ public class UI_UnitByColor : Multi_UI_Base
 
     protected override void Init()
     {
-        GetComponentInParent<Multi_UI_Paint>().OnPaintChanged += SetInfos;
+        GetComponentInParent<Multi_UI_Paint>().OnPaintChanged += SetInfosByColor;
     }
 
-    void SetInfos(UI_UnitTrackerData data)
-    {
-        foreach (var tracker in unitTrackers)
-        {
-            tracker.SetInfo(data);
-        }
-    }
+    void SetInfosByColor(UI_UnitTrackerData data) => unitTrackers.ToList().ForEach(x => x.SetInfoByColor(data));
+    void SetInfosByClass(UI_UnitTrackerData data) => unitTrackers.ToList().ForEach(x => x.SetInfoByClass(data));
 }

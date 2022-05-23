@@ -50,6 +50,46 @@ public struct CombineData
     public string KoearName => _koearName;
 }
 
+
+[Serializable]
+public struct UnitNameData
+{
+    [SerializeField] UnitFlags _UnitFlags;
+    [SerializeField] string _prefabName;
+    [SerializeField] string _koearName;
+
+    public UnitNameData(int colorNum, int classNum, string prefabName, string koearName)
+    {
+        _UnitFlags = new UnitFlags(colorNum, classNum);
+        _prefabName = prefabName;
+        _koearName = koearName;
+    }
+
+    public UnitFlags UnitFlags => _UnitFlags;
+    public string Name => _prefabName;
+    public string KoearName => _koearName;
+}
+
+[Serializable]
+public class UnitNameDatas : ILoader<UnitFlags, UnitNameData>
+{
+    public List<UnitNameData> SerializtionDatas = new List<UnitNameData>();
+
+    public void LoadCSV(TextAsset csv)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Dictionary<UnitFlags, UnitNameData> MakeDict()
+    {
+        Dictionary<UnitFlags, UnitNameData> dict = new Dictionary<UnitFlags, UnitNameData>();
+
+        foreach (UnitNameData data in SerializtionDatas)
+            dict.Add(data.UnitFlags, data);
+        return dict;
+    }
+}
+
 [Serializable]
 public class CombineDatas : ILoader<UnitFlags, CombineData>
 {

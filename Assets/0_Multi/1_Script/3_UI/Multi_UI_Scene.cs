@@ -7,6 +7,5 @@ public class Multi_UI_Scene : Multi_UI_Base
     protected override void Init()
     {
         Multi_Managers.UI.SetCanvas(gameObject, false);
-        print("inits");
     }
 }

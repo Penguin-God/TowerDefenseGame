@@ -25,6 +25,10 @@ public struct UnitFlags : IEquatable<UnitFlags>
 
     public override int GetHashCode() => (_colorNumber, _classNumber).GetHashCode();
     public override bool Equals(object other) => base.Equals(other);
+
+    public static bool operator ==(UnitFlags lhs, UnitFlags rhs) 
+        => lhs.ColorNumber == rhs.ColorNumber && lhs.ClassNumber == rhs.ClassNumber;
+    public static bool operator !=(UnitFlags lhs, UnitFlags rhs) => !(lhs == rhs);
 }
 
 [Serializable]

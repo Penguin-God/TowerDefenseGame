@@ -9,7 +9,7 @@ public class UI_UnitTracker : Multi_UI_Base
     [SerializeField] Image icon;
     [SerializeField] Text countText;
 
-    [SerializeField] UnitFlags UnitFlags;
+    [SerializeField] UnitFlags unitFlags;
 
     void Awake()
     {
@@ -18,12 +18,18 @@ public class UI_UnitTracker : Multi_UI_Base
 
     protected override void Init()
     {
-        
+        GetComponentInChildren<Button>().onClick.AddListener(OnClicked);
     }
 
     public void SetInfo(UI_UnitTrackerData data)
     {
+        unitFlags = new UnitFlags(data.UnitFlags.ColorNumber, unitFlags.ClassNumber);
         backGround.color = data.BackGroundColor;
         //icon.sprite = data.Icon;
+    }
+
+    void OnClicked()
+    {
+        CurrentUnitTrackerData.Instance.SetFlag(unitFlags);
     }
 }

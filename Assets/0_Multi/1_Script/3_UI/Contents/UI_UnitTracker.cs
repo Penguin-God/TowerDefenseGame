@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class UI_UnitTracker : Multi_UI_Base
 {
+    [SerializeField] Multi_UI_Paint paint;
     [SerializeField] Image backGround;
     [SerializeField] Image icon;
     [SerializeField] Text countText;
@@ -14,6 +15,7 @@ public class UI_UnitTracker : Multi_UI_Base
     void Awake()
     {
         backGround = GetComponent<Image>();
+        paint = GetComponentInParent<Multi_UI_Paint>();
     }
 
     protected override void Init()
@@ -31,11 +33,6 @@ public class UI_UnitTracker : Multi_UI_Base
     void OnClicked()
     {
         CurrentUnitTrackerData.Instance.SetFlag(unitFlags);
-        ShowWindow();
-    }
-
-    void ShowWindow()
-    {
-        FindObjectOfType<UI_UnitManagedWindow>().Show(Multi_Managers.Data.UnitWindowDataByUnitFlags[unitFlags]);
+        paint.ShowUnitManagedWindow(unitFlags);
     }
 }

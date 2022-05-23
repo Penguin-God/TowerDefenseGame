@@ -42,7 +42,7 @@ public class Multi_Managers : MonoBehaviourPun
 
         // temp code : 나중에 씬으로 옮길 것
         _ui.ShowSceneUI<Multi_UI_Paint>("Paint");
-        _ui.ShowSceneUI<UI_UnitManagedWindow>("UnitManagedWindow");
+        //_ui.ShowSceneUI<UI_UnitManagedWindow>("UnitManagedWindow");
     }
 
     public void Clear()

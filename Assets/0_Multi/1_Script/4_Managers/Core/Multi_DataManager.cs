@@ -22,8 +22,8 @@ public class Multi_DataManager
 
     public void Init()
     {
-        _unitWindowDataByUnitFlags.Clear();
         _combineDataByUnitFlags.Clear();
+        _unitWindowDataByUnitFlags.Clear();
         _unitNameDataByUnitFlags.Clear();
         //_combineDataByUnitFlags = LoadCSV<CombineDatas, UnitFlags, CombineData>("CombineData_CSV").MakeDict();
         _unitWindowDataByUnitFlags = LoadJson<UI_UnitWindowDatas, UnitFlags, UI_UnitWindowData>("UnitWindowUIDatas").MakeDict();
@@ -33,7 +33,6 @@ public class Multi_DataManager
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
     {
         TextAsset textAsset = Multi_Managers.Resources.Load<TextAsset>($"Data/{path}");
-        Debug.Log(textAsset.text);
         return JsonUtility.FromJson<Loader>(textAsset.text);
     }
 

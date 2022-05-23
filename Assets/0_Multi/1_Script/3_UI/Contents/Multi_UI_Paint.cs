@@ -11,6 +11,7 @@ public class Multi_UI_Paint : Multi_UI_Scene
     public event Action<UI_UnitTrackerData> OnPaintChanged = null;
 
     [SerializeField] GameObject _paintActiveButton;
+    [SerializeField] UI_UnitManagedWindow unitManagedWindow;
     [SerializeField] UI_UnitTrackerSetter[] _unitTrackerSetters;
     [SerializeField] UI_UnitTracker[] _unitTrackers;
     protected override void Init()
@@ -29,4 +30,6 @@ public class Multi_UI_Paint : Multi_UI_Scene
         => _unitTrackerSetters.ToList().ForEach(x => BindEvnet(x.gameObject, data => OnPaintChanged(x.UnitTrackerData)));
     void SetterInActivePaintSelect() 
         => _unitTrackerSetters.ToList().ForEach(x => BindEvnet(x.gameObject, data => _paintRoot.SetActive(false)));
+
+    public void ShowUnitManagedWindow(UnitFlags flags) => unitManagedWindow.Show(flags);
 }

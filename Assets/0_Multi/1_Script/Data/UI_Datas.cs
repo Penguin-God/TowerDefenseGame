@@ -28,6 +28,7 @@ public struct UI_UnitWindowData
 {
     [SerializeField] UnitFlags _unitFlags;
     [SerializeField] UnitFlags _combineUnitFlags;
+    [SerializeField] string _combineUnitName;
     [SerializeField] string _description;
 
     public UI_UnitWindowData(UnitFlags unitFlags, UnitFlags combineUnitFlags, string description)
@@ -35,10 +36,12 @@ public struct UI_UnitWindowData
         _unitFlags = unitFlags;
         _combineUnitFlags = combineUnitFlags;
         _description = description;
+        _combineUnitName = Multi_Managers.Data.UnitNameDataByUnitFlags[unitFlags].KoearName;
     }
 
     public UnitFlags UnitFlags => _unitFlags;
     public UnitFlags CombineUnitFlags => _combineUnitFlags;
+    public string CombineUnitName => _combineUnitName;
     public string Description => _description;
 }
 

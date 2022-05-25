@@ -55,7 +55,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public Action<Multi_Enemy> OnPassiveHit;
     protected Action<Multi_Enemy> OnSkileHit;
 
-    //public event Action<Multi_TeamSoldier> OnSpawn;
     public event Action<Multi_TeamSoldier> OnDead;
     #endregion
 

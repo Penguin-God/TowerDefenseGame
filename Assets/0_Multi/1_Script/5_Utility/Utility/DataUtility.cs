@@ -19,6 +19,7 @@ public class DataUtility : MonoBehaviour
     readonly string UnitUumberDataPath = "Assets/0_Multi/Resources/Data/UnitFlagss.json";
     readonly string UnitWindowUIDataPath = "Assets/0_Multi/Resources/Data/UnitWindowUIDatas.json";
     readonly string UnitNameDataPath = "Assets/0_Multi/Resources/Data/UnitNameData.json";
+    readonly string CombineDataPath = "Assets/0_Multi/Resources/Data/CombineDatas.json";
 
     [ContextMenu("Create Unit Numbers Data")]
     void CreateUnitFlagssFile()
@@ -63,6 +64,23 @@ public class DataUtility : MonoBehaviour
         }
 
         CreateFile(UnitNameDataPath, GetSerialization(unitNameDatas));
+    }
+
+    [ContextMenu("Create Combine Data")]
+    void CreateCombineFile()
+    {
+        List<CombineData> _combineDatas = new List<CombineData>();
+        for (int i = 0; i < 6; i++)
+        {
+            for (int k = 0; k < 4; k++)
+            {
+                List<CombineCondition> conditions = new List<CombineCondition>();
+                conditions.Add(new CombineCondition(0,0,3));
+                _combineDatas.Add(new CombineData(i, k, "빨간 궁수", conditions));
+            }
+        }
+
+        CreateFile(CombineDataPath, GetSerialization(_combineDatas));
     }
 
     void CreateFile<T>(string path, Serialization<T> serialization)

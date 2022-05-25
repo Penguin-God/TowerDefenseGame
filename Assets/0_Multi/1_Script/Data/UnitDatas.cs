@@ -38,24 +38,39 @@ public struct UnitFlags : IEquatable<UnitFlags>
 }
 
 [Serializable]
-public struct CombineData
+public struct CombineCondition
 {
-    [SerializeField] UnitFlags _UnitFlags;
-    [SerializeField] string _name;
-    [SerializeField] string _koearName;
+    [SerializeField] UnitFlags _unitFlags;
+    [SerializeField] int _count;
 
-    public CombineData(int colorNum, int classNum, string name, string koearName)
+    public CombineCondition(int colorNum, int classNum, int count)
     {
-        _UnitFlags = new UnitFlags(colorNum, classNum);
-        _name = name;
-        _koearName = koearName;
+        _unitFlags = new UnitFlags(colorNum, classNum);
+        _count = count;
     }
 
-    public UnitFlags UnitFlags => _UnitFlags;
-    public string Name => _name;
-    public string KoearName => _koearName;
+    public UnitFlags UnitFlags => _unitFlags;
+    public int Count => _count;
 }
 
+[Serializable]
+public struct CombineData
+{
+    [SerializeField] UnitFlags _unitFlags;
+    [SerializeField] string _koearName;
+    [SerializeField] List<CombineCondition> _conditions;
+
+    public CombineData(int colorNum, int classNum, string koearName, List<CombineCondition> conditions)
+    {
+        _unitFlags = new UnitFlags(colorNum, classNum);
+        _koearName = koearName;
+        _conditions = conditions;
+    }
+
+    public UnitFlags UnitFlags => _unitFlags;
+    public string KoearName => _koearName;
+    public IReadOnlyList<CombineCondition> Conditions => _conditions;
+}
 
 [Serializable]
 public struct UnitNameData
@@ -109,7 +124,7 @@ public class CombineDatas : ILoader<UnitFlags, CombineData>
         for (int i = 1; i < rows.Length; i++)
         {
             string[] cells = rows[i].Split(',');
-            SerializtionDatas.Add( new CombineData(int.Parse(cells[0]), int.Parse(cells[1]), cells[2], cells[3]));
+            //SerializtionDatas.Add( new CombineData(int.Parse(cells[0]), int.Parse(cells[1]), cells[2], cells[3]));
         }
     }
 

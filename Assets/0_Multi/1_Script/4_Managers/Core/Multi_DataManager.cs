@@ -25,7 +25,8 @@ public class Multi_DataManager
         _combineDataByUnitFlags.Clear();
         _unitWindowDataByUnitFlags.Clear();
         _unitNameDataByUnitFlags.Clear();
-        //_combineDataByUnitFlags = LoadCSV<CombineDatas, UnitFlags, CombineData>("CombineData_CSV").MakeDict();
+
+        _combineDataByUnitFlags = LoadJson<CombineDatas, UnitFlags, CombineData>("CombineDatas").MakeDict();
         _unitWindowDataByUnitFlags = LoadJson<UI_UnitWindowDatas, UnitFlags, UI_UnitWindowData>("UnitWindowUIDatas").MakeDict();
         _unitNameDataByUnitFlags = LoadJson<UnitNameDatas, UnitFlags, UnitNameData>("UnitNameData").MakeDict();
     }

@@ -77,6 +77,8 @@ public class Multi_UnitManager : MonoBehaviour
 
 
 
+    // 아래는 쭉 리팩터링 전 코드들
+
     Multi_UnitDataBase unitDB = null;
     public void ApplyUnitData(string _tag, Multi_TeamSoldier _team) => unitDB.ApplyUnitBaseData(_tag, _team);
     public void ApplyPassiveData(string _key, Multi_UnitPassive _passive, UnitColor _color) => unitDB.ApplyPassiveData(_key, _passive, _color);
@@ -121,22 +123,6 @@ public class Multi_UnitManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         unitOverGuideTextObject.SetActive(false);
     }
-
-
-    //public Multi_TeamSoldier[] CurrentAllUnits => Multi_SoldierPoolingManager.Instance.AllUnits;
-    //public CurrentUnitManager CurrentUnitManager { get; private set; } = null;
-
-    //public void AddCurrentUnit(TeamSoldier _unit)
-    //{
-    //    CurrentUnitManager.AddUnit(_unit);
-    //    UIManager.instance.UpdateCurrentUnitText(CurrentAllUnits.Length, maxUnit);
-    //}
-
-    //public void RemvoeCurrentUnit(TeamSoldier _unit)
-    //{
-    //    CurrentUnitManager.RemoveUnit(_unit);
-    //    UIManager.instance.UpdateCurrentUnitText(CurrentAllUnits.Length, maxUnit);
-    //}
 
     //public string GetUnitKey(UnitColor _color, UnitClass _class) => unitDB.GetUnitKey(_color, _class);
 

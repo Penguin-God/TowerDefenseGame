@@ -40,7 +40,7 @@ public struct UnitFlags : IEquatable<UnitFlags>
 [Serializable]
 public struct CombineCondition
 {
-    [SerializeField] UnitFlags _unitFlags;
+    [SerializeField] UnitFlags _unitFlags; // 조합에 필요한 유니의 플래그
     [SerializeField] int _count;
 
     public CombineCondition(int colorNum, int classNum, int count)
@@ -56,7 +56,7 @@ public struct CombineCondition
 [Serializable]
 public struct CombineData
 {
-    [SerializeField] UnitFlags _unitFlags;
+    [SerializeField] UnitFlags _unitFlags; // 조합하려는 유닛의 플래그
     [SerializeField] string _koearName;
     [SerializeField] List<CombineCondition> _conditions;
 

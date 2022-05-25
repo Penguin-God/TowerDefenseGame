@@ -27,21 +27,20 @@ public struct UI_UnitTrackerData
 public struct UI_UnitWindowData
 {
     [SerializeField] UnitFlags _unitFlags;
-    [SerializeField] UnitFlags _combineUnitFlags;
-    [SerializeField] string _combineUnitName;
+    [SerializeField] CombineData _combineData; // TODO : 2개 이상 조합을 지원하는 경우도 있기에 List로 만들기
     [SerializeField] string _description;
 
-    public UI_UnitWindowData(UnitFlags unitFlags, UnitFlags combineUnitFlags, string description)
+    public UI_UnitWindowData(UnitFlags unitFlags, CombineData combineData, string description)
     {
         _unitFlags = unitFlags;
-        _combineUnitFlags = combineUnitFlags;
+        _combineData = combineData;
         _description = description;
-        _combineUnitName = Multi_Managers.Data.UnitNameDataByUnitFlags[unitFlags].KoearName;
     }
 
     public UnitFlags UnitFlags => _unitFlags;
-    public UnitFlags CombineUnitFlags => _combineUnitFlags;
-    public string CombineUnitName => _combineUnitName;
+    public CombineData CombineData => _combineData;
+    public UnitFlags CombineUnitFlags => _combineData.UnitFlags;
+    public string CombineUnitName => _combineData.KoearName;
     public string Description => _description;
 }
 

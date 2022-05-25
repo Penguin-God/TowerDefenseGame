@@ -11,12 +11,12 @@ public class UI_UnitManagedWindow : Multi_UI_Scene
         _combineButton.onClick.AddListener(Combine);
     }
 
-    [SerializeField] UnitFlags _unitFlags;
-    [SerializeField] UnitFlags _combineUnitFlags;
+    [SerializeField] UI_UnitWindowData _windowData;
     [SerializeField] Text _description;
-    [SerializeField] Text _currentWolrd;
     [SerializeField] Text _combineUnitName;
     [SerializeField] Button _combineButton;
+
+    [SerializeField] Text _currentWolrd;
 
     public void Show(UnitFlags flags)
     {
@@ -26,21 +26,14 @@ public class UI_UnitManagedWindow : Multi_UI_Scene
 
     void SetInfo(UnitFlags flags)
     {
-        UI_UnitWindowData data = Multi_Managers.Data.UnitWindowDataByUnitFlags[flags];
-        _unitFlags = data.UnitFlags;
-        _combineUnitFlags = data.CombineUnitFlags;
-        _description.text = data.Description;
-        _combineUnitName.text = data.CombineUnitName;
+        _windowData = Multi_Managers.Data.UnitWindowDataByUnitFlags[flags];
+        _description.text = _windowData.Description;
+        _combineUnitName.text = _windowData.CombineUnitName;
     }
 
     void Combine()
     {
-        if (Multi_UnitManager.Instance.CheckCombineable(Multi_Managers.Data.CombineDataByUnitFlags[_combineUnitFlags].Conditions))
-        {
-            Multi_SpawnManagers.NormalUnit.Spawn(_combineUnitFlags);
-            //print($"소환된 유닛 컬러 {_unitFlags.ColorNumber}, 클래스 {_unitFlags.ClassNumber}");
-        }
-        else print("숫자 부족!!!!!!!!!!!!!!!");
-        // Multi_SpawnManagers.NormalUnit.Spawn(_unitFlags);
+        if (Multi_UnitManager.Instance.CheckCombineable(_windowData.CombineData.Conditions))
+            Multi_SpawnManagers.NormalUnit.Spawn(_windowData.CombineUnitFlags);
     }
 }

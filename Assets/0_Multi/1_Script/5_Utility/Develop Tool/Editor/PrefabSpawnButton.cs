@@ -31,7 +31,7 @@ public class PrefabSpawnButton : Editor
                 {
                     string _buttonName = _units[i].units[j].name + " Spawn";
                     _buttonName = _buttonName.Replace('1', ' ');
-                    if (GUILayout.Button(_buttonName)) _spawner.SpawnUnit(j, _units[i].units[j].name);
+                    if (GUILayout.Button(_buttonName)) _spawner.SpawnUnit(i, j);
                 }
                 EditorGUILayout.Space(5);
             }

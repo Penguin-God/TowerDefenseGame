@@ -17,6 +17,7 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     public event Action<Multi_TeamSoldier> OnDead;
 
     [SerializeField] FolderPoolingData[] allUnitDatas;
+    public IReadOnlyList<FolderPoolingData> AllUnitDatas => allUnitDatas;
 
     [SerializeField] FolderPoolingData swordmanPoolData;
     [SerializeField] FolderPoolingData archerPoolData;
@@ -42,6 +43,7 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
             CreatePool_InGroup<Multi_TeamSoldier>(gos[i], BuildPath(_rootPath, folderName, gos[i]), count);
     }
 
+    [ContextMenu("Set All Unit")]
     void SetAllUnit()
     {
         allUnitDatas = new FolderPoolingData[4];

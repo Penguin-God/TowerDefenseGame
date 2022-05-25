@@ -20,39 +20,6 @@ public class Multi_UnitManager : MonoBehaviour
         unitDB = GetComponent<Multi_UnitDataBase>();
     }
 
-    #region unit prefabs key
-    public string UnitGroupName => "Unit";
-    public string SwordmanPath => "Unit/Swordman";
-    public string ArcherPath => "Unit/Archer";
-    public string SpearmanPath => "Unit/Spearman";
-    public string MagePath => "Unit/Mage";
-
-    Dictionary<UnitClass, string> pathByUnitClass = new Dictionary<UnitClass, string>();
-
-    public string BuildPath(UnitClass unitClass, string unitName) => BuildPath(pathByUnitClass[unitClass], unitName);
-    string BuildPath(string path, string name) => $"{path}/{name}";
-    #endregion
-
-
-    void Start()
-    {
-        pathByUnitClass.Add(UnitClass.sowrdman, SwordmanPath);
-        pathByUnitClass.Add(UnitClass.archer, ArcherPath);
-        pathByUnitClass.Add(UnitClass.spearman, SpearmanPath);
-        pathByUnitClass.Add(UnitClass.mage, MagePath);
-
-        //CreateUnitPools(soldierSpawner.Swordmans, SwordmanPath, 5);
-        //CreateUnitPools(soldierSpawner.Archers, ArcherPath, 5);
-        //CreateUnitPools(soldierSpawner.Spearmans, SpearmanPath, 4);
-        //CreateUnitPools(soldierSpawner.Mages, MagePath, 2);
-    }
-
-    //void CreateUnitPools(GameObject[] units, string unitPath, int count)
-    //{
-    //    for (int i = 0; i < units.Length; i++)
-    //        Multi_Managers.Pool.CreatePool(units[i], BuildPath(unitPath, units[i].name), count, UnitGroupName);
-    //}
-
     Multi_UnitDataBase unitDB = null;
     public void ApplyUnitData(string _tag, Multi_TeamSoldier _team) => unitDB.ApplyUnitBaseData(_tag, _team);
     public void ApplyPassiveData(string _key, Multi_UnitPassive _passive, UnitColor _color) => unitDB.ApplyPassiveData(_key, _passive, _color);

@@ -73,6 +73,34 @@ public struct CombineData
 }
 
 [Serializable]
+public class CombineDatas : ILoader<UnitFlags, CombineData>
+{
+    public List<CombineData> SerializtionDatas = new List<CombineData>();
+
+    public void LoadCSV(TextAsset csv)
+    {
+        string csvText = csv.text.Substring(0, csv.text.Length - 1);
+        string[] rows = csvText.Split('\n');
+
+        for (int i = 1; i < rows.Length; i++)
+        {
+            string[] cells = rows[i].Split(',');
+            //SerializtionDatas.Add( new CombineData(int.Parse(cells[0]), int.Parse(cells[1]), cells[2], cells[3]));
+        }
+    }
+
+    public Dictionary<UnitFlags, CombineData> MakeDict()
+    {
+        Dictionary<UnitFlags, CombineData> dict = new Dictionary<UnitFlags, CombineData>();
+
+        foreach (CombineData data in SerializtionDatas)
+            dict.Add(data.UnitFlags, data);
+        return dict;
+    }
+}
+
+
+[Serializable]
 public struct UnitNameData
 {
     [SerializeField] UnitFlags _UnitFlags;
@@ -106,33 +134,6 @@ public class UnitNameDatas : ILoader<UnitFlags, UnitNameData>
         Dictionary<UnitFlags, UnitNameData> dict = new Dictionary<UnitFlags, UnitNameData>();
 
         foreach (UnitNameData data in SerializtionDatas)
-            dict.Add(data.UnitFlags, data);
-        return dict;
-    }
-}
-
-[Serializable]
-public class CombineDatas : ILoader<UnitFlags, CombineData>
-{
-    public List<CombineData> SerializtionDatas = new List<CombineData>();
-
-    public void LoadCSV(TextAsset csv)
-    {
-        string csvText = csv.text.Substring(0, csv.text.Length - 1);
-        string[] rows = csvText.Split('\n');
-
-        for (int i = 1; i < rows.Length; i++)
-        {
-            string[] cells = rows[i].Split(',');
-            //SerializtionDatas.Add( new CombineData(int.Parse(cells[0]), int.Parse(cells[1]), cells[2], cells[3]));
-        }
-    }
-
-    public Dictionary<UnitFlags, CombineData> MakeDict()
-    {
-        Dictionary<UnitFlags, CombineData> dict = new Dictionary<UnitFlags, CombineData>();
-
-        foreach (CombineData data in SerializtionDatas)
             dict.Add(data.UnitFlags, data);
         return dict;
     }

@@ -287,17 +287,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: PlayEffectClip_ByName
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: Click_XButton
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!1 &175455848801035988
 GameObject:
   m_ObjectHideFlags: 0
@@ -311,7 +300,7 @@ GameObject:
   - component: {fileID: 175455848801035985}
   - component: {fileID: 175455848801035990}
   m_Layer: 5
-  m_Name: RedSpearmanButton
+  m_Name: CombineButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -596,7 +585,7 @@ GameObject:
   m_Component:
   - component: {fileID: 175455849072277383}
   m_Layer: 5
-  m_Name: RedMageExplanText
+  m_Name: Description
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -719,7 +708,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &175455849626256058
 RectTransform:
   m_ObjectHideFlags: 0
@@ -760,8 +749,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001558133fcfee64a8c5629050d68fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _windowData:
+    _unitFlags:
+      _colorNumber: 0
+      _classNumber: 0
+    _combineData:
+      _unitFlags:
+        _colorNumber: 0
+        _classNumber: 0
+      _koearName: 
+      _conditions: []
+    _description: 
   _description: {fileID: 175455848985466462}
-  _currentWolrd: {fileID: 0}
+  _combineUnitName: {fileID: 175455849623625438}
+  _combineButton: {fileID: 175455848801035990}
+  _currentWolrd: {fileID: 175455848270973473}
 --- !u!1 &175455849891911930
 GameObject:
   m_ObjectHideFlags: 0
@@ -853,7 +855,7 @@ GameObject:
   - component: {fileID: 175455849909120078}
   - component: {fileID: 175455849909120079}
   m_Layer: 5
-  m_Name: Unit StoryMode EnterButton
+  m_Name: Unit StoryMode Enter Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

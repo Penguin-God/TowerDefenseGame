@@ -37,7 +37,6 @@ public class UI_UnitTracker : Multi_UI_Base
 
     void OnClicked()
     {
-        CurrentUnitTrackerData.Instance.SetFlag(unitFlags);
         paint.ShowUnitManagedWindow(unitFlags);
     }
 }

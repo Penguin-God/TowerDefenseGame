@@ -50,17 +50,13 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public GameObject reinforceEffect;
     protected float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
 
-
-    // 적에게 대미지 입히기, 패시브 적용 등의 역할을 하는 델리게이트
-    public delegate void AttactToEnemy(Multi_Enemy enemy);
-    //protected AttactToEnemy OnHit; // 평타
-    //protected AttactToEnemy OnSkile; // 스킬
-    //public event AttactToEnemy OnPassive; // 패시브
-
     #region Events
     protected Action<Multi_Enemy> OnHit;
     public Action<Multi_Enemy> OnPassiveHit;
     protected Action<Multi_Enemy> OnSkileHit;
+
+    //public event Action<Multi_TeamSoldier> OnSpawn;
+    public event Action<Multi_TeamSoldier> OnDead;
     #endregion
 
     #region Virual Funtion
@@ -110,16 +106,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         Multi_SpawnManagers.BossEnemy.OnDead += _boss => UpdateTarget();
     }
 
-    //protected void SetPoolObj(GameObject _obj, int _count)
-    //{
-    //    if(pv.IsMine) poolManager.SettingWeaponPool(_obj, _count);
-    //}
-
     void OnEnable()
     {
         //SetData();
         SetPassive();
-        //UnitManager.instance.AddCurrentUnit(this);
 
         if (animator != null) animator.enabled = true;
         nav.enabled = true;
@@ -151,7 +141,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         SetChaseSetting(null);
         rayHitTransform = null;
         // TODO : OnDead로 event만들어서 스포너에서 구독하게 바꾸기
-        // Multi_SoldierPoolingManager.ReturnObject(this, gameObject.tag);
         isAttack = false;
         isAttackDelayTime = false;
         isSkillAttack = false;
@@ -166,6 +155,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             animator.enabled = false;
         }
         nav.enabled = false;
+    }
+
+    public void Dead()
+    {
+        OnDead(this);
+        gameObject.SetActive(false);
     }
 
     // 현재 살아있는 enemy 중 가장 가까운 enemy의 정보를 가지고 nav 및 변수 설정
@@ -280,19 +275,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         isSkillAttack = false;
     }
 
-    //protected GameObject GetWeapon(WeaponType weaponType, GameObject go, Transform weaponPos) => GetWeapon(weaponType, go, weaponPos.position);
-    //protected GameObject GetWeapon(WeaponType weaponType, GameObject go, Vector3 weaponPos)
-    //{
-    //    string path = Multi_WeaponManager.BuildPath(weaponType, go.name);
-    //    GameObject _usingWeapon = Multi_Managers.Resources.PhotonInsantiate(path, weaponPos);
-    //    return _usingWeapon;
-    //}
-
     protected Multi_Projectile UsedWeapon(WeaponType weaponType, GameObject go, Transform weaponPos, Vector3 dir, int speed, Action<Multi_Enemy> hitAction)
     {
-        //string path = Multi_WeaponManager.BuildPath(weaponType, go.name);
-        //Multi_Projectile UseWeapon = GetWeapon(weaponType, go, weaponPos).GetComponent<Multi_Projectile>();
-
         Multi_Projectile UseWeapon = Multi_SpawnManagers.Weapon.Spawn(go).GetComponent<Multi_Projectile>();
 
         Vector3 pos = new Vector3(weaponPos.position.x, 2f, weaponPos.position.z);

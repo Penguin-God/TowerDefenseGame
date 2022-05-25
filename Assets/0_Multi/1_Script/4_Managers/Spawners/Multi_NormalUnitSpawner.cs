@@ -56,14 +56,14 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     public override void SettingPoolObject(object obj)
     {
         Multi_TeamSoldier unit = obj as Multi_TeamSoldier;
-        Debug.Assert(unit != null, "캐스팅 실패!!");
+        Debug.Assert(unit != null, "오브젝트 캐스팅 실패!!");
         SetUnit(unit);
     }
 
     // TODO : 구현하기
     void SetUnit(Multi_TeamSoldier unit)
     {
-        // Multi_UnitManager.
+        unit.OnDead += OnDead;
     }
     #endregion
 
@@ -71,15 +71,17 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     public void Spawn(UnitColor unitColor, UnitClass unitClass) => Spawn((int)unitColor, (int)unitClass);
     public void Spawn(int unitColor, int unitClass)
     {
-        Multi_Managers.Resources.PhotonInsantiate(
+        Multi_TeamSoldier unit = Multi_Managers.Resources.PhotonInsantiate(
             BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]),
             Multi_WorldPosUtility.Instance.GetUnitSpawnPositon() // spawn position
-            );
+            ).GetComponent<Multi_TeamSoldier>();
+        OnSpawn?.Invoke(unit);
     }
 
     public void Spawn(int unitColor, int unitClass, Vector3 spawnPos)
     {
-        Multi_Managers.Resources.PhotonInsantiate(
-            BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]), spawnPos);
+        Multi_TeamSoldier unit = Multi_Managers.Resources.PhotonInsantiate(
+            BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]), spawnPos).GetComponent<Multi_TeamSoldier>();
+        OnSpawn?.Invoke(unit);
     }
 }

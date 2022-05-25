@@ -29,6 +29,9 @@ public class Multi_UnitManager : MonoBehaviour
 
     private void Start()
     {
+        Multi_SpawnManagers.NormalUnit.OnSpawn += AddList;
+        Multi_SpawnManagers.NormalUnit.OnDead += RemoveList;
+
         SetUnitFlagsDic();
     }
 
@@ -41,14 +44,16 @@ public class Multi_UnitManager : MonoBehaviour
     {
         _currentUnits.Add(unit);
         _unitListByUnitFlags[unit.UnitFlags].Add(unit);
-        OnListChange(_currentUnits.Count);
+        OnListChange?.Invoke(_currentUnits.Count);
+        print("더하기!!!!");
     }
 
     public void RemoveList(Multi_TeamSoldier unit)
     {
         _currentUnits.Remove(unit);
         _unitListByUnitFlags[unit.UnitFlags].Remove(unit);
-        OnListChange(_currentUnits.Count);
+        OnListChange?.Invoke(_currentUnits.Count);
+        print("빼기!!!!");
     }
 
     private Dictionary<UnitFlags, List<Multi_TeamSoldier>> _unitListByUnitFlags = new Dictionary<UnitFlags, List<Multi_TeamSoldier>>();
@@ -65,6 +70,8 @@ public class Multi_UnitManager : MonoBehaviour
             }
         }
     }
+
+
 
 
 

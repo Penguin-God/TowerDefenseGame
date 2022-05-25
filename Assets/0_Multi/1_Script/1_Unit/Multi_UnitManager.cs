@@ -45,6 +45,7 @@ public class Multi_UnitManager : MonoBehaviour
         _currentUnits.Add(unit);
         _unitListByUnitFlags[unit.UnitFlags].Add(unit);
         OnListChange?.Invoke(_currentUnits.Count);
+        print($"{unit.name} : {_unitListByUnitFlags[unit.UnitFlags].Count}");
         print("더하기!!!!");
     }
 
@@ -71,7 +72,8 @@ public class Multi_UnitManager : MonoBehaviour
         }
     }
 
-
+    public bool CheckCombineable(IReadOnlyList<CombineCondition> conditions)
+        => conditions.All(x => _unitListByUnitFlags[x.UnitFlags].Count >= x.Count);
 
 
 

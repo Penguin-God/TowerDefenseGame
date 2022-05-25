@@ -8,6 +8,9 @@ using Random = UnityEngine.Random;
 
 public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 {
+    private UnitFlags _unitFlags;
+    public UnitFlags UnitFlags => _unitFlags;
+
     public UnitClass unitClass;
     public UnitColor unitColor;
 
@@ -71,8 +74,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     private void Awake()
     {
-        PhotonNetwork.SendRate = 20;
-        PhotonNetwork.SerializationRate = 40;
+        // TODO : 아래 내용 공부하고 다른 쪽으로 빼기
+        //PhotonNetwork.SendRate = 20;
+        //PhotonNetwork.SerializationRate = 40;
+
+        _unitFlags = new UnitFlags(unitColor, unitClass);
 
         SetPassive(); // 아래에서 평타랑 스킬 설정할 때 delegate_OnPassive가 null이면 에러가 떠서 에러 방지용으로 실행 후에 OnEnable에서 덮어쓰기 때문에 의미 없는 코드임
 
@@ -83,11 +89,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         skillDamage = 150; // 테스트 코드
         OnSkileHit += enemy => AttackEnemy(enemy, skillDamage);
         OnSkileHit += OnPassiveHit;
-
-        // 유니티에서 class는 게임오브젝트의 컴포넌트로서만 작동하기 때문에 컴포넌트로 추가 후 사용해야한다.(폴더 내에 C#스크립트 생성 안해도 됨)
-        // Unity초보자가 많이 하는 실수^^
-        //gameObject.AddComponent<Multi_WeaponPoolManager>();
-        //poolManager = GetComponent<Multi_WeaponPoolManager>();
 
         // 변수 선언
         //enemySpawn = FindObjectOfType<EnemySpawn>();

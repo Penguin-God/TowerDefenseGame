@@ -15,6 +15,12 @@ public struct UnitFlags : IEquatable<UnitFlags>
         _classNumber = classNum;
     }
 
+    public UnitFlags(UnitColor unitColor, UnitClass unitClass)
+    {
+        _colorNumber = (int)unitColor;
+        _classNumber = (int)unitClass;
+    }
+
     public int ColorNumber => _colorNumber;
     public int ClassNumber => _classNumber;
     public UnitColor UnitColor => (UnitColor)_colorNumber;

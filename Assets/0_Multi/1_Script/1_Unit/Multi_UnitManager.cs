@@ -1,24 +1,72 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq;
+using Random = UnityEngine.Random;
 
 public class Multi_UnitManager : MonoBehaviour
 {
-    public static Multi_UnitManager instance;
-    private void Awake()
+    private static Multi_UnitManager instance = null;
+    public static Multi_UnitManager Instance
     {
-        if (instance == null)
+        get
         {
-            instance = this;
+            if(instance == null)
+            {
+                instance = FindObjectOfType<Multi_UnitManager>();
+                if (instance == null)
+                    instance = new GameObject("Multi_UnitManager").AddComponent<Multi_UnitManager>();
+            }
+            return instance;
         }
-        else
-        {
-            Debug.LogWarning("UnitManager 2개");
-            Destroy(gameObject);
-        }
+    }
 
+    void Awake()
+    {
         unitDB = GetComponent<Multi_UnitDataBase>();
     }
+
+    private void Start()
+    {
+        SetUnitFlagsDic();
+    }
+
+    public event Action<int> OnListChange = null;
+    private List<Multi_TeamSoldier> _currentUnits = new List<Multi_TeamSoldier>();
+    IReadOnlyList<Multi_TeamSoldier> CurrentUnits => _currentUnits;
+    public int CurrentUnitCount => _currentUnits.Count;
+
+    public void AddList(Multi_TeamSoldier unit)
+    {
+        _currentUnits.Add(unit);
+        _unitListByUnitFlags[unit.UnitFlags].Add(unit);
+        OnListChange(_currentUnits.Count);
+    }
+
+    public void RemoveList(Multi_TeamSoldier unit)
+    {
+        _currentUnits.Remove(unit);
+        _unitListByUnitFlags[unit.UnitFlags].Remove(unit);
+        OnListChange(_currentUnits.Count);
+    }
+
+    private Dictionary<UnitFlags, List<Multi_TeamSoldier>> _unitListByUnitFlags = new Dictionary<UnitFlags, List<Multi_TeamSoldier>>();
+    public IReadOnlyDictionary<UnitFlags, List<Multi_TeamSoldier>> UnitListByUnitFlags => _unitListByUnitFlags;
+    void SetUnitFlagsDic()
+    {
+        _unitListByUnitFlags.Clear();
+        foreach (var data in Multi_SpawnManagers.NormalUnit.AllUnitDatas)
+        {
+            foreach (Multi_TeamSoldier unit in data.gos.Select(x => x.GetComponent<Multi_TeamSoldier>()))
+            {
+                if(unit == null) continue; // TODO : 하얀 유닛 때문에 임시로 넘김
+                _unitListByUnitFlags.Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+            }
+        }
+    }
+
+
 
     Multi_UnitDataBase unitDB = null;
     public void ApplyUnitData(string _tag, Multi_TeamSoldier _team) => unitDB.ApplyUnitBaseData(_tag, _team);
@@ -65,9 +113,7 @@ public class Multi_UnitManager : MonoBehaviour
         unitOverGuideTextObject.SetActive(false);
     }
 
-    public List<Multi_TeamSoldier> _currentUnits = new List<Multi_TeamSoldier>();
-    IReadOnlyList<Multi_TeamSoldier> CurrentUnits => _currentUnits;
-    public int CurrentUnitCount => _currentUnits.Count;
+
     //public Multi_TeamSoldier[] CurrentAllUnits => Multi_SoldierPoolingManager.Instance.AllUnits;
     //public CurrentUnitManager CurrentUnitManager { get; private set; } = null;
 

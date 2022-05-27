@@ -14,11 +14,10 @@ public enum OrderType
 
 public class Multi_UI_Paint : Multi_UI_Scene
 {
-    public event Action<UI_UnitTrackerData> OnPaintChanged = null;
+    // public event Action<UI_UnitTrackerData> OnPaintChanged = null;
 
     [SerializeField] GameObject _paintActiveButton;
     [SerializeField] GameObject _classButton;
-    [SerializeField] GameObject _currentUnitTracker;
     [SerializeField] UI_UnitManagedWindow unitManagedWindow;
     [SerializeField] UI_UnitTrackerSetter[] _unitTrackerSetters;
 
@@ -30,6 +29,9 @@ public class Multi_UI_Paint : Multi_UI_Scene
 
     [SerializeField] UI_UnitTracker[] _unitTrackersByClass;
     public IReadOnlyList<UI_UnitTracker> UnitTrackersByClass => _unitTrackersByClass;
+
+    [SerializeField] GameObject _currentUnitTracker;
+    public GameObject CurrentUnitTracker { get => _currentUnitTracker; set => _currentUnitTracker = value; }
 
     protected override void Init()
     {
@@ -45,10 +47,10 @@ public class Multi_UI_Paint : Multi_UI_Scene
     [SerializeField] GameObject _paintRoot;
     void ChangePaintRootActive(PointerEventData data) => _paintRoot.SetActive(!_paintRoot.activeSelf);
 
-    void SetterDataSetting() 
-        => _unitTrackerSetters.ToList().ForEach(x => BindEvnet(x.gameObject, data => OnPaintChanged(x.UnitTrackerData)));
-    void SetterInActivePaintSelect() 
-        => _unitTrackerSetters.ToList().ForEach(x => BindEvnet(x.gameObject, data => _paintRoot.SetActive(false)));
+    //void SetterDataSetting() 
+    //    => _unitTrackerSetters.ToList().ForEach(x => BindEvnet(x.gameObject, data => OnPaintChanged(x.UnitTrackerData)));
+    //void SetterInActivePaintSelect() 
+    //    => _unitTrackerSetters.ToList().ForEach(x => BindEvnet(x.gameObject, data => _paintRoot.SetActive(false)));
 
     public void ShowUnitManagedWindow(UnitFlags flags) => unitManagedWindow.Show(flags);
 

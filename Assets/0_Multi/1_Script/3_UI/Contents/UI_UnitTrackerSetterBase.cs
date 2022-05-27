@@ -13,5 +13,7 @@ public abstract class UI_UnitTrackerSetterBase : Multi_UI_Base
     }
 
     public virtual void SettingUnitTrackers(UI_UnitTrackerData data)
-        => _unitTrackers.ToList().ForEach(x => x.UnitFlags = data.UnitFlags);
+    {
+        gameObject.SetActive(true);
+    }
 }

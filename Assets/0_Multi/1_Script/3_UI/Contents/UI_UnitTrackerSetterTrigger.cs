@@ -17,15 +17,16 @@ public class UI_UnitTrackerSetterTrigger : Multi_UI_Base
     void CreateUnitTrackerData()
     {
         _unitTrackerData = new UI_UnitTrackerData(_unitTrackerData.UnitFlags,
-            GetComponent<Image>().sprite, GetComponent<Image>().color);
+            _unitTrackerData.Icon != null ? _unitTrackerData.Icon : GetOrInChildrenComponent<Image>().sprite,
+            GetOrInChildrenComponent<Image>().color);
     }
 
     void AddEventToButton(UnityEngine.Events.UnityAction action)
-    {
-        Button button = GetComponent<Button>() ? GetComponent<Button>() : GetComponentInChildren<Button>();
-        button.onClick.AddListener(action);
-    }
+        => GetOrInChildrenComponent<Button>().onClick.AddListener(action);
 
     void SignalTheUnitTrackerSetter()
         => _unitTrackserSetter.SettingUnitTrackers(_unitTrackerData);
+
+    T GetOrInChildrenComponent<T>()
+        => GetComponent<T>() != null ? GetComponent<T>() : GetComponentInChildren<T>();
 }

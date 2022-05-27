@@ -1,18 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &1747205696077601322
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1282709616338532028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cffdb6b31fe6ef344bb97f7ea396eb32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitTrackers: []
 --- !u!1 &3942818115412081056
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +411,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &9067018651057398814
 RectTransform:
   m_ObjectHideFlags: 0
@@ -460,6 +447,7 @@ GameObject:
   - component: {fileID: 9067018651178333653}
   - component: {fileID: 9067018651178333654}
   - component: {fileID: 9067018651178333675}
+  - component: {fileID: 3668020108112206355}
   m_Layer: 5
   m_Name: SwordmanButton
   m_TagString: Untagged
@@ -568,6 +556,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3668020108112206355
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9067018651178333648}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitTrackerData:
+    _UnitFlags:
+      _colorNumber: 0
+      _classNumber: 0
+    _icon: {fileID: 21300000, guid: c06cfb1e7670b4c5aab444df933905b7, type: 3}
+    _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  _unitTrackserSetter: {fileID: 203108038242773527}
 --- !u!1 &9067018651185488164
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,6 +587,7 @@ GameObject:
   - component: {fileID: 9067018651185488185}
   - component: {fileID: 9067018651185488186}
   - component: {fileID: 9067018651185488191}
+  - component: {fileID: 4033210895381977295}
   m_Layer: 5
   m_Name: ArcehrButton
   m_TagString: Untagged
@@ -688,6 +696,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &4033210895381977295
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9067018651185488164}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitTrackerData:
+    _UnitFlags:
+      _colorNumber: 0
+      _classNumber: 1
+    _icon: {fileID: 21300000, guid: 54dc0b63b285f4aac9103e86d8d8e8bf, type: 3}
+    _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  _unitTrackserSetter: {fileID: 203108038242773527}
 --- !u!1 &9067018651459049587
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,6 +1028,7 @@ GameObject:
   - component: {fileID: 9067018652295827681}
   - component: {fileID: 9067018652295827682}
   - component: {fileID: 9067018652295827687}
+  - component: {fileID: 3026886623140520183}
   m_Layer: 5
   m_Name: MageButton
   m_TagString: Untagged
@@ -1109,6 +1137,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &3026886623140520183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9067018652295827692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitTrackerData:
+    _UnitFlags:
+      _colorNumber: 0
+      _classNumber: 3
+    _icon: {fileID: 21300000, guid: 334611576a31e4508bfe687bb31f7dcf, type: 3}
+    _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  _unitTrackserSetter: {fileID: 203108038242773527}
 --- !u!1 &9067018652329930153
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,6 +1168,7 @@ GameObject:
   - component: {fileID: 9067018652329930158}
   - component: {fileID: 9067018652329930159}
   - component: {fileID: 9067018652329930156}
+  - component: {fileID: 5400517194066408073}
   m_Layer: 5
   m_Name: SpearmanButton
   m_TagString: Untagged
@@ -1229,6 +1277,25 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &5400517194066408073
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9067018652329930153}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _unitTrackerData:
+    _UnitFlags:
+      _colorNumber: 0
+      _classNumber: 2
+    _icon: {fileID: 21300000, guid: a1f9a58dd673b44ba876e6cc02a8d545, type: 3}
+    _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
+  _unitTrackserSetter: {fileID: 203108038242773527}
 --- !u!1 &9067018652431360673
 GameObject:
   m_ObjectHideFlags: 0
@@ -2044,6 +2111,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a74c46db5e4af3419213c9b3683f765, type: 3}
+--- !u!114 &4486587453064723857 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2642848241265642924, guid: 5a74c46db5e4af3419213c9b3683f765,
+    type: 3}
+  m_PrefabInstance: {fileID: 1940708381404835901}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fe2a2de3ce6f3f468da5d1a2ba07cfb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1282709616338532028 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 802729679706900097, guid: 5a74c46db5e4af3419213c9b3683f765,
@@ -2056,21 +2135,21 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1940708381404835901}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &72409653177131779 stripped
+--- !u!114 &203108038242773527 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2012976884566758206, guid: 5a74c46db5e4af3419213c9b3683f765,
+  m_CorrespondingSourceObject: {fileID: 1747205696077601322, guid: 5a74c46db5e4af3419213c9b3683f765,
     type: 3}
   m_PrefabInstance: {fileID: 1940708381404835901}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1282709616338532028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9fe2a2de3ce6f3f468da5d1a2ba07cfb, type: 3}
+  m_Script: {fileID: 11500000, guid: cffdb6b31fe6ef344bb97f7ea396eb32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &4486587453064723857 stripped
+--- !u!114 &72409653177131779 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2642848241265642924, guid: 5a74c46db5e4af3419213c9b3683f765,
+  m_CorrespondingSourceObject: {fileID: 2012976884566758206, guid: 5a74c46db5e4af3419213c9b3683f765,
     type: 3}
   m_PrefabInstance: {fileID: 1940708381404835901}
   m_PrefabAsset: {fileID: 0}
@@ -2387,17 +2466,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Unit By Color
       objectReference: {fileID: 0}
+    - target: {fileID: 2692499773602000617, guid: 7546a4bf33efd9342938c26a7d269585,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7546a4bf33efd9342938c26a7d269585, type: 3}
 --- !u!1 &6748500312653392759 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2692499773602000617, guid: 7546a4bf33efd9342938c26a7d269585,
-    type: 3}
-  m_PrefabInstance: {fileID: 8717512026438272414}
-  m_PrefabAsset: {fileID: 0}
---- !u!224 &6748500312653392758 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 2692499773602000616, guid: 7546a4bf33efd9342938c26a7d269585,
     type: 3}
   m_PrefabInstance: {fileID: 8717512026438272414}
   m_PrefabAsset: {fileID: 0}
@@ -2461,3 +2539,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fe2a2de3ce6f3f468da5d1a2ba07cfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!224 &6748500312653392758 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 2692499773602000616, guid: 7546a4bf33efd9342938c26a7d269585,
+    type: 3}
+  m_PrefabInstance: {fileID: 8717512026438272414}
+  m_PrefabAsset: {fileID: 0}

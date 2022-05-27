@@ -4,14 +4,11 @@ using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
 
-public class UI_SetterByClass : UI_UnitTrackerSetter
+public class UI_SetterByClass : UI_UnitTrackerSetterBase
 {
-    protected override void Init()
+    public override void SettingUnitTrackers(UI_UnitTrackerData data)
     {
-        _trackerSettingButton = GetComponent<Button>();
-        _trackerSettingButton.onClick.AddListener(SetTracker);
+        base.SettingUnitTrackers(data);
+        _unitTrackers.ToList().ForEach(x => x.Icon.sprite = data.Icon);
     }
-
-    public override void SetTracker()
-        => Targets.ToList().ForEach(x => x.SetInfoByClass(UnitTrackerData));
 }

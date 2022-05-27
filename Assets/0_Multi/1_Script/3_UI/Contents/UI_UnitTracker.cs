@@ -6,11 +6,16 @@ using UnityEngine.UI;
 public class UI_UnitTracker : Multi_UI_Base
 {
     [SerializeField] Multi_UI_Paint paint;
+    [SerializeField] UnitFlags unitFlags;
     [SerializeField] Image backGround;
     [SerializeField] Image icon;
     [SerializeField] Text countText;
 
-    [SerializeField] UnitFlags unitFlags;
+    public Image BackGround { get => backGround; set => backGround = value;}
+    public Image Icon { get => icon; set => icon = value; }
+    
+    
+    public UnitFlags UnitFlags { get => unitFlags; set => unitFlags = value; }
 
     void Awake()
     {

@@ -10,7 +10,7 @@ public abstract class Multi_UI_Base : MonoBehaviour
 {
     protected Dictionary<Type, Object[]> _objectsByType = new Dictionary<Type, Object[]>();
 
-    protected abstract void Init();
+    protected virtual void Init() { }
 
     void Start()
     {

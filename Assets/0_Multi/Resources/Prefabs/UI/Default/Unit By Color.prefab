@@ -165,7 +165,6 @@ GameObject:
   - component: {fileID: 2692499772349392728}
   - component: {fileID: 2692499772349392729}
   - component: {fileID: 761996130950859130}
-  - component: {fileID: 3634828934502683032}
   - component: {fileID: 2692499772349392730}
   m_Layer: 5
   m_Name: SpearmanButton
@@ -251,26 +250,6 @@ MonoBehaviour:
   unitFlags:
     _colorNumber: 0
     _classNumber: 2
---- !u!114 &3634828934502683032
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2692499772349392735}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cffdb6b31fe6ef344bb97f7ea396eb32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitTrackerData:
-    _UnitFlags:
-      _colorNumber: 0
-      _classNumber: 2
-    _icon: {fileID: 21300000, guid: a1f9a58dd673b44ba876e6cc02a8d545, type: 3}
-    _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
-  _trackerSettingButton: {fileID: 0}
-  _targets: []
 --- !u!114 &2692499772349392730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -326,7 +305,6 @@ GameObject:
   - component: {fileID: 2692499772382435863}
   - component: {fileID: 2692499772382435860}
   - component: {fileID: 132799255076903421}
-  - component: {fileID: 3956461165727821397}
   - component: {fileID: 2692499772382435857}
   m_Layer: 5
   m_Name: MageButton
@@ -412,26 +390,6 @@ MonoBehaviour:
   unitFlags:
     _colorNumber: 0
     _classNumber: 3
---- !u!114 &3956461165727821397
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2692499772382435866}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cffdb6b31fe6ef344bb97f7ea396eb32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitTrackerData:
-    _UnitFlags:
-      _colorNumber: 0
-      _classNumber: 3
-    _icon: {fileID: 21300000, guid: 334611576a31e4508bfe687bb31f7dcf, type: 3}
-    _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
-  _trackerSettingButton: {fileID: 0}
-  _targets: []
 --- !u!114 &2692499772382435857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1012,7 +970,6 @@ GameObject:
   - component: {fileID: 2692499773479501603}
   - component: {fileID: 2692499773479501600}
   - component: {fileID: 3106139652274759142}
-  - component: {fileID: 4750628547965216482}
   - component: {fileID: 2692499773479501597}
   m_Layer: 5
   m_Name: SwordmanButton
@@ -1098,26 +1055,6 @@ MonoBehaviour:
   unitFlags:
     _colorNumber: 0
     _classNumber: 0
---- !u!114 &4750628547965216482
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2692499773479501606}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cffdb6b31fe6ef344bb97f7ea396eb32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitTrackerData:
-    _UnitFlags:
-      _colorNumber: 0
-      _classNumber: 0
-    _icon: {fileID: 21300000, guid: c06cfb1e7670b4c5aab444df933905b7, type: 3}
-    _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
-  _trackerSettingButton: {fileID: 0}
-  _targets: []
 --- !u!114 &2692499773479501597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1173,7 +1110,6 @@ GameObject:
   - component: {fileID: 2692499773487016911}
   - component: {fileID: 2692499773487016908}
   - component: {fileID: 4833041531275468634}
-  - component: {fileID: 875018810656032459}
   - component: {fileID: 2692499773487016905}
   m_Layer: 5
   m_Name: ArcehrButton
@@ -1259,26 +1195,6 @@ MonoBehaviour:
   unitFlags:
     _colorNumber: 0
     _classNumber: 1
---- !u!114 &875018810656032459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2692499773487016914}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cffdb6b31fe6ef344bb97f7ea396eb32, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitTrackerData:
-    _UnitFlags:
-      _colorNumber: 0
-      _classNumber: 1
-    _icon: {fileID: 21300000, guid: 54dc0b63b285f4aac9103e86d8d8e8bf, type: 3}
-    _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
-  _trackerSettingButton: {fileID: 0}
-  _targets: []
 --- !u!114 &2692499773487016905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1338,7 +1254,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2692499773602000616
 RectTransform:
   m_ObjectHideFlags: 0

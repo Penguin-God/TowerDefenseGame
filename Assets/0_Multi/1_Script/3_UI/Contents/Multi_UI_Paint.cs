@@ -18,6 +18,7 @@ public class Multi_UI_Paint : Multi_UI_Scene
 
     [SerializeField] GameObject _paintActiveButton;
     [SerializeField] GameObject _classButton;
+    [SerializeField] GameObject _currentUnitTracker;
     [SerializeField] UI_UnitManagedWindow unitManagedWindow;
     [SerializeField] UI_UnitTrackerSetter[] _unitTrackerSetters;
 

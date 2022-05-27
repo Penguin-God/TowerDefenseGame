@@ -64,6 +64,7 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     void SetUnit(Multi_TeamSoldier unit)
     {
         unit.OnDead += OnDead;
+        unit.OnDead += deadUnit => Multi_Managers.Pool.Push(deadUnit.GetComponent<Poolable>());
     }
     #endregion
 

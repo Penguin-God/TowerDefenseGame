@@ -9,7 +9,7 @@ public class UI_SetterByClass : UI_UnitTrackerSetterBase
     public override void SettingUnitTrackers(UI_UnitTrackerData data)
     {
         base.SettingUnitTrackers(data);
-        _unitTrackers.ToList().ForEach(x => x.UnitFlags = new UnitFlags(data.UnitFlags.ColorNumber, x.UnitFlags.ClassNumber));
+        _unitTrackers.ToList().ForEach(x => x.UnitFlags = new UnitFlags(x.UnitFlags.ColorNumber, data.UnitFlags.ClassNumber));
         _unitTrackers.ToList().ForEach(x => x.Icon.sprite = data.Icon);
     }
 }

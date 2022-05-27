@@ -73,8 +73,34 @@ public class Multi_UnitManager : MonoBehaviour
     }
 
     public bool CheckCombineable(IReadOnlyList<CombineCondition> conditions)
-        => conditions.All(x => _unitListByUnitFlags[x.UnitFlags].Count >= x.Count);
+        => conditions.All(x => _unitListByUnitFlags.ContainsKey(x.UnitFlags) && _unitListByUnitFlags[x.UnitFlags].Count >= x.Count);
 
+    public void SacrificedUnit_ForCombine(IReadOnlyList<CombineCondition> conditions)
+        => conditions.ToList().ForEach(x => SacrificedUnit_ForCombine(x));
+    void SacrificedUnit_ForCombine(CombineCondition condition)
+    {
+        Multi_TeamSoldier[] offerings = _unitListByUnitFlags[condition.UnitFlags].ToArray();
+        for (int i = 0; i < condition.Count; i++)
+            offerings[i].Dead();
+    }
+
+    public bool FindCurrentUnit(int colorNum, int classNum, out Multi_TeamSoldier unit)
+        => FindCurrentUnit(new UnitFlags(colorNum, classNum), out unit);
+    public bool FindCurrentUnit(UnitColor unitColor, UnitClass unitClass, out Multi_TeamSoldier unit)
+        => FindCurrentUnit(new UnitFlags(unitColor, unitClass), out unit);
+    public bool FindCurrentUnit(UnitFlags unitFlags, out Multi_TeamSoldier unit)
+    {
+        if (_unitListByUnitFlags.ContainsKey(unitFlags))
+        {
+            unit = _unitListByUnitFlags[unitFlags][0];
+            return true;
+        }
+        else
+        {
+            unit = null;
+            return false;
+        }
+    }
 
 
     // 아래는 쭉 리팩터링 전 코드들

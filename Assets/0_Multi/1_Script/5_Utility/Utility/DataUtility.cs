@@ -44,8 +44,10 @@ public class DataUtility : MonoBehaviour
         {
             for (int k = 0; k < 4; k++)
             {
-                if (Multi_Managers.Data.CombineDataByUnitFlags.TryGetValue(new UnitFlags(i, k), out CombineData combineData))
+                if (Multi_Managers.Data.CombineDataByUnitFlags.TryGetValue(new UnitFlags(i, k + 1), out CombineData combineData))
+                {
                     unitWindowDatas.Add(new UI_UnitWindowData(new UnitFlags(i, k), combineData, "test33333"));
+                }
                 else
                 {
                     print(k);

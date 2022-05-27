@@ -35,6 +35,9 @@ public class UI_UnitManagedWindow : Multi_UI_Scene
     {
         print($"컴바인 시도 : 색깔 : {_windowData.CombineUnitFlags.ColorNumber}, 클래스 : {_windowData.CombineUnitFlags.ClassNumber}");
         if (Multi_UnitManager.Instance.CheckCombineable(_windowData.CombineData.Conditions))
+        {
+            Multi_UnitManager.Instance.SacrificedUnit_ForCombine(_windowData.CombineData.Conditions);
             Multi_SpawnManagers.NormalUnit.Spawn(_windowData.CombineUnitFlags);
+        }
     }
 }

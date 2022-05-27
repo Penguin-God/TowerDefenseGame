@@ -44,14 +44,21 @@ public class DataUtility : MonoBehaviour
         {
             for (int k = 0; k < 4; k++)
             {
-                if (Multi_Managers.Data.CombineDataByUnitFlags.TryGetValue(new UnitFlags(i, k + 1), out CombineData combineData))
+                if(k == 0)
+                {
+                    List<CombineData> combineDatas = new List<CombineData>();
+                    combineDatas.Add(Multi_Managers.Data.CombineDataByUnitFlags[new UnitFlags(i, k + 1)]);
+                    combineDatas.Add(Multi_Managers.Data.CombineDataByUnitFlags[new UnitFlags(i, k + 1)]);
+                    unitWindowDatas.Add(new UI_UnitWindowData(new UnitFlags(i, k), combineDatas, "test1111111"));
+                }
+                else if (Multi_Managers.Data.CombineDataByUnitFlags.TryGetValue(new UnitFlags(i, k + 1), out CombineData combineData))
                 {
                     unitWindowDatas.Add(new UI_UnitWindowData(new UnitFlags(i, k), combineData, "test33333"));
                 }
                 else
                 {
                     print(k);
-                    unitWindowDatas.Add(new UI_UnitWindowData(new UnitFlags(i, k), new CombineData(), "test33333"));
+                    unitWindowDatas.Add(new UI_UnitWindowData(new UnitFlags(i, k), null, "test33333"));
                 }
                 // unitWindowDatas.Add(new UI_UnitWindowData(new UnitFlags(i, k), new UnitFlags(i, (k < 3) ? k + 1 : -1), "test33333"));
             }

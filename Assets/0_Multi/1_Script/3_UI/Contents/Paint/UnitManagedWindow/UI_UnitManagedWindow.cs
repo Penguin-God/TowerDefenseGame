@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_UnitManagedWindow : Multi_UI_Scene
+public class UI_UnitManagedWindow : Multi_UI_Base
 {
+    [SerializeField] UI_CombineButtonParent _combineButtonsParent;
     protected override void Init()
     {
-        base.Init();
-        _combineButton.onClick.AddListener(Combine);
+        //_combineButton.onClick.AddListener(Combine);
     }
 
     [SerializeField] UI_UnitWindowData _windowData;
@@ -28,7 +28,9 @@ public class UI_UnitManagedWindow : Multi_UI_Scene
     {
         _windowData = Multi_Managers.Data.UnitWindowDataByUnitFlags[flags];
         _description.text = _windowData.Description;
-        _combineUnitName.text = _windowData.CombineUnitName;
+        //_combineUnitName.text = _windowData.CombineUnitName;
+
+        _combineButtonsParent.SettingCombineButtons(_windowData.CombineDatas);
     }
 
     void Combine()

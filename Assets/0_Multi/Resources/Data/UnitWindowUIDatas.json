@@ -7,21 +7,47 @@
             },
             "_combineData": {
                 "_unitFlags": {
-                    "_colorNumber": 0,
+                    "_colorNumber": 1,
                     "_classNumber": 1
                 },
-                "_koearName": "빨간 궁수",
-                "_conditions": [
-                    {
-                        "_unitFlags": {
-                            "_colorNumber": 0,
-                            "_classNumber": 0
-                        },
-                        "_count": 3
-                    }
-                ]
+                "_koearName": "aa",
+                "_conditions": []
             },
-            "_description": "test33333"
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 0,
+                        "_classNumber": 1
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                },
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 0,
+                        "_classNumber": 1
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
+            "_description": "test1111111"
         },
         {
             "_unitFlags": {
@@ -44,6 +70,24 @@
                     }
                 ]
             },
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 0,
+                        "_classNumber": 2
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
             "_description": "test33333"
         },
         {
@@ -67,6 +111,24 @@
                     }
                 ]
             },
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 0,
+                        "_classNumber": 3
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
             "_description": "test33333"
         },
         {
@@ -76,12 +138,13 @@
             },
             "_combineData": {
                 "_unitFlags": {
-                    "_colorNumber": 0,
-                    "_classNumber": 0
+                    "_colorNumber": 1,
+                    "_classNumber": 1
                 },
-                "_koearName": "",
+                "_koearName": "aa",
                 "_conditions": []
             },
+            "_combineDatas": [],
             "_description": "test33333"
         },
         {
@@ -94,18 +157,44 @@
                     "_colorNumber": 1,
                     "_classNumber": 1
                 },
-                "_koearName": "빨간 궁수",
-                "_conditions": [
-                    {
-                        "_unitFlags": {
-                            "_colorNumber": 0,
-                            "_classNumber": 0
-                        },
-                        "_count": 3
-                    }
-                ]
+                "_koearName": "aa",
+                "_conditions": []
             },
-            "_description": "test33333"
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 1,
+                        "_classNumber": 1
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                },
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 1,
+                        "_classNumber": 1
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
+            "_description": "test1111111"
         },
         {
             "_unitFlags": {
@@ -128,6 +217,24 @@
                     }
                 ]
             },
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 1,
+                        "_classNumber": 2
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
             "_description": "test33333"
         },
         {
@@ -151,6 +258,24 @@
                     }
                 ]
             },
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 1,
+                        "_classNumber": 3
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
             "_description": "test33333"
         },
         {
@@ -160,12 +285,13 @@
             },
             "_combineData": {
                 "_unitFlags": {
-                    "_colorNumber": 0,
-                    "_classNumber": 0
+                    "_colorNumber": 1,
+                    "_classNumber": 1
                 },
-                "_koearName": "",
+                "_koearName": "aa",
                 "_conditions": []
             },
+            "_combineDatas": [],
             "_description": "test33333"
         },
         {
@@ -175,21 +301,47 @@
             },
             "_combineData": {
                 "_unitFlags": {
-                    "_colorNumber": 2,
+                    "_colorNumber": 1,
                     "_classNumber": 1
                 },
-                "_koearName": "빨간 궁수",
-                "_conditions": [
-                    {
-                        "_unitFlags": {
-                            "_colorNumber": 0,
-                            "_classNumber": 0
-                        },
-                        "_count": 3
-                    }
-                ]
+                "_koearName": "aa",
+                "_conditions": []
             },
-            "_description": "test33333"
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 2,
+                        "_classNumber": 1
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                },
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 2,
+                        "_classNumber": 1
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
+            "_description": "test1111111"
         },
         {
             "_unitFlags": {
@@ -212,6 +364,24 @@
                     }
                 ]
             },
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 2,
+                        "_classNumber": 2
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
             "_description": "test33333"
         },
         {
@@ -235,6 +405,24 @@
                     }
                 ]
             },
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 2,
+                        "_classNumber": 3
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
             "_description": "test33333"
         },
         {
@@ -244,12 +432,13 @@
             },
             "_combineData": {
                 "_unitFlags": {
-                    "_colorNumber": 0,
-                    "_classNumber": 0
+                    "_colorNumber": 1,
+                    "_classNumber": 1
                 },
-                "_koearName": "",
+                "_koearName": "aa",
                 "_conditions": []
             },
+            "_combineDatas": [],
             "_description": "test33333"
         },
         {
@@ -259,21 +448,47 @@
             },
             "_combineData": {
                 "_unitFlags": {
-                    "_colorNumber": 3,
+                    "_colorNumber": 1,
                     "_classNumber": 1
                 },
-                "_koearName": "빨간 궁수",
-                "_conditions": [
-                    {
-                        "_unitFlags": {
-                            "_colorNumber": 0,
-                            "_classNumber": 0
-                        },
-                        "_count": 3
-                    }
-                ]
+                "_koearName": "aa",
+                "_conditions": []
             },
-            "_description": "test33333"
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 3,
+                        "_classNumber": 1
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                },
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 3,
+                        "_classNumber": 1
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
+            "_description": "test1111111"
         },
         {
             "_unitFlags": {
@@ -296,6 +511,24 @@
                     }
                 ]
             },
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 3,
+                        "_classNumber": 2
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
             "_description": "test33333"
         },
         {
@@ -319,6 +552,24 @@
                     }
                 ]
             },
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 3,
+                        "_classNumber": 3
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
             "_description": "test33333"
         },
         {
@@ -328,12 +579,13 @@
             },
             "_combineData": {
                 "_unitFlags": {
-                    "_colorNumber": 0,
-                    "_classNumber": 0
+                    "_colorNumber": 1,
+                    "_classNumber": 1
                 },
-                "_koearName": "",
+                "_koearName": "aa",
                 "_conditions": []
             },
+            "_combineDatas": [],
             "_description": "test33333"
         },
         {
@@ -343,21 +595,47 @@
             },
             "_combineData": {
                 "_unitFlags": {
-                    "_colorNumber": 4,
+                    "_colorNumber": 1,
                     "_classNumber": 1
                 },
-                "_koearName": "빨간 궁수",
-                "_conditions": [
-                    {
-                        "_unitFlags": {
-                            "_colorNumber": 0,
-                            "_classNumber": 0
-                        },
-                        "_count": 3
-                    }
-                ]
+                "_koearName": "aa",
+                "_conditions": []
             },
-            "_description": "test33333"
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 4,
+                        "_classNumber": 1
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                },
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 4,
+                        "_classNumber": 1
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
+            "_description": "test1111111"
         },
         {
             "_unitFlags": {
@@ -380,6 +658,24 @@
                     }
                 ]
             },
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 4,
+                        "_classNumber": 2
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
             "_description": "test33333"
         },
         {
@@ -403,6 +699,24 @@
                     }
                 ]
             },
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 4,
+                        "_classNumber": 3
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
             "_description": "test33333"
         },
         {
@@ -412,12 +726,13 @@
             },
             "_combineData": {
                 "_unitFlags": {
-                    "_colorNumber": 0,
-                    "_classNumber": 0
+                    "_colorNumber": 1,
+                    "_classNumber": 1
                 },
-                "_koearName": "",
+                "_koearName": "aa",
                 "_conditions": []
             },
+            "_combineDatas": [],
             "_description": "test33333"
         },
         {
@@ -427,21 +742,47 @@
             },
             "_combineData": {
                 "_unitFlags": {
-                    "_colorNumber": 5,
+                    "_colorNumber": 1,
                     "_classNumber": 1
                 },
-                "_koearName": "빨간 궁수",
-                "_conditions": [
-                    {
-                        "_unitFlags": {
-                            "_colorNumber": 0,
-                            "_classNumber": 0
-                        },
-                        "_count": 3
-                    }
-                ]
+                "_koearName": "aa",
+                "_conditions": []
             },
-            "_description": "test33333"
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 5,
+                        "_classNumber": 1
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                },
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 5,
+                        "_classNumber": 1
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
+            "_description": "test1111111"
         },
         {
             "_unitFlags": {
@@ -464,6 +805,24 @@
                     }
                 ]
             },
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 5,
+                        "_classNumber": 2
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
             "_description": "test33333"
         },
         {
@@ -487,6 +846,24 @@
                     }
                 ]
             },
+            "_combineDatas": [
+                {
+                    "_unitFlags": {
+                        "_colorNumber": 5,
+                        "_classNumber": 3
+                    },
+                    "_koearName": "빨간 궁수",
+                    "_conditions": [
+                        {
+                            "_unitFlags": {
+                                "_colorNumber": 0,
+                                "_classNumber": 0
+                            },
+                            "_count": 3
+                        }
+                    ]
+                }
+            ],
             "_description": "test33333"
         },
         {
@@ -496,12 +873,13 @@
             },
             "_combineData": {
                 "_unitFlags": {
-                    "_colorNumber": 0,
-                    "_classNumber": 0
+                    "_colorNumber": 1,
+                    "_classNumber": 1
                 },
-                "_koearName": "",
+                "_koearName": "aa",
                 "_conditions": []
             },
+            "_combineDatas": [],
             "_description": "test33333"
         }
     ]

@@ -38,8 +38,8 @@ public class Multi_UI_Paint : Multi_UI_Scene
         BindEvnet(_paintActiveButton, ChangePaintRootActive);
         BindEvnet(_classButton, data => ChangeOrderType(OrderType.Class));
 
-        SetterDataSetting();
-        SetterInActivePaintSelect();
+        //SetterDataSetting();
+        //SetterInActivePaintSelect();
     }
 
     [SerializeField] GameObject _paintRoot;

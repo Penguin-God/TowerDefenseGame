@@ -338,6 +338,7 @@ public class ClientManager : MonoBehaviour
             UpdateHammerText(ClientHammer);
 
             PlayerPrefs.SetInt("Skill1", 1);
+            Skill1 = PlayerPrefs.GetInt("Skill1");
             PlayerPrefs.Save();
 
         }
@@ -362,7 +363,18 @@ public class ClientManager : MonoBehaviour
         ClientWood = PlayerPrefs.GetInt("Wood");
     }
 
-
+    public static bool IsBuySkill(string skill_name)
+    {
+        int skill = PlayerPrefs.GetInt(skill_name);
+        if (skill == 1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 
 }

@@ -1,57 +1,109 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq;
+using Random = UnityEngine.Random;
 
 public class Multi_UnitManager : MonoBehaviour
 {
-    public static Multi_UnitManager instance;
-    private void Awake()
+    private static Multi_UnitManager instance = null;
+    public static Multi_UnitManager Instance
     {
-        if (instance == null)
+        get
         {
-            instance = this;
+            if(instance == null)
+            {
+                instance = FindObjectOfType<Multi_UnitManager>();
+                if (instance == null)
+                    instance = new GameObject("Multi_UnitManager").AddComponent<Multi_UnitManager>();
+            }
+            return instance;
         }
-        else
-        {
-            Debug.LogWarning("UnitManager 2개");
-            Destroy(gameObject);
-        }
+    }
 
+    void Awake()
+    {
         unitDB = GetComponent<Multi_UnitDataBase>();
     }
 
-    #region unit prefabs key
-    public string UnitGroupName => "Unit";
-    public string SwordmanPath => "Unit/Swordman";
-    public string ArcherPath => "Unit/Archer";
-    public string SpearmanPath => "Unit/Spearman";
-    public string MagePath => "Unit/Mage";
-
-    Dictionary<UnitClass, string> pathByUnitClass = new Dictionary<UnitClass, string>();
-
-    public string BuildPath(UnitClass unitClass, string unitName) => BuildPath(pathByUnitClass[unitClass], unitName);
-    string BuildPath(string path, string name) => $"{path}/{name}";
-    #endregion
-
-
-    void Start()
+    private void Start()
     {
-        pathByUnitClass.Add(UnitClass.sowrdman, SwordmanPath);
-        pathByUnitClass.Add(UnitClass.archer, ArcherPath);
-        pathByUnitClass.Add(UnitClass.spearman, SpearmanPath);
-        pathByUnitClass.Add(UnitClass.mage, MagePath);
+        Multi_SpawnManagers.NormalUnit.OnSpawn += AddList;
+        Multi_SpawnManagers.NormalUnit.OnDead += RemoveList;
 
-        //CreateUnitPools(soldierSpawner.Swordmans, SwordmanPath, 5);
-        //CreateUnitPools(soldierSpawner.Archers, ArcherPath, 5);
-        //CreateUnitPools(soldierSpawner.Spearmans, SpearmanPath, 4);
-        //CreateUnitPools(soldierSpawner.Mages, MagePath, 2);
+        SetUnitFlagsDic();
     }
 
-    //void CreateUnitPools(GameObject[] units, string unitPath, int count)
-    //{
-    //    for (int i = 0; i < units.Length; i++)
-    //        Multi_Managers.Pool.CreatePool(units[i], BuildPath(unitPath, units[i].name), count, UnitGroupName);
-    //}
+    public event Action<int> OnListChange = null;
+    private List<Multi_TeamSoldier> _currentUnits = new List<Multi_TeamSoldier>();
+    IReadOnlyList<Multi_TeamSoldier> CurrentUnits => _currentUnits;
+    public int CurrentUnitCount => _currentUnits.Count;
+
+    public void AddList(Multi_TeamSoldier unit)
+    {
+        _currentUnits.Add(unit);
+        _unitListByUnitFlags[unit.UnitFlags].Add(unit);
+        OnListChange?.Invoke(_currentUnits.Count);
+        print($"{unit.name} : {_unitListByUnitFlags[unit.UnitFlags].Count}");
+        print("더하기!!!!");
+    }
+
+    public void RemoveList(Multi_TeamSoldier unit)
+    {
+        _currentUnits.Remove(unit);
+        _unitListByUnitFlags[unit.UnitFlags].Remove(unit);
+        OnListChange?.Invoke(_currentUnits.Count);
+        print("빼기!!!!");
+    }
+
+    private Dictionary<UnitFlags, List<Multi_TeamSoldier>> _unitListByUnitFlags = new Dictionary<UnitFlags, List<Multi_TeamSoldier>>();
+    public IReadOnlyDictionary<UnitFlags, List<Multi_TeamSoldier>> UnitListByUnitFlags => _unitListByUnitFlags;
+    void SetUnitFlagsDic()
+    {
+        _unitListByUnitFlags.Clear();
+        foreach (var data in Multi_SpawnManagers.NormalUnit.AllUnitDatas)
+        {
+            foreach (Multi_TeamSoldier unit in data.gos.Select(x => x.GetComponent<Multi_TeamSoldier>()))
+            {
+                if(unit == null) continue; // TODO : 하얀 유닛 때문에 임시로 넘김
+                _unitListByUnitFlags.Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+            }
+        }
+    }
+
+    public bool CheckCombineable(IReadOnlyList<CombineCondition> conditions)
+        => conditions.All(x => _unitListByUnitFlags.ContainsKey(x.UnitFlags) && _unitListByUnitFlags[x.UnitFlags].Count >= x.Count);
+
+    public void SacrificedUnit_ForCombine(IReadOnlyList<CombineCondition> conditions)
+        => conditions.ToList().ForEach(x => SacrificedUnit_ForCombine(x));
+    void SacrificedUnit_ForCombine(CombineCondition condition)
+    {
+        Multi_TeamSoldier[] offerings = _unitListByUnitFlags[condition.UnitFlags].ToArray();
+        for (int i = 0; i < condition.Count; i++)
+            offerings[i].Dead();
+    }
+
+    public bool FindCurrentUnit(int colorNum, int classNum, out Multi_TeamSoldier unit)
+        => FindCurrentUnit(new UnitFlags(colorNum, classNum), out unit);
+    public bool FindCurrentUnit(UnitColor unitColor, UnitClass unitClass, out Multi_TeamSoldier unit)
+        => FindCurrentUnit(new UnitFlags(unitColor, unitClass), out unit);
+    public bool FindCurrentUnit(UnitFlags unitFlags, out Multi_TeamSoldier unit)
+    {
+        if (_unitListByUnitFlags.ContainsKey(unitFlags))
+        {
+            unit = _unitListByUnitFlags[unitFlags][0];
+            return true;
+        }
+        else
+        {
+            unit = null;
+            return false;
+        }
+    }
+
+
+    // 아래는 쭉 리팩터링 전 코드들
 
     Multi_UnitDataBase unitDB = null;
     public void ApplyUnitData(string _tag, Multi_TeamSoldier _team) => unitDB.ApplyUnitBaseData(_tag, _team);
@@ -97,24 +149,6 @@ public class Multi_UnitManager : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         unitOverGuideTextObject.SetActive(false);
     }
-
-    public List<Multi_TeamSoldier> _currentUnits = new List<Multi_TeamSoldier>();
-    IReadOnlyList<Multi_TeamSoldier> CurrentUnits => _currentUnits;
-    public int CurrentUnitCount => _currentUnits.Count;
-    //public Multi_TeamSoldier[] CurrentAllUnits => Multi_SoldierPoolingManager.Instance.AllUnits;
-    //public CurrentUnitManager CurrentUnitManager { get; private set; } = null;
-
-    //public void AddCurrentUnit(TeamSoldier _unit)
-    //{
-    //    CurrentUnitManager.AddUnit(_unit);
-    //    UIManager.instance.UpdateCurrentUnitText(CurrentAllUnits.Length, maxUnit);
-    //}
-
-    //public void RemvoeCurrentUnit(TeamSoldier _unit)
-    //{
-    //    CurrentUnitManager.RemoveUnit(_unit);
-    //    UIManager.instance.UpdateCurrentUnitText(CurrentAllUnits.Length, maxUnit);
-    //}
 
     //public string GetUnitKey(UnitColor _color, UnitClass _class) => unitDB.GetUnitKey(_color, _class);
 

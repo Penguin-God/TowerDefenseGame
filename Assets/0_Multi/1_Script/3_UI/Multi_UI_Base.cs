@@ -10,7 +10,7 @@ public abstract class Multi_UI_Base : MonoBehaviour
 {
     protected Dictionary<Type, Object[]> _objectsByType = new Dictionary<Type, Object[]>();
 
-    protected abstract void Init();
+    protected virtual void Init() { }
 
     void Start()
     {
@@ -50,6 +50,15 @@ public abstract class Multi_UI_Base : MonoBehaviour
     {
         UI_EventHandler handler = go.GetOrAddComponent<UI_EventHandler>();
         BindEvnet(handler, action, type);
+    }
+
+    public static void BindEvnets(GameObject[] gos, Action<PointerEventData> action, UI_Event type = UI_Event.Click)
+    {
+        for (int i = 0; i < gos.Length; i++)
+        {
+            UI_EventHandler handler = gos[i].GetOrAddComponent<UI_EventHandler>();
+            BindEvnet(handler, action, type);
+        }
     }
 
     public static void BindEvnet(UI_EventHandler handler, Action<PointerEventData> action, UI_Event eventType = UI_Event.Click)

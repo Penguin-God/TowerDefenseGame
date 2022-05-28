@@ -28,7 +28,6 @@ public class Multi_Managers : MonoBehaviourPun
     Multi_ResourcesManager _resources = new Multi_ResourcesManager();
     Multi_PoolManager _pool = new Multi_PoolManager();
 
-
     public static Multi_DataManager Data => Instance._data;
     public static Multi_UI_Manager UI => Instance._ui;
     public static Multi_ResourcesManager Resources => Instance._resources;
@@ -41,8 +40,9 @@ public class Multi_Managers : MonoBehaviourPun
         _data.Init();
         _pool.Init();
 
-        // temp code
+        // temp code : 나중에 씬으로 옮길 것
         _ui.ShowSceneUI<Multi_UI_Paint>("Paint");
+        //_ui.ShowSceneUI<UI_UnitManagedWindow>("UnitManagedWindow");
     }
 
     public void Clear()

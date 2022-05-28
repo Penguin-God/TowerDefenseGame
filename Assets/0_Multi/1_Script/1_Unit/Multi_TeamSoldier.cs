@@ -8,6 +8,9 @@ using Random = UnityEngine.Random;
 
 public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 {
+    private UnitFlags _unitFlags;
+    public UnitFlags UnitFlags => _unitFlags;
+
     public UnitClass unitClass;
     public UnitColor unitColor;
 
@@ -47,17 +50,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public GameObject reinforceEffect;
     protected float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
 
-
-    // 적에게 대미지 입히기, 패시브 적용 등의 역할을 하는 델리게이트
-    public delegate void AttactToEnemy(Multi_Enemy enemy);
-    //protected AttactToEnemy OnHit; // 평타
-    //protected AttactToEnemy OnSkile; // 스킬
-    //public event AttactToEnemy OnPassive; // 패시브
-
     #region Events
     protected Action<Multi_Enemy> OnHit;
     public Action<Multi_Enemy> OnPassiveHit;
     protected Action<Multi_Enemy> OnSkileHit;
+
+    public event Action<Multi_TeamSoldier> OnDead;
     #endregion
 
     #region Virual Funtion
@@ -71,8 +69,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     private void Awake()
     {
-        PhotonNetwork.SendRate = 20;
-        PhotonNetwork.SerializationRate = 40;
+        // TODO : 아래 내용 공부하고 다른 쪽으로 빼기
+        //PhotonNetwork.SendRate = 20;
+        //PhotonNetwork.SerializationRate = 40;
+
+        _unitFlags = new UnitFlags(unitColor, unitClass);
 
         SetPassive(); // 아래에서 평타랑 스킬 설정할 때 delegate_OnPassive가 null이면 에러가 떠서 에러 방지용으로 실행 후에 OnEnable에서 덮어쓰기 때문에 의미 없는 코드임
 
@@ -83,11 +84,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         skillDamage = 150; // 테스트 코드
         OnSkileHit += enemy => AttackEnemy(enemy, skillDamage);
         OnSkileHit += OnPassiveHit;
-
-        // 유니티에서 class는 게임오브젝트의 컴포넌트로서만 작동하기 때문에 컴포넌트로 추가 후 사용해야한다.(폴더 내에 C#스크립트 생성 안해도 됨)
-        // Unity초보자가 많이 하는 실수^^
-        //gameObject.AddComponent<Multi_WeaponPoolManager>();
-        //poolManager = GetComponent<Multi_WeaponPoolManager>();
 
         // 변수 선언
         //enemySpawn = FindObjectOfType<EnemySpawn>();
@@ -109,16 +105,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         Multi_SpawnManagers.BossEnemy.OnDead += _boss => UpdateTarget();
     }
 
-    //protected void SetPoolObj(GameObject _obj, int _count)
-    //{
-    //    if(pv.IsMine) poolManager.SettingWeaponPool(_obj, _count);
-    //}
-
     void OnEnable()
     {
         //SetData();
         SetPassive();
-        //UnitManager.instance.AddCurrentUnit(this);
 
         if (animator != null) animator.enabled = true;
         nav.enabled = true;
@@ -150,7 +140,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         SetChaseSetting(null);
         rayHitTransform = null;
         // TODO : OnDead로 event만들어서 스포너에서 구독하게 바꾸기
-        // Multi_SoldierPoolingManager.ReturnObject(this, gameObject.tag);
         isAttack = false;
         isAttackDelayTime = false;
         isSkillAttack = false;
@@ -165,6 +154,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             animator.enabled = false;
         }
         nav.enabled = false;
+    }
+
+    public void Dead()
+    {
+        OnDead(this);
+        gameObject.SetActive(false);
     }
 
     // 현재 살아있는 enemy 중 가장 가까운 enemy의 정보를 가지고 nav 및 변수 설정
@@ -279,19 +274,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         isSkillAttack = false;
     }
 
-    //protected GameObject GetWeapon(WeaponType weaponType, GameObject go, Transform weaponPos) => GetWeapon(weaponType, go, weaponPos.position);
-    //protected GameObject GetWeapon(WeaponType weaponType, GameObject go, Vector3 weaponPos)
-    //{
-    //    string path = Multi_WeaponManager.BuildPath(weaponType, go.name);
-    //    GameObject _usingWeapon = Multi_Managers.Resources.PhotonInsantiate(path, weaponPos);
-    //    return _usingWeapon;
-    //}
-
     protected Multi_Projectile UsedWeapon(WeaponType weaponType, GameObject go, Transform weaponPos, Vector3 dir, int speed, Action<Multi_Enemy> hitAction)
     {
-        //string path = Multi_WeaponManager.BuildPath(weaponType, go.name);
-        //Multi_Projectile UseWeapon = GetWeapon(weaponType, go, weaponPos).GetComponent<Multi_Projectile>();
-
         Multi_Projectile UseWeapon = Multi_SpawnManagers.Weapon.Spawn(go).GetComponent<Multi_Projectile>();
 
         Vector3 pos = new Vector3(weaponPos.position.x, 2f, weaponPos.position.z);

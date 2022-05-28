@@ -27,18 +27,26 @@ public struct UI_UnitTrackerData
 public struct UI_UnitWindowData
 {
     [SerializeField] UnitFlags _unitFlags;
-    [SerializeField] UnitFlags _combineUnitFlags;
+    [SerializeField] List<CombineData> _combineDatas;
     [SerializeField] string _description;
 
-    public UI_UnitWindowData(UnitFlags unitFlags, UnitFlags combineUnitFlags, string description)
+    public UI_UnitWindowData(UnitFlags unitFlags, CombineData combineData, string description)
     {
         _unitFlags = unitFlags;
-        _combineUnitFlags = combineUnitFlags;
         _description = description;
+        _combineDatas = new List<CombineData>();
+        _combineDatas.Add(combineData);
+    }
+
+    public UI_UnitWindowData(UnitFlags unitFlags, List<CombineData> combineDatas , string description)
+    {
+        _unitFlags = unitFlags;
+        _description = description;
+        _combineDatas = combineDatas;
     }
 
     public UnitFlags UnitFlags => _unitFlags;
-    public UnitFlags CombineUnitFlags => _combineUnitFlags;
+    public IReadOnlyList<CombineData> CombineDatas => _combineDatas;
     public string Description => _description;
 }
 

@@ -13,7 +13,7 @@ public class CSVReader : MonoBehaviour
 	public static List<Dictionary<string, object>> Read(string file)
 	{
 		var list = new List<Dictionary<string, object>>();
-		TextAsset data = Resources.Load(file) as TextAsset;
+		TextAsset data = Multi_Managers.Resources.Load<TextAsset>($"Data/{file}");
 
 		var lines = Regex.Split(data.text, LINE_SPLIT_RE);
 

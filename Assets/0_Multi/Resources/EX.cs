@@ -35,8 +35,34 @@ public class EX : MonoBehaviour
 			return;
         }
 		for (var i = 0; i < _data.Count; i++)
+		{
+			Debug.Log("index " + (i).ToString() + " : " + _data[i]["Name"] + " " + _data[i]["Age"]);
+		}
+	}
+
+	static int Check(string name)
+    {
+		for (var i = 0; i < _data.Count; i++)
         {
-			Debug.Log("index" + (i).ToString() + ":" + _data[i]["Name"] + "" + _data[i]["Age"]);
+			if ((string)_data[i]["Name"] == name)
+            {
+				return i;
+            }
         }
-    }
+		return -1;
+
+	}
+
+	public static void SetValue(string name, string column, string value)
+    {
+		int _row = Check(name);
+		_data[_row][column] = value;
+
+	}
+
+	public static string GetValue(string name, string column)
+	{
+		int _row = Check(name);
+		return (string)_data[_row][column];
+	}
 }

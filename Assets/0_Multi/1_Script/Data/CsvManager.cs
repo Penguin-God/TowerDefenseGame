@@ -45,21 +45,33 @@ public class CsvManager : MonoBehaviour
     {
         // TODO : 이 딕셔너리를 csv의 줄 수만큼 만들어서 List안에 넣기
         Dictionary<string, string> vlaueByKey = new Dictionary<string, string>();
+
         string[] colums = csv.Split('\n');
         string[] keys = colums[0].Split(',');
         string[] values = colums[1].Split(',');
         keys = keys.Select(x => x.Trim()).ToArray();
         values = values.Select(x => x.Trim()).ToArray();
 
-        for (int i = 0; i < keys.Length; i++)
-            vlaueByKey.Add(keys[i], values[i]);
+        SetValueByKey(vlaueByKey, keys, values);
 
         object t = Activator.CreateInstance(typeof(T));
         Type type = t.GetType();
+        SetFiledValue(vlaueByKey, keys, t, type);
 
+        return t as T;
+    }
+
+    void SetValueByKey(Dictionary<string, string> vlaueByKey, string[] keys, string[] values)
+    {
+        for (int i = 0; i < keys.Length; i++)
+            vlaueByKey.Add(keys[i], values[i]);
+    }
+
+    void SetFiledValue(Dictionary<string, string> vlaueByKey, string[] keys, object t, Type type)
+    {
         foreach (FieldInfo info in type.GetFields().Where(x => x.IsPublic && keys.Contains(x.Name)).ToArray())
         {
-             vlaueByKey.TryGetValue(info.Name, out string previousValue);
+            vlaueByKey.TryGetValue(info.Name, out string previousValue);
 
             switch (info.FieldType.ToString())
             {
@@ -77,7 +89,5 @@ public class CsvManager : MonoBehaviour
                 default: break;
             }
         }
-
-        return t as T;
     }
 }

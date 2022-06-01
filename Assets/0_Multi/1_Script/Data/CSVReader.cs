@@ -48,5 +48,4 @@ public class CSVReader : MonoBehaviour
 		}
 		return list;
 	}
-
 }

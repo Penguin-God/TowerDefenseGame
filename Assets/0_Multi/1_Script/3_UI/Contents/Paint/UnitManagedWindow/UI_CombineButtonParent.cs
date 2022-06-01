@@ -26,13 +26,13 @@ public class UI_CombineButtonParent : Multi_UI_Base
     void InActiveAllButton() => _combineButtons.ToList().ForEach(x => x.gameObject.SetActive(false));
     void ResetAllButton() => _combineButtons.ToList().ForEach(x => x.onClick.RemoveAllListeners());
 
-    void Combine(CombineData data)
-    {
-        print($"컴바인 시도 : 색깔 : {data.UnitFlags.ColorNumber}, 클래스 : {data.UnitFlags.ClassNumber}");
-        if (Multi_UnitManager.Instance.CheckCombineable(data.Conditions))
-        {
-            Multi_UnitManager.Instance.SacrificedUnit_ForCombine(data.Conditions);
-            Multi_SpawnManagers.NormalUnit.Spawn(data.UnitFlags);
-        }
-    }
+    void Combine(CombineData data) => Multi_UnitManager.Instance.Combine(data);
+    //{
+    //    print($"컴바인 시도 : 색깔 : {data.UnitFlags.ColorNumber}, 클래스 : {data.UnitFlags.ClassNumber}");
+    //    if (Multi_UnitManager.Instance.CheckCombineable(data.Conditions))
+    //    {
+    //        Multi_UnitManager.Instance.SacrificedUnit_ForCombine(data.Conditions);
+    //        Multi_SpawnManagers.NormalUnit.Spawn(data.UnitFlags);
+    //    }
+    //}
 }

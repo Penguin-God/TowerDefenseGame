@@ -72,10 +72,20 @@ public class Multi_UnitManager : MonoBehaviour
         }
     }
 
-    public bool CheckCombineable(IReadOnlyList<CombineCondition> conditions)
+    public void Combine(CombineData data)
+    {
+        print($"컴바인 시도 : 색깔 : {data.UnitFlags.ColorNumber}, 클래스 : {data.UnitFlags.ClassNumber}");
+        if (CheckCombineable(data.Conditions))
+        {
+            SacrificedUnit_ForCombine(data.Conditions);
+            Multi_SpawnManagers.NormalUnit.Spawn(data.UnitFlags);
+        }
+    }
+
+    bool CheckCombineable(IReadOnlyList<CombineCondition> conditions)
         => conditions.All(x => _unitListByUnitFlags.ContainsKey(x.UnitFlags) && _unitListByUnitFlags[x.UnitFlags].Count >= x.Count);
 
-    public void SacrificedUnit_ForCombine(IReadOnlyList<CombineCondition> conditions)
+    void SacrificedUnit_ForCombine(IReadOnlyList<CombineCondition> conditions)
         => conditions.ToList().ForEach(x => SacrificedUnit_ForCombine(x));
     void SacrificedUnit_ForCombine(CombineCondition condition)
     {
@@ -84,10 +94,8 @@ public class Multi_UnitManager : MonoBehaviour
             offerings[i].Dead();
     }
 
-    public bool FindCurrentUnit(int colorNum, int classNum, out Multi_TeamSoldier unit)
-        => FindCurrentUnit(new UnitFlags(colorNum, classNum), out unit);
-    public bool FindCurrentUnit(UnitColor unitColor, UnitClass unitClass, out Multi_TeamSoldier unit)
-        => FindCurrentUnit(new UnitFlags(unitColor, unitClass), out unit);
+    public bool FindCurrentUnit(int colorNum, int classNum, out Multi_TeamSoldier unit) => FindCurrentUnit(new UnitFlags(colorNum, classNum), out unit);
+    public bool FindCurrentUnit(UnitColor unitColor, UnitClass unitClass, out Multi_TeamSoldier unit) => FindCurrentUnit(new UnitFlags(unitColor, unitClass), out unit);
     public bool FindCurrentUnit(UnitFlags unitFlags, out Multi_TeamSoldier unit)
     {
         if (_unitListByUnitFlags.ContainsKey(unitFlags))

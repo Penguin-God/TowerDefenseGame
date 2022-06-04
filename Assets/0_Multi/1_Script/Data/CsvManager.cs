@@ -10,7 +10,9 @@ class Tests
 {
     public int number;
     public float numberFloat;
-    public string text;
+    [SerializeField] string text;
+
+    public string Text => text;
 }
 
 public class CsvManager : MonoBehaviour
@@ -21,28 +23,20 @@ public class CsvManager : MonoBehaviour
     void Test()
     {
         TextAsset textAsset = Resources.Load<TextAsset>("Data/Test/Test");
-        Tests tests = ToCsv<Tests>(textAsset.text);
-        print(
-            tests.number == 3 &&
-            Mathf.Abs(tests.numberFloat - 4.5f) < 0.1f &&
-            tests.text == "Hello Csv"
-            );
 
         testList = FromCsvList<Tests>(textAsset.text);
         Debug.Assert(testList[0].number == 3, "값 오류");
-        Debug.Assert(testList[0].text == "Hello Csv", "값 오류");
+        Debug.Assert(testList[0].Text == "Hello Csv", "값 오류");
         Debug.Assert(testList[1].number == 2, "값 오류");
-        Debug.Assert(testList[1].text == "Hello Line 2", "값 오류");
+        Debug.Assert(testList[1].Text == "Hello Line 2", "값 오류");
         print("성공!!");
     }
 
+    // TODO : 구현하기
     void ToCsv(object obj)
     {
         
     }
-
-    
-
 
     List<T> FromCsvList<T>(string csv)
     {
@@ -56,9 +50,9 @@ public class CsvManager : MonoBehaviour
         List<T> result = new List<T>();
         for (int i = 1; i < colums.Length; i++)
         {
-            object t = Activator.CreateInstance(typeof(T));
-            SetFiledValue(t, colums[i].Split(',').Select(x => x.Trim()).ToArray());
-            result.Add((T)t);
+            object obj = Activator.CreateInstance(typeof(T));
+            SetFiledValue(obj, colums[i].Split(',').Select(x => x.Trim()).ToArray());
+            result.Add((T)obj);
         }
         return result;
 
@@ -67,15 +61,20 @@ public class CsvManager : MonoBehaviour
             for (int i = 0; i < keys.Length; i++)
                 indexByKey.Add(keys[i], i);
         }
-        void SetFiledValue(object t, string[] values)
+        void SetFiledValue(object obj, string[] values)
         {
-            foreach (FieldInfo info in t.GetType().GetFields().Where(x => x.IsPublic && keys.Contains(x.Name)))
+            foreach (FieldInfo info in obj.GetType()
+                                        .GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
+                                        .Where(x => CsvSerializedCondition(x)))
             {
-                indexByKey.TryGetValue(info.Name, out int valueIndex);
-                SetValue(t, info, values[valueIndex]);
+                SetValue(obj, info, values[indexByKey[info.Name]]);
             }
+
+            bool CsvSerializedCondition(FieldInfo info) => this.CsvSerializedCondition(info) && keys.Contains(info.Name);
         }
     }
+
+    bool CsvSerializedCondition(FieldInfo info) => info.IsPublic || info.GetCustomAttribute(typeof(SerializeField)) != null;
 
     // 파싱 실패 시 예외처리하기
     void SetValue(object t, FieldInfo info, string value)
@@ -105,7 +104,7 @@ public class CsvManager : MonoBehaviour
         Tests a = ToCsv<Tests>(Resources.Load<TextAsset>("Data/Test/Test").text);
         print(a.number);
         print(a.numberFloat);
-        print(a.text.Trim());
+        print(a.Text.Trim());
     }
 
     T ToCsv<T>(string csv)

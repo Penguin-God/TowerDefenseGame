@@ -27719,6 +27719,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6ffaaa0cdfafd48828228533a5ccb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testList:
+  - number: 3
+    numberFloat: 4.5
+    text: Hello Csv
+  - number: 2
+    numberFloat: 123
+    text: Hello Line 2
+  - number: 123
+    numberFloat: 222
+    text: sadasatwetg
 --- !u!1001 &757368176
 PrefabInstance:
   m_ObjectHideFlags: 0

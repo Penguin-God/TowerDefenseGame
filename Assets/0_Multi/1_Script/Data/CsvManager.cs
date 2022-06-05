@@ -26,7 +26,7 @@ public class CsvManager : MonoBehaviour
     {
         TextAsset textAsset = Resources.Load<TextAsset>("Data/Test/Test");
 
-        testList = EnumerableFromCsv<Tests>(textAsset.text).ToList();
+        testList = GetEnumerableFromCsv<Tests>(textAsset.text).ToList();
         Debug.Assert(testList[0].number == 3, "값 오류");
         Debug.Assert(testList[0].Text == "Hello Csv", "값 오류");
         Debug.Assert(testList[1].number == 2, "값 오류");
@@ -64,38 +64,25 @@ public class CsvManager : MonoBehaviour
         outStream.Close();
     }
 
-    IEnumerable<T> EnumerableFromCsv<T>(string csv)
+
+    IEnumerable<T> GetEnumerableFromCsv<T>(string csv)
     {
-        csv = csv.Substring(0, csv.Length - 1);
-        Dictionary<string, int> indexByKey = new Dictionary<string, int>();
+        string[] columns = csv.Substring(0, csv.Length - 1).Split('\n');
+        return columns.Skip(1)
+                     .Select(x => (T)SetFiledValue(Activator.CreateInstance<T>(), GetCells(x)));
 
-        string[] colums = csv.Split('\n');
-        string[] keys = colums[0].Split(',').Select(x => x.Trim()).ToArray();
-        SetKeyIndex();
+        object SetFiledValue(object obj, string[] values)
+        {
+            string[] keys = GetCells(columns[0]);
+            Dictionary<string, int> indexByKey = keys.ToDictionary(x => x, x => Array.IndexOf(keys, x));
 
-        List<T> result = new List<T>();
-        for (int i = 1; i < colums.Length; i++)
-        {
-            object obj = Activator.CreateInstance(typeof(T));
-            SetFiledValue(obj, colums[i].Split(',').Select(x => x.Trim()).ToArray());
-            result.Add((T)obj);
-        }
-        return result;
-
-        void SetKeyIndex()
-        {
-            for (int i = 0; i < keys.Length; i++)
-                indexByKey.Add(keys[i], i);
-        }
-        void SetFiledValue(object obj, string[] values)
-        {
-            foreach (FieldInfo info in GetSerializedFields(obj))
-            {
+            foreach (FieldInfo info in GetSerializedFields())
                 SetValue(obj, info, values[indexByKey[info.Name]]);
-            }
+            return obj;
 
-            bool CsvSerializedCondition(FieldInfo info) => this.CsvSerializedCondition(info) && keys.Contains(info.Name);
+            IEnumerable<FieldInfo> GetSerializedFields() => this.GetSerializedFields(obj).Where(x => keys.Contains(x.Name)); 
         }
+        string[] GetCells(string column) => column.Split(',').Select(x => x.Trim()).ToArray();
     }
 
     IEnumerable<FieldInfo> GetSerializedFields(object obj) 
@@ -104,7 +91,6 @@ public class CsvManager : MonoBehaviour
             .Where(x => CsvSerializedCondition(x));
     bool CsvSerializedCondition(FieldInfo info) => info.IsPublic || info.GetCustomAttribute(typeof(SerializeField)) != null;
 
-    // 파싱 실패 시 예외처리하기
     void SetValue(object t, FieldInfo info, string value)
     {
         switch (info.FieldType.ToString())

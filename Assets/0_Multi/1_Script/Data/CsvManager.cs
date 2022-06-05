@@ -24,7 +24,7 @@ public class CsvManager : MonoBehaviour
     {
         TextAsset textAsset = Resources.Load<TextAsset>("Data/Test/Test");
 
-        testList = FromCsvList<Tests>(textAsset.text);
+        testList = EnumerableFromCsv<Tests>(textAsset.text).ToList();
         Debug.Assert(testList[0].number == 3, "값 오류");
         Debug.Assert(testList[0].Text == "Hello Csv", "값 오류");
         Debug.Assert(testList[1].number == 2, "값 오류");
@@ -38,7 +38,7 @@ public class CsvManager : MonoBehaviour
         
     }
 
-    List<T> FromCsvList<T>(string csv)
+    IEnumerable<T> EnumerableFromCsv<T>(string csv)
     {
         csv = csv.Substring(0, csv.Length - 1);
         Dictionary<string, int> indexByKey = new Dictionary<string, int>();
@@ -63,9 +63,7 @@ public class CsvManager : MonoBehaviour
         }
         void SetFiledValue(object obj, string[] values)
         {
-            foreach (FieldInfo info in obj.GetType()
-                                        .GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-                                        .Where(x => CsvSerializedCondition(x)))
+            foreach (FieldInfo info in GetSerializedFields(obj))
             {
                 SetValue(obj, info, values[indexByKey[info.Name]]);
             }
@@ -74,6 +72,10 @@ public class CsvManager : MonoBehaviour
         }
     }
 
+    IEnumerable<FieldInfo> GetSerializedFields(object obj) 
+        => obj.GetType()
+            .GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
+            .Where(x => CsvSerializedCondition(x));
     bool CsvSerializedCondition(FieldInfo info) => info.IsPublic || info.GetCustomAttribute(typeof(SerializeField)) != null;
 
     // 파싱 실패 시 예외처리하기

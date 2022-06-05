@@ -27729,6 +27729,15 @@ MonoBehaviour:
   - number: 123
     numberFloat: 222
     text: sadasatwetg
+  output: 'number,numberFloat,text
+
+    3,4.5,Hello Csv
+
+    2,123,Hello Line 2
+
+    123,222,sadasatwetg
+
+'
 --- !u!1001 &757368176
 PrefabInstance:
   m_ObjectHideFlags: 0

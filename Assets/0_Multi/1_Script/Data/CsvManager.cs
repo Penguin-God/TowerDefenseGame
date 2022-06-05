@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 using System.Linq;
 using System.Reflection;
+using System.Text;
+using System.IO;
 
 [Serializable]
 class Tests
@@ -32,10 +34,34 @@ public class CsvManager : MonoBehaviour
         print("성공!!");
     }
 
-    // TODO : 구현하기
-    void ToCsv(object obj)
+    [ContextMenu("Write Test")]
+    void TestToCsv()
     {
-        
+        SaveCsv(EnumerableToCsv(testList), "안녕 세상");
+    }
+
+    [SerializeField, TextArea] string output;
+
+    string EnumerableToCsv<T>(IEnumerable<T> datas)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine(string.Join(",", GetSerializedFields(datas.First()).Select(x => x.Name)));
+
+        foreach (var data in datas)
+        {
+            IEnumerable<string> values = GetSerializedFields(data).Select(x => x.GetValue(data).ToString());
+            stringBuilder.AppendLine(string.Join(",", values));
+        }
+
+        return stringBuilder.ToString();
+    }
+
+    void SaveCsv(string text, string fileName)
+    {
+        Stream fileStream = new FileStream($"Assets/0_Multi/Resources/Data/Test/{fileName}.csv", FileMode.CreateNew, FileAccess.Write);
+        StreamWriter outStream = new StreamWriter(fileStream, Encoding.UTF8);
+        outStream.WriteLine(text);
+        outStream.Close();
     }
 
     IEnumerable<T> EnumerableFromCsv<T>(string csv)
@@ -98,10 +124,9 @@ public class CsvManager : MonoBehaviour
         }
     }
 
-
     #region 레거시 코드
     // [ContextMenu("test tocsv")]
-    void TestToCsv()
+    void _TestToCsv()
     {
         Tests a = ToCsv<Tests>(Resources.Load<TextAsset>("Data/Test/Test").text);
         print(a.number);

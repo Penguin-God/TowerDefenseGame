@@ -27723,12 +27723,15 @@ MonoBehaviour:
   - number: 3
     numberFloat: 4.5
     text: Hello Csv
+    isCheck: 0
   - number: 2
     numberFloat: 123
     text: Hello Line 2
+    isCheck: 1
   - number: 123
     numberFloat: 222
     text: sadasatwetg
+    isCheck: 1
   output: 'number,numberFloat,text
 
     3,4.5,Hello Csv

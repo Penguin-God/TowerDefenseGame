@@ -13,34 +13,40 @@ class Tests
     public int number;
     public float numberFloat;
     [SerializeField] string text;
+    [SerializeField] bool isCheck;
 
     public string Text => text;
+    public bool IsCheck => isCheck;
 }
 
 public class CsvManager : MonoBehaviour
 {
-    [SerializeField] List<Tests> testList;
+    [ContextMenu("Test")]
+    void Tests()
+    {
+        bool daa = true;
+        output = daa.ToString();
+        print(daa.GetType().ToString());
+    }
 
+    [SerializeField] List<Tests> testList;
     [ContextMenu("Read Test")]
     void Test()
     {
         TextAsset textAsset = Resources.Load<TextAsset>("Data/Test/Test");
-
         testList = GetEnumerableFromCsv<Tests>(textAsset.text).ToList();
-        Debug.Assert(testList[0].number == 3, "값 오류");
-        Debug.Assert(testList[0].Text == "Hello Csv", "값 오류");
-        Debug.Assert(testList[1].number == 2, "값 오류");
-        Debug.Assert(testList[1].Text == "Hello Line 2", "값 오류");
-        print("성공!!");
     }
 
+
+    [SerializeField, TextArea] string output;
     [ContextMenu("Write Test")]
     void TestToCsv()
     {
-        SaveCsv(EnumerableToCsv(testList), "안녕 세상");
+        output = EnumerableToCsv(testList);
+        SaveCsv(EnumerableToCsv(testList), "Test");
     }
 
-    [SerializeField, TextArea] string output;
+    string SubLastLine(string text) => text.Substring(0, text.Length - 1);
 
     string EnumerableToCsv<T>(IEnumerable<T> datas)
     {
@@ -53,21 +59,21 @@ public class CsvManager : MonoBehaviour
             stringBuilder.AppendLine(string.Join(",", values));
         }
 
-        return stringBuilder.ToString();
+        return SubLastLine(stringBuilder.ToString());
     }
 
     void SaveCsv(string text, string fileName)
     {
-        Stream fileStream = new FileStream($"Assets/0_Multi/Resources/Data/Test/{fileName}.csv", FileMode.CreateNew, FileAccess.Write);
+        Stream fileStream = new FileStream($"Assets/0_Multi/Resources/Data/Test/{fileName}.csv", FileMode.Create, FileAccess.Write);
         StreamWriter outStream = new StreamWriter(fileStream, Encoding.UTF8);
-        outStream.WriteLine(text);
+        outStream.Write(text);
         outStream.Close();
     }
 
-
+    // Load Csv
     IEnumerable<T> GetEnumerableFromCsv<T>(string csv)
     {
-        string[] columns = csv.Substring(0, csv.Length - 1).Split('\n');
+        string[] columns = SubLastLine(csv).Split('\n');
         return columns.Skip(1)
                      .Select(x => (T)SetFiledValue(Activator.CreateInstance<T>(), GetCells(x)));
 
@@ -91,20 +97,23 @@ public class CsvManager : MonoBehaviour
             .Where(x => CsvSerializedCondition(x));
     bool CsvSerializedCondition(FieldInfo info) => info.IsPublic || info.GetCustomAttribute(typeof(SerializeField)) != null;
 
-    void SetValue(object t, FieldInfo info, string value)
+    void SetValue(object obj, FieldInfo info, string value)
     {
         switch (info.FieldType.ToString())
         {
             case "System.Int32":
                 Int32.TryParse(value, out int valueInt);
-                info.SetValue(t, valueInt);
+                info.SetValue(obj, valueInt);
                 break;
             case "System.Single":
                 float.TryParse(value, out float valueFloat);
-                info.SetValue(t, valueFloat);
+                info.SetValue(obj, valueFloat);
+                break;
+            case "System.Boolean":
+                info.SetValue(obj, value == "True" || value == "TRUE");
                 break;
             case "System.String":
-                info.SetValue(t, value);
+                info.SetValue(obj, value);
                 break;
             default: break;
         }

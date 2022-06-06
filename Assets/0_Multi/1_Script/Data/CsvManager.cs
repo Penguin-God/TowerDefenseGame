@@ -111,15 +111,6 @@ public class CsvManager : MonoBehaviour
     }
 
     #region 레거시 코드
-    // [ContextMenu("test tocsv")]
-    void _TestToCsv()
-    {
-        Tests a = ToCsv<Tests>(Resources.Load<TextAsset>("Data/Test/Test").text);
-        print(a.number);
-        print(a.numberFloat);
-        print(a.Text.Trim());
-    }
-
     T ToCsv<T>(string csv)
     {
         Dictionary<string, string> vlaueByKey = new Dictionary<string, string>();

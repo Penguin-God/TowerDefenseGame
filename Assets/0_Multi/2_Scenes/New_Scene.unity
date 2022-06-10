@@ -27720,27 +27720,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   testList:
-  - number: 3
+  - number: 12312
     numberFloat: 4.5
     text: Hello Csv
     isCheck: 0
   - number: 2
     numberFloat: 123
     text: Hello Line 2
-    isCheck: 1
+    isCheck: 0
   - number: 123
     numberFloat: 222
     text: sadasatwetg
     isCheck: 1
-  output: 'number,numberFloat,text
-
-    3,4.5,Hello Csv
-
-    2,123,Hello Line 2
-
-    123,222,sadasatwetg
-
-'
+  output: True
 --- !u!1001 &757368176
 PrefabInstance:
   m_ObjectHideFlags: 0

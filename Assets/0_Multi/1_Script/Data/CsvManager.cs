@@ -26,7 +26,9 @@ public class CsvManager : MonoBehaviour
     {
         bool daa = true;
         output = daa.ToString();
-        print(daa.GetType().ToString());
+        //print(daa.GetType().ToString());
+        //print(daa.GetType().Name);
+        print(nameof(Boolean) == daa.GetType().Name);
     }
 
     [SerializeField] List<Tests> testList;
@@ -99,23 +101,23 @@ public class CsvManager : MonoBehaviour
 
     void SetValue(object obj, FieldInfo info, string value)
     {
-        switch (info.FieldType.ToString())
+        switch (info.FieldType.Name)
         {
-            case "System.Int32":
+            case nameof(Int32):
                 Int32.TryParse(value, out int valueInt);
                 info.SetValue(obj, valueInt);
                 break;
-            case "System.Single":
+            case nameof(Single):
                 float.TryParse(value, out float valueFloat);
                 info.SetValue(obj, valueFloat);
                 break;
-            case "System.Boolean":
+            case nameof(Boolean):
                 info.SetValue(obj, value == "True" || value == "TRUE");
                 break;
-            case "System.String":
+            case nameof(String):
                 info.SetValue(obj, value);
                 break;
-            default: break;
+            default: print(info.GetType().Name); break;
         }
     }
 

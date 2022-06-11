@@ -97,29 +97,10 @@ public class CsvManager : MonoBehaviour
         => obj.GetType()
             .GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
             .Where(x => CsvSerializedCondition(x));
+
     bool CsvSerializedCondition(FieldInfo info) => info.IsPublic || info.GetCustomAttribute(typeof(SerializeField)) != null;
 
-    void SetValue(object obj, FieldInfo info, string value)
-    {
-        switch (info.FieldType.Name)
-        {
-            case nameof(Int32):
-                Int32.TryParse(value, out int valueInt);
-                info.SetValue(obj, valueInt);
-                break;
-            case nameof(Single):
-                float.TryParse(value, out float valueFloat);
-                info.SetValue(obj, valueFloat);
-                break;
-            case nameof(Boolean):
-                info.SetValue(obj, value == "True" || value == "TRUE");
-                break;
-            case nameof(String):
-                info.SetValue(obj, value);
-                break;
-            default: print(info.GetType().Name); break;
-        }
-    }
+    void SetValue(object obj, FieldInfo info, string value) => CsvParserBase.GetParser(info).SetValue(obj, info, value);
 
     #region 레거시 코드
     T ToCsv<T>(string csv)

@@ -21,6 +21,24 @@ public struct UnitFlags : IEquatable<UnitFlags>
         _classNumber = (int)unitClass;
     }
 
+    public UnitFlags(string unitColor, string unitClass)
+    {
+        Int32.TryParse(unitColor, out _colorNumber);
+        Int32.TryParse(unitClass, out _classNumber);
+        ClempFlags();
+    }
+
+    void ClempFlags()
+    {
+        Debug.Assert(_colorNumber >= 0 && _colorNumber <= GetEnumCount(typeof(UnitColor)), $"color number 입력 잘못됨 : {_colorNumber}");
+        Debug.Assert(_classNumber >= 0 && _classNumber <= GetEnumCount(typeof(UnitClass)), $"class number 입력 잘못됨 : {_classNumber}");
+
+        _colorNumber = Mathf.Clamp(_colorNumber, 0, GetEnumCount(typeof(UnitColor)));
+        _classNumber = Mathf.Clamp(_classNumber, 0, GetEnumCount(typeof(UnitClass)));
+
+        int GetEnumCount(Type t) => Enum.GetValues(t).Length - 1;
+    }
+
     public int ColorNumber => _colorNumber;
     public int ClassNumber => _classNumber;
     public UnitColor UnitColor => (UnitColor)_colorNumber;

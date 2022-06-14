@@ -14,6 +14,7 @@ class Tests
     public float numberFloat;
     [SerializeField] string text;
     [SerializeField] bool isCheck;
+    [SerializeField] UnitFlags flag;
 
     public string Text => text;
     public bool IsCheck => isCheck;
@@ -21,14 +22,10 @@ class Tests
 
 public class CsvManager : MonoBehaviour
 {
-    [ContextMenu("Test")]
-    void Tests()
+    [ContextMenu("아무거나 Test")]
+    void TestAction()
     {
-        bool daa = true;
-        output = daa.ToString();
-        //print(daa.GetType().ToString());
-        //print(daa.GetType().Name);
-        print(nameof(Boolean) == daa.GetType().Name);
+        print(Enum.GetValues(typeof(UnitColor)).Length - 1);
     }
 
     [SerializeField] List<Tests> testList;

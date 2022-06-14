@@ -1,4 +1,4 @@
-﻿number,numberFloat,text,isCheck
-12312,4.5,Hello Csv,False
-2,123,Hello Line 2,False
-123,222,sadasatwetg,True
+number,numberFloat,text,isCheck,flag
+12312,4.5,Hello Csv,FALSE,0&3
+2,123,Hello Line 2,FALSE,5&1
+123,222,sadasatwetg,TRUE,1&3

@@ -27724,14 +27724,29 @@ MonoBehaviour:
     numberFloat: 4.5
     text: Hello Csv
     isCheck: 0
+    flag:
+      _colorNumber: 0
+      _classNumber: 3
+    numbers: 
+    test: t
   - number: 2
     numberFloat: 123
     text: Hello Line 2
     isCheck: 0
+    flag:
+      _colorNumber: 5
+      _classNumber: 1
+    numbers: 
+    test: es
   - number: 123
     numberFloat: 222
     text: sadasatwetg
     isCheck: 1
+    flag:
+      _colorNumber: 1
+      _classNumber: 3
+    numbers: 
+    test: t
   output: True
 --- !u!1001 &757368176
 PrefabInstance:

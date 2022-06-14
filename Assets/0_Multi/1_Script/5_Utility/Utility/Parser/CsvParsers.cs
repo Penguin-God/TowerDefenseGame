@@ -8,6 +8,12 @@ public abstract class CsvParserBase
 {
     public static CsvParserBase GetParser(FieldInfo info)
     {
+        Debug.Log(info.FieldType.Name);
+        if (info.FieldType.Name.Contains("[]") || info.FieldType.Name.Contains("List"))
+        {
+            Debug.LogWarning(info.Name);
+        }
+
         switch (info.FieldType.Name)
         {
             case nameof(Int32): return new CsvIntParser();
@@ -60,3 +66,11 @@ class CsvUnitFlagsParser : CsvParserBase
     }
 }
 
+// TODO : 구현하기
+class CsvArrayParser : CsvParserBase
+{
+    public override void SetValue(object obj, FieldInfo info, string value)
+    {
+        info.SetValue(obj, null);
+    }
+}

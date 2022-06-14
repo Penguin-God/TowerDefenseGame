@@ -15,6 +15,8 @@ class Tests
     [SerializeField] string text;
     [SerializeField] bool isCheck;
     [SerializeField] UnitFlags flag;
+    [SerializeField] int[] numbers;
+    [SerializeField] string test;
 
     public string Text => text;
     public bool IsCheck => isCheck;
@@ -25,7 +27,11 @@ public class CsvManager : MonoBehaviour
     [ContextMenu("아무거나 Test")]
     void TestAction()
     {
-        print(Enum.GetValues(typeof(UnitColor)).Length - 1);
+        int[] numbers = new int[3];
+        List<string> aaaa = new List<string>();
+        int asdasd = 22;
+        print(aaaa.GetType().FullName);
+        print(numbers.GetType().FullName);
     }
 
     [SerializeField] List<Tests> testList;
@@ -69,25 +75,50 @@ public class CsvManager : MonoBehaviour
         outStream.Close();
     }
 
+
     // Load Csv
     IEnumerable<T> GetEnumerableFromCsv<T>(string csv)
     {
         string[] columns = SubLastLine(csv).Split('\n');
+        Dictionary<string, int> indexByFieldName = SetDict();
+
         return columns.Skip(1)
-                     .Select(x => (T)SetFiledValue(Activator.CreateInstance<T>(), GetCells(x)));
+                      .Select(x => (T)SetFiledValue(Activator.CreateInstance<T>(), GetCells(x)));
 
         object SetFiledValue(object obj, string[] values)
         {
-            string[] keys = GetCells(columns[0]);
-            Dictionary<string, int> indexByKey = keys.ToDictionary(x => x, x => Array.IndexOf(keys, x));
-
             foreach (FieldInfo info in GetSerializedFields())
-                SetValue(obj, info, values[indexByKey[info.Name]]);
+                SetValue(obj, info, values[indexByFieldName[info.Name]]);
             return obj;
 
-            IEnumerable<FieldInfo> GetSerializedFields() => this.GetSerializedFields(obj).Where(x => keys.Contains(x.Name)); 
+            // 중첩 함수
+            IEnumerable<FieldInfo> GetSerializedFields() => this.GetSerializedFields(obj).Where(x => indexByFieldName.ContainsKey(x.Name)); 
         }
+
         string[] GetCells(string column) => column.Split(',').Select(x => x.Trim()).ToArray();
+        Dictionary<string, int> SetDict()
+        {
+            int index = 0;
+            int overlap = 0;
+            Dictionary<string, int> result = new Dictionary<string, int>();
+            foreach (string key in GetCells(columns[0]))
+            {
+                if (result.ContainsKey(key))
+                {
+                    overlap++;
+                    result.Add($"{key}{overlap}", index);
+                    print($"{key}{overlap}");
+                }
+                else
+                {
+                    result.Add(key, index);
+                    overlap = 0;
+                    print(key);
+                }
+                index++;
+            }
+            return result;
+        }
     }
 
     IEnumerable<FieldInfo> GetSerializedFields(object obj) 

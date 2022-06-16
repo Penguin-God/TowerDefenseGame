@@ -16,7 +16,6 @@ class Tests
     [SerializeField] bool isCheck;
     [SerializeField] UnitFlags flag;
     [SerializeField] int[] numbers;
-    [SerializeField] List<string> strList;
     [SerializeField] string test;
 
     public string Text => text;
@@ -29,7 +28,7 @@ public class CsvManager : MonoBehaviour
     void TypeTest()
     {
         foreach (FieldInfo info in GetSerializedFields(new Tests()))
-            print(CsvParserBase.GetTypeName(info));
+            print(CsvParsers.GetTypeName(info));
     }
 
     [SerializeField] List<Tests> testList;
@@ -126,7 +125,7 @@ public class CsvManager : MonoBehaviour
 
     bool CsvSerializedCondition(FieldInfo info) => info.IsPublic || info.GetCustomAttribute(typeof(SerializeField)) != null;
 
-    void SetValue(object obj, FieldInfo info, string value) => CsvParserBase.GetParser(info).SetValue(obj, info, value);
+    void SetValue(object obj, FieldInfo info, string value) => CsvParsers.GetParser(info).SetValue(obj, info, value);
 
     #region 레거시 코드
     T ToCsv<T>(string csv)

@@ -4,39 +4,32 @@ using UnityEngine;
 using System.Reflection;
 using System;
 
-public abstract class CsvParserBase
+public interface CsvParser
+{
+    void SetValue(object obj, FieldInfo info, string value);
+}
+
+public abstract class CsvParsers
 {
     public static string GetTypeName(FieldInfo info)
     {
-
         if (info.FieldType.Name.Contains("[]"))
         {
             return info.FieldType.GetElementType().Name;
         }
         else if (info.FieldType.Name.Contains("List"))
         {
-            return GetMiddleString(info.FieldType.ToString(), "[", "]");
+            return info.FieldType.ToString().GetMiddleString("[", "]").Replace("System.", "");
         }
         return "실패";
-
-        string GetMiddleString(string str, string begin, string end)
-        {
-            if (string.IsNullOrEmpty(str)) return null;
-
-            string result = null;
-            if (str.IndexOf(begin) > -1)
-            {
-                str = str.Substring(str.IndexOf(begin) + begin.Length);
-                if (str.IndexOf(end) > -1) result = str.Substring(0, str.IndexOf(end));
-                else result = str;
-            }
-            return result;
-        }
     }
 
-    public static CsvParserBase GetParser(FieldInfo info)
+    public static CsvParser GetParser(string typeName)
     {
-        switch (info.FieldType.Name)
+        if (typeName.Contains("[]") || typeName.Contains("List"))
+            return new CsvEnumerableParser();
+
+        switch (typeName)
         {
             case nameof(Int32): return new CsvIntParser();
             case nameof(Single): return new CsvFloatParser();
@@ -47,41 +40,40 @@ public abstract class CsvParserBase
         }
         return null;
     }
-
-    public abstract void SetValue(object obj, FieldInfo info, string value);
+    public static CsvParser GetParser(FieldInfo info) => GetParser(info.FieldType.Name);
 }
 
-class CsvIntParser : CsvParserBase
+class CsvIntParser : CsvParser
 {
-    public override void SetValue(object obj, FieldInfo info, string value)
+    public void SetValue(object obj, FieldInfo info, string value)
     {
         Int32.TryParse(value, out int valueInt);
         info.SetValue(obj, valueInt);
     }
 }
 
-class CsvFloatParser : CsvParserBase
+class CsvFloatParser : CsvParser
 {
-    public override void SetValue(object obj, FieldInfo info, string value)
+    public void SetValue(object obj, FieldInfo info, string value)
     {
         float.TryParse(value, out float valueFloat);
         info.SetValue(obj, valueFloat);
     }
 }
 
-class CsvStringParser : CsvParserBase
+class CsvStringParser : CsvParser
 {
-    public override void SetValue(object obj, FieldInfo info, string value) => info.SetValue(obj, value);
+    public void SetValue(object obj, FieldInfo info, string value) => info.SetValue(obj, value);
 }
 
-class CsvBooleanParser : CsvParserBase
+class CsvBooleanParser : CsvParser
 {
-    public override void SetValue(object obj, FieldInfo info, string value) => info.SetValue(obj, value == "True" || value == "TRUE");
+    public void SetValue(object obj, FieldInfo info, string value) => info.SetValue(obj, value == "True" || value == "TRUE");
 }
 
-class CsvUnitFlagsParser : CsvParserBase
+class CsvUnitFlagsParser : CsvParser
 {
-    public override void SetValue(object obj, FieldInfo info, string value)
+    public void SetValue(object obj, FieldInfo info, string value)
     {
         Debug.Assert(value.Split('&').Length == 2, $"UnitFlags 데이터 입력 잘못됨 : {value}");
         info.SetValue(obj, new UnitFlags(value.Split('&')[0], value.Split('&')[1]));
@@ -89,10 +81,36 @@ class CsvUnitFlagsParser : CsvParserBase
 }
 
 // TODO : 구현하기
-class CsvArrayParser : CsvParserBase
+class CsvEnumerableParser : CsvParser
 {
-    public override void SetValue(object obj, FieldInfo info, string value)
+    public void SetValue(object obj, FieldInfo info, string value)
     {
+        CsvParsers.GetParser(GetElementTypeName(info));
+
         info.SetValue(obj, null);
+    }
+
+    string GetElementTypeName(FieldInfo info)
+    {
+        if (info.FieldType.Name.Contains("[]"))
+        {
+            return info.FieldType.GetElementType().Name;
+        }
+        else if (info.FieldType.Name.Contains("List"))
+        {
+            return info.FieldType.ToString().GetMiddleString("[", "]").Replace("System.", "");
+        }
+
+        return "";
+    }
+
+    void SetArray()
+    {
+
+    }
+
+    void SetList()
+    {
+
     }
 }

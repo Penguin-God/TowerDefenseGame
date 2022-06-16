@@ -27,8 +27,10 @@ public class CsvManager : MonoBehaviour
     [ContextMenu("Type Test")]
     void TypeTest()
     {
-        foreach (FieldInfo info in GetSerializedFields(new Tests()))
-            print(CsvParsers.GetTypeName(info));
+        //GetEnumerableFromCsvTT(Resources.Load<TextAsset>("Data/Test/Test").text);
+
+        //foreach (FieldInfo info in GetSerializedFields(new Tests()))
+        //    print(CsvParsers.GetTypeName(info));
     }
 
     [SerializeField] List<Tests> testList;
@@ -104,7 +106,7 @@ public class CsvManager : MonoBehaviour
                 {
                     overlap++;
                     result.Add($"{key}{overlap}", index);
-                    //print($"{key}{overlap}");
+                    print($"{key}{overlap}");
                 }
                 else
                 {
@@ -118,6 +120,48 @@ public class CsvManager : MonoBehaviour
         }
     }
 
+    IEnumerable<T> GetEnumerableFromCsvTT<T>(string csv)
+    {
+        string[] columns = SubLastLine(csv).Split('\n');
+        Dictionary<string, int[]> indexsByFieldName = SetDict();
+
+        return columns.Skip(1)
+                      .Select(x => (T)SetFiledValue(Activator.CreateInstance<T>(), GetCells(x)));
+
+        object SetFiledValue(object obj, string[] values)
+        {
+            foreach (FieldInfo info in GetSerializedFields())
+                SetValue(obj, info, GetValues(info));
+            return obj;
+
+            // 중첩 함수
+            IEnumerable<FieldInfo> GetSerializedFields() => this.GetSerializedFields(obj).Where(x => indexsByFieldName.ContainsKey(x.Name));
+            string[] GetValues(FieldInfo info) => indexsByFieldName[info.Name].Select(x => GetCells(columns[2])[x]).ToArray();
+        }
+
+        string[] GetCells(string column) => column.Split(',').Select(x => x.Trim()).ToArray();
+         
+        Dictionary<string, int[]> SetDict()
+        {
+            return GetCells(columns[0]).Distinct().ToDictionary(x => x, x => GetIndexs(x));
+
+            int[] GetIndexs(string key)
+            {
+                int[] result = GetCells(columns[0]).Where(cell => cell == key)
+                                                   .Select(cell => Array.IndexOf(GetCells(columns[0]), cell))
+                                                   .ToArray();
+                List<int> upValueIndexs = new List<int>();
+                for (int i = 1; i < result.Length; i++)
+                {
+                    if (result[i] == result[i - 1])
+                        upValueIndexs.Add(i);
+                }
+                upValueIndexs.ForEach(x => result[x] = result[x-1] + 1);
+                return result;
+            }
+        }
+    }
+
     IEnumerable<FieldInfo> GetSerializedFields(object obj)
         => obj.GetType()
             .GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
@@ -126,6 +170,7 @@ public class CsvManager : MonoBehaviour
     bool CsvSerializedCondition(FieldInfo info) => info.IsPublic || info.GetCustomAttribute(typeof(SerializeField)) != null;
 
     void SetValue(object obj, FieldInfo info, string value) => CsvParsers.GetParser(info).SetValue(obj, info, value);
+    void SetValue(object obj, FieldInfo info, string[] values) => CsvParsers.GetParser(info).SetValue(obj, info, values);
 
     #region 레거시 코드
     T ToCsv<T>(string csv)

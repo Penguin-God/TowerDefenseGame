@@ -6,14 +6,36 @@ using System;
 
 public abstract class CsvParserBase
 {
+    public static string GetTypeName(FieldInfo info)
+    {
+
+        if (info.FieldType.Name.Contains("[]"))
+        {
+            return info.FieldType.GetElementType().Name;
+        }
+        else if (info.FieldType.Name.Contains("List"))
+        {
+            return GetMiddleString(info.FieldType.ToString(), "[", "]");
+        }
+        return "실패";
+
+        string GetMiddleString(string str, string begin, string end)
+        {
+            if (string.IsNullOrEmpty(str)) return null;
+
+            string result = null;
+            if (str.IndexOf(begin) > -1)
+            {
+                str = str.Substring(str.IndexOf(begin) + begin.Length);
+                if (str.IndexOf(end) > -1) result = str.Substring(0, str.IndexOf(end));
+                else result = str;
+            }
+            return result;
+        }
+    }
+
     public static CsvParserBase GetParser(FieldInfo info)
     {
-        Debug.Log(info.FieldType.Name);
-        if (info.FieldType.Name.Contains("[]") || info.FieldType.Name.Contains("List"))
-        {
-            Debug.LogWarning(info.Name);
-        }
-
         switch (info.FieldType.Name)
         {
             case nameof(Int32): return new CsvIntParser();

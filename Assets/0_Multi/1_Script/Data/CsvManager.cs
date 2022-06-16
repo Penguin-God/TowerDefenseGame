@@ -16,6 +16,7 @@ class Tests
     [SerializeField] bool isCheck;
     [SerializeField] UnitFlags flag;
     [SerializeField] int[] numbers;
+    [SerializeField] List<string> strList;
     [SerializeField] string test;
 
     public string Text => text;
@@ -24,14 +25,11 @@ class Tests
 
 public class CsvManager : MonoBehaviour
 {
-    [ContextMenu("아무거나 Test")]
-    void TestAction()
+    [ContextMenu("Type Test")]
+    void TypeTest()
     {
-        int[] numbers = new int[3];
-        List<string> aaaa = new List<string>();
-        int asdasd = 22;
-        print(aaaa.GetType().FullName);
-        print(numbers.GetType().FullName);
+        foreach (FieldInfo info in GetSerializedFields(new Tests()))
+            print(CsvParserBase.GetTypeName(info));
     }
 
     [SerializeField] List<Tests> testList;
@@ -107,13 +105,13 @@ public class CsvManager : MonoBehaviour
                 {
                     overlap++;
                     result.Add($"{key}{overlap}", index);
-                    print($"{key}{overlap}");
+                    //print($"{key}{overlap}");
                 }
                 else
                 {
                     result.Add(key, index);
                     overlap = 0;
-                    print(key);
+                    //print(key);
                 }
                 index++;
             }
@@ -121,7 +119,7 @@ public class CsvManager : MonoBehaviour
         }
     }
 
-    IEnumerable<FieldInfo> GetSerializedFields(object obj) 
+    IEnumerable<FieldInfo> GetSerializedFields(object obj)
         => obj.GetType()
             .GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
             .Where(x => CsvSerializedCondition(x));

@@ -38,8 +38,7 @@ public class CsvManager : MonoBehaviour
     void Test()
     {
         TextAsset textAsset = Resources.Load<TextAsset>("Data/Test/Test");
-        // testList = GetEnumerableFromCsv<Tests>(textAsset.text).ToList();
-        testList = GetEnumerableFromCsvTT<Tests>(textAsset.text).ToList();
+        testList = GetEnumerableFromCsv<Tests>(textAsset.text).ToList();
     }
 
 
@@ -76,52 +75,10 @@ public class CsvManager : MonoBehaviour
     }
 
 
-    // Load Csv
+    // LoadCsv
+    void SetValue(object obj, FieldInfo info, string[] values) => CsvParsers.GetParser(info).SetValue(obj, info, values);
+
     IEnumerable<T> GetEnumerableFromCsv<T>(string csv)
-    {
-        string[] columns = SubLastLine(csv).Split('\n');
-        Dictionary<string, int> indexByFieldName = SetDict();
-
-        return columns.Skip(1)
-                      .Select(x => (T)SetFiledValue(Activator.CreateInstance<T>(), GetCells(x)));
-
-        object SetFiledValue(object obj, string[] values)
-        {
-            foreach (FieldInfo info in GetSerializedFields())
-                SetValue(obj, info, values[indexByFieldName[info.Name]]);
-            return obj;
-
-            // 중첩 함수
-            IEnumerable<FieldInfo> GetSerializedFields() => this.GetSerializedFields(obj).Where(x => indexByFieldName.ContainsKey(x.Name)); 
-        }
-
-        string[] GetCells(string column) => column.Split(',').Select(x => x.Trim()).ToArray();
-        Dictionary<string, int> SetDict()
-        {
-            int index = 0;
-            int overlap = 0;
-            Dictionary<string, int> result = new Dictionary<string, int>();
-            foreach (string key in GetCells(columns[0]))
-            {
-                if (result.ContainsKey(key))
-                {
-                    overlap++;
-                    result.Add($"{key}{overlap}", index);
-                    print($"{key}{overlap}");
-                }
-                else
-                {
-                    result.Add(key, index);
-                    overlap = 0;
-                    //print(key);
-                }
-                index++;
-            }
-            return result;
-        }
-    }
-
-    IEnumerable<T> GetEnumerableFromCsvTT<T>(string csv)
     {
         string[] columns = SubLastLine(csv).Split('\n');
         Dictionary<string, int[]> indexsByFieldName = SetDict();
@@ -139,9 +96,7 @@ public class CsvManager : MonoBehaviour
             IEnumerable<FieldInfo> GetSerializedFields() => this.GetSerializedFields(obj).Where(x => indexsByFieldName.ContainsKey(x.Name));
             string[] GetValues(FieldInfo info) => indexsByFieldName[info.Name].Select(x => values[x]).ToArray();
         }
-
         string[] GetCells(string column) => column.Split(',').Select(x => x.Trim()).ToArray();
-         
         Dictionary<string, int[]> SetDict()
         {
             return GetCells(columns[0]).Distinct().ToDictionary(x => x, x => GetIndexs(x));
@@ -169,9 +124,6 @@ public class CsvManager : MonoBehaviour
             .Where(x => CsvSerializedCondition(x));
 
     bool CsvSerializedCondition(FieldInfo info) => info.IsPublic || info.GetCustomAttribute(typeof(SerializeField)) != null;
-
-    void SetValue(object obj, FieldInfo info, string value) => CsvParsers.GetParser(info).SetValue(obj, info, value);
-    void SetValue(object obj, FieldInfo info, string[] values) => CsvParsers.GetParser(info).SetValue(obj, info, values);
 
     #region 레거시 코드
     T ToCsv<T>(string csv)

@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Reflection;
 using System;
+using System.Linq;
 
 public interface CsvParser
 {
     void SetValue(object obj, FieldInfo info, string value);
     void SetValue(object obj, FieldInfo info, string[] values);
     Type GetParserType();
-    T GetParserValue<T>(string value);
+    object GetParserValue(string value);
 }
 
 public abstract class CsvParsers
@@ -37,10 +38,10 @@ class CsvIntParser : CsvParser
 {
     public Type GetParserType() => typeof(int);
 
-    public T GetParserValue<T>(string value)
+    public object GetParserValue(string value)
     {
         Int32.TryParse(value, out int valueInt);
-        return (T)((object)valueInt);
+        return valueInt;
     }
 
     public void SetValue(object obj, FieldInfo info, string value)
@@ -59,10 +60,10 @@ class CsvFloatParser : CsvParser
 {
     public Type GetParserType() => typeof(float);
 
-    public T GetParserValue<T>(string value)
+    public object GetParserValue(string value)
     {
         float.TryParse(value, out float valueFloat);
-        return (T)((object)valueFloat);
+        return valueFloat;
     }
 
     public void SetValue(object obj, FieldInfo info, string value)
@@ -81,10 +82,10 @@ class CsvStringParser : CsvParser
 {
     public Type GetParserType() => typeof(string);
 
-    public T GetParserValue<T>(string value)
+    public object GetParserValue(string value)
     {
 
-        return (T)((object)value);
+        return value;
     }
 
     public void SetValue(object obj, FieldInfo info, string value) => info.SetValue(obj, value);
@@ -100,10 +101,10 @@ class CsvBooleanParser : CsvParser
 {
     public Type GetParserType() => typeof(bool);
 
-    public T GetParserValue<T>(string value)
+    public object GetParserValue(string value)
     {
         bool boolValue = value == "True" || value == "TRUE";
-        return (T)((object)boolValue);
+        return boolValue;
     }
 
     public void SetValue(object obj, FieldInfo info, string value) => info.SetValue(obj, value == "True" || value == "TRUE");
@@ -119,10 +120,10 @@ class CsvUnitFlagsParser : CsvParser
 {
     public Type GetParserType() => typeof(UnitFlags);
 
-    public T GetParserValue<T>(string value)
+    public object GetParserValue(string value)
     {
         UnitFlags flags = new UnitFlags(value.Split('&')[0], value.Split('&')[1]);
-        return (T)((object)flags);
+        return flags;
     }
 
     public void SetValue(object obj, FieldInfo info, string value)
@@ -142,23 +143,49 @@ class CsvEnumerableParser : CsvParser
 {
     public Type GetParserType() => typeof(IEnumerable);
 
-    public T GetParserValue<T>(string value)
+    public object GetParserValue(string value)
     {
         throw new NotImplementedException();
     }
 
     public void SetValue(object obj, FieldInfo info, string value)
     {
-        CsvParser parser = CsvParsers.GetParser(GetElementTypeName(info));
-        Type type = parser.GetParserType();
-        //parser.GetParserValue<typeof(type)>
-        //object aa = null;
-        info.SetValue(obj, null);
+        
     }
 
     public void SetValue(object obj, FieldInfo info, string[] values)
     {
+        IEnumerable parserValue = null;
 
+        List<object> valuesList = new List<object>();
+        values.ToList().ForEach(x => Debug.Log(x));
+        values.ToList().ForEach(x => valuesList.Add(CsvParsers.GetParser(GetElementTypeName(info)).GetParserValue(x)));
+
+        if (info.FieldType.Name.Contains("[]"))
+        {
+            switch (GetElementTypeName(info))
+            {
+                case nameof(Int32): parserValue = valuesList.Select(x => (int)x).ToArray(); break;
+                case nameof(Single): parserValue = valuesList.Select(x => (float)x).ToArray(); break;
+                case nameof(Boolean): parserValue = valuesList.Select(x => (bool)x).ToArray(); break;
+                case nameof(String): parserValue = valuesList.Select(x => (string)x).ToArray(); break;
+                case nameof(UnitFlags): parserValue = valuesList.Select(x => (UnitFlags)x).ToArray(); break;
+                default: Debug.LogError("Csv 파싱 타입을 찾지 못함"); break;
+            }
+        }
+        else if (info.FieldType.Name.Contains("List"))
+        {
+            switch (GetElementTypeName(info))
+            {
+                case nameof(Int32): parserValue = valuesList.Select(x => (int)x).ToList(); break;
+                case nameof(Single): parserValue = valuesList.Select(x => (float)x).ToList(); break;
+                case nameof(Boolean): parserValue = valuesList.Select(x => (bool)x).ToList(); break;
+                case nameof(String): parserValue = valuesList.Select(x => (string)x).ToList(); break;
+                case nameof(UnitFlags): parserValue = valuesList.Select(x => (UnitFlags)x).ToList(); break;
+                default: Debug.LogError("Csv 파싱 타입을 찾지 못함"); break;
+            }
+        }
+        info.SetValue(obj, parserValue);
     }
 
     string GetElementTypeName(FieldInfo info)

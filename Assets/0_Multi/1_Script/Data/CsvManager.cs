@@ -15,7 +15,7 @@ class Tests
     [SerializeField] string text;
     [SerializeField] bool isCheck;
     [SerializeField] UnitFlags flag;
-    [SerializeField] int[] numbers;
+    public List<int> numbers;
     [SerializeField] string test;
 
     public string Text => text;
@@ -24,13 +24,13 @@ class Tests
 
 public class CsvManager : MonoBehaviour
 {
+    [SerializeField] Tests te = new Tests();
     [ContextMenu("Type Test")]
     void TypeTest()
     {
-        //GetEnumerableFromCsvTT(Resources.Load<TextAsset>("Data/Test/Test").text);
-
-        //foreach (FieldInfo info in GetSerializedFields(new Tests()))
-        //    print(CsvParsers.GetTypeName(info));
+        object[] asd = new object[2] { 123, 1234 };
+        IEnumerable aaa = asd.Select(x => (int)x).ToArray();
+        te.GetType().GetField("numbers").SetValue(te, aaa);
     }
 
     [SerializeField] List<Tests> testList;
@@ -38,7 +38,8 @@ public class CsvManager : MonoBehaviour
     void Test()
     {
         TextAsset textAsset = Resources.Load<TextAsset>("Data/Test/Test");
-        testList = GetEnumerableFromCsv<Tests>(textAsset.text).ToList();
+        // testList = GetEnumerableFromCsv<Tests>(textAsset.text).ToList();
+        testList = GetEnumerableFromCsvTT<Tests>(textAsset.text).ToList();
     }
 
 
@@ -136,7 +137,7 @@ public class CsvManager : MonoBehaviour
 
             // 중첩 함수
             IEnumerable<FieldInfo> GetSerializedFields() => this.GetSerializedFields(obj).Where(x => indexsByFieldName.ContainsKey(x.Name));
-            string[] GetValues(FieldInfo info) => indexsByFieldName[info.Name].Select(x => GetCells(columns[2])[x]).ToArray();
+            string[] GetValues(FieldInfo info) => indexsByFieldName[info.Name].Select(x => values[x]).ToArray();
         }
 
         string[] GetCells(string column) => column.Split(',').Select(x => x.Trim()).ToArray();

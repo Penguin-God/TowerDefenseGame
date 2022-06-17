@@ -38,7 +38,7 @@ public class CsvManager : MonoBehaviour
     void Test()
     {
         TextAsset textAsset = Resources.Load<TextAsset>("Data/Test/Test");
-        testList = GetEnumerableFromCsv<Tests>(textAsset.text).ToList();
+        testList = CsvUtility.GetEnumerableFromCsv<Tests>(textAsset.text).ToList();
     }
 
 

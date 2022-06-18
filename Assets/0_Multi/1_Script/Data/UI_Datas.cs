@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
+using System.Linq;
 
 [Serializable]
 public struct UI_UnitTrackerData
@@ -27,31 +27,16 @@ public struct UI_UnitTrackerData
 public struct UI_UnitWindowData
 {
     [SerializeField] UnitFlags _unitFlags;
-    [SerializeField] List<CombineData> _combineDatas;
+    [SerializeField] List<UnitFlags> _combineUnitFalgs;
     [SerializeField] string _description;
 
-    public UI_UnitWindowData(UnitFlags unitFlags, CombineData combineData, string description)
-    {
-        _unitFlags = unitFlags;
-        _description = description;
-        _combineDatas = new List<CombineData>();
-        _combineDatas.Add(combineData);
-    }
-
-    public UI_UnitWindowData(UnitFlags unitFlags, List<CombineData> combineDatas , string description)
-    {
-        _unitFlags = unitFlags;
-        _description = description;
-        _combineDatas = combineDatas;
-    }
-
     public UnitFlags UnitFlags => _unitFlags;
-    public IReadOnlyList<CombineData> CombineDatas => _combineDatas;
+    public IReadOnlyList<CombineData> CombineDatas => _combineUnitFalgs.Select(x => Multi_Managers.Data.CombineDataByUnitFlags[x]).ToList();
     public string Description => _description;
 }
 
 [Serializable]
-public class UI_UnitWindowDatas : ILoader<UnitFlags, UI_UnitWindowData>
+public class UI_UnitWindowDatas : ILoader<UnitFlags, UI_UnitWindowData>, ICsvLoader<UnitFlags, UI_UnitWindowData>
 {
     [SerializeField] List<UI_UnitWindowData> SerializtionDatas = new List<UI_UnitWindowData>();
 
@@ -69,5 +54,10 @@ public class UI_UnitWindowDatas : ILoader<UnitFlags, UI_UnitWindowData>
     public void LoadCSV(TextAsset csv)
     {
         throw new NotImplementedException();
+    }
+
+    public Dictionary<UnitFlags, UI_UnitWindowData> MakeDict(string csv)
+    {
+        return CsvUtility.GetEnumerableFromCsv<UI_UnitWindowData>(csv).ToDictionary(x => x.UnitFlags, x => x);
     }
 }

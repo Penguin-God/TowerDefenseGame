@@ -52,7 +52,7 @@ class EnumerableTypeParser : CsvParser
             if (info.FieldType.Name.Contains("[]"))
                 return info.FieldType.GetElementType().Name;
             else if (info.FieldType.Name.Contains("List"))
-                return info.FieldType.ToString().GetMiddleString("[", "]").Replace("System.", "");
+                return info.FieldType.ToString().GetMiddleString("[", "]");
 
             return "";
         }
@@ -106,6 +106,7 @@ class PrimitiveTypeParser : CsvParser
 {
     public object GetParserValue(string typeName, string value)
     {
+        typeName = typeName.Replace("System.", "");
         switch (typeName)
         {
             case nameof(Int32): return new CsvIntParser().GetParserValue(value);
@@ -155,6 +156,20 @@ class CsvUnitFlagsParser : CsvPrimitiveTypeParser
     public object GetParserValue(string value)
     {
         Debug.Assert(value.Split('&').Length == 2, $"UnitFlags 데이터 입력 잘못됨 : {value}");
-        return new UnitFlags(value.Split('&')[0], value.Split('&')[1]); ;
+        return new UnitFlags(value.Split('&')[0], value.Split('&')[1]);
+    }
+}
+
+class CsvPairParser : CsvPrimitiveTypeParser
+{
+    public object GetParserValue(string value)
+    {
+        return null;
+    }
+
+    public object GetParserValue(string value, Type type)
+    {
+        
+        return null;
     }
 }

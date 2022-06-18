@@ -10,169 +10,62 @@ using System.IO;
 [Serializable]
 class Tests
 {
-    public int number;
-    public float numberFloat;
-    [SerializeField] string text;
-    [SerializeField] bool isCheck;
-    [SerializeField] UnitFlags flag;
-    public List<int> numbers;
-    [SerializeField] string test;
+    [SerializeField] KeyValuePair<int, string> pair;
+    [SerializeField] Dictionary<UnitFlags, int> dict;
 
-    public string Text => text;
-    public bool IsCheck => isCheck;
+    public void printData()
+    {
+        Debug.Log($"{pair.Key} :: {pair.Value}");
+
+        foreach (var item in dict)
+        {
+            Debug.Log($"{item.Key.ColorNumber} {item.Key.ClassNumber} :: {item.Value}");
+        }
+    }
+}
+
+[Serializable]
+class Skill
+{
+    [SerializeField] string skillName;
+    [SerializeField] int id;
+    [SerializeField] bool hasSkill;
+
+    public Skill(string name)
+    {
+        skillName = name;
+    }
 }
 
 public class CsvManager : MonoBehaviour
 {
-    [SerializeField] Tests te = new Tests();
-    [ContextMenu("Type Test")]
-    void TypeTest()
-    {
-        object[] asd = new object[2] { 123, 1234 };
-        IEnumerable aaa = asd.Select(x => (int)x).ToArray();
-        te.GetType().GetField("numbers").SetValue(te, aaa);
-    }
-
-    [SerializeField] List<Tests> testList;
-    [ContextMenu("Read Test")]
+    [SerializeField] CombineCondition[] combineConditions;
+    
+    [ContextMenu("Test")]
     void Test()
     {
-        TextAsset textAsset = Resources.Load<TextAsset>("Data/Test/Test");
-        testList = CsvUtility.GetEnumerableFromCsv<Tests>(textAsset.text).ToList();
+        KeyValuePair<int, string> pair = new KeyValuePair<int, string>();
+        print(pair.GetType().ToString().GetMiddleString("[", "]"));
+
+        Dictionary<UnitFlags, int> dict = new Dictionary<UnitFlags, int>();
+        print(dict.GetType().ToString().GetMiddleString("[", "]"));
+
+        Type aaa = new KeyValuePair<int, string>(1, "22").GetType();
+        // pair = aaa.GetConstructor(new[] { typeof(int), typeof(int) });
+        print($"{pair.Key}, {pair.Value}");
     }
 
-
-    [SerializeField, TextArea] string output;
-    [ContextMenu("Write Test")]
-    void TestToCsv()
+    [SerializeField] List<Skill> Skills;
+    void TypeTest()
     {
-        output = EnumerableToCsv(testList);
-        SaveCsv(EnumerableToCsv(testList), "Test");
+        // csv 읽어오기
+        TextAsset textAsset = Resources.Load<TextAsset>("Data/SkillData");
+        Skills = CsvUtility.GetEnumerableFromCsv<Skill>(textAsset.text).ToList();
+
+        // 저장 버전 1
+        string csvText = CsvUtility.EnumerableToCsv(Skills);
+        CsvUtility.SaveCsv(csvText, "SkillData");
+        // 저장 버전 2
+        CsvUtility.SaveCsv(Skills, "SkillData");
     }
-
-    string SubLastLine(string text) => text.Substring(0, text.Length - 1);
-
-    string EnumerableToCsv<T>(IEnumerable<T> datas)
-    {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.AppendLine(string.Join(",", GetSerializedFields(datas.First()).Select(x => x.Name)));
-
-        foreach (var data in datas)
-        {
-            IEnumerable<string> values = GetSerializedFields(data).Select(x => x.GetValue(data).ToString());
-            stringBuilder.AppendLine(string.Join(",", values));
-        }
-
-        return SubLastLine(stringBuilder.ToString());
-    }
-
-    void SaveCsv(string text, string fileName)
-    {
-        Stream fileStream = new FileStream($"Assets/0_Multi/Resources/Data/Test/{fileName}.csv", FileMode.Create, FileAccess.Write);
-        StreamWriter outStream = new StreamWriter(fileStream, Encoding.UTF8);
-        outStream.Write(text);
-        outStream.Close();
-    }
-
-
-    // LoadCsv
-    void SetValue(object obj, FieldInfo info, string[] values) => CsvParsers.GetParser(info).SetValue(obj, info, values);
-
-    IEnumerable<T> GetEnumerableFromCsv<T>(string csv)
-    {
-        string[] columns = SubLastLine(csv).Split('\n');
-        Dictionary<string, int[]> indexsByFieldName = SetDict();
-
-        return columns.Skip(1)
-                      .Select(x => (T)SetFiledValue(Activator.CreateInstance<T>(), GetCells(x)));
-
-        object SetFiledValue(object obj, string[] values)
-        {
-            foreach (FieldInfo info in GetSerializedFields())
-                SetValue(obj, info, GetValues(info));
-            return obj;
-
-            // 중첩 함수
-            IEnumerable<FieldInfo> GetSerializedFields() => this.GetSerializedFields(obj).Where(x => indexsByFieldName.ContainsKey(x.Name));
-            string[] GetValues(FieldInfo info) => indexsByFieldName[info.Name].Select(x => values[x]).ToArray();
-        }
-        string[] GetCells(string column) => column.Split(',').Select(x => x.Trim()).ToArray();
-        Dictionary<string, int[]> SetDict()
-        {
-            return GetCells(columns[0]).Distinct().ToDictionary(x => x, x => GetIndexs(x));
-
-            int[] GetIndexs(string key)
-            {
-                int[] result = GetCells(columns[0]).Where(cell => cell == key)
-                                                   .Select(cell => Array.IndexOf(GetCells(columns[0]), cell))
-                                                   .ToArray();
-                List<int> upValueIndexs = new List<int>();
-                for (int i = 1; i < result.Length; i++)
-                {
-                    if (result[i] == result[i - 1])
-                        upValueIndexs.Add(i);
-                }
-                upValueIndexs.ForEach(x => result[x] = result[x-1] + 1);
-                return result;
-            }
-        }
-    }
-
-    IEnumerable<FieldInfo> GetSerializedFields(object obj)
-        => obj.GetType()
-            .GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-            .Where(x => CsvSerializedCondition(x));
-
-    bool CsvSerializedCondition(FieldInfo info) => info.IsPublic || info.GetCustomAttribute(typeof(SerializeField)) != null;
-
-    #region 레거시 코드
-    T ToCsv<T>(string csv)
-    {
-        Dictionary<string, string> vlaueByKey = new Dictionary<string, string>();
-
-        string[] colums = csv.Split('\n');
-        string[] keys = colums[0].Split(',');
-        string[] values = colums[1].Split(',');
-        keys = keys.Select(x => x.Trim()).ToArray();
-        values = values.Select(x => x.Trim()).ToArray();
-
-        SetValueByKey(vlaueByKey, keys, values);
-
-        object t = Activator.CreateInstance(typeof(T));
-        Type type = t.GetType();
-        SetFiledValue(vlaueByKey, keys, t, type);
-
-        return (T)t;
-    }
-
-    void SetValueByKey(Dictionary<string, string> vlaueByKey, string[] keys, string[] values)
-    {
-        for (int i = 0; i < keys.Length; i++)
-            vlaueByKey.Add(keys[i], values[i]);
-    }
-
-    void SetFiledValue(Dictionary<string, string> vlaueByKey, string[] keys, object t, Type type)
-    {
-        foreach (FieldInfo info in type.GetFields().Where(x => x.IsPublic && keys.Contains(x.Name)))
-        {
-            vlaueByKey.TryGetValue(info.Name, out string previousValue);
-
-            switch (info.FieldType.ToString())
-            {
-                case "System.Int32":
-                    Int32.TryParse(previousValue, out int valueInt);
-                    info.SetValue(t, valueInt);
-                    break;
-                case "System.Single":
-                    float.TryParse(previousValue, out float valueFloat);
-                    info.SetValue(t, valueFloat);
-                    break;
-                case "System.String":
-                    info.SetValue(t, previousValue);
-                    break;
-                default: break;
-            }
-        }
-    }
-    #endregion 레거시 코드
 }

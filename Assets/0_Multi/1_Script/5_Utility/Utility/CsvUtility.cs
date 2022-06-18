@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Reflection;
 using System;
 using System.Linq;
-
+using System.Reflection;
+using System.Text;
+using System.IO;
 public static class CsvUtility
 {
     public static IEnumerable<T> GetEnumerableFromCsv<T>(string csv)
@@ -54,4 +55,35 @@ public static class CsvUtility
             .GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
             .Where(x => CsvSerializedCondition(x));
     static bool CsvSerializedCondition(FieldInfo info) => info.IsPublic || info.GetCustomAttribute(typeof(SerializeField)) != null;
+
+
+    public static string EnumerableToCsv<T>(IEnumerable<T> datas)
+    {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.AppendLine(string.Join(",", GetSerializedFields(datas.First()).Select(x => x.Name)));
+
+        foreach (var data in datas)
+        {
+            IEnumerable<string> values = GetSerializedFields(data).Select(x => x.GetValue(data).ToString());
+            stringBuilder.AppendLine(string.Join(",", values));
+        }
+
+        return SubLastLine(stringBuilder.ToString());
+    }
+
+    public static void SaveCsv(string text, string fileName)
+    {
+        Stream fileStream = new FileStream($"Assets/0_Multi/Resources/Data/{fileName}.csv", FileMode.Create, FileAccess.Write);
+        StreamWriter outStream = new StreamWriter(fileStream, Encoding.UTF8);
+        outStream.Write(text);
+        outStream.Close();
+    }
+
+    public static void SaveCsv<T>(IEnumerable<T> enumerable, string fileName)
+    {
+        Stream fileStream = new FileStream($"Assets/0_Multi/Resources/Data/{fileName}.csv", FileMode.Create, FileAccess.Write);
+        StreamWriter outStream = new StreamWriter(fileStream, Encoding.UTF8);
+        outStream.Write(EnumerableToCsv<T>(enumerable));
+        outStream.Close();
+    }
 }

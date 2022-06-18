@@ -75,22 +75,22 @@ public class Multi_UnitManager : MonoBehaviour
     public void Combine(CombineData data)
     {
         print($"컴바인 시도 : 색깔 : {data.UnitFlags.ColorNumber}, 클래스 : {data.UnitFlags.ClassNumber}");
-        if (CheckCombineable(data.Conditions))
+        if (CheckCombineable(data.Condition))
         {
-            SacrificedUnit_ForCombine(data.Conditions);
+            SacrificedUnit_ForCombine(data.Condition);
             Multi_SpawnManagers.NormalUnit.Spawn(data.UnitFlags);
         }
     }
 
-    bool CheckCombineable(IReadOnlyList<CombineCondition> conditions)
-        => conditions.All(x => _unitListByUnitFlags.ContainsKey(x.UnitFlags) && _unitListByUnitFlags[x.UnitFlags].Count >= x.Count);
+    bool CheckCombineable(CombineCondition conditions)
+        => conditions.UnitFlagsCountPair.All(x => _unitListByUnitFlags.ContainsKey(x.Key) && _unitListByUnitFlags[x.Key].Count >= x.Value);
 
-    void SacrificedUnit_ForCombine(IReadOnlyList<CombineCondition> conditions)
-        => conditions.ToList().ForEach(x => SacrificedUnit_ForCombine(x));
     void SacrificedUnit_ForCombine(CombineCondition condition)
+        => condition.UnitFlagsCountPair.ToList().ForEach(x => SacrificedUnit_ForCombine(x.Key, x.Value));
+    void SacrificedUnit_ForCombine(UnitFlags unitFlag, int count)
     {
-        Multi_TeamSoldier[] offerings = _unitListByUnitFlags[condition.UnitFlags].ToArray();
-        for (int i = 0; i < condition.Count; i++)
+        Multi_TeamSoldier[] offerings = _unitListByUnitFlags[unitFlag].ToArray();
+        for (int i = 0; i < count; i++)
             offerings[i].Dead();
     }
 

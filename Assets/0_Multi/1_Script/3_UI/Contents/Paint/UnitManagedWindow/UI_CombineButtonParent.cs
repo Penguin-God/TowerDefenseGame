@@ -17,7 +17,7 @@ public class UI_CombineButtonParent : Multi_UI_Base
             _combineButtons[i].gameObject.SetActive(true);
 
             // 진짜 이유는 1도 모르겠지만 datas[i] 형식으로 넣어서 사용하면 에러 뜸
-            CombineData combineData = new CombineData(datas[i].UnitFlags.ColorNumber, datas[i].UnitFlags.ClassNumber, datas[i].KoearName, datas[i].Conditions.ToList());
+            CombineData combineData = new CombineData(); //new CombineData(datas[i].UnitFlags.ColorNumber, datas[i].UnitFlags.ClassNumber, datas[i].KoearName, datas[i].Conditions.ToList());
             _combineButtons[i].onClick.AddListener(() => Combine(combineData));
             _combineButtons[i].GetComponentInChildren<Text>(true).text = datas[i].KoearName;
         }

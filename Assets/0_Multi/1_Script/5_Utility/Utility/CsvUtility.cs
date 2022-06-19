@@ -71,17 +71,17 @@ public static class CsvUtility
         return SubLastLine(stringBuilder.ToString());
     }
 
-    public static void SaveCsv(string text, string fileName)
+    public static void SaveCsv(string text, string filePath)
     {
-        Stream fileStream = new FileStream($"Assets/0_Multi/Resources/Data/{fileName}.csv", FileMode.Create, FileAccess.Write);
+        Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
         StreamWriter outStream = new StreamWriter(fileStream, Encoding.UTF8);
         outStream.Write(text);
         outStream.Close();
     }
 
-    public static void SaveCsv<T>(IEnumerable<T> enumerable, string fileName)
+    public static void SaveCsv<T>(IEnumerable<T> enumerable, string filePath)
     {
-        Stream fileStream = new FileStream($"Assets/0_Multi/Resources/Data/{fileName}.csv", FileMode.Create, FileAccess.Write);
+        Stream fileStream = new FileStream($"{filePath}.csv", FileMode.Create, FileAccess.Write);
         StreamWriter outStream = new StreamWriter(fileStream, Encoding.UTF8);
         outStream.Write(EnumerableToCsv<T>(enumerable));
         outStream.Close();

@@ -27719,8 +27719,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6ffaaa0cdfafd48828228533a5ccb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combineConditions: []
-  Skills: []
+  tests:
+  - list: 
+  - list: 
+  - list: 
+  Skills:
+  - skillName: "\uD30C\uC774\uC5B4\uBCFC"
+    id: 1
+    hasSkill: 0
 --- !u!1001 &757368176
 PrefabInstance:
   m_ObjectHideFlags: 0

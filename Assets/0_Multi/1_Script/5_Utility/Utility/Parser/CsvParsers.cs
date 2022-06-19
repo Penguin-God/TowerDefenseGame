@@ -16,6 +16,8 @@ enum EnumerableType
 public interface CsvPrimitiveTypeParser
 {
     object GetParserValue(string value);
+
+    IEnumerable GetParserEnumerable(string[] values);
 }
 
 public interface CsvParser
@@ -33,6 +35,21 @@ public abstract class CsvParsers
             return new PrimitiveTypeParser();
 
         bool IsEnumerable(string typeName) => typeName.Contains("[]") || typeName.Contains("List");
+    }
+
+    public static CsvPrimitiveTypeParser GetPrimitiveParser(string typeName)
+    {
+        typeName = typeName.Replace("System.", "");
+        switch (typeName)
+        {
+            case nameof(Int32): return new CsvIntParser();
+            case nameof(Single): return new CsvFloatParser();
+            case nameof(Boolean): return new CsvBooleanParser();
+            case nameof(String): return new CsvStringParser();
+            case nameof(UnitFlags): return new CsvUnitFlagsParser();
+            default: Debug.LogError("Csv 파싱 타입을 찾지 못함"); break;
+        }
+        return null;
     }
 }
 
@@ -87,17 +104,19 @@ class EnumerableTypeParser : CsvParser
         }
         else if (_type == EnumerableType.List)
         {
-            switch (_elementTypeName)
-            {
-                case nameof(Int32): parserValue = valuesList.Select(x => (int)x).ToList(); break;
-                case nameof(Single): parserValue = valuesList.Select(x => (float)x).ToList(); break;
-                case nameof(Boolean): parserValue = valuesList.Select(x => (bool)x).ToList(); break;
-                case nameof(String): parserValue = valuesList.Select(x => (string)x).ToList(); break;
-                case nameof(UnitFlags): parserValue = valuesList.Select(x => (UnitFlags)x).ToList(); break;
-                default: Debug.LogError("Csv 파싱 타입을 찾지 못함"); break;
-            }
+            new CsvListParser().SetValue(obj, info, values, _elementTypeName);
         }
         info.SetValue(obj, parserValue);
+    }
+}
+
+public class CsvListParser
+{
+    public void SetValue(object obj, FieldInfo info, string[] values, string typeName)
+    {
+        ConstructorInfo constructor = info.FieldType.GetConstructors()[2];
+        Debug.Log(CsvParsers.GetPrimitiveParser(typeName).GetParserEnumerable(values).GetEnumerator().Current);
+        info.SetValue(obj, constructor.Invoke(new object[] { CsvParsers.GetPrimitiveParser(typeName).GetParserEnumerable(values) }));
     }
 }
 
@@ -130,6 +149,8 @@ class CsvIntParser : CsvPrimitiveTypeParser
         Int32.TryParse(value, out int valueInt);
         return valueInt;
     }
+
+    public IEnumerable GetParserEnumerable(string[] value) => value.Select(x => (int)GetParserValue(x));
 }
 
 class CsvFloatParser : CsvPrimitiveTypeParser
@@ -139,16 +160,20 @@ class CsvFloatParser : CsvPrimitiveTypeParser
         float.TryParse(value, out float valueFloat);
         return valueFloat;
     }
+
+    public IEnumerable GetParserEnumerable(string[] value) => value.Select(x => (float)GetParserValue(x));
 }
 
 class CsvStringParser : CsvPrimitiveTypeParser
 {
     public object GetParserValue(string value) => value;
+    public IEnumerable GetParserEnumerable(string[] value) => value.AsEnumerable();
 }
 
 class CsvBooleanParser : CsvPrimitiveTypeParser
 {
     public object GetParserValue(string value) => value == "True" || value == "TRUE";
+    public IEnumerable GetParserEnumerable(string[] value) => value.Select(x => (bool)GetParserValue(x));
 }
 
 class CsvUnitFlagsParser : CsvPrimitiveTypeParser
@@ -158,10 +183,17 @@ class CsvUnitFlagsParser : CsvPrimitiveTypeParser
         Debug.Assert(value.Split('&').Length == 2, $"UnitFlags 데이터 입력 잘못됨 : {value}");
         return new UnitFlags(value.Split('&')[0], value.Split('&')[1]);
     }
+
+    public IEnumerable GetParserEnumerable(string[] value) => value.Select(x => (UnitFlags)GetParserValue(x));
 }
 
 class CsvPairParser : CsvPrimitiveTypeParser
 {
+    public IEnumerable GetParserEnumerable(string[] values)
+    {
+        throw new NotImplementedException();
+    }
+
     public object GetParserValue(string value)
     {
         return null;

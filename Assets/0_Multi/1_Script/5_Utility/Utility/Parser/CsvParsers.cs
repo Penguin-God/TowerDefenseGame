@@ -29,7 +29,7 @@ public abstract class CsvParsers
 {
     public static CsvParser GetParser(FieldInfo info)
     {
-        Debug.Log(IsEnumerable(info.FieldType.Name));
+        // Debug.Log(IsEnumerable(info.FieldType.Name));
         if (IsEnumerable(info.FieldType.Name))
             return new EnumerableTypeParser(info);
         else

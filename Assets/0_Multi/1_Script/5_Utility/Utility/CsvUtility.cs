@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.IO;
+
 public static class CsvUtility
 {
     public static IEnumerable<T> GetEnumerableFromCsv<T>(string csv)
@@ -17,7 +18,7 @@ public static class CsvUtility
         object SetFiledValue(object obj, string[] values)
         {
             Dictionary<string, int[]> indexsByFieldName = SetDict();
-
+            
             foreach (FieldInfo info in GetSerializedFields())
                 SetValue(obj, info, GetValues(info));
             return obj;

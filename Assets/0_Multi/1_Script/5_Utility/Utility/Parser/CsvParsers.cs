@@ -29,6 +29,7 @@ public abstract class CsvParsers
 {
     public static CsvParser GetParser(FieldInfo info)
     {
+        Debug.Log(IsEnumerable(info.FieldType.Name));
         if (IsEnumerable(info.FieldType.Name))
             return new EnumerableTypeParser(info);
         else
@@ -104,7 +105,16 @@ class EnumerableTypeParser : CsvParser
         }
         else if (_type == EnumerableType.List)
         {
-            new CsvListParser().SetValue(obj, info, values, _elementTypeName);
+            switch (_elementTypeName)
+            {
+                case nameof(Int32): parserValue = valuesList.Select(x => (int)x).ToList(); break;
+                case nameof(Single): parserValue = valuesList.Select(x => (float)x).ToList(); break;
+                case nameof(Boolean): parserValue = valuesList.Select(x => (bool)x).ToList(); break;
+                case nameof(String): parserValue = valuesList.Select(x => (string)x).ToList(); break;
+                case nameof(UnitFlags): parserValue = valuesList.Select(x => (UnitFlags)x).ToList(); break;
+                default: Debug.LogError("Csv 파싱 타입을 찾지 못함"); break;
+            }
+            // new CsvListParser().SetValue(obj, info, values, _elementTypeName);
         }
         info.SetValue(obj, parserValue);
     }

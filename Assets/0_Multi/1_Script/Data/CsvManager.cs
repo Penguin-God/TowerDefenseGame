@@ -60,30 +60,25 @@ public class CsvManager : MonoBehaviour
 
 
     [Serializable]
-    class Skill
+    class Skills
     {
-        [SerializeField] string skillName;
-        [SerializeField] int id;
-        [SerializeField] bool hasSkill;
-
-        public Skill(string name)
-        {
-            skillName = name;
-        }
+        public string skillName;
+        public int id;
+        public bool hasSkill;
     }
 
-    [SerializeField] List<Skill> Skills;
+    [SerializeField] List<Skills> Skillss;
     [ContextMenu("save")]
     void TypeTest()
     {
         // csv 읽어오기
-        TextAsset textAsset = Resources.Load<TextAsset>("Data/SkillData");
-        Skills = CsvUtility.GetEnumerableFromCsv<Skill>(textAsset.text).ToList();
+        TextAsset textAsset = Resources.Load<TextAsset>("Data/SkillData/SkillData");
+        Skillss = CsvUtility.GetEnumerableFromCsv<Skills>(textAsset.text).ToList();
 
         // 저장 버전 1
-        string csvText = CsvUtility.EnumerableToCsv(Skills);
-        CsvUtility.SaveCsv(csvText, "Assets/0_Multi/Resources/Data/SkillData/SkillData.csv");
-        // 저장 버전 2
-        CsvUtility.SaveCsv(Skills, "SkillData");
+        //string csvText = CsvUtility.EnumerableToCsv(Skills);
+        //CsvUtility.SaveCsv(csvText, "Assets/0_Multi/Resources/Data/SkillData/SkillData.csv");
+        //// 저장 버전 2
+        //CsvUtility.SaveCsv(Skills, "SkillData");
     }
 }

@@ -12,12 +12,6 @@ public class EX : MonoBehaviour
         [SerializeField] string skillName;
         [SerializeField] int id;
         [SerializeField] bool hasSkill;
-
-        public Skill(string name)
-        {
-            skillName = name;
-        }
-
     }
 
     [SerializeField] List<Skill> Skills;

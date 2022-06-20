@@ -1,68 +1,32 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class EX : MonoBehaviour
 {
-
-	//static EX _instance;
-	//public static EX Instance
-	//{
-	//	get
-	//	{
-	//		if (_instance == null)
-	//			_instance = new EX();
-	//		return _instance;
-	//	}
-	//}
-
-	public static List<Dictionary<string, object>> _data = null;
-
-    public static List<Dictionary<string, object>> ReadEX(string file_name)
+    [Serializable]
+    class Skill
     {
-        List<Dictionary<string, object>> data = CSVReader.Read(file_name);
+        [SerializeField] string skillName;
+        [SerializeField] int id;
+        [SerializeField] bool hasSkill;
 
-        _data = data;
+        public Skill(string name)
+        {
+            skillName = name;
+        }
 
-        return _data;
     }
 
-	public static void test()
+    [SerializeField] List<Skill> Skills;
+    [ContextMenu("save")]
+    public void Testf()
     {
-		if (_data == null)
-        {
-			Debug.Log("_data is null");
-			return;
-        }
-		for (var i = 0; i < _data.Count; i++)
-		{
-			Debug.Log("index " + (i).ToString() + " : " + _data[i]["Name"] + " " + _data[i]["Age"]);
-		}
-	}
+        TextAsset textAsset = Resources.Load<TextAsset>("Data/SkillData/SkillData");
+        Skills = CsvUtility.GetEnumerableFromCsv<Skill>(textAsset.text).ToList();
 
-	static int Check(string name)
-    {
-		for (var i = 0; i < _data.Count; i++)
-        {
-			if ((string)_data[i]["Name"] == name)
-            {
-				return i;
-            }
-        }
-		return -1;
-
-	}
-
-	public static void SetValue(string name, string column, string value)
-    {
-		int _row = Check(name);
-		_data[_row][column] = value;
-
-	}
-
-	public static string GetValue(string name, string column)
-	{
-		int _row = Check(name);
-		return (string)_data[_row][column];
-	}
+        // Debug.Log(Skills[0]);
+    }
 }

@@ -27720,11 +27720,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tests:
-  - list: 
-  - list: 
-  - list: 
+  - list:
+    - 13
+    - 213
+    - 124
+  - list:
+    - 41
+    - 222
+    - 241
+  - list:
+    - 22
+    - 4335
+    - 123154
   Skillss:
-  - skillName: "\uD30C\uC774\uC5B4\uBCFC"
+  - skillName: "\uBC14\uAFB8\uAE30"
     id: 1
     hasSkill: 0
 --- !u!1001 &757368176

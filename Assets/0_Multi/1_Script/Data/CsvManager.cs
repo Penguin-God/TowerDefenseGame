@@ -8,12 +8,11 @@ using System.Text;
 using System.IO;
 
 [Serializable]
-class Tests
+public class Tests
 {
     public KeyValuePair<int, string> pair;
     public Dictionary<UnitFlags, int> dict;
-    public List<int> list;
-
+    public float[] list;
     public void printData()
     {
         Debug.Log($"pair : {pair.Key} :: {pair.Value}");
@@ -30,21 +29,17 @@ class Tests
 
 public class CsvManager : MonoBehaviour
 {
-    [SerializeField] List<Tests> tests;
+    [SerializeField] List<Tests> tests = new List<Tests>();
     [ContextMenu("Test")]
     void Test()
     {
-        IEnumerable a;
-        //tests = new List<Tests>(a);
         TextAsset textAsset = Resources.Load<TextAsset>("Data/Test/Test");
         tests = CsvUtility.GetEnumerableFromCsv<Tests>(textAsset.text).ToList();
 
-        KeyValuePair<int, string> pair = new KeyValuePair<int, string>();
-        //print(pair.GetType().ToString().GetMiddleString("[", "]"));
 
         Dictionary<UnitFlags, int> dict = new Dictionary<UnitFlags, int>();
         //print(dict.GetType().ToString().GetMiddleString("[", "]"));
-        //new CsvListParser().SetValue(tests, tests.GetType().GetField("list"), new string[] {"11","22","33" });
+        //new CsvListParser().SetValue(tests[0], tests[0].GetType().GetField("list"), new string[] {"11","22","33" }, "Int32");
 
         //object a = 22;
         //object b = "안녕세상";

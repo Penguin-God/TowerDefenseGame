@@ -18,6 +18,7 @@ public interface CsvPrimitiveTypeParser
     object GetParserValue(string value);
 
     IEnumerable GetParserEnumerable(string[] values);
+    Type GetParserType();
 }
 
 public interface CsvParser
@@ -62,7 +63,7 @@ class EnumerableTypeParser : CsvParser
     public EnumerableTypeParser(FieldInfo info)
     {
         _typeName = info.FieldType.Name;
-        _elementTypeName = GetElementTypeName();
+        _elementTypeName = GetElementTypeName().Replace("System.", "");
         _type = GetEnumableType(_typeName);
 
         string GetElementTypeName()
@@ -85,38 +86,36 @@ class EnumerableTypeParser : CsvParser
 
     public void SetValue(object obj, FieldInfo info, string[] values)
     {
-        IEnumerable parserValue = null;
-
-        List<object> valuesList = new List<object>();
-        values.ToList().ForEach(x => valuesList.Add(new PrimitiveTypeParser().GetParserValue(_elementTypeName, x)));
-
-        // TODO : 타입을 추가하면 아래 두 부분을 바꿔야하는게 마음에 안듬. 방법 찾아보기
         if (_type == EnumerableType.Array)
         {
-            switch (_elementTypeName)
-            {
-                case nameof(Int32): parserValue = valuesList.Select(x => (int)x).ToArray(); break;
-                case nameof(Single): parserValue = valuesList.Select(x => (float)x).ToArray(); break;
-                case nameof(Boolean): parserValue = valuesList.Select(x => (bool)x).ToArray(); break;
-                case nameof(String): parserValue = valuesList.Select(x => (string)x).ToArray(); break;
-                case nameof(UnitFlags): parserValue = valuesList.Select(x => (UnitFlags)x).ToArray(); break;
-                default: Debug.LogError("Csv 파싱 타입을 찾지 못함"); break;
-            }
+            new CsvArrayParser().SetValue(obj, info, values, _elementTypeName);
+            //ConstructorInfo constructor = List<object>.FieldType.GetConstructors()[2];
+            //info.SetValue(obj, CsvParsers.GetPrimitiveParser(_elementTypeName).GetParserEnumerable(values).);
+
+            //switch (_elementTypeName)
+            //{
+            //    case nameof(Int32): parserValue = valuesList.Select(x => (int)x).ToArray(); break;
+            //    case nameof(Single): parserValue = valuesList.Select(x => (float)x).ToArray(); break;
+            //    case nameof(Boolean): parserValue = valuesList.Select(x => (bool)x).ToArray(); break;
+            //    case nameof(String): parserValue = valuesList.Select(x => (string)x).ToArray(); break;
+            //    case nameof(UnitFlags): parserValue = valuesList.Select(x => (UnitFlags)x).ToArray(); break;
+            //    default: Debug.LogError("Csv 파싱 타입을 찾지 못함"); break;
+            //}
         }
         else if (_type == EnumerableType.List)
         {
-            switch (_elementTypeName)
-            {
-                case nameof(Int32): parserValue = valuesList.Select(x => (int)x).ToList(); break;
-                case nameof(Single): parserValue = valuesList.Select(x => (float)x).ToList(); break;
-                case nameof(Boolean): parserValue = valuesList.Select(x => (bool)x).ToList(); break;
-                case nameof(String): parserValue = valuesList.Select(x => (string)x).ToList(); break;
-                case nameof(UnitFlags): parserValue = valuesList.Select(x => (UnitFlags)x).ToList(); break;
-                default: Debug.LogError("Csv 파싱 타입을 찾지 못함"); break;
-            }
-            // new CsvListParser().SetValue(obj, info, values, _elementTypeName);
+            
+            //switch (_elementTypeName)
+            //{
+            //    case nameof(Int32): parserValue = valuesList.Select(x => (int)x).ToList(); break;
+            //    case nameof(Single): parserValue = valuesList.Select(x => (float)x).ToList(); break;
+            //    case nameof(Boolean): parserValue = valuesList.Select(x => (bool)x).ToList(); break;
+            //    case nameof(String): parserValue = valuesList.Select(x => (string)x).ToList(); break;
+            //    case nameof(UnitFlags): parserValue = valuesList.Select(x => (UnitFlags)x).ToList(); break;
+            //    default: Debug.LogError("Csv 파싱 타입을 찾지 못함"); break;
+            //}
+            new CsvListParser().SetValue(obj, info, values, _elementTypeName);
         }
-        info.SetValue(obj, parserValue);
     }
 }
 
@@ -125,8 +124,18 @@ public class CsvListParser
     public void SetValue(object obj, FieldInfo info, string[] values, string typeName)
     {
         ConstructorInfo constructor = info.FieldType.GetConstructors()[2];
-        Debug.Log(CsvParsers.GetPrimitiveParser(typeName).GetParserEnumerable(values).GetEnumerator().Current);
         info.SetValue(obj, constructor.Invoke(new object[] { CsvParsers.GetPrimitiveParser(typeName).GetParserEnumerable(values) }));
+    }
+}
+
+public class CsvArrayParser
+{
+    public void SetValue(object obj, FieldInfo info, string[] values, string typeName)
+    {
+        Array array = Array.CreateInstance(CsvParsers.GetPrimitiveParser(typeName).GetParserType(), values.Length);
+        for (int i = 0; i < array.Length; i++)
+            array.SetValue(CsvParsers.GetPrimitiveParser(typeName).GetParserValue(values[i]), i);
+        info.SetValue(obj, array);
     }
 }
 
@@ -160,7 +169,14 @@ class CsvIntParser : CsvPrimitiveTypeParser
         return valueInt;
     }
 
+    public IEnumerable<int> GetParserEnumerables(string[] value)
+    {
+        return value.Select(x => (int)GetParserValue(x));
+    }
+
     public IEnumerable GetParserEnumerable(string[] value) => value.Select(x => (int)GetParserValue(x));
+
+    public Type GetParserType() => typeof(int);
 }
 
 class CsvFloatParser : CsvPrimitiveTypeParser
@@ -172,18 +188,21 @@ class CsvFloatParser : CsvPrimitiveTypeParser
     }
 
     public IEnumerable GetParserEnumerable(string[] value) => value.Select(x => (float)GetParserValue(x));
+    public Type GetParserType() => typeof(float);
 }
 
 class CsvStringParser : CsvPrimitiveTypeParser
 {
     public object GetParserValue(string value) => value;
     public IEnumerable GetParserEnumerable(string[] value) => value.AsEnumerable();
+    public Type GetParserType() => typeof(string);
 }
 
 class CsvBooleanParser : CsvPrimitiveTypeParser
 {
     public object GetParserValue(string value) => value == "True" || value == "TRUE";
     public IEnumerable GetParserEnumerable(string[] value) => value.Select(x => (bool)GetParserValue(x));
+    public Type GetParserType() => typeof(bool);
 }
 
 class CsvUnitFlagsParser : CsvPrimitiveTypeParser
@@ -195,11 +214,17 @@ class CsvUnitFlagsParser : CsvPrimitiveTypeParser
     }
 
     public IEnumerable GetParserEnumerable(string[] value) => value.Select(x => (UnitFlags)GetParserValue(x));
+    public Type GetParserType() => typeof(UnitFlags);
 }
 
 class CsvPairParser : CsvPrimitiveTypeParser
 {
     public IEnumerable GetParserEnumerable(string[] values)
+    {
+        throw new NotImplementedException();
+    }
+
+    public Type GetParserType()
     {
         throw new NotImplementedException();
     }

@@ -57208,7 +57208,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf73aa7b4bdf8914b9e14e9c8f322041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 5915270645292334768}
+  data:
+    original: {fileID: 5915270645292334768}
+    spawnPos: {fileID: 1661365598}
 --- !u!4 &1661365598
 Transform:
   m_ObjectHideFlags: 0
@@ -74892,6 +74894,16 @@ PrefabInstance:
       propertyPath: sceneViewId
       value: 21
       objectReference: {fileID: 0}
+    - target: {fileID: 230911062119218883, guid: fc9660ca2d4c8b14d96f5736b96ac310,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 230911062119218883, guid: fc9660ca2d4c8b14d96f5736b96ac310,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9215755468416000322, guid: fc9660ca2d4c8b14d96f5736b96ac310,
         type: 3}
       propertyPath: m_Name
@@ -76789,7 +76801,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!54 &3715270646626245711
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -78472,6 +78484,16 @@ PrefabInstance:
         type: 3}
       propertyPath: sceneViewId
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8245229906872889135, guid: 18d5341e080ee52409c23a63c85af0f3,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8245229906872889135, guid: 18d5341e080ee52409c23a63c85af0f3,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 18d5341e080ee52409c23a63c85af0f3, type: 3}

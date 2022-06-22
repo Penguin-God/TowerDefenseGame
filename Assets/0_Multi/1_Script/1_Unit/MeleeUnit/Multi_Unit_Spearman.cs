@@ -7,6 +7,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 {
     [Header("창병 변수")]
 
+    [SerializeField] ProjectileData projectileData;
     [SerializeField] GameObject trail;
     [SerializeField] GameObject spear; // 평타칠 때 쓰는 창
     [SerializeField] GameObject skillSpear; // 발사할 때 생성하는 창

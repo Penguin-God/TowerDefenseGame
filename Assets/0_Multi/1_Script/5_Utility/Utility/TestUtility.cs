@@ -3,19 +3,45 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[Serializable]
+public class ProjectileData
+{
+    [SerializeField] Multi_Projectile original;
+    [SerializeField] Transform spawnPos;
+    private Action<Multi_Enemy> hitAction;
+    public void SetHitAction(Action<Multi_Enemy> action) => hitAction = action;
+
+    public ProjectileData(Multi_Projectile original, Transform spawnPos, Action<Multi_Enemy> hitAction)
+    {
+        this.original = original;
+        this.spawnPos = spawnPos;
+        this.hitAction = hitAction;
+    }
+
+    public Multi_Projectile Original => original;
+    public Vector3 SpawnPos => spawnPos.position;
+    public Action<Multi_Enemy> HitAction => hitAction;
+}
+
 public class TestUtility : MonoBehaviour
 {
+    [SerializeField] ProjectileData data;
+
+    void Start()
+    {
+        data.SetHitAction(null);
+    }
+
     [ContextMenu("Test UsedWeapon")]
     void TestUsedWeapon()
     {
-        UsedWeapon(projectile.gameObject, transform.position, transform.forward, null);
+        ShotProjectile(data, transform.forward);
     }
 
-    [SerializeField] Multi_Projectile projectile;
-    protected Multi_Projectile UsedWeapon(GameObject go, Vector3 weaponPos, Vector3 dir, Action<Multi_Enemy> hitAction)
+    protected Multi_Projectile ShotProjectile(ProjectileData data, Vector3 dir)
     {
-        Multi_Projectile UseWeapon = Multi_SpawnManagers.Weapon.Spawn(go, new Vector3(weaponPos.x, 2f, weaponPos.z)).GetComponent<Multi_Projectile>();
-        UseWeapon.Shot(dir, (Multi_Enemy enemy) => hitAction(enemy));
+        Multi_Projectile UseWeapon = Multi_SpawnManagers.Weapon.Spawn(data.Original.gameObject, data.SpawnPos).GetComponent<Multi_Projectile>();
+        UseWeapon.Shot(dir, data.HitAction);
 
         return UseWeapon;
     }

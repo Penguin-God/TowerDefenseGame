@@ -7,6 +7,7 @@ using Photon.Realtime;
 
 public class MultiDevelopHelper : MonoBehaviourPunCallbacks
 {
+    [SerializeField] string joinSceneName = "New_Scene";
     void Awake() => Screen.SetResolution(960, 540, false);
     public void EditorConnect() => PhotonNetwork.ConnectUsingSettings();
 
@@ -20,7 +21,7 @@ public class MultiDevelopHelper : MonoBehaviourPunCallbacks
         else PhotonNetwork.ConnectUsingSettings();
     }
 
-    public override void OnJoinedRoom() => PhotonNetwork.LoadLevel("New_Scene");
+    public override void OnJoinedRoom() => PhotonNetwork.LoadLevel(joinSceneName);
 
     // 방 접속 실패 시 방 생성
     public override void OnJoinRandomFailed(short returnCode, string message) => PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 2 });

@@ -203,6 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAOE: 0
   aliveTime: 5
+  _speed: 0
 --- !u!114 &-1148506460504076785
 MonoBehaviour:
   m_ObjectHideFlags: 0

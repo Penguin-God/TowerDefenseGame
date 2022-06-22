@@ -22,6 +22,22 @@ public class Multi_Projectile : MonoBehaviourPun
         StartCoroutine(Co_Inactive(aliveTime));
     }
 
+    [SerializeField] int _speed;
+    public void Shot(Vector3 dir, Action<Multi_Enemy> hitAction)
+    {
+        OnHit = hitAction;
+        photonView.RPC("ShotTest", RpcTarget.All, dir);
+        RPC_Utility.Instance.RPC_Active(photonView.ViewID, true);
+    }
+
+    [PunRPC]
+    public void ShotTest(Vector3 _dir)
+    {
+        Rigidbody.velocity = _dir * _speed;
+        Quaternion lookDir = Quaternion.LookRotation(_dir);
+        transform.rotation = lookDir;
+    }
+
     public void Shot(Vector3 pos, Vector3 dir, int speed, Action<Multi_Enemy> hitAction)
     {
         OnHit = hitAction;
@@ -30,10 +46,10 @@ public class Multi_Projectile : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void SetShotData(Vector3 _pos, Vector3 _dir, int _speed)
+    public void SetShotData(Vector3 _pos, Vector3 _dir, int speed)
     {
         transform.position = _pos;
-        Rigidbody.velocity = _dir * _speed;
+        Rigidbody.velocity = _dir * speed;
         Quaternion lookDir = Quaternion.LookRotation(_dir);
         transform.rotation = lookDir;
     }

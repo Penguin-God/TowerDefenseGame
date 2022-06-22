@@ -6,6 +6,7 @@ using Photon.Pun;
 public class Multi_Unit_Archer : Multi_RangeUnit
 {
     [Header("아처 변수")]
+    [SerializeField] ProjectileData projectileData;
     [SerializeField] GameObject arrow;
     [SerializeField] Transform arrowTransform;
     [SerializeField] int skillAttackTargetCount = 3;
@@ -14,6 +15,8 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     public override void OnAwake()
     {
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
+        Debug.Assert(projectileData.Original != null && projectileData.SpawnTransform != null, "projectileData가 설정되어 있지 않음");
+        projectileData = new ProjectileData(projectileData.Original, projectileData.SpawnTransform, OnSkileHit);
     }
 
     public override void SetInherenceData()
@@ -30,14 +33,19 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         trail.SetActive(false);
         if (target != null && enemyDistance < chaseRange && pv.IsMine)
         {
-            UsedWeapon(WeaponType.Arrow, arrow, arrowTransform, Get_ShootDirection(2f, target), 50, OnSkileHit);
-            //poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, target), 50, OnHit);
+            ShotProjectile(projectileData, Get_ShootDirection(2f, target));
         }
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
         nav.isStopped = false;
 
         EndAttack();
+    }
+
+    [ContextMenu("set data")]
+    void SetDatassss()
+    {
+        projectileData = new ProjectileData(projectileData.Original, arrowTransform, null);
     }
 
     public override void SpecialAttack()
@@ -61,8 +69,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         Transform[] targetArray = Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target);
         for (int i = 0; i < targetArray.Length; i++)
         {
-            UsedWeapon(WeaponType.Arrow, arrow, arrowTransform, Get_ShootDirection(2f, targetArray[i]), 50, OnSkileHit);
-            //poolManager.UsedWeapon(arrowTransform, Get_ShootDirection(2f, targetArray[i]), 50, OnSkileHit);
+            ShotProjectile(projectileData, Get_ShootDirection(2f, targetArray[i]));
         }
 
         yield return new WaitForSeconds(1f);

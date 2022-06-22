@@ -14950,6 +14950,10 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
+  projectileData:
+    original: {fileID: 3393117671410220456, guid: 4cd136db83d36e94c904384cbf997b35,
+      type: 3}
+    spawnTransform: {fileID: 5332082169092532282}
   magicLight: {fileID: 5332082168045071131}
   energyBall: {fileID: 3393117671410220457, guid: 4cd136db83d36e94c904384cbf997b35,
     type: 3}

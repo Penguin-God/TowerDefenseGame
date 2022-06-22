@@ -16,10 +16,17 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     [SerializeField]
     private AudioClip skillAudioClip;
 
-    //public override void OnAwake()
-    //{
-    //    SetPoolObj(skillSpear, 5);
-    //}
+    [ContextMenu("set data")]
+    void SetData()
+    {
+        projectileData = new ProjectileData(projectileData.Original, spearCreatePosition, null);
+    }
+
+    public override void OnAwake()
+    {
+        Debug.Assert(projectileData.Original != null && projectileData.SpawnTransform != null, "projectileData가 설정되어 있지 않음");
+        projectileData = new ProjectileData(projectileData.Original, projectileData.SpawnTransform, OnSkileHit);
+    }
 
     public override void SetInherenceData()
     {
@@ -56,7 +63,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
         if (pv.IsMine)
         {
-            Multi_Projectile weapon = UsedWeapon(WeaponType.Spear, skillSpear, spearCreatePosition, transform.forward, 50, OnSkileHit);
+            Multi_Projectile weapon = ShotProjectile(projectileData, transform.forward);
             RPC_Utility.Instance.RPC_Rotate(weapon.photonView.ViewID, new Vector3(90, 0, 0));
         }
 

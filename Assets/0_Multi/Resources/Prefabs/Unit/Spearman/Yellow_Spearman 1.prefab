@@ -765,6 +765,10 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
+  projectileData:
+    original: {fileID: -3843602943283153426, guid: 2f91be9c519ecd64e9b24044b74c7d43,
+      type: 3}
+    spawnTransform: {fileID: 2303647920214416741}
   trail: {fileID: 434739402398734645}
   spear: {fileID: 2284737810700154592}
   skillSpear: {fileID: 4136844629629309540, guid: 2f91be9c519ecd64e9b24044b74c7d43,

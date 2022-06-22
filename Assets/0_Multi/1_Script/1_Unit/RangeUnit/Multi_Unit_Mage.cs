@@ -73,6 +73,8 @@ using Photon.Pun;
 public class Multi_Unit_Mage : Multi_RangeUnit
 {
     [Header("메이지 변수")]
+    [SerializeField] ProjectileData projectileData;
+
     [SerializeField] GameObject magicLight;
 
     [SerializeField] GameObject energyBall;
@@ -91,9 +93,16 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         manaSlider.value = currentMana;
         StartCoroutine(Co_SetCanvas());
 
-        //gameObject.AddComponent<SkillObjectPoolManager>();
-        //skillPoolManager = GetComponent<SkillObjectPoolManager>();
         SetMageAwake();
+
+        Debug.Assert(projectileData.Original != null && projectileData.SpawnTransform != null, "projectileData가 설정되어 있지 않음");
+        projectileData = new ProjectileData(projectileData.Original, projectileData.SpawnTransform, OnSkileHit);
+    }
+
+    [ContextMenu("set data")]
+    void SetDatassss()
+    {
+        projectileData = new ProjectileData(projectileData.Original, energyBallTransform, null);
     }
 
     // 법사 고유의 Awake 대체 가상 함수
@@ -142,8 +151,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
 
         if (target != null && enemyDistance < chaseRange && pv.IsMine)
         {
-            UsedWeapon(WeaponType.Mageball, energyBall, energyBallTransform, Get_ShootDirection(2f, target), 50, OnSkileHit);
-            //poolManager.UsedWeapon(energyBallTransform, Get_ShootDirection(2f, target), 50, OnSkileHit);
+            ShotProjectile(projectileData, Get_ShootDirection(2f, target));
             pv.RPC("AddMana", RpcTarget.All, plusMana);
         }
 

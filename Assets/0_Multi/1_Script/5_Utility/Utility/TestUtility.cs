@@ -7,19 +7,20 @@ using System;
 public class ProjectileData
 {
     [SerializeField] Multi_Projectile original;
-    [SerializeField] Transform spawnPos;
+    [SerializeField] Transform spawnTransform;
     private Action<Multi_Enemy> hitAction;
     public void SetHitAction(Action<Multi_Enemy> action) => hitAction = action;
 
     public ProjectileData(Multi_Projectile original, Transform spawnPos, Action<Multi_Enemy> hitAction)
     {
         this.original = original;
-        this.spawnPos = spawnPos;
+        this.spawnTransform = spawnPos;
         this.hitAction = hitAction;
     }
 
     public Multi_Projectile Original => original;
-    public Vector3 SpawnPos => spawnPos.position;
+    public Transform SpawnTransform => spawnTransform;
+    public Vector3 SpawnPos => spawnTransform.position;
     public Action<Multi_Enemy> HitAction => hitAction;
 }
 

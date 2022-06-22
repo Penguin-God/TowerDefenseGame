@@ -7,8 +7,6 @@ public class Multi_Unit_Archer : Multi_RangeUnit
 {
     [Header("아처 변수")]
     [SerializeField] ProjectileData projectileData;
-    [SerializeField] GameObject arrow;
-    [SerializeField] Transform arrowTransform;
     [SerializeField] int skillAttackTargetCount = 3;
     private GameObject trail;
 
@@ -40,12 +38,6 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         nav.isStopped = false;
 
         EndAttack();
-    }
-
-    [ContextMenu("set data")]
-    void SetDatassss()
-    {
-        projectileData = new ProjectileData(projectileData.Original, arrowTransform, null);
     }
 
     public override void SpecialAttack()

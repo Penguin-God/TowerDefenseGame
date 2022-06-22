@@ -67,6 +67,12 @@ public class Multi_UnitManager : MonoBehaviour
             foreach (Multi_TeamSoldier unit in data.gos.Select(x => x.GetComponent<Multi_TeamSoldier>()))
             {
                 if(unit == null) continue; // TODO : 하얀 유닛 때문에 임시로 넘김
+                if(_unitListByUnitFlags.ContainsKey(new UnitFlags(unit.unitColor, unit.unitClass)))
+                {
+                    print($"{unit.unitColor} : {unit.unitClass}");
+                    print(unit.gameObject.name);
+                    continue;
+                }
                 _unitListByUnitFlags.Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
             }
         }

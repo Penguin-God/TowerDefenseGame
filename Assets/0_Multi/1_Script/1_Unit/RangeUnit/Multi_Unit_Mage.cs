@@ -76,8 +76,6 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     [SerializeField] ProjectileData projectileData;
 
     [SerializeField] GameObject magicLight;
-
-    [SerializeField] GameObject energyBall;
     [SerializeField] protected Transform energyBallTransform;
     [SerializeField] protected GameObject mageSkillObject = null;
 
@@ -149,6 +147,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         yield return new WaitForSeconds(0.7f);
         magicLight.SetActive(true);
 
+        // TODO : 딱 공격하려는 순간에 적이 죽어버리면 공격을 안함. 이건 판정 문제인데 그냥 target위치를 기억해서 거기다가 던지는게 나은듯
         if (target != null && enemyDistance < chaseRange && pv.IsMine)
         {
             ShotProjectile(projectileData, Get_ShootDirection(2f, target));

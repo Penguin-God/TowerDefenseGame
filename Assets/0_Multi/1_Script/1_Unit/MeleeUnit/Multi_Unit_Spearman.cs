@@ -10,17 +10,9 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     [SerializeField] ProjectileData projectileData;
     [SerializeField] GameObject trail;
     [SerializeField] GameObject spear; // 평타칠 때 쓰는 창
-    [SerializeField] GameObject skillSpear; // 발사할 때 생성하는 창
-    [SerializeField] Transform spearCreatePosition;
 
     [SerializeField]
     private AudioClip skillAudioClip;
-
-    [ContextMenu("set data")]
-    void SetData()
-    {
-        projectileData = new ProjectileData(projectileData.Original, spearCreatePosition, null);
-    }
 
     public override void OnAwake()
     {

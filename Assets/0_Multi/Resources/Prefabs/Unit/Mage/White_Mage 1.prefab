@@ -359,8 +359,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d9fdd4828ee7140a20d0f7eb2e5055, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitClass: 0
-  unitColor: 0
+  unitClass: 3
+  unitColor: 6
   originDamage: 0
   originBossDamage: 0
   originAttackDelayTime: 0
@@ -386,9 +386,8 @@ MonoBehaviour:
   rayHitTransform: {fileID: 0}
   projectileData:
     original: {fileID: 0}
-    spawnPos: {fileID: 0}
+    spawnTransform: {fileID: 0}
   magicLight: {fileID: 0}
-  energyBall: {fileID: 0}
   energyBallTransform: {fileID: 0}
   mageSkillObject: {fileID: 0}
   plusMana: 30

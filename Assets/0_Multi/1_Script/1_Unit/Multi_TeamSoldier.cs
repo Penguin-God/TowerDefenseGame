@@ -274,18 +274,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         isSkillAttack = false;
     }
 
-    protected Multi_Projectile UsedWeapon(WeaponType weaponType, GameObject go, Transform weaponPos, Vector3 dir, int speed, Action<Multi_Enemy> hitAction)
-    {
-        ProjectileData data = new ProjectileData(go.GetComponent<Multi_Projectile>(), weaponPos, hitAction);
-        return ShotProjectile(data, dir);
-        
-        //Multi_Projectile UseWeapon = Multi_SpawnManagers.Weapon.Spawn(go).GetComponent<Multi_Projectile>();
-
-        //Vector3 pos = new Vector3(weaponPos.position.x, 2f, weaponPos.position.z);
-        //UseWeapon.Shot(pos, dir, speed, (Multi_Enemy enemy) => hitAction(enemy));
-        //return UseWeapon;
-    }
-
     protected Multi_Projectile ShotProjectile(ProjectileData data, Vector3 dir)
     {
         Multi_Projectile UseWeapon = GetProjectile(data);
@@ -293,7 +281,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         return UseWeapon;
     }
 
-    Multi_Projectile GetProjectile(ProjectileData data) 
+    Multi_Projectile GetProjectile(ProjectileData data)
         => Multi_SpawnManagers.Weapon.Spawn(data.Original.gameObject, data.SpawnPos).GetComponent<Multi_Projectile>();
 
     #region Enemy 추적

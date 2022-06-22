@@ -14,7 +14,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     {
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
         Debug.Assert(projectileData.Original != null && projectileData.SpawnTransform != null, "projectileData가 설정되어 있지 않음");
-        projectileData = new ProjectileData(projectileData.Original, projectileData.SpawnTransform, OnSkileHit);
+        projectileData = new ProjectileData(projectileData.Original, projectileData.SpawnTransform);
     }
 
     public override void SetInherenceData()
@@ -31,7 +31,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         trail.SetActive(false);
         if (target != null && enemyDistance < chaseRange && pv.IsMine)
         {
-            ShotProjectile(projectileData, Get_ShootDirection(2f, target));
+            ShotProjectile(projectileData, Get_ShootDirection(2f, target), OnHit);
         }
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
@@ -61,7 +61,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         Transform[] targetArray = Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target);
         for (int i = 0; i < targetArray.Length; i++)
         {
-            ShotProjectile(projectileData, Get_ShootDirection(2f, targetArray[i]));
+            ShotProjectile(projectileData, Get_ShootDirection(2f, targetArray[i]), OnSkileHit);
         }
 
         yield return new WaitForSeconds(1f);

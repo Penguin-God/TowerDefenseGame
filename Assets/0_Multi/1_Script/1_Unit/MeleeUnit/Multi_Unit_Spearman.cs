@@ -17,7 +17,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     public override void OnAwake()
     {
         Debug.Assert(projectileData.Original != null && projectileData.SpawnTransform != null, "projectileData가 설정되어 있지 않음");
-        projectileData = new ProjectileData(projectileData.Original, projectileData.SpawnTransform, OnSkileHit);
+        projectileData = new ProjectileData(projectileData.Original, projectileData.SpawnTransform);
     }
 
     public override void SetInherenceData()
@@ -55,7 +55,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
         if (pv.IsMine)
         {
-            Multi_Projectile weapon = ShotProjectile(projectileData, transform.forward);
+            Multi_Projectile weapon = ShotProjectile(projectileData, transform.forward, OnSkileHit);
             RPC_Utility.Instance.RPC_Rotate(weapon.photonView.ViewID, new Vector3(90, 0, 0));
         }
 

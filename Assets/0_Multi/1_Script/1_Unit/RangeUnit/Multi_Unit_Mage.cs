@@ -94,13 +94,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         SetMageAwake();
 
         Debug.Assert(projectileData.Original != null && projectileData.SpawnTransform != null, "projectileData가 설정되어 있지 않음");
-        projectileData = new ProjectileData(projectileData.Original, projectileData.SpawnTransform, OnSkileHit);
-    }
-
-    [ContextMenu("set data")]
-    void SetDatassss()
-    {
-        projectileData = new ProjectileData(projectileData.Original, energyBallTransform, null);
+        projectileData = new ProjectileData(projectileData.Original, projectileData.SpawnTransform);
     }
 
     // 법사 고유의 Awake 대체 가상 함수
@@ -150,7 +144,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         // TODO : 딱 공격하려는 순간에 적이 죽어버리면 공격을 안함. 이건 판정 문제인데 그냥 target위치를 기억해서 거기다가 던지는게 나은듯
         if (target != null && enemyDistance < chaseRange && pv.IsMine)
         {
-            ShotProjectile(projectileData, Get_ShootDirection(2f, target));
+            ShotProjectile(projectileData, Get_ShootDirection(2f, target), OnHit);
             pv.RPC("AddMana", RpcTarget.All, plusMana);
         }
 

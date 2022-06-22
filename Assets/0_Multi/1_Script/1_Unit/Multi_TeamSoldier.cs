@@ -274,10 +274,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         isSkillAttack = false;
     }
 
-    protected Multi_Projectile ShotProjectile(ProjectileData data, Vector3 dir)
+    protected Multi_Projectile ShotProjectile(ProjectileData data, Vector3 dir, Action<Multi_Enemy> hitAction)
     {
         Multi_Projectile UseWeapon = GetProjectile(data);
-        UseWeapon.Shot(dir, data.HitAction);
+        UseWeapon.Shot(dir, hitAction);
         return UseWeapon;
     }
 

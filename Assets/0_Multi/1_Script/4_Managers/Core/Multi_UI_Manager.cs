@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Multi_UI_Manager
 {
+    Dictionary<string, Multi_UI_Popup> _popupByName = new Dictionary<string, Multi_UI_Popup>();
 
     int _order = 10; // 기본 UI랑 팝업 UI 오더 다르게 하기 위해 초기값 10으로 세팅
 
@@ -63,9 +64,16 @@ public class Multi_UI_Manager
     {
         if (string.IsNullOrEmpty(name)) name = typeof(T).Name;
 
+        if (_popupByName.TryGetValue(name, out Multi_UI_Popup dictPopup))
+        {
+            dictPopup.gameObject.SetActive(true);
+            return dictPopup.gameObject.GetComponent<T>();
+        }
+
         GameObject go = Multi_Managers.Resources.Instantiate($"UI/Popup/{name}");
         T popup = go.GetOrAddComponent<T>();
         _popupStack.Push(popup);
+        _popupByName.Add(name, go.GetComponent<Multi_UI_Popup>());
         go.transform.SetParent(Root);
         return popup;
     }
@@ -88,6 +96,8 @@ public class Multi_UI_Manager
         if (_popupStack.Count == 0) return;
 
         Multi_UI_Popup popup = _popupStack.Pop();
+        // TODO 나중에 구현하기
+        //_popupByName.Remove(popup);
         Multi_Managers.Resources.Destroy(popup.gameObject);
         _order--;
     }

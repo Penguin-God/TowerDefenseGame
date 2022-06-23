@@ -20,5 +20,5 @@ public class Multi_UI_Paint : Multi_UI_Scene
     void ChangePaintRootActive(PointerEventData data) => _paintRoot.SetActive(!_paintRoot.activeSelf);
 
     [SerializeField] UI_UnitManagedWindow unitManagedWindow;
-    public void ShowUnitManagedWindow(UnitFlags flags) => unitManagedWindow.Show(flags);
+    public void ShowUnitManagedWindow(UnitFlags flags) => Multi_Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("Paint/UnitManagedWindow").Show(flags);
 }

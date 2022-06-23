@@ -20,6 +20,7 @@ public class UI_UnitTracker : Multi_UI_Base
     void Awake()
     {
         backGround = GetComponent<Image>();
+
         paint = GetComponentInParent<Multi_UI_Paint>();
     }
 

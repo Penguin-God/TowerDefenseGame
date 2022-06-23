@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class UI_UnitTracker : Multi_UI_Base
 {
-    Multi_UI_Paint paint;
     [SerializeField] UnitFlags unitFlags;
     [SerializeField] Image backGround;
     [SerializeField] Image icon;
@@ -20,8 +19,6 @@ public class UI_UnitTracker : Multi_UI_Base
     void Awake()
     {
         backGround = GetComponent<Image>();
-
-        paint = GetComponentInParent<Multi_UI_Paint>();
     }
 
     protected override void Init()
@@ -36,8 +33,5 @@ public class UI_UnitTracker : Multi_UI_Base
         if (data.Icon != null) icon.sprite = data.Icon;
     }
 
-    void OnClicked()
-    {
-        paint.ShowUnitManagedWindow(unitFlags);
-    }
+    void OnClicked() => Multi_Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("Paint/UnitManagedWindow").Show(unitFlags);
 }

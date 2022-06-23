@@ -13,6 +13,7 @@ public class UI_UnitManagedWindow : Multi_UI_Base
 
     public void Show(UnitFlags flags)
     {
+        //print($"{flags.UnitColor} : {flags.UnitClass}");
         SetInfo(flags);
         gameObject.SetActive(true);
     }

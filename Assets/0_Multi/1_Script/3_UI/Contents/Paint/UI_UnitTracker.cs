@@ -36,19 +36,6 @@ public class UI_UnitTracker : Multi_UI_Base
         if (data.Icon != null) icon.sprite = data.Icon;
     }
 
-    public void SetInfoByColor(UI_UnitTrackerData data)
-    {
-        unitFlags = new UnitFlags(data.UnitFlags.ColorNumber, unitFlags.ClassNumber);
-        if (data.BackGroundColor != Color.white) backGround.color = data.BackGroundColor;
-        if (data.Icon != null) icon.sprite = data.Icon;
-    }
-
-    public void SetInfoByClass(UI_UnitTrackerData data)
-    {
-        unitFlags = new UnitFlags(unitFlags.ColorNumber, data.UnitFlags.ClassNumber);
-        icon.sprite = data.Icon;
-    }
-
     void OnClicked()
     {
         paint.ShowUnitManagedWindow(unitFlags);

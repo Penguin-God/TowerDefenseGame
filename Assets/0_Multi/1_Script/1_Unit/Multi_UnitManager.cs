@@ -45,8 +45,7 @@ public class Multi_UnitManager : MonoBehaviour
         _currentUnits.Add(unit);
         _unitListByUnitFlags[unit.UnitFlags].Add(unit);
         OnListChange?.Invoke(_currentUnits.Count);
-        print($"{unit.name} : {_unitListByUnitFlags[unit.UnitFlags].Count}");
-        print("더하기!!!!");
+        print($"{unit.name} : {_unitListByUnitFlags[unit.UnitFlags].Count}마리 있음");
     }
 
     public void RemoveList(Multi_TeamSoldier unit)
@@ -54,7 +53,6 @@ public class Multi_UnitManager : MonoBehaviour
         _currentUnits.Remove(unit);
         _unitListByUnitFlags[unit.UnitFlags].Remove(unit);
         OnListChange?.Invoke(_currentUnits.Count);
-        print("빼기!!!!");
     }
 
     private Dictionary<UnitFlags, List<Multi_TeamSoldier>> _unitListByUnitFlags = new Dictionary<UnitFlags, List<Multi_TeamSoldier>>();

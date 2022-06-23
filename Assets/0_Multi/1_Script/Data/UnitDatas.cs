@@ -29,6 +29,13 @@ public struct UnitFlags : IEquatable<UnitFlags>
         ClempFlags();
     }
 
+    public UnitFlags(string unitKoreaName)
+    {
+        _colorNumber = Multi_Managers.Data.UnitNameDataByUnitKoreaName[unitKoreaName].UnitFlags.ColorNumber;
+        _classNumber = Multi_Managers.Data.UnitNameDataByUnitKoreaName[unitKoreaName].UnitFlags.ClassNumber;
+        ClempFlags();
+    }
+
     void ClempFlags()
     {
         Debug.Assert(_colorNumber >= 0 && _colorNumber <= GetEnumCount(typeof(UnitColor)), $"color number 입력 잘못됨 : {_colorNumber}");
@@ -65,18 +72,20 @@ public struct CombineCondition
     [SerializeField] int[] _counts;
     List<KeyValuePair<UnitFlags, int>> _unitFlagsCountPair;
 
-    public void SetPair()
+    public UnitFlags TargetUnitFlags => _targetUnitFlag;
+    public IReadOnlyList<KeyValuePair<UnitFlags, int>> UnitFlagsCountPair
     {
-        _unitFlagsCountPair = new List<KeyValuePair<UnitFlags, int>>();
-        for (int i = 0; i < _unitFlags.Length; i++)
+        get
         {
-            if(_unitFlags[i].IsRange() && _counts[i] > 0)
-                _unitFlagsCountPair.Add(new KeyValuePair<UnitFlags, int>(_unitFlags[i], _counts[i]));
+            _unitFlagsCountPair = new List<KeyValuePair<UnitFlags, int>>();
+            for (int i = 0; i < _unitFlags.Length; i++)
+            {
+                if (_unitFlags[i].IsRange() && _counts[i] > 0)
+                    _unitFlagsCountPair.Add(new KeyValuePair<UnitFlags, int>(_unitFlags[i], _counts[i]));
+            }
+            return _unitFlagsCountPair;
         }
     }
-
-    public UnitFlags TargetUnitFlags => _targetUnitFlag;
-    public IReadOnlyList<KeyValuePair<UnitFlags, int>> UnitFlagsCountPair => _unitFlagsCountPair;
 }
 
 [Serializable]
@@ -84,9 +93,7 @@ public class CombineConditions : ICsvLoader<UnitFlags, CombineCondition>
 {
     public Dictionary<UnitFlags, CombineCondition> MakeDict(string csv)
     {
-        List<CombineCondition> conditions = CsvUtility.GetEnumerableFromCsv<CombineCondition>(csv).ToList();
-        conditions.ForEach(x => x.SetPair());
-        return conditions.ToDictionary(x => x.TargetUnitFlags, x => x);
+        return CsvUtility.GetEnumerableFromCsv<CombineCondition>(csv).ToDictionary(x => x.TargetUnitFlags, x => x);
     }
 }
 
@@ -96,6 +103,12 @@ public struct CombineData
     [SerializeField] UnitFlags _unitFlags; // 조합하려는 유닛의 플래그
     [SerializeField] string _koearName;
     // [SerializeField] CombineCondition _condition;
+
+    public CombineData(UnitFlags unitFlags, string koreaName)
+    {
+        _unitFlags = unitFlags;
+        _koearName = koreaName;
+    }
 
     public UnitFlags UnitFlags => _unitFlags;
     public string KoearName => _koearName;
@@ -118,7 +131,7 @@ public struct UnitNameData
     [SerializeField] UnitFlags _UnitFlags;
     [SerializeField] string _prefabName;
     [SerializeField] string _koearName;
-
+    
     public UnitNameData(int colorNum, int classNum, string prefabName, string koearName)
     {
         _UnitFlags = new UnitFlags(colorNum, classNum);
@@ -132,21 +145,10 @@ public struct UnitNameData
 }
 
 [Serializable]
-public class UnitNameDatas : ILoader<UnitFlags, UnitNameData>
+public class UnitNameDatas : ICsvLoader<string, UnitNameData>
 {
-    public List<UnitNameData> SerializtionDatas = new List<UnitNameData>();
-
-    public void LoadCSV(TextAsset csv)
+    public Dictionary<string, UnitNameData> MakeDict(string csv)
     {
-        throw new NotImplementedException();
-    }
-
-    public Dictionary<UnitFlags, UnitNameData> MakeDict()
-    {
-        Dictionary<UnitFlags, UnitNameData> dict = new Dictionary<UnitFlags, UnitNameData>();
-
-        foreach (UnitNameData data in SerializtionDatas)
-            dict.Add(data.UnitFlags, data);
-        return dict;
+        return CsvUtility.GetEnumerableFromCsv<UnitNameData>(csv).ToDictionary(x => x.KoearName, x => x);
     }
 }

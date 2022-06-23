@@ -209,8 +209,10 @@ class CsvUnitFlagsParser : CsvPrimitiveTypeParser
 {
     public object GetParserValue(string value)
     {
-        Debug.Assert(value.Split('&').Length == 2, $"UnitFlags 데이터 입력 잘못됨 : {value}");
-        return new UnitFlags(value.Split('&')[0], value.Split('&')[1]);
+        if(value.Split('&').Length == 2)
+            return new UnitFlags(value.Split('&')[0], value.Split('&')[1]);
+        else
+            return Multi_Managers.Data.UnitNameDataByUnitKoreaName[value].UnitFlags;
     }
 
     public IEnumerable GetParserEnumerable(string[] value) => value.Select(x => (UnitFlags)GetParserValue(x));

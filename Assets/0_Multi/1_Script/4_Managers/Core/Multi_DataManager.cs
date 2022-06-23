@@ -27,14 +27,17 @@ public class Multi_DataManager
     public IReadOnlyDictionary<UnitFlags, UI_UnitWindowData> UnitWindowDataByUnitFlags => _unitWindowDataByUnitFlags;
     #endregion UI Data End
 
-    Dictionary<UnitFlags, UnitNameData> _unitNameDataByUnitFlags = new Dictionary<UnitFlags, UnitNameData>();
-    public IReadOnlyDictionary<UnitFlags, UnitNameData> UnitNameDataByUnitFlags => _unitNameDataByUnitFlags;
+    Dictionary<string, UnitNameData> _unitNameDataByUnitKoreaName = new Dictionary<string, UnitNameData>();
+    public IReadOnlyDictionary<string, UnitNameData> UnitNameDataByUnitKoreaName => _unitNameDataByUnitKoreaName;
 
     public void Init()
     {
         _combineDataByUnitFlags.Clear();
         _unitWindowDataByUnitFlags.Clear();
-        _unitNameDataByUnitFlags.Clear();
+        _unitNameDataByUnitKoreaName.Clear();
+
+        // 무조건 가장먼저 실행되어야 함
+        _unitNameDataByUnitKoreaName = MakeCsvDict<UnitNameDatas, string, UnitNameData>("UnitNameData");
 
         _combineDataByUnitFlags = MakeCsvDict<CombineDatas, UnitFlags, CombineData>("CombineData");
         _combineConditionByUnitFalg = MakeCsvDict<CombineConditions, UnitFlags, CombineCondition>("CombineConditionData");

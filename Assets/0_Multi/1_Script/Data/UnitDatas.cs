@@ -36,8 +36,6 @@ public struct UnitFlags : IEquatable<UnitFlags>
 
         _colorNumber = Mathf.Clamp(_colorNumber, 0, GetEnumCount(typeof(UnitColor)));
         _classNumber = Mathf.Clamp(_classNumber, 0, GetEnumCount(typeof(UnitClass)));
-
-        
     }
     int GetEnumCount(Type t) => Enum.GetValues(t).Length - 1;
     public bool IsRange() => _colorNumber >= 0 && _colorNumber <= GetEnumCount(typeof(UnitColor))

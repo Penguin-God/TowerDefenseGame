@@ -29,8 +29,15 @@ public class Tests
 
 public class CsvManager : MonoBehaviour
 {
-    [SerializeField] List<Tests> tests = new List<Tests>();
+    [SerializeField] UI_UnitWindowData[] datas;
     [ContextMenu("Test")]
+    void UnitTest()
+    {
+        TextAsset textAsset = Resources.Load<TextAsset>("Data/UI_UnitWindowData");
+        datas = CsvUtility.GetEnumerableFromCsv<UI_UnitWindowData>(textAsset.text).ToArray();
+    }
+
+    [SerializeField] List<Tests> tests = new List<Tests>();
     void Test()
     {
         TextAsset textAsset = Resources.Load<TextAsset>("Data/Test/Test");
@@ -50,30 +57,5 @@ public class CsvManager : MonoBehaviour
         //tests.GetType().GetField("pair").SetValue(tests, infos[0].Invoke(new object[] { a, b }));
         //infos.ToList().ForEach(x => print(x.Name));
         //print($"{tests.pair.Key} : {tests.pair.Value}");
-    }
-
-
-
-    [Serializable]
-    class Skills
-    {
-        public string skillName;
-        public int id;
-        public bool hasSkill;
-    }
-
-    [SerializeField] List<Skills> Skillss;
-    [ContextMenu("save")]
-    void TypeTest()
-    {
-        // csv 읽어오기
-        TextAsset textAsset = Resources.Load<TextAsset>("Data/SkillData/SkillData");
-        Skillss = CsvUtility.GetEnumerableFromCsv<Skills>(textAsset.text).ToList();
-
-        // 저장 버전 1
-        //string csvText = CsvUtility.EnumerableToCsv(Skills);
-        //CsvUtility.SaveCsv(csvText, "Assets/0_Multi/Resources/Data/SkillData/SkillData.csv");
-        //// 저장 버전 2
-        //CsvUtility.SaveCsv(Skills, "SkillData");
     }
 }

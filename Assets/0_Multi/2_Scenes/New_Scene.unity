@@ -22700,6 +22700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c99ae79e03086fb4aa147ea53d03dc62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  joinSceneName: New_Scene
   editorCamera: {fileID: 1290153365}
 --- !u!114 &608932054
 MonoBehaviour:
@@ -27719,6 +27720,175 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8a6ffaaa0cdfafd48828228533a5ccb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  datas:
+  - _unitFlags:
+      _colorNumber: 0
+      _classNumber: 0
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 0
+      _classNumber: 1
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 0
+      _classNumber: 2
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 0
+      _classNumber: 3
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 1
+      _classNumber: 0
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 1
+      _classNumber: 1
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 1
+      _classNumber: 2
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 1
+      _classNumber: 3
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 2
+      _classNumber: 0
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 2
+      _classNumber: 1
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 2
+      _classNumber: 2
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 2
+      _classNumber: 3
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 3
+      _classNumber: 0
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 3
+      _classNumber: 1
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 3
+      _classNumber: 2
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 3
+      _classNumber: 3
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 4
+      _classNumber: 0
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 4
+      _classNumber: 1
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 4
+      _classNumber: 2
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 4
+      _classNumber: 3
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 5
+      _classNumber: 0
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 5
+      _classNumber: 1
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 5
+      _classNumber: 2
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
+  - _unitFlags:
+      _colorNumber: 5
+      _classNumber: 3
+    _combineUnitFalgs:
+    - _colorNumber: 0
+      _classNumber: 1
+    _description: da
   tests:
   - list:
     - 13
@@ -27732,10 +27902,6 @@ MonoBehaviour:
     - 22
     - 4335
     - 123154
-  Skillss:
-  - skillName: "\uBC14\uAFB8\uAE30"
-    id: 1
-    hasSkill: 0
 --- !u!1001 &757368176
 PrefabInstance:
   m_ObjectHideFlags: 0

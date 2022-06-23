@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public abstract class UI_UnitTrackerSetterBase : Multi_UI_Base
+public class UI_UnitTrackerSetterBase : Multi_UI_Base
 {
     private Multi_UI_Paint _paint;
-    [SerializeField] protected UI_UnitTracker[] _unitTrackers;
+    protected UI_UnitTracker[] _unitTrackers;
 
     void Awake()
     {
@@ -14,7 +14,7 @@ public abstract class UI_UnitTrackerSetterBase : Multi_UI_Base
         _unitTrackers = GetComponentsInChildren<UI_UnitTracker>();
     }
 
-    public virtual void SettingUnitTrackers(UI_UnitTrackerData data)
+    public void SettingUnitTrackers(UI_UnitTrackerData data)
     {
         gameObject.SetActive(true);
         if (_paint.CurrentUnitTracker != null && _paint.CurrentUnitTracker != gameObject)
@@ -22,5 +22,7 @@ public abstract class UI_UnitTrackerSetterBase : Multi_UI_Base
             _paint.CurrentUnitTracker.SetActive(false);
             _paint.CurrentUnitTracker = gameObject;
         }
+
+        _unitTrackers.ToList().ForEach(x => x.SetInfo(data));
     }
 }

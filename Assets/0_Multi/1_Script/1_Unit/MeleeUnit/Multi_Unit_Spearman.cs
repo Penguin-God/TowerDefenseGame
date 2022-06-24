@@ -7,7 +7,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 {
     [Header("창병 변수")]
 
-    [SerializeField] ProjectileData projectileData;
+    [SerializeField] ProjectileData shotSpearData;
     [SerializeField] GameObject trail;
     [SerializeField] GameObject spear; // 평타칠 때 쓰는 창
 
@@ -16,8 +16,8 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
     public override void OnAwake()
     {
-        Debug.Assert(projectileData.Original != null && projectileData.SpawnTransform != null, "projectileData가 설정되어 있지 않음");
-        projectileData = new ProjectileData(projectileData.Original, projectileData.SpawnTransform);
+        Debug.Assert(shotSpearData.Original != null && shotSpearData.SpawnTransform != null, "shotSpearData가 설정되어 있지 않음");
+        shotSpearData = new ProjectileData(shotSpearData.Original, transform, shotSpearData.SpawnTransform);
     }
 
     public override void SetInherenceData()
@@ -55,7 +55,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
         if (pv.IsMine)
         {
-            Multi_Projectile weapon = ShotProjectile(projectileData, transform.forward, OnSkileHit);
+            Multi_Projectile weapon = ProjectileShotDelegate.ShotProjectile(shotSpearData, transform.forward, OnSkileHit);
             RPC_Utility.Instance.RPC_Rotate(weapon.photonView.ViewID, new Vector3(90, 0, 0));
         }
 

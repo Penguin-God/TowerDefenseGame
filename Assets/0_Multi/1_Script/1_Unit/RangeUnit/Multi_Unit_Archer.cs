@@ -6,15 +6,15 @@ using Photon.Pun;
 public class Multi_Unit_Archer : Multi_RangeUnit
 {
     [Header("아처 변수")]
-    [SerializeField] ProjectileData projectileData;
+    [SerializeField] ProjectileData arrawData;
     [SerializeField] int skillAttackTargetCount = 3;
     private GameObject trail;
 
     public override void OnAwake()
     {
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
-        Debug.Assert(projectileData.Original != null && projectileData.SpawnTransform != null, "projectileData가 설정되어 있지 않음");
-        projectileData = new ProjectileData(projectileData.Original, projectileData.SpawnTransform);
+        Debug.Assert(arrawData.Original != null && arrawData.SpawnTransform != null, "arrawData가 설정되어 있지 않음");
+        arrawData = new ProjectileData(arrawData.Original, transform, arrawData.SpawnTransform);
     }
 
     public override void SetInherenceData()
@@ -31,7 +31,8 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         trail.SetActive(false);
         if (target != null && enemyDistance < chaseRange && pv.IsMine)
         {
-            ShotProjectile(projectileData, Get_ShootDirection(2f, target), OnHit);
+            ProjectileShotDelegate.ShotProjectile(arrawData, target, 2, OnHit);
+            //ShotProjectile(arrawData, Get_ShootDirection(2f, target), OnHit);
         }
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
@@ -61,7 +62,8 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         Transform[] targetArray = Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target);
         for (int i = 0; i < targetArray.Length; i++)
         {
-            ShotProjectile(projectileData, Get_ShootDirection(2f, targetArray[i]), OnSkileHit);
+            ProjectileShotDelegate.ShotProjectile(arrawData, target, 2, OnSkileHit);
+            //ShotProjectile(arrawData, Get_ShootDirection(2f, targetArray[i]), OnSkileHit);
         }
 
         yield return new WaitForSeconds(1f);

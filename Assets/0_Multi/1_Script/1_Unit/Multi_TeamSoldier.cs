@@ -274,15 +274,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         isSkillAttack = false;
     }
 
-    protected Multi_Projectile ShotProjectile(ProjectileData data, Vector3 dir, Action<Multi_Enemy> hitAction)
-    {
-        Multi_Projectile UseWeapon = GetProjectile(data);
-        UseWeapon.Shot(dir, hitAction);
-        return UseWeapon;
-    }
-
-    Multi_Projectile GetProjectile(ProjectileData data)
-        => Multi_SpawnManagers.Weapon.Spawn(data.Original.gameObject, data.SpawnPos).GetComponent<Multi_Projectile>();
+    protected Multi_Projectile ShotProjectile(ProjectileData data, Vector3 dir, Action<Multi_Enemy> hitAction) 
+        => ProjectileShotDelegate.ShotProjectile(data, dir, hitAction);
 
     #region Enemy 추적
     private void Update()

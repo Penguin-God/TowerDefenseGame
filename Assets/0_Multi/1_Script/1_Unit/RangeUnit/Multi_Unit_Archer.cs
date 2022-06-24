@@ -32,7 +32,6 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         if (target != null && enemyDistance < chaseRange && pv.IsMine)
         {
             ProjectileShotDelegate.ShotProjectile(arrawData, target, 2, OnHit);
-            //ShotProjectile(arrawData, Get_ShootDirection(2f, target), OnHit);
         }
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
@@ -63,7 +62,6 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         for (int i = 0; i < targetArray.Length; i++)
         {
             ProjectileShotDelegate.ShotProjectile(arrawData, target, 2, OnSkileHit);
-            //ShotProjectile(arrawData, Get_ShootDirection(2f, targetArray[i]), OnSkileHit);
         }
 
         yield return new WaitForSeconds(1f);

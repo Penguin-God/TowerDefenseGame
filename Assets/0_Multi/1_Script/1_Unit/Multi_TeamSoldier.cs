@@ -274,9 +274,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         isSkillAttack = false;
     }
 
-    protected Multi_Projectile ShotProjectile(ProjectileData data, Vector3 dir, Action<Multi_Enemy> hitAction) 
-        => ProjectileShotDelegate.ShotProjectile(data, dir, hitAction);
-
     #region Enemy 추적
     private void Update()
     {

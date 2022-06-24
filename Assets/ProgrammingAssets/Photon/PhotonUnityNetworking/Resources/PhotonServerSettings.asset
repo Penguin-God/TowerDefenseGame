@@ -54,6 +54,7 @@ MonoBehaviour:
   - OnStun
   - RespawnSpaceship
   - RPC_OnStart
+  - RPC_ProjectileShot
   - SelectAttack
   - SetActive
   - SetPosition
@@ -62,15 +63,12 @@ MonoBehaviour:
   - SetShotData
   - SetStatus
   - SetVelocity
-  - ShotTest
   - ShowSturnEffetc
   - Spawn
   - SpawnUnit
   - SyncSpeed
   - Turn
   - UpdateHealth
-  - RPC_Shot
-  - __SetShotData
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

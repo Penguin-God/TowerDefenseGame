@@ -26,17 +26,19 @@ public class Multi_Projectile : MonoBehaviourPun
     public void Shot(Vector3 dir, Action<Multi_Enemy> hitAction)
     {
         OnHit = hitAction;
-        photonView.RPC("ShotTest", RpcTarget.All, dir);
+        photonView.RPC("RPC_ProjectileShot", RpcTarget.All, dir);
         RPC_Utility.Instance.RPC_Active(photonView.ViewID, true);
     }
 
     [PunRPC]
-    public void ShotTest(Vector3 _dir)
+    public void RPC_ProjectileShot(Vector3 _dir)
     {
         Rigidbody.velocity = _dir * _speed;
         Quaternion lookDir = Quaternion.LookRotation(_dir);
         transform.rotation = lookDir;
     }
+
+    #region 레거시
 
     public void Shot(Vector3 pos, Vector3 dir, int speed, Action<Multi_Enemy> hitAction)
     {
@@ -53,6 +55,9 @@ public class Multi_Projectile : MonoBehaviourPun
         Quaternion lookDir = Quaternion.LookRotation(_dir);
         transform.rotation = lookDir;
     }
+
+    #endregion
+
 
     void HitEnemy(Multi_Enemy enemy)
     {

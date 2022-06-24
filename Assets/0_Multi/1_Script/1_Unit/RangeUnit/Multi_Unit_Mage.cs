@@ -145,7 +145,6 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         if (target != null && enemyDistance < chaseRange && pv.IsMine)
         {
             ProjectileShotDelegate.ShotProjectile(energyballData, target, 2, OnHit);
-            //ShotProjectile(energyballData, Get_ShootDirection(2f, target), OnHit);
             pv.RPC("AddMana", RpcTarget.All, plusMana);
         }
 

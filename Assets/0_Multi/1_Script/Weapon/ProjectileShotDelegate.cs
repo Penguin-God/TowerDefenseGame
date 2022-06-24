@@ -25,15 +25,15 @@ public class ProjectileData
 
 public static class ProjectileShotDelegate
 {
+    static Multi_Projectile GetProjectile(ProjectileData data)
+        => Multi_SpawnManagers.Weapon.Spawn(data.Original.gameObject, data.SpawnPos).GetComponent<Multi_Projectile>();
+
     public static Multi_Projectile ShotProjectile(ProjectileData data, Vector3 dir, Action<Multi_Enemy> hitAction)
     {
         Multi_Projectile UseWeapon = GetProjectile(data);
         UseWeapon.Shot(dir, hitAction);
         return UseWeapon;
     }
-
-    static Multi_Projectile GetProjectile(ProjectileData data)
-        => Multi_SpawnManagers.Weapon.Spawn(data.Original.gameObject, data.SpawnPos).GetComponent<Multi_Projectile>();
 
     public static Multi_Projectile ShotProjectile(ProjectileData data, Transform target, float weightRate, Action<Multi_Enemy> hitAction)
     {

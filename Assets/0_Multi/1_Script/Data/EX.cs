@@ -8,11 +8,11 @@ public static class EX
 {
     #region Skill 구조체
     [Serializable]
-    class Skill
+    public class Skill : I_M
     {
-        public string skillName;
-        public int id;
-        public bool hasSkill;
+        public string Name;
+        public int Id;
+        public bool HasSkill;
 
         public static void Load()
         {
@@ -32,38 +32,47 @@ public static class EX
 
     #region Money 구조체
     [Serializable]
-    class Money
+    public class Money : I_M
     {
-        public string name;
-        public int id;
-        public bool amount;
+        public string Name;
+        public int Id;
+        public int Amount;
 
         public static void Load()
         {
             TextAsset textAsset = Resources.Load<TextAsset>("Data/ClientData/MoneyData");
-            Skills = CsvUtility.GetEnumerableFromCsv<Skill>(textAsset.text).ToList();
+            Moneys = CsvUtility.GetEnumerableFromCsv<Money>(textAsset.text).ToList();
             Debug.Log("실행");
         }
 
         public static void Save()
         {
-            CsvUtility.SaveCsv(Skills, "Assets/0_Multi/Resources/Data/ClientData/MoneyData");
+            CsvUtility.SaveCsv(Moneys, "Assets/0_Multi/Resources/Data/ClientData/MoneyData");
         }
     }
 
-    [SerializeField] static List<Skill> Moneys;
+    [SerializeField] static List<Money> Moneys;
     #endregion
+
+    public class I_M
+    {
+        public string Name { get; set; }
+        public int Id { get; set; }
+        public bool HasSkill { get; set; }
+        public int Amount { get; set; }
+
+    }
 
     public static void Testf()
     {
         TextAsset textAsset = Resources.Load<TextAsset>("Data/ClientData/SkillData");
         Skills = CsvUtility.GetEnumerableFromCsv<Skill>(textAsset.text).ToList();
 
-        Debug.Log(Skills[0].skillName);
-        Debug.Log(Skills[0].id);
-        Debug.Log(Skills[0].hasSkill);
+        Debug.Log(Skills[0].Name);
+        Debug.Log(Skills[0].Id);
+        Debug.Log(Skills[0].HasSkill);
         Debug.Log(Skills.Count);
-        Debug.Log(GetName("시작골드증가", 1, () => Skill.Load()));
+        Debug.Log(GetName("시작골드증가", 1, () => Skill.Load(), Skills));
         Skill.Save();
 
 
@@ -73,11 +82,11 @@ public static class EX
     #region Get함수
     static int _row = 0;
 
-    public static int GetRow(string skillName, int id)
+    public static int GetRow<T>(string Name, int id, List<T> Data) where T : I_M
     {
-        for (int i = 0; i <= Skills.Count; i++)
+        for (int i = 0; i <= Data.Count; i++)
         {
-            if (Skills[i].skillName == skillName && Skills[i].id == id)
+            if (Data[i].Name == Name && Data[i].Id == id)
             {
                 _row = i;
                 return _row;
@@ -87,54 +96,69 @@ public static class EX
         return 0;
     }
 
-    public static string GetName(string skillName, int id, Action load)
+    public static string GetName<T>(string name, int id, Action load, List<T> Data) where T : I_M
     {
         load.Invoke();
-        int row = GetRow(skillName, id);
-        return Skills[row].skillName;
+        int row = GetRow(name, id, Data);
+        return Data[row].Name;
 
     }
 
-    public static int GetId(string skillName, int id, Action load)
+    public static int GetId<T>(string name, int id, Action load, List<T> Data) where T : I_M
     {
         load.Invoke();
-        int row = GetRow(skillName, id);
-        return Skills[row].id;
+        int row = GetRow(name, id, Data);
+        return Data[row].Id;
     }
 
-    public static bool GetHasSkill(string skillName, int id, Action load)
+    public static bool GetHasSkill<T>(string name, int id, Action load, List<T> Data) where T : I_M
     {
         load.Invoke();
-        int row = GetRow(skillName, id);
-        return Skills[row].hasSkill;
+        int row = GetRow(name, id, Data);
+        return Data[row].HasSkill;
+    }
+
+    public static int Getamount<T>(string name, int id, Action load, List<T> Data) where T : I_M
+    {
+        load.Invoke();
+        int row = GetRow(name, id, Data);
+        return Data[row].Amount;
     }
 
     #endregion
 
 
     #region Set함수
-    public static void SetName(string skillName, int id, string value, Action load, Action save)
+    public static void SetName<T>(string name, int id, string value, Action load, Action save, List<T> Data) where T : I_M
     {
         load.Invoke();
-        int row = GetRow(skillName, id);
-        Skills[row].skillName = value;
+        int row = GetRow(name, id, Data);
+        Data[row].Name = value;
         save.Invoke();
 
     }
 
-    public static void SetId(string skillName, int id, int value, Action load, Action save)
+    public static void SetId<T>(string name, int id, int value, Action load, Action save, List<T> Data) where T : I_M
     {
         load.Invoke();
-        int row = GetRow(skillName, id);
-        Skills[row].id = value;
+        int row = GetRow(name, id, Data);
+        Data[row].Id = value;
+        save.Invoke();
+    }
+     
+    public static void SetHasSkill<T>(string name, int id, bool value, Action load, Action save, List<T> Data) where T : I_M
+    {
+        load.Invoke();
+        int row = GetRow(name, id, Data);
+        Data[row].HasSkill = value;
         save.Invoke();
     }
 
-    public static void SetHasSkill(string skillName, int id, bool value, Action load, Action save)
+    public static void SetAmount<T>(string name, int id, int value, Action load, Action save, List<T> Data) where T : I_M
     {
         load.Invoke();
-        int row = GetRow(skillName, id);
-        Skills[row].hasSkill = value;
+        int row = GetRow(name, id, Data);
+        Data[row].Amount = value;
         save.Invoke();
     }
     #endregion

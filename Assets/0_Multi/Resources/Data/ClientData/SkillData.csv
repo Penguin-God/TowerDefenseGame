@@ -1,5 +1,5 @@
-﻿skillName,id,hasSkill
-시작골드증가,1,False
-시작식량증가,2,False
-터치데미지증가,3,False
-최대유닛증가,4,False
+﻿Name,Id,HasSkill
+시작골드증가,1,FALSE
+시작식량증가,2,FALSE
+터치데미지증가,3,FALSE
+최대유닛증가,4,FALSE

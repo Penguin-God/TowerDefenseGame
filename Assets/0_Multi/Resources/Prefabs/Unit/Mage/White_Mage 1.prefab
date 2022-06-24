@@ -384,8 +384,9 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  projectileData:
+  energyballData:
     original: {fileID: 0}
+    attacker: {fileID: 0}
     spawnTransform: {fileID: 0}
   magicLight: {fileID: 0}
   energyBallTransform: {fileID: 0}

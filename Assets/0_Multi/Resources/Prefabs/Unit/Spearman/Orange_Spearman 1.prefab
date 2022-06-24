@@ -233,15 +233,13 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  projectileData:
+  shotSpearData:
     original: {fileID: -8959718834177707183, guid: 75ab53b65bedaba4789449d2f72a40c6,
       type: 3}
+    attacker: {fileID: 1739437672444174711}
     spawnTransform: {fileID: 3576624832871159445}
   trail: {fileID: 4638286030135204960}
   spear: {fileID: 6477026531094148021}
-  skillSpear: {fileID: 5197799757681758757, guid: 75ab53b65bedaba4789449d2f72a40c6,
-    type: 3}
-  spearCreatePosition: {fileID: 3576624832871159445}
   skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
 --- !u!114 &308024832
 MonoBehaviour:

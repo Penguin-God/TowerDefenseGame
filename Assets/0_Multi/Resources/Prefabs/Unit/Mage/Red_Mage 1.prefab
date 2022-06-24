@@ -564,13 +564,12 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  projectileData:
+  energyballData:
     original: {fileID: 4310734708390126922, guid: 44723817d3ff7f74bb2ba3f4baa9ab6a,
       type: 3}
+    attacker: {fileID: 6109000016361938838}
     spawnTransform: {fileID: 4841617211874935120}
   magicLight: {fileID: 4841617210835731057}
-  energyBall: {fileID: 4310734708390126925, guid: 44723817d3ff7f74bb2ba3f4baa9ab6a,
-    type: 3}
   energyBallTransform: {fileID: 4841617211874935120}
   mageSkillObject: {fileID: 767403622873436515, guid: 6f18a0f9e7422194fbef769d115ca77d,
     type: 3}

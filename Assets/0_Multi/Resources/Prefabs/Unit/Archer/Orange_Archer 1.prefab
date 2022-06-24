@@ -568,12 +568,11 @@ MonoBehaviour:
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
-  projectileData:
+  arrawData:
     original: {fileID: -1697755095933554915, guid: 59b0e928ea166ca4e8b6f4013a1e7e10,
       type: 3}
+    attacker: {fileID: 3674467573017247209}
     spawnTransform: {fileID: 3674467573677695866}
-  arrow: {fileID: 5831825776667280579, guid: 59b0e928ea166ca4e8b6f4013a1e7e10, type: 3}
-  arrowTransform: {fileID: 3674467573677695866}
   skillAttackTargetCount: 3
 --- !u!114 &1632726078
 MonoBehaviour:

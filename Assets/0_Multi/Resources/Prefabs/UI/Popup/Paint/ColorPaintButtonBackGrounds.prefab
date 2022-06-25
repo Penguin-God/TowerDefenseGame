@@ -92,7 +92,7 @@ MonoBehaviour:
   _unitTrackerData:
     _UnitFlags:
       _colorNumber: 2
-      _classNumber: 0
+      _classNumber: -1
     _icon: {fileID: 0}
     _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
     _unitClassName: 
@@ -232,7 +232,7 @@ MonoBehaviour:
   _unitTrackerData:
     _UnitFlags:
       _colorNumber: 4
-      _classNumber: 0
+      _classNumber: -1
     _icon: {fileID: 0}
     _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
     _unitClassName: 
@@ -415,7 +415,7 @@ MonoBehaviour:
   _unitTrackerData:
     _UnitFlags:
       _colorNumber: 0
-      _classNumber: 0
+      _classNumber: -1
     _icon: {fileID: 0}
     _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
     _unitClassName: 
@@ -586,7 +586,7 @@ MonoBehaviour:
   _unitTrackerData:
     _UnitFlags:
       _colorNumber: 3
-      _classNumber: 0
+      _classNumber: -1
     _icon: {fileID: 0}
     _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
     _unitClassName: 
@@ -1096,7 +1096,7 @@ MonoBehaviour:
   _unitTrackerData:
     _UnitFlags:
       _colorNumber: 0
-      _classNumber: 0
+      _classNumber: -1
     _icon: {fileID: 0}
     _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
     _unitClassName: 
@@ -1391,7 +1391,7 @@ MonoBehaviour:
   _unitTrackerData:
     _UnitFlags:
       _colorNumber: 1
-      _classNumber: 0
+      _classNumber: -1
     _icon: {fileID: 0}
     _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
     _unitClassName: 
@@ -1574,7 +1574,7 @@ MonoBehaviour:
   _unitTrackerData:
     _UnitFlags:
       _colorNumber: 5
-      _classNumber: 0
+      _classNumber: -1
     _icon: {fileID: 0}
     _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
     _unitClassName: 

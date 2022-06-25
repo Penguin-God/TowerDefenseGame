@@ -28,7 +28,7 @@ public class UI_UnitTracker : Multi_UI_Base
     void OnDisable()
     {
         Multi_UnitManager.Instance.OnUnitFlagDictChanged -= TrackUnitCount;
-        print("잘 빠짐");
+        //print("잘 빠짐");
     }
 
     public void SetInfo(UI_UnitTrackerData data)
@@ -36,7 +36,10 @@ public class UI_UnitTracker : Multi_UI_Base
         gameObject.SetActive(false);
         gameObject.SetActive(true);
 
-        unitFlags = new UnitFlags(data.UnitFlags.ColorNumber, unitFlags.ClassNumber);
+        // TODO : 코드 꼬라지...... 고쳐야겠지?
+        int colorNumber = data.UnitFlags.ColorNumber == -1 ? unitFlags.ColorNumber : data.UnitFlags.ColorNumber;
+        int classNumber = data.UnitFlags.ClassNumber == -1 ? unitFlags.ClassNumber : data.UnitFlags.ClassNumber;
+        unitFlags = new UnitFlags(colorNumber, classNumber);
         if (data.BackGroundColor != Color.black) backGround.color = data.BackGroundColor;
         if (data.Icon != null) icon.sprite = data.Icon;
         if (string.IsNullOrEmpty(data.UnitClassName) == false) _unitClassName = data.UnitClassName;

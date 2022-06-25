@@ -64,6 +64,7 @@ public class Multi_UI_Manager
     {
         if (string.IsNullOrEmpty(name)) name = typeof(T).Name;
 
+        // TODO : 지금 특정 풀에서 꺼내 쓰는 중이 아니라서 반쪽짜리 풀링임, 제대로 구현하기
         if (_popupByName.TryGetValue(name, out Multi_UI_Popup dictPopup))
         {
             dictPopup.gameObject.SetActive(true);

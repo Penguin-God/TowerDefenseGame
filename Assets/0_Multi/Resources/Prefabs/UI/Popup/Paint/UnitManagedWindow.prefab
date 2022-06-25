@@ -738,22 +738,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001558133fcfee64a8c5629050d68fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _combineButtonsParent: {fileID: 5971559545367992781}
   _windowData:
     _unitFlags:
       _colorNumber: 0
       _classNumber: 0
-    _combineData:
-      _unitFlags:
-        _colorNumber: 0
-        _classNumber: 0
-      _koearName: 
-      _conditions: []
-    _combineDatas: []
+    _combineUnitFalgs: []
     _description: 
   _description: {fileID: 175455848985466462}
-  _combineUnitName: {fileID: 175455849623625438}
-  _combineButton: {fileID: 175455848801035990}
+  _combineButtonsParent: {fileID: 5971559545367992781}
   _currentWolrd: {fileID: 175455848270973473}
 --- !u!1 &175455849891911930
 GameObject:

@@ -13,16 +13,15 @@ public class UI_UnitManagedWindow : Multi_UI_Popup
 
     public void Show(UnitFlags flags)
     {
-        //print($"{flags.UnitColor} : {flags.UnitClass}");
         SetInfo(flags);
         gameObject.SetActive(true);
     }
 
     void SetInfo(UnitFlags flags)
     {
-        _windowData = Multi_Managers.Data.UnitWindowDataByUnitFlags[flags];
-        _description.text = _windowData.Description;
+        //_windowData = ;
+        _description.text = Multi_Managers.Data.UnitWindowDataByUnitFlags[flags].Description;
 
-        _combineButtonsParent.SettingCombineButtons(_windowData.CombineDatas);
+        _combineButtonsParent.SettingCombineButtons(Multi_Managers.Data.UnitWindowDataByUnitFlags[flags].CombineDatas);
     }
 }

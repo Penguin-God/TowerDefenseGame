@@ -61,7 +61,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         Transform[] targetArray = Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target);
         for (int i = 0; i < targetArray.Length; i++)
         {
-            ProjectileShotDelegate.ShotProjectile(arrawData, target, 2, OnSkileHit);
+            ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[i], 2, OnSkileHit);
         }
 
         yield return new WaitForSeconds(1f);

@@ -37,7 +37,11 @@ public abstract class CsvParsers
 
         bool IsEnumerable(string typeName) => typeName.Contains("[]") || typeName.Contains("List");
     }
+}
 
+
+class PrimitiveTypeParser : CsvParser
+{
     public static CsvPrimitiveTypeParser GetPrimitiveParser(string typeName)
     {
         typeName = typeName.Replace("System.", "");
@@ -52,25 +56,8 @@ public abstract class CsvParsers
         }
         return null;
     }
-}
 
-
-class PrimitiveTypeParser : CsvParser
-{
-    public object GetParserValue(string typeName, string value)
-    {
-        typeName = typeName.Replace("System.", "");
-        switch (typeName)
-        {
-            case nameof(Int32): return new CsvIntParser().GetParserValue(value);
-            case nameof(Single): return new CsvFloatParser().GetParserValue(value);
-            case nameof(Boolean): return new CsvBooleanParser().GetParserValue(value);
-            case nameof(String): return new CsvStringParser().GetParserValue(value);
-            case nameof(UnitFlags): return new CsvUnitFlagsParser().GetParserValue(value);
-            default: Debug.LogError("Csv 파싱 타입을 찾지 못함"); break;
-        }
-        return null;
-    }
+    object GetParserValue(string typeName, string value) => GetPrimitiveParser(typeName).GetParserValue(value);
 
     public void SetValue(object obj, FieldInfo info, string[] value)
         => info.SetValue(obj, GetParserValue(info.FieldType.Name, value[0]));
@@ -123,11 +110,6 @@ class CsvIntParser : CsvPrimitiveTypeParser
     {
         Int32.TryParse(value, out int valueInt);
         return valueInt;
-    }
-
-    public IEnumerable<int> GetParserEnumerables(string[] value)
-    {
-        return value.Select(x => (int)GetParserValue(x));
     }
 
     public IEnumerable GetParserEnumerable(string[] value) => value.Select(x => (int)GetParserValue(x));
@@ -184,7 +166,7 @@ public class CsvListParser
     public void SetValue(object obj, FieldInfo info, string[] values, string typeName)
     {
         ConstructorInfo constructor = info.FieldType.GetConstructors()[2];
-        info.SetValue(obj, constructor.Invoke(new object[] { CsvParsers.GetPrimitiveParser(typeName).GetParserEnumerable(values) }));
+        info.SetValue(obj, constructor.Invoke(new object[] { PrimitiveTypeParser.GetPrimitiveParser(typeName).GetParserEnumerable(values) }));
     }
 }
 
@@ -192,9 +174,9 @@ public class CsvArrayParser
 {
     public void SetValue(object obj, FieldInfo info, string[] values, string typeName)
     {
-        Array array = Array.CreateInstance(CsvParsers.GetPrimitiveParser(typeName).GetParserType(), values.Length);
+        Array array = Array.CreateInstance(PrimitiveTypeParser.GetPrimitiveParser(typeName).GetParserType(), values.Length);
         for (int i = 0; i < array.Length; i++)
-            array.SetValue(CsvParsers.GetPrimitiveParser(typeName).GetParserValue(values[i]), i);
+            array.SetValue(PrimitiveTypeParser.GetPrimitiveParser(typeName).GetParserValue(values[i]), i);
         info.SetValue(obj, array);
     }
 }

@@ -29,12 +29,12 @@ public class Tests
 
 public class CsvManager : MonoBehaviour
 {
-    [SerializeField] UI_UnitWindowData[] datas;
+    [SerializeField] CombineCondition[] datas;
     [ContextMenu("Test")]
     void UnitTest()
     {
-        TextAsset textAsset = Resources.Load<TextAsset>("Data/UI_UnitWindowData");
-        datas = CsvUtility.GetEnumerableFromCsv<UI_UnitWindowData>(textAsset.text).ToArray();
+        TextAsset textAsset = Resources.Load<TextAsset>("Data/CombineConditionData");
+        datas = CsvUtility.GetEnumerableFromCsv<CombineCondition>(textAsset.text).ToArray();
     }
 
     [SerializeField] List<Tests> tests = new List<Tests>();

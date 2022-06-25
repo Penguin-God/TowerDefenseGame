@@ -86,6 +86,7 @@ class EnumerableTypeParser : CsvParser
 
     public void SetValue(object obj, FieldInfo info, string[] values)
     {
+        values = values.Where(x => !string.IsNullOrEmpty(x)).ToArray();
         if (_type == EnumerableType.Array)
         {
             new CsvArrayParser().SetValue(obj, info, values, _elementTypeName);

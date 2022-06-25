@@ -249,6 +249,7 @@ MonoBehaviour:
   backGround: {fileID: 0}
   icon: {fileID: 0}
   countText: {fileID: 0}
+  _unitClassName: "\uCC3D\uBCD1"
 --- !u!114 &2692499772349392730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,6 +389,7 @@ MonoBehaviour:
   backGround: {fileID: 0}
   icon: {fileID: 0}
   countText: {fileID: 0}
+  _unitClassName: "\uB9C8\uBC95\uC0AC"
 --- !u!114 &2692499772382435857
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1052,6 +1054,7 @@ MonoBehaviour:
   backGround: {fileID: 2692499773479501600}
   icon: {fileID: 2692499773870882873}
   countText: {fileID: 2692499773190413433}
+  _unitClassName: "\uAE30\uC0AC"
 --- !u!114 &2692499773479501597
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1191,6 +1194,7 @@ MonoBehaviour:
   backGround: {fileID: 0}
   icon: {fileID: 0}
   countText: {fileID: 0}
+  _unitClassName: "\uAD81\uC218"
 --- !u!114 &2692499773487016905
 MonoBehaviour:
   m_ObjectHideFlags: 0

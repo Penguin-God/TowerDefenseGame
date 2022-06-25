@@ -38,6 +38,7 @@ public class Multi_Projectile : MonoBehaviourPun
         transform.rotation = lookDir;
     }
 
+    // TODO : 법사 스킬에서 사용중인데 새로 만든 Shot으로 갈아버려야 됨
     #region 레거시
 
     public void Shot(Vector3 pos, Vector3 dir, int speed, Action<Multi_Enemy> hitAction)
@@ -57,7 +58,6 @@ public class Multi_Projectile : MonoBehaviourPun
     }
 
     #endregion
-
 
     void HitEnemy(Multi_Enemy enemy)
     {

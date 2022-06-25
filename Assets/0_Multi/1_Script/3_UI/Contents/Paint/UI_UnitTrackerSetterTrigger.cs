@@ -10,15 +10,16 @@ public class UI_UnitTrackerSetterTrigger : Multi_UI_Base
 
     void Awake()
     {
-        CreateUnitTrackerData();
+        _unitTrackerData = CreateUnitTrackerData();
         AddEventToButton(SignalTheUnitTrackerSetter);
     }
 
-    void CreateUnitTrackerData()
+    UI_UnitTrackerData CreateUnitTrackerData()
     {
-        _unitTrackerData = new UI_UnitTrackerData(_unitTrackerData.UnitFlags,
+        return new UI_UnitTrackerData(_unitTrackerData.UnitFlags,
             _unitTrackerData.Icon != null ? _unitTrackerData.Icon : GetOrInChildrenComponent<Image>().sprite,
-            GetOrInChildrenComponent<Image>().color);
+            GetOrInChildrenComponent<Image>().color,
+            _unitTrackerData.UnitClassName);
     }
 
     void AddEventToButton(UnityEngine.Events.UnityAction action)

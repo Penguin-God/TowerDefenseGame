@@ -14,6 +14,7 @@ public class Multi_UI_Paint : Multi_UI_Scene
         base.Init();
 
         BindEvnet(_paintActiveButton, ChangePaintRootActive);
+
     }
 
     [SerializeField] GameObject _paintRoot;

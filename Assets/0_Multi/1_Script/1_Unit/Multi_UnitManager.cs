@@ -22,6 +22,10 @@ public class Multi_UnitManager : MonoBehaviour
         }
     }
 
+    public event Action<int> OnCurrentUnitChanged = null;
+    public event Action<UnitFlags, int> OnUnitFlagDictChanged = null;
+    //public event Action<KeyValuePair<UnitFlags, int>> OnUnitCombined = null;
+
     void Awake()
     {
         unitDB = GetComponent<Multi_UnitDataBase>();
@@ -35,7 +39,6 @@ public class Multi_UnitManager : MonoBehaviour
         SetUnitFlagsDic();
     }
 
-    public event Action<int> OnListChange = null;
     private List<Multi_TeamSoldier> _currentUnits = new List<Multi_TeamSoldier>();
     IReadOnlyList<Multi_TeamSoldier> CurrentUnits => _currentUnits;
     public int CurrentUnitCount => _currentUnits.Count;
@@ -44,7 +47,8 @@ public class Multi_UnitManager : MonoBehaviour
     {
         _currentUnits.Add(unit);
         _unitListByUnitFlags[unit.UnitFlags].Add(unit);
-        OnListChange?.Invoke(_currentUnits.Count);
+        OnCurrentUnitChanged?.Invoke(_currentUnits.Count);
+        OnUnitFlagDictChanged?.Invoke(unit.UnitFlags, GetUnitFlagCount(unit.UnitFlags));
         print($"{unit.name} : {_unitListByUnitFlags[unit.UnitFlags].Count}마리 있음");
     }
 
@@ -52,11 +56,19 @@ public class Multi_UnitManager : MonoBehaviour
     {
         _currentUnits.Remove(unit);
         _unitListByUnitFlags[unit.UnitFlags].Remove(unit);
-        OnListChange?.Invoke(_currentUnits.Count);
+        OnCurrentUnitChanged?.Invoke(_currentUnits.Count);
+        OnUnitFlagDictChanged?.Invoke(unit.UnitFlags, GetUnitFlagCount(unit.UnitFlags));
     }
 
     private Dictionary<UnitFlags, List<Multi_TeamSoldier>> _unitListByUnitFlags = new Dictionary<UnitFlags, List<Multi_TeamSoldier>>();
     public IReadOnlyDictionary<UnitFlags, List<Multi_TeamSoldier>> UnitListByUnitFlags => _unitListByUnitFlags;
+    public int GetUnitFlagCount(UnitFlags unitFlag)
+    {
+        if (UnitListByUnitFlags.TryGetValue(unitFlag, out List<Multi_TeamSoldier> units))
+            return units.Count;
+        else
+            return 0;
+    }
     void SetUnitFlagsDic()
     {
         _unitListByUnitFlags.Clear();
@@ -65,6 +77,7 @@ public class Multi_UnitManager : MonoBehaviour
             foreach (Multi_TeamSoldier unit in data.gos.Select(x => x.GetComponent<Multi_TeamSoldier>()))
             {
                 if(unit == null) continue; // TODO : 하얀 유닛 때문에 임시로 넘김
+                // 이미 있으면 로그 띄우고 넘김
                 if(_unitListByUnitFlags.ContainsKey(new UnitFlags(unit.unitColor, unit.unitClass)))
                 {
                     print($"{unit.unitColor} : {unit.unitClass}");
@@ -83,6 +96,7 @@ public class Multi_UnitManager : MonoBehaviour
         {
             SacrificedUnit_ForCombine(data.Condition);
             Multi_SpawnManagers.NormalUnit.Spawn(data.UnitFlags);
+            //OnUnitCombined?.Invoke(new KeyValuePair<UnitFlags, int>(data.UnitFlags, GetUnitFlagCount(data.UnitFlags)));
         }
     }
 
@@ -97,6 +111,7 @@ public class Multi_UnitManager : MonoBehaviour
         for (int i = 0; i < count; i++)
             offerings[i].Dead();
     }
+
 
     public bool FindCurrentUnit(int colorNum, int classNum, out Multi_TeamSoldier unit) => FindCurrentUnit(new UnitFlags(colorNum, classNum), out unit);
     public bool FindCurrentUnit(UnitColor unitColor, UnitClass unitClass, out Multi_TeamSoldier unit) => FindCurrentUnit(new UnitFlags(unitColor, unitClass), out unit);

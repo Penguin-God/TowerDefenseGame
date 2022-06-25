@@ -31,9 +31,9 @@ public struct UnitFlags : IEquatable<UnitFlags>
 
     public UnitFlags(string unitKoreaName)
     {
+        Debug.Assert(Multi_Managers.Data.UnitNameDataByUnitKoreaName.ContainsKey(unitKoreaName), "유닛 이름 입력 잘못됨");
         _colorNumber = Multi_Managers.Data.UnitNameDataByUnitKoreaName[unitKoreaName].UnitFlags.ColorNumber;
         _classNumber = Multi_Managers.Data.UnitNameDataByUnitKoreaName[unitKoreaName].UnitFlags.ClassNumber;
-        ClempFlags();
     }
 
     void ClempFlags()

@@ -21,6 +21,17 @@ public class ProjectileData
     public Transform Attacker => attacker;
     public Transform SpawnTransform => spawnTransform;
     public Vector3 SpawnPos => spawnTransform.position;
+
+    protected Multi_Projectile UsedWeapon(WeaponType weaponType, GameObject go, 
+                                            Transform weaponPos, Vector3 dir, 
+                                            int speed, Action<Multi_Enemy> hitAction)
+    {
+        Multi_Projectile UseWeapon =
+                Multi_SpawnManagers.Weapon.Spawn(go).GetComponent<Multi_Projectile>();
+
+        UseWeapon.Shot(weaponPos.position, dir, speed, hitAction);
+        return UseWeapon;
+    }
 }
 
 public static class ProjectileShotDelegate
@@ -36,11 +47,7 @@ public static class ProjectileShotDelegate
     }
 
     public static Multi_Projectile ShotProjectile(ProjectileData data, Transform target, float weightRate, Action<Multi_Enemy> hitAction)
-    {
-        Multi_Projectile UseWeapon = GetProjectile(data);
-        UseWeapon.Shot(Get_ShootDirection(data.Attacker, target, weightRate), hitAction);
-        return UseWeapon;
-    }
+        => ShotProjectile(data, Get_ShootDirection(data.Attacker, target, weightRate), hitAction);
 
     // 원거리 무기 발사
     static Vector3 Get_ShootDirection(Transform attacker, Transform _target, float weightRate)

@@ -63,19 +63,20 @@ public class Multi_Enemy : MonoBehaviourPun
         isDead = _isDead;
     }
 
-    public void OnDamage(RpcTarget target, int damage) => _PV.RPC("OnDamage", target, damage);
+    public void OnDamage(int damage) => _PV.RPC("RPC_OnDamage", RpcTarget.MasterClient, damage);
+    //public void OnDamage(RpcTarget target, int damage) => _PV.RPC("RPC_OnDamage", target, damage);
     [PunRPC]
-    public void OnDamage(int damage)
+    public void RPC_OnDamage(int damage)
     {
         if (PhotonNetwork.IsMasterClient)
         {
             currentHp -= damage;
             hpSlider.value = currentHp;
 
-            photonView.RPC("UpdateHealth", RpcTarget.Others, currentHp);
+            photonView.RPC("RPC_UpdateHealth", RpcTarget.Others, currentHp);
 
             // 조건문 밖의 Dead부분 실행을 위한 코드
-            photonView.RPC("OnDamage", RpcTarget.Others, 0);
+            photonView.RPC("RPC_OnDamage", RpcTarget.Others, 0);
         }
 
         // Dead는 보상 등 개인적으로 실행되어야 하는 기능이 포함되어 있으므로 모두 실행
@@ -83,7 +84,7 @@ public class Multi_Enemy : MonoBehaviourPun
     }
 
     [PunRPC]
-    private void UpdateHealth(int _newHp)
+    public void RPC_UpdateHealth(int _newHp)
     {
         currentHp = _newHp;
         hpSlider.value = currentHp;
@@ -139,7 +140,7 @@ public class Multi_Enemy : MonoBehaviourPun
         for (int i = 0; i < poisonCount; i++)
         {
             yield return new WaitForSeconds(poisonDelay);
-            OnDamage(poisonDamage); // 포이즌 자체가 호스트에서만 돌아가기 때문에 그냥 써도 됨
+            RPC_OnDamage(poisonDamage); // 포이즌 자체가 호스트에서만 돌아가기 때문에 그냥 써도 됨
         }
 
         if (queue_HoldingPoison.Count != 0) queue_HoldingPoison.Dequeue();

@@ -411,7 +411,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         else AttackEnemy(enemy, bossDamage);
     }
 
-    void AttackEnemy(Multi_Enemy enemy, int damage) => enemy.OnDamage(RpcTarget.MasterClient, damage);
+    void AttackEnemy(Multi_Enemy enemy, int damage) => enemy.OnDamage(damage);
     #endregion
 
 

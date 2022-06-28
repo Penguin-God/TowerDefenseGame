@@ -17,13 +17,11 @@ public class PrefabSpawner : MonoBehaviourPun
     public void SpawnUnit(int colorNumber, int classNumber)
     {
         Multi_SpawnManagers.NormalUnit.Spawn(colorNumber, classNumber);
-        //string path = Multi_UnitManager.instance.BuildPath((UnitClass)classNumber, _name);
-        //Multi_Managers.Resources.PhotonInsantiate(path, Multi_WorldPosUtility.Instance.GetUnitSpawnPositon());
     }
 
-    public void SpawnUnit_ByClient(string _name)
+    public void SpawnUnit_ByClient(int colorNumber, int classNumber)
     {
-        photonView.RPC("SpawnUnit", RpcTarget.Others, _name);
+        photonView.RPC("SpawnUnit", RpcTarget.Others, colorNumber, classNumber);
     }
 
     public void SpawnNormalEnemy(int _enemyNum)

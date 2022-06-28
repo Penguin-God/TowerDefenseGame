@@ -44,9 +44,6 @@ public class MultiLoading : MonoBehaviourPun
         //    return;
         //}
         MultiGameStartButton.interactable = false;
-        PhotonNetwork.LoadLevel("박준 멀티");
-        //PhotonNetwork.LoadLevel("합친 씬 - 장익준 멀티");
-
-
+        PhotonNetwork.LoadLevel("New_Scene");
     }
 }

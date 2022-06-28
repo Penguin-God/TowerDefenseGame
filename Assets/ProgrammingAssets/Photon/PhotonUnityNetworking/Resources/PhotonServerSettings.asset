@@ -69,6 +69,8 @@ MonoBehaviour:
   - SyncSpeed
   - Turn
   - UpdateHealth
+  - RPC_OnDamage
+  - RPC_UpdateHealth
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

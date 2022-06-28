@@ -31,7 +31,7 @@ public class Multi_Projectile : MonoBehaviourPun
     }
 
     [PunRPC]
-    void RPC_ProjectileShot(Vector3 _dir)
+    public void RPC_ProjectileShot(Vector3 _dir)
     {
         Rigidbody.velocity = _dir * _speed;
         Quaternion lookDir = Quaternion.LookRotation(_dir);

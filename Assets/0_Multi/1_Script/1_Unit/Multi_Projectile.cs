@@ -27,7 +27,6 @@ public class Multi_Projectile : MonoBehaviourPun
     {
         OnHit = hitAction;
         photonView.RPC("RPC_ProjectileShot", RpcTarget.All, dir);
-        //RPC_Utility.Instance.RPC_Active(photonView.ViewID, true);
     }
 
     [PunRPC]
@@ -36,7 +35,6 @@ public class Multi_Projectile : MonoBehaviourPun
         Rigidbody.velocity = _dir * _speed;
         Quaternion lookDir = Quaternion.LookRotation(_dir);
         transform.rotation = lookDir;
-        gameObject.SetActive(true);
     }
 
     // TODO : 법사 스킬에서 사용중인데 새로 만든 Shot으로 갈아버려야 됨

@@ -29,7 +29,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
 
         nav.isStopped = true;
         trail.SetActive(false);
-        if (target != null && enemyDistance < chaseRange && pv.IsMine)
+        if (PhotonNetwork.IsMasterClient && target != null && enemyDistance < chaseRange)
         {
             ProjectileShotDelegate.ShotProjectile(arrawData, target, 2, OnHit);
         }

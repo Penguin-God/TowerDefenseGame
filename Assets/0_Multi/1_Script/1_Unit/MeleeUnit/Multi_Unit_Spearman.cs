@@ -53,7 +53,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         spear.SetActive(false);
         nav.isStopped = true;
 
-        if (pv.IsMine)
+        if (PhotonNetwork.IsMasterClient)
         {
             Multi_Projectile weapon = ProjectileShotDelegate.ShotProjectile(shotSpearData, transform.forward, OnSkileHit);
             RPC_Utility.Instance.RPC_Rotate(weapon.photonView.ViewID, new Vector3(90, 0, 0));

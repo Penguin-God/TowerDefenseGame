@@ -27,15 +27,16 @@ public class Multi_Projectile : MonoBehaviourPun
     {
         OnHit = hitAction;
         photonView.RPC("RPC_ProjectileShot", RpcTarget.All, dir);
-        RPC_Utility.Instance.RPC_Active(photonView.ViewID, true);
+        //RPC_Utility.Instance.RPC_Active(photonView.ViewID, true);
     }
 
     [PunRPC]
-    public void RPC_ProjectileShot(Vector3 _dir)
+    void RPC_ProjectileShot(Vector3 _dir)
     {
         Rigidbody.velocity = _dir * _speed;
         Quaternion lookDir = Quaternion.LookRotation(_dir);
         transform.rotation = lookDir;
+        gameObject.SetActive(true);
     }
 
     // TODO : 법사 스킬에서 사용중인데 새로 만든 Shot으로 갈아버려야 됨
@@ -78,6 +79,7 @@ public class Multi_Projectile : MonoBehaviourPun
     void ReturnObjet()
     {
         OnHit = null;
+        if (PhotonNetwork.IsMasterClient == false) return;
         Multi_Managers.Pool.Push(gameObject.GetOrAddComponent<Poolable>());
     }
 
@@ -85,7 +87,7 @@ public class Multi_Projectile : MonoBehaviourPun
     {
         if (photonView.IsMine)
         {
-            Multi_Enemy enemy = other.GetComponentInParent<Multi_Enemy>();
+            Multi_Enemy enemy = other.GetComponentInParent<Multi_Enemy>(); // 콜라이더가 자식한테 있음
             if (enemy != null) HitEnemy(enemy);
         }
     }

@@ -33,6 +33,12 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     public float EnemySpawnTime => _spawnDelayTime * _stageSpawnCount;
     Vector3 _spawnPos;
 
+    int minHp = 200;
+    int enemyHpWeight;
+    int plusEnemyHpWeight = 20;
+    
+    private float maxSpeed = 5f;
+    private float minSpeed = 3f;
     public override void Init()
     {
         CreatePool();
@@ -40,6 +46,40 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
         SetNormalEnemyData();
         Multi_StageManager.Instance.OnUpdateStage += StageSpawn;
+
+        void SetNormalEnemyData()
+        {
+            int maxNumber = _enemys.Length;
+            int maxStage = 200; // 일단 200 스테이지까지만 설정
+
+            for (int stage = 1; stage < maxStage; stage++)
+            {
+                enemyHpWeight += plusEnemyHpWeight;
+
+                NormalEnemyData enemyData = new NormalEnemyData(Random.Range(0, maxNumber), SetRandomHp(stage, enemyHpWeight), SetRandomSeepd(stage));
+                _enemyDataByStage.Add(stage, enemyData);
+            }
+
+
+            int SetRandomHp(int _stage, int _weight)
+            {
+                // satge에 따른 가중치 변수들
+                int stageHpWeight = _stage * _stage * _weight;
+                int hp = minHp + stageHpWeight;
+                return hp;
+            }
+
+            float SetRandomSeepd(int _stage)
+            {
+                // satge에 따른 가중치 변수들
+                float stageSpeedWeight = _stage / 6;
+
+                float enemyMinSpeed = minSpeed + stageSpeedWeight;
+                float enemyMaxSpeed = maxSpeed + stageSpeedWeight;
+                float speed = Random.Range(enemyMinSpeed, enemyMaxSpeed);
+                return speed;
+            }
+        }
     }
 
     void CreatePool()
@@ -80,54 +120,12 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     void SetEnemy(Multi_NormalEnemy enemy)
     {
         enemy.enemyType = EnemyType.Normal;
-
         enemy.OnDeath += () => OnDead(enemy);
+
+        if (PhotonNetwork.IsMasterClient == false) return;
         enemy.OnDeath += () => Multi_Managers.Pool.Push(enemy.GetComponent<Poolable>());
     }
 
-    int minHp = 200;
-    int enemyHpWeight;
-    int plusEnemyHpWeight = 20;
-    void SetNormalEnemyData()
-    {
-        int maxNumber = _enemys.Length;
-
-        for (int stage = 1; stage < 200; stage++)
-        {
-            enemyHpWeight += plusEnemyHpWeight;
-
-            NormalEnemyData enemyData = new NormalEnemyData
-            {
-                number = Random.Range(0, maxNumber),
-                hp = SetRandomHp(stage, enemyHpWeight),
-                speed = SetRandomSeepd(stage),
-            };
-
-            _enemyDataByStage.Add(stage, enemyData);
-        }
-    }
-
-    int SetRandomHp(int _stage, int _weight)
-    {
-        // satge에 따른 가중치 변수들
-        int stageHpWeight = _stage * _stage * _weight;
-
-        int hp = minHp + stageHpWeight;
-        return hp;
-    }
-
-    private float maxSpeed = 5f;
-    private float minSpeed = 3f;
-    float SetRandomSeepd(int _stage)
-    {
-        // satge에 따른 가중치 변수들
-        float stageSpeedWeight = _stage / 6;
-
-        float enemyMinSpeed = minSpeed + stageSpeedWeight;
-        float enemyMaxSpeed = maxSpeed + stageSpeedWeight;
-        float speed = Random.Range(enemyMinSpeed, enemyMaxSpeed);
-        return speed;
-    }
     #endregion
 
 
@@ -142,14 +140,13 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
     IEnumerator Co_StageSpawn(int stage)
     {
-        NormalEnemyData data = _enemyDataByStage[stage];
-        currentSpawnEnemyNum = data.number;
         for (int i = 0; i < _stageSpawnCount; i++)
         {
-            Spawn(currentSpawnEnemyNum, data.hp, data.speed);
+            Spawn(_enemyDataByStage[stage]);
             yield return new WaitForSeconds(_spawnDelayTime);
         }
     }
+    void Spawn(NormalEnemyData data) => Spawn(data.number, data.hp, data.speed);
     #endregion
 
 }

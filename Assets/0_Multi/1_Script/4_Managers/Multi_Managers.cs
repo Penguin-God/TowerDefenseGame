@@ -35,14 +35,16 @@ public class Multi_Managers : MonoBehaviourPun
 
     void Init()
     {
-        // ui 테스트 때문에 잠시 비활성화
-        // if (!photonView.IsMine) return;
         _data.Init();
-        _pool.Init();
 
+        if (PhotonNetwork.IsMasterClient == false) return;
+        _pool.Init();
+    }
+
+    void Start()
+    {
         // temp code : 나중에 씬으로 옮길 것
         _ui.ShowSceneUI<Multi_UI_Paint>("Paint");
-        //_ui.ShowSceneUI<UI_UnitManagedWindow>("UnitManagedWindow");
     }
 
     public void Clear()

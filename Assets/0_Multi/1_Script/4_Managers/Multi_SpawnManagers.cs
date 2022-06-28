@@ -61,7 +61,7 @@ public class Multi_SpawnManagers : MonoBehaviourPun
     void Start()
     {
         // 마스터 클라이언트만 풀링할 수 있고 나머지는 풀링을 요청하고 오브젝트를 받는 형식
-        if (!PhotonNetwork.IsMasterClient) return;
+        if (PhotonNetwork.IsMasterClient == false) return;
 
         _normalEnemy.Init();
         _bossEnemy.Init();

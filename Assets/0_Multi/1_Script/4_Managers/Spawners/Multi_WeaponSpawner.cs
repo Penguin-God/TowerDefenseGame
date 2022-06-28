@@ -45,16 +45,10 @@ public class Multi_WeaponSpawner : Multi_SpawnerBase
     }
 
 
-    public GameObject Spawn(GameObject go) => Multi_Managers.Pool.Pop(go);
-    public GameObject Spawn(GameObject go, Vector3 spawnPos)
-    {
-        GameObject result = Multi_Managers.Pool.Pop(go);
-        result.transform.position = spawnPos;
-        return result;
-    }
+    // public GameObject Spawn(GameObject go) => Multi_Managers.Pool.Pop(go);
+    public GameObject Spawn(GameObject go, Vector3 spawnPos) => Multi_Managers.Pool.Pop(go, spawnPos);
 
-    // 좆버그다.
     public GameObject Spawn(WeaponType weaponType, GameObject go, Vector3 _pos) => Spawn(weaponType, go, _pos);
-    public GameObject Spawn(int type, GameObject go, Vector3 _pos)
-        => Multi_Managers.Resources.PhotonInsantiate(BuildPath(_rootPath, allWeapons[type].folderName, go), _pos);
+    //public GameObject Spawn(int type, GameObject go, Vector3 _pos)
+    //    => Multi_Managers.Resources.PhotonInsantiate(BuildPath(_rootPath, allWeapons[type].folderName, go), _pos);
 }

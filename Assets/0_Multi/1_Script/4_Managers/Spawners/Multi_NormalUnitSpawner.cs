@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Photon.Pun;
 
 [Serializable]
 public struct FolderPoolingData
@@ -25,7 +26,6 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     [SerializeField] FolderPoolingData magePoolData;
 
     // Init용 코드
-    // TODO Init class만들기
     #region Init
     public override void Init()
     {
@@ -52,21 +52,21 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
         allUnitDatas[2] = spearmanPoolData;
         allUnitDatas[3] = magePoolData;
     }
+    #endregion
 
     public override void SettingPoolObject(object obj)
     {
         Multi_TeamSoldier unit = obj as Multi_TeamSoldier;
         Debug.Assert(unit != null, "오브젝트 캐스팅 실패!!");
-        SetUnit(unit);
-    }
+        SetUnit();
 
-    // TODO : 구현하기
-    void SetUnit(Multi_TeamSoldier unit)
-    {
-        unit.OnDead += OnDead;
-        unit.OnDead += deadUnit => Multi_Managers.Pool.Push(deadUnit.GetComponent<Poolable>());
+        void SetUnit()
+        {
+            unit.OnDead += OnDead;
+            if (PhotonNetwork.IsMasterClient == false) return;
+            unit.OnDead += deadUnit => Multi_Managers.Pool.Push(deadUnit.GetComponent<Poolable>());
+        }
     }
-    #endregion
 
     public void Spawn(UnitFlags flgas) => Spawn(flgas.ColorNumber, flgas.ClassNumber);
     public void Spawn(UnitColor unitColor, UnitClass unitClass) => Spawn((int)unitColor, (int)unitClass);
@@ -78,6 +78,7 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
             BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]),
             Multi_WorldPosUtility.Instance.GetUnitSpawnPositon() // spawn position
             ).GetComponent<Multi_TeamSoldier>();
+
         OnSpawn?.Invoke(unit);
     }
 

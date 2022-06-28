@@ -21,20 +21,14 @@ public class Multi_StageManager : MonoBehaviourPun
         }
     }
 
-    #region events
     public event Action<int> OnUpdateStage;
-    #endregion
 
     [SerializeField] int currentStage = 0;
-    [SerializeField] int maxStage;
-
     public int CurrentStage => currentStage;
-    public int MaxStage => maxStage;
 
     [SerializeField] Slider timerSlider;
     [SerializeField] GameObject skipButton = null;
     [SerializeField] float stageTime = 40f;
-    [SerializeField] float enemySpawnTimne = 40f;
     WaitForSeconds StageWait;
 
     void Start()
@@ -47,7 +41,7 @@ public class Multi_StageManager : MonoBehaviourPun
 
     private void Update()
     {
-        if (Multi_GameManager.instance.gameStart && currentStage < maxStage)
+        if(Multi_GameManager.instance.gameStart)
             timerSlider.value -= Time.deltaTime;
     }
 
@@ -82,6 +76,6 @@ public class Multi_StageManager : MonoBehaviourPun
     }
 
     #region callback function
-    public void Skip() => timerSlider.value = 0;
+    void Skip() => timerSlider.value = 0;
     #endregion
 }

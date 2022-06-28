@@ -165,6 +165,13 @@ public class Multi_PoolManager
     public GameObject Pop(GameObject go, Transform parent = null)
         => _poolByName[go.name].Pop(parent).gameObject;
 
+    public GameObject Pop(GameObject go, Vector3 position, Transform parent = null)
+    {
+        GameObject result = _poolByName[go.name].Pop(parent).gameObject;
+        RPC_Utility.Instance.RPC_Position(result.GetOrAddComponent<PhotonView>().ViewID, position);
+        return result;
+    }
+
     public GameObject GetOriginal(string path)
     {
         string name = path.Split('/')[path.Split('/').Length-1];

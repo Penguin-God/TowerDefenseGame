@@ -17,6 +17,7 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
     [SerializeField] protected string _rootPath;
 
     public abstract void Init();
+    public virtual void MasterInit() { }
 
     protected T[] CreatePool<T>(GameObject go, string path, int count) where T : Component
         => Multi_Managers.Pool.CreatePool(go, path, count).GetComponentsInChildren<T>(true).ToArray();

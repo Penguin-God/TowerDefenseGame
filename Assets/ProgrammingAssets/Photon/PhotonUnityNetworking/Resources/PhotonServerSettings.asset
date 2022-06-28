@@ -71,6 +71,7 @@ MonoBehaviour:
   - UpdateHealth
   - RPC_OnDamage
   - RPC_UpdateHealth
+  - NormalEnemySpawn
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -61,6 +61,7 @@ public class Multi_Enemy : MonoBehaviourPun
         maxSpeed = _speed;
         speed = _speed;
         isDead = _isDead;
+        gameObject.SetActive(!_isDead);
     }
 
     public void OnDamage(int damage) => _PV.RPC("RPC_OnDamage", RpcTarget.MasterClient, damage);
@@ -103,7 +104,6 @@ public class Multi_Enemy : MonoBehaviourPun
         queue_HoldingPoison.Clear();
         ChangeColor(255, 255, 255, 255);
         ChangeMat(originMat);
-        SetStatus(0, 0, true);
     }
 
     // 상태 이상은 호스트에서 적용 후 다른 플레이어에게 동기화하는 방식

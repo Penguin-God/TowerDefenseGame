@@ -123,7 +123,16 @@ public class Multi_PoolManager
     public void Push(Poolable poolable) => Push(poolable.gameObject);
     public void Push(GameObject go)
     {
-        Pool pool = _poolByName[go.name];
+        Pool pool;
+        if (_poolByName.ContainsKey(go.name) == false)
+        {
+            Debug.Log(go.name);
+            pool = null;
+        }
+        else
+        {
+            pool = _poolByName[go.name];
+        }
 
         if (pool == null)
         {

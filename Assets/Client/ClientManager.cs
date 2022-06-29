@@ -38,9 +38,13 @@ public class ClientManager : MonoBehaviour
     void Start()
     {
         Debug.Log(Excel.Money.path);
-        Excel.PlayerDataBase.Load(Excel.Skills, Excel.Skill.path);
-        Excel.PlayerDataBase.Load(Excel.Moneys, Excel.Money.path);
-        Debug.Log(Excel.Skills[0].Name);
+        Excel.Skills = Excel.PlayerDataBase.Load(Excel.Skills, Excel.Skill.path);
+        Excel.Moneys = Excel.PlayerDataBase.Load(Excel.Moneys, Excel.Money.path);
+        Debug.Log(Excel.Skills.Count);
+        Debug.Log(Excel.Moneys.Count);
+        Debug.Log(Excel.Moneys[0].Name);
+        Debug.Log(Excel.Moneys[0].Id);
+        Debug.Log(Excel.Moneys[0].Amount);
 
         StartGameCount = PlayerPrefs.GetInt("StartGameCount");
         if (StartGameCount == 0)

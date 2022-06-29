@@ -42,11 +42,12 @@ public static class Excel
         public int Amount { get; set; }
         public string path { get; }
 
-        public static void Load<T>(List<T> Data, string path)
+        public static List<T> Load<T>(List<T> Data, string path)
         {
             TextAsset textAsset = Resources.Load<TextAsset>($"Data/ClientData/{path}");
             Data = CsvUtility.GetEnumerableFromCsv<T>(textAsset.text).ToList();
-            Debug.Log("실행");
+            return Data;
+            //Debug.Log(Data.Count);
         }
 
         public static void Save<T>(List<T> Data, string path)

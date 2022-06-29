@@ -17,7 +17,7 @@ public static class Excel
 
     }
 
-    [SerializeField] static List<Skill> Skills;
+    [SerializeField] public static List<Skill> Skills;
     #endregion
 
     #region Money 구조체
@@ -31,7 +31,7 @@ public static class Excel
 
     }
 
-    [SerializeField] static List<Money> Moneys;
+    [SerializeField] public static List<Money> Moneys;
     #endregion
 
     public abstract class PlayerDataBase
@@ -64,7 +64,7 @@ public static class Excel
         Debug.Log(Skills[0].Id);
         Debug.Log(Skills[0].HasSkill);
         Debug.Log(Skills.Count);
-        Debug.Log(GetName("시작골드증가", 1, () => PlayerDataBase.Load(Skills, Skill.path), Skills));
+        Debug.Log(GetName("시작골드증가", 1, Skills));
         PlayerDataBase.Save(Skills, Skill.path);
 
 
@@ -88,31 +88,27 @@ public static class Excel
         return 0;
     }
 
-    public static string GetName<T>(string name, int id, Action load, List<T> Data) where T : PlayerDataBase
+    public static string GetName<T>(string name, int id, List<T> Data) where T : PlayerDataBase
     {
-        load.Invoke();
         int row = GetRow(name, id, Data);
         return Data[row].Name;
 
     }
 
-    public static int GetId<T>(string name, int id, Action load, List<T> Data) where T : PlayerDataBase
+    public static int GetId<T>(string name, int id, List<T> Data) where T : PlayerDataBase
     {
-        load.Invoke();
         int row = GetRow(name, id, Data);
         return Data[row].Id;
     }
 
-    public static bool GetHasSkill<T>(string name, int id, Action load, List<T> Data) where T : PlayerDataBase
+    public static bool GetHasSkill<T>(string name, int id, List<T> Data) where T : PlayerDataBase
     {
-        load.Invoke();
         int row = GetRow(name, id, Data);
         return Data[row].HasSkill;
     }
 
-    public static int Getamount<T>(string name, int id, Action load, List<T> Data) where T : PlayerDataBase
+    public static int Getamount<T>(string name, int id, List<T> Data) where T : PlayerDataBase
     {
-        load.Invoke();
         int row = GetRow(name, id, Data);
         return Data[row].Amount;
     }
@@ -121,37 +117,33 @@ public static class Excel
 
 
     #region Set함수
-    public static void SetName<T>(string name, int id, string value, Action load, Action save, List<T> Data) where T : PlayerDataBase
+    public static void SetName<T>(string name, int id, string value, string path, List<T> Data) where T : PlayerDataBase
     {
-        load.Invoke();
         int row = GetRow(name, id, Data);
         Data[row].Name = value;
-        save.Invoke();
+        PlayerDataBase.Save(Data, path);
 
     }
 
-    public static void SetId<T>(string name, int id, int value, Action load, Action save, List<T> Data) where T : PlayerDataBase
+    public static void SetId<T>(string name, int id, int value, string path, List<T> Data) where T : PlayerDataBase
     {
-        load.Invoke();
         int row = GetRow(name, id, Data);
         Data[row].Id = value;
-        save.Invoke();
+        PlayerDataBase.Save(Data, path);
     }
      
-    public static void SetHasSkill<T>(string name, int id, bool value, Action load, Action save, List<T> Data) where T : PlayerDataBase
+    public static void SetHasSkill<T>(string name, int id, bool value, string path, List<T> Data) where T : PlayerDataBase
     {
-        load.Invoke();
         int row = GetRow(name, id, Data);
         Data[row].HasSkill = value;
-        save.Invoke();
+        PlayerDataBase.Save(Data, path);
     }
 
-    public static void SetAmount<T>(string name, int id, int value, Action load, Action save, List<T> Data) where T : PlayerDataBase
+    public static void SetAmount<T>(string name, int id, int value, string path, List<T> Data) where T : PlayerDataBase
     {
-        load.Invoke();
         int row = GetRow(name, id, Data);
         Data[row].Amount = value;
-        save.Invoke();
+        PlayerDataBase.Save(Data, path);
     }
     #endregion
 }

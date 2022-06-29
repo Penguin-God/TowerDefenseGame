@@ -37,12 +37,17 @@ public class ClientManager : MonoBehaviour
 
     void Start()
     {
+        Debug.Log(Excel.Money.path);
+        Excel.PlayerDataBase.Load(Excel.Skills, Excel.Skill.path);
+        Excel.PlayerDataBase.Load(Excel.Moneys, Excel.Money.path);
+        Debug.Log(Excel.Skills[0].Name);
+
         StartGameCount = PlayerPrefs.GetInt("StartGameCount");
         if (StartGameCount == 0)
         {
-            PlayerPrefs.SetInt("Iron", 500);
-            PlayerPrefs.SetInt("Wood", 500);
-            PlayerPrefs.SetInt("Hemmer", 30);
+            Excel.SetAmount("Iron", 1, 500, Excel.Money.path, Excel.Moneys);
+            Excel.SetAmount("Wood", 2, 500, Excel.Money.path, Excel.Moneys);
+            Excel.SetAmount("Hammer", 3, 30, Excel.Money.path, Excel.Moneys);
             PlayerPrefs.SetInt("StartGameCount", 1000);
             StartGameCount = PlayerPrefs.GetInt("StartGameCount");
         }
@@ -100,9 +105,9 @@ public class ClientManager : MonoBehaviour
         FoodCount = PlayerPrefs.GetInt("FoodCount");
         HammerCount = PlayerPrefs.GetInt("HammerCount");
         PlusMaxUnitCount = PlayerPrefs.GetInt("PlusMaxUnitCount");
-        ClientWood = PlayerPrefs.GetInt("Wood");
-        ClientIron = PlayerPrefs.GetInt("Iron");
-        ClientHammer = PlayerPrefs.GetInt("Hammer");
+        ClientIron = Excel.Getamount("Iron", 1, Excel.Moneys);
+        ClientWood = Excel.Getamount("Wood", 2, Excel.Moneys);
+        ClientHammer = Excel.Getamount("Hammer", 3, Excel.Moneys);
         UpdateWoodText(ClientWood);
         UpdateIronText(ClientIron);
         UpdateHammerText(ClientHammer);

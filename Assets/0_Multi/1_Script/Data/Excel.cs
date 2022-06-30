@@ -82,8 +82,8 @@ public static class Excel
 
         for (int i = 0; i < monys.Count; i++)
         {
-            Debug.Log($"{monys[i].Name} : {Name}");
-            Debug.Log($"{monys[i].Id} : {id}");
+            Debug.Log($"Data : {Data[i].Name} : {Name}");
+            Debug.Log($"Dtta : {Data[i].Id} : {id}");
             if (monys[i].Name == Name && monys[i].Id == id)
             {
                 _row = i;
@@ -115,6 +115,7 @@ public static class Excel
 
     public static int Getamount<T>(string name, int id, List<T> Data) where T : PlayerDataBase
     {
+        Debug.Log(Data.GetType().ToString());
         TextAsset textAsset = Resources.Load<TextAsset>($"Data/ClientData/MoneyData");
         int row = GetRow(name, id, CsvUtility.GetEnumerableFromCsv<T>(textAsset.text).ToList());
         return GetRow(name, id, CsvUtility.GetEnumerableFromCsv<T>(textAsset.text).ToList());

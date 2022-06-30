@@ -89,6 +89,7 @@ public class ClientManager : MonoBehaviour
             StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
             
         }
+
         if (StartFoodPrice == 0)
         {
             PlayerPrefs.SetInt("StartFoodPrice", 10);
@@ -99,6 +100,7 @@ public class ClientManager : MonoBehaviour
             PlayerPrefs.SetInt("StartFoodPrice", (StartFood + 1) * 10);
             StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
         }
+
         if (PlusTouchDamegePrice == 0)
         {
             PlayerPrefs.SetInt("PlusTouchDamegePrice",1);
@@ -108,6 +110,7 @@ public class ClientManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("PlusTouchDamegePrice", (PlusTouchDamege + 1) * 1);
         }
+
         if (PlusMaxUnitPrice == 0)
         {
             PlayerPrefs.SetInt("PlusMaxUnitPrice", 10);
@@ -118,6 +121,7 @@ public class ClientManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("PlusMaxUnitPrice", (PlusMaxUnit + 1) * 10);
         }
+
         GoldCount = PlayerPrefs.GetInt("GoldCount");
         FoodCount = PlayerPrefs.GetInt("FoodCount");
         HammerCount = PlayerPrefs.GetInt("HammerCount");

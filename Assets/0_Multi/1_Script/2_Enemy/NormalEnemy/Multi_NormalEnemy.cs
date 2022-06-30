@@ -4,10 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using System;
 
 public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
 {
-
     [SerializeField] int enemyNumber = 0;
     public int GetEnemyNumber => enemyNumber;
 
@@ -15,6 +15,8 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     public Transform[] TurnPoints { get; set; } = null;
     private Transform WayPoint => TurnPoints[pointIndex];
     private int pointIndex = -1;
+
+    public event Action<Multi_NormalEnemy> OnSpawn;
 
     public virtual void Passive() { }
 
@@ -31,6 +33,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         currentPos = transform.position;
         pointIndex = 0;
         if (TurnPoints != null && photonView.IsMine) ChaseToPoint();
+        if (Multi_Data.instance.CheckIdSame(gameObject)) OnSpawn?.Invoke(this);
     }
 
     [PunRPC]

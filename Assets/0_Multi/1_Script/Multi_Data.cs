@@ -33,7 +33,7 @@ public class Multi_Data : MonoBehaviourPun
         main_camera.transform.position = CameraPosition;
     }
 
-    public bool CheckIdSame(GameObject go) => go.GetOrAddComponent<Poolable>().UsingId == id;
+    public bool CheckIdSame(GameObject go) => go.GetComponent<Poolable>().UsingId == id;
 
     // id가 0이면 호스트 1이면 클라이언트 이 아이디를 이용해서 데이터를 정함
     [SerializeField] int id;
@@ -80,7 +80,7 @@ public class Multi_Data : MonoBehaviourPun
     }
 
     public Transform[] GetEnemyTurnPoints(GameObject go)
-        => GetEnemyTurnPoints(go.GetOrAddComponent<Poolable>().UsingId);
+        => GetEnemyTurnPoints(go.GetComponent<Poolable>().UsingId);
     Transform[] GetEnemyTurnPoints(int id)
     {
         Transform[] _result = new Transform[enemyTurnPointParents[id].childCount];

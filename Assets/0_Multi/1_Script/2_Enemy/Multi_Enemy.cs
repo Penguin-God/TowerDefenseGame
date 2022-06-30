@@ -103,7 +103,7 @@ public class Multi_Enemy : MonoBehaviourPun
     {
         ResetValue();
         Debug.Assert(OnDeath != null, "OnDeath event가 비어있습니다!!");
-        OnDeath?.Invoke();
+        if(Multi_Data.instance.CheckIdSame(gameObject)) OnDeath?.Invoke();
     }
 
     protected virtual void ResetValue()

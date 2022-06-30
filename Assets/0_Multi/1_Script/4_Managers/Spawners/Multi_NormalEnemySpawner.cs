@@ -112,7 +112,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
                     Multi_Managers.Resources.PhotonInsantiate(GetCurrentEnemyPath(stage), spawnPos, id).GetComponent<Multi_NormalEnemy>();
         enemy.SetStatus_RPC(GetCurrentEnemyHp(stage), GetCurrentEnemySpeed(stage), false);
         // TODO : 몬스터로 옮기기
-        OnSpawn?.Invoke(enemy);
+        //OnSpawn?.Invoke(enemy);
     }
 
     public override void SettingPoolObject(object obj)
@@ -125,6 +125,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     void SetEnemy(Multi_NormalEnemy enemy)
     {
         enemy.enemyType = EnemyType.Normal;
+        enemy.OnSpawn += OnSpawn;
         enemy.OnDeath += () => OnDead(enemy);
 
         if (PhotonNetwork.IsMasterClient == false) return;

@@ -28,12 +28,13 @@ public class Multi_EnemyManager : MonoBehaviour
         Multi_SpawnManagers.NormalEnemy.OnSpawn += AddEnemyAtList;
         Multi_SpawnManagers.NormalEnemy.OnDead += RemoveEnemyAtList;
 
-        Multi_SpawnManagers.BossEnemy.OnSpawn += SetBoss;
-        Multi_SpawnManagers.BossEnemy.OnDead += SetBossDead;
-        Multi_SpawnManagers.BossEnemy.OnDead += GetBossReward;
+        // TODO : 구현하기
+        //Multi_SpawnManagers.BossEnemy.OnSpawn += SetBoss;
+        //Multi_SpawnManagers.BossEnemy.OnDead += SetBossDead;
+        //Multi_SpawnManagers.BossEnemy.OnDead += GetBossReward;
 
-        Multi_SpawnManagers.TowerEnemy.OnSpawn += SetTower;
-        Multi_SpawnManagers.TowerEnemy.OnDead += SetTowerDead;
+        //Multi_SpawnManagers.TowerEnemy.OnSpawn += SetTower;
+        //Multi_SpawnManagers.TowerEnemy.OnDead += SetTowerDead;
     }
 
     [Header("Normal Enemy")]

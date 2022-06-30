@@ -97,8 +97,9 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
     public void Spawn(int number, int stage)
     {
-        NormalEnemyData data = _enemyDataByStage[stage];
-        pv.RPC("NormalEnemySpawn", RpcTarget.MasterClient, BuildPath(_rootPath, _enemys[number]), data.hp, data.speed);
+        Multi_NormalEnemy enemy =
+            Multi_Managers.Resources.PhotonInsantiate(BuildPath(_rootPath, _enemys[number]), Multi_Data.instance.EnemySpawnPos, Multi_Data.instance.Id).GetComponent<Multi_NormalEnemy>();
+        enemy.SetStatus_RPC(GetCurrentEnemyHp(stage), GetCurrentEnemySpeed(stage), false);
     }
 
     void Spawn(int stage) 
@@ -108,8 +109,9 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     void NormalEnemySpawn(int stage, Vector3 spawnPos, int id)
     {
         Multi_NormalEnemy enemy = 
-                    Multi_Managers.Resources.PhotonInsantiate(GetCurrentEnemyPath(stage), spawnPos).GetComponent<Multi_NormalEnemy>();
-        enemy.SetStatus(RpcTarget.All, GetCurrentEnemyHp(stage), GetCurrentEnemySpeed(stage), false, id);
+                    Multi_Managers.Resources.PhotonInsantiate(GetCurrentEnemyPath(stage), spawnPos, id).GetComponent<Multi_NormalEnemy>();
+        enemy.SetStatus_RPC(GetCurrentEnemyHp(stage), GetCurrentEnemySpeed(stage), false);
+        // TODO : 몬스터로 옮기기
         OnSpawn?.Invoke(enemy);
     }
 

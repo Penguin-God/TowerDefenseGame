@@ -11,15 +11,6 @@ class PoolGroup
     {
         Root = new GameObject($"{rootName}_Root").transform;
     }
-
-    //public Transform CreatePool(GameObject original, string path, int count)
-    //{
-    //    Pool pool = new Pool();
-    //    pool.Init(original, path, count);
-    //    pool.Root.SetParent(Root);
-        
-    //    return pool.Root;
-    //}
 }
 
 class Pool
@@ -64,17 +55,25 @@ class Pool
         poolStack.Push(poolable);
     }
 
+    // 수정 중인 상태라 Id가 있는 버전하고 없는 버전이 있음
+    // Id있는것만 써야됨
     public Poolable Pop(Transform parent)
     {
         Poolable poolable;
-        
+
         if (poolStack.Count > 0) poolable = poolStack.Pop();
         else poolable = CreateObject();
 
         poolable.transform.SetParent(parent);
-        poolable.gameObject.SetActive(true);
         poolable.IsUsing = true;
 
+        return poolable;
+    }
+
+    public Poolable Pop(Transform parent, int id)
+    {
+        Poolable poolable = Pop(parent);
+        poolable.SetId_RPC(id);
         return poolable;
     }
 }
@@ -123,16 +122,7 @@ public class Multi_PoolManager
     public void Push(Poolable poolable) => Push(poolable.gameObject);
     public void Push(GameObject go)
     {
-        Pool pool;
-        if (_poolByName.ContainsKey(go.name) == false)
-        {
-            Debug.Log(go.name);
-            pool = null;
-        }
-        else
-        {
-            pool = _poolByName[go.name];
-        }
+        Pool pool = FindPool(go.name);
 
         if (pool == null)
         {
@@ -146,12 +136,21 @@ public class Multi_PoolManager
         pool.Push(go.GetComponent<Poolable>());
     }
 
-    
+    public Poolable Pop(GameObject go, Vector3 position, Quaternion rotation, int id, Transform parent = null)
+    {
+        Poolable poolable = FindPool(go.name).Pop(parent, id);
+        PhotonView pv = poolable.GetComponent<PhotonView>();
+        if (pv != null)
+        {
+            RPC_Utility.Instance.RPC_Position(pv.ViewID, position);
+            RPC_Utility.Instance.RPC_Rotation(pv.ViewID, rotation);
+        }
+        return poolable;
+    }
+    // TODO : 없애고 위에 Id 사용하는 버전으로 대채
     public Poolable Pop(GameObject go, Vector3 position, Quaternion rotation, Transform parent = null)
     {
-        Poolable poolable = _poolByName[go.name].Pop(parent);
-        Debug.Assert(poolable != null, "poolable not defind");
-
+        Poolable poolable = FindPool(go.name).Pop(parent);
         PhotonView pv = poolable.GetComponent<PhotonView>();
         if(pv != null)
         {
@@ -162,15 +161,17 @@ public class Multi_PoolManager
         return poolable;
     }
 
-    public GameObject Pop(GameObject go, Transform parent = null)
-        => _poolByName[go.name].Pop(parent).gameObject;
-
     public GameObject Pop(GameObject go, Vector3 position, Transform parent = null)
+        => Pop(go, position, Quaternion.identity, parent).gameObject;
+
+    Pool FindPool(string name)
     {
-        GameObject result = _poolByName[go.name].Pop(parent).gameObject;
-        RPC_Utility.Instance.RPC_Active(result.GetOrAddComponent<PhotonView>().ViewID, true);
-        RPC_Utility.Instance.RPC_Position(result.GetOrAddComponent<PhotonView>().ViewID, position);
-        return result;
+        if (_poolByName.ContainsKey(name) == false)
+        {
+            Debug.Log($"{name} 풀링 오브젝트를 딕셔너리에서 찾을 수 없음");
+            return null;
+        }
+        else return _poolByName[name];
     }
 
     public GameObject GetOriginal(string path)

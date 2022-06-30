@@ -16,26 +16,18 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     private Transform WayPoint => TurnPoints[pointIndex];
     private int pointIndex = -1;
 
-    //private MyPunRPC myPunRPC;
-    //public MyPunRPC MyPunRPC => myPunRPC;
-
     public virtual void Passive() { }
 
     private void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
-        TurnPoints = Multi_Data.instance.EnemyTurnPoints;
-
-        //OnDeath += () => Multi_SpawnManagers.NormalEnemy.OnDead(this);
-
-        //myPunRPC = GetComponent<MyPunRPC>();
     }
 
     [PunRPC]
-    protected override void SetStatus(int _hp, float _speed, bool _isDead, int id)
+    protected override void SetStatus(int _hp, float _speed, bool _isDead)
     {
-        base.SetStatus(_hp, _speed, _isDead, id);
-        TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(id);
+        base.SetStatus(_hp, _speed, _isDead);
+        TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);
         currentPos = transform.position;
         pointIndex = 0;
         if (TurnPoints != null && photonView.IsMine) ChaseToPoint();
@@ -56,7 +48,6 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         // 실제 이동을 위한 속도 설정
         dir = (WayPoint.position - transform.position).normalized;
         RPC_Utility.Instance.RPC_Velocity(PV.ViewID, dir * speed);
-        //photonView.RPC("SetVelocity", RpcTarget.All, dir, speed);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -85,7 +76,6 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
             else transform.position = Vector3.Lerp(transform.position, currentPos, Time.deltaTime * 10);
         }
     }
-
 
     public override void Dead()
     {

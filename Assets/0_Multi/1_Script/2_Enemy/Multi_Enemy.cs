@@ -14,9 +14,6 @@ public enum EnemyType
 
 public class Multi_Enemy : MonoBehaviourPun
 {
-    public int _id;
-    public int Id => _id;
-
     // 상태 변수
     public float maxSpeed = 0;
     public float speed = 0;
@@ -54,12 +51,17 @@ public class Multi_Enemy : MonoBehaviourPun
     }
 
 
-    public void SetStatus(RpcTarget target, int _hp, float _speed, bool _isDead, int id) 
-        => PV.RPC("SetStatus", target, _hp, _speed, _isDead, id);
-    [PunRPC]
-    protected virtual void SetStatus(int _hp, float _speed, bool _isDead, int id)
+    public void SetStatus_RPC(int _hp, float _speed, bool _isDead)
     {
-        _id = id;
+        SetStatus(_hp, _speed, _isDead);
+        PV.RPC("SetStatus", RpcTarget.Others, _hp, _speed, _isDead);
+
+        //PV.RPC("SetStatus", target, _hp, _speed, _isDead);
+    }
+
+    [PunRPC]
+    protected virtual void SetStatus(int _hp, float _speed, bool _isDead)
+    {
         maxHp = _hp;
         currentHp = _hp;
         hpSlider.maxValue = _hp;
@@ -82,7 +84,7 @@ public class Multi_Enemy : MonoBehaviourPun
 
             photonView.RPC("RPC_UpdateHealth", RpcTarget.Others, currentHp);
 
-            // 조건문 밖의 Dead부분 실행을 위한 코드
+            // 게스트에서 조건문 밖의 Dead부분을 실행시키게 하기 위한 코드
             photonView.RPC("RPC_OnDamage", RpcTarget.Others, 0);
         }
 
@@ -106,7 +108,7 @@ public class Multi_Enemy : MonoBehaviourPun
 
     protected virtual void ResetValue()
     {
-        SetStatus(0, 0, true, -1);
+        SetStatus(0, 0, true);
         queue_HoldingPoison.Clear();
         ChangeColor(255, 255, 255, 255);
         ChangeMat(originMat);

@@ -27,6 +27,10 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
     Dictionary<int, NormalEnemyData> _enemyDataByStage = new Dictionary<int, NormalEnemyData>();
 
+    string GetCurrentEnemyPath(int stage) => BuildPath(_rootPath, _enemys[_enemyDataByStage[stage].number]);
+    int GetCurrentEnemyHp(int stage) => _enemyDataByStage[stage].hp;
+    float GetCurrentEnemySpeed(int stage) => _enemyDataByStage[stage].speed;
+
     [SerializeField] int currentSpawnEnemyNum = 0; // 테스트용 변수
     [SerializeField] float _spawnDelayTime = 2f;
     [SerializeField] int _stageSpawnCount = 15;
@@ -48,8 +52,8 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     public override void MasterInit()
     {
         CreatePool();
-
         SetNormalEnemyData();
+
         void SetNormalEnemyData()
         {
             int maxNumber = _enemys.Length;
@@ -91,22 +95,23 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
             CreatePool_InGroup<Multi_NormalEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
     }
 
-    public void Spawn(int number)
+    public void Spawn(int number, int stage)
     {
-        NormalEnemyData data = _enemyDataByStage[Multi_StageManager.Instance.CurrentStage];
-        Spawn(number, data.hp, data.speed);
-    }
-    void Spawn(int number, int hp, float speed) 
-        => pv.RPC("NormalEnemySpawn", RpcTarget.MasterClient, BuildPath(_rootPath, _enemys[number]), hp, speed);
-    [PunRPC]
-    void NormalEnemySpawn(string path, int hp, float speed)
-    {
-        Multi_NormalEnemy enemy = 
-                    Multi_Managers.Resources.PhotonInsantiate(path, Multi_Data.instance.EnemySpawnPos).GetComponent<Multi_NormalEnemy>();
-        enemy.SetStatus(RpcTarget.All, hp, speed, false);
-        OnSpawn?.Invoke(enemy);
+        NormalEnemyData data = _enemyDataByStage[stage];
+        pv.RPC("NormalEnemySpawn", RpcTarget.MasterClient, BuildPath(_rootPath, _enemys[number]), data.hp, data.speed);
     }
 
+    void Spawn(int stage) 
+        => pv.RPC("NormalEnemySpawn", RpcTarget.MasterClient, stage, Multi_Data.instance.EnemySpawnPos, Multi_Data.instance.Id);
+
+    [PunRPC]
+    void NormalEnemySpawn(int stage, Vector3 spawnPos, int id)
+    {
+        Multi_NormalEnemy enemy = 
+                    Multi_Managers.Resources.PhotonInsantiate(GetCurrentEnemyPath(stage), spawnPos).GetComponent<Multi_NormalEnemy>();
+        enemy.SetStatus(RpcTarget.All, GetCurrentEnemyHp(stage), GetCurrentEnemySpeed(stage), false, id);
+        OnSpawn?.Invoke(enemy);
+    }
 
     public override void SettingPoolObject(object obj)
     {
@@ -136,11 +141,9 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     {
         for (int i = 0; i < _stageSpawnCount; i++)
         {
-            Spawn(_enemyDataByStage[stage]);
+            Spawn(stage);
             yield return new WaitForSeconds(_spawnDelayTime);
         }
     }
-    void Spawn(NormalEnemyData data) => Spawn(data.number, data.hp, data.speed);
     #endregion
-
 }

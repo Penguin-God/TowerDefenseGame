@@ -14,6 +14,9 @@ public enum EnemyType
 
 public class Multi_Enemy : MonoBehaviourPun
 {
+    public int _id;
+    public int Id => _id;
+
     // 상태 변수
     public float maxSpeed = 0;
     public float speed = 0;
@@ -50,10 +53,13 @@ public class Multi_Enemy : MonoBehaviourPun
         for (int i = 0; i < addMeshs.Length; i++) meshList.Add(addMeshs[i]);
     }
 
-    public void SetStatus(RpcTarget target, int _hp, float _speed, bool _isDead) => PV.RPC("SetStatus", target, _hp, _speed, _isDead);
+
+    public void SetStatus(RpcTarget target, int _hp, float _speed, bool _isDead, int id) 
+        => PV.RPC("SetStatus", target, _hp, _speed, _isDead, id);
     [PunRPC]
-    protected virtual void SetStatus(int _hp, float _speed, bool _isDead)
+    protected virtual void SetStatus(int _hp, float _speed, bool _isDead, int id)
     {
+        _id = id;
         maxHp = _hp;
         currentHp = _hp;
         hpSlider.maxValue = _hp;
@@ -100,7 +106,7 @@ public class Multi_Enemy : MonoBehaviourPun
 
     protected virtual void ResetValue()
     {
-        SetStatus(0, 0, true);
+        SetStatus(0, 0, true, -1);
         queue_HoldingPoison.Clear();
         ChangeColor(255, 255, 255, 255);
         ChangeMat(originMat);

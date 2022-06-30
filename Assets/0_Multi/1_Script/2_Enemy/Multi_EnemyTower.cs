@@ -10,9 +10,9 @@ public class Multi_EnemyTower : Multi_Enemy
     public int rewardFood;
 
     [PunRPC]
-    protected override void SetStatus(int _hp, float _speed, bool _isDead)
+    protected override void SetStatus(int _hp, float _speed, bool _isDead, int id)
     {
-        base.SetStatus(_hp, _speed, _isDead);
+        base.SetStatus(_hp, _speed, _isDead, id);
         dir = Vector3.zero;
     }
 

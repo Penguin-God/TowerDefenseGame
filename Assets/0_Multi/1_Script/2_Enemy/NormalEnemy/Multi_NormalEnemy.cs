@@ -32,9 +32,10 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     }
 
     [PunRPC]
-    protected override void SetStatus(int _hp, float _speed, bool _isDead)
+    protected override void SetStatus(int _hp, float _speed, bool _isDead, int id)
     {
-        base.SetStatus(_hp, _speed, _isDead);
+        base.SetStatus(_hp, _speed, _isDead, id);
+        TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(id);
         currentPos = transform.position;
         pointIndex = 0;
         if (TurnPoints != null && photonView.IsMine) ChaseToPoint();

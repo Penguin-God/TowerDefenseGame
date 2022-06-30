@@ -30,12 +30,12 @@ public class Multi_Data : MonoBehaviourPun
     void SetMultiData()
     {
         id = (PhotonNetwork.IsMasterClient) ? 0 : 1;
-
         main_camera.transform.position = CameraPosition;
     }
 
     // id가 0이면 호스트 1이면 클라이언트 이 아이디를 이용해서 데이터를 정함
     [SerializeField] int id;
+    public int Id => id;
 
     // 배열의 0번째는 호스트 값 1번째는 클라이언트 값
     [SerializeField] Camera main_camera = null;
@@ -65,9 +65,6 @@ public class Multi_Data : MonoBehaviourPun
     [SerializeField] Vector3[] enemySpawnPos = null;
     public Vector3 EnemySpawnPos => enemySpawnPos[id];
 
-    [SerializeField] Transform[] enemyPoolParent = null;
-    public Transform EnemyPoolParent => enemyPoolParent[id];
-
     // 적 회전 지점
     [SerializeField] Transform[] enemyTurnPointParents = null;
     public Transform[] EnemyTurnPoints
@@ -80,6 +77,12 @@ public class Multi_Data : MonoBehaviourPun
         }
     }
 
+    public Transform[] GetEnemyTurnPoints(int id)
+    {
+        Transform[] _result = new Transform[enemyTurnPointParents[id].childCount];
+        for (int i = 0; i < _result.Length; i++) _result[i] = enemyTurnPointParents[id].GetChild(i);
+        return _result;
+    }
 
     [SerializeField] Transform[] enemyTowerSpawnPos = null;
     public Transform EnemyTowerParent => enemyTowerSpawnPos[id];
@@ -97,6 +100,6 @@ public class Multi_Data : MonoBehaviourPun
     {
         my_cameraPosition = CameraPosition;
         my_enemyTowerPosition = CameraPosition_LookAtTower;
-        my_EnemyTurnPoints = EnemyTurnPoints;
+        my_EnemyTurnPoints = GetEnemyTurnPoints(id);
     }
 }

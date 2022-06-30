@@ -77,12 +77,17 @@ public static class Excel
 
     public static int GetRow<T>(string Name, int id, List<T> Data) where T : PlayerDataBase
     {
-        for (int i = 0; i <= Data.Count; i++)
+        TextAsset textAsset = Resources.Load<TextAsset>($"Data/ClientData/MoneyData");
+        List<Money> monys = CsvUtility.GetEnumerableFromCsv<Money>(textAsset.text).ToList();
+
+        for (int i = 0; i < monys.Count; i++)
         {
-            if (Data[i].Name == Name && Data[i].Id == id)
+            Debug.Log($"{monys[i].Name} : {Name}");
+            Debug.Log($"{monys[i].Id} : {id}");
+            if (monys[i].Name == Name && monys[i].Id == id)
             {
                 _row = i;
-                return _row;
+                return monys[i].Amount;
             }
             
         }
@@ -110,8 +115,9 @@ public static class Excel
 
     public static int Getamount<T>(string name, int id, List<T> Data) where T : PlayerDataBase
     {
-        int row = GetRow(name, id, Data);
-        return Data[row].Amount;
+        TextAsset textAsset = Resources.Load<TextAsset>($"Data/ClientData/MoneyData");
+        int row = GetRow(name, id, CsvUtility.GetEnumerableFromCsv<T>(textAsset.text).ToList());
+        return GetRow(name, id, CsvUtility.GetEnumerableFromCsv<T>(textAsset.text).ToList());
     }
 
     #endregion

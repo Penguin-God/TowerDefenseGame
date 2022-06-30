@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
+using System.Linq;
 
 public class ClientManager : MonoBehaviour
 {
@@ -32,12 +34,23 @@ public class ClientManager : MonoBehaviour
     int GoldSkillCount;
     int Skill1;
     public AudioSource ClientClickAudioSource;
-    
 
+    [Serializable]
+    public class Money
+    {
+        public string Name;
+        public int Id;
+        public int Amount;
+    }
 
+    [SerializeField] List<Money> moneys;
     void Start()
     {
+        TextAsset textAsset = Resources.Load<TextAsset>("Data/ClientData/MoneyData");
+        moneys = CsvUtility.GetEnumerableFromCsv<Money>(textAsset.text).ToList();
+
         Debug.Log(Excel.Money.path);
+
         Excel.Skills = Excel.PlayerDataBase.Load(Excel.Skills, Excel.Skill.path);
         Excel.Moneys = Excel.PlayerDataBase.Load(Excel.Moneys, Excel.Money.path);
         Debug.Log(Excel.Skills.Count);
@@ -109,9 +122,14 @@ public class ClientManager : MonoBehaviour
         FoodCount = PlayerPrefs.GetInt("FoodCount");
         HammerCount = PlayerPrefs.GetInt("HammerCount");
         PlusMaxUnitCount = PlayerPrefs.GetInt("PlusMaxUnitCount");
-        ClientIron = Excel.Getamount("Iron", 1, Excel.Moneys);
+
+        ClientIron = Excel.Getamount("Iron", 1, Excel.Moneys); // 버그남
         ClientWood = Excel.Getamount("Wood", 2, Excel.Moneys);
         ClientHammer = Excel.Getamount("Hammer", 3, Excel.Moneys);
+        print("결과 ==============================================");
+        print(ClientIron);
+        print(ClientWood);
+        print(ClientHammer);
         UpdateWoodText(ClientWood);
         UpdateIronText(ClientIron);
         UpdateHammerText(ClientHammer);

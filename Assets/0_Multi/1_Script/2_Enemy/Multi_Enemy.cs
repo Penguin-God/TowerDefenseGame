@@ -51,13 +51,7 @@ public class Multi_Enemy : MonoBehaviourPun
     }
 
 
-    public void SetStatus_RPC(int _hp, float _speed, bool _isDead)
-    {
-        SetStatus(_hp, _speed, _isDead);
-        PV.RPC("SetStatus", RpcTarget.Others, _hp, _speed, _isDead);
-
-        //PV.RPC("SetStatus", target, _hp, _speed, _isDead);
-    }
+    public void SetStatus_RPC(int _hp, float _speed, bool _isDead) => PV.RPC("SetStatus", RpcTarget.All, _hp, _speed, _isDead);
 
     [PunRPC]
     protected virtual void SetStatus(int _hp, float _speed, bool _isDead)
@@ -73,7 +67,6 @@ public class Multi_Enemy : MonoBehaviourPun
     }
 
     public void OnDamage(int damage) => _PV.RPC("RPC_OnDamage", RpcTarget.MasterClient, damage);
-    //public void OnDamage(RpcTarget target, int damage) => _PV.RPC("RPC_OnDamage", target, damage);
     [PunRPC]
     public void RPC_OnDamage(int damage)
     {

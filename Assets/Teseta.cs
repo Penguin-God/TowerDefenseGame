@@ -6,6 +6,6 @@ public class Teseta : MonoBehaviour
 {
     public void CLick()
     {
-        Excel.Testf();
+        Multi_Managers.ClientData.Testf();
     }
 }

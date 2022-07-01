@@ -27,11 +27,13 @@ public class Multi_Managers : MonoBehaviourPun
     Multi_UI_Manager _ui = new Multi_UI_Manager();
     Multi_ResourcesManager _resources = new Multi_ResourcesManager();
     Multi_PoolManager _pool = new Multi_PoolManager();
+    Multi_ClientData _clientData = new Multi_ClientData();
 
     public static Multi_DataManager Data => Instance._data;
     public static Multi_UI_Manager UI => Instance._ui;
     public static Multi_ResourcesManager Resources => Instance._resources;
     public static Multi_PoolManager Pool => Instance._pool;
+    public static Multi_ClientData ClientData => Instance._clientData;
 
     void Init()
     {

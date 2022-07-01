@@ -35,36 +35,26 @@ public class ClientManager : MonoBehaviour
     int Skill1;
     public AudioSource ClientClickAudioSource;
 
-    [Serializable]
-    public class Money
-    {
-        public string Name;
-        public int Id;
-        public int Amount;
-    }
 
-    [SerializeField] List<Money> moneys;
     void Start()
     {
-        TextAsset textAsset = Resources.Load<TextAsset>("Data/ClientData/MoneyData");
-        moneys = CsvUtility.GetEnumerableFromCsv<Money>(textAsset.text).ToList();
+        Multi_ClientData ClientData = Multi_Managers.ClientData;
 
-        Debug.Log(Excel.Money.path);
+        Multi_Managers.ClientData.Skills = Multi_Managers.ClientData.Load(Multi_Managers.ClientData.Skills, Multi_ClientData.Skill.path);
+        Multi_Managers.ClientData.Moneys = Multi_Managers.ClientData.Load(Multi_Managers.ClientData.Moneys, Multi_ClientData.Money.path);
 
-        Excel.Skills = Excel.PlayerDataBase.Load(Excel.Skills, Excel.Skill.path);
-        Excel.Moneys = Excel.PlayerDataBase.Load(Excel.Moneys, Excel.Money.path);
-        Debug.Log(Excel.Skills.Count);
-        Debug.Log(Excel.Moneys.Count);
-        Debug.Log(Excel.Moneys[0].Name);
-        Debug.Log(Excel.Moneys[0].Id);
-        Debug.Log(Excel.Moneys[0].Amount);
+        Debug.Log(Multi_Managers.ClientData.Skills.Count);
+        Debug.Log(Multi_Managers.ClientData.Moneys.Count);
+        Debug.Log(Multi_Managers.ClientData.Moneys[0].Name);
+        Debug.Log(Multi_Managers.ClientData.Moneys[0].Id);
+        Debug.Log($"{Multi_Managers.ClientData.Moneys[0].Amount} 출력");
 
         StartGameCount = PlayerPrefs.GetInt("StartGameCount");
         if (StartGameCount == 0)
         {
-            Excel.SetAmount("Iron", 1, 500, Excel.Money.path, Excel.Moneys);
-            Excel.SetAmount("Wood", 2, 500, Excel.Money.path, Excel.Moneys);
-            Excel.SetAmount("Hammer", 3, 30, Excel.Money.path, Excel.Moneys);
+            Multi_Managers.ClientData.SetAmount("Iron", 1, 500, Multi_ClientData.Money.path, Multi_Managers.ClientData.Moneys);
+            Multi_Managers.ClientData.SetAmount("Wood", 2, 500, Multi_ClientData.Money.path, Multi_Managers.ClientData.Moneys);
+            Multi_Managers.ClientData.SetAmount("Hammer", 3, 30, Multi_ClientData.Money.path, Multi_Managers.ClientData.Moneys);
             PlayerPrefs.SetInt("StartGameCount", 1000);
             StartGameCount = PlayerPrefs.GetInt("StartGameCount");
         }
@@ -127,9 +117,9 @@ public class ClientManager : MonoBehaviour
         HammerCount = PlayerPrefs.GetInt("HammerCount");
         PlusMaxUnitCount = PlayerPrefs.GetInt("PlusMaxUnitCount");
 
-        ClientIron = Excel.Getamount("Iron", 1, Excel.Moneys); // 버그남
-        ClientWood = Excel.Getamount("Wood", 2, Excel.Moneys);
-        ClientHammer = Excel.Getamount("Hammer", 3, Excel.Moneys);
+        ClientIron = Multi_Managers.ClientData.Getamount("Iron", 1, Multi_Managers.ClientData.Moneys); // 버그남
+        ClientWood = Multi_Managers.ClientData.Getamount("Wood", 2, Multi_Managers.ClientData.Moneys);
+        ClientHammer = Multi_Managers.ClientData.Getamount("Hammer", 3, Multi_Managers.ClientData.Moneys);
         print("결과 ==============================================");
         print(ClientIron);
         print(ClientWood);

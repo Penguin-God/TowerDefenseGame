@@ -38,6 +38,7 @@ public class Multi_Managers : MonoBehaviourPun
     void Init()
     {
         _data.Init();
+        _clientData.Init();
 
         if (PhotonNetwork.IsMasterClient == false) return;
         _pool.Init();

@@ -15,6 +15,10 @@ public class Multi_ClientData
         public bool HasSkill;
         public const string path = "SkillData";
 
+        public void SetSkill(bool hasSkill)
+        {
+            HasSkill = hasSkill;
+        }
     }
 
     [SerializeField] public List<Skill> Skills;
@@ -29,6 +33,10 @@ public class Multi_ClientData
         public int Amount;
         public const string path = "MoneyData";
 
+        public void SetAmount(int newAmount)
+        {
+            Amount = newAmount;
+        }
     }
 
     [SerializeField] public List<Money> Moneys;
@@ -178,4 +186,53 @@ public class Multi_ClientData
         Save(Data, path);
     }
     #endregion
+
+
+    // 추가
+
+    Dictionary<SkillType, Skill> skillByType = new Dictionary<SkillType, Skill>();
+    public IReadOnlyDictionary<SkillType, Skill> SkillByType => skillByType;
+
+    Dictionary<MoneyType, Money> moneyByType = new Dictionary<MoneyType, Money>();
+    public IReadOnlyDictionary<MoneyType, Money> MoneyByType => moneyByType;
+    public void Init()
+    {
+        List<Skill> playerDatas = CsvUtility.GetEnumerableFromCsv<Skill>(Resources.Load<TextAsset>("Data/ClientData/SkillData").text).ToList();
+        skillByType = playerDatas.ToDictionary(x => (SkillType)Enum.ToObject(typeof(SkillType), x.Id), x => x);
+
+        List<Money> moneyData = CsvUtility.GetEnumerableFromCsv<Money>(Resources.Load<TextAsset>("Data/ClientData/MoneyData").text).ToList();
+        moneyByType = moneyData.ToDictionary(x => (MoneyType)Enum.ToObject(typeof(MoneyType), x.Id), x => x);
+
+        foreach (var item in skillByType)
+        {
+            Debug.Log($"{item.Key} : {item.Value.Name}");
+        }
+
+        foreach (var item in moneyByType)
+        {
+            Debug.Log($"{item.Key} : {item.Value.Name}");
+        }
+    }
+
+    public Dictionary<enumType, DataType> SetDict<enumType, DataType>(string path) where enumType : Enum where DataType : PlayerDataBase
+    {
+        List<DataType> playerDatas = CsvUtility.GetEnumerableFromCsv<DataType>(Resources.Load<TextAsset>(path).text).ToList();
+        playerDatas.ForEach(x => Debug.Log(x.Id));
+        return playerDatas.ToDictionary(x => (enumType)Enum.ToObject(typeof(enumType), x.Id), x => x);
+    }
+}
+
+public enum SkillType
+{
+    시작골드증가 = 1,
+    시작식량증가 = 2,
+    터치데미지증가 = 3,
+    최대유닛증가 = 4,
+}
+
+public enum MoneyType
+{
+    Iron = 1,
+    Wood = 2,
+    Hammer = 3,
 }

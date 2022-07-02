@@ -43,6 +43,10 @@ public class ClientManager : MonoBehaviour
         Multi_Managers.ClientData.Skills = Multi_Managers.ClientData.Load(Multi_Managers.ClientData.Skills, Multi_ClientData.Skill.path);
         Multi_Managers.ClientData.Moneys = Multi_Managers.ClientData.Load(Multi_Managers.ClientData.Moneys, Multi_ClientData.Money.path);
 
+        print(Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].HasSkill);
+        print(Multi_Managers.ClientData.MoneyByType[MoneyType.Hammer].Amount);
+
+        print("======================추가 전 코드=======================");
         Debug.Log(Multi_Managers.ClientData.Skills.Count);
         Debug.Log(Multi_Managers.ClientData.Moneys.Count);
         Debug.Log(Multi_Managers.ClientData.Moneys[0].Name);

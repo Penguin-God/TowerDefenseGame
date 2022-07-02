@@ -121,7 +121,7 @@ public class ClientManager : MonoBehaviour
         HammerCount = PlayerPrefs.GetInt("HammerCount");
         PlusMaxUnitCount = PlayerPrefs.GetInt("PlusMaxUnitCount");
 
-        ClientIron = Multi_Managers.ClientData.Getamount("Iron", 1, Multi_Managers.ClientData.Moneys); // 버그남
+        ClientIron = Multi_Managers.ClientData.Getamount("Iron", 1, Multi_Managers.ClientData.Moneys);
         ClientWood = Multi_Managers.ClientData.Getamount("Wood", 2, Multi_Managers.ClientData.Moneys);
         ClientHammer = Multi_Managers.ClientData.Getamount("Hammer", 3, Multi_Managers.ClientData.Moneys);
         print("결과 ==============================================");

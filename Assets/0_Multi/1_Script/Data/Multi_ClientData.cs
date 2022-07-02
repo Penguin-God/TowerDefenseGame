@@ -18,6 +18,7 @@ public class Multi_ClientData
         public void SetSkill(bool hasSkill)
         {
             HasSkill = hasSkill;
+            // Save
         }
     }
 

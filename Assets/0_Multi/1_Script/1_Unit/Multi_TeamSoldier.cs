@@ -133,10 +133,16 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         _passive.SetPassive(this);
     }
 
-    private void OnDisable()
+    public void Dead()
     {
-        // TODO : 게임 끌 때 아래 코드 때문에 에러 뜨니까 풀링 구조 바꾸기
         StopAllCoroutines();
+        ResetValue();
+        OnDead(this);
+        gameObject.SetActive(false);
+    }
+
+    void ResetValue()
+    {   
         SetChaseSetting(null);
         rayHitTransform = null;
         // TODO : OnDead로 event만들어서 스포너에서 구독하게 바꾸기
@@ -154,12 +160,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             animator.enabled = false;
         }
         nav.enabled = false;
-    }
-
-    public void Dead()
-    {
-        OnDead(this);
-        gameObject.SetActive(false);
     }
 
     // 현재 살아있는 enemy 중 가장 가까운 enemy의 정보를 가지고 nav 및 변수 설정

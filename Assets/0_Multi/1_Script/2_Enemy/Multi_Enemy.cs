@@ -51,7 +51,10 @@ public class Multi_Enemy : MonoBehaviourPun
     }
 
 
-    public void SetStatus_RPC(int _hp, float _speed, bool _isDead) => PV.RPC("SetStatus", RpcTarget.All, _hp, _speed, _isDead);
+    public void SetStatus_RPC(int _hp, float _speed, bool _isDead)
+    {
+        PV.RPC("SetStatus", RpcTarget.All, _hp, _speed, _isDead);
+    }
 
     [PunRPC]
     protected virtual void SetStatus(int _hp, float _speed, bool _isDead)

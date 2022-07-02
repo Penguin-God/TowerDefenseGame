@@ -1,9 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 using System;
 using Random = UnityEngine.Random;
+using Photon.Pun;
 
 public class Multi_EnemyManager : MonoBehaviour
 {
@@ -25,10 +25,19 @@ public class Multi_EnemyManager : MonoBehaviour
 
     void Start()
     {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            currentNormalEnemysById.Add(0, new List<Transform>());
+            currentNormalEnemysById.Add(1, new List<Transform>());
+        }
+
+        Multi_SpawnManagers.NormalEnemy.OnSpawn += _AddEnemyAtList;
+        Multi_SpawnManagers.NormalEnemy.OnDead += _RemoveEnemyAtList;
+
         Multi_SpawnManagers.NormalEnemy.OnSpawn += AddEnemyAtList;
         Multi_SpawnManagers.NormalEnemy.OnDead += RemoveEnemyAtList;
 
-        // TODO : 구현하기
+        // TODO : 나중에 boss랑 타워 작업하면 부활 예정
         //Multi_SpawnManagers.BossEnemy.OnSpawn += SetBoss;
         //Multi_SpawnManagers.BossEnemy.OnDead += SetBossDead;
         //Multi_SpawnManagers.BossEnemy.OnDead += GetBossReward;
@@ -37,29 +46,43 @@ public class Multi_EnemyManager : MonoBehaviour
         //Multi_SpawnManagers.TowerEnemy.OnDead += SetTowerDead;
     }
 
+    Dictionary<int, List<Transform>> currentNormalEnemysById = new Dictionary<int, List<Transform>>();
+    
+    public event Action<int> OnEnemyCountChanged;
+
+    [SerializeField] List<Transform> test_0 = new List<Transform>();
+    [SerializeField] List<Transform> test_1 = new List<Transform>();
+    void Update()
+    {
+#if UNITY_EDITOR
+        test_0 = currentNormalEnemysById[0];
+        test_1 = currentNormalEnemysById[1];
+#endif
+    }
+
     [Header("Normal Enemy")]
     [SerializeField] List<Transform> allNormalEnemys = new List<Transform>();
     public IReadOnlyList<Transform> AllNormalEnemys => allNormalEnemys;
     public int EnemyCount => allNormalEnemys.Count;
     public event Action<int> OnListChanged = null;
 
-    [Header("Boss Enemy")]
-    [SerializeField] Multi_BossEnemy currentBoss;
-    public Multi_BossEnemy CurrentBoss => currentBoss;
-    [SerializeField] int currentBossLevel;
-    public int CurrentBossLevel => currentBossLevel;
-    public bool IsBossAlive => currentBoss != null;
+    //[Header("Boss Enemy")]
+    //[SerializeField] Multi_BossEnemy currentBoss;
+    //public Multi_BossEnemy CurrentBoss => currentBoss;
+    //[SerializeField] int currentBossLevel;
+    //public int CurrentBossLevel => currentBossLevel;
+    //public bool IsBossAlive => currentBoss != null;
 
-    [SerializeField] int bossGoldReward;
-    public int BossGoldReward => bossGoldReward;
-    [SerializeField] int bossFoodReward;
-    public int BossFoodReward => bossFoodReward;
+    //[SerializeField] int bossGoldReward;
+    //public int BossGoldReward => bossGoldReward;
+    //[SerializeField] int bossFoodReward;
+    //public int BossFoodReward => bossFoodReward;
 
-    [Header("Enemy Tower")]
-    [SerializeField] Multi_EnemyTower currentEnemyTower;
-    public Multi_EnemyTower CurrentEnemyTower => currentEnemyTower;
-    [SerializeField] int currentEnemyTowerLevel;
-    public int CurrentEnemyTowerLevel => currentEnemyTowerLevel;
+    //[Header("Enemy Tower")]
+    //[SerializeField] Multi_EnemyTower currentEnemyTower;
+    //public Multi_EnemyTower CurrentEnemyTower => currentEnemyTower;
+    //[SerializeField] int currentEnemyTowerLevel;
+    //public int CurrentEnemyTowerLevel => currentEnemyTowerLevel;
 
 
     public Transform GetProximateEnemy(Vector3 _unitPos, float _startDistance)
@@ -117,8 +140,22 @@ public class Multi_EnemyManager : MonoBehaviour
     }
 
     #region callback funtion
+    void _AddEnemyAtList(Multi_NormalEnemy _enemy)
+    {
+        int id = _enemy.GetComponent<Poolable>().UsingId;
+        currentNormalEnemysById[id].Add(_enemy.transform);
+        OnEnemyCountChanged?.Invoke(currentNormalEnemysById[id].Count);
+    }
+    void _RemoveEnemyAtList(Multi_Enemy _enemy)
+    {
+        int id = _enemy.GetComponent<Poolable>().UsingId;
+        print(currentNormalEnemysById[id].Remove(_enemy.transform));
+        OnEnemyCountChanged?.Invoke(currentNormalEnemysById[id].Count);
+    }
+
     void AddEnemyAtList(Multi_NormalEnemy _enemy)
     {
+        print("안녕 난 더하기야");
         allNormalEnemys.Add(_enemy.transform);
         OnListChanged?.Invoke(EnemyCount);
     }
@@ -127,20 +164,20 @@ public class Multi_EnemyManager : MonoBehaviour
         allNormalEnemys.Remove(_enemy.transform);
         OnListChanged?.Invoke(EnemyCount);
     }
-    void SetBoss(Multi_BossEnemy _spawnBoss) => currentBoss = _spawnBoss;
-    void SetBossDead(Multi_BossEnemy _spawnBoss) => currentBoss = null;
 
-    // TODO : 리펙토링 할 수 있나 생각해보기
-    void GetBossReward(Multi_BossEnemy _spawnBoss)
-    {
-        int _level = _spawnBoss.Level;
-        Multi_GameManager.instance.AddGold(bossGoldReward * _level);
-        Multi_GameManager.instance.AddFood(BossFoodReward * _level);
-    }
+    //void SetBoss(Multi_BossEnemy _spawnBoss) => currentBoss = _spawnBoss;
+    //void SetBossDead(Multi_BossEnemy _spawnBoss) => currentBoss = null;
 
-    void SetTower(Multi_EnemyTower _spawnTower) => currentEnemyTower = _spawnTower;
-    void SetTowerDead(Multi_EnemyTower _spawnTower) => currentEnemyTower = null;
+    //// TODO : 리펙토링 할 수 있나 생각해보기
+    //void GetBossReward(Multi_BossEnemy _spawnBoss)
+    //{
+    //    int _level = _spawnBoss.Level;
+    //    Multi_GameManager.instance.AddGold(bossGoldReward * _level);
+    //    Multi_GameManager.instance.AddFood(BossFoodReward * _level);
+    //}
 
+    //void SetTower(Multi_EnemyTower _spawnTower) => currentEnemyTower = _spawnTower;
+    //void SetTowerDead(Multi_EnemyTower _spawnTower) => currentEnemyTower = null;
 
-    #endregion
+#endregion
 }

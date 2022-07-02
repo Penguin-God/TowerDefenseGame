@@ -165,7 +165,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     // 현재 살아있는 enemy 중 가장 가까운 enemy의 정보를 가지고 nav 및 변수 설정
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
-        Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange);
+        //Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange);
+        if (PhotonNetwork.IsMasterClient == false) return;
+        Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange, GetComponent<Poolable>().UsingId);
         if (_target != null) SetChaseSetting(_target.gameObject);
         else SetChaseSetting(null);
     }
@@ -189,6 +191,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     protected bool contactEnemy = false;
     IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴(로컬에서만 돌아감)
     {
+        if (PhotonNetwork.IsMasterClient == false) yield break;
+
         while (true)
         {
             if (target != null) enemyDistance = Vector3.Distance(this.transform.position, target.position);
@@ -245,7 +249,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     public void EndAttack()
     {
-        if (!pv.IsMine) return;
+        // if (!pv.IsMine) return;
 
         StartCoroutine(Co_ResetAttactStatus());
         if (target != null && TargetIsNormalEnemy && enemyDistance > stopDistanc * 2) UpdateTarget();

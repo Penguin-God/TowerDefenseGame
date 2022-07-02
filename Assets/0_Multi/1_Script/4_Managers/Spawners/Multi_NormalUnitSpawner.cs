@@ -63,13 +63,13 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
         void SetUnit()
         {
             unit.OnDead += OnDead;
+
             if (PhotonNetwork.IsMasterClient == false) return;
             unit.OnDead += deadUnit => Multi_Managers.Pool.Push(deadUnit.GetComponent<Poolable>());
         }
     }
 
     public void Spawn(UnitFlags flgas) => Spawn(flgas.ColorNumber, flgas.ClassNumber);
-    public void Spawn(UnitColor unitColor, UnitClass unitClass) => Spawn((int)unitColor, (int)unitClass);
 
     // TODO : OnSpawn?.Invoke() 부분 중복 없애기
     public void Spawn(int unitColor, int unitClass)
@@ -81,6 +81,7 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
 
         OnSpawn?.Invoke(unit);
     }
+
 
     // 하얀 유닛용 스폰
     public void Spawn(int unitColor, int unitClass, Vector3 spawnPos)

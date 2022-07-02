@@ -97,9 +97,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
     public void Spawn(int number, int stage)
     {
-        Multi_NormalEnemy enemy =
-            Multi_Managers.Resources.PhotonInsantiate(BuildPath(_rootPath, _enemys[number]), Multi_Data.instance.EnemySpawnPos, Multi_Data.instance.Id).GetComponent<Multi_NormalEnemy>();
-        enemy.SetStatus_RPC(GetCurrentEnemyHp(stage), GetCurrentEnemySpeed(stage), false);
+        NormalEnemySpawn(number, Multi_Data.instance.EnemySpawnPos, Multi_Data.instance.Id);
     }
 
     void Spawn(int stage) 
@@ -111,6 +109,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
         Multi_NormalEnemy enemy = 
                     Multi_Managers.Resources.PhotonInsantiate(GetCurrentEnemyPath(stage), spawnPos, id).GetComponent<Multi_NormalEnemy>();
         enemy.SetStatus_RPC(GetCurrentEnemyHp(stage), GetCurrentEnemySpeed(stage), false);
+        enemy.OnSpawn(enemy);
     }
 
     public override void SettingPoolObject(object obj)

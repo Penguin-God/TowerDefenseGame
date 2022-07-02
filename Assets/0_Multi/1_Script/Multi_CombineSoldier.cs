@@ -13,7 +13,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
     [SerializeField] Multi_CreateDefenser createDefenser;
     public SoldiersTags TagSoldier;
     public UnitManageButton unitmanage;
-    
+
     void Start()
     {
         TagSoldier = GetComponent<SoldiersTags>();
@@ -167,7 +167,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             //Multi_SoldierPoolingManager.ReturnObject(Multi_SoldierPoolingManager.GetCurrentSoldiers("RedSwordman")[2], "RedSwordman");
 
             //Multi_TeamSoldier _RedArcher = Multi_SoldierPoolingManager.GetSoldier("RedArcher", 0, 1);
-            
+
 
             SoldierChoose(0, 0, 1, 1);
             Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
@@ -919,7 +919,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             GameManager.instance.Gold += 1;
             UIManager.instance.UpdateGoldText(GameManager.instance.Gold);
 
-            SoldierChoose(4,4,0,0);
+            SoldierChoose(4, 4, 0, 0);
             Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
 
             UIManager.instance.UpdateCombineSuccessText("주황 기사 조합");
@@ -983,7 +983,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         {
             if (Multi_GameManager.instance.Gold >= 5)
             {
-                createDefenser.photonView.RPC("CreateSoldier", RpcTarget.MasterClient, 
+                createDefenser.photonView.RPC("CreateSoldier", RpcTarget.MasterClient,
                     Colornumber, Soldiernumber, Multi_WorldPosUtility.Instance.GetUnitSpawnPositon());
                 Multi_GameManager.instance.AddGold(-5);
             }

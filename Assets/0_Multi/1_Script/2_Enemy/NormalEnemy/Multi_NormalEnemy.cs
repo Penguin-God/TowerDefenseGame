@@ -16,7 +16,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     private Transform WayPoint => TurnPoints[pointIndex];
     private int pointIndex = -1;
 
-    public event Action<Multi_NormalEnemy> OnSpawn;
+    public Action<Multi_NormalEnemy> OnSpawn;
 
     public virtual void Passive() { }
 
@@ -33,7 +33,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         currentPos = transform.position;
         pointIndex = 0;
         if (TurnPoints != null && photonView.IsMine) ChaseToPoint();
-        if (Multi_Data.instance.CheckIdSame(gameObject) && _isDead == false) OnSpawn?.Invoke(this);
+        //if (Multi_Data.instance.CheckIdSame(gameObject) && _isDead == false) OnSpawn?.Invoke(this);
     }
 
     [PunRPC]

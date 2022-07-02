@@ -74,6 +74,7 @@ MonoBehaviour:
   - NormalEnemySpawn
   - SetId
   - Setup
+  - _UpdateTarget
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

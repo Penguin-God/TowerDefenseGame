@@ -55,8 +55,11 @@ public class Multi_EnemyManager : MonoBehaviour
     void Update()
     {
 #if UNITY_EDITOR
-        test_0 = currentNormalEnemysById[0];
-        test_1 = currentNormalEnemysById[1];
+        if (PhotonNetwork.IsMasterClient && currentNormalEnemysById.ContainsKey(0))
+        {
+            test_0 = currentNormalEnemysById[0];
+            test_1 = currentNormalEnemysById[1];
+        }
 #endif
     }
 
@@ -84,27 +87,28 @@ public class Multi_EnemyManager : MonoBehaviour
     //[SerializeField] int currentEnemyTowerLevel;
     //public int CurrentEnemyTowerLevel => currentEnemyTowerLevel;
 
+    public Transform GetProximateEnemy(Vector3 unitPos, float startDistance, int unitId)
+        => GetProximateEnemy(unitPos, startDistance, currentNormalEnemysById[unitId]);
 
     public Transform GetProximateEnemy(Vector3 _unitPos, float _startDistance)
         => GetProximateEnemy(_unitPos, _startDistance, allNormalEnemys);
     public Transform GetProximateEnemy(Vector3 _unitPos, float _startDistance, List<Transform> _enemyList)
     {
+        print(_enemyList.Count);
         Transform[] _enemys = _enemyList.ToArray();
+        if (_enemys == null || _enemys.Length == 0) return null;
+        print("통과");
         float shortDistance = _startDistance;
         Transform _returnEnemy = null;
-
-        if (_enemys != null && _enemys.Length > 0)
+        foreach (Transform _enemy in _enemys)
         {
-            foreach (Transform _enemy in _enemys)
+            if (_enemy != null && !_enemy.GetComponent<Multi_Enemy>().isDead)
             {
-                if (_enemy != null && !_enemy.GetComponent<Multi_Enemy>().isDead)
+                float distanceToEnemy = Vector3.Distance(_unitPos, _enemy.position);
+                if (distanceToEnemy < shortDistance)
                 {
-                    float distanceToEnemy = Vector3.Distance(_unitPos, _enemy.position);
-                    if (distanceToEnemy < shortDistance)
-                    {
-                        shortDistance = distanceToEnemy;
-                        _returnEnemy = _enemy;
-                    }
+                    shortDistance = distanceToEnemy;
+                    _returnEnemy = _enemy;
                 }
             }
         }
@@ -142,20 +146,31 @@ public class Multi_EnemyManager : MonoBehaviour
     #region callback funtion
     void _AddEnemyAtList(Multi_NormalEnemy _enemy)
     {
-        int id = _enemy.GetComponent<Poolable>().UsingId;
-        currentNormalEnemysById[id].Add(_enemy.transform);
-        OnEnemyCountChanged?.Invoke(currentNormalEnemysById[id].Count);
+        int count = 0;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            int id = _enemy.GetComponent<Poolable>().UsingId;
+            currentNormalEnemysById[id].Add(_enemy.transform);
+            count = currentNormalEnemysById[id].Count;
+        }
+        
+        OnEnemyCountChanged?.Invoke(count);
     }
     void _RemoveEnemyAtList(Multi_Enemy _enemy)
     {
-        int id = _enemy.GetComponent<Poolable>().UsingId;
-        print(currentNormalEnemysById[id].Remove(_enemy.transform));
-        OnEnemyCountChanged?.Invoke(currentNormalEnemysById[id].Count);
+        int count = 0;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            int id = _enemy.GetComponent<Poolable>().UsingId;
+            currentNormalEnemysById[id].Remove(_enemy.transform);
+            count = currentNormalEnemysById[id].Count;
+        }
+
+        OnEnemyCountChanged?.Invoke(count);
     }
 
     void AddEnemyAtList(Multi_NormalEnemy _enemy)
     {
-        print("안녕 난 더하기야");
         allNormalEnemys.Add(_enemy.transform);
         OnListChanged?.Invoke(EnemyCount);
     }

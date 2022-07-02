@@ -429,8 +429,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         {
             currentPos = (Vector3)stream.ReceiveNext();
             currentDir = (Quaternion)stream.ReceiveNext();
-            transform.position = currentPos;
-            transform.rotation = currentDir;
+            LerpUtility.LerpPostition(transform, currentPos);
+            LerpUtility.LerpRotation(transform, currentDir);
+            //transform.position = currentPos;
+            //transform.rotation = currentDir;
         }
     }
 }

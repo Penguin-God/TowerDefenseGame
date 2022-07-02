@@ -65,20 +65,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         }
     }
 
-    Vector3 currentPos;
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(transform.position);
-        }
-        else
-        {
-            currentPos = (Vector3)stream.ReceiveNext();
-            if ((transform.position - currentPos).sqrMagnitude <= 100) transform.position = currentPos;
-            else transform.position = Vector3.Lerp(transform.position, currentPos, Time.deltaTime * 10);
-        }
-    }
+
 
     public override void Dead()
     {
@@ -217,6 +204,23 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기
     protected void Set_OriginSpeed_ToAllPlayer() => photonView.RPC("SyncSpeed", RpcTarget.All, maxSpeed);
 
-    #endregion 
+    #endregion
+
+
+    Vector3 currentPos;
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(transform.position);
+        }
+        else
+        {
+            currentPos = (Vector3)stream.ReceiveNext();
+            LerpUtility.LerpPostition(transform, currentPos);
+            //if ((transform.position - currentPos).sqrMagnitude <= 100) transform.position = currentPos;
+            //else transform.position = Vector3.Lerp(transform.position, currentPos, Time.deltaTime * 10);
+        }
+    }
 
 }

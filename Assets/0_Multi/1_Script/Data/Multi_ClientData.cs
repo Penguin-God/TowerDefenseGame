@@ -204,15 +204,17 @@ public class Multi_ClientData
         List<Money> moneyData = CsvUtility.GetEnumerableFromCsv<Money>(Resources.Load<TextAsset>("Data/ClientData/MoneyData").text).ToList();
         moneyByType = moneyData.ToDictionary(x => (MoneyType)Enum.ToObject(typeof(MoneyType), x.Id), x => x);
 
-        foreach (var item in skillByType)
-        {
-            Debug.Log($"{item.Key} : {item.Value.Name}");
-        }
+        // 잠시 주석 처리
 
-        foreach (var item in moneyByType)
-        {
-            Debug.Log($"{item.Key} : {item.Value.Name}");
-        }
+        //foreach (var item in skillByType)
+        //{
+        //    Debug.Log($"{item.Key} : {item.Value.Name}");
+        //}
+
+        //foreach (var item in moneyByType)
+        //{
+        //    Debug.Log($"{item.Key} : {item.Value.Name}");
+        //}
     }
 
     public Dictionary<enumType, DataType> SetDict<enumType, DataType>(string path) where enumType : Enum where DataType : PlayerDataBase

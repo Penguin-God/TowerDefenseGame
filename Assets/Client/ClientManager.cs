@@ -40,11 +40,11 @@ public class ClientManager : MonoBehaviour
     {
         Multi_ClientData ClientData = Multi_Managers.ClientData;
 
-        Multi_Managers.ClientData.Skills = Multi_Managers.ClientData.Load(Multi_Managers.ClientData.Skills, Multi_ClientData.Skill.path);
-        Multi_Managers.ClientData.Moneys = Multi_Managers.ClientData.Load(Multi_Managers.ClientData.Moneys, Multi_ClientData.Money.path);
+        ClientData.Skills = Multi_Managers.ClientData.Load(Multi_Managers.ClientData.Skills, Multi_ClientData.Skill.path);
+        ClientData.Moneys = Multi_Managers.ClientData.Load(Multi_Managers.ClientData.Moneys, Multi_ClientData.Money.path);
 
-        print(Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].HasSkill);
-        print(Multi_Managers.ClientData.MoneyByType[MoneyType.Hammer].Amount);
+        print(ClientData.SkillByType[SkillType.시작골드증가].HasSkill);
+        print(ClientData.MoneyByType[MoneyType.Hammer].Amount);
 
         print("======================추가 전 코드=======================");
         Debug.Log(Multi_Managers.ClientData.Skills.Count);
@@ -54,72 +54,72 @@ public class ClientManager : MonoBehaviour
         Debug.Log($"{Multi_Managers.ClientData.Moneys[0].Amount} 출력");
 
         StartGameCount = PlayerPrefs.GetInt("StartGameCount");
-        if (StartGameCount == 0)
-        {
-            Multi_Managers.ClientData.SetAmount("Iron", 1, 500, Multi_ClientData.Money.path, Multi_Managers.ClientData.Moneys);
-            Multi_Managers.ClientData.SetAmount("Wood", 2, 500, Multi_ClientData.Money.path, Multi_Managers.ClientData.Moneys);
-            Multi_Managers.ClientData.SetAmount("Hammer", 3, 30, Multi_ClientData.Money.path, Multi_Managers.ClientData.Moneys);
-            PlayerPrefs.SetInt("StartGameCount", 1000);
-            StartGameCount = PlayerPrefs.GetInt("StartGameCount");
-        }
-        StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
-        StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
-        PlusTouchDamegePrice = PlayerPrefs.GetInt("PlusTouchDamegePrice");
-        PlusMaxUnitPrice = PlayerPrefs.GetInt("PlusMaxUnitPrice");
-        StartGold = PlayerPrefs.GetInt("StartGold");
-        StartFood = PlayerPrefs.GetInt("StartFood");
-        PlusTouchDamege = PlayerPrefs.GetInt("PlusTouchDamege");
-        PlusMaxUnit = PlayerPrefs.GetInt("PlusMaxUnit");
-        Skill1 = PlayerPrefs.GetInt("Skill1");
-        if (StartGoldPrice == 0)
-        {
-            PlayerPrefs.SetInt("StartGoldPrice", 10);
-            StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
+        //if (StartGameCount == 0)
+        //{
+        //    Multi_Managers.ClientData.SetAmount("Iron", 1, 500, Multi_ClientData.Money.path, Multi_Managers.ClientData.Moneys);
+        //    Multi_Managers.ClientData.SetAmount("Wood", 2, 500, Multi_ClientData.Money.path, Multi_Managers.ClientData.Moneys);
+        //    Multi_Managers.ClientData.SetAmount("Hammer", 3, 30, Multi_ClientData.Money.path, Multi_Managers.ClientData.Moneys);
+        //    PlayerPrefs.SetInt("StartGameCount", 1000);
+        //    StartGameCount = PlayerPrefs.GetInt("StartGameCount");
+        //}
+        //StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
+        //StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
+        //PlusTouchDamegePrice = PlayerPrefs.GetInt("PlusTouchDamegePrice");
+        //PlusMaxUnitPrice = PlayerPrefs.GetInt("PlusMaxUnitPrice");
+        //StartGold = PlayerPrefs.GetInt("StartGold");
+        //StartFood = PlayerPrefs.GetInt("StartFood");
+        //PlusTouchDamege = PlayerPrefs.GetInt("PlusTouchDamege");
+        //PlusMaxUnit = PlayerPrefs.GetInt("PlusMaxUnit");
+        //Skill1 = PlayerPrefs.GetInt("Skill1");
+        //if (StartGoldPrice == 0)
+        //{
+        //    PlayerPrefs.SetInt("StartGoldPrice", 10);
+        //    StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
 
-        }
-        else
-        {
-            PlayerPrefs.SetInt("StartGoldPrice", StartGold + 10);
-            StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
+        //}
+        //else
+        //{
+        //    PlayerPrefs.SetInt("StartGoldPrice", StartGold + 10);
+        //    StartGoldPrice = PlayerPrefs.GetInt("StartGoldPrice");
             
-        }
+        //}
 
-        if (StartFoodPrice == 0)
-        {
-            PlayerPrefs.SetInt("StartFoodPrice", 10);
-            StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
-        }
-        else
-        {
-            PlayerPrefs.SetInt("StartFoodPrice", (StartFood + 1) * 10);
-            StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
-        }
+        //if (StartFoodPrice == 0)
+        //{
+        //    PlayerPrefs.SetInt("StartFoodPrice", 10);
+        //    StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
+        //}
+        //else
+        //{
+        //    PlayerPrefs.SetInt("StartFoodPrice", (StartFood + 1) * 10);
+        //    StartFoodPrice = PlayerPrefs.GetInt("StartFoodPrice");
+        //}
 
-        if (PlusTouchDamegePrice == 0)
-        {
-            PlayerPrefs.SetInt("PlusTouchDamegePrice",1);
-            PlusTouchDamegePrice = PlayerPrefs.GetInt("PlusTouchDamegePrice");
-        }
-        else
-        {
-            PlayerPrefs.SetInt("PlusTouchDamegePrice", (PlusTouchDamege + 1) * 1);
-        }
+        //if (PlusTouchDamegePrice == 0)
+        //{
+        //    PlayerPrefs.SetInt("PlusTouchDamegePrice",1);
+        //    PlusTouchDamegePrice = PlayerPrefs.GetInt("PlusTouchDamegePrice");
+        //}
+        //else
+        //{
+        //    PlayerPrefs.SetInt("PlusTouchDamegePrice", (PlusTouchDamege + 1) * 1);
+        //}
 
-        if (PlusMaxUnitPrice == 0)
-        {
-            PlayerPrefs.SetInt("PlusMaxUnitPrice", 10);
-            PlusMaxUnitPrice = PlayerPrefs.GetInt("PlusMaxUnitPrice");
-            Debug.Log("초기화");
-        }
-        else
-        {
-            PlayerPrefs.SetInt("PlusMaxUnitPrice", (PlusMaxUnit + 1) * 10);
-        }
+        //if (PlusMaxUnitPrice == 0)
+        //{
+        //    PlayerPrefs.SetInt("PlusMaxUnitPrice", 10);
+        //    PlusMaxUnitPrice = PlayerPrefs.GetInt("PlusMaxUnitPrice");
+        //    Debug.Log("초기화");
+        //}
+        //else
+        //{
+        //    PlayerPrefs.SetInt("PlusMaxUnitPrice", (PlusMaxUnit + 1) * 10);
+        //}
 
-        GoldCount = PlayerPrefs.GetInt("GoldCount");
-        FoodCount = PlayerPrefs.GetInt("FoodCount");
-        HammerCount = PlayerPrefs.GetInt("HammerCount");
-        PlusMaxUnitCount = PlayerPrefs.GetInt("PlusMaxUnitCount");
+        //GoldCount = PlayerPrefs.GetInt("GoldCount");
+        //FoodCount = PlayerPrefs.GetInt("FoodCount");
+        //HammerCount = PlayerPrefs.GetInt("HammerCount");
+        //PlusMaxUnitCount = PlayerPrefs.GetInt("PlusMaxUnitCount");
 
         ClientIron = Multi_Managers.ClientData.Getamount("Iron", 1, Multi_Managers.ClientData.Moneys);
         ClientWood = Multi_Managers.ClientData.Getamount("Wood", 2, Multi_Managers.ClientData.Moneys);
@@ -138,18 +138,18 @@ public class ClientManager : MonoBehaviour
         UpdateAdIronCount(StartGoldPrice);
         UpdateAdWoodCount(StartFoodPrice);
         UpdateAdHammerCount(PlusTouchDamegePrice);
-        if (PlusMaxUnitCount >= 5)
-        {
-            Debug.Log("품절로 바꿈");
-            PlusMaxUnitPriceText.text = "품절";
-            Debug.Log("바꾸기 성공");
-        }
-        if (Skill1 == 1)
-        {
-            Debug.Log("품절로 바꿈");
-            GoldSkillPriceText.text = "품절";
-            Debug.Log("바꾸기 성공");
-        }
+        //if (PlusMaxUnitCount >= 5)
+        //{
+        //    Debug.Log("품절로 바꿈");
+        //    PlusMaxUnitPriceText.text = "품절";
+        //    Debug.Log("바꾸기 성공");
+        //}
+        //if (Skill1 == 1)
+        //{
+        //    Debug.Log("품절로 바꿈");
+        //    GoldSkillPriceText.text = "품절";
+        //    Debug.Log("바꾸기 성공");
+        //}
     }
 
     void Update() 

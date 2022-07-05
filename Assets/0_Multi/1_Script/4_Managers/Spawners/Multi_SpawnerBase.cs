@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq; 
+using System.Linq;
+using Photon.Pun;
 
 public enum SpawnerType
 {
@@ -15,8 +16,12 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
 {
     [SerializeField] protected string _rootName;
     [SerializeField] protected string _rootPath;
+    PhotonView pv;
+    public virtual void Init()
+    {
+        pv = gameObject.GetOrAddComponent<PhotonView>();
+    }
 
-    public abstract void Init();
     public virtual void MasterInit() { }
 
     protected T[] CreatePool<T>(GameObject go, string path, int count) where T : Component
@@ -27,6 +32,12 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
 
     protected Transform CreatePool_InGroup(GameObject go, string path, int count)
         => Multi_Managers.Pool.CreatePool_InGroup(go, path, count, _rootName);
+
+
+    protected void Spawn_RPC(string path, Vector3 spawnPos) => pv.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Multi_Data.instance.Id);
+
+    [PunRPC]
+    protected virtual GameObject BaseSpawn(string path, Vector3 spawnPos, int id) => Multi_Managers.Resources.PhotonInsantiate(path, spawnPos, id);
 
     public string BuildPath(string rooPath, GameObject go) => $"{rooPath}/{go.name}";
     public string BuildPath(string rooPath, string folderName, GameObject go) => $"{rooPath}/{folderName}/{go.name}";

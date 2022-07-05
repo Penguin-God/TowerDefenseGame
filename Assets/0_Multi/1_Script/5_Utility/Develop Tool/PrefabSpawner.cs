@@ -26,7 +26,7 @@ public class PrefabSpawner : MonoBehaviourPun
 
     public void SpawnNormalEnemy(int _enemyNum)
     {
-        Multi_SpawnManagers.NormalEnemy.Spawn(_enemyNum, Multi_StageManager.Instance.CurrentStage);
+        Multi_SpawnManagers.NormalEnemy.Spawn(_enemyNum);
     }
 
     public void AllUnitSpawn_ByEditor()

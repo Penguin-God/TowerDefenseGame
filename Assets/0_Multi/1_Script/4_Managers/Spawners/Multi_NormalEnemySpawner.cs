@@ -25,17 +25,17 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     public event Action<Multi_NormalEnemy> OnSpawn;
     public event Action<Multi_NormalEnemy> OnDead;
 
+
     Dictionary<int, NormalEnemyData> _enemyDataByStage = new Dictionary<int, NormalEnemyData>();
 
-    string GetCurrentEnemyPath(int stage) => BuildPath(_rootPath, _enemys[_enemyDataByStage[stage].number]);
-    int GetCurrentEnemyHp(int stage) => _enemyDataByStage[stage].hp;
-    float GetCurrentEnemySpeed(int stage) => _enemyDataByStage[stage].speed;
+    string GetCurrentEnemyPath() => BuildPath(_rootPath, _enemys[_enemyDataByStage[Multi_StageManager.Instance.CurrentStage].number]);
+    int GetCurrentEnemyHp() => _enemyDataByStage[Multi_StageManager.Instance.CurrentStage].hp;
+    float GetCurrentEnemySpeed() => _enemyDataByStage[Multi_StageManager.Instance.CurrentStage].speed;
 
     [SerializeField] int currentSpawnEnemyNum = 0; // 테스트용 변수
     [SerializeField] float _spawnDelayTime = 2f;
     [SerializeField] int _stageSpawnCount = 15;
     public float EnemySpawnTime => _spawnDelayTime * _stageSpawnCount;
-    PhotonView pv;
 
     int minHp = 200;
     int enemyHpWeight;
@@ -45,8 +45,8 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     private float minSpeed = 3f;
     public override void Init()
     {
+        base.Init();
         Multi_StageManager.Instance.OnUpdateStage += StageSpawn;
-        pv = GetComponent<PhotonView>();
     }
 
     public override void MasterInit()
@@ -95,22 +95,28 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
             CreatePool_InGroup<Multi_NormalEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
     }
 
-    public void Spawn(int number, int stage)
-    {
-        NormalEnemySpawn(number, Multi_Data.instance.EnemySpawnPos, Multi_Data.instance.Id);
-    }
+    void Spawn() => Spawn_RPC(GetCurrentEnemyPath(), Multi_Data.instance.EnemySpawnPos);
 
-    void Spawn(int stage) 
-        => pv.RPC("NormalEnemySpawn", RpcTarget.MasterClient, stage, Multi_Data.instance.EnemySpawnPos, Multi_Data.instance.Id);
+    //void Spawn(int stage)
+    //    => pv.RPC("NormalEnemySpawn", RpcTarget.MasterClient, stage, Multi_Data.instance.EnemySpawnPos, Multi_Data.instance.Id);
+
+    //[PunRPC]
+    //void NormalEnemySpawn(int currentStage, Vector3 spawnPos, int id)
+    //{
+    //    Multi_NormalEnemy enemy = 
+    //                Multi_Managers.Resources.PhotonInsantiate(GetCurrentEnemyPath(), spawnPos, id).GetComponent<Multi_NormalEnemy>();
+
+    //    enemy.SetStatus_RPC(GetCurrentEnemyHp(), GetCurrentEnemySpeed(), false);
+    //    enemy.OnSpawn(enemy);
+    //}
 
     [PunRPC]
-    void NormalEnemySpawn(int currentStage, Vector3 spawnPos, int id)
+    protected override GameObject BaseSpawn(string path, Vector3 spawnPos, int id)
     {
-        Multi_NormalEnemy enemy = 
-                    Multi_Managers.Resources.PhotonInsantiate(GetCurrentEnemyPath(currentStage), spawnPos, id).GetComponent<Multi_NormalEnemy>();
-
-        enemy.SetStatus_RPC(GetCurrentEnemyHp(currentStage), GetCurrentEnemySpeed(currentStage), false);
+        Multi_NormalEnemy enemy = base.BaseSpawn(path, spawnPos, id).GetComponent<Multi_NormalEnemy>();
+        enemy.SetStatus_RPC(GetCurrentEnemyHp(), GetCurrentEnemySpeed(), false);
         enemy.OnSpawn(enemy);
+        return null;
     }
 
     public override void SettingPoolObject(object obj)
@@ -135,16 +141,22 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     void StageSpawn(int stage)
     {
         if (stage % 10 == 0) return;
-        StartCoroutine(Co_StageSpawn(stage));
+        StartCoroutine(Co_StageSpawn());
     }
 
-    IEnumerator Co_StageSpawn(int stage)
+    IEnumerator Co_StageSpawn()
     {
         for (int i = 0; i < _stageSpawnCount; i++)
         {
-            Spawn(stage);
+            //Spawn(stage);
+            Spawn();
             yield return new WaitForSeconds(_spawnDelayTime);
         }
     }
     #endregion
+
+
+#if UNITY_EDITOR
+    public void Spawn(int number) => Spawn_RPC(BuildPath(_rootPath, _enemys[number]), Multi_Data.instance.EnemySpawnPos);
+#endif
 }

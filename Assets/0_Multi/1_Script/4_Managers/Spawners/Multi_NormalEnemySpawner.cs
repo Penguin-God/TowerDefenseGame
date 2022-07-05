@@ -104,11 +104,12 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
         => pv.RPC("NormalEnemySpawn", RpcTarget.MasterClient, stage, Multi_Data.instance.EnemySpawnPos, Multi_Data.instance.Id);
 
     [PunRPC]
-    void NormalEnemySpawn(int stage, Vector3 spawnPos, int id)
+    void NormalEnemySpawn(int currentStage, Vector3 spawnPos, int id)
     {
         Multi_NormalEnemy enemy = 
-                    Multi_Managers.Resources.PhotonInsantiate(GetCurrentEnemyPath(stage), spawnPos, id).GetComponent<Multi_NormalEnemy>();
-        enemy.SetStatus_RPC(GetCurrentEnemyHp(stage), GetCurrentEnemySpeed(stage), false);
+                    Multi_Managers.Resources.PhotonInsantiate(GetCurrentEnemyPath(currentStage), spawnPos, id).GetComponent<Multi_NormalEnemy>();
+
+        enemy.SetStatus_RPC(GetCurrentEnemyHp(currentStage), GetCurrentEnemySpeed(currentStage), false);
         enemy.OnSpawn(enemy);
     }
 

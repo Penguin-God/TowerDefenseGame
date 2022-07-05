@@ -37,18 +37,52 @@ public class Multi_ResourcesManager
         return prefab;
     }
 
+    //public GameObject PhotonInsantiate(string path, Vector3 position, int id, Transform parent = null)
+    //{
+    //    GameObject prefab = Load<GameObject>($"Prefabs/{path}");
+
+    //    if (prefab.GetComponent<Poolable>() != null)
+    //        return Multi_Managers.Pool.Pop(prefab, position, Quaternion.identity, id, parent).gameObject;
+
+    //    prefab = PhotonNetwork.Instantiate($"Prefabs/{path}", position, Quaternion.identity);
+    //    if (parent != null) prefab.transform.SetParent(parent);
+    //    return prefab;
+    //}
+
     public GameObject PhotonInsantiate(string path, Vector3 position, int id, Transform parent = null)
     {
-        GameObject prefab = Load<GameObject>($"Prefabs/{path}");
+        GameObject result = GetObject(path);
 
-        if (prefab.GetComponent<Poolable>() != null)
-            return Multi_Managers.Pool.Pop(prefab, position, Quaternion.identity, id, parent).gameObject;
+        if (result != null)
+        {
+            result.transform.SetParent(parent);
 
-        prefab = PhotonNetwork.Instantiate($"Prefabs/{path}", position, Quaternion.identity);
-        if (parent != null) prefab.transform.SetParent(parent);
-        return prefab;
+            // TODO : Poolable말고 동기화 전용 컴포넌트 하나 만들기
+            result.GetOrAddComponent<Poolable>().SetId_RPC(id);
+            Spawn_RPC(result, position, Quaternion.identity);
+        }
+        return result;
     }
 
+    GameObject GetObject(string path)
+    {
+        GameObject prefab = Load<GameObject>($"Prefabs/{path}");
+        if (prefab.GetComponent<Poolable>() != null)
+            return Multi_Managers.Pool.Pop(prefab).gameObject;
+        else
+            return PhotonNetwork.Instantiate($"Prefabs/{path}", Vector3.zero, Quaternion.identity);
+    }
+
+    void Spawn_RPC(GameObject go, Vector3 position, Quaternion rotation)
+    {
+        PhotonView pv = go.GetOrAddComponent<PhotonView>();
+        if (pv != null)
+        {
+            RPC_Utility.Instance.RPC_Position(pv.ViewID, position);
+            RPC_Utility.Instance.RPC_Rotation(pv.ViewID, rotation);
+            RPC_Utility.Instance.RPC_Active(pv.ViewID, true);
+        }
+    }
 
     public GameObject Instantiate(string path, Transform parent = null)
     {

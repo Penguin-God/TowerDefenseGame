@@ -55,27 +55,25 @@ class Pool
         poolStack.Push(poolable);
     }
 
-    // 수정 중인 상태라 Id가 있는 버전하고 없는 버전이 있음
-    // Id있는것만 써야됨
-    public Poolable Pop(Transform parent)
+    public Poolable Pop()
     {
         Poolable poolable;
 
         if (poolStack.Count > 0) poolable = poolStack.Pop();
         else poolable = CreateObject();
 
-        poolable.transform.SetParent(parent);
+        //poolable.transform.SetParent(parent);
         poolable.IsUsing = true;
 
         return poolable;
     }
 
-    public Poolable Pop(Transform parent, int id)
-    {
-        Poolable poolable = Pop(parent);
-        poolable.SetId_RPC(id);
-        return poolable;
-    }
+    //public Poolable Pop(Transform parent)
+    //{
+    //    Poolable poolable = Pop(parent);
+    //    poolable.SetId_RPC(id);
+    //    return poolable;
+    //}
 }
 
 public class Multi_PoolManager
@@ -136,28 +134,18 @@ public class Multi_PoolManager
         pool.Push(go.GetComponent<Poolable>());
     }
 
-    public Poolable Pop(GameObject go, Vector3 position, Quaternion rotation, int id, Transform parent = null)
-    {
-        Poolable poolable = FindPool(go.name).Pop(parent, id);
-        PhotonView pv = poolable.GetComponent<PhotonView>();
-        if (pv != null)
-        {
-            RPC_Utility.Instance.RPC_Position(pv.ViewID, position);
-            RPC_Utility.Instance.RPC_Rotation(pv.ViewID, rotation);
-        }
-        return poolable;
-    }
-    // TODO : 없애고 위에 Id 사용하는 버전으로 대채
+    public Poolable Pop(GameObject go) => FindPool(go.name).Pop();
+
     public Poolable Pop(GameObject go, Vector3 position, Quaternion rotation, Transform parent = null)
     {
-        Poolable poolable = FindPool(go.name).Pop(parent);
-        PhotonView pv = poolable.GetComponent<PhotonView>();
-        if(pv != null)
-        {
-            RPC_Utility.Instance.RPC_Position(pv.ViewID, position);
-            RPC_Utility.Instance.RPC_Rotation(pv.ViewID, rotation);
-            RPC_Utility.Instance.RPC_Active(pv.ViewID, true);
-        }
+        Poolable poolable = FindPool(go.name).Pop();
+        //PhotonView pv = poolable.GetComponent<PhotonView>();
+        //if(pv != null)
+        //{
+        //    RPC_Utility.Instance.RPC_Position(pv.ViewID, position);
+        //    RPC_Utility.Instance.RPC_Rotation(pv.ViewID, rotation);
+        //    RPC_Utility.Instance.RPC_Active(pv.ViewID, true);
+        //}
         return poolable;
     }
 

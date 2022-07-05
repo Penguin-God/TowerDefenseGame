@@ -11,12 +11,6 @@ public class RPCable : MonoBehaviourPun
     public void SetId_RPC(int id) => gameObject.GetComponent<PhotonView>().RPC("SetId", RpcTarget.All, id);
     [PunRPC] void SetId(int id) => _usingId = id;
 
-    void OnDisable()
-    {
-        if(PhotonNetwork.IsMasterClient)
-            SetId_RPC(-1);
-    }
-
     // 위치
     public void SetPosition_RPC(Vector3 _pos) => photonView.RPC("SetPosition", RpcTarget.All, _pos);
     [PunRPC] void SetPosition(Vector3 _pos) => transform.position = _pos;

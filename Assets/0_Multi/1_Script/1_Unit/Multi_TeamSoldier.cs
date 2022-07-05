@@ -168,7 +168,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         //Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange);
         if (PhotonNetwork.IsMasterClient == false) return;
 
-        Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange, GetComponent<Poolable>().UsingId);
+        Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange, GetComponent<RPCable>().UsingId);
         if (_target != null) SetChaseSetting(_target.gameObject);
         else SetChaseSetting(null);
     }

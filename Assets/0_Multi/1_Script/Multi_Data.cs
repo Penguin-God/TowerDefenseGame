@@ -79,9 +79,10 @@ public class Multi_Data : MonoBehaviourPun
         }
     }
 
-    public Transform[] GetEnemyTurnPoints(GameObject go) => GetEnemyTurnPoints(go.GetComponent<Poolable>().UsingId);
+    public Transform[] GetEnemyTurnPoints(GameObject go) => GetEnemyTurnPoints(go.GetComponent<RPCable>().UsingId);
     Transform[] GetEnemyTurnPoints(int id)
     {
+        if (id != 0 && id != 1) print(id);
         Transform[] _result = new Transform[enemyTurnPointParents[id].childCount];
         for (int i = 0; i < _result.Length; i++) _result[i] = enemyTurnPointParents[id].GetChild(i);
         return _result;

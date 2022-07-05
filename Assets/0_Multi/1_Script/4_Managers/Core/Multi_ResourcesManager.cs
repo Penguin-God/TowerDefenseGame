@@ -68,7 +68,7 @@ public class Multi_ResourcesManager
 
         go.transform.SetParent(parent);
         // TODO : Poolable말고 동기화 전용 컴포넌트 하나 만들기
-        go.GetOrAddComponent<Poolable>().SetId_RPC(id);
+        //go.GetOrAddComponent<Poolable>().SetId_RPC(id);
 
         SetInfo_RPC();
         return go;

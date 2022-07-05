@@ -148,7 +148,7 @@ public class Multi_EnemyManager : MonoBehaviour
         int count = 0;
         if (PhotonNetwork.IsMasterClient)
         {
-            int id = _enemy.GetComponent<Poolable>().UsingId;
+            int id = _enemy.GetComponent<RPCable>().UsingId; // _enemy.GetComponent<Poolable>().UsingId;
             currentNormalEnemysById[id].Add(_enemy.transform);
             count = currentNormalEnemysById[id].Count;
         }
@@ -160,7 +160,7 @@ public class Multi_EnemyManager : MonoBehaviour
         int count = 0;
         if (PhotonNetwork.IsMasterClient)
         {
-            int id = _enemy.GetComponent<Poolable>().UsingId;
+            int id = _enemy.GetComponent<RPCable>().UsingId;
             currentNormalEnemysById[id].Remove(_enemy.transform);
             count = currentNormalEnemysById[id].Count;
         }

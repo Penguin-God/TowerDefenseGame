@@ -12,13 +12,11 @@ public class Multi_BounceEnergyball : MonoBehaviourPun
 
     Vector3 lastVelocity;
     Rigidbody rigid;
-    MyPunRPC myPunRPC;
 
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         rigid = GetComponent<Rigidbody>();
-        myPunRPC = GetComponent<MyPunRPC>();
         originSpeed = speed;
     }
 

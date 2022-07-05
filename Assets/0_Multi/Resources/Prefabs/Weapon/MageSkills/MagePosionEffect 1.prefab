@@ -60456,7 +60456,6 @@ GameObject:
   - component: {fileID: 3809104377124569506}
   - component: {fileID: 6053230158677060355}
   - component: {fileID: 6269822335907625528}
-  - component: {fileID: 6053230160022532366}
   - component: {fileID: 2408570364984127611}
   - component: {fileID: -4921807505773855841}
   m_Layer: 0
@@ -65166,18 +65165,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereCollider: {fileID: 0}
   hitTime: 0.2
---- !u!114 &6053230160022532366
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6269822335907625535}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d50dbfb12cf6364f9afad5e688a8ebb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2408570364984127611
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65203,6 +65190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _usingId: 0
   IsUsing: 0
   Path: 
 --- !u!1 &6269885218212461721

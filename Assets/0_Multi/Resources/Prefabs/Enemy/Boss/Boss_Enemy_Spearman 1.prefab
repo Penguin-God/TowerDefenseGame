@@ -717,7 +717,6 @@ GameObject:
   - component: {fileID: 5842820972880275659}
   - component: {fileID: 4847119243952441812}
   - component: {fileID: -9061001621847911827}
-  - component: {fileID: -7942074081368635499}
   - component: {fileID: 6266442461160101922}
   m_Layer: 8
   m_Name: Boss_Enemy_Spearman 1
@@ -802,18 +801,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &-7942074081368635499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5842820972880275658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d50dbfb12cf6364f9afad5e688a8ebb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6266442461160101922
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -826,6 +813,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _usingId: 0
   IsUsing: 0
   Path: 
 --- !u!1 &9028002085699136069

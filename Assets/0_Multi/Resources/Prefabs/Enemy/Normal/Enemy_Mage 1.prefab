@@ -5094,7 +5094,6 @@ GameObject:
   - component: {fileID: 3970577524642555026}
   - component: {fileID: 6885085033086736095}
   - component: {fileID: 5024461232737972302}
-  - component: {fileID: 8237528510727533422}
   - component: {fileID: 7135445869057084045}
   m_Layer: 13
   m_Name: Enemy_Mage 1
@@ -5199,18 +5198,6 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
---- !u!114 &8237528510727533422
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1112035910525321252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d50dbfb12cf6364f9afad5e688a8ebb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &7135445869057084045
 MonoBehaviour:
   m_ObjectHideFlags: 0

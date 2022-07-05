@@ -4659,7 +4659,6 @@ GameObject:
   - component: {fileID: 5741179008820975619}
   - component: {fileID: 7294292858541085654}
   - component: {fileID: -4562599257644738310}
-  - component: {fileID: -3063892622050526929}
   - component: {fileID: 8687368539569618543}
   m_Layer: 11
   m_Name: Enemy_Archer 1
@@ -4764,18 +4763,6 @@ MonoBehaviour:
   m_SynchronizeAngularVelocity: 0
   m_TeleportEnabled: 0
   m_TeleportIfDistanceGreaterThan: 3
---- !u!114 &-3063892622050526929
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7536897027791641786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d50dbfb12cf6364f9afad5e688a8ebb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8687368539569618543
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -5,12 +5,10 @@ using Photon.Pun;
 
 public class Multi_OrangeSkill : MonoBehaviourPun
 {
-    MyPunRPC myPunRPC = null;
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         ps = GetComponent<ParticleSystem>();
-        myPunRPC = GetComponent<MyPunRPC>();
     }
 
     public void OnSkile(Multi_Enemy enemy, bool isUltimate, int damage)

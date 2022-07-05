@@ -18761,7 +18761,6 @@ GameObject:
   - component: {fileID: 766274922650886117}
   - component: {fileID: 766274922650886114}
   - component: {fileID: 756250094616363223}
-  - component: {fileID: 3444060447616149858}
   m_Layer: 0
   m_Name: Meteor_Explosion
   m_TagString: Untagged
@@ -23694,18 +23693,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showTime: 2
---- !u!114 &3444060447616149858
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 766274922650886116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d50dbfb12cf6364f9afad5e688a8ebb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &766630859544608364
 GameObject:
   m_ObjectHideFlags: 0
@@ -52066,7 +52053,6 @@ GameObject:
   - component: {fileID: 767403622873436527}
   - component: {fileID: 767403622873436512}
   - component: {fileID: 5371345813188273301}
-  - component: {fileID: 5371345811862469976}
   - component: {fileID: -6234274731394058744}
   - component: {fileID: -6187135869327002636}
   m_Layer: 0
@@ -52146,18 +52132,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &5371345811862469976
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 767403622873436515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d50dbfb12cf6364f9afad5e688a8ebb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &-6234274731394058744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -52189,5 +52163,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _usingId: 0
   IsUsing: 0
   Path: 

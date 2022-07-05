@@ -33,7 +33,6 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         currentPos = transform.position;
         pointIndex = 0;
         if (TurnPoints != null && photonView.IsMine) ChaseToPoint();
-        //if (Multi_Data.instance.CheckIdSame(gameObject) && _isDead == false) OnSpawn?.Invoke(this);
     }
 
     [PunRPC]

@@ -33,8 +33,6 @@ public class Multi_Data : MonoBehaviourPun
         main_camera.transform.position = CameraPosition;
     }
 
-    //public bool CheckIdSame(GameObject go) => go.GetComponent<Poolable>().UsingId == id;
-
     // id가 0이면 호스트 1이면 클라이언트 이 아이디를 이용해서 데이터를 정함
     [SerializeField] int id;
     public int Id => id;

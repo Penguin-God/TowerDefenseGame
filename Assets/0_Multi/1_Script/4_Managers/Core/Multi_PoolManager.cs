@@ -62,18 +62,9 @@ class Pool
         if (poolStack.Count > 0) poolable = poolStack.Pop();
         else poolable = CreateObject();
 
-        //poolable.transform.SetParent(parent);
         poolable.IsUsing = true;
-
         return poolable;
     }
-
-    //public Poolable Pop(Transform parent)
-    //{
-    //    Poolable poolable = Pop(parent);
-    //    poolable.SetId_RPC(id);
-    //    return poolable;
-    //}
 }
 
 public class Multi_PoolManager
@@ -88,7 +79,6 @@ public class Multi_PoolManager
         if(_root == null)
         {
             _root = new GameObject("Mulit PoolManager").transform;
-            //DontDestroyOnLoad(_root.gameObject);
         }
     }
 
@@ -129,28 +119,11 @@ public class Multi_PoolManager
         }
 
         go.transform.SetParent(pool.Root);
-        PhotonView pv = go.GetOrAddComponent<PhotonView>();
-        RPC_Utility.Instance.RPC_Active(pv.ViewID, false);
+        go.GetComponent<RPCable>().SetActive_RPC(false);
         pool.Push(go.GetComponent<Poolable>());
     }
 
     public Poolable Pop(GameObject go) => FindPool(go.name).Pop();
-
-    public Poolable Pop(GameObject go, Vector3 position, Quaternion rotation, Transform parent = null)
-    {
-        Poolable poolable = FindPool(go.name).Pop();
-        //PhotonView pv = poolable.GetComponent<PhotonView>();
-        //if(pv != null)
-        //{
-        //    RPC_Utility.Instance.RPC_Position(pv.ViewID, position);
-        //    RPC_Utility.Instance.RPC_Rotation(pv.ViewID, rotation);
-        //    RPC_Utility.Instance.RPC_Active(pv.ViewID, true);
-        //}
-        return poolable;
-    }
-
-    public GameObject Pop(GameObject go, Vector3 position, Transform parent = null)
-        => Pop(go, position, Quaternion.identity, parent).gameObject;
 
     Pool FindPool(string name)
     {

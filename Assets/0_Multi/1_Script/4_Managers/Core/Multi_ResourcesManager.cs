@@ -12,7 +12,6 @@ public class Multi_ResourcesManager
             string goPath = path.Substring(path.IndexOf('/') + 1);
             
             GameObject go = Multi_Managers.Pool.GetOriginal(goPath);
-            //if (go != null) Debug.Log("Get Original");
             if (go != null) return go as T;
         }
 
@@ -20,35 +19,14 @@ public class Multi_ResourcesManager
         return Resources.Load<T>(path);
     }
 
-    public GameObject PhotonInsantiate(GameObject PoolObj, Vector3 position, Transform parent = null) 
+    public GameObject PhotonInsantiate(GameObject PoolObj, Vector3 position) 
         => SetPhotonObject(Multi_Managers.Pool.Pop(PoolObj).gameObject, position, Quaternion.identity);
-
-    public GameObject PhotonInsantiate(string path, Vector3 position, Transform parent = null) 
-        => PhotonInsantiate(path, position, Quaternion.identity, parent);
-
-    public GameObject PhotonInsantiate(string path, Vector3 position, Quaternion rotation, Transform parent = null)
-    {
-        GameObject prefab = Load<GameObject>($"Prefabs/{path}");
-
-        if (prefab.GetComponent<Poolable>() != null)
-            return Multi_Managers.Pool.Pop(prefab, position, rotation, parent).gameObject;
-
-        prefab = PhotonNetwork.Instantiate($"Prefabs/{path}", position, rotation);
-        if (parent != null) prefab.transform.SetParent(parent);
-        return prefab;
-    }
 
     public GameObject PhotonInsantiate(string path, Vector3 position, int id, Transform parent = null)
     {
         GameObject result = GetObject(path);
-
         if (result != null)
-        {
             return SetPhotonObject(result, position, Quaternion.identity, id, parent);
-            //result.transform.SetParent(parent);
-            //result.GetOrAddComponent<Poolable>().SetId_RPC(id);
-            //Spawn_RPC(result, position, Quaternion.identity);
-        }
 
         return result;
     }
@@ -67,9 +45,6 @@ public class Multi_ResourcesManager
         if (go == null) return null;
 
         go.transform.SetParent(parent);
-        // TODO : Poolable말고 동기화 전용 컴포넌트 하나 만들기
-        //go.GetOrAddComponent<Poolable>().SetId_RPC(id);
-
         SetInfo_RPC();
         return go;
 
@@ -77,18 +52,12 @@ public class Multi_ResourcesManager
         {
             RPCable rpcable = go.GetOrAddComponent<RPCable>();
             rpcable.SetId_RPC(id);
-
-            //PhotonView pv = go.GetOrAddComponent<PhotonView>();
-            //RPC_Utility.Instance.RPC_Position(pv.ViewID, position);
-            //RPC_Utility.Instance.RPC_Rotation(pv.ViewID, rotation);
-            //RPC_Utility.Instance.RPC_Active(pv.ViewID, true);
-            //Debug.Log("훌륭하군");
-
             rpcable.SetPosition_RPC(position);
             rpcable.SetRotation_RPC(rotation);
             rpcable.SetActive_RPC(true);
         }
     }
+
 
     public GameObject Instantiate(string path, Transform parent = null)
     {

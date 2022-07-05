@@ -974,7 +974,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         Soldiernumber = Random.Range(Soldiernumber1, Soldiernumber2);
     }
 
-
+    // TODO : 이 부분 기능 옮기고 스크립트 삭제하기
     public void Sommon()
     {
         SoldierChoose(0, 3, 0, 0);
@@ -983,16 +983,5 @@ public class Multi_CombineSoldier : MonoBehaviourPun
             Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
             Multi_GameManager.instance.AddGold(-5);
         }
-
-        //if (PhotonNetwork.IsMasterClient) createDefenser.DrawSoldier(Colornumber, Soldiernumber);
-        //else
-        //{
-        //    if (Multi_GameManager.instance.Gold >= 5)
-        //    {
-        //        createDefenser.photonView.RPC("CreateSoldier", RpcTarget.MasterClient,
-        //            Colornumber, Soldiernumber, Multi_WorldPosUtility.Instance.GetUnitSpawnPositon());
-        //        Multi_GameManager.instance.AddGold(-5);
-        //    }
-        //}
     }
 }

@@ -73,19 +73,7 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     }
 
     public void Spawn(UnitFlags flgas) => Spawn(flgas.ColorNumber, flgas.ClassNumber);
-
-    // TODO : OnSpawn?.Invoke() 부분 중복 없애기
-    public void Spawn(int unitColor, int unitClass)
-    {
-        //Multi_TeamSoldier unit = Multi_Managers.Resources.PhotonInsantiate(
-        //    BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]),
-        //    Multi_WorldPosUtility.Instance.GetUnitSpawnPositon() // spawn position
-        //    ).GetComponent<Multi_TeamSoldier>();
-
-        //OnSpawn?.Invoke(unit);
-
-        Spawn_RPC(GetUnitPath(unitColor, unitClass), GetUnitSpawnPos());
-    }
+    public void Spawn(int unitColor, int unitClass) => Spawn_RPC(GetUnitPath(unitColor, unitClass), GetUnitSpawnPos());
 
     string GetUnitPath(int unitColor, int unitClass) => BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]);
     Vector3 GetUnitSpawnPos() => Multi_WorldPosUtility.Instance.GetUnitSpawnPositon();
@@ -96,12 +84,4 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
         OnSpawn?.Invoke(base.BaseSpawn(path, spawnPos, id).GetComponent<Multi_TeamSoldier>());
         return null;
     }
-
-    // 하얀 유닛용 스폰
-    //public void Spawn(int unitColor, int unitClass, Vector3 spawnPos)
-    //{
-    //    Multi_TeamSoldier unit = Multi_Managers.Resources.PhotonInsantiate(
-    //        BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]), spawnPos).GetComponent<Multi_TeamSoldier>();
-    //    OnSpawn?.Invoke(unit);
-    //}
 }

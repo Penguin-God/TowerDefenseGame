@@ -19,19 +19,4 @@ public class Multi_CreateDefenser : MonoBehaviourPun
     {
         Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
     }
-
-    //[PunRPC]
-    //public void CreateSoldier(int Colornumber, int Soldiernumber, Vector3 creatPos)
-    //{
-    //    Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber, creatPos);
-    //}
-
-    void Give_BossReword(int _bossLevel)
-    {
-        switch (_bossLevel)
-        {
-            case 1: case 2: CreateSoldier(7, 1); break;
-            case 3: case 4: CreateSoldier(7, 2); break;
-        }
-    }
 }

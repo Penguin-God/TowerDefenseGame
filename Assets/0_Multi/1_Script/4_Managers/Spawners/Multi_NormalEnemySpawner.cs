@@ -96,19 +96,6 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
     void Spawn() => Spawn_RPC("", Multi_Data.instance.EnemySpawnPos);
 
-    //void Spawn(int stage)
-    //    => pv.RPC("NormalEnemySpawn", RpcTarget.MasterClient, stage, Multi_Data.instance.EnemySpawnPos, Multi_Data.instance.Id);
-
-    //[PunRPC]
-    //void NormalEnemySpawn(int currentStage, Vector3 spawnPos, int id)
-    //{
-    //    Multi_NormalEnemy enemy = 
-    //                Multi_Managers.Resources.PhotonInsantiate(GetCurrentEnemyPath(), spawnPos, id).GetComponent<Multi_NormalEnemy>();
-
-    //    enemy.SetStatus_RPC(GetCurrentEnemyHp(), GetCurrentEnemySpeed(), false);
-    //    enemy.OnSpawn(enemy);
-    //}
-
     [PunRPC]
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, int id)
     {

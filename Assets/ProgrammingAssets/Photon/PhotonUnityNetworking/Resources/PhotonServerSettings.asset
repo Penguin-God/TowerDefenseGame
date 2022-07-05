@@ -36,9 +36,9 @@ MonoBehaviour:
   RpcList:
   - AddMana
   - AttackFromHost
+  - BaseSpawn
   - ChangeColor
   - ClickRpc
-  - CreateSoldier
   - DestroyRpc
   - DestroySpaceship
   - ExitSlow
@@ -46,17 +46,19 @@ MonoBehaviour:
   - Fire
   - MeteorExplosion
   - NormalAttack
-  - OnDamage
   - OnFreeze
   - OnPoison
   - OnSkillEffect
   - OnSlow
   - OnStun
   - RespawnSpaceship
+  - RPC_OnDamage
   - RPC_OnStart
   - RPC_ProjectileShot
+  - RPC_UpdateHealth
   - SelectAttack
   - SetActive
+  - SetId
   - SetPosition
   - SetRotate
   - SetRotation
@@ -68,14 +70,6 @@ MonoBehaviour:
   - SpawnUnit
   - SyncSpeed
   - Turn
-  - UpdateHealth
-  - RPC_OnDamage
-  - RPC_UpdateHealth
-  - NormalEnemySpawn
-  - SetId
-  - Setup
-  - _UpdateTarget
-  - BaseSpawn
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -978,15 +978,21 @@ public class Multi_CombineSoldier : MonoBehaviourPun
     public void Sommon()
     {
         SoldierChoose(0, 3, 0, 0);
-        if (PhotonNetwork.IsMasterClient) createDefenser.DrawSoldier(Colornumber, Soldiernumber);
-        else
+        if (Multi_GameManager.instance.Gold >= 5)
         {
-            if (Multi_GameManager.instance.Gold >= 5)
-            {
-                createDefenser.photonView.RPC("CreateSoldier", RpcTarget.MasterClient,
-                    Colornumber, Soldiernumber, Multi_WorldPosUtility.Instance.GetUnitSpawnPositon());
-                Multi_GameManager.instance.AddGold(-5);
-            }
+            Multi_SpawnManagers.NormalUnit.Spawn(Colornumber, Soldiernumber);
+            Multi_GameManager.instance.AddGold(-5);
         }
+
+        //if (PhotonNetwork.IsMasterClient) createDefenser.DrawSoldier(Colornumber, Soldiernumber);
+        //else
+        //{
+        //    if (Multi_GameManager.instance.Gold >= 5)
+        //    {
+        //        createDefenser.photonView.RPC("CreateSoldier", RpcTarget.MasterClient,
+        //            Colornumber, Soldiernumber, Multi_WorldPosUtility.Instance.GetUnitSpawnPositon());
+        //        Multi_GameManager.instance.AddGold(-5);
+        //    }
+        //}
     }
 }

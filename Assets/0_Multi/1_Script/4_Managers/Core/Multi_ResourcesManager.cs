@@ -20,14 +20,10 @@ public class Multi_ResourcesManager
         return Resources.Load<T>(path);
     }
 
-    public GameObject PhotonInsantiate(GameObject PoolObj, Vector3 position, Transform parent = null)
-    {
-        GameObject result = Multi_Managers.Pool.Pop(PoolObj, position, Quaternion.identity, parent).gameObject;
-        Spawn_RPC(result, position, Quaternion.identity);
-        return result;
-    }
+    public GameObject PhotonInsantiate(GameObject PoolObj, Vector3 position, Transform parent = null) 
+        => SetPhotonObject(Multi_Managers.Pool.Pop(PoolObj).gameObject, position, Quaternion.identity);
 
-    public GameObject PhotonInsantiate(string path, Transform parent = null) => PhotonInsantiate(path, Vector3.zero, Quaternion.identity, parent);
+    // public GameObject PhotonInsantiate(string path, Transform parent = null) => PhotonInsantiate(path, Vector3.zero, Quaternion.identity, parent);
 
     public GameObject PhotonInsantiate(string path, Vector3 position, Transform parent = null) 
         => PhotonInsantiate(path, position, Quaternion.identity, parent);
@@ -50,12 +46,12 @@ public class Multi_ResourcesManager
 
         if (result != null)
         {
-            result.transform.SetParent(parent);
-
-            // TODO : Poolable말고 동기화 전용 컴포넌트 하나 만들기
-            result.GetOrAddComponent<Poolable>().SetId_RPC(id);
-            Spawn_RPC(result, position, Quaternion.identity);
+            return SetPhotonObject(result, position, Quaternion.identity, id, parent);
+            //result.transform.SetParent(parent);
+            //result.GetOrAddComponent<Poolable>().SetId_RPC(id);
+            //Spawn_RPC(result, position, Quaternion.identity);
         }
+
         return result;
     }
 
@@ -68,16 +64,26 @@ public class Multi_ResourcesManager
             return PhotonNetwork.Instantiate($"Prefabs/{path}", Vector3.zero, Quaternion.identity);
     }
 
-    void Spawn_RPC(GameObject go, Vector3 position, Quaternion rotation)
+    GameObject SetPhotonObject(GameObject go, Vector3 position, Quaternion rotation, int id = -1, Transform parent = null)
     {
-        PhotonView pv = go.GetOrAddComponent<PhotonView>();
-        if (pv != null)
+        if (go == null) return null;
+
+        go.transform.SetParent(parent);
+        // TODO : Poolable말고 동기화 전용 컴포넌트 하나 만들기
+        go.GetOrAddComponent<Poolable>().SetId_RPC(id);
+        Spawn_RPC();
+        return go;
+
+        void Spawn_RPC()
         {
+            PhotonView pv = go.GetOrAddComponent<PhotonView>();
+
             RPC_Utility.Instance.RPC_Position(pv.ViewID, position);
             RPC_Utility.Instance.RPC_Rotation(pv.ViewID, rotation);
             RPC_Utility.Instance.RPC_Active(pv.ViewID, true);
         }
     }
+
 
     public GameObject Instantiate(string path, Transform parent = null)
     {

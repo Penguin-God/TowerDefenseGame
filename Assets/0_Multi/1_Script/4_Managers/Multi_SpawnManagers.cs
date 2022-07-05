@@ -61,6 +61,8 @@ public class Multi_SpawnManagers : MonoBehaviourPun
     void Start()
     {
         _normalEnemy.Init();
+        _normalUnit.Init();
+        _weapon.Init();
 
         // TODO : 구현하기
         //_bossEnemy.Init();
@@ -69,9 +71,6 @@ public class Multi_SpawnManagers : MonoBehaviourPun
         // 마스터 클라 전용 Init
         if (PhotonNetwork.IsMasterClient == false) return;
         _normalEnemy.MasterInit();
-
-        _normalUnit.Init();
-        _weapon.Init();
     }
 
     T GetOrAddChildComponent<T>() where T : Component

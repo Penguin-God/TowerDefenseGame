@@ -95,7 +95,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
             CreatePool_InGroup<Multi_NormalEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
     }
 
-    void Spawn() => Spawn_RPC(GetCurrentEnemyPath(), Multi_Data.instance.EnemySpawnPos);
+    void Spawn() => Spawn_RPC("", Multi_Data.instance.EnemySpawnPos);
 
     //void Spawn(int stage)
     //    => pv.RPC("NormalEnemySpawn", RpcTarget.MasterClient, stage, Multi_Data.instance.EnemySpawnPos, Multi_Data.instance.Id);
@@ -113,7 +113,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     [PunRPC]
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, int id)
     {
-        Multi_NormalEnemy enemy = base.BaseSpawn(path, spawnPos, id).GetComponent<Multi_NormalEnemy>();
+        Multi_NormalEnemy enemy = base.BaseSpawn(GetCurrentEnemyPath(), spawnPos, id).GetComponent<Multi_NormalEnemy>();
         enemy.SetStatus_RPC(GetCurrentEnemyHp(), GetCurrentEnemySpeed(), false);
         enemy.OnSpawn(enemy);
         return null;
@@ -155,8 +155,6 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     }
     #endregion
 
-
-#if UNITY_EDITOR
+    // TODO : #if 조건문으로 빼기
     public void Spawn(int number) => Spawn_RPC(BuildPath(_rootPath, _enemys[number]), Multi_Data.instance.EnemySpawnPos);
-#endif
 }

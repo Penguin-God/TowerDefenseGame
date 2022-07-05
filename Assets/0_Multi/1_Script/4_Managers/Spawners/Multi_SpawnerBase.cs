@@ -16,7 +16,7 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
 {
     [SerializeField] protected string _rootName;
     [SerializeField] protected string _rootPath;
-    PhotonView pv;
+    protected PhotonView pv;
     public virtual void Init()
     {
         pv = GetComponent<PhotonView>();
@@ -34,7 +34,6 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
         => Multi_Managers.Pool.CreatePool_InGroup(go, path, count, _rootName);
 
     protected void Spawn_RPC(string path, Vector3 spawnPos) => pv.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Multi_Data.instance.Id);
-
     [PunRPC]
     protected virtual GameObject BaseSpawn(string path, Vector3 spawnPos, int id) => Multi_Managers.Resources.PhotonInsantiate(path, spawnPos, id);
 

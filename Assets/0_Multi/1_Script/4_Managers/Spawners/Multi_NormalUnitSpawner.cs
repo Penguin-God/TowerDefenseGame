@@ -96,10 +96,10 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     }
 
     // 하얀 유닛용 스폰
-    public void Spawn(int unitColor, int unitClass, Vector3 spawnPos)
-    {
-        Multi_TeamSoldier unit = Multi_Managers.Resources.PhotonInsantiate(
-            BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]), spawnPos).GetComponent<Multi_TeamSoldier>();
-        OnSpawn?.Invoke(unit);
-    }
+    //public void Spawn(int unitColor, int unitClass, Vector3 spawnPos)
+    //{
+    //    Multi_TeamSoldier unit = Multi_Managers.Resources.PhotonInsantiate(
+    //        BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]), spawnPos).GetComponent<Multi_TeamSoldier>();
+    //    OnSpawn?.Invoke(unit);
+    //}
 }

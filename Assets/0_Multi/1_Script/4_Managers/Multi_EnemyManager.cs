@@ -31,6 +31,7 @@ public class Multi_EnemyManager : MonoBehaviour
             currentNormalEnemysById.Add(1, new List<Transform>());
         }
 
+        // OnListChanged때문에 마스터 아닌 애들도 콜백함
         Multi_SpawnManagers.NormalEnemy.OnSpawn += _AddEnemyAtList;
         Multi_SpawnManagers.NormalEnemy.OnDead += _RemoveEnemyAtList;
 

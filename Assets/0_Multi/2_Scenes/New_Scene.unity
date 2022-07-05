@@ -20178,9 +20178,6 @@ MonoBehaviour:
   enemySpawnPos:
   - {x: -45, y: 0, z: 35}
   - {x: -45, y: 0, z: 535}
-  enemyPoolParent:
-  - {fileID: 1445541517}
-  - {fileID: 140841168}
   enemyTurnPointParents:
   - {fileID: 765254374}
   - {fileID: 1952937805}
@@ -57952,6 +57949,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1671188576}
   - component: {fileID: 1671188577}
+  - component: {fileID: 1671188578}
   m_Layer: 0
   m_Name: Normal Unit Spawner
   m_TagString: Untagged
@@ -58080,6 +58078,28 @@ MonoBehaviour:
     - {fileID: 3764644954606831806, guid: 5c36f870f76cb094d91678ef072e10a2, type: 3}
     - {fileID: 7953183368782943606, guid: 18d5341e080ee52409c23a63c85af0f3, type: 3}
     poolingCount: 2
+--- !u!114 &1671188578
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1671188575}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 45
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1001 &1671285622
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -65653,13 +65673,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 815ce5c79d0938643ad77c0bf5b712cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  test_0: []
+  test_1: []
   allNormalEnemys: []
-  currentBoss: {fileID: 0}
-  currentBossLevel: 0
-  bossGoldReward: 10
-  bossFoodReward: 1
-  currentEnemyTower: {fileID: 0}
-  currentEnemyTowerLevel: 0
 --- !u!4 &1877716351
 Transform:
   m_ObjectHideFlags: 0

@@ -19,7 +19,7 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
     PhotonView pv;
     public virtual void Init()
     {
-        pv = gameObject.GetOrAddComponent<PhotonView>();
+        pv = GetComponent<PhotonView>();
     }
 
     public virtual void MasterInit() { }
@@ -32,7 +32,6 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
 
     protected Transform CreatePool_InGroup(GameObject go, string path, int count)
         => Multi_Managers.Pool.CreatePool_InGroup(go, path, count, _rootName);
-
 
     protected void Spawn_RPC(string path, Vector3 spawnPos) => pv.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Multi_Data.instance.Id);
 

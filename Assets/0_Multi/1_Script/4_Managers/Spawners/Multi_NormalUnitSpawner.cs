@@ -29,6 +29,7 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     #region Init
     public override void Init()
     {
+        base.Init();
         SetAllUnit();
 
         CreatePool(swordmanPoolData.gos, swordmanPoolData.folderName, swordmanPoolData.poolingCount);
@@ -74,14 +75,25 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     // TODO : OnSpawn?.Invoke() 부분 중복 없애기
     public void Spawn(int unitColor, int unitClass)
     {
-        Multi_TeamSoldier unit = Multi_Managers.Resources.PhotonInsantiate(
-            BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]),
-            Multi_WorldPosUtility.Instance.GetUnitSpawnPositon() // spawn position
-            ).GetComponent<Multi_TeamSoldier>();
+        //Multi_TeamSoldier unit = Multi_Managers.Resources.PhotonInsantiate(
+        //    BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]),
+        //    Multi_WorldPosUtility.Instance.GetUnitSpawnPositon() // spawn position
+        //    ).GetComponent<Multi_TeamSoldier>();
 
-        OnSpawn?.Invoke(unit);
+        //OnSpawn?.Invoke(unit);
+
+        Spawn_RPC(GetUnitPath(unitColor, unitClass), GetUnitSpawnPos());
     }
 
+    string GetUnitPath(int unitColor, int unitClass) => BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]);
+    Vector3 GetUnitSpawnPos() => Multi_WorldPosUtility.Instance.GetUnitSpawnPositon();
+
+    [PunRPC]
+    protected override GameObject BaseSpawn(string path, Vector3 spawnPos, int id)
+    {
+        OnSpawn?.Invoke(base.BaseSpawn(path, spawnPos, id).GetComponent<Multi_TeamSoldier>());
+        return null;
+    }
 
     // 하얀 유닛용 스폰
     public void Spawn(int unitColor, int unitClass, Vector3 spawnPos)

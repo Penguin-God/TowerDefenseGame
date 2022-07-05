@@ -94,10 +94,8 @@ public class Multi_EnemyManager : MonoBehaviour
         => GetProximateEnemy(_unitPos, _startDistance, allNormalEnemys);
     public Transform GetProximateEnemy(Vector3 _unitPos, float _startDistance, List<Transform> _enemyList)
     {
-        print(_enemyList.Count);
         Transform[] _enemys = _enemyList.ToArray();
         if (_enemys == null || _enemys.Length == 0) return null;
-        print("통과");
         float shortDistance = _startDistance;
         Transform _returnEnemy = null;
         foreach (Transform _enemy in _enemys)

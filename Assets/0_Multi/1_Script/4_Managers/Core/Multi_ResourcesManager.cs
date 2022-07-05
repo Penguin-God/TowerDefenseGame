@@ -20,6 +20,13 @@ public class Multi_ResourcesManager
         return Resources.Load<T>(path);
     }
 
+    public GameObject PhotonInsantiate(GameObject PoolObj, Vector3 position, Transform parent = null)
+    {
+        GameObject result = Multi_Managers.Pool.Pop(PoolObj, position, Quaternion.identity, parent).gameObject;
+        Spawn_RPC(result, position, Quaternion.identity);
+        return result;
+    }
+
     public GameObject PhotonInsantiate(string path, Transform parent = null) => PhotonInsantiate(path, Vector3.zero, Quaternion.identity, parent);
 
     public GameObject PhotonInsantiate(string path, Vector3 position, Transform parent = null) 
@@ -36,18 +43,6 @@ public class Multi_ResourcesManager
         if (parent != null) prefab.transform.SetParent(parent);
         return prefab;
     }
-
-    //public GameObject PhotonInsantiate(string path, Vector3 position, int id, Transform parent = null)
-    //{
-    //    GameObject prefab = Load<GameObject>($"Prefabs/{path}");
-
-    //    if (prefab.GetComponent<Poolable>() != null)
-    //        return Multi_Managers.Pool.Pop(prefab, position, Quaternion.identity, id, parent).gameObject;
-
-    //    prefab = PhotonNetwork.Instantiate($"Prefabs/{path}", position, Quaternion.identity);
-    //    if (parent != null) prefab.transform.SetParent(parent);
-    //    return prefab;
-    //}
 
     public GameObject PhotonInsantiate(string path, Vector3 position, int id, Transform parent = null)
     {

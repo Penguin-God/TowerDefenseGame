@@ -4768,6 +4768,7 @@ GameObject:
   - component: {fileID: 4310734708390126923}
   - component: {fileID: 4310734708390126922}
   - component: {fileID: -4473530989806158752}
+  - component: {fileID: -1528040695033376085}
   m_Layer: 0
   m_Name: RedMageBall 1
   m_TagString: Untagged
@@ -4872,6 +4873,19 @@ MonoBehaviour:
   _usingId: 0
   IsUsing: 0
   Path: 
+--- !u!114 &-1528040695033376085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4310734708390126925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _usingId: -1
 --- !u!1 &4310734708390126927
 GameObject:
   m_ObjectHideFlags: 0

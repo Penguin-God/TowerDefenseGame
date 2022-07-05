@@ -60458,6 +60458,7 @@ GameObject:
   - component: {fileID: 6269822335907625528}
   - component: {fileID: 2408570364984127611}
   - component: {fileID: -4921807505773855841}
+  - component: {fileID: 4571815380667603915}
   m_Layer: 0
   m_Name: MagePosionEffect 1
   m_TagString: Untagged
@@ -65193,6 +65194,19 @@ MonoBehaviour:
   _usingId: 0
   IsUsing: 0
   Path: 
+--- !u!114 &4571815380667603915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6269822335907625535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _usingId: -1
 --- !u!1 &6269885218212461721
 GameObject:
   m_ObjectHideFlags: 0

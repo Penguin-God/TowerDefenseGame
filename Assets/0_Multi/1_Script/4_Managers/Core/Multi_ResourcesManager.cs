@@ -23,8 +23,6 @@ public class Multi_ResourcesManager
     public GameObject PhotonInsantiate(GameObject PoolObj, Vector3 position, Transform parent = null) 
         => SetPhotonObject(Multi_Managers.Pool.Pop(PoolObj).gameObject, position, Quaternion.identity);
 
-    // public GameObject PhotonInsantiate(string path, Transform parent = null) => PhotonInsantiate(path, Vector3.zero, Quaternion.identity, parent);
-
     public GameObject PhotonInsantiate(string path, Vector3 position, Transform parent = null) 
         => PhotonInsantiate(path, position, Quaternion.identity, parent);
 
@@ -71,19 +69,26 @@ public class Multi_ResourcesManager
         go.transform.SetParent(parent);
         // TODO : Poolable말고 동기화 전용 컴포넌트 하나 만들기
         go.GetOrAddComponent<Poolable>().SetId_RPC(id);
-        Spawn_RPC();
+
+        SetInfo_RPC();
         return go;
 
-        void Spawn_RPC()
+        void SetInfo_RPC()
         {
-            PhotonView pv = go.GetOrAddComponent<PhotonView>();
+            RPCable rpcable = go.GetOrAddComponent<RPCable>();
+            rpcable.SetId_RPC(id);
 
-            RPC_Utility.Instance.RPC_Position(pv.ViewID, position);
-            RPC_Utility.Instance.RPC_Rotation(pv.ViewID, rotation);
-            RPC_Utility.Instance.RPC_Active(pv.ViewID, true);
+            //PhotonView pv = go.GetOrAddComponent<PhotonView>();
+            //RPC_Utility.Instance.RPC_Position(pv.ViewID, position);
+            //RPC_Utility.Instance.RPC_Rotation(pv.ViewID, rotation);
+            //RPC_Utility.Instance.RPC_Active(pv.ViewID, true);
+            //Debug.Log("훌륭하군");
+
+            rpcable.SetPosition_RPC(position);
+            rpcable.SetRotation_RPC(rotation);
+            rpcable.SetActive_RPC(true);
         }
     }
-
 
     public GameObject Instantiate(string path, Transform parent = null)
     {

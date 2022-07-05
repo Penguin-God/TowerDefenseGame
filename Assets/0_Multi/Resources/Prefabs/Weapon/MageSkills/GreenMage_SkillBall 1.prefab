@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 5416402722500662025}
   - component: {fileID: 8677619185684072775}
   - component: {fileID: 5572639897196953091}
+  - component: {fileID: 4491079499819801703}
   m_Layer: 0
   m_Name: GreenMage_SkillBall 1
   m_TagString: Untagged
@@ -4824,6 +4825,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAOE: 1
   aliveTime: 5
+  _speed: 0
 --- !u!114 &5572639897196953091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4836,5 +4838,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _usingId: 0
   IsUsing: 0
   Path: 
+--- !u!114 &4491079499819801703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8677619185684072776}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _usingId: -1

@@ -5095,6 +5095,7 @@ GameObject:
   - component: {fileID: 6885085033086736095}
   - component: {fileID: 5024461232737972302}
   - component: {fileID: 7135445869057084045}
+  - component: {fileID: 2182385851540764751}
   m_Layer: 13
   m_Name: Enemy_Mage 1
   m_TagString: Untagged
@@ -5213,6 +5214,19 @@ MonoBehaviour:
   _usingId: -1
   IsUsing: 0
   Path: 
+--- !u!114 &2182385851540764751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112035910525321252}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _usingId: -1
 --- !u!1 &1112035910574562603
 GameObject:
   m_ObjectHideFlags: 0

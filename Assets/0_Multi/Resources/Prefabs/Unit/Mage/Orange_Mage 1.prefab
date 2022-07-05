@@ -212,6 +212,7 @@ GameObject:
   - component: {fileID: 1515424040}
   - component: {fileID: 1607135977233665466}
   - component: {fileID: 5734083610469489287}
+  - component: {fileID: 1722587431004367479}
   m_Layer: 9
   m_Name: Orange_Mage 1
   m_TagString: OrangeMage
@@ -470,8 +471,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _usingId: 0
   IsUsing: 0
   Path: 
+--- !u!114 &1722587431004367479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5512811997297203018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _usingId: -1
 --- !u!1 &6590480786666523012
 GameObject:
   m_ObjectHideFlags: 0

@@ -261,6 +261,7 @@ GameObject:
   - component: {fileID: -6387752227524823596}
   - component: {fileID: -342558237822834195}
   - component: {fileID: 1246228791282231831}
+  - component: {fileID: 4634077940944003351}
   m_Layer: 8
   m_Name: Boss_Enemy_Mage 1
   m_TagString: Boss
@@ -359,6 +360,19 @@ MonoBehaviour:
   _usingId: 0
   IsUsing: 0
   Path: 
+--- !u!114 &4634077940944003351
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3278321861748690573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _usingId: -1
 --- !u!1 &3278321861800022914
 GameObject:
   m_ObjectHideFlags: 0

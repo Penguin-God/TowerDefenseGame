@@ -23,11 +23,8 @@ public class Poolable : MonoBehaviourPun
         => GetComponents<Component>().FirstOrDefault(x => Multi_SpawnManagers.Instance.SpawnerByType.ContainsKey(x.GetType()));
 
 
-    public void SetId_RPC(int id) => gameObject.GetComponent<PhotonView>().RPC("SetId", RpcTarget.All, id);
+    public void SetId_RPC(int id) => gameObject.GetComponent<PhotonView>().RPC("_SetId", RpcTarget.All, id);
 
     [PunRPC]
-    void SetId(int id)
-    {
-        _usingId = id;
-    }
+    void _SetId(int id) => _usingId = id;
 }

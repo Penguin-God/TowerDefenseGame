@@ -4768,6 +4768,7 @@ GameObject:
   - component: {fileID: 5513301234657635867}
   - component: {fileID: 5513301234657635868}
   - component: {fileID: 1107774132134989974}
+  - component: {fileID: -1520312791934828240}
   m_Layer: 0
   m_Name: WhiteMageBall 1
   m_TagString: Untagged
@@ -4872,6 +4873,19 @@ MonoBehaviour:
   _usingId: 0
   IsUsing: 0
   Path: 
+--- !u!114 &-1520312791934828240
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513301234657635869}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _usingId: -1
 --- !u!1 &5513301234657635871
 GameObject:
   m_ObjectHideFlags: 0

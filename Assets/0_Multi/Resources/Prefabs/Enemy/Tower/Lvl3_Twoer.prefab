@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7777258308473548810}
   - component: {fileID: 3442147494071685742}
   - component: {fileID: 1313810683886338739}
+  - component: {fileID: 1907962929954263616}
   m_Layer: 8
   m_Name: Lvl3_Twoer
   m_TagString: Tower
@@ -172,8 +173,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _usingId: 0
   IsUsing: 0
   Path: 
+--- !u!114 &1907962929954263616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5149217585899796489}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _usingId: -1
 --- !u!1 &7777258307399939186
 GameObject:
   m_ObjectHideFlags: 0

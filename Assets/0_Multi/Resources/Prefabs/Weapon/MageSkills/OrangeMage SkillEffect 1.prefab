@@ -4593,6 +4593,7 @@ GameObject:
   - component: {fileID: 2507790518346398536}
   - component: {fileID: -135969851839057063}
   - component: {fileID: -4513042529923522880}
+  - component: {fileID: -5257205829187955425}
   m_Layer: 0
   m_Name: OrangeMage SkillEffect 1
   m_TagString: Untagged
@@ -9372,6 +9373,19 @@ MonoBehaviour:
   _usingId: 0
   IsUsing: 0
   Path: 
+--- !u!114 &-5257205829187955425
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6070129563677219890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _usingId: -1
 --- !u!1 &6070213659934198414
 GameObject:
   m_ObjectHideFlags: 0

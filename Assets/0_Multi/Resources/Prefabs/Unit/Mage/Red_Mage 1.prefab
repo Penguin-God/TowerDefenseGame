@@ -333,6 +333,7 @@ GameObject:
   - component: {fileID: 390086571}
   - component: {fileID: 3908337195276483986}
   - component: {fileID: 5735482920275350009}
+  - component: {fileID: 1814284616158116471}
   m_Layer: 9
   m_Name: Red_Mage 1
   m_TagString: RedMage
@@ -593,8 +594,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _usingId: 0
   IsUsing: 0
   Path: 
+--- !u!114 &1814284616158116471
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6109000016361938841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _usingId: -1
 --- !u!1 &7735766840144101574
 GameObject:
   m_ObjectHideFlags: 0

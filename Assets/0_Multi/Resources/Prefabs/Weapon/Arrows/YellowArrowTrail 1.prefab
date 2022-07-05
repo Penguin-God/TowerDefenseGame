@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -3534971703850086330}
   - component: {fileID: 312036367212591542}
   - component: {fileID: 833271181183922428}
+  - component: {fileID: 6819097238763152882}
   m_Layer: 0
   m_Name: YellowArrowTrail 1
   m_TagString: Attack
@@ -241,3 +242,16 @@ MonoBehaviour:
   _usingId: 0
   IsUsing: 0
   Path: 
+--- !u!114 &6819097238763152882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9149325268380532109}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _usingId: -1

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6556076678619192869}
   - component: {fileID: 4092839075240782941}
   - component: {fileID: 8209036121902521876}
+  - component: {fileID: 3106218606504179575}
   m_Layer: 0
   m_Name: BlackMageSkileBall 1
   m_TagString: Untagged
@@ -4824,6 +4825,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAOE: 1
   aliveTime: 5
+  _speed: 0
 --- !u!114 &8209036121902521876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4836,5 +4838,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _usingId: 0
   IsUsing: 0
   Path: 
+--- !u!114 &3106218606504179575
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4092839075240782940}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _usingId: -1

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5581833725841079401}
   - component: {fileID: 810087758341385178}
   - component: {fileID: -3509539038143377848}
+  - component: {fileID: -191075487558493168}
   m_Layer: 0
   m_Name: WhiteArrowTrail 1
   m_TagString: Attack
@@ -241,3 +242,16 @@ MonoBehaviour:
   _usingId: 0
   IsUsing: 0
   Path: 
+--- !u!114 &-191075487558493168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9057039652622457467}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _usingId: -1

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: -5307974984470683590}
   - component: {fileID: 2044870721636413215}
   - component: {fileID: 7182359889280833311}
+  - component: {fileID: 1734310763871254093}
   m_Layer: 0
   m_Name: BlueArrowTrail 1
   m_TagString: Attack
@@ -241,3 +242,16 @@ MonoBehaviour:
   _usingId: 0
   IsUsing: 0
   Path: 
+--- !u!114 &1734310763871254093
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6327066443172086468}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _usingId: -1

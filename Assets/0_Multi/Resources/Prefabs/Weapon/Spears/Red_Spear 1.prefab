@@ -153,6 +153,7 @@ GameObject:
   - component: {fileID: 2814507561905285495}
   - component: {fileID: -2444057177685708771}
   - component: {fileID: -2514498614958737991}
+  - component: {fileID: 8488174806881414669}
   m_Layer: 9
   m_Name: Red_Spear 1
   m_TagString: Attack
@@ -303,3 +304,16 @@ MonoBehaviour:
   _usingId: 0
   IsUsing: 0
   Path: 
+--- !u!114 &8488174806881414669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2632546835915559380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _usingId: -1

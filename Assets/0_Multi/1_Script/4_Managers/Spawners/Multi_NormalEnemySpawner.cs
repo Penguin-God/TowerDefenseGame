@@ -43,13 +43,12 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     
     private float maxSpeed = 5f;
     private float minSpeed = 3f;
-    public override void Init()
+    protected override void Init()
     {
-        base.Init();
         Multi_StageManager.Instance.OnUpdateStage += StageSpawn;
     }
 
-    public override void MasterInit()
+    protected override void MasterInit()
     {
         CreatePool();
         SetNormalEnemyData();

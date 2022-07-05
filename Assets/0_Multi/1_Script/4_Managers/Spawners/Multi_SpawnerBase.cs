@@ -16,13 +16,19 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
 {
     [SerializeField] protected string _rootName;
     [SerializeField] protected string _rootPath;
+
     protected PhotonView pv;
-    public virtual void Init()
+    void Start()
     {
         pv = GetComponent<PhotonView>();
+        Init();
+        if (PhotonNetwork.IsMasterClient == false) return;
+        MasterInit();
     }
 
-    public virtual void MasterInit() { }
+    protected virtual void Init() { }
+
+    protected virtual void MasterInit() { }
 
     protected T[] CreatePool<T>(GameObject go, string path, int count) where T : Component
         => Multi_Managers.Pool.CreatePool(go, path, count).GetComponentsInChildren<T>(true).ToArray();

@@ -48,29 +48,33 @@ public class Multi_SpawnManagers : MonoBehaviourPun
         _spawnerByType.Add(typeof(Multi_ArcherEnemy), _normalEnemy);
         _spawnerByType.Add(typeof(Multi_SpearmanEnemy), _normalEnemy);
         _spawnerByType.Add(typeof(Multi_MageEnemy), _normalEnemy);
+
         _spawnerByType.Add(typeof(Multi_BossEnemy), _bossEnemy);
+
         _spawnerByType.Add(typeof(Multi_EnemyTower), _towerEnemy);
+
         _spawnerByType.Add(typeof(Multi_TeamSoldier), _normalUnit);
         _spawnerByType.Add(typeof(Multi_Unit_Swordman), _normalUnit);
         _spawnerByType.Add(typeof(Multi_Unit_Spearman), _normalUnit);
         _spawnerByType.Add(typeof(Multi_Unit_Archer), _normalUnit);
         _spawnerByType.Add(typeof(Multi_Unit_Mage), _normalUnit);
+
         _spawnerByType.Add(typeof(Multi_Projectile), _weapon);
     }
 
     void Start()
     {
-        _normalEnemy.Init();
-        _normalUnit.Init();
-        _weapon.Init();
+        //_normalEnemy.Init();
+        //_normalUnit.Init();
+        //_weapon.Init();
 
         // TODO : 구현하기
         //_bossEnemy.Init();
         //_towerEnemy.Init();
 
         // 마스터 클라 전용 Init
-        if (PhotonNetwork.IsMasterClient == false) return;
-        _normalEnemy.MasterInit();
+        //if (PhotonNetwork.IsMasterClient == false) return;
+        //_normalEnemy.MasterInit();
     }
 
     T GetOrAddChildComponent<T>() where T : Component

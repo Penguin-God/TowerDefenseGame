@@ -27,11 +27,13 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
 
     // Init용 코드
     #region Init
-    public override void Init()
+    protected override void Init()
     {
-        base.Init();
         SetAllUnit();
+    }
 
+    protected override void MasterInit()
+    {
         CreatePool(swordmanPoolData.gos, swordmanPoolData.folderName, swordmanPoolData.poolingCount);
         CreatePool(archerPoolData.gos, archerPoolData.folderName, archerPoolData.poolingCount);
         CreatePool(spearmanPoolData.gos, spearmanPoolData.folderName, spearmanPoolData.poolingCount);

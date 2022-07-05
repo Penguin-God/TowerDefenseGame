@@ -19,7 +19,7 @@ public class Multi_WeaponSpawner : Multi_SpawnerBase
     [SerializeField] FolderPoolingData mageballPoolData;
     [SerializeField] FolderPoolingData mageSkillPoolData;
 
-    public override void Init()
+    protected override void Init()
     {
         SetAllWeapons();
 

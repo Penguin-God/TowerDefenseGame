@@ -15,7 +15,7 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     // TODO : 클래스로 옮기기
     #region Init
 
-    public override void Init()
+    protected override void Init()
     {
         CreatePool();
 

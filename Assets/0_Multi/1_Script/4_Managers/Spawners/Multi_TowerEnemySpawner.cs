@@ -8,8 +8,8 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
 {
     public event Action<Multi_EnemyTower> OnSpawn;
     public event Action<Multi_EnemyTower> OnDead;
-    
-    public override void Init()
+
+    protected override void Init()
     {
         CreatePool();
     }

@@ -15,7 +15,7 @@ public class Multi_ClientData
         public bool HasSkill;
         public const string path = "SkillData";
 
-        public void SetSkill(bool hasSkill)
+        public void SetHasSkill(bool hasSkill)
         {
             HasSkill = hasSkill;
             // Save

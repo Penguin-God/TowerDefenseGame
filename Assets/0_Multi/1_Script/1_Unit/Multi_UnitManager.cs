@@ -4,8 +4,9 @@ using UnityEngine;
 using System;
 using System.Linq;
 using Random = UnityEngine.Random;
+using Photon.Pun;
 
-public class Multi_UnitManager : MonoBehaviour
+public class Multi_UnitManager : MonoBehaviourPun
 {
     private static Multi_UnitManager instance = null;
     public static Multi_UnitManager Instance
@@ -47,8 +48,7 @@ public class Multi_UnitManager : MonoBehaviour
     {
         _currentUnits.Add(unit);
         _unitListByUnitFlags[unit.UnitFlags].Add(unit);
-        OnCurrentUnitChanged?.Invoke(_currentUnits.Count);
-        OnUnitFlagDictChanged?.Invoke(unit.UnitFlags, GetUnitFlagCount(unit.UnitFlags));
+        Raise_UnitCountChangedEvents(unit);
         print($"{unit.name} : {_unitListByUnitFlags[unit.UnitFlags].Count}마리 있음");
     }
 
@@ -56,6 +56,11 @@ public class Multi_UnitManager : MonoBehaviour
     {
         _currentUnits.Remove(unit);
         _unitListByUnitFlags[unit.UnitFlags].Remove(unit);
+        Raise_UnitCountChangedEvents(unit);
+    }
+
+    void Raise_UnitCountChangedEvents(Multi_TeamSoldier unit)
+    {
         OnCurrentUnitChanged?.Invoke(_currentUnits.Count);
         OnUnitFlagDictChanged?.Invoke(unit.UnitFlags, GetUnitFlagCount(unit.UnitFlags));
     }
@@ -89,6 +94,11 @@ public class Multi_UnitManager : MonoBehaviour
         }
     }
 
+    public void Combine_RPC(CombineData data)
+    {
+        photonView.RPC("Combine", RpcTarget.MasterClient, data.UnitFlags.ColorNumber, data.UnitFlags.ClassNumber);
+    }
+
     public void Combine(CombineData data)
     {
         print($"컴바인 시도 : 색깔 : {data.UnitFlags.ColorNumber}, 클래스 : {data.UnitFlags.ClassNumber}");
@@ -96,6 +106,18 @@ public class Multi_UnitManager : MonoBehaviour
         {
             SacrificedUnit_ForCombine(data.Condition);
             Multi_SpawnManagers.NormalUnit.Spawn(data.UnitFlags);
+            //OnUnitCombined?.Invoke(new KeyValuePair<UnitFlags, int>(data.UnitFlags, GetUnitFlagCount(data.UnitFlags)));
+        }
+    }
+
+    [PunRPC]
+    public void Combine(int colorNumber, int classNumber)
+    {
+        print($"컴바인 시도 : 색깔 : {colorNumber}, 클래스 : {classNumber}");
+        if (CheckCombineable(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)]))
+        {
+            SacrificedUnit_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)]);
+            Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(colorNumber, classNumber));
             //OnUnitCombined?.Invoke(new KeyValuePair<UnitFlags, int>(data.UnitFlags, GetUnitFlagCount(data.UnitFlags)));
         }
     }
@@ -114,7 +136,8 @@ public class Multi_UnitManager : MonoBehaviour
 
 
     public bool FindCurrentUnit(int colorNum, int classNum, out Multi_TeamSoldier unit) => FindCurrentUnit(new UnitFlags(colorNum, classNum), out unit);
-    public bool FindCurrentUnit(UnitColor unitColor, UnitClass unitClass, out Multi_TeamSoldier unit) => FindCurrentUnit(new UnitFlags(unitColor, unitClass), out unit);
+    public bool FindCurrentUnit(UnitColor unitColor, UnitClass unitClass, out Multi_TeamSoldier unit) 
+                                => FindCurrentUnit(new UnitFlags(unitColor, unitClass), out unit);
     public bool FindCurrentUnit(UnitFlags unitFlags, out Multi_TeamSoldier unit)
     {
         if (_unitListByUnitFlags.ContainsKey(unitFlags))

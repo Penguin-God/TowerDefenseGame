@@ -39,11 +39,7 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
     protected Transform CreatePool_InGroup(GameObject go, string path, int count)
         => Multi_Managers.Pool.CreatePool_InGroup(go, path, count, _rootName);
 
-    protected void Spawn_RPC(string path, Vector3 spawnPos)
-    {
-        pv.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Multi_Data.instance.Id);
-        pv.RPC("SpawnCallBackToAll", RpcTarget.All);
-    }
+    protected void Spawn_RPC(string path, Vector3 spawnPos) => pv.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Multi_Data.instance.Id);
     [PunRPC]
     protected virtual GameObject BaseSpawn(string path, Vector3 spawnPos, int id) => Multi_Managers.Resources.PhotonInsantiate(path, spawnPos, id);
 

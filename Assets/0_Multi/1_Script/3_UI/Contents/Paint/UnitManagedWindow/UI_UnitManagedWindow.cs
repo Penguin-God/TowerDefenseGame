@@ -19,7 +19,6 @@ public class UI_UnitManagedWindow : Multi_UI_Popup
 
     void SetInfo(UnitFlags flags)
     {
-        //_windowData = ;
         _description.text = Multi_Managers.Data.UnitWindowDataByUnitFlags[flags].Description;
 
         _combineButtonsParent.SettingCombineButtons(Multi_Managers.Data.UnitWindowDataByUnitFlags[flags].CombineDatas);

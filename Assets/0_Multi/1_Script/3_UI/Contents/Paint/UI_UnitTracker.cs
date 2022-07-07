@@ -10,9 +10,6 @@ public class UI_UnitTracker : Multi_UI_Base
     [SerializeField] Image icon;
     [SerializeField] Text countText;
     [SerializeField] string _unitClassName;
-    //public Image BackGround { get => backGround; set => backGround = value;}
-    //public Image Icon { get => icon; set => icon = value; }
-    //public UnitFlags UnitFlags { get => unitFlags; set => unitFlags = value; }
 
     void Awake()
     {
@@ -28,7 +25,6 @@ public class UI_UnitTracker : Multi_UI_Base
     void OnDisable()
     {
         Multi_UnitManager.Instance.OnUnitFlagDictChanged -= TrackUnitCount;
-        //print("잘 빠짐");
     }
 
     public void SetInfo(UI_UnitTrackerData data)

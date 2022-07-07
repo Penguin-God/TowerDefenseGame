@@ -44,7 +44,8 @@ public class Multi_RedMage : Multi_Unit_Mage
         yield return new WaitUntil(() => isUltimate);
 
         SetSkillPool(mageSkillObject, 2, SetHitSkile);
-        OnUltimateSkile += () => ShootMeteor(transform.position + ultimateMeteorPos, Multi_EnemyManager.Instance.GetRandom_CurrentEnemy());
+        // TODO : 멀티 버전으로 새롭게 구현하기
+        //OnUltimateSkile += () => ShootMeteor(transform.position + ultimateMeteorPos, Multi_EnemyManager.Instance.GetRandom_CurrentEnemy());
     }
 
 

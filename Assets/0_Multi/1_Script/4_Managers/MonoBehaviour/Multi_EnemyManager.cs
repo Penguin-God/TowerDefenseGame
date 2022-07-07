@@ -66,12 +66,6 @@ public class Multi_EnemyManager : MonoBehaviourPun
 #endif
     }
 
-    [Header("Normal Enemy")]
-    [SerializeField] List<Transform> allNormalEnemys = new List<Transform>();
-    public IReadOnlyList<Transform> AllNormalEnemys => allNormalEnemys;
-    public int EnemyCount => allNormalEnemys.Count;
-    public event Action<int> OnListChanged = null;
-
     // TODO : 타워항 보스 구현하면 부활함
     //[Header("Boss Enemy")]
     //[SerializeField] Multi_BossEnemy currentBoss;
@@ -93,9 +87,6 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
     public Transform GetProximateEnemy(Vector3 unitPos, float startDistance, int unitId)
         => GetProximateEnemy(unitPos, startDistance, currentNormalEnemysById[unitId]);
-
-    public Transform GetProximateEnemy(Vector3 _unitPos, float _startDistance)
-        => GetProximateEnemy(_unitPos, _startDistance, allNormalEnemys);
     public Transform GetProximateEnemy(Vector3 _unitPos, float _startDistance, List<Transform> _enemyList)
     {
         Transform[] _enemys = _enemyList.ToArray();
@@ -118,32 +109,33 @@ public class Multi_EnemyManager : MonoBehaviourPun
         return _returnEnemy;
     }
 
-    public Transform[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int count, Transform currentTarget)
+    public Transform[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int count, Transform currentTarget, int unitId)
     {
-        if (allNormalEnemys.Count == 0) return null;
+        if (currentNormalEnemysById[unitId].Count == 0) return null;
 
-        List<Transform> _enemys = new List<Transform>(allNormalEnemys);
-        Transform[] targets = new Transform[count];
+        List<Transform> _enemys = new List<Transform>(currentNormalEnemysById[unitId]);
+        Transform[] result = new Transform[count];
 
         for (int i = 0; i < count; i++)
         {
             if (_enemys.Count > 0)
             {
-                targets[i] = GetProximateEnemy(_unitPos, _startDistance, _enemys);
-                _enemys.Remove(targets[i]);
+                result[i] = GetProximateEnemy(_unitPos, _startDistance, _enemys);
+                _enemys.Remove(result[i]);
             }
-            else targets[i] = currentTarget;
+            else result[i] = currentTarget;
         }
         
-        return targets;
+        return result;
     }
 
-    public Multi_Enemy GetRandom_CurrentEnemy()
-    {
-        int index = Random.Range(0, allNormalEnemys.Count);
-        Multi_Enemy enemy = allNormalEnemys[index].GetComponent<Multi_Enemy>();
-        return enemy;
-    }
+    // TODO : 빨간 마법사 스킬 강화 구현하고 죽이기
+    //public Multi_Enemy GetRandom_CurrentEnemy()
+    //{
+    //    int index = Random.Range(0, allNormalEnemys.Count);
+    //    Multi_Enemy enemy = allNormalEnemys[index].GetComponent<Multi_Enemy>();
+    //    return enemy;
+    //}
 
     #region callback funtion
     void AddEnemyAtList(Multi_NormalEnemy _enemy)

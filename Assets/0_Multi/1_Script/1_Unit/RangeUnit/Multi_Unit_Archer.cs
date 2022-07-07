@@ -58,7 +58,8 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         trail.SetActive(false);
 
         // TODO : 보스 나와있을 때는 보스만 때려야 함
-        Transform[] targetArray = Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target);
+        Transform[] targetArray = 
+            Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target, GetComponent<RPCable>().UsingId);
         for (int i = 0; i < targetArray.Length; i++)
         {
             ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[i], 2, OnSkileHit);

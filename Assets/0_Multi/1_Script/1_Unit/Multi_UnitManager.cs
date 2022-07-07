@@ -29,6 +29,12 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     void Awake()
     {
+        unitListDictById.Clear();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            unitListDictById.Add(0, new Dictionary<UnitFlags, List<Multi_TeamSoldier>>());
+            unitListDictById.Add(1, new Dictionary<UnitFlags, List<Multi_TeamSoldier>>());
+        }
         unitDB = GetComponent<Multi_UnitDataBase>();
     }
 
@@ -46,14 +52,18 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     public void AddList(Multi_TeamSoldier unit)
     {
+        GetUnitList(unit).Add(unit);
+
         _currentUnits.Add(unit);
         _unitListByUnitFlags[unit.UnitFlags].Add(unit);
         Raise_UnitCountChangedEvents(unit);
-        print($"{unit.name} : {_unitListByUnitFlags[unit.UnitFlags].Count}마리 있음");
+        print($"{unit.name} : {GetUnitList(unit).Count}마리 있음");
     }
 
     public void RemoveList(Multi_TeamSoldier unit)
     {
+        GetUnitList(unit).Remove(unit);
+
         _currentUnits.Remove(unit);
         _unitListByUnitFlags[unit.UnitFlags].Remove(unit);
         Raise_UnitCountChangedEvents(unit);
@@ -64,6 +74,12 @@ public class Multi_UnitManager : MonoBehaviourPun
         OnCurrentUnitChanged?.Invoke(_currentUnits.Count);
         OnUnitFlagDictChanged?.Invoke(unit.UnitFlags, GetUnitFlagCount(unit.UnitFlags));
     }
+
+
+    Dictionary<int, Dictionary<UnitFlags, List<Multi_TeamSoldier>>> unitListDictById = new Dictionary<int, Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
+    List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
+    List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flags) => unitListDictById[id][flags];
+
 
     private Dictionary<UnitFlags, List<Multi_TeamSoldier>> _unitListByUnitFlags = new Dictionary<UnitFlags, List<Multi_TeamSoldier>>();
     public IReadOnlyDictionary<UnitFlags, List<Multi_TeamSoldier>> UnitListByUnitFlags => _unitListByUnitFlags;
@@ -89,7 +105,11 @@ public class Multi_UnitManager : MonoBehaviourPun
                     print(unit.gameObject.name);
                     continue;
                 }
+
                 _unitListByUnitFlags.Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+
+                unitListDictById[0].Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+                unitListDictById[1].Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
             }
         }
     }
@@ -122,6 +142,9 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
     }
 
+    bool CheckCombineable(CombineCondition conditions, int id)
+        => conditions.UnitFlagsCountPair.All(x => unitListDictById[id].ContainsKey(x.Key) && GetUnitList(id, x.Key).Count >= x.Value);
+
     bool CheckCombineable(CombineCondition conditions)
         => conditions.UnitFlagsCountPair.All(x => _unitListByUnitFlags.ContainsKey(x.Key) && _unitListByUnitFlags[x.Key].Count >= x.Value);
 
@@ -134,23 +157,29 @@ public class Multi_UnitManager : MonoBehaviourPun
             offerings[i].Dead();
     }
 
-
-    public bool FindCurrentUnit(int colorNum, int classNum, out Multi_TeamSoldier unit) => FindCurrentUnit(new UnitFlags(colorNum, classNum), out unit);
-    public bool FindCurrentUnit(UnitColor unitColor, UnitClass unitClass, out Multi_TeamSoldier unit) 
-                                => FindCurrentUnit(new UnitFlags(unitColor, unitClass), out unit);
-    public bool FindCurrentUnit(UnitFlags unitFlags, out Multi_TeamSoldier unit)
+    void SacrificedUnit_ForCombine(int id, UnitFlags unitFlag, int count)
     {
-        if (_unitListByUnitFlags.ContainsKey(unitFlags))
-        {
-            unit = _unitListByUnitFlags[unitFlags][0];
-            return true;
-        }
-        else
-        {
-            unit = null;
-            return false;
-        }
+        Multi_TeamSoldier[] offerings = GetUnitList(id, unitFlag).ToArray();
+        for (int i = 0; i < count; i++)
+            offerings[i].Dead();
     }
+
+    //public bool FindCurrentUnit(int colorNum, int classNum, out Multi_TeamSoldier unit) => FindCurrentUnit(new UnitFlags(colorNum, classNum), out unit);
+    //public bool FindCurrentUnit(UnitColor unitColor, UnitClass unitClass, out Multi_TeamSoldier unit) 
+    //                            => FindCurrentUnit(new UnitFlags(unitColor, unitClass), out unit);
+    //public bool FindCurrentUnit(UnitFlags unitFlags, out Multi_TeamSoldier unit)
+    //{
+    //    if (_unitListByUnitFlags.ContainsKey(unitFlags))
+    //    {
+    //        unit = _unitListByUnitFlags[unitFlags][0];
+    //        return true;
+    //    }
+    //    else
+    //    {
+    //        unit = null;
+    //        return false;
+    //    }
+    //}
 
 
     // 아래는 쭉 리팩터링 전 코드들

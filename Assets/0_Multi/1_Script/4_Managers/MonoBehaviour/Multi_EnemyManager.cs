@@ -5,7 +5,7 @@ using System;
 using Random = UnityEngine.Random;
 using Photon.Pun;
 
-public class Multi_EnemyManager : MonoBehaviour
+public class Multi_EnemyManager : MonoBehaviourPun
 {
     private static Multi_EnemyManager instance;
     public static Multi_EnemyManager Instance
@@ -29,14 +29,10 @@ public class Multi_EnemyManager : MonoBehaviour
         {
             currentNormalEnemysById.Add(0, new List<Transform>());
             currentNormalEnemysById.Add(1, new List<Transform>());
+
+            Multi_SpawnManagers.NormalEnemy.OnSpawn += AddEnemyAtList;
+            Multi_SpawnManagers.NormalEnemy.OnDead += RemoveEnemyAtList;
         }
-
-        // OnListChanged때문에 마스터 아닌 애들도 콜백함
-        Multi_SpawnManagers.NormalEnemy.OnSpawn += _AddEnemyAtList;
-        Multi_SpawnManagers.NormalEnemy.OnDead += _RemoveEnemyAtList;
-
-        Multi_SpawnManagers.NormalEnemy.OnSpawn += AddEnemyAtList;
-        Multi_SpawnManagers.NormalEnemy.OnDead += RemoveEnemyAtList;
 
         // TODO : 나중에 boss랑 타워 작업하면 부활 예정
         //Multi_SpawnManagers.BossEnemy.OnSpawn += SetBoss;
@@ -50,6 +46,12 @@ public class Multi_EnemyManager : MonoBehaviour
     Dictionary<int, List<Transform>> currentNormalEnemysById = new Dictionary<int, List<Transform>>();
     
     public event Action<int> OnEnemyCountChanged;
+    void Raise_OnEnemyCountChanged_RPC(int id) => photonView.RPC("Raise_OnEnemyCountChanged", RpcTarget.All, id, currentNormalEnemysById[id].Count);
+    [PunRPC] void Raise_OnEnemyCountChanged(int id, int count)
+    {
+        if (Multi_Data.instance.CheckIdSame(id) == false) return;
+        OnEnemyCountChanged?.Invoke(count);
+    }
 
     [SerializeField] List<Transform> test_0 = new List<Transform>();
     [SerializeField] List<Transform> test_1 = new List<Transform>();
@@ -70,6 +72,7 @@ public class Multi_EnemyManager : MonoBehaviour
     public int EnemyCount => allNormalEnemys.Count;
     public event Action<int> OnListChanged = null;
 
+    // TODO : 타워항 보스 구현하면 부활함
     //[Header("Boss Enemy")]
     //[SerializeField] Multi_BossEnemy currentBoss;
     //public Multi_BossEnemy CurrentBoss => currentBoss;
@@ -143,41 +146,23 @@ public class Multi_EnemyManager : MonoBehaviour
     }
 
     #region callback funtion
-    void _AddEnemyAtList(Multi_NormalEnemy _enemy)
-    {
-        int count = 0;
-        if (PhotonNetwork.IsMasterClient)
-        {
-            int id = _enemy.GetComponent<RPCable>().UsingId;
-            currentNormalEnemysById[id].Add(_enemy.transform);
-            count = currentNormalEnemysById[id].Count;
-        }
-        
-        OnEnemyCountChanged?.Invoke(count);
-    }
-    void _RemoveEnemyAtList(Multi_Enemy _enemy)
-    {
-        int count = 0;
-        if (PhotonNetwork.IsMasterClient)
-        {
-            int id = _enemy.GetComponent<RPCable>().UsingId;
-            currentNormalEnemysById[id].Remove(_enemy.transform);
-            count = currentNormalEnemysById[id].Count;
-        }
-
-        OnEnemyCountChanged?.Invoke(count);
-    }
-
     void AddEnemyAtList(Multi_NormalEnemy _enemy)
     {
-        allNormalEnemys.Add(_enemy.transform);
-        OnListChanged?.Invoke(EnemyCount);
+        if (PhotonNetwork.IsMasterClient == false) return;
+
+        int id = _enemy.GetComponent<RPCable>().UsingId;
+        currentNormalEnemysById[id].Add(_enemy.transform);
+        Raise_OnEnemyCountChanged_RPC(id);
     }
     void RemoveEnemyAtList(Multi_Enemy _enemy)
     {
-        allNormalEnemys.Remove(_enemy.transform);
-        OnListChanged?.Invoke(EnemyCount);
+        if (PhotonNetwork.IsMasterClient == false) return;
+
+        int id = _enemy.GetComponent<RPCable>().UsingId;
+        currentNormalEnemysById[id].Remove(_enemy.transform);
+        Raise_OnEnemyCountChanged_RPC(id);
     }
+
 
     //void SetBoss(Multi_BossEnemy _spawnBoss) => currentBoss = _spawnBoss;
     //void SetBossDead(Multi_BossEnemy _spawnBoss) => currentBoss = null;

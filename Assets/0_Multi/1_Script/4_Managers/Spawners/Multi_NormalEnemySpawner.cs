@@ -101,7 +101,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     {
         Multi_NormalEnemy enemy = base.BaseSpawn(GetCurrentEnemyPath(), spawnPos, id).GetComponent<Multi_NormalEnemy>();
         enemy.SetStatus_RPC(GetCurrentEnemyHp(), GetCurrentEnemySpeed(), false);
-        enemy.OnSpawn(enemy);
+        OnSpawn?.Invoke(enemy);
         return null;
     }
 
@@ -115,10 +115,9 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     void SetEnemy(Multi_NormalEnemy enemy)
     {
         enemy.enemyType = EnemyType.Normal;
-        enemy.OnSpawn += OnSpawn;
-        enemy.OnDeath += () => OnDead(enemy);
 
         if (PhotonNetwork.IsMasterClient == false) return;
+        enemy.OnDeath += () => OnDead(enemy);
         enemy.OnDeath += () => Multi_Managers.Pool.Push(enemy.GetComponent<Poolable>());
     }
 

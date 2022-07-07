@@ -25,7 +25,8 @@ public class Multi_UIManager : MonoBehaviour
 
         Multi_StageManager.Instance.OnUpdateStage += UpdateStageText;
 
-        Multi_EnemyManager.Instance.OnListChanged += UpdateCountEnemyText;
+        //Multi_EnemyManager.Instance.OnListChanged += UpdateCountEnemyText;
+        Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateCountEnemyText;
     }
 
     [SerializeField] GameObject title_UI;

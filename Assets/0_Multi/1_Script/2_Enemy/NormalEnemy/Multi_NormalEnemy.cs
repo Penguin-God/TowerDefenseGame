@@ -16,8 +16,6 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     private Transform WayPoint => TurnPoints[pointIndex];
     private int pointIndex = -1;
 
-    public Action<Multi_NormalEnemy> OnSpawn;
-
     public virtual void Passive() { }
 
     private void Awake()

@@ -28,26 +28,8 @@ public class ClientManager : MonoBehaviour
     int Skill1;
     public AudioSource ClientClickAudioSource;
 
-    // 에러떠서 주석처리함
-    // Multi_ClientData ClientData = Multi_Managers.ClientData;
-
     void Start()
-    {
-        //ClientData.Skills = Multi_Managers.ClientData.Load(Multi_Managers.ClientData.Skills, Multi_ClientData.Skill.path);
-        //ClientData.Moneys = Multi_Managers.ClientData.Load(Multi_Managers.ClientData.Moneys, Multi_ClientData.Money.path);
-
-        //print(ClientData.SkillByType[SkillType.시작골드증가].HasSkill);
-        //print(ClientData.MoneyByType[MoneyType.Hammer].Amount);
-
-        //ClientData.SkillByType[SkillType.시작골드증가].SetHasSkill(true);
-        //print("======================추가 전 코드=======================");
-        //Debug.Log(Multi_Managers.ClientData.Skills.Count);
-        //Debug.Log(Multi_Managers.ClientData.Moneys.Count);
-        //Debug.Log(Multi_Managers.ClientData.Moneys[0].Name);
-        //Debug.Log(Multi_Managers.ClientData.Moneys[0].Id);
-        //Debug.Log($"{Multi_Managers.ClientData.Moneys[0].Amount} 출력");
-
-        
+    {        
         ClientIron = Multi_Managers.ClientData.MoneyByType[MoneyType.Iron].Amount;
         ClientWood = Multi_Managers.ClientData.MoneyByType[MoneyType.Wood].Amount;
         ClientHammer = Multi_Managers.ClientData.MoneyByType[MoneyType.Hammer].Amount;
@@ -55,9 +37,9 @@ public class ClientManager : MonoBehaviour
         //print(ClientIron);
         //print(ClientWood);
         //print(ClientHammer);
-        //UpdateWoodText(ClientWood);
-        //UpdateIronText(ClientIron);
-        //UpdateHammerText(ClientHammer);
+        UpdateWoodText(ClientWood);
+        UpdateIronText(ClientIron);
+        UpdateHammerText(ClientHammer);
         //UpdateAdIronCount(STARTGOLDPRICE);
         //UpdateAdWoodCount(STARTFOODPRICE);
         //UpdateAdHammerCount(PLUSTOUCHDAMEGEPRICE);
@@ -65,7 +47,6 @@ public class ClientManager : MonoBehaviour
 
     void Update() 
     {
-
         if (Input.GetKeyDown(KeyCode.P)) // p 누르면 데이터 삭제
         {
             PlayerPrefs.DeleteAll();
@@ -75,9 +56,7 @@ public class ClientManager : MonoBehaviour
             ClientIron += 10000;
             ClientWood += 10000;
             ClientHammer += 10000;
-            Multi_Managers.ClientData.MoneyByType[MoneyType.Iron].SetAmount(ClientIron);
-            Multi_Managers.ClientData.MoneyByType[MoneyType.Wood].SetAmount(ClientWood);
-            Multi_Managers.ClientData.MoneyByType[MoneyType.Hammer].SetAmount(ClientHammer);
+            InitMoney();
         }
     }
 
@@ -158,8 +137,8 @@ public class ClientManager : MonoBehaviour
 
     public void BuyPlusMaxUnit()
     {
-        ClientHammer = PlayerPrefs.GetInt("Hammer");
         ClientClickSound();
+        ClientHammer = Multi_Managers.ClientData.MoneyByType[MoneyType.Hammer].Amount;
         if (ClientHammer >= PLUSMAXUNITPRICE && !(Multi_Managers.ClientData.SkillByType[SkillType.최대유닛증가].HasSkill))
         {
             Debug.Log("최대 유닛");

@@ -117,6 +117,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     public void Combine_RPC(CombineData data)
     {
         photonView.RPC("Combine", RpcTarget.MasterClient, data.UnitFlags.ColorNumber, data.UnitFlags.ClassNumber);
+        //photonView.RPC("Combine", RpcTarget.MasterClient, data.UnitFlags.ColorNumber, data.UnitFlags.ClassNumber, Multi_Data.instance.Id);
     }
 
     public void Combine(CombineData data)
@@ -126,6 +127,18 @@ public class Multi_UnitManager : MonoBehaviourPun
         {
             SacrificedUnit_ForCombine(data.Condition);
             Multi_SpawnManagers.NormalUnit.Spawn(data.UnitFlags);
+            //OnUnitCombined?.Invoke(new KeyValuePair<UnitFlags, int>(data.UnitFlags, GetUnitFlagCount(data.UnitFlags)));
+        }
+    }
+
+    [PunRPC]
+    public void Combine(int colorNumber, int classNumber, int id)
+    {
+        print($"컴바인 시도 : 색깔 : {colorNumber}, 클래스 : {classNumber}");
+        if (CheckCombineable(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)], id))
+        {
+            SacrificedUnit_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)], id);
+            Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(colorNumber, classNumber));
             //OnUnitCombined?.Invoke(new KeyValuePair<UnitFlags, int>(data.UnitFlags, GetUnitFlagCount(data.UnitFlags)));
         }
     }
@@ -157,6 +170,9 @@ public class Multi_UnitManager : MonoBehaviourPun
             offerings[i].Dead();
     }
 
+
+    void SacrificedUnit_ForCombine(CombineCondition condition, int id)
+    => condition.UnitFlagsCountPair.ToList().ForEach(x => SacrificedUnit_ForCombine(id, x.Key, x.Value));
     void SacrificedUnit_ForCombine(int id, UnitFlags unitFlag, int count)
     {
         Multi_TeamSoldier[] offerings = GetUnitList(id, unitFlag).ToArray();

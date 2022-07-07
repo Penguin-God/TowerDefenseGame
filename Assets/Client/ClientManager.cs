@@ -28,7 +28,8 @@ public class ClientManager : MonoBehaviour
     int Skill1;
     public AudioSource ClientClickAudioSource;
 
-    Multi_ClientData ClientData = Multi_Managers.ClientData;
+    // 에러떠서 주석처리함
+    // Multi_ClientData ClientData = Multi_Managers.ClientData;
 
     void Start()
     {

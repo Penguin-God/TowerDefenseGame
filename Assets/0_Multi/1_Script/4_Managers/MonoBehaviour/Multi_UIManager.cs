@@ -25,8 +25,9 @@ public class Multi_UIManager : MonoBehaviour
 
         Multi_StageManager.Instance.OnUpdateStage += UpdateStageText;
 
-        //Multi_EnemyManager.Instance.OnListChanged += UpdateCountEnemyText;
         Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateCountEnemyText;
+
+        Multi_Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText").gameObject.SetActive(true);
     }
 
     [SerializeField] GameObject title_UI;
@@ -45,7 +46,6 @@ public class Multi_UIManager : MonoBehaviour
     [SerializeField] Text GameOverText;
 
     [SerializeField] Text gameResultText;
-    // public Button SoldierCombine;
 
     public GameObject BlackTowerButton;
     public GameObject WhiteTowerButton;

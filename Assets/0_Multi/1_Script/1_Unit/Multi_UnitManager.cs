@@ -40,7 +40,6 @@ public class Multi_UnitManager : MonoBehaviourPun
     }
 
     public event Action<UnitFlags, int> OnUnitFlagDictChanged = null;
-
     public void Raise_OnUnitFlagDictChanged_RPC(int id, UnitFlags flag)
         => photonView.RPC("Raise_OnUnitFlagDictChanged", RpcTarget.MasterClient, id, flag.ColorNumber, flag.ClassNumber);
 
@@ -59,7 +58,16 @@ public class Multi_UnitManager : MonoBehaviourPun
         OnUnitFlagDictChanged?.Invoke(new UnitFlags(colorNum, classNum), count);
     }
 
-    //public event Action<KeyValuePair<UnitFlags, int>> OnUnitCombined = null;
+
+    public event Action<bool, UnitFlags> OnTryCombine = null;
+    void Raise_OnTryCombine_RPC(int id, bool isSuccess, UnitFlags flag) 
+        => photonView.RPC("Raise_OnTryCombine", RpcTarget.All, id, isSuccess, flag.ColorNumber, flag.ClassNumber);
+    [PunRPC]
+    void Raise_OnTryCombine(int id, bool isSuccess, int colorNum, int classNum)
+    {
+        if (Multi_Data.instance.CheckIdSame(id) == false) return;
+        OnTryCombine?.Invoke(isSuccess, new UnitFlags(colorNum, classNum));
+    }
 
     void Awake()
     {
@@ -80,6 +88,8 @@ public class Multi_UnitManager : MonoBehaviourPun
             Multi_SpawnManagers.NormalUnit.OnDead += RemoveList;
 
             SetUnitFlagsDic();
+
+            OnTryCombine += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
         }
 
         void SetUnitFlagsDic()
@@ -159,11 +169,15 @@ public class Multi_UnitManager : MonoBehaviourPun
     [PunRPC]
     void Combine(int colorNumber, int classNumber, int id)
     {
-        print($"컴바인 시도 : 색깔 : {colorNumber}, 클래스 : {classNumber}");
         if (CheckCombineable(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)], id))
         {
             SacrificedUnit_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)], id);
             Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(colorNumber, classNumber), id);
+            Raise_OnTryCombine_RPC(id, true, new UnitFlags(colorNumber, classNumber));
+        }
+        else
+        {
+            Raise_OnTryCombine_RPC(id, false, new UnitFlags(colorNumber, classNumber));
         }
     }
 
@@ -175,6 +189,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         {
             SacrificedUnit_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)]);
             Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(colorNumber, classNumber));
+
         }
     }
 

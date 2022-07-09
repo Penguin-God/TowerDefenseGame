@@ -23,8 +23,42 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
     }
 
-    public event Action<int> OnCurrentUnitChanged = null;
+
+    Dictionary<int, Dictionary<UnitFlags, List<Multi_TeamSoldier>>> unitListDictById = new Dictionary<int, Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
+    List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
+    List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flags) => unitListDictById[id][flags];
+    int GetUnitListCount(int id, UnitFlags flags) => GetUnitList(id, flags).Count;
+
+    private Dictionary<UnitFlags, List<Multi_TeamSoldier>> _unitListByUnitFlags = new Dictionary<UnitFlags, List<Multi_TeamSoldier>>();
+    public IReadOnlyDictionary<UnitFlags, List<Multi_TeamSoldier>> UnitListByUnitFlags => _unitListByUnitFlags;
+    public int GetUnitFlagCount(UnitFlags unitFlag)
+    {
+        if (UnitListByUnitFlags.TryGetValue(unitFlag, out List<Multi_TeamSoldier> units))
+            return units.Count;
+        else
+            return 0;
+    }
+
     public event Action<UnitFlags, int> OnUnitFlagDictChanged = null;
+
+    public void Raise_OnUnitFlagDictChanged_RPC(int id, UnitFlags flag)
+        => photonView.RPC("Raise_OnUnitFlagDictChanged", RpcTarget.MasterClient, id, flag.ColorNumber, flag.ClassNumber);
+
+    public void Raise_OnUnitFlagDictChanged_RPC(Multi_TeamSoldier unit)
+    {
+        Raise_OnUnitFlagDictChanged_RPC(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
+        print($"{unit.name} : {GetUnitList(unit).Count}마리 있음");
+    }
+    [PunRPC]
+    void Raise_OnUnitFlagDictChanged(int id, int colorNum, int classNum) 
+        => photonView.RPC("Raise_OnUnitFlagDictChanged", RpcTarget.All, id, colorNum, classNum, GetUnitListCount(id, new UnitFlags(colorNum, classNum)));
+    [PunRPC]
+    void Raise_OnUnitFlagDictChanged(int id, int colorNum, int classNum, int count)
+    {
+        if (Multi_Data.instance.CheckIdSame(id) == false) return;
+        OnUnitFlagDictChanged?.Invoke(new UnitFlags(colorNum, classNum), count);
+    }
+
     //public event Action<KeyValuePair<UnitFlags, int>> OnUnitCombined = null;
 
     void Awake()
@@ -47,9 +81,34 @@ public class Multi_UnitManager : MonoBehaviourPun
 
             SetUnitFlagsDic();
         }
+
+        void SetUnitFlagsDic()
+        {
+            _unitListByUnitFlags.Clear();
+            foreach (var data in Multi_SpawnManagers.NormalUnit.AllUnitDatas)
+            {
+                foreach (Multi_TeamSoldier unit in data.gos.Select(x => x.GetComponent<Multi_TeamSoldier>()))
+                {
+                    if (unit == null) continue; // TODO : 하얀 유닛 때문에 임시로 넘김
+                                                // 이미 있으면 로그 띄우고 넘김
+                    if (_unitListByUnitFlags.ContainsKey(new UnitFlags(unit.unitColor, unit.unitClass)))
+                    {
+                        print($"{unit.unitColor} : {unit.unitClass}");
+                        print(unit.gameObject.name);
+                        continue;
+                    }
+
+                    _unitListByUnitFlags.Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+
+                    unitListDictById[0].Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+                    unitListDictById[1].Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+                }
+            }
+        }
     }
 
     private List<Multi_TeamSoldier> _currentUnits = new List<Multi_TeamSoldier>();
+    public event Action<int> OnCurrentUnitChanged = null;
     IReadOnlyList<Multi_TeamSoldier> CurrentUnits => _currentUnits;
     public int CurrentUnitCount => _currentUnits.Count;
 
@@ -59,8 +118,9 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         _currentUnits.Add(unit);
         _unitListByUnitFlags[unit.UnitFlags].Add(unit);
-        Raise_UnitCountChangedEvents(unit);
-        print($"{unit.name} : {GetUnitList(unit).Count}마리 있음");
+
+        Raise_OnUnitFlagDictChanged_RPC(unit);
+        //Raise_UnitCountChangedEvents(unit);
     }
 
     void RemoveList(Multi_TeamSoldier unit)
@@ -69,52 +129,14 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         _currentUnits.Remove(unit);
         _unitListByUnitFlags[unit.UnitFlags].Remove(unit);
-        Raise_UnitCountChangedEvents(unit);
+        Raise_OnUnitFlagDictChanged_RPC(unit);
+        //Raise_UnitCountChangedEvents(unit);
     }
 
     void Raise_UnitCountChangedEvents(Multi_TeamSoldier unit)
     {
         OnCurrentUnitChanged?.Invoke(_currentUnits.Count);
         OnUnitFlagDictChanged?.Invoke(unit.UnitFlags, GetUnitFlagCount(unit.UnitFlags));
-    }
-
-
-    Dictionary<int, Dictionary<UnitFlags, List<Multi_TeamSoldier>>> unitListDictById = new Dictionary<int, Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
-    List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
-    List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flags) => unitListDictById[id][flags];
-
-
-    private Dictionary<UnitFlags, List<Multi_TeamSoldier>> _unitListByUnitFlags = new Dictionary<UnitFlags, List<Multi_TeamSoldier>>();
-    public IReadOnlyDictionary<UnitFlags, List<Multi_TeamSoldier>> UnitListByUnitFlags => _unitListByUnitFlags;
-    public int GetUnitFlagCount(UnitFlags unitFlag)
-    {
-        if (UnitListByUnitFlags.TryGetValue(unitFlag, out List<Multi_TeamSoldier> units))
-            return units.Count;
-        else
-            return 0;
-    }
-    void SetUnitFlagsDic()
-    {
-        _unitListByUnitFlags.Clear();
-        foreach (var data in Multi_SpawnManagers.NormalUnit.AllUnitDatas)
-        {
-            foreach (Multi_TeamSoldier unit in data.gos.Select(x => x.GetComponent<Multi_TeamSoldier>()))
-            {
-                if(unit == null) continue; // TODO : 하얀 유닛 때문에 임시로 넘김
-                // 이미 있으면 로그 띄우고 넘김
-                if(_unitListByUnitFlags.ContainsKey(new UnitFlags(unit.unitColor, unit.unitClass)))
-                {
-                    print($"{unit.unitColor} : {unit.unitClass}");
-                    print(unit.gameObject.name);
-                    continue;
-                }
-
-                _unitListByUnitFlags.Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
-
-                unitListDictById[0].Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
-                unitListDictById[1].Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
-            }
-        }
     }
 
     public void Combine_RPC(CombineData data)

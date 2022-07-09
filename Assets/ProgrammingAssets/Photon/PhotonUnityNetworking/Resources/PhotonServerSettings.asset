@@ -74,6 +74,8 @@ MonoBehaviour:
   - SpawnCallBackToAll
   - Raise_OnEnemyCountChanged
   - Combine
+  - Raise_OnUnitFlagDictChanged
+  - Raise_OnUnitFlagDictChanged_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -40,9 +40,9 @@ public class UI_UnitTracker : Multi_UI_Base
         if (data.Icon != null) icon.sprite = data.Icon;
         if (string.IsNullOrEmpty(data.UnitClassName) == false) _unitClassName = data.UnitClassName;
 
-        SetUnitCountText(Multi_UnitManager.Instance.GetUnitFlagCount(unitFlags));
         Multi_UnitManager.Instance.OnUnitFlagDictChanged -= TrackUnitCount;
         Multi_UnitManager.Instance.OnUnitFlagDictChanged += TrackUnitCount;
+        Multi_UnitManager.Instance.Raise_OnUnitFlagDictChanged_RPC(Multi_Data.instance.Id, unitFlags);
     }
 
     void TrackUnitCount(UnitFlags unitFlag, int count)

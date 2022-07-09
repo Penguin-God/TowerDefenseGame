@@ -108,7 +108,7 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
         StartGold = PlayerPrefs.GetInt("StartGold");
         StartFood = PlayerPrefs.GetInt("StartFood");
         isGameover = false;
-        Gold = 15 + StartGold;
+        Gold = 35 + StartGold;
         Food = 1  + StartFood;
         PlusTouchDamege = PlayerPrefs.GetInt("PlusTouchDamege");
     }

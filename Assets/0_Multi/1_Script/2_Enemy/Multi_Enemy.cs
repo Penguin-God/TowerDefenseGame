@@ -25,7 +25,7 @@ public class Multi_Enemy : MonoBehaviourPun
 
     public Vector3 dir = Vector3.zero;
 
-    protected Rigidbody Rigidbody;
+    protected RPCable rpcable;
     protected List<MeshRenderer> meshList;
     [SerializeField] protected Material originMat;
 
@@ -43,6 +43,7 @@ public class Multi_Enemy : MonoBehaviourPun
 
     private void Start()
     {
+        rpcable = GetComponent<RPCable>();
         // originMat = GetComponentInChildren<MeshRenderer>().material;
         _PV = GetComponent<PhotonView>();
         meshList = new List<MeshRenderer>();

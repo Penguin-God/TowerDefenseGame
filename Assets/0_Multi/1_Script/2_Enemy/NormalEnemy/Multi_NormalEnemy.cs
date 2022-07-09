@@ -16,6 +16,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     private Transform WayPoint => TurnPoints[pointIndex];
     private int pointIndex = -1;
 
+    protected Rigidbody Rigidbody;
     public virtual void Passive() { }
 
     private void Awake()
@@ -47,7 +48,8 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
 
         // 실제 이동을 위한 속도 설정
         dir = (WayPoint.position - transform.position).normalized;
-        RPC_Utility.Instance.RPC_Velocity(PV.ViewID, dir * speed);
+        GetComponent<RPCable>().SetVelocity_RPC(dir * speed);
+        //RPC_Utility.Instance.RPC_Velocity(PV.ViewID, dir * speed);
     }
 
     private void OnTriggerEnter(Collider other)

@@ -47,6 +47,7 @@ public class Multi_Data : MonoBehaviourPun
     [SerializeField] Vector3[] cameraPositions = null;
     public Vector3[] CameraPositions => cameraPositions;
     public Vector3 CameraPosition => cameraPositions[id];
+    public Vector3 GetCameraPosition(int id) => cameraPositions[id];
 
     // 타워를 보는 카메라 포지션
     [SerializeField] Vector3[] cameraPositions_LookAtTower = null;
@@ -58,7 +59,8 @@ public class Multi_Data : MonoBehaviourPun
     [SerializeField] Vector3[] worldPostions = null;
     public Vector3[] WorldPostions => worldPostions;
     public Vector3 WorldPostion => worldPostions[id];
-    
+    public Vector3 GetWorldPosition(int id) => worldPostions[id];
+
     [SerializeField] Vector3[] enemyTowerWorldPositions = null;
     public Vector3[] EnemyTowerWorldPositions => enemyTowerWorldPositions;
     public Vector3 EnemyTowerWorldPosition => enemyTowerWorldPositions[id];

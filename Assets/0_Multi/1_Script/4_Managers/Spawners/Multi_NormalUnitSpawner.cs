@@ -72,13 +72,13 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
         }
     }
 
-    public void Spawn(UnitFlags flgas, Vector3 SpawnPos, int id) => Spawn(flgas.ColorNumber, flgas.ClassNumber, SpawnPos, id);
-    public void Spawn(UnitFlags flgas) => Spawn(flgas.ColorNumber, flgas.ClassNumber);
+    public void Spawn(UnitFlags flag) => Spawn(flag.ColorNumber, flag.ClassNumber);
     public void Spawn(int unitColor, int unitClass) => Spawn_RPC(GetUnitPath(unitColor, unitClass), GetUnitSpawnPos());
-    public void Spawn(int unitColor, int unitClass, Vector3 SpawnPos, int id) => Spawn_RPC(GetUnitPath(unitColor, unitClass), GetUnitSpawnPos());
+    public void Spawn(UnitFlags flag, int id) => Spawn_RPC(GetUnitPath(flag.ColorNumber, flag.ClassNumber), GetUnitSpawnPos(id), id);
 
     string GetUnitPath(int unitColor, int unitClass) => BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]);
     Vector3 GetUnitSpawnPos() => Multi_WorldPosUtility.Instance.GetUnitSpawnPositon();
+    Vector3 GetUnitSpawnPos(int id) => Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(id);
 
     [PunRPC]
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, int id)

@@ -130,7 +130,6 @@ public class Multi_UnitManager : MonoBehaviourPun
         _unitListByUnitFlags[unit.UnitFlags].Add(unit);
 
         Raise_OnUnitFlagDictChanged_RPC(unit);
-        //Raise_UnitCountChangedEvents(unit);
     }
 
     void RemoveList(Multi_TeamSoldier unit)
@@ -140,7 +139,6 @@ public class Multi_UnitManager : MonoBehaviourPun
         _currentUnits.Remove(unit);
         _unitListByUnitFlags[unit.UnitFlags].Remove(unit);
         Raise_OnUnitFlagDictChanged_RPC(unit);
-        //Raise_UnitCountChangedEvents(unit);
     }
 
     void Raise_UnitCountChangedEvents(Multi_TeamSoldier unit)
@@ -150,19 +148,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     }
 
     public void Combine_RPC(CombineData data)
-    {
-        photonView.RPC("Combine", RpcTarget.MasterClient, data.UnitFlags.ColorNumber, data.UnitFlags.ClassNumber, Multi_Data.instance.Id);
-    }
-
-    public void Combine(CombineData data)
-    {
-        print($"컴바인 시도 : 색깔 : {data.UnitFlags.ColorNumber}, 클래스 : {data.UnitFlags.ClassNumber}");
-        if (CheckCombineable(data.Condition))
-        {
-            SacrificedUnit_ForCombine(data.Condition);
-            Multi_SpawnManagers.NormalUnit.Spawn(data.UnitFlags);
-        }
-    }
+        => photonView.RPC("Combine", RpcTarget.MasterClient, data.UnitFlags.ColorNumber, data.UnitFlags.ClassNumber, Multi_Data.instance.Id);
 
     [PunRPC]
     void Combine(int colorNumber, int classNumber, int id)
@@ -179,33 +165,8 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
     }
 
-    [PunRPC]
-    public void Combine(int colorNumber, int classNumber)
-    {
-        print($"컴바인 시도 : 색깔 : {colorNumber}, 클래스 : {classNumber}");
-        if (CheckCombineable(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)]))
-        {
-            SacrificedUnit_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)]);
-            Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(colorNumber, classNumber));
-
-        }
-    }
-
     bool CheckCombineable(CombineCondition conditions, int id)
         => conditions.UnitFlagsCountPair.All(x => unitListDictById[id].ContainsKey(x.Key) && GetUnitList(id, x.Key).Count >= x.Value);
-
-    bool CheckCombineable(CombineCondition conditions)
-        => conditions.UnitFlagsCountPair.All(x => _unitListByUnitFlags.ContainsKey(x.Key) && _unitListByUnitFlags[x.Key].Count >= x.Value);
-
-    void SacrificedUnit_ForCombine(CombineCondition condition)
-        => condition.UnitFlagsCountPair.ToList().ForEach(x => SacrificedUnit_ForCombine(x.Key, x.Value));
-    void SacrificedUnit_ForCombine(UnitFlags unitFlag, int count)
-    {
-        Multi_TeamSoldier[] offerings = _unitListByUnitFlags[unitFlag].ToArray();
-        for (int i = 0; i < count; i++)
-            offerings[i].Dead();
-    }
-
 
     void SacrificedUnit_ForCombine(CombineCondition condition, int id)
             => condition.UnitFlagsCountPair.ToList().ForEach(x => SacrificedUnit_ForCombine(id, x.Key, x.Value));
@@ -216,22 +177,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             offerings[i].Dead();
     }
 
-    //public bool FindCurrentUnit(int colorNum, int classNum, out Multi_TeamSoldier unit) => FindCurrentUnit(new UnitFlags(colorNum, classNum), out unit);
-    //public bool FindCurrentUnit(UnitColor unitColor, UnitClass unitClass, out Multi_TeamSoldier unit) 
-    //                            => FindCurrentUnit(new UnitFlags(unitColor, unitClass), out unit);
-    //public bool FindCurrentUnit(UnitFlags unitFlags, out Multi_TeamSoldier unit)
-    //{
-    //    if (_unitListByUnitFlags.ContainsKey(unitFlags))
-    //    {
-    //        unit = _unitListByUnitFlags[unitFlags][0];
-    //        return true;
-    //    }
-    //    else
-    //    {
-    //        unit = null;
-    //        return false;
-    //    }
-    //}
+
 
 
     // 아래는 쭉 리팩터링 전 코드들

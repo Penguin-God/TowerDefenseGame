@@ -27149,18 +27149,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 735422692}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &737711913 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1016192218369701854, guid: 9bafb392d372dc34784cd7a105d2484b,
-    type: 3}
-  m_PrefabInstance: {fileID: 1016192218992058615}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &739256225 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1409667927502884, guid: ce3cce5cc08d86d4588c41d29dcd08a4,
@@ -40370,7 +40358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startUnitArray: []
-  maxUnit: 0
+  maxUnit: 15
   unitOverGuideTextObject: {fileID: 0}
   tp_Effects: []
 --- !u!4 &1095168202
@@ -55159,7 +55147,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1568701675}
-  - component: {fileID: 1568701674}
   m_Layer: 0
   m_Name: EventManager
   m_TagString: Untagged
@@ -55167,24 +55154,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1568701674
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1568701673}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 298212934666f044bafbe9e6b39555c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MageFlags: 0000000000000000
-  buffText: {fileID: 737711913}
-  eventUnitCount: 0
-  unitEventFlags: []
-  unitDataBase: {fileID: 0}
-  enemySpawn: {fileID: 0}
 --- !u!4 &1568701675
 Transform:
   m_ObjectHideFlags: 0
@@ -65699,7 +65668,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   test_0: []
   test_1: []
-  allNormalEnemys: []
 --- !u!4 &1877716351
 Transform:
   m_ObjectHideFlags: 0
@@ -75758,6 +75726,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1076024915}
+    - target: {fileID: 1016192217533649498, guid: 9bafb392d372dc34784cd7a105d2484b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1016192217533964801, guid: 9bafb392d372dc34784cd7a105d2484b,
         type: 3}
       propertyPath: m_IsActive

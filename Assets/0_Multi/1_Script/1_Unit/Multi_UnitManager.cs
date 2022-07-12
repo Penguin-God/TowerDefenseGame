@@ -72,10 +72,14 @@ public class Multi_UnitManager : MonoBehaviourPun
     void Awake()
     {
         unitListDictById.Clear();
+        _currentUnitsById.Clear();
         if (PhotonNetwork.IsMasterClient)
         {
             unitListDictById.Add(0, new Dictionary<UnitFlags, List<Multi_TeamSoldier>>());
             unitListDictById.Add(1, new Dictionary<UnitFlags, List<Multi_TeamSoldier>>());
+
+            _currentUnitsById.Add(0, new List<Multi_TeamSoldier>());
+            _currentUnitsById.Add(1, new List<Multi_TeamSoldier>());
         }
         unitDB = GetComponent<Multi_UnitDataBase>();
     }
@@ -84,8 +88,8 @@ public class Multi_UnitManager : MonoBehaviourPun
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            Multi_SpawnManagers.NormalUnit.OnSpawn += AddList;
-            Multi_SpawnManagers.NormalUnit.OnDead += RemoveList;
+            Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
+            Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
 
             SetUnitFlagsDic();
 
@@ -118,33 +122,46 @@ public class Multi_UnitManager : MonoBehaviourPun
     }
 
     private List<Multi_TeamSoldier> _currentUnits = new List<Multi_TeamSoldier>();
-    public event Action<int> OnCurrentUnitChanged = null;
-    IReadOnlyList<Multi_TeamSoldier> CurrentUnits => _currentUnits;
+    Dictionary<int, List<Multi_TeamSoldier>> _currentUnitsById = new Dictionary<int, List<Multi_TeamSoldier>>();
+    List<Multi_TeamSoldier> GetCurrentUnitList(Multi_TeamSoldier unit) => _currentUnitsById[unit.GetComponent<RPCable>().UsingId];
     public int CurrentUnitCount => _currentUnits.Count;
 
-    void AddList(Multi_TeamSoldier unit)
+    public event Action<int> OnCurrentUnitChanged = null;
+    void Raise_OnCurrentUnitChanged_RPC(Multi_TeamSoldier unit)
+    {
+        int id = unit.GetComponent<RPCable>().UsingId;
+        photonView.RPC("Raise_OnCurrentUnitChanged", RpcTarget.All, id, _currentUnitsById[id].Count);
+    }
+
+    [PunRPC]
+    void Raise_OnCurrentUnitChanged(int id, int count)
+    {
+        if (Multi_Data.instance.CheckIdSame(id) == false) return;
+        OnCurrentUnitChanged?.Invoke(count);
+    }
+
+    void AddUnit(Multi_TeamSoldier unit)
     {
         GetUnitList(unit).Add(unit);
+        GetCurrentUnitList(unit).Add(unit);
 
         _currentUnits.Add(unit);
         _unitListByUnitFlags[unit.UnitFlags].Add(unit);
 
         Raise_OnUnitFlagDictChanged_RPC(unit);
+        Raise_OnCurrentUnitChanged_RPC(unit);
     }
 
-    void RemoveList(Multi_TeamSoldier unit)
+    void RemoveUnit(Multi_TeamSoldier unit)
     {
         GetUnitList(unit).Remove(unit);
+        GetCurrentUnitList(unit).Remove(unit);
 
         _currentUnits.Remove(unit);
         _unitListByUnitFlags[unit.UnitFlags].Remove(unit);
-        Raise_OnUnitFlagDictChanged_RPC(unit);
-    }
 
-    void Raise_UnitCountChangedEvents(Multi_TeamSoldier unit)
-    {
-        OnCurrentUnitChanged?.Invoke(_currentUnits.Count);
-        OnUnitFlagDictChanged?.Invoke(unit.UnitFlags, GetUnitFlagCount(unit.UnitFlags));
+        Raise_OnUnitFlagDictChanged_RPC(unit);
+        Raise_OnCurrentUnitChanged_RPC(unit);
     }
 
     public void Combine_RPC(CombineData data)

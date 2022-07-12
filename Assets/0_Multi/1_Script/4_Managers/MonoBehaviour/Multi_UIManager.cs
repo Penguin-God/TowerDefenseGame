@@ -27,7 +27,8 @@ public class Multi_UIManager : MonoBehaviour
 
         Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateCountEnemyText;
 
-        Multi_Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText").gameObject.SetActive(true);
+        Multi_Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
+        Multi_Managers.UI.ShowSceneUI<UnitCountTracker>("CurrentUnit Panel");
     }
 
     [SerializeField] GameObject title_UI;

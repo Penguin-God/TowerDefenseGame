@@ -78,6 +78,7 @@ MonoBehaviour:
   - Raise_OnUnitFlagDictChanged_RPC
   - Raise_OnCombine
   - Raise_OnTryCombine
+  - Raise_OnCurrentUnitChanged
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

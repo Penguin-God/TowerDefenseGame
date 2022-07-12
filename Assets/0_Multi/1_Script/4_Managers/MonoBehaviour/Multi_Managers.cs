@@ -47,6 +47,8 @@ public class Multi_Managers : MonoBehaviourPun
     void Start()
     {
         // temp code : 나중에 씬으로 옮길 것
+        PhotonNetwork.SendRate = 60;
+        PhotonNetwork.SerializationRate = 30;
         _ui.ShowSceneUI<Multi_UI_Paint>("Paint");
     }
 

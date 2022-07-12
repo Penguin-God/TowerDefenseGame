@@ -151,7 +151,6 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     public void Combine_RPC(CombineData data)
     {
-        // photonView.RPC("Combine", RpcTarget.MasterClient, data.UnitFlags.ColorNumber, data.UnitFlags.ClassNumber);
         photonView.RPC("Combine", RpcTarget.MasterClient, data.UnitFlags.ColorNumber, data.UnitFlags.ClassNumber, Multi_Data.instance.Id);
     }
 
@@ -162,7 +161,6 @@ public class Multi_UnitManager : MonoBehaviourPun
         {
             SacrificedUnit_ForCombine(data.Condition);
             Multi_SpawnManagers.NormalUnit.Spawn(data.UnitFlags);
-            //OnUnitCombined?.Invoke(new KeyValuePair<UnitFlags, int>(data.UnitFlags, GetUnitFlagCount(data.UnitFlags)));
         }
     }
 

@@ -29,13 +29,6 @@ public struct UnitFlags : IEquatable<UnitFlags>
         ClempFlags();
     }
 
-    public UnitFlags(string unitKoreaName)
-    {
-        Debug.Assert(Multi_Managers.Data.UnitNameDataByUnitKoreaName.ContainsKey(unitKoreaName), "데이터 입력 잘못됨");
-        _colorNumber = Multi_Managers.Data.UnitNameDataByUnitKoreaName[unitKoreaName].UnitFlags.ColorNumber;
-        _classNumber = Multi_Managers.Data.UnitNameDataByUnitKoreaName[unitKoreaName].UnitFlags.ClassNumber;
-    }
-
     void ClempFlags()
     {
         Debug.Assert(_colorNumber >= 0 && _colorNumber <= GetEnumCount(typeof(UnitColor)), $"color number 입력 잘못됨 : {_colorNumber}");
@@ -102,8 +95,7 @@ public struct CombineData
 {
     [SerializeField] UnitFlags _unitFlags; // 조합하려는 유닛의 플래그
     [SerializeField] string _koearName;
-    // [SerializeField] CombineCondition _condition;
-
+    
     public CombineData(UnitFlags unitFlags, string koreaName)
     {
         _unitFlags = unitFlags;

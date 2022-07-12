@@ -27,7 +27,7 @@ public struct UI_UnitTrackerData
 }
 
 [Serializable]
-public struct UI_UnitWindowData
+public class UI_UnitWindowData
 {
     [SerializeField] UnitFlags _unitFlags;
     [SerializeField] List<UnitFlags> _combineUnitFalgs;
@@ -36,31 +36,16 @@ public struct UI_UnitWindowData
     public UnitFlags UnitFlags => _unitFlags;
     public IReadOnlyList<CombineData> CombineDatas => _combineUnitFalgs.Select(x => Multi_Managers.Data.CombineDataByUnitFlags[x]).ToList();
     public string Description => _description;
+    public void SetDescription() => _description = _description.Replace("\\n", "\n");
 }
 
 [Serializable]
-public class UI_UnitWindowDatas : ILoader<UnitFlags, UI_UnitWindowData>, ICsvLoader<UnitFlags, UI_UnitWindowData>
+public class UI_UnitWindowDatas : ICsvLoader<UnitFlags, UI_UnitWindowData>
 {
-    [SerializeField] List<UI_UnitWindowData> SerializtionDatas = new List<UI_UnitWindowData>();
-
-    public Dictionary<UnitFlags, UI_UnitWindowData> MakeDict()
-    {
-        Dictionary<UnitFlags, UI_UnitWindowData> dict = new Dictionary<UnitFlags, UI_UnitWindowData>();
-
-        foreach (UI_UnitWindowData data in SerializtionDatas)
-            dict.Add(data.UnitFlags, data);
-
-        return dict;
-    }
-
-
-    public void LoadCSV(TextAsset csv)
-    {
-        throw new NotImplementedException();
-    }
-
     public Dictionary<UnitFlags, UI_UnitWindowData> MakeDict(string csv)
     {
-        return CsvUtility.GetEnumerableFromCsv<UI_UnitWindowData>(csv).ToDictionary(x => x.UnitFlags, x => x);
+        List<UI_UnitWindowData> datas = CsvUtility.GetEnumerableFromCsv<UI_UnitWindowData>(csv).ToList();
+        datas.ForEach(x => x.SetDescription());
+        return datas.ToDictionary(x => x.UnitFlags, x => x);
     }
 }

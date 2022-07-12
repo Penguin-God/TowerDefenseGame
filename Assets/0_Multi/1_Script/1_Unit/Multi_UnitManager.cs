@@ -29,16 +29,6 @@ public class Multi_UnitManager : MonoBehaviourPun
     List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flags) => unitListDictById[id][flags];
     int GetUnitListCount(int id, UnitFlags flags) => GetUnitList(id, flags).Count;
 
-    private Dictionary<UnitFlags, List<Multi_TeamSoldier>> _unitListByUnitFlags = new Dictionary<UnitFlags, List<Multi_TeamSoldier>>();
-    public IReadOnlyDictionary<UnitFlags, List<Multi_TeamSoldier>> UnitListByUnitFlags => _unitListByUnitFlags;
-    public int GetUnitFlagCount(UnitFlags unitFlag)
-    {
-        if (UnitListByUnitFlags.TryGetValue(unitFlag, out List<Multi_TeamSoldier> units))
-            return units.Count;
-        else
-            return 0;
-    }
-
     public event Action<UnitFlags, int> OnUnitFlagDictChanged = null;
     public void Raise_OnUnitFlagDictChanged_RPC(int id, UnitFlags flag)
         => photonView.RPC("Raise_OnUnitFlagDictChanged", RpcTarget.MasterClient, id, flag.ColorNumber, flag.ClassNumber);
@@ -98,22 +88,11 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         void SetUnitFlagsDic()
         {
-            _unitListByUnitFlags.Clear();
             foreach (var data in Multi_SpawnManagers.NormalUnit.AllUnitDatas)
             {
                 foreach (Multi_TeamSoldier unit in data.gos.Select(x => x.GetComponent<Multi_TeamSoldier>()))
                 {
                     if (unit == null) continue; // TODO : 하얀 유닛 때문에 임시로 넘김
-                                                // 이미 있으면 로그 띄우고 넘김
-                    if (_unitListByUnitFlags.ContainsKey(new UnitFlags(unit.unitColor, unit.unitClass)))
-                    {
-                        print($"{unit.unitColor} : {unit.unitClass}");
-                        print(unit.gameObject.name);
-                        continue;
-                    }
-
-                    _unitListByUnitFlags.Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
-
                     unitListDictById[0].Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
                     unitListDictById[1].Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
                 }
@@ -121,10 +100,8 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
     }
 
-    private List<Multi_TeamSoldier> _currentUnits = new List<Multi_TeamSoldier>();
     Dictionary<int, List<Multi_TeamSoldier>> _currentUnitsById = new Dictionary<int, List<Multi_TeamSoldier>>();
     List<Multi_TeamSoldier> GetCurrentUnitList(Multi_TeamSoldier unit) => _currentUnitsById[unit.GetComponent<RPCable>().UsingId];
-    public int CurrentUnitCount => _currentUnits.Count;
 
     public event Action<int> OnCurrentUnitChanged = null;
     void Raise_OnCurrentUnitChanged_RPC(Multi_TeamSoldier unit)
@@ -145,9 +122,6 @@ public class Multi_UnitManager : MonoBehaviourPun
         GetUnitList(unit).Add(unit);
         GetCurrentUnitList(unit).Add(unit);
 
-        _currentUnits.Add(unit);
-        _unitListByUnitFlags[unit.UnitFlags].Add(unit);
-
         Raise_OnUnitFlagDictChanged_RPC(unit);
         Raise_OnCurrentUnitChanged_RPC(unit);
     }
@@ -156,9 +130,6 @@ public class Multi_UnitManager : MonoBehaviourPun
     {
         GetUnitList(unit).Remove(unit);
         GetCurrentUnitList(unit).Remove(unit);
-
-        _currentUnits.Remove(unit);
-        _unitListByUnitFlags[unit.UnitFlags].Remove(unit);
 
         Raise_OnUnitFlagDictChanged_RPC(unit);
         Raise_OnCurrentUnitChanged_RPC(unit);
@@ -217,20 +188,6 @@ public class Multi_UnitManager : MonoBehaviourPun
     public int MaxUnit => maxUnit;
     public void ExpendMaxUnit(int addUnitCount) => maxUnit += addUnitCount;
 
-    public bool UnitOver
-    {
-        get
-        {
-            if (CurrentUnitCount >= maxUnit)
-            {
-                UnitOverGuide();
-                return true;
-            }
-
-            return false;
-        }
-    }
-
     [SerializeField] GameObject unitOverGuideTextObject = null;
     public void UnitOverGuide()
     {
@@ -270,22 +227,4 @@ public class Multi_UnitManager : MonoBehaviourPun
         current_TPEffectIndex++;
         if (current_TPEffectIndex >= tp_Effects.Length) current_TPEffectIndex = 0;
     }
-
-    public void UnitTranslate_To_EnterStroyMode()
-    {
-        for (int i = 0; i < CurrentUnitCount; i++)
-        {
-            Multi_TeamSoldier unit = _currentUnits[i].GetComponent<Multi_TeamSoldier>();
-            if (unit.enterStoryWorld) unit.Unit_WorldChange();
-        }
-    }
-
-    //public void ShowReinforceEffect(int colorNumber)
-    //{
-    //    for (int i = 0; i < unitArrays[colorNumber].unitArray.Length; i++)
-    //    {
-    //        TeamSoldier unit = unitArrays[colorNumber].unitArray[i].transform.GetChild(0).GetComponent<TeamSoldier>();
-    //        unit.reinforceEffect.SetActive(true);
-    //    }
-    //}
 }

@@ -35,16 +35,23 @@ public class Multi_DataManager
 
     public void Init()
     {
-        _combineDataByUnitFlags.Clear();
-        _unitWindowDataByUnitFlags.Clear();
-        _unitNameDataByUnitKoreaName.Clear();
+        Clears();
 
         // 무조건 가장먼저 실행되어야 함
-        _unitNameDataByUnitKoreaName = MakeCsvDict<UnitNameDatas, string, UnitNameData>("UnitNameData");
+        _unitNameDataByUnitKoreaName = MakeCsvDict<UnitNameDatas, string, UnitNameData>("UnitData/UnitNameData");
 
-        _combineDataByUnitFlags = MakeCsvDict<CombineDatas, UnitFlags, CombineData>("CombineData");
-        _combineConditionByUnitFalg = MakeCsvDict<CombineConditions, UnitFlags, CombineCondition>("CombineConditionData");
-        _unitWindowDataByUnitFlags = MakeCsvDict<UI_UnitWindowDatas, UnitFlags, UI_UnitWindowData>("UI_UnitWindowData");
+        _combineDataByUnitFlags = MakeCsvDict<CombineDatas, UnitFlags, CombineData>("UnitData/CombineData");
+        _combineConditionByUnitFalg = MakeCsvDict<CombineConditions, UnitFlags, CombineCondition>("UnitData/CombineConditionData");
+
+        _unitWindowDataByUnitFlags = MakeCsvDict<UI_UnitWindowDatas, UnitFlags, UI_UnitWindowData>("UIData/UI_UnitWindowData");
+    }
+
+    void Clears()
+    {
+        _combineDataByUnitFlags.Clear();
+        _unitWindowDataByUnitFlags.Clear();
+        _combineConditionByUnitFalg.Clear();
+        _unitNameDataByUnitKoreaName.Clear();
     }
 
     Dictionary<Key, Value> MakeCsvDict<ICsvLoader, Key, Value>(string path) where ICsvLoader : ICsvLoader<Key, Value>, new()

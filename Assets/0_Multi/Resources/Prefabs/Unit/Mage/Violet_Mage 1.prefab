@@ -259,6 +259,7 @@ MonoBehaviour:
   energyBallTransform: {fileID: 1428039914236047671}
   mageSkillObject: {fileID: 6269822335907625535, guid: 3d04c93368856bd4eb50c61fefa0cda7,
     type: 3}
+  skillWeaponName: MagePosionEffect 1
   plusMana: 30
   mageSkillCoolDownTime: 2
   isUltimate: 0
@@ -277,7 +278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _usingId: 0
   IsUsing: 0
   Path: 
 --- !u!114 &5023698059270700154

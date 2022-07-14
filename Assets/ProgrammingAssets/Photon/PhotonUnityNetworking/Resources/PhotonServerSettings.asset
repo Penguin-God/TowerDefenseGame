@@ -79,6 +79,7 @@ MonoBehaviour:
   - Raise_OnCombine
   - Raise_OnTryCombine
   - Raise_OnCurrentUnitChanged
+  - _MageSkile
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

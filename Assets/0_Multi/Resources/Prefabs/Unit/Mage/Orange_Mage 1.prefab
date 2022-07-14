@@ -453,6 +453,7 @@ MonoBehaviour:
   energyBallTransform: {fileID: 6590480786666523011}
   mageSkillObject: {fileID: 6070129563677219890, guid: f894d2491a0cb5f4d8c47c6ab4a2f98e,
     type: 3}
+  skillWeaponName: OrangeMage SkillEffect 1
   plusMana: 30
   mageSkillCoolDownTime: 1
   isUltimate: 0
@@ -471,7 +472,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _usingId: 0
   IsUsing: 0
   Path: 
 --- !u!114 &1722587431004367479

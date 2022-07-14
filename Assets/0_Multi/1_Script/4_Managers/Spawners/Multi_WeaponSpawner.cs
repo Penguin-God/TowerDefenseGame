@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public enum WeaponType
 {
@@ -8,6 +9,10 @@ public enum WeaponType
     Spear,
     Mageball,
     MageSkill,
+    Arrows,
+    Spears,
+    Mageballs,
+    MageSkills,
 }
 
 public class Multi_WeaponSpawner : Multi_SpawnerBase
@@ -46,4 +51,9 @@ public class Multi_WeaponSpawner : Multi_SpawnerBase
 
     public GameObject Spawn(GameObject go, Vector3 spawnPos) => Multi_Managers.Resources.PhotonInsantiate(go, spawnPos);
     public GameObject Spawn(WeaponType weaponType, GameObject go, Vector3 _pos) => Spawn(weaponType, go, _pos);
+    // public GameObject Spawn(string weaponName, Vector3 spawnPos) => Multi_Managers.Resources.PhotonInsantiate(go, spawnPos);
+    public GameObject Spawn(WeaponType weaponType, string weaponName, Vector3 spawnPos)
+        => Multi_Managers.Resources.PhotonInsantiate(BuildPath(weaponType, weaponName), spawnPos, Multi_Data.instance.Id);
+
+    string BuildPath(WeaponType type, string weaponName) => BuildPath(_rootPath, Enum.GetName(typeof(WeaponType), type), weaponName);
 }

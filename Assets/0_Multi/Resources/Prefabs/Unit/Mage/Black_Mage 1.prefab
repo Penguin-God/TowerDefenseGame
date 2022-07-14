@@ -440,6 +440,7 @@ MonoBehaviour:
   energyBallTransform: {fileID: 8766261300255312831}
   mageSkillObject: {fileID: 4092839075240782940, guid: 665b0e29fcf68a44bb51644807f9f220,
     type: 3}
+  skillWeaponName: BlackMageSkileBall 1
   plusMana: 30
   mageSkillCoolDownTime: 3
   isUltimate: 0
@@ -460,7 +461,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _usingId: 0
   IsUsing: 0
   Path: 
 --- !u!114 &4327793081819570559

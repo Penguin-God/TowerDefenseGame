@@ -380,6 +380,7 @@ MonoBehaviour:
   energyBallTransform: {fileID: 126787734837454812}
   mageSkillObject: {fileID: 8959511767882400299, guid: 73833e9d6545abd48886e0de1f0a7657,
     type: 3}
+  skillWeaponName: Yellow Skile Object 1
   plusMana: 30
   mageSkillCoolDownTime: 2
   isUltimate: 0
@@ -398,7 +399,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _usingId: 0
   IsUsing: 0
   Path: 
 --- !u!114 &-5185983614271091339

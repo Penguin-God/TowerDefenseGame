@@ -14960,6 +14960,7 @@ MonoBehaviour:
   energyBallTransform: {fileID: 5332082169092532282}
   mageSkillObject: {fileID: 8677619185684072776, guid: ca73ee7c8e18b014099e870ba19b8de3,
     type: 3}
+  skillWeaponName: GreenMage_SkillBall 1
   plusMana: 30
   mageSkillCoolDownTime: 1
   isUltimate: 0
@@ -14979,7 +14980,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _usingId: 0
   IsUsing: 0
   Path: 
 --- !u!114 &5986236851697606115

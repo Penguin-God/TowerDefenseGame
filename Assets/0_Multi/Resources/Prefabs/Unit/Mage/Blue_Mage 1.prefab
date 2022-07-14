@@ -29356,6 +29356,7 @@ MonoBehaviour:
   energyBallTransform: {fileID: 7499503638959521675}
   mageSkillObject: {fileID: 4270540001386718210, guid: 66b037f53d0161349bdeaa0116b3c840,
     type: 3}
+  skillWeaponName: IceCloud 1
   plusMana: 30
   mageSkillCoolDownTime: 2
   isUltimate: 0
@@ -29374,7 +29375,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _usingId: 0
   IsUsing: 0
   Path: 
 --- !u!114 &5937486920090044710

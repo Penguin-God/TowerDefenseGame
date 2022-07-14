@@ -85,6 +85,7 @@ public class Multi_UnitManager : MonoBehaviourPun
 
             OnTryCombine += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
         }
+        OnCurrentUnitChanged += count => _unitCount = count;
 
         void SetUnitFlagsDic()
         {
@@ -104,6 +105,8 @@ public class Multi_UnitManager : MonoBehaviourPun
     List<Multi_TeamSoldier> GetCurrentUnitList(Multi_TeamSoldier unit) => _currentUnitsById[unit.GetComponent<RPCable>().UsingId];
 
     public event Action<int> OnCurrentUnitChanged = null;
+    [SerializeField] int _unitCount;
+    public int UnitCount => _unitCount;
     void Raise_OnCurrentUnitChanged_RPC(Multi_TeamSoldier unit)
     {
         int id = unit.GetComponent<RPCable>().UsingId;

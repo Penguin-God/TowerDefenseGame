@@ -25,9 +25,9 @@ public class Multi_UI_Manager
     public void SetCanvas(GameObject go, bool sort)
     {
         Canvas canvas = go.GetOrAddComponent<Canvas>();
-        GraphicRaycaster raycaster = go.GetOrAddComponent<GraphicRaycaster>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.overrideSorting = true; // canvas안의 canvas가 부모 관계없이 독립적인 sort값을 가지게 하는 옵션
+        go.GetOrAddComponent<GraphicRaycaster>();
 
         if (sort)
         {

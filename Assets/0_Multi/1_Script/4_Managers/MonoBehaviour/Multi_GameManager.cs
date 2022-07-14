@@ -20,6 +20,9 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     public float timer;
     public int waitingTime;
 
+    [SerializeField] int _maxUninCount;
+    public bool UnitOver => Multi_UnitManager.Instance.UnitCount >= _maxUninCount;
+
     public bool playerEnterStoryMode = false;
     public int enemyCount; // EnemySpaw에 있던거 옮김
 

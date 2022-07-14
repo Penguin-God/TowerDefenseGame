@@ -16,7 +16,7 @@ public class UnitOverText : Multi_UI_Popup
         gameObject.SetActive(false);
     }
 
-    public void ShowText()
+    public void Show()
     {
         StopAllCoroutines();
         gameObject.SetActive(true);

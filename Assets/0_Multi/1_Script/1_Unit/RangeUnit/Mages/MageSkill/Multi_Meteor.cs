@@ -2,11 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System;
 
 public class Multi_Meteor : MonoBehaviourPun
 {
-    Rigidbody rigid;
-    private void Awake() => rigid = GetComponent<Rigidbody>();
+    [SerializeField] Multi_Projectile multi_Projectile;
+    [SerializeField] int speed;
+    void Awake()
+    {
+        multi_Projectile = GetComponent<Multi_Projectile>();
+        multi_Projectile.SetSpeed(speed);
+    }
 
     public void OnChase(Multi_Enemy enemy) => StartCoroutine(Co_ShotMeteor(enemy));
     IEnumerator Co_ShotMeteor(Multi_Enemy enemy)
@@ -16,12 +22,17 @@ public class Multi_Meteor : MonoBehaviourPun
         ChasePosition(chasePosition);
     }
 
-    [SerializeField] float speed;
     void ChasePosition(Vector3 chasePosition)
     {
         Vector3 _chaseVelocity = ((chasePosition - this.transform.position).normalized) * speed;
         RPC_Utility.Instance.RPC_Velocity(photonView.ViewID, _chaseVelocity);
-        //GetComponent<MyPunRPC>().RPC_Velocity(_chaseVelocity);
+    }
+
+    public void Shot(Multi_Enemy enemy, Vector3 enemyPos, Action<Multi_Enemy> hitAction)
+    {
+        Vector3 chasePos = enemyPos + ( (enemy != null) ? enemy.dir.normalized * enemy.speed : Vector3.zero);
+        multi_Projectile.Shot((chasePos - transform.position).normalized, null);
+        explosionObject.GetComponent<Multi_HitSkill>().SetHitActoin(hitAction);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,9 +50,9 @@ public class Multi_Meteor : MonoBehaviourPun
     {
         foreach (GameObject meteor in meteors) meteor.SetActive(false);
 
+        GetComponent<Rigidbody>().velocity = Vector3.zero;
         isExplosion = true;
         explosionObject.SetActive(true);
-        SoundManager.instance.PlayEffectSound_ByName("MeteorExplosion", 0.12f);
         StartCoroutine(Co_HideObject());
     }
 
@@ -50,9 +61,8 @@ public class Multi_Meteor : MonoBehaviourPun
         yield return new WaitForSeconds(0.25f);
 
         isExplosion = false;
-        rigid.velocity = Vector3.zero;
         explosionObject.SetActive(false);
-        transform.position = Vector3.zero;
+        transform.position = Vector3.one * 500;
         gameObject.SetActive(false);
         foreach (GameObject meteor in meteors) meteor.SetActive(true);
     }

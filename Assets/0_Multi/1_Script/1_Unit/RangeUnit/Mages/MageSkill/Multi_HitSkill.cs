@@ -8,8 +8,9 @@ public class Multi_HitSkill : MonoBehaviourPun
 {
     private void Awake() => sphereCollider = GetComponent<SphereCollider>();
 
-
     public event Action<Multi_Enemy> OnHitSkile;
+    public void SetHitActoin(Action<Multi_Enemy> action) => OnHitSkile = action;
+
     private void OnTriggerEnter(Collider other)
     {
         if (!photonView.IsMine) return;
@@ -32,5 +33,8 @@ public class Multi_HitSkill : MonoBehaviourPun
         yield return new WaitForSeconds(delayTIme);
         sphereCollider.enabled = true;
     }
-    private void OnDisable() => sphereCollider.enabled = false;
+    private void OnDisable()
+    {
+        sphereCollider.enabled = false;
+    }
 }

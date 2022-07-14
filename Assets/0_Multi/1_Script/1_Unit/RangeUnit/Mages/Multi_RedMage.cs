@@ -9,9 +9,7 @@ public class Multi_RedMage : Multi_Unit_Mage
 
     public override void SetMageAwake()
     {
-        //SetSkillPool(mageSkillObject, 3, SetHitSkile);
         redPassive = GetComponent<Multi_RedPassive>();
-        //StartCoroutine(Co_UltimateSkile());
     }
 
     void SetHitSkile(GameObject skileObj)
@@ -19,12 +17,11 @@ public class Multi_RedMage : Multi_Unit_Mage
         GameObject _obj = skileObj.GetComponentInChildren<Multi_HitSkill>().gameObject;
         _obj.GetComponent<Multi_HitSkill>().OnHitSkile += HitMeteor;
         RPC_Utility.Instance.RPC_Active(photonView.ViewID, false);
-        //_obj.GetComponent<MyPunRPC>().RPC_Active(false);
     }
 
     void HitMeteor(Multi_Enemy enemy)
     {
-        enemy.photonView.RPC("OnDamage", RpcTarget.MasterClient, 400000);
+        enemy.OnDamage(400000);
         enemy.OnStun(RpcTarget.MasterClient, 100, 5f);
     }
 
@@ -32,9 +29,26 @@ public class Multi_RedMage : Multi_Unit_Mage
     public override void MageSkile() => ShootMeteor(transform.position + meteorPos, TargetEnemy);
     void ShootMeteor(Vector3 _pos, Multi_Enemy _enemy)
     {
-        // 메테오를 위에 띄우고 발사시킴. 지면에 닿을 시 폭발하는건 메테오 내부에서 실행됨
         GameObject meteor = UsedSkill(_pos);
         meteor.GetComponent<Multi_Meteor>().OnChase(_enemy);
+    }
+
+    protected override void _MageSkile()
+    {
+        Multi_Meteor meteor = SkillSpawn(transform.position + meteorPos).GetComponent<Multi_Meteor>();
+        StartCoroutine(Co_ShowMeteor(meteor));
+    }
+
+    IEnumerator Co_ShowMeteor(Multi_Meteor meteor)
+    {
+        Multi_Enemy tempEnemyPos = TargetEnemy;
+        Vector3 tempPos = target.position;
+        yield return new WaitForSeconds(1f);
+
+        if (target == null)
+            meteor.Shot(null, tempPos, HitMeteor);
+        else
+            meteor.Shot(TargetEnemy, target.position, HitMeteor);
     }
 
     // TODO : Event로 구현하기

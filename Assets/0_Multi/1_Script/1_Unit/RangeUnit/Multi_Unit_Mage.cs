@@ -141,7 +141,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     {
         // if (isMageSkillAttack) SpecialAttack();
         // TODO : 스킬 쓰면 버그 있어서 스킬 막아둠
-        if (false) SpecialAttack();
+        if (true) SpecialAttack();
         else StartCoroutine("MageAttack");
     }
 
@@ -176,7 +176,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     public override void SpecialAttack()
     {
         SetMageSkillStatus();
-        if (pv.IsMine) MageSkile();
+        if (pv.IsMine) _MageSkile();
         PlaySkileAudioClip();
         SkillCoolDown(mageSkillCoolDownTime);
         if (OnUltimateSkile != null) OnUltimateSkile();
@@ -185,8 +185,9 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     // 법사 스킬 구현하는 가상 함수
     public virtual void MageSkile() {}
 
+    protected GameObject SkillSpawn(Vector3 spawnPos) => skillWeapon.Spawn(spawnPos);
     [PunRPC]
-    public virtual GameObject _MageSkile(Vector3 spawnPos) => skillWeapon.Spawn(spawnPos);
+    protected virtual void _MageSkile() { }
 
     protected void SetMageSkillStatus()
     {

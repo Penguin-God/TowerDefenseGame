@@ -7,10 +7,9 @@ using Photon.Pun;
 public class Multi_Projectile : MonoBehaviourPun
 {
     [SerializeField] bool isAOE; // area of effect : 범위(광역) 공격
-    [SerializeField] float aliveTime = 5f; 
-    Rigidbody Rigidbody = null;
-    private Action<Multi_Enemy> OnHit = null;
-    //[HideInInspector] public MyPunRPC myRPC = null;
+    [SerializeField] float aliveTime = 5f;
+    protected Rigidbody Rigidbody = null;
+    protected Action<Multi_Enemy> OnHit = null;
 
     private void Awake()
     {
@@ -23,6 +22,7 @@ public class Multi_Projectile : MonoBehaviourPun
     }
 
     [SerializeField] int _speed;
+    public void SetSpeed(int speed) => _speed = speed;
     public void Shot(Vector3 dir, Action<Multi_Enemy> hitAction)
     {
         OnHit = hitAction;
@@ -60,6 +60,8 @@ public class Multi_Projectile : MonoBehaviourPun
 
     void HitEnemy(Multi_Enemy enemy)
     {
+        if (OnHit == null) return;
+
         OnHit?.Invoke(enemy);
         if (!isAOE)
         {

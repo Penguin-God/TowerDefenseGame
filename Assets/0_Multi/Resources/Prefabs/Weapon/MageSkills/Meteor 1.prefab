@@ -26,8 +26,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765769554079764924}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 300, y: 300, z: 300}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 772091557454625854}
   m_RootOrder: 3
@@ -4784,8 +4784,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765812678589182216}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 300, y: 300, z: 300}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 772057194001534742}
   m_Father: {fileID: 772091557454625854}
@@ -9453,8 +9453,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 765890530169527520}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 300, y: 300, z: 300}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 772091557454625854}
   m_RootOrder: 2
@@ -14103,8 +14103,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 766265412472087850}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 300, y: 300, z: 300}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 772091557454625854}
   m_RootOrder: 1
@@ -18761,13 +18761,14 @@ GameObject:
   - component: {fileID: 766274922650886117}
   - component: {fileID: 766274922650886114}
   - component: {fileID: 756250094616363223}
+  - component: {fileID: 4477338612740970964}
   m_Layer: 0
   m_Name: Meteor_Explosion
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &772091557454625854
 Transform:
   m_ObjectHideFlags: 0
@@ -23693,6 +23694,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   showTime: 2
+--- !u!114 &4477338612740970964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 766274922650886116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _usingId: -1
 --- !u!1 &766630859544608364
 GameObject:
   m_ObjectHideFlags: 0
@@ -28311,8 +28325,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 766669127003823756}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 300, y: 300, z: 300}
-  m_LocalScale: {x: 20, y: 20, z: 20}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 772091557454625854}
   m_RootOrder: 4
@@ -52056,6 +52070,7 @@ GameObject:
   - component: {fileID: -6234274731394058744}
   - component: {fileID: -6187135869327002636}
   - component: {fileID: 3086455494300643389}
+  - component: {fileID: 8167050786852244400}
   m_Layer: 0
   m_Name: Meteor 1
   m_TagString: Untagged
@@ -52145,6 +52160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c89c60d0df822a42a7d90a6c807f01e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  multi_Projectile: {fileID: 0}
   speed: 50
   explosionObject: {fileID: 766274922650886116}
   meteors:
@@ -52164,7 +52180,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _usingId: 0
   IsUsing: 0
   Path: 
 --- !u!114 &3086455494300643389
@@ -52180,3 +52195,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _usingId: -1
+--- !u!114 &8167050786852244400
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 767403622873436515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fea2ea37883d6e546bc40c02f2c0f523, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAOE: 1
+  aliveTime: 5
+  _speed: 0

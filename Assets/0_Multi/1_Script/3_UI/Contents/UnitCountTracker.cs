@@ -15,6 +15,6 @@ public class UnitCountTracker : Multi_UI_Scene
 
     void UpdateUnitCountText(int count)
     {
-        unitCountText.text = $"최대 유닛 갯수 {count}/{Multi_UnitManager.Instance.MaxUnit}";
+        unitCountText.text = $"최대 유닛 갯수 {count}/{Multi_GameManager.instance.MaxUnitCount}";
     }
 }

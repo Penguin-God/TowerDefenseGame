@@ -187,31 +187,6 @@ public class Multi_UnitManager : MonoBehaviourPun
         startUnit.SetActive(true);
     }
 
-    [SerializeField] int maxUnit;
-    public int MaxUnit => maxUnit;
-    public void ExpendMaxUnit(int addUnitCount) => maxUnit += addUnitCount;
-
-    [SerializeField] GameObject unitOverGuideTextObject = null;
-    public void UnitOverGuide()
-    {
-        SoundManager.instance.PlayEffectSound_ByName("LackPurchaseGold");
-        unitOverGuideTextObject.SetActive(true);
-        StartCoroutine(Co_HideUnitOverText());
-    }
-    IEnumerator Co_HideUnitOverText()
-    {
-        yield return new WaitForSeconds(1.5f);
-        unitOverGuideTextObject.SetActive(false);
-    }
-
-    //public string GetUnitKey(UnitColor _color, UnitClass _class) => unitDB.GetUnitKey(_color, _class);
-
-    //public TeamSoldier[] GetCurrnetUnits(string _tag) => CurrentUnitManager.GetUnits(_tag);
-    //public TeamSoldier[] GetCurrnetUnits(UnitColor _color) => CurrentUnitManager.GetUnits(_color);
-    //public TeamSoldier[] GetCurrnetUnits(UnitClass _class) => CurrentUnitManager.GetUnits(_class);
-    //public TeamSoldier[] GetCurrnetUnits(UnitColor _color, UnitClass _class) => CurrentUnitManager.GetUnits(_color, _class);
-
-
     [SerializeField] private GameObject[] tp_Effects;
     int current_TPEffectIndex;
     Vector3 effectPoolPosition = new Vector3(1000, 1000, 1000);

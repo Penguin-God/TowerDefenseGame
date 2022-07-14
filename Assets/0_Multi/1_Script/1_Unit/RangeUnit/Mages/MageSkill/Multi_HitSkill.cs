@@ -36,5 +36,6 @@ public class Multi_HitSkill : MonoBehaviourPun
     private void OnDisable()
     {
         sphereCollider.enabled = false;
+
     }
 }

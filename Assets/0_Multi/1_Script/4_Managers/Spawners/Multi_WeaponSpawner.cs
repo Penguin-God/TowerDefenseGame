@@ -50,8 +50,6 @@ public class Multi_WeaponSpawner : Multi_SpawnerBase
     }
 
     public GameObject Spawn(GameObject go, Vector3 spawnPos) => Multi_Managers.Resources.PhotonInsantiate(go, spawnPos);
-    public GameObject Spawn(WeaponType weaponType, GameObject go, Vector3 _pos) => Spawn(weaponType, go, _pos);
-    // public GameObject Spawn(string weaponName, Vector3 spawnPos) => Multi_Managers.Resources.PhotonInsantiate(go, spawnPos);
     public GameObject Spawn(WeaponType weaponType, string weaponName, Vector3 spawnPos)
         => Multi_Managers.Resources.PhotonInsantiate(BuildPath(weaponType, weaponName), spawnPos, Multi_Data.instance.Id);
 

@@ -23,10 +23,10 @@ public class Multi_RedMage : Multi_Unit_Mage
     protected override void _MageSkile()
     {
         Multi_Meteor meteor = SkillSpawn(transform.position + meteorPos).GetComponent<Multi_Meteor>();
-        StartCoroutine(Co_ShowMeteor(meteor));
+        StartCoroutine(Co_ShotMeteor(meteor));
     }
 
-    IEnumerator Co_ShowMeteor(Multi_Meteor meteor)
+    IEnumerator Co_ShotMeteor(Multi_Meteor meteor)
     {
         Multi_Enemy tempEnemyPos = TargetEnemy;
         Vector3 tempPos = target.position;
@@ -39,18 +39,18 @@ public class Multi_RedMage : Multi_Unit_Mage
     }
 
     // 패시브
-    // 유닛 강화를 어떻게 적용할지 아직 정하지 않아서 일단 임시로 코드 사용
+    // 최적화 때문에 Raycasting으로 바꾸기? : 효과 확실하면
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.layer == 9)
-            Change_Unit_AttackCollDown(other.GetComponent<Multi_TeamSoldier>(), redPassive.Get_DownDelayWeigh);
+        if (other.GetComponentInParent<Multi_TeamSoldier>() != null)
+            Change_Unit_AttackCollDown(other.GetComponentInParent<Multi_TeamSoldier>(), redPassive.Get_DownDelayWeigh);
     }
 
     private void OnTriggerExit(Collider other)
     {
         // redPassive.get_DownDelayWeigh 의 역수 곱해서 공속 되돌림
-        if (other.gameObject.layer == 9) 
-            Change_Unit_AttackCollDown(other.GetComponent<Multi_TeamSoldier>(), (1 / redPassive.Get_DownDelayWeigh));
+        if (other.GetComponentInParent<Multi_TeamSoldier>() != null) 
+            Change_Unit_AttackCollDown(other.GetComponentInParent<Multi_TeamSoldier>(), (1 / redPassive.Get_DownDelayWeigh));
     }
 
     void Change_Unit_AttackCollDown(Multi_TeamSoldier _unit, float rate)

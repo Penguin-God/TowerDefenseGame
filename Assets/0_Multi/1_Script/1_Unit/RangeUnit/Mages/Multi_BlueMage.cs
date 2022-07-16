@@ -10,21 +10,20 @@ public class Multi_BlueMage : Multi_Unit_Mage
 
     public override void SetMageAwake()
     {
-        //SetSkillPool(mageSkillObject, 3, SetEnemyFreeze);
-
         bluePassive = GetComponent<Multi_BluePassive>();
         blueCollider = GetComponentInChildren<SphereCollider>();
         blueCollider.radius = bluePassive.Get_ColliderRange;
-        bluePassive.OnBeefup += () => blueCollider.radius = bluePassive.Get_ColliderRange;
-
-        //StartCoroutine(Co_SkilleReinForce());
     }
 
-    void SetEnemyFreeze(GameObject _skill) =>
-        _skill.GetComponent<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => enemy.OnFreeze(RpcTarget.MasterClient, 5f);
+    void SetEnemyFreeze(GameObject skill) =>
+        skill.GetComponent<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => enemy.OnFreeze(RpcTarget.MasterClient, 5f);
 
     public override void MageSkile() => UsedSkill(transform.position + (Vector3.up * 2));
 
+    protected override void _MageSkile()
+    {
+        // SkillSpawn();
+    }
 
     // TODO : Event로 옮기기
     IEnumerator Co_SkilleReinForce()
@@ -41,7 +40,7 @@ public class Multi_BlueMage : Multi_Unit_Mage
 
     private void OnTriggerStay(Collider other)
     {
-        if (!pv.IsMine) return;
+        if (pv.IsMine == false) return;
 
         if (other.GetComponentInParent<Multi_NormalEnemy>() != null) // 나가기 전까진 무한 슬로우
             other.GetComponentInParent<Multi_NormalEnemy>().OnSlow(RpcTarget.MasterClient, bluePassive.Get_SlowPercent, -1);
@@ -49,7 +48,7 @@ public class Multi_BlueMage : Multi_Unit_Mage
 
     private void OnTriggerExit(Collider other)
     {
-        if (!pv.IsMine) return;
+        if (pv.IsMine == false) return;
 
         if (other.GetComponentInParent<Multi_NormalEnemy>() != null)
             other.GetComponentInParent<Multi_NormalEnemy>().ExitSlow(RpcTarget.All);

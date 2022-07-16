@@ -13,7 +13,7 @@ public class Multi_BluePassive : Multi_UnitPassive
     public float Get_SlowPercent => apply_SlowPercet;
     // 법사 패시브에서 slowTime은 무한이므로 콜라이더 범위 변수로 씀
     public float Get_ColliderRange => apply_SlowTime;
-    public event Action OnBeefup = null;
+    //public event Action OnBeefup = null;
 
     public override void SetPassive(Multi_TeamSoldier _team)
     {

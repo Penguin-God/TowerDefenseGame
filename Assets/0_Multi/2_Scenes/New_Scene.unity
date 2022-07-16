@@ -35397,6 +35397,7 @@ MonoBehaviour:
     - {fileID: 767403622873436515, guid: 6f18a0f9e7422194fbef769d115ca77d, type: 3}
     - {fileID: 6070129563677219890, guid: f894d2491a0cb5f4d8c47c6ab4a2f98e, type: 3}
     - {fileID: 8959511767882400299, guid: 73833e9d6545abd48886e0de1f0a7657, type: 3}
+    - {fileID: 1028878669649969207, guid: 2435002441270cf41be65262bb9e0978, type: 3}
     poolingCount: 3
 --- !u!1001 &966212011
 PrefabInstance:
@@ -40359,8 +40360,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _unitCount: 0
   startUnitArray: []
-  maxUnit: 15
-  unitOverGuideTextObject: {fileID: 0}
   tp_Effects: []
 --- !u!4 &1095168202
 Transform:

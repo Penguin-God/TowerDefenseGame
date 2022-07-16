@@ -8,6 +8,7 @@ public class Multi_Projectile : MonoBehaviourPun
 {
     [SerializeField] bool isAOE; // area of effect : 범위(광역) 공격
     [SerializeField] float aliveTime = 5f;
+    [SerializeField] protected int _speed;
     protected Rigidbody Rigidbody = null;
     protected Action<Multi_Enemy> OnHit = null;
 
@@ -21,8 +22,6 @@ public class Multi_Projectile : MonoBehaviourPun
         StartCoroutine(Co_Inactive(aliveTime));
     }
 
-    [SerializeField] int _speed;
-    public void SetSpeed(int speed) => _speed = speed;
     public void Shot(Vector3 dir, Action<Multi_Enemy> hitAction)
     {
         OnHit = hitAction;
@@ -58,6 +57,7 @@ public class Multi_Projectile : MonoBehaviourPun
 
     #endregion
 
+
     void HitEnemy(Multi_Enemy enemy)
     {
         if (OnHit == null) return;
@@ -65,7 +65,7 @@ public class Multi_Projectile : MonoBehaviourPun
         OnHit?.Invoke(enemy);
         if (!isAOE)
         {
-            StopAllCoroutines(); // 코루틴 하나만 있으니까 임시로 씀
+            StopAllCoroutines();
             ReturnObjet();
         }
     }
@@ -76,19 +76,24 @@ public class Multi_Projectile : MonoBehaviourPun
         ReturnObjet();
     }
 
-    void ReturnObjet()
+    protected void ReturnObjet()
     {
         OnHit = null;
         if (PhotonNetwork.IsMasterClient == false) return;
         Multi_Managers.Pool.Push(gameObject.GetOrAddComponent<Poolable>());
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerHit(Collider other) 
     {
         if (photonView.IsMine)
         {
             Multi_Enemy enemy = other.GetComponentInParent<Multi_Enemy>(); // 콜라이더가 자식한테 있음
             if (enemy != null) HitEnemy(enemy);
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        OnTriggerHit(other);
     }
 }

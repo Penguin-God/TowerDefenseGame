@@ -10,6 +10,10 @@ public class AutoEffectDisabled : MonoBehaviour
 	IEnumerator CheckIfAlive()
 	{
 		yield return new WaitForSeconds(showTime);
-		this.gameObject.SetActive(false);
+
+		if (GetComponent<Poolable>() != null)
+			Multi_Managers.Pool.Push(GetComponent<Poolable>());
+		else
+			gameObject.SetActive(false);
 	}
 }

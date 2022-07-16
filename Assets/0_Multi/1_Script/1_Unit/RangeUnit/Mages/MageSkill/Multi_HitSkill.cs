@@ -22,20 +22,16 @@ public class Multi_HitSkill : MonoBehaviourPun
         }
     }
 
-
-
     [SerializeField] protected SphereCollider sphereCollider;
-    [SerializeField] private float hitTime; // 콜라이더가 켜지기 전 공격 대기 시간
+    [SerializeField] private float activeDelayTime; // 콜라이더가 켜지기 전 공격 대기 시간
+    [SerializeField] private float aliveTime; // 콜라이더가 켜지기 전 공격 대기 시간
 
-    private void OnEnable() => StartCoroutine(Co_OnCollider(hitTime));
+    private void OnEnable() => StartCoroutine(Co_OnCollider(activeDelayTime));
     IEnumerator Co_OnCollider(float delayTIme)
     {
         yield return new WaitForSeconds(delayTIme);
         sphereCollider.enabled = true;
-    }
-    private void OnDisable()
-    {
+        yield return new WaitForSeconds(delayTIme);
         sphereCollider.enabled = false;
-
     }
 }

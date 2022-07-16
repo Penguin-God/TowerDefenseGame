@@ -34,11 +34,13 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
+  - _MageSkile
   - AddMana
   - AttackFromHost
   - BaseSpawn
   - ChangeColor
   - ClickRpc
+  - Combine
   - DestroyRpc
   - DestroySpaceship
   - ExitSlow
@@ -51,6 +53,10 @@ MonoBehaviour:
   - OnSkillEffect
   - OnSlow
   - OnStun
+  - Raise_OnCurrentUnitChanged
+  - Raise_OnEnemyCountChanged
+  - Raise_OnTryCombine
+  - Raise_OnUnitFlagDictChanged
   - RespawnSpaceship
   - RPC_OnDamage
   - RPC_OnStart
@@ -70,16 +76,6 @@ MonoBehaviour:
   - SpawnUnit
   - SyncSpeed
   - Turn
-  - _SetId
-  - SpawnCallBackToAll
-  - Raise_OnEnemyCountChanged
-  - Combine
-  - Raise_OnUnitFlagDictChanged
-  - Raise_OnUnitFlagDictChanged_RPC
-  - Raise_OnCombine
-  - Raise_OnTryCombine
-  - Raise_OnCurrentUnitChanged
-  - _MageSkile
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

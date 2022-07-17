@@ -139,8 +139,6 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     private bool isMageSkillAttack;
     public override void NormalAttack()
     {
-        // if (isMageSkillAttack) SpecialAttack();
-        // TODO : 스킬 쓰면 버그 있어서 스킬 막아둠
         if (true) SpecialAttack();
         else StartCoroutine("MageAttack");
     }
@@ -176,7 +174,10 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     public override void SpecialAttack()
     {
         SetMageSkillStatus();
-        if (pv.IsMine) _MageSkile();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            _MageSkile();
+        }
         PlaySkileAudioClip();
         SkillCoolDown(mageSkillCoolDownTime);
         if (OnUltimateSkile != null) OnUltimateSkile();

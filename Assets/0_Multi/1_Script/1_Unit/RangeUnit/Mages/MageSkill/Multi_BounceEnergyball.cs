@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Multi_BounceEnergyball : MonoBehaviourPun
+public class Multi_BounceEnergyball : MonoBehaviourPun, IPunObservable
 {
     [SerializeField] float speed;
     [SerializeField] float acceleration;
@@ -42,5 +42,11 @@ public class Multi_BounceEnergyball : MonoBehaviourPun
 
         speed += acceleration;
         rpcable.SetVelocity_RPC(dir * speed);
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting) stream.SendNext(transform.position);
+        else transform.position = (Vector3)stream.ReceiveNext();
     }
 }

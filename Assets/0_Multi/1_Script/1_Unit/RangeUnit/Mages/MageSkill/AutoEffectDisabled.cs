@@ -1,11 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class AutoEffectDisabled : MonoBehaviour
 {
 	public float showTime = 0.5f;
-	void OnEnable() => StartCoroutine("CheckIfAlive");
+	void OnEnable()
+    {
+		if (PhotonNetwork.IsMasterClient == false) return;
+		StartCoroutine("CheckIfAlive");
+	}
 
 	IEnumerator CheckIfAlive()
 	{
@@ -14,6 +19,6 @@ public class AutoEffectDisabled : MonoBehaviour
 		if (GetComponent<Poolable>() != null)
 			Multi_Managers.Pool.Push(GetComponent<Poolable>());
 		else
-			gameObject.SetActive(false);
+			gameObject.GetComponent<RPCable>().SetActive_RPC(false);
 	}
 }

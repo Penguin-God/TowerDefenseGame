@@ -123,6 +123,8 @@ public class Multi_Enemy : MonoBehaviourPun
     public void OnStun(RpcTarget _target, int _stunPercent, float _stunTime) => _PV.RPC("OnStun", _target, _stunPercent, _stunTime);
     [PunRPC] protected virtual void OnStun(int stunPercent, float stunTime) { }
 
+    public void OnPoison_RPC(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
+        => _PV.RPC("OnPoison", RpcTarget.MasterClient, poisonPercent, poisonCount, poisonDelay, maxDamage);
     public void OnPoison(RpcTarget _target, int poisonPercent, int poisonCount, float poisonDelay, int maxDamage) 
         => _PV.RPC("OnPoison", _target, poisonPercent, poisonCount, poisonDelay, maxDamage);
     [PunRPC]

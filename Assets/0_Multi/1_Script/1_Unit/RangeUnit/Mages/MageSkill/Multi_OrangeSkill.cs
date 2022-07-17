@@ -5,19 +5,26 @@ using Photon.Pun;
 
 public class Multi_OrangeSkill : MonoBehaviourPun
 {
+
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         ps = GetComponent<ParticleSystem>();
     }
 
-    public void OnSkile(Multi_Enemy enemy, bool isUltimate, int damage)
+    public void OnSkile(Multi_Enemy enemy, int damage)
     {
-        if (!photonView.IsMine) return;
-
-        int count = isUltimate ? 5 : 3;
-        StartCoroutine(Co_OrangeSkile(count, enemy, damage));
+        Debug.Assert(PhotonNetwork.IsMasterClient, "게스트가... 스킬을?");
+        StartCoroutine(Co_OrangeSkile(3, enemy, damage));
     }
+
+    //public void OnSkile(Multi_Enemy enemy, bool isUltimate, int damage)
+    //{
+    //    if (!photonView.IsMine) return;
+
+    //    int count = isUltimate ? 5 : 3;
+    //    StartCoroutine(Co_OrangeSkile(count, enemy, damage));
+    //}
 
     ParticleSystem ps = null;
     IEnumerator Co_OrangeSkile(int count, Multi_Enemy enemy, int damage)
@@ -25,11 +32,10 @@ public class Multi_OrangeSkill : MonoBehaviourPun
         for (int i = 0; i < count; i++)
         {
             OrangeMageSkill(enemy, damage);
-            yield return new WaitForSeconds(ps.startLifetime + 0.1f); // startLifetime
+            yield return new WaitForSeconds(ps.startLifetime + 0.1f);
         }
 
-        RPC_Utility.Instance.RPC_Active(photonView.ViewID, false);
-        //myPunRPC.RPC_Active(false);
+        Multi_Managers.Pool.Push(GetComponent<Poolable>());
     }
 
     void OrangeMageSkill(Multi_Enemy enemy, int damage)
@@ -38,8 +44,9 @@ public class Multi_OrangeSkill : MonoBehaviourPun
 
         photonView.RPC("OnSkillEffect", RpcTarget.All, enemy.transform.position);
 
-        int _applyDamage = (damage / 2) + Mathf.RoundToInt((enemy.currentHp / 100) * 5);
-        enemy.photonView.RPC("OnDamage", RpcTarget.MasterClient, _applyDamage);
+        // TODO : 리터럴 고치기
+        int _applyDamage = damage + Mathf.RoundToInt(enemy.currentHp / 100 * 5);
+        enemy.OnDamage(_applyDamage);
     }
 
     [PunRPC]
@@ -52,9 +59,9 @@ public class Multi_OrangeSkill : MonoBehaviourPun
 
     AudioSource audioSource;
     [SerializeField] AudioClip audioClip;
-    public void OrangePlayAudio()
+    void OrangePlayAudio()
     {
-        // 찾은 클립이 초반에 소리가 비는 부분이 있어서 0.6초부터 재생함
+        // 찾은 클립이 0.6초부터 소리가 나와서 그때부터 재생함
         audioSource.time = 0.6f;
         audioSource.Play();
     }

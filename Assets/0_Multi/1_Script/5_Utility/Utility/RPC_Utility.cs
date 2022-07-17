@@ -24,23 +24,23 @@ public class RPC_Utility : MonoBehaviourPun
         }
     }
 
-    // 위치
-    public void RPC_Position(int viewID, Vector3 pos) => photonView.RPC("SetPosition", RpcTarget.All, viewID, pos);
-    [PunRPC] 
-    private void SetPosition(int id, Vector3 pos)
-    {
-        Transform target = GetTransformFromViewID(id);
-        if (target != null) target.position = pos;
-    }
+    //// 위치
+    //public void RPC_Position(int viewID, Vector3 pos) => photonView.RPC("SetPosition", RpcTarget.All, viewID, pos);
+    //[PunRPC] 
+    //private void SetPosition(int id, Vector3 pos)
+    //{
+    //    Transform target = GetTransformFromViewID(id);
+    //    if (target != null) target.position = pos;
+    //}
 
     // 방향(쿼터니언) 대입
-    public void RPC_Rotation(int viewID, Quaternion rot) => photonView.RPC("SetRotation", RpcTarget.All, viewID, rot);
-    [PunRPC] 
-    private void SetRotation(int id, Quaternion rot)
-    {
-        Transform target = GetTransformFromViewID(id);
-        if (target != null) target.rotation = rot;
-    }
+    //public void RPC_Rotation(int viewID, Quaternion rot) => photonView.RPC("SetRotation", RpcTarget.All, viewID, rot);
+    //[PunRPC] 
+    //private void SetRotation(int id, Quaternion rot)
+    //{
+    //    Transform target = GetTransformFromViewID(id);
+    //    if (target != null) target.rotation = rot;
+    //}
 
     // 방향(백터) 회전
     public void RPC_Rotate(int viewID, Vector3 lookDir) => photonView.RPC("SetRotate", RpcTarget.All, viewID, lookDir);
@@ -59,15 +59,15 @@ public class RPC_Utility : MonoBehaviourPun
     }
 
     // 속도
-    public void RPC_Velocity(int viewID, Vector3 velo) => photonView.RPC("SetVelocity", RpcTarget.All, viewID, velo);
-    [PunRPC]
-    private void SetVelocity(int id, Vector3 velo)
-    {
-        Rigidbody target = GetRigidbodyFromViewID(id);
-        if(target != null) target.velocity = velo;
-    }
+    //public void RPC_Velocity(int viewID, Vector3 velo) => photonView.RPC("SetVelocity", RpcTarget.All, viewID, velo);
+    //[PunRPC]
+    //private void SetVelocity(int id, Vector3 velo)
+    //{
+    //    Rigidbody target = GetRigidbodyFromViewID(id);
+    //    if(target != null) target.velocity = velo;
+    //}
 
     Transform GetTransformFromViewID(int id) => PhotonView.Find(id).transform;
     GameObject GetGameObjectFromViewID(int id) => PhotonView.Find(id).gameObject;
-    Rigidbody GetRigidbodyFromViewID(int id) => PhotonView.Find(id).GetComponent<Rigidbody>();
+    //Rigidbody GetRigidbodyFromViewID(int id) => PhotonView.Find(id).GetComponent<Rigidbody>();
 }

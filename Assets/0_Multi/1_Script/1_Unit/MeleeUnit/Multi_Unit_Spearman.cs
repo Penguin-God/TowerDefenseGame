@@ -17,7 +17,9 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     public override void OnAwake()
     {
         Debug.Assert(shotSpearData.Original != null && shotSpearData.SpawnTransform != null, "shotSpearData가 설정되어 있지 않음");
-        shotSpearData = new ProjectileData(shotSpearData.Original, transform, shotSpearData.SpawnTransform);
+        //shotSpearData = new ProjectileData(shotSpearData.Original, transform, shotSpearData.SpawnTransform);
+        shotSpearData = 
+            new ProjectileData(shotSpearData.Original, Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, shotSpearData.SpawnTransform);
     }
 
     public override void SetInherenceData()
@@ -55,7 +57,8 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
         if (PhotonNetwork.IsMasterClient)
         {
-            Multi_Projectile weapon = ProjectileShotDelegate.ShotProjectile(shotSpearData, transform.forward, OnSkileHit);
+            //Multi_Projectile weapon = ProjectileShotDelegate.ShotProjectile(shotSpearData, transform.forward, OnSkileHit);
+            Multi_Projectile weapon = ProjectileShotDelegate._ShotProjectile(shotSpearData, transform.forward, OnSkileHit);
             weapon.GetComponent<RPCable>().SetRotate_RPC(new Vector3(90, 0, 0));
         }
 

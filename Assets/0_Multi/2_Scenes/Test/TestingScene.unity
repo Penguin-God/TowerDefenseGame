@@ -57035,7 +57035,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf73aa7b4bdf8914b9e14e9c8f322041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Paths: []
+  Paths:
+  - paths:
+    - Arrows/RedArrowTrail 1
+  - paths:
+    - Arrows/BlueArrowTrail 1
+  - paths:
+    - Arrows/YellowArrowTrail 1
+  - paths:
+    - Arrows/GreenArrowTrail 1
+  - paths:
+    - Arrows/OrangeArrowTrail 1
+  - paths:
+    - Arrows/VioletArrowTrail 1
+  - paths:
+    - Arrows/WhiteArrowTrail 1
+  - paths:
+    - Arrows/BlackArrowTrail 1
+  - paths:
+    - Spears/Red_Spear 1
+  - paths:
+    - Spears/Blue_Spear 1
+  - paths:
+    - Spears/Yellow_Spear 1
+  - paths:
+    - Spears/Green_Spear 1
+  - paths:
+    - Spears/Orange_Spear 1
+  - paths:
+    - Spears/Violet_Spear 1
+  - paths:
+    - Spears/White_Spear 1
+  - paths:
+    - Spears/Black_Spear 1
+  - paths:
+    - Mageballs/RedMageBall 1
+    - MageSkills/Meteor 1
+  - paths:
+    - Mageballs/BlueMageBall 1
+    - MageSkills/IceCloud 1
+  - paths:
+    - Mageballs/YellowMageBall 1
+    - MageSkills/Yellow Skile Object 1
+  - paths:
+    - Mageballs/GreenMageBall 1
+    - MageSkills/GreenMage BounceBall 1
+  - paths:
+    - Mageballs/OrangeMageBall 1
+    - MageSkills/OrangeMage SkillEffect 1
+  - paths:
+    - Mageballs/ViolteMageBall 1
+    - MageSkills/MagePosionEffect 1
+  - paths:
+    - Mageballs/WhiteMageBall 1
+    - None
+  - paths:
+    - Mageballs/BlackMageBall 1
+    - MageSkills/BlackMageSkileBall 1
 --- !u!4 &1661365598
 Transform:
   m_ObjectHideFlags: 0

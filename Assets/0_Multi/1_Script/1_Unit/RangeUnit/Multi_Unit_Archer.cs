@@ -14,7 +14,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     {
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
         Debug.Assert(arrawData.Original != null && arrawData.SpawnTransform != null, "arrawData가 설정되어 있지 않음");
-        arrawData = new ProjectileData(arrawData.Original, transform, arrawData.SpawnTransform);
+        arrawData = new ProjectileData(arrawData.Original, Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0],transform, arrawData.SpawnTransform);
     }
 
     public override void SetInherenceData()

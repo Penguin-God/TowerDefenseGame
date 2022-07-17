@@ -21,6 +21,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
 {
     [Header("메이지 변수")]
     [SerializeField] ProjectileData energyballData;
+    [SerializeField] protected ProjectileData skillData;
 
     [SerializeField] GameObject magicLight;
     [SerializeField] protected Transform energyBallTransform;
@@ -42,7 +43,13 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         SetMageAwake();
         skillWeapon = new SkillWeapon(skillWeaponName);
         Debug.Assert(energyballData.Original != null && energyballData.SpawnTransform != null, "energyballData가 설정되어 있지 않음");
-        energyballData = new ProjectileData(energyballData.Original, transform, energyballData.SpawnTransform);
+        energyballData = 
+            new ProjectileData(energyballData.Original, Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, energyballData.SpawnTransform);
+        skillData =
+            new ProjectileData(null, Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[1], transform, null);
+
+        //arrawData = new ProjectileData(arrawData.Original, Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, arrawData.SpawnTransform);
+        //energyballData = new ProjectileData(energyballData.Original, transform, energyballData.SpawnTransform);
     }
 
     // 법사 고유의 Awake 대체 가상 함수

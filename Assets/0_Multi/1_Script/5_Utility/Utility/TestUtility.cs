@@ -22,15 +22,21 @@ public class TestUtility : MonoBehaviour
     [ContextMenu("Test")]
     void Test()
     {
+        Paths.Clear();
         foreach (var item in Multi_Managers.Data.WeaponDataByUnitFlag)
         {
             Paths.Add(new LookArray(item.Value.Paths.ToArray()));
-            print("a");
         }
-    }
 
-    void Start()
-    {
+        foreach (LookArray item in Paths)
+        {
+            foreach (var path in item.paths)
+            {
+                if (Resources.Load($"Prefabs/Weapon/{path}") == null)
+                    print($"no : {path}");
+            }
+        }
 
+        print("Good");
     }
 }

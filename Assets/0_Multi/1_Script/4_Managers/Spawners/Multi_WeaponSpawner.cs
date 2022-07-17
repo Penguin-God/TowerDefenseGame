@@ -49,6 +49,8 @@ public class Multi_WeaponSpawner : Multi_SpawnerBase
         allWeapons[3] = mageSkillPoolData;
     }
 
+    public GameObject Spawn(string path, Vector3 spawnPos) => Multi_Managers.Resources.PhotonInsantiate($"Weapon/{path}", spawnPos);
+
     public GameObject Spawn(GameObject go, Vector3 spawnPos) => Multi_Managers.Resources.PhotonInsantiate(go, spawnPos);
     public GameObject Spawn(WeaponType weaponType, string weaponName, Vector3 spawnPos)
         => Multi_Managers.Resources.PhotonInsantiate(BuildPath(weaponType, weaponName), spawnPos, Multi_Data.instance.Id);

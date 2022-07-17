@@ -22,7 +22,7 @@ public class Multi_ResourcesManager
     public GameObject PhotonInsantiate(GameObject PoolObj, Vector3 position) 
         => SetPhotonObject(Multi_Managers.Pool.Pop(PoolObj).gameObject, position, PoolObj.transform.rotation);
 
-    public GameObject PhotonInsantiate(string path, Vector3 position, int id, Transform parent = null)
+    public GameObject PhotonInsantiate(string path, Vector3 position, int id = -1, Transform parent = null)
     {
         GameObject result = GetObject(path);
         if (result != null)

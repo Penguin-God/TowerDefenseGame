@@ -35,7 +35,8 @@ class Pool
     Poolable CreateObject()
     {
         Poolable poolable;
-        GameObject go = PhotonNetwork.Instantiate($"Prefabs/{Path}", Vector3.zero, Quaternion.identity);
+        GameObject previewGo = Resources.Load<GameObject>($"Prefabs/{Path}");
+        GameObject go = PhotonNetwork.Instantiate($"Prefabs/{Path}", Vector3.zero, previewGo.transform.rotation);
         go.transform.SetParent(Root);
         go.name = Original.name;
 

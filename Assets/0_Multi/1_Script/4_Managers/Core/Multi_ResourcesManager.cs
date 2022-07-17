@@ -20,13 +20,13 @@ public class Multi_ResourcesManager
     }
 
     public GameObject PhotonInsantiate(GameObject PoolObj, Vector3 position) 
-        => SetPhotonObject(Multi_Managers.Pool.Pop(PoolObj).gameObject, position, Quaternion.identity);
+        => SetPhotonObject(Multi_Managers.Pool.Pop(PoolObj).gameObject, position, PoolObj.transform.rotation);
 
     public GameObject PhotonInsantiate(string path, Vector3 position, int id, Transform parent = null)
     {
         GameObject result = GetObject(path);
         if (result != null)
-            return SetPhotonObject(result, position, Quaternion.identity, id, parent);
+            return SetPhotonObject(result, position, result.transform.rotation, id, parent);
 
         return result;
     }
@@ -37,7 +37,7 @@ public class Multi_ResourcesManager
         if (prefab.GetComponent<Poolable>() != null)
             return Multi_Managers.Pool.Pop(prefab).gameObject;
         else
-            return PhotonNetwork.Instantiate($"Prefabs/{path}", Vector3.zero, Quaternion.identity);
+            return PhotonNetwork.Instantiate($"Prefabs/{path}", Vector3.zero, prefab.transform.rotation);
     }
 
     GameObject SetPhotonObject(GameObject go, Vector3 position, Quaternion rotation, int id = -1, Transform parent = null)

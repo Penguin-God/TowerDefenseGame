@@ -13,7 +13,7 @@ public class Multi_BlueMage : Multi_Unit_Mage
         GetComponentInChildren<SphereCollider>().radius = bluePassive.Get_ColliderRange;
     }
 
-    protected override void _MageSkile()
+    protected override void MageSkile()
     {
         SkillSpawn(transform.position+ (Vector3.up * 2)).GetComponent<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => enemy.OnFreeze_RPC(5f);
     }

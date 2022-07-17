@@ -36,28 +36,6 @@ public class Multi_Projectile : MonoBehaviourPun
         transform.rotation = lookDir;
     }
 
-    // TODO : 법사 스킬에서 사용중인데 새로 만든 Shot으로 갈아버려야 됨
-    #region 레거시
-
-    public void Shot(Vector3 pos, Vector3 dir, int speed, Action<Multi_Enemy> hitAction)
-    {
-        OnHit = hitAction;
-        photonView.RPC("SetShotData", RpcTarget.All, pos, dir, speed);
-        RPC_Utility.Instance.RPC_Active(photonView.ViewID, true);
-    }
-
-    [PunRPC]
-    public void SetShotData(Vector3 _pos, Vector3 _dir, int speed)
-    {
-        transform.position = _pos;
-        Rigidbody.velocity = _dir * speed;
-        Quaternion lookDir = Quaternion.LookRotation(_dir);
-        transform.rotation = lookDir;
-    }
-
-    #endregion
-
-
     void HitEnemy(Multi_Enemy enemy)
     {
         if (OnHit == null) return;

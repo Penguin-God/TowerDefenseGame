@@ -12,15 +12,9 @@ public class Multi_RedMage : Multi_Unit_Mage
         redPassive = GetComponent<Multi_RedPassive>();
     }
 
-    void HitMeteor(Multi_Enemy enemy)
-    {
-        enemy.OnDamage(400000);
-        enemy.OnStun(RpcTarget.MasterClient, 100, 5f);
-    }
-
     [SerializeField] Vector3 meteorPos = (Vector3.up * 30) + (Vector3.forward * 5);
 
-    protected override void _MageSkile()
+    protected override void MageSkile()
     {
         Multi_Meteor meteor = SkillSpawn(transform.position + meteorPos).GetComponent<Multi_Meteor>();
         StartCoroutine(Co_ShotMeteor(meteor));
@@ -36,6 +30,12 @@ public class Multi_RedMage : Multi_Unit_Mage
             meteor.Shot(null, tempPos, HitMeteor);
         else
             meteor.Shot(TargetEnemy, target.position, HitMeteor);
+
+        void HitMeteor(Multi_Enemy enemy)
+        {
+            enemy.OnDamage(400000);
+            enemy.OnStun(RpcTarget.MasterClient, 100, 5f);
+        }
     }
 
     // 패시브

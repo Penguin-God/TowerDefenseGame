@@ -56,7 +56,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         if (PhotonNetwork.IsMasterClient)
         {
             Multi_Projectile weapon = ProjectileShotDelegate.ShotProjectile(shotSpearData, transform.forward, OnSkileHit);
-            RPC_Utility.Instance.RPC_Rotate(weapon.photonView.ViewID, new Vector3(90, 0, 0));
+            weapon.GetComponent<RPCable>().SetRotate_RPC(new Vector3(90, 0, 0));
         }
 
         if (enterStoryWorld == Multi_GameManager.instance.playerEnterStoryMode)

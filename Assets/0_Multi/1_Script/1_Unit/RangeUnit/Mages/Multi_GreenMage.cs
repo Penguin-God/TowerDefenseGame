@@ -15,7 +15,7 @@ public class Multi_GreenMage : Multi_Unit_Mage
         ProjectileShotDelegate.ShotProjectile(SkillSpawn(energyBallTransform.position).GetComponent<Multi_Projectile>(), transform, target, 2, OnSkileHit);
     }
 
-    protected override void _MageSkile()
+    protected override void MageSkile()
     {
         StartCoroutine(Co_GreenMageSkile());
         StartCoroutine(Co_FixMana());
@@ -42,15 +42,10 @@ public class Multi_GreenMage : Multi_Unit_Mage
         PlusMana = savePlusMana;
     }
 
-    // 강화
+    // TODO : 강화 구현하기
     [SerializeField] Transform UltimateTransform = null;
     void Ultimate()
     {
-        for (int i = 0; i < UltimateTransform.childCount; i++)
-        {
-            GameObject _skill = UsedSkill(UltimateTransform.GetChild(i).position);
-            //RPC_Utility.Instance.RPC_Rotation(photonView.ViewID, UltimateTransform.GetChild(i).rotation);
-            //_skill.GetComponent<MyPunRPC>().RPC_Rotation(UltimateTransform.GetChild(i).rotation);
-        }
+
     }
 }

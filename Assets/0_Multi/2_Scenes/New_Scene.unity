@@ -35391,7 +35391,7 @@ MonoBehaviour:
     folderName: MageSkills
     gos:
     - {fileID: 4092839075240782940, guid: 665b0e29fcf68a44bb51644807f9f220, type: 3}
-    - {fileID: 8677619185684072776, guid: ca73ee7c8e18b014099e870ba19b8de3, type: 3}
+    - {fileID: 3393117671410220457, guid: 22894d5e770e44f41afc452903b2263b, type: 3}
     - {fileID: 4270540001386718210, guid: 66b037f53d0161349bdeaa0116b3c840, type: 3}
     - {fileID: 6269822335907625535, guid: 3d04c93368856bd4eb50c61fefa0cda7, type: 3}
     - {fileID: 767403622873436515, guid: 6f18a0f9e7422194fbef769d115ca77d, type: 3}

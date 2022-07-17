@@ -29,13 +29,18 @@ public static class ProjectileShotDelegate
         => Multi_SpawnManagers.Weapon.Spawn(data.Original.gameObject, data.SpawnPos).GetComponent<Multi_Projectile>();
 
     public static Multi_Projectile ShotProjectile(ProjectileData data, Transform target, float weightRate, Action<Multi_Enemy> hitAction)
-    => ShotProjectile(data, Get_ShootDirection(data.Attacker, target, weightRate), hitAction);
+        => ShotProjectile(data, Get_ShootDirection(data.Attacker, target, weightRate), hitAction);
 
     public static Multi_Projectile ShotProjectile(ProjectileData data, Vector3 dir, Action<Multi_Enemy> hitAction)
     {
         Multi_Projectile UseWeapon = GetProjectile(data);
         UseWeapon.Shot(dir, hitAction);
         return UseWeapon;
+    }
+
+    public static void ShotProjectile(Multi_Projectile projectile, Transform attacker, Transform target, float weightRate, Action<Multi_Enemy> hitAction)
+    {
+        projectile.Shot(Get_ShootDirection(attacker, target, weightRate), hitAction);
     }
 
     // 원거리 무기 발사

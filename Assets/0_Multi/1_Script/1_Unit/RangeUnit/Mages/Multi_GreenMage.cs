@@ -1,25 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Multi_GreenMage : Multi_Unit_Mage
 {
-    System.Action skillAct = null;
     public override void SetMageAwake()
     {
-        //SetSkillPool(mageSkillObject, 3);
         attackRange *= 2; // 패시브
-        skillAct += () => ShootSkill(energyBallTransform.position);
-        //StartCoroutine(Co_SkileReinforce());
     }
 
-    void ShootSkill(Vector3 _pos)
+    void ShootSkill()
     {
-        GameObject _skill = UsedSkill(_pos);
-        _skill.GetComponent<Multi_Projectile>().Shot(_pos, Get_ShootDirection(2f, target), 100, OnSkileHit);
+        ProjectileShotDelegate.ShotProjectile(SkillSpawn(energyBallTransform.position).GetComponent<Multi_Projectile>(), transform, target, 2, OnSkileHit);
     }
 
-    public override void MageSkile()
+    protected override void _MageSkile()
     {
         StartCoroutine(Co_GreenMageSkile());
         StartCoroutine(Co_FixMana());
@@ -30,7 +26,7 @@ public class Multi_GreenMage : Multi_Unit_Mage
         nav.isStopped = true;
         animator.SetTrigger("isAttack");
         yield return new WaitForSeconds(0.7f);
-        if(skillAct != null) skillAct();
+        ShootSkill();
 
         yield return new WaitForSeconds(0.5f);
         nav.isStopped = false;
@@ -46,21 +42,14 @@ public class Multi_GreenMage : Multi_Unit_Mage
         PlusMana = savePlusMana;
     }
 
-    // TODO : Event로 구현 옮기기
-    IEnumerator Co_SkileReinforce()
-    {
-        yield return new WaitUntil(() => isUltimate);
-        SetSkillPool(mageSkillObject, 7);
-        skillAct += Ultimate;
-    }
-
+    // 강화
     [SerializeField] Transform UltimateTransform = null;
     void Ultimate()
     {
         for (int i = 0; i < UltimateTransform.childCount; i++)
         {
             GameObject _skill = UsedSkill(UltimateTransform.GetChild(i).position);
-            RPC_Utility.Instance.RPC_Rotation(photonView.ViewID, UltimateTransform.GetChild(i).rotation);
+            //RPC_Utility.Instance.RPC_Rotation(photonView.ViewID, UltimateTransform.GetChild(i).rotation);
             //_skill.GetComponent<MyPunRPC>().RPC_Rotation(UltimateTransform.GetChild(i).rotation);
         }
     }

@@ -7,47 +7,40 @@ public class Multi_BounceEnergyball : MonoBehaviourPun
 {
     [SerializeField] float speed;
     [SerializeField] float acceleration;
+
     float originSpeed;
     AudioSource audioSource;
-
     Vector3 lastVelocity;
     Rigidbody rigid;
+    RPCable rpcable;
 
     void Awake()
     {
         audioSource = GetComponent<AudioSource>();
         rigid = GetComponent<Rigidbody>();
+        rpcable = gameObject.GetOrAddComponent<RPCable>();
         originSpeed = speed;
     }
 
-    void OnEnable()
+    void OnDisable()
     {
         speed = originSpeed;
     }
 
     private void Update()
     {
-        if (!PhotonNetwork.IsMasterClient) return;
+        if (PhotonNetwork.IsMasterClient == false) return;
         lastVelocity = rigid.velocity;
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!PhotonNetwork.IsMasterClient) return;
-
-        if (collision.gameObject.tag != "Structures")
-        {
-            Debug.LogError("이건 아니야");
-            return;
-        }
+        if (PhotonNetwork.IsMasterClient == false || collision.gameObject.tag != "Structures") return;
 
         Vector3 dir = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
-        audioSource.Play();
+        //audioSource.Play();
 
-        RPC_Utility.Instance.RPC_Rotate(photonView.ViewID, dir);
-        //myPunRPC.RPC_Rotate(dir);
         speed += acceleration;
-        RPC_Utility.Instance.RPC_Velocity(photonView.ViewID, dir * speed);
-        //myPunRPC.RPC_Velocity(dir * speed);
+        rpcable.SetVelocity_RPC(dir * speed);
     }
 }

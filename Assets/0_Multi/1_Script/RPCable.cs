@@ -20,8 +20,8 @@ public class RPCable : MonoBehaviourPun
     [PunRPC] void SetRotation(Quaternion _rot) => transform.rotation = _rot;
 
     // 방향(백터)
-    //public void SetRotate_RPC(Vector3 _dir) => photonView.RPC("SetRotate", RpcTarget.All, _dir);
-    //[PunRPC] void SetRotate(Vector3 _dir) => transform.Rotate(_dir);
+    public void SetRotate_RPC(Vector3 _looDir) => photonView.RPC("SetRotate", RpcTarget.All, _looDir);
+    [PunRPC] void SetRotate(Vector3 _looDir) => transform.Rotate(_looDir);
 
     // 활성상태
     public void SetActive_RPC(bool _isActive) => photonView.RPC("SetActive", RpcTarget.All, _isActive);

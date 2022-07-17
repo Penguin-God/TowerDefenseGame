@@ -144,3 +144,20 @@ public class UnitNameDatas : ICsvLoader<string, UnitNameData>
         return CsvUtility.GetEnumerableFromCsv<UnitNameData>(csv).ToDictionary(x => x.KoearName, x => x);
     }
 }
+
+
+[Serializable]
+public struct WeaponData
+{
+    [SerializeField] UnitFlags flag;
+    [SerializeField] string[] paths;
+
+    public IReadOnlyList<string> Paths => paths;
+    public UnitFlags Flag => flag;
+}
+
+[Serializable]
+public class WeaponDatas : ICsvLoader<UnitFlags, WeaponData>
+{
+    public Dictionary<UnitFlags, WeaponData> MakeDict(string csv) => CsvUtility.GetEnumerableFromCsv<WeaponData>(csv).ToDictionary(x => x.Flag, x => x);
+}

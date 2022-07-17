@@ -7,6 +7,7 @@ using System;
 public class ProjectileData
 {
     [SerializeField] Multi_Projectile original;
+    [SerializeField] string weaponPath;
     [SerializeField] Transform attacker;
     [SerializeField] Transform spawnTransform;
 

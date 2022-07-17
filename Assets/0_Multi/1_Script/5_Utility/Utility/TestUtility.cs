@@ -1,18 +1,36 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using System;
+
+[Serializable]
+public class LookArray
+{
+    public string[] paths;
+
+    public LookArray(string[] pathss)
+    {
+        paths = pathss;
+    }
+}
 
 public class TestUtility : MonoBehaviour
 {
-    [SerializeField] string names;
-    [SerializeField] Multi_Enemy target;
-    [SerializeField] Vector3 offset;
-    [ContextMenu("WeaponSpawn")]
+    [SerializeField] List<LookArray> Paths;
+
+    [ContextMenu("Test")]
     void Test()
     {
-        Multi_Meteor meteor = 
-            Multi_SpawnManagers.Weapon.Spawn(WeaponType.MageSkills, names, transform.position + offset).GetComponent<Multi_Meteor>();
-        meteor.Shot(target, target.transform.position, (enemy) => print("안녕 세상"));
+        foreach (var item in Multi_Managers.Data.WeaponDataByUnitFlag)
+        {
+            Paths.Add(new LookArray(item.Value.Paths.ToArray()));
+            print("a");
+        }
+    }
+
+    void Start()
+    {
+
     }
 }

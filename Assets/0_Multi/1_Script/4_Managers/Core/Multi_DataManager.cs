@@ -30,6 +30,9 @@ public class Multi_DataManager
     public IReadOnlyDictionary<UnitFlags, UI_UnitWindowData> UnitWindowDataByUnitFlags => _unitWindowDataByUnitFlags;
     #endregion UI Data End
 
+    Dictionary<UnitFlags, WeaponData> _weaponDataByUnitFlag = new Dictionary<UnitFlags, WeaponData>();
+    public IReadOnlyDictionary<UnitFlags, WeaponData> WeaponDataByUnitFlag => _weaponDataByUnitFlag;
+
     Dictionary<string, UnitNameData> _unitNameDataByUnitKoreaName = new Dictionary<string, UnitNameData>();
     public IReadOnlyDictionary<string, UnitNameData> UnitNameDataByUnitKoreaName => _unitNameDataByUnitKoreaName;
 
@@ -40,6 +43,7 @@ public class Multi_DataManager
         // 무조건 가장먼저 실행되어야 함
         _unitNameDataByUnitKoreaName = MakeCsvDict<UnitNameDatas, string, UnitNameData>("UnitData/UnitNameData");
 
+        _weaponDataByUnitFlag = MakeCsvDict<WeaponDatas, UnitFlags, WeaponData>("UnitData/UnitWeaponData");
         _combineDataByUnitFlags = MakeCsvDict<CombineDatas, UnitFlags, CombineData>("UnitData/CombineData");
         _combineConditionByUnitFalg = MakeCsvDict<CombineConditions, UnitFlags, CombineCondition>("UnitData/CombineConditionData");
 
@@ -64,12 +68,5 @@ public class Multi_DataManager
     {
         TextAsset textAsset = Multi_Managers.Resources.Load<TextAsset>($"Data/{path}");
         return JsonUtility.FromJson<Loader>(textAsset.text);
-    }
-
-    Loader LoadCSVa<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>, new()
-    {
-        Loader loader = new Loader();
-        loader.LoadCSV(Multi_Managers.Resources.Load<TextAsset>($"Data/{path}"));
-        return loader;
     }
 }

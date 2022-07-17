@@ -6,37 +6,17 @@ using Photon.Pun;
 public class Multi_BlueMage : Multi_Unit_Mage
 {
     Multi_BluePassive bluePassive = null;
-    SphereCollider blueCollider = null;
-
+    
     public override void SetMageAwake()
     {
         bluePassive = GetComponent<Multi_BluePassive>();
-        blueCollider = GetComponentInChildren<SphereCollider>();
-        blueCollider.radius = bluePassive.Get_ColliderRange;
+        GetComponentInChildren<SphereCollider>().radius = bluePassive.Get_ColliderRange;
     }
-
-    void SetEnemyFreeze(GameObject skill) =>
-        skill.GetComponent<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => enemy.OnFreeze(RpcTarget.MasterClient, 5f);
-
-    public override void MageSkile() => UsedSkill(transform.position + (Vector3.up * 2));
 
     protected override void _MageSkile()
     {
-        // SkillSpawn();
+        SkillSpawn(transform.position+ (Vector3.up * 2)).GetComponent<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => enemy.OnFreeze_RPC(5f);
     }
-
-    // TODO : Event로 옮기기
-    IEnumerator Co_SkilleReinForce()
-    {
-        yield return new WaitUntil(() => isUltimate);
-        //UpdateSkill(SkilleReinForce);
-    }
-
-    void SkilleReinForce(GameObject _skill)
-    {
-        _skill.GetComponent<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => enemy.OnDamage(20000);
-    }
-
 
     private void OnTriggerStay(Collider other)
     {
@@ -51,6 +31,6 @@ public class Multi_BlueMage : Multi_Unit_Mage
         if (pv.IsMine == false) return;
 
         if (other.GetComponentInParent<Multi_NormalEnemy>() != null)
-            other.GetComponentInParent<Multi_NormalEnemy>().ExitSlow(RpcTarget.All);
+            other.GetComponentInParent<Multi_NormalEnemy>().ExitSlow(RpcTarget.All); // TODO : 나중에 동기화 마스터한테 옮기고 이게 맞는지 확인해보기
     }
 }

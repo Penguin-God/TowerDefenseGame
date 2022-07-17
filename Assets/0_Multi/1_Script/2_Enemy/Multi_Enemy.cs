@@ -117,7 +117,7 @@ public class Multi_Enemy : MonoBehaviourPun
     public void ExitSlow(RpcTarget _target) => _PV.RPC("ExitSlow", _target);
     [PunRPC] protected virtual void ExitSlow() { }
 
-    public void OnFreeze(RpcTarget _target, float _freezeTime) => _PV.RPC("OnFreeze", _target, _freezeTime);
+    public void OnFreeze_RPC(float _freezeTime) => _PV.RPC("OnFreeze", RpcTarget.MasterClient, _freezeTime);
     [PunRPC] protected virtual void OnFreeze(float slowTime) { } // 얼리는 스킬
 
     public void OnStun(RpcTarget _target, int _stunPercent, float _stunTime) => _PV.RPC("OnStun", _target, _stunPercent, _stunTime);

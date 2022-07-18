@@ -79,6 +79,7 @@ MonoBehaviour:
   - SetLook
   - ClearMana
   - LoadStat
+  - SetPassive
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -108,9 +108,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         if (PhotonNetwork.IsMasterClient)
         {
             LoadStat_RPC();
+            SetPassive_RPC();
         }
-        
-        SetPassive();
 
         if (animator != null) animator.enabled = true;
         nav.enabled = true;
@@ -132,9 +131,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         SetInherenceData();
     }
 
-    void SetPassive()
+    void SetPassive_RPC() => pv.RPC("SetPassive", RpcTarget.All);
+    [PunRPC]
+    public void SetPassive()
     {
-        if (passive == null) print("이게 뭐노");
         if (passive == null) return;
 
         if (OnPassiveHit != null)
@@ -146,8 +146,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         passive.LoadStat(UnitFlags);
         passive.SetPassive(this);
-        OnHit += OnPassiveHit;
-        OnSkileHit += OnPassiveHit;
+
+        if (OnPassiveHit != null)
+        {
+            OnHit += OnPassiveHit;
+            OnSkileHit += OnPassiveHit;
+        }
     }
 
     public void Dead()

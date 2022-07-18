@@ -4,17 +4,35 @@ using UnityEngine;
 using System.Linq;
 using System;
 
+[Serializable]
+public class FloatStats
+{
+    public float[] stats;
+
+    public FloatStats(IReadOnlyList<float> _stats) => stats = _stats.ToArray();
+}
+
 public class TestUtility : MonoBehaviour
 {
-    [SerializeField] List<UnitStat> stats;
-
+    [SerializeField] List<FloatStats> stats;
+    [SerializeField] IReadOnlyList<int> aa;
     [ContextMenu("Test")]
     void Test()
     {
         stats.Clear();
-        foreach (var item in Multi_Managers.Data.UnitStatByFlag)
+    }
+
+    [SerializeField] int spawnColorMax;
+    [SerializeField] int spawnClassMax;
+    [ContextMenu("Unit Spawn")]
+    void UnitSpawn()
+    {
+        for (int i = 0; i <= spawnColorMax; i++)
         {
-            stats.Add(item.Value);
+            for (int j = 0; j <= spawnClassMax; j++)
+            {
+                Multi_SpawnManagers.NormalUnit.Spawn(i, j);
+            }
         }
     }
 }

@@ -164,7 +164,7 @@ public class WeaponDatas : ICsvLoader<UnitFlags, WeaponData>
 
 
 [Serializable]
-public struct UnitStat
+public class UnitStat
 {
     [SerializeField] UnitFlags _flag;
     [SerializeField] int _damage;
@@ -173,6 +173,19 @@ public struct UnitStat
     [SerializeField] float _attackDelayTime;
     [SerializeField] float _speed;
     [SerializeField] float _attackRange;
+
+    public UnitStat GetClone()
+    {
+        UnitStat result = new UnitStat();
+        result._flag = Flag;
+        result._damage = Damage;
+        result._bossDamage = BossDamage;
+        result._useSkillPercent = UseSkillPercent;
+        result._attackDelayTime = AttackDelayTime;
+        result._speed = Speed;
+        result._attackRange = AttackRange;
+        return result;
+    }
 
     public UnitFlags Flag => _flag;
     public int Damage => _damage;
@@ -196,4 +209,22 @@ public class UnitStats : ICsvLoader<UnitFlags, UnitStat>
 {
     public Dictionary<UnitFlags, UnitStat> MakeDict(string csv)
         => CsvUtility.GetEnumerableFromCsv<UnitStat>(csv).ToDictionary(x => x.Flag, x => x);
+}
+
+
+[Serializable]
+public struct UnitPassiveStat
+{
+    [SerializeField] UnitFlags _flag;
+    [SerializeField] float[] _stats;
+
+    public UnitFlags Flag => _flag;
+    public IReadOnlyList<float> Stats => _stats;
+}
+
+[Serializable]
+public class UnitPassiveStats : ICsvLoader<UnitFlags, UnitPassiveStat>
+{
+    public Dictionary<UnitFlags, UnitPassiveStat> MakeDict(string csv)
+        => CsvUtility.GetEnumerableFromCsv<UnitPassiveStat>(csv).ToDictionary(x => x.Flag, x => x);
 }

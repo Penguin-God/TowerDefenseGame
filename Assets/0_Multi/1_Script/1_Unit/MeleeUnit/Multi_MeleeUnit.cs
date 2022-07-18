@@ -54,13 +54,10 @@ public class Multi_MeleeUnit : Multi_TeamSoldier
 
     protected void HitMeeleAttack() // 근접공격 타겟팅
     {
-        if (!pv.IsMine) return;
+        if (PhotonNetwork.IsMasterClient == false) return;
 
         if (target != null && enemyDistance < AttackRange * 2)
-        {
-            Multi_Enemy enemy = target.GetComponent<Multi_Enemy>();
-            OnHit?.Invoke(enemy);
-        }
+            OnHit?.Invoke(TargetEnemy);
     }
 
     private void FixedUpdate()

@@ -23,7 +23,7 @@ public class Multi_BlueMage : Multi_Unit_Mage
         if (pv.IsMine == false) return;
 
         if (other.GetComponentInParent<Multi_NormalEnemy>() != null) // 나가기 전까진 무한 슬로우
-            other.GetComponentInParent<Multi_NormalEnemy>().OnSlow(RpcTarget.MasterClient, bluePassive.Get_SlowPercent, -1);
+            other.GetComponentInParent<Multi_NormalEnemy>().OnSlow_RPC(bluePassive.Get_SlowPercent, -1);
     }
 
     private void OnTriggerExit(Collider other)

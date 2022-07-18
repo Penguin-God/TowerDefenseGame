@@ -10,9 +10,6 @@ public class Multi_YellowPassive : Multi_UnitPassive
 
     public override void SetPassive(Multi_TeamSoldier _team) 
     {
-        // TODO : 패시브 csv에서 가져오기
-        apply_GetGoldPercent = 70;
-        apply_AddGold = 1;
         _team.OnPassiveHit += enemy => Passive_Yellow(apply_AddGold, apply_GetGoldPercent); 
     }
 
@@ -31,5 +28,11 @@ public class Multi_YellowPassive : Multi_UnitPassive
     {
         apply_GetGoldPercent = (int)p1;
         apply_AddGold = (int)p2;
+    }
+
+    protected override void ApplyData()
+    {
+        apply_GetGoldPercent = (int)_stats[0];
+        apply_AddGold = (int)_stats[1];
     }
 }

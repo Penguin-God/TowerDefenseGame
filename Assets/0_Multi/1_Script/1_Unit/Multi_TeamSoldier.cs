@@ -16,9 +16,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     [SerializeField] UnitStat stat;
 
-    public int originDamage;
-    public int originBossDamage;
-    public float originAttackDelayTime;
+    public int OriginDamage { get; private set; }
+    public int OriginBossDamage { get; private set; }
+    public float OriginAttackDelayTime { get; private set; }
 
     public int Damage { get => stat.Damage; set => stat.SetDamage(value); }
     public int BossDamage { get => stat.BossDamage; set => stat.SetBossDamage(value); }
@@ -26,6 +26,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public float Speed { get => stat.Speed; set => stat.SetSpeed(value); }
     public float AttackDelayTime { get => stat.AttackDelayTime; set => stat.SetAttDelayTime(value); }
     public float AttackRange { get => stat.AttackRange; set => stat.SetAttackRange(value); }
+
 
     public int skillDamage;
     public int ApplySkillDamage => skillDamage;
@@ -43,6 +44,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     protected Multi_Enemy TargetEnemy { get { return target.GetComponent<Multi_Enemy>(); } }
 
     //protected Multi_WeaponPoolManager poolManager = null;
+    protected Multi_UnitPassive passive;
     protected NavMeshAgent nav;
     protected Animator animator;
     protected PhotonView pv;
@@ -74,17 +76,15 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         _unitFlags = new UnitFlags(unitColor, unitClass);
 
-        SetPassive(); // 아래에서 평타랑 스킬 설정할 때 delegate_OnPassive가 null이면 에러가 떠서 에러 방지용으로 실행 후에 OnEnable에서 덮어쓰기 때문에 의미 없는 코드임
-
         // 평타 설정
         OnHit += AttackEnemy;
-        OnHit += OnPassiveHit;
+        
         // 스킬 설정
         skillDamage = 150; // 테스트 코드
         OnSkileHit += enemy => AttackEnemy(enemy, skillDamage);
-        OnSkileHit += OnPassiveHit;
 
         // 변수 선언
+        passive = GetComponent<Multi_UnitPassive>();
         pv = GetComponent<PhotonView>();
         animator = GetComponentInChildren<Animator>();
         unitAudioSource = GetComponent<AudioSource>();
@@ -125,19 +125,29 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     [PunRPC]
     public void LoadStat()
     {
-        stat = Multi_Managers.Data.UnitStatByFlag[UnitFlags];
-        originDamage = stat.Damage;
-        originBossDamage = stat.BossDamage;
-        originAttackDelayTime = stat.AttackDelayTime;
+        stat = Multi_Managers.Data.GetUnitStat(UnitFlags);
+        OriginDamage = stat.Damage;
+        OriginBossDamage = stat.BossDamage;
+        OriginAttackDelayTime = stat.AttackDelayTime;
         SetInherenceData();
     }
 
     void SetPassive()
     {
-        Multi_UnitPassive _passive = GetComponent<Multi_UnitPassive>();
-        if (_passive == null) return;
-        if (OnPassiveHit != null) OnPassiveHit = null;
-        _passive.SetPassive(this);
+        if (passive == null) print("이게 뭐노");
+        if (passive == null) return;
+
+        if (OnPassiveHit != null)
+        {
+            OnPassiveHit = null;
+            OnHit -= OnPassiveHit;
+            OnSkileHit -= OnPassiveHit;
+        }
+
+        passive.LoadStat(UnitFlags);
+        passive.SetPassive(this);
+        OnHit += OnPassiveHit;
+        OnSkileHit += OnPassiveHit;
     }
 
     public void Dead()

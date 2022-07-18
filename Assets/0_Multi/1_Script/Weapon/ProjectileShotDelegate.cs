@@ -6,25 +6,9 @@ using System;
 [Serializable]
 public class ProjectileData
 {
-    //[SerializeField] Multi_Projectile original;
     [SerializeField] string weaponPath;
     [SerializeField] Transform attacker;
     [SerializeField] Transform spawnTransform;
-
-    //public ProjectileData(Multi_Projectile original, Transform attacker, Transform spawnPos)
-    //{
-    //    this.original = original;
-    //    this.attacker = attacker;
-    //    this.spawnTransform = spawnPos;
-    //}
-
-    //public ProjectileData(Multi_Projectile original, string weaponPath,Transform attacker, Transform spawnPos)
-    //{
-    //    //this.original = original;
-    //    this.weaponPath = weaponPath;
-    //    this.attacker = attacker;
-    //    this.spawnTransform = spawnPos;
-    //}
 
     public ProjectileData(string weaponPath, Transform attacker, Transform spawnPos)
     {
@@ -33,7 +17,6 @@ public class ProjectileData
         this.spawnTransform = spawnPos;
     }
 
-    // public Multi_Projectile Original => original;
     public string WeaponPath => weaponPath;
     public Transform Attacker => attacker;
     public Transform SpawnTransform => spawnTransform;
@@ -42,21 +25,8 @@ public class ProjectileData
 
 public static class ProjectileShotDelegate
 {
-    //static Multi_Projectile GetProjectile(ProjectileData data)
-    //    => Multi_SpawnManagers.Weapon.Spawn(data.Original.gameObject, data.SpawnPos).GetComponent<Multi_Projectile>();
-
     static Multi_Projectile GetProjectile(ProjectileData data, Vector3 spawnPos)
         => Multi_SpawnManagers.Weapon.Spawn(data.WeaponPath, spawnPos).GetComponent<Multi_Projectile>();
-
-    //public static Multi_Projectile ShotProjectile(ProjectileData data, Transform target, float weightRate, Action<Multi_Enemy> hitAction)
-    //    => ShotProjectile(data, Get_ShootDirection(data.Attacker, target, weightRate), hitAction);
-
-    //public static Multi_Projectile ShotProjectile(ProjectileData data, Vector3 dir, Action<Multi_Enemy> hitAction)
-    //{
-    //    Multi_Projectile UseWeapon = GetProjectile(data);
-    //    UseWeapon.Shot(dir, hitAction);
-    //    return UseWeapon;
-    //}
 
     public static Multi_Projectile ShotProjectile(ProjectileData data, Vector3 dir, Action<Multi_Enemy> hitAction)
         => ShotProjectile(data, data.SpawnPos, dir, hitAction);

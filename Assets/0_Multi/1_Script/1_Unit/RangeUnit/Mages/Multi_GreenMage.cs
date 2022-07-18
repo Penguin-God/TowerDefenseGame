@@ -10,10 +10,7 @@ public class Multi_GreenMage : Multi_Unit_Mage
         attackRange *= 2; // 패시브
     }
 
-    void ShootSkill()
-    {
-        ProjectileShotDelegate.ShotProjectile(skillData, target, OnSkileHit);
-    }
+    void ShootSkill() => ProjectileShotDelegate.ShotProjectile(skillData, target, OnSkileHit);
 
     protected override void MageSkile()
     {

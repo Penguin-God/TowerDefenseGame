@@ -5,18 +5,6 @@ using System;
 using UnityEngine.UI;
 using Photon.Pun;
 
-public class SkillWeapon
-{
-    string _weaponName;
-
-    public SkillWeapon(string weaponName)
-    {
-        _weaponName = weaponName;
-    }
-
-    public GameObject Spawn(Vector3 pos) => Multi_SpawnManagers.Weapon.Spawn(WeaponType.MageSkills, _weaponName, pos);
-}
-
 public class Multi_Unit_Mage : Multi_RangeUnit
 {
     [Header("메이지 변수")]
@@ -26,9 +14,6 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     [SerializeField] GameObject magicLight;
     [SerializeField] protected Transform energyBallTransform;
     [SerializeField] protected GameObject mageSkillObject = null;
-
-    [SerializeField] string skillWeaponName;
-    SkillWeapon skillWeapon;
 
     public override void OnAwake()
     {
@@ -41,13 +26,8 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         StartCoroutine(Co_SetCanvas());
 
         SetMageAwake();
-        skillWeapon = new SkillWeapon(skillWeaponName);
-        //Debug.Assert(energyballData.Original != null && energyballData.SpawnTransform != null, "energyballData가 설정되어 있지 않음");
         energyballData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, energyballData.SpawnTransform);
         skillData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[1], transform, skillData.SpawnTransform);
-
-        //arrawData = new ProjectileData(arrawData.Original, Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, arrawData.SpawnTransform);
-        //energyballData = new ProjectileData(energyballData.Original, transform, energyballData.SpawnTransform);
     }
 
     // 법사 고유의 Awake 대체 가상 함수
@@ -101,7 +81,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         if (OnUltimateSkile != null) OnUltimateSkile();
     }
 
-    protected GameObject SkillSpawn(Vector3 spawnPos) => Multi_SpawnManagers.Weapon.Spawn(skillData.WeaponPath, spawnPos); // skillWeapon.Spawn(spawnPos);
+    protected GameObject SkillSpawn(Vector3 spawnPos) => Multi_SpawnManagers.Weapon.Spawn(skillData.WeaponPath, spawnPos);
     protected virtual void MageSkile() { }
 
     protected void SetMageSkillStatus()

@@ -13,7 +13,6 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     public override void OnAwake()
     {
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
-        //Debug.Assert(arrawData.Original != null && arrawData.SpawnTransform != null, "arrawData가 설정되어 있지 않음");
         arrawData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0],transform, arrawData.SpawnTransform);
     }
 

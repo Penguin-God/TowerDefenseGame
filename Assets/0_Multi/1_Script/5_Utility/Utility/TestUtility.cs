@@ -4,39 +4,17 @@ using UnityEngine;
 using System.Linq;
 using System;
 
-[Serializable]
-public class LookArray
-{
-    public string[] paths;
-
-    public LookArray(string[] pathss)
-    {
-        paths = pathss;
-    }
-}
-
 public class TestUtility : MonoBehaviour
 {
-    [SerializeField] List<LookArray> Paths;
+    [SerializeField] List<UnitStat> stats;
 
     [ContextMenu("Test")]
     void Test()
     {
-        Paths.Clear();
-        foreach (var item in Multi_Managers.Data.WeaponDataByUnitFlag)
+        stats.Clear();
+        foreach (var item in Multi_Managers.Data.UnitStatByFlag)
         {
-            Paths.Add(new LookArray(item.Value.Paths.ToArray()));
+            stats.Add(item.Value);
         }
-
-        foreach (LookArray item in Paths)
-        {
-            foreach (var path in item.paths)
-            {
-                if (Resources.Load($"Prefabs/Weapon/{path}") == null)
-                    print($"no : {path}");
-            }
-        }
-
-        print("Good");
     }
 }

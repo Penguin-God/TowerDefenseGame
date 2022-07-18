@@ -36,6 +36,9 @@ public class Multi_DataManager
     Dictionary<string, UnitNameData> _unitNameDataByUnitKoreaName = new Dictionary<string, UnitNameData>();
     public IReadOnlyDictionary<string, UnitNameData> UnitNameDataByUnitKoreaName => _unitNameDataByUnitKoreaName;
 
+    Dictionary<UnitFlags, UnitStat> _unitStatByFlag = new Dictionary<UnitFlags, UnitStat>();
+    public IReadOnlyDictionary<UnitFlags, UnitStat> UnitStatByFlag => _unitStatByFlag;
+
     public void Init()
     {
         Clears();
@@ -43,6 +46,7 @@ public class Multi_DataManager
         // 무조건 가장먼저 실행되어야 함
         _unitNameDataByUnitKoreaName = MakeCsvDict<UnitNameDatas, string, UnitNameData>("UnitData/UnitNameData");
 
+        _unitStatByFlag = MakeCsvDict<UnitStats, UnitFlags, UnitStat>("UnitData/UnitStat");
         _weaponDataByUnitFlag = MakeCsvDict<WeaponDatas, UnitFlags, WeaponData>("UnitData/UnitWeaponData");
         _combineDataByUnitFlags = MakeCsvDict<CombineDatas, UnitFlags, CombineData>("UnitData/CombineData");
         _combineConditionByUnitFalg = MakeCsvDict<CombineConditions, UnitFlags, CombineCondition>("UnitData/CombineConditionData");
@@ -56,6 +60,7 @@ public class Multi_DataManager
         _unitWindowDataByUnitFlags.Clear();
         _combineConditionByUnitFalg.Clear();
         _unitNameDataByUnitKoreaName.Clear();
+        _unitStatByFlag.Clear();
     }
 
     Dictionary<Key, Value> MakeCsvDict<ICsvLoader, Key, Value>(string path) where ICsvLoader : ICsvLoader<Key, Value>, new()

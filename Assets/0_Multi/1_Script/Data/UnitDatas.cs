@@ -161,3 +161,39 @@ public class WeaponDatas : ICsvLoader<UnitFlags, WeaponData>
 {
     public Dictionary<UnitFlags, WeaponData> MakeDict(string csv) => CsvUtility.GetEnumerableFromCsv<WeaponData>(csv).ToDictionary(x => x.Flag, x => x);
 }
+
+
+[Serializable]
+public struct UnitStat
+{
+    [SerializeField] UnitFlags _flag;
+    [SerializeField] int _damage;
+    [SerializeField] int _bossDamage;
+    [SerializeField] int _useSkillPercent;
+    [SerializeField] float _attackDelayTime;
+    [SerializeField] float _speed;
+    [SerializeField] float _attackRange;
+
+    public UnitFlags Flag => _flag;
+    public int Damage => _damage;
+    public int BossDamage => _bossDamage;
+    public int UseSkillPercent => _useSkillPercent;
+    public float AttackDelayTime => _attackDelayTime;
+    public float Speed => _speed;
+    public float AttackRange => _attackRange;
+
+    public void SetDamage(int damage) => _damage = damage;
+    public void SetBossDamage(int bossDamage) => _bossDamage = bossDamage;
+    public void SetUseSkillPercent(int useSkillPercent) => _useSkillPercent = useSkillPercent;
+    public void SetAttDelayTime(float attackDelayTime) => _attackDelayTime = attackDelayTime;
+    public void SetSpeed(float speed) => _speed = speed;
+    public void SetAttackRange(float attackRange) => _attackRange = attackRange;
+}
+
+
+[Serializable]
+public class UnitStats : ICsvLoader<UnitFlags, UnitStat>
+{
+    public Dictionary<UnitFlags, UnitStat> MakeDict(string csv)
+        => CsvUtility.GetEnumerableFromCsv<UnitStat>(csv).ToDictionary(x => x.Flag, x => x);
+}

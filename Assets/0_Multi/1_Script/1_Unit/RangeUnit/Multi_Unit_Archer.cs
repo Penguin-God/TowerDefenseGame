@@ -18,7 +18,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
 
     public override void SetInherenceData()
     {
-        skillDamage = (int)(damage * 1.2f);
+        skillDamage = (int)(Damage * 1.2f);
     }
 
     public override void NormalAttack() => StartCoroutine("ArrowAttack");

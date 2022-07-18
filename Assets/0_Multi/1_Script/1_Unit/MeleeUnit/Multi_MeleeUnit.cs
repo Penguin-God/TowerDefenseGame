@@ -38,7 +38,7 @@ public class Multi_MeleeUnit : Multi_TeamSoldier
         else
         {
             destinationPos = target.position - (TargetEnemy.dir * 1);
-            nav.speed = this.speed;
+            nav.speed = Speed;
             nav.angularSpeed = 500;
             nav.acceleration = 40;
             contactEnemy = false;
@@ -56,7 +56,7 @@ public class Multi_MeleeUnit : Multi_TeamSoldier
     {
         if (!pv.IsMine) return;
 
-        if (target != null && enemyDistance < attackRange * 2)
+        if (target != null && enemyDistance < AttackRange * 2)
         {
             Multi_Enemy enemy = target.GetComponent<Multi_Enemy>();
             OnHit?.Invoke(enemy);
@@ -65,7 +65,7 @@ public class Multi_MeleeUnit : Multi_TeamSoldier
 
     private void FixedUpdate()
     {
-        Debug.DrawRay(transform.position + Vector3.up, transform.forward * attackRange, Color.green);
-        rayHit = Physics.Raycast(transform.position + Vector3.up, transform.forward, out rayHitObject, attackRange, layerMask);
+        Debug.DrawRay(transform.position + Vector3.up, transform.forward * AttackRange, Color.green);
+        rayHit = Physics.Raycast(transform.position + Vector3.up, transform.forward, out rayHitObject, AttackRange, layerMask);
     }
 }

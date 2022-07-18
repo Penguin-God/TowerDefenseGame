@@ -144,39 +144,39 @@ public class Multi_UnitDataBase : MonoBehaviour
     }
 
 
-    public void ApplyUnitBaseData(string _name, Multi_TeamSoldier _team)
-    {
-        _team.originDamage = UnitDataDictionary[_name].OriginDamage;
-        _team.damage = UnitDataDictionary[_name].damage;
-        _team.originBossDamage = UnitDataDictionary[_name].OriginBossDamage;
-        _team.bossDamage = UnitDataDictionary[_name].bossDamage;
-        _team.originAttackDelayTime = UnitDataDictionary[_name].OriginAttackDelaytime;
-        _team.attackDelayTime = UnitDataDictionary[_name].attackDelayTime;
-        _team.speed = UnitDataDictionary[_name].speed;
-        _team.attackRange = UnitDataDictionary[_name].attackRange;
+    //public void ApplyUnitBaseData(string _name, Multi_TeamSoldier _team)
+    //{
+    //    _team.originDamage = UnitDataDictionary[_name].OriginDamage;
+    //    _team.damage = UnitDataDictionary[_name].damage;
+    //    _team.originBossDamage = UnitDataDictionary[_name].OriginBossDamage;
+    //    _team.bossDamage = UnitDataDictionary[_name].bossDamage;
+    //    _team.originAttackDelayTime = UnitDataDictionary[_name].OriginAttackDelaytime;
+    //    _team.attackDelayTime = UnitDataDictionary[_name].attackDelayTime;
+    //    _team.speed = UnitDataDictionary[_name].speed;
+    //    _team.attackRange = UnitDataDictionary[_name].attackRange;
 
-        if (EventManager.instance.GetEventFlag(MyEventType.Up_UnitSkillPercent, (int)_team.unitColor))
-        {
-            IEvent @event = _team.GetComponent<IEvent>();
-            if (@event != null) @event.SkillPercentUp();
-            Debug.Log("HIHI");
-        }
+    //    if (EventManager.instance.GetEventFlag(MyEventType.Up_UnitSkillPercent, (int)_team.unitColor))
+    //    {
+    //        IEvent @event = _team.GetComponent<IEvent>();
+    //        if (@event != null) @event.SkillPercentUp();
+    //        Debug.Log("HIHI");
+    //    }
 
-        if (_team.GetComponent<Multi_Unit_Mage>() != null)
-        {
-            Multi_Unit_Mage _mage = _team.GetComponent<Multi_Unit_Mage>();
-            _mage.isUltimate = EventManager.instance.GetMageUltimateFlag(_team.unitColor);
-            Debug.Log("Mage God");
-        }
-    }
+    //    if (_team.GetComponent<Multi_Unit_Mage>() != null)
+    //    {
+    //        Multi_Unit_Mage _mage = _team.GetComponent<Multi_Unit_Mage>();
+    //        _mage.isUltimate = EventManager.instance.GetMageUltimateFlag(_team.unitColor);
+    //        Debug.Log("Mage God");
+    //    }
+    //}
 
-    public void ChangeUnitDataOfColor(UnitColor _color, Action<UnitData> OnChaneData)
-    {
-        string[] _keys = GetDataKeys(_color);
-        for (int i = 0; i < _keys.Length; i++) ChangeUnitData(_keys[i], OnChaneData);
-    }
+    //public void ChangeUnitDataOfColor(UnitColor _color, Action<UnitData> OnChaneData)
+    //{
+    //    string[] _keys = GetDataKeys(_color);
+    //    for (int i = 0; i < _keys.Length; i++) ChangeUnitData(_keys[i], OnChaneData);
+    //}
 
-    public void ChangeUnitData(string _key, Action<UnitData> ChangeData) => ChangeData(UnitDataDictionary[_key]);
+    //public void ChangeUnitData(string _key, Action<UnitData> ChangeData) => ChangeData(UnitDataDictionary[_key]);
 
 
 

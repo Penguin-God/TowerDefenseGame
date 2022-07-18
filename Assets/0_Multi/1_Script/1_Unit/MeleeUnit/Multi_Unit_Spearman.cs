@@ -21,7 +21,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
     public override void SetInherenceData()
     {
-        skillDamage = (int)(damage * 1.5f);
+        skillDamage = (int)(Damage * 1.5f);
     }
 
 

@@ -12,7 +12,7 @@ public class Multi_RedPassive : Multi_UnitPassive
     public override void SetPassive(Multi_TeamSoldier _team)
     {
         apply_DownDelayWeigh = 0.1f;
-        _team.attackDelayTime *= apply_DownDelayWeigh;
+        _team.AttackDelayTime *= apply_DownDelayWeigh;
     }
 
     public override void ApplyData(float p1, float p2 = 0, float p3 = 0)

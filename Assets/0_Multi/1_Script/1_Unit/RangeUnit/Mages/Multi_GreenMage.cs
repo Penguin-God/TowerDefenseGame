@@ -5,9 +5,10 @@ using System;
 
 public class Multi_GreenMage : Multi_Unit_Mage
 {
-    public override void SetMageAwake()
+    public override void SetInherenceData()
     {
-        attackRange *= 2; // 패시브
+        base.SetInherenceData();
+        AttackRange *= 2;
     }
 
     void ShootSkill() => ProjectileShotDelegate.ShotProjectile(skillData, target, OnSkileHit);

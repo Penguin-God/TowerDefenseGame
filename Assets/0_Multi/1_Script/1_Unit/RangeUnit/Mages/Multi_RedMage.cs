@@ -55,6 +55,6 @@ public class Multi_RedMage : Multi_Unit_Mage
 
     void Change_Unit_AttackCollDown(Multi_TeamSoldier _unit, float rate)
     {
-        _unit.attackDelayTime *= rate;
+        _unit.AttackDelayTime *= rate;
     }
 }

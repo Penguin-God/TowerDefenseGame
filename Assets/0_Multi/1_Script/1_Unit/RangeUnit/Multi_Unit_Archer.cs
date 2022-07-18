@@ -13,8 +13,8 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     public override void OnAwake()
     {
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
-        Debug.Assert(arrawData.Original != null && arrawData.SpawnTransform != null, "arrawData가 설정되어 있지 않음");
-        arrawData = new ProjectileData(arrawData.Original, Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0],transform, arrawData.SpawnTransform);
+        //Debug.Assert(arrawData.Original != null && arrawData.SpawnTransform != null, "arrawData가 설정되어 있지 않음");
+        arrawData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0],transform, arrawData.SpawnTransform);
     }
 
     public override void SetInherenceData()
@@ -31,7 +31,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         trail.SetActive(false);
         if (PhotonNetwork.IsMasterClient && target != null && enemyDistance < chaseRange)
         {
-            ProjectileShotDelegate.ShotProjectile(arrawData, target, 2, OnHit);
+            ProjectileShotDelegate.ShotProjectile(arrawData, target, OnHit);
         }
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
@@ -62,7 +62,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
             Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target, GetComponent<RPCable>().UsingId);
         for (int i = 0; i < targetArray.Length; i++)
         {
-            ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[i], 2, OnSkileHit);
+            ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[i], OnSkileHit);
         }
 
         yield return new WaitForSeconds(1f);

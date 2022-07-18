@@ -17,7 +17,7 @@ public class Multi_BlackMage : Multi_Unit_Mage
         for (int i = 0; i < directions.childCount; i++)
         {
             Transform instantTransform = directions.GetChild(i);
-            ProjectileShotDelegate._ShotProjectile(skillData, instantTransform.position, instantTransform.forward, OnSkileHit);
+            ProjectileShotDelegate.ShotProjectile(skillData, instantTransform.position, instantTransform.forward, OnSkileHit);
         }
     }
 

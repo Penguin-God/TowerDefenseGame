@@ -42,11 +42,9 @@ public class Multi_Unit_Mage : Multi_RangeUnit
 
         SetMageAwake();
         skillWeapon = new SkillWeapon(skillWeaponName);
-        Debug.Assert(energyballData.Original != null && energyballData.SpawnTransform != null, "energyballData가 설정되어 있지 않음");
-        energyballData = 
-            new ProjectileData(energyballData.Original, Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, energyballData.SpawnTransform);
-        skillData =
-            new ProjectileData(null, Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[1], transform, null);
+        //Debug.Assert(energyballData.Original != null && energyballData.SpawnTransform != null, "energyballData가 설정되어 있지 않음");
+        energyballData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, energyballData.SpawnTransform);
+        skillData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[1], transform, skillData.SpawnTransform);
 
         //arrawData = new ProjectileData(arrawData.Original, Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, arrawData.SpawnTransform);
         //energyballData = new ProjectileData(energyballData.Original, transform, energyballData.SpawnTransform);
@@ -77,7 +75,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         // TODO : 딱 공격하려는 순간에 적이 죽어버리면 공격을 안함. 이건 판정 문제인데 그냥 target위치를 기억해서 거기다가 던지는게 나은듯
         if (PhotonNetwork.IsMasterClient && target != null && enemyDistance < chaseRange)
         {
-            ProjectileShotDelegate.ShotProjectile(energyballData, target, 2, OnHit);
+            ProjectileShotDelegate.ShotProjectile(energyballData, target, OnHit);
             pv.RPC("AddMana", RpcTarget.All, plusMana);
         }
 
@@ -103,7 +101,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         if (OnUltimateSkile != null) OnUltimateSkile();
     }
 
-    protected GameObject SkillSpawn(Vector3 spawnPos) => skillWeapon.Spawn(spawnPos);
+    protected GameObject SkillSpawn(Vector3 spawnPos) => Multi_SpawnManagers.Weapon.Spawn(skillData.WeaponPath, spawnPos); // skillWeapon.Spawn(spawnPos);
     protected virtual void MageSkile() { }
 
     protected void SetMageSkillStatus()
@@ -117,7 +115,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     [SerializeField] private int currentMana;
     
     [PunRPC]
-    void AddMana(int addMana)
+    public void AddMana(int addMana)
     {
         if (unitColor == UnitColor.white) return;
 

@@ -12,7 +12,7 @@ public class Multi_GreenMage : Multi_Unit_Mage
 
     void ShootSkill()
     {
-        ProjectileShotDelegate.ShotProjectile(SkillSpawn(energyBallTransform.position).GetComponent<Multi_Projectile>(), transform, target, 2, OnSkileHit);
+        ProjectileShotDelegate.ShotProjectile(skillData, target, OnSkileHit);
     }
 
     protected override void MageSkile()

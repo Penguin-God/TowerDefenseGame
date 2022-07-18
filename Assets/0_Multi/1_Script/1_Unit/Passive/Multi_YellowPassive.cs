@@ -23,13 +23,6 @@ public class Multi_YellowPassive : Multi_UnitPassive
         }
     }
 
-
-    public override void ApplyData(float p1, float p2 = 0, float p3 = 0)
-    {
-        apply_GetGoldPercent = (int)p1;
-        apply_AddGold = (int)p2;
-    }
-
     protected override void ApplyData()
     {
         apply_GetGoldPercent = (int)_stats[0];

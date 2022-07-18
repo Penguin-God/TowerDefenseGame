@@ -71,7 +71,6 @@ public class Multi_UnitManager : MonoBehaviourPun
             _currentUnitsById.Add(0, new List<Multi_TeamSoldier>());
             _currentUnitsById.Add(1, new List<Multi_TeamSoldier>());
         }
-        //unitDB = GetComponent<Multi_UnitDataBase>();
     }
 
     private void Start()
@@ -169,23 +168,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     }
 
 
-
-
     // 아래는 쭉 리팩터링 전 코드들
-
-    // Multi_UnitDataBase unitDB = null;
-    //public void ApplyUnitData(string _tag, Multi_TeamSoldier _team) => unitDB.ApplyUnitBaseData(_tag, _team);
-    // public void ApplyPassiveData(string _key, Multi_UnitPassive _passive, UnitColor _color) => unitDB.ApplyPassiveData(_key, _passive, _color);
-
-    //public GameObject[] startUnitArray;
-    //public void ReSpawnStartUnit()
-    //{
-    //    int random = Random.Range(0, startUnitArray.Length);
-
-    //    GameObject startUnit = Instantiate(startUnitArray[random],
-    //        startUnitArray[random].transform.position, startUnitArray[random].transform.rotation);
-    //    startUnit.SetActive(true);
-    //}
 
     [SerializeField] private GameObject[] tp_Effects;
     int current_TPEffectIndex;

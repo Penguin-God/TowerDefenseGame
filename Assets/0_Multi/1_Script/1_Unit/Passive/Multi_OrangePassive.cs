@@ -11,11 +11,6 @@ public class Multi_OrangePassive : Multi_UnitPassive
         _team.BossDamage += Mathf.FloorToInt(_team.OriginBossDamage * apply_UpBossDamageWeigh);
     }
 
-    public override void ApplyData(float p1, float p2 = 0, float p3 = 0)
-    {
-        apply_UpBossDamageWeigh = p1;
-    }
-
     protected override void ApplyData()
     {
         apply_UpBossDamageWeigh = _stats[0];

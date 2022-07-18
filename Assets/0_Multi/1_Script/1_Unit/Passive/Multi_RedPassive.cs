@@ -14,11 +14,6 @@ public class Multi_RedPassive : Multi_UnitPassive
         _team.AttackDelayTime *= apply_DownDelayWeigh;
     }
 
-    public override void ApplyData(float p1, float p2 = 0, float p3 = 0)
-    {
-        apply_DownDelayWeigh = p1;
-    }
-
     protected override void ApplyData()
     {
         apply_DownDelayWeigh = _stats[0];

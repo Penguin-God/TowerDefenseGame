@@ -20,13 +20,6 @@ public class Multi_VioletPassive : Multi_UnitPassive
         _enemy.OnPoison_RPC(20, 4, 0.5f, apply_MaxPoisonDamage);
     }
 
-    public override void ApplyData(float p1, float p2 = 0, float p3 = 0)
-    {
-        apply_SturnPercent = (int)p1;
-        apply_StrunTime = p2;
-        apply_MaxPoisonDamage = (int)p3;
-    }
-
     protected override void ApplyData()
     {
         apply_SturnPercent = (int)_stats[0];

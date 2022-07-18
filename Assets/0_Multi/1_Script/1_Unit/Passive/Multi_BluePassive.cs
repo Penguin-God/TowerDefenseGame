@@ -18,12 +18,6 @@ public class Multi_BluePassive : Multi_UnitPassive
         _team.OnPassiveHit += SlowByEnemy;
     }
 
-    public override void ApplyData(float p1, float p2 = 0, float p3 = 0)
-    {
-        apply_SlowPercet = p1;
-        apply_SlowTime = p2;
-    }
-
     void SlowByEnemy(Multi_Enemy enemy) => enemy.OnSlow_RPC(apply_SlowPercet, apply_SlowTime);
 
     protected override void ApplyData()

@@ -33,11 +33,10 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     // 법사 고유의 Awake 대체 가상 함수
     public virtual void SetMageAwake() { }
 
-    // 지금은 테스트를 위해 첫 공격에 무조건 스킬 쓰도록 놔둠
-    private bool isMageSkillAttack;
+    bool Skillable => currentMana >= maxMana;
     public override void NormalAttack()
     {
-        if (true) SpecialAttack();
+        if (Skillable) SpecialAttack();
         else StartCoroutine("MageAttack");
     }
 
@@ -87,7 +86,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     protected void SetMageSkillStatus()
     {
         base.SpecialAttack();
-        ClearMana();
+        pv.RPC("ClearMana", RpcTarget.All);
     }
 
     // 마나
@@ -101,14 +100,13 @@ public class Multi_Unit_Mage : Multi_RangeUnit
 
         currentMana += addMana;
         manaSlider.value = currentMana;
-        if (currentMana >= maxMana) isMageSkillAttack = true;
     }
 
-    void ClearMana()
+    [PunRPC]
+    public void ClearMana()
     {
         currentMana = 0;
         manaSlider.value = 0;
-        isMageSkillAttack = false;
     }
 
     private RectTransform canvasRectTransform;

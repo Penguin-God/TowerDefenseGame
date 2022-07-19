@@ -122,7 +122,7 @@ public class Multi_Enemy : MonoBehaviourPun
     [PunRPC] protected virtual void OnFreeze(float slowTime) { } // 얼리는 스킬
 
     public void OnStun_RPC(int _stunPercent, float _stunTime) => _PV.RPC("OnStun", RpcTarget.MasterClient, _stunPercent, _stunTime);
-    public void OnStun(RpcTarget _target, int _stunPercent, float _stunTime) => _PV.RPC("OnStun", _target, _stunPercent, _stunTime);
+    // public void OnStun(RpcTarget _target, int _stunPercent, float _stunTime) => _PV.RPC("OnStun", _target, _stunPercent, _stunTime);
     [PunRPC] protected virtual void OnStun(int stunPercent, float stunTime) { }
 
     public void OnPoison_RPC(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)

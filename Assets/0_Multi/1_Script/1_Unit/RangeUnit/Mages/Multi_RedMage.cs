@@ -6,10 +6,14 @@ using Photon.Pun;
 public class Multi_RedMage : Multi_Unit_Mage
 {
     Multi_RedPassive redPassive = null;
+    [SerializeField] int meteorDamage;
+    [SerializeField] float meteorStunTime;
 
     public override void SetMageAwake()
     {
         redPassive = GetComponent<Multi_RedPassive>();
+        meteorDamage = (int)skillStats[0];
+        meteorStunTime = skillStats[1];
     }
 
     [SerializeField] Vector3 meteorPos = (Vector3.up * 30) + (Vector3.forward * 5);
@@ -33,8 +37,8 @@ public class Multi_RedMage : Multi_Unit_Mage
 
         void HitMeteor(Multi_Enemy enemy)
         {
-            enemy.OnDamage(400000);
-            enemy.OnStun(RpcTarget.MasterClient, 100, 5f);
+            enemy.OnDamage(meteorDamage);
+            enemy.OnStun_RPC(100, meteorStunTime);
         }
     }
 

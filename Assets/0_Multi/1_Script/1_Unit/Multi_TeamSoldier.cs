@@ -29,7 +29,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
 
     public int skillDamage;
-    public int ApplySkillDamage => skillDamage;
     [SerializeField] protected float stopDistanc;
 
     // 상태 변수(동기화되지 않음)
@@ -186,7 +185,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     // 현재 살아있는 enemy 중 가장 가까운 enemy의 정보를 가지고 nav 및 변수 설정
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
-        //Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange);
         if (PhotonNetwork.IsMasterClient == false) return;
 
         Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange, GetComponent<RPCable>().UsingId);

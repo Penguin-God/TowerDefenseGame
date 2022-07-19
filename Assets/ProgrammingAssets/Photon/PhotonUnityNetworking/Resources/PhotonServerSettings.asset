@@ -34,11 +34,11 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
-  - _MageSkile
   - AddMana
   - AttackFromHost
   - BaseSpawn
   - ChangeColor
+  - ClearMana
   - ClickRpc
   - Combine
   - DestroyRpc
@@ -46,6 +46,7 @@ MonoBehaviour:
   - ExitSlow
   - ExitStun
   - Fire
+  - LoadStat
   - MeteorExplosion
   - NormalAttack
   - OnFreeze
@@ -65,10 +66,10 @@ MonoBehaviour:
   - SelectAttack
   - SetActive
   - SetId
+  - SetPassive
   - SetPosition
   - SetRotate
   - SetRotation
-  - SetShotData
   - SetStatus
   - SetVelocity
   - ShowSturnEffetc
@@ -76,10 +77,6 @@ MonoBehaviour:
   - SpawnUnit
   - SyncSpeed
   - Turn
-  - SetLook
-  - ClearMana
-  - LoadStat
-  - SetPassive
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

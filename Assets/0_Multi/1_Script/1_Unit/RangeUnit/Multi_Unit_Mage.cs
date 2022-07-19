@@ -21,15 +21,8 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     public override void OnAwake()
     {
         LoadMageStat();
-        if (unitColor == UnitColor.white) return;
-
-        //canvasRectTransform = transform.GetComponentInChildren<RectTransform>();
-        //manaSlider = transform.GetComponentInChildren<Slider>();
-        //manaSlider.maxValue = maxMana;
-        //manaSlider.value = currentMana;
-        //StartCoroutine(Co_SetCanvas());
-
         SetMageAwake();
+
         energyballData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, energyballData.SpawnTransform);
         skillData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[1], transform, skillData.SpawnTransform);
     }
@@ -48,7 +41,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     // 법사 고유의 Awake 대체 가상 함수
     public virtual void SetMageAwake() { }
 
-    bool Skillable => manaSystem != null && manaSystem.IsManaFull && currentMana >= maxMana;
+    bool Skillable => manaSystem != null && manaSystem.IsManaFull;
     public override void NormalAttack()
     {
         if (Skillable) SpecialAttack();
@@ -70,7 +63,6 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         if (PhotonNetwork.IsMasterClient && target != null && enemyDistance < chaseRange)
         {
             ProjectileShotDelegate.ShotProjectile(energyballData, target, OnHit);
-            //pv.RPC("AddMana", RpcTarget.All, plusMana);
             manaSystem?.AddMana_RPC();
         }
 
@@ -102,43 +94,8 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     protected void SetMageSkillStatus()
     {
         base.SpecialAttack();
-        //pv.RPC("ClearMana", RpcTarget.All);
         manaSystem?.ClearMana_RPC();
     }
-
-    // 마나
-    [SerializeField] private int maxMana;
-    [SerializeField] private int currentMana;
-    
-    [PunRPC]
-    public void AddMana(int addMana)
-    {
-        if (unitColor == UnitColor.white) return;
-
-        currentMana += addMana;
-        manaSlider.value = currentMana;
-    }
-
-    //[PunRPC]
-    //public void ClearMana()
-    //{
-    //    currentMana = 0;
-    //    //manaSlider.value = 0;
-    //}
-
-    private RectTransform canvasRectTransform;
-    private Slider manaSlider;
-    Vector3 sliderDir = new Vector3(90, 0, 0);
-    IEnumerator Co_SetCanvas()
-    {
-        if (unitColor == UnitColor.white) yield break;
-        while (true)
-        {
-            canvasRectTransform.rotation = Quaternion.Euler(sliderDir);
-            yield return null;
-        }
-    }
-
 
     // 사운드
     [SerializeField] AudioClip mageSkillCilp;

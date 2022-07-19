@@ -228,3 +228,28 @@ public class UnitPassiveStats : ICsvLoader<UnitFlags, UnitPassiveStat>
     public Dictionary<UnitFlags, UnitPassiveStat> MakeDict(string csv)
         => CsvUtility.GetEnumerableFromCsv<UnitPassiveStat>(csv).ToDictionary(x => x.Flag, x => x);
 }
+
+
+// TODO : struct도 원본 수정 가능한지 확인하기
+[Serializable]
+public struct MageUnitStat
+{
+    [SerializeField] UnitFlags _flag;
+    [SerializeField] int _maxMana;
+    [SerializeField] int _addMana;
+    [SerializeField] float[] _skillStats;
+
+    public int CurrentMana { get; private set; }
+    public UnitFlags Flag => _flag;
+    public int MaxMana => _maxMana;
+    public int AddMana => _addMana;
+
+    public bool IsManaFull => CurrentMana >= _maxMana;
+}
+
+[Serializable]
+public class MageUnitStats : ICsvLoader<UnitFlags, MageUnitStat>
+{
+    public Dictionary<UnitFlags, MageUnitStat> MakeDict(string csv)
+        => CsvUtility.GetEnumerableFromCsv<MageUnitStat>(csv).ToDictionary(x => x.Flag, x => x);
+}

@@ -4,22 +4,17 @@ using UnityEngine;
 using System.Linq;
 using System;
 
-[Serializable]
-public class FloatStats
-{
-    public float[] stats;
-
-    public FloatStats(IReadOnlyList<float> _stats) => stats = _stats.ToArray();
-}
-
 public class TestUtility : MonoBehaviour
 {
-    [SerializeField] List<FloatStats> stats;
-    [SerializeField] IReadOnlyList<int> aa;
+    [SerializeField] List<MageUnitStat> stats;
     [ContextMenu("Test")]
     void Test()
     {
         stats.Clear();
+        foreach (var item in Multi_Managers.Data.MageStatByFlag)
+        {
+            stats.Add(item.Value);
+        }
     }
 
     [SerializeField] int spawnColorMax;

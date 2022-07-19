@@ -12,40 +12,30 @@ public class Multi_OrangeSkill : MonoBehaviourPun
         ps = GetComponent<ParticleSystem>();
     }
 
-    public void OnSkile(Multi_Enemy enemy, int damage)
+    public void OnSkile(Multi_Enemy enemy, int damage, int count, float percent)
     {
         Debug.Assert(PhotonNetwork.IsMasterClient, "게스트가... 스킬을?");
-        StartCoroutine(Co_OrangeSkile(3, enemy, damage));
+        StartCoroutine(Co_OrangeSkile(count, enemy, damage, percent));
     }
 
-    //public void OnSkile(Multi_Enemy enemy, bool isUltimate, int damage)
-    //{
-    //    if (!photonView.IsMine) return;
-
-    //    int count = isUltimate ? 5 : 3;
-    //    StartCoroutine(Co_OrangeSkile(count, enemy, damage));
-    //}
-
     ParticleSystem ps = null;
-    IEnumerator Co_OrangeSkile(int count, Multi_Enemy enemy, int damage)
+    IEnumerator Co_OrangeSkile(int count, Multi_Enemy enemy, int damage, float percent)
     {
         for (int i = 0; i < count; i++)
         {
-            OrangeMageSkill(enemy, damage);
+            if (enemy == null || enemy.isDead) yield break;
+            OrangeMageSkill(enemy, damage, percent);
             yield return new WaitForSeconds(ps.startLifetime + 0.1f);
         }
 
         Multi_Managers.Pool.Push(GetComponent<Poolable>());
     }
 
-    void OrangeMageSkill(Multi_Enemy enemy, int damage)
+    void OrangeMageSkill(Multi_Enemy enemy, int damage, float percent)
     {
-        if (enemy == null || enemy.isDead) return;
-
         photonView.RPC("OnSkillEffect", RpcTarget.All, enemy.transform.position);
 
-        // TODO : 리터럴 고치기
-        int _applyDamage = damage + Mathf.RoundToInt(enemy.currentHp / 100 * 5);
+        int _applyDamage = damage + Mathf.RoundToInt(enemy.currentHp / 100 * percent);
         enemy.OnDamage(_applyDamage);
     }
 

@@ -5,9 +5,24 @@ using Photon.Pun;
 
 public class Multi_VioletMage : Multi_Unit_Mage
 {
-    // TODO : 리터럴 죽이기
-    protected override void MageSkile()
+    // TODK : 독 관련 구조체 만들기
+    [SerializeField] int percent;
+    [SerializeField] int count;
+    [SerializeField] float delay;
+    [SerializeField] int maxDamage;
+
+    public override void OnAwake()
     {
-        SkillSpawn(target.position + Vector3.up * 2).GetComponent<Multi_HitSkill>().OnHitSkile += (enemy) => enemy.OnPoison_RPC(25, 8, 0.3f, 120000);
+        base.OnAwake();
+        percent = (int)skillStats[0];
+        count = (int)skillStats[1];
+        delay = skillStats[2];
+        maxDamage = (int)skillStats[3];
     }
+
+    protected override void MageSkile()
+        => SkillSpawn(target.position + Vector3.up * 2).GetComponent<Multi_HitSkill>().OnHitSkile += Poison;
+
+    void Poison(Multi_Enemy enemy)
+        => enemy.OnPoison_RPC(percent, count, delay, maxDamage);
 }

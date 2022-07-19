@@ -14720,6 +14720,7 @@ GameObject:
   - component: {fileID: 5466232920330778380}
   - component: {fileID: -2745023710888407717}
   - component: {fileID: 5986236851697606115}
+  - component: {fileID: -6772616504582805813}
   m_Layer: 9
   m_Name: Green_Mage 1
   m_TagString: GreenMage
@@ -14928,37 +14929,42 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitClass: 3
   unitColor: 3
-  originDamage: 0
-  originBossDamage: 0
-  originAttackDelayTime: 0.5
-  speed: 3
-  attackRange: 40
-  damage: 0
-  bossDamage: 0
+  stat:
+    _flag:
+      _colorNumber: 0
+      _classNumber: 0
+    _damage: 0
+    _bossDamage: 0
+    _useSkillPercent: 0
+    _attackDelayTime: 0
+    _speed: 0
+    _attackRange: 0
   skillDamage: 0
   stopDistanc: 5
   enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
-  attackDelayTime: 0.5
   isSkillAttack: 0
   skillCoolDownTime: 2
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
   normalAttakc_AudioDelay: 0.7
   reinforceEffect: {fileID: 9204360826248903898}
-  specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
+  mageStat:
+    _flag:
+      _colorNumber: 0
+      _classNumber: 0
+    _maxMana: 0
+    _addMana: 0
+    _skillStats: []
   energyballData:
-    original: {fileID: 3393117671410220456, guid: 4cd136db83d36e94c904384cbf997b35,
-      type: 3}
     weaponPath: 
     attacker: {fileID: 6775729880577783548}
     spawnTransform: {fileID: 5332082169092532282}
   skillData:
-    original: {fileID: 0}
     weaponPath: 
     attacker: {fileID: 0}
     spawnTransform: {fileID: 5332082169092532282}
@@ -14966,7 +14972,6 @@ MonoBehaviour:
   energyBallTransform: {fileID: 5332082169092532282}
   mageSkillObject: {fileID: 3393117671410220457, guid: 22894d5e770e44f41afc452903b2263b,
     type: 3}
-  skillWeaponName: GreenMage BounceBall 1
   plusMana: 30
   mageSkillCoolDownTime: 1
   isUltimate: 0
@@ -15001,6 +15006,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _usingId: -1
+--- !u!114 &-6772616504582805813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6775729880577783539}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fe5015df600d542947d430c7921424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxMana: 0
+  _addMana: 0
+  _currentMana: 0
 --- !u!1001 &1672892014491381548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15085,15 +15105,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af6230aacce63134594a8b6530b54fe7, type: 3}
---- !u!4 &9202139753798520266 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
-    type: 3}
-  m_PrefabInstance: {fileID: 1672892014491381548}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &9204360826248903898 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7533179724001874934, guid: af6230aacce63134594a8b6530b54fe7,
+    type: 3}
+  m_PrefabInstance: {fileID: 1672892014491381548}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &9202139753798520266 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7531108423336846054, guid: af6230aacce63134594a8b6530b54fe7,
     type: 3}
   m_PrefabInstance: {fileID: 1672892014491381548}
   m_PrefabAsset: {fileID: 0}

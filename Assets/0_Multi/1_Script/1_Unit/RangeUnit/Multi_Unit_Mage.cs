@@ -8,6 +8,8 @@ using Photon.Pun;
 public class Multi_Unit_Mage : Multi_RangeUnit
 {
     [Header("메이지 변수")]
+    [SerializeField] MageUnitStat mageStat;
+    protected IReadOnlyList<float> skillStats;
     [SerializeField] ProjectileData energyballData;
     [SerializeField] protected ProjectileData skillData;
 
@@ -15,25 +17,38 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     [SerializeField] protected Transform energyBallTransform;
     [SerializeField] protected GameObject mageSkillObject = null;
 
+    ManaSystem manaSystem;
     public override void OnAwake()
     {
+        LoadMageStat();
         if (unitColor == UnitColor.white) return;
 
-        canvasRectTransform = transform.GetComponentInChildren<RectTransform>();
-        manaSlider = transform.GetComponentInChildren<Slider>();
-        manaSlider.maxValue = maxMana;
-        manaSlider.value = currentMana;
-        StartCoroutine(Co_SetCanvas());
+        //canvasRectTransform = transform.GetComponentInChildren<RectTransform>();
+        //manaSlider = transform.GetComponentInChildren<Slider>();
+        //manaSlider.maxValue = maxMana;
+        //manaSlider.value = currentMana;
+        //StartCoroutine(Co_SetCanvas());
 
         SetMageAwake();
         energyballData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, energyballData.SpawnTransform);
         skillData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[1], transform, skillData.SpawnTransform);
     }
 
+    void LoadMageStat()
+    {
+        if (Multi_Managers.Data.MageStatByFlag.TryGetValue(UnitFlags, out MageUnitStat stat))
+        {
+            mageStat = stat;
+            skillStats = mageStat.SkillStats;
+            manaSystem = GetComponent<ManaSystem>();
+            manaSystem?.SetInfo(stat.MaxMana, stat.AddMana);
+        }
+    }
+
     // 법사 고유의 Awake 대체 가상 함수
     public virtual void SetMageAwake() { }
 
-    bool Skillable => currentMana >= maxMana;
+    bool Skillable => manaSystem != null && manaSystem.IsManaFull && currentMana >= maxMana;
     public override void NormalAttack()
     {
         if (Skillable) SpecialAttack();
@@ -55,7 +70,8 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         if (PhotonNetwork.IsMasterClient && target != null && enemyDistance < chaseRange)
         {
             ProjectileShotDelegate.ShotProjectile(energyballData, target, OnHit);
-            pv.RPC("AddMana", RpcTarget.All, plusMana);
+            //pv.RPC("AddMana", RpcTarget.All, plusMana);
+            manaSystem?.AddMana_RPC();
         }
 
         yield return new WaitForSeconds(0.5f);
@@ -86,7 +102,8 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     protected void SetMageSkillStatus()
     {
         base.SpecialAttack();
-        pv.RPC("ClearMana", RpcTarget.All);
+        //pv.RPC("ClearMana", RpcTarget.All);
+        manaSystem?.ClearMana_RPC();
     }
 
     // 마나
@@ -102,12 +119,12 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         manaSlider.value = currentMana;
     }
 
-    [PunRPC]
-    public void ClearMana()
-    {
-        currentMana = 0;
-        manaSlider.value = 0;
-    }
+    //[PunRPC]
+    //public void ClearMana()
+    //{
+    //    currentMana = 0;
+    //    //manaSlider.value = 0;
+    //}
 
     private RectTransform canvasRectTransform;
     private Slider manaSlider;

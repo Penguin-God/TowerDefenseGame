@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 1607135977233665466}
   - component: {fileID: 5734083610469489287}
   - component: {fileID: 1722587431004367479}
+  - component: {fileID: -8960571490966686334}
   m_Layer: 9
   m_Name: Orange_Mage 1
   m_TagString: OrangeMage
@@ -421,39 +422,49 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitClass: 3
   unitColor: 4
-  originDamage: 0
-  originBossDamage: 0
-  originAttackDelayTime: 0.5
-  speed: 3
-  attackRange: 40
-  damage: 0
-  bossDamage: 0
+  stat:
+    _flag:
+      _colorNumber: 0
+      _classNumber: 0
+    _damage: 0
+    _bossDamage: 0
+    _useSkillPercent: 0
+    _attackDelayTime: 0
+    _speed: 0
+    _attackRange: 0
   skillDamage: 0
   stopDistanc: 5
   enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
-  attackDelayTime: 0.5
   isSkillAttack: 0
   skillCoolDownTime: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
   normalAttakc_AudioDelay: 0.7
   reinforceEffect: {fileID: 9179270324169542177}
-  specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
+  mageStat:
+    _flag:
+      _colorNumber: 0
+      _classNumber: 0
+    _maxMana: 0
+    _addMana: 0
+    _skillStats: []
   energyballData:
-    original: {fileID: 4707030899879111017, guid: b8f74a2a21b4e8b48a78902caed53985,
-      type: 3}
+    weaponPath: 
     attacker: {fileID: 5512811997297203013}
     spawnTransform: {fileID: 6590480786666523011}
+  skillData:
+    weaponPath: 
+    attacker: {fileID: 0}
+    spawnTransform: {fileID: 0}
   magicLight: {fileID: 6590480787772705442}
   energyBallTransform: {fileID: 6590480786666523011}
   mageSkillObject: {fileID: 6070129563677219890, guid: f894d2491a0cb5f4d8c47c6ab4a2f98e,
     type: 3}
-  skillWeaponName: OrangeMage SkillEffect 1
   plusMana: 30
   mageSkillCoolDownTime: 1
   isUltimate: 0
@@ -487,6 +498,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _usingId: -1
+--- !u!114 &-8960571490966686334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5512811997297203018}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87fe5015df600d542947d430c7921424, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxMana: 0
+  _addMana: 0
+  _currentMana: 0
 --- !u!1 &6590480786666523012
 GameObject:
   m_ObjectHideFlags: 0

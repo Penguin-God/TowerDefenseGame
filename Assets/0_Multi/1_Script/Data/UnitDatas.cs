@@ -239,12 +239,10 @@ public struct MageUnitStat
     [SerializeField] int _addMana;
     [SerializeField] float[] _skillStats;
 
-    public int CurrentMana { get; private set; }
     public UnitFlags Flag => _flag;
     public int MaxMana => _maxMana;
     public int AddMana => _addMana;
-
-    public bool IsManaFull => CurrentMana >= _maxMana;
+    public IReadOnlyList<float> SkillStats => _skillStats;
 }
 
 [Serializable]

@@ -16,19 +16,14 @@ public class Multi_VioletPassive : Multi_UnitPassive
 
     void Passive_Violet(Multi_Enemy _enemy)
     {
-        // test용 수치대입
-        apply_SturnPercent = 60;
-        apply_StrunTime = 3;
-        apply_MaxPoisonDamage = 50;
-
-        _enemy.OnStun(RpcTarget.MasterClient, apply_SturnPercent, apply_StrunTime);
-        _enemy.OnPoison(RpcTarget.MasterClient, 20, 4, 0.5f, apply_MaxPoisonDamage);
+        _enemy.OnStun_RPC(apply_SturnPercent, apply_StrunTime);
+        _enemy.OnPoison_RPC(20, 4, 0.5f, apply_MaxPoisonDamage);
     }
 
-    public override void ApplyData(float p1, float p2 = 0, float p3 = 0)
+    protected override void ApplyData()
     {
-        apply_SturnPercent = (int)p1;
-        apply_StrunTime = p2;
-        apply_MaxPoisonDamage = (int)p3;
+        apply_SturnPercent = (int)_stats[0];
+        apply_StrunTime = _stats[1];
+        apply_MaxPoisonDamage = (int)_stats[2];
     }
 }

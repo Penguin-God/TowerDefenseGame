@@ -35,7 +35,8 @@ class Pool
     Poolable CreateObject()
     {
         Poolable poolable;
-        GameObject go = PhotonNetwork.Instantiate($"Prefabs/{Path}", Vector3.zero, Quaternion.identity);
+        GameObject previewGo = Resources.Load<GameObject>($"Prefabs/{Path}");
+        GameObject go = PhotonNetwork.Instantiate($"Prefabs/{Path}", Vector3.zero, previewGo.transform.rotation);
         go.transform.SetParent(Root);
         go.name = Original.name;
 
@@ -50,7 +51,6 @@ class Pool
         if (poolable == null) return;
 
         poolable.transform.SetParent(Root);
-        poolable.gameObject.SetActive(false);
         poolable.IsUsing = false;
         poolStack.Push(poolable);
     }
@@ -118,8 +118,8 @@ public class Multi_PoolManager
             return;
         }
 
-        go.transform.SetParent(pool.Root);
-        go.GetComponent<RPCable>().SetActive_RPC(false);
+        go.GetOrAddComponent<RPCable>().SetActive_RPC(false);
+        go.GetOrAddComponent<RPCable>().SetPosition_RPC(Vector3.one * 1000);
         pool.Push(go.GetComponent<Poolable>());
     }
 

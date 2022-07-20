@@ -17,10 +17,13 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
 
     protected override void Init()
     {
-        CreatePool();
-
         spawnPos = Multi_Data.instance.EnemySpawnPos;
         Multi_StageManager.Instance.OnUpdateStage += RespawnBoss;
+    }
+
+    protected override void MasterInit()
+    {
+        CreatePool();
     }
 
     void CreatePool()

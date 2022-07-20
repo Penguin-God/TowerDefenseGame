@@ -1,19 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-
-public enum WeaponType
-{
-    Arrow,
-    Spear,
-    Mageball,
-    MageSkill,
-    Arrows,
-    Spears,
-    Mageballs,
-    MageSkills,
-}
 
 public class Multi_WeaponSpawner : Multi_SpawnerBase
 {
@@ -24,7 +11,7 @@ public class Multi_WeaponSpawner : Multi_SpawnerBase
     [SerializeField] FolderPoolingData mageballPoolData;
     [SerializeField] FolderPoolingData mageSkillPoolData;
 
-    protected override void Init()
+    protected override void MasterInit()
     {
         SetAllWeapons();
 
@@ -49,9 +36,5 @@ public class Multi_WeaponSpawner : Multi_SpawnerBase
         allWeapons[3] = mageSkillPoolData;
     }
 
-    public GameObject Spawn(GameObject go, Vector3 spawnPos) => Multi_Managers.Resources.PhotonInsantiate(go, spawnPos);
-    public GameObject Spawn(WeaponType weaponType, string weaponName, Vector3 spawnPos)
-        => Multi_Managers.Resources.PhotonInsantiate(BuildPath(weaponType, weaponName), spawnPos, Multi_Data.instance.Id);
-
-    string BuildPath(WeaponType type, string weaponName) => BuildPath(_rootPath, Enum.GetName(typeof(WeaponType), type), weaponName);
+    public GameObject Spawn(string path, Vector3 spawnPos) => Multi_Managers.Resources.PhotonInsantiate($"Weapon/{path}", spawnPos);
 }

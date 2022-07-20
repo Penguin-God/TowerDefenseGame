@@ -28420,7 +28420,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sphereCollider: {fileID: 0}
-  hitTime: 0.5
+  activeDelayTime: 0.2
+  hitTime: 1.3
 --- !u!114 &-5572463865093722167
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28446,7 +28447,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _usingId: 0
   IsUsing: 0
   Path: 
 --- !u!114 &-4582380810251558972

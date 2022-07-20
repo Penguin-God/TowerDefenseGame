@@ -38,12 +38,15 @@ MonoBehaviour:
   - AttackFromHost
   - BaseSpawn
   - ChangeColor
+  - ClearMana
   - ClickRpc
+  - Combine
   - DestroyRpc
   - DestroySpaceship
   - ExitSlow
   - ExitStun
   - Fire
+  - LoadStat
   - MeteorExplosion
   - NormalAttack
   - OnFreeze
@@ -51,6 +54,10 @@ MonoBehaviour:
   - OnSkillEffect
   - OnSlow
   - OnStun
+  - Raise_OnCurrentUnitChanged
+  - Raise_OnEnemyCountChanged
+  - Raise_OnTryCombine
+  - Raise_OnUnitFlagDictChanged
   - RespawnSpaceship
   - RPC_OnDamage
   - RPC_OnStart
@@ -59,10 +66,10 @@ MonoBehaviour:
   - SelectAttack
   - SetActive
   - SetId
+  - SetPassive
   - SetPosition
   - SetRotate
   - SetRotation
-  - SetShotData
   - SetStatus
   - SetVelocity
   - ShowSturnEffetc
@@ -70,16 +77,7 @@ MonoBehaviour:
   - SpawnUnit
   - SyncSpeed
   - Turn
-  - _SetId
-  - SpawnCallBackToAll
-  - Raise_OnEnemyCountChanged
-  - Combine
-  - Raise_OnUnitFlagDictChanged
-  - Raise_OnUnitFlagDictChanged_RPC
-  - Raise_OnCombine
-  - Raise_OnTryCombine
-  - Raise_OnCurrentUnitChanged
-  - _MageSkile
+  - Invoke
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

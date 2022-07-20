@@ -174,7 +174,14 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
 
         if (Input.GetKeyDown(KeyCode.K)) // 빠른 게임 클리어 테스트 용
         {
-            Time.timeScale = 20f;
+            if(Time.timeScale == 20f)
+            {
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                Time.timeScale = 20f;
+            }
         }
         Chilk();
     }

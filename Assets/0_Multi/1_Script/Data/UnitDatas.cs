@@ -144,3 +144,110 @@ public class UnitNameDatas : ICsvLoader<string, UnitNameData>
         return CsvUtility.GetEnumerableFromCsv<UnitNameData>(csv).ToDictionary(x => x.KoearName, x => x);
     }
 }
+
+
+[Serializable]
+public struct WeaponData
+{
+    [SerializeField] UnitFlags flag;
+    [SerializeField] string[] paths;
+
+    public IReadOnlyList<string> Paths => paths;
+    public UnitFlags Flag => flag;
+}
+
+[Serializable]
+public class WeaponDatas : ICsvLoader<UnitFlags, WeaponData>
+{
+    public Dictionary<UnitFlags, WeaponData> MakeDict(string csv) => CsvUtility.GetEnumerableFromCsv<WeaponData>(csv).ToDictionary(x => x.Flag, x => x);
+}
+
+
+[Serializable]
+public class UnitStat
+{
+    [SerializeField] UnitFlags _flag;
+    [SerializeField] int _damage;
+    [SerializeField] int _bossDamage;
+    [SerializeField] int _useSkillPercent;
+    [SerializeField] float _attackDelayTime;
+    [SerializeField] float _speed;
+    [SerializeField] float _attackRange;
+
+    public UnitStat GetClone()
+    {
+        UnitStat result = new UnitStat();
+        result._flag = Flag;
+        result._damage = Damage;
+        result._bossDamage = BossDamage;
+        result._useSkillPercent = UseSkillPercent;
+        result._attackDelayTime = AttackDelayTime;
+        result._speed = Speed;
+        result._attackRange = AttackRange;
+        return result;
+    }
+
+    public UnitFlags Flag => _flag;
+    public int Damage => _damage;
+    public int BossDamage => _bossDamage;
+    public int UseSkillPercent => _useSkillPercent;
+    public float AttackDelayTime => _attackDelayTime;
+    public float Speed => _speed;
+    public float AttackRange => _attackRange;
+
+    public void SetDamage(int damage) => _damage = damage;
+    public void SetBossDamage(int bossDamage) => _bossDamage = bossDamage;
+    public void SetUseSkillPercent(int useSkillPercent) => _useSkillPercent = useSkillPercent;
+    public void SetAttDelayTime(float attackDelayTime) => _attackDelayTime = attackDelayTime;
+    public void SetSpeed(float speed) => _speed = speed;
+    public void SetAttackRange(float attackRange) => _attackRange = attackRange;
+}
+
+
+[Serializable]
+public class UnitStats : ICsvLoader<UnitFlags, UnitStat>
+{
+    public Dictionary<UnitFlags, UnitStat> MakeDict(string csv)
+        => CsvUtility.GetEnumerableFromCsv<UnitStat>(csv).ToDictionary(x => x.Flag, x => x);
+}
+
+
+[Serializable]
+public struct UnitPassiveStat
+{
+    [SerializeField] UnitFlags _flag;
+    [SerializeField] float[] _stats;
+
+    public UnitFlags Flag => _flag;
+    public IReadOnlyList<float> Stats => _stats;
+}
+
+[Serializable]
+public class UnitPassiveStats : ICsvLoader<UnitFlags, UnitPassiveStat>
+{
+    public Dictionary<UnitFlags, UnitPassiveStat> MakeDict(string csv)
+        => CsvUtility.GetEnumerableFromCsv<UnitPassiveStat>(csv).ToDictionary(x => x.Flag, x => x);
+}
+
+
+// TODO : struct도 원본 수정 가능한지 확인하기
+[Serializable]
+public struct MageUnitStat
+{
+    [SerializeField] UnitFlags _flag;
+    [SerializeField] int _maxMana;
+    [SerializeField] int _addMana;
+    [SerializeField] float[] _skillStats;
+
+    public UnitFlags Flag => _flag;
+    public int MaxMana => _maxMana;
+    public int AddMana => _addMana;
+    public IReadOnlyList<float> SkillStats => _skillStats;
+}
+
+[Serializable]
+public class MageUnitStats : ICsvLoader<UnitFlags, MageUnitStat>
+{
+    public Dictionary<UnitFlags, MageUnitStat> MakeDict(string csv)
+        => CsvUtility.GetEnumerableFromCsv<MageUnitStat>(csv).ToDictionary(x => x.Flag, x => x);
+}

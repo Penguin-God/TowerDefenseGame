@@ -1,0 +1,25 @@
+﻿flag,paths,paths
+빨간 궁수,Arrows/RedArrowTrail 1,
+파란 궁수,Arrows/BlueArrowTrail 1,
+노란 궁수,Arrows/YellowArrowTrail 1,
+초록 궁수,Arrows/GreenArrowTrail 1,
+주황 궁수,Arrows/OrangeArrowTrail 1,
+보라 궁수,Arrows/VioletArrowTrail 1,
+하얀 궁수,Arrows/WhiteArrowTrail 1,
+검은 궁수,Arrows/BlackArrowTrail 1,
+빨간 창병,Spears/Red_Spear 1,
+파란 창병,Spears/Blue_Spear 1,
+노란 창병,Spears/Yellow_Spear 1,
+초록 창병,Spears/Green_Spear 1,
+주황 창병,Spears/Orange_Spear 1,
+보라 창병,Spears/Violet_Spear 1,
+하얀 창병,Spears/White_Spear 1,
+검은 창병,Spears/Black_Spear 1,
+빨간 마법사,Mageballs/RedMageBall 1,MageSkills/Meteor 1
+파란 마법사,Mageballs/BlueMageBall 1,MageSkills/IceCloud 1
+노란 마법사,Mageballs/YellowMageBall 1,MageSkills/Yellow Skile Object 1
+초록 마법사,Mageballs/GreenMageBall 1,MageSkills/GreenMage BounceBall 1
+주황 마법사,Mageballs/OrangeMageBall 1,MageSkills/OrangeMage SkillEffect 1
+보라 마법사,Mageballs/VioletMageBall 1,MageSkills/MagePosionEffect 1
+하얀 마법사,Mageballs/WhiteMageBall 1,None
+검은 마법사,Mageballs/BlackMageBall 1,MageSkills/BlackMageSkileBall 1

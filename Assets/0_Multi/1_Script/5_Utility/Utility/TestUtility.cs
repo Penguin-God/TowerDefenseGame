@@ -1,18 +1,33 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 using System;
 
 public class TestUtility : MonoBehaviour
 {
-    [SerializeField] string names;
-    [SerializeField] Multi_Enemy target;
-    [SerializeField] Vector3 offset;
-    [ContextMenu("WeaponSpawn")]
+    [SerializeField] List<MageUnitStat> stats;
+    [ContextMenu("Test")]
     void Test()
     {
-        Multi_Meteor meteor = 
-            Multi_SpawnManagers.Weapon.Spawn(WeaponType.MageSkills, names, transform.position + offset).GetComponent<Multi_Meteor>();
-        meteor.Shot(target, target.transform.position, (enemy) => print("안녕 세상"));
+        stats.Clear();
+        foreach (var item in Multi_Managers.Data.MageStatByFlag)
+        {
+            stats.Add(item.Value);
+        }
+    }
+
+    [SerializeField] int spawnColorMax;
+    [SerializeField] int spawnClassMax;
+    [ContextMenu("Unit Spawn")]
+    void UnitSpawn()
+    {
+        for (int i = 0; i <= spawnColorMax; i++)
+        {
+            for (int j = 0; j <= spawnClassMax; j++)
+            {
+                Multi_SpawnManagers.NormalUnit.Spawn(i, j);
+            }
+        }
     }
 }

@@ -111,18 +111,22 @@ public class Multi_Enemy : MonoBehaviourPun
     }
 
     // 상태 이상은 호스트에서 적용 후 다른 플레이어에게 동기화하는 방식
+    public void OnSlow_RPC(float slowPercent, float slowTime) => _PV.RPC("OnSlow", RpcTarget.MasterClient, slowPercent, slowTime);
     public void OnSlow(RpcTarget _target, float slowPercent, float slowTime) => _PV.RPC("OnSlow", _target, slowPercent, slowTime);
     [PunRPC] protected virtual void OnSlow(float slowPercent, float slowTime) { }
 
     public void ExitSlow(RpcTarget _target) => _PV.RPC("ExitSlow", _target);
     [PunRPC] protected virtual void ExitSlow() { }
 
-    public void OnFreeze(RpcTarget _target, float _freezeTime) => _PV.RPC("OnFreeze", _target, _freezeTime);
+    public void OnFreeze_RPC(float _freezeTime) => _PV.RPC("OnFreeze", RpcTarget.MasterClient, _freezeTime);
     [PunRPC] protected virtual void OnFreeze(float slowTime) { } // 얼리는 스킬
 
-    public void OnStun(RpcTarget _target, int _stunPercent, float _stunTime) => _PV.RPC("OnStun", _target, _stunPercent, _stunTime);
+    public void OnStun_RPC(int _stunPercent, float _stunTime) => _PV.RPC("OnStun", RpcTarget.MasterClient, _stunPercent, _stunTime);
+    // public void OnStun(RpcTarget _target, int _stunPercent, float _stunTime) => _PV.RPC("OnStun", _target, _stunPercent, _stunTime);
     [PunRPC] protected virtual void OnStun(int stunPercent, float stunTime) { }
 
+    public void OnPoison_RPC(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
+        => _PV.RPC("OnPoison", RpcTarget.MasterClient, poisonPercent, poisonCount, poisonDelay, maxDamage);
     public void OnPoison(RpcTarget _target, int poisonPercent, int poisonCount, float poisonDelay, int maxDamage) 
         => _PV.RPC("OnPoison", _target, poisonPercent, poisonCount, poisonDelay, maxDamage);
     [PunRPC]

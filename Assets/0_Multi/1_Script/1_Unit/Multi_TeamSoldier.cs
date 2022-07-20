@@ -14,24 +14,27 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public UnitClass unitClass;
     public UnitColor unitColor;
 
-    public int originDamage;
-    public int originBossDamage;
-    public float originAttackDelayTime;
+    [SerializeField] UnitStat stat;
 
-    public float speed;
-    
-    public float attackRange;
-    public int damage;
-    public int bossDamage;
+    public int OriginDamage { get; private set; }
+    public int OriginBossDamage { get; private set; }
+    public float OriginAttackDelayTime { get; private set; }
+
+    public int Damage { get => stat.Damage; set => stat.SetDamage(value); }
+    public int BossDamage { get => stat.BossDamage; set => stat.SetBossDamage(value); }
+    public int UseSkillPercent { get => stat.UseSkillPercent; set => stat.SetUseSkillPercent(value); }
+    public float Speed { get => stat.Speed; set => stat.SetSpeed(value); }
+    public float AttackDelayTime { get => stat.AttackDelayTime; set => stat.SetAttDelayTime(value); }
+    public float AttackRange { get => stat.AttackRange; set => stat.SetAttackRange(value); }
+
+
     public int skillDamage;
-    public int ApplySkillDamage => skillDamage;
-    public float stopDistanc;
+    [SerializeField] protected float stopDistanc;
 
     // 상태 변수(동기화되지 않음)
     public bool enterStoryWorld; // 적군의 성 입장시 true
     public bool isAttack; // 공격 중에 true
     public bool isAttackDelayTime; // 공격 쿨타임 중에 true
-    public float attackDelayTime;
     // 나중에 유닛별 공격 조건 만들면서 없애기
     public bool isSkillAttack; // 스킬 공격 중에 true
     public float skillCoolDownTime;
@@ -40,6 +43,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     protected Multi_Enemy TargetEnemy { get { return target.GetComponent<Multi_Enemy>(); } }
 
     //protected Multi_WeaponPoolManager poolManager = null;
+    protected Multi_UnitPassive passive;
     protected NavMeshAgent nav;
     protected Animator animator;
     protected PhotonView pv;
@@ -69,24 +73,17 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     private void Awake()
     {
-        // TODO : 아래 내용 공부하고 다른 쪽으로 빼기
-        //PhotonNetwork.SendRate = 20;
-        //PhotonNetwork.SerializationRate = 40;
-
         _unitFlags = new UnitFlags(unitColor, unitClass);
-
-        SetPassive(); // 아래에서 평타랑 스킬 설정할 때 delegate_OnPassive가 null이면 에러가 떠서 에러 방지용으로 실행 후에 OnEnable에서 덮어쓰기 때문에 의미 없는 코드임
 
         // 평타 설정
         OnHit += AttackEnemy;
-        OnHit += OnPassiveHit;
+        
         // 스킬 설정
         skillDamage = 150; // 테스트 코드
         OnSkileHit += enemy => AttackEnemy(enemy, skillDamage);
-        OnSkileHit += OnPassiveHit;
 
         // 변수 선언
-        //enemySpawn = FindObjectOfType<EnemySpawn>();
+        passive = GetComponent<Multi_UnitPassive>();
         pv = GetComponent<PhotonView>();
         animator = GetComponentInChildren<Animator>();
         unitAudioSource = GetComponent<AudioSource>();
@@ -94,7 +91,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         chaseRange = 150f;
         enemyDistance = 150f;
-        nav.speed = this.speed;
+        nav.speed = Speed;
 
         OnAwake(); // 유닛별 세팅
     }
@@ -107,30 +104,53 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     void OnEnable()
     {
-        //SetData();
-        SetPassive();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            LoadStat_RPC();
+            SetPassive_RPC();
+        }
 
         if (animator != null) animator.enabled = true;
         nav.enabled = true;
 
         // 적 추적
         UpdateTarget();
-        if(pv.IsMine) StartCoroutine("NavCoroutine");
+        if(PhotonNetwork.IsMasterClient) StartCoroutine("NavCoroutine");
     }
 
-    void SetData()
+
+    public void LoadStat_RPC() => pv.RPC("LoadStat", RpcTarget.All);
+    [PunRPC]
+    public void LoadStat()
     {
-        //UnitManager.instance.ApplyUnitData(gameObject.tag, this);
+        stat = Multi_Managers.Data.GetUnitStat(UnitFlags);
+        OriginDamage = stat.Damage;
+        OriginBossDamage = stat.BossDamage;
+        OriginAttackDelayTime = stat.AttackDelayTime;
         SetInherenceData();
     }
 
-    void SetPassive()
+    void SetPassive_RPC() => pv.RPC("SetPassive", RpcTarget.All);
+    [PunRPC]
+    public void SetPassive()
     {
-        Multi_UnitPassive _passive = GetComponent<Multi_UnitPassive>();
-        if (_passive == null) return;
-        if (OnPassiveHit != null) OnPassiveHit = null;
-        //UnitManager.instance.ApplyPassiveData(gameObject.tag, _passive, unitColor);
-        _passive.SetPassive(this);
+        if (passive == null) return;
+
+        if (OnPassiveHit != null)
+        {
+            OnPassiveHit = null;
+            OnHit -= OnPassiveHit;
+            OnSkileHit -= OnPassiveHit;
+        }
+
+        passive.LoadStat(UnitFlags);
+        passive.SetPassive(this);
+
+        if (OnPassiveHit != null)
+        {
+            OnHit += OnPassiveHit;
+            OnSkileHit += OnPassiveHit;
+        }
     }
 
     public void Dead()
@@ -165,7 +185,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     // 현재 살아있는 enemy 중 가장 가까운 enemy의 정보를 가지고 nav 및 변수 설정
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
-        //Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange);
         if (PhotonNetwork.IsMasterClient == false) return;
 
         Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange, GetComponent<RPCable>().UsingId);
@@ -190,7 +209,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     public virtual Vector3 DestinationPos { get; set; }
     protected bool contactEnemy = false;
-    IEnumerator NavCoroutine() // 적을 추적하는 무한반복 코루틴(로컬에서만 돌아감)
+    IEnumerator NavCoroutine()
     {
         if (PhotonNetwork.IsMasterClient == false) yield break;
 
@@ -216,7 +235,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     }
 
     bool isRPC; // RPC딜레이 때문에 공격 2번 이상하는 버그 방지 변수
-    [SerializeField] private int specialAttackPercent;
     void UnitAttack()
     {
         if (isRPC) return;
@@ -229,7 +247,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public void AttackFromHost()
     {
         int random = Random.Range(1, 101);
-        bool isNormal = (random >= specialAttackPercent);
+        bool isNormal = (random >= UseSkillPercent);
         photonView.RPC("SelectAttack", RpcTarget.All, isNormal);
     }
 
@@ -260,7 +278,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         isAttack = false;
 
-        yield return new WaitForSeconds(attackDelayTime);
+        yield return new WaitForSeconds(AttackDelayTime);
         isAttackDelayTime = false;
     }
 
@@ -412,8 +430,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     void AttackEnemy(Multi_Enemy enemy) // Boss랑 쫄병 구분해서 대미지 적용
     {
-        if (TargetIsNormalEnemy) AttackEnemy(enemy, 100); // 100은 test용 원래는 damage 넣어야 됨
-        else AttackEnemy(enemy, bossDamage);
+        if (TargetIsNormalEnemy) AttackEnemy(enemy, Damage);
+        else AttackEnemy(enemy, BossDamage);
     }
 
     void AttackEnemy(Multi_Enemy enemy, int damage) => enemy.OnDamage(damage);
@@ -436,8 +454,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             currentDir = (Quaternion)stream.ReceiveNext();
             LerpUtility.LerpPostition(transform, currentPos);
             LerpUtility.LerpRotation(transform, currentDir);
-            //transform.position = currentPos;
-            //transform.rotation = currentDir;
         }
     }
 }

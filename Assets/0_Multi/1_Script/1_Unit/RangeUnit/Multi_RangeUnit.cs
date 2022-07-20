@@ -18,14 +18,14 @@ public class Multi_RangeUnit : Multi_TeamSoldier
     {
         if (enterStoryWorld) return;
 
-        if (enemyDistance < attackRange)
+        if (enemyDistance < AttackRange)
         {
             if (!target.gameObject.CompareTag("Tower")) nav.speed = 0.1f;
 
             if (enemyDistance < stopDistanc) contactEnemy = true;
             else contactEnemy = false;
         }
-        else nav.speed = this.speed;
+        else nav.speed = Speed;
     }
 
     // 원거리 유닛 무기 발사
@@ -48,13 +48,13 @@ public class Multi_RangeUnit : Multi_TeamSoldier
     {
         // Physics.BoxCast (레이저를 발사할 위치, 사각형의 각 좌표의 절판 크기, 발사 방향, 충돌 결과, 회전 각도, 최대 거리)
         rayHit = Physics.BoxCast(transform.position + Vector3.up, transform.lossyScale * 2,
-            transform.forward, out rayHitObject, transform.rotation, attackRange, layerMask);
+            transform.forward, out rayHitObject, transform.rotation, AttackRange, layerMask);
     }
 
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position + Vector3.up, transform.forward * attackRange);
-        Gizmos.DrawWireCube(transform.position + Vector3.up + transform.forward * attackRange, transform.lossyScale * 2);
+        Gizmos.DrawRay(transform.position + Vector3.up, transform.forward * AttackRange);
+        Gizmos.DrawWireCube(transform.position + Vector3.up + transform.forward * AttackRange, transform.lossyScale * 2);
     }
 }

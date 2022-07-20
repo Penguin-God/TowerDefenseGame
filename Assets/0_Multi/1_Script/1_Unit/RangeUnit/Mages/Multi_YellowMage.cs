@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Multi_YellowMage : Multi_Unit_Mage
 {
-    public override void MageSkile()
+    [SerializeField] int addGold;
+
+    public override void SetMageAwake()
     {
-        if (pv.IsMine)
-        {
-            UsedSkill(transform.position + (Vector3.up * 0.6f));
-            int addGold = isUltimate ? 5 : 3;
-            Multi_GameManager.instance.AddGold(addGold);
-        }
+        addGold = (int)skillStats[0];
+    }
+
+
+    protected override void MageSkile()
+    {
+        SkillSpawn(transform.position + (Vector3.up * 0.6f));
+        Multi_GameManager.instance.AddGold(addGold);
     }
 }

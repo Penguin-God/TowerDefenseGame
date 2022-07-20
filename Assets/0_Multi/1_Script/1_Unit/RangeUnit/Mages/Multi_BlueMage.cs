@@ -6,52 +6,32 @@ using Photon.Pun;
 public class Multi_BlueMage : Multi_Unit_Mage
 {
     Multi_BluePassive bluePassive = null;
-    SphereCollider blueCollider = null;
-
+    [SerializeField] float freezeTime;
     public override void SetMageAwake()
     {
-        //SetSkillPool(mageSkillObject, 3, SetEnemyFreeze);
-
         bluePassive = GetComponent<Multi_BluePassive>();
-        blueCollider = GetComponentInChildren<SphereCollider>();
-        blueCollider.radius = bluePassive.Get_ColliderRange;
-        bluePassive.OnBeefup += () => blueCollider.radius = bluePassive.Get_ColliderRange;
-
-        //StartCoroutine(Co_SkilleReinForce());
+        GetComponentInChildren<SphereCollider>().radius = bluePassive.Get_ColliderRange;
+        freezeTime = skillStats[0];
     }
 
-    void SetEnemyFreeze(GameObject _skill) =>
-        _skill.GetComponent<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => enemy.OnFreeze(RpcTarget.MasterClient, 5f);
-
-    public override void MageSkile() => UsedSkill(transform.position + (Vector3.up * 2));
-
-
-    // TODO : Event로 옮기기
-    IEnumerator Co_SkilleReinForce()
+    protected override void MageSkile()
     {
-        yield return new WaitUntil(() => isUltimate);
-        //UpdateSkill(SkilleReinForce);
+        SkillSpawn(transform.position+ (Vector3.up * 2)).GetComponent<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => enemy.OnFreeze_RPC(freezeTime);
     }
-
-    void SkilleReinForce(GameObject _skill)
-    {
-        _skill.GetComponent<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => enemy.OnDamage(20000);
-    }
-
 
     private void OnTriggerStay(Collider other)
     {
-        if (!pv.IsMine) return;
+        if (pv.IsMine == false) return;
 
         if (other.GetComponentInParent<Multi_NormalEnemy>() != null) // 나가기 전까진 무한 슬로우
-            other.GetComponentInParent<Multi_NormalEnemy>().OnSlow(RpcTarget.MasterClient, bluePassive.Get_SlowPercent, -1);
+            other.GetComponentInParent<Multi_NormalEnemy>().OnSlow_RPC(bluePassive.Get_SlowPercent, -1);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (!pv.IsMine) return;
+        if (pv.IsMine == false) return;
 
         if (other.GetComponentInParent<Multi_NormalEnemy>() != null)
-            other.GetComponentInParent<Multi_NormalEnemy>().ExitSlow(RpcTarget.All);
+            other.GetComponentInParent<Multi_NormalEnemy>().ExitSlow(RpcTarget.All); // TODO : 나중에 동기화 마스터한테 옮기고 이게 맞는지 확인해보기
     }
 }

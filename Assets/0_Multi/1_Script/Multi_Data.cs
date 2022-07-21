@@ -36,7 +36,6 @@ public class Multi_Data : MonoBehaviourPun
     // id가 0이면 호스트 1이면 클라이언트 이 아이디를 이용해서 데이터를 정함
     [SerializeField] int id;
     public int Id => id;
-    public bool CheckIdSame(Component component) => CheckIdSame(component.GetComponent<RPCable>().UsingId);
     public bool CheckIdSame(int _id) => id == _id;
 
     // 배열의 0번째는 호스트 값 1번째는 클라이언트 값

@@ -26,6 +26,7 @@ public class Multi_UIManager : MonoBehaviour
         Multi_StageManager.Instance.OnUpdateStage += UpdateStageText;
 
         Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateCountEnemyText;
+        Multi_EnemyManager.Instance._OnEnemyCountChanged += UpdateCountEnemyText;
 
         Multi_Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
         Multi_Managers.UI.ShowPopupUI<UnitOverText>("UnitOver Text");

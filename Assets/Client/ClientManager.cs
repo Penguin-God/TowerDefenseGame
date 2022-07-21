@@ -29,7 +29,10 @@ public class ClientManager : MonoBehaviour
     public AudioSource ClientClickAudioSource;
 
     void Start()
-    {        
+    {
+        // 임시 코드
+        EventIdManager.Reset();
+
         ClientIron = Multi_Managers.ClientData.MoneyByType[MoneyType.Iron].Amount;
         ClientWood = Multi_Managers.ClientData.MoneyByType[MoneyType.Wood].Amount;
         ClientHammer = Multi_Managers.ClientData.MoneyByType[MoneyType.Hammer].Amount;

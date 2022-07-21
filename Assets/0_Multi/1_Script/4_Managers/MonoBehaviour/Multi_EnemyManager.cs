@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Random = UnityEngine.Random;
 using Photon.Pun;
 
 public class Multi_EnemyManager : MonoBehaviourPun
@@ -44,7 +43,10 @@ public class Multi_EnemyManager : MonoBehaviourPun
     }
 
     Dictionary<int, List<Transform>> currentNormalEnemysById = new Dictionary<int, List<Transform>>();
-    
+
+    public RPCAction<int> _OnEnemyCountChanged = new RPCAction<int>();
+    void Raise_EnemyCountChanged(int id) => _OnEnemyCountChanged.RaiseEvent(id, currentNormalEnemysById[id].Count);
+
     public event Action<int> OnEnemyCountChanged;
     void Raise_OnEnemyCountChanged_RPC(int id) => photonView.RPC("Raise_OnEnemyCountChanged", RpcTarget.All, id, currentNormalEnemysById[id].Count);
     [PunRPC] void Raise_OnEnemyCountChanged(int id, int count)
@@ -144,7 +146,9 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
         int id = _enemy.GetComponent<RPCable>().UsingId;
         currentNormalEnemysById[id].Add(_enemy.transform);
-        Raise_OnEnemyCountChanged_RPC(id);
+        Raise_EnemyCountChanged(id);
+        //_OnEnemyCountChanged.RaiseEvent(id, currentNormalEnemysById[id].Count);
+        //Raise_OnEnemyCountChanged_RPC(id);
     }
     void RemoveEnemyAtList(Multi_Enemy _enemy)
     {
@@ -152,7 +156,9 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
         int id = _enemy.GetComponent<RPCable>().UsingId;
         currentNormalEnemysById[id].Remove(_enemy.transform);
-        Raise_OnEnemyCountChanged_RPC(id);
+        Raise_EnemyCountChanged(id);
+        //_OnEnemyCountChanged.RaiseEvent(id, currentNormalEnemysById[id].Count);
+        //Raise_OnEnemyCountChanged_RPC(id);
     }
 
 

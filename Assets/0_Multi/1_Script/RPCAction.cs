@@ -103,11 +103,11 @@ public class RPCAction<T, T2>
     {
         if (Multi_Data.instance.CheckIdSame(id)) // 내가 맞으면 실행하고 아니면 전달
         {
-            //OnEvent?.Invoke(value, value2);
-            //return;
+            OnEvent?.Invoke(value, value2);
+            return;
         }
         PhotonNetwork.RaiseEvent
-            (_eventId, new object[] { value, value2 }, new RaiseEventOptions() { Receivers = ReceiverGroup.All }, SendOptions.SendUnreliable);
+            (_eventId, new object[] { value, value2 }, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, SendOptions.SendUnreliable);
     }
 
     public static RPCAction<T, T2> operator +(RPCAction<T, T2> me, Action<T, T2> action)

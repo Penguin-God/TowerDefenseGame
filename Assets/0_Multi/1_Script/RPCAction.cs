@@ -77,27 +77,48 @@ public class RPCAction<T>
     }
 }
 
-public class RPCActionInt
+
+public class RPCAction<T, T2>
 {
-    PhotonView _pv;
-    public RPCActionInt(PhotonView pv)
+    byte _eventId;
+    event Action<T, T2> OnEvent = null;
+
+    public RPCAction()
     {
-        _pv = pv;
+        _eventId = EventIdManager.UseID();
+        Debug.Log(_eventId);
+        PhotonNetwork.NetworkingClient.EventReceived += RecevieEvent;
     }
 
-    Action<int> action;
-
-    public void Invoke_RPC(int id, int value) => _pv?.RPC("Invoke", RpcTarget.All, id, value);
-
-    [PunRPC]
-    void Invoke(int id, int value)
+    void RecevieEvent(EventData data)
     {
-        if (Multi_Data.instance.CheckIdSame(id) == false) return;
-        action?.Invoke(value);
+        if (data.Code != _eventId) return;
+
+        T value = (T)((object[])data.CustomData)[0];
+        T2 value2 = (T2)((object[])data.CustomData)[1];
+        OnEvent?.Invoke(value, value2);
     }
-}
 
-public class RPCActionUnitInt
-{
+    public void RaiseEvent(int id, T value, T2 value2)
+    {
+        if (Multi_Data.instance.CheckIdSame(id)) // 내가 맞으면 실행하고 아니면 전달
+        {
+            //OnEvent?.Invoke(value, value2);
+            //return;
+        }
+        PhotonNetwork.RaiseEvent
+            (_eventId, new object[] { value, value2 }, new RaiseEventOptions() { Receivers = ReceiverGroup.All }, SendOptions.SendUnreliable);
+    }
 
+    public static RPCAction<T, T2> operator +(RPCAction<T, T2> me, Action<T, T2> action)
+    {
+        me.OnEvent += action;
+        return me;
+    }
+
+    public static RPCAction<T, T2> operator -(RPCAction<T, T2> me, Action<T, T2> action)
+    {
+        me.OnEvent -= action;
+        return me;
+    }
 }

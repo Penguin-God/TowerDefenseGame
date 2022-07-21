@@ -29,6 +29,8 @@ public class Multi_UnitManager : MonoBehaviourPun
     List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flags) => unitListDictById[id][flags];
     int GetUnitListCount(int id, UnitFlags flags) => GetUnitList(id, flags).Count;
 
+    public RPCAction<UnitFlags, int> OnUnitManagedDictChanged = new RPCAction<UnitFlags, int>();
+
     public event Action<UnitFlags, int> OnUnitFlagDictChanged = null;
     public void Raise_OnUnitFlagDictChanged_RPC(int id, UnitFlags flag)
         => photonView.RPC("Raise_OnUnitFlagDictChanged", RpcTarget.MasterClient, id, flag.ColorNumber, flag.ClassNumber);
@@ -39,7 +41,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         print($"{unit.name} : {GetUnitList(unit).Count}마리 있음");
     }
     [PunRPC]
-    void Raise_OnUnitFlagDictChanged(int id, int colorNum, int classNum) 
+    void Raise_OnUnitFlagDictChanged(int id, int colorNum, int classNum)
         => photonView.RPC("Raise_OnUnitFlagDictChanged", RpcTarget.All, id, colorNum, classNum, GetUnitListCount(id, new UnitFlags(colorNum, classNum)));
     [PunRPC]
     void Raise_OnUnitFlagDictChanged(int id, int colorNum, int classNum, int count)
@@ -48,6 +50,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         OnUnitFlagDictChanged?.Invoke(new UnitFlags(colorNum, classNum), count);
     }
 
+    public RPCAction<bool, UnitFlags> OnCombineTry = new RPCAction<bool, UnitFlags>();
 
     public event Action<bool, UnitFlags> OnTryCombine = null;
     void Raise_OnTryCombine_RPC(int id, bool isSuccess, UnitFlags flag) 
@@ -82,7 +85,9 @@ public class Multi_UnitManager : MonoBehaviourPun
 
             SetUnitFlagsDic();
 
-            OnTryCombine += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
+            // OnTryCombine += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
+            OnCombineTry += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
+
         }
         OnCurrentUnitChanged += count => _unitCount = count;
 
@@ -147,11 +152,14 @@ public class Multi_UnitManager : MonoBehaviourPun
         {
             SacrificedUnit_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)], id);
             Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(colorNumber, classNumber), id);
-            Raise_OnTryCombine_RPC(id, true, new UnitFlags(colorNumber, classNumber));
+
+            //Raise_OnTryCombine_RPC(id, true, new UnitFlags(colorNumber, classNumber));
+            OnCombineTry?.RaiseEvent(id, true, new UnitFlags(colorNumber, classNumber));
         }
         else
         {
-            Raise_OnTryCombine_RPC(id, false, new UnitFlags(colorNumber, classNumber));
+            //Raise_OnTryCombine_RPC(id, false, new UnitFlags(colorNumber, classNumber));
+            OnCombineTry?.RaiseEvent(id, false, new UnitFlags(colorNumber, classNumber));
         }
     }
 

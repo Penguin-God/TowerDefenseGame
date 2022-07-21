@@ -16,7 +16,8 @@ public class CombineResultText : Multi_UI_Popup
         resultText = GetComponent<Text>();
         resultText.text = "";
         waitTime = new WaitForSeconds(showTime);
-        Multi_UnitManager.Instance.OnTryCombine += ShowCombineResult;
+        // Multi_UnitManager.Instance.OnTryCombine += ShowCombineResult;
+        Multi_UnitManager.Instance.OnCombineTry += ShowCombineResult;
         gameObject.SetActive(false);
     }
 

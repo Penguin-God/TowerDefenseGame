@@ -14,25 +14,6 @@ public static class EventIdManager
 }
 
 // 마스터한테 요청해야 하지만 개별로 적용되어야 하는 이벤트들
-public class RPCAction
-{
-    PhotonView _pv;
-    public RPCAction(PhotonView pv)
-    {
-        _pv = pv;
-    }
-
-    Action action;
-
-    public void Invoke_RPC(int id) => _pv?.RPC("Invoke", RpcTarget.All, id);
-
-    [PunRPC]
-    void Invoke(int id)
-    {
-        if (Multi_Data.instance.CheckIdSame(id) == false) return;
-        action?.Invoke();
-    }
-}
 
 public class RPCAction<T>
 {
@@ -42,7 +23,7 @@ public class RPCAction<T>
     public RPCAction()
     {
         _eventId = EventIdManager.UseID();
-        Debug.Log(_eventId);
+        //Debug.Log(_eventId);
         PhotonNetwork.NetworkingClient.EventReceived += RecevieEvent;
     }
 
@@ -56,6 +37,8 @@ public class RPCAction<T>
 
     public void RaiseEvent(int id, T value)
     {
+        Debug.Assert(PhotonNetwork.IsMasterClient, "마스터가 아닌데 이벤트를 전달하려 함");
+
         if (Multi_Data.instance.CheckIdSame(id)) // 내가 맞으면 실행하고 아니면 전달
         {
             OnEvent?.Invoke(value);
@@ -86,7 +69,7 @@ public class RPCAction<T, T2>
     public RPCAction()
     {
         _eventId = EventIdManager.UseID();
-        Debug.Log(_eventId);
+        //Debug.Log(_eventId);
         PhotonNetwork.NetworkingClient.EventReceived += RecevieEvent;
     }
 
@@ -101,6 +84,8 @@ public class RPCAction<T, T2>
 
     public void RaiseEvent(int id, T value, T2 value2)
     {
+        Debug.Assert(PhotonNetwork.IsMasterClient, "마스터가 아닌데 이벤트를 전달하려 함");
+
         if (Multi_Data.instance.CheckIdSame(id)) // 내가 맞으면 실행하고 아니면 전달
         {
             OnEvent?.Invoke(value, value2);

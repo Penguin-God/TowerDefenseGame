@@ -23,49 +23,6 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
     }
 
-
-    Dictionary<int, Dictionary<UnitFlags, List<Multi_TeamSoldier>>> unitListDictById = new Dictionary<int, Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
-    List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
-    List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flags) => unitListDictById[id][flags];
-    int GetUnitListCount(int id, UnitFlags flags) => GetUnitList(id, flags).Count;
-
-    public RPCAction<UnitFlags, int> OnUnitCountChanged = new RPCAction<UnitFlags, int>();
-
-    //public event Action<UnitFlags, int> OnUnitFlagDictChanged = null;
-    public void Raise_UnitCountChanged(UnitFlags flag) => photonView.RPC("Raise_UnitCountChanged", RpcTarget.MasterClient, Multi_Data.instance.Id, flag);
-    [PunRPC]
-    void Raise_UnitCountChanged(int id, UnitFlags flag) => OnUnitCountChanged.RaiseEvent(id, flag, GetUnitListCount(id, flag));
-
-    //public void Raise_OnUnitFlagDictChanged_RPC(int id, UnitFlags flag)
-    //    => photonView.RPC("Raise_OnUnitFlagDictChanged", RpcTarget.MasterClient, id, flag.ColorNumber, flag.ClassNumber);
-
-    //public void Raise_OnUnitFlagDictChanged_RPC(Multi_TeamSoldier unit)
-    //{
-    //    //Raise_OnUnitFlagDictChanged_RPC(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
-    //    print($"{unit.name} : {GetUnitList(unit).Count}마리 있음");
-    //}
-    //[PunRPC]
-    //void Raise_OnUnitFlagDictChanged(int id, int colorNum, int classNum)
-    //    => photonView.RPC("Raise_OnUnitFlagDictChanged", RpcTarget.All, id, colorNum, classNum, GetUnitListCount(id, new UnitFlags(colorNum, classNum)));
-    //[PunRPC]
-    //void Raise_OnUnitFlagDictChanged(int id, int colorNum, int classNum, int count)
-    //{
-    //    if (Multi_Data.instance.CheckIdSame(id) == false) return;
-    //    OnUnitFlagDictChanged?.Invoke(new UnitFlags(colorNum, classNum), count);
-    //}
-
-    public RPCAction<bool, UnitFlags> OnCombineTry = new RPCAction<bool, UnitFlags>();
-
-    //public event Action<bool, UnitFlags> OnTryCombine = null;
-    //void Raise_OnTryCombine_RPC(int id, bool isSuccess, UnitFlags flag) 
-    //    => photonView.RPC("Raise_OnTryCombine", RpcTarget.All, id, isSuccess, flag.ColorNumber, flag.ClassNumber);
-    //[PunRPC]
-    //void Raise_OnTryCombine(int id, bool isSuccess, int colorNum, int classNum)
-    //{
-    //    if (Multi_Data.instance.CheckIdSame(id) == false) return;
-    //    OnTryCombine?.Invoke(isSuccess, new UnitFlags(colorNum, classNum));
-    //}
-
     void Awake()
     {
         unitListDictById.Clear();
@@ -82,6 +39,8 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     private void Start()
     {
+        OnAllUnitCountChanged += count => _unitCount = count;
+
         if (PhotonNetwork.IsMasterClient)
         {
             Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
@@ -89,12 +48,8 @@ public class Multi_UnitManager : MonoBehaviourPun
 
             SetUnitFlagsDic();
 
-            // OnTryCombine += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
             OnCombineTry += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
-
         }
-        //OnCurrentUnitChanged += count => _unitCount = count;
-        OnAllUnitCountChanged += count => _unitCount = count;
 
         void SetUnitFlagsDic()
         {
@@ -110,49 +65,30 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
     }
 
+    // 유닛 딕셔너리
+    Dictionary<int, Dictionary<UnitFlags, List<Multi_TeamSoldier>>> unitListDictById = new Dictionary<int, Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
+    List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
+    List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flags) => unitListDictById[id][flags];
+    int GetUnitListCount(int id, UnitFlags flags) => GetUnitList(id, flags).Count;
+
+    public RPCAction<UnitFlags, int> OnUnitCountChanged = new RPCAction<UnitFlags, int>();
+    public void Raise_UnitCountChanged(UnitFlags flag) => photonView.RPC("Raise_UnitCountChanged", RpcTarget.MasterClient, Multi_Data.instance.Id, flag);
+    [PunRPC]
+    void Raise_UnitCountChanged(int id, UnitFlags flag) => OnUnitCountChanged.RaiseEvent(id, flag, GetUnitListCount(id, flag));
+
+    // 유닛 전체 리스트
     Dictionary<int, List<Multi_TeamSoldier>> _currentUnitsById = new Dictionary<int, List<Multi_TeamSoldier>>();
     List<Multi_TeamSoldier> GetCurrentUnitList(Multi_TeamSoldier unit) => _currentUnitsById[unit.GetComponent<RPCable>().UsingId];
 
     [SerializeField] int _unitCount;
     public int UnitCount => _unitCount;
+
     public RPCAction<int> OnAllUnitCountChanged = new RPCAction<int>();
     void Raise_AllUnitCountChanged(int id) => OnAllUnitCountChanged.RaiseEvent(id, _currentUnitsById[id].Count);
 
-
-    //public event Action<int> OnCurrentUnitChanged = null;
-    //void Raise_OnCurrentUnitChanged_RPC(Multi_TeamSoldier unit)
-    //{
-    //    int id = unit.GetComponent<RPCable>().UsingId;
-    //    photonView.RPC("Raise_OnCurrentUnitChanged", RpcTarget.All, id, _currentUnitsById[id].Count);
-    //}
-    //[PunRPC]
-    //void Raise_OnCurrentUnitChanged(int id, int count)
-    //{
-    //    if (Multi_Data.instance.CheckIdSame(id) == false) return;
-    //    OnCurrentUnitChanged?.Invoke(count);
-    //}
-
-    void AddUnit(Multi_TeamSoldier unit)
-    {
-        GetUnitList(unit).Add(unit);
-        GetCurrentUnitList(unit).Add(unit);
-
-        Raise_UnitCountChanged(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
-        Raise_AllUnitCountChanged(unit.GetComponent<RPCable>().UsingId);
-        //Raise_OnUnitFlagDictChanged_RPC(unit);
-        //Raise_OnCurrentUnitChanged_RPC(unit);
-    }
-
-    void RemoveUnit(Multi_TeamSoldier unit)
-    {
-        GetUnitList(unit).Remove(unit);
-        GetCurrentUnitList(unit).Remove(unit);
-
-        Raise_UnitCountChanged(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
-        Raise_AllUnitCountChanged(unit.GetComponent<RPCable>().UsingId);
-        //Raise_OnUnitFlagDictChanged_RPC(unit);
-        //Raise_OnCurrentUnitChanged_RPC(unit);
-    }
+    
+    // 유닛 조합
+    public RPCAction<bool, UnitFlags> OnCombineTry = new RPCAction<bool, UnitFlags>();
 
     public void Combine_RPC(CombineData data)
         => photonView.RPC("Combine", RpcTarget.MasterClient, data.UnitFlags.ColorNumber, data.UnitFlags.ClassNumber, Multi_Data.instance.Id);
@@ -165,14 +101,10 @@ public class Multi_UnitManager : MonoBehaviourPun
             SacrificedUnit_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)], id);
             Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(colorNumber, classNumber), id);
 
-            //Raise_OnTryCombine_RPC(id, true, new UnitFlags(colorNumber, classNumber));
             OnCombineTry?.RaiseEvent(id, true, new UnitFlags(colorNumber, classNumber));
         }
         else
-        {
-            //Raise_OnTryCombine_RPC(id, false, new UnitFlags(colorNumber, classNumber));
             OnCombineTry?.RaiseEvent(id, false, new UnitFlags(colorNumber, classNumber));
-        }
     }
 
     bool CheckCombineable(CombineCondition conditions, int id)
@@ -188,8 +120,27 @@ public class Multi_UnitManager : MonoBehaviourPun
     }
 
 
-    // 아래는 쭉 리팩터링 전 코드들
+    // 리스트 갱신
+    void AddUnit(Multi_TeamSoldier unit)
+    {
+        GetUnitList(unit).Add(unit);
+        GetCurrentUnitList(unit).Add(unit);
 
+        Raise_UnitCountChanged(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
+        Raise_AllUnitCountChanged(unit.GetComponent<RPCable>().UsingId);
+    }
+
+    void RemoveUnit(Multi_TeamSoldier unit)
+    {
+        GetUnitList(unit).Remove(unit);
+        GetCurrentUnitList(unit).Remove(unit);
+
+        Raise_UnitCountChanged(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
+        Raise_AllUnitCountChanged(unit.GetComponent<RPCable>().UsingId);
+    }
+
+
+    // 아래는 쭉 리팩터링 전 코드들
     [SerializeField] private GameObject[] tp_Effects;
     int current_TPEffectIndex;
     Vector3 effectPoolPosition = new Vector3(1000, 1000, 1000);

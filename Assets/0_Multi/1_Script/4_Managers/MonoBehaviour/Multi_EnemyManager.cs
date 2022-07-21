@@ -47,14 +47,6 @@ public class Multi_EnemyManager : MonoBehaviourPun
     public RPCAction<int> OnEnemyCountChanged = new RPCAction<int>();
     void Raise_EnemyCountChanged(int id) => OnEnemyCountChanged.RaiseEvent(id, currentNormalEnemysById[id].Count);
 
-    //public event Action<int> OnEnemyCountChanged;
-    //void Raise_OnEnemyCountChanged_RPC(int id) => photonView.RPC("Raise_OnEnemyCountChanged", RpcTarget.All, id, currentNormalEnemysById[id].Count);
-    //[PunRPC] void Raise_OnEnemyCountChanged(int id, int count)
-    //{
-    //    if (Multi_Data.instance.CheckIdSame(id) == false) return;
-    //    OnEnemyCountChanged?.Invoke(count);
-    //}
-
     [SerializeField] List<Transform> test_0 = new List<Transform>();
     [SerializeField] List<Transform> test_1 = new List<Transform>();
     void Update()
@@ -147,8 +139,6 @@ public class Multi_EnemyManager : MonoBehaviourPun
         int id = _enemy.GetComponent<RPCable>().UsingId;
         currentNormalEnemysById[id].Add(_enemy.transform);
         Raise_EnemyCountChanged(id);
-        //_OnEnemyCountChanged.RaiseEvent(id, currentNormalEnemysById[id].Count);
-        //Raise_OnEnemyCountChanged_RPC(id);
     }
     void RemoveEnemyAtList(Multi_Enemy _enemy)
     {
@@ -157,8 +147,6 @@ public class Multi_EnemyManager : MonoBehaviourPun
         int id = _enemy.GetComponent<RPCable>().UsingId;
         currentNormalEnemysById[id].Remove(_enemy.transform);
         Raise_EnemyCountChanged(id);
-        //_OnEnemyCountChanged.RaiseEvent(id, currentNormalEnemysById[id].Count);
-        //Raise_OnEnemyCountChanged_RPC(id);
     }
 
 

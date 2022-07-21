@@ -2,6 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using ExitGames.Client.Photon;
+
+class PhotonCustomType
+{
+    public static byte[] Serialize(object obj)
+    {
+        UnitFlags flag = (UnitFlags)obj;
+        Vector3 buffer = new Vector3(flag.ColorNumber, flag.ClassNumber, 0);
+        return Protocol.Serialize(buffer);
+    }
+
+    public static object DeSerialize(byte[] bytes)
+    {
+        Vector3 buffer = (Vector3)Protocol.Deserialize(bytes);
+        UnitFlags flag = new UnitFlags((int)buffer.x, (int)buffer.y);
+        return flag;
+    }
+}
 
 public class Multi_Data : MonoBehaviourPun
 {
@@ -22,7 +40,7 @@ public class Multi_Data : MonoBehaviourPun
             Debug.LogWarning("Multi Data 2개");
             Destroy(gameObject);
         }
-
+        PhotonPeer.RegisterType(typeof(UnitFlags), 128, PhotonCustomType.Serialize, PhotonCustomType.DeSerialize);
         SetMultiData();
         SetDebugData();
     }

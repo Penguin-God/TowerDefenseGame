@@ -13,12 +13,18 @@ public class Multi_ClientData
         public string Name;
         public int Id;
         public bool HasSkill;
+        public bool EquipSkill;
         public const string path = "SkillData";
 
         public void SetHasSkill(bool hasSkill)
         {
             HasSkill = hasSkill;
             // Save
+        }
+
+        public void SetEquipSkill(bool equipSkill)
+        {
+            EquipSkill = equipSkill;
         }
     }
 

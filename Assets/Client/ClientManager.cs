@@ -10,11 +10,16 @@ public class ClientManager : MonoBehaviour
     public Text IronText;
     public Text WoodText;
     public Text HammerText;
+
     public Text StartGoldPriceText;
     public Text StartFoodPriceText;
     public Text PlusTouchDamegePriceText;
     public Text PlusMaxUnitPriceText;
     public Text GoldSkillPriceText;
+
+    public Button StartGoldEquipButton;
+    public Button StartFoodEquipButton;
+    public Button PlusMaxUnitEquipButton;
 
     int ClientWood; 
     int ClientIron;
@@ -191,72 +196,12 @@ public class ClientManager : MonoBehaviour
         //}
     }
 
-    //public void BuyPlusTouchDamege()
-    //{
-    //    ClientHammer = PlayerPrefs.GetInt("Hammer");
-    //    ClientClickSound();
-    //    if (ClientHammer >= PlusTouchDamegePrice)
-    //    {
-    //        Debug.Log("터치뎀");
-    //        ClientHammer -= PlusTouchDamegePrice;
-    //        PlusTouchDamege = 1 * (HammerCount + 1);
-    //        PlayerPrefs.SetInt("PlusTouchDamegePrice", (PlusTouchDamege + 1));
-    //        PlayerPrefs.SetInt("PlusTouchDamege", PlusTouchDamege);
-    //        InitMoney();
-    //        PlusTouchDamegePrice = PlayerPrefs.GetInt("PlusTouchDamegePrice");
-    //        UpdatePlusTouchDamegePrice();
-    //        UpdateHammerText(ClientHammer);
-    //        HammerCount += 1;
-    //        PlayerPrefs.SetInt("HammerCount", HammerCount);
-    //        UpdateAdHammerCount(PlusTouchDamegePrice);
-    //        PlayerPrefs.Save();
-
-    //    }
-    //    else
-    //    {
-
-    //        Debug.Log(PlusTouchDamegePrice);
-    //        Debug.Log(ClientHammer);
-    //        Debug.Log("실패");
-    //    }
-    //}
-
-    public void BuyGoldSkill()
+    void EquipStartGold()
     {
-        
-        ClientWood = PlayerPrefs.GetInt("Wood");
-        ClientIron = PlayerPrefs.GetInt("Iron");
-        ClientHammer = PlayerPrefs.GetInt("Hammer");
-        Skill1 = PlayerPrefs.GetInt("Skill1");
+        if (Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].HasSkill == false)
+            Debug.Log("스킬 없음");
 
-        ClientClickSound();
-
-        if (ClientHammer >= 30 && ClientIron >= 1000 && ClientWood >= 1000 && Skill1 == 0)
-        {
-            ClientHammer -= 30;
-            ClientIron -= 1000;
-            ClientWood -= 1000;
-
-
-            InitMoney();
-
-            
-            UpdateHammerText(ClientHammer);
-
-            PlayerPrefs.SetInt("Skill1", 1);
-            Skill1 = PlayerPrefs.GetInt("Skill1");
-            PlayerPrefs.Save();
-
-        }
-
-        else if (Skill1 == 1)
-        {
-            Debug.Log("품절");
-        }
-        else
-        {
-            Debug.Log("실패");
-        }
+        Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].SetEquipSkill(true);
     }
 
     private void InitMoney()
@@ -268,6 +213,25 @@ public class ClientManager : MonoBehaviour
         ClientIron = Multi_Managers.ClientData.MoneyByType[MoneyType.Iron].Amount;
         ClientWood = Multi_Managers.ClientData.MoneyByType[MoneyType.Wood].Amount;
         ClientHammer = Multi_Managers.ClientData.MoneyByType[MoneyType.Hammer].Amount;
+    }
+
+    public void InitEquips()
+    {
+        InitEquip(SkillType.시작골드증가, StartGoldEquipButton);
+        InitEquip(SkillType.시작식량증가, StartFoodEquipButton);
+        InitEquip(SkillType.최대유닛증가, PlusMaxUnitEquipButton);
+    }
+
+    void InitEquip(SkillType skillType, Button equipButton)
+    {
+        if (Multi_Managers.ClientData.SkillByType[skillType].HasSkill == false)
+        {
+            equipButton.interactable = false;
+        }
+        else
+        {
+            equipButton.interactable = true;
+        }
     }
 
 

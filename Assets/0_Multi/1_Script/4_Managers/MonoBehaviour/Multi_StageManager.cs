@@ -27,37 +27,37 @@ public class Multi_StageManager : MonoBehaviourPun
     public int CurrentStage => currentStage;
 
     [SerializeField] Slider timerSlider;
-    [SerializeField] GameObject skipButton = null;
     [SerializeField] float stageTime = 40f;
     WaitForSeconds StageWait;
 
     void Start()
     {
-        skipButton.GetComponent<Button>().onClick.AddListener(Skip);
-        Multi_GameManager.instance.OnStart += UpdateStage;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Multi_GameManager.instance.OnStart += UpdateStage;
+        }
 
+        timerSlider.value = 0;
         StageWait = new WaitForSeconds(Multi_SpawnManagers.NormalEnemy.EnemySpawnTime);
     }
 
     private void Update()
     {
-        if(Multi_GameManager.instance.gameStart)
+        if(timerSlider.value > 0)
             timerSlider.value -= Time.deltaTime;
     }
-
-    //void UpdateStage() 
-    //{
-
-
-    //    // TODO : Multi_SoundManager 만들면 거기로 옮기기
-    //    //SoundManager.instance.PlayEffectSound_ByName("NewStageClip", 0.6f);
-    //}
-
-    // 나중에 스테이지를 2개 이상 건너뛰는 기능을 만들지도?
-    public void UpdateStage() // 무한반복하는 재귀 함수( Co_Stage() 마지막 부분에 다시 NewStageStart()를 호출함)
+    
+    void UpdateStage() 
     {
         currentStage += 1;
-        OnUpdateStage?.Invoke(currentStage);
+        photonView.RPC("UpdateStage", RpcTarget.All, currentStage);
+    }
+
+    [PunRPC]
+    void UpdateStage(int stage) // 무한반복하는 재귀 함수( Co_Stage() 마지막 부분에 다시 NewStageStart()를 호출함)
+    {
+        currentStage = stage;
+        OnUpdateStage?.Invoke(stage);
 
         timerSlider.maxValue = stageTime;
         timerSlider.value = stageTime;
@@ -65,17 +65,13 @@ public class Multi_StageManager : MonoBehaviourPun
         StartCoroutine(Co_Stage());
     }
 
+
     IEnumerator Co_Stage()
     {
         yield return StageWait;
-        skipButton.SetActive(true);
         yield return new WaitUntil(() => timerSlider.value <= 0); // 스테이지 타이머 0이되면
-        skipButton.SetActive(false);
 
-        UpdateStage();
+        if(PhotonNetwork.IsMasterClient)
+            UpdateStage();
     }
-
-    #region callback function
-    void Skip() => timerSlider.value = 0;
-    #endregion
 }

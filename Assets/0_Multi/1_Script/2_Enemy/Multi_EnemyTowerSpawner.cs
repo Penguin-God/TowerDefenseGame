@@ -10,35 +10,6 @@ public class Multi_EnemyTowerSpawner : MonoBehaviourPun
     [SerializeField] Vector3 SpawnPos;
 
     int[] arr_TowersHp;
-    void Awake()
-    {
-        SpawnPos = Multi_Data.instance.EnemyTowerSpawnPos;
-
-        towers = new GameObject[towerPrefabs.Length];
-        for(int i = 0; i < towerPrefabs.Length; i++)
-        {
-            GameObject _newTower = PhotonNetwork.Instantiate(towerPrefabs[i].name, Vector3.one * 400, Quaternion.identity);
-            _newTower.transform.SetParent(Multi_Data.instance.EnemyTowerParent);
-            towers[i] = _newTower;
-        }
-        Set_EnemyTowerHpDictionary();
-        Multi_GameManager.instance.OnStart += () => arr_TowersHp = Dic_enemyTowerHp[Multi_GameManager.instance.Difficult];
-        Multi_GameManager.instance.OnStart += () => RespawnTower();
-    }
-
-    private Dictionary<string, int[]> Dic_enemyTowerHp;
-    void Set_EnemyTowerHpDictionary() // key : 난이도, value : 레벨 1~6 까지 적군의 성 체력
-    {
-        Dic_enemyTowerHp = new Dictionary<string, int[]>
-        {
-            { "Baby", new int[] { 40000, 80000, 300000, 800000, 2000000, 10000000 } },
-            { "Easy", new int[] { 80000, 200000, 600000, 2000000, 6000000, 20000000 } },
-            { "Normal", new int[] { 600000, 2000000, 6000000, 20000000, 60000000, 100000000 } },
-            { "Hard", new int[] { 1000000, 2400000, 8000000, 30000000, 80000000, 300000000 } },
-            { "Impossiable", new int[] { 1500000, 4000000, 15000000, 40000000, 140000000, 500000000 } },
-        };
-    }
-
 
     public Multi_EnemyTower currentTower = null;
     private int currentTowerLevel = 0;
@@ -46,7 +17,6 @@ public class Multi_EnemyTowerSpawner : MonoBehaviourPun
     {
         // 처음에는 0
         currentTower = towers[currentTowerLevel].GetComponent<Multi_EnemyTower>();
-        currentTowerLevel = currentTower.level;
 
         int _hp = arr_TowersHp[currentTowerLevel - 1];
         currentTower.photonView.RPC("Setup", RpcTarget.All, _hp, 0f);

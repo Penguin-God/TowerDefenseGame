@@ -50,6 +50,9 @@ public class Multi_DataManager
     #region Enemy Data
     Dictionary<int, BossData> _bossDataByLevel = new Dictionary<int, BossData>();
     public IReadOnlyDictionary<int, BossData> BossDataByLevel => _bossDataByLevel;
+
+    Dictionary<int, BossData> _towerDataByLevel = new Dictionary<int, BossData>();
+    public IReadOnlyDictionary<int, BossData> TowerDataByLevel => _towerDataByLevel;
     #endregion
 
     public void Init()
@@ -72,6 +75,7 @@ public class Multi_DataManager
 
         // enemy
         _bossDataByLevel = MakeCsvDict<BossDatas, int, BossData>("EnemyData/BossData");
+        _towerDataByLevel = MakeCsvDict<BossDatas, int, BossData>("EnemyData/TowerData");
     }
 
 
@@ -90,6 +94,7 @@ public class Multi_DataManager
         _unitWindowDataByUnitFlags.Clear();
 
         _bossDataByLevel.Clear();
+        _towerDataByLevel.Clear();
     }
 
     Dictionary<Key, Value> MakeCsvDict<ICsvLoader, Key, Value>(string path) where ICsvLoader : ICsvLoader<Key, Value>, new()

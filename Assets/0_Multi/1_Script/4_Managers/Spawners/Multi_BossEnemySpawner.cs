@@ -12,7 +12,6 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     Vector3 spawnPos;
 
     // Init용 코드
-    // TODO : 클래스로 옮기기
     #region Init
     protected override void Init()
     {
@@ -29,22 +28,6 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     {
         for (int i = 0; i < _enemys.Length; i++)
             CreatePool_InGroup<Multi_BossEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
-    }
-
-    void Spawn()
-    {
-        bossLevel++;
-        Spawn_RPC(BuildPath(_rootPath, _enemys[0]), spawnPos);
-    }
-
-    [SerializeField] int bossLevel;
-    [PunRPC]
-    protected override GameObject BaseSpawn(string path, Vector3 spawnPos, int id)
-    {
-        Multi_BossEnemy enemy = base.BaseSpawn(path, spawnPos, id).GetComponent<Multi_BossEnemy>();
-        enemy.Spawn(bossLevel);
-        OnSpawn?.Invoke(enemy);
-        return null;
     }
 
     public override void SettingPoolObject(object obj)
@@ -65,6 +48,21 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
 
     #endregion
 
+    void Spawn()
+    {
+        bossLevel++;
+        Spawn_RPC(BuildPath(_rootPath, _enemys[0]), spawnPos);
+    }
+
+    [SerializeField] int bossLevel;
+    [PunRPC]
+    protected override GameObject BaseSpawn(string path, Vector3 spawnPos, int id)
+    {
+        Multi_BossEnemy enemy = base.BaseSpawn(path, spawnPos, id).GetComponent<Multi_BossEnemy>();
+        enemy.Spawn(bossLevel);
+        OnSpawn?.Invoke(enemy);
+        return null;
+    }
 
     void RespawnBoss(int stage)
     {

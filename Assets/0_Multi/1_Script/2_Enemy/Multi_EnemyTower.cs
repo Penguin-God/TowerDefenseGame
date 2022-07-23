@@ -5,37 +5,25 @@ using Photon.Pun;
 
 public class Multi_EnemyTower : Multi_Enemy
 {
-    public int level;
-    public int rewardGold;
-    public int rewardFood;
+    int _level;
+    public int Level => _level;
+    public BossData TowerData { get; private set; }
 
-    [PunRPC]
-    protected override void SetStatus(int _hp, float _speed, bool _isDead)
+    public void Spawn(int level)
     {
-        base.SetStatus(_hp, _speed, _isDead);
-        dir = Vector3.zero;
-    }
-
-    [PunRPC]
-    public void Spawn(Vector3 _pos)
-    {
-        transform.position = _pos;
-        gameObject.SetActive(true);
+        _level = level;
+        TowerData = Multi_Managers.Data.TowerDataByLevel[_level];
+        SetStatus_RPC(TowerData.Hp, TowerData.Speed, false);
     }
 
     public override void Dead()
     {
         base.Dead();
 
-        gameObject.SetActive(false);
-        transform.position = new Vector3(300, 300, 300);
-        GetTowerReword();
-        //UnitManager.instance.UpdateTarget_CurrnetStroyWolrdUnit(null);
+        if (PhotonNetwork.IsMasterClient)
+            Multi_Managers.Resources.PhotonDestroy(gameObject);
     }
 
-    void GetTowerReword()
-    {
-        Multi_GameManager.instance.AddGold(rewardGold);
-        Multi_GameManager.instance.AddFood(rewardFood);
-    }
+    [ContextMenu("죽음")]
+    void 죽음() => Dead();
 }

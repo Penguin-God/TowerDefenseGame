@@ -77,6 +77,7 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
         Multi_StageManager.Instance.OnUpdateStage += _stage => AddGold(stageUpGold);
 
         Multi_SpawnManagers.BossEnemy.OnDead += GetReward;
+        Multi_SpawnManagers.TowerEnemy.OnDead += GetReward;
 
         Wood = PlayerPrefs.GetInt("Wood");
         Iron = PlayerPrefs.GetInt("Iron");
@@ -94,10 +95,19 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     void GetReward(Multi_BossEnemy boss)
     {
         if (Multi_Data.instance.CheckIdSame(boss.GetComponent<RPCable>().UsingId))
-        {
-            AddGold(boss.BossData.Gold);
-            AddFood(boss.BossData.Food);
-        }
+            GetReward(boss.BossData);
+    }
+
+    void GetReward(Multi_EnemyTower tower)
+    {
+        if (Multi_Data.instance.CheckIdSame(tower.GetComponent<RPCable>().UsingId))
+            GetReward(tower.TowerData);
+    }
+
+    void GetReward(BossData data)
+    {
+        AddGold(data.Gold);
+        AddFood(data.Food);
     }
 
     public void AddGold(int _addGold)

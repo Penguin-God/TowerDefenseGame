@@ -4,14 +4,14 @@ using UnityEngine;
 using System;
 using Photon.Pun;
 
-public class Multi_BossEnemy : Multi_Enemy
+public class Multi_BossEnemy : Multi_NormalEnemy
 {
-    [SerializeField] int level;
-    public int Level => level;
+    [SerializeField] int _level;
+    public int Level => _level;
 
-    public override void Dead()
+    public void Spawn(int hp, int speed, int level)
     {
-        base.Dead();
-        gameObject.SetActive(false);
+        SetStatus_RPC(hp, speed, false);
+        _level = level;
     }
 }

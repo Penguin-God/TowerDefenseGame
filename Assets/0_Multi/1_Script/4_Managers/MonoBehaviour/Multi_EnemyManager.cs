@@ -34,9 +34,9 @@ public class Multi_EnemyManager : MonoBehaviourPun
         }
 
         // TODO : 나중에 boss랑 타워 작업하면 부활 예정
-        //Multi_SpawnManagers.BossEnemy.OnSpawn += SetBoss;
-        //Multi_SpawnManagers.BossEnemy.OnDead += SetBossDead;
-        //Multi_SpawnManagers.BossEnemy.OnDead += GetBossReward;
+        Multi_SpawnManagers.BossEnemy.OnSpawn += boss => currentBoss = boss;
+        Multi_SpawnManagers.BossEnemy.OnSpawn += boss => currentBossLevel = boss.Level;
+        Multi_SpawnManagers.BossEnemy.OnDead += boss => currentBoss = null;
 
         //Multi_SpawnManagers.TowerEnemy.OnSpawn += SetTower;
         //Multi_SpawnManagers.TowerEnemy.OnDead += SetTowerDead;
@@ -61,17 +61,18 @@ public class Multi_EnemyManager : MonoBehaviourPun
     }
 
     // TODO : 타워항 보스 구현하면 부활함
-    //[Header("Boss Enemy")]
-    //[SerializeField] Multi_BossEnemy currentBoss;
-    //public Multi_BossEnemy CurrentBoss => currentBoss;
-    //[SerializeField] int currentBossLevel;
-    //public int CurrentBossLevel => currentBossLevel;
-    //public bool IsBossAlive => currentBoss != null;
+    [Header("Boss Enemy")]
+    [SerializeField] Multi_BossEnemy currentBoss;
+    public Multi_BossEnemy CurrentBoss => currentBoss;
+    [SerializeField] int currentBossLevel = 0;
+    public int CurrentBossLevel => currentBossLevel;
+    public bool IsBossAlive => currentBoss != null;
 
-    //[SerializeField] int bossGoldReward;
-    //public int BossGoldReward => bossGoldReward;
-    //[SerializeField] int bossFoodReward;
-    //public int BossFoodReward => bossFoodReward;
+    // csv에서 관리하고 보상 주는 건 게임 매니저로 옮기기
+    [SerializeField] int bossGoldReward;
+    public int BossGoldReward => bossGoldReward;
+    [SerializeField] int bossFoodReward;
+    public int BossFoodReward => bossFoodReward;
 
     //[Header("Enemy Tower")]
     //[SerializeField] Multi_EnemyTower currentEnemyTower;
@@ -149,10 +150,6 @@ public class Multi_EnemyManager : MonoBehaviourPun
         Raise_EnemyCountChanged(id);
     }
 
-
-    //void SetBoss(Multi_BossEnemy _spawnBoss) => currentBoss = _spawnBoss;
-    //void SetBossDead(Multi_BossEnemy _spawnBoss) => currentBoss = null;
-
     //// TODO : 리펙토링 할 수 있나 생각해보기
     //void GetBossReward(Multi_BossEnemy _spawnBoss)
     //{
@@ -164,5 +161,5 @@ public class Multi_EnemyManager : MonoBehaviourPun
     //void SetTower(Multi_EnemyTower _spawnTower) => currentEnemyTower = _spawnTower;
     //void SetTowerDead(Multi_EnemyTower _spawnTower) => currentEnemyTower = null;
 
-#endregion
+    #endregion
 }

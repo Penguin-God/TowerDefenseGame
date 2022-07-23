@@ -40,11 +40,6 @@ public class Multi_EnemyManager : MonoBehaviourPun
             Multi_SpawnManagers.TowerEnemy.OnSpawn += tower => currentEnemyTowerLevel = tower.Level;
             Multi_SpawnManagers.TowerEnemy.OnDead += tower => currentEnemyTower = null;
         }
-
-        // TODO : 나중에 boss랑 타워 작업하면 부활 예정
-
-        //Multi_SpawnManagers.TowerEnemy.OnSpawn += SetTower;
-        //Multi_SpawnManagers.TowerEnemy.OnDead += SetTowerDead;
     }
 
     Dictionary<int, List<Transform>> currentNormalEnemysById = new Dictionary<int, List<Transform>>();
@@ -148,17 +143,5 @@ public class Multi_EnemyManager : MonoBehaviourPun
         currentNormalEnemysById[id].Remove(_enemy.transform);
         Raise_EnemyCountChanged(id);
     }
-
-    //// TODO : 리펙토링 할 수 있나 생각해보기
-    //void GetBossReward(Multi_BossEnemy _spawnBoss)
-    //{
-    //    int _level = _spawnBoss.Level;
-    //    Multi_GameManager.instance.AddGold(bossGoldReward * _level);
-    //    Multi_GameManager.instance.AddFood(BossFoodReward * _level);
-    //}
-
-    //void SetTower(Multi_EnemyTower _spawnTower) => currentEnemyTower = _spawnTower;
-    //void SetTowerDead(Multi_EnemyTower _spawnTower) => currentEnemyTower = null;
-
     #endregion
 }

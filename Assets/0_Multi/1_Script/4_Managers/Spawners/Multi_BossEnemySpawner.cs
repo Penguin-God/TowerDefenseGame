@@ -14,7 +14,6 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     // Init용 코드
     // TODO : 클래스로 옮기기
     #region Init
-
     protected override void Init()
     {
         spawnPos = Multi_Data.instance.EnemySpawnPos;
@@ -43,7 +42,7 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, int id)
     {
         Multi_BossEnemy enemy = base.BaseSpawn(path, spawnPos, id).GetComponent<Multi_BossEnemy>();
-        enemy.Spawn(10000000, 5, bossLevel);
+        enemy.Spawn(bossLevel);
         OnSpawn?.Invoke(enemy);
         return null;
     }

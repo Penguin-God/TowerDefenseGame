@@ -28,8 +28,9 @@ public class Multi_DataManager
     // 유닛 창 정보
     Dictionary<UnitFlags, UI_UnitWindowData> _unitWindowDataByUnitFlags = new Dictionary<UnitFlags, UI_UnitWindowData>();
     public IReadOnlyDictionary<UnitFlags, UI_UnitWindowData> UnitWindowDataByUnitFlags => _unitWindowDataByUnitFlags;
-    #endregion UI Data End
+    #endregion
 
+    #region Unit Data
     Dictionary<UnitFlags, WeaponData> _weaponDataByUnitFlag = new Dictionary<UnitFlags, WeaponData>();
     public IReadOnlyDictionary<UnitFlags, WeaponData> WeaponDataByUnitFlag => _weaponDataByUnitFlag;
 
@@ -44,7 +45,12 @@ public class Multi_DataManager
 
     Dictionary<UnitFlags, MageUnitStat> _mageStatByFlag = new Dictionary<UnitFlags, MageUnitStat>();
     public IReadOnlyDictionary<UnitFlags, MageUnitStat> MageStatByFlag => _mageStatByFlag;
+    #endregion
 
+    #region Enemy Data
+    Dictionary<int, BossData> _bossDataByLevel = new Dictionary<int, BossData>();
+    public IReadOnlyDictionary<int, BossData> BossDataByLevel => _bossDataByLevel;
+    #endregion
 
     public void Init()
     {
@@ -53,23 +59,37 @@ public class Multi_DataManager
         // 무조건 가장먼저 실행되어야 함
         _unitNameDataByUnitKoreaName = MakeCsvDict<UnitNameDatas, string, UnitNameData>("UnitData/UnitNameData");
 
+        // Unit
         _mageStatByFlag = MakeCsvDict<MageUnitStats, UnitFlags, MageUnitStat>("UnitData/MageUnitStat");
         _unitPassiveStatByFlag = MakeCsvDict<UnitPassiveStats, UnitFlags, UnitPassiveStat>("UnitData/UnitPassiveStat");
         _unitStatByFlag = MakeCsvDict<UnitStats, UnitFlags, UnitStat>("UnitData/UnitStat");
         _weaponDataByUnitFlag = MakeCsvDict<WeaponDatas, UnitFlags, WeaponData>("UnitData/UnitWeaponData");
+
+        // UI
         _combineDataByUnitFlags = MakeCsvDict<CombineDatas, UnitFlags, CombineData>("UnitData/CombineData");
         _combineConditionByUnitFalg = MakeCsvDict<CombineConditions, UnitFlags, CombineCondition>("UnitData/CombineConditionData");
-
         _unitWindowDataByUnitFlags = MakeCsvDict<UI_UnitWindowDatas, UnitFlags, UI_UnitWindowData>("UIData/UI_UnitWindowData");
+
+        // enemy
+        _bossDataByLevel = MakeCsvDict<BossDatas, int, BossData>("EnemyData/BossData");
     }
+
+
 
     void Clears()
     {
-        _combineDataByUnitFlags.Clear();
-        _unitWindowDataByUnitFlags.Clear();
-        _combineConditionByUnitFalg.Clear();
         _unitNameDataByUnitKoreaName.Clear();
+
+        _mageStatByFlag.Clear();
+        _unitPassiveStatByFlag.Clear();
         _unitStatByFlag.Clear();
+        _weaponDataByUnitFlag.Clear();
+
+        _combineDataByUnitFlags.Clear();
+        _combineConditionByUnitFalg.Clear();
+        _unitWindowDataByUnitFlags.Clear();
+
+        _bossDataByLevel.Clear();
     }
 
     Dictionary<Key, Value> MakeCsvDict<ICsvLoader, Key, Value>(string path) where ICsvLoader : ICsvLoader<Key, Value>, new()

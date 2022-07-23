@@ -14,6 +14,7 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
     {
         spawnPos = Multi_Data.instance.EnemyTowerSpawnPos;
         Multi_GameManager.instance.OnStart += Spawn;
+        OnDead += AfterSpawn;
     }
 
     protected override void MasterInit()
@@ -41,20 +42,22 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
         if (PhotonNetwork.IsMasterClient == false) return;
         enemy.OnDeath += () => OnDead(enemy);
         enemy.OnDeath += () => Multi_Managers.Pool.Push(enemy.GetComponent<Poolable>());
-        enemy.OnDeath += () => StartCoroutine(Co_AfterSpawn());
     }
 
-    IEnumerator Co_AfterSpawn()
+    void AfterSpawn(Multi_EnemyTower tower) => StartCoroutine(Co_AfterSpawn(tower.GetComponent<RPCable>().UsingId));
+    IEnumerator Co_AfterSpawn(int id)
     {
         yield return new WaitForSeconds(5f);
-        Spawn();
+        Spawn(id);
     }
 
     [SerializeField] int towerLevel = 0;
-    void Spawn()
+    void Spawn() => Spawn(Multi_Data.instance.Id);
+
+    void Spawn(int id)
     {
         towerLevel++;
-        Spawn_RPC(BuildPath(_rootPath, _enemys[towerLevel-1]), spawnPos);
+        Spawn_RPC(BuildPath(_rootPath, _enemys[towerLevel - 1]), Multi_Data.instance.EnemyTowerWorldPositions[id], id);
     }
 
     [PunRPC]

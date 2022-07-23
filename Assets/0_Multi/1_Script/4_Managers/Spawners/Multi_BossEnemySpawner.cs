@@ -35,7 +35,7 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     void Spawn()
     {
         bossLevel++;
-        Spawn_RPC(BuildPath(_rootPath, _enemys[0]), Multi_Data.instance.EnemySpawnPos);
+        Spawn_RPC(BuildPath(_rootPath, _enemys[0]), spawnPos);
     }
 
     [SerializeField] int bossLevel;

@@ -31,12 +31,13 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
             Multi_SpawnManagers.NormalEnemy.OnSpawn += AddEnemyAtList;
             Multi_SpawnManagers.NormalEnemy.OnDead += RemoveEnemyAtList;
+
+            Multi_SpawnManagers.BossEnemy.OnSpawn += boss => currentBoss = boss;
+            Multi_SpawnManagers.BossEnemy.OnSpawn += boss => currentBossLevel = boss.Level;
+            Multi_SpawnManagers.BossEnemy.OnDead += boss => currentBoss = null;
         }
 
         // TODO : 나중에 boss랑 타워 작업하면 부활 예정
-        Multi_SpawnManagers.BossEnemy.OnSpawn += boss => currentBoss = boss;
-        Multi_SpawnManagers.BossEnemy.OnSpawn += boss => currentBossLevel = boss.Level;
-        Multi_SpawnManagers.BossEnemy.OnDead += boss => currentBoss = null;
 
         //Multi_SpawnManagers.TowerEnemy.OnSpawn += SetTower;
         //Multi_SpawnManagers.TowerEnemy.OnDead += SetTowerDead;

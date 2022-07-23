@@ -5328,7 +5328,10 @@ MonoBehaviour:
   enemyType: 1
   dir: {x: 0, y: 0, z: 0}
   originMat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
-  level: 0
+  enemyNumber: 0
+  freezeMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
+  sternEffect: {fileID: 7938204613660565911}
+  _level: 0
 --- !u!114 &5117331520898375253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5347,7 +5350,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 2937840968888657591}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -5363,7 +5367,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _usingId: 0
   IsUsing: 0
   Path: 
 --- !u!114 &7376715650781080047

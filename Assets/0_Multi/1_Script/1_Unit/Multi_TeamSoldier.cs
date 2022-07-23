@@ -98,8 +98,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     void Start()
     {
-        Multi_SpawnManagers.BossEnemy.OnSpawn += _boss => SetChaseSetting(_boss.gameObject);
-        Multi_SpawnManagers.BossEnemy.OnDead += _boss => UpdateTarget();
+        //Multi_SpawnManagers.BossEnemy.OnSpawn += _boss => SetChaseSetting(_boss.gameObject);
+        //Multi_SpawnManagers.BossEnemy.OnDead += _boss => UpdateTarget();
     }
 
     void OnEnable()
@@ -194,6 +194,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     public void SetChaseSetting(GameObject targetObject) // 추적 관련 변수 설정
     {
+        if (PhotonNetwork.IsMasterClient == false) return;
+
         if (targetObject != null)
         {
             nav.isStopped = false;

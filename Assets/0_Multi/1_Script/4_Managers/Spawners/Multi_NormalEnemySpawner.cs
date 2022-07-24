@@ -94,8 +94,9 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
             CreatePool_InGroup<Multi_NormalEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
     }
 
+    // path는 BaseSpawn 안에서 만들어서 씀
     void Spawn() => Spawn_RPC("", Multi_Data.instance.EnemySpawnPos);
-
+    
     [PunRPC]
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, int id)
     {

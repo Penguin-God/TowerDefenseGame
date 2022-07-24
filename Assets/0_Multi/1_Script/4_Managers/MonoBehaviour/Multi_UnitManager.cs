@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
-using Random = UnityEngine.Random;
 using Photon.Pun;
 
 public class Multi_UnitManager : MonoBehaviourPun
@@ -26,14 +25,14 @@ public class Multi_UnitManager : MonoBehaviourPun
     void Awake()
     {
         unitListDictById.Clear();
-        _currentUnitsById.Clear();
+        _currentAllUnitsById.Clear();
         if (PhotonNetwork.IsMasterClient)
         {
             unitListDictById.Add(0, new Dictionary<UnitFlags, List<Multi_TeamSoldier>>());
             unitListDictById.Add(1, new Dictionary<UnitFlags, List<Multi_TeamSoldier>>());
 
-            _currentUnitsById.Add(0, new List<Multi_TeamSoldier>());
-            _currentUnitsById.Add(1, new List<Multi_TeamSoldier>());
+            _currentAllUnitsById.Add(0, new List<Multi_TeamSoldier>());
+            _currentAllUnitsById.Add(1, new List<Multi_TeamSoldier>());
         }
     }
 
@@ -45,6 +44,9 @@ public class Multi_UnitManager : MonoBehaviourPun
         {
             Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
             Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
+
+            Multi_SpawnManagers.BossEnemy.OnSpawn += AllUnitTargetChagedByBoss;
+            Multi_SpawnManagers.BossEnemy.OnDead += AllUnitUpdateTarget;
 
             SetUnitFlagsDic();
 
@@ -77,14 +79,14 @@ public class Multi_UnitManager : MonoBehaviourPun
     void Raise_UnitCountChanged(int id, UnitFlags flag) => OnUnitCountChanged.RaiseEvent(id, flag, GetUnitListCount(id, flag));
 
     // 유닛 전체 리스트
-    Dictionary<int, List<Multi_TeamSoldier>> _currentUnitsById = new Dictionary<int, List<Multi_TeamSoldier>>();
-    List<Multi_TeamSoldier> GetCurrentUnitList(Multi_TeamSoldier unit) => _currentUnitsById[unit.GetComponent<RPCable>().UsingId];
+    Dictionary<int, List<Multi_TeamSoldier>> _currentAllUnitsById = new Dictionary<int, List<Multi_TeamSoldier>>();
+    List<Multi_TeamSoldier> GetCurrentUnitList(Multi_TeamSoldier unit) => _currentAllUnitsById[unit.GetComponent<RPCable>().UsingId];
 
     [SerializeField] int _unitCount;
     public int UnitCount => _unitCount;
 
     public RPCAction<int> OnAllUnitCountChanged = new RPCAction<int>();
-    void Raise_AllUnitCountChanged(int id) => OnAllUnitCountChanged.RaiseEvent(id, _currentUnitsById[id].Count);
+    void Raise_AllUnitCountChanged(int id) => OnAllUnitCountChanged.RaiseEvent(id, _currentAllUnitsById[id].Count);
 
     
     // 유닛 조합
@@ -119,8 +121,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             offerings[i].Dead();
     }
 
-
-    // 리스트 갱신
+    #region Only Callback
     void AddUnit(Multi_TeamSoldier unit)
     {
         GetUnitList(unit).Add(unit);
@@ -138,6 +139,19 @@ public class Multi_UnitManager : MonoBehaviourPun
         Raise_UnitCountChanged(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
         Raise_AllUnitCountChanged(unit.GetComponent<RPCable>().UsingId);
     }
+
+    void AllUnitTargetChagedByBoss(Multi_BossEnemy boss)
+    {
+        _currentAllUnitsById[boss.GetComponent<RPCable>().UsingId].ForEach(x => x.SetChaseSetting(boss.gameObject));
+    }
+
+    void AllUnitUpdateTarget(Multi_BossEnemy boss) => AllUnitUpdateTarget(boss.GetComponent<RPCable>().UsingId);
+
+    #endregion
+
+    void AllUnitUpdateTarget(int id) => _currentAllUnitsById[id].ForEach(x => x.UpdateTarget());
+
+
 
 
     // 아래는 쭉 리팩터링 전 코드들

@@ -6,14 +6,14 @@ using System;
 
 public class TestUtility : MonoBehaviour
 {
-    [SerializeField] List<MageUnitStat> stats;
+    [SerializeField] List<BossData> datas;
     [ContextMenu("Test")]
     void Test()
     {
-        stats.Clear();
-        foreach (var item in Multi_Managers.Data.MageStatByFlag)
+        datas.Clear();
+        foreach (var item in Multi_Managers.Data.BossDataByLevel)
         {
-            stats.Add(item.Value);
+            datas.Add(item.Value);
         }
     }
 

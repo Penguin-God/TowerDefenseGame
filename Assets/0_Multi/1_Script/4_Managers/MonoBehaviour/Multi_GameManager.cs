@@ -7,9 +7,9 @@ using Photon.Pun;
 
 public class Multi_GameManager : MonoBehaviourPun, IPunObservable
 {
-    //private int Stage;
     public int Gold;
     public int Food;
+
     public int Iron;
     public int Wood;
     public int Hammer;
@@ -25,7 +25,6 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     public bool UnitOver => Multi_UnitManager.Instance.UnitCount >= _maxUninCount;
 
     public bool playerEnterStoryMode = false;
-    public int enemyCount; // EnemySpaw에 있던거 옮김
 
     public static Multi_GameManager instance
     {
@@ -61,7 +60,6 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     void RPC_OnStart(string _difficult)
     {
         Difficult = _difficult;
-        //SelectDifficult(_difficult);
         OnStart();
     }
 
@@ -72,39 +70,14 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
 
 
     [SerializeField] Text diffcultText;
-
-    // TODO : 난이도 구현 멀티에 맞게 바꿔야함
-    //void SelectDifficult(string difficult)
-    //{
-    //    diffcultText.text = "난이도 : " + difficult;
-    //    //Multi_EnemySpawner.instance.arr_TowersHp = Dic_enemyTowerHp[difficult];
-    //    switch (difficult)
-    //    {
-    //        case "Baby": SetDifficult(30, 10, 200); break;
-    //        case "Easy": SetDifficult(30, 15, 250); break;
-    //        case "Normal": SetDifficult(30, 35, 300); break;
-    //        case "Hard": SetDifficult(35, 70, 350); break;
-    //        case "Impossiable": SetDifficult(120, 250, 1000); break;
-    //    }
-    //}
-    //void SetDifficult(int hpWeight, int plusHpWeigh, int minhp)
-    //{
-    //    Multi_EnemySpawner.instance.enemyHpWeight = hpWeight;
-    //    Multi_EnemySpawner.instance.plusEnemyHpWeight = plusHpWeigh;
-    //    Multi_EnemySpawner.instance.minHp = minhp;
-    //}
-
-    //public int HighScore;
-
     int stageUpGold = 10;
 
     void Start()
     {
         Multi_StageManager.Instance.OnUpdateStage += _stage => AddGold(stageUpGold);
-        Multi_SpawnManagers.BossEnemy.OnDead += boss => ChangeBGM(bgmClip);
 
-        Multi_UIManager.instance.UpdateGoldText(Gold);
-        Multi_UIManager.instance.UpdateFoodText(Food);
+        Multi_SpawnManagers.BossEnemy.OnDead += GetReward;
+        Multi_SpawnManagers.TowerEnemy.OnDead += GetReward;
 
         Wood = PlayerPrefs.GetInt("Wood");
         Iron = PlayerPrefs.GetInt("Iron");
@@ -115,6 +88,26 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
         Gold = 35 + StartGold;
         Food = 1  + StartFood;
         PlusTouchDamege = PlayerPrefs.GetInt("PlusTouchDamege");
+        Multi_UIManager.instance.UpdateGoldText(Gold);
+        Multi_UIManager.instance.UpdateFoodText(Food);
+    }
+
+    void GetReward(Multi_BossEnemy boss)
+    {
+        if (Multi_Data.instance.CheckIdSame(boss.GetComponent<RPCable>().UsingId))
+            GetReward(boss.BossData);
+    }
+
+    void GetReward(Multi_EnemyTower tower)
+    {
+        if (Multi_Data.instance.CheckIdSame(tower.GetComponent<RPCable>().UsingId))
+            GetReward(tower.TowerData);
+    }
+
+    void GetReward(BossData data)
+    {
+        AddGold(data.Gold);
+        AddFood(data.Food);
     }
 
     public void AddGold(int _addGold)
@@ -126,7 +119,7 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     public void AddFood(int _addFood)
     {
         Food += _addFood;
-        Multi_UIManager.instance.UpdateFoodText(_addFood);
+        Multi_UIManager.instance.UpdateFoodText(Food);
     }
 
     public AudioClip bossbgmClip;
@@ -144,33 +137,6 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     void Update()
     {
         // TODO : 멀티는 승리, 패배 조건을 바꾸어야 함
-
-        // 멀티는 챌린지 없음
-        //if(enemySpawn.stageNumber > HighScore && isChallenge == true)
-        //{
-        //    HighScore += 1;
-        //    UIManager.instance.UpdateHighScoreText(HighScore);
-        //}
-
-        // TODO : 플레이어에 따라서 서로 다른 리스트를 카운트하도록 바꾸어야함
-        //enemyCount = Multi_EnemySpawner.instance.currentEnemyList.Count; // 리스트 크기를 enemyCount에 대입
-        //UIManager.instance.UpdateCountEnemyText(enemyCount);
-        //if (enemyCount >= 50 && !isGameover)
-        //{
-        //    Lose();
-        //    //enemySpaw.EnemyofCount -= 1;
-        //}
-
-        //if (isGameover && Input.anyKeyDown)
-        //{
-        //    ReTurnClient();
-        //}
-
-        //if (isClear && Input.anyKeyDown)
-        //{
-        //    GetClearReward();
-        //    ReTurnClient();
-        //}
 
         if (Input.GetKeyDown(KeyCode.K)) // 빠른 게임 클리어 테스트 용
         {
@@ -218,15 +184,6 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     //            Debug.Log("난이도가 설정되지 않음"); break;
     //    }
         
-    //}
-
-    // 멀티는 챌린지 없음
-    //void GetChallengeReward()
-    //{
-    //    int reward = Mathf.FloorToInt(enemySpawn.stageNumber / 10);
-    //    reward = Mathf.RoundToInt(reward * reward * 1.5f);
-    //    Wood += reward; 
-    //    Iron += reward;
     //}
 
     public Queue<GameObject> hitSoliderColor;

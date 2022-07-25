@@ -196,12 +196,14 @@ public class ClientManager : MonoBehaviour
         //}
     }
 
-    void EquipStartGold()
+    public void EquipStartGold()
     {
         if (Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].HasSkill == false)
             Debug.Log("스킬 없음");
 
+
         Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].SetEquipSkill(true);
+        InitEquips();
     }
 
     private void InitMoney()
@@ -224,7 +226,8 @@ public class ClientManager : MonoBehaviour
 
     void InitEquip(SkillType skillType, Button equipButton)
     {
-        if (Multi_Managers.ClientData.SkillByType[skillType].HasSkill == false)
+        // 스킬이 없거나 스킬을 장착한 상태라면
+        if (Multi_Managers.ClientData.SkillByType[skillType].HasSkill == false || Multi_Managers.ClientData.SkillByType[skillType].EquipSkill == true)
         {
             equipButton.interactable = false;
         }

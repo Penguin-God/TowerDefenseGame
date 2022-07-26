@@ -39,15 +39,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         EndAttack();
     }
 
-    public override void SpecialAttack()
-    {
-        if (!TargetIsNormalEnemy)
-        {
-            NormalAttack();
-            return;
-        }
-        StartCoroutine(Special_ArcherAttack());
-    }
+    public override void SpecialAttack() => StartCoroutine(Special_ArcherAttack());
 
     // TODO : 아처 스킬 구조 뜯어 고치기
     IEnumerator Special_ArcherAttack()
@@ -59,6 +51,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         // TODO : 보스 나와있을 때는 보스만 때려야 함
         Transform[] targetArray = 
             Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target, GetComponent<RPCable>().UsingId);
+        print(targetArray.Length);
         for (int i = 0; i < targetArray.Length; i++)
         {
             ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[i], OnSkileHit);

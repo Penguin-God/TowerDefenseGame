@@ -32,13 +32,12 @@ public class Multi_EnemyManager : MonoBehaviourPun
             Multi_SpawnManagers.NormalEnemy.OnSpawn += AddEnemyAtList;
             Multi_SpawnManagers.NormalEnemy.OnDead += RemoveEnemyAtList;
 
-            Multi_SpawnManagers.BossEnemy.OnSpawn += boss => currentBoss = boss;
-            Multi_SpawnManagers.BossEnemy.OnSpawn += boss => currentBossLevel = boss.Level;
-            Multi_SpawnManagers.BossEnemy.OnDead += boss => currentBoss = null;
+            Multi_SpawnManagers.BossEnemy.OnSpawn += boss => _currentBoss.Set(boss, boss);
+            Multi_SpawnManagers.BossEnemy.OnDead += boss => _currentBoss.Set(boss, null);
 
-            Multi_SpawnManagers.TowerEnemy.OnSpawn += tower => currentEnemyTower = tower;
+            Multi_SpawnManagers.TowerEnemy.OnSpawn += tower => _currentTower.Set(tower, tower);
             Multi_SpawnManagers.TowerEnemy.OnSpawn += tower => currentEnemyTowerLevel = tower.Level;
-            Multi_SpawnManagers.TowerEnemy.OnDead += tower => currentEnemyTower = null;
+            Multi_SpawnManagers.TowerEnemy.OnDead += tower => _currentTower.Set(tower, null);
         }
     }
 
@@ -47,26 +46,26 @@ public class Multi_EnemyManager : MonoBehaviourPun
     public RPCAction<int> OnEnemyCountChanged = new RPCAction<int>();
     void Raise_EnemyCountChanged(int id) => OnEnemyCountChanged.RaiseEvent(id, currentNormalEnemysById[id].Count);
 
+    [Header("Boss Enemy")]
+    RPCData<Multi_BossEnemy> _currentBoss = new RPCData<Multi_BossEnemy>();
+    bool BossIsAlive(int id) => _currentBoss.Get(id) != null;
+
     [SerializeField] List<Transform> test_0 = new List<Transform>();
     [SerializeField] List<Transform> test_1 = new List<Transform>();
+    [SerializeField] Multi_BossEnemy testBoss = new Multi_BossEnemy();
     void Update()
     {
 #if UNITY_EDITOR
         if (PhotonNetwork.IsMasterClient && currentNormalEnemysById.ContainsKey(0))
         {
+            testBoss = _currentBoss.Get(1);
             test_0 = currentNormalEnemysById[0];
             test_1 = currentNormalEnemysById[1];
         }
 #endif
     }
 
-    // TODO : 타워항 보스 구현하면 부활함
-    [Header("Boss Enemy")]
-    [SerializeField] Multi_BossEnemy currentBoss; // TODO : Player 스크립트 만들고 거기로 옮기기
-    public Multi_BossEnemy CurrentBoss => currentBoss;
-    [SerializeField] int currentBossLevel = 0;
-    public int CurrentBossLevel => currentBossLevel;
-    public bool IsBossAlive => currentBoss != null;
+    RPCData<Multi_EnemyTower> _currentTower = new RPCData<Multi_EnemyTower>();
 
     [Header("Enemy Tower")]
     [SerializeField] Multi_EnemyTower currentEnemyTower; // TODO : Player 스크립트 만들고 거기로 옮기기
@@ -74,12 +73,19 @@ public class Multi_EnemyManager : MonoBehaviourPun
     [SerializeField] int currentEnemyTowerLevel;
     public int CurrentEnemyTowerLevel => currentEnemyTowerLevel;
 
+
     public Transform GetProximateEnemy(Vector3 unitPos, float startDistance, int unitId)
-        => GetProximateEnemy(unitPos, startDistance, currentNormalEnemysById[unitId]);
-    public Transform GetProximateEnemy(Vector3 _unitPos, float _startDistance, List<Transform> _enemyList)
     {
+        if (_currentBoss.Get(unitId) != null) return _currentBoss.Get(unitId).transform;
+
+        return GetProximateEnemy(unitPos, startDistance, currentNormalEnemysById[unitId]);
+    }
+
+    Transform GetProximateEnemy(Vector3 _unitPos, float _startDistance, List<Transform> _enemyList)
+    {
+        if (_enemyList == null || _enemyList.Count == 0) return null;
+
         Transform[] _enemys = _enemyList.ToArray();
-        if (_enemys == null || _enemys.Length == 0) return null;
         float shortDistance = _startDistance;
         Transform _returnEnemy = null;
         foreach (Transform _enemy in _enemys)
@@ -107,7 +113,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
         for (int i = 0; i < count; i++)
         {
-            if (_enemys.Count > 0)
+            if (_enemys.Count > 0 && BossIsAlive(unitId) == false)
             {
                 result[i] = GetProximateEnemy(_unitPos, _startDistance, _enemys);
                 _enemys.Remove(result[i]);

@@ -96,12 +96,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         OnAwake(); // 유닛별 세팅
     }
 
-    void Start()
-    {
-        //Multi_SpawnManagers.BossEnemy.OnSpawn += _boss => SetChaseSetting(_boss.gameObject);
-        //Multi_SpawnManagers.BossEnemy.OnDead += _boss => UpdateTarget();
-    }
-
     void OnEnable()
     {
         if (PhotonNetwork.IsMasterClient)
@@ -116,6 +110,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         // 적 추적
         UpdateTarget();
         if(PhotonNetwork.IsMasterClient) StartCoroutine("NavCoroutine");
+    }
+
+    void OnDisable()
+    {
+        StopAllCoroutines();
+        ResetValue();
     }
 
 
@@ -155,15 +155,13 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     public void Dead()
     {
-        StopAllCoroutines();
-        ResetValue();
         OnDead(this);
         gameObject.SetActive(false);
     }
 
     void ResetValue()
-    {   
-        SetChaseSetting(null);
+    {
+        target = null;
         rayHitTransform = null;
         // TODO : OnDead로 event만들어서 스포너에서 구독하게 바꾸기
         isAttack = false;
@@ -186,6 +184,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
         if (PhotonNetwork.IsMasterClient == false) return;
+
+        if (enterStoryWorld)
+        {
+            EnterStroyMode();
+            return;
+        }
 
         Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange, GetComponent<RPCable>().UsingId);
         if (_target != null) SetChaseSetting(_target.gameObject);
@@ -217,7 +221,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         while (true)
         {
-            if (target != null) enemyDistance = Vector3.Distance(this.transform.position, target.position);
+            if (target != null) enemyDistance = Vector3.Distance(this.transform.position, DestinationPos);
             if (target == null || enemyDistance > chaseRange)
             {
                 UpdateTarget();
@@ -229,7 +233,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
             if ((enemyIsForward || contactEnemy) && !isAttackDelayTime && !isSkillAttack && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
             {
-                //Debug.Log("Attack Start!!!");
                 UnitAttack();
             }
             yield return null;
@@ -270,8 +273,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     public void EndAttack()
     {
-        // if (!pv.IsMine) return;
-
         StartCoroutine(Co_ResetAttactStatus());
         if (target != null && TargetIsNormalEnemy && enemyDistance > stopDistanc * 2) UpdateTarget();
     }
@@ -388,6 +389,31 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         {
             nav.isStopped = true;
             nav.speed = 0f;
+        }
+    }
+
+    public void ChagneWorld(bool toStroyMode)
+    {
+        enterStoryWorld = toStroyMode;
+        if (toStroyMode) EnterStroyMode();
+        else EnterWorld();
+
+
+        void EnterWorld()
+        {
+            nav.obstacleAvoidanceType = ObstacleAvoidanceType.GoodQualityObstacleAvoidance;
+        }
+    }
+
+    void EnterStroyMode()
+    {
+        nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        Multi_EnemyTower tower = Multi_EnemyManager.Instance.GetCurrnetTower(GetComponent<RPCable>().UsingId);
+        if(tower != null)
+        {
+            SetChaseSetting(tower.gameObject);
+            Physics.Raycast(transform.position + Vector3.up, target.position - transform.position, out RaycastHit towerHit, 100f, layerMask);
+            DestinationPos = towerHit.point;
         }
     }
 

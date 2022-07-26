@@ -9,7 +9,7 @@ public class UI_UnitManagedWindow : Multi_UI_Popup
     [SerializeField] UI_CombineButtonParent _combineButtonsParent;
 
     [SerializeField] Text _currentWolrd;
-
+    [SerializeField] UnitWolrdChangedButton wolrdChangedButton;
     public void Show(UnitFlags flags)
     {
         SetInfo(flags);
@@ -20,5 +20,6 @@ public class UI_UnitManagedWindow : Multi_UI_Popup
     {
         _description.text = Multi_Managers.Data.UnitWindowDataByUnitFlags[flags].Description;
         _combineButtonsParent.SettingCombineButtons(Multi_Managers.Data.UnitWindowDataByUnitFlags[flags].CombineDatas);
+        wolrdChangedButton.Setup(flags);
     }
 }

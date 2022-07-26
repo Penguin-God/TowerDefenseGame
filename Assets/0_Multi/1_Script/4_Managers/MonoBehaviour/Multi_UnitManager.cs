@@ -72,6 +72,46 @@ public class Multi_UnitManager : MonoBehaviourPun
     List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
     List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flags) => unitListDictById[id][flags];
     int GetUnitListCount(int id, UnitFlags flags) => GetUnitList(id, flags).Count;
+    
+    public void UnitWorldChanged_RPC(int id, UnitFlags flag) => photonView.RPC("UnitWorldChanged", RpcTarget.MasterClient, id, flag);
+
+    [PunRPC]
+    void UnitWorldChanged(int id, UnitFlags flag)
+    {
+        if (Instance.TryGetUnit(id, flag, out Multi_TeamSoldier unit) == false) return;
+
+        unit.GetComponent<RPCable>().SetActive_RPC(false);
+        if (Multi_GameManager.instance.playerEnterStoryMode)
+            UnitToWorld();
+        else
+            UnitToStoryMode();
+        unit.GetComponent<RPCable>().SetActive_RPC(true);
+        unit.ChagneWorld(!Multi_GameManager.instance.playerEnterStoryMode);
+        
+
+        void UnitToStoryMode()
+            => unit.GetComponent<RPCable>().SetPosition_RPC(Multi_WorldPosUtility.Instance.GetEnemyTower_TP_Position(id));
+
+        void UnitToWorld()
+            => unit.GetComponent<RPCable>().SetPosition_RPC(Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(id));
+    }
+
+    bool TryGetUnit(int id, UnitFlags flag, out Multi_TeamSoldier unit)
+    {
+        foreach (Multi_TeamSoldier loopUnit in GetUnitList(id, flag))
+        {
+            if (loopUnit.enterStoryWorld == Multi_GameManager.instance.playerEnterStoryMode)
+            {
+                unit = loopUnit;
+                return true;
+            }
+        }
+
+        unit = null;
+        return false;
+    }
+
+
 
     public RPCAction<UnitFlags, int> OnUnitCountChanged = new RPCAction<UnitFlags, int>();
     public void Raise_UnitCountChanged(UnitFlags flag) => photonView.RPC("Raise_UnitCountChanged", RpcTarget.MasterClient, Multi_Data.instance.Id, flag);

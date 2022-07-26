@@ -49,7 +49,8 @@ public class Multi_EnemyManager : MonoBehaviourPun
     bool BossIsAlive(int id) => _currentBoss.Get(id) != null;
 
     RPCData<Multi_EnemyTower> _currentTower = new RPCData<Multi_EnemyTower>();
-    
+    public Multi_EnemyTower GetCurrnetTower(int id) => _currentTower.Get(id);
+
     [Header("테스트 인스팩터")]
     [SerializeField] List<Transform> test_0 = new List<Transform>();
     [SerializeField] List<Transform> test_1 = new List<Transform>();

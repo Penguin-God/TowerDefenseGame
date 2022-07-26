@@ -23,11 +23,13 @@ public class Multi_WorldPosUtility : MonoBehaviour
 
     void Awake()
     {
-        enemyTowerSpawnRange_X = towerPositionRange.bounds.size.x;
-        enemyTowerSpawnRange_Z = towerPositionRange.bounds.size.z;
+        offset = towerPositionRange.transform.position - Multi_Data.instance.EnemyTowerWorldPosition;
+        enemyTowerSpawnRange_X = towerPositionRange.bounds.size.x / 2;
+        enemyTowerSpawnRange_Z = towerPositionRange.bounds.size.z / 2;
     }
 
 
+    Vector3 offset;
     [SerializeField] float spawnRange = 20;
     [SerializeField] BoxCollider towerPositionRange = null;
     [SerializeField] float enemyTowerSpawnRange_X;
@@ -38,6 +40,8 @@ public class Multi_WorldPosUtility : MonoBehaviour
 
     public Vector3 GetEnemyTower_TP_Position()
                     => GetRandomPos_InRange(Multi_Data.instance.EnemyTowerWorldPosition, enemyTowerSpawnRange_X, enemyTowerSpawnRange_Z);
+    public Vector3 GetEnemyTower_TP_Position(int id)
+                => GetRandomPos_InRange(Multi_Data.instance.EnemyTowerWorldPositions[id] + offset, enemyTowerSpawnRange_X, enemyTowerSpawnRange_Z);
 
     Vector3 GetRandomPos_InRange(Vector3 _pivot, float _range) => GetRandomPos_InRange(_pivot, _range, _range);
 

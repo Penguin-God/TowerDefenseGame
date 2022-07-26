@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class Multi_EnemyTower : Multi_Enemy
 {
-    int _level;
+    [SerializeField] int _level;
     public int Level => _level;
     public BossData TowerData { get; private set; }
 

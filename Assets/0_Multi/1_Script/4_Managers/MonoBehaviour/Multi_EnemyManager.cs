@@ -36,7 +36,6 @@ public class Multi_EnemyManager : MonoBehaviourPun
             Multi_SpawnManagers.BossEnemy.OnDead += boss => _currentBoss.Set(boss, null);
 
             Multi_SpawnManagers.TowerEnemy.OnSpawn += tower => _currentTower.Set(tower, tower);
-            Multi_SpawnManagers.TowerEnemy.OnSpawn += tower => currentEnemyTowerLevel = tower.Level;
             Multi_SpawnManagers.TowerEnemy.OnDead += tower => _currentTower.Set(tower, null);
         }
     }
@@ -46,34 +45,30 @@ public class Multi_EnemyManager : MonoBehaviourPun
     public RPCAction<int> OnEnemyCountChanged = new RPCAction<int>();
     void Raise_EnemyCountChanged(int id) => OnEnemyCountChanged.RaiseEvent(id, currentNormalEnemysById[id].Count);
 
-    [Header("Boss Enemy")]
     RPCData<Multi_BossEnemy> _currentBoss = new RPCData<Multi_BossEnemy>();
     bool BossIsAlive(int id) => _currentBoss.Get(id) != null;
 
+    RPCData<Multi_EnemyTower> _currentTower = new RPCData<Multi_EnemyTower>();
+    
+    [Header("테스트 인스팩터")]
     [SerializeField] List<Transform> test_0 = new List<Transform>();
     [SerializeField] List<Transform> test_1 = new List<Transform>();
     [SerializeField] Multi_BossEnemy testBoss = new Multi_BossEnemy();
+    [SerializeField] Multi_EnemyTower testTower = new Multi_EnemyTower();
     void Update()
     {
 #if UNITY_EDITOR
         if (PhotonNetwork.IsMasterClient && currentNormalEnemysById.ContainsKey(0))
         {
             testBoss = _currentBoss.Get(1);
+            testTower = _currentTower.Get(1);
             test_0 = currentNormalEnemysById[0];
             test_1 = currentNormalEnemysById[1];
         }
 #endif
     }
 
-    RPCData<Multi_EnemyTower> _currentTower = new RPCData<Multi_EnemyTower>();
-
-    [Header("Enemy Tower")]
-    [SerializeField] Multi_EnemyTower currentEnemyTower; // TODO : Player 스크립트 만들고 거기로 옮기기
-    public Multi_EnemyTower CurrentEnemyTower => currentEnemyTower;
-    [SerializeField] int currentEnemyTowerLevel;
-    public int CurrentEnemyTowerLevel => currentEnemyTowerLevel;
-
-
+    
     public Transform GetProximateEnemy(Vector3 unitPos, float startDistance, int unitId)
     {
         if (_currentBoss.Get(unitId) != null) return _currentBoss.Get(unitId).transform;

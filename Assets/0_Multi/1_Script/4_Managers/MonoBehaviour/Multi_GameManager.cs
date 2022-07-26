@@ -48,7 +48,6 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
         }
 
         gameManagerAudio = GetComponent<AudioSource>();
-        OnStart += () => gameStart = true;
     }
 
 
@@ -57,15 +56,15 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     public string Difficult { get; private set; }
     public event System.Action OnStart;
     [PunRPC]
-    void RPC_OnStart(string _difficult)
+    void RPC_OnStart()
     {
-        Difficult = _difficult;
+        gameStart = true;
         OnStart();
     }
 
     public void GameStart(string difficult)
     {
-        if (PhotonNetwork.IsMasterClient) photonView.RPC("RPC_OnStart", RpcTarget.All, difficult);
+        if (PhotonNetwork.IsMasterClient) photonView.RPC("RPC_OnStart", RpcTarget.All);
     }
 
 

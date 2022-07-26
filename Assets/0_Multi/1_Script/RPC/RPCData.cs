@@ -14,7 +14,12 @@ public class RPCData<T> where T : new()
             _dict.Add(i, new T());
     }
 
-    public T Get(int id) => _dict[id];
+    public T Get(int id)
+    {
+        if (_dict.TryGetValue(id, out T result))
+            return result;
+        return new T();
+    }
     public void Set(int id, T t) => _dict[id] = t;
     public void Set(Component com, T t) => _dict[com.GetComponent<RPCable>().UsingId] = t;
 }

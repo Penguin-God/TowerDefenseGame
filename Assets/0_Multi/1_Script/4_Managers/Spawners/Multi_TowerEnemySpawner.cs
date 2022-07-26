@@ -8,17 +8,16 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
 {
     public event Action<Multi_EnemyTower> OnSpawn;
     public event Action<Multi_EnemyTower> OnDead;
-    Vector3 spawnPos;
+    RPCData<int> _towerLevel = new RPCData<int>();
 
     protected override void Init()
     {
-        spawnPos = Multi_Data.instance.EnemyTowerSpawnPos;
         Multi_GameManager.instance.OnStart += Spawn;
-        OnDead += AfterSpawn;
     }
 
     protected override void MasterInit()
     {
+        OnDead += AfterSpawn;
         CreatePool();
     }
 
@@ -41,30 +40,29 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
 
         if (PhotonNetwork.IsMasterClient == false) return;
         enemy.OnDeath += () => OnDead(enemy);
-        enemy.OnDeath += () => Multi_Managers.Pool.Push(enemy.GetComponent<Poolable>());
     }
 
-    void AfterSpawn(Multi_EnemyTower tower) => StartCoroutine(Co_AfterSpawn(tower.GetComponent<RPCable>().UsingId));
+    void AfterSpawn(Multi_EnemyTower tower)
+    {
+        if (_enemys.Length > tower.Level)
+            StartCoroutine(Co_AfterSpawn(tower.GetComponent<RPCable>().UsingId));
+    }
     IEnumerator Co_AfterSpawn(int id)
     {
         yield return new WaitForSeconds(5f);
         Spawn(id);
     }
 
-    [SerializeField] int towerLevel = 0;
     void Spawn() => Spawn(Multi_Data.instance.Id);
-
-    void Spawn(int id)
-    {
-        towerLevel++;
-        Spawn_RPC(BuildPath(_rootPath, _enemys[towerLevel - 1]), Multi_Data.instance.EnemyTowerWorldPositions[id], id);
-    }
+    void Spawn(int id) => Spawn_RPC(BuildPath(_rootPath, _enemys[_towerLevel.Get(id)]), Multi_Data.instance.EnemyTowerWorldPositions[id], id);
 
     [PunRPC]
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, int id)
     {
         Multi_EnemyTower enemy = base.BaseSpawn(path, spawnPos, id).GetComponent<Multi_EnemyTower>();
-        enemy.Spawn(towerLevel);
+        _towerLevel.Set(id, _towerLevel.Get(id) + 1);
+        print($"ID : {id}에서 레벨 {_towerLevel.Get(id)} 짜리 타워 스폰");
+        enemy.Spawn(_towerLevel.Get(id));
         OnSpawn?.Invoke(enemy);
         return null;
     }

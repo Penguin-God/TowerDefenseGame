@@ -968,7 +968,7 @@ public class Multi_CombineSoldier : MonoBehaviourPun
         unitmanage.UnitManagementButton.gameObject.SetActive(true);
     }
 
-    public void SoldierChoose(int Colornumber1, int Colornumber2, int Soldiernumber1, int Soldiernumber2)
+    void SoldierChoose(int Colornumber1, int Colornumber2, int Soldiernumber1, int Soldiernumber2)
     {
         Colornumber = Random.Range(Colornumber1, Colornumber2);
         Soldiernumber = Random.Range(Soldiernumber1, Soldiernumber2);

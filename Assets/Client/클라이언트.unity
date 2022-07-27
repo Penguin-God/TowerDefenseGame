@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 1358498}
   - component: {fileID: 1358497}
   m_Layer: 5
-  m_Name: StartGoldSkillFrame
+  m_Name: Skill1Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1406,7 +1406,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &44643317
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7808,7 +7808,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &312419167
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8535,7 +8535,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 343000749}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 792715567}
+        m_MethodName: EquipStartFood
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &343000749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13063,7 +13074,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 555755563}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 792715567}
+        m_MethodName: EquipPlusMaxUnit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &555755563
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16378,7 +16400,7 @@ GameObject:
   - component: {fileID: 699209896}
   - component: {fileID: 699209895}
   m_Layer: 5
-  m_Name: StartFoodSkill
+  m_Name: Skill2Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -17965,7 +17987,6 @@ GameObject:
   m_Component:
   - component: {fileID: 792715568}
   - component: {fileID: 792715567}
-  - component: {fileID: 792715572}
   - component: {fileID: 792715569}
   - component: {fileID: 792715570}
   - component: {fileID: 792715571}
@@ -17999,6 +18020,9 @@ MonoBehaviour:
   StartGoldEquipButton: {fileID: 794945378}
   StartFoodEquipButton: {fileID: 343000748}
   PlusMaxUnitEquipButton: {fileID: 555755562}
+  Skill1Image: {fileID: 1671601811}
+  Skill2Image: {fileID: 699209895}
+  skill_Image: {fileID: 792715571}
   ClientClickAudioSource: {fileID: 792715570}
   AdIronCount: {fileID: 1950976686}
   AdWoodCount: {fileID: 1203556690}
@@ -18137,24 +18161,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fcf9366b3a50944a3e23ca557bb314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StratGoldImage: {fileID: 21300000, guid: 40507134201370e4f83c4ee99900be98, type: 3}
-  StratFoodImage: {fileID: 21300000, guid: e8fcc2c8b0e3fbc448689f88bc9c684c, type: 3}
-  PlusMaxUnitImage: {fileID: 21300000, guid: de3a4653b45a58749a6185ab8de1852f, type: 3}
---- !u!114 &792715572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792715566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70fcf9366b3a50944a3e23ca557bb314, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StratGoldImage: {fileID: 21300000, guid: 40507134201370e4f83c4ee99900be98, type: 3}
-  StratFoodImage: {fileID: 21300000, guid: e8fcc2c8b0e3fbc448689f88bc9c684c, type: 3}
-  PlusMaxUnitImage: {fileID: 21300000, guid: de3a4653b45a58749a6185ab8de1852f, type: 3}
+  StratGoldImage: {fileID: 821456059}
+  StratFoodImage: {fileID: 1968038680}
+  PlusMaxUnitImage: {fileID: 358873530}
 --- !u!1 &794945376
 GameObject:
   m_ObjectHideFlags: 0
@@ -30569,7 +30578,7 @@ GameObject:
   - component: {fileID: 1281880389}
   - component: {fileID: 1281880388}
   m_Layer: 5
-  m_Name: StartFoodEquipButton
+  m_Name: Skill2EquipButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -35063,36 +35072,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1487310124}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1495065875
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1495065876}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1495065876
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1495065875}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 227.38318, y: 14.716454, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 8
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1496639277
 GameObject:
   m_ObjectHideFlags: 0
@@ -38443,7 +38422,7 @@ GameObject:
   - component: {fileID: 1671601812}
   - component: {fileID: 1671601811}
   m_Layer: 5
-  m_Name: StartGoldSkill
+  m_Name: Skill1Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38917,7 +38896,7 @@ GameObject:
   - component: {fileID: 1683964443}
   - component: {fileID: 1683964442}
   m_Layer: 5
-  m_Name: StartGoldEquipButton
+  m_Name: Skill1EquipButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38987,7 +38966,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 792715567}
-        m_MethodName: EquipStartGold
+        m_MethodName: CheckSkill
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -40950,49 +40929,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 1087.033, y: 622.1384}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1757493848
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1757493850}
-  - component: {fileID: 1757493849}
-  m_Layer: 0
-  m_Name: Test
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1757493849
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1757493848}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41c37dcca618f0c4c95fd7e7caebcec5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1757493850
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1757493848}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 210.23718, y: 233.60678, z: 518.9935}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1762771176
 GameObject:
   m_ObjectHideFlags: 0
@@ -41320,7 +41256,7 @@ GameObject:
   - component: {fileID: 1774181715}
   - component: {fileID: 1774181714}
   m_Layer: 5
-  m_Name: StartFoodSkillFrame
+  m_Name: Skill2Frame
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43226,7 +43162,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC7A5\uCC29"
+  m_Text: "\uC7A5\uCC29 \uD5E4\uC81C"
 --- !u!222 &1863628057
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -48231,7 +48167,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC7A5\uCC29"
+  m_Text: "\uC7A5\uCC29 \uD5E4\uC81C"
 --- !u!222 &2120233491
 CanvasRenderer:
   m_ObjectHideFlags: 0

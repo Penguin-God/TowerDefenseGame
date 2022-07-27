@@ -21,6 +21,11 @@ public class ClientManager : MonoBehaviour
     public Button StartFoodEquipButton;
     public Button PlusMaxUnitEquipButton;
 
+    public Image Skill1Image;
+    public Image Skill2Image;
+
+    public Skill_Image skill_Image;
+
     int ClientWood; 
     int ClientIron;
     int ClientHammer;
@@ -38,6 +43,7 @@ public class ClientManager : MonoBehaviour
         // 임시 코드
         EventIdManager.Reset();
 
+        Skill_Image skill_Image = GetComponent<Skill_Image>();
         ClientIron = Multi_Managers.ClientData.MoneyByType[MoneyType.Iron].Amount;
         ClientWood = Multi_Managers.ClientData.MoneyByType[MoneyType.Wood].Amount;
         ClientHammer = Multi_Managers.ClientData.MoneyByType[MoneyType.Hammer].Amount;
@@ -198,11 +204,44 @@ public class ClientManager : MonoBehaviour
 
     public void EquipStartGold()
     {
-        if (Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].HasSkill == false)
-            Debug.Log("스킬 없음");
+        EquipSkill(SkillType.시작골드증가);
 
+        if (CheckSkill() == 1)
+            Skill1Image.sprite = skill_Image.StratGoldImage.sprite;
+        else if (CheckSkill() == 2)
+            Skill2Image.sprite = skill_Image.StratGoldImage.sprite;
+    }
 
-        Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].SetEquipSkill(true);
+    public void EquipStartFood()
+    {
+        EquipSkill(SkillType.시작식량증가);
+
+        if (CheckSkill() == 1)
+            Skill1Image.sprite = skill_Image.StratFoodImage.sprite;
+        else if (CheckSkill() == 2)
+            Skill2Image.sprite = skill_Image.StratFoodImage.sprite;
+    }
+
+    public void EquipPlusMaxUnit()
+    {
+        EquipSkill(SkillType.최대유닛증가);
+
+        if (CheckSkill() == 1)
+            Skill1Image.sprite = skill_Image.PlusMaxUnitImage.sprite;
+        else if (CheckSkill() == 2)
+            Skill2Image.sprite = skill_Image.PlusMaxUnitImage.sprite;
+    }
+
+    void EquipSkill(SkillType skillType)
+    {
+        if (CheckSkill() >= 2)
+        {
+            Debug.Log("스킬을 2개 장착 중");
+            return;
+        }
+        
+
+        Multi_Managers.ClientData.SkillByType[skillType].SetEquipSkill(true);
         InitEquips();
     }
 
@@ -235,6 +274,21 @@ public class ClientManager : MonoBehaviour
         {
             equipButton.interactable = true;
         }
+    }
+
+    // 뭔가 좋은 방법 필요
+    public int CheckSkill()
+    {
+        int count = 0;
+
+        if (Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].EquipSkill == true)
+            count++;
+        if (Multi_Managers.ClientData.SkillByType[SkillType.시작식량증가].EquipSkill == true)
+            count++;
+        if (Multi_Managers.ClientData.SkillByType[SkillType.최대유닛증가].EquipSkill == true)
+            count++;
+
+        return count;
     }
 
 

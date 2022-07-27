@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public  class Skill_Image : MonoBehaviour
+public class Skill_Image : MonoBehaviour
 {
-    public Sprite StratGoldImage;
-    public Sprite StratFoodImage;
-    public Sprite PlusMaxUnitImage;
+    public Image StratGoldImage;
+    public Image StratFoodImage;
+    public Image PlusMaxUnitImage;
 
 }

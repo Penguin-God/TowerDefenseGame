@@ -80,19 +80,6 @@ public class Multi_UnitManager : MonoBehaviourPun
     {
         if (Instance.TryGetUnit(id, flag, out Multi_TeamSoldier unit)) 
             unit.ChagneWorld();
-
-        //if (Multi_GameManager.instance.playerEnterStoryMode)
-        //    UnitToWorld();
-        //else
-        //    UnitToStoryMode();
-        //unit.GetComponent<RPCable>().SetActive_RPC(true);
-        
-
-        //void UnitToStoryMode()
-        //    => unit.GetComponent<RPCable>().SetPosition_RPC(Multi_WorldPosUtility.Instance.GetEnemyTower_TP_Position(id));
-
-        //void UnitToWorld()
-        //    => unit.GetComponent<RPCable>().SetPosition_RPC(Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(id));
     }
 
     bool TryGetUnit(int id, UnitFlags flag, out Multi_TeamSoldier unit)
@@ -110,8 +97,6 @@ public class Multi_UnitManager : MonoBehaviourPun
         return false;
     }
 
-
-
     public RPCAction<UnitFlags, int> OnUnitCountChanged = new RPCAction<UnitFlags, int>();
     public void Raise_UnitCountChanged(UnitFlags flag) => photonView.RPC("Raise_UnitCountChanged", RpcTarget.MasterClient, Multi_Data.instance.Id, flag);
     [PunRPC]
@@ -127,7 +112,6 @@ public class Multi_UnitManager : MonoBehaviourPun
     public RPCAction<int> OnAllUnitCountChanged = new RPCAction<int>();
     void Raise_AllUnitCountChanged(int id) => OnAllUnitCountChanged.RaiseEvent(id, _currentAllUnitsById[id].Count);
 
-    
     // 유닛 조합
     public RPCAction<bool, UnitFlags> OnCombineTry = new RPCAction<bool, UnitFlags>();
 
@@ -189,27 +173,4 @@ public class Multi_UnitManager : MonoBehaviourPun
     #endregion
 
     void AllUnitUpdateTarget(int id) => _currentAllUnitsById[id].ForEach(x => x.UpdateTarget());
-
-
-
-
-    // 아래는 쭉 리팩터링 전 코드들
-    [SerializeField] private GameObject[] tp_Effects;
-    int current_TPEffectIndex;
-    Vector3 effectPoolPosition = new Vector3(1000, 1000, 1000);
-    public void ShowTpEffect(Transform tpUnit)
-    {
-        StartCoroutine(ShowTpEffect_Coroutine(tpUnit));
-    }
-
-    IEnumerator ShowTpEffect_Coroutine(Transform tpUnit) // tp 이펙트 풀링
-    {
-        tp_Effects[current_TPEffectIndex].transform.position = tpUnit.position + Vector3.up;
-        tp_Effects[current_TPEffectIndex].SetActive(true);
-        yield return new WaitForSeconds(0.25f);
-        tp_Effects[current_TPEffectIndex].SetActive(false);
-        tp_Effects[current_TPEffectIndex].transform.position = effectPoolPosition;
-        current_TPEffectIndex++;
-        if (current_TPEffectIndex >= tp_Effects.Length) current_TPEffectIndex = 0;
-    }
 }

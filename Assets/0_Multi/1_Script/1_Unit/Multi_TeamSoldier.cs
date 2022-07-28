@@ -354,40 +354,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     protected bool TargetIsNormalEnemy { get { return (target != null && target.GetComponent<Multi_Enemy>().enemyType == EnemyType.Normal); } }
     bool TransformIsBoss(Transform enemy) => enemy.CompareTag("Tower") || enemy.CompareTag("Boss");
 
-
-    #region Enemy Tower
-    // 타워 때리는 무한반복 코루틴
-    IEnumerator TowerNavCoroutine()
-    {
-        Physics.Raycast(transform.position + Vector3.up, target.position - transform.position, out RaycastHit towerHit, 100f, layerMask);
-
-        Invoke("RangeNavStop", 3f); // 원거리 타워에 다가가는거 막기
-        while (true)
-        {
-            if (target != null) enemyDistance = Vector3.Distance(this.transform.position, towerHit.point);
-            if (target == null || enemyDistance > chaseRange)
-            {
-                // TOOD : 에너미 타워 구현하기
-                Multi_EnemyTower currentTower = null; // Multi_EnemySpawner.instance.CurrentTower;
-                yield return new WaitUntil(() => currentTower != null);
-                if (!currentTower.isDead) SetChaseSetting(currentTower.gameObject);
-                else
-                {
-                    yield return null;
-                    continue;
-                }
-            }
-
-            nav.SetDestination(towerHit.point);
-            enemyDistance = Vector3.Distance(this.transform.position, towerHit.point);
-
-            if ((contactEnemy || enemyIsForward) && !isAttackDelayTime && !isSkillAttack && !isAttack)
-                UnitAttack();
-
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
-
+    // TODO : 원거리 유닛 사정거리 안에 들어오면 움직임 좀 봉인하기
     void RangeNavStop()
     {
         if (GetComponent<RangeUnit>() != null)
@@ -440,42 +407,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             DestinationPos = towerHit.point;
         }
     }
-
-    public void Unit_WorldChange()
-    {
-        StopCoroutine("Unit_WorldChange_Coroutine");
-        StartCoroutine("Unit_WorldChange_Coroutine");
-    }
-
-    IEnumerator Unit_WorldChange_Coroutine() // 월드 바꾸는 함수
-    {
-        yield return new WaitUntil(() => !isAttack);
-        nav.enabled = false;
-        UnitManager.instance.ShowTpEffect(transform);
-
-        if (!enterStoryWorld)
-        {
-            // 적군의 성 때 겹치는 버그 방지
-            nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-            transform.position = Multi_WorldPosUtility.Instance.GetEnemyTower_TP_Position();
-            StopCoroutine("NavCoroutine");
-            SetChaseSetting(EnemySpawn.instance.currentTower.gameObject);
-            StartCoroutine("TowerNavCoroutine");
-        }
-        else
-        {
-            nav.obstacleAvoidanceType = ObstacleAvoidanceType.GoodQualityObstacleAvoidance;
-            transform.position = Multi_WorldPosUtility.Instance.GetUnitSpawnPositon();
-            StopCoroutine("TowerNavCoroutine");
-            UpdateTarget();
-            StartCoroutine("NavCoroutine");
-        }
-
-        nav.enabled = true;
-        enterStoryWorld = !enterStoryWorld;
-        SoundManager.instance.PlayEffectSound_ByName("TP_Unit");
-    }
-    #endregion
 
 
     #region callback funtion

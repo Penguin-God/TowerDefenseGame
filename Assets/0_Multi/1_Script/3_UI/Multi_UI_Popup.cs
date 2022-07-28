@@ -8,9 +8,4 @@ public class Multi_UI_Popup : Multi_UI_Base
     {
         Multi_Managers.UI.SetCanvas(gameObject, true);
     }
-
-    public virtual void ClosePopupUI()
-    {
-        Multi_Managers.UI.ClosePopupUI(this);
-    }
 }

@@ -108,9 +108,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             SetPassive_RPC();
         }
         
-        animator.enabled = true;
-        animator.Rebind();
-        animator.Update(0);
+        if(animator != null)
+        {
+            animator.enabled = true;
+            animator.Rebind();
+            animator.Update(0);
+        }
 
         nav.enabled = true;
 
@@ -178,7 +181,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         enemyIsForward = false;
         enemyDistance = 1000f;
 
-        animator.enabled = false;
+        if (animator != null) 
+            animator.enabled = false;
 
         nav.enabled = false;
     }

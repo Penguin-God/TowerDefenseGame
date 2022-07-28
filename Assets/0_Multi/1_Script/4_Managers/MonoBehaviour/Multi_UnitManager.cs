@@ -78,29 +78,28 @@ public class Multi_UnitManager : MonoBehaviourPun
     [PunRPC]
     void UnitWorldChanged(int id, UnitFlags flag)
     {
-        if (Instance.TryGetUnit(id, flag, out Multi_TeamSoldier unit) == false) return;
+        if (Instance.TryGetUnit(id, flag, out Multi_TeamSoldier unit)) 
+            unit.ChagneWorld();
 
-        unit.GetComponent<RPCable>().SetActive_RPC(false);
-        if (Multi_GameManager.instance.playerEnterStoryMode)
-            UnitToWorld();
-        else
-            UnitToStoryMode();
-        unit.GetComponent<RPCable>().SetActive_RPC(true);
-        unit.ChagneWorld(!Multi_GameManager.instance.playerEnterStoryMode);
+        //if (Multi_GameManager.instance.playerEnterStoryMode)
+        //    UnitToWorld();
+        //else
+        //    UnitToStoryMode();
+        //unit.GetComponent<RPCable>().SetActive_RPC(true);
         
 
-        void UnitToStoryMode()
-            => unit.GetComponent<RPCable>().SetPosition_RPC(Multi_WorldPosUtility.Instance.GetEnemyTower_TP_Position(id));
+        //void UnitToStoryMode()
+        //    => unit.GetComponent<RPCable>().SetPosition_RPC(Multi_WorldPosUtility.Instance.GetEnemyTower_TP_Position(id));
 
-        void UnitToWorld()
-            => unit.GetComponent<RPCable>().SetPosition_RPC(Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(id));
+        //void UnitToWorld()
+        //    => unit.GetComponent<RPCable>().SetPosition_RPC(Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(id));
     }
 
     bool TryGetUnit(int id, UnitFlags flag, out Multi_TeamSoldier unit)
     {
         foreach (Multi_TeamSoldier loopUnit in GetUnitList(id, flag))
         {
-            if (loopUnit.enterStoryWorld == Multi_GameManager.instance.playerEnterStoryMode)
+            if (loopUnit.EnterStroyWorld == Multi_GameManager.instance.playerEnterStoryMode)
             {
                 unit = loopUnit;
                 return true;

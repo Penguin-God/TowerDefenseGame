@@ -31,8 +31,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public int skillDamage;
     [SerializeField] protected float stopDistanc;
 
-    // 상태 변수(동기화되지 않음)
-    public bool enterStoryWorld; // 적군의 성 입장시 true
+    // 상태 변수들(동기화되지 않음)
+    protected bool enterStoryWorld; // 적군의 성 입장시 true
+    public bool EnterStroyWorld => enterStoryWorld;
+
     public bool isAttack; // 공격 중에 true
     public bool isAttackDelayTime; // 공격 쿨타임 중에 true
     // 나중에 유닛별 공격 조건 만들면서 없애기
@@ -47,6 +49,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     protected NavMeshAgent nav;
     protected Animator animator;
     protected PhotonView pv;
+    protected RPCable rpcable;
     protected AudioSource unitAudioSource;
     [SerializeField] protected AudioClip normalAttackClip;
     public float normalAttakc_AudioDelay;
@@ -85,6 +88,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         // 변수 선언
         passive = GetComponent<Multi_UnitPassive>();
         pv = GetComponent<PhotonView>();
+        rpcable = GetComponent<RPCable>();
         animator = GetComponentInChildren<Animator>();
         unitAudioSource = GetComponent<AudioSource>();
         nav = GetComponent<NavMeshAgent>();
@@ -103,8 +107,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             LoadStat_RPC();
             SetPassive_RPC();
         }
+        
+        animator.enabled = true;
 
-        if (animator != null) animator.enabled = true;
         nav.enabled = true;
 
         // 적 추적
@@ -171,12 +176,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         enemyIsForward = false;
         enemyDistance = 1000f;
 
-        if (animator != null)
-        {
-            animator.Rebind();
-            animator.Update(0);
-            animator.enabled = false;
-        }
+        animator.enabled = false;
+
         nav.enabled = false;
     }
 
@@ -344,10 +345,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     #endregion
 
 
-    #region enemy 관련 bool 값들
     protected bool TargetIsNormalEnemy { get { return (target != null && target.GetComponent<Multi_Enemy>().enemyType == EnemyType.Normal); } }
     bool TransformIsBoss(Transform enemy) => enemy.CompareTag("Tower") || enemy.CompareTag("Boss");
-    #endregion
 
 
     #region Enemy Tower
@@ -392,12 +391,28 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public void ChagneWorld(bool toStroyMode)
+    public void ChagneWorld()
     {
-        enterStoryWorld = toStroyMode;
-        if (toStroyMode) EnterStroyMode();
+        Multi_SpawnManagers.Effect.Play(Effects.Unit_Tp_Effect, transform.position + (Vector3.up * 3));
+        
+        animator.GetCurrentAnimatorClipInfo(0)[0].clip.frameRate = 0;
+        // animator.Play(currentAnimaName, 0, 0);
+        Move();
+        if (enterStoryWorld) EnterStroyMode();
         else EnterWorld();
 
+        enterStoryWorld = !enterStoryWorld;
+        rpcable.SetActive_RPC(true);
+
+        void Move()
+        {
+            rpcable.SetActive_RPC(false);
+            rpcable.SetPosition_RPC(GetOppositeWorldSpawnPos());
+            rpcable.SetActive_RPC(true);
+        }
+
+        Vector3 GetOppositeWorldSpawnPos() => (enterStoryWorld) ? Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(rpcable.UsingId) 
+            : Multi_WorldPosUtility.Instance.GetEnemyTower_TP_Position(rpcable.UsingId);
 
         void EnterWorld()
         {
@@ -408,11 +423,16 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     void EnterStroyMode()
     {
         nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        SetTargetByTower();
+    }
+
+    void SetTargetByTower()
+    {
         Multi_EnemyTower tower = Multi_EnemyManager.Instance.GetCurrnetTower(GetComponent<RPCable>().UsingId);
-        if(tower != null)
+        if (tower != null)
         {
             SetChaseSetting(tower.gameObject);
-            Physics.Raycast(transform.position + Vector3.up, target.position - transform.position, out RaycastHit towerHit, 100f, layerMask);
+            Physics.Raycast(transform.position + Vector3.up, target.position - transform.position, out RaycastHit towerHit, 50f, layerMask);
             DestinationPos = towerHit.point;
         }
     }

@@ -109,6 +109,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         }
         
         animator.enabled = true;
+        animator.Rebind();
+        animator.Update(0);
 
         nav.enabled = true;
 
@@ -395,8 +397,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         Multi_SpawnManagers.Effect.Play(Effects.Unit_Tp_Effect, transform.position + (Vector3.up * 3));
         
-        animator.GetCurrentAnimatorClipInfo(0)[0].clip.frameRate = 0;
-        // animator.Play(currentAnimaName, 0, 0);
         Move();
         if (enterStoryWorld) EnterStroyMode();
         else EnterWorld();

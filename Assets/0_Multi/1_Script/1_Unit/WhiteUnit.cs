@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class WhiteUnit : MonoBehaviour
 {
@@ -11,8 +12,10 @@ public class WhiteUnit : MonoBehaviour
 
     void OnEnable()
     {
+        if (PhotonNetwork.IsMasterClient == false) return;
+
         timer = Multi_SpawnManagers.Effect.ShwoForTime(Effects.WhiteUnit_Timer, transform.position, aliveTime).GetComponent<Multi_WhiteUnitTimer>();
-        timer.Setup(transform, aliveTime);
+        timer.Setup_RPC(transform, aliveTime);
         timer.Slider.onValueChanged.AddListener(ChangedColor);
     }
 

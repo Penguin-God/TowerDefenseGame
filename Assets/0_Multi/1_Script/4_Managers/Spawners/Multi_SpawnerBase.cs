@@ -47,6 +47,12 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
     [PunRPC]
     protected virtual GameObject BaseSpawn(string path, Vector3 spawnPos, int id) => Multi_Managers.Resources.PhotonInsantiate(path, spawnPos, id);
 
+    protected void Spawn_RPC(string path, Vector3 spawnPos, Quaternion rotation) 
+                => pv.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, rotation, Multi_Data.instance.Id);
+    [PunRPC]
+    protected virtual GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
+        => Multi_Managers.Resources.PhotonInsantiate(path, spawnPos, rotation, id);
+
     public string BuildPath(string rooPath, GameObject go) => $"{rooPath}/{go.name}";
     public string BuildPath(string rooPath, string folderName, GameObject go) => $"{rooPath}/{folderName}/{go.name}";
     public string BuildPath(string rooPath, string folderName, string name) => $"{rooPath}/{folderName}/{name}";

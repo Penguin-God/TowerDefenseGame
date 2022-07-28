@@ -5,20 +5,21 @@ using UnityEngine.UI;
 
 public class WhiteUnitTimer : MonoBehaviour
 {
-    [SerializeField] float transformTime;
+    [SerializeField] float aliveTime;
+    [SerializeField] Vector3 offSet;
+
     private Slider timerSlider;
-    public Vector3 offSet;
     public Transform targetUnit;
 
     private void Awake()
     {
         timerSlider = GetComponentInChildren<Slider>();
-        timerSlider.maxValue = transformTime;
+        timerSlider.maxValue = aliveTime;
     }
 
     private void OnEnable()
     {
-        transformTime = 30;
+        timerSlider.value = aliveTime;
         StartCoroutine(Co_Timer());
     }
 
@@ -26,9 +27,9 @@ public class WhiteUnitTimer : MonoBehaviour
     {
         while (true)
         {
-            transformTime -= Time.deltaTime;
-            timerSlider.value = transformTime;
-            if (transformTime <= 0f)
+            aliveTime -= Time.deltaTime;
+            timerSlider.value = aliveTime;
+            if (aliveTime <= 0f)
             {
                 targetUnit.gameObject.GetComponent<WhiteUnitEvent>().UnitTransform();
                 gameObject.SetActive(false);

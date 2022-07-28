@@ -7,7 +7,7 @@ using Photon.Pun;
 public enum Effects
 {
     Unit_Tp_Effect,
-
+    WhiteUnit_Timer,
 }
 
 public class EffectSpawner : Multi_SpawnerBase
@@ -21,9 +21,16 @@ public class EffectSpawner : Multi_SpawnerBase
             CreatePool_InGroup(effect, count);
     }
 
+    public GameObject ShwoForTime(Effects type, Vector3 pos, float aliveTime)
+    {
+        GameObject effect = Spawn(type, pos);
+        StartCoroutine(Co_AfterPush(effect, aliveTime));
+        return effect;
+    }
+
     public void Play(Effects type, Vector3 pos)
     {
-        ParticleSystem particle = Spawn(type, pos);
+        ParticleSystem particle = Spawn(type, pos).GetComponent<ParticleSystem>();
         if (particle != null)
         {
             particle.Play();
@@ -37,6 +44,5 @@ public class EffectSpawner : Multi_SpawnerBase
         Multi_Managers.Pool.Push(go);
     }
 
-    ParticleSystem Spawn(Effects type, Vector3 pos) 
-        => Multi_Managers.Resources.PhotonInsantiate($"{_rootPath}/{Enum.GetName(typeof(Effects), type)}", pos).GetComponent<ParticleSystem>();
+    GameObject Spawn(Effects type, Vector3 pos) => Multi_Managers.Resources.PhotonInsantiate($"{_rootPath}/{Enum.GetName(typeof(Effects), type)}", pos);
 }

@@ -70,6 +70,7 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
 
     public void Spawn(UnitFlags flag) => Spawn(flag.ColorNumber, flag.ClassNumber);
     public void Spawn(int unitColor, int unitClass) => Spawn_RPC(GetUnitPath(unitColor, unitClass), GetUnitSpawnPos());
+    public void Spawn(int unitColor, int unitClass, Vector3 spawnPos, Quaternion rotation) => Spawn_RPC(GetUnitPath(unitColor, unitClass), spawnPos, rotation);
     public void Spawn(UnitFlags flag, int id) => Spawn_RPC(GetUnitPath(flag.ColorNumber, flag.ClassNumber), GetUnitSpawnPos(id), id);
 
     string GetUnitPath(int unitColor, int unitClass) => BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]);

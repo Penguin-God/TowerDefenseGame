@@ -91,11 +91,11 @@ GameObject:
   - component: {fileID: 8606670814876993438}
   - component: {fileID: 460885869760899230}
   - component: {fileID: 4419424434248360703}
-  - component: {fileID: 7538853946317876359}
   - component: {fileID: 4419424434181142112}
   - component: {fileID: 2342271511371248315}
   - component: {fileID: 4653388475442759893}
   - component: {fileID: 6454545635002746422}
+  - component: {fileID: -1019720158022441825}
   m_Layer: 9
   m_Name: White_SwordMan 1
   m_TagString: WhiteSwordman
@@ -252,22 +252,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7538853946317876359
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8606670814876993437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c93d9a3414cbea44ebc9f95324870946, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  classNumber: 0
-  unitColorCount: 0
-  timerObject: {fileID: 3550290449996104982, guid: cac34ecb35aa4b34984b6ecb2594f075,
-    type: 3}
 --- !u!114 &4419424434181142112
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,26 +289,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitClass: 0
   unitColor: 6
-  originDamage: 0
-  originBossDamage: 0
-  originAttackDelayTime: 0.3
-  speed: 15
-  attackRange: 6
-  damage: 0
-  bossDamage: 0
+  stat:
+    _flag:
+      _colorNumber: 0
+      _classNumber: 0
+    _damage: 0
+    _bossDamage: 0
+    _useSkillPercent: 0
+    _attackDelayTime: 0
+    _speed: 0
+    _attackRange: 0
   skillDamage: 0
   stopDistanc: 5
-  enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
-  attackDelayTime: 0.3
   isSkillAttack: 0
   skillCoolDownTime: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 819330f33b9ea014f990dd335112905e, type: 3}
   normalAttakc_AudioDelay: 0.7
   reinforceEffect: {fileID: 0}
-  specialAttackPercent: 0
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
@@ -341,7 +325,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _usingId: 0
   IsUsing: 0
   Path: 
 --- !u!114 &6454545635002746422
@@ -357,6 +340,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _usingId: -1
+--- !u!114 &-1019720158022441825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8606670814876993437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b27b4cc30919a54d978617ca9faefee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  classNumber: 0
+  maxColor: 5
+  aliveTime: 30
 --- !u!1 &8606670815029551443
 GameObject:
   m_ObjectHideFlags: 0

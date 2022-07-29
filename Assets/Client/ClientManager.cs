@@ -204,7 +204,8 @@ public class ClientManager : MonoBehaviour
 
     public void EquipStartGold()
     {
-        EquipSkill(SkillType.시작골드증가);
+        if (EquipSkill(SkillType.시작골드증가) == false)
+            return;
 
         if (CheckSkill() == 1)
             Skill1Image.sprite = skill_Image.StratGoldImage.sprite;
@@ -214,7 +215,8 @@ public class ClientManager : MonoBehaviour
 
     public void EquipStartFood()
     {
-        EquipSkill(SkillType.시작식량증가);
+        if (EquipSkill(SkillType.시작식량증가) == false)
+            return;
 
         if (CheckSkill() == 1)
             Skill1Image.sprite = skill_Image.StratFoodImage.sprite;
@@ -224,7 +226,9 @@ public class ClientManager : MonoBehaviour
 
     public void EquipPlusMaxUnit()
     {
-        EquipSkill(SkillType.최대유닛증가);
+        if (EquipSkill(SkillType.최대유닛증가) == false)
+            return;
+
 
         if (CheckSkill() == 1)
             Skill1Image.sprite = skill_Image.PlusMaxUnitImage.sprite;
@@ -232,17 +236,17 @@ public class ClientManager : MonoBehaviour
             Skill2Image.sprite = skill_Image.PlusMaxUnitImage.sprite;
     }
 
-    void EquipSkill(SkillType skillType)
+    bool EquipSkill(SkillType skillType)
     {
         if (CheckSkill() >= 2)
         {
             Debug.Log("스킬을 2개 장착 중");
-            return;
+            return false;
         }
         
-
         Multi_Managers.ClientData.SkillByType[skillType].SetEquipSkill(true);
         InitEquips();
+        return true;
     }
 
     private void InitMoney()

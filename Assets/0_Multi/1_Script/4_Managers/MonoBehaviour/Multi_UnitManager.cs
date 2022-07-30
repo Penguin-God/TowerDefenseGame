@@ -115,8 +115,8 @@ public class Multi_UnitManager : MonoBehaviourPun
     // 유닛 조합
     public RPCAction<bool, UnitFlags> OnCombineTry = new RPCAction<bool, UnitFlags>();
 
-    public void Combine_RPC(CombineData data)
-        => photonView.RPC("Combine", RpcTarget.MasterClient, data.UnitFlags.ColorNumber, data.UnitFlags.ClassNumber, Multi_Data.instance.Id);
+    public void Combine_RPC(UnitFlags flag)
+        => photonView.RPC("Combine", RpcTarget.MasterClient, flag.ColorNumber, flag.ClassNumber, Multi_Data.instance.Id);
 
     [PunRPC]
     void Combine(int colorNumber, int classNumber, int id)

@@ -90,6 +90,7 @@ public class CombineConditions : ICsvLoader<UnitFlags, CombineCondition>
     }
 }
 
+// TODO : 죽이기
 [Serializable]
 public struct CombineData
 {

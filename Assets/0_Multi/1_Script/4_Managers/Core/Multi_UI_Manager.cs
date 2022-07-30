@@ -47,11 +47,7 @@ public class Multi_UI_Manager
     public void Init()
     {
         foreach (PopupGroupType type in Enum.GetValues(typeof(PopupGroupType)))
-        {
-            Debug.Log(type);
-            Debug.Log((int)type);
             popupGroupByGroupType.Add(type, new PopupGroup());
-        }
     }
 
     Transform _root;

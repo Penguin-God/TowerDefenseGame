@@ -6,20 +6,22 @@ using System;
 
 public class TestUtility : MonoBehaviour
 {
-    [SerializeField] List<BossData> datas;
+    [SerializeField] UnitFlags flag;
     [ContextMenu("Test")]
     void Test()
     {
-        datas.Clear();
-        foreach (var item in Multi_Managers.Data.BossDataByLevel)
-        {
-            datas.Add(item.Value);
-        }
+        Multi_UnitManager.Instance.Combine_RPC(flag);
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+            Test();
     }
 
     [SerializeField] int spawnColorMax;
     [SerializeField] int spawnClassMax;
-    [ContextMenu("Unit Spawn")]
+    [ContextMenu("범위 안의 Unit Spawn")]
     void UnitSpawn()
     {
         for (int i = 0; i <= spawnColorMax; i++)

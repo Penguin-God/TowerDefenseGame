@@ -8,7 +8,16 @@ using Photon.Pun;
 public class Multi_GameManager : MonoBehaviourPun, IPunObservable
 {
     public int Gold;
-    public int Food;
+    [SerializeField] int food;
+    public int Food
+    {
+        get => food;
+        set
+        {
+            food = value;
+            Multi_UIManager.instance.UpdateFoodText(Food);
+        }
+    }
 
     public int Iron;
     public int Wood;
@@ -85,7 +94,7 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
         StartFood = PlayerPrefs.GetInt("StartFood");
         isGameover = false;
         Gold = 35 + StartGold;
-        Food = 1  + StartFood;
+        Food = 20  + StartFood;
         PlusTouchDamege = PlayerPrefs.GetInt("PlusTouchDamege");
         Multi_UIManager.instance.UpdateGoldText(Gold);
         Multi_UIManager.instance.UpdateFoodText(Food);
@@ -119,6 +128,17 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
     {
         Food += _addFood;
         Multi_UIManager.instance.UpdateFoodText(Food);
+    }
+
+    public bool TryUseFood(int _food)
+    {
+        if (Food >= _food)
+        {
+            Food -= _food;
+            return true;
+        }
+        else
+            return false;
     }
 
     public AudioClip bossbgmClip;

@@ -4,14 +4,55 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+public enum PopupGroupType
+{
+    Single,
+    UnitWindow,
+}
+
+class PopupGroup
+{
+    Multi_UI_Popup currentPopup = null;
+
+    public void ShowPopup(Multi_UI_Popup popup)
+    {
+        OffCurrentPopup();
+        currentPopup = popup;
+        popup.gameObject.SetActive(true);
+    }
+
+    public void ClosePopupUI<T>()
+    {
+        OffCurrentPopup();
+        currentPopup = null;
+    }
+
+    void OffCurrentPopup()
+    {
+        if (currentPopup != null)
+            currentPopup.gameObject.SetActive(false);
+    }
+}
+
 public class Multi_UI_Manager
 {
     Dictionary<Type, Multi_UI_Popup> _popupByType = new Dictionary<Type, Multi_UI_Popup>();
 
+    Dictionary<PopupGroupType, PopupGroup> popupGroupByGroupType = new Dictionary<PopupGroupType, PopupGroup>();
     int _order = 10; // 기본 UI랑 팝업 UI 오더 다르게 하기 위해 초기값 10으로 세팅
 
     // Stack<Multi_UI_Popup> _popupStack = new Stack<Multi_UI_Popup>();
     Multi_UI_Base _sceneUI = null;
+
+    public void Init()
+    {
+        foreach (PopupGroupType type in Enum.GetValues(typeof(PopupGroupType)))
+        {
+            Debug.Log(type);
+            Debug.Log((int)type);
+            popupGroupByGroupType.Add(type, new PopupGroup());
+        }
+    }
 
     Transform _root;
     public Transform Root
@@ -61,18 +102,27 @@ public class Multi_UI_Manager
         return sceneUI;
     }
 
-    public T ShowPopupUI<T>(string name = null) where T : Multi_UI_Popup
+    public T ShowPopupUI<T>(string name = null, PopupGroupType type = PopupGroupType.Single) where T : Multi_UI_Popup
     {
         if (_popupByType.TryGetValue(typeof(T), out Multi_UI_Popup dictPopup))
         {
-            dictPopup.gameObject.SetActive(true);
+            ShowPopupUI(dictPopup, type);
             return dictPopup.gameObject.GetComponent<T>();
         }
 
         T popup = Multi_Managers.Resources.Instantiate($"UI/Popup/{name}").GetOrAddComponent<T>();
         _popupByType.Add(typeof(T), popup);
         popup.transform.SetParent(Root);
+        ShowPopupUI(popup, type);
         return popup;
+    }
+
+    void ShowPopupUI(Multi_UI_Popup popup, PopupGroupType type)
+    {
+        if (type == PopupGroupType.Single)
+            popup.gameObject.SetActive(true);
+        else
+            popupGroupByGroupType[type].ShowPopup(popup);
     }
 
     public void ClosePopupUI<T>()

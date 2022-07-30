@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class InGameShopManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    GameObject currentEnterShop;
+    bool shopEnter;
+
+    public void ShowShop<T>(string path) where T : Multi_UI_Popup
     {
-        
+        currentEnterShop = Multi_Managers.UI.ShowPopupUI<T>(path).gameObject;
+        shopEnter = true;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void CloseShop()
     {
-        
+        currentEnterShop = null;
+        shopEnter = false;
     }
 }

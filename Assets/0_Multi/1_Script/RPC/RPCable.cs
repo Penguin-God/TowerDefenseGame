@@ -36,4 +36,8 @@ public class RPCable : MonoBehaviourPun
 
         GetComponent<Rigidbody>().velocity = _velo;
     }
+
+    // 파티클
+    public void PlayParticle_RPC() => photonView.RPC("PlayParticle", RpcTarget.All);
+    [PunRPC] void PlayParticle() => GetComponent<ParticleSystem>()?.Play();
 }

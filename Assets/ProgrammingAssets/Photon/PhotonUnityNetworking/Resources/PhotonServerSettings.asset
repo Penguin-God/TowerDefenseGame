@@ -82,6 +82,8 @@ MonoBehaviour:
   - UpdateStage
   - UnitWorldChanged
   - Setup
+  - PlayEffect
+  - PlayParticle
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

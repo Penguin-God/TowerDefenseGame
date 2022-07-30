@@ -33,7 +33,7 @@ public class EffectSpawner : Multi_SpawnerBase
         ParticleSystem particle = Spawn(type, pos).GetComponent<ParticleSystem>();
         if (particle != null)
         {
-            particle.Play();
+            particle.GetComponent<RPCable>().PlayParticle_RPC();
             StartCoroutine(Co_AfterPush(particle.gameObject, particle.main.duration));
         }
     }

@@ -72,20 +72,21 @@ public class Multi_UnitManager : MonoBehaviourPun
     List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flags) => unitListDictById[id][flags];
     int GetUnitListCount(int id, UnitFlags flags) => GetUnitList(id, flags).Count;
     
-    public void UnitWorldChanged_RPC(int id, UnitFlags flag) => photonView.RPC("UnitWorldChanged", RpcTarget.MasterClient, id, flag);
+    public void UnitWorldChanged_RPC(int id, UnitFlags flag) 
+        => photonView.RPC("UnitWorldChanged", RpcTarget.MasterClient, id, flag, Multi_GameManager.instance.playerEnterStoryMode);
 
     [PunRPC]
-    void UnitWorldChanged(int id, UnitFlags flag)
+    void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode)
     {
-        if (Instance.TryGetUnit(id, flag, out Multi_TeamSoldier unit)) 
+        if (Instance.TryGetUnit(id, flag, out Multi_TeamSoldier unit, enterStroyMode)) 
             unit.ChagneWorld();
     }
 
-    bool TryGetUnit(int id, UnitFlags flag, out Multi_TeamSoldier unit)
+    bool TryGetUnit(int id, UnitFlags flag, out Multi_TeamSoldier unit, bool enterStroyMode)
     {
         foreach (Multi_TeamSoldier loopUnit in GetUnitList(id, flag))
         {
-            if (loopUnit.EnterStroyWorld == Multi_GameManager.instance.playerEnterStoryMode)
+            if (loopUnit.EnterStroyWorld == enterStroyMode)
             {
                 unit = loopUnit;
                 return true;

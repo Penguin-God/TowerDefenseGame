@@ -55,10 +55,11 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     }
 
     [SerializeField] int bossLevel;
+
     [PunRPC]
-    protected override GameObject BaseSpawn(string path, Vector3 spawnPos, int id)
+    protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
     {
-        Multi_BossEnemy enemy = base.BaseSpawn(path, spawnPos, id).GetComponent<Multi_BossEnemy>();
+        Multi_BossEnemy enemy = base.BaseSpawn(path, spawnPos, rotation, id).GetComponent<Multi_BossEnemy>();
         enemy.Spawn(bossLevel);
         OnSpawn?.Invoke(enemy);
         return null;

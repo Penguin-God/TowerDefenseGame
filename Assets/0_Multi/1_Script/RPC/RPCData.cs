@@ -9,7 +9,7 @@ public class RPCData<T> where T : new()
 
     public RPCData()
     {
-        Debug.Log(PhotonNetwork.CountOfPlayers);
+        //Debug.Log(PhotonNetwork.CountOfPlayers);
         for (int i = 0; i < PhotonNetwork.CountOfPlayers; i++)
             _dict.Add(i, new T());
     }

@@ -42,16 +42,18 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
     protected Transform CreatePool_InGroup(GameObject go, int count)
         => Multi_Managers.Pool.CreatePool_InGroup(go, BuildPath(_rootPath, go), count, _rootName);
 
-    protected void Spawn_RPC(string path, Vector3 spawnPos, int id) => pv.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, id);
-    protected void Spawn_RPC(string path, Vector3 spawnPos) => pv.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Multi_Data.instance.Id);
-    [PunRPC]
-    protected virtual GameObject BaseSpawn(string path, Vector3 spawnPos, int id) => Multi_Managers.Resources.PhotonInsantiate(path, spawnPos, id);
+    protected void Spawn_RPC(string path, Vector3 spawnPos, int id) 
+        => pv.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Quaternion.identity, id);
+    protected void Spawn_RPC(string path, Vector3 spawnPos) 
+        => pv.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Quaternion.identity, Multi_Data.instance.Id);
+    protected void Spawn_RPC(string path, Vector3 spawnPos, Quaternion rotation, int id)
+        => pv.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, rotation, id);
 
-    protected void Spawn_RPC(string path, Vector3 spawnPos, Quaternion rotation) 
-                => pv.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, rotation, Multi_Data.instance.Id);
     [PunRPC]
-    protected virtual GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
+    protected virtual GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id) 
         => Multi_Managers.Resources.PhotonInsantiate(path, spawnPos, rotation, id);
+
+
 
     public string BuildPath(string rooPath, GameObject go) => $"{rooPath}/{go.name}";
     public string BuildPath(string rooPath, string folderName, GameObject go) => $"{rooPath}/{folderName}/{go.name}";

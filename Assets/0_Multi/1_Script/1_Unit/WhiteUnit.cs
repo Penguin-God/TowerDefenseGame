@@ -23,7 +23,8 @@ public class WhiteUnit : MonoBehaviour
     {
         if(value <= 0)
         {
-            Multi_SpawnManagers.NormalUnit.Spawn(Random.Range(0, maxColor), classNumber, transform.position, transform.rotation);
+            Multi_SpawnManagers.NormalUnit.Spawn
+                (Random.Range(0, maxColor), classNumber, transform.position, transform.rotation, GetComponent<RPCable>().UsingId);
             Multi_Managers.Pool.Push(gameObject);
             timer.Off();
             timer = null;

@@ -70,17 +70,18 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
 
     public void Spawn(UnitFlags flag) => Spawn(flag.ColorNumber, flag.ClassNumber);
     public void Spawn(int unitColor, int unitClass) => Spawn_RPC(GetUnitPath(unitColor, unitClass), GetUnitSpawnPos());
-    public void Spawn(int unitColor, int unitClass, Vector3 spawnPos, Quaternion rotation) => Spawn_RPC(GetUnitPath(unitColor, unitClass), spawnPos, rotation);
     public void Spawn(UnitFlags flag, int id) => Spawn_RPC(GetUnitPath(flag.ColorNumber, flag.ClassNumber), GetUnitSpawnPos(id), id);
+    public void Spawn(int unitColor, int unitClass, Vector3 spawnPos, Quaternion rotation, int id)
+        => Spawn_RPC(GetUnitPath(unitColor, unitClass), spawnPos, rotation, id);
 
     string GetUnitPath(int unitColor, int unitClass) => BuildPath(_rootPath, allUnitDatas[unitClass].folderName, allUnitDatas[unitClass].gos[unitColor]);
     Vector3 GetUnitSpawnPos() => Multi_WorldPosUtility.Instance.GetUnitSpawnPositon();
     Vector3 GetUnitSpawnPos(int id) => Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(id);
 
     [PunRPC]
-    protected override GameObject BaseSpawn(string path, Vector3 spawnPos, int id)
+    protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
     {
-        OnSpawn?.Invoke(base.BaseSpawn(path, spawnPos, id).GetComponent<Multi_TeamSoldier>());
+        OnSpawn?.Invoke(base.BaseSpawn(path, spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>());
         return null;
     }
 }

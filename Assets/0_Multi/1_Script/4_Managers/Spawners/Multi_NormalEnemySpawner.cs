@@ -96,11 +96,11 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
     // path는 BaseSpawn 안에서 만들어서 씀
     void Spawn() => Spawn_RPC("", Multi_Data.instance.EnemySpawnPos);
-    
+
     [PunRPC]
-    protected override GameObject BaseSpawn(string path, Vector3 spawnPos, int id)
+    protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
     {
-        Multi_NormalEnemy enemy = base.BaseSpawn(GetCurrentEnemyPath(), spawnPos, id).GetComponent<Multi_NormalEnemy>();
+        Multi_NormalEnemy enemy = base.BaseSpawn(GetCurrentEnemyPath(), spawnPos, rotation, id).GetComponent<Multi_NormalEnemy>();
         enemy.SetStatus_RPC(GetCurrentEnemyHp(), GetCurrentEnemySpeed(), false);
         OnSpawn?.Invoke(enemy);
         return null;

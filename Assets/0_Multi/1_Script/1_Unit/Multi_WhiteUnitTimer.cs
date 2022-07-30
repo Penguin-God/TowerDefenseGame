@@ -15,7 +15,12 @@ public class Multi_WhiteUnitTimer : MonoBehaviourPun
 
     private void Awake()
     {
-        slider = GetComponentInChildren<Slider>();   
+        slider = GetComponentInChildren<Slider>();
+    }
+
+    void OnDisable()
+    {
+        StopAllCoroutines();
     }
 
     public void Setup_RPC(Transform unit, float aliveTime)
@@ -34,7 +39,7 @@ public class Multi_WhiteUnitTimer : MonoBehaviourPun
 
     public void Off()
     {
-        StopAllCoroutines();
+        GetComponent<RPCable>().SetActive_RPC(false);
         slider.onValueChanged.RemoveAllListeners();
     }
 
@@ -42,7 +47,7 @@ public class Multi_WhiteUnitTimer : MonoBehaviourPun
     {
         while (true)
         {
-            if (target != null) 
+            if (target != null)
                 transform.position = target.position + offSet;
             slider.value -= Time.deltaTime;
             yield return null;

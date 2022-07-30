@@ -48,12 +48,14 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         nav.angularSpeed = 1;
         trail.SetActive(false);
 
-        // TODO : 보스 나와있을 때는 보스만 때려야 함
-        Transform[] targetArray = 
-            Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target, GetComponent<RPCable>().UsingId);
-        for (int i = 0; i < targetArray.Length; i++)
+        if (PhotonNetwork.IsMasterClient)
         {
-            ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[i], OnSkileHit);
+            Transform[] targetArray =
+            Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target, GetComponent<RPCable>().UsingId);
+            for (int i = 0; i < targetArray.Length; i++)
+            {
+                ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[i], OnSkileHit);
+            }
         }
 
         yield return new WaitForSeconds(1f);

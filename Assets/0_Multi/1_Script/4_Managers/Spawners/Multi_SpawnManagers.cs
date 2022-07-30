@@ -20,9 +20,6 @@ public class Multi_SpawnManagers : MonoBehaviourPun
         }
     }
 
-    Dictionary<Type, Multi_SpawnerBase> _spawnerByType = new Dictionary<Type, Multi_SpawnerBase>();
-    public IReadOnlyDictionary<Type, Multi_SpawnerBase> SpawnerByType => _spawnerByType;
-
     Multi_NormalEnemySpawner _normalEnemy;
     Multi_BossEnemySpawner _bossEnemy;
     Multi_TowerEnemySpawner _towerEnemy;
@@ -46,23 +43,6 @@ public class Multi_SpawnManagers : MonoBehaviourPun
         _normalUnit = GetOrAddChildComponent<Multi_NormalUnitSpawner>();
         _weapon = GetOrAddChildComponent<Multi_WeaponSpawner>();
         _effect = GetOrAddChildComponent<EffectSpawner>();
-
-        _spawnerByType.Add(typeof(Multi_NormalEnemy), _normalEnemy);
-        _spawnerByType.Add(typeof(Multi_ArcherEnemy), _normalEnemy);
-        _spawnerByType.Add(typeof(Multi_SpearmanEnemy), _normalEnemy);
-        _spawnerByType.Add(typeof(Multi_MageEnemy), _normalEnemy);
-
-        _spawnerByType.Add(typeof(Multi_BossEnemy), _bossEnemy);
-
-        _spawnerByType.Add(typeof(Multi_EnemyTower), _towerEnemy);
-
-        _spawnerByType.Add(typeof(Multi_TeamSoldier), _normalUnit);
-        _spawnerByType.Add(typeof(Multi_Unit_Swordman), _normalUnit);
-        _spawnerByType.Add(typeof(Multi_Unit_Spearman), _normalUnit);
-        _spawnerByType.Add(typeof(Multi_Unit_Archer), _normalUnit);
-        _spawnerByType.Add(typeof(Multi_Unit_Mage), _normalUnit);
-
-        _spawnerByType.Add(typeof(Multi_Projectile), _weapon);
     }
 
     T GetOrAddChildComponent<T>() where T : Component

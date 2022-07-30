@@ -57,13 +57,6 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     }
     #endregion
 
-    //public override void SettingPoolObject(object obj)
-    //{
-    //    Multi_TeamSoldier unit = obj as Multi_TeamSoldier;
-    //    Debug.Assert(unit != null, "오브젝트 캐스팅 실패!!");
-    //    SetUnit(unit);
-    //}
-
     void SetUnit(Multi_TeamSoldier unit)
     {
         unit.OnDead += OnDead;

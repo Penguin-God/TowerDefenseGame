@@ -31,13 +31,6 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
         }
     }
 
-    //public override void SettingPoolObject(object obj)
-    //{
-    //    Multi_EnemyTower enemy = obj as Multi_EnemyTower;
-    //    Debug.Assert(enemy != null, "캐스팅 실패!!");
-    //    SetTower(enemy);
-    //}
-
     void SetTower(Multi_EnemyTower enemy)
     {
         enemy.enemyType = EnemyType.Tower;

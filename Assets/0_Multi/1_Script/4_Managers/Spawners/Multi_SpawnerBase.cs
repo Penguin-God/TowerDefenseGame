@@ -34,7 +34,7 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
         => Multi_Managers.Pool.CreatePool(go, path, count).GetComponentsInChildren<T>(true).ToArray();
 
     protected T[] CreatePool_InGroup<T>(GameObject go, string path, int count) where T : Component
-        => Multi_Managers.Pool.CreatePool_InGroup(go, path, count, _rootName).GetComponentsInChildren<T>(true).ToArray();
+        => Multi_Managers.Pool.CreatePool_InGroup(go, path, count, _rootName).GetComponentsInChildren<T>(true);
 
     protected Transform CreatePool_InGroup(GameObject go, string path, int count)
         => Multi_Managers.Pool.CreatePool_InGroup(go, path, count, _rootName);

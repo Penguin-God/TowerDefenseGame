@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 using Photon.Pun;
 
 [Serializable]
@@ -39,7 +40,10 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     void CreatePool(GameObject[] gos, string folderName, int count)
     {
         for (int i = 0; i < gos.Length; i++)
-            CreatePool_InGroup<Multi_TeamSoldier>(gos[i], BuildPath(_rootPath, folderName, gos[i]), count);
+        {
+            List<Multi_TeamSoldier> units = CreatePool_InGroup<Multi_TeamSoldier>(gos[i], BuildPath(_rootPath, folderName, gos[i]), count).ToList();
+            units.ForEach(x => SetUnit(x));
+        }
     }
 
     [ContextMenu("Set All Unit")]
@@ -53,19 +57,19 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     }
     #endregion
 
-    public override void SettingPoolObject(object obj)
+    //public override void SettingPoolObject(object obj)
+    //{
+    //    Multi_TeamSoldier unit = obj as Multi_TeamSoldier;
+    //    Debug.Assert(unit != null, "오브젝트 캐스팅 실패!!");
+    //    SetUnit(unit);
+    //}
+
+    void SetUnit(Multi_TeamSoldier unit)
     {
-        Multi_TeamSoldier unit = obj as Multi_TeamSoldier;
-        Debug.Assert(unit != null, "오브젝트 캐스팅 실패!!");
-        SetUnit();
+        unit.OnDead += OnDead;
 
-        void SetUnit()
-        {
-            unit.OnDead += OnDead;
-
-            if (PhotonNetwork.IsMasterClient == false) return;
-            unit.OnDead += deadUnit => Multi_Managers.Pool.Push(deadUnit.GetComponent<Poolable>());
-        }
+        if (PhotonNetwork.IsMasterClient == false) return;
+        unit.OnDead += deadUnit => Multi_Managers.Pool.Push(deadUnit.GetComponent<Poolable>());
     }
 
     public void Spawn(UnitFlags flag) => Spawn(flag.ColorNumber, flag.ClassNumber);

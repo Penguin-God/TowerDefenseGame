@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System;
+using System.Linq;
 using Random = UnityEngine.Random;
 
 [Serializable]
@@ -91,7 +92,10 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     void CreatePool()
     {
         for (int i = 0; i < _enemys.Length; i++)
-            CreatePool_InGroup<Multi_NormalEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
+        {
+            List<Multi_NormalEnemy> enemys = CreatePool_InGroup<Multi_NormalEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount).ToList();
+            enemys.ForEach(x => SetEnemy(x));
+        }
     }
 
     // path는 BaseSpawn 안에서 만들어서 씀
@@ -104,13 +108,6 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
         enemy.SetStatus_RPC(GetCurrentEnemyHp(), GetCurrentEnemySpeed(), false);
         OnSpawn?.Invoke(enemy);
         return null;
-    }
-
-    public override void SettingPoolObject(object obj)
-    {
-        Multi_NormalEnemy enemy = obj as Multi_NormalEnemy;
-        Debug.Assert(enemy != null, "캐스팅 실패!!");
-        SetEnemy(enemy);
     }
 
     void SetEnemy(Multi_NormalEnemy enemy)

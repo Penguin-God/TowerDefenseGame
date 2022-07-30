@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 using Photon.Pun;
-using Random = UnityEngine.Random;
 
 public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
 {
@@ -27,17 +27,13 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     void CreatePool()
     {
         for (int i = 0; i < _enemys.Length; i++)
-            CreatePool_InGroup<Multi_BossEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
+        {
+            List<Multi_BossEnemy> bossList = CreatePool_InGroup<Multi_BossEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount).ToList();
+            bossList.ForEach(x => SetBoss(x));
+        }
     }
 
-    public override void SettingPoolObject(object obj)
-    {
-        Multi_BossEnemy enemy = obj as Multi_BossEnemy;
-        Debug.Assert(enemy != null, "캐스팅 실패!!");
-        SetEnemy(enemy);
-    }
-
-    void SetEnemy(Multi_BossEnemy enemy)
+    void SetBoss(Multi_BossEnemy enemy)
     {
         enemy.enemyType = EnemyType.Boss;
 

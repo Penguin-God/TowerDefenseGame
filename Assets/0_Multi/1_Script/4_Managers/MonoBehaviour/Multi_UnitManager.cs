@@ -165,7 +165,10 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     void AllUnitTargetChagedByBoss(Multi_BossEnemy boss)
     {
-        _currentAllUnitsById[boss.GetComponent<RPCable>().UsingId].ForEach(x => x.SetChaseSetting(boss.gameObject));
+        _currentAllUnitsById[boss.GetComponent<RPCable>().UsingId]
+            .Where(x => x.EnterStroyWorld == false)
+            .ToList()
+            .ForEach(x => x.SetChaseSetting(boss.gameObject));
     }
 
     void AllUnitUpdateTarget(Multi_BossEnemy boss) => AllUnitUpdateTarget(boss.GetComponent<RPCable>().UsingId);

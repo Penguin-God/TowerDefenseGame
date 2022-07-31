@@ -12,6 +12,7 @@ public class LookTowerButton : Multi_UI_Scene
 
     void CameraPositionChanged()
     {
+        Multi_Managers.UI.CloseAllPopupUI();
         if (Multi_GameManager.instance.playerEnterStoryMode)
             LookWorld();
         else

@@ -27,7 +27,7 @@ class PopupGroup
         currentPopup = null;
     }
 
-    void OffCurrentPopup()
+    public void OffCurrentPopup()
     {
         if (currentPopup != null)
             currentPopup.gameObject.SetActive(false);
@@ -119,6 +119,12 @@ public class Multi_UI_Manager
             popup.gameObject.SetActive(true);
         else
             popupGroupByGroupType[type].ShowPopup(popup);
+    }
+
+    public void CloseAllPopupUI()
+    {
+        foreach (PopupGroup group in popupGroupByGroupType.Values)
+            group.OffCurrentPopup();
     }
 
     public void Clear()

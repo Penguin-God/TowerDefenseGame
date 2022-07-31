@@ -2,16 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-enum Buttons
-{
-    WhiteSwordmanButton,
-    WhiteArcherButton,
-    WhiteSpearmanButton,
-    WhiteMageButton,
-}
 
 public class WhiteUnitShop_UI : Multi_UI_Popup
 {
+    enum Buttons
+    {
+        WhiteSwordmanButton,
+        WhiteArcherButton,
+        WhiteSpearmanButton,
+        WhiteMageButton,
+    }
+
     protected override void Init()
     {
         base.Init();

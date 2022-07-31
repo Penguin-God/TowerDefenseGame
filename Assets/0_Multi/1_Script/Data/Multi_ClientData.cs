@@ -19,7 +19,8 @@ public class Multi_ClientData
         public void SetHasSkill(bool hasSkill)
         {
             HasSkill = hasSkill;
-            // Save
+            // 이건 좀 아닌 듯 ㅋㅋ
+            // Multi_Managers.ClientData.SaveData(Multi_Managers.ClientData.SkillByType.Values, path); 
         }
 
         public void SetEquipSkill(bool equipSkill)
@@ -196,7 +197,6 @@ public class Multi_ClientData
 
 
     // 추가
-
     Dictionary<SkillType, Skill> skillByType = new Dictionary<SkillType, Skill>();
     public IReadOnlyDictionary<SkillType, Skill> SkillByType => skillByType;
 
@@ -223,11 +223,11 @@ public class Multi_ClientData
         //}
     }
 
-    public Dictionary<enumType, DataType> SetDict<enumType, DataType>(string path) where enumType : Enum where DataType : PlayerDataBase
+    // TODO : 세이브 개선하기
+    void SaveData<T>(IEnumerable<T> datas, string path) where T : PlayerDataBase
     {
-        List<DataType> playerDatas = CsvUtility.GetEnumerableFromCsv<DataType>(Resources.Load<TextAsset>(path).text).ToList();
-        playerDatas.ForEach(x => Debug.Log(x.Id));
-        return playerDatas.ToDictionary(x => (enumType)Enum.ToObject(typeof(enumType), x.Id), x => x);
+        string csv = CsvUtility.EnumerableToCsv(datas);
+        CsvUtility.SaveCsv(csv, path);
     }
 }
 

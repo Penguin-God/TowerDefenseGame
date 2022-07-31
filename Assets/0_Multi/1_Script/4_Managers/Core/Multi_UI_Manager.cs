@@ -36,7 +36,7 @@ class PopupGroup
 
 public class Multi_UI_Manager
 {
-    Dictionary<Type, Multi_UI_Popup> _popupByType = new Dictionary<Type, Multi_UI_Popup>();
+    Dictionary<string, Multi_UI_Popup> _popupByType = new Dictionary<string, Multi_UI_Popup>();
 
     Dictionary<PopupGroupType, PopupGroup> popupGroupByGroupType = new Dictionary<PopupGroupType, PopupGroup>();
     int _order = 10; // 기본 UI랑 팝업 UI 오더 다르게 하기 위해 초기값 10으로 세팅
@@ -100,14 +100,14 @@ public class Multi_UI_Manager
 
     public T ShowPopupUI<T>(string name = null, PopupGroupType type = PopupGroupType.Single) where T : Multi_UI_Popup
     {
-        if (_popupByType.TryGetValue(typeof(T), out Multi_UI_Popup dictPopup))
+        if (_popupByType.TryGetValue(name, out Multi_UI_Popup dictPopup))
         {
             ShowPopupUI(dictPopup, type);
             return dictPopup.gameObject.GetComponent<T>();
         }
 
         T popup = Multi_Managers.Resources.Instantiate($"UI/Popup/{name}").GetOrAddComponent<T>();
-        _popupByType.Add(typeof(T), popup);
+        _popupByType.Add(name, popup);
         popup.transform.SetParent(Root);
         ShowPopupUI(popup, type);
         return popup;
@@ -119,20 +119,6 @@ public class Multi_UI_Manager
             popup.gameObject.SetActive(true);
         else
             popupGroupByGroupType[type].ShowPopup(popup);
-    }
-
-    public void ClosePopupUI<T>()
-    {
-        _popupByType[typeof(T)].gameObject.SetActive(false);
-        //_order--;
-    }
-
-    public void DestroyPopupUI<T>()
-    {
-        Multi_UI_Popup popup = _popupByType[typeof(T)];
-        _popupByType.Remove(typeof(T));
-        Multi_Managers.Resources.Destroy(popup.gameObject);
-        _order--;
     }
 
     public void Clear()

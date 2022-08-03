@@ -59,6 +59,8 @@ public struct UI_RandomShopGoodsData
     [SerializeField] string currencyType;
     [SerializeField] int price;
     [SerializeField] string infomation;
+    [SerializeField] int sellType; // TODO 나중에 enum으로 바꾸기
+    [SerializeField] int[] sellDatas;
 
     public string Name => name;
     public int GoodsType => goodsType;
@@ -66,4 +68,6 @@ public struct UI_RandomShopGoodsData
     public string CurrencyType => currencyType;
     public int Price => price;
     public string Infomation => infomation;
+    public int SellType => sellType;
+    public IReadOnlyList<int> SellDatas => sellDatas;
 }

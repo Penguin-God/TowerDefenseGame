@@ -19,7 +19,7 @@ public class Goods_UI : Multi_UI_Base
 
     [SerializeField] UI_RandomShopGoodsData _data; // 디버그용
     [SerializeField] ShopDataTransfer dataTransfer;
-    protected override void Init()
+    public void _Init()
     {
         dataTransfer = GetComponentInParent<ShopDataTransfer>();
         Bind<Text>(typeof(Texts));
@@ -37,6 +37,24 @@ public class Goods_UI : Multi_UI_Base
         GetImage((int)Images.GradePanel).color = dataTransfer.GradeToColor(data.Grade);
         GetImage((int)Images.CurrencyImage).sprite = dataTransfer.CurrencyToSprite(data.CurrencyType);
 
+        GetComponent<Button>().onClick.RemoveAllListeners();
+        GetComponent<Button>().onClick.AddListener(Sell);
         gameObject.SetActive(true);
+    }
+
+    void OnDisable()
+    {
+        GetComponent<Button>().onClick.RemoveAllListeners();
+    }
+
+    [ContextMenu("Sell")]
+    public void Sell()
+    {
+        print("CLick");
+        if (Multi_GameManager.instance.TryUseCurrency(_data.CurrencyType, _data.Price))
+        {
+            new SellMethodFactory().GetSellMeghod(_data.SellType)?.Invoke(_data.SellDatas);
+            gameObject.SetActive(false);
+        }
     }
 }

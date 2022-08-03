@@ -67,6 +67,8 @@ public class RandomShop_UI : Multi_UI_Popup
     {
         base.Init();
         goodsManager = new GoodsManager(dataPath);
+        for (int i = 0; i < goodsParent.childCount; i++)
+            goodsParent.GetChild(i).GetComponent<Goods_UI>()._Init();
         gameObject.SetActive(false);
     }
 
@@ -76,6 +78,7 @@ public class RandomShop_UI : Multi_UI_Popup
         UI_RandomShopGoodsData[] datas = goodsManager.GetRandomGoods();
         for (int i = 0; i < goodsParent.childCount; i++)
             goodsParent.GetChild(i).GetComponent<Goods_UI>().Setup(datas[i]);
+        gameObject.SetActive(true);
     }
 
     [ContextMenu("test")]

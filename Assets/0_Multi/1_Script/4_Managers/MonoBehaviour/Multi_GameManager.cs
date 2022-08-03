@@ -7,7 +7,17 @@ using Photon.Pun;
 
 public class Multi_GameManager : MonoBehaviourPun, IPunObservable
 {
-    public int Gold;
+    [SerializeField] int gold;
+    public int Gold
+    {
+        get => gold;
+        set
+        {
+            gold = value;
+            Multi_UIManager.instance.UpdateGoldText(gold);
+        }
+    }
+
     [SerializeField] int food;
     public int Food
     {
@@ -15,7 +25,7 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
         set
         {
             food = value;
-            Multi_UIManager.instance.UpdateFoodText(Food);
+            Multi_UIManager.instance.UpdateFoodText(food);
         }
     }
 
@@ -130,6 +140,17 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
         Multi_UIManager.instance.UpdateFoodText(Food);
     }
 
+    public bool TryUseGold(int _gold)
+    {
+        if (Gold >= _gold)
+        {
+            Gold -= _gold;
+            return true;
+        }
+        else
+            return false;
+    }
+
     public bool TryUseFood(int _food)
     {
         if (Food >= _food)
@@ -140,6 +161,8 @@ public class Multi_GameManager : MonoBehaviourPun, IPunObservable
         else
             return false;
     }
+
+    public bool TryUseCurrency(string currencyType, int mount) => currencyType == "Gold" ? TryUseGold(mount) : TryUseFood(mount);
 
     public AudioClip bossbgmClip;
     public AudioClip bgmClip;

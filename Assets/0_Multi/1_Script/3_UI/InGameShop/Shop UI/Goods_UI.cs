@@ -50,7 +50,6 @@ public class Goods_UI : Multi_UI_Base
     [ContextMenu("Sell")]
     public void Sell()
     {
-        print("CLick");
         if (Multi_GameManager.instance.TryUseCurrency(_data.CurrencyType, _data.Price))
         {
             new SellMethodFactory().GetSellMeghod(_data.SellType)?.Invoke(_data.SellDatas);

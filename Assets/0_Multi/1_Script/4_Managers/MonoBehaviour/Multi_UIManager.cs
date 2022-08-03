@@ -30,7 +30,7 @@ public class Multi_UIManager : MonoBehaviour
 
         Multi_Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
         Multi_Managers.UI.ShowPopupUI<UnitOverText>("UnitOver Text");
-
+        Multi_Managers.UI.ShowPopupUI<RandomShop_UI>("InGameShop/Random Shop");
 
         Multi_Managers.UI.ShowSceneUI<UnitCountTracker>("CurrentUnit Panel");
         Multi_Managers.UI.ShowSceneUI<CreateDefenserButton>("Create Defenser Button");

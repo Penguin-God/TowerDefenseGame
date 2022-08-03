@@ -28,15 +28,56 @@ class GoodsManager
                 _goodsDatas[i, j] = new List<UI_RandomShopGoodsData>();
         }
     }
+
+    
+    public UI_RandomShopGoodsData[] GetRandomGoods()
+    {
+        UI_RandomShopGoodsData[] result = new UI_RandomShopGoodsData[goodsTypeCount];
+
+        for (int i = 0; i < result.Length; i++)
+        {
+            List<UI_RandomShopGoodsData> datas = _goodsDatas[i, GetGrade(new int[] { 33, 33, 34 })];
+            result[i] = datas[Random.Range(0, datas.Count)];
+        }
+
+        return result;
+    }
+
+    int GetGrade(int[] weigths)
+    {
+        int totalWeigh = 100;
+        int randomNumber = Random.Range(0, totalWeigh);
+
+        for (int i = 0; i < maxGrade; i++) // 레벨 가중치에 따라 상품 등급 정함
+        {
+            if (weigths[i] >= randomNumber) return i;
+            else randomNumber -= weigths[i];
+        }
+
+        Debug.LogError("확률 잘못 설정함");
+        return 0;
+    }
 }
 
 public class RandomShop_UI : Multi_UI_Popup
 {
     [SerializeField] string dataPath;
-    GoodsManager goodsManager;
+    [SerializeField] GoodsManager goodsManager;
     protected override void Init()
     {
         base.Init();
         goodsManager = new GoodsManager(dataPath);
+    }
+
+    [ContextMenu("test")]
+    void Test()
+    {
+        for (int i = 0; i < 100; i++)
+        {
+            foreach (var item in goodsManager.GetRandomGoods())
+            {
+                print($"Type : {item.GoodsType}, Grade : {item.Grade}, Name : {item.Name}");
+            }
+        }
     }
 }

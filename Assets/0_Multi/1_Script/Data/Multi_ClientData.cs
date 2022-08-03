@@ -21,6 +21,9 @@ public class Multi_ClientData
             HasSkill = hasSkill;
             // 이건 좀 아닌 듯 ㅋㅋ
             // Multi_Managers.ClientData.SaveData(Multi_Managers.ClientData.SkillByType.Values, path); 
+
+            // 이게 좀 더 나은듯?
+            // Multi_Managers.ClientData.SaveData<Skill>("");
         }
 
         public void SetEquipSkill(bool equipSkill)
@@ -195,7 +198,6 @@ public class Multi_ClientData
     }
     #endregion
 
-
     // 추가
     Dictionary<SkillType, Skill> skillByType = new Dictionary<SkillType, Skill>();
     public IReadOnlyDictionary<SkillType, Skill> SkillByType => skillByType;
@@ -221,6 +223,12 @@ public class Multi_ClientData
         //{
         //    Debug.Log($"{item.Key} : {item.Value.Name}");
         //}
+    }
+
+    public void SaveData<T>(string path)
+    {
+        if (typeof(T) == typeof(Skill)) SaveData(skillByType.Values, path);
+        else if(typeof(T) == typeof(Money)) SaveData(moneyByType.Values, path);
     }
 
     // TODO : 세이브 개선하기

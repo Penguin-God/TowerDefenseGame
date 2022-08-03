@@ -208,9 +208,9 @@ public class ClientManager : MonoBehaviour
             return;
 
         if (CheckSkill() == 1)
-            Skill1Image.sprite = skill_Image.StratGoldImage.sprite;
+            Skill1Image.sprite = skill_Image.StratGoldImage;
         else if (CheckSkill() == 2)
-            Skill2Image.sprite = skill_Image.StratGoldImage.sprite;
+            Skill2Image.sprite = skill_Image.StratGoldImage;
     }
 
     public void EquipStartFood()
@@ -219,9 +219,9 @@ public class ClientManager : MonoBehaviour
             return;
 
         if (CheckSkill() == 1)
-            Skill1Image.sprite = skill_Image.StratFoodImage.sprite;
+            Skill1Image.sprite = skill_Image.StratFoodImage;
         else if (CheckSkill() == 2)
-            Skill2Image.sprite = skill_Image.StratFoodImage.sprite;
+            Skill2Image.sprite = skill_Image.StratFoodImage;
     }
 
     public void EquipPlusMaxUnit()
@@ -231,9 +231,9 @@ public class ClientManager : MonoBehaviour
 
 
         if (CheckSkill() == 1)
-            Skill1Image.sprite = skill_Image.PlusMaxUnitImage.sprite;
+            Skill1Image.sprite = skill_Image.PlusMaxUnitImage;
         else if (CheckSkill() == 2)
-            Skill2Image.sprite = skill_Image.PlusMaxUnitImage.sprite;
+            Skill2Image.sprite = skill_Image.PlusMaxUnitImage;
     }
 
     bool EquipSkill(SkillType skillType)
@@ -295,5 +295,16 @@ public class ClientManager : MonoBehaviour
         return count;
     }
 
+    public void UnEquip()
+    {
+        Skill1Image.sprite = skill_Image.UImask;
+        Skill2Image.sprite = skill_Image.UImask;
+
+        Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].SetEquipSkill(false);
+        Multi_Managers.ClientData.SkillByType[SkillType.시작식량증가].SetEquipSkill(false);
+        Multi_Managers.ClientData.SkillByType[SkillType.최대유닛증가].SetEquipSkill(false);
+
+        InitEquips();
+    }
 
 }

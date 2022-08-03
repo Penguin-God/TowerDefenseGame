@@ -5,8 +5,10 @@ using UnityEngine.UI;
 
 public class Skill_Image : MonoBehaviour
 {
-    public Image StratGoldImage;
-    public Image StratFoodImage;
-    public Image PlusMaxUnitImage;
+    public Sprite StratGoldImage;
+    public Sprite StratFoodImage;
+    public Sprite PlusMaxUnitImage;
+
+    public Sprite UImask;
 
 }

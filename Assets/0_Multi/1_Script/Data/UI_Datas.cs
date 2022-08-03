@@ -49,3 +49,21 @@ public class UI_UnitWindowDatas : ICsvLoader<UnitFlags, UI_UnitWindowData>
         return datas.ToDictionary(x => x.UnitFlags, x => x);
     }
 }
+
+[Serializable]
+public struct UI_RandomShopGoodsData
+{
+    [SerializeField] string name;
+    [SerializeField] int goodsType;
+    [SerializeField] int grade;
+    [SerializeField] string currencyType;
+    [SerializeField] int price;
+    [SerializeField] string infomation;
+
+    public string Name => name;
+    public int GoodsType => goodsType;
+    public int Grade => grade;
+    public string CurrencyType => currencyType;
+    public int Price => price;
+    public string Infomation => infomation;
+}

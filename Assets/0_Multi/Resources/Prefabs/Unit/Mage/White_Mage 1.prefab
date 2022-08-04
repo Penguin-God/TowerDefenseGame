@@ -378,8 +378,8 @@ MonoBehaviour:
     _skillStats: []
   energyballData:
     weaponPath: 
-    attacker: {fileID: 0}
-    spawnTransform: {fileID: 0}
+    attacker: {fileID: 3764644954606831793}
+    spawnTransform: {fileID: 2578823939848164983}
   skillData:
     weaponPath: 
     attacker: {fileID: 0}

@@ -29,6 +29,7 @@ public class Multi_Managers : MonoBehaviourPun
     Multi_ResourcesManager _resources = new Multi_ResourcesManager();
     Multi_PoolManager _pool = new Multi_PoolManager();
     Multi_ClientData _clientData = new Multi_ClientData();
+    SkillManager _skill = new SkillManager();
 
     public static Multi_DataManager Data => Instance._data;
     public static Multi_UI_Manager UI => Instance._ui;
@@ -36,15 +37,21 @@ public class Multi_Managers : MonoBehaviourPun
     public static Multi_ResourcesManager Resources => Instance._resources;
     public static Multi_PoolManager Pool => Instance._pool;
     public static Multi_ClientData ClientData => Instance._clientData;
+    public static SkillManager Skill => Instance._skill;
 
     void Init()
     {
+        print("Init"); // TODO : Scene만들기 init 한번만 하게 하기
         _data.Init();
         _clientData.Init();
+
+        _skill.Init();
         FirstInit();
 
         _ui.Init();
         _sound.Init();
+
+
         if (PhotonNetwork.IsMasterClient == false) return;
         _pool.Init();
     }

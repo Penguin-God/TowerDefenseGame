@@ -19,11 +19,6 @@ public class Multi_ClientData
         public void SetHasSkill(bool hasSkill)
         {
             HasSkill = hasSkill;
-            // 이건 좀 아닌 듯 ㅋㅋ
-            // Multi_Managers.ClientData.SaveData(Multi_Managers.ClientData.SkillByType.Values, path); 
-
-            // 이게 좀 더 나은듯?
-            // Multi_Managers.ClientData.SaveData<Skill>("");
         }
 
         public void SetEquipSkill(bool equipSkill)
@@ -211,18 +206,6 @@ public class Multi_ClientData
 
         List<Money> moneyData = CsvUtility.GetEnumerableFromCsv<Money>(Resources.Load<TextAsset>("Data/ClientData/MoneyData").text).ToList();
         moneyByType = moneyData.ToDictionary(x => (MoneyType)Enum.ToObject(typeof(MoneyType), x.Id), x => x);
-
-        // 잠시 주석 처리
-
-        //foreach (var item in skillByType)
-        //{
-        //    Debug.Log($"{item.Key} : {item.Value.Name}");
-        //}
-
-        //foreach (var item in moneyByType)
-        //{
-        //    Debug.Log($"{item.Key} : {item.Value.Name}");
-        //}
     }
 
     public void SaveData<T>(string path)

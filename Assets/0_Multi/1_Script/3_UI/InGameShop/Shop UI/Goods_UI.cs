@@ -17,7 +17,7 @@ public class Goods_UI : Multi_UI_Base
         CurrencyImage,
     }
 
-    [SerializeField] UI_RandomShopGoodsData _data; // 디버그용
+    [SerializeField] UI_RandomShopGoodsData _data;
     [SerializeField] ShopDataTransfer dataTransfer;
     public void _Init()
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UnitOverText : Multi_UI_Popup
+public class WarningText : Multi_UI_Popup
 {
     Text unitOverText;
     [SerializeField] Color textColor;
@@ -16,9 +16,10 @@ public class UnitOverText : Multi_UI_Popup
         gameObject.SetActive(false);
     }
 
-    public void Show()
+    public void Show(string text)
     {
         StopAllCoroutines();
+        GetComponent<Text>().text = text;
         gameObject.SetActive(true);
         StartCoroutine(Co_AfterInActive());
     }

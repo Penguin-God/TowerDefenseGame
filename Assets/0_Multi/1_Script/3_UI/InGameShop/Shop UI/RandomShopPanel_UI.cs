@@ -11,6 +11,7 @@ public class RandomShopPanel_UI : Multi_UI_Base
 
     public void Setup(UI_RandomShopGoodsData data, GameObject goods)
     {
+        sellButton.onClick.RemoveAllListeners();
         sellButton.onClick.AddListener(() => Sell(data, goods));
         SetText(data);
         gameObject.SetActive(true);
@@ -25,10 +26,8 @@ public class RandomShopPanel_UI : Multi_UI_Base
             gameObject.SetActive(false);
         }
         else
-        {
-            // 경고
-        }
+            Multi_Managers.UI.ShowPopupUI<WarningText>().Show($"{GetCurrcneyTypeText(data)}가 부족해 구매할 수 없습니다.");
     }
-
+    string GetCurrcneyTypeText(UI_RandomShopGoodsData data) => data.CurrencyType == "Gold" ? "골드" : "고기";
     void SetText(UI_RandomShopGoodsData data) => text.text = $"{data.Infomation} 구매하시겠습니까?";
 }

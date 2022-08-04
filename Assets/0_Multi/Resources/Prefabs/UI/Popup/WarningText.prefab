@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4168840413870609674}
   - component: {fileID: 962061091443468974}
   m_Layer: 5
-  m_Name: UnitOver Text
+  m_Name: WarningText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -78,8 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC720\uB2DB \uACF5\uAC04\uC774 \uBD80\uC871\uD574 \uB354\uC774\uC0C1
-    \uC720\uB2DB\uC744 \uC18C\uD658\uD560 \uC218 \uC5C6\uC2B5\uB2C8\uB2E4."
+  m_Text: 
 --- !u!114 &962061091443468974
 MonoBehaviour:
   m_ObjectHideFlags: 0

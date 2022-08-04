@@ -100,6 +100,8 @@ public class Multi_UI_Manager
 
     public T ShowPopupUI<T>(string name = null, PopupGroupType type = PopupGroupType.Single) where T : Multi_UI_Popup
     {
+        if (string.IsNullOrEmpty(name))
+            name = typeof(T).Name;
         if (_popupByType.TryGetValue(name, out Multi_UI_Popup dictPopup))
         {
             ShowPopupUI(dictPopup, type);
@@ -115,6 +117,9 @@ public class Multi_UI_Manager
 
     void ShowPopupUI(Multi_UI_Popup popup, PopupGroupType type)
     {
+        popup.gameObject.GetOrAddComponent<Canvas>().sortingOrder = _order;
+        _order++;
+
         if (type == PopupGroupType.Single)
             popup.gameObject.SetActive(true);
         else

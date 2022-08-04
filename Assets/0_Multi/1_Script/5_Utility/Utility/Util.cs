@@ -36,7 +36,7 @@ public class Util : MonoBehaviour
         }
         else
         {
-            foreach (T component in parent.GetComponentsInChildren<T>())
+            foreach (T component in parent.GetComponentsInChildren<T>(true))
             {
                 if (string.IsNullOrEmpty(findChildName) || component.name == findChildName)
                     return component;

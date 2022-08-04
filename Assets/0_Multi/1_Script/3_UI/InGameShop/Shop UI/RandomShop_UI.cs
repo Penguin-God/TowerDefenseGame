@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 class GoodsManager
 {
@@ -60,15 +61,17 @@ class GoodsManager
 
 public class RandomShop_UI : Multi_UI_Popup
 {
+    GoodsManager goodsManager;
     [SerializeField] string dataPath;
-    [SerializeField] GoodsManager goodsManager;
     [SerializeField] Transform goodsParent;
+    [SerializeField] RandomShopPanel_UI panel;
     protected override void Init()
     {
         base.Init();
         goodsManager = new GoodsManager(dataPath);
         for (int i = 0; i < goodsParent.childCount; i++)
             goodsParent.GetChild(i).GetComponent<Goods_UI>()._Init();
+
         gameObject.SetActive(false);
     }
 
@@ -77,7 +80,7 @@ public class RandomShop_UI : Multi_UI_Popup
     {
         UI_RandomShopGoodsData[] datas = goodsManager.GetRandomGoods();
         for (int i = 0; i < goodsParent.childCount; i++)
-            goodsParent.GetChild(i).GetComponent<Goods_UI>().Setup(datas[i]);
+            goodsParent.GetChild(i).GetComponent<Goods_UI>().Setup(datas[i], panel);
         gameObject.SetActive(true);
     }
     

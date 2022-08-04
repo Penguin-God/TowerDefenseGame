@@ -27,7 +27,7 @@ public class Goods_UI : Multi_UI_Base
         gameObject.SetActive(false);
     }
 
-    public void Setup(UI_RandomShopGoodsData data)
+    public void Setup(UI_RandomShopGoodsData data, RandomShopPanel_UI panel)
     {
         _data = data;
         GetText((int)Texts.ProductNameText).text = data.Name;
@@ -37,8 +37,10 @@ public class Goods_UI : Multi_UI_Base
         GetImage((int)Images.GradePanel).color = dataTransfer.GradeToColor(data.Grade);
         GetImage((int)Images.CurrencyImage).sprite = dataTransfer.CurrencyToSprite(data.CurrencyType);
 
-        GetComponent<Button>().onClick.RemoveAllListeners();
-        GetComponent<Button>().onClick.AddListener(Sell);
+        Button button = GetComponent<Button>();
+        button.onClick.RemoveAllListeners();
+        button.onClick.AddListener(() => panel.Setup(data, gameObject));
+
         gameObject.SetActive(true);
     }
 
@@ -48,12 +50,14 @@ public class Goods_UI : Multi_UI_Base
     }
 
     [ContextMenu("Sell")]
-    public void Sell()
+    public void SellAction()
     {
+        new SellMethodFactory().GetSellMeghod(_data.SellType)?.Invoke(_data.SellDatas);
+        gameObject.SetActive(false);
+
         if (Multi_GameManager.instance.TryUseCurrency(_data.CurrencyType, _data.Price))
         {
-            new SellMethodFactory().GetSellMeghod(_data.SellType)?.Invoke(_data.SellDatas);
-            gameObject.SetActive(false);
+
         }
     }
 }

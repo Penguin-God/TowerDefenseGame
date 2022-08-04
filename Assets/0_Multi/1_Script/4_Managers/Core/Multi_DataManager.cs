@@ -79,7 +79,6 @@ public class Multi_DataManager
     }
 
 
-
     void Clears()
     {
         _unitNameDataByUnitKoreaName.Clear();

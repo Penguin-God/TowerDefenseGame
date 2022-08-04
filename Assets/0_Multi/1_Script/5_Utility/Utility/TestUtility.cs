@@ -10,7 +10,7 @@ public class TestUtility : MonoBehaviour
     [ContextMenu("Test")]
     void Test()
     {
-        Multi_UnitManager.Instance.Combine_RPC(flag);
+        Multi_Managers.Sound.PlayEffect(EffectSoundType.SwordmanAttack);
     }
 
     void Update()

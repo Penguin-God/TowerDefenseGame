@@ -70,7 +70,7 @@ public class RandomShop_UI : Multi_UI_Popup
         base.Init();
         goodsManager = new GoodsManager(dataPath);
         for (int i = 0; i < goodsParent.childCount; i++)
-            goodsParent.GetChild(i).GetComponent<Goods_UI>()._Init();
+            goodsParent.GetChild(i).GetComponent<Goods_UI>().Setup();
 
         gameObject.SetActive(false);
     }
@@ -86,7 +86,6 @@ public class RandomShop_UI : Multi_UI_Popup
     // 리셋 버튼에서 사용하는 함수
     public void ShopReset()
     {
-        if (Multi_GameManager.instance.TryUseGold(10))
-            Show();
+        panel.Setup(Show, 10, "Gold", "10골드를 지불하여 상점을 돌리시겠습니까?");
     }
 }

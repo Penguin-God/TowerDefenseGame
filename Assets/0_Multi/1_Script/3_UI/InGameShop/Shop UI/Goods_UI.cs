@@ -18,7 +18,7 @@ public class Goods_UI : Multi_UI_Base
     }
 
     [SerializeField] ShopDataTransfer dataTransfer;
-    public void _Init()
+    public void Setup()
     {
         dataTransfer = GetComponentInParent<ShopDataTransfer>();
         Bind<Text>(typeof(Texts));

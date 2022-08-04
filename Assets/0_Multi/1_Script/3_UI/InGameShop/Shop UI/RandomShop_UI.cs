@@ -80,7 +80,7 @@ public class RandomShop_UI : Multi_UI_Popup
             goodsParent.GetChild(i).GetComponent<Goods_UI>().Setup(datas[i]);
         gameObject.SetActive(true);
     }
-
+    
     [ContextMenu("test")]
     void Test()
     {
@@ -91,5 +91,12 @@ public class RandomShop_UI : Multi_UI_Popup
                 print($"Type : {item.GoodsType}, Grade : {item.Grade}, Name : {item.Name}");
             }
         }
+    }
+
+    // 리셋 버튼에서 사용하는 함수
+    public void ShopReset()
+    {
+        if (Multi_GameManager.instance.TryUseGold(10))
+            Show();
     }
 }

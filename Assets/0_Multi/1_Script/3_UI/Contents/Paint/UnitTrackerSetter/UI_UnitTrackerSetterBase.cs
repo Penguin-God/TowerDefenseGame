@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class UI_UnitTrackerSetterBase : Multi_UI_Popup
+public class UI_UnitTrackerSetterBase : Multi_UI_Base
 {
     private Multi_UI_Paint _paint;
     protected UI_UnitTracker[] _unitTrackers;

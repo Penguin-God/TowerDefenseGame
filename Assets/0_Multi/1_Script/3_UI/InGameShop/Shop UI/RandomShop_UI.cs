@@ -75,25 +75,12 @@ public class RandomShop_UI : Multi_UI_Popup
         gameObject.SetActive(false);
     }
 
-    [ContextMenu("Show")]
     public void Show()
     {
         UI_RandomShopGoodsData[] datas = goodsManager.GetRandomGoods();
         for (int i = 0; i < goodsParent.childCount; i++)
             goodsParent.GetChild(i).GetComponent<Goods_UI>().Setup(datas[i], panel);
         gameObject.SetActive(true);
-    }
-    
-    [ContextMenu("test")]
-    void Test()
-    {
-        for (int i = 0; i < 100; i++)
-        {
-            foreach (var item in goodsManager.GetRandomGoods())
-            {
-                print($"Type : {item.GoodsType}, Grade : {item.Grade}, Name : {item.Name}");
-            }
-        }
     }
 
     // 리셋 버튼에서 사용하는 함수

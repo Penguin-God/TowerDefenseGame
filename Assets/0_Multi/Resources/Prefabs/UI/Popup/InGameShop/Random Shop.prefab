@@ -664,7 +664,7 @@ GameObject:
   - component: {fileID: 6045196707314597394}
   - component: {fileID: 2579961857137549878}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: ClickRocker
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

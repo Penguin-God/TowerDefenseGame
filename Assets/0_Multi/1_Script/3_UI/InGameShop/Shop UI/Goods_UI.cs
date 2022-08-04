@@ -17,7 +17,6 @@ public class Goods_UI : Multi_UI_Base
         CurrencyImage,
     }
 
-    [SerializeField] UI_RandomShopGoodsData _data;
     [SerializeField] ShopDataTransfer dataTransfer;
     public void _Init()
     {
@@ -29,7 +28,6 @@ public class Goods_UI : Multi_UI_Base
 
     public void Setup(UI_RandomShopGoodsData data, RandomShopPanel_UI panel)
     {
-        _data = data;
         GetText((int)Texts.ProductNameText).text = data.Name;
         GetText((int)Texts.PriceText).text = data.Price.ToString();
         GetText((int)Texts.PriceText).color = dataTransfer.CurrencyToColor(data.CurrencyType);
@@ -47,17 +45,5 @@ public class Goods_UI : Multi_UI_Base
     void OnDisable()
     {
         GetComponent<Button>().onClick.RemoveAllListeners();
-    }
-
-    [ContextMenu("Sell")]
-    public void SellAction()
-    {
-        new SellMethodFactory().GetSellMeghod(_data.SellType)?.Invoke(_data.SellDatas);
-        gameObject.SetActive(false);
-
-        if (Multi_GameManager.instance.TryUseCurrency(_data.CurrencyType, _data.Price))
-        {
-
-        }
     }
 }

@@ -25,6 +25,11 @@ public class Multi_ClientData
         {
             EquipSkill = equipSkill;
         }
+
+        public virtual void InitSkill(SkillType skillType)
+        {
+
+        }
     }
 
     [SerializeField] public List<Skill> Skills;

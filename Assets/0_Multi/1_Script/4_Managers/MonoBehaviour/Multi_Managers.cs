@@ -58,32 +58,7 @@ public class Multi_Managers : MonoBehaviourPun
 
     void FirstInit()
     {
-        if (ClientData.SkillByType[SkillType.시작골드증가].EquipSkill == true)
-        {
-            Debug.Log("시작 골드 증가 사용");
-        }
-        else
-        {
-            Debug.Log("시작 골드 증가 없음.....");
-        }
-
-        if (ClientData.SkillByType[SkillType.시작식량증가].EquipSkill == true)
-        {
-            Debug.Log("시작 식량 증가 사용");
-        }
-        else
-        {
-            Debug.Log("시작 식량 증가 없음.....");
-        }
-
-        if (ClientData.SkillByType[SkillType.최대유닛증가].EquipSkill == true)
-        {
-            Debug.Log("시작 최대 유닛 증가 사용");
-        }
-        else
-        {
-            Debug.Log("시작 최대 유닛 증가 없음.....");
-        }
+        
     }
 
     void Start()

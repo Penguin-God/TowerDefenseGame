@@ -10,5 +10,55 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd77cc86c5e738c4b98262164c20822e, type: 3}
-  m_Name: SoundDatasMacro
+  m_Name: SoundDataMacro
   m_EditorClassIdentifier: 
+  _enumTexts: 'Cannon impact sounds (Hitting ship) 2,
+
+    Click 5,
+
+    Click sounds
+    35,
+
+    Coins 25,
+
+    Collect star 4,
+
+    Error Sound 19,
+
+    Error Sound
+    20,
+
+    Go back sounds 5,
+
+    Item purchase 9,
+
+    Lose sound 2,
+
+    Lose
+    sound 20,
+
+    Open map 2,
+
+    Pop sounds 13,
+
+    Pop sounds 16,
+
+    Pop sounds
+    4,
+
+    Power Up Sound 1,
+
+    Win sound 11,
+
+    Arrow Flying Past 4,
+
+    Club
+    5,
+
+    Fire bolt 1,
+
+    Sword Woosh 11,
+
+    Wind Bolt 18,
+
+'

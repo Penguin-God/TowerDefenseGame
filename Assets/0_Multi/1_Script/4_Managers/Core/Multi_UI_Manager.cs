@@ -136,4 +136,7 @@ public class Multi_UI_Manager
     {
         _sceneUI = null;
     }
+
+    public void ShowWaringText(string msg) => Multi_Managers.UI.ShowPopupUI<WarningText>().Show(msg);
+    public void ShowClickRockWaringText(string msg) => Multi_Managers.UI.ShowPopupUI<WarningText>().ShowClickLockWaringText(msg);
 }

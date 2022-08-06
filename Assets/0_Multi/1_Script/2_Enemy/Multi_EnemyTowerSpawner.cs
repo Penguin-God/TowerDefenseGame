@@ -37,7 +37,7 @@ public class Multi_EnemyTowerSpawner : MonoBehaviourPun
         else currentTower.OnDeath += () => StartCoroutine(ClearLastTower());
 
         currentTower.OnDeath += () => SoundManager.instance.PlayEffectSound_ByName("TowerDieClip");
-        currentTower.OnDeath += () => Multi_GameManager.instance.OnEventShop(currentTowerLevel, TriggerType.EnemyTower);
+        // currentTower.OnDeath += () => Multi_GameManager.instance.OnEventShop(currentTowerLevel, TriggerType.EnemyTower);
     }
 
     IEnumerator Co_AfterRespawnTower(float delayTime)

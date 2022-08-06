@@ -5,7 +5,7 @@ using UnityEngine;
 public class SkillManager
 {
     Dictionary<SkillType, System.Action> keyValuePairs;
-    List<SkillType> skills;
+    List<SkillType> skills = new List<SkillType>();
 
     public void Init()
     {

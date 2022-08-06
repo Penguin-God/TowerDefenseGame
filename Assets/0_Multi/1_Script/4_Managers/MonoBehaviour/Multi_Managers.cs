@@ -49,7 +49,7 @@ public class Multi_Managers : MonoBehaviourPun
         FirstInit();
 
         _ui.Init();
-        _sound.Init();
+        // _sound.Init(); // TODO : 잠시 유배
 
 
         if (PhotonNetwork.IsMasterClient == false) return;

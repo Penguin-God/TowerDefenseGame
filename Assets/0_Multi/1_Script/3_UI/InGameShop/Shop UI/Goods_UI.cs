@@ -18,12 +18,11 @@ public class Goods_UI : Multi_UI_Base
     }
 
     [SerializeField] ShopDataTransfer dataTransfer;
-    public void Setup()
+    public void _Init()
     {
         dataTransfer = GetComponentInParent<ShopDataTransfer>();
         Bind<Text>(typeof(Texts));
         Bind<Image>(typeof(Images));
-        gameObject.SetActive(false);
     }
 
     public void Setup(UI_RandomShopGoodsData data, RandomShopPanel_UI panel)

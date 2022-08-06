@@ -62,6 +62,7 @@ class GoodsManager
 public class RandomShop_UI : Multi_UI_Popup
 {
     GoodsManager goodsManager;
+    List<Goods_UI> currentGoodsList = new List<Goods_UI>();
     [SerializeField] string dataPath;
     [SerializeField] Transform goodsParent;
     [SerializeField] RandomShopPanel_UI panel;
@@ -70,22 +71,35 @@ public class RandomShop_UI : Multi_UI_Popup
         base.Init();
         goodsManager = new GoodsManager(dataPath);
         for (int i = 0; i < goodsParent.childCount; i++)
-            goodsParent.GetChild(i).GetComponent<Goods_UI>().Setup();
+            goodsParent.GetChild(i).GetComponent<Goods_UI>()._Init();
 
+        BindGoods();
+        panel.OnSell += UpdateGoodsList;
         gameObject.SetActive(false);
     }
 
-    public void Show()
+    void BindGoods()
     {
         UI_RandomShopGoodsData[] datas = goodsManager.GetRandomGoods();
+        currentGoodsList.Clear();
         for (int i = 0; i < goodsParent.childCount; i++)
-            goodsParent.GetChild(i).GetComponent<Goods_UI>().Setup(datas[i], panel);
-        gameObject.SetActive(true);
+        {
+            Goods_UI goods = goodsParent.GetChild(i).GetComponent<Goods_UI>();
+            goods.Setup(datas[i], panel);
+            currentGoodsList.Add(goods);
+        }
+    }
+
+    void UpdateGoodsList(Goods_UI goods)
+    {
+        currentGoodsList.Remove(goods);
+        if (currentGoodsList.Count == 0)
+            BindGoods();
     }
 
     // 리셋 버튼에서 사용하는 함수
     public void ShopReset()
     {
-        panel.Setup(Show, 10, "Gold", "10골드를 지불하여 상점을 돌리시겠습니까?");
+        panel.Setup(BindGoods, 10, "Gold", "10골드를 지불하여 상점을 돌리시겠습니까?");
     }
 }

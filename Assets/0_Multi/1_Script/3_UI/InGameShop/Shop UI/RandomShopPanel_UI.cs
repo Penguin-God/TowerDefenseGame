@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using System;
 
 public class RandomShopPanel_UI : Multi_UI_Base
 {
     [SerializeField] Button sellButton;
     [SerializeField] Text text;
+    public event Action<Goods_UI> OnSell;
 
     public void Setup(UnityAction sellAct, int price, string currencyType, string _text)
     {
@@ -30,7 +32,8 @@ public class RandomShopPanel_UI : Multi_UI_Base
         if (Multi_GameManager.instance.TryUseCurrency(data.CurrencyType, data.Price))
         {
             new SellMethodFactory().GetSellMeghod(data.SellType)?.Invoke(data.SellDatas);
-            goods.gameObject.SetActive(false);
+            goods.SetActive(false);
+            OnSell?.Invoke(goods.GetComponent<Goods_UI>());
             gameObject.SetActive(false);
         }
         else

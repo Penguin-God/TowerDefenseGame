@@ -45218,6 +45218,7 @@ MonoBehaviour:
   flag:
     _colorNumber: 0
     _classNumber: 0
+  texts: 
   spawnColorMax: 5
   spawnClassMax: 3
 --- !u!4 &872441509
@@ -84857,7 +84858,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2307ab77a99dc4ea5f959875dcb5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Gold: 0
+  gold: 0
   food: 0
   Iron: 0
   Wood: 0
@@ -107253,13 +107254,13 @@ Transform:
   - {fileID: 444481349}
   - {fileID: 1777539259}
   - {fileID: 1042380309}
-  - {fileID: 1559381817}
   - {fileID: 715754457}
+  - {fileID: 1559381817}
   - {fileID: 603804536}
   - {fileID: 621505747}
   - {fileID: 1956314215}
-  - {fileID: 1685779409}
   - {fileID: 609886298}
+  - {fileID: 1685779409}
   - {fileID: 883005607}
   - {fileID: 1515589596}
   - {fileID: 2102944733}
@@ -107271,8 +107272,8 @@ Transform:
   - {fileID: 1580013804}
   - {fileID: 1376606714}
   - {fileID: 1728725131}
-  - {fileID: 167860046}
   - {fileID: 1683996436}
+  - {fileID: 167860046}
   - {fileID: 1285350179}
   - {fileID: 373639639}
   - {fileID: 688384700}

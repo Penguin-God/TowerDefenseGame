@@ -32,7 +32,6 @@ public class BattleScene : BaseScene
 
     public override void Clear()
     {
-        if (PhotonNetwork.IsMasterClient == false) return;
         Multi_Managers.Pool.Clear();
     }
 }

@@ -144,7 +144,12 @@ public class Multi_PoolManager
 
     public void Clear()
     {
-        _poolByName.Clear();
-        _poolGroupByName.Clear();
+        if(_root != null)
+        {
+            Debug.Log("clear");
+            _root = null;
+            _poolByName.Clear();
+            _poolGroupByName.Clear();
+        }
     }
 }

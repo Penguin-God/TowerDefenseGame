@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SkillManager
 {
-    Dictionary<SkillType, System.Action> keyValuePairs;
+    Dictionary<SkillType, System.Action> keyValuePairs = new Dictionary<SkillType, System.Action>();
     List<SkillType> skills = new List<SkillType>();
 
     public void Init()
@@ -43,5 +43,11 @@ public class SkillManager
         {
             Debug.Log("시작 최대 유닛 증가 없음.....");
         }
+    }
+
+    public void Clear()
+    {
+        keyValuePairs.Clear();
+        skills.Clear();
     }
 }

@@ -54,9 +54,4 @@ public class Multi_Managers : MonoBehaviour
         Scene.Clear();
         UI.Clear();
     }
-
-    #region Test
-    [ContextMenu("Init Data")]
-    void DataInit() => _data.Init();
-    #endregion
 }

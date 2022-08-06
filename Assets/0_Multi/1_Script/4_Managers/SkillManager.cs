@@ -1,7 +1,35 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
+[Serializable]
+public class Skill
+{
+    public string Name;
+    public int Id;
+    public const string path = "SkillData";
+
+    public bool HasSkill;
+    public bool EquipSkill;
+
+    public void SetHasSkill(bool hasSkill)
+    {
+        HasSkill = hasSkill;
+    }
+
+    public void SetEquipSkill(bool equipSkill)
+    {
+        EquipSkill = equipSkill;
+    }
+
+    public virtual void InitSkill(SkillType skillType)
+    {
+
+    }
+}
+
+// TODO : 곧 죽음
 public class SkillManager
 {
     Dictionary<SkillType, System.Action> keyValuePairs = new Dictionary<SkillType, System.Action>();

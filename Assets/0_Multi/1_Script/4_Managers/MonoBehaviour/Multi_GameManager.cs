@@ -226,7 +226,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public override void OnLeftRoom()
     {
-        SceneManager.LoadScene(0);
+        Multi_Managers.Scene.LoadScene(SceneTyep.클라이언트);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

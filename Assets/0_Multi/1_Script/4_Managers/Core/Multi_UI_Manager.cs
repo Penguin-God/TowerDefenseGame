@@ -135,6 +135,8 @@ public class Multi_UI_Manager
     public void Clear()
     {
         _sceneUI = null;
+        _popupByType.Clear();
+        popupGroupByGroupType.Clear();
     }
 
     public void ShowWaringText(string msg) => Multi_Managers.UI.ShowPopupUI<WarningText>().Show(msg);

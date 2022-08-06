@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
-public class Multi_Managers : MonoBehaviourPun
+public class Multi_Managers : MonoBehaviour
 {
     private static Multi_Managers instance;
     private static Multi_Managers Instance
@@ -16,6 +15,7 @@ public class Multi_Managers : MonoBehaviourPun
                 if (instance == null)
                     instance = new GameObject("Multi_Managers").AddComponent<Multi_Managers>();
 
+                DontDestroyOnLoad(instance.gameObject);
                 instance.Init();
             }
 
@@ -30,6 +30,7 @@ public class Multi_Managers : MonoBehaviourPun
     Multi_PoolManager _pool = new Multi_PoolManager();
     Multi_ClientData _clientData = new Multi_ClientData();
     SkillManager _skill = new SkillManager();
+    Scene_Manager _scene = new Scene_Manager();
 
     public static Multi_DataManager Data => Instance._data;
     public static Multi_UI_Manager UI => Instance._ui;
@@ -38,40 +39,20 @@ public class Multi_Managers : MonoBehaviourPun
     public static Multi_PoolManager Pool => Instance._pool;
     public static Multi_ClientData ClientData => Instance._clientData;
     public static SkillManager Skill => Instance._skill;
+    public static Scene_Manager Scene => instance._scene;
 
     void Init()
     {
-        print("Init"); // TODO : Scene만들기 init 한번만 하게 하기
+        print("init");
         _data.Init();
         _clientData.Init();
-
-        _skill.Init();
-        FirstInit();
-
-        _ui.Init();
         // _sound.Init(); // TODO : 잠시 유배
-
-
-        if (PhotonNetwork.IsMasterClient == false) return;
-        _pool.Init();
     }
 
-    void FirstInit()
+    public static void Clear()
     {
-        
-    }
-
-    void Start()
-    {
-        // temp code : 나중에 씬으로 옮길 것
-        PhotonNetwork.SendRate = 60;
-        PhotonNetwork.SerializationRate = 30;
-        _ui.ShowSceneUI<Multi_UI_Paint>("Paint");
-    }
-
-    public void Clear()
-    {
-        _ui.Clear();
+        Scene.Clear();
+        UI.Clear();
     }
 
     #region Test

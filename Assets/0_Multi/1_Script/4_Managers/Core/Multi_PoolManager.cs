@@ -141,4 +141,10 @@ public class Multi_PoolManager
         if (_poolByName.TryGetValue(name, out Pool pool)) return pool.Original;
         else return null;
     }
+
+    public void Clear()
+    {
+        _poolByName.Clear();
+        _poolGroupByName.Clear();
+    }
 }

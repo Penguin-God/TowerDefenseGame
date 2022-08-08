@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 using System;
 
 public enum SceneTyep
 {
     클라이언트,
     New_Scene,
+    TestScene,
 }
 
 public class Scene_Manager
@@ -18,6 +20,12 @@ public class Scene_Manager
     {
         Multi_Managers.Clear();
         SceneManager.LoadScene(Enum.GetName(typeof(SceneTyep), type));
+    }
+
+    public void LoadLevel(SceneTyep type)
+    {
+        Multi_Managers.Clear();
+        PhotonNetwork.LoadLevel(Enum.GetName(typeof(SceneTyep), type));
     }
 
     public void Clear() => CurrentScene.Clear();

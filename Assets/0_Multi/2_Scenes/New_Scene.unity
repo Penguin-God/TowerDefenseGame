@@ -31986,6 +31986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c99ae79e03086fb4aa147ea53d03dc62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sceneTyep: 1
   joinSceneName: New_Scene
   editorCamera: {fileID: 1290153365}
 --- !u!114 &608932054

@@ -59,8 +59,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     #region Events
     protected Action<Multi_Enemy> OnHit;
-    public Action<Multi_Enemy> OnPassiveHit;
     protected Action<Multi_Enemy> OnSkileHit;
+    public Action<Multi_Enemy> OnPassiveHit;
 
     public event Action<Multi_TeamSoldier> OnDead;
     #endregion
@@ -83,7 +83,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         
         // 스킬 설정
         skillDamage = 150; // 테스트 코드
-        OnSkileHit += enemy => AttackEnemy(enemy, skillDamage);
+        OnSkileHit += enemy => AttackEnemy(enemy, skillDamage, isSkill:true);
 
         // 변수 선언
         passive = GetComponent<Multi_UnitPassive>();
@@ -148,9 +148,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         if (OnPassiveHit != null)
         {
-            OnPassiveHit = null;
             OnHit -= OnPassiveHit;
             OnSkileHit -= OnPassiveHit;
+            OnPassiveHit = null;
         }
 
         passive.LoadStat(UnitFlags);
@@ -417,7 +417,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         else AttackEnemy(enemy, BossDamage);
     }
 
-    void AttackEnemy(Multi_Enemy enemy, int damage) => enemy.OnDamage(damage);
+    void AttackEnemy(Multi_Enemy enemy, int damage, bool isSkill = false) => enemy.OnDamage(damage, isSkill);
     #endregion
 
 

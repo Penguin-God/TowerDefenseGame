@@ -4,31 +4,19 @@ using UnityEngine;
 using Photon.Pun;
 using System;
 using System.Linq;
-using Random = UnityEngine.Random;
 
 public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 {
     public event Action<Multi_NormalEnemy> OnSpawn;
     public event Action<Multi_NormalEnemy> OnDead;
 
-
-    Dictionary<int, NormalEnemyData> _enemyDataByStage = new Dictionary<int, NormalEnemyData>();
-
-    string GetCurrentEnemyPath() => BuildPath(_rootPath, _enemys[0]);
-    int GetCurrentEnemyHp() => _enemyDataByStage[Multi_StageManager.Instance.CurrentStage].Hp;
-    float GetCurrentEnemySpeed() => _enemyDataByStage[Multi_StageManager.Instance.CurrentStage].Speed;
+    string GetCurrentEnemyPath() => BuildPath(_rootPath, _enemys[currentSpawnEnemyNum]);
 
     [SerializeField] int currentSpawnEnemyNum = 0; // 테스트용 변수
     [SerializeField] float _spawnDelayTime = 2f;
     [SerializeField] int _stageSpawnCount = 15;
     public float EnemySpawnTime => _spawnDelayTime * _stageSpawnCount;
 
-    int minHp = 200;
-    int enemyHpWeight;
-    int plusEnemyHpWeight = 20;
-    
-    private float maxSpeed = 5f;
-    private float minSpeed = 3f;
     protected override void Init()
     {
         Multi_StageManager.Instance.OnUpdateStage += StageSpawn;
@@ -37,41 +25,6 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     protected override void MasterInit()
     {
         CreatePool();
-        SetNormalEnemyData();
-
-        void SetNormalEnemyData()
-        {
-            int maxNumber = _enemys.Length;
-            int maxStage = 200; // 일단 200 스테이지까지만 설정
-
-            for (int stage = 1; stage < maxStage; stage++)
-            {
-                enemyHpWeight += plusEnemyHpWeight;
-
-                NormalEnemyData enemyData = new NormalEnemyData(Random.Range(0, maxNumber), SetRandomHp(stage, enemyHpWeight), SetRandomSeepd(stage));
-                _enemyDataByStage.Add(stage, enemyData);
-            }
-
-
-            int SetRandomHp(int _stage, int _weight)
-            {
-                // satge에 따른 가중치 변수들
-                int stageHpWeight = _stage * _stage * _weight;
-                int hp = minHp + stageHpWeight;
-                return hp;
-            }
-
-            float SetRandomSeepd(int _stage)
-            {
-                // satge에 따른 가중치 변수들
-                float stageSpeedWeight = _stage / 6;
-
-                float enemyMinSpeed = minSpeed + stageSpeedWeight;
-                float enemyMaxSpeed = maxSpeed + stageSpeedWeight;
-                float speed = Random.Range(enemyMinSpeed, enemyMaxSpeed);
-                return speed;
-            }
-        }
     }
 
     void CreatePool()

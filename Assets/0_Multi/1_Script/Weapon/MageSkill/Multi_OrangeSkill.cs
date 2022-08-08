@@ -36,7 +36,7 @@ public class Multi_OrangeSkill : MonoBehaviourPun
         photonView.RPC("OnSkillEffect", RpcTarget.All, enemy.transform.position);
 
         int _applyDamage = damage + Mathf.RoundToInt(enemy.currentHp / 100 * percent);
-        enemy.OnDamage(_applyDamage);
+        enemy.OnDamage(_applyDamage, isSkill:true);
     }
 
     [PunRPC]

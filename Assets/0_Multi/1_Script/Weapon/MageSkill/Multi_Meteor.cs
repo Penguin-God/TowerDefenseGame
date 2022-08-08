@@ -18,7 +18,7 @@ public class Multi_Meteor : Multi_Projectile
 
     protected override void OnTriggerHit(Collider other)
     {
-        if (!PhotonNetwork.IsMasterClient) return;
+        if (PhotonNetwork.IsMasterClient == false) return;
 
         if (other.tag == "World") photonView.RPC("MeteorExplosion", RpcTarget.All);
     }

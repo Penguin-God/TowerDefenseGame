@@ -33014,7 +33014,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sphereCollider: {fileID: 0}
   activeDelayTime: 0.1
-  aliveTime: 0.25
+  hitTime: 0.1
 --- !u!114 &1052619921548451588
 MonoBehaviour:
   m_ObjectHideFlags: 0

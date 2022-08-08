@@ -31,6 +31,7 @@ public class Multi_HitSkill : MonoBehaviourPun
     {
         yield return new WaitForSeconds(activeDelayTime);
         sphereCollider.enabled = true;
+        Debug.Assert(hitTime > 0, "Hit Time 설정 잘못됨");
         yield return new WaitForSeconds(hitTime);
         sphereCollider.enabled = false;
     }

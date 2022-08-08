@@ -5,8 +5,11 @@ using Photon.Pun;
 using Photon.Realtime;
 public class Multi_SpearmanEnemy : Multi_NormalEnemy
 {
-    public override void Passive()
+    [PunRPC]
+    protected override void RPC_OnDamage(int damage, bool isSkill)
     {
-        //SetStatus(Mathf.FloorToInt(maxHp * 1.2f), speed);
+        if (isSkill == false)
+            damage /= 2;
+        base.RPC_OnDamage(damage, isSkill);
     }
 }

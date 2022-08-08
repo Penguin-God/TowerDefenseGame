@@ -30,7 +30,6 @@ public class Multi_GreenMage : Multi_Unit_Mage
         nav.isStopped = false;
     }
 
-    // isSkillAttack 조절이 안되서 지금은 의미없는 코드임
     IEnumerator Co_FixMana()
     {
         // 공 튕기는 동안에는 마나 충전 못하게 하기
@@ -38,12 +37,5 @@ public class Multi_GreenMage : Multi_Unit_Mage
         PlusMana = 0;
         yield return new WaitForSeconds(skillCoolDownTime); // skillCoolDownTime을 마나 제한 시간으로 사용
         PlusMana = savePlusMana;
-    }
-
-    // TODO : 강화 구현하기
-    [SerializeField] Transform UltimateTransform = null;
-    void Ultimate()
-    {
-
     }
 }

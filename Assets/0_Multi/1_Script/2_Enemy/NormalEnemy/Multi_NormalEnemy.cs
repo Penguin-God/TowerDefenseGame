@@ -17,7 +17,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     private int pointIndex = -1;
 
     protected Rigidbody Rigidbody;
-    public virtual void Passive() { }
+    protected virtual void Passive() { }
 
     private void Awake()
     {
@@ -28,6 +28,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     protected override void SetStatus(int _hp, float _speed, bool _isDead)
     {
         base.SetStatus(_hp, _speed, _isDead);
+        Passive();
         TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);
         currentPos = transform.position;
         pointIndex = 0;
@@ -158,8 +159,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     [PunRPC]
     protected override void OnStun(int stunPercent, float stunTime)
     {
-        if (isDead || !PhotonNetwork.IsMasterClient) return;
-
+        if (isDead || PhotonNetwork.IsMasterClient == false) return;
         int random = UnityEngine.Random.Range(0, 100);
         if (random < stunPercent) StartCoroutine(SternCoroutine(stunTime));
     }
@@ -170,7 +170,6 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         queue_GetSturn.Enqueue(-1);
         speed = 0;
         Rigidbody.velocity = dir * speed;
-
 
         photonView.RPC("SyncSpeed", RpcTarget.Others, 0f);
         photonView.RPC("ShowSturnEffetc", RpcTarget.All);

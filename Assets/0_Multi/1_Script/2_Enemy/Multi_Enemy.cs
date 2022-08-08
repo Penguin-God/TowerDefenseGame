@@ -70,9 +70,9 @@ public class Multi_Enemy : MonoBehaviourPun
         gameObject.SetActive(!_isDead);
     }
 
-    public void OnDamage(int damage) => _PV.RPC("RPC_OnDamage", RpcTarget.MasterClient, damage);
+    public void OnDamage(int damage, bool isSkill = false) => _PV.RPC("RPC_OnDamage", RpcTarget.MasterClient, damage, isSkill);
     [PunRPC]
-    public void RPC_OnDamage(int damage)
+    protected virtual void RPC_OnDamage(int damage, bool isSkill)
     {
         if (PhotonNetwork.IsMasterClient)
         {
@@ -125,21 +125,19 @@ public class Multi_Enemy : MonoBehaviourPun
     // public void OnStun(RpcTarget _target, int _stunPercent, float _stunTime) => _PV.RPC("OnStun", _target, _stunPercent, _stunTime);
     [PunRPC] protected virtual void OnStun(int stunPercent, float stunTime) { }
 
-    public void OnPoison_RPC(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
-        => _PV.RPC("OnPoison", RpcTarget.MasterClient, poisonPercent, poisonCount, poisonDelay, maxDamage);
-    public void OnPoison(RpcTarget _target, int poisonPercent, int poisonCount, float poisonDelay, int maxDamage) 
-        => _PV.RPC("OnPoison", _target, poisonPercent, poisonCount, poisonDelay, maxDamage);
+    public void OnPoison_RPC(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill = false)
+        => _PV.RPC("OnPoison", RpcTarget.MasterClient, poisonPercent, poisonCount, poisonDelay, maxDamage, isSkill);
     [PunRPC]
-    protected virtual void OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
+    protected virtual void OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill)
     {
         if (isDead || !PhotonNetwork.IsMasterClient) return;
 
-        StartCoroutine(Co_OnPoison(poisonPercent, poisonCount, poisonDelay, maxDamage));
+        StartCoroutine(Co_OnPoison(poisonPercent, poisonCount, poisonDelay, maxDamage, isSkill));
     }
 
     // Queue를 사용해서 현재 코루틴이 중복으로 돌아가고 있지 않으면 색깔 복귀하기
     Queue<int> queue_HoldingPoison = new Queue<int>();
-    IEnumerator Co_OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage)
+    IEnumerator Co_OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill)
     {
         queue_HoldingPoison.Enqueue(-1);
         photonView.RPC("ChangeColor", RpcTarget.All, 141, 49, 231, 255);
@@ -148,7 +146,7 @@ public class Multi_Enemy : MonoBehaviourPun
         for (int i = 0; i < poisonCount; i++)
         {
             yield return new WaitForSeconds(poisonDelay);
-            RPC_OnDamage(poisonDamage); // 포이즌 자체가 호스트에서만 돌아가기 때문에 그냥 써도 됨
+            RPC_OnDamage(poisonDamage, isSkill); // 포이즌 자체가 호스트에서만 돌아가기 때문에 그냥 써도 됨
         }
 
         if (queue_HoldingPoison.Count != 0) queue_HoldingPoison.Dequeue();

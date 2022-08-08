@@ -345,10 +345,10 @@ GameObject:
   - component: {fileID: 2694985329993272946}
   - component: {fileID: 2694985329993272947}
   - component: {fileID: 8301984772538128271}
-  - component: {fileID: 8973375408006738935}
   - component: {fileID: -585793683502056607}
   - component: {fileID: -6494953279022355678}
   - component: {fileID: 8363876703442438404}
+  - component: {fileID: 2048855308982746325}
   m_Layer: 10
   m_Name: Enemy_Sworaman 1
   m_TagString: Untagged
@@ -411,30 +411,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &8973375408006738935
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2694985329993272948}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab167ab37b69f004c96b34b3d6dd240c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxSpeed: 0
-  speed: 0
-  maxHp: 150
-  currentHp: 150
-  isDead: 1
-  hpSlider: {fileID: 2694985331357330398}
-  enemyType: 0
-  dir: {x: 0, y: 0, z: 0}
-  originMat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
-  enemyNumber: 3
-  freezeMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
-  sternEffect: {fileID: 3938378221336168419}
 --- !u!114 &-585793683502056607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -463,7 +439,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _usingId: -1
   IsUsing: 0
   Path: 
 --- !u!114 &8363876703442438404
@@ -479,6 +454,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _usingId: -1
+--- !u!114 &2048855308982746325
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2694985329993272948}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc46223dcd14d5845acf4836c65fdeec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxSpeed: 0
+  speed: 0
+  maxHp: 0
+  currentHp: 0
+  isDead: 1
+  hpSlider: {fileID: 2694985331357330398}
+  enemyType: 0
+  dir: {x: 0, y: 0, z: 0}
+  originMat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
+  enemyNumber: 3
+  freezeMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
+  sternEffect: {fileID: 3938378221336168419}
 --- !u!1 &2694985330316391956
 GameObject:
   m_ObjectHideFlags: 0

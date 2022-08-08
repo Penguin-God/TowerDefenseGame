@@ -17476,7 +17476,7 @@ MonoBehaviour:
   - {fileID: 8692699531293559831, guid: b7d97731d96118d42a5820fc7ca63c3d, type: 3}
   - {fileID: 2694985329993272948, guid: 5b5d920ab2aaf784eb342157d06a611e, type: 3}
   spawnCount: 50
-  currentSpawnEnemyNum: 0
+  currentSpawnEnemyNum: 1
   _spawnDelayTime: 2
   _stageSpawnCount: 15
 --- !u!114 &354961540
@@ -31987,7 +31987,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneTyep: 1
-  joinSceneName: New_Scene
   editorCamera: {fileID: 1290153365}
 --- !u!114 &608932054
 MonoBehaviour:

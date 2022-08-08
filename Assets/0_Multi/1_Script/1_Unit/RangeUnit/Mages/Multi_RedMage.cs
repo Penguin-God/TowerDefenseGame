@@ -34,12 +34,12 @@ public class Multi_RedMage : Multi_Unit_Mage
             meteor.Shot(null, tempPos, HitMeteor);
         else
             meteor.Shot(TargetEnemy, target.position, HitMeteor);
+    }
 
-        void HitMeteor(Multi_Enemy enemy)
-        {
-            enemy.OnDamage(meteorDamage);
-            enemy.OnStun_RPC(100, meteorStunTime);
-        }
+    void HitMeteor(Multi_Enemy enemy)
+    {
+        enemy.OnDamage(meteorDamage, isSkill:true);
+        enemy.OnStun_RPC(100, meteorStunTime);
     }
 
     // 패시브

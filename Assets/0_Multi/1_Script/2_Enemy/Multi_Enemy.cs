@@ -82,7 +82,7 @@ public class Multi_Enemy : MonoBehaviourPun
             photonView.RPC("RPC_UpdateHealth", RpcTarget.Others, currentHp);
 
             // 게스트에서 조건문 밖의 Dead부분을 실행시키게 하기 위한 코드
-            photonView.RPC("RPC_OnDamage", RpcTarget.Others, 0);
+            photonView.RPC("RPC_OnDamage", RpcTarget.Others, 0, false);
         }
 
         // Dead는 보상 등 개인적으로 실행되어야 하는 기능이 포함되어 있으므로 모두 실행

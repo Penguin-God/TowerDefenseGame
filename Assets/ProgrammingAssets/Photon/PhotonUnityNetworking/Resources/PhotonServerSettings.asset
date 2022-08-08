@@ -54,10 +54,8 @@ MonoBehaviour:
   - OnSkillEffect
   - OnSlow
   - OnStun
-  - Raise_OnCurrentUnitChanged
-  - Raise_OnEnemyCountChanged
-  - Raise_OnTryCombine
-  - Raise_OnUnitFlagDictChanged
+  - PlayParticle
+  - Raise_UnitCountChanged
   - RespawnSpaceship
   - RPC_OnDamage
   - RPC_OnStart
@@ -71,20 +69,14 @@ MonoBehaviour:
   - SetRotate
   - SetRotation
   - SetStatus
+  - Setup
   - SetVelocity
   - ShowSturnEffetc
-  - Spawn
   - SpawnUnit
   - SyncSpeed
   - Turn
-  - Invoke
-  - Raise_UnitCountChanged
-  - UpdateStage
   - UnitWorldChanged
-  - Setup
-  - PlayEffect
-  - PlayParticle
-  - GameEnd
+  - UpdateStage
   - Win
   DisableAutoOpenWizard: 1
   ShowSettings: 0

@@ -8,5 +8,7 @@ public class Multi_SwordmanEnemy : Multi_NormalEnemy
     {
         maxHp = (int)(maxHp * 1.5);
         currentHp = maxHp;
+        hpSlider.maxValue = maxHp;
+        hpSlider.value = maxHp;
     }
 }

@@ -22,6 +22,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     protected override void Init()
     {
         Multi_StageManager.Instance.OnUpdateStage += StageSpawn;
+        isTest = false;
     }
 
     protected override void MasterInit()
@@ -38,9 +39,11 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
         }
     }
 
+    [SerializeField] bool isTest;
     void Spawn(int enemyNum)
     {
         int targetId = (Multi_Data.instance.Id == 0) ? 1 : 0;
+        if (isTest) targetId = 0;
         Spawn_RPC(GetCurrentEnemyPath(enemyNum), Multi_Data.instance.EnemySpawnPositoins[targetId], targetId);
     }
     [PunRPC]

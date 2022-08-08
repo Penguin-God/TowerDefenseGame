@@ -48,6 +48,9 @@ public class Multi_DataManager
     #endregion
 
     #region Enemy Data
+    Dictionary<int, NormalEnemyData> _normalEnemyDataByStage = new Dictionary<int, NormalEnemyData>();
+    public IReadOnlyDictionary<int, NormalEnemyData> NormalEnemyDataByStage => _normalEnemyDataByStage;
+
     Dictionary<int, BossData> _bossDataByLevel = new Dictionary<int, BossData>();
     public IReadOnlyDictionary<int, BossData> BossDataByLevel => _bossDataByLevel;
 
@@ -74,6 +77,7 @@ public class Multi_DataManager
         _unitWindowDataByUnitFlags = MakeCsvDict<UI_UnitWindowDatas, UnitFlags, UI_UnitWindowData>("UIData/UI_UnitWindowData");
 
         // enemy
+        _normalEnemyDataByStage = MakeCsvDict<NormalEnemyDatas, int, NormalEnemyData>("EnemyData/NormalEnemyData");
         _bossDataByLevel = MakeCsvDict<BossDatas, int, BossData>("EnemyData/BossData");
         _towerDataByLevel = MakeCsvDict<BossDatas, int, BossData>("EnemyData/TowerData");
     }

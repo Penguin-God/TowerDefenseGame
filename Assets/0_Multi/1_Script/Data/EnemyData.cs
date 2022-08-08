@@ -4,9 +4,34 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public class EnemyData
+[Serializable]
+public struct NormalEnemyData
 {
+    [SerializeField] int _stage;
+    int _number;
+    [SerializeField] int _hp;
+    [SerializeField] float _speed;
 
+    public NormalEnemyData(int number, int hp, float speed)
+    {
+        _stage = 0;
+        _number = number;
+        _hp = hp;
+        _speed = speed;
+    }
+
+    public void SetNumber(int _newNumber) => _number = _newNumber;
+
+    public int Stage => _stage;
+    public int Number => _number;
+    public int Hp => _hp;
+    public float Speed => _speed;
+}
+
+public class NormalEnemyDatas : ICsvLoader<int, NormalEnemyData>
+{
+    public Dictionary<int, NormalEnemyData> MakeDict(string csv)
+        => CsvUtility.GetEnumerableFromCsv<NormalEnemyData>(csv).ToDictionary(x => x.Stage, x => x);
 }
 
 [Serializable]

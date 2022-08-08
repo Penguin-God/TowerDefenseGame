@@ -6,21 +6,6 @@ using System;
 using System.Linq;
 using Random = UnityEngine.Random;
 
-[Serializable]
-public struct NormalEnemyData
-{
-    public int number;
-    public int hp;
-    public float speed;
-
-    public NormalEnemyData(int _number, int _hp, float _speed)
-    {
-        number = _number;
-        hp = _hp;
-        speed = _speed;
-    }
-}
-
 public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 {
     public event Action<Multi_NormalEnemy> OnSpawn;
@@ -29,9 +14,9 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
     Dictionary<int, NormalEnemyData> _enemyDataByStage = new Dictionary<int, NormalEnemyData>();
 
-    string GetCurrentEnemyPath() => BuildPath(_rootPath, _enemys[_enemyDataByStage[Multi_StageManager.Instance.CurrentStage].number]);
-    int GetCurrentEnemyHp() => _enemyDataByStage[Multi_StageManager.Instance.CurrentStage].hp;
-    float GetCurrentEnemySpeed() => _enemyDataByStage[Multi_StageManager.Instance.CurrentStage].speed;
+    string GetCurrentEnemyPath() => BuildPath(_rootPath, _enemys[0]);
+    int GetCurrentEnemyHp() => _enemyDataByStage[Multi_StageManager.Instance.CurrentStage].Hp;
+    float GetCurrentEnemySpeed() => _enemyDataByStage[Multi_StageManager.Instance.CurrentStage].Speed;
 
     [SerializeField] int currentSpawnEnemyNum = 0; // 테스트용 변수
     [SerializeField] float _spawnDelayTime = 2f;
@@ -105,7 +90,8 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
     {
         Multi_NormalEnemy enemy = base.BaseSpawn(GetCurrentEnemyPath(), spawnPos, rotation, id).GetComponent<Multi_NormalEnemy>();
-        enemy.SetStatus_RPC(GetCurrentEnemyHp(), GetCurrentEnemySpeed(), false);
+        NormalEnemyData data = Multi_Managers.Data.NormalEnemyDataByStage[Multi_StageManager.Instance.CurrentStage];
+        enemy.SetStatus_RPC(data.Hp, data.Speed, false);
         OnSpawn?.Invoke(enemy);
         return null;
     }

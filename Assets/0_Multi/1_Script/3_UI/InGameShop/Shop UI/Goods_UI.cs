@@ -40,9 +40,4 @@ public class Goods_UI : Multi_UI_Base
 
         gameObject.SetActive(true);
     }
-
-    void OnDisable()
-    {
-        GetComponent<Button>().onClick.RemoveAllListeners();
-    }
 }

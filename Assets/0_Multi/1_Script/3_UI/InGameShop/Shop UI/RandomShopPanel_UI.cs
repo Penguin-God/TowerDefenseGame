@@ -33,6 +33,7 @@ public class RandomShopPanel_UI : Multi_UI_Base
         {
             new SellMethodFactory().GetSellMeghod(data.SellType)?.Invoke(data.SellDatas);
             goods.SetActive(false);
+            goods.GetComponent<Button>().onClick.RemoveAllListeners();
             OnSell?.Invoke(goods.GetComponent<Goods_UI>());
             gameObject.SetActive(false);
         }

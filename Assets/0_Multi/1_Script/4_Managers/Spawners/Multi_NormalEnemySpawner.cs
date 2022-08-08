@@ -10,9 +10,11 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     public event Action<Multi_NormalEnemy> OnSpawn;
     public event Action<Multi_NormalEnemy> OnDead;
 
-    string GetCurrentEnemyPath() => BuildPath(_rootPath, _enemys[currentSpawnEnemyNum]);
+    string GetCurrentEnemyPath(int enemyNum) => BuildPath(_rootPath, _enemys[enemyNum]);
 
-    [SerializeField] int currentSpawnEnemyNum = 0; // 테스트용 변수
+    [SerializeField] int otherEnemySpawnNumber = 0;
+    public void SetOtherEnemyNumber(int num) => otherEnemySpawnNumber = num;
+
     [SerializeField] float _spawnDelayTime = 2f;
     [SerializeField] int _stageSpawnCount = 15;
     public float EnemySpawnTime => _spawnDelayTime * _stageSpawnCount;
@@ -36,13 +38,15 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
         }
     }
 
-    // path는 BaseSpawn 안에서 만들어서 씀
-    void Spawn() => Spawn_RPC("", Multi_Data.instance.EnemySpawnPos);
-
+    void Spawn(int enemyNum)
+    {
+        int targetId = (Multi_Data.instance.Id == 0) ? 1 : 0;
+        Spawn_RPC(GetCurrentEnemyPath(enemyNum), Multi_Data.instance.EnemySpawnPositoins[targetId], targetId);
+    }
     [PunRPC]
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
     {
-        Multi_NormalEnemy enemy = base.BaseSpawn(GetCurrentEnemyPath(), spawnPos, rotation, id).GetComponent<Multi_NormalEnemy>();
+        Multi_NormalEnemy enemy = base.BaseSpawn(path, spawnPos, rotation, id).GetComponent<Multi_NormalEnemy>();
         NormalEnemyData data = Multi_Managers.Data.NormalEnemyDataByStage[Multi_StageManager.Instance.CurrentStage];
         enemy.SetStatus_RPC(data.Hp, data.Speed, false);
         OnSpawn?.Invoke(enemy);
@@ -68,15 +72,15 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
     IEnumerator Co_StageSpawn()
     {
+        int enemyNum = otherEnemySpawnNumber;
         for (int i = 0; i < _stageSpawnCount; i++)
         {
-            //Spawn(stage);
-            Spawn();
+            Spawn(enemyNum);
             yield return new WaitForSeconds(_spawnDelayTime);
         }
     }
     #endregion
 
     // TODO : #if 조건문으로 빼기
-    public void Spawn(int number) => Spawn_RPC(BuildPath(_rootPath, _enemys[number]), Multi_Data.instance.EnemySpawnPos);
+    public void Spawn(int enemyNum, int id) => Spawn_RPC(GetCurrentEnemyPath(enemyNum), Multi_Data.instance.EnemySpawnPositoins[id], id);
 }

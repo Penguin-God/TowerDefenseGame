@@ -85,6 +85,7 @@ public class Multi_Data : MonoBehaviourPun
     [Header("Enemy")]
     [SerializeField] Vector3[] enemySpawnPos = null;
     public Vector3 EnemySpawnPos => enemySpawnPos[id];
+    public Vector3[] EnemySpawnPositoins => enemySpawnPos;
 
     // 적 회전 지점
     [SerializeField] Transform[] enemyTurnPointParents = null;

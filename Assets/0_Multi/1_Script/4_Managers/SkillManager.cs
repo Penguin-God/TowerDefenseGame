@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public class Skill
+public abstract class Skill
 {
     public string Name;
     public int Id;
@@ -23,31 +23,24 @@ public class Skill
         EquipSkill = equipSkill;
     }
 
-    public virtual void InitSkill(SkillType skillType)
-    {
+    public abstract void InitSkill(Skill skill);
 
-    }
+    // public abstract void InitSkill(SkillType skillType);
 }
 
 // TODO : 곧 죽음
 public class SkillManager
 {
     Dictionary<SkillType, System.Action> keyValuePairs = new Dictionary<SkillType, System.Action>();
-    List<SkillType> skills = new List<SkillType>();
+    List<Skill> skills = new List<Skill>();
 
     public void Init()
     {
-        skills.Add(SkillType.시작골드증가);
-
-        for (int i = 0; i < skills.Count; i++)
-        {
-            if (Multi_Managers.ClientData.SkillByType[skills[i]].EquipSkill == true)
-                Multi_Managers.ClientData.SkillByType[skills[i]].InitSkill(skills[i]);
-        }
-
+        
         if (Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].EquipSkill == true)
         {
-            Debug.Log("시작 골드 증가 사용");
+            skills.Add(new Taegeuk());
+            Debug.Log("태극 스킬 추가");
         }
         else
         {
@@ -71,11 +64,43 @@ public class SkillManager
         {
             Debug.Log("시작 최대 유닛 증가 없음.....");
         }
+
+        for (int i = 0; i < skills.Count; i++)
+        {
+            if (skills[i].EquipSkill == true)
+                skills[i].InitSkill(skills[i]);
+        }
     }
+
+    
 
     public void Clear()
     {
         keyValuePairs.Clear();
         skills.Clear();
+    }
+}
+
+public abstract class PassiveSkill : Skill
+{
+    public override void InitSkill(Skill skill)
+    {
+
+    }
+}
+
+public abstract class ActiveSkill : Skill
+{
+    public override void InitSkill(Skill skill)
+    {
+
+    }
+}
+
+public class Taegeuk : PassiveSkill
+{
+    public override void InitSkill(Skill skill)
+    {
+        Debug.Log("태극 시너지 스킬 발동");
     }
 }

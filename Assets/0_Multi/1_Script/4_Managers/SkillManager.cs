@@ -37,7 +37,7 @@ public class SkillManager
     public void Init()
     {
         
-        if (Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].EquipSkill == true)
+        if (Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill == true)
         {
             skills.Add(new Taegeuk());
             Debug.Log("태극 스킬 추가");
@@ -63,6 +63,15 @@ public class SkillManager
         else
         {
             Debug.Log("시작 최대 유닛 증가 없음.....");
+        }
+
+        if (Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].EquipSkill == true)
+        {
+            Debug.Log("시작 골드 증가 사용");
+        }
+        else
+        {
+            Debug.Log("시작 골드 증가 없음.....");
         }
 
         for (int i = 0; i < skills.Count; i++)

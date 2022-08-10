@@ -15,11 +15,12 @@ public class ClientManager : MonoBehaviour
     public Text StartFoodPriceText;
     public Text PlusTouchDamegePriceText;
     public Text PlusMaxUnitPriceText;
-    public Text GoldSkillPriceText;
+    public Text TaegeukSkillPriceText;
 
     public Button StartGoldEquipButton;
     public Button StartFoodEquipButton;
     public Button PlusMaxUnitEquipButton;
+    public Button TaegeukSkillEquipButton;
 
     public Image Skill1Image;
     public Image Skill2Image;
@@ -32,7 +33,7 @@ public class ClientManager : MonoBehaviour
 
     const int STARTGOLDPRICE = 3000;
     const int STARTFOODPRICE = 3000;
-    const int PLUSTOUCHDAMEGEPRICE = 3000;
+    const int TAEGEUKSKILLPRICE = 3000;
     const int PLUSMAXUNITPRICE = 3000;
     
     int Skill1;
@@ -202,6 +203,11 @@ public class ClientManager : MonoBehaviour
         //}
     }
 
+    public void BuyTaegeukSkill()
+    {
+        BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.태극스킬, MoneyType.Iron);
+    }
+
     public void EquipStartGold()
     {
         if (EquipSkill(SkillType.시작골드증가) == false)
@@ -236,6 +242,18 @@ public class ClientManager : MonoBehaviour
             Skill2Image.sprite = skill_Image.PlusMaxUnitImage;
     }
 
+    public void EquipTaegeukSkill()
+    {
+        if (EquipSkill(SkillType.태극스킬) == false)
+            return;
+
+
+        if (CheckSkill() == 1)
+            Skill1Image.sprite = skill_Image.TaegeukSkillImage;
+        else if (CheckSkill() == 2)
+            Skill2Image.sprite = skill_Image.TaegeukSkillImage;
+    }
+
     bool EquipSkill(SkillType skillType)
     {
         if (CheckSkill() >= 2)
@@ -265,6 +283,7 @@ public class ClientManager : MonoBehaviour
         InitEquip(SkillType.시작골드증가, StartGoldEquipButton);
         InitEquip(SkillType.시작식량증가, StartFoodEquipButton);
         InitEquip(SkillType.최대유닛증가, PlusMaxUnitEquipButton);
+        InitEquip(SkillType.태극스킬, TaegeukSkillEquipButton);
     }
 
     void InitEquip(SkillType skillType, Button equipButton)
@@ -291,6 +310,8 @@ public class ClientManager : MonoBehaviour
             count++;
         if (Multi_Managers.ClientData.SkillByType[SkillType.최대유닛증가].EquipSkill == true)
             count++;
+        if (Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill == true)
+            count++;
 
         return count;
     }
@@ -303,6 +324,7 @@ public class ClientManager : MonoBehaviour
         Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].SetEquipSkill(false);
         Multi_Managers.ClientData.SkillByType[SkillType.시작식량증가].SetEquipSkill(false);
         Multi_Managers.ClientData.SkillByType[SkillType.최대유닛증가].SetEquipSkill(false);
+        Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].SetEquipSkill(false);
 
         InitEquips();
     }

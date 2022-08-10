@@ -8,6 +8,7 @@ public class Skill_Image : MonoBehaviour
     public Sprite StratGoldImage;
     public Sprite StratFoodImage;
     public Sprite PlusMaxUnitImage;
+    public Sprite TaegeukSkillImage;
 
     public Sprite UImask;
 

@@ -61,6 +61,7 @@ public enum SkillType
     시작식량증가 = 2,
     터치데미지증가 = 3,
     최대유닛증가 = 4,
+    태극스킬 = 5,
 }
 
 public enum MoneyType

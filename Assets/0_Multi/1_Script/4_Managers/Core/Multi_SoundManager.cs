@@ -6,10 +6,28 @@ using System.Linq;
 
 public enum EffectSoundType
 {
-    SwordmanAttack,
+    BossDeadClip,
+    Click_XButton,
+    Denger,
+    GetFood,
+    GetPassiveGold,
+    GoodsBuySound,
+    Lose,
+    NewStageClip,
+    PopSound,
+    PopSound_2,
+    SelectColor,
+    ShopGoodsClick,
+    TowerDieClip,
+    TransformWhiteUnit,
+    UnitUp,
+    Warning,
+    Win,
     ArcherAttack,
+    MeteorExplosion,
     SpearmanAttack,
-    MageAttack,
+    SpearmanSkill,
+    SwordmanAttack,
 }
 
 public enum SoundType
@@ -60,9 +78,9 @@ public class Multi_SoundManager
         _audioSource.Play();
     }
 
-    public void PlayEffect(EffectSoundType sound) => PlayEffect(pathBySound[sound]);
-    public void PlayEffect(string path) => PlayEffect(GetOrAddClip(path));
-    public void PlayEffect(AudioClip clip) => _sources[(int)SoundType.Effect].PlayOneShot(clip);
+    public void PlayEffect(EffectSoundType sound, float volumeScale = 1) => PlayEffect(pathBySound[sound], volumeScale);
+    public void PlayEffect(string path, float volumeScale) => PlayEffect(GetOrAddClip(path), volumeScale);
+    public void PlayEffect(AudioClip clip, float volumeScale) => _sources[(int)SoundType.Effect].PlayOneShot(clip, volumeScale);
 
 
     AudioClip GetOrAddClip(string path)

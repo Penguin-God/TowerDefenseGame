@@ -1,2 +1,23 @@
 ﻿effectType,path
-SwordmanAttack,Unit/Sword Woosh 11
+BossDeadClip,Effect/BossDeadClip
+Click_XButton,Effect/Click_XButton
+Denger,Effect/Denger
+GetFood,Effect/GetFood
+GetPassiveGold,Effect/GetPassiveGold
+GoodsBuySound,Effect/GoodsBuySound
+Lose,Effect/Lose
+NewStageClip,Effect/NewStageClip
+PopSound,Effect/PopSound
+PopSound_2,Effect/PopSound_2
+SelectColor,Effect/SelectColor
+ShopGoodsClick,Effect/ShopGoodsClick
+TowerDieClip,Effect/TowerDieClip
+TransformWhiteUnit,Effect/TransformWhiteUnit
+UnitUp,Effect/UnitUp
+Warning,Effect/Warning
+Win,Effect/Win
+ArcherAttack,Unit/ArcherAttack
+MeteorExplosion,Unit/MeteorExplosion
+SpearmanAttack,Unit/SpearmanAttack
+SpearmanSkill,Unit/SpearmanSkill
+SwordmanAttack,Unit/SwordmanAttack

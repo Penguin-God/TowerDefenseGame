@@ -9,7 +9,7 @@ using System;
 public class TestUtility : MonoBehaviour
 {
     [SerializeField] UnitFlags flag;
-
+    [SerializeField] EffectSoundType type;
     [SerializeField, TextArea] string texts;
 
     const string basePath = "C:/Users/parkj/Desktop/Current Project/1.ColorRandomDefense/Assets/0_Multi/Resources/Sounds/";
@@ -26,7 +26,7 @@ public class TestUtility : MonoBehaviour
         //    stringBuilder.Append('\n');
         //}
         //texts = stringBuilder.ToString();
-        Multi_Managers.Sound.PlayEffect(EffectSoundType.SwordmanAttack);
+        Multi_Managers.Sound.PlayEffect(type);
     }
 
     void Update()

@@ -100657,42 +100657,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectAudio: {fileID: 1975253877}
   effectClips:
-  - clipName: PurchaseItem
-    playClip: {fileID: 8300000, guid: cd4fc5fec1c1eaf4db8186c336d6d430, type: 3}
-  - clipName: LackPurchaseGold
-    playClip: {fileID: 8300000, guid: ccb5a0819146a9e47af53c5ad4ed641c, type: 3}
-  - clipName: TP_Unit
-    playClip: {fileID: 8300000, guid: a27ce694edf98ef48bc63dd09fc57312, type: 3}
-  - clipName: GetPassiveAttackGold
-    playClip: {fileID: 8300000, guid: 45ea1536d848b794196617d444896d4b, type: 3}
-  - clipName: TransformWhiteUnit
-    playClip: {fileID: 8300000, guid: 2e68bdbb53485404b889a8f9c9e36082, type: 3}
-  - clipName: SelectColor
-    playClip: {fileID: 8300000, guid: e28bdc83745483a48a5fea55bb117008, type: 3}
   - clipName: PopSound
     playClip: {fileID: 8300000, guid: f0b1f9993d12d0747b55e6e11981dcbd, type: 3}
-  - clipName: Lose
-    playClip: {fileID: 8300000, guid: 629c0960b09ff094496d6262f8d0bd14, type: 3}
-  - clipName: Clear
-    playClip: {fileID: 8300000, guid: 9bdadad359bbdb841a61b4f93f453406, type: 3}
-  - clipName: ShopItemClick
-    playClip: {fileID: 8300000, guid: 4de277ebdc0f95c4d9312ff214673088, type: 3}
-  - clipName: Click_XButton
-    playClip: {fileID: 8300000, guid: 6940f0125593dc348976b0a0a1abbbfd, type: 3}
-  - clipName: GetFood
-    playClip: {fileID: 8300000, guid: f7488acff7a89b742a399df65e25d55c, type: 3}
   - clipName: PopSound16
     playClip: {fileID: 8300000, guid: 40d4561b3b2fd954ebd01a58d452dcbe, type: 3}
-  - clipName: MeteorExplosion
-    playClip: {fileID: 8300000, guid: 397ccfde872e1cc4181748d4dced8602, type: 3}
-  - clipName: TowerDieClip
-    playClip: {fileID: 8300000, guid: d1edaaa871b679e4ca2d92014ddc12a6, type: 3}
-  - clipName: BossDeadClip
-    playClip: {fileID: 8300000, guid: 771d8ce5ff8e78c469bc24323ad99373, type: 3}
-  - clipName: NewStageClip
-    playClip: {fileID: 8300000, guid: 7a079d9842a7ddc45ad4bb26ab648242, type: 3}
-  - clipName: Denger
-    playClip: {fileID: 8300000, guid: 270112a17d717d84c98fc74615cfb9e6, type: 3}
 --- !u!4 &1975253879
 Transform:
   m_ObjectHideFlags: 0

@@ -48,10 +48,11 @@ public class Multi_UnitManager : MonoBehaviourPun
             Multi_SpawnManagers.BossEnemy.OnSpawn += AllUnitTargetChagedByBoss;
             Multi_SpawnManagers.BossEnemy.OnDead += AllUnitUpdateTarget;
 
-            SetUnitFlagsDic();
-
             OnCombineTry += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
         }
+
+        SetUnitFlagsDic();
+        OnUnitCountChanged += UpdateCount;
 
         void SetUnitFlagsDic()
         {
@@ -59,8 +60,12 @@ public class Multi_UnitManager : MonoBehaviourPun
             {
                 foreach (Multi_TeamSoldier unit in data.gos.Select(x => x.GetComponent<Multi_TeamSoldier>()))
                 {
-                    unitListDictById[0].Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
-                    unitListDictById[1].Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        unitListDictById[0].Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+                        unitListDictById[1].Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+                    }
+                    _countByFlag.Add(new UnitFlags(unit.unitColor, unit.unitClass), 0);
                 }
             }
         }
@@ -71,7 +76,10 @@ public class Multi_UnitManager : MonoBehaviourPun
     List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
     List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flags) => unitListDictById[id][flags];
     int GetUnitListCount(int id, UnitFlags flags) => GetUnitList(id, flags).Count;
-    
+
+    Dictionary<UnitFlags, int> _countByFlag = new Dictionary<UnitFlags, int>();
+    void UpdateCount(UnitFlags flag, int count) => _countByFlag[flag] = count;
+
     public void UnitWorldChanged_RPC(int id, UnitFlags flag) 
         => photonView.RPC("UnitWorldChanged", RpcTarget.MasterClient, id, flag, Multi_GameManager.instance.playerEnterStoryMode);
 
@@ -200,4 +208,10 @@ public class Multi_UnitManager : MonoBehaviourPun
     #endregion
 
     void AllUnitUpdateTarget(int id) => _currentAllUnitsById[id].ForEach(x => x.UpdateTarget());
+
+    [SerializeField] List<int> test = new List<int>();
+    void Update()
+    {
+        test = _countByFlag.Values.ToList();
+    }
 }

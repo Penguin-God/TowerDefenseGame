@@ -17,6 +17,7 @@ UnitUp,Effect/UnitUp
 Warning,Effect/Warning
 Win,Effect/Win
 ArcherAttack,Unit/ArcherAttack
+MageAttack,Unit/MageAttack
 MeteorExplosion,Unit/MeteorExplosion
 SpearmanAttack,Unit/SpearmanAttack
 SpearmanSkill,Unit/SpearmanSkill

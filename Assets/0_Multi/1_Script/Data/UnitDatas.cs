@@ -252,3 +252,24 @@ public class MageUnitStats : ICsvLoader<UnitFlags, MageUnitStat>
     public Dictionary<UnitFlags, MageUnitStat> MakeDict(string csv)
         => CsvUtility.GetEnumerableFromCsv<MageUnitStat>(csv).ToDictionary(x => x.Flag, x => x);
 }
+
+
+[Serializable]
+public struct UnitSoundData
+{
+    [SerializeField] UnitFlags _flag;
+    [SerializeField] EffectSoundType _soundType;
+    [SerializeField] float _volumnScale;
+    [SerializeField] float _delayTime;
+
+    public UnitFlags Flag => _flag;
+    public EffectSoundType SoundType => _soundType;
+    public float VolumnScale => _volumnScale;
+    public float DelayTime => _delayTime;
+}
+
+public class UnitSoundDatas : ICsvLoader<int, UnitSoundData>
+{
+    public Dictionary<int, UnitSoundData> MakeDict(string csv)
+        => CsvUtility.CsvToArray<UnitSoundData>(csv).ToDictionary(x => x.Flag.ClassNumber, x => x);
+}

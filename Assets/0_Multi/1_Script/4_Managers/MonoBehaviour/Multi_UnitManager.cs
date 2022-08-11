@@ -90,14 +90,8 @@ public class Multi_UnitManager : MonoBehaviourPun
             unit.ChagneWorld();
     }
 
-    [PunRPC]
-    void UnitSell(int id, UnitFlags flag, int reword)
-    {
-        if(TryGetUnit(id, flag, out Multi_TeamSoldier unit))
-        {
-            // Multi_GameManager.instance
-        }
-    }
+
+    public bool HasUnit(UnitFlags flag) => _countByFlag[flag] > 0;
 
     bool TryGetUnit(int id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
     {
@@ -168,8 +162,11 @@ public class Multi_UnitManager : MonoBehaviourPun
         => conditions.UnitFlagsCountPair.All(x => unitListDictById[id].ContainsKey(x.Key) && GetUnitList(id, x.Key).Count >= x.Value);
 
     void SacrificedUnit_ForCombine(CombineCondition condition, int id)
-            => condition.UnitFlagsCountPair.ToList().ForEach(x => SacrificedUnit_ForCombine(id, x.Key, x.Value));
-    void SacrificedUnit_ForCombine(int id, UnitFlags unitFlag, int count)
+            => condition.UnitFlagsCountPair.ToList().ForEach(x => UnitDead(id, x.Key, x.Value));
+
+    public void UnitDead_RPC(int id, UnitFlags unitFlag, int count = 1) => photonView.RPC("UnitDead", RpcTarget.MasterClient, id, unitFlag, count);
+    [PunRPC]
+    void UnitDead(int id, UnitFlags unitFlag, int count)
     {
         Multi_TeamSoldier[] offerings = GetUnitList(id, unitFlag).ToArray();
         for (int i = 0; i < count; i++)

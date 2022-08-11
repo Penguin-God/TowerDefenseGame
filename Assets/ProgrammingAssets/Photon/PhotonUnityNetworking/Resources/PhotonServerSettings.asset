@@ -79,6 +79,8 @@ MonoBehaviour:
   - UpdateStage
   - Win
   - UnitSell
+  - SacrificedUnit
+  - UnitDead
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

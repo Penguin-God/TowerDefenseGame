@@ -307,6 +307,7 @@ MonoBehaviour:
   skillCoolDownTime: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 819330f33b9ea014f990dd335112905e, type: 3}
+  normalAttackSound: 21
   normalAttakc_AudioDelay: 0.7
   reinforceEffect: {fileID: 0}
   enemyDistance: 0

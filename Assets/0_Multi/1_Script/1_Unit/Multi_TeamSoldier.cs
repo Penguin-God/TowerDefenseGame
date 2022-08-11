@@ -52,6 +52,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     protected RPCable rpcable;
     protected AudioSource unitAudioSource;
     [SerializeField] protected AudioClip normalAttackClip;
+    [SerializeField] EffectSoundType normalAttackSound;
     public float normalAttakc_AudioDelay;
 
     public GameObject reinforceEffect;
@@ -275,7 +276,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         isAttack = true;
         isAttackDelayTime = true;
-        StartCoroutine(Co_NormalAttackClipPlay());
+        StartCoroutine(Co_AfterPlaySound(normalAttackSound, normalAttakc_AudioDelay));
     }
 
     public void EndAttack()
@@ -420,6 +421,18 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     void AttackEnemy(Multi_Enemy enemy, int damage, bool isSkill = false) => enemy.OnDamage(damage, isSkill);
     #endregion
 
+    IEnumerator Co_AfterPlaySound(EffectSoundType type, float delayTime, float volumn = 1)
+    {
+        yield return new WaitForSeconds(delayTime);
+        PlaySound(type, volumn);
+    }
+    protected void PlaySound(EffectSoundType type, float volumn = 1)
+    {
+        Multi_Managers.Sound.PlayEffect(type, SoundCondition, volumn);
+
+        bool SoundCondition()
+            => rpcable.UsingId == Multi_Managers.Camera.LookWorld_Id && enterStoryWorld == Multi_Managers.Camera.IsLookEnemyTower;
+    }
 
     // 동기화
     Vector3 currentPos;

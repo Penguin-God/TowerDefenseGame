@@ -42,7 +42,7 @@ public class Multi_SoundManager
     Dictionary<string, AudioClip> _clipByPath = new Dictionary<string, AudioClip>();
     Dictionary<EffectSoundType, string> pathBySound = new Dictionary<EffectSoundType, string>();
 
-    public void Init()
+    public void Init(Transform parent)
     {
         GameObject root = GameObject.Find("@Sound");
         if(root == null)
@@ -66,6 +66,7 @@ public class Multi_SoundManager
                 Debug.Log($"{item.Key} : {item.Value}");
             }
         }
+        root.transform.parent = parent;
     }
 
     public void PlayBgm(string _path) => PlayBgm(GetOrAddClip(_path));

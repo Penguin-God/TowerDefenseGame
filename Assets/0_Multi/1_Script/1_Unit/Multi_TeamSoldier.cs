@@ -31,8 +31,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public int skillDamage;
     [SerializeField] protected float stopDistanc;
 
-    // 상태 변수들(동기화되지 않음)
-    protected bool enterStoryWorld; // 적군의 성 입장시 true
+    protected bool enterStoryWorld;
     public bool EnterStroyWorld => enterStoryWorld;
 
     public bool isAttack; // 공격 중에 true
@@ -293,13 +292,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         isAttackDelayTime = false;
     }
 
-    IEnumerator Co_NormalAttackClipPlay()
-    {
-        yield return new WaitForSeconds(normalAttakc_AudioDelay);
-        if (enterStoryWorld == Multi_GameManager.instance.playerEnterStoryMode)
-            unitAudioSource.PlayOneShot(normalAttackClip);
-    }
-
 
     protected void SkillCoolDown(float _coolTime) => StartCoroutine(Co_SKillCoolDown(_coolTime));
     IEnumerator Co_SKillCoolDown(float _coolTime)
@@ -374,6 +366,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         else EnterWorld();
 
         enterStoryWorld = !enterStoryWorld;
+        photonView.RPC("UpdateStatus", RpcTarget.All, enterStoryWorld);
         rpcable.SetActive_RPC(true);
 
         void Move()
@@ -390,6 +383,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         {
             nav.obstacleAvoidanceType = ObstacleAvoidanceType.GoodQualityObstacleAvoidance;
         }
+    }
+
+    [PunRPC]
+    protected void UpdateStatus(bool isEnterStroyMode)
+    {
+        enterStoryWorld = isEnterStroyMode;
     }
 
     void EnterStroyMode()

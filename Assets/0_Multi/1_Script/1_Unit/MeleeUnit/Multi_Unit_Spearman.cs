@@ -58,7 +58,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
             weapon.GetComponent<RPCable>().SetRotate_RPC(new Vector3(90, 0, 0));
         }
 
-        if (enterStoryWorld == Multi_GameManager.instance.playerEnterStoryMode)
+        if (enterStoryWorld == Multi_Managers.Camera.IsLookEnemyTower)
             unitAudioSource.PlayOneShot(skillAudioClip, 0.12f);
 
         yield return new WaitForSeconds(0.5f);

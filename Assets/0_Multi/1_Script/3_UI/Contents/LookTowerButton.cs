@@ -18,16 +18,4 @@ public class LookTowerButton : Multi_UI_Scene
         else
             Multi_Managers.Camera.LookEnemyTower();
     }
-
-    void LookWorld()
-    {
-        Camera.main.transform.position = Multi_Data.instance.CameraPosition;
-        Multi_GameManager.instance.playerEnterStoryMode = false;
-    }
-
-    void LookTower()
-    {
-        Camera.main.transform.position = Multi_Data.instance.CameraPosition_LookAtTower;
-        Multi_GameManager.instance.playerEnterStoryMode = true;
-    }
 }

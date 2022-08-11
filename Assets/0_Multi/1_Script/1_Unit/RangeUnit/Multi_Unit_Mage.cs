@@ -117,7 +117,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     protected IEnumerator Play_SkillClip(AudioClip playClip, float audioSound, float audioDelay)
     {
         yield return new WaitForSeconds(audioDelay);
-        if (enterStoryWorld == Multi_GameManager.instance.playerEnterStoryMode)
+        if (enterStoryWorld == Multi_Managers.Camera.IsLookEnemyTower)
             unitAudioSource.PlayOneShot(playClip, audioSound);
     }
 }

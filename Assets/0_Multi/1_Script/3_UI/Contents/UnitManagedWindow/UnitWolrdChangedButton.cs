@@ -12,7 +12,7 @@ public class UnitWolrdChangedButton : MonoBehaviour
     {
         _flag = flag;
 
-        text.text = (Multi_GameManager.instance.playerEnterStoryMode) ? "월드로" : "적군의 성으로";
+        text.text = (Multi_Managers.Camera.IsLookEnemyTower) ? "월드로" : "적군의 성으로";
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(UnitWorldChanged);
     }

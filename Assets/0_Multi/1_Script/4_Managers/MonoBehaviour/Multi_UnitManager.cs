@@ -81,7 +81,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     void UpdateCount(UnitFlags flag, int count) => _countByFlag[flag] = count;
 
     public void UnitWorldChanged_RPC(int id, UnitFlags flag) 
-        => photonView.RPC("UnitWorldChanged", RpcTarget.MasterClient, id, flag, Multi_GameManager.instance.playerEnterStoryMode);
+        => photonView.RPC("UnitWorldChanged", RpcTarget.MasterClient, id, flag, Multi_Managers.Camera.IsLookEnemyTower);
 
     [PunRPC]
     void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode)

@@ -55,8 +55,6 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks, IPunObservable
     public int MaxUnitCount => _maxUninCount;
     public bool UnitOver => Multi_UnitManager.Instance.UnitCount >= _maxUninCount;
 
-    public bool playerEnterStoryMode = false;
-
     private void Awake()
     {
         if (instance != this)

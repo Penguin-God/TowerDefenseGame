@@ -57809,6 +57809,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _unitCount: 0
+  test: 
 --- !u!4 &1095168202
 Transform:
   m_ObjectHideFlags: 0
@@ -86011,7 +86012,6 @@ MonoBehaviour:
   _maxUninCount: 15
   playerEnterStoryMode: 0
   gameStart: 0
-  diffcultText: {fileID: 0}
   bossbgmClip: {fileID: 8300000, guid: f7b6398cfc46c8f43b5743906490edcc, type: 3}
   bgmClip: {fileID: 8300000, guid: 9c23b40b98c24154f81380bc3eb8fbe6, type: 3}
   gameManagerAudio: {fileID: 0}
@@ -96804,6 +96804,7 @@ GameObject:
   - component: {fileID: 1897885657}
   - component: {fileID: 1897885656}
   - component: {fileID: 1897885655}
+  - component: {fileID: 1897885658}
   m_Layer: 5
   m_Name: Camera Move Button
   m_TagString: Untagged
@@ -96873,18 +96874,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1897885656}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 608932053}
-        m_MethodName: CameraMove
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1897885656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96922,6 +96912,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1897885653}
   m_CullTransparentMesh: 0
+--- !u!114 &1897885658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897885653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96ac5c9af936ebe4d8524465a3077166, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1900224928
 PrefabInstance:
   m_ObjectHideFlags: 0

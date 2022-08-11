@@ -9,7 +9,8 @@ public class CameraManager
     int _lookWorld_Id;
     public int LookWorld_Id => _lookWorld_Id;
 
-    bool _lookEnemyTower;
+    bool _isLookEnemyTower;
+    public bool IsLookEnemyTower => _isLookEnemyTower;
 
     public void Init()
     {
@@ -21,6 +22,18 @@ public class CameraManager
     {
         _lookWorld_Id = (_lookWorld_Id == 0) ? 1 : 0;
         currentCamera.transform.position = Multi_Data.instance.CameraPositions[_lookWorld_Id];
+    }
+
+    public void LookEnemyTower()
+    {
+        currentCamera.transform.position = Multi_Data.instance.CameraPositions_LookAtTower[_lookWorld_Id];
+        _isLookEnemyTower = true;
+    }
+
+    public void LookWorld()
+    {
+        currentCamera.transform.position = Multi_Data.instance.CameraPositions[_lookWorld_Id];
+        _isLookEnemyTower = false;
     }
 
     public void Clear()

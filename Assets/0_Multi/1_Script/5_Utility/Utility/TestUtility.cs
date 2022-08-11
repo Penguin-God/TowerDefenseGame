@@ -16,17 +16,17 @@ public class TestUtility : MonoBehaviour
     [ContextMenu("Test")]
     void Test()
     {
-        StringBuilder stringBuilder = new StringBuilder();
-        foreach (string path in Directory.GetFiles(basePath, "*.wav", SearchOption.AllDirectories))
-        {
-            string value = path.Replace(basePath, "").Replace(".wav", "");
-            stringBuilder.Append(value.Split('\\')[value.Split('\\').Length - 1]);
-            stringBuilder.Append(",");
-            stringBuilder.Append(value);
-            stringBuilder.Append('\n');
-        }
-        texts = stringBuilder.ToString();
-        // Multi_Managers.Sound.PlayEffect(EffectSoundType.SwordmanAttack);
+        //StringBuilder stringBuilder = new StringBuilder();
+        //foreach (string path in Directory.GetFiles(basePath, "*.wav", SearchOption.AllDirectories))
+        //{
+        //    string value = path.Replace(basePath, "").Replace(".wav", "");
+        //    stringBuilder.Append(value.Split('\\')[value.Split('\\').Length - 1]);
+        //    stringBuilder.Append(",");
+        //    stringBuilder.Append(value);
+        //    stringBuilder.Append('\n');
+        //}
+        //texts = stringBuilder.ToString();
+        Multi_Managers.Sound.PlayEffect(EffectSoundType.SwordmanAttack);
     }
 
     void Update()

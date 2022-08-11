@@ -5,9 +5,9 @@ using System.Linq;
 
 public struct EffcetSound
 {
-    [SerializeField] int index;
+    [SerializeField] EffectSoundType effectType;
     [SerializeField] string path;
 
-    public EffectSoundType SoundType => (EffectSoundType)index;
+    public EffectSoundType EffectType => effectType;
     public string Path => path;
 }

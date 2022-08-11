@@ -41,8 +41,12 @@ public class Multi_SoundManager
             _sources = audios.ToArray();
             _sources[(int)SoundType.Bgm].loop = true;
 
-            string csv = Multi_Managers.Resources.Load<TextAsset>("Data/SoundData").text;
-            pathBySound = CsvUtility.GetEnumerableFromCsv<EffcetSound>(csv).ToDictionary(x => x.SoundType, x => x.Path);
+            string csv = Multi_Managers.Resources.Load<TextAsset>("Data/SoundData/EffectSoundData").text;
+            pathBySound = CsvUtility.GetEnumerableFromCsv<EffcetSound>(csv).ToDictionary(x => x.EffectType, x => x.Path);
+            foreach (var item in pathBySound)
+            {
+                Debug.Log($"{item.Key} : {item.Value}");
+            }
         }
     }
 
@@ -63,7 +67,7 @@ public class Multi_SoundManager
 
     AudioClip GetOrAddClip(string path)
     {
-        if (path.Contains("Sounds/") == false) path = $"Sounds/{path}";
+        if (path.Contains("SoundClips/") == false) path = $"SoundClips/{path}";
 
         if (_clipByPath.TryGetValue(path, out AudioClip clip))
             return clip;

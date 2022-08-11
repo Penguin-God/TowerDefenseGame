@@ -46,6 +46,7 @@ public class Multi_Managers : MonoBehaviour
         print("init");
         _data.Init();
         _clientData.Init();
+        _sound.Init();
         // _sound.Init(); // TODO : 잠시 유배
     }
 

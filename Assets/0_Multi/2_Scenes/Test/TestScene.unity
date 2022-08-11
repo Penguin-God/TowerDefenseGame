@@ -17401,9 +17401,10 @@ MonoBehaviour:
   - {fileID: 8692699531293559831, guid: b7d97731d96118d42a5820fc7ca63c3d, type: 3}
   - {fileID: 2694985329993272948, guid: 5b5d920ab2aaf784eb342157d06a611e, type: 3}
   spawnCount: 50
-  currentSpawnEnemyNum: 0
+  otherEnemySpawnNumber: 0
   _spawnDelayTime: 2
   _stageSpawnCount: 15
+  isTest: 0
 --- !u!114 &354961540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31910,7 +31911,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c99ae79e03086fb4aa147ea53d03dc62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  joinSceneName: TestScene
+  sceneTyep: 2
   editorCamera: {fileID: 1290153365}
 --- !u!114 &608932054
 MonoBehaviour:
@@ -84860,14 +84861,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gold: 0
   food: 0
-  Iron: 0
-  Wood: 0
-  Hammer: 0
   StartGold: 0
   StartFood: 0
   isClear: 0
-  timer: 0
-  waitingTime: 0
+  _maxEnemyUnitCount: 0
   _maxUninCount: 15
   playerEnterStoryMode: 0
   gameStart: 0
@@ -84875,19 +84872,8 @@ MonoBehaviour:
   bossbgmClip: {fileID: 8300000, guid: f7b6398cfc46c8f43b5743906490edcc, type: 3}
   bgmClip: {fileID: 8300000, guid: 9c23b40b98c24154f81380bc3eb8fbe6, type: 3}
   gameManagerAudio: {fileID: 0}
-  HitEnemy: {fileID: 0}
-  FasterText: {fileID: 1541351525}
-  gameTimeSpeed: 0
-  adManager: {fileID: 0}
-  PlayAgainBackGround: {fileID: 142925361}
-  PauseBackGround: {fileID: 1208239203}
   GameoverUi: {fileID: 0}
-  IronRewardText: {fileID: 0}
-  WoodRewardText: {fileID: 0}
-  HammerRewardText: {fileID: 0}
   EndText: {fileID: 0}
-  ResetOkButton: {fileID: 1119279349}
-  shop: {fileID: 0}
 --- !u!1 &1699219417
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 
 [Serializable]
-public abstract class Skill
+public class Skill
 {
     public string Name;
     public int Id;
@@ -23,7 +23,7 @@ public abstract class Skill
         EquipSkill = equipSkill;
     }
 
-    public abstract void InitSkill(Skill skill);
+    public virtual void InitSkill(Skill skill) { }
 
     // public abstract void InitSkill(SkillType skillType);
 }
@@ -90,7 +90,7 @@ public class SkillManager
     }
 }
 
-public abstract class PassiveSkill : Skill
+public class PassiveSkill : Skill
 {
     public override void InitSkill(Skill skill)
     {
@@ -98,7 +98,7 @@ public abstract class PassiveSkill : Skill
     }
 }
 
-public abstract class ActiveSkill : Skill
+public class ActiveSkill : Skill
 {
     public override void InitSkill(Skill skill)
     {

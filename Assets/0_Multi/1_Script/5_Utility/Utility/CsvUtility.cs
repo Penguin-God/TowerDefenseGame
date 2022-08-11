@@ -6,85 +6,412 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.IO;
+using System.Diagnostics;
+using Debug = UnityEngine.Debug;
+
+public static class TypeIdentifier
+{
+    public static bool IsList(Type type) => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(List<>);
+    public static bool IsDictionary(Type type) => type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Dictionary<,>);
+    public static bool IsIEnumerable(Type type) => type.IsArray || IsList(type) || IsDictionary(type);
+    public static bool IsCustom(Type type)
+    {
+        if (type.IsEnum || type == typeof(UnitFlags) || type == typeof(List<UnitFlags>) || type == typeof(UnitFlags[]))
+            return false;
+        else if (type.ToString().StartsWith("System.") == false)
+            return true;
+        else if (IsList(type) && type.GetGenericArguments()[0] != null && type.GetGenericArguments()[0].ToString().StartsWith("System.") == false)
+            return true;
+        else
+            return false;
+    }
+}
 
 public static class CsvUtility
 {
-    public static IEnumerable<T> GetEnumerableFromCsv<T>(string csv)
+    public class CsvSaveOption
     {
-        string[] columns = SubLastLine(csv).Split('\n');
-        return columns.Skip(1)
-                      .Select(x => (T)SetFiledValue(Activator.CreateInstance<T>(), GetCells(x)));
+        [SerializeField] int _arrayCount;
+        [SerializeField] int _listCount;
+        [SerializeField] int _dictionaryCount;
 
-        object SetFiledValue(object obj, string[] values)
+        public int ArrayCount => (_arrayCount > 0) ? _arrayCount : 1;
+        public int ListCount => (_listCount > 0) ? _listCount : 1;
+        public int DitionaryCount => (_dictionaryCount > 0) ? _dictionaryCount : 1;
+
+        public CsvSaveOption()
         {
-            Dictionary<string, int[]> indexsByFieldName = SetDict();
-            
-            foreach (FieldInfo info in GetSerializedFields())
-                SetValue(obj, info, GetValues(info));
-            return obj;
-
-            // 중첩 함수
-            IEnumerable<FieldInfo> GetSerializedFields() => CsvUtility.GetSerializedFields(obj).Where(x => indexsByFieldName.ContainsKey(x.Name));
-            string[] GetValues(FieldInfo info) => indexsByFieldName[info.Name].Select(x => values[x]).ToArray();
-            Dictionary<string, int[]> SetDict()
-            {
-                return GetCells(columns[0]).Distinct().ToDictionary(x => x, x => GetIndexs(x));
-
-                int[] GetIndexs(string key)
-                {
-                    int[] result = GetCells(columns[0]).Where(cell => cell == key)
-                                                       .Select(cell => Array.IndexOf(GetCells(columns[0]), cell))
-                                                       .ToArray();
-                    List<int> upValueIndexs = new List<int>();
-                    for (int i = 1; i < result.Length; i++)
-                    {
-                        if (result[i] == result[i - 1])
-                            upValueIndexs.Add(i);
-                    }
-                    upValueIndexs.ForEach(x => result[x] = result[x - 1] + 1);
-                    return result;
-                }
-            }
+            _arrayCount = 1;
+            _listCount = 1;
+            _dictionaryCount = 1;
         }
-        string[] GetCells(string column) => column.Split(',').Select(x => x.Trim()).ToArray();
+
+        public CsvSaveOption(int arrayCount, int listCount = 1, int dictionaryCount = 1)
+        {
+            _arrayCount = arrayCount;
+            _listCount = listCount;
+            _dictionaryCount = dictionaryCount;
+        }
     }
 
-    static void SetValue(object obj, FieldInfo info, string[] values) => CsvParsers.GetParser(info).SetValue(obj, info, values);
+    public static IEnumerable<T> GetEnumerableFromCsv<T>(string csv) => new CsvLoder<T>(csv).GetInstanceIEnumerable();
+    public static List<T> CsvToList<T>(string csv) => GetEnumerableFromCsv<T>(csv).ToList();
+    public static T[] CsvToArray<T>(string csv) => GetEnumerableFromCsv<T>(csv).ToArray();
+
+    public static string EnumerableToCsv<T>(IEnumerable<T> datas, int arrayLength = 1, int listLength = 1, int dictionaryLength = 1)
+        => GetSaver<T>(arrayLength, listLength, dictionaryLength).EnumerableToCsv(datas);
+    public static void SaveCsv<T>(IEnumerable<T> datas, string path, int arrayLength = 1, int listLength = 1, int dictionaryLength = 1)
+        => GetSaver<T>(arrayLength, listLength, dictionaryLength).Save(datas, path);
+    static CsvSaver<T> GetSaver<T>(int arrayLength, int listLength, int dictionaryLength) => new CsvSaver<T>(arrayLength, listLength, dictionaryLength);
+
+
     static string SubLastLine(string text) => text.Substring(0, text.Length - 1);
     static IEnumerable<FieldInfo> GetSerializedFields(object obj)
-        => obj.GetType()
-            .GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
-            .Where(x => CsvSerializedCondition(x));
+    {
+        Type type = obj as Type;
+        return type == null ? GetSerializedFields(obj.GetType()) : GetSerializedFields(type);
+    }
+    public static IEnumerable<FieldInfo> GetSerializedFields(Type type)
+    => type
+        .GetFields(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance)
+        .Where(x => CsvSerializedCondition(x));
+
     static bool CsvSerializedCondition(FieldInfo info) => info.IsPublic || info.GetCustomAttribute(typeof(SerializeField)) != null;
 
-
-    public static string EnumerableToCsv<T>(IEnumerable<T> datas)
+    static Type GetElementType(Type type) => type.IsArray ? type.GetElementType() : type.GetGenericArguments()[0];
+    static Type GetCoustomType(Type type) => TypeIdentifier.IsIEnumerable(type) ? GetElementType(type) : type;
+    static List<string> GetConcatList(List<string> origin, IEnumerable<string> addValue) => origin.Concat(addValue).ToList();
+    static List<string> GetSerializedFieldNames(Type type)
     {
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.AppendLine(string.Join(",", GetSerializedFields(datas.First()).Select(x => x.Name)));
-
-        foreach (var data in datas)
+        List<string> restul = new List<string>();
+        foreach (FieldInfo info in GetSerializedFields(type))
         {
-            IEnumerable<string> values = GetSerializedFields(data).Select(x => x.GetValue(data).ToString());
-            stringBuilder.AppendLine(string.Join(",", values));
+            restul.Add(info.Name);
+
+            if (TypeIdentifier.IsCustom(info.FieldType))
+                restul = GetConcatList(restul, GetSerializedFieldNames(GetCoustomType(info.FieldType)));
+        }
+        return restul;
+    }
+
+    static bool IsPrimitive(Type type) => type.IsPrimitive || type == typeof(string) || type.IsEnum;
+
+    class CsvLoder<T>
+    {
+        const char comma = ',';
+        const char mark = '\"';
+        const char replaceMark = '+';
+        const char lineBreak = '\n';
+
+        string _csv;
+        string[] fieldNames;
+
+        string[] GetCells(string line) => line.Split(comma).Select(x => x.Trim()).ToArray();
+
+        List<string> GetValueList(string line)
+        {
+            string[] tokens = line.Split(mark);
+
+            for (int i = 0; i < tokens.Length - 1; i++)
+            {
+                if (i % 2 == 1)
+                    tokens[i] = tokens[i].Replace(',', replaceMark);
+            }
+            return GetCells(string.Join("", tokens).Replace("\"", "")).ToList();
         }
 
-        return SubLastLine(stringBuilder.ToString());
+        [Conditional("UNITY_EDITOR")]
+        void CheckFieldNames(Type type, string[] filedNames)
+        {
+            List<string> realFieldNames = GetSerializedFieldNames(typeof(T));
+
+            for (int i = 0; i < filedNames.Length; i++)
+                Debug.Assert(realFieldNames.Contains(filedNames[i]), $"찾을 수 없는 {i + 1}번째 컬럼명 : {filedNames[i]}");
+        }
+
+        public CsvLoder(string csv)
+        {
+            _csv = csv.Substring(0, csv.Length - 1);
+            fieldNames = GetCells(_csv.Split(lineBreak)[0]);
+            CheckFieldNames(typeof(T), fieldNames);
+        }
+
+        Dictionary<string, int> GetCountByFieldName(Type type, string[] fieldNames)
+        {
+            Dictionary<string, int> result = new Dictionary<string, int>();
+            foreach (FieldInfo info in GetSerializedFields(type).Where(x => fieldNames.Contains(x.Name)))
+                result.Add(info.Name, GetCount(info));
+            return result;
+
+            int GetCount(FieldInfo _info)
+                => TypeIdentifier.IsCustom(_info.FieldType) ? fieldNames.Count(x => x == _info.Name) - 1 : fieldNames.Count(x => x == _info.Name);
+        }
+
+        public IEnumerable<T> GetInstanceIEnumerable() => _csv.Split(lineBreak).Skip(1).Select(x => (T)GetInstance(typeof(T), fieldNames, GetValueList(x)));
+
+        object GetInstance(Type type, string[] fieldNames, List<string> cells)
+        {
+            object obj = Activator.CreateInstance(type);
+            Dictionary<string, int> countByKey = GetCountByFieldName(type, fieldNames);
+
+            foreach (FieldInfo info in GetSerializedFields(type).Where(x => fieldNames.Contains(x.Name)))
+            {
+                if (TypeIdentifier.IsCustom(info.FieldType))
+                {
+                    info.SetValue(obj, GetCustomValue(info, cells));
+                    cells.RemoveAt(0);
+                }
+                else
+                    CsvParsers.GetParser(info).SetValue(obj, info, GetFieldValues(countByKey[info.Name], cells));
+            }
+            return obj;
+        }
+
+        string[] GetCustomFieldNames(string name, int startIndex = 0)
+        {
+            int[] indexs = fieldNames.Select((value, index) => new { value, index }).Where(x => x.value == name).Select(x => x.index).ToArray();
+            return fieldNames.Skip(indexs[startIndex] + 1).Take(indexs[startIndex + 1] - indexs[startIndex] - 1).ToArray();
+        }
+
+        object GetCustomValue(FieldInfo _info, List<string> cells)
+        {
+            if (TypeIdentifier.IsIEnumerable(_info.FieldType))
+                return GetArray(_info, cells);
+            else
+                return GetSingleCustomValue(_info.FieldType, cells, _info.Name);
+        }
+
+        object GetSingleCustomValue(Type type, List<string> cells, string name = "", int index = 0)
+        {
+            cells.RemoveAt(0);
+            return GetInstance(GetCoustomType(type), GetCustomFieldNames(name, index), cells);
+        }
+
+        object GetArray(FieldInfo info, List<string> cells)
+        {
+            int length = fieldNames.Where(x => x == info.Name).Count() - 1;
+            Type elementType = GetElementType(info.FieldType);
+
+            Array array = Array.CreateInstance(elementType, length);
+            for (int i = 0; i < length; i++)
+                array.SetValue(GetSingleCustomValue(elementType, cells, info.Name, i), i);
+
+            return GetIEnumerableValue(info.FieldType, array);
+        }
+
+        object GetIEnumerableValue(Type type, Array array) => (type.IsArray) ? array : type.GetConstructors()[2].Invoke(new object[] { array });
+
+        string[] GetFieldValues(int count, List<string> cells)
+        {
+            List<string> result = new List<string>();
+
+            for (int i = 0; i < count; i++)
+            {
+                string value = cells[0];
+                if (string.IsNullOrEmpty(value) == false)
+                    result.Add(value);
+                cells.RemoveAt(0);
+            }
+
+            if (result.Count == 0) result.Add("");
+            return result.ToArray();
+        }
     }
 
-    public static void SaveCsv(string text, string filePath)
+    class CsvSaver<T>
     {
-        Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
-        StreamWriter outStream = new StreamWriter(fileStream, Encoding.UTF8);
-        outStream.Write(text);
-        outStream.Close();
-    }
+        CsvSaveOption _option;
 
-    public static void SaveCsv<T>(IEnumerable<T> enumerable, string filePath)
-    {
-        Stream fileStream = new FileStream($"{filePath}.csv", FileMode.Create, FileAccess.Write);
-        StreamWriter outStream = new StreamWriter(fileStream, Encoding.UTF8);
-        outStream.Write(EnumerableToCsv<T>(enumerable));
-        outStream.Close();
+        Dictionary<Type, int> _customCountByType;
+
+        Dictionary<Type, int> GetCountByType(IEnumerable<T> datas)
+        {
+            Dictionary<Type, int> countByType = new Dictionary<Type, int>();
+            foreach (T data in datas)
+            {
+                foreach (FieldInfo info in GetSerializedFields(data).Where(x => TypeIdentifier.IsCustom(x.FieldType) && TypeIdentifier.IsIEnumerable(x.FieldType)))
+                {
+                    if (countByType.ContainsKey(info.FieldType) == false)
+                        countByType.Add(info.FieldType, 1);
+
+                    int count = 0;
+                    foreach (var item in info.GetValue(data) as IEnumerable)
+                        count++;
+                    if (count > countByType[info.FieldType])
+                        countByType[info.FieldType] = count;
+                }
+            }
+            return countByType;
+        }
+
+        int GetTypeCellCount(Type type)
+        {
+            int result = 0;
+            foreach (FieldInfo info in GetSerializedFields(type))
+                result += GetOptionCount(info.FieldType);
+            return result;
+        }
+
+        public CsvSaver(int arrayLength, int listLength, int dictionaryLength)
+        {
+            _option = new CsvSaveOption(arrayLength, listLength, dictionaryLength);
+            _customCountByType = new Dictionary<Type, int>();
+            _customCountByType.Clear();
+        }
+
+        int GetOptionCount(Type type)
+        {
+            if (TypeIdentifier.IsIEnumerable(type) == false) return 1;
+            else if (type.IsArray) return _option.ArrayCount;
+            else if (TypeIdentifier.IsList(type)) return _option.ListCount;
+            else if (TypeIdentifier.IsDictionary(type)) return _option.DitionaryCount;
+            else
+            {
+                Debug.LogWarning("정의할 수 없는 타입");
+                return 1;
+            }
+        }
+
+        public string EnumerableToCsv(IEnumerable<T> datas)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            _customCountByType = GetCountByType(datas);
+            stringBuilder.AppendLine(string.Join(",", GetFirstRow(typeof(T), _customCountByType)));
+
+            foreach (var data in datas)
+            {
+                IEnumerable<string> values = GetValues(data);
+                stringBuilder.AppendLine(string.Join(",", values));
+            }
+
+            return SubLastLine(stringBuilder.ToString());
+        }
+
+        List<string> GetFirstRow(object type, Dictionary<Type, int> countByType)
+        {
+            List<string> result = new List<string>();
+            foreach (FieldInfo info in GetSerializedFields(type))
+            {
+                if (TypeIdentifier.IsCustom(info.FieldType))
+                {
+                    result.Add(info.Name);
+                    if (TypeIdentifier.IsIEnumerable(info.FieldType))
+                        result = GetCustomConcat(result, info, countByType);
+                    else
+                        result = GetCustomList(result, () => GetFirstRow(info.FieldType, countByType), info.Name);
+                }
+                else
+                {
+                    for (int i = 0; i < GetOptionCount(info.FieldType); i++)
+                        result.Add(info.Name);
+                }
+            }
+            return result;
+        }
+
+        List<string> GetCustomConcat(List<string> result, FieldInfo info, Dictionary<Type, int> countByType)
+        {
+            for (int i = 0; i < countByType[info.FieldType]; i++)
+                result = GetCustomList(result, () => GetFirstRow(GetElementType(info.FieldType), countByType), info.Name);
+            return result;
+        }
+
+
+        IEnumerable<string> GetValues(object data)
+        {
+            List<string> result = new List<string>();
+            foreach (FieldInfo info in GetSerializedFields(data.GetType()))
+            {
+                if (IsPrimitive(info.FieldType))
+                    result.Add(info.GetValue(data).ToString());
+                else if (TypeIdentifier.IsCustom(info.FieldType))
+                    result = GetCustomConcat(data, result, info);
+                else if (TypeIdentifier.IsIEnumerable(info.FieldType))
+                {
+                    result =
+                        GetConcatList(result, GetIEnumerableValue(GetOptionCount(info.FieldType), new EnumerableTypeParser().GetIEnumerableValues(data, info)));
+                }
+            }
+            return result;
+        }
+        string[] GetIEnumerableValue(int count, string[] values)
+        {
+            string[] result = new string[count];
+            int[] counts = GetCounts(count, values.Length);
+            int current = 0;
+            for (int i = 0; i < count; i++)
+            {
+                result[i] = GetValue(values.Skip(current).Take(counts[i]));
+                current += counts[i];
+            }
+
+            return result;
+        }
+
+        int[] GetCounts(int count, int valueLength)
+        {
+            int length = valueLength;
+            int[] counts = new int[count];
+            while (length > 0)
+            {
+                for (int i = 0; i < count; i++)
+                {
+                    counts[i]++;
+                    length--;
+                    if (length <= 0) break;
+                }
+            }
+
+            return counts;
+        }
+
+        string GetValue(IEnumerable<string> values)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+            stringBuilder.Append("\"");
+            stringBuilder.Append(string.Join(",", values));
+            stringBuilder.Append("\"");
+            return stringBuilder.ToString();
+        }
+
+        List<string> GetCustomConcat(object data, List<string> result, FieldInfo info)
+        {
+            result.Add("");
+            if (TypeIdentifier.IsIEnumerable(info.FieldType))
+            {
+                int count = _customCountByType[info.FieldType];
+                foreach (var item in info.GetValue(data) as IEnumerable)
+                {
+                    result = GetCustomList(result, () => GetValues(item));
+                    count--;
+                }
+                for (int i = 0; i < count; i++)
+                {
+                    for (int j = 0; j < GetTypeCellCount(GetElementType(info.FieldType)) + 1; j++)
+                        result.Add("");
+                }
+            }
+            else
+                result = GetCustomList(result, () => GetValues(info.GetValue(data)));
+
+            return result;
+        }
+
+
+
+        List<string> GetCustomList(List<string> result, Func<IEnumerable<string>> OriginFunc, string blank = "")
+        {
+            result = GetConcatList(result, OriginFunc());
+            result.Add(blank);
+            return result;
+        }
+
+        public void Save(IEnumerable<T> enumerable, string filePath)
+        {
+            Stream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write);
+            StreamWriter outStream = new StreamWriter(fileStream, Encoding.UTF8);
+            outStream.Write(EnumerableToCsv(enumerable));
+            outStream.Close();
+        }
     }
 }

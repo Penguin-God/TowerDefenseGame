@@ -35,6 +35,8 @@ public class Multi_ClientData
     public void Init()
     {
         List<Skill> playerDatas = CsvUtility.GetEnumerableFromCsv<Skill>(Resources.Load<TextAsset>("Data/ClientData/SkillData").text).ToList();
+        Debug.Log(playerDatas.Count);
+        playerDatas.ForEach(x => Debug.Log(x.Name));
         skillByType = playerDatas.ToDictionary(x => (SkillType)Enum.ToObject(typeof(SkillType), x.Id), x => x);
 
         List<Money> moneyData = CsvUtility.GetEnumerableFromCsv<Money>(Resources.Load<TextAsset>("Data/ClientData/MoneyData").text).ToList();

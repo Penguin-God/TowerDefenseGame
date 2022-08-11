@@ -78,8 +78,32 @@ public class Multi_UnitManager : MonoBehaviourPun
     [PunRPC]
     void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode)
     {
-        if (Instance.TryGetUnit(id, flag, out Multi_TeamSoldier unit, enterStroyMode)) 
+        if (Instance.TryGetUnit(id, flag, out Multi_TeamSoldier unit, (_unit) => _unit.EnterStroyWorld == enterStroyMode))
             unit.ChagneWorld();
+    }
+
+    [PunRPC]
+    void UnitSell(int id, UnitFlags flag, int reword)
+    {
+        if(TryGetUnit(id, flag, out Multi_TeamSoldier unit))
+        {
+            // Multi_GameManager.instance
+        }
+    }
+
+    bool TryGetUnit(int id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
+    {
+        foreach (Multi_TeamSoldier loopUnit in GetUnitList(id, flag))
+        {
+            if (condition == null || condition(loopUnit))
+            {
+                unit = loopUnit;
+                return true;
+            }
+        }
+
+        unit = null;
+        return false;
     }
 
     bool TryGetUnit(int id, UnitFlags flag, out Multi_TeamSoldier unit, bool enterStroyMode)

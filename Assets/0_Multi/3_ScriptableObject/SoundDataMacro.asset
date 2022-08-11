@@ -12,53 +12,48 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd77cc86c5e738c4b98262164c20822e, type: 3}
   m_Name: SoundDataMacro
   m_EditorClassIdentifier: 
-  _enumTexts: 'Cannon impact sounds (Hitting ship) 2,
+  _enumTexts: 'BossDeadClip,
 
-    Click 5,
+    Click_XButton,
 
-    Click sounds
-    35,
+    Denger,
 
-    Coins 25,
+    GetFood,
 
-    Collect star 4,
+    GetPassiveGold,
 
-    Error Sound 19,
+    GoodsBuySound,
 
-    Error Sound
-    20,
+    Lose,
 
-    Go back sounds 5,
+    NewStageClip,
 
-    Item purchase 9,
+    PopSound,
 
-    Lose sound 2,
+    PopSound_2,
 
-    Lose
-    sound 20,
+    SelectColor,
 
-    Open map 2,
+    ShopGoodsClick,
 
-    Pop sounds 13,
+    TowerDieClip,
 
-    Pop sounds 16,
+    TransformWhiteUnit,
 
-    Pop sounds
-    4,
+    UnitUp,
 
-    Power Up Sound 1,
+    Warning,
 
-    Win sound 11,
+    Win,
 
-    Arrow Flying Past 4,
+    ArcherAttack,
 
-    Club
-    5,
+    MeteorExplosion,
 
-    Fire bolt 1,
+    SpearmanAttack,
 
-    Sword Woosh 11,
+    SpearmanSkill,
 
-    Wind Bolt 18,
+    SwordmanAttack,
 
 '

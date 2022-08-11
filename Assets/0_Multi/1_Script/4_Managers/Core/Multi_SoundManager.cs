@@ -78,10 +78,14 @@ public class Multi_SoundManager
         _audioSource.Play();
     }
 
+    public void PlayEffect(EffectSoundType sound, Func<bool> condition, float volumeScale = 1)
+    {
+        if (condition())
+            PlayEffect(sound, volumeScale);
+    }
     public void PlayEffect(EffectSoundType sound, float volumeScale = 1) => PlayEffect(pathBySound[sound], volumeScale);
     public void PlayEffect(string path, float volumeScale) => PlayEffect(GetOrAddClip(path), volumeScale);
     public void PlayEffect(AudioClip clip, float volumeScale) => _sources[(int)SoundType.Effect].PlayOneShot(clip, volumeScale);
-
 
     AudioClip GetOrAddClip(string path)
     {

@@ -77,7 +77,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flags) => unitListDictById[id][flags];
     int GetUnitListCount(int id, UnitFlags flags) => GetUnitList(id, flags).Count;
 
-    Dictionary<UnitFlags, int> _countByFlag = new Dictionary<UnitFlags, int>();
+    Dictionary<UnitFlags, int> _countByFlag = new Dictionary<UnitFlags, int>(); // 모든 플레이어가 이벤트로 받아서 각자 카운트 관리
     void UpdateCount(UnitFlags flag, int count) => _countByFlag[flag] = count;
 
     public void UnitWorldChanged_RPC(int id, UnitFlags flag) 
@@ -90,29 +90,13 @@ public class Multi_UnitManager : MonoBehaviourPun
             unit.ChagneWorld();
     }
 
-
-    public bool HasUnit(UnitFlags flag) => _countByFlag[flag] > 0;
+    public bool HasUnit(UnitFlags flag, int needCount = 1) => _countByFlag[flag] >= needCount;
 
     bool TryGetUnit(int id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
     {
         foreach (Multi_TeamSoldier loopUnit in GetUnitList(id, flag))
         {
             if (condition == null || condition(loopUnit))
-            {
-                unit = loopUnit;
-                return true;
-            }
-        }
-
-        unit = null;
-        return false;
-    }
-
-    bool TryGetUnit(int id, UnitFlags flag, out Multi_TeamSoldier unit, bool enterStroyMode)
-    {
-        foreach (Multi_TeamSoldier loopUnit in GetUnitList(id, flag))
-        {
-            if (loopUnit.EnterStroyWorld == enterStroyMode)
             {
                 unit = loopUnit;
                 return true;

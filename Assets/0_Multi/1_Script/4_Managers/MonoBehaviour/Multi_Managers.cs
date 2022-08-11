@@ -31,6 +31,7 @@ public class Multi_Managers : MonoBehaviour
     Multi_ClientData _clientData = new Multi_ClientData();
     SkillManager _skill = new SkillManager();
     Scene_Manager _scene = new Scene_Manager();
+    CameraManager _camera = new CameraManager();
 
     public static Multi_DataManager Data => Instance._data;
     public static Multi_UI_Manager UI => Instance._ui;
@@ -40,6 +41,7 @@ public class Multi_Managers : MonoBehaviour
     public static Multi_ClientData ClientData => Instance._clientData;
     public static SkillManager Skill => Instance._skill;
     public static Scene_Manager Scene => instance._scene;
+    public static CameraManager Camera => instance._camera;
 
     void Init()
     {
@@ -52,6 +54,7 @@ public class Multi_Managers : MonoBehaviour
 
     public static void Clear()
     {
+        Camera.Clear();
         Scene.Clear();
         UI.Clear();
     }

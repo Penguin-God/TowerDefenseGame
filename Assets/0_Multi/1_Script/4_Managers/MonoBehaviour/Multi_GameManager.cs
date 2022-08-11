@@ -7,6 +7,21 @@ using Photon.Pun;
 
 public class Multi_GameManager : MonoBehaviourPunCallbacks, IPunObservable
 {
+    public static Multi_GameManager instance
+    {
+        get
+        {
+            if (m_instance == null)
+            {
+                m_instance = FindObjectOfType<Multi_GameManager>();
+            }
+            return m_instance;
+        }
+    }
+
+    private static Multi_GameManager m_instance;
+
+
     [SerializeField] int gold;
     public int Gold
     {
@@ -42,27 +57,12 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public bool playerEnterStoryMode = false;
 
-    public static Multi_GameManager instance
-    {
-        get
-        {
-            if (m_instance == null)
-            {
-                m_instance = FindObjectOfType<Multi_GameManager>();
-            }
-            return m_instance;
-        }
-    }
-
-    private static Multi_GameManager m_instance;
-
     private void Awake()
     {
         if (instance != this)
         {
             Destroy(gameObject);
         }
-
         gameManagerAudio = GetComponent<AudioSource>();
     }
 
@@ -84,9 +84,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
 
-    [SerializeField] Text diffcultText;
     int stageUpGold = 10;
-
     void Start()
     {
         Multi_StageManager.Instance.OnUpdateStage += _stage => AddGold(stageUpGold);
@@ -168,7 +166,6 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks, IPunObservable
         gameManagerAudio.Play();
     }
 
-    int PlusTouchDamege;
     void Update()
     {
         // TODO : 멀티는 승리, 패배 조건을 바꾸어야 함
@@ -233,6 +230,4 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         
     }
-
-
 }

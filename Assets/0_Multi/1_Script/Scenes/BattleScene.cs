@@ -10,6 +10,7 @@ public class BattleScene : BaseScene
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
         Multi_Managers.Skill.Init();
+        Multi_Managers.Camera.Init();
         Init_UI();
 
         if (PhotonNetwork.IsMasterClient == false) return;

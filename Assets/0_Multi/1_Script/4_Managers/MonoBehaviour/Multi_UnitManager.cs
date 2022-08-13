@@ -17,9 +17,22 @@ public class Multi_UnitManager : MonoBehaviourPun
                 instance = FindObjectOfType<Multi_UnitManager>();
                 if (instance == null)
                     instance = new GameObject("Multi_UnitManager").AddComponent<Multi_UnitManager>();
+                instance.Init();
             }
             return instance;
         }
+    }
+
+    CombineSystem _combine = new CombineSystem();
+    UnitCountManager _countData = new UnitCountManager();
+    MasterDataManager _master = new MasterDataManager();
+
+    public static CombineSystem Combine => Instance._combine;
+    public static UnitCountManager CountData => Instance._countData;
+
+    void Init()
+    {
+
     }
 
     void Awake()
@@ -125,34 +138,37 @@ public class Multi_UnitManager : MonoBehaviourPun
     // 유닛 조합
     public RPCAction<bool, UnitFlags> OnCombineTry = new RPCAction<bool, UnitFlags>();
 
-    public void Combine_RPC(UnitFlags flag)
-        => photonView.RPC("Combine", RpcTarget.MasterClient, flag.ColorNumber, flag.ClassNumber, Multi_Data.instance.Id);
+    public void Combine_RPC(UnitFlags flag) => new CombineSystem().Combine_RPC(flag);
 
+    void _Combine_RPC(UnitFlags flag) => photonView.RPC("_Combine", RpcTarget.MasterClient, flag, Multi_Data.instance.Id);
     [PunRPC]
-    void Combine(int colorNumber, int classNumber, int id)
-    {
-        if (CheckCombineable(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)], id))
-        {
-            SacrificedUnit_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)], id);
-            Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(colorNumber, classNumber), id);
+    void _Combine(UnitFlags flag, int id) => new CombineSystem().Combine(flag, id);
+    //[PunRPC]
+    //void Combine(int colorNumber, int classNumber, int id)
+    //{
+    //    if (CheckCombineable(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)], id))
+    //    {
+    //        SacrificedUnit_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)], id);
+    //        Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(colorNumber, classNumber), id);
 
-            OnCombineTry?.RaiseEvent(id, true, new UnitFlags(colorNumber, classNumber));
-        }
-        else
-            OnCombineTry?.RaiseEvent(id, false, new UnitFlags(colorNumber, classNumber));
-    }
+    //        OnCombineTry?.RaiseEvent(id, true, new UnitFlags(colorNumber, classNumber));
+    //    }
+    //    else
+    //        OnCombineTry?.RaiseEvent(id, false, new UnitFlags(colorNumber, classNumber));
+    //}
 
-    bool CheckCombineable(CombineCondition conditions, int id)
-        => conditions.UnitFlagsCountPair.All(x => unitListDictById[id].ContainsKey(x.Key) && GetUnitList(id, x.Key).Count >= x.Value);
+    //bool CheckCombineable(CombineCondition conditions, int id)
+    //    => conditions.UnitFlagsCountPair.All(x => unitListDictById[id].ContainsKey(x.Key) && GetUnitList(id, x.Key).Count >= x.Value);
 
-    void SacrificedUnit_ForCombine(CombineCondition condition, int id)
-            => condition.UnitFlagsCountPair.ToList().ForEach(x => UnitDead(id, x.Key, x.Value));
+    //void SacrificedUnit_ForCombine(CombineCondition condition, int id)
+    //        => condition.UnitFlagsCountPair.ToList().ForEach(x => UnitDead(id, x.Key, x.Value));
 
     public void UnitDead_RPC(int id, UnitFlags unitFlag, int count = 1) => photonView.RPC("UnitDead", RpcTarget.MasterClient, id, unitFlag, count);
     [PunRPC]
     void UnitDead(int id, UnitFlags unitFlag, int count)
     {
         Multi_TeamSoldier[] offerings = GetUnitList(id, unitFlag).ToArray();
+        count = Mathf.Min(count, offerings.Length);
         for (int i = 0; i < count; i++)
             offerings[i].Dead();
     }
@@ -194,5 +210,45 @@ public class Multi_UnitManager : MonoBehaviourPun
     void Update()
     {
         test = _countByFlag.Values.ToList();
+    }
+
+    class MasterDataManager
+    {
+        RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>> _unitListDictById = new RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
+        List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
+        List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flags) => _unitListDictById.Get(id)[flags];
+        int GetUnitListCount(int id, UnitFlags flags) => GetUnitList(id, flags).Count;
+    }
+
+    public class UnitCountManager
+    {
+        Dictionary<UnitFlags, int> _countByFlag = new Dictionary<UnitFlags, int>(); // 모든 플레이어가 이벤트로 받아서 각자 카운트 관리
+        void UpdateCount(UnitFlags flag, int count) => _countByFlag[flag] = count;
+    }
+
+    public class CombineSystem
+    {
+        public RPCAction<bool, UnitFlags> OnCombineTry = new RPCAction<bool, UnitFlags>();
+
+        public void Combine_RPC(UnitFlags flag) => Instance._Combine_RPC(flag);
+
+        public void Combine(UnitFlags flag, int id)
+        {
+            if (CheckCombineable(Multi_Managers.Data.CombineConditionByUnitFalg[flag], id))
+            {
+                SacrificedUnit_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[flag], id);
+                Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
+
+                Instance.OnCombineTry?.RaiseEvent(id, true, flag);
+            }
+            else
+                Instance.OnCombineTry?.RaiseEvent(id, false, flag);
+        }
+
+        bool CheckCombineable(CombineCondition conditions, int id)
+            => conditions.UnitFlagsCountPair.All(x => Instance.unitListDictById[id].ContainsKey(x.Key) && Instance.GetUnitList(id, x.Key).Count >= x.Value);
+
+        void SacrificedUnit_ForCombine(CombineCondition condition, int id)
+                => condition.UnitFlagsCountPair.ToList().ForEach(x => Instance.UnitDead(id, x.Key, x.Value));
     }
 }

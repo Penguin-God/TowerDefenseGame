@@ -84,6 +84,7 @@ MonoBehaviour:
   - EnterStroyMode
   - UpdateStatus
   - _Combine
+  - TryCombine
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -64,7 +64,8 @@ public class Multi_UnitManager : MonoBehaviourPun
             Multi_SpawnManagers.BossEnemy.OnSpawn += AllUnitTargetChagedByBoss;
             Multi_SpawnManagers.BossEnemy.OnDead += AllUnitUpdateTarget;
 
-            OnCombineTry += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
+            //OnCombineTry += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
+            Combine.OnTryCombine += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
         }
 
         SetUnitFlagsDic();
@@ -139,13 +140,12 @@ public class Multi_UnitManager : MonoBehaviourPun
     void Raise_AllUnitCountChanged(int id) => OnAllUnitCountChanged.RaiseEvent(id, _currentAllUnitsById[id].Count);
 
     // 유닛 조합
-    public RPCAction<bool, UnitFlags> OnCombineTry = new RPCAction<bool, UnitFlags>();
+    // public RPCAction<bool, UnitFlags> OnCombineTry = new RPCAction<bool, UnitFlags>();
 
-    public void Combine_RPC(UnitFlags flag) => new CombineSystem().Combine_RPC(flag);
-
-    void _Combine_RPC(UnitFlags flag) => photonView.RPC("_Combine", RpcTarget.MasterClient, flag, Multi_Data.instance.Id);
+    //public void Combine_RPC(UnitFlags flag) => new CombineSystem().TryCombine_RPC(flag);
+    //void _Combine_RPC(UnitFlags flag) => photonView.RPC("TryCombine", RpcTarget.MasterClient, flag, Multi_Data.instance.Id);
     [PunRPC]
-    void _Combine(UnitFlags flag, int id) => new CombineSystem().Combine(flag, id);
+    void TryCombine(UnitFlags flag, int id) => Combine.TryCombine_RPC(flag, id);
     //[PunRPC]
     //void Combine(int colorNumber, int classNumber, int id)
     //{
@@ -236,8 +236,8 @@ public class Multi_UnitManager : MonoBehaviourPun
                 }
             }
 
-            Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
-            Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
+            //Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
+            //Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
         }
 
         void AddUnit(Multi_TeamSoldier unit)
@@ -282,27 +282,36 @@ public class Multi_UnitManager : MonoBehaviourPun
                     _countByFlag.Add(new UnitFlags(unit.unitColor, unit.unitClass), 0);
             }
 
-            Instance._master.OnAllUnitCountChanged += count => _currentCount = count;
+            //Instance._master.OnAllUnitCountChanged += count => _currentCount = count;
         }
     }
 
     public class CombineSystem
     {
-        public RPCAction<bool, UnitFlags> OnCombineTry = new RPCAction<bool, UnitFlags>();
+        public RPCAction<bool, UnitFlags> OnTryCombine = new RPCAction<bool, UnitFlags>();
 
-        public void Combine_RPC(UnitFlags flag) => Instance._Combine_RPC(flag);
+        public void TryCombine_RPC(UnitFlags flag, int id = 0)
+        {
+            if (PhotonNetwork.IsMasterClient)
+                TryCombine(flag, id);
+            else
+            {
+                Debug.Assert(id == 0, "여기는 요청 부분인데 0이면 안됨");
+                Instance.photonView.RPC("TryCombine", RpcTarget.MasterClient, flag, Multi_Data.instance.Id);
+            }
+        }
 
-        public void Combine(UnitFlags flag, int id)
+        void TryCombine(UnitFlags flag, int id)
         {
             if (CheckCombineable(Multi_Managers.Data.CombineConditionByUnitFalg[flag], id))
             {
                 SacrificedUnit_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[flag], id);
                 Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
 
-                Instance.OnCombineTry?.RaiseEvent(id, true, flag);
+                OnTryCombine?.RaiseEvent(id, true, flag);
             }
             else
-                Instance.OnCombineTry?.RaiseEvent(id, false, flag);
+                OnTryCombine?.RaiseEvent(id, false, flag);
         }
 
         bool CheckCombineable(CombineCondition conditions, int id)

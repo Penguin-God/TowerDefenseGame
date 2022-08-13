@@ -32,7 +32,10 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     void Init()
     {
+        _countData.Init();
 
+        if (PhotonNetwork.IsMasterClient == false) return;
+        _master.Init();
     }
 
     void Awake()
@@ -214,16 +217,73 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     class MasterDataManager
     {
+        public RPCAction<UnitFlags, int> OnUnitCountChanged = new RPCAction<UnitFlags, int>();
+
         RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>> _unitListDictById = new RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
-        List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
-        List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flags) => _unitListDictById.Get(id)[flags];
-        int GetUnitListCount(int id, UnitFlags flags) => GetUnitList(id, flags).Count;
+        List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => _unitListDictById.Get(unit.GetComponent<RPCable>().UsingId)[unit.UnitFlags];
+
+        public RPCAction<int> OnAllUnitCountChanged = new RPCAction<int>();
+        RPCData<List<Multi_TeamSoldier>> _currentAllUnitsById = new RPCData<List<Multi_TeamSoldier>>();
+
+        public void Init()
+        {
+            foreach (var data in Multi_SpawnManagers.NormalUnit.AllUnitDatas)
+            {
+                foreach (Multi_TeamSoldier unit in data.gos.Select(x => x.GetComponent<Multi_TeamSoldier>()))
+                {
+                    _unitListDictById.Get(0).Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+                    _unitListDictById.Get(1).Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+                }
+            }
+
+            Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
+            Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
+        }
+
+        void AddUnit(Multi_TeamSoldier unit)
+        {
+            int id = unit.GetComponent<RPCable>().UsingId;
+            GetUnitList(unit).Add(unit);
+            _currentAllUnitsById.Get(id).Add(unit);
+            RaiseEvents(unit);
+        }
+
+        void RemoveUnit(Multi_TeamSoldier unit)
+        {
+            int id = unit.GetComponent<RPCable>().UsingId;
+            GetUnitList(unit).Remove(unit);
+            _currentAllUnitsById.Get(id).Remove(unit);
+            RaiseEvents(unit);
+        }
+
+        void RaiseEvents(Multi_TeamSoldier unit)
+        {
+            int id = unit.GetComponent<RPCable>().UsingId;
+            OnUnitCountChanged?.RaiseEvent(id, unit.UnitFlags, GetUnitList(unit).Count);
+            OnAllUnitCountChanged?.RaiseEvent(id, _currentAllUnitsById.Get(id).Count);
+        }
     }
 
     public class UnitCountManager
     {
+        int _currentCount = 0;
+        public int CurrentCount => _currentCount;
+
         Dictionary<UnitFlags, int> _countByFlag = new Dictionary<UnitFlags, int>(); // 모든 플레이어가 이벤트로 받아서 각자 카운트 관리
         void UpdateCount(UnitFlags flag, int count) => _countByFlag[flag] = count;
+
+        public RPCAction<int> OnUnitCountChanged = new RPCAction<int>();
+
+        public void Init()
+        {
+            foreach (var data in Multi_SpawnManagers.NormalUnit.AllUnitDatas)
+            {
+                foreach (Multi_TeamSoldier unit in data.gos.Select(x => x.GetComponent<Multi_TeamSoldier>()))
+                    _countByFlag.Add(new UnitFlags(unit.unitColor, unit.unitClass), 0);
+            }
+
+            Instance._master.OnAllUnitCountChanged += count => _currentCount = count;
+        }
     }
 
     public class CombineSystem

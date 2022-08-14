@@ -25,17 +25,19 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     CombineSystem _combine = new CombineSystem();
     UnitCountManager _count = new UnitCountManager();
-
+    UnitContorller _contorller = new UnitContorller();
     MasterDataManager _master = new MasterDataManager();
 
     public static CombineSystem Combine => Instance._combine;
     public static UnitCountManager Count => Instance._count;
+    public static UnitContorller Contorller => Instance._contorller;
 
     void Init()
     {
         _count.Init();
 
         if (PhotonNetwork.IsMasterClient == false) return;
+        _contorller.Init();
         _master.Init();
     }
 
@@ -43,8 +45,8 @@ public class Multi_UnitManager : MonoBehaviourPun
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            Multi_SpawnManagers.BossEnemy.OnSpawn += AllUnitTargetChagedByBoss;
-            Multi_SpawnManagers.BossEnemy.OnDead += AllUnitUpdateTarget;
+            //Multi_SpawnManagers.BossEnemy.OnSpawn += AllUnitTargetChagedByBoss;
+            //Multi_SpawnManagers.BossEnemy.OnDead += AllUnitUpdateTarget;
 
             Combine.OnTryCombine += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
         }
@@ -82,26 +84,19 @@ public class Multi_UnitManager : MonoBehaviourPun
     void UnitCombine(UnitFlags flag, int id) => Combine.Combine(flag, id);
 
 
-    public void UnitDead_RPC(int id, UnitFlags unitFlag, int count = 1) => photonView.RPC("UnitDead", RpcTarget.MasterClient, id, unitFlag, count);
-    [PunRPC]
-    void UnitDead(int id, UnitFlags unitFlag, int count)
-    {
-        Multi_TeamSoldier[] offerings = _master.GetUnitList(id, unitFlag).ToArray();
-        count = Mathf.Min(count, offerings.Length);
-        for (int i = 0; i < count; i++)
-            offerings[i].Dead();
-    }
+    [PunRPC] // Controller에서 사용
+    void UnitDead(int id, UnitFlags unitFlag, int count) => _contorller.UnitDead(id, unitFlag, count);
 
-    void AllUnitTargetChagedByBoss(Multi_BossEnemy boss)
-    {
-        _master.GetUnitList(boss.GetComponent<RPCable>().UsingId)
-            .Where(x => x.EnterStroyWorld == false)
-            .ToList()
-            .ForEach(x => x.SetChaseSetting(boss.gameObject));
-    }
+    //void AllUnitTargetChagedByBoss(Multi_BossEnemy boss)
+    //{
+    //    _master.GetUnitList(boss.GetComponent<RPCable>().UsingId)
+    //        .Where(x => x.EnterStroyWorld == false)
+    //        .ToList()
+    //        .ForEach(x => x.SetChaseSetting(boss.gameObject));
+    //}
 
-    void AllUnitUpdateTarget(Multi_BossEnemy boss) => AllUnitUpdateTarget(boss.GetComponent<RPCable>().UsingId);
-    void AllUnitUpdateTarget(int id) => _master.GetUnitList(id).ForEach(x => x.UpdateTarget());
+    //void AllUnitUpdateTarget(Multi_BossEnemy boss) => AllUnitUpdateTarget(boss.GetComponent<RPCable>().UsingId);
+    //void AllUnitUpdateTarget(int id) => _master.GetUnitList(id).ForEach(x => x.UpdateTarget());
 
     [SerializeField] List<int> test = new List<int>();
     void Update()
@@ -168,6 +163,42 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
     }
 
+    public class UnitContorller
+    {
+        public void Init()
+        {
+            if (PhotonNetwork.IsMasterClient)
+            {
+                Multi_SpawnManagers.BossEnemy.OnSpawn += AllUnitTargetChagedByBoss;
+                Multi_SpawnManagers.BossEnemy.OnDead += AllUnitUpdateTarget;
+            }
+        }
+
+        public void UnitDead_RPC(int id, UnitFlags unitFlag, int count = 1) => Instance.photonView.RPC("UnitDead", RpcTarget.MasterClient, id, unitFlag, count);
+        
+        public void UnitDead(int id, UnitFlags unitFlag, int count)
+        {
+            if (PhotonNetwork.IsMasterClient == false) return;
+
+            Multi_TeamSoldier[] offerings = Instance._master.GetUnitList(id, unitFlag).ToArray();
+            count = Mathf.Min(count, offerings.Length);
+            for (int i = 0; i < count; i++)
+                offerings[i].Dead();
+        }
+
+
+        void AllUnitTargetChagedByBoss(Multi_BossEnemy boss)
+        {
+            Instance._master.GetUnitList(boss.GetComponent<RPCable>().UsingId)
+                .Where(x => x.EnterStroyWorld == false)
+                .ToList()
+                .ForEach(x => x.SetChaseSetting(boss.gameObject));
+        }
+
+        void AllUnitUpdateTarget(Multi_BossEnemy boss) => AllUnitUpdateTarget(boss.GetComponent<RPCable>().UsingId);
+        void AllUnitUpdateTarget(int id) => Instance._master.GetUnitList(id).ForEach(x => x.UpdateTarget());
+    }
+
     public class UnitCountManager
     {
         int _currentCount = 0;
@@ -216,45 +247,21 @@ public class Multi_UnitManager : MonoBehaviourPun
                 OnTryCombine?.RaiseEvent(id, false, flag);
         }
 
-        public void Combine(UnitFlags flag, int id)
-        {
-            SacrificedUnit_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[flag], id);
-            Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
-
-            OnTryCombine?.RaiseEvent(id, true, flag);
-        }
-
-        //void Combine_RPC(UnitFlags flag, int id)
-        //{
-        //    if (PhotonNetwork.IsMasterClient)
-        //        TryCombine(flag, id);
-        //    else
-        //    {
-        //        Debug.Assert(id == 0, "여기는 요청 부분인데 0이면 안됨");
-        //        Instance.photonView.RPC("TryCombine", RpcTarget.MasterClient, flag, Multi_Data.instance.Id);
-        //    }
-        //}
-
-        //void TryCombine(UnitFlags flag, int id)
-        //{
-        //    if (CheckCombineable(Multi_Managers.Data.CombineConditionByUnitFalg[flag], id))
-        //    {
-        //        SacrificedUnit_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[flag], id);
-        //        Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
-
-        //        OnTryCombine?.RaiseEvent(id, true, flag);
-        //    }
-        //    else
-        //        OnTryCombine?.RaiseEvent(id, false, flag);
-        //}
-
-        //bool CheckCombineable(CombineCondition conditions, int id)
-        //    => conditions.UnitFlagsCountPair.All(x => Instance._count.UnitCountByFlag[x.Key] >= x.Value);
-
         bool CheckCombineable(CombineCondition conditions)
             => conditions.UnitFlagsCountPair.All(x => Instance._count.UnitCountByFlag[x.Key] >= x.Value);
 
-        void SacrificedUnit_ForCombine(CombineCondition condition, int id)
-                => condition.UnitFlagsCountPair.ToList().ForEach(x => Instance.UnitDead(id, x.Key, x.Value));
+        public void Combine(UnitFlags flag, int id)
+        {
+            if (PhotonNetwork.IsMasterClient == false) return;
+
+            SacrificedUnit_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[flag]);
+            Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
+
+            OnTryCombine?.RaiseEvent(id, true, flag);
+
+
+            void SacrificedUnit_ForCombine(CombineCondition condition)
+                    => condition.UnitFlagsCountPair.ToList().ForEach(x => Instance._contorller.UnitDead(id, x.Key, x.Value));
+        }
     }
 }

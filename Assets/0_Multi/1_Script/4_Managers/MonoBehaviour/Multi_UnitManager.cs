@@ -25,6 +25,7 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     CombineSystem _combine = new CombineSystem();
     UnitCountManager _count = new UnitCountManager();
+
     MasterDataManager _master = new MasterDataManager();
 
     public static CombineSystem Combine => Instance._combine;
@@ -38,64 +39,17 @@ public class Multi_UnitManager : MonoBehaviourPun
         _master.Init();
     }
 
-    void Awake()
-    {
-        unitListDictById.Clear();
-        _currentAllUnitsById.Clear();
-        if (PhotonNetwork.IsMasterClient)
-        {
-            unitListDictById.Add(0, new Dictionary<UnitFlags, List<Multi_TeamSoldier>>());
-            unitListDictById.Add(1, new Dictionary<UnitFlags, List<Multi_TeamSoldier>>());
-
-            _currentAllUnitsById.Add(0, new List<Multi_TeamSoldier>());
-            _currentAllUnitsById.Add(1, new List<Multi_TeamSoldier>());
-        }
-    }
-
     private void Start()
     {
-        // OnAllUnitCountChanged += count => _unitCount = count;
-
         if (PhotonNetwork.IsMasterClient)
         {
-            //Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
-            //Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
-
             Multi_SpawnManagers.BossEnemy.OnSpawn += AllUnitTargetChagedByBoss;
             Multi_SpawnManagers.BossEnemy.OnDead += AllUnitUpdateTarget;
 
-            //OnCombineTry += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
             Combine.OnTryCombine += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
-        }
-
-        SetUnitFlagsDic();
-        // OnUnitCountChanged += UpdateCount;
-
-        void SetUnitFlagsDic()
-        {
-            foreach (var data in Multi_SpawnManagers.NormalUnit.AllUnitDatas)
-            {
-                foreach (Multi_TeamSoldier unit in data.gos.Select(x => x.GetComponent<Multi_TeamSoldier>()))
-                {
-                    if (PhotonNetwork.IsMasterClient)
-                    {
-                        unitListDictById[0].Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
-                        unitListDictById[1].Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
-                    }
-                    _countByFlag.Add(new UnitFlags(unit.unitColor, unit.unitClass), 0);
-                }
-            }
         }
     }
 
-    // 유닛 딕셔너리
-    Dictionary<int, Dictionary<UnitFlags, List<Multi_TeamSoldier>>> unitListDictById = new Dictionary<int, Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
-    // List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
-    List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flags) => unitListDictById[id][flags];
-    //int GetUnitListCount(int id, UnitFlags flags) => GetUnitList(id, flags).Count;
-
-    Dictionary<UnitFlags, int> _countByFlag = new Dictionary<UnitFlags, int>(); // 모든 플레이어가 이벤트로 받아서 각자 카운트 관리
-    //void UpdateCount(UnitFlags flag, int count) => _countByFlag[flag] = count;
 
     public void UnitWorldChanged_RPC(int id, UnitFlags flag) 
         => photonView.RPC("UnitWorldChanged", RpcTarget.MasterClient, id, flag, Multi_Managers.Camera.IsLookEnemyTower);
@@ -124,25 +78,6 @@ public class Multi_UnitManager : MonoBehaviourPun
         return false;
     }
 
-    public RPCAction<UnitFlags, int> OnUnitCountChanged = new RPCAction<UnitFlags, int>();
-    // public void Raise_UnitCountChanged(UnitFlags flag) => photonView.RPC("Raise_UnitCountChanged", RpcTarget.MasterClient, Multi_Data.instance.Id, flag);
-    //[PunRPC]
-    //void Raise_UnitCountChanged(int id, UnitFlags flag) => OnUnitCountChanged.RaiseEvent(id, flag, GetUnitListCount(id, flag));
-
-    // 유닛 전체 리스트
-    Dictionary<int, List<Multi_TeamSoldier>> _currentAllUnitsById = new Dictionary<int, List<Multi_TeamSoldier>>();
-    //List<Multi_TeamSoldier> GetCurrentUnitList(Multi_TeamSoldier unit) => _currentAllUnitsById[unit.GetComponent<RPCable>().UsingId];
-
-    // [SerializeField] int _unitCount;
-    //public int UnitCount => _unitCount;
-
-    public RPCAction<int> OnAllUnitCountChanged = new RPCAction<int>();
-    //void Raise_AllUnitCountChanged(int id) => OnAllUnitCountChanged.RaiseEvent(id, _currentAllUnitsById[id].Count);
-
-    // 유닛 조합
-    //[PunRPC]
-    //void TryCombine(UnitFlags flag, int id) => Combine.TryCombine_RPC(flag, id);
-
     [PunRPC] // CombineSystem에서 사용
     void UnitCombine(UnitFlags flag, int id) => Combine.Combine(flag, id);
 
@@ -157,38 +92,16 @@ public class Multi_UnitManager : MonoBehaviourPun
             offerings[i].Dead();
     }
 
-    #region Only Callback
-    //void AddUnit(Multi_TeamSoldier unit)
-    //{
-    //    GetUnitList(unit).Add(unit);
-    //    GetCurrentUnitList(unit).Add(unit);
-
-    //    Raise_UnitCountChanged(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
-    //    Raise_AllUnitCountChanged(unit.GetComponent<RPCable>().UsingId);
-    //}
-
-    //void RemoveUnit(Multi_TeamSoldier unit)
-    //{
-    //    GetUnitList(unit).Remove(unit);
-    //    GetCurrentUnitList(unit).Remove(unit);
-
-    //    Raise_UnitCountChanged(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
-    //    Raise_AllUnitCountChanged(unit.GetComponent<RPCable>().UsingId);
-    //}
-
     void AllUnitTargetChagedByBoss(Multi_BossEnemy boss)
     {
-        _currentAllUnitsById[boss.GetComponent<RPCable>().UsingId]
+        _master.GetUnitList(boss.GetComponent<RPCable>().UsingId)
             .Where(x => x.EnterStroyWorld == false)
             .ToList()
             .ForEach(x => x.SetChaseSetting(boss.gameObject));
     }
 
     void AllUnitUpdateTarget(Multi_BossEnemy boss) => AllUnitUpdateTarget(boss.GetComponent<RPCable>().UsingId);
-
-    #endregion
-
-    void AllUnitUpdateTarget(int id) => _currentAllUnitsById[id].ForEach(x => x.UpdateTarget());
+    void AllUnitUpdateTarget(int id) => _master.GetUnitList(id).ForEach(x => x.UpdateTarget());
 
     [SerializeField] List<int> test = new List<int>();
     void Update()
@@ -209,6 +122,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             return GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
         }
         public List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flag) => _unitListByFlag.Get(id)[flag];
+        public List<Multi_TeamSoldier> GetUnitList(int id) => _currentAllUnitsById.Get(id);
 
         public RPCAction<int> OnAllUnitCountChanged = new RPCAction<int>();
         RPCData<List<Multi_TeamSoldier>> _currentAllUnitsById = new RPCData<List<Multi_TeamSoldier>>();

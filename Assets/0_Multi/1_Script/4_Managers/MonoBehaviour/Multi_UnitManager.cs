@@ -24,15 +24,15 @@ public class Multi_UnitManager : MonoBehaviourPun
     }
 
     CombineSystem _combine = new CombineSystem();
-    UnitCountManager _countData = new UnitCountManager();
+    UnitCountManager _count = new UnitCountManager();
     MasterDataManager _master = new MasterDataManager();
 
     public static CombineSystem Combine => Instance._combine;
-    public static UnitCountManager CountData => Instance._countData;
+    public static UnitCountManager Count => Instance._count;
 
     void Init()
     {
-        _countData.Init();
+        _count.Init();
 
         if (PhotonNetwork.IsMasterClient == false) return;
         _master.Init();
@@ -140,31 +140,9 @@ public class Multi_UnitManager : MonoBehaviourPun
     void Raise_AllUnitCountChanged(int id) => OnAllUnitCountChanged.RaiseEvent(id, _currentAllUnitsById[id].Count);
 
     // 유닛 조합
-    // public RPCAction<bool, UnitFlags> OnCombineTry = new RPCAction<bool, UnitFlags>();
-
-    //public void Combine_RPC(UnitFlags flag) => new CombineSystem().TryCombine_RPC(flag);
-    //void _Combine_RPC(UnitFlags flag) => photonView.RPC("TryCombine", RpcTarget.MasterClient, flag, Multi_Data.instance.Id);
     [PunRPC]
     void TryCombine(UnitFlags flag, int id) => Combine.TryCombine_RPC(flag, id);
-    //[PunRPC]
-    //void Combine(int colorNumber, int classNumber, int id)
-    //{
-    //    if (CheckCombineable(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)], id))
-    //    {
-    //        SacrificedUnit_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[new UnitFlags(colorNumber, classNumber)], id);
-    //        Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(colorNumber, classNumber), id);
 
-    //        OnCombineTry?.RaiseEvent(id, true, new UnitFlags(colorNumber, classNumber));
-    //    }
-    //    else
-    //        OnCombineTry?.RaiseEvent(id, false, new UnitFlags(colorNumber, classNumber));
-    //}
-
-    //bool CheckCombineable(CombineCondition conditions, int id)
-    //    => conditions.UnitFlagsCountPair.All(x => unitListDictById[id].ContainsKey(x.Key) && GetUnitList(id, x.Key).Count >= x.Value);
-
-    //void SacrificedUnit_ForCombine(CombineCondition condition, int id)
-    //        => condition.UnitFlagsCountPair.ToList().ForEach(x => UnitDead(id, x.Key, x.Value));
 
     public void UnitDead_RPC(int id, UnitFlags unitFlag, int count = 1) => photonView.RPC("UnitDead", RpcTarget.MasterClient, id, unitFlag, count);
     [PunRPC]
@@ -212,15 +190,21 @@ public class Multi_UnitManager : MonoBehaviourPun
     [SerializeField] List<int> test = new List<int>();
     void Update()
     {
-        test = _countByFlag.Values.ToList();
+        test = Count.UnitCountByFlag.Values.ToList();
     }
 
-    class MasterDataManager
+    public class MasterDataManager
     {
         public RPCAction<UnitFlags, int> OnUnitCountChanged = new RPCAction<UnitFlags, int>();
 
-        RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>> _unitListDictById = new RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
-        List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => _unitListDictById.Get(unit.GetComponent<RPCable>().UsingId)[unit.UnitFlags];
+        RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>> _unitListByFlag = new RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
+        List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit)
+        {
+            Debug.Log($"ID : {unit.GetComponent<RPCable>().UsingId}");
+            Debug.Log($"{unit.unitColor} : {unit.unitClass}");
+            Debug.Log($"크기 : {_unitListByFlag.Count}");
+            return _unitListByFlag.Get(unit.GetComponent<RPCable>().UsingId)[unit.UnitFlags];
+        }
 
         public RPCAction<int> OnAllUnitCountChanged = new RPCAction<int>();
         RPCData<List<Multi_TeamSoldier>> _currentAllUnitsById = new RPCData<List<Multi_TeamSoldier>>();
@@ -231,13 +215,15 @@ public class Multi_UnitManager : MonoBehaviourPun
             {
                 foreach (Multi_TeamSoldier unit in data.gos.Select(x => x.GetComponent<Multi_TeamSoldier>()))
                 {
-                    _unitListDictById.Get(0).Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
-                    _unitListDictById.Get(1).Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+                    _unitListByFlag.Get(0).Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+                    _unitListByFlag.Get(1).Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+
+                    Debug.Log($"{unit.unitColor} : {unit.unitClass}");
                 }
             }
 
-            //Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
-            //Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
+            Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
+            Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
         }
 
         void AddUnit(Multi_TeamSoldier unit)
@@ -259,6 +245,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         void RaiseEvents(Multi_TeamSoldier unit)
         {
             int id = unit.GetComponent<RPCable>().UsingId;
+            Debug.Log(123);
             OnUnitCountChanged?.RaiseEvent(id, unit.UnitFlags, GetUnitList(unit).Count);
             OnAllUnitCountChanged?.RaiseEvent(id, _currentAllUnitsById.Get(id).Count);
         }
@@ -267,12 +254,13 @@ public class Multi_UnitManager : MonoBehaviourPun
     public class UnitCountManager
     {
         int _currentCount = 0;
-        public int CurrentCount => _currentCount;
+        public int CurrentUnitCount => _currentCount;
 
         Dictionary<UnitFlags, int> _countByFlag = new Dictionary<UnitFlags, int>(); // 모든 플레이어가 이벤트로 받아서 각자 카운트 관리
-        void UpdateCount(UnitFlags flag, int count) => _countByFlag[flag] = count;
+        public IReadOnlyDictionary<UnitFlags, int> UnitCountByFlag => _countByFlag;
 
-        public RPCAction<int> OnUnitCountChanged = new RPCAction<int>();
+        public event Action<int> OnUnitCountChanged = null;
+        public event Action<UnitFlags, int> OnUnitFlagCountChanged = null;
 
         public void Init()
         {
@@ -282,7 +270,20 @@ public class Multi_UnitManager : MonoBehaviourPun
                     _countByFlag.Add(new UnitFlags(unit.unitColor, unit.unitClass), 0);
             }
 
-            //Instance._master.OnAllUnitCountChanged += count => _currentCount = count;
+            Instance._master.OnAllUnitCountChanged += Riase_OnUnitCountChanged;
+            Instance._master.OnUnitCountChanged += Riase_OnUnitCountChanged;
+        }
+
+        void Riase_OnUnitCountChanged(int count)
+        {
+            _currentCount = count;
+            OnUnitCountChanged?.Invoke(count);
+        }
+
+        void Riase_OnUnitCountChanged(UnitFlags flag, int count)
+        {
+            _countByFlag[flag] = count;
+            OnUnitFlagCountChanged?.Invoke(flag, count);
         }
     }
 

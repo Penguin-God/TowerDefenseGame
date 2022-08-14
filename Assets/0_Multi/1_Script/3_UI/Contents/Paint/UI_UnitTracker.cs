@@ -24,7 +24,7 @@ public class UI_UnitTracker : Multi_UI_Base
 
     void OnDisable()
     {
-        Multi_UnitManager.Instance.OnUnitCountChanged -= TrackUnitCount;
+        Multi_UnitManager.Count.OnUnitFlagCountChanged -= TrackUnitCount;
     }
 
     public void SetInfo(UI_UnitTrackerData data)
@@ -40,9 +40,9 @@ public class UI_UnitTracker : Multi_UI_Base
         if (data.Icon != null) icon.sprite = data.Icon;
         if (string.IsNullOrEmpty(data.UnitClassName) == false) _unitClassName = data.UnitClassName;
 
-        Multi_UnitManager.Instance.OnUnitCountChanged -= TrackUnitCount;
-        Multi_UnitManager.Instance.OnUnitCountChanged += TrackUnitCount;
-        Multi_UnitManager.Instance.Raise_UnitCountChanged(unitFlags);
+        Multi_UnitManager.Count.OnUnitFlagCountChanged -= TrackUnitCount;
+        Multi_UnitManager.Count.OnUnitFlagCountChanged += TrackUnitCount;
+        SetUnitCountText(Multi_UnitManager.Count.UnitCountByFlag[unitFlags]);
     }
 
     void TrackUnitCount(UnitFlags unitFlag, int count)

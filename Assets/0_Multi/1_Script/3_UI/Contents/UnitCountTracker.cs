@@ -11,7 +11,7 @@ public class UnitCountTracker : Multi_UI_Scene
         base.Init();
         unitCountText = GetComponentInChildren<Text>();
         //Multi_UnitManager.Instance.OnCurrentUnitChanged += UpdateUnitCountText;
-        Multi_UnitManager.Instance.OnAllUnitCountChanged += UpdateUnitCountText;
+        Multi_UnitManager.Count.OnUnitCountChanged += UpdateUnitCountText;
     }
 
     void UpdateUnitCountText(int count)

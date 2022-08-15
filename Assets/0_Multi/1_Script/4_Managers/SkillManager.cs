@@ -36,7 +36,9 @@ public class SkillManager
 
     public void Init()
     {
-        
+        Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill = true;
+
+         
         if (Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill == true)
         {
             skills.Add(new Taegeuk());
@@ -108,8 +110,85 @@ public class ActiveSkill : Skill
 
 public class Taegeuk : PassiveSkill
 {
+    int Athercount;
+    int Redcount;
+    int Bluecount;
+
+    // 빨강, 파랑을 제외한 유닛 수
+    public int Ather
+    {
+        get 
+        {
+            Athercount = 0;
+            for (int i = 2; i < 6; i++)
+            {
+                for (int j = 0; j < 4; j++)
+                {
+                    Athercount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(i, j)];
+                }
+            }
+            Debug.Log(Athercount);
+            return Athercount;
+        }
+    }
+
+    public int Red
+    {
+        get
+        {
+            Redcount = 0;
+            for (int j = 0; j < 4; j++)
+            {
+                Redcount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(0, j)];
+            }
+            Debug.Log(Redcount);
+            return Redcount;
+        }
+    }
+
+    public int Blue
+    {
+        get
+        {
+            Bluecount = 0;
+            for (int j = 0; j < 4; j++)
+            {
+                Bluecount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(1, j)];
+            }
+            Debug.Log(Bluecount);
+            return Bluecount;
+        }
+    }
+
     public override void InitSkill(Skill skill)
     {
-        Debug.Log("태극 시너지 스킬 발동");
+        Debug.Log("태극 시너지 스킬 착용");
+        if (Red >= 1 && Blue >= 1 && Ather == 0)
+            Debug.Log("태극 시너지 스킬 발동");
     }
 }
+
+public class StartGold : PassiveSkill
+{
+    public override void InitSkill(Skill skill)
+    {
+
+    }
+}
+
+public class StartFood : PassiveSkill
+{
+    public override void InitSkill(Skill skill)
+    {
+
+    }
+}
+
+public class MaxUnit : PassiveSkill
+{
+    public override void InitSkill(Skill skill)
+    {
+
+    }
+}
+

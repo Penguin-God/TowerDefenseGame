@@ -47,6 +47,8 @@ public class RPCAction<T>
         PhotonNetwork.RaiseEvent(_eventId, new object[] { value }, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, SendOptions.SendUnreliable);
     }
 
+    public void RaiseEvent(T value) => PhotonNetwork.RaiseEvent(_eventId, new object[] { value }, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, SendOptions.SendUnreliable);
+
     public static RPCAction<T> operator +(RPCAction<T> me, Action<T> action)
     {
         me.OnEvent += action;
@@ -94,6 +96,9 @@ public class RPCAction<T, T2>
         PhotonNetwork.RaiseEvent
             (_eventId, new object[] { value, value2 }, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, SendOptions.SendUnreliable);
     }
+
+    public void RaiseEvent(T value, T2 value2) 
+        => PhotonNetwork.RaiseEvent(_eventId, new object[] { value, value2 }, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, SendOptions.SendUnreliable);
 
     public static RPCAction<T, T2> operator +(RPCAction<T, T2> me, Action<T, T2> action)
     {

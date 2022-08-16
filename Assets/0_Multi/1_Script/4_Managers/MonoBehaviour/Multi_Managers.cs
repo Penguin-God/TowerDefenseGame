@@ -45,7 +45,6 @@ public class Multi_Managers : MonoBehaviour
 
     void Init()
     {
-        print("init");
         _data.Init();
         _clientData.Init();
         _sound.Init(transform);

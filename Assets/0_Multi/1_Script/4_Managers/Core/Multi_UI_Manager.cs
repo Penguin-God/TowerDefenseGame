@@ -66,6 +66,7 @@ public class Multi_UI_Manager
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.overrideSorting = true; // canvas안의 canvas가 부모 관계없이 독립적인 sort값을 가지게 하는 옵션
         go.GetOrAddComponent<GraphicRaycaster>();
+        go.GetOrAddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
 
         if (sort)
         {

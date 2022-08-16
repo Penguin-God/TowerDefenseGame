@@ -62,10 +62,6 @@ public class Multi_SoundManager
 
             string csv = Multi_Managers.Resources.Load<TextAsset>("Data/SoundData/EffectSoundData").text;
             pathBySound = CsvUtility.GetEnumerableFromCsv<EffcetSound>(csv).ToDictionary(x => x.EffectType, x => x.Path);
-            foreach (var item in pathBySound)
-            {
-                Debug.Log($"{item.Key} : {item.Value}");
-            }
         }
         root.transform.parent = parent;
     }

@@ -26,15 +26,18 @@ public class Multi_UnitManager : MonoBehaviourPun
     CombineSystem _combine = new CombineSystem();
     UnitCountManager _count = new UnitCountManager();
     UnitContorller _contorller = new UnitContorller();
+    EnemyPlayerDataManager _enemyPlayer = new EnemyPlayerDataManager();
     MasterDataManager _master = new MasterDataManager();
 
     public static CombineSystem Combine => Instance._combine;
     public static UnitCountManager Count => Instance._count;
     public static UnitContorller Contorller => Instance._contorller;
+    public static EnemyPlayerDataManager EnemyPlayer => Instance._enemyPlayer;
 
     void Init()
     {
         _count.Init();
+        _enemyPlayer.Init();
 
         if (PhotonNetwork.IsMasterClient == false) return;
         _contorller.Init();
@@ -107,13 +110,13 @@ public class Multi_UnitManager : MonoBehaviourPun
     public class MasterDataManager
     {
         public RPCAction<UnitFlags, int> OnUnitCountChanged = new RPCAction<UnitFlags, int>();
-
         RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>> _unitListByFlag = new RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
+
         List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit)
         {
-            Debug.Log($"ID : {unit.GetComponent<RPCable>().UsingId}");
-            Debug.Log($"{unit.unitColor} : {unit.unitClass}");
-            Debug.Log($"크기 : {_unitListByFlag.Count}");
+            //Debug.Log($"ID : {unit.GetComponent<RPCable>().UsingId}");
+            //Debug.Log($"{unit.unitColor} : {unit.unitClass}");
+            //Debug.Log($"크기 : {_unitListByFlag.Count}");
             return GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
         }
         public List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flag) => _unitListByFlag.Get(id)[flag];
@@ -121,6 +124,8 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         public RPCAction<int> OnAllUnitCountChanged = new RPCAction<int>();
         RPCData<List<Multi_TeamSoldier>> _currentAllUnitsById = new RPCData<List<Multi_TeamSoldier>>();
+
+        public RPCAction<bool, UnitClass> OnUnitClassCountChanged = new RPCAction<bool, UnitClass>();
 
         public void Init()
         {
@@ -130,8 +135,6 @@ public class Multi_UnitManager : MonoBehaviourPun
                 {
                     _unitListByFlag.Get(0).Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
                     _unitListByFlag.Get(1).Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
-
-                    Debug.Log($"{unit.unitColor} : {unit.unitClass}");
                 }
             }
 
@@ -144,7 +147,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Add(unit);
             _currentAllUnitsById.Get(id).Add(unit);
-            RaiseEvents(unit);
+            RaiseEvents(unit, true);
         }
 
         void RemoveUnit(Multi_TeamSoldier unit)
@@ -152,14 +155,40 @@ public class Multi_UnitManager : MonoBehaviourPun
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Remove(unit);
             _currentAllUnitsById.Get(id).Remove(unit);
-            RaiseEvents(unit);
+            RaiseEvents(unit, false);
         }
 
-        void RaiseEvents(Multi_TeamSoldier unit)
+        void RaiseEvents(Multi_TeamSoldier unit, bool isAdd)
         {
             int id = unit.GetComponent<RPCable>().UsingId;
             OnUnitCountChanged?.RaiseEvent(id, unit.UnitFlags, GetUnitList(unit).Count);
             OnAllUnitCountChanged?.RaiseEvent(id, _currentAllUnitsById.Get(id).Count);
+            
+            // 적 데이터 덮어쓰는 용
+            OnUnitClassCountChanged?.RaiseEvent((id == 0) ? 1 : 0, isAdd, unit.unitClass);
+        }
+    }
+
+    public class EnemyPlayerDataManager
+    {
+        Dictionary<UnitClass, int> _countByUnitClass = new Dictionary<UnitClass, int>();
+        public IReadOnlyDictionary<UnitClass, int> CountByUnitClass => _countByUnitClass;
+
+        public void Init()
+        {
+            foreach (UnitClass _class in Enum.GetValues(typeof(UnitClass)))
+                _countByUnitClass.Add(_class, 0);
+
+            Instance._master.OnUnitClassCountChanged += SetCount;
+        }
+
+        void SetCount(bool isAdd, UnitClass unitClass)
+        {
+            if(isAdd)
+                _countByUnitClass[unitClass]++;
+            else
+                _countByUnitClass[unitClass]--;
+            Debug.Log(_countByUnitClass[unitClass]);
         }
     }
 

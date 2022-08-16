@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3053250624082117547}
   - component: {fileID: 3053250624082117546}
   - component: {fileID: 3053250624082117545}
+  - component: {fileID: 6205405578697239148}
   m_Layer: 5
   m_Name: Mage
   m_TagString: Untagged
@@ -119,6 +120,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &6205405578697239148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053250624082117543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &3053250624439739750
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,6 +223,7 @@ GameObject:
   - component: {fileID: 3053250624485452824}
   - component: {fileID: 3053250624485452823}
   - component: {fileID: 3053250624485452822}
+  - component: {fileID: 2606122499647035872}
   m_Layer: 5
   m_Name: Spearman
   m_TagString: Untagged
@@ -316,6 +331,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2606122499647035872
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053250624485452820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &3053250624633691232
 GameObject:
   m_ObjectHideFlags: 0
@@ -460,6 +488,7 @@ GameObject:
   - component: {fileID: 3053250625470375190}
   - component: {fileID: 3053250625470375189}
   - component: {fileID: 3053250625470375188}
+  - component: {fileID: 2203945569013508198}
   m_Layer: 5
   m_Name: Swordman
   m_TagString: Untagged
@@ -567,6 +596,19 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &2203945569013508198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053250625470375186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []
 --- !u!1 &3053250625478224085
 GameObject:
   m_ObjectHideFlags: 0
@@ -735,6 +777,7 @@ GameObject:
   - component: {fileID: 3053250625630841934}
   - component: {fileID: 3053250625630841933}
   - component: {fileID: 3053250625630841932}
+  - component: {fileID: 1569911901832928147}
   m_Layer: 5
   m_Name: Archer
   m_TagString: Untagged
@@ -842,3 +885,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1569911901832928147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053250625630841930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates: []

@@ -126,6 +126,12 @@ public class Multi_UI_Manager
             popupGroupByGroupType[type].ShowPopup(popup);
     }
 
+    public void ClosePopupUI(string name)
+    {
+        if (_popupByType.TryGetValue(name, out Multi_UI_Popup popup))
+            popup.gameObject.SetActive(false);
+    }
+
     public void CloseAllPopupUI()
     {
         foreach (PopupGroup group in popupGroupByGroupType.Values)

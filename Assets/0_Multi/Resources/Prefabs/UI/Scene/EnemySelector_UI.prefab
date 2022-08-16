@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3053250624082117546}
   - component: {fileID: 3053250624082117545}
   - component: {fileID: 6205405578697239148}
+  - component: {fileID: 8879680832435854647}
   m_Layer: 5
   m_Name: Mage
   m_TagString: Untagged
@@ -133,6 +134,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
+--- !u!114 &8879680832435854647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053250624082117543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c74337240d6c4634f83a3dc40292c732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyNumber: 1
+  enemyInfoText: "\uC2A4\uD0AC \uACF5\uACA9\uC744 \uBB34\uD6A8\uD654\uD569\uB2C8\uB2E4."
+  offset: {x: 0, y: 80, z: 0}
 --- !u!1 &3053250624439739750
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +240,7 @@ GameObject:
   - component: {fileID: 3053250624485452823}
   - component: {fileID: 3053250624485452822}
   - component: {fileID: 2606122499647035872}
+  - component: {fileID: 5339810769886996132}
   m_Layer: 5
   m_Name: Spearman
   m_TagString: Untagged
@@ -344,6 +361,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
+--- !u!114 &5339810769886996132
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053250624485452820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c74337240d6c4634f83a3dc40292c732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyNumber: 2
+  enemyInfoText: "\uD3C9\uD0C0 \uACF5\uACA9\uC5D0 \uB300\uD55C \uBC18\uAC10\uC744
+    \uAC00\uC9D1\uB2C8\uB2E4,"
+  offset: {x: 0, y: 80, z: 0}
 --- !u!1 &3053250624633691232
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,6 +387,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3053250624633691233}
   - component: {fileID: -2869811903609849589}
+  - component: {fileID: 6765656322370715752}
   m_Layer: 5
   m_Name: EnemySelector_UI
   m_TagString: Untagged
@@ -398,6 +432,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
   selectButton: {fileID: 0}
+--- !u!223 &6765656322370715752
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053250624633691232}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 2
+  m_Camera: {fileID: 0}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 0
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
+  m_TargetDisplay: 0
 --- !u!1 &3053250624921202112
 GameObject:
   m_ObjectHideFlags: 0
@@ -489,6 +544,7 @@ GameObject:
   - component: {fileID: 3053250625470375189}
   - component: {fileID: 3053250625470375188}
   - component: {fileID: 2203945569013508198}
+  - component: {fileID: 7403642311161028594}
   m_Layer: 5
   m_Name: Swordman
   m_TagString: Untagged
@@ -609,6 +665,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
+--- !u!114 &7403642311161028594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053250625470375186}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c74337240d6c4634f83a3dc40292c732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyNumber: 3
+  enemyInfoText: "\uCCB4\uB825\uC774 1.5\uBC30 \uB192\uC2B5\uB2C8\uB2E4."
+  offset: {x: 0, y: 80, z: 0}
 --- !u!1 &3053250625478224085
 GameObject:
   m_ObjectHideFlags: 0
@@ -778,6 +849,7 @@ GameObject:
   - component: {fileID: 3053250625630841933}
   - component: {fileID: 3053250625630841932}
   - component: {fileID: 1569911901832928147}
+  - component: {fileID: 643796988995889881}
   m_Layer: 5
   m_Name: Archer
   m_TagString: Untagged
@@ -898,3 +970,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Delegates: []
+--- !u!114 &643796988995889881
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3053250625630841930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c74337240d6c4634f83a3dc40292c732, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyNumber: 0
+  enemyInfoText: "\uC774\uB3D9\uC18D\uB3C4\uAC00 1.5\uBC30 \uB192\uACE0 \uC2AC\uB85C\uC6B0\uC5D0
+    \uB300\uD55C \uBC18\uAC10\uC744 \uAC00\uC9D1\uB2C8\uB2E4."
+  offset: {x: 0, y: 80, z: 0}

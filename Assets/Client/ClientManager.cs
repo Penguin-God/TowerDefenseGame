@@ -206,6 +206,8 @@ public class ClientManager : MonoBehaviour
     public void BuyTaegeukSkill()
     {
         BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.태극스킬, MoneyType.Iron);
+        print("태극 구매");
+        print(Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].HasSkill);
     }
 
     public void EquipStartGold()

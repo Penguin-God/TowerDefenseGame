@@ -14,6 +14,8 @@ public class Multi_RangeUnit : Multi_TeamSoldier
         }
     }
 
+    protected override bool IsMoveLock => AttackRange * 0.8f >= enemyDistance;
+
     public override void UnitTypeMove()
     {
         //if (enterStoryWorld) return;

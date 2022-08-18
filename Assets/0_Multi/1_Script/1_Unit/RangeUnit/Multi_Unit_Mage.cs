@@ -77,6 +77,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     [SerializeField] float mageSkillCoolDownTime;
     public bool isUltimate; // 스킬 강화
     protected event Action OnUltimateSkile; // 강화는 isUltimate가 true될 때까지 코루틴에서 WaitUntil로 대기 후 추가함
+    protected override bool IsMoveLock => base.IsMoveLock || isSkillAttack;
     public override void SpecialAttack()
     {
         SetMageSkillStatus();

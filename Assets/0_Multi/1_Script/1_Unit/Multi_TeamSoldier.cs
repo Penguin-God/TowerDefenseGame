@@ -80,10 +80,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         // 평타 설정
         OnHit += AttackEnemy;
-        
+
         // 스킬 설정
         skillDamage = 150; // 테스트 코드
-        OnSkileHit += enemy => AttackEnemy(enemy, skillDamage, isSkill:true);
+        OnSkileHit += enemy => AttackEnemy(enemy, skillDamage, isSkill: true);
 
         // 변수 선언
         passive = GetComponent<Multi_UnitPassive>();
@@ -107,8 +107,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             LoadStat_RPC();
             SetPassive_RPC();
         }
-        
-        if(animator != null)
+
+        if (animator != null)
         {
             animator.enabled = true;
             animator.Rebind();
@@ -119,7 +119,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         // 적 추적
         UpdateTarget();
-        if(PhotonNetwork.IsMasterClient) StartCoroutine("NavCoroutine");
+        if (PhotonNetwork.IsMasterClient) StartCoroutine("NavCoroutine");
     }
 
     void OnDisable()
@@ -181,7 +181,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         enemyIsForward = false;
         enemyDistance = 1000f;
 
-        if (animator != null) 
+        if (animator != null)
             animator.enabled = false;
 
         nav.enabled = false;
@@ -263,7 +263,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         photonView.RPC("SelectAttack", RpcTarget.All, isNormal);
     }
 
-    [PunRPC] 
+    [PunRPC]
     public void SelectAttack(bool _isNormal)
     {
         if (_isNormal) NormalAttack();
@@ -303,7 +303,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     #region Enemy 추적
 
     [SerializeField] bool isMoveLock;
-    protected bool IsMoveLock => AttackRange * 0.8f >= enemyDistance;
+    protected virtual bool IsMoveLock => false;
 
     protected void LockMove()
     {

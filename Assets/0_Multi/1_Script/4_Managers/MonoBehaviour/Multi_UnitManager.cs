@@ -25,13 +25,13 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     CombineSystem _combine = new CombineSystem();
     UnitCountManager _count = new UnitCountManager();
-    UnitContorller _contorller = new UnitContorller();
+    UnitContorller _controller = new UnitContorller();
     EnemyPlayerDataManager _enemyPlayer = new EnemyPlayerDataManager();
     MasterDataManager _master = new MasterDataManager();
 
     public static CombineSystem Combine => Instance._combine;
     public static UnitCountManager Count => Instance._count;
-    public static UnitContorller Contorller => Instance._contorller;
+    public static UnitContorller Controller => Instance._controller;
     public static EnemyPlayerDataManager EnemyPlayer => Instance._enemyPlayer;
 
     void Init()
@@ -40,55 +40,57 @@ public class Multi_UnitManager : MonoBehaviourPun
         _enemyPlayer.Init();
 
         if (PhotonNetwork.IsMasterClient == false) return;
-        _contorller.Init();
+        _controller.Init();
         _master.Init();
     }
 
-    private void Start()
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            //Multi_SpawnManagers.BossEnemy.OnSpawn += AllUnitTargetChagedByBoss;
-            //Multi_SpawnManagers.BossEnemy.OnDead += AllUnitUpdateTarget;
+    //private void Start()
+    //{
+    //    if (PhotonNetwork.IsMasterClient)
+    //    {
+    //        //Multi_SpawnManagers.BossEnemy.OnSpawn += AllUnitTargetChagedByBoss;
+    //        //Multi_SpawnManagers.BossEnemy.OnDead += AllUnitUpdateTarget;
 
-            Combine.OnTryCombine += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
-        }
-    }
+    //        Combine.OnTryCombine += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
+    //    }
+    //}
 
 
-    public void UnitWorldChanged_RPC(int id, UnitFlags flag) 
-        => photonView.RPC("UnitWorldChanged", RpcTarget.MasterClient, id, flag, Multi_Managers.Camera.IsLookEnemyTower);
+    //public void UnitWorldChanged_RPC(int id, UnitFlags flag) 
+    //    => photonView.RPC("UnitWorldChanged", RpcTarget.MasterClient, id, flag, Multi_Managers.Camera.IsLookEnemyTower);
 
+
+
+    // public bool HasUnit(UnitFlags flag, int needCount = 1) => _count.UnitCountByFlag[flag] >= needCount;
+
+    //bool TryGetUnit(int id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
+    //{
+    //    foreach (Multi_TeamSoldier loopUnit in _master.GetUnitList(id, flag))
+    //    {
+    //        if (condition == null || condition(loopUnit))
+    //        {
+    //            unit = loopUnit;
+    //            return true;
+    //        }
+    //    }
+
+    //    unit = null;
+    //    return false;
+    //}
+
+    #region PunRPC functions
     [PunRPC]
-    void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode)
-    {
-        if (Instance.TryGetUnit(id, flag, out Multi_TeamSoldier unit, (_unit) => _unit.EnterStroyWorld == enterStroyMode))
-            unit.ChagneWorld();
-    }
-
-    public bool HasUnit(UnitFlags flag, int needCount = 1) => _count.UnitCountByFlag[flag] >= needCount;
-
-    bool TryGetUnit(int id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
-    {
-        foreach (Multi_TeamSoldier loopUnit in _master.GetUnitList(id, flag))
-        {
-            if (condition == null || condition(loopUnit))
-            {
-                unit = loopUnit;
-                return true;
-            }
-        }
-
-        unit = null;
-        return false;
-    }
+    void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode) => Controller.UnitWorldChanged(id, flag, enterStroyMode);
 
     [PunRPC] // CombineSystem에서 사용
     void UnitCombine(UnitFlags flag, int id) => Combine.Combine(flag, id);
 
 
     [PunRPC] // Controller에서 사용
-    void UnitDead(int id, UnitFlags unitFlag, int count) => _contorller.UnitDead(id, unitFlag, count);
+    void UnitDead(int id, UnitFlags unitFlag, int count) => Controller.UnitDead(id, unitFlag, count);
+    #endregion
+
+
 
     //void AllUnitTargetChagedByBoss(Multi_BossEnemy boss)
     //{
@@ -101,11 +103,11 @@ public class Multi_UnitManager : MonoBehaviourPun
     //void AllUnitUpdateTarget(Multi_BossEnemy boss) => AllUnitUpdateTarget(boss.GetComponent<RPCable>().UsingId);
     //void AllUnitUpdateTarget(int id) => _master.GetUnitList(id).ForEach(x => x.UpdateTarget());
 
-    [SerializeField] List<int> test = new List<int>();
-    void Update()
-    {
-        test = Count.UnitCountByFlag.Values.ToList();
-    }
+    //[SerializeField] List<int> test = new List<int>();
+    //void Update()
+    //{
+    //    test = Count.UnitCountByFlag.Values.ToList();
+    //}
 
     public class MasterDataManager
     {
@@ -140,6 +142,21 @@ public class Multi_UnitManager : MonoBehaviourPun
 
             Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
             Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
+        }
+
+        public bool TryGetUnit(int id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
+        {
+            foreach (Multi_TeamSoldier loopUnit in GetUnitList(id, flag))
+            {
+                if (condition == null || condition(loopUnit))
+                {
+                    unit = loopUnit;
+                    return true;
+                }
+            }
+
+            unit = null;
+            return false;
         }
 
         void AddUnit(Multi_TeamSoldier unit)
@@ -215,6 +232,14 @@ public class Multi_UnitManager : MonoBehaviourPun
                 offerings[i].Dead();
         }
 
+        public void UnitWorldChanged_RPC(int id, UnitFlags flag)
+            => Instance.photonView.RPC("UnitWorldChanged", RpcTarget.MasterClient, id, flag, Multi_Managers.Camera.IsLookEnemyTower);
+
+        public void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode)
+        {
+            if (Instance._master.TryGetUnit(id, flag, out Multi_TeamSoldier unit, (_unit) => _unit.EnterStroyWorld == enterStroyMode))
+                unit.ChagneWorld();
+        }
 
         void AllUnitTargetChagedByBoss(Multi_BossEnemy boss)
         {
@@ -235,6 +260,7 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         Dictionary<UnitFlags, int> _countByFlag = new Dictionary<UnitFlags, int>(); // 모든 플레이어가 이벤트로 받아서 각자 카운트 관리
         public IReadOnlyDictionary<UnitFlags, int> UnitCountByFlag => _countByFlag;
+        public bool HasUnit(UnitFlags flag, int needCount = 1) => UnitCountByFlag[flag] >= needCount;
 
         public event Action<int> OnUnitCountChanged = null;
         public event Action<UnitFlags, int> OnUnitFlagCountChanged = null;
@@ -276,8 +302,7 @@ public class Multi_UnitManager : MonoBehaviourPun
                 OnTryCombine?.RaiseEvent(id, false, flag);
         }
 
-        bool CheckCombineable(CombineCondition conditions)
-            => conditions.UnitFlagsCountPair.All(x => Instance._count.UnitCountByFlag[x.Key] >= x.Value);
+        bool CheckCombineable(CombineCondition conditions) => conditions.UnitFlagsCountPair.All(x => Instance._count.HasUnit(x.Key, x.Value));
 
         public void Combine(UnitFlags flag, int id)
         {
@@ -290,7 +315,7 @@ public class Multi_UnitManager : MonoBehaviourPun
 
 
             void SacrificedUnit_ForCombine(CombineCondition condition)
-                    => condition.UnitFlagsCountPair.ToList().ForEach(x => Instance._contorller.UnitDead(id, x.Key, x.Value));
+                    => condition.UnitFlagsCountPair.ToList().ForEach(x => Instance._controller.UnitDead(id, x.Key, x.Value));
         }
     }
 }

@@ -17,5 +17,5 @@ public class UnitWolrdChangedButton : MonoBehaviour
         button.onClick.AddListener(UnitWorldChanged);
     }
 
-    void UnitWorldChanged() => Multi_UnitManager.Instance.UnitWorldChanged_RPC(Multi_Data.instance.Id, _flag);
+    void UnitWorldChanged() => Multi_UnitManager.Controller.UnitWorldChanged_RPC(Multi_Data.instance.Id, _flag);
 }

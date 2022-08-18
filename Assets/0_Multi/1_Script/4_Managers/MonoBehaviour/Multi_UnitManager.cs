@@ -44,40 +44,6 @@ public class Multi_UnitManager : MonoBehaviourPun
         _master.Init();
     }
 
-    //private void Start()
-    //{
-    //    if (PhotonNetwork.IsMasterClient)
-    //    {
-    //        //Multi_SpawnManagers.BossEnemy.OnSpawn += AllUnitTargetChagedByBoss;
-    //        //Multi_SpawnManagers.BossEnemy.OnDead += AllUnitUpdateTarget;
-
-    //        Combine.OnTryCombine += (isSuccess, flag) => print($"컴바인 시도 결과 : {isSuccess} \n 색깔 : {flag.ColorNumber}, 클래스 : {flag.ClassNumber}");
-    //    }
-    //}
-
-
-    //public void UnitWorldChanged_RPC(int id, UnitFlags flag) 
-    //    => photonView.RPC("UnitWorldChanged", RpcTarget.MasterClient, id, flag, Multi_Managers.Camera.IsLookEnemyTower);
-
-
-
-    // public bool HasUnit(UnitFlags flag, int needCount = 1) => _count.UnitCountByFlag[flag] >= needCount;
-
-    //bool TryGetUnit(int id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
-    //{
-    //    foreach (Multi_TeamSoldier loopUnit in _master.GetUnitList(id, flag))
-    //    {
-    //        if (condition == null || condition(loopUnit))
-    //        {
-    //            unit = loopUnit;
-    //            return true;
-    //        }
-    //    }
-
-    //    unit = null;
-    //    return false;
-    //}
-
     #region PunRPC functions
     [PunRPC]
     void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode) => Controller.UnitWorldChanged(id, flag, enterStroyMode);
@@ -90,24 +56,6 @@ public class Multi_UnitManager : MonoBehaviourPun
     void UnitDead(int id, UnitFlags unitFlag, int count) => Controller.UnitDead(id, unitFlag, count);
     #endregion
 
-
-
-    //void AllUnitTargetChagedByBoss(Multi_BossEnemy boss)
-    //{
-    //    _master.GetUnitList(boss.GetComponent<RPCable>().UsingId)
-    //        .Where(x => x.EnterStroyWorld == false)
-    //        .ToList()
-    //        .ForEach(x => x.SetChaseSetting(boss.gameObject));
-    //}
-
-    //void AllUnitUpdateTarget(Multi_BossEnemy boss) => AllUnitUpdateTarget(boss.GetComponent<RPCable>().UsingId);
-    //void AllUnitUpdateTarget(int id) => _master.GetUnitList(id).ForEach(x => x.UpdateTarget());
-
-    //[SerializeField] List<int> test = new List<int>();
-    //void Update()
-    //{
-    //    test = Count.UnitCountByFlag.Values.ToList();
-    //}
 
     public class MasterDataManager
     {
@@ -144,7 +92,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
         }
 
-        public bool TryGetUnit(int id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
+        public bool TryGetUnit_If(int id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
         {
             foreach (Multi_TeamSoldier loopUnit in GetUnitList(id, flag))
             {
@@ -237,7 +185,7 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         public void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode)
         {
-            if (Instance._master.TryGetUnit(id, flag, out Multi_TeamSoldier unit, (_unit) => _unit.EnterStroyWorld == enterStroyMode))
+            if (Instance._master.TryGetUnit_If(id, flag, out Multi_TeamSoldier unit, (_unit) => _unit.EnterStroyWorld == enterStroyMode))
                 unit.ChagneWorld();
         }
 

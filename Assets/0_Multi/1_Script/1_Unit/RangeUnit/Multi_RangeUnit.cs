@@ -16,16 +16,23 @@ public class Multi_RangeUnit : Multi_TeamSoldier
 
     public override void UnitTypeMove()
     {
-        if (enterStoryWorld) return;
+        //if (enterStoryWorld) return;
 
-        if (enemyDistance < AttackRange)
+        if (IsMoveLock)
         {
-            if (target.gameObject.CompareTag("Tower") == false) nav.speed = 0.1f;
+            LockMove();
 
-            if (enemyDistance < stopDistanc) contactEnemy = true;
-            else contactEnemy = false;
+            //if (target.gameObject.CompareTag("Tower") == false) nav.speed = 0.1f;
+
+            //if (enemyDistance < stopDistanc) contactEnemy = true;
+            //else contactEnemy = false;
         }
-        else nav.speed = Speed;
+        else
+        {
+            if (nav.updatePosition == false)
+                ReleaseMove();
+            nav.speed = Speed;
+        }
     }
 
     // 원거리 유닛 무기 발사

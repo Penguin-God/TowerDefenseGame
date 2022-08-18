@@ -302,14 +302,20 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     #region Enemy 추적
 
+    [SerializeField] bool isMoveLock;
+    protected bool IsMoveLock => AttackRange * 0.8f >= enemyDistance;
+
     protected void LockMove()
     {
+        if (nav.updatePosition == false) return;
         nav.speed = 0.1f;
         nav.updatePosition = false;
     }
 
     protected void ReleaseMove()
     {
+        if (nav.updatePosition == true) return;
+
         ResetNavPosition();
         nav.speed = Speed;
         nav.updatePosition = true;
@@ -328,20 +334,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             ResetNavPosition();
     }
 
-    [SerializeField] bool updatePos = false;
-
     private void Update()
     {
         if (target == null) return;
 
-        if (Input.GetKeyDown(KeyCode.U))
-        {
-            nav.Warp(transform.position);
-            nav.SetDestination(target.position);
-            updatePos = true;
-        }
-        nav.updatePosition = updatePos;
-        print(nav.nextPosition);
+        isMoveLock = IsMoveLock;
         FixedNavPosition();
         UnitTypeMove();
         enemyIsForward = Set_EnemyIsForword();

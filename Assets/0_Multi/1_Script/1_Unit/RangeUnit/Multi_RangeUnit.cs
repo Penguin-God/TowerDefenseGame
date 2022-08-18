@@ -20,7 +20,7 @@ public class Multi_RangeUnit : Multi_TeamSoldier
 
         if (enemyDistance < AttackRange)
         {
-            if (!target.gameObject.CompareTag("Tower")) nav.speed = 0.1f;
+            if (target.gameObject.CompareTag("Tower") == false) nav.speed = 0.1f;
 
             if (enemyDistance < stopDistanc) contactEnemy = true;
             else contactEnemy = false;

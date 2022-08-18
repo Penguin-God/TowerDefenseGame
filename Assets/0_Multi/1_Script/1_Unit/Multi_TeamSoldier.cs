@@ -301,10 +301,48 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     }
 
     #region Enemy 추적
+
+    protected void LockMove()
+    {
+        nav.speed = 0.1f;
+        nav.updatePosition = false;
+    }
+
+    protected void ReleaseMove()
+    {
+        ResetNavPosition();
+        nav.speed = Speed;
+        nav.updatePosition = true;
+    }
+
+    protected void ResetNavPosition()
+    {
+        nav.Warp(transform.position);
+        if(target != null)
+            nav.SetDestination(target.position);
+    }
+
+    void FixedNavPosition()
+    {
+        if (Vector3.Distance(nav.nextPosition, transform.position) > 5f)
+            ResetNavPosition();
+    }
+
+    [SerializeField] bool updatePos = false;
+
     private void Update()
     {
         if (target == null) return;
 
+        if (Input.GetKeyDown(KeyCode.U))
+        {
+            nav.Warp(transform.position);
+            nav.SetDestination(target.position);
+            updatePos = true;
+        }
+        nav.updatePosition = updatePos;
+        print(nav.nextPosition);
+        FixedNavPosition();
         UnitTypeMove();
         enemyIsForward = Set_EnemyIsForword();
     }

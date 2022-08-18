@@ -28,16 +28,19 @@ public class Multi_UnitManager : MonoBehaviourPun
     UnitContorller _controller = new UnitContorller();
     EnemyPlayerDataManager _enemyPlayer = new EnemyPlayerDataManager();
     MasterDataManager _master = new MasterDataManager();
+    UnitStatChanger _stat = new UnitStatChanger();
 
     public static CombineSystem Combine => Instance._combine;
     public static UnitCountManager Count => Instance._count;
     public static UnitContorller Controller => Instance._controller;
     public static EnemyPlayerDataManager EnemyPlayer => Instance._enemyPlayer;
+    public static UnitStatChanger Stat => Instance._stat;
 
     void Init()
     {
         _count.Init();
         _enemyPlayer.Init();
+        _stat.Init();
 
         if (PhotonNetwork.IsMasterClient == false) return;
         _controller.Init();
@@ -266,4 +269,41 @@ public class Multi_UnitManager : MonoBehaviourPun
                     => condition.UnitFlagsCountPair.ToList().ForEach(x => Instance._controller.UnitDead(id, x.Key, x.Value));
         }
     }
+
+    public class UnitStatChanger
+    {
+        int _id;
+
+        public void Init()
+        {
+            _id = Multi_Data.instance.Id;
+        }
+
+        public void UnitStatChange(UnitStatType type, UnitFlags flag, float value)
+        {
+            switch (type)
+            {
+                case UnitStatType.Damage: ChangeDamage(flag, value); break;
+                case UnitStatType.BossDamage: ChangeBossDamage(flag, value); break;
+            }
+        }
+
+        void ChangeDamage(UnitFlags flag, float value)
+        {
+            foreach (var unit in Instance._master.GetUnitList(_id, flag))
+                unit.Damage = Mathf.FloorToInt(unit.Damage * value);
+        }
+
+        void ChangeBossDamage(UnitFlags flag, float value)
+        {
+            foreach (var unit in Instance._master.GetUnitList(_id, flag))
+                unit.BossDamage = Mathf.FloorToInt(unit.BossDamage * value);
+        }
+    }
+}
+
+public enum UnitStatType
+{
+    Damage,
+    BossDamage,
 }

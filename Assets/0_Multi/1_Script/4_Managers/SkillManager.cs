@@ -164,7 +164,7 @@ public class Taegeuk : PassiveSkill
     {
         Debug.Log("태극 시너지 스킬 착용");
         if (Red >= 1 && Blue >= 1 && Ather == 0)
-            Debug.Log("태극 시너지 스킬 발동");
+            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(0,0), 1.5f);
     }
 }
 

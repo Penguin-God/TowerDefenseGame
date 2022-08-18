@@ -28,7 +28,6 @@ public enum EffectSoundType
     SpearmanAttack,
     SpearmanSkill,
     SwordmanAttack,
-    MageAttack,
 }
 
 public enum SoundType

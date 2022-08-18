@@ -41,7 +41,6 @@ public class Multi_Unit_Archer : Multi_RangeUnit
 
     public override void SpecialAttack() => StartCoroutine(Special_ArcherAttack());
 
-    // TODO : 아처 스킬 구조 뜯어 고치기
     IEnumerator Special_ArcherAttack()
     {
         base.SpecialAttack();
@@ -51,11 +50,10 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         if (PhotonNetwork.IsMasterClient)
         {
             Transform[] targetArray =
-            Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target, GetComponent<RPCable>().UsingId);
-            for (int i = 0; i < targetArray.Length; i++)
-            {
+                Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target, rpcable.UsingId);
+            int length = targetArray == null ? 0 : targetArray.Length;
+            for (int i = 0; i < length; i++)
                 ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[i], OnSkileHit);
-            }
         }
 
         yield return new WaitForSeconds(1f);

@@ -17,6 +17,8 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     private int pointIndex = -1;
 
     protected Rigidbody Rigidbody;
+    
+
     protected virtual void Passive() { }
 
     private void Awake()
@@ -32,7 +34,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);
         currentPos = transform.position;
         pointIndex = 0;
-        if (TurnPoints != null && photonView.IsMine) ChaseToPoint();
+        if (TurnPoints != null && PhotonNetwork.IsMasterClient) ChaseToPoint();
     }
 
     [PunRPC]
@@ -69,20 +71,37 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
 
     public override void Dead()
     {
-        base.Dead();
-
+        isResurrection = !isResurrection;
         gameObject.SetActive(false);
         transform.position = new Vector3(500, 500, 500);
+
+        base.Dead();
     }
 
     protected override void ResetValue()
     {
-        base.ResetValue();
         sternEffect.SetActive(false);
         queue_GetSturn.Clear();
+        ResetColor();
+        if (isResurrection) return;
 
+        base.ResetValue();
         pointIndex = -1;
         transform.rotation = Quaternion.identity;
+    }
+
+
+    bool isResurrection = false;
+    public bool IsResurrection => isResurrection;
+
+    public void Resurrection()
+    {
+        print("안녕");
+        rpcable.SetId_RPC(rpcable.UsingId == 0 ? 1 : 0);
+        pointIndex = 0;
+        photonView.RPC("Turn", RpcTarget.All, pointIndex, WayPoint.position);
+        rpcable.SetPosition_RPC(Multi_Data.instance.EnemySpawnPositoins[rpcable.UsingId]);
+        SetStatus_RPC(maxHp, maxSpeed, false);
     }
 
     // TODO : 상태이상 구현 코드 줄일 방법 찾아보기

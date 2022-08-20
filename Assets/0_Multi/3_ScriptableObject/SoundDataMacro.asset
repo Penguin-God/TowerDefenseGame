@@ -48,6 +48,8 @@ MonoBehaviour:
 
     ArcherAttack,
 
+    MageAttack,
+
     MeteorExplosion,
 
     SpearmanAttack,

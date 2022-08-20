@@ -24,6 +24,7 @@ public enum EffectSoundType
     Warning,
     Win,
     ArcherAttack,
+    MageAttack,
     MeteorExplosion,
     SpearmanAttack,
     SpearmanSkill,

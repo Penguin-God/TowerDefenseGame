@@ -27,6 +27,7 @@ public class BattleScene : BaseScene
         Multi_Managers.UI.ShowPopupUI<RandomShop_UI>("InGameShop/Random Shop");
         Multi_Managers.UI.ShowPopupUI<EnemyPlayerInfoWindow>("EnemyPlayerInfoWindow");
 
+        Multi_Managers.UI.ShowSceneUI<LookWorldChangedButton>("LookWorldChangedButton");
         Multi_Managers.UI.ShowSceneUI<EnemySelector_UI>("EnemySelector_UI");
         Multi_Managers.UI.ShowSceneUI<Multi_UI_Paint>("Paint");
         Multi_Managers.UI.ShowSceneUI<UnitCountTracker>("CurrentUnit Panel");

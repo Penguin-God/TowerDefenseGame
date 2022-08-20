@@ -66,7 +66,10 @@ public class Multi_UI_Manager
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.overrideSorting = true; // canvas안의 canvas가 부모 관계없이 독립적인 sort값을 가지게 하는 옵션
         go.GetOrAddComponent<GraphicRaycaster>();
-        go.GetOrAddComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        CanvasScaler canvasScaler = go.GetOrAddComponent<CanvasScaler>();
+        canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
+        canvasScaler.referenceResolution = new Vector2(800, 480);
+
 
         if (sort)
         {
@@ -88,7 +91,7 @@ public class Multi_UI_Manager
         return go.GetOrAddComponent<T>();
     }
 
-    public T ShowSceneUI<T>(string name = null) where T : Multi_UI_Base
+    public T ShowSceneUI<T>(string name = null) where T : Multi_UI_Scene
     {
         if (string.IsNullOrEmpty(name)) name = typeof(T).Name;
 
@@ -132,6 +135,8 @@ public class Multi_UI_Manager
         if (_popupByType.TryGetValue(name, out Multi_UI_Popup popup))
             popup.gameObject.SetActive(false);
     }
+
+    public void ClosePopupUI(PopupGroupType groupType) => popupGroupByGroupType[groupType].OffCurrentPopup();
 
     public void CloseAllPopupUI()
     {

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class EnemyPlayerStatusShowButton : Multi_UI_Scene
 {
+    bool isShow;
     protected override void Init()
     {
         base.Init();
@@ -13,6 +14,10 @@ public class EnemyPlayerStatusShowButton : Multi_UI_Scene
 
     void ShowStatusWinodw()
     {
-        Multi_Managers.UI.ShowPopupUI<EnemyPlayerInfoWindow>("EnemyPlayerInfoWindow").UpdateCount();
+        if (isShow)
+            Multi_Managers.UI.ClosePopupUI("EnemyPlayerInfoWindow");
+        else
+            Multi_Managers.UI.ShowPopupUI<EnemyPlayerInfoWindow>("EnemyPlayerInfoWindow").UpdateCount();
+        isShow = !isShow;
     }
 }

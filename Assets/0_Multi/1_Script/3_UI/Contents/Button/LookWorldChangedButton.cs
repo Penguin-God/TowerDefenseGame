@@ -3,10 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LookWorldChangedButton : Multi_UI_Base
+public class LookWorldChangedButton : Multi_UI_Scene
 {
+    [SerializeField] Sprite lookMyWorldIcon;
+    [SerializeField] Sprite lookEnemyWorldIcon;
+
+    Button button;
     protected override void Init()
     {
-        GetComponent<Button>().onClick.AddListener(Multi_Managers.Camera.LookWorldChanged);
+        base.Init();
+        button = GetComponentInChildren<Button>();
+        button.onClick.AddListener(ChangeLookWorld);
+    }
+
+    void ChangeLookWorld()
+    {
+        Multi_Managers.Camera.LookWorldChanged();
+
+        if (Multi_Managers.Camera.LookWorld_Id == Multi_Data.instance.Id)
+            button.image.sprite = lookMyWorldIcon;
+        else
+            button.image.sprite = lookEnemyWorldIcon;
     }
 }

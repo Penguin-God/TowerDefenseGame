@@ -148,7 +148,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyNumber: 1
   enemyInfoText: "\uC2A4\uD0AC \uACF5\uACA9\uC744 \uBB34\uD6A8\uD654\uD569\uB2C8\uB2E4."
-  offset: {x: 0, y: 80, z: 0}
+  offset: {x: 0, y: 200, z: 0}
 --- !u!1 &3053250624439739750
 GameObject:
   m_ObjectHideFlags: 0
@@ -376,7 +376,7 @@ MonoBehaviour:
   enemyNumber: 2
   enemyInfoText: "\uD3C9\uD0C0 \uACF5\uACA9\uC5D0 \uB300\uD55C \uBC18\uAC10\uC744
     \uAC00\uC9D1\uB2C8\uB2E4,"
-  offset: {x: 0, y: 80, z: 0}
+  offset: {x: 0, y: 200, z: 0}
 --- !u!1 &3053250624633691232
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,7 +679,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyNumber: 3
   enemyInfoText: "\uCCB4\uB825\uC774 1.5\uBC30 \uB192\uC2B5\uB2C8\uB2E4."
-  offset: {x: 0, y: 80, z: 0}
+  offset: {x: 0, y: 200, z: 0}
 --- !u!1 &3053250625478224085
 GameObject:
   m_ObjectHideFlags: 0
@@ -985,4 +985,4 @@ MonoBehaviour:
   enemyNumber: 0
   enemyInfoText: "\uC774\uB3D9\uC18D\uB3C4\uAC00 1.5\uBC30 \uB192\uACE0 \uC2AC\uB85C\uC6B0\uC5D0
     \uB300\uD55C \uBC18\uAC10\uC744 \uAC00\uC9D1\uB2C8\uB2E4."
-  offset: {x: 0, y: 80, z: 0}
+  offset: {x: 0, y: 200, z: 0}

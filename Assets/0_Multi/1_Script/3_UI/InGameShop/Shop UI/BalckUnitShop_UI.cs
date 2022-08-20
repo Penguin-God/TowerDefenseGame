@@ -22,5 +22,9 @@ public class BalckUnitShop_UI : Multi_UI_Popup
         GetButton((int)Buttons.BlackMageCombineButton).onClick.AddListener(() => TryCombineBlackUnit(3));
     }
 
-    void TryCombineBlackUnit(int classNumber) => Multi_UnitManager.Combine.TryCombine_RPC(new UnitFlags(7, classNumber));
+    void TryCombineBlackUnit(int classNumber)
+    {
+        if(Multi_UnitManager.Combine.TryCombine_RPC(new UnitFlags(7, classNumber)))
+            Multi_Managers.UI.ClosePopupUI(PopupGroupType.UnitWindow);
+    }
 }

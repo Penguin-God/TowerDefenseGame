@@ -286,7 +286,7 @@ MonoBehaviour:
     _UnitFlags:
       _colorNumber: -1
       _classNumber: 3
-    _icon: {fileID: 21300000, guid: 334611576a31e4508bfe687bb31f7dcf, type: 3}
+    _icon: {fileID: 21300000, guid: d792da8069e8d43e9b5711c788418871, type: 3}
     _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
     _unitClassName: "\uB9C8\uBC95\uC0AC"
   _unitTrackserSetter: {fileID: 0}
@@ -726,7 +726,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 334611576a31e4508bfe687bb31f7dcf, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d792da8069e8d43e9b5711c788418871, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

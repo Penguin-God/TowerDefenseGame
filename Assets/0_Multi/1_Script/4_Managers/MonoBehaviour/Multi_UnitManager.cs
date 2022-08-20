@@ -52,7 +52,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode) => Controller.UnitWorldChanged(id, flag, enterStroyMode);
 
     [PunRPC] // CombineSystem에서 사용
-    void TryCombine(UnitFlags flag, int id) => Combine.TryCombine(flag, id);
+    void TryCombine(UnitFlags flag, int id, bool isSuccess) => Combine.TryCombine(flag, id, isSuccess);
 
     [PunRPC] // Controller에서 사용
     void UnitDead(int id, UnitFlags unitFlag, int count) => Controller.UnitDead(id, unitFlag, count);
@@ -244,16 +244,21 @@ public class Multi_UnitManager : MonoBehaviourPun
     {
         public RPCAction<bool, UnitFlags> OnTryCombine = new RPCAction<bool, UnitFlags>();
 
-        public void TryCombine_RPC(UnitFlags flag) => Instance.photonView.RPC("TryCombine", RpcTarget.MasterClient, flag, Multi_Data.instance.Id);
+        public bool TryCombine_RPC(UnitFlags flag)
+        {
+            bool result = CheckCombineable(flag);
+            Instance.photonView.RPC("TryCombine", RpcTarget.MasterClient, flag, Multi_Data.instance.Id, result);
+            return result;
+        }
 
-        bool CheckCombineable(CombineCondition conditions, int id)
-            => conditions.UnitFlagsCountPair.All(x => Instance._master.GetUnitList(id, x.Key).Count >= x.Value);
+        bool CheckCombineable(UnitFlags flag)
+            => Multi_Managers.Data.CombineConditionByUnitFalg[flag].UnitFlagsCountPair.All(x => Instance._count.HasUnit(x.Key, x.Value));
 
-        public void TryCombine(UnitFlags flag, int id)
+        public void TryCombine(UnitFlags flag, int id, bool isSuccess)
         {
             Debug.Assert(PhotonNetwork.IsMasterClient, "마스터가 아닌데 유닛 조합을 하려고 함");
 
-            if (CheckCombineable(Multi_Managers.Data.CombineConditionByUnitFalg[flag], id))
+            if (isSuccess)
                 Combine(flag, id);
             else
                 OnTryCombine?.RaiseEvent(id, false, flag);

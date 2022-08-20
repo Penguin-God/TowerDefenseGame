@@ -74,7 +74,7 @@ public class EnemySelector_UI : Multi_UI_Scene
 
     IEnumerator Co_ShowEnemyInfo(EnemySelector_Button seleceButton)
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
         isShowInfoWindow = true;
         seleceButton.ShwoInfoWindow();
     }

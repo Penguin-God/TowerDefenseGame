@@ -108,6 +108,9 @@ public class Multi_Data : MonoBehaviourPun
         return _result;
     }
 
+    [SerializeField] Vector3[] respawnPositons;
+    public Vector3[] RespawnPositons => respawnPositons;
+
     [Header("Unit")]
     [SerializeField] Vector3[] unitSpawnPos = null;
     [SerializeField] Vector3[] unitTowerSpawnPos = null;

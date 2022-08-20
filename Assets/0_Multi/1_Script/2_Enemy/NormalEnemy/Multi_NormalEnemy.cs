@@ -21,7 +21,8 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
 
     protected virtual void Passive() { }
 
-    private void Awake()
+
+    protected override void Init()
     {
         Rigidbody = GetComponent<Rigidbody>();
     }
@@ -33,7 +34,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         Passive();
         TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);
         currentPos = transform.position;
-        pointIndex = 0;
+        if(pointIndex == -1) pointIndex = 0;
         if (TurnPoints != null && PhotonNetwork.IsMasterClient) ChaseToPoint();
     }
 
@@ -51,7 +52,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
 
         // 실제 이동을 위한 속도 설정
         dir = (WayPoint.position - transform.position).normalized;
-        GetComponent<RPCable>().SetVelocity_RPC(dir * speed);
+        rpcable.SetVelocity_RPC(dir * speed);
         //RPC_Utility.Instance.RPC_Velocity(PV.ViewID, dir * speed);
     }
 
@@ -71,7 +72,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
 
     public override void Dead()
     {
-        isResurrection = !isResurrection;
+        //isResurrection = !isResurrection;
         gameObject.SetActive(false);
         transform.position = new Vector3(500, 500, 500);
 
@@ -96,12 +97,11 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
 
     public void Resurrection()
     {
-        print("안녕");
         rpcable.SetId_RPC(rpcable.UsingId == 0 ? 1 : 0);
-        pointIndex = 0;
-        photonView.RPC("Turn", RpcTarget.All, pointIndex, WayPoint.position);
-        rpcable.SetPosition_RPC(Multi_Data.instance.EnemySpawnPositoins[rpcable.UsingId]);
+        pointIndex = 2;
+        rpcable.SetPosition_RPC(Multi_Data.instance.RespawnPositons[rpcable.UsingId]);
         SetStatus_RPC(maxHp, maxSpeed, false);
+        print(pointIndex);
     }
 
     // TODO : 상태이상 구현 코드 줄일 방법 찾아보기

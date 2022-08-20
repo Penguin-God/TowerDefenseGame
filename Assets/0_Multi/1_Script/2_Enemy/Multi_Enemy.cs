@@ -41,7 +41,7 @@ public class Multi_Enemy : MonoBehaviourPun
 
     public event Action OnDeath = null;
 
-    private void Start()
+    private void Awake()
     {
         rpcable = GetComponent<RPCable>();
         // originMat = GetComponentInChildren<MeshRenderer>().material;
@@ -49,8 +49,13 @@ public class Multi_Enemy : MonoBehaviourPun
         meshList = new List<MeshRenderer>();
         MeshRenderer[] addMeshs = GetComponentsInChildren<MeshRenderer>();
         for (int i = 0; i < addMeshs.Length; i++) meshList.Add(addMeshs[i]);
+        Init();
     }
 
+    protected virtual void Init()
+    {
+
+    }
 
     public void SetStatus_RPC(int _hp, float _speed, bool _isDead) => PV.RPC("SetStatus", RpcTarget.All, _hp, _speed, _isDead);
 

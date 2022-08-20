@@ -62,7 +62,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
         if (PhotonNetwork.IsMasterClient == false) return;
         enemy.OnDeath += () => OnDead(enemy);
-        enemy.OnDeath += () => ResurrectionOrDead(enemy);
+        enemy.OnDeath += () => Multi_Managers.Pool.Push(enemy.GetComponent<Poolable>());
     }
 
     void ResurrectionOrDead(Multi_NormalEnemy enemy)

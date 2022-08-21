@@ -81,8 +81,13 @@ public class Multi_SoundManager
         if (condition())
             PlayEffect(sound, volumeScale);
     }
-    public void PlayEffect(EffectSoundType sound, float volumeScale = 1)
-        => PlayEffect(effectBySound[sound].Path, (volumeScale < 0) ? effectBySound[sound].Volumn : volumeScale);
+    public void PlayEffect(EffectSoundType sound, float volumeScale = -1)
+    {
+        Debug.Log($"오디오 데이타 볼륨 : {effectBySound[sound].Volumn } ");
+        float vol = (volumeScale < 0) ? effectBySound[sound].Volumn : volumeScale;
+        Debug.Log($"오디오 볼륨 : {vol} ");
+        PlayEffect(effectBySound[sound].Path, (volumeScale < 0) ? effectBySound[sound].Volumn : volumeScale);
+    }
     public void PlayEffect(string path, float volumeScale) => PlayEffect(GetOrAddClip(path), volumeScale);
     public void PlayEffect(AudioClip clip, float volumeScale) => _sources[(int)SoundType.Effect].PlayOneShot(clip, volumeScale);
 

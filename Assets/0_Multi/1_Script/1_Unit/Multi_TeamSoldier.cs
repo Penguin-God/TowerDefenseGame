@@ -455,14 +455,14 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     void AttackEnemy(Multi_Enemy enemy, int damage, bool isSkill = false) => enemy.OnDamage(damage, isSkill);
     #endregion
 
-    IEnumerator Co_AfterPlaySound(EffectSoundType type, float delayTime, float volumn = 1)
+    IEnumerator Co_AfterPlaySound(EffectSoundType type, float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
-        PlaySound(type, volumn);
+        PlaySound(type);
     }
-    protected void PlaySound(EffectSoundType type, float volumn = 1)
+    protected void PlaySound(EffectSoundType type)
     {
-        Multi_Managers.Sound.PlayEffect_If(type, SoundCondition, volumn);
+        Multi_Managers.Sound.PlayEffect_If(type, SoundCondition);
 
         bool SoundCondition()
             => rpcable.UsingId == Multi_Managers.Camera.LookWorld_Id && enterStoryWorld == Multi_Managers.Camera.IsLookEnemyTower;

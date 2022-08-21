@@ -17,8 +17,8 @@ UnitUp,0.5,Effect/UnitUp
 Warning,0.5,Effect/Warning
 Win,0.5,Effect/Win
 ArcherAttack,0.5,Unit/ArcherAttack
-MageAttack,1,Unit/MageAttack
-MeteorExplosion,1,Unit/MeteorExplosion
-SpearmanAttack,1,Unit/SpearmanAttack
-SpearmanSkill,1,Unit/SpearmanSkill
-SwordmanAttack,1,Unit/SwordmanAttack
+MageAttack,0.5,Unit/MageAttack
+MeteorExplosion,0.5,Unit/MeteorExplosion
+SpearmanAttack,0.5,Unit/SpearmanAttack
+SpearmanSkill,0.5,Unit/SpearmanSkill
+SwordmanAttack,0.2,Unit/SwordmanAttack

@@ -68,13 +68,13 @@ public class Multi_Data : MonoBehaviourPun
 
     // 타워를 보는 카메라 포지션
     [SerializeField] Vector3[] cameraPositions_LookAtTower = null;
-    public Vector3[] CameraPositions_LookAtTower => cameraPositions_LookAtTower;
-    public Vector3 CameraPosition_LookAtTower => cameraPositions_LookAtTower[id];
+    //public Vector3[] CameraPositions_LookAtTower => cameraPositions_LookAtTower;
+    //public Vector3 CameraPosition_LookAtTower => cameraPositions_LookAtTower[id];
     
     [Header("World")]
     
     [SerializeField] Vector3[] worldPostions = null;
-    public Vector3[] WorldPostions => worldPostions;
+    //public Vector3[] WorldPostions => worldPostions;
     public Vector3 WorldPostion => worldPostions[id];
     public Vector3 GetWorldPosition(int id) => worldPostions[id];
 
@@ -83,7 +83,7 @@ public class Multi_Data : MonoBehaviourPun
     public Vector3 EnemyTowerWorldPosition => enemyTowerWorldPositions[id];
 
     [Header("Enemy")]
-    [SerializeField] Vector3[] enemySpawnPos = null;
+    //[SerializeField] Vector3[] enemySpawnPos = null;
     //public Vector3 EnemySpawnPos => enemySpawnPos[id];
     //public Vector3[] EnemySpawnPositoins => enemySpawnPos;
 
@@ -108,21 +108,21 @@ public class Multi_Data : MonoBehaviourPun
         return _result;
     }
 
-    [SerializeField] Vector3[] respawnPositons;
-    public Vector3[] RespawnPositons => respawnPositons;
+    //[SerializeField] Vector3[] respawnPositons;
+    //public Vector3[] RespawnPositons => respawnPositons;
 
-    [Header("Unit")]
-    [SerializeField] Vector3[] unitSpawnPos = null;
-    [SerializeField] Vector3[] unitTowerSpawnPos = null;
+    //[Header("Unit")]
+    //[SerializeField] Vector3[] unitSpawnPos = null;
+    //[SerializeField] Vector3[] unitTowerSpawnPos = null;
 
-    [Header("Debug data")]
-    [SerializeField] Vector3 my_cameraPosition;
-    [SerializeField] Vector3 my_enemyTowerPosition;
-    [SerializeField] Transform[] my_EnemyTurnPoints;
-    void SetDebugData()
-    {
-        my_cameraPosition = CameraPosition;
-        my_enemyTowerPosition = CameraPosition_LookAtTower;
-        my_EnemyTurnPoints = GetEnemyTurnPoints(id);
-    }
+    //[Header("Debug data")]
+    //[SerializeField] Vector3 my_cameraPosition;
+    //[SerializeField] Vector3 my_enemyTowerPosition;
+    //[SerializeField] Transform[] my_EnemyTurnPoints;
+    //void SetDebugData()
+    //{
+    //    my_cameraPosition = CameraPosition;
+    //    //my_enemyTowerPosition = CameraPosition_LookAtTower;
+    //    my_EnemyTurnPoints = GetEnemyTurnPoints(id);
+    //}
 }

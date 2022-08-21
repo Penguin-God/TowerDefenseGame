@@ -44,7 +44,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     {
         int targetId = (Multi_Data.instance.Id == 0) ? 1 : 0;
         if (isTest) targetId = 0;
-        Spawn_RPC(GetCurrentEnemyPath(enemyNum), Multi_Data.instance.EnemySpawnPositoins[targetId], targetId);
+        Spawn_RPC(GetCurrentEnemyPath(enemyNum), spawnPositions[targetId], targetId);
     }
     [PunRPC]
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
@@ -95,5 +95,5 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     #endregion
 
     // TODO : #if 조건문으로 빼기
-    public void Spawn(int enemyNum, int id) => Spawn_RPC(GetCurrentEnemyPath(enemyNum), Multi_Data.instance.EnemySpawnPositoins[id], id);
+    public void Spawn(int enemyNum, int id) => Spawn_RPC(GetCurrentEnemyPath(enemyNum), spawnPositions[id], id);
 }

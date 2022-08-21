@@ -4,18 +4,17 @@ using UnityEngine;
 using System;
 using System.Linq;
 using Photon.Pun;
+using Random = UnityEngine.Random;
 
 public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
 {
     public event Action<Multi_BossEnemy> OnSpawn;
     public event Action<Multi_BossEnemy> OnDead;
-    Vector3 spawnPos;
-
+    
     // Init용 코드
     #region Init
     protected override void Init()
     {
-        spawnPos = Multi_Data.instance.EnemySpawnPos;
         Multi_StageManager.Instance.OnUpdateStage += RespawnBoss;
     }
 
@@ -47,7 +46,7 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     void Spawn()
     {
         bossLevel++;
-        Spawn_RPC(BuildPath(_rootPath, _enemys[0]), spawnPos);
+        Spawn_RPC(BuildPath(_rootPath, _enemys[Random.Range(0, _enemys.Length)]), Vector3.zero);
     }
 
     [SerializeField] int bossLevel;
@@ -55,7 +54,7 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     [PunRPC]
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
     {
-        Multi_BossEnemy enemy = base.BaseSpawn(path, spawnPos, rotation, id).GetComponent<Multi_BossEnemy>();
+        Multi_BossEnemy enemy = base.BaseSpawn(path, spawnPositions[id], rotation, id).GetComponent<Multi_BossEnemy>();
         enemy.Spawn(bossLevel);
         OnSpawn?.Invoke(enemy);
         return null;

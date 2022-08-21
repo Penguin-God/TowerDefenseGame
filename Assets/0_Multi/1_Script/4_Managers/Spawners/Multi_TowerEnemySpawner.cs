@@ -51,7 +51,7 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
     }
 
     void Spawn() => Spawn(Multi_Data.instance.Id);
-    void Spawn(int id) => Spawn_RPC(BuildPath(_rootPath, _enemys[_towerLevel.Get(id)]), Multi_Data.instance.EnemyTowerWorldPositions[id], id);
+    void Spawn(int id) => Spawn_RPC(BuildPath(_rootPath, _enemys[_towerLevel.Get(id)]), spawnPositions[id], id);
 
     [PunRPC]
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)

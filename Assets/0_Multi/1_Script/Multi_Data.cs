@@ -84,20 +84,20 @@ public class Multi_Data : MonoBehaviourPun
 
     [Header("Enemy")]
     [SerializeField] Vector3[] enemySpawnPos = null;
-    public Vector3 EnemySpawnPos => enemySpawnPos[id];
-    public Vector3[] EnemySpawnPositoins => enemySpawnPos;
+    //public Vector3 EnemySpawnPos => enemySpawnPos[id];
+    //public Vector3[] EnemySpawnPositoins => enemySpawnPos;
 
     // 적 회전 지점
     [SerializeField] Transform[] enemyTurnPointParents = null;
-    public Transform[] EnemyTurnPoints
-    {
-        get
-        {
-            Transform[] _result = new Transform[enemyTurnPointParents[id].childCount];
-            for (int i = 0; i < _result.Length; i++) _result[i] = enemyTurnPointParents[id].GetChild(i);
-            return _result;
-        }
-    }
+    //public Transform[] EnemyTurnPoints
+    //{
+    //    get
+    //    {
+    //        Transform[] _result = new Transform[enemyTurnPointParents[id].childCount];
+    //        for (int i = 0; i < _result.Length; i++) _result[i] = enemyTurnPointParents[id].GetChild(i);
+    //        return _result;
+    //    }
+    //}
 
     public Transform[] GetEnemyTurnPoints(GameObject go) => GetEnemyTurnPoints(go.GetComponent<RPCable>().UsingId);
     Transform[] GetEnemyTurnPoints(int id)

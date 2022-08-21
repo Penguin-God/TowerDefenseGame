@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using System.Text;
+using System.Linq;
 
 [CreateAssetMenu(fileName = "SoundDatasMacro", menuName = "Macro/Sounds")]
 public class SoundDatasMacro : ScriptableObject
@@ -14,19 +15,35 @@ public class SoundDatasMacro : ScriptableObject
     [ContextMenu("Save Csv File")]
     void SaveCsv()
     {
+        string csv = Resources.Load<TextAsset>("Data/SoundData/EffectSoundData").text;
+        Dictionary<string, float> pathBuVolumn = CsvUtility.GetEnumerableFromCsv<EffcetSound>(csv).ToDictionary(x => x.Path, x => x.Volumn);
+
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.Append("effectType,path");
+        stringBuilder.Append("effectType,volumn,path");
         stringBuilder.Append('\n');
         foreach (string path in Directory.GetFiles(clipPath, "*.wav", SearchOption.AllDirectories))
         {
-            string value = path.Replace(clipPath, "").Replace(".wav", "").Replace("\\", "/");
-            stringBuilder.Append(value.Split('/')[value.Split('/').Length - 1]);
+            string resourcesPath = FilePathToResourcesPath(path);
+            stringBuilder.Append(GetClipFileName(resourcesPath));
             stringBuilder.Append(",");
-            stringBuilder.Append(value);
+            stringBuilder.Append(GetVolumn(pathBuVolumn, resourcesPath));
+            stringBuilder.Append(",");
+            stringBuilder.Append(resourcesPath);
             stringBuilder.Append('\n');
         }
         Save(stringBuilder.ToString(), filePath);
     }
+
+    string GetClipFileName(string path) => path.Split('/')[path.Split('/').Length - 1];
+    string FilePathToResourcesPath(string path) => path.Replace(clipPath, "").Replace(".wav", "").Replace("\\", "/");
+    float GetVolumn(Dictionary<string, float> pathBuVolumn, string path)
+    {
+        if (pathBuVolumn.TryGetValue(path, out float result) && result > 0.001)
+            return result;
+        else
+            return 0.5f;
+    }
+
 
     [ContextMenu("Set Enum Text")]
     void SetEnumText()

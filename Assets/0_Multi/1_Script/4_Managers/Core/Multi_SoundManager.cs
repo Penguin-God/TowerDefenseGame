@@ -41,7 +41,7 @@ public class Multi_SoundManager
 {
     AudioSource[] _sources;
     Dictionary<string, AudioClip> _clipByPath = new Dictionary<string, AudioClip>();
-    Dictionary<EffectSoundType, string> pathBySound = new Dictionary<EffectSoundType, string>();
+    Dictionary<EffectSoundType, EffcetSound> effectBySound = new Dictionary<EffectSoundType, EffcetSound>();
 
     public void Init(Transform parent)
     {
@@ -61,7 +61,7 @@ public class Multi_SoundManager
             _sources[(int)SoundType.Bgm].loop = true;
 
             string csv = Multi_Managers.Resources.Load<TextAsset>("Data/SoundData/EffectSoundData").text;
-            pathBySound = CsvUtility.GetEnumerableFromCsv<EffcetSound>(csv).ToDictionary(x => x.EffectType, x => x.Path);
+            effectBySound = CsvUtility.GetEnumerableFromCsv<EffcetSound>(csv).ToDictionary(x => x.EffectType, x => x);
         }
         root.transform.parent = parent;
     }
@@ -76,12 +76,13 @@ public class Multi_SoundManager
         _audioSource.Play();
     }
 
-    public void PlayEffect(EffectSoundType sound, Func<bool> condition, float volumeScale = 1)
+    public void PlayEffect_If(EffectSoundType sound, Func<bool> condition, float volumeScale = -1)
     {
         if (condition())
             PlayEffect(sound, volumeScale);
     }
-    public void PlayEffect(EffectSoundType sound, float volumeScale = 1) => PlayEffect(pathBySound[sound], volumeScale);
+    public void PlayEffect(EffectSoundType sound, float volumeScale = 1)
+        => PlayEffect(effectBySound[sound].Path, (volumeScale < 0) ? effectBySound[sound].Volumn : volumeScale);
     public void PlayEffect(string path, float volumeScale) => PlayEffect(GetOrAddClip(path), volumeScale);
     public void PlayEffect(AudioClip clip, float volumeScale) => _sources[(int)SoundType.Effect].PlayOneShot(clip, volumeScale);
 

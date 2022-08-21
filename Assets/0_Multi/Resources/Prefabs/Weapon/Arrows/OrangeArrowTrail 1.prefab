@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -2968666561141231667}
   - component: {fileID: 1450509886485553548}
   - component: {fileID: -5680485445141292488}
+  - component: {fileID: 5617797800857711499}
   m_Layer: 0
   m_Name: OrangeArrowTrail 1
   m_TagString: Attack
@@ -254,3 +255,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _usingId: -1
+--- !u!114 &5617797800857711499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5831825776667280579}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2252a23f0142a094f9ef9b9e904152fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

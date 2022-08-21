@@ -25,13 +25,4 @@ public class MultiDevelopHelper : MonoBehaviourPunCallbacks
 
     // 방 접속 실패 시 방 생성
     public override void OnJoinRandomFailed(short returnCode, string message) => PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 2 });
-
-    // 카메라 이동
-    [SerializeField] Camera editorCamera = null;
-    private bool isLook_HostWorld = PhotonNetwork.IsMasterClient;
-    public void CameraMove() // 테스팅 UI에서도 사용 중
-    {
-        editorCamera.transform.position = (isLook_HostWorld) ? Multi_Data.instance.CameraPositions[1] : Multi_Data.instance.CameraPositions[0];
-        isLook_HostWorld = !isLook_HostWorld;
-    }
 }

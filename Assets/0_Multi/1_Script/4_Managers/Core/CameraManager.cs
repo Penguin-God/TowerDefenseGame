@@ -29,6 +29,7 @@ public class CameraManager
 
         currentCamera = Camera.main;
         _lookWorld_Id = Multi_Data.instance.Id;
+        UpdateCameraPosition();
     }
 
     void UpdateCameraPosition() => currentCamera.transform.position = positions[_lookWorld_Id, lookTowerId];
@@ -36,20 +37,17 @@ public class CameraManager
     public void LookWorldChanged()
     {
         _lookWorld_Id = (_lookWorld_Id == 0) ? 1 : 0;
-        //currentCamera.transform.position = Multi_Data.instance.CameraPositions[_lookWorld_Id];
         UpdateCameraPosition();
     }
 
     public void LookEnemyTower()
     {
-        //currentCamera.transform.position = Multi_Data.instance.CameraPositions_LookAtTower[_lookWorld_Id];
         _isLookEnemyTower = true;
         UpdateCameraPosition();
     }
 
     public void LookWorld()
     {
-        //currentCamera.transform.position = Multi_Data.instance.CameraPositions[_lookWorld_Id];
         _isLookEnemyTower = false;
         UpdateCameraPosition();
     }

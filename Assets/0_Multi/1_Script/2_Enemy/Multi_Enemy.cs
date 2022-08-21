@@ -25,7 +25,7 @@ public class Multi_Enemy : MonoBehaviourPun
 
     public Vector3 dir = Vector3.zero;
 
-    protected RPCable rpcable;
+    public RPCable rpcable;
     protected List<MeshRenderer> meshList;
     [SerializeField] protected Material originMat;
 

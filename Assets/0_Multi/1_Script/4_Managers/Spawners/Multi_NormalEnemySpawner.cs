@@ -46,6 +46,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
         if (isTest) targetId = 0;
         Spawn_RPC(GetCurrentEnemyPath(enemyNum), spawnPositions[targetId], targetId);
     }
+
     [PunRPC]
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
     {
@@ -53,7 +54,17 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
         NormalEnemyData data = Multi_Managers.Data.NormalEnemyDataByStage[Multi_StageManager.Instance.CurrentStage];
         enemy.SetStatus_RPC(data.Hp, data.Speed, false);
         OnSpawn?.Invoke(enemy);
-        return null;
+        return enemy.gameObject;
+    }
+
+    void EenmySpawnToOtherWorld(Multi_NormalEnemy enemy)
+    {
+        if (enemy.IsResurrection) return;
+
+        int id = enemy.rpcable.UsingId == 0 ? 1 : 0;
+        var _newEnemy = BaseSpawn(GetCurrentEnemyPath(enemy.GetEnemyNumber), spawnPositions[id], Quaternion.identity, id).GetComponent<Multi_NormalEnemy>();
+        _newEnemy.SetStatus_RPC(enemy.maxHp, enemy.maxSpeed, false);
+        _newEnemy.Resurrection();
     }
 
     void SetEnemy(Multi_NormalEnemy enemy)
@@ -62,17 +73,11 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
         if (PhotonNetwork.IsMasterClient == false) return;
         enemy.OnDeath += () => OnDead(enemy);
-        enemy.OnDeath += () => Multi_Managers.Pool.Push(enemy.GetComponent<Poolable>());
-    }
-
-    void ResurrectionOrDead(Multi_NormalEnemy enemy)
-    {
-        if (enemy.IsResurrection)
-            enemy.Resurrection();
-        else
+        enemy.OnDeath += () =>
+        {
+            EenmySpawnToOtherWorld(enemy);
             Multi_Managers.Pool.Push(enemy.GetComponent<Poolable>());
-        
-        OnSpawn?.Invoke(enemy);
+        };
     }
 
     // 콜백용 코드

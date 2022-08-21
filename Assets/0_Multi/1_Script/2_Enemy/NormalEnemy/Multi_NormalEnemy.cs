@@ -53,7 +53,6 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         // 실제 이동을 위한 속도 설정
         dir = (WayPoint.position - transform.position).normalized;
         rpcable.SetVelocity_RPC(dir * speed);
-        //RPC_Utility.Instance.RPC_Velocity(PV.ViewID, dir * speed);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -68,25 +67,21 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         }
     }
 
-
-
+    [ContextMenu("으앙 주금")]
     public override void Dead()
     {
-        //isResurrection = !isResurrection;
+        base.Dead();
         gameObject.SetActive(false);
         transform.position = new Vector3(500, 500, 500);
-
-        base.Dead();
     }
 
     protected override void ResetValue()
     {
+        base.ResetValue();
+        isResurrection = false;
         sternEffect.SetActive(false);
         queue_GetSturn.Clear();
         ResetColor();
-        if (isResurrection) return;
-
-        base.ResetValue();
         pointIndex = -1;
         transform.rotation = Quaternion.identity;
     }
@@ -97,11 +92,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
 
     public void Resurrection()
     {
-        rpcable.SetId_RPC(rpcable.UsingId == 0 ? 1 : 0);
-        pointIndex = 2;
-        rpcable.SetPosition_RPC(Multi_Data.instance.RespawnPositons[rpcable.UsingId]);
-        SetStatus_RPC(maxHp, maxSpeed, false);
-        print(pointIndex);
+        isResurrection = true;
     }
 
     // TODO : 상태이상 구현 코드 줄일 방법 찾아보기
@@ -235,8 +226,6 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         {
             currentPos = (Vector3)stream.ReceiveNext();
             LerpUtility.LerpPostition(transform, currentPos);
-            //if ((transform.position - currentPos).sqrMagnitude <= 100) transform.position = currentPos;
-            //else transform.position = Vector3.Lerp(transform.position, currentPos, Time.deltaTime * 10);
         }
     }
 

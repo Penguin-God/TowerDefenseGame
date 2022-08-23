@@ -7,7 +7,7 @@ public class Multi_OrangeMage : Multi_Unit_Mage
     [SerializeField] int count;
     [SerializeField] float percent;
 
-    public override void OnAwake()
+    protected override void OnAwake()
     {
         base.OnAwake();
         count = (int)skillStats[0];

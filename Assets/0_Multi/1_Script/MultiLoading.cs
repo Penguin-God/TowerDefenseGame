@@ -7,7 +7,6 @@ using Photon.Realtime;
 
 public class MultiLoading : MonoBehaviourPun
 {
-    
     // 게임 시작 버튼으로 카운트를 올려서 2명이 누르면 게임 시작
     public Button MultiGameStartButton;
 
@@ -19,22 +18,6 @@ public class MultiLoading : MonoBehaviourPun
         stateText.text = PhotonNetwork.CountOfPlayers.ToString();
     }
 
-    public void ClickMultiStartButton()
-    {
-        if (!photonView.IsMine)
-        {
-            GameStartCount += 1;
-            return;          
-        }
-
-        
-        MultiGameStartButton.interactable = false;
-        if (GameStartCount == 2)
-        {
-            PhotonNetwork.LoadLevel("합친 씬 - 장익준 멀티");
-        }
-    }
-
     // 이거 사용중
     public void TestClickMultiStartButton()
     {
@@ -44,6 +27,6 @@ public class MultiLoading : MonoBehaviourPun
         //    return;
         //}
         MultiGameStartButton.interactable = false;
-        PhotonNetwork.LoadLevel("New_Scene");
+        Multi_Managers.Scene.LoadLevel(SceneTyep.New_Scene);
     }
 }

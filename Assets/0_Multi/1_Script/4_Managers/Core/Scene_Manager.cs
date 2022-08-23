@@ -31,5 +31,5 @@ public class Scene_Manager
         CurrentSceneType = type;
     }
 
-    public void Clear() => CurrentScene.Clear();
+    public void Clear() => CurrentScene?.Clear();
 }

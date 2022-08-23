@@ -18,13 +18,14 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     [SerializeField] protected GameObject mageSkillObject = null;
 
     ManaSystem manaSystem;
-    public override void OnAwake()
+    protected override void OnAwake()
     {
         LoadMageStat();
         SetMageAwake();
 
         energyballData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, energyballData.SpawnTransform);
         skillData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[1], transform, skillData.SpawnTransform);
+        normalAttackSound = EffectSoundType.MageAttack;
     }
 
     void LoadMageStat()

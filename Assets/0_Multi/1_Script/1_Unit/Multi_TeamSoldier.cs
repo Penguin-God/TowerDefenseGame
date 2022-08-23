@@ -51,7 +51,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     protected RPCable rpcable;
     protected AudioSource unitAudioSource;
     [SerializeField] protected AudioClip normalAttackClip;
-    [SerializeField] EffectSoundType normalAttackSound;
+    [SerializeField] protected EffectSoundType normalAttackSound;
     public float normalAttakc_AudioDelay;
 
     public GameObject reinforceEffect;
@@ -66,7 +66,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     #endregion
 
     #region Virual Funtion
-    public virtual void OnAwake() { } // 유닛마다 다른 Awake 세팅
+    protected virtual void OnAwake() { } // 유닛마다 다른 Awake 세팅
     public virtual void SetInherenceData() { } // 기본 데이터를 기반으로 유닛 고유 데이터 세팅
     public virtual void NormalAttack() { } // 유닛들의 고유한 공격
     public virtual void SpecialAttack() => isSkillAttack = true; // 유닛마다 다른 스킬공격 (기사는 없음)

@@ -8,6 +8,11 @@ public class Multi_Unit_Swordman : Multi_MeleeUnit
     [Header("기사 변수")]
     [SerializeField] GameObject trail;
 
+    protected override void OnAwake()
+    {
+        normalAttackSound = EffectSoundType.SwordmanAttack;
+    }
+
     [PunRPC]
     public override void NormalAttack()
     {

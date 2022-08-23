@@ -14,9 +14,10 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     [SerializeField]
     private AudioClip skillAudioClip;
 
-    public override void OnAwake()
+    protected override void OnAwake()
     {
         shotSpearData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, shotSpearData.SpawnTransform);
+        normalAttackSound = EffectSoundType.SpearmanAttack;
     }
 
     public override void SetInherenceData()
@@ -58,8 +59,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
             weapon.GetComponent<RPCable>().SetRotate_RPC(new Vector3(90, 0, 0));
         }
 
-        if (enterStoryWorld == Multi_Managers.Camera.IsLookEnemyTower)
-            unitAudioSource.PlayOneShot(skillAudioClip, 0.12f);
+        PlaySound(EffectSoundType.SpearmanSkill);
 
         yield return new WaitForSeconds(0.5f);
         nav.isStopped = false;

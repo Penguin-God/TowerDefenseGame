@@ -11,7 +11,7 @@ public class Multi_VioletMage : Multi_Unit_Mage
     [SerializeField] float delay;
     [SerializeField] int maxDamage;
 
-    public override void OnAwake()
+    protected override void OnAwake()
     {
         base.OnAwake();
         percent = (int)skillStats[0];

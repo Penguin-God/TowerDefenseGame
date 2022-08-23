@@ -40,7 +40,7 @@ MonoBehaviour:
 
     TransformWhiteUnit,
 
-    UnitUp,
+    UnitTp,
 
     Warning,
 

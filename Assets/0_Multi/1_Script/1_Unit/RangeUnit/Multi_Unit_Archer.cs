@@ -10,10 +10,11 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     [SerializeField] int skillAttackTargetCount = 3;
     private GameObject trail;
 
-    public override void OnAwake()
+    protected override void OnAwake()
     {
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
         arrawData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0],transform, arrawData.SpawnTransform);
+        normalAttackSound = EffectSoundType.ArcherAttack;
     }
 
     public override void SetInherenceData()
@@ -27,7 +28,6 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         base.StartAttack();
 
         LockMove();
-        // nav.isStopped = true;
         trail.SetActive(false);
         if (PhotonNetwork.IsMasterClient && target != null && enemyDistance < chaseRange)
         {
@@ -36,9 +36,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
 
-        // nav.isStopped = false;
         ReleaseMove();
-
         EndAttack();
     }
 

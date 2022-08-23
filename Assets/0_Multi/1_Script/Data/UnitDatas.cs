@@ -58,27 +58,29 @@ public struct UnitFlags : IEquatable<UnitFlags>
 }
 
 [Serializable]
-public struct CombineCondition
+public class CombineCondition
 {
     [SerializeField] UnitFlags _targetUnitFlag;
-    [SerializeField] UnitFlags[] _unitFlags; // 조합에 필요한 유닛의 플래그
-    [SerializeField] int[] _counts;
-    List<KeyValuePair<UnitFlags, int>> _unitFlagsCountPair;
+    //[SerializeField] UnitFlags[] _unitFlags; // 조합에 필요한 유닛의 플래그
+    //[SerializeField] int[] _counts;
+    [SerializeField] Dictionary<UnitFlags, int> _needCountByFlag = new Dictionary<UnitFlags, int>();
+    //List<KeyValuePair<UnitFlags, int>> _unitFlagsCountPair;
 
     public UnitFlags TargetUnitFlags => _targetUnitFlag;
-    public IReadOnlyList<KeyValuePair<UnitFlags, int>> UnitFlagsCountPair
-    {
-        get
-        {
-            _unitFlagsCountPair = new List<KeyValuePair<UnitFlags, int>>();
-            for (int i = 0; i < _unitFlags.Length; i++)
-            {
-                if (_unitFlags[i].IsRange() && _counts[i] > 0)
-                    _unitFlagsCountPair.Add(new KeyValuePair<UnitFlags, int>(_unitFlags[i], _counts[i]));
-            }
-            return _unitFlagsCountPair;
-        }
-    }
+    //public IReadOnlyList<KeyValuePair<UnitFlags, int>> UnitFlagsCountPair
+    //{
+    //    get
+    //    {
+    //        _unitFlagsCountPair = new List<KeyValuePair<UnitFlags, int>>();
+    //        for (int i = 0; i < _unitFlags.Length; i++)
+    //        {
+    //            if (_unitFlags[i].IsRange() && _counts[i] > 0)
+    //                _unitFlagsCountPair.Add(new KeyValuePair<UnitFlags, int>(_unitFlags[i], _counts[i]));
+    //        }
+    //        return _unitFlagsCountPair;
+    //    }
+    //}
+    public IReadOnlyDictionary<UnitFlags, int> NeedCountByFlag => _needCountByFlag;
 }
 
 [Serializable]
@@ -91,31 +93,25 @@ public class CombineConditions : ICsvLoader<UnitFlags, CombineCondition>
 }
 
 // TODO : 죽이기
-[Serializable]
-public struct CombineData
-{
-    [SerializeField] UnitFlags _unitFlags; // 조합하려는 유닛의 플래그
-    [SerializeField] string _koearName;
-    
-    public CombineData(UnitFlags unitFlags, string koreaName)
-    {
-        _unitFlags = unitFlags;
-        _koearName = koreaName;
-    }
+//[Serializable]
+//public struct CombineData
+//{
+//    [SerializeField] UnitFlags _unitFlags; // 조합하려는 유닛의 플래그
+//    [SerializeField] string _koearName;
 
-    public UnitFlags UnitFlags => _unitFlags;
-    public string KoearName => _koearName;
-    public CombineCondition Condition => Multi_Managers.Data.CombineConditionByUnitFalg[_unitFlags];
-}
+//    public UnitFlags UnitFlags => _unitFlags;
+//    public string KoearName => _koearName;
+//    public CombineCondition Condition => Multi_Managers.Data.CombineConditionByUnitFalg[_unitFlags];
+//}
 
-[Serializable]
-public class CombineDatas : ICsvLoader<UnitFlags, CombineData>
-{
-    public Dictionary<UnitFlags, CombineData> MakeDict(string csv)
-    {
-        return CsvUtility.GetEnumerableFromCsv<CombineData>(csv).ToDictionary(x => x.UnitFlags, x => x);
-    }
-}
+//[Serializable]
+//public class CombineDatas : ICsvLoader<UnitFlags, CombineData>
+//{
+//    public Dictionary<UnitFlags, CombineData> MakeDict(string csv)
+//    {
+//        return null; // CsvUtility.GetEnumerableFromCsv<CombineData>(csv).ToDictionary(x => x.UnitFlags, x => x);
+//    }
+//}
 
 
 [Serializable]
@@ -125,13 +121,6 @@ public struct UnitNameData
     [SerializeField] string _prefabName;
     [SerializeField] string _koearName;
     
-    public UnitNameData(int colorNum, int classNum, string prefabName, string koearName)
-    {
-        _UnitFlags = new UnitFlags(colorNum, classNum);
-        _prefabName = prefabName;
-        _koearName = koearName;
-    }
-
     public UnitFlags UnitFlags => _UnitFlags;
     public string Name => _prefabName;
     public string KoearName => _koearName;
@@ -145,7 +134,6 @@ public class UnitNameDatas : ICsvLoader<string, UnitNameData>
         return CsvUtility.GetEnumerableFromCsv<UnitNameData>(csv).ToDictionary(x => x.KoearName, x => x);
     }
 }
-
 
 [Serializable]
 public struct WeaponData

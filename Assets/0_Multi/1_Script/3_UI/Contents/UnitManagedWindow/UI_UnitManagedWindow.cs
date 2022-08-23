@@ -26,11 +26,11 @@ public class UI_UnitManagedWindow : Multi_UI_Popup
         gameObject.SetActive(true);
     }
 
-    void SetInfo(UnitFlags flags)
+    void SetInfo(UnitFlags flag)
     {
-        _description.text = Multi_Managers.Data.UnitWindowDataByUnitFlags[flags].Description;
-        _combineButtonsParent.SettingCombineButtons(Multi_Managers.Data.UnitWindowDataByUnitFlags[flags].CombineDatas);
-        worldChangedButton.Setup(flags);
-        unitSellButton.SetInfo(flags);
+        _description.text = Multi_Managers.Data.UnitWindowDataByUnitFlags[flag].Description;
+        _combineButtonsParent.SettingCombineButtons(Multi_Managers.Data.UnitWindowDataByUnitFlags[flag].CombineUnitFlags);
+        worldChangedButton.Setup(flag);
+        unitSellButton.SetInfo(flag);
     }
 }

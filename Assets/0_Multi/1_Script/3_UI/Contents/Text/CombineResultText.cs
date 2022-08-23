@@ -28,7 +28,7 @@ public class CombineResultText : Multi_UI_Popup
         gameObject.SetActive(true);
         StartCoroutine(Co_AfterInActive());
 
-        string GetSuccessText() => $"{Multi_Managers.Data.CombineDataByUnitFlags[flag].KoearName} 조합 성공!!";
+        string GetSuccessText() => $"{Multi_Managers.Data.UnitNameDataByFlag[flag].KoearName} 조합 성공!!";
     }
 
     IEnumerator Co_AfterInActive()

@@ -376,15 +376,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b35f1d691a8b364a8f34ca726181690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data:
-    name: 
-    goodsType: 0
-    grade: 0
-    currencyType: 
-    price: 0
-    infomation: 
-    sellType: 0
-    sellDatas: 
   dataTransfer: {fileID: 0}
 --- !u!1 &1851800193802447926
 GameObject:
@@ -439,7 +430,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ac3e7bfdde0674baf9275176cfa94f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataPath: Data/UIData/RandimShopData
+  dataPath: Data/UIData/RandomShopData
   goodsParent: {fileID: 5522377553976648607}
   panel: {fileID: 625722834882444815}
 --- !u!114 &3498981087888204140
@@ -1916,15 +1907,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b35f1d691a8b364a8f34ca726181690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data:
-    name: 
-    goodsType: 0
-    grade: 0
-    currencyType: 
-    price: 0
-    infomation: 
-    sellType: 0
-    sellDatas: 
   dataTransfer: {fileID: 0}
 --- !u!1 &3089408718431801422
 GameObject:
@@ -2642,15 +2624,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b35f1d691a8b364a8f34ca726181690, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _data:
-    name: 
-    goodsType: 0
-    grade: 0
-    currencyType: 
-    price: 0
-    infomation: 
-    sellType: 0
-    sellDatas: 
   dataTransfer: {fileID: 0}
 --- !u!1 &7429536591706459116
 GameObject:

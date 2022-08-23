@@ -34,7 +34,8 @@ public class UI_UnitWindowData
     [SerializeField] string _description;
 
     public UnitFlags UnitFlags => _unitFlags;
-    public IReadOnlyList<CombineData> CombineDatas => _combineUnitFalgs.Select(x => Multi_Managers.Data.CombineDataByUnitFlags[x]).ToList();
+    public IReadOnlyList<UnitFlags> CombineUnitFlags => _combineUnitFalgs;
+    //public IReadOnlyList<CombineData> CombineDatas => _combineUnitFalgs.Select(x => Multi_Managers.Data.CombineDataByUnitFlags[x]).ToList();
     public string Description => _description;
     public void SetDescription() => _description = _description.Replace("\\n", "\n");
 }

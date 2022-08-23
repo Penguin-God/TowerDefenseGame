@@ -22,8 +22,8 @@ public class Multi_DataManager
     public IReadOnlyDictionary<UnitFlags, CombineCondition> CombineConditionByUnitFalg => _combineConditionByUnitFalg;
 
     // 조합 정보
-    Dictionary<UnitFlags, CombineData> _combineDataByUnitFlags = new Dictionary<UnitFlags, CombineData>();
-    public IReadOnlyDictionary<UnitFlags, CombineData> CombineDataByUnitFlags => _combineDataByUnitFlags;
+    //Dictionary<UnitFlags, CombineData> _combineDataByUnitFlags = new Dictionary<UnitFlags, CombineData>();
+    //public IReadOnlyDictionary<UnitFlags, CombineData> CombineDataByUnitFlags => _combineDataByUnitFlags;
 
     // 유닛 창 정보
     Dictionary<UnitFlags, UI_UnitWindowData> _unitWindowDataByUnitFlags = new Dictionary<UnitFlags, UI_UnitWindowData>();
@@ -31,11 +31,14 @@ public class Multi_DataManager
     #endregion
 
     #region Unit Data
-    Dictionary<UnitFlags, WeaponData> _weaponDataByUnitFlag = new Dictionary<UnitFlags, WeaponData>();
-    public IReadOnlyDictionary<UnitFlags, WeaponData> WeaponDataByUnitFlag => _weaponDataByUnitFlag;
-
     Dictionary<string, UnitNameData> _unitNameDataByUnitKoreaName = new Dictionary<string, UnitNameData>();
     public IReadOnlyDictionary<string, UnitNameData> UnitNameDataByUnitKoreaName => _unitNameDataByUnitKoreaName;
+
+    Dictionary<UnitFlags, UnitNameData> _unitNameDataByFlag = new Dictionary<UnitFlags, UnitNameData>();
+    public IReadOnlyDictionary<UnitFlags, UnitNameData> UnitNameDataByFlag => _unitNameDataByFlag;
+
+    Dictionary<UnitFlags, WeaponData> _weaponDataByUnitFlag = new Dictionary<UnitFlags, WeaponData>();
+    public IReadOnlyDictionary<UnitFlags, WeaponData> WeaponDataByUnitFlag => _weaponDataByUnitFlag;
 
     Dictionary<UnitFlags, UnitStat> _unitStatByFlag = new Dictionary<UnitFlags, UnitStat>();
     public UnitStat GetUnitStat(UnitFlags flag) => _unitStatByFlag[flag].GetClone();
@@ -64,6 +67,7 @@ public class Multi_DataManager
 
         // 무조건 가장먼저 실행되어야 함
         _unitNameDataByUnitKoreaName = MakeCsvDict<UnitNameDatas, string, UnitNameData>("UnitData/UnitNameData");
+        _unitNameDataByFlag = _unitNameDataByUnitKoreaName.ToDictionary(x => x.Value.UnitFlags, x => x.Value);
 
         // Unit
         _mageStatByFlag = MakeCsvDict<MageUnitStats, UnitFlags, MageUnitStat>("UnitData/MageUnitStat");
@@ -72,7 +76,7 @@ public class Multi_DataManager
         _weaponDataByUnitFlag = MakeCsvDict<WeaponDatas, UnitFlags, WeaponData>("UnitData/UnitWeaponData");
 
         // UI
-        _combineDataByUnitFlags = MakeCsvDict<CombineDatas, UnitFlags, CombineData>("UnitData/CombineData");
+        //_combineDataByUnitFlags = MakeCsvDict<CombineDatas, UnitFlags, CombineData>("UnitData/CombineData");
         _combineConditionByUnitFalg = MakeCsvDict<CombineConditions, UnitFlags, CombineCondition>("UnitData/CombineConditionData");
         _unitWindowDataByUnitFlags = MakeCsvDict<UI_UnitWindowDatas, UnitFlags, UI_UnitWindowData>("UIData/UI_UnitWindowData");
 
@@ -92,7 +96,7 @@ public class Multi_DataManager
         _unitStatByFlag.Clear();
         _weaponDataByUnitFlag.Clear();
 
-        _combineDataByUnitFlags.Clear();
+        //_combineDataByUnitFlags.Clear();
         _combineConditionByUnitFalg.Clear();
         _unitWindowDataByUnitFlags.Clear();
 

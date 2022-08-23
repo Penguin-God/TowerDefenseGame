@@ -382,16 +382,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     protected bool TargetIsNormalEnemy { get { return (target != null && target.GetComponent<Multi_Enemy>().enemyType == EnemyType.Normal); } }
     bool TransformIsBoss(Transform enemy) => enemy.CompareTag("Tower") || enemy.CompareTag("Boss");
 
-    // TODO : 원거리 유닛 사정거리 안에 들어오면 움직임 좀 봉인하기
-    void RangeNavStop()
-    {
-        if (GetComponent<RangeUnit>() != null)
-        {
-            nav.isStopped = true;
-            nav.speed = 0f;
-        }
-    }
-
     public void ChagneWorld()
     {
         Multi_SpawnManagers.Effect.Play(Effects.Unit_Tp_Effect, transform.position + (Vector3.up * 3));
@@ -403,6 +393,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         enterStoryWorld = !enterStoryWorld;
         photonView.RPC("UpdateStatus", RpcTarget.All, enterStoryWorld);
         rpcable.SetActive_RPC(true);
+        Multi_Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
+
+        return; // 중복함수 구분용 return : 의미 없음
 
         void Move()
         {

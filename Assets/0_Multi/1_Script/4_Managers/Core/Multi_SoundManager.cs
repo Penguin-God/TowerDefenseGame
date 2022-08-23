@@ -20,7 +20,7 @@ public enum EffectSoundType
     ShopGoodsClick,
     TowerDieClip,
     TransformWhiteUnit,
-    UnitUp,
+    UnitTp,
     Warning,
     Win,
     ArcherAttack,
@@ -64,6 +64,17 @@ public class Multi_SoundManager
             effectBySound = CsvUtility.GetEnumerableFromCsv<EffcetSound>(csv).ToDictionary(x => x.EffectType, x => x);
         }
         root.transform.parent = parent;
+    }
+
+    public void BattleSceneInit()
+    {
+        Debug.Assert(Multi_Managers.Scene.CurrentSceneType == SceneTyep.New_Scene, "이상한 씬에서 Init 중");
+
+        Multi_SpawnManagers.BossEnemy.OnDead -= (boss) => PlayEffect(EffectSoundType.BossDeadClip);
+        Multi_SpawnManagers.TowerEnemy.OnDead -= (tower) => PlayEffect(EffectSoundType.TowerDieClip);
+
+        Multi_SpawnManagers.BossEnemy.OnDead += (boss) => PlayEffect(EffectSoundType.BossDeadClip);
+        Multi_SpawnManagers.TowerEnemy.OnDead += (tower) => PlayEffect(EffectSoundType.TowerDieClip);
     }
 
     public void PlayBgm(string _path) => PlayBgm(GetOrAddClip(_path));

@@ -15,17 +15,20 @@ public enum SceneTyep
 public class Scene_Manager
 {
     public BaseScene CurrentScene => GameObject.FindObjectOfType<BaseScene>();
+    public SceneTyep CurrentSceneType = SceneTyep.클라이언트;
 
     public void LoadScene(SceneTyep type)
     {
         Multi_Managers.Clear();
         SceneManager.LoadScene(Enum.GetName(typeof(SceneTyep), type));
+        CurrentSceneType = type;
     }
 
     public void LoadLevel(SceneTyep type)
     {
         Multi_Managers.Clear();
         PhotonNetwork.LoadLevel(Enum.GetName(typeof(SceneTyep), type));
+        CurrentSceneType = type;
     }
 
     public void Clear() => CurrentScene.Clear();

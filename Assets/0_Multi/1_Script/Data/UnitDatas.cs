@@ -61,25 +61,9 @@ public struct UnitFlags : IEquatable<UnitFlags>
 public class CombineCondition
 {
     [SerializeField] UnitFlags _targetUnitFlag;
-    //[SerializeField] UnitFlags[] _unitFlags; // 조합에 필요한 유닛의 플래그
-    //[SerializeField] int[] _counts;
     [SerializeField] Dictionary<UnitFlags, int> _needCountByFlag = new Dictionary<UnitFlags, int>();
-    //List<KeyValuePair<UnitFlags, int>> _unitFlagsCountPair;
 
     public UnitFlags TargetUnitFlags => _targetUnitFlag;
-    //public IReadOnlyList<KeyValuePair<UnitFlags, int>> UnitFlagsCountPair
-    //{
-    //    get
-    //    {
-    //        _unitFlagsCountPair = new List<KeyValuePair<UnitFlags, int>>();
-    //        for (int i = 0; i < _unitFlags.Length; i++)
-    //        {
-    //            if (_unitFlags[i].IsRange() && _counts[i] > 0)
-    //                _unitFlagsCountPair.Add(new KeyValuePair<UnitFlags, int>(_unitFlags[i], _counts[i]));
-    //        }
-    //        return _unitFlagsCountPair;
-    //    }
-    //}
     public IReadOnlyDictionary<UnitFlags, int> NeedCountByFlag => _needCountByFlag;
 }
 
@@ -91,28 +75,6 @@ public class CombineConditions : ICsvLoader<UnitFlags, CombineCondition>
         return CsvUtility.GetEnumerableFromCsv<CombineCondition>(csv).ToDictionary(x => x.TargetUnitFlags, x => x);
     }
 }
-
-// TODO : 죽이기
-//[Serializable]
-//public struct CombineData
-//{
-//    [SerializeField] UnitFlags _unitFlags; // 조합하려는 유닛의 플래그
-//    [SerializeField] string _koearName;
-
-//    public UnitFlags UnitFlags => _unitFlags;
-//    public string KoearName => _koearName;
-//    public CombineCondition Condition => Multi_Managers.Data.CombineConditionByUnitFalg[_unitFlags];
-//}
-
-//[Serializable]
-//public class CombineDatas : ICsvLoader<UnitFlags, CombineData>
-//{
-//    public Dictionary<UnitFlags, CombineData> MakeDict(string csv)
-//    {
-//        return null; // CsvUtility.GetEnumerableFromCsv<CombineData>(csv).ToDictionary(x => x.UnitFlags, x => x);
-//    }
-//}
-
 
 [Serializable]
 public struct UnitNameData
@@ -239,25 +201,4 @@ public class MageUnitStats : ICsvLoader<UnitFlags, MageUnitStat>
 {
     public Dictionary<UnitFlags, MageUnitStat> MakeDict(string csv)
         => CsvUtility.GetEnumerableFromCsv<MageUnitStat>(csv).ToDictionary(x => x.Flag, x => x);
-}
-
-
-[Serializable]
-public struct UnitSoundData
-{
-    [SerializeField] UnitFlags _flag;
-    [SerializeField] EffectSoundType _soundType;
-    [SerializeField] float _volumnScale;
-    [SerializeField] float _delayTime;
-
-    public UnitFlags Flag => _flag;
-    public EffectSoundType SoundType => _soundType;
-    public float VolumnScale => _volumnScale;
-    public float DelayTime => _delayTime;
-}
-
-public class UnitSoundDatas : ICsvLoader<int, UnitSoundData>
-{
-    public Dictionary<int, UnitSoundData> MakeDict(string csv)
-        => CsvUtility.CsvToArray<UnitSoundData>(csv).ToDictionary(x => x.Flag.ClassNumber, x => x);
 }

@@ -252,11 +252,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
 
         bool CheckCombineable(UnitFlags flag)
-        {
-            Multi_Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag.ToList()
-                .ForEach(x => Debug.Log($"{x.Key.UnitClass}, {x.Key.UnitColor} : {x.Value}"));
-            return Multi_Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag.All(x => Instance._count.HasUnit(x.Key, x.Value));
-        }
+            => Multi_Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag.All(x => Instance._count.HasUnit(x.Key, x.Value));
 
         public void TryCombine(UnitFlags flag, int id, bool isSuccess)
         {

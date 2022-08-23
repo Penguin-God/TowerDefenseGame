@@ -68,7 +68,6 @@ public class Multi_SoundManager
 
     public void BattleSceneInit()
     {
-        Debug.Log(Multi_Managers.Scene.CurrentSceneType);
         Debug.Assert(Multi_Managers.Scene.CurrentSceneType == SceneTyep.New_Scene, "이상한 씬에서 Init 중");
 
         Multi_SpawnManagers.BossEnemy.OnDead -= (boss) => PlayEffect(EffectSoundType.BossDeadClip);

@@ -45,19 +45,14 @@ public class ClientManager : MonoBehaviour
         EventIdManager.Reset();
 
         Skill_Image skill_Image = GetComponent<Skill_Image>();
+
         ClientIron = Multi_Managers.ClientData.MoneyByType[MoneyType.Iron].Amount;
         ClientWood = Multi_Managers.ClientData.MoneyByType[MoneyType.Wood].Amount;
         ClientHammer = Multi_Managers.ClientData.MoneyByType[MoneyType.Hammer].Amount;
-        //print("결과 ==============================================");
-        //print(ClientIron);
-        //print(ClientWood);
-        //print(ClientHammer);
+
         UpdateWoodText(ClientWood);
         UpdateIronText(ClientIron);
         UpdateHammerText(ClientHammer);
-        //UpdateAdIronCount(STARTGOLDPRICE);
-        //UpdateAdWoodCount(STARTFOODPRICE);
-        //UpdateAdHammerCount(PLUSTOUCHDAMEGEPRICE);
     }
 
     void Update() 
@@ -145,69 +140,22 @@ public class ClientManager : MonoBehaviour
     public void BuyStartGold()
     {
         BuySkills(ref ClientIron, STARTGOLDPRICE, SkillType.시작골드증가, MoneyType.Iron);
-        //ClientClickSound();
-        //ClientIron = Multi_Managers.ClientData.MoneyByType[MoneyType.Iron].Amount;
-        //if (ClientIron >= STARTGOLDPRICE && !(Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].HasSkill))
-        //{
-        //    Debug.Log("시작 골드 구매");
-        //    ClientIron -= STARTGOLDPRICE;
-        //    Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].SetHasSkill(true);
-        //    InitMoney();
-        //    UpdateIronText(ClientIron);
-        //}
-        //else
-        //{
-        //    Debug.Log("실패");
-        //}
 
     }
 
     public void BuyStartFood()
     {
         BuySkills(ref ClientWood, STARTFOODPRICE, SkillType.시작식량증가, MoneyType.Wood);
-        //ClientClickSound();
-        //ClientWood = Multi_Managers.ClientData.MoneyByType[MoneyType.Wood].Amount;
-        //if (ClientWood >= STARTFOODPRICE && !(Multi_Managers.ClientData.SkillByType[SkillType.시작식량증가].HasSkill))
-        //{
-        //    Debug.Log("시작 식량 구매");
-        //    ClientWood -= STARTFOODPRICE;
-        //    Multi_Managers.ClientData.SkillByType[SkillType.시작식량증가].SetHasSkill(true);
-        //    InitMoney();
-        //    UpdateWoodText(ClientWood);
-
-        //}
-        //else
-        //{
-        //    Debug.Log("실패");
-        //}
     }
 
     public void BuyPlusMaxUnit()
     {
         BuySkills(ref ClientHammer, PLUSMAXUNITPRICE, SkillType.최대유닛증가, MoneyType.Hammer);
-        //ClientClickSound();
-        //ClientHammer = Multi_Managers.ClientData.MoneyByType[MoneyType.Hammer].Amount;
-        //if (ClientHammer >= PLUSMAXUNITPRICE && !(Multi_Managers.ClientData.SkillByType[SkillType.최대유닛증가].HasSkill))
-        //{
-        //    Debug.Log("최대 유닛 구매");
-        //    ClientHammer -= PLUSMAXUNITPRICE;
-        //    Multi_Managers.ClientData.SkillByType[SkillType.최대유닛증가].SetHasSkill(true);
-        //    InitMoney();
-        //    UpdateHammerText(ClientHammer);
-            
-
-        //}
-        //else
-        //{
-        //    Debug.Log("실패");
-        //}
     }
 
     public void BuyTaegeukSkill()
     {
         BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.태극스킬, MoneyType.Iron);
-        print("태극 구매");
-        print(Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].HasSkill);
     }
 
     public void EquipStartGold()

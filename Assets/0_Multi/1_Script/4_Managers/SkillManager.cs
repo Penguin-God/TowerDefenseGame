@@ -36,13 +36,9 @@ public class SkillManager
 
     public void Init()
     {
-        Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill = true;
-
-         
-        if (Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill == true)
+        if (Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].EquipSkill == true)
         {
-            skills.Add(new Taegeuk());
-            Debug.Log("태극 스킬 추가");
+            Debug.Log("시작 골드 증가 사용");
         }
         else
         {
@@ -67,13 +63,59 @@ public class SkillManager
             Debug.Log("시작 최대 유닛 증가 없음.....");
         }
 
-        if (Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].EquipSkill == true)
+        if (Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill == true)
         {
-            Debug.Log("시작 골드 증가 사용");
+            skills.Add(new Taegeuk());
+            Debug.Log("태극 스킬 추가");
         }
         else
         {
-            Debug.Log("시작 골드 증가 없음.....");
+            Debug.Log("태극스킬 없음.....");
+        }
+
+        if (Multi_Managers.ClientData.SkillByType[SkillType.검은유닛강화].EquipSkill == true)
+        {
+            Debug.Log("검은유닛강화 추가");
+        }
+        else
+        {
+            Debug.Log("검은유닛강화 없음.....");
+        }
+
+        if (Multi_Managers.ClientData.SkillByType[SkillType.노란기사강화].EquipSkill == true)
+        {
+            Debug.Log("노란기사강화 추가");
+        }
+        else
+        {
+            Debug.Log("노란기사강화 없음.....");
+        }
+
+        if (Multi_Managers.ClientData.SkillByType[SkillType.상대색깔변경].EquipSkill == true)
+        {
+            Debug.Log("상대색깔변경 추가");
+        }
+        else
+        {
+            Debug.Log("상대색깔변경 없음.....");
+        }
+
+        if (Multi_Managers.ClientData.SkillByType[SkillType.판매보상증가].EquipSkill == true)
+        {
+            Debug.Log("판매보상증가 추가");
+        }
+        else
+        {
+            Debug.Log("판매보상증가 없음.....");
+        }
+
+        if (Multi_Managers.ClientData.SkillByType[SkillType.보스데미지증가].EquipSkill == true)
+        {
+            Debug.Log("적군의성피해 추가");
+        }
+        else
+        {
+            Debug.Log("적군의성피해 없음.....");
         }
 
         for (int i = 0; i < skills.Count; i++)
@@ -108,6 +150,32 @@ public class ActiveSkill : Skill
     }
 }
 
+// --------------------------------------------
+
+public class StartGold : PassiveSkill
+{
+    public override void InitSkill(Skill skill)
+    {
+
+    }
+}
+
+public class StartFood : PassiveSkill
+{
+    public override void InitSkill(Skill skill)
+    {
+
+    }
+}
+
+public class MaxUnit : PassiveSkill
+{
+    public override void InitSkill(Skill skill)
+    {
+
+    }
+}
+
 public class Taegeuk : PassiveSkill
 {
     int Athercount;
@@ -117,7 +185,7 @@ public class Taegeuk : PassiveSkill
     // 빨강, 파랑을 제외한 유닛 수
     public int Ather
     {
-        get 
+        get
         {
             Athercount = 0;
             for (int i = 2; i < 6; i++)
@@ -164,11 +232,11 @@ public class Taegeuk : PassiveSkill
     {
         Debug.Log("태극 시너지 스킬 착용");
         if (Red >= 1 && Blue >= 1 && Ather == 0)
-            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(0,0), 1.5f);
+            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(0, 0), 1.5f);
     }
 }
 
-public class StartGold : PassiveSkill
+public class BlackUnitUpgrade : PassiveSkill
 {
     public override void InitSkill(Skill skill)
     {
@@ -176,7 +244,7 @@ public class StartGold : PassiveSkill
     }
 }
 
-public class StartFood : PassiveSkill
+public class YellowUnitUpgrade : PassiveSkill
 {
     public override void InitSkill(Skill skill)
     {
@@ -184,7 +252,31 @@ public class StartFood : PassiveSkill
     }
 }
 
-public class MaxUnit : PassiveSkill
+public class ColorChange : PassiveSkill
+{
+    public override void InitSkill(Skill skill)
+    {
+
+    }
+}
+
+public class FoodHater : PassiveSkill
+{
+    public override void InitSkill(Skill skill)
+    {
+
+    }
+}
+
+public class SellUpgrade : PassiveSkill
+{
+    public override void InitSkill(Skill skill)
+    {
+
+    }
+}
+
+public class BossDamageUpgrade : PassiveSkill
 {
     public override void InitSkill(Skill skill)
     {

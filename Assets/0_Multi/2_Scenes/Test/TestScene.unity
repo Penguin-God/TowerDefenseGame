@@ -17401,6 +17401,7 @@ MonoBehaviour:
   - {fileID: 8692699531293559831, guid: b7d97731d96118d42a5820fc7ca63c3d, type: 3}
   - {fileID: 2694985329993272948, guid: 5b5d920ab2aaf784eb342157d06a611e, type: 3}
   spawnCount: 50
+  spawnPositions: []
   otherEnemySpawnNumber: 0
   _spawnDelayTime: 2
   _stageSpawnCount: 15
@@ -28463,35 +28464,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   id: 0
-  main_camera: {fileID: 1290153365}
-  cameraPositions:
-  - {x: 0, y: 100, z: -62}
-  - {x: 0, y: 100, z: 438}
-  cameraPositions_LookAtTower:
-  - {x: 500, y: 100, z: -62}
-  - {x: 500, y: 100, z: 438}
   worldPostions:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 500}
   enemyTowerWorldPositions:
   - {x: 500, y: 0, z: 10}
   - {x: 500, y: 0, z: 510}
-  enemySpawnPos:
-  - {x: -45, y: 0, z: 35}
-  - {x: -45, y: 0, z: 535}
   enemyTurnPointParents:
   - {fileID: 765254374}
   - {fileID: 1952937805}
-  enemyTowerSpawnPos:
-  - {fileID: 1645381389}
-  - {fileID: 0}
-  unitSpawnPos:
-  - {x: 0, y: 0, z: 0}
-  - {x: 0, y: 0, z: 500}
-  unitTowerSpawnPos: []
-  my_cameraPosition: {x: 0, y: 0, z: 0}
-  my_enemyTowerPosition: {x: 0, y: 0, z: 0}
-  my_EnemyTurnPoints: []
 --- !u!114 &537211822
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31912,7 +31893,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneTyep: 2
-  editorCamera: {fileID: 1290153365}
 --- !u!114 &608932054
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -32709,6 +32689,7 @@ MonoBehaviour:
   - {fileID: 6378220843537392897, guid: 94dfbbe89bb24fb4e916aa1d0431dd53, type: 3}
   - {fileID: 8866469228252853537, guid: c45a469ed6947da408f04c5c1bdb0d00, type: 3}
   spawnCount: 2
+  spawnPositions: []
 --- !u!114 &616192328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -36539,6 +36520,7 @@ MonoBehaviour:
   - {fileID: 5842820972880275658, guid: 24c73653631a43d4fbc284bd2ebea34d, type: 3}
   - {fileID: 2502174115710485866, guid: 18ca0360799033349bd8f547d358e44f, type: 3}
   spawnCount: 2
+  spawnPositions: []
   bossLevel: 0
 --- !u!114 &685287359
 MonoBehaviour:
@@ -45216,10 +45198,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf73aa7b4bdf8914b9e14e9c8f322041, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flag:
-    _colorNumber: 0
-    _classNumber: 0
-  texts: 
+  data:
+    startGold: 123
+    startFood: 123
+    startMaxUnitCount: 22
+  constData:
+    maxEnemyCount: 1234
+    startMaxUnitCount: 123
   spawnColorMax: 5
   spawnClassMax: 3
 --- !u!4 &872441509
@@ -57043,7 +57028,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de17edb9522640c4c91471b8e29f740a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitCount: 0
 --- !u!4 &1095168202
 Transform:
   m_ObjectHideFlags: 0
@@ -84866,9 +84850,7 @@ MonoBehaviour:
   isClear: 0
   _maxEnemyUnitCount: 0
   _maxUninCount: 15
-  playerEnterStoryMode: 0
   gameStart: 0
-  diffcultText: {fileID: 0}
   bossbgmClip: {fileID: 8300000, guid: f7b6398cfc46c8f43b5743906490edcc, type: 3}
   bgmClip: {fileID: 8300000, guid: 9c23b40b98c24154f81380bc3eb8fbe6, type: 3}
   gameManagerAudio: {fileID: 0}

@@ -178,61 +178,101 @@ public class MaxUnit : PassiveSkill
 
 public class Taegeuk : PassiveSkill
 {
-    int Athercount;
-    int Redcount;
-    int Bluecount;
 
     // 빨강, 파랑을 제외한 유닛 수
-    public int Ather
+    public List<int> Ather
     {
         get
         {
-            Athercount = 0;
+            List<int> countList = new List<int>();
+            int SwordmanCount = 0;
+            int ArhcerCount = 0;
+            int SpearmanCount = 0;
+            int MageCount = 0;
+
             for (int i = 2; i < 6; i++)
             {
-                for (int j = 0; j < 4; j++)
-                {
-                    Athercount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(i, j)];
-                }
+                SwordmanCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(i, 0)];
+                ArhcerCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(i, 1)];
+                SpearmanCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(i, 2)];
+                MageCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(i, 3)];
             }
-            Debug.Log(Athercount);
-            return Athercount;
+
+            countList.Add(SwordmanCount);
+            countList.Add(ArhcerCount);
+            countList.Add(SpearmanCount);
+            countList.Add(MageCount);
+
+            return countList;
         }
     }
 
-    public int Red
+    public List<int> Red
     {
         get
         {
-            Redcount = 0;
-            for (int j = 0; j < 4; j++)
-            {
-                Redcount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(0, j)];
-            }
-            Debug.Log(Redcount);
-            return Redcount;
+            List<int> countList = new List<int>();
+            int SwordmanCount = 0;
+            int ArhcerCount = 0;
+            int SpearmanCount = 0;
+            int MageCount = 0;
+
+            SwordmanCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(0, 0)];
+            ArhcerCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(0, 1)];
+            SpearmanCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(0, 2)];
+            MageCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(0, 3)];
+
+            countList.Add(SwordmanCount);
+            countList.Add(ArhcerCount);
+            countList.Add(SpearmanCount);
+            countList.Add(MageCount);
+
+            return countList;
         }
     }
 
-    public int Blue
+    public List<int> Blue
     {
         get
         {
-            Bluecount = 0;
-            for (int j = 0; j < 4; j++)
-            {
-                Bluecount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(1, j)];
-            }
-            Debug.Log(Bluecount);
-            return Bluecount;
+            List<int> countList = new List<int>();
+            int SwordmanCount = 0;
+            int ArhcerCount = 0;
+            int SpearmanCount = 0;
+            int MageCount = 0;
+
+            SwordmanCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(1, 0)];
+            ArhcerCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(1, 1)];
+            SpearmanCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(1, 2)];
+            MageCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(1, 3)];
+
+            countList.Add(SwordmanCount);
+            countList.Add(ArhcerCount);
+            countList.Add(SpearmanCount);
+            countList.Add(MageCount);
+
+            return countList;
         }
     }
 
     public override void InitSkill(Skill skill)
     {
         Debug.Log("태극 시너지 스킬 착용");
-        if (Red >= 1 && Blue >= 1 && Ather == 0)
+        if (Red[0] >= 1 && Blue[0] >= 1 && Ather[0] == 0)
             Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(0, 0), 1.5f);
+            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(1, 0), 1.5f);
+
+        if (Red[1] >= 1 && Blue[1] >= 1 && Ather[0] == 0)
+            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(0, 1), 1.5f);
+            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(1, 1), 1.5f);
+
+        if (Red[2] >= 1 && Blue[2] >= 1 && Ather[0] == 0)
+            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(0, 2), 1.5f);
+            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(1, 2), 1.5f);
+
+        if (Red[3] >= 1 && Blue[3] >= 1 && Ather[0] == 0)
+            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(0, 3), 1.5f);
+            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(1, 3), 1.5f);
     }
 }
 
@@ -240,7 +280,10 @@ public class BlackUnitUpgrade : PassiveSkill
 {
     public override void InitSkill(Skill skill)
     {
-
+        Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(7, 0), 1.5f);
+        Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(7, 1), 1.5f);
+        Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(7, 2), 1.5f);
+        Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(7, 3), 1.5f);
     }
 }
 
@@ -248,15 +291,15 @@ public class YellowUnitUpgrade : PassiveSkill
 {
     public override void InitSkill(Skill skill)
     {
-
+        // 노란 기사 패시브 5원으로 변경
     }
 }
 
-public class ColorChange : PassiveSkill
+public class ColorChange : ActiveSkill
 {
     public override void InitSkill(Skill skill)
     {
-
+        // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
     }
 }
 
@@ -264,7 +307,7 @@ public class FoodHater : PassiveSkill
 {
     public override void InitSkill(Skill skill)
     {
-
+        // 하얀 유닛 돈으로 구매로 변경 받는 고기 전부 1당 10원으로 변경
     }
 }
 
@@ -272,7 +315,7 @@ public class SellUpgrade : PassiveSkill
 {
     public override void InitSkill(Skill skill)
     {
-
+        // 유닛 판매 보상 증가 (1원 추가)
     }
 }
 
@@ -280,7 +323,7 @@ public class BossDamageUpgrade : PassiveSkill
 {
     public override void InitSkill(Skill skill)
     {
-
+        // 모든 유닛 보스 데미지 증가
     }
 }
 

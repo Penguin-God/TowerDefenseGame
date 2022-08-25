@@ -3,8 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-using UnityEngine.SceneManagement;
 using Photon.Pun;
+
+[Serializable]
+public struct BattleGameData
+{
+    [SerializeField] int startGold;
+    [SerializeField] int startFood;
+    [SerializeField] int stageUpGold;
+    [SerializeField] int startMaxUnitCount;
+    [SerializeField] int enemyMaxCount;
+
+    public int StartGold => startGold;
+    public int StartFood => startFood;
+    public int StageUpGold => stageUpGold;
+    public int StartMaxUnitCount => startMaxUnitCount;
+    public int EnemyMaxCount => enemyMaxCount;
+}
 
 public class Multi_GameManager : MonoBehaviourPunCallbacks
 {
@@ -22,6 +37,10 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     private static Multi_GameManager m_instance;
 
+    [SerializeField] BattleGameData _gameData;
+
+    public event Action<int> OnGoldChanged;
+    public event Action<int> OnFoodChanged;
 
     [SerializeField] int gold;
     public int Gold
@@ -45,16 +64,8 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public event Action<int> OnGoldChanged;
-    public event Action<int> OnFoodChanged;
-
-    public int StartGold;
-    public int StartFood;
-    private bool isGameover;
-    public bool isClear;
-
-    [SerializeField] int _maxEnemyUnitCount;
-
+    int stageUpGold = 10;
+    [SerializeField] int _maxEnemyCount;
     [SerializeField] int _maxUninCount;
     public int MaxUnitCount => _maxUninCount;
     public bool UnitOver => Multi_UnitManager.Count.CurrentUnitCount >= _maxUninCount;
@@ -66,12 +77,12 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
             Destroy(gameObject);
         }
         gameManagerAudio = GetComponent<AudioSource>();
+        _gameData = Multi_Managers.Data.BattleGameData;
     }
 
 
     [HideInInspector]
     public bool gameStart;
-    public string Difficult { get; private set; }
     public event Action OnStart;
     [PunRPC]
     void RPC_OnStart()
@@ -85,20 +96,21 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient) photonView.RPC("RPC_OnStart", RpcTarget.All);
     }
 
-
-    int stageUpGold = 10;
+  
     void Start()
     {
+        Gold = _gameData.StartGold;
+        Food = _gameData.StartFood;
+        stageUpGold = _gameData.StageUpGold;
+        _maxUninCount = _gameData.StartMaxUnitCount;
+        _maxEnemyCount = _gameData.EnemyMaxCount;
+
         Multi_StageManager.Instance.OnUpdateStage += _stage => AddGold(stageUpGold);
 
         Multi_EnemyManager.Instance.OnEnemyCountChanged += CheckGameOver;
 
         Multi_SpawnManagers.BossEnemy.OnDead += GetReward;
         Multi_SpawnManagers.TowerEnemy.OnDead += GetReward;
-
-        isGameover = false;
-        Gold = 35 + StartGold;
-        Food = 20  + StartFood;
     }
 
     void GetReward(Multi_BossEnemy boss)
@@ -159,28 +171,22 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        // TODO : 멀티는 승리, 패배 조건을 바꾸어야 함
-
-        if (Input.GetKeyDown(KeyCode.K)) // 빠른 게임 클리어 테스트 용
+        if (Input.GetKeyDown(KeyCode.K)) // 게임 테스트 용
         {
-            if(Time.timeScale == 20f)
+            if(Time.timeScale == 15f)
             {
                 Time.timeScale = 1f;
             }
             else
             {
-                Time.timeScale = 20f;
+                Time.timeScale = 15f;
             }
         }
     }
 
-
-    public GameObject GameoverUi;
-    public Text EndText;
-
     void CheckGameOver(int enemyCount)
     {
-        if(enemyCount >= _maxEnemyUnitCount)
+        if(enemyCount >= _maxEnemyCount)
         {
             Lose();
             photonView.RPC("Win", RpcTarget.Others);

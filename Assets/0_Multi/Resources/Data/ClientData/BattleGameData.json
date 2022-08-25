@@ -1,0 +1,7 @@
+{
+    "startGold": 15,
+    "startFood": 5,
+    "stageUpGold": 10,
+    "startMaxUnitCount": 15,
+    "enemyMaxCount": 50
+}

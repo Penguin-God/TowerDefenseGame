@@ -27137,12 +27137,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2307ab77a99dc4ea5f959875dcb5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gameData:
+    startGold: 0
+    startFood: 0
+    stageUpGold: 0
+    startMaxUnitCount: 0
+    enemyMaxCount: 0
   gold: 0
   food: 0
   StartGold: 0
   StartFood: 0
-  isClear: 0
-  _maxEnemyUnitCount: 50
+  _maxEnemyCount: 0
   _maxUninCount: 15
   gameStart: 0
   bossbgmClip: {fileID: 8300000, guid: f7b6398cfc46c8f43b5743906490edcc, type: 3}
@@ -34167,8 +34172,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentStage: 0
-  timerSlider: {fileID: 0}
-  stageTime: 40
 --- !u!114 &1821374131405557
 MonoBehaviour:
   m_ObjectHideFlags: 0

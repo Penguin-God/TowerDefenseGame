@@ -57,6 +57,8 @@ public class Multi_DataManager
     public IReadOnlyDictionary<int, BossData> TowerDataByLevel => _towerDataByLevel;
     #endregion
 
+    public BattleGameData BattleGameData;
+
     public void Init()
     {
         Clears();
@@ -79,6 +81,9 @@ public class Multi_DataManager
         _normalEnemyDataByStage = MakeCsvDict<NormalEnemyDatas, int, NormalEnemyData>("EnemyData/NormalEnemyData");
         _bossDataByLevel = MakeCsvDict<BossDatas, int, BossData>("EnemyData/BossData");
         _towerDataByLevel = MakeCsvDict<BossDatas, int, BossData>("EnemyData/TowerData");
+
+        // Player
+        BattleGameData = JsonUtility.FromJson<BattleGameData>(Resources.Load<TextAsset>("Data/ClientData/BattleGameData").text);
     }
 
 

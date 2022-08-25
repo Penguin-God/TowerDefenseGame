@@ -7,8 +7,8 @@ public class BattleScene : BaseScene
 {
     protected override void Init()
     {
-        PhotonNetwork.SendRate = 90;
-        PhotonNetwork.SerializationRate = 60;
+        PhotonNetwork.SendRate = 60;
+        PhotonNetwork.SerializationRate = 30;
 
         Multi_Managers.Skill.Init();
         Multi_Managers.Camera.Init();

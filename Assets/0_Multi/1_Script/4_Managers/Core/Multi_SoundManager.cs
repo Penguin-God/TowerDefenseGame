@@ -9,6 +9,8 @@ public enum EffectSoundType
     BossDeadClip,
     Click_XButton,
     Denger,
+    DrawSwordman,
+    EnemySelected,
     GetFood,
     GetPassiveGold,
     GoodsBuySound,
@@ -18,6 +20,9 @@ public enum EffectSoundType
     PopSound_2,
     SelectColor,
     ShopGoodsClick,
+    ShowOtherPlayerInfo,
+    ShowRandomShop,
+    Swing,
     TowerDieClip,
     TransformWhiteUnit,
     UnitTp,
@@ -29,6 +34,7 @@ public enum EffectSoundType
     SpearmanAttack,
     SpearmanSkill,
     SwordmanAttack,
+
 }
 
 public enum SoundType
@@ -70,11 +76,15 @@ public class Multi_SoundManager
     {
         Debug.Assert(Multi_Managers.Scene.CurrentSceneType == SceneTyep.New_Scene, "이상한 씬에서 Init 중");
 
+        // 빼기
         Multi_SpawnManagers.BossEnemy.OnDead -= (boss) => PlayEffect(EffectSoundType.BossDeadClip);
         Multi_SpawnManagers.TowerEnemy.OnDead -= (tower) => PlayEffect(EffectSoundType.TowerDieClip);
+        Multi_StageManager.Instance.OnUpdateStage -= (stage) => PlayEffect(EffectSoundType.NewStageClip);
 
+        // 더하기
         Multi_SpawnManagers.BossEnemy.OnDead += (boss) => PlayEffect(EffectSoundType.BossDeadClip);
         Multi_SpawnManagers.TowerEnemy.OnDead += (tower) => PlayEffect(EffectSoundType.TowerDieClip);
+        Multi_StageManager.Instance.OnUpdateStage += (stage) => PlayEffect(EffectSoundType.NewStageClip);
     }
 
     public void PlayBgm(string _path) => PlayBgm(GetOrAddClip(_path));
@@ -94,10 +104,8 @@ public class Multi_SoundManager
     }
     public void PlayEffect(EffectSoundType sound, float volumeScale = -1)
     {
-        Debug.Log($"오디오 데이타 볼륨 : {effectBySound[sound].Volumn } ");
-        float vol = (volumeScale < 0) ? effectBySound[sound].Volumn : volumeScale;
-        Debug.Log($"오디오 볼륨 : {vol} ");
-        PlayEffect(effectBySound[sound].Path, (volumeScale < 0) ? effectBySound[sound].Volumn : volumeScale);
+        float applyVolumn = (volumeScale < 0) ? effectBySound[sound].Volumn : volumeScale;
+        PlayEffect(effectBySound[sound].Path, applyVolumn);
     }
     public void PlayEffect(string path, float volumeScale) => PlayEffect(GetOrAddClip(path), volumeScale);
     public void PlayEffect(AudioClip clip, float volumeScale) => _sources[(int)SoundType.Effect].PlayOneShot(clip, volumeScale);

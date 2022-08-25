@@ -18,6 +18,10 @@ MonoBehaviour:
 
     Denger,
 
+    DrawSwordman,
+
+    EnemySelected,
+
     GetFood,
 
     GetPassiveGold,
@@ -35,6 +39,8 @@ MonoBehaviour:
     SelectColor,
 
     ShopGoodsClick,
+
+    ShowRandomShop,
 
     TowerDieClip,
 

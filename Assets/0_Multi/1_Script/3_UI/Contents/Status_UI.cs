@@ -34,11 +34,17 @@ public class Status_UI : Multi_UI_Scene
         Multi_StageManager.Instance.OnUpdateStage += UpdateStage;
     }
 
+    Color originColor = new Color(1, 1, 1, 1);
+    Color dengerColor = new Color(1, 0, 0, 1);
     void UpdateEnemyCountText(int EnemyofCount)
     {
         Text text = GetText((int)Texts.EnemyofCount);
-        if (EnemyofCount > 45) text.color = new Color32(255, 0, 0, 255);
-        else text.color = new Color32(255, 255, 255, 255);
+        if (EnemyofCount > 40)
+        {
+            text.color = dengerColor;
+            Multi_Managers.Sound.PlayEffect(EffectSoundType.Denger);
+        }
+        else text.color = originColor;
         text.text = "현재 적 유닛 카운트 : " + EnemyofCount + "/50";
     }
 

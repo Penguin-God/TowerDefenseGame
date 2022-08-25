@@ -26,7 +26,10 @@ public class UI_UnitTrackerSetterTrigger : Multi_UI_Base
         => GetOrInChildrenComponent<Button>().onClick.AddListener(action);
 
     void SignalTheUnitTrackerSetter()
-        => _unitTrackserSetter.SettingUnitTrackers(_unitTrackerData);
+    {
+        Multi_Managers.Sound.PlayEffect(EffectSoundType.SelectColor);
+        _unitTrackserSetter.SettingUnitTrackers(_unitTrackerData);
+    }
 
     T GetOrInChildrenComponent<T>()
         => GetComponent<T>() != null ? GetComponent<T>() : GetComponentInChildren<T>();

@@ -19,7 +19,7 @@ public class LookWorldChangedButton : Multi_UI_Scene
     void ChangeLookWorld()
     {
         Multi_Managers.Camera.LookWorldChanged();
-
+        Multi_Managers.Sound.PlayEffect(EffectSoundType.PopSound);
         if (Multi_Managers.Camera.LookWorld_Id == Multi_Data.instance.Id)
             button.image.sprite = lookMyWorldIcon;
         else

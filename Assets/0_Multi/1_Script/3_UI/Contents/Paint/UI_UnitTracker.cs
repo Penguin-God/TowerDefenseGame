@@ -52,5 +52,9 @@ public class UI_UnitTracker : Multi_UI_Base
     }
     void SetUnitCountText(int count) => countText.text = $"{_unitClassName} : {count}";
 
-    void OnClicked() => Multi_Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow", PopupGroupType.UnitWindow).Show(unitFlags);
+    void OnClicked()
+    {
+        Multi_Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow", PopupGroupType.UnitWindow).Show(unitFlags);
+        Multi_Managers.Sound.PlayEffect(EffectSoundType.ShowRandomShop);
+    }
 }

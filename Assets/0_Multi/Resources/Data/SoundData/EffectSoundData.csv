@@ -2,6 +2,8 @@
 BossDeadClip,1,Effect/BossDeadClip
 Click_XButton,1,Effect/Click_XButton
 Denger,0.8,Effect/Denger
+DrawSwordman,0.5,Effect/DrawSwordman
+EnemySelected,0.5,Effect/EnemySelected
 GetFood,1,Effect/GetFood
 GetPassiveGold,1,Effect/GetPassiveGold
 GoodsBuySound,1,Effect/GoodsBuySound
@@ -9,8 +11,11 @@ Lose,1,Effect/Lose
 NewStageClip,0.6,Effect/NewStageClip
 PopSound,1,Effect/PopSound
 PopSound_2,1,Effect/PopSound_2
-SelectColor,1,Effect/SelectColor
+SelectColor,0.5,Effect/SelectColor
 ShopGoodsClick,1,Effect/ShopGoodsClick
+ShowOtherPlayerInfo,0.5,Effect/ShowOtherPlayerInfo
+ShowRandomShop,0.5,Effect/ShowRandomShop
+Swing,0.5,Effect/Swing
 TowerDieClip,1,Effect/TowerDieClip
 TransformWhiteUnit,1,Effect/TransformWhiteUnit
 UnitTp,1,Effect/UnitTp

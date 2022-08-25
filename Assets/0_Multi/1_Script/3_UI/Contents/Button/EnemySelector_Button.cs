@@ -8,11 +8,35 @@ public class EnemySelector_Button : Multi_UI_Base
 {
     [SerializeField] int enemyNumber;
     [SerializeField] string enemyInfoText;
-    
-    public void SelectSpawnEnemy(Color color)
+    Image image;
+    Color selectColor;
+    Color originColor = new Color(1, 1, 1, 1);
+
+    public void Setup(Color color, System.Action<EnemySelector_Button> action)
+    {
+        image = GetComponent<Image>();
+        selectColor = color;
+
+        GetComponent<Button>().onClick.AddListener(SelectSpawnEnemy);
+        GetComponent<Button>().onClick.AddListener(() => action(this));
+    }
+
+    public void StartSelectSpawnEnemy()
     {
         Multi_SpawnManagers.NormalEnemy.SetOtherEnemyNumber(enemyNumber);
-        GetComponent<Image>().color = color;
+        image.color = selectColor;
+    }
+
+    void SelectSpawnEnemy()
+    {
+        Multi_SpawnManagers.NormalEnemy.SetOtherEnemyNumber(enemyNumber);
+        image.color = selectColor;
+        Multi_Managers.Sound.PlayEffect(EffectSoundType.EnemySelected);
+    }
+
+    public void UI_Reset()
+    {
+        image.color = originColor;
     }
 
     [SerializeField] Vector3 offset;

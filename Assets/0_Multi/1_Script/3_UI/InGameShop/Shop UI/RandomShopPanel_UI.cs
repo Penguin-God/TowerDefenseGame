@@ -36,6 +36,7 @@ public class RandomShopPanel_UI : Multi_UI_Base
             goods.GetComponent<Button>().onClick.RemoveAllListeners();
             OnSell?.Invoke(goods.GetComponent<Goods_UI>());
             gameObject.SetActive(false);
+            Multi_Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
         }
         else
             Multi_Managers.UI.ShowPopupUI<WarningText>().Show($"{GetCurrcneyTypeText(data.CurrencyType)}가 부족해 구매할 수 없습니다.");
@@ -47,6 +48,7 @@ public class RandomShopPanel_UI : Multi_UI_Base
         {
             sellAct?.Invoke();
             gameObject.SetActive(false);
+            Multi_Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
         }
         else
             Multi_Managers.UI.ShowPopupUI<WarningText>().Show($"{GetCurrcneyTypeText(currentType)}가 부족해 구매할 수 없습니다.");

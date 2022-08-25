@@ -37,7 +37,7 @@ public class Goods_UI : Multi_UI_Base
         Button button = GetComponent<Button>();
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => panel.Setup(data, gameObject));
-
+        button.onClick.AddListener(() => Multi_Managers.Sound.PlayEffect(EffectSoundType.ShopGoodsClick));
         gameObject.SetActive(true);
     }
 }

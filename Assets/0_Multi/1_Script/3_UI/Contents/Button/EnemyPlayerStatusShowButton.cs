@@ -19,5 +19,6 @@ public class EnemyPlayerStatusShowButton : Multi_UI_Scene
         else
             Multi_Managers.UI.ShowPopupUI<EnemyPlayerInfoWindow>("EnemyPlayerInfoWindow").UpdateCount();
         isShow = !isShow;
+        Multi_Managers.Sound.PlayEffect(EffectSoundType.ShowOtherPlayerInfo);
     }
 }

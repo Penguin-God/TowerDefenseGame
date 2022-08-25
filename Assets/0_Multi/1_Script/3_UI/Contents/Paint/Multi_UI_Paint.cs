@@ -14,9 +14,12 @@ public class Multi_UI_Paint : Multi_UI_Scene
         base.Init();
 
         BindEvnet(_paintActiveButton, ChangePaintRootActive);
-
     }
 
     [SerializeField] GameObject _paintRoot;
-    void ChangePaintRootActive(PointerEventData data) => _paintRoot.SetActive(!_paintRoot.activeSelf);
+    void ChangePaintRootActive(PointerEventData data)
+    {
+        _paintRoot.SetActive(!_paintRoot.activeSelf);
+        Multi_Managers.Sound.PlayEffect(EffectSoundType.PopSound_2);
+    }
 }

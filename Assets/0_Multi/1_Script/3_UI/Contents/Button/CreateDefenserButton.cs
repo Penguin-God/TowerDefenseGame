@@ -21,8 +21,13 @@ public class CreateDefenserButton : Multi_UI_Scene
             {
                 Multi_SpawnManagers.NormalUnit.Spawn(Random.Range(minColor, maxColor + 1), 0);
                 Multi_GameManager.instance.AddGold(-5);
+                Multi_Managers.Sound.PlayEffect(EffectSoundType.DrawSwordman);
             }
-            else Multi_Managers.UI.ShowPopupUI<WarningText>().Show("유닛 공간이 부족해 소환할 수 없습니다.");
+            else
+            {
+                Multi_Managers.UI.ShowPopupUI<WarningText>().Show("유닛 공간이 부족해 소환할 수 없습니다.");
+                Multi_Managers.Sound.PlayEffect(EffectSoundType.Denger);
+            }
         }
     }
 }

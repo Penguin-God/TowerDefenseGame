@@ -101,5 +101,6 @@ public class RandomShop_UI : Multi_UI_Popup
     public void ShopReset()
     {
         panel.Setup(BindGoods, 10, "Gold", "10골드를 지불하여 상점을 돌리시겠습니까?");
+        Multi_Managers.Sound.PlayEffect(EffectSoundType.ShopGoodsClick);
     }
 }

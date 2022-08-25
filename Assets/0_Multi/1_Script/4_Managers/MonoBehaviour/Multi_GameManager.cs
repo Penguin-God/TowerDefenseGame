@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 
-public class Multi_GameManager : MonoBehaviourPunCallbacks, IPunObservable
+public class Multi_GameManager : MonoBehaviourPunCallbacks
 {
     public static Multi_GameManager instance
     {
@@ -217,15 +217,16 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks, IPunObservable
         yield return new WaitForSecondsRealtime(5f);
         Time.timeScale = 1;
         PhotonNetwork.LeaveRoom();
-    }
-
-    public override void OnLeftRoom()
-    {
         Multi_Managers.Scene.LoadScene(SceneTyep.클라이언트);
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
+    //public override void OnLeftRoom()
+    //{
+    //    Multi_Managers.Scene.LoadScene(SceneTyep.클라이언트);
+    //}
+
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
         
-    }
+    //}
 }

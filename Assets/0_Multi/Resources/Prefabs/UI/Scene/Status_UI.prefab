@@ -525,7 +525,7 @@ GameObject:
   - component: {fileID: 7090269474931238449}
   - component: {fileID: 3265652938119291781}
   m_Layer: 5
-  m_Name: Slider
+  m_Name: TimerSlider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

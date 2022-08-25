@@ -21,11 +21,11 @@ public class Multi_UIManager : MonoBehaviour
     private void Start()
     {
         Multi_GameManager.instance.OnStart += Set_GameUI;
-        Multi_GameManager.instance.OnStart += () => UpdateStageText(1);
+        //Multi_GameManager.instance.OnStart += () => UpdateStageText(1);
 
-        Multi_StageManager.Instance.OnUpdateStage += UpdateStageText;
+        //Multi_StageManager.Instance.OnUpdateStage += UpdateStageText;
 
-        Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateCountEnemyText;
+        //Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateCountEnemyText;
     }
 
     [SerializeField] GameObject title_UI;
@@ -33,7 +33,7 @@ public class Multi_UIManager : MonoBehaviour
     public void Set_GameUI()
     {
         title_UI.SetActive(false);
-        game_UI.SetActive(true);
+        //game_UI.SetActive(true);
     }
 
     [SerializeField] Text StageText;

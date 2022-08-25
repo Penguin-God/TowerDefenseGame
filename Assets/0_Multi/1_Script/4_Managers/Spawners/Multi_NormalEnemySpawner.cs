@@ -17,7 +17,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
     [SerializeField] float _spawnDelayTime = 2f;
     [SerializeField] int _stageSpawnCount = 15;
-    public float EnemySpawnTime => _spawnDelayTime * _stageSpawnCount;
+    public float EnemySpawnTime => _spawnDelayTime * _stageSpawnCount + 10;
 
     protected override void Init()
     {

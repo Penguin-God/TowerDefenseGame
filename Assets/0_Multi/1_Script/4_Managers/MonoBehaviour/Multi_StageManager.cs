@@ -37,15 +37,15 @@ public class Multi_StageManager : MonoBehaviourPun
             Multi_GameManager.instance.OnStart += UpdateStage;
         }
 
-        timerSlider.value = 0;
+        //timerSlider.value = 0;
         StageWait = new WaitForSeconds(Multi_SpawnManagers.NormalEnemy.EnemySpawnTime);
     }
 
-    private void Update()
-    {
-        if(timerSlider.value > 0)
-            timerSlider.value -= Time.deltaTime;
-    }
+    //private void Update()
+    //{
+    //    if(timerSlider.value > 0)
+    //        timerSlider.value -= Time.deltaTime;
+    //}
     
     void UpdateStage() 
     {
@@ -59,8 +59,8 @@ public class Multi_StageManager : MonoBehaviourPun
         currentStage = stage;
         OnUpdateStage?.Invoke(stage);
 
-        timerSlider.maxValue = stageTime;
-        timerSlider.value = stageTime;
+        //timerSlider.maxValue = stageTime;
+        //timerSlider.value = stageTime;
 
         StartCoroutine(Co_Stage());
     }
@@ -69,7 +69,7 @@ public class Multi_StageManager : MonoBehaviourPun
     IEnumerator Co_Stage()
     {
         yield return StageWait;
-        yield return new WaitUntil(() => timerSlider.value <= 0); // 스테이지 타이머 0이되면
+        // yield return new WaitUntil(() => timerSlider.value <= 0); // 스테이지 타이머 0이되면
 
         if(PhotonNetwork.IsMasterClient)
             UpdateStage();

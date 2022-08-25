@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 
@@ -29,6 +30,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         set
         {
             gold = value;
+            OnGoldChanged?.Invoke(gold);
             Multi_UIManager.instance.UpdateGoldText(gold);
         }
     }
@@ -40,9 +42,13 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         set
         {
             food = value;
+            OnFoodChanged?.Invoke(food);
             Multi_UIManager.instance.UpdateFoodText(food);
         }
     }
+
+    public event Action<int> OnGoldChanged;
+    public event Action<int> OnFoodChanged;
 
     public int StartGold;
     public int StartFood;
@@ -68,7 +74,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     [HideInInspector]
     public bool gameStart;
     public string Difficult { get; private set; }
-    public event System.Action OnStart;
+    public event Action OnStart;
     [PunRPC]
     void RPC_OnStart()
     {

@@ -24483,6 +24483,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: acf1cffdb6a65e243a6a1bffbf244bcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  spawnManagers: {fileID: 1712762051}
 --- !u!1001 &1519663465
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27145,16 +27146,12 @@ MonoBehaviour:
     enemyMaxCount: 0
   gold: 0
   food: 0
-  StartGold: 0
-  StartFood: 0
   _maxEnemyCount: 0
   _maxUninCount: 15
   gameStart: 0
   bossbgmClip: {fileID: 8300000, guid: f7b6398cfc46c8f43b5743906490edcc, type: 3}
   bgmClip: {fileID: 8300000, guid: 9c23b40b98c24154f81380bc3eb8fbe6, type: 3}
   gameManagerAudio: {fileID: 0}
-  GameoverUi: {fileID: 0}
-  EndText: {fileID: 0}
 --- !u!1001 &1707620172
 PrefabInstance:
   m_ObjectHideFlags: 0

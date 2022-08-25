@@ -5,11 +5,13 @@ using Photon.Pun;
 
 public class BattleScene : BaseScene
 {
+    [SerializeField] Multi_SpawnManagers spawnManagers;
     protected override void Init()
     {
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
 
+        spawnManagers.Init();
         Multi_Managers.Skill.Init();
         Multi_Managers.Camera.Init();
         Init_UI();

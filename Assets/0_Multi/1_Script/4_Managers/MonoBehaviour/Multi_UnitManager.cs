@@ -300,13 +300,13 @@ public class Multi_UnitManager : MonoBehaviourPun
         void ChangeDamage(UnitFlags flag, float value)
         {
             foreach (var unit in Instance._master.GetUnitList(_id, flag))
-                unit.Damage = Mathf.FloorToInt(unit.Damage * value);
+                unit.Damage += Mathf.FloorToInt(unit.Damage * (value - 1));
         }
 
         void ChangeBossDamage(UnitFlags flag, float value)
         {
             foreach (var unit in Instance._master.GetUnitList(_id, flag))
-                unit.BossDamage = Mathf.FloorToInt(unit.BossDamage * value);
+                unit.BossDamage += Mathf.FloorToInt(unit.BossDamage * (value - 1));
         }
     }
 }

@@ -65,7 +65,9 @@ public class SkillManager
 
         if (Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill == true)
         {
-            skills.Add(new Taegeuk());
+            Taegeuk taegeuk = new Taegeuk();
+            taegeuk.EquipSkill = true;
+            skills.Add(taegeuk);
             Debug.Log("태극 스킬 추가");
         }
         else
@@ -118,6 +120,8 @@ public class SkillManager
             Debug.Log("적군의성피해 없음.....");
         }
 
+        Debug.Log("==========================================================");
+        Debug.Log(skills.Count);
         for (int i = 0; i < skills.Count; i++)
         {
             if (skills[i].EquipSkill == true)
@@ -258,27 +262,46 @@ public class Taegeuk : PassiveSkill
     public override void InitSkill(Skill skill)
     {
         Debug.Log("태극 시너지 스킬 착용");
+        Multi_UnitManager.Count.OnUnitCountChanged += (count) => UseSkill();
+    }
+
+    void UseSkill()
+    {
         if (Red[0] >= 1 && Blue[0] >= 1 && Ather[0] == 0)
+        {
+            Debug.Log("기사 강화!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(0, 0), 1.5f);
             Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(1, 0), 1.5f);
+        }
 
         if (Red[1] >= 1 && Blue[1] >= 1 && Ather[0] == 0)
+        {
             Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(0, 1), 1.5f);
             Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(1, 1), 1.5f);
+        }
 
         if (Red[2] >= 1 && Blue[2] >= 1 && Ather[0] == 0)
+        {
             Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(0, 2), 1.5f);
             Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(1, 2), 1.5f);
+        }
 
         if (Red[3] >= 1 && Blue[3] >= 1 && Ather[0] == 0)
+        {
             Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(0, 3), 1.5f);
             Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(1, 3), 1.5f);
+        }
     }
 }
 
 public class BlackUnitUpgrade : PassiveSkill
 {
     public override void InitSkill(Skill skill)
+    {
+        Multi_UnitManager.Count.OnUnitCountChanged += (count) => UseSkill();
+    }
+
+    void UseSkill()
     {
         Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(7, 0), 1.5f);
         Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(7, 1), 1.5f);

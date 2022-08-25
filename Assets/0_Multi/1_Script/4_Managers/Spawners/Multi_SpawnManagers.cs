@@ -45,6 +45,16 @@ public class Multi_SpawnManagers : MonoBehaviourPun
         _effect = GetOrAddChildComponent<EffectSpawner>();
     }
 
+    public void Init()
+    {
+        _normalEnemy = GetOrAddChildComponent<Multi_NormalEnemySpawner>();
+        _bossEnemy = GetOrAddChildComponent<Multi_BossEnemySpawner>();
+        _towerEnemy = GetOrAddChildComponent<Multi_TowerEnemySpawner>();
+        _normalUnit = GetOrAddChildComponent<Multi_NormalUnitSpawner>();
+        _weapon = GetOrAddChildComponent<Multi_WeaponSpawner>();
+        _effect = GetOrAddChildComponent<EffectSpawner>();
+    }
+
     T GetOrAddChildComponent<T>() where T : Component
     {
         T component = GetComponentInChildren<T>();

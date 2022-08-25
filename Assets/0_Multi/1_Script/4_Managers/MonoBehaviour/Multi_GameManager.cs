@@ -31,7 +31,6 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         {
             gold = value;
             OnGoldChanged?.Invoke(gold);
-            //Multi_UIManager.instance.UpdateGoldText(gold);
         }
     }
 
@@ -43,7 +42,6 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         {
             food = value;
             OnFoodChanged?.Invoke(food);
-            //Multi_UIManager.instance.UpdateFoodText(food);
         }
     }
 
@@ -101,8 +99,6 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         isGameover = false;
         Gold = 35 + StartGold;
         Food = 20  + StartFood;
-        //Multi_UIManager.instance.UpdateGoldText(Gold);
-        //Multi_UIManager.instance.UpdateFoodText(Food);
     }
 
     void GetReward(Multi_BossEnemy boss)

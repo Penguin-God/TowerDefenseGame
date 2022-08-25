@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using System;
 using Photon.Pun;
 
@@ -26,8 +25,6 @@ public class Multi_StageManager : MonoBehaviourPun
     [SerializeField] int currentStage = 0;
     public int CurrentStage => currentStage;
 
-    [SerializeField] Slider timerSlider;
-    [SerializeField] float stageTime = 40f;
     WaitForSeconds StageWait;
 
     void Start()
@@ -37,16 +34,9 @@ public class Multi_StageManager : MonoBehaviourPun
             Multi_GameManager.instance.OnStart += UpdateStage;
         }
 
-        //timerSlider.value = 0;
         StageWait = new WaitForSeconds(Multi_SpawnManagers.NormalEnemy.EnemySpawnTime);
     }
 
-    //private void Update()
-    //{
-    //    if(timerSlider.value > 0)
-    //        timerSlider.value -= Time.deltaTime;
-    //}
-    
     void UpdateStage() 
     {
         currentStage += 1;
@@ -59,9 +49,6 @@ public class Multi_StageManager : MonoBehaviourPun
         currentStage = stage;
         OnUpdateStage?.Invoke(stage);
 
-        //timerSlider.maxValue = stageTime;
-        //timerSlider.value = stageTime;
-
         StartCoroutine(Co_Stage());
     }
 
@@ -69,8 +56,7 @@ public class Multi_StageManager : MonoBehaviourPun
     IEnumerator Co_Stage()
     {
         yield return StageWait;
-        // yield return new WaitUntil(() => timerSlider.value <= 0); // 스테이지 타이머 0이되면
-
+        
         if(PhotonNetwork.IsMasterClient)
             UpdateStage();
     }

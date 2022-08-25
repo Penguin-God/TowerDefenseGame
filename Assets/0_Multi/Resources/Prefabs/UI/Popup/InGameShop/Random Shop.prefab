@@ -1136,6 +1136,7 @@ GameObject:
   - component: {fileID: 3089408717530685215}
   - component: {fileID: 3089408717530685200}
   - component: {fileID: 3089408717530685201}
+  - component: {fileID: 5705967055924618205}
   m_Layer: 5
   m_Name: Exit Shop Button
   m_TagString: Untagged
@@ -1242,18 +1243,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3089408717530685200}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1851800193802447926}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &5705967055924618205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3089408717530685203}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca2d7dcc5ad484e468e34b1a56c174a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colseObj: {fileID: 1851800193802447926}
 --- !u!1 &3089408717566719237
 GameObject:
   m_ObjectHideFlags: 0
@@ -1994,6 +1997,7 @@ GameObject:
   - component: {fileID: 3089408718494902144}
   - component: {fileID: 3089408718494902145}
   - component: {fileID: 3089408718494902146}
+  - component: {fileID: 8490846766847411773}
   m_Layer: 5
   m_Name: No Button
   m_TagString: Untagged
@@ -2100,18 +2104,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3089408718494902145}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3089408717825304115}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
+--- !u!114 &8490846766847411773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3089408718494902148}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ca2d7dcc5ad484e468e34b1a56c174a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colseObj: {fileID: 3089408717825304115}
 --- !u!1 &3089408718729027239
 GameObject:
   m_ObjectHideFlags: 0

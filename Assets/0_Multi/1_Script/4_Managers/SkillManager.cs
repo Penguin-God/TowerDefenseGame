@@ -45,15 +45,6 @@ public class SkillManager
             Debug.Log("시작 골드 증가 없음.....");
         }
 
-        if (Multi_Managers.ClientData.SkillByType[SkillType.시작식량증가].EquipSkill == true)
-        {
-            Debug.Log("시작 식량 증가 사용");
-        }
-        else
-        {
-            Debug.Log("시작 식량 증가 없음.....");
-        }
-
         if (Multi_Managers.ClientData.SkillByType[SkillType.최대유닛증가].EquipSkill == true)
         {
             Debug.Log("시작 최대 유닛 증가 사용");
@@ -157,14 +148,6 @@ public class ActiveSkill : Skill
 // --------------------------------------------
 
 public class StartGold : PassiveSkill
-{
-    public override void InitSkill(Skill skill)
-    {
-
-    }
-}
-
-public class StartFood : PassiveSkill
 {
     public override void InitSkill(Skill skill)
     {
@@ -323,6 +306,14 @@ public class ColorChange : ActiveSkill
     public override void InitSkill(Skill skill)
     {
         // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
+    }
+}
+
+public class CommonSkill : PassiveSkill
+{
+    public override void InitSkill(Skill skill)
+    {
+        // 대충 안좋은 효과
     }
 }
 

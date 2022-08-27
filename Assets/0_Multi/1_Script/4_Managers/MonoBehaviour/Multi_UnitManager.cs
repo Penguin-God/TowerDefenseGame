@@ -56,6 +56,9 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     [PunRPC] // Controller에서 사용
     void UnitDead(int id, UnitFlags unitFlag, int count) => Controller.UnitDead(id, unitFlag, count);
+
+    [PunRPC]
+    void UnitStatChange(int typeNum, UnitFlags flag, float value) => Stat.UnitStatChange(typeNum, flag, value);
     #endregion
 
 
@@ -288,19 +291,40 @@ public class Multi_UnitManager : MonoBehaviourPun
             _id = Multi_Data.instance.Id;
         }
 
-        public void UnitStatChange(UnitStatType type, UnitFlags flag, float value)
+        public void UnitStatChange_RPC(UnitStatType type, UnitFlags flag, int value)
+            => Instance.photonView.RPC("UnitStatChange", RpcTarget.MasterClient, (int)type, flag, value);
+
+        public void UnitStatChange_RPC(UnitStatType type, UnitFlags flag, float value)
+            => Instance.photonView.RPC("UnitStatChange", RpcTarget.MasterClient, (int)type, flag, value);
+
+        public void UnitStatChange(int typeNum, UnitFlags flag, float value)
         {
-            switch (type)
+            switch (typeNum)
             {
-                case UnitStatType.Damage: ChangeDamage(flag, value); break;
-                case UnitStatType.BossDamage: ChangeBossDamage(flag, value); break;
+                case 0: ChangeDamage(flag, value); break;
+                case 1: ChangeBossDamage(flag, value); break;
+            }
+        }
+
+        public void UnitStatChange(int typeNum, UnitFlags flag, int value)
+        {
+            switch (typeNum)
+            {
+                case 0: ChangeDamage(flag, value); break;
+                case 1: ChangeBossDamage(flag, value); break;
             }
         }
 
         void ChangeDamage(UnitFlags flag, float value)
         {
             foreach (var unit in Instance._master.GetUnitList(_id, flag))
-                unit.Damage += Mathf.FloorToInt(unit.Damage * (value - 1));
+                unit.Damage += (int)value;
+        }
+
+        void ChangeDamage(UnitFlags flag, int value)
+        {
+            foreach (var unit in Instance._master.GetUnitList(_id, flag))
+                unit.Damage = value;
         }
 
         void ChangeBossDamage(UnitFlags flag, float value)

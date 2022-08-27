@@ -253,26 +253,26 @@ public class Taegeuk : PassiveSkill
         if (Red[0] >= 1 && Blue[0] >= 1 && Ather[0] == 0)
         {
             Debug.Log("기사 강화!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(0, 0), 1.5f);
-            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(1, 0), 1.5f);
+            Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 0), 1.5f);
+            Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 0), 1.5f);
         }
 
         if (Red[1] >= 1 && Blue[1] >= 1 && Ather[0] == 0)
         {
-            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(0, 1), 1.5f);
-            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(1, 1), 1.5f);
+            Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 1), 1.5f);
+            Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 1), 1.5f);
         }
 
         if (Red[2] >= 1 && Blue[2] >= 1 && Ather[0] == 0)
         {
-            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(0, 2), 1.5f);
-            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(1, 2), 1.5f);
+            Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 2), 1.5f);
+            Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 2), 1.5f);
         }
 
         if (Red[3] >= 1 && Blue[3] >= 1 && Ather[0] == 0)
         {
-            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(0, 3), 1.5f);
-            Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(1, 3), 1.5f);
+            Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 3), 1.5f);
+            Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 3), 1.5f);
         }
     }
 }
@@ -286,10 +286,10 @@ public class BlackUnitUpgrade : PassiveSkill
 
     void UseSkill()
     {
-        Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(7, 0), 1.5f);
-        Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(7, 1), 1.5f);
-        Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(7, 2), 1.5f);
-        Multi_UnitManager.Stat.UnitStatChange(UnitStatType.Damage, new UnitFlags(7, 3), 1.5f);
+        Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(7, 0), 1.5f);
+        Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(7, 1), 1.5f);
+        Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(7, 2), 1.5f);
+        Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(7, 3), 1.5f);
     }
 }
 

@@ -5152,9 +5152,8 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
-  - {fileID: 6885085033086736095}
   - {fileID: 5024461232737972302}
   sceneViewId: 0
   InstantiationId: 0
@@ -5179,6 +5178,7 @@ MonoBehaviour:
   hpSlider: {fileID: 1112035910167443037}
   enemyType: 0
   dir: {x: 0, y: 0, z: 0}
+  rpcable: {fileID: 0}
   originMat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
   enemyNumber: 1
   freezeMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
@@ -5211,7 +5211,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _usingId: -1
   IsUsing: 0
   Path: 
 --- !u!114 &2182385851540764751

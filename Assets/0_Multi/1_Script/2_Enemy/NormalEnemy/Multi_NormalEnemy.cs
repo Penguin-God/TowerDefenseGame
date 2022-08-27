@@ -6,7 +6,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using System;
 
-public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
+public class Multi_NormalEnemy : Multi_Enemy
 {
     [SerializeField] int enemyNumber = 0;
     public int GetEnemyNumber => enemyNumber;
@@ -33,7 +33,7 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
         base.SetStatus(_hp, _speed, _isDead);
         Passive();
         TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);
-        currentPos = transform.position;
+        //currentPos = transform.position;
         if(pointIndex == -1) pointIndex = 0;
         if (TurnPoints != null && PhotonNetwork.IsMasterClient) ChaseToPoint();
     }
@@ -215,18 +215,17 @@ public class Multi_NormalEnemy : Multi_Enemy, IPunObservable
     #endregion
 
 
-    Vector3 currentPos;
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(transform.position);
-        }
-        else
-        {
-            currentPos = (Vector3)stream.ReceiveNext();
-            LerpUtility.LerpPostition(transform, currentPos);
-        }
-    }
-
+    //Vector3 currentPos;
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        stream.SendNext(transform.position);
+    //    }
+    //    else
+    //    {
+    //        currentPos = (Vector3)stream.ReceiveNext();
+    //        LerpUtility.LerpPostition(transform, currentPos);
+    //    }
+    //}
 }

@@ -47,6 +47,15 @@ public class Multi_UnitManager : MonoBehaviourPun
         _master.Init();
     }
 
+    void OnDestroy()
+    {
+        _count = null;
+        _enemyPlayer = null;
+        _controller = null;
+        _master = null;
+        _stat = null;
+    }
+
     #region PunRPC functions
     [PunRPC]
     void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode) => Controller.UnitWorldChanged(id, flag, enterStroyMode);

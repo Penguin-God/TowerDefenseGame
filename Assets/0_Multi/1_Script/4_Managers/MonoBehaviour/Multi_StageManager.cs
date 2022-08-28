@@ -37,6 +37,11 @@ public class Multi_StageManager : MonoBehaviourPun
         StageWait = new WaitForSeconds(Multi_SpawnManagers.NormalEnemy.EnemySpawnTime);
     }
 
+    void OnDestroy()
+    {
+        OnUpdateStage = null;
+    }
+
     void UpdateStage() 
     {
         currentStage += 1;

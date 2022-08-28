@@ -40,7 +40,7 @@ public class ClientManager : MonoBehaviour
     void Start()
     {
         // 임시 코드
-        EventIdManager.Reset();
+        //EventIdManager.Reset();
 
         Skill_Image skill_Image = GetComponent<Skill_Image>();
 

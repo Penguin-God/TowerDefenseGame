@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -18181,15 +18181,16 @@ MonoBehaviour:
   IronText: {fileID: 343914860}
   WoodText: {fileID: 1988808609}
   HammerText: {fileID: 94947881}
-  StartGoldPriceText: {fileID: 1671861255}
-  StartFoodPriceText: {fileID: 1999542626}
-  PlusTouchDamegePriceText: {fileID: 2079237418}
-  PlusMaxUnitPriceText: {fileID: 583076909}
-  TaegeukSkillPriceText: {fileID: 2079237418}
   StartGoldEquipButton: {fileID: 586306662}
-  StartFoodEquipButton: {fileID: 40196370}
   PlusMaxUnitEquipButton: {fileID: 1599745491}
   TaegeukSkillEquipButton: {fileID: 1503461541}
+  BlackUnitUpgradeEquipButton: {fileID: 0}
+  YellowUnitUpgradeEquipButton: {fileID: 0}
+  ColorChangeEquipButton: {fileID: 0}
+  CommonSkillEquipButton: {fileID: 0}
+  FoodHaterEquipButton: {fileID: 0}
+  SellUpgradeEquipButton: {fileID: 0}
+  BossDamageUpgradeEquipButton: {fileID: 0}
   Skill1Image: {fileID: 1393328913}
   Skill2Image: {fileID: 546138508}
   skill_Image: {fileID: 792715571}
@@ -18331,10 +18332,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70fcf9366b3a50944a3e23ca557bb314, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  StratGoldImage: {fileID: 21300000, guid: 40507134201370e4f83c4ee99900be98, type: 3}
-  StratFoodImage: {fileID: 21300000, guid: e8fcc2c8b0e3fbc448689f88bc9c684c, type: 3}
+  StratGoldImage: {fileID: 21300000, guid: fe97f873de74381469b041ce407628c2, type: 3}
   PlusMaxUnitImage: {fileID: 21300000, guid: de3a4653b45a58749a6185ab8de1852f, type: 3}
   TaegeukSkillImage: {fileID: 21300000, guid: 8113d6212ff1d49989bcf115cac39bde, type: 3}
+  BlackUnitUpgradeImage: {fileID: 21300000, guid: 1b9255e5bc049ad409ec4c4fe76ae537,
+    type: 3}
+  YellowUnitUpgradeImage: {fileID: 21300000, guid: 40507134201370e4f83c4ee99900be98,
+    type: 3}
+  ColorChangeImage: {fileID: 21300000, guid: a27065b1d9eb8d6478ab32e06f77ca06, type: 3}
+  CommonSkillImage: {fileID: 21300000, guid: 7541aa08aae8c784eac6c5145bf2d47d, type: 3}
+  FoodHaterImage: {fileID: 21300000, guid: ce96532d4bf29b348aa20c623f110bdc, type: 3}
+  SellUpgradeImage: {fileID: 21300000, guid: 5020a01ad4c184d4b809c1a88307b482, type: 3}
+  BossDamageUpgradeImage: {fileID: 21300000, guid: c70f4bbb98e6b1f46a91d5c65d26a5ed,
+    type: 3}
   UImask: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &797711884
 GameObject:

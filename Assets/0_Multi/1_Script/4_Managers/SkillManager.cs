@@ -32,12 +32,17 @@ public class Skill
 public class SkillManager
 {
     Dictionary<SkillType, System.Action> keyValuePairs = new Dictionary<SkillType, System.Action>();
-    List<Skill> skills = new List<Skill>();
+    
 
     public void Init()
     {
+        List<Skill> skills = new List<Skill>();
+
         if (Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].EquipSkill == true)
         {
+            StartGold startGold = new StartGold();
+            startGold.EquipSkill = true;
+            skills.Add(startGold);
             Debug.Log("시작 골드 증가 사용");
         }
         else
@@ -47,6 +52,9 @@ public class SkillManager
 
         if (Multi_Managers.ClientData.SkillByType[SkillType.최대유닛증가].EquipSkill == true)
         {
+            MaxUnit maxUnit = new MaxUnit();
+            maxUnit.EquipSkill = true;
+            skills.Add(maxUnit);
             Debug.Log("시작 최대 유닛 증가 사용");
         }
         else
@@ -68,6 +76,9 @@ public class SkillManager
 
         if (Multi_Managers.ClientData.SkillByType[SkillType.검은유닛강화].EquipSkill == true)
         {
+            BlackUnitUpgrade blackUnitUpgrade = new BlackUnitUpgrade();
+            blackUnitUpgrade.EquipSkill = true;
+            skills.Add(blackUnitUpgrade);
             Debug.Log("검은유닛강화 추가");
         }
         else
@@ -77,6 +88,9 @@ public class SkillManager
 
         if (Multi_Managers.ClientData.SkillByType[SkillType.노란기사강화].EquipSkill == true)
         {
+            YellowUnitUpgrade yellowUnitUpgrade = new YellowUnitUpgrade();
+            yellowUnitUpgrade.EquipSkill = true;
+            skills.Add(yellowUnitUpgrade);
             Debug.Log("노란기사강화 추가");
         }
         else
@@ -86,6 +100,9 @@ public class SkillManager
 
         if (Multi_Managers.ClientData.SkillByType[SkillType.상대색깔변경].EquipSkill == true)
         {
+            ColorChange colorChange = new ColorChange();
+            colorChange.EquipSkill = true;
+            skills.Add(colorChange);
             Debug.Log("상대색깔변경 추가");
         }
         else
@@ -95,6 +112,9 @@ public class SkillManager
 
         if (Multi_Managers.ClientData.SkillByType[SkillType.판매보상증가].EquipSkill == true)
         {
+            SellUpgrade sellUpgrade = new SellUpgrade();
+            sellUpgrade.EquipSkill = true;
+            skills.Add(sellUpgrade);
             Debug.Log("판매보상증가 추가");
         }
         else
@@ -104,11 +124,14 @@ public class SkillManager
 
         if (Multi_Managers.ClientData.SkillByType[SkillType.보스데미지증가].EquipSkill == true)
         {
-            Debug.Log("적군의성피해 추가");
+            BossDamageUpgrade bossDamageUpgrade = new BossDamageUpgrade();
+            bossDamageUpgrade.EquipSkill = true;
+            skills.Add(bossDamageUpgrade);
+            Debug.Log("보스데미지증가 추가");
         }
         else
         {
-            Debug.Log("적군의성피해 없음.....");
+            Debug.Log("보스데미지증가 없음.....");
         }
 
         Debug.Log("==========================================================");
@@ -125,7 +148,7 @@ public class SkillManager
     public void Clear()
     {
         keyValuePairs.Clear();
-        skills.Clear();
+        // skills.Clear();
     }
 }
 

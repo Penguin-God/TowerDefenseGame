@@ -150,39 +150,39 @@ public class ClientManager : MonoBehaviour
         BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.태극스킬, MoneyType.Iron);
     }
 
-    public void BuyBlackUnitUpgradeSkill()
+    public void BuyBlackUnitUpgrade()
     {
-        BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.태극스킬, MoneyType.Iron);
+        BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.검은유닛강화, MoneyType.Iron);
     }
 
-    public void BuyYellowUnitUpgradeSkill()
+    public void BuyYellowUnitUpgrade()
     {
-        BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.태극스킬, MoneyType.Iron);
+        BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.노란기사강화, MoneyType.Iron);
     }
 
-    public void BuyColorChangeSkill()
+    public void BuyColorChange()
     {
-        BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.태극스킬, MoneyType.Iron);
+        BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.상대색깔변경, MoneyType.Iron);
     }
 
-    public void BuyCommonSkillSkill()
+    public void BuyCommonSkill()
     {
-        BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.태극스킬, MoneyType.Iron);
+        BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.흔한스킬, MoneyType.Iron);
     }
 
-    public void BuyFoodHaterSkill()
+    public void BuyFoodHater()
     {
-        BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.태극스킬, MoneyType.Iron);
+        BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.고기혐오자, MoneyType.Iron);
     }
 
-    public void BuySellUpgradeSkill()
+    public void BuySellUpgrade()
     {
-        BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.태극스킬, MoneyType.Iron);
+        BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.판매보상증가, MoneyType.Iron);
     }
 
-    public void BuyBossDamageUpgradeSkill()
+    public void BuyBossDamageUpgrade()
     {
-        BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.태극스킬, MoneyType.Iron);
+        BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.보스데미지증가, MoneyType.Iron);
     }
 
 
@@ -221,6 +221,91 @@ public class ClientManager : MonoBehaviour
             Skill2Image.sprite = skill_Image.TaegeukSkillImage;
     }
 
+    public void EquipBlackUnitUpgrade()
+    {
+        if (EquipSkill(SkillType.검은유닛강화) == false)
+            return;
+
+
+        if (CheckSkill() == 1)
+            Skill1Image.sprite = skill_Image.TaegeukSkillImage;
+        else if (CheckSkill() == 2)
+            Skill2Image.sprite = skill_Image.TaegeukSkillImage;
+    }
+
+    public void EquipYellowUnitUpgrade()
+    {
+        if (EquipSkill(SkillType.노란기사강화) == false)
+            return;
+
+
+        if (CheckSkill() == 1)
+            Skill1Image.sprite = skill_Image.TaegeukSkillImage;
+        else if (CheckSkill() == 2)
+            Skill2Image.sprite = skill_Image.TaegeukSkillImage;
+    }
+
+    public void EquipColorChange()
+    {
+        if (EquipSkill(SkillType.상대색깔변경) == false)
+            return;
+
+
+        if (CheckSkill() == 1)
+            Skill1Image.sprite = skill_Image.TaegeukSkillImage;
+        else if (CheckSkill() == 2)
+            Skill2Image.sprite = skill_Image.TaegeukSkillImage;
+    }
+
+    public void EquipCommonSkill()
+    {
+        if (EquipSkill(SkillType.흔한스킬) == false)
+            return;
+
+
+        if (CheckSkill() == 1)
+            Skill1Image.sprite = skill_Image.TaegeukSkillImage;
+        else if (CheckSkill() == 2)
+            Skill2Image.sprite = skill_Image.TaegeukSkillImage;
+    }
+
+    public void EquipFoodHater()
+    {
+        if (EquipSkill(SkillType.고기혐오자) == false)
+            return;
+
+
+        if (CheckSkill() == 1)
+            Skill1Image.sprite = skill_Image.TaegeukSkillImage;
+        else if (CheckSkill() == 2)
+            Skill2Image.sprite = skill_Image.TaegeukSkillImage;
+    }
+
+    public void EquipSellUpgrade()
+    {
+        if (EquipSkill(SkillType.판매보상증가) == false)
+            return;
+
+
+        if (CheckSkill() == 1)
+            Skill1Image.sprite = skill_Image.TaegeukSkillImage;
+        else if (CheckSkill() == 2)
+            Skill2Image.sprite = skill_Image.TaegeukSkillImage;
+    }
+
+    public void EquipBossDamageUpgrade()
+    {
+        if (EquipSkill(SkillType.보스데미지증가) == false)
+            return;
+
+
+        if (CheckSkill() == 1)
+            Skill1Image.sprite = skill_Image.TaegeukSkillImage;
+        else if (CheckSkill() == 2)
+            Skill2Image.sprite = skill_Image.TaegeukSkillImage;
+    }
+
+
     bool EquipSkill(SkillType skillType)
     {
         if (CheckSkill() >= 2)
@@ -250,6 +335,13 @@ public class ClientManager : MonoBehaviour
         InitEquip(SkillType.시작골드증가, StartGoldEquipButton);
         InitEquip(SkillType.최대유닛증가, PlusMaxUnitEquipButton);
         InitEquip(SkillType.태극스킬, TaegeukSkillEquipButton);
+        InitEquip(SkillType.검은유닛강화, TaegeukSkillEquipButton);
+        InitEquip(SkillType.노란기사강화, TaegeukSkillEquipButton);
+        InitEquip(SkillType.상대색깔변경, TaegeukSkillEquipButton);
+        InitEquip(SkillType.흔한스킬, TaegeukSkillEquipButton);
+        InitEquip(SkillType.고기혐오자, TaegeukSkillEquipButton);
+        InitEquip(SkillType.판매보상증가, TaegeukSkillEquipButton);
+        InitEquip(SkillType.보스데미지증가, TaegeukSkillEquipButton);
     }
 
     void InitEquip(SkillType skillType, Button equipButton)
@@ -276,6 +368,20 @@ public class ClientManager : MonoBehaviour
             count++;
         if (Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill == true)
             count++;
+        if (Multi_Managers.ClientData.SkillByType[SkillType.검은유닛강화].EquipSkill == true)
+            count++;
+        if (Multi_Managers.ClientData.SkillByType[SkillType.노란기사강화].EquipSkill == true)
+            count++;
+        if (Multi_Managers.ClientData.SkillByType[SkillType.상대색깔변경].EquipSkill == true)
+            count++;
+        if (Multi_Managers.ClientData.SkillByType[SkillType.흔한스킬].EquipSkill == true)
+            count++;
+        if (Multi_Managers.ClientData.SkillByType[SkillType.고기혐오자].EquipSkill == true)
+            count++;
+        if (Multi_Managers.ClientData.SkillByType[SkillType.판매보상증가].EquipSkill == true)
+            count++;
+        if (Multi_Managers.ClientData.SkillByType[SkillType.보스데미지증가].EquipSkill == true)
+            count++;
 
         return count;
     }
@@ -288,6 +394,13 @@ public class ClientManager : MonoBehaviour
         Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].SetEquipSkill(false);
         Multi_Managers.ClientData.SkillByType[SkillType.최대유닛증가].SetEquipSkill(false);
         Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].SetEquipSkill(false);
+        Multi_Managers.ClientData.SkillByType[SkillType.검은유닛강화].SetEquipSkill(false);
+        Multi_Managers.ClientData.SkillByType[SkillType.노란기사강화].SetEquipSkill(false);
+        Multi_Managers.ClientData.SkillByType[SkillType.상대색깔변경].SetEquipSkill(false);
+        Multi_Managers.ClientData.SkillByType[SkillType.흔한스킬].SetEquipSkill(false);
+        Multi_Managers.ClientData.SkillByType[SkillType.고기혐오자].SetEquipSkill(false);
+        Multi_Managers.ClientData.SkillByType[SkillType.판매보상증가].SetEquipSkill(false);
+        Multi_Managers.ClientData.SkillByType[SkillType.보스데미지증가].SetEquipSkill(false);
 
         InitEquips();
     }

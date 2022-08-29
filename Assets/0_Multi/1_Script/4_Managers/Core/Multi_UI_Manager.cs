@@ -148,12 +148,12 @@ public class Multi_UI_Manager
 
     public void Clear()
     {
-        if(_root != null)
+        _sceneUI = null;
+        _popupByType.Clear();
+        popupGroupByGroupType.Clear();
+        if (_root != null)
         {
             _root = null;
-            _sceneUI = null;
-            _popupByType.Clear();
-            popupGroupByGroupType.Clear();
         }
     }
 

@@ -184,7 +184,7 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         public void UnitDead_RPC(int id, UnitFlags unitFlag, int count = 1) => Instance.photonView.RPC("UnitDead", RpcTarget.MasterClient, id, unitFlag, count);
         
-        public void UnitDead(int id, UnitFlags unitFlag, int count)
+        public void UnitDead(int id, UnitFlags unitFlag, int count = 1)
         {
             if (PhotonNetwork.IsMasterClient == false) return;
 
@@ -280,14 +280,23 @@ public class Multi_UnitManager : MonoBehaviourPun
         {
             if (PhotonNetwork.IsMasterClient == false) return;
 
-            SacrificedUnit_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[flag]);
+            SacrificedUnits_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[flag]);
             Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
 
             OnTryCombine?.RaiseEvent(id, true, flag);
 
+            void SacrificedUnits_ForCombine(CombineCondition condition)
+                => condition.NeedCountByFlag.ToList().ForEach(x => SacrificedUnit_ForCombine(x));
 
-            void SacrificedUnit_ForCombine(CombineCondition condition)
-                    => condition.NeedCountByFlag.ToList().ForEach(x => Instance._controller.UnitDead(id, x.Key, x.Value));
+            void SacrificedUnit_ForCombine(KeyValuePair<UnitFlags, int> flagCountPair)
+            {
+                for (int i = 0; i < flagCountPair.Value; i++)
+                {
+                    Instance._controller.UnitDead(id, flagCountPair.Key);
+                    if (flagCountPair.Key == new UnitFlags(2, 0))
+                        Multi_GameManager.instance.AddGold(1);
+                }
+            }
         }
     }
 

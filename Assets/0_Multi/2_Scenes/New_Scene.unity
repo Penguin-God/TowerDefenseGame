@@ -26983,8 +26983,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1697914940}
-  - component: {fileID: 1697914941}
   - component: {fileID: 1697914943}
+  - component: {fileID: 1697914941}
   - component: {fileID: 1697914942}
   m_Layer: 0
   m_Name: Multi_Game Manager

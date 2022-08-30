@@ -29,13 +29,23 @@ public class Status_UI : Multi_UI_Scene
 
         unitText = GetText((int)Texts.EnemyofCount);
         enemyText = GetText((int)Texts.CurrentUnitText);
+        timerSlider = GetObject((int)GameObjects.TimerSlider).GetComponent<Slider>();
+
+        InitEvent();
+    }
+
+    void InitEvent()
+    {
+        Multi_EnemyManager.Instance.OnEnemyCountChanged -= UpdateEnemyCountText;
+        Multi_GameManager.instance.OnGoldChanged -= (gold) => GetText((int)Texts.GoldText).text = gold.ToString();
+        Multi_GameManager.instance.OnFoodChanged -= (food) => GetText((int)Texts.FoodText).text = food.ToString();
+        Multi_UnitManager.Count.OnUnitCountChanged -= UpdateUnitText;
+        Multi_StageManager.Instance.OnUpdateStage -= UpdateStage;
 
         Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateEnemyCountText;
         Multi_GameManager.instance.OnGoldChanged += (gold) => GetText((int)Texts.GoldText).text = gold.ToString();
         Multi_GameManager.instance.OnFoodChanged += (food) => GetText((int)Texts.FoodText).text = food.ToString();
         Multi_UnitManager.Count.OnUnitCountChanged += UpdateUnitText;
-
-        timerSlider = GetObject((int)GameObjects.TimerSlider).GetComponent<Slider>();
         Multi_StageManager.Instance.OnUpdateStage += UpdateStage;
     }
 
@@ -45,8 +55,6 @@ public class Status_UI : Multi_UI_Scene
     Color dengerColor = new Color(1, 0, 0, 1);
     void UpdateEnemyCountText(int EnemyofCount)
     {
-        print(GetText((int)Texts.EnemyofCount) == null);
-        if (GetText((int)Texts.EnemyofCount) == null) return;
         Text text = GetText((int)Texts.EnemyofCount);
         if (EnemyofCount > 40)
         {

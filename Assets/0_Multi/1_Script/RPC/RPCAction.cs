@@ -30,6 +30,16 @@ public static class EventIdManager
     }
 }
 
+class RPCAciontBase
+{
+    public byte Constructor(Action<EventData> recevieEvent, IEventClear clear)
+    {
+        PhotonNetwork.NetworkingClient.EventReceived -= recevieEvent;
+        PhotonNetwork.NetworkingClient.EventReceived += recevieEvent;
+        return EventIdManager.UseID(clear);
+    }
+}
+
 // 마스터한테 요청해야 하지만 개별로 적용되어야 하는 이벤트들
 
 public class RPCAction<T> : IEventClear
@@ -37,18 +47,8 @@ public class RPCAction<T> : IEventClear
     byte _eventId;
     event Action<T> OnEvent = null;
 
-    public RPCAction()
-    {
-        _eventId = EventIdManager.UseID(this);
-        PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
-        PhotonNetwork.NetworkingClient.EventReceived += RecevieEvent;
-    }
-
-    public void Clear()
-    {
-        Debug.Log("wwwwwwwwwwwwwwww");
-        PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
-    }
+    public RPCAction() => _eventId = new RPCAciontBase().Constructor(RecevieEvent, this);
+    public void Clear() => PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
 
     void RecevieEvent(EventData data)
     {
@@ -85,24 +85,14 @@ public class RPCAction<T> : IEventClear
     }
 }
 
-
 public class RPCAction<T, T2> : IEventClear
 {
     byte _eventId;
     event Action<T, T2> OnEvent = null;
 
-    public RPCAction()
-    {
-        _eventId = EventIdManager.UseID(this);
-        PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
-        PhotonNetwork.NetworkingClient.EventReceived += RecevieEvent;
-    }
+    public RPCAction() => _eventId = new RPCAciontBase().Constructor(RecevieEvent, this);
+    public void Clear() => PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
 
-    public void Clear()
-    {
-        Debug.Log("wwwwwwwwwwwwwwww");
-        PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
-    }
 
     void RecevieEvent(EventData data)
     {

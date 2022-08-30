@@ -17,15 +17,13 @@ public class Multi_NormalEnemy : Multi_Enemy
     private int pointIndex = -1;
 
     protected Rigidbody Rigidbody;
-    
-
-    protected virtual void Passive() { }
-
 
     protected override void Init()
     {
         Rigidbody = GetComponent<Rigidbody>();
     }
+
+    protected virtual void Passive() { }
 
     [PunRPC]
     protected override void SetStatus(int _hp, float _speed, bool _isDead)
@@ -34,44 +32,29 @@ public class Multi_NormalEnemy : Multi_Enemy
         Passive();
         TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);
         if(pointIndex == -1) pointIndex = 0;
-        ChaseToPoint();
+        SetVelocity();
     }
 
-    [PunRPC]
-    public void Turn()
-    {
-        transform.position = WayPoint.position;
-        transform.rotation = Quaternion.Euler(0, -90 * pointIndex, 0);
-        pointIndex++;
-    }
-
-    [PunRPC]
-    public void Turn(double sendTime)
+    void Turn()
     {
         transform.position = WayPoint.position;
         transform.rotation = Quaternion.Euler(0, -90 * pointIndex, 0);
         pointIndex++;
         if (pointIndex >= TurnPoints.Length) pointIndex = 0;
-        print(PhotonNetwork.Time - sendTime);
     }
 
-    private void ChaseToPoint()
+    void SetVelocity() // 실제 이동을 위한 속도 설정
     {
-        // 실제 이동을 위한 속도 설정
         dir = (WayPoint.position - transform.position).normalized;
         Rigidbody.velocity = dir * speed;
-        //rpcable.SetVelocity_RPC(dir * speed);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "WayPoint") // && photonView.IsMine
+        if (other.tag == "WayPoint")
         {
-            Turn(PhotonNetwork.Time);
-            //photonView.RPC("Turn", RpcTarget.All, _pointIndex, _wayPoint, PhotonNetwork.Time);
-            dir = (WayPoint.position - transform.position).normalized;
-            ChaseToPoint();
-            //if (PhotonNetwork.IsMasterClient)
+            Turn();
+            SetVelocity();
         }
     }
 

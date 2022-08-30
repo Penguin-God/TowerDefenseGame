@@ -21,7 +21,7 @@ public struct BattleGameData
     public int EnemyMaxCount => enemyMaxCount;
 }
 
-public class Multi_GameManager : MonoBehaviourPunCallbacks, IPunObservable
+public class Multi_GameManager : MonoBehaviourPunCallbacks
 {
     public static Multi_GameManager instance
     {
@@ -217,15 +217,5 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks, IPunObservable
         Time.timeScale = 1;
         PhotonNetwork.LeaveRoom();
         Multi_Managers.Scene.LoadScene(SceneTyep.클라이언트);
-    }
-
-    public override void OnLeftRoom()
-    {
-        //Multi_Managers.Scene.LoadScene(SceneTyep.클라이언트);
-    }
-
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-
     }
 }

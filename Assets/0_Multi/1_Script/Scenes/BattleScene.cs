@@ -46,7 +46,7 @@ public class BattleScene : BaseScene
 
     public override void Clear()
     {
-        //EventIdManager.Clear();
+        EventIdManager.Clear();
         Multi_Managers.Pool.Clear();
     }
 }

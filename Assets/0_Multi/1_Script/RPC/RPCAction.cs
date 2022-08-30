@@ -6,25 +6,48 @@ using Photon.Realtime;
 using ExitGames.Client.Photon;
 using System;
 
+public interface IEventClear
+{
+    void Clear();
+}
+
 public static class EventIdManager
 {
     static byte id = 0;
+    static List<IEventClear> clears= new List<IEventClear>();
+    public static byte UseID(IEventClear clear)
+    {
+        clears.Add(clear);
+        id++;
+        return id;
+    }
     public static byte UseID() => id++;
-    public static void Reset() => id = 0;
+    public static void Clear()
+    {
+        clears.ForEach(x => x.Clear());
+        clears.Clear();
+        id = 0;
+    }
 }
 
 // 마스터한테 요청해야 하지만 개별로 적용되어야 하는 이벤트들
 
-public class RPCAction<T>
+public class RPCAction<T> : IEventClear
 {
     byte _eventId;
     event Action<T> OnEvent = null;
 
     public RPCAction()
     {
-        _eventId = EventIdManager.UseID();
-        //Debug.Log(_eventId);
+        _eventId = EventIdManager.UseID(this);
+        PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
         PhotonNetwork.NetworkingClient.EventReceived += RecevieEvent;
+    }
+
+    public void Clear()
+    {
+        Debug.Log("wwwwwwwwwwwwwwww");
+        PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
     }
 
     void RecevieEvent(EventData data)
@@ -63,16 +86,22 @@ public class RPCAction<T>
 }
 
 
-public class RPCAction<T, T2>
+public class RPCAction<T, T2> : IEventClear
 {
     byte _eventId;
     event Action<T, T2> OnEvent = null;
 
     public RPCAction()
     {
-        _eventId = EventIdManager.UseID();
-        //Debug.Log(_eventId);
+        _eventId = EventIdManager.UseID(this);
+        PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
         PhotonNetwork.NetworkingClient.EventReceived += RecevieEvent;
+    }
+
+    public void Clear()
+    {
+        Debug.Log("wwwwwwwwwwwwwwww");
+        PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
     }
 
     void RecevieEvent(EventData data)

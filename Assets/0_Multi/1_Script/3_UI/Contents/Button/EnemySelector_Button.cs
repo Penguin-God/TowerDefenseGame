@@ -6,6 +6,11 @@ using UnityEngine.EventSystems;
 
 public class EnemySelector_Button : Multi_UI_Base
 {
+    enum GameObjects
+    {
+        Offset,
+    }
+
     [SerializeField] int enemyNumber;
     [SerializeField] string enemyInfoText;
     Image image;
@@ -16,6 +21,9 @@ public class EnemySelector_Button : Multi_UI_Base
     {
         image = GetComponent<Image>();
         selectColor = color;
+
+        Bind<GameObject>(typeof(GameObjects));
+        infoWindowPos = GetObject((int)GameObjects.Offset).GetComponent<RectTransform>();
 
         GetComponent<Button>().onClick.AddListener(SelectSpawnEnemy);
         GetComponent<Button>().onClick.AddListener(() => action(this));
@@ -39,11 +47,11 @@ public class EnemySelector_Button : Multi_UI_Base
         image.color = originColor;
     }
 
-    [SerializeField] Vector3 offset;
+    RectTransform infoWindowPos;
     public void ShwoInfoWindow()
     {
         BackGround window = Multi_Managers.UI.ShowPopupUI<BackGround>("BackGround");
-        window.SetPosition(transform.position + offset);
+        window.SetPosition(infoWindowPos.position);
         window.SetText(enemyInfoText);
     }
 }

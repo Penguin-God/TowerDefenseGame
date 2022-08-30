@@ -137,7 +137,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
         currentNormalEnemysById[id].Add(_enemy.transform);
         Raise_EnemyCountChanged(id);
     }
-    void RemoveEnemyAtList(Multi_Enemy _enemy)
+    void RemoveEnemyAtList(Multi_NormalEnemy _enemy)
     {
         if (PhotonNetwork.IsMasterClient == false) return;
 

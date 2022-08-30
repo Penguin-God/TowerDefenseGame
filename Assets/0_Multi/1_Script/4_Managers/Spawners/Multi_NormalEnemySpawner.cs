@@ -44,27 +44,41 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     {
         int targetId = (Multi_Data.instance.Id == 0) ? 1 : 0;
         if (isTest) targetId = 0;
-        Spawn_RPC(GetCurrentEnemyPath(enemyNum), spawnPositions[targetId], targetId);
+        SpawnEnemy_RPC(GetCurrentEnemyPath(enemyNum), Multi_StageManager.Instance.CurrentStage, targetId);
     }
 
-    [PunRPC]
-    protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
-    {
-        Multi_NormalEnemy enemy = base.BaseSpawn(path, spawnPos, rotation, id).GetComponent<Multi_NormalEnemy>();
-        NormalEnemyData data = Multi_Managers.Data.NormalEnemyDataByStage[Multi_StageManager.Instance.CurrentStage];
-        enemy.SetStatus_RPC(data.Hp, data.Speed, false);
-        OnSpawn?.Invoke(enemy);
-        return enemy.gameObject;
-    }
 
-    void EenmySpawnToOtherWorld(Multi_NormalEnemy enemy)
+    void EenmySpawnToOtherWorld(Multi_NormalEnemy enemy, int enemyNum)
     {
         if (enemy.IsResurrection) return;
 
         int id = enemy.rpcable.UsingId == 0 ? 1 : 0;
-        var _newEnemy = BaseSpawn(GetCurrentEnemyPath(enemy.GetEnemyNumber), spawnPositions[id], Quaternion.identity, id).GetComponent<Multi_NormalEnemy>();
-        _newEnemy.SetStatus_RPC(enemy.maxHp, enemy.maxSpeed, false);
-        _newEnemy.Resurrection();
+        if(enemy.rpcable.UsingId == Multi_Data.instance.Id)
+            EenmySpawnToOtherWorld(enemyNum, id, enemy.SpawnStage);
+        else
+            pv.RPC("EenmySpawnToOtherWorld", RpcTarget.Others, otherEnemySpawnNumber, id, enemy.SpawnStage);
+    }
+
+    [PunRPC]
+    void EenmySpawnToOtherWorld(int enemyNum, int id, int stage)
+    {
+        if (PhotonNetwork.IsMasterClient)
+            SpawnEnemy(GetCurrentEnemyPath(enemyNum), stage, id).Resurrection_RPC();
+        else
+            pv.RPC("EenmySpawnToOtherWorld", RpcTarget.MasterClient, otherEnemySpawnNumber, id, stage);
+    }
+
+    void SpawnEnemy_RPC(string path, int stage, int id) => pv.RPC("SpawnEnemy", RpcTarget.MasterClient, path, stage, id);
+
+    [PunRPC]
+    Multi_NormalEnemy SpawnEnemy(string path, int stage, int id)
+    {
+        var enemy = base.BaseSpawn(path, spawnPositions[id], Quaternion.identity, id).GetComponent<Multi_NormalEnemy>();
+        NormalEnemyData data = Multi_Managers.Data.NormalEnemyDataByStage[stage];
+        enemy.SetStatus_RPC(data.Hp, data.Speed, false);
+        enemy.SetSpawnStage(stage);
+        OnSpawn?.Invoke(enemy);
+        return enemy;
     }
 
     void SetEnemy(Multi_NormalEnemy enemy)
@@ -73,11 +87,8 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
         if (PhotonNetwork.IsMasterClient == false) return;
         enemy.OnDeath += () => OnDead(enemy);
-        enemy.OnDeath += () =>
-        {
-            EenmySpawnToOtherWorld(enemy);
-            Multi_Managers.Pool.Push(enemy.GetComponent<Poolable>());
-        };
+        enemy.OnDeath += () => EenmySpawnToOtherWorld(enemy, otherEnemySpawnNumber);
+        enemy.OnDeath += () => Multi_Managers.Pool.Push(enemy.GetComponent<Poolable>());
     }
 
     // 콜백용 코드

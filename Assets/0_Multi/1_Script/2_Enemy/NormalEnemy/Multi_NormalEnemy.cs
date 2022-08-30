@@ -74,6 +74,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         queue_GetSturn.Clear();
         ResetColor();
         pointIndex = -1;
+        spawnStage = 0;
         transform.rotation = Quaternion.identity;
     }
 
@@ -81,10 +82,13 @@ public class Multi_NormalEnemy : Multi_Enemy
     bool isResurrection = false;
     public bool IsResurrection => isResurrection;
 
-    public void Resurrection()
-    {
-        isResurrection = true;
-    }
+    int spawnStage;
+    public int SpawnStage => spawnStage;
+    public void SetSpawnStage(int stage) => spawnStage = stage;
+
+    public void Resurrection_RPC() => PV.RPC("Resurrection", RpcTarget.All);
+    [PunRPC]
+    protected void Resurrection() => isResurrection = true;
 
     // TODO : 상태이상 구현 코드 줄일 방법 찾아보기
     /// <summary>

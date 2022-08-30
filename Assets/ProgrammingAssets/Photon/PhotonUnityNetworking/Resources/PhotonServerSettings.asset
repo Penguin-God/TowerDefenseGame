@@ -87,6 +87,9 @@ MonoBehaviour:
   - TryCombine
   - UnitCombine
   - UnitStatChange
+  - Resurrection
+  - SpawnEnemy
+  - EenmySpawnToOtherWorld
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

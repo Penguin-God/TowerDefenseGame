@@ -3,5 +3,5 @@
     "startFood": 5,
     "stageUpGold": 10,
     "startMaxUnitCount": 15,
-    "enemyMaxCount": 50
+    "enemyMaxCount": 300
 }

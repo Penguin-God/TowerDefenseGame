@@ -5093,7 +5093,6 @@ GameObject:
   - component: {fileID: 1112035910525321253}
   - component: {fileID: 3970577524642555026}
   - component: {fileID: 6885085033086736095}
-  - component: {fileID: 5024461232737972302}
   - component: {fileID: 7135445869057084045}
   - component: {fileID: 2182385851540764751}
   m_Layer: 13
@@ -5154,7 +5153,7 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 0
   ObservedComponents:
-  - {fileID: 5024461232737972302}
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -5181,24 +5180,9 @@ MonoBehaviour:
   rpcable: {fileID: 0}
   originMat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
   enemyNumber: 1
+  TurnPoints: []
   freezeMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
   sternEffect: {fileID: 1485506195}
---- !u!114 &5024461232737972302
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1112035910525321252}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64179f3720bbfe947b7724caa67b7c1d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizeVelocity: 1
-  m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 0
-  m_TeleportIfDistanceGreaterThan: 3
 --- !u!114 &7135445869057084045
 MonoBehaviour:
   m_ObjectHideFlags: 0

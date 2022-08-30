@@ -12,7 +12,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     public int GetEnemyNumber => enemyNumber;
 
     // 이동, 회전 관련 변수
-    public Transform[] TurnPoints { get; set; } = null;
+    [SerializeField] Transform[] TurnPoints;
     private Transform WayPoint => TurnPoints[pointIndex];
     private int pointIndex = -1;
 
@@ -33,37 +33,45 @@ public class Multi_NormalEnemy : Multi_Enemy
         base.SetStatus(_hp, _speed, _isDead);
         Passive();
         TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);
-        //currentPos = transform.position;
         if(pointIndex == -1) pointIndex = 0;
-        if (TurnPoints != null && PhotonNetwork.IsMasterClient) ChaseToPoint();
+        ChaseToPoint();
     }
 
     [PunRPC]
-    public void Turn(int _pointIndex, Vector3 _wayPos)
+    public void Turn()
     {
-        transform.position = _wayPos;
-        transform.rotation = Quaternion.Euler(0, -90 * _pointIndex, 0);
+        transform.position = WayPoint.position;
+        transform.rotation = Quaternion.Euler(0, -90 * pointIndex, 0);
         pointIndex++;
+    }
+
+    [PunRPC]
+    public void Turn(double sendTime)
+    {
+        transform.position = WayPoint.position;
+        transform.rotation = Quaternion.Euler(0, -90 * pointIndex, 0);
+        pointIndex++;
+        if (pointIndex >= TurnPoints.Length) pointIndex = 0;
+        print(PhotonNetwork.Time - sendTime);
     }
 
     private void ChaseToPoint()
     {
-        if (pointIndex >= TurnPoints.Length) pointIndex = 0; // 무한반복을 위한 조건
-
         // 실제 이동을 위한 속도 설정
         dir = (WayPoint.position - transform.position).normalized;
-        rpcable.SetVelocity_RPC(dir * speed);
+        Rigidbody.velocity = dir * speed;
+        //rpcable.SetVelocity_RPC(dir * speed);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "WayPoint" && photonView.IsMine)
+        if (other.tag == "WayPoint") // && photonView.IsMine
         {
-            int _pointIndex = pointIndex;
-            Vector3 _wayPoint = WayPoint.position;
-            photonView.RPC("Turn", RpcTarget.All, _pointIndex, _wayPoint);
-
+            Turn(PhotonNetwork.Time);
+            //photonView.RPC("Turn", RpcTarget.All, _pointIndex, _wayPoint, PhotonNetwork.Time);
+            dir = (WayPoint.position - transform.position).normalized;
             ChaseToPoint();
+            //if (PhotonNetwork.IsMasterClient)
         }
     }
 
@@ -213,19 +221,4 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected void Set_OriginSpeed_ToAllPlayer() => photonView.RPC("SyncSpeed", RpcTarget.All, maxSpeed);
 
     #endregion
-
-
-    //Vector3 currentPos;
-    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    //{
-    //    if (stream.IsWriting)
-    //    {
-    //        stream.SendNext(transform.position);
-    //    }
-    //    else
-    //    {
-    //        currentPos = (Vector3)stream.ReceiveNext();
-    //        LerpUtility.LerpPostition(transform, currentPos);
-    //    }
-    //}
 }

@@ -131,7 +131,15 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         AddFood(data.Food);
     }
 
+    [PunRPC]
     public void AddGold(int _addGold) => Gold += _addGold;
+    public void AddGold(int _addGold, int id)
+    {
+        if (id == Multi_Data.instance.Id)
+            AddGold(_addGold);
+        else
+            photonView.RPC("AddGold", RpcTarget.Others, _addGold);
+    }
     public void AddFood(int _addFood) => Food += _addFood;
 
     public bool TryUseGold(int _gold)

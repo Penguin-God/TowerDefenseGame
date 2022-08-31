@@ -294,7 +294,7 @@ public class Multi_UnitManager : MonoBehaviourPun
                 {
                     Instance._controller.UnitDead(id, flagCountPair.Key);
                     if (flagCountPair.Key == new UnitFlags(2, 0))
-                        Multi_GameManager.instance.AddGold(1);
+                        Multi_GameManager.instance.AddGold(1, id);
                 }
             }
         }

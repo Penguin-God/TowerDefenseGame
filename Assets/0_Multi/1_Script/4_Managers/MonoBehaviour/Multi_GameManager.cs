@@ -42,25 +42,25 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     public event Action<int> OnGoldChanged;
     public event Action<int> OnFoodChanged;
 
-    [SerializeField] int gold;
+    [SerializeField] int _gold;
     public int Gold
     {
-        get => gold;
+        get => _gold;
         set
         {
-            gold = value;
-            OnGoldChanged?.Invoke(gold);
+            _gold = value;
+            OnGoldChanged?.Invoke(_gold);
         }
     }
 
-    [SerializeField] int food;
+    [SerializeField] int _food;
     public int Food
     {
-        get => food;
+        get => _food;
         set
         {
-            food = value;
-            OnFoodChanged?.Invoke(food);
+            _food = value;
+            OnFoodChanged?.Invoke(_food);
         }
     }
 
@@ -142,22 +142,22 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     }
     public void AddFood(int _addFood) => Food += _addFood;
 
-    public bool TryUseGold(int _gold)
+    public bool TryUseGold(int gold)
     {
-        if (Gold >= _gold)
+        if (Gold >= gold)
         {
-            Gold -= _gold;
+            Gold -= gold;
             return true;
         }
         else
             return false;
     }
 
-    public bool TryUseFood(int _food)
+    public bool TryUseFood(int food)
     {
-        if (Food >= _food)
+        if (Food >= food)
         {
-            Food -= _food;
+            Food -= food;
             return true;
         }
         else

@@ -4,6 +4,18 @@ using UnityEngine;
 using System;
 using System.Linq;
 
+public enum SoundType
+{
+    Bgm,
+    Effect,
+}
+
+public enum BgmType
+{
+    Boss,
+    Default,
+}
+
 public enum EffectSoundType
 {
     BossDeadClip,
@@ -37,17 +49,12 @@ public enum EffectSoundType
 
 }
 
-public enum SoundType
-{
-    Bgm,
-    Effect,
-}
-
 public class Multi_SoundManager
 {
     AudioSource[] _sources;
     Dictionary<string, AudioClip> _clipByPath = new Dictionary<string, AudioClip>();
     Dictionary<EffectSoundType, EffcetSound> effectBySound = new Dictionary<EffectSoundType, EffcetSound>();
+    Dictionary<BgmType, BgmSound> bgmBySound = new Dictionary<BgmType, BgmSound>();
 
     public void Init(Transform parent)
     {
@@ -66,8 +73,11 @@ public class Multi_SoundManager
             _sources = audios.ToArray();
             _sources[(int)SoundType.Bgm].loop = true;
 
-            string csv = Multi_Managers.Resources.Load<TextAsset>("Data/SoundData/EffectSoundData").text;
-            effectBySound = CsvUtility.GetEnumerableFromCsv<EffcetSound>(csv).ToDictionary(x => x.EffectType, x => x);
+            string effectCsv = Multi_Managers.Resources.Load<TextAsset>("Data/SoundData/EffectSoundData").text;
+            effectBySound = CsvUtility.GetEnumerableFromCsv<EffcetSound>(effectCsv).ToDictionary(x => x.EffectType, x => x);
+
+            string bgmCsv = Multi_Managers.Resources.Load<TextAsset>("Data/SoundData/BgmSoundData").text;
+            bgmBySound = CsvUtility.GetEnumerableFromCsv<BgmSound>(bgmCsv).ToDictionary(x => x.BgmType, x => x);
         }
         root.transform.parent = parent;
     }
@@ -77,22 +87,30 @@ public class Multi_SoundManager
         Debug.Assert(Multi_Managers.Scene.CurrentSceneType == SceneTyep.New_Scene, "이상한 씬에서 Init 중");
 
         // 빼기
+        Multi_SpawnManagers.BossEnemy.OnSpawn -= (boss) => PlayBgm(BgmType.Boss);
+        Multi_SpawnManagers.BossEnemy.OnDead -= (boss) => PlayBgm(BgmType.Default);
+
         Multi_SpawnManagers.BossEnemy.OnDead -= (boss) => PlayEffect(EffectSoundType.BossDeadClip);
         Multi_SpawnManagers.TowerEnemy.OnDead -= (tower) => PlayEffect(EffectSoundType.TowerDieClip);
         Multi_StageManager.Instance.OnUpdateStage -= (stage) => PlayEffect(EffectSoundType.NewStageClip);
 
         // 더하기
+        Multi_SpawnManagers.BossEnemy.OnSpawn += (boss) => PlayBgm(BgmType.Boss);
+        Multi_SpawnManagers.BossEnemy.OnDead += (boss) => PlayBgm(BgmType.Default);
+
         Multi_SpawnManagers.BossEnemy.OnDead += (boss) => PlayEffect(EffectSoundType.BossDeadClip);
         Multi_SpawnManagers.TowerEnemy.OnDead += (tower) => PlayEffect(EffectSoundType.TowerDieClip);
         Multi_StageManager.Instance.OnUpdateStage += (stage) => PlayEffect(EffectSoundType.NewStageClip);
     }
 
-    public void PlayBgm(string _path) => PlayBgm(GetOrAddClip(_path));
-    public void PlayBgm(AudioClip _clip)
+    public void PlayBgm(BgmType bgmType) => PlayBgm(bgmBySound[bgmType].Path, bgmBySound[bgmType].Volumn);
+    public void PlayBgm(string _path, float volumn = 0.5f) => PlayBgm(GetOrAddClip(_path), volumn);
+    public void PlayBgm(AudioClip _clip, float volumn = 0.5f)
     {
         AudioSource _audioSource = _sources[(int)SoundType.Bgm];
         if (_audioSource.isPlaying) _audioSource.Stop();
 
+        _audioSource.volume = volumn;
         _audioSource.clip = _clip;
         _audioSource.Play();
     }

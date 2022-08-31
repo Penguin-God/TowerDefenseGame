@@ -9,8 +9,10 @@ using System.Linq;
 public class SoundDatasMacro : ScriptableObject
 {
     [SerializeField, TextArea] string _enumTexts;
-    string EffectRootPath => Path.Combine(Application.dataPath, "0_Multi", "Resources", "SoundClips/");
-    string BgmRootPath => Path.Combine(Application.dataPath, "0_Multi", "Resources", "SoundClips", "Bgm/");
+
+    string ReplacePath => Path.Combine(Application.dataPath, "0_Multi", "Resources", "SoundClips/").Replace("\\", "/");
+    string EffectRootPath => Path.Combine(Application.dataPath, "0_Multi", "Resources", "SoundClips", "Effect/");
+    string BgmRootPath => Path.Combine(ReplacePath, "Bgm/");
 
     string EffectFilePath => Path.Combine(Application.dataPath, "0_Multi", "Resources", "Data", "SoundData", "EffectSoundData.csv");
     string BgmFilePath => Path.Combine(Application.dataPath, "0_Multi", "Resources", "Data", "SoundData", "BgmSoundData.csv");
@@ -19,7 +21,7 @@ public class SoundDatasMacro : ScriptableObject
     void SaveEffectSound() => SaveCsv("effectType", EffectRootPath, EffectFilePath, ".wav");
 
     [ContextMenu("Save Bgm Csv File")]
-    void SaveBgm() => SaveCsv("effectType", BgmRootPath, BgmFilePath, ".mp3");
+    void SaveBgm() => SaveCsv("bgmType", BgmRootPath, BgmFilePath, ".mp3");
 
     void SaveCsv(string enumName, string rootPath, string savePath, string fileExtension)
     {
@@ -31,7 +33,7 @@ public class SoundDatasMacro : ScriptableObject
         stringBuilder.Append('\n');
         foreach (string path in Directory.GetFiles(rootPath, $"*{fileExtension}", SearchOption.AllDirectories))
         {
-            string resourcesPath = FilePathToResourcesPath(path, rootPath, fileExtension);
+            string resourcesPath = FilePathToResourcesPath(path.Replace("\\", "/"), fileExtension);
             stringBuilder.Append(GetClipFileName(resourcesPath));
             stringBuilder.Append(",");
             stringBuilder.Append(GetVolumn(pathBuVolumn, resourcesPath));
@@ -43,7 +45,7 @@ public class SoundDatasMacro : ScriptableObject
     }
 
     string GetClipFileName(string path) => path.Split('/')[path.Split('/').Length - 1];
-    string FilePathToResourcesPath(string path, string replacePath, string fileExtension) => path.Replace(replacePath, "").Replace(fileExtension, "").Replace("\\", "/");
+    string FilePathToResourcesPath(string path, string fileExtension) => path.Replace("\\", "/").Replace(ReplacePath, "").Replace(fileExtension, "");
     float GetVolumn(Dictionary<string, float> pathBuVolumn, string path)
     {
         if (pathBuVolumn.TryGetValue(path, out float result) && result > 0.001)

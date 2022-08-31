@@ -76,8 +76,9 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         {
             Destroy(gameObject);
         }
-        gameManagerAudio = GetComponent<AudioSource>();
+
         _gameData = Multi_Managers.Data.BattleGameData;
+        Multi_Managers.Sound.PlayBgm(BgmType.Default);
     }
 
 
@@ -165,17 +166,6 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     }
 
     public bool TryUseCurrency(string currencyType, int mount) => currencyType == "Gold" ? TryUseGold(mount) : TryUseFood(mount);
-
-    public AudioClip bossbgmClip;
-    public AudioClip bgmClip;
-
-    public AudioSource gameManagerAudio;
-
-    public void ChangeBGM(AudioClip bgmClip)
-    {
-        gameManagerAudio.clip = bgmClip;
-        gameManagerAudio.Play();
-    }
 
     void Update()
     {

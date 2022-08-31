@@ -9,23 +9,29 @@ using System.Linq;
 public class SoundDatasMacro : ScriptableObject
 {
     [SerializeField, TextArea] string _enumTexts;
-    string ClipsPath => Path.Combine(Application.dataPath, "0_Multi", "Resources", "SoundClips/");
-    string FilePath => Path.Combine(Application.dataPath, "0_Multi", "Resources", "Data", "SoundData", "EffectSoundData.csv");
-    //const string ClipsPath = "C:/Users/parkj/Desktop/Current Project/1.ColorRandomDefense/Assets/0_Multi/Resources/SoundClips/";
-    const string filePath = "C:/Users/parkj/Desktop/Current Project/1.ColorRandomDefense/Assets/0_Multi/Resources/Data/SoundData/EffectSoundData.csv";
+    string EffectRootPath => Path.Combine(Application.dataPath, "0_Multi", "Resources", "SoundClips/");
+    string BgmRootPath => Path.Combine(Application.dataPath, "0_Multi", "Resources", "SoundClips", "Bgm/");
 
-    [ContextMenu("Save Csv File")]
-    void SaveCsv()
+    string EffectFilePath => Path.Combine(Application.dataPath, "0_Multi", "Resources", "Data", "SoundData", "EffectSoundData.csv");
+    string BgmFilePath => Path.Combine(Application.dataPath, "0_Multi", "Resources", "Data", "SoundData", "BgmSoundData.csv");
+
+    [ContextMenu("Save Effect Sound Csv File")]
+    void SaveEffectSound() => SaveCsv("effectType", EffectRootPath, EffectFilePath, ".wav");
+
+    [ContextMenu("Save Bgm Csv File")]
+    void SaveBgm() => SaveCsv("effectType", BgmRootPath, BgmFilePath, ".mp3");
+
+    void SaveCsv(string enumName, string rootPath, string savePath, string fileExtension)
     {
         string csv = Resources.Load<TextAsset>("Data/SoundData/EffectSoundData").text;
         Dictionary<string, float> pathBuVolumn = CsvUtility.GetEnumerableFromCsv<EffcetSound>(csv).ToDictionary(x => x.Path, x => x.Volumn);
 
         StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.Append("effectType,volumn,path");
+        stringBuilder.Append($"{enumName},volumn,path");
         stringBuilder.Append('\n');
-        foreach (string path in Directory.GetFiles(ClipsPath, "*.wav", SearchOption.AllDirectories))
+        foreach (string path in Directory.GetFiles(rootPath, $"*{fileExtension}", SearchOption.AllDirectories))
         {
-            string resourcesPath = FilePathToResourcesPath(path);
+            string resourcesPath = FilePathToResourcesPath(path, rootPath, fileExtension);
             stringBuilder.Append(GetClipFileName(resourcesPath));
             stringBuilder.Append(",");
             stringBuilder.Append(GetVolumn(pathBuVolumn, resourcesPath));
@@ -33,11 +39,11 @@ public class SoundDatasMacro : ScriptableObject
             stringBuilder.Append(resourcesPath);
             stringBuilder.Append('\n');
         }
-        Save(stringBuilder.ToString(), FilePath);
+        Save(stringBuilder.ToString(), savePath);
     }
 
     string GetClipFileName(string path) => path.Split('/')[path.Split('/').Length - 1];
-    string FilePathToResourcesPath(string path) => path.Replace(ClipsPath, "").Replace(".wav", "").Replace("\\", "/");
+    string FilePathToResourcesPath(string path, string replacePath, string fileExtension) => path.Replace(replacePath, "").Replace(fileExtension, "").Replace("\\", "/");
     float GetVolumn(Dictionary<string, float> pathBuVolumn, string path)
     {
         if (pathBuVolumn.TryGetValue(path, out float result) && result > 0.001)
@@ -51,9 +57,9 @@ public class SoundDatasMacro : ScriptableObject
     void SetEnumText()
     {
         StringBuilder stringBuilder = new StringBuilder();
-        foreach (string path in Directory.GetFiles(ClipsPath, "*.wav", SearchOption.AllDirectories))
+        foreach (string path in Directory.GetFiles(EffectRootPath, "*.wav", SearchOption.AllDirectories))
         {
-            string value = path.Replace(ClipsPath, "").Replace(".wav", "");
+            string value = path.Replace(EffectRootPath, "").Replace(".wav", "");
             stringBuilder.Append(value.Split('\\')[value.Split('\\').Length - 1]);
             stringBuilder.Append(',');
             stringBuilder.Append('\n');

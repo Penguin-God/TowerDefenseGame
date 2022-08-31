@@ -21,9 +21,9 @@ TransformWhiteUnit,1,Effect/TransformWhiteUnit
 UnitTp,1,Effect/UnitTp
 Warning,1,Effect/Warning
 Win,1,Effect/Win
-ArcherAttack,0.1,Unit/ArcherAttack
-MageAttack,0.15,Unit/MageAttack
-MeteorExplosion,0.5,Unit/MeteorExplosion
-SpearmanAttack,0.75,Unit/SpearmanAttack
-SpearmanSkill,0.13,Unit/SpearmanSkill
-SwordmanAttack,0.2,Unit/SwordmanAttack
+ArcherAttack,0.5,Effect/Unit/ArcherAttack
+MageAttack,0.5,Effect/Unit/MageAttack
+MeteorExplosion,0.5,Effect/Unit/MeteorExplosion
+SpearmanAttack,0.5,Effect/Unit/SpearmanAttack
+SpearmanSkill,0.5,Effect/Unit/SpearmanSkill
+SwordmanAttack,0.5,Effect/Unit/SwordmanAttack

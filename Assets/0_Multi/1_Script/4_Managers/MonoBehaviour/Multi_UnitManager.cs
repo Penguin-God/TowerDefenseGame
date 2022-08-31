@@ -30,10 +30,27 @@ public class Multi_UnitManager : MonoBehaviourPun
     MasterDataManager _master = new MasterDataManager();
     UnitStatChanger _stat = new UnitStatChanger();
 
-    public static CombineSystem Combine => Instance._combine;
+    public IReadOnlyDictionary<UnitClass, int> CountByUnitClass => _enemyPlayer._countByUnitClass;
+    public RPCAction<bool, UnitFlags> OnTryCombine = new RPCAction<bool, UnitFlags>();
+
+    public bool TryCombine_RPC(UnitFlags flag)
+    {
+        bool result = _combine.CheckCombineable(flag);
+        photonView.RPC("TryCombine", RpcTarget.MasterClient, flag, Multi_Data.instance.Id, result);
+        return result;
+    }
+    [PunRPC] void TryCombine(UnitFlags flag, int id, bool isSuccess) => _combine.TryCombine(flag, id, isSuccess);
+
+    public void UnitDead_RPC(int id, UnitFlags unitFlag, int count = 1) => photonView.RPC("UnitDead", RpcTarget.MasterClient, id, unitFlag, count);
+    [PunRPC] void UnitDead(int id, UnitFlags unitFlag, int count) => _controller.UnitDead(id, unitFlag, count);
+
+    public void UnitWorldChanged_RPC(int id, UnitFlags flag) => Instance.photonView.RPC("UnitWorldChanged", RpcTarget.MasterClient, id, flag, Multi_Managers.Camera.IsLookEnemyTower);
+    [PunRPC] void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode) => _controller.UnitWorldChanged(id, flag, enterStroyMode);
+
+    //public static CombineSystem Combine => Instance._combine;
     public static UnitCountManager Count => Instance._count;
-    public static UnitContorller Controller => Instance._controller;
-    public static EnemyPlayerDataManager EnemyPlayer => Instance._enemyPlayer;
+    //public static UnitContorller Controller => Instance._controller;
+    //public static EnemyPlayerDataManager EnemyPlayer => Instance._enemyPlayer;
     public static UnitStatChanger Stat => Instance._stat;
 
     void Init()
@@ -57,17 +74,9 @@ public class Multi_UnitManager : MonoBehaviourPun
     }
 
     #region PunRPC functions
-    [PunRPC]
-    void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode) => Controller.UnitWorldChanged(id, flag, enterStroyMode);
 
-    [PunRPC] // CombineSystem에서 사용
-    void TryCombine(UnitFlags flag, int id, bool isSuccess) => Combine.TryCombine(flag, id, isSuccess);
 
-    [PunRPC] // Controller에서 사용
-    void UnitDead(int id, UnitFlags unitFlag, int count) => Controller.UnitDead(id, unitFlag, count);
-
-    [PunRPC]
-    void UnitStatChange(int typeNum, UnitFlags flag, float value) => Stat.UnitStatChange(typeNum, flag, value);
+    [PunRPC] void UnitStatChange(int typeNum, UnitFlags flag, int value) => Stat.UnitStatChange(typeNum, flag, value);
     #endregion
 
 
@@ -76,13 +85,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         public RPCAction<UnitFlags, int> OnUnitCountChanged = new RPCAction<UnitFlags, int>();
         RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>> _unitListByFlag = new RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
 
-        List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit)
-        {
-            //Debug.Log($"ID : {unit.GetComponent<RPCable>().UsingId}");
-            //Debug.Log($"{unit.unitColor} : {unit.unitClass}");
-            //Debug.Log($"크기 : {_unitListByFlag.Count}");
-            return GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
-        }
+        List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
         public List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flag) => _unitListByFlag.Get(id)[flag];
         public List<Multi_TeamSoldier> GetUnitList(int id) => _currentAllUnitsById.Get(id);
 
@@ -150,8 +153,8 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     public class EnemyPlayerDataManager
     {
-        Dictionary<UnitClass, int> _countByUnitClass = new Dictionary<UnitClass, int>();
-        public IReadOnlyDictionary<UnitClass, int> CountByUnitClass => _countByUnitClass;
+        public Dictionary<UnitClass, int> _countByUnitClass = new Dictionary<UnitClass, int>();
+        //public IReadOnlyDictionary<UnitClass, int> CountByUnitClass => _countByUnitClass;
 
         public void Init()
         {
@@ -167,7 +170,6 @@ public class Multi_UnitManager : MonoBehaviourPun
                 _countByUnitClass[unitClass]++;
             else
                 _countByUnitClass[unitClass]--;
-            Debug.Log(_countByUnitClass[unitClass]);
         }
     }
 
@@ -254,7 +256,7 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     public class CombineSystem
     {
-        public RPCAction<bool, UnitFlags> OnTryCombine = new RPCAction<bool, UnitFlags>();
+        //public RPCAction<bool, UnitFlags> OnTryCombine = new RPCAction<bool, UnitFlags>();
 
         public bool TryCombine_RPC(UnitFlags flag)
         {
@@ -263,7 +265,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             return result;
         }
 
-        bool CheckCombineable(UnitFlags flag)
+        public bool CheckCombineable(UnitFlags flag)
             => Multi_Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag.All(x => Instance._count.HasUnit(x.Key, x.Value));
 
         public void TryCombine(UnitFlags flag, int id, bool isSuccess)
@@ -273,7 +275,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             if (isSuccess)
                 Combine(flag, id);
             else
-                OnTryCombine?.RaiseEvent(id, false, flag);
+                Instance.OnTryCombine?.RaiseEvent(id, false, flag);
         }
 
         void Combine(UnitFlags flag, int id)
@@ -283,7 +285,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             SacrificedUnits_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[flag]);
             Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
 
-            OnTryCombine?.RaiseEvent(id, true, flag);
+            Instance.OnTryCombine?.RaiseEvent(id, true, flag);
 
             void SacrificedUnits_ForCombine(CombineCondition condition)
                 => condition.NeedCountByFlag.ToList().ForEach(x => SacrificedUnit_ForCombine(x));

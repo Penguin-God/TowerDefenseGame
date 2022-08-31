@@ -23,5 +23,5 @@ public class UI_CombineButtonParent : Multi_UI_Base
         }
     }
 
-    void Combine(UnitFlags flag) => Multi_UnitManager.Combine.TryCombine_RPC(flag);
+    void Combine(UnitFlags flag) => Multi_UnitManager.Instance.TryCombine_RPC(flag);
 }

@@ -21,7 +21,7 @@ public class UnitSellButton : Multi_UI_Base
     {
         if (Multi_UnitManager.Count.HasUnit(unitFlag))
         {
-            Multi_UnitManager.Controller.UnitDead_RPC(Multi_Data.instance.Id, unitFlag);
+            Multi_UnitManager.Instance.UnitDead_RPC(Multi_Data.instance.Id, unitFlag);
             Multi_GameManager.instance.AddGold(GetSellReward(unitFlag));
         }
     }

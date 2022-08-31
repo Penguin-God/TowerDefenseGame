@@ -50,13 +50,13 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
     void EenmySpawnToOtherWorld(Multi_NormalEnemy enemy, int enemyNum)
     {
-        if (enemy.IsResurrection) return;
+        if (enemy.resurrection.IsResurrection) return;
 
         int id = enemy.rpcable.UsingId == 0 ? 1 : 0;
         if(enemy.rpcable.UsingId == Multi_Data.instance.Id)
-            EenmySpawnToOtherWorld(enemyNum, id, enemy.SpawnStage);
+            EenmySpawnToOtherWorld(enemyNum, id, enemy.resurrection.SpawnStage);
         else
-            pv.RPC("EenmySpawnToOtherWorld", RpcTarget.Others, otherEnemySpawnNumber, id, enemy.SpawnStage);
+            pv.RPC("EenmySpawnToOtherWorld", RpcTarget.Others, otherEnemySpawnNumber, id, enemy.resurrection.SpawnStage);
     }
 
     [PunRPC]
@@ -76,7 +76,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
         var enemy = base.BaseSpawn(path, spawnPositions[id], Quaternion.identity, id).GetComponent<Multi_NormalEnemy>();
         NormalEnemyData data = Multi_Managers.Data.NormalEnemyDataByStage[stage];
         enemy.SetStatus_RPC(data.Hp, data.Speed, false);
-        enemy.SetSpawnStage(stage);
+        enemy.resurrection.SetSpawnStage(stage);
         OnSpawn?.Invoke(enemy);
         return enemy;
     }

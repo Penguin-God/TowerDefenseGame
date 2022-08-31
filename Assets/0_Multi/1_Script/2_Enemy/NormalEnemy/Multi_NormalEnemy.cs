@@ -1,16 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Photon.Pun;
-using Photon.Realtime;
-using System;
 
 public class Multi_NormalEnemy : Multi_Enemy
 {
-    [SerializeField] int enemyNumber = 0;
-    public int GetEnemyNumber => enemyNumber;
-
     // 이동, 회전 관련 변수
     [SerializeField] Transform[] TurnPoints;
     private Transform WayPoint => TurnPoints[pointIndex];
@@ -69,26 +63,35 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected override void ResetValue()
     {
         base.ResetValue();
-        isResurrection = false;
+        resurrection.Reset();
         sternEffect.SetActive(false);
         queue_GetSturn.Clear();
         ResetColor();
         pointIndex = -1;
-        spawnStage = 0;
         transform.rotation = Quaternion.identity;
     }
 
-
-    bool isResurrection = false;
-    public bool IsResurrection => isResurrection;
-
-    int spawnStage;
-    public int SpawnStage => spawnStage;
-    public void SetSpawnStage(int stage) => spawnStage = stage;
+    public ResurrectionSystem resurrection = new ResurrectionSystem();
 
     public void Resurrection_RPC() => PV.RPC("Resurrection", RpcTarget.All);
-    [PunRPC]
-    protected void Resurrection() => isResurrection = true;
+    [PunRPC] protected void Resurrection() => resurrection.Resurrection();
+
+    public class ResurrectionSystem
+    {
+        bool isResurrection = false;
+        public bool IsResurrection => isResurrection;
+        public void Resurrection() => isResurrection = true;
+
+        int spawnStage;
+        public int SpawnStage => spawnStage;
+        public void SetSpawnStage(int stage) => spawnStage = stage;
+
+        public void Reset()
+        {
+            isResurrection = false;
+            spawnStage = 0;
+        }
+    }
 
     // TODO : 상태이상 구현 코드 줄일 방법 찾아보기
     /// <summary>

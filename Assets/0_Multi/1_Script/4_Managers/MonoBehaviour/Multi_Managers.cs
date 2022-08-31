@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class Multi_Managers : MonoBehaviour
 {
@@ -55,5 +56,12 @@ public class Multi_Managers : MonoBehaviour
         Camera.Clear();
         Scene.Clear();
         UI.Clear();
+    }
+
+    [ContextMenu("LoadScene")]
+    void LoadScene()
+    {
+        PhotonNetwork.LeaveRoom();
+        Scene.LoadScene(SceneTyep.클라이언트);
     }
 }

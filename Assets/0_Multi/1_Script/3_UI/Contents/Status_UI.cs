@@ -39,13 +39,13 @@ public class Status_UI : Multi_UI_Scene
         Multi_EnemyManager.Instance.OnEnemyCountChanged -= UpdateEnemyCountText;
         Multi_GameManager.instance.OnGoldChanged -= (gold) => GetText((int)Texts.GoldText).text = gold.ToString();
         Multi_GameManager.instance.OnFoodChanged -= (food) => GetText((int)Texts.FoodText).text = food.ToString();
-        Multi_UnitManager.Count.OnUnitCountChanged -= UpdateUnitText;
+        Multi_UnitManager.Instance.OnUnitCountChanged -= UpdateUnitText;
         Multi_StageManager.Instance.OnUpdateStage -= UpdateStage;
 
         Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateEnemyCountText;
         Multi_GameManager.instance.OnGoldChanged += (gold) => GetText((int)Texts.GoldText).text = gold.ToString();
         Multi_GameManager.instance.OnFoodChanged += (food) => GetText((int)Texts.FoodText).text = food.ToString();
-        Multi_UnitManager.Count.OnUnitCountChanged += UpdateUnitText;
+        Multi_UnitManager.Instance.OnUnitCountChanged += UpdateUnitText;
         Multi_StageManager.Instance.OnUpdateStage += UpdateStage;
     }
 

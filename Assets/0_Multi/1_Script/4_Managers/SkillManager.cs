@@ -62,7 +62,8 @@ public class SkillManager
             Debug.Log("시작 최대 유닛 증가 없음.....");
         }
 
-        if (Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill == true)
+        //Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill == 
+        if (true)
         {
             Taegeuk taegeuk = new Taegeuk();
             taegeuk.EquipSkill = true;
@@ -202,10 +203,10 @@ public class Taegeuk : PassiveSkill
 
             for (int i = 2; i < 6; i++)
             {
-                SwordmanCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(i, 0)];
-                ArhcerCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(i, 1)];
-                SpearmanCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(i, 2)];
-                MageCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(i, 3)];
+                SwordmanCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(i, 0)];
+                ArhcerCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(i, 1)];
+                SpearmanCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(i, 2)];
+                MageCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(i, 3)];
             }
 
             countList.Add(SwordmanCount);
@@ -227,10 +228,10 @@ public class Taegeuk : PassiveSkill
             int SpearmanCount = 0;
             int MageCount = 0;
 
-            SwordmanCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(0, 0)];
-            ArhcerCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(0, 1)];
-            SpearmanCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(0, 2)];
-            MageCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(0, 3)];
+            SwordmanCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(0, 0)];
+            ArhcerCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(0, 1)];
+            SpearmanCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(0, 2)];
+            MageCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(0, 3)];
 
             countList.Add(SwordmanCount);
             countList.Add(ArhcerCount);
@@ -251,10 +252,10 @@ public class Taegeuk : PassiveSkill
             int SpearmanCount = 0;
             int MageCount = 0;
 
-            SwordmanCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(1, 0)];
-            ArhcerCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(1, 1)];
-            SpearmanCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(1, 2)];
-            MageCount += Multi_UnitManager.Count.UnitCountByFlag[new UnitFlags(1, 3)];
+            SwordmanCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(1, 0)];
+            ArhcerCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(1, 1)];
+            SpearmanCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(1, 2)];
+            MageCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(1, 3)];
 
             countList.Add(SwordmanCount);
             countList.Add(ArhcerCount);
@@ -268,7 +269,7 @@ public class Taegeuk : PassiveSkill
     public override void InitSkill(Skill skill)
     {
         Debug.Log("태극 시너지 스킬 착용");
-        Multi_UnitManager.Count.OnUnitCountChanged += (count) => UseSkill();
+        Multi_UnitManager.Instance.OnUnitCountChanged += (count) => UseSkill();
     }
 
     void UseSkill()
@@ -276,26 +277,26 @@ public class Taegeuk : PassiveSkill
         if (Red[0] >= 1 && Blue[0] >= 1 && Ather[0] == 0)
         {
             Debug.Log("기사 강화!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 0), 1.5f);
-            Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 0), 1.5f);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 0), 200);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 0), 200);
         }
 
         if (Red[1] >= 1 && Blue[1] >= 1 && Ather[0] == 0)
         {
-            Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 1), 1.5f);
-            Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 1), 1.5f);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 1), 2000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 1), 2000);
         }
 
         if (Red[2] >= 1 && Blue[2] >= 1 && Ather[0] == 0)
         {
-            Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 2), 1.5f);
-            Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 2), 1.5f);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 2), 33000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 2), 33000);
         }
 
         if (Red[3] >= 1 && Blue[3] >= 1 && Ather[0] == 0)
         {
-            Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 3), 1.5f);
-            Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 3), 1.5f);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 3), 200000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 3), 200000);
         }
     }
 }
@@ -304,15 +305,15 @@ public class BlackUnitUpgrade : PassiveSkill
 {
     public override void InitSkill(Skill skill)
     {
-        Multi_UnitManager.Count.OnUnitCountChanged += (count) => UseSkill();
+        Multi_UnitManager.Instance.OnUnitCountChanged += (count) => UseSkill();
     }
 
     void UseSkill()
     {
-        Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(7, 0), 1.5f);
-        Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(7, 1), 1.5f);
-        Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(7, 2), 1.5f);
-        Multi_UnitManager.Stat.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(7, 3), 1.5f);
+        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(7, 0), 10000);
+        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(7, 1), 100000);
+        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(7, 2), 1000000);
+        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(7, 3), 10000000);
     }
 }
 

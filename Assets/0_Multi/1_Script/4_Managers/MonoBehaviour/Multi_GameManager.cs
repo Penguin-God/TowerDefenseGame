@@ -68,7 +68,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     [SerializeField] int _maxEnemyCount;
     [SerializeField] int _maxUninCount;
     public int MaxUnitCount => _maxUninCount;
-    public bool UnitOver => Multi_UnitManager.Count.CurrentUnitCount >= _maxUninCount;
+    public bool UnitOver => Multi_UnitManager.Instance.CurrentUnitCount >= _maxUninCount;
 
     private void Awake()
     {

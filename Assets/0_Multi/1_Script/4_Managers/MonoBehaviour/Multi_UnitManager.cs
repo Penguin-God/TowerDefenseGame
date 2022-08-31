@@ -31,7 +31,15 @@ public class Multi_UnitManager : MonoBehaviourPun
     UnitStatChanger _stat = new UnitStatChanger();
 
     public IReadOnlyDictionary<UnitClass, int> CountByUnitClass => _enemyPlayer._countByUnitClass;
+    public IReadOnlyDictionary<UnitFlags, int> UnitCountByFlag => _count._countByFlag;
+    public int CurrentUnitCount => _count._currentCount;
+
     public RPCAction<bool, UnitFlags> OnTryCombine = new RPCAction<bool, UnitFlags>();
+    public event Action<int> OnUnitCountChanged = null;
+    void Rasie_OnUnitCountChanged(int count) => OnUnitCountChanged?.Invoke(count);
+    public event Action<UnitFlags, int> OnUnitFlagCountChanged = null;
+    void Rasie_OnUnitFlagCountChanged(UnitFlags flag, int count) => OnUnitFlagCountChanged?.Invoke(flag, count);
+    
 
     public bool TryCombine_RPC(UnitFlags flag)
     {
@@ -47,11 +55,17 @@ public class Multi_UnitManager : MonoBehaviourPun
     public void UnitWorldChanged_RPC(int id, UnitFlags flag) => Instance.photonView.RPC("UnitWorldChanged", RpcTarget.MasterClient, id, flag, Multi_Managers.Camera.IsLookEnemyTower);
     [PunRPC] void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode) => _controller.UnitWorldChanged(id, flag, enterStroyMode);
 
+    public void UnitStatChange_RPC(UnitStatType type, UnitFlags flag, int value) => photonView.RPC("UnitStatChange", RpcTarget.MasterClient, (int)type, flag, value);
+    [PunRPC] void UnitStatChange(int typeNum, UnitFlags flag, int value) => _stat.UnitStatChange(typeNum, flag, value);
+
+
+    public bool HasUnit(UnitFlags flag, int needCount = 1) => UnitCountByFlag[flag] >= needCount;
+
     //public static CombineSystem Combine => Instance._combine;
-    public static UnitCountManager Count => Instance._count;
+    //public static UnitCountManager Count => Instance._count;
     //public static UnitContorller Controller => Instance._controller;
     //public static EnemyPlayerDataManager EnemyPlayer => Instance._enemyPlayer;
-    public static UnitStatChanger Stat => Instance._stat;
+    //public static UnitStatChanger Stat => Instance._stat;
 
     void Init()
     {
@@ -64,23 +78,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         _master.Init();
     }
 
-    void OnDestroy()
-    {
-        _count = null;
-        _enemyPlayer = null;
-        _controller = null;
-        _master = null;
-        _stat = null;
-    }
-
-    #region PunRPC functions
-
-
-    [PunRPC] void UnitStatChange(int typeNum, UnitFlags flag, int value) => Stat.UnitStatChange(typeNum, flag, value);
-    #endregion
-
-
-    public class MasterDataManager
+    class MasterDataManager
     {
         public RPCAction<UnitFlags, int> OnUnitCountChanged = new RPCAction<UnitFlags, int>();
         RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>> _unitListByFlag = new RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
@@ -151,7 +149,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
     }
 
-    public class EnemyPlayerDataManager
+    class EnemyPlayerDataManager
     {
         public Dictionary<UnitClass, int> _countByUnitClass = new Dictionary<UnitClass, int>();
         //public IReadOnlyDictionary<UnitClass, int> CountByUnitClass => _countByUnitClass;
@@ -173,7 +171,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
     }
 
-    public class UnitContorller
+    class UnitContorller
     {
         public void Init()
         {
@@ -217,12 +215,12 @@ public class Multi_UnitManager : MonoBehaviourPun
         void AllUnitUpdateTarget(int id) => Instance._master.GetUnitList(id).ForEach(x => x.UpdateTarget());
     }
 
-    public class UnitCountManager
+    class UnitCountManager
     {
-        int _currentCount = 0;
+        public int _currentCount = 0;
         public int CurrentUnitCount => _currentCount;
 
-        Dictionary<UnitFlags, int> _countByFlag = new Dictionary<UnitFlags, int>(); // 모든 플레이어가 이벤트로 받아서 각자 카운트 관리
+        public Dictionary<UnitFlags, int> _countByFlag = new Dictionary<UnitFlags, int>(); // 모든 플레이어가 이벤트로 받아서 각자 카운트 관리
         public IReadOnlyDictionary<UnitFlags, int> UnitCountByFlag => _countByFlag;
         public bool HasUnit(UnitFlags flag, int needCount = 1) => UnitCountByFlag[flag] >= needCount;
 
@@ -244,17 +242,19 @@ public class Multi_UnitManager : MonoBehaviourPun
         void Riase_OnUnitCountChanged(int count)
         {
             _currentCount = count;
-            OnUnitCountChanged?.Invoke(count);
+            //OnUnitCountChanged?.Invoke(count);
+            Instance.Rasie_OnUnitCountChanged(count);
         }
 
         void Riase_OnUnitCountChanged(UnitFlags flag, int count)
         {
             _countByFlag[flag] = count;
-            OnUnitFlagCountChanged?.Invoke(flag, count);
+            //OnUnitFlagCountChanged?.Invoke(flag, count);
+            Instance.Rasie_OnUnitFlagCountChanged(flag, count);
         }
     }
 
-    public class CombineSystem
+    class CombineSystem
     {
         //public RPCAction<bool, UnitFlags> OnTryCombine = new RPCAction<bool, UnitFlags>();
 
@@ -266,7 +266,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
 
         public bool CheckCombineable(UnitFlags flag)
-            => Multi_Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag.All(x => Instance._count.HasUnit(x.Key, x.Value));
+            => Multi_Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag.All(x => Instance.HasUnit(x.Key, x.Value));
 
         public void TryCombine(UnitFlags flag, int id, bool isSuccess)
         {
@@ -302,7 +302,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
     }
 
-    public class UnitStatChanger
+    class UnitStatChanger
     {
         int _id;
 
@@ -311,20 +311,20 @@ public class Multi_UnitManager : MonoBehaviourPun
             _id = Multi_Data.instance.Id;
         }
 
-        public void UnitStatChange_RPC(UnitStatType type, UnitFlags flag, int value)
-            => Instance.photonView.RPC("UnitStatChange", RpcTarget.MasterClient, (int)type, flag, value);
+        //public void UnitStatChange_RPC(UnitStatType type, UnitFlags flag, int value)
+        //    => Instance.photonView.RPC("UnitStatChange", RpcTarget.MasterClient, (int)type, flag, value);
 
-        public void UnitStatChange_RPC(UnitStatType type, UnitFlags flag, float value)
-            => Instance.photonView.RPC("UnitStatChange", RpcTarget.MasterClient, (int)type, flag, value);
+        //public void UnitStatChange_RPC(UnitStatType type, UnitFlags flag, float value)
+        //    => Instance.photonView.RPC("UnitStatChange", RpcTarget.MasterClient, (int)type, flag, value);
 
-        public void UnitStatChange(int typeNum, UnitFlags flag, float value)
-        {
-            switch (typeNum)
-            {
-                case 0: ChangeDamage(flag, value); break;
-                case 1: ChangeBossDamage(flag, value); break;
-            }
-        }
+        //public void UnitStatChange(int typeNum, UnitFlags flag, float value)
+        //{
+        //    switch (typeNum)
+        //    {
+        //        case 0: ChangeDamage(flag, value); break;
+        //        case 1: ChangeBossDamage(flag, value); break;
+        //    }
+        //}
 
         public void UnitStatChange(int typeNum, UnitFlags flag, int value)
         {
@@ -335,11 +335,11 @@ public class Multi_UnitManager : MonoBehaviourPun
             }
         }
 
-        void ChangeDamage(UnitFlags flag, float value)
-        {
-            foreach (var unit in Instance._master.GetUnitList(_id, flag))
-                unit.Damage += (int)value;
-        }
+        //void ChangeDamage(UnitFlags flag, float value)
+        //{
+        //    foreach (var unit in Instance._master.GetUnitList(_id, flag))
+        //        unit.Damage += (int)value;
+        //}
 
         void ChangeDamage(UnitFlags flag, int value)
         {

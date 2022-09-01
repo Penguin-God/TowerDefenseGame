@@ -36,7 +36,6 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         _count.Init();
         _enemyPlayer.Init();
-        _stat.Init();
 
         if (PhotonNetwork.IsMasterClient == false) return;
         _controller.Init();
@@ -70,8 +69,8 @@ public class Multi_UnitManager : MonoBehaviourPun
     public void UnitWorldChanged_RPC(int id, UnitFlags flag) => Instance.photonView.RPC("UnitWorldChanged", RpcTarget.MasterClient, id, flag, Multi_Managers.Camera.IsLookEnemyTower);
     [PunRPC] void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode) => _controller.UnitWorldChanged(id, flag, enterStroyMode);
 
-    public void UnitStatChange_RPC(UnitStatType type, UnitFlags flag, int value) => photonView.RPC("UnitStatChange", RpcTarget.MasterClient, (int)type, flag, value);
-    [PunRPC] void UnitStatChange(int typeNum, UnitFlags flag, int value) => _stat.UnitStatChange(typeNum, flag, value);
+    public void UnitStatChange_RPC(UnitStatType type, UnitFlags flag, int value) => photonView.RPC("UnitStatChange", RpcTarget.MasterClient, (int)type, flag, value, Multi_Data.instance.Id);
+    [PunRPC] void UnitStatChange(int typeNum, UnitFlags flag, int value, int id) => _stat.UnitStatChange(typeNum, flag, value, id);
 
     public bool HasUnit(UnitFlags flag, int needCount = 1) => UnitCountByFlag[flag] >= needCount;
 
@@ -277,31 +276,24 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     class UnitStatChanger
     {
-        int _id;
-
-        public void Init()
-        {
-            _id = Multi_Data.instance.Id;
-        }
-
-        public void UnitStatChange(int typeNum, UnitFlags flag, int value)
+        public void UnitStatChange(int typeNum, UnitFlags flag, int value, int id)
         {
             switch (typeNum)
             {
-                case 0: ChangeDamage(flag, value); break;
-                case 1: ChangeBossDamage(flag, value); break;
+                case 0: ChangeDamage(flag, value, id); break;
+                case 1: ChangeBossDamage(flag, value, id); break;
             }
         }
 
-        void ChangeDamage(UnitFlags flag, int value)
+        void ChangeDamage(UnitFlags flag, int value, int id)
         {
-            foreach (var unit in Instance._master.GetUnitList(_id, flag))
+            foreach (var unit in Instance._master.GetUnitList(id, flag))
                 unit.Damage = value;
         }
 
-        void ChangeBossDamage(UnitFlags flag, float value)
+        void ChangeBossDamage(UnitFlags flag, float value, int id)
         {
-            foreach (var unit in Instance._master.GetUnitList(_id, flag))
+            foreach (var unit in Instance._master.GetUnitList(id, flag))
                 unit.BossDamage += Mathf.FloorToInt(unit.BossDamage * (value - 1));
         }
     }

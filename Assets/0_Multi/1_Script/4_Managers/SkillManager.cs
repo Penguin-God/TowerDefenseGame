@@ -281,19 +281,19 @@ public class Taegeuk : PassiveSkill
             Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 0), 200);
         }
 
-        if (Red[1] >= 1 && Blue[1] >= 1 && Ather[0] == 0)
+        if (Red[1] >= 1 && Blue[1] >= 1 && Ather[1] == 0)
         {
             Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 1), 2000);
             Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 1), 2000);
         }
 
-        if (Red[2] >= 1 && Blue[2] >= 1 && Ather[0] == 0)
+        if (Red[2] >= 1 && Blue[2] >= 1 && Ather[2] == 0)
         {
             Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 2), 33000);
             Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 2), 33000);
         }
 
-        if (Red[3] >= 1 && Blue[3] >= 1 && Ather[0] == 0)
+        if (Red[3] >= 1 && Blue[3] >= 1 && Ather[3] == 0)
         {
             Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 3), 200000);
             Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 3), 200000);

@@ -8,12 +8,10 @@ class GoodsManager
     const int goodsTypeCount = 3;
     const int maxGrade = 3;
     List<UI_RandomShopGoodsData>[,] _goodsDatas;
-    public GoodsManager(string dataPath)
+    public GoodsManager()
     {
-        string csv = Multi_Managers.Resources.Load<TextAsset>(dataPath).text;
-
         Setup();
-        foreach (var data in CsvUtility.GetEnumerableFromCsv<UI_RandomShopGoodsData>(csv))
+        foreach (var data in Multi_Managers.Data.RandomShopDatas)
             _goodsDatas[data.GoodsType, data.Grade].Add(data);
     }
 
@@ -63,13 +61,12 @@ public class RandomShop_UI : Multi_UI_Popup
 {
     GoodsManager goodsManager;
     List<Goods_UI> currentGoodsList = new List<Goods_UI>();
-    [SerializeField] string dataPath;
     [SerializeField] Transform goodsParent;
     [SerializeField] RandomShopPanel_UI panel;
     protected override void Init()
     {
         base.Init();
-        goodsManager = new GoodsManager(dataPath);
+        goodsManager = new GoodsManager();
         for (int i = 0; i < goodsParent.childCount; i++)
             goodsParent.GetChild(i).GetComponent<Goods_UI>()._Init();
 

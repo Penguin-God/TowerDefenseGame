@@ -26,7 +26,7 @@ public class SoundDatasMacro : ScriptableObject
     void SaveCsv(string enumName, string rootPath, string savePath, string fileExtension)
     {
         string csv = Resources.Load<TextAsset>("Data/SoundData/EffectSoundData").text;
-        Dictionary<string, float> pathBuVolumn = CsvUtility.GetEnumerableFromCsv<EffcetSound>(csv).ToDictionary(x => x.Path, x => x.Volumn);
+        Dictionary<string, float> pathBuVolumn = CsvUtility.GetEnumerableFromCsv<EffectSound>(csv).ToDictionary(x => x.Path, x => x.Volumn);
 
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.Append($"{enumName},volumn,path");

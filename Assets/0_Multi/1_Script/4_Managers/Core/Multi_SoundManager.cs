@@ -53,8 +53,6 @@ public class Multi_SoundManager
 {
     AudioSource[] _sources;
     Dictionary<string, AudioClip> _clipByPath = new Dictionary<string, AudioClip>();
-    Dictionary<EffectSoundType, EffcetSound> effectBySound = new Dictionary<EffectSoundType, EffcetSound>();
-    Dictionary<BgmType, BgmSound> bgmBySound = new Dictionary<BgmType, BgmSound>();
 
     public void Init(Transform parent)
     {
@@ -72,12 +70,6 @@ public class Multi_SoundManager
 
             _sources = audios.ToArray();
             _sources[(int)SoundType.Bgm].loop = true;
-
-            string effectCsv = Multi_Managers.Resources.Load<TextAsset>("Data/SoundData/EffectSoundData").text;
-            effectBySound = CsvUtility.GetEnumerableFromCsv<EffcetSound>(effectCsv).ToDictionary(x => x.EffectType, x => x);
-
-            string bgmCsv = Multi_Managers.Resources.Load<TextAsset>("Data/SoundData/BgmSoundData").text;
-            bgmBySound = CsvUtility.GetEnumerableFromCsv<BgmSound>(bgmCsv).ToDictionary(x => x.BgmType, x => x);
         }
         root.transform.parent = parent;
     }
@@ -103,7 +95,7 @@ public class Multi_SoundManager
         Multi_StageManager.Instance.OnUpdateStage += (stage) => PlayEffect(EffectSoundType.NewStageClip);
     }
 
-    public void PlayBgm(BgmType bgmType) => PlayBgm(bgmBySound[bgmType].Path, bgmBySound[bgmType].Volumn);
+    public void PlayBgm(BgmType bgmType) => PlayBgm(Multi_Managers.Data.BgmBySound[bgmType].Path, Multi_Managers.Data.BgmBySound[bgmType].Volumn);
     public void PlayBgm(string _path, float volumn = 0.5f) => PlayBgm(GetOrAddClip(_path), volumn);
     public void PlayBgm(AudioClip _clip, float volumn = 0.5f)
     {
@@ -122,8 +114,8 @@ public class Multi_SoundManager
     }
     public void PlayEffect(EffectSoundType sound, float volumeScale = -1)
     {
-        float applyVolumn = (volumeScale < 0) ? effectBySound[sound].Volumn : volumeScale;
-        PlayEffect(effectBySound[sound].Path, applyVolumn);
+        float applyVolumn = (volumeScale < 0) ? Multi_Managers.Data.EffectBySound[sound].Volumn : volumeScale;
+        PlayEffect(Multi_Managers.Data.EffectBySound[sound].Path, applyVolumn);
     }
     public void PlayEffect(string path, float volumeScale) => PlayEffect(GetOrAddClip(path), volumeScale);
     public void PlayEffect(AudioClip clip, float volumeScale) => _sources[(int)SoundType.Effect].PlayOneShot(clip, volumeScale);

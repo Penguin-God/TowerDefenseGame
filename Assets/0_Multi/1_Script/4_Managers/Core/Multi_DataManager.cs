@@ -24,6 +24,8 @@ public class Multi_DataManager
     // 유닛 창 정보
     Dictionary<UnitFlags, UI_UnitWindowData> _unitWindowDataByUnitFlags = new Dictionary<UnitFlags, UI_UnitWindowData>();
     public IReadOnlyDictionary<UnitFlags, UI_UnitWindowData> UnitWindowDataByUnitFlags => _unitWindowDataByUnitFlags;
+
+    public IEnumerable<UI_RandomShopGoodsData> RandomShopDatas { get; private set; }
     #endregion
 
     #region Unit Data
@@ -57,6 +59,11 @@ public class Multi_DataManager
     public IReadOnlyDictionary<int, BossData> TowerDataByLevel => _towerDataByLevel;
     #endregion
 
+    #region Sound Data
+    public Dictionary<EffectSoundType, EffectSound> EffectBySound { get; private set; }
+    public Dictionary<BgmType, BgmSound> BgmBySound { get; private set; }
+    #endregion
+
     public BattleGameData BattleGameData;
 
     public void Init()
@@ -76,6 +83,7 @@ public class Multi_DataManager
         // UI
         _combineConditionByUnitFalg = MakeCsvDict<CombineConditions, UnitFlags, CombineCondition>("UnitData/CombineConditionData");
         _unitWindowDataByUnitFlags = MakeCsvDict<UI_UnitWindowDatas, UnitFlags, UI_UnitWindowData>("UIData/UI_UnitWindowData");
+        RandomShopDatas = LoadData<UI_RandomShopGoodsData>("UIData/RandomShopData");
 
         // enemy
         _normalEnemyDataByStage = MakeCsvDict<NormalEnemyDatas, int, NormalEnemyData>("EnemyData/NormalEnemyData");
@@ -84,6 +92,10 @@ public class Multi_DataManager
 
         // Player
         BattleGameData = JsonUtility.FromJson<BattleGameData>(Resources.Load<TextAsset>("Data/ClientData/BattleGameData").text);
+
+        // Sound 
+        EffectBySound = MakeCsvDict<EffectSoundLoder, EffectSoundType, EffectSound>("SoundData/EffectSoundData");
+        BgmBySound = MakeCsvDict<BgmSoundLoder, BgmType, BgmSound>("SoundData/BgmSoundData");
     }
 
 
@@ -99,10 +111,13 @@ public class Multi_DataManager
 
         _combineConditionByUnitFalg.Clear();
         _unitWindowDataByUnitFlags.Clear();
+        RandomShopDatas = null;
 
         _bossDataByLevel.Clear();
         _towerDataByLevel.Clear();
     }
+
+    IEnumerable<T> LoadData<T>(string path) => CsvUtility.GetEnumerableFromCsv<T>(Multi_Managers.Resources.Load<TextAsset>($"Data/{path}").text);
 
     Dictionary<Key, Value> MakeCsvDict<ICsvLoader, Key, Value>(string path) where ICsvLoader : ICsvLoader<Key, Value>, new()
     {

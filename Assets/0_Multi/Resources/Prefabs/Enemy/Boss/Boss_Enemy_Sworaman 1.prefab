@@ -370,8 +370,9 @@ MonoBehaviour:
   hpSlider: {fileID: 2502174114925224128}
   enemyType: 1
   dir: {x: 0, y: 0, z: 0}
+  rpcable: {fileID: 0}
   originMat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
-  enemyNumber: 0
+  TurnPoints: []
   freezeMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
   sternEffect: {fileID: 6203533792144159298}
   _level: 0
@@ -392,9 +393,9 @@ MonoBehaviour:
   prefixField: -1
   Synchronization: 3
   OwnershipTransfer: 0
-  observableSearch: 2
+  observableSearch: 0
   ObservedComponents:
-  - {fileID: 1566040437763218498}
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

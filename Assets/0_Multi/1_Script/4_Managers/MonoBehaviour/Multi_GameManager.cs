@@ -66,6 +66,8 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     int stageUpGold = 10;
     [SerializeField] int _maxEnemyCount;
+    public int MaxEnemyCount => _maxEnemyCount;
+
     [SerializeField] int _maxUninCount;
     public int MaxUnitCount => _maxUninCount;
     public bool UnitOver => Multi_UnitManager.Instance.CurrentUnitCount >= _maxUninCount;

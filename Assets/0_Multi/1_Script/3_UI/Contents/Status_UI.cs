@@ -19,16 +19,11 @@ public class Status_UI : Multi_UI_Scene
         TimerSlider,
     }
 
-    [SerializeField] Text unitText;
-    [SerializeField] Text enemyText;
     protected override void Init()
     {
         base.Init();
         Bind<Text>(typeof(Texts));
         Bind<GameObject>(typeof(GameObjects));
-
-        unitText = GetText((int)Texts.EnemyofCount);
-        enemyText = GetText((int)Texts.CurrentUnitText);
         timerSlider = GetObject((int)GameObjects.TimerSlider).GetComponent<Slider>();
 
         InitEvent();
@@ -62,7 +57,7 @@ public class Status_UI : Multi_UI_Scene
             Multi_Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
         else text.color = originColor;
-        text.text = "현재 적 유닛 카운트 : " + EnemyofCount + "/50";
+        text.text = $"현재 적 유닛 카운트 : {EnemyofCount}/{Multi_GameManager.instance.MaxEnemyCount}";
     }
 
     Slider timerSlider;

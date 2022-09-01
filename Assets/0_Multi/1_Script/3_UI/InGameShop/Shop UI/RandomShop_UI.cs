@@ -59,6 +59,11 @@ class GoodsManager
 
 public class RandomShop_UI : Multi_UI_Popup
 {
+    enum Buttons
+    {
+        ResetButton,
+    }
+
     GoodsManager goodsManager;
     List<Goods_UI> currentGoodsList = new List<Goods_UI>();
     [SerializeField] Transform goodsParent;
@@ -69,7 +74,7 @@ public class RandomShop_UI : Multi_UI_Popup
         goodsManager = new GoodsManager();
         for (int i = 0; i < goodsParent.childCount; i++)
             goodsParent.GetChild(i).GetComponent<Goods_UI>()._Init();
-
+        Bind<Button>(typeof(Buttons));
         BindGoods();
         panel.OnSell += UpdateGoodsList;
         gameObject.SetActive(false);
@@ -94,9 +99,18 @@ public class RandomShop_UI : Multi_UI_Popup
             BindGoods();
     }
 
+
+    // TODO : 상점 데이터 enum으로 바꾸고 리롤도 리팩터링하기
+    void SetupResetButton()
+    {
+        //Goods_UI goods = GetButton((int)Buttons.ResetButton).gameObject.AddComponent<Goods_UI>();
+        //goods.Setup(new UI_RandomShopGoodsData(), );
+    }
+
     // 리셋 버튼에서 사용하는 함수
     public void ShopReset()
     {
+
         panel.Setup(BindGoods, 10, "Gold", "10골드를 지불하여 상점을 돌리시겠습니까?");
         Multi_Managers.Sound.PlayEffect(EffectSoundType.ShopGoodsClick);
     }

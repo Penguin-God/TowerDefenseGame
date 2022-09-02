@@ -20,6 +20,9 @@ public class EnemySelector_UI : Multi_UI_Scene
 
         SetPointEvent();
 
+        // 게임 시작 프로토타입용 임시 코드
+        GetComponent<Canvas>().sortingOrder = 6000;
+
         void SetPointEvent()
         {
             for (int i = 0; i < enemySelectBtns.Count; i++)

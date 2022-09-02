@@ -72,12 +72,20 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     public int MaxUnitCount => _maxUninCount;
     public bool UnitOver => Multi_UnitManager.Instance.CurrentUnitCount >= _maxUninCount;
 
+    // 임시
+    [SerializeField] Button gameStartButton;
+    [SerializeField] GameObject barrierUI;
     private void Awake()
     {
         if (instance != this)
         {
             Destroy(gameObject);
         }
+
+        if (PhotonNetwork.IsMasterClient)
+            gameStartButton.onClick.AddListener(GameStart);
+        else
+            gameStartButton.gameObject.SetActive(false);
 
         _gameData = Multi_Managers.Data.BattleGameData;
         Multi_Managers.Sound.PlayBgm(BgmType.Default);
@@ -90,16 +98,15 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPC_OnStart()
     {
+        gameStartButton.gameObject.SetActive(false);
+        barrierUI.SetActive(false);
         gameStart = true;
         OnStart();
     }
 
-    public void GameStart(string difficult)
-    {
-        if (PhotonNetwork.IsMasterClient) photonView.RPC("RPC_OnStart", RpcTarget.All);
-    }
+    void GameStart() => photonView.RPC("RPC_OnStart", RpcTarget.All);
 
-  
+
     void Start()
     {
         Gold = _gameData.StartGold;

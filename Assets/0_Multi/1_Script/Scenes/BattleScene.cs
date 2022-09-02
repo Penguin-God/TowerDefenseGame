@@ -14,7 +14,7 @@ public class BattleScene : BaseScene
         Multi_Managers.Skill.Init();
         Multi_Managers.Camera.Init();
         Init_UI();
-        
+
         if (PhotonNetwork.IsMasterClient == false) return;
         Multi_Managers.Pool.Init();
     }

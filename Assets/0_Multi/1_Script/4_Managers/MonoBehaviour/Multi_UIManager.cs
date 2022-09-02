@@ -20,7 +20,7 @@ public class Multi_UIManager : MonoBehaviour
 
     private void Start()
     {
-        Multi_GameManager.instance.OnStart += Set_GameUI;
+        //Multi_GameManager.instance.OnStart += Set_GameUI;
         //Multi_GameManager.instance.OnStart += () => UpdateStageText(1);
 
         //Multi_StageManager.Instance.OnUpdateStage += UpdateStageText;
@@ -32,7 +32,7 @@ public class Multi_UIManager : MonoBehaviour
     [SerializeField] GameObject game_UI;
     public void Set_GameUI()
     {
-        title_UI.SetActive(false);
+        //title_UI.SetActive(false);
         //game_UI.SetActive(true);
     }
 

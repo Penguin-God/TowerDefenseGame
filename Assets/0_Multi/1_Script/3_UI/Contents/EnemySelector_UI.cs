@@ -35,9 +35,11 @@ public class EnemySelector_UI : Multi_UI_Scene
 
     void UpdateCurrentButton(EnemySelector_Button button)
     {
-        if (selectButton != null)
-            selectButton.UI_Reset();
-        selectButton = button;
+        if (selectButton != button)
+        {
+            selectButton?.UI_Reset();
+            selectButton = button;
+        }
     }
 
     void AddTriggerEvent(EventTrigger trigger, EventTriggerType type, System.Action<EnemySelector_Button> action)

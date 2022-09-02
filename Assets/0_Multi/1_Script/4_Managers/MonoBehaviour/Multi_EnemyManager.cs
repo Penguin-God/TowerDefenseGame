@@ -43,6 +43,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
     Dictionary<int, List<Transform>> currentNormalEnemysById = new Dictionary<int, List<Transform>>();
 
+    public Action OnEnemyCountChangedWithId;
     public RPCAction<int> OnEnemyCountChanged = new RPCAction<int>();
     void Raise_EnemyCountChanged(int id) => OnEnemyCountChanged.RaiseEvent(id, currentNormalEnemysById[id].Count);
     int[] playersEnemyCount;
@@ -54,6 +55,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
     {
         playersEnemyCount[0] = count1;
         playersEnemyCount[1] = count2;
+        OnEnemyCountChangedWithId?.Invoke();
     }
 
     RPCData<Multi_BossEnemy> _currentBoss = new RPCData<Multi_BossEnemy>();

@@ -51,7 +51,11 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     public event Action<int> OnUnitCountChanged = null;
     void Rasie_OnUnitCountChanged(int count) => OnUnitCountChanged?.Invoke(count);
-    
+
+    public event Action OnUnitCountChangedWhitId = null;
+    void UnitCountChanged_RPC() => photonView.RPC("UnitCountChanged", RpcTarget.All);
+    [PunRPC] void UnitCountChanged() => OnUnitCountChangedWhitId?.Invoke();
+
     public event Action<UnitFlags, int> OnUnitFlagCountChanged = null;
     void Rasie_OnUnitFlagCountChanged(UnitFlags flag, int count) => OnUnitFlagCountChanged?.Invoke(flag, count);
     
@@ -140,9 +144,10 @@ public class Multi_UnitManager : MonoBehaviourPun
             int id = unit.GetComponent<RPCable>().UsingId;
             OnUnitCountChanged?.RaiseEvent(id, unit.UnitFlags, GetUnitList(unit).Count);
             OnAllUnitCountChanged?.RaiseEvent(id, _currentAllUnitsById.Get(id).Count);
-            
+
             // 적 데이터도 알아야 되니까 반대로도 한 번 쏴줌 (이러거면 그냥 이벤트 하지?)
             OnUnitClassCountChanged?.RaiseEvent((id == 0) ? 1 : 0, isAdd, unit.unitClass);
+            Instance.UnitCountChanged_RPC();
         }
     }
 

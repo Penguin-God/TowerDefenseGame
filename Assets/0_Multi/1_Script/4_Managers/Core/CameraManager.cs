@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CameraManager
 {
@@ -19,6 +20,10 @@ public class CameraManager
     // 1,1 적 타워
     Vector3[,] positions = new Vector3[2, 2];
 
+    public event Action<bool> OnIsLookMyWolrd;
+    public event Action OnLookMyWolrd;
+    public event Action OnLookEnemyWorld;
+
     public void Init()
     {
         positions = new Vector3[2, 2]
@@ -32,7 +37,13 @@ public class CameraManager
         UpdateCameraPosition();
     }
 
-    void UpdateCameraPosition() => currentCamera.transform.position = positions[_lookWorld_Id, lookTowerId];
+    void UpdateCameraPosition()
+    {
+        currentCamera.transform.position = positions[_lookWorld_Id, lookTowerId];
+        OnIsLookMyWolrd?.Invoke(_lookWorld_Id == Multi_Data.instance.Id);
+        if (_lookWorld_Id == Multi_Data.instance.Id) OnLookMyWolrd?.Invoke();
+        else OnLookEnemyWorld?.Invoke();
+    }
 
     public void LookWorldChanged()
     {
@@ -54,6 +65,8 @@ public class CameraManager
 
     public void Clear()
     {
+        OnLookMyWolrd = null;
+        OnLookEnemyWorld = null;
         currentCamera = null;
     }
 }

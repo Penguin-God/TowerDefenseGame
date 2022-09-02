@@ -45,6 +45,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     public IReadOnlyDictionary<UnitClass, int> CountByUnitClass => _enemyPlayer._countByUnitClass;
     public IReadOnlyDictionary<UnitFlags, int> UnitCountByFlag => _count._countByFlag;
     public int CurrentUnitCount => _count._currentCount;
+    public int EnemyPlayerHasCount => _enemyPlayer.EnemyPlayerHasUnitAllCount;
 
     public RPCAction<bool, UnitFlags> OnTryCombine = new RPCAction<bool, UnitFlags>();
 
@@ -140,7 +141,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             OnUnitCountChanged?.RaiseEvent(id, unit.UnitFlags, GetUnitList(unit).Count);
             OnAllUnitCountChanged?.RaiseEvent(id, _currentAllUnitsById.Get(id).Count);
             
-            // 적 데이터 덮어쓰는 용
+            // 적 데이터도 알아야 되니까 반대로도 한 번 쏴줌 (이러거면 그냥 이벤트 하지?)
             OnUnitClassCountChanged?.RaiseEvent((id == 0) ? 1 : 0, isAdd, unit.unitClass);
         }
     }
@@ -148,6 +149,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     class EnemyPlayerDataManager
     {
         public Dictionary<UnitClass, int> _countByUnitClass = new Dictionary<UnitClass, int>();
+        public int EnemyPlayerHasUnitAllCount;
 
         public void Init()
         {
@@ -163,6 +165,12 @@ public class Multi_UnitManager : MonoBehaviourPun
                 _countByUnitClass[unitClass]++;
             else
                 _countByUnitClass[unitClass]--;
+
+            // 리팩터링 존나 필요
+            int count = 0;
+            foreach (var item in _countByUnitClass)
+                count += item.Value;
+            EnemyPlayerHasUnitAllCount = count;
         }
     }
 

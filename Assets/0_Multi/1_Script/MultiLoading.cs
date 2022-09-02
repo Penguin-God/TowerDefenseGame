@@ -8,7 +8,11 @@ public class MultiLoading : MonoBehaviourPun
 {
     [SerializeField] Text stateText = null;
     
-    void Update() => stateText.text = PhotonNetwork.PlayerList.Length + "";
+    void Update()
+    {
+        stateText.text = PhotonNetwork.PlayerList.Length + "";
+        if (Input.GetKeyDown(KeyCode.E)) EnterBattle();
+    }
 
     private void Start()
     {
@@ -18,8 +22,6 @@ public class MultiLoading : MonoBehaviourPun
             photonView.RPC("EnterBattle", RpcTarget.MasterClient);
         }
     }
-
-    void MasterEnterBattle() => photonView.RPC("EnterBattle", RpcTarget.MasterClient);
 
     [PunRPC, ContextMenu("InitBattleScene")]
     void EnterBattle() => Multi_Managers.Scene.LoadLevel(SceneTyep.New_Scene);

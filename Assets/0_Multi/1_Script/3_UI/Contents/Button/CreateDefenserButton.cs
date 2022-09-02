@@ -11,6 +11,7 @@ public class CreateDefenserButton : Multi_UI_Scene
     {
         base.Init();
         GetComponentInChildren<Button>().onClick.AddListener(Sommon);
+        Multi_Managers.Camera.OnIsLookMyWolrd += (isLookMy) => gameObject.SetActive(isLookMy);
     }
 
     void Sommon()

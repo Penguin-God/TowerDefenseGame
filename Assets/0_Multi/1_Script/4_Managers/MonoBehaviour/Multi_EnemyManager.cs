@@ -24,6 +24,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
     void Start()
     {
+        playersEnemyCount = new int[2];
         if (PhotonNetwork.IsMasterClient)
         {
             currentNormalEnemysById.Add(0, new List<Transform>());
@@ -44,6 +45,16 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
     public RPCAction<int> OnEnemyCountChanged = new RPCAction<int>();
     void Raise_EnemyCountChanged(int id) => OnEnemyCountChanged.RaiseEvent(id, currentNormalEnemysById[id].Count);
+    int[] playersEnemyCount;
+    public int MyEnemyCount => playersEnemyCount[Multi_Data.instance.Id];
+    public int EnemyPlayerEnemyCount => playersEnemyCount[Multi_Data.instance.EnemyPlayerId];
+
+    [PunRPC]
+    void UpdatePlayersEnemyCount(int count1, int count2)
+    {
+        playersEnemyCount[0] = count1;
+        playersEnemyCount[1] = count2;
+    }
 
     RPCData<Multi_BossEnemy> _currentBoss = new RPCData<Multi_BossEnemy>();
     bool BossIsAlive(int id) => _currentBoss.Get(id) != null;
@@ -120,14 +131,6 @@ public class Multi_EnemyManager : MonoBehaviourPun
         return result;
     }
 
-    // TODO : 빨간 마법사 스킬 강화 구현하고 죽이기
-    //public Multi_Enemy GetRandom_CurrentEnemy()
-    //{
-    //    int index = Random.Range(0, allNormalEnemys.Count);
-    //    Multi_Enemy enemy = allNormalEnemys[index].GetComponent<Multi_Enemy>();
-    //    return enemy;
-    //}
-
     #region callback funtion
     void AddEnemyAtList(Multi_NormalEnemy _enemy)
     {
@@ -136,6 +139,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
         int id = _enemy.GetComponent<RPCable>().UsingId;
         currentNormalEnemysById[id].Add(_enemy.transform);
         Raise_EnemyCountChanged(id);
+        photonView.RPC("UpdatePlayersEnemyCount", RpcTarget.All, currentNormalEnemysById[0].Count, currentNormalEnemysById[1].Count);
     }
     void RemoveEnemyAtList(Multi_NormalEnemy _enemy)
     {
@@ -144,6 +148,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
         int id = _enemy.GetComponent<RPCable>().UsingId;
         currentNormalEnemysById[id].Remove(_enemy.transform);
         Raise_EnemyCountChanged(id);
+        photonView.RPC("UpdatePlayersEnemyCount", RpcTarget.All, currentNormalEnemysById[0].Count, currentNormalEnemysById[1].Count);
     }
     #endregion
 }

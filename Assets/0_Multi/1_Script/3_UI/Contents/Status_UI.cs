@@ -17,6 +17,8 @@ public class Status_UI : Multi_UI_Scene
     enum GameObjects
     {
         TimerSlider,
+        GoldBar,
+        FoodBar,
     }
 
     protected override void Init()
@@ -31,17 +33,53 @@ public class Status_UI : Multi_UI_Scene
 
     void InitEvent()
     {
-        Multi_EnemyManager.Instance.OnEnemyCountChanged -= UpdateEnemyCountText;
-        Multi_GameManager.instance.OnGoldChanged -= (gold) => GetText((int)Texts.GoldText).text = gold.ToString();
-        Multi_GameManager.instance.OnFoodChanged -= (food) => GetText((int)Texts.FoodText).text = food.ToString();
-        Multi_UnitManager.Instance.OnUnitCountChanged -= UpdateUnitText;
         Multi_StageManager.Instance.OnUpdateStage -= UpdateStage;
-
-        Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateEnemyCountText;
-        Multi_GameManager.instance.OnGoldChanged += (gold) => GetText((int)Texts.GoldText).text = gold.ToString();
-        Multi_GameManager.instance.OnFoodChanged += (food) => GetText((int)Texts.FoodText).text = food.ToString();
-        Multi_UnitManager.Instance.OnUnitCountChanged += UpdateUnitText;
         Multi_StageManager.Instance.OnUpdateStage += UpdateStage;
+
+        BindGoldBarEvent();
+        BindFoodBarEvent();
+        BindUnitPanelEvent();
+        BindEnemyCountTextEvent();
+
+        void BindGoldBarEvent()
+        {
+            Multi_GameManager.instance.OnGoldChanged -= (gold) => GetText((int)Texts.GoldText).text = gold.ToString();
+            Multi_Managers.Camera.OnIsLookMyWolrd -= (lookMy) => GetObject((int)GameObjects.GoldBar).SetActive(lookMy);
+
+            Multi_GameManager.instance.OnGoldChanged += (gold) => GetText((int)Texts.GoldText).text = gold.ToString();
+            Multi_Managers.Camera.OnIsLookMyWolrd += (lookMy) => GetObject((int)GameObjects.GoldBar).SetActive(lookMy);
+        }
+
+        void BindFoodBarEvent()
+        {
+            Multi_GameManager.instance.OnFoodChanged -= (food) => GetText((int)Texts.FoodText).text = food.ToString();
+            Multi_Managers.Camera.OnIsLookMyWolrd -= (lookMy) => GetObject((int)GameObjects.FoodBar).SetActive(lookMy);
+
+            Multi_GameManager.instance.OnFoodChanged += (food) => GetText((int)Texts.FoodText).text = food.ToString();
+            Multi_Managers.Camera.OnIsLookMyWolrd += (lookMy) => GetObject((int)GameObjects.FoodBar).SetActive(lookMy);
+        }
+
+        void BindUnitPanelEvent()
+        {
+            Multi_UnitManager.Instance.OnUnitCountChanged -= UpdateUnitText;
+            Multi_Managers.Camera.OnLookMyWolrd -= () => UpdateUnitText(Multi_UnitManager.Instance.CurrentUnitCount);
+            Multi_Managers.Camera.OnLookEnemyWorld -= () => UpdateUnitText(Multi_UnitManager.Instance.EnemyPlayerHasCount);
+
+            Multi_UnitManager.Instance.OnUnitCountChanged += UpdateUnitText;
+            Multi_Managers.Camera.OnLookMyWolrd += () => UpdateUnitText(Multi_UnitManager.Instance.CurrentUnitCount);
+            Multi_Managers.Camera.OnLookEnemyWorld += () => UpdateUnitText(Multi_UnitManager.Instance.EnemyPlayerHasCount);
+        }
+
+        void BindEnemyCountTextEvent()
+        {
+            Multi_EnemyManager.Instance.OnEnemyCountChanged -= UpdateEnemyCountText;
+            Multi_Managers.Camera.OnLookMyWolrd -= () => UpdateEnemyCountText(Multi_EnemyManager.Instance.MyEnemyCount);
+            Multi_Managers.Camera.OnLookEnemyWorld -= () => UpdateEnemyCountText(Multi_EnemyManager.Instance.EnemyPlayerEnemyCount);
+
+            Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateEnemyCountText;
+            Multi_Managers.Camera.OnLookMyWolrd += () => UpdateEnemyCountText(Multi_EnemyManager.Instance.MyEnemyCount);
+            Multi_Managers.Camera.OnLookEnemyWorld += () => UpdateEnemyCountText(Multi_EnemyManager.Instance.EnemyPlayerEnemyCount);
+        }
     }
 
     void UpdateUnitText(int count) => GetText((int)Texts.CurrentUnitText).text = $"최대 유닛 갯수 {count}/{Multi_GameManager.instance.MaxUnitCount}";

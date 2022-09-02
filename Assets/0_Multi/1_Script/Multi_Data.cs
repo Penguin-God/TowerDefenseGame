@@ -47,6 +47,7 @@ public class Multi_Data : MonoBehaviourPun
     // id가 0이면 호스트 1이면 클라이언트 이 아이디를 이용해서 데이터를 정함
     [SerializeField] int id;
     public int Id => id;
+    public int EnemyPlayerId => (Id == 0) ? 1 : 0;
     public bool CheckIdSame(int _id) => id == _id;
 
     [Header("World")]

@@ -278,14 +278,14 @@ public class Taegeuk : PassiveSkill
         if (Red[0] >= 1 && Blue[0] >= 1 && Ather[0] == 0)
         {
             Debug.Log("기사 강화!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 0), 200);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 0), 200);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 0), 300);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 0), 300);
         }
 
         if (Red[1] >= 1 && Blue[1] >= 1 && Ather[1] == 0)
         {
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 1), 2000);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 1), 2000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 1), 3000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 1), 3000);
         }
 
         if (Red[2] >= 1 && Blue[2] >= 1 && Ather[2] == 0)

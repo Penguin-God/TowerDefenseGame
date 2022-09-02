@@ -228,9 +228,9 @@ public class ClientManager : MonoBehaviour
 
 
         if (CheckSkill() == 1)
-            Skill1Image.sprite = skill_Image.TaegeukSkillImage;
+            Skill1Image.sprite = skill_Image.BlackUnitUpgradeImage;
         else if (CheckSkill() == 2)
-            Skill2Image.sprite = skill_Image.TaegeukSkillImage;
+            Skill2Image.sprite = skill_Image.BlackUnitUpgradeImage;
     }
 
     public void EquipYellowUnitUpgrade()
@@ -240,9 +240,9 @@ public class ClientManager : MonoBehaviour
 
 
         if (CheckSkill() == 1)
-            Skill1Image.sprite = skill_Image.TaegeukSkillImage;
+            Skill1Image.sprite = skill_Image.YellowUnitUpgradeImage;
         else if (CheckSkill() == 2)
-            Skill2Image.sprite = skill_Image.TaegeukSkillImage;
+            Skill2Image.sprite = skill_Image.YellowUnitUpgradeImage;
     }
 
     public void EquipColorChange()
@@ -252,9 +252,9 @@ public class ClientManager : MonoBehaviour
 
 
         if (CheckSkill() == 1)
-            Skill1Image.sprite = skill_Image.TaegeukSkillImage;
+            Skill1Image.sprite = skill_Image.ColorChangeImage;
         else if (CheckSkill() == 2)
-            Skill2Image.sprite = skill_Image.TaegeukSkillImage;
+            Skill2Image.sprite = skill_Image.ColorChangeImage;
     }
 
     public void EquipCommonSkill()
@@ -264,9 +264,9 @@ public class ClientManager : MonoBehaviour
 
 
         if (CheckSkill() == 1)
-            Skill1Image.sprite = skill_Image.TaegeukSkillImage;
+            Skill1Image.sprite = skill_Image.CommonSkillImage;
         else if (CheckSkill() == 2)
-            Skill2Image.sprite = skill_Image.TaegeukSkillImage;
+            Skill2Image.sprite = skill_Image.CommonSkillImage;
     }
 
     public void EquipFoodHater()
@@ -276,9 +276,9 @@ public class ClientManager : MonoBehaviour
 
 
         if (CheckSkill() == 1)
-            Skill1Image.sprite = skill_Image.TaegeukSkillImage;
+            Skill1Image.sprite = skill_Image.FoodHaterImage;
         else if (CheckSkill() == 2)
-            Skill2Image.sprite = skill_Image.TaegeukSkillImage;
+            Skill2Image.sprite = skill_Image.FoodHaterImage;
     }
 
     public void EquipSellUpgrade()
@@ -288,9 +288,9 @@ public class ClientManager : MonoBehaviour
 
 
         if (CheckSkill() == 1)
-            Skill1Image.sprite = skill_Image.TaegeukSkillImage;
+            Skill1Image.sprite = skill_Image.SellUpgradeImage;
         else if (CheckSkill() == 2)
-            Skill2Image.sprite = skill_Image.TaegeukSkillImage;
+            Skill2Image.sprite = skill_Image.SellUpgradeImage;
     }
 
     public void EquipBossDamageUpgrade()
@@ -300,9 +300,9 @@ public class ClientManager : MonoBehaviour
 
 
         if (CheckSkill() == 1)
-            Skill1Image.sprite = skill_Image.TaegeukSkillImage;
+            Skill1Image.sprite = skill_Image.BossDamageUpgradeImage;
         else if (CheckSkill() == 2)
-            Skill2Image.sprite = skill_Image.TaegeukSkillImage;
+            Skill2Image.sprite = skill_Image.BossDamageUpgradeImage;
     }
 
 
@@ -335,17 +335,20 @@ public class ClientManager : MonoBehaviour
         InitEquip(SkillType.시작골드증가, StartGoldEquipButton);
         InitEquip(SkillType.최대유닛증가, PlusMaxUnitEquipButton);
         InitEquip(SkillType.태극스킬, TaegeukSkillEquipButton);
-        InitEquip(SkillType.검은유닛강화, TaegeukSkillEquipButton);
-        InitEquip(SkillType.노란기사강화, TaegeukSkillEquipButton);
-        InitEquip(SkillType.상대색깔변경, TaegeukSkillEquipButton);
-        InitEquip(SkillType.흔한스킬, TaegeukSkillEquipButton);
-        InitEquip(SkillType.고기혐오자, TaegeukSkillEquipButton);
-        InitEquip(SkillType.판매보상증가, TaegeukSkillEquipButton);
-        InitEquip(SkillType.보스데미지증가, TaegeukSkillEquipButton);
+        InitEquip(SkillType.검은유닛강화, BlackUnitUpgradeEquipButton);
+        InitEquip(SkillType.노란기사강화, YellowUnitUpgradeEquipButton);
+        InitEquip(SkillType.상대색깔변경, ColorChangeEquipButton);
+        InitEquip(SkillType.흔한스킬, CommonSkillEquipButton);
+        InitEquip(SkillType.고기혐오자, FoodHaterEquipButton);
+        InitEquip(SkillType.판매보상증가, SellUpgradeEquipButton);
+        InitEquip(SkillType.보스데미지증가, BossDamageUpgradeEquipButton);
     }
 
     void InitEquip(SkillType skillType, Button equipButton)
     {
+        if (equipButton == null)
+            return;
+
         // 스킬이 없거나 스킬을 장착한 상태라면
         if (Multi_Managers.ClientData.SkillByType[skillType].HasSkill == false || Multi_Managers.ClientData.SkillByType[skillType].EquipSkill == true)
         {

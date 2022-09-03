@@ -281,7 +281,7 @@ public class Multi_UnitManager : MonoBehaviourPun
                 {
                     Instance._controller.UnitDead(id, flagCountPair.Key);
                     if (flagCountPair.Key == new UnitFlags(2, 0))
-                        Multi_GameManager.instance.AddGold(1, id);
+                        Multi_GameManager.instance.AddGold(Multi_Managers.ClientData.SkillByType[SkillType.노란기사강화].EquipSkill ? 3 : 1, id);
                 }
             }
         }

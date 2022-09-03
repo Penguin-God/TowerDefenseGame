@@ -62,8 +62,8 @@ public class SkillManager
             Debug.Log("시작 최대 유닛 증가 없음.....");
         }
 
-        //Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill == 
-        if (Multi_Data.instance.Id == 0)
+        
+        if (Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill == true)
         {
             Taegeuk taegeuk = new Taegeuk();
             taegeuk.EquipSkill = true;
@@ -75,8 +75,7 @@ public class SkillManager
             Debug.Log("태극스킬 없음.....");
         }
 
-        // Multi_Managers.ClientData.SkillByType[SkillType.검은유닛강화].EquipSkill == true
-        if (Multi_Data.instance.Id == 1)
+        if (Multi_Managers.ClientData.SkillByType[SkillType.검은유닛강화].EquipSkill == true)
         {
             BlackUnitUpgrade blackUnitUpgrade = new BlackUnitUpgrade();
             blackUnitUpgrade.EquipSkill = true;

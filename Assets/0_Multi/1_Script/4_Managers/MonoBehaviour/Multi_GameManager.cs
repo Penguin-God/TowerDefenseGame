@@ -70,6 +70,12 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] int _maxUninCount;
     public int MaxUnitCount => _maxUninCount;
+    public event Action<int> OnUnitMaxCountChanaged = null;
+    public void IncreaseUnitMaxCount()
+    {
+        _maxUninCount++;
+        OnUnitMaxCountChanaged?.Invoke(_maxEnemyCount);
+    }
     public bool UnitOver => Multi_UnitManager.Instance.CurrentUnitCount >= _maxUninCount;
 
     // 임시

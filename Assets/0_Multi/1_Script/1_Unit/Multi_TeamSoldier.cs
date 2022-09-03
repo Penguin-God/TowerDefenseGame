@@ -165,7 +165,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     public void Dead()
     {
-        OnDead(this);
+        if (OnDead != null)
+            OnDead?.Invoke(this);
+        else
+            Debug.Log($"{this.name} 이벤트가 null임");
         gameObject.SetActive(false);
     }
 

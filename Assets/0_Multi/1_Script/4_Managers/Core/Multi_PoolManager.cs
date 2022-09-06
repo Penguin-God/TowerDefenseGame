@@ -97,21 +97,6 @@ public class Multi_PoolManager
         return pool.Root;
     }
 
-    public Transform CreatePool_InGroup(GameObject original, string path, int count, string groupName)
-    {
-        PoolGroup poolGroup;
-        if (_poolGroupByName.TryGetValue(groupName, out poolGroup))
-            return CreatePool(original, path, count, poolGroup.Root);
-        else // 없으면 새로운 풀 그룹 생성
-        {
-            poolGroup = new PoolGroup();
-            poolGroup.Init(groupName);
-            poolGroup.Root.SetParent(_root);
-            _poolGroupByName.Add(groupName, poolGroup);
-            return CreatePool(original, path, count, poolGroup.Root);
-        }
-    }
-
     public Transform CreatePool_InGroup(GameObject original, string path, int count, string groupName, Action<GameObject> action = null)
     {
         PoolGroup poolGroup;

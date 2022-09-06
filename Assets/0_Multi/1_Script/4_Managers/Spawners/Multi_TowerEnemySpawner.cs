@@ -25,24 +25,12 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
     void CreatePool()
     {
         for (int i = 0; i < _enemys.Length; i++)
-        {
-            //List<Multi_EnemyTower> towers = CreatePool_InGroup<Multi_EnemyTower>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount).ToList();
-            //towers.ForEach(x => SetTower(x));
             CreatePoolGroup(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
-        }
     }
 
     protected override void SetPoolObj(GameObject go)
     {
         var enemy = go.GetComponent<Multi_EnemyTower>();
-        enemy.enemyType = EnemyType.Tower;
-
-        if (PhotonNetwork.IsMasterClient == false) return;
-        enemy.OnDeath += () => OnDead(enemy);
-    }
-
-    void SetTower(Multi_EnemyTower enemy)
-    {
         enemy.enemyType = EnemyType.Tower;
 
         if (PhotonNetwork.IsMasterClient == false) return;

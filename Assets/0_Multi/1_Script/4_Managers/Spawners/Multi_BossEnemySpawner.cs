@@ -26,20 +26,7 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     void CreatePool()
     {
         for (int i = 0; i < _enemys.Length; i++)
-        {
-            //List<Multi_BossEnemy> bossList = CreatePool_InGroup<Multi_BossEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount).ToList();
-            //bossList.ForEach(x => SetBoss(x));
             CreatePoolGroup(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
-        }
-    }
-
-    void SetBoss(Multi_BossEnemy enemy)
-    {
-        enemy.enemyType = EnemyType.Boss;
-
-        if (PhotonNetwork.IsMasterClient == false) return;
-        enemy.OnDeath += () => OnDead(enemy);
-        enemy.OnDeath += () => Multi_Managers.Pool.Push(enemy.GetComponent<Poolable>());
     }
 
     protected override void SetPoolObj(GameObject go)

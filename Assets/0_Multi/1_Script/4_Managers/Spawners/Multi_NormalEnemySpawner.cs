@@ -33,11 +33,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     void CreatePool()
     {
         for (int i = 0; i < _enemys.Length; i++)
-        {
-            //List<Multi_NormalEnemy> enemys = CreatePool_InGroup<Multi_NormalEnemy>(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount).ToList();
-            //enemys.ForEach(x => SetEnemy(x));
             CreatePoolGroup(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
-        }
     }
 
     [SerializeField] bool isTest;
@@ -80,16 +76,6 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
         enemy.resurrection.SetSpawnStage(stage);
         OnSpawn?.Invoke(enemy);
         return enemy;
-    }
-
-    void SetEnemy(Multi_NormalEnemy enemy)
-    {
-        enemy.enemyType = EnemyType.Normal;
-
-        if (PhotonNetwork.IsMasterClient == false) return;
-        enemy.OnDeath += () => OnDead(enemy);
-        enemy.OnDeath += () => EenmySpawnToOtherWorld(enemy, otherEnemySpawnNumber);
-        enemy.OnDeath += () => Multi_Managers.Pool.Push(enemy.GetComponent<Poolable>());
     }
 
     protected override void SetPoolObj(GameObject go)

@@ -43,7 +43,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public Transform target;
     protected Multi_Enemy TargetEnemy { get { return target.GetComponent<Multi_Enemy>(); } }
 
-    //protected Multi_WeaponPoolManager poolManager = null;
     protected Multi_UnitPassive passive;
     protected NavMeshAgent nav;
     protected Animator animator;
@@ -165,10 +164,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     public void Dead()
     {
-        if (OnDead != null)
-            OnDead?.Invoke(this);
-        else
-            Debug.Log($"{this.name} 이벤트가 null임");
+        Debug.Assert(OnDead != null, $"{this.name} 이벤트가 null임");
+        OnDead?.Invoke(this);
         gameObject.SetActive(false);
     }
 
@@ -176,7 +173,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         target = null;
         rayHitTransform = null;
-        // TODO : OnDead로 event만들어서 스포너에서 구독하게 바꾸기
         isAttack = false;
         isAttackDelayTime = false;
         isSkillAttack = false;

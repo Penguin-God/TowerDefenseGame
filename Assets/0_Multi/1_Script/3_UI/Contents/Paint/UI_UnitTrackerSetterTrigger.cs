@@ -12,6 +12,7 @@ public class UI_UnitTrackerSetterTrigger : Multi_UI_Base
     {
         _unitTrackerData = CreateUnitTrackerData();
         AddEventToButton(SignalTheUnitTrackerSetter);
+        AddEventToButton(() => transform.parent.gameObject.SetActive(false));
     }
 
     UI_UnitTrackerData CreateUnitTrackerData()

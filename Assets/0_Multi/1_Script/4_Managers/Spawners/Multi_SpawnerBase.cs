@@ -30,6 +30,10 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
 
     protected virtual void MasterInit() { }
 
+    protected void CreatePoolGroup(GameObject go, string path, int count) => Multi_Managers.Pool.CreatePool_InGroup(go, path, count, _rootName, SetPoolObj);
+
+    protected virtual void SetPoolObj(GameObject go) { }
+
     protected T[] CreatePool<T>(GameObject go, string path, int count) where T : Component
         => Multi_Managers.Pool.CreatePool(go, path, count).GetComponentsInChildren<T>(true).ToArray();
 

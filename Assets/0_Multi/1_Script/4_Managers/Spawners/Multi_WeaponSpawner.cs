@@ -24,7 +24,7 @@ public class Multi_WeaponSpawner : Multi_SpawnerBase
     void InitWeapons(GameObject[] gos, string folderName, int count)
     {
         for (int i = 0; i < gos.Length; i++)
-            CreatePool_InGroup(gos[i], BuildPath(_rootPath, folderName, gos[i]), count);
+            CreatePoolGroup(gos[i], BuildPath(_rootPath, folderName, gos[i]), count);
     }
 
     void SetAllWeapons()

@@ -41,8 +41,9 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     {
         for (int i = 0; i < gos.Length; i++)
         {
-            List<Multi_TeamSoldier> units = CreatePool_InGroup<Multi_TeamSoldier>(gos[i], BuildPath(_rootPath, folderName, gos[i]), count).ToList();
-            units.ForEach(x => SetUnit(x));
+            //List<Multi_TeamSoldier> units = CreatePool_InGroup<Multi_TeamSoldier>(gos[i], BuildPath(_rootPath, folderName, gos[i]), count).ToList();
+            //units.ForEach(x => SetUnit(x));
+            CreatePoolGroup(gos[i], BuildPath(_rootPath, folderName, gos[i]), count);
         }
     }
 
@@ -59,6 +60,15 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
 
     void SetUnit(Multi_TeamSoldier unit)
     {
+        unit.OnDead += OnDead;
+
+        if (PhotonNetwork.IsMasterClient == false) return;
+        unit.OnDead += deadUnit => Multi_Managers.Pool.Push(deadUnit.GetComponent<Poolable>());
+    }
+
+    protected override void SetPoolObj(GameObject go)
+    {
+        var unit = go.GetComponent<Multi_TeamSoldier>();
         unit.OnDead += OnDead;
 
         if (PhotonNetwork.IsMasterClient == false) return;

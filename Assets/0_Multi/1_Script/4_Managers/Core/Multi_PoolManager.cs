@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System;
 
 class PoolGroup
 {
@@ -22,12 +23,15 @@ class Pool
     Stack<Poolable> poolStack = new Stack<Poolable>();
     public int Count => poolStack.Count;
 
-    public void Init(GameObject original, string path, int count)
+    Action<GameObject> SetupObjAct;
+
+    public void Init(GameObject original, string path, int count, Action<GameObject> setupAct)
     {
         Root = new GameObject($"{original.name}_Root").transform;
         if(original.GetComponent<Poolable>() == null) original.AddComponent<Poolable>();
         Original = original;
         Path = path;
+        SetupObjAct = setupAct;
         for (int i = 0; i < count; i++)
             Push(CreateObject());
     }
@@ -39,6 +43,7 @@ class Pool
         GameObject go = PhotonNetwork.Instantiate($"Prefabs/{Path}", Vector3.zero, previewGo.transform.rotation);
         go.transform.SetParent(Root);
         go.name = Original.name;
+        SetupObjAct?.Invoke(go);
 
         poolable = go.GetOrAddComponent<Poolable>();
         poolable.Path = Path;
@@ -82,10 +87,10 @@ public class Multi_PoolManager
         }
     }
 
-    public Transform CreatePool(GameObject go, string path, int count, Transform root = null)
+    public Transform CreatePool(GameObject go, string path, int count, Transform root = null, Action<GameObject> action = null)
     {
         Pool pool = new Pool();
-        pool.Init(go, path, count);
+        pool.Init(go, path, count, action);
         if(root == null) pool.Root.SetParent(_root);
         else pool.Root.SetParent(root);
         _poolByName.Add(go.name, pool);
@@ -106,6 +111,22 @@ public class Multi_PoolManager
             return CreatePool(original, path, count, poolGroup.Root);
         }
     }
+
+    public Transform CreatePool_InGroup(GameObject original, string path, int count, string groupName, Action<GameObject> action = null)
+    {
+        PoolGroup poolGroup;
+        if (_poolGroupByName.TryGetValue(groupName, out poolGroup))
+            return CreatePool(original, path, count, poolGroup.Root, action);
+        else // 없으면 새로운 풀 그룹 생성
+        {
+            poolGroup = new PoolGroup();
+            poolGroup.Init(groupName);
+            poolGroup.Root.SetParent(_root);
+            _poolGroupByName.Add(groupName, poolGroup);
+            return CreatePool(original, path, count, poolGroup.Root, action);
+        }
+    }
+
 
     public void Push(Poolable poolable) => Push(poolable.gameObject);
     public void Push(GameObject go)

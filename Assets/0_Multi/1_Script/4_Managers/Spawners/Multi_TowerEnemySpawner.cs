@@ -32,9 +32,9 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
     {
         var enemy = go.GetComponent<Multi_EnemyTower>();
         enemy.enemyType = EnemyType.Tower;
+        enemy.OnDeath += () => OnDead(enemy);
 
         if (PhotonNetwork.IsMasterClient == false) return;
-        enemy.OnDeath += () => OnDead(enemy);
     }
 
     void AfterSpawn(Multi_EnemyTower tower)

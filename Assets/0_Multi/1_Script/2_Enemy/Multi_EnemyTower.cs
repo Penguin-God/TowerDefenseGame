@@ -11,9 +11,15 @@ public class Multi_EnemyTower : Multi_Enemy
 
     public void Spawn(int level)
     {
+        photonView.RPC("SetTowerStatus", RpcTarget.All, level);
+        SetStatus_RPC(TowerData.Hp, TowerData.Speed, false);
+    }
+
+    [PunRPC]
+    void SetTowerStatus(int level)
+    {
         _level = level;
         TowerData = Multi_Managers.Data.TowerDataByLevel[_level];
-        SetStatus_RPC(TowerData.Hp, TowerData.Speed, false);
     }
 
     public override void Dead()

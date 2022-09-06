@@ -137,6 +137,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     void GetReward(Multi_EnemyTower tower)
     {
+        print(Multi_Data.instance.CheckIdSame(tower.GetComponent<RPCable>().UsingId));
         if (Multi_Data.instance.CheckIdSame(tower.GetComponent<RPCable>().UsingId))
             GetReward(tower.TowerData);
     }

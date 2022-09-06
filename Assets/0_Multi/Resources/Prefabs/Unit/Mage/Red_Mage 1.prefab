@@ -380,7 +380,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 1
+  m_ObstacleAvoidanceType: 0
 --- !u!54 &7735766840414641309
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -555,15 +555,16 @@ MonoBehaviour:
     _attackRange: 0
   skillDamage: 0
   stopDistanc: 5
-  enterStoryWorld: 0
   isAttack: 0
   isAttackDelayTime: 0
   isSkillAttack: 0
   skillCoolDownTime: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
+  normalAttackSound: 0
   normalAttakc_AudioDelay: 0.7
   reinforceEffect: {fileID: 1271379285823108260}
+  isMoveLock: 0
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
@@ -589,9 +590,9 @@ MonoBehaviour:
   plusMana: 30
   mageSkillCoolDownTime: 2.5
   isUltimate: 0
-  maxMana: 150
-  currentMana: 0
   mageSkillCilp: {fileID: 8300000, guid: e6f235e1a0f4c504bbb5a76c786d86b6, type: 3}
+  meteorDamage: 0
+  meteorStunTime: 0
   meteorPos: {x: 0, y: 30, z: -5}
 --- !u!114 &5735482920275350009
 MonoBehaviour:

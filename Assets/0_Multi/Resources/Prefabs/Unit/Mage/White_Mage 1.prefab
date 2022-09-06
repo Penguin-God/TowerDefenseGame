@@ -182,7 +182,7 @@ NavMeshAgent:
   m_Height: 2
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 1
+  m_ObstacleAvoidanceType: 0
 --- !u!82 &8044777199245579412
 AudioSource:
   m_ObjectHideFlags: 0
@@ -364,8 +364,10 @@ MonoBehaviour:
   skillCoolDownTime: 0
   target: {fileID: 0}
   normalAttackClip: {fileID: 0}
+  normalAttackSound: 0
   normalAttakc_AudioDelay: 0
   reinforceEffect: {fileID: 0}
+  isMoveLock: 0
   enemyDistance: 0
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}

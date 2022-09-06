@@ -33,7 +33,6 @@ public class SkillManager
 {
     Dictionary<SkillType, System.Action> keyValuePairs = new Dictionary<SkillType, System.Action>();
     
-
     public void Init()
     {
         List<Skill> skills = new List<Skill>();
@@ -352,10 +351,12 @@ public class ColorChange : ActiveSkill
         // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
         // Multi_UnitManager.Instance.OnUnitCountChanged += (new UnitFlags(6, 0), count) => UseSkill();
 
-        void UseSkill()
-        {
+        Multi_UnitManager.Instance.OnUnitFlagCountChanged += (flag, count) => UseSkill(flag);
+    }
 
-        }
+    void UseSkill(UnitFlags flag)
+    {
+        
     }
 }
 
@@ -379,7 +380,7 @@ public class SellUpgrade : PassiveSkill
 {
     public override void InitSkill(Skill skill)
     {
-        // 유닛 판매 보상 증가 (1원 추가)
+        // 유닛 판매 보상 증가 (1원 추가) (유닛별로 증가 따로)
     }
 }
 

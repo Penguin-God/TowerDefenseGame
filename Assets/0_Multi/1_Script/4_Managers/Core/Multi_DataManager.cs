@@ -19,6 +19,8 @@ public class Multi_DataManager
     UnitData _unit = new UnitData();
     UI_Data _ui = new UI_Data();
     EnemyData _enemy = new EnemyData();
+    SkillData _skill = new SkillData();
+    public SkillData Skill => _skill;
 
     #region UI Data
     // 조합 조건
@@ -179,5 +181,11 @@ public class Multi_DataManager
             _bossDataByLevel.Clear();
             _towerDataByLevel.Clear();
         }
+    }
+
+    public class SkillData
+    {
+        public int CombineAdditionalGold { get; private set; }
+        public void InitCombineAdditionalGold(int value) => CombineAdditionalGold = value;
     }
 }

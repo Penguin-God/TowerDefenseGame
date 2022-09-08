@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 1342008897723178093}
   - component: {fileID: 1342008896553569459}
   - component: {fileID: 7124156390010134840}
-  - component: {fileID: 77106521}
   - component: {fileID: 7988857395217660607}
   - component: {fileID: -5737390074471542531}
   m_Layer: 9
@@ -140,20 +139,6 @@ MonoBehaviour:
   enemyIsForward: 0
   rayHitTransform: {fileID: 0}
   trail: {fileID: 203131281887453243}
---- !u!114 &77106521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 203131281495688949}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71bee1abb9109194bba26d218a72367c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_GetGoldPercent: 0
-  apply_AddGold: 0
 --- !u!114 &7988857395217660607
 MonoBehaviour:
   m_ObjectHideFlags: 0

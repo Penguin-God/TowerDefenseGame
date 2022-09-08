@@ -86,7 +86,8 @@ public class SkillManager
             Debug.Log("검은유닛강화 없음.....");
         }
 
-        if (Multi_Managers.ClientData.SkillByType[SkillType.노란기사강화].EquipSkill == true)
+        // Multi_Managers.ClientData.SkillByType[SkillType.노란기사강화].EquipSkill == true
+        if (Photon.Pun.PhotonNetwork.IsMasterClient)
         {
             YellowUnitUpgrade yellowUnitUpgrade = new YellowUnitUpgrade();
             yellowUnitUpgrade.EquipSkill = true;
@@ -341,6 +342,7 @@ public class YellowUnitUpgrade : PassiveSkill
     public override void InitSkill(Skill skill)
     {
         // 노란 기사 패시브 5원으로 변경
+        Multi_Managers.Data.Skill.InitCombineAdditionalGold(2);
     }
 }
 

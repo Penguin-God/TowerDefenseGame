@@ -29,6 +29,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     EnemyPlayerDataManager _enemyPlayer = new EnemyPlayerDataManager();
     MasterDataManager _master = new MasterDataManager();
     UnitStatChanger _stat = new UnitStatChanger();
+    UnitPassiveManager _passive = new UnitPassiveManager();
 
     void Init()
     {
@@ -36,6 +37,7 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         _count.Init();
         _enemyPlayer.Init();
+        _passive.Init();
 
         if (PhotonNetwork.IsMasterClient == false) return;
         _controller.Init();
@@ -277,12 +279,14 @@ public class Multi_UnitManager : MonoBehaviourPun
 
             void SacrificedUnit_ForCombine(KeyValuePair<UnitFlags, int> flagCountPair)
             {
-                for (int i = 0; i < flagCountPair.Value; i++)
-                {
-                    Instance._controller.UnitDead(id, flagCountPair.Key);
-                    if (flagCountPair.Key == new UnitFlags(2, 0))
-                        Multi_GameManager.instance.AddGold(Multi_Managers.ClientData.SkillByType[SkillType.노란기사강화].EquipSkill ? 3 : 1, id);
-                }
+                Instance._controller.UnitDead(id, flagCountPair.Key, flagCountPair.Value);
+
+                //for (int i = 0; i < flagCountPair.Value; i++)
+                //{
+                //    Instance._controller.UnitDead(id, flagCountPair.Key);
+                //    //if (flagCountPair.Key == new UnitFlags(2, 0))
+                //    //    Multi_GameManager.instance.AddGold(Multi_Managers.ClientData.SkillByType[SkillType.노란기사강화].EquipSkill ? 3 : 1, id);
+                //}
             }
         }
     }
@@ -308,6 +312,32 @@ public class Multi_UnitManager : MonoBehaviourPun
         {
             foreach (var unit in Instance._master.GetUnitList(id, flag))
                 unit.BossDamage += Mathf.FloorToInt(unit.BossDamage * (value - 1));
+        }
+    }
+
+
+    class UnitPassiveManager
+    {
+        void CombineGold(bool isSuccess, UnitFlags flag)
+        {
+            if (isSuccess == false) return;
+
+            int addGold = 1 + Multi_Managers.Data.Skill.CombineAdditionalGold;
+
+            var conditions = Multi_Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag;
+            foreach (var item in conditions)
+            {
+                if (item.Key == new UnitFlags(2, 0))
+                {
+                    for (int i = 0; i < item.Value; i++)
+                        Multi_GameManager.instance.AddGold(addGold);
+                }
+            }
+        }
+
+        public void Init()
+        {
+            Instance.OnTryCombine += CombineGold;
         }
     }
 }

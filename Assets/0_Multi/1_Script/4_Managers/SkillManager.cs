@@ -86,8 +86,7 @@ public class SkillManager
             Debug.Log("검은유닛강화 없음.....");
         }
 
-        // Multi_Managers.ClientData.SkillByType[SkillType.노란기사강화].EquipSkill == true
-        if (Photon.Pun.PhotonNetwork.IsMasterClient)
+        if (Multi_Managers.ClientData.SkillByType[SkillType.노란기사강화].EquipSkill == true)
         {
             YellowUnitUpgrade yellowUnitUpgrade = new YellowUnitUpgrade();
             yellowUnitUpgrade.EquipSkill = true;

@@ -67,6 +67,8 @@ public class CameraManager
     {
         OnLookMyWolrd = null;
         OnLookEnemyWorld = null;
+        OnIsLookMyWolrd = null;
+
         currentCamera = null;
     }
 }

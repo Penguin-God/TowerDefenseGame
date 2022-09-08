@@ -9,7 +9,7 @@ using Random = UnityEngine.Random;
 public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
 {
     public event Action<Multi_BossEnemy> OnSpawn;
-    public Action<Multi_BossEnemy> OnDead;
+    public event Action<Multi_BossEnemy> OnDead;
     
     // Init용 코드
     #region Init
@@ -33,9 +33,7 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     {
         var enemy = go.GetComponent<Multi_BossEnemy>();
         enemy.enemyType = EnemyType.Boss;
-        //enemy.OnDeath += () => OnDead(enemy);
-
-        if (PhotonNetwork.IsMasterClient == false) return;
+        enemy.OnDeath += () => OnDead(enemy);
         enemy.OnDeath += () => Multi_Managers.Pool.Push(enemy.GetComponent<Poolable>());
     }
 

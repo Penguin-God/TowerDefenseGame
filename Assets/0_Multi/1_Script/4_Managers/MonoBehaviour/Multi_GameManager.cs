@@ -125,27 +125,40 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
         Multi_EnemyManager.Instance.OnEnemyCountChanged += CheckGameOver;
 
-        Multi_SpawnManagers.BossEnemy.OnDead += GetReward;
-        Multi_SpawnManagers.TowerEnemy.OnDead += GetReward;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Multi_SpawnManagers.BossEnemy.OnDead += GetBossReward;
+            Multi_SpawnManagers.TowerEnemy.OnDead += GetTowerReward;
+        }
     }
 
-    void GetReward(Multi_BossEnemy boss)
+    void GetBossReward(Multi_BossEnemy enemy)
     {
-        if (Multi_Data.instance.CheckIdSame(boss.GetComponent<RPCable>().UsingId))
-            GetReward(boss.BossData);
+        if(enemy.rpcable.UsingId == Multi_Data.instance.Id)
+            GetReward(enemy.BossData);
+        else
+            photonView.RPC("GetBossReward", RpcTarget.Others, enemy.BossData.Gold, enemy.BossData.Food);
     }
 
-    void GetReward(Multi_EnemyTower tower)
+    void GetTowerReward(Multi_EnemyTower enemy)
     {
-        print(Multi_Data.instance.CheckIdSame(tower.GetComponent<RPCable>().UsingId));
-        if (Multi_Data.instance.CheckIdSame(tower.GetComponent<RPCable>().UsingId))
-            GetReward(tower.TowerData);
+        if (enemy.rpcable.UsingId == Multi_Data.instance.Id)
+            GetReward(enemy.TowerData);
+        else
+            photonView.RPC("GetBossReward", RpcTarget.Others, enemy.TowerData.Gold, enemy.TowerData.Food);
     }
 
     void GetReward(BossData data)
     {
         AddGold(data.Gold);
         AddFood(data.Food);
+    }
+
+    [PunRPC]
+    void GetBossReward(int gold, int food)
+    {
+        AddGold(gold);
+        AddFood(food);
     }
 
     [PunRPC]

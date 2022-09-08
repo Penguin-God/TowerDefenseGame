@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using ExitGames.Client.Photon;
 
-class PhotonCustomType
+class CustomUnitFlagsType
 {
     public static byte[] Serialize(object obj)
     {
@@ -41,7 +41,7 @@ public class Multi_Data : MonoBehaviourPun
             Destroy(gameObject);
         }
         id = PhotonNetwork.IsMasterClient ? 0 : 1;
-        PhotonPeer.RegisterType(typeof(UnitFlags), 128, PhotonCustomType.Serialize, PhotonCustomType.DeSerialize);
+        PhotonPeer.RegisterType(typeof(UnitFlags), 128, CustomUnitFlagsType.Serialize, CustomUnitFlagsType.DeSerialize);
     }
 
     // id가 0이면 호스트 1이면 클라이언트 이 아이디를 이용해서 데이터를 정함

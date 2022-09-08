@@ -8,7 +8,7 @@ public class Multi_HitSkill : MonoBehaviourPun
 {
     private void Awake() => sphereCollider = GetComponent<SphereCollider>();
 
-    public event Action<Multi_Enemy> OnHitSkile;
+    event Action<Multi_Enemy> OnHitSkile;
     public void SetHitActoin(Action<Multi_Enemy> action) => OnHitSkile = action;
 
     private void OnTriggerEnter(Collider other)

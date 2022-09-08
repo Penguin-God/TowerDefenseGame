@@ -101,8 +101,6 @@ public class Multi_Enemy : MonoBehaviourPun
     public virtual void Dead()
     {
         OnDeath?.Invoke();
-        print("?????????????????????????????????");
-        print(OnDeath == null);
         ResetValue();
     }
 
@@ -136,7 +134,7 @@ public class Multi_Enemy : MonoBehaviourPun
     public void OnPoison_RPC(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill = false)
         => _PV.RPC("OnPoison", RpcTarget.MasterClient, poisonPercent, poisonCount, poisonDelay, maxDamage, isSkill);
     [PunRPC]
-    protected virtual void OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill)
+    protected void OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill)
     {
         if (isDead || !PhotonNetwork.IsMasterClient) return;
 
@@ -164,8 +162,7 @@ public class Multi_Enemy : MonoBehaviourPun
     int GetPoisonDamage(int poisonPercent, int maxDamage)
     {
         int poisonDamage = Mathf.RoundToInt(currentHp * poisonPercent / 100);
-        if (poisonDamage <= 0) poisonDamage = 1; // 독 최소뎀
-        if (poisonDamage >= maxDamage) poisonDamage = maxDamage; // 독 최대뎀
+        poisonDamage = Mathf.Clamp(poisonDamage, 1, maxDamage);
         return poisonDamage;
     }
 

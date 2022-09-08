@@ -15,9 +15,7 @@ public class Multi_BlueMage : Multi_Unit_Mage
     }
 
     protected override void MageSkile()
-    {
-        SkillSpawn(transform.position+ (Vector3.up * 2)).GetComponent<Multi_HitSkill>().OnHitSkile += (Multi_Enemy enemy) => enemy.OnFreeze_RPC(freezeTime);
-    }
+        => SkillSpawn(transform.position + (Vector3.up * 2)).GetComponent<Multi_HitSkill>().SetHitActoin(enemy => enemy.OnFreeze_RPC(freezeTime));
 
     private void OnTriggerStay(Collider other)
     {

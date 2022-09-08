@@ -100,7 +100,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         manaSystem?.ClearMana_RPC();
     }
 
-    // 사운드
+    // TODO : 죽이기
     [SerializeField] AudioClip mageSkillCilp;
     protected void PlaySkileAudioClip()
     {
@@ -111,7 +111,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
             case UnitColor.yellow: StartCoroutine(Play_SkillClip(mageSkillCilp, 7f, 0.7f)); break;
             case UnitColor.green: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f)); break;
             case UnitColor.orange: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f)); break;
-            case UnitColor.violet: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f)); break;
+            case UnitColor.violet: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.05f)); break;
             case UnitColor.black: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f)); break;
         }
     }

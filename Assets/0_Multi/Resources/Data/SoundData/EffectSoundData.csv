@@ -18,12 +18,12 @@ ShowRandomShop,0.5,Effect/ShowRandomShop
 Swing,0.5,Effect/Swing
 TowerDieClip,1,Effect/TowerDieClip
 TransformWhiteUnit,1,Effect/TransformWhiteUnit
-UnitTp,1,Effect/UnitTp
+UnitTp,0.8,Effect/UnitTp
 Warning,1,Effect/Warning
 Win,1,Effect/Win
 ArcherAttack,0.5,Effect/Unit/ArcherAttack
 MageAttack,0.5,Effect/Unit/MageAttack
 MeteorExplosion,0.5,Effect/Unit/MeteorExplosion
 SpearmanAttack,0.5,Effect/Unit/SpearmanAttack
-SpearmanSkill,0.5,Effect/Unit/SpearmanSkill
+SpearmanSkill,0.35,Effect/Unit/SpearmanSkill
 SwordmanAttack,0.5,Effect/Unit/SwordmanAttack

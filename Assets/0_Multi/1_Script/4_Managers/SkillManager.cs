@@ -357,7 +357,7 @@ public class ColorChange : ActiveSkill
 
     void UseSkill(UnitFlags flag)
     {
-        
+        // 상대 직업의 색깔 변경
     }
 }
 

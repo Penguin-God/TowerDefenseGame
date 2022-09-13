@@ -107,12 +107,12 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         switch (unitColor)
         {
             case UnitColor.red: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0f)); break;
-            case UnitColor.blue: StartCoroutine(Play_SkillClip(mageSkillCilp, 3f, 0.1f)); break;
+            case UnitColor.blue: StartCoroutine(Play_SkillClip(mageSkillCilp, 3f, 0f)); break;
             case UnitColor.yellow: StartCoroutine(Play_SkillClip(mageSkillCilp, 7f, 0.7f)); break;
             case UnitColor.green: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f)); break;
-            case UnitColor.orange: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f)); break;
-            case UnitColor.violet: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.05f)); break;
-            case UnitColor.black: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f)); break;
+            //case UnitColor.orange: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f)); break;
+            case UnitColor.violet: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0f)); break;
+            case UnitColor.black: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0f)); break;
         }
     }
 

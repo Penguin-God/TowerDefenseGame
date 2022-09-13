@@ -274,7 +274,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         isAttack = true;
         isAttackDelayTime = true;
-        StartCoroutine(Co_AfterPlaySound(normalAttackSound, normalAttakc_AudioDelay));
+        AfterPlaySound(normalAttackSound, normalAttakc_AudioDelay);
     }
 
     public void EndAttack()
@@ -446,6 +446,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     void AttackEnemy(Multi_Enemy enemy, int damage, bool isSkill = false) => enemy.OnDamage(damage, isSkill);
     #endregion
+
+    protected void AfterPlaySound(EffectSoundType type, float delayTime) => StartCoroutine(Co_AfterPlaySound(type, delayTime));
 
     IEnumerator Co_AfterPlaySound(EffectSoundType type, float delayTime)
     {

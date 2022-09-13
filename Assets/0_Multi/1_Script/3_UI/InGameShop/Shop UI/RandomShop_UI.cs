@@ -8,14 +8,9 @@ class GoodsManager
 {
     const int goodsTypeCount = 3;
     const int maxGrade = 3;
-    List<UI_RandomShopGoodsData>[,] _goodsDatas;
     Dictionary<GoodsLocation, List<UI_RandomShopGoodsData>[]> _goodsData;
     public GoodsManager()
     {
-        Setup();
-        foreach (var data in Multi_Managers.Data.RandomShopDatas)
-            _goodsDatas[(int)data.GoodsLocation, data.Grade].Add(data);
-
         _goodsData = GeneratedGoodsData();
     }
 
@@ -36,19 +31,6 @@ class GoodsManager
 
         return goodsData;
     }
-
-    void Setup()
-    {
-        _goodsDatas = null;
-        _goodsDatas = new List<UI_RandomShopGoodsData>[goodsTypeCount, maxGrade];
-
-        for (int i = 0; i < _goodsDatas.GetLength(0); i++)
-        {
-            for (int j = 0; j < _goodsDatas.GetLength(1); j++)
-                _goodsDatas[i, j] = new List<UI_RandomShopGoodsData>();
-        }
-    }
-
     
     public UI_RandomShopGoodsData[] GetRandomGoods()
     {
@@ -56,7 +38,7 @@ class GoodsManager
 
         for (int i = 0; i < result.Length; i++)
         {
-            List<UI_RandomShopGoodsData> datas = _goodsDatas[i, GetGrade((GoodsLocation)i, new int[] { 33, 33, 34 })];
+            List<UI_RandomShopGoodsData> datas = _goodsData[(GoodsLocation)i][GetGrade((GoodsLocation)i, new int[] { 33, 33, 34 })];
             result[i] = datas[Random.Range(0, datas.Count)];
         }
 
@@ -90,22 +72,6 @@ class GoodsManager
     }
 
     bool ContainsGoods(GoodsLocation location, int grade) => _goodsData[location][grade].Count > 0;
-
-    int GetGrade(int[] weigths)
-    {
-        int totalWeigh = 100;
-
-        int randomNumber = Random.Range(0, totalWeigh);
-
-        for (int i = 0; i < maxGrade; i++) // 확률 설정에 따라 가중치 적용 가능
-        {
-            if (weigths[i] >= randomNumber) return i;
-            else randomNumber -= weigths[i];
-        }
-
-        Debug.LogError("확률 잘못 설정함");
-        return 0;
-    }
 }
 
 public class RandomShop_UI : Multi_UI_Popup

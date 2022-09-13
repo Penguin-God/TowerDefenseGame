@@ -12,17 +12,6 @@ public enum SellType
 
 public class SellMethodFactory
 {
-    public Action<IReadOnlyList<int>> GetSellMeghod(int type)
-    {
-        switch (type)
-        {
-            case 0: return SellUnit;
-            case 1: return SellGold;
-            case 2: return SellFood;
-        }
-        return null;
-    }
-
     public Action<IReadOnlyList<int>> GetSellMeghod(SellType type)
     {
         switch (type)

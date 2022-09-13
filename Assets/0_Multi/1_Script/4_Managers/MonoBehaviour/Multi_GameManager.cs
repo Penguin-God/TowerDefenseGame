@@ -5,6 +5,12 @@ using UnityEngine.UI;
 using System;
 using Photon.Pun;
 
+public enum GameCurrencyType
+{
+    Gold,
+    Food,
+}
+
 [Serializable]
 public struct BattleGameData
 {
@@ -195,6 +201,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     }
 
     public bool TryUseCurrency(string currencyType, int mount) => currencyType == "Gold" ? TryUseGold(mount) : TryUseFood(mount);
+    public bool TryUseCurrency(GameCurrencyType currencyType, int mount) => currencyType == GameCurrencyType.Gold ? TryUseGold(mount) : TryUseFood(mount);
 
     void Update()
     {

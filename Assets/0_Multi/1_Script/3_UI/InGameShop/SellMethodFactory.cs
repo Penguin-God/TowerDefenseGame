@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+public enum SellType
+{
+    Unit,
+    Gold,
+    Food,
+}
+
 public class SellMethodFactory
 {
     public Action<IReadOnlyList<int>> GetSellMeghod(int type)
@@ -12,6 +19,17 @@ public class SellMethodFactory
             case 0: return SellUnit;
             case 1: return SellGold;
             case 2: return SellFood;
+        }
+        return null;
+    }
+
+    public Action<IReadOnlyList<int>> GetSellMeghod(SellType type)
+    {
+        switch (type)
+        {
+            case SellType.Unit: return SellUnit;
+            case SellType.Gold: return SellGold;
+            case SellType.Food: return SellFood;
         }
         return null;
     }

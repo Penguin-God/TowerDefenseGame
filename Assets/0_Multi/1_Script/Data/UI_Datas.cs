@@ -50,24 +50,31 @@ public class UI_UnitWindowDatas : ICsvLoader<UnitFlags, UI_UnitWindowData>
     }
 }
 
+public enum GoodsLocation
+{
+    Left,
+    Middle,
+    Right,
+}
+
 [Serializable]
 public struct UI_RandomShopGoodsData
 {
     [SerializeField] string name;
-    [SerializeField] int goodsType;
+    [SerializeField] GoodsLocation goodsLocation;
     [SerializeField] int grade;
-    [SerializeField] string currencyType;
+    [SerializeField] GameCurrencyType currencyType;
     [SerializeField] int price;
     [SerializeField] string infomation;
-    [SerializeField] int sellType; // TODO 나중에 enum으로 바꾸기
+    [SerializeField] SellType sellType;
     [SerializeField] int[] sellDatas;
 
     public string Name => name;
-    public int GoodsType => goodsType;
+    public GoodsLocation GoodsLocation => goodsLocation;
     public int Grade => grade;
-    public string CurrencyType => currencyType;
+    public GameCurrencyType CurrencyType => currencyType;
     public int Price => price;
     public string Infomation => infomation;
-    public int SellType => sellType;
+    public SellType SellType => sellType;
     public IReadOnlyList<int> SellDatas => sellDatas;
 }

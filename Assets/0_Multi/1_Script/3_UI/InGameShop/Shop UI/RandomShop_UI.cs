@@ -12,7 +12,7 @@ class GoodsManager
     {
         Setup();
         foreach (var data in Multi_Managers.Data.RandomShopDatas)
-            _goodsDatas[data.GoodsType, data.Grade].Add(data);
+            _goodsDatas[(int)data.GoodsLocation, data.Grade].Add(data);
     }
 
     void Setup()

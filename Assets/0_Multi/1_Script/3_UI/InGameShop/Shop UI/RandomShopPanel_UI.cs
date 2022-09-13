@@ -42,6 +42,18 @@ public class RandomShopPanel_UI : Multi_UI_Base
             Multi_Managers.UI.ShowPopupUI<WarningText>().Show($"{GetCurrcneyTypeText(data.CurrencyType)}가 부족해 구매할 수 없습니다.");
     }
 
+    void Sell(UI_RandomShopGoodsData data, Action SellAct)
+    {
+        if (Multi_GameManager.instance.TryUseCurrency(data.CurrencyType, data.Price))
+        {
+            gameObject.SetActive(false);
+            SellAct?.Invoke();
+            Multi_Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
+        }
+        else
+            Multi_Managers.UI.ShowPopupUI<WarningText>().Show($"{GetCurrcneyTypeText(data.CurrencyType)}가 부족해 구매할 수 없습니다.");
+    }
+
     void Sell(UnityAction sellAct, int price, string currentType)
     {
         if (Multi_GameManager.instance.TryUseCurrency(currentType, price))

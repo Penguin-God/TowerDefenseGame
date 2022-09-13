@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
+using Random = UnityEngine.Random;
 
 class GoodsManager
 {
@@ -129,5 +131,22 @@ public class RandomShop_UI : Multi_UI_Popup
     {
         panel.Setup(BindGoods, 10, "Gold", "10골드를 지불하여 상점을 돌리시겠습니까?");
         Multi_Managers.Sound.PlayEffect(EffectSoundType.ShopGoodsClick);
+    }
+
+    class SellUseCase
+    {
+        public bool TrySell(UI_RandomShopGoodsData data, Action SellAct = null)
+        {
+            if (Multi_GameManager.instance.TryUseCurrency(data.CurrencyType, data.Price))
+            {
+                if(SellAct == null)
+                    new SellMethodFactory().GetSellMeghod(data.SellType)?.Invoke(data.SellDatas);
+                else
+                    SellAct?.Invoke();
+                Multi_Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
+                return true;
+            }
+            return false;
+        }
     }
 }

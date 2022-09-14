@@ -40,7 +40,11 @@ MonoBehaviour:
 
     ShopGoodsClick,
 
+    ShowOtherPlayerInfo,
+
     ShowRandomShop,
+
+    Swing,
 
     TowerDieClip,
 
@@ -54,14 +58,28 @@ MonoBehaviour:
 
     ArcherAttack,
 
+    BlackMageSkill,
+
+    BlueMageSkill,
+
     MageAttack,
 
+    MageBallBonce,
+
     MeteorExplosion,
+
+    RedMageSkill,
 
     SpearmanAttack,
 
     SpearmanSkill,
 
     SwordmanAttack,
+
+    VioletMageSkill,
+
+    WaterBolt,
+
+    YellowMageSkill,
 
 '

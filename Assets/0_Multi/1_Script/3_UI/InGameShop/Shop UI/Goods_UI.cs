@@ -19,16 +19,20 @@ public class Goods_UI : Multi_UI_Base
         CurrencyImage,
     }
 
+    [SerializeField] GoodsLocation location;
+    public GoodsLocation Loaction => location;
     [SerializeField] ShopDataTransfer dataTransfer;
-    public event Action<Goods_UI> OnSell;
+
     public void _Init()
     {
         dataTransfer = GetComponentInParent<ShopDataTransfer>();
+        button = GetComponent<Button>();
         Bind<Text>(typeof(Texts));
         Bind<Image>(typeof(Images));
     }
 
-    public void Setup(UI_RandomShopGoodsData data, RandomShopPanel_UI panel)
+    Button button;
+    public void Setup(UI_RandomShopGoodsData data, UnityAction<Goods_UI> clickAct)
     {
         GetText((int)Texts.ProductNameText).text = data.Name;
         GetText((int)Texts.PriceText).text = data.Price.ToString();
@@ -37,39 +41,9 @@ public class Goods_UI : Multi_UI_Base
         GetImage((int)Images.GradePanel).color = dataTransfer.GradeToColor(data.Grade);
         GetImage((int)Images.CurrencyImage).sprite = dataTransfer.CurrencyToSprite(data.CurrencyType);
 
-        Button button = GetComponent<Button>();
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => panel.Setup(data, gameObject));
+        button.onClick.AddListener(() => clickAct?.Invoke(this));
         button.onClick.AddListener(() => Multi_Managers.Sound.PlayEffect(EffectSoundType.ShopGoodsClick));
         gameObject.SetActive(true);
-    }
-
-    public void Setup(UI_RandomShopGoodsData data, UnityAction<Action> clickAct)
-    {
-        GetText((int)Texts.ProductNameText).text = data.Name;
-        GetText((int)Texts.PriceText).text = data.Price.ToString();
-        GetText((int)Texts.PriceText).color = dataTransfer.CurrencyToColor(data.CurrencyType);
-
-        GetImage((int)Images.GradePanel).color = dataTransfer.GradeToColor(data.Grade);
-        GetImage((int)Images.CurrencyImage).sprite = dataTransfer.CurrencyToSprite(data.CurrencyType);
-
-        Button button = GetComponent<Button>();
-        button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => clickAct?.Invoke(Sell));
-        button.onClick.AddListener(() => Multi_Managers.Sound.PlayEffect(EffectSoundType.ShopGoodsClick));
-        gameObject.SetActive(true);
-    }
-
-    void Sell()
-    {
-        GetComponent<Button>().onClick.RemoveAllListeners();
-        gameObject.SetActive(false);
-
-        OnSell?.Invoke(this);
-    }
-
-    void OnDisable()
-    {
-        OnSell = null;
     }
 }

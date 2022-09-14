@@ -7,6 +7,11 @@ public class BattleScene : BaseScene
 {
     protected override void Init()
     {
+        if (PhotonNetwork.InRoom == false)
+        {
+            print("방에 없누 ㅋㅋ");
+            return;
+        }
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
 
@@ -21,6 +26,8 @@ public class BattleScene : BaseScene
 
     void Start()
     {
+        if (PhotonNetwork.InRoom == false) return;
+
         Multi_Managers.Sound.BattleSceneInit();
     }
 

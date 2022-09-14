@@ -19,6 +19,8 @@ public class Multi_GreenMage : Multi_Unit_Mage
         StartCoroutine(Co_FixMana());
     }
 
+    protected override void PlaySkillSound() => PlaySound(EffectSoundType.MageAttack, 0.6f);
+
     IEnumerator Co_GreenMageSkile()
     {
         nav.isStopped = true;

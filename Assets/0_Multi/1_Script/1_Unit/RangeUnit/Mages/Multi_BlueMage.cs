@@ -17,6 +17,8 @@ public class Multi_BlueMage : Multi_Unit_Mage
     protected override void MageSkile()
         => SkillSpawn(transform.position + (Vector3.up * 2)).GetComponent<Multi_HitSkill>().SetHitActoin(enemy => enemy.OnFreeze_RPC(freezeTime));
 
+    protected override void PlaySkillSound() => PlaySound(EffectSoundType.BlueMageSkill);
+
     private void OnTriggerStay(Collider other)
     {
         if (pv.IsMine == false) return;

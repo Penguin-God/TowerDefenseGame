@@ -354,7 +354,6 @@ Transform:
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_Children:
   - {fileID: 2369848055551409654}
-  - {fileID: 1273459346062820788}
   - {fileID: 7735766841136801512}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -563,7 +562,7 @@ MonoBehaviour:
   normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0.7
-  reinforceEffect: {fileID: 1271379285823108260}
+  reinforceEffect: {fileID: 0}
   isMoveLock: 0
   enemyDistance: 0
   enemyIsForward: 0
@@ -866,7 +865,7 @@ RectTransform:
   m_Children:
   - {fileID: 7735766840144101575}
   m_Father: {fileID: 6109000016361938838}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -1007,84 +1006,3 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!1001 &7735766841568761971
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 6109000016361938838}
-    m_Modifications:
-    - target: {fileID: 8860491915742305735, guid: 26712ef667758bc4faf25b87a07b98d9,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8860491915742305735, guid: 26712ef667758bc4faf25b87a07b98d9,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8860491915742305735, guid: 26712ef667758bc4faf25b87a07b98d9,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8860491915742305735, guid: 26712ef667758bc4faf25b87a07b98d9,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8860491915742305735, guid: 26712ef667758bc4faf25b87a07b98d9,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 8860491915742305735, guid: 26712ef667758bc4faf25b87a07b98d9,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 8860491915742305735, guid: 26712ef667758bc4faf25b87a07b98d9,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8860491915742305735, guid: 26712ef667758bc4faf25b87a07b98d9,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8860491915742305735, guid: 26712ef667758bc4faf25b87a07b98d9,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: -90
-      objectReference: {fileID: 0}
-    - target: {fileID: 8860491915742305735, guid: 26712ef667758bc4faf25b87a07b98d9,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8860491915742305735, guid: 26712ef667758bc4faf25b87a07b98d9,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8862572027420421335, guid: 26712ef667758bc4faf25b87a07b98d9,
-        type: 3}
-      propertyPath: m_Name
-      value: Red ReinForce Effect
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 26712ef667758bc4faf25b87a07b98d9, type: 3}
---- !u!1 &1271379285823108260 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8862572027420421335, guid: 26712ef667758bc4faf25b87a07b98d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 7735766841568761971}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &1273459346062820788 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8860491915742305735, guid: 26712ef667758bc4faf25b87a07b98d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 7735766841568761971}
-  m_PrefabAsset: {fileID: 0}

@@ -11,7 +11,7 @@ public class Multi_YellowMage : Multi_Unit_Mage
         addGold = (int)skillStats[0];
     }
 
-
+    protected override void PlaySkillSound() => AfterPlaySound(EffectSoundType.BlackMageSkill, 0.5f);
     protected override void MageSkile()
     {
         SkillSpawn(transform.position + (Vector3.up * 0.6f));

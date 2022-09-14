@@ -41,11 +41,18 @@ public enum EffectSoundType
     Warning,
     Win,
     ArcherAttack,
+    BlackMageSkill,
+    BlueMageSkill,
     MageAttack,
+    MageBallBonce,
     MeteorExplosion,
+    RedMageSkill,
     SpearmanAttack,
     SpearmanSkill,
     SwordmanAttack,
+    VioletMageSkill,
+    WaterBolt,
+    YellowMageSkill,
 
 }
 
@@ -112,6 +119,7 @@ public class Multi_SoundManager
         if (condition())
             PlayEffect(sound, volumeScale);
     }
+
     public void PlayEffect(EffectSoundType sound, float volumeScale = -1)
     {
         float applyVolumn = (volumeScale < 0) ? Multi_Managers.Data.EffectBySound[sound].Volumn : volumeScale;

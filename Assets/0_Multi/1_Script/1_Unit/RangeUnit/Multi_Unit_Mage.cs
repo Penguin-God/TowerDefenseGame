@@ -76,8 +76,6 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     }
 
     [SerializeField] float mageSkillCoolDownTime;
-    public bool isUltimate; // 스킬 강화
-    protected event Action OnUltimateSkile; // 강화는 isUltimate가 true될 때까지 코루틴에서 WaitUntil로 대기 후 추가함
     protected override bool IsMoveLock => base.IsMoveLock || isSkillAttack;
     public override void SpecialAttack()
     {
@@ -86,9 +84,9 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         {
             MageSkile();
         }
-        PlaySkileAudioClip();
+        //PlaySkileAudioClip();
+        PlaySkillSound();
         SkillCoolDown(mageSkillCoolDownTime);
-        if (OnUltimateSkile != null) OnUltimateSkile();
     }
 
     protected GameObject SkillSpawn(Vector3 spawnPos) => Multi_SpawnManagers.Weapon.Spawn(skillData.WeaponPath, spawnPos);
@@ -100,26 +98,5 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         manaSystem?.ClearMana_RPC();
     }
 
-    // TODO : 죽이기
-    [SerializeField] AudioClip mageSkillCilp;
-    protected void PlaySkileAudioClip()
-    {
-        switch (unitColor)
-        {
-            case UnitColor.red: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0f)); break;
-            case UnitColor.blue: StartCoroutine(Play_SkillClip(mageSkillCilp, 3f, 0f)); break;
-            case UnitColor.yellow: StartCoroutine(Play_SkillClip(mageSkillCilp, 7f, 0.7f)); break;
-            case UnitColor.green: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f)); break;
-            //case UnitColor.orange: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0.7f)); break;
-            case UnitColor.violet: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0f)); break;
-            case UnitColor.black: StartCoroutine(Play_SkillClip(mageSkillCilp, 1f, 0f)); break;
-        }
-    }
-
-    protected IEnumerator Play_SkillClip(AudioClip playClip, float audioSound, float audioDelay)
-    {
-        yield return new WaitForSeconds(audioDelay);
-        if (enterStoryWorld == Multi_Managers.Camera.IsLookEnemyTower)
-            unitAudioSource.PlayOneShot(playClip, audioSound);
-    }
+    protected virtual void PlaySkillSound() { }
 }

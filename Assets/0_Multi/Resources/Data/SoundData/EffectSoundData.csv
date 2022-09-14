@@ -22,8 +22,15 @@ UnitTp,0.8,Effect/UnitTp
 Warning,1,Effect/Warning
 Win,1,Effect/Win
 ArcherAttack,0.5,Effect/Unit/ArcherAttack
-MageAttack,0.5,Effect/Unit/MageAttack
-MeteorExplosion,0.5,Effect/Unit/MeteorExplosion
+BlackMageSkill,0.2,Effect/Unit/BlackMageSkill
+BlueMageSkill,0.5,Effect/Unit/BlueMageSkill
+MageAttack,0.35,Effect/Unit/MageAttack
+MageBallBonce,0.5,Effect/Unit/MageBallBonce
+MeteorExplosion,0.3,Effect/Unit/MeteorExplosion
+RedMageSkill,0.2,Effect/Unit/RedMageSkill
 SpearmanAttack,0.5,Effect/Unit/SpearmanAttack
 SpearmanSkill,0.35,Effect/Unit/SpearmanSkill
 SwordmanAttack,0.5,Effect/Unit/SwordmanAttack
+VioletMageSkill,0.2,Effect/Unit/VioletMageSkill
+WaterBolt,1,Effect/Unit/WaterBolt
+YellowMageSkill,1,Effect/Unit/YellowMageSkill

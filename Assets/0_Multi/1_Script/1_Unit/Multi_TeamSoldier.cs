@@ -454,9 +454,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         yield return new WaitForSeconds(delayTime);
         PlaySound(type);
     }
-    protected void PlaySound(EffectSoundType type)
+    protected void PlaySound(EffectSoundType type, float volumn = -1)
     {
-        Multi_Managers.Sound.PlayEffect_If(type, SoundCondition);
+        Multi_Managers.Sound.PlayEffect_If(type, SoundCondition, volumn);
 
         bool SoundCondition()
             => rpcable.UsingId == Multi_Managers.Camera.LookWorld_Id && enterStoryWorld == Multi_Managers.Camera.IsLookEnemyTower;

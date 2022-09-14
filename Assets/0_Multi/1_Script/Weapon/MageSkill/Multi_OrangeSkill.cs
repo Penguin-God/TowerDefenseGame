@@ -5,9 +5,9 @@ using Photon.Pun;
 
 public class Multi_OrangeSkill : MonoBehaviourPun
 {
-
     private void Awake()
     {
+        _renderer = gameObject.GetOrAddComponent<MeshRenderer>();
         audioSource = GetComponent<AudioSource>();
         ps = GetComponent<ParticleSystem>();
     }
@@ -39,6 +39,7 @@ public class Multi_OrangeSkill : MonoBehaviourPun
         enemy.OnDamage(_applyDamage, isSkill:true);
     }
 
+    Renderer _renderer;
     [PunRPC]
     void OnSkillEffect(Vector3  _pos)
     {
@@ -51,7 +52,8 @@ public class Multi_OrangeSkill : MonoBehaviourPun
     [SerializeField] AudioClip audioClip;
     void OrangePlayAudio()
     {
-        // 찾은 클립이 0.6초부터 소리가 나와서 그때부터 재생함
+        if (_renderer.isVisible == false) return;
+        // 찾은 클립이 0.6초부터 소리가 나와서 그때부터 재생함. 이거 때문에 얘는 사운드매니저 안 씀
         audioSource.time = 0.6f;
         audioSource.Play();
     }

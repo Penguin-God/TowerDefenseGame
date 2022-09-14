@@ -5,12 +5,12 @@ using UnityEngine;
 public class Multi_BlackMage : Multi_Unit_Mage
 {
     [SerializeField] Transform skileShotPositions = null;
-    [SerializeField] Transform ultimate_SkileShotPositions = null;
-
+    
     protected override void MageSkile()
     {
         MultiDirectionShot(skileShotPositions);
     }
+    protected override void PlaySkillSound() => PlaySound(EffectSoundType.BlackMageSkill);
 
     void MultiDirectionShot(Transform directions)
     {

@@ -22,6 +22,6 @@ public class Multi_VioletMage : Multi_Unit_Mage
 
     protected override void MageSkile()
         => SkillSpawn(target.position + Vector3.up * 2).GetComponent<Multi_HitSkill>().SetHitActoin(Poison);
-
+    protected override void PlaySkillSound() => PlaySound(EffectSoundType.VioletMageSkill);
     void Poison(Multi_Enemy enemy) => enemy.OnPoison_RPC(percent, count, delay, maxDamage, true);
 }

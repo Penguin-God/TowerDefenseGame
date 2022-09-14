@@ -36,6 +36,8 @@ public class Multi_RedMage : Multi_Unit_Mage
             meteor.Shot(TargetEnemy, target.position, HitMeteor);
     }
 
+    protected override void PlaySkillSound() => PlaySound(EffectSoundType.RedMageSkill);
+
     void HitMeteor(Multi_Enemy enemy)
     {
         enemy.OnDamage(meteorDamage, isSkill:true);

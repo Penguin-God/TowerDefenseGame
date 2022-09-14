@@ -9,16 +9,15 @@ public class Multi_BounceEnergyball : MonoBehaviourPun, IPunObservable
     [SerializeField] float acceleration;
 
     float originSpeed;
-    AudioSource audioSource;
     Vector3 lastVelocity;
     Rigidbody rigid;
     RPCable rpcable;
 
     void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
         rigid = GetComponent<Rigidbody>();
         rpcable = gameObject.GetOrAddComponent<RPCable>();
+        _renderer = gameObject.GetOrAddComponent<MeshRenderer>();
         originSpeed = speed;
     }
 
@@ -33,12 +32,13 @@ public class Multi_BounceEnergyball : MonoBehaviourPun, IPunObservable
         lastVelocity = rigid.velocity;
     }
 
+    Renderer _renderer;
     private void OnCollisionEnter(Collision collision)
     {
         if (PhotonNetwork.IsMasterClient == false || collision.gameObject.tag != "Structures") return;
 
         Vector3 dir = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
-        //audioSource.Play();
+        Multi_Managers.Sound.PlayEffect_If(EffectSoundType.MageBallBonce, () => _renderer.isVisible);
 
         speed += acceleration;
         rpcable.SetVelocity_RPC(dir * speed);

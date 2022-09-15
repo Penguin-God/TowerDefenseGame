@@ -8,17 +8,35 @@ using Photon.Realtime;
 public class MultiDevelopHelper : MonoBehaviourPunCallbacks
 {
     [SerializeField] SceneTyep sceneTyep;
-    void Awake() => Screen.SetResolution(960, 540, false);
+    void Awake()
+    {
+#if UNITY_EDITOR
+    
+#else
+    Destroy(gameObject);  
+#endif
+    }
     public void EditorConnect() => PhotonNetwork.ConnectUsingSettings();
 
     public override void OnConnectedToMaster() => Connect();
 
     public override void OnDisconnected(DisconnectCause cause) => PhotonNetwork.ConnectUsingSettings();
 
-    public void Connect()
+    void Connect()
     {
         if (PhotonNetwork.IsConnected) PhotonNetwork.JoinRandomRoom();
         else PhotonNetwork.ConnectUsingSettings();
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            Multi_GameManager.instance.AddGold(5000);
+            Multi_GameManager.instance.AddFood(1000);
+        }
+
+        if (Input.GetKeyDown(KeyCode.E)) EditorConnect();
     }
 
     public override void OnJoinedRoom() => Multi_Managers.Scene.LoadLevel(sceneTyep);

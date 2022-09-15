@@ -187,5 +187,8 @@ public class Multi_DataManager
     {
         public int CombineAdditionalGold { get; private set; }
         public void InitCombineAdditionalGold(int value) => CombineAdditionalGold = value;
+
+        public Dictionary<UnitClass, int> UnitClassBySellGold { get; private set; }
+
     }
 }

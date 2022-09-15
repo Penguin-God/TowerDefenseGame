@@ -160,6 +160,13 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         AddFood(data.Food);
     }
 
+    public void FoodToGold(int rate)
+    {
+        if (_food <= 0) return;
+        AddGold(_food * rate);
+        Food = 0;
+    }
+
     [PunRPC]
     void GetBossReward(int gold, int food)
     {

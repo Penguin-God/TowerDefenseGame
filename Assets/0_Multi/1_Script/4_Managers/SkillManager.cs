@@ -31,8 +31,6 @@ public class Skill
 // TODO : 곧 죽음
 public class SkillManager
 {
-    Dictionary<SkillType, System.Action> keyValuePairs = new Dictionary<SkillType, System.Action>();
-    
     public void Init()
     {
         List<Skill> skills = new List<Skill>();
@@ -134,6 +132,18 @@ public class SkillManager
             Debug.Log("보스데미지증가 없음.....");
         }
 
+        if (Multi_Managers.ClientData.SkillByType[SkillType.고기혐오자].EquipSkill == true)
+        {
+            FoodHater foodHater = new FoodHater();
+            foodHater.EquipSkill = true;
+            skills.Add(foodHater);
+            Debug.Log("고기혐오자 추가");
+        }
+        else
+        {
+            Debug.Log("보스데미지증가 없음.....");
+        }
+
         Debug.Log("==========================================================");
         Debug.Log(skills.Count);
         for (int i = 0; i < skills.Count; i++)
@@ -143,12 +153,9 @@ public class SkillManager
         }
     }
 
-    
-
     public void Clear()
     {
-        keyValuePairs.Clear();
-        // skills.Clear();
+
     }
 }
 
@@ -350,7 +357,6 @@ public class ColorChange : ActiveSkill
     public override void InitSkill(Skill skill)
     {
         // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
-
         Multi_UnitManager.Instance.OnUnitFlagChanged += UseSkill;
     }
 
@@ -376,7 +382,15 @@ public class FoodHater : PassiveSkill
 {
     public override void InitSkill(Skill skill)
     {
+        // 고기창 닫기
+
         // 하얀 유닛 돈으로 구매로 변경 받는 고기 전부 1당 10원으로 변경
+        Multi_GameManager.instance.OnFoodChanged += (food) => FoodToGold();
+    }
+
+    void FoodToGold()
+    {
+        Multi_GameManager.instance.FoodToGold(10);
     }
 }
 
@@ -384,7 +398,7 @@ public class SellUpgrade : PassiveSkill
 {
     public override void InitSkill(Skill skill)
     {
-        // 유닛 판매 보상 증가 (1원 추가) (유닛별로 증가 따로)
+        // 유닛 판매 보상 증가 (유닛별로 증가폭 별도)
     }
 }
 

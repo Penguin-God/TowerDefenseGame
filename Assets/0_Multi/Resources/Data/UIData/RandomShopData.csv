@@ -1,4 +1,4 @@
-﻿name,goodsLocation,grade,currencyType,price,infomation,sellType,sellDatas,sellDatas
+﻿_name,_goodsLocation,_grade,_currencyType,_price,_infomation,_sellType,_sellDatas,_sellDatas
 빨간기사(1),Left,0,Gold,4,빨간 기사(1)를,Unit,0,0
 파란 기사(1),Left,0,Gold,4,파란 기사(1)를,Unit,1,0
 노란 기사(1),Left,0,Gold,4,노란 기사(1)를,Unit,2,0

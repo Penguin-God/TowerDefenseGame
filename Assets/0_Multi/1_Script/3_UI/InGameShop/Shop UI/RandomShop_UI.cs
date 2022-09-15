@@ -11,14 +11,15 @@ public class GoodsManager
     const int maxGrade = 3;
     Dictionary<GoodsLocation, List<UI_RandomShopGoodsData>[]> _goodsData;
     Dictionary<GoodsLocation, UI_RandomShopGoodsData> _locationByData = new Dictionary<GoodsLocation, UI_RandomShopGoodsData>();
+    public IReadOnlyDictionary<GoodsLocation, UI_RandomShopGoodsData> LocationByData => _locationByData;
 
     public event Action<UI_RandomShopGoodsData> OnRemoveGoods = null;
-    public IReadOnlyDictionary<GoodsLocation, UI_RandomShopGoodsData> LocationByData => _locationByData;
 
     public bool HasGoods() => _locationByData.Count() > 0;
     public GoodsManager()
     {
         _goodsData = GeneratedGoodsData();
+        PrintGoodsCount();
     }
 
     Dictionary<GoodsLocation, List<UI_RandomShopGoodsData>[]> GeneratedGoodsData()
@@ -41,6 +42,8 @@ public class GoodsManager
 
     public void RemoveGoods(UI_RandomShopGoodsData data)
     {
+        if (_locationByData.ContainsKey(data.GoodsLocation) == false) return;
+
         _locationByData.Remove(data.GoodsLocation);
         _goodsData[data.GoodsLocation][data.Grade].Remove(data);
         OnRemoveGoods?.Invoke(data);
@@ -68,16 +71,16 @@ public class GoodsManager
 
     class RandomShopGenerater
     {
-        const int goodsTypeCount = 3;
+        GoodsLocation[] GoodsLocations = { GoodsLocation.Left, GoodsLocation.Middle, GoodsLocation.Right};
         const int maxGrade = 3;
 
         public UI_RandomShopGoodsData[] GetRandomGoodsArr(Dictionary<GoodsLocation, List<UI_RandomShopGoodsData>[]> currentAllData)
         {
             List<UI_RandomShopGoodsData> result = new List<UI_RandomShopGoodsData>();
 
-            for (int i = 0; i < goodsTypeCount; i++)
+            foreach (var location in GoodsLocations)
             {
-                List<UI_RandomShopGoodsData> datas = currentAllData[(GoodsLocation)i][GetGrade((GoodsLocation)i, new int[] { 33, 33, 34 })];
+                List<UI_RandomShopGoodsData> datas = currentAllData[location][GetGrade(location, new int[] { 33, 33, 34 })];
                 if (datas.Count > 0)
                     result.Add(datas[Random.Range(0, datas.Count)]);
             }
@@ -143,6 +146,7 @@ public class RandomShop_UI : Multi_UI_Popup
         goodsManager.OnRemoveGoods += UpdateShop;
 
         Bind<Button>(typeof(Buttons));
+        GetButton((int)Buttons.ResetButton).onClick.AddListener(ShopReset);
         BindGoods();
         gameObject.SetActive(false);
     }
@@ -157,7 +161,6 @@ public class RandomShop_UI : Multi_UI_Popup
     void HideGoods(UI_RandomShopGoodsData data) => _locationByGoods[data.GoodsLocation].gameObject.SetActive(false);
     void UpdateShop(UI_RandomShopGoodsData data)
     {
-        print(goodsManager.HasGoods());
         if (goodsManager.HasGoods() == false)
             BindGoods();
     }
@@ -165,9 +168,12 @@ public class RandomShop_UI : Multi_UI_Popup
     void OnClickGoods(UI_RandomShopGoodsData data) => panel.Setup(data, goodsManager);
 
     // 리셋 버튼에서 사용하는 함수
-    public void ShopReset()
+    void ShopReset()
     {
-        panel.Setup(BindGoods, 10, "Gold", "10골드를 지불하여 상점을 돌리시겠습니까?");
+        UI_RandomShopGoodsData data =
+            new UI_RandomShopGoodsData("상점 리롤", GoodsLocation.None, -1, GameCurrencyType.Gold, 10, 
+            "10골드를 지불하여 상점을 돌리시겠습니까?", SellType.None, null);
+        panel.Setup(data, goodsManager, BindGoods);
         Multi_Managers.Sound.PlayEffect(EffectSoundType.ShopGoodsClick);
     }
 }

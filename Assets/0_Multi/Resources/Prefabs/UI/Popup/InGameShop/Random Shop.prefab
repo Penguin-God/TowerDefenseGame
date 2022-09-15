@@ -295,7 +295,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ac3e7bfdde0674baf9275176cfa94f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goodsParent: {fileID: 5522377553976648607}
   panel: {fileID: 625722834882444815}
 --- !u!114 &3498981087888204140
 MonoBehaviour:
@@ -1469,7 +1468,7 @@ PrefabInstance:
     - target: {fileID: 4918071767960143263, guid: 993600421b5791048ac2b2238fcdf317,
         type: 3}
       propertyPath: location
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8927910242219718398, guid: 993600421b5791048ac2b2238fcdf317,
         type: 3}
@@ -1595,6 +1594,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Pivot.y
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4918071767960143263, guid: 993600421b5791048ac2b2238fcdf317,
+        type: 3}
+      propertyPath: location
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8927910242219718398, guid: 993600421b5791048ac2b2238fcdf317,
         type: 3}
@@ -1724,7 +1728,7 @@ PrefabInstance:
     - target: {fileID: 4918071767960143263, guid: 993600421b5791048ac2b2238fcdf317,
         type: 3}
       propertyPath: location
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8927910242219718398, guid: 993600421b5791048ac2b2238fcdf317,
         type: 3}

@@ -5,6 +5,7 @@ using System;
 
 public enum SellType
 {
+    None,
     Unit,
     Gold,
     Food,

@@ -52,6 +52,7 @@ public class UI_UnitWindowDatas : ICsvLoader<UnitFlags, UI_UnitWindowData>
 
 public enum GoodsLocation
 {
+    None,
     Left,
     Middle,
     Right,
@@ -60,21 +61,34 @@ public enum GoodsLocation
 [Serializable]
 public struct UI_RandomShopGoodsData
 {
-    [SerializeField] string name;
-    [SerializeField] GoodsLocation goodsLocation;
-    [SerializeField] int grade;
-    [SerializeField] GameCurrencyType currencyType;
-    [SerializeField] int price;
-    [SerializeField] string infomation;
-    [SerializeField] SellType sellType;
-    [SerializeField] int[] sellDatas;
+    [SerializeField] string _name;
+    [SerializeField] GoodsLocation _goodsLocation;
+    [SerializeField] int _grade;
+    [SerializeField] GameCurrencyType _currencyType;
+    [SerializeField] int _price;
+    [SerializeField] string _infomation;
+    [SerializeField] SellType _sellType;
+    [SerializeField] int[] _sellDatas;
 
-    public string Name => name;
-    public GoodsLocation GoodsLocation => goodsLocation;
-    public int Grade => grade;
-    public GameCurrencyType CurrencyType => currencyType;
-    public int Price => price;
-    public string Infomation => infomation;
-    public SellType SellType => sellType;
-    public IReadOnlyList<int> SellDatas => sellDatas;
+    public UI_RandomShopGoodsData
+        (string name, GoodsLocation location, int grade, GameCurrencyType currencyType, int price, string info, SellType sellType, int[] sellDatas)
+    {
+        _name = name;
+        _goodsLocation = location;
+        _grade = grade;
+        _currencyType = currencyType;
+        _price = price;
+        _infomation = info;
+        _sellType = sellType;
+        _sellDatas = sellDatas;
+    }
+
+    public string Name => _name;
+    public GoodsLocation GoodsLocation => _goodsLocation;
+    public int Grade => _grade;
+    public GameCurrencyType CurrencyType => _currencyType;
+    public int Price => _price;
+    public string Infomation => _infomation;
+    public SellType SellType => _sellType;
+    public IReadOnlyList<int> SellDatas => _sellDatas;
 }

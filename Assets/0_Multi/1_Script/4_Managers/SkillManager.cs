@@ -350,14 +350,17 @@ public class ColorChange : ActiveSkill
     public override void InitSkill(Skill skill)
     {
         // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
-        // Multi_UnitManager.Instance.OnUnitCountChanged += (new UnitFlags(6, 0), count) => UseSkill();
 
-        Multi_UnitManager.Instance.OnUnitFlagCountChanged += (flag, count) => UseSkill(flag);
+        Multi_UnitManager.Instance.OnUnitFlagChanged += UseSkill;
     }
 
-    void UseSkill(UnitFlags flag)
+    void UseSkill(UnitFlags flag, bool increaseed)
     {
         // 상대 직업의 색깔 변경
+        if(flag.UnitColor == UnitColor.white && increaseed)
+        {
+            // 색깔 변경
+        }
     }
 }
 

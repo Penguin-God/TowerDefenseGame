@@ -44,23 +44,32 @@ public class Multi_UnitManager : MonoBehaviourPun
         _master.Init();
     }
 
+
+    // Datas
     public IReadOnlyDictionary<UnitClass, int> CountByUnitClass => _enemyPlayer._countByUnitClass;
     public IReadOnlyDictionary<UnitFlags, int> UnitCountByFlag => _count._countByFlag;
     public int CurrentUnitCount => _count._currentCount;
     public int EnemyPlayerHasCount => _enemyPlayer.EnemyPlayerHasUnitAllCount;
+    public bool HasUnit(UnitFlags flag, int needCount = 1) => UnitCountByFlag[flag] >= needCount;
 
+
+    // NonRPcActions
     public RPCAction<bool, UnitFlags> OnTryCombine = new RPCAction<bool, UnitFlags>();
 
     public event Action<int> OnUnitCountChanged = null;
     void Rasie_OnUnitCountChanged(int count) => OnUnitCountChanged?.Invoke(count);
+    
+    public event Action<UnitFlags, int> OnUnitFlagCountChanged = null;
+    void Rasie_OnUnitFlagCountChanged(UnitFlags flag, int count) => OnUnitFlagCountChanged?.Invoke(flag, count);
 
+    public RPCAction<UnitFlags, bool> OnUnitFlagChanged = new RPCAction<UnitFlags, bool>();
+
+
+    // RPCs
     public event Action OnUnitCountChangedWhitId = null;
     void UnitCountChanged_RPC() => photonView.RPC("UnitCountChanged", RpcTarget.All);
     [PunRPC] void UnitCountChanged() => OnUnitCountChangedWhitId?.Invoke();
 
-    public event Action<UnitFlags, int> OnUnitFlagCountChanged = null;
-    void Rasie_OnUnitFlagCountChanged(UnitFlags flag, int count) => OnUnitFlagCountChanged?.Invoke(flag, count);
-    
 
     public bool TryCombine_RPC(UnitFlags flag)
     {
@@ -70,17 +79,20 @@ public class Multi_UnitManager : MonoBehaviourPun
     } 
     [PunRPC] void TryCombine(UnitFlags flag, int id, bool isSuccess) => _combine.TryCombine(flag, id, isSuccess);
 
+
     public void UnitDead_RPC(int id, UnitFlags unitFlag, int count = 1) => photonView.RPC("UnitDead", RpcTarget.MasterClient, id, unitFlag, count);
     [PunRPC] void UnitDead(int id, UnitFlags unitFlag, int count) => _controller.UnitDead(id, unitFlag, count);
+
 
     public void UnitWorldChanged_RPC(int id, UnitFlags flag) => Instance.photonView.RPC("UnitWorldChanged", RpcTarget.MasterClient, id, flag, Multi_Managers.Camera.IsLookEnemyTower);
     [PunRPC] void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode) => _controller.UnitWorldChanged(id, flag, enterStroyMode);
 
+
     public void UnitStatChange_RPC(UnitStatType type, UnitFlags flag, int value) => photonView.RPC("UnitStatChange", RpcTarget.MasterClient, (int)type, flag, value, Multi_Data.instance.Id);
     [PunRPC] void UnitStatChange(int typeNum, UnitFlags flag, int value, int id) => _stat.UnitStatChange(typeNum, flag, value, id);
 
-    public bool HasUnit(UnitFlags flag, int needCount = 1) => UnitCountByFlag[flag] >= needCount;
 
+    // Component
     class MasterDataManager
     {
         public RPCAction<UnitFlags, int> OnUnitCountChanged = new RPCAction<UnitFlags, int>();
@@ -130,6 +142,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Add(unit);
             _currentAllUnitsById.Get(id).Add(unit);
+            Instance.OnUnitFlagChanged.RaiseEvent(unit.UnitFlags, true);
             RaiseEvents(unit, true);
         }
 
@@ -138,6 +151,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Remove(unit);
             _currentAllUnitsById.Get(id).Remove(unit);
+            Instance.OnUnitFlagChanged.RaiseEvent(unit.UnitFlags, false);
             RaiseEvents(unit, false);
         }
 

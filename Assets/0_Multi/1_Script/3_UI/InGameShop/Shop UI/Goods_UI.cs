@@ -32,7 +32,7 @@ public class Goods_UI : Multi_UI_Base
     }
 
     Button button;
-    public void Setup(UI_RandomShopGoodsData data, UnityAction<Goods_UI> clickAct)
+    public void Setup(UI_RandomShopGoodsData data, UnityAction<UI_RandomShopGoodsData> clickAct)
     {
         GetText((int)Texts.ProductNameText).text = data.Name;
         GetText((int)Texts.PriceText).text = data.Price.ToString();
@@ -42,7 +42,7 @@ public class Goods_UI : Multi_UI_Base
         GetImage((int)Images.CurrencyImage).sprite = dataTransfer.CurrencyToSprite(data.CurrencyType);
 
         button.onClick.RemoveAllListeners();
-        button.onClick.AddListener(() => clickAct?.Invoke(this));
+        button.onClick.AddListener(() => clickAct?.Invoke(data));
         button.onClick.AddListener(() => Multi_Managers.Sound.PlayEffect(EffectSoundType.ShopGoodsClick));
         gameObject.SetActive(true);
     }

@@ -348,7 +348,7 @@ public class YellowUnitUpgrade : PassiveSkill
     public override void InitSkill(Skill skill)
     {
         // 노란 기사 패시브 5원으로 변경
-        Multi_Managers.Data.Skill.InitCombineAdditionalGold(2);
+        Multi_Managers.Data.Skill.InitCombineAdditionalGold(3);
     }
 }
 

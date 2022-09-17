@@ -74,6 +74,7 @@ public class Multi_DataManager
         _unit.Clear();
         _ui.Clear();
         _enemy.Clear();
+        _skill.Clear();
     }
 
     IEnumerable<T> LoadData<T>(string path) => CsvUtility.GetEnumerableFromCsv<T>(Multi_Managers.Resources.Load<TextAsset>($"Data/{path}").text);
@@ -190,5 +191,10 @@ public class Multi_DataManager
 
         public Dictionary<UnitClass, int> UnitClassBySellGold { get; private set; }
 
+
+        public void Clear()
+        {
+            CombineAdditionalGold = 1;
+        }
     }
 }

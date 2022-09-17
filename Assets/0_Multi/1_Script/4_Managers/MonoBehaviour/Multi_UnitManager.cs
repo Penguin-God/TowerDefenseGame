@@ -336,7 +336,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         {
             if (isSuccess == false) return;
 
-            int addGold = 1 + Multi_Managers.Data.Skill.CombineAdditionalGold;
+            int addGold = Multi_Managers.Data.Skill.CombineAdditionalGold;
 
             var conditions = Multi_Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag;
             foreach (var item in conditions)

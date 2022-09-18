@@ -17,7 +17,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         normalAttackSound = EffectSoundType.ArcherAttack;
     }
 
-    public override void SetInherenceData()
+    public override void SetSkillDamage()
     {
         skillDamage = (int)(Damage * 1.2f);
     }

@@ -20,8 +20,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public int OriginBossDamage { get; private set; }
     public float OriginAttackDelayTime { get; private set; }
 
-    public int Damage { get => stat.Damage; set => stat.SetDamage(value); }
-    public int BossDamage { get => stat.BossDamage; set => stat.SetBossDamage(value); }
+    public int Damage { get => stat.Damage; set { stat.SetDamage(value); SetSkillDamage(); } }
+    public int BossDamage { get => stat.BossDamage; set { stat.SetBossDamage(value); SetSkillDamage(); } }
     public int UseSkillPercent { get => stat.UseSkillPercent; set => stat.SetUseSkillPercent(value); }
     public float Speed { get => stat.Speed; set => stat.SetSpeed(value); }
     public float AttackDelayTime { get => stat.AttackDelayTime; set => stat.SetAttDelayTime(value); }
@@ -67,7 +67,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     #region Virual Funtion
     protected virtual void OnAwake() { } // 유닛마다 다른 Awake 세팅
-    public virtual void SetInherenceData() { } // 기본 데이터를 기반으로 유닛 고유 데이터 세팅
+    public virtual void SetSkillDamage() { } // 기본 데이터를 기반으로 유닛 고유 데이터 세팅
     public virtual void NormalAttack() { } // 유닛들의 고유한 공격
     public virtual void SpecialAttack() => isSkillAttack = true; // 유닛마다 다른 스킬공격 (기사는 없음)
     public virtual void UnitTypeMove() { } // 유닛에 따른 움직임
@@ -81,7 +81,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         OnHit += AttackEnemy;
 
         // 스킬 설정
-        skillDamage = 150; // 테스트 코드
         OnSkileHit += enemy => AttackEnemy(enemy, skillDamage, isSkill: true);
 
         // 변수 선언
@@ -100,14 +99,14 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         OnAwake(); // 유닛별 세팅
     }
 
+    public void Spawn()
+    {
+        LoadStat_RPC();
+        SetPassive_RPC();
+    }
+
     void OnEnable()
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            LoadStat_RPC();
-            SetPassive_RPC();
-        }
-
         if (animator != null)
         {
             animator.enabled = true;
@@ -137,7 +136,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         OriginDamage = stat.Damage;
         OriginBossDamage = stat.BossDamage;
         OriginAttackDelayTime = stat.AttackDelayTime;
-        SetInherenceData();
+        SetSkillDamage();
     }
 
     void SetPassive_RPC() => pv.RPC("SetPassive", RpcTarget.All);

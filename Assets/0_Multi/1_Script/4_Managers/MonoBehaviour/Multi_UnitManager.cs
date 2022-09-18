@@ -92,7 +92,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     [PunRPC] void UnitStatChange(int typeNum, UnitFlags flag, int value, int id) => _stat.UnitStatChange(typeNum, flag, value, id);
 
 
-    // Component
+    // Components
     class MasterDataManager
     {
         public RPCAction<UnitFlags, int> OnUnitCountChanged = new RPCAction<UnitFlags, int>();
@@ -313,6 +313,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             {
                 case 0: ChangeDamage(flag, value, id); break;
                 case 1: ChangeBossDamage(flag, value, id); break;
+                case 2: ChangeAllDamage(flag, value, id); break;
             }
         }
 
@@ -322,10 +323,16 @@ public class Multi_UnitManager : MonoBehaviourPun
                 unit.Damage = value;
         }
 
-        void ChangeBossDamage(UnitFlags flag, float value, int id)
+        void ChangeBossDamage(UnitFlags flag, int value, int id)
         {
             foreach (var unit in Instance._master.GetUnitList(id, flag))
-                unit.BossDamage += Mathf.FloorToInt(unit.BossDamage * (value - 1));
+                unit.BossDamage = value;
+        }
+
+        void ChangeAllDamage(UnitFlags flag, int value, int id)
+        {
+            ChangeDamage(flag, value, id);
+            ChangeBossDamage(flag, value, id);
         }
     }
 
@@ -360,4 +367,5 @@ public enum UnitStatType
 {
     Damage,
     BossDamage,
+    All,
 }

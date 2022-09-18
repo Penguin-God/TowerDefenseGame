@@ -20,7 +20,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         normalAttackSound = EffectSoundType.SpearmanAttack;
     }
 
-    public override void SetInherenceData()
+    public override void SetSkillDamage()
     {
         skillDamage = (int)(Damage * 1.5f);
     }

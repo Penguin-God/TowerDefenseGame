@@ -76,7 +76,9 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     [PunRPC]
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
     {
-        OnSpawn?.Invoke(base.BaseSpawn(path, spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>());
+        var unit = base.BaseSpawn(path, spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
+        unit.Spawn();
+        OnSpawn?.Invoke(unit);
         return null;
     }
 }

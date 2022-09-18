@@ -283,46 +283,46 @@ public class Taegeuk : PassiveSkill
         if (Red[0] >= 1 && Blue[0] >= 1 && Ather[0] == 0)
         {
             Debug.Log("기사 강화!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 0), 300);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 0), 300);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 0), 300);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 0), 300);
         }
         else
         {
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 0), 25);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 0), 25);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 0), 25);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 0), 25);
         }
 
         if (Red[1] >= 1 && Blue[1] >= 1 && Ather[1] == 0)
         {
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 1), 1600);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 1), 1600);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 1), 1600);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 1), 1600);
         }
         else
         {
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 1), 250);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 1), 250);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 1), 250);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 1), 250);
         }
 
         if (Red[2] >= 1 && Blue[2] >= 1 && Ather[2] == 0)
         {
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 2), 15000);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 2), 15000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 2), 15000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 2), 15000);
         }
         else
         {
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 2), 4000);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 2), 4000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 2), 4000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 2), 4000);
         }
 
         if (Red[3] >= 1 && Blue[3] >= 1 && Ather[3] == 0)
         {
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 3), 100000);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 3), 100000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 3), 100000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 3), 100000);
         }
         else
         {
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(0, 3), 25000);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(1, 3), 25000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 3), 25000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 3), 25000);
         }
     }
 }
@@ -336,10 +336,10 @@ public class BlackUnitUpgrade : PassiveSkill
 
     void UseSkill()
     {
-        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(7, 0), 30000);
-        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(7, 1), 100000);
-        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(7, 2), 1000000);
-        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.Damage, new UnitFlags(7, 3), 10000000);
+        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 0), 30000);
+        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 1), 100000);
+        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 2), 1000000);
+        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 3), 10000000);
     }
 }
 

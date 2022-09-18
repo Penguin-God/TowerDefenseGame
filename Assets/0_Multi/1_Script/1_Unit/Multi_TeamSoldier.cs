@@ -45,6 +45,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     protected Multi_UnitPassive passive;
     protected NavMeshAgent nav;
+    private ObstacleAvoidanceType originObstacleType;
     protected Animator animator;
     protected PhotonView pv;
     protected RPCable rpcable;
@@ -76,7 +77,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     private void Awake()
     {
         _unitFlags = new UnitFlags(unitColor, unitClass);
-
         // 평타 설정
         OnHit += AttackEnemy;
 
@@ -92,6 +92,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         unitAudioSource = GetComponent<AudioSource>();
         nav = GetComponent<NavMeshAgent>();
 
+        originObstacleType = nav.obstacleAvoidanceType;
         chaseRange = 150f;
         enemyDistance = 150f;
         nav.speed = Speed;
@@ -193,7 +194,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         if (enterStoryWorld)
         {
-            EnterStroyMode();
+            SetTargetByTower();
             return;
         }
 
@@ -347,7 +348,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     [SerializeField] protected float enemyDistance;
     protected bool rayHit;
     protected RaycastHit rayHitObject;
-    public bool enemyIsForward;
+    protected bool enemyIsForward;
 
     public Transform rayHitTransform;
     bool Set_EnemyIsForword()
@@ -385,18 +386,18 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         Multi_SpawnManagers.Effect.Play(Effects.Unit_Tp_Effect, transform.position + (Vector3.up * 3));
         
-        Move();
-        if (enterStoryWorld) EnterStroyMode();
-        else EnterWorld();
-
+        MoveToOpposite();
         enterStoryWorld = !enterStoryWorld;
         photonView.RPC("UpdateStatus", RpcTarget.All, enterStoryWorld);
+        if (enterStoryWorld) EnterStroyMode();
+        else EnterWolrd();
+
         rpcable.SetActive_RPC(true);
         Multi_Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
 
         return; // 중복함수 구분용 return : 의미 없음
 
-        void Move()
+        void MoveToOpposite()
         {
             rpcable.SetActive_RPC(false);
             rpcable.SetPosition_RPC(GetOppositeWorldSpawnPos());
@@ -406,9 +407,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         Vector3 GetOppositeWorldSpawnPos() => (enterStoryWorld) ? Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(rpcable.UsingId) 
             : Multi_WorldPosUtility.Instance.GetEnemyTower_TP_Position(rpcable.UsingId);
 
-        void EnterWorld()
+        void EnterWolrd()
         {
-            nav.obstacleAvoidanceType = ObstacleAvoidanceType.GoodQualityObstacleAvoidance;
+            nav.obstacleAvoidanceType = originObstacleType;
         }
     }
 
@@ -430,8 +431,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         if (tower != null)
         {
             SetChaseSetting(tower.gameObject);
-            Physics.Raycast(transform.position + Vector3.up, target.position - transform.position, out RaycastHit towerHit, 50f, layerMask);
-            DestinationPos = towerHit.point;
+            if(Physics.Raycast(transform.position, target.position - transform.position, out RaycastHit towerHit, 50f, layerMask))
+                DestinationPos = towerHit.point;
+            else
+                DestinationPos = transform.position;
         }
     }
 

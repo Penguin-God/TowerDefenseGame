@@ -64,6 +64,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
     RPCData<Multi_EnemyTower> _currentTower = new RPCData<Multi_EnemyTower>();
     public Multi_EnemyTower GetCurrnetTower(int id) => _currentTower.Get(id);
 
+    #region editor test
     [Header("테스트 인스팩터")]
     [SerializeField] List<Transform> test_0 = new List<Transform>();
     [SerializeField] List<Transform> test_1 = new List<Transform>();
@@ -81,8 +82,9 @@ public class Multi_EnemyManager : MonoBehaviourPun
         }
 #endif
     }
+    #endregion
 
-    
+    #region Find Enemy
     public Transform GetProximateEnemy(Vector3 unitPos, float startDistance, int unitId)
     {
         if (_currentBoss.Get(unitId) != null) return _currentBoss.Get(unitId).transform;
@@ -129,9 +131,10 @@ public class Multi_EnemyManager : MonoBehaviourPun
             }
             else result[i] = currentTarget;
         }
-        
+
         return result;
     }
+    #endregion
 
     #region callback funtion
     void AddEnemyAtList(Multi_NormalEnemy _enemy)

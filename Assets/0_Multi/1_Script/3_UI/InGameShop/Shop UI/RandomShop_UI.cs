@@ -19,7 +19,6 @@ public class GoodsManager
     public GoodsManager()
     {
         _goodsData = GeneratedGoodsData();
-        PrintGoodsCount();
     }
 
     Dictionary<GoodsLocation, List<UI_RandomShopGoodsData>[]> GeneratedGoodsData()
@@ -57,7 +56,7 @@ public class GoodsManager
             _locationByData.Add(datas[i].GoodsLocation, datas[i]);
     }
 
-    // TODO : 나중에 빼기
+    // 테스트용
     void PrintGoodsCount()
     {
         foreach (var item in _goodsData)

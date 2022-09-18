@@ -6,7 +6,7 @@ using Photon.Pun;
 public class Multi_MeleeUnit : Multi_TeamSoldier
 {
     Vector3 destinationPos = Vector3.zero;
-    public override Vector3 DestinationPos
+    protected override Vector3 DestinationPos
     {
         get
         {

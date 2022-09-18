@@ -220,7 +220,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         }
     }
 
-    public virtual Vector3 DestinationPos { get; set; }
+    protected virtual Vector3 DestinationPos { get; set; }
     protected bool contactEnemy = false;
     IEnumerator NavCoroutine()
     {
@@ -302,7 +302,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     #region Enemy 추적
 
-    [SerializeField] bool isMoveLock;
+    //[SerializeField] bool isMoveLock;
     protected virtual bool IsMoveLock => false;
 
     protected void LockMove()
@@ -338,7 +338,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         if (target == null) return;
 
-        isMoveLock = IsMoveLock;
+        //isMoveLock = IsMoveLock;
         FixedNavPosition();
         UnitTypeMove();
         enemyIsForward = Set_EnemyIsForword();

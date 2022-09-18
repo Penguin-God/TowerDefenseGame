@@ -8,14 +8,6 @@ using Photon.Realtime;
 public class MultiDevelopHelper : MonoBehaviourPunCallbacks
 {
     [SerializeField] SceneTyep sceneTyep;
-    void Awake()
-    {
-#if UNITY_EDITOR
-    
-#else
-    Destroy(gameObject);  
-#endif
-    }
     public void EditorConnect() => PhotonNetwork.ConnectUsingSettings();
 
     public override void OnConnectedToMaster() => Connect();

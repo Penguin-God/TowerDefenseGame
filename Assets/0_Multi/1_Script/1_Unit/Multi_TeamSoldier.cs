@@ -94,7 +94,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         originObstacleType = nav.obstacleAvoidanceType;
         chaseRange = 150f;
         enemyDistance = 150f;
-        nav.speed = Speed;
 
         OnAwake(); // 유닛별 세팅
     }
@@ -103,7 +102,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         LoadStat_RPC();
         SetPassive_RPC();
+        SetSpeed(Speed);
     }
+
+    protected void SetSpeed(float speed) => nav.speed = speed;
 
     void OnEnable()
     {
@@ -301,13 +303,13 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     #region Enemy 추적
 
-    //[SerializeField] bool isMoveLock;
+    [SerializeField] bool isMoveLock;
     protected virtual bool IsMoveLock => false;
 
     protected void LockMove()
     {
         if (nav.updatePosition == false) return;
-        nav.speed = 0.1f;
+        //nav.speed = 0.1f;
         nav.updatePosition = false;
     }
 
@@ -316,7 +318,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         if (nav.updatePosition == true) return;
 
         ResetNavPosition();
-        nav.speed = Speed;
+        //nav.speed = Speed;
         nav.updatePosition = true;
     }
 
@@ -337,7 +339,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         if (target == null) return;
 
-        //isMoveLock = IsMoveLock;
+        isMoveLock = IsMoveLock;
         FixedNavPosition();
         UnitTypeMove();
         enemyIsForward = Set_EnemyIsForword();

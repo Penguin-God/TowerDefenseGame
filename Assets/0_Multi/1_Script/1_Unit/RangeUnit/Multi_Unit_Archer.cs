@@ -45,7 +45,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     IEnumerator Special_ArcherAttack()
     {
         base.SpecialAttack();
-        nav.angularSpeed = 1;
+        //nav.angularSpeed = 1;
         trail.SetActive(false);
 
         if (PhotonNetwork.IsMasterClient)
@@ -59,7 +59,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
 
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
-        nav.angularSpeed = 1000;
+        //nav.angularSpeed = 1000;
 
         SkillCoolDown(skillCoolDownTime);
     }

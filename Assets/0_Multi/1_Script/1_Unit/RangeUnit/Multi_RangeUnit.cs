@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
 public class Multi_RangeUnit : Multi_TeamSoldier
 {
@@ -22,7 +21,7 @@ public class Multi_RangeUnit : Multi_TeamSoldier
         else
         {
             if (nav.updatePosition == false)
-                ReleaseMove();
+                base.ReleaseMove();
             nav.speed = Speed;
         }
     }

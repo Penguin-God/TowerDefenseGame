@@ -5,7 +5,13 @@ using UnityEngine;
 public class Multi_BlackMage : Multi_Unit_Mage
 {
     [SerializeField] Transform skileShotPositions = null;
-    
+
+    protected override void OnAwake()
+    {
+        base.OnAwake();
+        skillDamage = 5000000; // TODO : 데이터 로드로 옮기기
+    }
+
     protected override void MageSkile()
     {
         MultiDirectionShot(skileShotPositions);

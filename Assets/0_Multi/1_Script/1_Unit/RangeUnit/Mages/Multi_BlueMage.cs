@@ -7,10 +7,17 @@ public class Multi_BlueMage : Multi_Unit_Mage
 {
     Multi_BluePassive bluePassive = null;
     [SerializeField] float freezeTime;
+    // 패시브
+    [SerializeField] float radiusRange;
+    [SerializeField] float slowPercent;
     public override void SetMageAwake()
     {
         bluePassive = GetComponent<Multi_BluePassive>();
-        GetComponentInChildren<SphereCollider>().radius = bluePassive.Get_ColliderRange;
+        // TODO : 데이터 매니저에서 로드하기
+        radiusRange = 25;
+        slowPercent = 60;
+
+        GetComponentInChildren<SphereCollider>().radius = radiusRange;
         freezeTime = skillStats[0];
     }
 
@@ -24,7 +31,7 @@ public class Multi_BlueMage : Multi_Unit_Mage
         if (pv.IsMine == false) return;
 
         if (other.GetComponentInParent<Multi_NormalEnemy>() != null) // 나가기 전까진 무한 슬로우
-            other.GetComponentInParent<Multi_NormalEnemy>().OnSlow_RPC(bluePassive.Get_SlowPercent, -1);
+            other.GetComponentInParent<Multi_NormalEnemy>().OnSlow_RPC(slowPercent, -1);
     }
 
     private void OnTriggerExit(Collider other)

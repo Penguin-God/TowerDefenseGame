@@ -5,6 +5,12 @@ using System;
 
 public class Multi_GreenMage : Multi_Unit_Mage
 {
+    protected override void OnAwake()
+    {
+        base.OnAwake();
+        skillDamage = Damage; // TODO : 죽이기
+    }
+
     void ShootSkill() => ProjectileShotDelegate.ShotProjectile(skillData, target, OnSkileHit);
 
     protected override void MageSkile()

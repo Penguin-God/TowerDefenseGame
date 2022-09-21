@@ -16,6 +16,7 @@ public class Scene_Manager
 {
     public BaseScene CurrentScene => GameObject.FindObjectOfType<BaseScene>();
     public SceneTyep CurrentSceneType = SceneTyep.클라이언트;
+    public bool IsBattleScene => CurrentSceneType == SceneTyep.New_Scene || CurrentSceneType == SceneTyep.TestScene;
 
     public void LoadScene(SceneTyep type)
     {

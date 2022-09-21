@@ -83,8 +83,6 @@ public class Multi_SoundManager
 
     public void BattleSceneInit()
     {
-        Debug.Assert(Multi_Managers.Scene.CurrentSceneType == SceneTyep.New_Scene, "이상한 씬에서 Init 중");
-
         // 빼기
         Multi_SpawnManagers.BossEnemy.OnSpawn -= (boss) => PlayBgm(BgmType.Boss);
         Multi_SpawnManagers.BossEnemy.OnDead -= (boss) => PlayBgm(BgmType.Default);

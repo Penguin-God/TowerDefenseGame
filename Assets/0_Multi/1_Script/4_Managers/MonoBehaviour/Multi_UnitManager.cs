@@ -33,7 +33,7 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     void Init()
     {
-        if (Multi_Managers.Scene.CurrentSceneType != SceneTyep.New_Scene) return;
+        if (Multi_Managers.Scene.IsBattleScene == false) return;
 
         _count.Init();
         _enemyPlayer.Init();

@@ -43,6 +43,14 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     public virtual void SetMageAwake() { }
 
     bool Skillable => manaSystem != null && manaSystem.IsManaFull;
+
+    [PunRPC]
+    protected override void Attack()
+    {
+        if (Skillable) SpecialAttack();
+        else StartCoroutine("MageAttack");
+    }
+
     public override void NormalAttack()
     {
         if (Skillable) SpecialAttack();

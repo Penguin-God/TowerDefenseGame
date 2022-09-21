@@ -9,18 +9,23 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     [SerializeField] ProjectileData arrawData;
     [SerializeField] int skillAttackTargetCount = 3;
     private GameObject trail;
+    [SerializeField] int _useSkillPercent;
 
     protected override void OnAwake()
     {
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
         arrawData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0],transform, arrawData.SpawnTransform);
         normalAttackSound = EffectSoundType.ArcherAttack;
+        _useSkillPercent = 30;
     }
 
     public override void SetSkillDamage()
     {
         skillDamage = (int)(Damage * 1.2f);
     }
+
+    [PunRPC]
+    protected override void Attack() => new UnitRandomSkillSystem().Attack(NormalAttack, SpecialAttack, _useSkillPercent);
 
     public override void NormalAttack() => StartCoroutine("ArrowAttack");
     IEnumerator ArrowAttack()

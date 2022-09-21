@@ -28,7 +28,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public float AttackRange { get => stat.AttackRange; set => stat.SetAttackRange(value); }
 
 
-    public int skillDamage;
+    protected int skillDamage;
     [SerializeField] protected float stopDistanc;
 
     protected bool enterStoryWorld;
@@ -241,7 +241,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
             if ((enemyIsForward || contactEnemy) && !isAttackDelayTime && !isSkillAttack && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
             {
-                UnitAttack();
+                _UnitAttack();
             }
             yield return null;
         }
@@ -254,6 +254,20 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         isRPC = true;
 
         pv.RPC("AttackFromHost", RpcTarget.MasterClient);
+    }
+
+    void _UnitAttack()
+    {
+        if (isRPC) return;
+        isRPC = true;
+        pv.RPC("Attack", RpcTarget.All);
+        isRPC = false;
+    }
+
+    [PunRPC]
+    protected virtual void Attack()
+    {
+
     }
 
     [PunRPC]
@@ -279,7 +293,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         AfterPlaySound(normalAttackSound, normalAttakc_AudioDelay);
     }
 
-    public void EndAttack()
+    protected void EndAttack()
     {
         StartCoroutine(Co_ResetAttactStatus());
         if (target != null && TargetIsNormalEnemy && enemyDistance > stopDistanc * 2) UpdateTarget();

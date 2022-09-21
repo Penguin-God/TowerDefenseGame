@@ -11,21 +11,21 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     [SerializeField] GameObject trail;
     [SerializeField] GameObject spear; // 평타칠 때 쓰는 창
 
-    [SerializeField]
-    private AudioClip skillAudioClip;
+    [SerializeField] int _useSkillPercent;
 
     protected override void OnAwake()
     {
         shotSpearData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, shotSpearData.SpawnTransform);
         normalAttackSound = EffectSoundType.SpearmanAttack;
+        _useSkillPercent = 30;
     }
 
     public override void SetSkillDamage()
     {
         skillDamage = (int)(Damage * 1.5f);
     }
-
-
+    [PunRPC]
+    protected override void Attack() => new UnitRandomSkillSystem().Attack(NormalAttack, SpecialAttack, _useSkillPercent);
     public override void NormalAttack() => StartCoroutine("SpaerAttack");
     IEnumerator SpaerAttack()
     {

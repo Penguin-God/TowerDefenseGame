@@ -23,163 +23,179 @@ public class Skill
         EquipSkill = equipSkill;
     }
 
-    public virtual void InitSkill(Skill skill) { }
-
-    // public abstract void InitSkill(SkillType skillType);
+    //public virtual void InitSkill(Skill skill) { }
+    public virtual void InitSkill() { }
 }
 
-// TODO : 곧 죽음
+public class SkillRepository
+{
+    Dictionary<SkillType, Skill> _typeBySkill = new Dictionary<SkillType, Skill>();
+
+    public SkillRepository()
+    {
+        _typeBySkill.Add(SkillType.시작골드증가, new StartGold());
+        _typeBySkill.Add(SkillType.최대유닛증가, new MaxUnit());
+        _typeBySkill.Add(SkillType.태극스킬, new Taegeuk());
+        _typeBySkill.Add(SkillType.검은유닛강화, new BlackUnitUpgrade());
+        _typeBySkill.Add(SkillType.노란기사강화, new YellowSowrdmanUpgrade());
+        _typeBySkill.Add(SkillType.상대색깔변경, new ColorChange());
+        _typeBySkill.Add(SkillType.판매보상증가, new SellUpgrade());
+        _typeBySkill.Add(SkillType.보스데미지증가, new BossDamageUpgrade());
+        _typeBySkill.Add(SkillType.고기혐오자, new FoodHater());
+    }
+
+    public Skill GetSkill(SkillType type) => _typeBySkill[type];
+}
+
 public class SkillManager
 {
     public void Init()
     {
-        List<Skill> skills = new List<Skill>();
+        foreach (var skill in Multi_Managers.ClientData.EquipSkills)
+            skill.InitSkill();
 
-        if (Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].EquipSkill == true)
-        {
-            StartGold startGold = new StartGold();
-            startGold.EquipSkill = true;
-            skills.Add(startGold);
-            Debug.Log("시작 골드 증가 사용");
-        }
-        else
-        {
-            Debug.Log("시작 골드 증가 없음.....");
-        }
+        //List<Skill> skills = new List<Skill>();
 
-        if (Multi_Managers.ClientData.SkillByType[SkillType.최대유닛증가].EquipSkill == true)
-        {
-            MaxUnit maxUnit = new MaxUnit();
-            maxUnit.EquipSkill = true;
-            skills.Add(maxUnit);
-            Debug.Log("시작 최대 유닛 증가 사용");
-        }
-        else
-        {
-            Debug.Log("시작 최대 유닛 증가 없음.....");
-        }
+        //if (Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].EquipSkill == true)
+        //{
+        //    StartGold startGold = new StartGold();
+        //    startGold.EquipSkill = true;
+        //    skills.Add(startGold);
+        //    Debug.Log("시작 골드 증가 사용");
+        //}
+        //else
+        //{
+        //    Debug.Log("시작 골드 증가 없음.....");
+        //}
 
-        
-        if (Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill == true)
-        {
-            Taegeuk taegeuk = new Taegeuk();
-            taegeuk.EquipSkill = true;
-            skills.Add(taegeuk);
-            Debug.Log("태극 스킬 추가");
-        }
-        else
-        {
-            Debug.Log("태극스킬 없음.....");
-        }
+        //if (Multi_Managers.ClientData.SkillByType[SkillType.최대유닛증가].EquipSkill == true)
+        //{
+        //    MaxUnit maxUnit = new MaxUnit();
+        //    maxUnit.EquipSkill = true;
+        //    skills.Add(maxUnit);
+        //    Debug.Log("시작 최대 유닛 증가 사용");
+        //}
+        //else
+        //{
+        //    Debug.Log("시작 최대 유닛 증가 없음.....");
+        //}
 
-        if (Multi_Managers.ClientData.SkillByType[SkillType.검은유닛강화].EquipSkill == true)
-        {
-            BlackUnitUpgrade blackUnitUpgrade = new BlackUnitUpgrade();
-            blackUnitUpgrade.EquipSkill = true;
-            skills.Add(blackUnitUpgrade);
-            Debug.Log("검은유닛강화 추가");
-        }
-        else
-        {
-            Debug.Log("검은유닛강화 없음.....");
-        }
 
-        if (Multi_Managers.ClientData.SkillByType[SkillType.노란기사강화].EquipSkill == true)
-        {
-            YellowUnitUpgrade yellowUnitUpgrade = new YellowUnitUpgrade();
-            yellowUnitUpgrade.EquipSkill = true;
-            skills.Add(yellowUnitUpgrade);
-            Debug.Log("노란기사강화 추가");
-        }
-        else
-        {
-            Debug.Log("노란기사강화 없음.....");
-        }
+        //if (Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill == true)
+        //{
+        //    Taegeuk taegeuk = new Taegeuk();
+        //    taegeuk.EquipSkill = true;
+        //    skills.Add(taegeuk);
+        //    Debug.Log("태극 스킬 추가");
+        //}
+        //else
+        //{
+        //    Debug.Log("태극스킬 없음.....");
+        //}
 
-        if (Multi_Managers.ClientData.SkillByType[SkillType.상대색깔변경].EquipSkill == true)
-        {
-            ColorChange colorChange = new ColorChange();
-            colorChange.EquipSkill = true;
-            skills.Add(colorChange);
-            Debug.Log("상대색깔변경 추가");
-        }
-        else
-        {
-            Debug.Log("상대색깔변경 없음.....");
-        }
+        //if (Multi_Managers.ClientData.SkillByType[SkillType.검은유닛강화].EquipSkill == true)
+        //{
+        //    BlackUnitUpgrade blackUnitUpgrade = new BlackUnitUpgrade();
+        //    blackUnitUpgrade.EquipSkill = true;
+        //    skills.Add(blackUnitUpgrade);
+        //    Debug.Log("검은유닛강화 추가");
+        //}
+        //else
+        //{
+        //    Debug.Log("검은유닛강화 없음.....");
+        //}
 
-        if (Multi_Managers.ClientData.SkillByType[SkillType.판매보상증가].EquipSkill == true)
-        {
-            SellUpgrade sellUpgrade = new SellUpgrade();
-            sellUpgrade.EquipSkill = true;
-            skills.Add(sellUpgrade);
-            Debug.Log("판매보상증가 추가");
-        }
-        else
-        {
-            Debug.Log("판매보상증가 없음.....");
-        }
+        //if (Multi_Managers.ClientData.SkillByType[SkillType.노란기사강화].EquipSkill == true)
+        //{
+        //    YellowSowrdmanUpgrade yellowUnitUpgrade = new YellowSowrdmanUpgrade();
+        //    yellowUnitUpgrade.EquipSkill = true;
+        //    skills.Add(yellowUnitUpgrade);
+        //    Debug.Log("노란기사강화 추가");
+        //}
+        //else
+        //{
+        //    Debug.Log("노란기사강화 없음.....");
+        //}
 
-        if (Multi_Managers.ClientData.SkillByType[SkillType.보스데미지증가].EquipSkill == true)
-        {
-            BossDamageUpgrade bossDamageUpgrade = new BossDamageUpgrade();
-            bossDamageUpgrade.EquipSkill = true;
-            skills.Add(bossDamageUpgrade);
-            Debug.Log("보스데미지증가 추가");
-        }
-        else
-        {
-            Debug.Log("보스데미지증가 없음.....");
-        }
+        //if (Multi_Managers.ClientData.SkillByType[SkillType.상대색깔변경].EquipSkill == true)
+        //{
+        //    ColorChange colorChange = new ColorChange();
+        //    colorChange.EquipSkill = true;
+        //    skills.Add(colorChange);
+        //    Debug.Log("상대색깔변경 추가");
+        //}
+        //else
+        //{
+        //    Debug.Log("상대색깔변경 없음.....");
+        //}
 
-        if (Multi_Managers.ClientData.SkillByType[SkillType.고기혐오자].EquipSkill == true)
-        {
-            FoodHater foodHater = new FoodHater();
-            foodHater.EquipSkill = true;
-            skills.Add(foodHater);
-            Debug.Log("고기혐오자 추가");
-        }
-        else
-        {
-            Debug.Log("보스데미지증가 없음.....");
-        }
+        //if (Multi_Managers.ClientData.SkillByType[SkillType.판매보상증가].EquipSkill == true)
+        //{
+        //    SellUpgrade sellUpgrade = new SellUpgrade();
+        //    sellUpgrade.EquipSkill = true;
+        //    skills.Add(sellUpgrade);
+        //    Debug.Log("판매보상증가 추가");
+        //}
+        //else
+        //{
+        //    Debug.Log("판매보상증가 없음.....");
+        //}
 
-        Debug.Log("==========================================================");
-        Debug.Log(skills.Count);
-        for (int i = 0; i < skills.Count; i++)
-        {
-            if (skills[i].EquipSkill == true)
-                skills[i].InitSkill(skills[i]);
-        }
-    }
+        //if (Multi_Managers.ClientData.SkillByType[SkillType.보스데미지증가].EquipSkill == true)
+        //{
+        //    BossDamageUpgrade bossDamageUpgrade = new BossDamageUpgrade();
+        //    bossDamageUpgrade.EquipSkill = true;
+        //    skills.Add(bossDamageUpgrade);
+        //    Debug.Log("보스데미지증가 추가");
+        //}
+        //else
+        //{
+        //    Debug.Log("보스데미지증가 없음.....");
+        //}
 
-    public void Clear()
-    {
+        //if (Multi_Managers.ClientData.SkillByType[SkillType.고기혐오자].EquipSkill == true)
+        //{
+        //    FoodHater foodHater = new FoodHater();
+        //    foodHater.EquipSkill = true;
+        //    skills.Add(foodHater);
+        //    Debug.Log("고기혐오자 추가");
+        //}
+        //else
+        //{
+        //    Debug.Log("보스데미지증가 없음.....");
+        //}
 
+        //Debug.Log("==========================================================");
+        //Debug.Log(skills.Count);
+        //for (int i = 0; i < skills.Count; i++)
+        //{
+        //    if (skills[i].EquipSkill == true)
+        //        skills[i].InitSkill(skills[i]);
+        //}
     }
 }
 
 public class PassiveSkill : Skill
 {
-    public override void InitSkill(Skill skill)
-    {
+    //public override void InitSkill()
+    //{
 
-    }
+    //}
 }
 
 public class ActiveSkill : Skill
 {
-    public override void InitSkill(Skill skill)
-    {
+    //public override void InitSkill()
+    //{
 
-    }
+    //}
 }
 
-// --------------------------------------------
+// ================= 스킬 세부 구현 =====================
 
 public class StartGold : PassiveSkill
 {
-    public override void InitSkill(Skill skill)
+    public override void InitSkill()
     {
 
     }
@@ -187,7 +203,7 @@ public class StartGold : PassiveSkill
 
 public class MaxUnit : PassiveSkill
 {
-    public override void InitSkill(Skill skill)
+    public override void InitSkill()
     {
 
     }
@@ -272,7 +288,7 @@ public class Taegeuk : PassiveSkill
         }
     }
 
-    public override void InitSkill(Skill skill)
+    public override void InitSkill()
     {
         Debug.Log("태극 시너지 스킬 착용");
         Multi_UnitManager.Instance.OnUnitCountChanged += (count) => UseSkill();
@@ -332,7 +348,7 @@ public class Taegeuk : PassiveSkill
 
 public class BlackUnitUpgrade : PassiveSkill
 {
-    public override void InitSkill(Skill skill)
+    public override void InitSkill()
     {
         Multi_UnitManager.Instance.OnUnitCountChanged += (count) => UseSkill();
     }
@@ -346,9 +362,9 @@ public class BlackUnitUpgrade : PassiveSkill
     }
 }
 
-public class YellowUnitUpgrade : PassiveSkill
+public class YellowSowrdmanUpgrade : PassiveSkill
 {
-    public override void InitSkill(Skill skill)
+    public override void InitSkill()
     {
         // 노란 기사 패시브 5원으로 변경
         Multi_Managers.Data.Skill.InitCombineAdditionalGold(3);
@@ -357,7 +373,7 @@ public class YellowUnitUpgrade : PassiveSkill
 
 public class ColorChange : ActiveSkill
 {
-    public override void InitSkill(Skill skill)
+    public override void InitSkill()
     {
         // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
         Multi_UnitManager.Instance.OnUnitFlagChanged += UseSkill;
@@ -375,7 +391,7 @@ public class ColorChange : ActiveSkill
 
 public class CommonSkill : PassiveSkill
 {
-    public override void InitSkill(Skill skill)
+    public override void InitSkill()
     {
         // 대충 안좋은 효과
     }
@@ -383,7 +399,7 @@ public class CommonSkill : PassiveSkill
 
 public class FoodHater : PassiveSkill
 {
-    public override void InitSkill(Skill skill)
+    public override void InitSkill()
     {
         // 고기창 닫기
 
@@ -399,7 +415,7 @@ public class FoodHater : PassiveSkill
 
 public class SellUpgrade : PassiveSkill
 {
-    public override void InitSkill(Skill skill)
+    public override void InitSkill()
     {
         // 유닛 판매 보상 증가 (유닛별로 증가폭 별도)
     }
@@ -407,7 +423,7 @@ public class SellUpgrade : PassiveSkill
 
 public class BossDamageUpgrade : PassiveSkill
 {
-    public override void InitSkill(Skill skill)
+    public override void InitSkill()
     {
         // 모든 유닛 보스 데미지 증가
     }

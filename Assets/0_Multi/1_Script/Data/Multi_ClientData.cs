@@ -30,23 +30,26 @@ public class Multi_ClientData
     Dictionary<MoneyType, Money> moneyByType = new Dictionary<MoneyType, Money>();
     public IReadOnlyDictionary<MoneyType, Money> MoneyByType => moneyByType;
 
-    public List<Skill> EquipSkills = new List<Skill>();
+    SkillRepository skillRepository = new SkillRepository(); // TODO : skillByType에서 가져오기
+    List<Skill> _equipSkills = new List<Skill>();
+    public int EquipSkillCount => _equipSkills.Count();
+    public IReadOnlyList<Skill> EquipSkills => _equipSkills;
+    public void AddEquipSkill(SkillType type) => _equipSkills.Add(skillRepository.GetSkill(type));
 
     public void Init()
     {
         List<Skill> playerDatas = CsvUtility.GetEnumerableFromCsv<Skill>(Resources.Load<TextAsset>("Data/ClientData/SkillData").text).ToList();
-        Debug.Log(playerDatas.Count);
-        playerDatas.ForEach(x => Debug.Log(x.Name));
         skillByType = playerDatas.ToDictionary(x => (SkillType)Enum.ToObject(typeof(SkillType), x.Id), x => x);
 
         List<Money> moneyData = CsvUtility.GetEnumerableFromCsv<Money>(Resources.Load<TextAsset>("Data/ClientData/MoneyData").text).ToList();
         moneyByType = moneyData.ToDictionary(x => (MoneyType)Enum.ToObject(typeof(MoneyType), x.Id), x => x);
     }
 
-    public void SaveData<T>(string path)
+    public void Clear()
     {
-        if (typeof(T) == typeof(Skill)) SaveData(skillByType.Values, path);
-        else if(typeof(T) == typeof(Money)) SaveData(moneyByType.Values, path);
+        foreach (var item in skillByType)
+            item.Value.SetEquipSkill(false);
+        _equipSkills.Clear();
     }
 
     // TODO : 세이브 개선하기

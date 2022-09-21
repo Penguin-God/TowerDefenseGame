@@ -241,22 +241,15 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
             if ((enemyIsForward || contactEnemy) && !isAttackDelayTime && !isSkillAttack && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
             {
-                _UnitAttack();
+                UnitAttack();
             }
             yield return null;
         }
     }
 
     bool isRPC; // RPC딜레이 때문에 공격 2번 이상하는 버그 방지 변수
+
     void UnitAttack()
-    {
-        if (isRPC) return;
-        isRPC = true;
-
-        pv.RPC("AttackFromHost", RpcTarget.MasterClient);
-    }
-
-    void _UnitAttack()
     {
         if (isRPC) return;
         isRPC = true;
@@ -265,26 +258,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     }
 
     [PunRPC]
-    protected virtual void Attack()
-    {
-
-    }
-
-    [PunRPC]
-    public void AttackFromHost()
-    {
-        int random = Random.Range(1, 101);
-        bool isNormal = (random >= UseSkillPercent);
-        photonView.RPC("SelectAttack", RpcTarget.All, isNormal);
-    }
-
-    [PunRPC]
-    public void SelectAttack(bool _isNormal)
-    {
-        if (_isNormal) NormalAttack();
-        else SpecialAttack();
-        isRPC = false;
-    }
+    protected virtual void Attack() { }
 
     protected void StartAttack()
     {

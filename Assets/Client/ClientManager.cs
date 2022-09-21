@@ -363,34 +363,7 @@ public class ClientManager : MonoBehaviour
     }
 
     // 뭔가 좋은 방법 필요
-    public int CheckSkill()
-    {
-        //int count = 0;
-
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].EquipSkill == true)
-        //    count++;
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.최대유닛증가].EquipSkill == true)
-        //    count++;
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill == true)
-        //    count++;
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.검은유닛강화].EquipSkill == true)
-        //    count++;
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.노란기사강화].EquipSkill == true)
-        //    count++;
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.상대색깔변경].EquipSkill == true)
-        //    count++;
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.흔한스킬].EquipSkill == true)
-        //    count++;
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.고기혐오자].EquipSkill == true)
-        //    count++;
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.판매보상증가].EquipSkill == true)
-        //    count++;
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.보스데미지증가].EquipSkill == true)
-        //    count++;
-
-        //print(Multi_Managers.ClientData.EquipSkillCount);
-        return Multi_Managers.ClientData.EquipSkillCount;
-    }
+    public int CheckSkill() => Multi_Managers.ClientData.EquipSkillCount;
 
     public void UnEquip()
     {
@@ -398,18 +371,6 @@ public class ClientManager : MonoBehaviour
         Skill2Image.sprite = skill_Image.UImask;
 
         Multi_Managers.ClientData.Clear();
-        //Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].SetEquipSkill(false);
-        //Multi_Managers.ClientData.SkillByType[SkillType.최대유닛증가].SetEquipSkill(false);
-        //Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].SetEquipSkill(false);
-        //Multi_Managers.ClientData.SkillByType[SkillType.검은유닛강화].SetEquipSkill(false);
-        //Multi_Managers.ClientData.SkillByType[SkillType.노란기사강화].SetEquipSkill(false);
-        //Multi_Managers.ClientData.SkillByType[SkillType.상대색깔변경].SetEquipSkill(false);
-        //Multi_Managers.ClientData.SkillByType[SkillType.흔한스킬].SetEquipSkill(false);
-        //Multi_Managers.ClientData.SkillByType[SkillType.고기혐오자].SetEquipSkill(false);
-        //Multi_Managers.ClientData.SkillByType[SkillType.판매보상증가].SetEquipSkill(false);
-        //Multi_Managers.ClientData.SkillByType[SkillType.보스데미지증가].SetEquipSkill(false);
-
         InitEquips();
     }
-
 }

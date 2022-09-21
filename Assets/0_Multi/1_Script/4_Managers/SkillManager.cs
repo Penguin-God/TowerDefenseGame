@@ -53,142 +53,17 @@ public class SkillManager
     {
         foreach (var skill in Multi_Managers.ClientData.EquipSkills)
             skill.InitSkill();
-
-        //List<Skill> skills = new List<Skill>();
-
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.시작골드증가].EquipSkill == true)
-        //{
-        //    StartGold startGold = new StartGold();
-        //    startGold.EquipSkill = true;
-        //    skills.Add(startGold);
-        //    Debug.Log("시작 골드 증가 사용");
-        //}
-        //else
-        //{
-        //    Debug.Log("시작 골드 증가 없음.....");
-        //}
-
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.최대유닛증가].EquipSkill == true)
-        //{
-        //    MaxUnit maxUnit = new MaxUnit();
-        //    maxUnit.EquipSkill = true;
-        //    skills.Add(maxUnit);
-        //    Debug.Log("시작 최대 유닛 증가 사용");
-        //}
-        //else
-        //{
-        //    Debug.Log("시작 최대 유닛 증가 없음.....");
-        //}
-
-
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.태극스킬].EquipSkill == true)
-        //{
-        //    Taegeuk taegeuk = new Taegeuk();
-        //    taegeuk.EquipSkill = true;
-        //    skills.Add(taegeuk);
-        //    Debug.Log("태극 스킬 추가");
-        //}
-        //else
-        //{
-        //    Debug.Log("태극스킬 없음.....");
-        //}
-
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.검은유닛강화].EquipSkill == true)
-        //{
-        //    BlackUnitUpgrade blackUnitUpgrade = new BlackUnitUpgrade();
-        //    blackUnitUpgrade.EquipSkill = true;
-        //    skills.Add(blackUnitUpgrade);
-        //    Debug.Log("검은유닛강화 추가");
-        //}
-        //else
-        //{
-        //    Debug.Log("검은유닛강화 없음.....");
-        //}
-
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.노란기사강화].EquipSkill == true)
-        //{
-        //    YellowSowrdmanUpgrade yellowUnitUpgrade = new YellowSowrdmanUpgrade();
-        //    yellowUnitUpgrade.EquipSkill = true;
-        //    skills.Add(yellowUnitUpgrade);
-        //    Debug.Log("노란기사강화 추가");
-        //}
-        //else
-        //{
-        //    Debug.Log("노란기사강화 없음.....");
-        //}
-
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.상대색깔변경].EquipSkill == true)
-        //{
-        //    ColorChange colorChange = new ColorChange();
-        //    colorChange.EquipSkill = true;
-        //    skills.Add(colorChange);
-        //    Debug.Log("상대색깔변경 추가");
-        //}
-        //else
-        //{
-        //    Debug.Log("상대색깔변경 없음.....");
-        //}
-
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.판매보상증가].EquipSkill == true)
-        //{
-        //    SellUpgrade sellUpgrade = new SellUpgrade();
-        //    sellUpgrade.EquipSkill = true;
-        //    skills.Add(sellUpgrade);
-        //    Debug.Log("판매보상증가 추가");
-        //}
-        //else
-        //{
-        //    Debug.Log("판매보상증가 없음.....");
-        //}
-
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.보스데미지증가].EquipSkill == true)
-        //{
-        //    BossDamageUpgrade bossDamageUpgrade = new BossDamageUpgrade();
-        //    bossDamageUpgrade.EquipSkill = true;
-        //    skills.Add(bossDamageUpgrade);
-        //    Debug.Log("보스데미지증가 추가");
-        //}
-        //else
-        //{
-        //    Debug.Log("보스데미지증가 없음.....");
-        //}
-
-        //if (Multi_Managers.ClientData.SkillByType[SkillType.고기혐오자].EquipSkill == true)
-        //{
-        //    FoodHater foodHater = new FoodHater();
-        //    foodHater.EquipSkill = true;
-        //    skills.Add(foodHater);
-        //    Debug.Log("고기혐오자 추가");
-        //}
-        //else
-        //{
-        //    Debug.Log("보스데미지증가 없음.....");
-        //}
-
-        //Debug.Log("==========================================================");
-        //Debug.Log(skills.Count);
-        //for (int i = 0; i < skills.Count; i++)
-        //{
-        //    if (skills[i].EquipSkill == true)
-        //        skills[i].InitSkill(skills[i]);
-        //}
     }
 }
 
 public class PassiveSkill : Skill
 {
-    //public override void InitSkill()
-    //{
 
-    //}
 }
 
 public class ActiveSkill : Skill
 {
-    //public override void InitSkill()
-    //{
 
-    //}
 }
 
 // ================= 스킬 세부 구현 =====================

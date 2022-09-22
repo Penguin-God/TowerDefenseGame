@@ -35,13 +35,15 @@ public class Multi_UnitManager : MonoBehaviourPun
     {
         if (Multi_Managers.Scene.IsBattleScene == false) return;
 
-        _count.Init();
-        _enemyPlayer.Init();
+        _count.Init(_master, Rasie_OnUnitCountChanged, Rasie_OnUnitFlagCountChanged);
+        _enemyPlayer.Init(_master);
         _passive.Init();
+        _combine.Init(_count, _controller, RaiseOnTryCombine);
 
         if (PhotonNetwork.IsMasterClient == false) return;
-        _controller.Init();
-        _master.Init();
+        _controller.Init(_master);
+        _master.Init(RaiseOnUnitFlagChanged);
+        _stat.Init(_master);
     }
 
 
@@ -50,27 +52,28 @@ public class Multi_UnitManager : MonoBehaviourPun
     public IReadOnlyDictionary<UnitFlags, int> UnitCountByFlag => _count._countByFlag;
     public int CurrentUnitCount => _count._currentCount;
     public int EnemyPlayerHasCount => _enemyPlayer.EnemyPlayerHasUnitAllCount;
-    public bool HasUnit(UnitFlags flag, int needCount = 1) => UnitCountByFlag[flag] >= needCount;
+    public bool HasUnit(UnitFlags flag, int needCount = 1) => _count.HasUnit(flag, needCount);
 
-
-    // NonRPcActions
+    // events
     public event Action<int> OnUnitCountChanged = null;
     void Rasie_OnUnitCountChanged(int count) => OnUnitCountChanged?.Invoke(count);
 
     public event Action<UnitFlags, int> OnUnitFlagCountChanged = null;
     void Rasie_OnUnitFlagCountChanged(UnitFlags flag, int count) => OnUnitFlagCountChanged?.Invoke(flag, count);
 
+    public event Action<bool, UnitFlags> OnTryCombine = null;
+    void RaiseOnTryCombine(bool isSuccess, UnitFlags flag) => OnTryCombine?.Invoke(isSuccess, flag);
 
-    // RPCs
-    public RPCAction<bool, UnitFlags> OnTryCombine = new RPCAction<bool, UnitFlags>();
+    public Action<UnitFlags, bool> OnUnitFlagChanged;
+    void RaiseOnUnitFlagChanged(UnitFlags flag, bool isIncrease) => OnUnitFlagChanged?.Invoke(flag, isIncrease);
 
-    public RPCAction<UnitFlags, bool> OnUnitFlagChanged = new RPCAction<UnitFlags, bool>();
-
+    // TODO : 이새끼 어떻게든 하기
     public event Action OnUnitCountChangedWhitId = null;
     void UnitCountChanged_RPC() => photonView.RPC("UnitCountChanged", RpcTarget.All);
     [PunRPC] void UnitCountChanged() => OnUnitCountChangedWhitId?.Invoke();
 
 
+    // RPC Funtions
     public bool TryCombine_RPC(UnitFlags flag)
     {
         bool result = _combine.CheckCombineable(flag);
@@ -95,9 +98,11 @@ public class Multi_UnitManager : MonoBehaviourPun
     // Components
     class MasterDataManager
     {
+        // TODO : RPC All로 쏠 건 All로 쏘기
         public RPCAction<UnitFlags, int> OnUnitCountChanged = new RPCAction<UnitFlags, int>();
         public RPCAction<int> OnAllUnitCountChanged = new RPCAction<int>();
         public RPCAction<bool, UnitClass> OnUnitClassCountChanged = new RPCAction<bool, UnitClass>();
+        public RPCAction<UnitFlags, bool> OnUnitFlagChanged = new RPCAction<UnitFlags, bool>();
 
         RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>> _unitListByFlag = new RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
         RPCData<List<Multi_TeamSoldier>> _currentAllUnitsById = new RPCData<List<Multi_TeamSoldier>>();
@@ -106,7 +111,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         public List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flag) => _unitListByFlag.Get(id)[flag];
         public List<Multi_TeamSoldier> GetUnitList(int id) => _currentAllUnitsById.Get(id);
 
-        public void Init()
+        public void Init(Action<UnitFlags, bool> UnitFlagChangEvent)
         {
             foreach (var data in Multi_SpawnManagers.NormalUnit.AllUnitDatas)
             {
@@ -119,6 +124,8 @@ public class Multi_UnitManager : MonoBehaviourPun
 
             Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
             Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
+
+            OnUnitFlagChanged += UnitFlagChangEvent;
         }
 
         public bool TryGetUnit_If(int id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
@@ -141,7 +148,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Add(unit);
             _currentAllUnitsById.Get(id).Add(unit);
-            Instance.OnUnitFlagChanged.RaiseEvent(unit.UnitFlags, true);
+            OnUnitFlagChanged?.RaiseEvent(unit.UnitFlags, true);
             RaiseEvents(unit, true);
         }
 
@@ -150,7 +157,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Remove(unit);
             _currentAllUnitsById.Get(id).Remove(unit);
-            Instance.OnUnitFlagChanged.RaiseEvent(unit.UnitFlags, false);
+            OnUnitFlagChanged?.RaiseEvent(unit.UnitFlags, false);
             RaiseEvents(unit, false);
         }
 
@@ -171,12 +178,12 @@ public class Multi_UnitManager : MonoBehaviourPun
         public Dictionary<UnitClass, int> _countByUnitClass = new Dictionary<UnitClass, int>();
         public int EnemyPlayerHasUnitAllCount;
 
-        public void Init()
+        public void Init(MasterDataManager masterData)
         {
             foreach (UnitClass _class in Enum.GetValues(typeof(UnitClass)))
                 _countByUnitClass.Add(_class, 0);
 
-            Instance._master.OnUnitClassCountChanged += SetCount;
+            masterData.OnUnitClassCountChanged += SetCount;
         }
 
         void SetCount(bool isAdd, UnitClass unitClass)
@@ -196,8 +203,10 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     class UnitContorller
     {
-        public void Init()
+        MasterDataManager _masterData;
+        public void Init(MasterDataManager masterData)
         {
+            _masterData = masterData;
             if (PhotonNetwork.IsMasterClient)
             {
                 Multi_SpawnManagers.BossEnemy.OnSpawn += AllUnitTargetToBoss;
@@ -209,7 +218,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         {
             if (PhotonNetwork.IsMasterClient == false) return;
 
-            Multi_TeamSoldier[] offerings = Instance._master.GetUnitList(id, unitFlag).ToArray();
+            Multi_TeamSoldier[] offerings = _masterData.GetUnitList(id, unitFlag).ToArray();
             count = Mathf.Min(count, offerings.Length);
             for (int i = 0; i < count; i++)
                 offerings[i].Dead();
@@ -217,20 +226,20 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         public void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode)
         {
-            if (Instance._master.TryGetUnit_If(id, flag, out Multi_TeamSoldier unit, (_unit) => _unit.EnterStroyWorld == enterStroyMode))
+            if (_masterData.TryGetUnit_If(id, flag, out Multi_TeamSoldier unit, (_unit) => _unit.EnterStroyWorld == enterStroyMode))
                 unit.ChagneWorld();
         }
 
         void AllUnitTargetToBoss(Multi_BossEnemy boss)
         {
-            Instance._master.GetUnitList(boss.GetComponent<RPCable>().UsingId)
+            _masterData.GetUnitList(boss.GetComponent<RPCable>().UsingId)
                 .Where(x => x.EnterStroyWorld == false)
                 .ToList()
                 .ForEach(x => x.SetChaseSetting(boss.gameObject));
         }
 
         void AllUnitUpdateTarget(Multi_BossEnemy boss)
-            => Instance._master.GetUnitList(boss.GetComponent<RPCable>().UsingId).ForEach(x => x.UpdateTarget());
+            => _masterData.GetUnitList(boss.GetComponent<RPCable>().UsingId).ForEach(x => x.UpdateTarget());
     }
 
     class UnitCountManager
@@ -238,7 +247,10 @@ public class Multi_UnitManager : MonoBehaviourPun
         public int _currentCount = 0;
         public Dictionary<UnitFlags, int> _countByFlag = new Dictionary<UnitFlags, int>(); // 모든 플레이어가 이벤트로 받아서 각자 카운트 관리
 
-        public void Init()
+        public event Action<int> OnUnitCountChanged = null;
+        public event Action<UnitFlags, int> OnUnitFlagCountChanged = null;
+
+        public void Init(MasterDataManager masterData, Action<int> countEvent, Action<UnitFlags, int> flagCountEvent)
         {
             foreach (var data in Multi_SpawnManagers.NormalUnit.AllUnitDatas)
             {
@@ -246,27 +258,41 @@ public class Multi_UnitManager : MonoBehaviourPun
                     _countByFlag.Add(new UnitFlags(unit.unitColor, unit.unitClass), 0);
             }
 
-            Instance._master.OnAllUnitCountChanged += Riase_OnUnitCountChanged;
-            Instance._master.OnUnitCountChanged += Riase_OnUnitCountChanged;
+            masterData.OnAllUnitCountChanged += Riase_OnUnitCountChanged;
+            masterData.OnUnitCountChanged += Riase_OnUnitCountChanged;
+            OnUnitCountChanged += countEvent;
+            OnUnitFlagCountChanged += flagCountEvent;
         }
 
         void Riase_OnUnitCountChanged(int count)
         {
             _currentCount = count;
-            Instance.Rasie_OnUnitCountChanged(count);
+            OnUnitCountChanged?.Invoke(count);
         }
 
         void Riase_OnUnitCountChanged(UnitFlags flag, int count)
         {
             _countByFlag[flag] = count;
-            Instance.Rasie_OnUnitFlagCountChanged(flag, count);
+            OnUnitFlagCountChanged?.Invoke(flag, count);
         }
+
+        public bool HasUnit(UnitFlags flag, int needCount = 1) => _countByFlag[flag] >= needCount;
     }
 
     class CombineSystem
     {
+        public RPCAction<bool, UnitFlags> OnTryCombine = new RPCAction<bool, UnitFlags>();
+        UnitCountManager _countManager;
+        UnitContorller _unitContorller;
+        public void Init(UnitCountManager countManager, UnitContorller unitContorller, Action<bool, UnitFlags> combineEvent)
+        {
+            _countManager = countManager;
+            _unitContorller = unitContorller;
+            OnTryCombine += combineEvent;
+        }
+
         public bool CheckCombineable(UnitFlags flag)
-            => Multi_Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag.All(x => Instance.HasUnit(x.Key, x.Value));
+            => Multi_Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag.All(x => _countManager.HasUnit(x.Key, x.Value));
 
         public void TryCombine(UnitFlags flag, int id, bool isSuccess)
         {
@@ -275,7 +301,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             if (isSuccess)
                 Combine(flag, id);
             else
-                Instance.OnTryCombine?.RaiseEvent(id, false, flag);
+                OnTryCombine?.RaiseEvent(id, false, flag);
         }
 
         void Combine(UnitFlags flag, int id)
@@ -284,16 +310,20 @@ public class Multi_UnitManager : MonoBehaviourPun
 
             SacrificedUnits_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[flag]);
             Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
+            OnTryCombine?.RaiseEvent(id, true, flag);
 
-            Instance.OnTryCombine?.RaiseEvent(id, true, flag);
-
-            void SacrificedUnits_ForCombine(CombineCondition condition)
-                => condition.NeedCountByFlag.ToList().ForEach(x => Instance._controller.UnitDead(id, x.Key, x.Value));
+            void SacrificedUnits_ForCombine(CombineCondition condition) => condition.NeedCountByFlag.ToList().ForEach(x => _unitContorller.UnitDead(id, x.Key, x.Value));
         }
     }
 
     class UnitStatChanger
     {
+        MasterDataManager _masterData;
+        public void Init(MasterDataManager masterData)
+        {
+            _masterData = masterData;
+        }
+
         public void UnitStatChange(int typeNum, UnitFlags flag, int value, int id)
         {
             switch (typeNum)
@@ -306,13 +336,13 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         void ChangeDamage(UnitFlags flag, int value, int id)
         {
-            foreach (var unit in Instance._master.GetUnitList(id, flag))
+            foreach (var unit in _masterData.GetUnitList(id, flag))
                 unit.Damage = value;
         }
 
         void ChangeBossDamage(UnitFlags flag, int value, int id)
         {
-            foreach (var unit in Instance._master.GetUnitList(id, flag))
+            foreach (var unit in _masterData.GetUnitList(id, flag))
                 unit.BossDamage = value;
         }
 
@@ -322,7 +352,6 @@ public class Multi_UnitManager : MonoBehaviourPun
             ChangeBossDamage(flag, value, id);
         }
     }
-
 
     class UnitPassiveManager
     {

@@ -160,12 +160,13 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         AddFood(data.Food);
     }
 
-    public void FoodToGold(int rate)
-    {
-        if (_food <= 0) return;
-        AddGold(_food * rate);
-        Food = 0;
-    }
+    // TODO : 외부에 고기 혐오자 스킬 구현
+    //public void FoodToGold(int rate)
+    //{
+    //    if (_food <= 0) return;
+    //    AddGold(_food * rate);
+    //    Food = 0;
+    //}
 
     [PunRPC]
     void GetBossReward(int gold, int food)
@@ -176,7 +177,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     [PunRPC]
     public void AddGold(int _addGold) => Gold += _addGold;
-    public void AddGold(int _addGold, int id)
+    public void AddGold_RPC(int _addGold, int id)
     {
         if (id == Multi_Data.instance.Id)
             AddGold(_addGold);
@@ -207,7 +208,6 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
             return false;
     }
 
-    public bool TryUseCurrency(string currencyType, int mount) => currencyType == "Gold" ? TryUseGold(mount) : TryUseFood(mount);
     public bool TryUseCurrency(GameCurrencyType currencyType, int mount) => currencyType == GameCurrencyType.Gold ? TryUseGold(mount) : TryUseFood(mount);
 
     void Update()
@@ -245,14 +245,14 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         GameEnd("패배");
     }
 
-    void GameEnd(string msg)
+    void GameEnd(string message)
     {
-        Multi_Managers.UI.ShowClickRockWaringText(msg);
+        Multi_Managers.UI.ShowClickRockWaringText(message);
         Time.timeScale = 0;
-        StartCoroutine(Co_AfterReturn());
+        StartCoroutine(Co_AfterReturnLobby());
     }
 
-    IEnumerator Co_AfterReturn()
+    IEnumerator Co_AfterReturnLobby()
     {
         yield return new WaitForSecondsRealtime(5f);
         Time.timeScale = 1;

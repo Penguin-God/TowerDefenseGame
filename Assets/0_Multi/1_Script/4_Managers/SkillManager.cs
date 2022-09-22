@@ -279,12 +279,6 @@ public class FoodHater : PassiveSkill
         // 고기창 닫기
 
         // 하얀 유닛 돈으로 구매로 변경 받는 고기 전부 1당 10원으로 변경
-        Multi_GameManager.instance.OnFoodChanged += (food) => FoodToGold();
-    }
-
-    void FoodToGold()
-    {
-        Multi_GameManager.instance.FoodToGold(10);
     }
 }
 

@@ -15,6 +15,6 @@ public class Multi_YellowMage : Multi_Unit_Mage
     protected override void MageSkile()
     {
         SkillSpawn(transform.position + (Vector3.up * 0.6f));
-        Multi_GameManager.instance.AddGold(addGold, rpcable.UsingId);
+        Multi_GameManager.instance.AddGold_RPC(addGold, rpcable.UsingId);
     }
 }

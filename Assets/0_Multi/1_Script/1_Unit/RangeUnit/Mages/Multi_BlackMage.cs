@@ -9,7 +9,7 @@ public class Multi_BlackMage : Multi_Unit_Mage
     protected override void OnAwake()
     {
         base.OnAwake();
-        skillDamage = 5000000; // TODO : 데이터 로드로 옮기기
+        skillDamage = (int)base.skillStats[0];
     }
 
     protected override void MageSkile()

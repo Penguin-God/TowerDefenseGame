@@ -8,7 +8,8 @@ public class Multi_GreenMage : Multi_Unit_Mage
     protected override void OnAwake()
     {
         base.OnAwake();
-        skillDamage = Damage; // TODO : 죽이기
+        AttackRange *= 2;
+        skillDamage = (int)base.skillStats[0];
     }
 
     void ShootSkill() => ProjectileShotDelegate.ShotProjectile(skillData, target, OnSkileHit);

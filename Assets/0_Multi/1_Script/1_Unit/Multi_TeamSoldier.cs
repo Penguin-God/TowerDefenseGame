@@ -49,12 +49,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     protected Animator animator;
     protected PhotonView pv;
     protected RPCable rpcable;
-    protected AudioSource unitAudioSource;
-    [SerializeField] protected AudioClip normalAttackClip;
     [SerializeField] protected EffectSoundType normalAttackSound;
     public float normalAttakc_AudioDelay;
 
-    public GameObject reinforceEffect;
     protected float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
 
     #region Events
@@ -88,7 +85,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         pv = GetComponent<PhotonView>();
         rpcable = GetComponent<RPCable>();
         animator = GetComponentInChildren<Animator>();
-        unitAudioSource = GetComponent<AudioSource>();
         nav = GetComponent<NavMeshAgent>();
 
         originObstacleType = nav.obstacleAvoidanceType;

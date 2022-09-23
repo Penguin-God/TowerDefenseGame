@@ -80,7 +80,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         magicLight.SetActive(false);
         nav.isStopped = false;
 
-        EndAttack();
+        base.EndAttack();
     }
 
     [SerializeField] float mageSkillCoolDownTime;
@@ -92,7 +92,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         {
             MageSkile();
         }
-        //PlaySkileAudioClip();
+        
         PlaySkillSound();
         SkillCoolDown(mageSkillCoolDownTime);
     }

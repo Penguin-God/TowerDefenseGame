@@ -40,7 +40,8 @@ public class Multi_RedMage : Multi_Unit_Mage
 
     void HitMeteor(Multi_Enemy enemy)
     {
-        enemy.OnDamage(meteorDamage, isSkill:true);
+        SkillAttackToEnemy(enemy, meteorDamage);
+        //enemy.OnDamage(meteorDamage, isSkill:true);
         enemy.OnStun_RPC(100, meteorStunTime);
     }
 

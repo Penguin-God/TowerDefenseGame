@@ -9,6 +9,8 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     [SerializeField] ProjectileData arrawData;
     [SerializeField] int skillAttackTargetCount = 3;
     private GameObject trail;
+
+    [SerializeField] int _skillDamage;
     [SerializeField] int _useSkillPercent;
 
     protected override void OnAwake()
@@ -21,7 +23,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
 
     public override void SetSkillDamage()
     {
-        skillDamage = (int)(Damage * 1.2f);
+        _skillDamage = (int)(Damage * 1.2f);
     }
 
     [PunRPC]
@@ -46,7 +48,6 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     }
 
     public override void SpecialAttack() => StartCoroutine(Special_ArcherAttack());
-
     IEnumerator Special_ArcherAttack()
     {
         base.SpecialAttack();
@@ -59,7 +60,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
                 Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target, rpcable.UsingId);
             int length = targetArray == null ? 0 : targetArray.Length;
             for (int i = 0; i < length; i++)
-                ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[i], OnSkileHit);
+                ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[i], OnSkillHit);
         }
 
         yield return new WaitForSeconds(1f);
@@ -68,4 +69,5 @@ public class Multi_Unit_Archer : Multi_RangeUnit
 
         SkillCoolDown(skillCoolDownTime);
     }
+    void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, _skillDamage);
 }

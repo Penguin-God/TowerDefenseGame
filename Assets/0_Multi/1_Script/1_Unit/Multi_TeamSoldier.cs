@@ -22,13 +22,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     public int Damage { get => stat.Damage; set { stat.SetDamage(value); SetSkillDamage(); } }
     public int BossDamage { get => stat.BossDamage; set { stat.SetBossDamage(value); SetSkillDamage(); } }
-    public int UseSkillPercent { get => stat.UseSkillPercent; set => stat.SetUseSkillPercent(value); }
     public float Speed { get => stat.Speed; set => stat.SetSpeed(value); }
     public float AttackDelayTime { get => stat.AttackDelayTime; set => stat.SetAttDelayTime(value); }
     public float AttackRange { get => stat.AttackRange; set => stat.SetAttackRange(value); }
 
 
-    protected int skillDamage;
     [SerializeField] protected float stopDistanc;
 
     protected bool enterStoryWorld;
@@ -56,7 +54,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     #region Events
     protected Action<Multi_Enemy> OnHit;
-    protected Action<Multi_Enemy> OnSkileHit;
     public Action<Multi_Enemy> OnPassiveHit;
 
     public event Action<Multi_TeamSoldier> OnDead;
@@ -76,9 +73,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         _unitFlags = new UnitFlags(unitColor, unitClass);
         // 평타 설정
         OnHit += AttackEnemy;
-
-        // 스킬 설정
-        OnSkileHit += enemy => AttackEnemy(enemy, skillDamage, isSkill: true);
 
         // 변수 선언
         passive = GetComponent<Multi_UnitPassive>();
@@ -146,7 +140,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         if (OnPassiveHit != null)
         {
             OnHit -= OnPassiveHit;
-            OnSkileHit -= OnPassiveHit;
             OnPassiveHit = null;
         }
 
@@ -154,10 +147,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         passive.SetPassive(this);
 
         if (OnPassiveHit != null)
-        {
             OnHit += OnPassiveHit;
-            OnSkileHit += OnPassiveHit;
-        }
     }
 
     public void Dead()
@@ -434,6 +424,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     void AttackEnemy(Multi_Enemy enemy, int damage, bool isSkill = false) => enemy.OnDamage(damage, isSkill);
     #endregion
+
+    protected void SkillAttackToEnemy(Multi_Enemy enemy, int damage)
+    {
+        enemy.OnDamage(damage, isSkill: true);
+        OnPassiveHit?.Invoke(enemy);
+    }
 
     protected void AfterPlaySound(EffectSoundType type, float delayTime) => StartCoroutine(Co_AfterPlaySound(type, delayTime));
 

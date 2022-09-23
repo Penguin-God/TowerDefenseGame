@@ -11,6 +11,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     [SerializeField] GameObject trail;
     [SerializeField] GameObject spear; // 평타칠 때 쓰는 창
 
+    [SerializeField] int _skillDamage;
     [SerializeField] int _useSkillPercent;
 
     protected override void OnAwake()
@@ -22,8 +23,9 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
     public override void SetSkillDamage()
     {
-        skillDamage = (int)(Damage * 1.5f);
+        _skillDamage = (int)(Damage * 1.5f);
     }
+
     [PunRPC]
     protected override void Attack() => new UnitRandomSkillSystem().Attack(NormalAttack, SpecialAttack, _useSkillPercent);
     public override void NormalAttack() => StartCoroutine("SpaerAttack");
@@ -42,6 +44,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         EndAttack();
     }
 
+    void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, _skillDamage);
 
     public override void SpecialAttack() => StartCoroutine("Spearman_SpecialAttack");
     IEnumerator Spearman_SpecialAttack()
@@ -55,7 +58,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
         if (PhotonNetwork.IsMasterClient)
         {
-            Multi_Projectile weapon = ProjectileShotDelegate.ShotProjectile(shotSpearData, transform.forward, OnSkileHit);
+            Multi_Projectile weapon = ProjectileShotDelegate.ShotProjectile(shotSpearData, transform.forward, OnSkillHit);
             weapon.GetComponent<RPCable>().SetRotate_RPC(new Vector3(90, 0, 0));
         }
 

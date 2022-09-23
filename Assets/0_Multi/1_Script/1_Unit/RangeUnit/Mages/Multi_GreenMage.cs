@@ -5,14 +5,16 @@ using System;
 
 public class Multi_GreenMage : Multi_Unit_Mage
 {
+    [SerializeField] int bounceBallDamage;
     protected override void OnAwake()
     {
         base.OnAwake();
         AttackRange *= 2;
-        skillDamage = (int)base.skillStats[0];
+        bounceBallDamage = (int)base.skillStats[0];
     }
 
-    void ShootSkill() => ProjectileShotDelegate.ShotProjectile(skillData, target, OnSkileHit);
+    void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, bounceBallDamage);
+    void ShootSkill() => ProjectileShotDelegate.ShotProjectile(skillData, target, OnSkillHit);
 
     protected override void MageSkile()
     {

@@ -119,6 +119,7 @@ public class RPCAction<T, T2> : IEventClear
             (_eventId, new object[] { value, value2 }, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, SendOptions.SendUnreliable);
     }
 
+    public void RaiseEventToOther(int id, T value, T2 value2) => RaiseEvent((id == 0) ? 1 : 0, value, value2);
     public void RaiseEventToOther(T value, T2 value2) => RaiseEvent(value, value2, ReceiverGroup.Others);
     public void RaiseAll(T value, T2 value2) => RaiseEvent(value, value2, ReceiverGroup.All);
     void RaiseEvent(T value, T2 value2, ReceiverGroup receiverGroup)

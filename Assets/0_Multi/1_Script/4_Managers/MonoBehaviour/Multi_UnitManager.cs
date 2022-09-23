@@ -40,6 +40,8 @@ public class Multi_UnitManager : MonoBehaviourPun
         _count.OnUnitFlagCountChanged += Rasie_OnUnitFlagCountChanged;
 
         _enemyPlayer.Init(_master);
+        _enemyPlayer.OnOtherUnitCountChanged += RaiseOnOtherUnitCountChaned;
+
         _passive.Init();
 
         _combine.Init(_count, _controller);
@@ -63,6 +65,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     public int EnemyPlayerHasCount => _enemyPlayer.EnemyPlayerHasUnitAllCount;
     public bool HasUnit(UnitFlags flag, int needCount = 1) => _count.HasUnit(flag, needCount);
 
+
     // events
     public event Action<int> OnUnitCountChanged = null;
     void Rasie_OnUnitCountChanged(int count) => OnUnitCountChanged?.Invoke(count);
@@ -73,13 +76,11 @@ public class Multi_UnitManager : MonoBehaviourPun
     public event Action<bool, UnitFlags> OnTryCombine = null;
     void RaiseOnTryCombine(bool isSuccess, UnitFlags flag) => OnTryCombine?.Invoke(isSuccess, flag);
 
-    public Action<UnitFlags, bool> OnUnitFlagChanged;
+    public event Action<UnitFlags, bool> OnUnitFlagChanged;
     void RaiseOnUnitFlagChanged(UnitFlags flag, bool isIncrease) => OnUnitFlagChanged?.Invoke(flag, isIncrease);
 
-    // TODO : 이새끼 어떻게든 하기
-    public event Action OnUnitCountChangedWhitId = null;
-    void UnitCountChanged_RPC() => photonView.RPC("UnitCountChanged", RpcTarget.All);
-    [PunRPC] void UnitCountChanged() => OnUnitCountChangedWhitId?.Invoke();
+    public event Action<int> OnOtherUnitCountChanged;
+    void RaiseOnOtherUnitCountChaned(int count) => OnOtherUnitCountChanged?.Invoke(count);
 
 
     // RPC Funtions
@@ -107,11 +108,11 @@ public class Multi_UnitManager : MonoBehaviourPun
     // Components
     class MasterDataManager
     {
-        // TODO : RPC All로 쏠 건 All로 쏘기
-        public RPCAction<UnitFlags, int> OnUnitCountChanged = new RPCAction<UnitFlags, int>();
         public RPCAction<int> OnAllUnitCountChanged = new RPCAction<int>();
-        public RPCAction<bool, UnitClass> OnUnitClassCountChanged = new RPCAction<bool, UnitClass>();
+        public RPCAction<UnitFlags, int> OnUnitCountChanged = new RPCAction<UnitFlags, int>();
         public RPCAction<UnitFlags, bool> OnUnitFlagChanged = new RPCAction<UnitFlags, bool>();
+
+        public RPCAction<UnitFlags, bool> OnUnitFlagChangedToOther = new RPCAction<UnitFlags, bool>();
 
         RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>> _unitListByFlag = new RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
         RPCData<List<Multi_TeamSoldier>> _currentAllUnitsById = new RPCData<List<Multi_TeamSoldier>>();
@@ -155,7 +156,6 @@ public class Multi_UnitManager : MonoBehaviourPun
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Add(unit);
             _currentAllUnitsById.Get(id).Add(unit);
-            OnUnitFlagChanged?.RaiseEventToOther(unit.UnitFlags, true);
             RaiseEvents(unit, true);
         }
 
@@ -164,7 +164,6 @@ public class Multi_UnitManager : MonoBehaviourPun
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Remove(unit);
             _currentAllUnitsById.Get(id).Remove(unit);
-            OnUnitFlagChanged?.RaiseEventToOther(unit.UnitFlags, false);
             RaiseEvents(unit, false);
         }
 
@@ -173,38 +172,40 @@ public class Multi_UnitManager : MonoBehaviourPun
             int id = unit.GetComponent<RPCable>().UsingId;
             OnUnitCountChanged?.RaiseEvent(id, unit.UnitFlags, GetUnitList(unit).Count);
             OnAllUnitCountChanged?.RaiseEvent(id, _currentAllUnitsById.Get(id).Count);
+            OnUnitFlagChanged?.RaiseEvent(id, unit.UnitFlags, isAdd);
 
-            // 적 데이터도 알아야 되니까 반대로도 한 번 쏴줌 (이러거면 그냥 이벤트 하지?)
-            OnUnitClassCountChanged?.RaiseEvent((id == 0) ? 1 : 0, isAdd, unit.unitClass);
-            Instance.UnitCountChanged_RPC();
+            OnUnitFlagChangedToOther?.RaiseEventToOther(id, unit.UnitFlags, isAdd);
         }
     }
 
     class EnemyPlayerDataManager
     {
+        public event Action<int> OnOtherUnitCountChanged;
         public Dictionary<UnitClass, int> _countByUnitClass = new Dictionary<UnitClass, int>();
-        public int EnemyPlayerHasUnitAllCount;
+        public int EnemyPlayerHasUnitAllCount { get; private set; }
 
         public void Init(MasterDataManager masterData)
         {
             foreach (UnitClass _class in Enum.GetValues(typeof(UnitClass)))
                 _countByUnitClass.Add(_class, 0);
 
-            masterData.OnUnitClassCountChanged += SetCount;
+            masterData.OnUnitFlagChangedToOther += SetCount;
         }
 
-        void SetCount(bool isAdd, UnitClass unitClass)
+        void SetCount(UnitFlags flag, bool isIncreased)
         {
-            if(isAdd)
-                _countByUnitClass[unitClass]++;
+            if (isIncreased)
+            {
+                _countByUnitClass[flag.UnitClass]++;
+                EnemyPlayerHasUnitAllCount++;
+            }
             else
-                _countByUnitClass[unitClass]--;
+            {
+                _countByUnitClass[flag.UnitClass]--;
+                EnemyPlayerHasUnitAllCount--;
+            }
 
-            // 리팩터링 존나 필요
-            int count = 0;
-            foreach (var item in _countByUnitClass)
-                count += item.Value;
-            EnemyPlayerHasUnitAllCount = count;
+            OnOtherUnitCountChanged?.Invoke(EnemyPlayerHasUnitAllCount);
         }
     }
 
@@ -289,12 +290,6 @@ public class Multi_UnitManager : MonoBehaviourPun
         public RPCAction<bool, UnitFlags> OnTryCombine = new RPCAction<bool, UnitFlags>();
         UnitCountManager _countManager;
         UnitContorller _unitContorller;
-        public void Init(UnitCountManager countManager, UnitContorller unitContorller, Action<bool, UnitFlags> combineEvent)
-        {
-            _countManager = countManager;
-            _unitContorller = unitContorller;
-            OnTryCombine += combineEvent;
-        }
 
         public void Init(UnitCountManager countManager, UnitContorller unitContorller)
         {

@@ -61,11 +61,11 @@ public class Status_UI : Multi_UI_Scene
 
         void BindUnitPanelEvent()
         {
-            Multi_UnitManager.Instance.OnUnitCountChangedWhitId -= UpdateUnitText;
+            Multi_UnitManager.Instance.OnOtherUnitCountChanged -= UpdateOtherUnitText;
             Multi_Managers.Camera.OnLookMyWolrd -= () => UpdateUnitText(Multi_UnitManager.Instance.CurrentUnitCount);
             Multi_Managers.Camera.OnLookEnemyWorld -= () => UpdateUnitText(Multi_UnitManager.Instance.EnemyPlayerHasCount);
 
-            Multi_UnitManager.Instance.OnUnitCountChangedWhitId += UpdateUnitText;
+            Multi_UnitManager.Instance.OnOtherUnitCountChanged += UpdateOtherUnitText;
             Multi_Managers.Camera.OnLookMyWolrd += () => UpdateUnitText(Multi_UnitManager.Instance.CurrentUnitCount);
             Multi_Managers.Camera.OnLookEnemyWorld += () => UpdateUnitText(Multi_UnitManager.Instance.EnemyPlayerHasCount);
         }
@@ -84,15 +84,10 @@ public class Status_UI : Multi_UI_Scene
 
     void UpdateUnitText(int count) => GetText((int)Texts.CurrentUnitText).text = $"최대 유닛 갯수 {count}/{Multi_GameManager.instance.MaxUnitCount}";
 
-    void UpdateUnitText()
+    void UpdateOtherUnitText(int count)
     {
-        int count;
-        if (Multi_Managers.Camera.LookWorld_Id == Multi_Data.instance.Id)
-            count = Multi_UnitManager.Instance.CurrentUnitCount;
-        else
-            count = Multi_UnitManager.Instance.EnemyPlayerHasCount;
-
-        UpdateUnitText(count);
+        if (Multi_Managers.Camera.LookWorld_Id != Multi_Data.instance.Id)
+            UpdateUnitText(count);
     }
 
     Color originColor = new Color(1, 1, 1, 1);

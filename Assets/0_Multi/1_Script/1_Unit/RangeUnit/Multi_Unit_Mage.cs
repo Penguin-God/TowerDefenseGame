@@ -17,7 +17,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     [SerializeField] protected Transform energyBallTransform;
     [SerializeField] protected GameObject mageSkillObject = null;
 
-    ManaSystem manaSystem;
+    protected ManaSystem manaSystem;
     protected override void OnAwake()
     {
         LoadMageStat();
@@ -57,9 +57,6 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         else StartCoroutine("MageAttack");
     }
 
-    // TODO : ManaSystem에 마나 잠그는 기능 추가한 후 삭제하기
-    [SerializeField] int plusMana = 30;
-    public int PlusMana { get { return plusMana; } set { plusMana = value; }  }
     protected IEnumerator MageAttack()
     {
         base.StartAttack();

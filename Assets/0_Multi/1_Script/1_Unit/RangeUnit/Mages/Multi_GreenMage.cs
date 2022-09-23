@@ -33,12 +33,10 @@ public class Multi_GreenMage : Multi_Unit_Mage
         nav.isStopped = false;
     }
 
-    IEnumerator Co_FixMana()
+    IEnumerator Co_FixMana() // 공 튕기는 동안에는 마나 충전 못하게 하기
     {
-        // 공 튕기는 동안에는 마나 충전 못하게 하기
-        int savePlusMana = PlusMana;
-        PlusMana = 0;
+        base.manaSystem.LockMana();
         yield return new WaitForSeconds(skillCoolDownTime); // skillCoolDownTime을 마나 제한 시간으로 사용
-        PlusMana = savePlusMana;
+        base.manaSystem.ReleaseMana();
     }
 }

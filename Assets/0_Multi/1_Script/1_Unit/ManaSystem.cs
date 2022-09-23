@@ -9,6 +9,11 @@ public class ManaSystem : MonoBehaviourPun
     [SerializeField] int _maxMana;
     [SerializeField] int _addMana;
     [SerializeField] int _currentMana;
+
+    [SerializeField] bool manaIsLock = false;
+    public void LockMana() => manaIsLock = true;
+    public void ReleaseMana() => manaIsLock = false;
+
     public bool IsManaFull => _currentMana >= _maxMana;
 
     private Slider manaSlider;
@@ -26,7 +31,12 @@ public class ManaSystem : MonoBehaviourPun
         StartCoroutine(Co_SetCanvas());
     }
 
-    public void AddMana_RPC() => photonView.RPC("AddMana", RpcTarget.All);
+    public void AddMana_RPC()
+    {
+        if (manaIsLock) return;
+        photonView.RPC("AddMana", RpcTarget.All);
+    }
+
     [PunRPC]
     void AddMana()
     {

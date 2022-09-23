@@ -35,14 +35,21 @@ public class Multi_UnitManager : MonoBehaviourPun
     {
         if (Multi_Managers.Scene.IsBattleScene == false) return;
 
-        _count.Init(_master, Rasie_OnUnitCountChanged, Rasie_OnUnitFlagCountChanged);
+        _count.Init(_master);
+        _count.OnUnitCountChanged += Rasie_OnUnitCountChanged;
+        _count.OnUnitFlagCountChanged += Rasie_OnUnitFlagCountChanged;
+
         _enemyPlayer.Init(_master);
         _passive.Init();
-        _combine.Init(_count, _controller, RaiseOnTryCombine);
+
+        _combine.Init(_count, _controller);
+        _combine.OnTryCombine += RaiseOnTryCombine;
 
         if (PhotonNetwork.IsMasterClient == false) return;
+
         _controller.Init(_master);
-        _master.Init(RaiseOnUnitFlagChanged);
+        _master.Init();
+        _master.OnUnitFlagChanged += RaiseOnUnitFlagChanged;
         _stat.Init(_master);
     }
 
@@ -111,7 +118,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         public List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flag) => _unitListByFlag.Get(id)[flag];
         public List<Multi_TeamSoldier> GetUnitList(int id) => _currentAllUnitsById.Get(id);
 
-        public void Init(Action<UnitFlags, bool> UnitFlagChangEvent)
+        public void Init()
         {
             foreach (var data in Multi_SpawnManagers.NormalUnit.AllUnitDatas)
             {
@@ -124,8 +131,6 @@ public class Multi_UnitManager : MonoBehaviourPun
 
             Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
             Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
-
-            OnUnitFlagChanged += UnitFlagChangEvent;
         }
 
         public bool TryGetUnit_If(int id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
@@ -250,7 +255,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         public event Action<int> OnUnitCountChanged = null;
         public event Action<UnitFlags, int> OnUnitFlagCountChanged = null;
 
-        public void Init(MasterDataManager masterData, Action<int> countEvent, Action<UnitFlags, int> flagCountEvent)
+        public void Init(MasterDataManager masterData)
         {
             foreach (var data in Multi_SpawnManagers.NormalUnit.AllUnitDatas)
             {
@@ -260,8 +265,6 @@ public class Multi_UnitManager : MonoBehaviourPun
 
             masterData.OnAllUnitCountChanged += Riase_OnUnitCountChanged;
             masterData.OnUnitCountChanged += Riase_OnUnitCountChanged;
-            OnUnitCountChanged += countEvent;
-            OnUnitFlagCountChanged += flagCountEvent;
         }
 
         void Riase_OnUnitCountChanged(int count)
@@ -289,6 +292,12 @@ public class Multi_UnitManager : MonoBehaviourPun
             _countManager = countManager;
             _unitContorller = unitContorller;
             OnTryCombine += combineEvent;
+        }
+
+        public void Init(UnitCountManager countManager, UnitContorller unitContorller)
+        {
+            _countManager = countManager;
+            _unitContorller = unitContorller;
         }
 
         public bool CheckCombineable(UnitFlags flag)

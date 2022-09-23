@@ -48,8 +48,10 @@ public class Multi_UnitManager : MonoBehaviourPun
         if (PhotonNetwork.IsMasterClient == false) return;
 
         _controller.Init(_master);
+
         _master.Init();
         _master.OnUnitFlagChanged += RaiseOnUnitFlagChanged;
+
         _stat.Init(_master);
     }
 
@@ -153,7 +155,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Add(unit);
             _currentAllUnitsById.Get(id).Add(unit);
-            OnUnitFlagChanged?.RaiseEvent(unit.UnitFlags, true);
+            OnUnitFlagChanged?.RaiseEventToOther(unit.UnitFlags, true);
             RaiseEvents(unit, true);
         }
 
@@ -162,7 +164,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Remove(unit);
             _currentAllUnitsById.Get(id).Remove(unit);
-            OnUnitFlagChanged?.RaiseEvent(unit.UnitFlags, false);
+            OnUnitFlagChanged?.RaiseEventToOther(unit.UnitFlags, false);
             RaiseEvents(unit, false);
         }
 

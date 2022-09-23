@@ -70,7 +70,10 @@ public class RPCAction<T> : IEventClear
         PhotonNetwork.RaiseEvent(_eventId, new object[] { value }, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, SendOptions.SendUnreliable);
     }
 
-    public void RaiseEvent(T value) => PhotonNetwork.RaiseEvent(_eventId, new object[] { value }, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, SendOptions.SendUnreliable);
+    public void RaiseEvent(T value) => RaiseEvent(value, ReceiverGroup.Others);
+    public void RaiseAll(T value) => RaiseEvent(value, ReceiverGroup.All);
+    void RaiseEvent(T value, ReceiverGroup receiverGroup) 
+        => PhotonNetwork.RaiseEvent(_eventId, new object[] { value }, new RaiseEventOptions() { Receivers = receiverGroup }, SendOptions.SendUnreliable);
 
     public static RPCAction<T> operator +(RPCAction<T> me, Action<T> action)
     {
@@ -116,8 +119,10 @@ public class RPCAction<T, T2> : IEventClear
             (_eventId, new object[] { value, value2 }, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, SendOptions.SendUnreliable);
     }
 
-    public void RaiseEvent(T value, T2 value2) 
-        => PhotonNetwork.RaiseEvent(_eventId, new object[] { value, value2 }, new RaiseEventOptions() { Receivers = ReceiverGroup.Others }, SendOptions.SendUnreliable);
+    public void RaiseEventToOther(T value, T2 value2) => RaiseEvent(value, value2, ReceiverGroup.Others);
+    public void RaiseAll(T value, T2 value2) => RaiseEvent(value, value2, ReceiverGroup.All);
+    void RaiseEvent(T value, T2 value2, ReceiverGroup receiverGroup)
+        => PhotonNetwork.RaiseEvent(_eventId, new object[] { value, value2 }, new RaiseEventOptions() { Receivers = receiverGroup }, SendOptions.SendUnreliable);
 
     public static RPCAction<T, T2> operator +(RPCAction<T, T2> me, Action<T, T2> action)
     {

@@ -167,6 +167,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         contactEnemy = false;
         enemyIsForward = false;
         enemyDistance = 1000f;
+        enterStoryWorld = false;
 
         if (animator != null)
             animator.enabled = false;

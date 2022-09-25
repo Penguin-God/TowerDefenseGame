@@ -172,7 +172,6 @@ GameObject:
   - component: {fileID: 421780124384370174}
   - component: {fileID: 421780123207165744}
   - component: {fileID: 2920540706766376438}
-  - component: {fileID: 843200948}
   - component: {fileID: -8162979948257466600}
   - component: {fileID: -7205522883378660782}
   m_Layer: 9
@@ -278,39 +277,21 @@ MonoBehaviour:
       _classNumber: 0
     _damage: 0
     _bossDamage: 0
-    _useSkillPercent: 0
     _attackDelayTime: 0
     _speed: 0
     _attackRange: 0
-  skillDamage: 0
   stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
   isSkillAttack: 0
   skillCoolDownTime: 0
   target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 819330f33b9ea014f990dd335112905e, type: 3}
   normalAttackSound: 22
   normalAttakc_AudioDelay: 0.7
-  reinforceEffect: {fileID: 0}
   isMoveLock: 0
   enemyDistance: 0
-  enemyIsForward: 0
   rayHitTransform: {fileID: 0}
   trail: {fileID: 8416693383700321331}
---- !u!114 &843200948
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8416693383471264509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 962ec30f2099e6d4d9eaec22ed2165aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_DownDelayWeigh: 0
 --- !u!114 &-8162979948257466600
 MonoBehaviour:
   m_ObjectHideFlags: 0

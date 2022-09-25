@@ -5,15 +5,16 @@ using Photon.Pun;
 
 public class Multi_RedMage : Multi_Unit_Mage
 {
-    Multi_RedPassive redPassive = null;
     [SerializeField] int meteorDamage;
     [SerializeField] float meteorStunTime;
 
     public override void SetMageAwake()
     {
-        redPassive = GetComponent<Multi_RedPassive>();
         meteorDamage = (int)skillStats[0];
         meteorStunTime = skillStats[1];
+
+        GetComponentInChildren<SphereCollider>().radius = skillStats[2];
+        attackdelayRate = skillStats[3];
     }
 
     [SerializeField] Vector3 meteorPos = (Vector3.up * 30) + (Vector3.forward * 5);
@@ -41,23 +42,23 @@ public class Multi_RedMage : Multi_Unit_Mage
     void HitMeteor(Multi_Enemy enemy)
     {
         SkillAttackToEnemy(enemy, meteorDamage);
-        //enemy.OnDamage(meteorDamage, isSkill:true);
         enemy.OnStun_RPC(100, meteorStunTime);
     }
 
-    // 패시브
+    // TODO : 패시브 컴포넌트로 빼기
+    [SerializeField] float attackdelayRate;
+
     // 최적화 때문에 Raycasting으로 바꾸기? : 효과 확실하면
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponentInParent<Multi_TeamSoldier>() != null)
-            Change_Unit_AttackCollDown(other.GetComponentInParent<Multi_TeamSoldier>(), redPassive.Get_DownDelayWeigh);
+            Change_Unit_AttackCollDown(other.GetComponentInParent<Multi_TeamSoldier>(), attackdelayRate);
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerExit(Collider other) // redPassive.get_DownDelayWeigh 의 역수 곱해서 공속 되돌림
     {
-        // redPassive.get_DownDelayWeigh 의 역수 곱해서 공속 되돌림
         if (other.GetComponentInParent<Multi_TeamSoldier>() != null) 
-            Change_Unit_AttackCollDown(other.GetComponentInParent<Multi_TeamSoldier>(), (1 / redPassive.Get_DownDelayWeigh));
+            Change_Unit_AttackCollDown(other.GetComponentInParent<Multi_TeamSoldier>(), (1 / attackdelayRate));
     }
 
     void Change_Unit_AttackCollDown(Multi_TeamSoldier _unit, float rate)

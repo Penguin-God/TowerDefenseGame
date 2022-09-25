@@ -545,7 +545,6 @@ GameObject:
   - component: {fileID: 2046491912695592402}
   - component: {fileID: 3686507693581357682}
   - component: {fileID: 1354689876}
-  - component: {fileID: 773194373}
   - component: {fileID: -4000719447876258652}
   - component: {fileID: -5859352270991876608}
   m_Layer: 9
@@ -651,24 +650,19 @@ MonoBehaviour:
       _classNumber: 0
     _damage: 0
     _bossDamage: 0
-    _useSkillPercent: 0
     _attackDelayTime: 0
     _speed: 0
     _attackRange: 0
-  skillDamage: 0
   stopDistanc: 3
   isAttack: 0
   isAttackDelayTime: 0
   isSkillAttack: 0
   skillCoolDownTime: 0.4
   target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0.55
-  reinforceEffect: {fileID: 0}
   isMoveLock: 0
   enemyDistance: 0
-  enemyIsForward: 0
   rayHitTransform: {fileID: 0}
   shotSpearData:
     weaponPath: 
@@ -676,20 +670,8 @@ MonoBehaviour:
     spawnTransform: {fileID: 6545951238342133010}
   trail: {fileID: 3353236591455031401}
   spear: {fileID: 3977966170949877692}
-  skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
---- !u!114 &773194373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8571527809299574140}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 962ec30f2099e6d4d9eaec22ed2165aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_DownDelayWeigh: 0
+  _skillDamage: 0
+  _useSkillPercent: 0
 --- !u!114 &-4000719447876258652
 MonoBehaviour:
   m_ObjectHideFlags: 0

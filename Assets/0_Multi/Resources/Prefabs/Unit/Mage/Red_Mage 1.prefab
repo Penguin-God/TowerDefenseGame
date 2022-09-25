@@ -330,7 +330,6 @@ GameObject:
   - component: {fileID: 7735766840414641309}
   - component: {fileID: 7735766841510664579}
   - component: {fileID: 7735766840042786111}
-  - component: {fileID: 390086571}
   - component: {fileID: 3908337195276483986}
   - component: {fileID: 5735482920275350009}
   - component: {fileID: 1814284616158116471}
@@ -515,19 +514,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &390086571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6109000016361938841}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 962ec30f2099e6d4d9eaec22ed2165aa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_DownDelayWeigh: 0
 --- !u!114 &3908337195276483986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -548,24 +534,19 @@ MonoBehaviour:
       _classNumber: 0
     _damage: 0
     _bossDamage: 0
-    _useSkillPercent: 0
     _attackDelayTime: 0
     _speed: 0
     _attackRange: 0
-  skillDamage: 0
   stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
   isSkillAttack: 0
   skillCoolDownTime: 0
   target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0.7
-  reinforceEffect: {fileID: 0}
   isMoveLock: 0
   enemyDistance: 0
-  enemyIsForward: 0
   rayHitTransform: {fileID: 0}
   mageStat:
     _flag:
@@ -586,10 +567,7 @@ MonoBehaviour:
   energyBallTransform: {fileID: 4841617211874935120}
   mageSkillObject: {fileID: 767403622873436515, guid: 6f18a0f9e7422194fbef769d115ca77d,
     type: 3}
-  plusMana: 30
   mageSkillCoolDownTime: 2.5
-  isUltimate: 0
-  mageSkillCilp: {fileID: 8300000, guid: e6f235e1a0f4c504bbb5a76c786d86b6, type: 3}
   meteorDamage: 0
   meteorStunTime: 0
   meteorPos: {x: 0, y: 30, z: -5}
@@ -635,6 +613,7 @@ MonoBehaviour:
   _maxMana: 0
   _addMana: 0
   _currentMana: 0
+  manaIsLock: 0
 --- !u!1 &7735766840144101574
 GameObject:
   m_ObjectHideFlags: 0

@@ -209,7 +209,6 @@ GameObject:
   - component: {fileID: 7275915582185247237}
   - component: {fileID: 7275915583076130961}
   - component: {fileID: 7275915581551054840}
-  - component: {fileID: 1515424040}
   - component: {fileID: 1607135977233665466}
   - component: {fileID: 5734083610469489287}
   - component: {fileID: 1722587431004367479}
@@ -395,19 +394,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1515424040
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5512811997297203018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbda504c54e2ef146886435983a7e99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_UpBossDamageWeigh: 0
 --- !u!114 &1607135977233665466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -428,24 +414,19 @@ MonoBehaviour:
       _classNumber: 0
     _damage: 0
     _bossDamage: 0
-    _useSkillPercent: 0
     _attackDelayTime: 0
     _speed: 0
     _attackRange: 0
-  skillDamage: 0
   stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
   isSkillAttack: 0
   skillCoolDownTime: 0
   target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0.7
-  reinforceEffect: {fileID: 9179270324169542177}
   isMoveLock: 0
   enemyDistance: 0
-  enemyIsForward: 0
   rayHitTransform: {fileID: 0}
   mageStat:
     _flag:
@@ -466,10 +447,7 @@ MonoBehaviour:
   energyBallTransform: {fileID: 6590480786666523011}
   mageSkillObject: {fileID: 6070129563677219890, guid: f894d2491a0cb5f4d8c47c6ab4a2f98e,
     type: 3}
-  plusMana: 30
   mageSkillCoolDownTime: 1
-  isUltimate: 0
-  mageSkillCilp: {fileID: 8300000, guid: ce839c0dc1d6135468aa253fab1834b5, type: 3}
   count: 0
   percent: 0
 --- !u!114 &5734083610469489287
@@ -514,6 +492,7 @@ MonoBehaviour:
   _maxMana: 0
   _addMana: 0
   _currentMana: 0
+  manaIsLock: 0
 --- !u!1 &6590480786666523012
 GameObject:
   m_ObjectHideFlags: 0
@@ -1076,12 +1055,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad67fdf4f836b94449b5c91d26dad8ad, type: 3}
---- !u!1 &9179270324169542177 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1989024323926797045, guid: ad67fdf4f836b94449b5c91d26dad8ad,
-    type: 3}
-  m_PrefabInstance: {fileID: 7275915582727102676}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &9181631859414956849 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1986803405963385829, guid: ad67fdf4f836b94449b5c91d26dad8ad,

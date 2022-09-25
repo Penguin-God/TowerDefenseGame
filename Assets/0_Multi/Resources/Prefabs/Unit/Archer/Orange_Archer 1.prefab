@@ -348,7 +348,6 @@ GameObject:
   - component: {fileID: 7087850675863320794}
   - component: {fileID: 7087850675220805460}
   - component: {fileID: 974208759}
-  - component: {fileID: 1632726078}
   - component: {fileID: 314425915500972113}
   - component: {fileID: -4993667847143164126}
   m_Layer: 9
@@ -454,43 +453,27 @@ MonoBehaviour:
       _classNumber: 0
     _damage: 0
     _bossDamage: 0
-    _useSkillPercent: 0
     _attackDelayTime: 0
     _speed: 0
     _attackRange: 0
-  skillDamage: 0
   stopDistanc: 5
   isAttack: 0
   isAttackDelayTime: 0
   isSkillAttack: 0
   skillCoolDownTime: 0.5
   target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 6d9fd95ba9e9dd34391d716574fd4873, type: 3}
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0
-  reinforceEffect: {fileID: 0}
   isMoveLock: 0
   enemyDistance: 0
-  enemyIsForward: 0
   rayHitTransform: {fileID: 0}
   arrawData:
     weaponPath: 
     attacker: {fileID: 3674467573017247209}
     spawnTransform: {fileID: 3674467573677695866}
   skillAttackTargetCount: 3
---- !u!114 &1632726078
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3674467573017247206}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fbda504c54e2ef146886435983a7e99e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_UpBossDamageWeigh: 0
+  _skillDamage: 0
+  _useSkillPercent: 0
 --- !u!114 &314425915500972113
 MonoBehaviour:
   m_ObjectHideFlags: 0

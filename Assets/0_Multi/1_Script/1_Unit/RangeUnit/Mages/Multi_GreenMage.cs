@@ -9,7 +9,6 @@ public class Multi_GreenMage : Multi_Unit_Mage
     protected override void OnAwake()
     {
         base.OnAwake();
-        AttackRange *= 2;
         bounceBallDamage = (int)base.skillStats[0];
     }
 

@@ -24,7 +24,7 @@ public class CameraManager
     public event Action OnLookMyWolrd;
     public event Action OnLookEnemyWorld;
 
-    public void Init()
+    public void EnterBattleScene()
     {
         positions = new Vector3[2, 2]
         {
@@ -32,6 +32,7 @@ public class CameraManager
             {new Vector3(0, 100, 438), new Vector3(500, 100, 438) },
         };
 
+        _isLookEnemyTower = false;
         currentCamera = Camera.main;
         _lookWorld_Id = Multi_Data.instance.Id;
         UpdateCameraPosition();
@@ -70,5 +71,7 @@ public class CameraManager
         OnIsLookMyWolrd = null;
 
         currentCamera = null;
+        _isLookEnemyTower = false;
+        _lookWorld_Id = -1;
     }
 }

@@ -17,7 +17,7 @@ public class BattleScene : BaseScene
 
         Multi_SpawnManagers.Instance.Init();
         Multi_Managers.Skill.Init();
-        Multi_Managers.Camera.Init();
+        Multi_Managers.Camera.EnterBattleScene();
         Init_UI();
 
         if (PhotonNetwork.IsMasterClient == false) return;

@@ -61,10 +61,14 @@ public class Status_UI : Multi_UI_Scene
 
         void BindUnitPanelEvent()
         {
+            // 빼기
+            Multi_UnitManager.Instance.OnUnitCountChanged -= UpdateUnitText;
             Multi_UnitManager.Instance.OnOtherUnitCountChanged -= UpdateOtherUnitText;
             Multi_Managers.Camera.OnLookMyWolrd -= () => UpdateUnitText(Multi_UnitManager.Instance.CurrentUnitCount);
             Multi_Managers.Camera.OnLookEnemyWorld -= () => UpdateUnitText(Multi_UnitManager.Instance.EnemyPlayerHasCount);
 
+            // 더하기
+            Multi_UnitManager.Instance.OnUnitCountChanged += UpdateUnitText;
             Multi_UnitManager.Instance.OnOtherUnitCountChanged += UpdateOtherUnitText;
             Multi_Managers.Camera.OnLookMyWolrd += () => UpdateUnitText(Multi_UnitManager.Instance.CurrentUnitCount);
             Multi_Managers.Camera.OnLookEnemyWorld += () => UpdateUnitText(Multi_UnitManager.Instance.EnemyPlayerHasCount);

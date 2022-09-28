@@ -6,9 +6,6 @@ public class Multi_SwordmanEnemy : Multi_NormalEnemy
 {
     protected override void Passive()
     {
-        maxHp = (int)(maxHp * 1.5);
-        currentHp = maxHp;
-        hpSlider.maxValue = maxHp;
-        hpSlider.value = maxHp;
+        ChangeMaxHp((int)(maxHp * 1.5));
     }
 }

@@ -15,38 +15,54 @@ public enum EnemyType
 public class Multi_Enemy : MonoBehaviourPun
 {
     // 상태 변수
-    public int maxHp = 0;
+    [SerializeField] protected int maxHp = 0;
+    protected void ChangeMaxHp(int newMaxHp)
+    {
+        maxHp = newMaxHp;
+        hpSlider.maxValue = newMaxHp;
+        ChangeHp(newMaxHp); // maxHp 갱신되면 currentHp도 같이 풀로 채워짐
+    }
     public int currentHp = 0;
+    void ChangeHp(int newHp)
+    {
+        if (newHp > maxHp) newHp = maxHp;
+        currentHp = newHp;
+        hpSlider.value = newHp;
+    }
 
-    public float maxSpeed = 0;
-    public float speed = 0;
+    [SerializeField] protected float maxSpeed = 0;
+    protected void ChangeMaxSpeed(float newMaxSpeed)
+    {
+        maxSpeed = newMaxSpeed;
+        ChangeSpeed(maxSpeed);
+    }
+    [SerializeField] protected float speed = 0;
+    public float Speed => speed;
+    protected virtual void ChangeSpeed(float newSpeed)
+    {
+        if (newSpeed > maxSpeed) newSpeed = maxSpeed;
+        speed = newSpeed;
+    }
     
-    public bool isDead = true;
+
+    bool isDead = true;
+    public bool IsDead => isDead;
     public Slider hpSlider = null;
     public EnemyType enemyType;
 
     public Vector3 dir = Vector3.zero;
 
-    public RPCable rpcable;
+    RPCable rpcable;
+    public int UsingId => rpcable.UsingId;
+    PhotonView _PV;
     protected List<MeshRenderer> meshList;
     [SerializeField] protected Material originMat;
-
-    PhotonView _PV;
-    public PhotonView PV
-    {
-        get
-        {
-            if (_PV == null) return photonView;
-            else return _PV;
-        }
-    }
 
     public event Action OnDeath = null;
 
     private void Awake()
     {
         rpcable = GetComponent<RPCable>();
-        // originMat = GetComponentInChildren<MeshRenderer>().material;
         _PV = GetComponent<PhotonView>();
         meshList = new List<MeshRenderer>();
         MeshRenderer[] addMeshs = GetComponentsInChildren<MeshRenderer>();
@@ -54,22 +70,15 @@ public class Multi_Enemy : MonoBehaviourPun
         Init();
     }
 
-    protected virtual void Init()
-    {
+    protected virtual void Init() { }
 
-    }
-
-    public void SetStatus_RPC(int _hp, float _speed, bool _isDead) => PV.RPC("SetStatus", RpcTarget.All, _hp, _speed, _isDead);
+    public void SetStatus_RPC(int _hp, float _speed, bool _isDead) => photonView.RPC("SetStatus", RpcTarget.All, _hp, _speed, _isDead);
 
     [PunRPC]
     protected virtual void SetStatus(int _hp, float _speed, bool _isDead)
     {
-        maxHp = _hp;
-        currentHp = _hp;
-        hpSlider.maxValue = _hp;
-        hpSlider.value = _hp;
-        maxSpeed = _speed;
-        speed = _speed;
+        ChangeMaxHp(_hp);
+        ChangeMaxSpeed(_speed);
         isDead = _isDead;
         gameObject.SetActive(!_isDead);
     }
@@ -80,9 +89,7 @@ public class Multi_Enemy : MonoBehaviourPun
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            currentHp -= damage;
-            hpSlider.value = currentHp;
-
+            ChangeHp(currentHp - damage);
             photonView.RPC("RPC_UpdateHealth", RpcTarget.Others, currentHp);
 
             // 게스트에서 조건문 밖의 Dead부분을 실행시키게 하기 위한 코드
@@ -94,11 +101,7 @@ public class Multi_Enemy : MonoBehaviourPun
     }
 
     [PunRPC]
-    public void RPC_UpdateHealth(int _newHp)
-    {
-        currentHp = _newHp;
-        hpSlider.value = currentHp;
-    }
+    protected void RPC_UpdateHealth(int _newHp) => ChangeHp(_newHp);
 
     public virtual void Dead()
     {

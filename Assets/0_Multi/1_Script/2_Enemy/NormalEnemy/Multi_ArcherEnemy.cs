@@ -7,7 +7,7 @@ public class Multi_ArcherEnemy : Multi_NormalEnemy
 {
     protected override void Passive()
     {
-        speed *= 1.5f;
+        ChangeMaxSpeed(maxSpeed * 1.5f);
     }
 
     [PunRPC]

@@ -16,7 +16,7 @@ public class Multi_Meteor : Multi_Projectile
 
     public void Shot(Multi_Enemy enemy, Vector3 enemyPos, Action<Multi_Enemy> hitAction)
     {
-        Vector3 chasePos = enemyPos + ( (enemy != null) ? enemy.dir.normalized * enemy.speed : Vector3.zero);
+        Vector3 chasePos = enemyPos + ( (enemy != null) ? enemy.dir.normalized * enemy.Speed : Vector3.zero);
         Shot((chasePos - transform.position).normalized, null);
         explosionAction = hitAction;
     }

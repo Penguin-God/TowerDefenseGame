@@ -140,7 +140,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     void GetBossReward(Multi_BossEnemy enemy)
     {
-        if(enemy.rpcable.UsingId == Multi_Data.instance.Id)
+        if(enemy.UsingId == Multi_Data.instance.Id)
             GetReward(enemy.BossData);
         else
             photonView.RPC("GetBossReward", RpcTarget.Others, enemy.BossData.Gold, enemy.BossData.Food);
@@ -148,7 +148,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     void GetTowerReward(Multi_EnemyTower enemy)
     {
-        if (enemy.rpcable.UsingId == Multi_Data.instance.Id)
+        if (enemy.UsingId == Multi_Data.instance.Id)
             GetReward(enemy.TowerData);
         else
             photonView.RPC("GetBossReward", RpcTarget.Others, enemy.TowerData.Gold, enemy.TowerData.Food);

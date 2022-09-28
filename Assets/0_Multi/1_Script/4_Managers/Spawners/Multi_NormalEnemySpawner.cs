@@ -49,8 +49,8 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     {
         if (enemy.resurrection.IsResurrection) return;
 
-        int id = enemy.rpcable.UsingId == 0 ? 1 : 0;
-        if(enemy.rpcable.UsingId == Multi_Data.instance.Id)
+        int id = enemy.UsingId == 0 ? 1 : 0;
+        if(enemy.UsingId == Multi_Data.instance.Id)
             EenmySpawnToOtherWorld(enemyNum, id, enemy.resurrection.SpawnStage);
         else
             pv.RPC("EenmySpawnToOtherWorld", RpcTarget.Others, otherEnemySpawnNumber, id, enemy.resurrection.SpawnStage);

@@ -101,7 +101,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
         Transform _returnEnemy = null;
         foreach (Transform _enemy in _enemys)
         {
-            if (_enemy != null && !_enemy.GetComponent<Multi_Enemy>().isDead)
+            if (_enemy != null && !_enemy.GetComponent<Multi_Enemy>().IsDead)
             {
                 float distanceToEnemy = Vector3.Distance(_unitPos, _enemy.position);
                 if (distanceToEnemy < shortDistance)

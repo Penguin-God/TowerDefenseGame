@@ -52,7 +52,7 @@ public static class ProjectileShotDelegate
             {
                 Vector3 dir = _target.position - attacker.position;
                 float enemyWeightDir = Mathf.Lerp(0, weightRate, Vector3.Distance(_target.position, attacker.position) * 2 / 100);
-                dir += enemy.dir.normalized * (0.5f * enemy.speed) * enemyWeightDir;
+                dir += enemy.dir.normalized * (0.5f * enemy.Speed) * enemyWeightDir;
                 return dir.normalized;
             }
             else return (_target.position - attacker.position).normalized;

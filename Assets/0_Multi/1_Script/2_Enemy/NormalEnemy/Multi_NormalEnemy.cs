@@ -26,7 +26,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         Passive();
         TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);
         if(pointIndex == -1) pointIndex = 0;
-        SetVelocity();
+        SetDirection();
     }
 
     void Turn()
@@ -37,7 +37,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         if (pointIndex >= TurnPoints.Length) pointIndex = 0;
     }
 
-    void SetVelocity() // 실제 이동을 위한 속도 설정
+    void SetDirection() // 실제 이동을 위한 속도 설정
     {
         dir = (WayPoint.position - transform.position).normalized;
         Rigidbody.velocity = dir * speed;
@@ -48,7 +48,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         if (other.tag == "WayPoint")
         {
             Turn();
-            SetVelocity();
+            SetDirection();
         }
     }
 
@@ -73,7 +73,7 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     public ResurrectionSystem resurrection = new ResurrectionSystem();
 
-    public void Resurrection_RPC() => PV.RPC("Resurrection", RpcTarget.All);
+    public void Resurrection_RPC() => photonView.RPC("Resurrection", RpcTarget.All);
     [PunRPC] protected void Resurrection() => resurrection.Resurrection();
 
     public class ResurrectionSystem
@@ -108,7 +108,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     [PunRPC]
     protected override void OnSlow(float slowPercent, float slowTime)
     {
-        if (isDead || !PhotonNetwork.IsMasterClient) return;
+        if (IsDead || PhotonNetwork.IsMasterClient == false) return;
 
         // 슬로우를 적용했을 때 현재 속도보다 느려져야만 슬로우 적용
         if (maxSpeed - maxSpeed * (slowPercent / 100) <= speed)
@@ -151,9 +151,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            speed = 0;
-            Rigidbody.velocity = Vector3.zero;
-            photonView.RPC("SyncSpeed", RpcTarget.Others, speed);
+            photonView.RPC("SyncSpeed", RpcTarget.All, 0);
 
             if (exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine);
             exitSlowCoroutine = StartCoroutine(Co_ExitSlow(slowTime));
@@ -167,7 +165,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     [PunRPC]
     protected override void OnStun(int stunPercent, float stunTime)
     {
-        if (isDead || PhotonNetwork.IsMasterClient == false) return;
+        if (IsDead || PhotonNetwork.IsMasterClient == false) return;
         int random = UnityEngine.Random.Range(0, 100);
         if (random < stunPercent) StartCoroutine(SternCoroutine(stunTime));
     }
@@ -176,10 +174,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     IEnumerator SternCoroutine(float stunTime)
     {
         queue_GetSturn.Enqueue(-1);
-        speed = 0;
-        Rigidbody.velocity = dir * speed;
-
-        photonView.RPC("SyncSpeed", RpcTarget.Others, 0f);
+        photonView.RPC("SyncSpeed", RpcTarget.All, 0f);
         photonView.RPC("ShowSturnEffetc", RpcTarget.All);
         yield return new WaitForSeconds(stunTime);
 
@@ -188,24 +183,28 @@ public class Multi_NormalEnemy : Multi_Enemy
     }
 
     [PunRPC]
-    public void ExitStun()
+    protected void ExitStun()
     {
         sternEffect.SetActive(false);
         Set_OriginSpeed_ToAllPlayer();
     }
 
     [PunRPC]
-    public void ShowSturnEffetc()
+    protected void ShowSturnEffetc()
     {
         sternEffect.SetActive(true);
     }
 
     [PunRPC] // sync : 동기화한다는 뜻의 동사
-    public void SyncSpeed(float _speed)
+    protected void SyncSpeed(float _speed) => ChangeSpeed(_speed);
+
+    protected override void ChangeSpeed(float newSpeed)
     {
-        speed = _speed;
-        Rigidbody.velocity = dir * _speed;
+        base.ChangeSpeed(newSpeed);
+        Rigidbody.velocity = dir * Speed;
     }
+
+    void SyncSpeedToOther(float speed) => photonView.RPC("SyncSpeed", RpcTarget.Others, speed);
 
     // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기
     protected void Set_OriginSpeed_ToAllPlayer() => photonView.RPC("SyncSpeed", RpcTarget.All, maxSpeed);

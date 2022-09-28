@@ -8,7 +8,7 @@ public class Multi_RangeUnit : Multi_TeamSoldier
     {
         get
         {
-            Vector3 enemySpeed = TargetEnemy.dir * TargetEnemy.speed;
+            Vector3 enemySpeed = TargetEnemy.dir * TargetEnemy.Speed;
             return target.position + enemySpeed;
         }
     }

@@ -257,6 +257,14 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         yield return new WaitForSecondsRealtime(5f);
         Time.timeScale = 1;
         PhotonNetwork.LeaveRoom();
-        Multi_Managers.Scene.LoadScene(SceneTyep.클라이언트);
+        try
+        {
+            Multi_Managers.Scene.LoadScene(SceneTyep.클라이언트);
+        }
+        catch
+        {
+            Debug.Assert(false, "크래쉬 나서 따로 Clear해 줌");
+            Multi_Managers.Clear();
+        }
     }
 }

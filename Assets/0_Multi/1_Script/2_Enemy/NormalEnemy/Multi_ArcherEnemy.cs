@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
 
 public class Multi_ArcherEnemy : Multi_NormalEnemy
 {
     protected override void Passive()
     {
         speed *= 1.5f;
+    }
+
+    [PunRPC]
+    protected override void OnSlow(float slowPercent, float slowTime)
+    {
+        slowPercent /= 2;
+        base.OnSlow(slowPercent, slowTime);
     }
 }

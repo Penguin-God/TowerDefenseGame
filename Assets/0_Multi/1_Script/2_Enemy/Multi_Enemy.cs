@@ -15,10 +15,12 @@ public enum EnemyType
 public class Multi_Enemy : MonoBehaviourPun
 {
     // 상태 변수
-    public float maxSpeed = 0;
-    public float speed = 0;
     public int maxHp = 0;
     public int currentHp = 0;
+
+    public float maxSpeed = 0;
+    public float speed = 0;
+    
     public bool isDead = true;
     public Slider hpSlider = null;
     public EnemyType enemyType;

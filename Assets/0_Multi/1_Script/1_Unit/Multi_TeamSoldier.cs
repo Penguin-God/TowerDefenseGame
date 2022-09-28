@@ -116,9 +116,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     void OnDisable()
     {
         StopAllCoroutines();
-        ResetValue();
+        ResetAiStateValue();
     }
-
 
     public void LoadStat_RPC() => pv.RPC("LoadStat", RpcTarget.All);
     [PunRPC]
@@ -155,9 +154,15 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         Debug.Assert(OnDead != null, $"{this.name} 이벤트가 null임");
         OnDead?.Invoke(this);
         gameObject.SetActive(false);
+        ResetValueSataeValue();
     }
 
-    void ResetValue()
+    void ResetValueSataeValue()
+    {
+        enterStoryWorld = false;
+    }
+
+    void ResetAiStateValue()
     {
         target = null;
         rayHitTransform = null;
@@ -167,7 +172,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         contactEnemy = false;
         enemyIsForward = false;
         enemyDistance = 1000f;
-        enterStoryWorld = false;
 
         if (animator != null)
             animator.enabled = false;

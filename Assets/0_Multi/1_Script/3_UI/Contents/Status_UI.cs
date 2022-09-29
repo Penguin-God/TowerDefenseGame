@@ -76,16 +76,19 @@ public class Status_UI : Multi_UI_Scene
 
         void BindEnemyCountTextEvent()
         {
-            Multi_EnemyManager.Instance.OnEnemyCountChangedWithId -= UpdateEnemyCountText;
+            Multi_EnemyManager.Instance.OnEnemyCountChanged -= UpdateMyEnemyCountText;
+            Multi_EnemyManager.Instance.OnOtherEnemyCountChanged -= UpdateOtherEnemyCountText;
             Multi_Managers.Camera.OnLookMyWolrd -= () => UpdateEnemyCountText(Multi_EnemyManager.Instance.MyEnemyCount);
             Multi_Managers.Camera.OnLookEnemyWorld -= () => UpdateEnemyCountText(Multi_EnemyManager.Instance.EnemyPlayerEnemyCount);
 
-            Multi_EnemyManager.Instance.OnEnemyCountChangedWithId += UpdateEnemyCountText;
+            Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateMyEnemyCountText;
+            Multi_EnemyManager.Instance.OnOtherEnemyCountChanged += UpdateOtherEnemyCountText;
             Multi_Managers.Camera.OnLookMyWolrd += () => UpdateEnemyCountText(Multi_EnemyManager.Instance.MyEnemyCount);
             Multi_Managers.Camera.OnLookEnemyWorld += () => UpdateEnemyCountText(Multi_EnemyManager.Instance.EnemyPlayerEnemyCount);
         }
     }
 
+    // TODO : Multi_GameManager.instance.MaxUnitCount 각 플레이어걸로
     void UpdateUnitText(int count) => GetText((int)Texts.CurrentUnitText).text = $"최대 유닛 갯수 {count}/{Multi_GameManager.instance.MaxUnitCount}";
 
     void UpdateOtherUnitText(int count)
@@ -108,15 +111,16 @@ public class Status_UI : Multi_UI_Scene
         text.text = $"현재 적 유닛 카운트 : {EnemyofCount}/{Multi_GameManager.instance.MaxEnemyCount}";
     }
 
-    void UpdateEnemyCountText()
+    void UpdateOtherEnemyCountText(int count)
     {
-        int count;
-        if (Multi_Managers.Camera.LookWorld_Id == Multi_Data.instance.Id)
-            count = Multi_EnemyManager.Instance.MyEnemyCount;
-        else
-            count = Multi_EnemyManager.Instance.EnemyPlayerEnemyCount;
+        if (Multi_Managers.Camera.IsLookOtherWolrd)
+            UpdateEnemyCountText(count);
+    }
 
-        UpdateEnemyCountText(count);
+    void UpdateMyEnemyCountText(int count)
+    {
+        if (Multi_Managers.Camera.IsLookOtherWolrd == false)
+            UpdateEnemyCountText(count);
     }
 
 

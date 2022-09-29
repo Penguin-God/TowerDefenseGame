@@ -89,7 +89,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         bool result = _combine.CheckCombineable(flag);
         photonView.RPC("TryCombine", RpcTarget.MasterClient, flag, Multi_Data.instance.Id, result);
         return result;
-    } 
+    }
     [PunRPC] void TryCombine(UnitFlags flag, int id, bool isSuccess) => _combine.TryCombine(flag, id, isSuccess);
 
 

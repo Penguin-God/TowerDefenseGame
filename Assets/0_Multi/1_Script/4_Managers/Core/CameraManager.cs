@@ -9,6 +9,7 @@ public class CameraManager
 
     int _lookWorld_Id;
     public int LookWorld_Id => _lookWorld_Id;
+    public bool IsLookOtherWolrd => _lookWorld_Id != Multi_Data.instance.Id;
 
     bool _isLookEnemyTower;
     public bool IsLookEnemyTower => _isLookEnemyTower;

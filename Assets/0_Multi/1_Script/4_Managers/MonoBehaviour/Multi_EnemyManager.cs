@@ -22,6 +22,18 @@ public class Multi_EnemyManager : MonoBehaviourPun
         }
     }
 
+    MasterManager _master = new MasterManager();
+    EnemyCountManager _count = new EnemyCountManager();
+    void Awake()
+    {
+        Multi_SpawnManagers.NormalEnemy.OnSpawn += _master.AddEnemy;
+        Multi_SpawnManagers.NormalEnemy.OnDead += _master.RemoveEnemy;
+        
+        _count.Init(_master);
+        _count.OnEnemyCountChanged += RaiseOnEnemyCountChanged;
+        _count.OnOthreEnemyCountChanged += RaiseOnOtherEnemyCountChanged;
+    }
+
     void Start()
     {
         playersEnemyCount = new int[2];
@@ -41,14 +53,19 @@ public class Multi_EnemyManager : MonoBehaviourPun
         }
     }
 
+    public event Action<int> OnEnemyCountChang = null;
+    void RaiseOnEnemyCountChanged(int count) => OnEnemyCountChang?.Invoke(count);
+    public event Action<int> OnOtherEnemyCountChanged = null;
+    void RaiseOnOtherEnemyCountChanged(int count) => OnOtherEnemyCountChanged?.Invoke(count);
+
     Dictionary<int, List<Transform>> currentNormalEnemysById = new Dictionary<int, List<Transform>>();
 
     public Action OnEnemyCountChangedWithId;
     public RPCAction<int> OnEnemyCountChanged = new RPCAction<int>();
     void Raise_EnemyCountChanged(int id) => OnEnemyCountChanged.RaiseEvent(id, currentNormalEnemysById[id].Count);
     int[] playersEnemyCount;
-    public int MyEnemyCount => playersEnemyCount[Multi_Data.instance.Id];
-    public int EnemyPlayerEnemyCount => playersEnemyCount[Multi_Data.instance.EnemyPlayerId];
+    public int MyEnemyCount => _count.CurrentEnemyCount;
+    public int EnemyPlayerEnemyCount => _count.OtherEnemyCount;
 
     [PunRPC]
     void UpdatePlayersEnemyCount(int count1, int count2)
@@ -156,4 +173,63 @@ public class Multi_EnemyManager : MonoBehaviourPun
         photonView.RPC("UpdatePlayersEnemyCount", RpcTarget.All, currentNormalEnemysById[0].Count, currentNormalEnemysById[1].Count);
     }
     #endregion
+
+
+    class MasterManager
+    {
+        RPCData<List<Multi_NormalEnemy>> _enemyCountData = new RPCData<List<Multi_NormalEnemy>>();
+        public RPCAction<int, int> OnEnemyCountChanged = new RPCAction<int, int>();
+
+        public void AddEnemy(Multi_NormalEnemy _enemy)
+        {
+            if (PhotonNetwork.IsMasterClient == false) return;
+
+            int id = _enemy.GetComponent<RPCable>().UsingId;
+            _enemyCountData.Get(id).Add(_enemy);
+            OnEnemyCountChanged.RaiseAll(id, _enemyCountData.Get(id).Count);
+        }
+
+        public void RemoveEnemy(Multi_NormalEnemy _enemy)
+        {
+            if (PhotonNetwork.IsMasterClient == false) return;
+
+            int id = _enemy.GetComponent<RPCable>().UsingId;
+            _enemyCountData.Get(id).Remove(_enemy);
+            OnEnemyCountChanged.RaiseAll(id, _enemyCountData.Get(id).Count);
+        }
+    }
+
+    class EnemyCountManager
+    {
+        int _currentEnemyCount;
+        public int CurrentEnemyCount => _currentEnemyCount;
+        public event Action<int> OnEnemyCountChanged = null;
+
+        int _otherPlayerEnemyCount;
+        public int OtherEnemyCount => _otherPlayerEnemyCount;
+        public event Action<int> OnOthreEnemyCountChanged = null;
+        public void Init(MasterManager master)
+        {
+            master.OnEnemyCountChanged += UpdateCount;
+        }
+
+        void UpdateCount(int id, int count)
+        {
+            if (Multi_Data.instance.Id == id)
+            {
+                _currentEnemyCount = count;
+                OnEnemyCountChanged?.Invoke(_currentEnemyCount);
+            }
+            else
+            {
+                _otherPlayerEnemyCount = count;
+                OnOthreEnemyCountChanged?.Invoke(_otherPlayerEnemyCount);
+            }
+        }
+    }
+
+    class EnemyFinder
+    {
+
+    }
 }

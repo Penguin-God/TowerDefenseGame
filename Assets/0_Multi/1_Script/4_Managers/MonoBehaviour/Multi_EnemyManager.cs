@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 using Photon.Pun;
 
 public class Multi_EnemyManager : MonoBehaviourPun
@@ -36,7 +37,6 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
     void Start()
     {
-        playersEnemyCount = new int[2];
         if (PhotonNetwork.IsMasterClient)
         {
             currentNormalEnemysById.Add(0, new List<Transform>());
@@ -58,22 +58,11 @@ public class Multi_EnemyManager : MonoBehaviourPun
     public event Action<int> OnOtherEnemyCountChanged = null;
     void RaiseOnOtherEnemyCountChanged(int count) => OnOtherEnemyCountChanged?.Invoke(count);
 
+    // TODO : 죽이기
     Dictionary<int, List<Transform>> currentNormalEnemysById = new Dictionary<int, List<Transform>>();
 
-    public Action OnEnemyCountChangedWithId;
-    public RPCAction<int> OnEnemyCountChanged = new RPCAction<int>();
-    void Raise_EnemyCountChanged(int id) => OnEnemyCountChanged.RaiseEvent(id, currentNormalEnemysById[id].Count);
-    int[] playersEnemyCount;
     public int MyEnemyCount => _count.CurrentEnemyCount;
     public int EnemyPlayerEnemyCount => _count.OtherEnemyCount;
-
-    [PunRPC]
-    void UpdatePlayersEnemyCount(int count1, int count2)
-    {
-        playersEnemyCount[0] = count1;
-        playersEnemyCount[1] = count2;
-        OnEnemyCountChangedWithId?.Invoke();
-    }
 
     RPCData<Multi_BossEnemy> _currentBoss = new RPCData<Multi_BossEnemy>();
     bool BossIsAlive(int id) => _currentBoss.Get(id) != null;
@@ -160,8 +149,6 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
         int id = _enemy.GetComponent<RPCable>().UsingId;
         currentNormalEnemysById[id].Add(_enemy.transform);
-        Raise_EnemyCountChanged(id);
-        photonView.RPC("UpdatePlayersEnemyCount", RpcTarget.All, currentNormalEnemysById[0].Count, currentNormalEnemysById[1].Count);
     }
     void RemoveEnemyAtList(Multi_NormalEnemy _enemy)
     {
@@ -169,15 +156,14 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
         int id = _enemy.GetComponent<RPCable>().UsingId;
         currentNormalEnemysById[id].Remove(_enemy.transform);
-        Raise_EnemyCountChanged(id);
-        photonView.RPC("UpdatePlayersEnemyCount", RpcTarget.All, currentNormalEnemysById[0].Count, currentNormalEnemysById[1].Count);
     }
     #endregion
 
-
+    // TODO : Boss랑 타워도 관리하기
     class MasterManager
     {
         RPCData<List<Multi_NormalEnemy>> _enemyCountData = new RPCData<List<Multi_NormalEnemy>>();
+        public IReadOnlyList<Multi_NormalEnemy> GetEnemys(int id) => _enemyCountData.Get(id);
         public RPCAction<int, int> OnEnemyCountChanged = new RPCAction<int, int>();
 
         public void AddEnemy(Multi_NormalEnemy _enemy)
@@ -230,6 +216,57 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
     class EnemyFinder
     {
+        MasterManager _master;
+        public void Init(MasterManager master)
+        {
+            _master = master;
+        }
 
+        public Multi_Enemy GetProximateEnemy(Vector3 unitPos, float startDistance, int id)
+        {
+            return GetProximateEnemy(unitPos, startDistance, _master.GetEnemys(id));
+        }
+
+        Multi_Enemy GetProximateEnemy(Vector3 _unitPos, float _startDistance, IEnumerable<Multi_Enemy> _enemyList)
+        {
+            if (_enemyList == null || _enemyList.Count() == 0) return null;
+
+            float shortDistance = _startDistance;
+            Multi_Enemy _returnEnemy = null;
+            foreach (Multi_Enemy _enemy in _enemyList)
+            {
+                if (_enemy != null && !_enemy.GetComponent<Multi_Enemy>().IsDead)
+                {
+                    float distanceToEnemy = Vector3.Distance(_unitPos, _enemy.transform.position);
+                    if (distanceToEnemy < shortDistance)
+                    {
+                        shortDistance = distanceToEnemy;
+                        _returnEnemy = _enemy;
+                    }
+                }
+            }
+
+            return _returnEnemy;
+        }
+
+        public Multi_Enemy[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int count, Multi_Enemy currentTarget, int id, bool bossIsAlive)
+        {
+            if (_master.GetEnemys(id).Count == 0) return null;
+
+            List<Multi_Enemy> _enemys = new List<Multi_Enemy>(_master.GetEnemys(id));
+            Multi_Enemy[] result = new Multi_Enemy[count];
+
+            for (int i = 0; i < count; i++)
+            {
+                if (_enemys.Count > 0 && bossIsAlive == false)
+                {
+                    result[i] = GetProximateEnemy(_unitPos, _startDistance, _enemys);
+                    _enemys.Remove(result[i]);
+                }
+                else result[i] = currentTarget;
+            }
+
+            return result;
+        }
     }
 }

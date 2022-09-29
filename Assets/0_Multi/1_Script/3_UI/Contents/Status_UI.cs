@@ -76,12 +76,12 @@ public class Status_UI : Multi_UI_Scene
 
         void BindEnemyCountTextEvent()
         {
-            Multi_EnemyManager.Instance.OnEnemyCountChanged -= UpdateMyEnemyCountText;
+            Multi_EnemyManager.Instance.OnEnemyCountChang -= UpdateMyEnemyCountText;
             Multi_EnemyManager.Instance.OnOtherEnemyCountChanged -= UpdateOtherEnemyCountText;
             Multi_Managers.Camera.OnLookMyWolrd -= () => UpdateEnemyCountText(Multi_EnemyManager.Instance.MyEnemyCount);
             Multi_Managers.Camera.OnLookEnemyWorld -= () => UpdateEnemyCountText(Multi_EnemyManager.Instance.EnemyPlayerEnemyCount);
 
-            Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateMyEnemyCountText;
+            Multi_EnemyManager.Instance.OnEnemyCountChang += UpdateMyEnemyCountText;
             Multi_EnemyManager.Instance.OnOtherEnemyCountChanged += UpdateOtherEnemyCountText;
             Multi_Managers.Camera.OnLookMyWolrd += () => UpdateEnemyCountText(Multi_EnemyManager.Instance.MyEnemyCount);
             Multi_Managers.Camera.OnLookEnemyWorld += () => UpdateEnemyCountText(Multi_EnemyManager.Instance.EnemyPlayerEnemyCount);

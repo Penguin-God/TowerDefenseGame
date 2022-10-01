@@ -242,7 +242,7 @@ public class YellowSowrdmanUpgrade : PassiveSkill
     public override void InitSkill()
     {
         // 노란 기사 패시브 5원으로 변경
-        Multi_Managers.Data.Skill.InitCombineAdditionalGold(3);
+        Multi_Managers.Data.Skill.InitCombineAdditionalGold(5);
     }
 }
 

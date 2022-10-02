@@ -7,7 +7,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
 {
     [Header("아처 변수")]
     [SerializeField] ProjectileData arrawData;
-    [SerializeField] int skillAttackTargetCount = 3;
+    [SerializeField] int skillArrowCount = 3;
     private GameObject trail;
 
     [SerializeField] int _skillDamage;
@@ -62,18 +62,22 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         SkillCoolDown(skillCoolDownTime);
     }
 
-    readonly int SKILL_ARROW_COUNT = 3;
     void ShotSkill()
     {
-        Transform[] targetArray =
-            Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target, rpcable.UsingId);
+        Transform[] targetArray = GetTargets();
         if (targetArray == null || targetArray.Length == 0) return;
 
-        for (int i = 0; i <= SKILL_ARROW_COUNT; i++)
+        for (int i = 0; i < skillArrowCount; i++)
         {
             int targetIndex = i % targetArray.Length;
             ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[targetIndex], OnSkillHit);
         }
+    }
+
+    Transform[] GetTargets()
+    {
+        if (TargetIsNormalEnemy == false) return new Transform[] { target };
+        return Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillArrowCount, UsingId);
     }
 
     void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, _skillDamage);

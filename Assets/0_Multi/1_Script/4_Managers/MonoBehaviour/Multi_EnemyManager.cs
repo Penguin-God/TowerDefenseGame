@@ -143,6 +143,12 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
         return result;
     }
+
+    public Transform[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int maxCount, int unitId)
+    {
+        if (maxCount >= _master.GetEnemys(unitId).Count) return _master.GetEnemys(unitId).Select(x => x?.transform).ToArray();
+        return _finder.GetProximateEnemys(_unitPos, _startDistance, maxCount, _master.GetEnemys(unitId)).Select(x => x?.transform).ToArray();
+    }
     #endregion
 
     #region callback funtion
@@ -243,24 +249,19 @@ public class Multi_EnemyManager : MonoBehaviourPun
             return _returnEnemy;
         }
 
-        //public Multi_Enemy[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int count, Multi_Enemy currentTarget, int id, bool bossIsAlive)
-        //{
-        //    if (_master.GetEnemys(id).Count == 0) return null;
+        public Multi_Enemy[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int count, IReadOnlyList<Multi_Enemy> enemys)
+        {
+            Debug.Assert(enemys.Count > count, $"적 카운트 수가 {enemys.Count}이 배열의 크기인 {count}보다 \n 크지 않은 상태에서 함수가 실행됨.");
 
-        //    List<Multi_Enemy> _enemys = new List<Multi_Enemy>(_master.GetEnemys(id));
-        //    Multi_Enemy[] result = new Multi_Enemy[count];
+            List<Multi_Enemy> targets = new List<Multi_Enemy>(enemys);
+            Multi_Enemy[] result = new Multi_Enemy[count];
 
-        //    for (int i = 0; i < count; i++)
-        //    {
-        //        if (_enemys.Count > 0 && bossIsAlive == false)
-        //        {
-        //            result[i] = GetProximateEnemy(_unitPos, _startDistance, _enemys);
-        //            _enemys.Remove(result[i]);
-        //        }
-        //        else result[i] = currentTarget;
-        //    }
-
-        //    return result;
-        //}
+            for (int i = 0; i < count; i++)
+            {
+                result[i] = GetProximateEnemy(_unitPos, _startDistance, targets);
+                targets.Remove(result[i]);
+            }
+            return result;
+        }
     }
 }

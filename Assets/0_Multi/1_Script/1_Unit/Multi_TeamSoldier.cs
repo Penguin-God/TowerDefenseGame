@@ -47,6 +47,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     protected Animator animator;
     protected PhotonView pv;
     protected RPCable rpcable;
+    public int UsingId => rpcable.UsingId;
     [SerializeField] protected EffectSoundType normalAttackSound;
     public float normalAttakc_AudioDelay;
 

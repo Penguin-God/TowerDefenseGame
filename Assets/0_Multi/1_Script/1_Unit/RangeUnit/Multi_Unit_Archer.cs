@@ -51,23 +51,30 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     IEnumerator Special_ArcherAttack()
     {
         base.SpecialAttack();
-        //nav.angularSpeed = 1;
         trail.SetActive(false);
 
         if (PhotonNetwork.IsMasterClient)
-        {
-            Transform[] targetArray =
-                Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target, rpcable.UsingId);
-            int length = targetArray == null ? 0 : targetArray.Length;
-            for (int i = 0; i < length; i++)
-                ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[i], OnSkillHit);
-        }
+            ShotSkill();
 
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
-        //nav.angularSpeed = 1000;
 
         SkillCoolDown(skillCoolDownTime);
     }
+
+    readonly int SKILL_ARROW_COUNT = 3;
+    void ShotSkill()
+    {
+        Transform[] targetArray =
+            Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillAttackTargetCount, target, rpcable.UsingId);
+        if (targetArray == null || targetArray.Length == 0) return;
+
+        for (int i = 0; i <= SKILL_ARROW_COUNT; i++)
+        {
+            int targetIndex = i % targetArray.Length;
+            ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[targetIndex], OnSkillHit);
+        }
+    }
+
     void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, _skillDamage);
 }

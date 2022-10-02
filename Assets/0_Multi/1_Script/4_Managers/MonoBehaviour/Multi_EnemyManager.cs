@@ -24,15 +24,17 @@ public class Multi_EnemyManager : MonoBehaviourPun
     }
 
     MasterManager _master = new MasterManager();
-    EnemyCountManager _count = new EnemyCountManager();
+    EnemyCountManager _counter = new EnemyCountManager();
+    EnemyFinder _finder = new EnemyFinder();
+    
     void Awake()
     {
         Multi_SpawnManagers.NormalEnemy.OnSpawn += _master.AddEnemy;
         Multi_SpawnManagers.NormalEnemy.OnDead += _master.RemoveEnemy;
         
-        _count.Init(_master);
-        _count.OnEnemyCountChanged += RaiseOnEnemyCountChanged;
-        _count.OnOthreEnemyCountChanged += RaiseOnOtherEnemyCountChanged;
+        _counter.Init(_master);
+        _counter.OnEnemyCountChanged += RaiseOnEnemyCountChanged;
+        _counter.OnOthreEnemyCountChanged += RaiseOnOtherEnemyCountChanged;
     }
 
     void Start()
@@ -61,8 +63,8 @@ public class Multi_EnemyManager : MonoBehaviourPun
     // TODO : 죽이기
     Dictionary<int, List<Transform>> currentNormalEnemysById = new Dictionary<int, List<Transform>>();
 
-    public int MyEnemyCount => _count.CurrentEnemyCount;
-    public int EnemyPlayerEnemyCount => _count.OtherEnemyCount;
+    public int MyEnemyCount => _counter.CurrentEnemyCount;
+    public int EnemyPlayerEnemyCount => _counter.OtherEnemyCount;
 
     RPCData<Multi_BossEnemy> _currentBoss = new RPCData<Multi_BossEnemy>();
     bool BossIsAlive(int id) => _currentBoss.Get(id) != null;
@@ -95,7 +97,8 @@ public class Multi_EnemyManager : MonoBehaviourPun
     {
         if (_currentBoss.Get(unitId) != null) return _currentBoss.Get(unitId).transform;
 
-        return GetProximateEnemy(unitPos, startDistance, currentNormalEnemysById[unitId]);
+        return _finder.GetProximateEnemy(unitPos, startDistance, _master.GetEnemys(unitId))?.transform;
+        //return GetProximateEnemy(unitPos, startDistance, currentNormalEnemysById[unitId]);
     }
 
     Transform GetProximateEnemy(Vector3 _unitPos, float _startDistance, List<Transform> _enemyList)
@@ -185,6 +188,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
         }
     }
 
+
     class EnemyCountManager
     {
         int _currentEnemyCount;
@@ -214,20 +218,10 @@ public class Multi_EnemyManager : MonoBehaviourPun
         }
     }
 
+
     class EnemyFinder
     {
-        MasterManager _master;
-        public void Init(MasterManager master)
-        {
-            _master = master;
-        }
-
-        public Multi_Enemy GetProximateEnemy(Vector3 unitPos, float startDistance, int id)
-        {
-            return GetProximateEnemy(unitPos, startDistance, _master.GetEnemys(id));
-        }
-
-        Multi_Enemy GetProximateEnemy(Vector3 _unitPos, float _startDistance, IEnumerable<Multi_Enemy> _enemyList)
+        public Multi_Enemy GetProximateEnemy(Vector3 _unitPos, float _startDistance, IEnumerable<Multi_Enemy> _enemyList)
         {
             if (_enemyList == null || _enemyList.Count() == 0) return null;
 
@@ -249,24 +243,24 @@ public class Multi_EnemyManager : MonoBehaviourPun
             return _returnEnemy;
         }
 
-        public Multi_Enemy[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int count, Multi_Enemy currentTarget, int id, bool bossIsAlive)
-        {
-            if (_master.GetEnemys(id).Count == 0) return null;
+        //public Multi_Enemy[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int count, Multi_Enemy currentTarget, int id, bool bossIsAlive)
+        //{
+        //    if (_master.GetEnemys(id).Count == 0) return null;
 
-            List<Multi_Enemy> _enemys = new List<Multi_Enemy>(_master.GetEnemys(id));
-            Multi_Enemy[] result = new Multi_Enemy[count];
+        //    List<Multi_Enemy> _enemys = new List<Multi_Enemy>(_master.GetEnemys(id));
+        //    Multi_Enemy[] result = new Multi_Enemy[count];
 
-            for (int i = 0; i < count; i++)
-            {
-                if (_enemys.Count > 0 && bossIsAlive == false)
-                {
-                    result[i] = GetProximateEnemy(_unitPos, _startDistance, _enemys);
-                    _enemys.Remove(result[i]);
-                }
-                else result[i] = currentTarget;
-            }
+        //    for (int i = 0; i < count; i++)
+        //    {
+        //        if (_enemys.Count > 0 && bossIsAlive == false)
+        //        {
+        //            result[i] = GetProximateEnemy(_unitPos, _startDistance, _enemys);
+        //            _enemys.Remove(result[i]);
+        //        }
+        //        else result[i] = currentTarget;
+        //    }
 
-            return result;
-        }
+        //    return result;
+        //}
     }
 }

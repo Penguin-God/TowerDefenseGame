@@ -37,16 +37,15 @@ public class Multi_EnemyManager : MonoBehaviourPun
         _counter.OnOthreEnemyCountChanged += RaiseOnOtherEnemyCountChanged;
     }
 
+    public event Action<int> OnEnemyCountChang = null;
+    void RaiseOnEnemyCountChanged(int count) => OnEnemyCountChang?.Invoke(count);
+    public event Action<int> OnOtherEnemyCountChanged = null;
+    void RaiseOnOtherEnemyCountChanged(int count) => OnOtherEnemyCountChanged?.Invoke(count);
+
     void Start()
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            currentNormalEnemysById.Add(0, new List<Transform>());
-            currentNormalEnemysById.Add(1, new List<Transform>());
-
-            Multi_SpawnManagers.NormalEnemy.OnSpawn += AddEnemyAtList;
-            Multi_SpawnManagers.NormalEnemy.OnDead += RemoveEnemyAtList;
-
             Multi_SpawnManagers.BossEnemy.OnSpawn += boss => _currentBoss.Set(boss, boss);
             Multi_SpawnManagers.BossEnemy.OnDead += boss => _currentBoss.Set(boss, null);
 
@@ -55,19 +54,10 @@ public class Multi_EnemyManager : MonoBehaviourPun
         }
     }
 
-    public event Action<int> OnEnemyCountChang = null;
-    void RaiseOnEnemyCountChanged(int count) => OnEnemyCountChang?.Invoke(count);
-    public event Action<int> OnOtherEnemyCountChanged = null;
-    void RaiseOnOtherEnemyCountChanged(int count) => OnOtherEnemyCountChanged?.Invoke(count);
-
-    // TODO : 죽이기
-    Dictionary<int, List<Transform>> currentNormalEnemysById = new Dictionary<int, List<Transform>>();
-
     public int MyEnemyCount => _counter.CurrentEnemyCount;
     public int EnemyPlayerEnemyCount => _counter.OtherEnemyCount;
 
     RPCData<Multi_BossEnemy> _currentBoss = new RPCData<Multi_BossEnemy>();
-    bool BossIsAlive(int id) => _currentBoss.Get(id) != null;
 
     RPCData<Multi_EnemyTower> _currentTower = new RPCData<Multi_EnemyTower>();
     public Multi_EnemyTower GetCurrnetTower(int id) => _currentTower.Get(id);
@@ -81,67 +71,21 @@ public class Multi_EnemyManager : MonoBehaviourPun
     void Update()
     {
 #if UNITY_EDITOR
-        if (PhotonNetwork.IsMasterClient && currentNormalEnemysById.ContainsKey(0))
+        if (PhotonNetwork.IsMasterClient)
         {
             testBoss = _currentBoss.Get(1);
             testTower = _currentTower.Get(1);
-            test_0 = currentNormalEnemysById[0];
-            test_1 = currentNormalEnemysById[1];
+            test_0 = _master.GetEnemys(0).Select(x => x.transform).ToList();
+            test_1 = _master.GetEnemys(1).Select(x => x.transform).ToList();
         }
 #endif
     }
     #endregion
 
-    #region Find Enemy
     public Transform GetProximateEnemy(Vector3 unitPos, float startDistance, int unitId)
     {
-        if (_currentBoss.Get(unitId) != null) return _currentBoss.Get(unitId).transform;
-
+        if (_currentBoss.Get(unitId) != null) return _currentBoss.Get(unitId).transform; // TODO : 유닛으로 로직 옮기기
         return _finder.GetProximateEnemy(unitPos, startDistance, _master.GetEnemys(unitId))?.transform;
-        //return GetProximateEnemy(unitPos, startDistance, currentNormalEnemysById[unitId]);
-    }
-
-    Transform GetProximateEnemy(Vector3 _unitPos, float _startDistance, List<Transform> _enemyList)
-    {
-        if (_enemyList == null || _enemyList.Count == 0) return null;
-
-        Transform[] _enemys = _enemyList.ToArray();
-        float shortDistance = _startDistance;
-        Transform _returnEnemy = null;
-        foreach (Transform _enemy in _enemys)
-        {
-            if (_enemy != null && !_enemy.GetComponent<Multi_Enemy>().IsDead)
-            {
-                float distanceToEnemy = Vector3.Distance(_unitPos, _enemy.position);
-                if (distanceToEnemy < shortDistance)
-                {
-                    shortDistance = distanceToEnemy;
-                    _returnEnemy = _enemy;
-                }
-            }
-        }
-
-        return _returnEnemy;
-    }
-
-    public Transform[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int count, Transform currentTarget, int unitId)
-    {
-        if (currentNormalEnemysById[unitId].Count == 0) return null;
-
-        List<Transform> _enemys = new List<Transform>(currentNormalEnemysById[unitId]);
-        Transform[] result = new Transform[count];
-
-        for (int i = 0; i < count; i++)
-        {
-            if (_enemys.Count > 0 && BossIsAlive(unitId) == false)
-            {
-                result[i] = GetProximateEnemy(_unitPos, _startDistance, _enemys);
-                _enemys.Remove(result[i]);
-            }
-            else result[i] = currentTarget;
-        }
-
-        return result;
     }
 
     public Transform[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int maxCount, int unitId)
@@ -149,26 +93,8 @@ public class Multi_EnemyManager : MonoBehaviourPun
         if (maxCount >= _master.GetEnemys(unitId).Count) return _master.GetEnemys(unitId).Select(x => x?.transform).ToArray();
         return _finder.GetProximateEnemys(_unitPos, _startDistance, maxCount, _master.GetEnemys(unitId)).Select(x => x?.transform).ToArray();
     }
-    #endregion
 
-    #region callback funtion
-    void AddEnemyAtList(Multi_NormalEnemy _enemy)
-    {
-        if (PhotonNetwork.IsMasterClient == false) return;
 
-        int id = _enemy.GetComponent<RPCable>().UsingId;
-        currentNormalEnemysById[id].Add(_enemy.transform);
-    }
-    void RemoveEnemyAtList(Multi_NormalEnemy _enemy)
-    {
-        if (PhotonNetwork.IsMasterClient == false) return;
-
-        int id = _enemy.GetComponent<RPCable>().UsingId;
-        currentNormalEnemysById[id].Remove(_enemy.transform);
-    }
-    #endregion
-
-    // TODO : Boss랑 타워도 관리하기
     class MasterManager
     {
         RPCData<List<Multi_NormalEnemy>> _enemyCountData = new RPCData<List<Multi_NormalEnemy>>();

@@ -128,15 +128,48 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         _maxEnemyCount = _gameData.EnemyMaxCount;
 
         Multi_StageManager.Instance.OnUpdateStage += _stage => AddGold(stageUpGold);
-
-        //Multi_EnemyManager.Instance.OnEnemyCountChanged += CheckGameOver;
         Multi_EnemyManager.Instance.OnEnemyCountChang += CheckGameOver;
+        SubSound();
 
         if (PhotonNetwork.IsMasterClient)
         {
             Multi_SpawnManagers.BossEnemy.OnDead += GetBossReward;
             Multi_SpawnManagers.TowerEnemy.OnDead += GetTowerReward;
         }
+    }
+
+    void SubSound()
+    {
+        // TODO : event 마스터만 구독하는 문제 해결하기
+        var sound = Multi_Managers.Sound;
+        // 빼기
+        Multi_SpawnManagers.BossEnemy.OnSpawn -= (boss) => sound.PlayBgm(BgmType.Boss);
+        Multi_SpawnManagers.BossEnemy.OnDead -= (boss) => sound.PlayBgm(BgmType.Default);
+
+        Multi_SpawnManagers.BossEnemy.OnDead -= (boss) => sound.PlayEffect(EffectSoundType.BossDeadClip);
+        Multi_SpawnManagers.TowerEnemy.OnDead -= (tower) => sound.PlayEffect(EffectSoundType.TowerDieClip);
+        Multi_StageManager.Instance.OnUpdateStage -= (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);
+
+        // 더하기
+        Multi_SpawnManagers.BossEnemy.OnSpawn += (boss) => DoActionIfSameId(() => sound.PlayBgm(BgmType.Boss), boss);
+        Multi_SpawnManagers.BossEnemy.OnDead += (boss) => DoActionIfSameId(() => sound.PlayBgm(BgmType.Default), boss);
+
+        Multi_SpawnManagers.BossEnemy.OnDead += (boss) => DoActionIfSameId(() => sound.PlayEffect(EffectSoundType.BossDeadClip), boss);
+        Multi_SpawnManagers.TowerEnemy.OnDead += (tower) => sound.PlayEffect(EffectSoundType.TowerDieClip);
+        Multi_StageManager.Instance.OnUpdateStage += (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);
+    }
+
+    void DoActionIfSameId(Action action, Component component)
+    {
+        var rpcable = component.GetComponent<RPCable>();
+        if (rpcable != null)
+            DoActionIfSameId(action, rpcable.UsingId);
+    }
+
+    void DoActionIfSameId(Action action, int id)
+    {
+        if (id == Multi_Data.instance.Id)
+            action?.Invoke();
     }
 
     void GetBossReward(Multi_BossEnemy enemy)
@@ -258,16 +291,11 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         yield return new WaitForSecondsRealtime(5f);
         Time.timeScale = 1;
         PhotonNetwork.LeaveRoom();
-        while (PhotonNetwork.InRoom)
-            yield return null;
-        try
-        {
-            Multi_Managers.Scene.LoadScene(SceneTyep.클라이언트);
-        }
-        catch
-        {
-            Debug.Assert(false, "크래쉬 나서 따로 Clear해 줌");
-            Multi_Managers.Clear();
-        }
+    }
+
+    public override void OnLeftRoom()
+    {
+        Multi_Managers.Scene.LoadScene(SceneTyep.클라이언트);
+        Multi_Managers.Clear();
     }
 }

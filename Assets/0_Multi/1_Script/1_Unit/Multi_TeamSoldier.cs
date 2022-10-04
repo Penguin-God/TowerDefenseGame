@@ -191,9 +191,23 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             return;
         }
 
-        Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange, GetComponent<RPCable>().UsingId);
-        if (_target != null) SetChaseSetting(_target.gameObject);
-        else SetChaseSetting(null);
+        //Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange, UsingId);
+        //if (_target != null) SetChaseSetting(_target.gameObject);
+        //else SetChaseSetting(null);
+        _SetChaseSetting(GetTarget());
+    }
+
+    Multi_Enemy GetTarget()
+    {
+        if (enterStoryWorld) return Multi_EnemyManager.Instance.GetCurrnetTower(UsingId);
+        if (Multi_EnemyManager.Instance.GetCurrentBoss(UsingId) != null) return Multi_EnemyManager.Instance.GetCurrentBoss(UsingId);
+        return Multi_EnemyManager.Instance._GetProximateEnemy(transform.position, chaseRange, UsingId);
+    }
+
+    public void _SetChaseSetting(Multi_Enemy target)
+    {
+        if (target == null) SetChaseSetting(null);
+        else SetChaseSetting(target.gameObject);
     }
 
     public void SetChaseSetting(GameObject targetObject) // 추적 관련 변수 설정
@@ -262,7 +276,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     protected void EndAttack()
     {
         StartCoroutine(Co_ResetAttactStatus());
-        if (target != null && TargetIsNormalEnemy && enemyDistance > stopDistanc * 2) UpdateTarget();
+        if (TargetIsNormalEnemy && enemyDistance > stopDistanc * 2 || (target != null && target.GetComponent<Multi_Enemy>().IsDead))
+            UpdateTarget();
     }
 
     IEnumerator Co_ResetAttactStatus()
@@ -289,7 +304,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     protected void LockMove()
     {
         if (nav.updatePosition == false) return;
-        //nav.speed = 0.1f;
         nav.updatePosition = false;
     }
 
@@ -298,7 +312,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         if (nav.updatePosition == true) return;
 
         ResetNavPosition();
-        //nav.speed = Speed;
         nav.updatePosition = true;
     }
 
@@ -376,8 +389,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         rpcable.SetActive_RPC(true);
         Multi_Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
 
-        return; // 중복함수 구분용 return : 의미 없음
-
+        // 중첩 함수들...
         void MoveToOpposite()
         {
             rpcable.SetActive_RPC(false);
@@ -408,7 +420,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     void SetTargetByTower()
     {
-        Multi_EnemyTower tower = Multi_EnemyManager.Instance.GetCurrnetTower(GetComponent<RPCable>().UsingId);
+        Multi_EnemyTower tower = Multi_EnemyManager.Instance.GetCurrnetTower(UsingId);
         if (tower != null)
         {
             SetChaseSetting(tower.gameObject);

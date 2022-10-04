@@ -58,6 +58,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
     public int EnemyPlayerEnemyCount => _counter.OtherEnemyCount;
 
     RPCData<Multi_BossEnemy> _currentBoss = new RPCData<Multi_BossEnemy>();
+    public Multi_BossEnemy GetCurrentBoss(int id) => _currentBoss.Get(id);
 
     RPCData<Multi_EnemyTower> _currentTower = new RPCData<Multi_EnemyTower>();
     public Multi_EnemyTower GetCurrnetTower(int id) => _currentTower.Get(id);
@@ -87,6 +88,9 @@ public class Multi_EnemyManager : MonoBehaviourPun
         if (_currentBoss.Get(unitId) != null) return _currentBoss.Get(unitId).transform; // TODO : 유닛으로 로직 옮기기
         return _finder.GetProximateEnemy(unitPos, startDistance, _master.GetEnemys(unitId))?.transform;
     }
+
+    public Multi_Enemy _GetProximateEnemy(Vector3 unitPos, float startDistance, int unitId)
+        => _finder.GetProximateEnemy(unitPos, startDistance, _master.GetEnemys(unitId));
 
     public Transform[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int maxCount, int unitId)
     {
@@ -161,7 +165,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
             Multi_Enemy _returnEnemy = null;
             foreach (Multi_Enemy _enemy in _enemyList)
             {
-                if (_enemy != null && !_enemy.GetComponent<Multi_Enemy>().IsDead)
+                if (_enemy != null && _enemy.IsDead == false)
                 {
                     float distanceToEnemy = Vector3.Distance(_unitPos, _enemy.transform.position);
                     if (distanceToEnemy < shortDistance)

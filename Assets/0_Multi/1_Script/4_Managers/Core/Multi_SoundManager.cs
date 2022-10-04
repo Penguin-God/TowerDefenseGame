@@ -83,21 +83,7 @@ public class Multi_SoundManager
 
     public void BattleSceneInit()
     {
-        // 빼기
-        Multi_SpawnManagers.BossEnemy.OnSpawn -= (boss) => PlayBgm(BgmType.Boss);
-        Multi_SpawnManagers.BossEnemy.OnDead -= (boss) => PlayBgm(BgmType.Default);
 
-        Multi_SpawnManagers.BossEnemy.OnDead -= (boss) => PlayEffect(EffectSoundType.BossDeadClip);
-        Multi_SpawnManagers.TowerEnemy.OnDead -= (tower) => PlayEffect(EffectSoundType.TowerDieClip);
-        Multi_StageManager.Instance.OnUpdateStage -= (stage) => PlayEffect(EffectSoundType.NewStageClip);
-
-        // 더하기
-        Multi_SpawnManagers.BossEnemy.OnSpawn += (boss) => PlayBgm(BgmType.Boss);
-        Multi_SpawnManagers.BossEnemy.OnDead += (boss) => PlayBgm(BgmType.Default);
-
-        Multi_SpawnManagers.BossEnemy.OnDead += (boss) => PlayEffect(EffectSoundType.BossDeadClip);
-        Multi_SpawnManagers.TowerEnemy.OnDead += (tower) => PlayEffect(EffectSoundType.TowerDieClip);
-        Multi_StageManager.Instance.OnUpdateStage += (stage) => PlayEffect(EffectSoundType.NewStageClip);
     }
 
     public void PlayBgm(BgmType bgmType) => PlayBgm(Multi_Managers.Data.BgmBySound[bgmType].Path, Multi_Managers.Data.BgmBySound[bgmType].Volumn);

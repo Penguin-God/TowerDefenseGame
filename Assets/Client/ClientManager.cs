@@ -373,4 +373,12 @@ public class ClientManager : MonoBehaviour
         Multi_Managers.ClientData.Clear();
         InitEquips();
     }
+
+    public GameObject SkillUpgradeBackground;
+
+    public void OpenSkillUpgrade(SkillType skillType)
+    {
+        // 스킬마다 내용 초기화
+        SkillUpgradeBackground.SetActive(true);
+    }
 }

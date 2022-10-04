@@ -151,7 +151,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            photonView.RPC("SyncSpeed", RpcTarget.All, 0);
+            photonView.RPC("SyncSpeed", RpcTarget.All, 0f);
 
             if (exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine);
             exitSlowCoroutine = StartCoroutine(Co_ExitSlow(slowTime));

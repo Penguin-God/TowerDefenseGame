@@ -33,6 +33,11 @@ public class Multi_UnitManager : MonoBehaviourPun
     UnitStatChanger _stat = new UnitStatChanger();
     UnitPassiveManager _passive = new UnitPassiveManager();
 
+    void Awake()
+    {
+        _isDestory = false;
+    }
+
     private static bool _isDestory;
     void OnDestroy()
     {

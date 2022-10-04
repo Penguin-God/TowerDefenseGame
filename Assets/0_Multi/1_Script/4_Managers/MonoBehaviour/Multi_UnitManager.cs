@@ -12,6 +12,8 @@ public class Multi_UnitManager : MonoBehaviourPun
     {
         get
         {
+            if (_isDestory) return null;
+
             if(instance == null)
             {
                 instance = FindObjectOfType<Multi_UnitManager>();
@@ -30,6 +32,12 @@ public class Multi_UnitManager : MonoBehaviourPun
     MasterDataManager _master = new MasterDataManager();
     UnitStatChanger _stat = new UnitStatChanger();
     UnitPassiveManager _passive = new UnitPassiveManager();
+
+    private static bool _isDestory;
+    void OnDestroy()
+    {
+        _isDestory = true;    
+    }
 
     void Init()
     {

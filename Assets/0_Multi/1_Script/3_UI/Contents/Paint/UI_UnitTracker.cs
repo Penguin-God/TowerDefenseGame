@@ -24,7 +24,8 @@ public class UI_UnitTracker : Multi_UI_Base
 
     void OnDisable()
     {
-        Multi_UnitManager.Instance.OnUnitFlagCountChanged -= TrackUnitCount;
+        if(Multi_UnitManager.Instance != null)
+            Multi_UnitManager.Instance.OnUnitFlagCountChanged -= TrackUnitCount;
     }
 
     public void SetInfo(UI_UnitTrackerData data)

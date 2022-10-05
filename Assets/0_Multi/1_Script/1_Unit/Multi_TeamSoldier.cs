@@ -46,18 +46,15 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     protected Animator animator;
     protected PhotonView pv;
     protected RPCable rpcable;
-    public int UsingId => rpcable.UsingId;
     [SerializeField] protected EffectSoundType normalAttackSound;
     public float normalAttakc_AudioDelay;
 
     protected float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최대거리
 
-    #region Events
     protected Action<Multi_Enemy> OnHit;
     public Action<Multi_Enemy> OnPassiveHit;
 
     public event Action<Multi_TeamSoldier> OnDead;
-    #endregion
 
     #region Virual Funtion
     protected virtual void OnAwake() { } // 유닛마다 다른 Awake 세팅
@@ -67,8 +64,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public virtual void UnitTypeMove() { } // 유닛에 따른 움직임
     #endregion
 
-    TargetManager _targetManager;
-    UnitState _state;
+    protected TargetManager _targetManager;
+    protected UnitState _state;
 
     private void Awake()
     {
@@ -114,8 +111,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         }
 
         nav.enabled = true;
-
-        // 적 추적
         UpdateTarget();
         if (PhotonNetwork.IsMasterClient)
         {
@@ -197,21 +192,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         if (PhotonNetwork.IsMasterClient == false) return;
         _targetManager.UpdateTarget(transform.position);
-        //ChangedTarget(FindTarget()); // TODO : State 관리하면서 바꾸기
     }
 
-    Multi_Enemy FindTarget()
-    {
-        if (enterStoryWorld) return Multi_EnemyManager.Instance.GetCurrnetTower(UsingId);
-        if (Multi_EnemyManager.Instance.GetCurrentBoss(UsingId) != null) return Multi_EnemyManager.Instance.GetCurrentBoss(UsingId);
-        return Multi_EnemyManager.Instance._GetProximateEnemy(transform.position, chaseRange, UsingId);
-    }
+    void TargetToBoss(Multi_BossEnemy boss) => _targetManager.ChangedTarget(boss);
 
-    void ChangedTarget(Multi_Enemy newTarget)
-    {
-        if (PhotonNetwork.IsMasterClient == false) return;
-        _targetManager.ChangedTarget(newTarget);
-    }
 
     void SetNewDestinationPostion(Multi_Enemy newTarget)
     {
@@ -224,8 +208,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         if (newTarget.enemyType == EnemyType.Tower) ChaseTower(newTarget);
     }
-
-    void TargetToBoss(Multi_BossEnemy boss) => _targetManager.ChangedTarget(boss);
 
     void ChaseTower(Multi_Enemy tower)
     {
@@ -482,7 +464,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         }
     }
 
-    class UnitState
+    protected class UnitState
     {
         public UnitState(RPCable rpcable)
         {
@@ -508,7 +490,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         public int UsingId => _rpcable.UsingId;
     }
 
-    class TargetManager
+    protected class TargetManager
     {
         Multi_Enemy _target;
         public Vector3 TargetPosition

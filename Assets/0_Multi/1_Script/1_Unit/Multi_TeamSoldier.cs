@@ -31,12 +31,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     protected bool enterStoryWorld;
     public bool EnterStroyWorld => enterStoryWorld;
 
-    public bool isAttack; // 공격 중에 true
-    public bool isAttackDelayTime; // 공격 쿨타임 중에 true
+    [SerializeField] protected bool isAttack; // 공격 중에 true
+    [SerializeField] private bool isAttackDelayTime; // 공격 쿨타임 중에 true
     // 나중에 유닛별 공격 조건 만들면서 없애기
-    public bool isSkillAttack; // 스킬 공격 중에 true
-    public float skillCoolDownTime;
-
+    [SerializeField] protected bool isSkillAttack; // 스킬 공격 중에 true
+    [SerializeField] protected float skillCoolDownTime; // TODO : 죽이기
+     
     public Transform target;
     protected Multi_Enemy TargetEnemy { get { return target.GetComponent<Multi_Enemy>(); } }
 
@@ -50,7 +50,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     [SerializeField] protected EffectSoundType normalAttackSound;
     public float normalAttakc_AudioDelay;
 
-    protected float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최소거리
+    protected float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최대거리
 
     #region Events
     protected Action<Multi_Enemy> OnHit;
@@ -67,10 +67,13 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public virtual void UnitTypeMove() { } // 유닛에 따른 움직임
     #endregion
 
+    TargetManager _targetManager;
+    UnitState _state;
 
     private void Awake()
     {
         _unitFlags = new UnitFlags(unitColor, unitClass);
+
         // 평타 설정
         OnHit += AttackEnemy;
 
@@ -86,6 +89,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         enemyDistance = 150f;
 
         OnAwake(); // 유닛별 세팅
+
+        _state = new UnitState(rpcable);
+        _targetManager = new TargetManager(_state);
+        _targetManager.OnChangedTarget += SetNewDestinationPostion;
     }
 
     public void Spawn()
@@ -161,6 +168,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         gameObject.SetActive(false);
         Multi_SpawnManagers.BossEnemy.OnSpawn -= TargetToBoss;
         ResetSataeValue();
+        _state.Reset();
     }
 
     void ResetSataeValue()
@@ -188,9 +196,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
         if (PhotonNetwork.IsMasterClient == false) return;
-
-        ChangedTarget(FindTarget());
-        if (enterStoryWorld && target != null) ChaseTower(target.GetComponent<Multi_Enemy>());
+        _targetManager.UpdateTarget(transform.position);
+        //ChangedTarget(FindTarget()); // TODO : State 관리하면서 바꾸기
     }
 
     Multi_Enemy FindTarget()
@@ -203,16 +210,22 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     void ChangedTarget(Multi_Enemy newTarget)
     {
         if (PhotonNetwork.IsMasterClient == false) return;
+        _targetManager.ChangedTarget(newTarget);
+    }
 
-        if (newTarget != null)
+    void SetNewDestinationPostion(Multi_Enemy newTarget)
+    {
+        if(newTarget != null)
         {
             nav.isStopped = false;
             target = newTarget.transform;
             layerMask = ReturnLayerMask(target.gameObject);
         }
+
+        if (newTarget.enemyType == EnemyType.Tower) ChaseTower(newTarget);
     }
 
-    void TargetToBoss(Multi_BossEnemy boss) => ChangedTarget(boss);
+    void TargetToBoss(Multi_BossEnemy boss) => _targetManager.ChangedTarget(boss);
 
     void ChaseTower(Multi_Enemy tower)
     {
@@ -381,6 +394,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         
         MoveToOpposite();
         enterStoryWorld = !enterStoryWorld;
+        _state.ChangedWorld();
         photonView.RPC("UpdateStatus", RpcTarget.All, enterStoryWorld);
         if (enterStoryWorld) EnterStroyMode();
         else EnterWolrd();
@@ -465,6 +479,87 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             currentDir = (Quaternion)stream.ReceiveNext();
             LerpUtility.LerpPostition(transform, currentPos);
             LerpUtility.LerpRotation(transform, currentDir);
+        }
+    }
+
+    class UnitState
+    {
+        public UnitState(RPCable rpcable)
+        {
+            _rpcable = rpcable;
+        }
+
+        public void Reset()
+        {
+            enterStoryWorld = false;
+        }
+
+        bool enterStoryWorld;
+        public bool EnterStroyWorld => enterStoryWorld;
+        public void ChangedWorld()
+        {
+            enterStoryWorld = !enterStoryWorld;
+        }
+
+        public bool isAttack; // 공격 중에 true
+        public bool isAttackDelayTime; // 공격 쿨타임 중에 true
+
+        RPCable _rpcable;
+        public int UsingId => _rpcable.UsingId;
+    }
+
+    class TargetManager
+    {
+        Multi_Enemy _target;
+        public Vector3 TargetPosition
+        {
+            get
+            {
+                if (_target == null) return Vector3.zero;
+                else return _target.transform.position;
+            }
+        }
+        public event Action<Multi_Enemy> OnChangedTarget;
+        readonly float CHASE_RANGE = 150f;
+
+        UnitState _state;
+
+        public TargetManager(UnitState state)
+        {
+            _state = state;
+        }
+
+        public void Enter(Vector3 position)
+        {
+            UpdateTarget(position);
+        }
+
+        public void Reset()
+        {
+            _target = null;
+        }
+
+        public void UpdateTarget(Vector3 position)
+        {
+            var newTarget = FindTarget(position);
+            if (newTarget != null && _target != newTarget)
+                ChangedTarget(newTarget);
+        }
+
+        Multi_Enemy FindTarget(Vector3 position)
+        {
+            if (_state.EnterStroyWorld) return Multi_EnemyManager.Instance.GetCurrnetTower(_state.UsingId);
+            if (Multi_EnemyManager.Instance.GetCurrentBoss(_state.UsingId) != null) return Multi_EnemyManager.Instance.GetCurrentBoss(_state.UsingId);
+            return Multi_EnemyManager.Instance._GetProximateEnemy(position, CHASE_RANGE, _state.UsingId);
+        }
+
+        public void ChangedTarget(Multi_Enemy newTarget)
+        {
+            if (newTarget != null)
+            {
+                _target = newTarget;
+                OnChangedTarget?.Invoke(newTarget);
+            }
         }
     }
 }

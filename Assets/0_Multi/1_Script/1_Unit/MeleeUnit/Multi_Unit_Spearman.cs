@@ -68,6 +68,6 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         nav.isStopped = false;
         spear.SetActive(true);
 
-        SkillCoolDown(skillCoolDownTime);
+        base.EndSkillAttack(skillCoolDownTime);
     }
 }

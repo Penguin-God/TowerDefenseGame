@@ -28,11 +28,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     [SerializeField] protected float stopDistanc;
 
-    [SerializeField] protected bool isAttack; // 공격 중에 true
-    [SerializeField] private bool isAttackDelayTime; // 공격 쿨타임 중에 true
-    // 나중에 유닛별 공격 조건 만들면서 없애기
-    [SerializeField] protected bool isSkillAttack; // 스킬 공격 중에 true
-    [SerializeField] protected float skillCoolDownTime; // TODO : 죽이기
+    [SerializeField] protected float skillCoolDownTime; // TODO : 옮기기
      
     public Transform target;
     protected Multi_Enemy TargetEnemy { get { return target.GetComponent<Multi_Enemy>(); } }
@@ -57,7 +53,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     protected virtual void OnAwake() { } // 유닛마다 다른 Awake 세팅
     public virtual void SetSkillDamage() { } // 기본 데이터를 기반으로 유닛 고유 데이터 세팅
     public virtual void NormalAttack() { } // 유닛들의 고유한 공격
-    public virtual void SpecialAttack() => isSkillAttack = true; // 유닛마다 다른 스킬공격 (기사는 없음)
+    public virtual void SpecialAttack() => _state.StartAttack();
     public virtual void UnitTypeMove() { } // 유닛에 따른 움직임
     #endregion
 
@@ -86,9 +82,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         OnAwake(); // 유닛별 세팅
 
-        _state = new UnitState(rpcable);
+        _state = gameObject.AddComponent<UnitState>().SetInfo(rpcable);
         _targetManager = new TargetManager(_state);
-        _targetManager.OnChangedTarget += SetNewDestinationPostion;
+        _targetManager.OnChangedTarget += SetNewTarget;
     }
 
     public void Spawn()
@@ -161,16 +157,13 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         OnDead?.Invoke(this);
         gameObject.SetActive(false);
         Multi_SpawnManagers.BossEnemy.OnSpawn -= TargetToBoss;
-        _state.Reset();
+        _state.Daad();
     }
 
     void ResetAiStateValue()
     {
         target = null;
         rayHitTransform = null;
-        isAttack = false;
-        isAttackDelayTime = false;
-        isSkillAttack = false;
         contactEnemy = false;
         enemyIsForward = false;
         enemyDistance = 1000f;
@@ -189,15 +182,18 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     void TargetToBoss(Multi_BossEnemy boss) => _targetManager.ChangedTarget(boss);
 
-
-    void SetNewDestinationPostion(Multi_Enemy newTarget)
+    void SetNewTarget(Multi_Enemy newTarget)
     {
-        if(newTarget != null)
+        if(newTarget == null)
         {
-            nav.isStopped = false;
-            target = newTarget.transform;
-            layerMask = ReturnLayerMask(target.gameObject);
+            target = null;
+            nav.isStopped = true;
+            return;
         }
+
+        nav.isStopped = false;
+        target = newTarget.transform;
+        layerMask = ReturnLayerMask(target.gameObject);
 
         if (newTarget.enemyType == EnemyType.Tower) ChaseTower(newTarget);
     }
@@ -232,7 +228,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
             nav.SetDestination(DestinationPos);
 
-            if ((enemyIsForward || contactEnemy) && !isAttackDelayTime && !isSkillAttack && !isAttack) // Attack가능하고 쿨타임이 아니면 공격
+            if ((enemyIsForward || contactEnemy) && _state.IsAttackable) // && !isAttack && !isAttackDelayTime && !isSkillAttack
             {
                 UnitAttack();
             }
@@ -255,32 +251,24 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     protected void StartAttack()
     {
-        isAttack = true;
-        isAttackDelayTime = true;
+        _state.StartAttack();
         AfterPlaySound(normalAttackSound, normalAttakc_AudioDelay);
     }
 
     protected void EndAttack()
     {
-        StartCoroutine(Co_ResetAttactStatus());
+        _state.EndAttack(AttackDelayTime);
+        
         if (TargetIsNormalEnemy && enemyDistance > stopDistanc * 2 || (target != null && target.GetComponent<Multi_Enemy>().IsDead))
             UpdateTarget();
     }
 
-    IEnumerator Co_ResetAttactStatus()
+    protected void EndSkillAttack(float coolTime)
     {
-        isAttack = false;
+        _state.EndAttack(coolTime);
 
-        yield return new WaitForSeconds(AttackDelayTime);
-        isAttackDelayTime = false;
-    }
-
-
-    protected void SkillCoolDown(float _coolTime) => StartCoroutine(Co_SKillCoolDown(_coolTime));
-    IEnumerator Co_SKillCoolDown(float _coolTime)
-    {
-        yield return new WaitForSeconds(_coolTime);
-        isSkillAttack = false;
+        if (TargetIsNormalEnemy && enemyDistance > stopDistanc * 2 || (target != null && target.GetComponent<Multi_Enemy>().IsDead))
+            UpdateTarget();
     }
 
     #region Enemy 추적
@@ -450,31 +438,53 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     }
 
     [Serializable]
-    protected class UnitState
+    protected class UnitState : MonoBehaviour
     {
-        public UnitState(RPCable rpcable)
+        public UnitState SetInfo(RPCable rpcable)
         {
             _rpcable = rpcable;
+            return this;
         }
 
-        public void Reset()
+        public void Daad()
         {
-            enterStoryWorld = false;
-            isAttack = false;
-            isAttackDelayTime = false;
+            _enterStoryWorld = false;
+            _isAttackable = true;
+            _isAttack = false;
         }
 
-        [SerializeField] bool enterStoryWorld;
-        public bool EnterStroyWorld => enterStoryWorld;
+        [SerializeField] bool _enterStoryWorld;
+        public bool EnterStroyWorld => _enterStoryWorld;
         public void ChangedWorld()
         {
-            isAttack = false;
-            isAttackDelayTime = false;
-            enterStoryWorld = !enterStoryWorld;
+            _isAttackable = true;
+            _isAttack = false;
+            _enterStoryWorld = !_enterStoryWorld;
         }
 
-        public bool isAttack; // 공격 중에 true
-        public bool isAttackDelayTime; // 공격 쿨타임 중에 true
+        [SerializeField] bool _isAttackable = true;
+        public bool IsAttackable => _isAttackable;
+
+        [SerializeField] bool _isAttack;
+        public bool IsAttack => _isAttack;
+
+        public void StartAttack()
+        {
+            _isAttackable = false;
+            _isAttack = true;
+        }
+
+        public void EndAttack(float coolTime)
+        {
+            _isAttack = false;
+            StartCoroutine(Co_AttackCoolDown(coolTime));
+        }
+
+        IEnumerator Co_AttackCoolDown(float coolTime)
+        {
+            yield return new WaitForSeconds(coolTime);
+            _isAttackable = true;
+        }
 
         RPCable _rpcable;
         public int UsingId => _rpcable.UsingId;
@@ -503,7 +513,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         public void UpdateTarget(Vector3 position)
         {
             var newTarget = FindTarget(position);
-            if (newTarget != null && _target != newTarget)
+            if (_target != newTarget) 
                 ChangedTarget(newTarget);
         }
 
@@ -516,11 +526,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         public void ChangedTarget(Multi_Enemy newTarget)
         {
-            if (newTarget != null)
-            {
-                _target = newTarget;
-                OnChangedTarget?.Invoke(newTarget);
-            }
+            _target = newTarget;
+            OnChangedTarget?.Invoke(newTarget);
         }
     }
 }

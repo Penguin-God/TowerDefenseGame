@@ -51,12 +51,6 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         else StartCoroutine("MageAttack");
     }
 
-    public override void NormalAttack()
-    {
-        if (Skillable) SpecialAttack();
-        else StartCoroutine("MageAttack");
-    }
-
     protected IEnumerator MageAttack()
     {
         base.StartAttack();
@@ -81,7 +75,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     }
 
     [SerializeField] float mageSkillCoolDownTime;
-    protected override bool IsMoveLock => base.IsMoveLock || isSkillAttack;
+    protected override bool IsMoveLock => base.IsMoveLock || _state.IsAttack; // isSkillAttack
     public override void SpecialAttack()
     {
         SetMageSkillStatus();
@@ -91,7 +85,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         }
         
         PlaySkillSound();
-        SkillCoolDown(mageSkillCoolDownTime);
+        base.EndSkillAttack(mageSkillCoolDownTime);
     }
 
     protected GameObject SkillSpawn(Vector3 spawnPos) => Multi_SpawnManagers.Weapon.Spawn(skillData.WeaponPath, spawnPos);

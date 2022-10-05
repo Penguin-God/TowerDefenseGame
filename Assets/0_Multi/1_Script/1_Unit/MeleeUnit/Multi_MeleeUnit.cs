@@ -19,7 +19,7 @@ public class Multi_MeleeUnit : Multi_TeamSoldier
     {
         if (Check_EnemyToUnit_Deggre() < -0.8f && enemyDistance < 10)
         {
-            if (enemyIsForward || isAttack)
+            if (enemyIsForward || _state.IsAttack)
             {
                 destinationPos = target.position - (TargetEnemy.dir * -1f);
                 nav.acceleration = 2f;

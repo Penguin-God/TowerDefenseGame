@@ -59,7 +59,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
 
-        SkillCoolDown(skillCoolDownTime);
+        base.EndSkillAttack(skillCoolDownTime);
     }
 
     void ShotSkill()

@@ -28,9 +28,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     [SerializeField] protected float stopDistanc;
 
-    protected bool enterStoryWorld;
-    public bool EnterStroyWorld => enterStoryWorld;
-
     [SerializeField] protected bool isAttack; // 공격 중에 true
     [SerializeField] private bool isAttackDelayTime; // 공격 쿨타임 중에 true
     // 나중에 유닛별 공격 조건 만들면서 없애기
@@ -64,8 +61,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public virtual void UnitTypeMove() { } // 유닛에 따른 움직임
     #endregion
 
-    protected TargetManager _targetManager;
-    protected UnitState _state;
+
+    [SerializeField] protected TargetManager _targetManager;
+    [SerializeField] protected UnitState _state;
+    public bool EnterStroyWorld => _state.EnterStroyWorld;
 
     private void Awake()
     {
@@ -162,13 +161,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         OnDead?.Invoke(this);
         gameObject.SetActive(false);
         Multi_SpawnManagers.BossEnemy.OnSpawn -= TargetToBoss;
-        ResetSataeValue();
         _state.Reset();
-    }
-
-    void ResetSataeValue()
-    {
-        enterStoryWorld = false;
     }
 
     void ResetAiStateValue()
@@ -375,10 +368,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         Multi_SpawnManagers.Effect.Play(Effects.Unit_Tp_Effect, transform.position + (Vector3.up * 3));
         
         MoveToOpposite();
-        enterStoryWorld = !enterStoryWorld;
         _state.ChangedWorld();
-        photonView.RPC("UpdateStatus", RpcTarget.All, enterStoryWorld);
-        if (enterStoryWorld) EnterStroyMode();
+        if (EnterStroyWorld) EnterStroyMode();
         else EnterWolrd();
 
         UpdateTarget();
@@ -392,7 +383,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             rpcable.SetActive_RPC(true);
         }
 
-        Vector3 GetOppositeWorldSpawnPos() => (enterStoryWorld) ? Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(rpcable.UsingId) 
+        Vector3 GetOppositeWorldSpawnPos() => (EnterStroyWorld) ? Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(rpcable.UsingId) 
             : Multi_WorldPosUtility.Instance.GetEnemyTower_TP_Position(rpcable.UsingId);
 
         void EnterWolrd()
@@ -404,12 +395,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         {
             nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
         }
-    }
-
-    [PunRPC]
-    protected void UpdateStatus(bool isEnterStroyMode)
-    {
-        enterStoryWorld = isEnterStroyMode;
     }
 
 
@@ -442,7 +427,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         Multi_Managers.Sound.PlayEffect_If(type, SoundCondition, volumn);
 
         bool SoundCondition()
-            => rpcable.UsingId == Multi_Managers.Camera.LookWorld_Id && enterStoryWorld == Multi_Managers.Camera.IsLookEnemyTower;
+            => rpcable.UsingId == Multi_Managers.Camera.LookWorld_Id && EnterStroyWorld == Multi_Managers.Camera.IsLookEnemyTower;
     }
 
     // 동기화
@@ -464,6 +449,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         }
     }
 
+    [Serializable]
     protected class UnitState
     {
         public UnitState(RPCable rpcable)
@@ -474,12 +460,16 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         public void Reset()
         {
             enterStoryWorld = false;
+            isAttack = false;
+            isAttackDelayTime = false;
         }
 
-        bool enterStoryWorld;
+        [SerializeField] bool enterStoryWorld;
         public bool EnterStroyWorld => enterStoryWorld;
         public void ChangedWorld()
         {
+            isAttack = false;
+            isAttackDelayTime = false;
             enterStoryWorld = !enterStoryWorld;
         }
 
@@ -490,9 +480,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         public int UsingId => _rpcable.UsingId;
     }
 
+    [Serializable]
     protected class TargetManager
     {
-        Multi_Enemy _target;
+        [SerializeField] Multi_Enemy _target;
         public Vector3 TargetPosition
         {
             get
@@ -505,21 +496,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         readonly float CHASE_RANGE = 150f;
 
         UnitState _state;
+        public TargetManager(UnitState state) => _state = state;
 
-        public TargetManager(UnitState state)
-        {
-            _state = state;
-        }
-
-        public void Enter(Vector3 position)
-        {
-            UpdateTarget(position);
-        }
-
-        public void Reset()
-        {
-            _target = null;
-        }
+        public void Reset() => _target = null;
 
         public void UpdateTarget(Vector3 position)
         {

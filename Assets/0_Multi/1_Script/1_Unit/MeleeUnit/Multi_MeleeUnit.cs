@@ -10,7 +10,7 @@ public class Multi_MeleeUnit : Multi_TeamSoldier
     {
         get
         {
-            if (enterStoryWorld == false) return destinationPos;
+            if (EnterStroyWorld == false) return destinationPos;
             else return base.DestinationPos;
         }
     }

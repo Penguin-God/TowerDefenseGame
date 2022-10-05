@@ -63,6 +63,21 @@ public class Multi_EnemyManager : MonoBehaviourPun
     RPCData<Multi_EnemyTower> _currentTower = new RPCData<Multi_EnemyTower>();
     public Multi_EnemyTower GetCurrnetTower(int id) => _currentTower.Get(id);
 
+    public Multi_Enemy _GetProximateEnemy(Vector3 unitPos, float startDistance, int unitId)
+        => _finder.GetProximateEnemy(unitPos, startDistance, _master.GetEnemys(unitId));
+
+    public Multi_Enemy[] __GetProximateEnemys(Vector3 _unitPos, float _startDistance, int maxCount, int unitId)
+    {
+        if (maxCount >= _master.GetEnemys(unitId).Count) return _master.GetEnemys(unitId).ToArray();
+        return _finder.GetProximateEnemys(_unitPos, _startDistance, maxCount, _master.GetEnemys(unitId));
+    }
+
+    public Transform[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int maxCount, int unitId)
+    {
+        if (maxCount >= _master.GetEnemys(unitId).Count) return _master.GetEnemys(unitId).Select(x => x?.transform).ToArray();
+        return _finder.GetProximateEnemys(_unitPos, _startDistance, maxCount, _master.GetEnemys(unitId)).Select(x => x?.transform).ToArray();
+    }
+
     #region editor test
     [Header("테스트 인스팩터")]
     [SerializeField] List<Transform> test_0 = new List<Transform>();
@@ -83,20 +98,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
     }
     #endregion
 
-    public Transform GetProximateEnemy(Vector3 unitPos, float startDistance, int unitId)
-    {
-        if (_currentBoss.Get(unitId) != null) return _currentBoss.Get(unitId).transform; // TODO : 유닛으로 로직 옮기기
-        return _finder.GetProximateEnemy(unitPos, startDistance, _master.GetEnemys(unitId))?.transform;
-    }
 
-    public Multi_Enemy _GetProximateEnemy(Vector3 unitPos, float startDistance, int unitId)
-        => _finder.GetProximateEnemy(unitPos, startDistance, _master.GetEnemys(unitId));
-
-    public Transform[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int maxCount, int unitId)
-    {
-        if (maxCount >= _master.GetEnemys(unitId).Count) return _master.GetEnemys(unitId).Select(x => x?.transform).ToArray();
-        return _finder.GetProximateEnemys(_unitPos, _startDistance, maxCount, _master.GetEnemys(unitId)).Select(x => x?.transform).ToArray();
-    }
 
 
     class MasterManager

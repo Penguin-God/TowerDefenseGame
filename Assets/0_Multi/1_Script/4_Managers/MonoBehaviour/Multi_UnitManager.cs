@@ -225,15 +225,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     class UnitContorller
     {
         MasterDataManager _masterData;
-        public void Init(MasterDataManager masterData)
-        {
-            _masterData = masterData;
-            if (PhotonNetwork.IsMasterClient)
-            {
-                Multi_SpawnManagers.BossEnemy.OnSpawn += AllUnitTargetToBoss;
-                Multi_SpawnManagers.BossEnemy.OnDead += AllUnitUpdateTarget;
-            }
-        }
+        public void Init(MasterDataManager masterData) => _masterData = masterData;
 
         public void UnitDead(int id, UnitFlags unitFlag, int count = 1)
         {
@@ -250,17 +242,6 @@ public class Multi_UnitManager : MonoBehaviourPun
             if (_masterData.TryGetUnit_If(id, flag, out Multi_TeamSoldier unit, (_unit) => _unit.EnterStroyWorld == enterStroyMode))
                 unit.ChagneWorld();
         }
-
-        void AllUnitTargetToBoss(Multi_BossEnemy boss)
-        {
-            _masterData.GetUnitList(boss.GetComponent<RPCable>().UsingId)
-                .Where(x => x.EnterStroyWorld == false)
-                .ToList()
-                .ForEach(x => x.SetChaseSetting(boss.gameObject));
-        }
-
-        void AllUnitUpdateTarget(Multi_BossEnemy boss)
-            => _masterData.GetUnitList(boss.GetComponent<RPCable>().UsingId).ForEach(x => x.UpdateTarget());
     }
 
     class UnitCountManager

@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
 using System;
-using Random = UnityEngine.Random;
 
 public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 {
@@ -111,7 +110,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         // 적 추적
         UpdateTarget();
-        if (PhotonNetwork.IsMasterClient) StartCoroutine("NavCoroutine");
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Multi_SpawnManagers.BossEnemy.OnSpawn -= TargetToBoss;
+            Multi_SpawnManagers.BossEnemy.OnSpawn += TargetToBoss;
+            StartCoroutine("NavCoroutine");
+        }
     }
 
     void OnDisable()
@@ -155,10 +159,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         Debug.Assert(OnDead != null, $"{this.name} 이벤트가 null임");
         OnDead?.Invoke(this);
         gameObject.SetActive(false);
-        ResetValueSataeValue();
+        Multi_SpawnManagers.BossEnemy.OnSpawn -= TargetToBoss;
+        ResetSataeValue();
     }
 
-    void ResetValueSataeValue()
+    void ResetSataeValue()
     {
         enterStoryWorld = false;
     }
@@ -180,52 +185,46 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         nav.enabled = false;
     }
 
-    // 현재 살아있는 enemy 중 가장 가까운 enemy의 정보를 가지고 nav 및 변수 설정
-    public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
+    void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
         if (PhotonNetwork.IsMasterClient == false) return;
 
-        if (enterStoryWorld)
-        {
-            SetTargetByTower();
-            return;
-        }
-
-        //Transform _target = Multi_EnemyManager.Instance.GetProximateEnemy(transform.position, chaseRange, UsingId);
-        //if (_target != null) SetChaseSetting(_target.gameObject);
-        //else SetChaseSetting(null);
-        _SetChaseSetting(GetTarget());
+        ChangedTarget(FindTarget());
+        if (enterStoryWorld && target != null) ChaseTower(target.GetComponent<Multi_Enemy>());
     }
 
-    Multi_Enemy GetTarget()
+    Multi_Enemy FindTarget()
     {
         if (enterStoryWorld) return Multi_EnemyManager.Instance.GetCurrnetTower(UsingId);
         if (Multi_EnemyManager.Instance.GetCurrentBoss(UsingId) != null) return Multi_EnemyManager.Instance.GetCurrentBoss(UsingId);
         return Multi_EnemyManager.Instance._GetProximateEnemy(transform.position, chaseRange, UsingId);
     }
 
-    public void _SetChaseSetting(Multi_Enemy target)
-    {
-        if (target == null) SetChaseSetting(null);
-        else SetChaseSetting(target.gameObject);
-    }
-
-    public void SetChaseSetting(GameObject targetObject) // 추적 관련 변수 설정
+    void ChangedTarget(Multi_Enemy newTarget)
     {
         if (PhotonNetwork.IsMasterClient == false) return;
 
-        if (targetObject != null)
+        if (newTarget != null)
         {
             nav.isStopped = false;
-            target = targetObject.transform;
+            target = newTarget.transform;
             layerMask = ReturnLayerMask(target.gameObject);
         }
-        else
+    }
+
+    void TargetToBoss(Multi_BossEnemy boss) => ChangedTarget(boss);
+
+    void ChaseTower(Multi_Enemy tower)
+    {
+        if (tower != null)
         {
-            nav.isStopped = true;
-            target = null;
+            if (Physics.Raycast(transform.position, target.position - transform.position, out RaycastHit towerHit, 50f, layerMask))
+                DestinationPos = towerHit.point;
+            else
+                DestinationPos = transform.position;
         }
     }
+
 
     protected virtual Vector3 DestinationPos { get; set; }
     protected bool contactEnemy = false;
@@ -386,7 +385,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         if (enterStoryWorld) EnterStroyMode();
         else EnterWolrd();
 
-        rpcable.SetActive_RPC(true);
+        UpdateTarget();
         Multi_Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
 
         // 중첩 함수들...
@@ -404,31 +403,17 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         {
             nav.obstacleAvoidanceType = originObstacleType;
         }
+
+        void EnterStroyMode()
+        {
+            nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        }
     }
 
     [PunRPC]
     protected void UpdateStatus(bool isEnterStroyMode)
     {
         enterStoryWorld = isEnterStroyMode;
-    }
-
-    void EnterStroyMode()
-    {
-        nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-        SetTargetByTower();
-    }
-
-    void SetTargetByTower()
-    {
-        Multi_EnemyTower tower = Multi_EnemyManager.Instance.GetCurrnetTower(UsingId);
-        if (tower != null)
-        {
-            SetChaseSetting(tower.gameObject);
-            if(Physics.Raycast(transform.position, target.position - transform.position, out RaycastHit towerHit, 50f, layerMask))
-                DestinationPos = towerHit.point;
-            else
-                DestinationPos = transform.position;
-        }
     }
 
 

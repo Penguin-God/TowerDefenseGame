@@ -40,8 +40,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     [SerializeField] protected EffectSoundType normalAttackSound;
     public float normalAttakc_AudioDelay;
 
-    protected float chaseRange; // 풀링할 때 멀리 풀에 있는 놈들 충돌 안하게 하기위한 추적 최대거리
-
     protected Action<Multi_Enemy> OnHit;
     public Action<Multi_Enemy> OnPassiveHit;
 
@@ -54,7 +52,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public virtual void SpecialAttack() => _state.StartAttack();
     public virtual void UnitTypeMove() { } // 유닛에 따른 움직임
     #endregion
-
 
     [SerializeField] protected TargetManager _targetManager;
     [SerializeField] protected UnitState _state;
@@ -75,8 +72,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         nav = GetComponent<NavMeshAgent>();
 
         originObstacleType = nav.obstacleAvoidanceType;
-        chaseRange = 150f;
-        enemyDistance = 150f;
+        enemyDistance = CHASE_RANGE;
 
         OnAwake(); // 유닛별 세팅
 
@@ -160,11 +156,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     void ResetAiStateValue()
     {
+        _targetManager.Reset();
         target = null;
         rayHitTransform = null;
         contactEnemy = false;
         enemyIsForward = false;
-        enemyDistance = 1000f;
+        enemyDistance = CHASE_RANGE;
 
         if (animator != null)
             animator.enabled = false;
@@ -217,7 +214,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         while (true)
         {
             if (target != null) enemyDistance = Vector3.Distance(this.transform.position, DestinationPos);
-            if (target == null || enemyDistance > chaseRange)
+            if (target == null || Chaseable == false)
             {
                 UpdateTarget();
                 yield return null; // 튕김 방지
@@ -313,6 +310,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     protected int layerMask; // Ray 감지용
     [SerializeField] protected float enemyDistance;
+    readonly float CHASE_RANGE = 150f;
+    protected bool Chaseable => CHASE_RANGE > enemyDistance; // 거리가 아닌 다른 조건(IsDead 등)으로 바꾸기
     protected bool rayHit;
     protected RaycastHit rayHitObject;
     protected bool enemyIsForward;
@@ -501,7 +500,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             }
         }
         public event Action<Multi_Enemy> OnChangedTarget;
-        readonly float CHASE_RANGE = 150f;
 
         UnitState _state;
         public TargetManager(UnitState state) => _state = state;
@@ -519,7 +517,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         {
             if (_state.EnterStroyWorld) return Multi_EnemyManager.Instance.GetCurrnetTower(_state.UsingId);
             if (Multi_EnemyManager.Instance.GetCurrentBoss(_state.UsingId) != null) return Multi_EnemyManager.Instance.GetCurrentBoss(_state.UsingId);
-            return Multi_EnemyManager.Instance._GetProximateEnemy(position, CHASE_RANGE, _state.UsingId);
+            return Multi_EnemyManager.Instance.GetProximateEnemy(position, _state.UsingId);
         }
 
         public void ChangedTarget(Multi_Enemy newTarget)

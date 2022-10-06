@@ -37,7 +37,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
 
         LockMove();
         trail.SetActive(false);
-        if (PhotonNetwork.IsMasterClient && target != null && enemyDistance < chaseRange)
+        if (PhotonNetwork.IsMasterClient && target != null && Chaseable)
         {
             ProjectileShotDelegate.ShotProjectile(arrawData, target, OnHit);
         }
@@ -78,7 +78,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     Transform[] GetTargets()
     {
         if (TargetIsNormalEnemy == false) return new Transform[] { target };
-        return Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, chaseRange, skillArrowCount, _state.UsingId);
+        return Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, skillArrowCount, _state.UsingId);
     }
 
     void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, _skillDamage);

@@ -63,19 +63,18 @@ public class Multi_EnemyManager : MonoBehaviourPun
     RPCData<Multi_EnemyTower> _currentTower = new RPCData<Multi_EnemyTower>();
     public Multi_EnemyTower GetCurrnetTower(int id) => _currentTower.Get(id);
 
-    public Multi_Enemy _GetProximateEnemy(Vector3 unitPos, float startDistance, int unitId)
-        => _finder.GetProximateEnemy(unitPos, startDistance, _master.GetEnemys(unitId));
+    public Multi_Enemy GetProximateEnemy(Vector3 unitPos, int unitId) => _finder.GetProximateEnemy(unitPos, _master.GetEnemys(unitId));
 
-    public Multi_Enemy[] __GetProximateEnemys(Vector3 _unitPos, float _startDistance, int maxCount, int unitId)
+    public Multi_Enemy[] __GetProximateEnemys(Vector3 _unitPos, int maxCount, int unitId)
     {
         if (maxCount >= _master.GetEnemys(unitId).Count) return _master.GetEnemys(unitId).ToArray();
-        return _finder.GetProximateEnemys(_unitPos, _startDistance, maxCount, _master.GetEnemys(unitId));
+        return _finder.GetProximateEnemys(_unitPos, maxCount, _master.GetEnemys(unitId));
     }
 
-    public Transform[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int maxCount, int unitId)
+    public Transform[] GetProximateEnemys(Vector3 _unitPos, int maxCount, int unitId)
     {
         if (maxCount >= _master.GetEnemys(unitId).Count) return _master.GetEnemys(unitId).Select(x => x?.transform).ToArray();
-        return _finder.GetProximateEnemys(_unitPos, _startDistance, maxCount, _master.GetEnemys(unitId)).Select(x => x?.transform).ToArray();
+        return _finder.GetProximateEnemys(_unitPos, maxCount, _master.GetEnemys(unitId)).Select(x => x?.transform).ToArray();
     }
 
     #region editor test
@@ -159,11 +158,12 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
     class EnemyFinder
     {
-        public Multi_Enemy GetProximateEnemy(Vector3 _unitPos, float _startDistance, IEnumerable<Multi_Enemy> _enemyList)
+        public Multi_Enemy GetProximateEnemy(Vector3 _unitPos, IEnumerable<Multi_Enemy> _enemyList)
         {
             if (_enemyList == null || _enemyList.Count() == 0) return null;
 
-            float shortDistance = _startDistance;
+            float shortDistance = Mathf.Infinity;
+
             Multi_Enemy _returnEnemy = null;
             foreach (Multi_Enemy _enemy in _enemyList)
             {
@@ -181,7 +181,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
             return _returnEnemy;
         }
 
-        public Multi_Enemy[] GetProximateEnemys(Vector3 _unitPos, float _startDistance, int count, IReadOnlyList<Multi_Enemy> enemys)
+        public Multi_Enemy[] GetProximateEnemys(Vector3 _unitPos, int count, IReadOnlyList<Multi_Enemy> enemys)
         {
             Debug.Assert(enemys.Count > count, $"적 카운트 수가 {enemys.Count}이 배열의 크기인 {count}보다 \n 크지 않은 상태에서 함수가 실행됨.");
 
@@ -190,7 +190,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
             for (int i = 0; i < count; i++)
             {
-                result[i] = GetProximateEnemy(_unitPos, _startDistance, targets);
+                result[i] = GetProximateEnemy(_unitPos, targets);
                 targets.Remove(result[i]);
             }
             return result;

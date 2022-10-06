@@ -61,7 +61,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         magicLight.SetActive(true);
 
         // TODO : 딱 공격하려는 순간에 적이 죽어버리면 공격을 안함. 이건 판정 문제인데 그냥 target위치를 기억해서 거기다가 던지는게 나은듯
-        if (PhotonNetwork.IsMasterClient && target != null && enemyDistance < chaseRange)
+        if (PhotonNetwork.IsMasterClient && target != null && Chaseable)
         {
             ProjectileShotDelegate.ShotProjectile(energyballData, target, OnHit);
             manaSystem?.AddMana_RPC();
@@ -78,24 +78,26 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     protected override bool IsMoveLock => base.IsMoveLock || _state.IsAttack; // isSkillAttack
     public override void SpecialAttack()
     {
-        SetMageSkillStatus();
+        base.SpecialAttack();
+        manaSystem?.ClearMana_RPC();
         if (PhotonNetwork.IsMasterClient)
         {
             MageSkile();
         }
         
         PlaySkillSound();
-        base.EndSkillAttack(mageSkillCoolDownTime);
+        StartCoroutine(Co_EndSkillAttack(mageSkillCoolDownTime)); // 임시방편
     }
+    
+    IEnumerator Co_EndSkillAttack(float skillTime)
+    {
+        yield return new WaitForSeconds(skillTime);
+        base.EndSkillAttack(0);
+    }
+
 
     protected GameObject SkillSpawn(Vector3 spawnPos) => Multi_SpawnManagers.Weapon.Spawn(skillData.WeaponPath, spawnPos);
     protected virtual void MageSkile() { }
-
-    protected void SetMageSkillStatus()
-    {
-        base.SpecialAttack();
-        manaSystem?.ClearMana_RPC();
-    }
 
     protected virtual void PlaySkillSound() { }
 }

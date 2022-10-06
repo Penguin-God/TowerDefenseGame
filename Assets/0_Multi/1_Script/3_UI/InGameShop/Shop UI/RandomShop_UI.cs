@@ -13,7 +13,7 @@ public class GoodsManager
     Dictionary<GoodsLocation, UI_RandomShopGoodsData> _locationByData = new Dictionary<GoodsLocation, UI_RandomShopGoodsData>();
     public IReadOnlyDictionary<GoodsLocation, UI_RandomShopGoodsData> LocationByData => _locationByData;
 
-    public event Action<UI_RandomShopGoodsData> OnRemoveGoods = null;
+    public event Action<UI_RandomShopGoodsData> OnDropGoods = null;
 
     public bool HasGoods() => _locationByData.Count() > 0;
     public GoodsManager()
@@ -39,13 +39,12 @@ public class GoodsManager
         return goodsData;
     }
 
-    public void RemoveGoods(UI_RandomShopGoodsData data)
+    public void DropGoods(UI_RandomShopGoodsData data)
     {
         if (_locationByData.ContainsKey(data.GoodsLocation) == false) return;
 
         _locationByData.Remove(data.GoodsLocation);
-        _goodsData[data.GoodsLocation][data.Grade].Remove(data);
-        OnRemoveGoods?.Invoke(data);
+        OnDropGoods?.Invoke(data);
     }
 
     public void BindGoods()
@@ -141,8 +140,8 @@ public class RandomShop_UI : Multi_UI_Popup
             _locationByGoods.Add(item.Loaction, item);
         }
 
-        goodsManager.OnRemoveGoods += HideGoods;
-        goodsManager.OnRemoveGoods += UpdateShop;
+        goodsManager.OnDropGoods += HideGoods;
+        goodsManager.OnDropGoods += UpdateShop;
 
         Bind<Button>(typeof(Buttons));
         GetButton((int)Buttons.ResetButton).onClick.AddListener(ShopReset);
@@ -183,7 +182,7 @@ class GoodsSellUseCase
     {
         if (Multi_GameManager.instance.TryUseCurrency(data.CurrencyType, data.Price))
         {
-            goodsManager.RemoveGoods(data);
+            goodsManager.DropGoods(data);
 
             GiveGoods(data, SellAct);
             Multi_Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);

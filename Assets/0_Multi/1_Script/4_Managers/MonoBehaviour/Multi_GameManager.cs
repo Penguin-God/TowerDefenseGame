@@ -140,36 +140,22 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     void SubSound()
     {
-        // TODO : event 마스터만 구독하는 문제 해결하기
         var sound = Multi_Managers.Sound;
         // 빼기
-        Multi_SpawnManagers.BossEnemy.OnSpawn -= (boss) => sound.PlayBgm(BgmType.Boss);
-        Multi_SpawnManagers.BossEnemy.OnDead -= (boss) => sound.PlayBgm(BgmType.Default);
+        Multi_SpawnManagers.BossEnemy.rpcOnSpawn -= () => sound.PlayBgm(BgmType.Boss);
+        Multi_SpawnManagers.BossEnemy.rpcOnDead -= () => sound.PlayBgm(BgmType.Default);
 
-        Multi_SpawnManagers.BossEnemy.OnDead -= (boss) => sound.PlayEffect(EffectSoundType.BossDeadClip);
+        Multi_SpawnManagers.BossEnemy.rpcOnDead -= () => sound.PlayEffect(EffectSoundType.BossDeadClip);
         Multi_SpawnManagers.TowerEnemy.OnDead -= (tower) => sound.PlayEffect(EffectSoundType.TowerDieClip);
         Multi_StageManager.Instance.OnUpdateStage -= (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);
 
         // 더하기
-        Multi_SpawnManagers.BossEnemy.OnSpawn += (boss) => DoActionIfSameId(() => sound.PlayBgm(BgmType.Boss), boss);
-        Multi_SpawnManagers.BossEnemy.OnDead += (boss) => DoActionIfSameId(() => sound.PlayBgm(BgmType.Default), boss);
+        Multi_SpawnManagers.BossEnemy.rpcOnSpawn += () => sound.PlayBgm(BgmType.Boss);
+        Multi_SpawnManagers.BossEnemy.rpcOnDead += () => sound.PlayBgm(BgmType.Default);
 
-        Multi_SpawnManagers.BossEnemy.OnDead += (boss) => DoActionIfSameId(() => sound.PlayEffect(EffectSoundType.BossDeadClip), boss);
+        Multi_SpawnManagers.BossEnemy.rpcOnDead += () => sound.PlayEffect(EffectSoundType.BossDeadClip);
         Multi_SpawnManagers.TowerEnemy.OnDead += (tower) => sound.PlayEffect(EffectSoundType.TowerDieClip);
         Multi_StageManager.Instance.OnUpdateStage += (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);
-    }
-
-    void DoActionIfSameId(Action action, Component component)
-    {
-        var rpcable = component.GetComponent<RPCable>();
-        if (rpcable != null)
-            DoActionIfSameId(action, rpcable.UsingId);
-    }
-
-    void DoActionIfSameId(Action action, int id)
-    {
-        if (id == Multi_Data.instance.Id)
-            action?.Invoke();
     }
 
     void GetBossReward(Multi_BossEnemy enemy)

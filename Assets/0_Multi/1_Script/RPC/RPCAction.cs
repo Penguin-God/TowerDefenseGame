@@ -41,6 +41,48 @@ class RPCAciontBase
 }
 
 // 마스터한테 요청해야 하지만 개별로 적용되어야 하는 이벤트들
+public class RPCAction : IEventClear
+{
+    byte _eventId;
+    event Action OnEvent = null;
+
+    public RPCAction() => _eventId = new RPCAciontBase().Constructor(RecevieEvent, this);
+    public void Clear() => PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
+
+    void RecevieEvent(EventData data)
+    {
+        if (data.Code != _eventId) return;
+        OnEvent?.Invoke();
+    }
+
+    public void RaiseEvent(int id)
+    {
+        Debug.Assert(PhotonNetwork.IsMasterClient, "마스터가 아닌데 이벤트를 전달하려 함");
+
+        if (Multi_Data.instance.CheckIdSame(id)) // 내가 맞으면 실행하고 아니면 전달
+        {
+            OnEvent?.Invoke();
+            return;
+        }
+        RaiseEvent(ReceiverGroup.Others);
+    }
+
+    void RaiseEvent(ReceiverGroup receiverGroup) 
+        => PhotonNetwork.RaiseEvent(_eventId, null, new RaiseEventOptions() { Receivers = receiverGroup }, SendOptions.SendReliable);
+    public void RaiseEventToOther(int id) => RaiseEvent((id == 0) ? 1 : 0);
+
+    public static RPCAction operator +(RPCAction me, Action action)
+    {
+        me.OnEvent += action;
+        return me;
+    }
+
+    public static RPCAction operator -(RPCAction me, Action action)
+    {
+        me.OnEvent -= action;
+        return me;
+    }
+}
 
 public class RPCAction<T> : IEventClear
 {

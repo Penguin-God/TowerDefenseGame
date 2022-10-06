@@ -10,7 +10,11 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
 {
     public event Action<Multi_BossEnemy> OnSpawn;
     public event Action<Multi_BossEnemy> OnDead;
-    
+
+    public RPCAction rpcOnSpawn = new RPCAction();
+    public RPCAction rpcOnDead = new RPCAction();
+
+
     // Init용 코드
     #region Init
     protected override void Init()
@@ -34,6 +38,7 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
         var enemy = go.GetComponent<Multi_BossEnemy>();
         enemy.enemyType = EnemyType.Boss;
         enemy.OnDeath += () => OnDead(enemy);
+        enemy.OnDeath += () => rpcOnDead.RaiseEvent(enemy.UsingId);
         enemy.OnDeath += () => Multi_Managers.Pool.Push(enemy.GetComponent<Poolable>());
     }
 
@@ -53,6 +58,7 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
         Multi_BossEnemy enemy = base.BaseSpawn(path, spawnPositions[id], rotation, id).GetComponent<Multi_BossEnemy>();
         enemy.Spawn(bossLevel);
         OnSpawn?.Invoke(enemy);
+        rpcOnSpawn?.RaiseEvent(id);
         return null;
     }
 

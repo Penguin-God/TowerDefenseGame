@@ -250,20 +250,17 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         AfterPlaySound(normalAttackSound, normalAttakc_AudioDelay);
     }
 
+    bool CheckTargetUpdateCondition => TargetIsNormalEnemy && enemyDistance > stopDistanc * 2 || (target != null && target.GetComponent<Multi_Enemy>().IsDead);
     protected void EndAttack()
     {
         _state.EndAttack(AttackDelayTime);
-        
-        if (TargetIsNormalEnemy && enemyDistance > stopDistanc * 2 || (target != null && target.GetComponent<Multi_Enemy>().IsDead))
-            UpdateTarget();
+        if (CheckTargetUpdateCondition) UpdateTarget();
     }
 
     protected void EndSkillAttack(float coolTime)
     {
         _state.EndAttack(coolTime);
-
-        if (TargetIsNormalEnemy && enemyDistance > stopDistanc * 2 || (target != null && target.GetComponent<Multi_Enemy>().IsDead))
-            UpdateTarget();
+        if (CheckTargetUpdateCondition) UpdateTarget();
     }
 
     #region Enemy 추적
@@ -524,6 +521,97 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         {
             _target = newTarget;
             OnChangedTarget?.Invoke(newTarget);
+        }
+    }
+
+    [Serializable]
+    protected class ChaseSystem
+    {
+        [SerializeField] bool isMoveLock;
+        protected virtual bool IsMoveLock => false;
+
+        NavMeshAgent _nav;
+        Transform _currentTarget = null;
+        public void ChangedTarget(Transform newTarget) => _currentTarget = newTarget;
+        Transform _transform;
+        Vector3 MyPosition => _transform.position;
+        public ChaseSystem(NavMeshAgent nav, Transform transform)
+        {
+            _nav = nav;
+            _transform = transform;
+        }
+
+        protected void LockMove()
+        {
+            if (_nav.updatePosition == false) return;
+            _nav.updatePosition = false;
+        }
+
+        protected void ReleaseMove()
+        {
+            if (_nav.updatePosition == true) return;
+
+            ResetNavPosition();
+            _nav.updatePosition = true;
+        }
+
+        protected void ResetNavPosition()
+        {
+            _nav.Warp(MyPosition);
+            if (_currentTarget != null)
+                _nav.SetDestination(_currentTarget.position);
+        }
+
+        void FixedNavPosition()
+        {
+            if (Vector3.Distance(_nav.nextPosition, MyPosition) > 5f)
+                ResetNavPosition();
+        }
+
+        public void MoveUpdate()
+        {
+            if (_currentTarget == null) return;
+
+            isMoveLock = IsMoveLock;
+            FixedNavPosition();
+            // UnitTypeMove();
+            enemyIsForward = Set_EnemyIsForword();
+        }
+
+        protected int layerMask; // Ray 감지용
+        [SerializeField] protected float enemyDistance;
+        readonly float CHASE_RANGE = 150f;
+        protected bool Chaseable => CHASE_RANGE > enemyDistance; // 거리가 아닌 다른 조건(IsDead 등)으로 바꾸기
+        protected bool rayHit;
+        protected RaycastHit rayHitObject;
+        protected bool enemyIsForward;
+
+        public Transform rayHitTransform;
+        bool Set_EnemyIsForword()
+        {
+            if (rayHit)
+            {
+                rayHitTransform = rayHitObject.transform;
+                if (rayHitTransform == null) return false;
+
+                if (TransformIsBoss(rayHitTransform) || rayHitTransform == _currentTarget) return true;
+                // TODO : 거리 체크하는 조건 추가하기
+                else if (ReturnLayerMask(rayHitTransform.gameObject) == layerMask)
+                {
+                    // ray에 맞은 적이 target은 아니지만 target과 같은 layer라면 두 enemy가 겹친 것으로 판단해 true를 리턴
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        bool TransformIsBoss(Transform enemy) => enemy.CompareTag("Tower") || enemy.CompareTag("Boss");
+
+        int ReturnLayerMask(GameObject targetObject) // 인자의 layer를 반환하는 함수
+        {
+            int layer = targetObject.layer;
+            string layerName = LayerMask.LayerToName(layer);
+            return 1 << LayerMask.NameToLayer(layerName);
         }
     }
 }

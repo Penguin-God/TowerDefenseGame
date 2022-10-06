@@ -13,6 +13,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
     [SerializeField] int _skillDamage;
     [SerializeField] int _useSkillPercent;
+    [SerializeField] float _skillReboundTime;
 
     protected override void OnAwake()
     {
@@ -68,6 +69,6 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         nav.isStopped = false;
         spear.SetActive(true);
 
-        base.EndSkillAttack(skillCoolDownTime);
+        base.EndSkillAttack(_skillReboundTime);
     }
 }

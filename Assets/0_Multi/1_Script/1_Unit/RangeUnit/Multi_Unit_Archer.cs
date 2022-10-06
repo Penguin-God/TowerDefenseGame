@@ -12,6 +12,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
 
     [SerializeField] int _skillDamage;
     [SerializeField] int _useSkillPercent;
+    [SerializeField] float _skillReboundTime;
 
     protected override void OnAwake()
     {
@@ -59,7 +60,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
 
-        base.EndSkillAttack(skillCoolDownTime);
+        base.EndSkillAttack(_skillReboundTime);
     }
 
     void ShotSkill()

@@ -52,7 +52,7 @@ public class Multi_MeleeUnit : Multi_TeamSoldier
         }
     }
 
-    protected float Check_EnemyToUnit_Deggre()
+    float Check_EnemyToUnit_Deggre()
     {
         if (target == null) return 1f;
         float enemyDot = Vector3.Dot(TargetEnemy.dir.normalized, (destinationPos - transform.position));

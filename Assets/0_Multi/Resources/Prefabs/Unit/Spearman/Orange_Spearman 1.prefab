@@ -122,13 +122,13 @@ MonoBehaviour:
     _speed: 0
     _attackRange: 0
   stopDistanc: 3
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
   skillCoolDownTime: 0.4
   target: {fileID: 0}
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0.55
+  _targetManager:
+    _target: {fileID: 0}
+  _state: {fileID: 0}
   isMoveLock: 0
   enemyDistance: 0
   rayHitTransform: {fileID: 0}
@@ -140,6 +140,7 @@ MonoBehaviour:
   spear: {fileID: 6477026531094148021}
   _skillDamage: 0
   _useSkillPercent: 0
+  _skillReboundTime: 0.4
 --- !u!114 &8010610448321769205
 MonoBehaviour:
   m_ObjectHideFlags: 0

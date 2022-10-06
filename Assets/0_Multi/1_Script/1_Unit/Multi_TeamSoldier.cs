@@ -28,8 +28,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     [SerializeField] protected float stopDistanc;
 
-    [SerializeField] protected float skillCoolDownTime; // TODO : 옮기기
-     
     public Transform target;
     protected Multi_Enemy TargetEnemy { get { return target.GetComponent<Multi_Enemy>(); } }
 

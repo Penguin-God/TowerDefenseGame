@@ -651,24 +651,19 @@ MonoBehaviour:
       _classNumber: 0
     _damage: 0
     _bossDamage: 0
-    _useSkillPercent: 0
     _attackDelayTime: 0
     _speed: 0
     _attackRange: 0
-  skillDamage: 0
   stopDistanc: 3
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
   skillCoolDownTime: 0.4
   target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 85dba780b43ecf64d9bd254eb78775fb, type: 3}
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0.55
-  reinforceEffect: {fileID: 0}
+  _targetManager:
+    _target: {fileID: 0}
+  _state: {fileID: 0}
   isMoveLock: 0
   enemyDistance: 0
-  enemyIsForward: 0
   rayHitTransform: {fileID: 0}
   shotSpearData:
     weaponPath: 
@@ -676,7 +671,9 @@ MonoBehaviour:
     spawnTransform: {fileID: 2303647920214416741}
   trail: {fileID: 434739402398734645}
   spear: {fileID: 2284737810700154592}
-  skillAudioClip: {fileID: 8300000, guid: 4f86a6c917a1d694a89e67a5762a3ede, type: 3}
+  _skillDamage: 0
+  _useSkillPercent: 0
+  _skillReboundTime: 0.4
 --- !u!114 &1798913703
 MonoBehaviour:
   m_ObjectHideFlags: 0

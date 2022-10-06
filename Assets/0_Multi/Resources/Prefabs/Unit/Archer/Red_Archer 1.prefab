@@ -515,13 +515,13 @@ MonoBehaviour:
     _speed: 0
     _attackRange: 0
   stopDistanc: 5
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
   skillCoolDownTime: 0.5
   target: {fileID: 0}
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0
+  _targetManager:
+    _target: {fileID: 0}
+  _state: {fileID: 0}
   isMoveLock: 0
   enemyDistance: 0
   rayHitTransform: {fileID: 0}
@@ -529,9 +529,10 @@ MonoBehaviour:
     weaponPath: 
     attacker: {fileID: 6040848935930658276}
     spawnTransform: {fileID: 6040848934594880375}
-  skillAttackTargetCount: 3
+  skillArrowCount: 3
   _skillDamage: 0
   _useSkillPercent: 0
+  _skillReboundTime: 0.5
 --- !u!114 &9212382317103639174
 MonoBehaviour:
   m_ObjectHideFlags: 0

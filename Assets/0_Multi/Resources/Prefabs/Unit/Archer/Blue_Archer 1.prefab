@@ -527,30 +527,28 @@ MonoBehaviour:
       _classNumber: 0
     _damage: 0
     _bossDamage: 0
-    _useSkillPercent: 0
     _attackDelayTime: 0
     _speed: 0
     _attackRange: 0
-  skillDamage: 0
   stopDistanc: 5
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
   skillCoolDownTime: 0.5
   target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 6d9fd95ba9e9dd34391d716574fd4873, type: 3}
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0
-  reinforceEffect: {fileID: 0}
+  _targetManager:
+    _target: {fileID: 0}
+  _state: {fileID: 0}
   isMoveLock: 0
   enemyDistance: 0
-  enemyIsForward: 0
   rayHitTransform: {fileID: 0}
   arrawData:
     weaponPath: 
     attacker: {fileID: 3192143453688435172}
     spawnTransform: {fileID: 156209486517130305}
-  skillAttackTargetCount: 3
+  skillArrowCount: 3
+  _skillDamage: 0
+  _useSkillPercent: 0
+  _skillReboundTime: 0.5
 --- !u!114 &1623368292
 MonoBehaviour:
   m_ObjectHideFlags: 0

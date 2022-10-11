@@ -55,7 +55,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
     [SerializeField] protected TargetManager _targetManager;
     [SerializeField] protected UnitState _state;
-    public bool EnterStroyWorld => _state.EnterStroyWorld;
+    public bool EnterStroyWorld => _state.EnterStoryWorld;
 
     private void Awake()
     {
@@ -355,7 +355,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         else EnterWolrd();
 
         UpdateTarget();
-        Multi_Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
+        RPC_PlayTpSound();
 
         // 중첩 함수들...
         void MoveToOpposite()
@@ -379,6 +379,16 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         }
     }
 
+    void RPC_PlayTpSound()
+    {
+        if (_state.UsingId == Multi_Data.instance.Id)
+            Multi_Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
+        else
+            photonView.RPC(nameof(PlayTpSound), RpcTarget.Others);
+    }
+
+    [PunRPC] // TODO : 나중에 멀티 싱글턴 만들어서 거기에 빼기
+    protected void PlayTpSound() => Multi_Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
 
     #region callback funtion
 
@@ -432,7 +442,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     }
 
     [Serializable]
-    protected class UnitState : MonoBehaviour
+    protected class UnitState : MonoBehaviourPun
     {
         public UnitState SetInfo(RPCable rpcable)
         {
@@ -442,19 +452,23 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         public void Daad()
         {
-            _enterStoryWorld = false;
+            RPC_SetEnterStroyWorld(false);
             _isAttackable = true;
             _isAttack = false;
         }
 
         [SerializeField] bool _enterStoryWorld;
-        public bool EnterStroyWorld => _enterStoryWorld;
+        public bool EnterStoryWorld => _enterStoryWorld;
         public void ChangedWorld()
         {
             _isAttackable = true;
             _isAttack = false;
-            _enterStoryWorld = !_enterStoryWorld;
+            RPC_SetEnterStroyWorld(!_enterStoryWorld);
         }
+
+        void RPC_SetEnterStroyWorld(bool newEnterStroyWorld) => photonView.RPC(nameof(SetEnterStroyWorld), RpcTarget.All, newEnterStroyWorld);
+        [PunRPC]
+        void SetEnterStroyWorld(bool newEnterStroyWorld) => _enterStoryWorld = newEnterStroyWorld;
 
         [SerializeField] bool _isAttackable = true;
         public bool IsAttackable => _isAttackable;
@@ -512,7 +526,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         Multi_Enemy FindTarget(Vector3 position)
         {
-            if (_state.EnterStroyWorld) return Multi_EnemyManager.Instance.GetCurrnetTower(_state.UsingId);
+            if (_state.EnterStoryWorld) return Multi_EnemyManager.Instance.GetCurrnetTower(_state.UsingId);
             if (Multi_EnemyManager.Instance.GetCurrentBoss(_state.UsingId) != null) return Multi_EnemyManager.Instance.GetCurrentBoss(_state.UsingId);
             return Multi_EnemyManager.Instance.GetProximateEnemy(position, _state.UsingId);
         }

@@ -67,7 +67,7 @@ public class Multi_MeleeUnit : Multi_TeamSoldier
             OnHit?.Invoke(TargetEnemy);
     }
 
-    private void FixedUpdate()
+    void FixedUpdate()
     {
         Debug.DrawRay(transform.position + Vector3.up, transform.forward * AttackRange, Color.green);
         rayHit = Physics.Raycast(transform.position + Vector3.up, transform.forward, out rayHitObject, AttackRange, layerMask);

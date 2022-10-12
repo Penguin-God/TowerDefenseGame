@@ -193,7 +193,7 @@ public class RangeChaser : ChaseSystem
 {
     protected override Vector3 GetDestinationPos()
     {
-        Vector3 enemySpeed = _currentTarget.dir * _currentTarget.Speed;
+        Vector3 enemySpeed = _currentTarget.dir * 2;
         return TargetPosition + enemySpeed;
     }
 

@@ -50,7 +50,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public virtual void SetSkillDamage() { } // 기본 데이터를 기반으로 유닛 고유 데이터 세팅
     public virtual void NormalAttack() { } // 유닛들의 고유한 공격
     public virtual void SpecialAttack() => _state.StartAttack();
-    public virtual void UnitTypeMove() { } // 유닛에 따른 움직임
     #endregion
 
     [SerializeField] protected TargetManager _targetManager;
@@ -74,7 +73,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         nav = GetComponent<NavMeshAgent>();
 
         originObstacleType = nav.obstacleAvoidanceType;
-        //enemyDistance = CHASE_RANGE;
 
         OnAwake(); // 유닛별 세팅
 
@@ -165,8 +163,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         _targetManager.Reset();
         target = null;
         contactEnemy = false;
-        enemyIsForward = false;
-        //enemyDistance = CHASE_RANGE;
 
         if (animator != null)
             animator.enabled = false;
@@ -193,24 +189,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         nav.isStopped = false;
         target = newTarget.transform;
-        layerMask = ReturnLayerMask(target.gameObject);
-
-        if (newTarget.enemyType == EnemyType.Tower) ChaseTower(newTarget);
     }
 
-    void ChaseTower(Multi_Enemy tower)
-    {
-        if (tower != null)
-        {
-            if (Physics.Raycast(transform.position, target.position - transform.position, out RaycastHit towerHit, 50f, layerMask))
-                DestinationPos = towerHit.point;
-            else
-                DestinationPos = transform.position;
-        }
-    }
-
-
-    protected virtual Vector3 DestinationPos { get; set; }
     public bool contactEnemy = false;
     IEnumerator NavCoroutine()
     {
@@ -218,7 +198,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         while (true)
         {
-            //if (target != null) enemyDistance = Vector3.Distance(transform.position, DestinationPos);
             if (target == null || Chaseable == false)
             {
                 UpdateTarget();
@@ -226,9 +205,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
                 continue;
             }
 
-            //nav.SetDestination(DestinationPos);
-
-            if ((enemyIsForward || contactEnemy) && _state.IsAttackable)
+            if ((_chaseSystem.EnemyIsForward || contactEnemy) && _state.IsAttackable)
             {
                 UnitAttack();
             }
@@ -268,80 +245,18 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         if (CheckTargetUpdateCondition) UpdateTarget();
     }
 
-    #region Enemy 추적
-
-    [SerializeField] bool isMoveLock;
-    protected virtual bool IsMoveLock => false;
-
-    protected void LockMove()
-    {
-        if (nav.updatePosition == false) return;
-        nav.updatePosition = false;
-    }
-
-    protected void ReleaseMove()
-    {
-        if (nav.updatePosition == true) return;
-
-        ResetNavPosition();
-        nav.updatePosition = true;
-    }
-
-    protected void ResetNavPosition()
-    {
-        nav.Warp(transform.position);
-        if(target != null)
-            nav.SetDestination(target.position);
-    }
-
     private void Update()
     {
         if (target == null) return;
 
-        isMoveLock = IsMoveLock;
         _chaseSystem.MoveUpdate();
-        //UnitTypeMove();
-        enemyIsForward = Set_EnemyIsForword();
     }
 
-    protected int layerMask; // Ray 감지용
     [SerializeField] protected float enemyDistance => _chaseSystem.EnemyDistance;
     readonly float CHASE_RANGE = 150f;
     protected bool Chaseable => CHASE_RANGE > enemyDistance; // 거리가 아닌 다른 조건(IsDead 등)으로 바꾸기
-    protected bool rayHit;
-    protected RaycastHit rayHitObject;
-    [SerializeField] protected bool enemyIsForward;
-
-    bool Set_EnemyIsForword()
-    {
-        if (rayHit)
-        {
-            var rayHitTransform = rayHitObject.transform;
-            if (rayHitTransform == null) return false;
-
-            if (TransformIsBoss(rayHitTransform) || rayHitTransform == target) return true;
-            // TODO : 거리 체크하는 조건 추가하기
-            else if (ReturnLayerMask(rayHitTransform.gameObject) == layerMask)
-            {
-                // ray에 맞은 적이 target은 아니지만 target과 같은 layer라면 두 enemy가 겹친 것으로 판단해 true를 리턴
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    int ReturnLayerMask(GameObject targetObject) // 인자의 layer를 반환하는 함수
-    {
-        int layer = targetObject.layer;
-        string layerName = LayerMask.LayerToName(layer);
-        return 1 << LayerMask.NameToLayer(layerName);
-    }
-    #endregion
-
 
     protected bool TargetIsNormalEnemy { get { return (target != null && target.GetComponent<Multi_Enemy>().enemyType == EnemyType.Normal); } }
-    bool TransformIsBoss(Transform enemy) => enemy.CompareTag("Tower") || enemy.CompareTag("Boss");
 
     public void ChagneWorld()
     {
@@ -499,14 +414,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     protected class TargetManager
     {
         [SerializeField] Multi_Enemy _target;
-        public Vector3 TargetPosition
-        {
-            get
-            {
-                if (_target == null) return Vector3.zero;
-                else return _target.transform.position;
-            }
-        }
         public event Action<Multi_Enemy> OnChangedTarget;
 
         UnitState _state;

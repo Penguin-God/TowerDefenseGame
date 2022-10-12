@@ -44,8 +44,14 @@ public class ChaseSystem : MonoBehaviour
     }
 
 
-    void FixedUpdate() => enemyIsForward = ChcekEnemyInSight();
+    void FixedUpdate()
+    {
+        if (_currentTarget == null) return;
+        enemyIsForward = ChcekEnemyInSight();
+    }
+
     [SerializeField] protected bool enemyIsForward;
+    public bool EnemyIsForward => enemyIsForward;
     protected int layerMask; // Ray 감지용
     readonly float CHASE_RANGE = 150f;
     protected bool Chaseable => CHASE_RANGE > enemyDistance && _currentTarget != null; // 거리가 아닌 다른 조건(IsDead 등)으로 바꾸기
@@ -191,7 +197,7 @@ public class RangeChaser : ChaseSystem
         return TargetPosition + enemySpeed;
     }
 
-    protected bool IsMoveLock => _unit.AttackRange * 0.8f >= enemyDistance;
+    protected virtual bool IsMoveLock => _unit.AttackRange * 0.8f >= enemyDistance || _unit.IsAttack;
 
     protected override void SetChaseStatus()
     {

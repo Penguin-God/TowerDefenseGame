@@ -35,7 +35,8 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     {
         base.StartAttack();
 
-        LockMove();
+        //LockMove();
+        nav.isStopped = true;
         trail.SetActive(false);
         if (PhotonNetwork.IsMasterClient && target != null && Chaseable)
         {
@@ -44,7 +45,8 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
 
-        ReleaseMove();
+        //ReleaseMove();
+        nav.isStopped = false;
         EndAttack();
     }
 

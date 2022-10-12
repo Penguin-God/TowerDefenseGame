@@ -5,6 +5,8 @@ using Photon.Pun;
 
 public class Multi_MeleeUnit : Multi_TeamSoldier
 {
+    protected override ChaseSystem AddCahseSystem() => gameObject.AddComponent<MeeleChaser>();
+
     Vector3 destinationPos = Vector3.zero;
     protected override Vector3 DestinationPos
     {

@@ -56,6 +56,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     [SerializeField] protected TargetManager _targetManager;
     protected UnitState _state;
     public bool EnterStroyWorld => _state.EnterStoryWorld;
+    public bool IsAttack => _state.IsAttack;
     protected ChaseSystem _chaseSystem;
 
     private void Awake()
@@ -80,9 +81,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         _state = gameObject.AddComponent<UnitState>();
         _targetManager = new TargetManager(_state);
         _targetManager.OnChangedTarget += SetNewTarget;
-        _chaseSystem = gameObject.AddComponent<ChaseSystem>();
+        _chaseSystem = AddCahseSystem();
         _targetManager.OnChangedTarget += _chaseSystem.ChangedTarget;
     }
+
+    protected virtual ChaseSystem AddCahseSystem() => gameObject.AddComponent<ChaseSystem>();
 
     public void Spawn()
     {
@@ -208,7 +211,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
 
     protected virtual Vector3 DestinationPos { get; set; }
-    protected bool contactEnemy = false;
+    public bool contactEnemy = false;
     IEnumerator NavCoroutine()
     {
         if (PhotonNetwork.IsMasterClient == false) yield break;

@@ -5,9 +5,9 @@ using UnityEngine.AI;
 
 public class ChaseSystem : MonoBehaviour
 {
-    NavMeshAgent _nav;
-    [SerializeField] Multi_Enemy _currentTarget = null;
-    Vector3 TargetPosition => _currentTarget.transform.position;
+    protected NavMeshAgent _nav;
+    [SerializeField] protected Multi_Enemy _currentTarget = null;
+    protected Vector3 TargetPosition => _currentTarget.transform.position;
     public void ChangedTarget(Multi_Enemy newTarget)
     {
         if (newTarget == null)
@@ -23,18 +23,20 @@ public class ChaseSystem : MonoBehaviour
     void Awake()
     {
         _nav = GetComponent<NavMeshAgent>();
+        Init();
     }
 
-    protected virtual Vector3 DestinationPos { get; set; }
+    protected virtual void Init() {}
+
+    protected virtual Vector3 GetDestinationPos() => Vector3.zero;
     protected virtual void Move() => Debug.Log("선언이 안되있을지도?");
-    protected virtual bool ShotRay() => false;
     public void MoveUpdate()
     {
         if (_currentTarget == null) return;
 
-        enemyDistance = Vector3.Distance(transform.position, TargetPosition);
+        enemyDistance = Vector3.Distance(transform.position, GetDestinationPos());
         FixedNavPosition();
-        Move();
+        _nav.SetDestination(GetDestinationPos());
         enemyIsForward = ChcekEnemyInSight();
     }
 
@@ -103,5 +105,79 @@ public class ChaseSystem : MonoBehaviour
         int layer = targetObject.layer;
         string layerName = LayerMask.LayerToName(layer);
         return 1 << LayerMask.NameToLayer(layerName);
+    }
+}
+
+
+public class MeeleChaser : ChaseSystem
+{
+    Multi_TeamSoldier _unit;
+    protected override void Init()
+    {
+        _unit = GetComponent<Multi_TeamSoldier>();
+    }
+
+    Vector3 currentDestinationPos;
+    protected override Vector3 GetDestinationPos()
+    {
+        if (Check_EnemyToUnit_Deggre() < -0.8f && enemyDistance < 10)
+        {
+            if (enemyIsForward || _unit.IsAttack)
+            {
+                _nav.acceleration = 2f;
+                _nav.angularSpeed = 5;
+                _nav.speed = 1f;
+                currentDestinationPos = TargetPosition - (_currentTarget.dir * -1f);
+            }
+            else
+            {
+                _nav.acceleration = 20f;
+                _nav.angularSpeed = 500;
+                _nav.speed = 15f;
+                currentDestinationPos = TargetPosition - (_currentTarget.dir * -5f);
+            }
+        }
+        else if (5 > enemyDistance)
+        {
+            _nav.acceleration = 20f;
+            _nav.angularSpeed = 200;
+            _nav.speed = 5f;
+            _unit.contactEnemy = true;
+            currentDestinationPos = TargetPosition - (_currentTarget.dir * 2);
+        }
+        else
+        {
+            _nav.speed = _unit.Speed;
+            _nav.angularSpeed = 500;
+            _nav.acceleration = 40;
+            _unit.contactEnemy = false;
+            currentDestinationPos = TargetPosition - (_currentTarget.dir * 1);
+        }
+
+        return currentDestinationPos;
+    }
+
+    float Check_EnemyToUnit_Deggre()
+    {
+        if (_currentTarget == null) return 1f;
+        float enemyDot = Vector3.Dot(_currentTarget.dir.normalized, (currentDestinationPos - transform.position));
+        return enemyDot;
+    }
+
+    protected override bool RaycastEnemy(out Transform hitEnemy)
+    {
+        if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out RaycastHit rayHitObject, 5, layerMask) == false)
+        {
+            hitEnemy = null;
+            return false;
+        }
+
+        hitEnemy = rayHitObject.transform;
+        return true;
+    }
+
+    void OnDrawGizmos()
+    {
+        Debug.DrawRay(transform.position + Vector3.up, transform.forward * _unit.AttackRange, Color.green);
     }
 }

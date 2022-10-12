@@ -30,12 +30,11 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     [PunRPC]
     protected override void Attack() => new UnitRandomSkillSystem().Attack(NormalAttack, SpecialAttack, _useSkillPercent);
 
-    public override void NormalAttack() => StartCoroutine("ArrowAttack");
+    public override void NormalAttack() => StartCoroutine(nameof(ArrowAttack));
     IEnumerator ArrowAttack()
     {
         base.StartAttack();
 
-        //LockMove();
         nav.isStopped = true;
         trail.SetActive(false);
         if (PhotonNetwork.IsMasterClient && target != null && Chaseable)
@@ -45,7 +44,6 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
 
-        //ReleaseMove();
         nav.isStopped = false;
         EndAttack();
     }

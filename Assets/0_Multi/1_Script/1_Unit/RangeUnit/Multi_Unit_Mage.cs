@@ -48,7 +48,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     protected override void Attack()
     {
         if (Skillable) SpecialAttack();
-        else StartCoroutine("MageAttack");
+        else StartCoroutine(nameof(MageAttack));
     }
 
     protected IEnumerator MageAttack()

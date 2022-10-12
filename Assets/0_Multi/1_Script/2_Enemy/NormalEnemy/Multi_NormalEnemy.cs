@@ -73,7 +73,7 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     public ResurrectionSystem resurrection = new ResurrectionSystem();
 
-    public void Resurrection_RPC() => photonView.RPC("Resurrection", RpcTarget.All);
+    public void Resurrection_RPC() => photonView.RPC(nameof(Resurrection), RpcTarget.All);
     [PunRPC] protected void Resurrection() => resurrection.Resurrection();
 
     public class ResurrectionSystem
@@ -115,8 +115,8 @@ public class Multi_NormalEnemy : Multi_Enemy
         {
             speed = maxSpeed - maxSpeed * (slowPercent / 100);
             Rigidbody.velocity = dir * speed;
-            photonView.RPC("SyncSpeed", RpcTarget.Others, speed);
-            photonView.RPC("ChangeColor", RpcTarget.All, 50, 175, 222, 1);
+            photonView.RPC(nameof(SyncSpeed), RpcTarget.Others, speed);
+            photonView.RPC(nameof(ChangeColor), RpcTarget.All, 50, 175, 222, 1);
 
             // 슬로우 시간 갱신 위한 코드
             // 더 강하거나 비슷한 슬로우가 들어오면 작동 준비중이던 슬로우 탈출 코루틴은 나가리 되고 새로운 탈출 코루틴이 돌아감
@@ -132,7 +132,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     IEnumerator Co_ExitSlow(float slowTime)
     {
         yield return new WaitForSeconds(slowTime);
-        photonView.RPC("ExitSlow", RpcTarget.All);
+        photonView.RPC(nameof(ExitSlow), RpcTarget.All);
     }
 
     [PunRPC]
@@ -151,12 +151,12 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         if (PhotonNetwork.IsMasterClient)
         {
-            photonView.RPC("SyncSpeed", RpcTarget.All, 0f);
+            photonView.RPC(nameof(SyncSpeed), RpcTarget.All, 0f);
 
             if (exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine);
             exitSlowCoroutine = StartCoroutine(Co_ExitSlow(slowTime));
 
-            photonView.RPC("OnFreeze", RpcTarget.Others, 0f); // 마스터 클라 외의 플레이어 입장에서 if문 바깥의 ChangeMat 코드 실행이 목적이므로 인자값은 의미없음
+            photonView.RPC(nameof(OnFreeze), RpcTarget.Others, 0f); // 마스터 클라 외의 플레이어 입장에서 if문 바깥의 ChangeMat 코드 실행이 목적이므로 인자값은 의미없음
         }
 
         ChangeMat(freezeMat);
@@ -174,12 +174,12 @@ public class Multi_NormalEnemy : Multi_Enemy
     IEnumerator SternCoroutine(float stunTime)
     {
         queue_GetSturn.Enqueue(-1);
-        photonView.RPC("SyncSpeed", RpcTarget.All, 0f);
-        photonView.RPC("ShowSturnEffetc", RpcTarget.All);
+        photonView.RPC(nameof(SyncSpeed), RpcTarget.All, 0f);
+        photonView.RPC(nameof(ShowSturnEffetc), RpcTarget.All);
         yield return new WaitForSeconds(stunTime);
 
         if (queue_GetSturn.Count != 0) queue_GetSturn.Dequeue();
-        if (queue_GetSturn.Count == 0) photonView.RPC("ExitStun", RpcTarget.All);
+        if (queue_GetSturn.Count == 0) photonView.RPC(nameof(ExitStun), RpcTarget.All);
     }
 
     [PunRPC]
@@ -204,10 +204,10 @@ public class Multi_NormalEnemy : Multi_Enemy
         Rigidbody.velocity = dir * Speed;
     }
 
-    void SyncSpeedToOther(float speed) => photonView.RPC("SyncSpeed", RpcTarget.Others, speed);
+    void SyncSpeedToOther(float speed) => photonView.RPC(nameof(SyncSpeed), RpcTarget.Others, speed);
 
     // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기
-    protected void Set_OriginSpeed_ToAllPlayer() => photonView.RPC("SyncSpeed", RpcTarget.All, maxSpeed);
+    protected void Set_OriginSpeed_ToAllPlayer() => photonView.RPC(nameof(SyncSpeed), RpcTarget.All, maxSpeed);
 
     #endregion
 }

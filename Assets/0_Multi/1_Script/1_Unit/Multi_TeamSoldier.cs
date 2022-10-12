@@ -109,7 +109,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         {
             Multi_SpawnManagers.BossEnemy.OnSpawn -= TargetToBoss;
             Multi_SpawnManagers.BossEnemy.OnSpawn += TargetToBoss;
-            StartCoroutine("NavCoroutine");
+            StartCoroutine(nameof(NavCoroutine));
         }
     }
 
@@ -119,7 +119,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         ResetAiStateValue();
     }
 
-    public void LoadStat_RPC() => pv.RPC("LoadStat", RpcTarget.All);
+    public void LoadStat_RPC() => pv.RPC(nameof(LoadStat), RpcTarget.All);
     [PunRPC]
     public void LoadStat()
     {
@@ -129,8 +129,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         OriginAttackDelayTime = stat.AttackDelayTime;
         SetSkillDamage();
     }
-
-    void SetPassive_RPC() => pv.RPC("SetPassive", RpcTarget.All);
+    
+    void SetPassive_RPC() => pv.RPC(nameof(SetPassive), RpcTarget.All);
     [PunRPC]
     public void SetPassive()
     {
@@ -219,7 +219,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     {
         if (isRPC) return;
         isRPC = true;
-        pv.RPC("Attack", RpcTarget.All);
+        pv.RPC(nameof(Attack), RpcTarget.All);
         isRPC = false;
     }
 

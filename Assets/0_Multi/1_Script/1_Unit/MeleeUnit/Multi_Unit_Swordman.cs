@@ -14,12 +14,9 @@ public class Multi_Unit_Swordman : Multi_MeleeUnit
     }
 
     [PunRPC]
-    protected override void Attack() => StartCoroutine("SwordAttack");
+    protected override void Attack() => NormalAttack();
 
-    public override void NormalAttack()
-    {
-        StartCoroutine("SwordAttack");
-    }
+    public override void NormalAttack() => StartCoroutine(nameof(SwordAttack));
 
     IEnumerator SwordAttack()
     {

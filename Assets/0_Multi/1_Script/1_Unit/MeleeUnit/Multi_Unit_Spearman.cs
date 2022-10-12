@@ -29,7 +29,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
     [PunRPC]
     protected override void Attack() => new UnitRandomSkillSystem().Attack(NormalAttack, SpecialAttack, _useSkillPercent);
-    public override void NormalAttack() => StartCoroutine("SpaerAttack");
+    public override void NormalAttack() => StartCoroutine(nameof(SpaerAttack));
     IEnumerator SpaerAttack()
     {
         base.StartAttack();
@@ -47,7 +47,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
     void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, _skillDamage);
 
-    public override void SpecialAttack() => StartCoroutine("Spearman_SpecialAttack");
+    public override void SpecialAttack() => StartCoroutine(nameof(Spearman_SpecialAttack));
     IEnumerator Spearman_SpecialAttack()
     {
         base.SpecialAttack();

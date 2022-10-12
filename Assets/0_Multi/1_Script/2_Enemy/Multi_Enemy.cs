@@ -83,17 +83,17 @@ public class Multi_Enemy : MonoBehaviourPun
         gameObject.SetActive(!_isDead);
     }
 
-    public void OnDamage(int damage, bool isSkill = false) => _PV.RPC("RPC_OnDamage", RpcTarget.MasterClient, damage, isSkill);
+    public void OnDamage(int damage, bool isSkill = false) => _PV.RPC(nameof(RPC_OnDamage), RpcTarget.MasterClient, damage, isSkill);
     [PunRPC]
     protected virtual void RPC_OnDamage(int damage, bool isSkill)
     {
         if (PhotonNetwork.IsMasterClient)
         {
             ChangeHp(currentHp - damage);
-            photonView.RPC("RPC_UpdateHealth", RpcTarget.Others, currentHp);
+            photonView.RPC(nameof(RPC_UpdateHealth), RpcTarget.Others, currentHp);
 
             // 게스트에서 조건문 밖의 Dead부분을 실행시키게 하기 위한 코드
-            photonView.RPC("RPC_OnDamage", RpcTarget.Others, 0, false);
+            photonView.RPC(nameof(RPC_OnDamage), RpcTarget.Others, 0, false);
         }
 
         // Dead는 보상 등 개인적으로 실행되어야 하는 기능이 포함되어 있으므로 모두 실행
@@ -122,21 +122,20 @@ public class Multi_Enemy : MonoBehaviourPun
     }
 
     // 상태 이상은 호스트에서 적용 후 다른 플레이어에게 동기화하는 방식
-    public void OnSlow_RPC(float slowPercent, float slowTime) => _PV.RPC("OnSlow", RpcTarget.MasterClient, slowPercent, slowTime);
-    public void OnSlow(RpcTarget _target, float slowPercent, float slowTime) => _PV.RPC("OnSlow", _target, slowPercent, slowTime);
+    public void OnSlow_RPC(float slowPercent, float slowTime) => _PV.RPC(nameof(OnSlow), RpcTarget.MasterClient, slowPercent, slowTime);
     [PunRPC] protected virtual void OnSlow(float slowPercent, float slowTime) { }
 
-    public void ExitSlow(RpcTarget _target) => _PV.RPC("ExitSlow", _target);
+    public void ExitSlow(RpcTarget _target) => _PV.RPC(nameof(ExitSlow), _target);
     [PunRPC] protected virtual void ExitSlow() { }
 
-    public void OnFreeze_RPC(float _freezeTime) => _PV.RPC("OnFreeze", RpcTarget.MasterClient, _freezeTime);
+    public void OnFreeze_RPC(float _freezeTime) => _PV.RPC(nameof(OnFreeze), RpcTarget.MasterClient, _freezeTime);
     [PunRPC] protected virtual void OnFreeze(float slowTime) { } // 얼리는 스킬
 
-    public void OnStun_RPC(int _stunPercent, float _stunTime) => _PV.RPC("OnStun", RpcTarget.MasterClient, _stunPercent, _stunTime);
+    public void OnStun_RPC(int _stunPercent, float _stunTime) => _PV.RPC(nameof(OnStun), RpcTarget.MasterClient, _stunPercent, _stunTime);
     [PunRPC] protected virtual void OnStun(int stunPercent, float stunTime) { }
 
     public void OnPoison_RPC(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill = false)
-        => _PV.RPC("OnPoison", RpcTarget.MasterClient, poisonPercent, poisonCount, poisonDelay, maxDamage, isSkill);
+        => _PV.RPC(nameof(OnPoison), RpcTarget.MasterClient, poisonPercent, poisonCount, poisonDelay, maxDamage, isSkill);
     [PunRPC]
     protected virtual void OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill)
     {
@@ -150,7 +149,7 @@ public class Multi_Enemy : MonoBehaviourPun
     IEnumerator Co_OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill)
     {
         queue_HoldingPoison.Enqueue(-1);
-        photonView.RPC("ChangeColor", RpcTarget.All, 141, 49, 231, 255);
+        photonView.RPC(nameof(ChangeColor), RpcTarget.All, 141, 49, 231, 255);
 
         int poisonDamage = GetPoisonDamage(poisonPercent, maxDamage);
         for (int i = 0; i < poisonCount; i++)
@@ -160,7 +159,7 @@ public class Multi_Enemy : MonoBehaviourPun
         }
 
         if (queue_HoldingPoison.Count != 0) queue_HoldingPoison.Dequeue();
-        if (queue_HoldingPoison.Count == 0) photonView.RPC("ChangeColor", RpcTarget.All, 255, 255, 255, 255);
+        if (queue_HoldingPoison.Count == 0) photonView.RPC(nameof(ChangeColor), RpcTarget.All, 255, 255, 255, 255);
     }
 
     int GetPoisonDamage(int poisonPercent, int maxDamage)

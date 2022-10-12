@@ -74,7 +74,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         nav = GetComponent<NavMeshAgent>();
 
         originObstacleType = nav.obstacleAvoidanceType;
-        enemyDistance = CHASE_RANGE;
+        //enemyDistance = CHASE_RANGE;
 
         OnAwake(); // 유닛별 세팅
 
@@ -166,7 +166,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         target = null;
         contactEnemy = false;
         enemyIsForward = false;
-        enemyDistance = CHASE_RANGE;
+        //enemyDistance = CHASE_RANGE;
 
         if (animator != null)
             animator.enabled = false;
@@ -218,7 +218,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         while (true)
         {
-            if (target != null) enemyDistance = Vector3.Distance(this.transform.position, DestinationPos);
+            //if (target != null) enemyDistance = Vector3.Distance(transform.position, DestinationPos);
             if (target == null || Chaseable == false)
             {
                 UpdateTarget();
@@ -305,7 +305,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     }
 
     protected int layerMask; // Ray 감지용
-    [SerializeField] protected float enemyDistance;
+    [SerializeField] protected float enemyDistance => _chaseSystem.EnemyDistance;
     readonly float CHASE_RANGE = 150f;
     protected bool Chaseable => CHASE_RANGE > enemyDistance; // 거리가 아닌 다른 조건(IsDead 등)으로 바꾸기
     protected bool rayHit;

@@ -7,13 +7,15 @@ public class ChaseSystem : MonoBehaviour
 {
     protected Multi_TeamSoldier _unit { get; private set; }
     protected NavMeshAgent _nav { get; private set; }
+
     [SerializeField] protected Multi_Enemy _currentTarget = null;
     protected Vector3 TargetPosition => _currentTarget.transform.position;
-    public void ChangedTarget(Multi_Enemy newTarget)
+    public virtual void ChangedTarget(Multi_Enemy newTarget)
     {
         if (newTarget == null)
         {
             _currentTarget = null;
+            enemyDistance = Mathf.Infinity;
             return;
         }
 
@@ -27,24 +29,23 @@ public class ChaseSystem : MonoBehaviour
         _unit = GetComponent<Multi_TeamSoldier>();
     }
 
-
+    [SerializeField] protected float enemyDistance;
+    public float EnemyDistance => enemyDistance;
     protected virtual Vector3 GetDestinationPos() => Vector3.zero;
     protected virtual void SetChaseStatus() { }
     public void MoveUpdate()
     {
         if (_currentTarget == null) return;
 
-        enemyDistance = Vector3.Distance(transform.position, GetDestinationPos());
         SetChaseStatus();
-        _nav.SetDestination(GetDestinationPos());
+        Vector3 chase = GetDestinationPos();
+        enemyDistance = Vector3.Distance(transform.position, chase);
+        _nav.SetDestination(chase);
     }
 
 
     void FixedUpdate() => enemyIsForward = ChcekEnemyInSight();
-
-    [SerializeField] protected float enemyDistance;
     [SerializeField] protected bool enemyIsForward;
-
     protected int layerMask; // Ray 감지용
     readonly float CHASE_RANGE = 150f;
     protected bool Chaseable => CHASE_RANGE > enemyDistance && _currentTarget != null; // 거리가 아닌 다른 조건(IsDead 등)으로 바꾸기
@@ -88,6 +89,8 @@ public class MeeleChaser : ChaseSystem
     Vector3 currentDestinationPos;
     protected override Vector3 GetDestinationPos()
     {
+        if (_unit.EnterStroyWorld) return currentDestinationPos;
+
         if (Check_EnemyToUnit_Deggre() < -0.8f && enemyDistance < 10)
         {
             if (enemyIsForward || _unit.IsAttack)
@@ -158,6 +161,24 @@ public class MeeleChaser : ChaseSystem
     void OnDrawGizmos()
     {
         Debug.DrawRay(transform.position + Vector3.up, transform.forward * _unit.AttackRange, Color.green);
+    }
+
+    public override void ChangedTarget(Multi_Enemy newTarget)
+    {
+        if (newTarget == null) return;
+        base.ChangedTarget(newTarget);
+        if (newTarget.enemyType == EnemyType.Tower) ChaseTower(newTarget);
+    }
+
+    void ChaseTower(Multi_Enemy tower)
+    {
+        if (tower != null)
+        {
+            if (Physics.Raycast(transform.position, TargetPosition - transform.position, out RaycastHit towerHit, 50f, layerMask))
+                currentDestinationPos = towerHit.point;
+            else
+                currentDestinationPos = transform.position;
+        }
     }
 }
 

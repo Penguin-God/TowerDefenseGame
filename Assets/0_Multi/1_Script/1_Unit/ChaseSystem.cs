@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Photon.Pun;
 
-public class ChaseSystem : MonoBehaviour
+public class ChaseSystem : MonoBehaviourPun
 {
     protected Multi_TeamSoldier _unit { get; private set; }
     protected NavMeshAgent _nav { get; private set; }
@@ -38,11 +39,19 @@ public class ChaseSystem : MonoBehaviour
         if (_currentTarget == null) return;
 
         SetChaseStatus();
-        Vector3 chase = GetDestinationPos();
-        enemyDistance = Vector3.Distance(transform.position, chase);
-        _nav.SetDestination(chase);
+        Vector3 chasePosition = GetDestinationPos();
+        enemyDistance = Vector3.Distance(transform.position, chasePosition);
+        _nav.SetDestination(chasePosition);
+
+        //photonView.RPC(nameof(ClientChaseTarget), RpcTarget.Others, chasePosition);
     }
 
+    [PunRPC] // TODO : 상태도 같이 바꿔줘야 함
+    public void ClientChaseTarget(Vector3 chasePosition)
+    {
+        SetChaseStatus();
+        _nav.SetDestination(chasePosition);
+    }
 
     void FixedUpdate()
     {

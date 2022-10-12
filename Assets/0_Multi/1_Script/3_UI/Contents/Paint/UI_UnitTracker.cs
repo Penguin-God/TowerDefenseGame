@@ -48,6 +48,8 @@ public class UI_UnitTracker : Multi_UI_Base
 
     void TrackUnitCount(UnitFlags unitFlag, int count)
     {
+        Debug.Assert(unitFlag == unitFlags, 
+            $"현재 가지고 있는 플래그 {unitFlags.UnitColor} : {unitFlags.UnitClass}와 event로 전달된 {unitFlag.UnitColor} : {unitFlag.UnitClass}가 서로 다름");
         if (unitFlag == unitFlags)
             SetUnitCountText(count);
     }

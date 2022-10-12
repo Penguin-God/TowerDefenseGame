@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Multi_RangeUnit : Multi_TeamSoldier
 {
+    protected override ChaseSystem AddCahseSystem() => gameObject.AddComponent<RangeChaser>();
+
     protected override Vector3 DestinationPos
     {
         get

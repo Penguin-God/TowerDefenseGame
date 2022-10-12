@@ -226,7 +226,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
                 continue;
             }
 
-            nav.SetDestination(DestinationPos);
+            //nav.SetDestination(DestinationPos);
 
             if ((enemyIsForward || contactEnemy) && _state.IsAttackable)
             {
@@ -300,7 +300,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         isMoveLock = IsMoveLock;
         _chaseSystem.MoveUpdate();
-        UnitTypeMove();
+        //UnitTypeMove();
         enemyIsForward = Set_EnemyIsForword();
     }
 

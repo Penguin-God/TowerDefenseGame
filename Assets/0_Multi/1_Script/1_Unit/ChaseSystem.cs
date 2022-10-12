@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public class ChaseSystem : MonoBehaviour
 {
-    protected NavMeshAgent _nav;
+    protected Multi_TeamSoldier _unit { get; private set; }
+    protected NavMeshAgent _nav { get; private set; }
     [SerializeField] protected Multi_Enemy _currentTarget = null;
     protected Vector3 TargetPosition => _currentTarget.transform.position;
     public void ChangedTarget(Multi_Enemy newTarget)
@@ -23,50 +24,23 @@ public class ChaseSystem : MonoBehaviour
     void Awake()
     {
         _nav = GetComponent<NavMeshAgent>();
-        Init();
+        _unit = GetComponent<Multi_TeamSoldier>();
     }
 
-    protected virtual void Init() {}
 
     protected virtual Vector3 GetDestinationPos() => Vector3.zero;
-    protected virtual void Move() => Debug.Log("선언이 안되있을지도?");
+    protected virtual void SetChaseStatus() { }
     public void MoveUpdate()
     {
         if (_currentTarget == null) return;
 
         enemyDistance = Vector3.Distance(transform.position, GetDestinationPos());
-        FixedNavPosition();
+        SetChaseStatus();
         _nav.SetDestination(GetDestinationPos());
-        enemyIsForward = ChcekEnemyInSight();
     }
 
-    protected void LockMove()
-    {
-        if (_nav.updatePosition == false) return;
-        _nav.updatePosition = false;
-    }
 
-    protected void ReleaseMove()
-    {
-        if (_nav.updatePosition == true) return;
-
-        ResetNavPosition();
-        _nav.updatePosition = true;
-    }
-
-    protected void ResetNavPosition()
-    {
-        _nav.Warp(transform.position);
-        if (_currentTarget != null)
-            _nav.SetDestination(TargetPosition);
-    }
-
-    readonly float MAX_NAV_OFFSET = 3f;
-    void FixedNavPosition()
-    {
-        if (Vector3.Distance(_nav.nextPosition, transform.position) > MAX_NAV_OFFSET)
-            ResetNavPosition();
-    }
+    void FixedUpdate() => enemyIsForward = ChcekEnemyInSight();
 
     [SerializeField] protected float enemyDistance;
     [SerializeField] protected bool enemyIsForward;
@@ -111,14 +85,25 @@ public class ChaseSystem : MonoBehaviour
 
 public class MeeleChaser : ChaseSystem
 {
-    Multi_TeamSoldier _unit;
-    protected override void Init()
-    {
-        _unit = GetComponent<Multi_TeamSoldier>();
-    }
-
     Vector3 currentDestinationPos;
     protected override Vector3 GetDestinationPos()
+    {
+        if (Check_EnemyToUnit_Deggre() < -0.8f && enemyDistance < 10)
+        {
+            if (enemyIsForward || _unit.IsAttack)
+                currentDestinationPos = TargetPosition - (_currentTarget.dir * -1f);
+            else
+                currentDestinationPos = TargetPosition - (_currentTarget.dir * -5f);
+        }
+        else if (5 > enemyDistance)
+            currentDestinationPos = TargetPosition - (_currentTarget.dir * 2);
+        else
+            currentDestinationPos = TargetPosition - (_currentTarget.dir * 1);
+
+        return currentDestinationPos;
+    }
+
+    protected override void SetChaseStatus()
     {
         if (Check_EnemyToUnit_Deggre() < -0.8f && enemyDistance < 10)
         {
@@ -127,14 +112,12 @@ public class MeeleChaser : ChaseSystem
                 _nav.acceleration = 2f;
                 _nav.angularSpeed = 5;
                 _nav.speed = 1f;
-                currentDestinationPos = TargetPosition - (_currentTarget.dir * -1f);
             }
             else
             {
                 _nav.acceleration = 20f;
                 _nav.angularSpeed = 500;
                 _nav.speed = 15f;
-                currentDestinationPos = TargetPosition - (_currentTarget.dir * -5f);
             }
         }
         else if (5 > enemyDistance)
@@ -143,7 +126,6 @@ public class MeeleChaser : ChaseSystem
             _nav.angularSpeed = 200;
             _nav.speed = 5f;
             _unit.contactEnemy = true;
-            currentDestinationPos = TargetPosition - (_currentTarget.dir * 2);
         }
         else
         {
@@ -151,10 +133,7 @@ public class MeeleChaser : ChaseSystem
             _nav.angularSpeed = 500;
             _nav.acceleration = 40;
             _unit.contactEnemy = false;
-            currentDestinationPos = TargetPosition - (_currentTarget.dir * 1);
         }
-
-        return currentDestinationPos;
     }
 
     float Check_EnemyToUnit_Deggre()
@@ -179,5 +158,81 @@ public class MeeleChaser : ChaseSystem
     void OnDrawGizmos()
     {
         Debug.DrawRay(transform.position + Vector3.up, transform.forward * _unit.AttackRange, Color.green);
+    }
+}
+
+
+public class RangeChaser : ChaseSystem
+{
+    protected override Vector3 GetDestinationPos()
+    {
+        Vector3 enemySpeed = _currentTarget.dir * _currentTarget.Speed;
+        return TargetPosition + enemySpeed;
+    }
+
+    protected bool IsMoveLock => _unit.AttackRange * 0.8f >= enemyDistance;
+
+    protected override void SetChaseStatus()
+    {
+        if (IsMoveLock)
+        {
+            LockMove();
+            FixedNavPosition();
+        }
+        else
+        {
+            if (_nav.updatePosition == false)
+                ReleaseMove();
+            _nav.speed = _unit.Speed;
+        }
+    }
+
+    void LockMove()
+    {
+        if (_nav.updatePosition == false) return;
+        _nav.updatePosition = false;
+    }
+
+    void ReleaseMove()
+    {
+        if (_nav.updatePosition == true) return;
+
+        ResetNavPosition();
+        _nav.updatePosition = true;
+    }
+
+    void ResetNavPosition()
+    {
+        _nav.Warp(transform.position);
+        if (_currentTarget != null)
+            _nav.SetDestination(TargetPosition);
+    }
+
+    readonly float MAX_NAV_OFFSET = 3f;
+    void FixedNavPosition()
+    {
+        if (Vector3.Distance(_nav.nextPosition, transform.position) > MAX_NAV_OFFSET)
+            ResetNavPosition();
+    }
+
+    protected override bool RaycastEnemy(out Transform hitEnemy)
+    {
+        // Physics.BoxCast (레이저를 발사할 위치, 사각형의 각 좌표의 절판 크기, 발사 방향, 충돌 결과, 회전 각도, 최대 거리)
+        if (Physics.BoxCast(transform.position + Vector3.up, transform.lossyScale * 2, transform.forward, 
+            out RaycastHit rayHitObject, transform.rotation, _unit.AttackRange, layerMask) == false)
+        {
+            hitEnemy = null;
+            return false;
+        }
+
+        hitEnemy = rayHitObject.transform;
+        return true;
+    }
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawRay(transform.position + Vector3.up, transform.forward * _unit.AttackRange);
+        Gizmos.DrawWireCube(transform.position + Vector3.up + transform.forward * _unit.AttackRange, transform.lossyScale * 2);
     }
 }

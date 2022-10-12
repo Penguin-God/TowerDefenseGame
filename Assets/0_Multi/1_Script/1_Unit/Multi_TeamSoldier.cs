@@ -180,7 +180,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         _targetManager.UpdateTarget(transform.position);
     }
 
-    void TargetToBoss(Multi_BossEnemy boss) => _targetManager.ChangedTarget(boss);
+    void TargetToBoss(Multi_BossEnemy boss) => UpdateTarget();
 
     void SetNewTarget(Multi_Enemy newTarget)
     {
@@ -528,7 +528,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             return Multi_EnemyManager.Instance.GetProximateEnemy(position, _state.UsingId);
         }
 
-        public void ChangedTarget(Multi_Enemy newTarget)
+        void ChangedTarget(Multi_Enemy newTarget)
         {
             _target = newTarget;
             OnChangedTarget?.Invoke(newTarget);

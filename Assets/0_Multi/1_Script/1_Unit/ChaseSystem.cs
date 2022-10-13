@@ -40,13 +40,12 @@ public class ChaseSystem : MonoBehaviourPun
         _unit = GetComponent<Multi_TeamSoldier>();
     }
 
-    [SerializeField] ChaseState _chaseState;
+    [SerializeField] protected ChaseState _chaseState;
     [SerializeField] protected float enemyDistance;
     public float EnemyDistance => enemyDistance;
     protected virtual Vector3 GetDestinationPos() => Vector3.zero;
     protected virtual ChaseState GetChaseState() => ChaseState.NoneTarget;
     protected virtual void SetChaseStatus(ChaseState state) { }
-    protected virtual void SetChaseStatus() { }
     public void MoveUpdate()
     {
         if (_currentTarget == null) return;
@@ -64,7 +63,6 @@ public class ChaseSystem : MonoBehaviourPun
     [PunRPC] // TODO : 상태도 같이 바꿔줘야 함
     public void ClientChaseTarget(Vector3 chasePosition)
     {
-        SetChaseStatus();
         _nav.SetDestination(chasePosition);
     }
 
@@ -121,52 +119,15 @@ public class MeeleChaser : ChaseSystem
     {
         if (_unit.EnterStroyWorld) return currentDestinationPos;
 
-        if (Check_EnemyToUnit_Deggre() < -0.8f && enemyDistance < 10)
+        switch (_chaseState)
         {
-            if (enemyIsForward || _unit.IsAttack)
-                currentDestinationPos = TargetPosition - (_currentTarget.dir * -1f);
-            else
-                currentDestinationPos = TargetPosition - (_currentTarget.dir * -5f);
+            case ChaseState.Chase: return currentDestinationPos = TargetPosition - (_currentTarget.dir * 1);
+            case ChaseState.InRange: return currentDestinationPos = TargetPosition - (_currentTarget.dir * 2);
+            case ChaseState.FaceToFace: return currentDestinationPos = TargetPosition - (_currentTarget.dir * -5f);
+            case ChaseState.Lock: return currentDestinationPos = TargetPosition - (_currentTarget.dir * -1f);
         }
-        else if (5 > enemyDistance)
-            currentDestinationPos = TargetPosition - (_currentTarget.dir * 2);
-        else
-            currentDestinationPos = TargetPosition - (_currentTarget.dir * 1);
 
         return currentDestinationPos;
-    }
-
-    protected override void SetChaseStatus()
-    {
-        if (Check_EnemyToUnit_Deggre() < -0.8f && enemyDistance < 10)
-        {
-            if (enemyIsForward || _unit.IsAttack)
-            {
-                _nav.acceleration = 2f;
-                _nav.angularSpeed = 5;
-                _nav.speed = 1f;
-            }
-            else
-            {
-                _nav.acceleration = 20f;
-                _nav.angularSpeed = 500;
-                _nav.speed = 15f;
-            }
-        }
-        else if (5 > enemyDistance)
-        {
-            _nav.acceleration = 20f;
-            _nav.angularSpeed = 200;
-            _nav.speed = 5f;
-            _unit.contactEnemy = true;
-        }
-        else
-        {
-            _nav.speed = _unit.Speed;
-            _nav.angularSpeed = 500;
-            _nav.acceleration = 40;
-            _unit.contactEnemy = false;
-        }
     }
 
     protected override void SetChaseStatus(ChaseState state)
@@ -261,8 +222,6 @@ public class RangeChaser : ChaseSystem
         return TargetPosition + enemySpeed;
     }
 
-    protected virtual bool IsMoveLock => _unit.AttackRange * 0.8f >= enemyDistance || _unit.IsAttack;
-
     protected override void SetChaseStatus(ChaseState state)
     {
         switch (state)
@@ -276,21 +235,6 @@ public class RangeChaser : ChaseSystem
                 LockMove();
                 FixedNavPosition();
                 break;
-        }
-    }
-
-    protected override void SetChaseStatus()
-    {
-        if (IsMoveLock)
-        {
-            LockMove();
-            FixedNavPosition();
-        }
-        else
-        {
-            if (_nav.updatePosition == false)
-                ReleaseMove();
-            _nav.speed = _unit.Speed;
         }
     }
 
@@ -322,6 +266,7 @@ public class RangeChaser : ChaseSystem
             ResetNavPosition();
     }
 
+    protected virtual bool IsMoveLock => _unit.AttackRange * 0.8f >= enemyDistance || _unit.IsAttack;
     protected override ChaseState GetChaseState()
     {
         if (IsMoveLock) return ChaseState.Lock;

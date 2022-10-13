@@ -4,12 +4,21 @@ using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
 
+public enum ChaseState
+{
+    NoneTarget,
+    Chase,
+    InRange,
+    Lock,
+    FaceToFace,
+}
+
 public class ChaseSystem : MonoBehaviourPun
 {
     protected Multi_TeamSoldier _unit { get; private set; }
     protected NavMeshAgent _nav { get; private set; }
 
-    [SerializeField] protected Multi_Enemy _currentTarget = null;
+    protected Multi_Enemy _currentTarget = null;
     protected Vector3 TargetPosition => _currentTarget.transform.position;
     public virtual void ChangedTarget(Multi_Enemy newTarget)
     {
@@ -17,6 +26,7 @@ public class ChaseSystem : MonoBehaviourPun
         {
             _currentTarget = null;
             enemyDistance = Mathf.Infinity;
+            _chaseState = ChaseState.NoneTarget;
             return;
         }
 
@@ -30,15 +40,20 @@ public class ChaseSystem : MonoBehaviourPun
         _unit = GetComponent<Multi_TeamSoldier>();
     }
 
+    [SerializeField] ChaseState _chaseState;
     [SerializeField] protected float enemyDistance;
     public float EnemyDistance => enemyDistance;
     protected virtual Vector3 GetDestinationPos() => Vector3.zero;
+    protected virtual ChaseState GetChaseState() => ChaseState.NoneTarget;
+    protected virtual void SetChaseStatus(ChaseState state) { }
     protected virtual void SetChaseStatus() { }
     public void MoveUpdate()
     {
         if (_currentTarget == null) return;
 
-        SetChaseStatus();
+        _chaseState = GetChaseState();
+        //SetChaseStatus();
+        SetChaseStatus(_chaseState);
         Vector3 chasePosition = GetDestinationPos();
         enemyDistance = Vector3.Distance(transform.position, chasePosition);
         _nav.SetDestination(chasePosition);
@@ -154,11 +169,51 @@ public class MeeleChaser : ChaseSystem
         }
     }
 
+    protected override void SetChaseStatus(ChaseState state)
+    {
+        switch (state)
+        {
+            case ChaseState.Chase:
+                _nav.speed = _unit.Speed;
+                _nav.angularSpeed = 500;
+                _nav.acceleration = 40;
+                _unit.contactEnemy = false;
+                break;
+            case ChaseState.InRange:
+                _nav.acceleration = 20f;
+                _nav.angularSpeed = 200;
+                _nav.speed = 5f;
+                _unit.contactEnemy = true;
+                break;
+            case ChaseState.FaceToFace:
+                _nav.acceleration = 20f;
+                _nav.angularSpeed = 500;
+                _nav.speed = 15f;
+                break;
+            case ChaseState.Lock:
+                _nav.acceleration = 2f;
+                _nav.angularSpeed = 5;
+                _nav.speed = 1f;
+                break;
+        }
+    }
+
     float Check_EnemyToUnit_Deggre()
     {
         if (_currentTarget == null) return 1f;
         float enemyDot = Vector3.Dot(_currentTarget.dir.normalized, (currentDestinationPos - transform.position));
         return enemyDot;
+    }
+
+    protected override ChaseState GetChaseState()
+    {
+        if (Check_EnemyToUnit_Deggre() < -0.8f && enemyDistance < 10)
+        {
+            if (enemyIsForward || _unit.IsAttack) return ChaseState.Lock;
+            else return ChaseState.FaceToFace;
+        }
+        else if (5 > enemyDistance) return ChaseState.InRange;
+        else return ChaseState.Chase;
     }
 
     protected override bool RaycastEnemy(out Transform hitEnemy)
@@ -208,6 +263,22 @@ public class RangeChaser : ChaseSystem
 
     protected virtual bool IsMoveLock => _unit.AttackRange * 0.8f >= enemyDistance || _unit.IsAttack;
 
+    protected override void SetChaseStatus(ChaseState state)
+    {
+        switch (state)
+        {
+            case ChaseState.Chase:
+                if (_nav.updatePosition == false)
+                    ReleaseMove();
+                _nav.speed = _unit.Speed;
+                break;
+            case ChaseState.Lock:
+                LockMove();
+                FixedNavPosition();
+                break;
+        }
+    }
+
     protected override void SetChaseStatus()
     {
         if (IsMoveLock)
@@ -249,6 +320,12 @@ public class RangeChaser : ChaseSystem
     {
         if (Vector3.Distance(_nav.nextPosition, transform.position) > MAX_NAV_OFFSET)
             ResetNavPosition();
+    }
+
+    protected override ChaseState GetChaseState()
+    {
+        if (IsMoveLock) return ChaseState.Lock;
+        else return ChaseState.Chase;
     }
 
     protected override bool RaycastEnemy(out Transform hitEnemy)

@@ -232,7 +232,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         AfterPlaySound(normalAttackSound, normalAttakc_AudioDelay);
     }
 
-    bool CheckTargetUpdateCondition => TargetIsNormalEnemy && enemyDistance > stopDistanc * 2 || (target != null && target.GetComponent<Multi_Enemy>().IsDead);
+    bool CheckTargetUpdateCondition => target == null || (TargetIsNormalEnemy && (enemyDistance > stopDistanc * 2 || target.GetComponent<Multi_Enemy>().IsDead));
     protected void EndAttack()
     {
         _state.EndAttack(AttackDelayTime);

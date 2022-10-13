@@ -14,13 +14,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Client/Loding.unity
     guid: 95cf7c10d9decfb4aba9ccfb798e2c34
-  - enabled: 0
-    path: "Assets/1_Single/2_Scene/\uD569\uCE5C \uC52C - \uC7A5\uC775\uC900.unity"
-    guid: 4249d6f5ef62d47419872ff7f13af5e1
   - enabled: 1
     path: Assets/0_Multi/2_Scenes/MultiLoading.unity
     guid: 0aea27f3bfa639c498a19e48f4650f36
   - enabled: 1
     path: Assets/0_Multi/2_Scenes/New_Scene.unity
     guid: 72456daa5c68c7f4c9990d99192e029a
+  - enabled: 0
+    path: "Assets/1_Single/2_Scene/\uD569\uCE5C \uC52C - \uC7A5\uC775\uC900.unity"
+    guid: 4249d6f5ef62d47419872ff7f13af5e1
   m_configObjects: {}

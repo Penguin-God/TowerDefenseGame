@@ -13,7 +13,7 @@ public enum ChaseState
     FaceToFace,
 }
 
-public class ChaseSystem : MonoBehaviourPun
+public class ChaseSystem : MonoBehaviourPun, IPunObservable
 {
     protected Multi_TeamSoldier _unit { get; private set; }
     protected NavMeshAgent _nav { get; private set; }
@@ -46,25 +46,31 @@ public class ChaseSystem : MonoBehaviourPun
     protected virtual Vector3 GetDestinationPos() => Vector3.zero;
     protected virtual ChaseState GetChaseState() => ChaseState.NoneTarget;
     protected virtual void SetChaseStatus(ChaseState state) { }
+
+    [SerializeField] Vector3 chasePosition;
     public void MoveUpdate()
     {
         if (_currentTarget == null) return;
 
-        _chaseState = GetChaseState();
-        //SetChaseStatus();
-        SetChaseStatus(_chaseState);
-        Vector3 chasePosition = GetDestinationPos();
+        UpdateState();
+        chasePosition = GetDestinationPos();
         enemyDistance = Vector3.Distance(transform.position, chasePosition);
         _nav.SetDestination(chasePosition);
-
-        //photonView.RPC(nameof(ClientChaseTarget), RpcTarget.Others, chasePosition);
     }
 
-    [PunRPC] // TODO : 상태도 같이 바꿔줘야 함
-    public void ClientChaseTarget(Vector3 chasePosition)
+    void UpdateState()
     {
-        _nav.SetDestination(chasePosition);
+        var newState = GetChaseState();
+        if (_chaseState != newState)
+        {
+            _chaseState = newState;
+            SetChaseStatus(_chaseState);
+            photonView.RPC(nameof(ClineStateUpdate), RpcTarget.Others, (byte)_chaseState);
+        }
     }
+
+    [PunRPC]
+    public void ClineStateUpdate(byte newState) => SetChaseStatus((ChaseState)newState);
 
     void FixedUpdate()
     {
@@ -108,6 +114,15 @@ public class ChaseSystem : MonoBehaviourPun
         int layer = targetObject.layer;
         string layerName = LayerMask.LayerToName(layer);
         return 1 << LayerMask.NameToLayer(layerName);
+    }
+
+    // TODO : 동적으로 photonview에 할당하기
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+            stream.SendNext(chasePosition);
+        else
+            _nav.SetDestination((Vector3)stream.ReceiveNext());
     }
 }
 
@@ -233,7 +248,6 @@ public class RangeChaser : ChaseSystem
                 break;
             case ChaseState.Lock:
                 LockMove();
-                FixedNavPosition();
                 break;
         }
     }
@@ -259,6 +273,7 @@ public class RangeChaser : ChaseSystem
             _nav.SetDestination(TargetPosition);
     }
 
+    void Update() => FixedNavPosition();
     readonly float MAX_NAV_OFFSET = 3f;
     void FixedNavPosition()
     {

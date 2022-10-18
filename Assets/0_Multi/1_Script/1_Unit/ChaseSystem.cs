@@ -38,6 +38,7 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
     {
         _nav = GetComponent<NavMeshAgent>();
         _unit = GetComponent<Multi_TeamSoldier>();
+        photonView.ObservedComponents.Add(this);
     }
 
     [SerializeField] protected ChaseState _chaseState;
@@ -65,7 +66,7 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
         {
             _chaseState = newState;
             SetChaseStatus(_chaseState);
-            photonView.RPC(nameof(ClineStateUpdate), RpcTarget.Others, (byte)_chaseState);
+            //photonView.RPC(nameof(ClineStateUpdate), RpcTarget.Others, (byte)_chaseState);
         }
     }
 
@@ -116,13 +117,24 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
         return 1 << LayerMask.NameToLayer(layerName);
     }
 
-    // TODO : 동적으로 photonview에 할당하기
+    Vector3 _prevSendChasePosition;
+    ChaseState _prevSendState;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
+        {
             stream.SendNext(chasePosition);
+            _prevSendChasePosition = chasePosition;
+            stream.SendNext((byte)_chaseState);
+            _prevSendState = _chaseState;
+        }
         else
+        {
             _nav.SetDestination((Vector3)stream.ReceiveNext());
+            _chaseState = (ChaseState)(byte)stream.ReceiveNext();
+            SetChaseStatus(_chaseState);
+            _nav.isStopped = _chaseState == ChaseState.NoneTarget;
+        }
     }
 }
 

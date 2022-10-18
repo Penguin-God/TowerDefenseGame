@@ -340,18 +340,18 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     Quaternion currentDir;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.IsWriting)
-        {
-            stream.SendNext(transform.position);
-            stream.SendNext(transform.rotation);
-        }
-        else
-        {
-            currentPos = (Vector3)stream.ReceiveNext();
-            currentDir = (Quaternion)stream.ReceiveNext();
-            LerpUtility.LerpPostition(transform, currentPos);
-            LerpUtility.LerpRotation(transform, currentDir);
-        }
+        //if (stream.IsWriting)
+        //{
+        //    stream.SendNext(transform.position);
+        //    stream.SendNext(transform.rotation);
+        //}
+        //else
+        //{
+        //    currentPos = (Vector3)stream.ReceiveNext();
+        //    currentDir = (Quaternion)stream.ReceiveNext();
+        //    LerpUtility.LerpPostition(transform, currentPos);
+        //    LerpUtility.LerpRotation(transform, currentDir);
+        //}
     }
 
     [Serializable]

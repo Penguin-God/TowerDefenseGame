@@ -96,7 +96,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     void RaiseOnOtherUnitCountChaned(int count) => OnOtherUnitCountChanged?.Invoke(count);
 
 
-    // RPC Funtions
+    // RPC Funtions....
     public bool TryCombine_RPC(UnitFlags flag)
     {
         bool result = _combine.CheckCombineable(flag);
@@ -132,7 +132,6 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
         public List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flag) => _unitListByFlag.Get(id)[flag];
-        public List<Multi_TeamSoldier> GetUnitList(int id) => _currentAllUnitsById.Get(id);
 
         public void Init()
         {
@@ -188,6 +187,13 @@ public class Multi_UnitManager : MonoBehaviourPun
             OnUnitFlagChanged?.RaiseEvent(id, unit.UnitFlags, isAdd);
 
             OnUnitFlagChangedToOther?.RaiseEventToOther(id, unit.UnitFlags, isAdd);
+        }
+
+        public void UpdateUnitCounts(Multi_TeamSoldier unit)
+        {
+            int id = unit.GetComponent<RPCable>().UsingId;
+            OnUnitCountChanged?.RaiseEvent(id, unit.UnitFlags, GetUnitList(unit).Count);
+            OnAllUnitCountChanged?.RaiseEvent(id, _currentAllUnitsById.Get(id).Count);
         }
     }
 

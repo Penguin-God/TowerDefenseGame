@@ -39,6 +39,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
     public event Action<int> OnEnemyCountChang = null;
     void RaiseOnEnemyCountChanged(int count) => OnEnemyCountChang?.Invoke(count);
+
     public event Action<int> OnOtherEnemyCountChanged = null;
     void RaiseOnOtherEnemyCountChanged(int count) => OnOtherEnemyCountChanged?.Invoke(count);
 
@@ -58,7 +59,11 @@ public class Multi_EnemyManager : MonoBehaviourPun
     public int EnemyPlayerEnemyCount => _counter.OtherEnemyCount;
 
     RPCData<Multi_BossEnemy> _currentBoss = new RPCData<Multi_BossEnemy>();
-    public Multi_BossEnemy GetCurrentBoss(int id) => _currentBoss.Get(id);
+    public bool TryGetCurrentBoss(int id, out Multi_BossEnemy boss)
+    {
+        boss = _currentBoss.Get(id);
+        return boss != null;
+    }
 
     RPCData<Multi_EnemyTower> _currentTower = new RPCData<Multi_EnemyTower>();
     public Multi_EnemyTower GetCurrnetTower(int id) => _currentTower.Get(id);
@@ -71,11 +76,8 @@ public class Multi_EnemyManager : MonoBehaviourPun
         return _finder.GetProximateEnemys(_unitPos, maxCount, _master.GetEnemys(unitId));
     }
 
-    public Transform[] GetProximateEnemys(Vector3 _unitPos, int maxCount, int unitId)
-    {
-        if (maxCount >= _master.GetEnemys(unitId).Count) return _master.GetEnemys(unitId).Select(x => x?.transform).ToArray();
-        return _finder.GetProximateEnemys(_unitPos, maxCount, _master.GetEnemys(unitId)).Select(x => x?.transform).ToArray();
-    }
+    public Transform[] GetProximateEnemys(Vector3 _unitPos, int maxCount, int unitId) 
+        => __GetProximateEnemys(_unitPos, maxCount, unitId).Select(x => x?.transform).ToArray();
 
     #region editor test
     [Header("테스트 인스팩터")]
@@ -128,29 +130,27 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
     class EnemyCountManager
     {
-        int _currentEnemyCount;
-        public int CurrentEnemyCount => _currentEnemyCount;
+        public int CurrentEnemyCount { get; private set; }
         public event Action<int> OnEnemyCountChanged = null;
 
-        int _otherPlayerEnemyCount;
-        public int OtherEnemyCount => _otherPlayerEnemyCount;
+        public int OtherEnemyCount { get; private set; }
         public event Action<int> OnOthreEnemyCountChanged = null;
         public void Init(MasterManager master)
         {
             master.OnEnemyCountChanged += UpdateCount;
         }
 
-        void UpdateCount(int id, int count)
+        void UpdateCount(int id, int count) // id에 따라 어느쪽 count인지 구분
         {
             if (Multi_Data.instance.Id == id)
             {
-                _currentEnemyCount = count;
-                OnEnemyCountChanged?.Invoke(_currentEnemyCount);
+                CurrentEnemyCount = count;
+                OnEnemyCountChanged?.Invoke(CurrentEnemyCount);
             }
             else
             {
-                _otherPlayerEnemyCount = count;
-                OnOthreEnemyCountChanged?.Invoke(_otherPlayerEnemyCount);
+                OtherEnemyCount = count;
+                OnOthreEnemyCountChanged?.Invoke(OtherEnemyCount);
             }
         }
     }

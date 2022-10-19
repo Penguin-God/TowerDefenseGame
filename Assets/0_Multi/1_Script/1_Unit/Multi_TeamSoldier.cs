@@ -430,8 +430,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
 
         Multi_Enemy FindTarget(Vector3 position)
         {
-            if (_state.EnterStoryWorld) return Multi_EnemyManager.Instance.GetCurrnetTower(_state.UsingId);
-            if (Multi_EnemyManager.Instance.GetCurrentBoss(_state.UsingId) != null) return Multi_EnemyManager.Instance.GetCurrentBoss(_state.UsingId);
+            if (_state.EnterStoryWorld) 
+                return Multi_EnemyManager.Instance.GetCurrnetTower(_state.UsingId);
+            if (Multi_EnemyManager.Instance.TryGetCurrentBoss(_state.UsingId, out Multi_BossEnemy boss)) 
+                return boss;
+
             return Multi_EnemyManager.Instance.GetProximateEnemy(position, _state.UsingId);
         }
 

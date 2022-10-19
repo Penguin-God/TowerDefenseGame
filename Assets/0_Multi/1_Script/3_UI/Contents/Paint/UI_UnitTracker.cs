@@ -41,13 +41,14 @@ public class UI_UnitTracker : Multi_UI_Base
         if (data.Icon != null) icon.sprite = data.Icon;
         if (string.IsNullOrEmpty(data.UnitClassName) == false) _unitClassName = data.UnitClassName;
 
-        Multi_UnitManager.Instance.OnUnitFlagCountChanged -= TrackUnitCount;
+        //Multi_UnitManager.Instance.OnUnitFlagCountChanged -= TrackUnitCount;
         Multi_UnitManager.Instance.OnUnitFlagCountChanged += TrackUnitCount;
         SetUnitCountText(Multi_UnitManager.Instance.UnitCountByFlag[unitFlags]);
     }
 
     void TrackUnitCount(UnitFlags unitFlag, int count)
     {
+        print($"{unitFlag.UnitColor} : {unitFlag.UnitClass} == {unitFlag.UnitColor} {unitFlag.UnitClass} ? {unitFlag == unitFlags}");
         if (unitFlag == unitFlags)
             SetUnitCountText(count);
     }

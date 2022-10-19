@@ -31,9 +31,9 @@ public class Multi_ClientData
     public IReadOnlyDictionary<MoneyType, Money> MoneyByType => moneyByType;
 
     SkillRepository skillRepository = new SkillRepository(); // TODO : skillByType에서 가져오기
-    List<Skill> _equipSkills = new List<Skill>();
+    List<IUserSkill> _equipSkills = new List<IUserSkill>();
     public int EquipSkillCount => _equipSkills.Count();
-    public IReadOnlyList<Skill> EquipSkills => _equipSkills;
+    public IReadOnlyList<IUserSkill> EquipSkills => _equipSkills;
     public void AddEquipSkill(SkillType type) => _equipSkills.Add(skillRepository.GetSkill(type));
 
     public void Init()

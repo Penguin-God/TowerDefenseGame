@@ -15,7 +15,7 @@ public class UserSkillTesterDrawer : Editor
 
     public override void OnInspectorGUI()
     {
-        base.OnHeaderGUI();
+        base.OnInspectorGUI();
         DrawButton();
     }
 

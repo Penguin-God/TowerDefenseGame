@@ -116,7 +116,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         OnStart();
     }
 
-    void GameStart() => photonView.RPC("RPC_OnStart", RpcTarget.All);
+    void GameStart() => photonView.RPC(nameof(RPC_OnStart), RpcTarget.All);
 
 
     void Start()
@@ -163,7 +163,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         if(enemy.UsingId == Multi_Data.instance.Id)
             GetReward(enemy.BossData);
         else
-            photonView.RPC("GetBossReward", RpcTarget.Others, enemy.BossData.Gold, enemy.BossData.Food);
+            photonView.RPC(nameof(GetBossReward), RpcTarget.Others, enemy.BossData.Gold, enemy.BossData.Food);
     }
 
     void GetTowerReward(Multi_EnemyTower enemy)
@@ -171,7 +171,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         if (enemy.UsingId == Multi_Data.instance.Id)
             GetReward(enemy.TowerData);
         else
-            photonView.RPC("GetBossReward", RpcTarget.Others, enemy.TowerData.Gold, enemy.TowerData.Food);
+            photonView.RPC(nameof(GetBossReward), RpcTarget.Others, enemy.TowerData.Gold, enemy.TowerData.Food);
     }
 
     void GetReward(BossData data)
@@ -202,7 +202,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         if (id == Multi_Data.instance.Id)
             AddGold(_addGold);
         else
-            photonView.RPC("AddGold", RpcTarget.Others, _addGold);
+            photonView.RPC(nameof(AddGold), RpcTarget.Others, _addGold);
     }
     public void AddFood(int _addFood) => Food += _addFood;
 
@@ -250,7 +250,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         if(enemyCount >= _maxEnemyCount)
         {
             Lose();
-            photonView.RPC("Win", RpcTarget.Others);
+            photonView.RPC(nameof(Win), RpcTarget.Others);
         }
     }
 

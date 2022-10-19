@@ -16,7 +16,7 @@ public struct FolderPoolingData
 public class Multi_NormalUnitSpawner : Multi_SpawnerBase
 {
     public event Action<Multi_TeamSoldier> OnSpawn;
-    public event Action<Multi_TeamSoldier> OnDead;
+    //public event Action<Multi_TeamSoldier> OnDead;
 
     [SerializeField] FolderPoolingData[] allUnitDatas;
     public IReadOnlyList<FolderPoolingData> AllUnitDatas => allUnitDatas;
@@ -56,10 +56,9 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
 
     protected override void SetPoolObj(GameObject go)
     {
-        var unit = go.GetComponent<Multi_TeamSoldier>();
-        unit.OnDead += OnDead;
-
         if (PhotonNetwork.IsMasterClient == false) return;
+
+        var unit = go.GetComponent<Multi_TeamSoldier>();
         unit.OnDead += deadUnit => Multi_Managers.Pool.Push(deadUnit.GetComponent<Poolable>());
     }
 

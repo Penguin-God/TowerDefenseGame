@@ -137,7 +137,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             }
 
             Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
-            Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
+            // Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
         }
 
         public bool TryGetUnit_If(int id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
@@ -160,18 +160,17 @@ public class Multi_UnitManager : MonoBehaviourPun
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Add(unit);
             _currentAllUnitsById.Get(id).Add(unit);
-            RaiseEvents(unit);
+            UpdateUnitCount(unit);
         }
 
-        void RemoveUnit(Multi_TeamSoldier unit)
+        public void RemoveUnit(Multi_TeamSoldier unit) // Remove는 최적화때문에 여기서 Count 갱신 안 함
         {
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Remove(unit);
             _currentAllUnitsById.Get(id).Remove(unit);
-            RaiseEvents(unit);
         }
 
-        void RaiseEvents(Multi_TeamSoldier unit)
+        public void UpdateUnitCount(Multi_TeamSoldier unit)
         {
             int id = unit.GetComponent<RPCable>().UsingId;
             OnAllUnitCountChanged?.RaiseEvent(id, (byte)_currentAllUnitsById.Get(id).Count);
@@ -228,10 +227,14 @@ public class Multi_UnitManager : MonoBehaviourPun
         {
             if (PhotonNetwork.IsMasterClient == false) return;
 
-            Multi_TeamSoldier[] offerings = _masterData.GetUnitList(id, unitFlag).ToArray();
-            count = Mathf.Min(count, offerings.Length);
+            Multi_TeamSoldier[] units = _masterData.GetUnitList(id, unitFlag).ToArray();
+            count = Mathf.Min(count, units.Length);
             for (int i = 0; i < count; i++)
-                offerings[i].Dead();
+            {
+                units[i].Dead();
+                _masterData.RemoveUnit(units[i]);
+            }
+            _masterData.UpdateUnitCount(units[0]);
         }
 
         public void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode)

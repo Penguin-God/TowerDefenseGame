@@ -81,10 +81,10 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     // events
     public event Action<int> OnUnitCountChanged = null;
-    void Rasie_OnUnitCountChanged(int count) => OnUnitCountChanged?.Invoke(count);
+    void Rasie_OnUnitCountChanged(byte count) => OnUnitCountChanged?.Invoke(count);
 
     public event Action<UnitFlags, int> OnUnitFlagCountChanged = null;
-    void Rasie_OnUnitFlagCountChanged(UnitFlags flag, int count) => OnUnitFlagCountChanged?.Invoke(flag, count);
+    void Rasie_OnUnitFlagCountChanged(UnitFlags flag, byte count) => OnUnitFlagCountChanged?.Invoke(flag, count);
 
     public event Action<bool, UnitFlags> OnTryCombine = null;
     void RaiseOnTryCombine(bool isSuccess, UnitFlags flag) => OnTryCombine?.Invoke(isSuccess, flag);
@@ -121,8 +121,10 @@ public class Multi_UnitManager : MonoBehaviourPun
     // Components
     class MasterDataManager
     {
-        public RPCAction<int> OnAllUnitCountChanged = new RPCAction<int>();
-        public RPCAction<UnitFlags, int> OnUnitCountChanged = new RPCAction<UnitFlags, int>();
+        // 이벤트 줄이기
+        public RPCAction<byte> OnAllUnitCountChanged = new RPCAction<byte>();
+        public RPCAction<UnitFlags, byte> OnUnitCountChanged = new RPCAction<UnitFlags, byte>();
+        public RPCAction<byte, UnitFlags, byte> _OnUnitCountChanged = new RPCAction<byte, UnitFlags, byte>();
         public RPCAction<UnitFlags, bool> OnUnitFlagChanged = new RPCAction<UnitFlags, bool>();
 
         public RPCAction<UnitFlags, bool> OnUnitFlagChangedToOther = new RPCAction<UnitFlags, bool>();
@@ -182,8 +184,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         void RaiseEvents(Multi_TeamSoldier unit, bool isAdd)
         {
             int id = unit.GetComponent<RPCable>().UsingId;
-            OnUnitCountChanged?.RaiseEvent(id, unit.UnitFlags, GetUnitList(unit).Count);
-            OnAllUnitCountChanged?.RaiseEvent(id, _currentAllUnitsById.Get(id).Count);
+            UpdateUnitCounts(unit);
             OnUnitFlagChanged?.RaiseEvent(id, unit.UnitFlags, isAdd);
 
             OnUnitFlagChangedToOther?.RaiseEventToOther(id, unit.UnitFlags, isAdd);
@@ -192,14 +193,16 @@ public class Multi_UnitManager : MonoBehaviourPun
         public void UpdateUnitCounts(Multi_TeamSoldier unit)
         {
             int id = unit.GetComponent<RPCable>().UsingId;
-            OnUnitCountChanged?.RaiseEvent(id, unit.UnitFlags, GetUnitList(unit).Count);
-            OnAllUnitCountChanged?.RaiseEvent(id, _currentAllUnitsById.Get(id).Count);
+            OnAllUnitCountChanged?.RaiseEvent(id, (byte)_currentAllUnitsById.Get(id).Count);
+            OnUnitCountChanged?.RaiseEvent(id, unit.UnitFlags, (byte)GetUnitList(unit).Count);
+            _OnUnitCountChanged?.RaiseAll((byte)id, unit.UnitFlags, (byte)(byte)GetUnitList(unit).Count);
         }
     }
 
     class EnemyPlayerDataManager
     {
         public event Action<int> OnOtherUnitCountChanged;
+        Dictionary<UnitFlags, byte> _countByFlag = new Dictionary<UnitFlags, byte>();
         public Dictionary<UnitClass, int> _countByUnitClass = new Dictionary<UnitClass, int>();
         public int EnemyPlayerHasUnitAllCount { get; private set; }
 
@@ -208,23 +211,31 @@ public class Multi_UnitManager : MonoBehaviourPun
             foreach (UnitClass _class in Enum.GetValues(typeof(UnitClass)))
                 _countByUnitClass.Add(_class, 0);
 
-            masterData.OnUnitFlagChangedToOther += SetCount;
+            masterData._OnUnitCountChanged += SetCount;
         }
 
-        void SetCount(UnitFlags flag, bool isIncreased)
+        void SetCount(byte id, UnitFlags flag, byte count)
         {
-            if (isIncreased)
-            {
-                _countByUnitClass[flag.UnitClass]++;
-                EnemyPlayerHasUnitAllCount++;
-            }
-            else
-            {
-                _countByUnitClass[flag.UnitClass]--;
-                EnemyPlayerHasUnitAllCount--;
-            }
+            if (Multi_Data.instance.Id == id) return;
 
+            if (_countByFlag.ContainsKey(flag) == false)
+                _countByFlag.Add(flag, 0);
+
+            _countByFlag[flag] = count;
+            _countByUnitClass[flag.UnitClass] = GetUnitClassCount(flag.UnitClass);
+            EnemyPlayerHasUnitAllCount = _countByUnitClass.Values.Sum();
             OnOtherUnitCountChanged?.Invoke(EnemyPlayerHasUnitAllCount);
+        }
+
+        int GetUnitClassCount(UnitClass unitClass)
+        {
+            int result = 0;
+            foreach (var item in _countByFlag)
+            {
+                if (unitClass == item.Key.UnitClass)
+                    result += item.Value;
+            }
+            return result;
         }
     }
 
@@ -255,8 +266,8 @@ public class Multi_UnitManager : MonoBehaviourPun
         public int _currentCount = 0;
         public Dictionary<UnitFlags, int> _countByFlag = new Dictionary<UnitFlags, int>(); // 모든 플레이어가 이벤트로 받아서 각자 카운트 관리
 
-        public event Action<int> OnUnitCountChanged = null;
-        public event Action<UnitFlags, int> OnUnitFlagCountChanged = null;
+        public event Action<byte> OnUnitCountChanged = null;
+        public event Action<UnitFlags, byte> OnUnitFlagCountChanged = null;
 
         public void Init(MasterDataManager masterData)
         {
@@ -270,13 +281,13 @@ public class Multi_UnitManager : MonoBehaviourPun
             masterData.OnUnitCountChanged += Riase_OnUnitCountChanged;
         }
 
-        void Riase_OnUnitCountChanged(int count)
+        void Riase_OnUnitCountChanged(byte count)
         {
             _currentCount = count;
             OnUnitCountChanged?.Invoke(count);
         }
 
-        void Riase_OnUnitCountChanged(UnitFlags flag, int count)
+        void Riase_OnUnitCountChanged(UnitFlags flag, byte count)
         {
             _countByFlag[flag] = count;
             OnUnitFlagCountChanged?.Invoke(flag, count);

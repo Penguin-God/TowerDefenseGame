@@ -65,8 +65,6 @@ public class Multi_UnitManager : MonoBehaviourPun
         _controller.Init(_master);
 
         _master.Init();
-        _master.OnUnitFlagChanged += RaiseOnUnitFlagChanged;
-
         _stat.Init(_master);
     }
 
@@ -88,9 +86,6 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     public event Action<bool, UnitFlags> OnTryCombine = null;
     void RaiseOnTryCombine(bool isSuccess, UnitFlags flag) => OnTryCombine?.Invoke(isSuccess, flag);
-
-    public event Action<UnitFlags, bool> OnUnitFlagChanged;
-    void RaiseOnUnitFlagChanged(UnitFlags flag, bool isIncrease) => OnUnitFlagChanged?.Invoke(flag, isIncrease);
 
     public event Action<int> OnOtherUnitCountChanged;
     void RaiseOnOtherUnitCountChaned(int count) => OnOtherUnitCountChanged?.Invoke(count);
@@ -121,13 +116,8 @@ public class Multi_UnitManager : MonoBehaviourPun
     // Components
     class MasterDataManager
     {
-        // 이벤트 줄이기
         public RPCAction<byte> OnAllUnitCountChanged = new RPCAction<byte>();
-        public RPCAction<UnitFlags, byte> OnUnitCountChanged = new RPCAction<UnitFlags, byte>();
-        public RPCAction<byte, UnitFlags, byte> _OnUnitCountChanged = new RPCAction<byte, UnitFlags, byte>();
-        public RPCAction<UnitFlags, bool> OnUnitFlagChanged = new RPCAction<UnitFlags, bool>();
-
-        public RPCAction<UnitFlags, bool> OnUnitFlagChangedToOther = new RPCAction<UnitFlags, bool>();
+        public RPCAction<byte, UnitFlags, byte> OnUnitCountChanged = new RPCAction<byte, UnitFlags, byte>();
 
         RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>> _unitListByFlag = new RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
         RPCData<List<Multi_TeamSoldier>> _currentAllUnitsById = new RPCData<List<Multi_TeamSoldier>>();
@@ -170,7 +160,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Add(unit);
             _currentAllUnitsById.Get(id).Add(unit);
-            RaiseEvents(unit, true);
+            RaiseEvents(unit);
         }
 
         void RemoveUnit(Multi_TeamSoldier unit)
@@ -178,24 +168,14 @@ public class Multi_UnitManager : MonoBehaviourPun
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Remove(unit);
             _currentAllUnitsById.Get(id).Remove(unit);
-            RaiseEvents(unit, false);
+            RaiseEvents(unit);
         }
 
-        void RaiseEvents(Multi_TeamSoldier unit, bool isAdd)
-        {
-            int id = unit.GetComponent<RPCable>().UsingId;
-            UpdateUnitCounts(unit);
-            OnUnitFlagChanged?.RaiseEvent(id, unit.UnitFlags, isAdd);
-
-            OnUnitFlagChangedToOther?.RaiseEventToOther(id, unit.UnitFlags, isAdd);
-        }
-
-        public void UpdateUnitCounts(Multi_TeamSoldier unit)
+        void RaiseEvents(Multi_TeamSoldier unit)
         {
             int id = unit.GetComponent<RPCable>().UsingId;
             OnAllUnitCountChanged?.RaiseEvent(id, (byte)_currentAllUnitsById.Get(id).Count);
-            OnUnitCountChanged?.RaiseEvent(id, unit.UnitFlags, (byte)GetUnitList(unit).Count);
-            _OnUnitCountChanged?.RaiseAll((byte)id, unit.UnitFlags, (byte)(byte)GetUnitList(unit).Count);
+            OnUnitCountChanged?.RaiseAll((byte)id, unit.UnitFlags, (byte)GetUnitList(unit).Count);
         }
     }
 
@@ -211,7 +191,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             foreach (UnitClass _class in Enum.GetValues(typeof(UnitClass)))
                 _countByUnitClass.Add(_class, 0);
 
-            masterData._OnUnitCountChanged += SetCount;
+            masterData.OnUnitCountChanged += SetCount;
         }
 
         void SetCount(byte id, UnitFlags flag, byte count)
@@ -287,8 +267,10 @@ public class Multi_UnitManager : MonoBehaviourPun
             OnUnitCountChanged?.Invoke(count);
         }
 
-        void Riase_OnUnitCountChanged(UnitFlags flag, byte count)
+        void Riase_OnUnitCountChanged(byte id, UnitFlags flag, byte count)
         {
+            if (Multi_Data.instance.Id != id) return;
+
             _countByFlag[flag] = count;
             OnUnitFlagCountChanged?.Invoke(flag, count);
         }

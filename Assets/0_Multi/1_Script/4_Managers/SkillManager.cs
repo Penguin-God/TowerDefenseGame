@@ -248,16 +248,17 @@ public class YellowSowrdmanUpgrade : PassiveSkill
 
 public class ColorChange : ActiveSkill
 {
+    // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
     public override void InitSkill()
     {
-        // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
-        Multi_UnitManager.Instance.OnUnitFlagChanged += UseSkill;
+        
     }
 
-    void UseSkill(UnitFlags flag, bool increaseed)
+    // 캐시를 들고 있어서 유닛이 증가했는지 줄었는지 자시닝 직접 비교.
+    void UseSkill(UnitFlags flag)
     {
         // 상대 직업의 색깔 변경
-        if(flag.UnitColor == UnitColor.white && increaseed)
+        if(flag.UnitColor == UnitColor.white)
         {
             // 색깔 변경
         }

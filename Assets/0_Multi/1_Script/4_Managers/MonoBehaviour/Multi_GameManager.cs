@@ -12,7 +12,7 @@ public enum GameCurrencyType
 }
 
 [Serializable]
-public struct BattleGameData
+public struct BattleStartData
 {
     [SerializeField] int startGold;
     [SerializeField] int startFood;
@@ -25,6 +25,11 @@ public struct BattleGameData
     public int StageUpGold => stageUpGold;
     public int StartMaxUnitCount => startMaxUnitCount;
     public int EnemyMaxCount => enemyMaxCount;
+}
+
+public class BattleData
+{
+
 }
 
 public class Multi_GameManager : MonoBehaviourPunCallbacks
@@ -43,10 +48,9 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     private static Multi_GameManager m_instance;
 
-    [SerializeField] BattleGameData _gameData;
+    [SerializeField] BattleStartData _gameStartData;
 
     public event Action<int> OnGoldChanged;
-    public event Action<int> OnFoodChanged;
 
     [SerializeField] int _gold;
     public int Gold
@@ -59,6 +63,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public event Action<int> OnFoodChanged;
     [SerializeField] int _food;
     public int Food
     {
@@ -87,7 +92,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     // 임시
     [SerializeField] Button gameStartButton;
     [SerializeField] GameObject barrierUI;
-    private void Awake()
+    void Awake()
     {
         if (instance != this)
         {
@@ -99,7 +104,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         else
             gameStartButton.gameObject.SetActive(false);
 
-        _gameData = Multi_Managers.Data.BattleGameData;
+        _gameStartData = Multi_Managers.Data.GetBattleStartData();
         Multi_Managers.Sound.PlayBgm(BgmType.Default);
     }
 
@@ -121,11 +126,11 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        Gold = _gameData.StartGold;
-        Food = _gameData.StartFood;
-        stageUpGold = _gameData.StageUpGold;
-        _maxUninCount = _gameData.StartMaxUnitCount;
-        _maxEnemyCount = _gameData.EnemyMaxCount;
+        Gold = _gameStartData.StartGold;
+        Food = _gameStartData.StartFood;
+        stageUpGold = _gameStartData.StageUpGold;
+        _maxUninCount = _gameStartData.StartMaxUnitCount;
+        _maxEnemyCount = _gameStartData.EnemyMaxCount;
 
         Multi_StageManager.Instance.OnUpdateStage += _stage => AddGold(stageUpGold);
         Multi_EnemyManager.Instance.OnEnemyCountChang += CheckGameOver;

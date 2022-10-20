@@ -50,7 +50,7 @@ public class Multi_DataManager
     public Dictionary<BgmType, BgmSound> BgmBySound { get; private set; }
     #endregion
 
-    public BattleGameData BattleGameData;
+    public BattleStartData GetBattleStartData() => JsonUtility.FromJson<BattleStartData>(Resources.Load<TextAsset>("Data/ClientData/BattleGameData").text);
 
     public void Init()
     {
@@ -59,9 +59,6 @@ public class Multi_DataManager
         _unit.Init(this); // 무조건 유닛 먼저
         _ui.Init(this);
         _enemy.Init(this);
-
-        // Player
-        BattleGameData = JsonUtility.FromJson<BattleGameData>(Resources.Load<TextAsset>("Data/ClientData/BattleGameData").text);
 
         // Sound 
         EffectBySound = MakeCsvDict<EffectSoundLoder, EffectSoundType, EffectSound>("SoundData/EffectSoundData");

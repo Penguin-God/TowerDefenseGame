@@ -81,11 +81,6 @@ public class Multi_SoundManager
         root.transform.parent = parent;
     }
 
-    public void BattleSceneInit()
-    {
-
-    }
-
     public void PlayBgm(BgmType bgmType) => PlayBgm(Multi_Managers.Data.BgmBySound[bgmType].Path, Multi_Managers.Data.BgmBySound[bgmType].Volumn);
     public void PlayBgm(string _path, float volumn = 0.5f) => PlayBgm(GetOrAddClip(_path), volumn);
     public void PlayBgm(AudioClip _clip, float volumn = 0.5f)

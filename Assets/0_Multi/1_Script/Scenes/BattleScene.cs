@@ -19,16 +19,30 @@ public class BattleScene : BaseScene
         Multi_Managers.Skill.Init();
         Multi_Managers.Camera.EnterBattleScene();
         Init_UI();
+        InitSound();
 
         if (PhotonNetwork.IsMasterClient == false) return;
         Multi_Managers.Pool.Init();
     }
 
-    void Start()
+    void InitSound()
     {
-        if (PhotonNetwork.InRoom == false) return;
+        var sound = Multi_Managers.Sound;
+        // 빼기
+        Multi_SpawnManagers.BossEnemy.rpcOnSpawn -= () => sound.PlayBgm(BgmType.Boss);
+        Multi_SpawnManagers.BossEnemy.rpcOnDead -= () => sound.PlayBgm(BgmType.Default);
 
-        Multi_Managers.Sound.BattleSceneInit();
+        Multi_SpawnManagers.BossEnemy.rpcOnDead -= () => sound.PlayEffect(EffectSoundType.BossDeadClip);
+        Multi_SpawnManagers.TowerEnemy.OnDead -= (tower) => sound.PlayEffect(EffectSoundType.TowerDieClip);
+        Multi_StageManager.Instance.OnUpdateStage -= (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);
+
+        // 더하기
+        Multi_SpawnManagers.BossEnemy.rpcOnSpawn += () => sound.PlayBgm(BgmType.Boss);
+        Multi_SpawnManagers.BossEnemy.rpcOnDead += () => sound.PlayBgm(BgmType.Default);
+
+        Multi_SpawnManagers.BossEnemy.rpcOnDead += () => sound.PlayEffect(EffectSoundType.BossDeadClip);
+        Multi_SpawnManagers.TowerEnemy.OnDead += (tower) => sound.PlayEffect(EffectSoundType.TowerDieClip);
+        Multi_StageManager.Instance.OnUpdateStage += (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);
     }
 
     void Init_UI()

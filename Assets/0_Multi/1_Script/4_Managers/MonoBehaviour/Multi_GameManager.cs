@@ -28,13 +28,12 @@ public struct BattleStartData
 }
 
 [Serializable]
-public class BattleSceneData
+public class CurrencyManager
 {
-    public BattleSceneData(BattleStartData startData)
+    public CurrencyManager(BattleStartData startData)
     {
         Gold = startData.StartGold;
         Food = startData.StartFood;
-        _maxUnitCount = startData.StartMaxUnitCount;
     }
 
     [SerializeField] int _gold;
@@ -64,9 +63,6 @@ public class BattleSceneData
         else
             return false;
     }
-
-    [SerializeField] int _maxUnitCount;
-    public int MaxUnitCount { get => _maxUnitCount; set => _maxUnitCount = value; }
 }
 
 public class Multi_GameManager : MonoBehaviourPunCallbacks
@@ -85,37 +81,15 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     private static Multi_GameManager m_instance;
 
-    [SerializeField] BattleSceneData _battleData;
-
-    [SerializeField] BattleStartData _gameStartData;
+    [SerializeField] CurrencyManager _battleData;
 
     public event Action<int> OnGoldChanged;
     void Rasie_OnGoldChanged(int gold) => OnGoldChanged?.Invoke(gold);
 
-    [SerializeField] int _gold;
-    public int Gold
-    {
-        get => _gold;
-        set
-        {
-            _gold = value;
-            OnGoldChanged?.Invoke(_gold);
-        }
-    }
 
     public event Action<int> OnFoodChanged;
     void Rasie_OnFoodChanged(int food) => OnFoodChanged?.Invoke(food);
 
-    [SerializeField] int _food;
-    public int Food
-    {
-        get => _food;
-        set
-        {
-            _food = value;
-            OnFoodChanged?.Invoke(_food);
-        }
-    }
 
     int AddGold_WhenCombine_YellowKinght;
     int stageUpGold = 10;
@@ -147,11 +121,10 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         else
             gameStartButton.gameObject.SetActive(false);
 
-        _battleData = new BattleSceneData(Multi_Managers.Data.GetBattleStartData());
+        _battleData = new CurrencyManager(Multi_Managers.Data.GetBattleStartData());
         _battleData.OnGoldChanged += Rasie_OnGoldChanged;
         _battleData.OnFoodChanged += Rasie_OnFoodChanged;
 
-        _gameStartData = Multi_Managers.Data.GetBattleStartData();
         var gameStartData = Multi_Managers.Data.GetBattleStartData();
         stageUpGold = gameStartData.StageUpGold;
         _maxEnemyCount = gameStartData.EnemyMaxCount;
@@ -176,39 +149,14 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        Gold = _gameStartData.StartGold;
-        Food = _gameStartData.StartFood;
-        
-
         Multi_StageManager.Instance.OnUpdateStage += _stage => AddGold(stageUpGold);
         Multi_EnemyManager.Instance.OnEnemyCountChang += CheckGameOver;
-        SubSound();
 
         if (PhotonNetwork.IsMasterClient)
         {
             Multi_SpawnManagers.BossEnemy.OnDead += GetBossReward;
             Multi_SpawnManagers.TowerEnemy.OnDead += GetTowerReward;
         }
-    }
-
-    void SubSound()
-    {
-        var sound = Multi_Managers.Sound;
-        // 빼기
-        Multi_SpawnManagers.BossEnemy.rpcOnSpawn -= () => sound.PlayBgm(BgmType.Boss);
-        Multi_SpawnManagers.BossEnemy.rpcOnDead -= () => sound.PlayBgm(BgmType.Default);
-
-        Multi_SpawnManagers.BossEnemy.rpcOnDead -= () => sound.PlayEffect(EffectSoundType.BossDeadClip);
-        Multi_SpawnManagers.TowerEnemy.OnDead -= (tower) => sound.PlayEffect(EffectSoundType.TowerDieClip);
-        Multi_StageManager.Instance.OnUpdateStage -= (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);
-
-        // 더하기
-        Multi_SpawnManagers.BossEnemy.rpcOnSpawn += () => sound.PlayBgm(BgmType.Boss);
-        Multi_SpawnManagers.BossEnemy.rpcOnDead += () => sound.PlayBgm(BgmType.Default);
-
-        Multi_SpawnManagers.BossEnemy.rpcOnDead += () => sound.PlayEffect(EffectSoundType.BossDeadClip);
-        Multi_SpawnManagers.TowerEnemy.OnDead += (tower) => sound.PlayEffect(EffectSoundType.TowerDieClip);
-        Multi_StageManager.Instance.OnUpdateStage += (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);
     }
 
     void GetBossReward(Multi_BossEnemy enemy)
@@ -241,12 +189,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void AddGold(int _addGold)
-    {
-        //Gold += _addGold;
-        _battleData.Gold += _addGold;
-        //OnGoldChanged?.Invoke(_battleData.Gold);
-    }
+    public void AddGold(int _addGold) => _battleData.Gold += _addGold;
     public void AddGold_RPC(int _addGold, int id)
     {
         if (id == Multi_Data.instance.Id)
@@ -257,26 +200,8 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     public bool TryUseGold(int gold) => _battleData.TryUseGold(gold);
 
 
-    public void AddFood(int _addFood)
-    {
-        //Food += _addFood;
-        _battleData.Gold += _addFood;
-        //OnFoodChanged?.Invoke(_battleData.Food);
-    }
-
-    public bool TryUseFood(int food)
-    {
-        return _battleData.TryUseFood(food);
-
-        if (_battleData.TryUseFood(food))
-        {
-            Food -= food;
-            return true;
-        }
-        else
-            return false;
-    }
-
+    public void AddFood(int _addFood) => _battleData.Gold += _addFood;
+    public bool TryUseFood(int food) => _battleData.TryUseFood(food);
     public bool TryUseCurrency(GameCurrencyType currencyType, int mount) => currencyType == GameCurrencyType.Gold ? TryUseGold(mount) : TryUseFood(mount);
 
     void Update()

@@ -27,9 +27,46 @@ public struct BattleStartData
     public int EnemyMaxCount => enemyMaxCount;
 }
 
-public class BattleData
+[Serializable]
+public class BattleSceneData
 {
+    public BattleSceneData(BattleStartData startData)
+    {
+        Gold = startData.StartGold;
+        Food = startData.StartFood;
+        _maxUnitCount = startData.StartMaxUnitCount;
+    }
 
+    [SerializeField] int _gold;
+    public event Action<int> OnGoldChanged;
+    public int Gold { get => _gold; set { _gold = value; OnGoldChanged?.Invoke(_gold); } }
+    public bool TryUseGold(int gold)
+    {
+        if (_gold >= gold)
+        {
+            Gold -= gold;
+            return true;
+        }
+        else
+            return false;
+    }
+
+    [SerializeField] int _food;
+    public event Action<int> OnFoodChanged;
+    public int Food { get => _food; set { _food = value; OnFoodChanged?.Invoke(_food); } }
+    public bool TryUseFood(int food)
+    {
+        if (_food >= food)
+        {
+            Food -= food;
+            return true;
+        }
+        else
+            return false;
+    }
+
+    [SerializeField] int _maxUnitCount;
+    public int MaxUnitCount { get => _maxUnitCount; set => _maxUnitCount = value; }
 }
 
 public class Multi_GameManager : MonoBehaviourPunCallbacks
@@ -48,9 +85,12 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     private static Multi_GameManager m_instance;
 
+    [SerializeField] BattleSceneData _battleData;
+
     [SerializeField] BattleStartData _gameStartData;
 
     public event Action<int> OnGoldChanged;
+    void Rasie_OnGoldChanged(int gold) => OnGoldChanged?.Invoke(gold);
 
     [SerializeField] int _gold;
     public int Gold
@@ -64,6 +104,8 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     }
 
     public event Action<int> OnFoodChanged;
+    void Rasie_OnFoodChanged(int food) => OnFoodChanged?.Invoke(food);
+
     [SerializeField] int _food;
     public int Food
     {
@@ -75,6 +117,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    int AddGold_WhenCombine_YellowKinght;
     int stageUpGold = 10;
     [SerializeField] int _maxEnemyCount;
     public int MaxEnemyCount => _maxEnemyCount;
@@ -104,7 +147,14 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         else
             gameStartButton.gameObject.SetActive(false);
 
+        _battleData = new BattleSceneData(Multi_Managers.Data.GetBattleStartData());
+        _battleData.OnGoldChanged += Rasie_OnGoldChanged;
+        _battleData.OnFoodChanged += Rasie_OnFoodChanged;
+
         _gameStartData = Multi_Managers.Data.GetBattleStartData();
+        var gameStartData = Multi_Managers.Data.GetBattleStartData();
+        stageUpGold = gameStartData.StageUpGold;
+        _maxEnemyCount = gameStartData.EnemyMaxCount;
         Multi_Managers.Sound.PlayBgm(BgmType.Default);
     }
 
@@ -128,9 +178,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     {
         Gold = _gameStartData.StartGold;
         Food = _gameStartData.StartFood;
-        stageUpGold = _gameStartData.StageUpGold;
-        _maxUninCount = _gameStartData.StartMaxUnitCount;
-        _maxEnemyCount = _gameStartData.EnemyMaxCount;
+        
 
         Multi_StageManager.Instance.OnUpdateStage += _stage => AddGold(stageUpGold);
         Multi_EnemyManager.Instance.OnEnemyCountChang += CheckGameOver;
@@ -185,14 +233,6 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         AddFood(data.Food);
     }
 
-    // TODO : 외부에 고기 혐오자 스킬 구현
-    //public void FoodToGold(int rate)
-    //{
-    //    if (_food <= 0) return;
-    //    AddGold(_food * rate);
-    //    Food = 0;
-    //}
-
     [PunRPC]
     void GetBossReward(int gold, int food)
     {
@@ -201,7 +241,12 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void AddGold(int _addGold) => Gold += _addGold;
+    public void AddGold(int _addGold)
+    {
+        //Gold += _addGold;
+        _battleData.Gold += _addGold;
+        //OnGoldChanged?.Invoke(_battleData.Gold);
+    }
     public void AddGold_RPC(int _addGold, int id)
     {
         if (id == Multi_Data.instance.Id)
@@ -209,22 +254,21 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         else
             photonView.RPC(nameof(AddGold), RpcTarget.Others, _addGold);
     }
-    public void AddFood(int _addFood) => Food += _addFood;
+    public bool TryUseGold(int gold) => _battleData.TryUseGold(gold);
 
-    public bool TryUseGold(int gold)
+
+    public void AddFood(int _addFood)
     {
-        if (Gold >= gold)
-        {
-            Gold -= gold;
-            return true;
-        }
-        else
-            return false;
+        //Food += _addFood;
+        _battleData.Gold += _addFood;
+        //OnFoodChanged?.Invoke(_battleData.Food);
     }
 
     public bool TryUseFood(int food)
     {
-        if (Food >= food)
+        return _battleData.TryUseFood(food);
+
+        if (_battleData.TryUseFood(food))
         {
             Food -= food;
             return true;

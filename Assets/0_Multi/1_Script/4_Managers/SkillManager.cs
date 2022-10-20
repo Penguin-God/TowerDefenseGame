@@ -75,6 +75,7 @@ public class MaxUnit : IUserSkill
     }
 }
 
+// 유닛 카운트 현황
 public class Taegeuk : IUserSkill
 {
 
@@ -162,8 +163,6 @@ public class Taegeuk : IUserSkill
 
     void UseSkill()
     {
-        Debug.Log(Red[0]);
-        Debug.Log(Blue[0]);
         if (Red[0] >= 1 && Blue[0] >= 1 && Ather[0] == 0)
         {
             Debug.Log("기사 강화!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -214,19 +213,33 @@ public class Taegeuk : IUserSkill
     }
 }
 
+// 유닛 카운트 현황
 public class BlackUnitUpgrade : IUserSkill
 {
     public void InitSkill()
     {
-        Multi_UnitManager.Instance.OnUnitCountChanged += (count) => UseSkill();
+        Multi_UnitManager.Instance.OnUnitFlagCountChanged += (flag, count) => UseSkill(flag);
     }
 
-    void UseSkill()
+    void UseSkill(UnitFlags unitFlags)
     {
-        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 0), 30000);
-        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 1), 100000);
-        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 2), 1000000);
-        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 3), 10000000);
+        if (unitFlags.UnitColor != UnitColor.black) return;
+
+        switch (unitFlags.UnitClass)
+        {
+            case UnitClass.sowrdman:
+                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 0), 30000);
+                break;
+            case UnitClass.archer:
+                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 1), 100000);
+                break;
+            case UnitClass.spearman:
+                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 2), 1000000);
+                break;
+            case UnitClass.mage:
+                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 3), 10000000);
+                break;
+        }
     }
 }
 
@@ -247,7 +260,7 @@ public class ColorChange : IUserSkill
         
     }
 
-    // 캐시를 들고 있어서 유닛이 증가했는지 줄었는지 자시닝 직접 비교.
+    // 캐시를 들고 있어서 유닛이 증가했는지 줄었는지 자신이 직접 비교.
     void UseSkill(UnitFlags flag)
     {
         // 상대 직업의 색깔 변경

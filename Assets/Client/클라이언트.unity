@@ -3031,9 +3031,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 640128846}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 792715567}
+        m_MethodName: UpgragePlusMaxUnit
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8624,9 +8624,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 640128846}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 792715567}
+        m_MethodName: UpgrageYellowUnitUpgrade
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8993,9 +8993,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 640128846}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 792715567}
+        m_MethodName: UpgrageStartFood
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -12192,9 +12192,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 640128846}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 792715567}
+        m_MethodName: UpgradeBlackUnitUpgrade
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -14279,9 +14279,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 640128846}
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 792715567}
+        m_MethodName: UpgradeTaegeuk
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -20611,7 +20611,10 @@ MonoBehaviour:
   AdIronCount: {fileID: 1950976686}
   AdWoodCount: {fileID: 1203556690}
   AdHammerCount: {fileID: 858720486}
-  SkillUpgradeBackground: {fileID: 0}
+  SkillUpgradeBackground: {fileID: 640128846}
+  SkillImage: {fileID: 1423013460}
+  SkillExplane: {fileID: 116605519}
+  SkillName: {fileID: 589318606}
 --- !u!4 &792715568
 Transform:
   m_ObjectHideFlags: 0

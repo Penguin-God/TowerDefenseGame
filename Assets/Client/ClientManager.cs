@@ -7,6 +7,7 @@ using System.Linq;
 
 public class ClientManager : MonoBehaviour
 {
+    #region 변수들
     public Text IronText;
     public Text WoodText;
     public Text HammerText;
@@ -36,6 +37,7 @@ public class ClientManager : MonoBehaviour
     const int PLUSMAXUNITPRICE = 3000;
     
     public AudioSource ClientClickAudioSource;
+    #endregion
 
     void Start()
     {
@@ -69,6 +71,7 @@ public class ClientManager : MonoBehaviour
         }
     }
 
+    #region update Money
     public void UpdateMoney()
     {
         UpdateIronText(ClientIron);
@@ -113,7 +116,9 @@ public class ClientManager : MonoBehaviour
     {
         AdHammerCount.text = "1 ~ " + PlusTouchDamegePrice;
     }
+    #endregion
 
+    #region Buy Skills
     public void BuySkills(ref int use_money, int use_price, SkillType skillType, MoneyType moneyType)
     {
         ClientClickSound();
@@ -185,7 +190,9 @@ public class ClientManager : MonoBehaviour
         BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.보스데미지증가, MoneyType.Iron);
     }
 
+    #endregion
 
+    #region Equip Skills
     public void EquipStartGold()
     {
         if (EquipSkill(SkillType.시작골드증가) == false)
@@ -320,7 +327,9 @@ public class ClientManager : MonoBehaviour
         InitEquips();
         return true;
     }
+    #endregion
 
+    #region Init Info
     private void InitMoney()
     {
         Multi_Managers.ClientData.MoneyByType[MoneyType.Iron].SetAmount(ClientIron);
@@ -361,8 +370,9 @@ public class ClientManager : MonoBehaviour
             equipButton.interactable = true;
         }
     }
+    #endregion
 
-    // 뭔가 좋은 방법 필요
+
     public int CheckSkill() => Multi_Managers.ClientData.EquipSkillCount;
 
     public void UnEquip()
@@ -374,11 +384,68 @@ public class ClientManager : MonoBehaviour
         InitEquips();
     }
 
-    public GameObject SkillUpgradeBackground;
+    #region Upgrade Skills
 
-    public void OpenSkillUpgrade(SkillType skillType)
+    public GameObject SkillUpgradeBackground;
+    public Image SkillImage;
+    public Text SkillExplane;
+    public Text SkillName;
+
+    public void OpenSkillUpgrade(Sprite skillSprite, string skillexplane, string skillName)
     {
         // 스킬마다 내용 초기화
+        SkillImage.sprite = skillSprite;
+        SkillExplane.text = skillexplane;
+        SkillName.text = skillName;
         SkillUpgradeBackground.SetActive(true);
     }
+
+    public void UpgradeTaegeuk()
+    {
+        string taegeukText = "태극 스킬 설명";
+        OpenSkillUpgrade(skill_Image.TaegeukSkillImage, taegeukText, "태극 스킬");
+    }
+
+    public void UpgradeBlackUnitUpgrade()
+    {
+        string blackUnitUpgrage = "검은 유닛 강화 설명";
+        OpenSkillUpgrade(skill_Image.BlackUnitUpgradeImage, blackUnitUpgrage, "검은 유닛 강화");
+    }
+
+    public void UpgrageYellowUnitUpgrade()
+    {
+        string yellowUnitUpgrade = "노란 기사 강화 설명";
+        OpenSkillUpgrade(skill_Image.YellowUnitUpgradeImage, yellowUnitUpgrade, "노랑 기사 강화");
+    }
+
+    public void UpgrageColorChange()
+    {
+        string colorChange = "상대 색깔 변경 설명";
+        OpenSkillUpgrade(skill_Image.ColorChangeImage, colorChange, "상대 색깔 변경");
+    }
+
+    public void UpgrageFoodHater()
+    {
+        string foodHater = "고기 혐오자 설명";
+        OpenSkillUpgrade(skill_Image.FoodHaterImage, foodHater, "고기 혐오자");
+    }
+
+    public void UpgrageStartFood()
+    {
+        string startFood = "현재: 시작 식량이 1 증가한다.\n강화 후: 시작 식량이 2 증가한다.";
+        OpenSkillUpgrade(skill_Image.CommonSkillImage, startFood, "시작 고기 증가");
+    }
+
+    public void UpgragePlusMaxUnit()
+    {
+        string plusMaxUnit = "최대 유닛 증가 설명";
+        OpenSkillUpgrade(skill_Image.PlusMaxUnitImage, plusMaxUnit, "최대 유닛 증가");
+    }
+
+    public void UpgrageBossDamage()
+    {
+        string bossDamage = "보스데미지 증가 설명";
+        OpenSkillUpgrade(skill_Image.BossDamageUpgradeImage, bossDamage, "보스 데미지 증가");
+    }
+    #endregion
 }

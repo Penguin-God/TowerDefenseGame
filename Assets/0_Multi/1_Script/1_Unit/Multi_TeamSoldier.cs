@@ -19,8 +19,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
     public int OriginBossDamage { get; private set; }
     public float OriginAttackDelayTime { get; private set; }
 
-    public int Damage { get => stat.Damage; set { stat.SetDamage(value); SetSkillDamage(); OnDamageChanaged?.Invoke(Damage); } }
-    public int BossDamage { get => stat.BossDamage; set { stat.SetBossDamage(value); SetSkillDamage(); OnBossDamageChanged?.Invoke(BossDamage); } }
+    public int Damage { get => stat.Damage; set { stat.SetDamage(value); OnDamageChanaged?.Invoke(Damage); } }
+    public int BossDamage { get => stat.BossDamage; set { stat.SetBossDamage(value); OnBossDamageChanged?.Invoke(BossDamage); } }
     public float Speed { get => stat.Speed; set => stat.SetSpeed(value); }
     public float AttackDelayTime { get => stat.AttackDelayTime; set => stat.SetAttDelayTime(value); }
     public float AttackRange { get => stat.AttackRange; set => stat.SetAttackRange(value); }
@@ -49,7 +49,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
 
     #region Virual Funtion
     protected virtual void OnAwake() { } // 유닛마다 다른 Awake 세팅
-    public virtual void SetSkillDamage() { } // 기본 데이터를 기반으로 유닛 고유 데이터 세팅
     public virtual void NormalAttack() { } // 유닛들의 고유한 공격
     public virtual void SpecialAttack() => _state.StartAttack();
     #endregion
@@ -129,7 +128,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         OriginDamage = stat.Damage;
         OriginBossDamage = stat.BossDamage;
         OriginAttackDelayTime = stat.AttackDelayTime;
-        SetSkillDamage();
     }
     
     void SetPassive_RPC() => pv.RPC(nameof(SetPassive), RpcTarget.All);

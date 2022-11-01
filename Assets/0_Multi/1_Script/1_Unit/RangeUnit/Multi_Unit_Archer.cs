@@ -10,7 +10,6 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     [SerializeField] int skillArrowCount = 3;
     private GameObject trail;
 
-    [SerializeField] int _skillDamage;
     [SerializeField] int _useSkillPercent;
     [SerializeField] float _skillReboundTime;
     [SerializeField] UnitRandomSkillSystem _skillSystem;
@@ -22,11 +21,6 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         normalAttackSound = EffectSoundType.ArcherAttack;
         _useSkillPercent = 30;
         _skillSystem = new UnitRandomSkillSystem(this, 1.2f);
-    }
-
-    public override void SetSkillDamage()
-    {
-        _skillDamage = (int)(Damage * 1.2f);
     }
 
     [PunRPC]

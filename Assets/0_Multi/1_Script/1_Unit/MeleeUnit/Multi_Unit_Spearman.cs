@@ -11,7 +11,6 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     [SerializeField] GameObject trail;
     [SerializeField] GameObject spear; // 평타칠 때 쓰는 창
 
-    [SerializeField] int _skillDamage;
     [SerializeField] int _useSkillPercent;
     [SerializeField] float _skillReboundTime;
     [SerializeField] UnitRandomSkillSystem _skillSystem;
@@ -22,11 +21,6 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         normalAttackSound = EffectSoundType.SpearmanAttack;
         _useSkillPercent = 30;
         _skillSystem = new UnitRandomSkillSystem(this, 1.5f);
-    }
-
-    public override void SetSkillDamage()
-    {
-        _skillDamage = (int)(Damage * 1.5f);
     }
 
     [PunRPC]

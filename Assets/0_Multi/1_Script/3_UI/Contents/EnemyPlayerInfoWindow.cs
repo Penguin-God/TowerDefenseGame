@@ -16,6 +16,6 @@ public class EnemyPlayerInfoWindow : Multi_UI_Popup
     public void UpdateCount()
     {
         for (int i = 0; i < texts.Length; i++)
-            texts[i].text = Multi_UnitManager.Instance.CountByUnitClass[(UnitClass)System.Enum.ToObject(typeof(UnitClass), i)] + "";
+            texts[i].text = Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[(UnitClass)System.Enum.ToObject(typeof(UnitClass), i)] + "";
     }
 }

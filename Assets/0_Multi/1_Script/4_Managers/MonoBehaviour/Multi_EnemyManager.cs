@@ -37,8 +37,8 @@ public class Multi_EnemyManager : MonoBehaviourPun
         _counter.OnOthreEnemyCountChanged += RaiseOnOtherEnemyCountChanged;
     }
 
-    public event Action<int> OnEnemyCountChang = null;
-    void RaiseOnEnemyCountChanged(int count) => OnEnemyCountChang?.Invoke(count);
+    public event Action<int> OnEnemyCountChanged = null;
+    void RaiseOnEnemyCountChanged(int count) => OnEnemyCountChanged?.Invoke(count);
 
     public event Action<int> OnOtherEnemyCountChanged = null;
     void RaiseOnOtherEnemyCountChanged(int count) => OnOtherEnemyCountChanged?.Invoke(count);

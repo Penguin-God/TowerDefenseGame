@@ -12,6 +12,11 @@ public class Status_UI : Multi_UI_Scene
         GoldText,
         StageText,
         CurrentUnitText,
+        KnigthText,
+        ArcherText,
+        SpearmanText,
+        MageText,
+        EnemyText,
     }
 
     enum GameObjects
@@ -40,6 +45,8 @@ public class Status_UI : Multi_UI_Scene
         BindFoodBarEvent();
         BindUnitPanelEvent();
         BindEnemyCountTextEvent();
+        BindEnemyPlayerUnitCountEvent();
+        BindEnemyPlayerEnemyCountEvent();
 
         void BindGoldBarEvent()
         {
@@ -61,29 +68,42 @@ public class Status_UI : Multi_UI_Scene
 
         void BindUnitPanelEvent()
         {
-            // 빼기
             Multi_UnitManager.Instance.OnUnitCountChanged -= UpdateUnitText;
-            Multi_UnitManager.Instance.OnOtherUnitCountChanged -= UpdateOtherUnitText;
             Multi_Managers.Camera.OnLookMyWolrd -= () => UpdateUnitText(Multi_UnitManager.Instance.CurrentUnitCount);
-            Multi_Managers.Camera.OnLookEnemyWorld -= () => UpdateUnitText(Multi_UnitManager.Instance.EnemyPlayerHasCount);
-
-            // 더하기
+            
             Multi_UnitManager.Instance.OnUnitCountChanged += UpdateUnitText;
-            Multi_UnitManager.Instance.OnOtherUnitCountChanged += UpdateOtherUnitText;
             Multi_Managers.Camera.OnLookMyWolrd += () => UpdateUnitText(Multi_UnitManager.Instance.CurrentUnitCount);
-            Multi_Managers.Camera.OnLookEnemyWorld += () => UpdateUnitText(Multi_UnitManager.Instance.EnemyPlayerHasCount);
         }
 
         void BindEnemyCountTextEvent()
         {
-            Multi_EnemyManager.Instance.OnEnemyCountChang -= UpdateMyEnemyCountText;
-            Multi_EnemyManager.Instance.OnOtherEnemyCountChanged -= UpdateOtherEnemyCountText;
+            Multi_EnemyManager.Instance.OnEnemyCountChanged -= UpdateMyEnemyCountText;
             Multi_Managers.Camera.OnLookMyWolrd -= () => UpdateEnemyCountText(Multi_EnemyManager.Instance.MyEnemyCount);
+            
+            Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateMyEnemyCountText;
+            Multi_Managers.Camera.OnLookMyWolrd += () => UpdateEnemyCountText(Multi_EnemyManager.Instance.MyEnemyCount);
+        }
+
+        void BindEnemyPlayerUnitCountEvent()
+        {
+            Multi_UnitManager.Instance.OnOtherUnitCountChanged -= (count) => UpdateEnemyPlayerUnitCount();
+            Multi_UnitManager.Instance.OnOtherUnitCountChanged -= UpdateOtherUnitText;
+            Multi_Managers.Camera.OnLookEnemyWorld -= () => UpdateUnitText(Multi_UnitManager.Instance.EnemyPlayerHasCount);
+
+            Multi_UnitManager.Instance.OnOtherUnitCountChanged += (count) => UpdateEnemyPlayerUnitCount();
+            Multi_UnitManager.Instance.OnOtherUnitCountChanged += UpdateOtherUnitText;
+            Multi_Managers.Camera.OnLookEnemyWorld += () => UpdateUnitText(Multi_UnitManager.Instance.EnemyPlayerHasCount);
+        }
+
+        void BindEnemyPlayerEnemyCountEvent()
+        {
+            Multi_EnemyManager.Instance.OnOtherEnemyCountChanged -= UpdateOtherEnemyCountText;
+            Multi_EnemyManager.Instance.OnOtherEnemyCountChanged -= UpdateOtherEnemyText;
             Multi_Managers.Camera.OnLookEnemyWorld -= () => UpdateEnemyCountText(Multi_EnemyManager.Instance.EnemyPlayerEnemyCount);
 
-            Multi_EnemyManager.Instance.OnEnemyCountChang += UpdateMyEnemyCountText;
+
             Multi_EnemyManager.Instance.OnOtherEnemyCountChanged += UpdateOtherEnemyCountText;
-            Multi_Managers.Camera.OnLookMyWolrd += () => UpdateEnemyCountText(Multi_EnemyManager.Instance.MyEnemyCount);
+            Multi_EnemyManager.Instance.OnOtherEnemyCountChanged += UpdateOtherEnemyText;
             Multi_Managers.Camera.OnLookEnemyWorld += () => UpdateEnemyCountText(Multi_EnemyManager.Instance.EnemyPlayerEnemyCount);
         }
     }
@@ -95,6 +115,11 @@ public class Status_UI : Multi_UI_Scene
     {
         if (Multi_Managers.Camera.LookWorld_Id != Multi_Data.instance.Id)
             UpdateUnitText(count);
+    }
+
+    void UpdateOtherEnemyText(int count)
+    {
+        GetText((int)Texts.EnemyText).text = "" + count;
     }
 
     Color originColor = new Color(1, 1, 1, 1);
@@ -141,5 +166,13 @@ public class Status_UI : Multi_UI_Scene
             yield return null;
             timerSlider.value -= Time.deltaTime;
         }
+    }
+
+    void UpdateEnemyPlayerUnitCount()
+    {
+        GetText((int)Texts.KnigthText).text = "" + Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[UnitClass.sowrdman];
+        GetText((int)Texts.ArcherText).text = "" + Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[UnitClass.archer];
+        GetText((int)Texts.SpearmanText).text = "" + Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[UnitClass.spearman];
+        GetText((int)Texts.MageText).text = "" + Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[UnitClass.mage];
     }
 }

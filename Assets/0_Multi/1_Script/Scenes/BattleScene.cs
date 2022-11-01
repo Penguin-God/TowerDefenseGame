@@ -18,7 +18,7 @@ public class BattleScene : BaseScene
         Multi_SpawnManagers.Instance.Init();
         Multi_Managers.Skill.Init();
         Multi_Managers.Camera.EnterBattleScene();
-        Init_UI();
+        Show_UI();
         InitSound();
 
         if (PhotonNetwork.IsMasterClient == false) return;
@@ -45,7 +45,7 @@ public class BattleScene : BaseScene
         Multi_StageManager.Instance.OnUpdateStage += (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);
     }
 
-    void Init_UI()
+    void Show_UI()
     {
         Multi_Managers.UI.Init();
 
@@ -61,7 +61,7 @@ public class BattleScene : BaseScene
         Multi_Managers.UI.ShowSceneUI<Multi_UI_Paint>("Paint");
         Multi_Managers.UI.ShowSceneUI<CreateDefenserButton>("Create Defenser Button");
         Multi_Managers.UI.ShowSceneUI<LookTowerButton>("Story Wolrd Enter Button");
-        Multi_Managers.UI.ShowSceneUI<EnemyPlayerStatusShowButton>("EnemyPlayerStatusShowButton");
+        //Multi_Managers.UI.ShowSceneUI<EnemyPlayerStatusShowButton>("EnemyPlayerStatusShowButton");
     }
 
     public override void Clear()

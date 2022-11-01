@@ -26877,14 +26877,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2307ab77a99dc4ea5f959875dcb5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gameStartData:
-    startGold: 0
-    startFood: 0
-    stageUpGold: 0
-    startMaxUnitCount: 0
-    enemyMaxCount: 0
-  _gold: 0
-  _food: 0
+  _battleData:
+    _gold: 0
+    _food: 0
   _maxEnemyCount: 0
   _maxUninCount: 15
   gameStartButton: {fileID: 1436183892}

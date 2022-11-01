@@ -154,7 +154,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     void Start()
     {
         Multi_StageManager.Instance.OnUpdateStage += _stage => AddGold(stageUpGold);
-        Multi_EnemyManager.Instance.OnEnemyCountChang += CheckGameOver;
+        Multi_EnemyManager.Instance.OnEnemyCountChanged += CheckGameOver;
 
         if (PhotonNetwork.IsMasterClient)
         {

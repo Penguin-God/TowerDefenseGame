@@ -70,7 +70,7 @@ public class Multi_UnitManager : MonoBehaviourPun
 
 
     // Datas
-    public IReadOnlyDictionary<UnitClass, int> CountByUnitClass => _enemyPlayer._countByUnitClass;
+    public IReadOnlyDictionary<UnitClass, int> EnemyPlayerUnitCountByClass => _enemyPlayer._countByUnitClass;
     public IReadOnlyDictionary<UnitFlags, int> UnitCountByFlag => _count._countByFlag;
     public int CurrentUnitCount => _count._currentCount;
     public int EnemyPlayerHasCount => _enemyPlayer.EnemyPlayerHasUnitAllCount;

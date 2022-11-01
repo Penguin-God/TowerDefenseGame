@@ -30,7 +30,7 @@ public struct BattleStartData
 [Serializable]
 public class CurrencyManager
 {
-    public CurrencyManager(BattleStartData startData)
+    public void SetStartData(BattleStartData startData)
     {
         Gold = startData.StartGold;
         Food = startData.StartFood;
@@ -121,16 +121,19 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         else
             gameStartButton.gameObject.SetActive(false);
 
-        _battleData = new CurrencyManager(Multi_Managers.Data.GetBattleStartData());
-        _battleData.OnGoldChanged += Rasie_OnGoldChanged;
-        _battleData.OnFoodChanged += Rasie_OnFoodChanged;
-
         var gameStartData = Multi_Managers.Data.GetBattleStartData();
         stageUpGold = gameStartData.StageUpGold;
         _maxEnemyCount = gameStartData.EnemyMaxCount;
         Multi_Managers.Sound.PlayBgm(BgmType.Default);
     }
 
+    void SetUpGameData()
+    {
+        _battleData = new CurrencyManager();
+        _battleData.OnGoldChanged += Rasie_OnGoldChanged;
+        _battleData.OnFoodChanged += Rasie_OnFoodChanged;
+        _battleData.SetStartData(Multi_Managers.Data.GetBattleStartData());
+    }
 
     [HideInInspector]
     public bool gameStart;
@@ -138,10 +141,11 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPC_OnStart()
     {
+        SetUpGameData();
         gameStartButton.gameObject.SetActive(false);
         barrierUI.SetActive(false);
         gameStart = true;
-        OnStart();
+        OnStart?.Invoke();
     }
 
     void GameStart() => photonView.RPC(nameof(RPC_OnStart), RpcTarget.All);
@@ -200,7 +204,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     public bool TryUseGold(int gold) => _battleData.TryUseGold(gold);
 
 
-    public void AddFood(int _addFood) => _battleData.Gold += _addFood;
+    public void AddFood(int _addFood) => _battleData.Food += _addFood;
     public bool TryUseFood(int food) => _battleData.TryUseFood(food);
     public bool TryUseCurrency(GameCurrencyType currencyType, int mount) => currencyType == GameCurrencyType.Gold ? TryUseGold(mount) : TryUseFood(mount);
 

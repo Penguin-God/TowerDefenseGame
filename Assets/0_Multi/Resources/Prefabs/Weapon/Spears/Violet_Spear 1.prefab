@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1890103083769547283}
   - component: {fileID: 954910404421458234}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 8152223641892135956}
   - component: {fileID: 2225142065534270343}
   - component: {fileID: -4344876553798759563}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: Violet_Spear 1
   m_TagString: Attack
   m_Icon: {fileID: 0}

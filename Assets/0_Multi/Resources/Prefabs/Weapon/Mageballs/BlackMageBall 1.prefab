@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 4247385763262579705}
   - component: {fileID: -3260635960103806462}
   - component: {fileID: 2678918950480465232}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BlackMageBall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

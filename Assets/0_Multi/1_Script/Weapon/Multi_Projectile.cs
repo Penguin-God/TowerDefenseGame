@@ -25,11 +25,11 @@ public class Multi_Projectile : MonoBehaviourPun
     public void Shot(Vector3 dir, Action<Multi_Enemy> hitAction)
     {
         OnHit = hitAction;
-        photonView.RPC("RPC_ProjectileShot", RpcTarget.All, dir);
+        photonView.RPC(nameof(RPC_Shot), RpcTarget.All, dir);
     }
 
     [PunRPC]
-    public void RPC_ProjectileShot(Vector3 _dir)
+    public void RPC_Shot(Vector3 _dir)
     {
         Rigidbody.velocity = _dir * _speed;
         Quaternion lookDir = Quaternion.LookRotation(_dir);
@@ -38,7 +38,7 @@ public class Multi_Projectile : MonoBehaviourPun
 
     void HitEnemy(Multi_Enemy enemy)
     {
-        if (OnHit == null) return;
+        Debug.Assert(OnHit != null, "OnHit이 널임");
 
         OnHit?.Invoke(enemy);
         if (!isAOE)
@@ -63,7 +63,7 @@ public class Multi_Projectile : MonoBehaviourPun
 
     protected virtual void OnTriggerHit(Collider other) 
     {
-        if (photonView.IsMine)
+        if (PhotonNetwork.IsMasterClient)
         {
             Multi_Enemy enemy = other.GetComponentInParent<Multi_Enemy>(); // 콜라이더가 자식한테 있음
             if (enemy != null) HitEnemy(enemy);

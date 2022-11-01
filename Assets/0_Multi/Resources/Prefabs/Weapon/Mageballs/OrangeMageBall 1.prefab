@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4707030899879111017}
   - component: {fileID: -7520903730978864744}
   - component: {fileID: -1627627950206916174}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: OrangeMageBall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 4707030899879015754}
   - component: {fileID: 4707030899898413066}
   - component: {fileID: 4707030899898370474}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4896,7 +4896,7 @@ GameObject:
   - component: {fileID: 4707030899879015756}
   - component: {fileID: 4707030899898413068}
   - component: {fileID: 4707030899898370476}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Spark
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 7182359889280833311}
   - component: {fileID: 1734310763871254093}
   - component: {fileID: -820889951667085177}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BlueArrowTrail 1
   m_TagString: Attack
   m_Icon: {fileID: 0}

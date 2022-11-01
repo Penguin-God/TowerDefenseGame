@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1450509886485553548}
   - component: {fileID: -5680485445141292488}
   - component: {fileID: 5617797800857711499}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: OrangeArrowTrail 1
   m_TagString: Attack
   m_Icon: {fileID: 0}

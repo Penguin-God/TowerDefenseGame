@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 98499593567786733}
   - component: {fileID: -3568690522766458150}
   - component: {fileID: -3769642996971567392}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: GreenArrowTrail 1
   m_TagString: Attack
   m_Icon: {fileID: 0}

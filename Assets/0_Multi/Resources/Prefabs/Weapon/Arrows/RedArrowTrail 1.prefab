@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -6815528248954548471}
   - component: {fileID: 8659979298611208075}
   - component: {fileID: -540913369148750484}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: RedArrowTrail 1
   m_TagString: Attack
   m_Icon: {fileID: 0}

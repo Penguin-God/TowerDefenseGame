@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -4075049655368190949}
   - component: {fileID: 5972796557520273325}
   - component: {fileID: -1251622445534444468}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BlackArrowTrail 1
   m_TagString: Attack
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3052143345438960130}
   - component: {fileID: 3052143345454165826}
   - component: {fileID: 3052143345454257890}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Spark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4765,7 +4765,7 @@ GameObject:
   - component: {fileID: 3052143345438960132}
   - component: {fileID: 3052143345454165828}
   - component: {fileID: 3052143345454257892}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9523,7 +9523,7 @@ GameObject:
   - component: {fileID: 3052143345438668327}
   - component: {fileID: 1421877303204269461}
   - component: {fileID: 348176262795641593}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: YellowMageBall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

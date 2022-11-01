@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: -832114583849046858}
   - component: {fileID: 4224727322711625114}
   - component: {fileID: 7492905317009973694}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: Black_Spear 1
   m_TagString: Attack
   m_Icon: {fileID: 0}
@@ -202,7 +202,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8477961646819946868}
   - component: {fileID: 7124059619403457117}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}

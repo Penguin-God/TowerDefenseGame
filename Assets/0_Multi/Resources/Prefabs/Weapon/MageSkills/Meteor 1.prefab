@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 767403621002786484}
   - component: {fileID: 767403621002786482}
   - component: {fileID: 767403621002786485}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Core2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4765,7 +4765,7 @@ GameObject:
   - component: {fileID: 767403621168153194}
   - component: {fileID: 767403621168153192}
   - component: {fileID: 767403621168153195}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9519,7 +9519,7 @@ GameObject:
   - component: {fileID: 767403621243486070}
   - component: {fileID: 767403621243486068}
   - component: {fileID: 767403621243486071}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14273,7 +14273,7 @@ GameObject:
   - component: {fileID: 767403622571391389}
   - component: {fileID: 767403622571391387}
   - component: {fileID: 767403622571391386}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Spark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19031,7 +19031,7 @@ GameObject:
   - component: {fileID: -6234274731394058744}
   - component: {fileID: -6187135869327002636}
   - component: {fileID: 3086455494300643389}
-  m_Layer: 0
+  m_Layer: 15
   m_Name: Meteor 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

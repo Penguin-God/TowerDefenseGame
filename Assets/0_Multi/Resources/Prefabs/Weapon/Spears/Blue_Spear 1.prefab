@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6157967645765815106}
   - component: {fileID: 4760029632257955947}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: Trail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 4285505375528364662}
   - component: {fileID: 4260233848581638051}
   - component: {fileID: 459905576159694494}
-  m_Layer: 9
+  m_Layer: 14
   m_Name: Blue_Spear 1
   m_TagString: Attack
   m_Icon: {fileID: 0}

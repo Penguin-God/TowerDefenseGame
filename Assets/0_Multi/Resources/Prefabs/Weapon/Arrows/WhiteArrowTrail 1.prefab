@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: -3509539038143377848}
   - component: {fileID: -191075487558493168}
   - component: {fileID: -9164017083075790100}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: WhiteArrowTrail 1
   m_TagString: Attack
   m_Icon: {fileID: 0}

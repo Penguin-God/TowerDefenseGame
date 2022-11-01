@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 833271181183922428}
   - component: {fileID: 6819097238763152882}
   - component: {fileID: 4238583477169568949}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: YellowArrowTrail 1
   m_TagString: Attack
   m_Icon: {fileID: 0}

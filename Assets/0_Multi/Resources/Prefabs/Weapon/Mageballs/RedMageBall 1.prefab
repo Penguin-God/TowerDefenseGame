@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4310734708390361449}
   - component: {fileID: 4310734708408712233}
   - component: {fileID: 4310734708408599945}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Spark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4769,7 +4769,7 @@ GameObject:
   - component: {fileID: 4310734708390126922}
   - component: {fileID: -4473530989806158752}
   - component: {fileID: -1528040695033376085}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: RedMageBall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4896,7 +4896,7 @@ GameObject:
   - component: {fileID: 4310734708390361455}
   - component: {fileID: 4310734708408712239}
   - component: {fileID: 4310734708408599951}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}

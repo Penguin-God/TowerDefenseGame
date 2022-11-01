@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5003480418987747995}
   - component: {fileID: 2881021713790114798}
   - component: {fileID: -230622061610850597}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BlueMageBall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -142,7 +142,7 @@ GameObject:
   - component: {fileID: 5003480418987849402}
   - component: {fileID: 5003480419003053050}
   - component: {fileID: 5003480419003075162}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4896,7 +4896,7 @@ GameObject:
   - component: {fileID: 5003480418987849404}
   - component: {fileID: 5003480419003053052}
   - component: {fileID: 5003480419003075164}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Spark
   m_TagString: Untagged
   m_Icon: {fileID: 0}

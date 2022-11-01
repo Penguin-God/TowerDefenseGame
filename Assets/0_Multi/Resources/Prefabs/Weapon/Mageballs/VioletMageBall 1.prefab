@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 764653912475761000}
   - component: {fileID: 764653912456363048}
   - component: {fileID: 764653912456381832}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Spark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4769,7 +4769,7 @@ GameObject:
   - component: {fileID: 764653912475919693}
   - component: {fileID: 6312583149238634909}
   - component: {fileID: -2473189159279718552}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: VioletMageBall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4896,7 +4896,7 @@ GameObject:
   - component: {fileID: 764653912475761006}
   - component: {fileID: 764653912456363054}
   - component: {fileID: 764653912456381838}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}

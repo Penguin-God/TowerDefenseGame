@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5513301234657407545}
   - component: {fileID: 5513301234638010233}
   - component: {fileID: 5513301234638098137}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Spark
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4769,7 +4769,7 @@ GameObject:
   - component: {fileID: 5513301234657635868}
   - component: {fileID: 1107774132134989974}
   - component: {fileID: -1520312791934828240}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: WhiteMageBall 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4896,7 +4896,7 @@ GameObject:
   - component: {fileID: 5513301234657407551}
   - component: {fileID: 5513301234638010239}
   - component: {fileID: 5513301234638098143}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Core
   m_TagString: Untagged
   m_Icon: {fileID: 0}

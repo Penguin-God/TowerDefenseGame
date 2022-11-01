@@ -22,6 +22,13 @@ public class UI_UnitTracker : Multi_UI_Base
         GetComponentInChildren<Button>().onClick.AddListener(OnClicked);
     }
 
+    void OnEnable()
+    {
+        Multi_UnitManager.Instance.OnUnitFlagCountChanged -= TrackUnitCount;
+        Multi_UnitManager.Instance.OnUnitFlagCountChanged += TrackUnitCount;
+        SetUnitCountText(Multi_UnitManager.Instance.UnitCountByFlag[unitFlags]);
+    }
+
     void OnDisable()
     {
         if(Multi_UnitManager.Instance != null)
@@ -31,7 +38,6 @@ public class UI_UnitTracker : Multi_UI_Base
     public void SetInfo(UI_UnitTrackerData data)
     {
         gameObject.SetActive(false);
-        gameObject.SetActive(true);
 
         // TODO : 코드 꼬라지...... 고쳐야겠지?
         int colorNumber = data.UnitFlags.ColorNumber == -1 ? unitFlags.ColorNumber : data.UnitFlags.ColorNumber;
@@ -41,14 +47,11 @@ public class UI_UnitTracker : Multi_UI_Base
         if (data.Icon != null) icon.sprite = data.Icon;
         if (string.IsNullOrEmpty(data.UnitClassName) == false) _unitClassName = data.UnitClassName;
 
-        //Multi_UnitManager.Instance.OnUnitFlagCountChanged -= TrackUnitCount;
-        Multi_UnitManager.Instance.OnUnitFlagCountChanged += TrackUnitCount;
-        SetUnitCountText(Multi_UnitManager.Instance.UnitCountByFlag[unitFlags]);
+        gameObject.SetActive(true); // OnEnalbe() 실행
     }
 
     void TrackUnitCount(UnitFlags unitFlag, int count)
     {
-        print($"{unitFlag.UnitColor} : {unitFlag.UnitClass} == {unitFlag.UnitColor} {unitFlag.UnitClass} ? {unitFlag == unitFlags}");
         if (unitFlag == unitFlags)
             SetUnitCountText(count);
     }

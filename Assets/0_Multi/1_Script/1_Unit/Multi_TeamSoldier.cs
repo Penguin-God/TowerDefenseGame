@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using Photon.Pun;
 using System;
 
-public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
+public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
 {
     private UnitFlags _unitFlags;
     public UnitFlags UnitFlags => _unitFlags;
@@ -19,12 +19,14 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     public int OriginBossDamage { get; private set; }
     public float OriginAttackDelayTime { get; private set; }
 
-    public int Damage { get => stat.Damage; set { stat.SetDamage(value); SetSkillDamage(); } }
-    public int BossDamage { get => stat.BossDamage; set { stat.SetBossDamage(value); SetSkillDamage(); } }
+    public int Damage { get => stat.Damage; set { stat.SetDamage(value); SetSkillDamage(); OnDamageChanaged?.Invoke(Damage); } }
+    public int BossDamage { get => stat.BossDamage; set { stat.SetBossDamage(value); SetSkillDamage(); OnBossDamageChanged?.Invoke(BossDamage); } }
     public float Speed { get => stat.Speed; set => stat.SetSpeed(value); }
     public float AttackDelayTime { get => stat.AttackDelayTime; set => stat.SetAttDelayTime(value); }
     public float AttackRange { get => stat.AttackRange; set => stat.SetAttackRange(value); }
 
+    public event Action<int> OnDamageChanaged = null;
+    public event Action<int> OnBossDamageChanged = null;
 
     [SerializeField] protected float stopDistanc;
 
@@ -71,16 +73,14 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         rpcable = GetComponent<RPCable>();
         animator = GetComponentInChildren<Animator>();
         nav = GetComponent<NavMeshAgent>();
-
         originObstacleType = nav.obstacleAvoidanceType;
-
-        OnAwake(); // 유닛별 세팅
 
         _state = gameObject.AddComponent<UnitState>();
         _targetManager = new TargetManager(_state);
         _targetManager.OnChangedTarget += SetNewTarget;
         _chaseSystem = AddCahseSystem();
         _targetManager.OnChangedTarget += _chaseSystem.ChangedTarget;
+        OnAwake(); // 유닛별 세팅
     }
 
     protected virtual ChaseSystem AddCahseSystem() => gameObject.AddComponent<ChaseSystem>();
@@ -119,11 +119,13 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         ResetAiStateValue();
     }
 
-    public void LoadStat_RPC() => pv.RPC(nameof(LoadStat), RpcTarget.All);
+    void LoadStat_RPC() => pv.RPC(nameof(LoadStat), RpcTarget.All);
     [PunRPC]
-    public void LoadStat()
+    protected void LoadStat()
     {
         stat = Multi_Managers.Data.GetUnitStat(UnitFlags);
+        OnDamageChanaged?.Invoke(Damage);
+        OnBossDamageChanged?.Invoke(BossDamage);
         OriginDamage = stat.Damage;
         OriginBossDamage = stat.BossDamage;
         OriginAttackDelayTime = stat.AttackDelayTime;
@@ -132,7 +134,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
     
     void SetPassive_RPC() => pv.RPC(nameof(SetPassive), RpcTarget.All);
     [PunRPC]
-    public void SetPassive()
+    protected void SetPassive()
     {
         if (passive == null) return;
 
@@ -300,9 +302,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
             photonView.RPC(nameof(PlayTpSound), RpcTarget.Others);
     }
 
-    [PunRPC] // TODO : 나중에 멀티 싱글턴 만들어서 거기에 빼기
-    protected void PlayTpSound() => Multi_Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
-
     #region callback funtion
 
     void AttackEnemy(Multi_Enemy enemy) // Boss랑 쫄병 구분해서 대미지 적용
@@ -319,6 +318,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun, IPunObservable
         enemy.OnDamage(damage, isSkill: true);
         OnPassiveHit?.Invoke(enemy);
     }
+
+
+    [PunRPC] // TODO : 나중에 멀티 싱글턴 만들어서 거기에 빼기
+    protected void PlayTpSound() => Multi_Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
 
     protected void AfterPlaySound(EffectSoundType type, float delayTime) => StartCoroutine(Co_AfterPlaySound(type, delayTime));
 

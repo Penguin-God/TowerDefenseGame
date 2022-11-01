@@ -14,12 +14,14 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     [SerializeField] int _skillDamage;
     [SerializeField] int _useSkillPercent;
     [SerializeField] float _skillReboundTime;
+    [SerializeField] UnitRandomSkillSystem _skillSystem;
 
     protected override void OnAwake()
     {
         shotSpearData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, shotSpearData.SpawnTransform);
         normalAttackSound = EffectSoundType.SpearmanAttack;
         _useSkillPercent = 30;
+        _skillSystem = new UnitRandomSkillSystem(this, 1.5f);
     }
 
     public override void SetSkillDamage()
@@ -28,7 +30,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     }
 
     [PunRPC]
-    protected override void Attack() => new UnitRandomSkillSystem().Attack(NormalAttack, SpecialAttack, _useSkillPercent);
+    protected override void Attack() => _skillSystem.Attack(NormalAttack, SpecialAttack, _useSkillPercent);
     public override void NormalAttack() => StartCoroutine(nameof(SpaerAttack));
     IEnumerator SpaerAttack()
     {
@@ -45,7 +47,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         EndAttack();
     }
 
-    void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, _skillDamage);
+    void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, _skillSystem.GetApplyDamage(enemy));
 
     public override void SpecialAttack() => StartCoroutine(nameof(Spearman_SpecialAttack));
     IEnumerator Spearman_SpecialAttack()

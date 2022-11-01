@@ -13,6 +13,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     [SerializeField] int _skillDamage;
     [SerializeField] int _useSkillPercent;
     [SerializeField] float _skillReboundTime;
+    [SerializeField] UnitRandomSkillSystem _skillSystem;
 
     protected override void OnAwake()
     {
@@ -20,6 +21,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         arrawData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0],transform, arrawData.SpawnTransform);
         normalAttackSound = EffectSoundType.ArcherAttack;
         _useSkillPercent = 30;
+        _skillSystem = new UnitRandomSkillSystem(this, 1.2f);
     }
 
     public override void SetSkillDamage()
@@ -28,7 +30,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     }
 
     [PunRPC]
-    protected override void Attack() => new UnitRandomSkillSystem().Attack(NormalAttack, SpecialAttack, _useSkillPercent);
+    protected override void Attack() => _skillSystem.Attack(NormalAttack, SpecialAttack, _useSkillPercent);
 
     public override void NormalAttack() => StartCoroutine(nameof(ArrowAttack));
     IEnumerator ArrowAttack()
@@ -81,5 +83,5 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         return Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, skillArrowCount, _state.UsingId);
     }
 
-    void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, _skillDamage);
+    void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, _skillSystem.GetApplyDamage(enemy));
 }

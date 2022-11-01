@@ -9,6 +9,8 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
 {
     public event Action<Multi_EnemyTower> OnSpawn;
     public event Action<Multi_EnemyTower> OnDead;
+
+    public RPCAction rpcOnDead = new RPCAction();
     RPCData<int> _towerLevel = new RPCData<int>();
 
     protected override void Init()
@@ -33,6 +35,7 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
         var enemy = go.GetComponent<Multi_EnemyTower>();
         enemy.enemyType = EnemyType.Tower;
         enemy.OnDeath += () => OnDead(enemy);
+        enemy.OnDeath += () => rpcOnDead.RaiseEvent(enemy.UsingId);
     }
 
     void AfterSpawn(Multi_EnemyTower tower)

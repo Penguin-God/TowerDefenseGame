@@ -72,7 +72,7 @@ public class CombineConditions : ICsvLoader<UnitFlags, CombineCondition>
 {
     public Dictionary<UnitFlags, CombineCondition> MakeDict(string csv)
     {
-        return CsvUtility.GetEnumerableFromCsv<CombineCondition>(csv).ToDictionary(x => x.TargetUnitFlags, x => x);
+        return CsvUtility.CsvToArray<CombineCondition>(csv).ToDictionary(x => x.TargetUnitFlags, x => x);
     }
 }
 
@@ -93,7 +93,7 @@ public class UnitNameDatas : ICsvLoader<string, UnitNameData>
 {
     public Dictionary<string, UnitNameData> MakeDict(string csv)
     {
-        return CsvUtility.GetEnumerableFromCsv<UnitNameData>(csv).ToDictionary(x => x.KoearName, x => x);
+        return CsvUtility.CsvToArray<UnitNameData>(csv).ToDictionary(x => x.KoearName, x => x);
     }
 }
 
@@ -110,7 +110,7 @@ public struct WeaponData
 [Serializable]
 public class WeaponDatas : ICsvLoader<UnitFlags, WeaponData>
 {
-    public Dictionary<UnitFlags, WeaponData> MakeDict(string csv) => CsvUtility.GetEnumerableFromCsv<WeaponData>(csv).ToDictionary(x => x.Flag, x => x);
+    public Dictionary<UnitFlags, WeaponData> MakeDict(string csv) => CsvUtility.CsvToArray<WeaponData>(csv).ToDictionary(x => x.Flag, x => x);
 }
 
 
@@ -156,7 +156,7 @@ public class UnitStat
 public class UnitStats : ICsvLoader<UnitFlags, UnitStat>
 {
     public Dictionary<UnitFlags, UnitStat> MakeDict(string csv)
-        => CsvUtility.GetEnumerableFromCsv<UnitStat>(csv).ToDictionary(x => x.Flag, x => x);
+        => CsvUtility.CsvToArray<UnitStat>(csv).ToDictionary(x => x.Flag, x => x);
 }
 
 
@@ -174,7 +174,7 @@ public struct UnitPassiveStat
 public class UnitPassiveStats : ICsvLoader<UnitFlags, UnitPassiveStat>
 {
     public Dictionary<UnitFlags, UnitPassiveStat> MakeDict(string csv)
-        => CsvUtility.GetEnumerableFromCsv<UnitPassiveStat>(csv).ToDictionary(x => x.Flag, x => x);
+        => CsvUtility.CsvToArray<UnitPassiveStat>(csv).ToDictionary(x => x.Flag, x => x);
 }
 
 
@@ -197,5 +197,5 @@ public struct MageUnitStat
 public class MageUnitStats : ICsvLoader<UnitFlags, MageUnitStat>
 {
     public Dictionary<UnitFlags, MageUnitStat> MakeDict(string csv)
-        => CsvUtility.GetEnumerableFromCsv<MageUnitStat>(csv).ToDictionary(x => x.Flag, x => x);
+        => CsvUtility.CsvToArray<MageUnitStat>(csv).ToDictionary(x => x.Flag, x => x);
 }

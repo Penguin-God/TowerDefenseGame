@@ -38,10 +38,10 @@ public class Multi_ClientData
 
     public void Init()
     {
-        List<Skill> playerDatas = CsvUtility.GetEnumerableFromCsv<Skill>(Resources.Load<TextAsset>("Data/ClientData/SkillData").text).ToList();
+        List<Skill> playerDatas = CsvUtility.CsvToArray<Skill>(Resources.Load<TextAsset>("Data/ClientData/SkillData").text).ToList();
         skillByType = playerDatas.ToDictionary(x => (SkillType)Enum.ToObject(typeof(SkillType), x.Id), x => x);
 
-        List<Money> moneyData = CsvUtility.GetEnumerableFromCsv<Money>(Resources.Load<TextAsset>("Data/ClientData/MoneyData").text).ToList();
+        List<Money> moneyData = CsvUtility.CsvToArray<Money>(Resources.Load<TextAsset>("Data/ClientData/MoneyData").text).ToList();
         moneyByType = moneyData.ToDictionary(x => (MoneyType)Enum.ToObject(typeof(MoneyType), x.Id), x => x);
     }
 
@@ -53,11 +53,11 @@ public class Multi_ClientData
     }
 
     // TODO : 세이브 개선하기
-    void SaveData<T>(IEnumerable<T> datas, string path)
-    {
-        string csv = CsvUtility.EnumerableToCsv(datas);
-        CsvUtility.SaveCsv(csv, path);
-    }
+    //void SaveData<T>(IEnumerable<T> datas, string path)
+    //{
+    //    string csv = CsvUtility.CsvToArray(datas);
+    //    CsvUtility.SaveCsv(csv, path);
+    //}
 }
 
 public enum SkillType

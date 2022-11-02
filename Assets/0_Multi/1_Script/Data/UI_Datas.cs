@@ -44,7 +44,7 @@ public class UI_UnitWindowDatas : ICsvLoader<UnitFlags, UI_UnitWindowData>
 {
     public Dictionary<UnitFlags, UI_UnitWindowData> MakeDict(string csv)
     {
-        List<UI_UnitWindowData> datas = CsvUtility.GetEnumerableFromCsv<UI_UnitWindowData>(csv).ToList();
+        List<UI_UnitWindowData> datas = CsvUtility.CsvToArray<UI_UnitWindowData>(csv).ToList();
         datas.ForEach(x => x.SetDescription());
         return datas.ToDictionary(x => x.UnitFlags, x => x);
     }

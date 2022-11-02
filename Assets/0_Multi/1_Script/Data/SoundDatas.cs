@@ -17,7 +17,7 @@ public struct EffectSound
 public class EffectSoundLoder : ICsvLoader<EffectSoundType, EffectSound>
 {
     public Dictionary<EffectSoundType, EffectSound> MakeDict(string csv)
-        => CsvUtility.GetEnumerableFromCsv<EffectSound>(csv).ToDictionary(x => x.EffectType, x => x);
+        => CsvUtility.CsvToArray<EffectSound>(csv).ToDictionary(x => x.EffectType, x => x);
 }
 
 public struct BgmSound
@@ -34,5 +34,5 @@ public struct BgmSound
 public class BgmSoundLoder : ICsvLoader<BgmType, BgmSound>
 {
     Dictionary<BgmType, BgmSound> ICsvLoader<BgmType, BgmSound>.MakeDict(string csv)
-        => CsvUtility.GetEnumerableFromCsv<BgmSound>(csv).ToDictionary(x => x.BgmType, x => x);
+        => CsvUtility.CsvToArray<BgmSound>(csv).ToDictionary(x => x.BgmType, x => x);
 }

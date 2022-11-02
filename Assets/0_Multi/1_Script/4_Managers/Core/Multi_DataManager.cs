@@ -82,7 +82,7 @@ public class Multi_DataManager
         _enemy.Clear();
     }
 
-    IEnumerable<T> LoadData<T>(string path) => CsvUtility.GetEnumerableFromCsv<T>(Multi_Managers.Resources.Load<TextAsset>($"Data/{path}").text);
+    IEnumerable<T> LoadData<T>(string path) => CsvUtility.CsvToArray<T>(Multi_Managers.Resources.Load<TextAsset>($"Data/{path}").text);
 
     Dictionary<Key, Value> MakeCsvDict<ICsvLoader, Key, Value>(string path) where ICsvLoader : ICsvLoader<Key, Value>, new()
     {

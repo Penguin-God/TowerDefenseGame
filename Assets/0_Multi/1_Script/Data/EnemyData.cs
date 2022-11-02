@@ -31,7 +31,7 @@ public struct NormalEnemyData
 public class NormalEnemyDatas : ICsvLoader<int, NormalEnemyData>
 {
     public Dictionary<int, NormalEnemyData> MakeDict(string csv)
-        => CsvUtility.GetEnumerableFromCsv<NormalEnemyData>(csv).ToDictionary(x => x.Stage, x => x);
+        => CsvUtility.CsvToArray<NormalEnemyData>(csv).ToDictionary(x => x.Stage, x => x);
 }
 
 [Serializable]
@@ -55,5 +55,5 @@ public struct BossData
 public class BossDatas : ICsvLoader<int, BossData>
 {
     public Dictionary<int, BossData> MakeDict(string csv)
-        => CsvUtility.GetEnumerableFromCsv<BossData>(csv).ToDictionary(x => x.Level, x => x);
+        => CsvUtility.CsvToArray<BossData>(csv).ToDictionary(x => x.Level, x => x);
 }

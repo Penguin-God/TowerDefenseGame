@@ -3,5 +3,10 @@
     "startFood": 1,
     "stageUpGold": 10,
     "startMaxUnitCount": 15,
-    "enemyMaxCount": 50
+    "enemyMaxCount": 50,
+    "startYellowKnightRewardGold": 1,
+    "startSwrodmanSellGold": 1,
+    "startArcherSellGold": 3,
+    "startSpearmanSellGold": 30,
+    "startMageSellGold": 80
 }

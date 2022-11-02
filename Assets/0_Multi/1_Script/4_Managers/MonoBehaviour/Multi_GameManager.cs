@@ -19,22 +19,71 @@ public struct BattleStartData
     [SerializeField] int stageUpGold;
     [SerializeField] int startMaxUnitCount;
     [SerializeField] int enemyMaxCount;
+    [SerializeField] int startYellowKnightRewardGold;
+    [SerializeField] int startSwrodmanSellGold;
+    [SerializeField] int startArcherSellGold;
+    [SerializeField] int startSpearmanSellGold;
+    [SerializeField] int startMageSellGold;
 
     public int StartGold => startGold;
     public int StartFood => startFood;
     public int StageUpGold => stageUpGold;
     public int StartMaxUnitCount => startMaxUnitCount;
     public int EnemyMaxCount => enemyMaxCount;
+    public int YellowKnightRewardGold => startYellowKnightRewardGold;
+    public int SwrodmanSellGold => startSwrodmanSellGold;
+    public int ArcherSellGold => startArcherSellGold;
+    public int SpearmanSellGold => startSpearmanSellGold;
+    public int MageSellGold => startMageSellGold;
 }
 
-public struct BattleData
+public class BattleDataManager
 {
+    public BattleDataManager(BattleStartData startData)
+    {
+        _currencyManager = new CurrencyManager(startData);
+        MaxUnit = startData.StartMaxUnitCount;
+        StageUpGold = startData.StageUpGold;
+        YellowKnightRewardGold = startData.YellowKnightRewardGold;
+        SwordmanSellGold = startData.SwrodmanSellGold;
+        ArcherSellGold = startData.ArcherSellGold;
+        SpearmanSellGold = startData.SpearmanSellGold;
+        MageSellGold = startData.MageSellGold;
+    }
 
+    [SerializeField] CurrencyManager _currencyManager;
+    
+    [SerializeField] int _maxUnit;
+    public int MaxUnit { get => _maxUnit; set => _maxUnit = value; }
+    
+    [SerializeField] int _stageUpGold;
+    public int StageUpGold { get => _stageUpGold; set => _stageUpGold = value; }
+    
+    [SerializeField] int _yellowKnightRewardGold;
+    public int YellowKnightRewardGold { get => _yellowKnightRewardGold; set => _yellowKnightRewardGold = value; }
+    
+    [SerializeField] int _swrodmanSellGold;
+    public int SwordmanSellGold { get => _swrodmanSellGold; set => _swrodmanSellGold = value; }
+    
+    [SerializeField] int _archerSellGold;
+    public int ArcherSellGold { get => _archerSellGold; set => _archerSellGold = value; }
+    
+    [SerializeField] int _spearmanSellGold;
+    public int SpearmanSellGold { get => _spearmanSellGold; set => _spearmanSellGold = value; }
+
+    [SerializeField] int _mageSellGold;
+    public int MageSellGold { get => _mageSellGold; set => _mageSellGold = value; }
 }
 
 [Serializable]
 public class CurrencyManager
 {
+    public CurrencyManager(BattleStartData startData)
+    {
+        Gold = startData.StartGold;
+        Food = startData.StartFood;
+    }
+
     public void SetStartData(BattleStartData startData)
     {
         Gold = startData.StartGold;
@@ -134,7 +183,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     void SetUpGameData()
     {
-        _battleData = new CurrencyManager();
+        _battleData = new CurrencyManager(Multi_Managers.Data.GetBattleStartData());
         _battleData.OnGoldChanged += Rasie_OnGoldChanged;
         _battleData.OnFoodChanged += Rasie_OnFoodChanged;
         _battleData.SetStartData(Multi_Managers.Data.GetBattleStartData());
@@ -154,7 +203,6 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     }
 
     void GameStart() => photonView.RPC(nameof(RPC_OnStart), RpcTarget.All);
-
 
     void Start()
     {

@@ -27,6 +27,11 @@ public struct BattleStartData
     public int EnemyMaxCount => enemyMaxCount;
 }
 
+public struct BattleData
+{
+
+}
+
 [Serializable]
 public class CurrencyManager
 {

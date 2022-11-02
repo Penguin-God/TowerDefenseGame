@@ -19,8 +19,16 @@ public class Multi_DataManager
     UnitData _unit = new UnitData();
     UI_Data _ui = new UI_Data();
     EnemyData _enemy = new EnemyData();
-    SkillData _skill = new SkillData();
-    public SkillData Skill => _skill;
+    __SkillData ___skill = new __SkillData();
+    public __SkillData Skill => ___skill;
+    
+    Dictionary<KeyValuePair<SkillType, int>, float[]> _skillLevelPairByDatas;
+    public float[] GetUserSKillData(SkillType type, int level)
+    {
+        if (_skillLevelPairByDatas.TryGetValue(new KeyValuePair<SkillType, int>(type, level), out float[] datas) == false)
+            Debug.LogError($"유저 스킬 데이터 {type} : {level} 로드 실패");
+        return datas;
+    }
 
     #region UI Data
     // 조합 조건
@@ -63,6 +71,9 @@ public class Multi_DataManager
         // Sound 
         EffectBySound = MakeCsvDict<EffectSoundLoder, EffectSoundType, EffectSound>("SoundData/EffectSoundData");
         BgmBySound = MakeCsvDict<BgmSoundLoder, BgmType, BgmSound>("SoundData/BgmSoundData");
+
+        // Skill
+        _skillLevelPairByDatas = MakeCsvDict<UserSkillLoder, KeyValuePair<SkillType, int>, float[]>("SkillData/SkillData");
     }
 
 
@@ -71,7 +82,7 @@ public class Multi_DataManager
         _unit.Clear();
         _ui.Clear();
         _enemy.Clear();
-        _skill.Clear();
+        ___skill.Clear();
     }
 
     IEnumerable<T> LoadData<T>(string path) => CsvUtility.GetEnumerableFromCsv<T>(Multi_Managers.Resources.Load<TextAsset>($"Data/{path}").text);
@@ -181,7 +192,7 @@ public class Multi_DataManager
         }
     }
 
-    public class SkillData
+    public class __SkillData
     {
         public int CombineAdditionalGold { get; private set; }
         public void InitCombineAdditionalGold(int value) => CombineAdditionalGold = value;

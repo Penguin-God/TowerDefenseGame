@@ -163,11 +163,13 @@ public class Taegeuk : IUserSkill
 
     void UseSkill()
     {
+        float[] datas = Multi_Managers.Data.GetUserSKillData(SkillType.태극스킬, 1);
+
         if (Red[0] >= 1 && Blue[0] >= 1 && Ather[0] == 0)
         {
             Debug.Log("기사 강화!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 0), 300);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 0), 300);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 0), (int)datas[0]);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 0), (int)datas[0]);
         }
         else
         {
@@ -178,8 +180,8 @@ public class Taegeuk : IUserSkill
         if (Red[1] >= 1 && Blue[1] >= 1 && Ather[1] == 0)
         {
             Debug.Log("궁수 강화!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 1), 1600);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 1), 1600);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 1), (int)datas[1]);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 1), (int)datas[1]);
         }
         else
         {
@@ -190,8 +192,8 @@ public class Taegeuk : IUserSkill
         if (Red[2] >= 1 && Blue[2] >= 1 && Ather[2] == 0)
         {
             Debug.Log("창병 강화!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 2), 15000);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 2), 15000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 2), (int)datas[2]);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 2), (int)datas[2]);
         }
         else
         {
@@ -202,8 +204,8 @@ public class Taegeuk : IUserSkill
         if (Red[3] >= 1 && Blue[3] >= 1 && Ather[3] == 0)
         {
             Debug.Log("마법사 강화!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 3), 100000);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 3), 100000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 3), (int)datas[3]);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 3), (int)datas[3]);
         }
         else
         {
@@ -225,19 +227,20 @@ public class BlackUnitUpgrade : IUserSkill
     {
         if (unitFlags.UnitColor != UnitColor.black) return;
 
+        float[] datas = Multi_Managers.Data.GetUserSKillData(SkillType.검은유닛강화, 1);
         switch (unitFlags.UnitClass)
         {
             case UnitClass.sowrdman:
-                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 0), 30000);
+                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 0), (int)datas[0]);
                 break;
             case UnitClass.archer:
-                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 1), 100000);
+                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 1), (int)datas[1]);
                 break;
             case UnitClass.spearman:
-                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 2), 1000000);
+                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 2), (int)datas[2]);
                 break;
             case UnitClass.mage:
-                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 3), 10000000);
+                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 3), (int)datas[3]);
                 break;
         }
     }
@@ -248,7 +251,8 @@ public class YellowSowrdmanUpgrade : IUserSkill
     public void InitSkill()
     {
         // 노란 기사 패시브 5원으로 변경
-        Multi_Managers.Data.Skill.InitCombineAdditionalGold(5);
+        int addGold = (int)Multi_Managers.Data.GetUserSKillData(SkillType.노란기사강화, 1)[0];
+        Multi_Managers.Data.Skill.InitCombineAdditionalGold(addGold);
     }
 }
 

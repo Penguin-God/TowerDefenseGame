@@ -14,7 +14,6 @@ public class Multi_UI_Paint : Multi_UI_Scene
         base.Init();
 
         BindEvnet(_paintActiveButton, ChangePaintRootActive);
-        Multi_Managers.Camera.OnIsLookMyWolrd += (isLookMy) => gameObject.SetActive(isLookMy);
     }
 
     [SerializeField] GameObject _paintRoot;

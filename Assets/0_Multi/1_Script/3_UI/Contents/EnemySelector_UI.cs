@@ -5,14 +5,12 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
 
-public class EnemySelector_UI : Multi_UI_Scene
+public class EnemySelector_UI : Multi_UI_Base
 {
     [SerializeField] Color selectColor;
-    [SerializeField] EnemySelector_Button selectButton;
+    [SerializeField] EnemySelector_Button currentSelectButton;
     protected override void Init()
     {
-        base.Init();
-        
         List<EnemySelector_Button> enemySelectBtns = GetComponentsInChildren<EnemySelector_Button>().ToList();
         enemySelectBtns.ForEach(x => x.Setup(selectColor, UpdateCurrentButton));
         enemySelectBtns[0].StartSelectSpawnEnemy();
@@ -20,7 +18,7 @@ public class EnemySelector_UI : Multi_UI_Scene
 
         SetPointEvent();
 
-        // 게임 시작 프로토타입용 임시 코드
+        // 지금은 베리어에 가려져서 임시로 적용. 나중에 게임 시작 구조 바꾸면 없어질 듯.
         GetComponent<Canvas>().sortingOrder = 6000;
 
         void SetPointEvent()
@@ -35,10 +33,10 @@ public class EnemySelector_UI : Multi_UI_Scene
 
     void UpdateCurrentButton(EnemySelector_Button button)
     {
-        if (selectButton != button)
+        if (currentSelectButton != button)
         {
-            selectButton?.UI_Reset();
-            selectButton = button;
+            currentSelectButton?.UI_Reset();
+            currentSelectButton = button;
         }
     }
 

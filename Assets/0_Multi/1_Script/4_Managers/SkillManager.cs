@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 public interface IUserSkill
 {
@@ -274,14 +275,6 @@ public class ColorChange : IUserSkill
     }
 }
 
-public class CommonSkill : IUserSkill
-{
-    public void InitSkill()
-    {
-        // 대충 안좋은 효과
-    }
-}
-
 public class FoodHater : IUserSkill
 {
     public void InitSkill()
@@ -297,6 +290,12 @@ public class SellUpgrade : IUserSkill
     public void InitSkill()
     {
         // 유닛 판매 보상 증가 (유닛별로 증가폭 별도)
+        int[] sellData = Multi_Managers.Data.GetUserSKillData(SkillType.판매보상증가, 1).Select(x => (int)x).ToArray();
+        var battleData = Multi_GameManager.instance.BattleData;
+        battleData.SwordmanSellGold = sellData[0];
+        battleData.ArcherSellGold = sellData[1];
+        battleData.SpearmanSellGold = sellData[2];
+        battleData.MageSellGold = sellData[3];
     }
 }
 

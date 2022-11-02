@@ -170,11 +170,6 @@ public class ClientManager : MonoBehaviour
         BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.상대색깔변경, MoneyType.Iron);
     }
 
-    public void BuyCommonSkill()
-    {
-        BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.흔한스킬, MoneyType.Iron);
-    }
-
     public void BuyFoodHater()
     {
         BuySkills(ref ClientIron, TAEGEUKSKILLPRICE, SkillType.고기혐오자, MoneyType.Iron);
@@ -264,18 +259,6 @@ public class ClientManager : MonoBehaviour
             Skill2Image.sprite = skill_Image.ColorChangeImage;
     }
 
-    public void EquipCommonSkill()
-    {
-        if (EquipSkill(SkillType.흔한스킬) == false)
-            return;
-
-
-        if (CheckSkill() == 1)
-            Skill1Image.sprite = skill_Image.CommonSkillImage;
-        else if (CheckSkill() == 2)
-            Skill2Image.sprite = skill_Image.CommonSkillImage;
-    }
-
     public void EquipFoodHater()
     {
         if (EquipSkill(SkillType.고기혐오자) == false)
@@ -349,7 +332,6 @@ public class ClientManager : MonoBehaviour
         InitEquip(SkillType.검은유닛강화, BlackUnitUpgradeEquipButton);
         InitEquip(SkillType.노란기사강화, YellowUnitUpgradeEquipButton);
         InitEquip(SkillType.상대색깔변경, ColorChangeEquipButton);
-        InitEquip(SkillType.흔한스킬, CommonSkillEquipButton);
         InitEquip(SkillType.고기혐오자, FoodHaterEquipButton);
         InitEquip(SkillType.판매보상증가, SellUpgradeEquipButton);
         InitEquip(SkillType.보스데미지증가, BossDamageUpgradeEquipButton);

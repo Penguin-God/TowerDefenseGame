@@ -282,6 +282,16 @@ public class FoodHater : IUserSkill
         // 고기창 닫기
 
         // 하얀 유닛 돈으로 구매로 변경 받는 고기 전부 1당 10원으로 변경
+        Multi_GameManager.instance.OnFoodChanged += FoodToGold;
+    }
+
+    void FoodToGold(int food)
+    {
+        if (food <= 0) return;
+
+        int rate = (int)Multi_Managers.Data.GetUserSKillData(SkillType.고기혐오자, 1)[0];
+        if (Multi_GameManager.instance.TryUseFood(food))
+            Multi_GameManager.instance.AddGold(food * rate);
     }
 }
 

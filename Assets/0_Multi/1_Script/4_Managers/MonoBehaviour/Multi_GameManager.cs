@@ -37,25 +37,32 @@ public struct BattleStartData
     public int MageSellGold => startMageSellGold;
 }
 
+[Serializable]
 public class BattleDataManager
 {
     public BattleDataManager(BattleStartData startData)
     {
         _currencyManager = new CurrencyManager(startData);
-        MaxUnit = startData.StartMaxUnitCount;
-        StageUpGold = startData.StageUpGold;
-        YellowKnightRewardGold = startData.YellowKnightRewardGold;
-        SwordmanSellGold = startData.SwrodmanSellGold;
-        ArcherSellGold = startData.ArcherSellGold;
-        SpearmanSellGold = startData.SpearmanSellGold;
-        MageSellGold = startData.MageSellGold;
+        _maxUnit = startData.StartMaxUnitCount;
+        _maxEnemyCount = startData.EnemyMaxCount;
+        _stageUpGold = startData.StageUpGold;
+        _yellowKnightRewardGold = startData.YellowKnightRewardGold;
+        _swrodmanSellGold = startData.SwrodmanSellGold;
+        _archerSellGold = startData.ArcherSellGold;
+        _spearmanSellGold = startData.SpearmanSellGold;
+        _mageSellGold = startData.MageSellGold;
     }
 
     [SerializeField] CurrencyManager _currencyManager;
-    
+    public CurrencyManager CurrencyManager => _currencyManager;
+
     [SerializeField] int _maxUnit;
-    public int MaxUnit { get => _maxUnit; set => _maxUnit = value; }
-    
+    public event Action<int> OnMaxUnitChanged = null;
+    public int MaxUnit { get => _maxUnit; set { _maxUnit = value; OnMaxUnitChanged?.Invoke(_maxUnit); } }
+
+    [SerializeField] int _maxEnemyCount;
+    public int MaxEnemyCount => _maxEnemyCount;
+
     [SerializeField] int _stageUpGold;
     public int StageUpGold { get => _stageUpGold; set => _stageUpGold = value; }
     
@@ -135,30 +142,17 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     private static Multi_GameManager m_instance;
 
-    [SerializeField] CurrencyManager _battleData;
+    [SerializeField] BattleDataManager _battleData;
+    public BattleDataManager BattleData => _battleData;
+    CurrencyManager CurrencyManager => _battleData.CurrencyManager;
 
     public event Action<int> OnGoldChanged;
     void Rasie_OnGoldChanged(int gold) => OnGoldChanged?.Invoke(gold);
 
-
     public event Action<int> OnFoodChanged;
     void Rasie_OnFoodChanged(int food) => OnFoodChanged?.Invoke(food);
 
-
-    int AddGold_WhenCombine_YellowKinght;
-    int stageUpGold = 10;
-    [SerializeField] int _maxEnemyCount;
-    public int MaxEnemyCount => _maxEnemyCount;
-
-    [SerializeField] int _maxUninCount;
-    public int MaxUnitCount => _maxUninCount;
-    public event Action<int> OnUnitMaxCountChanaged = null;
-    public void IncreaseUnitMaxCount()
-    {
-        _maxUninCount++;
-        OnUnitMaxCountChanaged?.Invoke(_maxEnemyCount);
-    }
-    public bool UnitOver => Multi_UnitManager.Instance.CurrentUnitCount >= _maxUninCount;
+    public bool UnitOver => Multi_UnitManager.Instance.CurrentUnitCount >= _battleData.MaxUnit;
 
     // 임시
     [SerializeField] Button gameStartButton;
@@ -175,18 +169,17 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         else
             gameStartButton.gameObject.SetActive(false);
 
-        var gameStartData = Multi_Managers.Data.GetBattleStartData();
-        stageUpGold = gameStartData.StageUpGold;
-        _maxEnemyCount = gameStartData.EnemyMaxCount;
+        _battleData = new BattleDataManager(Multi_Managers.Data.GetBattleStartData());
         Multi_Managers.Sound.PlayBgm(BgmType.Default);
     }
 
-    void SetUpGameData()
+    void SetEvent()
     {
-        _battleData = new CurrencyManager(Multi_Managers.Data.GetBattleStartData());
-        _battleData.OnGoldChanged += Rasie_OnGoldChanged;
-        _battleData.OnFoodChanged += Rasie_OnFoodChanged;
-        _battleData.SetStartData(Multi_Managers.Data.GetBattleStartData());
+        CurrencyManager.OnGoldChanged += Rasie_OnGoldChanged;
+        CurrencyManager.OnFoodChanged += Rasie_OnFoodChanged;
+        // UI 업데이트
+        CurrencyManager.Gold += 0;
+        CurrencyManager.Food += 0;
     }
 
     [HideInInspector]
@@ -195,7 +188,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void RPC_OnStart()
     {
-        SetUpGameData();
+        SetEvent();
         gameStartButton.gameObject.SetActive(false);
         barrierUI.SetActive(false);
         gameStart = true;
@@ -206,7 +199,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-        Multi_StageManager.Instance.OnUpdateStage += _stage => AddGold(stageUpGold);
+        Multi_StageManager.Instance.OnUpdateStage += _stage => AddGold(_battleData.StageUpGold);
         Multi_EnemyManager.Instance.OnEnemyCountChanged += CheckGameOver;
 
         if (PhotonNetwork.IsMasterClient)
@@ -246,7 +239,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     }
 
     [PunRPC]
-    public void AddGold(int _addGold) => _battleData.Gold += _addGold;
+    public void AddGold(int _addGold) => CurrencyManager.Gold += _addGold;
     public void AddGold_RPC(int _addGold, int id)
     {
         if (id == Multi_Data.instance.Id)
@@ -254,11 +247,11 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         else
             photonView.RPC(nameof(AddGold), RpcTarget.Others, _addGold);
     }
-    public bool TryUseGold(int gold) => _battleData.TryUseGold(gold);
+    public bool TryUseGold(int gold) => CurrencyManager.TryUseGold(gold);
 
 
-    public void AddFood(int _addFood) => _battleData.Food += _addFood;
-    public bool TryUseFood(int food) => _battleData.TryUseFood(food);
+    public void AddFood(int _addFood) => CurrencyManager.Food += _addFood;
+    public bool TryUseFood(int food) => CurrencyManager.TryUseFood(food);
     public bool TryUseCurrency(GameCurrencyType currencyType, int mount) => currencyType == GameCurrencyType.Gold ? TryUseGold(mount) : TryUseFood(mount);
 
     void Update()
@@ -278,7 +271,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     void CheckGameOver(int enemyCount)
     {
-        if(enemyCount >= _maxEnemyCount)
+        if(enemyCount >= _battleData.MaxEnemyCount)
         {
             Lose();
             photonView.RPC(nameof(Win), RpcTarget.Others);

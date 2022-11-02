@@ -41,6 +41,8 @@ public class Status_UI : Multi_UI_Scene
         Multi_StageManager.Instance.OnUpdateStage -= UpdateStage;
         Multi_StageManager.Instance.OnUpdateStage += UpdateStage;
 
+        Multi_GameManager.instance.BattleData.OnMaxUnitChanged += (maxUnit) => UpdateUnitText(Multi_UnitManager.Instance.CurrentUnitCount);
+
         BindGoldBarEvent();
         BindFoodBarEvent();
         BindUnitPanelEvent();
@@ -109,7 +111,7 @@ public class Status_UI : Multi_UI_Scene
     }
 
     // TODO : Multi_GameManager.instance.MaxUnitCount 각 플레이어걸로
-    void UpdateUnitText(int count) => GetText((int)Texts.CurrentUnitText).text = $"최대 유닛 갯수 {count}/{Multi_GameManager.instance.MaxUnitCount}";
+    void UpdateUnitText(int count) => GetText((int)Texts.CurrentUnitText).text = $"최대 유닛 갯수 {count}/{Multi_GameManager.instance.BattleData.MaxUnit}";
 
     void UpdateOtherUnitText(int count)
     {
@@ -133,7 +135,7 @@ public class Status_UI : Multi_UI_Scene
             Multi_Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
         else text.color = originColor;
-        text.text = $"현재 적 유닛 카운트 : {EnemyofCount}/{Multi_GameManager.instance.MaxEnemyCount}";
+        text.text = $"현재 적 유닛 카운트 : {EnemyofCount}/{Multi_GameManager.instance.BattleData.MaxEnemyCount}";
     }
 
     void UpdateOtherEnemyCountText(int count)

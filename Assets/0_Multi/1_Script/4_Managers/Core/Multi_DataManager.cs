@@ -19,8 +19,6 @@ public class Multi_DataManager
     UnitData _unit = new UnitData();
     UI_Data _ui = new UI_Data();
     EnemyData _enemy = new EnemyData();
-    __SkillData ___skill = new __SkillData();
-    public __SkillData Skill => ___skill;
     
     Dictionary<KeyValuePair<SkillType, int>, float[]> _skillLevelPairByDatas;
     public float[] GetUserSKillData(SkillType type, int level)
@@ -82,7 +80,6 @@ public class Multi_DataManager
         _unit.Clear();
         _ui.Clear();
         _enemy.Clear();
-        ___skill.Clear();
     }
 
     IEnumerable<T> LoadData<T>(string path) => CsvUtility.GetEnumerableFromCsv<T>(Multi_Managers.Resources.Load<TextAsset>($"Data/{path}").text);
@@ -189,20 +186,6 @@ public class Multi_DataManager
         {
             _bossDataByLevel.Clear();
             _towerDataByLevel.Clear();
-        }
-    }
-
-    public class __SkillData
-    {
-        public int CombineAdditionalGold { get; private set; }
-        public void InitCombineAdditionalGold(int value) => CombineAdditionalGold = value;
-
-        public Dictionary<UnitClass, int> UnitClassBySellGold { get; private set; }
-
-
-        public void Clear()
-        {
-            CombineAdditionalGold = 1;
         }
     }
 }

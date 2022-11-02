@@ -28,12 +28,13 @@ public class UnitSellButton : Multi_UI_Base
 
     int GetSellReward(UnitFlags flag)
     {
+        var data = Multi_GameManager.instance.BattleData;
         switch (flag.ClassNumber)
         {
-            case 0: return 1;
-            case 1: return 3;
-            case 2: return 30;
-            case 3: return 80;
+            case 0: return data.SwordmanSellGold;
+            case 1: return data.ArcherSellGold;
+            case 2: return data.SpearmanSellGold;
+            case 3: return data.MageSellGold;
         }
         return 0;
     }

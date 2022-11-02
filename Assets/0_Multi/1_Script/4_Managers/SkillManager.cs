@@ -250,9 +250,8 @@ public class YellowSowrdmanUpgrade : IUserSkill
 {
     public void InitSkill()
     {
-        // 노란 기사 패시브 5원으로 변경
-        int addGold = (int)Multi_Managers.Data.GetUserSKillData(SkillType.노란기사강화, 1)[0];
-        Multi_Managers.Data.Skill.InitCombineAdditionalGold(addGold);
+        // 노란 기사 패시브 골드 변경
+        Multi_GameManager.instance.BattleData.YellowKnightRewardGold = (int)Multi_Managers.Data.GetUserSKillData(SkillType.노란기사강화, 1)[0];
     }
 }
 

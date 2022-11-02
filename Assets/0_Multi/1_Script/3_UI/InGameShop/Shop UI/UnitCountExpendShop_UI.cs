@@ -20,6 +20,6 @@ public class UnitCountExpendShop_UI : Multi_UI_Popup
     void IncreaseUnitCount()
     {
         if(Multi_GameManager.instance.TryUseFood(1))
-            Multi_GameManager.instance.IncreaseUnitMaxCount();
+            Multi_GameManager.instance.BattleData.MaxUnit += 1;
     }
 }

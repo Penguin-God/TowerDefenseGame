@@ -361,15 +361,14 @@ public class Multi_UnitManager : MonoBehaviourPun
         {
             if (isSuccess == false) return;
 
-            int addGold = Multi_Managers.Data.Skill.CombineAdditionalGold;
-
             var conditions = Multi_Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag;
             foreach (var item in conditions)
             {
                 if (item.Key == new UnitFlags(2, 0))
                 {
+                    var manager = Multi_GameManager.instance;
                     for (int i = 0; i < item.Value; i++)
-                        Multi_GameManager.instance.AddGold(addGold);
+                        manager.AddGold(manager.BattleData.YellowKnightRewardGold);
                 }
             }
         }

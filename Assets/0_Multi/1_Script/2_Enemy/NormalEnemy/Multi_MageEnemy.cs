@@ -11,7 +11,7 @@ public class Multi_MageEnemy : Multi_NormalEnemy
     {
         if (isSkill)
         {
-            photonView.RPC(nameof(DecreasedEffect), RpcTarget.All);
+            //photonView.RPC(nameof(DecreasedEffect), RpcTarget.All);
             damage -= Mathf.CeilToInt(damage * 80 * 0.01f);
         }
         base.RPC_OnDamage(damage, isSkill);
@@ -20,7 +20,7 @@ public class Multi_MageEnemy : Multi_NormalEnemy
     [PunRPC]
     void DecreasedEffect()
     {
-        ChangeMat(en);
+        Multi_Managers.Effect.ChangeAllMaterial(transform);
         StartCoroutine(Co_ChangedMat());
     }
 

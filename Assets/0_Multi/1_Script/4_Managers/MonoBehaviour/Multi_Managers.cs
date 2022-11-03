@@ -33,6 +33,7 @@ public class Multi_Managers : MonoBehaviour
     SkillManager _skill = new SkillManager();
     Scene_Manager _scene = new Scene_Manager();
     CameraManager _camera = new CameraManager();
+    EffectManager _effect = new EffectManager();
 
     public static Multi_DataManager Data => Instance._data;
     public static Multi_UI_Manager UI => Instance._ui;
@@ -43,6 +44,8 @@ public class Multi_Managers : MonoBehaviour
     public static SkillManager Skill => Instance._skill;
     public static Scene_Manager Scene => instance._scene;
     public static CameraManager Camera => instance._camera;
+    public static EffectManager Effect => instance._effect;
+
 
     void Init()
     {

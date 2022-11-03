@@ -54,8 +54,7 @@ public class Multi_Enemy : MonoBehaviourPun
 
     RPCable rpcable;
     public int UsingId => rpcable.UsingId;
-    PhotonView _PV;
-    protected List<MeshRenderer> meshList;
+    protected MeshRenderer[] meshList;
     [SerializeField] protected Material originMat;
 
     public event Action OnDeath = null;
@@ -63,10 +62,7 @@ public class Multi_Enemy : MonoBehaviourPun
     private void Awake()
     {
         rpcable = GetComponent<RPCable>();
-        _PV = GetComponent<PhotonView>();
-        meshList = new List<MeshRenderer>();
-        MeshRenderer[] addMeshs = GetComponentsInChildren<MeshRenderer>();
-        for (int i = 0; i < addMeshs.Length; i++) meshList.Add(addMeshs[i]);
+        meshList = GetComponentsInChildren<MeshRenderer>();
         Init();
     }
 
@@ -83,7 +79,7 @@ public class Multi_Enemy : MonoBehaviourPun
         gameObject.SetActive(!_isDead);
     }
 
-    public void OnDamage(int damage, bool isSkill = false) => _PV.RPC(nameof(RPC_OnDamage), RpcTarget.MasterClient, damage, isSkill);
+    public void OnDamage(int damage, bool isSkill = false) => photonView.RPC(nameof(RPC_OnDamage), RpcTarget.MasterClient, damage, isSkill);
     [PunRPC]
     protected virtual void RPC_OnDamage(int damage, bool isSkill)
     {
@@ -122,20 +118,20 @@ public class Multi_Enemy : MonoBehaviourPun
     }
 
     // 상태 이상은 호스트에서 적용 후 다른 플레이어에게 동기화하는 방식
-    public void OnSlow_RPC(float slowPercent, float slowTime) => _PV.RPC(nameof(OnSlow), RpcTarget.MasterClient, slowPercent, slowTime);
+    public void OnSlow_RPC(float slowPercent, float slowTime) => photonView.RPC(nameof(OnSlow), RpcTarget.MasterClient, slowPercent, slowTime);
     [PunRPC] protected virtual void OnSlow(float slowPercent, float slowTime) { }
 
-    public void ExitSlow(RpcTarget _target) => _PV.RPC(nameof(ExitSlow), _target);
+    public void ExitSlow(RpcTarget _target) => photonView.RPC(nameof(ExitSlow), _target);
     [PunRPC] protected virtual void ExitSlow() { }
 
-    public void OnFreeze_RPC(float _freezeTime) => _PV.RPC(nameof(OnFreeze), RpcTarget.MasterClient, _freezeTime);
+    public void OnFreeze_RPC(float _freezeTime) => photonView.RPC(nameof(OnFreeze), RpcTarget.MasterClient, _freezeTime);
     [PunRPC] protected virtual void OnFreeze(float slowTime) { } // 얼리는 스킬
 
-    public void OnStun_RPC(int _stunPercent, float _stunTime) => _PV.RPC(nameof(OnStun), RpcTarget.MasterClient, _stunPercent, _stunTime);
+    public void OnStun_RPC(int _stunPercent, float _stunTime) => photonView.RPC(nameof(OnStun), RpcTarget.MasterClient, _stunPercent, _stunTime);
     [PunRPC] protected virtual void OnStun(int stunPercent, float stunTime) { }
 
     public void OnPoison_RPC(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill = false)
-        => _PV.RPC(nameof(OnPoison), RpcTarget.MasterClient, poisonPercent, poisonCount, poisonDelay, maxDamage, isSkill);
+        => photonView.RPC(nameof(OnPoison), RpcTarget.MasterClient, poisonPercent, poisonCount, poisonDelay, maxDamage, isSkill);
     [PunRPC]
     protected virtual void OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill)
     {

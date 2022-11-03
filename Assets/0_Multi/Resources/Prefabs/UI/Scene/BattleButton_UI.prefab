@@ -584,7 +584,6 @@ GameObject:
   m_Component:
   - component: {fileID: 800013554208043170}
   - component: {fileID: 8748534839553234376}
-  - component: {fileID: 7106416497147700257}
   m_Layer: 5
   m_Name: EnemySelector_UI
   m_TagString: Untagged
@@ -629,27 +628,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectColor: {r: 0.5882353, g: 0.5882353, b: 0.5882353, a: 1}
   currentSelectButton: {fileID: 0}
---- !u!223 &7106416497147700257
-Canvas:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 800013554208043171}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_RenderMode: 2
-  m_Camera: {fileID: 0}
-  m_PlaneDistance: 100
-  m_PixelPerfect: 1
-  m_ReceivesEvents: 1
-  m_OverrideSorting: 0
-  m_OverridePixelPerfect: 0
-  m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
-  m_SortingLayerID: 0
-  m_SortingOrder: 0
-  m_TargetDisplay: 0
 --- !u!1 &800013554360467671
 GameObject:
   m_ObjectHideFlags: 0

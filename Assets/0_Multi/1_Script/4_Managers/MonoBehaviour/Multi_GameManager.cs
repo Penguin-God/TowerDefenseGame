@@ -156,7 +156,6 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     // 임시
     [SerializeField] Button gameStartButton;
-    [SerializeField] GameObject barrierUI;
     void Awake()
     {
         if (instance != this)
@@ -190,7 +189,6 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     {
         SetEvent();
         gameStartButton.gameObject.SetActive(false);
-        barrierUI.SetActive(false);
         gameStart = true;
         OnStart?.Invoke();
     }

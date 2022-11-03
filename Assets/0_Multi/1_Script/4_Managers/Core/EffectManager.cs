@@ -5,6 +5,18 @@ using System.Linq;
 
 public class EffectManager
 {
+    class EffectData
+    {
+        EffectType _effectType;
+        string _name;
+        string _path;
+    }
+
+    enum EffectType
+    {
+
+    }
+
     GameObject[] objects;
     ParticleSystem[] particles;
     Material[] materials;

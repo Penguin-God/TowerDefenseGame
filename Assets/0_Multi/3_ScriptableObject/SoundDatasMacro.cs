@@ -41,7 +41,7 @@ public class SoundDatasMacro : ScriptableObject
             stringBuilder.Append(resourcesPath);
             stringBuilder.Append('\n');
         }
-        Save(stringBuilder.ToString(), savePath);
+        new CsvMacro().Save(stringBuilder.ToString(), savePath);
     }
 
     string GetClipFileName(string path) => path.Split('/')[path.Split('/').Length - 1];
@@ -67,13 +67,5 @@ public class SoundDatasMacro : ScriptableObject
             stringBuilder.Append('\n');
         }
         _enumTexts = stringBuilder.ToString();
-    }
-
-    void Save(string csv, string path)
-    {
-        Stream fileStream = new FileStream(path, FileMode.Create, FileAccess.Write);
-        StreamWriter outStream = new StreamWriter(fileStream, Encoding.UTF8);
-        outStream.Write(csv);
-        outStream.Close();
     }
 }

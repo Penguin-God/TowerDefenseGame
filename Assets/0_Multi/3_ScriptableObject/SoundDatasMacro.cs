@@ -41,7 +41,8 @@ public class SoundDatasMacro : ScriptableObject
             stringBuilder.Append(resourcesPath);
             stringBuilder.Append('\n');
         }
-        new CsvMacro().Save(stringBuilder.ToString(), savePath);
+
+        new CsvMacroUseCase().Save(stringBuilder.ToString(), savePath);
     }
 
     string GetClipFileName(string path) => path.Split('/')[path.Split('/').Length - 1];

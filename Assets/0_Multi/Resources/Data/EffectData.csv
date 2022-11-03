@@ -1,0 +1,5 @@
+﻿_effectType,_name,_path
+Unit_Tp_Effect,GameObject,Prefabs/Effect/Unit_Tp_Effect
+WhiteUnit_Timer,GameObject,Prefabs/Effect/WhiteUnit_Timer
+Unit_Tp_Effect 1,Particle,Prefabs/Particle/Unit_Tp_Effect 1
+Gray,Material,Materials/Gray

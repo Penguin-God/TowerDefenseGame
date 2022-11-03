@@ -3,20 +3,26 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+public enum EffectType
+{
+    GameObject,
+    Particle,
+    Material,
+}
+
+public class EffectData
+{
+    EffectType _effectType;
+    string _name;
+    string _path;
+
+    public EffectType EffectType => _effectType;
+    public string Name => _name;
+    public string Path => _path;
+}
+
 public class EffectManager
 {
-    class EffectData
-    {
-        EffectType _effectType;
-        string _name;
-        string _path;
-    }
-
-    enum EffectType
-    {
-
-    }
-
     GameObject[] objects;
     ParticleSystem[] particles;
     Material[] materials;

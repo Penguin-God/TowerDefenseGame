@@ -9,7 +9,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd77cc86c5e738c4b98262164c20822e, type: 3}
-  m_Name: SoundDataMacro
+  m_Script: {fileID: 11500000, guid: 02e70556d53f6394dab788899110ee32, type: 3}
+  m_Name: EffectDatasMacro
   m_EditorClassIdentifier: 
-  _enumTexts: 

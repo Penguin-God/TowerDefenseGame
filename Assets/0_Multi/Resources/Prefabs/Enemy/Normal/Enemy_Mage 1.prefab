@@ -5169,20 +5169,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c5244918e4dda4a9afe95a72de718d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 0
-  speed: 0
   maxHp: 80
   currentHp: 80
-  isDead: 1
+  maxSpeed: 0
+  speed: 0
   hpSlider: {fileID: 1112035910167443037}
   enemyType: 0
   dir: {x: 0, y: 0, z: 0}
-  rpcable: {fileID: 0}
   originMat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
-  enemyNumber: 1
   TurnPoints: []
   freezeMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
   sternEffect: {fileID: 1485506195}
+  en: {fileID: 2100000, guid: e667e4cdb702a27478d9f46298c0f9bb, type: 2}
 --- !u!114 &7135445869057084045
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -44,5 +44,10 @@ public class EffectSpawner : Multi_SpawnerBase
         Multi_Managers.Pool.Push(go);
     }
 
+    public void ChangedMaterials()
+    {
+
+    }
+
     GameObject Spawn(Effects type, Vector3 pos) => Multi_Managers.Resources.PhotonInsantiate($"{_rootPath}/{Enum.GetName(typeof(Effects), type)}", pos);
 }

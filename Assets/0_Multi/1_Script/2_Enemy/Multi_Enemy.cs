@@ -171,10 +171,10 @@ public class Multi_Enemy : MonoBehaviourPun
 
 
     [PunRPC]
-    public void ChangeColor(int r, int g, int b, int a )
+    public void ChangeColor(int r, int g, int b, int a)
     {
         Color32 _newColor = new Color32((byte)r, (byte)g, (byte)b, (byte)a);
-        foreach (MeshRenderer mesh in meshList) 
+        foreach (MeshRenderer mesh in meshList)
             mesh.material.color = _newColor;
     }
 

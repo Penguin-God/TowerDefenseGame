@@ -20,7 +20,7 @@ public class Multi_MageEnemy : Multi_NormalEnemy
     [PunRPC]
     void DecreasedEffect()
     {
-        Multi_Managers.Effect.ChangeAllMaterial(transform);
+        //Multi_Managers.Effect.ChangeAllMaterial(transform);
         StartCoroutine(Co_ChangedMat());
     }
 

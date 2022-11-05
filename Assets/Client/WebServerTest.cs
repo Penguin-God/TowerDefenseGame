@@ -10,7 +10,7 @@ public class WebServerTest : MonoBehaviour
 {
     void Start()
     {
-        StartCoroutine(Upload());
+        StartCoroutine(GetText());
     }
 
     IEnumerator Upload()
@@ -28,6 +28,26 @@ public class WebServerTest : MonoBehaviour
         else
         {
             Debug.Log("Form upload complete!");
+        }
+    }
+
+    IEnumerator GetText()
+    {
+        Debug.Log("테스트 시작");
+        UnityWebRequest www = UnityWebRequest.Get("https://localhost:44394/api/ranking");
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            // Show results as text
+            Debug.Log(www.downloadHandler.text);
+
+            // Or retrieve results as binary data
+            byte[] results = www.downloadHandler.data;
         }
     }
 }

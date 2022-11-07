@@ -8,5 +8,12 @@
     "startSwrodmanSellGold": 1,
     "startArcherSellGold": 3,
     "startSpearmanSellGold": 30,
-    "startMageSellGold": 80
+    "startMageSellGold": 80,
+    "whiteUnitPriceRecord": {
+        "swordmanData": 1,
+        "archerData": 2,
+        "spearmanData": 7,
+        "mageData": 20,
+        "_currencyType": 1
+    }
 }

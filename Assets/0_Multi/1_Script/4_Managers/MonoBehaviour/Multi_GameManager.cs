@@ -24,6 +24,7 @@ public struct BattleStartData
     [SerializeField] int startArcherSellGold;
     [SerializeField] int startSpearmanSellGold;
     [SerializeField] int startMageSellGold;
+    [SerializeField] UnitPriceRecord whiteUnitPriceRecord;
 
     public int StartGold => startGold;
     public int StartFood => startFood;
@@ -35,6 +36,7 @@ public struct BattleStartData
     public int ArcherSellGold => startArcherSellGold;
     public int SpearmanSellGold => startSpearmanSellGold;
     public int MageSellGold => startMageSellGold;
+    public UnitPriceRecord WhiteUnitPriceRecord => whiteUnitPriceRecord;
 }
 
 [Serializable]
@@ -51,6 +53,7 @@ public class BattleDataManager
         _archerSellGold = startData.ArcherSellGold;
         _spearmanSellGold = startData.SpearmanSellGold;
         _mageSellGold = startData.MageSellGold;
+        _whiteUnitPriceRecord = startData.WhiteUnitPriceRecord;
     }
 
     [SerializeField] CurrencyManager _currencyManager;
@@ -66,6 +69,7 @@ public class BattleDataManager
     [SerializeField] int _stageUpGold;
     public int StageUpGold { get => _stageUpGold; set => _stageUpGold = value; }
     
+
     [SerializeField] int _yellowKnightRewardGold;
     public int YellowKnightRewardGold { get => _yellowKnightRewardGold; set => _yellowKnightRewardGold = value; }
     
@@ -80,18 +84,48 @@ public class BattleDataManager
 
     [SerializeField] int _mageSellGold;
     public int MageSellGold { get => _mageSellGold; set => _mageSellGold = value; }
+
+    [SerializeField] UnitPriceRecord _whiteUnitPriceRecord;
+    public UnitPriceRecord WhiteUnitPriceRecord => _whiteUnitPriceRecord;
+}
+
+[Serializable]
+public class UnitRecord
+{
+    public int swordmanData;
+    public int archerData;
+    public int spearmanData;
+    public int mageData;
+
+    public int GetUnitData(int unitClassNumber) => GetUnitData((UnitClass)unitClassNumber);
+
+    public int GetUnitData(UnitClass unitClass)
+    {
+        switch (unitClass)
+        {
+            case UnitClass.sowrdman: return swordmanData;
+            case UnitClass.archer: return archerData;
+            case UnitClass.spearman: return spearmanData;
+            case UnitClass.mage: return mageData;
+        }
+        return 0;
+    }
+}
+
+[Serializable]
+public class UnitPriceRecord : UnitRecord
+{
+    [SerializeField] GameCurrencyType _currencyType;
+    public GameCurrencyType CurrencyType => _currencyType;
+    public void ChangedCurrencyType(GameCurrencyType newCurrency) => _currencyType = newCurrency;
+    public string GetCurrencyKoreaText() => _currencyType == GameCurrencyType.Gold ? "골드" : "고기";
+    public string GetQuantityInfoText() => _currencyType == GameCurrencyType.Gold ? "원" : "개";
 }
 
 [Serializable]
 public class CurrencyManager
 {
     public CurrencyManager(BattleStartData startData)
-    {
-        Gold = startData.StartGold;
-        Food = startData.StartFood;
-    }
-
-    public void SetStartData(BattleStartData startData)
     {
         Gold = startData.StartGold;
         Food = startData.StartFood;
@@ -141,6 +175,9 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     }
 
     private static Multi_GameManager m_instance;
+
+    [ContextMenu("Logging Json")]
+    void LoggingJson() => print(JsonUtility.ToJson(new BattleStartData(), true));
 
     [SerializeField] BattleDataManager _battleData;
     public BattleDataManager BattleData => _battleData;
@@ -247,10 +284,10 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     }
     public bool TryUseGold(int gold) => CurrencyManager.TryUseGold(gold);
 
-
     public void AddFood(int _addFood) => CurrencyManager.Food += _addFood;
     public bool TryUseFood(int food) => CurrencyManager.TryUseFood(food);
-    public bool TryUseCurrency(GameCurrencyType currencyType, int mount) => currencyType == GameCurrencyType.Gold ? TryUseGold(mount) : TryUseFood(mount);
+
+    public bool TryUseCurrency(GameCurrencyType currencyType, int quantity) => currencyType == GameCurrencyType.Gold ? TryUseGold(quantity) : TryUseFood(quantity);
 
     void Update()
     {

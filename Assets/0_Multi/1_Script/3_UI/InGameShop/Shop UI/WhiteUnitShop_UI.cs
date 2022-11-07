@@ -13,24 +13,39 @@ public class WhiteUnitShop_UI : Multi_UI_Popup
         WhiteMageButton,
     }
 
+    enum Texts
+    {
+        sowrdmanPrice,
+        archerPrice,
+        spearmanPrice,
+        magePrice,
+    }
+
     protected override void Init()
     {
         base.Init();
 
         Bind<Button>(typeof(Buttons));
-        // TODO : 하드코딩 csv로 옮기기
-        GetButton((int)Buttons.WhiteSwordmanButton).onClick.AddListener(() => SpawnWhiteUnit(0, 1));
-        GetButton((int)Buttons.WhiteArcherButton).onClick.AddListener(() => SpawnWhiteUnit(1, 2));
-        GetButton((int)Buttons.WhiteSpearmanButton).onClick.AddListener(() => SpawnWhiteUnit(2, 7));
-        GetButton((int)Buttons.WhiteMageButton).onClick.AddListener(() => SpawnWhiteUnit(3, 20));
+        Bind<Text>(typeof(Texts));
+
+        UnitPriceRecord whiteUnitPriceRecord = Multi_GameManager.instance.BattleData.WhiteUnitPriceRecord;
+
+        foreach (int unitClassNumber in System.Enum.GetValues(typeof(UnitClass)))
+        {
+            GetButton(unitClassNumber).onClick.AddListener(() => SpawnWhiteUnit(unitClassNumber, whiteUnitPriceRecord));
+            GetText(unitClassNumber).text = GetPriceText(unitClassNumber, whiteUnitPriceRecord);
+        }
     }
 
-    void SpawnWhiteUnit(int classNumber, int price)
+    void SpawnWhiteUnit(int classNumber, UnitPriceRecord record)
     {
-        if (Multi_GameManager.instance.TryUseFood(price))
+        if (Multi_GameManager.instance.TryUseCurrency(record.CurrencyType, record.GetUnitData(classNumber)))
         {
             Multi_SpawnManagers.NormalUnit.Spawn(6, classNumber);
             Multi_Managers.UI.ClosePopupUI(PopupGroupType.UnitWindow);
         }
     }
+
+    string GetPriceText(int classNumber, UnitPriceRecord record)
+        => $"{new UnitFlags(6, classNumber).KoreaName} : {record.GetCurrencyKoreaText()} {record.GetUnitData(classNumber)}{record.GetQuantityInfoText()}";
 }

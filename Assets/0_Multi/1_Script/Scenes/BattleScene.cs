@@ -16,8 +16,8 @@ public class BattleScene : BaseScene
         PhotonNetwork.SerializationRate = 30;
 
         Multi_SpawnManagers.Instance.Init();
-        Multi_Managers.Camera.EnterBattleScene();
         Show_UI();
+        Multi_Managers.Camera.EnterBattleScene();
         InitSound();
 
         if (PhotonNetwork.IsMasterClient == false) return;
@@ -60,11 +60,6 @@ public class BattleScene : BaseScene
 
         Multi_Managers.UI.ShowSceneUI<Status_UI>();
         Multi_Managers.UI.ShowSceneUI<BattleButton_UI>();
-        //Multi_Managers.UI.ShowSceneUI<LookWorldChangedButton>("LookWorldChangedButton");
-        //Multi_Managers.UI.ShowSceneUI<EnemySelector_UI>("EnemySelector_UI");
-        //Multi_Managers.UI.ShowSceneUI<Multi_UI_Paint>("Paint");
-        //Multi_Managers.UI.ShowSceneUI<CreateDefenserButton>("Create Defenser Button");
-        //Multi_Managers.UI.ShowSceneUI<LookTowerButton>("Story Wolrd Enter Button");
     }
 
     public override void Clear()

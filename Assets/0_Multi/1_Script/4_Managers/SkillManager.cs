@@ -279,7 +279,12 @@ public class FoodHater : IUserSkill
 {
     public void InitSkill()
     {
-        // 고기창 닫기
+        var whiteUnitPriceRecord = Multi_GameManager.instance.BattleData.WhiteUnitPriceRecord;
+        whiteUnitPriceRecord.ChangedCurrencyType(GameCurrencyType.Gold);
+        whiteUnitPriceRecord.swordmanData *= 10;
+        whiteUnitPriceRecord.archerData *= 10;
+        whiteUnitPriceRecord.spearmanData *= 10;
+        whiteUnitPriceRecord.mageData *= 10;
 
         // 하얀 유닛 돈으로 구매로 변경 받는 고기 전부 1당 10원으로 변경
         Multi_GameManager.instance.OnFoodChanged += FoodToGold;

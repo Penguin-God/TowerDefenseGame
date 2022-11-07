@@ -15,5 +15,9 @@
         "spearmanData": 7,
         "mageData": 20,
         "_currencyType": 1
+    },
+    "maxUnitIncreaseRecord": {
+        "_currencyType": 1,
+        "_value": 1
     }
 }

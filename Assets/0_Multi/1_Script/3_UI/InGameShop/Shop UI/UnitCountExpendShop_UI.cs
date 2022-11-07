@@ -10,16 +10,26 @@ public class UnitCountExpendShop_UI : Multi_UI_Popup
         IncreaseButton,
     }
 
+    enum Texts
+    {
+        PriceText,
+    }
+
     protected override void Init()
     {
         base.Init();
         Bind<Button>(typeof(Buttons));
+        Bind<Text>(typeof(Texts));
+
         GetButton((int)Buttons.IncreaseButton).onClick.AddListener(IncreaseUnitCount);
+        var record = Multi_GameManager.instance.BattleData.MaxUnitIncreaseRecord;
+        GetText((int)Texts.PriceText).text = record.GetPriceDescription();
     }
 
     void IncreaseUnitCount()
     {
-        if(Multi_GameManager.instance.TryUseFood(1))
-            Multi_GameManager.instance.BattleData.MaxUnit += 1;
+        var manager = Multi_GameManager.instance;
+        if (manager.TryUseCurrency(manager.BattleData.MaxUnitIncreaseRecord.CurrencyType, manager.BattleData.MaxUnitIncreaseRecord.Value))
+            manager.BattleData.MaxUnit += 1;
     }
 }

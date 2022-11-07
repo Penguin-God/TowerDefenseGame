@@ -16,13 +16,17 @@ public class BattleScene : BaseScene
         PhotonNetwork.SerializationRate = 30;
 
         Multi_SpawnManagers.Instance.Init();
-        Multi_Managers.Skill.Init();
         Multi_Managers.Camera.EnterBattleScene();
         Show_UI();
         InitSound();
 
         if (PhotonNetwork.IsMasterClient == false) return;
         Multi_Managers.Pool.Init();
+    }
+
+    void Start()
+    {
+        Multi_Managers.Skill.Init();
     }
 
     void InitSound()

@@ -315,11 +315,9 @@ public class SellUpgrade : IUserSkill
     {
         // 유닛 판매 보상 증가 (유닛별로 증가폭 별도)
         int[] sellData = Multi_Managers.Data.GetUserSKillData(SkillType.판매보상증가, 1).Select(x => (int)x).ToArray();
-        var battleData = Multi_GameManager.instance.BattleData;
-        battleData.SwordmanSellGold = sellData[0];
-        battleData.ArcherSellGold = sellData[1];
-        battleData.SpearmanSellGold = sellData[2];
-        battleData.MageSellGold = sellData[3];
+        var sellRewardDatas = Multi_GameManager.instance.BattleData.UnitSellPriceRecord.PriceDatas;
+        for (int i = 0; i < sellRewardDatas.Length; i++)
+            sellRewardDatas[i].ChangePrice(sellData[i]);
     }
 }
 

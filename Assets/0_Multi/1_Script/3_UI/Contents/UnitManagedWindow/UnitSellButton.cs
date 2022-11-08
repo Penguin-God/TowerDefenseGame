@@ -26,18 +26,7 @@ public class UnitSellButton : Multi_UI_Base
         }
     }
 
-    int GetSellReward(UnitFlags flag)
-    {
-        var data = Multi_GameManager.instance.BattleData;
-        switch (flag.ClassNumber)
-        {
-            case 0: return data.SwordmanSellGold;
-            case 1: return data.ArcherSellGold;
-            case 2: return data.SpearmanSellGold;
-            case 3: return data.MageSellGold;
-        }
-        return 0;
-    }
+    int GetSellReward(UnitFlags flag) => Multi_GameManager.instance.BattleData.UnitSellPriceRecord.PriceDatas[flag.ClassNumber].Price;
 
     public void SetInfo(UnitFlags flag)
     {

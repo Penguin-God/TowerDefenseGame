@@ -29,7 +29,7 @@ public class UnitCountExpendShop_UI : Multi_UI_Popup
     void IncreaseUnitCount()
     {
         var manager = Multi_GameManager.instance;
-        if (manager.TryUseCurrency(manager.BattleData.MaxUnitIncreaseRecord.CurrencyType, manager.BattleData.MaxUnitIncreaseRecord.Value))
+        if (manager.TryUseCurrency(manager.BattleData.MaxUnitIncreaseRecord.CurrencyType, manager.BattleData.MaxUnitIncreaseRecord.Price))
             manager.BattleData.MaxUnit += 1;
     }
 }

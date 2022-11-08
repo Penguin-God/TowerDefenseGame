@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Linq;
 using Photon.Pun;
 
 public enum GameCurrencyType
@@ -24,7 +25,7 @@ public struct BattleStartData
     [SerializeField] int startArcherSellGold;
     [SerializeField] int startSpearmanSellGold;
     [SerializeField] int startMageSellGold;
-    [SerializeField] UnitPriceRecord whiteUnitPriceRecord;
+    [SerializeField] PriceDataRecord whiteUnitPriceRecord;
     [SerializeField] PriceData maxUnitIncreaseRecord;
 
     public int StartGold => startGold;
@@ -39,10 +40,9 @@ public struct BattleStartData
     public int ArcherSellGold => startArcherSellGold;
     public int SpearmanSellGold => startSpearmanSellGold;
     public int MageSellGold => startMageSellGold;
-    // PriceDataRecord로 바꾸기
-    public UnitPriceRecord WhiteUnitPriceRecord => whiteUnitPriceRecord;
-    public PriceData MaxUnitIncreaseRecord => maxUnitIncreaseRecord;
 
+    public PriceDataRecord WhiteUnitPriceRecord => whiteUnitPriceRecord;
+    public PriceData MaxUnitIncreaseRecord => maxUnitIncreaseRecord;
 }
 
 [Serializable]
@@ -92,61 +92,17 @@ public class BattleDataManager
     [SerializeField] int _mageSellGold;
     public int MageSellGold { get => _mageSellGold; set => _mageSellGold = value; }
 
-    [SerializeField] UnitPriceRecord _whiteUnitPriceRecord;
-    public UnitPriceRecord WhiteUnitPriceRecord => _whiteUnitPriceRecord;
+    [SerializeField] PriceDataRecord _whiteUnitPriceRecord;
+    public PriceDataRecord WhiteUnitPriceRecord => _whiteUnitPriceRecord;
 
     [SerializeField] PriceData _maxUnitIncreaseRecord;
     public PriceData MaxUnitIncreaseRecord => _maxUnitIncreaseRecord;
-}
 
-[Serializable]
-public class UnitRecord
-{
-    public int swordmanData;
-    public int archerData;
-    public int spearmanData;
-    public int mageData;
-
-    public int GetUnitData(int unitClassNumber) => GetUnitData((UnitClass)unitClassNumber);
-
-    public int GetUnitData(UnitClass unitClass)
+    public IEnumerable<PriceData> GetAllPriceDatas()
     {
-        switch (unitClass)
-        {
-            case UnitClass.sowrdman: return swordmanData;
-            case UnitClass.archer: return archerData;
-            case UnitClass.spearman: return spearmanData;
-            case UnitClass.mage: return mageData;
-        }
-        return 0;
+        var result = new List<PriceData> { _maxUnitIncreaseRecord };
+        return result.Concat(_whiteUnitPriceRecord.PriceDatas);
     }
-}
-
-[Serializable]
-public class UnitPriceRecord : UnitRecord
-{
-    [SerializeField] GameCurrencyType _currencyType;
-    public GameCurrencyType CurrencyType => _currencyType;
-
-    public void ChangedCurrencyType(GameCurrencyType newCurrency) => _currencyType = newCurrency;
-    public string GetCurrencyKoreaText() => _currencyType == GameCurrencyType.Gold ? "골드" : "고기";
-    public string GetQuantityInfoText() => _currencyType == GameCurrencyType.Gold ? "원" : "개";
-    public string GetPriceDescription(int price) => $"{GetCurrencyKoreaText()} {price}{GetQuantityInfoText()}";
-}
-
-[Serializable]
-public class PriceRecord
-{
-    [SerializeField] GameCurrencyType _currencyType;
-    public GameCurrencyType CurrencyType => _currencyType;
-    public void ChangedCurrencyType(GameCurrencyType newCurrency) => _currencyType = newCurrency;
-    public string GetCurrencyKoreaText() => _currencyType == GameCurrencyType.Gold ? "골드" : "고기";
-    public string GetQuantityInfoText() => _currencyType == GameCurrencyType.Gold ? "원" : "개";
-    public string GetPriceDescription(int price) => $"{GetCurrencyKoreaText()} {price}{GetQuantityInfoText()}";
-
-    [SerializeField] int[] _datas;
-    public int[] Datas => _datas;
-    public void ChangeData(int index, int newValue) => _datas[index] = newValue;
 }
 
 [Serializable]
@@ -154,16 +110,7 @@ public class PriceDataRecord
 {
     [SerializeField] PriceData[] _priceDatas;
     public PriceData[] PriceDatas => _priceDatas;
-
-    public void ChangedCurrencyType(int index, GameCurrencyType newCurrency) => _priceDatas[index].ChangedCurrencyType(newCurrency);
-    public void ChangedAllCurrencyType(GameCurrencyType newCurrency)
-    {
-        foreach (var item in _priceDatas)
-            item.ChangedCurrencyType(newCurrency);
-    }
-
     public PriceData GetData(int index) => _priceDatas[index];
-    public string GetPriceDescription(int index) => _priceDatas[index].GetPriceDescription();
 }
 
 [Serializable]
@@ -173,11 +120,11 @@ public class PriceData
     public GameCurrencyType CurrencyType => _currencyType;
     public void ChangedCurrencyType(GameCurrencyType newCurrency) => _currencyType = newCurrency;
 
-    [SerializeField] int _value;
-    public int Value => _value;
-    public void ChangeData(int newValue) => _value = newValue;
+    [SerializeField] int _price;
+    public int Price => _price;
+    public void ChangePrice(int newPrice) => _price = newPrice;
 
-    public string GetPriceDescription() => new CurrencyPresenter().GetPriceDescription(_value, _currencyType);
+    public string GetPriceDescription() => new CurrencyPresenter().GetPriceDescription(_price, _currencyType);
 }
 
 class CurrencyPresenter

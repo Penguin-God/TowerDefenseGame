@@ -10,14 +10,27 @@
     "startSpearmanSellGold": 30,
     "startMageSellGold": 80,
     "whiteUnitPriceRecord": {
-        "swordmanData": 1,
-        "archerData": 2,
-        "spearmanData": 7,
-        "mageData": 20,
-        "_currencyType": 1
+        "_priceDatas": [
+            {
+                "_currencyType": 1,
+                "_price": 1
+            },
+            {
+                "_currencyType": 1,
+                "_price": 2
+            },
+            {
+                "_currencyType": 1,
+                "_price": 7
+            },
+            {
+                "_currencyType": 1,
+                "_price": 20
+            }
+        ]
     },
     "maxUnitIncreaseRecord": {
         "_currencyType": 1,
-        "_value": 1
+        "_price": 1
     }
 }

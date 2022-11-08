@@ -23,9 +23,8 @@ public class WhiteUnit : MonoBehaviour
     {
         if(value <= 0)
         {
-            Multi_SpawnManagers.NormalUnit.Spawn
-                (Random.Range(0, maxColor), classNumber, transform.position, transform.rotation, GetComponent<RPCable>().UsingId);
-            Multi_Managers.Pool.Push(gameObject);
+            var unit = GetComponent<Multi_TeamSoldier>();
+            Multi_UnitManager.Instance.UnitColorChanged_RPC(unit.UsingID, unit.UnitFlags, Random.Range(0, maxColor));
             timer.Off();
             timer = null;
         }

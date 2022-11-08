@@ -39,6 +39,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
     protected Animator animator;
     protected PhotonView pv;
     protected RPCable rpcable;
+    public int UsingID => rpcable.UsingId;
     [SerializeField] protected EffectSoundType normalAttackSound;
     public float normalAttakc_AudioDelay;
 
@@ -151,10 +152,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
 
     public void Dead()
     {
-        Debug.Assert(OnDead != null, $"{this.name} 이벤트가 null임");
-        OnDead?.Invoke(this);
+        //Debug.Assert(OnDead != null, $"{this.name} 이벤트가 null임");
+        //OnDead?.Invoke(this);
         gameObject.SetActive(false);
         Multi_SpawnManagers.BossEnemy.OnSpawn -= TargetToBoss;
+        Multi_Managers.Pool.Push(gameObject.GetComponent<Poolable>());
         _state.Daad();
     }
 

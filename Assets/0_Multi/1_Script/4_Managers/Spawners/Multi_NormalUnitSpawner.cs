@@ -59,7 +59,6 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
         if (PhotonNetwork.IsMasterClient == false) return;
 
         var unit = go.GetComponent<Multi_TeamSoldier>();
-        unit.OnDead += deadUnit => Multi_Managers.Pool.Push(deadUnit.GetComponent<Poolable>());
     }
 
     public void Spawn(UnitFlags flag) => Spawn(flag.ColorNumber, flag.ClassNumber);

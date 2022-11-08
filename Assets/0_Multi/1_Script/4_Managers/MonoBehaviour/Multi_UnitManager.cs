@@ -68,7 +68,6 @@ public class Multi_UnitManager : MonoBehaviourPun
         _stat.Init(_master);
     }
 
-
     // Datas
     public IReadOnlyDictionary<UnitClass, int> EnemyPlayerUnitCountByClass => _enemyPlayer._countByUnitClass;
     public IReadOnlyDictionary<UnitFlags, int> UnitCountByFlag => _count._countByFlag;
@@ -103,7 +102,9 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     public void UnitDead_RPC(int id, UnitFlags unitFlag, int count = 1) => photonView.RPC(nameof(UnitDead), RpcTarget.MasterClient, id, unitFlag, count);
     [PunRPC] void UnitDead(int id, UnitFlags unitFlag, int count) => _controller.UnitDead(id, unitFlag, count);
-
+    
+    public void UnitColorChanged_RPC(int id, UnitFlags flag, int changeTargetColor) => photonView.RPC(nameof(UnitColorChanged), RpcTarget.MasterClient, id, flag, changeTargetColor);
+    [PunRPC] void UnitColorChanged(int id, UnitFlags flag, int changeTargetColor) => _controller.UnitColorChanged(id, flag, changeTargetColor);
 
     public void UnitWorldChanged_RPC(int id, UnitFlags flag) => Instance.photonView.RPC(nameof(UnitWorldChanged), RpcTarget.MasterClient, id, flag, Multi_Managers.Camera.IsLookEnemyTower);
     [PunRPC] void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode) => _controller.UnitWorldChanged(id, flag, enterStroyMode);
@@ -241,6 +242,20 @@ public class Multi_UnitManager : MonoBehaviourPun
         {
             if (_masterData.TryGetUnit_If(id, flag, out Multi_TeamSoldier unit, (_unit) => _unit.EnterStroyWorld == enterStroyMode))
                 unit.ChagneWorld();
+        }
+
+        public void UnitColorChanged(int id, UnitFlags flag, int changeTargetColor)
+        {
+            _masterData.TryGetUnit_If(id, flag, out var unit);
+            Multi_SpawnManagers.NormalUnit.Spawn(changeTargetColor, (int)unit.unitClass, unit.transform.position, unit.transform.rotation, id);
+            UnitDead(unit);
+        }
+
+        void UnitDead(Multi_TeamSoldier unit)
+        {
+            unit.Dead();
+            _masterData.RemoveUnit(unit);
+            _masterData.UpdateUnitCount(unit);
         }
     }
 

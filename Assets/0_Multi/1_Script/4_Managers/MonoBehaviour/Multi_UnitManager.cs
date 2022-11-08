@@ -125,6 +125,15 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
         public List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flag) => _unitListByFlag.Get(id)[flag];
+        public Multi_TeamSoldier GetRandomUnit(int id, Func<Multi_TeamSoldier, bool> condition = null)
+        {
+            if (condition == null) return _currentAllUnitsById.Get(id).GetRandom();
+            return _currentAllUnitsById
+                .Get(id)
+                .Where(x => condition(x))
+                .ToList()
+                .GetRandom();
+        }
 
         public void Init()
         {
@@ -244,9 +253,12 @@ public class Multi_UnitManager : MonoBehaviourPun
                 unit.ChagneWorld();
         }
 
-        public void UnitColorChanged(int id, UnitFlags flag, int changeTargetColor)
+        public void UnitColorChanged(int id, UnitFlags dieUnitFlag, int changeTargetColor)
         {
-            _masterData.TryGetUnit_If(id, flag, out var unit);
+            var unit = _masterData.GetRandomUnit(id,
+                    (_unit) => _unit.unitClass == dieUnitFlag.UnitClass && (_unit.unitColor != UnitColor.black || _unit.unitColor != UnitColor.white));
+            if (unit == null) return;
+
             Multi_SpawnManagers.NormalUnit.Spawn(changeTargetColor, (int)unit.unitClass, unit.transform.position, unit.transform.rotation, id);
             UnitDead(unit);
         }

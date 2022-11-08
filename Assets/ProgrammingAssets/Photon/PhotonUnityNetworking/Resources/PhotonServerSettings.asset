@@ -105,6 +105,7 @@ MonoBehaviour:
   - ClineStateUpdate
   - RPC_Shot
   - DecreasedEffect
+  - UnitColorChanged
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

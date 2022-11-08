@@ -259,19 +259,25 @@ public class YellowSowrdmanUpgrade : IUserSkill
 public class ColorChange : IUserSkill
 {
     // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
+
+    int[] _prevUnitCounts = new int[4];
+
     public void InitSkill()
     {
-        
+        Multi_UnitManager.Instance.OnUnitFlagCountChanged += UseSkill;
     }
 
-    // 캐시를 들고 있어서 유닛이 증가했는지 줄었는지 자신이 직접 비교.
-    void UseSkill(UnitFlags flag)
+    void UseSkill(UnitFlags flag, int count)
     {
-        // 상대 직업의 색깔 변경
-        if(flag.UnitColor == UnitColor.white)
+        if (flag.UnitColor != UnitColor.white) return;
+
+        if (count > _prevUnitCounts[flag.ClassNumber])
         {
-            // 색깔 변경
+            var list = Util.GetRangeList(0, 6);
+            list.Remove(flag.ColorNumber);
+            Multi_UnitManager.Instance.UnitColorChanged_RPC(Multi_Data.instance.EnemyPlayerId, flag, list.GetRandom());
         }
+        _prevUnitCounts[flag.ClassNumber] = count;
     }
 }
 

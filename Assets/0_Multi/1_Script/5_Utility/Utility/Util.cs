@@ -45,4 +45,12 @@ public class Util : MonoBehaviour
 
         return null;
     }
+
+    public static List<int> GetRangeList(int start, int end)
+    {
+        var result = new List<int>();
+        for (int i = start; i < end; i++)
+            result.Add(i);
+        return result;
+    }
 }

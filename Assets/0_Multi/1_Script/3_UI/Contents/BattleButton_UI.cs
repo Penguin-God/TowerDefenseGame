@@ -61,13 +61,10 @@ public class BattleButton_UI : Multi_UI_Scene
             return;
         }
 
-        // TODO : 상수 부분 데이터 매니저에서 가져오도록 수정하기
-        const int price = 5;
-        const int minColor = 0;
-        const int maxColor = 2;
-        if (Multi_GameManager.instance.TryUseGold(price))
+        var summonData = Multi_GameManager.instance.BattleData.UnitSummonData;
+        if (Multi_GameManager.instance.TryUseGold(summonData.price))
         {
-            Multi_SpawnManagers.NormalUnit.Spawn(Random.Range(minColor, maxColor + 1), 0);
+            Multi_SpawnManagers.NormalUnit.Spawn(Random.Range(0, summonData.maxColorNumber ), 0);
             Multi_Managers.Sound.PlayEffect(EffectSoundType.DrawSwordman);
         }
     }

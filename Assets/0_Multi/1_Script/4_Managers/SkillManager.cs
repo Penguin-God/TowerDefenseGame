@@ -264,6 +264,7 @@ public class ColorChange : IUserSkill
 
     public void InitSkill()
     {
+        Multi_GameManager.instance.BattleData.UnitSummonData.maxColorNumber = 6;
         Multi_UnitManager.Instance.OnUnitFlagCountChanged += UseSkill;
     }
 

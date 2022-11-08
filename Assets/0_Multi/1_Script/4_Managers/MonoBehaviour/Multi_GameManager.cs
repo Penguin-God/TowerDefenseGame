@@ -20,6 +20,8 @@ public struct BattleStartData
     [SerializeField] int stageUpGold;
     [SerializeField] int startMaxUnitCount;
     [SerializeField] int enemyMaxCount;
+    [SerializeField] int unitSummonPrice;
+    [SerializeField] int unitSummonMaxColorNumber;
     [SerializeField] int startYellowKnightRewardGold;
     [SerializeField] int startSwrodmanSellGold;
     [SerializeField] int startArcherSellGold;
@@ -27,12 +29,13 @@ public struct BattleStartData
     [SerializeField] int startMageSellGold;
     [SerializeField] PriceDataRecord whiteUnitPriceRecord;
     [SerializeField] PriceData maxUnitIncreaseRecord;
-
+    
     public int StartGold => startGold;
     public int StartFood => startFood;
     public int StageUpGold => stageUpGold;
     public int StartMaxUnitCount => startMaxUnitCount;
     public int EnemyMaxCount => enemyMaxCount;
+    public (int price, int maxColorNumber) UnitSummonData => (price: unitSummonPrice, maxColorNumber:unitSummonMaxColorNumber);
     public int YellowKnightRewardGold => startYellowKnightRewardGold;
 
     // PriceDataRecord로 묶기
@@ -54,6 +57,7 @@ public class BattleDataManager
         _maxUnit = startData.StartMaxUnitCount;
         _maxEnemyCount = startData.EnemyMaxCount;
         _stageUpGold = startData.StageUpGold;
+        UnitSummonData = startData.UnitSummonData;
         _yellowKnightRewardGold = startData.YellowKnightRewardGold;
         _swrodmanSellGold = startData.SwrodmanSellGold;
         _archerSellGold = startData.ArcherSellGold;
@@ -75,7 +79,8 @@ public class BattleDataManager
 
     [SerializeField] int _stageUpGold;
     public int StageUpGold { get => _stageUpGold; set => _stageUpGold = value; }
-    
+
+    public (int price, int maxColorNumber) UnitSummonData;
 
     [SerializeField] int _yellowKnightRewardGold;
     public int YellowKnightRewardGold { get => _yellowKnightRewardGold; set => _yellowKnightRewardGold = value; }

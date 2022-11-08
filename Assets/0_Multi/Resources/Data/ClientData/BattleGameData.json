@@ -4,6 +4,8 @@
     "stageUpGold": 10,
     "startMaxUnitCount": 15,
     "enemyMaxCount": 50,
+    "unitSummonPrice": 5,
+    "unitSummonMaxColorNumber": 3,
     "startYellowKnightRewardGold": 1,
     "startSwrodmanSellGold": 1,
     "startArcherSellGold": 3,

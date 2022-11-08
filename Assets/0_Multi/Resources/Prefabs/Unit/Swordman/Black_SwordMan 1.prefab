@@ -424,10 +424,10 @@ GameObject:
   - component: {fileID: 7512264850571994259}
   - component: {fileID: 7512264850571994258}
   - component: {fileID: 1825226497775913874}
-  - component: {fileID: 6983756642138863978}
   - component: {fileID: 4853363720832435994}
   - component: {fileID: 3446961439239694393}
   - component: {fileID: -6619049661751405887}
+  - component: {fileID: 5940212241929746820}
   m_Layer: 9
   m_Name: Black_SwordMan 1
   m_TagString: BlackSwordman
@@ -488,29 +488,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6983756642138863978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7512264850571994257}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 4853363720832435994}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &4853363720832435994
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,25 +508,16 @@ MonoBehaviour:
       _classNumber: 0
     _damage: 0
     _bossDamage: 0
-    _useSkillPercent: 0
     _attackDelayTime: 0
     _speed: 0
     _attackRange: 0
-  skillDamage: 0
   stopDistanc: 5
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
-  skillCoolDownTime: 0
   target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 819330f33b9ea014f990dd335112905e, type: 3}
   normalAttackSound: 22
   normalAttakc_AudioDelay: 0.7
-  reinforceEffect: {fileID: 0}
-  isMoveLock: 0
-  enemyDistance: 0
-  enemyIsForward: 0
-  rayHitTransform: {fileID: 0}
+  _targetManager:
+    _target: {fileID: 0}
+  contactEnemy: 0
   trail: {fileID: 7512264850404721247}
 --- !u!114 &3446961439239694393
 MonoBehaviour:
@@ -578,6 +546,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _usingId: -1
+--- !u!114 &5940212241929746820
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7512264850571994257}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 0
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &7512264850605840029
 GameObject:
   m_ObjectHideFlags: 0

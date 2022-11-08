@@ -90,11 +90,11 @@ GameObject:
   - component: {fileID: 8606670814876993439}
   - component: {fileID: 8606670814876993438}
   - component: {fileID: 460885869760899230}
-  - component: {fileID: 4419424434181142112}
   - component: {fileID: 2342271511371248315}
   - component: {fileID: 4653388475442759893}
   - component: {fileID: 6454545635002746422}
   - component: {fileID: -1019720158022441825}
+  - component: {fileID: 3697333621231563016}
   m_Layer: 9
   m_Name: White_SwordMan 1
   m_TagString: WhiteSwordman
@@ -155,29 +155,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4419424434181142112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8606670814876993437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 2342271511371248315}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &2342271511371248315
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -198,25 +175,16 @@ MonoBehaviour:
       _classNumber: 0
     _damage: 0
     _bossDamage: 0
-    _useSkillPercent: 0
     _attackDelayTime: 0
     _speed: 0
     _attackRange: 0
-  skillDamage: 0
   stopDistanc: 5
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
-  skillCoolDownTime: 0
   target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 819330f33b9ea014f990dd335112905e, type: 3}
   normalAttackSound: 22
   normalAttakc_AudioDelay: 0.7
-  reinforceEffect: {fileID: 0}
-  isMoveLock: 0
-  enemyDistance: 0
-  enemyIsForward: 0
-  rayHitTransform: {fileID: 0}
+  _targetManager:
+    _target: {fileID: 0}
+  contactEnemy: 0
   trail: {fileID: 8606670815029551443}
 --- !u!114 &4653388475442759893
 MonoBehaviour:
@@ -260,6 +228,28 @@ MonoBehaviour:
   classNumber: 0
   maxColor: 5
   aliveTime: 30
+--- !u!114 &3697333621231563016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8606670814876993437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 0
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &8606670815029551443
 GameObject:
   m_ObjectHideFlags: 0

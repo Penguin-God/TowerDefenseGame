@@ -41,11 +41,11 @@ GameObject:
   - component: {fileID: 4199548222911104338}
   - component: {fileID: 4199548222911104339}
   - component: {fileID: 6518196258637531391}
-  - component: {fileID: 6399562802812082074}
   - component: {fileID: 727887930}
   - component: {fileID: -2285952888747225639}
   - component: {fileID: -5051015502551627264}
   - component: {fileID: -5462463380332342773}
+  - component: {fileID: 4252850344900294545}
   m_Layer: 9
   m_Name: White_Spearman 1
   m_TagString: WhiteSpearman
@@ -106,29 +106,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6399562802812082074
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4199548222911104336}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 727887930}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &727887930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,25 +130,23 @@ MonoBehaviour:
     _speed: 0
     _attackRange: 0
   stopDistanc: 3
-  skillCoolDownTime: 0.4
   target: {fileID: 0}
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0.55
   _targetManager:
     _target: {fileID: 0}
-  _state: {fileID: 0}
-  isMoveLock: 0
-  enemyDistance: 0
-  rayHitTransform: {fileID: 0}
+  contactEnemy: 0
   shotSpearData:
     weaponPath: 
     attacker: {fileID: 4199548222911104338}
     spawnTransform: {fileID: 1210638410598656367}
   trail: {fileID: 7078237026450372677}
   spear: {fileID: 8901213837801248656}
-  _skillDamage: 0
   _useSkillPercent: 0
   _skillReboundTime: 0.4
+  _skillSystem:
+    _skillDamage: 0
+    _bossSkillDamage: 0
 --- !u!114 &-2285952888747225639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -214,6 +189,28 @@ MonoBehaviour:
   classNumber: 2
   maxColor: 5
   aliveTime: 30
+--- !u!114 &4252850344900294545
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4199548222911104336}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 0
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &7078237026450372677
 GameObject:
   m_ObjectHideFlags: 0

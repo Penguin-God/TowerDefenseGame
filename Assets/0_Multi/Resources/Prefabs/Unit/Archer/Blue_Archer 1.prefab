@@ -419,11 +419,11 @@ GameObject:
   - component: {fileID: 3192143453688435172}
   - component: {fileID: 3192143453688435173}
   - component: {fileID: 156209486618445304}
-  - component: {fileID: 156209486583295495}
   - component: {fileID: 1016070764}
   - component: {fileID: 1623368292}
   - component: {fileID: 6419629088717051158}
   - component: {fileID: 7163432494423635243}
+  - component: {fileID: 2798758164742151083}
   m_Layer: 9
   m_Name: Blue_Archer 1
   m_TagString: BlueArcher
@@ -484,29 +484,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &156209486583295495
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3192143453688435179}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 1016070764}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &1016070764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -531,24 +508,22 @@ MonoBehaviour:
     _speed: 0
     _attackRange: 0
   stopDistanc: 5
-  skillCoolDownTime: 0.5
   target: {fileID: 0}
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0
   _targetManager:
     _target: {fileID: 0}
-  _state: {fileID: 0}
-  isMoveLock: 0
-  enemyDistance: 0
-  rayHitTransform: {fileID: 0}
+  contactEnemy: 0
   arrawData:
     weaponPath: 
     attacker: {fileID: 3192143453688435172}
     spawnTransform: {fileID: 156209486517130305}
   skillArrowCount: 3
-  _skillDamage: 0
   _useSkillPercent: 0
   _skillReboundTime: 0.5
+  _skillSystem:
+    _skillDamage: 0
+    _bossSkillDamage: 0
 --- !u!114 &1623368292
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -590,6 +565,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _usingId: -1
+--- !u!114 &2798758164742151083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3192143453688435179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 0
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &3192776852425901380
 GameObject:
   m_ObjectHideFlags: 0

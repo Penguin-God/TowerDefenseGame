@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 298940350712295408}
   - component: {fileID: 860783141728918354}
   - component: {fileID: 860783140716207425}
-  - component: {fileID: 860783140234983168}
   - component: {fileID: 1153026733}
   - component: {fileID: 6651087845108253985}
   - component: {fileID: -1315786142726229913}
   - component: {fileID: 5023698059270700154}
   - component: {fileID: 7439843076297562922}
+  - component: {fileID: 3555716918846999307}
   m_Layer: 9
   m_Name: Violet_Mage 1
   m_TagString: VioletMage
@@ -175,29 +175,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &860783140234983168
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 298940350712295422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 6651087845108253985}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &1153026733
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -233,24 +210,16 @@ MonoBehaviour:
       _classNumber: 0
     _damage: 0
     _bossDamage: 0
-    _useSkillPercent: 0
     _attackDelayTime: 0
     _speed: 0
     _attackRange: 0
-  skillDamage: 0
   stopDistanc: 5
-  isAttack: 0
-  isAttackDelayTime: 0
-  isSkillAttack: 0
-  skillCoolDownTime: 0
   target: {fileID: 0}
-  normalAttackClip: {fileID: 8300000, guid: 06700a61d91f35f4db5d24a599feb08f, type: 3}
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0.7
-  reinforceEffect: {fileID: 0}
-  isMoveLock: 0
-  enemyDistance: 0
-  rayHitTransform: {fileID: 0}
+  _targetManager:
+    _target: {fileID: 0}
+  contactEnemy: 0
   mageStat:
     _flag:
       _colorNumber: 0
@@ -270,7 +239,6 @@ MonoBehaviour:
   energyBallTransform: {fileID: 1428039914236047671}
   mageSkillObject: {fileID: 6269822335907625535, guid: 3d04c93368856bd4eb50c61fefa0cda7,
     type: 3}
-  plusMana: 30
   mageSkillCoolDownTime: 2
   percent: 0
   count: 0
@@ -318,6 +286,29 @@ MonoBehaviour:
   _maxMana: 0
   _addMana: 0
   _currentMana: 0
+  manaIsLock: 0
+--- !u!114 &3555716918846999307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 298940350712295422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 0
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &860783140306274674
 GameObject:
   m_ObjectHideFlags: 0

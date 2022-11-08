@@ -227,11 +227,11 @@ GameObject:
   - component: {fileID: 7681704439341560581}
   - component: {fileID: 7681704439341560580}
   - component: {fileID: 1004225956946136948}
-  - component: {fileID: 1004225955410913683}
   - component: {fileID: 1839688268}
   - component: {fileID: 723959189}
   - component: {fileID: -3231157957414574318}
   - component: {fileID: 1011432207698741852}
+  - component: {fileID: -8291504388557996371}
   m_Layer: 9
   m_Name: Violet_Archer 1
   m_TagString: VioletArcher
@@ -292,29 +292,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1004225955410913683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7681704439341560586}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents:
-  - {fileID: 1839688268}
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &1839688268
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -339,24 +316,22 @@ MonoBehaviour:
     _speed: 0
     _attackRange: 0
   stopDistanc: 5
-  skillCoolDownTime: 0.5
   target: {fileID: 0}
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0
   _targetManager:
     _target: {fileID: 0}
-  _state: {fileID: 0}
-  isMoveLock: 0
-  enemyDistance: 0
-  rayHitTransform: {fileID: 0}
+  contactEnemy: 0
   arrawData:
     weaponPath: 
     attacker: {fileID: 7681704439341560581}
     spawnTransform: {fileID: 7681704437988781462}
   skillArrowCount: 3
-  _skillDamage: 0
   _useSkillPercent: 0
   _skillReboundTime: 0.5
+  _skillSystem:
+    _skillDamage: 0
+    _bossSkillDamage: 0
 --- !u!114 &723959189
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -399,6 +374,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _usingId: -1
+--- !u!114 &-8291504388557996371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7681704439341560586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 0
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &7682043686961796517
 GameObject:
   m_ObjectHideFlags: 0

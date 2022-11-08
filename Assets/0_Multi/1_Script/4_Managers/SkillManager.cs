@@ -79,7 +79,6 @@ public class MaxUnit : IUserSkill
 // 유닛 카운트 현황
 public class Taegeuk : IUserSkill
 {
-
     // 빨강, 파랑을 제외한 유닛 수
     public List<int> Ather
     {
@@ -164,54 +163,57 @@ public class Taegeuk : IUserSkill
 
     void UseSkill()
     {
-        float[] datas = Multi_Managers.Data.GetUserSKillData(SkillType.태극스킬, 1);
+        int[] datas = Multi_Managers.Data.GetUserSKillData(SkillType.태극스킬, 1).Select(x => (int)x).ToArray();
+
+        var strongDamages = new UnitDamages(datas[0], datas[1], datas[2], datas[3]);
+        var originDamages = new UnitDamages(25, 250, 4000, 25000);
 
         if (Red[0] >= 1 && Blue[0] >= 1 && Ather[0] == 0)
         {
             Debug.Log("기사 강화!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 0), (int)datas[0]);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 0), (int)datas[0]);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 0), strongDamages.SwordmanDamage);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 0), strongDamages.SwordmanDamage);
         }
         else
         {
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 0), 25);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 0), 25);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 0), originDamages.SwordmanDamage);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 0), originDamages.SwordmanDamage);
         }
 
         if (Red[1] >= 1 && Blue[1] >= 1 && Ather[1] == 0)
         {
             Debug.Log("궁수 강화!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 1), (int)datas[1]);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 1), (int)datas[1]);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 1), strongDamages.ArcherDamage);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 1), strongDamages.ArcherDamage);
         }
         else
         {
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 1), 250);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 1), 250);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 1), originDamages.ArcherDamage);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 1), originDamages.ArcherDamage);
         }
 
         if (Red[2] >= 1 && Blue[2] >= 1 && Ather[2] == 0)
         {
             Debug.Log("창병 강화!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 2), (int)datas[2]);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 2), (int)datas[2]);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 2), strongDamages.SpearmanDamage);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 2), strongDamages.SpearmanDamage);
         }
         else
         {
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 2), 4000);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 2), 4000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 2), originDamages.SpearmanDamage);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 2), originDamages.SpearmanDamage);
         }
 
         if (Red[3] >= 1 && Blue[3] >= 1 && Ather[3] == 0)
         {
             Debug.Log("마법사 강화!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 3), (int)datas[3]);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 3), (int)datas[3]);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 3), strongDamages.MageDamage);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 3), strongDamages.MageDamage);
         }
         else
         {
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 3), 25000);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 3), 25000);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, 3), originDamages.MageDamage);
+            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, 3), originDamages.MageDamage);
         }
     }
 }
@@ -228,20 +230,22 @@ public class BlackUnitUpgrade : IUserSkill
     {
         if (unitFlags.UnitColor != UnitColor.black) return;
 
-        float[] datas = Multi_Managers.Data.GetUserSKillData(SkillType.검은유닛강화, 1);
+        int[] datas = Multi_Managers.Data.GetUserSKillData(SkillType.검은유닛강화, 1).Select(x => (int)x).ToArray();
+
+        var strongDamages = new UnitDamages(datas[0], datas[1], datas[2], datas[3]);
         switch (unitFlags.UnitClass)
         {
             case UnitClass.sowrdman:
-                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 0), (int)datas[0]);
+                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 0), strongDamages.SwordmanDamage);
                 break;
             case UnitClass.archer:
-                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 1), (int)datas[1]);
+                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 1), strongDamages.ArcherDamage);
                 break;
             case UnitClass.spearman:
-                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 2), (int)datas[2]);
+                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 2), strongDamages.SpearmanDamage);
                 break;
             case UnitClass.mage:
-                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 3), (int)datas[3]);
+                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 3), strongDamages.MageDamage);
                 break;
         }
     }
@@ -329,3 +333,23 @@ public class BossDamageUpgrade : IUserSkill
     }
 }
 
+public struct UnitDamages
+{
+    public UnitDamages(int sword, int archer, int spear, int mage)
+    {
+        _swordmanDamage = sword;
+        _archerDamage = archer;
+        _spearmanDamage = spear;
+        _mageDamage = mage;
+    }
+
+    int _swordmanDamage;
+    int _archerDamage;
+    int _spearmanDamage;
+    int _mageDamage;
+
+    public int SwordmanDamage => _swordmanDamage;
+    public int ArcherDamage => _archerDamage;
+    public int SpearmanDamage => _spearmanDamage;
+    public int MageDamage => _mageDamage;
+}

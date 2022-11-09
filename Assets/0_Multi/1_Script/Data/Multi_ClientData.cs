@@ -27,6 +27,8 @@ public class Multi_ClientData
     Dictionary<SkillType, Skill> skillByType = new Dictionary<SkillType, Skill>();
     public IReadOnlyDictionary<SkillType, Skill> SkillByType => skillByType;
 
+    public List<SkillType> HasSkill = new List<SkillType>();
+
     Dictionary<MoneyType, Money> moneyByType = new Dictionary<MoneyType, Money>();
     public IReadOnlyDictionary<MoneyType, Money> MoneyByType => moneyByType;
 

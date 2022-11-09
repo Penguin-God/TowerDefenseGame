@@ -55,6 +55,7 @@ public class ClientManager : MonoBehaviour
         UpdateHammerText(ClientHammer);
     }
 
+    [SerializeField] List<SkillType> ShowCurrentHasSkill;
     void Update() 
     {
         if (Input.GetKeyDown(KeyCode.P)) // p 누르면 데이터 삭제
@@ -69,6 +70,19 @@ public class ClientManager : MonoBehaviour
             InitMoney();
             UpdateMoney();
         }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            ClientIron += 10000;
+            ClientWood += 10000;
+            ClientHammer += 10000;
+            InitMoney();
+            UpdateMoney();
+
+            foreach (SkillType type in Enum.GetValues(typeof(SkillType)))
+                new UserSkillBuyUseCase().Buy(type, 1);
+        }
+        ShowCurrentHasSkill = Multi_Managers.ClientData.HasSkill;
     }
 
     #region update Money
@@ -119,6 +133,7 @@ public class ClientManager : MonoBehaviour
     #endregion
 
     #region Buy Skills
+
     public void BuySkills(ref int use_money, int use_price, SkillType skillType, MoneyType moneyType)
     {
         ClientClickSound();
@@ -430,4 +445,24 @@ public class ClientManager : MonoBehaviour
         OpenSkillUpgrade(skill_Image.BossDamageUpgradeImage, bossDamage, "보스 데미지 증가");
     }
     #endregion
+}
+
+class UserSkillBuyUseCase
+{
+    public void Buy(SkillType skill, int level)
+    {
+        var goodsData = Multi_Managers.Data.GetUserSkillGoodsData(skill, level);
+        var money = Multi_Managers.ClientData.MoneyByType[goodsData.MoneyType];
+        if (money.Amount >= goodsData.Price)
+        {
+            money.SetAmount(money.Amount - goodsData.Price);
+            Multi_Managers.ClientData.HasSkill.Add(goodsData.SkillType);
+        }
+    }
+}
+
+class UserSkillStore
+{
+    Dictionary<SkillType, UserSkillGoodsData> _typeByGoods;
+    public UserSkillGoodsData GetGoods(SkillType type) => _typeByGoods[type];
 }

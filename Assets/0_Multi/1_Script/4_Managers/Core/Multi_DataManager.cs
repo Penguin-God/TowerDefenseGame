@@ -28,6 +28,16 @@ public class Multi_DataManager
         return datas;
     }
 
+    Dictionary<KeyValuePair<SkillType, int>, UserSkillGoodsData> _skillTypeLevelPairByGoodsData;
+    public UserSkillGoodsData GetUserSkillGoodsData(SkillType type, int level)
+    {
+        {
+            if (_skillTypeLevelPairByGoodsData.TryGetValue(new KeyValuePair<SkillType, int>(type, level), out UserSkillGoodsData result) == false)
+                Debug.LogError($"유저 스킬 데이터 {type} : {level} 로드 실패");
+            return result;
+        }
+    }
+
     #region UI Data
     // 조합 조건
     public IReadOnlyDictionary<UnitFlags, CombineCondition> CombineConditionByUnitFalg => _ui.CombineConditionByUnitFalg;
@@ -72,6 +82,7 @@ public class Multi_DataManager
 
         // Skill
         _skillLevelPairByDatas = MakeCsvDict<UserSkillLoder, KeyValuePair<SkillType, int>, float[]>("SkillData/SkillData");
+        _skillTypeLevelPairByGoodsData = MakeCsvDict<UserSkillGoodsLoder, KeyValuePair<SkillType, int>, UserSkillGoodsData>("SkillData/SkillGoodsData");
     }
 
 

@@ -4,11 +4,6 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public interface IUserSkill
-{
-    void InitSkill();
-}
-
 [Serializable]
 public class Skill
 {
@@ -28,11 +23,25 @@ public class Skill
     }
 }
 
-public class SkillRepository
+public abstract class UserSkill
 {
-    Dictionary<SkillType, IUserSkill> _typeBySkill = new Dictionary<SkillType, IUserSkill>();
+    public void SetInfo(SkillType skillType, int level)
+    {
+        _skillType = skillType;
+        _level = level;
+    }
+    SkillType _skillType;
+    int _level;
 
-    public SkillRepository()
+    public abstract void InitSkill();
+    protected float[] GetData() => Multi_Managers.Data.GetUserSKillData(_skillType, _level);
+}
+
+public class UserSkillFactory
+{
+    Dictionary<SkillType, UserSkill> _typeBySkill = new Dictionary<SkillType, UserSkill>();
+
+    public UserSkillFactory()
     {
         _typeBySkill.Add(SkillType.시작골드증가, new StartGold());
         _typeBySkill.Add(SkillType.시작고기증가, new StartFood());
@@ -46,7 +55,11 @@ public class SkillRepository
         _typeBySkill.Add(SkillType.고기혐오자, new FoodHater());
     }
 
-    public IUserSkill GetSkill(SkillType type) => _typeBySkill[type];
+    public UserSkill GetSkill(SkillType type, int level)
+    {
+        _typeBySkill[type].SetInfo(type, level);
+        return _typeBySkill[type];
+    }
 }
 
 public class SkillManager
@@ -61,35 +74,26 @@ public class SkillManager
 
 // ================= 스킬 세부 구현 =====================
 
-public class StartGold : IUserSkill
+public class StartGold : UserSkill
 {
-    public void InitSkill()
-    {
-        int value = (int)Multi_Managers.Data.GetUserSKillData(SkillType.시작골드증가, 1)[0];
-        Multi_GameManager.instance.AddGold(value);
-    }
+    public override void InitSkill()
+        => Multi_GameManager.instance.AddGold((int)GetData()[0]);
 }
 
-public class StartFood : IUserSkill
+public class StartFood : UserSkill
 {
-    public void InitSkill()
-    {
-        int value = (int)Multi_Managers.Data.GetUserSKillData(SkillType.시작고기증가, 1)[0];
-        Multi_GameManager.instance.AddFood(value);
-    }
+    public override void InitSkill()
+        => Multi_GameManager.instance.AddFood((int)GetData()[0]);
 }
 
-public class MaxUnit : IUserSkill
+public class MaxUnit : UserSkill
 {
-    public void InitSkill()
-    {
-        int value = (int)Multi_Managers.Data.GetUserSKillData(SkillType.최대유닛증가, 1)[0];
-        Multi_GameManager.instance.BattleData.MaxUnit += value;
-    }
+    public override void InitSkill()
+        => Multi_GameManager.instance.BattleData.MaxUnit += (int)GetData()[0];
 }
 
 // 유닛 카운트 현황
-public class Taegeuk : IUserSkill
+public class Taegeuk : UserSkill
 {
     // 빨강, 파랑을 제외한 유닛 수
     public List<int> Ather
@@ -167,7 +171,7 @@ public class Taegeuk : IUserSkill
         }
     }
 
-    public void InitSkill()
+    public override void InitSkill()
     {
         Debug.Log("태극 시너지 스킬 착용");
         Multi_UnitManager.Instance.OnUnitFlagCountChanged += (count, flag) => UseSkill();
@@ -175,7 +179,7 @@ public class Taegeuk : IUserSkill
 
     void UseSkill()
     {
-        int[] datas = Multi_Managers.Data.GetUserSKillData(SkillType.태극스킬, 1).Select(x => (int)x).ToArray();
+        int[] datas = GetData().Select(x => (int)x).ToArray();
 
         var strongDamages = new UnitDamages(datas[0], datas[1], datas[2], datas[3]);
         var originDamages = new UnitDamages(25, 250, 4000, 25000);
@@ -231,9 +235,9 @@ public class Taegeuk : IUserSkill
 }
 
 // 유닛 카운트 현황
-public class BlackUnitUpgrade : IUserSkill
+public class BlackUnitUpgrade : UserSkill
 {
-    public void InitSkill()
+    public override void InitSkill()
     {
         Multi_UnitManager.Instance.OnUnitFlagCountChanged += (flag, count) => UseSkill(flag);
     }
@@ -242,7 +246,7 @@ public class BlackUnitUpgrade : IUserSkill
     {
         if (unitFlags.UnitColor != UnitColor.black) return;
 
-        int[] datas = Multi_Managers.Data.GetUserSKillData(SkillType.검은유닛강화, 1).Select(x => (int)x).ToArray();
+        int[] datas = GetData().Select(x => (int)x).ToArray();
 
         var strongDamages = new UnitDamages(datas[0], datas[1], datas[2], datas[3]);
         switch (unitFlags.UnitClass)
@@ -263,22 +267,22 @@ public class BlackUnitUpgrade : IUserSkill
     }
 }
 
-public class YellowSowrdmanUpgrade : IUserSkill
+public class YellowSowrdmanUpgrade : UserSkill
 {
-    public void InitSkill()
+    public override void InitSkill()
     {
         // 노란 기사 패시브 골드 변경
-        Multi_GameManager.instance.BattleData.YellowKnightRewardGold = (int)Multi_Managers.Data.GetUserSKillData(SkillType.노란기사강화, 1)[0];
+        Multi_GameManager.instance.BattleData.YellowKnightRewardGold = (int)GetData()[0];
     }
 }
 
-public class ColorChange : IUserSkill
+public class ColorChange : UserSkill
 {
     // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
 
     int[] _prevUnitCounts = new int[4];
 
-    public void InitSkill()
+    public override void InitSkill()
     {
         Multi_GameManager.instance.BattleData.UnitSummonData.maxColorNumber = 6;
         Multi_UnitManager.Instance.OnUnitFlagCountChanged += UseSkill;
@@ -298,9 +302,9 @@ public class ColorChange : IUserSkill
     }
 }
 
-public class FoodHater : IUserSkill
+public class FoodHater : UserSkill
 {
-    public void InitSkill()
+    public override void InitSkill()
     {
         var battleData = Multi_GameManager.instance.BattleData;
         battleData.GetAllPriceDatas()
@@ -319,29 +323,29 @@ public class FoodHater : IUserSkill
     {
         if (food <= 0) return;
 
-        int rate = (int)Multi_Managers.Data.GetUserSKillData(SkillType.고기혐오자, 1)[0];
+        int rate = (int)GetData()[0];
         if (Multi_GameManager.instance.TryUseFood(food))
             Multi_GameManager.instance.AddGold(food * rate);
     }
 }
 
-public class SellUpgrade : IUserSkill
+public class SellUpgrade : UserSkill
 {
-    public void InitSkill()
+    public override void InitSkill()
     {
         // 유닛 판매 보상 증가 (유닛별로 증가폭 별도)
-        int[] sellData = Multi_Managers.Data.GetUserSKillData(SkillType.판매보상증가, 1).Select(x => (int)x).ToArray();
+        int[] sellData = GetData().Select(x => (int)x).ToArray();
         var sellRewardDatas = Multi_GameManager.instance.BattleData.UnitSellPriceRecord.PriceDatas;
         for (int i = 0; i < sellRewardDatas.Length; i++)
             sellRewardDatas[i].ChangePrice(sellData[i]);
     }
 }
 
-public class BossDamageUpgrade : IUserSkill
+public class BossDamageUpgrade : UserSkill
 {
-    public void InitSkill()
+    public override void InitSkill()
     {
-        float rate = Multi_Managers.Data.GetUserSKillData(SkillType.보스데미지증가, 1)[0];
+        float rate = GetData()[0];
         Multi_SpawnManagers.NormalUnit.OnSpawn += (unit) => unit.BossDamage = Mathf.RoundToInt(unit.BossDamage * rate);
     }
 }

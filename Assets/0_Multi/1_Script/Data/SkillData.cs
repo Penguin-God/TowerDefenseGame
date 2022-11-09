@@ -26,17 +26,20 @@ public struct UserSkillGoodsData
     [SerializeField] int _price;
     [SerializeField] string _skillName;
     [SerializeField] string _description;
+    [SerializeField] string _imagePath;
 
     public SkillType SkillType => _skillType;
     public int Level => _level;
+    public UserSkillMetaData MetaData => new UserSkillMetaData(_skillType, _level);
     public MoneyType MoneyType => _moneyType;
     public int Price => _price;
     public string SkillName => _skillName;
     public string Description => _description;
+    public string ImagePath => _imagePath;
 }
 
-public class UserSkillGoodsLoder : ICsvLoader<KeyValuePair<SkillType, int>, UserSkillGoodsData>
+public class UserSkillGoodsLoder : ICsvLoader<UserSkillMetaData, UserSkillGoodsData>
 {
-    public Dictionary<KeyValuePair<SkillType, int>, UserSkillGoodsData> MakeDict(string csv)
-        => CsvUtility.CsvToArray<UserSkillGoodsData>(csv).ToDictionary(x => new KeyValuePair<SkillType, int>(x.SkillType, x.Level), x => x);
+    public Dictionary<UserSkillMetaData, UserSkillGoodsData> MakeDict(string csv)
+        => CsvUtility.CsvToArray<UserSkillGoodsData>(csv).ToDictionary(x => new UserSkillMetaData(x.SkillType, x.Level), x => x);
 }

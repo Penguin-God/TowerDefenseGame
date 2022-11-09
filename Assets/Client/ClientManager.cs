@@ -71,7 +71,7 @@ public class ClientManager : MonoBehaviour
             UpdateMoney();
         }
 
-        if (Input.GetKeyDown(KeyCode.S))
+        if (Input.GetKeyDown(KeyCode.S)) // 돈복사 후 모든 스킬 구매
         {
             ClientIron += 10000;
             ClientWood += 10000;
@@ -80,9 +80,14 @@ public class ClientManager : MonoBehaviour
             UpdateMoney();
 
             foreach (SkillType type in Enum.GetValues(typeof(SkillType)))
-                new UserSkillBuyUseCase().Buy(type, 1);
+                new UserSkillBuyUseCase().Buy(new UserSkillMetaData(type, 1));
         }
         ShowCurrentHasSkill = Multi_Managers.ClientData.HasSkill;
+
+        if (Input.GetKeyDown(KeyCode.U)) // 돈복사 후 모든 스킬 구매
+        {
+            Multi_Managers.UI.ShowPopupUI<SkillEquip_UI>();
+        }
     }
 
     #region update Money
@@ -447,11 +452,42 @@ public class ClientManager : MonoBehaviour
     #endregion
 }
 
+enum SkillClass
+{
+    Core,
+    Sub,
+}
+
+public class UserSkillMetaData : IEquatable<UserSkillMetaData>
+{
+    public UserSkillMetaData(SkillType skillType, int level)
+    {
+        _skillType = skillType;
+        _level = level;
+    }
+
+    SkillType _skillType;
+    int _level;
+
+    public SkillType SkillType => _skillType;
+    public int Level => _level;
+
+    public bool Equals(UserSkillMetaData other)
+    => other.SkillType == _skillType && other.Level == _level;
+
+    public override int GetHashCode() => (SkillType, Level).GetHashCode();
+    public override bool Equals(object other) => base.Equals(other);
+
+    public static bool operator ==(UserSkillMetaData lhs, UserSkillMetaData rhs)
+        => lhs.SkillType == rhs.SkillType && lhs.Level == rhs.Level;
+    public static bool operator !=(UserSkillMetaData lhs, UserSkillMetaData rhs) => !(lhs == rhs);
+}
+
 class UserSkillBuyUseCase
 {
-    public void Buy(SkillType skill, int level)
+    public void Buy(UserSkillMetaData data)
     {
-        var goodsData = Multi_Managers.Data.GetUserSkillGoodsData(skill, level);
+        var goodsData = Multi_Managers.Data.GetUserSkillGoodsData(data);
         var money = Multi_Managers.ClientData.MoneyByType[goodsData.MoneyType];
         if (money.Amount >= goodsData.Price)
         {

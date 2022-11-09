@@ -90,6 +90,8 @@ public class Multi_UI_Manager
 
         GameObject go = Multi_Managers.Resources.Instantiate($"UI/SubItem/{name}");
         if (parent != null) go.transform.SetParent(parent);
+        go.transform.localScale = Vector3.one;
+        go.transform.localPosition = go.transform.position;
         return go.GetOrAddComponent<T>();
     }
 

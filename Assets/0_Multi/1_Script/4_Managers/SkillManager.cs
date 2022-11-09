@@ -35,6 +35,7 @@ public class SkillRepository
     public SkillRepository()
     {
         _typeBySkill.Add(SkillType.시작골드증가, new StartGold());
+        _typeBySkill.Add(SkillType.시작고기증가, new StartFood());
         _typeBySkill.Add(SkillType.최대유닛증가, new MaxUnit());
         _typeBySkill.Add(SkillType.태극스킬, new Taegeuk());
         _typeBySkill.Add(SkillType.검은유닛강화, new BlackUnitUpgrade());
@@ -64,7 +65,17 @@ public class StartGold : IUserSkill
 {
     public void InitSkill()
     {
+        int value = (int)Multi_Managers.Data.GetUserSKillData(SkillType.시작골드증가, 1)[0];
+        Multi_GameManager.instance.AddGold(value);
+    }
+}
 
+public class StartFood : IUserSkill
+{
+    public void InitSkill()
+    {
+        int value = (int)Multi_Managers.Data.GetUserSKillData(SkillType.시작고기증가, 1)[0];
+        Multi_GameManager.instance.AddFood(value);
     }
 }
 
@@ -72,7 +83,8 @@ public class MaxUnit : IUserSkill
 {
     public void InitSkill()
     {
-
+        int value = (int)Multi_Managers.Data.GetUserSKillData(SkillType.최대유닛증가, 1)[0];
+        Multi_GameManager.instance.BattleData.MaxUnit += value;
     }
 }
 
@@ -329,7 +341,8 @@ public class BossDamageUpgrade : IUserSkill
 {
     public void InitSkill()
     {
-        // 모든 유닛 보스 데미지 증가
+        float rate = Multi_Managers.Data.GetUserSKillData(SkillType.보스데미지증가, 1)[0];
+        Multi_SpawnManagers.NormalUnit.OnSpawn += (unit) => unit.BossDamage = Mathf.RoundToInt(unit.BossDamage * rate);
     }
 }
 

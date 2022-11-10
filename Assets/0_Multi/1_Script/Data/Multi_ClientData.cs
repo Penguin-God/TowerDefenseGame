@@ -38,6 +38,8 @@ public class EquipSkillManager
     SkillEquipData _mainSkillEquipData = new SkillEquipData(UserSkillClass.Main);
     SkillEquipData _subSkillEquipData = new SkillEquipData(UserSkillClass.Sub);
 
+    public SkillType[] EquipSkills => new[] { _mainSkillEquipData.SkillType, _subSkillEquipData.SkillType };
+
     public event Action<SkillEquipData> OnEquipSkillChanged = null;
     void RaiseEquipSkillChange(SkillEquipData data) => OnEquipSkillChanged?.Invoke(data);
 
@@ -91,8 +93,6 @@ public class Multi_ClientData
 
     List<UserSkill> _equipSkills = new List<UserSkill>();
     public int EquipSkillCount => _equipSkills.Count();
-    public IReadOnlyList<UserSkill> EquipSkills => _equipSkills;
-    // TODO : level 구현하기
     public void AddEquipSkill(SkillType type) => _equipSkills.Add(new UserSkillFactory().GetSkill(type, 1));
 
     EquipSkillManager _equipSkillManager = new EquipSkillManager();
@@ -125,16 +125,16 @@ public class Multi_ClientData
 public enum SkillType
 {
     None,
-    시작골드증가 = 1,
-    시작고기증가 = 2,
-    최대유닛증가 = 3,
-    태극스킬 = 4,
-    검은유닛강화 = 5,
-    노란기사강화 = 6,
-    상대색깔변경 = 7,
-    고기혐오자 = 8,
-    판매보상증가 = 9,
-    보스데미지증가 = 10,
+    시작골드증가,
+    시작고기증가,
+    최대유닛증가,
+    태극스킬,
+    검은유닛강화,
+    노란기사강화,
+    상대색깔변경,
+    고기혐오자,
+    판매보상증가,
+    보스데미지증가,
 }
 
 public enum MoneyType

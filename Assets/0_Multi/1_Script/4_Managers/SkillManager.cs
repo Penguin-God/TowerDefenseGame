@@ -66,8 +66,12 @@ public class SkillManager
 {
     public void Init()
     {
-        foreach (var skill in Multi_Managers.ClientData.EquipSkills)
-            skill.InitSkill();
+        foreach (var skillType in Multi_Managers.ClientData.EquipSkillManager.EquipSkills)
+        {
+            if (skillType == SkillType.None)
+                continue;
+            new UserSkillFactory().GetSkill(skillType, 1).InitSkill();
+        }
     }
 }
 

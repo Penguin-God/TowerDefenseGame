@@ -30,7 +30,6 @@ public class SkillEquip_UI : Multi_UI_Popup
 
         GetButton((int)Buttons.UnEquipButton).onClick.AddListener(Multi_Managers.ClientData.EquipSkillManager.AllUnEquip);
 
-        RefreshUI(); // 테스트로 일단 박음
         Multi_Managers.ClientData.EquipSkillManager.OnEquipSkillChanged -= RefreshEquipSkillFrame;
         Multi_Managers.ClientData.EquipSkillManager.OnEquipSkillChanged += RefreshEquipSkillFrame;
     }
@@ -40,8 +39,13 @@ public class SkillEquip_UI : Multi_UI_Popup
         Multi_Managers.ClientData.EquipSkillManager.OnEquipSkillChanged -= RefreshEquipSkillFrame;
     }
 
-    void RefreshUI()
+    public void RefreshUI()
     {
+        if (_initDone == false)
+        {
+            Init();
+            _initDone = true;
+        }
         RefreshHasSkillsFrame();
     }
 

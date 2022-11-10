@@ -55,7 +55,6 @@ public class ClientManager : MonoBehaviour
         UpdateHammerText(ClientHammer);
     }
 
-    [SerializeField] List<SkillType> ShowCurrentHasSkill;
     void Update() 
     {
         if (Input.GetKeyDown(KeyCode.P)) // p 누르면 데이터 삭제
@@ -82,13 +81,10 @@ public class ClientManager : MonoBehaviour
             foreach (SkillType type in Enum.GetValues(typeof(SkillType)))
                 new UserSkillBuyUseCase().Buy(new UserSkillMetaData(type, 1));
         }
-        ShowCurrentHasSkill = Multi_Managers.ClientData.HasSkill;
-
-        if (Input.GetKeyDown(KeyCode.U)) // 돈복사 후 모든 스킬 구매
-        {
-            Multi_Managers.UI.ShowPopupUI<SkillEquip_UI>();
-        }
     }
+
+    // 버튼에서 사용 중
+    public void ShowSkillEquipUI() => Multi_Managers.UI.ShowPopupUI<SkillEquip_UI>().RefreshUI();
 
     #region update Money
     public void UpdateMoney()

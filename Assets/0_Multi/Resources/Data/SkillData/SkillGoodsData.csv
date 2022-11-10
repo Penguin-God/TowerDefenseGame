@@ -1,56 +1,56 @@
-﻿_skillType,_level,_moneyType,_price,_skillName,_description,_imagePath
-태극스킬,1,Iron,10,태극,빨파조합,Sprites/Taegeuk
-태극스킬,2,Iron,,,,
-태극스킬,3,Iron,,,,
-태극스킬,4,Iron,,,,
-태극스킬,5,Iron,,,,
-,,,,,,
-검은유닛강화,1,Iron,10,검은유닛강화,검은유닛 쎄짐,Sprites/BlackUnitUpgrade
-검은유닛강화,2,Iron,,,,
-검은유닛강화,3,Iron,,,,
-검은유닛강화,4,Iron,,,,
-검은유닛강화,5,Iron,,,,
-,,,,,,
-노란기사강화,1,Iron,10,노란기사강화,노란기사 조합 골드 증가,Sprites/YellowSwordmanUpgrade
-노란기사강화,2,Iron,,,,
-노란기사강화,3,Iron,,,,
-노란기사강화,4,Iron,,,,
-노란기사강화,5,Iron,,,,
-,,,,,,
-고기혐오자,1,Iron,10,고기혐오자,"획득하는 모든 고기가 골드로 바뀝니다. 또한, 고기로 구매할 수 있는 물픔은 골드로 구매할 수 있도록 바뀝니다.",Sprites/FoodUpgrade
-고기혐오자,2,Iron,,,,
-고기혐오자,3,Iron,,,,
-고기혐오자,4,Iron,,,,
-고기혐오자,5,Iron,,,,
-,,,,,,
-판매보상증가,1,Iron,10,판매보상증가,유닛 판매 보상이 증가합니다.,Sprites/SellRewardUpgrade
-판매보상증가,2,Iron,,,,
-판매보상증가,3,Iron,,,,
-판매보상증가,4,Iron,,,,
-판매보상증가,5,Iron,,,,
-,,,,,,
-보스데미지증가,1,Iron,10,보스데미지증가,모든 유닛의 보스 공격력이 증가합니다.,Sprites/BossDamageUpgrade
-보스데미지증가,2,Iron,,,,
-보스데미지증가,3,Iron,,,,
-보스데미지증가,4,Iron,,,,
-보스데미지증가,5,Iron,,,,
-,,,,,,
-시작골드증가,1,Iron,10,시작 골드 증가,시작 골드가 증가합니다,Sprites/GoldUpgrade
-시작골드증가,2,Iron,,,,
-시작골드증가,3,Iron,,,,
-시작골드증가,4,Iron,,,,
-시작골드증가,5,Iron,,,,
-,,,,,,
-시작고기증가,1,Iron,10,시작 고기 증가,시작 고기가 증가합니다,Sprites/FoodUpgrade
-시작고기증가,2,Iron,,,,
-시작고기증가,3,Iron,,,,
-시작고기증가,4,Iron,,,,
-시작고기증가,5,Iron,,,,
-,,,,,,
-최대유닛증가,1,Iron,10,시작 최대 유닛 증가,시작 최대 유닛이 증가합니다,Sprites/MaxUnitUpgrade
-최대유닛증가,2,Iron,,,,
-최대유닛증가,3,Iron,,,,
-최대유닛증가,4,Iron,,,,
-최대유닛증가,5,Iron,,,,
-,,,,,,
-상대색깔변경,1,Iron,10,상대색깔변경,하얀 유닛을 소환할 때마다 동일한 클래스의 상대 유닛 중 하나의 색깔이 무작위로 바뀝니다.,Sprites/ChangeColor
+﻿_skillType,_level,_skillClass,_moneyType,_price,_skillName,_description,_imagePath
+태극스킬,1,Main,Iron,10,태극,빨파조합,Sprites/Taegeuk
+태극스킬,2,,Iron,,,,
+태극스킬,3,,Iron,,,,
+태극스킬,4,,Iron,,,,
+태극스킬,5,,Iron,,,,
+,,,,,,,
+검은유닛강화,1,Main,Iron,10,검은유닛강화,검은유닛 쎄짐,Sprites/BlackUnitUpgrade
+검은유닛강화,2,,Iron,,,,
+검은유닛강화,3,,Iron,,,,
+검은유닛강화,4,,Iron,,,,
+검은유닛강화,5,,Iron,,,,
+,,,,,,,
+노란기사강화,1,Main,Iron,10,노란기사강화,노란기사 조합 골드 증가,Sprites/YellowSwordmanUpgrade
+노란기사강화,2,,Iron,,,,
+노란기사강화,3,,Iron,,,,
+노란기사강화,4,,Iron,,,,
+노란기사강화,5,,Iron,,,,
+,,,,,,,
+고기혐오자,1,Sub,Iron,10,고기혐오자,"획득하는 모든 고기가 골드로 바뀝니다. 또한, 고기로 구매할 수 있는 물픔은 골드로 구매할 수 있도록 바뀝니다.",Sprites/FoodUpgrade
+고기혐오자,2,,Iron,,,,
+고기혐오자,3,,Iron,,,,
+고기혐오자,4,,Iron,,,,
+고기혐오자,5,,Iron,,,,
+,,,,,,,
+판매보상증가,1,Sub,Iron,10,판매보상증가,유닛 판매 보상이 증가합니다.,Sprites/SellRewardUpgrade
+판매보상증가,2,,Iron,,,,
+판매보상증가,3,,Iron,,,,
+판매보상증가,4,,Iron,,,,
+판매보상증가,5,,Iron,,,,
+,,,,,,,
+보스데미지증가,1,Sub,Iron,10,보스데미지증가,모든 유닛의 보스 공격력이 증가합니다.,Sprites/BossDamageUpgrade
+보스데미지증가,2,,Iron,,,,
+보스데미지증가,3,,Iron,,,,
+보스데미지증가,4,,Iron,,,,
+보스데미지증가,5,,Iron,,,,
+,,,,,,,
+시작골드증가,1,Sub,Iron,10,시작 골드 증가,시작 골드가 증가합니다,Sprites/GoldUpgrade
+시작골드증가,2,,Iron,,,,
+시작골드증가,3,,Iron,,,,
+시작골드증가,4,,Iron,,,,
+시작골드증가,5,,Iron,,,,
+,,,,,,,
+시작고기증가,1,Sub,Iron,10,시작 고기 증가,시작 고기가 증가합니다,Sprites/FoodUpgrade
+시작고기증가,2,,Iron,,,,
+시작고기증가,3,,Iron,,,,
+시작고기증가,4,,Iron,,,,
+시작고기증가,5,,Iron,,,,
+,,,,,,,
+최대유닛증가,1,Sub,Iron,10,시작 최대 유닛 증가,시작 최대 유닛이 증가합니다,Sprites/MaxUnitUpgrade
+최대유닛증가,2,,Iron,,,,
+최대유닛증가,3,,Iron,,,,
+최대유닛증가,4,,Iron,,,,
+최대유닛증가,5,,Iron,,,,
+,,,,,,,
+상대색깔변경,1,Main,Iron,10,상대색깔변경,하얀 유닛을 소환할 때마다 동일한 클래스의 상대 유닛 중 하나의 색깔이 무작위로 바뀝니다.,Sprites/ChangeColor

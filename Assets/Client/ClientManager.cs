@@ -452,9 +452,9 @@ public class ClientManager : MonoBehaviour
     #endregion
 }
 
-enum SkillClass
+public enum UserSkillClass
 {
-    Core,
+    Main,
     Sub,
 }
 
@@ -487,6 +487,8 @@ class UserSkillBuyUseCase
 {
     public void Buy(UserSkillMetaData data)
     {
+        if (data.SkillType == SkillType.None) return;
+
         var goodsData = Multi_Managers.Data.GetUserSkillGoodsData(data);
         var money = Multi_Managers.ClientData.MoneyByType[goodsData.MoneyType];
         if (money.Amount >= goodsData.Price)

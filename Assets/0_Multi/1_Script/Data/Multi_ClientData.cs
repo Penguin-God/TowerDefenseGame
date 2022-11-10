@@ -1,8 +1,70 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
+using System;
+using System.Linq;
+
+public class SkillEquipData
+{
+    public SkillEquipData(UserSkillClass skillClass) => _skillClass = skillClass;
+
+    SkillType _skillType;
+    UserSkillClass _skillClass;
+    bool _isEquip = false;
+    public event Action<SkillEquipData> OnChangedEquipSkill = null;
+
+    public SkillType SkillType => _skillType;
+    public UserSkillClass SkillClass => _skillClass;
+    public bool IsEquip => _isEquip;
+
+    public void ChangedSkill(SkillType skillType)
+    {
+        if (_isEquip == false)
+            _isEquip = true;
+        _skillType = skillType;
+        OnChangedEquipSkill?.Invoke(this);
+    }
+
+    public void UnEquipSkill()
+    {
+        ChangedSkill(SkillType.None);
+        _isEquip = false;
+    }
+}
+
+public class EquipSkillManager
+{
+    public EquipSkillManager()
+    {
+        _mainSkillEquipData.OnChangedEquipSkill += RaiseEquipSkillChange;
+        _subSkillEquipData.OnChangedEquipSkill += RaiseEquipSkillChange;
+    }
+
+    SkillEquipData _mainSkillEquipData = new SkillEquipData(UserSkillClass.Main);
+    SkillEquipData _subSkillEquipData = new SkillEquipData(UserSkillClass.Sub);
+
+    public event Action<SkillEquipData> OnEquipSkillChanged = null;
+    void RaiseEquipSkillChange(SkillEquipData data) => OnEquipSkillChanged?.Invoke(data);
+
+    public void ChangedEquipSkill(UserSkillClass skillClass, SkillType skillType)
+    {
+        switch (skillClass)
+        {
+            case UserSkillClass.Main:
+                _mainSkillEquipData.ChangedSkill(skillType);
+                break;
+            case UserSkillClass.Sub:
+                _subSkillEquipData.ChangedSkill(skillType);
+                break;
+        }
+    }
+
+    public void AllUnEquip()
+    {
+        _mainSkillEquipData.UnEquipSkill();
+        _subSkillEquipData.UnEquipSkill();
+    }
+}
 
 public class Multi_ClientData
 {
@@ -38,6 +100,9 @@ public class Multi_ClientData
     // TODO : level 구현하기
     public void AddEquipSkill(SkillType type) => _equipSkills.Add(new UserSkillFactory().GetSkill(type, 1));
 
+    EquipSkillManager _equipSkillManager = new EquipSkillManager();
+    public EquipSkillManager EquipSkillManager => _equipSkillManager;
+
     public void Init()
     {
         List<Skill> playerDatas = CsvUtility.CsvToArray<Skill>(Resources.Load<TextAsset>("Data/ClientData/SkillData").text).ToList();
@@ -64,6 +129,7 @@ public class Multi_ClientData
 
 public enum SkillType
 {
+    None,
     시작골드증가 = 1,
     시작고기증가 = 2,
     최대유닛증가 = 3,

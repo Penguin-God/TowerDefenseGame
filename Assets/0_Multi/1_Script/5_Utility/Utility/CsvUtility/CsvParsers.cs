@@ -204,7 +204,7 @@ namespace ParserCore
             }
             catch
             {
-                Debug.LogError($"CsvUtility Message : The requested value {value} was not found within {_type} enum.");
+                result = 0;
             }
             return result;
         }

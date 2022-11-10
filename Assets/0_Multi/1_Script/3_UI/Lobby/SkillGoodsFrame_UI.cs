@@ -20,16 +20,18 @@ public class SkillGoodsFrame_UI : Multi_UI_Base
         Skill_Image,
     }
 
-    protected void _Init()
+    protected override void Init()
     {
         Bind<Text>(typeof(Texts));
         Bind<Button>(typeof(Buttons));
         Bind<Image>(typeof(Images));
+        _initDone = true;
     }
 
     public void SetInfo(UserSkillMetaData data)
     {
-        _Init();
+        if (_initDone == false)
+            Init();
         RefreshUI(Multi_Managers.Data.GetUserSkillGoodsData(data));
     }
 
@@ -38,7 +40,7 @@ public class SkillGoodsFrame_UI : Multi_UI_Base
         GetText((int)Texts.NameText).text = data.SkillName;
 
         GetButton((int)Buttons.EquipButton).onClick.RemoveAllListeners();
-        GetButton((int)Buttons.EquipButton).onClick.AddListener(() => new UserSkillBuyUseCase().Buy(data.MetaData));
+        GetButton((int)Buttons.EquipButton).onClick.AddListener(() => Multi_Managers.ClientData.EquipSkillManager.ChangedEquipSkill(data.SkillClass, data.SkillType));
 
         GetImage((int)Images.Skill_Image).sprite = Multi_Managers.Resources.Load<Sprite>(data.ImagePath);
     }

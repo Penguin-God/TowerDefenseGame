@@ -10,11 +10,14 @@ public abstract class Multi_UI_Base : MonoBehaviour
 {
     protected Dictionary<Type, Object[]> _objectsByType = new Dictionary<Type, Object[]>();
 
+    protected bool _initDone = false;
     protected virtual void Init() { }
 
     void Start()
     {
+        if (_initDone) return;
         Init();
+        _initDone = true;
     }
 
     protected void Bind<T>(Type type) where T : Object

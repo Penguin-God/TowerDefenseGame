@@ -22,6 +22,7 @@ public struct UserSkillGoodsData
 {
     [SerializeField] SkillType _skillType;
     [SerializeField] int _level;
+    [SerializeField] UserSkillClass _skillClass;
     [SerializeField] MoneyType _moneyType;
     [SerializeField] int _price;
     [SerializeField] string _skillName;
@@ -30,6 +31,7 @@ public struct UserSkillGoodsData
 
     public SkillType SkillType => _skillType;
     public int Level => _level;
+    public UserSkillClass SkillClass => _skillClass;
     public UserSkillMetaData MetaData => new UserSkillMetaData(_skillType, _level);
     public MoneyType MoneyType => _moneyType;
     public int Price => _price;

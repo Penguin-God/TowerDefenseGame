@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Linq;
 
 public class Status_UI : Multi_UI_Scene
 {
@@ -61,11 +62,16 @@ public class Status_UI : Multi_UI_Scene
 
         void BindFoodBarEvent()
         {
-            Multi_GameManager.instance.OnFoodChanged -= (food) => GetText((int)Texts.FoodText).text = food.ToString();
             Multi_Managers.Camera.OnIsLookMyWolrd -= (lookMy) => GetObject((int)GameObjects.FoodBar).SetActive(lookMy);
-
-            Multi_GameManager.instance.OnFoodChanged += (food) => GetText((int)Texts.FoodText).text = food.ToString();
             Multi_Managers.Camera.OnIsLookMyWolrd += (lookMy) => GetObject((int)GameObjects.FoodBar).SetActive(lookMy);
+
+            if (Multi_Managers.ClientData.EquipSkillManager.EquipSkills.Contains(SkillType.고기혐오자))
+            {
+                return;
+            }
+
+            Multi_GameManager.instance.OnFoodChanged -= (food) => GetText((int)Texts.FoodText).text = food.ToString();
+            Multi_GameManager.instance.OnFoodChanged += (food) => GetText((int)Texts.FoodText).text = food.ToString();
         }
 
         void BindUnitPanelEvent()

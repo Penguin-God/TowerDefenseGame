@@ -10,6 +10,11 @@ public class SkillEquip_UI : Multi_UI_Popup
         HasSkillFramesParent,
     }
 
+    enum Buttons
+    {
+        UnEquipButton,
+    }
+
     enum Images
     {
         EquipSkill1_Image,
@@ -21,6 +26,10 @@ public class SkillEquip_UI : Multi_UI_Popup
         base.Init();
         Bind<GameObject>(typeof(GameObjects));
         Bind<Image>(typeof(Images));
+        Bind<Button>(typeof(Buttons));
+
+        GetButton((int)Buttons.UnEquipButton).onClick.AddListener(Multi_Managers.ClientData.EquipSkillManager.AllUnEquip);
+
         RefreshUI(); // 테스트로 일단 박음
         Multi_Managers.ClientData.EquipSkillManager.OnEquipSkillChanged -= RefreshEquipSkillFrame;
         Multi_Managers.ClientData.EquipSkillManager.OnEquipSkillChanged += RefreshEquipSkillFrame;
@@ -47,16 +56,29 @@ public class SkillEquip_UI : Multi_UI_Popup
 
     void RefreshEquipSkillFrame(SkillEquipData equipData)
     {
-        if (equipData.IsEquip == false) return;
-
         switch (equipData.SkillClass)
         {
             case UserSkillClass.Main:
-                GetImage((int)Images.EquipSkill1_Image).sprite = Multi_Managers.Resources.Load<Sprite>(Multi_Managers.Data.GetUserSkillGoodsData(new UserSkillMetaData(equipData.SkillType, 1)).ImagePath);
+                SetEquipImage(equipData, GetImage((int)Images.EquipSkill1_Image));
                 break;
             case UserSkillClass.Sub:
-                GetImage((int)Images.EquipSkill2_Image).sprite = Multi_Managers.Resources.Load<Sprite>(Multi_Managers.Data.GetUserSkillGoodsData(new UserSkillMetaData(equipData.SkillType, 1)).ImagePath);
+                SetEquipImage(equipData, GetImage((int)Images.EquipSkill2_Image));
                 break;
         }
     }
+
+    void SetEquipImage(SkillEquipData equipData, Image image)
+    {
+        if(equipData.IsEquip == false)
+        {
+            image.color = new Color(1, 1, 1, 0);
+            return;
+        }
+
+        image.color = new Color(1, 1, 1, 1);
+        image.sprite = GetSkillImage(equipData.SkillType);
+    }
+
+    Sprite GetSkillImage(SkillType skillType)
+        => Multi_Managers.Resources.Load<Sprite>(Multi_Managers.Data.GetUserSkillGoodsData(new UserSkillMetaData(skillType, 1)).ImagePath);
 }

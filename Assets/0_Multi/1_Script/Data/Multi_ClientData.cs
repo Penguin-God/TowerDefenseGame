@@ -19,17 +19,12 @@ public class SkillEquipData
 
     public void ChangedSkill(SkillType skillType)
     {
-        if (_isEquip == false)
-            _isEquip = true;
+        _isEquip = (skillType != SkillType.None);
         _skillType = skillType;
         OnChangedEquipSkill?.Invoke(this);
     }
 
-    public void UnEquipSkill()
-    {
-        ChangedSkill(SkillType.None);
-        _isEquip = false;
-    }
+    public void UnEquipSkill() => ChangedSkill(SkillType.None);
 }
 
 public class EquipSkillManager

@@ -26884,10 +26884,8 @@ MonoBehaviour:
     _maxEnemyCount: 0
     _stageUpGold: 0
     _yellowKnightRewardGold: 0
-    _swrodmanSellGold: 0
-    _archerSellGold: 0
-    _spearmanSellGold: 0
-    _mageSellGold: 0
+    _unitSellPriceRecord:
+      _priceDatas: []
     _whiteUnitPriceRecord:
       _priceDatas: []
     _maxUnitIncreaseRecord:

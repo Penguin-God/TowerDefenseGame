@@ -28,7 +28,7 @@ public class Multi_DataManager
         return datas;
     }
 
-    Dictionary<UserSkillMetaData, UserSkillGoodsData> _metaDataByGoodsData;
+    public Dictionary<UserSkillMetaData, UserSkillGoodsData> _metaDataByGoodsData;
     public UserSkillGoodsData GetUserSkillGoodsData(UserSkillMetaData data)
     {
         {

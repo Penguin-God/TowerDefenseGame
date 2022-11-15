@@ -54,7 +54,7 @@ public class SkillEquip_UI : Multi_UI_Popup
         var frameParent = GetObject((int)GameObjects.HasSkillFramesParent).transform;
         foreach (Transform item in frameParent)
             Destroy(item.gameObject);
-        foreach (SkillType skillType in Multi_Managers.ClientData.HasSkill)
+        foreach (SkillType skillType in Multi_Managers.ClientData.HasSkills)
             Multi_Managers.UI.MakeSubItem<SkillGoodsFrame_UI>(frameParent).SetInfo(new UserSkillMetaData(skillType, 1));
     }
 
@@ -83,6 +83,5 @@ public class SkillEquip_UI : Multi_UI_Popup
         image.sprite = GetSkillImage(equipData.SkillType);
     }
 
-    Sprite GetSkillImage(SkillType skillType)
-        => Multi_Managers.Resources.Load<Sprite>(Multi_Managers.Data.GetUserSkillGoodsData(new UserSkillMetaData(skillType, 1)).ImagePath);
+    Sprite GetSkillImage(SkillType skillType) => Multi_Managers.Resources.Load<Sprite>(Multi_Managers.Data.UserSkill.GetSkillGoodsData(skillType).ImagePath);
 }

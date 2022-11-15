@@ -29,7 +29,7 @@ public abstract class UserSkill
     SkillType _skillType;
 
     public abstract void InitSkill();
-    protected float[] GetData() => Multi_Managers.ClientData.GetUserSkillBattleDatas(_skillType);
+    protected float[] GetData() => Multi_Managers.ClientData.GetSkillLevelData(_skillType).BattleDatas;
 }
 
 public class UserSkillFactory

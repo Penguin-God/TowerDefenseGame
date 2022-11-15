@@ -209,26 +209,26 @@ public class Multi_DataManager
         public void Init(Multi_DataManager manager)
         {
             _skillLevelPairByDatas = manager.MakeCsvDict<UserSkillLoder, KeyValuePair<SkillType, int>, float[]>("SkillData/SkillData");
-            _metaDataByGoodsData = manager.MakeCsvDict<UserSkillGoodsLoder, UserSkillMetaData, UserSkillGoodsData>("SkillData/SkillGoodsData");
+            _metaDataByGoodsData = manager.MakeCsvDict<UserSkillGoodsLoder, UserSkillMetaData, UserSkillGoodsData>("SkillData/SkillGoodsData")
+                .Where(x => x.Key.Level == 1)
+                .ToDictionary(x => x.Value.SkillType, x => x.Value);
         }
 
         Dictionary<KeyValuePair<SkillType, int>, float[]> _skillLevelPairByDatas;
-        public float[] GetBattleDatas(SkillType type, int level)
+        public UserSkillLevelData GetSkillLevelData(SkillType type, int level)
         {
-            if (_metaDataByGoodsData.TryGetValue(new UserSkillMetaData(type, level), out UserSkillGoodsData data) == false)
-                Debug.LogError($"유저 스킬 데이터 {type} : {level} 로드 실패");
-            return data.LevelDatas[level - 1].BattleDatas;
+            if (_metaDataByGoodsData.TryGetValue(type, out UserSkillGoodsData data) == false)
+                Debug.LogError($"유저 스킬 배틀 데이터 {type} : {level} 로드 실패");
+            return data.LevelDatas[level - 1];
         }
 
-        public Dictionary<UserSkillMetaData, UserSkillGoodsData> _metaDataByGoodsData;
+        public Dictionary<SkillType, UserSkillGoodsData> _metaDataByGoodsData;
 
-        public UserSkillGoodsData GetSkillGoodsData(UserSkillMetaData data)
+        public UserSkillGoodsData GetSkillGoodsData(SkillType skillType)
         {
-            {
-                if (_metaDataByGoodsData.TryGetValue(new UserSkillMetaData(data.SkillType, data.Level), out UserSkillGoodsData result) == false)
-                    Debug.LogError($"유저 스킬 데이터 {data.SkillType} : {data.Level} 로드 실패");
-                return result;
-            }
+            if (_metaDataByGoodsData.TryGetValue(skillType, out UserSkillGoodsData result) == false)
+                Debug.LogError($"유저 스킬 데이터 {skillType} : 로드 실패");
+            return result;
         }
     }
 }

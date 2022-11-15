@@ -79,7 +79,7 @@ public class ClientManager : MonoBehaviour
             UpdateMoney();
 
             foreach (SkillType type in Enum.GetValues(typeof(SkillType)))
-                new UserSkillBuyUseCase().Buy(new UserSkillMetaData(type, 1));
+                new UserSkillShopUseCase().GetSkillExp(type, 1);
         }
     }
 
@@ -479,19 +479,12 @@ public class UserSkillMetaData : IEquatable<UserSkillMetaData>
     public static bool operator !=(UserSkillMetaData lhs, UserSkillMetaData rhs) => !(lhs == rhs);
 }
 
-class UserSkillBuyUseCase
+class UserSkillShopUseCase
 {
-    public void Buy(UserSkillMetaData data)
+    public void GetSkillExp(SkillType skillType, int getQuantity)
     {
-        if (data.SkillType == SkillType.None) return;
-
-        var goodsData = Multi_Managers.Data.GetUserSkillGoodsData(data);
-        var money = Multi_Managers.ClientData.MoneyByType[goodsData.MoneyType];
-        if (money.Amount >= goodsData.Price)
-        {
-            money.SetAmount(money.Amount - goodsData.Price);
-            Multi_Managers.ClientData.HasSkill.Add(goodsData.SkillType);
-        }
+        if (skillType == SkillType.None) return;
+        Multi_Managers.ClientData.GetExp(skillType, getQuantity);
     }
 }
 

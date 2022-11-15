@@ -96,13 +96,34 @@ public class Multi_ClientData
     public void AddEquipSkill(SkillType type) => _equipSkills.Add(new UserSkillFactory().GetSkill(type, 1));
 
     Dictionary<SkillType, int> _skillByLevel = new Dictionary<SkillType, int>();
-    public float[] GetUserSkillBattleDatas(SkillType skillType) => Multi_Managers.Data.UserSkill.GetBattleDatas(skillType, 1);
+    public UserSkillLevelData GetSkillLevelData(SkillType skillType) => Multi_Managers.Data.UserSkill.GetSkillLevelData(skillType, 1);
+
+    Dictionary<SkillType, int> _skillByExp = new Dictionary<SkillType, int>();
+    public Dictionary<SkillType, int> SkillByExp => _skillByExp;
+    public void GetExp(SkillType skill, int getQuantity)
+    {
+        _skillByExp[skill] += getQuantity;
+        while(_skillByExp[skill] < GetSkillLevelData(skill).Exp)
+        {
+            _skillByExp[skill] -= GetSkillLevelData(skill).Exp;
+            _skillByLevel[skill]++;
+        }
+        Debug.Log($"와{skill} 렙업 축하");
+    }
+    public IEnumerable<SkillType> HasSkills => _skillByLevel.Where(x => x.Key > 0).Select(x => x.Key);
 
     EquipSkillManager _equipSkillManager = new EquipSkillManager();
     public EquipSkillManager EquipSkillManager => _equipSkillManager;
 
     public void Init()
     {
+        foreach (SkillType type in Enum.GetValues(typeof(SkillType)))
+        {
+            if (type == SkillType.None) continue;
+            _skillByLevel.Add(type, 0);
+            _skillByExp.Add(type, 0);
+        }
+
         List<Skill> playerDatas = CsvUtility.CsvToArray<Skill>(Resources.Load<TextAsset>("Data/ClientData/SkillData").text).ToList();
         skillByType = playerDatas.ToDictionary(x => (SkillType)Enum.ToObject(typeof(SkillType), x.Id), x => x);
 

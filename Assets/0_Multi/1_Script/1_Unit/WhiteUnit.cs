@@ -6,7 +6,7 @@ using Photon.Pun;
 public class WhiteUnit : MonoBehaviour
 {
     [SerializeField] int classNumber;
-    [SerializeField] int maxColor = 0;
+    [SerializeField] int maxColor = 5;
     [SerializeField] float aliveTime;
     Multi_WhiteUnitTimer timer = null;
 
@@ -24,7 +24,8 @@ public class WhiteUnit : MonoBehaviour
         if(value <= 0)
         {
             var unit = GetComponent<Multi_TeamSoldier>();
-            Multi_UnitManager.Instance.UnitColorChanged_RPC(unit.UsingID, unit.UnitFlags, Random.Range(0, maxColor));
+            Multi_SpawnManagers.NormalUnit.Spawn(Random.Range(0, maxColor), (int)unit.unitClass, unit.transform.position, unit.transform.rotation, unit.UsingID);
+            unit.Dead();
             timer.Off();
             timer = null;
         }

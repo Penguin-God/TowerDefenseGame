@@ -71,9 +71,13 @@ public class PrefabSpawnButton : Editor
         }
     }
 
+    int colorNum;
+    int classNum;
     void DrawClineWorldSpawn(PrefabSpawner _spawner)
     {
         EditorGUILayout.Space(20);
-        if (GUILayout.Button("상대 진영에 검마 소환")) _spawner.SpawnUnit_ByClientWolrd();
+        colorNum = EditorGUILayout.IntField(colorNum);
+        classNum = EditorGUILayout.IntField(classNum);
+        if (GUILayout.Button("상대 진영에 유닛 소환")) _spawner.SpawnUnit_ByClientWolrd(colorNum, classNum);
     }
 }

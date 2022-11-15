@@ -29,10 +29,8 @@ public class PrefabSpawner : MonoBehaviourPun
         Multi_SpawnManagers.NormalEnemy.Spawn(_enemyNum, 0);
     }
 
-    public void SpawnUnit_ByClientWolrd()
-    {
-        Multi_SpawnManagers.NormalUnit.Spawn(7, 3, new Vector3(0,0,500), Quaternion.identity, 1);
-    }
+    public void SpawnUnit_ByClientWolrd(int unitColorNumber, int unitClassNumber)
+        => Multi_SpawnManagers.NormalUnit.Spawn(unitColorNumber, unitClassNumber, new Vector3(0, 0, 500), Quaternion.identity, 1);
 
     public void AllUnitSpawn_ByEditor()
     {

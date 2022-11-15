@@ -104,10 +104,10 @@ public class Multi_UnitManager : MonoBehaviourPun
     [PunRPC] void UnitDead(int id, UnitFlags unitFlag, int count) => _controller.UnitDead(id, unitFlag, count);
     
     public void UnitColorChanged_RPC(int id, UnitFlags flag, int changeTargetColor) => photonView.RPC(nameof(UnitColorChanged), RpcTarget.MasterClient, id, flag, changeTargetColor);
-    [PunRPC] void UnitColorChanged(int id, UnitFlags flag, int changeTargetColor) => _controller.UnitColorChanged(id, flag, changeTargetColor);
+    [PunRPC] void UnitColorChanged(int id, UnitFlags flag, int changeTargetColor) => _controller.UnitColorChange(id, flag, changeTargetColor);
 
     public void UnitWorldChanged_RPC(int id, UnitFlags flag) => Instance.photonView.RPC(nameof(UnitWorldChanged), RpcTarget.MasterClient, id, flag, Multi_Managers.Camera.IsLookEnemyTower);
-    [PunRPC] void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode) => _controller.UnitWorldChanged(id, flag, enterStroyMode);
+    [PunRPC] void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode) => _controller.UnitWorldChange(id, flag, enterStroyMode);
 
 
     public void UnitStatChange_RPC(UnitStatType type, UnitFlags flag, int value) => photonView.RPC(nameof(UnitStatChange), RpcTarget.MasterClient, (int)type, flag, value, Multi_Data.instance.Id);
@@ -128,11 +128,8 @@ public class Multi_UnitManager : MonoBehaviourPun
         public Multi_TeamSoldier GetRandomUnit(int id, Func<Multi_TeamSoldier, bool> condition = null)
         {
             if (condition == null) return _currentAllUnitsById.Get(id).GetRandom();
-            return _currentAllUnitsById
-                .Get(id)
-                .Where(x => condition(x))
-                .ToList()
-                .GetRandom();
+            var list = _currentAllUnitsById.Get(id).Where(x => condition(x)).ToList();
+            return list.Count == 0 ? null : list.GetRandom();
         }
 
         public void Init()
@@ -247,16 +244,16 @@ public class Multi_UnitManager : MonoBehaviourPun
             _masterData.UpdateUnitCount(units[0]);
         }
 
-        public void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode)
+        public void UnitWorldChange(int id, UnitFlags flag, bool enterStroyMode)
         {
             if (_masterData.TryGetUnit_If(id, flag, out Multi_TeamSoldier unit, (_unit) => _unit.EnterStroyWorld == enterStroyMode))
                 unit.ChagneWorld();
         }
 
-        public void UnitColorChanged(int id, UnitFlags dieUnitFlag, int changeTargetColor)
+        public void UnitColorChange(int id, UnitFlags dieUnitFlag, int changeTargetColor)
         {
             var unit = _masterData.GetRandomUnit(id,
-                    (_unit) => _unit.unitClass == dieUnitFlag.UnitClass && (_unit.unitColor != UnitColor.black || _unit.unitColor != UnitColor.white));
+                    (_unit) => _unit.unitClass == dieUnitFlag.UnitClass && _unit.unitColor != UnitColor.black && _unit.unitColor != UnitColor.white);
             if (unit == null) return;
 
             Multi_SpawnManagers.NormalUnit.Spawn(changeTargetColor, (int)unit.unitClass, unit.transform.position, unit.transform.rotation, id);

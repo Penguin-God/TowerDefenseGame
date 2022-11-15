@@ -95,6 +95,9 @@ public class Multi_ClientData
     public int EquipSkillCount => _equipSkills.Count();
     public void AddEquipSkill(SkillType type) => _equipSkills.Add(new UserSkillFactory().GetSkill(type, 1));
 
+    Dictionary<SkillType, int> _skillByLevel = new Dictionary<SkillType, int>();
+    public float[] GetUserSkillBattleDatas(SkillType skillType) => Multi_Managers.Data.UserSkill.GetBattleDatas(skillType, 1);
+
     EquipSkillManager _equipSkillManager = new EquipSkillManager();
     public EquipSkillManager EquipSkillManager => _equipSkillManager;
 

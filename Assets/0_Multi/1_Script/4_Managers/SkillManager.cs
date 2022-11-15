@@ -25,16 +25,11 @@ public class Skill
 
 public abstract class UserSkill
 {
-    public void SetInfo(SkillType skillType, int level)
-    {
-        _skillType = skillType;
-        _level = level;
-    }
+    public void SetInfo(SkillType skillType) => _skillType = skillType;
     SkillType _skillType;
-    int _level;
 
     public abstract void InitSkill();
-    protected float[] GetData() => Multi_Managers.Data.GetUserSKillData(_skillType, _level);
+    protected float[] GetData() => Multi_Managers.ClientData.GetUserSkillBattleDatas(_skillType);
 }
 
 public class UserSkillFactory
@@ -57,7 +52,7 @@ public class UserSkillFactory
 
     public UserSkill GetSkill(SkillType type, int level)
     {
-        _typeBySkill[type].SetInfo(type, level);
+        _typeBySkill[type].SetInfo(type);
         return _typeBySkill[type];
     }
 }

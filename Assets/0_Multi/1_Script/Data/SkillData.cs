@@ -18,6 +18,7 @@ public class UserSkillLoder : ICsvLoader<KeyValuePair<SkillType, int>, float[]>
         => CsvUtility.CsvToArray<UserSKillData>(csv).ToDictionary(x => x.SkillLevelPair, x => x.Datas);
 }
 
+
 [System.Serializable]
 public class UserSkillGoodsData
 {

@@ -19,7 +19,10 @@ public class Multi_DataManager
     UnitData _unit = new UnitData();
     UI_Data _ui = new UI_Data();
     EnemyData _enemy = new EnemyData();
-    
+    UserSkillData _userSkill = new UserSkillData();
+
+    public UserSkillData UserSkill => _userSkill;
+
     Dictionary<KeyValuePair<SkillType, int>, float[]> _skillLevelPairByDatas;
     public float[] GetUserSKillData(SkillType type, int level)
     {
@@ -75,6 +78,7 @@ public class Multi_DataManager
         _unit.Init(this); // 무조건 유닛 먼저
         _ui.Init(this);
         _enemy.Init(this);
+        _userSkill.Init(this);
 
         // Sound 
         EffectBySound = MakeCsvDict<EffectSoundLoder, EffectSoundType, EffectSound>("SoundData/EffectSoundData");
@@ -197,6 +201,34 @@ public class Multi_DataManager
         {
             _bossDataByLevel.Clear();
             _towerDataByLevel.Clear();
+        }
+    }
+
+    public class UserSkillData
+    {
+        public void Init(Multi_DataManager manager)
+        {
+            _skillLevelPairByDatas = manager.MakeCsvDict<UserSkillLoder, KeyValuePair<SkillType, int>, float[]>("SkillData/SkillData");
+            _metaDataByGoodsData = manager.MakeCsvDict<UserSkillGoodsLoder, UserSkillMetaData, UserSkillGoodsData>("SkillData/SkillGoodsData");
+        }
+
+        Dictionary<KeyValuePair<SkillType, int>, float[]> _skillLevelPairByDatas;
+        public float[] GetBattleDatas(SkillType type, int level)
+        {
+            if (_metaDataByGoodsData.TryGetValue(new UserSkillMetaData(type, level), out UserSkillGoodsData data) == false)
+                Debug.LogError($"유저 스킬 데이터 {type} : {level} 로드 실패");
+            return data.LevelDatas[level - 1].BattleDatas;
+        }
+
+        public Dictionary<UserSkillMetaData, UserSkillGoodsData> _metaDataByGoodsData;
+
+        public UserSkillGoodsData GetSkillGoodsData(UserSkillMetaData data)
+        {
+            {
+                if (_metaDataByGoodsData.TryGetValue(new UserSkillMetaData(data.SkillType, data.Level), out UserSkillGoodsData result) == false)
+                    Debug.LogError($"유저 스킬 데이터 {data.SkillType} : {data.Level} 로드 실패");
+                return result;
+            }
         }
     }
 }

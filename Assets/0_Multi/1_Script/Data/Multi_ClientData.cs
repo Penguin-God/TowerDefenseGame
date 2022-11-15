@@ -86,8 +86,6 @@ public class Multi_ClientData
     Dictionary<SkillType, Skill> skillByType = new Dictionary<SkillType, Skill>();
     public IReadOnlyDictionary<SkillType, Skill> SkillByType => skillByType;
 
-    public List<SkillType> HasSkill = new List<SkillType>();
-
     Dictionary<MoneyType, Money> moneyByType = new Dictionary<MoneyType, Money>();
     public IReadOnlyDictionary<MoneyType, Money> MoneyByType => moneyByType;
 
@@ -96,21 +94,23 @@ public class Multi_ClientData
     public void AddEquipSkill(SkillType type) => _equipSkills.Add(new UserSkillFactory().GetSkill(type, 1));
 
     Dictionary<SkillType, int> _skillByLevel = new Dictionary<SkillType, int>();
-    public UserSkillLevelData GetSkillLevelData(SkillType skillType) => Multi_Managers.Data.UserSkill.GetSkillLevelData(skillType, 1);
+    public UserSkillLevelData GetSkillLevelData(SkillType skillType) => Multi_Managers.Data.UserSkill.GetSkillLevelData(skillType, _skillByLevel[skillType]);
 
     Dictionary<SkillType, int> _skillByExp = new Dictionary<SkillType, int>();
     public Dictionary<SkillType, int> SkillByExp => _skillByExp;
     public void GetExp(SkillType skill, int getQuantity)
     {
+        if (_skillByLevel[skill] == 0)
+            _skillByLevel[skill]++;
+
         _skillByExp[skill] += getQuantity;
-        while(_skillByExp[skill] < GetSkillLevelData(skill).Exp)
+        while (_skillByExp[skill] >= GetSkillLevelData(skill).Exp)
         {
             _skillByExp[skill] -= GetSkillLevelData(skill).Exp;
             _skillByLevel[skill]++;
         }
-        Debug.Log($"와{skill} 렙업 축하");
     }
-    public IEnumerable<SkillType> HasSkills => _skillByLevel.Where(x => x.Key > 0).Select(x => x.Key);
+    public IEnumerable<SkillType> HasSkills => _skillByLevel.Where(x => x.Value > 0).Select(x => x.Key);
 
     EquipSkillManager _equipSkillManager = new EquipSkillManager();
     public EquipSkillManager EquipSkillManager => _equipSkillManager;

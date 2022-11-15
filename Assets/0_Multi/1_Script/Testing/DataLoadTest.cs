@@ -8,6 +8,6 @@ public class DataLoadTest : MonoBehaviour
     [SerializeField] List<UserSkillGoodsData> asd;
     void Start()
     {
-        asd = Multi_Managers.Data._metaDataByGoodsData.Values.ToList();
+        //asd = Multi_Managers.Data._metaDataByGoodsData.Values.ToList();
     }
 }

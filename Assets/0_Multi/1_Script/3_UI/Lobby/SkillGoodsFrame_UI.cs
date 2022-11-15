@@ -28,11 +28,11 @@ public class SkillGoodsFrame_UI : Multi_UI_Base
         _initDone = true;
     }
 
-    public void SetInfo(UserSkillMetaData data)
+    public void SetInfo(SkillType skill)
     {
         if (_initDone == false)
             Init();
-        RefreshUI(Multi_Managers.Data.GetUserSkillGoodsData(data));
+        RefreshUI(Multi_Managers.Data.UserSkill.GetSkillGoodsData(skill));
     }
 
     void RefreshUI(UserSkillGoodsData data)

@@ -19,27 +19,9 @@ public class Multi_DataManager
     UnitData _unit = new UnitData();
     UI_Data _ui = new UI_Data();
     EnemyData _enemy = new EnemyData();
+
     UserSkillData _userSkill = new UserSkillData();
-
     public UserSkillData UserSkill => _userSkill;
-
-    Dictionary<KeyValuePair<SkillType, int>, float[]> _skillLevelPairByDatas;
-    public float[] GetUserSKillData(SkillType type, int level)
-    {
-        if (_skillLevelPairByDatas.TryGetValue(new KeyValuePair<SkillType, int>(type, level), out float[] datas) == false)
-            Debug.LogError($"유저 스킬 데이터 {type} : {level} 로드 실패");
-        return datas;
-    }
-
-    public Dictionary<UserSkillMetaData, UserSkillGoodsData> _metaDataByGoodsData;
-    public UserSkillGoodsData GetUserSkillGoodsData(UserSkillMetaData data)
-    {
-        {
-            if (_metaDataByGoodsData.TryGetValue(new UserSkillMetaData(data.SkillType, data.Level), out UserSkillGoodsData result) == false)
-                Debug.LogError($"유저 스킬 데이터 {data.SkillType} : {data.Level} 로드 실패");
-            return result;
-        }
-    }
 
     #region UI Data
     // 조합 조건
@@ -83,10 +65,6 @@ public class Multi_DataManager
         // Sound 
         EffectBySound = MakeCsvDict<EffectSoundLoder, EffectSoundType, EffectSound>("SoundData/EffectSoundData");
         BgmBySound = MakeCsvDict<BgmSoundLoder, BgmType, BgmSound>("SoundData/BgmSoundData");
-
-        // Skill
-        _skillLevelPairByDatas = MakeCsvDict<UserSkillLoder, KeyValuePair<SkillType, int>, float[]>("SkillData/SkillData");
-        _metaDataByGoodsData = MakeCsvDict<UserSkillGoodsLoder, UserSkillMetaData, UserSkillGoodsData>("SkillData/SkillGoodsData");
     }
 
 
@@ -206,23 +184,18 @@ public class Multi_DataManager
 
     public class UserSkillData
     {
+        public Dictionary<SkillType, UserSkillGoodsData> _metaDataByGoodsData;
         public void Init(Multi_DataManager manager)
         {
-            _skillLevelPairByDatas = manager.MakeCsvDict<UserSkillLoder, KeyValuePair<SkillType, int>, float[]>("SkillData/SkillData");
-            _metaDataByGoodsData = manager.MakeCsvDict<UserSkillGoodsLoder, UserSkillMetaData, UserSkillGoodsData>("SkillData/SkillGoodsData")
-                .Where(x => x.Key.Level == 1)
-                .ToDictionary(x => x.Value.SkillType, x => x.Value);
+            _metaDataByGoodsData = manager.MakeCsvDict<UserSkillGoodsLoder, SkillType, UserSkillGoodsData>("SkillData/SkillGoodsData");
         }
 
-        Dictionary<KeyValuePair<SkillType, int>, float[]> _skillLevelPairByDatas;
         public UserSkillLevelData GetSkillLevelData(SkillType type, int level)
         {
             if (_metaDataByGoodsData.TryGetValue(type, out UserSkillGoodsData data) == false)
                 Debug.LogError($"유저 스킬 배틀 데이터 {type} : {level} 로드 실패");
             return data.LevelDatas[level - 1];
         }
-
-        public Dictionary<SkillType, UserSkillGoodsData> _metaDataByGoodsData;
 
         public UserSkillGoodsData GetSkillGoodsData(SkillType skillType)
         {

@@ -320,7 +320,7 @@ public class ClientManager : MonoBehaviour
             return false;
         }
         
-        Multi_Managers.ClientData.SkillByType[skillType].SetEquipSkill(true);
+        //Multi_Managers.ClientData.SkillByType[skillType].SetEquipSkill(true);
         Multi_Managers.ClientData.AddEquipSkill(skillType);
 
         InitEquips();
@@ -454,31 +454,6 @@ public enum UserSkillClass
     Sub,
 }
 
-public class UserSkillMetaData : IEquatable<UserSkillMetaData>
-{
-    public UserSkillMetaData(SkillType skillType, int level)
-    {
-        _skillType = skillType;
-        _level = level;
-    }
-
-    SkillType _skillType;
-    int _level;
-
-    public SkillType SkillType => _skillType;
-    public int Level => _level;
-
-    public bool Equals(UserSkillMetaData other)
-    => other.SkillType == _skillType && other.Level == _level;
-
-    public override int GetHashCode() => (SkillType, Level).GetHashCode();
-    public override bool Equals(object other) => base.Equals(other);
-
-    public static bool operator ==(UserSkillMetaData lhs, UserSkillMetaData rhs)
-        => lhs.SkillType == rhs.SkillType && lhs.Level == rhs.Level;
-    public static bool operator !=(UserSkillMetaData lhs, UserSkillMetaData rhs) => !(lhs == rhs);
-}
-
 class UserSkillShopUseCase
 {
     public void GetSkillExp(SkillType skillType, int getQuantity)
@@ -486,10 +461,4 @@ class UserSkillShopUseCase
         if (skillType == SkillType.None) return;
         Multi_Managers.ClientData.GetExp(skillType, getQuantity);
     }
-}
-
-class UserSkillStore
-{
-    Dictionary<SkillType, UserSkillGoodsData> _typeByGoods;
-    public UserSkillGoodsData GetGoods(SkillType type) => _typeByGoods[type];
 }

@@ -53,5 +53,16 @@ public class Skill_Info_UI : Multi_UI_Popup
         var levelData = Multi_Managers.ClientData.GetSkillLevelData(_skillData.SkillType);
         GetText((int)Texts.Exp_Text).text = $"{Multi_Managers.ClientData.SkillByExp[_skillData.SkillType]} / {levelData.Exp}";
         GetImage((int)Images.FillMask).fillAmount = (float)Multi_Managers.ClientData.SkillByExp[_skillData.SkillType] / levelData.Exp;
+
+        GetButton((int)Buttons.UpgradeButton).onClick.RemoveAllListeners();
+        GetButton((int)Buttons.UpgradeButton).onClick.AddListener(UpgradeSkill);
+    }
+
+    void UpgradeSkill()
+    {
+        if (_skillData == null) return;
+
+        if (Multi_Managers.ClientData.UpgradeSkill(_skillData.SkillType))
+            RefreshUI();
     }
 }

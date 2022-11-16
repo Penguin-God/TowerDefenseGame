@@ -104,12 +104,21 @@ public class Multi_ClientData
             _skillByLevel[skill]++;
 
         _skillByExp[skill] += getQuantity;
-        while (_skillByExp[skill] >= GetSkillLevelData(skill).Exp)
-        {
-            _skillByExp[skill] -= GetSkillLevelData(skill).Exp;
-            _skillByLevel[skill]++;
-        }
     }
+
+    public bool UpgradeSkill(SkillType skill)
+    {
+        if (CanUpgrade(skill) == false) return false;
+
+        _skillByExp[skill] -= GetSkillLevelData(skill).Exp;
+        _skillByLevel[skill]++;
+        return true;
+    }
+
+    bool CanUpgrade(SkillType skill)
+        => moneyByType[Multi_Managers.Data.UserSkill.GetSkillGoodsData(skill).MoneyType].Amount >= GetSkillLevelData(skill).Price
+           && _skillByExp[skill] >= GetSkillLevelData(skill).Exp;
+
     public IEnumerable<SkillType> HasSkills => _skillByLevel.Where(x => x.Value > 0).Select(x => x.Key);
 
     EquipSkillManager _equipSkillManager = new EquipSkillManager();

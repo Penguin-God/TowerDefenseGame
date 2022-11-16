@@ -8,6 +8,7 @@ public class SkillGoodsFrame_UI : Multi_UI_Base
     enum Buttons
     {
         EquipButton,
+        Skill_ImageButton,
     }
 
     enum Texts
@@ -17,7 +18,7 @@ public class SkillGoodsFrame_UI : Multi_UI_Base
 
     enum Images
     {
-        Skill_Image,
+        Skill_ImageButton,
     }
 
     protected override void Init()
@@ -26,22 +27,28 @@ public class SkillGoodsFrame_UI : Multi_UI_Base
         Bind<Button>(typeof(Buttons));
         Bind<Image>(typeof(Images));
         _initDone = true;
+        RefreshUI();
     }
 
+    UserSkillGoodsData _skillData = null;
     public void SetInfo(SkillType skill)
     {
-        if (_initDone == false)
-            Init();
-        RefreshUI(Multi_Managers.Data.UserSkill.GetSkillGoodsData(skill));
+        _skillData = Multi_Managers.Data.UserSkill.GetSkillGoodsData(skill);
+        RefreshUI();
     }
 
-    void RefreshUI(UserSkillGoodsData data)
+    void RefreshUI()
     {
-        GetText((int)Texts.NameText).text = data.SkillName;
+        if (_initDone == false || _skillData == null) return;
+
+        GetText((int)Texts.NameText).text = _skillData.SkillName;
 
         GetButton((int)Buttons.EquipButton).onClick.RemoveAllListeners();
-        GetButton((int)Buttons.EquipButton).onClick.AddListener(() => Multi_Managers.ClientData.EquipSkillManager.ChangedEquipSkill(data.SkillClass, data.SkillType));
+        GetButton((int)Buttons.EquipButton).onClick.AddListener(() => Multi_Managers.ClientData.EquipSkillManager.ChangedEquipSkill(_skillData.SkillClass, _skillData.SkillType));
 
-        GetImage((int)Images.Skill_Image).sprite = Multi_Managers.Resources.Load<Sprite>(data.ImagePath);
+        GetImage((int)Images.Skill_ImageButton).sprite = Multi_Managers.Resources.Load<Sprite>(_skillData.ImagePath);
+
+        GetButton((int)Buttons.Skill_ImageButton).onClick.RemoveAllListeners();
+        GetButton((int)Buttons.Skill_ImageButton).onClick.AddListener(() => Multi_Managers.UI.ShowPopupUI<Skill_Info_UI>().SetInfo(_skillData));
     }
 }

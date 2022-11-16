@@ -53,7 +53,7 @@ public class EnemySelector_UI : Multi_UI_Base
         if (isShowInfoWindow)
         {
             isShowInfoWindow = false;
-            Multi_Managers.UI.ClosePopupUI("BackGround");
+            Multi_Managers.UI.ClosePopupUI();
         }
         else
             StopAllCoroutines();

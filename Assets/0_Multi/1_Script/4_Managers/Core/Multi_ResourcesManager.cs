@@ -76,14 +76,6 @@ public class Multi_ResourcesManager
         return go;
     }
 
-    public GameObject Instantiate_UI(string path, Transform parent = null)
-    {
-        GameObject original = Load<GameObject>($"Prefabs/{path}");
-        GameObject go = Object.Instantiate(original, parent);
-        go.name = original.name;
-        return go;
-    }
-
     public void PhotonDestroy(GameObject go)
     {
         PhotonNetwork.Destroy(go);

@@ -40,6 +40,7 @@ class Pool
     {
         Poolable poolable;
         GameObject previewGo = Resources.Load<GameObject>($"Prefabs/{Path}");
+        // TODO : 이 좆같은 코드 리팩터링하기
         previewGo.GetOrAddComponent<PhotonView>();
         GameObject go = PhotonNetwork.Instantiate($"Prefabs/{Path}", Vector3.zero, previewGo.transform.rotation);
         go.transform.SetParent(Root);

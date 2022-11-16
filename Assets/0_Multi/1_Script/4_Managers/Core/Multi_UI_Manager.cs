@@ -36,12 +36,13 @@ class PopupGroup
 
 public class Multi_UI_Manager
 {
-    Dictionary<string, Multi_UI_Popup> _popupByType = new Dictionary<string, Multi_UI_Popup>();
+    Dictionary<string, Multi_UI_Popup> _nameByPopup = new Dictionary<string, Multi_UI_Popup>();
+    Dictionary<string, Multi_UI_Popup> _nameByPopupCash = new Dictionary<string, Multi_UI_Popup>();
 
     Dictionary<PopupGroupType, PopupGroup> popupGroupByGroupType = new Dictionary<PopupGroupType, PopupGroup>();
     int _order = 10; // 기본 UI랑 팝업 UI 오더 다르게 하기 위해 초기값 10으로 세팅
 
-    // Stack<Multi_UI_Popup> _popupStack = new Stack<Multi_UI_Popup>();
+    Stack<Multi_UI_Popup> _currentPopupStack = new Stack<Multi_UI_Popup>();
     Multi_UI_Base _sceneUI = null;
 
     public void Init()
@@ -110,14 +111,16 @@ public class Multi_UI_Manager
     {
         if (string.IsNullOrEmpty(name))
             name = typeof(T).Name;
-        if (_popupByType.TryGetValue(name, out Multi_UI_Popup dictPopup))
+        if (_nameByPopup.TryGetValue(name, out Multi_UI_Popup dictPopup))
         {
             ShowPopupUI(dictPopup, type);
             return dictPopup.gameObject.GetComponent<T>();
         }
 
         T popup = Multi_Managers.Resources.Instantiate($"UI/Popup/{name}").GetOrAddComponent<T>();
-        _popupByType.Add(name, popup);
+        _currentPopupStack.Push(popup);
+        _nameByPopup.Add(name, popup);
+        _nameByPopupCash.Add(popup.name, popup);
         popup.transform.SetParent(Root);
         ShowPopupUI(popup, type);
         return popup;
@@ -132,12 +135,19 @@ public class Multi_UI_Manager
             popup.gameObject.SetActive(true);
         else
             popupGroupByGroupType[type].ShowPopup(popup);
+        _currentPopupStack.Push(popup);
     }
 
     public void ClosePopupUI(string name)
     {
-        if (_popupByType.TryGetValue(name, out Multi_UI_Popup popup))
+        if (_nameByPopup.TryGetValue(name, out Multi_UI_Popup popup))
             popup.gameObject.SetActive(false);
+    }
+
+    public void ClosePopupUI()
+    {
+        var popup = _currentPopupStack.Pop();
+        _nameByPopupCash.Add(popup.name, popup);
     }
 
     public void ClosePopupUI(PopupGroupType groupType) => popupGroupByGroupType[groupType].OffCurrentPopup();
@@ -151,7 +161,7 @@ public class Multi_UI_Manager
     public void Clear()
     {
         _sceneUI = null;
-        _popupByType.Clear();
+        _nameByPopup.Clear();
         popupGroupByGroupType.Clear();
         if (_root != null)
         {

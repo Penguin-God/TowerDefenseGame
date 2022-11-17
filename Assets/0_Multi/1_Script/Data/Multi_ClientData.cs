@@ -176,3 +176,18 @@ public enum MoneyType
     Wood = 2,
     Hammer = 3,
 }
+
+class MoneyPresenter
+{
+    public string GetKoreaText(MoneyType moneyType)
+    {
+        switch (moneyType)
+        {
+            case MoneyType.Iron: return "철";
+            case MoneyType.Wood: return "나무";
+            case MoneyType.Hammer: return "망치";
+        }
+
+        return "";
+    }
+}

@@ -20,6 +20,7 @@ public class UserSkillGoodsData
     public string SkillName => _skillName;
     public string Description => _description;
     public string ImagePath => _imagePath;
+    public Sprite ImageSprite => Multi_Managers.Resources.Load<Sprite>(_imagePath);
     public UserSkillLevelData[] LevelDatas => _levelDatas;
     public void SetLevelDatas(UserSkillLevelData[] newLevelDatas) => _levelDatas = newLevelDatas;
 }

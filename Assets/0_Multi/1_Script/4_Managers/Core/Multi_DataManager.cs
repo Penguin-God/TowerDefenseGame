@@ -184,22 +184,23 @@ public class Multi_DataManager
 
     public class UserSkillData
     {
-        public Dictionary<SkillType, UserSkillGoodsData> _metaDataByGoodsData;
+        public Dictionary<SkillType, UserSkillGoodsData> _typeByGoodsData;
+        public IEnumerable<UserSkillGoodsData> AllSkills => _typeByGoodsData.Values;
         public void Init(Multi_DataManager manager)
         {
-            _metaDataByGoodsData = manager.MakeCsvDict<UserSkillGoodsLoder, SkillType, UserSkillGoodsData>("SkillData/SkillGoodsData");
+            _typeByGoodsData = manager.MakeCsvDict<UserSkillGoodsLoder, SkillType, UserSkillGoodsData>("SkillData/SkillGoodsData");
         }
 
         public UserSkillLevelData GetSkillLevelData(SkillType type, int level)
         {
-            if (_metaDataByGoodsData.TryGetValue(type, out UserSkillGoodsData data) == false)
+            if (_typeByGoodsData.TryGetValue(type, out UserSkillGoodsData data) == false)
                 Debug.LogError($"유저 스킬 배틀 데이터 {type} : {level} 로드 실패");
             return data.LevelDatas[level - 1];
         }
 
         public UserSkillGoodsData GetSkillGoodsData(SkillType skillType)
         {
-            if (_metaDataByGoodsData.TryGetValue(skillType, out UserSkillGoodsData result) == false)
+            if (_typeByGoodsData.TryGetValue(skillType, out UserSkillGoodsData result) == false)
                 Debug.LogError($"유저 스킬 데이터 {skillType} : 로드 실패");
             return result;
         }

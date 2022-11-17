@@ -85,6 +85,7 @@ public class ClientManager : MonoBehaviour
 
     // 버튼에서 사용 중
     public void ShowSkillEquipUI() => Multi_Managers.UI.ShowPopupUI<SkillEquip_UI>().RefreshUI();
+    public void ShowSkillShopUI() => Multi_Managers.UI.ShowPopupUI<SkillShop_UI>().RefreshUI();
 
     #region update Money
     public void UpdateMoney()
@@ -460,5 +461,17 @@ class UserSkillShopUseCase
     {
         if (skillType == SkillType.None) return;
         Multi_Managers.ClientData.GetExp(skillType, getQuantity);
+    }
+
+    public void BuyUserSkill(SkillType skillType)
+    {
+        var skillData = Multi_Managers.Data.UserSkill.GetSkillGoodsData(skillType);
+        // TODO : 나중에 가격 정하기
+        if(Multi_Managers.ClientData.MoneyByType[skillData.MoneyType].Amount >= 10)
+        {
+            Multi_Managers.ClientData.MoneyByType[skillData.MoneyType].Amount -= 10;
+            
+            GetSkillExp(skillType, 1);
+        }
     }
 }

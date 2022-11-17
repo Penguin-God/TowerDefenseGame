@@ -55,7 +55,7 @@ public class SkillEquip_UI : Multi_UI_Popup
         foreach (Transform item in frameParent)
             Destroy(item.gameObject);
         foreach (SkillType skillType in Multi_Managers.ClientData.HasSkills)
-            Multi_Managers.UI.MakeSubItem<SkillGoodsFrame_UI>(frameParent).SetInfo(skillType);
+            Multi_Managers.UI.MakeSubItem<SkillFrame_UI>(frameParent).SetInfo(skillType);
     }
 
     void RefreshEquipSkillFrame(SkillEquipData equipData)

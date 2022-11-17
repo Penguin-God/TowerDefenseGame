@@ -156,6 +156,21 @@ public class CurrencyManager
     }
 }
 
+public class OtherPlayerData
+{
+    public OtherPlayerData(SkillType mainSkill, SkillType subSkill)
+    {
+        _mainSkill = mainSkill;
+        _subSkill = subSkill;
+    }
+
+    SkillType _mainSkill;
+    SkillType _subSkill;
+
+    public SkillType MainSkill => _mainSkill;
+    public SkillType SubSkill => _subSkill;
+}
+
 public class Multi_GameManager : MonoBehaviourPunCallbacks
 {
     public static Multi_GameManager instance
@@ -191,6 +206,12 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     public bool UnitOver => Multi_UnitManager.Instance.CurrentUnitCount >= _battleData.MaxUnit;
 
+    OtherPlayerData _otherPlayerData;
+    public OtherPlayerData OtherPlayerData => _otherPlayerData;
+    
+    [PunRPC]
+    void CreateOtherPlayerData(SkillType mainSkill, SkillType subSkill) => _otherPlayerData = new OtherPlayerData(mainSkill, subSkill);
+
     // 임시
     [SerializeField] Button gameStartButton;
     void Awake()
@@ -207,6 +228,8 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
         _battleData = new BattleDataManager(Multi_Managers.Data.GetBattleStartData());
         Multi_Managers.Sound.PlayBgm(BgmType.Default);
+        if(PhotonNetwork.IsConnected)
+            photonView.RPC(nameof(CreateOtherPlayerData), RpcTarget.Others, Multi_Managers.ClientData.EquipSkillManager.MainSkill, Multi_Managers.ClientData.EquipSkillManager.SubSkill);
     }
 
     void SetEvent()

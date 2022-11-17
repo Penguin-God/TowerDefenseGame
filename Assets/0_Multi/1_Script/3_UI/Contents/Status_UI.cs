@@ -28,11 +28,18 @@ public class Status_UI : Multi_UI_Scene
         FoodBar,
     }
 
+    enum Images
+    {
+        MainSkill,
+        SubSkill,
+    }
+
     protected override void Init()
     {
         base.Init();
         Bind<Text>(typeof(Texts));
         Bind<GameObject>(typeof(GameObjects));
+        Bind<Image>(typeof(Images));
         timerSlider = GetObject((int)GameObjects.TimerSlider).GetComponent<Slider>();
 
         InitEvent();
@@ -49,12 +56,14 @@ public class Status_UI : Multi_UI_Scene
         UpdateOtherUnitClassCount();
         UpdateOtherEnemyCountText(0);
         UpdateEnemyCountText(0);
+        UpdateMySkillImage();
 
         BindGoldBarEvent();
         BindFoodBarEvent();
         BindMyCountEvent();
         BindOhterCountEvent();
-        
+        BindUserSkillImageEvent();
+
         void BindGoldBarEvent()
         {
             Multi_GameManager.instance.OnGoldChanged -= (gold) => GetText((int)Texts.GoldText).text = gold.ToString();
@@ -97,6 +106,15 @@ public class Status_UI : Multi_UI_Scene
 
             Multi_EnemyManager.Instance.OnOtherEnemyCountChanged -= UpdateOtherEnemyCountText;
             Multi_EnemyManager.Instance.OnOtherEnemyCountChanged += UpdateOtherEnemyCountText;
+        }
+
+        void BindUserSkillImageEvent()
+        {
+            Multi_Managers.Camera.OnLookMyWolrd -= UpdateMySkillImage;
+            Multi_Managers.Camera.OnLookMyWolrd += UpdateMySkillImage;
+
+            Multi_Managers.Camera.OnLookEnemyWorld -= UpdateOtherSkillImage;
+            Multi_Managers.Camera.OnLookEnemyWorld += UpdateOtherSkillImage;
         }
     }
 
@@ -148,4 +166,33 @@ public class Status_UI : Multi_UI_Scene
     }
 
     void UpdateOtherEnemyCountText(int count) => GetText((int)Texts.OhterEnemyCountText).text = "" + count;
+
+
+    void UpdateMySkillImage() => ChangeEquipSkillImages(Multi_Managers.ClientData.EquipSkillManager.MainSkill, Multi_Managers.ClientData.EquipSkillManager.SubSkill);
+    void UpdateOtherSkillImage()
+    {
+        if (Multi_GameManager.instance.OtherPlayerData != null)
+            ChangeEquipSkillImages(Multi_GameManager.instance.OtherPlayerData.MainSkill, Multi_GameManager.instance.OtherPlayerData.SubSkill);
+        else
+            ChangeEquipSkillImages(SkillType.None, SkillType.None);
+    }
+
+    void ChangeEquipSkillImages(SkillType mainSkill, SkillType subSkill)
+    {
+        if (mainSkill == SkillType.None)
+            GetImage((int)Images.MainSkill).color = new Color(1, 1, 1, 0);
+        else
+        {
+            GetImage((int)Images.MainSkill).sprite = Multi_Managers.Data.UserSkill.GetSkillGoodsData(mainSkill).ImageSprite;
+            GetImage((int)Images.MainSkill).color = new Color(1, 1, 1, 1);
+        }
+
+        if (mainSkill == SkillType.None)
+            GetImage((int)Images.SubSkill).color = new Color(1, 1, 1, 0);
+        else
+        {
+            GetImage((int)Images.SubSkill).sprite = Multi_Managers.Data.UserSkill.GetSkillGoodsData(subSkill).ImageSprite;
+            GetImage((int)Images.SubSkill).color = new Color(1, 1, 1, 1);
+        }
+    }
 }

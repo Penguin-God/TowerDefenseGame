@@ -39,6 +39,8 @@ public class EquipSkillManager
     SkillEquipData _subSkillEquipData = new SkillEquipData(UserSkillClass.Sub);
 
     public SkillType[] EquipSkills => new[] { _mainSkillEquipData.SkillType, _subSkillEquipData.SkillType };
+    public SkillType MainSkill => _mainSkillEquipData.SkillType;
+    public SkillType SubSkill => _subSkillEquipData.SkillType;
 
     public event Action<SkillEquipData> OnEquipSkillChanged = null;
     void RaiseEquipSkillChange(SkillEquipData data) => OnEquipSkillChanged?.Invoke(data);

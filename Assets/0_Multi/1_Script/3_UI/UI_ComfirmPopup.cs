@@ -34,5 +34,6 @@ public class UI_ComfirmPopup : Multi_UI_Popup
         GetText((int)Texts.QuestionText).text = questionText;
         GetButton((int)Buttons.YesButton).onClick.RemoveAllListeners();
         GetButton((int)Buttons.YesButton).onClick.AddListener(yesAction);
+        GetButton((int)Buttons.YesButton).onClick.AddListener(Multi_Managers.UI.ClosePopupUI);
     }
 }

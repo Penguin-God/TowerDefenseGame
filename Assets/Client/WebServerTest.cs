@@ -14,6 +14,7 @@ public class WebServerTest : MonoBehaviour
     {
         
         string jsonfile = JsonUtility.ToJson(testObj);
+        print(jsonfile);
         StartCoroutine(GetText());
         StartCoroutine(GetTextID(2));
         StartCoroutine(Upload(jsonfile));
@@ -22,18 +23,18 @@ public class WebServerTest : MonoBehaviour
 
     public class GameResult
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
-        public string UserName { get; set; }
-        public int Score { get; set; }
-        public DateTime DateTime { get; set; }
+        public int Id;
+        public int UserId;
+        public string UserName;
+        public int Score;
+        public DateTime DateTime;
     }
 
     IEnumerator Upload(string jsonfile)
     {
         using (UnityWebRequest request = UnityWebRequest.Post("https://localhost:44394/api/ranking", jsonfile))
         {
-            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonfile);
+            byte[] jsonToSend = new UTF8Encoding().GetBytes(jsonfile);
             request.uploadHandler = new UploadHandlerRaw(jsonToSend);
             request.downloadHandler = new DownloadHandlerBuffer();
             request.SetRequestHeader("Content-Type", "application/json");

@@ -8,11 +8,15 @@ using System.Text;
 
 public class WebServerTest : MonoBehaviour
 {
+    public GameResult testObj = new GameResult { UserName = "Unity", Score = 100 };
+
     void Start()
     {
+        
+        string jsonfile = JsonUtility.ToJson(testObj);
         StartCoroutine(GetText());
-        StartCoroutine(GetTextID(1));
-        StartCoroutine(Upload());
+        StartCoroutine(GetTextID(2));
+        StartCoroutine(Upload(jsonfile));
         StartCoroutine(GetText());
     }
 
@@ -25,24 +29,47 @@ public class WebServerTest : MonoBehaviour
         public DateTime DateTime { get; set; }
     }
 
-    IEnumerator Upload()
+    IEnumerator Upload(string jsonfile)
     {
-        WWWForm form = new WWWForm();
-        form.AddField("UserName", "unity");
-        form.AddField("Score", "100");
-
-        UnityWebRequest www = UnityWebRequest.Post("https://localhost:44394/api/ranking", form);
-        yield return www.SendWebRequest();
-
-        if (www.isNetworkError || www.isHttpError)
+        using (UnityWebRequest request = UnityWebRequest.Post("https://localhost:44394/api/ranking", jsonfile))
         {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            Debug.Log("Post 성공");
+            byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(jsonfile);
+            request.uploadHandler = new UploadHandlerRaw(jsonToSend);
+            request.downloadHandler = new DownloadHandlerBuffer();
+            request.SetRequestHeader("Content-Type", "application/json");
+
+            yield return request.SendWebRequest();
+            Debug.Log("Post 결과");
+            Debug.Log(request.downloadHandler.text);
+            Debug.Log("Post결과 끗");
+            //if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+            //{
+            //    Debug.Log(request.error);
+            //}
+            //else
+            //{
+            //    Debug.Log(request.downloadHandler.text);
+            //}
         }
     }
+
+    //IEnumerator Upload()
+    //{
+    //    WWWForm form = new WWWForm();
+
+
+    //    UnityWebRequest www = UnityWebRequest.Post("https://localhost:44394/api/ranking", form);
+    //    yield return www.SendWebRequest();
+
+    //    if (www.isNetworkError || www.isHttpError)
+    //    {
+    //        Debug.Log(www.error);
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Post 성공");
+    //    }
+    //}
 
     IEnumerator GetText()
     {

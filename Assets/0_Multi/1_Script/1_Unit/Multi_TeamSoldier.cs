@@ -338,25 +338,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
             => rpcable.UsingId == Multi_Managers.Camera.LookWorld_Id && EnterStroyWorld == Multi_Managers.Camera.IsLookEnemyTower;
     }
 
-    // 동기화
-    Vector3 currentPos;
-    Quaternion currentDir;
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        //if (stream.IsWriting)
-        //{
-        //    stream.SendNext(transform.position);
-        //    stream.SendNext(transform.rotation);
-        //}
-        //else
-        //{
-        //    currentPos = (Vector3)stream.ReceiveNext();
-        //    currentDir = (Quaternion)stream.ReceiveNext();
-        //    LerpUtility.LerpPostition(transform, currentPos);
-        //    LerpUtility.LerpRotation(transform, currentDir);
-        //}
-    }
-
     [Serializable]
     protected class UnitState : MonoBehaviourPun
     {

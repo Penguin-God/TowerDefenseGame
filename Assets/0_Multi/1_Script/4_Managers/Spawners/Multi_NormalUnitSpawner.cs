@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Linq;
 using Photon.Pun;
 
 [Serializable]
@@ -54,12 +53,6 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     }
     #endregion
 
-    protected override void SetPoolObj(GameObject go)
-    {
-        if (PhotonNetwork.IsMasterClient == false) return;
-
-        var unit = go.GetComponent<Multi_TeamSoldier>();
-    }
 
     public void Spawn(UnitFlags flag) => Spawn(flag.ColorNumber, flag.ClassNumber);
     public void Spawn(int unitColor, int unitClass) => Spawn_RPC(GetUnitPath(unitColor, unitClass), GetUnitSpawnPos());

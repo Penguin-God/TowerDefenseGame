@@ -4,6 +4,11 @@ using UnityEngine;
 using Photon.Pun;
 using System;
 
+public interface IInstantiate
+{
+    GameObject Instantiate(string path);
+}
+
 class PoolGroup
 {
     public Transform Root { get; set; }
@@ -36,18 +41,39 @@ class Pool
             Push(CreateObject());
     }
 
+    public void Init(string path, int count, IInstantiate instantiate)
+    {
+        Root = new GameObject($"{path.Split('/')[path.Split('/').Length-1]}_Root").transform;
+        Path = path;
+        for (int i = 0; i < count; i++)
+            Push(CreateObject(instantiate));
+    }
+
     Poolable CreateObject()
     {
         Poolable poolable;
         GameObject previewGo = Resources.Load<GameObject>($"Prefabs/{Path}");
         // TODO : 이 좆같은 코드 리팩터링하기
-        previewGo.GetOrAddComponent<PhotonView>();
+        //previewGo.GetOrAddComponent<PhotonView>();
         GameObject go = PhotonNetwork.Instantiate($"Prefabs/{Path}", Vector3.zero, previewGo.transform.rotation);
         go.transform.SetParent(Root);
         go.name = Original.name;
         SetupObjAct?.Invoke(go);
 
         poolable = go.GetOrAddComponent<Poolable>();
+        poolable.Path = Path;
+
+        return poolable;
+    }
+
+    Poolable CreateObject(IInstantiate instantiate)
+    {
+        var go = instantiate == null ?
+            GameObject.Instantiate(Resources.Load<GameObject>($"Prefabs/{Path}")) : instantiate.Instantiate($"Prefabs/{Path}");
+        go.transform.SetParent(Root);
+        go.name = Original.name;
+
+        Poolable poolable = go.GetOrAddComponent<Poolable>();
         poolable.Path = Path;
 
         return poolable;
@@ -111,6 +137,31 @@ public class Multi_PoolManager
             poolGroup.Root.SetParent(_root);
             _poolGroupByName.Add(groupName, poolGroup);
             return CreatePool(original, path, count, poolGroup.Root, action);
+        }
+    }
+
+    public Transform CreatePool(string path, int count, Transform root = null, IInstantiate instantiate = null)
+    {
+        Pool pool = new Pool();
+        pool.Init(path, count, instantiate);
+        if (root == null) pool.Root.SetParent(_root);
+        else pool.Root.SetParent(root);
+        _poolByName.Add(pool.Root.name, pool);
+        return pool.Root;
+    }
+
+    public Transform CreatePool_InGroup(string path, int count, string groupName, IInstantiate instantiate = null)
+    {
+        PoolGroup poolGroup;
+        if (_poolGroupByName.TryGetValue(groupName, out poolGroup))
+            return CreatePool(path, count, poolGroup.Root, instantiate);
+        else // 없으면 새로운 풀 그룹 생성
+        {
+            poolGroup = new PoolGroup();
+            poolGroup.Init(groupName);
+            poolGroup.Root.SetParent(_root);
+            _poolGroupByName.Add(groupName, poolGroup);
+            return CreatePool(path, count, poolGroup.Root, instantiate);
         }
     }
 

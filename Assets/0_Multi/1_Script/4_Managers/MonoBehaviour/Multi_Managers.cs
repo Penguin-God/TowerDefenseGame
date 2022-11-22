@@ -33,6 +33,7 @@ public class Multi_Managers : MonoBehaviour
     Scene_Manager _scene = new Scene_Manager();
     CameraManager _camera = new CameraManager();
     EffectManager _effect = new EffectManager();
+    MultiManager _multi = new MultiManager();
 
     public static Multi_DataManager Data => Instance._data;
     public static Multi_UI_Manager UI => Instance._ui;
@@ -43,12 +44,14 @@ public class Multi_Managers : MonoBehaviour
     public static Scene_Manager Scene => instance._scene;
     public static CameraManager Camera => instance._camera;
     public static EffectManager Effect => instance._effect;
+    public static MultiManager Multi => instance._multi;
 
 
     void Init()
     {
         _data.Init();
         _clientData.Init();
+        _effect.Init();
         _sound.Init(transform);
     }
 

@@ -27,7 +27,7 @@ public class EffectManager
     // 풀링하기
     Dictionary<string, GameObject> _nameByObject = new Dictionary<string, GameObject>();
     Dictionary<string, ParticleSystem> _nameByParticle = new Dictionary<string, ParticleSystem>();
-    Dictionary<string, Material> _nameByMaterial = new Dictionary<string, Material>();
+   
 
     public void Init()
     {
@@ -47,6 +47,7 @@ public class EffectManager
                     break;
             }
         }
+        Multi_Managers.Multi.CreatePoolGroup(_nameByObject.Keys, 3, "이팩트다 이 씹새야");
     }
 
     public void ChaseToTarget(string name, Transform target, Vector3 offset)
@@ -70,4 +71,13 @@ public class EffectManager
 
     public void ChangeColor(byte r, byte g, byte b, Transform transform)
         => transform.GetComponentInChildren<MeshRenderer>().material.color = new Color32(r, g, b, 255);
+
+
+    Dictionary<string, Material> _nameByMaterial = new Dictionary<string, Material>();
+    Material LoadMaterial(string name)
+    {
+        if (_nameByMaterial.ContainsKey(name) == false)
+            _nameByMaterial.Add(name, Resources.Load<Material>(_nameByPath[name]));
+        return _nameByMaterial[name];
+    }
 }

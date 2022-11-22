@@ -50,26 +50,12 @@ public class UserSkillFactory
         _typeBySkill.Add(SkillType.고기혐오자, new FoodHater());
     }
 
-    public UserSkill GetSkill(SkillType type, int level)
+    public UserSkill GetSkill(SkillType type)
     {
         _typeBySkill[type].SetInfo(type);
         return _typeBySkill[type];
     }
 }
-
-public class SkillManager
-{
-    public void Init()
-    {
-        foreach (var skillType in Multi_Managers.ClientData.EquipSkillManager.EquipSkills)
-        {
-            if (skillType == SkillType.None)
-                continue;
-            new UserSkillFactory().GetSkill(skillType, 1).InitSkill();
-        }
-    }
-}
-
 
 // ================= 스킬 세부 구현 =====================
 

@@ -93,7 +93,7 @@ public class Multi_ClientData
 
     List<UserSkill> _equipSkills = new List<UserSkill>();
     public int EquipSkillCount => _equipSkills.Count();
-    public void AddEquipSkill(SkillType type) => _equipSkills.Add(new UserSkillFactory().GetSkill(type, 1));
+    public void AddEquipSkill(SkillType type) => _equipSkills.Add(new UserSkillFactory().GetSkill(type));
 
     Dictionary<SkillType, int> _skillByLevel = new Dictionary<SkillType, int>();
     public UserSkillLevelData GetSkillLevelData(SkillType skillType) => Multi_Managers.Data.UserSkill.GetSkillLevelData(skillType, _skillByLevel[skillType]);

@@ -26,7 +26,17 @@ public class BattleScene : BaseScene
 
     void Start()
     {
-        Multi_Managers.Skill.Init();
+        InitUserSkill();
+    }
+
+    void InitUserSkill()
+    {
+        foreach (var skillType in Multi_Managers.ClientData.EquipSkillManager.EquipSkills)
+        {
+            if (skillType == SkillType.None)
+                continue;
+            new UserSkillFactory().GetSkill(skillType).InitSkill();
+        }
     }
 
     void InitSound()

@@ -30,7 +30,6 @@ public class Multi_Managers : MonoBehaviour
     Multi_ResourcesManager _resources = new Multi_ResourcesManager();
     Multi_PoolManager _pool = new Multi_PoolManager();
     Multi_ClientData _clientData = new Multi_ClientData();
-    SkillManager _skill = new SkillManager();
     Scene_Manager _scene = new Scene_Manager();
     CameraManager _camera = new CameraManager();
     EffectManager _effect = new EffectManager();
@@ -41,7 +40,6 @@ public class Multi_Managers : MonoBehaviour
     public static Multi_ResourcesManager Resources => Instance._resources;
     public static Multi_PoolManager Pool => Instance._pool;
     public static Multi_ClientData ClientData => Instance._clientData;
-    public static SkillManager Skill => Instance._skill;
     public static Scene_Manager Scene => instance._scene;
     public static CameraManager Camera => instance._camera;
     public static EffectManager Effect => instance._effect;

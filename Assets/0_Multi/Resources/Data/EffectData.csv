@@ -1,5 +1,6 @@
 ﻿_effectType,_name,_path
-Unit_Tp_Effect,GameObject,Prefabs/Effect/Unit_Tp_Effect
-WhiteUnit_Timer,GameObject,Prefabs/Effect/WhiteUnit_Timer
-Unit_Tp_Effect 1,Particle,Prefabs/Particle/Unit_Tp_Effect 1
-Gray,Material,Materials/Gray
+GameObject,StunEffect,Prefabs/Effects/StunEffect
+GameObject,UnitTpEffect,Prefabs/Effects/UnitTpEffect
+GameObject,WhiteUnitTimer,Prefabs/Effects/WhiteUnitTimer
+Material,FreezeEnemy,Materials/FreezeEnemy
+Material,Gray,Materials/Gray

@@ -12,9 +12,9 @@ public enum EffectType
 
 public class EffectData
 {
-    EffectType _effectType;
-    string _name;
-    string _path;
+    [SerializeField] EffectType _effectType;
+    [SerializeField] string _name;
+    [SerializeField] string _path;
 
     public EffectType EffectType => _effectType;
     public string Name => _name;
@@ -25,29 +25,22 @@ public class EffectManager
 {
     Dictionary<string, string> _nameByPath = new Dictionary<string, string>();
     // 풀링하기
-    Dictionary<string, GameObject> _nameByObject = new Dictionary<string, GameObject>();
-    Dictionary<string, ParticleSystem> _nameByParticle = new Dictionary<string, ParticleSystem>();
-   
+    Dictionary<string, GameObject> _nameByEffectObject = new Dictionary<string, GameObject>();
 
     public void Init()
     {
+        if (Photon.Pun.PhotonNetwork.IsConnected == false) return;
         foreach (var data in CsvUtility.CsvToArray<EffectData>(Multi_Managers.Resources.Load<TextAsset>("Data/EffectData").text))
         {
             _nameByPath.Add(data.Name, data.Path);
             switch (data.EffectType)
             {
                 case EffectType.GameObject:
-                    _nameByObject.Add(data.Name, Resources.Load<GameObject>(data.Path));
-                    break;
-                case EffectType.Particle:
-                    _nameByParticle.Add(data.Name, Resources.Load<GameObject>(data.Path).GetComponent<ParticleSystem>());
-                    break;
-                case EffectType.Material:
-                    _nameByMaterial.Add(data.Name, Resources.Load<Material>(data.Path));
+                    _nameByEffectObject.Add(data.Name, Resources.Load<GameObject>(data.Path));
                     break;
             }
         }
-        Multi_Managers.Multi.CreatePoolGroup(_nameByObject.Keys, 3, "이팩트다 이 씹새야");
+        Multi_Managers.Multi.CreatePoolGroup(_nameByPath.Values, 3, "이팩트다 이 씹새야");
     }
 
     public void ChaseToTarget(string name, Transform target, Vector3 offset)
@@ -58,7 +51,7 @@ public class EffectManager
 
     public void PlayParticle(string name, Vector3 pos)
     {
-        ParticleSystem particle = _nameByParticle[name];
+        ParticleSystem particle = _nameByEffectObject[name].GetComponent<ParticleSystem>();
         particle.gameObject.transform.position = pos;
         particle.Play();
     }

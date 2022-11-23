@@ -35,7 +35,7 @@ class Pool
         Root = new GameObject($"{original.name}_Root").transform;
         if(original.GetComponent<Poolable>() == null) original.AddComponent<Poolable>();
         Original = original;
-        Path = path;
+        Path = path.Contains("Prefabs/") ? path : $"Prefabs/{path}";
         SetupObjAct = setupAct;
         for (int i = 0; i < count; i++)
             Push(CreateObject());
@@ -52,10 +52,11 @@ class Pool
     Poolable CreateObject()
     {
         Poolable poolable;
-        GameObject previewGo = Resources.Load<GameObject>($"Prefabs/{Path}");
+        GameObject previewGo = Resources.Load<GameObject>(Path);
         // TODO : 이 좆같은 코드 리팩터링하기
         //previewGo.GetOrAddComponent<PhotonView>();
-        GameObject go = PhotonNetwork.Instantiate($"Prefabs/{Path}", Vector3.zero, previewGo.transform.rotation);
+        //Debug.Log(Path);
+        GameObject go = PhotonNetwork.Instantiate(Path, Vector3.zero, previewGo.transform.rotation);
         go.transform.SetParent(Root);
         go.name = Original.name;
         SetupObjAct?.Invoke(go);
@@ -69,7 +70,7 @@ class Pool
     Poolable CreateObject(IInstantiate instantiate)
     {
         var go = instantiate == null ?
-            GameObject.Instantiate(Resources.Load<GameObject>($"Prefabs/{Path}")) : instantiate.Instantiate($"Prefabs/{Path}");
+            GameObject.Instantiate(Resources.Load<GameObject>(Path)) : instantiate.Instantiate(Path);
         go.transform.SetParent(Root);
         go.name = Original.name;
 

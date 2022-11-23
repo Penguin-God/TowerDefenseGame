@@ -5,15 +5,16 @@ using Photon.Pun;
 
 public class MultiManager
 {
-    MultiSpanwer _multiSpanwer = new MultiSpanwer();
-    
+    MultiInstantiater _multiInstantiater = new MultiInstantiater();
+    public IInstantiater Instantiater => _multiInstantiater;
+
     public void CreatePoolGroup(IEnumerable<string> paths, int count, string groupName = "")
     {
         foreach (string path in paths)
-            Multi_Managers.Pool.CreatePool_InGroup(path, count, groupName, _multiSpanwer);
+            Multi_Managers.Pool.CreatePool_InGroup(path, count, groupName, _multiInstantiater);
     }
 
-    class MultiSpanwer : IInstantiate
+    class MultiInstantiater : IInstantiater
     {
         public GameObject Instantiate(string path)
         {

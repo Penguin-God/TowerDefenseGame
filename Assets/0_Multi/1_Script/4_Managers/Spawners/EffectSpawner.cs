@@ -6,8 +6,8 @@ using Photon.Pun;
 
 public enum Effects
 {
-    Unit_Tp_Effect,
-    WhiteUnit_Timer,
+    UnitTpEffect,
+    WhiteUnitTimer,
 }
 
 public class EffectSpawner : Multi_SpawnerBase
@@ -42,11 +42,6 @@ public class EffectSpawner : Multi_SpawnerBase
     {
         yield return new WaitForSeconds(time);
         Multi_Managers.Pool.Push(go);
-    }
-
-    public void ChangedMaterials()
-    {
-
     }
 
     GameObject Spawn(Effects type, Vector3 pos) => Multi_Managers.Resources.PhotonInsantiate($"{_rootPath}/{Enum.GetName(typeof(Effects), type)}", pos);

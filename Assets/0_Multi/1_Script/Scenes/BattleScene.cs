@@ -22,6 +22,8 @@ public class BattleScene : BaseScene
 
         if (PhotonNetwork.IsMasterClient == false) return;
         Multi_Managers.Pool.Init();
+        var multi = Multi_Managers.Multi;
+        Multi_Managers.Effect.Init(multi.Instantiater);
     }
 
     void Start()

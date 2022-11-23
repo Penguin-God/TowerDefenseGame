@@ -14,7 +14,7 @@ public class WhiteUnit : MonoBehaviour
     {
         if (PhotonNetwork.IsMasterClient == false) return;
 
-        timer = Multi_SpawnManagers.Effect.ShwoForTime(Effects.WhiteUnit_Timer, transform.position, aliveTime).GetComponent<Multi_WhiteUnitTimer>();
+        timer = Multi_SpawnManagers.Effect.ShwoForTime(Effects.WhiteUnitTimer, transform.position, aliveTime).GetComponent<Multi_WhiteUnitTimer>();
         timer.Setup_RPC(transform, aliveTime);
         timer.Slider.onValueChanged.AddListener(ChangedColor);
     }

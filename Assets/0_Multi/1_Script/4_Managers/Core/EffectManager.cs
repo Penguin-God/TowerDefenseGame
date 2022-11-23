@@ -27,7 +27,7 @@ public class EffectManager
     // 풀링하기
     Dictionary<string, GameObject> _nameByEffectObject = new Dictionary<string, GameObject>();
 
-    public void Init()
+    public void Init(IInstantiater instantiater = null)
     {
         if (Photon.Pun.PhotonNetwork.IsConnected == false) return;
         foreach (var data in CsvUtility.CsvToArray<EffectData>(Multi_Managers.Resources.Load<TextAsset>("Data/EffectData").text))
@@ -36,11 +36,10 @@ public class EffectManager
             switch (data.EffectType)
             {
                 case EffectType.GameObject:
-                    _nameByEffectObject.Add(data.Name, Resources.Load<GameObject>(data.Path));
+                    Multi_Managers.Pool.CreatePool_InGroup(data.Path, 3, "Effects", instantiater);
                     break;
             }
         }
-        Multi_Managers.Multi.CreatePoolGroup(_nameByPath.Values, 3, "이팩트다 이 씹새야");
     }
 
     public void ChaseToTarget(string name, Transform target, Vector3 offset)

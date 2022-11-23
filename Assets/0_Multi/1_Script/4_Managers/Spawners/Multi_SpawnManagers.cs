@@ -42,7 +42,7 @@ public class Multi_SpawnManagers : MonoBehaviourPun
         _towerEnemy = GetOrAddChildComponent<Multi_TowerEnemySpawner>();
         _normalUnit = GetOrAddChildComponent<Multi_NormalUnitSpawner>();
         _weapon = GetOrAddChildComponent<Multi_WeaponSpawner>();
-        //_effect = GetOrAddChildComponent<EffectSpawner>();
+        _effect = GetOrAddChildComponent<EffectSpawner>();
     }
 
     public void Init()
@@ -52,7 +52,7 @@ public class Multi_SpawnManagers : MonoBehaviourPun
         _towerEnemy = GetOrAddChildComponent<Multi_TowerEnemySpawner>();
         _normalUnit = GetOrAddChildComponent<Multi_NormalUnitSpawner>();
         _weapon = GetOrAddChildComponent<Multi_WeaponSpawner>();
-        //_effect = GetOrAddChildComponent<EffectSpawner>();
+        _effect = GetOrAddChildComponent<EffectSpawner>();
     }
 
     T GetOrAddChildComponent<T>() where T : Component

@@ -262,7 +262,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
 
     public void ChagneWorld()
     {
-        Multi_SpawnManagers.Effect.Play(Effects.Unit_Tp_Effect, transform.position + (Vector3.up * 3));
+        Multi_SpawnManagers.Effect.Play(Effects.UnitTpEffect, transform.position + (Vector3.up * 3));
         
         MoveToOpposite();
         _state.ChangedWorld();

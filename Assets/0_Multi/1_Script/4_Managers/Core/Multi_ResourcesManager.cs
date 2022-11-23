@@ -59,7 +59,7 @@ public class Multi_ResourcesManager
 
         void SetInfo_RPC()
         {
-            RPCable rpcable = go.GetComponent<RPCable>();
+            RPCable rpcable = go.GetOrAddComponent<RPCable>();
             rpcable.SetId_RPC(id);
             rpcable.SetPosition_RPC(position);
             rpcable.SetRotation_RPC(rotation);

@@ -4,12 +4,12 @@ using UnityEngine;
 using Photon.Pun;
 using System;
 
-public interface IInstantiate
+public interface IInstantiater
 {
     GameObject Instantiate(string path);
 }
 
-class PoolGroup
+public class PoolGroup
 {
     public Transform Root { get; set; }
     
@@ -19,11 +19,12 @@ class PoolGroup
     }
 }
 
-class Pool
+public class Pool
 {
     public Transform Root { get; set; } = null;
     public GameObject Original { get; private set; }
     public string Path { get; private set;}
+    public string Name => Path.Split('/')[Path.Split('/').Length - 1];
 
     Stack<Poolable> poolStack = new Stack<Poolable>();
     public int Count => poolStack.Count;
@@ -41,10 +42,10 @@ class Pool
             Push(CreateObject());
     }
 
-    public void Init(string path, int count, IInstantiate instantiate)
+    public void Init(string path, int count, IInstantiater instantiate)
     {
-        Root = new GameObject($"{path.Split('/')[path.Split('/').Length-1]}_Root").transform;
         Path = path;
+        Root = new GameObject($"{Name}_Root").transform;
         for (int i = 0; i < count; i++)
             Push(CreateObject(instantiate));
     }
@@ -67,12 +68,12 @@ class Pool
         return poolable;
     }
 
-    Poolable CreateObject(IInstantiate instantiate)
+    Poolable CreateObject(IInstantiater instantiate)
     {
         var go = instantiate == null ?
             GameObject.Instantiate(Resources.Load<GameObject>(Path)) : instantiate.Instantiate(Path);
         go.transform.SetParent(Root);
-        go.name = Original.name;
+        go.name = Name;
 
         Poolable poolable = go.GetOrAddComponent<Poolable>();
         poolable.Path = Path;
@@ -141,31 +142,36 @@ public class Multi_PoolManager
         }
     }
 
-    public Transform CreatePool(string path, int count, Transform root = null, IInstantiate instantiate = null)
+    public Transform CreatePool(string path, int count, Transform root = null, IInstantiater instantiater = null)
     {
         Pool pool = new Pool();
-        pool.Init(path, count, instantiate);
+        pool.Init(path, count, instantiater);
         if (root == null) pool.Root.SetParent(_root);
         else pool.Root.SetParent(root);
         _poolByName.Add(pool.Root.name, pool);
         return pool.Root;
     }
 
-    public Transform CreatePool_InGroup(string path, int count, string groupName, IInstantiate instantiate = null)
+    public Transform CreatePool_InGroup(string path, int count, string groupName, IInstantiater instantiater = null)
     {
         PoolGroup poolGroup;
         if (_poolGroupByName.TryGetValue(groupName, out poolGroup))
-            return CreatePool(path, count, poolGroup.Root, instantiate);
+            return CreatePool(path, count, poolGroup.Root, instantiater);
         else // 없으면 새로운 풀 그룹 생성
         {
             poolGroup = new PoolGroup();
             poolGroup.Init(groupName);
             poolGroup.Root.SetParent(_root);
             _poolGroupByName.Add(groupName, poolGroup);
-            return CreatePool(path, count, poolGroup.Root, instantiate);
+            return CreatePool(path, count, poolGroup.Root, instantiater);
         }
     }
 
+    public void CreatePoolGroup(IEnumerable<string> paths, int count, string groupName, IInstantiater instantiater = null)
+    {
+        foreach (var path in paths)
+            CreatePool_InGroup(path, count, groupName, instantiater);
+    }
 
     public void Push(Poolable poolable) => Push(poolable.gameObject);
     public void Push(GameObject go)

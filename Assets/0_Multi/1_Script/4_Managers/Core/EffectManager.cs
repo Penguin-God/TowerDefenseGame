@@ -24,12 +24,9 @@ public class EffectData
 public class EffectManager
 {
     Dictionary<string, string> _nameByPath = new Dictionary<string, string>();
-    // 풀링하기
-    Dictionary<string, GameObject> _nameByEffectObject = new Dictionary<string, GameObject>();
 
     public void Init(IInstantiater instantiater = null)
     {
-        if (Photon.Pun.PhotonNetwork.IsConnected == false) return;
         foreach (var data in CsvUtility.CsvToArray<EffectData>(Multi_Managers.Resources.Load<TextAsset>("Data/EffectData").text))
         {
             _nameByPath.Add(data.Name, data.Path);
@@ -44,26 +41,30 @@ public class EffectManager
 
     public void ChaseToTarget(string name, Transform target, Vector3 offset)
     {
-        GameObject chaser = Multi_Managers.Resources.Load<GameObject>(_nameByPath[name]);
+        GameObject chaser = LoadObject(name);
         // chaser.AddComponent<>().SetInfo(target, offset) 추적 컴포넌트 만들기
     }
 
+    // 이걸 호출하는 쪽에서 All이나 Other로 튕기면 됨. 대신 그때 서로가 풀링이 되어 있어야 함.
     public void PlayParticle(string name, Vector3 pos)
     {
-        ParticleSystem particle = _nameByEffectObject[name].GetComponent<ParticleSystem>();
+        ParticleSystem particle = LoadParticle(name);
+        if (particle == null) return;
         particle.gameObject.transform.position = pos;
         particle.Play();
     }
 
     public void ChangeMaterial(string name, MeshRenderer mesh)
-        => mesh.material = _nameByMaterial[name];
+        => mesh.material = LoadMaterial(name);
 
     public void ChangeAllMaterial(string name, Transform transform)
-        => transform.GetComponentInChildren<MeshRenderer>().material = _nameByMaterial[name];
+        => transform.GetComponentInChildren<MeshRenderer>().material = LoadMaterial(name);
 
     public void ChangeColor(byte r, byte g, byte b, Transform transform)
         => transform.GetComponentInChildren<MeshRenderer>().material.color = new Color32(r, g, b, 255);
 
+    GameObject LoadObject(string name) => Multi_Managers.Pool.GetOriginal(_nameByPath[name]);
+    ParticleSystem LoadParticle(string name) => LoadObject(name).GetComponent<ParticleSystem>();
 
     Dictionary<string, Material> _nameByMaterial = new Dictionary<string, Material>();
     Material LoadMaterial(string name)

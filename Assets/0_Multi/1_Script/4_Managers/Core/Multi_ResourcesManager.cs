@@ -70,11 +70,18 @@ public class Multi_ResourcesManager
 
     public GameObject Instantiate(string path, Transform parent = null)
     {
-        GameObject original = Load<GameObject>($"Prefabs/{path}");
+        path = SetPrefabPath(path);
+        var original = Multi_Managers.Pool.GetOriginal(path);
+        if (original != null)
+            return Multi_Managers.Pool.Pop(original).gameObject;
+
+        original = Load<GameObject>(path);
         GameObject go = Object.Instantiate(original, parent);
         go.name = original.name;
         return go;
     }
+
+    string SetPrefabPath(string path) => path.Contains("Prefabs/") ? path : $"Prefabs/{path}";
 
     public void PhotonDestroy(GameObject go)
     {

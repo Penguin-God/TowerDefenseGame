@@ -12,4 +12,76 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd77cc86c5e738c4b98262164c20822e, type: 3}
   m_Name: SoundDataMacro
   m_EditorClassIdentifier: 
-  _enumTexts: 
+  _enumTexts: 'BossDeadClip,
+
+    Click_XButton,
+
+    DebuffSkill,
+
+    Denger,
+
+    DrawSwordman,
+
+    EnemySelected,
+
+    GetFood,
+
+    GetPassiveGold,
+
+    GoodsBuySound,
+
+    Lose,
+
+    NewStageClip,
+
+    PopSound,
+
+    PopSound_2,
+
+    SelectColor,
+
+    ShopGoodsClick,
+
+    ShowOtherPlayerInfo,
+
+    ShowRandomShop,
+
+    Swing,
+
+    TowerDieClip,
+
+    TransformWhiteUnit,
+
+    UnitTp,
+
+    Warning,
+
+    Win,
+
+    ArcherAttack,
+
+    BlackMageSkill,
+
+    BlueMageSkill,
+
+    MageAttack,
+
+    MageBallBonce,
+
+    MeteorExplosion,
+
+    RedMageSkill,
+
+    SpearmanAttack,
+
+    SpearmanSkill,
+
+    SwordmanAttack,
+
+    VioletMageSkill,
+
+    WaterBolt,
+
+    YellowMageSkill,
+
+'

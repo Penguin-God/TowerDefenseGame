@@ -48,10 +48,12 @@ public class EffectManager
     // 이걸 호출하는 쪽에서 All이나 Other로 튕기면 됨. 대신 그때 서로가 풀링이 되어 있어야 함.
     public void PlayParticle(string name, Vector3 pos)
     {
-        ParticleSystem particle = LoadParticle(name);
+        ParticlePlug particle = LoadParticle(name);
         if (particle == null) return;
+        particle.gameObject.SetActive(true);
         particle.gameObject.transform.position = pos;
-        particle.Play();
+        particle.PlayParticle();
+        
     }
 
     public void ChangeMaterial(string name, MeshRenderer mesh)
@@ -63,8 +65,8 @@ public class EffectManager
     public void ChangeColor(byte r, byte g, byte b, Transform transform)
         => transform.GetComponentInChildren<MeshRenderer>().material.color = new Color32(r, g, b, 255);
 
-    GameObject LoadObject(string name) => Multi_Managers.Pool.GetOriginal(_nameByPath[name]);
-    ParticleSystem LoadParticle(string name) => LoadObject(name).GetComponent<ParticleSystem>();
+    GameObject LoadObject(string name) => Multi_Managers.Resources.Instantiate(_nameByPath[name]);
+    ParticlePlug LoadParticle(string name) => LoadObject(name).GetOrAddComponent<ParticlePlug>();
 
     Dictionary<string, Material> _nameByMaterial = new Dictionary<string, Material>();
     Material LoadMaterial(string name)

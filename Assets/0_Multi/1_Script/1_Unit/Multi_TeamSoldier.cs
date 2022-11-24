@@ -262,9 +262,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
 
     public void ChagneWorld()
     {
-        Multi_SpawnManagers.Effect.Play(Effects.UnitTpEffect, transform.position + (Vector3.up * 3));
-        
-        MoveToOpposite();
+        photonView.RPC(nameof(MoveToOpposite), RpcTarget.All);
         _state.ChangedWorld();
         if (EnterStroyWorld) EnterStroyMode();
         else EnterWolrd();
@@ -272,26 +270,21 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         UpdateTarget();
         RPC_PlayTpSound();
 
-        // 중첩 함수들...
-        void MoveToOpposite()
-        {
-            rpcable.SetActive_RPC(false);
-            rpcable.SetPosition_RPC(GetOppositeWorldSpawnPos());
-            rpcable.SetActive_RPC(true);
-        }
 
-        Vector3 GetOppositeWorldSpawnPos() => (EnterStroyWorld) ? Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(rpcable.UsingId) 
+        void EnterWolrd() => nav.obstacleAvoidanceType = originObstacleType;
+        void EnterStroyMode() => nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+    }
+
+    [PunRPC]
+    protected void MoveToOpposite()
+    {
+        Multi_Managers.Effect.PlayParticle("UnitTpEffect", transform.position + (Vector3.up * 3));
+        gameObject.SetActive(false);
+        transform.position = GetOppositeWorldSpawnPos();
+        gameObject.SetActive(true);
+
+        Vector3 GetOppositeWorldSpawnPos() => (EnterStroyWorld) ? Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(rpcable.UsingId)
             : Multi_WorldPosUtility.Instance.GetEnemyTower_TP_Position(rpcable.UsingId);
-
-        void EnterWolrd()
-        {
-            nav.obstacleAvoidanceType = originObstacleType;
-        }
-
-        void EnterStroyMode()
-        {
-            nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-        }
     }
 
     void RPC_PlayTpSound()

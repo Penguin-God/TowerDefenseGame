@@ -17,8 +17,8 @@ public class EffectSpawner : Multi_SpawnerBase
 
     protected override void MasterInit()
     {
-        foreach (GameObject effect in effects)
-            CreatePoolGroup(effect, BuildPath(_rootPath, effect), count);
+        //foreach (GameObject effect in effects)
+        //    CreatePoolGroup(effect, BuildPath(_rootPath, effect), count);
     }
 
     public GameObject ShwoForTime(Effects type, Vector3 pos, float aliveTime)

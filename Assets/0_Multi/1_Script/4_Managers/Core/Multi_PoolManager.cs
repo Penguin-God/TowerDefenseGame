@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System;
+using System.Linq;
 
 public interface IInstantiater
 {
@@ -45,6 +46,7 @@ public class Pool
     public void Init(string path, int count, IInstantiater instantiate)
     {
         Path = path;
+        Original = Resources.Load<GameObject>(path);
         Root = new GameObject($"{Name}_Root").transform;
         for (int i = 0; i < count; i++)
             Push(CreateObject(instantiate));
@@ -148,7 +150,7 @@ public class Multi_PoolManager
         pool.Init(path, count, instantiater);
         if (root == null) pool.Root.SetParent(_root);
         else pool.Root.SetParent(root);
-        _poolByName.Add(pool.Root.name, pool);
+        _poolByName.Add(pool.Name, pool);
         return pool.Root;
     }
 
@@ -196,6 +198,8 @@ public class Multi_PoolManager
         if (_poolByName.ContainsKey(name) == false)
         {
             Debug.Log($"{name} 풀링 오브젝트를 딕셔너리에서 찾을 수 없음");
+            Debug.Log("현재 있는 풀 이름들");
+            _poolByName.Keys.ToList().ForEach(x => Debug.Log(x));
             return null;
         }
         else return _poolByName[name];

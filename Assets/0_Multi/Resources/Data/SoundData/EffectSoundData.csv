@@ -1,6 +1,7 @@
 ﻿effectType,volumn,path
 BossDeadClip,1,Effect/BossDeadClip
 Click_XButton,1,Effect/Click_XButton
+DebuffSkill,0.3,Effect/DebuffSkill
 Denger,0.8,Effect/Denger
 DrawSwordman,0.5,Effect/DrawSwordman
 EnemySelected,0.5,Effect/EnemySelected

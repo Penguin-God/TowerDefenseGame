@@ -20,6 +20,7 @@ public enum EffectSoundType
 {
     BossDeadClip,
     Click_XButton,
+    DebuffSkill,
     Denger,
     DrawSwordman,
     EnemySelected,
@@ -53,7 +54,6 @@ public enum EffectSoundType
     VioletMageSkill,
     WaterBolt,
     YellowMageSkill,
-
 }
 
 public class Multi_SoundManager

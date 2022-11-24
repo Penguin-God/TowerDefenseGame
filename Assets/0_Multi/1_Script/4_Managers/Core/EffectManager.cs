@@ -70,7 +70,7 @@ public class EffectManager
     Material LoadMaterial(string name)
     {
         if (_nameByMaterial.ContainsKey(name) == false)
-            _nameByMaterial.Add(name, Resources.Load<Material>(_nameByPath[name]));
+            _nameByMaterial.Add(name, Multi_Managers.Resources.Load<Material>(_nameByPath[name]));
         return _nameByMaterial[name];
     }
 }

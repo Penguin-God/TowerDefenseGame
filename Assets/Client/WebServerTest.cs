@@ -12,13 +12,22 @@ public class WebServerTest : MonoBehaviour
 
     void Start()
     {
-        
-        string jsonfile = JsonUtility.ToJson(testObj);
-        print(jsonfile);
-        StartCoroutine(GetText());
         StartCoroutine(GetTextID(2));
-        StartCoroutine(Upload(jsonfile));
-        StartCoroutine(GetText());
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            string jsonfile = JsonUtility.ToJson(testObj);
+            print(jsonfile);
+            StartCoroutine(Upload(jsonfile));
+        }
+
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            StartCoroutine(GetText());
+        }
     }
 
     public class GameResult

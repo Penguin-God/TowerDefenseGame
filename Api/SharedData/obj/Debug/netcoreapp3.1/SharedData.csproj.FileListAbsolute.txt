@@ -1,0 +1,10 @@
+D:\Github_jangjo123\1.TowerDefenseGame\Api\SharedData\bin\Debug\netcoreapp3.1\SharedData.deps.json
+D:\Github_jangjo123\1.TowerDefenseGame\Api\SharedData\bin\Debug\netcoreapp3.1\SharedData.dll
+D:\Github_jangjo123\1.TowerDefenseGame\Api\SharedData\bin\Debug\netcoreapp3.1\SharedData.pdb
+D:\Github_jangjo123\1.TowerDefenseGame\Api\SharedData\obj\Debug\netcoreapp3.1\SharedData.csproj.AssemblyReference.cache
+D:\Github_jangjo123\1.TowerDefenseGame\Api\SharedData\obj\Debug\netcoreapp3.1\SharedData.GeneratedMSBuildEditorConfig.editorconfig
+D:\Github_jangjo123\1.TowerDefenseGame\Api\SharedData\obj\Debug\netcoreapp3.1\SharedData.AssemblyInfoInputs.cache
+D:\Github_jangjo123\1.TowerDefenseGame\Api\SharedData\obj\Debug\netcoreapp3.1\SharedData.AssemblyInfo.cs
+D:\Github_jangjo123\1.TowerDefenseGame\Api\SharedData\obj\Debug\netcoreapp3.1\SharedData.csproj.CoreCompileInputs.cache
+D:\Github_jangjo123\1.TowerDefenseGame\Api\SharedData\obj\Debug\netcoreapp3.1\SharedData.dll
+D:\Github_jangjo123\1.TowerDefenseGame\Api\SharedData\obj\Debug\netcoreapp3.1\SharedData.pdb

@@ -5,18 +5,20 @@ using System.Net;
 using System.IO;
 using System;
 using System.Text;
+using System.Collections.Generic;
 
 public class WebServerTest : MonoBehaviour
 {
-    public GameResult testObj = new GameResult { UserName = "Unity", Score = 100 };
+    public List<Skill> testObj = new List<Skill>() { new Skill { SkillName = "태극", SkillExp = 123 , Owner = new Player { UserName = 777777} }, new Skill { SkillName = "검유강", SkillExp = 11 } };
 
     void Start()
     {
-        StartCoroutine(GetTextID(2));
+        StartCoroutine(GetTextID(1));
     }
 
     private void Update()
     {
+        // 쓰기
         if (Input.GetKeyDown(KeyCode.P))
         {
             string jsonfile = JsonUtility.ToJson(testObj);
@@ -24,6 +26,7 @@ public class WebServerTest : MonoBehaviour
             StartCoroutine(Upload(jsonfile));
         }
 
+        // 읽기
         if (Input.GetKeyDown(KeyCode.G))
         {
             StartCoroutine(GetText());
@@ -39,9 +42,26 @@ public class WebServerTest : MonoBehaviour
         public DateTime DateTime;
     }
 
+    public class Player
+    {
+        public int Id;
+        public int UserId;
+        public int UserName;
+        public List<Skill> skills;
+        public DateTime Date;
+    }
+
+    public class Skill
+    {
+        public int SkillId;
+        public string SkillName;
+        public int SkillExp;
+        public Player Owner;
+    }
+
     IEnumerator Upload(string jsonfile)
     {
-        using (UnityWebRequest request = UnityWebRequest.Post("https://localhost:44394/api/ranking", jsonfile))
+        using (UnityWebRequest request = UnityWebRequest.Post("https://localhost:44319/api/api", jsonfile))
         {
             byte[] jsonToSend = new UTF8Encoding().GetBytes(jsonfile);
             request.uploadHandler = new UploadHandlerRaw(jsonToSend);
@@ -68,7 +88,7 @@ public class WebServerTest : MonoBehaviour
     //    WWWForm form = new WWWForm();
 
 
-    //    UnityWebRequest www = UnityWebRequest.Post("https://localhost:44394/api/ranking", form);
+    //    UnityWebRequest www = UnityWebRequest.Post("https://localhost:44319/api/api", form);
     //    yield return www.SendWebRequest();
 
     //    if (www.isNetworkError || www.isHttpError)
@@ -84,7 +104,7 @@ public class WebServerTest : MonoBehaviour
     IEnumerator GetText()
     {
         Debug.Log("테스트 시작");
-        UnityWebRequest www = UnityWebRequest.Get("https://localhost:44394/api/ranking");
+        UnityWebRequest www = UnityWebRequest.Get("https://localhost:44319/api/api");
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)
@@ -104,7 +124,7 @@ public class WebServerTest : MonoBehaviour
     IEnumerator GetTextID(int Id)
     {
         Debug.Log("테스트 시작");
-        UnityWebRequest www = UnityWebRequest.Get($"https://localhost:44394/api/ranking/{Id}");
+        UnityWebRequest www = UnityWebRequest.Get($"https://localhost:44319/api/api");
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)

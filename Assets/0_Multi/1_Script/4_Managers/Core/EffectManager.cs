@@ -53,7 +53,6 @@ public class EffectManager
         particle.gameObject.SetActive(true);
         particle.gameObject.transform.position = pos;
         particle.PlayParticle();
-        
     }
 
     public void ChangeMaterial(string name, MeshRenderer mesh)

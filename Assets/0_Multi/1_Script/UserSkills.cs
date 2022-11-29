@@ -77,7 +77,7 @@ public class MaxUnit : UserSkill
         => Multi_GameManager.instance.BattleData.MaxUnit += (int)GetData()[0];
 }
 
-public class Taegeuk : UserSkill // RPC 콜 줄이기. 지금은 유닛 소환될 때마다 계속 부름
+public class Taegeuk : UserSkill
 {
     // 빨강, 파랑을 제외한 유닛 수
     List<int> Ather
@@ -160,10 +160,10 @@ public class Taegeuk : UserSkill // RPC 콜 줄이기. 지금은 유닛 소환�
 
     public override void InitSkill() => Multi_UnitManager.Instance.OnUnitFlagCountChanged += (count, flag) => UseSkill();
 
-    void UseSkill()
+    void UseSkill() // TODO : RPC 콜 줄이기. 지금은 유닛 소환될 때마다 계속 부름 
     {
         var newFlags = GetTaegeukFlags();
-        if(_unitTaegeukOnFalgs.SequenceEqual(newFlags)) return;
+        // if(_unitTaegeukOnFalgs.SequenceEqual(newFlags)) return;
 
         Debug.Log("통과함");
         int[] datas = GetData().Select(x => (int)x).ToArray();
@@ -172,8 +172,8 @@ public class Taegeuk : UserSkill // RPC 콜 줄이기. 지금은 유닛 소환�
 
         for (int i = 0; i < _unitTaegeukOnFalgs.Length; i++)
         {
-            if (_unitTaegeukOnFalgs[i] == newFlags[i])
-                continue;
+            //if (_unitTaegeukOnFalgs[i] == newFlags[i])
+            //    continue;
 
             _unitTaegeukOnFalgs[i] = newFlags[i];
             int applyDamage = _unitTaegeukOnFalgs[i] ? strongDamages.Damages[i] : originDamages.Damages[i];

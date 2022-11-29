@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class TargetTracker : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    Transform _target;
+    Vector3 _offset;
+    public void SetInfo(Transform target, Vector3 offset)
     {
-        
+        _target = target;
+        _offset = offset;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (_target == null) return;
+        transform.position = _target.position + _offset;
     }
 }

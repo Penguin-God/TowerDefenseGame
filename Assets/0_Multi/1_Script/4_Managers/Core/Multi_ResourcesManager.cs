@@ -42,11 +42,12 @@ public class Multi_ResourcesManager
 
     GameObject GetObject(string path)
     {
-        GameObject prefab = Load<GameObject>($"Prefabs/{path}");
+        path = GetPrefabPath(path); // TODO : 프리팹에 poolable 있어야 풀링되는거 수정하기
+        GameObject prefab = Load<GameObject>(path);
         if (prefab.GetComponent<Poolable>() != null)
             return Multi_Managers.Pool.Pop(prefab).gameObject;
         else
-            return PhotonNetwork.Instantiate($"Prefabs/{path}", Vector3.zero, prefab.transform.rotation);
+            return PhotonNetwork.Instantiate(path, Vector3.zero, prefab.transform.rotation);
     }
 
     GameObject SetPhotonObject(GameObject go, Vector3 position, Quaternion rotation, int id = -1, Transform parent = null)
@@ -70,7 +71,7 @@ public class Multi_ResourcesManager
 
     public GameObject Instantiate(string path, Transform parent = null)
     {
-        path = SetPrefabPath(path);
+        path = GetPrefabPath(path);
         var original = Multi_Managers.Pool.GetOriginal(path);
         if (original != null)
             return Multi_Managers.Pool.Pop(original).gameObject;
@@ -81,7 +82,7 @@ public class Multi_ResourcesManager
         return go;
     }
 
-    string SetPrefabPath(string path) => path.Contains("Prefabs/") ? path : $"Prefabs/{path}";
+    string GetPrefabPath(string path) => path.Contains("Prefabs/") ? path : $"Prefabs/{path}";
 
     public void PhotonDestroy(GameObject go)
     {

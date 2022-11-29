@@ -39,10 +39,11 @@ public class EffectManager
         }
     }
 
-    public void ChaseToTarget(string name, Transform target, Vector3 offset)
+    public TargetTracker ChaseToTarget(string name, Transform target, Vector3 offset)
     {
-        GameObject chaser = LoadObject(name);
-        // chaser.AddComponent<>().SetInfo(target, offset) 추적 컴포넌트 만들기
+        TargetTracker tracker = LoadObject(name).GetOrAddComponent<TargetTracker>();
+        tracker.SetInfo(target, offset);
+        return tracker;
     }
 
     // 이걸 호출하는 쪽에서 All이나 Other로 튕기면 됨. 대신 그때 서로가 풀링이 되어 있어야 함.
@@ -64,7 +65,7 @@ public class EffectManager
     public void ChangeColor(byte r, byte g, byte b, Transform transform)
         => transform.GetComponentInChildren<MeshRenderer>().material.color = new Color32(r, g, b, 255);
 
-    GameObject LoadObject(string name) => Multi_Managers.Resources.Instantiate(_nameByPath[name]);
+    GameObject LoadObject(string name) => Multi_Managers.Resources.PhotonInsantiate(_nameByPath[name], Vector3.zero);
     ParticlePlug LoadParticle(string name) => LoadObject(name).GetOrAddComponent<ParticlePlug>();
 
     Dictionary<string, Material> _nameByMaterial = new Dictionary<string, Material>();

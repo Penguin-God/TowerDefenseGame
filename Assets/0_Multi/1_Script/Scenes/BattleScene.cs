@@ -28,17 +28,22 @@ public class BattleScene : BaseScene
 
     void Start()
     {
-        InitUserSkill();
+        var skills = InitUserSkill();
+        FindObjectOfType<EffectInitializer>().SettingEffect(skills);
     }
 
-    void InitUserSkill()
+    IEnumerable<UserSkill> InitUserSkill()
     {
+        List<UserSkill> userSkills = new List<UserSkill>();
         foreach (var skillType in Multi_Managers.ClientData.EquipSkillManager.EquipSkills)
         {
             if (skillType == SkillType.None)
                 continue;
-            new UserSkillFactory().GetSkill(skillType).InitSkill();
+            var userSkill = new UserSkillFactory().GetSkill(skillType);
+            userSkill.InitSkill();
+            userSkills.Add(userSkill);
         }
+        return userSkills;
     }
 
     void InitSound()

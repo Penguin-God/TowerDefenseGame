@@ -33,6 +33,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     UnitStatChanger _stat = new UnitStatChanger();
     UnitPassiveManager _passive = new UnitPassiveManager();
 
+    public MasterDataManager Master => _master;
     void Awake()
     {
         _isDestory = false;
@@ -115,7 +116,7 @@ public class Multi_UnitManager : MonoBehaviourPun
 
 
     // Components
-    class MasterDataManager
+    public class MasterDataManager
     {
         public RPCAction<byte> OnAllUnitCountChanged = new RPCAction<byte>();
         public RPCAction<byte, UnitFlags, byte> OnUnitCountChanged = new RPCAction<byte, UnitFlags, byte>();

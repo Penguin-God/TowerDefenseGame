@@ -1,5 +1,6 @@
 ﻿_effectType,_name,_path
 GameObject,StunEffect,Prefabs/Effects/StunEffect
+GameObject,UnitReinForceEffect,Prefabs/Effects/UnitReinForceEffect
 GameObject,UnitTpEffect,Prefabs/Effects/UnitTpEffect
 GameObject,WhiteUnitTimer,Prefabs/Effects/WhiteUnitTimer
 Material,FreezeEnemy,Materials/FreezeEnemy

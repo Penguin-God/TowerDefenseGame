@@ -179,6 +179,33 @@ public enum MoneyType
     Hammer = 3,
 }
 
+public enum UserSkillClass
+{
+    Main,
+    Sub,
+}
+
+class UserSkillShopUseCase
+{
+    public void GetSkillExp(SkillType skillType, int getQuantity)
+    {
+        if (skillType == SkillType.None) return;
+        Multi_Managers.ClientData.GetExp(skillType, getQuantity);
+    }
+
+    public void BuyUserSkill(SkillType skillType)
+    {
+        var skillData = Multi_Managers.Data.UserSkill.GetSkillGoodsData(skillType);
+        // TODO : 나중에 가격 정하기
+        if (Multi_Managers.ClientData.MoneyByType[skillData.MoneyType].Amount >= 10)
+        {
+            Multi_Managers.ClientData.MoneyByType[skillData.MoneyType].Amount -= 10;
+
+            GetSkillExp(skillType, 1);
+        }
+    }
+}
+
 class MoneyPresenter
 {
     public string GetKoreaText(MoneyType moneyType)

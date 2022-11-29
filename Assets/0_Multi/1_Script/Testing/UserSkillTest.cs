@@ -14,6 +14,7 @@ public class UserSkillTest : MonoBehaviour
 
     public void ActiveSkill(SkillType skillType)
     {
+        new UserSkillShopUseCase().GetSkillExp(skillType, 1);
         _skillTypeByFlag[skillType] = true;
         new UserSkillFactory().GetSkill(skillType).InitSkill();
     }

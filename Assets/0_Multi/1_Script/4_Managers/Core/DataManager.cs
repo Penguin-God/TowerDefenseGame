@@ -14,7 +14,7 @@ public interface ICsvLoader<Key, Value>
     Dictionary<Key, Value> MakeDict(string csv);
 }
 
-public class Multi_DataManager
+public class DataManager
 {
     UnitData _unit = new UnitData();
     UI_Data _ui = new UI_Data();
@@ -75,17 +75,17 @@ public class Multi_DataManager
         _enemy.Clear();
     }
 
-    IEnumerable<T> LoadData<T>(string path) => CsvUtility.CsvToArray<T>(Multi_Managers.Resources.Load<TextAsset>($"Data/{path}").text);
+    IEnumerable<T> LoadData<T>(string path) => CsvUtility.CsvToArray<T>(Managers.Resources.Load<TextAsset>($"Data/{path}").text);
 
     Dictionary<Key, Value> MakeCsvDict<ICsvLoader, Key, Value>(string path) where ICsvLoader : ICsvLoader<Key, Value>, new()
     {
         ICsvLoader loder = new ICsvLoader();
-        return loder.MakeDict(Multi_Managers.Resources.Load<TextAsset>($"Data/{path}").text);
+        return loder.MakeDict(Managers.Resources.Load<TextAsset>($"Data/{path}").text);
     }
 
     Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
     {
-        TextAsset textAsset = Multi_Managers.Resources.Load<TextAsset>($"Data/{path}");
+        TextAsset textAsset = Managers.Resources.Load<TextAsset>($"Data/{path}");
         return JsonUtility.FromJson<Loader>(textAsset.text);
     }
 
@@ -110,7 +110,7 @@ public class Multi_DataManager
         Dictionary<UnitFlags, MageUnitStat> _mageStatByFlag = new Dictionary<UnitFlags, MageUnitStat>();
         public IReadOnlyDictionary<UnitFlags, MageUnitStat> MageStatByFlag => _mageStatByFlag;
 
-        public void Init(Multi_DataManager manager)
+        public void Init(DataManager manager)
         {
             _unitNameDataByUnitKoreaName = manager.MakeCsvDict<UnitNameDatas, string, UnitNameData>("UnitData/UnitNameData");
             _unitNameDataByFlag = _unitNameDataByUnitKoreaName.ToDictionary(x => x.Value.UnitFlags, x => x.Value);
@@ -142,7 +142,7 @@ public class Multi_DataManager
 
         public IEnumerable<UI_RandomShopGoodsData> RandomShopDatas { get; private set; }
 
-        public void Init(Multi_DataManager manager)
+        public void Init(DataManager manager)
         {
             _combineConditionByUnitFalg = manager.MakeCsvDict<CombineConditions, UnitFlags, CombineCondition>("UnitData/CombineConditionData");
             _unitWindowDataByUnitFlags = manager.MakeCsvDict<UI_UnitWindowDatas, UnitFlags, UI_UnitWindowData>("UIData/UI_UnitWindowData");
@@ -168,7 +168,7 @@ public class Multi_DataManager
         Dictionary<int, BossData> _towerDataByLevel = new Dictionary<int, BossData>();
         public IReadOnlyDictionary<int, BossData> TowerDataByLevel => _towerDataByLevel;
 
-        public void Init(Multi_DataManager manager)
+        public void Init(DataManager manager)
         {
             _normalEnemyDataByStage = manager.MakeCsvDict<NormalEnemyDatas, int, NormalEnemyData>("EnemyData/NormalEnemyData");
             _bossDataByLevel = manager.MakeCsvDict<BossDatas, int, BossData>("EnemyData/BossData");
@@ -186,7 +186,7 @@ public class Multi_DataManager
     {
         public Dictionary<SkillType, UserSkillGoodsData> _typeByGoodsData;
         public IEnumerable<UserSkillGoodsData> AllSkills => _typeByGoodsData.Values;
-        public void Init(Multi_DataManager manager)
+        public void Init(DataManager manager)
         {
             _typeByGoodsData = manager.MakeCsvDict<UserSkillGoodsLoder, SkillType, UserSkillGoodsData>("SkillData/SkillGoodsData");
         }

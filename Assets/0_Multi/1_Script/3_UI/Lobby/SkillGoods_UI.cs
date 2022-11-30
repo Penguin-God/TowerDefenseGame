@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillGoods_UI : Multi_UI_Base
+public class SkillGoods_UI : UI_Base
 {
     enum Images
     {
@@ -48,6 +48,6 @@ public class SkillGoods_UI : Multi_UI_Base
 
         GetButton((int)Buttons.BuyButton).onClick.RemoveAllListeners();
         GetButton((int)Buttons.BuyButton).onClick.AddListener(
-            () => Multi_Managers.UI.ShowPopupUI<UI_ComfirmPopup>().SetInfo("상품을 구매하시겠습니까?", () => new UserSkillShopUseCase().BuyUserSkill(_skillData.SkillType)));
+            () => Managers.UI.ShowPopupUI<UI_ComfirmPopup>().SetInfo("상품을 구매하시겠습니까?", () => new UserSkillShopUseCase().BuyUserSkill(_skillData.SkillType)));
     }
 }

@@ -24,7 +24,7 @@ public class GoodsManager
     Dictionary<GoodsLocation, List<UI_RandomShopGoodsData>[]> GeneratedGoodsData()
     {
         var goodsData = new Dictionary<GoodsLocation, List<UI_RandomShopGoodsData>[]>();
-        foreach (var data in Multi_Managers.Data.RandomShopDatas)
+        foreach (var data in Managers.Data.RandomShopDatas)
         {
             if (goodsData.ContainsKey(data.GoodsLocation) == false)
             {
@@ -118,7 +118,7 @@ public class GoodsManager
 
 
 
-public class RandomShop_UI : Multi_UI_Popup
+public class RandomShop_UI : UI_Popup
 {
     enum Buttons
     {
@@ -172,7 +172,7 @@ public class RandomShop_UI : Multi_UI_Popup
             new UI_RandomShopGoodsData("상점 리롤", GoodsLocation.None, -1, GameCurrencyType.Gold, 10, 
             "10골드를 지불하여 상점을 돌리시겠습니까?", SellType.None, null);
         panel.Setup(data, goodsManager, BindGoods);
-        Multi_Managers.Sound.PlayEffect(EffectSoundType.ShopGoodsClick);
+        Managers.Sound.PlayEffect(EffectSoundType.ShopGoodsClick);
     }
 }
 
@@ -185,7 +185,7 @@ class GoodsSellUseCase
             goodsManager.DropGoods(data);
 
             GiveGoods(data, SellAct);
-            Multi_Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
+            Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
             return true;
         }
         return false;

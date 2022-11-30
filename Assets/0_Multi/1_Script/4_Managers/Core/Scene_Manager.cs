@@ -20,14 +20,14 @@ public class Scene_Manager
 
     public void LoadScene(SceneTyep type)
     {
-        Multi_Managers.Clear();
+        Managers.Clear();
         SceneManager.LoadScene(Enum.GetName(typeof(SceneTyep), type));
         CurrentSceneType = type;
     }
 
     public void LoadLevel(SceneTyep type)
     {
-        Multi_Managers.Clear();
+        Managers.Clear();
         PhotonNetwork.LoadLevel(Enum.GetName(typeof(SceneTyep), type));
         CurrentSceneType = type;
     }

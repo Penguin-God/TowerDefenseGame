@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class EnemySelector_Button : Multi_UI_Base
+public class EnemySelector_Button : UI_Base
 {
     enum GameObjects
     {
@@ -39,7 +39,7 @@ public class EnemySelector_Button : Multi_UI_Base
     {
         Multi_SpawnManagers.NormalEnemy.SetOtherEnemyNumber(enemyNumber);
         image.color = selectColor;
-        Multi_Managers.Sound.PlayEffect(EffectSoundType.EnemySelected);
+        Managers.Sound.PlayEffect(EffectSoundType.EnemySelected);
     }
 
     public void UI_Reset()
@@ -50,7 +50,7 @@ public class EnemySelector_Button : Multi_UI_Base
     RectTransform infoWindowPos;
     public void ShwoInfoWindow()
     {
-        BackGround window = Multi_Managers.UI.ShowPopupUI<BackGround>("BackGround");
+        BackGround window = Managers.UI.ShowPopupUI<BackGround>("BackGround");
         window.SetPosition(infoWindowPos.position);
         window.SetText(enemyInfoText);
     }

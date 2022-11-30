@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillEquip_UI : Multi_UI_Popup
+public class SkillEquip_UI : UI_Popup
 {
     enum GameObjects
     {
@@ -28,15 +28,15 @@ public class SkillEquip_UI : Multi_UI_Popup
         Bind<Image>(typeof(Images));
         Bind<Button>(typeof(Buttons));
 
-        GetButton((int)Buttons.UnEquipButton).onClick.AddListener(Multi_Managers.ClientData.EquipSkillManager.AllUnEquip);
+        GetButton((int)Buttons.UnEquipButton).onClick.AddListener(Managers.ClientData.EquipSkillManager.AllUnEquip);
 
-        Multi_Managers.ClientData.EquipSkillManager.OnEquipSkillChanged -= RefreshEquipSkillFrame;
-        Multi_Managers.ClientData.EquipSkillManager.OnEquipSkillChanged += RefreshEquipSkillFrame;
+        Managers.ClientData.EquipSkillManager.OnEquipSkillChanged -= RefreshEquipSkillFrame;
+        Managers.ClientData.EquipSkillManager.OnEquipSkillChanged += RefreshEquipSkillFrame;
     }
 
     void OnDestroy()
     {
-        Multi_Managers.ClientData.EquipSkillManager.OnEquipSkillChanged -= RefreshEquipSkillFrame;
+        Managers.ClientData.EquipSkillManager.OnEquipSkillChanged -= RefreshEquipSkillFrame;
     }
 
     public void RefreshUI()
@@ -54,8 +54,8 @@ public class SkillEquip_UI : Multi_UI_Popup
         var frameParent = GetObject((int)GameObjects.HasSkillFramesParent).transform;
         foreach (Transform item in frameParent)
             Destroy(item.gameObject);
-        foreach (SkillType skillType in Multi_Managers.ClientData.HasSkills)
-            Multi_Managers.UI.MakeSubItem<SkillFrame_UI>(frameParent).SetInfo(skillType);
+        foreach (SkillType skillType in Managers.ClientData.HasSkills)
+            Managers.UI.MakeSubItem<SkillFrame_UI>(frameParent).SetInfo(skillType);
     }
 
     void RefreshEquipSkillFrame(SkillEquipData equipData)
@@ -83,5 +83,5 @@ public class SkillEquip_UI : Multi_UI_Popup
         image.sprite = GetSkillImage(equipData.SkillType);
     }
 
-    Sprite GetSkillImage(SkillType skillType) => Multi_Managers.Resources.Load<Sprite>(Multi_Managers.Data.UserSkill.GetSkillGoodsData(skillType).ImagePath);
+    Sprite GetSkillImage(SkillType skillType) => Managers.Resources.Load<Sprite>(Managers.Data.UserSkill.GetSkillGoodsData(skillType).ImagePath);
 }

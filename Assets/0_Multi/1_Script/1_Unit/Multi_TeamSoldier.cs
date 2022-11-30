@@ -123,7 +123,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
     [PunRPC]
     protected void LoadStat()
     {
-        stat = Multi_Managers.Data.GetUnitStat(UnitFlags);
+        stat = Managers.Data.GetUnitStat(UnitFlags);
         OnDamageChanaged?.Invoke(Damage);
         OnBossDamageChanged?.Invoke(BossDamage);
         OriginDamage = stat.Damage;
@@ -156,7 +156,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         //OnDead?.Invoke(this);
         gameObject.SetActive(false);
         Multi_SpawnManagers.BossEnemy.OnSpawn -= TargetToBoss;
-        Multi_Managers.Pool.Push(gameObject.GetComponent<Poolable>());
+        Managers.Pool.Push(gameObject.GetComponent<Poolable>());
         _state.Daad();
     }
 
@@ -278,7 +278,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
     [PunRPC]
     protected void MoveToOpposite()
     {
-        Multi_Managers.Effect.PlayParticle("UnitTpEffect", transform.position + (Vector3.up * 3));
+        Managers.Effect.PlayParticle("UnitTpEffect", transform.position + (Vector3.up * 3));
         gameObject.SetActive(false);
         transform.position = GetOppositeWorldSpawnPos();
         gameObject.SetActive(true);
@@ -290,7 +290,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
     void RPC_PlayTpSound()
     {
         if (_state.UsingId == Multi_Data.instance.Id)
-            Multi_Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
+            Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
         else
             photonView.RPC(nameof(PlayTpSound), RpcTarget.Others);
     }
@@ -314,7 +314,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
 
 
     [PunRPC] // TODO : 나중에 멀티 싱글턴 만들어서 거기에 빼기
-    protected void PlayTpSound() => Multi_Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
+    protected void PlayTpSound() => Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
 
     protected void AfterPlaySound(EffectSoundType type, float delayTime) => StartCoroutine(Co_AfterPlaySound(type, delayTime));
 
@@ -325,10 +325,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
     }
     protected void PlaySound(EffectSoundType type, float volumn = -1)
     {
-        Multi_Managers.Sound.PlayEffect_If(type, SoundCondition, volumn);
+        Managers.Sound.PlayEffect_If(type, SoundCondition, volumn);
 
         bool SoundCondition()
-            => rpcable.UsingId == Multi_Managers.Camera.LookWorld_Id && EnterStroyWorld == Multi_Managers.Camera.IsLookEnemyTower;
+            => rpcable.UsingId == Managers.Camera.LookWorld_Id && EnterStroyWorld == Managers.Camera.IsLookEnemyTower;
     }
 
     [Serializable]

@@ -81,7 +81,7 @@ public class Multi_SoundManager
         root.transform.parent = parent;
     }
 
-    public void PlayBgm(BgmType bgmType) => PlayBgm(Multi_Managers.Data.BgmBySound[bgmType].Path, Multi_Managers.Data.BgmBySound[bgmType].Volumn);
+    public void PlayBgm(BgmType bgmType) => PlayBgm(Managers.Data.BgmBySound[bgmType].Path, Managers.Data.BgmBySound[bgmType].Volumn);
     public void PlayBgm(string _path, float volumn = 0.5f) => PlayBgm(GetOrAddClip(_path), volumn);
     public void PlayBgm(AudioClip _clip, float volumn = 0.5f)
     {
@@ -101,8 +101,8 @@ public class Multi_SoundManager
 
     public void PlayEffect(EffectSoundType sound, float volumeScale = -1)
     {
-        float applyVolumn = (volumeScale < 0) ? Multi_Managers.Data.EffectBySound[sound].Volumn : volumeScale;
-        PlayEffect(Multi_Managers.Data.EffectBySound[sound].Path, applyVolumn);
+        float applyVolumn = (volumeScale < 0) ? Managers.Data.EffectBySound[sound].Volumn : volumeScale;
+        PlayEffect(Managers.Data.EffectBySound[sound].Path, applyVolumn);
     }
     public void PlayEffect(string path, float volumeScale) => PlayEffect(GetOrAddClip(path), volumeScale);
     public void PlayEffect(AudioClip clip, float volumeScale) => _sources[(int)SoundType.Effect].PlayOneShot(clip, volumeScale);
@@ -115,7 +115,7 @@ public class Multi_SoundManager
             return clip;
         else
         {
-            AudioClip _newClip = Multi_Managers.Resources.Load<AudioClip>(path);
+            AudioClip _newClip = Managers.Resources.Load<AudioClip>(path);
             _clipByPath.Add(path, _newClip);
             return _newClip;
         }

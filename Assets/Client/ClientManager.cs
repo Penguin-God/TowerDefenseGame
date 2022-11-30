@@ -46,9 +46,9 @@ public class ClientManager : MonoBehaviour
 
         Skill_Image skill_Image = GetComponent<Skill_Image>();
 
-        ClientIron = Multi_Managers.ClientData.MoneyByType[MoneyType.Iron].Amount;
-        ClientWood = Multi_Managers.ClientData.MoneyByType[MoneyType.Wood].Amount;
-        ClientHammer = Multi_Managers.ClientData.MoneyByType[MoneyType.Hammer].Amount;
+        ClientIron = Managers.ClientData.MoneyByType[MoneyType.Iron].Amount;
+        ClientWood = Managers.ClientData.MoneyByType[MoneyType.Wood].Amount;
+        ClientHammer = Managers.ClientData.MoneyByType[MoneyType.Hammer].Amount;
 
         UpdateWoodText(ClientWood);
         UpdateIronText(ClientIron);
@@ -84,8 +84,8 @@ public class ClientManager : MonoBehaviour
     }
 
     // 버튼에서 사용 중
-    public void ShowSkillEquipUI() => Multi_Managers.UI.ShowPopupUI<SkillEquip_UI>().RefreshUI();
-    public void ShowSkillShopUI() => Multi_Managers.UI.ShowPopupUI<SkillShop_UI>().RefreshUI();
+    public void ShowSkillEquipUI() => Managers.UI.ShowPopupUI<SkillEquip_UI>().RefreshUI();
+    public void ShowSkillShopUI() => Managers.UI.ShowPopupUI<SkillShop_UI>().RefreshUI();
 
     #region update Money
     public void UpdateMoney()
@@ -139,15 +139,15 @@ public class ClientManager : MonoBehaviour
     public void BuySkills(ref int use_money, int use_price, SkillType skillType, MoneyType moneyType)
     {
         ClientClickSound();
-        use_money = Multi_Managers.ClientData.MoneyByType[moneyType].Amount;
-        if (use_money >= use_price && !(Multi_Managers.ClientData.SkillByType[skillType].HasSkill))
+        use_money = Managers.ClientData.MoneyByType[moneyType].Amount;
+        if (use_money >= use_price && !(Managers.ClientData.SkillByType[skillType].HasSkill))
         {
             Debug.Log($"{skillType} 구매");
             use_money -= use_price;
-            Multi_Managers.ClientData.SkillByType[skillType].SetHasSkill(true);
+            Managers.ClientData.SkillByType[skillType].SetHasSkill(true);
 
-            Multi_Managers.ClientData.MoneyByType[moneyType].SetAmount(use_money);
-            use_money = Multi_Managers.ClientData.MoneyByType[moneyType].Amount;
+            Managers.ClientData.MoneyByType[moneyType].SetAmount(use_money);
+            use_money = Managers.ClientData.MoneyByType[moneyType].Amount;
 
             UpdateMoney();
         }
@@ -322,7 +322,7 @@ public class ClientManager : MonoBehaviour
         }
         
         //Multi_Managers.ClientData.SkillByType[skillType].SetEquipSkill(true);
-        Multi_Managers.ClientData.AddEquipSkill(skillType);
+        Managers.ClientData.AddEquipSkill(skillType);
 
         InitEquips();
         return true;
@@ -332,13 +332,13 @@ public class ClientManager : MonoBehaviour
     #region Init Info
     private void InitMoney()
     {
-        Multi_Managers.ClientData.MoneyByType[MoneyType.Iron].SetAmount(ClientIron);
-        Multi_Managers.ClientData.MoneyByType[MoneyType.Wood].SetAmount(ClientWood);
-        Multi_Managers.ClientData.MoneyByType[MoneyType.Hammer].SetAmount(ClientHammer);
+        Managers.ClientData.MoneyByType[MoneyType.Iron].SetAmount(ClientIron);
+        Managers.ClientData.MoneyByType[MoneyType.Wood].SetAmount(ClientWood);
+        Managers.ClientData.MoneyByType[MoneyType.Hammer].SetAmount(ClientHammer);
 
-        ClientIron = Multi_Managers.ClientData.MoneyByType[MoneyType.Iron].Amount;
-        ClientWood = Multi_Managers.ClientData.MoneyByType[MoneyType.Wood].Amount;
-        ClientHammer = Multi_Managers.ClientData.MoneyByType[MoneyType.Hammer].Amount;
+        ClientIron = Managers.ClientData.MoneyByType[MoneyType.Iron].Amount;
+        ClientWood = Managers.ClientData.MoneyByType[MoneyType.Wood].Amount;
+        ClientHammer = Managers.ClientData.MoneyByType[MoneyType.Hammer].Amount;
     }
 
     public void InitEquips()
@@ -360,7 +360,7 @@ public class ClientManager : MonoBehaviour
             return;
 
         // 스킬이 없거나 스킬을 장착한 상태라면
-        if (Multi_Managers.ClientData.SkillByType[skillType].HasSkill == false || Multi_Managers.ClientData.SkillByType[skillType].EquipSkill == true)
+        if (Managers.ClientData.SkillByType[skillType].HasSkill == false || Managers.ClientData.SkillByType[skillType].EquipSkill == true)
         {
             equipButton.interactable = false;
         }
@@ -372,14 +372,14 @@ public class ClientManager : MonoBehaviour
     #endregion
 
 
-    public int CheckSkill() => Multi_Managers.ClientData.EquipSkillCount;
+    public int CheckSkill() => Managers.ClientData.EquipSkillCount;
 
     public void UnEquip()
     {
         Skill1Image.sprite = skill_Image.UImask;
         Skill2Image.sprite = skill_Image.UImask;
 
-        Multi_Managers.ClientData.Clear();
+        Managers.ClientData.Clear();
         InitEquips();
     }
 

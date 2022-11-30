@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BackGround : Multi_UI_Popup
+public class BackGround : UI_Popup
 {
     protected override void Init()
     {

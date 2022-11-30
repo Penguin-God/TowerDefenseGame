@@ -31,7 +31,7 @@ public class MultiDevelopHelper : MonoBehaviourPunCallbacks
         if (Input.GetKeyDown(KeyCode.E)) EditorConnect();
     }
 
-    public override void OnJoinedRoom() => Multi_Managers.Scene.LoadLevel(sceneTyep);
+    public override void OnJoinedRoom() => Managers.Scene.LoadLevel(sceneTyep);
 
     // 방 접속 실패 시 방 생성
     public override void OnJoinRandomFailed(short returnCode, string message) => PhotonNetwork.CreateRoom(null, new RoomOptions { MaxPlayers = 2 });

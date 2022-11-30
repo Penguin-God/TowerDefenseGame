@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkillShop_UI : Multi_UI_Popup
+public class SkillShop_UI : UI_Popup
 {
     enum GameObjects
     {
@@ -27,7 +27,7 @@ public class SkillShop_UI : Multi_UI_Popup
         foreach (Transform item in goodsParent)
             Destroy(item.gameObject);
 
-        foreach (var skillData in Multi_Managers.Data.UserSkill.AllSkills)
-            Multi_Managers.UI.MakeSubItem<SkillGoods_UI>(goodsParent).SetInfo(skillData);
+        foreach (var skillData in Managers.Data.UserSkill.AllSkills)
+            Managers.UI.MakeSubItem<SkillGoods_UI>(goodsParent).SetInfo(skillData);
     }
 }

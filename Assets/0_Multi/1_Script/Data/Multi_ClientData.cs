@@ -96,7 +96,7 @@ public class Multi_ClientData
     public void AddEquipSkill(SkillType type) => _equipSkills.Add(new UserSkillFactory().GetSkill(type));
 
     Dictionary<SkillType, int> _skillByLevel = new Dictionary<SkillType, int>();
-    public UserSkillLevelData GetSkillLevelData(SkillType skillType) => Multi_Managers.Data.UserSkill.GetSkillLevelData(skillType, _skillByLevel[skillType]);
+    public UserSkillLevelData GetSkillLevelData(SkillType skillType) => Managers.Data.UserSkill.GetSkillLevelData(skillType, _skillByLevel[skillType]);
 
     Dictionary<SkillType, int> _skillByExp = new Dictionary<SkillType, int>();
     public Dictionary<SkillType, int> SkillByExp => _skillByExp;
@@ -118,7 +118,7 @@ public class Multi_ClientData
     }
 
     bool CanUpgrade(SkillType skill)
-        => moneyByType[Multi_Managers.Data.UserSkill.GetSkillGoodsData(skill).MoneyType].Amount >= GetSkillLevelData(skill).Price
+        => moneyByType[Managers.Data.UserSkill.GetSkillGoodsData(skill).MoneyType].Amount >= GetSkillLevelData(skill).Price
            && _skillByExp[skill] >= GetSkillLevelData(skill).Exp;
 
     public IEnumerable<SkillType> HasSkills => _skillByLevel.Where(x => x.Value > 0).Select(x => x.Key);
@@ -190,16 +190,16 @@ class UserSkillShopUseCase
     public void GetSkillExp(SkillType skillType, int getQuantity)
     {
         if (skillType == SkillType.None) return;
-        Multi_Managers.ClientData.GetExp(skillType, getQuantity);
+        Managers.ClientData.GetExp(skillType, getQuantity);
     }
 
     public void BuyUserSkill(SkillType skillType)
     {
-        var skillData = Multi_Managers.Data.UserSkill.GetSkillGoodsData(skillType);
+        var skillData = Managers.Data.UserSkill.GetSkillGoodsData(skillType);
         // TODO : 나중에 가격 정하기
-        if (Multi_Managers.ClientData.MoneyByType[skillData.MoneyType].Amount >= 10)
+        if (Managers.ClientData.MoneyByType[skillData.MoneyType].Amount >= 10)
         {
-            Multi_Managers.ClientData.MoneyByType[skillData.MoneyType].Amount -= 10;
+            Managers.ClientData.MoneyByType[skillData.MoneyType].Amount -= 10;
 
             GetSkillExp(skillType, 1);
         }

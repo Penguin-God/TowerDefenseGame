@@ -219,8 +219,8 @@ namespace ParserCore
                 return new UnitFlags(value.Split('&')[0], value.Split('&')[1]);
             else
             {
-                Debug.Assert(Multi_Managers.Data.UnitNameDataByUnitKoreaName.ContainsKey(value), $"잘못된 유닛 이름 : {value}");
-                return Multi_Managers.Data.UnitNameDataByUnitKoreaName[value].UnitFlags;
+                Debug.Assert(Managers.Data.UnitNameDataByUnitKoreaName.ContainsKey(value), $"잘못된 유닛 이름 : {value}");
+                return Managers.Data.UnitNameDataByUnitKoreaName[value].UnitFlags;
             }
         }
 

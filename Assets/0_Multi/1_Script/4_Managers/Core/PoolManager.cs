@@ -104,7 +104,7 @@ public class Pool
     }
 }
 
-public class Multi_PoolManager
+public class PoolManager
 {
     Transform _root;
 
@@ -182,7 +182,7 @@ public class Multi_PoolManager
 
         if (pool == null)
         {
-            Multi_Managers.Resources.PhotonDestroy(go);
+            Managers.Resources.PhotonDestroy(go);
             return;
         }
 

@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Multi_Managers : MonoBehaviour
+public class Managers : MonoBehaviour
 {
-    private static Multi_Managers instance;
-    private static Multi_Managers Instance
+    private static Managers instance;
+    private static Managers Instance
     {
         get
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<Multi_Managers>();
+                instance = FindObjectOfType<Managers>();
                 if (instance == null)
-                    instance = new GameObject("Multi_Managers").AddComponent<Multi_Managers>();
+                    instance = new GameObject("Multi_Managers").AddComponent<Managers>();
 
                 DontDestroyOnLoad(instance.gameObject);
                 instance.Init();
@@ -24,22 +24,22 @@ public class Multi_Managers : MonoBehaviour
         }
     }
 
-    Multi_DataManager _data = new Multi_DataManager();
-    Multi_UI_Manager _ui = new Multi_UI_Manager();
+    DataManager _data = new DataManager();
+    UI_Manager _ui = new UI_Manager();
     Multi_SoundManager _sound = new Multi_SoundManager();
-    Multi_ResourcesManager _resources = new Multi_ResourcesManager();
-    Multi_PoolManager _pool = new Multi_PoolManager();
+    ResourcesManager _resources = new ResourcesManager();
+    PoolManager _pool = new PoolManager();
     Multi_ClientData _clientData = new Multi_ClientData();
     Scene_Manager _scene = new Scene_Manager();
     CameraManager _camera = new CameraManager();
     EffectManager _effect = new EffectManager();
     MultiManager _multi = new MultiManager();
 
-    public static Multi_DataManager Data => Instance._data;
-    public static Multi_UI_Manager UI => Instance._ui;
+    public static DataManager Data => Instance._data;
+    public static UI_Manager UI => Instance._ui;
     public static Multi_SoundManager Sound => Instance._sound;
-    public static Multi_ResourcesManager Resources => Instance._resources;
-    public static Multi_PoolManager Pool => Instance._pool;
+    public static ResourcesManager Resources => Instance._resources;
+    public static PoolManager Pool => Instance._pool;
     public static Multi_ClientData ClientData => Instance._clientData;
     public static Scene_Manager Scene => instance._scene;
     public static CameraManager Camera => instance._camera;

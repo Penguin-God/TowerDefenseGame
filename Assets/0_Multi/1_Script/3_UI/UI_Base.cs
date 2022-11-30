@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using System;
 using Object = UnityEngine.Object;
 
-public abstract class Multi_UI_Base : MonoBehaviour
+public abstract class UI_Base : MonoBehaviour
 {
     protected Dictionary<Type, Object[]> _objectsByType = new Dictionary<Type, Object[]>();
 

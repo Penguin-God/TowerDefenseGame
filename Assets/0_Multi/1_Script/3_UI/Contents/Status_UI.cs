@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class Status_UI : Multi_UI_Scene
+public class Status_UI : UI_Scene
 {
     enum Texts
     {
@@ -67,18 +67,18 @@ public class Status_UI : Multi_UI_Scene
         void BindGoldBarEvent()
         {
             Multi_GameManager.instance.OnGoldChanged -= (gold) => GetText((int)Texts.GoldText).text = gold.ToString();
-            Multi_Managers.Camera.OnIsLookMyWolrd -= (lookMy) => GetObject((int)GameObjects.GoldBar).SetActive(lookMy);
+            Managers.Camera.OnIsLookMyWolrd -= (lookMy) => GetObject((int)GameObjects.GoldBar).SetActive(lookMy);
 
             Multi_GameManager.instance.OnGoldChanged += (gold) => GetText((int)Texts.GoldText).text = gold.ToString();
-            Multi_Managers.Camera.OnIsLookMyWolrd += (lookMy) => GetObject((int)GameObjects.GoldBar).SetActive(lookMy);
+            Managers.Camera.OnIsLookMyWolrd += (lookMy) => GetObject((int)GameObjects.GoldBar).SetActive(lookMy);
         }
 
         void BindFoodBarEvent()
         {
-            Multi_Managers.Camera.OnIsLookMyWolrd -= (lookMy) => GetObject((int)GameObjects.FoodBar).SetActive(lookMy);
-            Multi_Managers.Camera.OnIsLookMyWolrd += (lookMy) => GetObject((int)GameObjects.FoodBar).SetActive(lookMy);
+            Managers.Camera.OnIsLookMyWolrd -= (lookMy) => GetObject((int)GameObjects.FoodBar).SetActive(lookMy);
+            Managers.Camera.OnIsLookMyWolrd += (lookMy) => GetObject((int)GameObjects.FoodBar).SetActive(lookMy);
 
-            if (Multi_Managers.ClientData.EquipSkillManager.EquipSkills.Contains(SkillType.고기혐오자))
+            if (Managers.ClientData.EquipSkillManager.EquipSkills.Contains(SkillType.고기혐오자))
             {
                 return;
             }
@@ -110,11 +110,11 @@ public class Status_UI : Multi_UI_Scene
 
         void BindUserSkillImageEvent()
         {
-            Multi_Managers.Camera.OnLookMyWolrd -= UpdateMySkillImage;
-            Multi_Managers.Camera.OnLookMyWolrd += UpdateMySkillImage;
+            Managers.Camera.OnLookMyWolrd -= UpdateMySkillImage;
+            Managers.Camera.OnLookMyWolrd += UpdateMySkillImage;
 
-            Multi_Managers.Camera.OnLookEnemyWorld -= UpdateOtherSkillImage;
-            Multi_Managers.Camera.OnLookEnemyWorld += UpdateOtherSkillImage;
+            Managers.Camera.OnLookEnemyWorld -= UpdateOtherSkillImage;
+            Managers.Camera.OnLookEnemyWorld += UpdateOtherSkillImage;
         }
     }
 
@@ -129,7 +129,7 @@ public class Status_UI : Multi_UI_Scene
         if (EnemyofCount > 40)
         {
             text.color = dengerColor;
-            Multi_Managers.Sound.PlayEffect(EffectSoundType.Denger);
+            Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
         else text.color = originColor;
         text.text = $"현재 적 유닛 카운트 : {EnemyofCount}/{Multi_GameManager.instance.BattleData.MaxEnemyCount}";
@@ -168,7 +168,7 @@ public class Status_UI : Multi_UI_Scene
     void UpdateOtherEnemyCountText(int count) => GetText((int)Texts.OhterEnemyCountText).text = "" + count;
 
 
-    void UpdateMySkillImage() => ChangeEquipSkillImages(Multi_Managers.ClientData.EquipSkillManager.MainSkill, Multi_Managers.ClientData.EquipSkillManager.SubSkill);
+    void UpdateMySkillImage() => ChangeEquipSkillImages(Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
     void UpdateOtherSkillImage()
     {
         if (Multi_GameManager.instance.OtherPlayerData != null)
@@ -183,7 +183,7 @@ public class Status_UI : Multi_UI_Scene
             GetImage((int)Images.MainSkill).color = new Color(1, 1, 1, 0);
         else
         {
-            GetImage((int)Images.MainSkill).sprite = Multi_Managers.Data.UserSkill.GetSkillGoodsData(mainSkill).ImageSprite;
+            GetImage((int)Images.MainSkill).sprite = Managers.Data.UserSkill.GetSkillGoodsData(mainSkill).ImageSprite;
             GetImage((int)Images.MainSkill).color = new Color(1, 1, 1, 1);
         }
 
@@ -191,7 +191,7 @@ public class Status_UI : Multi_UI_Scene
             GetImage((int)Images.SubSkill).color = new Color(1, 1, 1, 0);
         else
         {
-            GetImage((int)Images.SubSkill).sprite = Multi_Managers.Data.UserSkill.GetSkillGoodsData(subSkill).ImageSprite;
+            GetImage((int)Images.SubSkill).sprite = Managers.Data.UserSkill.GetSkillGoodsData(subSkill).ImageSprite;
             GetImage((int)Images.SubSkill).color = new Color(1, 1, 1, 1);
         }
     }

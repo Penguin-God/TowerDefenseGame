@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class UI_UnitTrackerSetterBase : Multi_UI_Base
+public class UI_UnitTrackerSetterBase : UI_Base
 {
     private Multi_UI_Paint _paint;
     protected UI_UnitTracker[] _unitTrackers;
@@ -24,6 +24,6 @@ public class UI_UnitTrackerSetterBase : Multi_UI_Base
         }
 
         _unitTrackers.ToList().ForEach(x => x.SetInfo(data));
-        Multi_Managers.UI.ClosePopupUI(PopupGroupType.UnitWindow);
+        Managers.UI.ClosePopupUI(PopupGroupType.UnitWindow);
     }
 }

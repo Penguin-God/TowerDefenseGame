@@ -30,7 +30,7 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
 
     protected virtual void MasterInit() { }
 
-    protected void CreatePoolGroup(GameObject go, string path, int count) => Multi_Managers.Pool.CreatePool_InGroup(go, path, count, _rootName, SetPoolObj);
+    protected void CreatePoolGroup(GameObject go, string path, int count) => Managers.Pool.CreatePool_InGroup(go, path, count, _rootName, SetPoolObj);
 
     protected virtual void SetPoolObj(GameObject go) { }
 
@@ -43,7 +43,7 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
 
     [PunRPC]
     protected virtual GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id) 
-        => Multi_Managers.Resources.PhotonInsantiate(path, spawnPos, rotation, id);
+        => Managers.Resources.PhotonInsantiate(path, spawnPos, rotation, id);
 
 
     public string BuildPath(string rooPath, GameObject go) => $"{rooPath}/{go.name}";

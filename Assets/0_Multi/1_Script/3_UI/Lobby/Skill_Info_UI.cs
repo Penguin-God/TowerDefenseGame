@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Skill_Info_UI : Multi_UI_Popup
+public class Skill_Info_UI : UI_Popup
 {
     enum Images
     {
@@ -48,11 +48,11 @@ public class Skill_Info_UI : Multi_UI_Popup
 
         GetText((int)Texts.SkillName).text = _skillData.SkillName;
         GetText((int)Texts.SkillExplaneText).text = _skillData.Description;
-        GetImage((int)Images.Skill_Image).sprite = Multi_Managers.Resources.Load<Sprite>(_skillData.ImagePath);
+        GetImage((int)Images.Skill_Image).sprite = Managers.Resources.Load<Sprite>(_skillData.ImagePath);
 
-        var levelData = Multi_Managers.ClientData.GetSkillLevelData(_skillData.SkillType);
-        GetText((int)Texts.Exp_Text).text = $"{Multi_Managers.ClientData.SkillByExp[_skillData.SkillType]} / {levelData.Exp}";
-        GetImage((int)Images.FillMask).fillAmount = (float)Multi_Managers.ClientData.SkillByExp[_skillData.SkillType] / levelData.Exp;
+        var levelData = Managers.ClientData.GetSkillLevelData(_skillData.SkillType);
+        GetText((int)Texts.Exp_Text).text = $"{Managers.ClientData.SkillByExp[_skillData.SkillType]} / {levelData.Exp}";
+        GetImage((int)Images.FillMask).fillAmount = (float)Managers.ClientData.SkillByExp[_skillData.SkillType] / levelData.Exp;
 
         GetButton((int)Buttons.UpgradeButton).onClick.RemoveAllListeners();
         GetButton((int)Buttons.UpgradeButton).onClick.AddListener(UpgradeSkill);
@@ -62,7 +62,7 @@ public class Skill_Info_UI : Multi_UI_Popup
     {
         if (_skillData == null) return;
 
-        if (Multi_Managers.ClientData.UpgradeSkill(_skillData.SkillType))
+        if (Managers.ClientData.UpgradeSkill(_skillData.SkillType))
             RefreshUI();
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class RandomShopPanel_UI : Multi_UI_Base
+public class RandomShopPanel_UI : UI_Base
 {
     [SerializeField] Button sellButton;
     [SerializeField] Text text;
@@ -23,13 +23,13 @@ public class RandomShopPanel_UI : Multi_UI_Base
 
         if (isSuccess)
         {
-            Multi_Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
+            Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
             sellAct?.Invoke();
         }
         else
         {
-            Multi_Managers.UI.ShowPopupUI<WarningText>().Show($"{GetCurrcneyTypeText(data.CurrencyType)}가 부족해 구매할 수 없습니다.");
-            Multi_Managers.Sound.PlayEffect(EffectSoundType.Denger);
+            Managers.UI.ShowPopupUI<WarningText>().Show($"{GetCurrcneyTypeText(data.CurrencyType)}가 부족해 구매할 수 없습니다.");
+            Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
         gameObject.SetActive(false);
     }

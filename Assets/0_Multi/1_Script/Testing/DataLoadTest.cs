@@ -13,6 +13,6 @@ public class DataLoadTest : MonoBehaviour
     [ContextMenu("Test")]
     void Test()
     {
-        Multi_Managers.UI.ShowPopupUI<UI_PopupText>().Show("안녕 세상", 200, Color.red);
+        Managers.UI.ShowPopupUI<UI_PopupText>().Show("안녕 세상", 200, Color.red);
     }
 }

@@ -9,7 +9,7 @@ abstract public class Multi_UnitPassive : MonoBehaviourPun
     [SerializeField] protected IReadOnlyList<float> _stats;
     public void LoadStat(UnitFlags flag)
     {
-        _stats = Multi_Managers.Data.GetUnitPassiveStats(flag);
+        _stats = Managers.Data.GetUnitPassiveStats(flag);
         ApplyData();
     }
     protected abstract void ApplyData();

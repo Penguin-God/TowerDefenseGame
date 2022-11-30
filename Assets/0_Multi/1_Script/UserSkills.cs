@@ -29,7 +29,7 @@ public abstract class UserSkill
     SkillType _skillType;
 
     public abstract void InitSkill();
-    protected float[] GetData() => Multi_Managers.ClientData.GetSkillLevelData(_skillType).BattleDatas;
+    protected float[] GetData() => Managers.ClientData.GetSkillLevelData(_skillType).BattleDatas;
 }
 
 public class UserSkillFactory
@@ -237,7 +237,7 @@ public class ColorChange : UserSkill
     // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
 
     int[] _prevUnitCounts = new int[4];
-
+    public event Action<UnitFlags, int> OnUnitColorChanaged;
     public override void InitSkill()
     {
         Multi_GameManager.instance.BattleData.UnitSummonData.maxColorNumber = 6;
@@ -253,6 +253,7 @@ public class ColorChange : UserSkill
             var list = Util.GetRangeList(0, 6);
             list.Remove(flag.ColorNumber);
             Multi_UnitManager.Instance.UnitColorChanged_RPC(Multi_Data.instance.EnemyPlayerId, flag, list.GetRandom());
+            // OnUnitColorChanaged?.Invoke()
         }
         _prevUnitCounts[flag.ClassNumber] = count;
     }

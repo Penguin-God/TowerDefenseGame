@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
 
-public class EnemySelector_UI : Multi_UI_Base
+public class EnemySelector_UI : UI_Base
 {
     [SerializeField] Color selectColor;
     [SerializeField] EnemySelector_Button currentSelectButton;
@@ -53,7 +53,7 @@ public class EnemySelector_UI : Multi_UI_Base
         if (isShowInfoWindow)
         {
             isShowInfoWindow = false;
-            Multi_Managers.UI.ClosePopupUI();
+            Managers.UI.ClosePopupUI();
         }
         else
             StopAllCoroutines();

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class UI_CombineButtonParent : Multi_UI_Base
+public class UI_CombineButtonParent : UI_Base
 {
     [SerializeField] Button[] _combineButtons;
 
@@ -19,7 +19,7 @@ public class UI_CombineButtonParent : Multi_UI_Base
 
             int newI = i;
             _combineButtons[i].onClick.AddListener(() => Combine(flags[newI]));
-            _combineButtons[i].GetComponentInChildren<Text>(true).text = Multi_Managers.Data.UnitNameDataByFlag[flags[i]].KoearName;
+            _combineButtons[i].GetComponentInChildren<Text>(true).text = Managers.Data.UnitNameDataByFlag[flags[i]].KoearName;
         }
     }
 

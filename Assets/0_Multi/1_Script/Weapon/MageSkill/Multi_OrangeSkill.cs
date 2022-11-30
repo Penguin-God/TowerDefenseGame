@@ -28,7 +28,7 @@ public class Multi_OrangeSkill : MonoBehaviourPun
             yield return new WaitForSeconds(ps.startLifetime + 0.1f);
         }
 
-        Multi_Managers.Pool.Push(GetComponent<Poolable>());
+        Managers.Pool.Push(GetComponent<Poolable>());
     }
 
     void OrangeMageSkill(Multi_Enemy enemy, int damage, float percent)

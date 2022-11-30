@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WarningText : Multi_UI_Popup
+public class WarningText : UI_Popup
 {
     Text waringText;
     [SerializeField] Color textColor;

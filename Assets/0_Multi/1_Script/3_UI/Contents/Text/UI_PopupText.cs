@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_PopupText : Multi_UI_Popup
+public class UI_PopupText : UI_Popup
 {
     Text _text;
     
@@ -34,6 +34,6 @@ public class UI_PopupText : Multi_UI_Popup
     IEnumerator Co_AfterInActive(float showTime)
     {
         yield return new WaitForSeconds(showTime);
-        Multi_Managers.UI.ClosePopupUI();
+        Managers.UI.ClosePopupUI();
     }
 }

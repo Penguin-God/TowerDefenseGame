@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillFrame_UI : Multi_UI_Base
+public class SkillFrame_UI : UI_Base
 {
     enum Buttons
     {
@@ -33,7 +33,7 @@ public class SkillFrame_UI : Multi_UI_Base
     UserSkillGoodsData _skillData = null;
     public void SetInfo(SkillType skill)
     {
-        _skillData = Multi_Managers.Data.UserSkill.GetSkillGoodsData(skill);
+        _skillData = Managers.Data.UserSkill.GetSkillGoodsData(skill);
         RefreshUI();
     }
 
@@ -44,11 +44,11 @@ public class SkillFrame_UI : Multi_UI_Base
         GetText((int)Texts.NameText).text = _skillData.SkillName;
 
         GetButton((int)Buttons.EquipButton).onClick.RemoveAllListeners();
-        GetButton((int)Buttons.EquipButton).onClick.AddListener(() => Multi_Managers.ClientData.EquipSkillManager.ChangedEquipSkill(_skillData.SkillClass, _skillData.SkillType));
+        GetButton((int)Buttons.EquipButton).onClick.AddListener(() => Managers.ClientData.EquipSkillManager.ChangedEquipSkill(_skillData.SkillClass, _skillData.SkillType));
 
-        GetImage((int)Images.Skill_ImageButton).sprite = Multi_Managers.Resources.Load<Sprite>(_skillData.ImagePath);
+        GetImage((int)Images.Skill_ImageButton).sprite = Managers.Resources.Load<Sprite>(_skillData.ImagePath);
 
         GetButton((int)Buttons.Skill_ImageButton).onClick.RemoveAllListeners();
-        GetButton((int)Buttons.Skill_ImageButton).onClick.AddListener(() => Multi_Managers.UI.ShowPopupUI<Skill_Info_UI>().SetInfo(_skillData));
+        GetButton((int)Buttons.Skill_ImageButton).onClick.AddListener(() => Managers.UI.ShowPopupUI<Skill_Info_UI>().SetInfo(_skillData));
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class LookWorldChangedButton : Multi_UI_Scene
+public class LookWorldChangedButton : UI_Scene
 {
     [SerializeField] Sprite lookMyWorldIcon;
     [SerializeField] Sprite lookEnemyWorldIcon;
@@ -20,9 +20,9 @@ public class LookWorldChangedButton : Multi_UI_Scene
 
     void ChangeLookWorld()
     {
-        Multi_Managers.Camera.LookWorldChanged();
-        Multi_Managers.Sound.PlayEffect(EffectSoundType.PopSound);
-        if (Multi_Managers.Camera.LookWorld_Id == Multi_Data.instance.Id)
+        Managers.Camera.LookWorldChanged();
+        Managers.Sound.PlayEffect(EffectSoundType.PopSound);
+        if (Managers.Camera.LookWorld_Id == Multi_Data.instance.Id)
         {
             button.image.sprite = lookMyWorldIcon;
             _text.text = "상대 진영으로";

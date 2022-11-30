@@ -34,8 +34,8 @@ public class Multi_Meteor : Multi_Projectile
     {
         if(explosionAction != null)
         {
-            Multi_Managers.Sound.PlayEffect_If(EffectSoundType.MeteorExplosion, () => _renderer.isVisible);
-            Multi_Managers.Resources.PhotonInsantiate(explosionObject, transform.position).GetComponent<Multi_HitSkill>().SetHitActoin(explosionAction);
+            Managers.Sound.PlayEffect_If(EffectSoundType.MeteorExplosion, () => _renderer.isVisible);
+            Managers.Resources.PhotonInsantiate(explosionObject, transform.position).GetComponent<Multi_HitSkill>().SetHitActoin(explosionAction);
             explosionAction = null;
         }
 

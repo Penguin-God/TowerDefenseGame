@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class Multi_UI_Paint : Multi_UI_Scene
+public class Multi_UI_Paint : UI_Scene
 {
     [SerializeField] GameObject _currentUnitTracker;
     public GameObject CurrentUnitTracker { get => _currentUnitTracker; set => _currentUnitTracker = value; }
@@ -20,6 +20,6 @@ public class Multi_UI_Paint : Multi_UI_Scene
     void ChangePaintRootActive(PointerEventData data)
     {
         _paintRoot.SetActive(!_paintRoot.activeSelf);
-        Multi_Managers.Sound.PlayEffect(EffectSoundType.PopSound_2);
+        Managers.Sound.PlayEffect(EffectSoundType.PopSound_2);
     }
 }

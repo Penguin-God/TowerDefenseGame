@@ -47,7 +47,7 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     void Init()
     {
-        if (Multi_Managers.Scene.IsBattleScene == false) return;
+        if (Managers.Scene.IsBattleScene == false) return;
 
         _count.Init(_master);
         _count.OnUnitCountChanged += Rasie_OnUnitCountChanged;
@@ -107,7 +107,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     public void UnitColorChanged_RPC(int id, UnitFlags flag, int changeTargetColor) => photonView.RPC(nameof(UnitColorChanged), RpcTarget.MasterClient, id, flag, changeTargetColor);
     [PunRPC] void UnitColorChanged(int id, UnitFlags flag, int changeTargetColor) => _controller.UnitColorChange(id, flag, changeTargetColor);
 
-    public void UnitWorldChanged_RPC(int id, UnitFlags flag) => Instance.photonView.RPC(nameof(UnitWorldChanged), RpcTarget.MasterClient, id, flag, Multi_Managers.Camera.IsLookEnemyTower);
+    public void UnitWorldChanged_RPC(int id, UnitFlags flag) => Instance.photonView.RPC(nameof(UnitWorldChanged), RpcTarget.MasterClient, id, flag, Managers.Camera.IsLookEnemyTower);
     [PunRPC] void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode) => _controller.UnitWorldChange(id, flag, enterStroyMode);
 
 
@@ -319,7 +319,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
 
         public bool CheckCombineable(UnitFlags flag)
-            => Multi_Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag.All(x => _countManager.HasUnit(x.Key, x.Value));
+            => Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag.All(x => _countManager.HasUnit(x.Key, x.Value));
 
         public void TryCombine(UnitFlags flag, int id, bool isSuccess)
         {
@@ -335,7 +335,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         {
             if (PhotonNetwork.IsMasterClient == false) return;
 
-            SacrificedUnits_ForCombine(Multi_Managers.Data.CombineConditionByUnitFalg[flag]);
+            SacrificedUnits_ForCombine(Managers.Data.CombineConditionByUnitFalg[flag]);
             Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
             OnTryCombine?.RaiseEvent(id, true, flag);
 
@@ -386,7 +386,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         {
             if (isSuccess == false) return;
 
-            var conditions = Multi_Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag;
+            var conditions = Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag;
             foreach (var item in conditions)
             {
                 if (item.Key == new UnitFlags(2, 0))

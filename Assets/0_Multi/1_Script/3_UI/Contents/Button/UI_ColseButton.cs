@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_ColseButton : Multi_UI_Base
+public class UI_ColseButton : UI_Base
 {
     [SerializeField] GameObject colseObj;
 
@@ -15,6 +15,6 @@ public class UI_ColseButton : Multi_UI_Base
     void ColseUI()
     {
         colseObj?.SetActive(false);
-        Multi_Managers.Sound.PlayEffect(EffectSoundType.Click_XButton);
+        Managers.Sound.PlayEffect(EffectSoundType.Click_XButton);
     }
 }

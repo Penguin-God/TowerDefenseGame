@@ -24,5 +24,5 @@ public class MultiLoading : MonoBehaviourPun
     }
 
     [PunRPC, ContextMenu("InitBattleScene")]
-    void EnterBattle() => Multi_Managers.Scene.LoadLevel(SceneTyep.New_Scene);
+    void EnterBattle() => Managers.Scene.LoadLevel(SceneTyep.New_Scene);
 }

@@ -226,10 +226,10 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         else
             gameStartButton.gameObject.SetActive(false);
 
-        _battleData = new BattleDataManager(Multi_Managers.Data.GetBattleStartData());
-        Multi_Managers.Sound.PlayBgm(BgmType.Default);
+        _battleData = new BattleDataManager(Managers.Data.GetBattleStartData());
+        Managers.Sound.PlayBgm(BgmType.Default);
         if(PhotonNetwork.IsConnected)
-            photonView.RPC(nameof(CreateOtherPlayerData), RpcTarget.Others, Multi_Managers.ClientData.EquipSkillManager.MainSkill, Multi_Managers.ClientData.EquipSkillManager.SubSkill);
+            photonView.RPC(nameof(CreateOtherPlayerData), RpcTarget.Others, Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
     }
 
     void SetEvent()
@@ -349,7 +349,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     void GameEnd(string message)
     {
-        Multi_Managers.UI.ShowClickRockWaringText(message);
+        Managers.UI.ShowClickRockWaringText(message);
         Time.timeScale = 0;
         StartCoroutine(Co_AfterReturnLobby());
     }
@@ -363,7 +363,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        Multi_Managers.Scene.LoadScene(SceneTyep.클라이언트);
-        Multi_Managers.Clear();
+        Managers.Scene.LoadScene(SceneTyep.클라이언트);
+        Managers.Clear();
     }
 }

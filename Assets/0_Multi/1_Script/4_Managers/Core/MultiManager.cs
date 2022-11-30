@@ -11,14 +11,14 @@ public class MultiManager
     public void CreatePoolGroup(IEnumerable<string> paths, int count, string groupName = "")
     {
         foreach (string path in paths)
-            Multi_Managers.Pool.CreatePool_InGroup(path, count, groupName, _multiInstantiater);
+            Managers.Pool.CreatePool_InGroup(path, count, groupName, _multiInstantiater);
     }
 
     class MultiInstantiater : IInstantiater
     {
         public GameObject Instantiate(string path)
         {
-            var prefab = Multi_Managers.Resources.Load<GameObject>(path);
+            var prefab = Managers.Resources.Load<GameObject>(path);
             var go = PhotonNetwork.Instantiate(path, Vector3.zero * 1000, prefab.transform.rotation);
             go.GetOrAddComponent<RPCable>();
             return go;

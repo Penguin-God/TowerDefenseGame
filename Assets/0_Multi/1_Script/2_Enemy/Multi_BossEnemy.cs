@@ -13,7 +13,7 @@ public class Multi_BossEnemy : Multi_NormalEnemy
     public void Spawn(int level)
     {
         _level = level;
-        BossData = Multi_Managers.Data.BossDataByLevel[_level];
+        BossData = Managers.Data.BossDataByLevel[_level];
         SetStatus_RPC(BossData.Hp, BossData.Speed, false);
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CombineResultText : Multi_UI_Popup
+public class CombineResultText : UI_Popup
 {
     [SerializeField] float showTime = 2f;
     [SerializeField] string failedText;
@@ -27,7 +27,7 @@ public class CombineResultText : Multi_UI_Popup
         gameObject.SetActive(true);
         StartCoroutine(Co_AfterInActive());
 
-        string GetSuccessText() => $"{Multi_Managers.Data.UnitNameDataByFlag[flag].KoearName} 조합 성공!!";
+        string GetSuccessText() => $"{Managers.Data.UnitNameDataByFlag[flag].KoearName} 조합 성공!!";
     }
 
     IEnumerator Co_AfterInActive()

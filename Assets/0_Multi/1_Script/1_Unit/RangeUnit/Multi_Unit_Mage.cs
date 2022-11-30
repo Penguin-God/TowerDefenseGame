@@ -23,14 +23,14 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         LoadMageStat();
         SetMageAwake();
 
-        energyballData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, energyballData.SpawnTransform);
-        skillData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[1], transform, skillData.SpawnTransform);
+        energyballData = new ProjectileData(Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, energyballData.SpawnTransform);
+        skillData = new ProjectileData(Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[1], transform, skillData.SpawnTransform);
         normalAttackSound = EffectSoundType.MageAttack;
     }
 
     void LoadMageStat()
     {
-        if (Multi_Managers.Data.MageStatByFlag.TryGetValue(UnitFlags, out MageUnitStat stat))
+        if (Managers.Data.MageStatByFlag.TryGetValue(UnitFlags, out MageUnitStat stat))
         {
             mageStat = stat;
             skillStats = mageStat.SkillStats;

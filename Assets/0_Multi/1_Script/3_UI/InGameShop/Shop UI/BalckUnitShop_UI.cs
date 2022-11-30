@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BalckUnitShop_UI : Multi_UI_Popup
+public class BalckUnitShop_UI : UI_Popup
 {
     enum Buttons
     {
@@ -25,6 +25,6 @@ public class BalckUnitShop_UI : Multi_UI_Popup
     void TryCombineBlackUnit(int classNumber)
     {
         if(Multi_UnitManager.Instance.TryCombine_RPC(new UnitFlags(7, classNumber)))
-            Multi_Managers.UI.ClosePopupUI(PopupGroupType.UnitWindow);
+            Managers.UI.ClosePopupUI(PopupGroupType.UnitWindow);
     }
 }

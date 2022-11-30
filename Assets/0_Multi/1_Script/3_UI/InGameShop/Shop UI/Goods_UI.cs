@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using System;
 
-public class Goods_UI : Multi_UI_Base
+public class Goods_UI : UI_Base
 {
     enum Texts
     {
@@ -43,7 +43,7 @@ public class Goods_UI : Multi_UI_Base
 
         button.onClick.RemoveAllListeners();
         button.onClick.AddListener(() => clickAct?.Invoke(data));
-        button.onClick.AddListener(() => Multi_Managers.Sound.PlayEffect(EffectSoundType.ShopGoodsClick));
+        button.onClick.AddListener(() => Managers.Sound.PlayEffect(EffectSoundType.ShopGoodsClick));
         gameObject.SetActive(true);
     }
 }

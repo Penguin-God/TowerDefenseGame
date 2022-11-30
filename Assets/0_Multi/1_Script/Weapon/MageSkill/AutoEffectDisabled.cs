@@ -17,7 +17,7 @@ public class AutoEffectDisabled : MonoBehaviour
 		yield return new WaitForSeconds(showTime);
 
 		if (GetComponent<Poolable>() != null)
-			Multi_Managers.Pool.Push(GetComponent<Poolable>());
+			Managers.Pool.Push(GetComponent<Poolable>());
 		else
 			gameObject.GetComponent<RPCable>().SetActive_RPC(false);
 	}

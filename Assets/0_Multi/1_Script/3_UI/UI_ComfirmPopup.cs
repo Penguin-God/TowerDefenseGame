@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class UI_ComfirmPopup : Multi_UI_Popup
+public class UI_ComfirmPopup : UI_Popup
 {
     enum Texts
     {
@@ -34,6 +34,6 @@ public class UI_ComfirmPopup : Multi_UI_Popup
         GetText((int)Texts.QuestionText).text = questionText;
         GetButton((int)Buttons.YesButton).onClick.RemoveAllListeners();
         GetButton((int)Buttons.YesButton).onClick.AddListener(yesAction);
-        GetButton((int)Buttons.YesButton).onClick.AddListener(Multi_Managers.UI.ClosePopupUI);
+        GetButton((int)Buttons.YesButton).onClick.AddListener(Managers.UI.ClosePopupUI);
     }
 }

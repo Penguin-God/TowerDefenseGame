@@ -27,13 +27,13 @@ public class EffectManager
 
     public void Init(IInstantiater instantiater = null)
     {
-        foreach (var data in CsvUtility.CsvToArray<EffectData>(Multi_Managers.Resources.Load<TextAsset>("Data/EffectData").text))
+        foreach (var data in CsvUtility.CsvToArray<EffectData>(Managers.Resources.Load<TextAsset>("Data/EffectData").text))
         {
             _nameByPath.Add(data.Name, data.Path);
             switch (data.EffectType)
             {
                 case EffectType.GameObject:
-                    Multi_Managers.Pool.CreatePool_InGroup(data.Path, 3, "Effects", instantiater);
+                    Managers.Pool.CreatePool_InGroup(data.Path, 3, "Effects", instantiater);
                     break;
             }
         }
@@ -53,7 +53,7 @@ public class EffectManager
     {
         if (_targetByTrackers.TryGetValue(target, out TargetTracker tracker) == false)
             return;
-        Multi_Managers.Pool.Push(tracker.GetComponent<Poolable>());
+        Managers.Pool.Push(tracker.GetComponent<Poolable>());
         _targetByTrackers.Remove(target);
     }
     
@@ -77,14 +77,14 @@ public class EffectManager
     public void ChangeColor(byte r, byte g, byte b, Transform transform)
         => transform.GetComponentInChildren<MeshRenderer>().material.color = new Color32(r, g, b, 255);
 
-    GameObject LoadObject(string name) => Multi_Managers.Resources.PhotonInsantiate($"Effects/{name}", Vector3.zero);
+    GameObject LoadObject(string name) => Managers.Resources.PhotonInsantiate($"Effects/{name}", Vector3.zero);
     ParticlePlug LoadParticle(string name) => LoadObject(name).GetOrAddComponent<ParticlePlug>();
 
     Dictionary<string, Material> _nameByMaterial = new Dictionary<string, Material>();
     Material LoadMaterial(string name)
     {
         if (_nameByMaterial.ContainsKey(name) == false)
-            _nameByMaterial.Add(name, Multi_Managers.Resources.Load<Material>($"Materials/{name}"));
+            _nameByMaterial.Add(name, Managers.Resources.Load<Material>($"Materials/{name}"));
         return _nameByMaterial[name];
     }
 }

@@ -20,7 +20,7 @@ public class UserSkillGoodsData
     public string SkillName => _skillName;
     public string Description => _description;
     public string ImagePath => _imagePath;
-    public Sprite ImageSprite => Multi_Managers.Resources.Load<Sprite>(_imagePath);
+    public Sprite ImageSprite => Managers.Resources.Load<Sprite>(_imagePath);
     public UserSkillLevelData[] LevelDatas => _levelDatas;
     public void SetLevelDatas(UserSkillLevelData[] newLevelDatas) => _levelDatas = newLevelDatas;
 }
@@ -53,5 +53,5 @@ public class UserSkillGoodsLoder : ICsvLoader<SkillType, UserSkillGoodsData>
     }
 
     UserSkillLevelData[] LoadLevleData(string path)
-        => CsvUtility.CsvToArray<UserSkillLevelData>(Multi_Managers.Resources.Load<TextAsset>($"Data/{path}").text).ToArray();
+        => CsvUtility.CsvToArray<UserSkillLevelData>(Managers.Resources.Load<TextAsset>($"Data/{path}").text).ToArray();
 }

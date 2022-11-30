@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class WhiteUnitShop_UI : Multi_UI_Popup
+public class WhiteUnitShop_UI : UI_Popup
 {
     enum Buttons
     {
@@ -41,7 +41,7 @@ public class WhiteUnitShop_UI : Multi_UI_Popup
         if (Multi_GameManager.instance.TryUseCurrency(record.CurrencyType, record.Price))
         {
             Multi_SpawnManagers.NormalUnit.Spawn(6, classNumber);
-            Multi_Managers.UI.ClosePopupUI(PopupGroupType.UnitWindow);
+            Managers.UI.ClosePopupUI(PopupGroupType.UnitWindow);
         }
     }
 

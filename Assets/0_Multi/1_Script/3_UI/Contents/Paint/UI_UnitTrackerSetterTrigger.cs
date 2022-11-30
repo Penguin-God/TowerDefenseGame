@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_UnitTrackerSetterTrigger : Multi_UI_Base
+public class UI_UnitTrackerSetterTrigger : UI_Base
 {
     [SerializeField] UI_UnitTrackerData _unitTrackerData;
     [SerializeField] UI_UnitTrackerSetterBase _unitTrackserSetter;
@@ -28,7 +28,7 @@ public class UI_UnitTrackerSetterTrigger : Multi_UI_Base
 
     void SignalTheUnitTrackerSetter()
     {
-        Multi_Managers.Sound.PlayEffect(EffectSoundType.SelectColor);
+        Managers.Sound.PlayEffect(EffectSoundType.SelectColor);
         _unitTrackserSetter.SettingUnitTrackers(_unitTrackerData);
     }
 

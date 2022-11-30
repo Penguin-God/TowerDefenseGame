@@ -48,7 +48,7 @@ public class EffectInitializer : MonoBehaviourPun
                 SetUnitTrackingEffects(flag);
         }
         else
-            targets.ForEach(x => Multi_Managers.Effect.StopTargetTracking(x));
+            targets.ForEach(x => Managers.Effect.StopTargetTracking(x));
     }
 
     void SetUnitTrackingEffects_RPC(UnitFlags flag)
@@ -60,7 +60,7 @@ public class EffectInitializer : MonoBehaviourPun
         var targets = Multi_UnitManager.Instance.Master.GetUnitList(Multi_Data.instance.Id, flag).Select(x => x.transform);
         foreach (var target in targets)
         {
-            if (Multi_Managers.Effect.TargetByTrackers.ContainsKey(target))
+            if (Managers.Effect.TargetByTrackers.ContainsKey(target))
                 continue;
             SetUnitReinforceEffect(flag.UnitColor, target);
             photonView.RPC(nameof(SetUnitTrackingEffects), RpcTarget.Others, target.GetComponent<PhotonView>().ViewID);
@@ -69,11 +69,11 @@ public class EffectInitializer : MonoBehaviourPun
 
     [PunRPC]
     void SetUnitTrackingEffects(int viewID)
-        => SetUnitTrackingEffects(Multi_Managers.Multi.GetPhotonViewTransfrom(viewID).GetComponent<Multi_TeamSoldier>().UnitFlags);
+        => SetUnitTrackingEffects(Managers.Multi.GetPhotonViewTransfrom(viewID).GetComponent<Multi_TeamSoldier>().UnitFlags);
 
     void SetUnitReinforceEffect(UnitColor unitColor, Transform target)
     {
-        var tracker = Multi_Managers.Effect.TrackingToTarget(GetUnitTarckerName(unitColor), target, Vector3.zero);
+        var tracker = Managers.Effect.TrackingToTarget(GetUnitTarckerName(unitColor), target, Vector3.zero);
         foreach (Transform effect in tracker.transform)
         { 
             var main = effect.GetComponent<ParticleSystem>().main;

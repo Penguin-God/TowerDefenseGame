@@ -39,7 +39,7 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
         enemy.enemyType = EnemyType.Boss;
         enemy.OnDeath += () => OnDead(enemy);
         enemy.OnDeath += () => rpcOnDead.RaiseEvent(enemy.UsingId);
-        enemy.OnDeath += () => Multi_Managers.Pool.Push(enemy.GetComponent<Poolable>());
+        enemy.OnDeath += () => Managers.Pool.Push(enemy.GetComponent<Poolable>());
     }
 
     #endregion

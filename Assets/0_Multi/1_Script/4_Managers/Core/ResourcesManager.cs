@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Multi_ResourcesManager
+public class ResourcesManager
 {
     public T Load<T>(string path) where T : Object
     {
@@ -11,7 +11,7 @@ public class Multi_ResourcesManager
         {
             string goPath = path.Substring(path.IndexOf('/') + 1);
             
-            GameObject go = Multi_Managers.Pool.GetOriginal(goPath);
+            GameObject go = Managers.Pool.GetOriginal(goPath);
             if (go != null) return go as T;
         }
 
@@ -20,7 +20,7 @@ public class Multi_ResourcesManager
     }
 
     public GameObject PhotonInsantiate(GameObject PoolObj, Vector3 position) 
-        => SetPhotonObject(Multi_Managers.Pool.Pop(PoolObj).gameObject, position, PoolObj.transform.rotation);
+        => SetPhotonObject(Managers.Pool.Pop(PoolObj).gameObject, position, PoolObj.transform.rotation);
 
     public GameObject PhotonInsantiate(string path, Vector3 position, int id = -1, Transform parent = null)
     {
@@ -45,7 +45,7 @@ public class Multi_ResourcesManager
         path = GetPrefabPath(path); // TODO : 프리팹에 poolable 있어야 풀링되는거 수정하기
         GameObject prefab = Load<GameObject>(path);
         if (prefab.GetComponent<Poolable>() != null)
-            return Multi_Managers.Pool.Pop(prefab).gameObject;
+            return Managers.Pool.Pop(prefab).gameObject;
         else
             return PhotonNetwork.Instantiate(path, Vector3.zero, prefab.transform.rotation);
     }
@@ -72,9 +72,9 @@ public class Multi_ResourcesManager
     public GameObject Instantiate(string path, Transform parent = null)
     {
         path = GetPrefabPath(path);
-        var original = Multi_Managers.Pool.GetOriginal(path);
+        var original = Managers.Pool.GetOriginal(path);
         if (original != null)
-            return Multi_Managers.Pool.Pop(original).gameObject;
+            return Managers.Pool.Pop(original).gameObject;
 
         original = Load<GameObject>(path);
         GameObject go = Object.Instantiate(original, parent);

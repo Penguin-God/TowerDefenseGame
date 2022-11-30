@@ -71,7 +71,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     Multi_NormalEnemy SpawnEnemy(string path, int stage, int id)
     {
         var enemy = base.BaseSpawn(path, spawnPositions[id], Quaternion.identity, id).GetComponent<Multi_NormalEnemy>();
-        NormalEnemyData data = Multi_Managers.Data.NormalEnemyDataByStage[stage];
+        NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];
         enemy.SetStatus_RPC(data.Hp, data.Speed, false);
         enemy.resurrection.SetSpawnStage(stage);
         OnSpawn?.Invoke(enemy);
@@ -86,7 +86,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
         if (PhotonNetwork.IsMasterClient == false) return;
         enemy.OnDeath += () => OnDead(enemy);
         enemy.OnDeath += () => EenmySpawnToOtherWorld(enemy, otherEnemySpawnNumber);
-        enemy.OnDeath += () => Multi_Managers.Pool.Push(enemy.GetComponent<Poolable>());
+        enemy.OnDeath += () => Managers.Pool.Push(enemy.GetComponent<Poolable>());
     }
 
     // 콜백용 코드

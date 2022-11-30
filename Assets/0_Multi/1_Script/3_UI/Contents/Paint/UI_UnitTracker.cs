@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_UnitTracker : Multi_UI_Base
+public class UI_UnitTracker : UI_Base
 {
     [SerializeField] UnitFlags unitFlags;
     [SerializeField] Image backGround;
@@ -59,7 +59,7 @@ public class UI_UnitTracker : Multi_UI_Base
 
     void OnClicked()
     {
-        Multi_Managers.UI.ShowPopGroupUI<UI_UnitManagedWindow>(PopupGroupType.UnitWindow, "UnitManagedWindow").Show(unitFlags);
-        Multi_Managers.Sound.PlayEffect(EffectSoundType.ShowRandomShop);
+        Managers.UI.ShowPopGroupUI<UI_UnitManagedWindow>(PopupGroupType.UnitWindow, "UnitManagedWindow").Show(unitFlags);
+        Managers.Sound.PlayEffect(EffectSoundType.ShowRandomShop);
     }
 }

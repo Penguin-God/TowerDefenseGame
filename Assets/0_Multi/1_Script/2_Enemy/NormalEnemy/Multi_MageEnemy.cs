@@ -20,8 +20,8 @@ public class Multi_MageEnemy : Multi_NormalEnemy
     [PunRPC]
     void DecreasedEffect()
     {
-        Multi_Managers.Effect.ChangeAllMaterial("Gray", transform);
-        Multi_Managers.Sound.PlayEffect(EffectSoundType.DebuffSkill);
+        Managers.Effect.ChangeAllMaterial("Gray", transform);
+        Managers.Sound.PlayEffect(EffectSoundType.DebuffSkill);
         if (_coMat != null) StopCoroutine(_coMat);
         _coMat = StartCoroutine(Co_ChangedMat());
     }

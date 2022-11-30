@@ -22,6 +22,6 @@ public class ParticlePlug : MonoBehaviour
         if (GetComponent<Poolable>() == null)
             Destroy(gameObject);
         else
-            Multi_Managers.Pool.Push(gameObject);
+            Managers.Pool.Push(gameObject);
     }
 }

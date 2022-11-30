@@ -15,7 +15,7 @@ public class Multi_EnemyTower : Multi_Enemy
     public void Spawn(int level)
     {
         _level = level;
-        TowerData = Multi_Managers.Data.TowerDataByLevel[_level];
+        TowerData = Managers.Data.TowerDataByLevel[_level];
         SetStatus_RPC(TowerData.Hp, TowerData.Speed, false);
     }
 
@@ -24,7 +24,7 @@ public class Multi_EnemyTower : Multi_Enemy
         base.Dead();
 
         if (PhotonNetwork.IsMasterClient)
-            Multi_Managers.Resources.PhotonDestroy(gameObject);
+            Managers.Resources.PhotonDestroy(gameObject);
     }
 
     [ContextMenu("죽음")]

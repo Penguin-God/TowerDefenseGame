@@ -17,7 +17,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     protected override void OnAwake()
     {
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
-        arrawData = new ProjectileData(Multi_Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0],transform, arrawData.SpawnTransform);
+        arrawData = new ProjectileData(Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0],transform, arrawData.SpawnTransform);
         normalAttackSound = EffectSoundType.ArcherAttack;
         _useSkillPercent = 30;
         _skillSystem = new UnitRandomSkillSystem(this, 1.2f);

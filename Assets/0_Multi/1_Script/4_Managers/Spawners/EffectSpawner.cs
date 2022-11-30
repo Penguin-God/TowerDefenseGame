@@ -41,8 +41,8 @@ public class EffectSpawner : Multi_SpawnerBase
     IEnumerator Co_AfterPush(GameObject go, float time)
     {
         yield return new WaitForSeconds(time);
-        Multi_Managers.Pool.Push(go);
+        Managers.Pool.Push(go);
     }
 
-    GameObject Spawn(Effects type, Vector3 pos) => Multi_Managers.Resources.PhotonInsantiate($"{_rootPath}/{Enum.GetName(typeof(Effects), type)}", pos);
+    GameObject Spawn(Effects type, Vector3 pos) => Managers.Resources.PhotonInsantiate($"{_rootPath}/{Enum.GetName(typeof(Effects), type)}", pos);
 }

@@ -17,13 +17,13 @@ public class BattleScene : BaseScene
 
         Multi_SpawnManagers.Instance.Init();
         Show_UI();
-        Multi_Managers.Camera.EnterBattleScene();
+        Managers.Camera.EnterBattleScene();
         InitSound();
 
         if (PhotonNetwork.IsMasterClient == false) return;
-        Multi_Managers.Pool.Init();
-        var multi = Multi_Managers.Multi;
-        Multi_Managers.Effect.Init(multi.Instantiater);
+        Managers.Pool.Init();
+        var multi = Managers.Multi;
+        Managers.Effect.Init(multi.Instantiater);
     }
 
     void Start()
@@ -35,7 +35,7 @@ public class BattleScene : BaseScene
     IEnumerable<UserSkill> InitUserSkill()
     {
         List<UserSkill> userSkills = new List<UserSkill>();
-        foreach (var skillType in Multi_Managers.ClientData.EquipSkillManager.EquipSkills)
+        foreach (var skillType in Managers.ClientData.EquipSkillManager.EquipSkills)
         {
             if (skillType == SkillType.None)
                 continue;
@@ -48,7 +48,7 @@ public class BattleScene : BaseScene
 
     void InitSound()
     {
-        var sound = Multi_Managers.Sound;
+        var sound = Managers.Sound;
         // 빼기
         Multi_SpawnManagers.BossEnemy.rpcOnSpawn -= () => sound.PlayBgm(BgmType.Boss);
         Multi_SpawnManagers.BossEnemy.rpcOnDead -= () => sound.PlayBgm(BgmType.Default);
@@ -68,20 +68,20 @@ public class BattleScene : BaseScene
 
     void Show_UI()
     {
-        Multi_Managers.UI.Init();
+        Managers.UI.Init();
 
-        Multi_Managers.UI.ShowPopupUI<BackGround>("BackGround");
-        Multi_Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
-        Multi_Managers.UI.ShowPopupUI<WarningText>();
-        Multi_Managers.UI.ShowPopupUI<RandomShop_UI>("InGameShop/Random Shop");
+        Managers.UI.ShowPopupUI<BackGround>("BackGround");
+        Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
+        Managers.UI.ShowPopupUI<WarningText>();
+        Managers.UI.ShowPopupUI<RandomShop_UI>("InGameShop/Random Shop");
 
-        Multi_Managers.UI.ShowSceneUI<Status_UI>();
-        Multi_Managers.UI.ShowSceneUI<BattleButton_UI>();
+        Managers.UI.ShowSceneUI<Status_UI>();
+        Managers.UI.ShowSceneUI<BattleButton_UI>();
     }
 
     public override void Clear()
     {
         EventIdManager.Clear();
-        Multi_Managers.Pool.Clear();
+        Managers.Pool.Clear();
     }
 }

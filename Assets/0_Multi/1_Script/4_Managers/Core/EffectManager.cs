@@ -77,14 +77,14 @@ public class EffectManager
     public void ChangeColor(byte r, byte g, byte b, Transform transform)
         => transform.GetComponentInChildren<MeshRenderer>().material.color = new Color32(r, g, b, 255);
 
-    GameObject LoadObject(string name) => Multi_Managers.Resources.PhotonInsantiate(_nameByPath[name], Vector3.zero);
+    GameObject LoadObject(string name) => Multi_Managers.Resources.PhotonInsantiate($"Effects/{name}", Vector3.zero);
     ParticlePlug LoadParticle(string name) => LoadObject(name).GetOrAddComponent<ParticlePlug>();
 
     Dictionary<string, Material> _nameByMaterial = new Dictionary<string, Material>();
     Material LoadMaterial(string name)
     {
         if (_nameByMaterial.ContainsKey(name) == false)
-            _nameByMaterial.Add(name, Multi_Managers.Resources.Load<Material>(_nameByPath[name]));
+            _nameByMaterial.Add(name, Multi_Managers.Resources.Load<Material>($"Materials/{name}"));
         return _nameByMaterial[name];
     }
 }

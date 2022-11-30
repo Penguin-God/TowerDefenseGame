@@ -18,7 +18,8 @@ public class MultiManager
     {
         public GameObject Instantiate(string path)
         {
-            var go = PhotonNetwork.Instantiate(path, Vector3.zero * 1000, Quaternion.identity);
+            var prefab = Multi_Managers.Resources.Load<GameObject>(path);
+            var go = PhotonNetwork.Instantiate(path, Vector3.zero * 1000, prefab.transform.rotation);
             go.GetOrAddComponent<RPCable>();
             return go;
         }

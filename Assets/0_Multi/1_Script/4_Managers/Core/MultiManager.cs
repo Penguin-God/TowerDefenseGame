@@ -24,4 +24,9 @@ public class MultiManager
             return go;
         }
     }
+
+    public Transform GetPhotonViewTransfrom(int viewID)
+    {
+        return PhotonView.Find(viewID).transform;
+    }
 }

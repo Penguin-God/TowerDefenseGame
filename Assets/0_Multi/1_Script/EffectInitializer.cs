@@ -19,7 +19,6 @@ public class EffectInitializer : MonoBehaviourPun
         {
             if (skill is Taegeuk)
             {
-                print("일단 태극");
                 var taegeuk = skill as Taegeuk;
                 taegeuk.OnUnitSkillFlagChanged += TaeguekEffect_RPC;
             }
@@ -64,8 +63,13 @@ public class EffectInitializer : MonoBehaviourPun
             if (Multi_Managers.Effect.TargetByTrackers.ContainsKey(target))
                 continue;
             SetUnitReinforceEffect(flag.UnitColor, target);
+            photonView.RPC(nameof(SetUnitTrackingEffects), RpcTarget.Others, target.GetComponent<PhotonView>().ViewID);
         }
     }
+
+    [PunRPC]
+    void SetUnitTrackingEffects(int viewID)
+        => SetUnitTrackingEffects(Multi_Managers.Multi.GetPhotonViewTransfrom(viewID).GetComponent<Multi_TeamSoldier>().UnitFlags);
 
     void SetUnitReinforceEffect(UnitColor unitColor, Transform target)
     {

@@ -5,5 +5,14 @@ using System.Linq;
 
 public class DataLoadTest : MonoBehaviour
 {
+    void Awake()
+    {
+        
+    }
 
+    [ContextMenu("Test")]
+    void Test()
+    {
+        Multi_Managers.UI.ShowPopupUI<UI_PopupText>().Show("안녕 세상", 200, Color.red);
+    }
 }

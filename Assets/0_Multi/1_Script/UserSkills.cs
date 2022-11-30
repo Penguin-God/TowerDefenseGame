@@ -201,11 +201,14 @@ public class Taegeuk : UserSkill
     }
 }
 
-// 유닛 카운트 현황
 public class BlackUnitUpgrade : UserSkill
 {
+    public event Action<UnitFlags> OnBlackUnitReinforce;
+    UnitDamages strongDamages;
     public override void InitSkill()
     {
+        int[] datas = GetData().Select(x => (int)x).ToArray();
+        strongDamages = new UnitDamages(datas[0], datas[1], datas[2], datas[3]);
         Multi_UnitManager.Instance.OnUnitFlagCountChanged += (flag, count) => UseSkill(flag);
     }
 
@@ -213,24 +216,10 @@ public class BlackUnitUpgrade : UserSkill
     {
         if (unitFlags.UnitColor != UnitColor.black) return;
 
-        int[] datas = GetData().Select(x => (int)x).ToArray();
-
-        var strongDamages = new UnitDamages(datas[0], datas[1], datas[2], datas[3]);
-        switch (unitFlags.UnitClass)
-        {
-            case UnitClass.sowrdman:
-                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 0), strongDamages.SwordmanDamage);
-                break;
-            case UnitClass.archer:
-                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 1), strongDamages.ArcherDamage);
-                break;
-            case UnitClass.spearman:
-                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 2), strongDamages.SpearmanDamage);
-                break;
-            case UnitClass.mage:
-                Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(7, 3), strongDamages.MageDamage);
-                break;
-        }
+        Debug.Assert(strongDamages.ArcherDamage != 100000, $"검은 궁수 버그 발현!! 대미지는 {strongDamages.ArcherDamage}");
+        var flag = new UnitFlags(UnitColor.black, unitFlags.UnitClass);
+        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, flag, strongDamages.Damages[(int)unitFlags.UnitClass]);
+        OnBlackUnitReinforce?.Invoke(flag);
     }
 }
 

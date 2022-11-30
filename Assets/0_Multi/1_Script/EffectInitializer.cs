@@ -23,6 +23,12 @@ public class EffectInitializer : MonoBehaviourPun
                 var taegeuk = skill as Taegeuk;
                 taegeuk.OnUnitSkillFlagChanged += TaeguekEffect_RPC;
             }
+
+            if(skill is BlackUnitUpgrade)
+            {
+                var blackUnitUp = skill as BlackUnitUpgrade;
+                blackUnitUp.OnBlackUnitReinforce += SetUnitTrackingEffects_RPC;
+            }
         }
     }
 
@@ -39,22 +45,33 @@ public class EffectInitializer : MonoBehaviourPun
 
         if (isTaegeukOn)
         {
-            foreach (var target in targets)
-            {
-                if (Multi_Managers.Effect.TargetByTrackers.ContainsKey(target))
-                    continue;
-                SetUnitReinforceEffect(target.GetComponent<Multi_TeamSoldier>().unitColor, target);
-            }
+            foreach (var flag in flags)
+                SetUnitTrackingEffects(flag);
         }
         else
             targets.ForEach(x => Multi_Managers.Effect.StopTargetTracking(x));
+    }
+
+    void SetUnitTrackingEffects_RPC(UnitFlags flag)
+        => photonView.RPC(nameof(SetUnitTrackingEffects), RpcTarget.MasterClient, flag);
+
+    [PunRPC]
+    void SetUnitTrackingEffects(UnitFlags flag)
+    {
+        var targets = Multi_UnitManager.Instance.Master.GetUnitList(Multi_Data.instance.Id, flag).Select(x => x.transform);
+        foreach (var target in targets)
+        {
+            if (Multi_Managers.Effect.TargetByTrackers.ContainsKey(target))
+                continue;
+            SetUnitReinforceEffect(flag.UnitColor, target);
+        }
     }
 
     void SetUnitReinforceEffect(UnitColor unitColor, Transform target)
     {
         var tracker = Multi_Managers.Effect.TrackingToTarget("UnitReinForceEffect", target, Vector3.zero);
         foreach (Transform effect in tracker.transform)
-        {
+        { 
             var main = effect.GetComponent<ParticleSystem>().main;
             main.startColor = new ParticleSystem.MinMaxGradient(_unitColorByColor[unitColor]);
         }

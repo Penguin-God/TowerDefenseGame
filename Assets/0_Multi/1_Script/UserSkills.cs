@@ -216,7 +216,7 @@ public class BlackUnitUpgrade : UserSkill
     {
         if (unitFlags.UnitColor != UnitColor.black) return;
 
-        Debug.Assert(strongDamages.ArcherDamage != 100000, $"검은 궁수 버그 발현!! 대미지는 {strongDamages.ArcherDamage}");
+        Debug.Assert(strongDamages.ArcherDamage == 100000, $"검은 궁수 버그 발현!! 대미지는 {strongDamages.ArcherDamage}");
         var flag = new UnitFlags(UnitColor.black, unitFlags.UnitClass);
         Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, flag, strongDamages.Damages[(int)unitFlags.UnitClass]);
         OnBlackUnitReinforce?.Invoke(flag);

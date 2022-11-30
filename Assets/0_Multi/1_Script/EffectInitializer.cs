@@ -69,11 +69,17 @@ public class EffectInitializer : MonoBehaviourPun
 
     void SetUnitReinforceEffect(UnitColor unitColor, Transform target)
     {
-        var tracker = Multi_Managers.Effect.TrackingToTarget("UnitReinForceEffect", target, Vector3.zero);
+        var tracker = Multi_Managers.Effect.TrackingToTarget(GetUnitTarckerName(unitColor), target, Vector3.zero);
         foreach (Transform effect in tracker.transform)
         { 
             var main = effect.GetComponent<ParticleSystem>().main;
             main.startColor = new ParticleSystem.MinMaxGradient(_unitColorByColor[unitColor]);
         }
+    }
+
+    string GetUnitTarckerName(UnitColor unitColor)
+    {
+        if (unitColor == UnitColor.black) return "BalckableUnitReingForceEffect";
+        return "UnitReinForceEffect";
     }
 }

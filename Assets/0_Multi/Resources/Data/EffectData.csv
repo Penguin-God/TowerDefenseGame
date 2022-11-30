@@ -1,4 +1,5 @@
 ﻿_effectType,_name,_path
+GameObject,BalckableUnitReingForceEffect,Prefabs/Effects/BalckableUnitReingForceEffect
 GameObject,StunEffect,Prefabs/Effects/StunEffect
 GameObject,UnitReinForceEffect,Prefabs/Effects/UnitReinForceEffect
 GameObject,UnitTpEffect,Prefabs/Effects/UnitTpEffect

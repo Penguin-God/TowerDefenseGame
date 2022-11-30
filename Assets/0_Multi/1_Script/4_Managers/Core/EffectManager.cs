@@ -39,12 +39,24 @@ public class EffectManager
         }
     }
 
-    public TargetTracker ChaseToTarget(string name, Transform target, Vector3 offset)
+    Dictionary<Transform, TargetTracker> _targetByTrackers = new Dictionary<Transform, TargetTracker>();
+    public IReadOnlyDictionary<Transform, TargetTracker> TargetByTrackers => _targetByTrackers;
+    public TargetTracker TrackingToTarget(string name, Transform target, Vector3 offset)
     {
         TargetTracker tracker = LoadObject(name).GetOrAddComponent<TargetTracker>();
         tracker.SetInfo(target, offset);
+        _targetByTrackers.Add(target, tracker);
         return tracker;
     }
+
+    public void StopTargetTracking(Transform target)
+    {
+        if (_targetByTrackers.TryGetValue(target, out TargetTracker tracker) == false)
+            return;
+        Multi_Managers.Pool.Push(tracker.GetComponent<Poolable>());
+        _targetByTrackers.Remove(target);
+    }
+    
 
     // 이걸 호출하는 쪽에서 All이나 Other로 튕기면 됨. 대신 그때 서로가 풀링이 되어 있어야 함.
     public void PlayParticle(string name, Vector3 pos)

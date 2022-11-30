@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System.Linq;
 
 public class EffectInitializer : MonoBehaviourPun
 {
@@ -19,6 +20,7 @@ public class EffectInitializer : MonoBehaviourPun
     }
 
     Dictionary<UnitFlags, List<TargetTracker>> _flagByTrackers = new Dictionary<UnitFlags, List<TargetTracker>>();
+    Dictionary<Transform, TargetTracker> _targetByTrackers = new Dictionary<Transform, TargetTracker>();
 
     void TaeguekEffect_RPC(UnitClass unitClass, bool isTaegeukOn)
         => photonView.RPC(nameof(TaeguekEffect), RpcTarget.MasterClient, unitClass, isTaegeukOn);
@@ -27,22 +29,20 @@ public class EffectInitializer : MonoBehaviourPun
     void TaeguekEffect(UnitClass unitClass, bool isTaegeukOn)
     {
         var flags = new UnitFlags[] { new UnitFlags(UnitColor.red, unitClass), new UnitFlags(UnitColor.blue, unitClass) };
-
+        List<Transform> targets = new List<Transform>();
         foreach (var flag in flags)
+            targets = targets.Concat(Multi_UnitManager.Instance.Master.GetUnitList(Multi_Data.instance.Id, flag).Select(x => x.transform)).ToList();
+
+        if (isTaegeukOn)
         {
-            if (_flagByTrackers.ContainsKey(flag) == false) continue;
-            _flagByTrackers[flag].ForEach(x => Multi_Managers.Pool.Push(x.GetComponent<Poolable>()));
-            _flagByTrackers.Remove(flag);
-        }
-        if (isTaegeukOn == false) return;
-
-        foreach (var flag in flags)
-        {   
-            var targets = Multi_UnitManager.Instance.Master.GetUnitList(Multi_Data.instance.Id, flag);
-            _flagByTrackers.Add(flag, new List<TargetTracker>());
             foreach (var target in targets)
-                _flagByTrackers[flag].Add(Multi_Managers.Effect.ChaseToTarget("UnitReinForceEffect", target.transform, Vector3.zero));
+            {
+                if (Multi_Managers.Effect.TargetByTrackers.ContainsKey(target))
+                    continue;
+                Multi_Managers.Effect.TrackingToTarget("UnitReinForceEffect", target, Vector3.zero);
+            }
         }
+        else
+            targets.ForEach(x => Multi_Managers.Effect.StopTargetTracking(x));
     }
-
 }

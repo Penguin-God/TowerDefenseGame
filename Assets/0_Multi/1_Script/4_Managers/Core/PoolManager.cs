@@ -31,6 +31,7 @@ public class Pool
     public int Count => poolStack.Count;
 
     Action<GameObject> SetupObjAct;
+    IInstantiater _instantiater;
 
     public void Init(GameObject original, string path, int count, Action<GameObject> setupAct)
     {
@@ -40,19 +41,20 @@ public class Pool
         Path = path.Contains("Prefabs/") ? path : $"Prefabs/{path}";
         SetupObjAct = setupAct;
         for (int i = 0; i < count; i++)
-            Push(CreateObject());
+            Push(_CreateObject());
     }
 
-    public void Init(string path, int count, IInstantiater instantiate)
+    public void Init(string path, int count, IInstantiater instantiater = null)
     {
         Path = path;
+        _instantiater = instantiater;
         Original = Resources.Load<GameObject>(path);
         Root = new GameObject($"{Name}_Root").transform;
         for (int i = 0; i < count; i++)
-            Push(CreateObject(instantiate));
+            Push(CreateObject());
     }
 
-    Poolable CreateObject()
+    Poolable _CreateObject()
     {
         Poolable poolable;
         GameObject previewGo = Resources.Load<GameObject>(Path);
@@ -70,10 +72,10 @@ public class Pool
         return poolable;
     }
 
-    Poolable CreateObject(IInstantiater instantiate)
+    Poolable CreateObject()
     {
-        var go = instantiate == null ?
-            GameObject.Instantiate(Resources.Load<GameObject>(Path)) : instantiate.Instantiate(Path);
+        var go = _instantiater == null ?
+            GameObject.Instantiate(Resources.Load<GameObject>(Path)) : _instantiater.Instantiate(Path);
         go.SetActive(false);
         go.transform.SetParent(Root);
         go.name = Name;

@@ -12,7 +12,7 @@ public enum SpawnerType
     NormalUnit,
 }
 
-public abstract class Multi_SpawnerBase : MonoBehaviour
+public abstract class Multi_SpawnerBase : MonoBehaviour, IInstantiater
 {
     [SerializeField] protected string _rootName;
     [SerializeField] protected string _rootPath;
@@ -30,7 +30,14 @@ public abstract class Multi_SpawnerBase : MonoBehaviour
 
     protected virtual void MasterInit() { }
 
-    protected void CreatePoolGroup(GameObject go, string path, int count) => Managers.Pool.CreatePool_InGroup(go, path, count, _rootName, SetPoolObj);
+    protected void CreatePoolGroup(GameObject go, string path, int count) => Managers.Pool.CreatePool_InGroup(path, count, _rootName, this);
+
+    public GameObject Instantiate(string path)
+    {
+        var result = Managers.Multi.Instantiater.Instantiate(path);
+        SetPoolObj(result);
+        return result;
+    }
 
     protected virtual void SetPoolObj(GameObject go) { }
 

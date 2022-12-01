@@ -12,6 +12,7 @@ public class MultiManager
     {
         public GameObject Instantiate(string path)
         {
+            path = GetPrefabPath(path);
             var prefab = Managers.Resources.Load<GameObject>(path);
             var go = PhotonNetwork.Instantiate(path, Vector3.zero * 1000, prefab.transform.rotation);
             go.GetOrAddComponent<RPCable>();

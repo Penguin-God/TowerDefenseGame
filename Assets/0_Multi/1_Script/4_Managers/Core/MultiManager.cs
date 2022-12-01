@@ -6,15 +6,9 @@ using Photon.Pun;
 public class MultiManager
 {
     MultiInstantiater _multiInstantiater = new MultiInstantiater();
-    public IInstantiater Instantiater => _multiInstantiater;
+    public MultiInstantiater Instantiater => _multiInstantiater;
 
-    public void CreatePoolGroup(IEnumerable<string> paths, int count, string groupName = "")
-    {
-        foreach (string path in paths)
-            Managers.Pool.CreatePool_InGroup(path, count, groupName, _multiInstantiater);
-    }
-
-    class MultiInstantiater : IInstantiater
+    public class MultiInstantiater : IInstantiater
     {
         public GameObject Instantiate(string path)
         {
@@ -23,6 +17,27 @@ public class MultiManager
             go.GetOrAddComponent<RPCable>();
             return go;
         }
+
+        public GameObject PhotonInstantiate(string path, Vector3 spawnPos, int id = -1)
+        {
+            path = GetPrefabPath(path);
+            var result = Managers.Pool.TryGetPoolObejct(GetPathName(path), out GameObject poolGo) ? poolGo : Instantiate(path);
+            var rpc = result.GetComponent<RPCable>();
+            rpc.SetPosition_RPC(spawnPos);
+            rpc.SetActive_RPC(true);
+            if (id != -1) rpc.SetId_RPC(id);
+            return result;
+        }
+
+        public GameObject PhotonInstantiate(string path, Vector3 spawnPos, Vector3 spawnEuler, int id = -1)
+        {
+            var result = PhotonInstantiate(path, spawnPos, id);
+            result.GetComponent<RPCable>().SetRotate_RPC(spawnEuler);
+            return result;
+        }
+
+        string GetPrefabPath(string path) => path.Contains("Prefabs/") ? path : $"Prefabs/{path}";
+        string GetPathName(string path) => path.Split('/')[path.Split('/').Length - 1];
     }
 
     public Transform GetPhotonViewTransfrom(int viewID)

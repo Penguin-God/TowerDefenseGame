@@ -99,6 +99,8 @@ public class Pool
         if (poolStack.Count > 0) poolable = poolStack.Pop();
         else poolable = CreateObject();
 
+        poolable.gameObject.SetActive(true);
+        poolable.transform.SetParent(null);
         poolable.IsUsing = true;
         return poolable;
     }
@@ -195,14 +197,23 @@ public class PoolManager
 
     Pool FindPool(string name)
     {
-        if (_poolByName.ContainsKey(name) == false)
-        {
-            Debug.Log($"{name} 풀링 오브젝트를 딕셔너리에서 찾을 수 없음");
-            Debug.Log("현재 있는 풀 이름들");
-            _poolByName.Keys.ToList().ForEach(x => Debug.Log(x));
-            return null;
-        }
+        if (_poolByName.ContainsKey(name) == false) return null;
         else return _poolByName[name];
+    }
+
+    public bool TryGetPoolObejct(string name, out GameObject poolGo)
+    {
+        Pool pool = FindPool(name);
+        if (pool == null)
+        {
+            poolGo = null;
+            return false;
+        }
+        else
+        {
+            poolGo = pool.Pop().gameObject;
+            return true;
+        }
     }
 
     public GameObject GetOriginal(string path)

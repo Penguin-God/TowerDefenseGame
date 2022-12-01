@@ -40,6 +40,17 @@ public class MultiManager
 
         string GetPrefabPath(string path) => path.Contains("Prefabs/") ? path : $"Prefabs/{path}";
         string GetPathName(string path) => path.Split('/')[path.Split('/').Length - 1];
+
+        public void PhotonDestroy(GameObject go)
+        {
+            if (go.GetComponent<Poolable>() != null)
+            {
+                go.GetComponent<RPCable>().SetActive_RPC(false);
+                Managers.Pool.Push(go.GetComponent<Poolable>());
+            }
+            else
+                PhotonNetwork.Destroy(go);
+        }
     }
 
     public Transform GetPhotonViewTransfrom(int viewID)

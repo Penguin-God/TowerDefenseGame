@@ -180,12 +180,7 @@ public class PoolManager
     public void Push(GameObject go)
     {
         Pool pool = FindPool(go.name);
-
-        if (pool == null)
-        {
-            Managers.Resources.PhotonDestroy(go);
-            return;
-        }
+        Debug.Assert(pool != null, $"{go.name} 오브젝트의 풀이 없는데 푸쉬를 시도함");
 
         go.GetOrAddComponent<RPCable>().SetActive_RPC(false);
         go.GetOrAddComponent<RPCable>().SetPosition_RPC(Vector3.one * 1000);

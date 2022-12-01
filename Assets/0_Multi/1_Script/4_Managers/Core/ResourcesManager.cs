@@ -75,10 +75,5 @@ public class ResourcesManager
 
     string GetPrefabPath(string path) => path.Contains("Prefabs/") ? path : $"Prefabs/{path}";
 
-    public void PhotonDestroy(GameObject go)
-    {
-        PhotonNetwork.Destroy(go);
-    }
-
     public void Destroy(GameObject go) => Object.Destroy(go);
 }

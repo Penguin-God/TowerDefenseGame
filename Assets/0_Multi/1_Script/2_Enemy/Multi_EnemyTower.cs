@@ -22,9 +22,7 @@ public class Multi_EnemyTower : Multi_Enemy
     public override void Dead()
     {
         base.Dead();
-
-        if (PhotonNetwork.IsMasterClient)
-            Managers.Resources.PhotonDestroy(gameObject);
+        Managers.Multi.Instantiater.PhotonDestroy(gameObject);
     }
 
     [ContextMenu("죽음")]

@@ -77,7 +77,7 @@ public class EffectManager
     public void ChangeColor(byte r, byte g, byte b, Transform transform)
         => transform.GetComponentInChildren<MeshRenderer>().material.color = new Color32(r, g, b, 255);
 
-    GameObject LoadObject(string name) => Managers.Resources.PhotonInsantiate($"Effects/{name}", Vector3.zero);
+    GameObject LoadObject(string name) => Managers.Resources.Instantiate($"Effects/{name}");
     ParticlePlug LoadParticle(string name) => LoadObject(name).GetOrAddComponent<ParticlePlug>();
 
     Dictionary<string, Material> _nameByMaterial = new Dictionary<string, Material>();

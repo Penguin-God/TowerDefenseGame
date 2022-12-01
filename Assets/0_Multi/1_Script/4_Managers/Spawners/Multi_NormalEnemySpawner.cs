@@ -86,7 +86,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
         if (PhotonNetwork.IsMasterClient == false) return;
         enemy.OnDeath += () => OnDead(enemy);
         enemy.OnDeath += () => EenmySpawnToOtherWorld(enemy, otherEnemySpawnNumber);
-        enemy.OnDeath += () => Managers.Pool.Push(enemy.GetComponent<Poolable>());
+        enemy.OnDeath += () => Managers.Multi.Instantiater.PhotonDestroy(enemy.gameObject);
     }
 
     // 콜백용 코드

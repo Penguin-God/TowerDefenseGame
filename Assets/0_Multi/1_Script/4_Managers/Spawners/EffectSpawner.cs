@@ -15,12 +15,6 @@ public class EffectSpawner : Multi_SpawnerBase
     [SerializeField] GameObject[] effects;
     [SerializeField] int count;
 
-    protected override void MasterInit()
-    {
-        //foreach (GameObject effect in effects)
-        //    CreatePoolGroup(effect, BuildPath(_rootPath, effect), count);
-    }
-
     public GameObject ShwoForTime(Effects type, Vector3 pos, float aliveTime)
     {
         GameObject effect = Spawn(type, pos);
@@ -44,5 +38,5 @@ public class EffectSpawner : Multi_SpawnerBase
         Managers.Pool.Push(go);
     }
 
-    GameObject Spawn(Effects type, Vector3 pos) => Managers.Resources.PhotonInsantiate($"{_rootPath}/{Enum.GetName(typeof(Effects), type)}", pos);
+    GameObject Spawn(Effects type, Vector3 pos) => Managers.Multi.Instantiater.PhotonInstantiate($"{_rootPath}/{Enum.GetName(typeof(Effects), type)}", pos);
 }

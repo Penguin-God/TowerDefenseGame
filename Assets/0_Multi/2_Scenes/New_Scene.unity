@@ -26265,7 +26265,7 @@ MonoBehaviour:
     - {fileID: 8499757540850643633, guid: 5ff457fade5e59743ae21de8a614713a, type: 3}
     - {fileID: 8606670814876993437, guid: 673ff93db93abd64fb5cb8b86c15b921, type: 3}
     - {fileID: 7512264850571994257, guid: 5bd1539d3f0ff0841bad89c905e3a5f4, type: 3}
-    poolingCount: 10
+    poolingCount: 5
   archerPoolData:
     folderName: Archer
     gos:
@@ -26277,7 +26277,7 @@ MonoBehaviour:
     - {fileID: 7681704439341560586, guid: 393139d0287003a4ebd679ce6d64b0e2, type: 3}
     - {fileID: 677298355195616122, guid: e352780835250a04ab423536560adad1, type: 3}
     - {fileID: 3173048112267009847, guid: 3fbf7bc0c9eaaeb48ba0c3eda18b9e33, type: 3}
-    poolingCount: 5
+    poolingCount: 4
   spearmanPoolData:
     folderName: Spearman
     gos:
@@ -26289,7 +26289,7 @@ MonoBehaviour:
     - {fileID: 7491805243092396964, guid: 19c48d3b26638124089e9af58530e924, type: 3}
     - {fileID: 4199548222911104336, guid: 0fdf2d2517fd64742b7c11e557b4fe81, type: 3}
     - {fileID: 2357315067319308687, guid: 711ba7972069d144c857d37f97621a93, type: 3}
-    poolingCount: 3
+    poolingCount: 2
   magePoolData:
     folderName: Mage
     gos:
@@ -26301,7 +26301,7 @@ MonoBehaviour:
     - {fileID: 298940350712295422, guid: e0168f14781034d45b301e7c35486af9, type: 3}
     - {fileID: 3764644954606831806, guid: 5c36f870f76cb094d91678ef072e10a2, type: 3}
     - {fileID: 7953183368782943606, guid: 18d5341e080ee52409c23a63c85af0f3, type: 3}
-    poolingCount: 2
+    poolingCount: 1
 --- !u!114 &1671188578
 MonoBehaviour:
   m_ObjectHideFlags: 0

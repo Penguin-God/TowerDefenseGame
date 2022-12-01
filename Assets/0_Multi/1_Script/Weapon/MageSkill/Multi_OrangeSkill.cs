@@ -25,10 +25,10 @@ public class Multi_OrangeSkill : MonoBehaviourPun
         {
             if (enemy == null || enemy.IsDead) yield break;
             OrangeMageSkill(enemy, damage, percent);
-            yield return new WaitForSeconds(ps.startLifetime + 0.1f);
+            yield return new WaitForSeconds(ps.main.startDelayMultiplier + 0.1f);
         }
 
-        Managers.Pool.Push(GetComponent<Poolable>());
+        Managers.Multi.Instantiater.PhotonDestroy(gameObject);
     }
 
     void OrangeMageSkill(Multi_Enemy enemy, int damage, float percent)

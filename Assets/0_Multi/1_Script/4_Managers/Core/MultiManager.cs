@@ -43,6 +43,7 @@ public class MultiManager
 
         public void PhotonDestroy(GameObject go)
         {
+            if (PhotonNetwork.IsMasterClient == false) return;
             if (go.GetComponent<Poolable>() != null)
             {
                 go.GetComponent<RPCable>().SetActive_RPC(false);

@@ -58,7 +58,7 @@ public class Multi_Projectile : MonoBehaviourPun
     {
         OnHit = null;
         if (PhotonNetwork.IsMasterClient == false) return;
-        Managers.Pool.Push(gameObject.GetOrAddComponent<Poolable>());
+        Managers.Multi.Instantiater.PhotonDestroy(gameObject);
     }
 
     protected virtual void OnTriggerHit(Collider other) 

@@ -6,7 +6,7 @@ using System;
 
 public class Multi_Meteor : Multi_Projectile
 {
-    [SerializeField] GameObject explosionObject;
+    const string expolsionPath = "Prefabs/Weapon/MageSkills/Meteor_Explosion";
     Action<Multi_Enemy> explosionAction = null;
 
     void Start()
@@ -25,7 +25,7 @@ public class Multi_Meteor : Multi_Projectile
     {
         if (PhotonNetwork.IsMasterClient == false) return;
 
-        if (other.tag == "World") photonView.RPC("MeteorExplosion", RpcTarget.All);
+        if (other.tag == "World") photonView.RPC(nameof(MeteorExplosion), RpcTarget.All);
     }
 
     Renderer _renderer;
@@ -35,7 +35,7 @@ public class Multi_Meteor : Multi_Projectile
         if(explosionAction != null)
         {
             Managers.Sound.PlayEffect_If(EffectSoundType.MeteorExplosion, () => _renderer.isVisible);
-            Managers.Resources.PhotonInsantiate(explosionObject, transform.position).GetComponent<Multi_HitSkill>().SetHitActoin(explosionAction);
+            Managers.Multi.Instantiater.PhotonInstantiate(expolsionPath, transform.position).GetComponent<Multi_HitSkill>().SetHitActoin(explosionAction);
             explosionAction = null;
         }
 

@@ -156,7 +156,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         //OnDead?.Invoke(this);
         gameObject.SetActive(false);
         Multi_SpawnManagers.BossEnemy.OnSpawn -= TargetToBoss;
-        Managers.Pool.Push(gameObject.GetComponent<Poolable>());
+        //Managers.Pool.Push(gameObject.GetComponent<Poolable>());
+        Managers.Multi.Instantiater.PhotonDestroy(gameObject);
         _state.Daad();
     }
 

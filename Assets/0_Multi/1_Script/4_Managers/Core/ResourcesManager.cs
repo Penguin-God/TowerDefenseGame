@@ -31,15 +31,6 @@ public class ResourcesManager
         return result;
     }
 
-    public GameObject PhotonInsantiate(string path, Vector3 position, Quaternion rotation, int id = -1, Transform parent = null)
-    {
-        GameObject result = GetObject(path);
-        if (result != null)
-            return SetPhotonObject(result, position, rotation, id, parent);
-
-        return result;
-    }
-
     GameObject GetObject(string path)
     {
         path = GetPrefabPath(path); // TODO : 프리팹에 poolable 있어야 풀링되는거 수정하기

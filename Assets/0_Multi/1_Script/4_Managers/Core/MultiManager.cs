@@ -28,6 +28,8 @@ public class MultiManager
             if (id != -1) rpc.SetId_RPC(id);
             return result;
         }
+        public GameObject PhotonInstantiate(string path, Vector3 spawnPos, Quaternion spawnRot, int id = -1)
+            => PhotonInstantiate(path, spawnPos, spawnRot.eulerAngles, id);
 
         public GameObject PhotonInstantiate(string path, Vector3 spawnPos, Vector3 spawnEuler, int id = -1)
         {

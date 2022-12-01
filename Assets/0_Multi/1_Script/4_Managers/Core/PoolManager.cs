@@ -99,7 +99,6 @@ public class Pool
         if (poolStack.Count > 0) poolable = poolStack.Pop();
         else poolable = CreateObject();
 
-        poolable.gameObject.SetActive(true);
         poolable.transform.SetParent(null);
         poolable.IsUsing = true;
         return poolable;

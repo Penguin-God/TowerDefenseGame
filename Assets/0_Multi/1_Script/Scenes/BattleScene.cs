@@ -19,11 +19,8 @@ public class BattleScene : BaseScene
         Show_UI();
         Managers.Camera.EnterBattleScene();
         InitSound();
-
-        if (PhotonNetwork.IsMasterClient == false) return;
         Managers.Pool.Init();
-        var multi = Managers.Multi;
-        Managers.Effect.Init(multi.Instantiater);
+        InitEffect();
     }
 
     void Start()
@@ -77,6 +74,19 @@ public class BattleScene : BaseScene
 
         Managers.UI.ShowSceneUI<Status_UI>();
         Managers.UI.ShowSceneUI<BattleButton_UI>();
+    }
+
+    public void InitEffect()
+    {
+        foreach (var data in CsvUtility.CsvToArray<EffectData>(Managers.Resources.Load<TextAsset>("Data/EffectData").text))
+        {
+            switch (data.EffectType)
+            {
+                case EffectType.GameObject:
+                    Managers.Pool.CreatePool_InGroup(data.Path, 3, "Effects");
+                    break;
+            }
+        }
     }
 
     public override void Clear()

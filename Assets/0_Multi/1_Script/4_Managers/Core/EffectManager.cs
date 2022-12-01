@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public enum EffectType
 {
@@ -23,22 +22,6 @@ public class EffectData
 
 public class EffectManager
 {
-    Dictionary<string, string> _nameByPath = new Dictionary<string, string>();
-
-    public void Init(IInstantiater instantiater = null)
-    {
-        foreach (var data in CsvUtility.CsvToArray<EffectData>(Managers.Resources.Load<TextAsset>("Data/EffectData").text))
-        {
-            _nameByPath.Add(data.Name, data.Path);
-            switch (data.EffectType)
-            {
-                case EffectType.GameObject:
-                    Managers.Pool.CreatePool_InGroup(data.Path, 3, "Effects", instantiater);
-                    break;
-            }
-        }
-    }
-
     Dictionary<Transform, TargetTracker> _targetByTrackers = new Dictionary<Transform, TargetTracker>();
     public IReadOnlyDictionary<Transform, TargetTracker> TargetByTrackers => _targetByTrackers;
     public TargetTracker TrackingToTarget(string name, Transform target, Vector3 offset)
@@ -53,12 +36,10 @@ public class EffectManager
     {
         if (_targetByTrackers.TryGetValue(target, out TargetTracker tracker) == false)
             return;
-        Managers.Pool.Push(tracker.GetComponent<Poolable>());
+        Managers.Resources.Destroy(tracker.gameObject);
         _targetByTrackers.Remove(target);
     }
     
-
-    // 이걸 호출하는 쪽에서 All이나 Other로 튕기면 됨. 대신 그때 서로가 풀링이 되어 있어야 함.
     public void PlayParticle(string name, Vector3 pos)
     {
         ParticlePlug particle = LoadParticle(name);

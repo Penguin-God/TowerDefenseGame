@@ -23477,7 +23477,6 @@ GameObject:
   - component: {fileID: 3169154342488646687}
   - component: {fileID: 2970012774332180461}
   - component: {fileID: 2968899473377446303}
-  - component: {fileID: -5107385073351270256}
   - component: {fileID: -9154547089666566116}
   m_Layer: 0
   m_Name: UnitReinForceEffect
@@ -28081,28 +28080,6 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
---- !u!114 &-5107385073351270256
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3167153324664509711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &-9154547089666566116
 MonoBehaviour:
   m_ObjectHideFlags: 0

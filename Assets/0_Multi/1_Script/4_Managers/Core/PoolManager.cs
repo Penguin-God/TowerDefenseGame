@@ -74,6 +74,7 @@ public class Pool
     {
         var go = instantiate == null ?
             GameObject.Instantiate(Resources.Load<GameObject>(Path)) : instantiate.Instantiate(Path);
+        go.SetActive(false);
         go.transform.SetParent(Root);
         go.name = Name;
 
@@ -182,8 +183,8 @@ public class PoolManager
         Pool pool = FindPool(go.name);
         Debug.Assert(pool != null, $"{go.name} 오브젝트의 풀이 없는데 푸쉬를 시도함");
 
-        go.GetOrAddComponent<RPCable>().SetActive_RPC(false);
-        go.GetOrAddComponent<RPCable>().SetPosition_RPC(Vector3.one * 1000);
+        go.SetActive(false);
+        // go.GetOrAddComponent<RPCable>().SetPosition_RPC(Vector3.one * 1000);
         pool.Push(go.GetComponent<Poolable>());
     }
 

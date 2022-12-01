@@ -24,6 +24,8 @@ public class UI_UnitTrackerSetterBase : UI_Base
         }
 
         _unitTrackers.ToList().ForEach(x => x.SetInfo(data));
-        Managers.UI.ClosePopupUI(PopupGroupType.UnitWindow);
+        var popup = Managers.UI.PeekPopupUI();
+        if (popup != null && popup.GetComponent<UI_UnitManagedWindow>() != null)
+            Managers.UI.ClosePopupUI(PopupGroupType.UnitWindow);
     }
 }

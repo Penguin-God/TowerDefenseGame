@@ -127,8 +127,9 @@ public class UI_Manager
 
     public void ClosePopupUI(PopupGroupType groupType)
     {
-        ClosePopupUI();
+        if (_groupTypeByCurrentPopup[groupType] == null) return;
         _groupTypeByCurrentPopup[groupType] = null;
+        ClosePopupUI();
     }
 
     public void CloseAllPopupUI()
@@ -140,6 +141,12 @@ public class UI_Manager
         }
         _currentPopupStack.ToList().ForEach(x => x.gameObject.SetActive(false));
         _currentPopupStack.Clear();
+    }
+
+    public UI_Popup PeekPopupUI()
+    {
+        if (_currentPopupStack.Count == 0) return null;
+        return _currentPopupStack.Peek();
     }
 
     public void Clear()

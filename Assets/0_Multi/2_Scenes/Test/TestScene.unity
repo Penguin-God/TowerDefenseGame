@@ -2813,55 +2813,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 200574227}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &205695221
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 205695222}
-  - component: {fileID: 205695223}
-  m_Layer: 0
-  m_Name: EffectSpawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &205695222
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 205695221}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 485.10342, y: 505.33478, z: 491.81396}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1712762049}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &205695223
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 205695221}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b7791708d4fe6a049985b788d55814c6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rootName: Effects
-  _rootPath: Effect
-  effects:
-  - {fileID: 8483824106073889898, guid: 59c3073ab3253a94cacc148c0525e797, type: 3}
-  - {fileID: 3550290449996104982, guid: 51abe3aee772f594998bc17e221c97b1, type: 3}
-  count: 5
 --- !u!1001 &207428727
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26884,10 +26835,13 @@ MonoBehaviour:
     _maxEnemyCount: 0
     _stageUpGold: 0
     _yellowKnightRewardGold: 0
-    _swrodmanSellGold: 0
-    _archerSellGold: 0
-    _spearmanSellGold: 0
-    _mageSellGold: 0
+    _unitSellPriceRecord:
+      _priceDatas: []
+    _whiteUnitPriceRecord:
+      _priceDatas: []
+    _maxUnitIncreaseRecord:
+      _currencyType: 0
+      _price: 0
   gameStartButton: {fileID: 1436183892}
   gameStart: 0
 --- !u!1001 &1707620172
@@ -27162,7 +27116,6 @@ Transform:
   - {fileID: 616192326}
   - {fileID: 1671188576}
   - {fileID: 965729632}
-  - {fileID: 205695222}
   m_Father: {fileID: 462790420}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

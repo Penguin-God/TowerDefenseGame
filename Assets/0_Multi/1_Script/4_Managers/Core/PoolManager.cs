@@ -1,9 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
-using System;
-using System.Linq;
 
 public interface IInstantiater
 {
@@ -30,19 +27,7 @@ public class Pool
     Stack<Poolable> poolStack = new Stack<Poolable>();
     public int Count => poolStack.Count;
 
-    Action<GameObject> SetupObjAct;
     IInstantiater _instantiater;
-
-    public void Init(GameObject original, string path, int count, Action<GameObject> setupAct)
-    {
-        Root = new GameObject($"{original.name}_Root").transform;
-        if(original.GetComponent<Poolable>() == null) original.AddComponent<Poolable>();
-        Original = original;
-        Path = path.Contains("Prefabs/") ? path : $"Prefabs/{path}";
-        SetupObjAct = setupAct;
-        for (int i = 0; i < count; i++)
-            Push(_CreateObject());
-    }
 
     public void Init(string path, int count, IInstantiater instantiater = null)
     {
@@ -52,24 +37,6 @@ public class Pool
         Root = new GameObject($"{Name}_Root").transform;
         for (int i = 0; i < count; i++)
             Push(CreateObject());
-    }
-
-    Poolable _CreateObject()
-    {
-        Poolable poolable;
-        GameObject previewGo = Resources.Load<GameObject>(Path);
-        // TODO : 이 좆같은 코드 리팩터링하기
-        //previewGo.GetOrAddComponent<PhotonView>();
-        //Debug.Log(Path);
-        GameObject go = PhotonNetwork.Instantiate(Path, Vector3.zero, previewGo.transform.rotation);
-        go.transform.SetParent(Root);
-        go.name = Original.name;
-        SetupObjAct?.Invoke(go);
-
-        poolable = go.GetOrAddComponent<Poolable>();
-        poolable.Path = Path;
-
-        return poolable;
     }
 
     Poolable CreateObject()
@@ -123,31 +90,6 @@ public class PoolManager
         }
     }
 
-    public Transform CreatePool(GameObject go, string path, int count, Transform root = null, Action<GameObject> action = null)
-    {
-        Pool pool = new Pool();
-        pool.Init(go, path, count, action);
-        if(root == null) pool.Root.SetParent(_root);
-        else pool.Root.SetParent(root);
-        _poolByName.Add(go.name, pool);
-        return pool.Root;
-    }
-
-    public Transform CreatePool_InGroup(GameObject original, string path, int count, string groupName, Action<GameObject> action = null)
-    {
-        PoolGroup poolGroup;
-        if (_poolGroupByName.TryGetValue(groupName, out poolGroup))
-            return CreatePool(original, path, count, poolGroup.Root, action);
-        else // 없으면 새로운 풀 그룹 생성
-        {
-            poolGroup = new PoolGroup();
-            poolGroup.Init(groupName);
-            poolGroup.Root.SetParent(_root);
-            _poolGroupByName.Add(groupName, poolGroup);
-            return CreatePool(original, path, count, poolGroup.Root, action);
-        }
-    }
-
     public Transform CreatePool(string path, int count, Transform root = null, IInstantiater instantiater = null)
     {
         Pool pool = new Pool();
@@ -186,11 +128,8 @@ public class PoolManager
         Debug.Assert(pool != null, $"{go.name} 오브젝트의 풀이 없는데 푸쉬를 시도함");
 
         go.SetActive(false);
-        // go.GetOrAddComponent<RPCable>().SetPosition_RPC(Vector3.one * 1000);
         pool.Push(go.GetComponent<Poolable>());
     }
-
-    public Poolable Pop(GameObject go) => FindPool(go.name).Pop();
 
     Pool FindPool(string name)
     {

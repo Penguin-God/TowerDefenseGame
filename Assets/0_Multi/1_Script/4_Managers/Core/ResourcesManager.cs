@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
 public class ResourcesManager
 {
@@ -19,61 +18,32 @@ public class ResourcesManager
         return Resources.Load<T>(path);
     }
 
-    public GameObject PhotonInsantiate(GameObject PoolObj, Vector3 position) 
-        => SetPhotonObject(Managers.Pool.Pop(PoolObj).gameObject, position, PoolObj.transform.rotation);
-
-    public GameObject PhotonInsantiate(string path, Vector3 position, int id = -1, Transform parent = null)
-    {
-        GameObject result = GetObject(path);
-        if (result != null)
-            return SetPhotonObject(result, position, result.transform.rotation, id, parent);
-
-        return result;
-    }
-
-    GameObject GetObject(string path)
-    {
-        path = GetPrefabPath(path); // TODO : 프리팹에 poolable 있어야 풀링되는거 수정하기
-        GameObject prefab = Load<GameObject>(path);
-        if (prefab.GetComponent<Poolable>() != null)
-            return Managers.Pool.Pop(prefab).gameObject;
-        else
-            return PhotonNetwork.Instantiate(path, Vector3.zero, prefab.transform.rotation);
-    }
-
-    GameObject SetPhotonObject(GameObject go, Vector3 position, Quaternion rotation, int id = -1, Transform parent = null)
-    {
-        if (go == null) return null;
-
-        go.transform.SetParent(parent);
-        SetInfo_RPC();
-        return go;
-
-        void SetInfo_RPC()
-        {
-            RPCable rpcable = go.GetOrAddComponent<RPCable>();
-            rpcable.SetId_RPC(id);
-            rpcable.SetPosition_RPC(position);
-            rpcable.SetRotation_RPC(rotation);
-            rpcable.SetActive_RPC(true);
-        }
-    }
-
-
     public GameObject Instantiate(string path, Transform parent = null)
     {
         path = GetPrefabPath(path);
-        var original = Managers.Pool.GetOriginal(path);
-        if (original != null)
-            return Managers.Pool.Pop(original).gameObject;
+        if (Managers.Pool.TryGetPoolObejct(GetPathName(path), out GameObject poolGo))
+        {
+            poolGo.SetActive(true);
+            return poolGo;
+        }
+        //var original = Managers.Pool.GetOriginal(path);
+        //if (original != null)
+        //    return Managers.Pool.Pop(original).gameObject;
 
-        original = Load<GameObject>(path);
+        var original = Load<GameObject>(path);
         GameObject go = Object.Instantiate(original, parent);
         go.name = original.name;
         return go;
     }
 
+    string GetPathName(string path) => path.Split('/')[path.Split('/').Length - 1];
     string GetPrefabPath(string path) => path.Contains("Prefabs/") ? path : $"Prefabs/{path}";
 
-    public void Destroy(GameObject go) => Object.Destroy(go);
+    public void Destroy(GameObject go)
+    {
+        if (go.GetComponent<Poolable>() != null)
+            Managers.Pool.Push(go);
+        else
+            Object.Destroy(go);
+    }
 }

@@ -2,36 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
 
-public class Multi_WhiteUnitTimer : MonoBehaviourPun
+public class Multi_WhiteUnitTimer : MonoBehaviour
 {
     [SerializeField] Vector3 offSet;
 
     private Slider slider;
     public Slider Slider => slider;
     
-    Transform target;
+    Transform _target;
 
     private void Awake()
     {
         slider = GetComponentInChildren<Slider>();
     }
 
-    void OnDisable()
+    public void Setup(Transform target, float aliveTime)
     {
-        StopAllCoroutines();
-    }
-
-    public void Setup_RPC(Transform unit, float aliveTime)
-    {
-        target = unit;
-        photonView.RPC("Setup", RpcTarget.All, aliveTime);
-    }
-
-    [PunRPC]
-    void Setup(float aliveTime)
-    {
+        _target = target;
         slider.maxValue = aliveTime;
         slider.value = aliveTime;
         StartCoroutine(Co_Timer());
@@ -39,16 +27,16 @@ public class Multi_WhiteUnitTimer : MonoBehaviourPun
 
     public void Off()
     {
-        GetComponent<RPCable>().SetActive_RPC(false);
         slider.onValueChanged.RemoveAllListeners();
+        StopAllCoroutines();
+        Managers.Effect.StopTargetTracking(_target);
+        _target = null;
     }
 
     IEnumerator Co_Timer()
     {
         while (true)
         {
-            if (target != null)
-                transform.position = target.position + offSet;
             slider.value -= Time.deltaTime;
             yield return null;
         }

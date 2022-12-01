@@ -12,11 +12,17 @@ public class WhiteUnit : MonoBehaviour
 
     void OnEnable()
     {
-        if (PhotonNetwork.IsMasterClient == false) return;
+        timer = Managers.Effect.TrackingToTarget("WhiteUnitTimer", transform, new Vector3(0, 4, 3)).GetComponent<Multi_WhiteUnitTimer>();
+        timer.Setup(transform, aliveTime);
 
-        timer = Multi_SpawnManagers.Effect.ShwoForTime(Effects.WhiteUnitTimer, transform.position, aliveTime).GetComponent<Multi_WhiteUnitTimer>();
-        timer.Setup_RPC(transform, aliveTime);
+        if (PhotonNetwork.IsMasterClient == false) return;
         timer.Slider.onValueChanged.AddListener(ChangedColor);
+    }
+
+    void OnDisable()
+    {
+        timer.Off();
+        timer = null;
     }
 
     public void ChangedColor(float value)
@@ -26,8 +32,6 @@ public class WhiteUnit : MonoBehaviour
             var unit = GetComponent<Multi_TeamSoldier>();
             Multi_SpawnManagers.NormalUnit.Spawn(Random.Range(0, maxColor), (int)unit.unitClass, unit.transform.position, unit.transform.rotation, unit.UsingID);
             unit.Dead();
-            timer.Off();
-            timer = null;
         }
     }
 }

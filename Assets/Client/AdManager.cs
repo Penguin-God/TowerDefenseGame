@@ -15,8 +15,6 @@ public class AdManager : MonoBehaviour
     int PlusTouchDamegePrice;
     int StartGold;
 
-    public ClientManager clientManager;
-
     private void Start()
     {
         Wood = PlayerPrefs.GetInt("Wood");
@@ -105,7 +103,6 @@ public class AdManager : MonoBehaviour
             case ShowResult.Finished:
                 Iron += Random.Range(10, StartGoldPrice + 1);
                 PlayerPrefs.SetInt("Iron",Iron);
-                clientManager.UpdateIronText(Iron);
                 Debug.Log("광고 보기를 완료했습니다.");
                 PlayerPrefs.Save();
 
@@ -137,7 +134,6 @@ public class AdManager : MonoBehaviour
             case ShowResult.Finished:
                 Wood += Random.Range(10, StartFoodPrice + 1);
                 PlayerPrefs.SetInt("Wood", Wood);
-                clientManager.UpdateWoodText(Wood);
                 Debug.Log("광고 보기를 완료했습니다.");
                 PlayerPrefs.Save();
 
@@ -169,7 +165,6 @@ public class AdManager : MonoBehaviour
             case ShowResult.Finished:
                 Hammer += Random.Range(1, PlusTouchDamegePrice + 1);
                 PlayerPrefs.SetInt("Hammer", Hammer);
-                clientManager.UpdateHammerText(Hammer);
                 Debug.Log("광고 보기를 완료했습니다.");
                 PlayerPrefs.Save();
 

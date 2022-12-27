@@ -84,16 +84,13 @@ public class Multi_ClientData
     }
     #endregion
 
-    // 추가
-    Dictionary<SkillType, Skill> skillByType = new Dictionary<SkillType, Skill>();
-    public IReadOnlyDictionary<SkillType, Skill> SkillByType => skillByType;
-
     Dictionary<MoneyType, Money> moneyByType = new Dictionary<MoneyType, Money>();
     public IReadOnlyDictionary<MoneyType, Money> MoneyByType => moneyByType;
 
-    List<UserSkill> _equipSkills = new List<UserSkill>();
-    public int EquipSkillCount => _equipSkills.Count();
-    public void AddEquipSkill(SkillType type) => _equipSkills.Add(new UserSkillFactory().GetSkill(type));
+
+    EquipSkillManager _equipSkillManager = new EquipSkillManager();
+    public EquipSkillManager EquipSkillManager => _equipSkillManager;
+    public IEnumerable<SkillType> HasSkills => _skillByLevel.Where(x => x.Value > 0).Select(x => x.Key);
 
     Dictionary<SkillType, int> _skillByLevel = new Dictionary<SkillType, int>();
     public UserSkillLevelData GetSkillLevelData(SkillType skillType) => Managers.Data.UserSkill.GetSkillLevelData(skillType, _skillByLevel[skillType]);
@@ -121,11 +118,6 @@ public class Multi_ClientData
         => moneyByType[Managers.Data.UserSkill.GetSkillGoodsData(skill).MoneyType].Amount >= GetSkillLevelData(skill).Price
            && _skillByExp[skill] >= GetSkillLevelData(skill).Exp;
 
-    public IEnumerable<SkillType> HasSkills => _skillByLevel.Where(x => x.Value > 0).Select(x => x.Key);
-
-    EquipSkillManager _equipSkillManager = new EquipSkillManager();
-    public EquipSkillManager EquipSkillManager => _equipSkillManager;
-
     public void Init()
     {
         foreach (SkillType type in Enum.GetValues(typeof(SkillType)))
@@ -135,26 +127,9 @@ public class Multi_ClientData
             _skillByExp.Add(type, 0);
         }
 
-        List<Skill> playerDatas = CsvUtility.CsvToArray<Skill>(Resources.Load<TextAsset>("Data/ClientData/SkillData").text).ToList();
-        skillByType = playerDatas.ToDictionary(x => (SkillType)Enum.ToObject(typeof(SkillType), x.Id), x => x);
-
         List<Money> moneyData = CsvUtility.CsvToArray<Money>(Resources.Load<TextAsset>("Data/ClientData/MoneyData").text).ToList();
         moneyByType = moneyData.ToDictionary(x => (MoneyType)Enum.ToObject(typeof(MoneyType), x.Id), x => x);
     }
-
-    public void Clear()
-    {
-        foreach (var item in skillByType)
-            item.Value.SetEquipSkill(false);
-        _equipSkills.Clear();
-    }
-
-    // TODO : 세이브 개선하기
-    //void SaveData<T>(IEnumerable<T> datas, string path)
-    //{
-    //    string csv = CsvUtility.CsvToArray(datas);
-    //    CsvUtility.SaveCsv(csv, path);
-    //}
 }
 
 public enum SkillType

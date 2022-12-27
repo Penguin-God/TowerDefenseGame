@@ -65,15 +65,15 @@ public class SkillEquip_UI : UI_Popup
         SetEquipImage(Managers.ClientData.EquipSkillManager.SubSkill, GetImage((int)Images.EquipSkill2_Image));
     }
 
-    void RefreshEquipSkillFrame(SkillEquipData equipData)
+    void RefreshEquipSkillFrame(UserSkillClass skillClass, SkillType skillType)
     {
-        switch (equipData.SkillClass)
+        switch (skillClass)
         {
             case UserSkillClass.Main:
-                SetEquipImage(equipData.SkillType, GetImage((int)Images.EquipSkill1_Image));
+                SetEquipImage(skillType, GetImage((int)Images.EquipSkill1_Image));
                 break;
             case UserSkillClass.Sub:
-                SetEquipImage(equipData.SkillType, GetImage((int)Images.EquipSkill2_Image));
+                SetEquipImage(skillType, GetImage((int)Images.EquipSkill2_Image));
                 break;
         }
     }

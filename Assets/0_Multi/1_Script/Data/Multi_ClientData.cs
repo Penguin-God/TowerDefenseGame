@@ -4,64 +4,30 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public class SkillEquipData
-{
-    public SkillEquipData(UserSkillClass skillClass) => _skillClass = skillClass;
-
-    SkillType _skillType;
-    UserSkillClass _skillClass;
-    bool _isEquip = false;
-    public event Action<SkillEquipData> OnChangedEquipSkill = null;
-
-    public SkillType SkillType => _skillType;
-    public UserSkillClass SkillClass => _skillClass;
-    public bool IsEquip => _isEquip;
-
-    public void ChangedSkill(SkillType skillType)
-    {
-        _isEquip = (skillType != SkillType.None);
-        _skillType = skillType;
-        OnChangedEquipSkill?.Invoke(this);
-    }
-
-    public void UnEquipSkill() => ChangedSkill(SkillType.None);
-}
-
 public class EquipSkillManager
 {
-    public EquipSkillManager()
+    Dictionary<UserSkillClass, SkillType> _typeByClass = new Dictionary<UserSkillClass, SkillType>()
     {
-        _mainSkillEquipData.OnChangedEquipSkill += RaiseEquipSkillChange;
-        _subSkillEquipData.OnChangedEquipSkill += RaiseEquipSkillChange;
-    }
+        {UserSkillClass.Main, SkillType.None},
+        {UserSkillClass.Sub, SkillType.None},
+    };
+    public IEnumerable<SkillType> EquipSkills => _typeByClass.Values;
 
-    SkillEquipData _mainSkillEquipData = new SkillEquipData(UserSkillClass.Main);
-    SkillEquipData _subSkillEquipData = new SkillEquipData(UserSkillClass.Sub);
+    public SkillType MainSkill => _typeByClass[UserSkillClass.Main];
+    public SkillType SubSkill => _typeByClass[UserSkillClass.Sub];
 
-    public SkillType[] EquipSkills => new[] { _mainSkillEquipData.SkillType, _subSkillEquipData.SkillType };
-    public SkillType MainSkill => _mainSkillEquipData.SkillType;
-    public SkillType SubSkill => _subSkillEquipData.SkillType;
-
-    public event Action<SkillEquipData> OnEquipSkillChanged = null;
-    void RaiseEquipSkillChange(SkillEquipData data) => OnEquipSkillChanged?.Invoke(data);
+    public event Action<UserSkillClass, SkillType> OnEquipSkillChanged = null;
 
     public void ChangedEquipSkill(UserSkillClass skillClass, SkillType skillType)
     {
-        switch (skillClass)
-        {
-            case UserSkillClass.Main:
-                _mainSkillEquipData.ChangedSkill(skillType);
-                break;
-            case UserSkillClass.Sub:
-                _subSkillEquipData.ChangedSkill(skillType);
-                break;
-        }
+        _typeByClass[skillClass] = skillType;
+        OnEquipSkillChanged?.Invoke(skillClass, skillType);
     }
 
     public void AllUnEquip()
     {
-        _mainSkillEquipData.UnEquipSkill();
-        _subSkillEquipData.UnEquipSkill();
+        ChangedEquipSkill(UserSkillClass.Main, SkillType.None);
+        ChangedEquipSkill(UserSkillClass.Sub, SkillType.None);
     }
 }
 
@@ -90,9 +56,10 @@ public class Multi_ClientData
 
     EquipSkillManager _equipSkillManager = new EquipSkillManager();
     public EquipSkillManager EquipSkillManager => _equipSkillManager;
-    public IEnumerable<SkillType> HasSkills => _skillByLevel.Where(x => x.Value > 0).Select(x => x.Key);
+
 
     Dictionary<SkillType, int> _skillByLevel = new Dictionary<SkillType, int>();
+    public IEnumerable<SkillType> HasSkills => _skillByLevel.Where(x => x.Value > 0).Select(x => x.Key);
     public UserSkillLevelData GetSkillLevelData(SkillType skillType) => Managers.Data.UserSkill.GetSkillLevelData(skillType, _skillByLevel[skillType]);
 
     Dictionary<SkillType, int> _skillByExp = new Dictionary<SkillType, int>();

@@ -47,6 +47,7 @@ public class SkillEquip_UI : UI_Popup
             _initDone = true;
         }
         RefreshHasSkillsFrame();
+        RefreshEquipSkillFrame();
     }
 
     void RefreshHasSkillsFrame()
@@ -58,29 +59,35 @@ public class SkillEquip_UI : UI_Popup
             Managers.UI.MakeSubItem<SkillFrame_UI>(frameParent).SetInfo(skillType);
     }
 
+    void RefreshEquipSkillFrame()
+    {
+        SetEquipImage(Managers.ClientData.EquipSkillManager.MainSkill, GetImage((int)Images.EquipSkill1_Image));
+        SetEquipImage(Managers.ClientData.EquipSkillManager.SubSkill, GetImage((int)Images.EquipSkill2_Image));
+    }
+
     void RefreshEquipSkillFrame(SkillEquipData equipData)
     {
         switch (equipData.SkillClass)
         {
             case UserSkillClass.Main:
-                SetEquipImage(equipData, GetImage((int)Images.EquipSkill1_Image));
+                SetEquipImage(equipData.SkillType, GetImage((int)Images.EquipSkill1_Image));
                 break;
             case UserSkillClass.Sub:
-                SetEquipImage(equipData, GetImage((int)Images.EquipSkill2_Image));
+                SetEquipImage(equipData.SkillType, GetImage((int)Images.EquipSkill2_Image));
                 break;
         }
     }
 
-    void SetEquipImage(SkillEquipData equipData, Image image)
+    void SetEquipImage(SkillType skillType, Image image)
     {
-        if(equipData.IsEquip == false)
+        if (skillType == SkillType.None)
         {
             image.color = new Color(1, 1, 1, 0);
             return;
         }
 
         image.color = new Color(1, 1, 1, 1);
-        image.sprite = GetSkillImage(equipData.SkillType);
+        image.sprite = GetSkillImage(skillType);
     }
 
     Sprite GetSkillImage(SkillType skillType) => Managers.Resources.Load<Sprite>(Managers.Data.UserSkill.GetSkillGoodsData(skillType).ImagePath);

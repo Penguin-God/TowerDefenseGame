@@ -151,13 +151,11 @@ public class UI_Manager
 
     public void Clear()
     {
+        _root = null;
         _sceneUI = null;
         _currentPopupStack.Clear();
         _nameByPopupCash.Clear();
-        if (_root != null)
-        {
-            _root = null;
-        }
+        _groupTypeByCurrentPopup.Clear();
     }
 
     public void ShowWaringText(string msg) => Managers.UI.ShowPopupUI<WarningText>().Show(msg);

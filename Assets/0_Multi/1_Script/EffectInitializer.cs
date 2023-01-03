@@ -6,15 +6,9 @@ using System.Linq;
 
 public class EffectInitializer : MonoBehaviourPun
 {
-    Dictionary<UnitColor, Color32> _unitColorByColor;
+    UnitReinforceEffectDrawer _unitReinforceEffectDrawer = new UnitReinforceEffectDrawer();
     public void SettingEffect(IEnumerable<UserSkill> userSkills)
     {
-        _unitColorByColor = new Dictionary<UnitColor, Color32>()
-        {
-            {UnitColor.red, new Color32(255, 44, 0, 255) },
-            {UnitColor.blue, new Color32(26, 251, 255, 255) },
-            {UnitColor.black, new Color32(0, 0, 0, 255) },
-        };
         foreach (var skill in userSkills)
         {
             if (skill is Taegeuk)
@@ -57,27 +51,42 @@ public class EffectInitializer : MonoBehaviourPun
     [PunRPC]
     void SetUnitTrackingEffects(UnitFlags flag)
     {
-        var targets = Multi_UnitManager.Instance.Master.GetUnitList(Multi_Data.instance.Id, flag).Select(x => x.transform);
+        var targets = Multi_UnitManager.Instance.Master.GetUnitList(Multi_Data.instance.Id, flag)
+            .Where(x => Managers.Effect.TargetByTrackers.ContainsKey(x.transform) == false);
         foreach (var target in targets)
         {
-            if (Managers.Effect.TargetByTrackers.ContainsKey(target))
-                continue;
-            SetUnitReinforceEffect(flag.UnitColor, target);
-            photonView.RPC(nameof(SetUnitTrackingEffects), RpcTarget.Others, target.GetComponent<PhotonView>().ViewID);
+            _unitReinforceEffectDrawer.SetUnitReinforceEffect(target);
+            photonView.RPC(nameof(SetUnitTrackingEffects_ByID), RpcTarget.Others, target.GetComponent<PhotonView>().ViewID);
         }
     }
 
     [PunRPC]
-    void SetUnitTrackingEffects(int viewID)
-        => SetUnitTrackingEffects(Managers.Multi.GetPhotonViewTransfrom(viewID).GetComponent<Multi_TeamSoldier>().UnitFlags);
+    void SetUnitTrackingEffects_ByID(int viewID)
+        => _unitReinforceEffectDrawer.SetUnitReinforceEffect(Managers.Multi.GetPhotonViewTransfrom(viewID).GetComponent<Multi_TeamSoldier>());
+}
 
-    void SetUnitReinforceEffect(UnitColor unitColor, Transform target)
+class UnitReinforceEffectDrawer
+{
+    Dictionary<UnitColor, Color32> _unitColorByColor = new Dictionary<UnitColor, Color32>()
+        {
+            {UnitColor.red, new Color32(255, 44, 0, 255) },
+            {UnitColor.blue, new Color32(26, 251, 255, 255) },
+            { UnitColor.black, new Color32(0, 0, 0, 255) },
+        };
+
+    public void SetUnitReinforceEffects(IEnumerable<Multi_TeamSoldier> targets)
     {
-        var tracker = Managers.Effect.TrackingToTarget(GetUnitTarckerName(unitColor), target, Vector3.zero);
+        foreach (var target in targets)
+            SetUnitReinforceEffect(target);
+    }
+
+    public void SetUnitReinforceEffect(Multi_TeamSoldier target)
+    {
+        var tracker = Managers.Effect.TrackingToTarget(GetUnitTarckerName(target.unitColor), target.transform, Vector3.zero);
         foreach (Transform effect in tracker.transform)
-        { 
+        {
             var main = effect.GetComponent<ParticleSystem>().main;
-            main.startColor = new ParticleSystem.MinMaxGradient(_unitColorByColor[unitColor]);
+            main.startColor = new ParticleSystem.MinMaxGradient(_unitColorByColor[target.unitColor]);
         }
     }
 

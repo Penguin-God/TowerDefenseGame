@@ -110,6 +110,7 @@ MonoBehaviour:
   - MoveToOpposite
   - TaeguekEffect
   - SetUnitTrackingEffects
+  - SetUnitTrackingEffects_ByID
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -42,6 +42,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
         int targetId = (Multi_Data.instance.Id == 0) ? 1 : 0;
         if (isTest) targetId = 0;
         SpawnEnemy_RPC(GetCurrentEnemyPath(enemyNum), Multi_StageManager.Instance.CurrentStage, targetId);
+        SpawnEnemy_RPC(GetCurrentEnemyPath(enemyNum), Multi_StageManager.Instance.CurrentStage, 1); // 임시임
     }
 
 

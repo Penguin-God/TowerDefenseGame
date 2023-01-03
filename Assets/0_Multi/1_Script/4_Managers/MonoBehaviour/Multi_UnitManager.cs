@@ -47,7 +47,8 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     void Init()
     {
-        if (Managers.Scene.IsBattleScene == false) return;
+        // 이 지옥의 좆같은 코드 제거를 위해 싱글턴 씬 이동 처리를 잘할 것
+        // if (Managers.Scene.IsBattleScene == false) return;
 
         _count.Init(_master);
         _count.OnUnitCountChanged += Rasie_OnUnitCountChanged;

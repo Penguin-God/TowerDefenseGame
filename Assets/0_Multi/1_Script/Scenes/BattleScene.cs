@@ -14,19 +14,12 @@ public class BattleScene : BaseScene
         }
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
-
-        Multi_SpawnManagers.Instance.Init();
-        Show_UI();
-        Managers.Camera.EnterBattleScene();
-        InitSound();
-        Managers.Pool.Init();
-        InitEffect();
+        new WorldInitializer().Init();
     }
 
     void Start()
     {
-        var skills = InitUserSkill();
-        FindObjectOfType<EffectInitializer>().SettingEffect(skills);
+        FindObjectOfType<EffectInitializer>().SettingEffect(InitUserSkill());
     }
 
     IEnumerable<UserSkill> InitUserSkill()
@@ -41,6 +34,25 @@ public class BattleScene : BaseScene
             userSkills.Add(userSkill);
         }
         return userSkills;
+    }
+
+    public override void Clear()
+    {
+        EventIdManager.Clear();
+        Managers.Pool.Clear();
+    }
+}
+
+class WorldInitializer
+{
+    public void Init()
+    {
+        Multi_SpawnManagers.Instance.Init();
+        Show_UI();
+        Managers.Camera.EnterBattleScene();
+        InitSound();
+        Managers.Pool.Init();
+        InitEffect();
     }
 
     void InitSound()
@@ -76,7 +88,7 @@ public class BattleScene : BaseScene
         Managers.UI.ShowSceneUI<BattleButton_UI>();
     }
 
-    public void InitEffect()
+    void InitEffect()
     {
         foreach (var data in CsvUtility.CsvToArray<EffectData>(Managers.Resources.Load<TextAsset>("Data/EffectData").text))
         {
@@ -89,9 +101,4 @@ public class BattleScene : BaseScene
         }
     }
 
-    public override void Clear()
-    {
-        EventIdManager.Clear();
-        Managers.Pool.Clear();
-    }
 }

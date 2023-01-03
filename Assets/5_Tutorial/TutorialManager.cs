@@ -10,7 +10,7 @@ public class TutorialManager : MonoBehaviour
     private void Awake()
     {
         tutorialFuntions = GetComponent<TutorialFuntions>();
-        StartCoroutine(Co_InitTutorial());
+        // StartCoroutine(Co_InitTutorial());
     }
 
     IEnumerator Co_InitTutorial()

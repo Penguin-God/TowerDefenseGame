@@ -11,47 +11,45 @@ public class EffectInitializer : MonoBehaviourPun
     {
         foreach (var skill in userSkills)
         {
-            if (skill is Taegeuk)
-            {
-                var taegeuk = skill as Taegeuk;
+            var taegeuk = skill as Taegeuk;
+            if (taegeuk != null)
                 taegeuk.OnUnitSkillFlagChanged += TaeguekEffect_RPC;
-            }
 
-            if(skill is BlackUnitUpgrade)
-            {
-                var blackUnitUp = skill as BlackUnitUpgrade;
+            var blackUnitUp = skill as BlackUnitUpgrade;
+            if (blackUnitUp != null)
                 blackUnitUp.OnBlackUnitReinforce += SetUnitTrackingEffects_RPC;
-            }
         }
     }
 
     void TaeguekEffect_RPC(UnitClass unitClass, bool isTaegeukOn)
-        => photonView.RPC(nameof(TaeguekEffect), RpcTarget.MasterClient, unitClass, isTaegeukOn);
+        => photonView.RPC(nameof(TaeguekEffect), RpcTarget.MasterClient, unitClass, isTaegeukOn, Multi_Data.instance.Id);
 
     [PunRPC]
-    void TaeguekEffect(UnitClass unitClass, bool isTaegeukOn)
+    void TaeguekEffect(UnitClass unitClass, bool isTaegeukOn, int id)
     {
         var flags = new UnitFlags[] { new UnitFlags(UnitColor.red, unitClass), new UnitFlags(UnitColor.blue, unitClass) };
-        List<Transform> targets = new List<Transform>();
-        foreach (var flag in flags)
-            targets = targets.Concat(Multi_UnitManager.Instance.Master.GetUnitList(Multi_Data.instance.Id, flag).Select(x => x.transform)).ToList();
-
+        
         if (isTaegeukOn)
         {
             foreach (var flag in flags)
-                SetUnitTrackingEffects(flag);
+                SetUnitTrackingEffects(flag, id);
         }
-        else
-            targets.ForEach(x => Managers.Effect.StopTargetTracking(x));
+        else // 요 부분도 RPC로
+        {
+            List<Transform> targets = new List<Transform>();
+            foreach (var flag in flags)
+                targets = targets.Concat(Multi_UnitManager.Instance.Master.GetUnitList(id, flag).Select(x => x.transform)).ToList();
+            targets.ForEach(x => Managers.Effect.StopTargetTracking(x)); 
+        }
     }
 
     void SetUnitTrackingEffects_RPC(UnitFlags flag)
-        => photonView.RPC(nameof(SetUnitTrackingEffects), RpcTarget.MasterClient, flag);
+        => photonView.RPC(nameof(SetUnitTrackingEffects), RpcTarget.MasterClient, flag, Multi_Data.instance.Id);
 
     [PunRPC]
-    void SetUnitTrackingEffects(UnitFlags flag)
+    void SetUnitTrackingEffects(UnitFlags flag, int id)
     {
-        var targets = Multi_UnitManager.Instance.Master.GetUnitList(Multi_Data.instance.Id, flag)
+        var targets = Multi_UnitManager.Instance.Master.GetUnitList(id, flag)
             .Where(x => Managers.Effect.TargetByTrackers.ContainsKey(x.transform) == false);
         foreach (var target in targets)
         {
@@ -68,17 +66,11 @@ public class EffectInitializer : MonoBehaviourPun
 class UnitReinforceEffectDrawer
 {
     Dictionary<UnitColor, Color32> _unitColorByColor = new Dictionary<UnitColor, Color32>()
-        {
+    {
             {UnitColor.red, new Color32(255, 44, 0, 255) },
             {UnitColor.blue, new Color32(26, 251, 255, 255) },
             { UnitColor.black, new Color32(0, 0, 0, 255) },
-        };
-
-    public void SetUnitReinforceEffects(IEnumerable<Multi_TeamSoldier> targets)
-    {
-        foreach (var target in targets)
-            SetUnitReinforceEffect(target);
-    }
+    };
 
     public void SetUnitReinforceEffect(Multi_TeamSoldier target)
     {

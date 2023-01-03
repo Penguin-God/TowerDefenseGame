@@ -34,12 +34,16 @@ public class EffectInitializer : MonoBehaviourPun
             foreach (var flag in flags)
                 SetUnitTrackingEffects(flag, id);
         }
-        else // 요 부분도 RPC로
+        else
         {
             List<Transform> targets = new List<Transform>();
             foreach (var flag in flags)
                 targets = targets.Concat(Multi_UnitManager.Instance.Master.GetUnitList(id, flag).Select(x => x.transform)).ToList();
-            targets.ForEach(x => Managers.Effect.StopTargetTracking(x)); 
+            targets.ForEach(x => Managers.Effect.StopTargetTracking(x));
+            foreach (var target in targets)
+            {
+                photonView.RPC(nameof(StopTracking), RpcTarget.Others, target.GetComponent<PhotonView>().ViewID);
+            }
         }
     }
 
@@ -61,6 +65,12 @@ public class EffectInitializer : MonoBehaviourPun
     [PunRPC]
     void SetUnitTrackingEffects_ByID(int viewID)
         => _unitReinforceEffectDrawer.SetUnitReinforceEffect(Managers.Multi.GetPhotonViewTransfrom(viewID).GetComponent<Multi_TeamSoldier>());
+
+    [PunRPC]
+    void StopTracking(int viewID)
+    {
+        Managers.Effect.StopTargetTracking(Managers.Multi.GetPhotonViewTransfrom(viewID));
+    }
 }
 
 class UnitReinforceEffectDrawer

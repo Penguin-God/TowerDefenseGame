@@ -25,10 +25,6 @@ public class TutorialManager : MonoBehaviour
 
     public void TutorialStart(Transform tutorParent)
     {
-        // 자식의 자식까지 모든 트랜스폼을 가져옴
-        //GameObject[] childs = tutorParent.GetComponentsInChildren<Transform>(); 
-
-
         GameObject[] arr_TutorialExplanationText = new GameObject[tutorParent.childCount];
         for (int i = 0; i < arr_TutorialExplanationText.Length; i++)
             arr_TutorialExplanationText[i] = tutorParent.GetChild(i).gameObject;

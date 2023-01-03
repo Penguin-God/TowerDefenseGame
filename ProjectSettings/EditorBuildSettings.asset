@@ -8,8 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/Client/\uD074\uB77C\uC774\uC5B8\uD2B8.unity"
     guid: 9876bb7b6e0d49349bb9dc0935fc0b41
-  - enabled: 0
-    path: "Assets/Client/\uBC15\uC900/Tutorial - \uBC15\uC900.unity"
+  - enabled: 1
+    path: "Assets/5_Tutorial/Tutorial - \uBC15\uC900.unity"
     guid: cfb55fdc87bddc346958b9fa9aafa226
   - enabled: 0
     path: Assets/Client/Loding.unity

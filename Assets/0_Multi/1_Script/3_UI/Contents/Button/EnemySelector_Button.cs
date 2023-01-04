@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 
 public class EnemySelector_Button : UI_Base
 {
@@ -11,17 +10,15 @@ public class EnemySelector_Button : UI_Base
         Offset,
     }
 
-    [SerializeField] int enemyNumber;
+    [SerializeField] byte enemyNumber;
+    public byte EnemyNumber => enemyNumber;
     [SerializeField] string enemyInfoText;
     Image image;
-    Color selectColor;
-    Color originColor = new Color(1, 1, 1, 1);
-
-    public void Setup(Color color, System.Action<EnemySelector_Button> action)
+    Color selectColor = new Color32(150, 150, 150, 255);
+    
+    public void Setup(System.Action<EnemySelector_Button> action) 
     {
         image = GetComponent<Image>();
-        selectColor = color;
-
         Bind<GameObject>(typeof(GameObjects));
         infoWindowPos = GetObject((int)GameObjects.Offset).GetComponent<RectTransform>();
 
@@ -31,20 +28,18 @@ public class EnemySelector_Button : UI_Base
 
     public void StartSelectSpawnEnemy()
     {
-        Multi_SpawnManagers.NormalEnemy.SetOtherEnemyNumber(enemyNumber);
         image.color = selectColor;
     }
 
     void SelectSpawnEnemy()
     {
-        Multi_SpawnManagers.NormalEnemy.SetOtherEnemyNumber(enemyNumber);
         image.color = selectColor;
         Managers.Sound.PlayEffect(EffectSoundType.EnemySelected);
     }
 
     public void UI_Reset()
     {
-        image.color = originColor;
+        image.color = Color.white;
     }
 
     RectTransform infoWindowPos;

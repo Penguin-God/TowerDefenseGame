@@ -21,7 +21,7 @@ public class Multi_StageManager : MonoBehaviourPun
     }
 
     public event Action<int> OnUpdateStage;
-
+    public readonly int STAGE_TIME = 40;
     [SerializeField] int currentStage = 0;
     public int CurrentStage => currentStage;
 
@@ -30,11 +30,9 @@ public class Multi_StageManager : MonoBehaviourPun
     void Start()
     {
         if (PhotonNetwork.IsMasterClient)
-        {
             Multi_GameManager.instance.OnStart += UpdateStage;
-        }
 
-        StageWait = new WaitForSeconds(Multi_SpawnManagers.NormalEnemy.EnemySpawnTime);
+        StageWait = new WaitForSeconds(STAGE_TIME);
     }
 
     void OnDestroy()
@@ -44,8 +42,8 @@ public class Multi_StageManager : MonoBehaviourPun
 
     void UpdateStage() 
     {
-        currentStage += 1;
-        photonView.RPC("UpdateStage", RpcTarget.All, currentStage);
+        currentStage++;
+        photonView.RPC(nameof(UpdateStage), RpcTarget.All, currentStage);
     }
 
     [PunRPC]

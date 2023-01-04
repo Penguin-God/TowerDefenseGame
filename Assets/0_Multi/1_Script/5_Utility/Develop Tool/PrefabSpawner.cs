@@ -24,9 +24,9 @@ public class PrefabSpawner : MonoBehaviourPun
         photonView.RPC("SpawnUnit", RpcTarget.Others, colorNumber, classNumber);
     }
 
-    public void SpawnNormalEnemy(int _enemyNum)
+    public void SpawnNormalEnemy(byte _enemyNum)
     {
-        Multi_SpawnManagers.NormalEnemy.Spawn(_enemyNum, 0);
+        Multi_SpawnManagers.NormalEnemy.EditorSpawn(_enemyNum, 0);
     }
 
     public void SpawnUnit_ByClientWolrd(int unitColorNumber, int unitClassNumber)

@@ -59,7 +59,7 @@ public class PrefabSpawnButton : Editor
     {
         EditorGUILayout.Space(20);
         EditorGUILayout.LabelField("일반 몬스터 소환");
-        int _enemyNumber = 0;
+        byte _enemyNumber = 0;
         for (int i = 0; i < _prefabs.Length; i++)
         {
             if (_prefabs[i].GetComponent<Multi_NormalEnemy>() == null) continue;

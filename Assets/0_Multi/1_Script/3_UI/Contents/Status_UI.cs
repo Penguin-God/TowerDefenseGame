@@ -140,7 +140,7 @@ public class Status_UI : UI_Scene
     void UpdateStage(int stage)
     {
         StopAllCoroutines();
-        timerSlider.maxValue = Multi_SpawnManagers.NormalEnemy.EnemySpawnTime;
+        timerSlider.maxValue = Multi_StageManager.Instance.STAGE_TIME;
         timerSlider.value = timerSlider.maxValue;
         GetText((int)Texts.StageText).text = "현재 스테이지 : " + stage;
         StartCoroutine(Co_UpdateTimer());

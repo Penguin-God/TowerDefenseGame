@@ -3,78 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System;
-using System.Linq;
 
 public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 {
     public event Action<Multi_NormalEnemy> OnSpawn;
     public event Action<Multi_NormalEnemy> OnDead;
+    EnemySpawnNumManager _numManager;
+    public void SetInfo(EnemySpawnNumManager numManager)
+    {
+        _numManager = numManager;
+    }
 
     string GetCurrentEnemyPath(int enemyNum) => BuildPath(_rootPath, _enemys[enemyNum]);
-
-    [SerializeField] int otherEnemySpawnNumber = 0;
-    public void SetOtherEnemyNumber(int num) => otherEnemySpawnNumber = num;
-
-    [SerializeField] float _spawnDelayTime = 2f;
-    [SerializeField] int _stageSpawnCount = 15;
-    public float EnemySpawnTime => _spawnDelayTime * _stageSpawnCount + 10;
-
-    protected override void Init()
-    {
-        Multi_StageManager.Instance.OnUpdateStage += StageSpawn;
-        isTest = false;
-    }
-
-    protected override void MasterInit()
-    {
-        CreatePool();
-    }
+    protected override void MasterInit() => CreatePool();
 
     void CreatePool()
     {
-        for (int i = 0; i < _enemys.Length; i++)
-            CreatePoolGroup(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
+        foreach (var enemyPrefab in _enemys)
+            CreatePoolGroup(enemyPrefab, BuildPath(_rootPath, enemyPrefab), spawnCount);
     }
 
-    [SerializeField] bool isTest;
-    void Spawn(int enemyNum)
-    {
-        int targetId = (Multi_Data.instance.Id == 0) ? 1 : 0;
-        if (isTest) targetId = 0;
-        SpawnEnemy_RPC(GetCurrentEnemyPath(enemyNum), Multi_StageManager.Instance.CurrentStage, targetId);
-        SpawnEnemy_RPC(GetCurrentEnemyPath(enemyNum), Multi_StageManager.Instance.CurrentStage, 1); // 임시임
-    }
+    [SerializeField] bool isTest = false;
+    public void Spawn(byte enemyNum, int spawnPlayerID) => SpawnEnemy_RPC(enemyNum, (spawnPlayerID == 0) ? 1 : 0);
 
-
-    void EenmySpawnToOtherWorld(Multi_NormalEnemy enemy, int enemyNum)
+    void EenmySpawnToOtherWorld(Multi_NormalEnemy enemy)
     {
         if (enemy.resurrection.IsResurrection) return;
 
         int id = enemy.UsingId == 0 ? 1 : 0;
-        if(enemy.UsingId == Multi_Data.instance.Id)
-            EenmySpawnToOtherWorld(enemyNum, id, enemy.resurrection.SpawnStage);
-        else
-            pv.RPC("EenmySpawnToOtherWorld", RpcTarget.Others, otherEnemySpawnNumber, id, enemy.resurrection.SpawnStage);
+        SpawnEnemy_RPC(_numManager.GetSpawnEnemyNum(enemy.UsingId), id);
     }
 
-    [PunRPC]
-    void EenmySpawnToOtherWorld(int enemyNum, int id, int stage)
-    {
-        if (PhotonNetwork.IsMasterClient)
-            SpawnEnemy(GetCurrentEnemyPath(enemyNum), stage, id).Resurrection_RPC();
-        else
-            pv.RPC("EenmySpawnToOtherWorld", RpcTarget.MasterClient, otherEnemySpawnNumber, id, stage);
-    }
-
-    void SpawnEnemy_RPC(string path, int stage, int id) => pv.RPC("SpawnEnemy", RpcTarget.MasterClient, path, stage, id);
+    void SpawnEnemy_RPC(byte num, int id) => pv.RPC(nameof(SpawnEnemy), RpcTarget.MasterClient, num, id);
 
     [PunRPC]
-    Multi_NormalEnemy SpawnEnemy(string path, int stage, int id)
+    Multi_NormalEnemy SpawnEnemy(byte num, int id)
     {
-        var enemy = base.BaseSpawn(path, spawnPositions[id], Quaternion.identity, id).GetComponent<Multi_NormalEnemy>();
-        NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];
+        var enemy = base.BaseSpawn(GetCurrentEnemyPath(num), spawnPositions[id], Quaternion.identity, id).GetComponent<Multi_NormalEnemy>();
+        NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[Multi_StageManager.Instance.CurrentStage];
         enemy.SetStatus_RPC(data.Hp, data.Speed, false);
-        enemy.resurrection.SetSpawnStage(stage);
+        enemy.resurrection.SetSpawnStage(Multi_StageManager.Instance.CurrentStage);
         OnSpawn?.Invoke(enemy);
         return enemy;
     }
@@ -86,29 +54,52 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
         if (PhotonNetwork.IsMasterClient == false) return;
         enemy.OnDeath += () => OnDead(enemy);
-        enemy.OnDeath += () => EenmySpawnToOtherWorld(enemy, otherEnemySpawnNumber);
+        enemy.OnDeath += () => EenmySpawnToOtherWorld(enemy);
         enemy.OnDeath += () => Managers.Multi.Instantiater.PhotonDestroy(enemy.gameObject);
     }
 
-    // 콜백용 코드
-    #region callbacks
-    void StageSpawn(int stage)
+    public void EditorSpawn(byte enemyNum, int spawnWorldID) => SpawnEnemy_RPC(enemyNum, spawnWorldID); // 에디터용
+}
+
+public class EnemySpawnNumManager : MonoBehaviourPun
+{
+    byte[] _spawnEnemyNums = new byte[2];
+
+    public byte GetSpawnEnemyNum(int id) => _spawnEnemyNums[id];
+    public void SetSpawnNumber(byte num)
+    {
+        if (PhotonNetwork.IsMasterClient)
+            _spawnEnemyNums[0] = num;
+        else
+            photonView.RPC(nameof(SetClientSpawnNumber), RpcTarget.MasterClient, num);
+    }
+    [PunRPC]
+    void SetClientSpawnNumber(byte num) => _spawnEnemyNums[1] = num;
+}
+
+public class StageMonsterSpawner : MonoBehaviour
+{
+    EnemySpawnNumManager _numManager;
+    public void SetInfo(EnemySpawnNumManager numManager)
+    {
+        _numManager = numManager;
+    }
+
+    public void StageSpawn(int stage)
     {
         if (stage % 10 == 0) return;
         StartCoroutine(Co_StageSpawn());
     }
 
+    [SerializeField] float _spawnDelayTime = 2f;
+    [SerializeField] int _stageSpawnCount = 15;
     IEnumerator Co_StageSpawn()
     {
-        int enemyNum = otherEnemySpawnNumber;
+        byte num = _numManager.GetSpawnEnemyNum(Multi_Data.instance.Id);
         for (int i = 0; i < _stageSpawnCount; i++)
         {
-            Spawn(enemyNum);
+            Multi_SpawnManagers.NormalEnemy.Spawn(num, Multi_Data.instance.Id);
             yield return new WaitForSeconds(_spawnDelayTime);
         }
     }
-    #endregion
-
-    // TODO : #if 조건문으로 빼기
-    public void Spawn(int enemyNum, int id) => Spawn_RPC(GetCurrentEnemyPath(enemyNum), spawnPositions[id], id);
 }

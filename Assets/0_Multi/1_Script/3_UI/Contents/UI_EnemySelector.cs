@@ -1,20 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Linq;
 
-public class EnemySelector_UI : UI_Base
+public class UI_EnemySelector : UI_Base
 {
-    [SerializeField] Color selectColor;
     [SerializeField] EnemySelector_Button currentSelectButton;
+    EnemySpawnNumManager _enemySpawnNumManager;
     protected override void Init()
     {
         List<EnemySelector_Button> enemySelectBtns = GetComponentsInChildren<EnemySelector_Button>().ToList();
-        enemySelectBtns.ForEach(x => x.Setup(selectColor, UpdateCurrentButton));
+        enemySelectBtns.ForEach(x => x.Setup(ChangeSpawnEnemy));
         enemySelectBtns[0].StartSelectSpawnEnemy();
-        UpdateCurrentButton(enemySelectBtns[0]);
+        ChangeSpawnEnemy(enemySelectBtns[0]);
 
         SetPointEvent();
 
@@ -28,10 +27,13 @@ public class EnemySelector_UI : UI_Base
         }
     }
 
-    void UpdateCurrentButton(EnemySelector_Button button)
+    public void SetInfo(EnemySpawnNumManager enemySpawnNumManager) => _enemySpawnNumManager = enemySpawnNumManager;
+
+    void ChangeSpawnEnemy(EnemySelector_Button button)
     {
         if (currentSelectButton != button)
         {
+            _enemySpawnNumManager.SetSpawnNumber(button.EnemyNumber);
             currentSelectButton?.UI_Reset();
             currentSelectButton = button;
         }

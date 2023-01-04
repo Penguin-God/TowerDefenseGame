@@ -45,14 +45,32 @@ public class BattleScene : BaseScene
 
 class WorldInitializer
 {
+    GameObject monoBehaviourContainer;
+
     public void Init()
     {
+        InitMonoBehaviourContainer();
         Multi_SpawnManagers.Instance.Init();
+        Multi_SpawnManagers.NormalEnemy.SetInfo(monoBehaviourContainer.GetComponent<EnemySpawnNumManager>());
         Show_UI();
         Managers.Camera.EnterBattleScene();
         InitSound();
         Managers.Pool.Init();
         InitEffect();
+        EventInit();
+    }
+
+    void InitMonoBehaviourContainer()
+    {
+        monoBehaviourContainer = new GameObject("Create MonoBehaviour Container");
+        monoBehaviourContainer.AddComponent<PhotonView>();
+        var numManager = monoBehaviourContainer.AddComponent<EnemySpawnNumManager>();
+        monoBehaviourContainer.AddComponent<StageMonsterSpawner>().SetInfo(numManager);
+    }
+
+    void EventInit()
+    {
+        Multi_StageManager.Instance.OnUpdateStage += monoBehaviourContainer.GetComponent<StageMonsterSpawner>().StageSpawn;
     }
 
     void InitSound()
@@ -85,7 +103,8 @@ class WorldInitializer
         Managers.UI.ShowPopupUI<RandomShop_UI>("InGameShop/Random Shop");
 
         Managers.UI.ShowSceneUI<Status_UI>();
-        Managers.UI.ShowSceneUI<BattleButton_UI>();
+        var buttons = Managers.UI.ShowSceneUI<BattleButton_UI>();
+        buttons.GetComponentInChildren<UI_EnemySelector>().SetInfo(monoBehaviourContainer.GetComponent<EnemySpawnNumManager>());
     }
 
     void InitEffect()
@@ -100,5 +119,4 @@ class WorldInitializer
             }
         }
     }
-
 }

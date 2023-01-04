@@ -5352,9 +5352,6 @@ MonoBehaviour:
   spawnPositions:
   - {x: -45, y: 0, z: 35}
   - {x: -45, y: 0, z: 535}
-  otherEnemySpawnNumber: 0
-  _spawnDelayTime: 2
-  _stageSpawnCount: 15
   isTest: 0
 --- !u!114 &354961540
 MonoBehaviour:
@@ -15789,6 +15786,59 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 883028906}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &895698823
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 895698825}
+  - component: {fileID: 895698824}
+  m_Layer: 0
+  m_Name: Mono Behaviour Container
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &895698824
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895698823}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 3
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!4 &895698825
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 895698823}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 76.54828, y: -6.781555, z: 211.45538}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &898181887
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27432,6 +27482,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2cd61ff9a313e840b6ba8aed24a23cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  container: {fileID: 895698823}
 --- !u!1001 &1519663465
 PrefabInstance:
   m_ObjectHideFlags: 0

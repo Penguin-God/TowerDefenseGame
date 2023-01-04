@@ -40,7 +40,8 @@ public class Multi_Data : MonoBehaviourPun
             Debug.LogWarning("Multi Data 2개");
             Destroy(gameObject);
         }
-        id = PhotonNetwork.IsMasterClient ? 0 : 1;
+        if(PhotonNetwork.InRoom)
+            id = PhotonNetwork.IsMasterClient ? 0 : 1;
         PhotonPeer.RegisterType(typeof(UnitFlags), 128, CustomUnitFlagsType.Serialize, CustomUnitFlagsType.DeSerialize);
     }
 

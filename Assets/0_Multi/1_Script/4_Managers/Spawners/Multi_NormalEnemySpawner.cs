@@ -23,7 +23,6 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
             CreatePoolGroup(enemyPrefab, BuildPath(_rootPath, enemyPrefab), spawnCount);
     }
 
-    [SerializeField] bool isTest = false;
     public void Spawn(byte enemyNum, int spawnPlayerID) => SpawnEnemy_RPC(enemyNum, (spawnPlayerID == 0) ? 1 : 0);
 
     void EenmySpawnToOtherWorld(Multi_NormalEnemy enemy)

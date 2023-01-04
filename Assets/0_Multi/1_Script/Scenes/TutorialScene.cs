@@ -5,10 +5,11 @@ using Photon.Pun;
 
 public class TutorialScene : BaseScene
 {
+    [SerializeField] GameObject container;
     protected override void Init()
     {
         PhotonNetwork.OfflineMode = true;
         PhotonNetwork.JoinRandomRoom();
-        new WorldInitializer(null).Init();
+        new WorldInitializer(container).Init();
     }
 }

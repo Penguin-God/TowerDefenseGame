@@ -6,8 +6,7 @@ using System;
 public class ReadTutorialText : MonoBehaviour, ITutorial
 {
     [SerializeField] string type = "";
-    [SerializeField] TutorialFuntions tutorFuntions;
-
+    TutorialFuntions tutorFuntions;
     public bool EndCurrentTutorialAction()
     {
         return Input.GetMouseButtonUp(0);
@@ -15,9 +14,10 @@ public class ReadTutorialText : MonoBehaviour, ITutorial
 
     public void TutorialAction()
     {
+        tutorFuntions = FindObjectOfType<TutorialFuntions>();
         tutorFuntions.OffLigth();
         UnityEngine.Object ligthObj = null;
-        if (type != "") ligthObj = FindObjectOfType(Type.GetType(type));
+        if (type != "") ligthObj = FindObjectOfType(Type.GetType(type)); //  as GameObject 되는지 확인해보기
 
         if (ligthObj != null)
         {

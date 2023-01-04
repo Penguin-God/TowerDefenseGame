@@ -1,36 +1,17 @@
 ﻿using System.Collections;
 using UnityEngine;
+using System.Linq;
 
 public class TutorialManager : MonoBehaviour
 {
-    [SerializeField] EnemyTower tutorialTower = null;
-    [SerializeField] GameObject GameUI = null;
-
     private TutorialFuntions tutorialFuntions = null;
     private void Awake()
     {
         tutorialFuntions = GetComponent<TutorialFuntions>();
-        // StartCoroutine(Co_InitTutorial());
     }
 
-    IEnumerator Co_InitTutorial()
-    {
-        yield return new WaitUntil( () => GameUI.activeSelf);
-        // 버튼 비활성화
-        tutorialFuntions.SetAllButton(false);
-        // EnemySpawn에서 정한 체력 덮어쓰기 위해 1초 대기 후 체력 정함
-        yield return new WaitForSeconds(1f);
-        tutorialTower.Set_RespawnStatus(500);
-    }
-
-    public void TutorialStart(Transform tutorParent)
-    {
-        GameObject[] arr_TutorialExplanationText = new GameObject[tutorParent.childCount];
-        for (int i = 0; i < arr_TutorialExplanationText.Length; i++)
-            arr_TutorialExplanationText[i] = tutorParent.GetChild(i).gameObject;
-
-        StartCoroutine(Co_Tutorial(arr_TutorialExplanationText));
-    }
+    public void TutorialStart(Transform tutorParent) 
+        => StartCoroutine(Co_Tutorial(tutorParent.Cast<Transform>().Select(x => x.gameObject).ToArray()));
 
     IEnumerator Co_Tutorial(GameObject[] arr_TutorExplanation)
     {

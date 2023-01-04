@@ -236,7 +236,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     {
         CurrencyManager.OnGoldChanged += Rasie_OnGoldChanged;
         CurrencyManager.OnFoodChanged += Rasie_OnFoodChanged;
-        // UI 업데이트
+        // UI 이벤트 업데이트
         CurrencyManager.Gold += 0;
         CurrencyManager.Food += 0;
     }

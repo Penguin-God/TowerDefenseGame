@@ -5,6 +5,8 @@ using Photon.Pun;
 
 public class BattleScene : BaseScene
 {
+    [SerializeField] GameObject monoBehaviourContainer;
+
     protected override void Init()
     {
         if (PhotonNetwork.InRoom == false)
@@ -14,7 +16,7 @@ public class BattleScene : BaseScene
         }
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
-        new WorldInitializer().Init();
+        new WorldInitializer(monoBehaviourContainer).Init();
     }
 
     void Start()
@@ -47,6 +49,11 @@ class WorldInitializer
 {
     GameObject monoBehaviourContainer;
 
+    public WorldInitializer(GameObject go)
+    {
+        monoBehaviourContainer = go;
+    }
+
     public void Init()
     {
         InitMonoBehaviourContainer();
@@ -62,8 +69,6 @@ class WorldInitializer
 
     void InitMonoBehaviourContainer()
     {
-        monoBehaviourContainer = new GameObject("Create MonoBehaviour Container");
-        monoBehaviourContainer.AddComponent<PhotonView>();
         var numManager = monoBehaviourContainer.AddComponent<EnemySpawnNumManager>();
         monoBehaviourContainer.AddComponent<StageMonsterSpawner>().SetInfo(numManager);
     }

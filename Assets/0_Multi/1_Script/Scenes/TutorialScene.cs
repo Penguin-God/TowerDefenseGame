@@ -9,6 +9,6 @@ public class TutorialScene : BaseScene
     {
         PhotonNetwork.OfflineMode = true;
         PhotonNetwork.JoinRandomRoom();
-        new WorldInitializer().Init();
+        new WorldInitializer(null).Init();
     }
 }

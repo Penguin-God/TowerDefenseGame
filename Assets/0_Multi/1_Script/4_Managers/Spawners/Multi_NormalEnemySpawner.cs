@@ -87,18 +87,19 @@ public class StageMonsterSpawner : MonoBehaviour
 
     public void StageSpawn(int stage)
     {
-        if (stage % 10 == 0) return;
-        StartCoroutine(Co_StageSpawn());
+        if (stage % 10 == 0 || PhotonNetwork.IsMasterClient == false) return;
+        StartCoroutine(Co_StageSpawn(0));
+        StartCoroutine(Co_StageSpawn(1));
     }
 
     [SerializeField] float _spawnDelayTime = 2f;
     [SerializeField] int _stageSpawnCount = 15;
-    IEnumerator Co_StageSpawn()
+    IEnumerator Co_StageSpawn(byte id)
     {
-        byte num = _numManager.GetSpawnEnemyNum(Multi_Data.instance.Id);
+        byte num = _numManager.GetSpawnEnemyNum(id);
         for (int i = 0; i < _stageSpawnCount; i++)
         {
-            Multi_SpawnManagers.NormalEnemy.Spawn(num, Multi_Data.instance.Id);
+            Multi_SpawnManagers.NormalEnemy.Spawn(num, id);
             yield return new WaitForSeconds(_spawnDelayTime);
         }
     }

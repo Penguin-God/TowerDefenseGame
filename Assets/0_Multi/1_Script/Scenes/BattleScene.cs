@@ -75,6 +75,7 @@ class WorldInitializer
 
     void EventInit()
     {
+        Multi_StageManager.Instance.OnUpdateStage -= monoBehaviourContainer.GetComponent<StageMonsterSpawner>().StageSpawn;
         Multi_StageManager.Instance.OnUpdateStage += monoBehaviourContainer.GetComponent<StageMonsterSpawner>().StageSpawn;
     }
 

@@ -5,10 +5,15 @@ using System.Linq;
 public class TutorialManager : MonoBehaviour
 {
     private TutorialFuntions tutorialFuntions = null;
-
+    [SerializeField] Transform startTutorial;
     private void Awake()
     {
         tutorialFuntions = GetComponent<TutorialFuntions>();
+    }
+
+    void Start()
+    {
+        TutorialStart(startTutorial);
     }
 
     public void TutorialStart(Transform tutorParent) 

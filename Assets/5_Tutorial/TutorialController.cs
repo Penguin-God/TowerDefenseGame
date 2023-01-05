@@ -4,5 +4,8 @@ using UnityEngine;
 
 public class TutorialController : MonoBehaviour
 {
-
+    public virtual bool TutorialStartCondition()
+    {
+        return true;
+    }
 }

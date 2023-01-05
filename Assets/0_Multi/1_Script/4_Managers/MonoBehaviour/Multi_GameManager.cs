@@ -221,10 +221,10 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
             Destroy(gameObject);
         }
 
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient && gameStartButton != null)
             gameStartButton.onClick.AddListener(GameStart);
         else
-            gameStartButton.gameObject.SetActive(false);
+            gameStartButton?.gameObject?.SetActive(false);
 
         _battleData = new BattleDataManager(Managers.Data.GetBattleStartData());
         Managers.Sound.PlayBgm(BgmType.Default);
@@ -248,9 +248,10 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     void RPC_OnStart()
     {
         SetEvent();
-        gameStartButton.gameObject.SetActive(false);
+        gameStartButton?.gameObject?.SetActive(false);
         gameStart = true;
         OnStart?.Invoke();
+        OnStart = null;
     }
 
     public void GameStart() => photonView.RPC(nameof(RPC_OnStart), RpcTarget.All);

@@ -4167,6 +4167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorFuntions: {fileID: 1251197227}
+  uiName: 
   showUITransform: {fileID: 1455310960}
 --- !u!114 &246200171
 MonoBehaviour:
@@ -6576,6 +6577,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorFuntions: {fileID: 1251197227}
+  uiName: 
   showUITransform: {fileID: 1835337523}
 --- !u!114 &413701613
 MonoBehaviour:
@@ -8358,6 +8360,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorFuntions: {fileID: 1251197227}
+  uiName: 
   showUITransform: {fileID: 0}
 --- !u!114 &496081376
 MonoBehaviour:
@@ -14230,6 +14233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorFuntions: {fileID: 1251197227}
+  uiName: Create_Defenser_Button
   showUITransform: {fileID: 0}
 --- !u!114 &791551548
 MonoBehaviour:
@@ -14462,6 +14466,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorFuntions: {fileID: 1251197227}
+  uiName: 
   showUITransform: {fileID: 1177010900}
 --- !u!114 &810277738
 MonoBehaviour:
@@ -15209,6 +15214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorFuntions: {fileID: 1251197227}
+  uiName: 
   showUITransform: {fileID: 0}
 --- !u!114 &846276289
 MonoBehaviour:
@@ -22357,7 +22363,7 @@ MonoBehaviour:
   mainLight: {fileID: 529916068}
   subLight: {fileID: 1032278228}
   mainLigth_OffIntensity: 0.2
-  spotLight: {fileID: 0}
+  spotLight: {fileID: 1704931628}
   lightFocus_UI: {fileID: 428995623}
   allButtons: []
 --- !u!114 &1251197228
@@ -23117,6 +23123,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorFuntions: {fileID: 1251197227}
+  uiName: 
   showUITransform: {fileID: 689162082}
 --- !u!114 &1308220559
 MonoBehaviour:
@@ -23730,7 +23737,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "\uC774\uC81C \uC54C\uB824\uC900 \uB0B4\uC6A9\uC744 \uC774\uC6A9\uD574\uC11C
     \uC7A0\uC2DC  \uAC8C\uC784\uC744 \uD50C\uB808\uC774\uD574\uBCF4\uC138\uC694!!\n\uB54C\uAC00
-    \uB418\uBA74 \uB2E4\uC2DC \uB3CC\uC544\uC62B\uACA0\uC2B5\uB2C8\uB2E4."
+    \uB418\uBA74 \uB2E4\uC2DC \uB3CC\uC544\uC624\uACA0\uC2B5\uB2C8\uB2E4."
 --- !u!222 &1336815428
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -24350,6 +24357,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorFuntions: {fileID: 1251197227}
+  uiName: Unit By Default
   showUITransform: {fileID: 0}
 --- !u!114 &1364679414
 MonoBehaviour:
@@ -24789,11 +24797,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1382125314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8799995ecfbefac47af979b4b8f87ecb, type: 3}
+  m_Script: {fileID: 11500000, guid: be05a333680b7e54d91fa9b9d82020f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: Multi_NormalEnemy
-  filedExplanationEnd: 0
 --- !u!114 &1382125317
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26158,6 +26164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorFuntions: {fileID: 1251197227}
+  uiName: 
   showUITransform: {fileID: 1525701113}
 --- !u!114 &1457505787
 MonoBehaviour:
@@ -29250,6 +29257,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorFuntions: {fileID: 1251197227}
+  uiName: 
   showUITransform: {fileID: 18943320}
 --- !u!114 &1629652256
 MonoBehaviour:
@@ -34517,6 +34525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorFuntions: {fileID: 1251197227}
+  uiName: 
   showUITransform: {fileID: 496024489}
 --- !u!114 &1926776126
 MonoBehaviour:
@@ -36233,6 +36242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tutorFuntions: {fileID: 1251197227}
+  uiName: 
   showUITransform: {fileID: 1708879942}
 --- !u!114 &2023544853
 MonoBehaviour:

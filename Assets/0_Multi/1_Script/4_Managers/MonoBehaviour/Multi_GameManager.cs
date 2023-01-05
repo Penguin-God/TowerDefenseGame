@@ -253,7 +253,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         OnStart?.Invoke();
     }
 
-    void GameStart() => photonView.RPC(nameof(RPC_OnStart), RpcTarget.All);
+    public void GameStart() => photonView.RPC(nameof(RPC_OnStart), RpcTarget.All);
 
     void Start()
     {

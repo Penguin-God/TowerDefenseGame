@@ -4,16 +4,24 @@
 public class TutorailUI_Explanation : MonoBehaviour, ITutorial
 {
     [SerializeField] TutorialFuntions tutorFuntions = null;
-    [SerializeField] RectTransform showUITransform = null;
+    [SerializeField] string uiName;
+    [SerializeField] protected RectTransform showUITransform = null;
 
     public bool EndCurrentTutorialAction()
     {
         return Input.GetMouseButtonUp(0);
     }
 
-    public void TutorialAction()
+    public virtual void TutorialAction()
     {
+        if(string.IsNullOrEmpty(uiName) == false)
+            showUITransform = GameObject.Find(uiName).GetComponent<RectTransform>();
         tutorFuntions.SetAllButton(false);
         if (showUITransform != null) tutorFuntions.SetBlindUI(showUITransform);
+    }
+
+    void OnDisable()
+    {
+        tutorFuntions.Reset_FocusUI();
     }
 }

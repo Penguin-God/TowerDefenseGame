@@ -5,6 +5,7 @@ using System.Linq;
 public class TutorialManager : MonoBehaviour
 {
     private TutorialFuntions tutorialFuntions = null;
+
     private void Awake()
     {
         tutorialFuntions = GetComponent<TutorialFuntions>();

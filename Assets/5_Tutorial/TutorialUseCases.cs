@@ -10,9 +10,9 @@ namespace TutorialUseCases
     {
         List<ITutorial> _commends = new List<ITutorial>();
         public void AddCommend(ITutorial tutorial) => _commends.Add(tutorial);
-        public bool EndCondition() => _commends.All(x => x.EndCondition());
-
         public void TutorialAction() => _commends.ForEach(x => x.TutorialAction());
+        public bool EndCondition() => _commends.All(x => x.EndCondition());
+        public void EndAction() => _commends.ForEach(x => x.EndAction());
     }
 
     public class ReadTextCommend : ITutorial
@@ -25,7 +25,7 @@ namespace TutorialUseCases
         public bool EndCondition() => Input.GetMouseButtonUp(0);
     }
 
-    public class SpotLightCommend
+    public class SpotLightCommend : ITutorial
     {
         Vector3 spotPos;
         Light _light;
@@ -33,7 +33,7 @@ namespace TutorialUseCases
 
         public void TutorialAction()
         {
-            _light = Resources.Load<Light>("Tutorial/SpotLight");
+            _light = Object.Instantiate(Resources.Load<Light>("Tutorial/SpotLight"));
             _light.gameObject.SetActive(true);
             _light.transform.position = spotPos;
         }
@@ -54,6 +54,8 @@ namespace TutorialUseCases
         }
         // public void EndAction() => tutorFuntions.Reset_FocusUI();
         public bool EndCondition() => Input.GetMouseButtonUp(0);
+
+        public void EndAction() { }
     }
 
     public class ButtonClickCommend : ITutorial
@@ -67,5 +69,7 @@ namespace TutorialUseCases
             targetButton.onClick.AddListener(() => _isDone = true);
         }
         public bool EndCondition() => _isDone;
+
+        public void EndAction() { }
     }
 }

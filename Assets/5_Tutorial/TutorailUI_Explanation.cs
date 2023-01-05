@@ -24,4 +24,9 @@ public class TutorailUI_Explanation : MonoBehaviour, ITutorial
     {
         tutorFuntions.Reset_FocusUI();
     }
+
+    public void EndAction()
+    {
+        throw new System.NotImplementedException();
+    }
 }

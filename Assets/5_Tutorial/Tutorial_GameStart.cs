@@ -5,6 +5,11 @@ using System.Linq;
 
 public class Tutorial_GameStart : MonoBehaviour, ITutorial
 {
+    public void EndAction()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public bool EndCondition() => Input.GetMouseButtonUp(0);
 
     public void TutorialAction() => StartCoroutine(Co_TutoialActoin());

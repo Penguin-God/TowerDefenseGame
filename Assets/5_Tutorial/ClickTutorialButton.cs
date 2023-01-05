@@ -43,4 +43,9 @@ public class ClickTutorialButton : MonoBehaviour, ITutorial
     {
         if (UI_TutorialEnd) tutorFuntions.Reset_FocusUI();
     }
+
+    public void EndAction()
+    {
+        throw new System.NotImplementedException();
+    }
 }

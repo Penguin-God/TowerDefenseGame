@@ -7,6 +7,6 @@ public class TutorialText : UI_Popup
 {
     public void Setup(string text)
     {
-        GetComponent<Text>().text = text;
+        GetComponentInChildren<Text>().text = text;
     }
 }

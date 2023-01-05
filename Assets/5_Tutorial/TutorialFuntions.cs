@@ -58,6 +58,7 @@ public class TutorialFuntions : MonoBehaviour
         spotLight.gameObject.SetActive(false);
         Reset_FocusUI();
         SetAllButton(true);
+        OnLigth();
     }
 
     [SerializeField] Button[] allButtons = null;

@@ -31,4 +31,9 @@ public class ReadTutorialText : MonoBehaviour, ITutorial
     {
         if (filedExplanationEnd) tutorFuntions.OnLigth();
     }
+
+    public void EndAction()
+    {
+        throw new NotImplementedException();
+    }
 }

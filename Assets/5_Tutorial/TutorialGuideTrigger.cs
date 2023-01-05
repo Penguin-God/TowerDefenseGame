@@ -9,7 +9,7 @@ public class TutorialGuideTrigger : MonoBehaviour
 
     private void OnEnable()
     {
-        StartCoroutine(Co_TutorialStart());
+        // StartCoroutine(Co_TutorialStart());
     }
 
     IEnumerator Co_TutorialStart()

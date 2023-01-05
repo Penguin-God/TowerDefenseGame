@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
 using System.Linq;
 
@@ -34,11 +35,25 @@ public class TutorialManager : MonoBehaviour
             if (tutor != null)
             {
                 tutor.TutorialAction();
-                yield return new WaitUntil(() => tutor.EndCurrentTutorialAction());
+                yield return new WaitUntil(() => tutor.EndCondition());
             }
 
             tutor_Text.SetActive(false);
             yield return new WaitForSecondsRealtime(0.02f); // 마우스 입력 등 튜토리얼이 너무 빨리 넘어가서
+        }
+        // 모든 튜토리얼이 끝나면 게임 진행
+        tutorialFuntions.GameProgress();
+    }
+
+    IEnumerator Co_Tutorial(IEnumerable<ITutorial> tutoials)
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+
+        foreach (var tutorial in tutoials)
+        {
+            tutorial.TutorialAction();
+            yield return new WaitUntil(() => tutorial.EndCondition());
+            // EndAction
         }
         // 모든 튜토리얼이 끝나면 게임 진행
         tutorialFuntions.GameProgress();

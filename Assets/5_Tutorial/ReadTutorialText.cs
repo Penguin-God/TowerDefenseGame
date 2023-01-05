@@ -7,7 +7,7 @@ public class ReadTutorialText : MonoBehaviour, ITutorial
 {
     [SerializeField] string type = "";
     TutorialFuntions tutorFuntions;
-    public bool EndCurrentTutorialAction()
+    public bool EndCondition()
     {
         return Input.GetMouseButtonUp(0);
     }

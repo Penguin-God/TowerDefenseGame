@@ -7,7 +7,7 @@ public class TutorailUI_Explanation : MonoBehaviour, ITutorial
     [SerializeField] string uiName;
     [SerializeField] protected RectTransform showUITransform = null;
 
-    public bool EndCurrentTutorialAction()
+    public bool EndCondition()
     {
         return Input.GetMouseButtonUp(0);
     }

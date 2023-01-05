@@ -7,7 +7,7 @@ public class BossLightFocus : MonoBehaviour, ITutorial
     [SerializeField] string tagName = "";
     [SerializeField] TutorialFuntions tutorFuntions;
 
-    public bool EndCurrentTutorialAction()
+    public bool EndCondition()
     {
         return Input.GetMouseButtonUp(0);
     }

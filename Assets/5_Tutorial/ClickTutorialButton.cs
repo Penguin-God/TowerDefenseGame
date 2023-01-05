@@ -18,7 +18,7 @@ public class ClickTutorialButton : MonoBehaviour, ITutorial
         else if (rect.GetComponentInChildren<Button>() != null) tutorialButton = rect.GetComponentInChildren<Button>();
     }
 
-    public bool EndCurrentTutorialAction()
+    public bool EndCondition()
     {
         return clickTutorButton;
     }

@@ -5,7 +5,7 @@ using System.Linq;
 
 public class Tutorial_GameStart : MonoBehaviour, ITutorial
 {
-    public bool EndCurrentTutorialAction() => Input.GetMouseButtonUp(0);
+    public bool EndCondition() => Input.GetMouseButtonUp(0);
 
     public void TutorialAction() => StartCoroutine(Co_TutoialActoin());
 

@@ -5,5 +5,5 @@ using UnityEngine;
 public interface ITutorial
 {
     void TutorialAction();
-    bool EndCurrentTutorialAction();
+    bool EndCondition();
 }

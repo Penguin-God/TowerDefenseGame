@@ -4,6 +4,7 @@ using System.Text;
 
 namespace SharedData.Models
 {
+    [Serializable]
     public class Player
     {
         public int Id { get; set; }
@@ -13,6 +14,7 @@ namespace SharedData.Models
         public DateTime Date { get; set; }
     }
 
+    [Serializable]
     public class Skill
     {
         public int SkillId { get; set; }

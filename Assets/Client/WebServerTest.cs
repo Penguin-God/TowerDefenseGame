@@ -7,9 +7,42 @@ using System;
 using System.Text;
 using System.Collections.Generic;
 
+
+public class GameResult
+{
+    public int Id;
+    public int UserId;
+    public string UserName;
+    public int Score;
+    public DateTime DateTime;
+}
+
+
 public class WebServerTest : MonoBehaviour
 {
-    public List<Skill> testObj = new List<Skill>() { new Skill { SkillName = "태극", SkillExp = 123 , Owner = new Player { UserName = 777777} }, new Skill { SkillName = "검유강", SkillExp = 11 } };
+    [Serializable]
+    public class Player
+    {
+        public int Id;
+        public int UserId;
+        public int UserName;
+        public List<Skill> skills;
+        public DateTime Date;
+    }
+
+    [Serializable]
+    public class Skill
+    {
+        public int SkillId;
+        public string SkillName;
+        public int SkillExp;
+        public Player Owner;
+    }
+
+    //public List<Skill> testObj = new List<Skill>() { new Skill { SkillName = "태극", SkillExp = 123 , Owner = new Player { UserName = 777777} }, new Skill { SkillName = "검유강", SkillExp = 11 } };
+    //dbSkill _skills = new dbSkill { SkillName = "태극", SkillExp = 123, Owner = new Player { UserName = 77777 } };
+    //dbSkill _skills2 = new dbSkill { SkillName = "검유강", SkillExp = 321, Owner = new Player { UserName = 88888 } };
+    public Player player = new Player() { UserName = 555, UserId = 7, Date = DateTime.Now, skills = new List<Skill> { new Skill { SkillName = "태극", Owner = new Player { UserName = 54321} } }   };
 
     void Start()
     {
@@ -21,7 +54,7 @@ public class WebServerTest : MonoBehaviour
         // 쓰기
         if (Input.GetKeyDown(KeyCode.P))
         {
-            string jsonfile = JsonUtility.ToJson(testObj);
+            string jsonfile = JsonUtility.ToJson(player);
             print(jsonfile);
             StartCoroutine(Upload(jsonfile));
         }
@@ -33,31 +66,7 @@ public class WebServerTest : MonoBehaviour
         }
     }
 
-    public class GameResult
-    {
-        public int Id;
-        public int UserId;
-        public string UserName;
-        public int Score;
-        public DateTime DateTime;
-    }
-
-    public class Player
-    {
-        public int Id;
-        public int UserId;
-        public int UserName;
-        public List<Skill> skills;
-        public DateTime Date;
-    }
-
-    public class Skill
-    {
-        public int SkillId;
-        public string SkillName;
-        public int SkillExp;
-        public Player Owner;
-    }
+    
 
     IEnumerator Upload(string jsonfile)
     {
@@ -82,24 +91,6 @@ public class WebServerTest : MonoBehaviour
             //}
         }
     }
-
-    //IEnumerator Upload()
-    //{
-    //    WWWForm form = new WWWForm();
-
-
-    //    UnityWebRequest www = UnityWebRequest.Post("https://localhost:44319/api/api", form);
-    //    yield return www.SendWebRequest();
-
-    //    if (www.isNetworkError || www.isHttpError)
-    //    {
-    //        Debug.Log(www.error);
-    //    }
-    //    else
-    //    {
-    //        Debug.Log("Post 성공");
-    //    }
-    //}
 
     IEnumerator GetText()
     {
@@ -141,44 +132,3 @@ public class WebServerTest : MonoBehaviour
         }
     }
 }
-
-//string PostData = "a=1&b=2"
-//StringBuilder dataParams = new StringBuilder();
-
-//HttpWebRequest request = null;
-//HttpWebResponse response = null;
-
-//try
-//{
-//    byte[] bytes = UTF8Encoding.UTF8.GetBytes(dataParams.ToString());
-//    request = (HttpWebRequest)WebRequest.Create(접속할 URL주소);
-//    request.Method = "POST";
-//    request.ContentType = "application/x-www-form-urlencoded; charset=UTF-8";
-//    request.Timeout = 1000;
-//    using (var stream = request.GetRequestStream())
-//    {
-//        stream.Write(bytes, 0, bytes.Length);
-//        stream.Flush();
-//        stream.Close();
-//    }
-
-//    response = (HttpWebResponse)request.GetResponse();
-//    StreamReader reader = new StreamReader(response.GetResponseStream());
-//    string json = reader.ReadToEnd();
-//}
-//catch (WebException webExcp)
-//{
-//    WebExceptionStatus status = webExcp.Status;
-//    if (status == WebExceptionStatus.ProtocolError)
-//    {
-//        HttpWebResponse httpResponse = (HttpWebResponse)webExcp.Response;
-//    }
-//}
-//catch (Exception e)
-//{
-//    throw e;
-//}
-
-//response.Close();
-//response.Dispose();
-//request.Abort();

@@ -115,6 +115,12 @@ public class Multi_UnitManager : MonoBehaviourPun
     public void UnitStatChange_RPC(UnitStatType type, UnitFlags flag, int value) => photonView.RPC(nameof(UnitStatChange), RpcTarget.MasterClient, (int)type, flag, value, Multi_Data.instance.Id);
     [PunRPC] void UnitStatChange(int typeNum, UnitFlags flag, int value, int id) => _stat.UnitStatChange(typeNum, flag, value, id);
 
+    public Multi_TeamSoldier GetUnit(int id, UnitFlags flag)
+    {
+        if (PhotonNetwork.IsMasterClient == false) return null;
+        var units = _master.GetUnitList(id, flag);
+        return units.Count == 0 ? null : units[0];
+    }
 
     // Components
     public class MasterDataManager

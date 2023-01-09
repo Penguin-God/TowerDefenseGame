@@ -232,30 +232,40 @@ public class YellowSowrdmanUpgrade : UserSkill
     }
 }
 
-public class ColorChange : UserSkill
+public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
 {
-    // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
-
-    int[] _prevUnitCounts = new int[4];
-    public event Action<UnitFlags, int> OnUnitColorChanaged;
+    readonly int MAX_COLOR_NUMBER = 6;
+    readonly int MAX_SPAWN_COLOR_NUMBER = 6;
+    int[] _whiteUnitCounts = new int[4];
+    public event Action<byte, byte> OnUnitColorChanaged; // 변하기 전 색깔, 변한 후 색깔
     public override void InitSkill()
     {
-        Multi_GameManager.instance.BattleData.UnitSummonData.maxColorNumber = 6;
+        Multi_GameManager.instance.BattleData.UnitSummonData.maxColorNumber = MAX_SPAWN_COLOR_NUMBER;
         Multi_UnitManager.Instance.OnUnitFlagCountChanged += UseSkill;
     }
 
-    void UseSkill(UnitFlags flag, int count)
+    void UseSkill(UnitFlags flag, int newCount)
     {
         if (flag.UnitColor != UnitColor.white) return;
 
-        if (count > _prevUnitCounts[flag.ClassNumber])
+        if (UnitCountIncreased(flag, newCount))
         {
-            var list = Util.GetRangeList(0, 6);
-            list.Remove(flag.ColorNumber);
-            Multi_UnitManager.Instance.UnitColorChanged_RPC(Multi_Data.instance.EnemyPlayerId, flag, list.GetRandom());
-            // OnUnitColorChanaged?.Invoke()
+            UnitColorChangerFactory.CreateChangerByUnitFlag(flag).ChangeUnitColor(); // 아직 멀티에서는 안 됨
+            // ChangeUnitColor(flag, GetRandomColor(flag));
         }
-        _prevUnitCounts[flag.ClassNumber] = count;
+        _whiteUnitCounts[flag.ClassNumber] = newCount;
+    }
+
+    bool UnitCountIncreased(UnitFlags flag, int newCount) => newCount > _whiteUnitCounts[flag.ClassNumber];
+    int GetRandomColor(UnitFlags flag) => Util.GetRangeList(0, MAX_COLOR_NUMBER)
+        .Where(x => x != flag.ColorNumber)
+        .ToList()
+        .GetRandom();
+
+    void ChangeUnitColor(UnitFlags targetFlag, int toColor)
+    {
+        Multi_UnitManager.Instance.UnitColorChanged_RPC(Multi_Data.instance.EnemyPlayerId, targetFlag, toColor);
+        // OnUnitColorChanaged?.Invoke()
     }
 }
 

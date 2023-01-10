@@ -30,7 +30,7 @@ public class PrefabSpawner : MonoBehaviourPun
     }
 
     public void SpawnUnit_ByClientWolrd(int unitColorNumber, int unitClassNumber)
-        => Multi_SpawnManagers.NormalUnit.Spawn(unitColorNumber, unitClassNumber, new Vector3(0, 0, 500), Quaternion.identity, 1);
+        => Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(unitColorNumber, unitClassNumber), 1);
 
     public void AllUnitSpawn_ByEditor()
     {

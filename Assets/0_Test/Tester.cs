@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Tester : MonoBehaviour
 {
-    [ContextMenu("Test Rules")]
-    void TestRules()
+    [ContextMenu("Test Presenters")]
+    void TestPresenters()
     {
-
+        var tester = new PresentersTester();
+        tester.TestGenerateColorChangeResultText();
     }
 }

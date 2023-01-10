@@ -4,25 +4,6 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-[Serializable]
-public class Skill
-{
-    public string Name;
-    public int Id;
-    public bool HasSkill;
-    public bool EquipSkill;
-
-    public void SetHasSkill(bool hasSkill)
-    {
-        HasSkill = hasSkill;
-    }
-
-    public void SetEquipSkill(bool equipSkill)
-    {
-        EquipSkill = equipSkill;
-    }
-}
-
 public abstract class UserSkill
 {
     public void SetInfo(SkillType skillType) => _skillType = skillType;

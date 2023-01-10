@@ -45,10 +45,12 @@ public class Multi_UnitManager : MonoBehaviourPun
         _isDestory = true;    
     }
 
+    public UnitColorChangerRpcHandler ColorChangeHandler { get; private set; }
     void Init()
     {
         // 이 지옥의 좆같은 코드 제거를 위해 싱글턴 씬 이동 처리를 잘할 것
         // if (Managers.Scene.IsBattleScene == false) return;
+        ColorChangeHandler = new UnitColorChangerRpcHandler(photonView);
 
         _count.Init(_master);
         _count.OnUnitCountChanged += Rasie_OnUnitCountChanged;
@@ -115,11 +117,18 @@ public class Multi_UnitManager : MonoBehaviourPun
     public void UnitStatChange_RPC(UnitStatType type, UnitFlags flag, int value) => photonView.RPC(nameof(UnitStatChange), RpcTarget.MasterClient, (int)type, flag, value, Multi_Data.instance.Id);
     [PunRPC] void UnitStatChange(int typeNum, UnitFlags flag, int value, int id) => _stat.UnitStatChange(typeNum, flag, value, id);
 
-    public Multi_TeamSoldier GetUnit(int id, UnitFlags flag)
+    public Multi_TeamSoldier FindUnit(int id, UnitFlags flag)
     {
         if (PhotonNetwork.IsMasterClient == false) return null;
         var units = _master.GetUnitList(id, flag);
         return units.Count == 0 ? null : units[0];
+    }
+
+    public Multi_TeamSoldier FindUnit(int id, UnitClass unitClass)
+    {
+        if (PhotonNetwork.IsMasterClient == false) return null;
+        var units = _master.GetUnits(id, (unit) => unit.unitClass == unitClass);
+        return units.Count() == 0 ? null : units.First();
     }
 
     // Components
@@ -168,6 +177,12 @@ public class Multi_UnitManager : MonoBehaviourPun
 
             unit = null;
             return false;
+        }
+
+        public IEnumerable<Multi_TeamSoldier> GetUnits(int id, Func<Multi_TeamSoldier, bool> condition = null)
+        {
+            if (condition == null) _currentAllUnitsById.Get(id);
+            return _currentAllUnitsById.Get(id).Where(condition);
         }
 
         void AddUnit(Multi_TeamSoldier unit)

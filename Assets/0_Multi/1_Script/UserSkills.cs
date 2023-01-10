@@ -250,8 +250,7 @@ public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
 
         if (UnitCountIncreased(flag, newCount))
         {
-            UnitColorChangerFactory.CreateChangerByUnitFlag(flag).ChangeUnitColor(); // 아직 멀티에서는 안 됨
-            // ChangeUnitColor(flag, GetRandomColor(flag));
+            Multi_UnitManager.Instance.ColorChangeHandler.ChangeUnitColor(flag);
         }
         _whiteUnitCounts[flag.ClassNumber] = newCount;
     }

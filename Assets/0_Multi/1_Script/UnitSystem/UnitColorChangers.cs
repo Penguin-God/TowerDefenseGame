@@ -15,19 +15,14 @@ public class UnitColorChangerRpcHandler : MonoBehaviourPun
             photonView.RPC(nameof(ChangeUnitColor), RpcTarget.MasterClient, viewID);
     }
 
-    // 이거 여따 두지 말고 그냥 스킬에 둬
-    RPCAction<UnitFlags, UnitFlags> OnChangeColor = new RPCAction<UnitFlags, UnitFlags>(); // 변하기 전 색깔, 후 색깔
     [PunRPC]
-    public void ChangeUnitColor(int id, UnitFlags unitFlag)
+    public UnitFlags ChangeUnitColor(int id, UnitFlags unitFlag)
     {
         if (PhotonNetwork.IsMasterClient)
-        {
-            var target = Multi_UnitManager.Instance.FindUnit(id, unitFlag.UnitClass);
-            if (target == null) return;
-            OnChangeColor.RaiseEvent(id, unitFlag, new UnitColorChanger().ChangeUnitColor(target));
-        }
+            return new UnitColorChanger().ChangeUnitColor(Multi_UnitManager.Instance.FindUnit(id, unitFlag.UnitClass));
         else
             photonView.RPC(nameof(ChangeUnitColor), RpcTarget.MasterClient, id, unitFlag);
+        return new UnitFlags(0, 0);
     }
 }
 

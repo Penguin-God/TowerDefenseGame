@@ -197,7 +197,7 @@ public class BlackUnitUpgrade : UserSkill
     {
         if (unitFlags.UnitColor != UnitColor.black) return;
 
-        Debug.Assert(strongDamages.ArcherDamage == 100000, $"검은 궁수 버그 발현!! 대미지는 {strongDamages.ArcherDamage}");
+        Debug.Assert(strongDamages.ArcherDamage == 100000, $"검은 궁수 버그 발현!! 버그난 대미지는 {strongDamages.ArcherDamage}");
         var flag = new UnitFlags(UnitColor.black, unitFlags.UnitClass);
         Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, flag, strongDamages.Damages[(int)unitFlags.UnitClass]);
         OnBlackUnitReinforce?.Invoke(flag);
@@ -218,11 +218,13 @@ public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
     readonly int MAX_SPAWN_COLOR_NUMBER = 6;
     int[] _whiteUnitCounts = new int[4];
     public event Action<byte, byte> OnUnitColorChanaged; // 변하기 전 색깔, 변한 후 색깔
+    SkillColorChanger colorChanger;
     public override void InitSkill()
     {
         // 얘는 패시브로 기사 소환 범위도 늘어남
         Multi_GameManager.instance.BattleData.UnitSummonData.maxColorNumber = MAX_SPAWN_COLOR_NUMBER;
         Multi_UnitManager.Instance.OnUnitFlagCountChanged += UseSkill;
+        colorChanger = Managers.Multi.Instantiater.PhotonInstantiate("RPCObjects/SkillColorChanger", Vector3.one * 500).GetComponent<SkillColorChanger>();
     }
 
     void UseSkill(UnitFlags flag, int newCount)
@@ -230,7 +232,7 @@ public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
         if (flag.UnitColor != UnitColor.white) return;
 
         if (UnitCountIncreased(flag, newCount))
-            Multi_UnitManager.Instance.ColorChangeHandler.ChangeUnitColor(Multi_Data.instance.EnemyPlayerId, flag);
+            colorChanger.ColorChangeSkill(flag);
         _whiteUnitCounts[flag.ClassNumber] = newCount;
     }
 

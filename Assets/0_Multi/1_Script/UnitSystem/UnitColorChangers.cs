@@ -35,12 +35,6 @@ public class UnitColorChanger
 
     public void ChangeUnitColor(Multi_TeamSoldier target)
     {
-        Debug.Log(target.UnitFlags.ColorNumber);
-
-        Util.GetRangeList(0, MAX_COLOR_NUMBER)
-            .Where(x => x != target.UnitFlags.ColorNumber) // 애초에 flag로 찾으면 안 됨
-            .ToList().ForEach(x => Debug.Log(x));
-
         Multi_SpawnManagers.NormalUnit.Spawn(GetRandomColor(target.UnitFlags.ColorNumber), (int)target.unitClass, target.transform.position, target.transform.rotation, target.UsingID);
         Multi_UnitManager.Instance.KillUnit(target);
     }

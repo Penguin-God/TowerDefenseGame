@@ -234,12 +234,12 @@ public class YellowSowrdmanUpgrade : UserSkill
 
 public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
 {
-    readonly int MAX_COLOR_NUMBER = 6;
     readonly int MAX_SPAWN_COLOR_NUMBER = 6;
     int[] _whiteUnitCounts = new int[4];
     public event Action<byte, byte> OnUnitColorChanaged; // 변하기 전 색깔, 변한 후 색깔
     public override void InitSkill()
     {
+        // 얘는 패시브로 기사 소환 범위도 늘어남
         Multi_GameManager.instance.BattleData.UnitSummonData.maxColorNumber = MAX_SPAWN_COLOR_NUMBER;
         Multi_UnitManager.Instance.OnUnitFlagCountChanged += UseSkill;
     }
@@ -249,23 +249,11 @@ public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
         if (flag.UnitColor != UnitColor.white) return;
 
         if (UnitCountIncreased(flag, newCount))
-        {
             Multi_UnitManager.Instance.ColorChangeHandler.ChangeUnitColor(flag);
-        }
         _whiteUnitCounts[flag.ClassNumber] = newCount;
     }
 
     bool UnitCountIncreased(UnitFlags flag, int newCount) => newCount > _whiteUnitCounts[flag.ClassNumber];
-    int GetRandomColor(UnitFlags flag) => Util.GetRangeList(0, MAX_COLOR_NUMBER)
-        .Where(x => x != flag.ColorNumber)
-        .ToList()
-        .GetRandom();
-
-    void ChangeUnitColor(UnitFlags targetFlag, int toColor)
-    {
-        Multi_UnitManager.Instance.UnitColorChanged_RPC(Multi_Data.instance.EnemyPlayerId, targetFlag, toColor);
-        // OnUnitColorChanaged?.Invoke()
-    }
 }
 
 public class FoodHater : UserSkill

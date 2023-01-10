@@ -93,6 +93,14 @@ public class Multi_UnitManager : MonoBehaviourPun
     public event Action<int> OnOtherUnitCountChanged;
     void RaiseOnOtherUnitCountChaned(int count) => OnOtherUnitCountChanged?.Invoke(count);
 
+    public void KillUnit(Multi_TeamSoldier unit)
+    {
+        if (unit == null) return;
+
+        unit.Dead();
+        _master.RemoveUnit(unit);
+        _master.UpdateUnitCount(unit);
+    }
 
     // RPC Funtions....
     public bool TryCombine_RPC(UnitFlags flag)
@@ -191,6 +199,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Remove(unit);
             _currentAllUnitsById.Get(id).Remove(unit);
+            UpdateUnitCount(unit);
         }
 
         public void UpdateUnitCount(Multi_TeamSoldier unit)

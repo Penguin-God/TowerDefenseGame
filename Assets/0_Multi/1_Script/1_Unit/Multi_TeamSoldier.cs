@@ -158,7 +158,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         Multi_SpawnManagers.BossEnemy.OnSpawn -= TargetToBoss;
         //Managers.Pool.Push(gameObject.GetComponent<Poolable>());
         Managers.Multi.Instantiater.PhotonDestroy(gameObject);
-        _state.Daad();
+        _state.Dead();
     }
 
     void ResetAiStateValue()
@@ -340,7 +340,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
             _rpcable = GetComponent<RPCable>();
         }
 
-        public void Daad()
+        public void Dead()
         {
             RPC_SetEnterStroyWorld(false);
             _isAttackable = true;

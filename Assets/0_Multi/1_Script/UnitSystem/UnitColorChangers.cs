@@ -44,6 +44,7 @@ public class UnitColorChanger
             .Where(x => x != target.UnitFlags.ColorNumber) // 애초에 flag로 찾으면 안 됨
             .ToList().ForEach(x => Debug.Log(x));
 
-        Multi_UnitManager.Instance.UnitColorChanged_RPC(target.UsingID, target.UnitFlags, GetRandomColor(target.UnitFlags.ColorNumber));
+        Multi_SpawnManagers.NormalUnit.Spawn(GetRandomColor(target.UnitFlags.ColorNumber), (int)target.unitClass, target.transform.position, target.transform.rotation, target.UsingID);
+        Multi_UnitManager.Instance.KillUnit(target);
     }
 }

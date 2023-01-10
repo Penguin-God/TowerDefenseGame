@@ -9,8 +9,8 @@ public class UnitColorChangeTextPresenter
         => $"{before.KoreaName}이 {after.KoreaName}으로 변경되었습니다";
 
     public string GenerateTextShowToDisruptor(UnitFlags before, UnitFlags after)
-        => $"스킬 사용으로 상대방의 {GenerateColorChangeResultText(before, after)}";
+        => $"스킬 사용으로 상대방의\n{GenerateColorChangeResultText(before, after)}";
 
     public string GenerateTextShowToVictim(UnitFlags before, UnitFlags after)
-        => $"상대방의 스킬 사용으로 보유 중인 {GenerateColorChangeResultText(before, after)}";
+        => $"상대방의 스킬 사용으로 보유 중인\n{GenerateColorChangeResultText(before, after)}";
 }

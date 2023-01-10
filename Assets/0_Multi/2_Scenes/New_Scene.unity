@@ -4975,7 +4975,6 @@ MonoBehaviour:
   spawnPositions:
   - {x: -45, y: 0, z: 35}
   - {x: -45, y: 0, z: 535}
-  isTest: 0
 --- !u!114 &354961540
 MonoBehaviour:
   m_ObjectHideFlags: 0

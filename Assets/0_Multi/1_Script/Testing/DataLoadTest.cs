@@ -19,10 +19,4 @@ public class DataLoadTest : MonoBehaviour
         Managers.Multi.Instantiater.PhotonDestroy(go);
         Debug.Assert(go.transform.parent.name == "Yellow_SwordMan 1_Root");
     }
-
-    [ContextMenu("TestUI_Popup")]
-    void TestUI_Popup()
-    {
-        Managers.UI.ShowPopupUI<UI_PopupText>().Show("안녕 세상", 200, Color.red);
-    }
 }

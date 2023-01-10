@@ -232,7 +232,7 @@ public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
         if (flag.UnitColor != UnitColor.white) return;
 
         if (UnitCountIncreased(flag, newCount))
-            colorChanger.ColorChangeSkill(flag);
+            colorChanger.ColorChangeSkill(flag.UnitClass);
         _whiteUnitCounts[flag.ClassNumber] = newCount;
     }
 

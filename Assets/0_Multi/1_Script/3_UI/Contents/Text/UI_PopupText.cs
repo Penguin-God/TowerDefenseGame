@@ -9,7 +9,7 @@ public class UI_PopupText : UI_Popup
     protected override void Init()
     {
         base.Init();
-        _text = GetComponent<Text>();
+        _text = GetComponentInChildren<Text>();
         _text.raycastTarget = false;
         gameObject.SetActive(false);
     }
@@ -34,6 +34,6 @@ public class UI_PopupText : UI_Popup
     IEnumerator Co_AfterInActive(float showTime)
     {
         yield return new WaitForSeconds(showTime);
-        Managers.UI.ClosePopupUI();
+        Managers.UI.ClosePopupUI(); // 얘는 PopupStack에 들어가면 안 됨.
     }
 }

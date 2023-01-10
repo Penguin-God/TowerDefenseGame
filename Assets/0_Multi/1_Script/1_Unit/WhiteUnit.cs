@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class WhiteUnit : MonoBehaviour
+public class WhiteUnit : MonoBehaviourPun
 {
     [SerializeField] int classNumber;
     [SerializeField] int maxColor = 5;
@@ -30,8 +30,9 @@ public class WhiteUnit : MonoBehaviour
         if(value <= 0)
         {
             var unit = GetComponent<Multi_TeamSoldier>();
-            Multi_SpawnManagers.NormalUnit.Spawn(Random.Range(0, maxColor), (int)unit.unitClass, unit.transform.position, unit.transform.rotation, unit.UsingID);
-            unit.Dead();
+            Multi_UnitManager.Instance.ColorChangeHandler.ChangeUnitColor(photonView.ViewID);
+            //Multi_SpawnManagers.NormalUnit.Spawn(Random.Range(0, maxColor), (int)unit.unitClass, unit.transform.position, unit.transform.rotation, unit.UsingID);
+            //unit.Dead();
         }
     }
 }

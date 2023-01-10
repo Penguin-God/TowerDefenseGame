@@ -4,27 +4,24 @@ using UnityEngine;
 using Photon.Pun;
 using System.Linq;
 
-public class UnitColorChangerRpcHandler
+public class UnitColorChangerRpcHandler : MonoBehaviourPun
 {
-    PhotonView photonView;
-    public UnitColorChangerRpcHandler(PhotonView pv) => photonView = pv;
-
     [PunRPC]
     public void ChangeUnitColor(int viewID)
     {
         if (PhotonNetwork.IsMasterClient)
             new UnitColorChanger().ChangeUnitColor(PhotonView.Find(viewID).GetComponent<Multi_TeamSoldier>());
         else
-            photonView.RPC("ChangeUnitColor", RpcTarget.MasterClient, viewID);
+            photonView.RPC(nameof(ChangeUnitColor), RpcTarget.MasterClient, viewID);
     }
 
     [PunRPC]
-    public void ChangeUnitColor(UnitFlags unitFlag)
+    public void ChangeUnitColor(int id, UnitFlags unitFlag)
     {
         if (PhotonNetwork.IsMasterClient)
-            new UnitColorChanger().ChangeUnitColor(Multi_UnitManager.Instance.FindUnit(Multi_Data.instance.EnemyPlayerId, unitFlag.UnitClass));
+            new UnitColorChanger().ChangeUnitColor(Multi_UnitManager.Instance.FindUnit(id, unitFlag.UnitClass));
         else
-            photonView.RPC("ChangeUnitColor", RpcTarget.MasterClient, unitFlag);
+            photonView.RPC(nameof(ChangeUnitColor), RpcTarget.MasterClient, id, unitFlag);
     }
 }
 

@@ -50,7 +50,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     {
         // 이 지옥의 좆같은 코드 제거를 위해 싱글턴 씬 이동 처리를 잘할 것
         // if (Managers.Scene.IsBattleScene == false) return;
-        ColorChangeHandler = new UnitColorChangerRpcHandler(photonView);
+        ColorChangeHandler = gameObject.GetOrAddComponent<UnitColorChangerRpcHandler>();
 
         _count.Init(_master);
         _count.OnUnitCountChanged += Rasie_OnUnitCountChanged;

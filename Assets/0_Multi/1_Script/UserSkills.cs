@@ -249,7 +249,7 @@ public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
         if (flag.UnitColor != UnitColor.white) return;
 
         if (UnitCountIncreased(flag, newCount))
-            Multi_UnitManager.Instance.ColorChangeHandler.ChangeUnitColor(flag);
+            Multi_UnitManager.Instance.ColorChangeHandler.ChangeUnitColor(Multi_Data.instance.EnemyPlayerId, flag);
         _whiteUnitCounts[flag.ClassNumber] = newCount;
     }
 

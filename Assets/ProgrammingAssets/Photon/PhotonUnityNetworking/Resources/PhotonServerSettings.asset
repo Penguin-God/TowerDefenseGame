@@ -113,6 +113,8 @@ MonoBehaviour:
   - SetUnitTrackingEffects_ByID
   - StopTracking
   - SetClientSpawnNumber
+  - ChangeUnitColor
+  - _ChangeUnitColor
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
+using System;
 
 namespace TutorialUseCases
 {
@@ -33,11 +34,11 @@ namespace TutorialUseCases
 
         public void TutorialAction()
         {
-            _light = Object.Instantiate(Resources.Load<Light>("Tutorial/SpotLight"));
+            _light = UnityEngine.Object.Instantiate(Resources.Load<Light>("Tutorial/SpotLight"));
             _light.gameObject.SetActive(true);
             _light.transform.position = spotPos;
         }
-        public void EndAction() => Object.Destroy(_light.gameObject);
+        public void EndAction() => UnityEngine.Object.Destroy(_light.gameObject);
         public bool EndCondition() => Input.GetMouseButtonUp(0);
     }
 
@@ -74,5 +75,26 @@ namespace TutorialUseCases
         }
         public bool EndCondition() => _isDone;
         public void EndAction() => button.onClick.RemoveListener(End);
+    }
+
+    public class ActionCommend : ITutorial
+    {
+        Action _tutorialAction;
+        Func<bool> _endCondtion;
+        Action _endActoin;
+        public ActionCommend(Action tutorialAction, Func<bool> endCondtion = null, Action endActoin = null)
+        {
+            _tutorialAction = tutorialAction;
+            _endCondtion = endCondtion;
+            _endActoin = endActoin;
+        }
+
+        public void TutorialAction() => _tutorialAction?.Invoke();
+        public bool EndCondition()
+        {
+            if (_endCondtion == null) return true;
+            else return _endCondtion();
+        }
+        public void EndAction() => _endActoin?.Invoke();
     }
 }

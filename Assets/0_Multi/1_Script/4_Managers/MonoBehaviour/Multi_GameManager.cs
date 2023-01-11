@@ -350,10 +350,12 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
 
     void GameEnd(string message)
     {
-        Managers.UI.ShowClickRockWaringText(message);
+        ShowGameEndText(message);
         Time.timeScale = 0;
         StartCoroutine(Co_AfterReturnLobby());
     }
+
+    void ShowGameEndText(string msg) => Managers.UI.ShowPopupUI<WarningText>().ShowClickLockWaringText(msg);
 
     IEnumerator Co_AfterReturnLobby()
     {

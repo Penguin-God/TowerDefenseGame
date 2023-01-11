@@ -149,6 +149,12 @@ public class UI_Manager
         return _currentPopupStack.Peek();
     }
 
+    public T ShowUI<T>(string name = null) where T : UI_Scene
+    {
+        if (string.IsNullOrEmpty(name)) name = typeof(T).Name;
+        return Managers.Resources.Instantiate($"UI/Default/{name}").GetOrAddComponent<T>();
+    }
+
     public void Clear()
     {
         _root = null;
@@ -157,7 +163,4 @@ public class UI_Manager
         _nameByPopupCash.Clear();
         _groupTypeByCurrentPopup.Clear();
     }
-
-    public void ShowWaringText(string msg) => Managers.UI.ShowPopupUI<WarningText>().Show(msg);
-    public void ShowClickRockWaringText(string msg) => Managers.UI.ShowPopupUI<WarningText>().ShowClickLockWaringText(msg);
 }

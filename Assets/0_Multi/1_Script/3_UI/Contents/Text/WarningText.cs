@@ -16,7 +16,7 @@ public class WarningText : UI_Popup
         gameObject.SetActive(false);
     }
 
-    public void Show(string text)
+    void Show(string text)
     {
         StopAllCoroutines();
         GetComponent<Text>().text = text;

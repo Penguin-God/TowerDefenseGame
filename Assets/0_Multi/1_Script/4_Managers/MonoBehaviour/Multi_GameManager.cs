@@ -355,7 +355,12 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         StartCoroutine(Co_AfterReturnLobby());
     }
 
-    void ShowGameEndText(string msg) => Managers.UI.ShowPopupUI<WarningText>().ShowClickLockWaringText(msg);
+    void ShowGameEndText(string msg)
+    {
+        var ui = Managers.UI.ShowUI<UI_PopupText>();
+        ui.Show(msg, 100f, Color.red);
+        ui.OnRaycastTarget();
+    }
 
     IEnumerator Co_AfterReturnLobby()
     {

@@ -28,7 +28,7 @@ public class RandomShopPanel_UI : UI_Base
         }
         else
         {
-            Managers.UI.ShowPopupUI<WarningText>().Show($"{GetCurrcneyTypeText(data.CurrencyType)}가 부족해 구매할 수 없습니다.");
+            Managers.UI.ShowUI<UI_PopupText>().Show($"{GetCurrcneyTypeText(data.CurrencyType)}가 부족해 구매할 수 없습니다.", 2f, Color.red);
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
         gameObject.SetActive(false);

@@ -31,6 +31,13 @@ public class UI_PopupText : UI_Popup
         _text.GetComponent<RectTransform>().localPosition = pos;
     }
 
+    public void OnRaycastTarget() // 이거는 나중에 배리어 UI를 따로 만들어야 함
+    {
+        CheckInit();
+        _text.GetComponent<RectTransform>().sizeDelta = new Vector2(800, 480);
+        _text.raycastTarget = true;
+    }
+
     IEnumerator Co_AfterDestory(float showTime)
     {
         yield return new WaitForSeconds(showTime);

@@ -11,29 +11,29 @@ public class UI_PopupText : UI_Popup
         base.Init();
         _text = GetComponentInChildren<Text>();
         _text.raycastTarget = false;
-        gameObject.SetActive(false);
     }
 
     public void Show(string text, float showTime) => Show(text, showTime, new Color32(12, 9, 9, 255));
 
     public void Show(string text, float showTime, Color32 textColor)
     {
-        if(_initDone == false)
-        {
-            Init();
-            _initDone = true;
-        }
+        CheckInit();
 
         StopAllCoroutines();
         _text.color = textColor;
         _text.text = text;
-        gameObject.SetActive(true);
-        StartCoroutine(Co_AfterInActive(showTime));
+        StartCoroutine(Co_AfterDestory(showTime));
     }
 
-    IEnumerator Co_AfterInActive(float showTime)
+    public void SetPosition(Vector2 pos)
+    {
+        CheckInit();
+        _text.GetComponent<RectTransform>().localPosition = pos;
+    }
+
+    IEnumerator Co_AfterDestory(float showTime)
     {
         yield return new WaitForSeconds(showTime);
-        Managers.UI.ClosePopupUI(); // 얘는 PopupStack에 들어가면 안 됨.
+        Destroy(gameObject);
     }
 }

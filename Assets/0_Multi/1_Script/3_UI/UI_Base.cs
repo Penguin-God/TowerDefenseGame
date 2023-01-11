@@ -20,6 +20,15 @@ public abstract class UI_Base : MonoBehaviour
         _initDone = true;
     }
 
+    protected void CheckInit()
+    {
+        if (_initDone == false)
+        {
+            Init();
+            _initDone = true;
+        }
+    }
+
     protected void Bind<T>(Type type) where T : Object
     {
         string[] names = Enum.GetNames(type); // enum의 이름들을 가져옴. C# 리플렉션의 놀라운 은총, 근데 C++은 없음 ㅋㅋ

@@ -149,7 +149,7 @@ public class UI_Manager
         return _currentPopupStack.Peek();
     }
 
-    public T ShowUI<T>(string name = null) where T : UI_Scene
+    public T ShowUI<T>(string name = null) where T : UI_Base
     {
         if (string.IsNullOrEmpty(name)) name = typeof(T).Name;
         return Managers.Resources.Instantiate($"UI/Default/{name}").GetOrAddComponent<T>();

@@ -23,7 +23,7 @@ public class SkillColorChanger : MonoBehaviourPun
         ShowColorChageResultText(targetID, target.UnitFlags, resultFlag);
     }
 
-    // 인자로 넘겨준건 상대방 ID라서 텍스트 띄우는 건 반대로 생각해야 됨
+    // 인자로 넘겨준건 스킬을 적용시킬 타겟 ID라서 텍스트 띄우는 건 반대로 생각해야 됨
     void ShowFaildText(int targetID)
     {
         if (targetID == 0)
@@ -45,5 +45,10 @@ public class SkillColorChanger : MonoBehaviourPun
     void ShowFaildText() => PopupText(textPresenter.ChangeFaildText);
 
     [PunRPC]
-    void PopupText(string text) => TextPopup.PopupText(text);
+    void PopupText(string text)
+    {
+        var ui = Managers.UI.ShowUI<UI_PopupText>();
+        ui.SetPosition(new Vector2(0, 120f));
+        ui.Show(text, 2.5f);
+    }
 }

@@ -14,6 +14,6 @@ public class Tester : MonoBehaviour
     [ContextMenu("Test UI")]
     void TestUI()
     {
-        TextPopup.PopupText("아사사");
+        Managers.UI.ShowUI<UI_PopupText>().Show("아사사", 3f);
     }
 }

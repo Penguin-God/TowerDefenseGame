@@ -42,15 +42,13 @@ public class Multi_UnitManager : MonoBehaviourPun
     private static bool _isDestory;
     void OnDestroy()
     {
-        _isDestory = true;    
+        _isDestory = true;
     }
 
-    public UnitColorChangerRpcHandler ColorChangeHandler { get; private set; }
     void Init()
     {
         // 이 지옥의 꽃같은 코드 제거를 위해 싱글턴 씬 이동 처리를 잘할 것
         // if (Managers.Scene.IsBattleScene == false) return;
-        // ColorChangeHandler = gameObject.GetOrAddComponent<UnitColorChangerRpcHandler>();
 
         _count.Init(_master);
         _count.OnUnitCountChanged += Rasie_OnUnitCountChanged;

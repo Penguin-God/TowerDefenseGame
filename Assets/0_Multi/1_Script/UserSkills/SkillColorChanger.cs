@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class SkillColorChanger : MonoBehaviourPun
 {
-    UnitColorChangeTextPresenter textPresenter = new UnitColorChangeTextPresenter();
+    readonly UnitColorChangeTextPresenter _textPresenter = new UnitColorChangeTextPresenter();
     public void ColorChangeSkill(UnitClass targetClass)
         => photonView.RPC(nameof(ColorChangeSkill), RpcTarget.MasterClient, Multi_Data.instance.EnemyPlayerId, targetClass);
 
@@ -35,14 +35,14 @@ public class SkillColorChanger : MonoBehaviourPun
     void ShowColorChageResultText(int targetID, UnitFlags before, UnitFlags after)
     {
         (string textToShowOnMaster, string textToShowOnClinet) showTexts = 
-            (targetID == 0) ? (textPresenter.GenerateTextShowToVictim(before, after), textPresenter.GenerateTextShowToDisruptor(before, after))
-            : (textPresenter.GenerateTextShowToDisruptor(before, after), textPresenter.GenerateTextShowToVictim(before, after));
+            (targetID == 0) ? (_textPresenter.GenerateTextShowToVictim(before, after), _textPresenter.GenerateTextShowToDisruptor(before, after))
+            : (_textPresenter.GenerateTextShowToDisruptor(before, after), _textPresenter.GenerateTextShowToVictim(before, after));
         PopupText(showTexts.textToShowOnMaster);
         photonView.RPC(nameof(PopupText), RpcTarget.Others, showTexts.textToShowOnClinet);
     }
 
     [PunRPC] // UI 클릭할 때마다 RPC 호출이 맞는 걸까? 벗 이걸 막으려면 클라이언트에서도 Unit보유 숫자 정도는 알고 있어야 함.
-    void ShowFaildText() => PopupText(textPresenter.ChangeFaildText);
+    void ShowFaildText() => PopupText(_textPresenter.ChangeFaildText);
 
     [PunRPC]
     void PopupText(string text)

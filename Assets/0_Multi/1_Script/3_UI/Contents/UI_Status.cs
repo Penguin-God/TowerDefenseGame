@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 
-public class Status_UI : UI_Scene
+public class UI_Status : UI_Scene
 {
     enum Texts
     {
@@ -57,9 +57,9 @@ public class Status_UI : UI_Scene
 
         void Init_UI()
         {
-            UpdateOtherUnitAllCount(0);
-            UpdateOtherUnitClassCount();
-            UpdateOtherEnemyCountText(0);
+            //UpdateOtherUnitAllCount(0);
+            //UpdateOtherUnitClassCount();
+            //UpdateOtherEnemyCountText(0);
             UpdateEnemyCountText(0);
             UpdateMySkillImage();
         }
@@ -70,7 +70,7 @@ public class Status_UI : UI_Scene
             BindGoldBarEvent();
             BindFoodBarEvent();
             BindMyCountEvent();
-            BindOhterCountEvent();
+            // BindOhterCountEvent();
             BindUserSkillImageEvent();
         }
 
@@ -113,6 +113,9 @@ public class Status_UI : UI_Scene
 
             Multi_UnitManager.Instance.OnOtherUnitCountChanged -= (count) => UpdateOtherUnitClassCount();
             Multi_UnitManager.Instance.OnOtherUnitCountChanged += (count) => UpdateOtherUnitClassCount();
+
+            Multi_GameManager.instance.BattleData.OnMaxUnitChanged += UpdateOtherUnitAllCount;
+
 
             Multi_EnemyManager.Instance.OnOtherEnemyCountChanged -= UpdateOtherEnemyCountText;
             Multi_EnemyManager.Instance.OnOtherEnemyCountChanged += UpdateOtherEnemyCountText;
@@ -163,7 +166,6 @@ public class Status_UI : UI_Scene
         }
     }
 
-    // TODO : Multi_GameManager.instance.MaxUnitCount 각 플레이어걸로
     void UpdateOtherUnitAllCount(int count) => GetText((int)Texts.OtherUnitCountText).text = $"{count}/??";
 
     void UpdateOtherUnitClassCount()

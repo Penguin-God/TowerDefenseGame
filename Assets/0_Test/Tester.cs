@@ -10,4 +10,10 @@ public class Tester : MonoBehaviour
         var tester = new PresentersTester();
         tester.TestGenerateColorChangeResultText();
     }
+
+    [ContextMenu("Test UI")]
+    void TestUI()
+    {
+        TextPopup.PopupText("아사사");
+    }
 }

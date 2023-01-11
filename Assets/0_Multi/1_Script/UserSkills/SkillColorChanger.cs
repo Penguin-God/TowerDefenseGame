@@ -10,23 +10,35 @@ public class SkillColorChanger : MonoBehaviourPun
         => photonView.RPC(nameof(ColorChangeSkill), RpcTarget.MasterClient, Multi_Data.instance.EnemyPlayerId, targetClass);
 
     [PunRPC]
-    void ColorChangeSkill(int id, UnitClass targetClass)
+    void ColorChangeSkill(int targetID, UnitClass targetClass)
     {
-        var target = Multi_UnitManager.Instance.FindUnit(id, targetClass);
+        var target = Multi_UnitManager.Instance.FindUnit(targetID, targetClass);
         if (target == null)
         {
-            PopupText(textPresenter.ChangeFaildText);
+            ShowFaildText(targetID);
             return;
         }
 
-        var resultFlag = Multi_UnitManager.Instance.ColorChangeHandler.ChangeUnitColor(id, target.UnitFlags);
-        ShowColorChageResultText(target.UnitFlags, resultFlag);
+        var resultFlag = Multi_UnitManager.Instance.ColorChangeHandler.ChangeUnitColor(targetID, target.UnitFlags);
+        ShowColorChageResultText(targetID, target.UnitFlags, resultFlag);
     }
 
-    void ShowColorChageResultText(UnitFlags before, UnitFlags after)
+    // 인자로 넘겨준건 상대방 ID라서 텍스트 띄우는 건 반대로 생각해야 됨
+    void ShowFaildText(int targetID)
     {
-        PopupText(textPresenter.GenerateTextShowToDisruptor(before, after));
-        photonView.RPC(nameof(PopupText), RpcTarget.Others, textPresenter.GenerateTextShowToVictim(before, after));
+        if (targetID == 0)
+            photonView.RPC(nameof(PopupText), RpcTarget.Others, textPresenter.ChangeFaildText);
+        else
+            PopupText(textPresenter.ChangeFaildText);
+    }
+
+    void ShowColorChageResultText(int targetID, UnitFlags before, UnitFlags after)
+    {
+        (string textToShowOnMaster, string textToShowOnClinet) showTexts = 
+            (targetID == 0) ? (textPresenter.GenerateTextShowToVictim(before, after), textPresenter.GenerateTextShowToDisruptor(before, after))
+            : (textPresenter.GenerateTextShowToDisruptor(before, after), textPresenter.GenerateTextShowToVictim(before, after));
+        PopupText(showTexts.textToShowOnMaster);
+        photonView.RPC(nameof(PopupText), RpcTarget.Others, showTexts.textToShowOnClinet);
     }
 
     [PunRPC]

@@ -7,8 +7,7 @@ public static class TextPopup
     public static void PopupText(string text)
     {
         var ui = Managers.UI.ShowPopupUI<UI_PopupText>();
-        Debug.Log(ui.name);
-        ui.GetComponentInChildren<RectTransform>().position = new Vector3(0, 120f, 0);
+        ui.transform.GetChild(0).GetComponent<RectTransform>().localPosition = new Vector3(0, 120f, 0);
         ui.Show(text, 3f);
     }
 }

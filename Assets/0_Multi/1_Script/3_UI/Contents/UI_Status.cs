@@ -13,12 +13,6 @@ public class UI_Status : UI_Scene
         GoldText,
         StageText,
         CurrentUnitText,
-        KnigthText,
-        ArcherText,
-        SpearmanText,
-        MageText,
-        OhterEnemyCountText,
-        OtherUnitCountText,
     }
 
     enum GameObjects
@@ -57,9 +51,6 @@ public class UI_Status : UI_Scene
 
         void Init_UI()
         {
-            //UpdateOtherUnitAllCount(0);
-            //UpdateOtherUnitClassCount();
-            //UpdateOtherEnemyCountText(0);
             UpdateEnemyCountText(0);
             UpdateMySkillImage();
         }
@@ -70,7 +61,6 @@ public class UI_Status : UI_Scene
             BindGoldBarEvent();
             BindFoodBarEvent();
             BindMyCountEvent();
-            // BindOhterCountEvent();
             BindUserSkillImageEvent();
         }
 
@@ -104,18 +94,6 @@ public class UI_Status : UI_Scene
 
             Multi_EnemyManager.Instance.OnEnemyCountChanged -= UpdateEnemyCountText;
             Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateEnemyCountText;
-        }
-
-        void BindOhterCountEvent()
-        {
-            Multi_UnitManager.Instance.OnOtherUnitCountChanged -= UpdateOtherUnitAllCount;
-            Multi_UnitManager.Instance.OnOtherUnitCountChanged += UpdateOtherUnitAllCount;
-
-            Multi_UnitManager.Instance.OnOtherUnitCountChanged -= (count) => UpdateOtherUnitClassCount();
-            Multi_UnitManager.Instance.OnOtherUnitCountChanged += (count) => UpdateOtherUnitClassCount();
-
-            Multi_EnemyManager.Instance.OnOtherEnemyCountChanged -= UpdateOtherEnemyCountText;
-            Multi_EnemyManager.Instance.OnOtherEnemyCountChanged += UpdateOtherEnemyCountText;
         }
 
         void BindUserSkillImageEvent()
@@ -162,19 +140,6 @@ public class UI_Status : UI_Scene
             timerSlider.value -= Time.deltaTime;
         }
     }
-
-    void UpdateOtherUnitAllCount(int count) => GetText((int)Texts.OtherUnitCountText).text = $"{count}/??";
-
-    void UpdateOtherUnitClassCount()
-    {
-        GetText((int)Texts.KnigthText).text = "" + Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[UnitClass.sowrdman];
-        GetText((int)Texts.ArcherText).text = "" + Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[UnitClass.archer];
-        GetText((int)Texts.SpearmanText).text = "" + Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[UnitClass.spearman];
-        GetText((int)Texts.MageText).text = "" + Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[UnitClass.mage];
-    }
-
-    void UpdateOtherEnemyCountText(int count) => GetText((int)Texts.OhterEnemyCountText).text = "" + count;
-
 
     void UpdateMySkillImage() => ChangeEquipSkillImages(Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
     void UpdateOtherSkillImage()

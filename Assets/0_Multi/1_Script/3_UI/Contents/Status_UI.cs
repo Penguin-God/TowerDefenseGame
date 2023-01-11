@@ -52,17 +52,27 @@ public class Status_UI : UI_Scene
 
         Multi_GameManager.instance.BattleData.OnMaxUnitChanged += (maxUnit) => UpdateUnitText(Multi_UnitManager.Instance.CurrentUnitCount);
 
-        UpdateOtherUnitAllCount(0);
-        UpdateOtherUnitClassCount();
-        UpdateOtherEnemyCountText(0);
-        UpdateEnemyCountText(0);
-        UpdateMySkillImage();
+        Init_UI();
+        Bind_Events();
 
-        BindGoldBarEvent();
-        BindFoodBarEvent();
-        BindMyCountEvent();
-        BindOhterCountEvent();
-        BindUserSkillImageEvent();
+        void Init_UI()
+        {
+            UpdateOtherUnitAllCount(0);
+            UpdateOtherUnitClassCount();
+            UpdateOtherEnemyCountText(0);
+            UpdateEnemyCountText(0);
+            UpdateMySkillImage();
+        }
+
+
+        void Bind_Events()
+        {
+            BindGoldBarEvent();
+            BindFoodBarEvent();
+            BindMyCountEvent();
+            BindOhterCountEvent();
+            BindUserSkillImageEvent();
+        }
 
         void BindGoldBarEvent()
         {
@@ -118,20 +128,18 @@ public class Status_UI : UI_Scene
         }
     }
 
-    // TODO : Multi_GameManager.instance.MaxUnitCount 각 플레이어걸로
     void UpdateUnitText(int count) => GetText((int)Texts.CurrentUnitText).text = $"최대 유닛 갯수 {count}/{Multi_GameManager.instance.BattleData.MaxUnit}";
 
-    Color originColor = new Color(1, 1, 1, 1);
-    Color dengerColor = new Color(1, 0, 0, 1);
+    readonly Color DENGER_COLOR = Color.red;
     void UpdateEnemyCountText(int EnemyofCount)
     {
         Text text = GetText((int)Texts.EnemyofCount);
         if (EnemyofCount > 40)
         {
-            text.color = dengerColor;
+            text.color = DENGER_COLOR;
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
-        else text.color = originColor;
+        else text.color = Color.white;
         text.text = $"현재 적 유닛 카운트 : {EnemyofCount}/{Multi_GameManager.instance.BattleData.MaxEnemyCount}";
     }
 
@@ -155,6 +163,7 @@ public class Status_UI : UI_Scene
         }
     }
 
+    // TODO : Multi_GameManager.instance.MaxUnitCount 각 플레이어걸로
     void UpdateOtherUnitAllCount(int count) => GetText((int)Texts.OtherUnitCountText).text = $"{count}/??";
 
     void UpdateOtherUnitClassCount()

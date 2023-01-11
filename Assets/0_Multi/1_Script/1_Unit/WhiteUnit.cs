@@ -30,7 +30,7 @@ public class WhiteUnit : MonoBehaviourPun
         if(value <= 0)
         {
             var unit = GetComponent<Multi_TeamSoldier>();
-            Multi_UnitManager.Instance.ColorChangeHandler.ChangeUnitColor(photonView.ViewID);
+            UnitColorChangerRpcHandler.ChangeUnitColor(photonView.ViewID);
             //Multi_SpawnManagers.NormalUnit.Spawn(Random.Range(0, maxColor), (int)unit.unitClass, unit.transform.position, unit.transform.rotation, unit.UsingID);
             //unit.Dead();
         }

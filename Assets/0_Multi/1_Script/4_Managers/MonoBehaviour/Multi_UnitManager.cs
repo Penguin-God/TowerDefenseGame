@@ -50,7 +50,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     {
         // 이 지옥의 꽃같은 코드 제거를 위해 싱글턴 씬 이동 처리를 잘할 것
         // if (Managers.Scene.IsBattleScene == false) return;
-        ColorChangeHandler = gameObject.GetOrAddComponent<UnitColorChangerRpcHandler>();
+        // ColorChangeHandler = gameObject.GetOrAddComponent<UnitColorChangerRpcHandler>();
 
         _count.Init(_master);
         _count.OnUnitCountChanged += Rasie_OnUnitCountChanged;
@@ -92,6 +92,9 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     public event Action<int> OnOtherUnitCountChanged;
     void RaiseOnOtherUnitCountChaned(int count) => OnOtherUnitCountChanged?.Invoke(count);
+
+    public event Action<int> OnOtherUnitMaxCountChanged;
+    void RaiseOnOtherUnitMaxCountChaned(int count) => OnOtherUnitMaxCountChanged?.Invoke(count);
 
     public void KillUnit(Multi_TeamSoldier unit) // 이게 맞나?
     {
@@ -207,12 +210,12 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
     }
 
-    class EnemyPlayerDataManager
+    class EnemyPlayerDataManager // MaxUnitCount 만들즈아~
     {
         public event Action<int> OnOtherUnitCountChanged;
         Dictionary<UnitFlags, byte> _countByFlag = new Dictionary<UnitFlags, byte>();
         public Dictionary<UnitClass, int> _countByUnitClass = new Dictionary<UnitClass, int>();
-        public int EnemyPlayerHasUnitAllCount { get; private set; }
+        public int EnemyPlayerHasUnitAllCount { get; private set; } 
 
         public void Init(MasterDataManager masterData)
         {

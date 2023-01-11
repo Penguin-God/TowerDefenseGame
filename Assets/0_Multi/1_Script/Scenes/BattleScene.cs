@@ -71,6 +71,7 @@ class WorldInitializer
     {
         var numManager = monoBehaviourContainer.AddComponent<EnemySpawnNumManager>();
         monoBehaviourContainer.AddComponent<StageMonsterSpawner>().SetInfo(numManager);
+        monoBehaviourContainer.AddComponent<UnitColorChangerRpcHandler>();
     }
 
     void EventInit()

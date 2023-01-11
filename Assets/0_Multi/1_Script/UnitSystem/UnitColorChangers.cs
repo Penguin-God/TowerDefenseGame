@@ -4,10 +4,16 @@ using UnityEngine;
 using Photon.Pun;
 using System.Linq;
 
-public class UnitColorChangerRpcHandler : MonoBehaviourPun
+public class UnitColorChangerRpcHandler : MonoBehaviour
 {
+    static PhotonView photonView;
+    void Awake()
+    {
+        photonView = GetComponent<PhotonView>();
+    }
+
     [PunRPC]
-    public void ChangeUnitColor(int viewID)
+    public static void ChangeUnitColor(int viewID)
     {
         if (PhotonNetwork.IsMasterClient)
             new UnitColorChanger().ChangeUnitColor(PhotonView.Find(viewID).GetComponent<Multi_TeamSoldier>());
@@ -16,7 +22,7 @@ public class UnitColorChangerRpcHandler : MonoBehaviourPun
     }
 
     [PunRPC]
-    public UnitFlags ChangeUnitColor(int id, UnitFlags unitFlag)
+    public static UnitFlags ChangeUnitColor(int id, UnitFlags unitFlag)
     {
         if (PhotonNetwork.IsMasterClient)
             return new UnitColorChanger().ChangeUnitColor(Multi_UnitManager.Instance.FindUnit(id, unitFlag.UnitClass));

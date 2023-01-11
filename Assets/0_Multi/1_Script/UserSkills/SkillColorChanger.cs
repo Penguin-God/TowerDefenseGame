@@ -19,7 +19,7 @@ public class SkillColorChanger : MonoBehaviourPun
             return;
         }
 
-        var resultFlag = Multi_UnitManager.Instance.ColorChangeHandler.ChangeUnitColor(targetID, target.UnitFlags);
+        var resultFlag = UnitColorChangerRpcHandler.ChangeUnitColor(targetID, target.UnitFlags);
         ShowColorChageResultText(targetID, target.UnitFlags, resultFlag);
     }
 

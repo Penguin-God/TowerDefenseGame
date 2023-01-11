@@ -105,7 +105,6 @@ class WorldInitializer
 
         Managers.UI.ShowPopupUI<BackGround>("BackGround");
         Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
-        Managers.UI.ShowPopupUI<WarningText>();
         Managers.UI.ShowPopupUI<RandomShop_UI>("InGameShop/Random Shop");
 
         Managers.UI.ShowSceneUI<Status_UI>();

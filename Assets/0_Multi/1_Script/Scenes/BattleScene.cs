@@ -65,6 +65,7 @@ class WorldInitializer
         Managers.Pool.Init();
         InitEffect();
         EventInit();
+        EndInintMonoBehaviourContainer();
     }
 
     void InitMonoBehaviourContainer()
@@ -72,6 +73,12 @@ class WorldInitializer
         var numManager = monoBehaviourContainer.AddComponent<EnemySpawnNumManager>();
         monoBehaviourContainer.AddComponent<StageMonsterSpawner>().SetInfo(numManager);
         monoBehaviourContainer.AddComponent<UnitColorChangerRpcHandler>();
+    }
+
+    UI_OpponentStatus opponentStatus;
+    void EndInintMonoBehaviourContainer()
+    {
+        monoBehaviourContainer.AddComponent<OpponentStatusSynchronizer>().Init(opponentStatus);
     }
 
     void EventInit()
@@ -108,7 +115,9 @@ class WorldInitializer
         Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
         Managers.UI.ShowPopupUI<RandomShop_UI>("InGameShop/Random Shop");
 
-        Managers.UI.ShowSceneUI<Status_UI>();
+        Managers.UI.ShowSceneUI<UI_Status>();
+        opponentStatus = Managers.UI.ShowSceneUI<UI_OpponentStatus>();
+
         var buttons = Managers.UI.ShowSceneUI<BattleButton_UI>();
         buttons.GetComponentInChildren<UI_EnemySelector>().SetInfo(monoBehaviourContainer.GetComponent<EnemySpawnNumManager>());
     }

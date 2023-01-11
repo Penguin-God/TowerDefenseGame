@@ -204,7 +204,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     public event Action<int> OnFoodChanged;
     void Rasie_OnFoodChanged(int food) => OnFoodChanged?.Invoke(food);
 
-    public bool UnitOver => Multi_UnitManager.Instance.CurrentUnitCount >= _battleData.MaxUnit;
+    public bool UnitOver => (Multi_UnitManager.Instance.CurrentUnitCount >= _battleData.MaxUnit);
 
     OtherPlayerData _otherPlayerData;
     public OtherPlayerData OtherPlayerData => _otherPlayerData;

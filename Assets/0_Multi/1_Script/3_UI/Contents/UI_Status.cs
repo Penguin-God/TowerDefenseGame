@@ -114,9 +114,6 @@ public class UI_Status : UI_Scene
             Multi_UnitManager.Instance.OnOtherUnitCountChanged -= (count) => UpdateOtherUnitClassCount();
             Multi_UnitManager.Instance.OnOtherUnitCountChanged += (count) => UpdateOtherUnitClassCount();
 
-            Multi_GameManager.instance.BattleData.OnMaxUnitChanged += UpdateOtherUnitAllCount;
-
-
             Multi_EnemyManager.Instance.OnOtherEnemyCountChanged -= UpdateOtherEnemyCountText;
             Multi_EnemyManager.Instance.OnOtherEnemyCountChanged += UpdateOtherEnemyCountText;
         }

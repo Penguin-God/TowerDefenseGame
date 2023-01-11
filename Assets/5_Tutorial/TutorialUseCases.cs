@@ -62,14 +62,17 @@ namespace TutorialUseCases
     {
         string _uiName;
         public ButtonClickCommend(string uiName) => _uiName = uiName;
+
+        Button button;
         bool _isDone = false;
+        void End() => _isDone = true;
+
         public void TutorialAction()
         {
-            var targetButton = GameObject.Find(_uiName).GetComponent<Button>();
-            targetButton.onClick.AddListener(() => _isDone = true);
+            button = GameObject.Find(_uiName).GetComponent<Button>();
+            button.onClick.AddListener(End);
         }
         public bool EndCondition() => _isDone;
-
-        public void EndAction() { }
+        public void EndAction() => button.onClick.RemoveListener(End);
     }
 }

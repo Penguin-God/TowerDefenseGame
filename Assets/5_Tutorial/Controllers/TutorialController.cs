@@ -46,7 +46,29 @@ public abstract class TutorialController : MonoBehaviour
 
     protected void AddCommend(ITutorial tutorial) => tutorials.Add(tutorial);
     protected void AddReadCommend(string text) => tutorials.Add(CreateReadCommend(text));
-    protected void AddSpotLightCommend(Vector3 pos) => tutorials.Add(CreateSpotLightCommend(pos)); // 이거 편의적으로 하자;;
-    protected void AddUI_HighLightCommend(string uiName) => tutorials.Add(CreateUI_HighLightCommend(uiName));
-    protected void AddClickCommend(string uiName) => tutorials.Add(CreateClickCommend(uiName));
+
+    protected void AddSpotLightCommend(string text, Vector3 pos)
+    {
+        var spotLightCommend = CreateComposite();
+        spotLightCommend.AddCommend(CreateReadCommend(text));
+        spotLightCommend.AddCommend(CreateSpotLightCommend(pos));
+        tutorials.Add(spotLightCommend);
+    }
+   
+    protected void AddUI_HighLightCommend(string text, string uiName)
+    {
+        var highLight_UICommend = CreateComposite();
+        highLight_UICommend.AddCommend(CreateReadCommend(text));
+        highLight_UICommend.AddCommend(CreateUI_HighLightCommend(uiName));
+        tutorials.Add(highLight_UICommend);
+    }
+
+    protected void AddClickCommend(string text, string uiName)
+    {
+        var clickCommend = CreateComposite();
+        clickCommend.AddCommend(CreateReadCommend(text));
+        clickCommend.AddCommend(CreateUI_HighLightCommend(uiName));
+        clickCommend.AddCommend(CreateClickCommend(uiName));
+        tutorials.Add(clickCommend);
+    }
 }

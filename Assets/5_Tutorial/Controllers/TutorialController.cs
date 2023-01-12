@@ -49,38 +49,29 @@ public abstract class TutorialController : MonoBehaviour
         => new ActionCommend(tutorialAction, endCondtion, endActoin);
 
     protected void AddCommend(ITutorial tutorial) => tutorialCommends.Add(tutorial);
+    void AddCompositeCommend(string text, ITutorial commend)
+    {
+        var compositeCommend = CreateComposite();
+        compositeCommend.AddCommend(CreateReadCommend(text));
+        compositeCommend.AddCommend(commend);
+        tutorialCommends.Add(compositeCommend);
+    }
     protected void AddReadCommend(string text) => tutorialCommends.Add(CreateReadCommend(text));
 
     protected void AddSpotLightActionCommend(string text, Func<Vector3> getPos)
-    {
-        var spotLightCommend = CreateComposite();
-        spotLightCommend.AddCommend(CreateReadCommend(text));
-        spotLightCommend.AddCommend(CreateSpotLightActionCommend(getPos));
-        tutorialCommends.Add(spotLightCommend);
-    }
+        => AddCompositeCommend(text, CreateSpotLightActionCommend(getPos));
     protected void AddSpotLightCommend(string text, Vector3 pos)
-    {
-        var spotLightCommend = CreateComposite();
-        spotLightCommend.AddCommend(CreateReadCommend(text));
-        spotLightCommend.AddCommend(CreateSpotLightCommend(pos));
-        tutorialCommends.Add(spotLightCommend);
-    }
-   
+        => AddCompositeCommend(text, CreateSpotLightCommend(pos));
+
     protected void AddUI_HighLightCommend(string text, string uiName)
-    {
-        var highLight_UICommend = CreateComposite();
-        highLight_UICommend.AddCommend(CreateReadCommend(text));
-        highLight_UICommend.AddCommend(CreateUI_HighLightCommend(uiName));
-        tutorialCommends.Add(highLight_UICommend);
-    }
+        => AddCompositeCommend(text, CreateUI_HighLightCommend(uiName));
 
     protected void AddClickCommend(string text, string uiName)
     {
         var clickCommend = CreateComposite();
-        clickCommend.AddCommend(CreateReadCommend(text));
         clickCommend.AddCommend(CreateUI_HighLightCommend(uiName));
         clickCommend.AddCommend(CreateClickCommend(uiName));
-        tutorialCommends.Add(clickCommend);
+        AddCompositeCommend(text, clickCommend);
     }
 
     protected void AddActionCommend(Action tutorialAction, Func<bool> endCondtion = null, Action endActoin = null)

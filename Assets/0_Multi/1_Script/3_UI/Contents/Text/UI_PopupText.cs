@@ -13,16 +13,21 @@ public class UI_PopupText : UI_Popup
         _text.raycastTarget = false;
     }
 
+    public void Show(string text, Color color) => SetUI(text, color);
     public void Show(string text, float showTime) => Show(text, showTime, new Color32(12, 9, 9, 255));
 
     public void Show(string text, float showTime, Color32 textColor)
     {
-        CheckInit();
-
         StopAllCoroutines();
+        SetUI(text, textColor);
+        StartCoroutine(Co_AfterDestory(showTime));
+    }
+
+    void SetUI(string text, Color32 textColor)
+    {
+        CheckInit();
         _text.color = textColor;
         _text.text = text;
-        StartCoroutine(Co_AfterDestory(showTime));
     }
 
     public void SetPosition(Vector2 pos)

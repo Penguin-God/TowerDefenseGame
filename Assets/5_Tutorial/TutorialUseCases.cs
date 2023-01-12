@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
+using Object = UnityEngine.Object;
 
 namespace TutorialUseCases
 {
@@ -19,10 +20,16 @@ namespace TutorialUseCases
     public class ReadTextCommend : ITutorial
     {
         string _text;
+        UI_PopupText _textUI;
         public ReadTextCommend(string text) => _text = text;
 
-        public void TutorialAction() => Managers.UI.ShowPopupUI<TutorialText>().Setup(_text);
-        public void EndAction() => Managers.UI.ClosePopupUI();
+        public void TutorialAction()
+        {
+            _textUI = Managers.UI.ShowUI<UI_PopupText>();
+            _textUI.SetPosition(new Vector2(0, 110));
+            _textUI.Show(_text, Color.white);
+        }
+        public void EndAction() => Object.Destroy(_textUI.gameObject);
         public bool EndCondition() => Input.GetMouseButtonUp(0);
     }
 
@@ -34,11 +41,11 @@ namespace TutorialUseCases
 
         public virtual void TutorialAction()
         {
-            _light = UnityEngine.Object.Instantiate(Resources.Load<Light>("Tutorial/SpotLight"));
+            _light = Object.Instantiate(Resources.Load<Light>("Tutorial/SpotLight"));
             _light.gameObject.SetActive(true);
             _light.transform.position = spotPos;
         }
-        public void EndAction() => UnityEngine.Object.Destroy(_light.gameObject);
+        public void EndAction() => Object.Destroy(_light.gameObject);
         public bool EndCondition() => Input.GetMouseButtonUp(0);
     }
 

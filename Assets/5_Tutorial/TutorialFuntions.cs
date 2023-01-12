@@ -62,15 +62,6 @@ public class TutorialFuntions : MonoBehaviour
         OnLigth();
     }
 
-    [SerializeField] Button[] allButtons = null;
-
-    [ContextMenu("버튼 배열 세팅")]
-    void SettingButtonArray()
-    {
-        // 꺼져 있는 게임 오브젝트도 가져옴
-        allButtons = Resources.FindObjectsOfTypeAll<Button>();
-    }
-
     public void SetAllButton(bool isActive)
     {
         foreach (var button in FindObjectsOfType<Button>())

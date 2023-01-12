@@ -36,12 +36,14 @@ namespace TutorialUseCases
     public class SpotLightCommend : ITutorial
     {
         protected Vector3 spotPos;
+        float _range;
         Light _light;
-        public SpotLightCommend(Vector3 lightPos) => spotPos = lightPos;
+        public SpotLightCommend(Vector3 lightPos, float range = 10f) => (spotPos, _range) = (lightPos, range);
 
         public virtual void TutorialAction()
         {
             _light = Object.Instantiate(Resources.Load<Light>("Tutorial/SpotLight"));
+            _light.range = _range;
             _light.gameObject.SetActive(true);
             _light.transform.position = spotPos;
         }

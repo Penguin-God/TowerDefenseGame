@@ -11,6 +11,6 @@ public class TutorialScene : BaseScene
         PhotonNetwork.OfflineMode = true;
         PhotonNetwork.JoinRandomRoom();
         new WorldInitializer(container).Init();
-        Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow");
+        Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").gameObject.SetActive(false);
     }
 }

@@ -41,7 +41,7 @@ public abstract class TutorialController : MonoBehaviour
 
     protected TutorialComposite CreateComposite() => new TutorialComposite();
     protected ReadTextCommend CreateReadCommend(string text) => new ReadTextCommend(text);
-    protected SpotLightCommend CreateSpotLightCommend(Vector3 pos) => new SpotLightCommend(pos);
+    protected SpotLightCommend CreateSpotLightCommend(Vector3 pos, float range) => new SpotLightCommend(pos, range);
     protected SpotLightActionCommend CreateSpotLightActionCommend(Func<Vector3> getPos) => new SpotLightActionCommend(getPos);
     protected Highlight_UI CreateUI_HighLightCommend(string uiName) => new Highlight_UI(uiName);
     protected ButtonClickCommend CreateClickCommend(string uiName) => new ButtonClickCommend(uiName);
@@ -60,8 +60,8 @@ public abstract class TutorialController : MonoBehaviour
 
     protected void AddSpotLightActionCommend(string text, Func<Vector3> getPos)
         => AddCompositeCommend(text, CreateSpotLightActionCommend(getPos));
-    protected void AddSpotLightCommend(string text, Vector3 pos)
-        => AddCompositeCommend(text, CreateSpotLightCommend(pos));
+    protected void AddSpotLightCommend(string text, Vector3 pos, float range = 10f)
+        => AddCompositeCommend(text, CreateSpotLightCommend(pos, range));
 
     protected void AddUI_HighLightCommend(string text, string uiName)
         => AddCompositeCommend(text, CreateUI_HighLightCommend(uiName));

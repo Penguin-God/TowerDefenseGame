@@ -620,6 +620,41 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 24767114}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &26847138
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 26847139}
+  m_Layer: 5
+  m_Name: TowerFocus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &26847139
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26847138}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1867280318}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 8.200012, y: 53}
+  m_SizeDelta: {x: 190, y: 190}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &30944707
 GameObject:
   m_ObjectHideFlags: 0
@@ -10639,6 +10674,41 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 597022381}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &603750055
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 603750056}
+  m_Layer: 5
+  m_Name: ShopFocus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &603750056
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603750055}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1867280318}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -0.7999878, y: 183}
+  m_SizeDelta: {x: 500, y: 120}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!1001 &603804535
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11373,7 +11443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d303d8f7118a84182259960ac3c3a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialManager: {fileID: 1251197228}
 --- !u!1001 &644366549
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13758,7 +13827,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2b5de2ba77a47164aae2300e5d3cc4ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialManager: {fileID: 1251197228}
 --- !u!1001 &760234149
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18821,8 +18889,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -260.2, y: 213.4}
-  m_SizeDelta: {x: 277.5777, y: 55.117737}
+  m_AnchoredPosition: {x: -263.4, y: 213.4}
+  m_SizeDelta: {x: 271.10382, y: 55.117737}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1065903372
 PrefabInstance:
@@ -20140,7 +20208,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c0b36126b6361f47a5ff06f2e2ef0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialManager: {fileID: 1251197228}
 --- !u!1001 &1149343325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22274,7 +22341,6 @@ MonoBehaviour:
   mainLigth_OffIntensity: 0.2
   spotLight: {fileID: 1704931628}
   lightFocus_UI: {fileID: 0}
-  allButtons: []
 --- !u!114 &1251197228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33183,6 +33249,8 @@ RectTransform:
   m_Children:
   - {fileID: 1350539414}
   - {fileID: 1063000686}
+  - {fileID: 26847139}
+  - {fileID: 603750056}
   m_Father: {fileID: 251463098}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -34608,7 +34676,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1d303d8f7118a84182259960ac3c3a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tutorialManager: {fileID: 1251197228}
 --- !u!1001 &1956314214
 PrefabInstance:
   m_ObjectHideFlags: 0

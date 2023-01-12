@@ -130,6 +130,12 @@ public class Multi_UnitManager : MonoBehaviourPun
         return units.Count() == 0 ? null : units.First();
     }
 
+    public Multi_TeamSoldier FindUnit(int id, UnitFlags flag)
+    {
+        if (PhotonNetwork.IsMasterClient == false) return null;
+        return _master.GetUnitList(id, flag).FirstOrDefault();
+    }
+
     // Components
     public class MasterDataManager
     {

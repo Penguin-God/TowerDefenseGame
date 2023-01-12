@@ -11,5 +11,6 @@ public class TutorialManager : MonoBehaviour
         tutorialFuntions = GetComponent<TutorialFuntions>();
         // gameObject.AddComponent<Tutorial_Basic>();
         gameObject.AddComponent<Tutorial_OtherPlayer>();
+        gameObject.AddComponent<Tutorial_Tower>();
     }
 }

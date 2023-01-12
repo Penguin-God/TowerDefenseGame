@@ -62,9 +62,13 @@ public class TutorialFuntions : MonoBehaviour
         OnLigth();
     }
 
+    [SerializeField] Button[] buttons = null;
+
     public void SetAllButton(bool isActive)
     {
-        foreach (var button in FindObjectsOfType<Button>())
+        if (buttons.Length == 0)
+            buttons = Resources.FindObjectsOfTypeAll<Button>();
+        foreach (var button in buttons)
             button.enabled = isActive;
     }
 }

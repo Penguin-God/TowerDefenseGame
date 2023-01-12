@@ -249,9 +249,9 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     {
         SetEvent();
         gameStartButton?.gameObject?.SetActive(false);
-        gameStart = true;
         OnStart?.Invoke();
         OnStart = null;
+        gameStart = true;
     }
 
     public void GameStart() => photonView.RPC(nameof(RPC_OnStart), RpcTarget.All);

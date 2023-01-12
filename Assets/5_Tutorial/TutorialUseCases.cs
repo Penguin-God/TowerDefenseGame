@@ -28,11 +28,11 @@ namespace TutorialUseCases
 
     public class SpotLightCommend : ITutorial
     {
-        Vector3 spotPos;
+        protected Vector3 spotPos;
         Light _light;
         public SpotLightCommend(Vector3 lightPos) => spotPos = lightPos;
 
-        public void TutorialAction()
+        public virtual void TutorialAction()
         {
             _light = UnityEngine.Object.Instantiate(Resources.Load<Light>("Tutorial/SpotLight"));
             _light.gameObject.SetActive(true);
@@ -40,6 +40,17 @@ namespace TutorialUseCases
         }
         public void EndAction() => UnityEngine.Object.Destroy(_light.gameObject);
         public bool EndCondition() => Input.GetMouseButtonUp(0);
+    }
+
+    public class SpotLightActionCommend : SpotLightCommend
+    {
+        Func<Vector3> _getPos;
+        public SpotLightActionCommend(Func<Vector3> getPos) : base(Vector3.zero) => _getPos = getPos;
+        public override void TutorialAction()
+        {
+            spotPos = _getPos();
+            base.TutorialAction();
+        }
     }
 
     public class Highlight_UI : ITutorial

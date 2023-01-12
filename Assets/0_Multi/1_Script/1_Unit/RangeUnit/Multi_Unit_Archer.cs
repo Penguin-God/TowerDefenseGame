@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System.Linq;
 
 public class Multi_Unit_Archer : Multi_RangeUnit
 {
@@ -74,7 +75,8 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     Transform[] GetTargets()
     {
         if (TargetIsNormalEnemy == false) return new Transform[] { target };
-        return Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, skillArrowCount, _state.UsingId);
+        return Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, skillArrowCount, _state.UsingId)
+            .Select(x => x.transform).ToArray();
     }
 
     void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, _skillSystem.GetApplyDamage(enemy));

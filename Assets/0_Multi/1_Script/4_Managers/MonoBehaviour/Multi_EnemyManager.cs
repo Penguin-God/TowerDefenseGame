@@ -68,16 +68,13 @@ public class Multi_EnemyManager : MonoBehaviourPun
     RPCData<Multi_EnemyTower> _currentTower = new RPCData<Multi_EnemyTower>();
     public Multi_EnemyTower GetCurrnetTower(int id) => _currentTower.Get(id);
 
-    public Multi_Enemy GetProximateEnemy(Vector3 unitPos, int unitId) => _finder.GetProximateEnemy(unitPos, _master.GetEnemys(unitId));
+    public Multi_Enemy GetProximateEnemy(Vector3 finderPos, int unitId) => _finder.GetProximateEnemy(finderPos, _master.GetEnemys(unitId));
 
-    public Multi_Enemy[] __GetProximateEnemys(Vector3 _unitPos, int maxCount, int unitId)
+    public Multi_Enemy[] GetProximateEnemys(Vector3 finderPos, int maxCount, int unitId)
     {
         if (maxCount >= _master.GetEnemys(unitId).Count) return _master.GetEnemys(unitId).ToArray();
-        return _finder.GetProximateEnemys(_unitPos, maxCount, _master.GetEnemys(unitId));
+        return _finder.GetProximateEnemys(finderPos, maxCount, _master.GetEnemys(unitId));
     }
-
-    public Transform[] GetProximateEnemys(Vector3 _unitPos, int maxCount, int unitId) 
-        => __GetProximateEnemys(_unitPos, maxCount, unitId).Select(x => x?.transform).ToArray();
 
     #region editor test
     [Header("테스트 인스팩터")]

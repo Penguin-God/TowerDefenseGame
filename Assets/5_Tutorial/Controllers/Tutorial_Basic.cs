@@ -17,4 +17,6 @@ public class Tutorial_Basic : TutorialController
         AddUI_HighLightCommend("옆에 보이는 버튼들을 이용해 획득한 유닛들을\n관리할 수 있습니다.", "UnitButtons");
         AddReadCommend("이제 알려준 내용을 이용하며 잠시 게임을 플레이해보세요!!\n때가 되면 다시 돌아오겠습니다.");
     }
+
+    protected override bool TutorialStartCondition() => true;
 }

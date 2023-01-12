@@ -74,7 +74,7 @@ namespace TutorialUseCases
 
             void SetBlindUI(RectTransform target)
             {
-                chaseUI = UnityEngine.Object.Instantiate(Resources.Load<RectTransform>("Tutorial/Chase UI"));
+                chaseUI = Object.Instantiate(Resources.Load<RectTransform>("Tutorial/Chase UI"));
                 chaseUI.parent = target;
                 chaseUI.gameObject.SetActive(true);
                 chaseUI.pivot = target.pivot;

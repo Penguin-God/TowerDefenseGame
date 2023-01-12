@@ -13,7 +13,7 @@ public abstract class TutorialController : MonoBehaviour
         AddTutorials();
         StartCoroutine(Co_WaitCondition());
     }
-    protected virtual bool TutorialStartCondition() => true;
+    protected abstract bool TutorialStartCondition();
     protected abstract void AddTutorials();
     IEnumerator Co_WaitCondition()
     {
@@ -33,7 +33,7 @@ public abstract class TutorialController : MonoBehaviour
             tutorial.TutorialAction();
             yield return new WaitUntil(() => tutorial.EndCondition());
             tutorial.EndAction();
-            yield return new WaitForSecondsRealtime(0.1f); // 2번 넘어가서 대기
+            yield return new WaitForSecondsRealtime(0.1f); // 튜토리얼 커맨드가 한 번에 2개씩 넘어가서 잠시 대기 줌
         }
         // 모든 튜토리얼이 끝나면 게임 진행
         tutorialFuntions.GameProgress();

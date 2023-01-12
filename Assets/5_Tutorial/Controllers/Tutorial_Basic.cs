@@ -14,7 +14,7 @@ public class Tutorial_Basic : TutorialController
         AddClickCommend("버튼을 눌러 유닛을 뽑아보세요", "Create_Defenser_Button");
         AddSpotLightActionCommend("유닛을 뽑으면 5골드가 소모되며\n빨간, 파란, 노란 기사 중 무작위로 하나를 획득합니다."
             , () => Multi_UnitManager.Instance.FindUnit(0, UnitClass.sowrdman).transform.position + new Vector3(0, 5, 0));
-        AddUI_HighLightCommend("옆에 보이는 버튼들을 이용해 획득한 유닛들을\n관리할 수 있습니다.", "Paint");
+        AddUI_HighLightCommend("옆에 보이는 버튼들을 이용해 획득한 유닛들을\n관리할 수 있습니다.", "UnitButtons");
         AddReadCommend("이제 알려준 내용을 이용해서 잠시  게임을 플레이해보세요!!\n때가 되면 다시 돌아오겠습니다.");
     }
 }

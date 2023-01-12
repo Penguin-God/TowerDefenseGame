@@ -48,6 +48,7 @@ public class TutorialFuntions : MonoBehaviour
 
     public void Reset_FocusUI()
     {
+        if (lightFocus_UI == null) return;
         lightFocus_UI.SetActive(false);
         lightFocus_UI.GetComponent<RectTransform>().sizeDelta = Vector2.zero;
     }

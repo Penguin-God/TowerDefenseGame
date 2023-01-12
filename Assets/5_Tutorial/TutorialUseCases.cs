@@ -56,18 +56,35 @@ namespace TutorialUseCases
     public class Highlight_UI : ITutorial
     {
         string _uiName;
+        RectTransform chaseUI = null;
         public Highlight_UI(string uiName) => _uiName = uiName;
 
         public void TutorialAction()
         {
             var showUITransform = GameObject.Find(_uiName).GetComponent<RectTransform>();
-            //tutorFuntions.SetAllButton(false);
-            //if (showUITransform != null) tutorFuntions.SetBlindUI(showUITransform);
+            if (showUITransform != null) 
+                SetBlindUI(showUITransform);
+
+            void SetBlindUI(RectTransform target)
+            {
+                chaseUI = UnityEngine.Object.Instantiate(Resources.Load<RectTransform>("Tutorial/Chase UI"));
+                chaseUI.parent = target;
+                chaseUI.gameObject.SetActive(true);
+                chaseUI.pivot = target.pivot;
+                chaseUI.anchorMin = target.anchorMin;
+                chaseUI.anchorMax = target.anchorMax;
+                chaseUI.position = target.position;
+                chaseUI.sizeDelta = target.sizeDelta;
+            }
         }
-        // public void EndAction() => tutorFuntions.Reset_FocusUI();
+
         public bool EndCondition() => Input.GetMouseButtonUp(0);
 
-        public void EndAction() { }
+        public void EndAction() 
+        {
+            chaseUI.gameObject.SetActive(false);
+            chaseUI.sizeDelta = Vector2.zero;
+        }
     }
 
     public class ButtonClickCommend : ITutorial

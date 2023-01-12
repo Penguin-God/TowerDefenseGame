@@ -71,11 +71,9 @@ public class TutorialFuntions : MonoBehaviour
         allButtons = Resources.FindObjectsOfTypeAll<Button>();
     }
 
-    public void SetAllButton(bool active)
+    public void SetAllButton(bool isActive)
     {
-        for (int i = 0; i < allButtons.Length; i++)
-        {
-            allButtons[i].enabled = active;
-        }
+        foreach (var button in FindObjectsOfType<Button>())
+            button.enabled = isActive;
     }
 }

@@ -99,10 +99,15 @@ namespace TutorialUseCases
         public void TutorialAction()
         {
             button = GameObject.Find(_uiName).GetComponent<Button>();
+            button.enabled = true;
             button.onClick.AddListener(End);
         }
         public bool EndCondition() => _isDone;
-        public void EndAction() => button.onClick.RemoveListener(End);
+        public void EndAction()
+        {
+            button.onClick.RemoveListener(End);
+            button.enabled = false;
+        }
     }
 
     public class ActionCommend : ITutorial

@@ -18,8 +18,8 @@ public abstract class TutorialController : MonoBehaviour
     IEnumerator Co_WaitCondition()
     {
         yield return new WaitUntil(() => TutorialStartCondition());
+        tutorialFuntions.SetAllButton(false);
         StartCoroutine(Co_DoTutorial());
-        
     }
 
     List<ITutorial> tutorialCommends = new List<ITutorial>();

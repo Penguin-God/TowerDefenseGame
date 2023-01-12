@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class Multi_UI_Paint : UI_Scene
 {
@@ -13,11 +14,11 @@ public class Multi_UI_Paint : UI_Scene
     {
         base.Init();
 
-        BindEvnet(_paintActiveButton, ChangePaintRootActive);
+        _paintActiveButton.GetComponent<Button>().onClick.AddListener(ChangePaintRootActive);
     }
 
     [SerializeField] GameObject _paintRoot;
-    void ChangePaintRootActive(PointerEventData data)
+    void ChangePaintRootActive()
     {
         _paintRoot.SetActive(!_paintRoot.activeSelf);
         Managers.Sound.PlayEffect(EffectSoundType.PopSound_2);

@@ -32,8 +32,8 @@ namespace ColorRandomApi.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserName")
-                        .HasColumnType("int");
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

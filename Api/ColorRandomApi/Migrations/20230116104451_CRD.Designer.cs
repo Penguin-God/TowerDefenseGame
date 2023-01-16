@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ColorRandomApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20221125131019_Unity")]
-    partial class Unity
+    [Migration("20230116104451_CRD")]
+    partial class CRD
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -34,8 +34,8 @@ namespace ColorRandomApi.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int>("UserName")
-                        .HasColumnType("int");
+                    b.Property<string>("UserName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

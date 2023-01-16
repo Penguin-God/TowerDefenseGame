@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ColorRandomApi.Migrations
 {
-    public partial class Unity : Migration
+    public partial class CRD : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace ColorRandomApi.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(nullable: false),
-                    UserName = table.Column<int>(nullable: false),
+                    UserName = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>

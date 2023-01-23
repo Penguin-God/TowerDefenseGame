@@ -15,18 +15,14 @@ public class CombineTester : MonoBehaviour
             new UnitFlags(0,0),
             new UnitFlags(0,0),
             new UnitFlags(0,0),
-            new UnitFlags(0,1),
+            new UnitFlags(1,0),
         };
         var answer = new UnitFlags[]
         {
-            new UnitFlags(1,0),
-            new UnitFlags(0,5),
+            new UnitFlags(0,1),
+            new UnitFlags(5,0),
         };
         
         Assert(answer.SequenceEqual(system.GetCombinableUnitFalgs(unitFlags)));
-        foreach (var item in system.GetCombinableUnitFalgs(unitFlags))
-        {
-            print($"{item.ColorNumber} : {item.ClassNumber}");
-        }
     }
 }

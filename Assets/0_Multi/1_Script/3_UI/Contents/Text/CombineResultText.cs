@@ -17,6 +17,9 @@ public class CombineResultText : UI_Popup
         resultText.text = "";
         waitTime = new WaitForSeconds(showTime);
         Multi_UnitManager.Instance.OnTryCombine += ShowCombineResult;
+
+        Multi_UnitManager.Instance.OnCombine += ShowCombineResultText;
+        Multi_UnitManager.Instance.OnFailedCombine += ShowCombineFaliedText;
         gameObject.SetActive(false);
     }
 
@@ -28,6 +31,19 @@ public class CombineResultText : UI_Popup
         StartCoroutine(Co_AfterInActive());
 
         string GetSuccessText() => $"{Managers.Data.UnitNameDataByFlag[flag].KoearName} 조합 성공!!";
+    }
+    
+    void ShowCombineResultText(UnitFlags flag)
+        => ShowText($"{Managers.Data.UnitNameDataByFlag[flag].KoearName} 조합 성공!!");
+
+    void ShowCombineFaliedText() => ShowText(failedText);
+
+    void ShowText(string text)
+    {
+        StopAllCoroutines();
+        resultText.text = text;
+        gameObject.SetActive(true);
+        StartCoroutine(Co_AfterInActive());
     }
 
     IEnumerator Co_AfterInActive()

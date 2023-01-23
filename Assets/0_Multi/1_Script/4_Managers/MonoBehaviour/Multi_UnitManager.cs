@@ -78,6 +78,9 @@ public class Multi_UnitManager : MonoBehaviourPun
     public bool HasUnit(UnitFlags flag, int needCount = 1) => _count.HasUnit(flag, needCount);
 
 
+    public event Action<UnitFlags> OnCombine = null;
+    public event Action OnFailedCombine = null;
+
     // events
     public event Action<int> OnUnitCountChanged = null;
     void Rasie_OnUnitCountChanged(byte count) => OnUnitCountChanged?.Invoke(count);
@@ -104,6 +107,21 @@ public class Multi_UnitManager : MonoBehaviourPun
     }
 
     // RPC Funtions....
+
+    public bool _TryCombine_RPC(UnitFlags flag)
+    {
+        if (new UnitCombineSystem().CheckCombineable(flag, (conditionFlag) => _count.GetUnitCount(conditionFlag)))
+        {
+            photonView.RPC(nameof(TryCombine), RpcTarget.MasterClient, flag, Multi_Data.instance.Id);
+            return true;
+        }
+        else
+        {
+            OnFailedCombine?.Invoke();
+            return false;
+        }
+    }
+
     public bool TryCombine_RPC(UnitFlags flag)
     {
         bool result = _combine.CheckCombineable(flag);
@@ -111,6 +129,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         return result;
     }
     [PunRPC] void TryCombine(UnitFlags flag, int id, bool isSuccess) => _combine.TryCombine(flag, id, isSuccess);
+    [PunRPC] void TryCombine(UnitFlags flag, int id) => _combine.Combine(flag, id);
 
 
     public void UnitDead_RPC(int id, UnitFlags unitFlag, int count = 1) => photonView.RPC(nameof(UnitDead), RpcTarget.MasterClient, id, unitFlag, count);
@@ -344,7 +363,7 @@ public class Multi_UnitManager : MonoBehaviourPun
                 OnTryCombine?.RaiseEvent(id, false, flag);
         }
 
-        void Combine(UnitFlags flag, int id)
+        public void Combine(UnitFlags flag, int id)
         {
             if (PhotonNetwork.IsMasterClient == false) return;
 
@@ -411,9 +430,24 @@ public class Multi_UnitManager : MonoBehaviourPun
             }
         }
 
+        void CombineGold(UnitFlags flag)
+        {
+            var conditions = Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag;
+            foreach (var item in conditions)
+            {
+                if (item.Key == new UnitFlags(2, 0))
+                {
+                    var manager = Multi_GameManager.instance;
+                    for (int i = 0; i < item.Value; i++)
+                        manager.AddGold(manager.BattleData.YellowKnightRewardGold);
+                }
+            }
+        }
+
         public void Init()
         {
             Instance.OnTryCombine += CombineGold;
+            Instance.OnCombine += CombineGold;
         }
     }
 }

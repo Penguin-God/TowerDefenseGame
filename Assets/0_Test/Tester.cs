@@ -11,9 +11,10 @@ public class Tester : MonoBehaviour
         tester.TestGenerateColorChangeResultText();
     }
 
-    [ContextMenu("Test UI")]
+    [ContextMenu("Test Combine")]
     void TestUI()
     {
-        Managers.UI.ShowUI<UI_PopupText>().Show("아사사", 3f);
+        var tester = new CombineTester();
+        tester.TestGetCombinableUnitFalgs();
     }
 }

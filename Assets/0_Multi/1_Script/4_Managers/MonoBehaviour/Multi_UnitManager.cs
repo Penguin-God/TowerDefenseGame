@@ -315,6 +315,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
 
         public bool HasUnit(UnitFlags flag, int needCount = 1) => _countByFlag[flag] >= needCount;
+        public int GetUnitCount(UnitFlags flag) => _countByFlag[flag];
     }
 
     class CombineSystem
@@ -322,6 +323,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         public RPCAction<bool, UnitFlags> OnTryCombine = new RPCAction<bool, UnitFlags>();
         UnitCountManager _countManager;
         UnitContorller _unitContorller;
+        UnitCombineSystem _unitCombineSystem = new UnitCombineSystem();
 
         public void Init(UnitCountManager countManager, UnitContorller unitContorller)
         {
@@ -330,7 +332,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
 
         public bool CheckCombineable(UnitFlags flag)
-            => Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag.All(x => _countManager.HasUnit(x.Key, x.Value));
+            => _unitCombineSystem.CheckCombineable(flag, (conditionFlag) => _countManager.GetUnitCount(conditionFlag));
 
         public void TryCombine(UnitFlags flag, int id, bool isSuccess)
         {

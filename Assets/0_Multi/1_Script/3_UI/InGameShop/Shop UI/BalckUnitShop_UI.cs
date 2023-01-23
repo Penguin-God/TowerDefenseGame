@@ -25,7 +25,7 @@ public class BalckUnitShop_UI : UI_Popup
     readonly int BALCK_NUMBER = 7;
     void TryCombineBlackUnit(int classNumber)
     {
-        if(Multi_UnitManager.Instance._TryCombine_RPC(new UnitFlags(BALCK_NUMBER, classNumber)))
+        if(Multi_UnitManager.Instance.TryCombine_RPC(new UnitFlags(BALCK_NUMBER, classNumber)))
             Managers.UI.ClosePopupUI(PopupGroupType.UnitWindow);
     }
 }

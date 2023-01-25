@@ -50,14 +50,13 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
     }
 
     void Spawn() => Spawn(Multi_Data.instance.Id);
-    void Spawn(int id) => Spawn_RPC(BuildPath(_rootPath, _enemys[_towerLevel.Get(id)]), spawnPositions[id], id);
+    public void Spawn(int id) => Spawn_RPC(BuildPath(_rootPath, _enemys[_towerLevel.Get(id)]), spawnPositions[id], id);
 
     [PunRPC]
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
     {
         Multi_EnemyTower enemy = base.BaseSpawn(path, spawnPos, rotation, id).GetComponent<Multi_EnemyTower>();
         _towerLevel.Set(id, _towerLevel.Get(id) + 1);
-        print($"ID : {id}에서 레벨 {_towerLevel.Get(id)} 짜리 타워 스폰");
         enemy.Spawn(_towerLevel.Get(id));
         OnSpawn?.Invoke(enemy);
         return null;

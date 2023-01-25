@@ -50,6 +50,12 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
         Spawn_RPC(BuildPath(_rootPath, _enemys[Random.Range(0, _enemys.Length)]), Vector3.zero);
     }
 
+    public void Spawn(int id)
+    {
+        bossLevel++;
+        Spawn_RPC(BuildPath(_rootPath, _enemys[Random.Range(0, _enemys.Length)]), Vector3.zero, id);
+    }
+
     [SerializeField] int bossLevel;
 
     [PunRPC]
@@ -62,7 +68,7 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
         return null;
     }
 
-    void RespawnBoss(int stage)
+    public void RespawnBoss(int stage)
     {
         if (stage % 10 != 0) return;
 

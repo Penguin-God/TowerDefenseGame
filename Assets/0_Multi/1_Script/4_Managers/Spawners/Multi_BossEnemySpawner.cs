@@ -17,10 +17,10 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
 
     // Init용 코드
     #region Init
-    protected override void Init()
-    {
-        Multi_StageManager.Instance.OnUpdateStage += RespawnBoss;
-    }
+    //protected override void Init()
+    //{
+    //    Multi_StageManager.Instance.OnUpdateStage += RespawnBoss;
+    //}
 
     protected override void MasterInit()
     {

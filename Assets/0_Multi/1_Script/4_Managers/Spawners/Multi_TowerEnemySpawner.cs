@@ -13,10 +13,10 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
     public RPCAction rpcOnDead = new RPCAction();
     RPCData<int> _towerLevel = new RPCData<int>();
 
-    protected override void Init()
-    {
-        Multi_GameManager.instance.OnStart += Spawn;
-    }
+    //protected override void Init()
+    //{
+    //    Multi_GameManager.instance.OnStart += Spawn;
+    //}
 
     protected override void MasterInit()
     {

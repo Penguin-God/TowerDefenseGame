@@ -64,14 +64,13 @@ class WorldInitializer
         InitSound();
         Managers.Pool.Init();
         InitEffect();
-        EventInit();
         EndInintMonoBehaviourContainer();
     }
 
     void InitMonoBehaviourContainer()
     {
         var numManager = monoBehaviourContainer.AddComponent<EnemySpawnNumManager>();
-        monoBehaviourContainer.AddComponent<StageMonsterSpawner>().SetInfo(numManager);
+        monoBehaviourContainer.AddComponent<MonsterSpawnerContorller>().SetInfo(numManager);
         monoBehaviourContainer.AddComponent<UnitColorChangerRpcHandler>();
     }
 
@@ -79,12 +78,6 @@ class WorldInitializer
     void EndInintMonoBehaviourContainer()
     {
         monoBehaviourContainer.AddComponent<OpponentStatusSynchronizer>().Init(opponentStatus);
-    }
-
-    void EventInit()
-    {
-        Multi_StageManager.Instance.OnUpdateStage -= monoBehaviourContainer.GetComponent<StageMonsterSpawner>().StageSpawn;
-        Multi_StageManager.Instance.OnUpdateStage += monoBehaviourContainer.GetComponent<StageMonsterSpawner>().StageSpawn;
     }
 
     void InitSound()

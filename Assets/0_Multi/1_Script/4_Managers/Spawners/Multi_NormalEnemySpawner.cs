@@ -76,7 +76,7 @@ public class EnemySpawnNumManager : MonoBehaviourPun
     void SetClientSpawnNumber(byte num) => _spawnEnemyNums[1] = num;
 }
 
-public class StageMonsterSpawner : MonoBehaviour
+public class MonsterSpawnerContorller : MonoBehaviour
 {
     EnemySpawnNumManager _numManager;
     public void SetInfo(EnemySpawnNumManager numManager)
@@ -84,7 +84,14 @@ public class StageMonsterSpawner : MonoBehaviour
         _numManager = numManager;
     }
 
-    public void StageSpawn(int stage)
+    void Start()
+    {
+        Multi_StageManager.Instance.OnUpdateStage += SpawnMonsterOnStageChange;
+        Multi_StageManager.Instance.OnUpdateStage += SpawnBossOnStageMultipleOfTen;
+        Multi_GameManager.instance.OnStart += SpawnTowerOnStart;
+    }
+
+    void SpawnMonsterOnStageChange(int stage)
     {
         if (stage % 10 == 0 || PhotonNetwork.IsMasterClient == false) return;
         StartCoroutine(Co_StageSpawn(0));
@@ -101,5 +108,18 @@ public class StageMonsterSpawner : MonoBehaviour
             Multi_SpawnManagers.NormalEnemy.Spawn(num, id);
             yield return new WaitForSeconds(_spawnDelayTime);
         }
+    }
+
+    void SpawnBossOnStageMultipleOfTen(int stage)
+    {
+        if (stage % 10 != 0) return;
+        Multi_SpawnManagers.BossEnemy.Spawn(0);
+        Multi_SpawnManagers.BossEnemy.Spawn(1);
+    }
+
+    void SpawnTowerOnStart()
+    {
+        Multi_SpawnManagers.TowerEnemy.Spawn(0);
+        Multi_SpawnManagers.TowerEnemy.Spawn(1);
     }
 }

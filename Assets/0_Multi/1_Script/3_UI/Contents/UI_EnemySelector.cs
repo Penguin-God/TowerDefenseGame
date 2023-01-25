@@ -7,7 +7,6 @@ using System.Linq;
 public class UI_EnemySelector : UI_Base
 {
     [SerializeField] EnemySelector_Button currentSelectButton;
-    EnemySpawnNumManager _enemySpawnNumManager;
     protected override void Init()
     {
         List<EnemySelector_Button> enemySelectBtns = GetComponentsInChildren<EnemySelector_Button>().ToList();
@@ -27,8 +26,8 @@ public class UI_EnemySelector : UI_Base
         }
     }
 
+    EnemySpawnNumManager _enemySpawnNumManager;
     public void SetInfo(EnemySpawnNumManager enemySpawnNumManager) => _enemySpawnNumManager = enemySpawnNumManager;
-
     void ChangeSpawnEnemy(EnemySelector_Button button)
     {
         if (currentSelectButton != button)

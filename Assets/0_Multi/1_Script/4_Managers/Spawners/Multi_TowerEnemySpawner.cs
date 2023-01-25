@@ -13,11 +13,6 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
     public RPCAction rpcOnDead = new RPCAction();
     RPCData<int> _towerLevel = new RPCData<int>();
 
-    //protected override void Init()
-    //{
-    //    Multi_GameManager.instance.OnStart += Spawn;
-    //}
-
     protected override void MasterInit()
     {
         OnDead += AfterSpawn;
@@ -49,7 +44,6 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
         Spawn(id);
     }
 
-    void Spawn() => Spawn(Multi_Data.instance.Id);
     public void Spawn(int id) => Spawn_RPC(BuildPath(_rootPath, _enemys[_towerLevel.Get(id)]), spawnPositions[id], id);
 
     [PunRPC]

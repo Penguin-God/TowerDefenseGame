@@ -17,10 +17,6 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
 
     // Init용 코드
     #region Init
-    //protected override void Init()
-    //{
-    //    Multi_StageManager.Instance.OnUpdateStage += RespawnBoss;
-    //}
 
     protected override void MasterInit()
     {
@@ -44,12 +40,6 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
 
     #endregion
 
-    void Spawn()
-    {
-        bossLevel++;
-        Spawn_RPC(BuildPath(_rootPath, _enemys[Random.Range(0, _enemys.Length)]), Vector3.zero);
-    }
-
     public void Spawn(int id)
     {
         bossLevel++;
@@ -66,12 +56,5 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
         OnSpawn?.Invoke(enemy);
         rpcOnSpawn?.RaiseEvent(id);
         return null;
-    }
-
-    public void RespawnBoss(int stage)
-    {
-        if (stage % 10 != 0) return;
-
-        Spawn();
     }
 }

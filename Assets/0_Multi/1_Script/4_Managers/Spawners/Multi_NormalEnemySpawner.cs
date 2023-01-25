@@ -8,12 +8,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 {
     public event Action<Multi_NormalEnemy> OnSpawn;
     public event Action<Multi_NormalEnemy> OnDead;
-    EnemySpawnNumManager _numManager;
-    public void SetInfo(EnemySpawnNumManager numManager)
-    {
-        _numManager = numManager;
-    }
-
+    
     string GetCurrentEnemyPath(int enemyNum) => BuildPath(_rootPath, _enemys[enemyNum]);
     protected override void MasterInit() => CreatePool();
 
@@ -23,15 +18,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
             CreatePoolGroup(enemyPrefab, BuildPath(_rootPath, enemyPrefab), spawnCount);
     }
 
-    public void Spawn(byte enemyNum, int spawnPlayerID) => SpawnEnemy_RPC(enemyNum, (spawnPlayerID == 0) ? 1 : 0);
-
-    void EenmySpawnToOtherWorld(Multi_NormalEnemy enemy)
-    {
-        if (enemy.resurrection.IsResurrection) return;
-
-        int id = enemy.UsingId == 0 ? 1 : 0;
-        SpawnEnemy_RPC(_numManager.GetSpawnEnemyNum(enemy.UsingId), id);
-    }
+    public void Spawn(byte enemyNum, int spawnPlayerID) => SpawnEnemy_RPC(enemyNum, spawnPlayerID);
 
     void SpawnEnemy_RPC(byte num, int id) => pv.RPC(nameof(SpawnEnemy), RpcTarget.MasterClient, num, id);
 
@@ -53,13 +40,13 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
         if (PhotonNetwork.IsMasterClient == false) return;
         enemy.OnDeath += () => OnDead(enemy);
-        enemy.OnDeath += () => EenmySpawnToOtherWorld(enemy);
         enemy.OnDeath += () => Managers.Multi.Instantiater.PhotonDestroy(enemy.gameObject);
     }
 
     public void EditorSpawn(byte enemyNum, int spawnWorldID) => SpawnEnemy_RPC(enemyNum, spawnWorldID); // 에디터용
 }
 
+// 이게 실시간으로 바뀌면 어쩔 수 없는데, 스테이지 들어간 후에 낙장불입이면 그냥 스테이지 시작할 때만 RPC 보내는게 좋을 듯.
 public class EnemySpawnNumManager : MonoBehaviourPun
 {
     byte[] _spawnEnemyNums = new byte[2];
@@ -79,13 +66,12 @@ public class EnemySpawnNumManager : MonoBehaviourPun
 public class MonsterSpawnerContorller : MonoBehaviour
 {
     EnemySpawnNumManager _numManager;
-    public void SetInfo(EnemySpawnNumManager numManager)
-    {
-        _numManager = numManager;
-    }
 
     void Start()
     {
+        _numManager = gameObject.GetOrAddComponent<EnemySpawnNumManager>();
+        if (PhotonNetwork.IsMasterClient == false) return;
+        Multi_SpawnManagers.NormalEnemy.OnDead += RespawnMonsterToOther;
         Multi_StageManager.Instance.OnUpdateStage += SpawnMonsterOnStageChange;
         Multi_StageManager.Instance.OnUpdateStage += SpawnBossOnStageMultipleOfTen;
         Multi_GameManager.instance.OnStart += SpawnTowerOnStart;
@@ -93,10 +79,16 @@ public class MonsterSpawnerContorller : MonoBehaviour
 
     void SpawnMonsterOnStageChange(int stage)
     {
-        if (stage % 10 == 0 || PhotonNetwork.IsMasterClient == false) return;
+        if (IsBossStage(stage)) return;
         StartCoroutine(Co_StageSpawn(0));
         StartCoroutine(Co_StageSpawn(1));
     }
+
+    void SpawnMonsterToOther(int id, byte monsterNumber)
+    => Multi_SpawnManagers.NormalEnemy.Spawn(monsterNumber, id == 0 ? 1 : 0);
+
+    void SpawnMonsterToOther(int id)
+        => SpawnMonsterToOther(id, _numManager.GetSpawnEnemyNum(id));
 
     [SerializeField] float _spawnDelayTime = 2f;
     [SerializeField] int _stageSpawnCount = 15;
@@ -105,14 +97,20 @@ public class MonsterSpawnerContorller : MonoBehaviour
         byte num = _numManager.GetSpawnEnemyNum(id);
         for (int i = 0; i < _stageSpawnCount; i++)
         {
-            Multi_SpawnManagers.NormalEnemy.Spawn(num, id);
+            SpawnMonsterToOther(id, num); // num 인라인 안 한 이유는 스테이지 한 번 들어가면 못 바꾸게 할려고
             yield return new WaitForSeconds(_spawnDelayTime);
         }
     }
 
+    void RespawnMonsterToOther(Multi_NormalEnemy enemy)
+    {
+        if (enemy.resurrection.IsResurrection) return;
+        SpawnMonsterToOther(enemy.UsingId);
+    }
+
     void SpawnBossOnStageMultipleOfTen(int stage)
     {
-        if (stage % 10 != 0) return;
+        if (IsBossStage(stage) == false) return;
         Multi_SpawnManagers.BossEnemy.Spawn(0);
         Multi_SpawnManagers.BossEnemy.Spawn(1);
     }
@@ -122,4 +120,6 @@ public class MonsterSpawnerContorller : MonoBehaviour
         Multi_SpawnManagers.TowerEnemy.Spawn(0);
         Multi_SpawnManagers.TowerEnemy.Spawn(1);
     }
+
+    bool IsBossStage(int stage) => stage % 10 == 0;
 }

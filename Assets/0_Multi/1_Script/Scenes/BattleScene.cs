@@ -58,7 +58,6 @@ class WorldInitializer
     {
         InitMonoBehaviourContainer();
         Multi_SpawnManagers.Instance.Init();
-        Multi_SpawnManagers.NormalEnemy.SetInfo(monoBehaviourContainer.GetComponent<EnemySpawnNumManager>());
         Show_UI();
         Managers.Camera.EnterBattleScene();
         InitSound();
@@ -69,8 +68,7 @@ class WorldInitializer
 
     void InitMonoBehaviourContainer()
     {
-        var numManager = monoBehaviourContainer.AddComponent<EnemySpawnNumManager>();
-        monoBehaviourContainer.AddComponent<MonsterSpawnerContorller>().SetInfo(numManager);
+        monoBehaviourContainer.AddComponent<MonsterSpawnerContorller>();
         monoBehaviourContainer.AddComponent<UnitColorChangerRpcHandler>();
     }
 
@@ -112,7 +110,7 @@ class WorldInitializer
         opponentStatus = Managers.UI.ShowSceneUI<UI_OpponentStatus>();
 
         var buttons = Managers.UI.ShowSceneUI<BattleButton_UI>();
-        buttons.GetComponentInChildren<UI_EnemySelector>().SetInfo(monoBehaviourContainer.GetComponent<EnemySpawnNumManager>());
+        buttons.GetComponentInChildren<UI_EnemySelector>().SetInfo(monoBehaviourContainer.GetOrAddComponent<EnemySpawnNumManager>());
     }
 
     void InitEffect()

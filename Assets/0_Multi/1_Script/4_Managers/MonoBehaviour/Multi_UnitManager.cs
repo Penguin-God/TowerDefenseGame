@@ -25,7 +25,6 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
     }
 
-    CombineSystem _combine = new CombineSystem();
     UnitCountManager _count = new UnitCountManager();
     UnitContorller _controller = new UnitContorller();
     EnemyPlayerDataManager _enemyPlayer = new EnemyPlayerDataManager();
@@ -58,8 +57,6 @@ public class Multi_UnitManager : MonoBehaviourPun
         _enemyPlayer.OnOtherUnitCountChanged += RaiseOnOtherUnitCountChaned;
 
         _passive.Init();
-
-        _combine.Init(_controller);
 
         if (PhotonNetwork.IsMasterClient == false) return;
 
@@ -118,8 +115,17 @@ public class Multi_UnitManager : MonoBehaviourPun
             return false;
         }
     }
-    
-    [PunRPC] public void Combine(UnitFlags flag, int id) => _combine.Combine(flag, id);
+
+    [PunRPC] public void Combine(UnitFlags flag, int id)
+    {
+        SacrificedUnits_ForCombine(Managers.Data.CombineConditionByUnitFalg[flag]);
+        Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
+
+        void SacrificedUnits_ForCombine(CombineCondition condition) 
+            => condition.NeedCountByFlag
+            .ToList()
+            .ForEach(x => _controller.UnitDead(id, x.Key, x.Value));
+    }
 
 
     public void UnitDead_RPC(int id, UnitFlags unitFlag, int count = 1) => photonView.RPC(nameof(UnitDead), RpcTarget.MasterClient, id, unitFlag, count);
@@ -325,20 +331,6 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         public bool HasUnit(UnitFlags flag, int needCount = 1) => _countByFlag[flag] >= needCount;
         public int GetUnitCount(UnitFlags flag) => _countByFlag[flag];
-    }
-
-    class CombineSystem
-    {
-        UnitContorller _unitContorller;
-
-        public void Init(UnitContorller unitContorller) => _unitContorller = unitContorller;
-        public void Combine(UnitFlags flag, int id)
-        {
-            SacrificedUnits_ForCombine(Managers.Data.CombineConditionByUnitFalg[flag]);
-            Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
-
-            void SacrificedUnits_ForCombine(CombineCondition condition) => condition.NeedCountByFlag.ToList().ForEach(x => _unitContorller.UnitDead(id, x.Key, x.Value));
-        }
     }
 
     class UnitStatChanger

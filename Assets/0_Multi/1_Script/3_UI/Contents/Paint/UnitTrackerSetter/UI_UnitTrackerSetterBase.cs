@@ -5,12 +5,12 @@ using System.Linq;
 
 public class UI_UnitTrackerSetterBase : UI_Base
 {
-    private Multi_UI_Paint _paint;
+    private UI_Paint _paint;
     protected UI_UnitTracker[] _unitTrackers;
 
     void Awake()
     {
-        _paint = GetComponentInParent<Multi_UI_Paint>();
+        _paint = GetComponentInParent<UI_Paint>();
         _unitTrackers = GetComponentsInChildren<UI_UnitTracker>();
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Multi_UI_Paint : UI_Scene
+public class UI_Paint : UI_Scene
 {
     [SerializeField] GameObject _currentUnitTracker;
     public GameObject CurrentUnitTracker { get => _currentUnitTracker; set => _currentUnitTracker = value; }
@@ -16,7 +16,7 @@ public class Multi_UI_Paint : UI_Scene
 
         _paintActiveButton.GetComponent<Button>().onClick.AddListener(ChangePaintRootActive);
     }
-
+    
     [SerializeField] GameObject _paintRoot;
     void ChangePaintRootActive()
     {

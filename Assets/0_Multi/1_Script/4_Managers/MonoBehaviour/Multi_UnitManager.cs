@@ -59,7 +59,6 @@ public class Multi_UnitManager : MonoBehaviourPun
         _passive.Init();
 
         if (PhotonNetwork.IsMasterClient == false) return;
-
         _controller.Init(_master);
 
         _master.Init();

@@ -40,14 +40,18 @@ public class UI_UnitTracker : UI_Base
         gameObject.SetActive(false);
 
         // TODO : 코드 꼬라지...... 고쳐야겠지?
-        int colorNumber = data.UnitFlags.ColorNumber == -1 ? unitFlags.ColorNumber : data.UnitFlags.ColorNumber;
-        int classNumber = data.UnitFlags.ClassNumber == -1 ? unitFlags.ClassNumber : data.UnitFlags.ClassNumber;
-        unitFlags = new UnitFlags(colorNumber, classNumber);
+        unitFlags = BuildUnitFlags(data.UnitFlags);
         if (data.BackGroundColor != Color.black) backGround.color = data.BackGroundColor;
         if (data.Icon != null) icon.sprite = data.Icon;
         if (string.IsNullOrEmpty(data.UnitClassName) == false) _unitClassName = data.UnitClassName;
-
         gameObject.SetActive(true); // OnEnalbe() 실행
+
+        UnitFlags BuildUnitFlags(UnitFlags flag)
+        {
+            int colorNumber = flag.ColorNumber == -1 ? unitFlags.ColorNumber : flag.ColorNumber;
+            int classNumber = flag.ClassNumber == -1 ? unitFlags.ClassNumber : flag.ClassNumber;
+            return new UnitFlags(colorNumber, classNumber);
+        }
     }
 
     void TrackUnitCount(UnitFlags unitFlag, int count)

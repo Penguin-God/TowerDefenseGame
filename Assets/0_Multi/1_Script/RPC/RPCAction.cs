@@ -40,6 +40,60 @@ class RPCAciontBase
     }
 }
 
+public abstract class RPCActionBase : IEventClear // 변환하는 무언가
+{
+    public byte Constructor(Action<EventData> recevieEvent, IEventClear clear)
+    {
+        PhotonNetwork.NetworkingClient.EventReceived -= recevieEvent;
+        PhotonNetwork.NetworkingClient.EventReceived += recevieEvent;
+        return EventIdManager.UseID(clear);
+    }
+
+    byte _eventId;
+
+    public RPCActionBase() => _eventId = new RPCAciontBase().Constructor(RecevieEvent, this);
+    public void Clear() => PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
+
+    protected void RecevieEvent(EventData data)
+    {
+        if (data.Code != _eventId) return;
+        RecevieEvent((object[])data.CustomData);
+    }
+
+    protected abstract void RecevieEvent(object[] values);
+
+    public void RaiseEvent(params object[] values)
+    {
+        Debug.Assert(PhotonNetwork.IsMasterClient, "마스터가 아닌데 이벤트를 전달하려 함");
+
+        if (PhotonNetwork.IsMasterClient) // 마스터가 맞으면 실행하고 아니면 전달
+            RecevieEvent(values);
+        else
+            RaiseEvent(values, ReceiverGroup.Others);
+    }
+
+    void RaiseEvent(object[] values, ReceiverGroup receiverGroup)
+    {
+        if (PhotonNetwork.OfflineMode) // 오프라인 모드 전용
+            RecevieEvent(values);
+        PhotonNetwork.RaiseEvent(_eventId, values, new RaiseEventOptions() { Receivers = receiverGroup }, SendOptions.SendReliable);
+    }
+    public void RaiseAll(params object[] values) => RaiseEvent(values, ReceiverGroup.All);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // 마스터한테 요청해야 하지만 개별로 적용되어야 하는 이벤트들
 public class RPCAction : IEventClear
 {
@@ -73,8 +127,7 @@ public class RPCAction : IEventClear
             OnEvent?.Invoke();
         PhotonNetwork.RaiseEvent(_eventId, null, new RaiseEventOptions() { Receivers = receiverGroup }, SendOptions.SendReliable);
     }
-    public void RaiseEventToOther(int id) => RaiseEvent((id == 0) ? 1 : 0);
-
+    
     public static RPCAction operator +(RPCAction me, Action action)
     {
         me.OnEvent += action;
@@ -123,8 +176,7 @@ public class RPCAction<T> : IEventClear
             OnEvent?.Invoke(value);
         PhotonNetwork.RaiseEvent(_eventId, new object[] { value }, new RaiseEventOptions() { Receivers = receiverGroup }, SendOptions.SendReliable);
     }
-    public void RaiseEventToOther(int id, T value) => RaiseEvent((id == 0) ? 1 : 0, value);
-
+    
     public static RPCAction<T> operator +(RPCAction<T> me, Action<T> action)
     {
         me.OnEvent += action;
@@ -168,7 +220,6 @@ public class RPCAction<T, T2> : IEventClear
         RaiseEvent(value, value2, ReceiverGroup.Others);
     }
 
-    public void RaiseEventToOther(int id, T value, T2 value2) => RaiseEvent((id == 0) ? 1 : 0, value, value2);
     public void RaiseAll(T value, T2 value2) => RaiseEvent(value, value2, ReceiverGroup.All);
     void RaiseEvent(T value, T2 value2, ReceiverGroup receiverGroup)
     {
@@ -222,7 +273,6 @@ public class RPCAction<T, T2, T3> : IEventClear
         RaiseEvent(value, value2, value3, ReceiverGroup.Others);
     }
 
-    public void RaiseEventToOther(int id, T value, T2 value2, T3 value3) => RaiseEvent((id == 0) ? 1 : 0, value, value2, value3);
     public void RaiseAll(T value, T2 value2, T3 value3) => RaiseEvent(value, value2, value3, ReceiverGroup.All);
     void RaiseEvent(T value, T2 value2, T3 value3, ReceiverGroup receiverGroup)
     {

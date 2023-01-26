@@ -239,6 +239,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         // UI 이벤트 업데이트
         CurrencyManager.Gold += 0;
         CurrencyManager.Food += 0;
+        _battleData.MaxUnit += 0;
     }
 
     [HideInInspector]

@@ -30,19 +30,10 @@ public static class EventIdManager
     }
 }
 
-class RPCAciontBase
+// 마스터한테 요청해야 하지만 개별로 적용되어야 하는 이벤트들
+public abstract class RPCActionBase : IEventClear
 {
-    public byte Constructor(Action<EventData> recevieEvent, IEventClear clear)
-    {
-        PhotonNetwork.NetworkingClient.EventReceived -= recevieEvent;
-        PhotonNetwork.NetworkingClient.EventReceived += recevieEvent;
-        return EventIdManager.UseID(clear);
-    }
-}
-
-public abstract class RPCActionBase : IEventClear // 변환하는 무언가
-{
-    public byte Constructor(Action<EventData> recevieEvent, IEventClear clear)
+    byte Constructor(Action<EventData> recevieEvent, IEventClear clear)
     {
         PhotonNetwork.NetworkingClient.EventReceived -= recevieEvent;
         PhotonNetwork.NetworkingClient.EventReceived += recevieEvent;
@@ -51,7 +42,8 @@ public abstract class RPCActionBase : IEventClear // 변환하는 무언가
 
     byte _eventId;
 
-    public RPCActionBase() => _eventId = new RPCAciontBase().Constructor(RecevieEvent, this);
+    // 자식 생성자 호출 시 자동 실행
+    public RPCActionBase() => _eventId = Constructor(RecevieEvent, this);
     public void Clear() => PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
 
     protected void RecevieEvent(EventData data)
@@ -62,11 +54,11 @@ public abstract class RPCActionBase : IEventClear // 변환하는 무언가
 
     protected abstract void RecevieEvent(object[] values);
 
-    public void RaiseEvent(params object[] values)
+    protected void RaiseEvent(int id, params object[] values)
     {
         Debug.Assert(PhotonNetwork.IsMasterClient, "마스터가 아닌데 이벤트를 전달하려 함");
 
-        if (PhotonNetwork.IsMasterClient) // 마스터가 맞으면 실행하고 아니면 전달
+        if (Multi_Data.instance.CheckIdSame(id)) // 마스터가 맞으면 실행하고 아니면 전달
             RecevieEvent(values);
         else
             RaiseEvent(values, ReceiverGroup.Others);
@@ -78,55 +70,14 @@ public abstract class RPCActionBase : IEventClear // 변환하는 무언가
             RecevieEvent(values);
         PhotonNetwork.RaiseEvent(_eventId, values, new RaiseEventOptions() { Receivers = receiverGroup }, SendOptions.SendReliable);
     }
-    public void RaiseAll(params object[] values) => RaiseEvent(values, ReceiverGroup.All);
+    protected void RaiseAll(params object[] values) => RaiseEvent(values, ReceiverGroup.All);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-// 마스터한테 요청해야 하지만 개별로 적용되어야 하는 이벤트들
-public class RPCAction : IEventClear
+public class RPCAction : RPCActionBase
 {
-    byte _eventId;
     event Action OnEvent = null;
-
-    public RPCAction() => _eventId = new RPCAciontBase().Constructor(RecevieEvent, this);
-    public void Clear() => PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
-
-    void RecevieEvent(EventData data)
-    {
-        if (data.Code != _eventId) return;
-        OnEvent?.Invoke();
-    }
-
-    public void RaiseEvent(int id)
-    {
-        Debug.Assert(PhotonNetwork.IsMasterClient, "마스터가 아닌데 이벤트를 전달하려 함");
-
-        if (Multi_Data.instance.CheckIdSame(id)) // 내가 맞으면 실행하고 아니면 전달
-        {
-            OnEvent?.Invoke();
-            return;
-        }
-        RaiseEvent(ReceiverGroup.Others);
-    }
-
-    void RaiseEvent(ReceiverGroup receiverGroup)
-    {
-        if (PhotonNetwork.OfflineMode) // 오프라인 모드 전용
-            OnEvent?.Invoke();
-        PhotonNetwork.RaiseEvent(_eventId, null, new RaiseEventOptions() { Receivers = receiverGroup }, SendOptions.SendReliable);
-    }
+    public void RaiseEvent(int id) => base.RaiseEvent(id);
+    protected override void RecevieEvent(object[] values) => OnEvent?.Invoke();
     
     public static RPCAction operator +(RPCAction me, Action action)
     {
@@ -141,42 +92,12 @@ public class RPCAction : IEventClear
     }
 }
 
-public class RPCAction<T> : IEventClear
+public class RPCAction<T> : RPCActionBase
 {
-    byte _eventId;
     event Action<T> OnEvent = null;
+    public void RaiseEvent(int id, T value) => base.RaiseEvent(id, value);
+    protected override void RecevieEvent(object[] values) => OnEvent?.Invoke((T)values[0]);
 
-    public RPCAction() => _eventId = new RPCAciontBase().Constructor(RecevieEvent, this);
-    public void Clear() => PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
-
-    void RecevieEvent(EventData data)
-    {
-        if (data.Code != _eventId) return;
-
-        T value = (T)((object[])data.CustomData)[0];
-        OnEvent?.Invoke(value);
-    }
-
-    public void RaiseEvent(int id, T value)
-    {
-        Debug.Assert(PhotonNetwork.IsMasterClient, "마스터가 아닌데 이벤트를 전달하려 함");
-
-        if (Multi_Data.instance.CheckIdSame(id)) // 내가 맞으면 실행하고 아니면 전달
-        {
-            OnEvent?.Invoke(value);
-            return;
-        }
-        RaiseEvent(value, ReceiverGroup.Others);
-    }
-
-    public void RaiseAll(T value) => RaiseEvent(value, ReceiverGroup.All);
-    void RaiseEvent(T value, ReceiverGroup receiverGroup)
-    {
-        if (PhotonNetwork.OfflineMode) // 오프라인 모드 전용
-            OnEvent?.Invoke(value);
-        PhotonNetwork.RaiseEvent(_eventId, new object[] { value }, new RaiseEventOptions() { Receivers = receiverGroup }, SendOptions.SendReliable);
-    }
-    
     public static RPCAction<T> operator +(RPCAction<T> me, Action<T> action)
     {
         me.OnEvent += action;
@@ -190,43 +111,17 @@ public class RPCAction<T> : IEventClear
     }
 }
 
-public class RPCAction<T, T2> : IEventClear
+public class RPCAction<T, T2> : RPCActionBase
 {
-    byte _eventId;
     event Action<T, T2> OnEvent = null;
 
-    public RPCAction() => _eventId = new RPCAciontBase().Constructor(RecevieEvent, this);
-    public void Clear() => PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
-
-
-    void RecevieEvent(EventData data)
+    protected override void RecevieEvent(object[] values)
     {
-        if (data.Code != _eventId) return;
-
-        T value = (T)((object[])data.CustomData)[0];
-        T2 value2 = (T2)((object[])data.CustomData)[1];
+        T value = (T)values[0];
+        T2 value2 = (T2)values[1];
         OnEvent?.Invoke(value, value2);
     }
-
-    public void RaiseEvent(int id, T value, T2 value2)
-    {
-        Debug.Assert(PhotonNetwork.IsMasterClient, "마스터가 아닌데 이벤트를 전달하려 함");
-
-        if (Multi_Data.instance.CheckIdSame(id)) // 내가 맞으면 실행하고 아니면 전달
-        {
-            OnEvent?.Invoke(value, value2);
-            return;
-        }
-        RaiseEvent(value, value2, ReceiverGroup.Others);
-    }
-
-    public void RaiseAll(T value, T2 value2) => RaiseEvent(value, value2, ReceiverGroup.All);
-    void RaiseEvent(T value, T2 value2, ReceiverGroup receiverGroup)
-    {
-        if (PhotonNetwork.OfflineMode)
-            OnEvent?.Invoke(value, value2);
-        PhotonNetwork.RaiseEvent(_eventId, new object[] { value, value2 }, new RaiseEventOptions() { Receivers = receiverGroup }, SendOptions.SendReliable);
-    }
+    public void RaiseAll(T value, T2 value2) => base.RaiseAll(value, value2);
 
     public static RPCAction<T, T2> operator +(RPCAction<T, T2> me, Action<T, T2> action)
     {
@@ -242,44 +137,17 @@ public class RPCAction<T, T2> : IEventClear
 }
 
 
-public class RPCAction<T, T2, T3> : IEventClear
+public class RPCAction<T, T2, T3> : RPCActionBase
 {
-    byte _eventId;
     event Action<T, T2, T3> OnEvent = null;
-
-    public RPCAction() => _eventId = new RPCAciontBase().Constructor(RecevieEvent, this);
-    public void Clear() => PhotonNetwork.NetworkingClient.EventReceived -= RecevieEvent;
-
-
-    void RecevieEvent(EventData data)
+    protected override void RecevieEvent(object[] values)
     {
-        if (data.Code != _eventId) return;
-
-        T value = (T)((object[])data.CustomData)[0];
-        T2 value2 = (T2)((object[])data.CustomData)[1];
-        T3 value3 = (T3)((object[])data.CustomData)[2];
+        T value = (T)values[0];
+        T2 value2 = (T2)values[1];
+        T3 value3 = (T3)values[2];
         OnEvent?.Invoke(value, value2, value3);
     }
-
-    public void RaiseEvent(int id, T value, T2 value2, T3 value3)
-    {
-        Debug.Assert(PhotonNetwork.IsMasterClient, "마스터가 아닌데 이벤트를 전달하려 함");
-
-        if (Multi_Data.instance.CheckIdSame(id)) // 내가 맞으면 실행하고 아니면 전달
-        {
-            OnEvent?.Invoke(value, value2, value3);
-            return;
-        }
-        RaiseEvent(value, value2, value3, ReceiverGroup.Others);
-    }
-
-    public void RaiseAll(T value, T2 value2, T3 value3) => RaiseEvent(value, value2, value3, ReceiverGroup.All);
-    void RaiseEvent(T value, T2 value2, T3 value3, ReceiverGroup receiverGroup)
-    {
-        if (PhotonNetwork.OfflineMode)
-            OnEvent?.Invoke(value, value2, value3);
-        PhotonNetwork.RaiseEvent(_eventId, new object[] { value, value2, value3 }, new RaiseEventOptions() { Receivers = receiverGroup }, SendOptions.SendReliable);
-    }
+    public void RaiseAll(T value, T2 value2, T3 value3) => base.RaiseAll(value, value2, value3);
 
     public static RPCAction<T, T2, T3> operator +(RPCAction<T, T2, T3> me, Action<T, T2, T3> action)
     {

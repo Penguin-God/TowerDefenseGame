@@ -48,10 +48,23 @@ public class UI_UnitTracker : UI_Base
 
         UnitFlags BuildUnitFlags(UnitFlags flag)
         {
+            if (flag.ColorNumber == -1) print("컬러");
+            if (flag.ClassNumber == -1) print("클래스");
+
             int colorNumber = flag.ColorNumber == -1 ? unitFlags.ColorNumber : flag.ColorNumber;
             int classNumber = flag.ClassNumber == -1 ? unitFlags.ClassNumber : flag.ClassNumber;
             return new UnitFlags(colorNumber, classNumber);
         }
+    }
+
+    public void SetInfoWithData(UI_UnitTrackerData data)
+    {
+        gameObject.SetActive(false);
+        unitFlags = data.UnitFlags;
+        backGround.color = data.BackGroundColor;
+        icon.sprite = data.Icon;
+        _unitClassName = data.UnitClassName;
+        gameObject.SetActive(true); // OnEnalbe() 실행
     }
 
     void TrackUnitCount(UnitFlags unitFlag, int count)

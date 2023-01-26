@@ -7,6 +7,7 @@ public class UI_UnitTrackerSetterTrigger : UI_Base
 {
     [SerializeField] UI_UnitTrackerData _unitTrackerData;
     [SerializeField] UI_UnitTrackerParent _unitTrackserSetter;
+    [SerializeField] UnitFlags flag;
 
     void Awake()
     {

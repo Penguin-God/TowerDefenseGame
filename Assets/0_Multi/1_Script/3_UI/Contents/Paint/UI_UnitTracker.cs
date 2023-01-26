@@ -10,11 +10,12 @@ public class UI_UnitTracker : UI_Base
     [SerializeField] Image icon;
     [SerializeField] Text countText;
     [SerializeField] string _unitClassName;
-
+    UnitTrakerDataModel _dataModel;
     void Awake()
     {
         backGround = GetComponent<Image>();
         countText = GetComponentInChildren<Text>();
+        _dataModel = GetComponentInParent<UnitTrakerDataModel>();
     }
 
     protected override void Init()
@@ -54,14 +55,28 @@ public class UI_UnitTracker : UI_Base
         }
     }
 
-    public void SetInfoWithData(UI_UnitTrackerData data)
+    //  여기 아래에 함수들로 리팩터링하면 됨. 필드가 null인지 아닌지로 구분하는 병신같은 코드 짜놔서 일단 빤스런함
+    public void SetInfo(UnitFlags flag)
     {
         gameObject.SetActive(false);
-        unitFlags = data.UnitFlags;
+        ApplyData(flag);
+        gameObject.SetActive(true); // OnEnalbe() 실행
+    }
+
+    void ApplyData(UnitFlags flag)
+    {
+        unitFlags = BuildUnitFlags(flag);
+        var data = _dataModel.BuildUnitTrackerData(unitFlags);
         backGround.color = data.BackGroundColor;
         icon.sprite = data.Icon;
         _unitClassName = data.UnitClassName;
-        gameObject.SetActive(true); // OnEnalbe() 실행
+    }
+
+    UnitFlags BuildUnitFlags(UnitFlags flag)
+    {
+        int colorNumber = flag.ColorNumber == -1 ? transform.GetSiblingIndex() : flag.ColorNumber;
+        int classNumber = flag.ClassNumber == -1 ? transform.GetSiblingIndex() : flag.ClassNumber;
+        return new UnitFlags(colorNumber, classNumber);
     }
 
     void TrackUnitCount(UnitFlags unitFlag, int count)

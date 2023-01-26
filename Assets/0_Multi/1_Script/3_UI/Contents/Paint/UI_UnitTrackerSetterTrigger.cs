@@ -29,7 +29,7 @@ public class UI_UnitTrackerSetterTrigger : UI_Base
     void SignalTheUnitTrackerSetter()
     {
         Managers.Sound.PlayEffect(EffectSoundType.SelectColor);
-        _unitTrackserSetter.SettingUnitTrackers(_unitTrackerData);
+        _unitTrackserSetter.SettingUnitTrackers(_unitTrackerData); // UnitFlags만 줘야됨
     }
 
     T GetOrInChildrenComponent<T>()

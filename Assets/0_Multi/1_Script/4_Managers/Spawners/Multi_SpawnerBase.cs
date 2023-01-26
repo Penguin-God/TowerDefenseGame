@@ -12,15 +12,13 @@ public enum SpawnerType
     NormalUnit,
 }
 
-public abstract class Multi_SpawnerBase : MonoBehaviour, IInstantiater
+public abstract class Multi_SpawnerBase : MonoBehaviourPun, IInstantiater
 {
     [SerializeField] protected string _rootName;
     [SerializeField] protected string _rootPath;
 
-    protected PhotonView pv;
     void Start()
     {
-        pv = GetComponent<PhotonView>();
         Init();
         if (PhotonNetwork.IsMasterClient == false) return;
         MasterInit();
@@ -42,11 +40,11 @@ public abstract class Multi_SpawnerBase : MonoBehaviour, IInstantiater
     protected virtual void SetPoolObj(GameObject go) { }
 
     protected void Spawn_RPC(string path, Vector3 spawnPos, int id) 
-        => pv.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Quaternion.identity, id);
+        => photonView.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Quaternion.identity, id);
     protected void Spawn_RPC(string path, Vector3 spawnPos) 
-        => pv.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Quaternion.identity, Multi_Data.instance.Id);
+        => photonView.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Quaternion.identity, Multi_Data.instance.Id);
     protected void Spawn_RPC(string path, Vector3 spawnPos, Quaternion rotation, int id)
-        => pv.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, rotation, id);
+        => photonView.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, rotation, id);
 
     [PunRPC]
     protected virtual GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)

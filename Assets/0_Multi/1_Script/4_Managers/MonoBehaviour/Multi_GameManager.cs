@@ -242,16 +242,16 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     }
 
     [HideInInspector]
-    public bool gameStart;
-    public event Action OnStart;
+    public bool isGameStart;
+    public event Action OnGameStart;
     [PunRPC]
     void RPC_OnStart()
     {
         SetEvent();
         gameStartButton?.gameObject?.SetActive(false);
-        OnStart?.Invoke();
-        OnStart = null;
-        gameStart = true;
+        OnGameStart?.Invoke();
+        OnGameStart = null;
+        isGameStart = true;
     }
 
     public void GameStart() => photonView.RPC(nameof(RPC_OnStart), RpcTarget.All);

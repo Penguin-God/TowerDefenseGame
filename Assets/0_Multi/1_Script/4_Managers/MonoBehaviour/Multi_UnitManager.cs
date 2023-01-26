@@ -118,7 +118,8 @@ public class Multi_UnitManager : MonoBehaviourPun
             return false;
         }
     }
-    [PunRPC] void Combine(UnitFlags flag, int id) => _combine.Combine(flag, id);
+    
+    [PunRPC] public void Combine(UnitFlags flag, int id) => _combine.Combine(flag, id);
 
 
     public void UnitDead_RPC(int id, UnitFlags unitFlag, int count = 1) => photonView.RPC(nameof(UnitDead), RpcTarget.MasterClient, id, unitFlag, count);
@@ -162,21 +163,6 @@ public class Multi_UnitManager : MonoBehaviourPun
             return list.Count == 0 ? null : list.GetRandom();
         }
 
-        public void Init()
-        {
-            foreach (var data in Multi_SpawnManagers.NormalUnit.AllUnitDatas)
-            {
-                foreach (Multi_TeamSoldier unit in data.gos.Select(x => x.GetComponent<Multi_TeamSoldier>()))
-                {
-                    _unitListByFlag.Get(0).Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
-                    _unitListByFlag.Get(1).Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
-                }
-            }
-
-            Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
-            // Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
-        }
-
         public bool TryGetUnit_If(int id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
         {
             foreach (Multi_TeamSoldier loopUnit in GetUnitList(id, flag))
@@ -194,8 +180,23 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         public IEnumerable<Multi_TeamSoldier> GetUnits(int id, Func<Multi_TeamSoldier, bool> condition = null)
         {
-            if (condition == null) _currentAllUnitsById.Get(id);
+            if (condition == null) return _currentAllUnitsById.Get(id);
             return _currentAllUnitsById.Get(id).Where(condition);
+        }
+
+        public void Init()
+        {
+            foreach (var data in Multi_SpawnManagers.NormalUnit.AllUnitDatas)
+            {
+                foreach (Multi_TeamSoldier unit in data.gos.Select(x => x.GetComponent<Multi_TeamSoldier>()))
+                {
+                    _unitListByFlag.Get(0).Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+                    _unitListByFlag.Get(1).Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+                }
+            }
+
+            Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
+            // Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
         }
 
         void AddUnit(Multi_TeamSoldier unit)

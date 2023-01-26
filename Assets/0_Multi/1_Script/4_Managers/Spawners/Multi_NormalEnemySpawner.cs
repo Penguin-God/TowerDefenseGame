@@ -20,7 +20,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 
     public void Spawn(byte enemyNum, int spawnPlayerID) => SpawnEnemy_RPC(enemyNum, spawnPlayerID);
 
-    void SpawnEnemy_RPC(byte num, int id) => pv.RPC(nameof(SpawnEnemy), RpcTarget.MasterClient, num, id);
+    void SpawnEnemy_RPC(byte num, int id) => photonView.RPC(nameof(SpawnEnemy), RpcTarget.MasterClient, num, id);
 
     [PunRPC]
     Multi_NormalEnemy SpawnEnemy(byte num, int id)
@@ -74,7 +74,7 @@ public class MonsterSpawnerContorller : MonoBehaviour
         Multi_SpawnManagers.NormalEnemy.OnDead += RespawnMonsterToOther;
         Multi_StageManager.Instance.OnUpdateStage += SpawnMonsterOnStageChange;
         Multi_StageManager.Instance.OnUpdateStage += SpawnBossOnStageMultipleOfTen;
-        Multi_GameManager.instance.OnStart += SpawnTowerOnStart;
+        Multi_GameManager.instance.OnGameStart += SpawnTowerOnStart;
     }
 
     void SpawnMonsterOnStageChange(int stage)

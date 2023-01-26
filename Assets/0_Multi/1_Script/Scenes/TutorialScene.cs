@@ -12,5 +12,6 @@ public class TutorialScene : BaseScene
         PhotonNetwork.JoinRandomRoom();
         new WorldInitializer(container).Init();
         Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").gameObject.SetActive(false);
+        gameObject.AddComponent<Tutorial_AI>();
     }
 }

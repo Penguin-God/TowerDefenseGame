@@ -30,7 +30,7 @@ public class Multi_StageManager : MonoBehaviourPun
     void Start()
     {
         if (PhotonNetwork.IsMasterClient)
-            Multi_GameManager.instance.OnStart += UpdateStage;
+            Multi_GameManager.instance.OnGameStart += UpdateStage;
 
         StageWait = new WaitForSeconds(STAGE_TIME);
     }

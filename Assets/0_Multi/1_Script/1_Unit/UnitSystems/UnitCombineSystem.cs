@@ -7,12 +7,13 @@ using System;
 public class UnitCombineSystem
 {
     public IEnumerable<UnitFlags> GetCombinableUnitFalgs(IEnumerable<UnitFlags> currentUnits)
-    {
-        return Managers.Data
+        => GetCombinableUnitFalgs((flag) => GetUnitCount(flag, currentUnits));
+
+    public IEnumerable<UnitFlags> GetCombinableUnitFalgs(Func<UnitFlags, int> getCount)
+        => Managers.Data
             .CombineConditionByUnitFalg
             .Keys
-            .Where(x => CheckCombineable(x, (flag) => GetUnitCount(flag, currentUnits)));
-    }
+            .Where(x => CheckCombineable(x, getCount));
 
     public bool CheckCombineable(UnitFlags flag, Func<UnitFlags, int> getCount)
         => Managers.Data.CombineConditionByUnitFalg[flag]

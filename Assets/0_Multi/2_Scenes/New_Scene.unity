@@ -26893,7 +26893,7 @@ MonoBehaviour:
       _currencyType: 0
       _price: 0
   gameStartButton: {fileID: 1436183892}
-  gameStart: 0
+  isGameStart: 0
 --- !u!1001 &1707620172
 PrefabInstance:
   m_ObjectHideFlags: 0

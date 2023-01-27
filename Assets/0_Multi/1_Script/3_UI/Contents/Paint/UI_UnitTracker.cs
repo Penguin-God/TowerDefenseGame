@@ -5,17 +5,22 @@ using UnityEngine.UI;
 
 public class UI_UnitTracker : UI_Base
 {
+    enum Images
+    {
+        BackGround,
+        Icon,
+    }
+
     [SerializeField] UnitFlags unitFlags;
-    [SerializeField] Image backGround;
-    [SerializeField] Image icon;
     [SerializeField] Text countText;
     [SerializeField] string _unitClassName;
     UnitTrakerDataModel _dataModel;
     void Awake()
     {
-        backGround = GetComponent<Image>();
         countText = GetComponentInChildren<Text>();
         _dataModel = GetComponentInParent<UnitTrakerDataModel>();
+
+        Bind<Image>(typeof(Images));
     }
 
     protected override void Init()
@@ -36,25 +41,6 @@ public class UI_UnitTracker : UI_Base
             Multi_UnitManager.Instance.OnUnitFlagCountChanged -= TrackUnitCount;
     }
 
-    public void SetInfo(UI_UnitTrackerData data)
-    {
-        gameObject.SetActive(false);
-
-        // TODO : 코드 꼬라지...... 고쳐야겠지?
-        unitFlags = BuildUnitFlags(data.UnitFlags);
-        if (data.BackGroundColor != Color.black) backGround.color = data.BackGroundColor;
-        if (data.Icon != null) icon.sprite = data.Icon;
-        if (string.IsNullOrEmpty(data.UnitClassName) == false) _unitClassName = data.UnitClassName;
-        gameObject.SetActive(true); // OnEnalbe() 실행
-
-        UnitFlags BuildUnitFlags(UnitFlags flag)
-        {
-            int colorNumber = flag.ColorNumber == -1 ? unitFlags.ColorNumber : flag.ColorNumber;
-            int classNumber = flag.ClassNumber == -1 ? unitFlags.ClassNumber : flag.ClassNumber;
-            return new UnitFlags(colorNumber, classNumber);
-        }
-    }
-
     //  여기 아래에 함수들로 리팩터링하면 됨. 필드가 null인지 아닌지로 구분하는 병신같은 코드 짜놔서 일단 빤스런함
     public void SetInfo(UnitFlags flag)
     {
@@ -67,8 +53,8 @@ public class UI_UnitTracker : UI_Base
     {
         unitFlags = BuildUnitFlags(flag);
         var data = _dataModel.BuildUnitTrackerData(unitFlags);
-        backGround.color = data.BackGroundColor;
-        icon.sprite = data.Icon;
+        GetImage((int)Images.BackGround).color = data.BackGroundColor;
+        GetImage((int)Images.Icon).sprite = data.Icon;
         _unitClassName = data.UnitClassName;
     }
 

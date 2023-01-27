@@ -32,7 +32,7 @@ public class UI_UnitTrackerParent : UI_Base
         }
     }
 
-    void SetTrackersInfo(UI_UnitTrackerData data) => _unitTrackers.ToList().ForEach(x => x.SetInfo(data));
+    void SetTrackersInfo(UI_UnitTrackerData data) => _unitTrackers.ToList().ForEach(x => x.SetInfo(data.UnitFlags));
 
     void CloseUnitWindowUI()
     {

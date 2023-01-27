@@ -612,6 +612,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Unit By Class
       objectReference: {fileID: 0}
+    - target: {fileID: 802729679706900097, guid: 5a74c46db5e4af3419213c9b3683f765,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5a74c46db5e4af3419213c9b3683f765, type: 3}
 --- !u!224 &1282709616338532029 stripped
@@ -643,6 +648,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Unit By Default
+      objectReference: {fileID: 0}
+    - target: {fileID: 739895786897913128, guid: 0ee571157d5909443bf7a7cd8f4a3159,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 739895786897913129, guid: 0ee571157d5909443bf7a7cd8f4a3159,
         type: 3}
@@ -911,6 +921,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Unit By Color
+      objectReference: {fileID: 0}
+    - target: {fileID: 2692499773602000617, guid: 7546a4bf33efd9342938c26a7d269585,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7546a4bf33efd9342938c26a7d269585, type: 3}

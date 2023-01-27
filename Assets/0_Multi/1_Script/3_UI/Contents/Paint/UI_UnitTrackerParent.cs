@@ -14,12 +14,12 @@ public class UI_UnitTrackerParent : UI_Base
         _unitTrackers = GetComponentsInChildren<UI_UnitTracker>();
     }
 
-    public void SettingUnitTrackers(UI_UnitTrackerData data)
+    public void SettingUnitTrackers(UnitFlags flag)
     {
         gameObject.SetActive(true);
 
         UpdateCurrentTarckerParent();
-        SetTrackersInfo(data);
+        SetTrackersInfo(flag);
         CloseUnitWindowUI();
     }
 
@@ -32,7 +32,7 @@ public class UI_UnitTrackerParent : UI_Base
         }
     }
 
-    void SetTrackersInfo(UI_UnitTrackerData data) => _unitTrackers.ToList().ForEach(x => x.SetInfo(data.UnitFlags));
+    void SetTrackersInfo(UnitFlags flag) => _unitTrackers.ToList().ForEach(x => x.SetInfo(flag));
 
     void CloseUnitWindowUI()
     {

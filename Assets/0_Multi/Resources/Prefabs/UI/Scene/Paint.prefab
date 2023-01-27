@@ -333,9 +333,24 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1337171047945894812, guid: 069226802f6d91d4a80a4a4b64c3b568,
         type: 3}
+      propertyPath: _flag._classNumber
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1337171047945894812, guid: 069226802f6d91d4a80a4a4b64c3b568,
+        type: 3}
+      propertyPath: _flag._colorNumber
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1337171047945894812, guid: 069226802f6d91d4a80a4a4b64c3b568,
+        type: 3}
       propertyPath: _unitTrackserSetter
       value: 
       objectReference: {fileID: 668750729192447439}
+    - target: {fileID: 2367268469703328492, guid: 069226802f6d91d4a80a4a4b64c3b568,
+        type: 3}
+      propertyPath: _flag._classNumber
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 2367268469703328492, guid: 069226802f6d91d4a80a4a4b64c3b568,
         type: 3}
       propertyPath: _unitTrackserSetter
@@ -343,9 +358,29 @@ PrefabInstance:
       objectReference: {fileID: 5635059462372186996}
     - target: {fileID: 2384331620600849565, guid: 069226802f6d91d4a80a4a4b64c3b568,
         type: 3}
+      propertyPath: _flag._classNumber
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2384331620600849565, guid: 069226802f6d91d4a80a4a4b64c3b568,
+        type: 3}
+      propertyPath: _flag._colorNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2384331620600849565, guid: 069226802f6d91d4a80a4a4b64c3b568,
+        type: 3}
       propertyPath: _unitTrackserSetter
       value: 
       objectReference: {fileID: 668750729192447439}
+    - target: {fileID: 3636834323702282898, guid: 069226802f6d91d4a80a4a4b64c3b568,
+        type: 3}
+      propertyPath: _flag._classNumber
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3636834323702282898, guid: 069226802f6d91d4a80a4a4b64c3b568,
+        type: 3}
+      propertyPath: _flag._colorNumber
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3636834323702282898, guid: 069226802f6d91d4a80a4a4b64c3b568,
         type: 3}
       propertyPath: _unitTrackserSetter
@@ -353,14 +388,39 @@ PrefabInstance:
       objectReference: {fileID: 668750729192447439}
     - target: {fileID: 3730060525541476041, guid: 069226802f6d91d4a80a4a4b64c3b568,
         type: 3}
+      propertyPath: _flag._classNumber
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3730060525541476041, guid: 069226802f6d91d4a80a4a4b64c3b568,
+        type: 3}
+      propertyPath: _flag._colorNumber
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3730060525541476041, guid: 069226802f6d91d4a80a4a4b64c3b568,
+        type: 3}
       propertyPath: _unitTrackserSetter
       value: 
       objectReference: {fileID: 668750729192447439}
     - target: {fileID: 5993633612450732933, guid: 069226802f6d91d4a80a4a4b64c3b568,
         type: 3}
+      propertyPath: _flag._classNumber
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5993633612450732933, guid: 069226802f6d91d4a80a4a4b64c3b568,
+        type: 3}
       propertyPath: _unitTrackserSetter
       value: 
       objectReference: {fileID: 668750729192447439}
+    - target: {fileID: 6261963055064577234, guid: 069226802f6d91d4a80a4a4b64c3b568,
+        type: 3}
+      propertyPath: _flag._classNumber
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6261963055064577234, guid: 069226802f6d91d4a80a4a4b64c3b568,
+        type: 3}
+      propertyPath: _flag._colorNumber
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6261963055064577234, guid: 069226802f6d91d4a80a4a4b64c3b568,
         type: 3}
       propertyPath: _unitTrackserSetter
@@ -761,9 +821,29 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4423198830039802814, guid: 0ee571157d5909443bf7a7cd8f4a3159,
         type: 3}
+      propertyPath: _flag._classNumber
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423198830039802814, guid: 0ee571157d5909443bf7a7cd8f4a3159,
+        type: 3}
+      propertyPath: _flag._colorNumber
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4423198830039802814, guid: 0ee571157d5909443bf7a7cd8f4a3159,
+        type: 3}
       propertyPath: _unitTrackserSetter
       value: 
       objectReference: {fileID: 6902034320480946638}
+    - target: {fileID: 4641225291723688440, guid: 0ee571157d5909443bf7a7cd8f4a3159,
+        type: 3}
+      propertyPath: _flag._classNumber
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4641225291723688440, guid: 0ee571157d5909443bf7a7cd8f4a3159,
+        type: 3}
+      propertyPath: _flag._colorNumber
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 4641225291723688440, guid: 0ee571157d5909443bf7a7cd8f4a3159,
         type: 3}
       propertyPath: _unitTrackserSetter
@@ -771,9 +851,24 @@ PrefabInstance:
       objectReference: {fileID: 6902034320480946638}
     - target: {fileID: 5005551950423460644, guid: 0ee571157d5909443bf7a7cd8f4a3159,
         type: 3}
+      propertyPath: _flag._colorNumber
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5005551950423460644, guid: 0ee571157d5909443bf7a7cd8f4a3159,
+        type: 3}
       propertyPath: _unitTrackserSetter
       value: 
       objectReference: {fileID: 6902034320480946638}
+    - target: {fileID: 6742327864779715008, guid: 0ee571157d5909443bf7a7cd8f4a3159,
+        type: 3}
+      propertyPath: _flag._classNumber
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6742327864779715008, guid: 0ee571157d5909443bf7a7cd8f4a3159,
+        type: 3}
+      propertyPath: _flag._colorNumber
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6742327864779715008, guid: 0ee571157d5909443bf7a7cd8f4a3159,
         type: 3}
       propertyPath: _unitTrackserSetter

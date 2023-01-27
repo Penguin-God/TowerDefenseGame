@@ -19,7 +19,7 @@ public class UI_UnitTrackerParent : UI_Base
         gameObject.SetActive(true);
 
         UpdateCurrentTarckerParent();
-        SetTrackersInfo(flag);
+        SortTrackers(flag);
         CloseUnitWindowUI();
     }
 
@@ -32,7 +32,7 @@ public class UI_UnitTrackerParent : UI_Base
         }
     }
 
-    void SetTrackersInfo(UnitFlags flag) => _unitTrackers.ToList().ForEach(x => x.SetInfo(flag));
+    protected virtual void SortTrackers(UnitFlags flag) { }
 
     void CloseUnitWindowUI()
     {

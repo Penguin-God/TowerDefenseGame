@@ -51,18 +51,11 @@ public class UI_UnitTracker : UI_Base
 
     void ApplyData(UnitFlags flag)
     {
-        unitFlags = BuildUnitFlags(flag);
+        unitFlags = flag;
         var data = _dataModel.BuildUnitTrackerData(unitFlags);
         GetImage((int)Images.BackGround).color = data.BackGroundColor;
         GetImage((int)Images.Icon).sprite = data.Icon;
         _unitClassName = data.UnitClassName;
-    }
-
-    UnitFlags BuildUnitFlags(UnitFlags flag)
-    {
-        int colorNumber = flag.ColorNumber == -1 ? transform.GetSiblingIndex() : flag.ColorNumber;
-        int classNumber = flag.ClassNumber == -1 ? transform.GetSiblingIndex() : flag.ClassNumber;
-        return new UnitFlags(colorNumber, classNumber);
     }
 
     void TrackUnitCount(UnitFlags unitFlag, int count)

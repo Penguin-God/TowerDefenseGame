@@ -1,17 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 
 public class UI_UnitTrackerParent : UI_Base
 {
     private UI_Paint _paint;
-    protected UI_UnitTracker[] _unitTrackers;
-
+    
     void Awake()
     {
         _paint = GetComponentInParent<UI_Paint>();
-        _unitTrackers = GetComponentsInChildren<UI_UnitTracker>();
     }
 
     public void SettingUnitTrackers(UnitFlags flag)

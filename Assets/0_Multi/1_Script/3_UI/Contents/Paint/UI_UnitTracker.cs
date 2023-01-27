@@ -15,17 +15,18 @@ public class UI_UnitTracker : UI_Base
     [SerializeField] Text countText;
     [SerializeField] string _unitClassName;
     UnitTrakerDataModel _dataModel;
+
     void Awake()
     {
         countText = GetComponentInChildren<Text>();
-        _dataModel = GetComponentInParent<UnitTrakerDataModel>();
-
-        Bind<Image>(typeof(Images));
     }
 
     protected override void Init()
     {
         GetComponentInChildren<Button>().onClick.AddListener(OnClicked);
+        _dataModel = GetComponentInParent<UnitTrakerDataModel>();
+
+        Bind<Image>(typeof(Images));
     }
 
     void OnEnable()
@@ -51,6 +52,11 @@ public class UI_UnitTracker : UI_Base
 
     void ApplyData(UnitFlags flag)
     {
+        if (_initDone == false)
+        {
+            Init();
+            _initDone = true;
+        }
         unitFlags = flag;
         var data = _dataModel.BuildUnitTrackerData(unitFlags);
         GetImage((int)Images.BackGround).color = data.BackGroundColor;

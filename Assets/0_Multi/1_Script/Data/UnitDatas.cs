@@ -57,6 +57,7 @@ public struct UnitFlags : IEquatable<UnitFlags>
     public static bool operator ==(UnitFlags lhs, UnitFlags rhs) 
         => lhs.ColorNumber == rhs.ColorNumber && lhs.ClassNumber == rhs.ClassNumber;
     public static bool operator !=(UnitFlags lhs, UnitFlags rhs) => !(lhs == rhs);
+    public override string ToString() => $"{ColorNumber} : {ClassNumber}";
 }
 
 [Serializable]

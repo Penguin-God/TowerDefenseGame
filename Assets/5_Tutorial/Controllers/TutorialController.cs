@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TutorialUseCases;
 using System;
+using System.Linq;
 
 public abstract class TutorialController : MonoBehaviour
 {
@@ -58,9 +59,16 @@ public abstract class TutorialController : MonoBehaviour
     }
     protected void AddReadCommend(string text) => tutorialCommends.Add(CreateReadCommend(text));
 
-    protected void AddSpotLightActionCommend(string text, Func<Vector3> getPos)
+    protected void AddUnitHighLightCommend(string text, UnitClass unitClass)
+        => AddUnitHighLightCommend(text, () => Multi_UnitManager.Instance.FindUnit(0, unitClass).transform.position + new Vector3(0, 5, 0));
+
+    protected void AddUnitHighLightCommend(string text, UnitFlags unitFlag)
+        => AddCompositeCommend(text, CreateSpotLightActionCommend(() => Multi_UnitManager.Instance.FindUnit(0, unitFlag).transform.position + new Vector3(0, 5, 0)));
+
+    protected void AddUnitHighLightCommend(string text, Func<Vector3> getPos)
         => AddCompositeCommend(text, CreateSpotLightActionCommend(getPos));
-    protected void AddSpotLightCommend(string text, Vector3 pos, float range = 10f)
+
+    protected void AddObjectHighLightCommend(string text, Vector3 pos, float range = 10f)
         => AddCompositeCommend(text, CreateSpotLightCommend(pos, range));
 
     protected void AddUI_HighLightCommend(string text, string uiName)
@@ -76,4 +84,11 @@ public abstract class TutorialController : MonoBehaviour
 
     protected void AddActionCommend(Action tutorialAction, Func<bool> endCondtion = null, Action endActoin = null)
         => tutorialCommends.Add(CreateActionCommend(tutorialAction, endCondtion, endActoin));
+
+    protected void AddTargetUINameToIndexNameActionCommend<T>(Func<T, bool> condition, string indexName) where T : UnityEngine.Object
+        => AddActionCommend
+        (() => FindObjectsOfType<T>() 
+        .Where(condition)
+        .First()
+        .name = indexName);
 }

@@ -12,6 +12,7 @@ public class UI_UnitTracker : UI_Base
     }
 
     [SerializeField] UnitFlags unitFlags;
+    public UnitFlags UnitFlags => unitFlags;
     [SerializeField] Text countText;
     [SerializeField] string _unitClassName;
     UnitTrakerDataModel _dataModel;

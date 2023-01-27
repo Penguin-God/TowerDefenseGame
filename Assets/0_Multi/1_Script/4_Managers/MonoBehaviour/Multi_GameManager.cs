@@ -210,7 +210,7 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
     public OtherPlayerData OtherPlayerData => _otherPlayerData;
     
     [PunRPC]
-    void CreateOtherPlayerData(SkillType mainSkill, SkillType subSkill) => _otherPlayerData = new OtherPlayerData(mainSkill, subSkill);
+    public void CreateOtherPlayerData(SkillType mainSkill, SkillType subSkill) => _otherPlayerData = new OtherPlayerData(mainSkill, subSkill);
 
     // 임시
     [SerializeField] Button gameStartButton;

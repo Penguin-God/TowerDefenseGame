@@ -13,5 +13,6 @@ public class TutorialScene : BaseScene
         new WorldInitializer(container).Init();
         Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").gameObject.SetActive(false);
         gameObject.AddComponent<Tutorial_AI>();
+        Multi_GameManager.instance.CreateOtherPlayerData(SkillType.검은유닛강화, SkillType.판매보상증가);
     }
 }

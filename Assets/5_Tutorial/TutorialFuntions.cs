@@ -30,7 +30,8 @@ public class TutorialFuntions : MonoBehaviour
     }
 
     [SerializeField] Button[] buttons = null;
-
+    [ContextMenu("a")]
+    void wqe() => SetAllButton(true);
     public void SetAllButton(bool isActive)
     {
         if (buttons.Length == 0)

@@ -16,10 +16,10 @@ public class MultiClientManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.GameVersion = GameVersion;
 
-        PhotonNetwork.ConnectUsingSettings();
+        // PhotonNetwork.ConnectUsingSettings();
 
-        MultiStartButton.interactable = false;
-
+        // MultiStartButton.interactable = false;
+        MultiStartButton.interactable = true;
         ConnectionInfoText.text = "Loading...";
     }
 

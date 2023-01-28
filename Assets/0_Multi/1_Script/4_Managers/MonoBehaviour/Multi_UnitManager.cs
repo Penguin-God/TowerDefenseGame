@@ -70,7 +70,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     public IReadOnlyDictionary<UnitFlags, int> UnitCountByFlag => _count._countByFlag;
     public int CurrentUnitCount => _count._currentCount;
     public IEnumerable<UnitFlags> CombineableUnitFlags
-        => new UnitCombineSystem().GetCombinableUnitFalgs((flag) => UnitCountByFlag[flag]);
+      => new UnitCombineSystem().GetCombinableUnitFalgs((flag) => UnitCountByFlag[flag]);
     public int EnemyPlayerHasCount => _enemyPlayer.EnemyPlayerHasUnitAllCount;
     public bool HasUnit(UnitFlags flag, int needCount = 1) => _count.HasUnit(flag, needCount);
 

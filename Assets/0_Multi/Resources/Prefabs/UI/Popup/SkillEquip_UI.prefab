@@ -325,7 +325,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4420798241431247638}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -604,7 +604,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6111688496870773506}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -1313,10 +1313,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3961704648563215551, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5085609274850152376, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
         type: 3}
       propertyPath: m_Name
       value: SkillGoodsFrame_UI (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6587367954609342490, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab937ce6ae2ca874ebfe1b68d35d98c7, type: 3}
@@ -1438,10 +1448,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3961704648563215551, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5085609274850152376, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
         type: 3}
       propertyPath: m_Name
       value: SkillGoodsFrame_UI (9)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6587367954609342490, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab937ce6ae2ca874ebfe1b68d35d98c7, type: 3}
@@ -1563,10 +1583,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3961704648563215551, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5085609274850152376, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
         type: 3}
       propertyPath: m_Name
       value: SkillGoodsFrame_UI (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6587367954609342490, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab937ce6ae2ca874ebfe1b68d35d98c7, type: 3}
@@ -1688,10 +1718,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3961704648563215551, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5085609274850152376, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
         type: 3}
       propertyPath: m_Name
       value: SkillGoodsFrame_UI (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6587367954609342490, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab937ce6ae2ca874ebfe1b68d35d98c7, type: 3}
@@ -1813,10 +1853,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3961704648563215551, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5085609274850152376, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
         type: 3}
       propertyPath: m_Name
       value: SkillGoodsFrame_UI
+      objectReference: {fileID: 0}
+    - target: {fileID: 6587367954609342490, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab937ce6ae2ca874ebfe1b68d35d98c7, type: 3}
@@ -1938,10 +1988,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3961704648563215551, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5085609274850152376, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
         type: 3}
       propertyPath: m_Name
       value: SkillGoodsFrame_UI (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6587367954609342490, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab937ce6ae2ca874ebfe1b68d35d98c7, type: 3}
@@ -2063,10 +2123,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3961704648563215551, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5085609274850152376, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
         type: 3}
       propertyPath: m_Name
       value: SkillGoodsFrame_UI (7)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6587367954609342490, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab937ce6ae2ca874ebfe1b68d35d98c7, type: 3}
@@ -2188,10 +2258,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3961704648563215551, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5085609274850152376, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
         type: 3}
       propertyPath: m_Name
       value: SkillGoodsFrame_UI (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6587367954609342490, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab937ce6ae2ca874ebfe1b68d35d98c7, type: 3}
@@ -2313,10 +2393,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3961704648563215551, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5085609274850152376, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
         type: 3}
       propertyPath: m_Name
       value: SkillGoodsFrame_UI (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6587367954609342490, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab937ce6ae2ca874ebfe1b68d35d98c7, type: 3}
@@ -2438,10 +2528,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3961704648563215551, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5085609274850152376, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
         type: 3}
       propertyPath: m_Name
       value: SkillGoodsFrame_UI (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6587367954609342490, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab937ce6ae2ca874ebfe1b68d35d98c7, type: 3}
@@ -2563,10 +2663,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3961704648563215551, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5085609274850152376, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
         type: 3}
       propertyPath: m_Name
       value: SkillGoodsFrame_UI (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6587367954609342490, guid: ab937ce6ae2ca874ebfe1b68d35d98c7,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab937ce6ae2ca874ebfe1b68d35d98c7, type: 3}

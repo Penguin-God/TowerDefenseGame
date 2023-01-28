@@ -21,10 +21,19 @@ public class BattleScene : BaseScene
 
     void Start()
     {
-        FindObjectOfType<EffectInitializer>().SettingEffect(InitUserSkill());
+        FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill());
     }
 
-    IEnumerable<UserSkill> InitUserSkill()
+    public override void Clear()
+    {
+        EventIdManager.Clear();
+        Managers.Pool.Clear();
+    }
+}
+
+class UserSkillInitializer
+{
+    public IEnumerable<UserSkill> InitUserSkill()
     {
         List<UserSkill> userSkills = new List<UserSkill>();
         foreach (var skillType in Managers.ClientData.EquipSkillManager.EquipSkills)
@@ -36,12 +45,6 @@ public class BattleScene : BaseScene
             userSkills.Add(userSkill);
         }
         return userSkills;
-    }
-
-    public override void Clear()
-    {
-        EventIdManager.Clear();
-        Managers.Pool.Clear();
     }
 }
 

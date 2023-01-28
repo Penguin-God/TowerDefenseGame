@@ -29,14 +29,9 @@ public class TutorialFuntions : MonoBehaviour
         OnLigth();
     }
 
-    [SerializeField] Button[] buttons = null;
-    [ContextMenu("a")]
-    void wqe() => SetAllButton(true);
     public void SetAllButton(bool isActive)
     {
-        if (buttons.Length == 0)
-            buttons = Resources.FindObjectsOfTypeAll<Button>();
-        foreach (var button in buttons)
+        foreach (var button in GameObject.FindObjectsOfType<Button>())
             button.enabled = isActive;
     }
 }

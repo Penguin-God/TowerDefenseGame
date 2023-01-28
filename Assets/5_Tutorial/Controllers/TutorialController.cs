@@ -21,7 +21,7 @@ public abstract class TutorialController : MonoBehaviour
     IEnumerator Co_WaitCondition()
     {
         yield return new WaitUntil(() => TutorialStartCondition());
-        tutorialFuntions.SetAllButton(true);
+        tutorialFuntions.SetAllButton(false); // 이거 지워야 됨
         StartCoroutine(Co_DoTutorial());
     }
 

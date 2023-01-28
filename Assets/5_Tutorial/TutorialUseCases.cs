@@ -28,6 +28,7 @@ namespace TutorialUseCases
             _textUI = Managers.UI.ShowUI<UI_PopupText>();
             _textUI.SetPosition(new Vector2(0, 110));
             _textUI.Show(_text, Color.white);
+            _textUI.GetComponent<Canvas>().sortingOrder = 3333;
         }
         public void EndAction() => Object.Destroy(_textUI.gameObject);
         public bool EndCondition() => Input.GetMouseButtonUp(0);
@@ -84,16 +85,13 @@ namespace TutorialUseCases
                 chaseUI.anchorMax = target.anchorMax;
                 chaseUI.position = target.position;
                 chaseUI.sizeDelta = target.sizeDelta;
+                chaseUI.parent = GameObject.Find("TestCanvas").transform;
             }
         }
 
         public bool EndCondition() => Input.GetMouseButtonUp(0);
 
-        public void EndAction() 
-        {
-            chaseUI.gameObject.SetActive(false);
-            chaseUI.sizeDelta = Vector2.zero;
-        }
+        public void EndAction() => Object.Destroy(chaseUI.gameObject);
     }
 
     public class ButtonClickCommend : ITutorial

@@ -238,7 +238,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 221570550183397271}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -289,8 +289,6 @@ MonoBehaviour:
   unitFlags:
     _colorNumber: 0
     _classNumber: 0
-  backGround: {fileID: 0}
-  icon: {fileID: 221570550671637388}
   countText: {fileID: 0}
   _unitClassName: 
 --- !u!1 &221570550671637390

@@ -163,15 +163,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitTrackerData:
-    _UnitFlags:
-      _colorNumber: 2
-      _classNumber: -1
-    _icon: {fileID: 0}
-    _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
-    _unitClassName: 
-  _unitTrackserSetter: {fileID: 0}
-  flag:
+  _unitTrackerParent: {fileID: 0}
+  _flag:
     _colorNumber: 0
     _classNumber: 0
 --- !u!114 &8595300365617583013
@@ -181,7 +174,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7225387103768642116}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -306,15 +299,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitTrackerData:
-    _UnitFlags:
-      _colorNumber: 4
-      _classNumber: -1
-    _icon: {fileID: 0}
-    _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
-    _unitClassName: 
-  _unitTrackserSetter: {fileID: 0}
-  flag:
+  _unitTrackerParent: {fileID: 0}
+  _flag:
     _colorNumber: 0
     _classNumber: 0
 --- !u!114 &4130579187465243030
@@ -324,7 +310,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7225387103776076500}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -444,7 +430,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7225387103779262391}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -492,15 +478,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitTrackerData:
-    _UnitFlags:
-      _colorNumber: 0
-      _classNumber: -1
-    _icon: {fileID: 0}
-    _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
-    _unitClassName: 
-  _unitTrackserSetter: {fileID: 0}
-  flag:
+  _unitTrackerParent: {fileID: 0}
+  _flag:
     _colorNumber: 0
     _classNumber: 0
 --- !u!1 &7225387104044950975
@@ -666,15 +645,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitTrackerData:
-    _UnitFlags:
-      _colorNumber: 3
-      _classNumber: -1
-    _icon: {fileID: 0}
-    _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
-    _unitClassName: 
-  _unitTrackserSetter: {fileID: 0}
-  flag:
+  _unitTrackerParent: {fileID: 0}
+  _flag:
     _colorNumber: 0
     _classNumber: 0
 --- !u!114 &7693312031151697699
@@ -684,7 +656,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7225387104263421827}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -1179,15 +1151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitTrackerData:
-    _UnitFlags:
-      _colorNumber: 0
-      _classNumber: -1
-    _icon: {fileID: 0}
-    _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
-    _unitClassName: 
-  _unitTrackserSetter: {fileID: 0}
-  flag:
+  _unitTrackerParent: {fileID: 0}
+  _flag:
     _colorNumber: 0
     _classNumber: 0
 --- !u!114 &5800481731627552010
@@ -1197,7 +1162,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7225387105062467909}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -1478,15 +1443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitTrackerData:
-    _UnitFlags:
-      _colorNumber: 1
-      _classNumber: -1
-    _icon: {fileID: 0}
-    _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
-    _unitClassName: 
-  _unitTrackserSetter: {fileID: 0}
-  flag:
+  _unitTrackerParent: {fileID: 0}
+  _flag:
     _colorNumber: 0
     _classNumber: 0
 --- !u!114 &7048610888668828767
@@ -1496,7 +1454,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7225387105564114511}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -1616,7 +1574,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7225387105588026993}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -1664,15 +1622,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _unitTrackerData:
-    _UnitFlags:
-      _colorNumber: 5
-      _classNumber: -1
-    _icon: {fileID: 0}
-    _backGroundColor: {r: 0, g: 0, b: 0, a: 0}
-    _unitClassName: 
-  _unitTrackserSetter: {fileID: 0}
-  flag:
+  _unitTrackerParent: {fileID: 0}
+  _flag:
     _colorNumber: 0
     _classNumber: 0
 --- !u!1 &8047831394469072420
@@ -1758,7 +1709,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8047831394469072420}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 

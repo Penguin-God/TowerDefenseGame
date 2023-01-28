@@ -16,5 +16,6 @@ public class TutorialTestButtonDrawer : Editor
         if (GUILayout.Button("적군의 성")) tester.AddTutorial<Tutorial_Tower>();
         if (GUILayout.Button("보스")) tester.AddTutorial<Tutorial_Boss>();
         if (GUILayout.Button("조합")) tester.AddTutorial<Tutorial_Combine>();
+        if (GUILayout.Button("유저 스킬")) tester.AddTutorial<Tutorial_UserSkill>();
     }
 }

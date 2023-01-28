@@ -13,9 +13,11 @@ public abstract class TutorialController : MonoBehaviour
         tutorialFuntions = FindObjectOfType<TutorialFuntions>();
         AddTutorials();
         StartCoroutine(Co_WaitCondition());
+        Init();
     }
     protected abstract bool TutorialStartCondition();
     protected abstract void AddTutorials();
+    protected virtual void Init() { }
     IEnumerator Co_WaitCondition()
     {
         yield return new WaitUntil(() => TutorialStartCondition());

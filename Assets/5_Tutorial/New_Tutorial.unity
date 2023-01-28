@@ -20492,7 +20492,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1251197228
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27145,21 +27145,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2307ab77a99dc4ea5f959875dcb5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _battleData:
-    _currencyManager:
-      _gold: 0
-      _food: 0
-    _maxUnit: 0
-    _maxEnemyCount: 0
-    _stageUpGold: 0
-    _yellowKnightRewardGold: 0
-    _unitSellPriceRecord:
-      _priceDatas: []
-    _whiteUnitPriceRecord:
-      _priceDatas: []
-    _maxUnitIncreaseRecord:
-      _currencyType: 0
-      _price: 0
   gameStartButton: {fileID: 0}
   isGameStart: 0
 --- !u!1001 &1707620172

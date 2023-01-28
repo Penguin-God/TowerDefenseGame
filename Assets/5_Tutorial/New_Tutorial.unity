@@ -27145,6 +27145,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c2307ab77a99dc4ea5f959875dcb5ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _battleData:
+    _currencyManager:
+      _gold: 0
+      _food: 0
+    _maxUnit: 0
+    _maxEnemyCount: 0
+    _stageUpGold: 0
+    _yellowKnightRewardGold: 0
+    _unitSellPriceRecord:
+      _priceDatas: []
+    _whiteUnitPriceRecord:
+      _priceDatas: []
+    _maxUnitIncreaseRecord:
+      _currencyType: 0
+      _price: 0
   gameStartButton: {fileID: 0}
   isGameStart: 0
 --- !u!1001 &1707620172
@@ -32795,7 +32810,7 @@ GameObject:
   - component: {fileID: 2076307780}
   - component: {fileID: 2076307779}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: TutorialTester
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

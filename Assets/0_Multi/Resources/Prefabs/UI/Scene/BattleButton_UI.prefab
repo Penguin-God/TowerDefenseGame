@@ -1150,7 +1150,7 @@ RectTransform:
   m_Children:
   - {fileID: 6235879654345495085}
   - {fileID: 800013554208043170}
-  - {fileID: 2922624691279704244}
+  - {fileID: 8811749291953989858}
   - {fileID: 7945228912430607196}
   - {fileID: 1377265400640463912}
   m_Father: {fileID: 0}
@@ -1825,13 +1825,18 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\uC0C1\uB300 \uC9C4\uC601\uC73C\uB85C"
---- !u!1001 &5164585190065557003
+--- !u!1001 &1543303354357995101
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 7379661557265807696}
     m_Modifications:
+    - target: {fileID: -5326963598418172787, guid: 067b4dd2c6f8a6e4b943d94ac212e872,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8008373694975639230, guid: 067b4dd2c6f8a6e4b943d94ac212e872,
         type: 3}
       propertyPath: m_Name
@@ -1942,36 +1947,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8008373695937988068, guid: 067b4dd2c6f8a6e4b943d94ac212e872,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9067018651178333675, guid: 067b4dd2c6f8a6e4b943d94ac212e872,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9067018651185488191, guid: 067b4dd2c6f8a6e4b943d94ac212e872,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9067018652295827687, guid: 067b4dd2c6f8a6e4b943d94ac212e872,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9067018652329930156, guid: 067b4dd2c6f8a6e4b943d94ac212e872,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 067b4dd2c6f8a6e4b943d94ac212e872, type: 3}
---- !u!224 &2922624691279704244 stripped
+--- !u!224 &8811749291953989858 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8008373694975639231, guid: 067b4dd2c6f8a6e4b943d94ac212e872,
     type: 3}
-  m_PrefabInstance: {fileID: 5164585190065557003}
+  m_PrefabInstance: {fileID: 1543303354357995101}
   m_PrefabAsset: {fileID: 0}

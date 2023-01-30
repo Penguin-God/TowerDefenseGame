@@ -74,50 +74,24 @@ public class Taegeuk : UserSkill
         _originDamages = new int[] { 25, 250, 4000, 25000 }; // 상수값 없애기
     }
 
-    void UseSkill() // TODO : RPC 콜 줄이기. 지금은 유닛 소환될 때마다 계속 부름 
-    {
-        var newFlags = new TaegeukConditionChecker().GetTaegeukFlags();
-        // if(_unitTaegeukOnFalgs.SequenceEqual(newFlags)) return;
-
-        int[] datas = GetData().Select(x => (int)x).ToArray();
-        var strongDamages = new UnitDamages(datas[0], datas[1], datas[2], datas[3]);
-        var originDamages = new UnitDamages(25, 250, 4000, 25000);
-
-        for (int i = 0; i < _unitTaegeukOnFalgs.Length; i++)
-        {
-            //if (_unitTaegeukOnFalgs[i] == newFlags[i])
-            //    continue;
-
-            _unitTaegeukOnFalgs[i] = newFlags[i];
-            int applyDamage = _unitTaegeukOnFalgs[i] ? strongDamages.Damages[i] : originDamages.Damages[i];
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(0, i), applyDamage);
-            Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(1, i), applyDamage);
-            OnUnitSkillFlagChanged?.Invoke((UnitClass)i, _unitTaegeukOnFalgs[i]);
-            Debug.Log($"변동된 유닛 : {(UnitClass)i}. 대미지 : {applyDamage}");
-        }
-    }
-
     void UseSkill(UnitClass unitClass)
     {
         bool isTaegeukConditionMet = new TaegeukConditionChecker().CheckTaegeukCondition(unitClass);
+        ApplyUnitDamge(unitClass, isTaegeukConditionMet);
+        OnUnitSkillFlagChanged?.Invoke(unitClass, isTaegeukConditionMet);
+    }
+
+    void ApplyUnitDamge(UnitClass unitClass, bool isTaegeukConditionMet)
+    {
         int applyDamage = isTaegeukConditionMet ? _taegeukDamages[(int)unitClass] : _originDamages[(int)unitClass];
         Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(UnitColor.red, unitClass), applyDamage);
         Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(UnitColor.blue, unitClass), applyDamage);
-        OnUnitSkillFlagChanged?.Invoke(unitClass, _unitTaegeukOnFalgs[(int)unitClass]);
         Debug.Log($"변동된 유닛 : {unitClass}. 대미지 : {applyDamage}");
     }
 }
 
 public class TaegeukConditionChecker
 {
-    public bool[] GetTaegeukFlags() => new bool[]
-    {
-        CheckTaegeukCondition(UnitClass.sowrdman),
-        CheckTaegeukCondition(UnitClass.archer),
-        CheckTaegeukCondition(UnitClass.spearman),
-        CheckTaegeukCondition(UnitClass.mage),
-    };
-
     public bool CheckTaegeukCondition(UnitClass unitClass)
         => GetCounts(UnitColor.red)[(int)unitClass] >= 1 && GetCounts(UnitColor.blue)[(int)unitClass] >= 1 && TaegeukOtherColorsCounts[(int)unitClass] == 0;
 

@@ -70,8 +70,15 @@ public class Taegeuk : UserSkill
     public override void InitSkill()
     {
         Multi_UnitManager.Instance.OnUnitFlagCountChanged += (flag, count) => UseSkill(flag.UnitClass);
+        EnrichDamagesData();
+    }
+
+    void EnrichDamagesData()
+    {
         _taegeukDamages = GetData().Select(x => (int)x).ToArray();
-        _originDamages = new int[] { 25, 250, 4000, 25000 }; // 상수값 없애기
+
+        for (int i = 0; i < _originDamages.Length; i++)
+            _originDamages[i] = Managers.Data.GetUnitStat(new UnitFlags(0, i)).Damage;
     }
 
     void UseSkill(UnitClass unitClass)
@@ -86,7 +93,6 @@ public class Taegeuk : UserSkill
         int applyDamage = isTaegeukConditionMet ? _taegeukDamages[(int)unitClass] : _originDamages[(int)unitClass];
         Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(UnitColor.red, unitClass), applyDamage);
         Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(UnitColor.blue, unitClass), applyDamage);
-        Debug.Log($"변동된 유닛 : {unitClass}. 대미지 : {applyDamage}");
     }
 }
 

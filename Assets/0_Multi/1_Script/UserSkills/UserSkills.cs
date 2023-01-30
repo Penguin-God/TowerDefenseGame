@@ -60,10 +60,9 @@ public class MaxUnit : UserSkill
 
 public class Taegeuk : UserSkill
 {
-    public event Action<UnitClass, bool> OnUnitSkillFlagChanged;
+    public event Action<UnitClass, bool> OnTaegeukDamageChanged;
     static readonly int UnitClassCount = Enum.GetValues(typeof(UnitClass)).Length;
 
-    bool[] _unitTaegeukOnFalgs = new bool[UnitClassCount];
     int[] _taegeukDamages = new int[UnitClassCount];
     int[] _originDamages = new int[UnitClassCount];
 
@@ -71,22 +70,30 @@ public class Taegeuk : UserSkill
     {
         Multi_UnitManager.Instance.OnUnitFlagCountChanged += (flag, count) => UseSkill(flag.UnitClass);
         EnrichDamagesData();
+
+        void EnrichDamagesData()
+        {
+            _taegeukDamages = GetData().Select(x => (int)x).ToArray();
+
+            for (int i = 0; i < _originDamages.Length; i++)
+                _originDamages[i] = Managers.Data.GetUnitStat(new UnitFlags(0, i)).Damage;
+        }
     }
 
-    void EnrichDamagesData()
-    {
-        _taegeukDamages = GetData().Select(x => (int)x).ToArray();
-
-        for (int i = 0; i < _originDamages.Length; i++)
-            _originDamages[i] = Managers.Data.GetUnitStat(new UnitFlags(0, i)).Damage;
-    }
+    TaegeukConditionChecker _taegeukConditionChecker = new TaegeukConditionChecker();
+    bool[] _currentTaegeukFlags = new bool[UnitClassCount];
 
     void UseSkill(UnitClass unitClass)
     {
-        bool isTaegeukConditionMet = new TaegeukConditionChecker().CheckTaegeukCondition(unitClass);
-        ApplyUnitDamge(unitClass, isTaegeukConditionMet);
-        OnUnitSkillFlagChanged?.Invoke(unitClass, isTaegeukConditionMet);
+        if (TaegeukUnitDamageChangeCondition(unitClass) == false) return;
+
+        _currentTaegeukFlags[(int)unitClass] = _taegeukConditionChecker.GetTaegeukFlagByUnitClass(unitClass);
+        ApplyUnitDamge(unitClass, _currentTaegeukFlags[(int)unitClass]);
+        OnTaegeukDamageChanged?.Invoke(unitClass, _currentTaegeukFlags[(int)unitClass]);
     }
+
+    bool TaegeukUnitDamageChangeCondition(UnitClass unitClass) // false => false만 아니면 true
+        => _currentTaegeukFlags[(int)unitClass] != false || _taegeukConditionChecker.GetTaegeukFlagByUnitClass(unitClass) != false;
 
     void ApplyUnitDamge(UnitClass unitClass, bool isTaegeukConditionMet)
     {
@@ -98,7 +105,7 @@ public class Taegeuk : UserSkill
 
 public class TaegeukConditionChecker
 {
-    public bool CheckTaegeukCondition(UnitClass unitClass)
+    public bool GetTaegeukFlagByUnitClass(UnitClass unitClass)
         => GetCounts(UnitColor.red)[(int)unitClass] >= 1 && GetCounts(UnitColor.blue)[(int)unitClass] >= 1 && TaegeukOtherColorsCounts[(int)unitClass] == 0;
 
     int[] TaegeukOtherColorsCounts

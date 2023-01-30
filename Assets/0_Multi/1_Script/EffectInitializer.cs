@@ -13,7 +13,7 @@ public class EffectInitializer : MonoBehaviourPun
         {
             var taegeuk = skill as Taegeuk;
             if (taegeuk != null)
-                taegeuk.OnUnitSkillFlagChanged += TaeguekEffect_RPC;
+                taegeuk.OnTaegeukDamageChanged += TaeguekEffect_RPC;
 
             var blackUnitUp = skill as BlackUnitUpgrade;
             if (blackUnitUp != null)

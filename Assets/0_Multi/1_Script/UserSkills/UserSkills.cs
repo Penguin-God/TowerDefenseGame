@@ -60,93 +60,25 @@ public class MaxUnit : UserSkill
 
 public class Taegeuk : UserSkill
 {
-    // 빨강, 파랑을 제외한 유닛 수
-    List<int> Ather
-    {
-        get
-        {
-            List<int> countList = new List<int>();
-            int SwordmanCount = 0;
-            int ArhcerCount = 0;
-            int SpearmanCount = 0;
-            int MageCount = 0;
-
-            for (int i = 2; i < 6; i++)
-            {
-                SwordmanCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(i, 0)];
-                ArhcerCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(i, 1)];
-                SpearmanCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(i, 2)];
-                MageCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(i, 3)];
-            }
-
-            countList.Add(SwordmanCount);
-            countList.Add(ArhcerCount);
-            countList.Add(SpearmanCount);
-            countList.Add(MageCount);
-
-            return countList;
-        }
-    }
-
-    List<int> Red
-    {
-        get
-        {
-            List<int> countList = new List<int>();
-            int SwordmanCount = 0;
-            int ArhcerCount = 0;
-            int SpearmanCount = 0;
-            int MageCount = 0;
-
-            SwordmanCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(0, 0)];
-            ArhcerCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(0, 1)];
-            SpearmanCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(0, 2)];
-            MageCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(0, 3)];
-
-            countList.Add(SwordmanCount);
-            countList.Add(ArhcerCount);
-            countList.Add(SpearmanCount);
-            countList.Add(MageCount);
-
-            return countList;
-        }
-    }
-
-    List<int> Blue
-    {
-        get
-        {
-            List<int> countList = new List<int>();
-            int SwordmanCount = 0;
-            int ArhcerCount = 0;
-            int SpearmanCount = 0;
-            int MageCount = 0;
-
-            SwordmanCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(1, 0)];
-            ArhcerCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(1, 1)];
-            SpearmanCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(1, 2)];
-            MageCount += Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(1, 3)];
-
-            countList.Add(SwordmanCount);
-            countList.Add(ArhcerCount);
-            countList.Add(SpearmanCount);
-            countList.Add(MageCount);
-
-            return countList;
-        }
-    }
-
     public event Action<UnitClass, bool> OnUnitSkillFlagChanged;
-    bool[] _unitTaegeukOnFalgs = new bool[Enum.GetValues(typeof(UnitClass)).Length];
+    static readonly int UnitClassCount = Enum.GetValues(typeof(UnitClass)).Length;
 
-    public override void InitSkill() => Multi_UnitManager.Instance.OnUnitFlagCountChanged += (count, flag) => UseSkill();
+    bool[] _unitTaegeukOnFalgs = new bool[UnitClassCount];
+    int[] _taegeukDamages = new int[UnitClassCount];
+    int[] _originDamages = new int[UnitClassCount];
+
+    public override void InitSkill()
+    {
+        Multi_UnitManager.Instance.OnUnitFlagCountChanged += (flag, count) => UseSkill(flag.UnitClass);
+        _taegeukDamages = GetData().Select(x => (int)x).ToArray();
+        _originDamages = new int[] { 25, 250, 4000, 25000 }; // 상수값 없애기
+    }
 
     void UseSkill() // TODO : RPC 콜 줄이기. 지금은 유닛 소환될 때마다 계속 부름 
     {
-        var newFlags = GetTaegeukFlags();
+        var newFlags = new TaegeukConditionChecker().GetTaegeukFlags();
         // if(_unitTaegeukOnFalgs.SequenceEqual(newFlags)) return;
 
-        Debug.Log("통과함");
         int[] datas = GetData().Select(x => (int)x).ToArray();
         var strongDamages = new UnitDamages(datas[0], datas[1], datas[2], datas[3]);
         var originDamages = new UnitDamages(25, 250, 4000, 25000);
@@ -165,21 +97,48 @@ public class Taegeuk : UserSkill
         }
     }
 
-    bool[] GetTaegeukFlags()
+    void UseSkill(UnitClass unitClass)
     {
-        bool[] result = new bool[Enum.GetValues(typeof(UnitClass)).Length];
-
-        if (Red[0] >= 1 && Blue[0] >= 1 && Ather[0] == 0)
-            result[0] = true;
-        if (Red[1] >= 1 && Blue[1] >= 1 && Ather[1] == 0)
-            result[1] = true;
-        if (Red[2] >= 1 && Blue[2] >= 1 && Ather[2] == 0)
-            result[2] = true;
-        if (Red[3] >= 1 && Blue[3] >= 1 && Ather[3] == 0)
-            result[3] = true;
-
-        return result;
+        bool isTaegeukConditionMet = new TaegeukConditionChecker().CheckTaegeukCondition(unitClass);
+        int applyDamage = isTaegeukConditionMet ? _taegeukDamages[(int)unitClass] : _originDamages[(int)unitClass];
+        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(UnitColor.red, unitClass), applyDamage);
+        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(UnitColor.blue, unitClass), applyDamage);
+        OnUnitSkillFlagChanged?.Invoke(unitClass, _unitTaegeukOnFalgs[(int)unitClass]);
+        Debug.Log($"변동된 유닛 : {unitClass}. 대미지 : {applyDamage}");
     }
+}
+
+public class TaegeukConditionChecker
+{
+    public bool[] GetTaegeukFlags() => new bool[]
+    {
+        CheckTaegeukCondition(UnitClass.sowrdman),
+        CheckTaegeukCondition(UnitClass.archer),
+        CheckTaegeukCondition(UnitClass.spearman),
+        CheckTaegeukCondition(UnitClass.mage),
+    };
+
+    public bool CheckTaegeukCondition(UnitClass unitClass)
+        => GetCounts(UnitColor.red)[(int)unitClass] >= 1 && GetCounts(UnitColor.blue)[(int)unitClass] >= 1 && TaegeukOtherColorsCounts[(int)unitClass] == 0;
+
+    int[] TaegeukOtherColorsCounts
+    {
+        get
+        {
+            int[] counts = new int[4];
+            for (int i = 2; i < 6; i++)
+                counts = counts.Zip(GetCounts((UnitColor)i), (a, b) => a + b).ToArray();
+            return counts;
+        }
+    }
+
+    int[] GetCounts(UnitColor unitColor) => new int[]
+    {
+        Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags((int)unitColor, 0)],
+        Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags((int)unitColor, 1)],
+        Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags((int)unitColor, 2)],
+        Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags((int)unitColor, 3)],
+    };
 }
 
 public class BlackUnitUpgrade : UserSkill
@@ -241,7 +200,15 @@ public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
 
 public class FoodHater : UserSkill
 {
+    int _rate;
     public override void InitSkill()
+    {
+        _rate = (int)GetData()[0];
+        ChangeShopCurrency();
+        Multi_GameManager.instance.OnFoodChanged += FoodToGold;
+    }
+
+    void ChangeShopCurrency()
     {
         var battleData = Multi_GameManager.instance.BattleData;
         battleData.GetAllPriceDatas()
@@ -249,20 +216,16 @@ public class FoodHater : UserSkill
                 .ToList()
                 .ForEach(x => x.ChangedCurrencyType(GameCurrencyType.Gold));
 
-        battleData.WhiteUnitPriceRecord.PriceDatas.ToList().ForEach(x => x.ChangePrice(x.Price * 10));
-        battleData.MaxUnitIncreaseRecord.ChangePrice(battleData.MaxUnitIncreaseRecord.Price * 10);
-
-        // 하얀 유닛 돈으로 구매로 변경 받는 고기 전부 1당 10원으로 변경
-        Multi_GameManager.instance.OnFoodChanged += FoodToGold;
+        battleData.WhiteUnitPriceRecord.PriceDatas.ToList().ForEach(x => x.ChangePrice(x.Price * _rate));
+        battleData.MaxUnitIncreaseRecord.ChangePrice(battleData.MaxUnitIncreaseRecord.Price * _rate);
     }
 
     void FoodToGold(int food)
     {
         if (food <= 0) return;
 
-        int rate = (int)GetData()[0];
         if (Multi_GameManager.instance.TryUseFood(food))
-            Multi_GameManager.instance.AddGold(food * rate);
+            Multi_GameManager.instance.AddGold(food * _rate);
     }
 }
 

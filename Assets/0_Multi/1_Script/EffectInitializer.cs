@@ -27,23 +27,27 @@ public class EffectInitializer : MonoBehaviourPun
     [PunRPC]
     void TaeguekEffect(UnitClass unitClass, bool isTaegeukOn, int id)
     {
-        var flags = new UnitFlags[] { new UnitFlags(UnitColor.red, unitClass), new UnitFlags(UnitColor.blue, unitClass) };
+        IReadOnlyList<UnitFlags> TeaguekUnitFlags = new UnitFlags[] { new UnitFlags(UnitColor.red, unitClass), new UnitFlags(UnitColor.blue, unitClass) };
         
         if (isTaegeukOn)
         {
-            foreach (var flag in flags)
+            foreach (var flag in TeaguekUnitFlags)
                 SetUnitTrackingEffects(flag, id);
         }
         else
         {
-            List<Transform> targets = new List<Transform>();
-            foreach (var flag in flags)
-                targets = targets.Concat(Multi_UnitManager.Instance.Master.GetUnitList(id, flag).Select(x => x.transform)).ToList();
+            List<Transform> targets = GetTeaguekUnits();
             targets.ForEach(x => Managers.Effect.StopTargetTracking(x));
             foreach (var target in targets)
-            {
                 photonView.RPC(nameof(StopTracking), RpcTarget.Others, target.GetComponent<PhotonView>().ViewID);
-            }
+        }
+
+        List<Transform> GetTeaguekUnits()
+        {
+            List<Transform> targets = new List<Transform>();
+            foreach (var flag in TeaguekUnitFlags)
+                targets = targets.Concat(Multi_UnitManager.Instance.Master.GetUnitList(id, flag).Select(x => x.transform)).ToList();
+            return targets;
         }
     }
 
@@ -55,10 +59,14 @@ public class EffectInitializer : MonoBehaviourPun
     {
         var targets = Multi_UnitManager.Instance.Master.GetUnitList(id, flag)
             .Where(x => Managers.Effect.TargetByTrackers.ContainsKey(x.transform) == false);
+
         foreach (var target in targets)
         {
             _unitReinforceEffectDrawer.SetUnitReinforceEffect(target);
             photonView.RPC(nameof(SetUnitTrackingEffects_ByID), RpcTarget.Others, target.GetComponent<PhotonView>().ViewID);
+
+            target.OnDead -= (dieUnit) => photonView.RPC(nameof(StopTracking), RpcTarget.All, dieUnit.GetComponent<PhotonView>().ViewID);
+            target.OnDead += (dieUnit) => photonView.RPC(nameof(StopTracking), RpcTarget.All, dieUnit.GetComponent<PhotonView>().ViewID);
         }
     }
 
@@ -68,18 +76,16 @@ public class EffectInitializer : MonoBehaviourPun
 
     [PunRPC]
     void StopTracking(int viewID)
-    {
-        Managers.Effect.StopTargetTracking(Managers.Multi.GetPhotonViewTransfrom(viewID));
-    }
+        => Managers.Effect.StopTargetTracking(Managers.Multi.GetPhotonViewTransfrom(viewID));
 }
 
 class UnitReinforceEffectDrawer
 {
     Dictionary<UnitColor, Color32> _unitColorByColor = new Dictionary<UnitColor, Color32>()
     {
-            {UnitColor.red, new Color32(255, 44, 0, 255) },
-            {UnitColor.blue, new Color32(26, 251, 255, 255) },
-            { UnitColor.black, new Color32(0, 0, 0, 255) },
+        {UnitColor.red, new Color32(255, 44, 0, 255) },
+        {UnitColor.blue, new Color32(26, 251, 255, 255) },
+        { UnitColor.black, new Color32(0, 0, 0, 255) },
     };
 
     public void SetUnitReinforceEffect(Multi_TeamSoldier target)

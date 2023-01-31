@@ -262,7 +262,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
 
     public void ChagneWorld()
     {
-        photonView.RPC(nameof(MoveToOpposite), RpcTarget.All);
+        Vector3 toPos = GetOppositeWorldSpawnPos();
+        MoveToPos(toPos);
+        photonView.RPC(nameof(MoveToPos), RpcTarget.Others, toPos);
+
         _state.ChangedWorld();
         if (EnterStroyWorld) EnterStroyMode();
         else EnterWolrd();
@@ -276,16 +279,16 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
     }
 
     [PunRPC]
-    protected void MoveToOpposite()
+    protected void MoveToPos(Vector3 pos)
     {
         Managers.Effect.PlayParticle("UnitTpEffect", transform.position + (Vector3.up * 3));
         gameObject.SetActive(false);
-        transform.position = GetOppositeWorldSpawnPos();
+        transform.position = pos;
         gameObject.SetActive(true);
-
-        Vector3 GetOppositeWorldSpawnPos() => (EnterStroyWorld) ? Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(rpcable.UsingId)
-            : Multi_WorldPosUtility.Instance.GetEnemyTower_TP_Position(rpcable.UsingId);
     }
+
+    Vector3 GetOppositeWorldSpawnPos() => (EnterStroyWorld) ? Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(rpcable.UsingId)
+            : Multi_WorldPosUtility.Instance.GetEnemyTower_TP_Position(rpcable.UsingId);
 
     void RPC_PlayTpSound()
     {

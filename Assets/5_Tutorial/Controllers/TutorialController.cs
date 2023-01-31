@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TutorialUseCases;
 using System;
 using System.Linq;
@@ -21,7 +22,6 @@ public abstract class TutorialController : MonoBehaviour
     IEnumerator Co_WaitCondition()
     {
         yield return new WaitUntil(() => TutorialStartCondition());
-        tutorialFuntions.SetAllButton(false); // 이거 지워야 됨
         StartCoroutine(Co_DoTutorial());
     }
 
@@ -33,20 +33,28 @@ public abstract class TutorialController : MonoBehaviour
 
         foreach (var tutorial in tutorialCommends)
         {
+            SetAllButton(false);
             tutorial.TutorialAction();
             yield return new WaitUntil(() => tutorial.EndCondition());
             tutorial.EndAction();
             yield return new WaitForSecondsRealtime(0.1f); // 튜토리얼 커맨드가 한 번에 2개씩 넘어가서 잠시 대기 줌
+            SetAllButton(true);
         }
         // 모든 튜토리얼이 끝나면 게임 진행
         tutorialFuntions.GameProgress();
+    }
+
+    void SetAllButton(bool isActive)
+    {
+        foreach (var button in GameObject.FindObjectsOfType<Button>())
+            button.enabled = isActive;
     }
 
     protected TutorialComposite CreateComposite() => new TutorialComposite();
     protected ReadTextCommend CreateReadCommend(string text) => new ReadTextCommend(text);
     protected SpotLightCommend CreateSpotLightCommend(Vector3 pos, float range) => new SpotLightCommend(pos, range);
     protected SpotLightActionCommend CreateSpotLightActionCommend(Func<Vector3> getPos) => new SpotLightActionCommend(getPos);
-    protected Highlight_UI CreateUI_HighLightCommend(string uiName) => new Highlight_UI(uiName);
+    protected Highlight_UICommend CreateUI_HighLightCommend(string uiName) => new Highlight_UICommend(uiName);
     protected ButtonClickCommend CreateClickCommend(string uiName) => new ButtonClickCommend(uiName);
     protected ActionCommend CreateActionCommend(Action tutorialAction, Func<bool> endCondtion = null, Action endActoin = null)
         => new ActionCommend(tutorialAction, endCondtion, endActoin);

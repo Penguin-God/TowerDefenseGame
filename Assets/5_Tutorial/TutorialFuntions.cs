@@ -25,13 +25,6 @@ public class TutorialFuntions : MonoBehaviour
     public void GameProgress()
     {
         Time.timeScale = 1;
-        SetAllButton(true);
         OnLigth();
-    }
-
-    public void SetAllButton(bool isActive)
-    {
-        foreach (var button in GameObject.FindObjectsOfType<Button>())
-            button.enabled = isActive;
     }
 }

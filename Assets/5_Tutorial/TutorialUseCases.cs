@@ -63,11 +63,11 @@ namespace TutorialUseCases
         }
     }
 
-    public class Highlight_UI : ITutorial
+    public class Highlight_UICommend : ITutorial
     {
         string _uiName;
         RectTransform chaseUI = null;
-        public Highlight_UI(string uiName) => _uiName = uiName;
+        public Highlight_UICommend(string uiName) => _uiName = uiName;
 
         public void TutorialAction()
         {
@@ -110,11 +110,7 @@ namespace TutorialUseCases
             button.onClick.AddListener(End);
         }
         public bool EndCondition() => _isDone;
-        public void EndAction()
-        {
-            button.onClick.RemoveListener(End);
-            button.enabled = false;
-        }
+        public void EndAction() => button.onClick.RemoveListener(End);
     }
 
     public class ActionCommend : ITutorial

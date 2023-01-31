@@ -5,6 +5,9 @@ using UnityEngine.AI;
 using Photon.Pun;
 using System;
 
+public enum UnitColor { red, blue, yellow, green, orange, violet, white, black };
+public enum UnitClass { sowrdman, archer, spearman, mage }
+
 public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
 {
     private UnitFlags _unitFlags;
@@ -290,7 +293,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
     Vector3 GetOppositeWorldSpawnPos() => (EnterStroyWorld) ? Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(rpcable.UsingId)
             : Multi_WorldPosUtility.Instance.GetEnemyTower_TP_Position(rpcable.UsingId);
 
-    void RPC_PlayTpSound()
+    void RPC_PlayTpSound() // 보는 쪽에서만 소리가 들려야 하므로 복잡해보이는 이 로직이 맞음.
     {
         if (_state.UsingId == Multi_Data.instance.Id)
             Managers.Sound.PlayEffect(EffectSoundType.UnitTp);

@@ -31,14 +31,4 @@ public class PrefabSpawner : MonoBehaviourPun
 
     public void SpawnUnit_ByClientWolrd(int unitColorNumber, int unitClassNumber)
         => Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(unitColorNumber, unitClassNumber), 1);
-
-    public void AllUnitSpawn_ByEditor()
-    {
-        GameObject[] _prefabs = Resources.LoadAll<GameObject>("");
-        foreach (GameObject _unit in _prefabs)
-        {
-            if (_unit.GetComponentInChildren<TeamSoldier>() == null) continue;
-            Instantiate(_unit);
-        }
-    }
 }

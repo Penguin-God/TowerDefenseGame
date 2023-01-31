@@ -8,12 +8,6 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/Client/\uD074\uB77C\uC774\uC5B8\uD2B8.unity"
     guid: 9876bb7b6e0d49349bb9dc0935fc0b41
-  - enabled: 0
-    path: 
-    guid: 00000000000000000000000000000000
-  - enabled: 0
-    path: Assets/Client/Loding.unity
-    guid: 95cf7c10d9decfb4aba9ccfb798e2c34
   - enabled: 1
     path: Assets/0_Multi/2_Scenes/MultiLoading.unity
     guid: 0aea27f3bfa639c498a19e48f4650f36

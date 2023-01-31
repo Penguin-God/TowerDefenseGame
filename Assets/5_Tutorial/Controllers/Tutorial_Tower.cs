@@ -9,10 +9,10 @@ public class Tutorial_Tower : TutorialController
     readonly string ORANGE_SOWRDMAN_UI_NAME = "TutorialOrange";
     protected override void AddTutorials()
     {
-        AddActionCommend(() => SetShopEnable(false));
+        AddActionCommend(() => ChangeShopColliderEnable(false));
         AddReadCommend("여기는 적군의 성이 있는 진영입니다.");
-        AddUI_HighLightCommend("가운데에 있는 성을 부셔서 보상을 얻기도 하고", "TowerFocus");
-        AddUI_HighLightCommend("상점에서 여러가지 상품을 사기도 하는 곳입니다.", "ShopFocus");
+        AddUI_HighLightCommend("가운데에 있는 성을 파괴하면 보상을 얻을 수 있습니다.", "TowerFocus");
+        AddUI_HighLightCommend("아래에 있는 상점에서는 특수 유닛을 소환하거나\n유닛의 최대 개수를 늘릴 수 있습니다.", "ShopFocus");
         AddClickCommend("버튼을 클릭해서 돌아간 후\n이곳에 병력을 보내는 법을 알아봅시다.", "StoryWolrd_EnterButton");
         AddActionCommend(() => Multi_SpawnManagers.NormalUnit.Spawn(orangeSowrdmanFlag));
         AddUnitHighLightCommend("적군의 성에 유닛을 보내기 위해\n제가 주황 기사라는 작은 선물을 드렸습니다", orangeSowrdmanFlag);
@@ -26,11 +26,11 @@ public class Tutorial_Tower : TutorialController
         AddClickCommend("적군의 성으로 버튼을 클릭하면\n해당 유닛이 적군의 성으로 이동해 성을 공격합니다.", "Unit World Changed Button");
         AddClickCommend("적군의 성으로 가서 보낸 유닛을 확인하세요.", "StoryWolrd_EnterButton");
         AddReadCommend("이제 성이 부서지면 보상을 획득할 수 있습니다.\n하지만 적군의 성을 부수지 못하면 유닛만 낭비할 뿐이니\n잘 생각해서 유닛을 보내시기 바랍니다.");
-        AddActionCommend(() => SetShopEnable(true));
+        AddActionCommend(() => ChangeShopColliderEnable(true));
     }
 
     protected override bool TutorialStartCondition() => Managers.Camera.IsLookEnemyTower && Managers.Camera.IsLookOtherWolrd == false;
-    void SetShopEnable(bool isEnabled)
+    void ChangeShopColliderEnable(bool isEnabled)
     {
         FindObjectsOfType<ShopObject>()
             .Select(x => x.GetComponent<BoxCollider>())

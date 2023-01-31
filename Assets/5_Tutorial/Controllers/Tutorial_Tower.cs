@@ -7,9 +7,11 @@ public class Tutorial_Tower : TutorialController
 {
     UnitFlags orangeSowrdmanFlag = new UnitFlags(4, 0);
     readonly string ORANGE_SOWRDMAN_UI_NAME = "TutorialOrange";
+
+    protected override void Init() => ChangeShopColliderEnable(false);
+
     protected override void AddTutorials()
     {
-        AddActionCommend(() => ChangeShopColliderEnable(false));
         AddReadCommend("여기는 적군의 성이 있는 진영입니다.");
         AddUI_HighLightCommend("가운데에 있는 성을 파괴하면 보상을 얻을 수 있습니다.", "TowerFocus");
         AddUI_HighLightCommend("아래에 있는 상점에서는 특수 유닛을 소환하거나\n유닛의 최대 개수를 늘릴 수 있습니다.", "ShopFocus");

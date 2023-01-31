@@ -338,18 +338,12 @@ public class Multi_GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    // TODO : 이건 따로 빼서 게임 들어갈 때 세팅해야됨
     [PunRPC]
-    void Win()
-    {
-        GameEnd("승리");
-    }
+    void Win() => GameEnd("승리");
+    void Lose() => GameEnd("패배");
 
-    public void Lose()
-    {
-        GameEnd("패배");
-    }
-
-    void GameEnd(string message)
+    public void GameEnd(string message)
     {
         ShowGameEndText(message);
         Time.timeScale = 0;

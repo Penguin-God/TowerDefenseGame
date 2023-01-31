@@ -4980,7 +4980,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c575bdbcb624c0488636ef15d595f9e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Soldier: {fileID: 0}
 --- !u!4 &389376026
 Transform:
   m_ObjectHideFlags: 0
@@ -9505,7 +9504,6 @@ GameObject:
   - component: {fileID: 792715567}
   - component: {fileID: 792715569}
   - component: {fileID: 792715570}
-  - component: {fileID: 792715571}
   m_Layer: 0
   m_Name: ClientManager
   m_TagString: Untagged
@@ -9651,32 +9649,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &792715571
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792715566}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70fcf9366b3a50944a3e23ca557bb314, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StratGoldImage: {fileID: 21300000, guid: fe97f873de74381469b041ce407628c2, type: 3}
-  PlusMaxUnitImage: {fileID: 21300000, guid: de3a4653b45a58749a6185ab8de1852f, type: 3}
-  TaegeukSkillImage: {fileID: 21300000, guid: 8113d6212ff1d49989bcf115cac39bde, type: 3}
-  BlackUnitUpgradeImage: {fileID: 21300000, guid: 1b9255e5bc049ad409ec4c4fe76ae537,
-    type: 3}
-  YellowUnitUpgradeImage: {fileID: 21300000, guid: 40507134201370e4f83c4ee99900be98,
-    type: 3}
-  ColorChangeImage: {fileID: 21300000, guid: a27065b1d9eb8d6478ab32e06f77ca06, type: 3}
-  CommonSkillImage: {fileID: 21300000, guid: 7541aa08aae8c784eac6c5145bf2d47d, type: 3}
-  FoodHaterImage: {fileID: 21300000, guid: ce96532d4bf29b348aa20c623f110bdc, type: 3}
-  SellUpgradeImage: {fileID: 21300000, guid: 5020a01ad4c184d4b809c1a88307b482, type: 3}
-  BossDamageUpgradeImage: {fileID: 21300000, guid: c70f4bbb98e6b1f46a91d5c65d26a5ed,
-    type: 3}
-  UImask: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1001 &800459758
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14106,7 +14078,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c930ae1f287a4304aab9b038c23f8b8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ReWardButton: {fileID: 0}
 --- !u!4 &1068905346
 Transform:
   m_ObjectHideFlags: 0

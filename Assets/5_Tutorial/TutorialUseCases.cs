@@ -85,7 +85,8 @@ namespace TutorialUseCases
                 chaseUI.anchorMax = target.anchorMax;
                 chaseUI.position = target.position;
                 chaseUI.sizeDelta = target.sizeDelta;
-                chaseUI.parent = GameObject.Find("TestCanvas").transform;
+                chaseUI.parent = GameObject.Find("ForwardCanvas").transform; // 가리개 맨 앞으로 이동
+                chaseUI.localScale = Vector3.one;
             }
         }
 

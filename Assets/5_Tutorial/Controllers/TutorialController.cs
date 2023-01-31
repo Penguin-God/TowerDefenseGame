@@ -22,26 +22,31 @@ public abstract class TutorialController : MonoBehaviour
     IEnumerator Co_WaitCondition()
     {
         yield return new WaitUntil(() => TutorialStartCondition());
-        StartCoroutine(Co_DoTutorial());
+        tutorialFuntions.OffLigth();
+        StartCoroutine(Co_DoTutorials());
     }
 
     List<ITutorial> tutorialCommends = new List<ITutorial>();
-    IEnumerator Co_DoTutorial()
+    IEnumerator Co_DoTutorials()
     {
-        tutorialFuntions.OffLigth();
-        yield return new WaitForSecondsRealtime(0.1f);
-
-        foreach (var tutorial in tutorialCommends)
-        {
-            SetAllButton(false);
-            tutorial.TutorialAction();
-            yield return new WaitUntil(() => tutorial.EndCondition());
-            tutorial.EndAction();
-            yield return new WaitForSecondsRealtime(0.1f); // 튜토리얼 커맨드가 한 번에 2개씩 넘어가서 잠시 대기 줌
-            SetAllButton(true);
-        }
+        yield return StartCoroutine(Co_DoTutorial(tutorialCommends.First(), 1f));
+     
+        foreach (var tutorial in tutorialCommends.Skip(1))
+            yield return StartCoroutine(Co_DoTutorial(tutorial));
         // 모든 튜토리얼이 끝나면 게임 진행
         tutorialFuntions.GameProgress();
+    }
+
+    IEnumerator Co_DoTutorial(ITutorial tutorial, float delayTime = 0.1f)
+    {
+        SetAllButton(false);
+        tutorial.TutorialAction();
+        yield return new WaitForSecondsRealtime(delayTime);
+        yield return new WaitUntil(() => tutorial.EndCondition());
+        tutorial.EndAction();
+        SetAllButton(true);
+
+        yield return 1;
     }
 
     void SetAllButton(bool isActive)

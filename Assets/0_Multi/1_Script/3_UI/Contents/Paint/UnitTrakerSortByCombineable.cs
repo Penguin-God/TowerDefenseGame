@@ -19,6 +19,7 @@ public class UnitTrakerSortByCombineable : UI_UnitTrackerParent
     {
         var combineableUnitFalgs = Multi_UnitManager.Instance.CombineableUnitFlags;
         if (combineableUnitFalgs.Count() == 0) return;
+        DestroyChilds();
         foreach (var unitFlag in SortUnitFlags(combineableUnitFalgs))
             Managers.UI.MakeSubItem<UI_UnitTracker>(transform).SetInfo(unitFlag);
     }
@@ -34,14 +35,14 @@ public class UnitTrakerSortByCombineable : UI_UnitTrackerParent
     void UpdateCombineableUnitFlags()
     {
         if (gameObject.activeSelf == false) return;
-        gameObject.SetActive(false);
-        gameObject.SetActive(true);
         SortTrakers();
     }
 
-    void OnDisable()
+    void DestroyChilds()
     {
-        foreach (Transform item in transform)
-            Destroy(item.gameObject);
+        foreach (Transform child in transform)
+            Destroy(child.gameObject);
     }
+
+    void OnDisable() => DestroyChilds();
 }

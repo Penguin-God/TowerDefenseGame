@@ -13,7 +13,7 @@ public class Tutorial_Basic : TutorialController
         AddObjectHighLightCommend("게임이 시작하면 적 유닛이 나옵니다", new Vector3(-45, 5, 35));
         AddReadCommend("몬스터는 유닛을 뽑아서 처치할 수 있습니다.");
         AddClickCommend("버튼을 눌러 유닛을 뽑아보세요", "Create_Defenser_Button");
-        AddUnitHighLightCommend("유닛을 뽑으면 5골드가 소모되며\n빨간, 파란, 노란 기사 중 무작위로 하나를 획득합니다.", UnitClass.Sowrdman);
+        AddUnitHighLightCommend("유닛을 뽑으면 5골드가 소모되며\n빨간, 파란, 노란 기사 중 무작위로 하나를 획득합니다.", UnitClass.Swordman);
         AddUI_HighLightCommend("옆에 보이는 버튼들을 이용해 획득한 유닛들을\n관리할 수 있습니다.", "UnitButtons");
         AddUI_HighLightCommend("아래에 있는 버튼들로 상대방에게 보낼\n몬스터의 클래스를 정할 수 있습니다.", "MonsterSelectFocus");
         AddUI_HighLightCommend("또한 오른쪽 아래에 있는 버튼들을 이용해\n월드를 이동할 수 있게 해줍니다.", "WorldMoveButtonFocus");

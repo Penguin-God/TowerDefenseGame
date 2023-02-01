@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PathBuilder
+public class SpawnPathBuilder
 {
-    public string BuildUnitPath(UnitClass unitClass) => $"Unit/{Enum.GetName(typeof(UnitClass), unitClass)}";
+    public string BuildUnitPath(UnitFlags flag)
+        => $"Unit/{Enum.GetName(typeof(UnitClass), flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}_{Enum.GetName(typeof(UnitClass), flag.UnitClass)} 1";
 
     static Dictionary<int, string> _numberByName = new Dictionary<int, string>()
     {

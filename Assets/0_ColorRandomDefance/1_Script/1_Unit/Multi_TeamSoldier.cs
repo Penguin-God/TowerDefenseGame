@@ -6,7 +6,7 @@ using Photon.Pun;
 using System;
 
 public enum UnitColor { Red, Blue, Yellow, Green, Orange, Violet, White, Black };
-public enum UnitClass { Sowrdman, Archer, Spearman, Mage }
+public enum UnitClass { Swordman, Archer, Spearman, Mage }
 
 public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
 {

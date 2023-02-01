@@ -17,4 +17,11 @@ public class Tester : MonoBehaviour
         var tester = new CombineTester();
         tester.TestGetCombinableUnitFalgs();
     }
+
+    [ContextMenu("Test Path Build")]
+    void TestPathBuild()
+    {
+        var tester = new PresentersTester();
+        tester.TestBuildUnitSpawnPath();
+    }
 }

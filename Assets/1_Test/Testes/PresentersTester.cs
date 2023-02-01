@@ -15,4 +15,13 @@ public class PresentersTester
         Assert(presenter.GenerateTextShowToDisruptor(beforeFlag, afterFlag) == "스킬 사용으로 상대방의\n파란 창병이 빨간 창병으로 변경되었습니다");
         Assert(presenter.GenerateTextShowToVictim(beforeFlag, afterFlag) == "상대방의 스킬 사용으로 보유 중인\n파란 창병이 빨간 창병으로 변경되었습니다");
     }
+
+    public void TestBuildUnitSpawnPath()
+    {
+        Log("유닛 패스 생성 테스트!!");
+        var builder = new SpawnPathBuilder();
+        Assert(builder.BuildUnitPath(new UnitFlags(1, 0)) == "Unit/Swordman/Blue_Swordman 1");
+        Assert(builder.BuildUnitPath(new UnitFlags(3, 3)) == "Unit/Mage/Green_Mage 1");
+        Assert(builder.BuildUnitPath(new UnitFlags(6, 1)) == "Unit/Archer/White_Archer 1");
+    }
 }

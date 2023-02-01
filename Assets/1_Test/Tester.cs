@@ -23,5 +23,6 @@ public class Tester : MonoBehaviour
     {
         var tester = new PresentersTester();
         tester.TestBuildUnitSpawnPath();
+        tester.TestBuildMonstersSpawnPath();
     }
 }

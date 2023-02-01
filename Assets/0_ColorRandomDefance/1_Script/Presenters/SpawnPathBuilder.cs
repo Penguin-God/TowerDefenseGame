@@ -15,5 +15,7 @@ public class SpawnPathBuilder
         {2, "Spearman" },
         {1, "Mage" },
     };
-    public string BuildMonsterPath(int monsterNumber) => $"Enemy/{_numberByName[monsterNumber]}";
+    public string BuildMonsterPath(int monsterNumber) => $"Enemy/Normal/Enemy_{_numberByName[monsterNumber]} 1";
+    public string BuildBossMonsterPath(int monsterNumber) => $"Enemy/Boss/Boss_Enemy_{_numberByName[monsterNumber]} 1";
+    public string BuildEnemyTowerPath(int towerLevel) => $"Enemy/Tower/Lvl{towerLevel}_Twoer";
 }

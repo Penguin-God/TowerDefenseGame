@@ -98,15 +98,15 @@ public class Taegeuk : UserSkill
     void ApplyUnitDamge(UnitClass unitClass, bool isTaegeukConditionMet)
     {
         int applyDamage = isTaegeukConditionMet ? _taegeukDamages[(int)unitClass] : _originDamages[(int)unitClass];
-        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(UnitColor.red, unitClass), applyDamage);
-        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(UnitColor.blue, unitClass), applyDamage);
+        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(UnitColor.Red, unitClass), applyDamage);
+        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(UnitColor.Blue, unitClass), applyDamage);
     }
 }
 
 public class TaegeukConditionChecker
 {
     public bool GetTaegeukFlagByUnitClass(UnitClass unitClass)
-        => GetCounts(UnitColor.red)[(int)unitClass] >= 1 && GetCounts(UnitColor.blue)[(int)unitClass] >= 1 && TaegeukOtherColorsCounts[(int)unitClass] == 0;
+        => GetCounts(UnitColor.Red)[(int)unitClass] >= 1 && GetCounts(UnitColor.Blue)[(int)unitClass] >= 1 && TaegeukOtherColorsCounts[(int)unitClass] == 0;
 
     int[] TaegeukOtherColorsCounts
     {
@@ -141,10 +141,10 @@ public class BlackUnitUpgrade : UserSkill
 
     void UseSkill(UnitFlags unitFlags)
     {
-        if (unitFlags.UnitColor != UnitColor.black) return;
+        if (unitFlags.UnitColor != UnitColor.Black) return;
 
         Debug.Assert(strongDamages.ArcherDamage == 100000, $"검은 궁수 버그 발현!! 버그난 대미지는 {strongDamages.ArcherDamage}");
-        var flag = new UnitFlags(UnitColor.black, unitFlags.UnitClass);
+        var flag = new UnitFlags(UnitColor.Black, unitFlags.UnitClass);
         Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, flag, strongDamages.Damages[(int)unitFlags.UnitClass]);
         OnBlackUnitReinforce?.Invoke(flag);
     }
@@ -175,7 +175,7 @@ public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
 
     void UseSkill(UnitFlags flag, int newCount)
     {
-        if (flag.UnitColor != UnitColor.white) return;
+        if (flag.UnitColor != UnitColor.White) return;
 
         if (UnitCountIncreased(flag, newCount))
             colorChanger.ColorChangeSkill(flag.UnitClass);

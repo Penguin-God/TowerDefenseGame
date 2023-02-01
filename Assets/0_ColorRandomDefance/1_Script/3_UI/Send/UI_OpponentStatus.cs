@@ -64,10 +64,10 @@ public class UI_OpponentStatus : UI_Scene
 
     public void UpdateUnitClassByCount()
     {
-        GetText((int)Texts.KnigthText).text = "" + GetCountByClass(UnitClass.sowrdman);
-        GetText((int)Texts.ArcherText).text = "" + GetCountByClass(UnitClass.archer);
-        GetText((int)Texts.SpearmanText).text = "" + GetCountByClass(UnitClass.spearman);
-        GetText((int)Texts.MageText).text = "" + GetCountByClass(UnitClass.mage);
+        GetText((int)Texts.KnigthText).text = "" + GetCountByClass(UnitClass.Sowrdman);
+        GetText((int)Texts.ArcherText).text = "" + GetCountByClass(UnitClass.Archer);
+        GetText((int)Texts.SpearmanText).text = "" + GetCountByClass(UnitClass.Spearman);
+        GetText((int)Texts.MageText).text = "" + GetCountByClass(UnitClass.Mage);
 
         int GetCountByClass(UnitClass unitClass) => Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[unitClass];
     }

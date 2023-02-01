@@ -27,7 +27,7 @@ public class EffectInitializer : MonoBehaviourPun
     [PunRPC]
     void TaeguekEffect(UnitClass unitClass, bool isTaegeukOn, int id)
     {
-        IReadOnlyList<UnitFlags> TeaguekUnitFlags = new UnitFlags[] { new UnitFlags(UnitColor.red, unitClass), new UnitFlags(UnitColor.blue, unitClass) };
+        IReadOnlyList<UnitFlags> TeaguekUnitFlags = new UnitFlags[] { new UnitFlags(UnitColor.Red, unitClass), new UnitFlags(UnitColor.Blue, unitClass) };
         
         if (isTaegeukOn)
         {
@@ -83,9 +83,9 @@ class UnitReinforceEffectDrawer
 {
     Dictionary<UnitColor, Color32> _unitColorByColor = new Dictionary<UnitColor, Color32>()
     {
-        {UnitColor.red, new Color32(255, 44, 0, 255) },
-        {UnitColor.blue, new Color32(26, 251, 255, 255) },
-        { UnitColor.black, new Color32(0, 0, 0, 255) },
+        {UnitColor.Red, new Color32(255, 44, 0, 255) },
+        {UnitColor.Blue, new Color32(26, 251, 255, 255) },
+        { UnitColor.Black, new Color32(0, 0, 0, 255) },
     };
 
     public void SetUnitReinforceEffect(Multi_TeamSoldier target)
@@ -100,7 +100,7 @@ class UnitReinforceEffectDrawer
 
     string GetUnitTarckerName(UnitColor unitColor)
     {
-        if (unitColor == UnitColor.black) return "BalckableUnitReingForceEffect";
+        if (unitColor == UnitColor.Black) return "BalckableUnitReingForceEffect";
         return "UnitReinForceEffect";
     }
 }

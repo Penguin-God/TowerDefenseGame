@@ -5,8 +5,8 @@ using UnityEngine.AI;
 using Photon.Pun;
 using System;
 
-public enum UnitColor { red, blue, yellow, green, orange, violet, white, black };
-public enum UnitClass { sowrdman, archer, spearman, mage }
+public enum UnitColor { Red, Blue, Yellow, Green, Orange, Violet, White, Black };
+public enum UnitClass { Sowrdman, Archer, Spearman, Mage }
 
 public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
 {

@@ -97,6 +97,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
 
         void SetNewTarget(Multi_Enemy newTarget)
         {
+            if (gameObject.activeSelf == false) return;
             if (newTarget == null)
                 nav.isStopped = true;
             else
@@ -444,7 +445,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
 
         void ChangeTargetWhenTargetDead(Multi_Enemy deadTarget)
         {
-            _target.OnDead -= ChangeTargetWhenTargetDead;
+            deadTarget.OnDead -= ChangeTargetWhenTargetDead;
             Reset();
             UpdateTarget();
         }

@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class Multi_WhiteUnitTimer : MonoBehaviour
 {
-    [SerializeField] Vector3 offSet;
-
     private Slider slider;
     public Slider Slider => slider;
     

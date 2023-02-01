@@ -33,8 +33,17 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
 
     [SerializeField] protected float stopDistanc;
 
-    public Transform target;
-    protected Multi_Enemy TargetEnemy { get { return target.GetComponent<Multi_Enemy>(); } }
+    public Transform target 
+    {
+        get
+        {
+            if (_targetManager.Target == null)
+                return null;
+            else
+                return _targetManager.Target.transform;
+        }
+    }
+    protected Multi_Enemy TargetEnemy => _targetManager.Target;
 
     protected Multi_UnitPassive passive;
     protected NavMeshAgent nav;
@@ -84,6 +93,15 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         _chaseSystem = AddCahseSystem();
         _targetManager.OnChangedTarget += _chaseSystem.ChangedTarget;
         OnAwake(); // 유닛별 세팅
+
+
+        void SetNewTarget(Multi_Enemy newTarget)
+        {
+            if (newTarget == null)
+                nav.isStopped = true;
+            else
+                nav.isStopped = false;
+        }
     }
 
     protected virtual ChaseSystem AddCahseSystem() => gameObject.AddComponent<ChaseSystem>();
@@ -166,7 +184,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
     void ResetAiStateValue()
     {
         _targetManager.Reset();
-        target = null;
         contactEnemy = false;
 
         if (animator != null)
@@ -182,19 +199,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
     }
 
     void ChangeTargetToBoss(Multi_BossEnemy boss) => UpdateTarget();
-
-    void SetNewTarget(Multi_Enemy newTarget)
-    {
-        if(newTarget == null)
-        {
-            target = null;
-            nav.isStopped = true;
-            return;
-        }
-
-        nav.isStopped = false;
-        target = newTarget.transform;
-    }
 
     public bool contactEnemy = false;
     IEnumerator NavCoroutine()
@@ -397,6 +401,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
     protected class TargetManager
     {
         [SerializeField] Multi_Enemy _target;
+        public Multi_Enemy Target => _target;
         public event Action<Multi_Enemy> OnChangedTarget;
         
         UnitState _state;

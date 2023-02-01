@@ -15,8 +15,7 @@ public struct FolderPoolingData
 public class Multi_NormalUnitSpawner : Multi_SpawnerBase
 {
     public event Action<Multi_TeamSoldier> OnSpawn;
-    //public event Action<Multi_TeamSoldier> OnDead;
-
+    
     [SerializeField] FolderPoolingData[] allUnitDatas;
     public IReadOnlyList<FolderPoolingData> AllUnitDatas => allUnitDatas;
 

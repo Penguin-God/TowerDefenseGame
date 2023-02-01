@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Linq;
 using Photon.Pun;
 using Random = UnityEngine.Random;
 
@@ -42,8 +41,8 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
 
     public void Spawn(int id)
     {
-        bossLevel++;
-        Spawn_RPC(BuildPath(_rootPath, _enemys[Random.Range(0, _enemys.Length)]), Vector3.zero, id);
+        bossLevel++; 
+        Spawn_RPC(new SpawnPathBuilder().BuildBossMonsterPath(Random.Range(0, _enemys.Length)), Vector3.zero, id);
     }
 
     [SerializeField] int bossLevel;

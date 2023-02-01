@@ -20,8 +20,8 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
 
     void CreatePool()
     {
-        for (int i = 0; i < _enemys.Length; i++)
-            CreatePoolGroup(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
+        for (int i = 1; i < _enemys.Length + 1; i++)
+            CreatePoolGroup(_enemys[i-1], new SpawnPathBuilder().BuildEnemyTowerPath(i), spawnCount);
     }
 
     protected override void SetPoolObj(GameObject go)
@@ -43,7 +43,7 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
         Spawn(id);
     }
 
-    public void Spawn(int id) => Spawn_RPC(BuildPath(_rootPath, _enemys[_towerLevel.Get(id)]), spawnPositions[id], id);
+    public void Spawn(int id) => Spawn_RPC(new SpawnPathBuilder().BuildEnemyTowerPath(_towerLevel.Get(id) + 1), spawnPositions[id], id);
 
     [PunRPC]
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)

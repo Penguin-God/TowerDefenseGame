@@ -8,8 +8,8 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 {
     public event Action<Multi_NormalEnemy> OnSpawn;
     public event Action<Multi_NormalEnemy> OnDead;
-    
-    string GetCurrentEnemyPath(int enemyNum) => BuildPath(_rootPath, _enemys[enemyNum]);
+
+    string GetCurrentEnemyPath(int enemyNum) => new SpawnPathBuilder().BuildBossMonsterPath(enemyNum);
     protected override void MasterInit() => CreatePool();
 
     void CreatePool()
@@ -25,7 +25,7 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     [PunRPC]
     Multi_NormalEnemy SpawnEnemy(byte num, int id)
     {
-        var enemy = base.BaseSpawn(GetCurrentEnemyPath(num), spawnPositions[id], Quaternion.identity, id).GetComponent<Multi_NormalEnemy>();
+        var enemy = base.BaseSpawn(new SpawnPathBuilder().BuildMonsterPath(num), spawnPositions[id], Quaternion.identity, id).GetComponent<Multi_NormalEnemy>();
         NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[Multi_StageManager.Instance.CurrentStage];
         enemy.SetStatus_RPC(data.Hp, data.Speed, false);
         enemy.resurrection.SetSpawnStage(Multi_StageManager.Instance.CurrentStage);

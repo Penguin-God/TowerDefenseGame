@@ -717,7 +717,6 @@ GameObject:
   - component: {fileID: 5842820972880275659}
   - component: {fileID: 4847119243952441812}
   - component: {fileID: -9061001621847911827}
-  - component: {fileID: 6266442461160101922}
   - component: {fileID: -5430911762909686587}
   m_Layer: 8
   m_Name: Boss_Enemy_Spearman 1
@@ -770,15 +769,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625e69933bd89b6418427d307abdd3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 0
-  speed: 0
   maxHp: 0
   currentHp: 0
-  isDead: 1
+  maxSpeed: 0
+  speed: 0
   hpSlider: {fileID: 5842820971301454821}
   enemyType: 1
   dir: {x: 0, y: 0, z: 0}
-  rpcable: {fileID: 0}
   originMat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
   TurnPoints: []
   freezeMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
@@ -807,20 +804,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &6266442461160101922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5842820972880275658}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsUsing: 0
-  Path: 
 --- !u!114 &-5430911762909686587
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -309,10 +309,9 @@ GameObject:
   - component: {fileID: 2502174115710485869}
   - component: {fileID: 1566040437763218498}
   - component: {fileID: 8111365183698115610}
-  - component: {fileID: -2942972580237363105}
   - component: {fileID: -7936619939633948507}
   m_Layer: 8
-  m_Name: Boss_Enemy_Sworaman 1
+  m_Name: Boss_Enemy_Swordman 1
   m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -362,15 +361,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625e69933bd89b6418427d307abdd3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 0
-  speed: 0
   maxHp: 0
   currentHp: 0
-  isDead: 1
+  maxSpeed: 0
+  speed: 0
   hpSlider: {fileID: 2502174114925224128}
   enemyType: 1
   dir: {x: 0, y: 0, z: 0}
-  rpcable: {fileID: 0}
   originMat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
   TurnPoints: []
   freezeMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
@@ -399,20 +396,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &-2942972580237363105
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2502174115710485866}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsUsing: 0
-  Path: 
 --- !u!114 &-7936619939633948507
 MonoBehaviour:
   m_ObjectHideFlags: 0

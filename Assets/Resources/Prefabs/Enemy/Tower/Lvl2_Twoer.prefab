@@ -386,7 +386,6 @@ GameObject:
   - component: {fileID: 5451800754522750213}
   - component: {fileID: 1282694530267751694}
   - component: {fileID: -8753769999107843917}
-  - component: {fileID: 3045235132418816773}
   - component: {fileID: 3445605960076665143}
   m_Layer: 8
   m_Name: Lvl2_Twoer
@@ -482,18 +481,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecceb920d6ae2234d969b0ca1cbd7850, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 0
-  speed: 0
   maxHp: 0
   currentHp: 0
-  isDead: 0
+  maxSpeed: 0
+  speed: 0
   hpSlider: {fileID: 1282694529912486862}
   enemyType: 2
   dir: {x: 0, y: 0, z: 0}
   originMat: {fileID: 0}
-  level: 2
-  rewardGold: 30
-  rewardFood: 2
+  _level: 0
 --- !u!54 &1282694530267751694
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -532,21 +528,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &3045235132418816773
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3662538469695754542}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _usingId: 0
-  IsUsing: 0
-  Path: 
 --- !u!114 &3445605960076665143
 MonoBehaviour:
   m_ObjectHideFlags: 0

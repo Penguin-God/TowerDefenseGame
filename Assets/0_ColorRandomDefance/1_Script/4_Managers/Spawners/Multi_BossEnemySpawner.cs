@@ -13,17 +13,6 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     public RPCAction rpcOnSpawn = new RPCAction();
     public RPCAction rpcOnDead = new RPCAction();
 
-    protected override void MasterInit()
-    {
-        CreatePool();
-    }
-
-    void CreatePool()
-    {
-        for (int i = 0; i <  _spawnableObjectCount; i++)
-            CreatePoolGroup(new SpawnPathBuilder().BuildBossMonsterPath(i), spawnCount);
-    }
-
     protected override void SetPoolObj(GameObject go)
     {
         var enemy = go.GetComponent<Multi_BossEnemy>();
@@ -46,6 +35,7 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     {
         Multi_BossEnemy enemy = base.BaseSpawn(path, spawnPositions[id], rotation, id).GetComponent<Multi_BossEnemy>();
         enemy.Spawn(bossLevel);
+        SetPoolObj(enemy.gameObject);
         OnSpawn?.Invoke(enemy);
         rpcOnSpawn?.RaiseEvent(id);
         return null;

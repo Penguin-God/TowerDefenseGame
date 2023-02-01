@@ -260,7 +260,6 @@ GameObject:
   - component: {fileID: 3278321861748690572}
   - component: {fileID: -6387752227524823596}
   - component: {fileID: -342558237822834195}
-  - component: {fileID: 1246228791282231831}
   - component: {fileID: 4634077940944003351}
   m_Layer: 8
   m_Name: Boss_Enemy_Mage 1
@@ -313,15 +312,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 625e69933bd89b6418427d307abdd3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 0
-  speed: 0
   maxHp: 0
   currentHp: 0
-  isDead: 1
+  maxSpeed: 0
+  speed: 0
   hpSlider: {fileID: 3278321862198212852}
   enemyType: 1
   dir: {x: 0, y: 0, z: 0}
-  rpcable: {fileID: 0}
   originMat: {fileID: 2100000, guid: a4fbcfbf316981941bf76b3352ff4d9c, type: 2}
   TurnPoints: []
   freezeMat: {fileID: 2100000, guid: 39e86880f2aa447439324a86856d61b6, type: 2}
@@ -350,20 +347,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1246228791282231831
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3278321861748690573}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  IsUsing: 0
-  Path: 
 --- !u!114 &4634077940944003351
 MonoBehaviour:
   m_ObjectHideFlags: 0

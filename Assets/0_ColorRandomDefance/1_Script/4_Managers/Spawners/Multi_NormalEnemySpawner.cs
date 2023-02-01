@@ -9,13 +9,12 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     public event Action<Multi_NormalEnemy> OnSpawn;
     public event Action<Multi_NormalEnemy> OnDead;
 
-    string GetCurrentEnemyPath(int enemyNum) => new SpawnPathBuilder().BuildBossMonsterPath(enemyNum);
     protected override void MasterInit() => CreatePool();
 
     void CreatePool()
     {
-        foreach (var enemyPrefab in _enemys)
-            CreatePoolGroup(enemyPrefab, BuildPath(_rootPath, enemyPrefab), spawnCount);
+        for (int i = 0; i < 4; i++)
+            CreatePoolGroup(new SpawnPathBuilder().BuildMonsterPath(i), spawnCount);
     }
 
     public void Spawn(byte enemyNum, int spawnPlayerID) => SpawnEnemy_RPC(enemyNum, spawnPlayerID);

@@ -4,54 +4,26 @@ using UnityEngine;
 using System;
 using Photon.Pun;
 
-[Serializable]
-public struct FolderPoolingData
-{
-    public string folderName;
-    public GameObject[] gos;
-    public int poolingCount;
-}
-
 public class Multi_NormalUnitSpawner : Multi_SpawnerBase
 {
     public event Action<Multi_TeamSoldier> OnSpawn;
     
-    [SerializeField] FolderPoolingData[] allUnitDatas;
-    public IReadOnlyList<FolderPoolingData> AllUnitDatas => allUnitDatas;
+    [SerializeField] int[] poolCounts = new int[] { 5, 4, 3, 2 };
 
-    [SerializeField] FolderPoolingData swordmanPoolData;
-    [SerializeField] FolderPoolingData archerPoolData;
-    [SerializeField] FolderPoolingData spearmanPoolData;
-    [SerializeField] FolderPoolingData magePoolData;
-
-    // Init용 코드
-    #region Init
     protected override void MasterInit()
     {
-        SetAllUnit();
-        CreatePool(swordmanPoolData.gos, swordmanPoolData.folderName, swordmanPoolData.poolingCount);
-        CreatePool(archerPoolData.gos, archerPoolData.folderName, archerPoolData.poolingCount);
-        CreatePool(spearmanPoolData.gos, spearmanPoolData.folderName, spearmanPoolData.poolingCount);
-        CreatePool(magePoolData.gos, magePoolData.folderName, magePoolData.poolingCount);
+        poolCounts = new int[] { 5, 4, 3, 2 };
+        CreatePool(UnitClass.Swordman, poolCounts[0]);
+        CreatePool(UnitClass.Archer, poolCounts[1]);
+        CreatePool(UnitClass.Spearman, poolCounts[2]);
+        CreatePool(UnitClass.Mage, poolCounts[3]);
     }
 
-    void CreatePool(GameObject[] gos, string folderName, int count)
+    void CreatePool(UnitClass unitClass, int count)
     {
-        for (int i = 0; i < gos.Length; i++)
-            CreatePoolGroup(gos[i], BuildPath(_rootPath, folderName, gos[i]), count);
+        foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
+            CreatePoolGroup(new UnitPathBuilder().BuildUnitPath(new UnitFlags(color, unitClass)), count);
     }
-
-    [ContextMenu("Set All Unit")]
-    void SetAllUnit()
-    {
-        allUnitDatas = new FolderPoolingData[4];
-        allUnitDatas[0] = swordmanPoolData;
-        allUnitDatas[1] = archerPoolData;
-        allUnitDatas[2] = spearmanPoolData;
-        allUnitDatas[3] = magePoolData;
-    }
-    #endregion
-
 
     public void Spawn(UnitFlags flag) => Spawn(flag.ColorNumber, flag.ClassNumber);
     public void Spawn(int unitColor, int unitClass) => Spawn_RPC(GetUnitPath(unitColor, unitClass), GetUnitSpawnPos());

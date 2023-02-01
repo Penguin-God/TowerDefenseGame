@@ -193,12 +193,12 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         public void Init()
         {
-            foreach (var data in Multi_SpawnManagers.NormalUnit.AllUnitDatas)
+            foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
             {
-                foreach (Multi_TeamSoldier unit in data.gos.Select(x => x.GetComponent<Multi_TeamSoldier>()))
+                foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
                 {
-                    _unitListByFlag.Get(0).Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
-                    _unitListByFlag.Get(1).Add(new UnitFlags(unit.unitColor, unit.unitClass), new List<Multi_TeamSoldier>());
+                    _unitListByFlag.Get(0).Add(new UnitFlags(color, unitClass), new List<Multi_TeamSoldier>());
+                    _unitListByFlag.Get(1).Add(new UnitFlags(color, unitClass), new List<Multi_TeamSoldier>());
                 }
             }
 
@@ -306,12 +306,12 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         public void Init(MasterDataManager masterData)
         {
-            foreach (var data in Multi_SpawnManagers.NormalUnit.AllUnitDatas)
+            foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
             {
-                foreach (Multi_TeamSoldier unit in data.gos.Select(x => x.GetComponent<Multi_TeamSoldier>()))
-                    _countByFlag.Add(new UnitFlags(unit.unitColor, unit.unitClass), 0);
+                foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
+                    _countByFlag.Add(new UnitFlags(color, unitClass), 0);
             }
-
+            
             masterData.OnAllUnitCountChanged += Riase_OnUnitCountChanged;
             masterData.OnUnitCountChanged += Riase_OnUnitCountChanged;
         }

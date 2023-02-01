@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public struct FolderPoolingData
+{
+    public string folderName;
+    public GameObject[] gos;
+    public int poolingCount;
+}
+
 public class Multi_WeaponSpawner : Multi_SpawnerBase
 {
     [SerializeField] FolderPoolingData[] allWeapons;
@@ -21,11 +29,15 @@ public class Multi_WeaponSpawner : Multi_SpawnerBase
         InitWeapons(mageSkillPoolData.gos, mageSkillPoolData.folderName, mageSkillPoolData.poolingCount);
     }
 
+    [SerializeField] string _rootPath;
     void InitWeapons(GameObject[] gos, string folderName, int count)
     {
         for (int i = 0; i < gos.Length; i++)
-            CreatePoolGroup(gos[i], BuildPath(_rootPath, folderName, gos[i]), count);
+            CreatePoolGroup(BuildPath(_rootPath, folderName, gos[i]), count);
     }
+
+
+    string BuildPath(string rooPath, string folderName, GameObject go) => $"{rooPath}/{folderName}/{go.name}";
 
     void SetAllWeapons()
     {

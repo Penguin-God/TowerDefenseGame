@@ -1,21 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
 using Photon.Pun;
-
-public enum SpawnerType
-{
-    NormalEnemy,
-    BossEnemy,
-    TowerEnemy,
-    NormalUnit,
-}
 
 public abstract class Multi_SpawnerBase : MonoBehaviourPun, IInstantiater
 {
     [SerializeField] protected string _rootName;
-    [SerializeField] protected string _rootPath;
 
     void Start()
     {
@@ -28,7 +18,7 @@ public abstract class Multi_SpawnerBase : MonoBehaviourPun, IInstantiater
 
     protected virtual void MasterInit() { }
 
-    protected void CreatePoolGroup(GameObject go, string path, int count) => Managers.Pool.CreatePool_InGroup(path, count, _rootName, this);
+    protected void CreatePoolGroup(string path, int count) => Managers.Pool.CreatePool_InGroup(path, count, _rootName, this);
 
     public GameObject Instantiate(string path)
     {
@@ -49,9 +39,4 @@ public abstract class Multi_SpawnerBase : MonoBehaviourPun, IInstantiater
     [PunRPC]
     protected virtual GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
         => Managers.Multi.Instantiater.PhotonInstantiate(path, spawnPos, rotation, id);
-
-
-    public string BuildPath(string rooPath, GameObject go) => $"{rooPath}/{go.name}";
-    public string BuildPath(string rooPath, string folderName, GameObject go) => $"{rooPath}/{folderName}/{go.name}";
-    public string BuildPath(string rooPath, string folderName, string name) => $"{rooPath}/{folderName}/{name}";
 }

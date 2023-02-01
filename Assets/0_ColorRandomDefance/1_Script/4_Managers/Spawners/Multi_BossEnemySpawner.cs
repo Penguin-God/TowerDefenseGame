@@ -13,10 +13,6 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     public RPCAction rpcOnSpawn = new RPCAction();
     public RPCAction rpcOnDead = new RPCAction();
 
-
-    // Init용 코드
-    #region Init
-
     protected override void MasterInit()
     {
         CreatePool();
@@ -24,8 +20,8 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
 
     void CreatePool()
     {
-        for (int i = 0; i < _enemys.Length; i++)
-            CreatePoolGroup(_enemys[i], BuildPath(_rootPath, _enemys[i]), spawnCount);
+        for (int i = 0; i <  _spawnableObjectCount; i++)
+            CreatePoolGroup(new SpawnPathBuilder().BuildBossMonsterPath(i), spawnCount);
     }
 
     protected override void SetPoolObj(GameObject go)
@@ -37,12 +33,10 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
         enemy.OnDeath += () => Managers.Multi.Instantiater.PhotonDestroy(enemy.gameObject);
     }
 
-    #endregion
-
     public void Spawn(int id)
     {
         bossLevel++; 
-        Spawn_RPC(new SpawnPathBuilder().BuildBossMonsterPath(Random.Range(0, _enemys.Length)), Vector3.zero, id);
+        Spawn_RPC(new SpawnPathBuilder().BuildBossMonsterPath(Random.Range(0, _spawnableObjectCount)), Vector3.zero, id);
     }
 
     [SerializeField] int bossLevel;

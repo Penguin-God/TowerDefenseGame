@@ -187,13 +187,6 @@ public class Multi_GameManager : MonoBehaviourPun
 
     private static Multi_GameManager m_instance;
 
-    [ContextMenu("Logging Json")]
-    void LoggingJson()
-    {
-        var data = JsonUtility.FromJson<BattleStartData>(Resources.Load<TextAsset>("Data/ClientData/BattleGameData").text);
-        print(JsonUtility.ToJson(data, true));
-    }
-    
     [SerializeField] BattleDataManager _battleData;
     public BattleDataManager BattleData => _battleData;
     CurrencyManager CurrencyManager => _battleData.CurrencyManager;
@@ -260,7 +253,6 @@ public class Multi_GameManager : MonoBehaviourPun
     void Start()
     {
         Multi_StageManager.Instance.OnUpdateStage += _stage => AddGold(_battleData.StageUpGold);
-        // Multi_EnemyManager.Instance.OnEnemyCountChanged += CheckGameOver;
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -313,19 +305,4 @@ public class Multi_GameManager : MonoBehaviourPun
     public bool TryUseFood(int food) => CurrencyManager.TryUseFood(food);
 
     public bool TryUseCurrency(GameCurrencyType currencyType, int quantity) => currencyType == GameCurrencyType.Gold ? TryUseGold(quantity) : TryUseFood(quantity);
-
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.K)) // 게임 테스트 용
-        {
-            if(Time.timeScale == 15f)
-            {
-                Time.timeScale = 1f;
-            }
-            else
-            {
-                Time.timeScale = 15f;
-            }
-        }
-    }
 }

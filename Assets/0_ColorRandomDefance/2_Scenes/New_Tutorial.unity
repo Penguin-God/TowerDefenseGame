@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44971025, g: 0.49977946, b: 0.57563627, a: 1}
+  m_IndirectSpecularColor: {r: 0.4497105, g: 0.49977976, b: 0.5756375, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -18992,6 +18992,7 @@ GameObject:
   - component: {fileID: 1163211303}
   - component: {fileID: 1163211301}
   - component: {fileID: 1163211300}
+  - component: {fileID: 1163211302}
   m_Layer: 0
   m_Name: Prefab Spawner
   m_TagString: Untagged
@@ -19074,6 +19075,18 @@ MonoBehaviour:
     - {fileID: 3173048112267009847, guid: 3fbf7bc0c9eaaeb48ba0c3eda18b9e33, type: 3}
     - {fileID: 2357315067319308687, guid: 711ba7972069d144c857d37f97621a93, type: 3}
     - {fileID: 7953183368782943606, guid: 18d5341e080ee52409c23a63c85af0f3, type: 3}
+--- !u!114 &1163211302
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1163211299}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad3dfe216deb10e40999126be9f519ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1163211303
 Transform:
   m_ObjectHideFlags: 0

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -22,12 +21,6 @@ public class MultiDevelopHelper : MonoBehaviourPunCallbacks
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            Multi_GameManager.instance.AddGold(5000);
-            Multi_GameManager.instance.AddFood(1000);
-        }
-
         if (Input.GetKeyDown(KeyCode.E)) EditorConnect();
     }
 

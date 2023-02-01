@@ -19,7 +19,7 @@ public class PresentersTester
     public void TestBuildUnitSpawnPath()
     {
         Log("유닛 패스 생성 테스트!!");
-        var builder = new SpawnPathBuilder();
+        var builder = new UnitPathBuilder();
         Assert(builder.BuildUnitPath(new UnitFlags(1, 0)) == "Unit/Swordman/Blue_Swordman 1");
         Assert(builder.BuildUnitPath(new UnitFlags(3, 3)) == "Unit/Mage/Green_Mage 1");
         Assert(builder.BuildUnitPath(new UnitFlags(6, 1)) == "Unit/Archer/White_Archer 1");

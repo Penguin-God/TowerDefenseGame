@@ -73,6 +73,7 @@ class WorldInitializer
     {
         monoBehaviourContainer.AddComponent<MonsterSpawnerContorller>();
         monoBehaviourContainer.AddComponent<UnitColorChangerRpcHandler>();
+        monoBehaviourContainer.AddComponent<WinOrLossController>();
     }
 
     UI_OpponentStatus opponentStatus;

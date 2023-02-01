@@ -20,6 +20,6 @@ public class TutorialScene : BaseScene
     void CheckGameOver(int enemyCount)
     {
         if (enemyCount >= 50)
-            Multi_GameManager.instance.GameEnd("승리!!");
+            container.GetComponent<WinOrLossController>().GameEnd("승리!!");
     }
 }

@@ -58,6 +58,7 @@ public class Multi_Enemy : MonoBehaviourPun
     [SerializeField] protected Material originMat;
 
     public event Action OnDeath = null;
+    public event Action<Multi_Enemy> OnDead = null;
 
     private void Awake()
     {
@@ -102,6 +103,7 @@ public class Multi_Enemy : MonoBehaviourPun
     public virtual void Dead()
     {
         OnDeath?.Invoke();
+        OnDead?.Invoke(this);
         ResetValue();
     }
 

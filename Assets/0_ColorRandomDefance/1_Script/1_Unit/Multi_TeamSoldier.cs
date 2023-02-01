@@ -79,7 +79,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         originObstacleType = nav.obstacleAvoidanceType;
 
         _state = gameObject.AddComponent<UnitState>();
-        _targetManager = new TargetManager(_state);
+        _targetManager = new TargetManager(_state, transform);
         _targetManager.OnChangedTarget += SetNewTarget;
         _chaseSystem = AddCahseSystem();
         _targetManager.OnChangedTarget += _chaseSystem.ChangedTarget;
@@ -110,8 +110,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         UpdateTarget();
         if (PhotonNetwork.IsMasterClient)
         {
-            Multi_SpawnManagers.BossEnemy.OnSpawn -= TargetToBoss;
-            Multi_SpawnManagers.BossEnemy.OnSpawn += TargetToBoss;
+            Multi_SpawnManagers.BossEnemy.OnSpawn -= ChangeTargetToBoss;
+            Multi_SpawnManagers.BossEnemy.OnSpawn += ChangeTargetToBoss;
             StartCoroutine(nameof(NavCoroutine));
         }
     }
@@ -158,7 +158,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         OnDead?.Invoke(this);
         OnDead = null;
         gameObject.SetActive(false);
-        Multi_SpawnManagers.BossEnemy.OnSpawn -= TargetToBoss;
+        Multi_SpawnManagers.BossEnemy.OnSpawn -= ChangeTargetToBoss;
         Managers.Multi.Instantiater.PhotonDestroy(gameObject);
         _state.Dead();
     }
@@ -178,10 +178,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
     void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
         if (PhotonNetwork.IsMasterClient == false) return;
-        _targetManager.UpdateTarget(transform.position);
+        _targetManager.UpdateTarget();
     }
 
-    void TargetToBoss(Multi_BossEnemy boss) => UpdateTarget();
+    void ChangeTargetToBoss(Multi_BossEnemy boss) => UpdateTarget();
 
     void SetNewTarget(Multi_Enemy newTarget)
     {
@@ -398,16 +398,21 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
     {
         [SerializeField] Multi_Enemy _target;
         public event Action<Multi_Enemy> OnChangedTarget;
-
+        
         UnitState _state;
-        public TargetManager(UnitState state) => _state = state;
-
-        public void Reset() => _target = null;
-
-        public void UpdateTarget(Vector3 position)
+        Transform _transform;
+        public TargetManager(UnitState state, Transform transform)
         {
-            var newTarget = FindTarget(position);
-            if (_target != newTarget) 
+            _state = state;
+            _transform = transform;
+        }
+
+        public void Reset() => ChangedTarget(null);
+
+        public void UpdateTarget()
+        {
+            var newTarget = FindTarget(_transform.position);
+            if (_target != newTarget)
                 ChangedTarget(newTarget);
         }
 
@@ -425,6 +430,18 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         {
             _target = newTarget;
             OnChangedTarget?.Invoke(newTarget);
+            if(newTarget != null)
+            {
+                newTarget.OnDead -= ChangeTargetWhenTargetDead;
+                newTarget.OnDead += ChangeTargetWhenTargetDead;
+            }
+        }
+
+        void ChangeTargetWhenTargetDead(Multi_Enemy deadTarget)
+        {
+            _target.OnDead -= ChangeTargetWhenTargetDead;
+            Reset();
+            UpdateTarget();
         }
     }
 }

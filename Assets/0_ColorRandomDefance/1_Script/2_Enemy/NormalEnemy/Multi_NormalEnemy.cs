@@ -12,6 +12,13 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     protected Rigidbody Rigidbody;
 
+    [SerializeField] bool isResurrection = false;
+    public bool IsResurrection => isResurrection;
+    public void Resurrection() => isResurrection = true;
+
+    [SerializeField] int spawnStage;
+    public int SpawnStage => spawnStage;
+
     protected override void Init()
     {
         Rigidbody = GetComponent<Rigidbody>();
@@ -25,6 +32,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         base.SetStatus(_hp, _speed, _isDead);
         Passive();
+        spawnStage = Multi_StageManager.Instance.CurrentStage;
         TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);
         if(pointIndex == -1) pointIndex = 0;
         SetDirection();
@@ -64,32 +72,13 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected override void ResetValue()
     {
         base.ResetValue();
-        resurrection.Reset();
+        isResurrection = false;
+        spawnStage = 0;
         sternEffect.SetActive(false);
         queue_GetSturn.Clear();
         ResetColor();
         pointIndex = -1;
         transform.rotation = Quaternion.identity;
-    }
-
-    public ResurrectionSystem resurrection = new ResurrectionSystem();
-
-    [System.Serializable]
-    public class ResurrectionSystem
-    {
-        [SerializeField] bool isResurrection = false;
-        public bool IsResurrection => isResurrection;
-        public void Resurrection() => isResurrection = true;
-
-        int spawnStage;
-        public int SpawnStage => spawnStage;
-        public void SetSpawnStage(int stage) => spawnStage = stage;
-
-        public void Reset()
-        {
-            isResurrection = false;
-            spawnStage = 0;
-        }
     }
 
     // TODO : 상태이상 구현 코드 줄일 방법 찾아보기

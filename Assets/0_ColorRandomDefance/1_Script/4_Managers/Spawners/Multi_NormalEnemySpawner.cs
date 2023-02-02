@@ -21,7 +21,6 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
         var enemy = base.BaseSpawn(new SpawnPathBuilder().BuildMonsterPath(num), spawnPositions[id], Quaternion.identity, id).GetComponent<Multi_NormalEnemy>();
         NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];
         enemy.SetStatus_RPC(data.Hp, data.Speed, false);
-        enemy.resurrection.SetSpawnStage(Multi_StageManager.Instance.CurrentStage);
         Multi_EnemyManager.Instance.AddNormalMonster(enemy);
         return enemy;
     }
@@ -89,9 +88,9 @@ public class MonsterSpawnerContorller : MonoBehaviour
 
     void ResurrectionMonsterToOther(Multi_NormalEnemy enemy)
     {
-        if (enemy.resurrection.IsResurrection) return;
-        var spawnEnemy = SpawnMonsterToOther(_numManager.GetSpawnEnemyNum(enemy.UsingId), enemy.UsingId, enemy.resurrection.SpawnStage);
-        spawnEnemy.resurrection.Resurrection();
+        if (enemy.IsResurrection) return;
+        var spawnEnemy = SpawnMonsterToOther(_numManager.GetSpawnEnemyNum(enemy.UsingId), enemy.UsingId, enemy.SpawnStage);
+        spawnEnemy.Resurrection();
     }
 
     void SpawnBossOnStageMultipleOfTen(int stage)

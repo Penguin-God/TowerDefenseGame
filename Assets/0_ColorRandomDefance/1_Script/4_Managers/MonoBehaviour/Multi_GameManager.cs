@@ -249,46 +249,9 @@ public class Multi_GameManager : MonoBehaviourPun
     }
 
     public void GameStart() => photonView.RPC(nameof(RPC_OnStart), RpcTarget.All);
+    
+    void Start() => gameObject.AddComponent<RewradController>();
 
-    void Start()
-    {
-        Multi_StageManager.Instance.OnUpdateStage += _stage => AddGold(_battleData.StageUpGold);
-
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Multi_SpawnManagers.BossEnemy.OnDead += GetBossReward;
-            Multi_SpawnManagers.TowerEnemy.OnDead += GetTowerReward;
-        }
-    }
-
-    void GetBossReward(Multi_BossEnemy enemy)
-    {
-        if(enemy.UsingId == Multi_Data.instance.Id)
-            GetReward(enemy.BossData);
-        else
-            photonView.RPC(nameof(GetBossReward), RpcTarget.Others, enemy.BossData.Gold, enemy.BossData.Food);
-    }
-
-    void GetTowerReward(Multi_EnemyTower enemy)
-    {
-        if (enemy.UsingId == Multi_Data.instance.Id)
-            GetReward(enemy.TowerData);
-        else
-            photonView.RPC(nameof(GetBossReward), RpcTarget.Others, enemy.TowerData.Gold, enemy.TowerData.Food);
-    }
-
-    void GetReward(BossData data)
-    {
-        AddGold(data.Gold);
-        AddFood(data.Food);
-    }
-
-    [PunRPC]
-    void GetBossReward(int gold, int food)
-    {
-        AddGold(gold);
-        AddFood(food);
-    }
 
     [PunRPC]
     public void AddGold(int _addGold) => CurrencyManager.Gold += _addGold;
@@ -305,4 +268,46 @@ public class Multi_GameManager : MonoBehaviourPun
     public bool TryUseFood(int food) => CurrencyManager.TryUseFood(food);
 
     public bool TryUseCurrency(GameCurrencyType currencyType, int quantity) => currencyType == GameCurrencyType.Gold ? TryUseGold(quantity) : TryUseFood(quantity);
+}
+
+
+public class RewradController : MonoBehaviourPun
+{
+    Multi_GameManager _gameManager;
+    void Start()
+    {
+        _gameManager = Multi_GameManager.instance;
+        Multi_StageManager.Instance.OnUpdateStage += _stage => _gameManager.AddGold(_gameManager.BattleData.StageUpGold);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Multi_SpawnManagers.BossEnemy.OnDead += GetBossReward;
+            Multi_SpawnManagers.TowerEnemy.OnDead += GetTowerReward;
+        }
+    }
+
+    void GetBossReward(Multi_BossEnemy enemy)
+    {
+        if (enemy.UsingId == Multi_Data.instance.Id)
+            GetReward(enemy.BossData);
+        else
+            photonView.RPC(nameof(GetReward), RpcTarget.Others, enemy.BossData.Gold, enemy.BossData.Food);
+    }
+
+    void GetTowerReward(Multi_EnemyTower enemy)
+    {
+        if (enemy.UsingId == Multi_Data.instance.Id)
+            GetReward(enemy.TowerData);
+        else
+            photonView.RPC(nameof(GetReward), RpcTarget.Others, enemy.TowerData.Gold, enemy.TowerData.Food);
+    }
+
+    void GetReward(BossData data) => GetReward(data.Gold, data.Food);
+
+    [PunRPC]
+    void GetReward(int gold, int food)
+    {
+        _gameManager.AddGold(gold);
+        _gameManager.AddFood(food);
+    }
 }

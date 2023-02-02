@@ -4970,12 +4970,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootName: NormalEnemys
-  _rootPath: Enemy/Normal
-  _enemys:
-  - {fileID: 7536897027791641786, guid: 81de64b6dd2edc2499188ec1b1062d98, type: 3}
-  - {fileID: 1112035910525321252, guid: 214964b67801da343930c1db90499dd9, type: 3}
-  - {fileID: 8692699531293559831, guid: b7d97731d96118d42a5820fc7ca63c3d, type: 3}
-  - {fileID: 2694985329993272948, guid: 5b5d920ab2aaf784eb342157d06a611e, type: 3}
   _spawnableObjectCount: 4
   spawnCount: 50
   spawnPositions:
@@ -10233,14 +10227,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootName: TowerEnemys
-  _rootPath: Enemy/Tower
-  _enemys:
-  - {fileID: 3964263578937476652, guid: 463ef31586d1cb643a2cb70da56fbb55, type: 3}
-  - {fileID: 3662538469695754542, guid: ef1f3b146dfbbe544ae9f8f2fe16b145, type: 3}
-  - {fileID: 5149217585899796489, guid: 91365f957ec48f9479bf76702b9a72a6, type: 3}
-  - {fileID: 2396758488442650461, guid: d03eb2a9b2acbf142b774ec299b282d1, type: 3}
-  - {fileID: 6378220843537392897, guid: 94dfbbe89bb24fb4e916aa1d0431dd53, type: 3}
-  - {fileID: 8866469228252853537, guid: c45a469ed6947da408f04c5c1bdb0d00, type: 3}
   _spawnableObjectCount: 6
   spawnCount: 2
   spawnPositions:
@@ -11776,12 +11762,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootName: BossEnemys
-  _rootPath: Enemy/Boss
-  _enemys:
-  - {fileID: 8562564955079998468, guid: 0ae1ca74a7e6e714399a0af1237b15cd, type: 3}
-  - {fileID: 3278321861748690573, guid: e7bc639f5be424e44a003f25ba80562a, type: 3}
-  - {fileID: 5842820972880275658, guid: 24c73653631a43d4fbc284bd2ebea34d, type: 3}
-  - {fileID: 2502174115710485866, guid: 18ca0360799033349bd8f547d358e44f, type: 3}
   _spawnableObjectCount: 4
   spawnCount: 2
   spawnPositions:
@@ -15785,7 +15765,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootName: Weapons
-  _rootPath: Weapon
   allWeapons: []
   arrowPoolData:
     folderName: Arrows
@@ -15835,6 +15814,7 @@ MonoBehaviour:
     - {fileID: 8959511767882400299, guid: 73833e9d6545abd48886e0de1f0a7657, type: 3}
     - {fileID: 1028878669649969207, guid: 2435002441270cf41be65262bb9e0978, type: 3}
     poolingCount: 2
+  _rootPath: Weapon
 --- !u!1001 &966447445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26218,7 +26198,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootName: Units
-  _rootPath: Unit
   poolCounts: 
 --- !u!114 &1671188578
 MonoBehaviour:

@@ -11,8 +11,6 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
     public RPCAction rpcOnDead = new RPCAction();
     RPCData<int> _towerLevel = new RPCData<int>();
 
-    protected override void MasterInit() => OnDead += AfterSpawn;
-
     protected override void SetPoolObj(GameObject go)
     {
         var enemy = go.GetComponent<Multi_EnemyTower>();
@@ -39,6 +37,7 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
         Multi_EnemyTower tower = base.BaseSpawn(path, spawnPos, rotation, id).GetComponent<Multi_EnemyTower>();
         _towerLevel.Set(id, _towerLevel.Get(id) + 1);
         tower.Spawn(_towerLevel.Get(id));
+        tower.OnDead += died => AfterSpawn(tower);
         SetPoolObj(tower.gameObject);
         Multi_EnemyManager.Instance.SetSpawnTower(id, tower);
         return null;

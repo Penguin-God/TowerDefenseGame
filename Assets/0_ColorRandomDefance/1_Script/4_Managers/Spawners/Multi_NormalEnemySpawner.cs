@@ -6,8 +6,6 @@ using System;
 
 public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 {
-    public event Action<Multi_NormalEnemy> OnDead;
-
     protected override void MasterInit() => CreatePool();
 
     void CreatePool()
@@ -23,13 +21,6 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
         enemy.SetStatus_RPC(data.Hp, data.Speed, false);
         Multi_EnemyManager.Instance.AddNormalMonster(enemy);
         return enemy;
-    }
-
-    protected override void SetPoolObj(GameObject go)
-    {
-        var enemy = go.GetComponent<Multi_NormalEnemy>();
-        if (PhotonNetwork.IsMasterClient == false) return;
-        enemy.OnDeath += () => OnDead(enemy);
     }
 }
 
@@ -58,10 +49,9 @@ public class MonsterSpawnerContorller : MonoBehaviour
     {
         _numManager = gameObject.GetOrAddComponent<EnemySpawnNumManager>();
         if (PhotonNetwork.IsMasterClient == false) return;
-        Multi_SpawnManagers.NormalEnemy.OnDead += ResurrectionMonsterToOther;
-        Multi_StageManager.Instance.OnUpdateStage += SpawnMonsterOnStageChange;
-        Multi_StageManager.Instance.OnUpdateStage += SpawnBossOnStageMultipleOfTen;
-        Multi_GameManager.instance.OnGameStart += SpawnTowerOnStart;
+        Multi_StageManager.Instance.OnUpdateStage += SpawnMonsterOnStageChange; // normal
+        Multi_StageManager.Instance.OnUpdateStage += SpawnBossOnStageMultipleOfTen; // boss
+        Multi_GameManager.instance.OnGameStart += SpawnTowerOnStart; // tower
     }
 
     void SpawnMonsterOnStageChange(int stage)
@@ -81,7 +71,8 @@ public class MonsterSpawnerContorller : MonoBehaviour
         byte num = _numManager.GetSpawnEnemyNum(id);
         for (int i = 0; i < _stageSpawnCount; i++)
         {
-            SpawnMonsterToOther(num, id, stage); // num 인라인 안 한 이유는 스테이지 한 번 들어가면 못 바꾸게 할려고
+            var enemy = SpawnMonsterToOther(num, id, stage); // num 인라인 안 한 이유는 스테이지 한 번 들어가면 못 바꾸게 할려고
+            enemy.OnDead += (died) => ResurrectionMonsterToOther(enemy);
             yield return new WaitForSeconds(_spawnDelayTime);
         }
     }

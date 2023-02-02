@@ -5281,7 +5281,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 389376026}
-  - component: {fileID: 389376025}
   m_Layer: 0
   m_Name: Soldier Color
   m_TagString: Untagged
@@ -5289,18 +5288,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &389376025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 389376024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9c575bdbcb624c0488636ef15d595f9e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &389376026
 Transform:
   m_ObjectHideFlags: 0

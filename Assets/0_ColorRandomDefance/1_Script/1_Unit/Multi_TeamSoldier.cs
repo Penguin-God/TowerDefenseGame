@@ -128,11 +128,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         nav.enabled = true;
         UpdateTarget();
         if (PhotonNetwork.IsMasterClient)
-        {
-            Multi_SpawnManagers.BossEnemy.OnSpawn -= ChangeTargetToBoss;
-            Multi_SpawnManagers.BossEnemy.OnSpawn += ChangeTargetToBoss;
             StartCoroutine(nameof(NavCoroutine));
-        }
+        //Multi_SpawnManagers.BossEnemy.OnSpawn -= ChangeTargetToBoss;
+        //Multi_SpawnManagers.BossEnemy.OnSpawn += ChangeTargetToBoss;
     }
 
     void OnDisable()
@@ -177,7 +175,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         OnDead?.Invoke(this);
         OnDead = null;
         gameObject.SetActive(false);
-        Multi_SpawnManagers.BossEnemy.OnSpawn -= ChangeTargetToBoss;
         Managers.Multi.Instantiater.PhotonDestroy(gameObject);
         _state.Dead();
     }
@@ -193,13 +190,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         nav.enabled = false;
     }
 
-    void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
+    public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
         if (PhotonNetwork.IsMasterClient == false) return;
         _targetManager.UpdateTarget();
     }
-
-    void ChangeTargetToBoss(Multi_BossEnemy boss) => UpdateTarget();
 
     public bool contactEnemy = false;
     IEnumerator NavCoroutine()
@@ -445,7 +440,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
 
         void ChangeTargetWhenTargetDead(Multi_Enemy deadTarget)
         {
-            deadTarget.OnDead -= ChangeTargetWhenTargetDead;
             Reset();
             UpdateTarget();
         }

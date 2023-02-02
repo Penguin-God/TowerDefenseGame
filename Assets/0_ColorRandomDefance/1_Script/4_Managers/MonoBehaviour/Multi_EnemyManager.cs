@@ -29,9 +29,6 @@ public class Multi_EnemyManager : MonoBehaviourPun
     
     void Awake()
     {
-        Multi_SpawnManagers.NormalEnemy.OnSpawn += _master.AddEnemy;
-        Multi_SpawnManagers.NormalEnemy.OnDead += _master.RemoveEnemy;
-        
         _counter.Init(_master);
         _counter.OnEnemyCountChanged += RaiseOnEnemyCountChanged;
         _counter.OnOthreEnemyCountChanged += RaiseOnOtherEnemyCountChanged;
@@ -43,22 +40,19 @@ public class Multi_EnemyManager : MonoBehaviourPun
     public event Action<int> OnOtherEnemyCountChanged = null;
     void RaiseOnOtherEnemyCountChanged(int count) => OnOtherEnemyCountChanged?.Invoke(count);
 
-    void Start()
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Multi_SpawnManagers.BossEnemy.OnSpawn += boss => _currentBoss.Set(boss, boss);
-            Multi_SpawnManagers.BossEnemy.OnDead += boss => _currentBoss.Set(boss, null);
 
-            Multi_SpawnManagers.TowerEnemy.OnSpawn += tower => _currentTower.Set(tower, tower);
-            Multi_SpawnManagers.TowerEnemy.OnDead += tower => _currentTower.Set(tower, null);
-        }
+    public void AddNormalMonster(Multi_NormalEnemy monster)
+    {
+        _master.AddEnemy(monster);
+        monster.OnDead += (_died) => _master.RemoveEnemy(monster);
     }
 
-    public int MyEnemyCount => _counter.CurrentEnemyCount;
-    public int EnemyPlayerEnemyCount => _counter.OtherEnemyCount;
-
     RPCData<Multi_BossEnemy> _currentBoss = new RPCData<Multi_BossEnemy>();
+    public void SetSpawnBoss(int id, Multi_BossEnemy boss)
+    {
+        _currentBoss.Set(id, boss);
+        boss.OnDead += died => _currentBoss.Set(id, null);
+    }
     public bool TryGetCurrentBoss(int id, out Multi_BossEnemy boss)
     {
         boss = _currentBoss.Get(id);
@@ -66,6 +60,11 @@ public class Multi_EnemyManager : MonoBehaviourPun
     }
 
     RPCData<Multi_EnemyTower> _currentTower = new RPCData<Multi_EnemyTower>();
+    public void SetSpawnTower(int id, Multi_EnemyTower tower)
+    {
+        _currentTower.Set(id, tower);
+        tower.OnDead += died => _currentTower.Set(id, null);
+    }
     public Multi_EnemyTower GetCurrnetTower(int id) => _currentTower.Get(id);
 
     public Multi_Enemy GetProximateEnemy(Vector3 finderPos, int unitId) => _finder.GetProximateEnemy(finderPos, _master.GetEnemys(unitId));

@@ -12,17 +12,17 @@ public class Multi_EnemyTower : Multi_Enemy
     [PunRPC]
     protected override void OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill) { }
 
+    protected override void Init()
+    {
+        base.Init();
+        enemyType = EnemyType.Tower;
+    }
+
     public void Spawn(int level)
     {
         _level = level;
         TowerData = Managers.Data.TowerDataByLevel[_level];
         SetStatus_RPC(TowerData.Hp, TowerData.Speed, false);
-    }
-
-    public override void Dead()
-    {
-        base.Dead();
-        Managers.Multi.Instantiater.PhotonDestroy(gameObject);
     }
 
     [ContextMenu("죽음")]

@@ -6,7 +6,6 @@ using System;
 
 public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 {
-    public event Action<Multi_NormalEnemy> OnSpawn;
     public event Action<Multi_NormalEnemy> OnDead;
 
     protected override void MasterInit() => CreatePool();
@@ -35,11 +34,8 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     protected override void SetPoolObj(GameObject go)
     {
         var enemy = go.GetComponent<Multi_NormalEnemy>();
-        enemy.enemyType = EnemyType.Normal;
-
         if (PhotonNetwork.IsMasterClient == false) return;
         enemy.OnDeath += () => OnDead(enemy);
-        enemy.OnDeath += () => Managers.Multi.Instantiater.PhotonDestroy(enemy.gameObject);
     }
 
     public void EditorSpawn(byte enemyNum, int spawnWorldID) => SpawnEnemy_RPC(enemyNum, spawnWorldID); // 에디터용

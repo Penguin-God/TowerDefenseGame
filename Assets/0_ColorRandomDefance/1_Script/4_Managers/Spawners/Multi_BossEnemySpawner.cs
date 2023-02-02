@@ -7,7 +7,6 @@ using Random = UnityEngine.Random;
 
 public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
 {
-    public event Action<Multi_BossEnemy> OnSpawn;
     public event Action<Multi_BossEnemy> OnDead;
 
     public RPCAction rpcOnSpawn = new RPCAction();
@@ -16,10 +15,8 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     protected override void SetPoolObj(GameObject go)
     {
         var enemy = go.GetComponent<Multi_BossEnemy>();
-        enemy.enemyType = EnemyType.Boss;
         enemy.OnDeath += () => OnDead(enemy);
         enemy.OnDeath += () => rpcOnDead.RaiseEvent(enemy.UsingId);
-        enemy.OnDeath += () => Managers.Multi.Instantiater.PhotonDestroy(enemy.gameObject);
     }
 
     public void Spawn(int id)
@@ -34,9 +31,9 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
     {
         Multi_BossEnemy enemy = base.BaseSpawn(path, spawnPositions[id], rotation, id).GetComponent<Multi_BossEnemy>();
+        Multi_EnemyManager.Instance.SetSpawnBoss(id, enemy);
         enemy.Spawn(bossLevel);
         SetPoolObj(enemy.gameObject);
-        OnSpawn?.Invoke(enemy);
         rpcOnSpawn?.RaiseEvent(id);
         return null;
     }

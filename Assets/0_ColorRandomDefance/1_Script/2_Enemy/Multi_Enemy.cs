@@ -104,7 +104,9 @@ public class Multi_Enemy : MonoBehaviourPun
     {
         OnDeath?.Invoke();
         OnDead?.Invoke(this);
+        OnDead = null;
         ResetValue();
+        Managers.Multi.Instantiater.PhotonDestroy(gameObject);
     }
 
     protected virtual void ResetValue()

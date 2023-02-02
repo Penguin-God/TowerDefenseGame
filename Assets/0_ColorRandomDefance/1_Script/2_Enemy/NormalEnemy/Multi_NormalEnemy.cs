@@ -15,6 +15,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected override void Init()
     {
         Rigidbody = GetComponent<Rigidbody>();
+        enemyType = EnemyType.Normal;
     }
 
     protected virtual void Passive() { }
@@ -76,9 +77,10 @@ public class Multi_NormalEnemy : Multi_Enemy
     public void Resurrection_RPC() => photonView.RPC(nameof(Resurrection), RpcTarget.All);
     [PunRPC] protected void Resurrection() => resurrection.Resurrection();
 
+    [System.Serializable]
     public class ResurrectionSystem
     {
-        bool isResurrection = false;
+        [SerializeField] bool isResurrection = false;
         public bool IsResurrection => isResurrection;
         public void Resurrection() => isResurrection = true;
 

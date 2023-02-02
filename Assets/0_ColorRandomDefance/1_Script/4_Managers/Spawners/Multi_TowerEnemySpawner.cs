@@ -6,7 +6,6 @@ using Photon.Pun;
 
 public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
 {
-    public event Action<Multi_EnemyTower> OnSpawn;
     public event Action<Multi_EnemyTower> OnDead;
 
     public RPCAction rpcOnDead = new RPCAction();
@@ -17,7 +16,6 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
     protected override void SetPoolObj(GameObject go)
     {
         var enemy = go.GetComponent<Multi_EnemyTower>();
-        enemy.enemyType = EnemyType.Tower;
         enemy.OnDeath += () => OnDead(enemy);
         enemy.OnDeath += () => rpcOnDead.RaiseEvent(enemy.UsingId);
     }
@@ -38,11 +36,11 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
     [PunRPC]
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
     {
-        Multi_EnemyTower enemy = base.BaseSpawn(path, spawnPos, rotation, id).GetComponent<Multi_EnemyTower>();
+        Multi_EnemyTower tower = base.BaseSpawn(path, spawnPos, rotation, id).GetComponent<Multi_EnemyTower>();
         _towerLevel.Set(id, _towerLevel.Get(id) + 1);
-        enemy.Spawn(_towerLevel.Get(id));
-        SetPoolObj(enemy.gameObject);
-        OnSpawn?.Invoke(enemy);
+        tower.Spawn(_towerLevel.Get(id));
+        SetPoolObj(tower.gameObject);
+        Multi_EnemyManager.Instance.SetSpawnTower(id, tower);
         return null;
     }
 }

@@ -16,18 +16,13 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
             CreatePoolGroup(new SpawnPathBuilder().BuildMonsterPath(i), spawnCount);
     }
 
-    public void Spawn(byte enemyNum, int spawnPlayerID) => SpawnEnemy_RPC(enemyNum, spawnPlayerID);
-
-    void SpawnEnemy_RPC(byte num, int id) => photonView.RPC(nameof(SpawnEnemy), RpcTarget.MasterClient, num, id);
-
-    [PunRPC]
-    Multi_NormalEnemy SpawnEnemy(byte num, int id)
+    public Multi_NormalEnemy SpawnEnemy(byte num, int id, int stage)
     {
         var enemy = base.BaseSpawn(new SpawnPathBuilder().BuildMonsterPath(num), spawnPositions[id], Quaternion.identity, id).GetComponent<Multi_NormalEnemy>();
-        NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[Multi_StageManager.Instance.CurrentStage];
+        NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];
         enemy.SetStatus_RPC(data.Hp, data.Speed, false);
         enemy.resurrection.SetSpawnStage(Multi_StageManager.Instance.CurrentStage);
-        OnSpawn?.Invoke(enemy);
+        Multi_EnemyManager.Instance.AddNormalMonster(enemy);
         return enemy;
     }
 
@@ -37,8 +32,6 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
         if (PhotonNetwork.IsMasterClient == false) return;
         enemy.OnDeath += () => OnDead(enemy);
     }
-
-    public void EditorSpawn(byte enemyNum, int spawnWorldID) => SpawnEnemy_RPC(enemyNum, spawnWorldID); // 에디터용
 }
 
 // 이게 실시간으로 바뀌면 어쩔 수 없는데, 스테이지 들어간 후에 낙장불입이면 그냥 스테이지 시작할 때만 RPC 보내는게 좋을 듯.
@@ -66,7 +59,7 @@ public class MonsterSpawnerContorller : MonoBehaviour
     {
         _numManager = gameObject.GetOrAddComponent<EnemySpawnNumManager>();
         if (PhotonNetwork.IsMasterClient == false) return;
-        Multi_SpawnManagers.NormalEnemy.OnDead += RespawnMonsterToOther;
+        Multi_SpawnManagers.NormalEnemy.OnDead += ResurrectionMonsterToOther;
         Multi_StageManager.Instance.OnUpdateStage += SpawnMonsterOnStageChange;
         Multi_StageManager.Instance.OnUpdateStage += SpawnBossOnStageMultipleOfTen;
         Multi_GameManager.instance.OnGameStart += SpawnTowerOnStart;
@@ -75,32 +68,30 @@ public class MonsterSpawnerContorller : MonoBehaviour
     void SpawnMonsterOnStageChange(int stage)
     {
         if (IsBossStage(stage)) return;
-        StartCoroutine(Co_StageSpawn(0));
-        StartCoroutine(Co_StageSpawn(1));
+        StartCoroutine(Co_StageSpawn(0, stage));
+        StartCoroutine(Co_StageSpawn(1, stage));
     }
 
-    void SpawnMonsterToOther(int id, byte monsterNumber)
-    => Multi_SpawnManagers.NormalEnemy.Spawn(monsterNumber, id == 0 ? 1 : 0);
-
-    void SpawnMonsterToOther(int id)
-        => SpawnMonsterToOther(id, _numManager.GetSpawnEnemyNum(id));
+    Multi_NormalEnemy SpawnMonsterToOther(byte num, int id, int stage) 
+        => Multi_SpawnManagers.NormalEnemy.SpawnEnemy(num, id == 0 ? 1 : 0, stage);
 
     [SerializeField] float _spawnDelayTime = 2f;
     [SerializeField] int _stageSpawnCount = 15;
-    IEnumerator Co_StageSpawn(byte id)
+    IEnumerator Co_StageSpawn(byte id, int stage)
     {
         byte num = _numManager.GetSpawnEnemyNum(id);
         for (int i = 0; i < _stageSpawnCount; i++)
         {
-            SpawnMonsterToOther(id, num); // num 인라인 안 한 이유는 스테이지 한 번 들어가면 못 바꾸게 할려고
+            SpawnMonsterToOther(num, id, stage); // num 인라인 안 한 이유는 스테이지 한 번 들어가면 못 바꾸게 할려고
             yield return new WaitForSeconds(_spawnDelayTime);
         }
     }
 
-    void RespawnMonsterToOther(Multi_NormalEnemy enemy)
+    void ResurrectionMonsterToOther(Multi_NormalEnemy enemy)
     {
         if (enemy.resurrection.IsResurrection) return;
-        SpawnMonsterToOther(enemy.UsingId);
+        var spawnEnemy = SpawnMonsterToOther(_numManager.GetSpawnEnemyNum(enemy.UsingId), enemy.UsingId, enemy.resurrection.SpawnStage);
+        spawnEnemy.resurrection.Resurrection();
     }
 
     void SpawnBossOnStageMultipleOfTen(int stage)

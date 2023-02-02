@@ -74,9 +74,6 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     public ResurrectionSystem resurrection = new ResurrectionSystem();
 
-    public void Resurrection_RPC() => photonView.RPC(nameof(Resurrection), RpcTarget.All);
-    [PunRPC] protected void Resurrection() => resurrection.Resurrection();
-
     [System.Serializable]
     public class ResurrectionSystem
     {

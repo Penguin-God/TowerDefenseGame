@@ -107,7 +107,7 @@ class WorldInitializer
         Managers.UI.ShowSceneUI<UI_Status>();
 
         var buttons = Managers.UI.ShowSceneUI<BattleButton_UI>();
-        buttons.GetComponentInChildren<UI_EnemySelector>().SetInfo(monoBehaviourContainer.GetOrAddComponent<EnemySpawnNumManager>());
+        buttons.GetComponentInChildren<UI_EnemySelector>(true).SetInfo(monoBehaviourContainer.GetOrAddComponent<EnemySpawnNumManager>());
     }
 
     void InitEffect()

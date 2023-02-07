@@ -14,6 +14,10 @@ public class PresentersTester
         Assert(presenter.GenerateColorChangeResultText(beforeFlag, afterFlag) == "파란 창병이 빨간 창병으로 변경되었습니다");
         Assert(presenter.GenerateTextShowToDisruptor(beforeFlag, afterFlag) == "스킬 사용으로 상대방의\n파란 창병이 빨간 창병으로 변경되었습니다");
         Assert(presenter.GenerateTextShowToVictim(beforeFlag, afterFlag) == "상대방의 스킬 사용으로 보유 중인\n파란 창병이 빨간 창병으로 변경되었습니다");
+
+        var beforeFlag2 = new UnitFlags(1, 1);
+        var afterFlag2 = new UnitFlags(0, 1);
+        Assert(presenter.GenerateColorChangeResultText(beforeFlag2, afterFlag2) == "파란 궁수가 빨간 궁수로 변경되었습니다");
     }
 
     public void TestBuildUnitSpawnPath()

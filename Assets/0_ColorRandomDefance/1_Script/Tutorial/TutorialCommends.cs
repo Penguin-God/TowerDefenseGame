@@ -6,7 +6,7 @@ using System.Linq;
 using System;
 using Object = UnityEngine.Object;
 
-namespace TutorialUseCases
+namespace TutorialCommends
 {
     public class TutorialComposite : ITutorial
     {
@@ -28,7 +28,7 @@ namespace TutorialUseCases
             _textUI = Managers.UI.ShowUI<UI_PopupText>();
             _textUI.SetPosition(new Vector2(0, 110));
             _textUI.Show(_text, Color.white);
-            _textUI.GetComponent<Canvas>().sortingOrder = 3333;
+            _textUI.GetComponent<Canvas>().sortingOrder = 3333; // 그냥 제일 높게
         }
         public void EndAction() => Object.Destroy(_textUI.gameObject);
         public bool EndCondition() => Input.GetMouseButtonUp(0);

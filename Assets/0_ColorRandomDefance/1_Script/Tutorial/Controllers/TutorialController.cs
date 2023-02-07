@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TutorialUseCases;
+using TutorialCommends;
 using System;
 using System.Linq;
 
@@ -39,19 +39,20 @@ public abstract class TutorialController : MonoBehaviour
 
     IEnumerator Co_DoTutorial(ITutorial tutorial, float delayTime = 0.1f)
     {
-        SetAllButton(false);
+        var buttons = GameObject.FindObjectsOfType<Button>();
+        SetAllButton(buttons, false);
         tutorial.TutorialAction();
         yield return new WaitForSecondsRealtime(delayTime);
         yield return new WaitUntil(() => tutorial.EndCondition());
         tutorial.EndAction();
-        SetAllButton(true);
+        SetAllButton(buttons, true);
 
         yield return 1;
     }
 
-    void SetAllButton(bool isActive)
+    void SetAllButton(Button[] buttons, bool isActive)
     {
-        foreach (var button in GameObject.FindObjectsOfType<Button>())
+        foreach (var button in buttons.Where(x => x != null))
             button.enabled = isActive;
     }
 

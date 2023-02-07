@@ -66,7 +66,6 @@ class WorldInitializer
         InitSound();
         Managers.Pool.Init();
         InitEffect();
-        EndInintMonoBehaviourContainer();
     }
 
     void InitMonoBehaviourContainer()
@@ -74,12 +73,7 @@ class WorldInitializer
         monoBehaviourContainer.AddComponent<MonsterSpawnerContorller>();
         monoBehaviourContainer.AddComponent<UnitColorChangerRpcHandler>();
         monoBehaviourContainer.AddComponent<WinOrLossController>();
-    }
-
-    UI_OpponentStatus opponentStatus;
-    void EndInintMonoBehaviourContainer()
-    {
-        monoBehaviourContainer.AddComponent<OpponentStatusSynchronizer>().Init(opponentStatus);
+        monoBehaviourContainer.AddComponent<OpponentStatusSynchronizer>();
     }
 
     void InitSound()
@@ -111,7 +105,6 @@ class WorldInitializer
         Managers.UI.ShowPopupUI<RandomShop_UI>("InGameShop/Random Shop");
 
         Managers.UI.ShowSceneUI<UI_Status>();
-        opponentStatus = Managers.UI.ShowSceneUI<UI_OpponentStatus>();
 
         var buttons = Managers.UI.ShowSceneUI<BattleButton_UI>();
         buttons.GetComponentInChildren<UI_EnemySelector>().SetInfo(monoBehaviourContainer.GetOrAddComponent<EnemySpawnNumManager>());

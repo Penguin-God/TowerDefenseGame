@@ -8,11 +8,15 @@ public class UI_Status : UI_Scene
 {
     enum Texts
     {
-        EnemyofCount,
+        MyEnemyCountText,
         FoodText,
         GoldText,
         StageText,
-        CurrentUnitText,
+        MyUnitCountText, 
+        MyKnigthText,
+        MyArcherText,
+        MySpearmanText,
+        MyMageText,
     }
 
     enum GameObjects
@@ -45,6 +49,8 @@ public class UI_Status : UI_Scene
         Multi_StageManager.Instance.OnUpdateStage += UpdateStage;
 
         Multi_GameManager.instance.BattleData.OnMaxUnitChanged += (maxUnit) => UpdateUnitText(Multi_UnitManager.Instance.CurrentUnitCount);
+
+        Multi_UnitManager.Instance.OnUnitFlagCountChanged += (flag, count) => UpdateUnitClassByCount();
 
         Init_UI();
         Bind_Events();
@@ -106,21 +112,30 @@ public class UI_Status : UI_Scene
         }
     }
 
-    void UpdateUnitText(int count) => GetText((int)Texts.CurrentUnitText).text = $"최대 유닛 갯수 {count}/{Multi_GameManager.instance.BattleData.MaxUnit}";
+    void UpdateUnitText(int count) => GetText((int)Texts.MyUnitCountText).text = $"{count}/{Multi_GameManager.instance.BattleData.MaxUnit}";
 
     readonly Color DENGER_COLOR = Color.red;
-    void UpdateEnemyCountText(int EnemyofCount)
+    void UpdateEnemyCountText(int count)
     {
-        Text text = GetText((int)Texts.EnemyofCount);
-        if (EnemyofCount > 40)
+        Text text = GetText((int)Texts.MyEnemyCountText);
+        if (count > 40)
         {
             text.color = DENGER_COLOR;
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
         else text.color = Color.white;
-        text.text = $"현재 적 유닛 카운트 : {EnemyofCount}/{Multi_GameManager.instance.BattleData.MaxEnemyCount}";
+        text.text = $"{count}/{Multi_GameManager.instance.BattleData.MaxEnemyCount}";
     }
 
+    public void UpdateUnitClassByCount()
+    {
+        GetText((int)Texts.MyKnigthText).text = "" + GetCountByClass(UnitClass.Swordman);
+        GetText((int)Texts.MyArcherText).text = "" + GetCountByClass(UnitClass.Archer);
+        GetText((int)Texts.MySpearmanText).text = "" + GetCountByClass(UnitClass.Spearman);
+        GetText((int)Texts.MyMageText).text = "" + GetCountByClass(UnitClass.Mage);
+
+        int GetCountByClass(UnitClass unitClass) => Multi_UnitManager.Instance.UnitCountByFlag.Where(x => x.Key.UnitClass == unitClass).Sum(x => x.Value);
+    }
 
     Slider timerSlider;
     void UpdateStage(int stage)
@@ -128,7 +143,7 @@ public class UI_Status : UI_Scene
         StopAllCoroutines();
         timerSlider.maxValue = Multi_StageManager.Instance.STAGE_TIME;
         timerSlider.value = timerSlider.maxValue;
-        GetText((int)Texts.StageText).text = "현재 스테이지 : " + stage;
+        GetText((int)Texts.StageText).text = "Stage : " + stage;
         StartCoroutine(Co_UpdateTimer());
     }
 

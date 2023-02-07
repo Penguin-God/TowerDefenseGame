@@ -72,5 +72,5 @@ public class UI_OpponentStatus : UI_Scene
         int GetCountByClass(UnitClass unitClass) => Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[unitClass];
     }
 
-    void UpdateMonsterCount(int count) => GetText((int)Texts.OhterEnemyCountText).text = "" + count;
+    void UpdateMonsterCount(int count) => GetText((int)Texts.OhterEnemyCountText).text = $"{count}/{Multi_GameManager.instance.BattleData.MaxEnemyCount}";
 }

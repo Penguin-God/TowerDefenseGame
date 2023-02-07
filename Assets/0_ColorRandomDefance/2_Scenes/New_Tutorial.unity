@@ -613,12 +613,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1867280318}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.200012, y: 53}
-  m_SizeDelta: {x: 190, y: 190}
+  m_AnchoredPosition: {x: 0, y: 79.72}
+  m_SizeDelta: {x: 205.26617, y: 131.61505}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &30944707
 GameObject:
@@ -5062,12 +5062,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootName: NormalEnemys
-  _rootPath: Enemy/Normal
-  _enemys:
-  - {fileID: 7536897027791641786, guid: 81de64b6dd2edc2499188ec1b1062d98, type: 3}
-  - {fileID: 1112035910525321252, guid: 214964b67801da343930c1db90499dd9, type: 3}
-  - {fileID: 8692699531293559831, guid: b7d97731d96118d42a5820fc7ca63c3d, type: 3}
-  - {fileID: 2694985329993272948, guid: 5b5d920ab2aaf784eb342157d06a611e, type: 3}
+  _spawnableObjectCount: 0
   spawnCount: 50
   spawnPositions:
   - {x: -45, y: 0, z: 35}
@@ -6567,12 +6562,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72452170777f97b4f870a7d802c78997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitStoryModeEnterButton: {fileID: 0}
-  unitBackFiledButton: {fileID: 0}
-  EnterStoryModeAudio: {fileID: 0}
-  unitTagName: 
-  enterButtonText: {fileID: 0}
-  currentUnitWindow: {fileID: 0}
 --- !u!1001 &437368591
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6642,41 +6631,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 437368591}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &439500552
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 439500553}
-  m_Layer: 5
-  m_Name: WorldMoveButtonFocus
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &439500553
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 439500552}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1867280318}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -55.900116, y: 35.69998}
-  m_SizeDelta: {x: 133.84259, y: 57.130676}
-  m_Pivot: {x: 1, y: 0}
 --- !u!1001 &443139526
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10084,7 +10038,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1867280318}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -10344,14 +10298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootName: TowerEnemys
-  _rootPath: Enemy/Tower
-  _enemys:
-  - {fileID: 3964263578937476652, guid: 463ef31586d1cb643a2cb70da56fbb55, type: 3}
-  - {fileID: 3662538469695754542, guid: ef1f3b146dfbbe544ae9f8f2fe16b145, type: 3}
-  - {fileID: 5149217585899796489, guid: 91365f957ec48f9479bf76702b9a72a6, type: 3}
-  - {fileID: 2396758488442650461, guid: d03eb2a9b2acbf142b774ec299b282d1, type: 3}
-  - {fileID: 6378220843537392897, guid: 94dfbbe89bb24fb4e916aa1d0431dd53, type: 3}
-  - {fileID: 8866469228252853537, guid: c45a469ed6947da408f04c5c1bdb0d00, type: 3}
+  _spawnableObjectCount: 0
   spawnCount: 2
   spawnPositions:
   - {x: 500, y: 0, z: 10}
@@ -11886,12 +11833,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootName: BossEnemys
-  _rootPath: Enemy/Boss
-  _enemys:
-  - {fileID: 8562564955079998468, guid: 0ae1ca74a7e6e714399a0af1237b15cd, type: 3}
-  - {fileID: 3278321861748690573, guid: e7bc639f5be424e44a003f25ba80562a, type: 3}
-  - {fileID: 5842820972880275658, guid: 24c73653631a43d4fbc284bd2ebea34d, type: 3}
-  - {fileID: 2502174115710485866, guid: 18ca0360799033349bd8f547d358e44f, type: 3}
+  _spawnableObjectCount: 0
   spawnCount: 2
   spawnPositions:
   - {x: -45, y: 0, z: 35}
@@ -15947,7 +15889,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootName: Weapons
-  _rootPath: Weapon
   allWeapons: []
   arrowPoolData:
     folderName: Arrows
@@ -15997,6 +15938,7 @@ MonoBehaviour:
     - {fileID: 8959511767882400299, guid: 73833e9d6545abd48886e0de1f0a7657, type: 3}
     - {fileID: 1028878669649969207, guid: 2435002441270cf41be65262bb9e0978, type: 3}
     poolingCount: 2
+  _rootPath: Weapon
 --- !u!1001 &966447445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -17420,13 +17362,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1867280318}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -263.4, y: 213.4}
-  m_SizeDelta: {x: 271.10382, y: 55.117737}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -1.75, y: -31.23}
+  m_SizeDelta: {x: 209.8941, y: 49.98752}
+  m_Pivot: {x: 0.5, y: 1}
 --- !u!1001 &1065903372
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -20793,12 +20735,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1867280318}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.1000366, y: -172.81}
-  m_SizeDelta: {x: 344.5309, y: 51.27594}
+  m_AnchoredPosition: {x: 0, y: -188.11}
+  m_SizeDelta: {x: 225, y: 46.21663}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1285350178
 PrefabInstance:
@@ -21858,12 +21800,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1867280318}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -368, y: 22}
-  m_SizeDelta: {x: 60, y: 300}
+  m_AnchoredPosition: {x: -372.48, y: 22}
+  m_SizeDelta: {x: 68.96283, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1354867633
 PrefabInstance:
@@ -24428,12 +24370,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72452170777f97b4f870a7d802c78997, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitStoryModeEnterButton: {fileID: 0}
-  unitBackFiledButton: {fileID: 0}
-  EnterStoryModeAudio: {fileID: 0}
-  unitTagName: 
-  enterButtonText: {fileID: 0}
-  currentUnitWindow: {fileID: 0}
 --- !u!65 &1513012278
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -26609,100 +26545,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootName: Units
-  _rootPath: Unit
-  allUnitDatas:
-  - folderName: Swordman
-    gos:
-    - {fileID: 8416693383471264509, guid: 038e9893f5c318542bf59ea6721effdf, type: 3}
-    - {fileID: 7144048999114734787, guid: c65d154f185b28e41877edf948d2f93e, type: 3}
-    - {fileID: 203131281495688949, guid: 1e0e24a64aa9f494fbb035b44dde62c2, type: 3}
-    - {fileID: 7213120144975050378, guid: b438f987beea8bc40a210b9554709449, type: 3}
-    - {fileID: 6488242563762566422, guid: 57e5cfd17e0ce454b8bb89f7d22c41c4, type: 3}
-    - {fileID: 8499757540850643633, guid: 5ff457fade5e59743ae21de8a614713a, type: 3}
-    - {fileID: 8606670814876993437, guid: 673ff93db93abd64fb5cb8b86c15b921, type: 3}
-    - {fileID: 7512264850571994257, guid: 5bd1539d3f0ff0841bad89c905e3a5f4, type: 3}
-    poolingCount: 5
-  - folderName: Archer
-    gos:
-    - {fileID: 6040848935930658283, guid: 9ab00e28296ec7b41b883a45f8e1cb21, type: 3}
-    - {fileID: 3192143453688435179, guid: c2616e255ba235f4883f5c2741a2b1d3, type: 3}
-    - {fileID: 5734166218549510037, guid: 7c5360268753c724cadf6a18ce70196b, type: 3}
-    - {fileID: 1242346495604130008, guid: 8f3316f19b0618f4aa017f9f3dbb6ca1, type: 3}
-    - {fileID: 3674467573017247206, guid: 1d4e8481de007004ea6f7b9e8ec5cb52, type: 3}
-    - {fileID: 7681704439341560586, guid: 393139d0287003a4ebd679ce6d64b0e2, type: 3}
-    - {fileID: 677298355195616122, guid: e352780835250a04ab423536560adad1, type: 3}
-    - {fileID: 3173048112267009847, guid: 3fbf7bc0c9eaaeb48ba0c3eda18b9e33, type: 3}
-    poolingCount: 4
-  - folderName: Spearman
-    gos:
-    - {fileID: 8571527809299574140, guid: 954c46c9b754d264e854c719d6513caa, type: 3}
-    - {fileID: 2586917449292900072, guid: 43ecaead65d68ce4dab17ab0974cf84c, type: 3}
-    - {fileID: 6806549718009488416, guid: c57c9cf6c8eec9449bc5a543b6a383ca, type: 3}
-    - {fileID: 716758046504555196, guid: 015f3949f4b1da64192a9961a092d373, type: 3}
-    - {fileID: 1739437672444174709, guid: 6fb26cd5535979c4da4f7364775db525, type: 3}
-    - {fileID: 7491805243092396964, guid: 19c48d3b26638124089e9af58530e924, type: 3}
-    - {fileID: 4199548222911104336, guid: 0fdf2d2517fd64742b7c11e557b4fe81, type: 3}
-    - {fileID: 2357315067319308687, guid: 711ba7972069d144c857d37f97621a93, type: 3}
-    poolingCount: 3
-  - folderName: Mage
-    gos:
-    - {fileID: 6109000016361938841, guid: 06d81a176f912094a9b7eb87f6e384cc, type: 3}
-    - {fileID: 9215755468416000322, guid: fc9660ca2d4c8b14d96f5736b96ac310, type: 3}
-    - {fileID: 1600210341466093845, guid: 1b8f33b3cb9739940b7aae4f271e3f22, type: 3}
-    - {fileID: 6775729880577783539, guid: afb4cbe8b3de7bd459a985aaab82825a, type: 3}
-    - {fileID: 5512811997297203018, guid: ad7edae7215404b4681413399a03bce4, type: 3}
-    - {fileID: 298940350712295422, guid: e0168f14781034d45b301e7c35486af9, type: 3}
-    - {fileID: 3764644954606831806, guid: 5c36f870f76cb094d91678ef072e10a2, type: 3}
-    - {fileID: 7953183368782943606, guid: 18d5341e080ee52409c23a63c85af0f3, type: 3}
-    poolingCount: 2
-  swordmanPoolData:
-    folderName: Swordman
-    gos:
-    - {fileID: 8416693383471264509, guid: 038e9893f5c318542bf59ea6721effdf, type: 3}
-    - {fileID: 7144048999114734787, guid: c65d154f185b28e41877edf948d2f93e, type: 3}
-    - {fileID: 203131281495688949, guid: 1e0e24a64aa9f494fbb035b44dde62c2, type: 3}
-    - {fileID: 7213120144975050378, guid: b438f987beea8bc40a210b9554709449, type: 3}
-    - {fileID: 6488242563762566422, guid: 57e5cfd17e0ce454b8bb89f7d22c41c4, type: 3}
-    - {fileID: 8499757540850643633, guid: 5ff457fade5e59743ae21de8a614713a, type: 3}
-    - {fileID: 8606670814876993437, guid: 673ff93db93abd64fb5cb8b86c15b921, type: 3}
-    - {fileID: 7512264850571994257, guid: 5bd1539d3f0ff0841bad89c905e3a5f4, type: 3}
-    poolingCount: 5
-  archerPoolData:
-    folderName: Archer
-    gos:
-    - {fileID: 6040848935930658283, guid: 9ab00e28296ec7b41b883a45f8e1cb21, type: 3}
-    - {fileID: 3192143453688435179, guid: c2616e255ba235f4883f5c2741a2b1d3, type: 3}
-    - {fileID: 5734166218549510037, guid: 7c5360268753c724cadf6a18ce70196b, type: 3}
-    - {fileID: 1242346495604130008, guid: 8f3316f19b0618f4aa017f9f3dbb6ca1, type: 3}
-    - {fileID: 3674467573017247206, guid: 1d4e8481de007004ea6f7b9e8ec5cb52, type: 3}
-    - {fileID: 7681704439341560586, guid: 393139d0287003a4ebd679ce6d64b0e2, type: 3}
-    - {fileID: 677298355195616122, guid: e352780835250a04ab423536560adad1, type: 3}
-    - {fileID: 3173048112267009847, guid: 3fbf7bc0c9eaaeb48ba0c3eda18b9e33, type: 3}
-    poolingCount: 4
-  spearmanPoolData:
-    folderName: Spearman
-    gos:
-    - {fileID: 8571527809299574140, guid: 954c46c9b754d264e854c719d6513caa, type: 3}
-    - {fileID: 2586917449292900072, guid: 43ecaead65d68ce4dab17ab0974cf84c, type: 3}
-    - {fileID: 6806549718009488416, guid: c57c9cf6c8eec9449bc5a543b6a383ca, type: 3}
-    - {fileID: 716758046504555196, guid: 015f3949f4b1da64192a9961a092d373, type: 3}
-    - {fileID: 1739437672444174709, guid: 6fb26cd5535979c4da4f7364775db525, type: 3}
-    - {fileID: 7491805243092396964, guid: 19c48d3b26638124089e9af58530e924, type: 3}
-    - {fileID: 4199548222911104336, guid: 0fdf2d2517fd64742b7c11e557b4fe81, type: 3}
-    - {fileID: 2357315067319308687, guid: 711ba7972069d144c857d37f97621a93, type: 3}
-    poolingCount: 2
-  magePoolData:
-    folderName: Mage
-    gos:
-    - {fileID: 6109000016361938841, guid: 06d81a176f912094a9b7eb87f6e384cc, type: 3}
-    - {fileID: 9215755468416000322, guid: fc9660ca2d4c8b14d96f5736b96ac310, type: 3}
-    - {fileID: 1600210341466093845, guid: 1b8f33b3cb9739940b7aae4f271e3f22, type: 3}
-    - {fileID: 6775729880577783539, guid: afb4cbe8b3de7bd459a985aaab82825a, type: 3}
-    - {fileID: 5512811997297203018, guid: ad7edae7215404b4681413399a03bce4, type: 3}
-    - {fileID: 298940350712295422, guid: e0168f14781034d45b301e7c35486af9, type: 3}
-    - {fileID: 3764644954606831806, guid: 5c36f870f76cb094d91678ef072e10a2, type: 3}
-    - {fileID: 7953183368782943606, guid: 18d5341e080ee52409c23a63c85af0f3, type: 3}
-    poolingCount: 1
+  poolCounts: 05000000040000000300000002000000
 --- !u!114 &1671188578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -30032,7 +29875,6 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 439500553}
   - {fileID: 603750056}
   - {fileID: 26847139}
   - {fileID: 1063000686}

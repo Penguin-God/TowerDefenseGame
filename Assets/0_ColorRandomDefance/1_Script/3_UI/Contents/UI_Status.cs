@@ -138,12 +138,12 @@ public class UI_Status : UI_Scene
     }
 
     Slider timerSlider;
-    void UpdateStage(int stage)
+    void UpdateStage(int stageNumber)
     {
         StopAllCoroutines();
         timerSlider.maxValue = Multi_StageManager.Instance.STAGE_TIME;
         timerSlider.value = timerSlider.maxValue;
-        GetText((int)Texts.StageText).text = "Stage : " + stage;
+        GetText((int)Texts.StageText).text = $"Stage {stageNumber} : " ;
         StartCoroutine(Co_UpdateTimer());
     }
 

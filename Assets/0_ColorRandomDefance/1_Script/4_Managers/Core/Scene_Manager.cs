@@ -7,16 +7,16 @@ using System;
 
 public enum SceneTyep
 {
-    클라이언트,
-    New_Scene,
-    TestScene,
+    Lobby,
+    Battle,
+    Tutorial,
+    Matching,
 }
 
 public class Scene_Manager
 {
     public BaseScene CurrentScene => GameObject.FindObjectOfType<BaseScene>();
-    public SceneTyep CurrentSceneType = SceneTyep.클라이언트;
-    public bool IsBattleScene => CurrentSceneType == SceneTyep.New_Scene || CurrentSceneType == SceneTyep.TestScene;
+    public SceneTyep CurrentSceneType = SceneTyep.Lobby;
 
     public void LoadScene(SceneTyep type)
     {

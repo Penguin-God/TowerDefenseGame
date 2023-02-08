@@ -2,17 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BaseScene : MonoBehaviour
+public abstract class BaseScene : MonoBehaviour
 {
-    void Awake()
-    {
-        Init();
-    }
+    void Awake() => Init();
 
-    protected virtual void Init()
-    {
-
-    }
+    protected abstract void Init();
 
     public virtual void Clear()
     {

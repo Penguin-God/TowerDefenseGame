@@ -45,7 +45,7 @@ public class WinOrLossController : MonoBehaviourPunCallbacks
 
     public override void OnLeftRoom()
     {
-        Managers.Scene.LoadScene(SceneTyep.클라이언트);
+        Managers.Scene.LoadScene(SceneTyep.Lobby);
         Managers.Clear();
     }
 }

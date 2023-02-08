@@ -65,6 +65,6 @@ public class Managers : MonoBehaviour
     void LoadScene()
     {
         PhotonNetwork.LeaveRoom();
-        Scene.LoadScene(SceneTyep.클라이언트);
+        Scene.LoadScene(SceneTyep.Lobby);
     }
 }

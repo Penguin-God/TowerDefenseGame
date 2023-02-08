@@ -18,8 +18,8 @@ public class UnitTrakerSortByCombineable : UI_UnitTrackerParent
     void SortTrakers()
     {
         var combineableUnitFalgs = Multi_UnitManager.Instance.CombineableUnitFlags;
-        if (combineableUnitFalgs.Count() == 0) return;
         DestroyChilds();
+        if (combineableUnitFalgs.Count() == 0) return;
         foreach (var unitFlag in SortUnitFlags(combineableUnitFalgs))
             Managers.UI.MakeSubItem<UI_UnitTracker>(transform).SetInfo(unitFlag);
     }

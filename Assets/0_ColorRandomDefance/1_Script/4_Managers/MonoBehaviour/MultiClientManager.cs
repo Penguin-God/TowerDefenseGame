@@ -9,44 +9,20 @@ public class MultiClientManager : MonoBehaviourPunCallbacks
 {
     private string GameVersion = "1";
     public Text ConnectionInfoText;
+    public Button _gameMatchingButton;
 
-    //public Text ConnectionInfoText;
-    public Button MultiStartButton;
+    private bool _isLobby = true;
     void Start()
     {
         PhotonNetwork.GameVersion = GameVersion;
-
-        // PhotonNetwork.ConnectUsingSettings();
-
-        // MultiStartButton.interactable = false;
-        MultiStartButton.interactable = true;
-        ConnectionInfoText.text = "Loading...";
+        PhotonNetwork.Disconnect();
+        _gameMatchingButton.onClick.AddListener(Connect);
+        ConnectionInfoText.text = "매치 상태";
     }
 
-    void Update()
+    void Connect()
     {
-        if (Input.GetKeyDown(KeyCode.J)) Connect();
-    }
-
-    public override void OnConnectedToMaster()
-    {
-        MultiStartButton.interactable = true;
-
-        ConnectionInfoText.text = $"연결 됨. Version : {GameVersion}";
-    }
-
-    public override void OnDisconnected(DisconnectCause cause)
-    {
-        MultiStartButton.interactable = false;
-
-        ConnectionInfoText.text = "연결 실패 재접속 중...";
-
-        PhotonNetwork.ConnectUsingSettings();
-    }
-
-    public void Connect() // MultiStartButton OnClick
-    {
-        MultiStartButton.interactable = false;
+        _gameMatchingButton.interactable = false;
 
         if (PhotonNetwork.IsConnected)
         {
@@ -55,9 +31,32 @@ public class MultiClientManager : MonoBehaviourPunCallbacks
         }
         else
         {
-            ConnectionInfoText.text = "연결 실패 재접속 중...";
+            ConnectionInfoText.text = "접속 중...";
             PhotonNetwork.ConnectUsingSettings();
         }
+    }
+
+    public override void OnConnectedToMaster()
+    {
+        _gameMatchingButton.interactable = true;
+
+        ConnectionInfoText.text = $"연결 됨. Version : {GameVersion}";
+    }
+
+    public override void OnDisconnected(DisconnectCause cause)
+    {
+        if (_isLobby)
+        {
+            _isLobby = false;
+            return;
+        }
+        if (Application.isPlaying == false || _gameMatchingButton == null) return;
+
+        _gameMatchingButton.interactable = false;
+
+        ConnectionInfoText.text = "연결 실패 재접속 중...";
+
+        PhotonNetwork.ConnectUsingSettings();
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)

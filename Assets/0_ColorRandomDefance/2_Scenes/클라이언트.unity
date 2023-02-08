@@ -6320,7 +6320,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ConnectionInfoText: {fileID: 1899261667}
-  MultiStartButton: {fileID: 677784562}
+  _gameMatchingButton: {fileID: 677784562}
 --- !u!4 &491164742
 Transform:
   m_ObjectHideFlags: 0
@@ -8643,24 +8643,13 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 677784563}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 792715567}
         m_MethodName: ClientClickSound
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 491164741}
-        m_MethodName: Connect
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -16,7 +16,6 @@ public class UI_Manager
     int _order = 10; // 기본 UI랑 팝업 UI 오더 다르게 하기 위해 초기값 10으로 세팅
 
     Stack<UI_Popup> _currentPopupStack = new Stack<UI_Popup>();
-    UI_Base _sceneUI = null;
 
     Dictionary<string, UI_Popup> _nameByPopupCash = new Dictionary<string, UI_Popup>();
     Dictionary<PopupGroupType, UI_Popup> _groupTypeByCurrentPopup = new Dictionary<PopupGroupType, UI_Popup>();
@@ -50,7 +49,6 @@ public class UI_Manager
         CanvasScaler canvasScaler = go.GetOrAddComponent<CanvasScaler>();
         canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         canvasScaler.referenceResolution = new Vector2(800, 480);
-        //canvasScaler.matchWidthOrHeight = 1;
         canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
 
         if (sort)
@@ -81,7 +79,6 @@ public class UI_Manager
 
         GameObject go = Managers.Resources.Instantiate($"UI/Scene/{name}");
         T sceneUI = go.GetOrAddComponent<T>();
-        _sceneUI = sceneUI;
         go.transform.SetParent(Root);
         return sceneUI;
     }
@@ -123,6 +120,39 @@ public class UI_Manager
         _currentPopupStack.Push(popup);
     }
 
+    T ShowUI<T>(string uiType, string name = null, Transform parent = null) where T : UI_Base
+    {
+        if (string.IsNullOrEmpty(name)) name = typeof(T).Name;
+        GameObject go = Managers.Resources.Instantiate($"UI/{uiType}/{name}");
+        T ui = go.GetOrAddComponent<T>();
+        go.transform.SetParent(parent ?? Root);
+        go.gameObject.SetActive(true);
+        return ui;
+    }
+
+    //void DD()
+    //{
+
+    //    if (ui is UI_Popup popup)
+    //    {
+    //        popup.gameObject.GetOrAddComponent<Canvas>().sortingOrder = _order;
+    //        _order++;
+
+    //        _nameByPopupCash.TryGetValue(path, out UI_Popup popupCash);
+    //        if (popupCash != null)
+    //        {
+    //            ActivePopupUI(popupCash);
+    //            return popupCash.gameObject.GetComponent<T>();
+    //        }
+    //        else
+    //        {
+    //            _nameByPopupCash.Add(path, popup);
+    //            _currentPopupStack.Push(popup);
+    //        }
+    //    }
+    //}
+
+
     public void ClosePopupUI() => _currentPopupStack.Pop().gameObject.SetActive(false);
 
     public void ClosePopupUI(PopupGroupType groupType)
@@ -158,7 +188,6 @@ public class UI_Manager
     public void Clear()
     {
         _root = null;
-        _sceneUI = null;
         _currentPopupStack.Clear();
         _nameByPopupCash.Clear();
         _groupTypeByCurrentPopup.Clear();

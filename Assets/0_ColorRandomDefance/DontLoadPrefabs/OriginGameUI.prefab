@@ -5344,7 +5344,6 @@ GameObject:
   - component: {fileID: 3454675174904024713}
   - component: {fileID: 3454675174904024718}
   - component: {fileID: 3454675174904024719}
-  - component: {fileID: 1730460718438561819}
   m_Layer: 5
   m_Name: Unit Sell Button
   m_TagString: Untagged
@@ -5452,21 +5451,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &1730460718438561819
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3454675174904024717}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d3c088c61feeb5f40971a1255e993bc0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitFlag:
-    _colorNumber: 0
-    _classNumber: 0
 --- !u!1 &3646738684492070173
 GameObject:
   m_ObjectHideFlags: 0
@@ -6763,8 +6747,6 @@ GameObject:
   - component: {fileID: 5389889276740706228}
   - component: {fileID: 5389889276740706227}
   - component: {fileID: 5389889276740706226}
-  - component: {fileID: 9183786938321728572}
-  - component: {fileID: 5452422533207333028}
   m_Layer: 5
   m_Name: Unit World Changed Button
   m_TagString: Untagged
@@ -6872,45 +6854,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &9183786938321728572
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5389889276740706224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d80bf2595bac6e4c87971b5f8d1a06d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _flag:
-    _colorNumber: 0
-    _classNumber: 0
-  button: {fileID: 5389889276740706226}
-  text: {fileID: 5389889278316460508}
---- !u!114 &5452422533207333028
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5389889276740706224}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!1 &5389889276758174471
 GameObject:
   m_ObjectHideFlags: 0
@@ -7125,11 +7068,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001558133fcfee64a8c5629050d68fc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _description: {fileID: 5389889277461194147}
   _combineButtonsParent: {fileID: 1908644791798295088}
-  _currentWolrd: {fileID: 5389889278316460508}
-  worldChangedButton: {fileID: 9183786938321728572}
-  unitSellButton: {fileID: 1730460718438561819}
+  _unitFlag:
+    _colorNumber: 0
+    _classNumber: 0
 --- !u!1 &5389889277461194145
 GameObject:
   m_ObjectHideFlags: 0

@@ -286,7 +286,8 @@ public class Multi_UnitManager : MonoBehaviourPun
                 units[i].Dead();
                 _masterData.RemoveUnit(units[i]);
             }
-            _masterData.UpdateUnitCount(units[0]);
+            if(units.Length > 0)
+                _masterData.UpdateUnitCount(units[0]);
         }
 
         public void UnitWorldChange(int id, UnitFlags flag, bool enterStroyMode)

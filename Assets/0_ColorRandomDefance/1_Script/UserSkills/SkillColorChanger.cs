@@ -47,7 +47,7 @@ public class SkillColorChanger : MonoBehaviourPun
     [PunRPC]
     void PopupText(string text)
     {
-        var ui = Managers.UI.ShowUI<UI_PopupText>();
+        var ui = Managers.UI.ShowDefualtUI<UI_PopupText>();
         ui.SetPosition(new Vector2(0, 120f));
         ui.Show(text, 2.5f);
     }

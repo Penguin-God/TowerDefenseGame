@@ -26,9 +26,6 @@ public class ResourcesManager
             poolGo.SetActive(true);
             return poolGo;
         }
-        //var original = Managers.Pool.GetOriginal(path);
-        //if (original != null)
-        //    return Managers.Pool.Pop(original).gameObject;
 
         var original = Load<GameObject>(path);
         GameObject go = Object.Instantiate(original, parent);

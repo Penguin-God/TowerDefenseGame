@@ -17,7 +17,7 @@ public class UI_Manager
 
     Stack<UI_Popup> _currentPopupStack = new Stack<UI_Popup>();
 
-    Dictionary<string, UI_Popup> _nameByPopupCash = new Dictionary<string, UI_Popup>();
+    Dictionary<string, GameObject> _popupCashByPath = new Dictionary<string, GameObject>();
     Dictionary<PopupGroupType, UI_Popup> _groupTypeByCurrentPopup = new Dictionary<PopupGroupType, UI_Popup>();
 
     public void Init()
@@ -51,37 +51,25 @@ public class UI_Manager
         canvasScaler.referenceResolution = new Vector2(800, 480);
         canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
 
-        if (sort)
-        {
-            canvas.sortingOrder = _order;
-            _order++;
-        }
-        else
-        {
-            canvas.sortingOrder = 0;
-        }
+        if(sort)
+            SetSotingOrder(canvas);
     }
 
-    public T MakeSubItem<T>(Transform parent = null, string name = null) where T : UI_Base
+    void SetSotingOrder(Canvas canvas)
     {
-        if (string.IsNullOrEmpty(name)) name = typeof(T).Name;
-
-        GameObject go = Managers.Resources.Instantiate($"UI/SubItem/{name}");
-        if (parent != null) go.transform.SetParent(parent);
-        go.transform.localScale = Vector3.one;
-        go.transform.localPosition = go.transform.position;
-        return go.GetOrAddComponent<T>();
+        canvas.sortingOrder = _order;
+        _order++;
     }
 
-    public T ShowSceneUI<T>(string name = null) where T : UI_Scene
+    public T MakeSubItem<T>(Transform parent, string name = null) where T : UI_Base
     {
-        if (string.IsNullOrEmpty(name)) name = typeof(T).Name;
-
-        GameObject go = Managers.Resources.Instantiate($"UI/Scene/{name}");
-        T sceneUI = go.GetOrAddComponent<T>();
-        go.transform.SetParent(Root);
-        return sceneUI;
+        T ui = ShowUI<T>("SubItem", name, null, parent);
+        ui.transform.localScale = Vector3.one;
+        ui.transform.localPosition = ui.transform.position;
+        return ui;
     }
+
+    public T ShowSceneUI<T>(string name = null) where T : UI_Scene => ShowUI<T>("Scene", name);
 
     public T ShowPopGroupUI<T>(PopupGroupType type, string name = null) where T : UI_Popup
     {
@@ -94,63 +82,35 @@ public class UI_Manager
 
     public T ShowPopupUI<T>(string name = null) where T : UI_Popup
     {
-        if (string.IsNullOrEmpty(name))
-            name = typeof(T).Name;
-        string path = $"UI/Popup/{name}";
-        if (_nameByPopupCash.TryGetValue(path, out UI_Popup popupCash))
-        {
-            ActivePopupUI(popupCash);
-            return popupCash.gameObject.GetComponent<T>();
-        }
-        // 캐쉬가 없으면
-        T popup = Managers.Resources.Instantiate(path).GetOrAddComponent<T>();
-        _nameByPopupCash.Add(path, popup);
-        ActivePopupUI(popup);
-
+        T popup = ShowUI<T>("Popup", name, InstantPopupUI);
+        _currentPopupStack.Push(popup);
+        SetSotingOrder(popup.gameObject.GetOrAddComponent<Canvas>());
         return popup;
     }
 
-    void ActivePopupUI(UI_Popup popup)
+    GameObject InstantPopupUI(string path)
     {
-        popup.gameObject.GetOrAddComponent<Canvas>().sortingOrder = _order;
-        popup.transform.SetParent(Root);
-        _order++;
-
-        popup.gameObject.SetActive(true);
-        _currentPopupStack.Push(popup);
+        if (_popupCashByPath.TryGetValue(path, out GameObject popupCash))
+            return popupCash;
+        else
+        {
+            var go = Managers.Resources.Instantiate(path);
+            _popupCashByPath.Add(path, go);
+            return go;
+        }
     }
 
-    T ShowUI<T>(string uiType, string name = null, Transform parent = null) where T : UI_Base
+    public T ShowDefualtUI<T>(string name = null) where T : UI_Base => ShowUI<T>("Default", name);
+
+    T ShowUI<T>(string uiType, string name = null, Func<string, GameObject> getObject = null, Transform parent = null) where T : UI_Base
     {
         if (string.IsNullOrEmpty(name)) name = typeof(T).Name;
-        GameObject go = Managers.Resources.Instantiate($"UI/{uiType}/{name}");
+        GameObject go = getObject == null ? Managers.Resources.Instantiate($"UI/{uiType}/{name}") : getObject($"UI/{uiType}/{name}");
         T ui = go.GetOrAddComponent<T>();
         go.transform.SetParent(parent ?? Root);
         go.gameObject.SetActive(true);
         return ui;
     }
-
-    //void DD()
-    //{
-
-    //    if (ui is UI_Popup popup)
-    //    {
-    //        popup.gameObject.GetOrAddComponent<Canvas>().sortingOrder = _order;
-    //        _order++;
-
-    //        _nameByPopupCash.TryGetValue(path, out UI_Popup popupCash);
-    //        if (popupCash != null)
-    //        {
-    //            ActivePopupUI(popupCash);
-    //            return popupCash.gameObject.GetComponent<T>();
-    //        }
-    //        else
-    //        {
-    //            _nameByPopupCash.Add(path, popup);
-    //            _currentPopupStack.Push(popup);
-    //        }
-    //    }
-    //}
 
 
     public void ClosePopupUI() => _currentPopupStack.Pop().gameObject.SetActive(false);
@@ -179,17 +139,11 @@ public class UI_Manager
         return _currentPopupStack.Peek();
     }
 
-    public T ShowUI<T>(string name = null) where T : UI_Base
-    {
-        if (string.IsNullOrEmpty(name)) name = typeof(T).Name;
-        return Managers.Resources.Instantiate($"UI/Default/{name}").GetOrAddComponent<T>();
-    }
-
     public void Clear()
     {
         _root = null;
         _currentPopupStack.Clear();
-        _nameByPopupCash.Clear();
+        _popupCashByPath.Clear();
         _groupTypeByCurrentPopup.Clear();
     }
 }

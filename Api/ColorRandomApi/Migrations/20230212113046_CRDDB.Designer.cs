@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ColorRandomApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230212092826_CRD")]
-    partial class CRD
+    [Migration("20230212113046_CRDDB")]
+    partial class CRDDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

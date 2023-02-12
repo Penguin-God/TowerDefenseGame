@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ColorRandomApi.Migrations
 {
-    public partial class CRD : Migration
+    public partial class CRDDB : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -8,15 +8,6 @@ using System.Text;
 using System.Collections.Generic;
 
 
-public class GameResult
-{
-    public int Id;
-    public int UserId;
-    public string UserName;
-    public int Score;
-    public DateTime DateTime;
-}
-
 
 public class WebServerTest : MonoBehaviour
 {
@@ -26,7 +17,7 @@ public class WebServerTest : MonoBehaviour
         public int Id;
         public int UserId;
         public string UserName;
-        public ICollection<Skill> skills;
+        public List<Skill> skills;
         public DateTime Date;
     }
 
@@ -37,13 +28,13 @@ public class WebServerTest : MonoBehaviour
         public string SkillName;
         public int SkillExp;
         public int OwnerId;
-        public Player Owner;
+        //public Player Owner;
     }
 
     //public List<Skill> testObj = new List<Skill>() { new Skill { SkillName = "태극", SkillExp = 123 , Owner = new Player { UserName = 777777} }, new Skill { SkillName = "검유강", SkillExp = 11 } };
     //dbSkill _skills = new dbSkill { SkillName = "태극", SkillExp = 123, Owner = new Player { UserName = 77777 } };
     //dbSkill _skills2 = new dbSkill { SkillName = "검유강", SkillExp = 321, Owner = new Player { UserName = 88888 } };
-    public Player player = new Player() { UserName = "test1", UserId = 7, Date = DateTime.Now, skills = new List<Skill> { new Skill { SkillId = 1,SkillName = "태극", Owner = new Player { UserName = "list_test1" }, OwnerId = 7 } }   };
+    
 
     void Start()
     {
@@ -55,6 +46,7 @@ public class WebServerTest : MonoBehaviour
         // 쓰기
         if (Input.GetKeyDown(KeyCode.P))
         {
+            Player player = new Player() { UserName = "Gunal", skills = new List<Skill>() { new Skill() { SkillName = "태극"} } };
             string jsonfile = JsonUtility.ToJson(player);
             print(jsonfile);
             StartCoroutine(Upload(jsonfile));

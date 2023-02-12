@@ -20,6 +20,7 @@ namespace SharedData.Models
         public int SkillId { get; set; }
         public string SkillName { get; set; }
         public int SkillExp { get; set; }
+        public int OwnerId { get; set; }
         public Player Owner { get; set; }
     }
 

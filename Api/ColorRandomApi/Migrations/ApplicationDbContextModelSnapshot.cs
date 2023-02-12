@@ -47,7 +47,7 @@ namespace ColorRandomApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("OwnerId")
+                    b.Property<int>("OwnerId")
                         .HasColumnType("int");
 
                     b.Property<int>("SkillExp")
@@ -67,7 +67,9 @@ namespace ColorRandomApi.Migrations
                 {
                     b.HasOne("SharedData.Models.Player", "Owner")
                         .WithMany("skills")
-                        .HasForeignKey("OwnerId");
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

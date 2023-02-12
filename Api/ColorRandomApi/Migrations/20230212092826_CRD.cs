@@ -30,7 +30,7 @@ namespace ColorRandomApi.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     SkillName = table.Column<string>(nullable: true),
                     SkillExp = table.Column<int>(nullable: false),
-                    OwnerId = table.Column<int>(nullable: true)
+                    OwnerId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -40,7 +40,7 @@ namespace ColorRandomApi.Migrations
                         column: x => x.OwnerId,
                         principalTable: "Players",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(

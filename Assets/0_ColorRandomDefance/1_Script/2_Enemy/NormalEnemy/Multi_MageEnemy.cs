@@ -5,13 +5,14 @@ using Photon.Pun;
 
 public class Multi_MageEnemy : Multi_NormalEnemy
 {
+    readonly float DAMAGE_REDUCTION_RATE = 80;
     [PunRPC]
     protected override void RPC_OnDamage(int damage, bool isSkill)
     {
         if (isSkill)
         {
             photonView.RPC(nameof(DecreasedEffect), RpcTarget.All);
-            damage -= Mathf.CeilToInt(damage * 80 * 0.01f);
+            damage -= Mathf.CeilToInt(damage * DAMAGE_REDUCTION_RATE * 0.01f);
         }
         base.RPC_OnDamage(damage, isSkill);
     }
@@ -21,7 +22,7 @@ public class Multi_MageEnemy : Multi_NormalEnemy
     void DecreasedEffect()
     {
         Managers.Effect.ChangeAllMaterial("Gray", transform);
-        Managers.Sound.PlayEffect(EffectSoundType.DebuffSkill);
+        // Managers.Sound.PlayEffect(EffectSoundType.DebuffSkill);
         if (_coMat != null) StopCoroutine(_coMat);
         _coMat = StartCoroutine(Co_ChangedMat());
     }

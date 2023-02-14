@@ -6,7 +6,8 @@ using System.Linq;
 public class UnitTrakerSortByCombineable : UI_UnitTrackerParent
 {
     readonly int MAX_UI_COUNT = 4;
-    protected override void SortTrackers(UnitFlags flag) => SortTrakers();
+    protected override void SortTrackers(UnitFlags flag) => gameObject.SetActive(true);
+    void OnEnable() => SortTrakers(); // 상대 진영 갔다오면 자식 파괴되는 것 때문에 OnEnable에서 동작하도록 함
 
     protected override void Init()
     {

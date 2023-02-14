@@ -10,7 +10,8 @@ public abstract class UserSkill
     SkillType _skillType;
 
     public abstract void InitSkill();
-    protected float[] GetData() => Managers.ClientData.GetSkillLevelData(_skillType).BattleDatas;
+    protected float[] SkillDatas => Managers.ClientData.GetSkillLevelData(_skillType).BattleDatas;
+    protected float SkillData => SkillDatas[0];
 }
 
 public class UserSkillFactory
@@ -43,19 +44,19 @@ public class UserSkillFactory
 public class StartGold : UserSkill
 {
     public override void InitSkill()
-        => Multi_GameManager.instance.AddGold((int)GetData()[0]);
+        => Multi_GameManager.instance.AddGold((int)SkillData);
 }
 
 public class StartFood : UserSkill
 {
     public override void InitSkill()
-        => Multi_GameManager.instance.AddFood((int)GetData()[0]);
+        => Multi_GameManager.instance.AddFood((int)SkillData);
 }
 
 public class MaxUnit : UserSkill
 {
     public override void InitSkill()
-        => Multi_GameManager.instance.BattleData.MaxUnit += (int)GetData()[0];
+        => Multi_GameManager.instance.BattleData.MaxUnit += (int)SkillData;
 }
 
 public class Taegeuk : UserSkill
@@ -73,7 +74,7 @@ public class Taegeuk : UserSkill
 
         void EnrichDamagesData()
         {
-            _taegeukDamages = GetData().Select(x => (int)x).ToArray();
+            _taegeukDamages = SkillDatas.Select(x => (int)x).ToArray();
 
             for (int i = 0; i < _originDamages.Length; i++)
                 _originDamages[i] = Managers.Data.GetUnitStat(new UnitFlags(0, i)).Damage;
@@ -134,7 +135,7 @@ public class BlackUnitUpgrade : UserSkill
     UnitDamages strongDamages;
     public override void InitSkill()
     {
-        int[] datas = GetData().Select(x => (int)x).ToArray();
+        int[] datas = SkillDatas.Select(x => (int)x).ToArray();
         strongDamages = new UnitDamages(datas[0], datas[1], datas[2], datas[3]);
         Multi_UnitManager.Instance.OnUnitFlagCountChanged += (flag, count) => UseSkill(flag);
     }
@@ -152,11 +153,9 @@ public class BlackUnitUpgrade : UserSkill
 
 public class YellowSowrdmanUpgrade : UserSkill
 {
+    // 노란 기사 패시브 골드 변경
     public override void InitSkill()
-    {
-        // 노란 기사 패시브 골드 변경
-        Multi_GameManager.instance.BattleData.YellowKnightRewardGold = (int)GetData()[0];
-    }
+        => Multi_GameManager.instance.BattleData.YellowKnightRewardGold = (int)SkillData;
 }
 
 public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
@@ -190,7 +189,7 @@ public class FoodHater : UserSkill
     int _rate;
     public override void InitSkill()
     {
-        _rate = (int)GetData()[0];
+        _rate = (int)SkillData;
         ChangeShopCurrency();
         Multi_GameManager.instance.OnFoodChanged += FoodToGold;
     }
@@ -221,7 +220,7 @@ public class SellUpgrade : UserSkill
     public override void InitSkill()
     {
         // 유닛 판매 보상 증가 (유닛별로 증가폭 별도)
-        int[] sellData = GetData().Select(x => (int)x).ToArray();
+        int[] sellData = SkillDatas.Select(x => (int)x).ToArray();
         var sellRewardDatas = Multi_GameManager.instance.BattleData.UnitSellPriceRecord.PriceDatas;
         for (int i = 0; i < sellRewardDatas.Length; i++)
             sellRewardDatas[i].ChangePrice(sellData[i]);
@@ -231,10 +230,7 @@ public class SellUpgrade : UserSkill
 public class BossDamageUpgrade : UserSkill
 {
     public override void InitSkill()
-    {
-        float rate = GetData()[0];
-        Multi_SpawnManagers.NormalUnit.OnSpawn += (unit) => unit.BossDamage = Mathf.RoundToInt(unit.BossDamage * rate);
-    }
+        => Multi_SpawnManagers.NormalUnit.OnSpawn += (unit) => unit.BossDamage = Mathf.RoundToInt(unit.BossDamage * SkillData);
 }
 
 public struct UnitDamages

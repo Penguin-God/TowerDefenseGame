@@ -67,6 +67,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     [SerializeField] protected TargetManager _targetManager;
     protected UnitState _state;
+    public UnitState State => _state;
     public bool EnterStroyWorld => _state.EnterStoryWorld;
     public bool IsAttack => _state.IsAttack;
     protected ChaseSystem _chaseSystem;
@@ -333,7 +334,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
 
     [Serializable]
-    protected class UnitState : MonoBehaviourPun
+    public class UnitState : MonoBehaviourPun
     {
         void Awake()
         {

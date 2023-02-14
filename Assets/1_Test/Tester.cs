@@ -25,4 +25,11 @@ public class Tester : MonoBehaviour
         tester.TestBuildUnitSpawnPath();
         tester.TestBuildMonstersSpawnPath();
     }
+
+    [ContextMenu("Test Data Change")]
+    void TestDataChange()
+    {
+        var tester = new DataChangeTester();
+        tester.TestChangeUnitAllData();
+    }
 }

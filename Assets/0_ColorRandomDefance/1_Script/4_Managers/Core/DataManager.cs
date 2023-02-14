@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public interface ILoader<Key, Value>
 {
@@ -17,6 +18,8 @@ public interface ICsvLoader<Key, Value>
 public class DataManager
 {
     UnitData _unit = new UnitData();
+    public UnitData Unit => _unit;
+
     UI_Data _ui = new UI_Data();
     EnemyData _enemy = new EnemyData();
 
@@ -90,7 +93,7 @@ public class DataManager
     }
 
 
-    class UnitData
+    public class UnitData
     {
         Dictionary<string, UnitNameData> _unitNameDataByUnitKoreaName = new Dictionary<string, UnitNameData>();
         public IReadOnlyDictionary<string, UnitNameData> UnitNameDataByUnitKoreaName => _unitNameDataByUnitKoreaName;
@@ -102,7 +105,10 @@ public class DataManager
         public IReadOnlyDictionary<UnitFlags, WeaponData> WeaponDataByUnitFlag => _weaponDataByUnitFlag;
 
         Dictionary<UnitFlags, UnitStat> _unitStatByFlag = new Dictionary<UnitFlags, UnitStat>();
+        public Dictionary<UnitFlags, UnitStat> UnitStatByFlag => _unitStatByFlag;
         public UnitStat GetUnitStat(UnitFlags flag) => _unitStatByFlag[flag].GetClone();
+        public void ChangeAllUnitStat(Action<UnitStat> action) => UnitStatByFlag.Values.ToList().ForEach(action);
+
 
         Dictionary<UnitFlags, UnitPassiveStat> _unitPassiveStatByFlag = new Dictionary<UnitFlags, UnitPassiveStat>();
         public IReadOnlyList<float> GetUnitPassiveStats(UnitFlags flag) => _unitPassiveStatByFlag[flag].Stats;

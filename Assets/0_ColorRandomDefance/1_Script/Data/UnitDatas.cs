@@ -123,7 +123,6 @@ public class UnitStat
     [SerializeField] UnitFlags _flag;
     [SerializeField] int _damage;
     [SerializeField] int _bossDamage;
-    //[SerializeField] int _useSkillPercent;
     [SerializeField] float _attackDelayTime;
     [SerializeField] float _speed;
     [SerializeField] float _attackRange;

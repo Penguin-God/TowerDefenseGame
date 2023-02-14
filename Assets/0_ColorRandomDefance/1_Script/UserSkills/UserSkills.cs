@@ -70,9 +70,9 @@ public class Taegeuk : UserSkill
     public override void InitSkill()
     {
         Multi_UnitManager.Instance.OnUnitFlagCountChanged += (flag, count) => UseSkill(flag.UnitClass);
-        EnrichDamagesData();
+        EnrichDamageDatas();
 
-        void EnrichDamagesData()
+        void EnrichDamageDatas()
         {
             _taegeukDamages = SkillDatas.Select(x => (int)x).ToArray();
 

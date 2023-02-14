@@ -34,7 +34,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         yield return new WaitForSeconds(0.55f);
         trail.SetActive(true);
         yield return new WaitForSeconds(0.3f);
-        if(pv.IsMine) HitMeeleAttack();
+        if(photonView.IsMine) HitMeeleAttack();
         yield return new WaitForSeconds(0.3f);
         trail.SetActive(false);
 

@@ -8,7 +8,7 @@ using System;
 public enum UnitColor { Red, Blue, Yellow, Green, Orange, Violet, White, Black };
 public enum UnitClass { Swordman, Archer, Spearman, Mage }
 
-public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
+public class Multi_TeamSoldier : MonoBehaviourPun
 {
     private UnitFlags _unitFlags;
     public UnitFlags UnitFlags => _unitFlags;
@@ -49,7 +49,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
     protected NavMeshAgent nav;
     private ObstacleAvoidanceType originObstacleType;
     protected Animator animator;
-    protected PhotonView pv;
     protected RPCable rpcable;
     public int UsingID => rpcable.UsingId;
     [SerializeField] protected EffectSoundType normalAttackSound;
@@ -60,11 +59,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
 
     public event Action<Multi_TeamSoldier> OnDead;
 
-    #region Virual Funtion
+    // 가상 함수
     protected virtual void OnAwake() { } // 유닛마다 다른 Awake 세팅
     public virtual void NormalAttack() { } // 유닛들의 고유한 공격
     public virtual void SpecialAttack() => _state.StartAttack();
-    #endregion
+
 
     [SerializeField] protected TargetManager _targetManager;
     protected UnitState _state;
@@ -81,7 +80,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
 
         // 변수 선언
         passive = GetComponent<Multi_UnitPassive>();
-        pv = GetComponent<PhotonView>();
         rpcable = GetComponent<RPCable>();
         animator = GetComponentInChildren<Animator>();
         nav = GetComponent<NavMeshAgent>();
@@ -93,7 +91,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         _chaseSystem = AddCahseSystem();
         _targetManager.OnChangedTarget += _chaseSystem.ChangedTarget;
         OnAwake(); // 유닛별 세팅
-
 
         void SetNewTarget(Multi_Enemy newTarget)
         {
@@ -129,8 +126,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         UpdateTarget();
         if (PhotonNetwork.IsMasterClient)
             StartCoroutine(nameof(NavCoroutine));
-        //Multi_SpawnManagers.BossEnemy.OnSpawn -= ChangeTargetToBoss;
-        //Multi_SpawnManagers.BossEnemy.OnSpawn += ChangeTargetToBoss;
     }
 
     void OnDisable()
@@ -139,7 +134,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         ResetAiStateValue();
     }
 
-    void LoadStat_RPC() => pv.RPC(nameof(LoadStat), RpcTarget.All);
+    void LoadStat_RPC() => photonView.RPC(nameof(LoadStat), RpcTarget.All);
     [PunRPC]
     protected void LoadStat()
     {
@@ -151,7 +146,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         OriginAttackDelayTime = stat.AttackDelayTime;
     }
     
-    void SetPassive_RPC() => pv.RPC(nameof(SetPassive), RpcTarget.All);
+    void SetPassive_RPC() => photonView.RPC(nameof(SetPassive), RpcTarget.All);
     [PunRPC]
     protected void SetPassive()
     {
@@ -224,7 +219,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
     {
         if (isRPC) return;
         isRPC = true;
-        pv.RPC(nameof(Attack), RpcTarget.All);
+        photonView.RPC(nameof(Attack), RpcTarget.All);
         isRPC = false;
     }
 
@@ -267,7 +262,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
     {
         Vector3 toPos = GetOppositeWorldSpawnPos();
         MoveToPos(toPos);
-        photonView.RPC(nameof(MoveToPos), RpcTarget.Others, toPos);
+        base.photonView.RPC(nameof(MoveToPos), RpcTarget.Others, toPos);
 
         _state.ChangedWorld();
         if (EnterStroyWorld) EnterStroyMode();
@@ -298,7 +293,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun //, IPunObservable
         if (_state.UsingId == Multi_Data.instance.Id)
             Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
         else
-            photonView.RPC(nameof(PlayTpSound), RpcTarget.Others);
+            base.photonView.RPC(nameof(PlayTpSound), RpcTarget.Others);
     }
 
     #region callback funtion

@@ -7,11 +7,6 @@ using Random = UnityEngine.Random;
 [Serializable]
 public class UnitRandomSkillSystem
 {
-    public UnitRandomSkillSystem()
-    {
-
-    }
-
     public UnitRandomSkillSystem(Multi_TeamSoldier unit, float rate)
     {
         unit.OnDamageChanaged += (damage) => SetSkillDamage(damage, rate);

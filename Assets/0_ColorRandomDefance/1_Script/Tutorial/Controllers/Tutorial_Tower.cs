@@ -25,7 +25,7 @@ public class Tutorial_Tower : TutorialController
         AddClickCommend("기사 모양을 클릭하세요.", "SwordmanButton");
         AddTargetUINameToIndexNameActionCommend<UI_UnitTracker>((ui) => ui.UnitFlags == orangeSowrdmanFlag, ORANGE_SOWRDMAN_UI_NAME);
         AddClickCommend("보유 중인 색깔의 기사를 클릭하세요.", ORANGE_SOWRDMAN_UI_NAME);
-        AddClickCommend("적군의 성으로 버튼을 클릭하면\n해당 유닛이 적군의 성으로 이동해 성을 공격합니다.", "Unit World Changed Button");
+        AddClickCommend("적군의 성으로 버튼을 클릭하면\n해당 유닛이 적군의 성으로 이동해 성을 공격합니다.", "Unit_World_Changed_Button");
         AddClickCommend("적군의 성으로 가서 보낸 유닛을 확인하세요.", "StoryWolrd_EnterButton");
         AddReadCommend("이제 성이 부서지면 보상을 획득할 수 있습니다.\n하지만 적군의 성을 부수지 못하면 유닛만 낭비할 뿐이니\n잘 생각해서 유닛을 보내시기 바랍니다.");
         AddActionCommend(() => ChangeShopColliderEnable(true));

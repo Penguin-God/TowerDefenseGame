@@ -10,16 +10,12 @@ public abstract class TutorialController : MonoBehaviour
 {
     protected TutorialFuntions tutorialFuntions;
 
-    void Awake()
-    {
-        Init();
-    }
-
     void Start()
     {
         tutorialFuntions = FindObjectOfType<TutorialFuntions>();
         AddTutorials();
         StartCoroutine(Co_WaitCondition());
+        Init();
     }
     protected abstract bool TutorialStartCondition();
     protected abstract void AddTutorials();

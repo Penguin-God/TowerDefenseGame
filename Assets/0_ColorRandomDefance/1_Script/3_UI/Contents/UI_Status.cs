@@ -156,7 +156,7 @@ public class UI_Status : UI_Scene
         }
     }
 
-    void UpdateMySkillImage() => ChangeEquipSkillImages(Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
+    public void UpdateMySkillImage() => ChangeEquipSkillImages(Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
     void UpdateOtherSkillImage()
     {
         if (Multi_GameManager.instance.OtherPlayerData != null)

@@ -15,6 +15,8 @@ public class Tutorial_UserSkill : TutorialController
         Managers.ClientData.EquipSkillManager.ChangedEquipSkill(UserSkillClass.Sub, SkillType.판매보상증가);
         FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill());
         ChangeMaxUnitSummonColor(BLUE_NUMBER);
+        print(Multi_GameManager.instance.BattleData.UnitSummonData.maxColorNumber);
+        FindObjectOfType<UI_Status>().UpdateMySkillImage();
     }
 
     protected override void AddTutorials()
@@ -31,7 +33,7 @@ public class Tutorial_UserSkill : TutorialController
         AddClickCommend("", "PaintButton");
         AddClickCommend("", "YellowPaintButtonBackGround");
         AddClickCommend("", "UI_UnitTracker");
-        AddClickCommend("", "Unit Sell Button");
+        AddClickCommend("", "UnitSellButton");
         AddReadCommend("유닛을 판매해 빨강, 파랑 색깔의\n기사들만 존재하게 됐으므로 다시 태극이 발동될 것입니다.");
         AddUI_HighLightCommend("이처럼 태극은 유닛을 판매할 일이 많다보니\n서브 스킬로 판매 보상 강화를 드는 경우가 많습니다.", "SubSkill");
         AddReadCommend("이 외에도 다양한 스킬이 있으니\n여러 조합을 시도해보면서 게임을 즐기시기 바랍니다.");

@@ -96,7 +96,21 @@ public class MultiDataManager : MonoBehaviourPun
     [PunRPC]
     void ChangeUnitStat(byte id, UnitStatType statType, int newValue)
     {
+        switch (statType)
+        {
+            case UnitStatType.Damage:
+                ChangeUnitDatas(x => x.SetDamage(newValue));
+                break;
+            case UnitStatType.BossDamage:
+                ChangeUnitDatas(x => x.SetBossDamage(newValue));
+                break;
+            case UnitStatType.All:
+                ChangeUnitDatas(x => x.SetDamage(newValue));
+                ChangeUnitDatas(x => x.SetBossDamage(newValue));
+                break;
+        }
 
+        void ChangeUnitDatas(Action<UnitStat> action) => _unitStatData.Get(id).Values.ToList().ForEach(action);
     }
 
     void ChangeAllUnitStat(int id, Action<UnitStat> action) => _unitStatData.Get(id).Values.ToList().ForEach(action);

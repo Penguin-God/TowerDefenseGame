@@ -43,6 +43,5 @@ public class DataChangeTester
         multiDataManager.ChangeUnitStat(UnitStatType.Damage, RESULT_DATA);
         foreach (var stat in multiDataManager.GetUnitStats(flag => true))
             Assert(stat.Damage == RESULT_DATA);
-        Log(multiDataManager.GetUnitStats(flag => true).Count());
     }
 }

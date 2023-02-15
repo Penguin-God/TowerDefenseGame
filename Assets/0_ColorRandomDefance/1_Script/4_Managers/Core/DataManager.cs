@@ -38,7 +38,6 @@ public class DataManager
     public IReadOnlyDictionary<string, UnitNameData> UnitNameDataByUnitKoreaName => _unit.UnitNameDataByUnitKoreaName;
     public IReadOnlyDictionary<UnitFlags, UnitNameData> UnitNameDataByFlag => _unit.UnitNameDataByFlag;
     public IReadOnlyDictionary<UnitFlags, WeaponData> WeaponDataByUnitFlag => _unit.WeaponDataByUnitFlag;
-    public UnitStat GetUnitStat(UnitFlags flag) => _unit.GetUnitStat(flag);
     public IReadOnlyList<float> GetUnitPassiveStats(UnitFlags flag) => _unit.GetUnitPassiveStats(flag);
     public IReadOnlyDictionary<UnitFlags, MageUnitStat> MageStatByFlag => _unit.MageStatByFlag;
     #endregion
@@ -107,9 +106,9 @@ public class DataManager
         Dictionary<UnitFlags, UnitStat> _unitStatByFlag = new Dictionary<UnitFlags, UnitStat>();
         public Dictionary<UnitFlags, UnitStat> UnitStatByFlag => _unitStatByFlag;
         public UnitStat GetUnitStat(UnitFlags flag) => _unitStatByFlag[flag].GetClone();
-        public void ChangeAllUnitStat(Action<UnitStat> action) => UnitStatByFlag.Values.ToList().ForEach(action);
+        public void ChangeAllUnitStat(Action<UnitStat> action) => _unitStatByFlag.Values.ToList().ForEach(action);
         public void ChangeUnitStat(Func<UnitFlags, bool> conditoin, Action<UnitStat> action)
-            => UnitStatByFlag
+            => _unitStatByFlag
                 .Values
                 .Where(x => conditoin(x.Flag))
                 .ToList().ForEach(action);

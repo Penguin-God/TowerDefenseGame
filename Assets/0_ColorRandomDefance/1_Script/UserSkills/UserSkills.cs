@@ -77,7 +77,7 @@ public class Taegeuk : UserSkill
             _taegeukDamages = SkillDatas.Select(x => (int)x).ToArray();
 
             for (int i = 0; i < _originDamages.Length; i++)
-                _originDamages[i] = Managers.Data.GetUnitStat(new UnitFlags(0, i)).Damage;
+                _originDamages[i] = Managers.Data.Unit.GetUnitStat(new UnitFlags(0, i)).Damage;
         }
     }
 

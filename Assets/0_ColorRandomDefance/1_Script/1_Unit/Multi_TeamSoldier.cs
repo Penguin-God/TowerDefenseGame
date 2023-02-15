@@ -139,7 +139,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [PunRPC]
     protected void LoadStat()
     {
-        stat = Managers.Data.GetUnitStat(UnitFlags);
+        stat = Managers.Data.Unit.GetUnitStat(UnitFlags);
         OnDamageChanaged?.Invoke(Damage);
         OnBossDamageChanged?.Invoke(BossDamage);
         OriginDamage = stat.Damage;

@@ -44,4 +44,18 @@ public class DataChangeTester
         foreach (var stat in multiDataManager.GetUnitStats(flag => true))
             Assert(stat.Damage == RESULT_DATA);
     }
+
+    public void TestUnitDataChangeFacade()
+    {
+        Log("멀티 유닛 데이터 퍼사드 변경 테스트");
+        var multi = new MultiManager();
+        multi.Init();
+        var facade = multi.Instantiater.PhotonInstantiate("RPCObjects/RPCGameObject", Vector2.zero).AddComponent<UnitStatChangeFacade>();
+        var multiDataManager = multi.Data;
+        facade.Init(multiDataManager, Multi_UnitManager.Instance);
+
+        facade.ChangeUnitStat(UnitStatType.Damage, RESULT_DATA);
+        foreach (var stat in multiDataManager.GetUnitStats(flag => true))
+            Assert(stat.Damage == RESULT_DATA);
+    }
 }

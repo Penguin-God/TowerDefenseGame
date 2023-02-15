@@ -78,6 +78,7 @@ public class MultiDataManager : MonoBehaviourPun
 
     RPCData<Dictionary<UnitFlags, UnitStat>> _unitStatData = new RPCData<Dictionary<UnitFlags, UnitStat>>();
 
+
     public void Init()
     {
         _unitStatData.Set(0, GetUnitStatData());

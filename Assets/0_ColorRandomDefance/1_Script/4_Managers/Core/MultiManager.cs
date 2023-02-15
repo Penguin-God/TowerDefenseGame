@@ -2,11 +2,27 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System.Linq;
+using System;
 
 public class MultiManager
 {
     MultiInstantiater _multiInstantiater = new MultiInstantiater();
     public MultiInstantiater Instantiater => _multiInstantiater;
+
+    MultiDataManager _multiDataManager = new MultiDataManager();
+    public MultiDataManager Data => _multiDataManager;
+
+    public void Init()
+    {
+        _multiDataManager = _multiInstantiater.PhotonInstantiate("RPCObjects/RPCGameObject", Vector3.zero * 1000).AddComponent<MultiDataManager>();
+        _multiDataManager.Init();
+    }
+
+    public Transform GetPhotonViewTransfrom(int viewID)
+    {
+        return PhotonView.Find(viewID).transform;
+    }
 
     public class MultiInstantiater : IInstantiater
     {
@@ -54,9 +70,40 @@ public class MultiManager
                 PhotonNetwork.Destroy(go);
         }
     }
+}
 
-    public Transform GetPhotonViewTransfrom(int viewID)
+public class MultiDataManager : MonoBehaviourPun
+{
+    public byte PlayerID => (byte)(PhotonNetwork.IsMasterClient ? 0 : 1);
+
+    RPCData<Dictionary<UnitFlags, UnitStat>> _unitStatData = new RPCData<Dictionary<UnitFlags, UnitStat>>();
+
+    public void Init()
     {
-        return PhotonView.Find(viewID).transform;
+        _unitStatData.Set(0, GetUnitStatData());
+        _unitStatData.Set(1, GetUnitStatData());
+
+        Dictionary<UnitFlags, UnitStat> GetUnitStatData() => Managers.Data.Unit.UnitStatByFlag.ToDictionary(x => x.Key, x => x.Value.GetClone());
     }
+
+    public void ChangeUnitStat(UnitStatType statType, int newValue) 
+        => photonView.RPC(nameof(ChangeUnitStat), RpcTarget.All, PlayerID, statType, newValue);
+
+    public UnitStat GetUnitStat(UnitFlags flag) => _unitStatData.Get(PlayerID)[flag].GetClone();
+    public IEnumerable<UnitStat> GetUnitStats(Func<UnitFlags, bool> condition)
+        => _unitStatData.Get(PlayerID).Keys.Where(condition).Select(x => GetUnitStat(x));
+
+    [PunRPC]
+    void ChangeUnitStat(byte id, UnitStatType statType, int newValue)
+    {
+
+    }
+
+    void ChangeAllUnitStat(int id, Action<UnitStat> action) => _unitStatData.Get(id).Values.ToList().ForEach(action);
+    void ChangeUnitStat(int id, Func<UnitFlags, bool> conditoin, Action<UnitStat> action)
+        => _unitStatData
+            .Get(id)
+            .Values
+            .Where(x => conditoin(x.Flag))
+            .ToList().ForEach(action);
 }

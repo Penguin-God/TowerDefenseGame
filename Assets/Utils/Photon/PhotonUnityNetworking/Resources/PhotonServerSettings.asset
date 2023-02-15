@@ -121,6 +121,7 @@ MonoBehaviour:
   - UpdateUnitMax
   - MoveToPos
   - GetReward
+  - ChangeUnitStat
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

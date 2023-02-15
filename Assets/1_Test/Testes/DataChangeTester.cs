@@ -33,4 +33,16 @@ public class DataChangeTester
 
         bool IsRedUnit(UnitFlags flag) => flag.UnitColor == UnitColor.Red;
     }
+
+    public void TestChangeMultiUnitData()
+    {
+        Log("멀티 유닛 데이터 변경 테스트");
+        var multi = new MultiManager();
+        multi.Init();
+        var multiDataManager = multi.Data;
+        multiDataManager.ChangeUnitStat(UnitStatType.Damage, RESULT_DATA);
+        foreach (var stat in multiDataManager.GetUnitStats(flag => true))
+            Assert(stat.Damage == RESULT_DATA);
+        Log(multiDataManager.GetUnitStats(flag => true).Count());
+    }
 }

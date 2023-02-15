@@ -108,7 +108,11 @@ public class DataManager
         public Dictionary<UnitFlags, UnitStat> UnitStatByFlag => _unitStatByFlag;
         public UnitStat GetUnitStat(UnitFlags flag) => _unitStatByFlag[flag].GetClone();
         public void ChangeAllUnitStat(Action<UnitStat> action) => UnitStatByFlag.Values.ToList().ForEach(action);
-
+        public void ChangeUnitStat(Func<UnitFlags, bool> conditoin, Action<UnitStat> action)
+            => UnitStatByFlag
+                .Values
+                .Where(x => conditoin(x.Flag))
+                .ToList().ForEach(action);
 
         Dictionary<UnitFlags, UnitPassiveStat> _unitPassiveStatByFlag = new Dictionary<UnitFlags, UnitPassiveStat>();
         public IReadOnlyList<float> GetUnitPassiveStats(UnitFlags flag) => _unitPassiveStatByFlag[flag].Stats;

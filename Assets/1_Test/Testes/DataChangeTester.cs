@@ -6,36 +6,31 @@ using static UnityEngine.Debug;
 
 public class DataChangeTester
 {
+    readonly int RESULT_DATA = 300;
+    DataManager.UnitData GetUnitData()
+    {
+        var dataManager = new DataManager();
+        dataManager.Init();
+        return dataManager.Unit;
+    }
+
     public void TestChangeUnitAllData()
     {
         Log("유닛 스탯 전체 변경 테스트!!");
-        var dataManager = new DataManager();
-        dataManager.Init();
-        var _unitData = dataManager.Unit;
-
-        var result = _unitData.UnitStatByFlag.Values.Select(x => x.BossDamage).ToList();
-        for (int i = 0; i < result.Count; i++)
-            result[i] = result[i] *= 2;
-        _unitData.ChangeAllUnitStat(stat => stat.SetBossDamage(stat.BossDamage * 2));
-
-        for (int i = 0; i < result.Count; i++)
-            Assert(result[i] == _unitData.UnitStatByFlag.Values.ToList()[i].BossDamage);
+        var _unitData = GetUnitData();
+        _unitData.ChangeAllUnitStat(stat => stat.SetBossDamage(RESULT_DATA));
+        foreach (var stat in _unitData.UnitStatByFlag.Values)
+            Assert(stat.BossDamage == RESULT_DATA);
     }
 
     public void TestChangeUnitData()
     {
         Log("유닛 스탯 변경 테스트!!");
-        int testData = 300;
-        var dataManager = new DataManager();
-        dataManager.Init();
-        var _unitData = dataManager.Unit;
+        var _unitData = GetUnitData();
+        _unitData.ChangeUnitStat(IsRedUnit, stat => stat.SetDamage(RESULT_DATA));        
+        foreach (var stat in _unitData.UnitStatByFlag.Values.Where(x => IsRedUnit(x.Flag)))
+            Assert(stat.Damage == RESULT_DATA);
 
-        var result = _unitData.UnitStatByFlag.Values.Where(x => x.Flag.UnitColor == UnitColor.Red).Select(x => x.BossDamage).ToList();
-        for (int i = 0; i < result.Count; i++)
-            result[i] = testData;
-        _unitData.ChangeUnitStat(x => x.UnitColor == UnitColor.Red, stat => stat.SetDamage(testData));
-
-        for (int i = 0; i < result.Count; i++)
-            Assert(result[i] == _unitData.UnitStatByFlag.Values.ToList()[i].Damage);
+        bool IsRedUnit(UnitFlags flag) => flag.UnitColor == UnitColor.Red;
     }
 }

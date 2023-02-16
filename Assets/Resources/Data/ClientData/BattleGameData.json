@@ -1,8 +1,8 @@
 {
     "startGold": 15,
-    "startFood": 1,
+    "startFood": 3,
     "stageUpGold": 10,
-    "startMaxUnitCount": 15,
+    "startMaxUnitCount": 10,
     "enemyMaxCount": 50,
     "unitSummonPrice": 5,
     "unitSummonMaxColorNumber": 3,

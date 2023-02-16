@@ -85,7 +85,8 @@ public class MultiDataManager
         Dictionary<UnitFlags, UnitStat> GetUnitStatData() => Managers.Data.Unit.UnitStatByFlag.ToDictionary(x => x.Key, x => x.Value.GetClone());
     }
 
-    public UnitStat GetUnitStat(UnitFlags flag) => _unitStatData.Get(PlayerID)[flag].GetClone();
+    public UnitStat GetUnitStat(UnitFlags flag) => GetUnitStat(PlayerID, flag);
+    public UnitStat GetUnitStat(byte id, UnitFlags flag) => _unitStatData.Get(id)[flag].GetClone();
     public IEnumerable<UnitStat> GetUnitStats(Func<UnitFlags, bool> condition)
         => _unitStatData.Get(PlayerID).Keys.Where(condition).Select(x => GetUnitStat(x));
 

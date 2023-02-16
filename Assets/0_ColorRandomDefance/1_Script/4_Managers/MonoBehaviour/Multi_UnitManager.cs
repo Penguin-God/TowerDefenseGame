@@ -32,6 +32,9 @@ public class Multi_UnitManager : MonoBehaviourPun
     UnitStatChanger _stat = new UnitStatChanger();
     UnitPassiveManager _passive = new UnitPassiveManager();
 
+    UnitStatChangeFacade _statFacade;
+    public UnitStatChangeFacade Stat => _statFacade;
+
     public MasterDataManager Master => _master;
     void Awake()
     {
@@ -57,6 +60,9 @@ public class Multi_UnitManager : MonoBehaviourPun
         _enemyPlayer.OnOtherUnitCountChanged += RaiseOnOtherUnitCountChaned;
 
         _passive.Init();
+
+        _statFacade = gameObject.AddComponent<UnitStatChangeFacade>();
+        _statFacade.Init(Managers.Multi.Data, Instance);
 
         if (PhotonNetwork.IsMasterClient == false) return;
         _controller.Init(_master);

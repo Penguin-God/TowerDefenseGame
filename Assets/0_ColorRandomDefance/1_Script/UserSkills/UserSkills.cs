@@ -230,7 +230,7 @@ public class SellUpgrade : UserSkill
 public class BossDamageUpgrade : UserSkill
 {
     public override void InitSkill()
-        => Multi_SpawnManagers.NormalUnit.OnSpawn += (unit) => unit.BossDamage = Mathf.RoundToInt(unit.BossDamage * SkillData);
+        => Multi_UnitManager.Instance.Stat.ScaleUnitStat(UnitStatType.BossDamage, 2f);
 }
 
 public struct UnitDamages

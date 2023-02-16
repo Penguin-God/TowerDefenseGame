@@ -16,9 +16,19 @@ public class UnitStatChangeFacade : MonoBehaviourPun
         _unitManager = unitManager;
     }
 
-    public void ChangeUnitStat(UnitStatType statType, int newValue) 
+    public void SetUnitStat(UnitStatType statType, int newValue) 
         => photonView.RPC(nameof(ChangeUnitStat), RpcTarget.All, (byte)Multi_Data.instance.Id, statType, newValue);
 
+    public void ScaleUnitStat(UnitStatType statType, float rate)
+        => photonView.RPC(nameof(ChangeUnitStat), RpcTarget.All, (byte)Multi_Data.instance.Id, statType, rate);
+
+    [PunRPC]
+    void ChangeUnitStat(byte id, UnitStatType statType, float rate)
+    {
+        ChangeUnitStatToDB(id, GetUnitStatAction(statType, rate));
+        if (PhotonNetwork.IsMasterClient)
+            ChangeUnitStatToCurrentSpawns(id, GetUnitStatAction(statType, rate));
+    }
 
     [PunRPC]
     void ChangeUnitStat(byte id, UnitStatType statType, int newValue)
@@ -44,6 +54,24 @@ public class UnitStatChangeFacade : MonoBehaviourPun
                 {
                     x.SetDamage(newValue);
                     x.SetBossDamage(newValue);
+                };
+        }
+        return null;
+    }
+
+    Action<UnitStat> GetUnitStatAction(UnitStatType statType, float rate)
+    {
+        switch (statType)
+        {
+            case UnitStatType.Damage:
+                return x => x.SetDamage(Mathf.RoundToInt(x.Damage * rate));
+            case UnitStatType.BossDamage:
+                return x => x.SetBossDamage(Mathf.RoundToInt(x.BossDamage * rate));
+            case UnitStatType.All:
+                return x =>
+                {
+                    x.SetDamage(Mathf.RoundToInt(x.Damage * rate));
+                    x.SetBossDamage(Mathf.RoundToInt(x.BossDamage * rate));
                 };
         }
         return null;

@@ -30,7 +30,7 @@ public class DataChangeTester
         SpawnUnit(0, 0);
         SpawnUnit(1, 0);
 
-        facade.ChangeUnitStat(UnitStatType.Damage, RESULT_DATA);
+        facade.SetUnitStat(UnitStatType.Damage, RESULT_DATA);
 
         foreach (var stat in multiDataManager.GetUnitStats(flag => true))
             Assert(stat.Damage == RESULT_DATA, "DB의 값이 예상과 다름");

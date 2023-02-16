@@ -31,5 +31,6 @@ public class Tester : MonoBehaviour
     {
         var tester = new DataChangeTester();
         tester.TestChangeAllUnitStat();
+        tester.TestChangeUnitDataWithCondition();
     }
 }

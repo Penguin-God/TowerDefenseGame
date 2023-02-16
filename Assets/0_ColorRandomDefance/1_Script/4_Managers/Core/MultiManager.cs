@@ -91,7 +91,7 @@ public class MultiDataManager
         => _unitStatData.Get(PlayerID).Keys.Where(condition).Select(x => GetUnitStat(x));
 
     public void ChangeAllUnitStat(int id, Action<UnitStat> action) => _unitStatData.Get(id).Values.ToList().ForEach(action);
-    public void ChangeUnitStat(int id, Func<UnitFlags, bool> conditoin, Action<UnitStat> action)
+    public void ChangeUnitStat(int id, Action<UnitStat> action, Func<UnitFlags, bool> conditoin)
         => _unitStatData
             .Get(id)
             .Values

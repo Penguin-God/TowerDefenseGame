@@ -8,38 +8,45 @@ public class DataChangeTester
 {
     readonly int RESULT_DATA = 300;
 
-    public void TestChangeUnitData()
-    {
-        //Log("유닛 스탯 변경 테스트!!");
-        //var _unitData = GetUnitData();
-        //_unitData.ChangeUnitStat(IsRedUnit, stat => stat.SetDamage(RESULT_DATA));        
-        //foreach (var stat in _unitData.UnitStatByFlag.Values.Where(x => IsRedUnit(x.Flag)))
-        //    Assert(stat.Damage == RESULT_DATA);
-
-        //bool IsRedUnit(UnitFlags flag) => flag.UnitColor == UnitColor.Red;
-    }
-
-    public void TestUnitDataChangeFacade()
+    public void TestChangeAllUnitStat()
     {
         Log("유닛 전체 변경 테스트");
-        var multi = Managers.Multi;
-        var facade = multi.Instantiater.PhotonInstantiate("RPCObjects/RPCGameObject", Vector2.zero).AddComponent<UnitStatChangeFacade>();
-        var multiDataManager = multi.Data;
-        facade.Init(multiDataManager, Multi_UnitManager.Instance);
-
+        var unitMA = Multi_UnitManager.Instance; // Init위해서 일부러 이러는 거임
         SpawnUnit(0, 0);
         SpawnUnit(1, 0);
 
-        facade.SetUnitStat(UnitStatType.Damage, RESULT_DATA);
+        Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.Damage, RESULT_DATA);
 
-        foreach (var stat in multiDataManager.GetUnitStats(flag => true))
+        foreach (var stat in Managers.Multi.Data.GetUnitStats(flag => true))
             Assert(stat.Damage == RESULT_DATA, "DB의 값이 예상과 다름");
+        foreach (var unit in Multi_UnitManager.Instance.Master.GetUnits(0))
+            Assert(unit.Damage == RESULT_DATA, "소환된 유닛 대미지가 예상과 다름");
+
         SpawnUnit(4, 2);
 
-        var units = Multi_UnitManager.Instance.Master.GetUnits(0);
-        Assert(units.Count() == 3);
-        foreach (var unit in units)
-            Assert(unit.Damage == RESULT_DATA, "소환된 유닛 대미지가 예상과 다름");
+    }
+
+    public void TestChangeUnitData()
+    {
+        Log("유닛 스탯 변경 테스트!!");
+
+        var redSwordFlag = new UnitFlags(0, 0);
+        SpawnUnit(0, 0);
+        Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.Damage, RESULT_DATA, redSwordFlag);
+
+        foreach (var stat in Managers.Multi.Data.GetUnitStats(flag => flag == redSwordFlag))
+            Assert(stat.Damage == RESULT_DATA);
+        foreach (var unit in Multi_UnitManager.Instance.Master.GetUnits(0, unit => unit.UnitFlags == redSwordFlag))
+            Assert(unit.Damage == RESULT_DATA);
+
+        var orange = UnitColor.Orange;
+        Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.BossDamage, RESULT_DATA, orange);
+        Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.BossDamage, 1.5f, orange);
+
+        foreach (var stat in Managers.Multi.Data.GetUnitStats(flag => unit => unit.unitColor == orange))
+            Assert(stat.BossDamage == Mathf.RoundToInt(RESULT_DATA * 1.5f));
+        foreach (var unit in Multi_UnitManager.Instance.Master.GetUnits(0, unit => unit.unitColor == orange))
+            Assert(unit.BossDamage == Mathf.RoundToInt(RESULT_DATA * 1.5f));
     }
 
     void SpawnUnit(int colorNum, int classNum) => Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(colorNum, classNum));

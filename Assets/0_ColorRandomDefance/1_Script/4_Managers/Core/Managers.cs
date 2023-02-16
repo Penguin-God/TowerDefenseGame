@@ -52,6 +52,7 @@ public class Managers : MonoBehaviour
         _data.Init();
         _clientData.Init();
         _sound.Init(transform);
+        _multi.Init();
     }
 
     public static void Clear()

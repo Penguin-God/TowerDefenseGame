@@ -28,7 +28,12 @@ public class Multi_Data : MonoBehaviourPun
     {
         get
         {
-            if (m_instance == null) m_instance = FindObjectOfType<Multi_Data>();
+            if (m_instance == null)
+            {
+                m_instance = FindObjectOfType<Multi_Data>();
+                if (m_instance == null)
+                    m_instance = new GameObject("multi").AddComponent<Multi_Data>();
+            }
             return m_instance;
         }
     }

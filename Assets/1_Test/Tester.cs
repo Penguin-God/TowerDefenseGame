@@ -33,5 +33,6 @@ public class Tester : MonoBehaviour
         tester.TestChangeUnitAllData();
         tester.TestChangeUnitData();
         tester.TestChangeMultiUnitData();
+        tester.TestUnitDataChangeFacade();
     }
 }

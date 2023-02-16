@@ -17,6 +17,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public UnitColor unitColor;
 
     [SerializeField] UnitStat stat;
+    public UnitStat Stat => stat;
 
     public int OriginDamage { get; private set; }
     public int OriginBossDamage { get; private set; }
@@ -139,7 +140,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [PunRPC]
     protected void LoadStat()
     {
-        stat = Managers.Data.Unit.GetUnitStat(UnitFlags);
+        stat = Managers.Multi.Data.GetUnitStat(UnitFlags);
         OnDamageChanaged?.Invoke(Damage);
         OnBossDamageChanged?.Invoke(BossDamage);
         OriginDamage = stat.Damage;

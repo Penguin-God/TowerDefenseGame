@@ -71,7 +71,6 @@ public class Multi_UnitManager : MonoBehaviourPun
     public int CurrentUnitCount => _count._currentCount;
     public IEnumerable<UnitFlags> CombineableUnitFlags
       => new UnitCombineSystem().GetCombinableUnitFalgs((flag) => UnitCountByFlag[flag]);
-    public int EnemyPlayerHasCount => _enemyPlayer.EnemyPlayerHasUnitAllCount;
     public bool HasUnit(UnitFlags flag, int needCount = 1) => _count.HasUnit(flag, needCount);
 
 
@@ -87,9 +86,6 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     public event Action<int> OnOtherUnitCountChanged;
     void RaiseOnOtherUnitCountChaned(int count) => OnOtherUnitCountChanged?.Invoke(count);
-
-    public event Action<int> OnOtherUnitMaxCountChanged;
-    void RaiseOnOtherUnitMaxCountChaned(int count) => OnOtherUnitMaxCountChanged?.Invoke(count);
 
     public void KillUnit(Multi_TeamSoldier unit) // 이게 맞나?
     {
@@ -117,7 +113,8 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
     }
 
-    [PunRPC] public void Combine(UnitFlags flag, int id)
+    [PunRPC] 
+    public void Combine(UnitFlags flag, int id)
     {
         SacrificedUnits_ForCombine(Managers.Data.CombineConditionByUnitFalg[flag]);
         Multi_SpawnManagers.NormalUnit.Spawn(flag, id);

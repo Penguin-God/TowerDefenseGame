@@ -114,8 +114,8 @@ public class MultiDataManager : MonoBehaviourPun
         void ChangeUnitDatas(Action<UnitStat> action) => _unitStatData.Get(id).Values.ToList().ForEach(action);
     }
 
-    void ChangeAllUnitStat(int id, Action<UnitStat> action) => _unitStatData.Get(id).Values.ToList().ForEach(action);
-    void ChangeUnitStat(int id, Func<UnitFlags, bool> conditoin, Action<UnitStat> action)
+    public void ChangeAllUnitStat(int id, Action<UnitStat> action) => _unitStatData.Get(id).Values.ToList().ForEach(action);
+    public void ChangeUnitStat(int id, Func<UnitFlags, bool> conditoin, Action<UnitStat> action)
         => _unitStatData
             .Get(id)
             .Values

@@ -47,15 +47,24 @@ public class DataChangeTester
 
     public void TestUnitDataChangeFacade()
     {
-        Log("멀티 유닛 데이터 퍼사드 변경 테스트");
-        var multi = new MultiManager();
-        multi.Init();
+        Log("유닛 전체 변경 테스트");
+        var multi = Managers.Multi;
         var facade = multi.Instantiater.PhotonInstantiate("RPCObjects/RPCGameObject", Vector2.zero).AddComponent<UnitStatChangeFacade>();
         var multiDataManager = multi.Data;
         facade.Init(multiDataManager, Multi_UnitManager.Instance);
 
+        Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(0, 0));
+        Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(1, 0));
+
         facade.ChangeUnitStat(UnitStatType.Damage, RESULT_DATA);
+
         foreach (var stat in multiDataManager.GetUnitStats(flag => true))
-            Assert(stat.Damage == RESULT_DATA);
+            Assert(stat.Damage == RESULT_DATA, "DB의 값이 예상과 다름");
+        Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(4, 2));
+
+        var units = Multi_UnitManager.Instance.Master.GetUnits(0);
+        Assert(units.Count() == 3);
+        foreach (var unit in units)
+            Assert(unit.Damage == RESULT_DATA, "소환된 유닛 대미지가 예상과 다름");
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
 public class Multi_WorldPosUtility : MonoBehaviour
 {
@@ -23,6 +22,8 @@ public class Multi_WorldPosUtility : MonoBehaviour
 
     void Awake()
     {
+        if (towerPositionRange == null) return;
+
         offset = towerPositionRange.transform.position - Multi_Data.instance.EnemyTowerWorldPosition;
         enemyTowerSpawnRange_X = towerPositionRange.bounds.size.x / 2;
         enemyTowerSpawnRange_Z = towerPositionRange.bounds.size.z / 2;

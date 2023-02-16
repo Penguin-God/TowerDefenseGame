@@ -29,6 +29,7 @@ public class MultiDevelopHelper : MonoBehaviourPunCallbacks
     {
         if(isTest == false)
             Managers.Scene.LoadLevel(sceneTyep);
+        print("입장 완료!!");
     }
 
     // 방 접속 실패 시 방 생성

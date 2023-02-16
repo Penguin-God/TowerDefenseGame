@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+using System;
 using static UnityEngine.Debug;
 
 public class DataChangeTester
@@ -14,19 +14,13 @@ public class DataChangeTester
         var unitMA = Multi_UnitManager.Instance; // Init위해서 일부러 이러는 거임
         SpawnUnit(0, 0);
         SpawnUnit(1, 0);
-
         Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.Damage, RESULT_DATA);
-
-        foreach (var stat in Managers.Multi.Data.GetUnitStats(flag => true))
-            Assert(stat.Damage == RESULT_DATA, "DB의 값이 예상과 다름");
-        foreach (var unit in Multi_UnitManager.Instance.Master.GetUnits(0))
-            Assert(unit.Damage == RESULT_DATA, "소환된 유닛 대미지가 예상과 다름");
-
+        AssertUnitStatChange(stat => stat.Damage, RESULT_DATA, x => true);
         SpawnUnit(4, 2);
-
+        AssertUnitStatChange(stat => stat.Damage, RESULT_DATA, x => true);
     }
 
-    public void TestChangeUnitData()
+    public void TestChangeUnitDataWithCondition()
     {
         Log("유닛 스탯 변경 테스트!!");
 
@@ -34,19 +28,20 @@ public class DataChangeTester
         SpawnUnit(0, 0);
         Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.Damage, RESULT_DATA, redSwordFlag);
 
-        foreach (var stat in Managers.Multi.Data.GetUnitStats(flag => flag == redSwordFlag))
-            Assert(stat.Damage == RESULT_DATA);
-        foreach (var unit in Multi_UnitManager.Instance.Master.GetUnits(0, unit => unit.UnitFlags == redSwordFlag))
-            Assert(unit.Damage == RESULT_DATA);
-
+        AssertUnitStatChange(stat => stat.Damage, RESULT_DATA, flag => flag == redSwordFlag);
         var orange = UnitColor.Orange;
-        Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.BossDamage, RESULT_DATA, orange);
-        Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.BossDamage, 1.5f, orange);
+        SpawnUnit(4, 1);
+        Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.BossDamage, RESULT_DATA);
+        Multi_UnitManager.Instance.Stat.ScaleUnitStat(UnitStatType.BossDamage, 1.5f, orange);
+        AssertUnitStatChange(stat => stat.BossDamage, Mathf.RoundToInt(RESULT_DATA * 1.5f), flag => flag.UnitColor == orange);
+    }
 
-        foreach (var stat in Managers.Multi.Data.GetUnitStats(flag => unit => unit.unitColor == orange))
-            Assert(stat.BossDamage == Mathf.RoundToInt(RESULT_DATA * 1.5f));
-        foreach (var unit in Multi_UnitManager.Instance.Master.GetUnits(0, unit => unit.unitColor == orange))
-            Assert(unit.BossDamage == Mathf.RoundToInt(RESULT_DATA * 1.5f));
+    void AssertUnitStatChange(Func<UnitStat, int> getResult, int resultData, Func<UnitFlags, bool> condition)
+    {
+        foreach (var stat in Managers.Multi.Data.GetUnitStats(condition))
+            Assert(getResult(stat) == resultData, $"DB의 값이 예상과 다름 : {getResult(stat)} != {resultData}");
+        foreach (var unit in Multi_UnitManager.Instance.Master.GetUnits(0, x => condition(x.UnitFlags)))
+            Assert(getResult(unit.Stat) == resultData, $"소환된 유닛 대미지가 예상과 다름 : {getResult(unit.Stat)} != {resultData}");
     }
 
     void SpawnUnit(int colorNum, int classNum) => Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(colorNum, classNum));

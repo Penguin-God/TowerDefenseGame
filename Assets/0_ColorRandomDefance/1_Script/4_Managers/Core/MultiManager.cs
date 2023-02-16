@@ -88,9 +88,11 @@ public class MultiDataManager
     public UnitStat GetUnitStat(UnitFlags flag) => GetUnitStat(PlayerID, flag);
     public UnitStat GetUnitStat(byte id, UnitFlags flag) => _unitStatData.Get(id)[flag].GetClone();
     public IEnumerable<UnitStat> GetUnitStats(Func<UnitFlags, bool> condition)
-        => _unitStatData.Get(PlayerID).Keys.Where(condition).Select(x => GetUnitStat(x));
+        => GetUnitStats(PlayerID, condition);
+    public IEnumerable<UnitStat> GetUnitStats(byte id, Func<UnitFlags, bool> condition)
+        => _unitStatData.Get(id).Keys.Where(condition).Select(x => GetUnitStat(x));
 
-    public void ChangeAllUnitStat(int id, Action<UnitStat> action) => _unitStatData.Get(id).Values.ToList().ForEach(action);
+    // 외부로 열어둔 GetUnitStats는 클론 주는 거라서 바꿔봤자 의미 없음
     public void ChangeUnitStat(int id, Action<UnitStat> action, Func<UnitFlags, bool> conditoin)
         => _unitStatData
             .Get(id)

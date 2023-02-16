@@ -29,7 +29,6 @@ public class Multi_UnitManager : MonoBehaviourPun
     UnitContorller _controller = new UnitContorller();
     EnemyPlayerDataManager _enemyPlayer = new EnemyPlayerDataManager();
     MasterDataManager _master = new MasterDataManager();
-    UnitStatChanger _stat = new UnitStatChanger();
     UnitPassiveManager _passive = new UnitPassiveManager();
 
     UnitStatChangeFacade _statFacade;
@@ -68,7 +67,6 @@ public class Multi_UnitManager : MonoBehaviourPun
         _controller.Init(_master);
 
         _master.Init();
-        _stat.Init(_master);
     }
 
     // Datas
@@ -137,10 +135,6 @@ public class Multi_UnitManager : MonoBehaviourPun
 
     public void UnitWorldChanged_RPC(int id, UnitFlags flag) => Instance.photonView.RPC(nameof(UnitWorldChanged), RpcTarget.MasterClient, id, flag, Managers.Camera.IsLookEnemyTower);
     [PunRPC] void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode) => _controller.UnitWorldChange(id, flag, enterStroyMode);
-
-
-    public void UnitStatChange_RPC(UnitStatType type, UnitFlags flag, int value) => photonView.RPC(nameof(UnitStatChange), RpcTarget.MasterClient, (int)type, flag, value, Multi_Data.instance.Id);
-    [PunRPC] void UnitStatChange(int typeNum, UnitFlags flag, int value, int id) => _stat.UnitStatChange(typeNum, flag, value, id);
 
     public Multi_TeamSoldier FindUnit(int id, UnitClass unitClass)
     {
@@ -336,43 +330,6 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         public bool HasUnit(UnitFlags flag, int needCount = 1) => _countByFlag[flag] >= needCount;
         public int GetUnitCount(UnitFlags flag) => _countByFlag[flag];
-    }
-
-    class UnitStatChanger
-    {
-        MasterDataManager _masterData;
-        public void Init(MasterDataManager masterData)
-        {
-            _masterData = masterData;
-        }
-
-        public void UnitStatChange(int typeNum, UnitFlags flag, int value, int id)
-        {
-            switch (typeNum)
-            {
-                case 0: ChangeDamage(flag, value, id); break;
-                case 1: ChangeBossDamage(flag, value, id); break;
-                case 2: ChangeAllDamage(flag, value, id); break;
-            }
-        }
-
-        void ChangeDamage(UnitFlags flag, int value, int id)
-        {
-            foreach (var unit in _masterData.GetUnitList(id, flag))
-                unit.Damage = value;
-        }
-
-        void ChangeBossDamage(UnitFlags flag, int value, int id)
-        {
-            foreach (var unit in _masterData.GetUnitList(id, flag))
-                unit.BossDamage = value;
-        }
-
-        void ChangeAllDamage(UnitFlags flag, int value, int id)
-        {
-            ChangeDamage(flag, value, id);
-            ChangeBossDamage(flag, value, id);
-        }
     }
 
     class UnitPassiveManager

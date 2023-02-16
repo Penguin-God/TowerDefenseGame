@@ -99,8 +99,11 @@ public class Taegeuk : UserSkill
     void ApplyUnitDamge(UnitClass unitClass, bool isTaegeukConditionMet)
     {
         int applyDamage = isTaegeukConditionMet ? _taegeukDamages[(int)unitClass] : _originDamages[(int)unitClass];
-        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(UnitColor.Red, unitClass), applyDamage);
-        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, new UnitFlags(UnitColor.Blue, unitClass), applyDamage);
+        SetTaeguekUnitStat(UnitColor.Red);
+        SetTaeguekUnitStat(UnitColor.Blue);
+
+        void SetTaeguekUnitStat(UnitColor unitColor) 
+            => Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.All, applyDamage, new UnitFlags(unitColor, unitClass));
     }
 }
 
@@ -146,7 +149,7 @@ public class BlackUnitUpgrade : UserSkill
 
         Debug.Assert(strongDamages.ArcherDamage == 100000, $"검은 궁수 버그 발현!! 버그난 대미지는 {strongDamages.ArcherDamage}");
         var flag = new UnitFlags(UnitColor.Black, unitFlags.UnitClass);
-        Multi_UnitManager.Instance.UnitStatChange_RPC(UnitStatType.All, flag, strongDamages.Damages[(int)unitFlags.UnitClass]);
+        Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.All, strongDamages.Damages[(int)unitFlags.UnitClass], flag);
         OnBlackUnitReinforce?.Invoke(flag);
     }
 }

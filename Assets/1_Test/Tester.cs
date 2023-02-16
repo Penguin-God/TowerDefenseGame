@@ -30,9 +30,6 @@ public class Tester : MonoBehaviour
     void TestDataChange()
     {
         var tester = new DataChangeTester();
-        tester.TestChangeUnitAllData();
-        tester.TestChangeUnitData();
-        tester.TestChangeMultiUnitData();
         tester.TestUnitDataChangeFacade();
     }
 }

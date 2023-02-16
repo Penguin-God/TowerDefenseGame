@@ -15,7 +15,6 @@ public class MultiManager
 
     public void Init()
     {
-        _multiDataManager = _multiInstantiater.PhotonInstantiate("RPCObjects/RPCGameObject", Vector3.zero * 1000).AddComponent<MultiDataManager>();
         _multiDataManager.Init();
     }
 
@@ -72,12 +71,11 @@ public class MultiManager
     }
 }
 
-public class MultiDataManager : MonoBehaviourPun
+public class MultiDataManager
 {
     public byte PlayerID => (byte)(PhotonNetwork.IsMasterClient ? 0 : 1);
 
     RPCData<Dictionary<UnitFlags, UnitStat>> _unitStatData = new RPCData<Dictionary<UnitFlags, UnitStat>>();
-
 
     public void Init()
     {
@@ -87,32 +85,9 @@ public class MultiDataManager : MonoBehaviourPun
         Dictionary<UnitFlags, UnitStat> GetUnitStatData() => Managers.Data.Unit.UnitStatByFlag.ToDictionary(x => x.Key, x => x.Value.GetClone());
     }
 
-    public void ChangeUnitStat(UnitStatType statType, int newValue) 
-        => photonView.RPC(nameof(ChangeUnitStat), RpcTarget.All, PlayerID, statType, newValue);
-
     public UnitStat GetUnitStat(UnitFlags flag) => _unitStatData.Get(PlayerID)[flag].GetClone();
     public IEnumerable<UnitStat> GetUnitStats(Func<UnitFlags, bool> condition)
         => _unitStatData.Get(PlayerID).Keys.Where(condition).Select(x => GetUnitStat(x));
-
-    [PunRPC]
-    void ChangeUnitStat(byte id, UnitStatType statType, int newValue)
-    {
-        switch (statType)
-        {
-            case UnitStatType.Damage:
-                ChangeUnitDatas(x => x.SetDamage(newValue));
-                break;
-            case UnitStatType.BossDamage:
-                ChangeUnitDatas(x => x.SetBossDamage(newValue));
-                break;
-            case UnitStatType.All:
-                ChangeUnitDatas(x => x.SetDamage(newValue));
-                ChangeUnitDatas(x => x.SetBossDamage(newValue));
-                break;
-        }
-
-        void ChangeUnitDatas(Action<UnitStat> action) => _unitStatData.Get(id).Values.ToList().ForEach(action);
-    }
 
     public void ChangeAllUnitStat(int id, Action<UnitStat> action) => _unitStatData.Get(id).Values.ToList().ForEach(action);
     public void ChangeUnitStat(int id, Func<UnitFlags, bool> conditoin, Action<UnitStat> action)

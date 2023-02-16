@@ -41,10 +41,10 @@ public class Managers : MonoBehaviour
     public static ResourcesManager Resources => Instance._resources;
     public static PoolManager Pool => Instance._pool;
     public static Multi_ClientData ClientData => Instance._clientData;
-    public static Scene_Manager Scene => instance._scene;
-    public static CameraManager Camera => instance._camera;
-    public static EffectManager Effect => instance._effect;
-    public static MultiManager Multi => instance._multi;
+    public static Scene_Manager Scene => Instance._scene;
+    public static CameraManager Camera => Instance._camera;
+    public static EffectManager Effect => Instance._effect;
+    public static MultiManager Multi => Instance._multi;
 
 
     void Init()

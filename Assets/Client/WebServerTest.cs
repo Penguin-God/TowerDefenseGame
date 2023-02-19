@@ -11,6 +11,26 @@ using System.Collections.Generic;
 
 public class WebServerTest : MonoBehaviour
 {
+    //[Serializable]
+    //public class Player
+    //{
+    //    public int Id;
+    //    public int UserId;
+    //    public string UserName;
+    //    public List<Skill> skills;
+    //    public DateTime Date;
+    //}
+
+    //[Serializable]
+    //public class Skill
+    //{
+    //    public int SkillId;
+    //    public string SkillName;
+    //    public int SkillExp;
+    //    public int OwnerId;
+    //    //public Player Owner;
+    //}
+
     [Serializable]
     public class Player
     {
@@ -25,16 +45,17 @@ public class WebServerTest : MonoBehaviour
     public class Skill
     {
         public int SkillId;
-        public string SkillName;
+        public int SkillName;
         public int SkillExp;
-        public int OwnerId;
-        //public Player Owner;
+        public int SkillLevel;
+        //public int OwnerId { get; set; }
+        //public Player Owner { get; set; }
     }
 
     //public List<Skill> testObj = new List<Skill>() { new Skill { SkillName = "태극", SkillExp = 123 , Owner = new Player { UserName = 777777} }, new Skill { SkillName = "검유강", SkillExp = 11 } };
     //dbSkill _skills = new dbSkill { SkillName = "태극", SkillExp = 123, Owner = new Player { UserName = 77777 } };
     //dbSkill _skills2 = new dbSkill { SkillName = "검유강", SkillExp = 321, Owner = new Player { UserName = 88888 } };
-    
+
 
     void Start()
     {
@@ -46,7 +67,7 @@ public class WebServerTest : MonoBehaviour
         // 쓰기
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Player player = new Player() { UserName = "Gunal", skills = new List<Skill>() { new Skill() { SkillName = "태극"} } };
+            Player player = new Player() { UserId = 12 ,UserName = "testest", skills = new List<Skill>() { new Skill() { SkillName = 1234} }, Date = DateTime.Now};
             string jsonfile = JsonUtility.ToJson(player);
             print(jsonfile);
             StartCoroutine(Upload(jsonfile));

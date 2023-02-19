@@ -28,25 +28,26 @@ namespace ColorRandomApi.Migrations
                 {
                     SkillId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SkillName = table.Column<string>(nullable: true),
+                    SkillName = table.Column<int>(nullable: false),
                     SkillExp = table.Column<int>(nullable: false),
-                    OwnerId = table.Column<int>(nullable: false)
+                    SkillLevel = table.Column<int>(nullable: false),
+                    PlayerId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Skills", x => x.SkillId);
                     table.ForeignKey(
-                        name: "FK_Skills_Players_OwnerId",
-                        column: x => x.OwnerId,
+                        name: "FK_Skills_Players_PlayerId",
+                        column: x => x.PlayerId,
                         principalTable: "Players",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Skills_OwnerId",
+                name: "IX_Skills_PlayerId",
                 table: "Skills",
-                column: "OwnerId");
+                column: "PlayerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

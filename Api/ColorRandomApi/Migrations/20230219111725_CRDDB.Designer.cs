@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ColorRandomApi.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230212113046_CRDDB")]
+    [Migration("20230219111725_CRDDB")]
     partial class CRDDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -49,29 +49,30 @@ namespace ColorRandomApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("OwnerId")
+                    b.Property<int?>("PlayerId")
                         .HasColumnType("int");
 
                     b.Property<int>("SkillExp")
                         .HasColumnType("int");
 
-                    b.Property<string>("SkillName")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("SkillLevel")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SkillName")
+                        .HasColumnType("int");
 
                     b.HasKey("SkillId");
 
-                    b.HasIndex("OwnerId");
+                    b.HasIndex("PlayerId");
 
                     b.ToTable("Skills");
                 });
 
             modelBuilder.Entity("SharedData.Models.Skill", b =>
                 {
-                    b.HasOne("SharedData.Models.Player", "Owner")
+                    b.HasOne("SharedData.Models.Player", null)
                         .WithMany("skills")
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("PlayerId");
                 });
 #pragma warning restore 612, 618
         }

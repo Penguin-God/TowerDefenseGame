@@ -10,7 +10,7 @@ public class Tester : MonoBehaviour
         var tester = new PathBuildersTester();
         tester.TestBuildUnitPath();
         tester.TestBuildMonstersPath();
-        tester.TestBuildWeaponPath();
+        tester.TestBuildWeaponsPath();
     }
 
     [ContextMenu("Test Presenters")]

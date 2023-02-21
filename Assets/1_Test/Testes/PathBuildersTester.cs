@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Debug;
 using System;
+using System.Linq;
 
 public class PathBuildersTester
 {
@@ -13,7 +14,7 @@ public class PathBuildersTester
         foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
         {
             foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
-                Assert(Resources.Load<GameObject>($"Prefabs/{builder.BuildUnitPath(new UnitFlags(color, unitClass))}") != null);
+                AssertResourcesLoad(builder.BuildUnitPath(new UnitFlags(color, unitClass)));
         }
     }
 
@@ -32,14 +33,34 @@ public class PathBuildersTester
             Assert(builder.BuildEnemyTowerPath(i) == $"Enemy/Tower/Lvl{i}_Twoer");
     }
 
-    public void TestBuildWeaponPath()
+    public void TestBuildWeaponsPath()
+    {
+        var builder = new ResourcesPathBuilder();
+        TestBuildUnitWeaponPath(builder);
+        TestBuildMageSkillEffetPath(builder);
+    }
+
+    public void TestBuildUnitWeaponPath(ResourcesPathBuilder builder)
     {
         Log("무기 패스 생성 테스트!!");
-        var builder = new ResourcesPathBuilder();
         foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
         {
             foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
-                Assert(Resources.Load<GameObject>($"Prefabs/{builder.BuildUnitWeaponPath(new UnitFlags(color, unitClass))}") != null);
+            {
+                if (unitClass == UnitClass.Swordman) continue;
+                AssertResourcesLoad(builder.BuildUnitWeaponPath(new UnitFlags(color, unitClass)));
+            }
         }
     }
+
+    void TestBuildMageSkillEffetPath(ResourcesPathBuilder builder)
+    {
+        foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
+        {
+            if (color == UnitColor.White) continue;
+            AssertResourcesLoad(builder.BuildMageSkillEffectPath(color));
+        }
+    }
+
+    void AssertResourcesLoad(string path) => Assert(Resources.Load<GameObject>($"Prefabs/{path}") != null);
 }

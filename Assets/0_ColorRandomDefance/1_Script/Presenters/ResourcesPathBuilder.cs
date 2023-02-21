@@ -19,8 +19,35 @@ public class ResourcesPathBuilder
     public string BuildUnitPath(UnitFlags flag)
         => $"Unit/{Enum.GetName(typeof(UnitClass), flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}_{Enum.GetName(typeof(UnitClass), flag.UnitClass)} 1";
 
-    public string BuildUnitWeaponPath()
+    static Dictionary<UnitClass, string> _unitClassByWeaponName = new Dictionary<UnitClass, string>()
     {
-        return "";
+        {UnitClass.Archer, "ArrowTrail 1" },
+        {UnitClass.Spearman, "_Spear 1" },
+        {UnitClass.Mage, "MageBall 1" },
+    };
+
+    static Dictionary<UnitClass, string> _unitClassByWeaponFolderName = new Dictionary<UnitClass, string>()
+    {
+        {UnitClass.Archer, "Arrows" },
+        {UnitClass.Spearman, "Spears" },
+        {UnitClass.Mage, "MageBalls" },
+    };
+    public string BuildUnitWeaponPath(UnitFlags flag)
+        => $"Weapon/{_unitClassByWeaponFolderName[flag.UnitClass]}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}{ _unitClassByWeaponName[flag.UnitClass]}";
+
+    public string BuildMageSkillEffectPath(UnitColor unitColor)
+    {
+        string effectName = "";
+        switch (unitColor)
+        {
+            case UnitColor.Red: effectName = "Meteor 1"; break;
+            case UnitColor.Blue: effectName = "IceCloud 1"; break;
+            case UnitColor.Yellow: effectName = "Yellow Skile Object 1"; break;
+            case UnitColor.Green: effectName = "GreenMage BounceBall 1"; break;
+            case UnitColor.Orange: effectName = "OrangeMage SkillEffect 1"; break;
+            case UnitColor.Violet: effectName = "MagePosionEffect 1"; break;
+            case UnitColor.Black: effectName = "BlackMageSkileBall 1"; break;
+        }
+        return $"Weapon/MageSkills/{effectName}";
     }
 }

@@ -8,10 +8,17 @@ public class DataChangeTester
 {
     readonly int RESULT_DATA = 300;
 
+    public DataChangeTester() => InitializerSingleton();
+
+    void InitializerSingleton()
+    {
+        Managers.Multi.Init();
+        var unitMA = Multi_UnitManager.Instance;
+    }
+
     public void TestChangeAllUnitStat()
     {
         Log("유닛 전체 변경 테스트");
-        var unitMA = Multi_UnitManager.Instance; // Init위해서 일부러 이러는 거임
         SpawnUnit(0, 0);
         SpawnUnit(1, 0);
         Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.Damage, RESULT_DATA);

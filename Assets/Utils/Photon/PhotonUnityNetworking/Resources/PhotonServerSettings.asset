@@ -34,94 +34,67 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
+  - AddGold
   - AddMana
-  - AttackFromHost
+  - Attack
   - BaseSpawn
   - ChangeColor
+  - ChangeUnitColor
+  - ChangeUnitStat
   - ClearMana
   - ClickRpc
+  - ClineStateUpdate
+  - ColorChangeSkill
   - Combine
+  - CreateOtherPlayerData
+  - DecreasedEffect
   - DestroyRpc
   - DestroySpaceship
+  - EnterBattle
   - ExitSlow
   - ExitStun
   - Fire
+  - GetReward
   - LoadStat
   - MeteorExplosion
-  - NormalAttack
+  - MoveToPos
   - OnFreeze
   - OnPoison
   - OnSkillEffect
   - OnSlow
   - OnStun
   - PlayParticle
-  - Raise_UnitCountChanged
+  - PlayTpSound
+  - PopupText
   - RespawnSpaceship
   - RPC_OnDamage
   - RPC_OnStart
-  - RPC_ProjectileShot
+  - RPC_Shot
   - RPC_UpdateHealth
-  - SelectAttack
   - SetActive
+  - SetClientSpawnNumber
+  - SetEnterStroyWorld
   - SetId
+  - SetNavSpeed
   - SetPassive
   - SetPosition
   - SetRotate
   - SetRotation
   - SetStatus
-  - Setup
-  - SetVelocity
-  - ShowSturnEffetc
-  - SpawnUnit
-  - SyncSpeed
-  - Turn
-  - UnitWorldChanged
-  - UpdateStage
-  - Win
-  - UnitSell
-  - SacrificedUnit
-  - UnitDead
-  - EnterStroyMode
-  - UpdateStatus
-  - _Combine
-  - TryCombine
-  - UnitCombine
-  - UnitStatChange
-  - Resurrection
-  - SpawnEnemy
-  - EenmySpawnToOtherWorld
-  - AddGold
-  - EnterBattle
-  - UpdatePlayersEnemyCount
-  - UnitCountChanged
-  - SetBossStatus
-  - SetTowerStatus
-  - GetBossReward
-  - Attack
-  - SetEnterStroyWorld
-  - PlayTpSound
-  - ChaseTarget
-  - ClientChaseTarget
-  - ClineStateUpdate
-  - RPC_Shot
-  - DecreasedEffect
-  - UnitColorChanged
-  - CreateOtherPlayerData
-  - MoveToOpposite
-  - TaeguekEffect
   - SetUnitTrackingEffects
   - SetUnitTrackingEffects_ByID
-  - StopTracking
-  - SetClientSpawnNumber
-  - ChangeUnitColor
-  - _ChangeUnitColor
-  - ColorChangeSkill
-  - PopupText
+  - SetVelocity
   - ShowFaildText
+  - ShowSturnEffetc
+  - SpawnUnit
+  - StopTracking
+  - SyncSpeed
+  - TaeguekEffect
+  - UnitDead
+  - UnitWorldChanged
+  - UpdateStage
   - UpdateUnitMax
-  - MoveToPos
-  - GetReward
-  - ChangeUnitStat
+  - Win
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

@@ -10,12 +10,19 @@ public class MultiManager
     MultiInstantiater _multiInstantiater = new MultiInstantiater();
     public MultiInstantiater Instantiater => _multiInstantiater;
 
-    MultiDataManager _multiDataManager = new MultiDataManager();
+    MultiDataManager _multiDataManager;
     public MultiDataManager Data => _multiDataManager;
 
     public void Init()
     {
-        _multiDataManager.Init();
+        _multiDataManager = new MultiDataManager();
+        if (PhotonNetwork.IsMasterClient)
+            _multiDataManager.Init();
+    }
+
+    public void Clear()
+    {
+        _multiDataManager = null;
     }
 
     public Transform GetPhotonViewTransfrom(int viewID)

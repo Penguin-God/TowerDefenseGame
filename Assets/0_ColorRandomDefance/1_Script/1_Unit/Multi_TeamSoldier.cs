@@ -106,14 +106,13 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     protected virtual ChaseSystem AddCahseSystem() => gameObject.AddComponent<ChaseSystem>();
 
+    // MasterOnly
     public void Spawn()
     {
         LoadStat_RPC();
         SetPassive_RPC();
-        SetSpeed(Speed);
+        photonView.RPC(nameof(SetNavSpeed), RpcTarget.Others, (float)Speed);
     }
-
-    protected void SetSpeed(float speed) => nav.speed = speed;
 
     void OnEnable()
     {
@@ -136,7 +135,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         ResetAiStateValue();
     }
 
-    void LoadStat_RPC() => photonView.RPC(nameof(LoadStat), RpcTarget.All);
+    void LoadStat_RPC() => photonView.RPC(nameof(LoadStat), RpcTarget.MasterClient);
     [PunRPC]
     protected void LoadStat()
     {
@@ -166,6 +165,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         if (OnPassiveHit != null)
             OnHit += OnPassiveHit;
     }
+
+
+    [PunRPC]
+    protected void SetNavSpeed(float speed) => Speed = speed;
 
     public void Dead()
     {

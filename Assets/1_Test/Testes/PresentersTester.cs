@@ -19,28 +19,4 @@ public class PresentersTester
         var afterFlag2 = new UnitFlags(0, 1);
         Assert(presenter.GenerateColorChangeResultText(beforeFlag2, afterFlag2) == "파란 궁수가 빨간 궁수로 변경되었습니다");
     }
-
-    public void TestBuildUnitSpawnPath()
-    {
-        Log("유닛 패스 생성 테스트!!");
-        var builder = new UnitPathBuilder();
-        Assert(builder.BuildUnitPath(new UnitFlags(1, 0)) == "Unit/Swordman/Blue_Swordman 1");
-        Assert(builder.BuildUnitPath(new UnitFlags(3, 3)) == "Unit/Mage/Green_Mage 1");
-        Assert(builder.BuildUnitPath(new UnitFlags(6, 1)) == "Unit/Archer/White_Archer 1");
-    }
-
-    public void TestBuildMonstersSpawnPath()
-    {
-        Log("몬스터 패스 생성 테스트!!");
-        var builder = new SpawnPathBuilder();
-        var monsterNames = new string[] { "Archer", "Mage", "Spearman", "Swordman" };
-        for (int i = 0; i < monsterNames.Length; i++)
-            Assert(builder.BuildMonsterPath(i) == $"Enemy/Normal/Enemy_{monsterNames[i]} 1");
-
-        for (int i = 0; i < monsterNames.Length; i++)
-            Assert(builder.BuildBossMonsterPath(i) == $"Enemy/Boss/Boss_Enemy_{monsterNames[i]} 1");
-
-        for (int i = 1; i < 7; i++)
-            Assert(builder.BuildEnemyTowerPath(i) == $"Enemy/Tower/Lvl{i}_Twoer");
-    }
 }

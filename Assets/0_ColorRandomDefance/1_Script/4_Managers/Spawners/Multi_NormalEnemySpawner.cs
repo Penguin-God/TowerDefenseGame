@@ -11,12 +11,12 @@ public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
     void CreatePool()
     {
         for (int i = 0; i < 4; i++)
-            CreatePoolGroup(new SpawnPathBuilder().BuildMonsterPath(i), spawnCount);
+            CreatePoolGroup(new ResourcesPathBuilder().BuildMonsterPath(i), spawnCount);
     }
 
     public Multi_NormalEnemy SpawnEnemy(byte num, int id, int stage)
     {
-        var enemy = base.BaseSpawn(new SpawnPathBuilder().BuildMonsterPath(num), spawnPositions[id], Quaternion.identity, id).GetComponent<Multi_NormalEnemy>();
+        var enemy = base.BaseSpawn(new ResourcesPathBuilder().BuildMonsterPath(num), spawnPositions[id], Quaternion.identity, id).GetComponent<Multi_NormalEnemy>();
         NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];
         enemy.SetStatus_RPC(data.Hp, data.Speed, false);
         Multi_EnemyManager.Instance.AddNormalMonster(enemy);

@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class Tester : MonoBehaviour
 {
+    [ContextMenu("Test Path Build")]
+    void TestPathBuilders()
+    {
+        var tester = new PathBuildersTester();
+        tester.TestBuildUnitPath();
+        tester.TestBuildMonstersPath();
+        tester.TestBuildWeaponPath();
+    }
+
     [ContextMenu("Test Presenters")]
     void TestPresenters()
     {
@@ -11,19 +20,11 @@ public class Tester : MonoBehaviour
         tester.TestGenerateColorChangeResultText();
     }
 
-    [ContextMenu("Test Combine")]
+    [ContextMenu("Test Combinealbe Checker")]
     void TestUI()
     {
         var tester = new CombineTester();
         tester.TestGetCombinableUnitFalgs();
-    }
-
-    [ContextMenu("Test Path Build")]
-    void TestPathBuild()
-    {
-        var tester = new PresentersTester();
-        tester.TestBuildUnitSpawnPath();
-        tester.TestBuildMonstersSpawnPath();
     }
 
     [ContextMenu("Test Data Change")]

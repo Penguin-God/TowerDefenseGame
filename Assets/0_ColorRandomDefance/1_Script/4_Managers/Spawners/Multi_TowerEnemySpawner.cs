@@ -29,7 +29,7 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
         Spawn(id);
     }
 
-    public void Spawn(int id) => Spawn_RPC(new SpawnPathBuilder().BuildEnemyTowerPath(_towerLevel.Get(id) + 1), spawnPositions[id], id);
+    public void Spawn(int id) => Spawn_RPC(new ResourcesPathBuilder().BuildEnemyTowerPath(_towerLevel.Get(id) + 1), spawnPositions[id], id);
 
     [PunRPC]
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)

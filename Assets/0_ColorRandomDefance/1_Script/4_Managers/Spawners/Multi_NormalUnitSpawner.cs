@@ -22,7 +22,7 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     void CreatePool(UnitClass unitClass, int count)
     {
         foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
-            CreatePoolGroup(new UnitPathBuilder().BuildUnitPath(new UnitFlags(color, unitClass)), count);
+            CreatePoolGroup(new ResourcesPathBuilder().BuildUnitPath(new UnitFlags(color, unitClass)), count);
     }
 
     public void Spawn(UnitFlags flag) => Spawn(flag.ColorNumber, flag.ClassNumber);
@@ -31,7 +31,7 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     public void Spawn(UnitFlags flag, Vector3 spawnPos, Quaternion rotation, int id)
         => Spawn_RPC(GetUnitPath(flag.ColorNumber, flag.ClassNumber), spawnPos, rotation, id);
 
-    string GetUnitPath(int unitColor, int unitClass) => new UnitPathBuilder().BuildUnitPath(new UnitFlags(unitColor, unitClass));
+    string GetUnitPath(int unitColor, int unitClass) => new ResourcesPathBuilder().BuildUnitPath(new UnitFlags(unitColor, unitClass));
 
     Vector3 GetUnitSpawnPos() => Multi_WorldPosUtility.Instance.GetUnitSpawnPositon();
     Vector3 GetUnitSpawnPos(int id) => Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(id);

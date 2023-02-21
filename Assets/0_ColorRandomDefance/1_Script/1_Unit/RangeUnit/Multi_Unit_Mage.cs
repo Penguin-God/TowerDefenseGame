@@ -23,8 +23,9 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         LoadMageStat();
         SetMageAwake();
 
-        energyballData = new ProjectileData(Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, energyballData.SpawnTransform);
-        skillData = new ProjectileData(Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[1], transform, skillData.SpawnTransform);
+        var pathBuilder = new ResourcesPathBuilder();
+        energyballData = new ProjectileData(pathBuilder.BuildUnitWeaponPath(UnitFlags), transform, energyballData.SpawnTransform);
+        skillData = new ProjectileData(pathBuilder.BuildMageSkillEffectPath(UnitFlags.UnitColor), transform, skillData.SpawnTransform);
         normalAttackSound = EffectSoundType.MageAttack;
     }
 

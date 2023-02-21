@@ -17,7 +17,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
     protected override void OnAwake()
     {
-        shotSpearData = new ProjectileData(Managers.Data.WeaponDataByUnitFlag[UnitFlags].Paths[0], transform, shotSpearData.SpawnTransform);
+        shotSpearData = new ProjectileData(new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags), transform, shotSpearData.SpawnTransform);
         normalAttackSound = EffectSoundType.SpearmanAttack;
         _useSkillPercent = 30;
         _skillSystem = new UnitRandomSkillSystem(this, 1.5f);

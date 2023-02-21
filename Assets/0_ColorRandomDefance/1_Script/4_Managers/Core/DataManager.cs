@@ -37,7 +37,7 @@ public class DataManager
     #region Unit Data
     public IReadOnlyDictionary<string, UnitNameData> UnitNameDataByUnitKoreaName => _unit.UnitNameDataByUnitKoreaName;
     public IReadOnlyDictionary<UnitFlags, UnitNameData> UnitNameDataByFlag => _unit.UnitNameDataByFlag;
-    public IReadOnlyDictionary<UnitFlags, WeaponData> WeaponDataByUnitFlag => _unit.WeaponDataByUnitFlag;
+    // public IReadOnlyDictionary<UnitFlags, WeaponData> WeaponDataByUnitFlag => _unit.WeaponDataByUnitFlag;
     public IReadOnlyList<float> GetUnitPassiveStats(UnitFlags flag) => _unit.GetUnitPassiveStats(flag);
     public IReadOnlyDictionary<UnitFlags, MageUnitStat> MageStatByFlag => _unit.MageStatByFlag;
     #endregion

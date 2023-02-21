@@ -37,7 +37,7 @@ public class DataManager
     #region Unit Data
     public IReadOnlyDictionary<string, UnitNameData> UnitNameDataByUnitKoreaName => _unit.UnitNameDataByUnitKoreaName;
     public IReadOnlyDictionary<UnitFlags, UnitNameData> UnitNameDataByFlag => _unit.UnitNameDataByFlag;
-    // public IReadOnlyDictionary<UnitFlags, WeaponData> WeaponDataByUnitFlag => _unit.WeaponDataByUnitFlag;
+
     public IReadOnlyList<float> GetUnitPassiveStats(UnitFlags flag) => _unit.GetUnitPassiveStats(flag);
     public IReadOnlyDictionary<UnitFlags, MageUnitStat> MageStatByFlag => _unit.MageStatByFlag;
     #endregion
@@ -100,18 +100,9 @@ public class DataManager
         Dictionary<UnitFlags, UnitNameData> _unitNameDataByFlag = new Dictionary<UnitFlags, UnitNameData>();
         public IReadOnlyDictionary<UnitFlags, UnitNameData> UnitNameDataByFlag => _unitNameDataByFlag;
 
-        Dictionary<UnitFlags, WeaponData> _weaponDataByUnitFlag = new Dictionary<UnitFlags, WeaponData>();
-        public IReadOnlyDictionary<UnitFlags, WeaponData> WeaponDataByUnitFlag => _weaponDataByUnitFlag;
-
         Dictionary<UnitFlags, UnitStat> _unitStatByFlag = new Dictionary<UnitFlags, UnitStat>();
         public Dictionary<UnitFlags, UnitStat> UnitStatByFlag => _unitStatByFlag;
         public UnitStat GetUnitStat(UnitFlags flag) => _unitStatByFlag[flag].GetClone();
-        public void ChangeAllUnitStat(Action<UnitStat> action) => _unitStatByFlag.Values.ToList().ForEach(action);
-        public void ChangeUnitStat(Func<UnitFlags, bool> conditoin, Action<UnitStat> action)
-            => _unitStatByFlag
-                .Values
-                .Where(x => conditoin(x.Flag))
-                .ToList().ForEach(action);
 
         Dictionary<UnitFlags, UnitPassiveStat> _unitPassiveStatByFlag = new Dictionary<UnitFlags, UnitPassiveStat>();
         public IReadOnlyList<float> GetUnitPassiveStats(UnitFlags flag) => _unitPassiveStatByFlag[flag].Stats;
@@ -126,7 +117,6 @@ public class DataManager
             _mageStatByFlag = manager.MakeCsvDict<MageUnitStats, UnitFlags, MageUnitStat>("UnitData/MageUnitStat");
             _unitPassiveStatByFlag = manager.MakeCsvDict<UnitPassiveStats, UnitFlags, UnitPassiveStat>("UnitData/UnitPassiveStat");
             _unitStatByFlag = manager.MakeCsvDict<UnitStats, UnitFlags, UnitStat>("UnitData/UnitStat");
-            _weaponDataByUnitFlag = manager.MakeCsvDict<WeaponDatas, UnitFlags, WeaponData>("UnitData/UnitWeaponData");
         }
 
         public void Clear()
@@ -136,7 +126,6 @@ public class DataManager
             _mageStatByFlag.Clear();
             _unitPassiveStatByFlag.Clear();
             _unitStatByFlag.Clear();
-            _weaponDataByUnitFlag.Clear();
         }
     }
 

@@ -5,6 +5,8 @@ using Photon.Pun;
 
 public abstract class Multi_SpawnerBase : MonoBehaviourPun, IInstantiater
 {
+    protected readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
+
     void Start()
     {
         Init();

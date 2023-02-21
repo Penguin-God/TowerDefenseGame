@@ -21,8 +21,8 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
 
     public void Spawn(int id)
     {
-        bossLevel++; 
-        Spawn_RPC(new ResourcesPathBuilder().BuildBossMonsterPath(Random.Range(0, _spawnableObjectCount)), Vector3.zero, id);
+        bossLevel++;
+        Spawn_RPC(PathBuilder.BuildBossMonsterPath(Random.Range(0, _spawnableObjectCount)), Vector3.zero, id);
     }
 
     [SerializeField] int bossLevel;

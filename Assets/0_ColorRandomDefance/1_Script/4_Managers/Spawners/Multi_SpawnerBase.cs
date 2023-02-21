@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System;
 
 public abstract class Multi_SpawnerBase : MonoBehaviourPun, IInstantiater
 {
@@ -9,12 +10,9 @@ public abstract class Multi_SpawnerBase : MonoBehaviourPun, IInstantiater
 
     void Start()
     {
-        Init();
         if (PhotonNetwork.IsMasterClient == false) return;
         MasterInit();
     }
-
-    protected virtual void Init() { }
 
     protected virtual void MasterInit() { }
 
@@ -41,35 +39,50 @@ public abstract class Multi_SpawnerBase : MonoBehaviourPun, IInstantiater
         => Managers.Multi.Instantiater.PhotonInstantiate(path, spawnPos, rotation, id);
 }
 
-abstract class PoolCreater : IInstantiater
+public class PhotonObjectPoolInitializer : IInstantiater
 {
-    public PoolCreater(string poolGroupName) => _poolGroupName = poolGroupName;
-    readonly string _poolGroupName;
-    public abstract void CreatePool();
-    protected void CreatePoolGroup(string path, int count) => Managers.Pool.CreatePool_InGroup(path, count, _poolGroupName, this);
-    public GameObject Instantiate(string path)
-    {
-        var result = Managers.Multi.Instantiater.Instantiate(path);
-        SetPoolObj(result);
-        return result;
-    }
-    protected virtual void SetPoolObj(GameObject go) { }
-}
+    readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
 
-class UnitPoolCreater : PoolCreater
-{
-    public UnitPoolCreater(string poolGroupName) : base(poolGroupName) { }
-    public override void CreatePool()
+    public void Init()
     {
-        throw new System.NotImplementedException();
+        CreateWeaponsPool();
+        CreateUnitsPool();
+        CreateMonstersPool();
     }
-}
 
-class MonsterPoolCreater : PoolCreater
-{
-    public MonsterPoolCreater(string poolGroupName) : base(poolGroupName) { }
-    public override void CreatePool()
+    protected void CreatePoolGroup(string path, string poolGroupName, int count) => Managers.Pool.CreatePool_InGroup(path, count, poolGroupName, this);
+    public GameObject Instantiate(string path) => Managers.Multi.Instantiater.Instantiate(path);
+
+    void CreateUnitsPool()
     {
-        throw new System.NotImplementedException();
+
+    }
+
+    void CreateMonstersPool()
+    {
+
+    }
+
+    void CreateWeaponsPool()
+    {
+        const string ROOT_NAME = "Weapons";
+        var unitClassByWeaponPoolingCount = new Dictionary<UnitClass, int>()
+        {
+            { UnitClass.Archer, 20 },
+            { UnitClass.Spearman, 2 },
+            { UnitClass.Mage, 0 },
+        };
+
+        foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
+        {
+            foreach (var classCountPair in unitClassByWeaponPoolingCount)
+                CreatePoolGroup(PathBuilder.BuildUnitWeaponPath(new UnitFlags(color, classCountPair.Key)), ROOT_NAME, classCountPair.Value);
+        }
+
+        foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
+        {
+            if (color == UnitColor.White) continue;
+            CreatePoolGroup(PathBuilder.BuildMageSkillEffectPath(color), ROOT_NAME, 0);
+        }
     }
 }

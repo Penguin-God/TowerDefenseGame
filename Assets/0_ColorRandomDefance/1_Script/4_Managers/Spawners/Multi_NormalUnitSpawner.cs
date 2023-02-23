@@ -10,14 +10,14 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     
     [SerializeField] int[] poolCounts = new int[] { 5, 4, 3, 2 };
 
-    protected override void MasterInit()
-    {
-        poolCounts = new int[] { 5, 4, 3, 2 };
-        CreatePool(UnitClass.Swordman, poolCounts[0]);
-        CreatePool(UnitClass.Archer, poolCounts[1]);
-        CreatePool(UnitClass.Spearman, poolCounts[2]);
-        CreatePool(UnitClass.Mage, poolCounts[3]);
-    }
+    //protected override void MasterInit()
+    //{
+    //    poolCounts = new int[] { 5, 4, 3, 2 };
+    //    CreatePool(UnitClass.Swordman, poolCounts[0]);
+    //    CreatePool(UnitClass.Archer, poolCounts[1]);
+    //    CreatePool(UnitClass.Spearman, poolCounts[2]);
+    //    CreatePool(UnitClass.Mage, poolCounts[3]);
+    //}
 
     void CreatePool(UnitClass unitClass, int count)
     {

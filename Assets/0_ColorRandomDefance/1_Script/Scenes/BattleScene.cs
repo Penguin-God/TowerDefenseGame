@@ -18,6 +18,14 @@ public class BattleScene : BaseScene
         PhotonNetwork.SerializationRate = 30;
         new WorldInitializer(monoBehaviourContainer).Init();
         Managers.Multi.Init();
+        CreatePools();
+    }
+
+    void CreatePools()
+    {
+        new UnitPoolInitializer().InitPool();
+        new MonsterPoolInitializer().InitPool();
+        new WeaponPoolInitializer().InitPool();
     }
 
     void Start()

@@ -5,7 +5,7 @@ using System;
 
 public class Multi_WeaponSpawner : Multi_SpawnerBase
 {
-    protected override void MasterInit() => PoolWeapons();
+    // protected override void MasterInit() => PoolWeapons();
 
     void PoolWeapons()
     {

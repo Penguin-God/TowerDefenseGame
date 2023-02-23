@@ -39,33 +39,55 @@ public abstract class Multi_SpawnerBase : MonoBehaviourPun, IInstantiater
         => Managers.Multi.Instantiater.PhotonInstantiate(path, spawnPos, rotation, id);
 }
 
-public class PhotonObjectPoolInitializer : IInstantiater
+public abstract class PhotonObjectPoolInitializerBase : IInstantiater
 {
-    readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
+    protected readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
 
-    public void Init()
-    {
-        CreateWeaponsPool();
-        CreateUnitsPool();
-        CreateMonstersPool();
-    }
+    public abstract void InitPool();
+    protected abstract string PoolGroupName { get; }
+    protected void CreatePoolGroup(string path, int count) => Managers.Pool.CreatePool_InGroup(path, count, PoolGroupName, this);
 
-    protected void CreatePoolGroup(string path, string poolGroupName, int count) => Managers.Pool.CreatePool_InGroup(path, count, poolGroupName, this);
     public GameObject Instantiate(string path) => Managers.Multi.Instantiater.Instantiate(path);
+}
 
-    void CreateUnitsPool()
+public class UnitPoolInitializer : PhotonObjectPoolInitializerBase
+{
+    protected override string PoolGroupName => "Units";
+    public override void InitPool()
     {
-
+        int[] poolCounts = new int[] { 5, 4, 3, 2 };
+        CreatePool(UnitClass.Swordman, poolCounts[0]);
+        CreatePool(UnitClass.Archer, poolCounts[1]);
+        CreatePool(UnitClass.Spearman, poolCounts[2]);
+        CreatePool(UnitClass.Mage, poolCounts[3]);
     }
 
-    void CreateMonstersPool()
+    void CreatePool(UnitClass unitClass, int count)
     {
-
+        foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
+            CreatePoolGroup(PathBuilder.BuildUnitPath(new UnitFlags(color, unitClass)), count);
     }
+}
+
+public class MonsterPoolInitializer : PhotonObjectPoolInitializerBase
+{
+    readonly int POOL_OBJECT_COUNT = 50;
+    protected override string PoolGroupName => "NormalEnemys";
+    public override void InitPool()
+    {
+        for (int i = 0; i < 4; i++)
+            CreatePoolGroup(PathBuilder.BuildMonsterPath(i), POOL_OBJECT_COUNT);
+    }
+
+}
+
+public class WeaponPoolInitializer : PhotonObjectPoolInitializerBase
+{
+    public override void InitPool() => CreateWeaponsPool();
+    protected override string PoolGroupName => "Weapons";
 
     void CreateWeaponsPool()
     {
-        const string ROOT_NAME = "Weapons";
         var unitClassByWeaponPoolingCount = new Dictionary<UnitClass, int>()
         {
             { UnitClass.Archer, 20 },
@@ -76,13 +98,13 @@ public class PhotonObjectPoolInitializer : IInstantiater
         foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
         {
             foreach (var classCountPair in unitClassByWeaponPoolingCount)
-                CreatePoolGroup(PathBuilder.BuildUnitWeaponPath(new UnitFlags(color, classCountPair.Key)), ROOT_NAME, classCountPair.Value);
+                CreatePoolGroup(PathBuilder.BuildUnitWeaponPath(new UnitFlags(color, classCountPair.Key)), classCountPair.Value);
         }
 
         foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
         {
             if (color == UnitColor.White) continue;
-            CreatePoolGroup(PathBuilder.BuildMageSkillEffectPath(color), ROOT_NAME, 0);
+            CreatePoolGroup(PathBuilder.BuildMageSkillEffectPath(color), 0);
         }
     }
 }

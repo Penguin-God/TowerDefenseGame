@@ -6,7 +6,7 @@ using System;
 
 public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 {
-    protected override void MasterInit() => CreatePool();
+    // protected override void MasterInit() => CreatePool();
 
     void CreatePool()
     {

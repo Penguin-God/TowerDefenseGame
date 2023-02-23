@@ -50,10 +50,10 @@ public class MultiManager
             path = GetPrefabPath(path);
             var result = Managers.Pool.TryGetPoolObejct(GetPathName(path), out GameObject poolGo) ? poolGo : Instantiate(path);
             var rpc = result.GetComponent<RPCable>();
-            rpc.SetActive_RPC(true);
             if (spawnPos != Vector3.zero) rpc.SetPosition_RPC(spawnPos);
             if (spawnRot != Quaternion.identity) rpc.SetRotate_RPC(spawnRot.eulerAngles);
             if (id != -1) rpc.SetId_RPC(id);
+            rpc.SetActive_RPC(true);
             return result;
         }
 

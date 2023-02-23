@@ -23,6 +23,8 @@ public class BattleScene : BaseScene
 
     void CreatePools()
     {
+        if (PhotonNetwork.IsMasterClient == false) return;
+
         new UnitPoolInitializer().InitPool();
         new MonsterPoolInitializer().InitPool();
         new WeaponPoolInitializer().InitPool();

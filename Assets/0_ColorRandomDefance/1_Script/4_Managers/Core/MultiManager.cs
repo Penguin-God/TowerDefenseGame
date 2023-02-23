@@ -32,7 +32,7 @@ public class MultiManager
 
     public class MultiInstantiater : IInstantiater
     {
-        public GameObject Instantiate(string path)
+        public GameObject Instantiate(string path) // interface
         {
             path = GetPrefabPath(path);
             var prefab = Managers.Resources.Load<GameObject>(path);
@@ -41,33 +41,22 @@ public class MultiManager
             return go;
         }
 
-        public GameObject PhotonInstantiate(string path, int id)
-        {
-            path = GetPrefabPath(path);
-            var result = Managers.Pool.TryGetPoolObejct(GetPathName(path), out GameObject poolGo) ? poolGo : Instantiate(path);
-            result.GetComponent<RPCable>().SetId_RPC(id);
-            return result;
-        }
+        public GameObject PhotonInstantiate(string path, int id) => PhotonInstantiate(path, Vector3.zero, id);
 
-        public GameObject PhotonInstantiate(string path, Vector3 spawnPos, int id = -1)
+        public GameObject PhotonInstantiate(string path, Vector3 spawnPos, int id = -1)  => PhotonInstantiate(path, spawnPos, Quaternion.identity, id);
+        
+        public GameObject PhotonInstantiate(string path, Vector3 spawnPos, Quaternion spawnRot, int id = -1)
         {
             path = GetPrefabPath(path);
             var result = Managers.Pool.TryGetPoolObejct(GetPathName(path), out GameObject poolGo) ? poolGo : Instantiate(path);
             var rpc = result.GetComponent<RPCable>();
-            rpc.SetPosition_RPC(spawnPos);
             rpc.SetActive_RPC(true);
+            if (spawnPos != Vector3.zero) rpc.SetPosition_RPC(spawnPos);
+            if (spawnRot != Quaternion.identity) rpc.SetRotate_RPC(spawnRot.eulerAngles);
             if (id != -1) rpc.SetId_RPC(id);
             return result;
         }
-        public GameObject PhotonInstantiate(string path, Vector3 spawnPos, Quaternion spawnRot, int id = -1)
-            => PhotonInstantiate(path, spawnPos, spawnRot.eulerAngles, id);
 
-        public GameObject PhotonInstantiate(string path, Vector3 spawnPos, Vector3 spawnEuler, int id = -1)
-        {
-            var result = PhotonInstantiate(path, spawnPos, id);
-            result.GetComponent<RPCable>().SetRotate_RPC(spawnEuler);
-            return result;
-        }
 
         string GetPrefabPath(string path) => path.Contains("Prefabs/") ? path : $"Prefabs/{path}";
         string GetPathName(string path) => path.Split('/')[path.Split('/').Length - 1];

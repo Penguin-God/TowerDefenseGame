@@ -6,14 +6,11 @@ using Photon.Pun;
 public class Multi_NormalUnitSpawner : Multi_SpawnerBase
 {
     public void Spawn(UnitFlags flag) => Spawn(flag.ColorNumber, flag.ClassNumber);
-    public void Spawn(int unitColor, int unitClass) => Spawn_RPC(GetUnitPath(unitColor, unitClass), GetUnitSpawnPos());
-    public void Spawn(UnitFlags flag, int id) => Spawn_RPC(GetUnitPath(flag.ColorNumber, flag.ClassNumber), GetUnitSpawnPos(id), id);
-    public void Spawn(UnitFlags flag, Vector3 spawnPos, Quaternion rotation, int id)
-        => Spawn_RPC(GetUnitPath(flag.ColorNumber, flag.ClassNumber), spawnPos, rotation, id);
+    public void Spawn(int colorNum, int classNum) => Spawn(new UnitFlags(colorNum, classNum), Multi_Data.instance.Id);
+    public void Spawn(UnitFlags flag, int id) => Spawn(flag, GetUnitSpawnPos(id), Quaternion.identity, id);
+    public void Spawn(UnitFlags flag, Vector3 spawnPos, Quaternion rotation, int id) => Spawn_RPC(GetUnitPath(flag.ColorNumber, flag.ClassNumber), spawnPos, rotation, id);
 
     string GetUnitPath(int unitColor, int unitClass) => PathBuilder.BuildUnitPath(new UnitFlags(unitColor, unitClass));
-
-    Vector3 GetUnitSpawnPos() => Multi_WorldPosUtility.Instance.GetUnitSpawnPositon();
     Vector3 GetUnitSpawnPos(int id) => Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(id);
 
     [PunRPC]

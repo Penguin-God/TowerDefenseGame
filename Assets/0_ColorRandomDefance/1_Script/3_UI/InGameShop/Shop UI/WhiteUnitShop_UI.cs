@@ -36,11 +36,12 @@ public class WhiteUnitShop_UI : UI_Popup
         }
     }
 
+    readonly int WHITE_COLOR_NUMBER = 6;
     void SpawnWhiteUnit(int classNumber, PriceData record)
     {
         if (Multi_GameManager.instance.TryUseCurrency(record.CurrencyType, record.Price))
         {
-            Multi_SpawnManagers.NormalUnit.Spawn(6, classNumber);
+            Multi_SpawnManagers.NormalUnit.Spawn(WHITE_COLOR_NUMBER, classNumber);
             Managers.UI.ClosePopupUI(PopupGroupType.UnitWindow);
         }
     }

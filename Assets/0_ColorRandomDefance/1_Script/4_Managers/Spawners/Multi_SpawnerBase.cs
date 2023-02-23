@@ -8,17 +8,7 @@ public abstract class Multi_SpawnerBase : MonoBehaviourPun, IInstantiater
 {
     protected readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
 
-    void Start()
-    {
-        if (PhotonNetwork.IsMasterClient == false) return;
-        MasterInit();
-    }
-
-    protected virtual void MasterInit() { }
-
-
     [SerializeField] protected string _rootName;
-    protected void CreatePoolGroup(string path, int count) => Managers.Pool.CreatePool_InGroup(path, count, _rootName, this);
     public GameObject Instantiate(string path)
     {
         var result = Managers.Multi.Instantiater.Instantiate(path);
@@ -29,8 +19,7 @@ public abstract class Multi_SpawnerBase : MonoBehaviourPun, IInstantiater
 
     protected void Spawn_RPC(string path, Vector3 spawnPos, int id) 
         => photonView.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Quaternion.identity, id);
-    protected void Spawn_RPC(string path, Vector3 spawnPos) 
-        => photonView.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Quaternion.identity, Multi_Data.instance.Id);
+
     protected void Spawn_RPC(string path, Vector3 spawnPos, Quaternion rotation, int id)
         => photonView.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, rotation, id);
 

@@ -20,9 +20,6 @@ public abstract class Multi_SpawnerBase : MonoBehaviourPun, IInstantiater
     protected void Spawn_RPC(string path, Vector3 spawnPos, int id) 
         => photonView.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Quaternion.identity, id);
 
-    protected void Spawn_RPC(string path, Vector3 spawnPos, Quaternion rotation, int id)
-        => photonView.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, rotation, id);
-
     [PunRPC]
     protected virtual GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
         => Managers.Multi.Instantiater.PhotonInstantiate(path, spawnPos, rotation, id);

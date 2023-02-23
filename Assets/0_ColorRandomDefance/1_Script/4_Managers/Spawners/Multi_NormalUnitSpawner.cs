@@ -1,13 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using Photon.Pun;
 
 public class Multi_NormalUnitSpawner : Multi_SpawnerBase
 {
-    public event Action<Multi_TeamSoldier> OnSpawn;
-
     public void Spawn(UnitFlags flag) => Spawn(flag.ColorNumber, flag.ClassNumber);
     public void Spawn(int unitColor, int unitClass) => Spawn_RPC(GetUnitPath(unitColor, unitClass), GetUnitSpawnPos());
     public void Spawn(UnitFlags flag, int id) => Spawn_RPC(GetUnitPath(flag.ColorNumber, flag.ClassNumber), GetUnitSpawnPos(id), id);
@@ -24,7 +21,7 @@ public class Multi_NormalUnitSpawner : Multi_SpawnerBase
     {
         var unit = base.BaseSpawn(path, spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
         unit.Spawn();
-        OnSpawn?.Invoke(unit);
+        Multi_UnitManager.Instance.Master.AddUnit(unit);
         return null;
     }
 }

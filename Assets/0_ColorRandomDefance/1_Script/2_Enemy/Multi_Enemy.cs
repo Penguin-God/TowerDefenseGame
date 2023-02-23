@@ -179,6 +179,7 @@ public class Multi_Enemy : MonoBehaviourPun
             mesh.material.color = _newColor;
     }
 
+    [PunRPC]
     protected void ChangeColorToPoison() => ChangeColor(141, 49, 231, 255);
     protected void ChangeColorToSlow() => ChangeColor(50, 175, 222, 1);
     [PunRPC]

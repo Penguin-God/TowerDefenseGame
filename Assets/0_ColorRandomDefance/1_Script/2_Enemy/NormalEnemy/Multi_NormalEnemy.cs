@@ -124,7 +124,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     }
 
     [PunRPC]
-    void ApplySlow(float slowSpeed)
+    protected void ApplySlow(float slowSpeed)
     {
         ChangeSpeed(slowSpeed);
         ChangeColorToSlow();

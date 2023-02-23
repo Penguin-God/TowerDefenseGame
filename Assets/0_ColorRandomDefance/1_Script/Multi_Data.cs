@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using ExitGames.Client.Photon;
+using System;
 
 class CustomUnitFlagsType
 {
     public static byte[] Serialize(object obj)
     {
         UnitFlags flag = (UnitFlags)obj;
-        Vector3 buffer = new Vector3(flag.ColorNumber, flag.ClassNumber, 0);
-        return Protocol.Serialize(buffer);
+        byte buffer = (byte)((flag.ColorNumber << 4) | flag.ClassNumber);
+        return BitConverter.GetBytes(buffer);
     }
 
     public static object DeSerialize(byte[] bytes)
     {
-        Vector3 buffer = (Vector3)Protocol.Deserialize(bytes);
-        UnitFlags flag = new UnitFlags((int)buffer.x, (int)buffer.y);
+        byte buffer = bytes[0];
+        UnitFlags flag = new UnitFlags(buffer >> 4, buffer & 0xF);
         return flag;
     }
 }

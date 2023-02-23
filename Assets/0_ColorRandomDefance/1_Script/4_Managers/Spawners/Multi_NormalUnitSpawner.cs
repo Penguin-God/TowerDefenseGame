@@ -20,6 +20,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
 
     Vector3 GetUnitSpawnPos(int id) => Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(id);
 
+    // MasterOnly
     [PunRPC]
     void RPCSpawn(UnitFlags flag, int id) => RPCSpawn(flag, GetUnitSpawnPos(id), Quaternion.identity, id);
 

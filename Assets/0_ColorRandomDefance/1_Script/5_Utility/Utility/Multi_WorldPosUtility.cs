@@ -36,11 +36,8 @@ public class Multi_WorldPosUtility : MonoBehaviour
     [SerializeField] float enemyTowerSpawnRange_X;
     [SerializeField] float enemyTowerSpawnRange_Z;
 
-    public Vector3 GetUnitSpawnPositon() => GetRandomPos_InRange(Multi_Data.instance.WorldPostion, spawnRange);
     public Vector3 GetUnitSpawnPositon(int id) => GetRandomPos_InRange(Multi_Data.instance.GetWorldPosition(id), spawnRange);
 
-    public Vector3 GetEnemyTower_TP_Position()
-                    => GetRandomPos_InRange(Multi_Data.instance.EnemyTowerWorldPosition, enemyTowerSpawnRange_X, enemyTowerSpawnRange_Z);
     public Vector3 GetEnemyTower_TP_Position(int id)
                 => GetRandomPos_InRange(Multi_Data.instance.EnemyTowerWorldPositions[id] + offset, enemyTowerSpawnRange_X, enemyTowerSpawnRange_Z);
 

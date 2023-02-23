@@ -15722,100 +15722,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 964470258}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &965729631
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 965729632}
-  - component: {fileID: 965729633}
-  m_Layer: 0
-  m_Name: Weapon Spawner
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &965729632
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965729631}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 1712762049}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &965729633
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 965729631}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 166f61bfac9cd1247b7ca93381a6dd3f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _rootName: Weapons
-  allWeapons: []
-  arrowPoolData:
-    folderName: Arrows
-    gos:
-    - {fileID: 6559935622711817611, guid: b8de03d1b853f1a40974897a26221e07, type: 3}
-    - {fileID: 6327066443172086468, guid: 27c371b295229ec4a8d5a636b0f564e5, type: 3}
-    - {fileID: 1774899456207327249, guid: 0db5988cbd29ca94fb6a3780712dc0e2, type: 3}
-    - {fileID: 5831825776667280579, guid: 59b0e928ea166ca4e8b6f4013a1e7e10, type: 3}
-    - {fileID: 3693878150325891987, guid: 47d69423ceeb1774a8f631b9f94b1f03, type: 3}
-    - {fileID: 8803622629685511837, guid: bf758421531138e47a203b16d3933f63, type: 3}
-    - {fileID: 9057039652622457467, guid: bf7a37f569266b84cbc6bb5135200ef1, type: 3}
-    - {fileID: 9149325268380532109, guid: 069be3e93825a6f48b35de0b6df8c04e, type: 3}
-    poolingCount: 15
-  spearPoolData:
-    folderName: Spears
-    gos:
-    - {fileID: 1089945524570101919, guid: ccc813f0d6d872b45aceabc6a9eab873, type: 3}
-    - {fileID: 3455097021963821737, guid: 02bfc41911a0e37488889dbd0154fce5, type: 3}
-    - {fileID: 5780081832526976392, guid: b70c7b397670b0b4e9ea15fbbc45dd80, type: 3}
-    - {fileID: 5197799757681758757, guid: 75ab53b65bedaba4789449d2f72a40c6, type: 3}
-    - {fileID: 2632546835915559380, guid: 13f3b0afc903d9e40a39cbb728ae75bf, type: 3}
-    - {fileID: 6970859879261398008, guid: 110956a89e52e77439abc9cea34c824f, type: 3}
-    - {fileID: 2752802535611164755, guid: bb732e90f9717a94b9b2ca9650a8458a, type: 3}
-    - {fileID: 4136844629629309540, guid: 2f91be9c519ecd64e9b24044b74c7d43, type: 3}
-    poolingCount: 4
-  mageballPoolData:
-    folderName: Mageballs
-    gos:
-    - {fileID: 4247385763262579710, guid: 79875af229d2b294a9f711182d77d593, type: 3}
-    - {fileID: 5003480418987747992, guid: 7f7e5a71fc2162244a56e4878b3e98ef, type: 3}
-    - {fileID: 3393117671410220457, guid: 4cd136db83d36e94c904384cbf997b35, type: 3}
-    - {fileID: 4707030899879111016, guid: b8f74a2a21b4e8b48a78902caed53985, type: 3}
-    - {fileID: 4310734708390126925, guid: 44723817d3ff7f74bb2ba3f4baa9ab6a, type: 3}
-    - {fileID: 764653912475919692, guid: 7bc2494f0d825bd47b005d75db6395c9, type: 3}
-    - {fileID: 5513301234657635869, guid: d31f0847a34b04a4b8444f1492caf93c, type: 3}
-    - {fileID: 3052143345438668326, guid: 408996ab28d9dc042930c54f3364de9b, type: 3}
-    poolingCount: 4
-  mageSkillPoolData:
-    folderName: MageSkills
-    gos:
-    - {fileID: 4092839075240782940, guid: 665b0e29fcf68a44bb51644807f9f220, type: 3}
-    - {fileID: 3393117671410220457, guid: 22894d5e770e44f41afc452903b2263b, type: 3}
-    - {fileID: 4270540001386718210, guid: 66b037f53d0161349bdeaa0116b3c840, type: 3}
-    - {fileID: 6269822335907625535, guid: 3d04c93368856bd4eb50c61fefa0cda7, type: 3}
-    - {fileID: 767403622873436515, guid: 6f18a0f9e7422194fbef769d115ca77d, type: 3}
-    - {fileID: 6070129563677219890, guid: f894d2491a0cb5f4d8c47c6ab4a2f98e, type: 3}
-    - {fileID: 8959511767882400299, guid: 73833e9d6545abd48886e0de1f0a7657, type: 3}
-    - {fileID: 1028878669649969207, guid: 2435002441270cf41be65262bb9e0978, type: 3}
-    poolingCount: 2
-  _rootPath: Weapon
 --- !u!1001 &966447445
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26469,7 +26375,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rootName: Units
-  poolCounts: 
 --- !u!114 &1671188578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27332,7 +27237,6 @@ Transform:
   - {fileID: 685287357}
   - {fileID: 616192326}
   - {fileID: 1671188576}
-  - {fileID: 965729632}
   m_Father: {fileID: 462790420}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

@@ -39,7 +39,7 @@ public static class ProjectileShotDelegate
     }
 
     static Multi_Projectile GetProjectile(ProjectileData data, Vector3 spawnPos)
-        => Multi_SpawnManagers.Weapon.Spawn(data.WeaponPath, spawnPos).GetComponent<Multi_Projectile>();
+        => WeaponSpawner.Spawn(data.WeaponPath, spawnPos).GetComponent<Multi_Projectile>();
 
     // 원거리 무기 발사
     static Vector3 Get_ShootDirection(Transform attacker, Transform _target, float weightRate = 2f)

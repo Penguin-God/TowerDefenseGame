@@ -95,8 +95,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         base.EndSkillAttack(0);
     }
 
-
-    protected GameObject SkillSpawn(Vector3 spawnPos) => Multi_SpawnManagers.Weapon.Spawn(skillData.WeaponPath, spawnPos);
+    protected GameObject SkillSpawn(Vector3 spawnPos) => WeaponSpawner.Spawn(skillData.WeaponPath, spawnPos);
     protected virtual void MageSkile() { }
 
     protected virtual void PlaySkillSound() { }

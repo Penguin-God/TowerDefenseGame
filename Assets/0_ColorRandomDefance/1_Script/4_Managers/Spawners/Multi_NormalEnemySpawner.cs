@@ -2,18 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using System;
 
 public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
 {
-    // protected override void MasterInit() => CreatePool();
-
-    void CreatePool()
-    {
-        for (int i = 0; i < 4; i++)
-            CreatePoolGroup(PathBuilder.BuildMonsterPath(i), spawnCount);
-    }
-
     public Multi_NormalEnemy SpawnEnemy(byte num, int id, int stage)
     {
         var enemy = base.BaseSpawn(PathBuilder.BuildMonsterPath(num), spawnPositions[id], Quaternion.identity, id).GetComponent<Multi_NormalEnemy>();

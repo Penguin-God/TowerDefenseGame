@@ -199,11 +199,11 @@ public class Multi_UnitManager : MonoBehaviourPun
                 }
             }
 
-            Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
+            // Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
             // Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
         }
 
-        void AddUnit(Multi_TeamSoldier unit)
+        public void AddUnit(Multi_TeamSoldier unit)
         {
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Add(unit);

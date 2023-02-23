@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Multi_NormalEnemySpawner : Multi_EnemySpawnerBase
+public class NormalMonsterSpawner
 {
-    public Multi_NormalEnemy SpawnEnemy(byte num, int id, int stage)
+    public Multi_NormalEnemy SpawnMonster(byte num, int id, int stage)
     {
-        var enemy = base.BaseSpawn(PathBuilder.BuildMonsterPath(num), spawnPositions[id], Quaternion.identity, id).GetComponent<Multi_NormalEnemy>();
+        var enemy = Managers.Multi.Instantiater.PhotonInstantiate(new ResourcesPathBuilder().BuildMonsterPath(num), id).GetComponent<Multi_NormalEnemy>();
         NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];
         enemy.SetStatus_RPC(data.Hp, data.Speed, false);
         Multi_EnemyManager.Instance.AddNormalMonster(enemy);
@@ -53,7 +53,7 @@ public class MonsterSpawnerContorller : MonoBehaviour
     }
 
     Multi_NormalEnemy SpawnMonsterToOther(byte num, int id, int stage) 
-        => Multi_SpawnManagers.NormalEnemy.SpawnEnemy(num, id == 0 ? 1 : 0, stage);
+        => new NormalMonsterSpawner().SpawnMonster(num, id == 0 ? 1 : 0, stage);
 
     [SerializeField] float _spawnDelayTime = 2f;
     [SerializeField] int _stageSpawnCount = 15;

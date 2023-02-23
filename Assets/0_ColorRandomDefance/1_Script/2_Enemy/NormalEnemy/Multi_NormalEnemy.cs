@@ -35,8 +35,16 @@ public class Multi_NormalEnemy : Multi_Enemy
         spawnStage = Multi_StageManager.Instance.CurrentStage;
         TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);
         if(pointIndex == -1) pointIndex = 0;
+        transform.position = _spawnPositons[UsingId];
+        transform.rotation = Quaternion.identity;
         SetDirection();
     }
+
+    readonly Vector3[] _spawnPositons = new Vector3[]
+    {
+        new Vector3(-45, 0, 35),
+        new Vector3(-45, 0, 535),
+};
 
     void Turn()
     {

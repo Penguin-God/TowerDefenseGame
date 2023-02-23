@@ -41,6 +41,14 @@ public class MultiManager
             return go;
         }
 
+        public GameObject PhotonInstantiate(string path, int id)
+        {
+            path = GetPrefabPath(path);
+            var result = Managers.Pool.TryGetPoolObejct(GetPathName(path), out GameObject poolGo) ? poolGo : Instantiate(path);
+            result.GetComponent<RPCable>().SetId_RPC(id);
+            return result;
+        }
+
         public GameObject PhotonInstantiate(string path, Vector3 spawnPos, int id = -1)
         {
             path = GetPrefabPath(path);

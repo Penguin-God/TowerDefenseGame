@@ -69,15 +69,15 @@ public class Multi_Enemy : MonoBehaviourPun
 
     protected virtual void Init() { }
 
-    public void SetStatus_RPC(int _hp, float _speed, bool _isDead) => photonView.RPC("SetStatus", RpcTarget.All, _hp, _speed, _isDead);
+    public void SetStatus_RPC(int _hp, float _speed, bool _isDead) => photonView.RPC(nameof(SetStatus), RpcTarget.All, _hp, _speed, _isDead);
 
     [PunRPC]
     protected virtual void SetStatus(int _hp, float _speed, bool _isDead)
     {
+        gameObject.SetActive(!_isDead);
         ChangeMaxHp(_hp);
         ChangeMaxSpeed(_speed);
         isDead = _isDead;
-        gameObject.SetActive(!_isDead);
     }
 
     public void OnDamage(int damage, bool isSkill = false) => photonView.RPC(nameof(RPC_OnDamage), RpcTarget.MasterClient, damage, isSkill);

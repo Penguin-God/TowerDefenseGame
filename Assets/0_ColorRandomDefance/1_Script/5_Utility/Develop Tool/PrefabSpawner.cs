@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
 [System.Serializable]
 public class DrawButtonUnits
@@ -9,20 +8,13 @@ public class DrawButtonUnits
     public GameObject[] units;
 }
 
-public class PrefabSpawner : MonoBehaviourPun
+public class PrefabSpawner : MonoBehaviour
 {
     public DrawButtonUnits[] allUnit;
 
-    [PunRPC]
-    public void SpawnUnit(int colorNumber, int classNumber)
-    {
-        Multi_SpawnManagers.NormalUnit.Spawn(colorNumber, classNumber);
-    }
+    public void SpawnUnit(int colorNumber, int classNumber) => Multi_SpawnManagers.NormalUnit.Spawn(colorNumber, classNumber);
 
-    public void SpawnUnit_ByClient(int colorNumber, int classNumber)
-    {
-        photonView.RPC("SpawnUnit", RpcTarget.Others, colorNumber, classNumber);
-    }
+    public void SpawnUnit_ByClient(int colorNumber, int classNumber) => SpawnUnit_ByClientWolrd(colorNumber, classNumber);
 
     public void SpawnNormalEnemy(byte _enemyNum) => new NormalMonsterSpawner().SpawnMonster(_enemyNum, 0, Multi_StageManager.Instance.CurrentStage);
 

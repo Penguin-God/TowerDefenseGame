@@ -15,7 +15,6 @@ public class PrefabSpawnButton : Editor
 
         DrawUnitSpawnButton(_spawner.allUnit, _spawner);
         DrawEnemySpawnButton(_prefabs, _spawner);
-        DrawClineWorldSpawn(_spawner);
     }
 
     bool showButton = true;
@@ -69,15 +68,5 @@ public class PrefabSpawnButton : Editor
             if (GUILayout.Button(_buttonName)) _spawner.SpawnNormalEnemy(_enemyNumber);
             _enemyNumber++;
         }
-    }
-
-    int colorNum;
-    int classNum;
-    void DrawClineWorldSpawn(PrefabSpawner _spawner)
-    {
-        EditorGUILayout.Space(20);
-        colorNum = EditorGUILayout.IntField(colorNum);
-        classNum = EditorGUILayout.IntField(classNum);
-        if (GUILayout.Button("상대 진영에 유닛 소환")) _spawner.SpawnUnit_ByClientWolrd(colorNum, classNum);
     }
 }

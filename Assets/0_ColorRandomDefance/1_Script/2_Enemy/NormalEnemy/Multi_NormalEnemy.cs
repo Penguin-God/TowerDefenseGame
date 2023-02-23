@@ -44,7 +44,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         new Vector3(-45, 0, 35),
         new Vector3(-45, 0, 535),
-};
+    };
 
     void Turn()
     {
@@ -112,7 +112,7 @@ public class Multi_NormalEnemy : Multi_Enemy
             speed = maxSpeed - maxSpeed * (slowPercent / 100);
             Rigidbody.velocity = dir * speed;
             photonView.RPC(nameof(SyncSpeed), RpcTarget.Others, speed);
-            photonView.RPC(nameof(ChangeColor), RpcTarget.All, 50, 175, 222, 1);
+            // photonView.RPC(nameof(ChangeColorToSlow), RpcTarget.All);
 
             // 슬로우 시간 갱신 위한 코드
             // 더 강하거나 비슷한 슬로우가 들어오면 작동 준비중이던 슬로우 탈출 코루틴은 나가리 되고 새로운 탈출 코루틴이 돌아감
@@ -135,7 +135,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected override void ExitSlow()
     {
         ChangeMat(originMat);
-        ChangeColor(255, 255, 255, 255);
+        ChangeColorToOrigin();
 
         // 스턴 상태가 아니라면 속도 복구
         if (queue_GetSturn.Count <= 0 && photonView.IsMine) Set_OriginSpeed_ToAllPlayer();
@@ -199,8 +199,6 @@ public class Multi_NormalEnemy : Multi_Enemy
         base.ChangeSpeed(newSpeed);
         Rigidbody.velocity = dir * Speed;
     }
-
-    void SyncSpeedToOther(float speed) => photonView.RPC(nameof(SyncSpeed), RpcTarget.Others, speed);
 
     // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기
     protected void Set_OriginSpeed_ToAllPlayer() => photonView.RPC(nameof(SyncSpeed), RpcTarget.All, maxSpeed);

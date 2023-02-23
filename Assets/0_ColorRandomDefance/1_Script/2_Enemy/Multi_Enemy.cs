@@ -117,12 +117,17 @@ public class Multi_Enemy : MonoBehaviourPun
 
     protected void ResetColor()
     {
-        ChangeColor(255, 255, 255, 255);
+        ChangeColorToOrigin();
         ChangeMat(originMat);
     }
 
     // 상태 이상은 호스트에서 적용 후 다른 플레이어에게 동기화하는 방식
-    public void OnSlow_RPC(float slowPercent, float slowTime) => photonView.RPC(nameof(OnSlow), RpcTarget.MasterClient, slowPercent, slowTime);
+    public void OnSlow_RPC(float slowPercent, float slowTime)
+    {
+        if (isDead) return;
+        ChangeColorToSlow();
+        photonView.RPC(nameof(OnSlow), RpcTarget.MasterClient, slowPercent, slowTime);
+    }
     [PunRPC] protected virtual void OnSlow(float slowPercent, float slowTime) { }
 
     public void ExitSlow(RpcTarget _target) => photonView.RPC(nameof(ExitSlow), _target);
@@ -135,12 +140,16 @@ public class Multi_Enemy : MonoBehaviourPun
     [PunRPC] protected virtual void OnStun(int stunPercent, float stunTime) { }
 
     public void OnPoison_RPC(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill = false)
-        => photonView.RPC(nameof(OnPoison), RpcTarget.MasterClient, poisonPercent, poisonCount, poisonDelay, maxDamage, isSkill);
+    {
+        if (isDead) return;
+
+        photonView.RPC(nameof(OnPoison), RpcTarget.MasterClient, poisonPercent, poisonCount, poisonDelay, maxDamage, isSkill);
+    }
     [PunRPC]
     protected virtual void OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill)
     {
         if (isDead || !PhotonNetwork.IsMasterClient) return;
-
+        ChangeColorToPoison();
         StartCoroutine(Co_OnPoison(poisonPercent, poisonCount, poisonDelay, maxDamage, isSkill));
     }
 
@@ -149,17 +158,16 @@ public class Multi_Enemy : MonoBehaviourPun
     IEnumerator Co_OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill)
     {
         queue_HoldingPoison.Enqueue(-1);
-        photonView.RPC(nameof(ChangeColor), RpcTarget.All, 141, 49, 231, 255);
-
+        
         int poisonDamage = GetPoisonDamage(poisonPercent, maxDamage);
         for (int i = 0; i < poisonCount; i++)
         {
             yield return new WaitForSeconds(poisonDelay);
-            RPC_OnDamage(poisonDamage, isSkill); // 포이즌 자체가 호스트에서만 돌아가기 때문에 그냥 써도 됨
+            RPC_OnDamage(poisonDamage, isSkill); // 포이즌 자체가 마스터에서만 돌아가기 때문에 그냥 써도 됨
         }
 
         if (queue_HoldingPoison.Count != 0) queue_HoldingPoison.Dequeue();
-        if (queue_HoldingPoison.Count == 0) photonView.RPC(nameof(ChangeColor), RpcTarget.All, 255, 255, 255, 255);
+        if (queue_HoldingPoison.Count == 0) photonView.RPC(nameof(ChangeColorToOrigin), RpcTarget.All);
     }
 
     int GetPoisonDamage(int poisonPercent, int maxDamage)
@@ -169,14 +177,17 @@ public class Multi_Enemy : MonoBehaviourPun
         return poisonDamage;
     }
 
-
-    [PunRPC]
-    public void ChangeColor(int r, int g, int b, int a)
+    void ChangeColor(byte r, byte g, byte b, byte a)
     {
-        Color32 _newColor = new Color32((byte)r, (byte)g, (byte)b, (byte)a);
+        Color32 _newColor = new Color32(r, g, b, a);
         foreach (MeshRenderer mesh in meshList)
             mesh.material.color = _newColor;
     }
+
+    protected void ChangeColorToPoison() => ChangeColor(141, 49, 231, 255);
+    protected void ChangeColorToSlow() => ChangeColor(50, 175, 222, 1);
+    [PunRPC]
+    protected void ChangeColorToOrigin() => ChangeColor(255, 255, 255, 255);
 
     protected void ChangeMat(Material mat)
     {

@@ -31,7 +31,7 @@ public class Multi_BlueMage : Multi_Unit_Mage
         if (photonView.IsMine == false) return;
 
         if (other.GetComponentInParent<Multi_NormalEnemy>() != null) // 나가기 전까진 무한 슬로우
-            other.GetComponentInParent<Multi_NormalEnemy>().OnSlow_RPC(slowPercent, -1);
+            other.GetComponentInParent<Multi_NormalEnemy>().OnSlow(slowPercent, -1);
     }
 
     private void OnTriggerExit(Collider other)

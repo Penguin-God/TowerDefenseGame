@@ -101,17 +101,16 @@ public class Multi_NormalEnemy : Multi_Enemy
     private Queue<int> queue_GetSturn = new Queue<int>();
     [SerializeField] private GameObject sternEffect;
 
-    [PunRPC]
-    protected override void OnSlow(float slowPercent, float slowTime)
+    public override void OnSlow(float slowPercent, float slowTime)
     {
-        if (IsDead || PhotonNetwork.IsMasterClient == false) return;
+        if (IsDead) return;
 
-        // 슬로우를 적용했을 때 현재 속도보다 느려져야만 슬로우 적용
-        if (maxSpeed - maxSpeed * (slowPercent / 100) <= speed)
+        float slowSpeed = maxSpeed - maxSpeed * (slowPercent / 100);
+        if (slowSpeed <= speed) // 슬로우를 적용했을 때 현재 속도보다 느려져야만 슬로우 적용
         {
-            speed = maxSpeed - maxSpeed * (slowPercent / 100);
+            speed = slowSpeed;
             Rigidbody.velocity = dir * speed;
-            photonView.RPC(nameof(SyncSpeed), RpcTarget.Others, speed);
+            photonView.RPC(nameof(ApplySlow), RpcTarget.Others, speed);
             // photonView.RPC(nameof(ChangeColorToSlow), RpcTarget.All);
 
             // 슬로우 시간 갱신 위한 코드
@@ -124,6 +123,12 @@ public class Multi_NormalEnemy : Multi_Enemy
         }
     }
 
+    [PunRPC]
+    void ApplySlow(float slowSpeed)
+    {
+        ChangeSpeed(slowSpeed);
+        ChangeColorToSlow();
+    }
 
     IEnumerator Co_ExitSlow(float slowTime)
     {

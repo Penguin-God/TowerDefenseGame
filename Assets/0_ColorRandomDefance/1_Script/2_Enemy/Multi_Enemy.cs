@@ -122,13 +122,8 @@ public class Multi_Enemy : MonoBehaviourPun
     }
 
     // 상태 이상은 호스트에서 적용 후 다른 플레이어에게 동기화하는 방식
-    public void OnSlow_RPC(float slowPercent, float slowTime)
-    {
-        if (isDead) return;
-        ChangeColorToSlow();
-        photonView.RPC(nameof(OnSlow), RpcTarget.MasterClient, slowPercent, slowTime);
-    }
-    [PunRPC] protected virtual void OnSlow(float slowPercent, float slowTime) { }
+    public virtual void OnSlow(float slowPercent, float slowTime) { }
+    //[PunRPC] protected virtual void OnSlow(float slowPercent, float slowTime) { }
 
     public void ExitSlow(RpcTarget _target) => photonView.RPC(nameof(ExitSlow), _target);
     [PunRPC] protected virtual void ExitSlow() { }
@@ -149,7 +144,7 @@ public class Multi_Enemy : MonoBehaviourPun
     protected virtual void OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill)
     {
         if (isDead || !PhotonNetwork.IsMasterClient) return;
-        ChangeColorToPoison();
+        // ChangeColorToPoison();
         StartCoroutine(Co_OnPoison(poisonPercent, poisonCount, poisonDelay, maxDamage, isSkill));
     }
 
@@ -158,7 +153,7 @@ public class Multi_Enemy : MonoBehaviourPun
     IEnumerator Co_OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill)
     {
         queue_HoldingPoison.Enqueue(-1);
-        
+        photonView.RPC(nameof(ChangeColorToPoison), RpcTarget.All);
         int poisonDamage = GetPoisonDamage(poisonPercent, maxDamage);
         for (int i = 0; i < poisonCount; i++)
         {

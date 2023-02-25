@@ -21,7 +21,7 @@ public class Multi_StageManager : MonoBehaviourPun
     }
 
     public event Action<int> OnUpdateStage;
-    public readonly int STAGE_TIME = 40;
+    public readonly float STAGE_TIME = 32.5f;
     [SerializeField] int currentStage = 0;
     public int CurrentStage => currentStage;
 

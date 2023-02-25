@@ -55,7 +55,7 @@ public class MonsterSpawnerContorller : MonoBehaviour
     Multi_NormalEnemy SpawnMonsterToOther(byte num, int id, int stage) 
         => new NormalMonsterSpawner().SpawnMonster(num, id == 0 ? 1 : 0, stage);
 
-    [SerializeField] float _spawnDelayTime = 2f;
+    [SerializeField] float _spawnDelayTime = 1.8f;
     [SerializeField] int _stageSpawnCount = 15;
     IEnumerator Co_StageSpawn(byte id, int stage)
     {

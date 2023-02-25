@@ -15,37 +15,36 @@ public class UnitStatChangeFacade : MonoBehaviourPun
         _unitManager = unitManager;
     }
 
-    public void SetUnitStat(UnitStatType statType, int newValue) 
+    public void SetAllUnitStat(UnitStatType statType, int newValue) 
         => photonView.RPC(nameof(ChangeUnitStat), RpcTarget.MasterClient, (byte)Multi_Data.instance.Id, statType, newValue);
 
     public void SetUnitStat(UnitStatType statType, int newValue, UnitFlags flag)
-        => photonView.RPC(nameof(ChangeUnitStat), RpcTarget.MasterClient, (byte)Multi_Data.instance.Id, statType, newValue);
+        => photonView.RPC(nameof(ChangeUnitStatWithFlag), RpcTarget.MasterClient, (byte)Multi_Data.instance.Id, statType, newValue, flag);
 
     public void ScaleUnitStat(UnitStatType statType, float rate)
         => photonView.RPC(nameof(ChangeUnitStat), RpcTarget.MasterClient, (byte)Multi_Data.instance.Id, statType, rate);
 
     public void ScaleUnitStat(UnitStatType statType, float rate, UnitColor unitColor)
-        => photonView.RPC(nameof(ChangeUnitStat), RpcTarget.MasterClient, (byte)Multi_Data.instance.Id, statType, rate);
+        => photonView.RPC(nameof(ChangeUnitStatWithColor), RpcTarget.MasterClient, (byte)Multi_Data.instance.Id, statType, rate, unitColor);
 
     [PunRPC]
     void ChangeUnitStat(byte id, UnitStatType statType, float rate) 
-        => ChangeUnitStat(id, GetUnitStatChangeAction(statType, rate));
+        => ChangeUnitStat(id, GetUnitStatChangeAction(statType, rate), x => true);
 
     [PunRPC]
     void ChangeUnitStat(byte id, UnitStatType statType, int newValue)
-        => ChangeUnitStat(id, GetUnitStatChangeAction(statType, newValue));
+        => ChangeUnitStat(id, GetUnitStatChangeAction(statType, newValue), x => true);
 
     [PunRPC]
-    void ChangeUnitStat(byte id, UnitStatType statType, int newValue, UnitFlags flag)
+    void ChangeUnitStatWithFlag(byte id, UnitStatType statType, int newValue, UnitFlags flag)
         => ChangeUnitStat(id, GetUnitStatChangeAction(statType, newValue), x => x == flag);
 
     [PunRPC]
-    void ChangeUnitStat(byte id, UnitStatType statType, float rate, UnitColor unitColor)
+    void ChangeUnitStatWithColor(byte id, UnitStatType statType, float rate, UnitColor unitColor)
         => ChangeUnitStat(id, GetUnitStatChangeAction(statType, rate), x => x.UnitColor == unitColor);
 
-    void ChangeUnitStat(byte id, Action<UnitStat> statChangeAction, Func<UnitFlags, bool> conditon = null)
+    void ChangeUnitStat(byte id, Action<UnitStat> statChangeAction, Func<UnitFlags, bool> conditon)
     {
-        if (conditon == null) conditon = x => true;
         ChangeUnitStatToDB(id, statChangeAction, conditon);
         if (PhotonNetwork.IsMasterClient)
             ChangeUnitStatToCurrentSpawns(id, statChangeAction, conditon);

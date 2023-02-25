@@ -21,7 +21,7 @@ public class DataChangeTester
         Log("유닛 전체 변경 테스트");
         SpawnUnit(0, 0);
         SpawnUnit(1, 0);
-        Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.Damage, RESULT_DATA);
+        Multi_UnitManager.Instance.Stat.SetAllUnitStat(UnitStatType.Damage, RESULT_DATA);
         AssertUnitStatChange(stat => stat.Damage, RESULT_DATA, x => true);
         SpawnUnit(4, 2);
         AssertUnitStatChange(stat => stat.Damage, RESULT_DATA, x => true);
@@ -34,13 +34,17 @@ public class DataChangeTester
         var redSwordFlag = new UnitFlags(0, 0);
         SpawnUnit(0, 0);
         Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.Damage, RESULT_DATA, redSwordFlag);
-
         AssertUnitStatChange(stat => stat.Damage, RESULT_DATA, flag => flag == redSwordFlag);
+
         var orange = UnitColor.Orange;
         SpawnUnit(4, 1);
-        Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.BossDamage, RESULT_DATA);
+        Multi_UnitManager.Instance.Stat.SetAllUnitStat(UnitStatType.BossDamage, RESULT_DATA);
         Multi_UnitManager.Instance.Stat.ScaleUnitStat(UnitStatType.BossDamage, 1.5f, orange);
         AssertUnitStatChange(stat => stat.BossDamage, Mathf.RoundToInt(RESULT_DATA * 1.5f), flag => flag.UnitColor == orange);
+
+        Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.Damage, 25, redSwordFlag);
+        Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.Damage, 1600, new UnitFlags(0, 1));
+        AssertUnitStatChange(stat => stat.Damage, 25, flag => flag == redSwordFlag);
     }
 
     void AssertUnitStatChange(Func<UnitStat, int> getResult, int resultData, Func<UnitFlags, bool> condition)

@@ -100,6 +100,8 @@ MonoBehaviour:
   - ChangeColorToPoison
   - ChangeColorToSlow
   - ApplySlow
+  - ChangeUnitStatWithColor
+  - ChangeUnitStatWithFlag
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

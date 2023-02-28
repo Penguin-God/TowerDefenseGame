@@ -8,8 +8,8 @@ public class RPCable : MonoBehaviourPun
     [SerializeField] int _usingId = -1;
     public int UsingId => _usingId;
 
-    public void SetId_RPC(int id) => gameObject.GetComponent<PhotonView>().RPC("SetId", RpcTarget.All, id);
-    [PunRPC] void SetId(int id) => _usingId = id;
+    public void SetId_RPC(byte id) => gameObject.GetComponent<PhotonView>().RPC("SetId", RpcTarget.All, id);
+    [PunRPC] void SetId(byte id) => _usingId = id;
 
     // 위치
     public void SetPosition_RPC(Vector3 _pos) => photonView.RPC("SetPosition", RpcTarget.All, _pos);

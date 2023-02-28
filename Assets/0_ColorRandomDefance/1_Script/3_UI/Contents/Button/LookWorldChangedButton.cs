@@ -22,7 +22,7 @@ public class LookWorldChangedButton : UI_Scene
     {
         Managers.Camera.LookWorldChanged();
         Managers.Sound.PlayEffect(EffectSoundType.PopSound);
-        if (Managers.Camera.LookWorld_Id == Multi_Data.instance.Id)
+        if (Managers.Camera.LookWorld_Id == PlayerIdManager.Id)
         {
             button.image.sprite = lookMyWorldIcon;
             _text.text = "상대 진영으로";

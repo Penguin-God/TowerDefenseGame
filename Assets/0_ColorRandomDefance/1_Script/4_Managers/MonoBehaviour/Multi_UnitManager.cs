@@ -106,7 +106,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     {
         if (new UnitCombineSystem().CheckCombineable(flag, (conditionFlag) => _count.GetUnitCount(conditionFlag)))
         {
-            photonView.RPC(nameof(Combine), RpcTarget.MasterClient, flag, Multi_Data.instance.Id);
+            photonView.RPC(nameof(Combine), RpcTarget.MasterClient, flag, PlayerIdManager.Id);
             OnCombine?.Invoke(flag);
             return true;
         }
@@ -118,20 +118,20 @@ public class Multi_UnitManager : MonoBehaviourPun
     }
 
     [PunRPC] 
-    public void Combine(UnitFlags flag, int id)
+    public void Combine(UnitFlags flag, byte id)
     {
         SacrificedUnits_ForCombine(Managers.Data.CombineConditionByUnitFalg[flag]);
         Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
 
-        void SacrificedUnits_ForCombine(CombineCondition condition) 
+        void SacrificedUnits_ForCombine(CombineCondition condition)
             => condition.NeedCountByFlag
             .ToList()
             .ForEach(x => _controller.UnitDead(id, x.Key, x.Value));
     }
 
 
-    public void UnitDead_RPC(int id, UnitFlags unitFlag, int count = 1) => photonView.RPC(nameof(UnitDead), RpcTarget.MasterClient, id, unitFlag, count);
-    [PunRPC] void UnitDead(int id, UnitFlags unitFlag, int count) => _controller.UnitDead(id, unitFlag, count);
+    public void UnitDead_RPC(byte id, UnitFlags unitFlag, int count = 1) => photonView.RPC(nameof(UnitDead), RpcTarget.MasterClient, id, unitFlag, count);
+    [PunRPC] void UnitDead(byte id, UnitFlags unitFlag, byte count) => _controller.UnitDead(id, unitFlag, count);
 
     public void UnitWorldChanged_RPC(int id, UnitFlags flag) => Instance.photonView.RPC(nameof(UnitWorldChanged), RpcTarget.MasterClient, id, flag, Managers.Camera.IsLookEnemyTower);
     [PunRPC] void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode) => _controller.UnitWorldChange(id, flag, enterStroyMode);
@@ -272,7 +272,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         MasterDataManager _masterData;
         public void Init(MasterDataManager masterData) => _masterData = masterData;
 
-        public void UnitDead(int id, UnitFlags unitFlag, int count = 1)
+        public void UnitDead(byte id, UnitFlags unitFlag, int count = 1)
         {
             if (PhotonNetwork.IsMasterClient == false) return;
 

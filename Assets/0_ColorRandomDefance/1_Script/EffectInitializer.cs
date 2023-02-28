@@ -22,10 +22,10 @@ public class EffectInitializer : MonoBehaviourPun
     }
 
     void TaeguekEffect_RPC(UnitClass unitClass, bool isTaegeukOn)
-        => photonView.RPC(nameof(TaeguekEffect), RpcTarget.MasterClient, unitClass, isTaegeukOn, Multi_Data.instance.Id);
+        => photonView.RPC(nameof(TaeguekEffect), RpcTarget.MasterClient, unitClass, isTaegeukOn, PlayerIdManager.Id);
 
     [PunRPC]
-    void TaeguekEffect(UnitClass unitClass, bool isTaegeukOn, int id)
+    void TaeguekEffect(UnitClass unitClass, bool isTaegeukOn, byte id)
     {
         IReadOnlyList<UnitFlags> TeaguekUnitFlags = new UnitFlags[] { new UnitFlags(UnitColor.Red, unitClass), new UnitFlags(UnitColor.Blue, unitClass) };
         
@@ -52,10 +52,10 @@ public class EffectInitializer : MonoBehaviourPun
     }
 
     void SetUnitTrackingEffects_RPC(UnitFlags flag)
-        => photonView.RPC(nameof(SetUnitTrackingEffects), RpcTarget.MasterClient, flag, Multi_Data.instance.Id);
+        => photonView.RPC(nameof(SetUnitTrackingEffects), RpcTarget.MasterClient, flag, PlayerIdManager.Id);
 
     [PunRPC]
-    void SetUnitTrackingEffects(UnitFlags flag, int id)
+    void SetUnitTrackingEffects(UnitFlags flag, byte id)
     {
         var targets = Multi_UnitManager.Instance.Master.GetUnitList(id, flag)
             .Where(x => Managers.Effect.TargetByTrackers.ContainsKey(x.transform) == false);

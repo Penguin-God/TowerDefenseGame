@@ -16,16 +16,16 @@ public class UnitStatChangeFacade : MonoBehaviourPun
     }
 
     public void SetAllUnitStat(UnitStatType statType, int newValue) 
-        => photonView.RPC(nameof(ChangeUnitStat), RpcTarget.MasterClient, (byte)Multi_Data.instance.Id, statType, newValue);
+        => photonView.RPC(nameof(ChangeUnitStat), RpcTarget.MasterClient, PlayerIdManager.Id, statType, newValue);
 
     public void SetUnitStat(UnitStatType statType, int newValue, UnitFlags flag)
-        => photonView.RPC(nameof(ChangeUnitStatWithFlag), RpcTarget.MasterClient, (byte)Multi_Data.instance.Id, statType, newValue, flag);
+        => photonView.RPC(nameof(ChangeUnitStatWithFlag), RpcTarget.MasterClient, PlayerIdManager.Id, statType, newValue, flag);
 
     public void ScaleUnitStat(UnitStatType statType, float rate)
-        => photonView.RPC(nameof(ChangeUnitStat), RpcTarget.MasterClient, (byte)Multi_Data.instance.Id, statType, rate);
+        => photonView.RPC(nameof(ChangeUnitStat), RpcTarget.MasterClient, PlayerIdManager.Id, statType, rate);
 
     public void ScaleUnitStat(UnitStatType statType, float rate, UnitColor unitColor)
-        => photonView.RPC(nameof(ChangeUnitStatWithColor), RpcTarget.MasterClient, (byte)Multi_Data.instance.Id, statType, rate, unitColor);
+        => photonView.RPC(nameof(ChangeUnitStatWithColor), RpcTarget.MasterClient, PlayerIdManager.Id, statType, rate, unitColor);
 
     [PunRPC]
     void ChangeUnitStat(byte id, UnitStatType statType, float rate) 

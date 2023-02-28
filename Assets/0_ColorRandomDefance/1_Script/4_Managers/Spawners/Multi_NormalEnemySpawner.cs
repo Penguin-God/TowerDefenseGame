@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class NormalMonsterSpawner
 {
-    public Multi_NormalEnemy SpawnMonster(byte num, int id, int stage)
+    public Multi_NormalEnemy SpawnMonster(byte num, byte id, int stage)
     {
         var enemy = Managers.Multi.Instantiater.PhotonInstantiateInactive(new ResourcesPathBuilder().BuildMonsterPath(num), id).GetComponent<Multi_NormalEnemy>();
         NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];
@@ -53,7 +53,7 @@ public class MonsterSpawnerContorller : MonoBehaviour
     }
 
     Multi_NormalEnemy SpawnMonsterToOther(byte num, int id, int stage) 
-        => new NormalMonsterSpawner().SpawnMonster(num, id == 0 ? 1 : 0, stage);
+        => new NormalMonsterSpawner().SpawnMonster(num, (byte)(id == 0 ? 1 : 0), stage);
 
     [SerializeField] float _spawnDelayTime = 1.8f;
     [SerializeField] int _stageSpawnCount = 15;

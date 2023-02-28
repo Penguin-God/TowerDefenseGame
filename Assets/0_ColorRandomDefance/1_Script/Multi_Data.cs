@@ -22,6 +22,14 @@ class CustomUnitFlagsType
     }
 }
 
+public static class PlayerIdManager
+{
+    public static byte Id => (byte)(PhotonNetwork.IsMasterClient ? 0 : 1);
+    public static byte MasterId => 0;
+    public static byte ClientId => 1;
+    public static byte InVaildId => 12;
+}
+
 public class Multi_Data : MonoBehaviourPun
 {
     private static Multi_Data m_instance;
@@ -60,7 +68,6 @@ public class Multi_Data : MonoBehaviourPun
     [Header("World")]
     
     [SerializeField] Vector3[] worldPostions = null;
-    public Vector3 WorldPostion => worldPostions[id];
     public Vector3 GetWorldPosition(int id) => worldPostions[id];
 
     [SerializeField] Vector3[] enemyTowerWorldPositions = null;

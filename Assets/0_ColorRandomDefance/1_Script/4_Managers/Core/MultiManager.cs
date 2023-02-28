@@ -41,24 +41,12 @@ public class MultiManager
             return go;
         }
 
-        public GameObject PhotonInstantiate(string path, int id) => PhotonInstantiate(path, Vector3.zero, id);
-
         public GameObject PhotonInstantiate(string path, Vector3 spawnPos, int id = -1)  => PhotonInstantiate(path, spawnPos, Quaternion.identity, id);
         
         public GameObject PhotonInstantiate(string path, Vector3 spawnPos, Quaternion spawnRot, int id = -1)
-        {
-            return PhotonInstantiate(path, spawnPos, spawnRot, true, id);
-            //path = GetPrefabPath(path);
-            //var result = Managers.Pool.TryGetPoolObejct(GetPathName(path), out GameObject poolGo) ? poolGo : Instantiate(path);
-            //var rpc = result.GetComponent<RPCable>();
-            //if (spawnPos != Vector3.zero) rpc.SetPosition_RPC(spawnPos);
-            //if (spawnRot != Quaternion.identity) rpc.SetRotate_RPC(spawnRot.eulerAngles);
-            //if (id != -1) rpc.SetId_RPC(id);
-            //rpc.SetActive_RPC(true);
-            //return result;
-        }
+            => PhotonInstantiate(path, spawnPos, spawnRot, true, id);
 
-        public void PhotonInstantiateInactive(string path, Vector3 spawnPos, Quaternion spawnRot, int id) => PhotonInstantiate(path, spawnPos, spawnRot, false, id);
+        public GameObject PhotonInstantiateInactive(string path, int id) => PhotonInstantiate(path, Vector3.zero, Quaternion.identity, false, id);
 
         GameObject PhotonInstantiate(string path, Vector3 spawnPos, Quaternion spawnRot, bool activeFlag, int id = -1)
         {

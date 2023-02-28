@@ -257,7 +257,7 @@ public class Multi_GameManager : MonoBehaviourPun
     public void AddGold(int _addGold) => CurrencyManager.Gold += _addGold;
     public void AddGold_RPC(int _addGold, int id)
     {
-        if (id == Multi_Data.instance.Id)
+        if (id == PlayerIdManager.Id)
             AddGold(_addGold);
         else
             photonView.RPC(nameof(AddGold), RpcTarget.Others, _addGold);
@@ -288,7 +288,7 @@ public class RewradController : MonoBehaviourPun
 
     void GetBossReward(Multi_BossEnemy enemy)
     {
-        if (enemy.UsingId == Multi_Data.instance.Id)
+        if (enemy.UsingId == PlayerIdManager.Id)
             GetReward(enemy.BossData);
         else
             photonView.RPC(nameof(GetReward), RpcTarget.Others, enemy.BossData.Gold, enemy.BossData.Food);
@@ -296,7 +296,7 @@ public class RewradController : MonoBehaviourPun
 
     void GetTowerReward(Multi_EnemyTower enemy)
     {
-        if (enemy.UsingId == Multi_Data.instance.Id)
+        if (enemy.UsingId == PlayerIdManager.Id)
             GetReward(enemy.TowerData);
         else
             photonView.RPC(nameof(GetReward), RpcTarget.Others, enemy.TowerData.Gold, enemy.TowerData.Food);

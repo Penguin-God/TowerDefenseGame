@@ -58,7 +58,7 @@ public abstract class RPCActionBase : IEventClear
     {
         Debug.Assert(PhotonNetwork.IsMasterClient, "마스터가 아닌데 이벤트를 전달하려 함");
 
-        if (Multi_Data.instance.CheckIdSame(id)) // 마스터가 맞으면 실행하고 아니면 전달
+        if (id == PlayerIdManager.MasterId) // 이벤트를 요청한 주체가 마스터면 실행하고 아니면 전달
             RecevieEvent(values);
         else
             RaiseEvent(values, ReceiverGroup.Others);

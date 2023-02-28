@@ -7,7 +7,7 @@ public class SkillColorChanger : MonoBehaviourPun
 {
     readonly UnitColorChangeTextPresenter _textPresenter = new UnitColorChangeTextPresenter();
     public void ColorChangeSkill(UnitClass targetClass)
-        => photonView.RPC(nameof(ColorChangeSkill), RpcTarget.MasterClient, Multi_Data.instance.EnemyPlayerId, targetClass);
+        => photonView.RPC(nameof(ColorChangeSkill), RpcTarget.MasterClient, PlayerIdManager.EnemyId, targetClass);
 
     [PunRPC]
     void ColorChangeSkill(int targetID, UnitClass targetClass)

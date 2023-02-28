@@ -57,5 +57,5 @@ public class UI_UnitManagedWindow : UI_Popup
         }
     }
 
-    void UnitWorldChanged() => Multi_UnitManager.Instance.UnitWorldChanged_RPC(Multi_Data.instance.Id, _unitFlag);
+    void UnitWorldChanged() => Multi_UnitManager.Instance.UnitWorldChanged_RPC(PlayerIdManager.Id, _unitFlag);
 }

@@ -27,7 +27,8 @@ public static class PlayerIdManager
     public static byte Id => (byte)(PhotonNetwork.IsMasterClient ? 0 : 1);
     public static byte MasterId => 0;
     public static byte ClientId => 1;
-    public static byte InVaildId => 12;
+    public static byte InVaildId => 12; // 그냥 0하고 1만 아니면 전부 다 유효하지 않은 값임
+    public static byte EnemyId => (byte)(Id == 0 ? 1 : 0);
 }
 
 public class Multi_Data : MonoBehaviourPun
@@ -62,8 +63,6 @@ public class Multi_Data : MonoBehaviourPun
     // id가 0이면 호스트 1이면 클라이언트 이 아이디를 이용해서 데이터를 정함
     [SerializeField] int id;
     public int Id => id;
-    public int EnemyPlayerId => (Id == 0) ? 1 : 0;
-    public bool CheckIdSame(int _id) => id == _id;
 
     [Header("World")]
     

@@ -138,7 +138,7 @@ public class Multi_EnemyManager : MonoBehaviourPun
 
         void UpdateCount(int id, int count) // id에 따라 어느쪽 count인지 구분
         {
-            if (Multi_Data.instance.Id == id)
+            if (PlayerIdManager.Id == id)
             {
                 CurrentEnemyCount = count;
                 OnEnemyCountChanged?.Invoke(CurrentEnemyCount);

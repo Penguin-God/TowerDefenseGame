@@ -9,7 +9,7 @@ public class CameraManager
 
     int _lookWorld_Id;
     public int LookWorld_Id => _lookWorld_Id;
-    public bool IsLookOtherWolrd => _lookWorld_Id != Multi_Data.instance.Id;
+    public bool IsLookOtherWolrd => _lookWorld_Id != PlayerIdManager.Id;
 
     bool _isLookEnemyTower;
     public bool IsLookEnemyTower => _isLookEnemyTower;
@@ -35,15 +35,15 @@ public class CameraManager
 
         _isLookEnemyTower = false;
         currentCamera = Camera.main;
-        _lookWorld_Id = Multi_Data.instance.Id;
+        _lookWorld_Id = PlayerIdManager.Id;
         UpdateCameraPosition();
     }
 
     void UpdateCameraPosition()
     {
         currentCamera.transform.position = positions[_lookWorld_Id, lookTowerId];
-        OnIsLookMyWolrd?.Invoke(_lookWorld_Id == Multi_Data.instance.Id);
-        if (_lookWorld_Id == Multi_Data.instance.Id) OnLookMyWolrd?.Invoke();
+        OnIsLookMyWolrd?.Invoke(_lookWorld_Id == PlayerIdManager.Id);
+        if (_lookWorld_Id == PlayerIdManager.Id) OnLookMyWolrd?.Invoke();
         else OnLookEnemyWorld?.Invoke();
     }
 

@@ -133,8 +133,8 @@ public class Multi_UnitManager : MonoBehaviourPun
     public void UnitDead_RPC(byte id, UnitFlags unitFlag, int count = 1) => photonView.RPC(nameof(UnitDead), RpcTarget.MasterClient, id, unitFlag, count);
     [PunRPC] void UnitDead(byte id, UnitFlags unitFlag, byte count) => _controller.UnitDead(id, unitFlag, count);
 
-    public void UnitWorldChanged_RPC(int id, UnitFlags flag) => Instance.photonView.RPC(nameof(UnitWorldChanged), RpcTarget.MasterClient, id, flag, Managers.Camera.IsLookEnemyTower);
-    [PunRPC] void UnitWorldChanged(int id, UnitFlags flag, bool enterStroyMode) => _controller.UnitWorldChange(id, flag, enterStroyMode);
+    public void UnitWorldChanged_RPC(byte id, UnitFlags flag) => Instance.photonView.RPC(nameof(UnitWorldChanged), RpcTarget.MasterClient, id, flag, Managers.Camera.IsLookEnemyTower);
+    [PunRPC] void UnitWorldChanged(byte id, UnitFlags flag, bool enterStroyMode) => _controller.UnitWorldChange(id, flag, enterStroyMode);
 
     public Multi_TeamSoldier FindUnit(int id, UnitClass unitClass)
     {
@@ -167,7 +167,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             return list.Count == 0 ? null : list.GetRandom();
         }
 
-        public bool TryGetUnit_If(int id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
+        public bool TryGetUnit_If(byte id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
         {
             foreach (Multi_TeamSoldier loopUnit in GetUnitList(id, flag))
             {
@@ -244,7 +244,7 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         void SetCount(byte id, UnitFlags flag, byte count)
         {
-            if (Multi_Data.instance.Id == id) return;
+            if (PlayerIdManager.Id == id) return;
 
             if (_countByFlag.ContainsKey(flag) == false)
                 _countByFlag.Add(flag, 0);
@@ -287,7 +287,7 @@ public class Multi_UnitManager : MonoBehaviourPun
                 _masterData.UpdateUnitCount(units[0]);
         }
 
-        public void UnitWorldChange(int id, UnitFlags flag, bool enterStroyMode)
+        public void UnitWorldChange(byte id, UnitFlags flag, bool enterStroyMode)
         {
             if (_masterData.TryGetUnit_If(id, flag, out Multi_TeamSoldier unit, (_unit) => _unit.EnterStroyWorld == enterStroyMode))
                 unit.ChagneWorld();
@@ -322,7 +322,7 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         void Riase_OnUnitCountChanged(byte id, UnitFlags flag, byte count)
         {
-            if (Multi_Data.instance.Id != id) return;
+            if (PlayerIdManager.Id != id) return;
 
             _countByFlag[flag] = count;
             OnUnitFlagCountChanged?.Invoke(flag, count);

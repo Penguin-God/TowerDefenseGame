@@ -20,7 +20,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         shotSpearData = new ProjectileData(new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags), transform, shotSpearData.SpawnTransform);
         normalAttackSound = EffectSoundType.SpearmanAttack;
         _useSkillPercent = 30;
-        _skillSystem = new UnitRandomSkillSystem(this, 1.5f);
+        _skillSystem = new UnitRandomSkillSystem();
     }
 
     [PunRPC]
@@ -34,14 +34,15 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         yield return new WaitForSeconds(0.55f);
         trail.SetActive(true);
         yield return new WaitForSeconds(0.3f);
-        if(photonView.IsMine) HitMeeleAttack();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            HitMeeleAttack();
+        }
         yield return new WaitForSeconds(0.3f);
         trail.SetActive(false);
 
         EndAttack();
     }
-
-    void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, _skillSystem.GetApplyDamage(enemy));
 
     public override void SpecialAttack() => StartCoroutine(nameof(Spearman_SpecialAttack));
     IEnumerator Spearman_SpecialAttack()
@@ -55,7 +56,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
         if (PhotonNetwork.IsMasterClient)
         {
-            Multi_Projectile weapon = ProjectileShotDelegate.ShotProjectile(shotSpearData, transform.forward, OnSkillHit);
+            Multi_Projectile weapon = ProjectileShotDelegate.ShotProjectile(shotSpearData, transform.forward, OnHit);
             weapon.GetComponent<RPCable>().SetRotate_RPC(new Vector3(90, 0, 0));
         }
 

@@ -21,7 +21,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         arrawData = new ProjectileData(new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags), transform, arrawData.SpawnTransform);
         normalAttackSound = EffectSoundType.ArcherAttack;
         _useSkillPercent = 30;
-        _skillSystem = new UnitRandomSkillSystem(this, 1.2f);
+        _skillSystem = new UnitRandomSkillSystem();
     }
 
     [PunRPC]
@@ -68,7 +68,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         for (int i = 0; i < skillArrowCount; i++)
         {
             int targetIndex = i % targetArray.Length;
-            ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[targetIndex], OnSkillHit);
+            ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[targetIndex], OnHit);
         }
     }
 
@@ -78,6 +78,4 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         return Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, skillArrowCount, _state.UsingId)
             .Select(x => x.transform).ToArray();
     }
-
-    void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, _skillSystem.GetApplyDamage(enemy));
 }

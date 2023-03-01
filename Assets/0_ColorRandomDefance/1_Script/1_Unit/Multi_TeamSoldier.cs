@@ -23,14 +23,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public int OriginBossDamage { get; private set; }
     public float OriginAttackDelayTime { get; private set; }
 
-    public int Damage { get => stat.Damage; set { stat.SetDamage(value); OnDamageChanaged?.Invoke(Damage); } }
-    public int BossDamage { get => stat.BossDamage; set { stat.SetBossDamage(value); OnBossDamageChanged?.Invoke(BossDamage); } }
+    public int Damage { get => stat.Damage; set => stat.SetDamage(value); }
+    public int BossDamage { get => stat.BossDamage; set => stat.SetBossDamage(value); }
     public float Speed { get => stat.Speed; set => stat.SetSpeed(value); }
     public float AttackDelayTime { get => stat.AttackDelayTime; set => stat.SetAttDelayTime(value); }
     public float AttackRange { get => stat.AttackRange; set => stat.SetAttackRange(value); }
-
-    public event Action<int> OnDamageChanaged = null;
-    public event Action<int> OnBossDamageChanged = null;
 
     [SerializeField] protected float stopDistanc;
 
@@ -140,8 +137,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected void LoadStat()
     {
         stat = Managers.Multi.Data.GetUnitStat((byte)UsingID, UnitFlags);
-        OnDamageChanaged?.Invoke(Damage);
-        OnBossDamageChanged?.Invoke(BossDamage);
         OriginDamage = stat.Damage;
         OriginBossDamage = stat.BossDamage;
         OriginAttackDelayTime = stat.AttackDelayTime;

@@ -16,9 +16,9 @@ public class Multi_Meteor : Multi_Projectile
 
     public void Shot(Multi_Enemy enemy, Vector3 enemyPos, Action<Multi_Enemy> hitAction)
     {
-        Vector3 chasePos = enemyPos + ( (enemy != null) ? enemy.dir.normalized * enemy.Speed : Vector3.zero);
-        Shot((chasePos - transform.position).normalized, null);
         explosionAction = hitAction;
+        Vector3 chasePos = enemyPos + ( (enemy != null) ? enemy.dir.normalized * enemy.Speed : Vector3.zero);
+        photonView.RPC(nameof(RPC_Shot), RpcTarget.All, (chasePos - transform.position).normalized);
     }
 
     protected override void OnTriggerHit(Collider other)

@@ -25,14 +25,17 @@ public class Multi_Projectile : MonoBehaviourPun
     public void Shot(Vector3 dir, Action<Multi_Enemy> hitAction)
     {
         OnHit = hitAction;
-        photonView.RPC(nameof(RPC_Shot), RpcTarget.All, dir);
+        photonView.RPC(nameof(RPC_Shot), RpcTarget.All, dir.x, dir.z);
     }
 
     [PunRPC]
-    public void RPC_Shot(Vector3 _dir)
+    void RPC_Shot(float x, float z) => RPC_Shot(new Vector3(x, 0, z));
+
+    [PunRPC]
+    protected void RPC_Shot(Vector3 dir)
     {
-        Rigidbody.velocity = _dir * _speed;
-        Quaternion lookDir = Quaternion.LookRotation(_dir);
+        Rigidbody.velocity = dir * _speed;
+        Quaternion lookDir = Quaternion.LookRotation(dir);
         transform.rotation = lookDir;
     }
 

@@ -55,14 +55,9 @@ public class Multi_Data : MonoBehaviourPun
             Debug.LogWarning("Multi Data 2개");
             Destroy(gameObject);
         }
-        if(PhotonNetwork.InRoom)
-            id = PhotonNetwork.IsMasterClient ? 0 : 1;
         PhotonPeer.RegisterType(typeof(UnitFlags), 128, CustomUnitFlagsType.Serialize, CustomUnitFlagsType.DeSerialize);
     }
 
-    // id가 0이면 호스트 1이면 클라이언트 이 아이디를 이용해서 데이터를 정함
-    [SerializeField] int id;
-    public int Id => id;
 
     [Header("World")]
     
@@ -71,7 +66,7 @@ public class Multi_Data : MonoBehaviourPun
 
     [SerializeField] Vector3[] enemyTowerWorldPositions = null;
     public Vector3[] EnemyTowerWorldPositions => enemyTowerWorldPositions;
-    public Vector3 EnemyTowerWorldPosition => enemyTowerWorldPositions[id];
+    public Vector3 EnemyTowerWorldPosition => enemyTowerWorldPositions[PlayerIdManager.Id];
 
     [Header("Enemy")]
 

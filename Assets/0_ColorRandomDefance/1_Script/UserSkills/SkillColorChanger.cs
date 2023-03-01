@@ -10,7 +10,7 @@ public class SkillColorChanger : MonoBehaviourPun
         => photonView.RPC(nameof(ColorChangeSkill), RpcTarget.MasterClient, PlayerIdManager.EnemyId, targetClass);
 
     [PunRPC]
-    void ColorChangeSkill(int targetID, UnitClass targetClass)
+    void ColorChangeSkill(byte targetID, UnitClass targetClass)
     {
         var target = Multi_UnitManager.Instance.FindUnit(targetID, targetClass);
         if (target == null)
@@ -24,15 +24,15 @@ public class SkillColorChanger : MonoBehaviourPun
     }
 
     // 인자로 넘겨준건 스킬을 적용시킬 타겟 ID라서 텍스트 띄우는 건 반대로 생각해야 됨
-    void ShowFaildText(int targetID)
+    void ShowFaildText(byte targetID)
     {
-        if (targetID == 0)
-            photonView.RPC(nameof(ShowFaildText), RpcTarget.Others);
-        else
+        if (targetID == PlayerIdManager.MasterId)
             ShowFaildText();
+        else
+            photonView.RPC(nameof(ShowFaildText), RpcTarget.Others);
     }
 
-    void ShowColorChageResultText(int targetID, UnitFlags before, UnitFlags after)
+    void ShowColorChageResultText(byte targetID, UnitFlags before, UnitFlags after)
     {
         (string textToShowOnMaster, string textToShowOnClinet) showTexts = 
             (targetID == 0) ? (_textPresenter.GenerateTextShowToVictim(before, after), _textPresenter.GenerateTextShowToDisruptor(before, after))

@@ -21,7 +21,7 @@ public class Tutorial_Combine : TutorialController
 
     protected override bool TutorialStartCondition()
         => new UnitCombineSystem()
-            .GetCombinableUnitFalgs(Multi_UnitManager.Instance.Master.GetUnits(Multi_Data.instance.Id)
+            .GetCombinableUnitFalgs(Multi_UnitManager.Instance.Master.GetUnits(PlayerIdManager.Id)
             .Select(x => x.UnitFlags))
             .Any(x => x.ClassNumber == 1);
 }

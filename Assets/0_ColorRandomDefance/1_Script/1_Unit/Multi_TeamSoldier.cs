@@ -51,7 +51,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     private ObstacleAvoidanceType originObstacleType;
     protected Animator animator;
     protected RPCable rpcable;
-    public int UsingID => rpcable.UsingId;
+    public byte UsingID => (byte)rpcable.UsingId;
     [SerializeField] protected EffectSoundType normalAttackSound;
     public float normalAttakc_AudioDelay;
 

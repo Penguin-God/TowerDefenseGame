@@ -136,7 +136,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     public void UnitWorldChanged_RPC(byte id, UnitFlags flag) => Instance.photonView.RPC(nameof(UnitWorldChanged), RpcTarget.MasterClient, id, flag, Managers.Camera.IsLookEnemyTower);
     [PunRPC] void UnitWorldChanged(byte id, UnitFlags flag, bool enterStroyMode) => _controller.UnitWorldChange(id, flag, enterStroyMode);
 
-    public Multi_TeamSoldier FindUnit(int id, UnitClass unitClass)
+    public Multi_TeamSoldier FindUnit(byte id, UnitClass unitClass)
     {
         if (PhotonNetwork.IsMasterClient == false) return null;
         var units = _master.GetUnits(id, (unit) => unit.unitClass == unitClass);
@@ -182,7 +182,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             return false;
         }
 
-        public IEnumerable<Multi_TeamSoldier> GetUnits(int id, Func<Multi_TeamSoldier, bool> condition = null)
+        public IEnumerable<Multi_TeamSoldier> GetUnits(byte id, Func<Multi_TeamSoldier, bool> condition = null)
         {
             if (condition == null) return _currentAllUnitsById.Get(id);
             return _currentAllUnitsById.Get(id).Where(condition);

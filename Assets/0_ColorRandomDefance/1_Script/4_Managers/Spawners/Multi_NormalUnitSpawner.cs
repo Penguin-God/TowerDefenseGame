@@ -8,9 +8,9 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     protected readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
 
     public void Spawn(UnitFlags flag) => Spawn(flag.ColorNumber, flag.ClassNumber);
-    public void Spawn(int colorNum, int classNum) => Spawn(new UnitFlags(colorNum, classNum), Multi_Data.instance.Id);
-    public void Spawn(UnitFlags flag, int id) => Spawn(flag, Vector3.zero, Quaternion.identity, id);
-    public void Spawn(UnitFlags flag, Vector3 spawnPos, Quaternion rotation, int id)
+    public void Spawn(int colorNum, int classNum) => Spawn(new UnitFlags(colorNum, classNum), PlayerIdManager.Id);
+    public void Spawn(UnitFlags flag, byte id) => Spawn(flag, Vector3.zero, Quaternion.identity, id);
+    public void Spawn(UnitFlags flag, Vector3 spawnPos, Quaternion rotation, byte id)
     {
         if (rotation == Quaternion.identity || spawnPos == Vector3.zero)
             photonView.RPC(nameof(RPCSpawn), RpcTarget.MasterClient, flag, id);
@@ -22,10 +22,10 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
 
     // MasterOnly
     [PunRPC]
-    void RPCSpawn(UnitFlags flag, int id) => RPCSpawn(flag, GetUnitSpawnPos(id), Quaternion.identity, id);
+    void RPCSpawn(UnitFlags flag, byte id) => RPCSpawn(flag, GetUnitSpawnPos(id), Quaternion.identity, id);
 
     [PunRPC]
-    void RPCSpawn(UnitFlags flag, Vector3 spawnPos, Quaternion rotation, int id)
+    void RPCSpawn(UnitFlags flag, Vector3 spawnPos, Quaternion rotation, byte id)
     {
         var unit = Managers.Multi.Instantiater.PhotonInstantiate(PathBuilder.BuildUnitPath(flag), spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
         unit.Spawn();

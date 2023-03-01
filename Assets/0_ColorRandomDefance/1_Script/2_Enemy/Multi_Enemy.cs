@@ -53,7 +53,7 @@ public class Multi_Enemy : MonoBehaviourPun
     public Vector3 dir = Vector3.zero;
 
     RPCable rpcable;
-    public int UsingId => rpcable.UsingId;
+    public byte UsingId => (byte)rpcable.UsingId;
     protected MeshRenderer[] meshList;
     [SerializeField] protected Material originMat;
 

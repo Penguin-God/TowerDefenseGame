@@ -22,7 +22,7 @@ public class UnitColorChangerRpcHandler : MonoBehaviour
     }
 
     [PunRPC]
-    public static UnitFlags ChangeUnitColor(int id, UnitFlags unitFlag)
+    public static UnitFlags ChangeUnitColor(byte id, UnitFlags unitFlag)
     {
         if (PhotonNetwork.IsMasterClient)
             return new UnitColorChanger().ChangeUnitColor(Multi_UnitManager.Instance.FindUnit(id, unitFlag.UnitClass));

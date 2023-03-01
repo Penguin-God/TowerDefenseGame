@@ -33,13 +33,10 @@ public static class ProjectileShotDelegate
 
     public static Multi_Projectile ShotProjectile(ProjectileData data, Vector3 spawnPos, Vector3 dir, Action<Multi_Enemy> hitAction)
     {
-        Multi_Projectile UseWeapon = GetProjectile(data, spawnPos);
+        Multi_Projectile UseWeapon = WeaponSpawner.Spawn(data.WeaponPath, spawnPos).GetComponent<Multi_Projectile>();
         UseWeapon.Shot(dir, hitAction);
         return UseWeapon;
     }
-
-    static Multi_Projectile GetProjectile(ProjectileData data, Vector3 spawnPos)
-        => WeaponSpawner.Spawn(data.WeaponPath, spawnPos).GetComponent<Multi_Projectile>();
 
     // 원거리 무기 발사
     static Vector3 Get_ShootDirection(Transform attacker, Transform _target, float weightRate = 2f)

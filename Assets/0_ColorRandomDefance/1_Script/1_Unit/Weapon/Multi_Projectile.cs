@@ -39,38 +39,32 @@ public class Multi_Projectile : MonoBehaviourPun
         transform.rotation = lookDir;
     }
 
-    void HitEnemy(Multi_Enemy enemy)
-    {
-        Debug.Assert(OnHit != null, "OnHit이 널임");
-
-        OnHit?.Invoke(enemy);
-        if (!isAOE)
-        {
-            StopAllCoroutines();
-            ReturnObjet();
-        }
-    }
-
     IEnumerator Co_Inactive(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
         ReturnObjet();
     }
 
-    protected void ReturnObjet()
+    void ReturnObjet()
     {
         OnHit = null;
+        StopAllCoroutines();
+        gameObject.SetActive(false);
         if (PhotonNetwork.IsMasterClient == false) return;
-        Managers.Multi.Instantiater.PhotonDestroy(gameObject);
+        Managers.Pool.Push(gameObject.GetComponent<Poolable>());
     }
 
     protected virtual void OnTriggerHit(Collider other) 
     {
+        Multi_Enemy enemy = other.GetComponentInParent<Multi_Enemy>(); // 콜라이더가 자식한테 있음
+        if (enemy == null) return;
+
         if (PhotonNetwork.IsMasterClient)
         {
-            Multi_Enemy enemy = other.GetComponentInParent<Multi_Enemy>(); // 콜라이더가 자식한테 있음
-            if (enemy != null) HitEnemy(enemy);
+            OnHit?.Invoke(enemy);
         }
+        if(isAOE == false)
+            ReturnObjet();
     }
 
     private void OnTriggerEnter(Collider other)

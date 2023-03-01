@@ -40,6 +40,6 @@ public class Multi_Meteor : Multi_Projectile
         }
 
         Rigidbody.velocity = Vector3.zero;
-        ReturnObjet();
+        Managers.Multi.Instantiater.PhotonDestroy(gameObject);
     }
 }

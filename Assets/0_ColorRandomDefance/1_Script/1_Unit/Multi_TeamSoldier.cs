@@ -23,11 +23,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public int OriginBossDamage { get; private set; }
     public float OriginAttackDelayTime { get; private set; }
 
-    public int Damage { get => stat.Damage; set => stat.SetDamage(value); }
-    public int BossDamage { get => stat.BossDamage; set => stat.SetBossDamage(value); }
+    int Damage => stat.Damage;
+    protected int BossDamage => stat.BossDamage;
     public float Speed { get => stat.Speed; set => stat.SetSpeed(value); }
     public float AttackDelayTime { get => stat.AttackDelayTime; set => stat.SetAttDelayTime(value); }
-    public float AttackRange { get => stat.AttackRange; set => stat.SetAttackRange(value); }
+    public float AttackRange => stat.AttackRange;
 
     [SerializeField] protected float stopDistanc;
 

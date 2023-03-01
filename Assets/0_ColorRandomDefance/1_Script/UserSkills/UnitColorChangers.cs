@@ -44,7 +44,7 @@ public class UnitColorChanger
     {
         var newFlag = new UnitFlags(GetRandomColor(target.UnitFlags.ColorNumber), (int)target.unitClass);
         Multi_SpawnManagers.NormalUnit.Spawn(newFlag, target.transform.position, target.transform.rotation, target.UsingID);
-        if(target.EnterStroyWorld) // 이 미친 코드는 임시라고 당당히 말할 수 있다.
+        if(target.EnterStroyWorld) // 스폰된 얘가 맨 뒤에 있을 거니까 Last()의 월드를 바꿈. 좋은 코드는 아님
             Multi_UnitManager.Instance.Master.GetUnitList(target.UsingID, newFlag).Last().State.ChangedWorld();
         Multi_UnitManager.Instance.KillUnit(target);
         return newFlag;

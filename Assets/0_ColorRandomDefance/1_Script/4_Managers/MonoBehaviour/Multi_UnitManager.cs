@@ -97,7 +97,6 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         unit.Dead();
         _master.RemoveUnit(unit);
-        _master.UpdateUnitCount(unit);
     }
 
     // RPC Funtions....
@@ -130,7 +129,7 @@ public class Multi_UnitManager : MonoBehaviourPun
     }
 
 
-    public void UnitDead_RPC(byte id, UnitFlags unitFlag, int count = 1) => photonView.RPC(nameof(UnitDead), RpcTarget.MasterClient, id, unitFlag, count);
+    public void UnitDead_RPC(byte id, UnitFlags unitFlag, int count = 1) => photonView.RPC(nameof(UnitDead), RpcTarget.MasterClient, id, unitFlag, (byte)count);
     [PunRPC] void UnitDead(byte id, UnitFlags unitFlag, byte count) => _controller.UnitDead(id, unitFlag, count);
 
     public void UnitWorldChanged_RPC(byte id, UnitFlags flag) => Instance.photonView.RPC(nameof(UnitWorldChanged), RpcTarget.MasterClient, id, flag, Managers.Camera.IsLookEnemyTower);
@@ -160,12 +159,6 @@ public class Multi_UnitManager : MonoBehaviourPun
 
         List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
         public List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flag) => _unitListByFlag.Get(id)[flag];
-        public Multi_TeamSoldier GetRandomUnit(int id, Func<Multi_TeamSoldier, bool> condition = null)
-        {
-            if (condition == null) return _currentAllUnitsById.Get(id).GetRandom();
-            var list = _currentAllUnitsById.Get(id).Where(x => condition(x)).ToList();
-            return list.Count == 0 ? null : list.GetRandom();
-        }
 
         public bool TryGetUnit_If(byte id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
         {
@@ -198,9 +191,6 @@ public class Multi_UnitManager : MonoBehaviourPun
                     _unitListByFlag.Get(1).Add(new UnitFlags(color, unitClass), new List<Multi_TeamSoldier>());
                 }
             }
-
-            // Multi_SpawnManagers.NormalUnit.OnSpawn += AddUnit;
-            // Multi_SpawnManagers.NormalUnit.OnDead += RemoveUnit;
         }
 
         public void AddUnit(Multi_TeamSoldier unit)
@@ -219,7 +209,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             UpdateUnitCount(unit);
         }
 
-        public void UpdateUnitCount(Multi_TeamSoldier unit)
+        void UpdateUnitCount(Multi_TeamSoldier unit)
         {
             int id = unit.GetComponent<RPCable>().UsingId;
             OnAllUnitCountChanged?.RaiseEvent(id, (byte)_currentAllUnitsById.Get(id).Count);
@@ -227,7 +217,7 @@ public class Multi_UnitManager : MonoBehaviourPun
         }
     }
 
-    class EnemyPlayerDataManager // MaxUnitCount 만들즈아~
+    class EnemyPlayerDataManager
     {
         public event Action<int> OnOtherUnitCountChanged;
         Dictionary<UnitFlags, byte> _countByFlag = new Dictionary<UnitFlags, byte>();
@@ -279,12 +269,7 @@ public class Multi_UnitManager : MonoBehaviourPun
             Multi_TeamSoldier[] units = _masterData.GetUnitList(id, unitFlag).ToArray();
             count = Mathf.Min(count, units.Length);
             for (int i = 0; i < count; i++)
-            {
-                units[i].Dead();
-                _masterData.RemoveUnit(units[i]);
-            }
-            if(units.Length > 0)
-                _masterData.UpdateUnitCount(units[0]);
+                Instance.KillUnit(units[i]);
         }
 
         public void UnitWorldChange(byte id, UnitFlags flag, bool enterStroyMode)

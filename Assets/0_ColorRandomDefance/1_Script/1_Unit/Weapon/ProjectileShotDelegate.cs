@@ -25,7 +25,7 @@ public class ProjectileData
 
 public static class ProjectileShotDelegate
 {
-    public static void ShotProjectile(ProjectileData data, Transform target, Action<Multi_Enemy> hitAction, float weightRate = 2f)
+    public static Multi_Projectile ShotProjectile(ProjectileData data, Transform target, Action<Multi_Enemy> hitAction, float weightRate = 2f)
         => ShotProjectile(data, Get_ShootDirection(data.Attacker, target, weightRate), hitAction);
 
     public static Multi_Projectile ShotProjectile(ProjectileData data, Vector3 dir, Action<Multi_Enemy> hitAction)
@@ -33,9 +33,17 @@ public static class ProjectileShotDelegate
 
     public static Multi_Projectile ShotProjectile(ProjectileData data, Vector3 spawnPos, Vector3 dir, Action<Multi_Enemy> hitAction)
     {
-        Multi_Projectile UseWeapon = WeaponSpawner.Spawn(data.WeaponPath, spawnPos).GetComponent<Multi_Projectile>();
+        Multi_Projectile UseWeapon = Managers.Multi.Instantiater.PhotonInstantiate(data.WeaponPath).GetComponent<Multi_Projectile>(); 
+        // WeaponSpawner.Spawn(data.WeaponPath, spawnPos).GetComponent<Multi_Projectile>();
         UseWeapon.Shot(dir, hitAction);
         return UseWeapon;
+    }
+
+    public static Multi_Projectile ShotProjectile(Multi_Projectile projectile, Transform attacker, Transform target, Action<Multi_Enemy> hitAction)
+    {
+
+        projectile.Shot(Get_ShootDirection(attacker, target, 2f), hitAction);
+        return projectile;
     }
 
     // 원거리 무기 발사

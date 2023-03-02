@@ -41,6 +41,8 @@ public class MultiManager
             return go;
         }
 
+        public GameObject PhotonInstantiate(string path) => PhotonInstantiate(path, Vector3.zero, -1);
+
         public GameObject PhotonInstantiate(string path, Vector3 spawnPos, int id = -1)  => PhotonInstantiate(path, spawnPos, Quaternion.identity, id);
         
         public GameObject PhotonInstantiate(string path, Vector3 spawnPos, Quaternion spawnRot, int id = -1)

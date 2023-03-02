@@ -36,7 +36,8 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         trail.SetActive(false);
         if (PhotonNetwork.IsMasterClient && target != null && Chaseable)
         {
-            ProjectileShotDelegate.ShotProjectile(arrawData, target, OnHit);
+            //ProjectileShotDelegate.ShotProjectile(arrawData, target, OnHit);
+            Show(target);
         }
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
@@ -68,8 +69,24 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         for (int i = 0; i < skillArrowCount; i++)
         {
             int targetIndex = i % targetArray.Length;
-            ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[targetIndex], OnHit);
+            //ProjectileShotDelegate.ShotProjectile(arrawData, targetArray[targetIndex], OnHit);
+            Show(targetArray[targetIndex]);
         }
+    }
+
+    void Show(Transform shotTarget)
+    {
+        var projectile = Managers.Multi.Instantiater.PhotonInstantiateInactive(arrawData.WeaponPath, PlayerIdManager.InVaildId).GetComponent<Multi_Projectile>();
+        photonView.RPC(nameof(Shot), RpcTarget.All, projectile.GetComponent<PhotonView>().ViewID);
+        ProjectileShotDelegate.ShotProjectile(projectile, transform, shotTarget, OnHit);
+    }
+
+    [PunRPC]
+    void Shot(int viewId)
+    {
+        var projectile = Managers.Multi.GetPhotonViewTransfrom(viewId);
+        projectile.gameObject.SetActive(true);
+        projectile.position = arrawData.SpawnPos;
     }
 
     Transform[] GetTargets()

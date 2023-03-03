@@ -22,6 +22,15 @@ public class Multi_Projectile : MonoBehaviourPun
         StartCoroutine(Co_Inactive(aliveTime));
     }
 
+    public void SetHitAction(Action<Multi_Enemy> hitAction) => OnHit = hitAction;
+
+    public void Throw(Vector3 dir)
+    {
+        Rigidbody.velocity = dir * _speed;
+        Quaternion lookDir = Quaternion.LookRotation(dir);
+        transform.rotation = lookDir;
+    }
+
     public void Shot(Vector3 dir, Action<Multi_Enemy> hitAction)
     {
         OnHit = hitAction;

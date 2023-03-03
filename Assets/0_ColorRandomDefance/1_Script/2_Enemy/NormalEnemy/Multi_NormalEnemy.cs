@@ -108,11 +108,8 @@ public class Multi_NormalEnemy : Multi_Enemy
         float slowSpeed = maxSpeed - maxSpeed * (slowPercent / 100);
         if (slowSpeed <= speed) // 슬로우를 적용했을 때 현재 속도보다 느려져야만 슬로우 적용
         {
-            speed = slowSpeed;
-            Rigidbody.velocity = dir * speed;
-            photonView.RPC(nameof(ApplySlow), RpcTarget.Others, speed);
-            // photonView.RPC(nameof(ChangeColorToSlow), RpcTarget.All);
-
+            photonView.RPC(nameof(ApplySlow), RpcTarget.All, speed);
+            
             // 슬로우 시간 갱신 위한 코드
             // 더 강하거나 비슷한 슬로우가 들어오면 작동 준비중이던 슬로우 탈출 코루틴은 나가리 되고 새로운 탈출 코루틴이 돌아감
             if (exitSlowCoroutine != null && slowTime > 0) // 법사 패시브 때문에 slowTime > 0 조건 추가함

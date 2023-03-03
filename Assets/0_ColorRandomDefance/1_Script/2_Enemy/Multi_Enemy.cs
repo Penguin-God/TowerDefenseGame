@@ -144,7 +144,7 @@ public class Multi_Enemy : MonoBehaviourPun
     protected virtual void OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill)
     {
         if (isDead || !PhotonNetwork.IsMasterClient) return;
-        // ChangeColorToPoison();
+        photonView.RPC(nameof(ChangeColorToPoison), RpcTarget.All);
         StartCoroutine(Co_OnPoison(poisonPercent, poisonCount, poisonDelay, maxDamage, isSkill));
     }
 
@@ -153,7 +153,6 @@ public class Multi_Enemy : MonoBehaviourPun
     IEnumerator Co_OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill)
     {
         queue_HoldingPoison.Enqueue(-1);
-        photonView.RPC(nameof(ChangeColorToPoison), RpcTarget.All);
         int poisonDamage = GetPoisonDamage(poisonPercent, maxDamage);
         for (int i = 0; i < poisonCount; i++)
         {

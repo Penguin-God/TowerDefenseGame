@@ -8,6 +8,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     [Header("창병 변수")]
 
     [SerializeField] ProjectileData shotSpearData;
+    ProjectileThrowingUnit _spearThower;
     [SerializeField] GameObject trail;
     [SerializeField] GameObject spear; // 평타칠 때 쓰는 창
 
@@ -18,6 +19,10 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     protected override void OnAwake()
     {
         shotSpearData = new ProjectileData(new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags), transform, shotSpearData.SpawnTransform);
+
+        _spearThower = gameObject.AddComponent<ProjectileThrowingUnit>();
+        _spearThower.SetInfo(new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags), shotSpearData.SpawnTransform);
+
         normalAttackSound = EffectSoundType.SpearmanAttack;
         _useSkillPercent = 30;
         _skillSystem = new UnitRandomSkillSystem();
@@ -56,7 +61,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
         if (PhotonNetwork.IsMasterClient)
         {
-            Multi_Projectile weapon = ProjectileShotDelegate.ShotProjectile(shotSpearData, transform.forward, OnHit);
+            Multi_Projectile weapon = _spearThower.Throw(target, OnHit);
             weapon.GetComponent<RPCable>().SetRotate_RPC(new Vector3(90, 0, 0));
         }
 

@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
-using UnityEngine.UI;
 using Photon.Pun;
 
 public class Multi_Unit_Mage : Multi_RangeUnit
@@ -10,12 +8,11 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     [Header("메이지 변수")]
     [SerializeField] MageUnitStat mageStat;
     protected IReadOnlyList<float> skillStats;
-    [SerializeField] ProjectileData energyballData;
     [SerializeField] protected ProjectileData skillData;
 
     [SerializeField] GameObject magicLight;
-    [SerializeField] protected Transform energyBallTransform;
-    [SerializeField] protected GameObject mageSkillObject = null;
+    [SerializeField] Transform energyBallTransform;
+    ProjectileThrowingUnit _energyBallThower;
 
     protected ManaSystem manaSystem;
     protected override void OnAwake()
@@ -24,8 +21,9 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         SetMageAwake();
 
         var pathBuilder = new ResourcesPathBuilder();
-        energyballData = new ProjectileData(pathBuilder.BuildUnitWeaponPath(UnitFlags), transform, energyballData.SpawnTransform);
         skillData = new ProjectileData(pathBuilder.BuildMageSkillEffectPath(UnitFlags.UnitColor), transform, skillData.SpawnTransform);
+        _energyBallThower = gameObject.AddComponent<ProjectileThrowingUnit>();
+        _energyBallThower.SetInfo(pathBuilder.BuildUnitWeaponPath(UnitFlags), energyBallTransform);
         normalAttackSound = EffectSoundType.MageAttack;
     }
 
@@ -64,7 +62,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         // TODO : 딱 공격하려는 순간에 적이 죽어버리면 공격을 안함. 이건 판정 문제인데 그냥 target위치를 기억해서 거기다가 던지는게 나은듯
         if (PhotonNetwork.IsMasterClient && target != null && Chaseable)
         {
-            ProjectileShotDelegate.ShotProjectile(energyballData, target, OnHit);
+            _energyBallThower.Throw(target, OnHit);
             manaSystem?.AddMana_RPC();
         }
 

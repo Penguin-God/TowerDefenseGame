@@ -102,6 +102,8 @@ MonoBehaviour:
   - ApplySlow
   - ChangeUnitStatWithColor
   - ChangeUnitStatWithFlag
+  - Shot
+  - Throw
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

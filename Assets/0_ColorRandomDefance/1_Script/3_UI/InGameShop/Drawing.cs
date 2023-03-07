@@ -6,28 +6,19 @@ using System.Linq;
 
 public class Drawing : MonoBehaviour
 {
-    void Start()
-    {
-
-    }
-
-    void Update()
-    {
-        
-    }
     
-    public void DrawingSkills()
+    public List<int> DrawingSkills()
     {
         List<int> numbers = new List<int>();
-
-        for (int i = 1; i <= 10; i++)
+        
+        for (int i = 1; i <= Enum.GetValues(typeof(SkillType)).Length; i++)
         {
             numbers.Add(i);
         }
 
         List<int> selectedNumbers = new List<int>();
         int count = 0;
-
+        
         while (count < 4)
         {
             int index = UnityEngine.Random.Range(0, numbers.Count);
@@ -42,10 +33,11 @@ public class Drawing : MonoBehaviour
 
             numbers.RemoveAt(index);
 
-            Managers.ClientData.GetExp((SkillType)number, 10);
+            Managers.ClientData.GetExp((SkillType)number, 10); 
         }
 
         Debug.Log(string.Join(", ", selectedNumbers));
+        return null;
 
 
     }

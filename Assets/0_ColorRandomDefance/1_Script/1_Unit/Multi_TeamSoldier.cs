@@ -136,7 +136,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [PunRPC]
     protected void LoadStat()
     {
-        stat = Managers.Multi.Data.GetUnitStat((byte)UsingID, UnitFlags);
+        stat = Managers.Multi.Data.GetUnitStat(UsingID, UnitFlags);
         OriginDamage = stat.Damage;
         OriginBossDamage = stat.BossDamage;
         OriginAttackDelayTime = stat.AttackDelayTime;

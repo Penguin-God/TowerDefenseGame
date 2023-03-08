@@ -127,7 +127,7 @@ public enum UserSkillClass
     Sub,
 }
 
-class UserSkillShopUseCase
+public class UserSkillShopUseCase
 {
     public void GetSkillExp(SkillType skillType, int getQuantity)
     {

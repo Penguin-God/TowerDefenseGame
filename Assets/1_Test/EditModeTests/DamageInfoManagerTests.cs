@@ -7,7 +7,7 @@ using System;
 
 namespace Tests
 {
-    public class TestUnitStat
+    public class DamageInfoManagerTests
     {
         Dictionary<UnitFlags, UnitDamageInfo> CreateDamageInfos()
         {
@@ -24,7 +24,7 @@ namespace Tests
         [Test]
         public void CreateStatManager()
         {
-            var manager = new UnitStatManager(CreateDamageInfos());
+            var manager = new UnitDamageInfoManager(CreateDamageInfos());
 
             // 모든 유닛 정보가 잘 가져와지는지 확인
             foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
@@ -40,7 +40,7 @@ namespace Tests
         [Test]
         public void AddBaseDamage()
         {
-            var manager = new UnitStatManager(CreateDamageInfos());
+            var manager = new UnitDamageInfoManager(CreateDamageInfos());
 
             manager.AddDamage(RedSwordman, 300);
 
@@ -50,7 +50,7 @@ namespace Tests
         [Test]
         public void AddBaseBossDamage()
         {
-            var manager = new UnitStatManager(CreateDamageInfos());
+            var manager = new UnitDamageInfoManager(CreateDamageInfos());
 
             manager.AddBossDamage(RedSwordman, 300);
 
@@ -62,7 +62,7 @@ namespace Tests
         {
             var infos = CreateDamageInfos();
             infos[RedSwordman] = new UnitDamageInfo(100, 0);
-            var manager = new UnitStatManager(infos);
+            var manager = new UnitDamageInfoManager(infos);
 
             manager.IncreaseDamageRate(RedSwordman, 0.5f);
 
@@ -74,7 +74,7 @@ namespace Tests
         {
             var infos = CreateDamageInfos();
             infos[RedSwordman] = new UnitDamageInfo(0, 100);
-            var manager = new UnitStatManager(infos);
+            var manager = new UnitDamageInfoManager(infos);
 
             manager.IncreaseBossDamageRate(RedSwordman, 0.5f);
 

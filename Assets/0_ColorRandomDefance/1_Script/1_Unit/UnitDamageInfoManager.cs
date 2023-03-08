@@ -36,10 +36,10 @@ public struct UnitDamageInfo
     public UnitDamageInfo IncreaseBossDamageRate(float increaseValue) => new UnitDamageInfo(_baseDamage, _baseBossDamage, _damageRate, _bossDamageRate + increaseValue);
 }
 
-public class UnitStatManager
+public class UnitDamageInfoManager
 {
     readonly Dictionary<UnitFlags, UnitDamageInfo> _damageInfoByFlag = new Dictionary<UnitFlags, UnitDamageInfo>();
-    public UnitStatManager(Dictionary<UnitFlags, UnitDamageInfo> originDamages)
+    public UnitDamageInfoManager(Dictionary<UnitFlags, UnitDamageInfo> originDamages)
     {
         const int UNIT_ALL_COUNT = 32;
         if (originDamages.Count != UNIT_ALL_COUNT) Debug.LogError("유닛 스탯의 카운트가 올바르지 않음");

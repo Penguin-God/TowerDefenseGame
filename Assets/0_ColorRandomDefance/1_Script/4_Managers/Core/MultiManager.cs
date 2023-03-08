@@ -86,8 +86,15 @@ public class MultiDataManager
 
     RPCData<Dictionary<UnitFlags, UnitStat>> _unitStatData = new RPCData<Dictionary<UnitFlags, UnitStat>>();
 
+    readonly UnitDamageInfoManager[] _damageManagers = new UnitDamageInfoManager[PlayerIdManager.MaxPlayerCount];
+
+
     public void Init()
     {
+        for (int i = 0; i < _damageManagers.Length; i++)
+            _damageManagers[i] = 
+                new UnitDamageInfoManager(Managers.Data.Unit.UnitStatByFlag.ToDictionary(x => x.Key, x => new UnitDamageInfo(x.Value.Damage, x.Value.BossDamage)));
+
         _unitStatData.Set(0, GetUnitStatData());
         _unitStatData.Set(1, GetUnitStatData());
 

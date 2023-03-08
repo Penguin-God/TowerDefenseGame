@@ -201,7 +201,12 @@ public class Multi_GameManager : MonoBehaviourPun
 
     OtherPlayerData _otherPlayerData;
     public OtherPlayerData OtherPlayerData => _otherPlayerData;
-    
+
+
+    UnitStatChangeFacade _unitStatFacade;
+    public UnitStatChangeFacade UnitStatFacade => _unitStatFacade;
+
+
     [PunRPC]
     public void CreateOtherPlayerData(SkillType mainSkill, SkillType subSkill) => _otherPlayerData = new OtherPlayerData(mainSkill, subSkill);
 

@@ -45,8 +45,8 @@ public class UI_Status : UI_Scene
 
     void InitEvent()
     {
-        Multi_StageManager.Instance.OnUpdateStage -= UpdateStage;
-        Multi_StageManager.Instance.OnUpdateStage += UpdateStage;
+        StageManager.Instance.OnUpdateStage -= UpdateStage;
+        StageManager.Instance.OnUpdateStage += UpdateStage;
 
         Multi_GameManager.instance.BattleData.OnMaxUnitChanged += (maxUnit) => UpdateUnitText(Multi_UnitManager.Instance.CurrentUnitCount);
 
@@ -141,7 +141,7 @@ public class UI_Status : UI_Scene
     void UpdateStage(int stageNumber)
     {
         StopAllCoroutines();
-        timerSlider.maxValue = Multi_StageManager.Instance.STAGE_TIME;
+        timerSlider.maxValue = StageManager.Instance.STAGE_TIME;
         timerSlider.value = timerSlider.maxValue;
         GetText((int)Texts.StageText).text = $"Stage {stageNumber} : " ;
         StartCoroutine(Co_UpdateTimer());

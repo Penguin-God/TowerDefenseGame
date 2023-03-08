@@ -11,5 +11,5 @@ public class Tutorial_Boss : TutorialController
         AddReadCommend("또한, 보스를 처치하면 소소한 보상을 줍니다.\n그러니 열심히 잡도록 합시다.");
     }
 
-    protected override bool TutorialStartCondition() => Multi_StageManager.Instance.CurrentStage == 10;
+    protected override bool TutorialStartCondition() => StageManager.Instance.CurrentStage == 10;
 }

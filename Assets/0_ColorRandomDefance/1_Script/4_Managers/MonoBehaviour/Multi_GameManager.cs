@@ -282,7 +282,7 @@ public class RewradController : MonoBehaviourPun
     void Start()
     {
         _gameManager = Multi_GameManager.instance;
-        Multi_StageManager.Instance.OnUpdateStage += _stage => _gameManager.AddGold(_gameManager.BattleData.StageUpGold);
+        StageManager.Instance.OnUpdateStage += _stage => _gameManager.AddGold(_gameManager.BattleData.StageUpGold);
 
         if (PhotonNetwork.IsMasterClient)
         {

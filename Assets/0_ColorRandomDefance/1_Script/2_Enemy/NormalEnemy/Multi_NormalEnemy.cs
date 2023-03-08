@@ -32,7 +32,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         base.SetStatus(_hp, _speed, _isDead);
         Passive();
-        spawnStage = Multi_StageManager.Instance.CurrentStage;
+        spawnStage = StageManager.Instance.CurrentStage;
         TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);
         if(pointIndex == -1) pointIndex = 0;
         transform.position = _spawnPositons[UsingId];

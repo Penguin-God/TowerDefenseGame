@@ -4,22 +4,8 @@ using UnityEngine;
 using System;
 using Photon.Pun;
 
-public class Multi_StageManager : MonoBehaviourPun
+public class StageManager : Singleton<StageManager>
 {
-    private static Multi_StageManager instance;
-    public static Multi_StageManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<Multi_StageManager>();
-                if (instance == null) instance = new GameObject("Multi_StageManager").AddComponent<Multi_StageManager>();
-            }
-            return instance;
-        }
-    }
-
     public event Action<int> OnUpdateStage;
     public readonly float STAGE_TIME = 32.5f;
     [SerializeField] int currentStage = 0;

@@ -14,7 +14,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
             {
                 instance = FindObjectOfType<T>();
                 if (instance == null)
-                    instance = new GameObject(nameof(T)).AddComponent<T>();
+                    instance = new GameObject(typeof(T).Name).AddComponent<T>();
                 DontDestroyOnLoad(instance.gameObject);
             }
 
@@ -37,6 +37,6 @@ public class SingletonPun<T> : Singleton<T> where T : Component
     {
         photonView = gameObject.GetComponent<PhotonView>();
         if (photonView == null) 
-            Debug.LogError("멀티 singleton에 photonView가 존재하지 않음");
+            Debug.LogError($"멀티 singleton {typeof(T).Name}에 photonView가 존재하지 않음");
     }
 }

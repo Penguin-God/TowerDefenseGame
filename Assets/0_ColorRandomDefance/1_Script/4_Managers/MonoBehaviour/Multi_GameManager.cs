@@ -188,9 +188,11 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     OtherPlayerData _otherPlayerData;
     public OtherPlayerData OtherPlayerData => _otherPlayerData;
 
+    UnitDamageInfoManager _unitDamageManager;
+    public UnitDamageInfoManager UnitDamageManager => _unitDamageManager;
 
     UnitStatChangeFacade _unitStatFacade;
-    public UnitStatChangeFacade UnitStatFacade => _unitStatFacade;
+    public UnitStatChangeFacade UnitStatChanger => _unitStatFacade;
 
 
     [PunRPC]

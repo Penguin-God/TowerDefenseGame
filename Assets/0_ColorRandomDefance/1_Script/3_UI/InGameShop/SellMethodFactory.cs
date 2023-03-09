@@ -25,6 +25,6 @@ public class SellMethodFactory
     }
 
     void SellUnit(IReadOnlyList<int> datas) => Multi_SpawnManagers.NormalUnit.Spawn(datas[0], datas[1]);
-    void SellGold(IReadOnlyList<int> datas) => Multi_GameManager.instance.AddGold(datas[0]);
-    void SellFood(IReadOnlyList<int> datas) => Multi_GameManager.instance.AddFood(datas[0]);
+    void SellGold(IReadOnlyList<int> datas) => Multi_GameManager.Instance.AddGold(datas[0]);
+    void SellFood(IReadOnlyList<int> datas) => Multi_GameManager.Instance.AddFood(datas[0]);
 }

@@ -48,7 +48,7 @@ public class UI_Status : UI_Scene
         StageManager.Instance.OnUpdateStage -= UpdateStage;
         StageManager.Instance.OnUpdateStage += UpdateStage;
 
-        Multi_GameManager.instance.BattleData.OnMaxUnitChanged += (maxUnit) => UpdateUnitText(Multi_UnitManager.Instance.CurrentUnitCount);
+        Multi_GameManager.Instance.BattleData.OnMaxUnitChanged += (maxUnit) => UpdateUnitText(Multi_UnitManager.Instance.CurrentUnitCount);
 
         Multi_UnitManager.Instance.OnUnitFlagCountChanged += (flag, count) => UpdateUnitClassByCount();
 
@@ -72,10 +72,10 @@ public class UI_Status : UI_Scene
 
         void BindGoldBarEvent()
         {
-            Multi_GameManager.instance.OnGoldChanged -= (gold) => GetText((int)Texts.GoldText).text = gold.ToString();
+            Multi_GameManager.Instance.OnGoldChanged -= (gold) => GetText((int)Texts.GoldText).text = gold.ToString();
             Managers.Camera.OnIsLookMyWolrd -= (lookMy) => GetObject((int)GameObjects.GoldBar).SetActive(lookMy);
 
-            Multi_GameManager.instance.OnGoldChanged += (gold) => GetText((int)Texts.GoldText).text = gold.ToString();
+            Multi_GameManager.Instance.OnGoldChanged += (gold) => GetText((int)Texts.GoldText).text = gold.ToString();
             Managers.Camera.OnIsLookMyWolrd += (lookMy) => GetObject((int)GameObjects.GoldBar).SetActive(lookMy);
         }
 
@@ -89,8 +89,8 @@ public class UI_Status : UI_Scene
                 return;
             }
 
-            Multi_GameManager.instance.OnFoodChanged -= (food) => GetText((int)Texts.FoodText).text = food.ToString();
-            Multi_GameManager.instance.OnFoodChanged += (food) => GetText((int)Texts.FoodText).text = food.ToString();
+            Multi_GameManager.Instance.OnFoodChanged -= (food) => GetText((int)Texts.FoodText).text = food.ToString();
+            Multi_GameManager.Instance.OnFoodChanged += (food) => GetText((int)Texts.FoodText).text = food.ToString();
         }
 
         void BindMyCountEvent()
@@ -112,7 +112,7 @@ public class UI_Status : UI_Scene
         }
     }
 
-    void UpdateUnitText(int count) => GetText((int)Texts.MyUnitCountText).text = $"{count}/{Multi_GameManager.instance.BattleData.MaxUnit}";
+    void UpdateUnitText(int count) => GetText((int)Texts.MyUnitCountText).text = $"{count}/{Multi_GameManager.Instance.BattleData.MaxUnit}";
 
     readonly Color DENGER_COLOR = Color.red;
     void UpdateEnemyCountText(int count)
@@ -124,7 +124,7 @@ public class UI_Status : UI_Scene
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
         else text.color = Color.white;
-        text.text = $"{count}/{Multi_GameManager.instance.BattleData.MaxEnemyCount}";
+        text.text = $"{count}/{Multi_GameManager.Instance.BattleData.MaxEnemyCount}";
     }
 
     public void UpdateUnitClassByCount()
@@ -159,8 +159,8 @@ public class UI_Status : UI_Scene
     public void UpdateMySkillImage() => ChangeEquipSkillImages(Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
     void UpdateOtherSkillImage()
     {
-        if (Multi_GameManager.instance.OtherPlayerData != null)
-            ChangeEquipSkillImages(Multi_GameManager.instance.OtherPlayerData.MainSkill, Multi_GameManager.instance.OtherPlayerData.SubSkill);
+        if (Multi_GameManager.Instance.OtherPlayerData != null)
+            ChangeEquipSkillImages(Multi_GameManager.Instance.OtherPlayerData.MainSkill, Multi_GameManager.Instance.OtherPlayerData.SubSkill);
         else
             ChangeEquipSkillImages(SkillType.None, SkillType.None);
     }

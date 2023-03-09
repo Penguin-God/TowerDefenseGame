@@ -15,7 +15,7 @@ public class Tutorial_UserSkill : TutorialController
         Managers.ClientData.EquipSkillManager.ChangedEquipSkill(UserSkillClass.Sub, SkillType.판매보상증가);
         FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill());
         ChangeMaxUnitSummonColor(BLUE_NUMBER);
-        print(Multi_GameManager.instance.BattleData.UnitSummonData.maxColorNumber);
+        print(Multi_GameManager.Instance.BattleData.UnitSummonData.maxColorNumber);
         FindObjectOfType<UI_Status>().UpdateMySkillImage();
     }
 
@@ -46,7 +46,7 @@ public class Tutorial_UserSkill : TutorialController
             && Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags(1, 0)] >= 1;
 
     void ChangeMaxUnitSummonColor(int colorNumber)
-        => Multi_GameManager.instance.BattleData.UnitSummonData.maxColorNumber = colorNumber;
+        => Multi_GameManager.Instance.BattleData.UnitSummonData.maxColorNumber = colorNumber;
 
     void OnDestroy()
     {

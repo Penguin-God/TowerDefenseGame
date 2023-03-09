@@ -14,8 +14,8 @@ public class OpponentStatusSynchronizer : MonoBehaviourPun
         // 물론 당장은 바빠서 이 정도로만 하고 멈추도록 하겠다.
         _opponentStatus = FindObjectOfType<UI_OpponentStatus>();
         RequestUpdateUnitMaxCount(15);
-        Multi_GameManager.instance.BattleData.OnMaxUnitChanged -= RequestUpdateUnitMaxCount;
-        Multi_GameManager.instance.BattleData.OnMaxUnitChanged += RequestUpdateUnitMaxCount;
+        Multi_GameManager.Instance.BattleData.OnMaxUnitChanged -= RequestUpdateUnitMaxCount;
+        Multi_GameManager.Instance.BattleData.OnMaxUnitChanged += RequestUpdateUnitMaxCount;
     }
 
     void RequestUpdateUnitMaxCount(int count) => photonView.RPC(nameof(UpdateUnitMax), RpcTarget.Others, count);

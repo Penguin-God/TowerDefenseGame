@@ -22,13 +22,13 @@ public class UnitCountExpendShop_UI : UI_Popup
         Bind<Text>(typeof(Texts));
 
         GetButton((int)Buttons.IncreaseButton).onClick.AddListener(IncreaseUnitCount);
-        var record = Multi_GameManager.instance.BattleData.MaxUnitIncreaseRecord;
+        var record = Multi_GameManager.Instance.BattleData.MaxUnitIncreaseRecord;
         GetText((int)Texts.PriceText).text = record.GetPriceDescription();
     }
 
     void IncreaseUnitCount()
     {
-        var manager = Multi_GameManager.instance;
+        var manager = Multi_GameManager.Instance;
         if (manager.TryUseCurrency(manager.BattleData.MaxUnitIncreaseRecord.CurrencyType, manager.BattleData.MaxUnitIncreaseRecord.Price))
             manager.BattleData.MaxUnit += 1;
     }

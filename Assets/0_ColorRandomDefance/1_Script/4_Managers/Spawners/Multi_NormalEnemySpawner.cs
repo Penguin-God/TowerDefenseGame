@@ -42,7 +42,7 @@ public class MonsterSpawnerContorller : MonoBehaviour
         if (PhotonNetwork.IsMasterClient == false) return;
         StageManager.Instance.OnUpdateStage += SpawnMonsterOnStageChange; // normal
         StageManager.Instance.OnUpdateStage += SpawnBossOnStageMultipleOfTen; // boss
-        Multi_GameManager.instance.OnGameStart += SpawnTowerOnStart; // tower
+        Multi_GameManager.Instance.OnGameStart += SpawnTowerOnStart; // tower
     }
 
     void SpawnMonsterOnStageChange(int stage)

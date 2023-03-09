@@ -25,8 +25,8 @@ public class TestUtil : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            Multi_GameManager.instance.AddGold(5000);
-            Multi_GameManager.instance.AddFood(1000);
+            Multi_GameManager.Instance.AddGold(5000);
+            Multi_GameManager.Instance.AddFood(1000);
         }
     }
 }

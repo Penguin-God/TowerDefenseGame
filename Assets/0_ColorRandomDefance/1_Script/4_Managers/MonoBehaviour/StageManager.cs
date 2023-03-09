@@ -16,7 +16,7 @@ public class StageManager : SingletonPun<StageManager>
     void Start()
     {
         if (PhotonNetwork.IsMasterClient)
-            Multi_GameManager.instance.OnGameStart += UpdateStage;
+            Multi_GameManager.Instance.OnGameStart += UpdateStage;
 
         StageWait = new WaitForSeconds(STAGE_TIME);
     }

@@ -20,7 +20,7 @@ public class Multi_YellowPassive : Multi_UnitPassive
         int random = Random.Range(0, 100);
         if (random < percent)
         {
-            Multi_GameManager.instance.AddGold_RPC(addGold, rpcable.UsingId);
+            Multi_GameManager.Instance.AddGold_RPC(addGold, rpcable.UsingId);
             Managers.Sound.PlayEffect(EffectSoundType.GetPassiveGold);
         }
     }

@@ -11,7 +11,7 @@ public class WinOrLossController : MonoBehaviourPunCallbacks
 
     void CheckGameOver(int enemyCount)
     {
-        if (enemyCount >= Multi_GameManager.instance.BattleData.MaxEnemyCount)
+        if (enemyCount >= Multi_GameManager.Instance.BattleData.MaxEnemyCount)
         {
             Lose();
             photonView.RPC(nameof(Win), RpcTarget.Others);

@@ -299,7 +299,7 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
             {
                 if (item.Key == new UnitFlags(2, 0))
                 {
-                    var manager = Multi_GameManager.instance;
+                    var manager = Multi_GameManager.Instance;
                     for (int i = 0; i < item.Value; i++)
                         manager.AddGold(manager.BattleData.YellowKnightRewardGold);
                 }

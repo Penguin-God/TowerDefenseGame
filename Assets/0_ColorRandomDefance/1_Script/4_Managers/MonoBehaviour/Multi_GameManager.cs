@@ -171,22 +171,8 @@ public class OtherPlayerData
     public SkillType SubSkill => _subSkill;
 }
 
-public class Multi_GameManager : MonoBehaviourPun
+public class Multi_GameManager : SingletonPun<Multi_GameManager>
 {
-    public static Multi_GameManager instance
-    {
-        get
-        {
-            if (m_instance == null)
-            {
-                m_instance = FindObjectOfType<Multi_GameManager>();
-            }
-            return m_instance;
-        }
-    }
-
-    private static Multi_GameManager m_instance;
-
     [SerializeField] BattleDataManager _battleData;
     public BattleDataManager BattleData => _battleData;
     CurrencyManager CurrencyManager => _battleData.CurrencyManager;
@@ -212,13 +198,9 @@ public class Multi_GameManager : MonoBehaviourPun
 
     // 임시
     [SerializeField] Button gameStartButton;
-    void Awake()
+    protected override void Init()
     {
-        if (instance != this)
-        {
-            Destroy(gameObject);
-        }
-
+        base.Init();
         if (PhotonNetwork.IsMasterClient && gameStartButton != null)
             gameStartButton.onClick.AddListener(GameStart);
         else
@@ -226,7 +208,7 @@ public class Multi_GameManager : MonoBehaviourPun
 
         _battleData = new BattleDataManager(Managers.Data.GetBattleStartData());
         Managers.Sound.PlayBgm(BgmType.Default);
-        if(PhotonNetwork.IsConnected)
+        if (PhotonNetwork.IsConnected)
             photonView.RPC(nameof(CreateOtherPlayerData), RpcTarget.Others, Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
     }
 
@@ -281,7 +263,7 @@ public class RewradController : MonoBehaviourPun
     Multi_GameManager _gameManager;
     void Start()
     {
-        _gameManager = Multi_GameManager.instance;
+        _gameManager = Multi_GameManager.Instance;
         StageManager.Instance.OnUpdateStage += _stage => _gameManager.AddGold(_gameManager.BattleData.StageUpGold);
 
         if (PhotonNetwork.IsMasterClient)

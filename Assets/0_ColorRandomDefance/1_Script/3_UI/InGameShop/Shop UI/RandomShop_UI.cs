@@ -180,7 +180,7 @@ class GoodsSellUseCase
 {
     public bool TrySell(UI_RandomShopGoodsData data, GoodsManager goodsManager, Action SellAct = null)
     {
-        if (Multi_GameManager.instance.TryUseCurrency(data.CurrencyType, data.Price))
+        if (Multi_GameManager.Instance.TryUseCurrency(data.CurrencyType, data.Price))
         {
             goodsManager.DropGoods(data);
 

@@ -53,7 +53,7 @@ public class UI_UnitManagedWindow : UI_Popup
         if (Multi_UnitManager.Instance.HasUnit(_unitFlag))
         {
             Multi_UnitManager.Instance.UnitDead_RPC(PlayerIdManager.Id, _unitFlag);
-            Multi_GameManager.instance.AddGold(Multi_GameManager.instance.BattleData.UnitSellPriceRecord.PriceDatas[_unitFlag.ClassNumber].Price);
+            Multi_GameManager.Instance.AddGold(Multi_GameManager.Instance.BattleData.UnitSellPriceRecord.PriceDatas[_unitFlag.ClassNumber].Price);
         }
     }
 

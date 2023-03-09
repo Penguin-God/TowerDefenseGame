@@ -44,19 +44,19 @@ public class UserSkillFactory
 public class StartGold : UserSkill
 {
     public override void InitSkill()
-        => Multi_GameManager.instance.AddGold((int)SkillData);
+        => Multi_GameManager.Instance.AddGold((int)SkillData);
 }
 
 public class StartFood : UserSkill
 {
     public override void InitSkill()
-        => Multi_GameManager.instance.AddFood((int)SkillData);
+        => Multi_GameManager.Instance.AddFood((int)SkillData);
 }
 
 public class MaxUnit : UserSkill
 {
     public override void InitSkill()
-        => Multi_GameManager.instance.BattleData.MaxUnit += (int)SkillData;
+        => Multi_GameManager.Instance.BattleData.MaxUnit += (int)SkillData;
 }
 
 public class Taegeuk : UserSkill
@@ -158,7 +158,7 @@ public class YellowSowrdmanUpgrade : UserSkill
 {
     // 노란 기사 패시브 골드 변경
     public override void InitSkill()
-        => Multi_GameManager.instance.BattleData.YellowKnightRewardGold = (int)SkillData;
+        => Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = (int)SkillData;
 }
 
 public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
@@ -170,7 +170,7 @@ public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
     public override void InitSkill()
     {
         // 얘는 패시브로 기사 소환 범위도 늘어남
-        Multi_GameManager.instance.BattleData.UnitSummonData.maxColorNumber = MAX_SPAWN_COLOR_NUMBER;
+        Multi_GameManager.Instance.BattleData.UnitSummonData.maxColorNumber = MAX_SPAWN_COLOR_NUMBER;
         Multi_UnitManager.Instance.OnUnitFlagCountChanged += UseSkill;
         colorChanger = Managers.Multi.Instantiater.PhotonInstantiate("RPCObjects/SkillColorChanger", Vector3.one * 500).GetComponent<SkillColorChanger>();
     }
@@ -194,12 +194,12 @@ public class FoodHater : UserSkill
     {
         _rate = (int)SkillData;
         ChangeShopCurrency();
-        Multi_GameManager.instance.OnFoodChanged += FoodToGold;
+        Multi_GameManager.Instance.OnFoodChanged += FoodToGold;
     }
 
     void ChangeShopCurrency()
     {
-        var battleData = Multi_GameManager.instance.BattleData;
+        var battleData = Multi_GameManager.Instance.BattleData;
         battleData.GetAllPriceDatas()
                 .Where(x => x.CurrencyType == GameCurrencyType.Food)
                 .ToList()
@@ -213,8 +213,8 @@ public class FoodHater : UserSkill
     {
         if (food <= 0) return;
 
-        if (Multi_GameManager.instance.TryUseFood(food))
-            Multi_GameManager.instance.AddGold(food * _rate);
+        if (Multi_GameManager.Instance.TryUseFood(food))
+            Multi_GameManager.Instance.AddGold(food * _rate);
     }
 }
 
@@ -224,7 +224,7 @@ public class SellUpgrade : UserSkill
     {
         // 유닛 판매 보상 증가 (유닛별로 증가폭 별도)
         int[] sellData = SkillDatas.Select(x => (int)x).ToArray();
-        var sellRewardDatas = Multi_GameManager.instance.BattleData.UnitSellPriceRecord.PriceDatas;
+        var sellRewardDatas = Multi_GameManager.Instance.BattleData.UnitSellPriceRecord.PriceDatas;
         for (int i = 0; i < sellRewardDatas.Length; i++)
             sellRewardDatas[i].ChangePrice(sellData[i]);
     }

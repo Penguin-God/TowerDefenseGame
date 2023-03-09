@@ -56,15 +56,15 @@ public class BattleButton_UI : UI_Scene
 
     void SommonUnit()
     {
-        if (Multi_GameManager.instance.UnitOver)
+        if (Multi_GameManager.Instance.UnitOver)
         {
             Managers.UI.ShowDefualtUI<UI_PopupText>().Show("유닛 공간이 부족해 소환할 수 없습니다.", 2f, Color.red);
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
             return;
         }
 
-        var summonData = Multi_GameManager.instance.BattleData.UnitSummonData;
-        if (Multi_GameManager.instance.TryUseGold(summonData.price))
+        var summonData = Multi_GameManager.Instance.BattleData.UnitSummonData;
+        if (Multi_GameManager.Instance.TryUseGold(summonData.price))
         {
             Multi_SpawnManagers.NormalUnit.Spawn(Random.Range(0, summonData.maxColorNumber ), 0);
             Managers.Sound.PlayEffect(EffectSoundType.DrawSwordman);

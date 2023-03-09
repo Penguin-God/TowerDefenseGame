@@ -5,29 +5,13 @@ using System;
 using System.Linq;
 using Photon.Pun;
 
-public class Multi_EnemyManager : MonoBehaviourPun
+public class Multi_EnemyManager : Singleton<Multi_EnemyManager>
 {
-    private static Multi_EnemyManager instance;
-    public static Multi_EnemyManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<Multi_EnemyManager>();
-                if (instance == null)
-                    instance = new GameObject("Multi_EnemyManager").AddComponent<Multi_EnemyManager>();
-            }
-
-            return instance;
-        }
-    }
-
     MasterManager _master = new MasterManager();
     EnemyCountManager _counter = new EnemyCountManager();
     EnemyFinder _finder = new EnemyFinder();
     
-    void Awake()
+    protected override void Init()
     {
         _counter.Init(_master);
         _counter.OnEnemyCountChanged += RaiseOnEnemyCountChanged;
@@ -74,29 +58,6 @@ public class Multi_EnemyManager : MonoBehaviourPun
         if (maxCount >= _master.GetEnemys(unitId).Count) return _master.GetEnemys(unitId).ToArray();
         return _finder.GetProximateEnemys(finderPos, maxCount, _master.GetEnemys(unitId));
     }
-
-    #region editor test
-    [Header("테스트 인스팩터")]
-    [SerializeField] List<Transform> test_0 = new List<Transform>();
-    [SerializeField] List<Transform> test_1 = new List<Transform>();
-    [SerializeField] Multi_BossEnemy testBoss = new Multi_BossEnemy();
-    [SerializeField] Multi_EnemyTower testTower = new Multi_EnemyTower();
-    void Update()
-    {
-#if UNITY_EDITOR
-        if (PhotonNetwork.IsMasterClient)
-        {
-            testBoss = _currentBoss.Get(1);
-            testTower = _currentTower.Get(1);
-            test_0 = _master.GetEnemys(0).Select(x => x.transform).ToList();
-            test_1 = _master.GetEnemys(1).Select(x => x.transform).ToList();
-        }
-#endif
-    }
-    #endregion
-
-
-
 
     class MasterManager
     {

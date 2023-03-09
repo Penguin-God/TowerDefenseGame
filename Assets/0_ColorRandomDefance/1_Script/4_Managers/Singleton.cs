@@ -30,7 +30,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
     protected virtual void Init() { }
 }
 
-public class SingletonPun<T> : Singleton<T> where T : Component
+public class SingletonPun<T> : Singleton<T> where T : Component 
 {
     protected PhotonView photonView;
     protected override void Init()

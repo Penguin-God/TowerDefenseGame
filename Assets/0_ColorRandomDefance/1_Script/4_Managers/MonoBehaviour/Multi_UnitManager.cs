@@ -5,26 +5,8 @@ using System;
 using System.Linq;
 using Photon.Pun;
 
-public class Multi_UnitManager : MonoBehaviourPun
+public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
 {
-    private static Multi_UnitManager instance = null;
-    public static Multi_UnitManager Instance
-    {
-        get
-        {
-            if (_isDestory) return null;
-
-            if(instance == null)
-            {
-                instance = FindObjectOfType<Multi_UnitManager>();
-                if (instance == null)
-                    instance = new GameObject("Multi_UnitManager").AddComponent<Multi_UnitManager>();
-                instance.Init();
-            }
-            return instance;
-        }
-    }
-
     UnitCountManager _count = new UnitCountManager();
     UnitContorller _controller = new UnitContorller();
     EnemyPlayerDataManager _enemyPlayer = new EnemyPlayerDataManager();
@@ -35,21 +17,12 @@ public class Multi_UnitManager : MonoBehaviourPun
     public UnitStatChangeFacade Stat => _statFacade;
 
     public MasterDataManager Master => _master;
-    void Awake()
-    {
-        _isDestory = false;
-    }
 
-    private static bool _isDestory;
-    void OnDestroy()
-    {
-        _isDestory = true;
-    }
-
-    void Init()
+    protected override void Init()
     {
         // 이 지옥의 꽃같은 코드 제거를 위해 싱글턴 씬 이동 처리를 잘할 것
         // if (Managers.Scene.IsBattleScene == false) return;
+        base.Init();
 
         _count.Init(_master);
         _count.OnUnitCountChanged += Rasie_OnUnitCountChanged;

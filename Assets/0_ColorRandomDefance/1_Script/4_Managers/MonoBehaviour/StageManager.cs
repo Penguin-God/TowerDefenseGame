@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using Photon.Pun;
 
-public class StageManager : Singleton<StageManager>
+public class StageManager : SingletonPun<StageManager>
 {
     public event Action<int> OnUpdateStage;
     public readonly float STAGE_TIME = 32.5f;

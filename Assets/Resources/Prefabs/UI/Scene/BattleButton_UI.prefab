@@ -653,7 +653,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyNumber: 1
-  enemyInfoText: "\uC2A4\uD0AC \uACF5\uACA9\uC5D0 \uB300\uD55C  80% \uAC10\uC18C\uB97C
+  enemyInfoText: "\uC2A4\uD0AC \uACF5\uACA9\uC5D0 \uB300\uD55C  \uBC18\uAC10\uC744
     \uAC00\uC9D1\uB2C8\uB2E4."
 --- !u!1 &3262872582606088945
 GameObject:

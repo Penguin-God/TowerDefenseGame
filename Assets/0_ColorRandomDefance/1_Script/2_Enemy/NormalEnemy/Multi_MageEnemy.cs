@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class Multi_MageEnemy : Multi_NormalEnemy
 {
-    readonly float DAMAGE_REDUCTION_RATE = 80;
+    readonly float DAMAGE_REDUCTION_RATE = 50;
     [PunRPC]
     protected override void RPC_OnDamage(int damage, bool isSkill)
     {
@@ -22,7 +22,6 @@ public class Multi_MageEnemy : Multi_NormalEnemy
     void DecreasedEffect()
     {
         Managers.Effect.ChangeAllMaterial("Gray", transform);
-        // Managers.Sound.PlayEffect(EffectSoundType.DebuffSkill);
         if (_coMat != null) StopCoroutine(_coMat);
         _coMat = StartCoroutine(Co_ChangedMat());
     }

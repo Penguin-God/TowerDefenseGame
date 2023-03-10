@@ -4,15 +4,6 @@ using UnityEngine;
 
 public class Tester : MonoBehaviour
 {
-    [ContextMenu("Test Path Build")]
-    void TestPathBuilders()
-    {
-        var tester = new PathBuildersTester();
-        tester.TestBuildUnitPath();
-        tester.TestBuildMonstersPath();
-        tester.TestBuildWeaponsPath();
-    }
-
     [ContextMenu("Test Presenters")]
     void TestPresenters()
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
-using Photon.Pun;
+using Spawners;
 
 namespace Tests
 {
@@ -13,10 +13,12 @@ namespace Tests
         public IEnumerator AddUnitDamage()
         {
             const int ADD_AMOUNT = 100;
-            var unit = Multi_SpawnManagers.NormalUnit.Spawn(UnitFlags.RedSowrdman);
+            var unitManager = new UnitManager();
+            // dataManager
+            var unit = new UnitSpanwer(null, null).Spawn(UnitFlags.RedSowrdman);
             yield return null;
 
-            Multi_UnitManager.Instance.Stat.AddUnitDamage(ADD_AMOUNT);
+            // 퍼사드로 스탯 증가
 
             int result = Multi_GameManager.Instance.UnitDamageManager.GetUnitDamage(UnitFlags.RedSowrdman) + ADD_AMOUNT;
             Assert.AreEqual(result, unit.Stat.Damage);

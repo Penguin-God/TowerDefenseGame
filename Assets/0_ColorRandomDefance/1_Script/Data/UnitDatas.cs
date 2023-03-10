@@ -69,7 +69,7 @@ public class CombineCondition
     [SerializeField] UnitFlags _targetUnitFlag;
     [SerializeField] Dictionary<UnitFlags, int> _needCountByFlag = new Dictionary<UnitFlags, int>();
 
-    public UnitFlags TargetUnitFlags => _targetUnitFlag;
+    public UnitFlags TargetUnitFlag => _targetUnitFlag;
     public IReadOnlyDictionary<UnitFlags, int> NeedCountByFlag => _needCountByFlag;
 }
 
@@ -78,7 +78,7 @@ public class CombineConditions : ICsvLoader<UnitFlags, CombineCondition>
 {
     public Dictionary<UnitFlags, CombineCondition> MakeDict(string csv)
     {
-        return CsvUtility.CsvToArray<CombineCondition>(csv).ToDictionary(x => x.TargetUnitFlags, x => x);
+        return CsvUtility.CsvToArray<CombineCondition>(csv).ToDictionary(x => x.TargetUnitFlag, x => x);
     }
 }
 

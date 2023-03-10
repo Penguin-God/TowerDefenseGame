@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ResourcesManager
+public class ResourcesManager : IInstantiater
 {
     public T Load<T>(string path) where T : Object
     {
@@ -18,6 +18,7 @@ public class ResourcesManager
         return Resources.Load<T>(path);
     }
 
+    public GameObject Instantiate(string path) => Instantiate(path, null);
     public GameObject Instantiate(string path, Transform parent = null)
     {
         path = GetPrefabPath(path);

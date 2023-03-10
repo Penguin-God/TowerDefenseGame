@@ -15,8 +15,8 @@ public class UnitCombineSystem
             .Keys
             .Where(x => CheckCombineable(x, getCount));
 
-    public bool CheckCombineable(UnitFlags flag, Func<UnitFlags, int> getCount)
-        => Managers.Data.CombineConditionByUnitFalg[flag]
+    public bool CheckCombineable(UnitFlags targetFlag, Func<UnitFlags, int> getCount)
+        => Managers.Data.CombineConditionByUnitFalg[targetFlag]
             .NeedCountByFlag
             .All(x => getCount(x.Key) >= x.Value);
 

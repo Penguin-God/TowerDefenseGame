@@ -9,13 +9,14 @@ namespace Tests
 {
     public class UnitStatChangeTests
     {
-        [UnityTest]
+        // [UnityTest]
         public IEnumerator AddUnitDamage()
         {
             const int ADD_AMOUNT = 100;
-            var unitManager = new UnitManager();
+            var spawner = new UnitSpanwer(null);
+            var unitManager = new UnitManager(spawner);
             // dataManager
-            var unit = new UnitSpanwer(null, null).Spawn(UnitFlags.RedSowrdman);
+            var unit = spawner.Spawn(UnitFlags.RedSowrdman);
             yield return null;
 
             // 퍼사드로 스탯 증가

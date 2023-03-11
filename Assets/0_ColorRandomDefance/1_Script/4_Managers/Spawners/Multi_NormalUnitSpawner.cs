@@ -12,9 +12,6 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     public Multi_TeamSoldier Spawn(UnitFlags flag, byte id) => Spawn(flag, Vector3.zero, Quaternion.identity, id);
     public Multi_TeamSoldier Spawn(UnitFlags flag, Vector3 spawnPos, Quaternion rotation, byte id)
     {
-        if (PhotonNetwork.IsMasterClient)
-            return RPCSpawn(flag, spawnPos, rotation, id);
-
         if (rotation == Quaternion.identity || spawnPos == Vector3.zero)
             photonView.RPC(nameof(RPCSpawn), RpcTarget.MasterClient, flag, id);
         else

@@ -34,6 +34,8 @@ public class MultiManager
     {
         public GameObject Instantiate(string path) // interface
         {
+            if (Managers.Pool.TryGetPoolObejct(GetPathName(path), out GameObject poolGo))
+                return PhotonInstantiate(path);
             path = GetPrefabPath(path);
             var prefab = Managers.Resources.Load<GameObject>(path);
             var go = PhotonNetwork.Instantiate(path, Vector3.zero * 1000, prefab.transform.rotation);
@@ -62,6 +64,11 @@ public class MultiManager
             return result;
         }
 
+        // TODO : 소환이랑 정보 설정 분리하기
+        public void SetMultiInfo()
+        {
+
+        }
 
         string GetPrefabPath(string path) => path.Contains("Prefabs/") ? path : $"Prefabs/{path}";
         string GetPathName(string path) => path.Split('/')[path.Split('/').Length - 1];

@@ -4,7 +4,14 @@ using UnityEngine;
 
 namespace Spawners
 {
-    public class UnitSpanwer
+    interface IUnitSpawer
+    {
+        Multi_TeamSoldier Spawn(int colorNum, int classNum);
+        Multi_TeamSoldier Spawn(UnitColor color, UnitClass unitClass);
+        Multi_TeamSoldier Spawn(UnitFlags flag);
+    }
+
+    public class UnitSpanwer : IUnitSpawer
     {
         readonly IInstantiater _instantiater;
         public UnitSpanwer(IInstantiater instantiater) => _instantiater = instantiater;

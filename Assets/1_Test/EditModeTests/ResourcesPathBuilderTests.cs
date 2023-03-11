@@ -12,7 +12,7 @@ namespace Tests
         ResourcesPathBuilder _pathBuilder = new ResourcesPathBuilder();
 
         [Test]
-        public void TestBuildUnitPath()
+        public void BuildUnitPath()
         {
             foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
             {
@@ -22,7 +22,7 @@ namespace Tests
         }
 
         [Test]
-        public void TestBuildNormalMonstersPath()
+        public void BuildNormalMonstersPath()
         {
             var monsterNames = new string[] { "Archer", "Mage", "Spearman", "Swordman" };
             for (int i = 0; i < monsterNames.Length; i++)
@@ -30,7 +30,7 @@ namespace Tests
         }
 
         [Test]
-        public void TestBuildBossMonstersPath()
+        public void BuildBossMonstersPath()
         {
             var monsterNames = new string[] { "Archer", "Mage", "Spearman", "Swordman" };
 
@@ -39,7 +39,7 @@ namespace Tests
         }
 
         [Test]
-        public void TestBuildTowersPath()
+        public void BuildTowersPath()
         {
             const int MAX_TOWER_LEVEL = 6;
             for (int i = 1; i < MAX_TOWER_LEVEL + 1; i++)
@@ -47,7 +47,7 @@ namespace Tests
         }
 
         [Test]
-        public void TestBuildProjectilePath()
+        public void BuildProjectilePath()
         {
             var throwableUnits = new UnitClass[] { UnitClass.Archer, UnitClass.Spearman, UnitClass.Mage };
 
@@ -59,7 +59,7 @@ namespace Tests
         }
 
         [Test]
-        public void TestBuildMageSkillEffetPath()
+        public void BuildMageSkillEffetPath()
         {
             foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
             {

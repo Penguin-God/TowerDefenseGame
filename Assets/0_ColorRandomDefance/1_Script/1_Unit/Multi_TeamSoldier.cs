@@ -10,6 +10,7 @@ public enum UnitClass { Swordman, Archer, Spearman, Mage }
 
 public class Multi_TeamSoldier : MonoBehaviourPun
 {
+    public Unit Unit;
     private UnitFlags _unitFlags;
     public UnitFlags UnitFlags => _unitFlags;
 

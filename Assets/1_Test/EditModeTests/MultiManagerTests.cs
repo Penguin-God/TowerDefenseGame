@@ -6,12 +6,12 @@ using UnityEngine.TestTools;
 
 namespace Tests
 {
-    public class MultiServiceTests
+    public class MultiManagerTests
     {
         [Test]
-        public void 서비스는_서로_다른_객체를_생성해야_함()
+        public void 서로_다른_객체를_생성해야_함()
         {
-            var sut = new MultiService<UnitManager>(() => new UnitManager());
+            var sut = new MultiManager<UnitManager>(() => new UnitManager());
 
             Assert.AreNotSame(sut.GetServiece(0), sut.GetServiece(1));
         }
@@ -19,7 +19,7 @@ namespace Tests
         [Test]
         public void ID에_알맞은_서비스를_제공해야_함()
         {
-            var sut = new MultiService<UnitManager>(() => new UnitManager());
+            var sut = new MultiManager<UnitManager>(() => new UnitManager());
 
             sut.GetServiece(0).RegisterUnit(new Unit(UnitFlags.RedSowrdman));
 

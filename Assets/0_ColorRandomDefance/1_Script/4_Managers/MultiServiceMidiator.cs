@@ -8,10 +8,10 @@ public class MultiServiceMidiator
 }
 
 
-public class MultiService<T>
+public class MultiManager<T>
 {
     T[] _services = new T[PlayerIdManager.MaxPlayerCount];
-    public MultiService(System.Func<T> createService)
+    public MultiManager(System.Func<T> createService)
     {
         for (int i = 0; i < _services.Length; i++)
             _services[i] = createService();
@@ -19,4 +19,5 @@ public class MultiService<T>
 
     public T GetServiece() => _services[PlayerIdManager.Id];
     public T GetServiece(byte id) => _services[id];
+    public IEnumerable<T> Services => _services;
 }

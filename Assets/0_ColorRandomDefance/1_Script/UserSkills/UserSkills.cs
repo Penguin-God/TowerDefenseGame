@@ -26,6 +26,7 @@ public class UserSkillFactory
         _typeBySkill.Add(SkillType.태극스킬, new Taegeuk());
         _typeBySkill.Add(SkillType.검은유닛강화, new BlackUnitUpgrade());
         _typeBySkill.Add(SkillType.노란기사강화, new YellowSowrdmanUpgrade());
+        _typeBySkill.Add(SkillType.컬러마스터, new ColorMaster());
         _typeBySkill.Add(SkillType.상대색깔변경, new ColorChange());
         _typeBySkill.Add(SkillType.판매보상증가, new SellUpgrade());
         _typeBySkill.Add(SkillType.보스데미지증가, new BossDamageUpgrade());
@@ -161,16 +162,20 @@ public class YellowSowrdmanUpgrade : UserSkill
         => Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = (int)SkillData;
 }
 
-public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
+public class ColorMaster : UserSkill
 {
     readonly int MAX_SPAWN_COLOR_NUMBER = 6;
+    public override void InitSkill()
+        => Multi_GameManager.Instance.BattleData.UnitSummonData.maxColorNumber = MAX_SPAWN_COLOR_NUMBER;
+}
+
+public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
+{
     int[] _whiteUnitCounts = new int[4];
     public event Action<byte, byte> OnUnitColorChanaged; // 변하기 전 색깔, 변한 후 색깔
     SkillColorChanger colorChanger;
     public override void InitSkill()
     {
-        // 얘는 패시브로 기사 소환 범위도 늘어남
-        Multi_GameManager.Instance.BattleData.UnitSummonData.maxColorNumber = MAX_SPAWN_COLOR_NUMBER;
         Multi_UnitManager.Instance.OnUnitFlagCountChanged += UseSkill;
         colorChanger = Managers.Multi.Instantiater.PhotonInstantiate("RPCObjects/SkillColorChanger", Vector3.one * 500).GetComponent<SkillColorChanger>();
     }

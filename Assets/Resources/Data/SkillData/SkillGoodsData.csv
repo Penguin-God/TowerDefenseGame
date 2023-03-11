@@ -1,8 +1,8 @@
 ﻿_skillType,_skillClass,_moneyType,_skillName,_description,_imagePath
 태극스킬,Main,Iron,태극,빨파조합,Sprites/Taegeuk
-검은유닛강화,Main,Iron,검은유닛강화,검은유닛 쎄짐,Sprites/BlackUnitUpgrade
-노란기사강화,Main,Iron,노란기사강화,노란기사 조합 골드 증가,Sprites/YellowSwordmanUpgrade
-상대색깔변경,Main,Iron,상대색깔변경,하얀 유닛을 소환할 때마다 동일한 클래스의 상대 유닛 중 하나의 색깔이 무작위로 바뀝니다.,Sprites/ChangeColor
+검은유닛강화,Main,Iron,검은 유닛 강화,검은유닛 쎄짐,Sprites/BlackUnitUpgrade
+노란기사강화,Main,Iron,노란 기사 강화,노란기사 조합 골드 증가,Sprites/YellowSwordmanUpgrade
+컬러마스터,Main,Iron,컬러 마스터,"유닛 뽑기 시 빨강, 파랑, 노랑, 주황, 초록, 보라 색깔의 기사를 소환할 수 있습니다.",Sprites/ColorMaster
 ,,,,,
 ,,,,,
 고기혐오자,Sub,Iron,고기혐오자,"획득하는 모든 고기가 골드로 바뀝니다. 또한, 고기로 구매할 수 있는 물픔은 골드로 구매할 수 있도록 바뀝니다.",Sprites/FoodUpgrade
@@ -11,3 +11,4 @@
 시작골드증가,Sub,Iron,시작 골드 증가,시작 골드가 증가합니다,Sprites/GoldUpgrade
 시작고기증가,Sub,Iron,시작 고기 증가,시작 고기가 증가합니다,Sprites/FoodUpgrade
 최대유닛증가,Sub,Iron,시작 최대 유닛 증가,시작 최대 유닛이 증가합니다,Sprites/MaxUnitUpgrade
+상대색깔변경,Sub,Iron,상대색깔변경,하얀 유닛을 소환할 때마다 동일한 클래스의 상대 유닛 중 하나의 색깔이 무작위로 바뀝니다.,Sprites/ChangeColor

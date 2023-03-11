@@ -259,7 +259,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     protected bool TargetIsNormalEnemy { get { return (target != null && target.GetComponent<Multi_Enemy>().enemyType == EnemyType.Normal); } }
 
-    public void ChagneWorld()
+    public void ChangeWorldToMaster() => photonView.RPC(nameof(ChangeWorld), RpcTarget.MasterClient);
+
+    [PunRPC]
+    public void ChangeWorld()
     {
         Vector3 toPos = GetOppositeWorldSpawnPos();
         MoveToPos(toPos);

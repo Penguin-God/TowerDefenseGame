@@ -18,6 +18,8 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
 
     public MasterDataManager Master => _master;
 
+    UnitManagerController _unitManagerController;
+
     protected override void Init()
     {
         // 이 지옥의 꽃같은 코드 제거를 위해 싱글턴 씬 이동 처리를 잘할 것
@@ -35,6 +37,8 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
 
         _statFacade = gameObject.AddComponent<UnitStatChangeFacade>();
         _statFacade.Init(Managers.Multi.Data, Instance);
+
+        _unitManagerController = new UnitManagerController();
 
         if (PhotonNetwork.IsMasterClient == false) return;
         _controller.Init(_master);
@@ -248,7 +252,7 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         public void UnitWorldChange(byte id, UnitFlags flag, bool enterStroyMode)
         {
             if (_masterData.TryGetUnit_If(id, flag, out Multi_TeamSoldier unit, (_unit) => _unit.EnterStroyWorld == enterStroyMode))
-                unit.ChagneWorld();
+                unit.ChangeWorld();
         }
     }
 

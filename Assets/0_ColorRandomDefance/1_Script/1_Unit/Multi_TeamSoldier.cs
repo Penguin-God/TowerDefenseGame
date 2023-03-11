@@ -55,7 +55,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected Action<Multi_Enemy> OnHit;
     public Action<Multi_Enemy> OnPassiveHit;
 
-    public Action<Multi_TeamSoldier> OnDead;
+    public event Action<Multi_TeamSoldier> OnDead;
 
     // 가상 함수
     protected virtual void OnAwake() { } // 유닛마다 다른 Awake 세팅

@@ -3,48 +3,31 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
-using Spawners;
 
 public class UnitManager
 {
-    UnitSpanwer _unitSpanwer;
-    public UnitManager(UnitSpanwer unitSpanwer)
-    {
-        _unitSpanwer = unitSpanwer;
-        _unitSpanwer.OnSpawn += UnitRegister;
-    }
-
-    List<Multi_TeamSoldier> _units = new List<Multi_TeamSoldier>();
+    List<Unit> _units = new List<Unit>();
     public int UnitCount => _units.Count;
 
-    void UnitRegister(Multi_TeamSoldier unit)
+    public event Action<Unit> OnRegisetrUnit;
+    public event Action<Unit> OnRemoveUnit;
+
+    public void RegisterUnit(Unit unit)
     {
         _units.Add(unit);
-        unit.OnDead += (deadUnit) => _units.Remove(deadUnit);
+        OnRegisetrUnit?.Invoke(unit);
+        unit.OnDead += RemoveUnit;
     }
 
-    public bool TryCombine(UnitFlags flag)
+    void RemoveUnit(Unit unit)
     {
-        if (new UnitCombineSystem().CheckCombineable(flag, (conditionFlag) => GetUnitCount(x => x == conditionFlag)))
-        {
-            Combine(flag);
-            return true;
-        }
-        return false;
+        _units.Remove(unit);
+        OnRemoveUnit?.Invoke(unit);
     }
 
-    void Combine(UnitFlags flag)
-    {
-        foreach (var condition in Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag)
-        {
-            for (int i = 0; i < condition.Value; i++)
-                GetUnit(flag).Dead();
-        }
-        
-        _unitSpanwer.Spawn(flag);
-    }
+    public bool CheckCombinealbe(UnitFlags flag) => new UnitCombineSystem().CheckCombineable(flag, (conditionFlag) => GetUnitCount(x => x == conditionFlag));
 
-    public bool TryFindUnit(Func<UnitFlags, bool> condition, out Multi_TeamSoldier unit)
+    public bool TryFindUnit(Func<UnitFlags, bool> condition, out Unit unit)
     {
         if(GetUnitCount(condition) == 0)
         {
@@ -58,7 +41,7 @@ public class UnitManager
         }
     }
 
-    public Multi_TeamSoldier GetUnit(UnitFlags flag) => GetUnits(x => x == flag).FirstOrDefault();
+    public Unit GetUnit(UnitFlags flag) => GetUnits(x => x == flag).FirstOrDefault();
     public int GetUnitCount(Func<UnitFlags, bool> condition) => GetUnits(condition).Count();
-    public IEnumerable<Multi_TeamSoldier> GetUnits(Func<UnitFlags, bool> condition) => _units.Where(x => condition(x.UnitFlags));
+    public IEnumerable<Unit> GetUnits(Func<UnitFlags, bool> condition) => _units.Where(x => condition(x.UnitFlags));
 }

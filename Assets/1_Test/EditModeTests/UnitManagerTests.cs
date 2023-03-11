@@ -10,12 +10,11 @@ namespace Tests
     public class UnitManagerTests
     {
         [Test]
-        public void 유닛이_스폰되면_매니저에_추가되어야함()
+        public void 유닛이_매니저에_추가되면_찾을_수_있어야함()
         {
-            var spawner = new UnitSpanwer(Managers.Resources);
-            var sut = new UnitManager(spawner);
+            var sut = new UnitManager();
 
-            spawner.Spawn(UnitFlags.RedSowrdman);
+            sut.RegisterUnit(new Unit(UnitFlags.RedSowrdman));
 
             Assert.AreEqual(1, sut.UnitCount);
             Assert.NotNull(sut.GetUnit(UnitFlags.RedSowrdman));
@@ -25,13 +24,14 @@ namespace Tests
         [Test]
         public void 유닛이_죽으면_매니저에서_삭제되어야함()
         {
-            var spawner = new UnitSpanwer(Managers.Resources);
-            var sut = new UnitManager(spawner);
-            var unit = spawner.Spawn(UnitFlags.RedSowrdman);
-            
-            unit.OnDead?.Invoke(unit);
+            var sut = new UnitManager();
+            var unit = new Unit(UnitFlags.RedSowrdman);
+            sut.RegisterUnit(unit);
+
+            unit.Dead();
 
             Assert.AreEqual(0, sut.UnitCount);
+            Assert.IsNull(sut.GetUnit(UnitFlags.RedSowrdman));
         }
     }
 }

@@ -89,7 +89,7 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         }
     }
 
-    [PunRPC] 
+    [PunRPC]
     public void Combine(UnitFlags flag, byte id)
     {
         SacrificedUnits_ForCombine(Managers.Data.CombineConditionByUnitFalg[flag]);

@@ -6,7 +6,20 @@ using System.Linq;
 
 public class Drawing : MonoBehaviour
 {
-    
+    public static List<int> NumberChoice()
+    {
+        List<int> nums = new List<int>();
+        nums.Add(UnityEngine.Random.Range(50, 81)); 
+        nums.Add(UnityEngine.Random.Range(15, 41));
+        nums.Add(UnityEngine.Random.Range(10, 16)); 
+        nums.Add(100 - nums[0] - nums[1] - nums[2]); 
+
+        nums.Sort();
+        nums.Reverse();
+
+        return nums;
+    }
+
     public List<int> DrawingSkills()
     {
         List<int> numbers = new List<int>();
@@ -28,18 +41,23 @@ public class Drawing : MonoBehaviour
             if (!selectedNumbers.Contains(number))
             {
                 selectedNumbers.Add(number);
+                Managers.ClientData.GetExp((SkillType)number, NumberChoice()[count]);
                 count++;
             }
 
             numbers.RemoveAt(index);
 
-            Managers.ClientData.GetExp((SkillType)number, 10); 
+            
         }
 
         Debug.Log(string.Join(", ", selectedNumbers));
-        return null;
+        return selectedNumbers;
 
+    }
 
+    public void TestButton()
+    {
+        print(DrawingSkills()[0]);
     }
 
 }

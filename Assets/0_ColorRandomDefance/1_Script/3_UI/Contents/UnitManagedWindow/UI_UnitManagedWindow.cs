@@ -52,10 +52,11 @@ public class UI_UnitManagedWindow : UI_Popup
     {
         if (Multi_UnitManager.Instance.HasUnit(_unitFlag))
         {
-            Multi_UnitManager.Instance.UnitDead_RPC(PlayerIdManager.Id, _unitFlag);
+            Multi_UnitManager.Instance.FindUnit(_unitFlag)?.Dead();
             Multi_GameManager.Instance.AddGold(Multi_GameManager.Instance.BattleData.UnitSellPriceRecord.PriceDatas[_unitFlag.ClassNumber].Price);
         }
     }
 
-    void UnitWorldChanged() => Multi_UnitManager.Instance.UnitWorldChanged_RPC(PlayerIdManager.Id, _unitFlag);
+    void UnitWorldChanged()
+        => Multi_UnitManager.Instance.FindUnit((unit) => unit.UnitFlags == _unitFlag && unit.EnterStroyWorld == Managers.Camera.IsLookEnemyTower)?.ChangeWorld();
 }

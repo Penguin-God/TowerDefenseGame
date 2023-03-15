@@ -20,6 +20,8 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
 
     UnitManagerController _unitManagerController;
 
+    public List<Multi_TeamSoldier> _units;
+
     protected override void Init()
     {
         // 이 지옥의 꽃같은 코드 제거를 위해 싱글턴 씬 이동 처리를 잘할 것
@@ -105,6 +107,10 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
             .ForEach(x => _controller.UnitDead(id, x.Key, x.Value));
     }
 
+    public Multi_TeamSoldier FindUnit(Func<Multi_TeamSoldier, bool> condition) => _units
+        .Where(condition)
+        .FirstOrDefault();
+    public Multi_TeamSoldier FindUnit(UnitFlags flag) => FindUnit(x => x.UnitFlags == flag);
 
     public void UnitDead_RPC(byte id, UnitFlags unitFlag, int count = 1) => photonView.RPC(nameof(UnitDead), RpcTarget.MasterClient, id, unitFlag, (byte)count);
     [PunRPC] void UnitDead(byte id, UnitFlags unitFlag, byte count) => _controller.UnitDead(id, unitFlag, count);

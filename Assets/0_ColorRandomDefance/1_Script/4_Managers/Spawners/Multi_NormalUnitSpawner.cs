@@ -31,6 +31,11 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
         var unit = Managers.Multi.Instantiater.PhotonInstantiate(PathBuilder.BuildUnitPath(flag), spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
         unit.Spawn();
         Multi_UnitManager.Instance.Master.AddUnit(unit);
+        if(unit.UsingID == PlayerIdManager.ClientId)
+            photonView.RPC(nameof(RPC_CallbackSpawn), RpcTarget.MasterClient, unit.GetComponent<PhotonView>().ViewID);
         return unit;
     }
+
+    [PunRPC]
+    void RPC_CallbackSpawn(int viewID) => Multi_UnitManager.Instance._units.Add(Managers.Multi.GetPhotonViewTransfrom(viewID).GetComponent<Multi_TeamSoldier>());
 }

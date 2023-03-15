@@ -68,6 +68,12 @@ public class CombineCondition
 {
     [SerializeField] UnitFlags _targetUnitFlag;
     [SerializeField] Dictionary<UnitFlags, int> _needCountByFlag = new Dictionary<UnitFlags, int>();
+    public CombineCondition(UnitFlags targetUnitFlag, Dictionary<UnitFlags, int> needCountByFlag)
+    {
+        _targetUnitFlag = targetUnitFlag;
+        _needCountByFlag = needCountByFlag;
+    }
+    public CombineCondition() { }
 
     public UnitFlags TargetUnitFlag => _targetUnitFlag;
     public IReadOnlyDictionary<UnitFlags, int> NeedCountByFlag => _needCountByFlag;

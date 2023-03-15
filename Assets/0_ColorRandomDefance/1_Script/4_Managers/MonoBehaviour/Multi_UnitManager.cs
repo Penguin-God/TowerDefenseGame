@@ -31,7 +31,7 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         // 이 지옥의 꽃같은 코드 제거를 위해 싱글턴 씬 이동 처리를 잘할 것
         // if (Managers.Scene.IsBattleScene == false) return;
         base.Init();
-
+        _combineSystem = new UnitCombineSystem(Managers.Data.CombineConditionByUnitFalg);
         _count.Init(_master);
         _count.OnUnitCountChanged += Rasie_OnUnitCountChanged;
         _count.OnUnitFlagCountChanged += Rasie_OnUnitFlagCountChanged;
@@ -50,13 +50,14 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         _master.Init();
     }
 
+    UnitCombineSystem _combineSystem;
+
     // Datas
     public IReadOnlyDictionary<UnitClass, int> EnemyPlayerUnitCountByClass => _enemyPlayer._countByUnitClass;
     public IReadOnlyDictionary<UnitFlags, int> UnitCountByFlag => _count._countByFlag;
     public int CurrentUnitCount => _count._currentCount;
     public IEnumerable<UnitFlags> CombineableUnitFlags
-      => new UnitCombineSystem().GetCombinableUnitFalgs((flag) => UnitCountByFlag[flag]);
-    public bool HasUnit(UnitFlags flag, int needCount = 1) => _count.HasUnit(flag, needCount);
+      => _combineSystem.GetCombinableUnitFalgs((flag) => UnitCountByFlag[flag]);
 
 
     public event Action<UnitFlags> OnCombine = null;
@@ -74,7 +75,7 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
 
     public bool TryCombine(UnitFlags flag)
     {
-        if (new UnitCombineSystem().CheckCombineable(flag, (conditionFlag) => _count.GetUnitCount(conditionFlag)))
+        if (_combineSystem.CheckCombineable(flag, (conditionFlag) => _count.GetUnitCount(conditionFlag)))
         {
             Combine(flag, PlayerIdManager.Id);
             OnCombine?.Invoke(flag);
@@ -87,7 +88,7 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         }
     }
 
-    public void Combine(UnitFlags flag, byte id)
+    void Combine(UnitFlags flag, byte id)
     {
         foreach (var item in Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag)
         {

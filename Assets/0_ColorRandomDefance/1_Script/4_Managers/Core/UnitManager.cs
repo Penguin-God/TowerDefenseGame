@@ -23,7 +23,7 @@ public class UnitManager
         OnRemoveUnit?.Invoke(unit);
     }
 
-    public bool CheckCombinealbe(UnitFlags flag) => new UnitCombineSystem().CheckCombineable(flag, (conditionFlag) => GetUnitCount(x => x == conditionFlag));
+    public bool CheckCombinealbe(UnitFlags flag) => new UnitCombineSystem(null).CheckCombineable(flag, (conditionFlag) => GetUnitCount(x => x == conditionFlag));
 
     public Unit GetUnit(UnitFlags flag) => GetUnits(x => x == flag).FirstOrDefault();
     public int GetUnitCount(Func<UnitFlags, bool> condition) => GetUnits(condition).Count();

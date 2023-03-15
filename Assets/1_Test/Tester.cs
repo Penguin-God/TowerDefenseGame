@@ -11,13 +11,6 @@ public class Tester : MonoBehaviour
         tester.TestGenerateColorChangeResultText();
     }
 
-    [ContextMenu("Test Combinealbe Checker")]
-    void TestUI()
-    {
-        var tester = new CombineTester();
-        tester.TestGetCombinableUnitFalgs();
-    }
-
     [ContextMenu("Test Data Change")]
     void TestDataChange()
     {

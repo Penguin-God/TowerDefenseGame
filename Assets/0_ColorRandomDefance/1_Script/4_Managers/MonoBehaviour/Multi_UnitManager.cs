@@ -8,7 +8,6 @@ using Photon.Pun;
 public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
 {
     UnitCountManager _count = new UnitCountManager();
-    UnitContorller _controller = new UnitContorller();
     EnemyPlayerDataManager _enemyPlayer = new EnemyPlayerDataManager();
     MasterDataManager _master = new MasterDataManager();
     UnitPassiveManager _passive = new UnitPassiveManager();
@@ -48,8 +47,6 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         _unitManagerController = new UnitManagerController();
 
         if (PhotonNetwork.IsMasterClient == false) return;
-        _controller.Init(_master);
-
         _master.Init();
     }
 
@@ -75,21 +72,11 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
     public event Action<int> OnOtherUnitCountChanged;
     void RaiseOnOtherUnitCountChaned(int count) => OnOtherUnitCountChanged?.Invoke(count);
 
-    public void KillUnit(Multi_TeamSoldier unit) // 이게 맞나?
-    {
-        if (unit == null) return;
-
-        unit.Dead();
-        _master.RemoveUnit(unit);
-    }
-
-    // RPC Funtions....
-
-    public bool TryCombine_RPC(UnitFlags flag)
+    public bool TryCombine(UnitFlags flag)
     {
         if (new UnitCombineSystem().CheckCombineable(flag, (conditionFlag) => _count.GetUnitCount(conditionFlag)))
         {
-            photonView.RPC(nameof(Combine), RpcTarget.MasterClient, flag, PlayerIdManager.Id);
+            Combine(flag, PlayerIdManager.Id);
             OnCombine?.Invoke(flag);
             return true;
         }
@@ -100,45 +87,33 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         }
     }
 
-    [PunRPC]
     public void Combine(UnitFlags flag, byte id)
     {
-        SacrificedUnits_ForCombine(Managers.Data.CombineConditionByUnitFalg[flag]);
-        Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
+        foreach (var item in Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag)
+        {
+            for (int i = 0; i < item.Value; i++)
+                FindUnit(item.Key).Dead();
+        }
 
-        void SacrificedUnits_ForCombine(CombineCondition condition)
-            => condition.NeedCountByFlag
-            .ToList()
-            .ForEach(x => _controller.UnitDead(id, x.Key, x.Value));
+        Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
     }
 
+    public Multi_TeamSoldier FindUnit(UnitFlags flag) => FindUnit(x => x.UnitFlags == flag);
     public Multi_TeamSoldier FindUnit(Func<Multi_TeamSoldier, bool> condition) => _units
         .Where(condition)
         .FirstOrDefault();
-    public Multi_TeamSoldier FindUnit(UnitFlags flag) => FindUnit(x => x.UnitFlags == flag);
+    
     public bool TryFindUnit(Func<Multi_TeamSoldier, bool> condition, out Multi_TeamSoldier result)
     {
         result = FindUnit(condition);
         return result != null;
     }
 
-    public void UnitDead_RPC(byte id, UnitFlags unitFlag, int count = 1) => photonView.RPC(nameof(UnitDead), RpcTarget.MasterClient, id, unitFlag, (byte)count);
-    [PunRPC] void UnitDead(byte id, UnitFlags unitFlag, byte count) => _controller.UnitDead(id, unitFlag, count);
-
-    public void UnitWorldChanged_RPC(byte id, UnitFlags flag) => Instance.photonView.RPC(nameof(UnitWorldChanged), RpcTarget.MasterClient, id, flag, Managers.Camera.IsLookEnemyTower);
-    [PunRPC] void UnitWorldChanged(byte id, UnitFlags flag, bool enterStroyMode) => _controller.UnitWorldChange(id, flag, enterStroyMode);
-
     public Multi_TeamSoldier FindUnit(byte id, UnitClass unitClass)
     {
         if (PhotonNetwork.IsMasterClient == false) return null;
         var units = _master.GetUnits(id, (unit) => unit.unitClass == unitClass);
         return units.Count() == 0 ? null : units.First();
-    }
-
-    public Multi_TeamSoldier FindUnit(int id, UnitFlags flag)
-    {
-        if (PhotonNetwork.IsMasterClient == false) return null;
-        return _master.GetUnitList(id, flag).FirstOrDefault();
     }
 
     // Components
@@ -152,21 +127,6 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
 
         List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
         public List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flag) => _unitListByFlag.Get(id)[flag];
-
-        public bool TryGetUnit_If(byte id, UnitFlags flag, out Multi_TeamSoldier unit, Func<Multi_TeamSoldier, bool> condition = null)
-        {
-            foreach (Multi_TeamSoldier loopUnit in GetUnitList(id, flag))
-            {
-                if (condition == null || condition(loopUnit))
-                {
-                    unit = loopUnit;
-                    return true;
-                }
-            }
-
-            unit = null;
-            return false;
-        }
 
         public IEnumerable<Multi_TeamSoldier> GetUnits(byte id, Func<Multi_TeamSoldier, bool> condition = null)
         {
@@ -191,10 +151,11 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Add(unit);
             _currentAllUnitsById.Get(id).Add(unit);
+            unit.OnDead += RemoveUnit;
             UpdateUnitCount(unit);
         }
 
-        public void RemoveUnit(Multi_TeamSoldier unit) // Remove는 최적화때문에 여기서 Count 갱신 안 함
+        void RemoveUnit(Multi_TeamSoldier unit) // Remove는 최적화때문에 여기서 Count 갱신 안 함
         {
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Remove(unit);
@@ -247,28 +208,6 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
                     result += item.Value;
             }
             return result;
-        }
-    }
-
-    class UnitContorller
-    {
-        MasterDataManager _masterData;
-        public void Init(MasterDataManager masterData) => _masterData = masterData;
-
-        public void UnitDead(byte id, UnitFlags unitFlag, int count = 1)
-        {
-            if (PhotonNetwork.IsMasterClient == false) return;
-
-            Multi_TeamSoldier[] units = _masterData.GetUnitList(id, unitFlag).ToArray();
-            count = Mathf.Min(count, units.Length);
-            for (int i = 0; i < count; i++)
-                Instance.KillUnit(units[i]);
-        }
-
-        public void UnitWorldChange(byte id, UnitFlags flag, bool enterStroyMode)
-        {
-            if (_masterData.TryGetUnit_If(id, flag, out Multi_TeamSoldier unit, (_unit) => _unit.EnterStroyWorld == enterStroyMode))
-                unit.ChangeWorld();
         }
     }
 

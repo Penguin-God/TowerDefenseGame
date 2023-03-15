@@ -80,7 +80,7 @@ public abstract class TutorialController : MonoBehaviour
         => AddUnitHighLightCommend(text, () => Multi_UnitManager.Instance.FindUnit(0, unitClass).transform.position + new Vector3(0, 5, 0));
 
     protected void AddUnitHighLightCommend(string text, UnitFlags unitFlag)
-        => AddCompositeCommend(text, CreateSpotLightActionCommend(() => Multi_UnitManager.Instance.FindUnit(0, unitFlag).transform.position + new Vector3(0, 5, 0)));
+        => AddCompositeCommend(text, CreateSpotLightActionCommend(() => Multi_UnitManager.Instance.FindUnit(unitFlag).transform.position + new Vector3(0, 5, 0)));
 
     protected void AddUnitHighLightCommend(string text, Func<Vector3> getPos)
         => AddCompositeCommend(text, CreateSpotLightActionCommend(getPos));

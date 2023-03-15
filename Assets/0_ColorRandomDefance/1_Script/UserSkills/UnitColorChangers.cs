@@ -46,7 +46,7 @@ public class UnitColorChanger
         Multi_SpawnManagers.NormalUnit.Spawn(newFlag, target.transform.position, target.transform.rotation, target.UsingID);
         if(target.EnterStroyWorld) // 스폰된 얘가 맨 뒤에 있을 거니까 Last()의 월드를 바꿈. 좋은 코드는 아님
             Multi_UnitManager.Instance.Master.GetUnitList(target.UsingID, newFlag).Last().State.ChangedWorld();
-        Multi_UnitManager.Instance.KillUnit(target);
+        target.Dead();
         return newFlag;
     }
 }

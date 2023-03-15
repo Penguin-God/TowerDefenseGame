@@ -90,11 +90,8 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
 
     void Combine(UnitFlags flag, byte id)
     {
-        foreach (var item in Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag)
-        {
-            for (int i = 0; i < item.Value; i++)
-                FindUnit(item.Key).Dead();
-        }
+        foreach (var needFlag in _combineSystem.GetNeedFlags(flag))
+            FindUnit(needFlag).Dead();
 
         Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
     }

@@ -20,7 +20,12 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
 
     UnitManagerController _unitManagerController;
 
-    public List<Multi_TeamSoldier> _units;
+    [SerializeField] List<Multi_TeamSoldier> _units;
+    public void AddUnit(Multi_TeamSoldier unit)
+    {
+        _units.Add(unit);
+        unit.OnDead += (dieUnit) => _units.Remove(dieUnit);
+    }
 
     protected override void Init()
     {
@@ -111,6 +116,11 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         .Where(condition)
         .FirstOrDefault();
     public Multi_TeamSoldier FindUnit(UnitFlags flag) => FindUnit(x => x.UnitFlags == flag);
+    public bool TryFindUnit(Func<Multi_TeamSoldier, bool> condition, out Multi_TeamSoldier result)
+    {
+        result = FindUnit(condition);
+        return result != null;
+    }
 
     public void UnitDead_RPC(byte id, UnitFlags unitFlag, int count = 1) => photonView.RPC(nameof(UnitDead), RpcTarget.MasterClient, id, unitFlag, (byte)count);
     [PunRPC] void UnitDead(byte id, UnitFlags unitFlag, byte count) => _controller.UnitDead(id, unitFlag, count);

@@ -50,13 +50,13 @@ public class UI_UnitManagedWindow : UI_Popup
 
     void SellUnit()
     {
-        if (Multi_UnitManager.Instance.HasUnit(_unitFlag))
+        if (Multi_UnitManager.Instance.TryFindUnit((unit) => unit.UnitFlags == _unitFlag, out var findUnit))
         {
-            Multi_UnitManager.Instance.FindUnit(_unitFlag)?.Dead();
-            Multi_GameManager.Instance.AddGold(Multi_GameManager.Instance.BattleData.UnitSellPriceRecord.PriceDatas[_unitFlag.ClassNumber].Price);
+            findUnit.Dead();
+            Multi_GameManager.Instance.AddGold(Multi_GameManager.Instance.BattleData.UnitSellPriceRecord.PriceDatas[(int)findUnit.unitClass].Price);
         }
     }
 
     void UnitWorldChanged()
-        => Multi_UnitManager.Instance.FindUnit((unit) => unit.UnitFlags == _unitFlag && unit.EnterStroyWorld == Managers.Camera.IsLookEnemyTower)?.ChangeWorld();
+        => Multi_UnitManager.Instance.FindUnit((unit) => unit.UnitFlags == _unitFlag && unit.EnterStroyWorld == Managers.Camera.IsLookEnemyTower)?.ChangeWorldToMaster();
 }

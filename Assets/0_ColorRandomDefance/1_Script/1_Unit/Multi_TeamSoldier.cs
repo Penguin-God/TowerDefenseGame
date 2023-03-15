@@ -166,12 +166,17 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [PunRPC]
     protected void SetNavSpeed(float speed) => Speed = speed;
 
-    public void Dead()
+
+    public void Dead() => photonView.RPC(nameof(RPC_Dead), RpcTarget.All);
+
+    [PunRPC]
+    protected void RPC_Dead()
     {
         OnDead?.Invoke(this);
         OnDead = null;
         gameObject.SetActive(false);
-        Managers.Multi.Instantiater.PhotonDestroy(gameObject);
+        if(PhotonNetwork.IsMasterClient)
+            Managers.Multi.Instantiater.PhotonDestroy(gameObject);
         _state.Dead();
     }
 
@@ -262,7 +267,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public void ChangeWorldToMaster() => photonView.RPC(nameof(ChangeWorld), RpcTarget.MasterClient);
 
     [PunRPC]
-    public void ChangeWorld()
+    protected void ChangeWorld()
     {
         Vector3 toPos = GetOppositeWorldSpawnPos();
         MoveToPos(toPos);

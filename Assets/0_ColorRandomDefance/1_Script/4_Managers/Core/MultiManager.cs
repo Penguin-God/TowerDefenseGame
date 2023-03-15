@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using System.Linq;
 using System;
+using System.IO;
 
 public class MultiManager
 {
@@ -34,8 +35,6 @@ public class MultiManager
     {
         public GameObject Instantiate(string path) // interface
         {
-            if (Managers.Pool.TryGetPoolObejct(GetPathName(path), out GameObject poolGo))
-                return PhotonInstantiate(path);
             path = GetPrefabPath(path);
             var prefab = Managers.Resources.Load<GameObject>(path);
             var go = PhotonNetwork.Instantiate(path, Vector3.zero * 1000, prefab.transform.rotation);
@@ -71,7 +70,7 @@ public class MultiManager
         }
 
         string GetPrefabPath(string path) => path.Contains("Prefabs/") ? path : $"Prefabs/{path}";
-        string GetPathName(string path) => path.Split('/')[path.Split('/').Length - 1];
+        string GetPathName(string path) => path.Split('/').Last();
 
         public void PhotonDestroy(GameObject go)
         {

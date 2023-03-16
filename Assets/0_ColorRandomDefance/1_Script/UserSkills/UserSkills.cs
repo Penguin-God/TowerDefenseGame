@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public abstract class UserSkill
 {
@@ -112,6 +113,23 @@ public class TaegeukConditionChecker
 {
     public bool GetTaegeukFlagByUnitClass(UnitClass unitClass)
         => GetCounts(UnitColor.Red)[(int)unitClass] >= 1 && GetCounts(UnitColor.Blue)[(int)unitClass] >= 1 && TaegeukOtherColorsCounts[(int)unitClass] == 0;
+
+    public bool CheckTaegeuk(UnitClass unitClass, IReadOnlyDictionary<UnitFlags, int> countByFlag)
+        => ExistRedAndBlue(unitClass, countByFlag) && CountZeroTaegeukOther(unitClass, countByFlag);
+
+    bool ExistRedAndBlue(UnitClass unitClass, IReadOnlyDictionary<UnitFlags, int> countByFlag)
+        => countByFlag[new UnitFlags(UnitColor.Red, unitClass)] > 0 && countByFlag[new UnitFlags(UnitColor.Black, unitClass)] > 0;
+
+    bool CountZeroTaegeukOther(UnitClass unitClass, IReadOnlyDictionary<UnitFlags, int> countByFlag)
+    {
+        var otherColors = new UnitColor[] { UnitColor.Yellow, UnitColor.Green, UnitColor.Orange, UnitColor.Violet };
+        foreach (var color in otherColors)
+        {
+            if (countByFlag[new UnitFlags(color, unitClass)] > 0)
+                return false;
+        }
+        return true;
+    }
 
     int[] TaegeukOtherColorsCounts
     {

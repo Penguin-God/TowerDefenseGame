@@ -21,11 +21,6 @@ public class UnitStatChangeFacade : MonoBehaviourPun
     public void SetUnitStat(UnitStatType statType, int newValue, UnitFlags flag)
         => photonView.RPC(nameof(ChangeUnitStatWithFlag), RpcTarget.MasterClient, PlayerIdManager.Id, statType, newValue, flag);
 
-    public void AddUnitDamage(int additionalDamage)
-    {
-
-    }
-
     public void ScaleUnitStat(UnitStatType statType, float rate)
         => photonView.RPC(nameof(ChangeUnitStat), RpcTarget.MasterClient, PlayerIdManager.Id, statType, rate);
 

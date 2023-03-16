@@ -141,12 +141,12 @@ public class BlackUnitUpgrade : UserSkill
     {
         int[] datas = SkillDatas.Select(x => (int)x).ToArray();
         strongDamages = new UnitDamages(datas[0], datas[1], datas[2], datas[3]);
-        Multi_UnitManager.Instance.OnUnitFlagCountChanged += (flag, count) => UseSkill(flag);
+        Multi_UnitManager.Instance.OnUnitCountChangeByFlag += UseSkill;
     }
 
-    void UseSkill(UnitFlags unitFlags)
+    void UseSkill(UnitFlags unitFlags, int count)
     {
-        if (unitFlags.UnitColor != UnitColor.Black) return;
+        if (unitFlags.UnitColor != UnitColor.Black && count == 0) return;
 
         Debug.Assert(strongDamages.ArcherDamage == 100000, $"검은 궁수 버그 발현!! 버그난 대미지는 {strongDamages.ArcherDamage}");
         var flag = new UnitFlags(UnitColor.Black, unitFlags.UnitClass);

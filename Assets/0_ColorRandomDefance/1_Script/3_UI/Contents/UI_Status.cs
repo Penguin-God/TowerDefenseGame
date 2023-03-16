@@ -50,7 +50,7 @@ public class UI_Status : UI_Scene
 
         Multi_GameManager.Instance.BattleData.OnMaxUnitChanged += (maxUnit) => UpdateUnitText(Multi_UnitManager.Instance.CurrentUnitCount);
 
-        Multi_UnitManager.Instance.OnUnitFlagCountChanged += (flag, count) => UpdateUnitClassByCount();
+        Multi_UnitManager.Instance.OnUnitCountChangeByClass += UpdateUnitClassByCount;
 
         Init_UI();
         Bind_Events();
@@ -95,8 +95,8 @@ public class UI_Status : UI_Scene
 
         void BindMyCountEvent()
         {
-            Multi_UnitManager.Instance.OnUnitCountChanged -= UpdateUnitText;
-            Multi_UnitManager.Instance.OnUnitCountChanged += UpdateUnitText;
+            Multi_UnitManager.Instance.OnUnitCountChange -= UpdateUnitText;
+            Multi_UnitManager.Instance.OnUnitCountChange += UpdateUnitText;
 
             Multi_EnemyManager.Instance.OnEnemyCountChanged -= UpdateEnemyCountText;
             Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateEnemyCountText;
@@ -127,7 +127,7 @@ public class UI_Status : UI_Scene
         text.text = $"{count}/{Multi_GameManager.Instance.BattleData.MaxEnemyCount}";
     }
 
-    public void UpdateUnitClassByCount()
+    void UpdateUnitClassByCount()
     {
         GetText((int)Texts.MyKnigthText).text = "" + GetCountByClass(UnitClass.Swordman);
         GetText((int)Texts.MyArcherText).text = "" + GetCountByClass(UnitClass.Archer);
@@ -135,6 +135,18 @@ public class UI_Status : UI_Scene
         GetText((int)Texts.MyMageText).text = "" + GetCountByClass(UnitClass.Mage);
 
         int GetCountByClass(UnitClass unitClass) => Multi_UnitManager.Instance.UnitCountByFlag.Where(x => x.Key.UnitClass == unitClass).Sum(x => x.Value);
+    }
+
+    void UpdateUnitClassByCount(UnitClass unitClass, int count)
+    {
+        var textByUnitClass = new Dictionary<UnitClass, Texts>()
+        {
+            {UnitClass.Swordman, Texts.MyKnigthText },
+            {UnitClass.Archer, Texts.MyArcherText },
+            {UnitClass.Spearman, Texts.MySpearmanText },
+            {UnitClass.Mage, Texts.MyMageText },
+        };
+        GetText((int)textByUnitClass[unitClass]).text = count.ToString();
     }
 
     Slider timerSlider;

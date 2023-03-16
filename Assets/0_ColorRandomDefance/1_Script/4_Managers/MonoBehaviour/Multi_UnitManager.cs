@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 using Photon.Pun;
+using static UnityEngine.UI.CanvasScaler;
 
 public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
 {
@@ -17,10 +18,27 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
     public MasterDataManager Master => _master;
 
     [SerializeField] List<Multi_TeamSoldier> _units;
+    public Action<int> OnUnitCountChange = null;
+    public Action<UnitFlags, int> OnUnitCountChangeByFlag = null;
+    public Action<UnitClass, int> OnUnitCountChangeByClass = null;
     public void AddUnit(Multi_TeamSoldier unit)
     {
         _units.Add(unit);
-        unit.OnDead += (dieUnit) => _units.Remove(dieUnit);
+        NotifyChangeUnitCount(unit);
+        unit.OnDead += RemoveUnit;
+    }
+
+    void RemoveUnit(Multi_TeamSoldier unit)
+    {
+        _units.Remove(unit);
+        NotifyChangeUnitCount(unit);
+    }
+
+    void NotifyChangeUnitCount(Multi_TeamSoldier unit)
+    {
+        OnUnitCountChange?.Invoke(_units.Count);
+        OnUnitCountChangeByFlag?.Invoke(unit.UnitFlags, FindUnits(x => x.UnitFlags == unit.UnitFlags).Count());
+        OnUnitCountChangeByClass?.Invoke(unit.unitClass, FindUnits(x => x.unitClass == unit.unitClass).Count());
     }
 
     protected override void Init()
@@ -30,7 +48,6 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         base.Init();
         _combineSystem = new UnitCombineSystem(Managers.Data.CombineConditionByUnitFalg);
         _count.Init(_master);
-        _count.OnUnitCountChanged += Rasie_OnUnitCountChanged;
         _count.OnUnitFlagCountChanged += Rasie_OnUnitFlagCountChanged;
 
         _enemyPlayer.Init(_master);
@@ -57,8 +74,6 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
     public event Action OnFailedCombine = null;
 
     // events
-    public event Action<int> OnUnitCountChanged = null;
-    void Rasie_OnUnitCountChanged(byte count) => OnUnitCountChanged?.Invoke(count);
 
     public event Action<UnitFlags, int> OnUnitFlagCountChanged = null;
     void Rasie_OnUnitFlagCountChanged(UnitFlags flag, byte count) => OnUnitFlagCountChanged?.Invoke(flag, count);
@@ -89,16 +104,16 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
     }
 
+
     public Multi_TeamSoldier FindUnit(UnitFlags flag) => FindUnit(x => x.UnitFlags == flag);
-    public Multi_TeamSoldier FindUnit(Func<Multi_TeamSoldier, bool> condition) => _units
-        .Where(condition)
-        .FirstOrDefault();
-    
     public bool TryFindUnit(Func<Multi_TeamSoldier, bool> condition, out Multi_TeamSoldier result)
     {
         result = FindUnit(condition);
         return result != null;
     }
+    public Multi_TeamSoldier FindUnit(Func<Multi_TeamSoldier, bool> condition) => FindUnits(condition).FirstOrDefault();
+    public IEnumerable<Multi_TeamSoldier> FindUnits(Func<Multi_TeamSoldier, bool> condition) => _units.Where(condition);
+
 
     public Multi_TeamSoldier FindUnit(byte id, UnitClass unitClass)
     {
@@ -236,7 +251,6 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
             OnUnitFlagCountChanged?.Invoke(flag, count);
         }
 
-        public bool HasUnit(UnitFlags flag, int needCount = 1) => _countByFlag[flag] >= needCount;
         public int GetUnitCount(UnitFlags flag) => _countByFlag[flag];
     }
 }

@@ -71,7 +71,7 @@ public class Taegeuk : UserSkill
 
     public override void InitSkill()
     {
-        Multi_UnitManager.Instance.OnUnitFlagCountChanged += (flag, count) => UseSkill(flag.UnitClass);
+        Multi_UnitManager.Instance.OnUnitCountChangeByClass += (unitClass, count) => UseSkill(unitClass);
         EnrichDamageDatas();
 
         void EnrichDamageDatas()
@@ -83,20 +83,29 @@ public class Taegeuk : UserSkill
         }
     }
 
-    TaegeukConditionChecker _taegeukConditionChecker = new TaegeukConditionChecker();
     bool[] _currentTaegeukFlags = new bool[UnitClassCount];
-
     void UseSkill(UnitClass unitClass)
     {
         if (TaegeukUnitDamageChangeCondition(unitClass) == false) return;
 
-        _currentTaegeukFlags[(int)unitClass] = _taegeukConditionChecker.GetTaegeukFlagByUnitClass(unitClass);
+        _currentTaegeukFlags[(int)unitClass] = CheckTaeguekConditoin(unitClass);
         ApplyUnitDamge(unitClass, _currentTaegeukFlags[(int)unitClass]);
         OnTaegeukDamageChanged?.Invoke(unitClass, _currentTaegeukFlags[(int)unitClass]);
     }
 
     bool TaegeukUnitDamageChangeCondition(UnitClass unitClass) // false => false만 아니면 true
-        => _currentTaegeukFlags[(int)unitClass] != false || _taegeukConditionChecker.GetTaegeukFlagByUnitClass(unitClass) != false;
+        => _currentTaegeukFlags[(int)unitClass] != false || CheckTaeguekConditoin(unitClass) != false;
+
+    bool CheckTaeguekConditoin(UnitClass unitClass)
+        => new TaegeukConditionChecker().CheckTaegeuk(unitClass, GetExistingUnitFlags());
+
+    HashSet<UnitFlags> GetExistingUnitFlags()
+        => new HashSet<UnitFlags>(
+            Multi_UnitManager.Instance.UnitCountByFlag
+            .Where(x => x.Value > 0)
+            .Select(x => x.Key)
+            );
+            
 
     void ApplyUnitDamge(UnitClass unitClass, bool isTaegeukConditionMet)
     {
@@ -111,44 +120,17 @@ public class Taegeuk : UserSkill
 
 public class TaegeukConditionChecker
 {
-    public bool GetTaegeukFlagByUnitClass(UnitClass unitClass)
-        => GetCounts(UnitColor.Red)[(int)unitClass] >= 1 && GetCounts(UnitColor.Blue)[(int)unitClass] >= 1 && TaegeukOtherColorsCounts[(int)unitClass] == 0;
+    public bool CheckTaegeuk(UnitClass unitClass, HashSet<UnitFlags> existUnitFlags)
+        => ExistRedAndBlue(unitClass, existUnitFlags) && CountZeroTaegeukOther(unitClass, existUnitFlags);
 
-    public bool CheckTaegeuk(UnitClass unitClass, IReadOnlyDictionary<UnitFlags, int> countByFlag)
-        => ExistRedAndBlue(unitClass, countByFlag) && CountZeroTaegeukOther(unitClass, countByFlag);
+    bool ExistRedAndBlue(UnitClass unitClass, HashSet<UnitFlags> existUnitFlags)
+        => existUnitFlags.Contains(new UnitFlags(UnitColor.Red, unitClass)) && existUnitFlags.Contains(new UnitFlags(UnitColor.Blue, unitClass));
 
-    bool ExistRedAndBlue(UnitClass unitClass, IReadOnlyDictionary<UnitFlags, int> countByFlag)
-        => countByFlag[new UnitFlags(UnitColor.Red, unitClass)] > 0 && countByFlag[new UnitFlags(UnitColor.Black, unitClass)] > 0;
-
-    bool CountZeroTaegeukOther(UnitClass unitClass, IReadOnlyDictionary<UnitFlags, int> countByFlag)
+    bool CountZeroTaegeukOther(UnitClass unitClass, HashSet<UnitFlags> existUnitFlags)
     {
         var otherColors = new UnitColor[] { UnitColor.Yellow, UnitColor.Green, UnitColor.Orange, UnitColor.Violet };
-        foreach (var color in otherColors)
-        {
-            if (countByFlag[new UnitFlags(color, unitClass)] > 0)
-                return false;
-        }
-        return true;
+        return !otherColors.Any(color => existUnitFlags.Contains(new UnitFlags(color, unitClass)));
     }
-
-    int[] TaegeukOtherColorsCounts
-    {
-        get
-        {
-            int[] counts = new int[4];
-            for (int i = 2; i < 6; i++)
-                counts = counts.Zip(GetCounts((UnitColor)i), (a, b) => a + b).ToArray();
-            return counts;
-        }
-    }
-
-    int[] GetCounts(UnitColor unitColor) => new int[]
-    {
-        Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags((int)unitColor, 0)],
-        Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags((int)unitColor, 1)],
-        Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags((int)unitColor, 2)],
-        Multi_UnitManager.Instance.UnitCountByFlag[new UnitFlags((int)unitColor, 3)],
-    };
 }
 
 public class BlackUnitUpgrade : UserSkill

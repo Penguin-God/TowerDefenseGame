@@ -12,8 +12,8 @@ public class UnitTrakerSortByCombineable : UI_UnitTrackerParent
     protected override void Init()
     {
         base.Init();
-        Multi_UnitManager.Instance.OnUnitFlagCountChanged -= (flag, count) => UpdateCombineableUnitFlags();
-        Multi_UnitManager.Instance.OnUnitFlagCountChanged += (flag, count) => UpdateCombineableUnitFlags();
+        Multi_UnitManager.Instance.OnUnitCountChange -= (count) => UpdateCombineableUnitFlags();
+        Multi_UnitManager.Instance.OnUnitCountChange += (count) => UpdateCombineableUnitFlags();
     }
 
     void SortTrakers()
@@ -26,10 +26,10 @@ public class UnitTrakerSortByCombineable : UI_UnitTrackerParent
     }
 
     IEnumerable<UnitFlags> SortUnitFlags(IEnumerable<UnitFlags> flags)
-        => flags
+        => flags // 정렬 후 뒤에서부터 MAX_UI_COUNT만큼 가져옴
             .OrderBy(x => x.ClassNumber)
             .ThenBy(x => x.ColorNumber)
-            .Reverse()
+            .Reverse() 
             .Take(MAX_UI_COUNT)
             .Reverse();
 

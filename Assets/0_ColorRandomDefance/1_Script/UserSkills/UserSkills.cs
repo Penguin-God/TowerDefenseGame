@@ -97,15 +97,7 @@ public class Taegeuk : UserSkill
         => _currentTaegeukFlags[(int)unitClass] != false || CheckTaeguekConditoin(unitClass) != false;
 
     bool CheckTaeguekConditoin(UnitClass unitClass)
-        => new TaegeukConditionChecker().CheckTaegeuk(unitClass, GetExistingUnitFlags());
-
-    HashSet<UnitFlags> GetExistingUnitFlags()
-        => new HashSet<UnitFlags>(
-            Multi_UnitManager.Instance.UnitCountByFlag
-            .Where(x => x.Value > 0)
-            .Select(x => x.Key)
-            );
-            
+        => new TaegeukConditionChecker().CheckTaegeuk(unitClass, Multi_UnitManager.Instance.ExsitUnitFlags);
 
     void ApplyUnitDamge(UnitClass unitClass, bool isTaegeukConditionMet)
     {
@@ -176,7 +168,7 @@ public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
     SkillColorChanger colorChanger;
     public override void InitSkill()
     {
-        Multi_UnitManager.Instance.OnUnitFlagCountChanged += UseSkill;
+        Multi_UnitManager.Instance.OnUnitCountChangeByFlag += UseSkill;
         colorChanger = Managers.Multi.Instantiater.PhotonInstantiate("RPCObjects/SkillColorChanger", Vector3.one * 500).GetComponent<SkillColorChanger>();
     }
 

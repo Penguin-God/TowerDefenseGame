@@ -8,7 +8,6 @@ using static UnityEngine.UI.CanvasScaler;
 
 public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
 {
-    UnitCountManager _count = new UnitCountManager();
     EnemyPlayerDataManager _enemyPlayer = new EnemyPlayerDataManager();
     MasterDataManager _master = new MasterDataManager();
     
@@ -18,6 +17,9 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
     public MasterDataManager Master => _master;
 
     [SerializeField] List<Multi_TeamSoldier> _units;
+    public int CurrentUnitCount => _units.Count;
+    public HashSet<UnitFlags> ExsitUnitFlags => new HashSet<UnitFlags>(_units.Select(x => x.UnitFlags));
+
     public Action<int> OnUnitCountChange = null;
     public Action<UnitFlags, int> OnUnitCountChangeByFlag = null;
     public Action<UnitClass, int> OnUnitCountChangeByClass = null;
@@ -47,9 +49,7 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         // if (Managers.Scene.IsBattleScene == false) return;
         base.Init();
         _combineSystem = new UnitCombineSystem(Managers.Data.CombineConditionByUnitFalg);
-        _count.Init(_master);
-        _count.OnUnitFlagCountChanged += Rasie_OnUnitFlagCountChanged;
-
+        
         _enemyPlayer.Init(_master);
         _enemyPlayer.OnOtherUnitCountChanged += RaiseOnOtherUnitCountChaned;
 
@@ -61,29 +61,13 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
     }
 
     UnitCombineSystem _combineSystem;
-
-    // Datas
-    public IReadOnlyDictionary<UnitClass, int> EnemyPlayerUnitCountByClass => _enemyPlayer._countByUnitClass;
-    public IReadOnlyDictionary<UnitFlags, int> UnitCountByFlag => _count._countByFlag;
-    public int CurrentUnitCount => _count._currentCount;
-    public IEnumerable<UnitFlags> CombineableUnitFlags
-      => _combineSystem.GetCombinableUnitFalgs((flag) => UnitCountByFlag[flag]);
-
-
     public event Action<UnitFlags> OnCombine = null;
     public event Action OnFailedCombine = null;
-
-    // events
-
-    public event Action<UnitFlags, int> OnUnitFlagCountChanged = null;
-    void Rasie_OnUnitFlagCountChanged(UnitFlags flag, byte count) => OnUnitFlagCountChanged?.Invoke(flag, count);
-
-    public event Action<int> OnOtherUnitCountChanged;
-    void RaiseOnOtherUnitCountChaned(int count) => OnOtherUnitCountChanged?.Invoke(count);
+    public IEnumerable<UnitFlags> CombineableUnitFlags => _combineSystem.GetCombinableUnitFalgs(GetUnitCount);
 
     public bool TryCombine(UnitFlags flag)
     {
-        if (_combineSystem.CheckCombineable(flag, (conditionFlag) => _count.GetUnitCount(conditionFlag)))
+        if (_combineSystem.CheckCombineable(flag, GetUnitCount))
         {
             Combine(flag, PlayerIdManager.Id);
             OnCombine?.Invoke(flag);
@@ -112,8 +96,14 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         return result != null;
     }
     public Multi_TeamSoldier FindUnit(Func<Multi_TeamSoldier, bool> condition) => FindUnits(condition).FirstOrDefault();
+    public int GetUnitCount(UnitFlags flag) => FindUnits(x => x.UnitFlags == flag).Count();
     public IEnumerable<Multi_TeamSoldier> FindUnits(Func<Multi_TeamSoldier, bool> condition) => _units.Where(condition);
 
+
+    // Lagacys
+    public event Action<int> OnOtherUnitCountChanged;
+    void RaiseOnOtherUnitCountChaned(int count) => OnOtherUnitCountChanged?.Invoke(count);
+    public IReadOnlyDictionary<UnitClass, int> EnemyPlayerUnitCountByClass => _enemyPlayer._countByUnitClass;
 
     public Multi_TeamSoldier FindUnit(byte id, UnitClass unitClass)
     {
@@ -215,43 +205,6 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
             }
             return result;
         }
-    }
-
-    class UnitCountManager
-    {
-        public int _currentCount = 0;
-        public Dictionary<UnitFlags, int> _countByFlag = new Dictionary<UnitFlags, int>(); // 모든 플레이어가 이벤트로 받아서 각자 카운트 관리
-
-        public event Action<byte> OnUnitCountChanged = null;
-        public event Action<UnitFlags, byte> OnUnitFlagCountChanged = null;
-
-        public void Init(MasterDataManager masterData)
-        {
-            foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
-            {
-                foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
-                    _countByFlag.Add(new UnitFlags(color, unitClass), 0);
-            }
-            
-            masterData.OnAllUnitCountChanged += Riase_OnUnitCountChanged;
-            masterData.OnUnitCountChanged += Riase_OnUnitCountChanged;
-        }
-
-        void Riase_OnUnitCountChanged(byte count)
-        {
-            _currentCount = count;
-            OnUnitCountChanged?.Invoke(count);
-        }
-
-        void Riase_OnUnitCountChanged(byte id, UnitFlags flag, byte count)
-        {
-            if (PlayerIdManager.Id != id) return;
-
-            _countByFlag[flag] = count;
-            OnUnitFlagCountChanged?.Invoke(flag, count);
-        }
-
-        public int GetUnitCount(UnitFlags flag) => _countByFlag[flag];
     }
 }
 

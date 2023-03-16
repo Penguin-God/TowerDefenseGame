@@ -127,16 +127,6 @@ public class UI_Status : UI_Scene
         text.text = $"{count}/{Multi_GameManager.Instance.BattleData.MaxEnemyCount}";
     }
 
-    void UpdateUnitClassByCount()
-    {
-        GetText((int)Texts.MyKnigthText).text = "" + GetCountByClass(UnitClass.Swordman);
-        GetText((int)Texts.MyArcherText).text = "" + GetCountByClass(UnitClass.Archer);
-        GetText((int)Texts.MySpearmanText).text = "" + GetCountByClass(UnitClass.Spearman);
-        GetText((int)Texts.MyMageText).text = "" + GetCountByClass(UnitClass.Mage);
-
-        int GetCountByClass(UnitClass unitClass) => Multi_UnitManager.Instance.UnitCountByFlag.Where(x => x.Key.UnitClass == unitClass).Sum(x => x.Value);
-    }
-
     void UpdateUnitClassByCount(UnitClass unitClass, int count)
     {
         var textByUnitClass = new Dictionary<UnitClass, Texts>()

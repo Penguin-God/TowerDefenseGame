@@ -34,7 +34,7 @@ public class UI_UnitTracker : UI_Base
     {
         Multi_UnitManager.Instance.OnUnitCountChangeByFlag -= TrackUnitCount;
         Multi_UnitManager.Instance.OnUnitCountChangeByFlag += TrackUnitCount;
-        SetUnitCountText(Multi_UnitManager.Instance.UnitCountByFlag[unitFlags]);
+        SetUnitCountText(Multi_UnitManager.Instance.GetUnitCount(unitFlags));
     }
 
     void OnDisable()

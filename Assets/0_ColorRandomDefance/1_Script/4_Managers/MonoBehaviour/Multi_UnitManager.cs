@@ -10,14 +10,11 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
     UnitCountManager _count = new UnitCountManager();
     EnemyPlayerDataManager _enemyPlayer = new EnemyPlayerDataManager();
     MasterDataManager _master = new MasterDataManager();
-    UnitPassiveManager _passive = new UnitPassiveManager();
-
+    
     UnitStatChangeFacade _statFacade;
     public UnitStatChangeFacade Stat => _statFacade;
 
     public MasterDataManager Master => _master;
-
-    UnitManagerController _unitManagerController;
 
     [SerializeField] List<Multi_TeamSoldier> _units;
     public void AddUnit(Multi_TeamSoldier unit)
@@ -39,12 +36,8 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         _enemyPlayer.Init(_master);
         _enemyPlayer.OnOtherUnitCountChanged += RaiseOnOtherUnitCountChaned;
 
-        _passive.Init();
-
         _statFacade = gameObject.AddComponent<UnitStatChangeFacade>();
         _statFacade.Init(Managers.Multi.Data, Instance);
-
-        _unitManagerController = new UnitManagerController();
 
         if (PhotonNetwork.IsMasterClient == false) return;
         _master.Init();
@@ -153,7 +146,7 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
             UpdateUnitCount(unit);
         }
 
-        void RemoveUnit(Multi_TeamSoldier unit) // Remove는 최적화때문에 여기서 Count 갱신 안 함
+        void RemoveUnit(Multi_TeamSoldier unit)
         {
             int id = unit.GetComponent<RPCable>().UsingId;
             GetUnitList(unit).Remove(unit);
@@ -245,28 +238,6 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
 
         public bool HasUnit(UnitFlags flag, int needCount = 1) => _countByFlag[flag] >= needCount;
         public int GetUnitCount(UnitFlags flag) => _countByFlag[flag];
-    }
-
-    class UnitPassiveManager
-    {
-        void CombineGold(UnitFlags flag)
-        {
-            var conditions = Managers.Data.CombineConditionByUnitFalg[flag].NeedCountByFlag;
-            foreach (var item in conditions)
-            {
-                if (item.Key == new UnitFlags(2, 0))
-                {
-                    var manager = Multi_GameManager.Instance;
-                    for (int i = 0; i < item.Value; i++)
-                        manager.AddGold(manager.BattleData.YellowKnightRewardGold);
-                }
-            }
-        }
-
-        public void Init()
-        {
-            Instance.OnCombine += CombineGold;
-        }
     }
 }
 

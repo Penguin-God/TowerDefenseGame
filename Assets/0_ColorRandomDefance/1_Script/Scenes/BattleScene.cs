@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System.Linq;
 
 public class BattleScene : BaseScene
 {
@@ -78,6 +79,7 @@ class WorldInitializer
         InitSound();
         Managers.Pool.Init();
         InitEffect();
+        Multi_UnitManager.Instance.OnCombine += new UnitPassiveController().AddYellowSwordmanCombineGold;
     }
 
     void InitMonoBehaviourContainer()

@@ -108,6 +108,8 @@ MonoBehaviour:
   - ChangeWorld
   - RPC_CallbackSpawn
   - RPC_Dead
+  - ChangeUnitDamageValue_RPC
+  - ScaleUnitDamageValue_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

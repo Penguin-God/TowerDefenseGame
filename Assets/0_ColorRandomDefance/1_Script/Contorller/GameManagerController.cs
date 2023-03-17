@@ -9,7 +9,7 @@ public class GameManagerController : MonoBehaviourPun
     GameManager _gamaManager;
     UnitDamageInfoManager _unitDamageManager;
     public UnitDamageInfo UnitDamageInfo(UnitFlags flag) => _unitDamageManager.GetDamageInfo(flag);
-    public void Init()
+    void Awake()
     {
         _gamaManager = new GameManager(Managers.Data.Unit.DamageInfoByFlag);
         _unitDamageManager = new UnitDamageInfoManager(Managers.Data.Unit.DamageInfoByFlag);

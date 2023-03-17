@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[Serializable]
 public class Unit
 {
     readonly UnitFlags _unitFlags;
     public UnitFlags UnitFlags => _unitFlags;
 
-    UnitDamageInfo _damageInfo;
+    [SerializeField] UnitDamageInfo _damageInfo;
     public UnitDamageInfo DamageInfo => _damageInfo;
     public void UpdateDamageInfo(UnitDamageInfo newInfo) => _damageInfo = newInfo;
 

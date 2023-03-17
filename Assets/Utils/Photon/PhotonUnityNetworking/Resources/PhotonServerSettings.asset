@@ -110,6 +110,7 @@ MonoBehaviour:
   - RPC_Dead
   - ChangeUnitDamageValue_RPC
   - ScaleUnitDamageValue_RPC
+  - AddUnitDamageValue_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

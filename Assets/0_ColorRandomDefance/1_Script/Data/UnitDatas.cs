@@ -38,8 +38,6 @@ public struct UnitFlags : IEquatable<UnitFlags>
         _classNumber = Mathf.Clamp(_classNumber, 0, GetEnumCount(typeof(UnitClass)));
     }
     int GetEnumCount(Type t) => Enum.GetValues(t).Length - 1;
-    public bool IsRange() => _colorNumber >= 0 && _colorNumber <= GetEnumCount(typeof(UnitColor))
-                            && _classNumber >= 0 && _classNumber <= GetEnumCount(typeof(UnitClass));
 
     public int ColorNumber => _colorNumber;
     public int ClassNumber => _classNumber;
@@ -61,6 +59,20 @@ public struct UnitFlags : IEquatable<UnitFlags>
 
     public static UnitFlags RedSowrdman => new UnitFlags(0, 0);
     public static UnitFlags BlueSowrdman => new UnitFlags(1, 0);
+
+    public static IEnumerable<UnitFlags> AllFlags
+    {
+        get
+        {
+            List<UnitFlags> result = new List<UnitFlags>();
+            foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
+            {
+                foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
+                    result.Add(new UnitFlags(color, unitClass));
+            }
+            return result;
+        }
+    }
 }
 
 [Serializable]

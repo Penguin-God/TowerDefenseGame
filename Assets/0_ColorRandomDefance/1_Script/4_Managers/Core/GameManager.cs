@@ -1,8 +1,8 @@
 ﻿using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using System.Linq;
-using UnityEngine;
 
 public class GameManager
 {
@@ -12,8 +12,8 @@ public class GameManager
     MultiData<UnitDamageInfoManager> _unitDamageManagers;
     public UnitDamageInfoManager GetUnitDamageInfoManager(byte playerId) => _unitDamageManagers.GetData(playerId);
 
-    public void ChangeUnitDamageValue(byte playerId, UnitFlags flag, int value, UnitStatType changeStatType)
-        => new UnitDamageInfoChanger().ChangeUnitDamageValue(GetUnitDamageInfoManager(playerId), flag, value, changeStatType);
+    public void AddUnitDamageValue(byte playerId, UnitFlags flag, int value, UnitStatType changeStatType)
+        => new UnitDamageInfoChanger().AddUnitDamageValue(GetUnitDamageInfoManager(playerId), flag, value, changeStatType);
 
     public void ScaleUnitDamageValue(byte playerId, UnitFlags flag, float value, UnitStatType changeStatType)
         => new UnitDamageInfoChanger().ScaleUnitDamageValue(GetUnitDamageInfoManager(playerId), flag, value, changeStatType);
@@ -21,7 +21,13 @@ public class GameManager
 
 public class UnitDamageInfoChanger
 {
-    public void ChangeUnitDamageValue(UnitDamageInfoManager unitDamageManagers, UnitFlags flag, int value, UnitStatType changeStatType)
+    public void AddUnitDamageValue(UnitDamageInfoManager unitDamageManagers, Func<UnitFlags, bool> condition, int value, UnitStatType changeStatType)
+    {
+        foreach (var flag in UnitFlags.AllFlags.Where(condition))
+            AddUnitDamageValue(unitDamageManagers, flag, value, changeStatType);
+    }
+
+    public void AddUnitDamageValue(UnitDamageInfoManager unitDamageManagers, UnitFlags flag, int value, UnitStatType changeStatType)
     {
         switch (changeStatType)
         {
@@ -32,6 +38,12 @@ public class UnitDamageInfoChanger
                 unitDamageManagers.AddBossDamage(flag, value);
                 break;
         }
+    }
+
+    public void ScaleUnitDamageValue(UnitDamageInfoManager unitDamageManagers, Func<UnitFlags, bool> condition, float value, UnitStatType changeStatType)
+    {
+        foreach (var flag in UnitFlags.AllFlags.Where(condition))
+            ScaleUnitDamageValue(unitDamageManagers, flag, value, changeStatType);
     }
 
     public void ScaleUnitDamageValue(UnitDamageInfoManager unitDamageManagers, UnitFlags flag, float value, UnitStatType changeStatType)

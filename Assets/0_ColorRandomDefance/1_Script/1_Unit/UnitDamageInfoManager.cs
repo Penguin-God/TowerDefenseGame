@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+[Serializable]
 public struct UnitDamageInfo
 {
-    int _baseDamage;
-    int _baseBossDamage;
-    float _damageRate;
-    float _bossDamageRate;
+    [SerializeField] int _baseDamage;
+    [SerializeField] int _baseBossDamage;
+    [SerializeField] float _damageRate;
+    [SerializeField] float _bossDamageRate;
 
     public UnitDamageInfo(int dam, int bossDam)
     {

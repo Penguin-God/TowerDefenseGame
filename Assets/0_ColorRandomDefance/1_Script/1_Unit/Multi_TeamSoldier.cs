@@ -10,7 +10,7 @@ public enum UnitClass { Swordman, Archer, Spearman, Mage }
 
 public class Multi_TeamSoldier : MonoBehaviourPun
 {
-    Unit _unit;
+    [SerializeField] Unit _unit;
     UnitFlags _unitFlags;
     public UnitFlags UnitFlags => _unitFlags;
 

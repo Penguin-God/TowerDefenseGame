@@ -15,15 +15,15 @@ public class GameManagerController : MonoBehaviourPun
         _unitDamageManager = new UnitDamageInfoManager(Managers.Data.Unit.DamageInfoByFlag);
     }
 
-    public void ChangeUnitDamageValue(UnitFlags flag, int value, UnitStatType changeStatType)
+    public void AddUnitDamageValue(UnitFlags flag, int value, UnitStatType changeStatType)
     {
-        new UnitDamageInfoChanger().ChangeUnitDamageValue(_unitDamageManager, flag, value, changeStatType);
-        photonView.RPC(nameof(ChangeUnitDamageValue_RPC), RpcTarget.MasterClient, PlayerIdManager.Id, flag, value, changeStatType);
+        new UnitDamageInfoChanger().AddUnitDamageValue(_unitDamageManager, flag, value, changeStatType);
+        photonView.RPC(nameof(AddUnitDamageValue_RPC), RpcTarget.MasterClient, PlayerIdManager.Id, flag, value, changeStatType);
     }
     [PunRPC]
-    void ChangeUnitDamageValue_RPC(byte id, UnitFlags flag, int value, UnitStatType changeStatType)
+    void AddUnitDamageValue_RPC(byte id, UnitFlags flag, int value, UnitStatType changeStatType)
     {
-        _gamaManager.ChangeUnitDamageValue(id, flag, value, changeStatType);
+        _gamaManager.AddUnitDamageValue(id, flag, value, changeStatType);
         UpdateChangeUnitDamageInfo(id, flag);
     }
 

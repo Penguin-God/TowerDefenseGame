@@ -30,7 +30,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     Multi_TeamSoldier RPCSpawn(UnitFlags flag, Vector3 spawnPos, Quaternion rotation, byte id)
     {
         var unit = Managers.Multi.Instantiater.PhotonInstantiate(PathBuilder.BuildUnitPath(flag), spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
-        unit.Spawn();
+        unit.SetInfo();
         Multi_UnitManager.Instance.Master.AddUnit(unit);
         if (unit.UsingID == PlayerIdManager.MasterId)
             Multi_UnitManager.Instance.AddUnit(unit);

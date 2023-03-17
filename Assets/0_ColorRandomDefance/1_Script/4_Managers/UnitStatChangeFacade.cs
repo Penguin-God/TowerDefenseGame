@@ -95,3 +95,10 @@ public class UnitStatChangeFacade : MonoBehaviourPun
         return null;
     }
 }
+
+public enum UnitStatType
+{
+    Damage,
+    BossDamage,
+    All,
+}

@@ -111,6 +111,13 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         return units.Count() == 0 ? null : units.First();
     }
 
+    public Multi_TeamSoldier FindUnit(byte id, UnitFlags flag)
+    {
+        if (PhotonNetwork.IsMasterClient == false) return null;
+        var units = _master.GetUnits(id, (unit) => unit.UnitFlags == flag);
+        return units.Count() == 0 ? null : units.First();
+    }
+
     // Components
     public class MasterDataManager
     {
@@ -205,11 +212,4 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
             return result;
         }
     }
-}
-
-public enum UnitStatType
-{
-    Damage,
-    BossDamage,
-    All,
 }

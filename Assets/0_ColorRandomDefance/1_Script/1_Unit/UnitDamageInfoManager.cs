@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public struct UnitDamageInfo
 {
@@ -41,8 +42,8 @@ public class UnitDamageInfoManager
     readonly Dictionary<UnitFlags, UnitDamageInfo> _damageInfoByFlag = new Dictionary<UnitFlags, UnitDamageInfo>();
     public UnitDamageInfoManager(Dictionary<UnitFlags, UnitDamageInfo> originDamages)
     {
-        const int UNIT_ALL_COUNT = 32;
-        if (originDamages.Count != UNIT_ALL_COUNT) Debug.LogError("유닛 스탯의 카운트가 올바르지 않음");
+        int unitAllCount = Enum.GetValues(typeof(UnitColor)).Length * Enum.GetValues(typeof(UnitClass)).Length;
+        Debug.Assert(originDamages.Count != unitAllCount, "유닛 스탯의 카운트가 올바르지 않음");
         _damageInfoByFlag = originDamages;
     }
 

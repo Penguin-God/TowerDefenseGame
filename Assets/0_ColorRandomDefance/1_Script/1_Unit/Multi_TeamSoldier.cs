@@ -10,25 +10,21 @@ public enum UnitClass { Swordman, Archer, Spearman, Mage }
 
 public class Multi_TeamSoldier : MonoBehaviourPun
 {
-    public Unit Unit;
-    private UnitFlags _unitFlags;
+    Unit _unit;
+    UnitFlags _unitFlags;
     public UnitFlags UnitFlags => _unitFlags;
 
     public UnitClass unitClass;
     public UnitColor unitColor;
 
-    [SerializeField] UnitStat stat;
-    public UnitStat Stat => stat;
+    [SerializeField] UnitStat _stat;
+    public UnitStat Stat => _stat;
 
-    public int OriginDamage { get; private set; }
-    public int OriginBossDamage { get; private set; }
-    public float OriginAttackDelayTime { get; private set; }
-
-    int Damage => stat.Damage;
-    protected int BossDamage => stat.BossDamage;
-    public float Speed { get => stat.Speed; set => stat.SetSpeed(value); }
-    public float AttackDelayTime { get => stat.AttackDelayTime; set => stat.SetAttDelayTime(value); }
-    public float AttackRange => stat.AttackRange;
+    int Damage => _stat.Damage;
+    protected int BossDamage => _stat.BossDamage;
+    public float Speed { get => _stat.Speed; set => _stat.SetSpeed(value); }
+    public float AttackDelayTime { get => _stat.AttackDelayTime; set => _stat.SetAttDelayTime(value); }
+    public float AttackRange => _stat.AttackRange;
 
     [SerializeField] protected float stopDistanc;
 
@@ -105,12 +101,22 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected virtual ChaseSystem AddCahseSystem() => gameObject.AddComponent<ChaseSystem>();
 
     // MasterOnly
-    public void Spawn()
+    public void SetInfo()
     {
         LoadStat_RPC();
         SetPassive_RPC();
         photonView.RPC(nameof(SetNavSpeed), RpcTarget.Others, (float)Speed);
     }
+
+    public void SetInfo(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo)
+    {
+        _stat = stat;
+        _unit = new Unit(flag, damInfo);
+        SetPassive_RPC();
+        photonView.RPC(nameof(SetNavSpeed), RpcTarget.Others, (float)Speed);
+    }
+
+    public void UpdateDamageInfo(UnitDamageInfo newInfo) => _unit.UpdateDamageInfo(newInfo);
 
     void OnEnable()
     {
@@ -137,10 +143,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [PunRPC]
     protected void LoadStat()
     {
-        stat = Managers.Multi.Data.GetUnitStat(UsingID, UnitFlags);
-        OriginDamage = stat.Damage;
-        OriginBossDamage = stat.BossDamage;
-        OriginAttackDelayTime = stat.AttackDelayTime;
+        _stat = Managers.Multi.Data.GetUnitStat(UsingID, UnitFlags);
     }
     
     void SetPassive_RPC() => photonView.RPC(nameof(SetPassive), RpcTarget.All);

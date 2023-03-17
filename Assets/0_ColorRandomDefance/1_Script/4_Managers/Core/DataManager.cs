@@ -101,7 +101,7 @@ public class DataManager
         public IReadOnlyDictionary<UnitFlags, UnitNameData> UnitNameDataByFlag => _unitNameDataByFlag;
 
         Dictionary<UnitFlags, UnitStat> _unitStatByFlag = new Dictionary<UnitFlags, UnitStat>();
-        public Dictionary<UnitFlags, UnitStat> UnitStatByFlag => _unitStatByFlag;
+        public IReadOnlyDictionary<UnitFlags, UnitStat> UnitStatByFlag => _unitStatByFlag;
         public UnitStat GetUnitStat(UnitFlags flag) => _unitStatByFlag[flag].GetClone();
 
         Dictionary<UnitFlags, UnitPassiveStat> _unitPassiveStatByFlag = new Dictionary<UnitFlags, UnitPassiveStat>();

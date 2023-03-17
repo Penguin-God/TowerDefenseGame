@@ -4,7 +4,6 @@ using UnityEngine;
 using System;
 using System.Linq;
 using Photon.Pun;
-using static UnityEngine.UI.CanvasScaler;
 
 public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
 {
@@ -69,7 +68,7 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
     {
         if (_combineSystem.CheckCombineable(flag, GetUnitCount))
         {
-            Combine(flag, PlayerIdManager.Id);
+            Combine(flag);
             OnCombine?.Invoke(flag);
             return true;
         }
@@ -80,12 +79,12 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         }
     }
 
-    void Combine(UnitFlags flag, byte id)
+    void Combine(UnitFlags flag)
     {
         foreach (var needFlag in _combineSystem.GetNeedFlags(flag))
             FindUnit(needFlag).Dead();
 
-        Multi_SpawnManagers.NormalUnit.Spawn(flag, id);
+        Multi_SpawnManagers.NormalUnit.Spawn(flag, PlayerIdManager.Id);
     }
 
 

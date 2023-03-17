@@ -7,18 +7,16 @@ using UnityEngine;
 public class GameManager
 {
     public GameManager(Dictionary<UnitFlags, UnitDamageInfo> damageInfos)
-    {
-        _unitDamageManagers = Enumerable.Repeat(new UnitDamageInfoManager(new Dictionary<UnitFlags, UnitDamageInfo>(damageInfos)), PlayerIdManager.MaxPlayerCount).ToArray();
-    }
+        => _unitDamageManagers = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(new Dictionary<UnitFlags, UnitDamageInfo>(damageInfos)));
 
-    UnitDamageInfoManager[] _unitDamageManagers;
-    public UnitDamageInfoManager GetUnitDamageInfoManager(byte playerId) => _unitDamageManagers[playerId];
+    MultiData<UnitDamageInfoManager> _unitDamageManagers;
+    public UnitDamageInfoManager GetUnitDamageInfoManager(byte playerId) => _unitDamageManagers.GetData(playerId);
 
     public void ChangeUnitDamageValue(byte playerId, UnitFlags flag, int value, UnitStatType changeStatType)
-        => new UnitDamageInfoChanger().ChangeUnitDamageValue(_unitDamageManagers[playerId], flag, value, changeStatType);
+        => new UnitDamageInfoChanger().ChangeUnitDamageValue(GetUnitDamageInfoManager(playerId), flag, value, changeStatType);
 
     public void ScaleUnitDamageValue(byte playerId, UnitFlags flag, float value, UnitStatType changeStatType)
-        => new UnitDamageInfoChanger().ScaleUnitDamageValue(_unitDamageManagers[playerId], flag, value, changeStatType);
+        => new UnitDamageInfoChanger().ScaleUnitDamageValue(GetUnitDamageInfoManager(playerId), flag, value, changeStatType);
 }
 
 public class UnitDamageInfoChanger

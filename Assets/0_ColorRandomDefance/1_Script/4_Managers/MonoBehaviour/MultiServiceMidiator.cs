@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+using System.Linq;
 
 public class MultiServiceMidiator : SingletonPun<MultiServiceMidiator>
 {
@@ -16,16 +18,11 @@ public class MultiServiceMidiator : SingletonPun<MultiServiceMidiator>
 }
 
 
-public class MultiManager<T>
+public class MultiData<T>
 {
     T[] _services = new T[PlayerIdManager.MaxPlayerCount];
-    public MultiManager(System.Func<T> createService)
-    {
-        for (int i = 0; i < _services.Length; i++)
-            _services[i] = createService();
-    }
+    public MultiData(Func<T> createService) => _services = _services.Select(x => createService()).ToArray();
 
-    public T GetServiece() => _services[PlayerIdManager.Id];
-    public T GetServiece(byte id) => _services[id];
+    public T GetData(byte id) => _services[id];
     public IEnumerable<T> Services => _services;
 }

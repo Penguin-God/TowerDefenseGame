@@ -43,7 +43,7 @@ public class UnitDamageInfoManager
     public UnitDamageInfoManager(Dictionary<UnitFlags, UnitDamageInfo> originDamages)
     {
         int unitAllCount = Enum.GetValues(typeof(UnitColor)).Length * Enum.GetValues(typeof(UnitClass)).Length;
-        Debug.Assert(originDamages.Count != unitAllCount, "유닛 스탯의 카운트가 올바르지 않음");
+        Debug.Assert(originDamages.Count == unitAllCount, "유닛 스탯의 카운트가 올바르지 않음");
         _damageInfoByFlag = originDamages;
     }
 

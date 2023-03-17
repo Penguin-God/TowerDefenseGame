@@ -1,26 +1,51 @@
-﻿using System.Collections;
+﻿using Photon.Pun;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager
 {
-    [SerializeField] BattleDataManager _battleData;
-    public BattleDataManager BattleData => _battleData;
-    CurrencyManager CurrencyManager => _battleData.CurrencyManager;
-
-    UnitDamageInfoManager _unitDamageManager;
-    public UnitDamageInfoManager UnitDamageManager => _unitDamageManager;
-
-    public void Init(BattleDataManager battleData)
+    public GameManager(Dictionary<UnitFlags, UnitDamageInfo> damageInfos)
     {
-        _battleData = battleData;
+        _unitDamageManagers = Enumerable.Repeat(new UnitDamageInfoManager(new Dictionary<UnitFlags, UnitDamageInfo>(damageInfos)), PlayerIdManager.MaxPlayerCount).ToArray();
     }
 
-    public void AddGold(int _addGold) => CurrencyManager.Gold += _addGold;
-    public bool TryUseGold(int gold) => CurrencyManager.TryUseGold(gold);
+    UnitDamageInfoManager[] _unitDamageManagers;
+    public UnitDamageInfoManager GetUnitDamageInfoManager(byte playerId) => _unitDamageManagers[playerId];
 
-    public void AddFood(int _addFood) => CurrencyManager.Food += _addFood;
-    public bool TryUseFood(int food) => CurrencyManager.TryUseFood(food);
+    public void ChangeUnitDamageValue(byte playerId, UnitFlags flag, int value, UnitStatType changeStatType)
+        => new UnitDamageInfoChanger().ChangeUnitDamageValue(_unitDamageManagers[playerId], flag, value, changeStatType);
 
-    public bool TryUseCurrency(GameCurrencyType currencyType, int quantity) => currencyType == GameCurrencyType.Gold ? TryUseGold(quantity) : TryUseFood(quantity);
+    public void ScaleUnitDamageValue(byte playerId, UnitFlags flag, float value, UnitStatType changeStatType)
+        => new UnitDamageInfoChanger().ScaleUnitDamageValue(_unitDamageManagers[playerId], flag, value, changeStatType);
+}
+
+public class UnitDamageInfoChanger
+{
+    public void ChangeUnitDamageValue(UnitDamageInfoManager unitDamageManagers, UnitFlags flag, int value, UnitStatType changeStatType)
+    {
+        switch (changeStatType)
+        {
+            case UnitStatType.Damage: unitDamageManagers.AddDamage(flag, value); break;
+            case UnitStatType.BossDamage: unitDamageManagers.AddBossDamage(flag, value); break;
+            case UnitStatType.All:
+                unitDamageManagers.AddDamage(flag, value);
+                unitDamageManagers.AddBossDamage(flag, value);
+                break;
+        }
+    }
+
+    public void ScaleUnitDamageValue(UnitDamageInfoManager unitDamageManagers, UnitFlags flag, float value, UnitStatType changeStatType)
+    {
+        switch (changeStatType)
+        {
+            case UnitStatType.Damage: unitDamageManagers.IncreaseDamageRate(flag, value); break;
+            case UnitStatType.BossDamage: unitDamageManagers.IncreaseBossDamageRate(flag, value); break;
+            case UnitStatType.All:
+                unitDamageManagers.IncreaseDamageRate(flag, value);
+                unitDamageManagers.IncreaseBossDamageRate(flag, value);
+                break;
+        }
+    }
 }

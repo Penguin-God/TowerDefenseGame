@@ -34,7 +34,7 @@ public class Managers : MonoBehaviour
     CameraManager _camera = new CameraManager();
     EffectManager _effect = new EffectManager();
     MultiManager _multi = new MultiManager();
-
+    
     public static DataManager Data => Instance._data;
     public static UI_Manager UI => Instance._ui;
     public static Multi_SoundManager Sound => Instance._sound;
@@ -59,12 +59,5 @@ public class Managers : MonoBehaviour
         Camera.Clear();
         Scene.Clear();
         UI.Clear();
-    }
-
-    [ContextMenu("LoadScene")]
-    void LoadScene()
-    {
-        PhotonNetwork.LeaveRoom();
-        Scene.LoadScene(SceneTyep.Lobby);
     }
 }

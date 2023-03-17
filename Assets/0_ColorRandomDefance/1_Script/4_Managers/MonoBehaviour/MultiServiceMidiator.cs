@@ -2,9 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MultiServiceMidiator
+public class MultiServiceMidiator : SingletonPun<MultiServiceMidiator>
 {
-       
+    static GameManagerController _game;
+
+    public static GameManagerController Game => _game;
+
+    protected override void Init()
+    {
+        base.Init();
+        _game = gameObject.AddComponent<GameManagerController>();
+    }
 }
 
 

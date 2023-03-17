@@ -189,65 +189,6 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     OtherPlayerData _otherPlayerData;
     public OtherPlayerData OtherPlayerData => _otherPlayerData;
 
-    UnitDamageInfoManager[] _unitDamageManagers;
-    public UnitDamageInfoManager UnitDamageInfo => _unitDamageManagers[PlayerIdManager.Id];
-    public void ChangeUnitDamageValue(UnitFlags flag, int value, UnitStatType changeStatType)
-    {
-        ChangeUnitDamageValue(UnitDamageInfo, flag, value, changeStatType);
-        if (PhotonNetwork.IsMasterClient)
-            Multi_UnitManager.Instance.FindUnits(x => x.UnitFlags == flag).ToList().ForEach(x => x.UpdateDamageInfo(UnitDamageInfo.GetDamageInfo(flag)));
-        else
-        {
-            photonView.RPC(nameof(ChangeUnitDamageValue_RPC), RpcTarget.MasterClient, flag, value, (byte)changeStatType);
-            // Multi_UnitManager.Instance.FindUnit(PlayerIdManager.ClientId, flag); // 
-        }
-    }
-
-    void ChangeUnitDamageValue_RPC(UnitFlags flag, int value, byte changeStatType)
-    {
-        ChangeUnitDamageValue(_unitDamageManagers[PlayerIdManager.ClientId], flag, value, (UnitStatType)changeStatType);
-        // _unitDamageManagers의 0번째 데이터 경신
-    }
-
-    void ChangeUnitDamageValue(UnitDamageInfoManager unitDamageManagers, UnitFlags flag, int value, UnitStatType changeStatType)
-    {
-        switch (changeStatType)
-        {
-            case UnitStatType.Damage: unitDamageManagers.AddDamage(flag, value); break;
-            case UnitStatType.BossDamage: unitDamageManagers.AddBossDamage(flag, value); break;
-            case UnitStatType.All:
-                unitDamageManagers.AddDamage(flag, value);
-                unitDamageManagers.AddBossDamage(flag, value);
-                break;
-        }
-    }
-
-    public void ScaleUnitDamageValue(UnitFlags flag, float value, UnitStatType changeStatType)
-    {
-        ScaleUnitDamageValue(UnitDamageInfo, flag, value, changeStatType);
-        if (PhotonNetwork.IsMasterClient == false)
-            photonView.RPC(nameof(ScaleUnitDamageValue_RPC), RpcTarget.MasterClient, flag, value, (byte)changeStatType);
-    }
-
-    void ScaleUnitDamageValue_RPC(UnitFlags flag, float value, byte changeStatType)
-        => ScaleUnitDamageValue(_unitDamageManagers[PlayerIdManager.ClientId], flag, value, (UnitStatType)changeStatType);
-
-    void ScaleUnitDamageValue(UnitDamageInfoManager unitDamageManagers, UnitFlags flag, float value, UnitStatType changeStatType)
-    {
-        switch (changeStatType)
-        {
-            case UnitStatType.Damage: unitDamageManagers.IncreaseDamageRate(flag, value); break;
-            case UnitStatType.BossDamage: unitDamageManagers.IncreaseBossDamageRate(flag, value); break;
-            case UnitStatType.All:
-                unitDamageManagers.IncreaseDamageRate(flag, value);
-                unitDamageManagers.IncreaseBossDamageRate(flag, value);
-                break;
-        }
-    }
-
-    UnitStatChangeFacade _unitStatFacade;
-    public UnitStatChangeFacade UnitStatChanger => _unitStatFacade;
-
     [PunRPC]
     public void CreateOtherPlayerData(SkillType mainSkill, SkillType subSkill) => _otherPlayerData = new OtherPlayerData(mainSkill, subSkill);
 
@@ -256,9 +197,6 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     protected override void Init()
     {
         base.Init();
-        _unitDamageManagers = Enumerable.Repeat
-            (new UnitDamageInfoManager
-            (Managers.Data.Unit.UnitStatByFlag.ToDictionary(x => x.Key, x => new UnitDamageInfo(x.Value.Damage, x.Value.BossDamage))), PlayerIdManager.MaxPlayerCount).ToArray();
 
         if (PhotonNetwork.IsMasterClient && gameStartButton != null)
             gameStartButton.onClick.AddListener(GameStart);

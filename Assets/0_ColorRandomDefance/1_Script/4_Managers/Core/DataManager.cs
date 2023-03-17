@@ -102,6 +102,7 @@ public class DataManager
 
         Dictionary<UnitFlags, UnitStat> _unitStatByFlag = new Dictionary<UnitFlags, UnitStat>();
         public IReadOnlyDictionary<UnitFlags, UnitStat> UnitStatByFlag => _unitStatByFlag;
+        public Dictionary<UnitFlags, UnitDamageInfo> DamageInfoByFlag => UnitStatByFlag.ToDictionary(x => x.Key, x => new UnitDamageInfo(x.Value.Damage, x.Value.BossDamage));
         public UnitStat GetUnitStat(UnitFlags flag) => _unitStatByFlag[flag].GetClone();
 
         Dictionary<UnitFlags, UnitPassiveStat> _unitPassiveStatByFlag = new Dictionary<UnitFlags, UnitPassiveStat>();

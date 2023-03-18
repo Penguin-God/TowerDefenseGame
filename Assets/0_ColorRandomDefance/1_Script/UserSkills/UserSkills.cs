@@ -67,20 +67,11 @@ public class Taegeuk : UserSkill
     static readonly int UnitClassCount = Enum.GetValues(typeof(UnitClass)).Length;
 
     int[] _taegeukDamages = new int[UnitClassCount];
-    int[] _originDamages = new int[UnitClassCount];
-
+    
     public override void InitSkill()
     {
         Multi_UnitManager.Instance.OnUnitCountChangeByClass += (unitClass, count) => UseSkill(unitClass);
-        EnrichDamageDatas();
-
-        void EnrichDamageDatas()
-        {
-            _taegeukDamages = SkillDatas.Select(x => (int)x).ToArray();
-
-            for (int i = 0; i < _originDamages.Length; i++)
-                _originDamages[i] = Managers.Data.Unit.GetUnitStat(new UnitFlags(0, i)).Damage;
-        }
+        _taegeukDamages = SkillDatas.Select(x => (int)x).ToArray();
     }
 
     bool[] _currentTaegeukFlags = new bool[UnitClassCount];
@@ -101,12 +92,12 @@ public class Taegeuk : UserSkill
 
     void ApplyUnitDamge(UnitClass unitClass, bool isTaegeukConditionMet)
     {
-        int applyDamage = isTaegeukConditionMet ? _taegeukDamages[(int)unitClass] : _originDamages[(int)unitClass];
+        int applyDamage = isTaegeukConditionMet ? _taegeukDamages[(int)unitClass] : _taegeukDamages[(int)unitClass] * -1;
         SetTaeguekUnitStat(UnitColor.Red);
         SetTaeguekUnitStat(UnitColor.Blue);
 
         void SetTaeguekUnitStat(UnitColor unitColor) 
-            => Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.All, applyDamage, new UnitFlags(unitColor, unitClass));
+            => MultiServiceMidiator.Game.AddUnitDamageValue(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatType.All);
     }
 }
 
@@ -140,9 +131,8 @@ public class BlackUnitUpgrade : UserSkill
     {
         if (unitFlags.UnitColor != UnitColor.Black && count == 0) return;
 
-        Debug.Assert(strongDamages.ArcherDamage == 100000, $"검은 궁수 버그 발현!! 버그난 대미지는 {strongDamages.ArcherDamage}");
         var flag = new UnitFlags(UnitColor.Black, unitFlags.UnitClass);
-        Multi_UnitManager.Instance.Stat.SetUnitStat(UnitStatType.All, strongDamages.Damages[(int)unitFlags.UnitClass], flag);
+        MultiServiceMidiator.Game.AddUnitDamageValue(flag, strongDamages.Damages[(int)unitFlags.UnitClass], UnitStatType.All);
         OnBlackUnitReinforce?.Invoke(flag);
     }
 }

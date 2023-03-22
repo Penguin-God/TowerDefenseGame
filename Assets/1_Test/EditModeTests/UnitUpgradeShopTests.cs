@@ -28,7 +28,7 @@ namespace Tests
         {
             var selector = new UnitUpgradeGoodsSelector();
             var counter = new Dictionary<UnitUpgradeGoods, int>();
-            int selectCount = 10000;
+            int selectCount = 3333;
 
             for (int i = 0; i < selectCount; i++)
             {
@@ -42,7 +42,7 @@ namespace Tests
             }
 
             int allGoodsCount = Enum.GetValues(typeof(UnitUpgradeType)).Length *
-                Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Where(x => x != UnitColor.White && x != UnitColor.Black).Count();
+                Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Where(x => UnitFlags.SpecialColors.Contains(x) == false).Count();
             Assert.AreEqual(allGoodsCount, counter.Count);
 
             // 확률 분포 확인

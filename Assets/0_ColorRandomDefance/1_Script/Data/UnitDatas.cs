@@ -73,6 +73,8 @@ public struct UnitFlags : IEquatable<UnitFlags>
             return result;
         }
     }
+
+    public static IEnumerable<UnitColor> SpecialColors => new UnitColor[] { UnitColor.White, UnitColor.Black };
 }
 
 [Serializable]

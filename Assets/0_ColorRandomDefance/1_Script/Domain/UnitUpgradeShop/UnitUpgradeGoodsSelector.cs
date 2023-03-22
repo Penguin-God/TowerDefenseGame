@@ -43,6 +43,6 @@ public class UnitUpgradeGoodsSelector
         .Cast<UnitUpgradeType>()
         .SelectMany(upgradeType => Enum.GetValues(typeof(UnitColor))
         .Cast<UnitColor>()
-        .Where(x => x != UnitColor.White && x != UnitColor.Black)
+        .Where(x => UnitFlags.SpecialColors.Contains(x) == false)
         .Select(color => new UnitUpgradeGoods(upgradeType, color)));
 }

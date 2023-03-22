@@ -54,5 +54,14 @@ namespace Tests
                 Assert.IsTrue(Mathf.Abs(selectRate - expectRate) < delta);
             }
         }
+
+        [Test]
+        public void 입력한_상품은_반환하면_안됨()
+        {
+            var selector = new UnitUpgradeGoodsSelector();
+
+            var result =  selector.SelectGoodsExcluding(unitGoods);
+            // 입력한 상품은 반환하면 안됨
+        }
     }
 }

@@ -25,6 +25,7 @@ public struct UnitUpgradeGoods
 public class UnitUpgradeGoodsSelector
 {
     readonly int GOODS_COUNT = 3;
+    // 여기서 allGoods랑 result의 count를 매개변수로 받으면 리롤이나 구매 시 새걸로 바꾸는 것도 중복 없이 구현 가능할듯?
     public IEnumerable<UnitUpgradeGoods> SelectGoods()
     {
         var allGoods = GetAllGoods().ToList();

@@ -10,12 +10,4 @@ public class Tester : MonoBehaviour
         var tester = new PresentersTester();
         tester.TestGenerateColorChangeResultText();
     }
-
-    [ContextMenu("Test Data Change")]
-    void TestDataChange()
-    {
-        var tester = new DataChangeTester();
-        tester.TestChangeAllUnitStat();
-        tester.TestChangeUnitDataWithCondition();
-    }
 }

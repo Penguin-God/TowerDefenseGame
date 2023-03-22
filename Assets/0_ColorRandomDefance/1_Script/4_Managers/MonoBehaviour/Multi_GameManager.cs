@@ -5,7 +5,6 @@ using UnityEngine.UI;
 using System;
 using System.Linq;
 using Photon.Pun;
-using Unity.Plastic.Newtonsoft.Json.Linq;
 
 public enum GameCurrencyType
 {

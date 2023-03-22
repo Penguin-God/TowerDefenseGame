@@ -55,18 +55,6 @@ public class GoodsManager
             _locationByData.Add(datas[i].GoodsLocation, datas[i]);
     }
 
-    // 테스트용
-    void PrintGoodsCount()
-    {
-        foreach (var item in _goodsData)
-        {
-            foreach (var goods in item.Value)
-            {
-                Debug.Log($"{item.Key} : {goods.Count}");
-            }
-        }
-    }
-
     class RandomShopGenerater
     {
         GoodsLocation[] GoodsLocations = { GoodsLocation.Left, GoodsLocation.Middle, GoodsLocation.Right};

@@ -47,7 +47,7 @@ public class Drawing : MonoBehaviour
         //List<int> randomInt = NumberChoice();
         List<int> numbers = new List<int>();
         
-        for (int i = 1; i <= Enum.GetValues(typeof(SkillType)).Length; i++)
+        for (int i = 1; i <= Enum.GetValues(typeof(SkillType)).Length - 1; i++)
         {
             numbers.Add(i);
         }
@@ -78,18 +78,18 @@ public class Drawing : MonoBehaviour
 
     public void TestButton()
     {
-        Test(BoxType.기본상자);
+        OpenBox(BoxType.전설상자);
     }
 
-    public void Test(BoxType boxType)
+    public void OpenBox(BoxType boxType)
     {
         List<int> itemCountList = NumberChoice();
         List<int> selectedSkills = DrawingSkills();
 
-        for (int i = 0; i <= selectedSkills.Count; i++)
+        for (int i = 0; i <= selectedSkills.Count - 1; i++)
         {
+            print($"{selectedSkills[i]}, {itemCountList[i] * (int)boxType}");
             Managers.ClientData.GetExp((SkillType)selectedSkills[i], itemCountList[i] * (int)boxType);
-            print($"{selectedSkills[i]}, {itemCountList[i]}"); 
         }
     }
 

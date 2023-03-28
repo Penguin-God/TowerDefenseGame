@@ -6,14 +6,36 @@ using System.Linq;
 
 public class Drawing : MonoBehaviour
 {
+    public enum BoxType
+    {
+        None,
+        무료상자,
+        기본상자,
+        고급상자,
+        전설상자,
+    }
+
     public List<int> NumberChoice()
     {
         List<int> nums = new List<int>();
-        nums.Add(UnityEngine.Random.Range(50, 81)); 
-        nums.Add(UnityEngine.Random.Range(15, 41));
-        nums.Add(UnityEngine.Random.Range(10, 16)); 
-        nums.Add(100 - nums[0] - nums[1] - nums[2]); 
-        
+        int one = UnityEngine.Random.Range(50, 81);
+        int two = UnityEngine.Random.Range(15, 41);
+        int three = UnityEngine.Random.Range(10, 16);
+        int four = 100 - one - two - three;
+
+        while (four <= 0)
+        {
+            one = UnityEngine.Random.Range(50, 81);
+            two = UnityEngine.Random.Range(15, 41);
+            three = UnityEngine.Random.Range(10, 16);
+            four = 100 - one - two - three;
+        }
+
+        nums.Add(one);
+        nums.Add(two);
+        nums.Add(three);
+        nums.Add(four);
+
         nums.Sort();
         nums.Reverse();
 
@@ -56,18 +78,18 @@ public class Drawing : MonoBehaviour
 
     public void TestButton()
     {
-        print(DrawingSkills()[0]);
+        Test(BoxType.기본상자);
     }
 
-    public void Test()
+    public void Test(BoxType boxType)
     {
         List<int> itemCountList = NumberChoice();
-        List<int> selectedNumbers = DrawingSkills();
+        List<int> selectedSkills = DrawingSkills();
 
-        for (int i = 0; i <= selectedNumbers.Count; i++)
+        for (int i = 0; i <= selectedSkills.Count; i++)
         {
-            Managers.ClientData.GetExp((SkillType)selectedNumbers[i], itemCountList[i]);
-            print(selectedNumbers[i] + itemCountList[i]); // 임시
+            Managers.ClientData.GetExp((SkillType)selectedSkills[i], itemCountList[i] * (int)boxType);
+            print($"{selectedSkills[i]}, {itemCountList[i]}"); 
         }
     }
 

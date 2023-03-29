@@ -1,4 +1,5 @@
 ﻿using Codice.CM.Common.Merge;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,7 +19,7 @@ public class ShopDataTransfer : MonoBehaviour
 
 public class UnitUpgradeGoodsPresenter
 {
-    readonly IReadOnlyDictionary<UnitColor, Color32> Colors = new Dictionary<UnitColor, Color32>()
+    static readonly IReadOnlyDictionary<UnitColor, Color32> Colors = new Dictionary<UnitColor, Color32>()
     {
         {UnitColor.Red, new Color32(221, 34, 22, 100) },
         {UnitColor.Blue, new Color32(90, 214, 255, 100) },
@@ -27,10 +28,10 @@ public class UnitUpgradeGoodsPresenter
         {UnitColor.Orange, new Color32(249, 160, 58, 100) },
         {UnitColor.Violet, new Color32(108, 36, 188, 100) },
     };
-
     public Color GetUnitColor(UnitColor unitColor) => Colors[unitColor];
 
-    readonly IReadOnlyDictionary<UnitColor, string> ColorTexts = new Dictionary<UnitColor, string>()
+    public string BuildGoodsText(UnitUpgradeGoods upgradeGoods) => $"{ColorTexts[upgradeGoods.TargetColor]} 유닛 {GetUpgradeText(upgradeGoods.UpgradeType)} 증가";
+    static readonly IReadOnlyDictionary<UnitColor, string> ColorTexts = new Dictionary<UnitColor, string>()
     {
         {UnitColor.Red, "빨간" },
         {UnitColor.Blue, "파란" },
@@ -39,8 +40,14 @@ public class UnitUpgradeGoodsPresenter
         {UnitColor.Orange, "주황" },
         {UnitColor.Violet, "보라" },
     };
-    public string GetUnitColorText(UnitColor unitColor) => ColorTexts[unitColor];
 
-    public GameCurrencyType GetCurrency(UnitUpgradeType upgradeType) => upgradeType == UnitUpgradeType.Value ? GameCurrencyType.Gold : GameCurrencyType.Food;
-    public int GetPrice(UnitUpgradeType upgradeType) => upgradeType == UnitUpgradeType.Value ? 10 : 1;
+    string GetUpgradeText(UnitUpgradeType upgradeType) => upgradeType == UnitUpgradeType.Value ? $" 공격력 {UnitUpgradeGoods.ADD_DAMAGE}" : $" 공격력 {UnitUpgradeGoods.SCALE_DAMAGE_RATE}%";
+
+    static readonly IReadOnlyDictionary<GameCurrencyType, Color32> CurrencyColors = new Dictionary<GameCurrencyType, Color32>()
+    {
+        {GameCurrencyType.Gold, new Color32(255, 188, 0 , 255) },
+        {GameCurrencyType.Food, new Color32(255, 104, 13 , 255) },
+    };
+
+    public Color CurrencyToColor(GameCurrencyType currency) => CurrencyColors[currency];
 }

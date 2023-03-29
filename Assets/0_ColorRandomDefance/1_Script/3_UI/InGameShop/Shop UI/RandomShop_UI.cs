@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System.Linq;
 using System;
 using Random = UnityEngine.Random;
+using Codice.Client.Commands;
 
 public class GoodsManager
 {
@@ -110,9 +111,28 @@ public class BuyController
 
     public void Buy(UnitUpgradeGoodsData goodsData)
     {
-
-        OnBuyGoods?.Invoke(goodsData.UpgradeGoods);
+        if (Multi_GameManager.Instance.TryUseCurrency(goodsData.Currency, goodsData.Price))
+        {
+            Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
+            UpgradeUnit(goodsData.UpgradeGoods);
+            OnBuyGoods?.Invoke(goodsData.UpgradeGoods);
+        }
+        else
+        {
+            Managers.UI.ShowDefualtUI<UI_PopupText>().Show($"{GetCurrcneyText(goodsData.Currency)}가 부족해 구매할 수 없습니다.", 2f, Color.red);
+            Managers.Sound.PlayEffect(EffectSoundType.Denger);
+        }
     }
+
+    void UpgradeUnit(UnitUpgradeGoods goods)
+    {
+        switch (goods.UpgradeType)
+        {
+            case UnitUpgradeType.Value: MultiServiceMidiator.Game.AddUnitDamageValue(goods.TargetColor, 50, UnitStatType.All); break;
+            case UnitUpgradeType.Scale: MultiServiceMidiator.Game.ScaleUnitDamageValue(goods.TargetColor, 50, UnitStatType.All); break;
+        }
+    }
+    string GetCurrcneyText(GameCurrencyType type) => type == GameCurrencyType.Gold ? "골드" : "고기";
 }
 
 public struct UnitUpgradeGoodsData
@@ -145,9 +165,11 @@ public class RandomShop_UI : UI_Popup
 
         foreach (var item in GetComponentsInChildren<UI_Goods>())
         {
-            item._Init(_buyController);
+            item._Init();
             _locationByGoods_UI.Add(item.Loaction, item);
         }
+
+        _buyController.OnBuyGoods += OnBuyGoods;
 
         //goodsManager.OnDropGoods += HideGoods;
         //goodsManager.OnDropGoods += UpdateShop;
@@ -168,7 +190,15 @@ public class RandomShop_UI : UI_Popup
         var goodsSet = _goodsSelector.SelectGoodsSet();
         _locationByGoods = locations.Zip(goodsSet, (location, goods) => new { location, goods }).ToDictionary(pair => pair.location, pair => pair.goods);
         foreach (var item in _locationByGoods)
-            _locationByGoods_UI[item.Key].Setup(item.Value);
+            _locationByGoods_UI[item.Key].Setup(item.Value, _buyController);
+    }
+
+    void OnBuyGoods(UnitUpgradeGoods goods)
+    {
+        var changeLocation = _locationByGoods.First(x => x.Value.Equals(goods)).Key;
+        var newGoods = _goodsSelector.SelectGoodsExcluding(_locationByGoods.Where(x => x.Key != changeLocation).Select(x => x.Value));
+        _locationByGoods[changeLocation] = newGoods;
+        _locationByGoods_UI[changeLocation].Setup(newGoods, _buyController);
     }
 
     void HideGoods(UI_RandomShopGoodsData data) => _locationByGoods_UI[data.GoodsLocation].gameObject.SetActive(false);

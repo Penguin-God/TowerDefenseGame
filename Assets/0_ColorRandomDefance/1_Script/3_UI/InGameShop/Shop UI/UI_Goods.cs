@@ -22,27 +22,31 @@ public class UI_Goods : UI_Base
     public GoodsLocation Loaction => location;
     [SerializeField] ShopDataTransfer dataTransfer;
 
-    BuyController _buyController;
-    public void _Init(BuyController buyController)
+    public void _Init()
     {
-        _buyController = buyController;
         dataTransfer = GetComponentInParent<ShopDataTransfer>();
         showPanelButton = GetComponent<Button>();
         Bind<Text>(typeof(Texts));
         Bind<Image>(typeof(Images));
     }
 
-    readonly UnitUpgradeGoodsPresenter _goodsPresenter = new UnitUpgradeGoodsPresenter();
-    public void Setup(UnitUpgradeGoods upgradeGoods)
-    {
-        GetText((int)Texts.ProductNameText).text = _goodsPresenter.GetUnitColorText(upgradeGoods.TargetColor);
-        GetImage((int)Images.ColorPanel).color = _goodsPresenter.GetUnitColor(upgradeGoods.TargetColor);
+    [SerializeField] Sprite _goldImage;
+    [SerializeField] Sprite _foodImage;
+    Sprite CurrencyToSprite(GameCurrencyType type) => type == GameCurrencyType.Gold ? _goldImage : _foodImage;
 
-        GetText((int)Texts.PriceText).text = _goodsPresenter.GetPrice(upgradeGoods.UpgradeType).ToString();
-        //GetText((int)Texts.PriceText).color = dataTransfer.CurrencyToColor(data.CurrencyType);
+    public void Setup(UnitUpgradeGoods upgradeGoods, BuyController buyController)
+    {
+        var goodsPresenter = new UnitUpgradeGoodsPresenter();
+        var goodsData = new UnitUpgradeGoodsData(upgradeGoods);
+
+        GetText((int)Texts.ProductNameText).text = goodsPresenter.BuildGoodsText(upgradeGoods);
+        GetImage((int)Images.ColorPanel).color = goodsPresenter.GetUnitColor(upgradeGoods.TargetColor);
+        GetText((int)Texts.PriceText).color = goodsPresenter.CurrencyToColor(goodsData.Currency);
+        GetText((int)Texts.PriceText).text = goodsData.Price.ToString();
+        GetImage((int)Images.CurrencyImage).sprite = CurrencyToSprite(goodsData.Currency);
 
         showPanelButton.onClick.RemoveAllListeners();
-        showPanelButton.onClick.AddListener(() => Managers.UI.ShowPopupUI<UI_RandomShopPanel>("InGameShop/UnitUpgradeGoodsPanel").Setup(upgradeGoods, _buyController));
+        showPanelButton.onClick.AddListener(() => Managers.UI.ShowPopupUI<UI_RandomShopPanel>("InGameShop/UnitUpgradeGoodsPanel").Setup(goodsData, buyController));
     }
 
     Button showPanelButton;

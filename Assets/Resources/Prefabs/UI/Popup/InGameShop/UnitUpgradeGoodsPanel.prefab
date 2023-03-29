@@ -132,7 +132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca2d7dcc5ad484e468e34b1a56c174a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  colseObj: {fileID: 5534896520209948218}
+  colseObj: {fileID: 5704733515035505439}
 --- !u!1 &3832778218568371765
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,7 +479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sellButton: {fileID: 7079041077755719847}
-  text: {fileID: 2213845036903748529}
+  buyQuestionText: {fileID: 2213845036903748529}
 --- !u!1 &7821832518175229558
 GameObject:
   m_ObjectHideFlags: 0

@@ -20,6 +20,7 @@ public class GameManagerController : MonoBehaviourPun
         new UnitDamageInfoChanger().AddUnitDamageValue(_unitDamageManager, flag, value, changeStatType);
         photonView.RPC(nameof(AddUnitDamageValue_RPC), RpcTarget.MasterClient, PlayerIdManager.Id, flag, value, changeStatType);
     }
+
     [PunRPC]
     void AddUnitDamageValue_RPC(byte id, UnitFlags flag, int value, UnitStatType changeStatType)
     {
@@ -27,11 +28,36 @@ public class GameManagerController : MonoBehaviourPun
         UpdateChangeUnitDamageInfo(id, flag);
     }
 
+    public void AddUnitDamageValue(UnitColor color, int value, UnitStatType changeStatType)
+    {
+        new UnitDamageInfoChanger().AddUnitDamageValue(_unitDamageManager, (flag) => flag.UnitColor == color, value, changeStatType);
+        photonView.RPC(nameof(AddUnitDamageValueWithColor_RPC), RpcTarget.MasterClient, PlayerIdManager.Id, (byte)color, value, changeStatType);
+    }
+
+    [PunRPC]
+    void AddUnitDamageValueWithColor_RPC(byte id, byte color, int value, UnitStatType changeStatType)
+    {
+
+    }
+
+    public void ScaleUnitDamageValue(UnitColor color, float value, UnitStatType changeStatType)
+    {
+        new UnitDamageInfoChanger().ScaleUnitDamageValue(_unitDamageManager, (flag) => flag.UnitColor == color, value, changeStatType);
+        photonView.RPC(nameof(ScaleUnitDamageValueWithColor_RPC), RpcTarget.MasterClient, PlayerIdManager.Id, (byte)color, value, changeStatType);
+    }
+
+    [PunRPC]
+    void ScaleUnitDamageValueWithColor_RPC(byte id, byte color, float value, UnitStatType changeStatType)
+    {
+
+    }
+
     public void ScaleUnitDamageValue(UnitFlags flag, float value, UnitStatType changeStatType)
     {
         new UnitDamageInfoChanger().ScaleUnitDamageValue(_unitDamageManager, flag, value, changeStatType);
         photonView.RPC(nameof(ScaleUnitDamageValue_RPC), RpcTarget.MasterClient, PlayerIdManager.Id, flag, value, changeStatType);
     }
+
     [PunRPC]
     void ScaleUnitDamageValue_RPC(byte id, UnitFlags flag, float value, UnitStatType changeStatType)
     {

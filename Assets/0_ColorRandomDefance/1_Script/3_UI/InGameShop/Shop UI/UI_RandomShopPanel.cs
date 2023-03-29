@@ -7,12 +7,14 @@ using UnityEngine.Events;
 public class UI_RandomShopPanel : UI_Popup
 {
     [SerializeField] Button sellButton;
-    [SerializeField] Text text;
+    [SerializeField] Text buyQuestionText;
 
-    public void Setup(UnitUpgradeGoods goods, BuyController buyController)
+    public void Setup(UnitUpgradeGoodsData goodsData, BuyController buyController)
     {
+        buyQuestionText.text = BuildQustionText(goodsData);
         sellButton.onClick.RemoveAllListeners();
-        sellButton.onClick.AddListener(() => print("안타가 키라이나")); // buyController.Buy();
+        sellButton.onClick.AddListener(() => buyController.Buy(goodsData));
+        sellButton.onClick.AddListener(() => gameObject.SetActive(false));
     }
 
     public void Setup(UI_RandomShopGoodsData data, GoodsManager goodsManager, UnityAction sellAct = null)
@@ -41,5 +43,10 @@ public class UI_RandomShopPanel : UI_Popup
     }
 
     string GetCurrcneyTypeText(GameCurrencyType type) => type == GameCurrencyType.Gold ? "골드" : "고기";
-    void SetGoodsInfoText(UI_RandomShopGoodsData data) => text.text = $"{data.Infomation} 구매하시겠습니까?";
+    void SetGoodsInfoText(UI_RandomShopGoodsData data) => buyQuestionText.text = $"{data.Infomation} 구매하시겠습니까?";
+    string BuildQustionText(UnitUpgradeGoodsData goodsData)
+    {
+        var goodsPresenter = new UnitUpgradeGoodsPresenter();
+        return $"{goodsPresenter.BuildGoodsText(goodsData.UpgradeGoods)}를 {GetCurrcneyTypeText(goodsData.Currency)} {goodsData.Price}에 구매하시겠습니까?";
+    }
 }

@@ -12,11 +12,18 @@ public class GameManager
     MultiData<UnitDamageInfoManager> _unitDamageManagers;
     public UnitDamageInfoManager GetUnitDamageInfoManager(byte playerId) => _unitDamageManagers.GetData(playerId);
 
+    readonly UnitDamageInfoChanger _unitDamageInfoChanger = new UnitDamageInfoChanger();
     public void AddUnitDamageValue(byte playerId, UnitFlags flag, int value, UnitStatType changeStatType)
-        => new UnitDamageInfoChanger().AddUnitDamageValue(GetUnitDamageInfoManager(playerId), flag, value, changeStatType);
+        => _unitDamageInfoChanger.AddUnitDamageValue(GetUnitDamageInfoManager(playerId), flag, value, changeStatType);
 
     public void ScaleUnitDamageValue(byte playerId, UnitFlags flag, float value, UnitStatType changeStatType)
-        => new UnitDamageInfoChanger().ScaleUnitDamageValue(GetUnitDamageInfoManager(playerId), flag, value, changeStatType);
+        => _unitDamageInfoChanger.ScaleUnitDamageValue(GetUnitDamageInfoManager(playerId), flag, value, changeStatType);
+
+    public void AddUnitDamageValue(byte playerId, Func<UnitFlags, bool> condition, int value, UnitStatType changeStatType)
+        => _unitDamageInfoChanger.AddUnitDamageValue(GetUnitDamageInfoManager(playerId), condition, value, changeStatType);
+
+    public void ScaleUnitDamageValue(byte playerId, Func<UnitFlags, bool> condition, float value, UnitStatType changeStatType)
+        => _unitDamageInfoChanger.ScaleUnitDamageValue(GetUnitDamageInfoManager(playerId), condition, value, changeStatType);
 }
 
 public class UnitDamageInfoChanger

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System.Linq;
+using System;
 
 public class GameManagerController : MonoBehaviourPun
 {
     GameManager _gamaManager;
     UnitDamageInfoManager _unitDamageManager;
+    readonly UnitDamageInfoChanger _unitDamageInfoChanger = new UnitDamageInfoChanger();
+
     public UnitDamageInfo UnitDamageInfo(UnitFlags flag) => _unitDamageManager.GetDamageInfo(flag);
     void Awake()
     {
@@ -17,7 +20,7 @@ public class GameManagerController : MonoBehaviourPun
 
     public void AddUnitDamageValue(UnitFlags flag, int value, UnitStatType changeStatType)
     {
-        new UnitDamageInfoChanger().AddUnitDamageValue(_unitDamageManager, flag, value, changeStatType);
+        _unitDamageInfoChanger.AddUnitDamageValue(_unitDamageManager, flag, value, changeStatType);
         photonView.RPC(nameof(AddUnitDamageValue_RPC), RpcTarget.MasterClient, PlayerIdManager.Id, flag, value, changeStatType);
     }
 
@@ -25,49 +28,55 @@ public class GameManagerController : MonoBehaviourPun
     void AddUnitDamageValue_RPC(byte id, UnitFlags flag, int value, UnitStatType changeStatType)
     {
         _gamaManager.AddUnitDamageValue(id, flag, value, changeStatType);
-        UpdateChangeUnitDamageInfo(id, flag);
+        UpdateCurrentUnitDamageInfo(id, flag);
     }
 
     public void AddUnitDamageValue(UnitColor color, int value, UnitStatType changeStatType)
     {
-        new UnitDamageInfoChanger().AddUnitDamageValue(_unitDamageManager, (flag) => flag.UnitColor == color, value, changeStatType);
+        _unitDamageInfoChanger.AddUnitDamageValue(_unitDamageManager, (flag) => flag.UnitColor == color, value, changeStatType);
         photonView.RPC(nameof(AddUnitDamageValueWithColor_RPC), RpcTarget.MasterClient, PlayerIdManager.Id, (byte)color, value, changeStatType);
     }
 
     [PunRPC]
     void AddUnitDamageValueWithColor_RPC(byte id, byte color, int value, UnitStatType changeStatType)
     {
-
+        Func<UnitFlags, bool> conditon = (flag) => flag.UnitColor == (UnitColor)color;
+        _gamaManager.AddUnitDamageValue(id, conditon, value, changeStatType);
+        UpdateCurrentUnitDamageInfo(id, conditon);
     }
 
     public void ScaleUnitDamageValue(UnitColor color, float value, UnitStatType changeStatType)
     {
-        new UnitDamageInfoChanger().ScaleUnitDamageValue(_unitDamageManager, (flag) => flag.UnitColor == color, value, changeStatType);
+        _unitDamageInfoChanger.ScaleUnitDamageValue(_unitDamageManager, (flag) => flag.UnitColor == color, value, changeStatType);
         photonView.RPC(nameof(ScaleUnitDamageValueWithColor_RPC), RpcTarget.MasterClient, PlayerIdManager.Id, (byte)color, value, changeStatType);
     }
 
     [PunRPC]
     void ScaleUnitDamageValueWithColor_RPC(byte id, byte color, float value, UnitStatType changeStatType)
     {
-
+        Func<UnitFlags, bool> conditon = (flag) => flag.UnitColor == (UnitColor)color;
+        _gamaManager.ScaleUnitDamageValue(id, conditon, value, changeStatType);
+        UpdateCurrentUnitDamageInfo(id, conditon);
     }
 
-    public void ScaleUnitDamageValue(UnitFlags flag, float value, UnitStatType changeStatType)
+    public void ScaleUnitDamageValue(float value, UnitStatType changeStatType)
     {
-        new UnitDamageInfoChanger().ScaleUnitDamageValue(_unitDamageManager, flag, value, changeStatType);
-        photonView.RPC(nameof(ScaleUnitDamageValue_RPC), RpcTarget.MasterClient, PlayerIdManager.Id, flag, value, changeStatType);
+        _unitDamageInfoChanger.ScaleUnitDamageValue(_unitDamageManager, (x) => true, value, changeStatType);
+        photonView.RPC(nameof(ScaleUnitDamageValueWithAll_RPC), RpcTarget.MasterClient, PlayerIdManager.Id, value, changeStatType);
     }
 
     [PunRPC]
-    void ScaleUnitDamageValue_RPC(byte id, UnitFlags flag, float value, UnitStatType changeStatType)
+    void ScaleUnitDamageValueWithAll_RPC(byte id, float value, UnitStatType changeStatType)
     {
-        _gamaManager.ScaleUnitDamageValue(id, flag, value, changeStatType);
-        UpdateChangeUnitDamageInfo(id, flag);
+        _gamaManager.ScaleUnitDamageValue(id, (x) => true, value, changeStatType);
+        UpdateCurrentUnitDamageInfo(id,  (x) => true);
     }
 
-    void UpdateChangeUnitDamageInfo(byte id, UnitFlags flag) 
+    void UpdateCurrentUnitDamageInfo(byte id, UnitFlags targetFlag) => UpdateCurrentUnitDamageInfo(id, (flag) => flag == targetFlag); 
+
+    void UpdateCurrentUnitDamageInfo(byte id, Func<UnitFlags, bool> condition)
         => Multi_UnitManager.Instance
-            .FindUnits(x => x.UnitFlags == flag)
+            .FindUnits(x => condition(x.UnitFlags))
             .ToList()
-            .ForEach(x => x.UpdateDamageInfo(_gamaManager.GetUnitDamageInfoManager(id).GetDamageInfo(flag)));
+            .ForEach(x => x.UpdateDamageInfo(_gamaManager.GetUnitDamageInfoManager(id).GetDamageInfo(x.UnitFlags)));
 }

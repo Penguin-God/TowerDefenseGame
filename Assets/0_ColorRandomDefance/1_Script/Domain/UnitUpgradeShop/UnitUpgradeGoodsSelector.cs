@@ -27,11 +27,11 @@ public class UnitUpgradeGoodsSelector
     // 여기서 allGoods랑 result의 count를 매개변수로 받으면 리롤이나 구매 시 새걸로 바꾸는 것도 중복 없이 구현 가능할듯?
     public IEnumerable<UnitUpgradeGoods> SelectGoodsSet() => SelectGoodsSet(GetAllGoods());
 
-    public IEnumerable<UnitUpgradeGoods> SelectGoodsSetExcluding(IEnumerable<UnitUpgradeGoods> excludeGoods)
-        => SelectGoodsSet(GetAllGoods().Except(excludeGoods));
-
     public UnitUpgradeGoods SelectGoodsExcluding(IEnumerable<UnitUpgradeGoods> excludeGoods)
         => SelectGoodsSetExcluding(excludeGoods).First();
+
+    public IEnumerable<UnitUpgradeGoods> SelectGoodsSetExcluding(IEnumerable<UnitUpgradeGoods> excludeGoods)
+        => SelectGoodsSet(GetAllGoods().Except(excludeGoods));
 
     IEnumerable<UnitUpgradeGoods> SelectGoodsSet(IEnumerable<UnitUpgradeGoods> targetGoods)
     {

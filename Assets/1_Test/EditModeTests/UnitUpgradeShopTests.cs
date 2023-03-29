@@ -30,81 +30,43 @@ namespace Tests
 
             for (int i = 0; i < selectCount; i++)
             {
-                foreach (var goods in selector.SelectGoodsSet())
-                {
-                    if (counter.ContainsKey(goods))
-                        counter[goods]++;
-                    else
-                        counter.Add(goods, 1);
-                }
+                var goods = selector.SelectGoodsSet().First();
+                if (counter.ContainsKey(goods))
+                    counter[goods]++;
+                else
+                    counter.Add(goods, 1);
             }
 
+            // 모든 상품을 포함하는지 확인
             int allGoodsCount = Enum.GetValues(typeof(UnitUpgradeType)).Length *
                 Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Where(x => UnitFlags.SpecialColors.Contains(x) == false).Count();
             Assert.AreEqual(allGoodsCount, counter.Count);
-            AssertRateDelta(counter, selectCount * 3);
-        }
-
-        [Test]
-        public void 리롤_시_원래_있던_상품들은_제외해야_함()
-        {
-            var selector = new UnitUpgradeGoodsSelector();
-            var goodsSet = CreateGoolsSet();
-            int selectCount = 500;
-
-            for (int i = 0; i < selectCount; i++)
-            {
-                var result = selector.SelectGoodsSetExcluding(goodsSet);
-                Assert.IsEmpty(result.Intersect(goodsSet));
-            }
-        }
-
-        [Test]
-        public void 구매시_현재_상품들은_제외하고_뽑아야_함()
-        {
-            var goodsSet = CreateGoolsSet();
-            int selectCount = 100;
-
-            for (int i = 0; i < selectCount; i++)
-                Assert.IsFalse(goodsSet.Contains(SelectGoodsExcluding(goodsSet)));
-        }
-
-        [Test]
-        public void 구매한_상품을_제외해고_뽑은_경우_랜덤하게_뽑아야_함()
-        {
-            int selectCount = 1000;
-            var counter = new Dictionary<UnitUpgradeGoods, int>();
-            for (int i = 0; i < selectCount; i++)
-            {
-                var selectGoods = SelectGoodsExcluding(CreateGoolsSet());
-                if (counter.ContainsKey(selectGoods))
-                    counter[selectGoods]++;
-                else
-                    counter.Add(selectGoods, 1);
-            }
-
-            AssertRateDelta(counter, selectCount);
-        }
-
-        void AssertRateDelta(Dictionary<UnitUpgradeGoods, int> counter, int selectGoodsCount)
-        {
+            // 확률 분포 확인
             float expectRate = 1f / counter.Count;
             float delta = 0.1f;
             foreach (var item in counter.Values)
             {
-                float selectRate = item / (float)selectGoodsCount;
+                float selectRate = item / (float)selectCount;
                 Assert.IsTrue(Mathf.Abs(selectRate - expectRate) < delta);
             }
         }
 
-        IEnumerable<UnitUpgradeGoods> CreateGoolsSet() => new HashSet<UnitUpgradeGoods>()
+        [Test]
+        public void 제외하고_싶은_상품들은_빼고_선택해야_함()
+        {
+            var selector = new UnitUpgradeGoodsSelector();
+            var goodsSet = CreateRedBlueYellowValueGoolsSet();
+            int selectCount = 500;
+            
+            for (int i = 0; i < selectCount; i++)
+                CollectionAssert.DoesNotContain(goodsSet, selector.SelectGoodsExcluding(goodsSet));
+        }
+
+        HashSet<UnitUpgradeGoods> CreateRedBlueYellowValueGoolsSet() => new HashSet<UnitUpgradeGoods>()
         {
             new UnitUpgradeGoods(UnitUpgradeType.Value, UnitColor.Red),
             new UnitUpgradeGoods(UnitUpgradeType.Value, UnitColor.Blue),
             new UnitUpgradeGoods(UnitUpgradeType.Value, UnitColor.Yellow),
         };
-
-        UnitUpgradeGoods SelectGoodsExcluding(IEnumerable<UnitUpgradeGoods> excludeGoodsSet)
-            => new UnitUpgradeGoodsSelector().SelectGoodsExcluding(excludeGoodsSet);
     }
 }

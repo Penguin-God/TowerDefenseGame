@@ -9,10 +9,10 @@ public class UI_RandomShopPanel : UI_Popup
     [SerializeField] Button sellButton;
     [SerializeField] Text text;
 
-    public void Setup(UnitUpgradeGoods goods)
+    public void Setup(UnitUpgradeGoods goods, BuyController buyController)
     {
         sellButton.onClick.RemoveAllListeners();
-        sellButton.onClick.AddListener(() => print("안타가 키라이나"));
+        sellButton.onClick.AddListener(() => print("안타가 키라이나")); // buyController.Buy();
     }
 
     public void Setup(UI_RandomShopGoodsData data, GoodsManager goodsManager, UnityAction sellAct = null)

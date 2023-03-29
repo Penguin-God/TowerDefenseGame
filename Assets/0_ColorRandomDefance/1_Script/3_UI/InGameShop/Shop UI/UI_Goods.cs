@@ -22,8 +22,10 @@ public class UI_Goods : UI_Base
     public GoodsLocation Loaction => location;
     [SerializeField] ShopDataTransfer dataTransfer;
 
-    public void _Init()
+    BuyController _buyController;
+    public void _Init(BuyController buyController)
     {
+        _buyController = buyController;
         dataTransfer = GetComponentInParent<ShopDataTransfer>();
         showPanelButton = GetComponent<Button>();
         Bind<Text>(typeof(Texts));
@@ -40,7 +42,7 @@ public class UI_Goods : UI_Base
         //GetText((int)Texts.PriceText).color = dataTransfer.CurrencyToColor(data.CurrencyType);
 
         showPanelButton.onClick.RemoveAllListeners();
-        showPanelButton.onClick.AddListener(() => Managers.UI.ShowPopupUI<UI_RandomShopPanel>("InGameShop/UnitUpgradeGoodsPanel").Setup(upgradeGoods));
+        showPanelButton.onClick.AddListener(() => Managers.UI.ShowPopupUI<UI_RandomShopPanel>("InGameShop/UnitUpgradeGoodsPanel").Setup(upgradeGoods, _buyController));
     }
 
     Button showPanelButton;

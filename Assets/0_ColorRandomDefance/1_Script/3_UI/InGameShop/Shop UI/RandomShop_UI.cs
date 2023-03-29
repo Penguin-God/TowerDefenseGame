@@ -104,7 +104,25 @@ public class GoodsManager
     }
 }
 
+public class BuyController
+{
+    public event Action<UnitUpgradeGoods> OnBuyGoods;
 
+    public void Buy(UnitUpgradeGoodsData goodsData)
+    {
+
+        OnBuyGoods?.Invoke(goodsData.UpgradeGoods);
+    }
+}
+
+public struct UnitUpgradeGoodsData
+{
+    readonly public UnitUpgradeGoods UpgradeGoods;
+    public UnitUpgradeGoodsData(UnitUpgradeGoods upgradeGoods) => UpgradeGoods = upgradeGoods;
+
+    public int Price => UpgradeGoods.UpgradeType == UnitUpgradeType.Value ? 10 : 1;
+    public GameCurrencyType Currency => UpgradeGoods.UpgradeType == UnitUpgradeType.Value ? GameCurrencyType.Gold : GameCurrencyType.Food;
+}
 
 public class RandomShop_UI : UI_Popup
 {
@@ -118,6 +136,7 @@ public class RandomShop_UI : UI_Popup
     readonly UnitUpgradeGoodsSelector _goodsSelector = new UnitUpgradeGoodsSelector();
 
     GoodsManager goodsManager;
+    readonly BuyController _buyController = new BuyController();
     [SerializeField] UI_RandomShopPanel panel;
     protected override void Init()
     {
@@ -126,7 +145,7 @@ public class RandomShop_UI : UI_Popup
 
         foreach (var item in GetComponentsInChildren<UI_Goods>())
         {
-            item._Init();
+            item._Init(_buyController);
             _locationByGoods_UI.Add(item.Loaction, item);
         }
 
@@ -158,8 +177,6 @@ public class RandomShop_UI : UI_Popup
         if (goodsManager.HasGoods() == false)
             BindGoods();
     }
-
-    void OnClickGoods(UI_RandomShopGoodsData data) => panel.Setup(data, goodsManager);
 
     // 리셋 버튼에서 사용하는 함수
     void ShopReset()

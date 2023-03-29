@@ -113,38 +113,46 @@ public class RandomShop_UI : UI_Popup
         ResetButton,
     }
 
-    Dictionary<GoodsLocation, Goods_UI> _locationByGoods = new Dictionary<GoodsLocation, Goods_UI>();
+    Dictionary<GoodsLocation, UI_Goods> _locationByGoods_UI = new Dictionary<GoodsLocation, UI_Goods>();
+    Dictionary<GoodsLocation, UnitUpgradeGoods> _locationByGoods = new Dictionary<GoodsLocation, UnitUpgradeGoods>();
+    readonly UnitUpgradeGoodsSelector _goodsSelector = new UnitUpgradeGoodsSelector();
 
     GoodsManager goodsManager;
-    [SerializeField] RandomShopPanel_UI panel;
+    [SerializeField] UI_RandomShopPanel panel;
     protected override void Init()
     {
         base.Init();
-        goodsManager = new GoodsManager();
+        //goodsManager = new GoodsManager();
 
-        foreach (var item in GetComponentsInChildren<Goods_UI>())
+        foreach (var item in GetComponentsInChildren<UI_Goods>())
         {
             item._Init();
-            _locationByGoods.Add(item.Loaction, item);
+            _locationByGoods_UI.Add(item.Loaction, item);
         }
 
-        goodsManager.OnDropGoods += HideGoods;
-        goodsManager.OnDropGoods += UpdateShop;
+        //goodsManager.OnDropGoods += HideGoods;
+        //goodsManager.OnDropGoods += UpdateShop;
 
-        Bind<Button>(typeof(Buttons));
-        GetButton((int)Buttons.ResetButton).onClick.AddListener(ShopReset);
+        //Bind<Button>(typeof(Buttons));
+        //GetButton((int)Buttons.ResetButton).onClick.AddListener(ShopReset);
         BindGoods();
         gameObject.SetActive(false);
     }
 
     void BindGoods()
     {
-        goodsManager.BindGoods();
-        foreach (var item in goodsManager.LocationByData.Values)
-            _locationByGoods[item.GoodsLocation].Setup(item, OnClickGoods);
+        //goodsManager.BindGoods();
+        //foreach (var item in goodsManager.LocationByData.Values)
+        //    _locationByGoods[item.GoodsLocation].Setup(item, OnClickGoods);
+
+        var locations = Enum.GetValues(typeof(GoodsLocation)).Cast<GoodsLocation>().Skip(1);
+        var goodsSet = _goodsSelector.SelectGoodsSet();
+        _locationByGoods = locations.Zip(goodsSet, (location, goods) => new { location, goods }).ToDictionary(pair => pair.location, pair => pair.goods);
+        foreach (var item in _locationByGoods)
+            _locationByGoods_UI[item.Key].Setup(item.Value);
     }
 
-    void HideGoods(UI_RandomShopGoodsData data) => _locationByGoods[data.GoodsLocation].gameObject.SetActive(false);
+    void HideGoods(UI_RandomShopGoodsData data) => _locationByGoods_UI[data.GoodsLocation].gameObject.SetActive(false);
     void UpdateShop(UI_RandomShopGoodsData data)
     {
         if (goodsManager.HasGoods() == false)

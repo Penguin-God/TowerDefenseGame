@@ -4,10 +4,16 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 
-public class RandomShopPanel_UI : UI_Base
+public class UI_RandomShopPanel : UI_Popup
 {
     [SerializeField] Button sellButton;
     [SerializeField] Text text;
+
+    public void Setup(UnitUpgradeGoods goods)
+    {
+        sellButton.onClick.RemoveAllListeners();
+        sellButton.onClick.AddListener(() => print("안타가 키라이나"));
+    }
 
     public void Setup(UI_RandomShopGoodsData data, GoodsManager goodsManager, UnityAction sellAct = null)
     {

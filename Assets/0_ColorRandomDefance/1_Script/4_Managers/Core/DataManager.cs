@@ -31,7 +31,6 @@ public class DataManager
     public IReadOnlyDictionary<UnitFlags, CombineCondition> CombineConditionByUnitFalg => _ui.CombineConditionByUnitFalg;
     // 유닛 창 정보
     public IReadOnlyDictionary<UnitFlags, UI_UnitWindowData> UnitWindowDataByUnitFlags => _ui.UnitWindowDataByUnitFlags;
-    public IEnumerable<UI_RandomShopGoodsData> RandomShopDatas => _ui.RandomShopDatas;
     #endregion
 
     #region Unit Data
@@ -139,20 +138,16 @@ public class DataManager
         Dictionary<UnitFlags, UI_UnitWindowData> _unitWindowDataByUnitFlags = new Dictionary<UnitFlags, UI_UnitWindowData>();
         public IReadOnlyDictionary<UnitFlags, UI_UnitWindowData> UnitWindowDataByUnitFlags => _unitWindowDataByUnitFlags;
 
-        public IEnumerable<UI_RandomShopGoodsData> RandomShopDatas { get; private set; }
-
         public void Init(DataManager manager)
         {
             _combineConditionByUnitFalg = manager.MakeCsvDict<CombineConditions, UnitFlags, CombineCondition>("UnitData/CombineConditionData");
             _unitWindowDataByUnitFlags = manager.MakeCsvDict<UI_UnitWindowDatas, UnitFlags, UI_UnitWindowData>("UIData/UI_UnitWindowData");
-            RandomShopDatas = manager.LoadData<UI_RandomShopGoodsData>("UIData/RandomShopData");
         }
 
         public void Clear()
         {
             _combineConditionByUnitFalg.Clear();
             _unitWindowDataByUnitFlags.Clear();
-            RandomShopDatas = null;
         }
     }
 

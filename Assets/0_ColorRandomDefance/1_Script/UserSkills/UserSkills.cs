@@ -219,8 +219,7 @@ public class SellUpgrade : UserSkill
 
 public class BossDamageUpgrade : UserSkill
 {
-    public override void InitSkill()
-        => Multi_UnitManager.Instance.Stat.ScaleUnitStat(UnitStatType.BossDamage, 2f);
+    public override void InitSkill() => MultiServiceMidiator.Game.ScaleUnitDamageValue(SkillData, UnitStatType.BossDamage);
 }
 
 public struct UnitDamages

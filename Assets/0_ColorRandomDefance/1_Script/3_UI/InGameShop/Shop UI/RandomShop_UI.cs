@@ -28,8 +28,8 @@ public class BuyController
     {
         switch (goods.UpgradeType)
         {
-            case UnitUpgradeType.Value: MultiServiceMidiator.Game.AddUnitDamageValue(goods.TargetColor, 50, UnitStatType.All); break;
-            case UnitUpgradeType.Scale: MultiServiceMidiator.Game.ScaleUnitDamageValue(goods.TargetColor, 50, UnitStatType.All); break;
+            case UnitUpgradeType.Value: MultiServiceMidiator.Game.AddUnitDamageValue(goods.TargetColor, UnitUpgradeGoods.ADD_DAMAGE, UnitStatType.All); break;
+            case UnitUpgradeType.Scale: MultiServiceMidiator.Game.ScaleUnitDamageValue(goods.TargetColor, UnitUpgradeGoods.SCALE_DAMAGE_RATE, UnitStatType.All); break;
         }
     }
     string GetCurrcneyText(GameCurrencyType type) => type == GameCurrencyType.Gold ? "골드" : "고기";

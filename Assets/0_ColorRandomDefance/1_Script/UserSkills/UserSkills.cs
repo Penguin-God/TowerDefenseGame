@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
-using static UnityEditor.Experimental.AssetDatabaseExperimental.AssetDatabaseCounters;
 
 public abstract class UserSkill
 {
@@ -97,7 +96,7 @@ public class Taegeuk : UserSkill
         SetTaeguekUnitStat(UnitColor.Blue);
 
         void SetTaeguekUnitStat(UnitColor unitColor) 
-            => MultiServiceMidiator.Game.AddUnitDamageValue(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatType.All);
+            => MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatType.All);
     }
 }
 
@@ -132,7 +131,7 @@ public class BlackUnitUpgrade : UserSkill
         if (unitFlags.UnitColor != UnitColor.Black && count == 0) return;
 
         var flag = new UnitFlags(UnitColor.Black, unitFlags.UnitClass);
-        MultiServiceMidiator.Game.AddUnitDamageValue(flag, strongDamages.Damages[(int)unitFlags.UnitClass], UnitStatType.All);
+        MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(flag, strongDamages.Damages[(int)unitFlags.UnitClass], UnitStatType.All);
         OnBlackUnitReinforce?.Invoke(flag);
     }
 }
@@ -219,7 +218,7 @@ public class SellUpgrade : UserSkill
 
 public class BossDamageUpgrade : UserSkill
 {
-    public override void InitSkill() => MultiServiceMidiator.Game.ScaleUnitDamageValue(SkillData, UnitStatType.BossDamage);
+    public override void InitSkill() => MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(SkillData, UnitStatType.BossDamage);
 }
 
 public struct UnitDamages

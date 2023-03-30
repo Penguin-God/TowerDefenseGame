@@ -4,10 +4,12 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-public class GameManager
+public class ServerManager
 {
-    public GameManager(Dictionary<UnitFlags, UnitDamageInfo> damageInfos)
-        => _unitDamageManagers = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(new Dictionary<UnitFlags, UnitDamageInfo>(damageInfos)));
+    public ServerManager(Dictionary<UnitFlags, UnitDamageInfo> damageInfos)
+    {
+        _unitDamageManagers = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(new Dictionary<UnitFlags, UnitDamageInfo>(damageInfos)));
+    }
 
     MultiData<UnitDamageInfoManager> _unitDamageManagers;
     public UnitDamageInfo UnitDamageInfo(byte id, UnitFlags flag) => GetUnitDamageInfoManager(id).GetDamageInfo(flag);
@@ -26,6 +28,7 @@ public class GameManager
 
     public void ScaleUnitDamageValue(byte playerId, Func<UnitFlags, bool> condition, float value, UnitStatType changeStatType)
         => _unitDamageInfoChanger.ScaleUnitDamageValue(GetUnitDamageInfoManager(playerId), condition, value, changeStatType);
+
 }
 
 public class UnitDamageInfoChanger

@@ -28,8 +28,8 @@ public class BuyController
     {
         switch (goods.UpgradeType)
         {
-            case UnitUpgradeType.Value: MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(goods.TargetColor, UnitUpgradeGoods.ADD_DAMAGE, UnitStatType.All); break;
-            case UnitUpgradeType.Scale: MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(goods.TargetColor, UnitUpgradeGoods.SCALE_DAMAGE_RATE, UnitStatType.All); break;
+            case UnitUpgradeType.Value: MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(goods.TargetColor, UnitUpgradeGoodsData.ADD_DAMAGE, UnitStatType.All); break;
+            case UnitUpgradeType.Scale: MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(goods.TargetColor, UnitUpgradeGoodsData.SCALE_DAMAGE_RATE, UnitStatType.All); break;
         }
     }
     string GetCurrcneyText(GameCurrencyType type) => type == GameCurrencyType.Gold ? "골드" : "고기";
@@ -37,6 +37,9 @@ public class BuyController
 
 public struct UnitUpgradeGoodsData
 {
+    public static int ADD_DAMAGE => 50;
+    public static float SCALE_DAMAGE_RATE => 0.1f;
+
     readonly public UnitUpgradeGoods UpgradeGoods;
     public UnitUpgradeGoodsData(UnitUpgradeGoods upgradeGoods) => UpgradeGoods = upgradeGoods;
 

@@ -7,16 +7,16 @@ using System.Linq;
 
 public class MultiServiceMidiator : SingletonPun<MultiServiceMidiator>
 {
-    static GameManager _game;
+    static ServerManager _server;
     static UnitUpgradeController _unitUpgrade;
 
-    public static GameManager Game => _game;
+    public static ServerManager Server => _server;
     public static UnitUpgradeController UnitUpgrade => _unitUpgrade;
 
     protected override void Init()
     {
         base.Init();
-        _game = new GameManager(Managers.Data.Unit.DamageInfoByFlag);
+        _server = new ServerManager(Managers.Data.Unit.DamageInfoByFlag);
         _unitUpgrade = (PhotonNetwork.IsMasterClient) ? gameObject.AddComponent<ServerUnitUpgradeController>() : gameObject.AddComponent<UnitUpgradeController>();
     }
 }

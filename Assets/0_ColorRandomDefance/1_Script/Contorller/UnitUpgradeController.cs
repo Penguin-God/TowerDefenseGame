@@ -52,13 +52,13 @@ public class UnitUpgradeController : MonoBehaviourPun
 
 public class ServerUnitUpgradeController : UnitUpgradeController
 {
-    GameManager _serverGamaManager;
-    protected override void Init() => _serverGamaManager = MultiServiceMidiator.Game;
+    ServerManager _serverManager;
+    protected override void Init() => _serverManager = MultiServiceMidiator.Server;
 
     [PunRPC]
     protected override void AddUnitDamageValue_RPC(byte id, UnitFlags flag, int value, UnitStatType changeStatType)
     {
-        _serverGamaManager.AddUnitDamageValue(id, flag, value, changeStatType);
+        _serverManager.AddUnitDamageValue(id, flag, value, changeStatType);
         UpdateCurrentUnitDamageInfo(id, flag);
     }
 
@@ -66,7 +66,7 @@ public class ServerUnitUpgradeController : UnitUpgradeController
     protected override void AddUnitDamageValueWithColor_RPC(byte id, byte color, int value, UnitStatType changeStatType)
     {
         Func<UnitFlags, bool> conditon = (flag) => flag.UnitColor == (UnitColor)color;
-        _serverGamaManager.AddUnitDamageValue(id, conditon, value, changeStatType);
+        _serverManager.AddUnitDamageValue(id, conditon, value, changeStatType);
         UpdateCurrentUnitDamageInfo(id, conditon);
     }
 
@@ -74,14 +74,14 @@ public class ServerUnitUpgradeController : UnitUpgradeController
     protected override void ScaleUnitDamageValueWithColor_RPC(byte id, byte color, float value, UnitStatType changeStatType)
     {
         Func<UnitFlags, bool> conditon = (flag) => flag.UnitColor == (UnitColor)color;
-        _serverGamaManager.ScaleUnitDamageValue(id, conditon, value, changeStatType);
+        _serverManager.ScaleUnitDamageValue(id, conditon, value, changeStatType);
         UpdateCurrentUnitDamageInfo(id, conditon);
     }
 
     [PunRPC]
     protected override void ScaleUnitDamageValueWithAll_RPC(byte id, float value, UnitStatType changeStatType)
     {
-        _serverGamaManager.ScaleUnitDamageValue(id, (x) => true, value, changeStatType);
+        _serverManager.ScaleUnitDamageValue(id, (x) => true, value, changeStatType);
         UpdateCurrentUnitDamageInfo(id, (x) => true);
     }
 
@@ -91,5 +91,5 @@ public class ServerUnitUpgradeController : UnitUpgradeController
         => Multi_UnitManager.Instance
             .FindUnits(x => condition(x.UnitFlags))
             .ToList()
-            .ForEach(x => x.UpdateDamageInfo(_serverGamaManager.GetUnitDamageInfoManager(id).GetDamageInfo(x.UnitFlags)));
+            .ForEach(x => x.UpdateDamageInfo(_serverManager.GetUnitDamageInfoManager(id).GetDamageInfo(x.UnitFlags)));
 }

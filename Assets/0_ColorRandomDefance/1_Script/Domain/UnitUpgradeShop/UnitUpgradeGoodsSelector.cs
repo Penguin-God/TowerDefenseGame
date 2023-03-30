@@ -11,9 +11,6 @@ public enum UnitUpgradeType
 
 public struct UnitUpgradeGoods
 {
-    public static int ADD_DAMAGE => 50;
-    public static float SCALE_DAMAGE_RATE => 10f;
-
     public UnitUpgradeType UpgradeType { get; private set; }
     public UnitColor TargetColor { get; private set; }
 

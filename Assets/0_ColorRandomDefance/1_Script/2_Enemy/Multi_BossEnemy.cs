@@ -23,8 +23,7 @@ public class Multi_BossEnemy : Multi_NormalEnemy
     }
 
     void AggroUnit() 
-        => Multi_UnitManager.Instance.Master
-        .GetUnits(UsingId)
+        => MultiServiceMidiator.Server.GetUnits(UsingId)
         .ToList()
         .ForEach(x => x.UpdateTarget());
 }

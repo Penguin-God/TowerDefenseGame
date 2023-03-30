@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System.Linq;
 
 public class SkillColorChanger : MonoBehaviourPun
 {
@@ -12,7 +13,7 @@ public class SkillColorChanger : MonoBehaviourPun
     [PunRPC]
     void ColorChangeSkill(byte targetID, UnitClass targetClass)
     {
-        var target = Multi_UnitManager.Instance.FindUnit(targetID, targetClass);
+        var target = MultiServiceMidiator.Server.GetUnits(targetID).Where(x => x.UnitClass == targetClass).FirstOrDefault();
         if (target == null)
         {
             ShowFaildText(targetID);

@@ -53,7 +53,7 @@ public class UI_UnitManagedWindow : UI_Popup
         if (Multi_UnitManager.Instance.TryFindUnit((unit) => unit.UnitFlags == _unitFlag, out var findUnit))
         {
             findUnit.Dead();
-            Multi_GameManager.Instance.AddGold(Multi_GameManager.Instance.BattleData.UnitSellPriceRecord.PriceDatas[(int)findUnit.unitClass].Price);
+            Multi_GameManager.Instance.AddGold(Multi_GameManager.Instance.BattleData.UnitSellPriceRecord.PriceDatas[(int)findUnit.UnitClass].Price);
         }
     }
 

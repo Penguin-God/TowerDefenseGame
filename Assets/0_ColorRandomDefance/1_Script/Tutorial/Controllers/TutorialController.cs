@@ -77,7 +77,7 @@ public abstract class TutorialController : MonoBehaviour
     protected void AddReadCommend(string text) => tutorialCommends.Add(CreateReadCommend(text));
 
     protected void AddUnitHighLightCommend(string text, UnitClass unitClass)
-        => AddUnitHighLightCommend(text, () => Multi_UnitManager.Instance.FindUnit(0, unitClass).transform.position + new Vector3(0, 5, 0));
+        => AddUnitHighLightCommend(text, () => Multi_UnitManager.Instance.FindUnit((unit) => unit.UnitClass == unitClass).transform.position + new Vector3(0, 5, 0));
 
     protected void AddUnitHighLightCommend(string text, UnitFlags unitFlag)
         => AddCompositeCommend(text, CreateSpotLightActionCommend(() => Multi_UnitManager.Instance.FindUnit(unitFlag).transform.position + new Vector3(0, 5, 0)));

@@ -36,7 +36,7 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
     {
         OnUnitCountChange?.Invoke(_units.Count);
         OnUnitCountChangeByFlag?.Invoke(unit.UnitFlags, FindUnits(x => x.UnitFlags == unit.UnitFlags).Count());
-        OnUnitCountChangeByClass?.Invoke(unit.unitClass, FindUnits(x => x.unitClass == unit.unitClass).Count());
+        OnUnitCountChangeByClass?.Invoke(unit.UnitClass, FindUnits(x => x.UnitClass == unit.UnitClass).Count());
     }
 
     protected override void Init()
@@ -98,30 +98,16 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
     void RaiseOnOtherUnitCountChaned(int count) => OnOtherUnitCountChanged?.Invoke(count);
     public IReadOnlyDictionary<UnitClass, int> EnemyPlayerUnitCountByClass => _enemyPlayer._countByUnitClass;
 
-    public Multi_TeamSoldier FindUnit(byte id, UnitClass unitClass)
-    {
-        if (PhotonNetwork.IsMasterClient == false) return null;
-        var units = _master.GetUnits(id, (unit) => unit.unitClass == unitClass);
-        return units.Count() == 0 ? null : units.First();
-    }
-
     // Components
     public class MasterDataManager
     {
-        public RPCAction<byte> OnAllUnitCountChanged = new RPCAction<byte>();
         public RPCAction<byte, UnitFlags, byte> OnUnitCountChanged = new RPCAction<byte, UnitFlags, byte>();
 
         RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>> _unitListByFlag = new RPCData<Dictionary<UnitFlags, List<Multi_TeamSoldier>>>();
         RPCData<List<Multi_TeamSoldier>> _currentAllUnitsById = new RPCData<List<Multi_TeamSoldier>>();
 
         List<Multi_TeamSoldier> GetUnitList(Multi_TeamSoldier unit) => GetUnitList(unit.GetComponent<RPCable>().UsingId, unit.UnitFlags);
-        public List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flag) => _unitListByFlag.Get(id)[flag];
-
-        public IEnumerable<Multi_TeamSoldier> GetUnits(byte id, Func<Multi_TeamSoldier, bool> condition = null)
-        {
-            if (condition == null) return _currentAllUnitsById.Get(id);
-            return _currentAllUnitsById.Get(id).Where(condition);
-        }
+        List<Multi_TeamSoldier> GetUnitList(int id, UnitFlags flag) => _unitListByFlag.Get(id)[flag];
 
         public void Init()
         {
@@ -155,7 +141,6 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         void UpdateUnitCount(Multi_TeamSoldier unit)
         {
             int id = unit.GetComponent<RPCable>().UsingId;
-            OnAllUnitCountChanged?.RaiseEvent(id, (byte)_currentAllUnitsById.Get(id).Count);
             OnUnitCountChanged?.RaiseAll((byte)id, unit.UnitFlags, (byte)GetUnitList(unit).Count);
         }
     }

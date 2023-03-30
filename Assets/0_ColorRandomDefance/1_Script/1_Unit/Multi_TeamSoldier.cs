@@ -11,11 +11,10 @@ public enum UnitClass { Swordman, Archer, Spearman, Mage }
 public class Multi_TeamSoldier : MonoBehaviourPun
 {
     [SerializeField] Unit _unit;
-    UnitFlags _unitFlags;
     public UnitFlags UnitFlags => _unit.UnitFlags;
 
-    public UnitClass unitClass;
-    public UnitColor unitColor;
+    public UnitClass UnitClass => UnitFlags.UnitClass;
+    public UnitColor UnitColor => UnitFlags.UnitColor;
 
     [SerializeField] UnitStat _stat;
 
@@ -66,10 +65,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public bool IsAttack => _state.IsAttack;
     protected ChaseSystem _chaseSystem;
 
-    private void Awake()
+    void Awake()
     {
-        _unitFlags = new UnitFlags(unitColor, unitClass);
-
         // 평타 설정
         OnHit += AttackEnemy;
 
@@ -85,7 +82,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         _targetManager.OnChangedTarget += SetNewTarget;
         _chaseSystem = AddCahseSystem();
         _targetManager.OnChangedTarget += _chaseSystem.ChangedTarget;
-        OnAwake(); // 유닛별 세팅
+        
 
         void SetNewTarget(Multi_Enemy newTarget)
         {
@@ -97,6 +94,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         }
     }
 
+    private void Start()
+    {
+        OnAwake(); // 유닛별 세팅
+    }
+
     protected virtual ChaseSystem AddCahseSystem() => gameObject.AddComponent<ChaseSystem>();
 
     // MasterOnly
@@ -104,9 +106,19 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     {
         _stat = stat;
         _unit = new Unit(flag, damInfo);
-        SetPassive_RPC();
-        photonView.RPC(nameof(SetNavSpeed), RpcTarget.Others, (float)Speed);
+
+        SetUnitInfo(flag, Speed);
+        photonView.RPC(nameof(SetUnitInfo), RpcTarget.Others, flag, Speed);
     }
+
+    [PunRPC]
+    protected void SetUnitInfo(UnitFlags flag, float speed)
+    {
+        _unit = new Unit(flag, _unit == null ? new UnitDamageInfo() : _unit.DamageInfo); // 클라 입장에서 flag만 채우는 용도
+        SetPassive();
+        Speed = speed;
+    }
+
 
     public void UpdateDamageInfo(UnitDamageInfo newInfo) => _unit.UpdateDamageInfo(newInfo);
 
@@ -149,10 +161,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         if (OnPassiveHit != null)
             OnHit += OnPassiveHit;
     }
-
-
-    [PunRPC]
-    protected void SetNavSpeed(float speed) => Speed = speed;
 
 
     public void Dead() => photonView.RPC(nameof(RPC_Dead), RpcTarget.All);

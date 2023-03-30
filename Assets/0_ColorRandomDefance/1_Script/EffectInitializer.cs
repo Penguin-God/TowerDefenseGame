@@ -46,7 +46,7 @@ public class EffectInitializer : MonoBehaviourPun
         {
             List<Transform> targets = new List<Transform>();
             foreach (var flag in TeaguekUnitFlags)
-                targets = targets.Concat(Multi_UnitManager.Instance.Master.GetUnitList(id, flag).Select(x => x.transform)).ToList();
+                targets = targets.Concat(MultiServiceMidiator.Server.GetUnits(id).Where(x => x.UnitFlags == flag).Select(x => x.transform)).ToList();
             return targets;
         }
     }
@@ -57,7 +57,7 @@ public class EffectInitializer : MonoBehaviourPun
     [PunRPC]
     void SetUnitTrackingEffects(UnitFlags flag, byte id)
     {
-        var targets = Multi_UnitManager.Instance.Master.GetUnitList(id, flag)
+        var targets = MultiServiceMidiator.Server.GetUnits(id).Where(x => x.UnitFlags == flag)
             .Where(x => Managers.Effect.TargetByTrackers.ContainsKey(x.transform) == false);
 
         foreach (var target in targets)
@@ -90,11 +90,11 @@ class UnitReinforceEffectDrawer
 
     public void SetUnitReinforceEffect(Multi_TeamSoldier target)
     {
-        var tracker = Managers.Effect.TrackingToTarget(GetUnitTarckerName(target.unitColor), target.transform, Vector3.zero);
+        var tracker = Managers.Effect.TrackingToTarget(GetUnitTarckerName(target.UnitColor), target.transform, Vector3.zero);
         foreach (Transform effect in tracker.transform)
         {
             var main = effect.GetComponent<ParticleSystem>().main;
-            main.startColor = new ParticleSystem.MinMaxGradient(_unitColorByColor[target.unitColor]);
+            main.startColor = new ParticleSystem.MinMaxGradient(_unitColorByColor[target.UnitColor]);
         }
     }
 

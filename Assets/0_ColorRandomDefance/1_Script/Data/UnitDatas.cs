@@ -124,23 +124,6 @@ public class UnitNameDatas : ICsvLoader<string, UnitNameData>
 }
 
 [Serializable]
-public struct WeaponData
-{
-    [SerializeField] UnitFlags flag;
-    [SerializeField] string[] paths;
-
-    public IReadOnlyList<string> Paths => paths;
-    public UnitFlags Flag => flag;
-}
-
-[Serializable]
-public class WeaponDatas : ICsvLoader<UnitFlags, WeaponData>
-{
-    public Dictionary<UnitFlags, WeaponData> MakeDict(string csv) => CsvUtility.CsvToArray<WeaponData>(csv).ToDictionary(x => x.Flag, x => x);
-}
-
-
-[Serializable]
 public class UnitStat
 {
     [SerializeField] UnitFlags _flag;
@@ -150,18 +133,6 @@ public class UnitStat
     [SerializeField] float _speed;
     [SerializeField] float _attackRange;
 
-    public UnitStat GetClone()
-    {
-        UnitStat result = new UnitStat();
-        result._flag = Flag;
-        result._damage = Damage;
-        result._bossDamage = BossDamage;
-        result._attackDelayTime = AttackDelayTime;
-        result._speed = Speed;
-        result._attackRange = AttackRange;
-        return result;
-    }
-
     public UnitFlags Flag => _flag;
     public int Damage => _damage;
     public int BossDamage => _bossDamage;
@@ -169,8 +140,6 @@ public class UnitStat
     public float Speed => _speed;
     public float AttackRange => _attackRange;
 
-    public void SetDamage(int damage) => _damage = damage;
-    public void SetBossDamage(int bossDamage) => _bossDamage = bossDamage;
     public void SetAttDelayTime(float attackDelayTime) => _attackDelayTime = attackDelayTime;
     public void SetSpeed(float speed) => _speed = speed;
     public void SetAttackRange(float attackRange) => _attackRange = attackRange;
@@ -202,8 +171,6 @@ public class UnitPassiveStats : ICsvLoader<UnitFlags, UnitPassiveStat>
         => CsvUtility.CsvToArray<UnitPassiveStat>(csv).ToDictionary(x => x.Flag, x => x);
 }
 
-
-// TODO : struct도 원본 수정 가능한지 확인하기
 [Serializable]
 public struct MageUnitStat
 {

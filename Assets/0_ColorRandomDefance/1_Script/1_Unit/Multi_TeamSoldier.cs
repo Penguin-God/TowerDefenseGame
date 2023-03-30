@@ -12,7 +12,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 {
     [SerializeField] Unit _unit;
     UnitFlags _unitFlags;
-    public UnitFlags UnitFlags => _unitFlags;
+    public UnitFlags UnitFlags => _unit.UnitFlags;
 
     public UnitClass unitClass;
     public UnitColor unitColor;
@@ -129,13 +129,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     {
         StopAllCoroutines();
         ResetAiStateValue();
-    }
-
-    void LoadStat_RPC() => photonView.RPC(nameof(LoadStat), RpcTarget.MasterClient);
-    [PunRPC]
-    protected void LoadStat()
-    {
-        _stat = Managers.Multi.Data.GetUnitStat(UsingID, UnitFlags);
     }
     
     void SetPassive_RPC() => photonView.RPC(nameof(SetPassive), RpcTarget.All);

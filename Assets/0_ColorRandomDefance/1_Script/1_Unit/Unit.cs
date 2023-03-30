@@ -6,7 +6,7 @@ using System;
 [Serializable]
 public class Unit
 {
-    readonly UnitFlags _unitFlags;
+    [SerializeField] UnitFlags _unitFlags;
     public UnitFlags UnitFlags => _unitFlags;
 
     [SerializeField] UnitDamageInfo _damageInfo;

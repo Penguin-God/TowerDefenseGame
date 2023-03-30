@@ -18,7 +18,6 @@ public class BattleScene : BaseScene
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
         new WorldInitializer(monoBehaviourContainer).Init();
-        Managers.Multi.Init();
         CreatePools();
     }
 
@@ -40,7 +39,6 @@ public class BattleScene : BaseScene
     {
         EventIdManager.Clear();
         Managers.Pool.Clear();
-        Managers.Multi.Clear();
     }
 }
 

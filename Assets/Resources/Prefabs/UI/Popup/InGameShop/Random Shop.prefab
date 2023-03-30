@@ -252,7 +252,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2664057354908534429}
   - component: {fileID: 2710741721103550188}
-  - component: {fileID: 3498981087888204140}
   m_Layer: 5
   m_Name: Random Shop
   m_TagString: Untagged
@@ -294,28 +293,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ac3e7bfdde0674baf9275176cfa94f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panel: {fileID: 0}
---- !u!114 &3498981087888204140
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851800193802447926}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e08832a797d3de4e933118c050ff54b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gradeColors:
-  - {r: 1, g: 1, b: 1, a: 0.47058824}
-  - {r: 0, g: 0.89411765, b: 1, a: 0.39215687}
-  - {r: 0.69803923, g: 0.0627451, b: 1, a: 0.43137255}
-  currecyTextColors:
-  - {r: 1, g: 0.7372549, b: 0, a: 1}
-  - {r: 1, g: 0.40784314, b: 0.050980393, a: 1}
-  goldImage: {fileID: 21300000, guid: aebcbaf5d1d2146bf9ff69b1b95334d6, type: 3}
-  foodImage: {fileID: 21300000, guid: 25b6b275757df4f589d23b542f236cb0, type: 3}
 --- !u!1 &2974925425458956735
 GameObject:
   m_ObjectHideFlags: 0

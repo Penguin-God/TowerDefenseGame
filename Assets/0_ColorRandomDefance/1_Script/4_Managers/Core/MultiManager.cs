@@ -11,21 +11,6 @@ public class MultiManager
     MultiInstantiater _multiInstantiater = new MultiInstantiater();
     public MultiInstantiater Instantiater => _multiInstantiater;
 
-    MultiDataManager _multiDataManager;
-    public MultiDataManager Data => _multiDataManager;
-
-    public void Init()
-    {
-        _multiDataManager = new MultiDataManager();
-        if (PhotonNetwork.IsMasterClient)
-            _multiDataManager.Init();
-    }
-
-    public void Clear()
-    {
-        _multiDataManager = null;
-    }
-
     public Transform GetPhotonViewTransfrom(int viewID)
     {
         return PhotonView.Find(viewID).transform;
@@ -84,41 +69,4 @@ public class MultiManager
                 PhotonNetwork.Destroy(go);
         }
     }
-}
-
-public class MultiDataManager
-{
-    public byte PlayerID => (byte)(PhotonNetwork.IsMasterClient ? 0 : 1);
-
-    RPCData<Dictionary<UnitFlags, UnitStat>> _unitStatData = new RPCData<Dictionary<UnitFlags, UnitStat>>();
-
-    readonly UnitDamageInfoManager[] _damageManagers = new UnitDamageInfoManager[PlayerIdManager.MaxPlayerCount];
-
-
-    public void Init()
-    {
-        for (int i = 0; i < _damageManagers.Length; i++)
-            _damageManagers[i] = 
-                new UnitDamageInfoManager(Managers.Data.Unit.UnitStatByFlag.ToDictionary(x => x.Key, x => new UnitDamageInfo(x.Value.Damage, x.Value.BossDamage)));
-
-        _unitStatData.Set(0, GetUnitStatData());
-        _unitStatData.Set(1, GetUnitStatData());
-
-        Dictionary<UnitFlags, UnitStat> GetUnitStatData() => Managers.Data.Unit.UnitStatByFlag.ToDictionary(x => x.Key, x => x.Value.GetClone());
-    }
-
-    public UnitStat GetUnitStat(UnitFlags flag) => GetUnitStat(PlayerID, flag);
-    public UnitStat GetUnitStat(byte id, UnitFlags flag) => _unitStatData.Get(id)[flag].GetClone();
-    public IEnumerable<UnitStat> GetUnitStats(Func<UnitFlags, bool> condition)
-        => GetUnitStats(PlayerID, condition);
-    public IEnumerable<UnitStat> GetUnitStats(byte id, Func<UnitFlags, bool> condition)
-        => _unitStatData.Get(id).Keys.Where(condition).Select(x => GetUnitStat(x));
-
-    // 외부로 열어둔 GetUnitStats는 클론 주는 거라서 바꿔봤자 의미 없음
-    public void ChangeUnitStat(int id, Action<UnitStat> action, Func<UnitFlags, bool> conditoin)
-        => _unitStatData
-            .Get(id)
-            .Values
-            .Where(x => conditoin(x.Flag))
-            .ToList().ForEach(action);
 }

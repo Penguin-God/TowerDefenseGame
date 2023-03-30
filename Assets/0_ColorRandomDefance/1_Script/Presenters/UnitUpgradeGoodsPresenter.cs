@@ -3,19 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShopDataTransfer : MonoBehaviour
-{
-    [SerializeField] Color[] gradeColors;
-    public Color GradeToColor(int grade) => gradeColors[grade];
-
-    [SerializeField] Color[] currecyTextColors;
-    public Color CurrencyToColor(GameCurrencyType type) => type == GameCurrencyType.Gold ? currecyTextColors[0] : currecyTextColors[1];
-
-    [SerializeField] Sprite goldImage;
-    [SerializeField] Sprite foodImage;
-    public Sprite CurrencyToSprite(GameCurrencyType type) => type == GameCurrencyType.Gold ? goldImage : foodImage;
-}
-
 public class UnitUpgradeGoodsPresenter
 {
     static readonly IReadOnlyDictionary<UnitColor, Color32> Colors = new Dictionary<UnitColor, Color32>()
@@ -40,7 +27,7 @@ public class UnitUpgradeGoodsPresenter
         {UnitColor.Violet, "보라" },
     };
 
-    string GetUpgradeText(UnitUpgradeType upgradeType) => upgradeType == UnitUpgradeType.Value ? $" 공격력 {UnitUpgradeGoodsData.ADD_DAMAGE}" : $" 공격력 {UnitUpgradeGoodsData.SCALE_DAMAGE_RATE}%";
+    string GetUpgradeText(UnitUpgradeType upgradeType) => upgradeType == UnitUpgradeType.Value ? $" 공격력 {UnitUpgradeGoodsData.ADD_DAMAGE}" : $" 공격력 {UnitUpgradeGoodsData.SCALE_DAMAGE_RATE * 100}%";
 
     static readonly IReadOnlyDictionary<GameCurrencyType, Color32> CurrencyColors = new Dictionary<GameCurrencyType, Color32>()
     {

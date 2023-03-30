@@ -32,6 +32,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
         var unit = Managers.Multi.Instantiater.PhotonInstantiate(PathBuilder.BuildUnitPath(flag), spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
         unit.SetInfo(flag, Managers.Data.Unit.UnitStatByFlag[flag], MultiServiceMidiator.Server.UnitDamageInfo(id, flag));
         Multi_UnitManager.Instance.Master.AddUnit(unit);
+        MultiServiceMidiator.Server.AddUnit(unit);
         if (unit.UsingID == PlayerIdManager.MasterId)
             Multi_UnitManager.Instance.AddUnit(unit);
         else

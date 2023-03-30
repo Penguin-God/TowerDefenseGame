@@ -88,8 +88,8 @@ public class ServerUnitUpgradeController : UnitUpgradeController
     void UpdateCurrentUnitDamageInfo(byte id, UnitFlags targetFlag) => UpdateCurrentUnitDamageInfo(id, (flag) => flag == targetFlag);
 
     void UpdateCurrentUnitDamageInfo(byte id, Func<UnitFlags, bool> condition)
-        => Multi_UnitManager.Instance
-            .FindUnits(x => condition(x.UnitFlags))
+        => _serverManager.GetUnits(id)
+            .Where(x => condition(x.UnitFlags))
             .ToList()
             .ForEach(x => x.UpdateDamageInfo(_serverManager.GetUnitDamageInfoManager(id).GetDamageInfo(x.UnitFlags)));
 }

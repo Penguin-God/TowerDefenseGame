@@ -9,6 +9,7 @@ public class ServerManager
     public ServerManager(Dictionary<UnitFlags, UnitDamageInfo> damageInfos)
     {
         _unitDamageManagers = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(new Dictionary<UnitFlags, UnitDamageInfo>(damageInfos)));
+        _units = new MultiData<List<Multi_TeamSoldier>>(() => new List<Multi_TeamSoldier>());
     }
 
     MultiData<UnitDamageInfoManager> _unitDamageManagers;
@@ -29,6 +30,14 @@ public class ServerManager
     public void ScaleUnitDamageValue(byte playerId, Func<UnitFlags, bool> condition, float value, UnitStatType changeStatType)
         => _unitDamageInfoChanger.ScaleUnitDamageValue(GetUnitDamageInfoManager(playerId), condition, value, changeStatType);
 
+    MultiData<List<Multi_TeamSoldier>> _units;
+    public IReadOnlyList<Multi_TeamSoldier> GetUnits(byte playerId) => _units.GetData(playerId);
+    public void AddUnit(Multi_TeamSoldier unit)
+    {
+        _units.GetData(unit.UsingID).Add(unit);
+        unit.OnDead += RemoveUnit;
+    }
+    void RemoveUnit(Multi_TeamSoldier unit) =>  _units.GetData(unit.UsingID).Remove(unit);
 }
 
 public class UnitDamageInfoChanger

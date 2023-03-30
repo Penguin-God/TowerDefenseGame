@@ -18,7 +18,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public UnitColor unitColor;
 
     [SerializeField] UnitStat _stat;
-    public UnitStat Stat => _stat;
 
     int Damage => _unit.DamageInfo.ApplyDamage;
     protected int BossDamage => _unit.DamageInfo.ApplyBossDamage;
@@ -101,13 +100,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected virtual ChaseSystem AddCahseSystem() => gameObject.AddComponent<ChaseSystem>();
 
     // MasterOnly
-    public void SetInfo()
-    {
-        LoadStat_RPC();
-        SetPassive_RPC();
-        photonView.RPC(nameof(SetNavSpeed), RpcTarget.Others, (float)Speed);
-    }
-
     public void SetInfo(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo)
     {
         _stat = stat;

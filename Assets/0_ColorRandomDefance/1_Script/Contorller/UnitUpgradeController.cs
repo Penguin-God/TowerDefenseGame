@@ -5,6 +5,13 @@ using Photon.Pun;
 using System.Linq;
 using System;
 
+public enum UnitStatType
+{
+    Damage,
+    BossDamage,
+    All,
+}
+
 public class UnitUpgradeController : MonoBehaviourPun
 {
     UnitDamageInfoManager _unitDamageManager;

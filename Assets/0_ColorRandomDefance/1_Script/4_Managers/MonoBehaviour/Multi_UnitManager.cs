@@ -9,9 +9,6 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
 {
     EnemyPlayerDataManager _enemyPlayer = new EnemyPlayerDataManager();
     MasterDataManager _master = new MasterDataManager();
-    
-    UnitStatChangeFacade _statFacade;
-    public UnitStatChangeFacade Stat => _statFacade;
 
     public MasterDataManager Master => _master;
 
@@ -51,9 +48,6 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         
         _enemyPlayer.Init(_master);
         _enemyPlayer.OnOtherUnitCountChanged += RaiseOnOtherUnitCountChaned;
-
-        _statFacade = gameObject.AddComponent<UnitStatChangeFacade>();
-        _statFacade.Init(Managers.Multi.Data, Instance);
 
         if (PhotonNetwork.IsMasterClient == false) return;
         _master.Init();
@@ -108,13 +102,6 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
     {
         if (PhotonNetwork.IsMasterClient == false) return null;
         var units = _master.GetUnits(id, (unit) => unit.unitClass == unitClass);
-        return units.Count() == 0 ? null : units.First();
-    }
-
-    public Multi_TeamSoldier FindUnit(byte id, UnitFlags flag)
-    {
-        if (PhotonNetwork.IsMasterClient == false) return null;
-        var units = _master.GetUnits(id, (unit) => unit.UnitFlags == flag);
         return units.Count() == 0 ? null : units.First();
     }
 

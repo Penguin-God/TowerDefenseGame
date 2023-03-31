@@ -47,5 +47,5 @@ public class WhiteUnitShop_UI : UI_Popup
     }
 
     string GetPriceText(int classNumber, PriceData record)
-        => $"{new UnitFlags(6, classNumber).KoreaName} : {record.GetPriceDescription()}";
+        => $"{UnitPresenter.GetUnitName(new UnitFlags(WHITE_COLOR_NUMBER, classNumber))} : {record.GetPriceDescription()}";
 }

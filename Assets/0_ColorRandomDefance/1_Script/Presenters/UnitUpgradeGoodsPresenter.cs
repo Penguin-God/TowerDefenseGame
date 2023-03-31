@@ -16,16 +16,8 @@ public class UnitUpgradeGoodsPresenter
     };
     public Color GetUnitColor(UnitColor unitColor) => Colors[unitColor];
 
-    public string BuildGoodsText(UnitUpgradeGoods upgradeGoods) => $"{ColorTexts[upgradeGoods.TargetColor]} 유닛 {GetUpgradeText(upgradeGoods.UpgradeType)} 증가";
-    static readonly IReadOnlyDictionary<UnitColor, string> ColorTexts = new Dictionary<UnitColor, string>()
-    {
-        {UnitColor.Red, "빨간" },
-        {UnitColor.Blue, "파란" },
-        {UnitColor.Yellow, "노란" },
-        {UnitColor.Green, "초록" },
-        {UnitColor.Orange, "주황" },
-        {UnitColor.Violet, "보라" },
-    };
+    public string BuildGoodsText(UnitUpgradeGoods upgradeGoods)
+        => $"{UnitPresenter.GetColorText(upgradeGoods.TargetColor)} 유닛 {GetUpgradeText(upgradeGoods.UpgradeType)} 증가";
 
     string GetUpgradeText(UnitUpgradeType upgradeType) => upgradeType == UnitUpgradeType.Value ? $" 공격력 {UnitUpgradeGoodsData.ADD_DAMAGE}" : $" 공격력 {UnitUpgradeGoodsData.SCALE_DAMAGE_RATE * 100}%";
 

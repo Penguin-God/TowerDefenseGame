@@ -14,6 +14,6 @@ public class UnitColorChangeTextPresenter
     public string GenerateTextShowToVictim(UnitFlags before, UnitFlags after)
         => $"상대방의 스킬 사용으로 보유 중인\n{GenerateColorChangeResultText(before, after)}";
 
-    string DecorateBeforeKoreaName(UnitFlags flag) => flag.KoreaName + (flag.UnitClass == UnitClass.Spearman ? "이" : "가");
-    string DecorateAfterGetKoreaName(UnitFlags flag) => flag.KoreaName + (flag.UnitClass == UnitClass.Spearman ? "으로" : "로");
+    string DecorateBeforeKoreaName(UnitFlags flag) => UnitPresenter.GetUnitName(flag) + (flag.UnitClass == UnitClass.Spearman ? "이" : "가");
+    string DecorateAfterGetKoreaName(UnitFlags flag) => UnitPresenter.GetUnitName(flag) + (flag.UnitClass == UnitClass.Spearman ? "으로" : "로");
 }

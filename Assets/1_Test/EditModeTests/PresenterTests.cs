@@ -40,33 +40,32 @@ namespace Tests
             Assert.AreEqual("고기 10개", result);
         }
 
-        // UnitFlags에서 유닛 참조 뺴야됨
-        //[Test]
-        //public void 하얀_유닛_변경_시_나오는_텍스트_생성()
-        //{
-        //    var sut = new UnitColorChangeTextPresenter();
-        //    var beforeFlag = new UnitFlags(1, 2);
-        //    var afterFlag = new UnitFlags(0, 2);
+        [Test]
+        public void 하얀_유닛_변경_시_나오는_텍스트_생성()
+        {
+            var sut = new UnitColorChangeTextPresenter();
+            var beforeFlag = new UnitFlags(1, 2);
+            var afterFlag = new UnitFlags(0, 2);
 
-        //    Assert.AreEqual("파란 창병이 빨간 창병으로 변경되었습니다", sut.GenerateColorChangeResultText(beforeFlag, afterFlag));
+            Assert.AreEqual("파란 창병이 빨간 창병으로 변경되었습니다", sut.GenerateColorChangeResultText(beforeFlag, afterFlag));
 
-        //    var beforeFlag2 = new UnitFlags(1, 1);
-        //    var afterFlag2 = new UnitFlags(0, 1);
-        //    Assert.AreEqual("파란 궁수가 빨간 궁수로 변경되었습니다", sut.GenerateColorChangeResultText(beforeFlag2, afterFlag2));
+            var beforeFlag2 = new UnitFlags(1, 1);
+            var afterFlag2 = new UnitFlags(0, 1);
+            Assert.AreEqual("파란 궁수가 빨간 궁수로 변경되었습니다", sut.GenerateColorChangeResultText(beforeFlag2, afterFlag2));
 
-        //    Assert.AreEqual("스킬 사용으로 상대방의\n파란 창병이 빨간 창병으로 변경되었습니다", sut.GenerateTextShowToDisruptor(beforeFlag, afterFlag));
-        //    Assert.AreEqual("상대방의 스킬 사용으로 보유 중인\n파란 창병이 빨간 창병으로 변경되었습니다", sut.GenerateTextShowToVictim(beforeFlag, afterFlag));
-        //}
+            Assert.AreEqual("스킬 사용으로 상대방의\n파란 창병이 빨간 창병으로 변경되었습니다", sut.GenerateTextShowToDisruptor(beforeFlag, afterFlag));
+            Assert.AreEqual("상대방의 스킬 사용으로 보유 중인\n파란 창병이 빨간 창병으로 변경되었습니다", sut.GenerateTextShowToVictim(beforeFlag, afterFlag));
+        }
 
-        //[Test]
-        //public void 상대_색깔_변경_시_나오는_텍스트_생성()
-        //{
-        //    var sut = new UnitColorChangeTextPresenter();
-        //    var beforeFlag = new UnitFlags(1, 2);
-        //    var afterFlag = new UnitFlags(0, 2);
+        [Test]
+        public void 상대_색깔_변경_시_나오는_텍스트_생성()
+        {
+            var sut = new UnitColorChangeTextPresenter();
+            var beforeFlag = new UnitFlags(1, 2);
+            var afterFlag = new UnitFlags(0, 2);
 
-        //    Assert.AreEqual("스킬 사용으로 상대방의\n파란 창병이 빨간 창병으로 변경되었습니다", sut.GenerateTextShowToDisruptor(beforeFlag, afterFlag));
-        //    Assert.AreEqual("상대방의 스킬 사용으로 보유 중인\n파란 창병이 빨간 창병으로 변경되었습니다", sut.GenerateTextShowToVictim(beforeFlag, afterFlag));
-        //}
+            Assert.AreEqual("스킬 사용으로 상대방의\n파란 창병이 빨간 창병으로 변경되었습니다", sut.GenerateTextShowToDisruptor(beforeFlag, afterFlag));
+            Assert.AreEqual("상대방의 스킬 사용으로 보유 중인\n파란 창병이 빨간 창병으로 변경되었습니다", sut.GenerateTextShowToVictim(beforeFlag, afterFlag));
+        }
     }
 }

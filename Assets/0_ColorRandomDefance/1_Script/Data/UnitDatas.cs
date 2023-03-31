@@ -44,8 +44,6 @@ public struct UnitFlags : IEquatable<UnitFlags>
     public UnitColor UnitColor => (UnitColor)_colorNumber;
     public UnitClass UnitClass => (UnitClass)_classNumber;
 
-    public string KoreaName => Managers.Data.UnitNameDataByFlag[this].KoearName;
-
     public bool Equals(UnitFlags other) 
         => other.ColorNumber == _colorNumber && other.ClassNumber == _classNumber;
 

@@ -69,25 +69,29 @@ public class RandomShop_UI : UI_Popup
     protected override void Init()
     {
         base.Init();
-        BindGoods();
+        InitShopGoodsList();
         _buyController.OnBuyGoods += OnBuyGoods;
+        Bind<Button>(typeof(Buttons));
+        GetButton((int)Buttons.ResetButton).onClick.AddListener(ResetShop);
         gameObject.SetActive(false);
     }
 
-    void BindGoods() // 필요한 부분 분리해서 리롤에 재사용해야 함
+    void InitShopGoodsList()
+    {
+        GetComponentsInChildren<UI_Goods>().ToList().ForEach(x => x._Init());
+        SetGoods(new HashSet<UnitUpgradeGoods>());
+    }
+
+    void SetGoods(HashSet<UnitUpgradeGoods> excludingGoddsSet)
     {
         var locations = Enum.GetValues(typeof(GoodsLocation)).Cast<GoodsLocation>();
-        var goodsSet = _goodsSelector.SelectGoodsSet();
+        var goodsSet = _goodsSelector.SelectGoodsSetExcluding(excludingGoddsSet);
         _locationByGoods = locations.Zip(goodsSet, (location, goods) => new { location, goods }).ToDictionary(pair => pair.location, pair => pair.goods);
-        
+
         var goodsUIs = GetComponentsInChildren<UI_Goods>();
         _locationByGoods_UI = locations.Zip(goodsUIs, (location, goodsUI) => new { location, goodsUI }).ToDictionary(pair => pair.location, pair => pair.goodsUI);
-
         foreach (var item in _locationByGoods)
-        {
-            _locationByGoods_UI[item.Key]._Init();
             _locationByGoods_UI[item.Key].Setup(item.Value, _buyController);
-        }
     }
 
     void OnBuyGoods(UnitUpgradeGoods goods)
@@ -98,13 +102,23 @@ public class RandomShop_UI : UI_Popup
         _locationByGoods_UI[changeLocation].Setup(newGoods, _buyController);
     }
 
-    // 리셋 버튼에서 사용하는 함수
-    void ShopReset()
+    const int RESET_PRICE = 5;
+    void ResetShop()
     {
-        //UI_RandomShopGoodsData data =
-        //    new UI_RandomShopGoodsData("상점 리롤", GoodsLocation.None, -1, GameCurrencyType.Gold, 10, 
-        //    "10골드를 지불하여 상점을 돌리시겠습니까?", SellType.None, null);
-        //panel.Setup(data, goodsManager, BindGoods);
+        Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo($"{RESET_PRICE}골드를 지불하여 상점을 초기화하시겠습니까?", BuyShopReset);
         Managers.Sound.PlayEffect(EffectSoundType.ShopGoodsClick);
+    }
+    void BuyShopReset()
+    {
+        if (Multi_GameManager.Instance.TryUseGold(RESET_PRICE))
+        {
+            SetGoods(new HashSet<UnitUpgradeGoods>(_locationByGoods.Values));
+            Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
+        }
+        else
+        {
+            Managers.UI.ShowDefualtUI<UI_PopupText>().Show($"골드가 부족해 구매할 수 없습니다.", 2f, Color.red);
+            Managers.Sound.PlayEffect(EffectSoundType.Denger);
+        }
     }
 }

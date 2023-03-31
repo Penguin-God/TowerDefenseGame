@@ -95,6 +95,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     /// </summary>
     #region 상태이상 구현
 
+    public bool IsSlow { get; private set; }
     Coroutine exitSlowCoroutine = null;
     [SerializeField] private Material freezeMat;
 
@@ -109,7 +110,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         if (slowSpeed <= speed) // 슬로우를 적용했을 때 현재 속도보다 느려져야만 슬로우 적용
         {
             photonView.RPC(nameof(ApplySlow), RpcTarget.All, speed);
-            
+            IsSlow = true;
             // 슬로우 시간 갱신 위한 코드
             // 더 강하거나 비슷한 슬로우가 들어오면 작동 준비중이던 슬로우 탈출 코루틴은 나가리 되고 새로운 탈출 코루틴이 돌아감
             if (exitSlowCoroutine != null && slowTime > 0) // 법사 패시브 때문에 slowTime > 0 조건 추가함
@@ -138,6 +139,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         ChangeMat(originMat);
         ChangeColorToOrigin();
+        IsSlow = false;
 
         // 스턴 상태가 아니라면 속도 복구
         if (queue_GetSturn.Count <= 0 && photonView.IsMine) Set_OriginSpeed_ToAllPlayer();

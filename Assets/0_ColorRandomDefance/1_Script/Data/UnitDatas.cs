@@ -141,6 +141,18 @@ public class UnitStat
     public void SetAttDelayTime(float attackDelayTime) => _attackDelayTime = attackDelayTime;
     public void SetSpeed(float speed) => _speed = speed;
     public void SetAttackRange(float attackRange) => _attackRange = attackRange;
+
+    public UnitStat GetClone()
+    {
+        var result = new UnitStat();
+        result._flag = _flag;
+        result._damage = _damage;
+        result._bossDamage = _bossDamage;
+        result._attackDelayTime = _attackDelayTime;
+        result._speed = _speed;
+        result._attackRange = _attackRange;
+        return result;
+    }
 }
 
 

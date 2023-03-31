@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: -7018459697017091429}
   m_Layer: 9
   m_Name: Yellow_Archer 1
-  m_TagString: YellowArcher
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -304,9 +304,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e20cfe699f0bc54fafd5160815d5036, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitClass: 1
-  unitColor: 2
-  stat:
+  _unit:
+    _unitFlags:
+      _colorNumber: 0
+      _classNumber: 0
+    _damageInfo:
+      _baseDamage: 0
+      _baseBossDamage: 0
+      _damageRate: 0
+      _bossDamageRate: 0
+  _stat:
     _flag:
       _colorNumber: 0
       _classNumber: 0
@@ -316,7 +323,6 @@ MonoBehaviour:
     _speed: 0
     _attackRange: 0
   stopDistanc: 5
-  target: {fileID: 0}
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0
   _targetManager:
@@ -329,9 +335,6 @@ MonoBehaviour:
   skillArrowCount: 3
   _useSkillPercent: 0
   _skillReboundTime: 0.5
-  _skillSystem:
-    _skillDamage: 0
-    _bossSkillDamage: 0
 --- !u!114 &466975689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -391,7 +394,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -488,7 +492,7 @@ GameObject:
   - component: {fileID: 6535835773242299622}
   m_Layer: 9
   m_Name: TB_Soldier_Archer_Yellow
-  m_TagString: YellowArcher
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

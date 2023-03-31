@@ -48,7 +48,7 @@ GameObject:
   - component: {fileID: 4252850344900294545}
   m_Layer: 9
   m_Name: White_Spearman 1
-  m_TagString: WhiteSpearman
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -118,9 +118,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a8174b173cc1784f8712ec2190e02c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitClass: 2
-  unitColor: 6
-  stat:
+  _unit:
+    _unitFlags:
+      _colorNumber: 0
+      _classNumber: 0
+    _damageInfo:
+      _baseDamage: 0
+      _baseBossDamage: 0
+      _damageRate: 0
+      _bossDamageRate: 0
+  _stat:
     _flag:
       _colorNumber: 0
       _classNumber: 0
@@ -130,7 +137,6 @@ MonoBehaviour:
     _speed: 0
     _attackRange: 0
   stopDistanc: 3
-  target: {fileID: 0}
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0.55
   _targetManager:
@@ -144,9 +150,6 @@ MonoBehaviour:
   spear: {fileID: 8901213837801248656}
   _useSkillPercent: 0
   _skillReboundTime: 0.4
-  _skillSystem:
-    _skillDamage: 0
-    _bossSkillDamage: 0
 --- !u!114 &-2285952888747225639
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +210,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 0
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 0}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -530,7 +534,7 @@ GameObject:
   - component: {fileID: 6518196259232802396}
   m_Layer: 9
   m_Name: TB_Soldier_Spearman_White
-  m_TagString: WhiteSwordman
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

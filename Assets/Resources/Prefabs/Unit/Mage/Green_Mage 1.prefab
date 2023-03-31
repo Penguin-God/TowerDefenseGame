@@ -466,7 +466,7 @@ GameObject:
   - component: {fileID: 3037546837303484845}
   m_Layer: 9
   m_Name: TB_Soldier_Mage_Green
-  m_TagString: GreenMage
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -708,7 +708,7 @@ GameObject:
   - component: {fileID: 487795933119736856}
   m_Layer: 9
   m_Name: Green_Mage 1
-  m_TagString: GreenMage
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -875,9 +875,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53057f34fb163de4fad2ad5b51061d02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitClass: 3
-  unitColor: 3
-  stat:
+  _unit:
+    _unitFlags:
+      _colorNumber: 0
+      _classNumber: 0
+    _damageInfo:
+      _baseDamage: 0
+      _baseBossDamage: 0
+      _damageRate: 0
+      _bossDamageRate: 0
+  _stat:
     _flag:
       _colorNumber: 0
       _classNumber: 0
@@ -899,18 +906,12 @@ MonoBehaviour:
     _maxMana: 0
     _addMana: 0
     _skillStats: []
-  energyballData:
-    weaponPath: 
-    attacker: {fileID: 6775729880577783548}
-    spawnTransform: {fileID: 5332082169092532282}
   skillData:
     weaponPath: 
     attacker: {fileID: 0}
     spawnTransform: {fileID: 5332082169092532282}
   magicLight: {fileID: 5332082168045071131}
   energyBallTransform: {fileID: 5332082169092532282}
-  mageSkillObject: {fileID: 3393117671410220457, guid: 22894d5e770e44f41afc452903b2263b,
-    type: 3}
   mageSkillCoolDownTime: 1
   bounceBallDamage: 0
   manaLockTime: 0

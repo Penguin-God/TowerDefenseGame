@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1245513252377690110}
   m_Layer: 9
   m_Name: TB_Soldier_Mage_Red
-  m_TagString: RedMage
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -336,7 +336,7 @@ GameObject:
   - component: {fileID: -3570838270171858624}
   m_Layer: 9
   m_Name: Red_Mage 1
-  m_TagString: RedMage
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -503,9 +503,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aef40dfb13cce0e42be06da783255358, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitClass: 3
-  unitColor: 0
-  stat:
+  _unit:
+    _unitFlags:
+      _colorNumber: 0
+      _classNumber: 0
+    _damageInfo:
+      _baseDamage: 0
+      _baseBossDamage: 0
+      _damageRate: 0
+      _bossDamageRate: 0
+  _stat:
     _flag:
       _colorNumber: 0
       _classNumber: 0
@@ -527,18 +534,12 @@ MonoBehaviour:
     _maxMana: 0
     _addMana: 0
     _skillStats: []
-  energyballData:
-    weaponPath: 
-    attacker: {fileID: 6109000016361938838}
-    spawnTransform: {fileID: 4841617211874935120}
   skillData:
     weaponPath: 
     attacker: {fileID: 0}
     spawnTransform: {fileID: 0}
   magicLight: {fileID: 4841617210835731057}
   energyBallTransform: {fileID: 4841617211874935120}
-  mageSkillObject: {fileID: 767403622873436515, guid: 6f18a0f9e7422194fbef769d115ca77d,
-    type: 3}
   mageSkillCoolDownTime: 2.5
   meteorDamage: 0
   meteorStunTime: 0

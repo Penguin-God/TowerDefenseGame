@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 3555716918846999307}
   m_Layer: 9
   m_Name: Violet_Mage 1
-  m_TagString: VioletMage
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -202,9 +202,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27af812c0ddbdf64994137d66f4bfd56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitClass: 3
-  unitColor: 5
-  stat:
+  _unit:
+    _unitFlags:
+      _colorNumber: 0
+      _classNumber: 0
+    _damageInfo:
+      _baseDamage: 0
+      _baseBossDamage: 0
+      _damageRate: 0
+      _bossDamageRate: 0
+  _stat:
     _flag:
       _colorNumber: 0
       _classNumber: 0
@@ -226,18 +233,12 @@ MonoBehaviour:
     _maxMana: 0
     _addMana: 0
     _skillStats: []
-  energyballData:
-    weaponPath: 
-    attacker: {fileID: 298940350712295409}
-    spawnTransform: {fileID: 1428039914236047671}
   skillData:
     weaponPath: 
     attacker: {fileID: 0}
     spawnTransform: {fileID: 0}
   magicLight: {fileID: 1428039913201168918}
   energyBallTransform: {fileID: 1428039914236047671}
-  mageSkillObject: {fileID: 6269822335907625535, guid: 3d04c93368856bd4eb50c61fefa0cda7,
-    type: 3}
   mageSkillCoolDownTime: 2
   percent: 0
   count: 0
@@ -526,7 +527,7 @@ GameObject:
   - component: {fileID: 8073192741477021860}
   m_Layer: 9
   m_Name: TB_Soldier_Mage_Violet
-  m_TagString: VioletMage
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

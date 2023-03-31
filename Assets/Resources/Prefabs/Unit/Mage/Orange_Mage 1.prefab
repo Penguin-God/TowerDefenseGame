@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4084417286422265876}
   m_Layer: 9
   m_Name: TB_Soldier_Mage_Orange
-  m_TagString: OrangeMage
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -215,7 +215,7 @@ GameObject:
   - component: {fileID: -1380800105787033587}
   m_Layer: 9
   m_Name: Orange_Mage 1
-  m_TagString: OrangeMage
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -382,9 +382,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a1f6a62a16c82147bb9c0ad6ab7562e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitClass: 3
-  unitColor: 4
-  stat:
+  _unit:
+    _unitFlags:
+      _colorNumber: 0
+      _classNumber: 0
+    _damageInfo:
+      _baseDamage: 0
+      _baseBossDamage: 0
+      _damageRate: 0
+      _bossDamageRate: 0
+  _stat:
     _flag:
       _colorNumber: 0
       _classNumber: 0
@@ -406,18 +413,12 @@ MonoBehaviour:
     _maxMana: 0
     _addMana: 0
     _skillStats: []
-  energyballData:
-    weaponPath: 
-    attacker: {fileID: 5512811997297203013}
-    spawnTransform: {fileID: 6590480786666523011}
   skillData:
     weaponPath: 
     attacker: {fileID: 0}
     spawnTransform: {fileID: 0}
   magicLight: {fileID: 6590480787772705442}
   energyBallTransform: {fileID: 6590480786666523011}
-  mageSkillObject: {fileID: 6070129563677219890, guid: f894d2491a0cb5f4d8c47c6ab4a2f98e,
-    type: 3}
   mageSkillCoolDownTime: 1
   count: 0
   percent: 0

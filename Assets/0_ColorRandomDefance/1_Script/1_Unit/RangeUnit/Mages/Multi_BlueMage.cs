@@ -28,7 +28,7 @@ public class Multi_BlueMage : Multi_Unit_Mage
 
     private void OnTriggerStay(Collider other)
     {
-        if (photonView.IsMine == false) return;
+        if (PhotonNetwork.IsMasterClient == false) return;
 
         if (other.GetComponentInParent<Multi_NormalEnemy>() != null) // 나가기 전까진 무한 슬로우
             other.GetComponentInParent<Multi_NormalEnemy>().OnSlow(slowPercent, -1);
@@ -36,7 +36,7 @@ public class Multi_BlueMage : Multi_Unit_Mage
 
     private void OnTriggerExit(Collider other)
     {
-        if (photonView.IsMine == false) return;
+        if (PhotonNetwork.IsMasterClient == false) return;
 
         if (other.GetComponentInParent<Multi_NormalEnemy>() != null)
             other.GetComponentInParent<Multi_NormalEnemy>().ExitSlow(RpcTarget.All); // TODO : 나중에 동기화 마스터한테 옮기고 이게 맞는지 확인해보기

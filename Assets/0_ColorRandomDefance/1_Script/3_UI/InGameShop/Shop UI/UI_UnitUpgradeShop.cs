@@ -55,7 +55,7 @@ public enum GoodsLocation
     Right,
 }
 
-public class RandomShop_UI : UI_Popup
+public class UI_UnitUpgradeShop : UI_Popup
 {
     enum Buttons
     {

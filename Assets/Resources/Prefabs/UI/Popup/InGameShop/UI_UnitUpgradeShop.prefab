@@ -119,7 +119,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2710741721103550188}
+      - m_Target: {fileID: 0}
         m_MethodName: ShopReset
         m_Mode: 1
         m_Arguments:
@@ -251,7 +251,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2664057354908534429}
-  - component: {fileID: 2710741721103550188}
+  - component: {fileID: 9170679657671819572}
   m_Layer: 5
   m_Name: Random Shop
   m_TagString: Untagged
@@ -281,7 +281,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2710741721103550188
+--- !u!114 &9170679657671819572
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -290,7 +290,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1851800193802447926}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93ac3e7bfdde0674baf9275176cfa94f, type: 3}
+  m_Script: {fileID: 11500000, guid: 005769e5cf6f5c148bc9863e8979642e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2974925425458956735

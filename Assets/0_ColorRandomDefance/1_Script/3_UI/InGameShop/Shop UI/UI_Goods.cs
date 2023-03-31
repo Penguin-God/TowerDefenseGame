@@ -46,8 +46,8 @@ public class UI_Goods : UI_Base
 
     void ShowBuyWindow(UnitUpgradeGoodsData goodsData, BuyController buyController)
     {
-        string qustionText = $"{GoodsPresenter.BuildGoodsText(goodsData.UpgradeGoods)}를 {GetCurrcneyTypeText(goodsData.Currency)} {goodsData.Price}에 구매하시겠습니까?";
+        string qustionText 
+            = $"{GoodsPresenter.BuildGoodsText(goodsData.UpgradeGoods)}를 {new GameCurrencyPresenter().BuildCurrencyText(goodsData.Currency, goodsData.Price)}에 구매하시겠습니까?";
         Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo(qustionText, () => buyController.Buy(goodsData));
     }
-    string GetCurrcneyTypeText(GameCurrencyType type) => type == GameCurrencyType.Gold ? "골드" : "고기";
 }

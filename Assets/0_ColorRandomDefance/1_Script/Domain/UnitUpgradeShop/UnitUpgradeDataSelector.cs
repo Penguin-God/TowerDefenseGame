@@ -45,7 +45,7 @@ public class UnitUpgradeDataSelector
         return result;
     }
 
-    IEnumerable<UnitUpgradeData> GetAllGoods()
+    public IEnumerable<UnitUpgradeData> GetAllGoods()
         => Enum.GetValues(typeof(UnitUpgradeType))
         .Cast<UnitUpgradeType>()
         .SelectMany(upgradeType => Enum.GetValues(typeof(UnitColor))

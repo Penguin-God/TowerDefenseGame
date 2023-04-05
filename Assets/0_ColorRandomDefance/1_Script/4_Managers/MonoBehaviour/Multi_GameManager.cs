@@ -82,11 +82,24 @@ public class BattleDataManager
     [SerializeField] PriceData _maxUnitIncreaseRecord;
     public PriceData MaxUnitIncreaseRecord => _maxUnitIncreaseRecord;
 
+    public static int VALUE_PRICE => 10;
+    public static int SCALE_PRICE => 1;
+
+    public readonly IReadOnlyDictionary<UnitUpgradeData, CurrencyData> UnitUpgradeShopPriceDatas
+        = new UnitUpgradeDataSelector().GetAllGoods()
+            .ToDictionary(x => x, x => new CurrencyData(
+                x.UpgradeType == UnitUpgradeType.Value ? GameCurrencyType.Gold : GameCurrencyType.Food,
+                x.UpgradeType == UnitUpgradeType.Value ? VALUE_PRICE : SCALE_PRICE
+                ));
+
     public IEnumerable<PriceData> GetAllPriceDatas()
     {
         var result = new List<PriceData> { _maxUnitIncreaseRecord };
         return result.Concat(_whiteUnitPriceRecord.PriceDatas);
     }
+
+    public IEnumerable<CurrencyData> _GetAllPriceDatas() 
+        => UnitUpgradeShopPriceDatas.Values;
 }
 
 [Serializable]
@@ -109,6 +122,20 @@ public class PriceData
     public void ChangePrice(int newPrice) => _price = newPrice;
 
     public string GetPriceDescription() => new CurrencyPresenter().GetPriceDescription(_price, _currencyType);
+}
+
+public class CurrencyData
+{
+    public GameCurrencyType CurrencyType { get; private set; }
+    public void ChangedCurrencyType(GameCurrencyType newCurrency) => CurrencyType = newCurrency;
+    public int Price { get; private set; }
+    public void ChangePrice(int newPrice) => Price = newPrice;
+
+    public CurrencyData(GameCurrencyType currencyType, int price)
+    {
+        CurrencyType = currencyType;
+        Price = price;
+    }
 }
 
 class CurrencyPresenter
@@ -176,6 +203,7 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     [SerializeField] BattleDataManager _battleData;
     public BattleDataManager BattleData => _battleData;
     CurrencyManager CurrencyManager => _battleData.CurrencyManager;
+    HashSet<UnitUpgradeData> _locationByGoods = new HashSet<UnitUpgradeData>();
 
     public event Action<int> OnGoldChanged;
     void Rasie_OnGoldChanged(int gold) => OnGoldChanged?.Invoke(gold);

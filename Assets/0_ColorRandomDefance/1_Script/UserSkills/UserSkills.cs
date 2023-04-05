@@ -62,40 +62,71 @@ public class MaxUnit : UserSkill
 
 public class Taegeuk : UserSkill
 {
+    enum TaegeukStateChangeType
+    {
+        NoChange,
+        AddNewTaegeukUnit,
+        TrueToFalse,
+        FalseToTrue,
+    }
+
     public event Action<UnitClass, bool> OnTaegeukDamageChanged;
     static readonly int UnitClassCount = Enum.GetValues(typeof(UnitClass)).Length;
 
     int[] _taegeukDamages = new int[UnitClassCount];
-    
     public override void InitSkill()
     {
-        Multi_UnitManager.Instance.OnUnitCountChangeByClass += (unitClass, count) => UseSkill(unitClass);
+        Multi_SpawnManagers.NormalUnit.OnSpawn += CheckAndApplyTaegeuk;
         _taegeukDamages = SkillDatas.Select(x => (int)x).ToArray();
     }
 
     bool[] _currentTaegeukFlags = new bool[UnitClassCount];
-    void UseSkill(UnitClass unitClass)
-    {
-        if (TaegeukUnitDamageChangeCondition(unitClass) == false) return;
 
-        _currentTaegeukFlags[(int)unitClass] = CheckTaeguekConditoin(unitClass);
-        ApplyUnitDamge(unitClass, _currentTaegeukFlags[(int)unitClass]);
+    void CheckAndApplyTaegeuk(Multi_TeamSoldier unit)
+    {
+        var stateChange = GetTaegeukStateChangeType(unit.UnitClass);
+        var unitClass = unit.UnitClass;
+        switch (stateChange)
+        {
+            case TaegeukStateChangeType.NoChange:
+                return;
+            case TaegeukStateChangeType.TrueToFalse:
+                ApplyChangeTaeguekState(unitClass, false); break;
+            case TaegeukStateChangeType.FalseToTrue:
+                ApplyChangeTaeguekState(unitClass, true); break;
+        }
+
         OnTaegeukDamageChanged?.Invoke(unitClass, _currentTaegeukFlags[(int)unitClass]);
     }
 
-    bool TaegeukUnitDamageChangeCondition(UnitClass unitClass) // false => false만 아니면 true
-        => _currentTaegeukFlags[(int)unitClass] != false || CheckTaeguekConditoin(unitClass) != false;
-
-    bool CheckTaeguekConditoin(UnitClass unitClass)
-        => new TaegeukConditionChecker().CheckTaegeuk(unitClass, Multi_UnitManager.Instance.ExsitUnitFlags);
-
-    void ApplyUnitDamge(UnitClass unitClass, bool isTaegeukConditionMet)
+    TaegeukStateChangeType GetTaegeukStateChangeType(UnitClass unitClass)
     {
-        int applyDamage = isTaegeukConditionMet ? _taegeukDamages[(int)unitClass] : _taegeukDamages[(int)unitClass] * -1;
+        bool prevTaegeukFlag = _currentTaegeukFlags[(int)unitClass];
+        bool newTaegeukFlag = new TaegeukConditionChecker().CheckTaegeuk(unitClass, Multi_UnitManager.Instance.ExsitUnitFlags);
+
+        if (prevTaegeukFlag && newTaegeukFlag)
+            return TaegeukStateChangeType.AddNewTaegeukUnit;
+        else if (prevTaegeukFlag && newTaegeukFlag == false)
+            return TaegeukStateChangeType.TrueToFalse;
+        else if (prevTaegeukFlag == false && newTaegeukFlag)
+            return TaegeukStateChangeType.FalseToTrue;
+        else
+            return TaegeukStateChangeType.NoChange;
+    }
+
+    void ApplyChangeTaeguekState(UnitClass unitClass, bool newFlag)
+    {
+        _currentTaegeukFlags[(int)unitClass] = newFlag;
+        ApplyTaegeukToUnit(unitClass, _currentTaegeukFlags[(int)unitClass]);
+    }
+
+    void ApplyTaegeukToUnit(UnitClass unitClass, bool isTaegeukConditionMet)
+    {
+        int applyDamage = _taegeukDamages[(int)unitClass] * (isTaegeukConditionMet ? 1 : -1);
         SetTaeguekUnitStat(UnitColor.Red);
         SetTaeguekUnitStat(UnitColor.Blue);
 
-        void SetTaeguekUnitStat(UnitColor unitColor) 
+        void SetTaeguekUnitStat(UnitColor unitColor)
             => MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatType.All);
     }
 }

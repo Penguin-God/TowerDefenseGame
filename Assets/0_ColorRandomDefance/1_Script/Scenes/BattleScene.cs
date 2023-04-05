@@ -77,6 +77,12 @@ class WorldInitializer
         InitSound();
         Managers.Pool.Init();
         InitEffect();
+        SetUnit();
+    }
+
+    void SetUnit()
+    {
+        Multi_SpawnManagers.NormalUnit.OnSpawn += Multi_UnitManager.Instance.AddUnit;
         Multi_UnitManager.Instance.OnCombine += new UnitPassiveController().AddYellowSwordmanCombineGold;
     }
 

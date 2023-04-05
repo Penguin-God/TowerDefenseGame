@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System;
 
 public class Multi_NormalUnitSpawner : MonoBehaviourPun
 {
     protected readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
+    public event Action<Multi_TeamSoldier> OnSpawn = null;
 
     public Multi_TeamSoldier Spawn(UnitFlags flag) => Spawn(flag.ColorNumber, flag.ClassNumber);
     public Multi_TeamSoldier Spawn(int colorNum, int classNum) => Spawn(new UnitFlags(colorNum, classNum), PlayerIdManager.Id);
@@ -34,12 +36,12 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
         MultiServiceMidiator.Server.AddUnit(unit);
         Multi_UnitManager.Instance.Master.AddUnit(unit);
         if (unit.UsingID == PlayerIdManager.MasterId)
-            Multi_UnitManager.Instance.AddUnit(unit);
+            OnSpawn?.Invoke(unit);
         else
             photonView.RPC(nameof(RPC_CallbackSpawn), RpcTarget.Others, unit.GetComponent<PhotonView>().ViewID);
         return unit;
     }
 
     [PunRPC]
-    void RPC_CallbackSpawn(int viewID) => Multi_UnitManager.Instance.AddUnit(Managers.Multi.GetPhotonViewTransfrom(viewID).GetComponent<Multi_TeamSoldier>());
+    void RPC_CallbackSpawn(int viewID) => OnSpawn?.Invoke(Managers.Multi.GetPhotonViewTransfrom(viewID).GetComponent<Multi_TeamSoldier>());
 }

@@ -27,25 +27,28 @@ public class EffectInitializer : MonoBehaviourPun
     [PunRPC]
     void TaeguekEffect(UnitClass unitClass, bool isTaegeukOn, byte id)
     {
-        IReadOnlyList<UnitFlags> TeaguekUnitFlags = new UnitFlags[] { new UnitFlags(UnitColor.Red, unitClass), new UnitFlags(UnitColor.Blue, unitClass) };
+        IEnumerable<UnitFlags> TeaguekFlags = new UnitFlags[] { new UnitFlags(UnitColor.Red, unitClass), new UnitFlags(UnitColor.Blue, unitClass) };
         
         if (isTaegeukOn)
         {
-            foreach (var flag in TeaguekUnitFlags)
+            foreach (var flag in TeaguekFlags)
                 SetUnitTrackingEffects(flag, id);
         }
         else
         {
             List<Transform> targets = GetTeaguekUnits();
-            targets.ForEach(x => Managers.Effect.StopTargetTracking(x));
+            // targets.ForEach(x => Managers.Effect.StopTargetTracking(x));
             foreach (var target in targets)
-                photonView.RPC(nameof(StopTracking), RpcTarget.Others, target.GetComponent<PhotonView>().ViewID);
+            {
+                Managers.Effect.StopTargetTracking(target); // master
+                photonView.RPC(nameof(StopTracking), RpcTarget.Others, target.GetComponent<PhotonView>().ViewID); // client
+            }
         }
 
         List<Transform> GetTeaguekUnits()
         {
             List<Transform> targets = new List<Transform>();
-            foreach (var flag in TeaguekUnitFlags)
+            foreach (var flag in TeaguekFlags)
                 targets = targets.Concat(MultiServiceMidiator.Server.GetUnits(id).Where(x => x.UnitFlags == flag).Select(x => x.transform)).ToList();
             return targets;
         }
@@ -57,8 +60,8 @@ public class EffectInitializer : MonoBehaviourPun
     [PunRPC]
     void SetUnitTrackingEffects(UnitFlags flag, byte id)
     {
-        var targets = MultiServiceMidiator.Server.GetUnits(id).Where(x => x.UnitFlags == flag)
-            .Where(x => Managers.Effect.TargetByTrackers.ContainsKey(x.transform) == false);
+        var targets = MultiServiceMidiator.Server.GetUnits(id)
+            .Where(x => x.UnitFlags == flag && Managers.Effect.TargetByTrackers.ContainsKey(x.transform) == false);
 
         foreach (var target in targets)
         {

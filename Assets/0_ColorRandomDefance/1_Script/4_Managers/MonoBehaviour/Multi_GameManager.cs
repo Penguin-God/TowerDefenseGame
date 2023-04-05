@@ -53,6 +53,10 @@ public class BattleDataManager
         _unitSellPriceRecord = startData.UnitSellPriceRecord;
         _whiteUnitPriceRecord = startData.WhiteUnitPriceRecord;
         _maxUnitIncreaseRecord = startData.MaxUnitIncreaseRecord;
+
+        _unitSellRewardDatas = startData.UnitSellPriceRecord.PriceDatas.Select(x => new CurrencyData(x.CurrencyType, x.Price));
+        _whiteUnitShopPriceDatas = startData.WhiteUnitPriceRecord.PriceDatas.Select(x => new CurrencyData(x.CurrencyType, x.Price));
+        _maxUnitIncreasePriceData = new CurrencyData(startData.MaxUnitIncreaseRecord.CurrencyType, startData.MaxUnitIncreaseRecord.Price);
     }
 
     [SerializeField] CurrencyManager _currencyManager;
@@ -82,6 +86,17 @@ public class BattleDataManager
     [SerializeField] PriceData _maxUnitIncreaseRecord;
     public PriceData MaxUnitIncreaseRecord => _maxUnitIncreaseRecord;
 
+
+    [SerializeField] IEnumerable<CurrencyData> _unitSellRewardDatas;
+    public IEnumerable<CurrencyData> UnitSellRewardDatas => _unitSellRewardDatas;
+
+    // 상점
+    [SerializeField] IEnumerable<CurrencyData> _whiteUnitShopPriceDatas;
+    public IEnumerable<CurrencyData> WhiteUnitShopPriceDatas => _whiteUnitShopPriceDatas;
+
+    [SerializeField] CurrencyData _maxUnitIncreasePriceData;
+    public CurrencyData MaxUnitIncreasePriceData => _maxUnitIncreasePriceData;
+
     public static int VALUE_PRICE => 10;
     public static int SCALE_PRICE => 1;
 
@@ -99,7 +114,9 @@ public class BattleDataManager
     }
 
     public IEnumerable<CurrencyData> _GetAllPriceDatas() 
-        => UnitUpgradeShopPriceDatas.Values;
+        => UnitUpgradeShopPriceDatas.Values
+            .Concat(_whiteUnitShopPriceDatas)
+            .Concat(new CurrencyData[] { _maxUnitIncreasePriceData });
 }
 
 [Serializable]
@@ -128,13 +145,13 @@ public class CurrencyData
 {
     public GameCurrencyType CurrencyType { get; private set; }
     public void ChangedCurrencyType(GameCurrencyType newCurrency) => CurrencyType = newCurrency;
-    public int Price { get; private set; }
-    public void ChangePrice(int newPrice) => Price = newPrice;
+    public int Amount { get; private set; }
+    public void ChangePrice(int newAmount) => Amount = newAmount;
 
-    public CurrencyData(GameCurrencyType currencyType, int price)
+    public CurrencyData(GameCurrencyType currencyType, int amount)
     {
         CurrencyType = currencyType;
-        Price = price;
+        Amount = amount;
     }
 }
 

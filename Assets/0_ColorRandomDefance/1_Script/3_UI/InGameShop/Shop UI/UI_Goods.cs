@@ -30,7 +30,7 @@ public class UI_Goods : UI_Base
     Sprite CurrencyToSprite(GameCurrencyType type) => type == GameCurrencyType.Gold ? _goldImage : _foodImage;
 
     readonly UnitUpgradeGoodsPresenter GoodsPresenter = new UnitUpgradeGoodsPresenter();
-    public void Setup(UnitUpgradeGoods upgradeGoods, BuyController buyController)
+    public void Setup(UnitUpgradeData upgradeGoods, BuyController buyController)
     {
         var goodsData = new UnitUpgradeGoodsData(upgradeGoods);
 

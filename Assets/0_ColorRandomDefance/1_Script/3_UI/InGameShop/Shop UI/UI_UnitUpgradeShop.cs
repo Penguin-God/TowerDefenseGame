@@ -7,7 +7,7 @@ using System;
 
 public class BuyController
 {
-    public event Action<UnitUpgradeGoods> OnBuyGoods;
+    public event Action<UnitUpgradeData> OnBuyGoods;
 
     public void Buy(UnitUpgradeGoodsData goodsData)
     {
@@ -24,12 +24,14 @@ public class BuyController
         }
     }
 
-    void UpgradeUnit(UnitUpgradeGoods goods)
+    void UpgradeUnit(UnitUpgradeData goods)
     {
         switch (goods.UpgradeType)
         {
-            case UnitUpgradeType.Value: MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(goods.TargetColor, UnitUpgradeGoodsData.ADD_DAMAGE, UnitStatType.All); break;
-            case UnitUpgradeType.Scale: MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(goods.TargetColor, UnitUpgradeGoodsData.SCALE_DAMAGE_RATE, UnitStatType.All); break;
+            case UnitUpgradeType.Value: 
+                MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(goods.TargetColor, UnitUpgradeGoodsData.ADD_DAMAGE, UnitStatType.All); break;
+            case UnitUpgradeType.Scale: 
+                MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(goods.TargetColor, UnitUpgradeGoodsData.SCALE_DAMAGE_RATE, UnitStatType.All); break;
         }
     }
     string GetCurrcneyText(GameCurrencyType type) => type == GameCurrencyType.Gold ? "골드" : "고기";
@@ -39,11 +41,13 @@ public struct UnitUpgradeGoodsData
 {
     public static int ADD_DAMAGE => 50;
     public static float SCALE_DAMAGE_RATE => 0.1f;
+    public static int VALUE_PRICE => 10;
+    public static int SCALE_PRICE => 1;
 
-    readonly public UnitUpgradeGoods UpgradeGoods;
-    public UnitUpgradeGoodsData(UnitUpgradeGoods upgradeGoods) => UpgradeGoods = upgradeGoods;
+    readonly public UnitUpgradeData UpgradeGoods;
+    public UnitUpgradeGoodsData(UnitUpgradeData upgradeGoods) => UpgradeGoods = upgradeGoods;
 
-    public int Price => UpgradeGoods.UpgradeType == UnitUpgradeType.Value ? 10 : 1;
+    public int Price => UpgradeGoods.UpgradeType == UnitUpgradeType.Value ? VALUE_PRICE : SCALE_PRICE;
     public GameCurrencyType Currency => UpgradeGoods.UpgradeType == UnitUpgradeType.Value ? GameCurrencyType.Gold : GameCurrencyType.Food;
 }
 
@@ -63,8 +67,8 @@ public class UI_UnitUpgradeShop : UI_Popup
     }
 
     Dictionary<GoodsLocation, UI_Goods> _locationByGoods_UI = new Dictionary<GoodsLocation, UI_Goods>();
-    Dictionary<GoodsLocation, UnitUpgradeGoods> _locationByGoods = new Dictionary<GoodsLocation, UnitUpgradeGoods>();
-    readonly UnitUpgradeGoodsSelector _goodsSelector = new UnitUpgradeGoodsSelector();
+    Dictionary<GoodsLocation, UnitUpgradeData> _locationByGoods = new Dictionary<GoodsLocation, UnitUpgradeData>();
+    readonly UnitUpgradeDataSelector _goodsSelector = new UnitUpgradeDataSelector();
     readonly BuyController _buyController = new BuyController();
     protected override void Init()
     {
@@ -79,10 +83,10 @@ public class UI_UnitUpgradeShop : UI_Popup
     void InitShopGoodsList()
     {
         GetComponentsInChildren<UI_Goods>().ToList().ForEach(x => x._Init());
-        SetGoods(new HashSet<UnitUpgradeGoods>());
+        SetGoods(new HashSet<UnitUpgradeData>());
     }
 
-    void SetGoods(HashSet<UnitUpgradeGoods> excludingGoddsSet)
+    void SetGoods(HashSet<UnitUpgradeData> excludingGoddsSet)
     {
         var locations = Enum.GetValues(typeof(GoodsLocation)).Cast<GoodsLocation>();
         var goodsSet = _goodsSelector.SelectGoodsSetExcluding(excludingGoddsSet);
@@ -94,7 +98,7 @@ public class UI_UnitUpgradeShop : UI_Popup
             _locationByGoods_UI[item.Key].Setup(item.Value, _buyController);
     }
 
-    void OnBuyGoods(UnitUpgradeGoods goods)
+    void OnBuyGoods(UnitUpgradeData goods)
     {
         var changeLocation = _locationByGoods.First(x => x.Value.Equals(goods)).Key;
         var newGoods = _goodsSelector.SelectGoodsExcluding(_locationByGoods.Where(x => x.Key != changeLocation).Select(x => x.Value));
@@ -112,7 +116,7 @@ public class UI_UnitUpgradeShop : UI_Popup
     {
         if (Multi_GameManager.Instance.TryUseGold(RESET_PRICE))
         {
-            SetGoods(new HashSet<UnitUpgradeGoods>(_locationByGoods.Values));
+            SetGoods(new HashSet<UnitUpgradeData>(_locationByGoods.Values));
             Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
         }
         else

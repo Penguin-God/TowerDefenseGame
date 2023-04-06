@@ -30,24 +30,23 @@ public class UI_Goods : UI_Base
     Sprite CurrencyToSprite(GameCurrencyType type) => type == GameCurrencyType.Gold ? _goldImage : _foodImage;
 
     readonly UnitUpgradeGoodsPresenter GoodsPresenter = new UnitUpgradeGoodsPresenter();
-    public void Setup(UnitUpgradeData upgradeGoods, BuyController buyController)
+    public void Setup(UnitUpgradeData upgradeData, BuyController buyController)
     {
-        var goodsData = new UnitUpgradeGoodsData(upgradeGoods);
+        var priceData = Multi_GameManager.Instance.BattleData.ShopPriceDataByUnitUpgradeData[upgradeData];
 
-        GetText((int)Texts.ProductNameText).text = GoodsPresenter.BuildGoodsText(upgradeGoods);
-        GetImage((int)Images.ColorPanel).color = GoodsPresenter.GetUnitColor(upgradeGoods.TargetColor);
-        GetText((int)Texts.PriceText).color = GoodsPresenter.CurrencyToColor(goodsData.Currency);
-        GetText((int)Texts.PriceText).text = goodsData.Price.ToString();
-        GetImage((int)Images.CurrencyImage).sprite = CurrencyToSprite(goodsData.Currency);
+        GetText((int)Texts.ProductNameText).text = GoodsPresenter.BuildGoodsText(upgradeData);
+        GetImage((int)Images.ColorPanel).color = GoodsPresenter.GetUnitColor(upgradeData.TargetColor);
+        GetText((int)Texts.PriceText).color = GoodsPresenter.CurrencyToColor(priceData.CurrencyType);
+        GetText((int)Texts.PriceText).text = priceData.Amount.ToString();
+        GetImage((int)Images.CurrencyImage).sprite = CurrencyToSprite(priceData.CurrencyType);
 
         showPanelButton.onClick.RemoveAllListeners();
-        showPanelButton.onClick.AddListener(() => ShowBuyWindow(goodsData, buyController));
+        showPanelButton.onClick.AddListener(() => ShowBuyWindow(upgradeData, priceData, buyController));
     }
 
-    void ShowBuyWindow(UnitUpgradeGoodsData goodsData, BuyController buyController)
+    void ShowBuyWindow(UnitUpgradeData upgradeData, CurrencyData priceData, BuyController buyController)
     {
-        string qustionText 
-            = $"{GoodsPresenter.BuildGoodsText(goodsData.UpgradeGoods)}를 {new GameCurrencyPresenter().BuildCurrencyText(goodsData.Currency, goodsData.Price)}에 구매하시겠습니까?";
-        Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo(qustionText, () => buyController.Buy(goodsData));
+        string qustionText = $"{GoodsPresenter.BuildGoodsText(upgradeData)}를 {new GameCurrencyPresenter().BuildCurrencyText(priceData)}에 구매하시겠습니까?";
+        Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo(qustionText, () => buyController.Buy(upgradeData));
     }
 }

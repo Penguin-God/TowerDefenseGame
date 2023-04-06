@@ -9,48 +9,36 @@ public class BuyController
 {
     public event Action<UnitUpgradeData> OnBuyGoods;
 
-    public void Buy(UnitUpgradeGoodsData goodsData)
+    public void Buy(UnitUpgradeData upgradeData)
     {
-        if (Multi_GameManager.Instance.TryUseCurrency(goodsData.Currency, goodsData.Price))
+        var priceData = Multi_GameManager.Instance.BattleData.ShopPriceDataByUnitUpgradeData[upgradeData];
+        if (Multi_GameManager.Instance.TryUseCurrency(priceData.CurrencyType, priceData.Amount))
         {
             Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
-            UpgradeUnit(goodsData.UpgradeGoods);
-            OnBuyGoods?.Invoke(goodsData.UpgradeGoods);
+            UpgradeUnit(upgradeData);
+            OnBuyGoods?.Invoke(upgradeData);
         }
         else
         {
-            Managers.UI.ShowDefualtUI<UI_PopupText>().Show($"{GetCurrcneyText(goodsData.Currency)}가 부족해 구매할 수 없습니다.", 2f, Color.red);
+            Managers.UI.ShowDefualtUI<UI_PopupText>()
+                .Show($"{new GameCurrencyPresenter().BuildCurrencyTypeText(priceData.CurrencyType)}가 부족해 구매할 수 없습니다.", 2f, Color.red);
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
     }
 
+    public readonly static int ADD_DAMAGE = 50;
+    public readonly static float SCALE_DAMAGE_RATE = 0.1f;
     void UpgradeUnit(UnitUpgradeData goods)
     {
         switch (goods.UpgradeType)
         {
             case UnitUpgradeType.Value: 
-                MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(goods.TargetColor, UnitUpgradeGoodsData.ADD_DAMAGE, UnitStatType.All); break;
+                MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(goods.TargetColor, ADD_DAMAGE, UnitStatType.All); break;
             case UnitUpgradeType.Scale: 
-                MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(goods.TargetColor, UnitUpgradeGoodsData.SCALE_DAMAGE_RATE, UnitStatType.All); break;
+                MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(goods.TargetColor, SCALE_DAMAGE_RATE, UnitStatType.All); break;
         }
     }
-    string GetCurrcneyText(GameCurrencyType type) => type == GameCurrencyType.Gold ? "골드" : "고기";
 }
-
-public struct UnitUpgradeGoodsData
-{
-    public static int ADD_DAMAGE => 50;
-    public static float SCALE_DAMAGE_RATE => 0.1f;
-    public static int VALUE_PRICE => 10;
-    public static int SCALE_PRICE => 1;
-
-    readonly public UnitUpgradeData UpgradeGoods;
-    public UnitUpgradeGoodsData(UnitUpgradeData upgradeGoods) => UpgradeGoods = upgradeGoods;
-
-    public int Price => UpgradeGoods.UpgradeType == UnitUpgradeType.Value ? VALUE_PRICE : SCALE_PRICE;
-    public GameCurrencyType Currency => UpgradeGoods.UpgradeType == UnitUpgradeType.Value ? GameCurrencyType.Gold : GameCurrencyType.Food;
-}
-
 
 public enum GoodsLocation
 {
@@ -77,7 +65,6 @@ public class UI_UnitUpgradeShop : UI_Popup
         _buyController.OnBuyGoods += OnBuyGoods;
         Bind<Button>(typeof(Buttons));
         GetButton((int)Buttons.ResetButton).onClick.AddListener(ResetShop);
-        gameObject.SetActive(false);
     }
 
     void InitShopGoodsList()

@@ -19,7 +19,8 @@ public class UnitUpgradeGoodsPresenter
     public string BuildGoodsText(UnitUpgradeData upgradeGoods)
         => $"{UnitPresenter.GetColorText(upgradeGoods.TargetColor)} 유닛 {GetUpgradeText(upgradeGoods.UpgradeType)} 증가";
 
-    string GetUpgradeText(UnitUpgradeType upgradeType) => upgradeType == UnitUpgradeType.Value ? $" 공격력 {UnitUpgradeGoodsData.ADD_DAMAGE}" : $" 공격력 {UnitUpgradeGoodsData.SCALE_DAMAGE_RATE * 100}%";
+    string GetUpgradeText(UnitUpgradeType upgradeType) 
+        => upgradeType == UnitUpgradeType.Value ? $" 공격력 {BuyController.ADD_DAMAGE}" : $" 공격력 {BuyController.SCALE_DAMAGE_RATE * 100}%";
 
     static readonly IReadOnlyDictionary<GameCurrencyType, Color32> CurrencyColors = new Dictionary<GameCurrencyType, Color32>()
     {

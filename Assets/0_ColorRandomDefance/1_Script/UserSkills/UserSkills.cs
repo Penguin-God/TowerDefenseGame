@@ -211,19 +211,9 @@ public class FoodHater : UserSkill
     {
         _rate = (int)SkillData;
         ChangeShopCurrency();
+        _rewardRate = 8;
         Multi_GameManager.Instance.OnFoodChanged += FoodToGold;
-    }
-
-    void ChangeShopCurrency()
-    {
-        var battleData = Multi_GameManager.Instance.BattleData;
-        battleData.GetAllPriceDatas()
-                .Where(x => x.CurrencyType == GameCurrencyType.Food)
-                .ToList()
-                .ForEach(x => x.ChangedCurrencyType(GameCurrencyType.Gold));
-
-        battleData.WhiteUnitPriceRecord.PriceDatas.ToList().ForEach(x => x.ChangePrice(x.Price * _rate));
-        battleData.MaxUnitIncreaseRecord.ChangePrice(battleData.MaxUnitIncreaseRecord.Price * _rate);
+        ChangeShopPriceData();
     }
 
     void FoodToGold(int food)
@@ -231,7 +221,21 @@ public class FoodHater : UserSkill
         if (food <= 0) return;
 
         if (Multi_GameManager.Instance.TryUseFood(food))
-            Multi_GameManager.Instance.AddGold(food * _rate);
+            Multi_GameManager.Instance.AddGold(food * _rewardRate);
+    }
+
+    void ChangeShopPriceData()
+    {
+        Multi_GameManager.Instance.BattleData.GetAllShopPriceDatas()
+                .Where(x => x.CurrencyType == GameCurrencyType.Food)
+                .ToList()
+                .ForEach(FoodDataToGoldData);
+    }
+
+    void FoodDataToGoldData(CurrencyData priceData)
+    {
+        priceData.ChangedCurrencyType(GameCurrencyType.Gold);
+        priceData.ChangeAmount(priceData.Amount * _priceRate);
     }
 }
 
@@ -241,9 +245,9 @@ public class SellUpgrade : UserSkill
     {
         // 유닛 판매 보상 증가 (유닛별로 증가폭 별도)
         int[] sellData = SkillDatas.Select(x => (int)x).ToArray();
-        var sellRewardDatas = Multi_GameManager.Instance.BattleData.UnitSellPriceRecord.PriceDatas;
-        for (int i = 0; i < sellRewardDatas.Length; i++)
-            sellRewardDatas[i].ChangePrice(sellData[i]);
+        var sellRewardDatas = Multi_GameManager.Instance.BattleData.UnitSellRewardDatas;
+        for (int i = 0; i < sellRewardDatas.Count; i++)
+            sellRewardDatas[i].ChangeAmount(sellData[i]);
     }
 }
 

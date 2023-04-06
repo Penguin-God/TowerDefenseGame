@@ -253,7 +253,7 @@ GameObject:
   - component: {fileID: 2664057354908534429}
   - component: {fileID: 9170679657671819572}
   m_Layer: 5
-  m_Name: Random Shop
+  m_Name: UI_UnitUpgradeShop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

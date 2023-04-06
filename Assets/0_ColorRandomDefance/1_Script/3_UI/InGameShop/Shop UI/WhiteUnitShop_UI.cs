@@ -30,22 +30,22 @@ public class WhiteUnitShop_UI : UI_Popup
 
         foreach (int unitClassNumber in System.Enum.GetValues(typeof(UnitClass)))
         {
-            var unitPriceData = Multi_GameManager.Instance.BattleData.WhiteUnitPriceRecord.GetData(unitClassNumber);
+            var unitPriceData = Multi_GameManager.Instance.BattleData.WhiteUnitShopPriceDatas[unitClassNumber];
             GetButton(unitClassNumber).onClick.AddListener(() => SpawnWhiteUnit(unitClassNumber, unitPriceData));
             GetText(unitClassNumber).text = GetPriceText(unitClassNumber, unitPriceData);
         }
     }
 
     readonly int WHITE_COLOR_NUMBER = 6;
-    void SpawnWhiteUnit(int classNumber, PriceData record)
+    void SpawnWhiteUnit(int classNumber, CurrencyData data)
     {
-        if (Multi_GameManager.Instance.TryUseCurrency(record.CurrencyType, record.Price))
+        if (Multi_GameManager.Instance.TryUseCurrency(data.CurrencyType, data.Amount))
         {
             Multi_SpawnManagers.NormalUnit.Spawn(WHITE_COLOR_NUMBER, classNumber);
             Managers.UI.ClosePopupUI(PopupGroupType.UnitWindow);
         }
     }
 
-    string GetPriceText(int classNumber, PriceData record)
-        => $"{UnitPresenter.GetUnitName(new UnitFlags(WHITE_COLOR_NUMBER, classNumber))} : {record.GetPriceDescription()}";
+    string GetPriceText(int classNumber, CurrencyData data)
+        => $"{UnitPresenter.GetUnitName(new UnitFlags(WHITE_COLOR_NUMBER, classNumber))} : {new GameCurrencyPresenter().BuildCurrencyText(data)}";
 }

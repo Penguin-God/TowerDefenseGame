@@ -11,6 +11,11 @@ public class UI_UnitTrackerParent : UI_Base
         _paint = GetComponentInParent<UI_Paint>();
     }
 
+    protected override void Init()
+    {
+        new UnitTooltipController().SetMouseOverAction(GetComponentsInChildren<UI_UnitTracker>());
+    }
+
     public void SettingUnitTrackers(UnitFlags flag)
     {
         gameObject.SetActive(true);

@@ -26693,13 +26693,6 @@ MonoBehaviour:
     _maxEnemyCount: 0
     _stageUpGold: 0
     _yellowKnightRewardGold: 0
-    _unitSellPriceRecord:
-      _priceDatas: []
-    _whiteUnitPriceRecord:
-      _priceDatas: []
-    _maxUnitIncreaseRecord:
-      _currencyType: 0
-      _price: 0
   gameStartButton: {fileID: 1436183892}
   isGameStart: 0
 --- !u!1001 &1707620172

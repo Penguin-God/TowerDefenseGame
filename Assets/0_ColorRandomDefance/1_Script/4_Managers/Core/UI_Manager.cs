@@ -20,6 +20,9 @@ public class UI_Manager
     Dictionary<string, GameObject> _popupCashByPath = new Dictionary<string, GameObject>();
     Dictionary<PopupGroupType, UI_Popup> _groupTypeByCurrentPopup = new Dictionary<PopupGroupType, UI_Popup>();
 
+    public readonly float UIScreenWidth = 800;
+    public readonly float UIScreenHeight = 480;
+
     public void Init()
     {
         foreach (PopupGroupType type in Enum.GetValues(typeof(PopupGroupType)))
@@ -48,7 +51,7 @@ public class UI_Manager
 
         CanvasScaler canvasScaler = go.GetOrAddComponent<CanvasScaler>();
         canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-        canvasScaler.referenceResolution = new Vector2(800, 480);
+        canvasScaler.referenceResolution = new Vector2(UIScreenWidth, UIScreenHeight);
         canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
 
         if(sort)

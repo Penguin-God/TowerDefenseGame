@@ -5,11 +5,6 @@ using UnityEngine.UI;
 
 public class EnemySelector_Button : UI_Base
 {
-    enum GameObjects
-    {
-        Offset,
-    }
-
     [SerializeField] byte enemyNumber;
     public byte EnemyNumber => enemyNumber;
     [SerializeField] string enemyInfoText;
@@ -19,9 +14,6 @@ public class EnemySelector_Button : UI_Base
     public void Setup(System.Action<EnemySelector_Button> action) 
     {
         image = GetComponent<Image>();
-        Bind<GameObject>(typeof(GameObjects));
-        infoWindowPos = GetObject((int)GameObjects.Offset).GetComponent<RectTransform>();
-
         GetComponent<Button>().onClick.AddListener(SelectSpawnEnemy);
         GetComponent<Button>().onClick.AddListener(() => action(this));
     }
@@ -42,11 +34,11 @@ public class EnemySelector_Button : UI_Base
         image.color = Color.white;
     }
 
-    RectTransform infoWindowPos;
-    public void ShwoInfoWindow()
+    public void ShwoInfoWindow(float offsetY)
     {
         BackGround window = Managers.UI.ShowPopupUI<BackGround>("BackGround");
-        window.SetPosition(infoWindowPos.position);
+        float screenScaleFactor = Screen.height / Managers.UI.UIScreenHeight;
+        window.SetPosition(transform.position + new Vector3(0, offsetY * screenScaleFactor, 0));
         window.SetText(enemyInfoText);
     }
 }

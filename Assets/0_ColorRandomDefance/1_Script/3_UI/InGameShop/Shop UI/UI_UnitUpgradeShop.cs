@@ -93,7 +93,7 @@ public class UI_UnitUpgradeShop : UI_Popup
         _locationByGoods_UI[changeLocation].Setup(newGoods, _buyController);
     }
 
-    const int RESET_PRICE = 5;
+    const int RESET_PRICE = 2;
     void ResetShop()
     {
         Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo($"{RESET_PRICE}골드를 지불하여 상점을 초기화하시겠습니까?", BuyShopReset);

@@ -84,7 +84,7 @@ public class BattleDataManager
     [SerializeField] CurrencyData _maxUnitIncreasePriceData;
     public CurrencyData MaxUnitIncreasePriceData => _maxUnitIncreasePriceData;
 
-    readonly static int VALUE_PRICE = 10;
+    readonly static int VALUE_PRICE = 2;
     readonly static int SCALE_PRICE = 1;
     // 나중에 외부에서 딕셔너리 넣을거임
     public readonly IReadOnlyDictionary<UnitUpgradeData, CurrencyData> ShopPriceDataByUnitUpgradeData

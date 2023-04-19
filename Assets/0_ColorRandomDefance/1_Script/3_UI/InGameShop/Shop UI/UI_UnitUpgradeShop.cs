@@ -87,10 +87,18 @@ public class UI_UnitUpgradeShop : UI_Popup
 
     void OnBuyGoods(UnitUpgradeData goods)
     {
-        var changeLocation = _locationByGoods.First(x => x.Value.Equals(goods)).Key;
-        var newGoods = _goodsSelector.SelectGoodsExcluding(_locationByGoods.Where(x => x.Key != changeLocation).Select(x => x.Value));
-        _locationByGoods[changeLocation] = newGoods;
-        _locationByGoods_UI[changeLocation].Setup(newGoods, _buyController);
+        var buyLocation = _locationByGoods.First(x => x.Value.Equals(goods)).Key;
+        var newGoods = _goodsSelector.SelectGoodsExcluding(_locationByGoods.Where(x => x.Key != buyLocation).Select(x => x.Value));
+        StartCoroutine(Co_OnBuyGoods(buyLocation, newGoods));
+    }
+
+    IEnumerator Co_OnBuyGoods(GoodsLocation buyLocation, UnitUpgradeData newGoods)
+    {
+        _locationByGoods_UI[buyLocation].gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.2f);
+        _locationByGoods[buyLocation] = newGoods;
+        _locationByGoods_UI[buyLocation].Setup(newGoods, _buyController);
+        _locationByGoods_UI[buyLocation].gameObject.SetActive(true);
     }
 
     const int RESET_PRICE = 2;

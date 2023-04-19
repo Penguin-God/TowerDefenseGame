@@ -78,16 +78,16 @@ public class Taegeuk : UserSkill
     int[] _taegeukDamages = new int[UnitClassCount];
     public override void InitSkill()
     {
-        Multi_SpawnManagers.NormalUnit.OnSpawn += CheckAndApplyTaegeuk;
+        Multi_UnitManager.Instance.OnUnitCountChangeByFlag += (flag, count) => CheckAndApplyTaegeuk(flag);
         _taegeukDamages = IntSkillDatas;
     }
 
     bool[] _currentTaegeukFlags = new bool[UnitClassCount];
 
-    void CheckAndApplyTaegeuk(Multi_TeamSoldier unit)
+    void CheckAndApplyTaegeuk(UnitFlags unitFlag)
     {
-        var stateChange = GetTaegeukStateChangeType(unit.UnitClass);
-        var unitClass = unit.UnitClass;
+        var unitClass = unitFlag.UnitClass;
+        var stateChange = GetTaegeukStateChangeType(unitClass);
         switch (stateChange)
         {
             case TaegeukStateChangeType.NoChange:
@@ -105,7 +105,6 @@ public class Taegeuk : UserSkill
     {
         bool prevTaegeukFlag = _currentTaegeukFlags[(int)unitClass];
         bool newTaegeukFlag = new TaegeukConditionChecker().CheckTaegeuk(unitClass, Multi_UnitManager.Instance.ExsitUnitFlags);
-
         if (prevTaegeukFlag && newTaegeukFlag)
             return TaegeukStateChangeType.AddNewTaegeukUnit;
         else if (prevTaegeukFlag && newTaegeukFlag == false)

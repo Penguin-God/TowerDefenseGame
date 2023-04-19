@@ -89,16 +89,16 @@ public class Multi_Enemy : MonoBehaviourPun
             ChangeHp(currentHp - damage);
             photonView.RPC(nameof(RPC_UpdateHealth), RpcTarget.Others, currentHp);
 
-            // 게스트에서 조건문 밖의 Dead부분을 실행시키게 하기 위한 코드
-            photonView.RPC(nameof(RPC_OnDamage), RpcTarget.Others, 0, false);
+            if (currentHp <= 0 && !isDead)
+                photonView.RPC(nameof(RPC_Dead), RpcTarget.All);
         }
-
-        // Dead는 보상 등 개인적으로 실행되어야 하는 기능이 포함되어 있으므로 모두 실행
-        if (currentHp <= 0 && !isDead) Dead();
     }
 
-    [PunRPC]
+    [PunRPC] // RPC 매서드라 protected임
     protected void RPC_UpdateHealth(int _newHp) => ChangeHp(_newHp);
+
+    [PunRPC]
+    protected void RPC_Dead() => Dead();
 
     public virtual void Dead()
     {
@@ -121,9 +121,8 @@ public class Multi_Enemy : MonoBehaviourPun
         ChangeMat(originMat);
     }
 
-    // 상태 이상은 호스트에서 적용 후 다른 플레이어에게 동기화하는 방식
+    // 상태 이상은 마스트에서 적용 후 다른 플레이어에게 동기화하는 방식
     public virtual void OnSlow(float slowPercent, float slowTime) { }
-    //[PunRPC] protected virtual void OnSlow(float slowPercent, float slowTime) { }
 
     public void ExitSlow(RpcTarget _target) => photonView.RPC(nameof(ExitSlow), _target);
     [PunRPC] protected virtual void ExitSlow() { }

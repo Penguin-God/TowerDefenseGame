@@ -69,7 +69,6 @@ public class Multi_NormalEnemy : Multi_Enemy
         }
     }
 
-    [ContextMenu("으앙 주금")]
     public override void Dead()
     {
         base.Dead();

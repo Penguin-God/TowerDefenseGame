@@ -115,6 +115,7 @@ MonoBehaviour:
   - ScaleUnitDamageValueWithColor_RPC
   - ScaleUnitDamageValueWithAll_RPC
   - SetUnitInfo
+  - Dead
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

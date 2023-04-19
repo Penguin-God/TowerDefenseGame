@@ -29,7 +29,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected override void RPC_OnDamage(int damage, bool isSkill)
     {
         if (IsSlow)
-            damage += Mathf.RoundToInt(damage * (_slowPercent / 100));
+            damage += Mathf.RoundToInt(damage * (_slowSystem.SlowPercent / 100));
         base.RPC_OnDamage(damage, isSkill);
     }
 
@@ -103,48 +103,32 @@ public class Multi_NormalEnemy : Multi_Enemy
     #region 상태이상 구현
 
     SlowSystem _slowSystem = null;
-    public bool IsSlow { get; private set; }
-    float _slowPercent = 0;
-    Coroutine exitSlowCoroutine = null;
+    public bool IsSlow => _slowSystem != null;
     [SerializeField] private Material freezeMat;
 
     private Queue<int> queue_GetSturn = new Queue<int>();
     [SerializeField] private GameObject sternEffect;
 
-
-    public void OnSlow(SlowSystem slowSystem)
-    {
-        if (IsDead) return;
-
-        if (IsSlow == false || slowSystem.SlowPercent >= _slowSystem.SlowPercent)
-        {
-            _slowSystem = slowSystem;
-            speed = _slowSystem.ApplySlowToSpeed(maxSpeed);
-            photonView.RPC(nameof(ApplySlow), RpcTarget.All, _slowSystem.ApplySlowToSpeed(maxSpeed));
-
-            StopCoroutine(nameof(Co_ExitSlow));
-            StartCoroutine(nameof(Co_ExitSlow), _slowSystem.SlowTime);
-        }
-    }
-
     public override void OnSlow(float slowPercent, float slowTime)
     {
         if (IsDead || PhotonNetwork.IsMasterClient == false) return;
+        OnSlow(new SlowSystem(slowPercent, slowTime));
+    }
 
-        float slowSpeed = maxSpeed - maxSpeed * (slowPercent / 100);
-        if (slowSpeed <= speed) // 슬로우를 적용했을 때 현재 속도보다 느려져야만 슬로우 적용
-        {
-            photonView.RPC(nameof(ApplySlow), RpcTarget.All, slowSpeed);
-            IsSlow = true;
-            _slowPercent = slowPercent;
-            // 슬로우 시간 갱신 위한 코드
-            // 더 강하거나 비슷한 슬로우가 들어오면 작동 준비중이던 슬로우 탈출 코루틴은 나가리 되고 새로운 탈출 코루틴이 돌아감
-            if (exitSlowCoroutine != null && slowTime > 0) // 법사 패시브 때문에 slowTime > 0 조건 추가함
-            {
-                StopCoroutine(exitSlowCoroutine);
-            }
-            if (slowTime > 0) exitSlowCoroutine = StartCoroutine(Co_ExitSlow(slowTime));
-        }
+    void OnSlow(SlowSystem slowSystem)
+    {
+        if (IsSlow && _slowSystem.SlowPercent >= slowSystem.SlowPercent) return;
+
+        _slowSystem = slowSystem;
+        photonView.RPC(nameof(ApplySlow), RpcTarget.All, _slowSystem.ApplySlowToSpeed(maxSpeed));
+        if (_slowSystem.SlowTime > 0)
+            ApplySlowTime(_slowSystem.SlowTime);
+    }
+
+    void ApplySlowTime(float slowTime)
+    {
+        StopCoroutine(nameof(Co_ExitSlow));
+        StartCoroutine(nameof(Co_ExitSlow), slowTime);
     }
 
     [PunRPC]
@@ -165,29 +149,24 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         ChangeMat(originMat);
         ChangeColorToOrigin();
-        IsSlow = false;
-        _slowPercent = 0;
+        _slowSystem = null;
 
         // 스턴 상태가 아니라면 속도 복구
-        if (queue_GetSturn.Count <= 0 && photonView.IsMine) Set_OriginSpeed_ToAllPlayer();
+        if (queue_GetSturn.Count <= 0 && photonView.IsMine) Set_OriginSpeed_To_AllPlayer();
     }
 
 
     [PunRPC]
     protected override void OnFreeze(float slowTime)
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            photonView.RPC(nameof(SyncSpeed), RpcTarget.All, 0f);
+        if (PhotonNetwork.IsMasterClient == false) return;
 
-            if (exitSlowCoroutine != null) StopCoroutine(exitSlowCoroutine);
-            exitSlowCoroutine = StartCoroutine(Co_ExitSlow(slowTime));
-
-            photonView.RPC(nameof(OnFreeze), RpcTarget.Others, 0f); // 마스터 클라 외의 플레이어 입장에서 if문 바깥의 ChangeMat 코드 실행이 목적이므로 인자값은 의미없음
-        }
-
-        ChangeMat(freezeMat);
+        OnSlow(new SlowSystem(100f, slowTime));
+        photonView.RPC(nameof(Mat_To_Freeze), RpcTarget.All);
     }
+
+    [PunRPC] protected void Mat_To_Freeze() => ChangeMat(freezeMat);
+
 
     [PunRPC]
     protected override void OnStun(int stunPercent, float stunTime)
@@ -213,7 +192,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected void ExitStun()
     {
         sternEffect.SetActive(false);
-        Set_OriginSpeed_ToAllPlayer();
+        Set_OriginSpeed_To_AllPlayer();
     }
 
     [PunRPC]
@@ -232,7 +211,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     }
 
     // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기
-    protected void Set_OriginSpeed_ToAllPlayer() => photonView.RPC(nameof(SyncSpeed), RpcTarget.All, maxSpeed);
+    protected void Set_OriginSpeed_To_AllPlayer() => photonView.RPC(nameof(SyncSpeed), RpcTarget.All, maxSpeed);
 
     #endregion
 }

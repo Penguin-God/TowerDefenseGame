@@ -116,6 +116,7 @@ MonoBehaviour:
   - ScaleUnitDamageValueWithAll_RPC
   - SetUnitInfo
   - Dead
+  - Mat_To_Freeze
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

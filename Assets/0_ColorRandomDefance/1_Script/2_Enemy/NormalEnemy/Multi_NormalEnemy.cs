@@ -25,6 +25,14 @@ public class Multi_NormalEnemy : Multi_Enemy
         enemyType = EnemyType.Normal;
     }
 
+    [PunRPC]
+    protected override void RPC_OnDamage(int damage, bool isSkill)
+    {
+        if (IsSlow)
+            damage += Mathf.RoundToInt(damage * (_slowPercent / 100));
+        base.RPC_OnDamage(damage, isSkill);
+    }
+
     protected virtual void Passive() { }
 
     [PunRPC]
@@ -94,22 +102,41 @@ public class Multi_NormalEnemy : Multi_Enemy
     /// </summary>
     #region 상태이상 구현
 
+    SlowSystem _slowSystem = null;
     public bool IsSlow { get; private set; }
+    float _slowPercent = 0;
     Coroutine exitSlowCoroutine = null;
     [SerializeField] private Material freezeMat;
 
     private Queue<int> queue_GetSturn = new Queue<int>();
     [SerializeField] private GameObject sternEffect;
 
-    public override void OnSlow(float slowPercent, float slowTime)
+
+    public void OnSlow(SlowSystem slowSystem)
     {
         if (IsDead) return;
+
+        if (IsSlow == false || slowSystem.SlowPercent >= _slowSystem.SlowPercent)
+        {
+            _slowSystem = slowSystem;
+            speed = _slowSystem.ApplySlowToSpeed(maxSpeed);
+            photonView.RPC(nameof(ApplySlow), RpcTarget.All, _slowSystem.ApplySlowToSpeed(maxSpeed));
+
+            StopCoroutine(nameof(Co_ExitSlow));
+            StartCoroutine(nameof(Co_ExitSlow), _slowSystem.SlowTime);
+        }
+    }
+
+    public override void OnSlow(float slowPercent, float slowTime)
+    {
+        if (IsDead || PhotonNetwork.IsMasterClient == false) return;
 
         float slowSpeed = maxSpeed - maxSpeed * (slowPercent / 100);
         if (slowSpeed <= speed) // 슬로우를 적용했을 때 현재 속도보다 느려져야만 슬로우 적용
         {
-            photonView.RPC(nameof(ApplySlow), RpcTarget.All, speed);
+            photonView.RPC(nameof(ApplySlow), RpcTarget.All, slowSpeed);
             IsSlow = true;
+            _slowPercent = slowPercent;
             // 슬로우 시간 갱신 위한 코드
             // 더 강하거나 비슷한 슬로우가 들어오면 작동 준비중이던 슬로우 탈출 코루틴은 나가리 되고 새로운 탈출 코루틴이 돌아감
             if (exitSlowCoroutine != null && slowTime > 0) // 법사 패시브 때문에 slowTime > 0 조건 추가함
@@ -139,6 +166,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         ChangeMat(originMat);
         ChangeColorToOrigin();
         IsSlow = false;
+        _slowPercent = 0;
 
         // 스턴 상태가 아니라면 속도 복구
         if (queue_GetSturn.Count <= 0 && photonView.IsMine) Set_OriginSpeed_ToAllPlayer();

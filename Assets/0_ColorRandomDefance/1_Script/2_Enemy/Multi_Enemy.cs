@@ -84,14 +84,13 @@ public class Multi_Enemy : MonoBehaviourPun
     [PunRPC]
     protected virtual void RPC_OnDamage(int damage, bool isSkill)
     {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            ChangeHp(currentHp - damage);
-            photonView.RPC(nameof(RPC_UpdateHealth), RpcTarget.Others, currentHp);
+        if (PhotonNetwork.IsMasterClient == false) return;
 
-            if (currentHp <= 0 && !isDead)
-                photonView.RPC(nameof(RPC_Dead), RpcTarget.All);
-        }
+        ChangeHp(currentHp - damage);
+        photonView.RPC(nameof(RPC_UpdateHealth), RpcTarget.Others, currentHp);
+
+        if (currentHp <= 0 && !isDead)
+            photonView.RPC(nameof(RPC_Dead), RpcTarget.All);
     }
 
     [PunRPC] // RPC 매서드라 protected임

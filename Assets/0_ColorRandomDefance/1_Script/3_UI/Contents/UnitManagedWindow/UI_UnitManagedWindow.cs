@@ -43,7 +43,7 @@ public class UI_UnitManagedWindow : UI_Popup
     {
         _unitFlag = flag;
         GetText((int)Texts.Unit_World_Changed_Text).text = (Managers.Camera.IsLookEnemyTower) ? "월드로" : "적군의 성으로";
-        GetText((int)Texts.Description).text = Managers.Data.UnitWindowDataByUnitFlags[flag].Description;
+        GetText((int)Texts.Description).text = Managers.Data.UnitWindowDataByUnitFlags[flag].CombinationRecipe;
         GetText((int)Texts.UnitNameText).text = Managers.Data.UnitNameDataByFlag[_unitFlag].KoearName;
         _combineButtonsParent.SettingCombineButtons(Managers.Data.UnitWindowDataByUnitFlags[flag].CombineUnitFlags);
     }

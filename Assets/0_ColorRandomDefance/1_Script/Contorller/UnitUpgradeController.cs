@@ -17,7 +17,7 @@ public class UnitUpgradeController : MonoBehaviourPun
     UnitDamageInfoManager _unitDamageManager;
     readonly UnitDamageInfoChanger _unitDamageInfoChanger = new UnitDamageInfoChanger();
 
-    public UnitDamageInfo UnitDamageInfo(UnitFlags flag) => _unitDamageManager.GetDamageInfo(flag);
+    public UnitDamageInfo GetUnitDamageInfo(UnitFlags flag) => _unitDamageManager.GetDamageInfo(flag);
     void Awake()
     {
         _unitDamageManager = new UnitDamageInfoManager(Managers.Data.Unit.DamageInfoByFlag);

@@ -42,7 +42,7 @@ public struct BattleStartData
 [Serializable]
 public class BattleDataManager
 {
-    public BattleDataManager(BattleStartData startData)
+    public BattleDataManager(BattleStartData startData, UnitUpgradeShopData unitUpgradeShopData)
     {
         _currencyManager = new CurrencyManager(startData.StartCurrency);
         _maxUnit = startData.StartMaxUnitCount;
@@ -54,6 +54,10 @@ public class BattleDataManager
 
         _whiteUnitShopPriceDatas = startData.WhiteUnitPriceRecord.PriceDatas.Select(x => new CurrencyData(x.CurrencyType, x.Price)).ToArray();
         _maxUnitIncreasePriceData = new CurrencyData(startData.MaxUnitIncreaseRecord.CurrencyType, startData.MaxUnitIncreaseRecord.Price);
+
+        _unitUpgradeShopData = unitUpgradeShopData;
+        ShopPriceDataByUnitUpgradeData = new UnitUpgradeGoodsSelector().GetAllGoods()
+            .ToDictionary(x => x, x => x.UpgradeType == UnitUpgradeType.Value ? _unitUpgradeShopData.AddValuePriceData : _unitUpgradeShopData.UpScalePriceData);
     }
 
     [SerializeField] CurrencyManager _currencyManager;
@@ -84,15 +88,9 @@ public class BattleDataManager
     [SerializeField] CurrencyData _maxUnitIncreasePriceData;
     public CurrencyData MaxUnitIncreasePriceData => _maxUnitIncreasePriceData;
 
-    readonly static int VALUE_PRICE = 2;
-    readonly static int SCALE_PRICE = 1;
-    // 나중에 외부에서 딕셔너리 넣을거임
-    public readonly IReadOnlyDictionary<UnitUpgradeGoodsData, CurrencyData> ShopPriceDataByUnitUpgradeData
-        = new UnitUpgradeGoodsSelector().GetAllGoods()
-            .ToDictionary(x => x, x => new CurrencyData(
-                x.UpgradeType == UnitUpgradeType.Value ? GameCurrencyType.Gold : GameCurrencyType.Food,
-                x.UpgradeType == UnitUpgradeType.Value ? VALUE_PRICE : SCALE_PRICE
-                ));
+    [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
+    public UnitUpgradeShopData UnitUpgradeShopData => _unitUpgradeShopData;
+    public readonly IReadOnlyDictionary<UnitUpgradeGoodsData, CurrencyData> ShopPriceDataByUnitUpgradeData;
 
     public IEnumerable<CurrencyData> GetAllShopPriceDatas() 
         => ShopPriceDataByUnitUpgradeData.Values
@@ -105,7 +103,6 @@ public class PriceDataRecord
 {
     [SerializeField] PriceData[] _priceDatas;
     public PriceData[] PriceDatas => _priceDatas;
-    public PriceData GetData(int index) => _priceDatas[index];
 }
 
 [Serializable]
@@ -113,34 +110,27 @@ public class PriceData
 {
     [SerializeField] GameCurrencyType _currencyType;
     public GameCurrencyType CurrencyType => _currencyType;
-    public void ChangedCurrencyType(GameCurrencyType newCurrency) => _currencyType = newCurrency;
-
+    
     [SerializeField] int _price;
     public int Price => _price;
-    public void ChangePrice(int newPrice) => _price = newPrice;
-
-    public string GetPriceDescription() => new CurrencyPresenter().GetPriceDescription(_price, _currencyType);
 }
 
+[Serializable]
 public class CurrencyData
 {
-    public GameCurrencyType CurrencyType { get; private set; }
-    public void ChangedCurrencyType(GameCurrencyType newCurrency) => CurrencyType = newCurrency;
-    public int Amount { get; private set; }
-    public void ChangeAmount(int newAmount) => Amount = newAmount;
+    [SerializeField] GameCurrencyType _currencyType;
+    public GameCurrencyType CurrencyType => _currencyType;
+    public void ChangedCurrencyType(GameCurrencyType newCurrency) => _currencyType = newCurrency;
+
+    [SerializeField] int _amount;
+    public int Amount => _amount;
+    public void ChangeAmount(int newAmount) => _amount = newAmount;
 
     public CurrencyData(GameCurrencyType currencyType, int amount)
     {
-        CurrencyType = currencyType;
-        Amount = amount;
+        _currencyType = currencyType;
+        _amount = amount;
     }
-}
-
-class CurrencyPresenter
-{
-    string GetCurrencyKoreaText(GameCurrencyType type) => type == GameCurrencyType.Gold ? "골드" : "고기";
-    string GetQuantityInfoText(GameCurrencyType type) => type == GameCurrencyType.Gold ? "원" : "개";
-    public string GetPriceDescription(int price, GameCurrencyType type) => $"{GetCurrencyKoreaText(type)} {price}{GetQuantityInfoText(type)}";
 }
 
 [Serializable]
@@ -219,6 +209,7 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
 
     // 임시
     [SerializeField] Button gameStartButton;
+    [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
     protected override void Init()
     {
         base.Init();
@@ -228,7 +219,7 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
         else
             gameStartButton?.gameObject?.SetActive(false);
 
-        _battleData = new BattleDataManager(Managers.Data.GetBattleStartData());
+        _battleData = new BattleDataManager(Managers.Data.GetBattleStartData(), _unitUpgradeShopData);
         Managers.Sound.PlayBgm(BgmType.Default);
         if (PhotonNetwork.IsConnected)
             photonView.RPC(nameof(CreateOtherPlayerData), RpcTarget.Others, Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
@@ -289,12 +280,12 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     Dictionary<UnitFlags, int> _upScaleValueByFlag;
     public int GetUnitUpgradeShopUpScaleValue(UnitFlags flag) => _upScaleValueByFlag[flag];
 
-    public void IncrementUnitUpgradeValue(UnitUpgradeType unitUpgradeType, int value, UnitColor unitColor)
+    public void IncrementUnitUpgradeValue(UnitUpgradeGoodsData goodsData)
     {
-        if (unitUpgradeType == UnitUpgradeType.Value)
-            IncrementUnitUpgradeValue(_addDamageValueByFlag, value, unitColor);
+        if (goodsData.UpgradeType == UnitUpgradeType.Value)
+            IncrementUnitUpgradeValue(_addDamageValueByFlag, BattleData.UnitUpgradeShopData.AddValue, goodsData.TargetColor);
         else
-            IncrementUnitUpgradeValue(_upScaleValueByFlag, value, unitColor);
+            IncrementUnitUpgradeValue(_upScaleValueByFlag, BattleData.UnitUpgradeShopData.UpScale, goodsData.TargetColor);
     }
 
     void IncrementUnitUpgradeValue(Dictionary<UnitFlags, int> valueDict, int incrementValue, UnitColor color)

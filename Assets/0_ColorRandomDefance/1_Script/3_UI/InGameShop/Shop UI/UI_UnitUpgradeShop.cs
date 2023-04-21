@@ -8,6 +8,9 @@ using System;
 public class UnitUpgradeShopController
 {
     public event Action<UnitUpgradeGoodsData> OnBuyGoods;
+    UnitUpgradeShopData _unitUpgradeShopData;
+
+    public UnitUpgradeShopController(UnitUpgradeShopData unitUpgradeShopData) => _unitUpgradeShopData = unitUpgradeShopData;
 
     public void Buy(UnitUpgradeGoodsData upgradeData)
     {
@@ -16,8 +19,7 @@ public class UnitUpgradeShopController
         {
             Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
             UpgradeUnit(upgradeData);
-            Multi_GameManager.Instance
-                .IncrementUnitUpgradeValue(upgradeData.UpgradeType, upgradeData.UpgradeType == UnitUpgradeType.Value ? 50: 10, upgradeData.TargetColor);
+            Multi_GameManager.Instance.IncrementUnitUpgradeValue(upgradeData);
             OnBuyGoods?.Invoke(upgradeData);
         }
         else
@@ -28,16 +30,14 @@ public class UnitUpgradeShopController
         }
     }
 
-    public readonly static int ADD_DAMAGE = 50;
-    public readonly static float SCALE_DAMAGE_RATE = 0.1f;
     void UpgradeUnit(UnitUpgradeGoodsData goods)
     {
         switch (goods.UpgradeType)
         {
             case UnitUpgradeType.Value: 
-                MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(goods.TargetColor, ADD_DAMAGE, UnitStatType.All); break;
+                MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(goods.TargetColor, _unitUpgradeShopData.AddValue, UnitStatType.All); break;
             case UnitUpgradeType.Scale: 
-                MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(goods.TargetColor, SCALE_DAMAGE_RATE, UnitStatType.All); break;
+                MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(goods.TargetColor, _unitUpgradeShopData.UpScaleApplyValue / 100f, UnitStatType.All); break;
         }
     }
 }
@@ -56,13 +56,17 @@ public class UI_UnitUpgradeShop : UI_Popup
         ResetButton,
     }
 
+    UnitUpgradeShopData _unitUpgradeShopData;
     Dictionary<GoodsLocation, UI_Goods> _locationByGoods_UI = new Dictionary<GoodsLocation, UI_Goods>();
     Dictionary<GoodsLocation, UnitUpgradeGoodsData> _locationByGoods = new Dictionary<GoodsLocation, UnitUpgradeGoodsData>();
     readonly UnitUpgradeGoodsSelector _goodsSelector = new UnitUpgradeGoodsSelector();
-    readonly UnitUpgradeShopController _buyController = new UnitUpgradeShopController();
+    UnitUpgradeShopController _buyController;
     protected override void Init()
     {
         base.Init();
+        _unitUpgradeShopData = Multi_GameManager.Instance.BattleData.UnitUpgradeShopData;
+        _buyController = new UnitUpgradeShopController(_unitUpgradeShopData);
+
         InitShopGoodsList();
         _buyController.OnBuyGoods += OnBuyGoods;
         Bind<Button>(typeof(Buttons));
@@ -84,7 +88,7 @@ public class UI_UnitUpgradeShop : UI_Popup
         var goodsUIs = GetComponentsInChildren<UI_Goods>();
         _locationByGoods_UI = locations.Zip(goodsUIs, (location, goodsUI) => new { location, goodsUI }).ToDictionary(pair => pair.location, pair => pair.goodsUI);
         foreach (var item in _locationByGoods)
-            _locationByGoods_UI[item.Key].Setup(item.Value, _buyController);
+            _locationByGoods_UI[item.Key].Setup(item.Value, _buyController, _unitUpgradeShopData);
     }
 
     void OnBuyGoods(UnitUpgradeGoodsData goods)
@@ -98,20 +102,24 @@ public class UI_UnitUpgradeShop : UI_Popup
     {
         _locationByGoods_UI[buyLocation].gameObject.SetActive(false);
         yield return new WaitForSeconds(0.2f);
-        _locationByGoods[buyLocation] = newGoods;
-        _locationByGoods_UI[buyLocation].Setup(newGoods, _buyController);
+        ChangeGoods(buyLocation, newGoods);
         _locationByGoods_UI[buyLocation].gameObject.SetActive(true);
     }
 
-    const int RESET_PRICE = 2;
+    void ChangeGoods(GoodsLocation buyLocation, UnitUpgradeGoodsData newGoods)
+    {
+        _locationByGoods[buyLocation] = newGoods;
+        _locationByGoods_UI[buyLocation].Setup(newGoods, _buyController, _unitUpgradeShopData);
+    }
+
     void ResetShop()
     {
-        Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo($"{RESET_PRICE}골드를 지불하여 상점을 초기화하시겠습니까?", BuyShopReset);
+        Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo($"{_unitUpgradeShopData.ResetPrice}골드를 지불하여 상점을 초기화하시겠습니까?", BuyShopReset);
         Managers.Sound.PlayEffect(EffectSoundType.ShopGoodsClick);
     }
     void BuyShopReset()
     {
-        if (Multi_GameManager.Instance.TryUseGold(RESET_PRICE))
+        if (Multi_GameManager.Instance.TryUseGold(_unitUpgradeShopData.ResetPrice))
         {
             SetGoods(new HashSet<UnitUpgradeGoodsData>(_locationByGoods.Values));
             Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);

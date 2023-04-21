@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: UnitUpgradeShopData
   m_EditorClassIdentifier: 
   AddValue: 50
-  addValuePriceData:
+  AddValuePriceData:
     _currencyType: 0
     _amount: 2
   UpScale: 10
-  upScalePriceData:
+  UpScalePriceData:
     _currencyType: 1
     _amount: 1
-  ResetPrice: 10
+  ResetPrice: 2

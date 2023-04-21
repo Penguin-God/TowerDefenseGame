@@ -30,7 +30,7 @@ public class UI_Goods : UI_Base
     Sprite CurrencyToSprite(GameCurrencyType type) => type == GameCurrencyType.Gold ? _goldImage : _foodImage;
 
     readonly UnitUpgradeGoodsPresenter GoodsPresenter = new UnitUpgradeGoodsPresenter();
-    public void Setup(UnitUpgradeData upgradeData, BuyController buyController)
+    public void Setup(UnitUpgradeGoodsData upgradeData, UnitUpgradeShopController buyController)
     {
         var priceData = Multi_GameManager.Instance.BattleData.ShopPriceDataByUnitUpgradeData[upgradeData];
 
@@ -44,7 +44,7 @@ public class UI_Goods : UI_Base
         showPanelButton.onClick.AddListener(() => ShowBuyWindow(upgradeData, priceData, buyController));
     }
 
-    void ShowBuyWindow(UnitUpgradeData upgradeData, CurrencyData priceData, BuyController buyController)
+    void ShowBuyWindow(UnitUpgradeGoodsData upgradeData, CurrencyData priceData, UnitUpgradeShopController buyController)
     {
         string qustionText = $"{GoodsPresenter.BuildGoodsText(upgradeData)}를 {new GameCurrencyPresenter().BuildCurrencyText(priceData)}에 구매하시겠습니까?";
         Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo(qustionText, () => buyController.Buy(upgradeData));

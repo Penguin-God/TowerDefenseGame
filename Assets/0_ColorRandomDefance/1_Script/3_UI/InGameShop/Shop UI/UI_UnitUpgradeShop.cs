@@ -5,17 +5,19 @@ using UnityEngine.UI;
 using System.Linq;
 using System;
 
-public class BuyController
+public class UnitUpgradeShopController
 {
-    public event Action<UnitUpgradeData> OnBuyGoods;
+    public event Action<UnitUpgradeGoodsData> OnBuyGoods;
 
-    public void Buy(UnitUpgradeData upgradeData)
+    public void Buy(UnitUpgradeGoodsData upgradeData)
     {
         var priceData = Multi_GameManager.Instance.BattleData.ShopPriceDataByUnitUpgradeData[upgradeData];
         if (Multi_GameManager.Instance.TryUseCurrency(priceData.CurrencyType, priceData.Amount))
         {
             Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
             UpgradeUnit(upgradeData);
+            Multi_GameManager.Instance
+                .IncrementUnitUpgradeValue(upgradeData.UpgradeType, upgradeData.UpgradeType == UnitUpgradeType.Value ? 50: 10, upgradeData.TargetColor);
             OnBuyGoods?.Invoke(upgradeData);
         }
         else
@@ -28,7 +30,7 @@ public class BuyController
 
     public readonly static int ADD_DAMAGE = 50;
     public readonly static float SCALE_DAMAGE_RATE = 0.1f;
-    void UpgradeUnit(UnitUpgradeData goods)
+    void UpgradeUnit(UnitUpgradeGoodsData goods)
     {
         switch (goods.UpgradeType)
         {
@@ -55,9 +57,9 @@ public class UI_UnitUpgradeShop : UI_Popup
     }
 
     Dictionary<GoodsLocation, UI_Goods> _locationByGoods_UI = new Dictionary<GoodsLocation, UI_Goods>();
-    Dictionary<GoodsLocation, UnitUpgradeData> _locationByGoods = new Dictionary<GoodsLocation, UnitUpgradeData>();
-    readonly UnitUpgradeDataSelector _goodsSelector = new UnitUpgradeDataSelector();
-    readonly BuyController _buyController = new BuyController();
+    Dictionary<GoodsLocation, UnitUpgradeGoodsData> _locationByGoods = new Dictionary<GoodsLocation, UnitUpgradeGoodsData>();
+    readonly UnitUpgradeGoodsSelector _goodsSelector = new UnitUpgradeGoodsSelector();
+    readonly UnitUpgradeShopController _buyController = new UnitUpgradeShopController();
     protected override void Init()
     {
         base.Init();
@@ -70,10 +72,10 @@ public class UI_UnitUpgradeShop : UI_Popup
     void InitShopGoodsList()
     {
         GetComponentsInChildren<UI_Goods>().ToList().ForEach(x => x._Init());
-        SetGoods(new HashSet<UnitUpgradeData>());
+        SetGoods(new HashSet<UnitUpgradeGoodsData>());
     }
 
-    void SetGoods(HashSet<UnitUpgradeData> excludingGoddsSet)
+    void SetGoods(HashSet<UnitUpgradeGoodsData> excludingGoddsSet)
     {
         var locations = Enum.GetValues(typeof(GoodsLocation)).Cast<GoodsLocation>();
         var goodsSet = _goodsSelector.SelectGoodsSetExcluding(excludingGoddsSet);
@@ -85,14 +87,14 @@ public class UI_UnitUpgradeShop : UI_Popup
             _locationByGoods_UI[item.Key].Setup(item.Value, _buyController);
     }
 
-    void OnBuyGoods(UnitUpgradeData goods)
+    void OnBuyGoods(UnitUpgradeGoodsData goods)
     {
         var buyLocation = _locationByGoods.First(x => x.Value.Equals(goods)).Key;
         var newGoods = _goodsSelector.SelectGoodsExcluding(_locationByGoods.Where(x => x.Key != buyLocation).Select(x => x.Value));
         StartCoroutine(Co_OnBuyGoods(buyLocation, newGoods));
     }
 
-    IEnumerator Co_OnBuyGoods(GoodsLocation buyLocation, UnitUpgradeData newGoods)
+    IEnumerator Co_OnBuyGoods(GoodsLocation buyLocation, UnitUpgradeGoodsData newGoods)
     {
         _locationByGoods_UI[buyLocation].gameObject.SetActive(false);
         yield return new WaitForSeconds(0.2f);
@@ -111,7 +113,7 @@ public class UI_UnitUpgradeShop : UI_Popup
     {
         if (Multi_GameManager.Instance.TryUseGold(RESET_PRICE))
         {
-            SetGoods(new HashSet<UnitUpgradeData>(_locationByGoods.Values));
+            SetGoods(new HashSet<UnitUpgradeGoodsData>(_locationByGoods.Values));
             Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
         }
         else

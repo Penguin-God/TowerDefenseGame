@@ -13,7 +13,7 @@ namespace Tests
         [Test]
         public void 유닛_업그레이드_상점은_서로_다른_3개의_상품을_제공함()
         {
-            var selector = new UnitUpgradeDataSelector();
+            var selector = new UnitUpgradeGoodsSelector();
 
             var result = selector.SelectGoodsSet();
 
@@ -24,8 +24,8 @@ namespace Tests
         [Test]
         public void 상품이_랜덤하게_고루_뽑히는지_확인()
         {
-            var selector = new UnitUpgradeDataSelector();
-            var counter = new Dictionary<UnitUpgradeData, int>();
+            var selector = new UnitUpgradeGoodsSelector();
+            var counter = new Dictionary<UnitUpgradeGoodsData, int>();
             int selectCount = 1000;
 
             for (int i = 0; i < selectCount; i++)
@@ -54,7 +54,7 @@ namespace Tests
         [Test]
         public void 제외하고_싶은_상품들은_빼고_선택해야_함()
         {
-            var selector = new UnitUpgradeDataSelector();
+            var selector = new UnitUpgradeGoodsSelector();
             var goodsSet = CreateRedBlueYellowValueGoolsSet();
             int selectCount = 500;
             
@@ -62,11 +62,11 @@ namespace Tests
                 CollectionAssert.DoesNotContain(goodsSet, selector.SelectGoodsExcluding(goodsSet));
         }
 
-        HashSet<UnitUpgradeData> CreateRedBlueYellowValueGoolsSet() => new HashSet<UnitUpgradeData>()
+        HashSet<UnitUpgradeGoodsData> CreateRedBlueYellowValueGoolsSet() => new HashSet<UnitUpgradeGoodsData>()
         {
-            new UnitUpgradeData(UnitUpgradeType.Value, UnitColor.Red),
-            new UnitUpgradeData(UnitUpgradeType.Value, UnitColor.Blue),
-            new UnitUpgradeData(UnitUpgradeType.Value, UnitColor.Yellow),
+            new UnitUpgradeGoodsData(UnitUpgradeType.Value, UnitColor.Red),
+            new UnitUpgradeGoodsData(UnitUpgradeType.Value, UnitColor.Blue),
+            new UnitUpgradeGoodsData(UnitUpgradeType.Value, UnitColor.Yellow),
         };
     }
 }

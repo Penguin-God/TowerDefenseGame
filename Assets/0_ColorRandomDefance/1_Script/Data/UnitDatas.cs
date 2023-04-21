@@ -72,6 +72,7 @@ public struct UnitFlags : IEquatable<UnitFlags>
         }
     }
 
+    public static IEnumerable<UnitFlags> NormalFlags => AllFlags.Where(x => SpecialColors.Contains(x.UnitColor) == false);
     public static IEnumerable<UnitColor> SpecialColors => new UnitColor[] { UnitColor.White, UnitColor.Black };
 }
 

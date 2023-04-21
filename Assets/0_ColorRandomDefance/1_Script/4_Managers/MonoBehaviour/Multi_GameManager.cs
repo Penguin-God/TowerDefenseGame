@@ -87,8 +87,8 @@ public class BattleDataManager
     readonly static int VALUE_PRICE = 2;
     readonly static int SCALE_PRICE = 1;
     // 나중에 외부에서 딕셔너리 넣을거임
-    public readonly IReadOnlyDictionary<UnitUpgradeData, CurrencyData> ShopPriceDataByUnitUpgradeData
-        = new UnitUpgradeDataSelector().GetAllGoods()
+    public readonly IReadOnlyDictionary<UnitUpgradeGoodsData, CurrencyData> ShopPriceDataByUnitUpgradeData
+        = new UnitUpgradeGoodsSelector().GetAllGoods()
             .ToDictionary(x => x, x => new CurrencyData(
                 x.UpgradeType == UnitUpgradeType.Value ? GameCurrencyType.Gold : GameCurrencyType.Food,
                 x.UpgradeType == UnitUpgradeType.Value ? VALUE_PRICE : SCALE_PRICE
@@ -201,7 +201,7 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     [SerializeField] BattleDataManager _battleData;
     public BattleDataManager BattleData => _battleData;
     CurrencyManager CurrencyManager => _battleData.CurrencyManager;
-    HashSet<UnitUpgradeData> _locationByGoods = new HashSet<UnitUpgradeData>();
+    HashSet<UnitUpgradeGoodsData> _locationByGoods = new HashSet<UnitUpgradeGoodsData>();
 
     public event Action<int> OnGoldChanged;
     void Rasie_OnGoldChanged(int gold) => OnGoldChanged?.Invoke(gold);
@@ -232,6 +232,9 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
         Managers.Sound.PlayBgm(BgmType.Default);
         if (PhotonNetwork.IsConnected)
             photonView.RPC(nameof(CreateOtherPlayerData), RpcTarget.Others, Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
+
+        _addDamageValueByFlag = UnitFlags.NormalFlags.ToDictionary(x => x, x => 0);
+        _upScaleValueByFlag = UnitFlags.NormalFlags.ToDictionary(x => x, x => 0);
     }
 
     void SetEvent()
@@ -271,12 +274,34 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
         else
             photonView.RPC(nameof(AddGold), RpcTarget.Others, _addGold);
     }
+
     public bool TryUseGold(int gold) => CurrencyManager.TryUseGold(gold);
 
     public void AddFood(int _addFood) => CurrencyManager.Food += _addFood;
     public bool TryUseFood(int food) => CurrencyManager.TryUseFood(food);
 
     public bool TryUseCurrency(GameCurrencyType currencyType, int quantity) => currencyType == GameCurrencyType.Gold ? TryUseGold(quantity) : TryUseFood(quantity);
+
+
+
+    Dictionary<UnitFlags, int> _addDamageValueByFlag;
+    public int GetUnitUpgradeShopAddDamageValue(UnitFlags flag) => _addDamageValueByFlag[flag];
+    Dictionary<UnitFlags, int> _upScaleValueByFlag;
+    public int GetUnitUpgradeShopUpScaleValue(UnitFlags flag) => _upScaleValueByFlag[flag];
+
+    public void IncrementUnitUpgradeValue(UnitUpgradeType unitUpgradeType, int value, UnitColor unitColor)
+    {
+        if (unitUpgradeType == UnitUpgradeType.Value)
+            IncrementUnitUpgradeValue(_addDamageValueByFlag, value, unitColor);
+        else
+            IncrementUnitUpgradeValue(_upScaleValueByFlag, value, unitColor);
+    }
+
+    void IncrementUnitUpgradeValue(Dictionary<UnitFlags, int> valueDict, int incrementValue, UnitColor color)
+    {
+        foreach (var flag in valueDict.Keys.Where(x => x.UnitColor == color).ToList())
+            valueDict[flag] += incrementValue;
+    }
 }
 
 public class RewradController : MonoBehaviourPun

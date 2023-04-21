@@ -7,6 +7,7 @@ using System.Linq;
 
 public class MultiServiceMidiator : SingletonPun<MultiServiceMidiator>
 {
+    // 마스터 전용
     static ServerManager _server;
     static UnitUpgradeController _unitUpgrade;
 

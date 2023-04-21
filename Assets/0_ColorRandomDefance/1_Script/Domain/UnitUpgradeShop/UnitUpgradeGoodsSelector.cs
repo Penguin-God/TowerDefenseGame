@@ -9,33 +9,33 @@ public enum UnitUpgradeType
     Scale,
 }
 
-public struct UnitUpgradeData
+public struct UnitUpgradeGoodsData
 {
     public UnitUpgradeType UpgradeType { get; private set; }
     public UnitColor TargetColor { get; private set; }
 
-    public UnitUpgradeData(UnitUpgradeType upgradeType, UnitColor color)
+    public UnitUpgradeGoodsData(UnitUpgradeType upgradeType, UnitColor color)
     {
         UpgradeType = upgradeType;
         TargetColor = color;
     }
 }
 
-public class UnitUpgradeDataSelector
+public class UnitUpgradeGoodsSelector
 {
     readonly int GOODS_COUNT = 3;
-    public IEnumerable<UnitUpgradeData> SelectGoodsSet() => SelectGoodsSet(GetAllGoods());
+    public IEnumerable<UnitUpgradeGoodsData> SelectGoodsSet() => SelectGoodsSet(GetAllGoods());
 
-    public UnitUpgradeData SelectGoodsExcluding(IEnumerable<UnitUpgradeData> excludeGoods)
+    public UnitUpgradeGoodsData SelectGoodsExcluding(IEnumerable<UnitUpgradeGoodsData> excludeGoods)
         => SelectGoodsSetExcluding(excludeGoods).First();
 
-    public IEnumerable<UnitUpgradeData> SelectGoodsSetExcluding(IEnumerable<UnitUpgradeData> excludeGoods)
+    public IEnumerable<UnitUpgradeGoodsData> SelectGoodsSetExcluding(IEnumerable<UnitUpgradeGoodsData> excludeGoods)
         => SelectGoodsSet(GetAllGoods().Except(excludeGoods));
 
-    IEnumerable<UnitUpgradeData> SelectGoodsSet(IEnumerable<UnitUpgradeData> targetGoods)
+    IEnumerable<UnitUpgradeGoodsData> SelectGoodsSet(IEnumerable<UnitUpgradeGoodsData> targetGoods)
     {
         var allGoods = targetGoods.ToList();
-        var result = new List<UnitUpgradeData>();
+        var result = new List<UnitUpgradeGoodsData>();
         for (int i = 0; i < GOODS_COUNT; i++)
         {
             int randNum = UnityEngine.Random.Range(0, allGoods.Count);
@@ -45,11 +45,11 @@ public class UnitUpgradeDataSelector
         return result;
     }
 
-    public IEnumerable<UnitUpgradeData> GetAllGoods()
+    public IEnumerable<UnitUpgradeGoodsData> GetAllGoods()
         => Enum.GetValues(typeof(UnitUpgradeType))
         .Cast<UnitUpgradeType>()
         .SelectMany(upgradeType => Enum.GetValues(typeof(UnitColor))
         .Cast<UnitColor>()
         .Where(x => UnitFlags.SpecialColors.Contains(x) == false)
-        .Select(color => new UnitUpgradeData(upgradeType, color)));
+        .Select(color => new UnitUpgradeGoodsData(upgradeType, color)));
 }

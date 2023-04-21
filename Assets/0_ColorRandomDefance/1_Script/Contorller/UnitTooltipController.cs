@@ -6,10 +6,10 @@ using UnityEngine;
 
 public class UnitTooltipController
 {
-    readonly float OFFSET_X = 120f;
+    readonly float OFFSET_X = 150f;
     readonly float DELAY_TIME = 0.5f;
     readonly int FONT_SIZE = 32;
-    readonly Vector2 WINDOW_SIZE = new Vector2(180, 180);
+    readonly Vector2 WINDOW_SIZE = new Vector2(250, 190);
     public void SetMouseOverAction(IEnumerable<UI_UnitTracker> uis)
     {
         uis.ToList().ForEach(x => {
@@ -28,6 +28,8 @@ public class UnitTooltipController
         window.SetPosition(tracker.GetComponent<RectTransform>().position + new Vector3(offSetX * screenWidthScaleFactor, 0, 0));
         window.SetFontSize(FONT_SIZE);
         window.SetSize(WINDOW_SIZE);
+        window.SetAnchor(TextAnchor.MiddleLeft);
+        window.SetLineSpace(1.1f);
         window.SetText(BuildUnitDescrtion(tracker.UnitFlags));
         isShowWindow = true;
     }
@@ -37,9 +39,14 @@ public class UnitTooltipController
         var result = new StringBuilder();
         result.Append(Managers.Data.UnitWindowDataByUnitFlags[flag].Description);
         result.AppendLine();
-        result.Append($"공격력 150 증가");
         result.AppendLine();
-        result.Append($"공격력 30% 증가");
+        var damInfo = MultiServiceMidiator.UnitUpgrade.GetUnitDamageInfo(flag);
+        result.Append($"일반 몬스터 공격력 : {damInfo.ApplyDamage}");
+        result.AppendLine();
+        result.Append($"보스 몬스터 공격력 : {damInfo.ApplyBossDamage}");
+        result.AppendLine();
+        var game = Multi_GameManager.Instance;
+        result.Append($"적용된 상점 강화 : 대미지 {game.GetUnitUpgradeShopAddDamageValue(flag)} 증가 및 대미지 {game.GetUnitUpgradeShopUpScaleValue(flag)}% 증가");
         return result.ToString();
     }
 

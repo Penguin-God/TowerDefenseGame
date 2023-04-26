@@ -57,7 +57,7 @@ public class BattleDataManager
 
         _unitUpgradeShopData = unitUpgradeShopData;
         ShopPriceDataByUnitUpgradeData = new UnitUpgradeGoodsSelector().GetAllGoods()
-            .ToDictionary(x => x, x => x.UpgradeType == UnitUpgradeType.Value ? _unitUpgradeShopData.AddValuePriceData : _unitUpgradeShopData.UpScalePriceData);
+            .ToDictionary(x => x, x => x.UpgradeType == UnitUpgradeType.Value ? _unitUpgradeShopData.AddValuePriceData.Cloen() : _unitUpgradeShopData.UpScalePriceData.Cloen());
     }
 
     [SerializeField] CurrencyManager _currencyManager;
@@ -131,6 +131,8 @@ public class CurrencyData
         _currencyType = currencyType;
         _amount = amount;
     }
+
+    public CurrencyData Cloen() => new CurrencyData(CurrencyType, _amount);
 }
 
 [Serializable]

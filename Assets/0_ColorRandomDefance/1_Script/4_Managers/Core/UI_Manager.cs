@@ -16,6 +16,7 @@ public class UI_Manager
     int _order = 10; // 기본 UI랑 팝업 UI 오더 다르게 하기 위해 초기값 10으로 세팅
 
     Stack<UI_Popup> _currentPopupStack = new Stack<UI_Popup>();
+    public int PopupCount => _currentPopupStack.Count;
 
     Dictionary<string, GameObject> _popupCashByPath = new Dictionary<string, GameObject>();
     Dictionary<PopupGroupType, UI_Popup> _groupTypeByCurrentPopup = new Dictionary<PopupGroupType, UI_Popup>();

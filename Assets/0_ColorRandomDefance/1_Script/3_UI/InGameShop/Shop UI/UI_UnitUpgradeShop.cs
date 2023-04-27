@@ -37,7 +37,7 @@ public class UnitUpgradeShopController
             case UnitUpgradeType.Value: 
                 MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(goods.TargetColor, _unitUpgradeShopData.AddValue, UnitStatType.All); break;
             case UnitUpgradeType.Scale: 
-                MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(goods.TargetColor, _unitUpgradeShopData.UpScaleApplyValue / 100f, UnitStatType.All); break;
+                MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(goods.TargetColor, _unitUpgradeShopData.UpScale, UnitStatType.All); break;
         }
     }
 }

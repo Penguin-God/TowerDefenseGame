@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bfeca4236701d046a137ff4dcc63043, type: 3}
+  m_Name: BattleStartData
+  m_EditorClassIdentifier: 
+  Gold: 15
+  Food: 1
+  StageUpGold: 10
+  MaxUnit: 10
+  MaxEnemy: 50
+  UnitSummonPrice: 5
+  UnitSummonMaxColor: 2
+  YellowKnightCombineGold: 1
+  MaxUnitIncreasePriceData:
+    _currencyType: 1
+    _amount: 1
+  WhiteUnitPriceDatas:
+  - _currencyType: 1
+    _amount: 1
+  - _currencyType: 1
+    _amount: 2
+  - _currencyType: 1
+    _amount: 7
+  - _currencyType: 1
+    _amount: 20
+  UnitSellRewardDatas:
+  - _currencyType: 0
+    _amount: 1
+  - _currencyType: 0
+    _amount: 3
+  - _currencyType: 0
+    _amount: 30
+  - _currencyType: 0
+    _amount: 80

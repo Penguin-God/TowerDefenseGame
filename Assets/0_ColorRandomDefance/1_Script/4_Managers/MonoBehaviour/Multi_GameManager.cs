@@ -42,18 +42,18 @@ public struct BattleStartData
 [Serializable]
 public class BattleDataManager
 {
-    public BattleDataManager(BattleStartData startData, UnitUpgradeShopData unitUpgradeShopData)
+    public BattleDataManager(BattleDataContainer startData, UnitUpgradeShopData unitUpgradeShopData)
     {
-        _currencyManager = new CurrencyManager(startData.StartCurrency);
-        _maxUnit = startData.StartMaxUnitCount;
-        _maxEnemyCount = startData.EnemyMaxCount;
+        _currencyManager = new CurrencyManager(startData.Gold, startData.Food);
+        _maxUnit = startData.MaxUnit;
+        _maxEnemyCount = startData.MaxEnemy;
         _stageUpGold = startData.StageUpGold;
-        UnitSummonData = startData.UnitSummonData;
-        _yellowKnightRewardGold = startData.YellowKnightRewardGold;
-        _unitSellRewardDatas = startData.UnitSellPriceRecord.PriceDatas.Select(x => new CurrencyData(x.CurrencyType, x.Price)).ToArray();
+        UnitSummonData = (startData.UnitSummonPrice, (int)startData.UnitSummonMaxColor);
+        _yellowKnightRewardGold = startData.YellowKnightCombineGold;
 
-        _whiteUnitShopPriceDatas = startData.WhiteUnitPriceRecord.PriceDatas.Select(x => new CurrencyData(x.CurrencyType, x.Price)).ToArray();
-        _maxUnitIncreasePriceData = new CurrencyData(startData.MaxUnitIncreaseRecord.CurrencyType, startData.MaxUnitIncreaseRecord.Price);
+        _maxUnitIncreasePriceData = startData.MaxUnitIncreasePriceData;
+        _unitSellRewardDatas = startData.UnitSellRewardDatas;
+        _whiteUnitShopPriceDatas = startData.WhiteUnitPriceDatas;
 
         _unitUpgradeShopData = unitUpgradeShopData;
         ShopPriceDataByUnitUpgradeData = new UnitUpgradeGoodsSelector().GetAllGoods()
@@ -144,6 +144,8 @@ public class CurrencyManager
         Food = startCurrency.startFood;
     }
 
+    public CurrencyManager(int startGold, int startFood) => (_gold, _food) = (startGold, startFood);
+
     [SerializeField] int _gold;
     public event Action<int> OnGoldChanged;
     public int Gold { get => _gold; set { _gold = value; OnGoldChanged?.Invoke(_gold); } }
@@ -212,6 +214,7 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     // 임시
     [SerializeField] Button gameStartButton;
     [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
+    [SerializeField] BattleDataContainer _battleDataContainer;
     protected override void Init()
     {
         base.Init();
@@ -221,7 +224,7 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
         else
             gameStartButton?.gameObject?.SetActive(false);
 
-        _battleData = new BattleDataManager(Managers.Data.GetBattleStartData(), _unitUpgradeShopData);
+        _battleData = new BattleDataManager(_battleDataContainer, _unitUpgradeShopData);
         Managers.Sound.PlayBgm(BgmType.Default);
         if (PhotonNetwork.IsConnected)
             photonView.RPC(nameof(CreateOtherPlayerData), RpcTarget.Others, Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);

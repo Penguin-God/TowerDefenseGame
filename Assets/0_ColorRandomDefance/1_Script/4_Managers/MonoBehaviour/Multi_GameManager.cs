@@ -22,7 +22,7 @@ public class BattleDataManager
     public BattleDataManager(BattleDataContainer startData, UnitUpgradeShopData unitUpgradeShopData)
     {
         _currencyManager = new CurrencyManager(startData.Gold, startData.Food);
-        _battleData = startData;
+        _battleData = startData.Clone();
         UnitSummonData = startData.UnitSummonData;
 
         _unitUpgradeShopData = unitUpgradeShopData;

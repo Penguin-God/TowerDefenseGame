@@ -13,47 +13,17 @@ public enum GameCurrencyType
 }
 
 [Serializable]
-public struct BattleStartData
-{
-    [SerializeField] int startGold;
-    [SerializeField] int startFood;
-    [SerializeField] int stageUpGold;
-    [SerializeField] int startMaxUnitCount;
-    [SerializeField] int enemyMaxCount;
-    [SerializeField] int unitSummonPrice;
-    [SerializeField] int unitSummonMaxColorNumber;
-    [SerializeField] int startYellowKnightRewardGold;
-    [SerializeField] PriceDataRecord unitSellPriceRecord;
-    [SerializeField] PriceDataRecord whiteUnitPriceRecord;
-    [SerializeField] PriceData maxUnitIncreaseRecord;
-
-    public (int startGold, int startFood) StartCurrency => (startGold, startFood);
-    public int StageUpGold => stageUpGold;
-    public int StartMaxUnitCount => startMaxUnitCount;
-    public int EnemyMaxCount => enemyMaxCount;
-    public (int price, int maxColorNumber) UnitSummonData => (price: unitSummonPrice, maxColorNumber:unitSummonMaxColorNumber);
-    public int YellowKnightRewardGold => startYellowKnightRewardGold;
-
-    public PriceDataRecord UnitSellPriceRecord => unitSellPriceRecord;
-    public PriceDataRecord WhiteUnitPriceRecord => whiteUnitPriceRecord;
-    public PriceData MaxUnitIncreaseRecord => maxUnitIncreaseRecord;
-}
-
-[Serializable]
 public class BattleDataManager
 {
+    [SerializeField] BattleDataContainer _battleData;
+    [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
+    public UnitUpgradeShopData UnitUpgradeShopData => _unitUpgradeShopData;
+
     public BattleDataManager(BattleDataContainer startData, UnitUpgradeShopData unitUpgradeShopData)
     {
         _currencyManager = new CurrencyManager(startData.Gold, startData.Food);
-        _maxUnit = startData.MaxUnit;
-        _maxEnemyCount = startData.MaxEnemy;
-        _stageUpGold = startData.StageUpGold;
-        UnitSummonData = (startData.UnitSummonPrice, (int)startData.UnitSummonMaxColor);
-        _yellowKnightRewardGold = startData.YellowKnightCombineGold;
-
-        _maxUnitIncreasePriceData = startData.MaxUnitIncreasePriceData;
-        _unitSellRewardDatas = startData.UnitSellRewardDatas;
-        _whiteUnitShopPriceDatas = startData.WhiteUnitPriceDatas;
+        _battleData = startData;
+        UnitSummonData = startData.UnitSummonData;
 
         _unitUpgradeShopData = unitUpgradeShopData;
         ShopPriceDataByUnitUpgradeData = new UnitUpgradeGoodsSelector().GetAllGoods()
@@ -63,56 +33,52 @@ public class BattleDataManager
     [SerializeField] CurrencyManager _currencyManager;
     public CurrencyManager CurrencyManager => _currencyManager;
 
-    [SerializeField] int _maxUnit;
     public event Action<int> OnMaxUnitChanged = null;
-    public int MaxUnit { get => _maxUnit; set { _maxUnit = value; OnMaxUnitChanged?.Invoke(_maxUnit); } }
+    public int MaxUnit { get => _battleData.MaxUnit; set { _battleData.MaxUnit = value; OnMaxUnitChanged?.Invoke(_battleData.MaxUnit); } }
+    public int MaxEnemyCount => _battleData.MaxEnemy;
+    public int StageUpGold { get => _battleData.StageUpGold; set => _battleData.StageUpGold = value; }
+    public int YellowKnightRewardGold { get => _battleData.YellowKnightCombineGold; set => _battleData.YellowKnightCombineGold = value; }
 
-    [SerializeField] int _maxEnemyCount;
-    public int MaxEnemyCount => _maxEnemyCount;
+    public UnitSummonData UnitSummonData;
 
-    [SerializeField] int _stageUpGold;
-    public int StageUpGold { get => _stageUpGold; set => _stageUpGold = value; }
-
-    public (int price, int maxColorNumber) UnitSummonData;
-
-    [SerializeField] int _yellowKnightRewardGold;
-    public int YellowKnightRewardGold { get => _yellowKnightRewardGold; set => _yellowKnightRewardGold = value; }
-
-    [SerializeField] CurrencyData[] _unitSellRewardDatas;
-    public IReadOnlyList<CurrencyData> UnitSellRewardDatas => _unitSellRewardDatas;
+    public IReadOnlyList<CurrencyData> UnitSellRewardDatas => _battleData.UnitSellRewardDatas;
 
     // 상점
-    [SerializeField] CurrencyData[] _whiteUnitShopPriceDatas;
-    public IReadOnlyList<CurrencyData> WhiteUnitShopPriceDatas => _whiteUnitShopPriceDatas;
+    public IReadOnlyList<CurrencyData> WhiteUnitShopPriceDatas => _battleData.WhiteUnitPriceDatas;
+    public CurrencyData MaxUnitIncreasePriceData => _battleData.MaxUnitIncreasePriceData;
 
-    [SerializeField] CurrencyData _maxUnitIncreasePriceData;
-    public CurrencyData MaxUnitIncreasePriceData => _maxUnitIncreasePriceData;
-
-    [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
-    public UnitUpgradeShopData UnitUpgradeShopData => _unitUpgradeShopData;
     public readonly IReadOnlyDictionary<UnitUpgradeGoodsData, CurrencyData> ShopPriceDataByUnitUpgradeData;
-
     public IEnumerable<CurrencyData> GetAllShopPriceDatas() 
         => ShopPriceDataByUnitUpgradeData.Values
-            .Concat(_whiteUnitShopPriceDatas)
-            .Concat(new CurrencyData[] { _maxUnitIncreasePriceData });
+            .Concat(WhiteUnitShopPriceDatas)
+            .Concat(new CurrencyData[] { MaxUnitIncreasePriceData });
 }
 
 [Serializable]
-public class PriceDataRecord
+public struct UnitSummonData
 {
-    [SerializeField] PriceData[] _priceDatas;
-    public PriceData[] PriceDatas => _priceDatas;
+    public int SummonPrice;
+    public UnitColor SummonMaxColor;
 }
 
-[Serializable]
-public class PriceData
+public class UnitSummoner
 {
-    [SerializeField] GameCurrencyType _currencyType;
-    public GameCurrencyType CurrencyType => _currencyType;
-    
-    [SerializeField] int _price;
-    public int Price => _price;
+    Multi_GameManager _game;
+    public UnitSummoner(Multi_GameManager game) => _game = game;
+
+    public bool TrySummonUnit(out UnitColor summonColor)
+    {
+        if (_game.TryUseGold(_game.BattleData.UnitSummonData.SummonPrice))
+        {
+            summonColor = (UnitColor)UnityEngine.Random.Range(0, (int)_game.BattleData.UnitSummonData.SummonMaxColor + 1);
+            return true;
+        }
+        else
+        {
+            summonColor = UnitColor.White;
+            return false;
+        }
+    }
 }
 
 [Serializable]
@@ -138,12 +104,6 @@ public class CurrencyData
 [Serializable]
 public class CurrencyManager
 {
-    public CurrencyManager((int startGold, int startFood) startCurrency)
-    {
-        Gold = startCurrency.startGold;
-        Food = startCurrency.startFood;
-    }
-
     public CurrencyManager(int startGold, int startFood) => (_gold, _food) = (startGold, startFood);
 
     [SerializeField] int _gold;

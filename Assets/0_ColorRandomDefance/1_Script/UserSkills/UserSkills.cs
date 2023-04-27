@@ -177,9 +177,7 @@ public class YellowSowrdmanUpgrade : UserSkill
 
 public class ColorMaster : UserSkill
 {
-    readonly int MAX_SPAWN_COLOR_NUMBER = 6;
-    public override void InitSkill()
-        => Multi_GameManager.Instance.BattleData.UnitSummonData.maxColorNumber = MAX_SPAWN_COLOR_NUMBER;
+    public override void InitSkill() => Multi_GameManager.Instance.BattleData.UnitSummonData.SummonMaxColor = UnitColor.Violet;
 }
 
 public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경

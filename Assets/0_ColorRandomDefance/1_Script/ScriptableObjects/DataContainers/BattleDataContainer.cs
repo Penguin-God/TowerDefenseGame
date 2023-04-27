@@ -10,8 +10,7 @@ public class BattleDataContainer : ScriptableObject
     public int StageUpGold;
     public int MaxUnit;
     public int MaxEnemy;
-    public int UnitSummonPrice;
-    public UnitColor UnitSummonMaxColor;
+    public UnitSummonData UnitSummonData;
     public int YellowKnightCombineGold;
     public CurrencyData MaxUnitIncreasePriceData;
     public CurrencyData[] WhiteUnitPriceDatas;

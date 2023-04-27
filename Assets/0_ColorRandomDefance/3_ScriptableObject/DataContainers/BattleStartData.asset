@@ -17,8 +17,9 @@ MonoBehaviour:
   StageUpGold: 10
   MaxUnit: 10
   MaxEnemy: 50
-  UnitSummonPrice: 5
-  UnitSummonMaxColor: 2
+  UnitSummonData:
+    SummonPrice: 5
+    SummonMaxColor: 2
   YellowKnightCombineGold: 1
   MaxUnitIncreasePriceData:
     _currencyType: 1

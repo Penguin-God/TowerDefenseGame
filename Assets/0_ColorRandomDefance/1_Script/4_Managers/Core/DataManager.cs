@@ -52,8 +52,6 @@ public class DataManager
     public Dictionary<BgmType, BgmSound> BgmBySound { get; private set; }
     #endregion
 
-    public BattleStartData GetBattleStartData() => JsonUtility.FromJson<BattleStartData>(Resources.Load<TextAsset>("Data/ClientData/BattleGameData").text);
-
     public void Init()
     {
         Clears();

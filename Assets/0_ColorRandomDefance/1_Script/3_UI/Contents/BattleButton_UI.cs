@@ -63,10 +63,9 @@ public class BattleButton_UI : UI_Scene
             return;
         }
 
-        var summonData = Multi_GameManager.Instance.BattleData.UnitSummonData;
-        if (Multi_GameManager.Instance.TryUseGold(summonData.price))
+        if(new UnitSummoner(Multi_GameManager.Instance).TrySummonUnit(out UnitColor summonColor))
         {
-            Multi_SpawnManagers.NormalUnit.Spawn(Random.Range(0, summonData.maxColorNumber ), 0);
+            Multi_SpawnManagers.NormalUnit.Spawn(summonColor, UnitClass.Swordman);
             Managers.Sound.PlayEffect(EffectSoundType.DrawSwordman);
         }
     }

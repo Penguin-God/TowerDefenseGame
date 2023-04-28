@@ -10,4 +10,15 @@ public class UnitUpgradeShopData : ScriptableObject
     public int UpScale;
     public CurrencyData UpScalePriceData;
     public int ResetPrice;
+
+    public UnitUpgradeShopData Clone()
+    {
+        var result = ScriptableObject.CreateInstance<UnitUpgradeShopData>();
+        result.AddValue = AddValue;
+        result.AddValuePriceData = AddValuePriceData.Cloen();
+        result.UpScale = UpScale;
+        result.UpScalePriceData = UpScalePriceData.Cloen();
+        result.ResetPrice = ResetPrice;
+        return result;
+    }
 }

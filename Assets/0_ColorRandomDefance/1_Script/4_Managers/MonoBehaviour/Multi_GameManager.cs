@@ -25,7 +25,7 @@ public class BattleDataManager
         _battleData = startData.Clone();
         UnitSummonData = startData.UnitSummonData;
 
-        _unitUpgradeShopData = unitUpgradeShopData;
+        _unitUpgradeShopData = unitUpgradeShopData.Clone();
         ShopPriceDataByUnitUpgradeData = new UnitUpgradeGoodsSelector().GetAllGoods()
             .ToDictionary(x => x, x => x.UpgradeType == UnitUpgradeType.Value ? _unitUpgradeShopData.AddValuePriceData.Cloen() : _unitUpgradeShopData.UpScalePriceData.Cloen());
     }

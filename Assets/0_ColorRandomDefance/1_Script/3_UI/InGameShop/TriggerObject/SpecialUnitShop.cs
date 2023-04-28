@@ -6,7 +6,8 @@ public class SpecialUnitShop : ShopObject
 {
     protected override void ShowShop()
     {
-        Managers.UI.ShowPopGroupUI<UI_Popup>(PopupGroupType.UnitWindow, path);
+        Managers.UI.ClosePopupUI();
+        Managers.UI.ShowPopupUI<UI_Popup>(path);
         Managers.Sound.PlayEffect(EffectSoundType.PopSound_2);
     }
 }

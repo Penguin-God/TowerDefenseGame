@@ -13,7 +13,10 @@ public class UnitClickController : MonoBehaviour
             {
                 var unit = hit.collider.gameObject.GetComponentInParent<Multi_TeamSoldier>();
                 if (unit != null)
-                    Managers.UI.ShowPopGroupUI<UI_UnitManagedWindow>(PopupGroupType.UnitWindow, "UnitManagedWindow").Show(unit.UnitFlags);
+                {
+                    Managers.UI.ClosePopupUI();
+                    Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").Show(unit.UnitFlags);
+                }
             }
         }
     }

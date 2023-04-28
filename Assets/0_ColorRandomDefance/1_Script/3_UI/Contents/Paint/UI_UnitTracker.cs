@@ -74,7 +74,8 @@ public class UI_UnitTracker : UI_Base
 
     void OnClicked()
     {
-        Managers.UI.ShowPopGroupUI<UI_UnitManagedWindow>(PopupGroupType.UnitWindow, "UnitManagedWindow").Show(unitFlags);
+        Managers.UI.ClosePopupUI();
+        Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").Show(UnitFlags);
         Managers.Sound.PlayEffect(EffectSoundType.ShowRandomShop);
     }
 }

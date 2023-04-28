@@ -117,7 +117,11 @@ public class UI_Manager
     }
 
 
-    public void ClosePopupUI() => _currentPopupStack.Pop().gameObject.SetActive(false);
+    public void ClosePopupUI()
+    {
+        if(PopupCount > 0)
+            _currentPopupStack.Pop().gameObject.SetActive(false);
+    }
 
     public void ClosePopupUI(PopupGroupType groupType)
     {

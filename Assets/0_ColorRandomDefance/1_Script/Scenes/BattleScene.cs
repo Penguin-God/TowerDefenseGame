@@ -116,8 +116,6 @@ class WorldInitializer
 
     void Show_UI()
     {
-        Managers.UI.Init();
-
         Managers.UI.ShowPopupUI<BackGround>("BackGround").gameObject.SetActive(false);
         Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
 

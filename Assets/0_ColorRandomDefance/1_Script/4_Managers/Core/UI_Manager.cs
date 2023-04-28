@@ -5,12 +5,6 @@ using UnityEngine.UI;
 using System;
 using System.Linq;
 
-public enum PopupGroupType
-{
-    None,
-    UnitWindow,
-}
-
 public class UI_Manager
 {
     int _order = 10; // 기본 UI랑 팝업 UI 오더 다르게 하기 위해 초기값 10으로 세팅
@@ -19,19 +13,8 @@ public class UI_Manager
     public int PopupCount => _currentPopupStack.Count;
 
     Dictionary<string, GameObject> _popupCashByPath = new Dictionary<string, GameObject>();
-    Dictionary<PopupGroupType, UI_Popup> _groupTypeByCurrentPopup = new Dictionary<PopupGroupType, UI_Popup>();
-
     public readonly float UIScreenWidth = 800;
     public readonly float UIScreenHeight = 480;
-
-    public void Init()
-    {
-        foreach (PopupGroupType type in Enum.GetValues(typeof(PopupGroupType)))
-        {
-            if (type == PopupGroupType.None) continue;
-            _groupTypeByCurrentPopup.Add(type, null);
-        }
-    }
 
     Transform _root;
     public Transform Root
@@ -131,6 +114,5 @@ public class UI_Manager
         _root = null;
         _currentPopupStack.Clear();
         _popupCashByPath.Clear();
-        _groupTypeByCurrentPopup.Clear();
     }
 }

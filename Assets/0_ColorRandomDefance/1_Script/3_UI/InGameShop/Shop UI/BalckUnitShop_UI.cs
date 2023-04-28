@@ -26,6 +26,6 @@ public class BalckUnitShop_UI : UI_Popup
     void TryCombineBlackUnit(int classNumber)
     {
         if(Multi_UnitManager.Instance.TryCombine(new UnitFlags(BALCK_NUMBER, classNumber)))
-            Managers.UI.ClosePopupUI(PopupGroupType.UnitWindow);
+            Managers.UI.ClosePopupUI();
     }
 }

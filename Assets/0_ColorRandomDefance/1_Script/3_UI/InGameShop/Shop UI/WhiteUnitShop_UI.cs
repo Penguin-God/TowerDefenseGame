@@ -42,7 +42,7 @@ public class WhiteUnitShop_UI : UI_Popup
         if (Multi_GameManager.Instance.TryUseCurrency(data.CurrencyType, data.Amount))
         {
             Multi_SpawnManagers.NormalUnit.Spawn(WHITE_COLOR_NUMBER, classNumber);
-            Managers.UI.ClosePopupUI(PopupGroupType.UnitWindow);
+            Managers.UI.ClosePopupUI();
         }
     }
 

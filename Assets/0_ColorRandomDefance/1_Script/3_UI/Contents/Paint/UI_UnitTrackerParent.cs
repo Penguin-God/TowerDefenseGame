@@ -40,6 +40,6 @@ public class UI_UnitTrackerParent : UI_Base
     {
         var popup = Managers.UI.PeekPopupUI();
         if (popup != null && popup.GetComponent<UI_UnitManagedWindow>() != null)
-            Managers.UI.ClosePopupUI(PopupGroupType.UnitWindow);
+            Managers.UI.ClosePopupUI();
     }
 }

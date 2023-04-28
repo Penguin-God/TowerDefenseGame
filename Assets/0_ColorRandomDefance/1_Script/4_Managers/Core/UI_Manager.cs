@@ -75,15 +75,6 @@ public class UI_Manager
 
     public T ShowSceneUI<T>(string name = null) where T : UI_Scene => ShowUI<T>("Scene", name);
 
-    public T ShowPopGroupUI<T>(PopupGroupType type, string name = null) where T : UI_Popup
-    {
-        if (_groupTypeByCurrentPopup[type] != null)
-            ClosePopupUI();
-        T popup = ShowPopupUI<T>(name);
-        _groupTypeByCurrentPopup[type] = popup;
-        return popup;
-    }
-
     public T ShowPopupUI<T>(string name = null) where T : UI_Popup
     {
         T popup = ShowUI<T>("Popup", name, InstantPopupUI);
@@ -123,20 +114,8 @@ public class UI_Manager
             _currentPopupStack.Pop().gameObject.SetActive(false);
     }
 
-    public void ClosePopupUI(PopupGroupType groupType)
-    {
-        if (_groupTypeByCurrentPopup[groupType] == null) return;
-        _groupTypeByCurrentPopup[groupType] = null;
-        ClosePopupUI();
-    }
-
     public void CloseAllPopupUI()
     {
-        foreach (PopupGroupType type in Enum.GetValues(typeof(PopupGroupType)))
-        {
-            if (type == PopupGroupType.None) continue;
-            _groupTypeByCurrentPopup[type] = null;
-        }
         _currentPopupStack.ToList().ForEach(x => x.gameObject.SetActive(false));
         _currentPopupStack.Clear();
     }

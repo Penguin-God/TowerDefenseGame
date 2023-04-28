@@ -33,6 +33,7 @@ public class UserSkillFactory
         _typeBySkill.Add(SkillType.판매보상증가, new SellUpgrade());
         _typeBySkill.Add(SkillType.보스데미지증가, new BossDamageUpgrade());
         _typeBySkill.Add(SkillType.고기혐오자, new FoodHater());
+        _typeBySkill.Add(SkillType.장사꾼, new DiscountMerchant());
     }
 
     public UserSkill GetSkill(SkillType type)
@@ -251,4 +252,13 @@ public class SellUpgrade : UserSkill
 public class BossDamageUpgrade : UserSkill
 {
     public override void InitSkill() => MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(SkillData, UnitStatType.BossDamage);
+}
+
+public class DiscountMerchant : UserSkill
+{
+    public override void InitSkill()
+    {
+        Multi_GameManager.Instance.BattleData.UnitUpgradeShopData.AddValuePriceData.ChangeAmount(0);
+        Multi_GameManager.Instance.BattleData.UnitUpgradeShopData.ResetPrice = IntSkillData;
+    }
 }

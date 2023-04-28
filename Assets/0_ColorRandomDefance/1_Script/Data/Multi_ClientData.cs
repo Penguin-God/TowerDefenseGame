@@ -113,6 +113,7 @@ public enum SkillType
     고기혐오자,
     판매보상증가,
     보스데미지증가,
+    장사꾼,
 }
 
 public enum MoneyType

@@ -150,11 +150,10 @@ public class TaegeukConditionChecker
 public class BlackUnitUpgrade : UserSkill
 {
     public event Action<UnitFlags> OnBlackUnitReinforce;
-    UnitDamages strongDamages;
+    int[] _upgradeDamages;
     public override void InitSkill()
     {
-        int[] datas = IntSkillDatas;
-        strongDamages = new UnitDamages(datas[0], datas[1], datas[2], datas[3]);
+        _upgradeDamages = IntSkillDatas;
         Multi_UnitManager.Instance.OnUnitCountChangeByFlag += UseSkill;
     }
 
@@ -163,7 +162,7 @@ public class BlackUnitUpgrade : UserSkill
         if (unitFlags.UnitColor != UnitColor.Black && count == 0) return;
 
         var flag = new UnitFlags(UnitColor.Black, unitFlags.UnitClass);
-        MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(flag, strongDamages.Damages[(int)unitFlags.UnitClass], UnitStatType.All);
+        MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(flag, _upgradeDamages[(int)unitFlags.UnitClass], UnitStatType.All);
         OnBlackUnitReinforce?.Invoke(flag);
     }
 }
@@ -252,26 +251,4 @@ public class SellUpgrade : UserSkill
 public class BossDamageUpgrade : UserSkill
 {
     public override void InitSkill() => MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(SkillData, UnitStatType.BossDamage);
-}
-
-public struct UnitDamages
-{
-    public UnitDamages(int sword, int archer, int spear, int mage)
-    {
-        _swordmanDamage = sword;
-        _archerDamage = archer;
-        _spearmanDamage = spear;
-        _mageDamage = mage;
-    }
-
-    int _swordmanDamage;
-    int _archerDamage;
-    int _spearmanDamage;
-    int _mageDamage;
-
-    public int SwordmanDamage => _swordmanDamage;
-    public int ArcherDamage => _archerDamage;
-    public int SpearmanDamage => _spearmanDamage;
-    public int MageDamage => _mageDamage;
-    public int[] Damages => new int[] { SwordmanDamage, ArcherDamage, SpearmanDamage, MageDamage };
 }

@@ -9,11 +9,17 @@ public class BackGround : UI_Popup
     Image _image;
     protected override void Init()
     {
+        if(_initDone) return;
+        Setup();
+    }
+
+    public void Setup()
+    {
         base.Init();
-        gameObject.SetActive(false);
         _text = GetComponentInChildren<Text>();
         _image = GetComponentInChildren<Image>();
     }
+
     public void SetText(string newText) => _text.text = newText;
     public void SetLineSpace(float space) => _text.lineSpacing = space;
     public void SetFontSize(int size) => _text.fontSize = size;

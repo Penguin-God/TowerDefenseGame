@@ -20,18 +20,19 @@ public class UnitTooltipController
         });
     }
 
-    bool isShowWindow = false;
+    BackGround _currentWindow;
     void ShowUnitTooltip(UI_UnitTracker tracker, float offSetX)
     {
-        BackGround window = Managers.UI.ShowPopupUI<BackGround>();
+        _currentWindow = Managers.UI.ShowDefualtUI<BackGround>();
+        _currentWindow.Setup();
         float screenWidthScaleFactor = Screen.width / Managers.UI.UIScreenWidth;
-        window.SetPosition(tracker.GetComponent<RectTransform>().position + new Vector3(offSetX * screenWidthScaleFactor, 0, 0));
-        window.SetFontSize(FONT_SIZE);
-        window.SetSize(WINDOW_SIZE);
-        window.SetAnchor(TextAnchor.MiddleLeft);
-        window.SetLineSpace(1.1f);
-        window.SetText(BuildUnitDescrtion(tracker.UnitFlags));
-        isShowWindow = true;
+        _currentWindow.SetPosition(tracker.GetComponent<RectTransform>().position + new Vector3(offSetX * screenWidthScaleFactor, 0, 0));
+        _currentWindow.SetFontSize(FONT_SIZE);
+        _currentWindow.SetSize(WINDOW_SIZE);
+        _currentWindow.SetAnchor(TextAnchor.MiddleLeft);
+        _currentWindow.SetLineSpace(1.1f);
+        _currentWindow.SetText(BuildUnitDescrtion(tracker.UnitFlags));
+        _currentWindow.gameObject.SetActive(true);
     }
 
     string BuildUnitDescrtion(UnitFlags flag)
@@ -52,10 +53,7 @@ public class UnitTooltipController
 
     void CloseWindow()
     {
-        if (isShowWindow)
-        {
-            isShowWindow = false;
-            Managers.UI.ClosePopupUI();
-        }
+        if (_currentWindow != null)
+            GameObject.Destroy(_currentWindow.gameObject);
     }
 }

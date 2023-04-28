@@ -111,7 +111,7 @@ public class UI_Manager
         if (string.IsNullOrEmpty(name)) name = typeof(T).Name;
         GameObject go = getObject == null ? Managers.Resources.Instantiate($"UI/{uiType}/{name}") : getObject($"UI/{uiType}/{name}");
         T ui = go.GetOrAddComponent<T>();
-        go.transform.SetParent(parent ?? Root);
+        go.transform.SetParent(parent ?? Root); // ??는 parent == null ? parent : Root 랑 같음
         go.gameObject.SetActive(true);
         return ui;
     }

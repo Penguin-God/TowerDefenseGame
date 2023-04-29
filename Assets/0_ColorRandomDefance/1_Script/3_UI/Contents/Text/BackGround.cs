@@ -7,13 +7,8 @@ public class BackGround : UI_Popup
 {
     Text _text;
     Image _image;
-    protected override void Init()
-    {
-        if(_initDone) return;
-        Setup();
-    }
 
-    public void Setup()
+    public override void Setup()
     {
         base.Init();
         _text = GetComponentInChildren<Text>();

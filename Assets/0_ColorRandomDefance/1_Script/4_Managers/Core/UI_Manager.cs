@@ -12,7 +12,7 @@ public class UI_Manager
     Stack<UI_Popup> _currentPopupStack = new Stack<UI_Popup>();
     public int PopupCount => _currentPopupStack.Count;
 
-    Dictionary<string, GameObject> _popupCashByPath = new Dictionary<string, GameObject>();
+    Dictionary<string, GameObject> _uiCashByPath = new Dictionary<string, GameObject>();
     public readonly float UIScreenWidth = 800;
     public readonly float UIScreenHeight = 480;
 
@@ -68,17 +68,17 @@ public class UI_Manager
 
     GameObject InstantPopupUI(string path)
     {
-        if (_popupCashByPath.TryGetValue(path, out GameObject popupCash))
+        if (_uiCashByPath.TryGetValue(path, out GameObject popupCash))
             return popupCash;
         else
         {
             var go = Managers.Resources.Instantiate(path);
-            _popupCashByPath.Add(path, go);
+            _uiCashByPath.Add(path, go);
             return go;
         }
     }
 
-    public T ShowDefualtUI<T>(string name = null) where T : UI_Base => ShowUI<T>("Default", name);
+    public T ShowDefualtUI<T>(string name = null) where T : UI_Base => ShowUI<T>("Default", name, InstantPopupUI);
 
     T ShowUI<T>(string uiType, string name = null, Func<string, GameObject> getObject = null, Transform parent = null) where T : UI_Base
     {
@@ -113,6 +113,6 @@ public class UI_Manager
     {
         _root = null;
         _currentPopupStack.Clear();
-        _popupCashByPath.Clear();
+        _uiCashByPath.Clear();
     }
 }

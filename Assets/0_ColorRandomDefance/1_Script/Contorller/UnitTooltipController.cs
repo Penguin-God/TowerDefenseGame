@@ -51,9 +51,5 @@ public class UnitTooltipController
         return result.ToString();
     }
 
-    void CloseWindow()
-    {
-        if (_currentWindow != null)
-            GameObject.Destroy(_currentWindow.gameObject);
-    }
+    void CloseWindow() => _currentWindow?.gameObject?.SetActive(false);
 }

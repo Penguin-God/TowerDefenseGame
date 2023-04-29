@@ -12,6 +12,7 @@ public abstract class UI_Base : MonoBehaviour
 
     protected bool _initDone = false;
     protected virtual void Init() { }
+    public virtual void Setup() { }
 
     void Start()
     {

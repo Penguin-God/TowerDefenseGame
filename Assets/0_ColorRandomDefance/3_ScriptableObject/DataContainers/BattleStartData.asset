@@ -24,6 +24,15 @@ MonoBehaviour:
   MaxUnitIncreasePriceData:
     _currencyType: 1
     _amount: 1
+  UnitSellRewardDatas:
+  - _currencyType: 0
+    _amount: 1
+  - _currencyType: 0
+    _amount: 4
+  - _currencyType: 0
+    _amount: 30
+  - _currencyType: 0
+    _amount: 80
   WhiteUnitPriceDatas:
   - _currencyType: 1
     _amount: 1
@@ -33,12 +42,3 @@ MonoBehaviour:
     _amount: 7
   - _currencyType: 1
     _amount: 20
-  UnitSellRewardDatas:
-  - _currencyType: 0
-    _amount: 1
-  - _currencyType: 0
-    _amount: 3
-  - _currencyType: 0
-    _amount: 30
-  - _currencyType: 0
-    _amount: 80

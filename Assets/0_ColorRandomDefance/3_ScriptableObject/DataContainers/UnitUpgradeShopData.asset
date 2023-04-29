@@ -20,4 +20,4 @@ MonoBehaviour:
   UpScalePriceData:
     _currencyType: 1
     _amount: 1
-  ResetPrice: 5
+  ResetPrice: 2

@@ -7,7 +7,7 @@
 ,,,,,,,,,
 ,,,,,,,,,
 고기혐오자,Sub,Iron,고기혐오자,"획득하는 모든 고기가 골드로 바뀝니다. 또한, 고기로 구매할 수 있는 물픔은 골드로 구매할 수 있도록 바뀝니다.",Sprites/FoodUpgrade,고기 획득 시 골드 변환 비율 {data},상점 물품 비율 변환{data},,
-판매보상증가,Sub,Iron,판매보상증가,유닛 판매 보상이 증가합니다.,Sprites/SellRewardUpgrade,기사: 1 -> {data},궁수: 3 -> {data},창병: 30 -> {data},법사: 80 -> {data}
+판매보상증가,Sub,Iron,판매보상증가,유닛 판매 보상이 증가합니다.,Sprites/SellRewardUpgrade,기사: 1 -> {data},궁수: 4 -> {data},창병: 30 -> {data},법사: 80 -> {data}
 보스데미지증가,Sub,Iron,보스데미지증가,모든 유닛의 보스 공격력이 증가합니다.,Sprites/BossDamageUpgrade,{data}배 증가,,,
 시작골드증가,Sub,Iron,시작 골드 증가,시작 골드가 증가합니다,Sprites/GoldUpgrade,{data}원 추가 획득,,,
 시작고기증가,Sub,Iron,시작 고기 증가,시작 고기가 증가합니다,Sprites/FoodUpgrade,{data}개 추가 획득,,,

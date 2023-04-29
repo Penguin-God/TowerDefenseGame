@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -24,6 +25,11 @@ public class Skill_Info_UI : UI_Popup
         UpgradeButton,
     }
 
+    enum GameObjects
+    {
+        SkillStatInfoRoot,
+    }
+
     protected override void Init()
     {
         base.Init();
@@ -31,6 +37,7 @@ public class Skill_Info_UI : UI_Popup
         Bind<Image>(typeof(Images));
         Bind<Text>(typeof(Texts));
         Bind<Button>(typeof(Buttons));
+        Bind<GameObject>(typeof(GameObjects));
         _initDone = true;
         RefreshUI();
     }
@@ -56,6 +63,7 @@ public class Skill_Info_UI : UI_Popup
 
         GetButton((int)Buttons.UpgradeButton).onClick.RemoveAllListeners();
         GetButton((int)Buttons.UpgradeButton).onClick.AddListener(UpgradeSkill);
+        ShowSkillStat();
     }
 
     void UpgradeSkill()
@@ -64,5 +72,15 @@ public class Skill_Info_UI : UI_Popup
 
         if (Managers.ClientData.UpgradeSkill(_skillData.SkillType))
             RefreshUI();
+    }
+
+    void ShowSkillStat()
+    {
+        foreach (Transform child in GetObject((int)GameObjects.SkillStatInfoRoot).transform)
+            Destroy(child.gameObject);
+
+        if (_skillData.StatInfoFraems == null || _skillData.StatInfoFraems.Count() == 0) return;
+        for (int i = 0; i < _skillData.StatInfoFraems.Count(); i++)
+            Managers.UI.MakeSubItem<UI_SkillStatInfo>(GetObject((int)GameObjects.SkillStatInfoRoot).transform).ShowSkillStat(_skillData.SkillType, i);
     }
 }

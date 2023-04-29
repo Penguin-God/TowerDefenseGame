@@ -12,6 +12,7 @@ public class UserSkillGoodsData
     [SerializeField] string _skillName;
     [SerializeField] string _description;
     [SerializeField] string _imagePath;
+    [SerializeField] string[] _statInfoFraems;
     [SerializeField] UserSkillLevelData[] _levelDatas;
 
     public SkillType SkillType => _skillType;
@@ -21,6 +22,7 @@ public class UserSkillGoodsData
     public string Description => _description;
     public string ImagePath => _imagePath;
     public Sprite ImageSprite => Managers.Resources.Load<Sprite>(_imagePath);
+    public IReadOnlyList<string> StatInfoFraems => _statInfoFraems;
     public UserSkillLevelData[] LevelDatas => _levelDatas;
     public void SetLevelDatas(UserSkillLevelData[] newLevelDatas) => _levelDatas = newLevelDatas;
 }

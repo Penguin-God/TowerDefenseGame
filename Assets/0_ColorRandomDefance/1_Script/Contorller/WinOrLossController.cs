@@ -2,7 +2,7 @@
 using UnityEngine;
 using Photon.Pun;
 
-public class WinOrLossController : MonoBehaviourPunCallbacks
+public class WinOrLossController : MonoBehaviourPun
 {
     void Start()
     {
@@ -40,11 +40,6 @@ public class WinOrLossController : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSecondsRealtime(5f);
         Time.timeScale = 1;
-        PhotonNetwork.LeaveRoom();
-    }
-
-    public override void OnLeftRoom()
-    {
         Managers.Scene.LoadScene(SceneTyep.Lobby);
         Managers.Clear();
     }

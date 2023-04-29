@@ -5,12 +5,13 @@ using Photon.Pun;
 
 public class Singleton<T> : MonoBehaviour where T : Component
 {
+    static bool _isQuiiting = false;
     private static T instance;
     public static T Instance
     {
         get
         {
-            if (instance == null)
+            if (instance == null && _isQuiiting == false)
             {
                 instance = FindObjectOfType<T>();
                 if (instance == null)
@@ -25,6 +26,12 @@ public class Singleton<T> : MonoBehaviour where T : Component
     void Awake()
     {
         Init();
+    }
+
+    void OnApplicationQuit()
+    {
+        instance = null;
+        _isQuiiting = true;
     }
 
     protected virtual void Init() { }

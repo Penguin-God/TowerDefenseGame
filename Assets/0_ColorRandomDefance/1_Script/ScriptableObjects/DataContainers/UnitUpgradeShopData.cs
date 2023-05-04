@@ -8,6 +8,7 @@ public class UnitUpgradeShopData : ScriptableObject
     public int AddValue;
     public CurrencyData AddValuePriceData;
     public int UpScale;
+    public float ApplyUpScale => UpScale / 100f;
     public CurrencyData UpScalePriceData;
     public int ResetPrice;
 

@@ -12,7 +12,7 @@ public class UnitClickController : MonoBehaviour
             if (Physics.Raycast(ray, out var hit, Mathf.Infinity, LayerMask.GetMask("Unit")))
             {
                 var unit = hit.collider.gameObject.GetComponentInParent<Multi_TeamSoldier>();
-                if (unit != null)
+                if (unit != null && unit.UsingID == PlayerIdManager.Id && Managers.Data.UnitWindowDataByUnitFlags.ContainsKey(unit.UnitFlags))
                 {
                     Managers.UI.ClosePopupUI();
                     Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").Show(unit.UnitFlags);

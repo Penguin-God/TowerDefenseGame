@@ -80,5 +80,20 @@ namespace Tests
 
             Assert.AreEqual(150, manager.GetUnitBossDamage(RedSwordman));
         }
+
+        [Test]
+        public void 퍼센트랑_깡공_둘_다_증가()
+        {
+            var infos = CreateDamageInfos();
+            infos[RedSwordman] = new UnitDamageInfo(100, 100);
+            var manager = new UnitDamageInfoManager(infos);
+
+            manager.AddDamage(RedSwordman, 100);
+            manager.IncreaseDamageRate(RedSwordman, 0.5f);
+            manager.AddDamage(RedSwordman, 100);
+            manager.IncreaseDamageRate(RedSwordman, 0.5f);
+
+            Assert.AreEqual(600, manager.GetUnitDamage(RedSwordman));
+        }
     }
 }

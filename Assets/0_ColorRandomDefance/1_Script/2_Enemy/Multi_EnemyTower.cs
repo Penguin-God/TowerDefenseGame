@@ -17,10 +17,13 @@ public class Multi_EnemyTower : Multi_Enemy
     {
         enemyType = EnemyType.Tower;
         _level = level;
-        gameObject.GetComponentInChildren<TextMeshProUGUI>().text = level.ToString();
+        photonView.RPC(nameof(SetLevelText), RpcTarget.All, level);
         TowerData = Managers.Data.TowerDataByLevel[_level];
         SetStatus_RPC(TowerData.Hp, TowerData.Speed, false);
     }
+
+    [PunRPC]
+    void SetLevelText(int level) => gameObject.GetComponentInChildren<TextMeshProUGUI>().text = level.ToString();
 
     [ContextMenu("죽음")]
     void 죽음() => Dead();

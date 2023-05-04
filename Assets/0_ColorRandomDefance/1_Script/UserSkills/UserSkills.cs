@@ -258,7 +258,12 @@ public class DiscountMerchant : UserSkill
 {
     public override void InitSkill()
     {
-        Multi_GameManager.Instance.BattleData.UnitUpgradeShopData.AddValuePriceData.ChangeAmount(0);
+        Multi_GameManager.Instance.BattleData
+            .ShopPriceDataByUnitUpgradeData
+            .Where(x => x.Key.UpgradeType == UnitUpgradeType.Value)
+            .Select(x => x.Value)
+            .ToList()
+            .ForEach(x => x.ChangeAmount(0));
         Multi_GameManager.Instance.BattleData.UnitUpgradeShopData.ResetPrice = IntSkillData;
     }
 }

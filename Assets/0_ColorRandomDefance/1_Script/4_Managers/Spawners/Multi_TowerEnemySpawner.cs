@@ -25,7 +25,7 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
     }
     IEnumerator Co_AfterSpawn(int id)
     {
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(3f);
         Spawn(id);
     }
 

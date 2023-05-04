@@ -76,10 +76,10 @@ public class UI_UnitUpgradeShop : UI_Popup
     void InitShopGoodsList()
     {
         GetComponentsInChildren<UI_Goods>().ToList().ForEach(x => x._Init());
-        SetGoods(new HashSet<UnitUpgradeGoodsData>());
+        SetLocationByGoodsDatas(new HashSet<UnitUpgradeGoodsData>());
     }
 
-    void SetGoods(HashSet<UnitUpgradeGoodsData> excludingGoddsSet)
+    void SetLocationByGoodsDatas(HashSet<UnitUpgradeGoodsData> excludingGoddsSet)
     {
         var locations = Enum.GetValues(typeof(GoodsLocation)).Cast<GoodsLocation>();
         var goodsSet = _goodsSelector.SelectGoodsSetExcluding(excludingGoddsSet);
@@ -121,7 +121,7 @@ public class UI_UnitUpgradeShop : UI_Popup
     {
         if (Multi_GameManager.Instance.TryUseGold(_unitUpgradeShopData.ResetPrice))
         {
-            SetGoods(new HashSet<UnitUpgradeGoodsData>(_locationByGoods.Values));
+            SetLocationByGoodsDatas(new HashSet<UnitUpgradeGoodsData>(_locationByGoods.Values));
             Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
         }
         else

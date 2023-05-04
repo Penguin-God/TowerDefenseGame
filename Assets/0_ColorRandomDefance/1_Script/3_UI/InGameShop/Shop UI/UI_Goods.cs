@@ -46,6 +46,11 @@ public class UI_Goods : UI_Base
 
     void ShowBuyWindow(UnitUpgradeGoodsData upgradeData, CurrencyData priceData, UnitUpgradeShopController buyController, UnitUpgradeShopData data)
     {
+        if(priceData.Amount <= 0)
+        {
+            buyController.Buy(upgradeData);
+            return;
+        }
         string qustionText = $"{GoodsPresenter.BuildGoodsText(upgradeData, data)}를 {new GameCurrencyPresenter().BuildCurrencyText(priceData)}에 구매하시겠습니까?";
         Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo(qustionText, () => buyController.Buy(upgradeData));
     }

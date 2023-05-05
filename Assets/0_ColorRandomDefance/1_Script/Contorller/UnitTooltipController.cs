@@ -8,8 +8,8 @@ public class UnitTooltipController
 {
     readonly float OFFSET_X = 150f;
     readonly float DELAY_TIME = 0.5f;
-    readonly int FONT_SIZE = 32;
-    readonly Vector2 WINDOW_SIZE = new Vector2(250, 190);
+    readonly int FONT_SIZE = 16;
+    readonly Vector2 WINDOW_SIZE = new Vector2(250, 200);
     public void SetMouseOverAction(IEnumerable<UI_UnitTracker> uis)
     {
         uis.ToList().ForEach(x => {
@@ -29,8 +29,8 @@ public class UnitTooltipController
         _currentWindow.SetPosition(tracker.GetComponent<RectTransform>().position + new Vector3(offSetX * screenWidthScaleFactor, 0, 0));
         _currentWindow.SetFontSize(FONT_SIZE);
         _currentWindow.SetSize(WINDOW_SIZE);
-        _currentWindow.SetAnchor(TextAnchor.MiddleLeft);
-        _currentWindow.SetLineSpace(1.1f);
+        _currentWindow.SetAnchor(TMPro.TextAlignmentOptions.MidlineLeft);
+        _currentWindow.SetLineSpace(11f);
         _currentWindow.SetText(BuildUnitDescrtion(tracker.UnitFlags));
         _currentWindow.gameObject.SetActive(true);
     }

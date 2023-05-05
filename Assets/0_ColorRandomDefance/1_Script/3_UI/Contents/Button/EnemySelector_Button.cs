@@ -40,7 +40,7 @@ public class EnemySelector_Button : UI_Base
         window.Setup();
         float screenScaleFactor = Screen.height / Managers.UI.UIScreenHeight;
         window.SetPosition(transform.position + new Vector3(0, offsetY * screenScaleFactor, 0));
-        window.SetFontSize(45);
+        window.SetFontSize(27);
         window.SetText(enemyInfoText);
     }
 }

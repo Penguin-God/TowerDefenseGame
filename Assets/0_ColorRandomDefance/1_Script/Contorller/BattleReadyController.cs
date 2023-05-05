@@ -33,16 +33,25 @@ public class BattleReadyController : MonoBehaviourPun
     {
         _readyCount++;
         if (AllPlayerIsReady(_readyCount))
-            BattleStart();
+            photonView.RPC(nameof(BattleStart), RpcTarget.All);
     }
 
-    bool AllPlayerIsReady(int readyCount) => readyCount >= PhotonNetwork.CountOfPlayers;
+    bool AllPlayerIsReady(int readyCount) => readyCount >= PhotonNetwork.CurrentRoom.PlayerCount;
 
+    [PunRPC]
     void BattleStart()
     {
         foreach (var ui in Managers.UI.SceneUIs)
             ui.gameObject.SetActive(true);
         Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(false);
+        gameObject.AddComponent<OpponentStatusSynchronizer>();
+        StartCoroutine(Co_BattleStart());
+    }
+
+    IEnumerator Co_BattleStart()
+    {
+        yield return null;
+        yield return null;
         Multi_GameManager.Instance.GameStart();
     }
 }

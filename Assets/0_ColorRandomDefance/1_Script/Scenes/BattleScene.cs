@@ -92,7 +92,6 @@ class WorldInitializer
         monoBehaviourContainer.AddComponent<MonsterSpawnerContorller>();
         monoBehaviourContainer.AddComponent<UnitColorChangerRpcHandler>();
         monoBehaviourContainer.AddComponent<WinOrLossController>();
-        monoBehaviourContainer.AddComponent<OpponentStatusSynchronizer>();
     }
 
     void InitSound()

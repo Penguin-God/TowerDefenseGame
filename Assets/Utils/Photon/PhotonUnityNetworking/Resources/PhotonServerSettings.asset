@@ -119,6 +119,7 @@ MonoBehaviour:
   - Mat_To_Freeze
   - SetLevelText
   - AddReadyCount
+  - BattleStart
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

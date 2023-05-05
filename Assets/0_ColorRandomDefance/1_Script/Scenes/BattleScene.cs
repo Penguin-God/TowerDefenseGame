@@ -116,12 +116,6 @@ class WorldInitializer
 
     void Show_UI()
     {
-        var window = Managers.UI.ShowPopupUI<BackGround>("BackGround");
-        window.Setup();
-        window.gameObject.SetActive(false);
-        var window2 = Managers.UI.ShowDefualtUI<BackGround>("BackGround");
-        window2.Setup();
-        window2.gameObject.SetActive(false);
         Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
 
         Managers.UI.ShowSceneUI<UI_Status>();

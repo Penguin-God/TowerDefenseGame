@@ -118,6 +118,7 @@ MonoBehaviour:
   - Dead
   - Mat_To_Freeze
   - SetLevelText
+  - AddReadyCount
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -26757,19 +26757,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _battleData:
+    _battleData: {fileID: 0}
+    _unitUpgradeShopData: {fileID: 0}
     _currencyManager:
       _gold: 0
       _food: 0
-    _maxUnit: 0
-    _maxEnemyCount: 0
-    _stageUpGold: 0
-    _yellowKnightRewardGold: 0
-    _unitSellRewardDatas: []
-    _whiteUnitShopPriceDatas: []
-    _maxUnitIncreasePriceData:
-      _currencyType: 0
-      _amount: 0
-    _unitUpgradeShopData: {fileID: 0}
+    UnitSummonData:
+      SummonPrice: 0
+      SummonMaxColor: 0
   gameStartButton: {fileID: 1436183892}
   _unitUpgradeShopData: {fileID: 11400000, guid: a6e4dad3ae580fe4fa7257e539e00505,
     type: 2}

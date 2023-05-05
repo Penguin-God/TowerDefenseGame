@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
+using TMPro;
 
 public class BattleReadyController : MonoBehaviourPun
 {
@@ -10,20 +11,38 @@ public class BattleReadyController : MonoBehaviourPun
 
     int _readyCount;
 
-    void Awake()
+    public void EnterBattle()
     {
-        _readyButton.onClick.AddListener(Ready);        
+        _readyButton.onClick.AddListener(Ready);
+        foreach (var ui in Managers.UI.SceneUIs)
+            ui.gameObject.SetActive(false);
+        Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(true);
     }
 
-    void Ready() => photonView.RPC(nameof(AddReadyCount), RpcTarget.MasterClient);
+    void Ready()
+    {
+        _readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "준비 완료";
+        _readyButton.enabled = false;
+        Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(false);
+
+        photonView.RPC(nameof(AddReadyCount), RpcTarget.MasterClient);
+    }
 
     [PunRPC]
     void AddReadyCount()
     {
         _readyCount++;
         if (AllPlayerIsReady(_readyCount))
-            Multi_GameManager.Instance.GameStart();
+            BattleStart();
     }
 
-    bool AllPlayerIsReady(int readyCount) => readyCount >= PlayerIdManager.MaxPlayerCount;
+    bool AllPlayerIsReady(int readyCount) => readyCount >= PhotonNetwork.CountOfPlayers;
+
+    void BattleStart()
+    {
+        foreach (var ui in Managers.UI.SceneUIs)
+            ui.gameObject.SetActive(true);
+        Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(false);
+        Multi_GameManager.Instance.GameStart();
+    }
 }

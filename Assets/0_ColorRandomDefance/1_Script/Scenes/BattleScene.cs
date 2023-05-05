@@ -19,6 +19,7 @@ public class BattleScene : BaseScene
         PhotonNetwork.SerializationRate = 30;
         new WorldInitializer(monoBehaviourContainer).Init();
         CreatePools();
+        GetComponent<BattleReadyController>().EnterBattle();
     }
 
     void CreatePools()
@@ -117,11 +118,12 @@ class WorldInitializer
     void Show_UI()
     {
         Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
-
         Managers.UI.ShowSceneUI<UI_Status>();
+        Managers.UI.ShowSceneUI<BattleButton_UI>();
 
-        var buttons = Managers.UI.ShowSceneUI<BattleButton_UI>();
-        buttons.GetComponentInChildren<UI_EnemySelector>(true).SetInfo(monoBehaviourContainer.GetOrAddComponent<EnemySpawnNumManager>());
+        var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();
+        enemySelector.SetInfo(monoBehaviourContainer.GetOrAddComponent<EnemySpawnNumManager>());
+        Managers.Camera.OnIsLookMyWolrd += (isLookMy) => enemySelector.gameObject.SetActive(!isLookMy);
     }
 
     void InitEffect()

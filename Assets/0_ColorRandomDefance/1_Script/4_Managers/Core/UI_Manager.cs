@@ -12,6 +12,9 @@ public class UI_Manager
     Stack<UI_Popup> _currentPopupStack = new Stack<UI_Popup>();
     public int PopupCount => _currentPopupStack.Count;
 
+    HashSet<UI_Scene> _sceneUIs = new HashSet<UI_Scene>();
+    public IReadOnlyList<UI_Scene> SceneUIs => _sceneUIs.ToArray();
+
     Dictionary<string, GameObject> _uiCashByPath = new Dictionary<string, GameObject>();
     public readonly float UIScreenWidth = 800;
     public readonly float UIScreenHeight = 480;
@@ -56,7 +59,23 @@ public class UI_Manager
         return ui;
     }
 
-    public T ShowSceneUI<T>(string name = null) where T : UI_Scene => ShowUI<T>("Scene", name);
+    public T ShowSceneUI<T>(string name = null) where T : UI_Scene
+    {
+        var cash = GetSceneUI<T>();
+        if (cash != null)
+        {
+            cash.gameObject.SetActive(true);
+            return cash;
+        }
+        else
+        {
+            var result = ShowUI<T>("Scene", name);
+            _sceneUIs.Add(result);
+            return result;
+        }
+    }
+
+    public T GetSceneUI<T>() where T : UI_Scene => _sceneUIs.OfType<T>().FirstOrDefault();
 
     public T ShowPopupUI<T>(string name = null) where T : UI_Popup
     {

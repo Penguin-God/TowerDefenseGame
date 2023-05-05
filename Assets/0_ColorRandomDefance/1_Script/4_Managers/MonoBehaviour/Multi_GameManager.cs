@@ -179,10 +179,10 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     {
         base.Init();
 
-        if (PhotonNetwork.IsMasterClient && gameStartButton != null)
-            gameStartButton.onClick.AddListener(GameStart);
-        else
-            gameStartButton?.gameObject?.SetActive(false);
+        //if (PhotonNetwork.IsMasterClient && gameStartButton != null)
+        //    gameStartButton.onClick.AddListener(GameStart);
+        //else
+        //    gameStartButton?.gameObject?.SetActive(false);
 
         _battleData = new BattleDataManager(_battleDataContainer, _unitUpgradeShopData);
         Managers.Sound.PlayBgm(BgmType.Default);

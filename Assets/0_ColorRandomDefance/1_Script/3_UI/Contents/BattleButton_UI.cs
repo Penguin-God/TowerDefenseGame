@@ -9,7 +9,6 @@ public class BattleButton_UI : UI_Scene
     {
         Create_Defenser_Button,
         Paint,
-        EnemySelector_UI,
     }
 
     enum Buttons
@@ -32,7 +31,6 @@ public class BattleButton_UI : UI_Scene
 
         Managers.Camera.OnIsLookMyWolrd += (isLookMy) => GetObject((int)GameObjects.Create_Defenser_Button).SetActive(isLookMy);
         Managers.Camera.OnIsLookMyWolrd += (isLookMy) => GetObject((int)GameObjects.Paint).SetActive(isLookMy);
-        Managers.Camera.OnIsLookMyWolrd += (isLookMy) => GetObject((int)GameObjects.EnemySelector_UI).SetActive(!isLookMy);
 
         GetButton((int)Buttons.StoryWolrd_EnterButton).onClick.AddListener(CameraPositionChanged);
         GetButton((int)Buttons.Create_Defenser_Button).onClick.AddListener(SommonUnit);

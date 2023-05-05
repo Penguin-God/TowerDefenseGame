@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class UI_EnemySelector : UI_Base
+public class UI_EnemySelector : UI_Scene
 {
     [SerializeField] EnemySelector_Button currentSelectButton;
     protected override void Init()

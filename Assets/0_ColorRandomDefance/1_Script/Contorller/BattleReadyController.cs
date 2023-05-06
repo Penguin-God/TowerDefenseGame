@@ -41,6 +41,7 @@ public class BattleReadyController : MonoBehaviourPun
     [PunRPC]
     void BattleStart()
     {
+        Multi_GameManager.Instance.BattleData.MaxUnit += 0; // ui event
         foreach (var ui in Managers.UI.SceneUIs)
             ui.gameObject.SetActive(true);
         Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(false);

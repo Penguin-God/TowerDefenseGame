@@ -59,6 +59,10 @@ public class UI_Status : UI_Scene
 
         void Init_UI()
         {
+            GetText((int)Texts.GoldText).text = Multi_GameManager.Instance.BattleData.CurrencyManager.Gold.ToString();
+            GetText((int)Texts.FoodText).text = Multi_GameManager.Instance.BattleData.CurrencyManager.Food.ToString();
+            UpdateUnitText(Multi_GameManager.Instance.BattleData.MaxUnit);
+
             UpdateEnemyCountText(0);
             UpdateMySkillImage();
         }

@@ -10,8 +10,13 @@ public class Multi_EnemyManager : Singleton<Multi_EnemyManager>
     MasterManager _master = new MasterManager();
     EnemyCountManager _counter = new EnemyCountManager();
     EnemyFinder _finder = new EnemyFinder();
-    
-    protected override void Init()
+
+    void Awake()
+    {
+        Init();
+    }
+
+    public override void Init()
     {
         _counter.Init(_master);
         _counter.OnEnemyCountChanged += RaiseOnEnemyCountChanged;

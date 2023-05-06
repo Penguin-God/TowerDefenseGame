@@ -39,7 +39,7 @@ public class Multi_UnitManager : SingletonPun<Multi_UnitManager>
         OnUnitCountChangeByClass?.Invoke(unit.UnitClass, FindUnits(x => x.UnitClass == unit.UnitClass).Count());
     }
 
-    protected override void Init()
+    public override void Init()
     {
         // 이 지옥의 꽃같은 코드 제거를 위해 싱글턴 씬 이동 처리를 잘할 것
         // if (Managers.Scene.IsBattleScene == false) return;

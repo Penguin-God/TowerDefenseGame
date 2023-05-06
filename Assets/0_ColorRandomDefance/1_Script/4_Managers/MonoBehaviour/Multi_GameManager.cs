@@ -175,7 +175,7 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     [SerializeField] Button gameStartButton;
     [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
     [SerializeField] BattleDataContainer _battleDataContainer;
-    protected override void Init()
+    public override void Init()
     {
         base.Init();
 

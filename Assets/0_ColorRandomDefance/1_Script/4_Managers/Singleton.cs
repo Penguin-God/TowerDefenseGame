@@ -23,24 +23,19 @@ public class Singleton<T> : MonoBehaviour where T : Component
         }
     }
 
-    void Awake()
-    {
-        Init();
-    }
-
     void OnApplicationQuit()
     {
         instance = null;
         _isQuiiting = true;
     }
 
-    protected virtual void Init() { }
+    public virtual void Init() { }
 }
 
 public class SingletonPun<T> : Singleton<T> where T : Component 
 {
     protected PhotonView photonView;
-    protected override void Init()
+    public override void Init()
     {
         photonView = gameObject.GetComponent<PhotonView>();
         if (photonView == null) 

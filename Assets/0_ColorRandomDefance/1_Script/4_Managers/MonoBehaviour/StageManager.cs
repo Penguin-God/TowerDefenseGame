@@ -13,6 +13,11 @@ public class StageManager : SingletonPun<StageManager>
 
     WaitForSeconds StageWait;
 
+    void Awake()
+    {
+        base.Init();    
+    }
+
     void Start()
     {
         if (PhotonNetwork.IsMasterClient)

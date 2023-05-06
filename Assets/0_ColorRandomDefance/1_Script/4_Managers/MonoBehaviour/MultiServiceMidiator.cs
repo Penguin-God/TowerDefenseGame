@@ -16,7 +16,7 @@ public class MultiServiceMidiator : SingletonPun<MultiServiceMidiator>
     public static UnitUpgradeController UnitUpgrade => _unitUpgrade;
     public static OppentStatusManager Oppent => _oppent;
 
-    protected override void Init()
+    public override void Init()
     {
         base.Init();
         _server = new ServerManager(Managers.Data.Unit.DamageInfoByFlag);

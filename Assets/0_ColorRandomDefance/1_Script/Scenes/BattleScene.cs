@@ -17,6 +17,11 @@ public class BattleScene : BaseScene
         }
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
+
+        Multi_UnitManager.Instance.Init();
+        Multi_GameManager.Instance.Init();
+        MultiServiceMidiator.Instance.Init();
+
         new WorldInitializer(monoBehaviourContainer).Init();
         CreatePools();
         GetComponent<BattleReadyController>().EnterBattle();

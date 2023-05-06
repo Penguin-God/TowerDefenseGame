@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,7 +31,8 @@ public class UI_OpponentStatus : UI_Scene
         void Init_UI()
         {
             UpdateUnitCount(0);
-            UpdateUnitClassByCount();
+            foreach (UnitClass _class in Enum.GetValues(typeof(UnitClass)))
+                UpdateUnitClassByCount(_class, 0);
             UpdateMonsterCount(0);
         }
 
@@ -42,11 +44,14 @@ public class UI_OpponentStatus : UI_Scene
             MultiServiceMidiator.Oppent.OnUnitMaxCountChanged -= UpdateUnitMaxCount;
             MultiServiceMidiator.Oppent.OnUnitMaxCountChanged += UpdateUnitMaxCount;
 
-            Multi_UnitManager.Instance.OnOtherUnitCountChanged -= UpdateUnitCount;
-            Multi_UnitManager.Instance.OnOtherUnitCountChanged += UpdateUnitCount;
+            MultiServiceMidiator.Oppent.OnUnitCountChangedByClass -= UpdateUnitClassByCount;
+            MultiServiceMidiator.Oppent.OnUnitCountChangedByClass += UpdateUnitClassByCount;
 
-            Multi_UnitManager.Instance.OnOtherUnitCountChanged -= (count) => UpdateUnitClassByCount();
-            Multi_UnitManager.Instance.OnOtherUnitCountChanged += (count) => UpdateUnitClassByCount();
+            //Multi_UnitManager.Instance.OnOtherUnitCountChanged -= UpdateUnitCount;
+            //Multi_UnitManager.Instance.OnOtherUnitCountChanged += UpdateUnitCount;
+
+            //Multi_UnitManager.Instance.OnOtherUnitCountChanged -= (count) => UpdateUnitClassByCount();
+            //Multi_UnitManager.Instance.OnOtherUnitCountChanged += (count) => UpdateUnitClassByCount();
 
             Multi_EnemyManager.Instance.OnOtherEnemyCountChanged -= UpdateMonsterCount;
             Multi_EnemyManager.Instance.OnOtherEnemyCountChanged += UpdateMonsterCount;
@@ -68,14 +73,21 @@ public class UI_OpponentStatus : UI_Scene
     }
     void UpdateUnitAllCount() => GetText((int)Texts.OtherUnitCountText).text = $"{_unitCount}/{_unitMaxCount}";
 
-    public void UpdateUnitClassByCount()
+    public void UpdateUnitClassByCount(UnitClass unitClass, int count)
     {
-        GetText((int)Texts.KnigthText).text = "" + GetCountByClass(UnitClass.Swordman);
-        GetText((int)Texts.ArcherText).text = "" + GetCountByClass(UnitClass.Archer);
-        GetText((int)Texts.SpearmanText).text = "" + GetCountByClass(UnitClass.Spearman);
-        GetText((int)Texts.MageText).text = "" + GetCountByClass(UnitClass.Mage);
+        GetText((int)GetTextsByClass(unitClass)).text = count.ToString(); 
 
-        int GetCountByClass(UnitClass unitClass) => Multi_UnitManager.Instance.EnemyPlayerUnitCountByClass[unitClass];
+        Texts GetTextsByClass(UnitClass unitClass)
+        {
+            switch (unitClass)
+            {
+                case UnitClass.Swordman: return Texts.KnigthText;
+                case UnitClass.Archer: return Texts.ArcherText;
+                case UnitClass.Spearman: return Texts.SpearmanText;
+                case UnitClass.Mage: return Texts.MageText;
+                default: throw new ArgumentException();
+            }
+        }
     }
 
     void UpdateMonsterCount(int count) => GetText((int)Texts.OhterEnemyCountText).text = $"{count}/{Multi_GameManager.Instance.BattleData.MaxEnemyCount}";

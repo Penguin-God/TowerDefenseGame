@@ -71,6 +71,7 @@ public abstract class RPCActionBase : IEventClear
         PhotonNetwork.RaiseEvent(_eventId, values, new RaiseEventOptions() { Receivers = receiverGroup }, SendOptions.SendReliable);
     }
     protected void RaiseAll(params object[] values) => RaiseEvent(values, ReceiverGroup.All);
+    protected void RaiseOther(params object[] values) => RaiseEvent(values, ReceiverGroup.Others);
 }
 
 public class RPCAction : RPCActionBase
@@ -96,6 +97,7 @@ public class RPCAction<T> : RPCActionBase
 {
     event Action<T> OnEvent = null;
     public void RaiseEvent(int id, T value) => base.RaiseEvent(id, value);
+    public void RaiseToOther(T value) => RaiseOther(value);
     protected override void RecevieEvent(object[] values) => OnEvent?.Invoke((T)values[0]);
 
     public static RPCAction<T> operator +(RPCAction<T> me, Action<T> action)
@@ -148,6 +150,7 @@ public class RPCAction<T, T2, T3> : RPCActionBase
         OnEvent?.Invoke(value, value2, value3);
     }
     public void RaiseAll(T value, T2 value2, T3 value3) => base.RaiseAll(value, value2, value3);
+    public void RaiseToOther(T value, T2 value2, T3 value3) => RaiseOther(value, value2, value3);
 
     public static RPCAction<T, T2, T3> operator +(RPCAction<T, T2, T3> me, Action<T, T2, T3> action)
     {

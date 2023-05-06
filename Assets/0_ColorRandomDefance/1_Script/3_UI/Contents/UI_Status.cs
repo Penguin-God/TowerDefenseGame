@@ -114,7 +114,8 @@ public class UI_Status : UI_Scene
         }
     }
 
-    void UpdateUnitText(int count) => GetText((int)Texts.MyUnitCountText).text = $"{count}/{Multi_GameManager.Instance.BattleData.MaxUnit}";
+    readonly PlayerStatusPersenter _presneter = new PlayerStatusPersenter();
+    void UpdateUnitText(int count) => GetText((int)Texts.MyUnitCountText).text = _presneter.BuildUnitCountText(count, Multi_GameManager.Instance.BattleData.MaxUnit);
 
     readonly Color DENGER_COLOR = Color.red;
     void UpdateEnemyCountText(int count)
@@ -126,7 +127,7 @@ public class UI_Status : UI_Scene
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
         else text.color = Color.white;
-        text.text = $"{count}/{Multi_GameManager.Instance.BattleData.MaxEnemyCount}";
+        text.text = _presneter.BuildMonsterCountText(count, Multi_GameManager.Instance.BattleData.MaxEnemyCount);
     }
 
     void UpdateUnitClassByCount(UnitClass unitClass, int count)

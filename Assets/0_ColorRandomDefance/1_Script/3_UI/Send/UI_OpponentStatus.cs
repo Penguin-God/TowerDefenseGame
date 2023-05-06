@@ -36,6 +36,12 @@ public class UI_OpponentStatus : UI_Scene
 
         void BindOhterCountEvent()
         {
+            MultiServiceMidiator.Oppent.OnUnitCountChanged -= UpdateUnitCount;
+            MultiServiceMidiator.Oppent.OnUnitCountChanged += UpdateUnitCount;
+
+            MultiServiceMidiator.Oppent.OnUnitMaxCountChanged -= UpdateUnitMaxCount;
+            MultiServiceMidiator.Oppent.OnUnitMaxCountChanged += UpdateUnitMaxCount;
+
             Multi_UnitManager.Instance.OnOtherUnitCountChanged -= UpdateUnitCount;
             Multi_UnitManager.Instance.OnOtherUnitCountChanged += UpdateUnitCount;
 

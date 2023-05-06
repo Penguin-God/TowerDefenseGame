@@ -10,15 +10,18 @@ public class MultiServiceMidiator : SingletonPun<MultiServiceMidiator>
     // 마스터 전용
     static ServerManager _server;
     static UnitUpgradeController _unitUpgrade;
+    static OppentStatusManager _oppent = new OppentStatusManager();
 
     public static ServerManager Server => _server;
     public static UnitUpgradeController UnitUpgrade => _unitUpgrade;
+    public static OppentStatusManager Oppent => _oppent;
 
     protected override void Init()
     {
         base.Init();
         _server = new ServerManager(Managers.Data.Unit.DamageInfoByFlag);
         _unitUpgrade = (PhotonNetwork.IsMasterClient) ? gameObject.AddComponent<ServerUnitUpgradeController>() : gameObject.AddComponent<UnitUpgradeController>();
+        _oppent.Init(new OpponentStatusSynchronizer());
     }
 }
 

@@ -32,8 +32,6 @@ public class UI_Status : UI_Scene
         SubSkill,
     }
 
-    public UI_OpponentStatus OpponentStatus => GetComponentInChildren<UI_OpponentStatus>(true);
-
     protected override void Init()
     {
         base.Init();

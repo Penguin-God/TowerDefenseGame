@@ -47,18 +47,11 @@ public class UI_OpponentStatus : UI_Scene
             MultiServiceMidiator.Oppent.OnUnitCountChangedByClass -= UpdateUnitClassByCount;
             MultiServiceMidiator.Oppent.OnUnitCountChangedByClass += UpdateUnitClassByCount;
 
-            //Multi_UnitManager.Instance.OnOtherUnitCountChanged -= UpdateUnitCount;
-            //Multi_UnitManager.Instance.OnOtherUnitCountChanged += UpdateUnitCount;
-
-            //Multi_UnitManager.Instance.OnOtherUnitCountChanged -= (count) => UpdateUnitClassByCount();
-            //Multi_UnitManager.Instance.OnOtherUnitCountChanged += (count) => UpdateUnitClassByCount();
-
             Multi_EnemyManager.Instance.OnOtherEnemyCountChanged -= UpdateMonsterCount;
             Multi_EnemyManager.Instance.OnOtherEnemyCountChanged += UpdateMonsterCount;
         }
     }
 
-    // TODO : Multi_GameManager.instance.MaxUnitCount 각 플레이어걸로
     int _unitCount;
     public void UpdateUnitCount(int newCount)
     {

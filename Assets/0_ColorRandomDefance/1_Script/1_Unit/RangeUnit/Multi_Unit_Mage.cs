@@ -62,7 +62,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         // TODO : 딱 공격하려는 순간에 적이 죽어버리면 공격을 안함. 이건 판정 문제인데 그냥 target위치를 기억해서 거기다가 던지는게 나은듯
         if (PhotonNetwork.IsMasterClient && target != null && Chaseable)
         {
-            _energyBallThower.Throw(target, OnHit);
+            _energyBallThower.FlatThrow(target, OnHit);
             manaSystem?.AddMana_RPC();
         }
 

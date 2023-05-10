@@ -26,7 +26,6 @@ public class Multi_Projectile : MonoBehaviourPun
 
     public void Throw(Vector3 dir)
     {
-        dir = new Vector3(dir.x, 0, dir.z);
         Rigidbody.velocity = dir * _speed;
         Quaternion lookDir = Quaternion.LookRotation(dir);
         transform.rotation = lookDir;

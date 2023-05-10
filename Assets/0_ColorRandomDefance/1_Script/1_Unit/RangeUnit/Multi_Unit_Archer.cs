@@ -40,7 +40,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         trail.SetActive(false);
         if (PhotonNetwork.IsMasterClient && target != null && Chaseable)
         {
-            _thrower.Throw(target, OnHit);
+            _thrower.FlatThrow(target, OnHit);
         }
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
@@ -72,7 +72,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         for (int i = 0; i < skillArrowCount; i++)
         {
             int targetIndex = i % targetArray.Length;
-            _thrower.Throw(targetArray[targetIndex], OnHit);
+            _thrower.FlatThrow(targetArray[targetIndex], OnHit);
         }
     }
 

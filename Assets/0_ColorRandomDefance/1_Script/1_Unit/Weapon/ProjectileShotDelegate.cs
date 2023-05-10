@@ -42,8 +42,8 @@ public static class ProjectileShotDelegate
         if (target == null) return attacker.forward.normalized;
 
         if (target.enemyType == EnemyType.Tower)
-            return new ShotPathCalculator().Calculate_StaticTargetShotPath(attacker.position, target.transform.position);
+            return new ShotPathCalculator().CalculatePath_To_StaticTarget(attacker.position, target.transform.position);
         else
-            return new ShotPathCalculator().Calculate_MovingTargetShotPath(attacker.position, target.transform.position, target.Speed, target.dir);
+            return new ShotPathCalculator().CalculatePath_To_MoveTarget(attacker.position, target.transform.position, target.Speed, target.dir);
     }
 }

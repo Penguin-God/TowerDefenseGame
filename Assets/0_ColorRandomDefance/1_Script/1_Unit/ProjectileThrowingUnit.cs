@@ -6,8 +6,7 @@ using Photon.Pun;
 public class ProjectileThrowingUnit : MonoBehaviourPun
 {
     ProjectileData projectileData;
-    public void SetInfo(string weaponPath, Transform weaponThrowPoint)
-        => projectileData = new ProjectileData(weaponPath, transform, weaponThrowPoint);
+    public void SetInfo(string weaponPath, Transform weaponThrowPoint) => projectileData = new ProjectileData(weaponPath, transform, weaponThrowPoint);
 
     public Multi_Projectile Throw(Transform target, System.Action<Multi_Enemy> onHit)
     {
@@ -23,24 +22,31 @@ public class ProjectileThrowingUnit : MonoBehaviourPun
         var projectile = Managers.Multi.GetPhotonViewTransfrom(projectileId).GetComponent<Multi_Projectile>();
         projectile.transform.position = projectileData.SpawnPos;
         projectile.gameObject.SetActive(true);
-        projectile.Throw(Get_ShootDirection(projectileData.Attacker, Managers.Multi.GetPhotonViewTransfrom(targetId)));
+        projectile.Throw(Get_ShootPath(projectileData.Attacker, Managers.Multi.GetPhotonViewTransfrom(targetId).GetComponent<Multi_Enemy>()));
     }
 
-    Vector3 Get_ShootDirection(Transform attacker, Transform _target, float weightRate = 2f)
+    Vector3 Get_ShootPath(Transform attacker, Multi_Enemy target)
     {
-        // 속도 가중치 설정(적보다 약간 앞을 쏨, 적군의 성 공격할 때는 의미 없음)
-        if (_target != null)
-        {
-            Multi_Enemy enemy = _target.GetComponent<Multi_Enemy>();
-            if (enemy != null)
-            {
-                Vector3 dir = _target.position - attacker.position;
-                float enemyWeightDir = Mathf.Lerp(0, weightRate, Vector3.Distance(_target.position, attacker.position) * 2 / 100);
-                dir += enemy.dir.normalized * (0.5f * enemy.Speed) * enemyWeightDir;
-                return dir.normalized;
-            }
-            else return (_target.position - attacker.position).normalized;
-        }
-        else return attacker.forward.normalized;
+        if(target == null) return attacker.forward.normalized;
+
+        if (target.enemyType == EnemyType.Tower) 
+            return new ShotPathCalculator().Calculate_StaticTargetShotPath(attacker.position, target.transform.position);
+        else
+            return new ShotPathCalculator().Calculate_MovingTargetShotPath(attacker.position, target.transform.position, target.Speed, target.dir);
+    }
+}
+
+public class ShotPathCalculator
+{
+    public Vector3 Calculate_StaticTargetShotPath(Vector3 shoterPos, Vector3 targetPos) => (targetPos - shoterPos).normalized;
+    
+    // target이 움직이고 있다면 가중치를 계산함
+    readonly float WEIGHT_RATE = 2f;
+    public Vector3 Calculate_MovingTargetShotPath(Vector3 shoterPos, Vector3 targetPos, float speed, Vector3 moveDir) 
+    {
+        Vector3 dir = targetPos - shoterPos;
+        float enemyWeightDir = Mathf.Lerp(0, WEIGHT_RATE, Vector3.Distance(targetPos, shoterPos) * 2 / 100);
+        dir += moveDir.normalized * (0.5f * speed) * enemyWeightDir;
+        return dir.normalized;
     }
 }

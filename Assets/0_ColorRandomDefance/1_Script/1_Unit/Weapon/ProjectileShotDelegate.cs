@@ -26,10 +26,10 @@ public class ProjectileData
 // 레거시
 public static class ProjectileShotDelegate
 {
-    public static Multi_Projectile ShotProjectile(ProjectileData data, Transform target, Action<Multi_Enemy> hitAction, float weightRate = 2f)
-        => ShotProjectile(data, data.SpawnPos, Get_ShootDirection(data.Attacker, target, weightRate), hitAction);
+    public static Multi_Projectile ShotProjectile(ProjectileData data, Transform target, Action<Multi_Enemy> hitAction)
+        => ShotProjectile(data, Get_ShootPath(data.Attacker, target.GetComponent<Multi_Enemy>()), hitAction);
 
-    public static Multi_Projectile ShotProjectile(ProjectileData data, Vector3 spawnPos, Vector3 dir, Action<Multi_Enemy> hitAction)
+    public static Multi_Projectile ShotProjectile(ProjectileData data, Vector3 dir, Action<Multi_Enemy> hitAction)
     {
         Multi_Projectile UseWeapon = Managers.Multi.Instantiater.PhotonInstantiate(data.WeaponPath).GetComponent<Multi_Projectile>(); 
         UseWeapon.Shot(dir, hitAction);
@@ -37,21 +37,13 @@ public static class ProjectileShotDelegate
     }
 
     // 원거리 무기 발사
-    static Vector3 Get_ShootDirection(Transform attacker, Transform _target, float weightRate = 2f)
+    static Vector3 Get_ShootPath(Transform attacker, Multi_Enemy target)
     {
-        // 속도 가중치 설정(적보다 약간 앞을 쏨, 적군의 성 공격할 때는 의미 없음)
-        if (_target != null)
-        {
-            Multi_Enemy enemy = _target.GetComponent<Multi_Enemy>();
-            if (enemy != null)
-            {
-                Vector3 dir = _target.position - attacker.position;
-                float enemyWeightDir = Mathf.Lerp(0, weightRate, Vector3.Distance(_target.position, attacker.position) * 2 / 100);
-                dir += enemy.dir.normalized * (0.5f * enemy.Speed) * enemyWeightDir;
-                return dir.normalized;
-            }
-            else return (_target.position - attacker.position).normalized;
-        }
-        else return attacker.forward.normalized;
+        if (target == null) return attacker.forward.normalized;
+
+        if (target.enemyType == EnemyType.Tower)
+            return new ShotPathCalculator().Calculate_StaticTargetShotPath(attacker.position, target.transform.position);
+        else
+            return new ShotPathCalculator().Calculate_MovingTargetShotPath(attacker.position, target.transform.position, target.Speed, target.dir);
     }
 }

@@ -40,7 +40,19 @@ public class UI_Status : UI_Scene
         Bind<Image>(typeof(Images));
         timerSlider = GetObject((int)GameObjects.TimerSlider).GetComponent<Slider>();
 
+        Init_UI();
         InitEvent();
+    }
+
+    void Init_UI()
+    {
+        GetText((int)Texts.GoldText).text = Multi_GameManager.Instance.BattleData.CurrencyManager.Gold.ToString();
+        GetText((int)Texts.FoodText).text = Multi_GameManager.Instance.BattleData.CurrencyManager.Food.ToString();
+        UpdateUnitText(0);
+
+        UpdateStage(1);
+        UpdateEnemyCountText(0);
+        UpdateMySkillImage();
     }
 
     void InitEvent()
@@ -52,19 +64,7 @@ public class UI_Status : UI_Scene
 
         Multi_UnitManager.Instance.OnUnitCountChangeByClass += UpdateUnitClassByCount;
 
-        Init_UI();
         Bind_Events();
-
-        void Init_UI()
-        {
-            GetText((int)Texts.GoldText).text = Multi_GameManager.Instance.BattleData.CurrencyManager.Gold.ToString();
-            GetText((int)Texts.FoodText).text = Multi_GameManager.Instance.BattleData.CurrencyManager.Food.ToString();
-            UpdateUnitText(0);
-
-            UpdateEnemyCountText(0);
-            UpdateMySkillImage();
-        }
-
 
         void Bind_Events()
         {

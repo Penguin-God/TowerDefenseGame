@@ -15,8 +15,11 @@ public class Multi_BlackMage : Multi_Unit_Mage
 
     protected override void MageSkile()
     {
-        //foreach (Transform child in skileShotPositions)
-        //    child.GetComponent<ProjectileThrowingUnit>().FlatThrow(GetSkillPath(), child.forward, OnSkillHit);
+        for (int i = 0; i < skileShotPositions.childCount; i++)
+        {
+            Transform instantTransform = skileShotPositions.GetChild(i);
+            ProjectileShotDelegate.ShotProjectile(skillData, instantTransform.forward, OnSkillHit);
+        }
     }
     protected override void PlaySkillSound() => PlaySound(EffectSoundType.BlackMageSkill);
 

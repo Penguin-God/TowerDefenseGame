@@ -8,11 +8,21 @@ public class ProjectileThrowingUnit : MonoBehaviourPun
 {
     ProjectileData projectileData;
     public void SetInfo(string weaponPath, Transform weaponThrowPoint) => projectileData = new ProjectileData(weaponPath, transform, weaponThrowPoint);
-
+    [SerializeField] Transform _weaponThrowPoint;
+    
     public Multi_Projectile Throw(Transform target, Action<Multi_Enemy> onHit) => Throw(nameof(Throw), target, onHit);
 
     public Multi_Projectile FlatThrow(Transform target, Action<Multi_Enemy> onHit) => Throw(nameof(FlatThrow), target, onHit);
-    
+    public Multi_Projectile FlatThrow(string weaponPath, Transform target, Action<Multi_Enemy> onHit) => _Throw(weaponPath, target, onHit);
+
+    public Multi_Projectile _Throw(string weaponPath, Transform target, Action<Multi_Enemy> onHit)
+    {
+        var projectile = Managers.Multi.Instantiater.PhotonInstantiateInactive(weaponPath, PlayerIdManager.InVaildId).GetComponent<Multi_Projectile>();
+        projectile.SetHitAction(onHit);
+        photonView.RPC(nameof(FlatThrow), RpcTarget.All, projectile.GetComponent<PhotonView>().ViewID, target.GetComponent<PhotonView>().ViewID);
+        return projectile;
+    }
+
     public Multi_Projectile Throw(string rpcMethodName, Transform target, Action<Multi_Enemy> onHit)
     {
         var projectile = Managers.Multi.Instantiater.PhotonInstantiateInactive(projectileData.WeaponPath, PlayerIdManager.InVaildId).GetComponent<Multi_Projectile>();

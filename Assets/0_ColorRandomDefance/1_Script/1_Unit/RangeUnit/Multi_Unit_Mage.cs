@@ -12,7 +12,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
 
     [SerializeField] GameObject magicLight;
     [SerializeField] Transform energyBallTransform;
-    ProjectileThrowingUnit _energyBallThower;
+    protected ProjectileThrowingUnit _energyBallThower;
 
     protected ManaSystem manaSystem;
     protected override void OnAwake()
@@ -26,6 +26,8 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         _energyBallThower.SetInfo(pathBuilder.BuildUnitWeaponPath(UnitFlags), energyBallTransform);
         normalAttackSound = EffectSoundType.MageAttack;
     }
+
+    protected string GetSkillPath() => new ResourcesPathBuilder().BuildMageSkillEffectPath(UnitFlags.UnitColor);
 
     void LoadMageStat()
     {

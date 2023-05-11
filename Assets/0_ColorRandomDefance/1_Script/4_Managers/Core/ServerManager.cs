@@ -4,15 +4,24 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
+public struct BattleData
+{
+    public int CurrentMonsterCount;
+    public int MaxMonsterCount;
+    public int CurrentUnitCount;
+    public int MaxUnitCount;
+}
+
 public class ServerManager
 {
+    MultiData<UnitDamageInfoManager> _unitDamageManagers;
+    
     public ServerManager(Dictionary<UnitFlags, UnitDamageInfo> damageInfos)
     {
         _unitDamageManagers = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(new Dictionary<UnitFlags, UnitDamageInfo>(damageInfos)));
         _units = new MultiData<List<Multi_TeamSoldier>>(() => new List<Multi_TeamSoldier>());
     }
 
-    MultiData<UnitDamageInfoManager> _unitDamageManagers;
     public UnitDamageInfo UnitDamageInfo(byte id, UnitFlags flag) => GetUnitDamageInfoManager(id).GetDamageInfo(flag);
 
     public UnitDamageInfoManager GetUnitDamageInfoManager(byte playerId) => _unitDamageManagers.GetData(playerId);
@@ -20,9 +29,6 @@ public class ServerManager
     readonly UnitDamageInfoChanger _unitDamageInfoChanger = new UnitDamageInfoChanger();
     public void AddUnitDamageValue(byte playerId, UnitFlags flag, int value, UnitStatType changeStatType)
         => _unitDamageInfoChanger.AddUnitDamageValue(GetUnitDamageInfoManager(playerId), flag, value, changeStatType);
-
-    public void ScaleUnitDamageValue(byte playerId, UnitFlags flag, float value, UnitStatType changeStatType)
-        => _unitDamageInfoChanger.ScaleUnitDamageValue(GetUnitDamageInfoManager(playerId), flag, value, changeStatType);
 
     public void AddUnitDamageValue(byte playerId, Func<UnitFlags, bool> condition, int value, UnitStatType changeStatType)
         => _unitDamageInfoChanger.AddUnitDamageValue(GetUnitDamageInfoManager(playerId), condition, value, changeStatType);

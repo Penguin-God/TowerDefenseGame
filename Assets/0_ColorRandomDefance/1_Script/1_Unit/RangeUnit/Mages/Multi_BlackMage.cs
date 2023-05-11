@@ -6,11 +6,17 @@ public class Multi_BlackMage : Multi_Unit_Mage
 {
     [SerializeField] Transform skileShotPositions = null;
     [SerializeField] int _directionShotDamage;
-
+    List<ProjectileThrowingUnit> _throwers;
     protected override void OnAwake()
     {
         base.OnAwake();
         _directionShotDamage = (int)base.skillStats[0];
+        foreach (Transform child in skileShotPositions)
+        {
+            var thorwer = gameObject.AddComponent<ProjectileThrowingUnit>();
+            thorwer.SetInfo(skillData.WeaponPath, child);
+            _throwers.Add(thorwer);
+        }
     }
 
     protected override void MageSkile()
@@ -26,7 +32,7 @@ public class Multi_BlackMage : Multi_Unit_Mage
         for (int i = 0; i < directions.childCount; i++)
         {
             Transform instantTransform = directions.GetChild(i);
-            ProjectileShotDelegate.ShotProjectile(skillData, instantTransform.forward, OnSkillHit);
+            // _throwers[i].Throw(instantTransform.forward, OnSkillHit);
         }
     }
 }

@@ -12,7 +12,7 @@ public class ProjectileThrowingUnit : MonoBehaviourPun
     public Multi_Projectile Throw(Transform target, Action<Multi_Enemy> onHit) => Throw(nameof(Throw), target, onHit);
 
     public Multi_Projectile FlatThrow(Transform target, Action<Multi_Enemy> onHit) => Throw(nameof(FlatThrow), target, onHit);
-
+    
     public Multi_Projectile Throw(string rpcMethodName, Transform target, Action<Multi_Enemy> onHit)
     {
         var projectile = Managers.Multi.Instantiater.PhotonInstantiateInactive(projectileData.WeaponPath, PlayerIdManager.InVaildId).GetComponent<Multi_Projectile>();

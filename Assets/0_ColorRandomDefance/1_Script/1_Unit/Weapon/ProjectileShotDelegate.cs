@@ -26,9 +26,6 @@ public class ProjectileData
 // 레거시
 public static class ProjectileShotDelegate
 {
-    public static Multi_Projectile ShotProjectile(ProjectileData data, Transform target, Action<Multi_Enemy> hitAction)
-        => ShotProjectile(data, Get_ShootPath(data.Attacker, target.GetComponent<Multi_Enemy>()), hitAction);
-
     public static Multi_Projectile ShotProjectile(ProjectileData data, Vector3 dir, Action<Multi_Enemy> hitAction)
     {
         Multi_Projectile UseWeapon = Managers.Multi.Instantiater.PhotonInstantiate(data.WeaponPath).GetComponent<Multi_Projectile>(); 

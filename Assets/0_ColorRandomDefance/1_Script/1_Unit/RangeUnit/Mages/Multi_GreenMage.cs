@@ -7,16 +7,18 @@ public class Multi_GreenMage : Multi_Unit_Mage
 {
     [SerializeField] int bounceBallDamage;
     [SerializeField] float manaLockTime;
-
+    ProjectileThrowingUnit _skillThower;
     protected override void OnAwake()
     {
         base.OnAwake();
         bounceBallDamage = (int)base.skillStats[0];
         manaLockTime = base.skillStats[1];
+        _skillThower = gameObject.AddComponent<ProjectileThrowingUnit>();
+        _skillThower.SetInfo(skillData.WeaponPath, skillData.SpawnTransform);
     }
 
     void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, bounceBallDamage);
-    void ShootSkill() => ProjectileShotDelegate.ShotProjectile(skillData, target, OnSkillHit);
+    void ShootSkill() => _skillThower.FlatThrow(target, OnSkillHit);
 
     protected override void MageSkile()
     {

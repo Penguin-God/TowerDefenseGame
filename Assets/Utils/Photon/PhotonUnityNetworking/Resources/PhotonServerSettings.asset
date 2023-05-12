@@ -123,6 +123,7 @@ MonoBehaviour:
   - FlatThrow
   - SyncFlatThrow
   - SyncThrow
+  - TryDrawUnit
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

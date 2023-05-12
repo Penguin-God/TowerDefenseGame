@@ -6,32 +6,42 @@ using Photon.Pun;
 public abstract class SpawnerController : MonoBehaviourPun
 {
     protected UnitSummoner _unitSummoner;
-
-    public void Init(Multi_GameManager game) => _unitSummoner = new UnitSummoner(game);
+    protected Multi_GameManager _game;
+    public void Init(Multi_GameManager game)
+    {
+        _unitSummoner = new UnitSummoner(game);
+        _game = game;
+    }
 
     [PunRPC]
-    public bool TryDrawUnit()
+    public bool TryDrawUnit(byte id)
     {
-        if (_unitSummoner.CanSummonUnit() == false)
+        if (_game.UnitOver == false)
             return false;
 
-        DrawUnit();
+        DrawUnit(id);
         return true;
     }
 
-    protected abstract void DrawUnit();
+    protected abstract void DrawUnit(byte id);
 }
 
 public class ClientSpawnerController : SpawnerController
 {
-    protected override void DrawUnit() => photonView.RPC(nameof(TryDrawUnit), RpcTarget.MasterClient);
+    protected override void DrawUnit(byte id)
+    {
+        _game.TryUseGold(_game.BattleData.UnitSummonData.SummonPrice);
+        photonView.RPC(nameof(TryDrawUnit), RpcTarget.MasterClient, id);
+    }
 }
 
 
 public class ServerSpawnerController : SpawnerController
 {
-    protected override void DrawUnit()
+    protected override void DrawUnit(byte id)
     {
-        Multi_SpawnManagers.NormalUnit.Spawn(_unitSummoner.SummonUnitColor(), UnitClass.Swordman);
+        if(id == PlayerIdManager.MasterId)
+            _game.TryUseGold(_game.BattleData.UnitSummonData.SummonPrice);
+        Multi_SpawnManagers.NormalUnit.Spawn(_unitSummoner.SummonUnitColor(), UnitClass.Swordman, id);
     }
 }

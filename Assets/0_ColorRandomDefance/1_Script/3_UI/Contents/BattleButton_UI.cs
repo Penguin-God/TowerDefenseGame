@@ -61,7 +61,7 @@ public class BattleButton_UI : UI_Scene
             return;
         }
 
-        if(MultiServiceMidiator.Spawner.TryDrawUnit())
+        if(MultiServiceMidiator.Spawner.TryDrawUnit(PlayerIdManager.Id))
             Managers.Sound.PlayEffect(EffectSoundType.DrawSwordman);
     }
 }

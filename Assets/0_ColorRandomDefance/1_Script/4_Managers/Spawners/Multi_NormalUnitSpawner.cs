@@ -9,7 +9,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     protected readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
     public event Action<Multi_TeamSoldier> OnSpawn = null;
 
-    public Multi_TeamSoldier Spawn(UnitColor color, UnitClass _unitClass) => Spawn(new UnitFlags(color, _unitClass));
+    public Multi_TeamSoldier Spawn(UnitColor color, UnitClass _unitClass, byte id) => Spawn(new UnitFlags(color, _unitClass), id);
     public Multi_TeamSoldier Spawn(UnitFlags flag) => Spawn(flag.ColorNumber, flag.ClassNumber);
     public Multi_TeamSoldier Spawn(int colorNum, int classNum) => Spawn(new UnitFlags(colorNum, classNum), PlayerIdManager.Id);
     public Multi_TeamSoldier Spawn(UnitFlags flag, byte id) => Spawn(flag, Vector3.zero, Quaternion.identity, id);

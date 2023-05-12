@@ -68,11 +68,7 @@ public class UnitSummoner
 
     public bool CanSummonUnit() => _game.UnitOver == false && _game.HasGold(_game.BattleData.UnitSummonData.SummonPrice);
 
-    public UnitColor SummonUnitColor()
-    {
-        _game.TryUseGold(_game.BattleData.UnitSummonData.SummonPrice);
-        return (UnitColor)UnityEngine.Random.Range(0, (int)_game.BattleData.UnitSummonData.SummonMaxColor + 1);
-    }
+    public UnitColor SummonUnitColor() => (UnitColor)UnityEngine.Random.Range(0, (int)_game.BattleData.UnitSummonData.SummonMaxColor + 1);
 }
 
 [Serializable]

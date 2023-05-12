@@ -61,10 +61,7 @@ public class BattleButton_UI : UI_Scene
             return;
         }
 
-        if(new UnitSummoner(Multi_GameManager.Instance).TrySummonUnit(out UnitColor summonColor))
-        {
-            Multi_SpawnManagers.NormalUnit.Spawn(summonColor, UnitClass.Swordman);
+        if(MultiServiceMidiator.Spawner.TryDrawUnit())
             Managers.Sound.PlayEffect(EffectSoundType.DrawSwordman);
-        }
     }
 }

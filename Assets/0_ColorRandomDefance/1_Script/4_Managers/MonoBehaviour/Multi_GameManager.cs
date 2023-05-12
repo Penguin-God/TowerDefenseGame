@@ -66,18 +66,12 @@ public class UnitSummoner
     Multi_GameManager _game;
     public UnitSummoner(Multi_GameManager game) => _game = game;
 
-    public bool TrySummonUnit(out UnitColor summonColor)
+    public bool CanSummonUnit() => _game.UnitOver == false && _game.HasGold(_game.BattleData.UnitSummonData.SummonPrice);
+
+    public UnitColor SummonUnitColor()
     {
-        if (_game.TryUseGold(_game.BattleData.UnitSummonData.SummonPrice))
-        {
-            summonColor = (UnitColor)UnityEngine.Random.Range(0, (int)_game.BattleData.UnitSummonData.SummonMaxColor + 1);
-            return true;
-        }
-        else
-        {
-            summonColor = UnitColor.White;
-            return false;
-        }
+        _game.TryUseGold(_game.BattleData.UnitSummonData.SummonPrice);
+        return (UnitColor)UnityEngine.Random.Range(0, (int)_game.BattleData.UnitSummonData.SummonMaxColor + 1);
     }
 }
 
@@ -223,7 +217,7 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     }
 
     public bool TryUseGold(int gold) => CurrencyManager.TryUseGold(gold);
-
+    public bool HasGold(int gold) => CurrencyManager.Gold >= gold;
     public void AddFood(int _addFood) => CurrencyManager.Food += _addFood;
     public bool TryUseFood(int food) => CurrencyManager.TryUseFood(food);
 

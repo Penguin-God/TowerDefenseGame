@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-public struct BattleData
+public class MultiBattleData
 {
     public int CurrentMonsterCount;
     public int MaxMonsterCount;
@@ -20,6 +20,7 @@ public class ServerManager
     {
         _unitDamageManagers = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(new Dictionary<UnitFlags, UnitDamageInfo>(damageInfos)));
         _units = new MultiData<List<Multi_TeamSoldier>>(() => new List<Multi_TeamSoldier>());
+        _countData = new MultiData<MultiBattleData>(() => new MultiBattleData());
     }
 
     public UnitDamageInfo UnitDamageInfo(byte id, UnitFlags flag) => GetUnitDamageInfoManager(id).GetDamageInfo(flag);
@@ -44,7 +45,12 @@ public class ServerManager
         unit.OnDead += RemoveUnit;
     }
     void RemoveUnit(Multi_TeamSoldier unit) =>  _units.GetData(unit.UsingID).Remove(unit);
+
+    MultiData<MultiBattleData> _countData;
+    public MultiBattleData GetCountData(byte id) => _countData.GetData(id);
 }
+
+
 
 public class UnitDamageInfoChanger
 {

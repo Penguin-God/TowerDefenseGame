@@ -26,6 +26,8 @@ public class MultiServiceMidiator : SingletonPun<MultiServiceMidiator>
         _spawner = (PhotonNetwork.IsMasterClient) ? gameObject.AddComponent<ServerSpawnerController>() : gameObject.AddComponent<SpawnerController>();
         _spawner.Init(Multi_GameManager.Instance);
         _oppent.Init(new OpponentStatusSynchronizer());
+
+        new MultiDataWriteController().Init();
     }
 }
 

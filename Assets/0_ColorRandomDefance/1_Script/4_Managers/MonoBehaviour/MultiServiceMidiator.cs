@@ -23,7 +23,7 @@ public class MultiServiceMidiator : SingletonPun<MultiServiceMidiator>
         base.Init();
         _server = new ServerManager(Managers.Data.Unit.DamageInfoByFlag);
         _unitUpgrade = (PhotonNetwork.IsMasterClient) ? gameObject.AddComponent<ServerUnitUpgradeController>() : gameObject.AddComponent<UnitUpgradeController>();
-        _spawner = (PhotonNetwork.IsMasterClient) ? gameObject.AddComponent<ServerSpawnerController>() : gameObject.AddComponent<ClientSpawnerController>();
+        _spawner = (PhotonNetwork.IsMasterClient) ? gameObject.AddComponent<ServerSpawnerController>() : gameObject.AddComponent<SpawnerController>();
         _spawner.Init(Multi_GameManager.Instance);
         _oppent.Init(new OpponentStatusSynchronizer());
     }

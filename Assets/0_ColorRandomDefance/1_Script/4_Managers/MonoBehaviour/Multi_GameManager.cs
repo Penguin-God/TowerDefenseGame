@@ -61,16 +61,6 @@ public struct UnitSummonData
     public UnitColor SummonMaxColor;
 }
 
-public class UnitSummoner
-{
-    Multi_GameManager _game;
-    public UnitSummoner(Multi_GameManager game) => _game = game;
-
-    public bool CanSummonUnit() => _game.UnitOver == false && _game.HasGold(_game.BattleData.UnitSummonData.SummonPrice);
-
-    public UnitColor SummonUnitColor() => (UnitColor)UnityEngine.Random.Range(0, (int)_game.BattleData.UnitSummonData.SummonMaxColor + 1);
-}
-
 [Serializable]
 public class CurrencyData
 {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using WebSocketSharp;
 
 public class BattleButton_UI : UI_Scene
 {
@@ -61,7 +62,10 @@ public class BattleButton_UI : UI_Scene
             return;
         }
 
-        if(MultiServiceMidiator.Spawner.TryDrawUnit(PlayerIdManager.Id))
+        if (Multi_GameManager.Instance.TryUseGold(Multi_GameManager.Instance.BattleData.UnitSummonData.SummonPrice))
+        {
+            Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(Random.Range(0, (int)Multi_GameManager.Instance.BattleData.UnitSummonData.SummonMaxColor + 1), 0));
             Managers.Sound.PlayEffect(EffectSoundType.DrawSwordman);
+        }
     }
 }

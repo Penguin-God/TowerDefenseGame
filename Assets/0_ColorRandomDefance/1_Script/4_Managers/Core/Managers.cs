@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
-using static UnityEngine.UI.CanvasScaler;
 
 public class Managers : MonoBehaviour
 {
@@ -53,7 +51,6 @@ public class Managers : MonoBehaviour
     void Init()
     {
         _data.Init();
-        _unit.Init(_data);
         _clientData.Init();
         _sound.Init(transform);
     }

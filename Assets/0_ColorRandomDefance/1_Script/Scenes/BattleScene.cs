@@ -20,6 +20,7 @@ public class BattleScene : BaseScene
 
         Multi_GameManager.Instance.Init();
         MultiServiceMidiator.Instance.Init();
+        Managers.Unit.Init(new UnitControllerAttacher().AttacherUnitController(MultiServiceMidiator.Instance.gameObject), Managers.Data);
 
         new WorldInitializer(monoBehaviourContainer).Init();
         CreatePools();

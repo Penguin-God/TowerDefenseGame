@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using System.Linq;
 
-public abstract class UnitController : MonoBehaviourPun, IUnitContorller
+public abstract class UnitController : MonoBehaviourPun, IUnitController
 {
     protected UnitCombineSystem _combineSystem;
     protected void Init(DataManager data)
@@ -28,8 +28,7 @@ public abstract class UnitController : MonoBehaviourPun, IUnitContorller
     protected abstract void Combine(UnitFlags targetFlag, byte id);
 }
 
-
-public class ServerUnitController : UnitController
+public class ClientUnitController : UnitController
 {
     UnitManager _unit;
     public void Init(DataManager data, UnitManager unit)
@@ -44,7 +43,7 @@ public class ServerUnitController : UnitController
     protected override void Combine(UnitFlags targetFlag, byte id) => photonView.RPC(nameof(Combine), RpcTarget.MasterClient, targetFlag, id);
 }
 
-public class ClientUnitController : UnitController
+public class ServerUnitController : UnitController
 {
     ServerManager _server;
 
@@ -64,5 +63,24 @@ public class ClientUnitController : UnitController
             _server.GetUnits(id).Where(x => x.UnitFlags == needFlag).First().Dead();
 
         Multi_SpawnManagers.NormalUnit.Spawn(targetFlag, id);
+    }
+}
+
+public class UnitControllerAttacher
+{
+    public IUnitController AttacherUnitController(GameObject gameObject)
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            var server = gameObject.AddComponent<ServerUnitController>();
+            server.Init(Managers.Data, MultiServiceMidiator.Server);
+            return server;
+        }
+        else
+        {
+            var client = gameObject.AddComponent<ClientUnitController>();
+            client.Init(Managers.Data, Managers.Unit);
+            return client;
+        }
     }
 }

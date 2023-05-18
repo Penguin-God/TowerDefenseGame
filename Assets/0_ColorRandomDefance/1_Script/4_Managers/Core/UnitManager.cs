@@ -33,8 +33,10 @@ public class UnitManager
         OnUnitCountChangeByClass?.Invoke(unit.UnitClass, FindUnits(x => x.UnitClass == unit.UnitClass).Count());
     }
 
-    public void Init(DataManager data)
+    IUnitController _contoller;
+    public void Init(IUnitController controller, DataManager data)
     {
+        _contoller = controller;
         _combineSystem = new UnitCombineSystem(data.CombineConditionByUnitFalg);
     }
 
@@ -43,29 +45,7 @@ public class UnitManager
     public event Action OnFailedCombine = null;
     public IEnumerable<UnitFlags> CombineableUnitFlags => _combineSystem.GetCombinableUnitFalgs(GetUnitCount);
 
-    public bool TryCombine(UnitFlags flag)
-    {
-        if (_combineSystem.CheckCombineable(flag, GetUnitCount))
-        {
-            Combine(flag);
-            OnCombine?.Invoke(flag);
-            return true;
-        }
-        else
-        {
-            OnFailedCombine?.Invoke();
-            return false;
-        }
-    }
-
-    void Combine(UnitFlags flag)
-    {
-        foreach (var needFlag in _combineSystem.GetNeedFlags(flag))
-            FindUnit(needFlag).Dead();
-
-        Multi_SpawnManagers.NormalUnit.Spawn(flag);
-    }
-
+    public bool TryCombine(UnitFlags flag) => _contoller.TryCombine(flag);
 
     public Multi_TeamSoldier FindUnit(UnitFlags flag) => FindUnit(x => x.UnitFlags == flag);
     public bool TryFindUnit(Func<Multi_TeamSoldier, bool> condition, out Multi_TeamSoldier result)

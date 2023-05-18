@@ -33,8 +33,8 @@ public class UnitManager
         OnUnitCountChangeByClass?.Invoke(unit.UnitClass, FindUnits(x => x.UnitClass == unit.UnitClass).Count());
     }
 
-    IUnitController _contoller;
-    public void Init(IUnitController controller, DataManager data)
+    UnitController _contoller;
+    public void Init(UnitController controller, DataManager data)
     {
         _contoller = controller;
         _combineSystem = new UnitCombineSystem(data.CombineConditionByUnitFalg);

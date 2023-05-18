@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using System.Linq;
 
-public abstract class UnitController : MonoBehaviourPun, IUnitController
+public abstract class UnitController : MonoBehaviourPun
 {
     protected UnitCombineSystem _combineSystem;
     protected void Init(DataManager data)
@@ -68,7 +68,7 @@ public class ServerUnitController : UnitController
 
 public class UnitControllerAttacher
 {
-    public IUnitController AttacherUnitController(GameObject gameObject)
+    public UnitController AttacherUnitController(GameObject gameObject)
     {
         if (PhotonNetwork.IsMasterClient)
         {

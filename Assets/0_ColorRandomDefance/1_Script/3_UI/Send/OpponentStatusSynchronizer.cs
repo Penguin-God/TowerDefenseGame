@@ -9,11 +9,11 @@ public class OpponentStatusSynchronizer
 
     public OpponentStatusSynchronizer()
     {
-        Multi_UnitManager.Instance.OnUnitCountChangeByClass += SendUnitCountDataToOpponent;
+        Managers.Unit.OnUnitCountChangeByClass += SendUnitCountDataToOpponent;
         Multi_GameManager.Instance.BattleData.OnMaxUnitChanged += SendUnitMaxCountDataToOpponent;
     }
 
     void SendUnitCountDataToOpponent(UnitClass unitClass, int count)
-        => OnOtherUnitCountChanged?.RaiseToOther((byte)Multi_UnitManager.Instance.CurrentUnitCount, unitClass, (byte)count);
+        => OnOtherUnitCountChanged?.RaiseToOther((byte)Managers.Unit.CurrentUnitCount, unitClass, (byte)count);
     void SendUnitMaxCountDataToOpponent(int count) => OnOtherUnitMaxCountChanged?.RaiseToOther((byte)count);
 }

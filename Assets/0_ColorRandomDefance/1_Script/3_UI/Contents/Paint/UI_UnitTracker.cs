@@ -32,15 +32,15 @@ public class UI_UnitTracker : UI_Base
 
     void OnEnable()
     {
-        Multi_UnitManager.Instance.OnUnitCountChangeByFlag -= TrackUnitCount;
-        Multi_UnitManager.Instance.OnUnitCountChangeByFlag += TrackUnitCount;
-        SetUnitCountText(Multi_UnitManager.Instance.GetUnitCount(unitFlags));
+        Managers.Unit.OnUnitCountChangeByFlag -= TrackUnitCount;
+        Managers.Unit.OnUnitCountChangeByFlag += TrackUnitCount;
+        SetUnitCountText(Managers.Unit.GetUnitCount(unitFlags));
     }
 
     void OnDisable()
     {
-        if(Multi_UnitManager.Instance != null)
-            Multi_UnitManager.Instance.OnUnitCountChangeByFlag -= TrackUnitCount;
+        if(Managers.Unit != null)
+            Managers.Unit.OnUnitCountChangeByFlag -= TrackUnitCount;
     }
 
     //  여기 아래에 함수들로 리팩터링하면 됨. 필드가 null인지 아닌지로 구분하는 병신같은 코드 짜놔서 일단 빤스런함

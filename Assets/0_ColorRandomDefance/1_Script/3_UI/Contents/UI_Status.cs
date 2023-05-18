@@ -60,9 +60,9 @@ public class UI_Status : UI_Scene
         StageManager.Instance.OnUpdateStage -= UpdateStage;
         StageManager.Instance.OnUpdateStage += UpdateStage;
 
-        Multi_GameManager.Instance.BattleData.OnMaxUnitChanged += (maxUnit) => UpdateUnitText(Multi_UnitManager.Instance.CurrentUnitCount);
+        Multi_GameManager.Instance.BattleData.OnMaxUnitChanged += (maxUnit) => UpdateUnitText(Managers.Unit.CurrentUnitCount);
 
-        Multi_UnitManager.Instance.OnUnitCountChangeByClass += UpdateUnitClassByCount;
+        Managers.Unit.OnUnitCountChangeByClass += UpdateUnitClassByCount;
 
         Bind_Events();
 
@@ -99,8 +99,8 @@ public class UI_Status : UI_Scene
 
         void BindMyCountEvent()
         {
-            Multi_UnitManager.Instance.OnUnitCountChange -= UpdateUnitText;
-            Multi_UnitManager.Instance.OnUnitCountChange += UpdateUnitText;
+            Managers.Unit.OnUnitCountChange -= UpdateUnitText;
+            Managers.Unit.OnUnitCountChange += UpdateUnitText;
 
             Multi_EnemyManager.Instance.OnEnemyCountChanged -= UpdateEnemyCountText;
             Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateEnemyCountText;

@@ -19,5 +19,5 @@ public class Tutorial_Combine : TutorialController
         AddUnitHighLightCommend("기사 3개를 조합해 궁수를 조합했습니다!!", UnitClass.Archer);
     }
 
-    protected override bool TutorialStartCondition() => Multi_UnitManager.Instance.CombineableUnitFlags.Any(x => x.UnitClass == UnitClass.Archer);
+    protected override bool TutorialStartCondition() => Managers.Unit.CombineableUnitFlags.Any(x => x.UnitClass == UnitClass.Archer);
 }

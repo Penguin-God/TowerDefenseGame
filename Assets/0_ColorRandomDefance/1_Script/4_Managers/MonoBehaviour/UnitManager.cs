@@ -4,9 +4,9 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public class Multi_UnitManager : Singleton<Multi_UnitManager>
+public class UnitManager
 {
-    [SerializeField] List<Multi_TeamSoldier> _units;
+    readonly List<Multi_TeamSoldier> _units = new List<Multi_TeamSoldier>();
     public int CurrentUnitCount => _units.Count;
     public HashSet<UnitFlags> ExsitUnitFlags => new HashSet<UnitFlags>(_units.Select(x => x.UnitFlags));
 
@@ -33,10 +33,9 @@ public class Multi_UnitManager : Singleton<Multi_UnitManager>
         OnUnitCountChangeByClass?.Invoke(unit.UnitClass, FindUnits(x => x.UnitClass == unit.UnitClass).Count());
     }
 
-    public override void Init()
+    public void Init(DataManager data)
     {
-        base.Init();
-        _combineSystem = new UnitCombineSystem(Managers.Data.CombineConditionByUnitFalg);
+        _combineSystem = new UnitCombineSystem(data.CombineConditionByUnitFalg);
     }
 
     UnitCombineSystem _combineSystem;

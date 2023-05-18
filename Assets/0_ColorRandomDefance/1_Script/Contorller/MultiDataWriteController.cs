@@ -9,7 +9,7 @@ public class MultiDataWriteController
     {
         _server = MultiServiceMidiator.Server;
         
-        var unit = Multi_UnitManager.Instance;
+        var unit = Managers.Unit;
         unit.OnUnitCountChange += WriteMasterUnitCount;
 
         var game = Multi_GameManager.Instance;

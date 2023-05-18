@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using static UnityEngine.UI.CanvasScaler;
 
 public class Managers : MonoBehaviour
 {
@@ -24,17 +25,18 @@ public class Managers : MonoBehaviour
         }
     }
 
-    DataManager _data = new DataManager();
-    UI_Manager _ui = new UI_Manager();
-    Multi_SoundManager _sound = new Multi_SoundManager();
-    ResourcesManager _resources = new ResourcesManager();
-    PoolManager _pool = new PoolManager();
-    Multi_ClientData _clientData = new Multi_ClientData();
-    Scene_Manager _scene = new Scene_Manager();
-    CameraManager _camera = new CameraManager();
-    EffectManager _effect = new EffectManager();
-    MultiManager _multi = new MultiManager();
-    
+    DataManager _data = new();
+    UI_Manager _ui = new();
+    Multi_SoundManager _sound = new();
+    ResourcesManager _resources = new();
+    PoolManager _pool = new();
+    Multi_ClientData _clientData = new();
+    Scene_Manager _scene = new();
+    CameraManager _camera = new();
+    EffectManager _effect = new();
+    MultiManager _multi = new();
+    UnitManager _unit = new();
+
     public static DataManager Data => Instance._data;
     public static UI_Manager UI => Instance._ui;
     public static Multi_SoundManager Sound => Instance._sound;
@@ -45,11 +47,13 @@ public class Managers : MonoBehaviour
     public static CameraManager Camera => Instance._camera;
     public static EffectManager Effect => Instance._effect;
     public static MultiManager Multi => Instance._multi;
+    public static UnitManager Unit => Instance._unit;
 
 
     void Init()
     {
         _data.Init();
+        _unit.Init(_data);
         _clientData.Init();
         _sound.Init(transform);
     }

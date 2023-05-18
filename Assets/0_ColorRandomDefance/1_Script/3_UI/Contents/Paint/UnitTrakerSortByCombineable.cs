@@ -12,13 +12,13 @@ public class UnitTrakerSortByCombineable : UI_UnitTrackerParent
     protected override void Init()
     {
         base.Init();
-        Multi_UnitManager.Instance.OnUnitCountChange -= (count) => UpdateCombineableUnitFlags();
-        Multi_UnitManager.Instance.OnUnitCountChange += (count) => UpdateCombineableUnitFlags();
+        Managers.Unit.OnUnitCountChange -= (count) => UpdateCombineableUnitFlags();
+        Managers.Unit.OnUnitCountChange += (count) => UpdateCombineableUnitFlags();
     }
 
     void SortTrakers()
     {
-        var combineableUnitFalgs = Multi_UnitManager.Instance.CombineableUnitFlags;
+        var combineableUnitFalgs = Managers.Unit.CombineableUnitFlags;
         DestroyChilds();
         if (combineableUnitFalgs.Count() == 0) return;
         foreach (var unitFlag in SortUnitFlags(combineableUnitFalgs))

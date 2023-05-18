@@ -79,7 +79,7 @@ public class Taegeuk : UserSkill
     int[] _taegeukDamages = new int[UnitClassCount];
     public override void InitSkill()
     {
-        Multi_UnitManager.Instance.OnUnitCountChangeByFlag += (flag, count) => CheckAndApplyTaegeuk(flag);
+        Managers.Unit.OnUnitCountChangeByFlag += (flag, count) => CheckAndApplyTaegeuk(flag);
         _taegeukDamages = IntSkillDatas;
     }
 
@@ -105,7 +105,7 @@ public class Taegeuk : UserSkill
     TaegeukStateChangeType GetTaegeukStateChangeType(UnitClass unitClass)
     {
         bool prevTaegeukFlag = _currentTaegeukFlags[(int)unitClass];
-        bool newTaegeukFlag = new TaegeukConditionChecker().CheckTaegeuk(unitClass, Multi_UnitManager.Instance.ExsitUnitFlags);
+        bool newTaegeukFlag = new TaegeukConditionChecker().CheckTaegeuk(unitClass, Managers.Unit.ExsitUnitFlags);
         if (prevTaegeukFlag && newTaegeukFlag)
             return TaegeukStateChangeType.AddNewTaegeukUnit;
         else if (prevTaegeukFlag && newTaegeukFlag == false)
@@ -155,7 +155,7 @@ public class BlackUnitUpgrade : UserSkill
     public override void InitSkill()
     {
         _upgradeDamages = IntSkillDatas;
-        Multi_UnitManager.Instance.OnUnitCountChangeByFlag += UseSkill;
+        Managers.Unit.OnUnitCountChangeByFlag += UseSkill;
     }
 
     void UseSkill(UnitFlags unitFlags, int count)
@@ -187,7 +187,7 @@ public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
     SkillColorChanger colorChanger;
     public override void InitSkill()
     {
-        Multi_UnitManager.Instance.OnUnitCountChangeByFlag += UseSkill;
+        Managers.Unit.OnUnitCountChangeByFlag += UseSkill;
         colorChanger = Managers.Multi.Instantiater.PhotonInstantiate("RPCObjects/SkillColorChanger", Vector3.one * 500).GetComponent<SkillColorChanger>();
     }
 

@@ -18,7 +18,6 @@ public class BattleScene : BaseScene
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
 
-        Multi_UnitManager.Instance.Init();
         Multi_GameManager.Instance.Init();
         MultiServiceMidiator.Instance.Init();
 
@@ -88,8 +87,8 @@ class WorldInitializer
 
     void SetUnit()
     {
-        Multi_SpawnManagers.NormalUnit.OnSpawn += Multi_UnitManager.Instance.AddUnit;
-        Multi_UnitManager.Instance.OnCombine += new UnitPassiveController().AddYellowSwordmanCombineGold;
+        Multi_SpawnManagers.NormalUnit.OnSpawn += Managers.Unit.AddUnit;
+        Managers.Unit.OnCombine += new UnitPassiveController().AddYellowSwordmanCombineGold;
     }
 
     void InitMonoBehaviourContainer()

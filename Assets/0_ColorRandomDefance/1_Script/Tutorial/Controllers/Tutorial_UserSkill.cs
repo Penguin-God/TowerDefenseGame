@@ -38,7 +38,7 @@ public class Tutorial_UserSkill : TutorialController
 
     protected override bool TutorialStartCondition() => CheckOnTeaguke();
 
-    bool CheckOnTeaguke() => new TaegeukConditionChecker().CheckTaegeuk(UnitClass.Swordman, Multi_UnitManager.Instance.ExsitUnitFlags);
+    bool CheckOnTeaguke() => new TaegeukConditionChecker().CheckTaegeuk(UnitClass.Swordman, Managers.Unit.ExsitUnitFlags);
 
     void ChangeMaxUnitSummonColor(UnitColor color)
         => Multi_GameManager.Instance.BattleData.UnitSummonData.SummonMaxColor = color;

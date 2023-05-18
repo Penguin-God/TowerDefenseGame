@@ -81,8 +81,19 @@ public class CurrencyData
     public CurrencyData Cloen() => new CurrencyData(CurrencyType, _amount);
 }
 
+public interface IBattleCurrencyController
+{
+    public int CurrentGold { get; }
+    public void AddGold(int amount);
+    public void UseGold(int amount);
+
+    public int CurrentFood { get; }
+    public void AddFood(int amount);
+    public void UseFood(int amount);
+}
+
 [Serializable]
-public class CurrencyManager
+public class CurrencyManager : IBattleCurrencyController
 {
     public CurrencyManager(int startGold, int startFood) => (_gold, _food) = (startGold, startFood);
 
@@ -103,6 +114,11 @@ public class CurrencyManager
     [SerializeField] int _food;
     public event Action<int> OnFoodChanged;
     public int Food { get => _food; set { _food = value; OnFoodChanged?.Invoke(_food); } }
+
+    public int CurrentGold => throw new NotImplementedException();
+
+    public int CurrentFood => throw new NotImplementedException();
+
     public bool TryUseFood(int food)
     {
         if (_food >= food)
@@ -112,6 +128,36 @@ public class CurrencyManager
         }
         else
             return false;
+    }
+
+    public void AddGold(int amount)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void UseGold(int amount)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool HasGold(int amount)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void AddFood(int amount)
+    {
+        throw new NotImplementedException();
+    }
+
+    public void UseFood(int amount)
+    {
+        throw new NotImplementedException();
+    }
+
+    public bool HasFood(int amount)
+    {
+        throw new NotImplementedException();
     }
 }
 

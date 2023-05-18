@@ -15,17 +15,23 @@ public class MultiDataWriteController
         var game = Multi_GameManager.Instance;
         game.BattleData.OnMaxUnitChanged += WriteMasterMaxUnitCount;
 
+
         var oppent = MultiServiceMidiator.Oppent;
         oppent.OnUnitCountChanged += WriteClientUnitCount;
         oppent.OnUnitMaxCountChanged += WriteClientMaxUnitCount;
     }
 
     void WriteMasterUnitCount(int count) => MasterData.CurrentUnitCount = count;
-    void WriteClientUnitCount(int count) => ClientData.CurrentUnitCount = count;
-
     void WriteMasterMaxUnitCount(int count) => MasterData.MaxUnitCount = count;
-    void WriteClientMaxUnitCount(int count) => ClientData.MaxUnitCount = count;
+    void WriteMasterGold(int gold) => MasterData.Gold = gold;
+    void WriteMasterFood(int food) => MasterData.Food = food;
 
-    MultiBattleData MasterData => _server.GetCountData(PlayerIdManager.MasterId);
-    MultiBattleData ClientData => _server.GetCountData(PlayerIdManager.ClientId);
+
+    void WriteClientUnitCount(int count) => ClientData.CurrentUnitCount = count;
+    void WriteClientMaxUnitCount(int count) => ClientData.MaxUnitCount = count;
+    void WriteClientGold(int gold) => ClientData.Gold = gold;
+    void WriteClientFood(int food) => ClientData.Food = food;
+
+    MultiBattleData MasterData => _server.GetBattleData(PlayerIdManager.MasterId);
+    MultiBattleData ClientData => _server.GetBattleData(PlayerIdManager.ClientId);
 }

@@ -31,7 +31,9 @@ public class ServerSpawnerController : SpawnerController
     [PunRPC]
     protected override void DrawUnit(byte id)
     {
-        Multi_SpawnManagers.NormalUnit.RPCSpawn(new UnitFlags(SummonUnitColor(), UnitClass.Swordman), id);
+        var countData = MultiServiceMidiator.Server.GetBattleData(id);
+        if (countData.MaxUnitCount > countData.CurrentUnitCount)
+            Multi_SpawnManagers.NormalUnit.RPCSpawn(new UnitFlags(SummonUnitColor(), UnitClass.Swordman), id);
     }
 
     UnitColor SummonUnitColor() => (UnitColor)Random.Range(0, (int)(_game.BattleData.UnitSummonData.SummonMaxColor + 1));

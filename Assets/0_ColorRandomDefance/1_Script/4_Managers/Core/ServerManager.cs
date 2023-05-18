@@ -6,6 +6,8 @@ using System.Linq;
 
 public class MultiBattleData
 {
+    public int Gold;
+    public int Food;
     public int CurrentMonsterCount;
     public int MaxMonsterCount;
     public int CurrentUnitCount;
@@ -20,7 +22,7 @@ public class ServerManager
     {
         _unitDamageManagers = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(new Dictionary<UnitFlags, UnitDamageInfo>(damageInfos)));
         _units = new MultiData<List<Multi_TeamSoldier>>(() => new List<Multi_TeamSoldier>());
-        _countData = new MultiData<MultiBattleData>(() => new MultiBattleData());
+        _battleData = new MultiData<MultiBattleData>(() => new MultiBattleData());
     }
 
     public UnitDamageInfo UnitDamageInfo(byte id, UnitFlags flag) => GetUnitDamageInfoManager(id).GetDamageInfo(flag);
@@ -46,8 +48,8 @@ public class ServerManager
     }
     void RemoveUnit(Multi_TeamSoldier unit) =>  _units.GetData(unit.UsingID).Remove(unit);
 
-    MultiData<MultiBattleData> _countData;
-    public MultiBattleData GetCountData(byte id) => _countData.GetData(id);
+    MultiData<MultiBattleData> _battleData;
+    public MultiBattleData GetBattleData(byte id) => _battleData.GetData(id);
 }
 
 

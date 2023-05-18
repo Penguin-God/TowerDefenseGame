@@ -64,7 +64,7 @@ public class Multi_UnitManager : Singleton<Multi_UnitManager>
         foreach (var needFlag in _combineSystem.GetNeedFlags(flag))
             FindUnit(needFlag).Dead();
 
-        Multi_SpawnManagers.NormalUnit.Spawn(flag, PlayerIdManager.Id);
+        Multi_SpawnManagers.NormalUnit.Spawn(flag);
     }
 
 

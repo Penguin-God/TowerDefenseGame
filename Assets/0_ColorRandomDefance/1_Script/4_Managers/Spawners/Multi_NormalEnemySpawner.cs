@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System;
 
 public class NormalMonsterSpawner
 {
@@ -19,10 +20,12 @@ public class NormalMonsterSpawner
 public class EnemySpawnNumManager : MonoBehaviourPun
 {
     byte[] _spawnEnemyNums = new byte[2];
+    public event Action<int> OnSpawnMonsterChange;
 
     public byte GetSpawnEnemyNum(int id) => _spawnEnemyNums[id];
     public void SetSpawnNumber(byte num)
     {
+        OnSpawnMonsterChange?.Invoke(num);
         if (PhotonNetwork.IsMasterClient)
             _spawnEnemyNums[0] = num;
         else

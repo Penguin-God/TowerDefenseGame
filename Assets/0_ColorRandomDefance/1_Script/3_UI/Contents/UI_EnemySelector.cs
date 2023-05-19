@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
 public class UI_EnemySelector : UI_Scene
 {
@@ -9,15 +10,17 @@ public class UI_EnemySelector : UI_Scene
     protected override void Init()
     {
         List<EnemySelector_Button> enemySelectBtns = GetComponentsInChildren<EnemySelector_Button>().ToList();
-        enemySelectBtns.ForEach(x => {
-            x.Setup(ChangeSpawnEnemy);
-            var mouseOverHandler = x.gameObject.AddComponent<MouseOverHandler>();
-            mouseOverHandler.OnPointerEnterDelayedEvent += () => ShwoInfoWindow(x);
-            mouseOverHandler.OnPointerExitEvent += PointerExit;
-        });
+        enemySelectBtns.ForEach(BindMousePointerEvents);
+        // enemySelectBtns[0].StartSelectSpawnEnemy();
+        // ChangeSpawnEnemy(enemySelectBtns[0]);
+    }
 
-        enemySelectBtns[0].StartSelectSpawnEnemy();
-        ChangeSpawnEnemy(enemySelectBtns[0]);
+    void BindMousePointerEvents(EnemySelector_Button btn)
+    {
+        btn.Setup(ChangeSpawnEnemy);
+        var mouseOverHandler = btn.gameObject.AddComponent<MouseOverHandler>();
+        mouseOverHandler.OnPointerEnterDelayedEvent += () => ShwoInfoWindow(btn);
+        mouseOverHandler.OnPointerExitEvent += PointerExit;
     }
 
     EnemySpawnNumManager _enemySpawnNumManager;

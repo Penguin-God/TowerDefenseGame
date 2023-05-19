@@ -24,7 +24,7 @@ public class BattleScene : BaseScene
 
         new WorldInitializer(monoBehaviourContainer).Init();
         CreatePools();
-        GetComponent<BattleReadyController>().EnterBattle();
+        GetComponent<BattleReadyController>().EnterBattle(monoBehaviourContainer.GetComponent<EnemySpawnNumManager>());
     }
 
     void CreatePools()

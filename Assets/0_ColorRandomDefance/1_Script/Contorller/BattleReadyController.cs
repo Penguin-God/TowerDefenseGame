@@ -11,12 +11,25 @@ public class BattleReadyController : MonoBehaviourPun
 
     int _readyCount;
 
-    public void EnterBattle()
+    EnemySpawnNumManager _manager;
+    public void EnterBattle(EnemySpawnNumManager manager)
     {
-        _readyButton.onClick.AddListener(Ready);
+        _readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "소환할 몬스터를 선택해 주십시오";
+        _readyButton.enabled = false;
         foreach (var ui in Managers.UI.SceneUIs)
             ui.gameObject.SetActive(false);
         Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(true);
+        
+        _manager = manager; ;
+        _manager.OnSpawnMonsterChange += ActiveReadyButton;
+    }
+
+    void ActiveReadyButton(int num)
+    {
+        _manager.OnSpawnMonsterChange -= ActiveReadyButton;
+        _readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "게임을 시작할 준비가 되었다면 이 버튼을 클릭해주세요";
+        _readyButton.enabled = true;
+        _readyButton.onClick.AddListener(Ready);
     }
 
     void Ready()

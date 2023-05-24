@@ -143,7 +143,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         ResetAiStateValue();
     }
     
-    void SetPassive_RPC() => photonView.RPC(nameof(SetPassive), RpcTarget.All);
     [PunRPC]
     protected void SetPassive()
     {
@@ -170,7 +169,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     {
         OnDead?.Invoke(this);
         OnDead = null;
-        gameObject.SetActive(false);
         if(PhotonNetwork.IsMasterClient)
             Managers.Multi.Instantiater.PhotonDestroy(gameObject);
         _state.Dead();
@@ -392,6 +390,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         RPCable _rpcable;
         public int UsingId => _rpcable.UsingId;
     }
+
 
     [Serializable]
     protected class TargetManager

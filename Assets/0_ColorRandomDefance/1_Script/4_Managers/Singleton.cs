@@ -32,10 +32,26 @@ public class Singleton<T> : MonoBehaviour where T : Component
     public virtual void Init() { }
 }
 
-public class SingletonPun<T> : Singleton<T> where T : Component 
+public class SingletonPun<T> : MonoBehaviour where T : Component
 {
+    private static T instance;
+    public static T Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<T>();
+                if (instance == null)
+                    instance = new GameObject(typeof(T).Name).AddComponent<T>();
+            }
+
+            return instance;
+        }
+    }
+
     protected PhotonView photonView;
-    public override void Init()
+    public virtual void Init()
     {
         photonView = gameObject.GetComponent<PhotonView>();
         if (photonView == null) 

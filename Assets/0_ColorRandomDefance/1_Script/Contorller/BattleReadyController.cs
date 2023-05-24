@@ -20,7 +20,7 @@ public class BattleReadyController : MonoBehaviourPun
             ui.gameObject.SetActive(false);
         Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(true);
         
-        _manager = manager; ;
+        _manager = manager;
         _manager.OnSpawnMonsterChange += ActiveReadyButton;
     }
 

@@ -133,5 +133,6 @@ public class UI_Manager
         _root = null;
         _currentPopupStack.Clear();
         _uiCashByPath.Clear();
+        _sceneUIs.Clear();
     }
 }

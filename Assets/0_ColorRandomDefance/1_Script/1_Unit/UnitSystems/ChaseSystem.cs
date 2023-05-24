@@ -66,12 +66,8 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
         {
             _chaseState = newState;
             SetChaseStatus(_chaseState);
-            //photonView.RPC(nameof(ClineStateUpdate), RpcTarget.Others, (byte)_chaseState);
         }
     }
-
-    [PunRPC]
-    public void ClineStateUpdate(byte newState) => SetChaseStatus((ChaseState)newState);
 
     void FixedUpdate()
     {
@@ -82,9 +78,7 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
     [SerializeField] protected bool enemyIsForward;
     public bool EnemyIsForward => enemyIsForward;
     protected int layerMask; // Ray 감지용
-    readonly float CHASE_RANGE = 150f;
-    protected bool Chaseable => CHASE_RANGE > enemyDistance && _currentTarget != null; // 거리가 아닌 다른 조건(IsDead 등)으로 바꾸기
-
+    
     protected virtual bool RaycastEnemy(out Transform hitEnemy)
     {
         if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out RaycastHit rayHitObject, 5, layerMask) == false)
@@ -148,12 +142,11 @@ public class MeeleChaser : ChaseSystem
 
         switch (_chaseState)
         {
-            case ChaseState.Chase: return currentDestinationPos = TargetPosition - (_currentTarget.dir * 1);
-            case ChaseState.InRange: return currentDestinationPos = TargetPosition - (_currentTarget.dir * 2);
-            case ChaseState.FaceToFace: return currentDestinationPos = TargetPosition - (_currentTarget.dir * -5f);
-            case ChaseState.Lock: return currentDestinationPos = TargetPosition - (_currentTarget.dir * -1f);
+            case ChaseState.Chase: currentDestinationPos = TargetPosition - (_currentTarget.dir * 1); break;
+            case ChaseState.InRange: currentDestinationPos = TargetPosition - (_currentTarget.dir * 2); break;
+            case ChaseState.FaceToFace: currentDestinationPos = TargetPosition - (_currentTarget.dir * -5f); break;
+            case ChaseState.Lock: currentDestinationPos = TargetPosition - (_currentTarget.dir * -1f); break;
         }
-
         return currentDestinationPos;
     }
 

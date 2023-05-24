@@ -205,8 +205,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun
                 continue;
             }
 
+            _chaseSystem.MoveUpdate();
             if ((_chaseSystem.EnemyIsForward || contactEnemy) && _state.IsAttackable)
             {
+                print($"적이 앞에 있는가 : {_chaseSystem.EnemyIsForward}");
+                print($"적이랑 부딪쳤는가 : {contactEnemy}");
                 UnitAttack();
             }
             yield return null;
@@ -243,13 +246,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     {
         _state.EndAttack(coolTime);
         if (CheckTargetUpdateCondition) UpdateTarget();
-    }
-
-    private void Update()
-    {
-        if (target == null) return;
-
-        _chaseSystem.MoveUpdate();
     }
 
     [SerializeField] protected float enemyDistance => _chaseSystem.EnemyDistance;

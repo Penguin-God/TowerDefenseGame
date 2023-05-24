@@ -54,10 +54,16 @@ public class BattleReadyController : MonoBehaviourPun
     [PunRPC]
     void BattleStart()
     {
-        Multi_GameManager.Instance.BattleData.MaxUnit += 0; // ui event
         foreach (var ui in Managers.UI.SceneUIs)
             ui.gameObject.SetActive(true);
+        StartCoroutine(Co_NotifyGameStartEvent()); // 시간 커플링 때문에 코루틴으로 함
         Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(false);
         Multi_GameManager.Instance.GameStart();
+    }
+
+    IEnumerator Co_NotifyGameStartEvent()
+    {
+        yield return new WaitForSeconds(0.05f);
+        Multi_GameManager.Instance.BattleData.MaxUnit += 0;
     }
 }

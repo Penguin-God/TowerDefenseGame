@@ -5,12 +5,12 @@ using UnityEngine;
 public class Multi_BlackMage : Multi_Unit_Mage
 {
     [SerializeField] Transform skileShotPositions = null;
-    [SerializeField] int _directionShotDamage;
+    [SerializeField] float _damRate;
 
     protected override void OnAwake()
     {
         base.OnAwake();
-        _directionShotDamage = (int)base.skillStats[0];
+        _damRate = base.skillStats[0];
     }
 
     protected override void MageSkile()
@@ -23,5 +23,5 @@ public class Multi_BlackMage : Multi_Unit_Mage
     }
     protected override void PlaySkillSound() => PlaySound(EffectSoundType.BlackMageSkill);
 
-    void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, _directionShotDamage);
+    void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, CalculateSkillDamage(_damRate));
 }

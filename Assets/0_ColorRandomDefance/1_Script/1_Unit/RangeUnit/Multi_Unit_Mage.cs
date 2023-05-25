@@ -27,8 +27,6 @@ public class Multi_Unit_Mage : Multi_RangeUnit
         normalAttackSound = EffectSoundType.MageAttack;
     }
 
-    protected string GetSkillPath() => new ResourcesPathBuilder().BuildMageSkillEffectPath(UnitFlags.UnitColor);
-
     void LoadMageStat()
     {
         if (Managers.Data.MageStatByFlag.TryGetValue(UnitFlags, out MageUnitStat stat))
@@ -96,7 +94,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     }
 
     protected GameObject SkillSpawn(Vector3 spawnPos) => WeaponSpawner.Spawn(skillData.WeaponPath, spawnPos);
+    protected int CalculateSkillDamage(float rate) => Mathf.RoundToInt(Mathf.Max(Damage, BossDamage) * rate);
     protected virtual void MageSkile() { }
-
     protected virtual void PlaySkillSound() { }
 }

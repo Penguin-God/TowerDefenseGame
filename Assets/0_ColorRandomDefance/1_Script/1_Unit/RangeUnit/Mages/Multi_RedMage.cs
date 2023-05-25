@@ -5,12 +5,12 @@ using Photon.Pun;
 
 public class Multi_RedMage : Multi_Unit_Mage
 {
-    [SerializeField] int meteorDamage;
+    [SerializeField] float _damRate;
     [SerializeField] float meteorStunTime;
 
     public override void SetMageAwake()
     {
-        meteorDamage = (int)skillStats[0];
+        _damRate = skillStats[0];
         meteorStunTime = skillStats[1];
 
         GetComponentInChildren<SphereCollider>().radius = skillStats[2];
@@ -41,7 +41,7 @@ public class Multi_RedMage : Multi_Unit_Mage
 
     void HitMeteor(Multi_Enemy enemy)
     {
-        SkillAttackToEnemy(enemy, meteorDamage);
+        SkillAttackToEnemy(enemy, CalculateSkillDamage(_damRate));
         enemy.OnStun_RPC(100, meteorStunTime);
     }
 

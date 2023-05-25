@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Multi_GreenMage : Multi_Unit_Mage
 {
-    [SerializeField] int bounceBallDamage;
+    [SerializeField] float _damRate;
     [SerializeField] float manaLockTime;
     protected override void OnAwake()
     {
         base.OnAwake();
-        bounceBallDamage = (int)base.skillStats[0];
+        _damRate = base.skillStats[0];
         manaLockTime = base.skillStats[1];
     }
 
-    void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, bounceBallDamage);
+    void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, CalculateSkillDamage(_damRate));
     void ShootSkill() => _energyBallThower.FlatThrow(new ResourcesPathBuilder().BuildMageSkillEffectPath(UnitFlags.UnitColor), target, OnSkillHit);
 
     protected override void MageSkile()

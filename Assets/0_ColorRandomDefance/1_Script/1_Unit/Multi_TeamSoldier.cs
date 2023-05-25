@@ -18,7 +18,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     [SerializeField] UnitStat _stat;
 
-    int Damage => _unit.DamageInfo.ApplyDamage;
+    protected int Damage => _unit.DamageInfo.ApplyDamage;
     protected int BossDamage => _unit.DamageInfo.ApplyBossDamage;
     public float Speed { get => _stat.Speed; set => _stat.SetSpeed(value); }
     public float AttackDelayTime { get => _stat.AttackDelayTime; set => _stat.SetAttDelayTime(value); }

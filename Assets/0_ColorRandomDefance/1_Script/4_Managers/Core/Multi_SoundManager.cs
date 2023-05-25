@@ -77,13 +77,14 @@ public class Multi_SoundManager
 
             _sources = audios.ToArray();
             _sources[(int)SoundType.Bgm].loop = true;
+            _sources[(int)SoundType.Effect].volume = 0.5f;
         }
         root.transform.parent = parent;
     }
 
     public void PlayBgm(BgmType bgmType) => PlayBgm(Managers.Data.BgmBySound[bgmType].Path, Managers.Data.BgmBySound[bgmType].Volumn);
-    public void PlayBgm(string _path, float volumn = 0.5f) => PlayBgm(GetOrAddClip(_path), volumn);
-    public void PlayBgm(AudioClip _clip, float volumn = 0.5f)
+    public void PlayBgm(string _path, float volumn = 0.25f) => PlayBgm(GetOrAddClip(_path), volumn);
+    public void PlayBgm(AudioClip _clip, float volumn = 0.25f)
     {
         AudioSource _audioSource = _sources[(int)SoundType.Bgm];
         if (_audioSource.isPlaying) _audioSource.Stop();

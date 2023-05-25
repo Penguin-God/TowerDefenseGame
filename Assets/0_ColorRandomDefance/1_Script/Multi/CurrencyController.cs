@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class CurrencyControllerProxy : MonoBehaviourPun, IBattleCurrencyManager
+public class CurrencyManagerProxy : MonoBehaviourPun, IBattleCurrencyManager
 {
     IBattleCurrencyManager _currencyManager;
     public void Init(IBattleCurrencyManager currencyManager) => _currencyManager = currencyManager;
@@ -34,7 +34,6 @@ public class CurrencyControllerProxy : MonoBehaviourPun, IBattleCurrencyManager
     }
 
     void RPC_To_Master(string methodName, int amount) => photonView.RPC(methodName, RpcTarget.MasterClient, (byte)amount, PlayerIdManager.Id);
-
     [PunRPC]
     public virtual void AddGold(byte amount, byte id) { }
     [PunRPC]
@@ -45,7 +44,7 @@ public class CurrencyControllerProxy : MonoBehaviourPun, IBattleCurrencyManager
     public virtual void UseFood(byte amount, byte id) { }
 }
 
-public class MultiCurrencyController : CurrencyControllerProxy
+public class MasterCurrencyManager : CurrencyManagerProxy
 {
     ServerManager _server;
     public void SetInfo(ServerManager server) => _server = server;
@@ -53,15 +52,16 @@ public class MultiCurrencyController : CurrencyControllerProxy
     public override void AddGold(byte amount, byte id) => _server.GetBattleData(id).Gold += amount;
     public override void UseGold(byte amount, byte id)
     {
-        if(_server.GetBattleData(id).Gold >= amount)
+        if(HasGold(amount, id))
             _server.GetBattleData(id).Gold -= amount;
     }
+    public bool HasGold(byte amount, byte id) => _server.GetBattleData(id).Gold >= amount;
 
     public override void UseFood(byte amount, byte id) => _server.GetBattleData(id).Food += amount;
-
     public override void AddFood(byte amount, byte id)
     {
-        if (_server.GetBattleData(id).Food >= amount)
+        if (HasFood(amount, id))
             _server.GetBattleData(id).Food -= amount;
     }
+    public bool HasFood(int amount, byte id) => _server.GetBattleData(id).Food >= amount;
 }

@@ -28,11 +28,17 @@ public class SpawnerController : MonoBehaviourPun
 
 public class ServerSpawnerController : SpawnerController
 {
+    MasterCurrencyManager _currencyManager;
+    public void Init(MasterCurrencyManager masterCurrencyManager)
+    {
+        _currencyManager = masterCurrencyManager;
+    }
+
     [PunRPC]
     protected override void DrawUnit(byte id)
     {
         var countData = MultiServiceMidiator.Server.GetBattleData(id);
-        if (countData.MaxUnitCount > countData.CurrentUnitCount)
+        if (countData.MaxUnitCount > countData.CurrentUnitCount && _currencyManager.HasGold(5, id))
             Multi_SpawnManagers.NormalUnit.RPCSpawn(new UnitFlags(SummonUnitColor(), UnitClass.Swordman), id);
     }
 

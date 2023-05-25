@@ -81,7 +81,7 @@ public class CurrencyData
     public CurrencyData Cloen() => new CurrencyData(CurrencyType, _amount);
 }
 
-public interface IBattleCurrencyController
+public interface IBattleCurrencyManager
 {
     public int CurrentGold { get; }
     public void AddGold(int amount);
@@ -93,7 +93,7 @@ public interface IBattleCurrencyController
 }
 
 [Serializable]
-public class CurrencyManager : IBattleCurrencyController
+public class CurrencyManager : IBattleCurrencyManager
 {
     public CurrencyManager(int startGold, int startFood) => (_gold, _food) = (startGold, startFood);
 

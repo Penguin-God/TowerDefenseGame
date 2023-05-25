@@ -53,7 +53,6 @@ public class ServerManager
 }
 
 
-
 public class UnitDamageInfoChanger
 {
     public void AddUnitDamageValue(UnitDamageInfoManager unitDamageManagers, Func<UnitFlags, bool> condition, int value, UnitStatType changeStatType)

@@ -141,7 +141,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     void ChaseTarget()
     {
         nav.enabled = true;
-        UpdateTarget();
+        // UpdateTarget();
         if (PhotonNetwork.IsMasterClient)
             StartCoroutine(nameof(NavCoroutine));
     }
@@ -205,10 +205,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     {
         if (PhotonNetwork.IsMasterClient == false) yield break;
         yield return null;
-
+        
         while (true)
         {
-            if (target == null || Chaseable == false || _chaseSystem._currentTarget == null)
+            if (target == null || _targetManager.Target.IsDead || _chaseSystem._currentTarget == null)
             {
                 UpdateTarget();
                 yield return null; // 튕김 방지
@@ -217,11 +217,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
             _chaseSystem.MoveUpdate();
             if ((_chaseSystem.EnemyIsForward || contactEnemy) && _state.IsAttackable)
-            {
-                print($"적이 앞에 있는가 : {_chaseSystem.EnemyIsForward}");
-                print($"적이랑 부딪쳤는가 : {contactEnemy}");
                 UnitAttack();
-            }
             yield return null;
         }
     }

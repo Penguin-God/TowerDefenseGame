@@ -136,12 +136,15 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             animator.Rebind();
             animator.Update(0);
         }
+
+        ChaseTarget();
     }
 
     void ChaseTarget()
     {
         nav.enabled = true;
         // UpdateTarget();
+        StopAllCoroutines();
         if (PhotonNetwork.IsMasterClient)
             StartCoroutine(nameof(NavCoroutine));
     }

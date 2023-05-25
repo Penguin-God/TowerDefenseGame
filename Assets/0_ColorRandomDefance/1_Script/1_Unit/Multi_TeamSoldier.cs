@@ -101,8 +101,14 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     protected virtual ChaseSystem AddCahseSystem() => gameObject.AddComponent<ChaseSystem>();
 
+    public void Spawn(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo)
+    {
+        SetInfo(flag, stat, damInfo);
+        ChaseTarget();
+    }
+
     // MasterOnly
-    public void SetInfo(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo)
+    void SetInfo(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo)
     {
         _stat = stat;
         _unit = new Unit(flag, damInfo);
@@ -130,7 +136,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             animator.Rebind();
             animator.Update(0);
         }
+    }
 
+    void ChaseTarget()
+    {
         nav.enabled = true;
         UpdateTarget();
         if (PhotonNetwork.IsMasterClient)
@@ -195,10 +204,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     IEnumerator NavCoroutine()
     {
         if (PhotonNetwork.IsMasterClient == false) yield break;
+        yield return null;
 
         while (true)
         {
-            if (target == null || Chaseable == false)
+            if (target == null || Chaseable == false || _chaseSystem._currentTarget == null)
             {
                 UpdateTarget();
                 yield return null; // 튕김 방지

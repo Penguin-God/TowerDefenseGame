@@ -18,7 +18,7 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
     protected Multi_TeamSoldier _unit { get; private set; }
     protected NavMeshAgent _nav { get; private set; }
 
-    protected Multi_Enemy _currentTarget = null;
+    public Multi_Enemy _currentTarget = null;
     protected Vector3 TargetPosition => _currentTarget.transform.position;
     public virtual void ChangedTarget(Multi_Enemy newTarget)
     {
@@ -53,10 +53,10 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
     {
         if (_currentTarget == null) return;
 
-        UpdateState();
         chasePosition = GetDestinationPos();
         enemyDistance = Vector3.Distance(transform.position, chasePosition);
         _nav.SetDestination(chasePosition);
+        UpdateState();
     }
 
     void UpdateState()

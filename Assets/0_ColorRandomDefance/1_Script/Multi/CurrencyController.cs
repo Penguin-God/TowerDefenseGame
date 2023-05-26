@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System.Runtime.InteropServices;
 
 public class CurrencyManagerProxy : MonoBehaviourPun, IBattleCurrencyManager
 {
@@ -49,19 +50,29 @@ public class MasterCurrencyManager : CurrencyManagerProxy
     ServerManager _server;
     public void SetInfo(ServerManager server) => _server = server;
 
+    [PunRPC]
     public override void AddGold(byte amount, byte id) => _server.GetBattleData(id).Gold += amount;
+    [PunRPC]
     public override void UseGold(byte amount, byte id)
     {
         if(HasGold(amount, id))
             _server.GetBattleData(id).Gold -= amount;
     }
-    public bool HasGold(byte amount, byte id) => _server.GetBattleData(id).Gold >= amount;
+    public bool HasGold(int amount, byte id) => _server.GetBattleData(id).Gold >= amount;
+    public bool TryUseGold(int amount, byte id)
+    {
+        var result = HasGold(amount, id);
+        UseGold((byte)amount, id);
+        return result;
+    }
 
-    public override void UseFood(byte amount, byte id) => _server.GetBattleData(id).Food += amount;
+    [PunRPC]
     public override void AddFood(byte amount, byte id)
     {
         if (HasFood(amount, id))
             _server.GetBattleData(id).Food -= amount;
     }
+    [PunRPC]
+    public override void UseFood(byte amount, byte id) => _server.GetBattleData(id).Food += amount;
     public bool HasFood(int amount, byte id) => _server.GetBattleData(id).Food >= amount;
 }

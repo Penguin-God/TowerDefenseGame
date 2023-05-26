@@ -76,6 +76,7 @@ class WorldInitializer
 
     public void Init()
     {
+        new MultiInitializer().InjectionBattleDependency(monoBehaviourContainer.AddComponent<BattleDIContainer>());
         InitMonoBehaviourContainer();
         Multi_SpawnManagers.Instance.Init();
         Show_UI();

@@ -16,7 +16,17 @@ public class MultiInitializer
         AddMultiService<CurrencyManagerProxy, MasterCurrencyManager>(container); 
         AddMultiService<SwordmanGachaController, MasterSwordmanGachaController>(container);
 
+        container.GetService<CurrencyManagerProxy>().Init(new CurrencyManager());
         container.GetService<SwordmanGachaController>().Init(Multi_GameManager.Instance, container.GetService<IBattleCurrencyManager>());
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            var server = MultiServiceMidiator.Server;
+            container.GetService<MasterCurrencyManager>().Init(server);
+            container.GetService<MasterSwordmanGachaController>().Init(server);
+        }
+
+        Multi_GameManager.Instance.Init(container.GetService<IBattleCurrencyManager>());
     }
 
     void AddMultiService<TClient, TMaster> (BattleDIContainer container) where TClient : MonoBehaviour where TMaster : MonoBehaviour

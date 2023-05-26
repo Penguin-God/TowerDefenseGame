@@ -83,11 +83,11 @@ public class CurrencyData
 
 public interface IBattleCurrencyManager
 {
-    public int CurrentGold { get; }
+    public int Gold { get; }
     public void AddGold(int amount);
     public void UseGold(int amount);
 
-    public int CurrentFood { get; }
+    public int Food { get; }
     public void AddFood(int amount);
     public void UseFood(int amount);
 }
@@ -95,69 +95,28 @@ public interface IBattleCurrencyManager
 [Serializable]
 public class CurrencyManager : IBattleCurrencyManager
 {
+    public CurrencyManager() { }
     public CurrencyManager(int startGold, int startFood) => (_gold, _food) = (startGold, startFood);
 
     [SerializeField] int _gold;
-    public event Action<int> OnGoldChanged;
-    public int Gold { get => _gold; set { _gold = value; OnGoldChanged?.Invoke(_gold); } }
-    public bool TryUseGold(int gold)
-    {
-        if (_gold >= gold)
-        {
-            Gold -= gold;
-            return true;
-        }
-        else
-            return false;
-    }
+    public int Gold => _gold;
 
     [SerializeField] int _food;
-    public event Action<int> OnFoodChanged;
-    public int Food { get => _food; set { _food = value; OnFoodChanged?.Invoke(_food); } }
+    public int Food => _food;
 
-    public int CurrentGold => throw new NotImplementedException();
-
-    public int CurrentFood => throw new NotImplementedException();
-
-    public bool TryUseFood(int food)
-    {
-        if (_food >= food)
-        {
-            Food -= food;
-            return true;
-        }
-        else
-            return false;
-    }
-
-    public void AddGold(int amount)
-    {
-        throw new NotImplementedException();
-    }
-
+    public void AddGold(int amount) => _gold += amount;
     public void UseGold(int amount)
     {
-        throw new NotImplementedException();
+        if(_gold >= amount)
+            _gold -= amount;
     }
 
-    public bool HasGold(int amount)
-    {
-        throw new NotImplementedException();
-    }
-
-    public void AddFood(int amount)
-    {
-        throw new NotImplementedException();
-    }
+    public void AddFood(int amount) => _food += amount;
 
     public void UseFood(int amount)
     {
-        throw new NotImplementedException();
-    }
-
-    public bool HasFood(int amount)
-    {
-        throw new NotImplementedException();
+        if(_food >= amount)
+            _food -= amount;
     }
 }
 
@@ -181,13 +140,45 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     [SerializeField] BattleDataManager _battleData;
     public BattleDataManager BattleData => _battleData;
     CurrencyManager CurrencyManager => _battleData.CurrencyManager;
-    HashSet<UnitUpgradeGoodsData> _locationByGoods = new HashSet<UnitUpgradeGoodsData>();
 
     public event Action<int> OnGoldChanged;
     void Rasie_OnGoldChanged(int gold) => OnGoldChanged?.Invoke(gold);
+    void NotifyGoldChange() => OnGoldChanged?.Invoke(_currencyManager.Gold);
 
     public event Action<int> OnFoodChanged;
     void Rasie_OnFoodChanged(int food) => OnFoodChanged?.Invoke(food);
+    void NotifyFoodChange() => OnFoodChanged?.Invoke(_currencyManager.Food);
+
+    IBattleCurrencyManager _currencyManager;
+    public bool TryUseGold(int gold)
+    {
+        if(_currencyManager.Gold >= gold)
+        {
+            _currencyManager.UseGold(gold);
+            NotifyGoldChange();
+            return true;
+        }
+        return false;
+    }
+
+    public bool HasGold(int gold) => _currencyManager.Gold >= gold;
+    public void AddFood(int amount)
+    {
+        _currencyManager.AddFood(amount);
+        NotifyFoodChange();
+    }
+    public bool TryUseFood(int amount)
+    {
+        if (_currencyManager.Food >= amount)
+        {
+            _currencyManager.UseGold(amount);
+            NotifyFoodChange();
+            return true;
+        }
+        return false;
+    }
+
+    public bool TryUseCurrency(GameCurrencyType currencyType, int quantity) => currencyType == GameCurrencyType.Gold ? TryUseGold(quantity) : TryUseFood(quantity);
 
     public bool UnitOver => Managers.Unit.CurrentUnitCount >= _battleData.MaxUnit;
 
@@ -201,10 +192,13 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     [SerializeField] Button gameStartButton;
     [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
     [SerializeField] BattleDataContainer _battleDataContainer;
-    public override void Init()
+    public void Init(IBattleCurrencyManager currencyManager)
     {
         base.Init();
 
+        _currencyManager = currencyManager;
+        AddGold(_battleDataContainer.Gold);
+        AddFood(_battleDataContainer.Food);
         _battleData = new BattleDataManager(_battleDataContainer, _unitUpgradeShopData);
         Managers.Sound.PlayBgm(BgmType.Default);
         if (PhotonNetwork.IsConnected)
@@ -214,11 +208,11 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
         _upScaleValueByFlag = UnitFlags.NormalFlags.ToDictionary(x => x, x => 0);
     }
 
-    void SetEvent()
-    {
-        CurrencyManager.OnGoldChanged += Rasie_OnGoldChanged;
-        CurrencyManager.OnFoodChanged += Rasie_OnFoodChanged;
-    }
+    //void SetEvent()
+    //{
+    //    CurrencyManager.OnGoldChanged += Rasie_OnGoldChanged;
+    //    CurrencyManager.OnFoodChanged += Rasie_OnFoodChanged;
+    //}
 
     [HideInInspector]
     public bool isGameStart;
@@ -226,7 +220,7 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     [PunRPC]
     void RPC_OnStart()
     {
-        SetEvent();
+        // SetEvent();
         gameStartButton?.gameObject?.SetActive(false);
         OnGameStart?.Invoke();
         OnGameStart = null;
@@ -238,8 +232,14 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     void Start() => gameObject.AddComponent<RewradController>();
 
 
+
+    //public void AddGold(int _addGold) => CurrencyManager.Gold += _addGold;
     [PunRPC]
-    public void AddGold(int _addGold) => CurrencyManager.Gold += _addGold;
+    public void AddGold(int _addGold)
+    {
+        _currencyManager.AddGold(_addGold);
+        NotifyGoldChange();
+    }
     public void AddGold_RPC(int _addGold, int id)
     {
         if (id == PlayerIdManager.Id)
@@ -248,12 +248,12 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
             photonView.RPC(nameof(AddGold), RpcTarget.Others, _addGold);
     }
 
-    public bool TryUseGold(int gold) => CurrencyManager.TryUseGold(gold);
-    public bool HasGold(int gold) => CurrencyManager.Gold >= gold;
-    public void AddFood(int _addFood) => CurrencyManager.Food += _addFood;
-    public bool TryUseFood(int food) => CurrencyManager.TryUseFood(food);
+    //public bool TryUseGold(int gold) => CurrencyManager.TryUseGold(gold);
+    //public bool HasGold(int gold) => CurrencyManager.Gold >= gold;
+    //public void AddFood(int _addFood) => CurrencyManager.Food += _addFood;
+    //public bool TryUseFood(int food) => CurrencyManager.TryUseFood(food);
 
-    public bool TryUseCurrency(GameCurrencyType currencyType, int quantity) => currencyType == GameCurrencyType.Gold ? TryUseGold(quantity) : TryUseFood(quantity);
+    //public bool TryUseCurrency(GameCurrencyType currencyType, int quantity) => currencyType == GameCurrencyType.Gold ? TryUseGold(quantity) : TryUseFood(quantity);
 
 
 

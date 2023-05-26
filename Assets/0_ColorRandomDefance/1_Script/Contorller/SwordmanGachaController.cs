@@ -25,15 +25,14 @@ public class SwordmanGachaController : MonoBehaviourPun
     public bool TryDrawUnit()
     {
         if (CanDrawUnit() == false) return false;
-        if(_game.TryUseGold(DrawGold))
-            photonView.RPC(nameof(DrawUnit), RpcTarget.MasterClient, PlayerIdManager.Id);
+        if (PhotonNetwork.IsMasterClient)
+            _game.TryUseGold(DrawGold);
+        photonView.RPC(nameof(DrawUnit), RpcTarget.MasterClient, PlayerIdManager.Id);
         return true;
     }
 
     protected bool CanDrawUnit() => _game.UnitOver == false && _game.HasGold(DrawGold);
 }
-
-
 
 public class MasterSwordmanGachaController : SwordmanGachaController
 {
@@ -51,6 +50,8 @@ public class MasterSwordmanGachaController : SwordmanGachaController
     [PunRPC]
     protected override void DrawUnit(byte id)
     {
+        print(_serverManager == null);
+        print(_masterCurrencyManager == null);
         if (_serverManager.GetBattleData(id).UnitOver() == false && _masterCurrencyManager.TryUseGold(DrawGold, id))
             Multi_SpawnManagers.NormalUnit.RPCSpawn(new UnitFlags(SummonUnitColor(), UnitClass.Swordman), id);
     }

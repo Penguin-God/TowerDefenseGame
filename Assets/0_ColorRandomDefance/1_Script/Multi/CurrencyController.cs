@@ -8,7 +8,7 @@ public class CurrencyManagerProxy : MonoBehaviourPun, IBattleCurrencyManager
     IBattleCurrencyManager _currencyManager;
     public void Init(IBattleCurrencyManager currencyManager) => _currencyManager = currencyManager;
 
-    public int CurrentGold => _currencyManager.CurrentGold;
+    public int Gold => _currencyManager.Gold;
     public void AddGold(int amount)
     {
         _currencyManager.AddGold(amount);
@@ -20,7 +20,7 @@ public class CurrencyManagerProxy : MonoBehaviourPun, IBattleCurrencyManager
         RPC_To_Master(nameof(UseGold), amount);
     }
 
-    public int CurrentFood => _currencyManager.CurrentFood;
+    public int Food => _currencyManager.Food;
     public void UseFood(int amount)
     {
         _currencyManager.UseFood(amount);
@@ -64,7 +64,6 @@ public class MasterCurrencyManager : CurrencyManagerProxy
         UseGold((byte)amount, id);
         return result;
     }
-
 
     [PunRPC]
     public override void AddFood(byte amount, byte id) => _server.GetBattleData(id).Food += amount;

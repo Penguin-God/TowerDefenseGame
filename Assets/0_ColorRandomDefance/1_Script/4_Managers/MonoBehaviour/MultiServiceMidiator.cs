@@ -24,7 +24,7 @@ public class MultiServiceMidiator : SingletonPun<MultiServiceMidiator>
         _server = new ServerManager(Managers.Data.Unit.DamageInfoByFlag);
         _unitUpgrade = (PhotonNetwork.IsMasterClient) ? gameObject.AddComponent<ServerUnitUpgradeController>() : gameObject.AddComponent<UnitUpgradeController>();
         _spawner = (PhotonNetwork.IsMasterClient) ? gameObject.AddComponent<MasterSwordmanGachaController>() : gameObject.AddComponent<SwordmanGachaController>();
-        _spawner.Init(Multi_GameManager.Instance);
+        // _spawner.Init(Multi_GameManager.Instance);
         _oppent.Init(new OpponentStatusSynchronizer());
 
         new MultiDataWriteController().Init();

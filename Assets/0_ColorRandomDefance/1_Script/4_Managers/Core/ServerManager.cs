@@ -10,14 +10,21 @@ public class MultiBattleData
     public int Food;
     public int CurrentMonsterCount;
     public int MaxMonsterCount;
+    public bool MonsterOver() => CurrentMonsterCount >= MaxMonsterCount;
+
     public int CurrentUnitCount;
     public int MaxUnitCount;
+    public bool UnitOver() => CurrentUnitCount >= MaxUnitCount;
 }
 
 public class ServerManager
 {
     MultiData<UnitDamageInfoManager> _unitDamageManagers;
-    
+    public ServerManager() 
+    {
+        _units = new MultiData<List<Multi_TeamSoldier>>(() => new List<Multi_TeamSoldier>());
+        _battleData = new MultiData<MultiBattleData>(() => new MultiBattleData());
+    }
     public ServerManager(Dictionary<UnitFlags, UnitDamageInfo> damageInfos)
     {
         _unitDamageManagers = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(new Dictionary<UnitFlags, UnitDamageInfo>(damageInfos)));

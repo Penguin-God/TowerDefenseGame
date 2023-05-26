@@ -34,22 +34,26 @@ public class SwordmanGachaController : MonoBehaviourPun
 }
 
 
+
 public class MasterSwordmanGachaController : SwordmanGachaController
 {
+    MasterCurrencyManager _masterCurrencyManager;
+    ServerManager _serverManager;
+
+    public void Init(ServerManager serverManager)
+    {
+        _serverManager = serverManager;
+        _masterCurrencyManager = base._currencyManager as MasterCurrencyManager;
+        if (_masterCurrencyManager == null)
+            print("이게 왜 null일까?");
+    }
+
     [PunRPC]
     protected override void DrawUnit(byte id)
     {
-        var countData = MultiServiceMidiator.Server.GetBattleData(id);
-        if (countData.MaxUnitCount > countData.CurrentUnitCount && GetMasterCurrencyManager().TryUseGold(DrawGold, id))
+        if (_serverManager.GetBattleData(id).UnitOver() == false && _masterCurrencyManager.TryUseGold(DrawGold, id))
             Multi_SpawnManagers.NormalUnit.RPCSpawn(new UnitFlags(SummonUnitColor(), UnitClass.Swordman), id);
     }
 
-    MasterCurrencyManager GetMasterCurrencyManager()
-    {
-        var result = _currencyManager as MasterCurrencyManager;
-        if (result == null)
-            print("이게 왜 null일까?");
-        return result;
-    }
     UnitColor SummonUnitColor() => (UnitColor)Random.Range(0, (int)(_game.BattleData.UnitSummonData.SummonMaxColor + 1));
 }

@@ -46,8 +46,8 @@ public class UI_Status : UI_Scene
 
     void Init_UI()
     {
-        GetText((int)Texts.GoldText).text = Multi_GameManager.Instance.BattleData.CurrencyManager.Gold.ToString();
-        GetText((int)Texts.FoodText).text = Multi_GameManager.Instance.BattleData.CurrencyManager.Food.ToString();
+        GetText((int)Texts.GoldText).text = Multi_GameManager.Instance.CurrencyManager.Gold.ToString();
+        GetText((int)Texts.FoodText).text = Multi_GameManager.Instance.CurrencyManager.Food.ToString();
         UpdateUnitText(0);
 
         UpdateStage(1);

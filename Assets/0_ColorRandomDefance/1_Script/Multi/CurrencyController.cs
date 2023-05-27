@@ -21,16 +21,15 @@ public class CurrencyManagerProxy : MonoBehaviourPun, IBattleCurrencyManager
     }
 
     public int Food => _currencyManager.Food;
-    public void UseFood(int amount)
-    {
-        _currencyManager.UseFood(amount);
-        RPC_To_Master(nameof(UseFood), amount);
-    }
-
     public void AddFood(int amount)
     {
         _currencyManager.AddFood(amount);
         RPC_To_Master(nameof(AddFood), amount);
+    }
+    public void UseFood(int amount)
+    {
+        _currencyManager.UseFood(amount);
+        RPC_To_Master(nameof(UseFood), amount);
     }
 
     void RPC_To_Master(string methodName, int amount) => photonView.RPC(methodName, RpcTarget.MasterClient, (byte)amount, PlayerIdManager.Id);
@@ -61,8 +60,9 @@ public class MasterCurrencyManager : CurrencyManagerProxy
     public bool TryUseGold(int amount, byte id)
     {
         var result = HasGold(amount, id);
+        print(_server.GetBattleData(id).Gold);
         UseGold((byte)amount, id);
-        print(result);
+        print(_server.GetBattleData(id).Gold);
         return result;
     }
 

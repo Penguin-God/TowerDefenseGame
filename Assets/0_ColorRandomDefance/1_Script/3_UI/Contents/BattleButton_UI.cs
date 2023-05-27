@@ -36,6 +36,11 @@ public class BattleButton_UI : UI_Scene
         GetButton((int)Buttons.Create_Defenser_Button).onClick.AddListener(SommonUnit);
     }
 
+    public void SetInfo(SwordmanGachaController swordmanGachaController)
+    {
+        _swordmanGachaController = swordmanGachaController;
+    }
+
     void CameraPositionChanged()
     {
         Managers.UI.CloseAllPopupUI();
@@ -52,6 +57,7 @@ public class BattleButton_UI : UI_Scene
         }
     }
 
+    SwordmanGachaController _swordmanGachaController;
     void SommonUnit()
     {
         if (Multi_GameManager.Instance.UnitOver)
@@ -61,7 +67,7 @@ public class BattleButton_UI : UI_Scene
             return;
         }
 
-        if (MultiServiceMidiator.Spawner.TryDrawUnit())
+        if (_swordmanGachaController.TryDrawUnit())
             Managers.Sound.PlayEffect(EffectSoundType.DrawSwordman);
     }
 }

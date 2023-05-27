@@ -62,6 +62,7 @@ public class MasterCurrencyManager : CurrencyManagerProxy
     {
         var result = HasGold(amount, id);
         UseGold((byte)amount, id);
+        print(result);
         return result;
     }
 

@@ -68,7 +68,7 @@ class UserSkillInitializer
 class WorldInitializer
 {
     GameObject monoBehaviourContainer;
-
+    BattleDIContainer _battleDIContainer;
     public WorldInitializer(GameObject go)
     {
         monoBehaviourContainer = go;
@@ -76,7 +76,9 @@ class WorldInitializer
 
     public void Init()
     {
-        new MultiInitializer().InjectionBattleDependency(monoBehaviourContainer.AddComponent<BattleDIContainer>());
+        _battleDIContainer = monoBehaviourContainer.AddComponent<BattleDIContainer>();
+        new MultiInitializer().InjectionBattleDependency(_battleDIContainer);
+
         InitMonoBehaviourContainer();
         Multi_SpawnManagers.Instance.Init();
         Show_UI();
@@ -124,7 +126,7 @@ class WorldInitializer
     {
         Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
         Managers.UI.ShowSceneUI<UI_Status>();
-        Managers.UI.ShowSceneUI<BattleButton_UI>();
+        Managers.UI.ShowSceneUI<BattleButton_UI>().SetInfo(_battleDIContainer.GetService<SwordmanGachaController>());
 
         var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();
         enemySelector.SetInfo(monoBehaviourContainer.GetOrAddComponent<EnemySpawnNumManager>());

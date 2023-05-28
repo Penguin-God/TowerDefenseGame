@@ -45,7 +45,15 @@ public class UnitManager
     public event Action OnFailedCombine = null;
     public IEnumerable<UnitFlags> CombineableUnitFlags => _combineSystem.GetCombinableUnitFalgs(GetUnitCount);
 
-    public bool TryCombine(UnitFlags flag) => _contoller.TryCombine(flag);
+    public bool TryCombine(UnitFlags flag)
+    {
+        var result = _contoller.TryCombine(flag);
+        if (result)
+            OnCombine?.Invoke(flag);
+        else
+            OnFailedCombine?.Invoke();
+        return result;
+    }
 
     public Multi_TeamSoldier FindUnit(UnitFlags flag) => FindUnit(x => x.UnitFlags == flag);
     public bool TryFindUnit(Func<Multi_TeamSoldier, bool> condition, out Multi_TeamSoldier result)

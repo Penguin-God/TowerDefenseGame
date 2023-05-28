@@ -26,6 +26,7 @@ public class BattleDataContainer : ScriptableObject
         result.MaxUnit = MaxUnit;
         result.MaxEnemy = MaxEnemy;
         result.UnitSummonData = UnitSummonData;
+        result.YellowKnightCombineGold = YellowKnightCombineGold;
         result.MaxUnitIncreasePriceData = MaxUnitIncreasePriceData.Cloen();
         result.UnitSellRewardDatas = UnitSellRewardDatas.ToArray();
         result.WhiteUnitPriceDatas = WhiteUnitPriceDatas.ToArray();

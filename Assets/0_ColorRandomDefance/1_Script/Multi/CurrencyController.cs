@@ -8,10 +8,10 @@ public class CurrencyManagerMediator : MonoBehaviourPun, IBattleCurrencyManager
     ServerManager _server;
     Multi_GameManager _game;
 
-    void Awake()
+    public void Init(ServerManager server, Multi_GameManager game)
     {
-        _server = MultiServiceMidiator.Server;
-        _game = Multi_GameManager.Instance;
+        _server = server;
+        _game = game;
     }
 
     public int Gold { get; set; }

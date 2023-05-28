@@ -21,8 +21,6 @@ public class SwordmanGachaController : MonoBehaviourPun
     public bool TryDrawUnit()
     {
         if (CanDrawUnit() == false) return false;
-        if(PhotonNetwork.IsMasterClient == false)
-            _game.TryUseGold(DrawGold);
         photonView.RPC(nameof(DrawUnit), RpcTarget.MasterClient, PlayerIdManager.Id);
         return true;
     }

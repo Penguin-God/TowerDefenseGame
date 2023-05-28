@@ -21,6 +21,10 @@ public class CurrencyManagerProxy : MonoBehaviourPun, IBattleCurrencyManager
     }
 
     public int Food => _currencyManager.Food;
+
+    int IBattleCurrencyManager.Gold { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+    int IBattleCurrencyManager.Food { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
+
     public void AddFood(int amount)
     {
         _currencyManager.AddFood(amount);
@@ -48,9 +52,7 @@ public class MasterCurrencyManager : CurrencyManagerProxy
     ServerManager _server;
     public void Init(ServerManager server) => _server = server;
 
-    [PunRPC]
     public override void AddGold(byte amount, byte id) => _server.GetBattleData(id).Gold += amount;
-    [PunRPC]
     public override void UseGold(byte amount, byte id)
     {
         if(HasGold(amount, id))
@@ -64,9 +66,7 @@ public class MasterCurrencyManager : CurrencyManagerProxy
         return result;
     }
 
-    [PunRPC]
     public override void AddFood(byte amount, byte id) => _server.GetBattleData(id).Food += amount;
-    [PunRPC]
     public override void UseFood(byte amount, byte id)
     {
         if (HasFood(amount, id))
@@ -80,12 +80,20 @@ public class CurrencyManagerMediator : MonoBehaviourPun, IBattleCurrencyManager
 {
     MasterCurrencyManager _masterCurrencyManager;
     ServerManager _server;
+    Multi_GameManager _game;
 
-    public int Gold => 0;
+    void Awake()
+    {
+        _server = MultiServiceMidiator.Server;
+        _masterCurrencyManager = gameObject.GetComponent<MasterCurrencyManager>();
+        _game = Multi_GameManager.Instance;
+    }
+
+    public int Gold { get; set; }
     public void AddGold(int amount) => RPC_To_Master(nameof(AddGold), amount);
     public void UseGold(int amount) => RPC_To_Master(nameof(UseGold), amount);
 
-    public int Food => 0;
+    public int Food { get; set; }
     public void AddFood(int amount) => RPC_To_Master(nameof(AddFood), amount);
     public void UseFood(int amount) => RPC_To_Master(nameof(UseFood), amount);
 
@@ -117,6 +125,13 @@ public class CurrencyManagerMediator : MonoBehaviourPun, IBattleCurrencyManager
         SyncFood(id);
     }
 
+    public bool TryUseGold(int amount, byte id)
+    {
+        var result = _masterCurrencyManager.TryUseGold(amount, id);
+        SyncGold(id);
+        return result;
+    }
+
     void SyncGold(byte id)
     {
         if (PlayerIdManager.MasterId == id)
@@ -133,6 +148,6 @@ public class CurrencyManagerMediator : MonoBehaviourPun, IBattleCurrencyManager
             photonView.RPC(nameof(OverrideFood), RpcTarget.Others, _server.GetBattleData(id).Food);
     }
 
-    [PunRPC] void OverrideGold(int amount) { }
-    [PunRPC] void OverrideFood(int amount) { }
+    [PunRPC] void OverrideGold(int amount) => _game.UpdateGold(amount);
+    [PunRPC] void OverrideFood(int amount) => _game.UpdateFood(amount);
 }

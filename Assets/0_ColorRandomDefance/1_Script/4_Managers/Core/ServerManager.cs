@@ -6,8 +6,7 @@ using System.Linq;
 
 public class MultiBattleData
 {
-    public int Gold;
-    public int Food;
+    public CurrencyManager CurrencyManager { get; private set; } = new CurrencyManager();
     public int CurrentMonsterCount;
     public int MaxMonsterCount;
     public bool MonsterOver() => CurrentMonsterCount >= MaxMonsterCount;
@@ -20,11 +19,6 @@ public class MultiBattleData
 public class ServerManager
 {
     MultiData<UnitDamageInfoManager> _unitDamageManagers;
-    public ServerManager() 
-    {
-        _units = new MultiData<List<Multi_TeamSoldier>>(() => new List<Multi_TeamSoldier>());
-        _battleData = new MultiData<MultiBattleData>(() => new MultiBattleData());
-    }
     public ServerManager(Dictionary<UnitFlags, UnitDamageInfo> damageInfos)
     {
         _unitDamageManagers = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(new Dictionary<UnitFlags, UnitDamageInfo>(damageInfos)));

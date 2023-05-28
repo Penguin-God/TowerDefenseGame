@@ -32,16 +32,12 @@ public class SwordmanGachaController : MonoBehaviourPun
 
 public class MasterSwordmanGachaController : SwordmanGachaController
 {
-    MasterCurrencyManager _masterCurrencyManager;
     CurrencyManagerMediator _currencyManagerMediator;
     ServerManager _serverManager;
     public void Init(ServerManager serverManager, CurrencyManagerMediator currencyManagerMediator)
     {
         _serverManager = serverManager;
-        _masterCurrencyManager = base._currencyManager as MasterCurrencyManager;
         _currencyManagerMediator = currencyManagerMediator;
-        if (_masterCurrencyManager == null)
-            print("이게 왜 null일까?");
     }
 
     [PunRPC]

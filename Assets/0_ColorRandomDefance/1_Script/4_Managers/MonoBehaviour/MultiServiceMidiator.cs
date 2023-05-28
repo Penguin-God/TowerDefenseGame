@@ -11,23 +11,17 @@ public class MultiServiceMidiator : SingletonPun<MultiServiceMidiator>
     static ServerManager _server;
     static UnitUpgradeController _unitUpgrade;
     static OppentStatusManager _oppent = new OppentStatusManager();
-    static SwordmanGachaController _spawner;
-
+    
     public static ServerManager Server => _server;
     public static UnitUpgradeController UnitUpgrade => _unitUpgrade;
     public static OppentStatusManager Oppent => _oppent;
-    public static SwordmanGachaController Spawner => _spawner;
-
+    
     public override void Init()
     {
         base.Init();
         _server = new ServerManager(Managers.Data.Unit.DamageInfoByFlag);
         _unitUpgrade = (PhotonNetwork.IsMasterClient) ? gameObject.AddComponent<ServerUnitUpgradeController>() : gameObject.AddComponent<UnitUpgradeController>();
-        _spawner = (PhotonNetwork.IsMasterClient) ? gameObject.AddComponent<MasterSwordmanGachaController>() : gameObject.AddComponent<SwordmanGachaController>();
-        // _spawner.Init(Multi_GameManager.Instance);
         _oppent.Init(new OpponentStatusSynchronizer());
-
-        new MultiDataWriteController().Init();
     }
 }
 

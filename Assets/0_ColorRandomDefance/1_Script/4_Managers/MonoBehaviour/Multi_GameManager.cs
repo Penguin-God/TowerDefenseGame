@@ -91,26 +91,22 @@ public interface IBattleCurrencyManager
 [Serializable]
 public class CurrencyManager : IBattleCurrencyManager
 {
-    [SerializeField] int _gold;
-
-    [SerializeField] int _food;
-
     public int Gold { get; set; }
     public int Food { get; set; }
 
-    public void AddGold(int amount) => _gold += amount;
+    public void AddGold(int amount) => Gold += amount;
     public void UseGold(int amount)
     {
-        if(_gold >= amount)
-            _gold -= amount;
+        if(Gold >= amount)
+            Gold -= amount;
     }
 
-    public void AddFood(int amount) => _food += amount;
+    public void AddFood(int amount) => Food += amount;
 
     public void UseFood(int amount)
     {
-        if(_food >= amount)
-            _food -= amount;
+        if(Food >= amount)
+            Food -= amount;
     }
 }
 

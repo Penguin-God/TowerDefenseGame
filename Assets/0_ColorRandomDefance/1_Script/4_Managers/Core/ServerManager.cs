@@ -7,13 +7,31 @@ using System.Linq;
 public class MultiBattleData
 {
     public CurrencyManager CurrencyManager { get; private set; } = new CurrencyManager();
-    public int CurrentMonsterCount;
-    public int MaxMonsterCount;
-    public bool MonsterOver() => CurrentMonsterCount >= MaxMonsterCount;
-
+    
     public int CurrentUnitCount;
     public int MaxUnitCount;
     public bool UnitOver() => CurrentUnitCount >= MaxUnitCount;
+}
+
+public class UnitsData
+{
+    public int CurrentUnitCount { get; private set; }
+    public int MaxUnitCount;
+    public List<Multi_TeamSoldier> _units = new List<Multi_TeamSoldier>();
+    public IReadOnlyList<Multi_TeamSoldier> Units => _units;
+    public bool UnitOver() => CurrentUnitCount >= MaxUnitCount;
+
+    public void AddUnit(Multi_TeamSoldier unit)
+    {
+        _units.Add(unit);
+        CurrentUnitCount = _units.Count;
+    }
+
+    public void RemoveUnit(Multi_TeamSoldier unit)
+    {
+        _units.Remove(unit);
+        CurrentUnitCount = _units.Count;
+    }
 }
 
 public class ServerManager
@@ -22,6 +40,7 @@ public class ServerManager
     public ServerManager(Dictionary<UnitFlags, UnitDamageInfo> damageInfos)
     {
         _unitDamageManagers = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(new Dictionary<UnitFlags, UnitDamageInfo>(damageInfos)));
+        _unitsData = new MultiData<UnitsData>(() => new UnitsData());
         _units = new MultiData<List<Multi_TeamSoldier>>(() => new List<Multi_TeamSoldier>());
         _battleData = new MultiData<MultiBattleData>(() => new MultiBattleData());
     }
@@ -41,16 +60,19 @@ public class ServerManager
         => _unitDamageInfoChanger.ScaleUnitDamageValue(GetUnitDamageInfoManager(playerId), condition, value, changeStatType);
 
     MultiData<List<Multi_TeamSoldier>> _units;
-    public IReadOnlyList<Multi_TeamSoldier> GetUnits(byte playerId) => _units.GetData(playerId);
+    public IReadOnlyList<Multi_TeamSoldier> GetUnits(byte playerId) => _unitsData.GetData(playerId).Units;
     public void AddUnit(Multi_TeamSoldier unit)
     {
-        _units.GetData(unit.UsingID).Add(unit);
-        unit.OnDead += RemoveUnit;
+        _unitsData.GetData(unit.UsingID).AddUnit(unit);
+        unit.OnDead += _unitsData.GetData(unit.UsingID).RemoveUnit;
     }
     void RemoveUnit(Multi_TeamSoldier unit) =>  _units.GetData(unit.UsingID).Remove(unit);
 
     MultiData<MultiBattleData> _battleData;
     public MultiBattleData GetBattleData(byte id) => _battleData.GetData(id);
+
+    MultiData<UnitsData> _unitsData;
+    public UnitsData GetUnitCountData(byte id) => _unitsData.GetData(id);
 }
 
 

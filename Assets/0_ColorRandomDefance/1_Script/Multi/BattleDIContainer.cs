@@ -20,13 +20,12 @@ public class MultiInitializer
 
         // set
         container.GetService<SwordmanGachaController>().Init(Multi_GameManager.Instance, container.GetService<IBattleCurrencyManager>());
-        container.GetService<CurrencyManagerMediator>().Init(null, Multi_GameManager.Instance);
+        container.GetService<CurrencyManagerMediator>().Init(Multi_GameManager.Instance);
         container.GetService<UnitMaxCountController>().Init(null, Multi_GameManager.Instance);
 
         if (PhotonNetwork.IsMasterClient)
         {
             var server = MultiServiceMidiator.Server;
-            container.GetService<CurrencyManagerMediator>().Init(server, Multi_GameManager.Instance);
             container.GetService<MasterSwordmanGachaController>().Init(server, container.GetService<CurrencyManagerMediator>());
             container.GetService<UnitMaxCountController>().Init(server, Multi_GameManager.Instance);
         }

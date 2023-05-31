@@ -34,3 +34,8 @@ public class MultiData<T>
     public T GetData(byte id) => _services[id];
     public IEnumerable<T> Services => _services;
 }
+
+public static class MultiDataFactory
+{
+    public static MultiData<T> CreateMultiData<T>() where T : new() => new MultiData<T>(() => new T());
+}

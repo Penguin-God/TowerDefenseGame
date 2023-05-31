@@ -3,15 +3,6 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-public class MultiBattleData
-{
-    public CurrencyManager CurrencyManager { get; private set; } = new CurrencyManager();
-    
-    public int CurrentUnitCount;
-    public int MaxUnitCount;
-    public bool UnitOver() => CurrentUnitCount >= MaxUnitCount;
-}
-
 public class UnitsData
 {
     public int CurrentUnitCount { get; private set; }
@@ -50,7 +41,6 @@ public class ServerManager
     {
         _unitDamageManagers = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(new Dictionary<UnitFlags, UnitDamageInfo>(damageInfos)));
         _unitsData = new MultiData<UnitsData>(() => new UnitsData());
-        _battleData = new MultiData<MultiBattleData>(() => new MultiBattleData());
     }
 
     public UnitDamageInfo UnitDamageInfo(byte id, UnitFlags flag) => GetUnitDamageInfoManager(id).GetDamageInfo(flag);
@@ -73,9 +63,6 @@ public class ServerManager
         _unitsData.GetData(unit.UsingID).AddUnit(unit);
         unit.OnDead += _unitsData.GetData(unit.UsingID).RemoveUnit;
     }
-
-    MultiData<MultiBattleData> _battleData;
-    public MultiBattleData GetBattleData(byte id) => _battleData.GetData(id);
 
     MultiData<UnitsData> _unitsData;
     public UnitsData GetUnitstData(byte id) => _unitsData.GetData(id);

@@ -5,12 +5,12 @@ using Photon.Pun;
 
 public class CurrencyManagerMediator : MonoBehaviourPun, IBattleCurrencyManager
 {
-    ServerManager _server;
     Multi_GameManager _game;
+    MultiData<CurrencyManager> _multiCurrencyManager;
 
-    public void Init(ServerManager server, Multi_GameManager game)
+    public void Init(Multi_GameManager game)
     {
-        _server = server;
+        _multiCurrencyManager = MultiDataFactory.CreateMultiData<CurrencyManager>();
         _game = game;
     }
 
@@ -24,7 +24,7 @@ public class CurrencyManagerMediator : MonoBehaviourPun, IBattleCurrencyManager
 
     void RPC_To_Master(string methodName, int amount) => photonView.RPC(methodName, RpcTarget.MasterClient, (byte)amount, PlayerIdManager.Id);
 
-    CurrencyManager GetCurrencyManager(byte id) => _server.GetBattleData(id).CurrencyManager;
+    CurrencyManager GetCurrencyManager(byte id) => _multiCurrencyManager.GetData(id);
 
     [PunRPC]
     public virtual void AddGold(byte amount, byte id)

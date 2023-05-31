@@ -135,6 +135,7 @@ MonoBehaviour:
   - OverrideFood
   - IncreasedMaxUnitCount
   - OverrideMaxCount
+  - AddNormalMonster
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

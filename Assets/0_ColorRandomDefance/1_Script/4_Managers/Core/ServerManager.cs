@@ -33,6 +33,16 @@ public class UnitsData
     }
 }
 
+public class MultiServiceLocator : Singleton<MultiServiceLocator>
+{
+    IDictionary<Type, object> _services = new Dictionary<Type, object>();
+
+    public void RegisterService<T>() where T : new() => RegisterService(() => new T());
+    void RegisterService<T>(Func<T> service) => _services[typeof(T)] = new MultiData<T>(service);
+
+    public T GetService<T>(byte id) => ((MultiData<T>)_services[typeof(T)]).GetData(id);
+}
+
 public class ServerManager
 {
     MultiData<UnitDamageInfoManager> _unitDamageManagers;

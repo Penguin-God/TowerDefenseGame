@@ -60,7 +60,7 @@ public class StartFood : UserSkill
 public class MaxUnit : UserSkill
 {
     public override void InitSkill()
-        => Multi_GameManager.Instance.BattleData.MaxUnit += IntSkillData;
+        => Multi_GameManager.Instance.IncreasedMaxUnitCount(IntSkillData);
 }
 
 public class Taegeuk : UserSkill

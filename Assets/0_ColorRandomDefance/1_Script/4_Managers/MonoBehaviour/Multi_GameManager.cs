@@ -181,11 +181,14 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     [PunRPC]
     public void CreateOtherPlayerData(SkillType mainSkill, SkillType subSkill) => _otherPlayerData = new OtherPlayerData(mainSkill, subSkill);
 
+    UnitMaxCountController _unitMaxCountController;
+    public void IncreasedMaxUnitCount(int amount) => _unitMaxCountController.IncreasedMaxUnitCount(amount);
+
     // 임시
     [SerializeField] Button gameStartButton;
     [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
     [SerializeField] BattleDataContainer _battleDataContainer;
-    public void Init(IBattleCurrencyManager currencyManager)
+    public void Init(IBattleCurrencyManager currencyManager, UnitMaxCountController unitMaxCountController)
     {
         base.Init();
 
@@ -193,6 +196,9 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
         _battleData = new BattleDataManager(_battleDataContainer, _unitUpgradeShopData);
         AddGold(_battleDataContainer.Gold);
         AddFood(_battleDataContainer.Food);
+        _unitMaxCountController = unitMaxCountController;
+        IncreasedMaxUnitCount(_battleDataContainer.MaxUnit);
+
         Managers.Sound.PlayBgm(BgmType.Default);
         if (PhotonNetwork.IsConnected)
             photonView.RPC(nameof(CreateOtherPlayerData), RpcTarget.Others, Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);

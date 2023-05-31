@@ -41,8 +41,7 @@ public class MasterSwordmanGachaController : SwordmanGachaController
     [PunRPC]
     protected override void DrawUnit(byte id)
     {
-        // _serverManager.GetBattleData(id).UnitOver() == false && 
-        if (_currencyManagerMediator.TryUseGold(DrawGold, id))
+        if (_serverManager.GetUnitstData(id).UnitOver() == false && _currencyManagerMediator.TryUseGold(DrawGold, id))
             Multi_SpawnManagers.NormalUnit.RPCSpawn(new UnitFlags(SummonUnitColor(), UnitClass.Swordman), id);
     }
 

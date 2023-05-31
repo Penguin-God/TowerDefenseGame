@@ -1,5 +1,4 @@
-﻿using Photon.Pun;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using System;
 using System.Linq;
@@ -41,7 +40,6 @@ public class ServerManager
     {
         _unitDamageManagers = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(new Dictionary<UnitFlags, UnitDamageInfo>(damageInfos)));
         _unitsData = new MultiData<UnitsData>(() => new UnitsData());
-        _units = new MultiData<List<Multi_TeamSoldier>>(() => new List<Multi_TeamSoldier>());
         _battleData = new MultiData<MultiBattleData>(() => new MultiBattleData());
     }
 
@@ -59,20 +57,18 @@ public class ServerManager
     public void ScaleUnitDamageValue(byte playerId, Func<UnitFlags, bool> condition, float value, UnitStatType changeStatType)
         => _unitDamageInfoChanger.ScaleUnitDamageValue(GetUnitDamageInfoManager(playerId), condition, value, changeStatType);
 
-    MultiData<List<Multi_TeamSoldier>> _units;
     public IReadOnlyList<Multi_TeamSoldier> GetUnits(byte playerId) => _unitsData.GetData(playerId).Units;
     public void AddUnit(Multi_TeamSoldier unit)
     {
         _unitsData.GetData(unit.UsingID).AddUnit(unit);
         unit.OnDead += _unitsData.GetData(unit.UsingID).RemoveUnit;
     }
-    void RemoveUnit(Multi_TeamSoldier unit) =>  _units.GetData(unit.UsingID).Remove(unit);
 
     MultiData<MultiBattleData> _battleData;
     public MultiBattleData GetBattleData(byte id) => _battleData.GetData(id);
 
     MultiData<UnitsData> _unitsData;
-    public UnitsData GetUnitCountData(byte id) => _unitsData.GetData(id);
+    public UnitsData GetUnitstData(byte id) => _unitsData.GetData(id);
 }
 
 

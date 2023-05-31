@@ -16,19 +16,22 @@ public class MultiInitializer
         // add
         AddMultiService<SwordmanGachaController, MasterSwordmanGachaController>(container);
         container.AddService<CurrencyManagerMediator>();
+        container.AddService<UnitMaxCountController>();
 
         // set
         container.GetService<SwordmanGachaController>().Init(Multi_GameManager.Instance, container.GetService<IBattleCurrencyManager>());
         container.GetService<CurrencyManagerMediator>().Init(null, Multi_GameManager.Instance);
+        container.GetService<UnitMaxCountController>().Init(null, Multi_GameManager.Instance);
 
         if (PhotonNetwork.IsMasterClient)
         {
             var server = MultiServiceMidiator.Server;
             container.GetService<CurrencyManagerMediator>().Init(server, Multi_GameManager.Instance);
             container.GetService<MasterSwordmanGachaController>().Init(server, container.GetService<CurrencyManagerMediator>());
+            container.GetService<UnitMaxCountController>().Init(server, Multi_GameManager.Instance);
         }
 
-        Multi_GameManager.Instance.Init(container.GetService<CurrencyManagerMediator>());
+        Multi_GameManager.Instance.Init(container.GetService<CurrencyManagerMediator>(), container.GetService<UnitMaxCountController>());
     }
 
     void AddMultiService<TClient, TMaster> (BattleDIContainer container) where TClient : MonoBehaviour where TMaster : MonoBehaviour

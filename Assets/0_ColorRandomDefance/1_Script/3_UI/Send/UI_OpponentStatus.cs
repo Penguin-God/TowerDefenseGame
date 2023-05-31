@@ -70,6 +70,7 @@ public class UI_OpponentStatus : UI_Scene
     {
         GetText((int)GetTextsByClass(unitClass)).text = count.ToString(); 
 
+        // 중첩 함수
         Texts GetTextsByClass(UnitClass unitClass)
         {
             switch (unitClass)

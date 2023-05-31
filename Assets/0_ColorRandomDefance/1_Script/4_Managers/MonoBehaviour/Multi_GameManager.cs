@@ -19,7 +19,7 @@ public class BattleDataManager
     [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
     public UnitUpgradeShopData UnitUpgradeShopData => _unitUpgradeShopData;
 
-    public BattleDataManager(BattleDataContainer startData, UnitUpgradeShopData unitUpgradeShopData)
+    public void Init(BattleDataContainer startData, UnitUpgradeShopData unitUpgradeShopData)
     {
         _battleData = startData.Clone();
         UnitSummonData = startData.UnitSummonData;
@@ -43,7 +43,7 @@ public class BattleDataManager
     public IReadOnlyList<CurrencyData> WhiteUnitShopPriceDatas => _battleData.WhiteUnitPriceDatas;
     public CurrencyData MaxUnitIncreasePriceData => _battleData.MaxUnitIncreasePriceData;
 
-    public readonly IReadOnlyDictionary<UnitUpgradeGoodsData, CurrencyData> ShopPriceDataByUnitUpgradeData;
+    public IReadOnlyDictionary<UnitUpgradeGoodsData, CurrencyData> ShopPriceDataByUnitUpgradeData;
     public IEnumerable<CurrencyData> GetAllShopPriceDatas() 
         => ShopPriceDataByUnitUpgradeData.Values
             .Concat(WhiteUnitShopPriceDatas)
@@ -127,7 +127,7 @@ public class OtherPlayerData
 
 public class Multi_GameManager : SingletonPun<Multi_GameManager>
 {
-    [SerializeField] BattleDataManager _battleData;
+    [SerializeField] BattleDataManager _battleData = new BattleDataManager();
     public BattleDataManager BattleData => _battleData;
     
     public event Action<int> OnGoldChanged;
@@ -193,7 +193,7 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
         base.Init();
 
         _currencyManager = currencyManager;
-        _battleData = new BattleDataManager(_battleDataContainer, _unitUpgradeShopData);
+        _battleData.Init(_battleDataContainer, _unitUpgradeShopData);
         AddGold(_battleDataContainer.Gold);
         AddFood(_battleDataContainer.Food);
         _unitMaxCountController = unitMaxCountController;

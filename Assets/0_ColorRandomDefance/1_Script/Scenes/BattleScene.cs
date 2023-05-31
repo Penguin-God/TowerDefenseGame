@@ -18,7 +18,6 @@ public class BattleScene : BaseScene
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
 
-        Multi_GameManager.Instance.Init();
         MultiServiceMidiator.Instance.Init();
         Managers.Unit.Init(new UnitControllerAttacher().AttacherUnitController(MultiServiceMidiator.Instance.gameObject), Managers.Data);
 

@@ -16,6 +16,8 @@ public class MultiManager
         return PhotonView.Find(viewID).transform;
     }
 
+    public T GetPhotonViewComponent<T>(int viewID) => GetPhotonViewTransfrom(viewID).GetComponent<T>();
+
     public class MultiInstantiater : IInstantiater
     {
         public GameObject Instantiate(string path) // interface

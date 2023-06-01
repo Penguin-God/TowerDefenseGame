@@ -7,5 +7,5 @@ public interface IMonsterManager
 {
     public void RegisterMonsterCountChange(Action<int> OnCountChange);
     public void AddNormalMonster(Multi_NormalEnemy multi_NormalEnemy);
-    // public IReadOnlyList<Multi_NormalEnemy> GetNormalMonsters();
+    public void RemoveNormalMonster(Multi_NormalEnemy monster);
 }

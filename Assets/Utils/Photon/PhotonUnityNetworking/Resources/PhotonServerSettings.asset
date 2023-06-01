@@ -136,6 +136,7 @@ MonoBehaviour:
   - IncreasedMaxUnitCount
   - OverrideMaxCount
   - AddNormalMonster
+  - NotifyNormalMonsterCountChange
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

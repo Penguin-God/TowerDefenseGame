@@ -14,7 +14,7 @@ public class MonsterManager : IMonsterManager
         _normalMonsters.Add(multi_NormalEnemy);
         NotifyNormalCountChange();
     }
-    public void RemoveMonster(Multi_NormalEnemy multi_NormalEnemy)
+    public void RemoveNormalMonster(Multi_NormalEnemy multi_NormalEnemy)
     {
         _normalMonsters.Remove(multi_NormalEnemy);
         NotifyNormalCountChange();

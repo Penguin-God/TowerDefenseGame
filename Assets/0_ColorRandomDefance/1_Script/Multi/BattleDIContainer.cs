@@ -17,6 +17,7 @@ public class MultiInitializer
         AddMultiService<SwordmanGachaController, MasterSwordmanGachaController>(container);
         container.AddService<CurrencyManagerMediator>();
         container.AddService<UnitMaxCountController>();
+        IMonsterManager monsterManagerProxy = container.AddService<MonsterManagerProxy>();
 
         // set
         container.GetService<SwordmanGachaController>().Init(Multi_GameManager.Instance, container.GetService<IBattleCurrencyManager>());
@@ -26,6 +27,9 @@ public class MultiInitializer
         if (PhotonNetwork.IsMasterClient)
         {
             var server = MultiServiceMidiator.Server;
+            var monsterSpawnController = container.AddService<MonsterSpawnerContorller>();
+
+            monsterSpawnController.Init(monsterManagerProxy);
             container.GetService<MasterSwordmanGachaController>().Init(server, container.GetService<CurrencyManagerMediator>());
             container.GetService<UnitMaxCountController>().Init(server, Multi_GameManager.Instance);
         }

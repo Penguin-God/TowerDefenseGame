@@ -96,7 +96,6 @@ class WorldInitializer
 
     void InitMonoBehaviourContainer()
     {
-        monoBehaviourContainer.AddComponent<MonsterSpawnerContorller>();
         monoBehaviourContainer.AddComponent<UnitColorChangerRpcHandler>();
         monoBehaviourContainer.AddComponent<WinOrLossController>();
     }

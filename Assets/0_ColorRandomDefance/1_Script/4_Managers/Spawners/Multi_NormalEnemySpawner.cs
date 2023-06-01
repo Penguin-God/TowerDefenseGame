@@ -38,6 +38,11 @@ public class EnemySpawnNumManager : MonoBehaviourPun
 public class MonsterSpawnerContorller : MonoBehaviour
 {
     EnemySpawnNumManager _numManager;
+    IMonsterManager _monsterManager = null;
+    public void Init(IMonsterManager monsterManager)
+    {
+        _monsterManager = monsterManager;
+    }
 
     void Start()
     {
@@ -55,8 +60,15 @@ public class MonsterSpawnerContorller : MonoBehaviour
         StartCoroutine(Co_StageSpawn(1, stage));
     }
 
-    Multi_NormalEnemy SpawnMonsterToOther(byte num, int id, int stage) 
-        => new NormalMonsterSpawner().SpawnMonster(num, (byte)(id == 0 ? 1 : 0), stage);
+    Multi_NormalEnemy SpawnMonsterToOther(byte num, int id, int stage) => SpawnNormalMonster(num, (byte)(id == 0 ? 1 : 0), stage);
+
+    Multi_NormalEnemy SpawnNormalMonster(byte num, byte id, int stage)
+    {
+        var monster = new NormalMonsterSpawner().SpawnMonster(num, id, stage);
+        _monsterManager.AddNormalMonster(monster);
+        monster.OnDead += _ => _monsterManager.RemoveNormalMonster(monster); // event interface 맞추려는 람다식
+        return monster;
+    }
 
     [SerializeField] float _spawnDelayTime = 1.8f;
     [SerializeField] int _stageSpawnCount = 15;
@@ -65,7 +77,7 @@ public class MonsterSpawnerContorller : MonoBehaviour
         byte num = _numManager.GetSpawnEnemyNum(id);
         for (int i = 0; i < _stageSpawnCount; i++)
         {
-            var enemy = SpawnMonsterToOther(num, id, stage); // num 인라인 안 한 이유는 스테이지 한 번 들어가면 못 바꾸게 할려고
+            var enemy = SpawnNormalMonster(num, id, stage); // num 인라인 안 한 이유는 스테이지 한 번 들어가면 못 바꾸게 할려고
             enemy.OnDead += (died) => ResurrectionMonsterToOther(enemy);
             yield return new WaitForSeconds(_spawnDelayTime);
         }

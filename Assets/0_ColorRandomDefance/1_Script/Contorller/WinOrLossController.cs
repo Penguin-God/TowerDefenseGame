@@ -4,21 +4,40 @@ using Photon.Pun;
 
 public class WinOrLossController : MonoBehaviourPun
 {
-    void Start()
+    public void Init(BattleEventDispatcher dispatcher)
     {
-        Multi_EnemyManager.Instance.OnEnemyCountChanged += CheckGameOver;
+        dispatcher.OnMonsterCountChanged -= CheckMasterOver;
+        dispatcher.OnMonsterCountChanged += CheckMasterOver;
+
+        dispatcher.OnOppentMonsterCountChange -= CheckClientOver;
+        dispatcher.OnOppentMonsterCountChange += CheckClientOver;
     }
 
-    void CheckGameOver(int enemyCount)
+    void CheckMasterOver(int monsterCount)
     {
-        if (enemyCount >= Multi_GameManager.Instance.BattleData.MaxEnemyCount)
-        {
-            Lose();
-            photonView.RPC(nameof(Win), RpcTarget.Others);
-        }
+        if (CheckGameOver(monsterCount))
+            GameEnd(PlayerIdManager.MasterId);
     }
+
+    void CheckClientOver(int monsterCount)
+    {
+        if (CheckGameOver(monsterCount))
+            GameEnd(PlayerIdManager.ClientId);
+    }
+
+    bool CheckGameOver(int monsterCount) => monsterCount >= Multi_GameManager.Instance.BattleData.MaxEnemyCount;
+
 
     [PunRPC]
+    void GameEnd(byte loserId)
+    {
+        if (loserId == PlayerIdManager.Id)
+            Lose();
+        else
+            Win();
+        
+    }
+
     void Win() => GameEnd("승리");
     void Lose() => GameEnd("패배");
 

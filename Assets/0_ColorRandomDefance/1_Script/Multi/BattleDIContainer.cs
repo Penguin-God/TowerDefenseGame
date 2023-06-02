@@ -20,6 +20,7 @@ public class MultiInitializer
         container.AddService<CurrencyManagerMediator>();
         container.AddService<UnitMaxCountController>();
         IMonsterManager monsterManagerProxy = container.AddService<MonsterManagerProxy>();
+        container.AddService<WinOrLossController>().Init(dispatcher);
 
         // set
         container.GetService<SwordmanGachaController>().Init(Multi_GameManager.Instance, container.GetService<IBattleCurrencyManager>());

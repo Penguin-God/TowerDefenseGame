@@ -14,7 +14,7 @@ public class TutorialScene : BaseScene
         Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").gameObject.SetActive(false);
         gameObject.AddComponent<Tutorial_AI>();
         Multi_GameManager.Instance.CreateOtherPlayerData(SkillType.검은유닛강화, SkillType.판매보상증가);
-        Multi_EnemyManager.Instance.OnOtherEnemyCountChanged += CheckGameOver;
+        // Multi_EnemyManager.Instance.OnOtherEnemyCountChanged += CheckGameOver;
     }
 
     void CheckGameOver(int enemyCount)

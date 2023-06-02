@@ -97,7 +97,6 @@ class WorldInitializer
     void InitMonoBehaviourContainer()
     {
         monoBehaviourContainer.AddComponent<UnitColorChangerRpcHandler>();
-        monoBehaviourContainer.AddComponent<WinOrLossController>();
     }
 
     void InitSound()

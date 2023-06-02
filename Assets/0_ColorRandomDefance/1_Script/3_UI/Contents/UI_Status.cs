@@ -32,6 +32,10 @@ public class UI_Status : UI_Scene
         SubSkill,
     }
 
+    BattleEventDispatcher _dispatcher;
+
+    public void SetInfo(BattleEventDispatcher dispatcher) => _dispatcher = dispatcher;
+
     protected override void Init()
     {
         base.Init();
@@ -41,7 +45,7 @@ public class UI_Status : UI_Scene
         timerSlider = GetObject((int)GameObjects.TimerSlider).GetComponent<Slider>();
 
         Init_UI();
-        InitEvent();
+        BindEvent(_dispatcher);
     }
 
     void Init_UI()
@@ -51,11 +55,11 @@ public class UI_Status : UI_Scene
         UpdateUnitText(0);
 
         UpdateStage(1);
-        UpdateEnemyCountText(0);
+        UpdateMonsterCountText(0);
         UpdateMySkillImage();
     }
 
-    void InitEvent()
+    void BindEvent(BattleEventDispatcher dispatcher)
     {
         StageManager.Instance.OnUpdateStage -= UpdateStage;
         StageManager.Instance.OnUpdateStage += UpdateStage;
@@ -102,8 +106,10 @@ public class UI_Status : UI_Scene
             Managers.Unit.OnUnitCountChange -= UpdateUnitText;
             Managers.Unit.OnUnitCountChange += UpdateUnitText;
 
-            Multi_EnemyManager.Instance.OnEnemyCountChanged -= UpdateEnemyCountText;
-            Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateEnemyCountText;
+            dispatcher.OnMonsterCountChanged -= UpdateMonsterCountText;
+            dispatcher.OnMonsterCountChanged += UpdateMonsterCountText;
+            //Multi_EnemyManager.Instance.OnEnemyCountChanged -= UpdateEnemyCountText;
+            //Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateEnemyCountText;
         }
 
         void BindUserSkillImageEvent()
@@ -120,7 +126,7 @@ public class UI_Status : UI_Scene
     void UpdateUnitText(int count) => GetText((int)Texts.MyUnitCountText).text = _presneter.BuildUnitCountText(count, Multi_GameManager.Instance.BattleData.MaxUnit);
 
     readonly Color DENGER_COLOR = Color.red;
-    void UpdateEnemyCountText(int count)
+    void UpdateMonsterCountText(int count)
     {
         Text text = GetText((int)Texts.MyEnemyCountText);
         if (count > 40)

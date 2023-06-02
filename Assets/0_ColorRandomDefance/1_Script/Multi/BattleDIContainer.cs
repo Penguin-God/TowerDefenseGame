@@ -11,6 +11,8 @@ public class BattleDIContainer : MonoBehaviourPun
 
 public class MultiInitializer
 {
+    BattleEventDispatcher dispatcher = new BattleEventDispatcher();
+
     public void InjectionBattleDependency(BattleDIContainer container)
     {
         // add
@@ -23,6 +25,7 @@ public class MultiInitializer
         container.GetService<SwordmanGachaController>().Init(Multi_GameManager.Instance, container.GetService<IBattleCurrencyManager>());
         container.GetService<CurrencyManagerMediator>().Init(Multi_GameManager.Instance);
         container.GetService<UnitMaxCountController>().Init(null, Multi_GameManager.Instance);
+        container.GetService<MonsterManagerProxy>().Init(dispatcher);
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -34,6 +37,7 @@ public class MultiInitializer
             container.GetService<UnitMaxCountController>().Init(server, Multi_GameManager.Instance);
         }
 
+        Managers.UI.ShowSceneUI<UI_Status>().SetInfo(dispatcher);
         Multi_GameManager.Instance.Init(container.GetService<CurrencyManagerMediator>(), container.GetService<UnitMaxCountController>());
     }
 

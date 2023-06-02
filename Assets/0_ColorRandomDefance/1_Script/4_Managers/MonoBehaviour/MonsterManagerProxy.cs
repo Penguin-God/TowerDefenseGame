@@ -7,12 +7,14 @@ using System;
 public class MonsterManagerProxy : MonoBehaviourPun, IMonsterManager
 {
     MultiMonsterManager _multiMonsterManager = new MultiMonsterManager();
-    Action<int> OnNormalMonsterCountChange = null;
+    BattleEventDispatcher _eventDispatcher = null;
+    public void Init(BattleEventDispatcher eventDispatcher)
+    {
+        _eventDispatcher = eventDispatcher;
+    }
 
     public void AddNormalMonster(Multi_NormalEnemy monster) => AddNormalMonster(monster.GetComponent<PhotonView>().ViewID);
     public void RemoveNormalMonster(Multi_NormalEnemy monster) => RemoveNormalMonster(monster.GetComponent<PhotonView>().ViewID);
-
-    public void RegisterMonsterCountChange(Action<int> OnCountChange) => OnNormalMonsterCountChange += OnCountChange;
 
     void AddNormalMonster(int viewId) => ChangeMonsterList(viewId, _multiMonsterManager.AddNormalMonster);
     void RemoveNormalMonster(int viewId) => ChangeMonsterList(viewId, _multiMonsterManager.RemoveNormalMonster);
@@ -29,11 +31,7 @@ public class MonsterManagerProxy : MonoBehaviourPun, IMonsterManager
             photonView.RPC(nameof(NotifyNormalMonsterCountChange), RpcTarget.Others, newCount);
     }
 
-    [PunRPC] void NotifyNormalMonsterCountChange(byte count)
-    {
-        OnNormalMonsterCountChange?.Invoke(count);
-        print($"¾È³ç ¼¼»ó : {count}");
-    }
+    [PunRPC] void NotifyNormalMonsterCountChange(byte count) => _eventDispatcher.NotifyMonsterCountChange(count);
 }
 
 public class MultiMonsterManager

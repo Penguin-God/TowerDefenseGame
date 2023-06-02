@@ -123,7 +123,6 @@ class WorldInitializer
     void Show_UI()
     {
         Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
-        Managers.UI.ShowSceneUI<UI_Status>();
         Managers.UI.ShowSceneUI<BattleButton_UI>().SetInfo(_battleDIContainer.GetService<SwordmanGachaController>());
 
         var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();

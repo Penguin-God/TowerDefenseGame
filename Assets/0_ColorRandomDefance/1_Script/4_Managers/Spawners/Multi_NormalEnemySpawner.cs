@@ -77,7 +77,7 @@ public class MonsterSpawnerContorller : MonoBehaviour
         byte num = _numManager.GetSpawnEnemyNum(id);
         for (int i = 0; i < _stageSpawnCount; i++)
         {
-            var enemy = SpawnNormalMonster(num, id, stage); // num 인라인 안 한 이유는 스테이지 한 번 들어가면 못 바꾸게 할려고
+            var enemy = SpawnMonsterToOther(num, id, stage); // num 인라인 안 한 이유는 스테이지 한 번 들어가면 못 바꾸게 할려고
             enemy.OnDead += (died) => ResurrectionMonsterToOther(enemy);
             yield return new WaitForSeconds(_spawnDelayTime);
         }

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System;
 using Object = UnityEngine.Object;
+using TMPro;
 
 public abstract class UI_Base : MonoBehaviour
 {
@@ -56,6 +57,7 @@ public abstract class UI_Base : MonoBehaviour
 
     protected GameObject GetObject(int index) => Get<GameObject>(index);
     protected Text GetText(int index) => Get<Text>(index);
+    protected TextMeshProUGUI GetTextMeshPro(int index) => Get<TextMeshProUGUI>(index);
     protected Button GetButton(int index) => Get<Button>(index);
     protected Image GetImage(int index) => Get<Image>(index);
 

@@ -53,20 +53,20 @@ public class UI_OpponentStatus : UI_Scene
     }
 
     int _unitCount;
-    public void UpdateUnitCount(int newCount)
+    void UpdateUnitCount(int newCount)
     {
         _unitCount = newCount;
         UpdateUnitAllCount();
     }
     int _unitMaxCount;
-    public void UpdateUnitMaxCount(int newCount)
+    void UpdateUnitMaxCount(int newCount)
     {
         _unitMaxCount = newCount;
         UpdateUnitAllCount();
     }
     void UpdateUnitAllCount() => GetText((int)Texts.OtherUnitCountText).text = $"{_unitCount}/{_unitMaxCount}";
 
-    public void UpdateUnitClassByCount(UnitClass unitClass, int count)
+    void UpdateUnitClassByCount(UnitClass unitClass, int count)
     {
         GetText((int)GetTextsByClass(unitClass)).text = count.ToString(); 
 

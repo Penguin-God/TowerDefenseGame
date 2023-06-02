@@ -6,7 +6,9 @@ using System;
 
 public class MonsterManagerProxy : MonoBehaviourPun, IMonsterManager
 {
-    MultiMonsterManager _multiMonsterManager = new MultiMonsterManager();
+    readonly MultiMonsterManager _multiMonsterManager = new MultiMonsterManager();
+    public MultiMonsterManager MultiMonsterManager => _multiMonsterManager;
+
     BattleEventDispatcher _eventDispatcher = null;
     public void Init(BattleEventDispatcher eventDispatcher)
     {

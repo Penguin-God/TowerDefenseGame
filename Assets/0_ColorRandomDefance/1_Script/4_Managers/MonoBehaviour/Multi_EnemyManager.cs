@@ -8,27 +8,12 @@ using Photon.Pun;
 public class Multi_EnemyManager : Singleton<Multi_EnemyManager>
 {
     MasterManager _master = new MasterManager();
-    EnemyCountManager _counter = new EnemyCountManager();
     EnemyFinder _finder = new EnemyFinder();
 
     void Awake()
     {
         Init();
     }
-
-    public override void Init()
-    {
-        _counter.Init(_master);
-        _counter.OnEnemyCountChanged += RaiseOnEnemyCountChanged;
-        _counter.OnOthreEnemyCountChanged += RaiseOnOtherEnemyCountChanged;
-    }
-
-    public event Action<int> OnEnemyCountChanged = null;
-    void RaiseOnEnemyCountChanged(int count) => OnEnemyCountChanged?.Invoke(count);
-
-    public event Action<int> OnOtherEnemyCountChanged = null;
-    void RaiseOnOtherEnemyCountChanged(int count) => OnOtherEnemyCountChanged?.Invoke(count);
-
 
     public void AddNormalMonster(Multi_NormalEnemy monster)
     {
@@ -86,34 +71,6 @@ public class Multi_EnemyManager : Singleton<Multi_EnemyManager>
             int id = _enemy.GetComponent<RPCable>().UsingId;
             _enemyCountData.Get(id).Remove(_enemy);
             OnEnemyCountChanged.RaiseAll(id, _enemyCountData.Get(id).Count);
-        }
-    }
-
-
-    class EnemyCountManager
-    {
-        public int CurrentEnemyCount { get; private set; }
-        public event Action<int> OnEnemyCountChanged = null;
-
-        public int OtherEnemyCount { get; private set; }
-        public event Action<int> OnOthreEnemyCountChanged = null;
-        public void Init(MasterManager master)
-        {
-            master.OnEnemyCountChanged += UpdateCount;
-        }
-
-        void UpdateCount(int id, int count) // id에 따라 어느쪽 count인지 구분
-        {
-            if (PlayerIdManager.Id == id)
-            {
-                CurrentEnemyCount = count;
-                OnEnemyCountChanged?.Invoke(CurrentEnemyCount);
-            }
-            else
-            {
-                OtherEnemyCount = count;
-                OnOthreEnemyCountChanged?.Invoke(OtherEnemyCount);
-            }
         }
     }
 

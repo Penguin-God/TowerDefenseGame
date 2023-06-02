@@ -9,7 +9,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     [Header("아처 변수")]
     [SerializeField] ProjectileData arrawData;
     ProjectileThrowingUnit _thrower;
-    [SerializeField] int skillArrowCount = 3;
+    [SerializeField] int skillArrowTargetCount = 3;
     private GameObject trail;
 
     [SerializeField] int _useSkillPercent;
@@ -69,7 +69,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         Transform[] targetArray = GetTargets();
         if (targetArray == null || targetArray.Length == 0) return;
 
-        for (int i = 0; i < skillArrowCount; i++)
+        for (int i = 0; i < skillArrowTargetCount; i++)
         {
             int targetIndex = i % targetArray.Length;
             _thrower.FlatThrow(targetArray[targetIndex], OnHit);
@@ -79,7 +79,6 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     Transform[] GetTargets()
     {
         if (TargetIsNormalEnemy == false) return new Transform[] { target };
-        return Multi_EnemyManager.Instance.GetProximateEnemys(transform.position, skillArrowCount, _state.UsingId)
-            .Select(x => x.transform).ToArray();
+        return _targetManager.GetProximateEnemys(skillArrowTargetCount).Select(x => x.transform).ToArray();
     }
 }

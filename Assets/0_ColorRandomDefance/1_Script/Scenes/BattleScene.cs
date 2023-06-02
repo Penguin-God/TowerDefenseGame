@@ -79,7 +79,6 @@ class WorldInitializer
         new MultiInitializer().InjectionBattleDependency(_battleDIContainer);
 
         InitMonoBehaviourContainer();
-        Multi_SpawnManagers.Instance.Init();
         Show_UI();
         Managers.Camera.EnterBattleScene();
         InitSound();

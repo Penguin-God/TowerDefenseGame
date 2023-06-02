@@ -27,14 +27,6 @@ public class Multi_SpawnManagers : MonoBehaviourPun
     public static Multi_TowerEnemySpawner TowerEnemy => Instance._towerEnemy;
     public static Multi_NormalUnitSpawner NormalUnit => Instance._normalUnit;
 
-    // TODO : 딱 봐도 지옥인데 이거 좀 개선하기
-    void Awake()
-    {
-        _bossEnemy = GetOrAddChildComponent<Multi_BossEnemySpawner>();
-        _towerEnemy = GetOrAddChildComponent<Multi_TowerEnemySpawner>();
-        _normalUnit = GetOrAddChildComponent<Multi_NormalUnitSpawner>();
-    }
-
     public void Init()
     {
         _bossEnemy = GetOrAddChildComponent<Multi_BossEnemySpawner>();

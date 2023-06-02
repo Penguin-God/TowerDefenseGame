@@ -6,10 +6,15 @@ using System;
 
 public class Multi_NormalUnitSpawner : MonoBehaviourPun
 {
-    protected readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
+    readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
     public event Action<Multi_TeamSoldier> OnSpawn = null;
 
-    public Multi_TeamSoldier Spawn(UnitColor color, UnitClass _unitClass, byte id) => Spawn(new UnitFlags(color, _unitClass), id);
+    MultiMonsterManager _multiMonsterManager;
+    public void Init(MultiMonsterManager multiMonsterManager)
+    {
+        _multiMonsterManager = multiMonsterManager;
+    }
+
     public Multi_TeamSoldier Spawn(UnitFlags flag) => Spawn(flag.ColorNumber, flag.ClassNumber);
     public Multi_TeamSoldier Spawn(int colorNum, int classNum) => Spawn(new UnitFlags(colorNum, classNum), PlayerIdManager.Id);
     public Multi_TeamSoldier Spawn(UnitFlags flag, byte id) => Spawn(flag, Vector3.zero, Quaternion.identity, id);
@@ -33,7 +38,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     Multi_TeamSoldier RPCSpawn(UnitFlags flag, Vector3 spawnPos, Quaternion rotation, byte id)
     {
         var unit = Managers.Multi.Instantiater.PhotonInstantiate(PathBuilder.BuildUnitPath(flag), spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
-        unit.Spawn(flag, Managers.Data.Unit.UnitStatByFlag[flag].GetClone(), MultiServiceMidiator.Server.UnitDamageInfo(id, flag));
+        unit.Spawn(flag, Managers.Data.Unit.UnitStatByFlag[flag].GetClone(), MultiServiceMidiator.Server.UnitDamageInfo(id, flag), _multiMonsterManager.GetMultiData(unit.UsingID));
         MultiServiceMidiator.Server.AddUnit(unit);
         if (unit.UsingID == PlayerIdManager.MasterId)
             OnSpawn?.Invoke(unit);

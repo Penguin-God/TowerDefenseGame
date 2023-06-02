@@ -28,6 +28,8 @@ public class MultiInitializer
         container.GetService<UnitMaxCountController>().Init(null, Multi_GameManager.Instance);
         container.GetService<MonsterManagerProxy>().Init(dispatcher);
 
+        Multi_SpawnManagers.Instance.Init();
+
         if (PhotonNetwork.IsMasterClient)
         {
             var server = MultiServiceMidiator.Server;
@@ -36,6 +38,7 @@ public class MultiInitializer
             monsterSpawnController.Init(monsterManagerProxy);
             container.GetService<MasterSwordmanGachaController>().Init(server, container.GetService<CurrencyManagerMediator>());
             container.GetService<UnitMaxCountController>().Init(server, Multi_GameManager.Instance);
+            Multi_SpawnManagers.NormalUnit.Init(container.GetService<MonsterManagerProxy>().MultiMonsterManager);
         }
 
         Managers.UI.ShowSceneUI<UI_Status>().SetInfo(dispatcher);

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
 using System;
+using System.Linq;
 
 public enum UnitColor { Red, Blue, Yellow, Green, Orange, Violet, White, Black };
 public enum UnitClass { Swordman, Archer, Spearman, Mage }
@@ -78,7 +79,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         originObstacleType = nav.obstacleAvoidanceType;
 
         _state = gameObject.AddComponent<UnitState>();
-        _targetManager = new TargetManager(_state, transform);
         _targetManager.OnChangedTarget += SetNewTarget;
         _chaseSystem = AddCahseSystem();
         _targetManager.OnChangedTarget += _chaseSystem.ChangedTarget;
@@ -101,8 +101,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     protected virtual ChaseSystem AddCahseSystem() => gameObject.AddComponent<ChaseSystem>();
 
-    public void Spawn(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo)
+    public void Spawn(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo, MonsterManager monsterManager)
     {
+        _targetManager = new TargetManager(_state, transform, monsterManager);
         SetInfo(flag, stat, damInfo);
         ChaseTarget();
     }
@@ -406,30 +407,34 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         
         UnitState _state;
         Transform _transform;
-        public TargetManager(UnitState state, Transform transform)
+        MonsterManager _monsterManager;
+        public TargetManager(UnitState state, Transform transform, MonsterManager monsterManager)
         {
             _state = state;
             _transform = transform;
+            _monsterManager = monsterManager;
         }
 
         public void Reset() => ChangedTarget(null);
 
         public void UpdateTarget()
         {
-            var newTarget = FindTarget(_transform.position);
+            var newTarget = FindTarget();
             if (_target != newTarget)
                 ChangedTarget(newTarget);
         }
 
-        Multi_Enemy FindTarget(Vector3 position)
+        Multi_Enemy FindTarget()
         {
             if (_state.EnterStoryWorld) 
                 return Multi_EnemyManager.Instance.GetCurrnetTower(_state.UsingId);
             if (Multi_EnemyManager.Instance.TryGetCurrentBoss(_state.UsingId, out Multi_BossEnemy boss)) 
                 return boss;
 
-            return Multi_EnemyManager.Instance.GetProximateEnemy(position, _state.UsingId);
+            return GetProximateNormalMonster();
         }
+        Multi_NormalEnemy GetProximateNormalMonster() => GetProximateEnemys(1).FirstOrDefault();
+        public Multi_NormalEnemy[] GetProximateEnemys(int maxCount) => _monsterManager.GetNormalMonsters().OrderBy(x => Vector3.Distance(_transform.position, x.transform.position)).Take(maxCount).ToArray();
 
         void ChangedTarget(Multi_Enemy newTarget)
         {

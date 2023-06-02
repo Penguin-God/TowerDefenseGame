@@ -8,15 +8,9 @@ public class UI_Status : UI_Scene
 {
     enum Texts
     {
-        MyEnemyCountText,
         FoodText,
         GoldText,
         StageText,
-        MyUnitCountText, 
-        MyKnigthText,
-        MyArcherText,
-        MySpearmanText,
-        MyMageText,
     }
 
     enum GameObjects

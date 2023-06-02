@@ -52,12 +52,9 @@ public class UI_Status : UI_Scene
 
     void Init_UI()
     {
+        UpdateStage(1);
         GetText((int)Texts.GoldText).text = Multi_GameManager.Instance.CurrencyManager.Gold.ToString();
         GetText((int)Texts.FoodText).text = Multi_GameManager.Instance.CurrencyManager.Food.ToString();
-        UpdateUnitText(0);
-
-        UpdateStage(1);
-        UpdateMonsterCountText(0);
         UpdateMySkillImage();
     }
 
@@ -65,10 +62,6 @@ public class UI_Status : UI_Scene
     {
         StageManager.Instance.OnUpdateStage -= UpdateStage;
         StageManager.Instance.OnUpdateStage += UpdateStage;
-
-        //Multi_GameManager.Instance.BattleData.OnMaxUnitChanged += (maxUnit) => UpdateUnitText(Managers.Unit.CurrentUnitCount);
-
-        //Managers.Unit.OnUnitCountChangeByClass += UpdateUnitClassByCount;
 
         Bind_Events();
 
@@ -121,9 +114,6 @@ public class UI_Status : UI_Scene
             MultiServiceMidiator.Oppent.OnUnitCountChangedByClass += oppentCountDisplay.UpdateUnitClassByCount;
 
             dispatcher.OnOppentMonsterCountChange += oppentCountDisplay.UpdateMonsterCountText;
-
-            //Multi_EnemyManager.Instance.OnEnemyCountChanged -= UpdateEnemyCountText;
-            //Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateEnemyCountText;
         }
 
         void BindUserSkillImageEvent()
@@ -134,34 +124,6 @@ public class UI_Status : UI_Scene
             Managers.Camera.OnLookEnemyWorld -= UpdateOtherSkillImage;
             Managers.Camera.OnLookEnemyWorld += UpdateOtherSkillImage;
         }
-    }
-
-    readonly PlayerStatusPersenter _presneter = new PlayerStatusPersenter();
-    void UpdateUnitText(int count) => GetText((int)Texts.MyUnitCountText).text = _presneter.BuildUnitCountText(count, Multi_GameManager.Instance.BattleData.MaxUnit);
-
-    readonly Color DENGER_COLOR = Color.red;
-    void UpdateMonsterCountText(int count)
-    {
-        Text text = GetText((int)Texts.MyEnemyCountText);
-        if (count > 40)
-        {
-            text.color = DENGER_COLOR;
-            Managers.Sound.PlayEffect(EffectSoundType.Denger);
-        }
-        else text.color = Color.white;
-        text.text = _presneter.BuildMonsterCountText(count, Multi_GameManager.Instance.BattleData.MaxEnemyCount);
-    }
-
-    void UpdateUnitClassByCount(UnitClass unitClass, int count)
-    {
-        var textByUnitClass = new Dictionary<UnitClass, Texts>()
-        {
-            {UnitClass.Swordman, Texts.MyKnigthText },
-            {UnitClass.Archer, Texts.MyArcherText },
-            {UnitClass.Spearman, Texts.MySpearmanText },
-            {UnitClass.Mage, Texts.MyMageText },
-        };
-        GetText((int)textByUnitClass[unitClass]).text = count.ToString();
     }
 
     Slider timerSlider;

@@ -6,6 +6,7 @@ public class WinOrLossController : MonoBehaviourPun
 {
     public void Init(BattleEventDispatcher dispatcher)
     {
+        if (PhotonNetwork.IsMasterClient == false) return;
         dispatcher.OnMonsterCountChanged -= CheckMasterOver;
         dispatcher.OnMonsterCountChanged += CheckMasterOver;
 
@@ -16,13 +17,13 @@ public class WinOrLossController : MonoBehaviourPun
     void CheckMasterOver(int monsterCount)
     {
         if (CheckGameOver(monsterCount))
-            GameEnd(PlayerIdManager.MasterId);
+            photonView.RPC(nameof(GameEnd), RpcTarget.All, PlayerIdManager.MasterId);
     }
 
     void CheckClientOver(int monsterCount)
     {
         if (CheckGameOver(monsterCount))
-            GameEnd(PlayerIdManager.ClientId);
+            photonView.RPC(nameof(GameEnd), RpcTarget.All, PlayerIdManager.ClientId);
     }
 
     bool CheckGameOver(int monsterCount) => monsterCount >= Multi_GameManager.Instance.BattleData.MaxEnemyCount;
@@ -35,7 +36,6 @@ public class WinOrLossController : MonoBehaviourPun
             Lose();
         else
             Win();
-        
     }
 
     void Win() => GameEnd("승리");

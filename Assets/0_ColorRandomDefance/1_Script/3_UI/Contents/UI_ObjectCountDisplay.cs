@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class UI_ObjectCountDisplay : UI_Base
 {
@@ -22,23 +21,19 @@ public class UI_ObjectCountDisplay : UI_Base
     {
         base.Init();
         Bind<TextMeshProUGUI>(typeof(Texts));
+
+        foreach (UnitClass _class in Enum.GetValues(typeof(UnitClass)))
+            UpdateUnitClassByCount(_class, 0);
+        UpdateCurrentUnitText(0);
+        UpdateMaxUnitCount(0);
     }
 
-    public void BindEvent(Action<int> currentUnitCountChange, Action<int> maxUnitCountChange, Action<UnitClass, int> unitClassCountChange, Action<int> monsterCountChange)
+    public void UpdateMaxUnitCount(int count) => GetTextMeshPro((int)Texts.MaxUnitCountText).text = count.ToString();
+
+    public void UpdateCurrentUnitText(int count) => GetTextMeshPro((int)Texts.CurrentUnitCountText).text = count.ToString();
+    public void UpdateUnitClassByCount(UnitClass unitClass, int count)
     {
-        currentUnitCountChange += UpdateCurrentUnitText;
-        maxUnitCountChange += UpdateMaxUnitCount;
-        unitClassCountChange += UpdateUnitClassByCount;
-
-        monsterCountChange += UpdateMonsterCountText;
-    }
-
-    void UpdateMaxUnitCount(int count) => GetText((int)Texts.MaxUnitCountText).text = count.ToString();
-
-    void UpdateCurrentUnitText(int count) => GetText((int)Texts.CurrentUnitCountText).text = count.ToString();
-    void UpdateUnitClassByCount(UnitClass unitClass, int count)
-    {
-        GetText((int)GetTextsByClass(unitClass)).text = count.ToString();
+        GetTextMeshPro((int)GetTextsByClass(unitClass)).text = count.ToString();
 
         // ÁßÃ¸ ÇÔ¼ö
         Texts GetTextsByClass(UnitClass unitClass)
@@ -56,15 +51,15 @@ public class UI_ObjectCountDisplay : UI_Base
 
 
     readonly Color DENGER_COLOR = Color.red;
-    void UpdateMonsterCountText(int count)
+    public void UpdateMonsterCountText(int count)
     {
-        Text text = GetText((int)Texts.MonsterCountText);
+        var text = GetTextMeshPro((int)Texts.MonsterCountText);
         if (count > 40)
         {
             text.color = DENGER_COLOR;
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
         else text.color = Color.white;
-        text.text = $"{count}, {Multi_GameManager.Instance.BattleData.MaxEnemyCount}";
+        text.text = $"{count}/{Multi_GameManager.Instance.BattleData.MaxEnemyCount}";
     }
 }

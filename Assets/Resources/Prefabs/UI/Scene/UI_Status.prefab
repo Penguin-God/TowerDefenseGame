@@ -1927,7 +1927,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 275, y: 10}
+  m_AnchoredPosition: {x: 270, y: 10}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &1691245033620688435
@@ -2345,6 +2345,7 @@ GameObject:
   - component: {fileID: 5846958706942097871}
   - component: {fileID: 1669113755790216367}
   - component: {fileID: 7081501954266867268}
+  - component: {fileID: 570745691923757091}
   m_Layer: 5
   m_Name: MyCount
   m_TagString: Untagged
@@ -2416,6 +2417,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &570745691923757091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5012145519562917273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 30d7e85fb399cab4a8659910d9e08805, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5266049920411201385
 GameObject:
   m_ObjectHideFlags: 0
@@ -4340,7 +4353,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 215, y: 10}
+  m_AnchoredPosition: {x: 210, y: 10}
   m_SizeDelta: {x: 30, y: 30}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &7097233150791882811
@@ -5067,7 +5080,7 @@ GameObject:
   - component: {fileID: 7518533054028968382}
   - component: {fileID: 7215548359825460870}
   - component: {fileID: 4469165655270575107}
-  - component: {fileID: 7939725593621055905}
+  - component: {fileID: 4354055944987366866}
   m_Layer: 5
   m_Name: OpponentCount
   m_TagString: Untagged
@@ -5139,7 +5152,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7939725593621055905
+--- !u!114 &4354055944987366866
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -5148,7 +5161,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7901717047907115122}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7040c7c8e14c9bf459d74c6521874e16, type: 3}
+  m_Script: {fileID: 11500000, guid: 30d7e85fb399cab4a8659910d9e08805, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7930640280205814911

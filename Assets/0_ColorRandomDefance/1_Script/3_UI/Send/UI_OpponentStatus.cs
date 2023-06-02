@@ -33,7 +33,6 @@ public class UI_OpponentStatus : UI_Scene
             UpdateUnitCount(0);
             foreach (UnitClass _class in Enum.GetValues(typeof(UnitClass)))
                 UpdateUnitClassByCount(_class, 0);
-            UpdateMonsterCount(0);
         }
 
         void BindOhterCountEvent()

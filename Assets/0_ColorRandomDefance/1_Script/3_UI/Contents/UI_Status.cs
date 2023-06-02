@@ -24,6 +24,8 @@ public class UI_Status : UI_Scene
         TimerSlider,
         GoldBar,
         FoodBar,
+        MyCount,
+        OpponentCount,
     }
 
     enum Images
@@ -64,9 +66,9 @@ public class UI_Status : UI_Scene
         StageManager.Instance.OnUpdateStage -= UpdateStage;
         StageManager.Instance.OnUpdateStage += UpdateStage;
 
-        Multi_GameManager.Instance.BattleData.OnMaxUnitChanged += (maxUnit) => UpdateUnitText(Managers.Unit.CurrentUnitCount);
+        //Multi_GameManager.Instance.BattleData.OnMaxUnitChanged += (maxUnit) => UpdateUnitText(Managers.Unit.CurrentUnitCount);
 
-        Managers.Unit.OnUnitCountChangeByClass += UpdateUnitClassByCount;
+        //Managers.Unit.OnUnitCountChangeByClass += UpdateUnitClassByCount;
 
         Bind_Events();
 
@@ -103,11 +105,23 @@ public class UI_Status : UI_Scene
 
         void BindMyCountEvent()
         {
-            Managers.Unit.OnUnitCountChange -= UpdateUnitText;
-            Managers.Unit.OnUnitCountChange += UpdateUnitText;
+            var myCountDisplay = GetObject((int)GameObjects.MyCount).GetComponent<UI_ObjectCountDisplay>();
 
-            dispatcher.OnMonsterCountChanged -= UpdateMonsterCountText;
-            dispatcher.OnMonsterCountChanged += UpdateMonsterCountText;
+            Managers.Unit.OnUnitCountChange += myCountDisplay.UpdateCurrentUnitText;
+            Multi_GameManager.Instance.BattleData.OnMaxUnitChanged += myCountDisplay.UpdateMaxUnitCount;
+            Managers.Unit.OnUnitCountChangeByClass += myCountDisplay.UpdateUnitClassByCount;
+
+            dispatcher.OnMonsterCountChanged += myCountDisplay.UpdateMonsterCountText;
+
+
+            var oppentCountDisplay = GetObject((int)GameObjects.OpponentCount).GetComponent<UI_ObjectCountDisplay>();
+
+            MultiServiceMidiator.Oppent.OnUnitCountChanged += oppentCountDisplay.UpdateCurrentUnitText;
+            MultiServiceMidiator.Oppent.OnUnitMaxCountChanged += oppentCountDisplay.UpdateMaxUnitCount;
+            MultiServiceMidiator.Oppent.OnUnitCountChangedByClass += oppentCountDisplay.UpdateUnitClassByCount;
+
+            dispatcher.OnOppentMonsterCountChange += oppentCountDisplay.UpdateMonsterCountText;
+
             //Multi_EnemyManager.Instance.OnEnemyCountChanged -= UpdateEnemyCountText;
             //Multi_EnemyManager.Instance.OnEnemyCountChanged += UpdateEnemyCountText;
         }

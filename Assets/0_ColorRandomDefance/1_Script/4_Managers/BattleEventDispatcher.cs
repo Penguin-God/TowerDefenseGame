@@ -6,13 +6,13 @@ using UnityEngine;
 public class BattleEventDispatcher
 {
     public event Action<int> OnMonsterCountChanged;
-    public event Action<int> OnOhterMonsterCountChange;
+    public event Action<int> OnOppentMonsterCountChange;
     
     public void NotifyMonsterCountChange(byte playerId, int count)
     {
         if(playerId == PlayerIdManager.Id)
             OnMonsterCountChanged?.Invoke(count);
         else
-            OnOhterMonsterCountChange?.Invoke(count);
+            OnOppentMonsterCountChange?.Invoke(count);
     }
 }

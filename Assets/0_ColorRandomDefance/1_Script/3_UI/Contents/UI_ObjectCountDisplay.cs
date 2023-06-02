@@ -12,8 +12,7 @@ public class UI_ObjectCountDisplay : UI_Base
         ArcherCountText,
         SpearmanCountText,
         MageCountText,
-        CurrentUnitCountText,
-        MaxUnitCountText,
+        UnitCountText,
         MonsterCountText,
     }
 
@@ -25,12 +24,23 @@ public class UI_ObjectCountDisplay : UI_Base
         foreach (UnitClass _class in Enum.GetValues(typeof(UnitClass)))
             UpdateUnitClassByCount(_class, 0);
         UpdateCurrentUnitText(0);
-        UpdateMaxUnitCount(0);
     }
 
-    public void UpdateMaxUnitCount(int count) => GetTextMeshPro((int)Texts.MaxUnitCountText).text = count.ToString();
+    int _currentUnitCount;
+    int _maxUnitCount;
+    void UpdateUnitCountText() => GetTextMeshPro((int)Texts.UnitCountText).text = $"{_currentUnitCount}/{_maxUnitCount}";    
+    public void UpdateCurrentUnitText(int count)
+    {
+        _currentUnitCount = count;
+        UpdateUnitCountText();
+    }
+    public void UpdateMaxUnitCount(int count)
+    {
+        _maxUnitCount = count;
+        UpdateUnitCountText();
+    }
 
-    public void UpdateCurrentUnitText(int count) => GetTextMeshPro((int)Texts.CurrentUnitCountText).text = count.ToString();
+
     public void UpdateUnitClassByCount(UnitClass unitClass, int count)
     {
         GetTextMeshPro((int)GetTextsByClass(unitClass)).text = count.ToString();

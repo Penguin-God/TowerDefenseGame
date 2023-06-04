@@ -52,6 +52,8 @@ public class DataManager
     public Dictionary<BgmType, BgmSound> BgmBySound { get; private set; }
     #endregion
 
+    public IEnumerable<string> TextKeys;
+
     public void Init()
     {
         Clears();
@@ -64,6 +66,8 @@ public class DataManager
         // Sound 
         EffectBySound = MakeCsvDict<EffectSoundLoder, EffectSoundType, EffectSound>("SoundData/EffectSoundData");
         BgmBySound = MakeCsvDict<BgmSoundLoder, BgmType, BgmSound>("SoundData/BgmSoundData");
+
+        TextKeys = Managers.Resources.Load<TextAsset>("TextKeyData").text.Split('\n').Skip(1).Where(x => string.IsNullOrEmpty(x) == false);
     }
 
 

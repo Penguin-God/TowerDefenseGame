@@ -93,8 +93,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     {
         _targetManager = new TargetManager(_state, transform, monsterManager);
         _targetManager.OnChangedTarget -= SetNewTarget;
-        _targetManager.OnChangedTarget -= _chaseSystem.ChangedTarget;
         _targetManager.OnChangedTarget += SetNewTarget;
+        _targetManager.OnChangedTarget -= _chaseSystem.ChangedTarget;
         _targetManager.OnChangedTarget += _chaseSystem.ChangedTarget;
 
         SetInfo(flag, stat, damInfo);

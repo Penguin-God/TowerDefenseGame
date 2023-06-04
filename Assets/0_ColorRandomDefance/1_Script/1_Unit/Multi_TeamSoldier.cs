@@ -79,22 +79,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         originObstacleType = nav.obstacleAvoidanceType;
 
         _state = gameObject.AddComponent<UnitState>();
-        _targetManager.OnChangedTarget += SetNewTarget;
         _chaseSystem = AddCahseSystem();
-        _targetManager.OnChangedTarget += _chaseSystem.ChangedTarget;
-        
-
-        void SetNewTarget(Multi_Enemy newTarget)
-        {
-            if (gameObject.activeSelf == false) return;
-            if (newTarget == null)
-                nav.isStopped = true;
-            else
-                nav.isStopped = false;
-        }
     }
 
-    private void Start()
+    void Start()
     {
         OnAwake(); // 유닛별 세팅
     }
@@ -104,8 +92,22 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public void Spawn(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo, MonsterManager monsterManager)
     {
         _targetManager = new TargetManager(_state, transform, monsterManager);
+        _targetManager.OnChangedTarget -= SetNewTarget;
+        _targetManager.OnChangedTarget -= _chaseSystem.ChangedTarget;
+        _targetManager.OnChangedTarget += SetNewTarget;
+        _targetManager.OnChangedTarget += _chaseSystem.ChangedTarget;
+
         SetInfo(flag, stat, damInfo);
         ChaseTarget();
+    }
+
+    void SetNewTarget(Multi_Enemy newTarget)
+    {
+        if (gameObject.activeSelf == false) return;
+        if (newTarget == null)
+            nav.isStopped = true;
+        else
+            nav.isStopped = false;
     }
 
     // MasterOnly
@@ -434,7 +436,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             return GetProximateNormalMonster();
         }
         Multi_NormalEnemy GetProximateNormalMonster() => GetProximateEnemys(1).FirstOrDefault();
-        public Multi_NormalEnemy[] GetProximateEnemys(int maxCount) => _monsterManager.GetNormalMonsters().OrderBy(x => Vector3.Distance(_transform.position, x.transform.position)).Take(maxCount).ToArray();
+        public Multi_NormalEnemy[] GetProximateEnemys(int maxCount)
+            => _monsterManager.GetNormalMonsters().OrderBy(x => Vector3.Distance(_transform.position, x.transform.position)).Take(maxCount).ToArray();
 
         void ChangedTarget(Multi_Enemy newTarget)
         {

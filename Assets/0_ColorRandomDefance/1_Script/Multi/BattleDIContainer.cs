@@ -46,7 +46,7 @@ public class MultiInitializer
 
         Managers.UI.ShowSceneUI<UI_Status>().SetInfo(dispatcher);
         game.Init(container.GetService<CurrencyManagerMediator>(), container.GetService<UnitMaxCountController>(), data.BattleDataContainer);
-        container.GetService<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill());
+        container.GetService<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(container));
     }
 
     void AddMultiService<TClient, TMaster> (BattleDIContainer container) where TClient : MonoBehaviour where TMaster : MonoBehaviour

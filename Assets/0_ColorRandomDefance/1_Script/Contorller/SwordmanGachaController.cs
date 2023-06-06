@@ -28,14 +28,14 @@ public class SwordmanGachaController : MonoBehaviourPun
 
     protected bool CanDrawUnit() => _game.UnitOver == false && _game.HasGold(_unitSummonData.SummonPrice);
 
-    public void ChangeUnitSummonData(int price, UnitColor maxColor)
+    public void ChangeUnitSummonMaxColor(UnitColor maxColor)
     {
-        _unitSummonData = new UnitSummonData(price, maxColor);
-        photonView.RPC(nameof(ChangeUnitSummonData), RpcTarget.MasterClient, PlayerIdManager.Id, (byte)price, (byte)maxColor);
+        _unitSummonData.SummonMaxColor = maxColor;
+        photonView.RPC(nameof(ChangeUnitSummonMaxColor), RpcTarget.MasterClient, PlayerIdManager.Id, (byte)maxColor);
     }
 
     [PunRPC]
-    public virtual void ChangeUnitSummonData(byte id, byte price, byte maxColor) { }
+    public virtual void ChangeUnitSummonMaxColor(byte id, byte maxColor) { }
 }
 
 public class MasterSwordmanGachaController : SwordmanGachaController
@@ -54,16 +54,18 @@ public class MasterSwordmanGachaController : SwordmanGachaController
     [PunRPC]
     protected override void DrawUnit(byte id)
     {
-        if (_serverManager.GetUnitstData(id).UnitOver() == false && _currencyManagerMediator.TryUseGold(_multiUnitSummonData.GetData(id).SummonPrice, id))
+        if (_serverManager.GetUnitstData(id).UnitOver() == false && _currencyManagerMediator.TryUseGold(SummonPrice(id), id))
             Multi_SpawnManagers.NormalUnit.RPCSpawn(new UnitFlags(SummonUnitColor(id), UnitClass.Swordman), id);
     }
 
     UnitColor SummonUnitColor(byte id) => _multiUnitSummonData.GetData(id).SelectColor();
 
+    int SummonPrice(byte id) => _multiUnitSummonData.GetData(id).SummonPrice;
+
     [PunRPC]
-    public override void ChangeUnitSummonData(byte id, byte price, byte maxColor)
+    public override void ChangeUnitSummonMaxColor(byte id, byte maxColor)
     {
-        var newSummonData = new UnitSummonData(price, (UnitColor)maxColor);
+        var newSummonData = new UnitSummonData(SummonPrice(id), (UnitColor)maxColor);
         _multiUnitSummonData.SetData(id, newSummonData);
     }
 }

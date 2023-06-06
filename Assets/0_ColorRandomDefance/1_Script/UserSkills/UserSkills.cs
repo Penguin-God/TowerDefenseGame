@@ -6,6 +6,7 @@ using System.Linq;
 
 public abstract class UserSkill
 {
+    // public UserSkill(SkillType skillType) => _skillType = skillType;
     public void SetInfo(SkillType skillType) => _skillType = skillType;
     SkillType _skillType;
 
@@ -20,6 +21,26 @@ public class UserSkillFactory
 {
     Dictionary<SkillType, UserSkill> _typeBySkill = new Dictionary<SkillType, UserSkill>();
 
+    public static UserSkill CreateUserSkill(SkillType skillType, BattleDIContainer container)
+    {
+        switch (skillType)
+        {
+            case SkillType.시작골드증가: return new StartGold();
+            case SkillType.시작고기증가: return new StartFood();
+            case SkillType.최대유닛증가: return new MaxUnit();
+            case SkillType.태극스킬: return new Taegeuk();
+            case SkillType.검은유닛강화: return new BlackUnitUpgrade();
+            case SkillType.노란기사강화: return new YellowSowrdmanUpgrade();
+            case SkillType.컬러마스터: return new ColorMaster(container.GetService<SwordmanGachaController>());
+            case SkillType.상대색깔변경: return new ColorChange();
+            case SkillType.고기혐오자: return new FoodHater();
+            case SkillType.판매보상증가: return new SellUpgrade();
+            case SkillType.보스데미지증가: return new BossDamageUpgrade();
+            case SkillType.장사꾼: return new DiscountMerchant();
+            default: return null;
+        }
+    }
+
     public UserSkillFactory()
     {
         _typeBySkill.Add(SkillType.시작골드증가, new StartGold());
@@ -28,7 +49,6 @@ public class UserSkillFactory
         _typeBySkill.Add(SkillType.태극스킬, new Taegeuk());
         _typeBySkill.Add(SkillType.검은유닛강화, new BlackUnitUpgrade());
         _typeBySkill.Add(SkillType.노란기사강화, new YellowSowrdmanUpgrade());
-        _typeBySkill.Add(SkillType.컬러마스터, new ColorMaster());
         _typeBySkill.Add(SkillType.상대색깔변경, new ColorChange());
         _typeBySkill.Add(SkillType.판매보상증가, new SellUpgrade());
         _typeBySkill.Add(SkillType.보스데미지증가, new BossDamageUpgrade());
@@ -177,7 +197,9 @@ public class YellowSowrdmanUpgrade : UserSkill
 
 public class ColorMaster : UserSkill
 {
-    public override void InitSkill() => Multi_GameManager.Instance.BattleData.UnitSummonData.SummonMaxColor = UnitColor.Violet;
+    SwordmanGachaController _swordmanGachaController;
+    public ColorMaster(SwordmanGachaController swordmanGachaController) => _swordmanGachaController = swordmanGachaController;
+    public override void InitSkill() => _swordmanGachaController.ChangeUnitSummonMaxColor(UnitColor.Violet);
 }
 
 public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경

@@ -56,6 +56,20 @@ class UserSkillInitializer
         }
         return userSkills;
     }
+
+    public IEnumerable<UserSkill> InitUserSkill(BattleDIContainer container)
+    {
+        List<UserSkill> userSkills = new List<UserSkill>();
+        foreach (var skillType in Managers.ClientData.EquipSkillManager.EquipSkills)
+        {
+            if (skillType == SkillType.None)
+                continue;
+            var userSkill = UserSkillFactory.CreateUserSkill(skillType, container);
+            userSkill.InitSkill();
+            userSkills.Add(userSkill);
+        }
+        return userSkills;
+    }
 }
 
 class WorldInitializer

@@ -15,17 +15,20 @@ public class MultiInitializer
 
     public void InjectionBattleDependency(BattleDIContainer container)
     {
+        var game = Multi_GameManager.Instance;
+        var data = Managers.Data;
         // add
         AddMultiService<SwordmanGachaController, MasterSwordmanGachaController>(container);
         container.AddService<CurrencyManagerMediator>();
         container.AddService<UnitMaxCountController>();
         IMonsterManager monsterManagerProxy = container.AddService<MonsterManagerProxy>();
         container.AddService<WinOrLossController>().Init(dispatcher);
+        container.AddService<EffectInitializer>();
 
         // set
-        container.GetService<SwordmanGachaController>().Init(Multi_GameManager.Instance, container.GetService<IBattleCurrencyManager>());
-        container.GetService<CurrencyManagerMediator>().Init(Multi_GameManager.Instance);
-        container.GetService<UnitMaxCountController>().Init(null, Multi_GameManager.Instance);
+        container.GetService<SwordmanGachaController>().Init(game, data.BattleDataContainer.UnitSummonData);
+        container.GetService<CurrencyManagerMediator>().Init(game);
+        container.GetService<UnitMaxCountController>().Init(null, game);
         container.GetService<MonsterManagerProxy>().Init(dispatcher);
 
         Multi_SpawnManagers.Instance.Init();
@@ -36,13 +39,14 @@ public class MultiInitializer
             var monsterSpawnController = container.AddService<MonsterSpawnerContorller>();
 
             monsterSpawnController.Init(monsterManagerProxy);
-            container.GetService<MasterSwordmanGachaController>().Init(server, container.GetService<CurrencyManagerMediator>());
-            container.GetService<UnitMaxCountController>().Init(server, Multi_GameManager.Instance);
+            container.GetService<MasterSwordmanGachaController>().Init(server, container.GetService<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
+            container.GetService<UnitMaxCountController>().Init(server, game);
             Multi_SpawnManagers.NormalUnit.Init(container.GetService<MonsterManagerProxy>().MultiMonsterManager);
         }
 
         Managers.UI.ShowSceneUI<UI_Status>().SetInfo(dispatcher);
-        Multi_GameManager.Instance.Init(container.GetService<CurrencyManagerMediator>(), container.GetService<UnitMaxCountController>());
+        game.Init(container.GetService<CurrencyManagerMediator>(), container.GetService<UnitMaxCountController>(), data.BattleDataContainer);
+        container.GetService<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill());
     }
 
     void AddMultiService<TClient, TMaster> (BattleDIContainer container) where TClient : MonoBehaviour where TMaster : MonoBehaviour

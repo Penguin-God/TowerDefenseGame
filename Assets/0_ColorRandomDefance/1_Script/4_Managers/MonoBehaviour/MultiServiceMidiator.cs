@@ -32,6 +32,7 @@ public class MultiData<T>
     public MultiData(Func<T> createService) => _services = _services.Select(x => createService()).ToArray();
 
     public T GetData(byte id) => _services[id];
+    public void SetData(byte id, T data) => _services[id] = data;
     public IEnumerable<T> Services => _services;
 }
 

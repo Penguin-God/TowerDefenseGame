@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using System.Linq;
 using Photon.Pun;
+using Random = UnityEngine.Random;
 
 public enum GameCurrencyType
 {
@@ -55,6 +56,14 @@ public struct UnitSummonData
 {
     public int SummonPrice;
     public UnitColor SummonMaxColor;
+
+    public UnitSummonData(int summonPrice, UnitColor maxColor)
+    {
+        SummonPrice = summonPrice;
+        SummonMaxColor = maxColor;
+    }
+
+    public UnitColor SelectColor() => (UnitColor)Random.Range(0, (int)(SummonMaxColor + 1));
 }
 
 [Serializable]
@@ -188,11 +197,12 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     [SerializeField] Button gameStartButton;
     [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
     [SerializeField] BattleDataContainer _battleDataContainer;
-    public void Init(IBattleCurrencyManager currencyManager, UnitMaxCountController unitMaxCountController)
+    public void Init(IBattleCurrencyManager currencyManager, UnitMaxCountController unitMaxCountController, BattleDataContainer battleDataContainer)
     {
         base.Init();
 
         _currencyManager = currencyManager;
+        _battleDataContainer = battleDataContainer;
         _battleData.Init(_battleDataContainer, _unitUpgradeShopData);
         AddGold(_battleDataContainer.Gold);
         AddFood(_battleDataContainer.Food);

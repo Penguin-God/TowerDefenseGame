@@ -53,6 +53,7 @@ public class DataManager
     #endregion
 
     public IEnumerable<string> TextKeys;
+    public BattleDataContainer BattleDataContainer { get; private set; }
 
     public void Init()
     {
@@ -67,7 +68,8 @@ public class DataManager
         EffectBySound = MakeCsvDict<EffectSoundLoder, EffectSoundType, EffectSound>("SoundData/EffectSoundData");
         BgmBySound = MakeCsvDict<BgmSoundLoder, BgmType, BgmSound>("SoundData/BgmSoundData");
 
-        TextKeys = Managers.Resources.Load<TextAsset>("TextKeyData").text.Split('\n').Skip(1).Where(x => string.IsNullOrEmpty(x) == false);
+        BattleDataContainer = Managers.Resources.Load<BattleDataContainer>("Data/ScriptableObject/BattleStartData").Clone();
+        // TextKeys = Managers.Resources.Load<TextAsset>("Data/TextKeyData").text.Split('\n').Skip(1).Where(x => string.IsNullOrEmpty(x) == false);
     }
 
 

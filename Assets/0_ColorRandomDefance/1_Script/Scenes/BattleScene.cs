@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using System.Linq;
 
 public class BattleScene : BaseScene
 {
@@ -33,11 +32,6 @@ public class BattleScene : BaseScene
         new UnitPoolInitializer().InitPool();
         new MonsterPoolInitializer().InitPool();
         new WeaponPoolInitializer().InitPool();
-    }
-
-    void Start()
-    {
-        FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill());
     }
 
     public override void Clear()

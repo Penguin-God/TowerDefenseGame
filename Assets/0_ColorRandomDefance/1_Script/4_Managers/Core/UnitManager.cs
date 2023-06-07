@@ -40,6 +40,16 @@ public class UnitManager
         _combineSystem = new UnitCombineSystem(data.CombineConditionByUnitFalg);
     }
 
+    public void Clear()
+    {
+        _units.Clear();
+        OnUnitCountChange = null;
+        OnUnitCountChangeByFlag = null;
+        OnUnitCountChangeByClass = null;
+        OnCombine = null;
+        OnFailedCombine = null;
+    }
+
     UnitCombineSystem _combineSystem;
     public event Action<UnitFlags> OnCombine = null;
     public event Action OnFailedCombine = null;

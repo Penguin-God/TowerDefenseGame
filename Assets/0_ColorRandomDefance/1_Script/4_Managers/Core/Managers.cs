@@ -57,6 +57,7 @@ public class Managers : MonoBehaviour
 
     public static void Clear()
     {
+        Unit.Clear();
         Camera.Clear();
         Scene.Clear();
         UI.Clear();

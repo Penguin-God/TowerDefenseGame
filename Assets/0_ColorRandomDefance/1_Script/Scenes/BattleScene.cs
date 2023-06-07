@@ -18,8 +18,8 @@ public class BattleScene : BaseScene
         // Managers.Resources.Instantiate("Prefabs/BattleLevel");
         MultiServiceMidiator.Instance.Init();
         Managers.Unit.Init(new UnitControllerAttacher().AttacherUnitController(MultiServiceMidiator.Instance.gameObject), Managers.Data);
-
         new WorldInitializer(gameObject).Init();
+
         CreatePools();
         GetComponent<BattleReadyController>().EnterBattle(GetComponent<EnemySpawnNumManager>());
         gameObject.AddComponent<UnitClickController>();

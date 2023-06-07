@@ -333,6 +333,7 @@ GameObject:
   - component: {fileID: 611976663}
   - component: {fileID: 611976662}
   - component: {fileID: 611976661}
+  - component: {fileID: 611976664}
   m_Layer: 0
   m_Name: Scene
   m_TagString: Untagged
@@ -352,8 +353,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1ea07ae7af2d3c347be423a59bb80a95, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainLight: {fileID: 0}
-  subLight: {fileID: 0}
+  mainLight: {fileID: 1552995258}
+  subLight: {fileID: 1377411766}
   mainLigth_OffIntensity: 0.2
 --- !u!114 &611976662
 MonoBehaviour:
@@ -367,7 +368,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2cd61ff9a313e840b6ba8aed24a23cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  container: {fileID: 0}
 --- !u!4 &611976663
 Transform:
   m_ObjectHideFlags: 0
@@ -383,6 +383,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &611976664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611976660}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1007479373
 GameObject:
   m_ObjectHideFlags: 0
@@ -715,6 +737,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f5ad6f8760638534492ca37714802360, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!108 &1377411766 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 2833895162569138482, guid: 3d434f65c39bbf44594982c4a9d7bc2b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2139378073}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1453439025
 GameObject:
   m_ObjectHideFlags: 0
@@ -826,6 +854,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!108 &1552995258 stripped
+Light:
+  m_CorrespondingSourceObject: {fileID: 2833895161999855938, guid: 3d434f65c39bbf44594982c4a9d7bc2b,
+    type: 3}
+  m_PrefabInstance: {fileID: 2139378073}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1734882941
 GameObject:
   m_ObjectHideFlags: 0

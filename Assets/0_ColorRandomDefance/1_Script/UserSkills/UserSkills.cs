@@ -6,7 +6,7 @@ using System.Linq;
 
 public abstract class UserSkill
 {
-    // public UserSkill(SkillType skillType) => _skillType = skillType;
+    public UserSkill(SkillType skillType) => _skillType = skillType;
     public void SetInfo(SkillType skillType) => _skillType = skillType;
     SkillType _skillType;
 
@@ -25,35 +25,35 @@ public class UserSkillFactory
     {
         switch (skillType)
         {
-            case SkillType.시작골드증가: return new StartGold();
-            case SkillType.시작고기증가: return new StartFood();
-            case SkillType.최대유닛증가: return new MaxUnit();
-            case SkillType.태극스킬: return new Taegeuk();
-            case SkillType.검은유닛강화: return new BlackUnitUpgrade();
-            case SkillType.노란기사강화: return new YellowSowrdmanUpgrade();
-            case SkillType.컬러마스터: return new ColorMaster(container.GetService<SwordmanGachaController>());
-            case SkillType.상대색깔변경: return new ColorChange();
-            case SkillType.고기혐오자: return new FoodHater();
-            case SkillType.판매보상증가: return new SellUpgrade();
-            case SkillType.보스데미지증가: return new BossDamageUpgrade();
-            case SkillType.장사꾼: return new DiscountMerchant();
+            case SkillType.시작골드증가: return new StartGold(skillType);
+            case SkillType.시작고기증가: return new StartFood(skillType);
+            case SkillType.최대유닛증가: return new MaxUnit(skillType);
+            case SkillType.태극스킬: return new Taegeuk(skillType);
+            case SkillType.검은유닛강화: return new BlackUnitUpgrade(skillType);
+            case SkillType.노란기사강화: return new YellowSowrdmanUpgrade(skillType);
+            case SkillType.컬러마스터: return new ColorMaster(skillType, container.GetService<SwordmanGachaController>());
+            case SkillType.상대색깔변경: return new ColorChange(skillType);
+            case SkillType.고기혐오자: return new FoodHater(skillType);
+            case SkillType.판매보상증가: return new SellUpgrade(skillType);
+            case SkillType.보스데미지증가: return new BossDamageUpgrade(skillType);
+            case SkillType.장사꾼: return new DiscountMerchant(skillType);
             default: return null;
         }
     }
 
     public UserSkillFactory()
     {
-        _typeBySkill.Add(SkillType.시작골드증가, new StartGold());
-        _typeBySkill.Add(SkillType.시작고기증가, new StartFood());
-        _typeBySkill.Add(SkillType.최대유닛증가, new MaxUnit());
-        _typeBySkill.Add(SkillType.태극스킬, new Taegeuk());
-        _typeBySkill.Add(SkillType.검은유닛강화, new BlackUnitUpgrade());
-        _typeBySkill.Add(SkillType.노란기사강화, new YellowSowrdmanUpgrade());
-        _typeBySkill.Add(SkillType.상대색깔변경, new ColorChange());
-        _typeBySkill.Add(SkillType.판매보상증가, new SellUpgrade());
-        _typeBySkill.Add(SkillType.보스데미지증가, new BossDamageUpgrade());
-        _typeBySkill.Add(SkillType.고기혐오자, new FoodHater());
-        _typeBySkill.Add(SkillType.장사꾼, new DiscountMerchant());
+        //_typeBySkill.Add(SkillType.시작골드증가, new StartGold());
+        //_typeBySkill.Add(SkillType.시작고기증가, new StartFood());
+        //_typeBySkill.Add(SkillType.최대유닛증가, new MaxUnit());
+        //_typeBySkill.Add(SkillType.태극스킬, new Taegeuk());
+        //_typeBySkill.Add(SkillType.검은유닛강화, new BlackUnitUpgrade());
+        //_typeBySkill.Add(SkillType.노란기사강화, new YellowSowrdmanUpgrade());
+        //_typeBySkill.Add(SkillType.상대색깔변경, new ColorChange());
+        //_typeBySkill.Add(SkillType.판매보상증가, new SellUpgrade());
+        //_typeBySkill.Add(SkillType.보스데미지증가, new BossDamageUpgrade());
+        //_typeBySkill.Add(SkillType.고기혐오자, new FoodHater());
+        //_typeBySkill.Add(SkillType.장사꾼, new DiscountMerchant());
     }
 
     public UserSkill GetSkill(SkillType type)
@@ -67,24 +67,26 @@ public class UserSkillFactory
 
 public class StartGold : UserSkill
 {
-    public override void InitSkill()
-        => Multi_GameManager.Instance.AddGold(IntSkillData);
+    public StartGold(SkillType skillType) : base(skillType) { }
+    public override void InitSkill() => Multi_GameManager.Instance.AddGold(IntSkillData);
 }
 
 public class StartFood : UserSkill
 {
-    public override void InitSkill()
-        => Multi_GameManager.Instance.AddFood(IntSkillData);
+    public StartFood(SkillType skillType) : base(skillType) { }
+    public override void InitSkill() => Multi_GameManager.Instance.AddFood(IntSkillData);
 }
 
 public class MaxUnit : UserSkill
 {
-    public override void InitSkill()
-        => Multi_GameManager.Instance.IncreasedMaxUnitCount(IntSkillData);
+    public MaxUnit(SkillType skillType) : base(skillType) { }
+    public override void InitSkill() => Multi_GameManager.Instance.IncreasedMaxUnitCount(IntSkillData);
 }
 
 public class Taegeuk : UserSkill
 {
+    public Taegeuk(SkillType skillType) : base(skillType) { }
+
     enum TaegeukStateChangeType
     {
         NoChange,
@@ -170,6 +172,8 @@ public class TaegeukConditionChecker
 
 public class BlackUnitUpgrade : UserSkill
 {
+    public BlackUnitUpgrade(SkillType skillType) : base(skillType) { }
+
     public event Action<UnitFlags> OnBlackUnitReinforce;
     int[] _upgradeDamages;
     public override void InitSkill()
@@ -190,6 +194,7 @@ public class BlackUnitUpgrade : UserSkill
 
 public class YellowSowrdmanUpgrade : UserSkill
 {
+    public YellowSowrdmanUpgrade(SkillType skillType) : base(skillType) { }
     // 노란 기사 패시브 골드 변경
     public override void InitSkill()
         => Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = IntSkillData;
@@ -198,12 +203,15 @@ public class YellowSowrdmanUpgrade : UserSkill
 public class ColorMaster : UserSkill
 {
     SwordmanGachaController _swordmanGachaController;
-    public ColorMaster(SwordmanGachaController swordmanGachaController) => _swordmanGachaController = swordmanGachaController;
+    public ColorMaster(SkillType skillType, SwordmanGachaController swordmanGachaController) : base(skillType)
+        => _swordmanGachaController = swordmanGachaController;
     public override void InitSkill() => _swordmanGachaController.ChangeUnitSummonMaxColor(UnitColor.Violet);
 }
 
 public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
 {
+    public ColorChange(SkillType skillType) : base(skillType) { }
+
     int[] _whiteUnitCounts = new int[4];
     public event Action<byte, byte> OnUnitColorChanaged; // 변하기 전 색깔, 변한 후 색깔
     SkillColorChanger colorChanger;
@@ -227,6 +235,7 @@ public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
 
 public class FoodHater : UserSkill
 {
+    public FoodHater(SkillType skillType) : base(skillType) { }
     int _rewardRate; // 얻는 고기가 몇 골드로 바뀌는가
     int _priceRate; // 기존에 고기로 팔던 상품을 몇 배의 골드로 바꿀건가
     public override void InitSkill()
@@ -262,6 +271,7 @@ public class FoodHater : UserSkill
 
 public class SellUpgrade : UserSkill
 {
+    public SellUpgrade(SkillType skillType) : base(skillType) { }
     public override void InitSkill()
     {
         // 유닛 판매 보상 증가 (유닛별로 증가폭 별도)
@@ -273,11 +283,13 @@ public class SellUpgrade : UserSkill
 
 public class BossDamageUpgrade : UserSkill
 {
+    public BossDamageUpgrade(SkillType skillType) : base(skillType) { }
     public override void InitSkill() => MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(SkillData, UnitStatType.BossDamage);
 }
 
 public class DiscountMerchant : UserSkill
 {
+    public DiscountMerchant(SkillType skillType) : base(skillType) { }
     public override void InitSkill()
     {
         Multi_GameManager.Instance.BattleData

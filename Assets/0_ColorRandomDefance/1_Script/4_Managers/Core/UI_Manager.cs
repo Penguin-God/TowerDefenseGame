@@ -97,12 +97,12 @@ public class UI_Manager
         }
     }
 
-    public T ShowDefualtUI<T>(string name = null) where T : UI_Base => ShowUI<T>("Default", name, InstantPopupUI);
-
+    public T ShowDefualtUI<T>(string name = null) where T : UI_Base => ShowUI<T>("Default", name);
     T ShowUI<T>(string uiType, string name = null, Func<string, GameObject> getObject = null, Transform parent = null) where T : UI_Base
     {
         if (string.IsNullOrEmpty(name)) name = typeof(T).Name;
-        GameObject go = getObject == null ? Managers.Resources.Instantiate($"UI/{uiType}/{name}") : getObject($"UI/{uiType}/{name}");
+        string path = $"UI/{uiType}/{name}";
+        GameObject go = getObject == null ? Managers.Resources.Instantiate(path) : getObject(path);
         T ui = go.GetOrAddComponent<T>();
         go.transform.SetParent(parent ?? Root); // ??는 parent == null ? parent : Root 랑 같음
         go.gameObject.SetActive(true);

@@ -219,12 +219,14 @@ public class FoodHater : UserSkill
         _rewardRate = IntSkillDatas[0];
         _priceRate = IntSkillDatas[1];
         Multi_GameManager.Instance.OnFoodChanged += FoodToGold;
+        if (Multi_GameManager.Instance.CurrencyManager.Food > 0)
+            FoodToGold(Multi_GameManager.Instance.CurrencyManager.Food);
         ChangeShopPriceData();
     }
 
     void FoodToGold(int food)
     {
-        if (food <= 0) return;
+        if (0 >= food) return;
 
         if (Multi_GameManager.Instance.TryUseFood(food))
             Multi_GameManager.Instance.AddGold(food * _rewardRate);

@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/0_ColorRandomDefance/2_Scenes/Battle.unity
     guid: 72456daa5c68c7f4c9990d99192e029a
-  - enabled: 0
+  - enabled: 1
     path: Assets/0_ColorRandomDefance/2_Scenes/Tutorial.unity
     guid: 0f7cccb484d1dcd43b415b5c556307a5
   m_configObjects: {}

@@ -231,8 +231,6 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     }
 
     public void GameStart() => photonView.RPC(nameof(RPC_OnStart), RpcTarget.All);
-    
-    void Start() => gameObject.AddComponent<RewradController>();
 
     [PunRPC]
     public void AddGold(int _addGold) => _currencyManager.AddGold(_addGold);

@@ -15,12 +15,15 @@ public class BattleScene : BaseScene
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
 
+        // Managers.Resources.Instantiate("Prefabs/BattleLevel");
         MultiServiceMidiator.Instance.Init();
         Managers.Unit.Init(new UnitControllerAttacher().AttacherUnitController(MultiServiceMidiator.Instance.gameObject), Managers.Data);
 
         new WorldInitializer(gameObject).Init();
         CreatePools();
         GetComponent<BattleReadyController>().EnterBattle(GetComponent<EnemySpawnNumManager>());
+        gameObject.AddComponent<UnitClickController>();
+        gameObject.AddComponent<RewradController>();
     }
 
     void CreatePools()

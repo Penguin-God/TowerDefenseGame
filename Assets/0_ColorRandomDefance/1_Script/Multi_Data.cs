@@ -32,7 +32,7 @@ public static class PlayerIdManager
     public static int MaxPlayerCount => 2;
 }
 
-public class Multi_Data : MonoBehaviourPun
+public class Multi_Data : MonoBehaviour
 {
     private static Multi_Data m_instance;
     public static Multi_Data instance

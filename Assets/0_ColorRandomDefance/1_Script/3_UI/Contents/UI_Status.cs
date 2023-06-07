@@ -103,11 +103,11 @@ public class UI_Status : UI_Scene
 
             var oppentCountDisplay = GetObject((int)GameObjects.OpponentCount).GetComponent<UI_ObjectCountDisplay>();
 
-            MultiServiceMidiator.Oppent.OnUnitCountChanged += oppentCountDisplay.UpdateCurrentUnitText;
-            MultiServiceMidiator.Oppent.OnUnitMaxCountChanged += oppentCountDisplay.UpdateMaxUnitCount;
-            MultiServiceMidiator.Oppent.OnUnitCountChangedByClass += oppentCountDisplay.UpdateUnitClassByCount;
+            dispatcher.OnOpponentUnitCountChanged += oppentCountDisplay.UpdateCurrentUnitText;
+            dispatcher.OnOpponentUnitCountChangedByClass += oppentCountDisplay.UpdateUnitClassByCount;
+            dispatcher.OnOpponentUnitMaxCountChanged += oppentCountDisplay.UpdateMaxUnitCount;
 
-            dispatcher.OnOppentMonsterCountChange += oppentCountDisplay.UpdateMonsterCountText;
+            dispatcher.OnOpponentMonsterCountChange += oppentCountDisplay.UpdateMonsterCountText;
         }
 
         void BindUserSkillImageEvent()

@@ -10,8 +10,8 @@ public class WinOrLossController : MonoBehaviourPun
         dispatcher.OnMonsterCountChanged -= CheckMasterOver;
         dispatcher.OnMonsterCountChanged += CheckMasterOver;
 
-        dispatcher.OnOppentMonsterCountChange -= CheckClientOver;
-        dispatcher.OnOppentMonsterCountChange += CheckClientOver;
+        dispatcher.OnOpponentMonsterCountChange -= CheckClientOver;
+        dispatcher.OnOpponentMonsterCountChange += CheckClientOver;
     }
 
     void CheckMasterOver(int monsterCount)

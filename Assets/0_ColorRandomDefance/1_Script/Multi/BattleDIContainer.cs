@@ -11,7 +11,7 @@ public class BattleDIContainer : MonoBehaviourPun
 
 public class MultiInitializer
 {
-    BattleEventDispatcher dispatcher = new BattleEventDispatcher();
+    BattleEventDispatcher _dispatcher = new BattleEventDispatcher();
 
     public void InjectionBattleDependency(BattleDIContainer container)
     {
@@ -22,14 +22,15 @@ public class MultiInitializer
         container.AddService<CurrencyManagerMediator>();
         container.AddService<UnitMaxCountController>();
         IMonsterManager monsterManagerProxy = container.AddService<MonsterManagerProxy>();
-        container.AddService<WinOrLossController>().Init(dispatcher);
+        container.AddService<WinOrLossController>().Init(_dispatcher);
         container.AddService<EffectInitializer>();
+        container.AddService<OpponentStatusSender>().Init(_dispatcher);
 
         // set
         container.GetService<SwordmanGachaController>().Init(game, data.BattleDataContainer.UnitSummonData);
         container.GetService<CurrencyManagerMediator>().Init(game);
         container.GetService<UnitMaxCountController>().Init(null, game);
-        container.GetService<MonsterManagerProxy>().Init(dispatcher);
+        container.GetService<MonsterManagerProxy>().Init(_dispatcher);
 
         Multi_SpawnManagers.Instance.Init();
 
@@ -44,7 +45,7 @@ public class MultiInitializer
             Multi_SpawnManagers.NormalUnit.Init(container.GetService<MonsterManagerProxy>().MultiMonsterManager);
         }
 
-        Managers.UI.ShowSceneUI<UI_Status>().SetInfo(dispatcher);
+        Managers.UI.ShowSceneUI<UI_Status>().SetInfo(_dispatcher);
         game.Init(container.GetService<CurrencyManagerMediator>(), container.GetService<UnitMaxCountController>(), data.BattleDataContainer);
         container.GetService<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(container));
     }

@@ -6,9 +6,8 @@ using System.Linq;
 
 public abstract class UserSkill
 {
-    public UserSkill(SkillType skillType) => _skillType = skillType;
-    public void SetInfo(SkillType skillType) => _skillType = skillType;
     SkillType _skillType;
+    public UserSkill(SkillType skillType) => _skillType = skillType;
 
     public abstract void InitSkill();
     float[] SkillDatas => Managers.ClientData.GetSkillLevelData(_skillType).BattleDatas;
@@ -19,8 +18,6 @@ public abstract class UserSkill
 
 public class UserSkillFactory
 {
-    Dictionary<SkillType, UserSkill> _typeBySkill = new Dictionary<SkillType, UserSkill>();
-
     public static UserSkill CreateUserSkill(SkillType skillType, BattleDIContainer container)
     {
         switch (skillType)
@@ -39,27 +36,6 @@ public class UserSkillFactory
             case SkillType.장사꾼: return new DiscountMerchant(skillType);
             default: return null;
         }
-    }
-
-    public UserSkillFactory()
-    {
-        //_typeBySkill.Add(SkillType.시작골드증가, new StartGold());
-        //_typeBySkill.Add(SkillType.시작고기증가, new StartFood());
-        //_typeBySkill.Add(SkillType.최대유닛증가, new MaxUnit());
-        //_typeBySkill.Add(SkillType.태극스킬, new Taegeuk());
-        //_typeBySkill.Add(SkillType.검은유닛강화, new BlackUnitUpgrade());
-        //_typeBySkill.Add(SkillType.노란기사강화, new YellowSowrdmanUpgrade());
-        //_typeBySkill.Add(SkillType.상대색깔변경, new ColorChange());
-        //_typeBySkill.Add(SkillType.판매보상증가, new SellUpgrade());
-        //_typeBySkill.Add(SkillType.보스데미지증가, new BossDamageUpgrade());
-        //_typeBySkill.Add(SkillType.고기혐오자, new FoodHater());
-        //_typeBySkill.Add(SkillType.장사꾼, new DiscountMerchant());
-    }
-
-    public UserSkill GetSkill(SkillType type)
-    {
-        _typeBySkill[type].SetInfo(type);
-        return _typeBySkill[type];
     }
 }
 

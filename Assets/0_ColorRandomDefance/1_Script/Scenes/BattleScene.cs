@@ -43,20 +43,6 @@ public class BattleScene : BaseScene
 
 class UserSkillInitializer
 {
-    public IEnumerable<UserSkill> InitUserSkill()
-    {
-        List<UserSkill> userSkills = new List<UserSkill>();
-        foreach (var skillType in Managers.ClientData.EquipSkillManager.EquipSkills)
-        {
-            if (skillType == SkillType.None)
-                continue;
-            var userSkill = new UserSkillFactory().GetSkill(skillType);
-            userSkill.InitSkill();
-            userSkills.Add(userSkill);
-        }
-        return userSkills;
-    }
-
     public IEnumerable<UserSkill> InitUserSkill(BattleDIContainer container)
     {
         List<UserSkill> userSkills = new List<UserSkill>();

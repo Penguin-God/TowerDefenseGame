@@ -6,11 +6,12 @@ public class Tutorial_UserSkill : TutorialController
 {
     protected override void Init()
     {
-        Managers.ClientData.GetExp(SkillType.태극스킬, 1);
-        Managers.ClientData.GetExp(SkillType.판매보상증가, 1);
-        Managers.ClientData.EquipSkillManager.ChangedEquipSkill(UserSkillClass.Main, SkillType.태극스킬);
-        Managers.ClientData.EquipSkillManager.ChangedEquipSkill(UserSkillClass.Sub, SkillType.판매보상증가);
-        FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill());
+        // 여기서 말고 튜토리얼 씬 스크립트에서 스킬 설정하기
+        //Managers.ClientData.GetExp(SkillType.태극스킬, 1);
+        //Managers.ClientData.GetExp(SkillType.판매보상증가, 1);
+        //Managers.ClientData.EquipSkillManager.ChangedEquipSkill(UserSkillClass.Main, SkillType.태극스킬);
+        //Managers.ClientData.EquipSkillManager.ChangedEquipSkill(UserSkillClass.Sub, SkillType.판매보상증가);
+        //FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill());
         ChangeMaxUnitSummonColor(UnitColor.Blue);
         FindObjectOfType<UI_Status>().UpdateMySkillImage();
     }

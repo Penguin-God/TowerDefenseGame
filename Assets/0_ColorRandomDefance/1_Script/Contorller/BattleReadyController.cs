@@ -7,37 +7,28 @@ using TMPro;
 
 public class BattleReadyController : MonoBehaviourPun
 {
-    [SerializeField] Button _readyButton;
-
     int _readyCount;
-
-    EnemySpawnNumManager _manager;
+    UI_BattleStartController _battleStartControllerUI;
     public void EnterBattle(EnemySpawnNumManager manager)
     {
-        _readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "소환할 몬스터를 선택해 주십시오";
-        _readyButton.enabled = false;
+        _battleStartControllerUI = Managers.UI.ShowDefualtUI<UI_BattleStartController>();
         foreach (var ui in Managers.UI.SceneUIs)
             ui.gameObject.SetActive(false);
         Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(true);
-        
-        _manager = manager;
-        _manager.OnSpawnMonsterChange += ActiveReadyButton;
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1) // 임시. 나중에 혼자서 테스트할 수 있는 환결 구축 필요
+            manager.SetClientSpawnNumber(0);
+        StartCoroutine(Co_ActiveReadyButton(manager));
     }
 
-    void ActiveReadyButton(int num)
+    IEnumerator Co_ActiveReadyButton(EnemySpawnNumManager monsterSpawnManger)
     {
-        _manager.OnSpawnMonsterChange -= ActiveReadyButton;
-        _readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "게임을 시작할 준비가 되었다면 이 버튼을 클릭해주세요";
-        _readyButton.enabled = true;
-        _readyButton.onClick.AddListener(Ready);
+        yield return new WaitUntil(() => monsterSpawnManger.IsMonsterSelect(PlayerIdManager.Id));
+        _battleStartControllerUI.ActiveReadyButton(Ready);
     }
 
     void Ready()
     {
-        _readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "준비 완료";
-        _readyButton.enabled = false;
         Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(false);
-
         photonView.RPC(nameof(AddReadyCount), RpcTarget.MasterClient);
     }
 
@@ -54,16 +45,17 @@ public class BattleReadyController : MonoBehaviourPun
     [PunRPC]
     void BattleStart()
     {
+        Managers.Resources.Destroy(_battleStartControllerUI.gameObject);
         foreach (var ui in Managers.UI.SceneUIs)
             ui.gameObject.SetActive(true);
-        StartCoroutine(Co_NotifyGameStartEvent()); // 시간 커플링 때문에 코루틴으로 함
+        StartCoroutine(Co_NotifyGameStartEvent());
         Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(false);
         Multi_GameManager.Instance.GameStart();
     }
 
     IEnumerator Co_NotifyGameStartEvent()
     {
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.05f); // 시간 커플링 때문에 딜레이 줌
         Multi_GameManager.Instance.BattleData.MaxUnit += 0;
     }
 }

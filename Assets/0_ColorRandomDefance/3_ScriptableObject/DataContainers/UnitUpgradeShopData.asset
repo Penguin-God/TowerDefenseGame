@@ -16,7 +16,7 @@ MonoBehaviour:
   AddValuePriceData:
     _currencyType: 0
     _amount: 2
-  UpScale: 10
+  UpScale: 20
   UpScalePriceData:
     _currencyType: 1
     _amount: 1

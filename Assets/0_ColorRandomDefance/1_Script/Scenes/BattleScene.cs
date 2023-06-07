@@ -5,8 +5,6 @@ using Photon.Pun;
 
 public class BattleScene : BaseScene
 {
-    [SerializeField] GameObject monoBehaviourContainer;
-
     protected override void Init()
     {
         if (PhotonNetwork.InRoom == false)
@@ -20,9 +18,9 @@ public class BattleScene : BaseScene
         MultiServiceMidiator.Instance.Init();
         Managers.Unit.Init(new UnitControllerAttacher().AttacherUnitController(MultiServiceMidiator.Instance.gameObject), Managers.Data);
 
-        new WorldInitializer(monoBehaviourContainer).Init();
+        new WorldInitializer(gameObject).Init();
         CreatePools();
-        GetComponent<BattleReadyController>().EnterBattle(monoBehaviourContainer.GetComponent<EnemySpawnNumManager>());
+        GetComponent<BattleReadyController>().EnterBattle(GetComponent<EnemySpawnNumManager>());
     }
 
     void CreatePools()

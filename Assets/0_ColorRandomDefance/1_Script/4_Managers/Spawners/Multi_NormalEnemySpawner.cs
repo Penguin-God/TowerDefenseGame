@@ -19,7 +19,8 @@ public class NormalMonsterSpawner
 // 이게 실시간으로 바뀌면 어쩔 수 없는데, 스테이지 들어간 후에 낙장불입이면 그냥 스테이지 시작할 때만 RPC 보내는게 좋을 듯.
 public class EnemySpawnNumManager : MonoBehaviourPun
 {
-    byte[] _spawnEnemyNums = new byte[2];
+    byte[] _spawnEnemyNums = new byte[2] { 255, 255 };
+    public bool IsMonsterSelect(byte playerId) => _spawnEnemyNums[playerId] != 255;
     public event Action<int> OnSpawnMonsterChange;
 
     public byte GetSpawnEnemyNum(int id) => _spawnEnemyNums[id];
@@ -32,7 +33,7 @@ public class EnemySpawnNumManager : MonoBehaviourPun
             photonView.RPC(nameof(SetClientSpawnNumber), RpcTarget.MasterClient, num);
     }
     [PunRPC]
-    void SetClientSpawnNumber(byte num) => _spawnEnemyNums[1] = num;
+    public void SetClientSpawnNumber(byte num) => _spawnEnemyNums[1] = num;
 }
 
 public class MonsterSpawnerContorller : MonoBehaviour

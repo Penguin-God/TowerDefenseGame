@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using System.ComponentModel;
-using Codice.Client.Common;
 
 public class BattleDIContainer : MonoBehaviourPun
 {
@@ -48,6 +46,7 @@ public class MultiInitializer
             Multi_SpawnManagers.NormalUnit.Init(container.GetService<MonsterManagerProxy>().MultiMonsterManager);
         }
 
+        InitSound();
         Init_UI(container);
         StageManager.Instance.Injection(_dispatcher);
         game.Init(container.GetService<CurrencyManagerMediator>(), container.GetService<UnitMaxCountController>(), data.BattleDataContainer);
@@ -65,6 +64,20 @@ public class MultiInitializer
         var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();
         enemySelector.SetInfo(container.GetService<EnemySpawnNumManager>());
         Managers.Camera.OnIsLookMyWolrd += (isLookMy) => enemySelector.gameObject.SetActive(!isLookMy);
+    }
+
+    void InitSound()
+    {
+        var sound = Managers.Sound;
+        Managers.Sound.PlayBgm(BgmType.Default);
+
+        Multi_SpawnManagers.BossEnemy.rpcOnSpawn += () => sound.PlayBgm(BgmType.Boss);
+        Multi_SpawnManagers.BossEnemy.rpcOnDead += () => sound.PlayBgm(BgmType.Default);
+
+        Multi_SpawnManagers.BossEnemy.rpcOnDead += () => sound.PlayEffect(EffectSoundType.BossDeadClip);
+        Multi_SpawnManagers.TowerEnemy.rpcOnDead += () => sound.PlayEffect(EffectSoundType.TowerDieClip);
+
+        StageManager.Instance.OnUpdateStage += (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);
     }
 
     void Done(BattleDIContainer container)

@@ -207,7 +207,6 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
         _unitMaxCountController = unitMaxCountController;
         IncreasedMaxUnitCount(_battleDataContainer.MaxUnit);
 
-        Managers.Sound.PlayBgm(BgmType.Default);
         if (PhotonNetwork.IsConnected)
             photonView.RPC(nameof(CreateOtherPlayerData), RpcTarget.Others, Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
 

@@ -72,13 +72,12 @@ class WorldInitializer
 
         InitMonoBehaviourContainer();
         Managers.Camera.EnterBattleScene();
-        InitSound();
         Managers.Pool.Init();
         InitEffect();
-        SetUnit();
+        BindUnitEvent();
     }
 
-    void SetUnit()
+    void BindUnitEvent()
     {
         Multi_SpawnManagers.NormalUnit.OnSpawn += Managers.Unit.AddUnit;
         Managers.Unit.OnCombine += new UnitPassiveController().AddYellowSwordmanCombineGold;
@@ -87,26 +86,6 @@ class WorldInitializer
     void InitMonoBehaviourContainer()
     {
         _battleDIContainer.AddService<UnitColorChangerRpcHandler>();
-    }
-
-    void InitSound()
-    {
-        var sound = Managers.Sound;
-        // 빼기
-        Multi_SpawnManagers.BossEnemy.rpcOnSpawn -= () => sound.PlayBgm(BgmType.Boss);
-        Multi_SpawnManagers.BossEnemy.rpcOnDead -= () => sound.PlayBgm(BgmType.Default);
-
-        Multi_SpawnManagers.BossEnemy.rpcOnDead -= () => sound.PlayEffect(EffectSoundType.BossDeadClip);
-        Multi_SpawnManagers.TowerEnemy.rpcOnDead -= () => sound.PlayEffect(EffectSoundType.TowerDieClip);
-        StageManager.Instance.OnUpdateStage -= (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);
-
-        // 더하기
-        Multi_SpawnManagers.BossEnemy.rpcOnSpawn += () => sound.PlayBgm(BgmType.Boss);
-        Multi_SpawnManagers.BossEnemy.rpcOnDead += () => sound.PlayBgm(BgmType.Default);
-
-        Multi_SpawnManagers.BossEnemy.rpcOnDead += () => sound.PlayEffect(EffectSoundType.BossDeadClip);
-        Multi_SpawnManagers.TowerEnemy.rpcOnDead += () => sound.PlayEffect(EffectSoundType.TowerDieClip);
-        StageManager.Instance.OnUpdateStage += (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);
     }
 
     void InitEffect()

@@ -21,7 +21,7 @@ public class BattleScene : BaseScene
         new WorldInitializer(gameObject).Init();
 
         CreatePools();
-        GetComponent<BattleReadyController>().EnterBattle(GetComponent<EnemySpawnNumManager>());
+        // GetComponent<BattleReadyController>().EnterBattle(GetComponent<EnemySpawnNumManager>());
         gameObject.AddComponent<UnitClickController>();
         gameObject.AddComponent<RewradController>();
     }
@@ -61,20 +61,17 @@ class UserSkillInitializer
 
 class WorldInitializer
 {
-    GameObject monoBehaviourContainer;
     BattleDIContainer _battleDIContainer;
     public WorldInitializer(GameObject go)
     {
-        monoBehaviourContainer = go;
+        _battleDIContainer = go.AddComponent<BattleDIContainer>();
     }
 
     public void Init()
     {
-        _battleDIContainer = monoBehaviourContainer.AddComponent<BattleDIContainer>();
         new MultiInitializer().InjectionBattleDependency(_battleDIContainer);
 
         InitMonoBehaviourContainer();
-        Show_UI();
         Managers.Camera.EnterBattleScene();
         InitSound();
         Managers.Pool.Init();
@@ -90,7 +87,7 @@ class WorldInitializer
 
     void InitMonoBehaviourContainer()
     {
-        monoBehaviourContainer.AddComponent<UnitColorChangerRpcHandler>();
+        _battleDIContainer.AddService<UnitColorChangerRpcHandler>();
     }
 
     void InitSound()
@@ -111,16 +108,6 @@ class WorldInitializer
         Multi_SpawnManagers.BossEnemy.rpcOnDead += () => sound.PlayEffect(EffectSoundType.BossDeadClip);
         Multi_SpawnManagers.TowerEnemy.rpcOnDead += () => sound.PlayEffect(EffectSoundType.TowerDieClip);
         StageManager.Instance.OnUpdateStage += (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);
-    }
-
-    void Show_UI()
-    {
-        Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
-        Managers.UI.ShowSceneUI<BattleButton_UI>().SetInfo(_battleDIContainer.GetService<SwordmanGachaController>());
-
-        var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();
-        enemySelector.SetInfo(monoBehaviourContainer.GetOrAddComponent<EnemySpawnNumManager>());
-        Managers.Camera.OnIsLookMyWolrd += (isLookMy) => enemySelector.gameObject.SetActive(!isLookMy);
     }
 
     void InitEffect()

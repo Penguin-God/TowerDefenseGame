@@ -7,14 +7,25 @@ public class BattleReadyController : MonoBehaviourPun
 {
     int _readyCount;
     UI_BattleStartController _battleStartControllerUI;
-    public void EnterBattle(EnemySpawnNumManager manager)
+    BattleEventDispatcher _dispatcher;
+    EnemySpawnNumManager _enemySpawnNumManager;
+    public void SetInfo(EnemySpawnNumManager manager, BattleEventDispatcher dispatcher)
+    {
+        _enemySpawnNumManager = manager;
+        _dispatcher = dispatcher;
+    }
+
+    void Start() => EnterBattle(_enemySpawnNumManager);
+    void EnterBattle(EnemySpawnNumManager manager)
     {
         _battleStartControllerUI = Managers.UI.ShowDefualtUI<UI_BattleStartController>();
         foreach (var ui in Managers.UI.SceneUIs)
             ui.gameObject.SetActive(false);
         Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(true);
+
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1) // 임시. 나중에 혼자서 테스트할 수 있는 환결 구축 필요
             manager.SetClientSpawnNumber(0);
+
         StartCoroutine(Co_ActiveReadyButton(manager));
     }
 
@@ -48,6 +59,7 @@ public class BattleReadyController : MonoBehaviourPun
             ui.gameObject.SetActive(true);
         StartCoroutine(Co_NotifyGameStartEvent());
         Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(false);
+        _dispatcher.NotifyGameStart();
         Multi_GameManager.Instance.GameStart();
     }
 

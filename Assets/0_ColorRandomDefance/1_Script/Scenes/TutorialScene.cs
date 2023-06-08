@@ -14,7 +14,6 @@ public class TutorialScene : BaseScene
         Managers.Unit.Init(new UnitControllerAttacher().AttacherUnitController(MultiServiceMidiator.Instance.gameObject), Managers.Data);
         new WorldInitializer(gameObject).Init();
 
-        GetComponent<BattleReadyController>().EnterBattle(GetComponent<EnemySpawnNumManager>());
         Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").gameObject.SetActive(false);
         gameObject.AddComponent<Tutorial_AI>();
         Multi_GameManager.Instance.CreateOtherPlayerData(SkillType.검은유닛강화, SkillType.판매보상증가);

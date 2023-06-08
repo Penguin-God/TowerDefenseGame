@@ -193,8 +193,6 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     UnitMaxCountController _unitMaxCountController;
     public void IncreasedMaxUnitCount(int amount) => _unitMaxCountController.IncreasedMaxUnitCount(amount);
 
-    // 임시
-    [SerializeField] Button gameStartButton;
     [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
     [SerializeField] BattleDataContainer _battleDataContainer;
     public void Init(IBattleCurrencyManager currencyManager, UnitMaxCountController unitMaxCountController, BattleDataContainer battleDataContainer)
@@ -224,7 +222,6 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     [PunRPC]
     void RPC_OnStart()
     {
-        gameStartButton?.gameObject?.SetActive(false);
         OnGameStart?.Invoke();
         OnGameStart = null;
         isGameStart = true;

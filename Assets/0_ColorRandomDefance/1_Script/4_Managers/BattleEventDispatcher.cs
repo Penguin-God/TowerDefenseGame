@@ -27,4 +27,10 @@ public class BattleEventDispatcher
     }
 
     public void NotifyOpponentUnitMaxCountChanged(int maxCount) => OnOpponentUnitMaxCountChanged?.Invoke(maxCount);
+
+    public event Action OnGameStart = null;
+    public void NotifyGameStart() => OnGameStart?.Invoke();
+
+    public event Action<int> OnStageUp = null;
+    public void NotifyStageUp(int stage) => OnStageUp?.Invoke(stage);
 }

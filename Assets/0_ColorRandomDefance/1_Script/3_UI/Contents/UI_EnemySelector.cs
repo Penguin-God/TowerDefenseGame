@@ -11,8 +11,6 @@ public class UI_EnemySelector : UI_Scene
     {
         List<EnemySelector_Button> enemySelectBtns = GetComponentsInChildren<EnemySelector_Button>().ToList();
         enemySelectBtns.ForEach(BindMousePointerEvents);
-        // enemySelectBtns[0].StartSelectSpawnEnemy();
-        // ChangeSpawnEnemy(enemySelectBtns[0]);
     }
 
     void BindMousePointerEvents(EnemySelector_Button btn)

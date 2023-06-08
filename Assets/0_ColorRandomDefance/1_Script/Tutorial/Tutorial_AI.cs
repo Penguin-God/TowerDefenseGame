@@ -12,7 +12,6 @@ public class Tutorial_AI : MonoBehaviour
     void Awake()
     {
         _gold = 15;
-        Multi_GameManager.Instance.OnGameStart += DrawUnits;
         StageManager.Instance.OnUpdateStage += (stage) => OnChangeStage();
     }
 

@@ -25,7 +25,6 @@ public class TutorialScene : BaseScene
 
     void SetPlayerSkill()
     {
-        // 여기서 말고 튜토리얼 씬 스크립트에서 스킬 설정하기
         Managers.ClientData.GetExp(SkillType.태극스킬, 1);
         Managers.ClientData.GetExp(SkillType.판매보상증가, 1);
         Managers.ClientData.EquipSkillManager.ChangedEquipSkill(UserSkillClass.Main, SkillType.태극스킬);

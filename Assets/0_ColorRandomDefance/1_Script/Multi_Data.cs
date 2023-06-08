@@ -67,7 +67,6 @@ public class Multi_Data : MonoBehaviour
 
     [SerializeField] Vector3[] enemyTowerWorldPositions = null;
     public Vector3[] EnemyTowerWorldPositions => enemyTowerWorldPositions;
-    public Vector3 EnemyTowerWorldPosition => enemyTowerWorldPositions[PlayerIdManager.Id];
 
     [Header("Enemy")]
 

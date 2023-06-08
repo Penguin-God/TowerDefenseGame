@@ -69,7 +69,11 @@ public class DataManager
         BgmBySound = MakeCsvDict<BgmSoundLoder, BgmType, BgmSound>("SoundData/BgmSoundData");
 
         BattleDataContainer = Managers.Resources.Load<BattleDataContainer>("Data/ScriptableObject/BattleStartData").Clone();
-        // TextKeys = Managers.Resources.Load<TextAsset>("Data/TextKeyData").text.Split('\n').Skip(1).Where(x => string.IsNullOrEmpty(x) == false);
+        TextKeys = Managers.Resources.Load<TextAsset>("Data/TextKeyData").text
+            .Split('\n')
+            .Skip(1)
+            .Select(x => x.Trim())
+            .Where(x => string.IsNullOrEmpty(x) == false);
     }
 
 

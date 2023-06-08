@@ -9,8 +9,9 @@ public static class DatabaseUtility
 
     public static string GetValueText(string key)
     {
+        var values = key.Skip(2).Select(x => int.Parse(x.ToString())).ToArray();
         if (key.StartsWith("Pa"))
-            return GetUnitPassiveStat(new UnitFlags(key[2], key[3]), key[4]).ToString();
+            return GetUnitPassiveStat(new UnitFlags(values[0], values[1]), values[2]).ToString();
         return "";
     }
 

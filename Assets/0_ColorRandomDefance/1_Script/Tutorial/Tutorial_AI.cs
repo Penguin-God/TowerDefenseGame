@@ -29,7 +29,7 @@ public class Tutorial_AI : MonoBehaviour
         while (_gold >= 5)
         {
             _gold -= 5;
-            var unit = Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(Random.Range(0, 3), 0), AI_ID);
+            var unit = Multi_SpawnManagers.NormalUnit.RPCSpawn(new UnitFlags(Random.Range(0, 3), 0), AI_ID);
             _unitFlags.Add(unit.UnitFlags);
             yield return new WaitForSeconds(0.2f);
             TryCombine();

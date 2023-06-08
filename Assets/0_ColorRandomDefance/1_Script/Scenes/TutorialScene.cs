@@ -14,15 +14,31 @@ public class TutorialScene : BaseScene
         Managers.Unit.Init(new UnitControllerAttacher().AttacherUnitController(MultiServiceMidiator.Instance.gameObject), Managers.Data);
         new WorldInitializer(gameObject).Init();
 
+        GetComponent<BattleReadyController>().EnterBattle(GetComponent<EnemySpawnNumManager>());
         Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").gameObject.SetActive(false);
         gameObject.AddComponent<Tutorial_AI>();
         Multi_GameManager.Instance.CreateOtherPlayerData(SkillType.검은유닛강화, SkillType.판매보상증가);
-        // Multi_EnemyManager.Instance.OnOtherEnemyCountChanged += CheckGameOver;
+
+        CreatePools();
+        SetPlayerSkill();
     }
 
-    void CheckGameOver(int enemyCount)
+    void SetPlayerSkill()
     {
-        if (enemyCount >= 50)
-            gameObject.GetComponent<WinOrLossController>().GameEnd("승리!!");
+        // 여기서 말고 튜토리얼 씬 스크립트에서 스킬 설정하기
+        Managers.ClientData.GetExp(SkillType.태극스킬, 1);
+        Managers.ClientData.GetExp(SkillType.판매보상증가, 1);
+        Managers.ClientData.EquipSkillManager.ChangedEquipSkill(UserSkillClass.Main, SkillType.태극스킬);
+        Managers.ClientData.EquipSkillManager.ChangedEquipSkill(UserSkillClass.Sub, SkillType.판매보상증가);
+        FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(gameObject.GetComponent<BattleDIContainer>()));
+    }
+
+    void CreatePools()
+    {
+        if (PhotonNetwork.IsMasterClient == false) return;
+
+        new UnitPoolInitializer().InitPool();
+        new MonsterPoolInitializer().InitPool();
+        new WeaponPoolInitializer().InitPool();
     }
 }

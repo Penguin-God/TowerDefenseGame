@@ -71,7 +71,13 @@ namespace TutorialCommends
 
         public void TutorialAction()
         {
-            var showUITransform = GameObject.Find(_uiName).GetComponent<RectTransform>();
+            var findUi = GameObject.Find(_uiName);
+            if (findUi == null)
+            {
+                Debug.Log($"{_uiName}이라는 이름의 UI 못 찾음");
+                return;
+            }
+            var showUITransform = findUi.GetComponent<RectTransform>();
             if (showUITransform != null) 
                 SetBlindUI(showUITransform);
 

@@ -21,7 +21,6 @@ public class BattleScene : BaseScene
         new WorldInitializer(gameObject).Init();
 
         CreatePools();
-        // GetComponent<BattleReadyController>().EnterBattle(GetComponent<EnemySpawnNumManager>());
         gameObject.AddComponent<UnitClickController>();
         gameObject.AddComponent<RewradController>();
     }

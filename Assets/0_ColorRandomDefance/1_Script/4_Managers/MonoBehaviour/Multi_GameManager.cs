@@ -215,20 +215,6 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
         _upScaleValueByFlag = UnitFlags.NormalFlags.ToDictionary(x => x, x => 0);
     }
 
-
-    [HideInInspector]
-    public bool isGameStart;
-    public event Action OnGameStart;
-    [PunRPC]
-    void RPC_OnStart()
-    {
-        OnGameStart?.Invoke();
-        OnGameStart = null;
-        isGameStart = true;
-    }
-
-    public void GameStart() => photonView.RPC(nameof(RPC_OnStart), RpcTarget.All);
-
     [PunRPC]
     public void AddGold(int _addGold) => _currencyManager.AddGold(_addGold);
     public void AddGold_RPC(int _addGold, int id)

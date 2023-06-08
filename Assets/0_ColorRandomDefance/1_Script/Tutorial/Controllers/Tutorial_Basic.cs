@@ -17,5 +17,5 @@ public class Tutorial_Basic : TutorialController
         AddReadCommend("이제 잠시 게임을 플레이해보세요!!\n때가 되면 다시 돌아오겠습니다.");
     }
 
-    protected override bool TutorialStartCondition() => Multi_GameManager.Instance.isGameStart;
+    protected override bool TutorialStartCondition() => StageManager.Instance.CurrentStage == 1;
 }

@@ -379,7 +379,6 @@ MonoBehaviour:
     UnitSummonData:
       SummonPrice: 0
       SummonMaxColor: 0
-  gameStartButton: {fileID: 0}
   _unitUpgradeShopData: {fileID: 11400000, guid: a6e4dad3ae580fe4fa7257e539e00505,
     type: 2}
   _battleDataContainer: {fileID: 11400000, guid: ca5675c0898f78e409d3b3ddc5391ee5,
@@ -512,8 +511,6 @@ GameObject:
   - component: {fileID: 611976662}
   - component: {fileID: 611976661}
   - component: {fileID: 611976664}
-  - component: {fileID: 611976665}
-  - component: {fileID: 611976666}
   m_Layer: 0
   m_Name: Scene
   m_TagString: Untagged
@@ -585,30 +582,6 @@ MonoBehaviour:
   sceneViewId: 1
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &611976665
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 611976660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd8d24e28ae27524bb7500494d4b626a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &611976666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 611976660}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d4f12fbd7c7c40d4c9f34e3a14a9bc5d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &764621120
 GameObject:
   m_ObjectHideFlags: 0

@@ -49,6 +49,7 @@ public class MultiInitializer
         }
 
         Init_UI(container);
+        StageManager.Instance.Injection(_dispatcher);
         game.Init(container.GetService<CurrencyManagerMediator>(), container.GetService<UnitMaxCountController>(), data.BattleDataContainer);
         container.GetService<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(container));
         Done(container);

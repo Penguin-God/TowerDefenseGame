@@ -13,16 +13,24 @@ public class StageManager : SingletonPun<StageManager>
 
     WaitForSeconds StageWait;
 
-    void Awake()
+    BattleEventDispatcher _dispatcher;
+
+    public void Injection(BattleEventDispatcher dispatcher)
     {
-        base.Init();    
+        _dispatcher = dispatcher;
+        SetInfo();
     }
 
-    void Start()
+    void Awake()
     {
-        if (PhotonNetwork.IsMasterClient)
-            Multi_GameManager.Instance.OnGameStart += UpdateStage;
+        base.Init();
+    }
 
+    void SetInfo()
+    {
+        if (PhotonNetwork.IsMasterClient == false) return;
+
+        _dispatcher.OnGameStart += UpdateStage;
         StageWait = new WaitForSeconds(STAGE_TIME);
     }
 

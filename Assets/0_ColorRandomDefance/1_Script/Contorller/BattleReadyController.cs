@@ -60,7 +60,6 @@ public class BattleReadyController : MonoBehaviourPun
         StartCoroutine(Co_NotifyGameStartEvent());
         Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(false);
         _dispatcher.NotifyGameStart();
-        Multi_GameManager.Instance.GameStart();
     }
 
     IEnumerator Co_NotifyGameStartEvent()

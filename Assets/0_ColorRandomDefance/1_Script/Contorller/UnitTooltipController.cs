@@ -38,7 +38,7 @@ public class UnitTooltipController
     string BuildUnitDescrtion(UnitFlags flag)
     {
         var result = new StringBuilder();
-        result.Append(Managers.Data.UnitWindowDataByUnitFlags[flag].Description);
+        result.Append(DatabaseUtility.TextKeyToValue(Managers.Data.UnitWindowDataByUnitFlags[flag].Description));
         result.AppendLine();
         result.AppendLine();
         var damInfo = MultiServiceMidiator.UnitUpgrade.GetUnitDamageInfo(flag);

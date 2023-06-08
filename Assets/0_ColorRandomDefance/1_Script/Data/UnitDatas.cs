@@ -44,8 +44,7 @@ public struct UnitFlags : IEquatable<UnitFlags>
     public UnitColor UnitColor => (UnitColor)_colorNumber;
     public UnitClass UnitClass => (UnitClass)_classNumber;
 
-    public bool Equals(UnitFlags other) 
-        => other.ColorNumber == _colorNumber && other.ClassNumber == _classNumber;
+    public bool Equals(UnitFlags other) => other.ColorNumber == _colorNumber && other.ClassNumber == _classNumber;
 
     public override int GetHashCode() => (_colorNumber, _classNumber).GetHashCode();
     public override bool Equals(object other) => base.Equals(other);

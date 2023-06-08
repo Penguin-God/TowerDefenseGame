@@ -3,6 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public class UnitKeyData
+{
+    public UnitFlags UnitFlag { get; private set; }
+    public UnitKeyData(UnitFlags flag, int passiveStatCount)
+    {
+        UnitFlag = flag;
+
+        _passiveKeys = new string[passiveStatCount];
+        for (int i = 0; i < passiveStatCount; i++)
+            _passiveKeys[i] = $"Pa{flag.ColorNumber}{flag.ClassNumber}{i}";
+    }
+
+    string[] _passiveKeys;
+
+}
+
 public static class DatabaseUtility
 {
     public static float GetUnitPassiveStat(UnitFlags flag, int index) => Managers.Data.GetUnitPassiveStats(flag)[index];
@@ -24,5 +40,10 @@ public static class DatabaseUtility
         return text;
 
         string BulidKeyFormat(string key) => $"<%{key}>".Replace('<', '{').Replace('>', '}');
+    }
+
+    public static string TextKeyToValue(string text, UnitFlags flag)
+    {
+
     }
 }

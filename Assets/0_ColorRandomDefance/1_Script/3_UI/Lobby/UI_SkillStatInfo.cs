@@ -9,8 +9,19 @@ public class UI_SkillStatInfo : UI_Base
     
     public void ShowSkillStat(SkillType skillType, int frameIndex)
     {
-        int skillStat = (int)Managers.ClientData.GetSkillLevelData(skillType).BattleDatas[frameIndex];
-        string text = Managers.Data.UserSkill.GetSkillGoodsData(skillType).StatInfoFraems[frameIndex].Replace("{data}", skillStat.ToString("#,##0"));
+        string text = Managers.Data.UserSkill.GetSkillGoodsData(skillType).StatInfoFraems[frameIndex].Replace("{data}", GetSkillStat(skillType, frameIndex));
         _statText.text = DatabaseUtility.RelpaceKeyToValue(text);
+    }
+
+    string GetSkillStat(SkillType skillType, int frameIndex)
+    {
+        float result = Managers.ClientData.GetSkillLevelData(skillType).BattleDatas[frameIndex];
+        switch (skillType)
+        {
+            case SkillType.보스데미지증가: result += 1; break;
+            case SkillType.태극스킬: result += Managers.Data.Unit.UnitStatByFlag[new UnitFlags(0, frameIndex)].Damage; break;
+            case SkillType.검은유닛강화: result += Managers.Data.Unit.UnitStatByFlag[new UnitFlags(7, frameIndex)].Damage; break;
+        }
+        return result.ToString("#,##0");
     }
 }

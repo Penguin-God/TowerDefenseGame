@@ -9,7 +9,7 @@ public class UnitKeyBuilder
 
     public string BuildBossAttackKey(UnitFlags flag) => FormatKey(BuildUnitKey("BAt", flag));
 
-    public IReadOnlyList<string> BuildPassiveKeys(UnitFlags flag, int count) => Enumerable.Range(0, count).Select(i => FormatKey($"{BuildUnitKey("Pa", flag)}{i}")).ToList();
+    public IEnumerable<string> BuildPassiveKeys(UnitFlags flag, int count) => Enumerable.Range(0, count).Select(i => FormatKey($"{BuildUnitKey("Pa", flag)}{i}"));
 
     string FormatKey(string key) => "{%" + key + "}";
     string BuildUnitKey(string prefix, UnitFlags flag) => $"{prefix}{FlagToNumberText(flag)}";
@@ -41,6 +41,7 @@ public static class DatabaseUtility
 
     public static string UnitTextKeyToValue(string text, UnitFlags flag)
     {
+
         return text;
     }
 }

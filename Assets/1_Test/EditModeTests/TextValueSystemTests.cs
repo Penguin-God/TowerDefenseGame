@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -24,7 +25,7 @@ public class TextValueSystemTests
         var sut = new UnitKeyBuilder();
         const int PassiveCount = 4;
 
-        var result = sut.BuildPassiveKeys(VioaltSpearman, PassiveCount);
+        var result = sut.BuildPassiveKeys(VioaltSpearman, PassiveCount).ToList();
 
         Assert.AreEqual(result.Count, PassiveCount);
         Assert.AreEqual("{%Pa520}", result[0]);

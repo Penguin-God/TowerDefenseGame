@@ -3,20 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class UnitKeyData
+public class UnitKeyBuilder
 {
-    public UnitFlags UnitFlag { get; private set; }
-    public UnitKeyData(UnitFlags flag, int passiveStatCount)
-    {
-        UnitFlag = flag;
+    public string BuildAttackKey(UnitFlags flag) => $"At{FlagToNumberText(flag)}";
 
-        _passiveKeys = new string[passiveStatCount];
-        for (int i = 0; i < passiveStatCount; i++)
-            _passiveKeys[i] = $"Pa{flag.ColorNumber}{flag.ClassNumber}{i}";
-    }
+    public string BuildBossAttackKey(UnitFlags flag) => $"BAt{FlagToNumberText(flag)}";
 
-    string[] _passiveKeys;
+    public IReadOnlyList<string> BuildPassiveKeys(UnitFlags flag, int count) => Enumerable.Range(0, count).Select(i => $"Pa{FlagToNumberText(flag)}{i}").ToList();
 
+    string FlagToNumberText(UnitFlags flag) => $"{flag.ColorNumber}{flag.ClassNumber}";
 }
 
 public static class DatabaseUtility
@@ -44,6 +39,6 @@ public static class DatabaseUtility
 
     public static string TextKeyToValue(string text, UnitFlags flag)
     {
-
+        return "";
     }
 }

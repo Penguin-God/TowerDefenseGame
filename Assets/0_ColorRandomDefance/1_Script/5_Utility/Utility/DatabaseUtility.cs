@@ -9,7 +9,9 @@ public class UnitKeyBuilder
 
     public string BuildBossAttackKey(UnitFlags flag) => FormatKey(BuildUnitKey("BAt", flag));
 
-    public IEnumerable<string> BuildPassiveKeys(UnitFlags flag, int count) => Enumerable.Range(0, count).Select(i => FormatKey($"{BuildUnitKey("Pa", flag)}{i}"));
+    public IEnumerable<string> BuildPassiveKeys(UnitFlags flag, int passiveCount) => Enumerable.Range(0, passiveCount).Select(i => FormatKey($"{BuildUnitKey("Pa", flag)}{i}"));
+
+    public IEnumerable<string> BuildAllKeys(UnitFlags flag, int passiveCount) => BuildPassiveKeys(flag, passiveCount).Append(BuildAttackKey(flag)).Append(BuildBossAttackKey(flag));
 
     string FormatKey(string key) => "{%" + key + "}";
     string BuildUnitKey(string prefix, UnitFlags flag) => $"{prefix}{FlagToNumberText(flag)}";

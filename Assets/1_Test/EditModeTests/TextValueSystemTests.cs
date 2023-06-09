@@ -33,4 +33,22 @@ public class TextValueSystemTests
         Assert.AreEqual("{%Pa522}", result[2]);
         Assert.AreEqual("{%Pa523}", result[3]);
     }
+
+    [Test]
+    public void 모든_키를_생성해야_함()
+    {
+        var sut = new UnitKeyBuilder();
+        const int PassiveCount = 4;
+
+        var result = sut.BuildAllKeys(VioaltSpearman, PassiveCount);
+
+        Assert.AreEqual(result.Count(), 6);
+
+        CollectionAssert.Contains(result, "{%At52}");
+        CollectionAssert.Contains(result, "{%BAt52}");
+        CollectionAssert.Contains(result, "{%Pa520}");
+        CollectionAssert.Contains(result, "{%Pa521}");
+        CollectionAssert.Contains(result, "{%Pa522}");
+        CollectionAssert.Contains(result, "{%Pa523}");
+    }
 }

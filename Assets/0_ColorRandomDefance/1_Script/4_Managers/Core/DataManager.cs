@@ -52,7 +52,6 @@ public class DataManager
     public Dictionary<BgmType, BgmSound> BgmBySound { get; private set; }
     #endregion
 
-    public IEnumerable<string> TextKeys;
     public BattleDataContainer BattleDataContainer { get; private set; }
 
     public void Init()
@@ -69,11 +68,6 @@ public class DataManager
         BgmBySound = MakeCsvDict<BgmSoundLoder, BgmType, BgmSound>("SoundData/BgmSoundData");
 
         BattleDataContainer = Managers.Resources.Load<BattleDataContainer>("Data/ScriptableObject/BattleStartData").Clone();
-        TextKeys = Managers.Resources.Load<TextAsset>("Data/TextKeyData").text
-            .Split('\n')
-            .Skip(1)
-            .Select(x => x.Trim())
-            .Where(x => string.IsNullOrEmpty(x) == false);
     }
 
 
@@ -112,7 +106,12 @@ public class DataManager
         public Dictionary<UnitFlags, UnitDamageInfo> DamageInfoByFlag => UnitStatByFlag.ToDictionary(x => x.Key, x => new UnitDamageInfo(x.Value.Damage, x.Value.BossDamage));
 
         Dictionary<UnitFlags, UnitPassiveStat> _unitPassiveStatByFlag = new Dictionary<UnitFlags, UnitPassiveStat>();
-        public IReadOnlyList<float> GetUnitPassiveStats(UnitFlags flag) => _unitPassiveStatByFlag[flag].Stats;
+        public IReadOnlyList<float> GetUnitPassiveStats(UnitFlags flag)
+        {
+            if (_unitPassiveStatByFlag.TryGetValue(flag, out var result))
+                return result.Stats;
+            return new List<float>();
+        }
 
         Dictionary<UnitFlags, MageUnitStat> _mageStatByFlag = new Dictionary<UnitFlags, MageUnitStat>();
         public IReadOnlyDictionary<UnitFlags, MageUnitStat> MageStatByFlag => _mageStatByFlag;

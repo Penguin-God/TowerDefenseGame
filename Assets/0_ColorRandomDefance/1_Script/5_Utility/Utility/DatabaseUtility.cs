@@ -20,17 +20,20 @@ public class UnitKeyBuilder
 
 public static class DatabaseUtility
 {
+    static string UnCapsuleKeyFormat(string key) => key.Substring(2, key.Length - 3);
+
     public static float GetUnitPassiveStat(UnitFlags flag, int index) => Managers.Data.GetUnitPassiveStats(flag)[index];
 
-    public static string UnitKeyToValue(string key)
+    public static string GetValue(string key)
     {
-        var unitKey = UnCapsuleKeyFormat(key);
-        if (unitKey.StartsWith("At"))
-            return "";
-        if (unitKey.StartsWith("BAt"))
-            return "";
-        else if (unitKey.StartsWith("Pa"))
-            return GetUnitPassiveStat(GetFlag(unitKey, 2), int.Parse(unitKey[4].ToString())).ToString();
+        var keyAttribute = UnCapsuleKeyFormat(key);
+        if (keyAttribute.StartsWith("At"))
+            return Managers.Data.Unit.UnitStatByFlag[GetFlag(keyAttribute, 2)].Damage.ToString("#,##0");
+        if (keyAttribute.StartsWith("BAt"))
+            return Managers.Data.Unit.UnitStatByFlag[GetFlag(keyAttribute, 3)].BossDamage.ToString("#,##0");
+        else if (keyAttribute.StartsWith("Pa"))
+            return GetUnitPassiveStat(GetFlag(keyAttribute, 2), int.Parse(keyAttribute[4].ToString())).ToString("#,##0");
+
         return "";
 
         UnitFlags GetFlag(string key, int skipIndex)
@@ -40,13 +43,17 @@ public static class DatabaseUtility
         }
     }
 
-    static string UnCapsuleKeyFormat(string key) => key.Substring(2, key.Length - 3);
+    public static string RelpaceKeyToValue(string text)
+    {
+        foreach (var flag in UnitFlags.AllFlags)
+            text = UnitKeyToValue(text, flag);
+        return text;
+    }
 
     public static string UnitKeyToValue(string text, UnitFlags flag)
     {
-        Debug.Log(GetUnitPassiveCount(flag));
         foreach (var key in new UnitKeyBuilder().BuildAllKeys(flag, GetUnitPassiveCount(flag)))
-            text = text.Replace(key, UnitKeyToValue(key));
+            text = text.Replace(key, GetValue(key));
         return text;
     }
     static int GetUnitPassiveCount(UnitFlags flag) => Managers.Data.GetUnitPassiveStats(flag).Count();

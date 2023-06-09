@@ -15,6 +15,7 @@ public class MultiInitializer
 
     public void InjectionBattleDependency(BattleDIContainer container)
     {
+        Debug.Log("Start");
         var game = Multi_GameManager.Instance;
         var data = Managers.Data;
         // add
@@ -27,6 +28,8 @@ public class MultiInitializer
         container.AddService<OpponentStatusSender>().Init(_dispatcher);
         container.AddService<EnemySpawnNumManager>();
 
+        Debug.Log("Done Add");
+
         // set
         container.GetService<SwordmanGachaController>().Init(game, data.BattleDataContainer.UnitSummonData);
         container.GetService<CurrencyManagerMediator>().Init(game);
@@ -34,6 +37,8 @@ public class MultiInitializer
         container.GetService<MonsterManagerProxy>().Init(_dispatcher);
 
         Multi_SpawnManagers.Instance.Init();
+
+        Debug.Log("Done Client");
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -48,10 +53,11 @@ public class MultiInitializer
 
         InitSound();
         Init_UI(container);
-        StageManager.Instance.Injection(_dispatcher);
         game.Init(container.GetService<CurrencyManagerMediator>(), container.GetService<UnitMaxCountController>(), data.BattleDataContainer);
+        StageManager.Instance.Injection(_dispatcher);
         container.GetService<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(container));
         Done(container);
+        Debug.Log("Done Scene");
     }
 
     void Init_UI(BattleDIContainer container)

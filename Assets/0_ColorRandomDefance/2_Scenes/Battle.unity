@@ -499,6 +499,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: BattleLevel
       objectReference: {fileID: 0}
+    - target: {fileID: 2833895161616448442, guid: 3d434f65c39bbf44594982c4a9d7bc2b,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2833895161616448443, guid: 3d434f65c39bbf44594982c4a9d7bc2b,
         type: 3}
       propertyPath: m_RootOrder
@@ -834,7 +839,6 @@ MonoBehaviour:
     type: 2}
   _battleDataContainer: {fileID: 11400000, guid: ca5675c0898f78e409d3b3ddc5391ee5,
     type: 2}
-  isGameStart: 0
 --- !u!1 &1712762048
 GameObject:
   m_ObjectHideFlags: 0

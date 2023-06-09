@@ -18,6 +18,7 @@ public class BattleReadyController : MonoBehaviourPun
     void Start() => EnterBattle(_enemySpawnNumManager);
     void EnterBattle(EnemySpawnNumManager manager)
     {
+        print(":?");
         _battleStartControllerUI = Managers.UI.ShowDefualtUI<UI_BattleStartController>();
         foreach (var ui in Managers.UI.SceneUIs)
             ui.gameObject.SetActive(false);

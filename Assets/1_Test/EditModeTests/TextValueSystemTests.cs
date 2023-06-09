@@ -14,8 +14,8 @@ public class TextValueSystemTests
     {
         var sut = new UnitKeyBuilder();
 
-        Assert.AreEqual("At01", sut.BuildAttackKey(RedArcher));
-        Assert.AreEqual("BAt01", sut.BuildBossAttackKey(RedArcher));
+        Assert.AreEqual("{%At01}", sut.BuildAttackKey(RedArcher));
+        Assert.AreEqual("{%BAt01}", sut.BuildBossAttackKey(RedArcher));
     }
 
     [Test]
@@ -27,7 +27,9 @@ public class TextValueSystemTests
         var result = sut.BuildPassiveKeys(VioaltSpearman, PassiveCount);
 
         Assert.AreEqual(result.Count, PassiveCount);
-        for (int i = 0; i < result.Count; i++)
-            Assert.AreEqual($"Pa52{i}", result[i]);
+        Assert.AreEqual("{%Pa520}", result[0]);
+        Assert.AreEqual("{%Pa521}", result[1]);
+        Assert.AreEqual("{%Pa522}", result[2]);
+        Assert.AreEqual("{%Pa523}", result[3]);
     }
 }

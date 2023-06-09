@@ -5,12 +5,14 @@ using UnityEngine;
 
 public class UnitKeyBuilder
 {
-    public string BuildAttackKey(UnitFlags flag) => $"At{FlagToNumberText(flag)}";
+    public string BuildAttackKey(UnitFlags flag) => FormatKey(BuildUnitKey("At", flag));
 
-    public string BuildBossAttackKey(UnitFlags flag) => $"BAt{FlagToNumberText(flag)}";
+    public string BuildBossAttackKey(UnitFlags flag) => FormatKey(BuildUnitKey("BAt", flag));
 
-    public IReadOnlyList<string> BuildPassiveKeys(UnitFlags flag, int count) => Enumerable.Range(0, count).Select(i => $"Pa{FlagToNumberText(flag)}{i}").ToList();
+    public IReadOnlyList<string> BuildPassiveKeys(UnitFlags flag, int count) => Enumerable.Range(0, count).Select(i => FormatKey($"{BuildUnitKey("Pa", flag)}{i}")).ToList();
 
+    string FormatKey(string key) => "{%" + key + "}";
+    string BuildUnitKey(string prefix, UnitFlags flag) => $"{prefix}{FlagToNumberText(flag)}";
     string FlagToNumberText(UnitFlags flag) => $"{flag.ColorNumber}{flag.ClassNumber}";
 }
 
@@ -37,8 +39,8 @@ public static class DatabaseUtility
         string BulidKeyFormat(string key) => $"<%{key}>".Replace('<', '{').Replace('>', '}');
     }
 
-    public static string TextKeyToValue(string text, UnitFlags flag)
+    public static string UnitTextKeyToValue(string text, UnitFlags flag)
     {
-        return "";
+        return text;
     }
 }

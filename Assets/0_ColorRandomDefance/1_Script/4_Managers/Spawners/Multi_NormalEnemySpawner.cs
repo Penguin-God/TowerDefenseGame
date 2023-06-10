@@ -21,16 +21,17 @@ public class EnemySpawnNumManager : MonoBehaviourPun
 {
     byte[] _spawnEnemyNums = new byte[2] { 255, 255 };
     public bool IsMonsterSelect(byte playerId) => _spawnEnemyNums[playerId] != 255;
-    public event Action<int> OnSpawnMonsterChange;
-
+    
     public byte GetSpawnEnemyNum(int id) => _spawnEnemyNums[id];
     public void SetSpawnNumber(byte num)
     {
-        OnSpawnMonsterChange?.Invoke(num);
         if (PhotonNetwork.IsMasterClient)
             _spawnEnemyNums[0] = num;
         else
+        {
+            _spawnEnemyNums[1] = num;
             photonView.RPC(nameof(SetClientSpawnNumber), RpcTarget.MasterClient, num);
+        }
     }
     [PunRPC]
     public void SetClientSpawnNumber(byte num) => _spawnEnemyNums[1] = num;

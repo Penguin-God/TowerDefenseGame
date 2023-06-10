@@ -15,7 +15,6 @@ public class MultiInitializer
 
     public void InjectionBattleDependency(BattleDIContainer container)
     {
-        Debug.Log("Start");
         var game = Multi_GameManager.Instance;
         var data = Managers.Data;
         // add
@@ -28,8 +27,7 @@ public class MultiInitializer
         container.AddService<OpponentStatusSender>().Init(_dispatcher);
         container.AddService<EnemySpawnNumManager>();
 
-        Debug.Log("Done Add");
-
+        
         // set
         container.GetService<SwordmanGachaController>().Init(game, data.BattleDataContainer.UnitSummonData);
         container.GetService<CurrencyManagerMediator>().Init(game);
@@ -37,8 +35,6 @@ public class MultiInitializer
         container.GetService<MonsterManagerProxy>().Init(_dispatcher);
 
         Multi_SpawnManagers.Instance.Init();
-
-        Debug.Log("Done Client");
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -57,7 +53,6 @@ public class MultiInitializer
         StageManager.Instance.Injection(_dispatcher);
         container.GetService<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(container));
         Done(container);
-        Debug.Log("Done Scene");
     }
 
     void Init_UI(BattleDIContainer container)
@@ -69,7 +64,6 @@ public class MultiInitializer
 
         var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();
         enemySelector.SetInfo(container.GetService<EnemySpawnNumManager>());
-        Managers.Camera.OnIsLookMyWolrd += (isLookMy) => enemySelector.gameObject.SetActive(!isLookMy);
     }
 
     void InitSound()
@@ -88,7 +82,7 @@ public class MultiInitializer
 
     void Done(BattleDIContainer container)
     {
-        container.AddService<BattleReadyController>().SetInfo(container.GetService<EnemySpawnNumManager>(), _dispatcher);
+        container.AddService<BattleReadyController>().EnterBattle(container.GetService<EnemySpawnNumManager>(), _dispatcher);
     }
 
     void AddMultiService<TClient, TMaster> (BattleDIContainer container) where TClient : MonoBehaviour where TMaster : MonoBehaviour

@@ -8,18 +8,11 @@ public class BattleReadyController : MonoBehaviourPun
     int _readyCount;
     UI_BattleStartController _battleStartControllerUI;
     BattleEventDispatcher _dispatcher;
-    EnemySpawnNumManager _enemySpawnNumManager;
-    public void SetInfo(EnemySpawnNumManager manager, BattleEventDispatcher dispatcher)
+    
+    public void EnterBattle(EnemySpawnNumManager manager, BattleEventDispatcher dispatcher)
     {
-        _enemySpawnNumManager = manager;
-        _dispatcher = dispatcher;
-    }
-
-    void Start() => EnterBattle(_enemySpawnNumManager);
-    void EnterBattle(EnemySpawnNumManager manager)
-    {
-        print(":?");
         _battleStartControllerUI = Managers.UI.ShowDefualtUI<UI_BattleStartController>();
+        _dispatcher = dispatcher;
         foreach (var ui in Managers.UI.SceneUIs)
             ui.gameObject.SetActive(false);
         Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(true);
@@ -58,9 +51,10 @@ public class BattleReadyController : MonoBehaviourPun
         Managers.Resources.Destroy(_battleStartControllerUI.gameObject);
         foreach (var ui in Managers.UI.SceneUIs)
             ui.gameObject.SetActive(true);
-        StartCoroutine(Co_NotifyGameStartEvent());
         Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(false);
+        StartCoroutine(Co_NotifyGameStartEvent());
         _dispatcher.NotifyGameStart();
+        Managers.Camera.OnIsLookMyWolrd += (isLookMy) => Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(!isLookMy);
     }
 
     IEnumerator Co_NotifyGameStartEvent()

@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using static UnityEngine.UI.CanvasScaler;
 
 public class Tutorial_AI : MonoBehaviour
 {
     int _gold;
     readonly byte AI_ID = 1;
-    List<UnitFlags> _unitFlags = new List<UnitFlags>();
+    List<Multi_TeamSoldier> _units = new List<Multi_TeamSoldier>();
 
     void Awake()
     {
@@ -23,26 +24,35 @@ public class Tutorial_AI : MonoBehaviour
 
     void DrawUnits() => StartCoroutine(Co_DrawUnits());
 
+    void SpawnUnit(UnitFlags flag)
+    {
+        var unit = Multi_SpawnManagers.NormalUnit.RPCSpawn(flag, AI_ID);
+        _units.Add(unit);
+        unit.OnDead += _ => _units.Remove(unit);
+    }
+
     IEnumerator Co_DrawUnits()
     {
         while (_gold >= 5)
         {
             _gold -= 5;
-            var unit = Multi_SpawnManagers.NormalUnit.RPCSpawn(new UnitFlags(Random.Range(0, 3), 0), AI_ID);
-            _unitFlags.Add(unit.UnitFlags);
+            SpawnUnit(new UnitFlags(Random.Range(0, 3), 0));
             yield return new WaitForSeconds(0.2f);
             TryCombine();
             yield return new WaitForSeconds(0.2f);
         }
     }
 
+    IEnumerable<UnitFlags> UnitFlags => _units.Select(x => x.UnitFlags);
     void TryCombine()
     {
         var combineSystem = new UnitCombineSystem(Managers.Data.CombineConditionByUnitFalg);
-        while (combineSystem.GetCombinableUnitFalgs(_unitFlags).Count() != 0)
+        while (combineSystem.GetCombinableUnitFalgs(UnitFlags).Count() != 0)
         {
-            foreach (var flag in combineSystem.GetNeedFlags(combineSystem.GetCombinableUnitFalgs(_unitFlags).First()))
-                _unitFlags.Remove(flag);
+            var targetFlag = combineSystem.GetCombinableUnitFalgs(UnitFlags).First();
+            foreach (var flag in combineSystem.GetNeedFlags(targetFlag))
+                _units.Where(x => x.UnitFlags == flag).First().Dead();
+            SpawnUnit(targetFlag);
         }
     }
 }

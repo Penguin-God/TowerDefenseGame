@@ -25,19 +25,6 @@ public class BattleScene : BaseScene
         MultiServiceMidiator.Instance.Init();
         Managers.Unit.Init(new UnitControllerAttacher().AttacherUnitController(MultiServiceMidiator.Instance.gameObject), Managers.Data);
         new WorldInitializer(gameObject).Init();
-
-        CreatePools();
-        gameObject.AddComponent<UnitClickController>();
-        gameObject.AddComponent<RewradController>();
-    }
-
-    void CreatePools()
-    {
-        if (PhotonNetwork.IsMasterClient == false) return;
-
-        new UnitPoolInitializer().InitPool();
-        new MonsterPoolInitializer().InitPool();
-        new WeaponPoolInitializer().InitPool();
     }
 
     public override void Clear()
@@ -76,22 +63,34 @@ class WorldInitializer
     {
         new MultiInitializer().InjectionBattleDependency(_battleDIContainer);
 
-        InitMonoBehaviourContainer();
         Managers.Camera.EnterBattleScene();
-        Managers.Pool.Init();
-        InitEffect();
+        InitMonoBehaviourContainer();
+        InitObjectPools();
         BindUnitEvent();
+        InitEffect();
+    }
+
+    void InitMonoBehaviourContainer()
+    {
+        _battleDIContainer.AddService<UnitClickController>();
+        _battleDIContainer.AddService<RewradController>();
+        _battleDIContainer.AddService<UnitColorChangerRpcHandler>();
+    }
+
+    void InitObjectPools()
+    {
+        Managers.Pool.Init();
+        if (PhotonNetwork.IsMasterClient == false) return;
+
+        new UnitPoolInitializer().InitPool();
+        new MonsterPoolInitializer().InitPool();
+        new WeaponPoolInitializer().InitPool();
     }
 
     void BindUnitEvent()
     {
         Multi_SpawnManagers.NormalUnit.OnSpawn += Managers.Unit.AddUnit;
         Managers.Unit.OnCombine += new UnitPassiveController().AddYellowSwordmanCombineGold;
-    }
-
-    void InitMonoBehaviourContainer()
-    {
-        _battleDIContainer.AddService<UnitColorChangerRpcHandler>();
     }
 
     void InitEffect()

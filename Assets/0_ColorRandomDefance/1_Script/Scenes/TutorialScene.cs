@@ -18,8 +18,8 @@ public class TutorialScene : BaseScene
         gameObject.AddComponent<Tutorial_AI>();
         Multi_GameManager.Instance.CreateOtherPlayerData(SkillType.검은유닛강화, SkillType.판매보상증가);
 
-        CreatePools();
         SetPlayerSkill();
+        InitTutorial();
     }
 
     void SetPlayerSkill()
@@ -31,12 +31,13 @@ public class TutorialScene : BaseScene
         FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(gameObject.GetComponent<BattleDIContainer>()));
     }
 
-    void CreatePools()
+    void InitTutorial()
     {
-        if (PhotonNetwork.IsMasterClient == false) return;
-
-        new UnitPoolInitializer().InitPool();
-        new MonsterPoolInitializer().InitPool();
-        new WeaponPoolInitializer().InitPool();
+        gameObject.AddComponent<Tutorial_Basic>();
+        gameObject.AddComponent<Tutorial_OtherPlayer>();
+        gameObject.AddComponent<Tutorial_Tower>();
+        gameObject.AddComponent<Tutorial_Boss>();
+        gameObject.AddComponent<Tutorial_Combine>();
+        // gameObject.AddComponent<Tutorial_UserSkill>();
     }
 }

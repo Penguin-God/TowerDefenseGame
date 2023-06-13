@@ -59,17 +59,17 @@ public class MaxUnit : UserSkill
     public override void InitSkill() => Multi_GameManager.Instance.IncreasedMaxUnitCount(IntSkillData);
 }
 
+public enum TaegeukStateChangeType
+{
+    NoChange,
+    AddNewTaegeukUnit,
+    TrueToFalse,
+    FalseToTrue,
+}
+
 public class Taegeuk : UserSkill
 {
     public Taegeuk(SkillType skillType) : base(skillType) { }
-
-    enum TaegeukStateChangeType
-    {
-        NoChange,
-        AddNewTaegeukUnit,
-        TrueToFalse,
-        FalseToTrue,
-    }
 
     public event Action<UnitClass, bool> OnTaegeukDamageChanged;
     static readonly int UnitClassCount = Enum.GetValues(typeof(UnitClass)).Length;
@@ -128,6 +128,25 @@ public class Taegeuk : UserSkill
 
         void SetTaeguekUnitStat(UnitColor unitColor)
             => MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatType.All);
+    }
+}
+
+public struct TaegeukState
+{
+    public TaegeukStateChangeType ChangeState;
+    public bool IsActive;
+}
+
+public class TaegeukStateManager
+{
+    public bool CheckTaegeuk(UnitClass swordman, HashSet<UnitFlags> hashSet)
+    {
+        throw new NotImplementedException();
+    }
+
+    public TaegeukState GetTaegeukState(UnitClass swordman, HashSet<UnitFlags> hashSet)
+    {
+        throw new NotImplementedException();
     }
 }
 

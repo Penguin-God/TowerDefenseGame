@@ -122,9 +122,15 @@ public class UI_Manager
         _currentPopupStack.Clear();
     }
 
+    public T FindPopupUI<T>() where T : UI_Popup
+    {
+        if (0 >= PopupCount) return null;
+        return _currentPopupStack.Where(x => x is T).FirstOrDefault() as T;
+    }
+
     public UI_Popup PeekPopupUI()
     {
-        if (_currentPopupStack.Count == 0) return null;
+        if (PopupCount == 0) return null;
         return _currentPopupStack.Peek();
     }
 

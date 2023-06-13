@@ -38,9 +38,11 @@ namespace TutorialCommends
     {
         protected Vector3 spotPos;
         float _range;
+        Func<bool> _endCondition = null;
         Light _light;
         public SpotLightCommend(Vector3 lightPos, float range = 10f) => (spotPos, _range) = (lightPos, range);
-
+        public SpotLightCommend(Vector3 lightPos, float range = 10f, Func<bool> endCondition = null) 
+            => (spotPos, _range, _endCondition) = (lightPos, range, endCondition);
         public virtual void TutorialAction()
         {
             _light = Object.Instantiate(Resources.Load<Light>("Tutorial/SpotLight"));
@@ -49,13 +51,19 @@ namespace TutorialCommends
             _light.transform.position = spotPos;
         }
         public void EndAction() => Object.Destroy(_light.gameObject);
-        public bool EndCondition() => Input.GetMouseButtonUp(0);
+        public bool EndCondition()
+        {
+            if( _endCondition != null)
+                return _endCondition();
+            else
+                return Input.GetMouseButtonUp(0);
+        }
     }
 
     public class SpotLightActionCommend : SpotLightCommend
     {
         Func<Vector3> _getPos;
-        public SpotLightActionCommend(Func<Vector3> getPos) : base(Vector3.zero) => _getPos = getPos;
+        public SpotLightActionCommend(Func<Vector3> getPos, float range = 10f, Func<bool> endCondition = null) : base(Vector3.zero, range, endCondition) => _getPos = getPos;
         public override void TutorialAction()
         {
             spotPos = _getPos();

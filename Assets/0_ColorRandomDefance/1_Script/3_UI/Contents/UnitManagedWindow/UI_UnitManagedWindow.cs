@@ -19,6 +19,7 @@ public class UI_UnitManagedWindow : UI_Popup
     }
 
     [SerializeField] UnitFlags _unitFlag;
+    public UnitFlags UnitFlags => _unitFlag;
     UI_CombineButtonParent _combineButtonsParent;
 
     protected override void Init()

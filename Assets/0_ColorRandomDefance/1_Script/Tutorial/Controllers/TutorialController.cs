@@ -41,40 +41,32 @@ public abstract class TutorialController : MonoBehaviour
     IEnumerator Co_DoTutorial(ITutorial tutorial, float delayTime = 0.1f)
     {
         var buttons = GameObject.FindObjectsOfType<Button>();
-        SetAllButton(buttons, false);
+        SetEnabledAllButton(buttons, false);
         tutorial.TutorialAction();
         yield return new WaitForSecondsRealtime(delayTime);
         yield return new WaitUntil(() => tutorial.EndCondition());
         tutorial.EndAction();
-        SetAllButton(buttons, true);
+        SetEnabledAllButton(buttons, true);
 
         yield return 1;
     }
 
-    void SetAllButton(Button[] buttons, bool isActive)
+    void SetEnabledAllButton(Button[] buttons, bool isActive)
     {
         foreach (var button in buttons.Where(x => x != null))
             button.enabled = isActive;
     }
 
-    protected TutorialComposite CreateComposite() => new TutorialComposite();
-    protected ReadTextCommend CreateReadCommend(string text) => new ReadTextCommend(text);
-    protected SpotLightCommend CreateSpotLightCommend(Vector3 pos, float range) => new SpotLightCommend(pos, range);
-    protected SpotLightActionCommend CreateSpotLightActionCommend(Func<Vector3> getPos) => new SpotLightActionCommend(getPos);
-    protected Highlight_UICommend CreateUI_HighLightCommend(string uiName) => new Highlight_UICommend(uiName);
-    protected ButtonClickCommend CreateClickCommend(string uiName) => new ButtonClickCommend(uiName);
-    protected ActionCommend CreateActionCommend(Action tutorialAction, Func<bool> endCondtion = null, Action endActoin = null)
-        => new ActionCommend(tutorialAction, endCondtion, endActoin);
-
+    // 샌드박스 함수들
     protected void AddCommend(ITutorial tutorial) => tutorialCommends.Add(tutorial);
     void AddCompositeCommend(string text, ITutorial commend)
     {
-        var compositeCommend = CreateComposite();
-        compositeCommend.AddCommend(CreateReadCommend(text));
+        var compositeCommend = new TutorialComposite();
+        compositeCommend.AddCommend(new ReadTextCommend(text));
         compositeCommend.AddCommend(commend);
         tutorialCommends.Add(compositeCommend);
     }
-    protected void AddReadCommend(string text) => tutorialCommends.Add(CreateReadCommend(text));
+    protected void AddReadCommend(string text) => tutorialCommends.Add(new ReadTextCommend(text));
 
     protected void AddUnitHighLightCommend(string text, UnitClass unitClass)
         => AddUnitHighLightCommend(text, () => Managers.Unit.FindUnit((unit) => unit.UnitClass == unitClass).transform.position + new Vector3(0, 5, 0));
@@ -82,25 +74,22 @@ public abstract class TutorialController : MonoBehaviour
     protected void AddUnitHighLightCommend(string text, UnitFlags unitFlag, Func<bool> endCondition = null)
         => AddCompositeCommend(text, new SpotLightActionCommend(() => Managers.Unit.FindUnit(unitFlag).transform.position + new Vector3(0, 5, 0), 10f, endCondition));
 
-    protected void AddUnitHighLightCommend(string text, Func<Vector3> getPos)
-        => AddCompositeCommend(text, CreateSpotLightActionCommend(getPos));
+    protected void AddUnitHighLightCommend(string text, Func<Vector3> getPos) => AddCompositeCommend(text, new SpotLightActionCommend(getPos));
 
-    protected void AddObjectHighLightCommend(string text, Vector3 pos, float range = 10f)
-        => AddCompositeCommend(text, CreateSpotLightCommend(pos, range));
+    protected void AddObjectHighLightCommend(string text, Vector3 pos, float range = 10f) => AddCompositeCommend(text, new SpotLightCommend(pos, range));
 
-    protected void AddUI_HighLightCommend(string text, string uiName)
-        => AddCompositeCommend(text, CreateUI_HighLightCommend(uiName));
+    protected void AddUI_HighLightCommend(string text, string uiName) => AddCompositeCommend(text, new Highlight_UICommend(uiName));
 
     protected void AddClickCommend(string text, string uiName)
     {
-        var clickCommend = CreateComposite();
-        clickCommend.AddCommend(CreateUI_HighLightCommend(uiName));
-        clickCommend.AddCommend(CreateClickCommend(uiName));
+        var clickCommend = new TutorialComposite();
+        clickCommend.AddCommend(new Highlight_UICommend(uiName));
+        clickCommend.AddCommend(new ButtonClickCommend(uiName));
         AddCompositeCommend(text, clickCommend);
     }
 
     protected void AddActionCommend(Action tutorialAction, Func<bool> endCondtion = null, Action endActoin = null)
-        => tutorialCommends.Add(CreateActionCommend(tutorialAction, endCondtion, endActoin));
+        => tutorialCommends.Add(new ActionCommend(tutorialAction, endCondtion, endActoin));
 
     protected void AddTargetUINameToIndexNameActionCommend<T>(Func<T, bool> condition, string indexName) where T : UnityEngine.Object
         => AddActionCommend

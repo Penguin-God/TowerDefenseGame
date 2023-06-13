@@ -18,7 +18,7 @@ public class Tutorial_Tower : TutorialController
         AddUnitHighLightCommend("적군의 성에 유닛을 보내기 위해\n제가 주황 기사라는 작은 선물을 드렸습니다", orangeSowrdmanFlag);
         AddReadCommend("주황 유닛의 고유 능력은 타워와 보스 공격력 증가이기 때문에\n안성맞춤인 선물이라고 할 수 있죠");
         AddReadCommend("그럼 이제 주황 기사를 적군의 성으로 보내 봅시다");
-        AddUnitHighLightCommend("필드에 있는 유닛을 클릭하세요", orangeSowrdmanFlag, () => Managers.UI.FindPopupUI<UI_UnitManagedWindow>().UnitFlags == orangeSowrdmanFlag);
+        AddUnitHighLightCommend("필드에 있는 유닛을 클릭하세요", orangeSowrdmanFlag, CheckOrangeSowrdmanClick);
         AddClickCommend("적군의 성으로 버튼을 클릭하면\n해당 유닛이 성으로 이동 후 공격합니다.", "Unit_World_Changed_Button");
         AddClickCommend("적군의 성으로 가서 보낸 유닛을 확인해보세요.", "StoryWolrd_EnterButton");
         AddReadCommend("이렇게 유닛을 보내 성을 부수면 보상으로\n고기와 골드를 획득할 수 있습니다.");
@@ -26,6 +26,12 @@ public class Tutorial_Tower : TutorialController
     }
 
     protected override bool TutorialStartCondition() => Managers.Camera.IsLookEnemyTower && Managers.Camera.IsLookOtherWolrd == false;
+    bool CheckOrangeSowrdmanClick()
+    {
+        var window = Managers.UI.FindPopupUI<UI_UnitManagedWindow>();
+        if (window == null) return false;
+        return window.UnitFlags == orangeSowrdmanFlag;
+    }
     void ChangeShopColliderEnable(bool isEnabled)
     {
         FindObjectsOfType<ShopObject>()

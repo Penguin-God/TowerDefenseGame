@@ -19,7 +19,7 @@ public class TutorialScene : BaseScene
         Multi_GameManager.Instance.CreateOtherPlayerData(SkillType.검은유닛강화, SkillType.판매보상증가);
 
         SetPlayerSkill();
-        InitTutorial();
+        InitTutorial(gameObject.GetComponent<BattleDIContainer>());
     }
 
     void SetPlayerSkill()
@@ -31,13 +31,13 @@ public class TutorialScene : BaseScene
         FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(gameObject.GetComponent<BattleDIContainer>()));
     }
 
-    void InitTutorial()
+    void InitTutorial(BattleDIContainer container)
     {
         gameObject.AddComponent<Tutorial_Basic>();
         gameObject.AddComponent<Tutorial_OtherPlayer>();
         gameObject.AddComponent<Tutorial_Tower>();
         gameObject.AddComponent<Tutorial_Boss>();
         gameObject.AddComponent<Tutorial_Combine>();
-        // gameObject.AddComponent<Tutorial_UserSkill>();
+        gameObject.AddComponent<Tutorial_UserSkill>().Injection(container.GetService<SwordmanGachaController>());
     }
 }

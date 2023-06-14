@@ -5,6 +5,17 @@ using UnityEngine;
 public class Tutorial_UserSkill : TutorialController
 {
     readonly UnitFlags yellowSowrdmanFlag = new UnitFlags(2, 0);
+    readonly TaegeukStateManager _taegeukStateManager = new TaegeukStateManager();
+
+    protected override void Init()
+    {
+        _swordmanGachaController.ChangeUnitSummonMaxColor(UnitColor.Blue);
+        StartCoroutine(Co_MaxUnitChange());
+    }
+
+    SwordmanGachaController _swordmanGachaController;
+    public void Injection(SwordmanGachaController swordmanGachaController) => _swordmanGachaController = swordmanGachaController;
+
     protected override void AddTutorials()
     {
         AddReadCommend("태극 스킬 발동을 취소하셨군요?");
@@ -28,7 +39,15 @@ public class Tutorial_UserSkill : TutorialController
         if (window == null) return false;
         return window.UnitFlags == yellowSowrdmanFlag;
     }
-    bool CheckOnTeaguke() => new TaegeukConditionChecker().CheckTaegeuk(UnitClass.Swordman, Managers.Unit.ExsitUnitFlags);
+    bool CheckOnTeaguke() 
+        => _taegeukStateManager.GetTaegeukState(UnitClass.Swordman, Managers.Unit.ExsitUnitFlags).ChangeState == TaegeukStateChangeType.TrueToFalse
+            && Managers.Unit.ExsitUnitFlags.Contains(yellowSowrdmanFlag);
+
+    IEnumerator Co_MaxUnitChange()
+    {
+        yield return new WaitUntil(() => new TaegeukConditionChecker().CheckTaegeuk(UnitClass.Swordman, Managers.Unit.ExsitUnitFlags));
+        _swordmanGachaController.ChangeUnitSummonMaxColor(UnitColor.Yellow);
+    }
 
     //void OnDestroy()
     //{

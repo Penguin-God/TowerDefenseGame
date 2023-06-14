@@ -64,10 +64,12 @@ namespace Tests
         {
             var sut = new TaegeukStateManager();
             
-            var hashSet = CreateCounter(redSwordmanFlag, blueSwordmanFlag);
-
-            TaegeukState result = sut.GetTaegeukState(UnitClass.Swordman, hashSet);
+            TaegeukState result = sut.GetTaegeukState(UnitClass.Swordman, CreateCounter(redSwordmanFlag, blueSwordmanFlag));
             Assert.AreEqual(TaegeukStateChangeType.FalseToTrue, result.ChangeState);
+            Assert.IsTrue(result.IsActive);
+
+            result = sut.GetTaegeukState(UnitClass.Swordman, CreateCounter(redSwordmanFlag, blueSwordmanFlag, redSwordmanFlag));
+            Assert.AreEqual(TaegeukStateChangeType.AddNewUnit, result.ChangeState);
             Assert.IsTrue(result.IsActive);
 
             result = sut.GetTaegeukState(UnitClass.Swordman, CreateCounter(redSwordmanFlag, blueSwordmanFlag, yellowSwordmanFlag));

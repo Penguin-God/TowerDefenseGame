@@ -62,7 +62,7 @@ public class MaxUnit : UserSkill
 public enum TaegeukStateChangeType
 {
     NoChange,
-    AddNewTaegeukUnit,
+    AddNewUnit,
     TrueToFalse,
     FalseToTrue,
 }
@@ -72,52 +72,28 @@ public class Taegeuk : UserSkill
     public Taegeuk(SkillType skillType) : base(skillType) { }
 
     public event Action<UnitClass, bool> OnTaegeukDamageChanged;
-    static readonly int UnitClassCount = Enum.GetValues(typeof(UnitClass)).Length;
 
-    int[] _taegeukDamages = new int[UnitClassCount];
+    int[] _taegeukDamages = new int[Enum.GetValues(typeof(UnitClass)).Length];
     public override void InitSkill()
     {
         Managers.Unit.OnUnitCountChangeByFlag += (flag, count) => CheckAndApplyTaegeuk(flag);
         _taegeukDamages = IntSkillDatas;
     }
 
-    bool[] _currentTaegeukFlags = new bool[UnitClassCount];
-
+    readonly TaegeukStateManager _taegeukStateManager = new TaegeukStateManager();
     void CheckAndApplyTaegeuk(UnitFlags unitFlag)
     {
         var unitClass = unitFlag.UnitClass;
-        var stateChange = GetTaegeukStateChangeType(unitClass);
-        switch (stateChange)
+        var taeguekState = _taegeukStateManager.GetTaegeukState(unitClass, Managers.Unit.ExsitUnitFlags);
+        if (taeguekState.ChangeState == TaegeukStateChangeType.NoChange) return;
+        else if(taeguekState.ChangeState == TaegeukStateChangeType.AddNewUnit)
         {
-            case TaegeukStateChangeType.NoChange:
-                return;
-            case TaegeukStateChangeType.TrueToFalse:
-                ApplyChangeTaeguekState(unitClass, false); break;
-            case TaegeukStateChangeType.FalseToTrue:
-                ApplyChangeTaeguekState(unitClass, true); break;
+            OnTaegeukDamageChanged?.Invoke(unitClass, taeguekState.IsActive);
+            return;
         }
 
-        OnTaegeukDamageChanged?.Invoke(unitClass, _currentTaegeukFlags[(int)unitClass]);
-    }
-
-    TaegeukStateChangeType GetTaegeukStateChangeType(UnitClass unitClass)
-    {
-        bool prevTaegeukFlag = _currentTaegeukFlags[(int)unitClass];
-        bool newTaegeukFlag = new TaegeukConditionChecker().CheckTaegeuk(unitClass, Managers.Unit.ExsitUnitFlags);
-        if (prevTaegeukFlag && newTaegeukFlag)
-            return TaegeukStateChangeType.AddNewTaegeukUnit;
-        else if (prevTaegeukFlag && newTaegeukFlag == false)
-            return TaegeukStateChangeType.TrueToFalse;
-        else if (prevTaegeukFlag == false && newTaegeukFlag)
-            return TaegeukStateChangeType.FalseToTrue;
-        else
-            return TaegeukStateChangeType.NoChange;
-    }
-
-    void ApplyChangeTaeguekState(UnitClass unitClass, bool newFlag)
-    {
-        _currentTaegeukFlags[(int)unitClass] = newFlag;
-        ApplyTaegeukToUnit(unitClass, _currentTaegeukFlags[(int)unitClass]);
+        ApplyTaegeukToUnit(unitClass, taeguekState.IsActive);
+        OnTaegeukDamageChanged?.Invoke(unitClass, taeguekState.IsActive);
     }
 
     void ApplyTaegeukToUnit(UnitClass unitClass, bool isTaegeukConditionMet)
@@ -154,7 +130,7 @@ public class TaegeukStateManager
         _currentTaegeukFlags[(int)unitClass] = newTaegeukFlag;
 
         if (prevTaegeukFlag && newTaegeukFlag)
-            return new TaegeukState(TaegeukStateChangeType.AddNewTaegeukUnit, newTaegeukFlag);
+            return new TaegeukState(TaegeukStateChangeType.AddNewUnit, newTaegeukFlag);
         else if (prevTaegeukFlag && newTaegeukFlag == false)
             return new TaegeukState(TaegeukStateChangeType.TrueToFalse, newTaegeukFlag);
         else if (prevTaegeukFlag == false && newTaegeukFlag)

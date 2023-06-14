@@ -301,7 +301,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     void RPC_PlayTpSound() // 보는 쪽에서만 소리가 들려야 하므로 복잡해보이는 이 로직이 맞음.
     {
-        if (_state.UsingId == PlayerIdManager.Id)
+        if (rpcable.UsingId == PlayerIdManager.Id)
             Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
         else
             base.photonView.RPC(nameof(PlayTpSound), RpcTarget.Others);
@@ -346,10 +346,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [Serializable]
     public class UnitState : MonoBehaviourPun
     {
-        void Awake()
-        {
-            _rpcable = GetComponent<RPCable>();
-        }
+        readonly UnitStateManager _unitStateManager = new UnitStateManager(); // 사용하기
 
         public void Dead()
         {
@@ -394,9 +391,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             yield return new WaitForSeconds(coolTime);
             _isAttackable = true;
         }
-
-        RPCable _rpcable;
-        public int UsingId => _rpcable.UsingId;
     }
 
 
@@ -410,11 +404,13 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         UnitState _state;
         Transform _transform;
         MonsterManager _monsterManager;
+        int _owerId = -1;
         public TargetManager(UnitState state, Transform transform, MonsterManager monsterManager)
         {
             _state = state;
             _transform = transform;
             _monsterManager = monsterManager;
+            _owerId = transform.GetComponent<RPCable>().UsingId;
         }
 
         public void Reset() => ChangedTarget(null);
@@ -429,8 +425,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         Multi_Enemy FindTarget()
         {
             if (_state.EnterStoryWorld) 
-                return Multi_EnemyManager.Instance.GetCurrnetTower(_state.UsingId);
-            if (Multi_EnemyManager.Instance.TryGetCurrentBoss(_state.UsingId, out Multi_BossEnemy boss)) 
+                return Multi_EnemyManager.Instance.GetCurrnetTower(_owerId);
+            if (Multi_EnemyManager.Instance.TryGetCurrentBoss(_owerId, out Multi_BossEnemy boss)) 
                 return boss;
 
             return GetProximateNormalMonster();

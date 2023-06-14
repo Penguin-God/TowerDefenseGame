@@ -135,18 +135,32 @@ public struct TaegeukState
 {
     public TaegeukStateChangeType ChangeState;
     public bool IsActive;
+
+    public TaegeukState(TaegeukStateChangeType changeType, bool isActive)
+    {
+        ChangeState = changeType;
+        IsActive = isActive;
+    }
 }
 
 public class TaegeukStateManager
 {
-    public bool CheckTaegeuk(UnitClass swordman, HashSet<UnitFlags> hashSet)
-    {
-        throw new NotImplementedException();
-    }
+    bool[] _currentTaegeukFlags = new bool[Enum.GetValues(typeof(UnitClass)).Length];
 
-    public TaegeukState GetTaegeukState(UnitClass swordman, HashSet<UnitFlags> hashSet)
+    public TaegeukState GetTaegeukState(UnitClass unitClass, HashSet<UnitFlags> exsitUnitFlags)
     {
-        throw new NotImplementedException();
+        bool prevTaegeukFlag = _currentTaegeukFlags[(int)unitClass];
+        bool newTaegeukFlag = new TaegeukConditionChecker().CheckTaegeuk(unitClass, exsitUnitFlags);
+        _currentTaegeukFlags[(int)unitClass] = newTaegeukFlag;
+
+        if (prevTaegeukFlag && newTaegeukFlag)
+            return new TaegeukState(TaegeukStateChangeType.AddNewTaegeukUnit, newTaegeukFlag);
+        else if (prevTaegeukFlag && newTaegeukFlag == false)
+            return new TaegeukState(TaegeukStateChangeType.TrueToFalse, newTaegeukFlag);
+        else if (prevTaegeukFlag == false && newTaegeukFlag)
+            return new TaegeukState(TaegeukStateChangeType.FalseToTrue, newTaegeukFlag);
+        else
+            return new TaegeukState(TaegeukStateChangeType.NoChange, newTaegeukFlag);
     }
 }
 

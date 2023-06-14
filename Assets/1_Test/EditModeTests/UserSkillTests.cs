@@ -67,10 +67,16 @@ namespace Tests
             var hashSet = CreateCounter(redSwordmanFlag, blueSwordmanFlag);
 
             TaegeukState result = sut.GetTaegeukState(UnitClass.Swordman, hashSet);
-            Assert.AreEqual(result.ChangeState, TaegeukStateChangeType.FalseToTrue);
+            Assert.AreEqual(TaegeukStateChangeType.FalseToTrue, result.ChangeState);
+            Assert.IsTrue(result.IsActive);
 
             result = sut.GetTaegeukState(UnitClass.Swordman, CreateCounter(redSwordmanFlag, blueSwordmanFlag, yellowSwordmanFlag));
-            Assert.AreEqual(result.ChangeState, TaegeukStateChangeType.TrueToFalse);
+            Assert.AreEqual(TaegeukStateChangeType.TrueToFalse, result.ChangeState);
+            Assert.IsFalse(result.IsActive);
+
+            result = sut.GetTaegeukState(UnitClass.Swordman, CreateCounter(redSwordmanFlag, blueSwordmanFlag, yellowSwordmanFlag));
+            Assert.AreEqual(TaegeukStateChangeType.NoChange, result.ChangeState);
+            Assert.IsFalse(result.IsActive);
         }
 
         HashSet<UnitFlags> CreateCounter(params UnitFlags[] flags) => new HashSet<UnitFlags>(flags);

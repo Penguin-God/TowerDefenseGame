@@ -346,21 +346,25 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [Serializable]
     public class UnitState : MonoBehaviourPun
     {
-        readonly UnitStateManager _unitStateManager = new UnitStateManager(); // 사용하기
+        UnitAttackState _unitAttackState = new UnitAttackState();
+        public UnitAttackState UnitAttackState => _unitAttackState;
+
+        void Awake()
+        {
+            _unitAttackState = _unitAttackState.ReadyAttack();
+        }
 
         public void Dead()
         {
             RPC_SetEnterStroyWorld(false);
-            _isAttackable = true;
-            _isAttack = false;
+            _unitAttackState = _unitAttackState.ReadyAttack();
         }
 
         [SerializeField] bool _enterStoryWorld;
         public bool EnterStoryWorld => _enterStoryWorld;
         public void ChangedWorld()
         {
-            _isAttackable = true;
-            _isAttack = false;
+            _unitAttackState = _unitAttackState.ReadyAttack();
             RPC_SetEnterStroyWorld(!_enterStoryWorld);
         }
 
@@ -368,28 +372,21 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         [PunRPC]
         void SetEnterStroyWorld(bool newEnterStroyWorld) => _enterStoryWorld = newEnterStroyWorld;
 
-        [SerializeField] bool _isAttackable = true;
-        public bool IsAttackable => _isAttackable;
+        public bool IsAttackable => _unitAttackState.IsAttackable;
+        public bool IsAttack => _unitAttackState.IsAttack;
 
-        [SerializeField] bool _isAttack;
-        public bool IsAttack => _isAttack;
-
-        public void StartAttack()
-        {
-            _isAttackable = false;
-            _isAttack = true;
-        }
-
+        public void StartAttack() => _unitAttackState = _unitAttackState.DoAttack();
+ 
         public void EndAttack(float coolTime)
         {
-            _isAttack = false;
+            _unitAttackState = _unitAttackState.AttackDone();
             StartCoroutine(Co_AttackCoolDown(coolTime));
         }
 
         IEnumerator Co_AttackCoolDown(float coolTime)
         {
             yield return new WaitForSeconds(coolTime);
-            _isAttackable = true;
+            _unitAttackState = _unitAttackState.ReadyAttack();
         }
     }
 

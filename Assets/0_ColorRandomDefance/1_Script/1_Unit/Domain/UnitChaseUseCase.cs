@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
 
 public enum ChaseState
 {
@@ -26,5 +28,17 @@ public class UnitChaseUseCase
         if (ContactDistance >= distance) return ChaseState.Contact;
         else if (_range * 0.8f >= distance) return ChaseState.Close;
         else return ChaseState.Far;
+    }
+
+    public Vector3 GetDestinationPos(ChaseState state, Vector3 targetPostion, Vector3 targetForward)
+    {
+        switch (state)
+        {
+            case ChaseState.Chase: return targetPostion - (targetForward * 1);
+            case ChaseState.InRange: return targetPostion - (targetForward * 2);
+            case ChaseState.FaceToFace: return targetPostion - (targetForward * -5f);
+            case ChaseState.Lock: return targetPostion - (targetForward * -1f);
+            default : return Vector3.zero;
+        }
     }
 }

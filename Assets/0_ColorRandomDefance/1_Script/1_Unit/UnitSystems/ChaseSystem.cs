@@ -4,15 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
 
-public enum ChaseState
-{
-    NoneTarget,
-    Chase,
-    InRange,
-    Lock,
-    FaceToFace,
-}
-
 public class ChaseSystem : MonoBehaviourPun, IPunObservable
 {
     protected Multi_TeamSoldier _unit { get; private set; }

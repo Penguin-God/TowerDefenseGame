@@ -63,7 +63,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected UnitState _state;
     public UnitState State => _state;
     public bool EnterStroyWorld => _state.EnterStoryWorld;
-    public bool IsAttack => _state.IsAttack;
+    public bool IsAttack => _state.UnitAttackState.IsAttack;
     protected ChaseSystem _chaseSystem;
 
     void Awake()
@@ -222,7 +222,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             }
 
             _chaseSystem.MoveUpdate();
-            if ((_chaseSystem.EnemyIsForward || contactEnemy) && _state.IsAttackable)
+            if ((_chaseSystem.EnemyIsForward || contactEnemy) && _state.UnitAttackState.IsAttackable)
                 UnitAttack();
             yield return null;
         }
@@ -371,9 +371,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         void RPC_SetEnterStroyWorld(bool newEnterStroyWorld) => photonView.RPC(nameof(SetEnterStroyWorld), RpcTarget.All, newEnterStroyWorld);
         [PunRPC]
         void SetEnterStroyWorld(bool newEnterStroyWorld) => _enterStoryWorld = newEnterStroyWorld;
-
-        public bool IsAttackable => _unitAttackState.IsAttackable;
-        public bool IsAttack => _unitAttackState.IsAttack;
 
         public void StartAttack() => _unitAttackState = _unitAttackState.DoAttack();
  

@@ -6,8 +6,10 @@ public enum ChaseState
 {
     NoneTarget,
     Chase,
-    OutRange,
+    Far,
+    Close, // 적당히 가깝다
     InRange,
+    Contact,
     Lock,
     FaceToFace,
 }
@@ -15,12 +17,14 @@ public enum ChaseState
 public class UnitChaseUseCase
 {
     float _range;
+    const float ContactDistance = 4f;
     public UnitChaseUseCase(float range) => _range = range;
 
     public ChaseState CalculateChaseState(Vector3 chaserPos, Vector3 targetPos)
     {
         float distance = Vector3.Distance(targetPos, chaserPos);
-        if (distance > _range) return ChaseState.OutRange;
-        else return ChaseState.InRange;
+        if (ContactDistance >= distance) return ChaseState.Contact;
+        else if (_range * 0.8f >= distance) return ChaseState.Close;
+        else return ChaseState.Far;
     }
 }

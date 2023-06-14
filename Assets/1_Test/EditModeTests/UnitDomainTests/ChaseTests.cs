@@ -10,8 +10,9 @@ public class ChaseTests
     UnitChaseUseCase CreateSut() => new UnitChaseUseCase(Range);
 
     [Test]
-    [TestCase(30, ChaseState.OutRange)]
-    [TestCase(10, ChaseState.InRange)]
+    [TestCase(19, ChaseState.Far)]
+    [TestCase(14, ChaseState.Close)]
+    [TestCase(3, ChaseState.Contact)]
     public void 거리에_따라_적절한_상태를_반환해야_함(float z, ChaseState expected)
     {
         var sut = CreateSut();

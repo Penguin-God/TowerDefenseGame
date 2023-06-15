@@ -34,6 +34,7 @@ public class UserSkillFactory
             case SkillType.판매보상증가: return new SellUpgrade(skillType);
             case SkillType.보스데미지증가: return new BossDamageUpgrade(skillType);
             case SkillType.장사꾼: return new DiscountMerchant(skillType);
+            case SkillType.조합메테오: return new CombineMeteor(skillType);
             default: return null;
         }
     }
@@ -286,5 +287,21 @@ public class DiscountMerchant : UserSkill
             .ToList()
             .ForEach(x => x.ChangeAmount(0));
         Multi_GameManager.Instance.BattleData.UnitUpgradeShopData.ResetPrice = IntSkillData;
+    }
+}
+
+public class CombineMeteor : UserSkill
+{
+    public CombineMeteor(SkillType skillType) : base(skillType) { }
+
+    public override void InitSkill()
+    {
+        Managers.Unit.OnCombine += ShotMeteor;
+    }
+
+    void ShotMeteor(UnitFlags combineUnitFlag)
+    {
+        if(new UnitCombineSystem(Managers.Data.CombineConditionByUnitFalg).GetNeedFlags(combineUnitFlag).Any(x => x.UnitColor == UnitColor.Red))
+            Debug.Log("펑펑");
     }
 }

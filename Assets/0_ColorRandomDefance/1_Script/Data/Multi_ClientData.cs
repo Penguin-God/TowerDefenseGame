@@ -114,6 +114,7 @@ public enum SkillType
     판매보상증가,
     보스데미지증가,
     장사꾼,
+    조합메테오,
 }
 
 public enum MoneyType

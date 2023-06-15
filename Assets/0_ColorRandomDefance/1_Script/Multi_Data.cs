@@ -27,6 +27,7 @@ public static class PlayerIdManager
     public static byte Id => (byte)(PhotonNetwork.IsMasterClient ? 0 : 1);
     public static byte MasterId => 0;
     public static byte ClientId => 1;
+    public static byte FreeObejectId => 3;
     public static byte InVaildId => 12; // 그냥 0하고 1만 아니면 전부 다 유효하지 않은 값임
     public static byte EnemyId => (byte)(Id == 0 ? 1 : 0);
     public static int MaxPlayerCount => 2;

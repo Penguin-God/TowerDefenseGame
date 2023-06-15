@@ -31,6 +31,23 @@ public class ProjectileThrowingUnit : MonoBehaviourPun
         return projectile;
     }
 
+    public Multi_Projectile Throw(Vector3 shotPath, Action<Multi_Enemy> onHit)
+    {
+        var projectile = Managers.Multi.Instantiater.PhotonInstantiateInactive(projectileData.WeaponPath, PlayerIdManager.InVaildId).GetComponent<Multi_Projectile>();
+        projectile.SetHitAction(onHit);
+        photonView.RPC(nameof(Throw), RpcTarget.All, projectile.GetComponent<PhotonView>().ViewID, shotPath);
+        return projectile;
+    }
+
+    [PunRPC]
+    void Throw(int projectileId, Vector3 shotPath)
+    {
+        var projectile = Managers.Multi.GetPhotonViewTransfrom(projectileId).GetComponent<Multi_Projectile>();
+        projectile.transform.position = projectileData.SpawnPos;
+        projectile.gameObject.SetActive(true);
+        projectile.Throw(shotPath);
+    }
+
     [PunRPC]
     void Throw(int projectileId, int targetId) => Throw(projectileId, targetId, new ShotPathCalculator());
 

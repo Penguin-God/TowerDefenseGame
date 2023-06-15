@@ -61,7 +61,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
         if (PhotonNetwork.IsMasterClient && target != null)
         {
-            Multi_Projectile weapon = _spearThower.FlatThrow(target, OnHit);
+            Multi_Projectile weapon = _spearThower.Throw(transform.forward, OnHit);
             weapon.GetComponent<RPCable>().SetRotate_RPC(new Vector3(90, 0, 0));
         }
 

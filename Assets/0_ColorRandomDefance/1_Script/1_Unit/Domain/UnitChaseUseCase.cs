@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
 
 public enum ChaseState
 {

@@ -133,14 +133,7 @@ public class MeeleChaser : ChaseSystem
     protected override Vector3 GetDestinationPos()
     {
         if (_unit.EnterStroyWorld) return currentDestinationPos;
-
-        switch (_chaseState)
-        {
-            case ChaseState.Chase: currentDestinationPos = TargetPosition - (_currentTarget.dir * 1); break;
-            case ChaseState.InRange: currentDestinationPos = TargetPosition - (_currentTarget.dir * 2); break;
-            case ChaseState.FaceToFace: currentDestinationPos = TargetPosition - (_currentTarget.dir * -5f); break;
-            case ChaseState.Lock: currentDestinationPos = TargetPosition - (_currentTarget.dir * -1f); break;
-        }
+        currentDestinationPos = new UnitChaseUseCase(_unit.AttackRange).GetDestinationPos(_chaseState, TargetPosition, _currentTarget.dir);
         return currentDestinationPos;
     }
 

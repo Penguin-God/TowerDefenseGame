@@ -43,7 +43,6 @@ public class UI_UnitTracker : UI_Base
             Managers.Unit.OnUnitCountChangeByFlag -= TrackUnitCount;
     }
 
-    //  여기 아래에 함수들로 리팩터링하면 됨. 필드가 null인지 아닌지로 구분하는 병신같은 코드 짜놔서 일단 빤스런함
     public void SetInfo(UnitFlags flag)
     {
         gameObject.SetActive(false);

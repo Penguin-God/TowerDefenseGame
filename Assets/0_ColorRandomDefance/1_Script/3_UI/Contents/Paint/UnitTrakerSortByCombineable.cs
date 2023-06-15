@@ -27,6 +27,7 @@ public class UnitTrakerSortByCombineable : UI_UnitTrackerParent
 
     IEnumerable<UnitFlags> SortUnitFlags(IEnumerable<UnitFlags> flags)
         => flags // 정렬 후 뒤에서부터 MAX_UI_COUNT만큼 가져옴
+            .Where(x => UnitFlags.NormalFlags.Contains(x))
             .OrderBy(x => x.ClassNumber)
             .ThenBy(x => x.ColorNumber)
             .Reverse() 

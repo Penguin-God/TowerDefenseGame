@@ -22,7 +22,7 @@ public abstract class UnitController : MonoBehaviourPun
         return false;
     }
 
-    public virtual bool CanCombine(UnitFlags targetFlag) => true;
+    public abstract bool CanCombine(UnitFlags targetFlag);
 
     [PunRPC]
     protected abstract void Combine(UnitFlags targetFlag, byte id);
@@ -52,6 +52,9 @@ public class ServerUnitController : UnitController
         base.Init(data);
         _server = server;
     }
+
+    public override bool CanCombine(UnitFlags targetFlag) 
+        => _combineSystem.CheckCombineable(targetFlag, _server.GetUnits(PlayerIdManager.MasterId).Select(x => x.UnitFlags));
 
     [PunRPC]
     protected override void Combine(UnitFlags targetFlag, byte id)

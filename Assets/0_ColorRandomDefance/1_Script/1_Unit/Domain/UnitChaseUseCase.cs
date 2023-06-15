@@ -35,7 +35,7 @@ public class UnitChaseUseCase
         else return ChaseState.Far;
     }
 
-    public Vector3 GetDestinationPos(ChaseState state, Vector3 targetPostion, Vector3 targetForward)
+    public Vector3 CalculateDestinationPos(ChaseState state, Vector3 targetPostion, Vector3 targetForward)
     {
         switch (state)
         {

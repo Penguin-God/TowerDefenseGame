@@ -133,7 +133,7 @@ public class MeeleChaser : ChaseSystem
     protected override Vector3 GetDestinationPos()
     {
         if (_unit.EnterStroyWorld) return currentDestinationPos;
-        currentDestinationPos = new UnitChaseUseCase(_unit.AttackRange).GetDestinationPos(_chaseState, TargetPosition, _currentTarget.dir);
+        currentDestinationPos = new UnitChaseUseCase(_unit.AttackRange).CalculateDestinationPos(_chaseState, TargetPosition, _currentTarget.dir);
         return currentDestinationPos;
     }
 
@@ -141,39 +141,20 @@ public class MeeleChaser : ChaseSystem
     {
         switch (state)
         {
-            case ChaseState.Far:
-                _nav.speed = _unit.Speed;
-                _nav.angularSpeed = 500;
-                _nav.acceleration = 40;
-                _unit.contactEnemy = false;
-                break;
-            case ChaseState.Close:
-                _nav.angularSpeed = 500;
-                _nav.acceleration = 20;
-                _nav.speed = 10f;
-                break;
+            case ChaseState.Far: ChangeNavState(_unit.Speed, 500, 40, false); break;
+            case ChaseState.Close: ChangeNavState(10, 500, 20, false); break;
             case ChaseState.Contact:
-                _nav.angularSpeed = 200;
-                _nav.acceleration = 20;
-                _nav.speed = 5f;
-                _unit.contactEnemy = true;
-                break;
-            case ChaseState.InRange:
-                _nav.angularSpeed = 200;
-                _nav.acceleration = 20;
-                _nav.speed = 5f;
-                _unit.contactEnemy = true;
-                break;
-            case ChaseState.FaceToFace:
-                _nav.angularSpeed = 500;
-                _nav.acceleration = 20f;
-                _nav.speed = 15f;
-                break;
-            case ChaseState.Lock:
-                _nav.acceleration = 2f;
-                _nav.angularSpeed = 5;
-                _nav.speed = 1f;
-                break;
+            case ChaseState.InRange: ChangeNavState(5, 200, 20, true); break;
+            case ChaseState.FaceToFace: ChangeNavState(15, 500, 20, false); break;
+            case ChaseState.Lock: ChangeNavState(1, 2, 5, true); break;
+        }
+
+        void ChangeNavState(float speed, float angularSpeed, float acceleration, bool isContact)
+        {
+            _nav.speed = speed;
+            _nav.angularSpeed = angularSpeed;
+            _nav.acceleration = acceleration;
+            _unit.contactEnemy = isContact;
         }
     }
 

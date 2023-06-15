@@ -141,21 +141,32 @@ public class MeeleChaser : ChaseSystem
     {
         switch (state)
         {
-            case ChaseState.Chase:
+            case ChaseState.Far:
                 _nav.speed = _unit.Speed;
                 _nav.angularSpeed = 500;
                 _nav.acceleration = 40;
                 _unit.contactEnemy = false;
                 break;
-            case ChaseState.InRange:
-                _nav.acceleration = 20f;
+            case ChaseState.Close:
+                _nav.angularSpeed = 500;
+                _nav.acceleration = 20;
+                _nav.speed = 10f;
+                break;
+            case ChaseState.Contact:
                 _nav.angularSpeed = 200;
+                _nav.acceleration = 20;
+                _nav.speed = 5f;
+                _unit.contactEnemy = true;
+                break;
+            case ChaseState.InRange:
+                _nav.angularSpeed = 200;
+                _nav.acceleration = 20;
                 _nav.speed = 5f;
                 _unit.contactEnemy = true;
                 break;
             case ChaseState.FaceToFace:
-                _nav.acceleration = 20f;
                 _nav.angularSpeed = 500;
+                _nav.acceleration = 20f;
                 _nav.speed = 15f;
                 break;
             case ChaseState.Lock:
@@ -166,22 +177,11 @@ public class MeeleChaser : ChaseSystem
         }
     }
 
-    float Check_EnemyToUnit_Deggre()
-    {
-        if (_currentTarget == null) return 1f;
-        float enemyDot = Vector3.Dot(_currentTarget.dir.normalized, (currentDestinationPos - transform.position));
-        return enemyDot;
-    }
-
     protected override ChaseState GetChaseState()
     {
-        if (Check_EnemyToUnit_Deggre() < -0.8f && enemyDistance < 10)
-        {
-            if (enemyIsForward || _unit.IsAttack) return ChaseState.Lock;
-            else return ChaseState.FaceToFace;
-        }
-        else if (5 > enemyDistance) return ChaseState.InRange;
-        else return ChaseState.Chase;
+        var state = new UnitChaseUseCase(_unit.AttackRange).CalculateChaseState(transform.position, currentDestinationPos, transform.forward, _currentTarget.dir);
+        if (state == ChaseState.FaceToFace && (enemyIsForward || _unit.IsAttack)) return ChaseState.Lock;
+        else return state;
     }
 
     protected override bool RaycastEnemy(out Transform hitEnemy)

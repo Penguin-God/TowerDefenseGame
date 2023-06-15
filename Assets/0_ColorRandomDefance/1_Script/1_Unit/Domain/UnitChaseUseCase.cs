@@ -25,12 +25,11 @@ public class UnitChaseUseCase
     {
         float distance = Vector3.Distance(targetPos, chaserPos);
         if (IsFacingTarget(chaserDir, targetDir) && distance < _range) return ChaseState.FaceToFace;
-        else return CalculateChaseState(chaserPos, targetPos);
+        else return CalculateChaseState(distance);
     }
 
-    ChaseState CalculateChaseState(Vector3 chaserPos, Vector3 targetPos)
+    ChaseState CalculateChaseState(float distance)
     {
-        float distance = Vector3.Distance(targetPos, chaserPos);
         if (ContactDistance >= distance) return ChaseState.Contact;
         else if (_range * 0.8f >= distance) return ChaseState.Close;
         else return ChaseState.Far;
@@ -40,11 +39,15 @@ public class UnitChaseUseCase
     {
         switch (state)
         {
-            case ChaseState.Chase: return targetPostion - (targetForward * 1);
-            case ChaseState.InRange: return targetPostion - (targetForward * 2);
+            case ChaseState.Chase:
+            case ChaseState.Far: return targetPostion - (targetForward * 1);
+            case ChaseState.InRange:
+            case ChaseState.Contact: 
+            case ChaseState.Close: return targetPostion - (targetForward * 2);
             case ChaseState.FaceToFace: return targetPostion - (targetForward * -5f);
             case ChaseState.Lock: return targetPostion - (targetForward * -1f);
-            default : return Vector3.zero;
+            case ChaseState.NoneTarget: return targetPostion;
+            default : Debug.Log($"{state} :이게 맞나?"); return Vector3.zero;
         }
     }
 

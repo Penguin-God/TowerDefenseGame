@@ -12,6 +12,7 @@ public enum ChaseState
     Contact,
     Lock,
     FaceToFace,
+    Kiss,
 }
 
 public class UnitChaseUseCase
@@ -20,7 +21,14 @@ public class UnitChaseUseCase
     const float ContactDistance = 4f;
     public UnitChaseUseCase(float range) => _range = range;
 
-    public ChaseState CalculateChaseState(Vector3 chaserPos, Vector3 targetPos)
+    public ChaseState CalculateChaseState(Vector3 chaserPos, Vector3 targetPos, Vector3 chaserDir, Vector3 targetDir)
+    {
+        float distance = Vector3.Distance(targetPos, chaserPos);
+        if (IsFacingTarget(chaserDir, targetDir) && distance < _range) return ChaseState.FaceToFace;
+        else return CalculateChaseState(chaserPos, targetPos);
+    }
+
+    ChaseState CalculateChaseState(Vector3 chaserPos, Vector3 targetPos)
     {
         float distance = Vector3.Distance(targetPos, chaserPos);
         if (ContactDistance >= distance) return ChaseState.Contact;
@@ -39,4 +47,6 @@ public class UnitChaseUseCase
             default : return Vector3.zero;
         }
     }
+
+    bool IsFacingTarget(Vector3 chaserDir, Vector3 targetDir) => Vector3.Dot(targetDir, chaserDir) < -0.8f;
 }

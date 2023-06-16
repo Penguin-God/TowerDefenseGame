@@ -11,7 +11,6 @@ public class NormalMonsterSpawner
         var enemy = Managers.Multi.Instantiater.PhotonInstantiateInactive(new ResourcesPathBuilder().BuildMonsterPath(num), id).GetComponent<Multi_NormalEnemy>();
         NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];
         enemy.SetStatus_RPC(data.Hp, data.Speed, false);
-        Multi_EnemyManager.Instance.AddNormalMonster(enemy);
         return enemy;
     }
 }

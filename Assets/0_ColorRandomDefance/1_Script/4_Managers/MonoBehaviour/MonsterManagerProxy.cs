@@ -6,8 +6,17 @@ using System;
 
 public class MonsterManagerProxy : MonoBehaviourPun, IMonsterManager
 {
-    readonly MultiMonsterManager _multiMonsterManager = new MultiMonsterManager();
-    public MultiMonsterManager MultiMonsterManager => _multiMonsterManager;
+    readonly ServerMonsterManager _multiMonsterManager = new ServerMonsterManager();
+    public ServerMonsterManager MultiMonsterManager => _multiMonsterManager;
+
+    readonly MonsterManager _monsterManager = new MonsterManager();
+    public IReadOnlyList<Multi_NormalEnemy> GetNormalMonsters()
+    {
+        if(PhotonNetwork.IsMasterClient)
+            return _multiMonsterManager.GetMultiData(PlayerIdManager.MasterId).GetNormalMonsters();
+        else
+            return _monsterManager.GetNormalMonsters();
+    }
 
     BattleEventDispatcher _eventDispatcher = null;
     public void Init(BattleEventDispatcher eventDispatcher)
@@ -15,28 +24,34 @@ public class MonsterManagerProxy : MonoBehaviourPun, IMonsterManager
         _eventDispatcher = eventDispatcher;
     }
 
-    public void AddNormalMonster(Multi_NormalEnemy monster) => AddNormalMonster(monster.GetComponent<PhotonView>().ViewID);
-    public void RemoveNormalMonster(Multi_NormalEnemy monster) => RemoveNormalMonster(monster.GetComponent<PhotonView>().ViewID);
+    // 지금은 마스터에서만 접근함
+    public void AddNormalMonster(Multi_NormalEnemy monster) => ChangeMonsterList(monster, _multiMonsterManager.AddNormalMonster);
+    public void RemoveNormalMonster(Multi_NormalEnemy monster) => ChangeMonsterList(monster, _multiMonsterManager.RemoveNormalMonster);
 
-    void AddNormalMonster(int viewId) => ChangeMonsterList(viewId, _multiMonsterManager.AddNormalMonster);
-    void RemoveNormalMonster(int viewId) => ChangeMonsterList(viewId, _multiMonsterManager.RemoveNormalMonster);
-
-    void ChangeMonsterList(int viewId, Action<Multi_NormalEnemy> changeMonsterList)
+    void ChangeMonsterList(Multi_NormalEnemy monster, Action<Multi_NormalEnemy> changeMonsterList)
     {
-        var monster = Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(viewId);
+        byte previousCount = (byte)_multiMonsterManager.GetNormalMonsters(monster.UsingId).Count;
         changeMonsterList?.Invoke(monster);
 
         byte newCount = (byte)_multiMonsterManager.GetNormalMonsters(monster.UsingId).Count;
         photonView.RPC(nameof(NotifyNormalMonsterCountChange), RpcTarget.All, monster.UsingId, newCount);
+
+        if (monster.UsingId != PlayerIdManager.ClientId) return;
+        if(newCount > previousCount)
+            photonView.RPC(nameof(RPC_AddNormalMonster), RpcTarget.All, monster.GetComponent<PhotonView>().ViewID);
+        else
+            photonView.RPC(nameof(RPC_RemoveNormalMonster), RpcTarget.All, monster.GetComponent<PhotonView>().ViewID);
     }
 
     [PunRPC] void NotifyNormalMonsterCountChange(byte playerId, byte count) => _eventDispatcher.NotifyMonsterCountChange(playerId, count);
+    [PunRPC] void RPC_AddNormalMonster(int viewId) => _monsterManager.AddNormalMonster(Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(viewId));
+    [PunRPC] void RPC_RemoveNormalMonster(int viewId) => _monsterManager.RemoveNormalMonster(Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(viewId));
 }
 
-public class MultiMonsterManager
+public class ServerMonsterManager
 {
     MultiData<MonsterManager> _mulitMonsterManager;
-    public MultiMonsterManager() => _mulitMonsterManager = MultiDataFactory.CreateMultiData<MonsterManager>();
+    public ServerMonsterManager() => _mulitMonsterManager = MultiDataFactory.CreateMultiData<MonsterManager>();
 
     public MonsterManager GetMultiData(byte id) => _mulitMonsterManager.GetData(id);
     public void AddNormalMonster(Multi_NormalEnemy monster) => GetMultiData(monster.UsingId).AddNormalMonster(monster);

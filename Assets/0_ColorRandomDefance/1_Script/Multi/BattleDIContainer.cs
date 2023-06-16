@@ -17,6 +17,7 @@ public class MultiInitializer
     {
         var game = Multi_GameManager.Instance;
         var data = Managers.Data;
+        
         // add
         AddMultiService<SwordmanGachaController, MasterSwordmanGachaController>(container);
         container.AddService<CurrencyManagerMediator>();

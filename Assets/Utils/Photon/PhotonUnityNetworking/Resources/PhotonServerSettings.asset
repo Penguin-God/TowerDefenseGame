@@ -146,6 +146,8 @@ MonoBehaviour:
   - CallFlatThrow
   - CallThrow
   - Multi_Throw
+  - RPC_AddNormalMonster
+  - RPC_RemoveNormalMonster
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

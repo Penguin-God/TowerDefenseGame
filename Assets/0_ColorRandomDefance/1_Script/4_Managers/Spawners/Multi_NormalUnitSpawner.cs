@@ -9,8 +9,8 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
     public event Action<Multi_TeamSoldier> OnSpawn = null;
 
-    MultiMonsterManager _multiMonsterManager;
-    public void Init(MultiMonsterManager multiMonsterManager)
+    ServerMonsterManager _multiMonsterManager;
+    public void Init(ServerMonsterManager multiMonsterManager)
     {
         _multiMonsterManager = multiMonsterManager;
     }

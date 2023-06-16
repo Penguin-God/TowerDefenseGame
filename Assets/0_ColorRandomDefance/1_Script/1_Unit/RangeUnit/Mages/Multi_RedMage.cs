@@ -1,12 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
 public class Multi_RedMage : Multi_Unit_Mage
 {
     [SerializeField] float _damRate;
     [SerializeField] float meteorStunTime;
+    MeteorController _meteorController = new MeteorController();
 
     public override void SetMageAwake()
     {
@@ -18,36 +18,12 @@ public class Multi_RedMage : Multi_Unit_Mage
     }
 
     [SerializeField] Vector3 meteorPos = (Vector3.up * 30) + (Vector3.forward * 5);
-
-    protected override void MageSkile()
-    {
-        Multi_Meteor meteor = SkillSpawn(transform.position + meteorPos).GetComponent<Multi_Meteor>();
-        StartCoroutine(Co_ShotMeteor(meteor));
-    }
-
-    IEnumerator Co_ShotMeteor(Multi_Meteor meteor)
-    {
-        Multi_Enemy tempEnemyPos = TargetEnemy;
-        Vector3 tempPos = target.position;
-        yield return new WaitForSeconds(1f);
-
-        if (target == null)
-            meteor.Shot(null, tempPos, HitMeteor);
-        else
-            meteor.Shot(TargetEnemy, target.position, HitMeteor);
-    }
-
+    Vector3 CalculateMeteorSawpnPos() => transform.position + meteorPos;
+    protected override void MageSkile() => StartCoroutine(_meteorController.Co_ShotMeteor(TargetEnemy, CalculateSkillDamage(_damRate), meteorStunTime, CalculateMeteorSawpnPos()));
     protected override void PlaySkillSound() => PlaySound(EffectSoundType.RedMageSkill);
 
-    void HitMeteor(Multi_Enemy enemy)
-    {
-        SkillAttackToEnemy(enemy, CalculateSkillDamage(_damRate));
-        enemy.OnStun_RPC(100, meteorStunTime);
-    }
-
+    // passive
     [SerializeField] float attackDelayRate;
-
-
     [SerializeField] List<Multi_TeamSoldier> _passiveTargets = new List<Multi_TeamSoldier>();
     void OnTriggerEnter(Collider other)
     {

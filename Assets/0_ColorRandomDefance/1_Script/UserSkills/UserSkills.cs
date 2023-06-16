@@ -34,7 +34,7 @@ public class UserSkillFactory
             case SkillType.판매보상증가: return new SellUpgrade(skillType);
             case SkillType.보스데미지증가: return new BossDamageUpgrade(skillType);
             case SkillType.장사꾼: return new DiscountMerchant(skillType);
-            case SkillType.조합메테오: return new CombineMeteor(skillType);
+            case SkillType.조합메테오: return new CombineMeteor(skillType, container.GetService<IMonsterManager>());
             default: return null;
         }
     }
@@ -292,8 +292,20 @@ public class DiscountMerchant : UserSkill
 
 public class CombineMeteor : UserSkill
 {
-    public CombineMeteor(SkillType skillType) : base(skillType) { }
+    MeteorController _meteorController;
+    readonly Vector3 MeteorPoint;
+    IMonsterManager _monsterManager;
+    public CombineMeteor(SkillType skillType, IMonsterManager monsterManager) : base(skillType) 
+    {
+        _meteorController = new GameObject("MeteorController").AddComponent<MeteorController>();
+        MeteorPoint = PlayerIdManager.Id == PlayerIdManager.MasterId ? new Vector3(0, 30, 0) : new Vector3(0, 30, 500);
+        _monsterManager = monsterManager;
+    }
+    // 점수제로 해서 1점수당 dam, time 곱하기
 
+    int dam = 300;
+    float time = 0.5f;
+    
     public override void InitSkill()
     {
         Managers.Unit.OnCombine += ShotMeteor;
@@ -301,7 +313,8 @@ public class CombineMeteor : UserSkill
 
     void ShotMeteor(UnitFlags combineUnitFlag)
     {
-        if(new UnitCombineSystem(Managers.Data.CombineConditionByUnitFalg).GetNeedFlags(combineUnitFlag).Any(x => x.UnitColor == UnitColor.Red))
-            Debug.Log("펑펑");
+        if (new UnitCombineSystem(Managers.Data.CombineConditionByUnitFalg).GetNeedFlags(combineUnitFlag).Any(x => x.UnitColor == UnitColor.Red))
+            _meteorController.ShotMeteor(_monsterManager.GetNormalMonsters()[UnityEngine.Random.Range(0, _monsterManager.GetNormalMonsters().Count)],
+                dam, time, MeteorPoint);
     }
 }

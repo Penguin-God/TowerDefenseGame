@@ -41,8 +41,7 @@ public class Pool
 
     Poolable CreateObject()
     {
-        var go = _instantiater == null ?
-            GameObject.Instantiate(Resources.Load<GameObject>(Path)) : _instantiater.Instantiate(Path);
+        var go = _instantiater == null ? GameObject.Instantiate(Resources.Load<GameObject>(Path)) : _instantiater.Instantiate(Path);
         go.SetActive(false);
         go.transform.SetParent(Root);
         go.name = Name;
@@ -113,12 +112,6 @@ public class PoolManager
             _poolGroupByName.Add(groupName, poolGroup);
             return CreatePool(path, count, poolGroup.Root, instantiater);
         }
-    }
-
-    public void CreatePoolGroup(IEnumerable<string> paths, int count, string groupName, IInstantiater instantiater = null)
-    {
-        foreach (var path in paths)
-            CreatePool_InGroup(path, count, groupName, instantiater);
     }
 
     public void Push(Poolable poolable) => Push(poolable.gameObject);

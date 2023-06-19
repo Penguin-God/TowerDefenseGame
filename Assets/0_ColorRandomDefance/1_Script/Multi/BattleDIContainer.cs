@@ -27,7 +27,7 @@ public class MultiInitializer
         container.AddService<EffectInitializer>();
         container.AddService<OpponentStatusSender>().Init(_dispatcher);
         container.AddService<EnemySpawnNumManager>();
-
+        container.AddService<MeteorController>();
         
         // set
         container.GetService<SwordmanGachaController>().Init(game, data.BattleDataContainer.UnitSummonData);

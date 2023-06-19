@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
-public class MeteorController : MonoBehaviour
+public class MeteorController : MonoBehaviourPun
 {
-    readonly string MeteorPath = $"Weapon/MageSkills/Meteor 1";
+    readonly string MeteorPath = $"MageSkills/Meteor 1";
 
     void HitAction(Multi_Enemy target, int hitDamage, float stunTime)
     {
@@ -15,6 +16,18 @@ public class MeteorController : MonoBehaviour
 
     public void ShotMeteor(Multi_Enemy target, int hitDamage, float stunTime, Vector3 spawnPos)
     {
+        if(target == null)
+        {
+            print("target¿Ã ≥Œ¿”");
+            return;
+        }
+        photonView.RPC(nameof(RPC_ShotMeteor), RpcTarget.MasterClient, target.GetComponent<PhotonView>().ViewID, hitDamage, stunTime, spawnPos);
+    }
+
+    [PunRPC]
+    void RPC_ShotMeteor(int viewId, int hitDamage, float stunTime, Vector3 spawnPos)
+    {
+        var target = Managers.Multi.GetPhotonViewComponent<Multi_Enemy>(viewId);
         Action<Multi_Enemy> hitAction = (_) => HitAction(_, hitDamage, stunTime);
         StartCoroutine(Co_ShotMeteor(target, hitAction, spawnPos));
     }

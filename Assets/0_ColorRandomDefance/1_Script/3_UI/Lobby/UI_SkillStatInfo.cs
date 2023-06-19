@@ -22,6 +22,7 @@ public class UI_SkillStatInfo : UI_Base
             case SkillType.ÅÂ±Ø½ºÅ³: result += Managers.Data.Unit.UnitStatByFlag[new UnitFlags(0, frameIndex)].Damage; break;
             case SkillType.°ËÀºÀ¯´Ö°­È­: result += Managers.Data.Unit.UnitStatByFlag[new UnitFlags(7, frameIndex)].Damage; break;
         }
-        return result.ToString("#,##0");
+        if (result >= 1000) return result.ToString("#,##0");
+        else return result.ToString();
     }
 }

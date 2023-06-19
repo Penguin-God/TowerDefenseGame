@@ -293,28 +293,58 @@ public class DiscountMerchant : UserSkill
 public class CombineMeteor : UserSkill
 {
     MeteorController _meteorController;
-    readonly Vector3 MeteorPoint;
+    readonly Vector3 MeteorShotPoint;
     IMonsterManager _monsterManager;
     public CombineMeteor(SkillType skillType, IMonsterManager monsterManager) : base(skillType) 
     {
-        _meteorController = new GameObject("MeteorController").AddComponent<MeteorController>();
-        MeteorPoint = PlayerIdManager.Id == PlayerIdManager.MasterId ? new Vector3(0, 30, 0) : new Vector3(0, 30, 500);
         _monsterManager = monsterManager;
+        MeteorShotPoint = PlayerIdManager.Id == PlayerIdManager.MasterId ? new Vector3(0, 30, 0) : new Vector3(0, 30, 500);
     }
     // 점수제로 해서 1점수당 dam, time 곱하기
 
-    int dam = 300;
+    int dam = 1000;
     float time = 0.5f;
     
     public override void InitSkill()
     {
+        _meteorController = new GameObject("MeteorController").AddComponent<MeteorController>();
         Managers.Unit.OnCombine += ShotMeteor;
     }
 
     void ShotMeteor(UnitFlags combineUnitFlag)
     {
-        if (new UnitCombineSystem(Managers.Data.CombineConditionByUnitFalg).GetNeedFlags(combineUnitFlag).Any(x => x.UnitColor == UnitColor.Red))
-            _meteorController.ShotMeteor(_monsterManager.GetNormalMonsters()[UnityEngine.Random.Range(0, _monsterManager.GetNormalMonsters().Count)],
-                dam, time, MeteorPoint);
+        int score = CalculateRedScore(combineUnitFlag);
+        if (score > 0)
+            _meteorController.ShotMeteor(FindMonster(), dam * score, time * score, MeteorShotPoint);
+        Debug.Log(score);
+    }
+    Multi_NormalEnemy FindMonster()
+    {
+        var monsters = _monsterManager.GetNormalMonsters();
+        if (monsters.Count == 0) return null;
+        else return monsters[UnityEngine.Random.Range(0, monsters.Count)];
+    }
+
+    int CalculateRedScore(UnitFlags combineUnitFlag)
+    {
+        int result = 0;
+        foreach(var flag in new UnitCombineSystem(Managers.Data.CombineConditionByUnitFalg).GetNeedFlags(combineUnitFlag))
+        {
+            if(flag.UnitColor == UnitColor.Red)
+                result += GetClassScore(flag.UnitClass);
+        }
+        return result;
+    }
+
+    int GetClassScore(UnitClass unitClass)
+    {
+        switch (unitClass)
+        {
+            case UnitClass.Swordman: return 1;
+            case UnitClass.Archer: return 4;
+            case UnitClass.Spearman: return 20;
+            case UnitClass.Mage: return 0;
+            default: return 0;
+        }
     }
 }

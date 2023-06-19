@@ -11,7 +11,7 @@ public class EffectInitializer : MonoBehaviourPun
     {
         foreach (var skill in userSkills)
         {
-            var taegeuk = skill as Taegeuk;
+            var taegeuk = skill as TaegeukController;
             if (taegeuk != null)
                 taegeuk.OnTaegeukDamageChanged += TaeguekEffect_RPC;
 

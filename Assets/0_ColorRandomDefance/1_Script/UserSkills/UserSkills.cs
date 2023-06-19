@@ -25,7 +25,7 @@ public class UserSkillFactory
             case SkillType.시작골드증가: return new StartGold(skillType);
             case SkillType.시작고기증가: return new StartFood(skillType);
             case SkillType.최대유닛증가: return new MaxUnit(skillType);
-            case SkillType.태극스킬: return new Taegeuk(skillType);
+            case SkillType.태극스킬: return new TaegeukController(skillType);
             case SkillType.검은유닛강화: return new BlackUnitUpgrade(skillType);
             case SkillType.노란기사강화: return new YellowSowrdmanUpgrade(skillType);
             case SkillType.컬러마스터: return new ColorMaster(skillType, container.GetService<SwordmanGachaController>());
@@ -60,17 +60,9 @@ public class MaxUnit : UserSkill
     public override void InitSkill() => Multi_GameManager.Instance.IncreasedMaxUnitCount(IntSkillData);
 }
 
-public enum TaegeukStateChangeType
+public class TaegeukController : UserSkill
 {
-    NoChange,
-    AddNewUnit,
-    TrueToFalse,
-    FalseToTrue,
-}
-
-public class Taegeuk : UserSkill
-{
-    public Taegeuk(SkillType skillType) : base(skillType) { }
+    public TaegeukController(SkillType skillType) : base(skillType) { }
 
     public event Action<UnitClass, bool> OnTaegeukDamageChanged;
 
@@ -105,54 +97,6 @@ public class Taegeuk : UserSkill
 
         void SetTaeguekUnitStat(UnitColor unitColor)
             => MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatType.All);
-    }
-}
-
-public struct TaegeukState
-{
-    public TaegeukStateChangeType ChangeState;
-    public bool IsActive;
-
-    public TaegeukState(TaegeukStateChangeType changeType, bool isActive)
-    {
-        ChangeState = changeType;
-        IsActive = isActive;
-    }
-}
-
-public class TaegeukStateManager
-{
-    bool[] _currentTaegeukFlags = new bool[Enum.GetValues(typeof(UnitClass)).Length];
-
-    public TaegeukState GetTaegeukState(UnitClass unitClass, HashSet<UnitFlags> exsitUnitFlags)
-    {
-        bool prevTaegeukFlag = _currentTaegeukFlags[(int)unitClass];
-        bool newTaegeukFlag = new TaegeukConditionChecker().CheckTaegeuk(unitClass, exsitUnitFlags);
-        _currentTaegeukFlags[(int)unitClass] = newTaegeukFlag;
-
-        if (prevTaegeukFlag && newTaegeukFlag)
-            return new TaegeukState(TaegeukStateChangeType.AddNewUnit, newTaegeukFlag);
-        else if (prevTaegeukFlag && newTaegeukFlag == false)
-            return new TaegeukState(TaegeukStateChangeType.TrueToFalse, newTaegeukFlag);
-        else if (prevTaegeukFlag == false && newTaegeukFlag)
-            return new TaegeukState(TaegeukStateChangeType.FalseToTrue, newTaegeukFlag);
-        else
-            return new TaegeukState(TaegeukStateChangeType.NoChange, newTaegeukFlag);
-    }
-}
-
-public class TaegeukConditionChecker
-{
-    public bool CheckTaegeuk(UnitClass unitClass, HashSet<UnitFlags> existUnitFlags)
-        => ExistRedAndBlue(unitClass, existUnitFlags) && CountZeroTaegeukOther(unitClass, existUnitFlags);
-
-    bool ExistRedAndBlue(UnitClass unitClass, HashSet<UnitFlags> existUnitFlags)
-        => existUnitFlags.Contains(new UnitFlags(UnitColor.Red, unitClass)) && existUnitFlags.Contains(new UnitFlags(UnitColor.Blue, unitClass));
-
-    bool CountZeroTaegeukOther(UnitClass unitClass, HashSet<UnitFlags> existUnitFlags)
-    {
-        var otherColors = new UnitColor[] { UnitColor.Yellow, UnitColor.Green, UnitColor.Orange, UnitColor.Violet };
-        return !otherColors.Any(color => existUnitFlags.Contains(new UnitFlags(color, unitClass)));
     }
 }
 
@@ -300,7 +244,6 @@ public class CombineMeteor : UserSkill
         _monsterManager = monsterManager;
         MeteorShotPoint = PlayerIdManager.Id == PlayerIdManager.MasterId ? new Vector3(0, 30, 0) : new Vector3(0, 30, 500);
     }
-    // 점수제로 해서 1점수당 dam, time 곱하기
 
     int dam = 1000;
     float time = 0.5f;
@@ -316,7 +259,6 @@ public class CombineMeteor : UserSkill
         int score = CalculateRedScore(combineUnitFlag);
         if (score > 0)
             _meteorController.ShotMeteor(FindMonster(), dam * score, time * score, MeteorShotPoint);
-        Debug.Log(score);
     }
     Multi_NormalEnemy FindMonster()
     {

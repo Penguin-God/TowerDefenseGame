@@ -15,7 +15,7 @@ public class SpawnPositionCalculatorTests
         var calculator = new WorldSpawnPositionCalculator(spawnRange, 0, 0, 0);
 
         // Act
-        var result = calculator.GetUnitSpawnPositon(worldPos);
+        var result = calculator.CalculateWorldPostion(worldPos);
 
         // Assert
         Assert.That(result.x, Is.InRange(-10f, 10f));
@@ -33,7 +33,7 @@ public class SpawnPositionCalculatorTests
         var calculator = new WorldSpawnPositionCalculator(0, offsetZ, spawnRangeX, spawnRangeZ);
 
         // Act
-        var result = calculator.GetEnemyTower_TP_Position(towerPos);
+        var result = calculator.CalculateEnemyTowerPostion(towerPos);
 
         // Assert
         Assert.That(result.x, Is.InRange(-10f, 10f));

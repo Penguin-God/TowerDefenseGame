@@ -67,8 +67,8 @@ public class WorldSpawnPositionCalculator
         EnemyTowerSpawnRange_Z = enemyTowerSpawnRange_Z;
     }
 
-    public Vector3 GetUnitSpawnPositon(Vector3 worldPos) => GetRandomPos_InRange(worldPos, WorldSpawnRange);
-    public Vector3 GetEnemyTower_TP_Position(Vector3 towerPos) 
+    public Vector3 CalculateWorldPostion(Vector3 worldPos) => GetRandomPos_InRange(worldPos, WorldSpawnRange);
+    public Vector3 CalculateEnemyTowerPostion(Vector3 towerPos)
         => GetRandomPos_InRange(new Vector3(towerPos.x, towerPos.y, towerPos.z + EnemyTowerOffsetZ), EnemyTowerSpawnRange_X, EnemyTowerSpawnRange_Z);
 
     Vector3 GetRandomPos_InRange(Vector3 _pivot, float _range) => GetRandomPos_InRange(_pivot, _range, _range);

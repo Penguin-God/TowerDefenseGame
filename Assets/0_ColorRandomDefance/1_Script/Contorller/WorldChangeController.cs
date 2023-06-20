@@ -1,4 +1,3 @@
-using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,13 +14,19 @@ public class WorldChangeController
     }
 
     public bool EnterStoryWorld { get; private set; }
-    readonly WorldSpawnPositionCalculator _positionCalculator = new WorldSpawnPositionCalculator(20, -10, 45, 20);
-    protected void ChangeWorld(GameObject tpObject)
+    readonly WorldSpawnPositionCalculator _positionCalculator = new WorldSpawnPositionCalculator(20, -10, 45, 2.5f);
+    public Vector3 ChangeWorld(GameObject tpObject)
+    {
+        Vector3 destination = EnterStoryWorld ? _positionCalculator.CalculateWorldPostion(WorldPos) : _positionCalculator.CalculateEnemyTowerPostion(EnemyTowerPos);
+        ChangeWorld(tpObject, destination);
+        return destination;
+    }
+
+    public void ChangeWorld(GameObject tpObject, Vector3 destination)
     {
         Managers.Effect.PlayParticle("UnitTpEffect", tpObject.transform.position + (Vector3.up * 3));
         tpObject.SetActive(false);
-        tpObject.transform.position = 
-            EnterStoryWorld ? _positionCalculator.CalculateWorldPostion(WorldPos) : _positionCalculator.CalculateEnemyTowerPostion(EnemyTowerPos);
+        tpObject.transform.position = destination;
         tpObject.SetActive(true);
         EnterStoryWorld = !EnterStoryWorld;
         Managers.Sound.PlayEffect(EffectSoundType.UnitTp);

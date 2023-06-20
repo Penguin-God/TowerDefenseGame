@@ -98,6 +98,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         _targetManager.OnChangedTarget += _chaseSystem.ChangedTarget;
 
         SetInfo(flag, stat, damInfo);
+        _worldChangeController 
+            = new WorldChangeController(Multi_Data.instance.GetWorldPosition(rpcable.UsingId), Multi_Data.instance.EnemyTowerWorldPositions[rpcable.UsingId]);
         ChaseTarget();
     }
 
@@ -268,33 +270,28 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     public void ChangeWorldToMaster() => photonView.RPC(nameof(ChangeWorld), RpcTarget.MasterClient);
 
+    WorldChangeController _worldChangeController;
+    // protected 강제임
     [PunRPC]
     protected void ChangeWorld()
     {
-        Vector3 toPos = GetOppositeWorldSpawnPos();
-        MoveToPos(toPos);
-        base.photonView.RPC(nameof(MoveToPos), RpcTarget.Others, toPos);
+        Vector3 destination = _worldChangeController.ChangeWorld(gameObject);
+        print(destination);
+        MoveToPos(destination);
+        base.photonView.RPC(nameof(MoveToPos), RpcTarget.Others, destination);
 
         _state.ChangedWorld();
         if (EnterStroyWorld) EnterStroyMode();
         else EnterWolrd();
-
+        
         UpdateTarget();
-        RPC_PlayTpSound();
-
-
+        
         void EnterWolrd() => nav.obstacleAvoidanceType = originObstacleType;
         void EnterStroyMode() => nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
     }
 
     [PunRPC]
-    protected void MoveToPos(Vector3 pos)
-    {
-        Managers.Effect.PlayParticle("UnitTpEffect", transform.position + (Vector3.up * 3));
-        gameObject.SetActive(false);
-        transform.position = pos;
-        gameObject.SetActive(true);
-    }
+    protected void MoveToPos(Vector3 pos) => _worldChangeController.ChangeWorld(gameObject, pos);
 
     Vector3 GetOppositeWorldSpawnPos() => (EnterStroyWorld) ? Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(rpcable.UsingId)
             : Multi_WorldPosUtility.Instance.GetEnemyTower_TP_Position(rpcable.UsingId);

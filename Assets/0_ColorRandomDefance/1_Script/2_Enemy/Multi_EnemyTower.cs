@@ -10,9 +10,6 @@ public class Multi_EnemyTower : Multi_Enemy
     public int Level => _level;
     public BossData TowerData { get; private set; }
     
-    [PunRPC]
-    protected override void OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill) { }
-
     public void Spawn(int level)
     {
         enemyType = EnemyType.Tower;

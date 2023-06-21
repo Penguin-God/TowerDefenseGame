@@ -132,41 +132,34 @@ public class Multi_Enemy : MonoBehaviourPun
     public void OnStun_RPC(int _stunPercent, float _stunTime) => photonView.RPC(nameof(OnStun), RpcTarget.MasterClient, _stunPercent, _stunTime);
     [PunRPC] protected virtual void OnStun(int stunPercent, float stunTime) { }
 
-    public void OnPoison_RPC(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill = false)
+    public void OnPoison_RPC(int poisonCount, int damage, bool isSkill = false)
     {
         if (isDead) return;
 
-        photonView.RPC(nameof(OnPoison), RpcTarget.MasterClient, poisonPercent, poisonCount, poisonDelay, maxDamage, isSkill);
+        photonView.RPC(nameof(OnPoison), RpcTarget.MasterClient, (byte)poisonCount, damage, isSkill);
     }
     [PunRPC]
-    protected virtual void OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill)
+    protected virtual void OnPoison(byte poisonCount, int damage, bool isSkill)
     {
-        if (isDead || !PhotonNetwork.IsMasterClient) return;
+        if (isDead) return;
         photonView.RPC(nameof(ChangeColorToPoison), RpcTarget.All);
-        StartCoroutine(Co_OnPoison(poisonPercent, poisonCount, poisonDelay, maxDamage, isSkill));
+        StartCoroutine(Co_OnPoison(poisonCount, damage, isSkill));
     }
 
     // Queue를 사용해서 현재 코루틴이 중복으로 돌아가고 있지 않으면 색깔 복귀하기
     Queue<int> queue_HoldingPoison = new Queue<int>();
-    IEnumerator Co_OnPoison(int poisonPercent, int poisonCount, float poisonDelay, int maxDamage, bool isSkill)
+    const float PoisonTick = 0.25f;
+    IEnumerator Co_OnPoison(int poisonCount, int damage, bool isSkill)
     {
         queue_HoldingPoison.Enqueue(-1);
-        int poisonDamage = GetPoisonDamage(poisonPercent, maxDamage);
         for (int i = 0; i < poisonCount; i++)
         {
-            yield return new WaitForSeconds(poisonDelay);
-            RPC_OnDamage(poisonDamage, isSkill); // 포이즌 자체가 마스터에서만 돌아가기 때문에 그냥 써도 됨
+            yield return new WaitForSeconds(PoisonTick);
+            RPC_OnDamage(damage, isSkill); // 포이즌 자체가 마스터에서만 돌아가기 때문에 그냥 써도 됨
         }
 
         if (queue_HoldingPoison.Count != 0) queue_HoldingPoison.Dequeue();
         if (queue_HoldingPoison.Count == 0) photonView.RPC(nameof(ChangeColorToOrigin), RpcTarget.All);
-    }
-
-    int GetPoisonDamage(int poisonPercent, int maxDamage)
-    {
-        int poisonDamage = Mathf.RoundToInt(currentHp * poisonPercent / 100);
-        poisonDamage = Mathf.Clamp(poisonDamage, 1, maxDamage);
-        return poisonDamage;
     }
 
     void ChangeColor(byte r, byte g, byte b, byte a)

@@ -56,8 +56,24 @@ public class SkillEquip_UI : UI_Popup
         RefreshEquipSkillFrame();
     }
 
-
-    void ChangeTab(UserSkillClass skillClass) => DrawSkillImages(Managers.ClientData.HasSkills.Where(x => Managers.Data.UserSkill.GetSkillGoodsData(x).SkillClass == skillClass));
+    [SerializeField] Sprite _defualtSp;
+    [SerializeField] Sprite _selectSp;
+    void ChangeTab(UserSkillClass skillClass)
+    {
+        switch (skillClass)
+        {
+            case UserSkillClass.Main:
+                GetButton((int)Buttons.MainTabBtn).image.sprite = _selectSp;
+                GetButton((int)Buttons.SubTabBtn).image.sprite = _defualtSp;
+                break;
+            case UserSkillClass.Sub:
+                GetButton((int)Buttons.MainTabBtn).image.sprite = _defualtSp;
+                GetButton((int)Buttons.SubTabBtn).image.sprite = _selectSp;
+                break;
+        }
+        
+        DrawSkillImages(Managers.ClientData.HasSkills.Where(x => Managers.Data.UserSkill.GetSkillGoodsData(x).SkillClass == skillClass));
+    }
 
     void DrawSkillImages(IEnumerable<SkillType> skills)
     {

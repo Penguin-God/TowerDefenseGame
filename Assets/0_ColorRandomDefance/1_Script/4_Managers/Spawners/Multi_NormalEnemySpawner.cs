@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using System;
 
 public class NormalMonsterSpawner
 {
@@ -37,18 +36,18 @@ public class EnemySpawnNumManager : MonoBehaviourPun
 
 public class MonsterSpawnerContorller : MonoBehaviour
 {
-    EnemySpawnNumManager _numManager;
     IMonsterManager _monsterManager = null;
+    EnemySpawnNumManager _numManager;
     BattleEventDispatcher _dispatcher;
-    public void Init(IMonsterManager monsterManager, BattleEventDispatcher dispatcher)
+    public void Injection(IMonsterManager monsterManager, EnemySpawnNumManager numManager, BattleEventDispatcher dispatcher)
     {
         _monsterManager = monsterManager;
+        _numManager = numManager;
         _dispatcher = dispatcher;
     }
 
     void Start()
     {
-        _numManager = gameObject.GetOrAddComponent<EnemySpawnNumManager>();
         if (PhotonNetwork.IsMasterClient == false) return;
         StageManager.Instance.OnUpdateStage += SpawnMonsterOnStageChange; // normal
         StageManager.Instance.OnUpdateStage += SpawnBossOnStageMultipleOfTen; // boss
@@ -62,9 +61,7 @@ public class MonsterSpawnerContorller : MonoBehaviour
         StartCoroutine(Co_StageSpawn(1, stage));
     }
 
-    Multi_NormalEnemy SpawnMonsterToOther(byte num, int id, int stage) => SpawnNormalMonster(num, (byte)(id == 0 ? 1 : 0), stage);
     Multi_NormalEnemy SpawnMonsterToOther(int id, int stage) => SpawnNormalMonster(_numManager.GetSpawnEnemyNum(id), (byte)(id == 0 ? 1 : 0), stage);
-
     Multi_NormalEnemy SpawnNormalMonster(byte num, byte id, int stage)
     {
         var monster = new NormalMonsterSpawner().SpawnMonster(num, id, stage);

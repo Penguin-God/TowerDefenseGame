@@ -42,7 +42,7 @@ public class MultiInitializer
             var server = MultiServiceMidiator.Server;
             var monsterSpawnController = container.AddService<MonsterSpawnerContorller>();
 
-            monsterSpawnController.Init(monsterManagerProxy, _dispatcher);
+            monsterSpawnController.Injection(monsterManagerProxy, container.GetService<EnemySpawnNumManager>(),_dispatcher);
             container.GetService<MasterSwordmanGachaController>().Init(server, container.GetService<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
             container.GetService<UnitMaxCountController>().Init(server, game);
             Multi_SpawnManagers.NormalUnit.Init(container.GetService<MonsterManagerProxy>().MultiMonsterManager);

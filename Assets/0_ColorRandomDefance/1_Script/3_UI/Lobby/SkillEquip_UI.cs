@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -36,13 +35,13 @@ public class SkillEquip_UI : UI_Popup
         GetButton((int)Buttons.MainTabBtn).onClick.AddListener(() => ChangeTab(UserSkillClass.Main));
         GetButton((int)Buttons.SubTabBtn).onClick.AddListener(() => ChangeTab(UserSkillClass.Sub));
 
-        Managers.ClientData.EquipSkillManager.OnEquipSkillChanged -= RefreshEquipSkillFrame;
-        Managers.ClientData.EquipSkillManager.OnEquipSkillChanged += RefreshEquipSkillFrame;
+        Managers.ClientData.EquipSkillManager.OnEquipSkillChanged -= DrawEquipSkillFrame;
+        Managers.ClientData.EquipSkillManager.OnEquipSkillChanged += DrawEquipSkillFrame;
     }
 
     void OnDestroy()
     {
-        Managers.ClientData.EquipSkillManager.OnEquipSkillChanged -= RefreshEquipSkillFrame;
+        Managers.ClientData.EquipSkillManager.OnEquipSkillChanged -= DrawEquipSkillFrame;
     }
 
     public void RefreshUI()
@@ -57,6 +56,7 @@ public class SkillEquip_UI : UI_Popup
         RefreshEquipSkillFrame();
     }
 
+
     void ChangeTab(UserSkillClass skillClass) => DrawSkillImages(Managers.ClientData.HasSkills.Where(x => Managers.Data.UserSkill.GetSkillGoodsData(x).SkillClass == skillClass));
 
     void DrawSkillImages(IEnumerable<SkillType> skills)
@@ -68,22 +68,13 @@ public class SkillEquip_UI : UI_Popup
             Managers.UI.MakeSubItem<SkillFrame_UI>(frameParent).SetInfo(skillType);
     }
 
-    void RefreshHasSkillsFrame()
-    {
-        var frameParent = GetObject((int)GameObjects.HasSkillFramesParent).transform;
-        foreach (Transform item in frameParent)
-            Destroy(item.gameObject);
-        foreach (SkillType skillType in Managers.ClientData.HasSkills)
-            Managers.UI.MakeSubItem<SkillFrame_UI>(frameParent).SetInfo(skillType);
-    }
-
     void RefreshEquipSkillFrame()
     {
-        SetEquipImage(Managers.ClientData.EquipSkillManager.MainSkill, GetImage((int)Images.EquipSkill1_Image));
-        SetEquipImage(Managers.ClientData.EquipSkillManager.SubSkill, GetImage((int)Images.EquipSkill2_Image));
+        DrawEquipSkillFrame(UserSkillClass.Main, Managers.ClientData.EquipSkillManager.MainSkill);
+        DrawEquipSkillFrame(UserSkillClass.Main, Managers.ClientData.EquipSkillManager.SubSkill);
     }
 
-    void RefreshEquipSkillFrame(UserSkillClass skillClass, SkillType skillType)
+    void DrawEquipSkillFrame(UserSkillClass skillClass, SkillType skillType)
     {
         switch (skillClass)
         {

@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +15,8 @@ public class SkillEquip_UI : UI_Popup
     enum Buttons
     {
         UnEquipButton,
+        MainTabBtn,
+        SubTabBtn,
     }
 
     enum Images
@@ -29,6 +33,8 @@ public class SkillEquip_UI : UI_Popup
         Bind<Button>(typeof(Buttons));
 
         GetButton((int)Buttons.UnEquipButton).onClick.AddListener(Managers.ClientData.EquipSkillManager.AllUnEquip);
+        GetButton((int)Buttons.MainTabBtn).onClick.AddListener(() => ChangeTab(UserSkillClass.Main));
+        GetButton((int)Buttons.SubTabBtn).onClick.AddListener(() => ChangeTab(UserSkillClass.Sub));
 
         Managers.ClientData.EquipSkillManager.OnEquipSkillChanged -= RefreshEquipSkillFrame;
         Managers.ClientData.EquipSkillManager.OnEquipSkillChanged += RefreshEquipSkillFrame;
@@ -46,8 +52,20 @@ public class SkillEquip_UI : UI_Popup
             Init();
             _initDone = true;
         }
-        RefreshHasSkillsFrame();
+
+        ChangeTab(UserSkillClass.Main);
         RefreshEquipSkillFrame();
+    }
+
+    void ChangeTab(UserSkillClass skillClass) => DrawSkillImages(Managers.ClientData.HasSkills.Where(x => Managers.Data.UserSkill.GetSkillGoodsData(x).SkillClass == skillClass));
+
+    void DrawSkillImages(IEnumerable<SkillType> skills)
+    {
+        var frameParent = GetObject((int)GameObjects.HasSkillFramesParent).transform;
+        foreach (Transform item in frameParent)
+            Destroy(item.gameObject);
+        foreach (SkillType skillType in skills)
+            Managers.UI.MakeSubItem<SkillFrame_UI>(frameParent).SetInfo(skillType);
     }
 
     void RefreshHasSkillsFrame()

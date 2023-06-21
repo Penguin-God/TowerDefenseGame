@@ -276,8 +276,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected void ChangeWorld()
     {
         Vector3 destination = _worldChangeController.ChangeWorld(gameObject);
-        print(destination);
-        MoveToPos(destination);
         base.photonView.RPC(nameof(MoveToPos), RpcTarget.Others, destination);
 
         _state.ChangedWorld();

@@ -14,7 +14,7 @@ public class WorldChangeController
     }
 
     public bool EnterStoryWorld { get; private set; }
-    readonly WorldSpawnPositionCalculator _positionCalculator = new WorldSpawnPositionCalculator(20, -10, 45, 2.5f);
+    readonly WorldSpawnPositionCalculator _positionCalculator = new WorldSpawnPositionCalculator(20, -10, 45, 2);
     public Vector3 ChangeWorld(GameObject tpObject)
     {
         Vector3 destination = EnterStoryWorld ? _positionCalculator.CalculateWorldPostion(WorldPos) : _positionCalculator.CalculateEnemyTowerPostion(EnemyTowerPos);

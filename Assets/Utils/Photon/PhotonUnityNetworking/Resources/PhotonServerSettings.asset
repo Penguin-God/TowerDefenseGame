@@ -150,6 +150,7 @@ MonoBehaviour:
   - RPC_RemoveNormalMonster
   - RPC_ShotMeteor
   - SetInfoToAll
+  - ChangeWorldState
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

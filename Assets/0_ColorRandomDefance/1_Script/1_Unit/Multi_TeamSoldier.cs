@@ -5,7 +5,6 @@ using UnityEngine.AI;
 using Photon.Pun;
 using System;
 using System.Linq;
-using UnityEditor.Experimental.GraphView;
 
 public enum UnitColor { Red, Blue, Yellow, Green, Orange, Violet, White, Black };
 public enum UnitClass { Swordman, Archer, Spearman, Mage }
@@ -300,7 +299,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected void MoveToPos(Vector3 pos) => _worldChangeController.ChangeWorld(gameObject, pos);
 
     public void ChangeWorldStateToAll() => photonView.RPC(nameof(ChangeWorldState), RpcTarget.All);
-    [PunRPC] void ChangeWorldState() => _worldChangeController.EnterStoryWorld = !_worldChangeController.EnterStoryWorld;
+    [PunRPC] protected void ChangeWorldState() => _worldChangeController.EnterStoryWorld = !_worldChangeController.EnterStoryWorld;
 
     void RPC_PlayTpSound() // 보는 쪽에서만 소리가 들려야 하므로 복잡해보이는 이 로직이 맞음. 카메라 로직으로 빼서 클라에서 돌리기
     {
@@ -328,8 +327,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
 
 
-    [PunRPC]
-    protected void PlayTpSound() => Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
+    [PunRPC] protected void PlayTpSound() => Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
 
     protected void AfterPlaySound(EffectSoundType type, float delayTime) => StartCoroutine(Co_AfterPlaySound(type, delayTime));
 

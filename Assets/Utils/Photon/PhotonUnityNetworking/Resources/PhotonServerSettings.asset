@@ -149,6 +149,7 @@ MonoBehaviour:
   - RPC_AddNormalMonster
   - RPC_RemoveNormalMonster
   - RPC_ShotMeteor
+  - SetInfoToAll
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

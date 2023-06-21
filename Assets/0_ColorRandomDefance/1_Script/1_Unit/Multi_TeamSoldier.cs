@@ -98,9 +98,15 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         _targetManager.OnChangedTarget += _chaseSystem.ChangedTarget;
 
         SetInfo(flag, stat, damInfo);
-        _worldChangeController 
-            = new WorldChangeController(Multi_Data.instance.GetWorldPosition(rpcable.UsingId), Multi_Data.instance.EnemyTowerWorldPositions[rpcable.UsingId]);
         ChaseTarget();
+        photonView.RPC(nameof(SetInfoToAll), RpcTarget.All);
+    }
+
+    [PunRPC]
+    protected void SetInfoToAll()
+    {
+        _worldChangeController
+            = new WorldChangeController(Multi_Data.instance.GetWorldPosition(rpcable.UsingId), Multi_Data.instance.EnemyTowerWorldPositions[rpcable.UsingId]);
     }
 
     void SetNewTarget(Multi_Enemy newTarget)

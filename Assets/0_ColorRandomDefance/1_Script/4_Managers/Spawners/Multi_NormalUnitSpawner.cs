@@ -28,7 +28,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
         return null;
     }
 
-    Vector3 GetUnitSpawnPos(int id) => Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(id);
+    Vector3 GetUnitSpawnPos(int id) => new WorldSpawnPositionCalculator(20, 0, 0, 0).CalculateWorldPostion(Multi_Data.instance.GetWorldPosition(id));
 
     // MasterOnly
     [PunRPC]

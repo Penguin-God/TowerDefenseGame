@@ -46,7 +46,7 @@ public class UnitColorChanger
         var newFlag = new UnitFlags(GetRandomColor(target.UnitFlags.ColorNumber), (int)target.UnitClass);
         Multi_SpawnManagers.NormalUnit.Spawn(newFlag, target.transform.position, target.transform.rotation, target.UsingID);
         if(target.EnterStroyWorld) // 스폰된 얘가 맨 뒤에 있을 거니까 Last()의 월드를 바꿈. 좋은 코드는 아님
-            MultiServiceMidiator.Server.GetUnits(target.UsingID).Where(x => x.UnitFlags == newFlag).Last().State.ChangedWorld();
+            MultiServiceMidiator.Server.GetUnits(target.UsingID).Where(x => x.UnitFlags == newFlag).Last().ChangeWorldStateToAll();
         target.Dead();
         return newFlag;
     }

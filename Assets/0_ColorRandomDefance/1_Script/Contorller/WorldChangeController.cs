@@ -13,7 +13,7 @@ public class WorldChangeController
         EnemyTowerPos = enemyTowerPos;
     }
 
-    public bool EnterStoryWorld { get; private set; }
+    public bool EnterStoryWorld { get; set; }
     readonly WorldSpawnPositionCalculator _positionCalculator = new WorldSpawnPositionCalculator(20, -10, 45, 2);
     public Vector3 ChangeWorld(GameObject tpObject)
     {
@@ -29,6 +29,5 @@ public class WorldChangeController
         tpObject.transform.position = destination;
         tpObject.SetActive(true);
         EnterStoryWorld = !EnterStoryWorld;
-        Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
     }
 }

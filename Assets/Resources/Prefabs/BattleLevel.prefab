@@ -82,7 +82,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2833895161616448443}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2833895161597071321
 GameObject:
@@ -272,7 +272,6 @@ Transform:
   m_Children:
   - {fileID: 2833895163205225175}
   - {fileID: 2833895161504821818}
-  - {fileID: 2833895161714866767}
   - {fileID: 2833895161573677489}
   - {fileID: 2833895163253968545}
   - {fileID: 2833895161874593962}
@@ -378,54 +377,6 @@ Transform:
   m_Father: {fileID: 2833895162474472255}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2833895161714866766
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2833895161714866767}
-  - component: {fileID: 2833895161714866764}
-  m_Layer: 0
-  m_Name: Multi_Singleton_Utility
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2833895161714866767
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2833895161714866766}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -8.435472, y: 16.068832, z: 32.096336}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2833895161616448443}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2833895161714866764
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2833895161714866766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7c8e94eccb8ca604686de5cb12e38245, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnRange: 20
-  towerPositionRange: {fileID: 2833895162433491999}
-  enemyTowerSpawnRange_X: 0
-  enemyTowerSpawnRange_Z: 0
 --- !u!1 &2833895161874593965
 GameObject:
   m_ObjectHideFlags: 0
@@ -459,7 +410,7 @@ Transform:
   - {fileID: 2214251995078134699}
   - {fileID: 2833895162474472255}
   m_Father: {fileID: 2833895161616448443}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2833895161953140612
 GameObject:
@@ -1892,7 +1843,7 @@ Transform:
   - {fileID: 2833895161999855939}
   - {fileID: 2833895162398727254}
   m_Father: {fileID: 2833895161616448443}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2833895163327310852
 GameObject:

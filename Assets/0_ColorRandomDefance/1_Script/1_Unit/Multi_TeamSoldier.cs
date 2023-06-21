@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using Photon.Pun;
 using System;
 using System.Linq;
+using UnityEditor.Experimental.GraphView;
 
 public enum UnitColor { Red, Blue, Yellow, Green, Orange, Violet, White, Black };
 public enum UnitClass { Swordman, Archer, Spearman, Mage }
@@ -61,8 +62,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     [SerializeField] protected TargetManager _targetManager;
     protected UnitState _state;
-    public UnitState State => _state;
-    public bool EnterStroyWorld => _state.EnterStoryWorld;
+    public bool EnterStroyWorld => _worldChangeController.EnterStoryWorld;
     public bool IsAttack => _state.UnitAttackState.IsAttack;
     protected ChaseSystem _chaseSystem;
 
@@ -91,7 +91,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     public void Spawn(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo, MonsterManager monsterManager)
     {
-        _targetManager = new TargetManager(_state, transform, monsterManager);
+        SetInfoToAll();
+        _targetManager = new TargetManager(_worldChangeController, transform, monsterManager);
         _targetManager.OnChangedTarget -= SetNewTarget;
         _targetManager.OnChangedTarget += SetNewTarget;
         _targetManager.OnChangedTarget -= _chaseSystem.ChangedTarget;
@@ -99,7 +100,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
         SetInfo(flag, stat, damInfo);
         ChaseTarget();
-        photonView.RPC(nameof(SetInfoToAll), RpcTarget.All);
+        photonView.RPC(nameof(SetInfoToAll), RpcTarget.Others);
     }
 
     [PunRPC]
@@ -283,24 +284,25 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     {
         Vector3 destination = _worldChangeController.ChangeWorld(gameObject);
         base.photonView.RPC(nameof(MoveToPos), RpcTarget.Others, destination);
-
-        _state.ChangedWorld();
-        if (EnterStroyWorld) EnterStroyMode();
-        else EnterWolrd();
+        RPC_PlayTpSound();
+        _state.ReadyAttack();
+        SettingNav(_worldChangeController.EnterStoryWorld);
         
         UpdateTarget();
-        
-        void EnterWolrd() => nav.obstacleAvoidanceType = originObstacleType;
-        void EnterStroyMode() => nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+        void SettingNav(bool enterStroyWorld)
+        {
+            if(enterStroyWorld) nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
+            else nav.obstacleAvoidanceType = originObstacleType;
+        }
     }
 
     [PunRPC]
     protected void MoveToPos(Vector3 pos) => _worldChangeController.ChangeWorld(gameObject, pos);
 
-    Vector3 GetOppositeWorldSpawnPos() => (EnterStroyWorld) ? Multi_WorldPosUtility.Instance.GetUnitSpawnPositon(rpcable.UsingId)
-            : Multi_WorldPosUtility.Instance.GetEnemyTower_TP_Position(rpcable.UsingId);
+    public void ChangeWorldStateToAll() => photonView.RPC(nameof(ChangeWorldState), RpcTarget.All);
+    [PunRPC] void ChangeWorldState() => _worldChangeController.EnterStoryWorld = !_worldChangeController.EnterStoryWorld;
 
-    void RPC_PlayTpSound() // 보는 쪽에서만 소리가 들려야 하므로 복잡해보이는 이 로직이 맞음.
+    void RPC_PlayTpSound() // 보는 쪽에서만 소리가 들려야 하므로 복잡해보이는 이 로직이 맞음. 카메라 로직으로 빼서 클라에서 돌리기
     {
         if (rpcable.UsingId == PlayerIdManager.Id)
             Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
@@ -326,7 +328,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
 
 
-    [PunRPC] // TODO : 나중에 멀티 싱글턴 만들어서 거기에 빼기
+    [PunRPC]
     protected void PlayTpSound() => Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
 
     protected void AfterPlaySound(EffectSoundType type, float delayTime) => StartCoroutine(Co_AfterPlaySound(type, delayTime));
@@ -345,34 +347,18 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
 
     [Serializable]
-    public class UnitState : MonoBehaviourPun
+    public class UnitState : MonoBehaviour
     {
         UnitAttackState _unitAttackState = new UnitAttackState();
         public UnitAttackState UnitAttackState => _unitAttackState;
 
         void Awake()
         {
-            _unitAttackState = _unitAttackState.ReadyAttack();
+            ReadyAttack();
         }
 
-        public void Dead()
-        {
-            RPC_SetEnterStroyWorld(false);
-            _unitAttackState = _unitAttackState.ReadyAttack();
-        }
-
-        [SerializeField] bool _enterStoryWorld;
-        public bool EnterStoryWorld => _enterStoryWorld;
-        public void ChangedWorld()
-        {
-            _unitAttackState = _unitAttackState.ReadyAttack();
-            RPC_SetEnterStroyWorld(!_enterStoryWorld);
-        }
-
-        void RPC_SetEnterStroyWorld(bool newEnterStroyWorld) => photonView.RPC(nameof(SetEnterStroyWorld), RpcTarget.All, newEnterStroyWorld);
-        [PunRPC]
-        void SetEnterStroyWorld(bool newEnterStroyWorld) => _enterStoryWorld = newEnterStroyWorld;
-
+        public void Dead() => ReadyAttack();
+        public void ReadyAttack() => _unitAttackState = _unitAttackState.ReadyAttack();
         public void StartAttack() => _unitAttackState = _unitAttackState.DoAttack();
  
         public void EndAttack(float coolTime)
@@ -384,7 +370,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         IEnumerator Co_AttackCoolDown(float coolTime)
         {
             yield return new WaitForSeconds(coolTime);
-            _unitAttackState = _unitAttackState.ReadyAttack();
+            ReadyAttack();
         }
     }
 
@@ -395,14 +381,14 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         [SerializeField] Multi_Enemy _target;
         public Multi_Enemy Target => _target;
         public event Action<Multi_Enemy> OnChangedTarget;
-        
-        UnitState _state;
+
+        readonly WorldChangeController _worldChangeController;
         Transform _transform;
         MonsterManager _monsterManager;
         int _owerId = -1;
-        public TargetManager(UnitState state, Transform transform, MonsterManager monsterManager)
+        public TargetManager(WorldChangeController worldChangeController, Transform transform, MonsterManager monsterManager)
         {
-            _state = state;
+            _worldChangeController = worldChangeController;
             _transform = transform;
             _monsterManager = monsterManager;
             _owerId = transform.GetComponent<RPCable>().UsingId;
@@ -419,7 +405,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
         Multi_Enemy FindTarget()
         {
-            if (_state.EnterStoryWorld) 
+            if (_worldChangeController.EnterStoryWorld) 
                 return Multi_EnemyManager.Instance.GetCurrnetTower(_owerId);
             if (Multi_EnemyManager.Instance.TryGetCurrentBoss(_owerId, out Multi_BossEnemy boss)) 
                 return boss;

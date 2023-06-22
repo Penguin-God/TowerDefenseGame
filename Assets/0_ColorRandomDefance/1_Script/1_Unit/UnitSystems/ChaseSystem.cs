@@ -75,7 +75,6 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
     }
 
     [SerializeField] protected bool enemyIsForward;
-    public bool EnemyIsForward => enemyIsForward;
     protected int layerMask; // Ray 감지용
     
     protected virtual bool RaycastEnemy(out Transform hitEnemy)
@@ -165,18 +164,6 @@ public class MeeleChaser : ChaseSystem
         else return state;
     }
 
-    protected override bool RaycastEnemy(out Transform hitEnemy)
-    {
-        if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out RaycastHit rayHitObject, 5, layerMask) == false)
-        {
-            hitEnemy = null;
-            return false;
-        }
-
-        hitEnemy = rayHitObject.transform;
-        return true;
-    }
-
     void OnDrawGizmos()
     {
         Debug.DrawRay(transform.position + Vector3.up, transform.forward * _unit.AttackRange, Color.green);
@@ -228,11 +215,12 @@ public class RangeChaser : ChaseSystem
             _nav.SetDestination(TargetPosition);
     }
 
-    void Update() => FixedNavPosition();
+
     readonly float MAX_NAV_OFFSET = 3f;
-    void FixedNavPosition()
+    bool NavIsOutRange() => Vector3.Distance(_nav.nextPosition, transform.position) > MAX_NAV_OFFSET;
+    void Update()
     {
-        if (Vector3.Distance(_nav.nextPosition, transform.position) > MAX_NAV_OFFSET)
+        if (NavIsOutRange())
             ResetNavPosition();
     }
 

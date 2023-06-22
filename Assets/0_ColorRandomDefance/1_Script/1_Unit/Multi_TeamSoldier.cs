@@ -230,11 +230,13 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             }
 
             _chaseSystem.MoveUpdate();
-            if ((_chaseSystem.EnemyIsForward || contactEnemy) && _state.UnitAttackState.IsAttackable)
+            if ((MonsterIsForward() || contactEnemy) && _state.UnitAttackState.IsAttackable)
                 UnitAttack();
             yield return null;
         }
     }
+
+    public bool MonsterIsForward() => new MonsterRaycastDetector().CheckMonsterInDirection(transform.position, transform.forward, AttackRange, target);
 
     bool isRPC; // RPC딜레이 때문에 공격 2번 이상하는 버그 방지 변수
 

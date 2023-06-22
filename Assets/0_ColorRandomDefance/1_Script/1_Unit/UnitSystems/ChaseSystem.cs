@@ -18,7 +18,6 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
         if (newTarget == null)
         {
             _currentTarget = null;
-            enemyDistance = Mathf.Infinity;
             _chaseState = ChaseState.NoneTarget;
             return;
         }
@@ -36,21 +35,27 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
     }
 
     [SerializeField] protected ChaseState _chaseState;
-    [SerializeField] protected float enemyDistance;
-    public float EnemyDistance => enemyDistance;
+    public float EnemyDistance => Vector3.Distance(transform.position, chasePosition);
     protected virtual Vector3 GetDestinationPos() => Vector3.zero;
     protected virtual ChaseState GetChaseState() => ChaseState.NoneTarget;
     protected virtual void SetChaseStatus(ChaseState state) { }
 
-    [SerializeField] Vector3 chasePosition;
+    [SerializeField] protected Vector3 chasePosition;
     public void MoveUpdate()
     {
         if (_currentTarget == null) return;
 
-        chasePosition = GetDestinationPos();
-        enemyDistance = Vector3.Distance(transform.position, chasePosition);
-        _nav.SetDestination(chasePosition);
         UpdateState();
+        chasePosition = (_currentTarget.enemyType == EnemyType.Tower) ? ChaseTower() : GetDestinationPos();
+        _nav.SetDestination(chasePosition);
+    }
+
+    Vector3 ChaseTower()
+    {
+        if (Physics.Raycast(transform.position, TargetPosition - transform.position, out RaycastHit towerHit, 50f, layerMask))
+            return Vector3.Lerp(transform.position, towerHit.point, 0.9f);
+        else
+            return transform.position;
     }
 
     void UpdateState()
@@ -129,13 +134,8 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
 
 public class MeeleChaser : ChaseSystem
 {
-    Vector3 currentDestinationPos;
     protected override Vector3 GetDestinationPos()
-    {
-        if (_unit.EnterStroyWorld) return currentDestinationPos;
-        currentDestinationPos = new UnitChaseUseCase(_unit.AttackRange).CalculateDestinationPos(_chaseState, TargetPosition, _currentTarget.dir);
-        return currentDestinationPos;
-    }
+        => new UnitChaseUseCase(_unit.AttackRange).CalculateDestinationPos(_chaseState, TargetPosition, _currentTarget.dir);
 
     protected override void SetChaseStatus(ChaseState state)
     {
@@ -160,7 +160,7 @@ public class MeeleChaser : ChaseSystem
 
     protected override ChaseState GetChaseState()
     {
-        var state = new UnitChaseUseCase(_unit.AttackRange).CalculateChaseState(transform.position, currentDestinationPos, transform.forward, _currentTarget.dir);
+        var state = new UnitChaseUseCase(_unit.AttackRange).CalculateChaseState(transform.position, chasePosition, transform.forward, _currentTarget.dir);
         if (state == ChaseState.FaceToFace && (enemyIsForward || _unit.IsAttack)) return ChaseState.Lock;
         else return state;
     }
@@ -180,24 +180,6 @@ public class MeeleChaser : ChaseSystem
     void OnDrawGizmos()
     {
         Debug.DrawRay(transform.position + Vector3.up, transform.forward * _unit.AttackRange, Color.green);
-    }
-
-    public override void ChangedTarget(Multi_Enemy newTarget)
-    {
-        if (newTarget == null) return;
-        base.ChangedTarget(newTarget);
-        if (newTarget.enemyType == EnemyType.Tower) ChaseTower(newTarget);
-    }
-
-    void ChaseTower(Multi_Enemy tower)
-    {
-        if (tower != null)
-        {
-            if (Physics.Raycast(transform.position, TargetPosition - transform.position, out RaycastHit towerHit, 50f, layerMask))
-                currentDestinationPos = towerHit.point;
-            else
-                currentDestinationPos = transform.position;
-        }
     }
 }
 
@@ -254,7 +236,7 @@ public class RangeChaser : ChaseSystem
             ResetNavPosition();
     }
 
-    protected virtual bool IsMoveLock => _unit.AttackRange * 0.8f >= enemyDistance || _unit.IsAttack;
+    protected virtual bool IsMoveLock => _unit.AttackRange * 0.8f >= EnemyDistance || _unit.IsAttack;
     protected override ChaseState GetChaseState()
     {
         if (IsMoveLock) return ChaseState.Lock;

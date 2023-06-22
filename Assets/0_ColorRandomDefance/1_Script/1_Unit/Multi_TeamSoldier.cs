@@ -230,7 +230,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             }
 
             _chaseSystem.MoveUpdate();
-            if ((MonsterIsForward() || contactEnemy) && _state.UnitAttackState.IsAttackable)
+            if ((contactEnemy || MonsterIsForward()) && _state.UnitAttackState.IsAttackable)
                 UnitAttack();
             yield return null;
         }

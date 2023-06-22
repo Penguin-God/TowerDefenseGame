@@ -236,7 +236,15 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         }
     }
 
-    public bool MonsterIsForward() => new MonsterRaycastDetector().CheckMonsterInDirection(transform.position, transform.forward, AttackRange, target);
+    public bool MonsterIsForward() => Physics.RaycastAll(transform.position + Vector3.up, transform.forward, AttackRange).Select(x => x.transform).Contains(target);
+
+    // 최적화 할 때 쓸지도?
+    //int ReturnLayerMask(GameObject targetObject) // 인자의 layer를 반환하는 함수
+    //{
+    //    int layer = targetObject.layer;
+    //    string layerName = LayerMask.LayerToName(layer);
+    //    return 1 << LayerMask.NameToLayer(layerName);
+    //}
 
     bool isRPC; // RPC딜레이 때문에 공격 2번 이상하는 버그 방지 변수
 

@@ -23,7 +23,6 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
         }
 
         _currentTarget = newTarget;
-        layerMask = ReturnLayerMask(_currentTarget.gameObject);
     }
 
     void Awake()
@@ -52,7 +51,7 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
 
     Vector3 ChaseTower()
     {
-        if (Physics.Raycast(transform.position, TargetPosition - transform.position, out RaycastHit towerHit, 50f, layerMask))
+        if (Physics.Raycast(transform.position, TargetPosition - transform.position, out RaycastHit towerHit, 50f))
             return Vector3.Lerp(transform.position, towerHit.point, 0.9f);
         else
             return transform.position;
@@ -66,47 +65,6 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
             _chaseState = newState;
             SetChaseStatus(_chaseState);
         }
-    }
-
-    void FixedUpdate()
-    {
-        if (_currentTarget == null) return;
-        enemyIsForward = ChcekEnemyInSight();
-    }
-
-    [SerializeField] protected bool enemyIsForward;
-    protected int layerMask; // Ray 감지용
-    
-    protected virtual bool RaycastEnemy(out Transform hitEnemy)
-    {
-        if (Physics.Raycast(transform.position + Vector3.up, transform.forward, out RaycastHit rayHitObject, 5, layerMask) == false)
-        {
-            hitEnemy = null;
-            return false;
-        }
-
-        hitEnemy = rayHitObject.transform;
-        return true;
-    }
-    bool ChcekEnemyInSight()
-    {
-        if (RaycastEnemy(out Transform hitEnemy) == false) return false;
-
-        if (TransformIsBoss(hitEnemy) || hitEnemy == _currentTarget)
-            return true;
-        // ray에 맞은 적이 target은 아니지만 target과 같은 layer라면 두 enemy가 겹친 것으로 판단해 true를 리턴
-        else if (ReturnLayerMask(hitEnemy.gameObject) == layerMask && Vector3.Distance(TargetPosition, hitEnemy.position) < 5f)
-            return true;
-
-        return false;
-    }
-    bool TransformIsBoss(Transform enemy) => enemy.CompareTag("Tower") || enemy.CompareTag("Boss");
-
-    int ReturnLayerMask(GameObject targetObject) // 인자의 layer를 반환하는 함수
-    {
-        int layer = targetObject.layer;
-        string layerName = LayerMask.LayerToName(layer);
-        return 1 << LayerMask.NameToLayer(layerName);
     }
 
     Vector3 _prevSendChasePosition;
@@ -129,7 +87,6 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
         }
     }
 }
-
 
 public class MeeleChaser : ChaseSystem
 {
@@ -160,13 +117,8 @@ public class MeeleChaser : ChaseSystem
     protected override ChaseState GetChaseState()
     {
         var state = new UnitChaseUseCase(_unit.AttackRange).CalculateChaseState(transform.position, chasePosition, transform.forward, _currentTarget.dir);
-        if (state == ChaseState.FaceToFace && (enemyIsForward || _unit.IsAttack)) return ChaseState.Lock;
+        if (state == ChaseState.FaceToFace && (_unit.MonsterIsForward() || _unit.IsAttack)) return ChaseState.Lock;
         else return state;
-    }
-
-    void OnDrawGizmos()
-    {
-        Debug.DrawRay(transform.position + Vector3.up, transform.forward * _unit.AttackRange, Color.green);
     }
 }
 
@@ -215,7 +167,6 @@ public class RangeChaser : ChaseSystem
             _nav.SetDestination(TargetPosition);
     }
 
-
     readonly float MAX_NAV_OFFSET = 3f;
     bool NavIsOutRange() => Vector3.Distance(_nav.nextPosition, transform.position) > MAX_NAV_OFFSET;
     void Update()
@@ -229,26 +180,5 @@ public class RangeChaser : ChaseSystem
     {
         if (IsMoveLock) return ChaseState.Lock;
         else return ChaseState.Chase;
-    }
-
-    protected override bool RaycastEnemy(out Transform hitEnemy)
-    {
-        // Physics.BoxCast (레이저를 발사할 위치, 사각형의 각 좌표의 절판 크기, 발사 방향, 충돌 결과, 회전 각도, 최대 거리)
-        if (Physics.BoxCast(transform.position + Vector3.up, transform.lossyScale * 2, transform.forward, 
-            out RaycastHit rayHitObject, transform.rotation, _unit.AttackRange, layerMask) == false)
-        {
-            hitEnemy = null;
-            return false;
-        }
-
-        hitEnemy = rayHitObject.transform;
-        return true;
-    }
-
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawRay(transform.position + Vector3.up, transform.forward * _unit.AttackRange);
-        Gizmos.DrawWireCube(transform.position + Vector3.up + transform.forward * _unit.AttackRange, transform.lossyScale * 2);
     }
 }

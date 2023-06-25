@@ -7,8 +7,8 @@ public class IAPManager : MonoBehaviour, IStoreListener
 {
     public const string ProductGold = "gold"; // Consumable
     public const string ProductGem = "gem"; // Consumable
-    public const string ProductSkill = "Skill"; // Unconsumable
-    public const string ProductSubscription = "subscription"; // Subscription
+    public const string ProductSkill = "skill"; // Unconsumable
+    public const string ProductSubscription = "sub"; // Subscription
 
     private const string _iOS_GoldId = "com.studio.app.gold"; // google play 개발자 포털에서 정하기
     private const string _android_GoldId = "com.studio.app.gold";
@@ -40,14 +40,24 @@ public class IAPManager : MonoBehaviour, IStoreListener
     private IStoreController storeController; // 구매 과정을 제어하는 함수 제공
     private IExtensionProvider storeExtensionProvider; // 여러 플랫폼을 위한 확장 처리를 제공
 
+    public bool IsInitialized => storeController != null && storeExtensionProvider != null;
 
     void Awake()
     {
+        if (m_instance != null && m_instance != this) // 2개 이상 싱글턴 처리
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        DontDestroyOnLoad(gameObject);
         InitUnityIAP();
     }
 
     void InitUnityIAP()
     {
+        if (IsInitialized) return;
+
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
         
         builder.AddProduct(
@@ -132,5 +142,50 @@ public class IAPManager : MonoBehaviour, IStoreListener
         Debug.LogWarning($"구매 실패 - {product.definition.id}, {reason}");
     }
 
+    public void Purchase(string productId) // 구매 시도
+    {
+        if (!IsInitialized) return;
+
+        var product = storeController.products.WithID(productId); // id의 상품을 가져옴
+
+        if (product!= null && product.availableToPurchase) 
+        {
+            Debug.Log($"구매 시도 {product.definition.id}");
+            storeController.InitiatePurchase(product);
+        }
+        else
+        {
+            Debug.Log($"구매 시도 불가 {productId}");
+        }
+    }
+
+    public void RestorePurchase() // 구매 복구 함수(아이폰 전용)
+    {
+        if (!IsInitialized) return;
+
+        if (Application.platform == RuntimePlatform.IPhonePlayer || Application.platform == RuntimePlatform.OSXPlayer)
+        {
+            Debug.Log("구매 복구 시도");
+
+            var appleExt = storeExtensionProvider.GetExtension<IAppleExtensions>();
+
+            appleExt.RestoreTransactions(
+                result => Debug.Log($"구매 복구 시도 결과 {result}")); 
+        }
+    }
+
+    public bool HadPurchased(string productId)
+    {
+        if (!IsInitialized) return false;
+
+        var product = storeController.products.WithID(productId);
+
+        if (product != null)
+        {
+            return product.hasReceipt;
+        }
+
+        return false;
+    }
     
 }

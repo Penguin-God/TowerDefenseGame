@@ -381,60 +381,44 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             ReadyAttack();
         }
     }
+}
 
+[Serializable]
+public class TargetManager
+{
+    [SerializeField] Multi_Enemy _target;
+    public Multi_Enemy Target => _target;
+    public event Action<Multi_Enemy> OnChangedTarget;
 
-    [Serializable]
-    protected class TargetManager
+    Transform _transform;
+    readonly TargetFinder _targetFinder;
+    public TargetManager(WorldChangeController worldChangeController, Transform transform, MonsterManager monsterManager)
     {
-        [SerializeField] Multi_Enemy _target;
-        public Multi_Enemy Target => _target;
-        public event Action<Multi_Enemy> OnChangedTarget;
+        _transform = transform;
+        _targetFinder = new TargetFinder(worldChangeController, monsterManager, (byte)transform.GetComponent<RPCable>().UsingId);
+    }
 
-        readonly WorldChangeController _worldChangeController;
-        Transform _transform;
-        MonsterManager _monsterManager;
-        int _owerId = -1;
-        public TargetManager(WorldChangeController worldChangeController, Transform transform, MonsterManager monsterManager)
+    public void Reset() => ChangedTarget(null);
+
+    public void UpdateTarget()
+    {
+        var newTarget = _targetFinder.FindTarget(_transform.position);
+        if (_target != newTarget)
+            ChangedTarget(newTarget);
+    }
+
+    public Multi_NormalEnemy[] GetProximateEnemys(int maxCount) => _targetFinder.GetProximateEnemys(_transform.position, maxCount);
+
+    void ChangedTarget(Multi_Enemy newTarget)
+    {
+        if (_target != null)
+            _target.OnDead -= ChangedTarget;
+        _target = newTarget;
+        OnChangedTarget?.Invoke(newTarget);
+        if (newTarget != null)
         {
-            _worldChangeController = worldChangeController;
-            _transform = transform;
-            _monsterManager = monsterManager;
-            _owerId = transform.GetComponent<RPCable>().UsingId;
-        }
-
-        public void Reset() => ChangedTarget(null);
-
-        public void UpdateTarget()
-        {
-            var newTarget = FindTarget();
-            if (_target != newTarget)
-                ChangedTarget(newTarget);
-        }
-
-        Multi_Enemy FindTarget()
-        {
-            if (_worldChangeController.EnterStoryWorld) 
-                return Multi_EnemyManager.Instance.GetCurrnetTower(_owerId);
-            if (Multi_EnemyManager.Instance.TryGetCurrentBoss(_owerId, out Multi_BossEnemy boss)) 
-                return boss;
-
-            return GetProximateNormalMonster();
-        }
-        Multi_NormalEnemy GetProximateNormalMonster() => GetProximateEnemys(1).FirstOrDefault();
-        public Multi_NormalEnemy[] GetProximateEnemys(int maxCount)
-            => _monsterManager.GetNormalMonsters().OrderBy(x => Vector3.Distance(_transform.position, x.transform.position)).Take(maxCount).ToArray();
-
-        void ChangedTarget(Multi_Enemy newTarget)
-        {
-            if (_target != null)
-                _target.OnDead -= ChangedTarget;
-            _target = newTarget;
-            OnChangedTarget?.Invoke(newTarget);
-            if(newTarget != null)
-            {
-                _target.OnDead -= ChangedTarget;
-                _target.OnDead += ChangedTarget;
-            }
+            _target.OnDead -= ChangedTarget;
+            _target.OnDead += ChangedTarget;
         }
     }
 }

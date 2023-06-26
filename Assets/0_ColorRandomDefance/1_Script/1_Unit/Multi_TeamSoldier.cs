@@ -391,7 +391,7 @@ public class TargetManager
     public event Action<Multi_Enemy> OnChangedTarget;
 
     Transform _transform;
-    readonly TargetFinder _targetFinder;
+    readonly TargetFinder _targetFinder; // 이거 외부에서 주입받기
     public TargetManager(WorldChangeController worldChangeController, Transform transform, MonsterManager monsterManager)
     {
         _transform = transform;

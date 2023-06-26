@@ -218,23 +218,23 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     IEnumerator NavCoroutine()
     {
         if (PhotonNetwork.IsMasterClient == false) yield break;
-        yield return null;
         
         while (true)
         {
-            if (target == null || _targetManager.Target.IsDead || _chaseSystem._currentTarget == null)
+            yield return null;
+            if (VaildTargetCondition() == false)
             {
                 UpdateTarget();
-                yield return null; // 튕김 방지
                 continue;
             }
 
             _chaseSystem.MoveUpdate();
             if ((contactEnemy || MonsterIsForward()) && _state.UnitAttackState.IsAttackable)
                 UnitAttack();
-            yield return null;
         }
     }
+
+    bool VaildTargetCondition() => target != null && _targetManager.Target.IsDead == false && _chaseSystem._currentTarget != null && TargetEnemy.UsingId == UsingID;
 
     public bool MonsterIsForward() => Physics.RaycastAll(transform.position + Vector3.up, transform.forward, AttackRange).Select(x => x.transform).Contains(target);
 
@@ -426,19 +426,15 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
         void ChangedTarget(Multi_Enemy newTarget)
         {
+            if (_target != null)
+                _target.OnDead -= ChangedTarget;
             _target = newTarget;
             OnChangedTarget?.Invoke(newTarget);
             if(newTarget != null)
             {
-                newTarget.OnDead -= ChangeTargetWhenTargetDead;
-                newTarget.OnDead += ChangeTargetWhenTargetDead;
+                _target.OnDead -= ChangedTarget;
+                _target.OnDead += ChangedTarget;
             }
-        }
-
-        void ChangeTargetWhenTargetDead(Multi_Enemy deadTarget)
-        {
-            Reset();
-            UpdateTarget();
         }
     }
 }

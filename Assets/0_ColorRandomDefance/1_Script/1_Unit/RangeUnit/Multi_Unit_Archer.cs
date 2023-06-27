@@ -40,7 +40,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         trail.SetActive(false);
         if (PhotonNetwork.IsMasterClient && target != null && Chaseable)
         {
-            _thrower.FlatThrow(target, OnHit);
+            _thrower.FlatThrow(target, base.NormalAttack);
         }
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
@@ -72,13 +72,13 @@ public class Multi_Unit_Archer : Multi_RangeUnit
         for (int i = 0; i < skillArrowTargetCount; i++)
         {
             int targetIndex = i % targetArray.Length;
-            _thrower.FlatThrow(targetArray[targetIndex], OnHit);
+            _thrower.FlatThrow(targetArray[targetIndex], SkillAttackWithPassive);
         }
     }
 
     Transform[] GetTargets()
     {
-        if (TargetIsNormalEnemy == false) return new Transform[] { target };
+        if (TargetIsNormal == false) return new Transform[] { target };
         return TargetFinder.GetProximateEnemys(transform.position, skillArrowTargetCount).Select(x => x.transform).ToArray();
     }
 }

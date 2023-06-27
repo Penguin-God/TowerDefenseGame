@@ -12,6 +12,6 @@ public class Multi_MeleeUnit : Multi_TeamSoldier
         if (PhotonNetwork.IsMasterClient == false) return;
 
         if (target != null && enemyDistance < AttackRange * 2)
-            OnHit?.Invoke(TargetEnemy);
+            base.NormalAttack(TargetEnemy);
     }
 }

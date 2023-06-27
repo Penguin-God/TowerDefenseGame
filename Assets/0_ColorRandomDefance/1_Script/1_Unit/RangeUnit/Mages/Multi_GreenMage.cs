@@ -13,7 +13,7 @@ public class Multi_GreenMage : Multi_Unit_Mage
         manaLockTime = base.skillStats[1];
     }
 
-    void OnSkillHit(Multi_Enemy enemy) => base.SkillAttackToEnemy(enemy, CalculateSkillDamage(_damRate));
+    void OnSkillHit(Multi_Enemy enemy) => base.SkillAttack(enemy, CalculateSkillDamage(_damRate));
     void ShootSkill() => _energyBallThower.FlatThrow(new ResourcesPathBuilder().BuildMageSkillEffectPath(UnitFlags.UnitColor), target, OnSkillHit);
 
     protected override void MageSkile()

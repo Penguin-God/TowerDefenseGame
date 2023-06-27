@@ -6,6 +6,7 @@ using Photon.Pun;
 using System;
 using System.Linq;
 using static UnityEngine.GraphicsBuffer;
+using static PlasticPipe.Server.MonitorStats;
 
 public enum UnitColor { Red, Blue, Yellow, Green, Orange, Violet, White, Black };
 public enum UnitClass { Swordman, Archer, Spearman, Mage }
@@ -40,7 +41,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [SerializeField] protected EffectSoundType normalAttackSound;
     public float normalAttakc_AudioDelay;
 
-    protected Action<Multi_Enemy> OnHit;
     public Action<Multi_Enemy> OnPassiveHit;
 
     public event Action<Multi_TeamSoldier> OnDead;
@@ -59,9 +59,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     void Awake()
     {
-        // 평타 설정
-        OnHit += AttackEnemy;
-
         // 변수 선언
         passive = GetComponent<Multi_UnitPassive>();
         rpcable = GetComponent<RPCable>();
@@ -160,16 +157,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         if (passive == null) return;
 
         if (OnPassiveHit != null)
-        {
-            OnHit -= OnPassiveHit;
             OnPassiveHit = null;
-        }
 
         passive.LoadStat(UnitFlags);
         passive.SetPassive(this);
-
-        if (OnPassiveHit != null)
-            OnHit += OnPassiveHit;
     }
 
 
@@ -255,7 +246,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         AfterPlaySound(normalAttackSound, normalAttakc_AudioDelay);
     }
 
-    bool CheckTargetUpdateCondition => target == null || (TargetIsNormalEnemy && (enemyDistance > stopDistanc * 2 || target.GetComponent<Multi_Enemy>().IsDead));
+    bool CheckTargetUpdateCondition => target == null || (TargetIsNormal && (enemyDistance > stopDistanc * 2 || target.GetComponent<Multi_Enemy>().IsDead));
     protected void EndAttack()
     {
         _state.EndAttack(AttackDelayTime);
@@ -272,7 +263,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     readonly float CHASE_RANGE = 150f;
     protected bool Chaseable => CHASE_RANGE > enemyDistance; // 거리가 아닌 다른 조건(IsDead 등)으로 바꾸기
 
-    protected bool TargetIsNormalEnemy { get { return (target != null && target.GetComponent<Multi_Enemy>().enemyType == EnemyType.Normal); } }
+    protected bool TargetIsNormal => target != null && TargetEnemy.enemyType == EnemyType.Normal;
 
     public void ChangeWorldToMaster() => photonView.RPC(nameof(ChangeWorld), RpcTarget.MasterClient);
 
@@ -309,21 +300,18 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             base.photonView.RPC(nameof(PlayTpSound), RpcTarget.Others);
     }
 
-    #region callback funtion
 
-    void AttackEnemy(Multi_Enemy enemy) // Boss랑 쫄병 구분해서 대미지 적용
+    protected void NormalAttack(Multi_Enemy target) => Attack(target, GetAttack(), false, OnPassiveHit);
+    protected void SkillAttackWithPassive(Multi_Enemy target) => Attack(target, GetAttack(), true, OnPassiveHit);
+    int GetAttack() => TargetIsNormal ? Damage : BossDamage;
+
+    protected void SkillAttack(Multi_Enemy target, int attack) => Attack(target, attack, true, null);
+    protected void SkillAttackWithSide(Multi_Enemy target, int attack, Action<Multi_Enemy> sideEffect) => Attack(target, attack, true, sideEffect);
+
+    void Attack(Multi_Enemy target, int attack, bool isSkill, Action<Multi_Enemy> sideEffect)
     {
-        if (TargetIsNormalEnemy) AttackEnemy(enemy, Damage);
-        else AttackEnemy(enemy, BossDamage);
-    }
-
-    void AttackEnemy(Multi_Enemy enemy, int damage, bool isSkill = false) => enemy.OnDamage(damage, isSkill);
-    #endregion
-
-    protected void SkillAttackToEnemy(Multi_Enemy enemy, int damage)
-    {
-        enemy.OnDamage(damage, isSkill: true);
-        OnPassiveHit?.Invoke(enemy);
+        target.OnDamage(attack, isSkill);
+        sideEffect?.Invoke(target);
     }
 
 

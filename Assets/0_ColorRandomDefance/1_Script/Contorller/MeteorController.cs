@@ -10,7 +10,7 @@ public class MeteorController : MonoBehaviourPun
 
     void HitAction(Multi_Enemy target, int hitDamage, float stunTime)
     {
-        target.OnDamage(hitDamage);
+        target.OnDamage(hitDamage, isSkill:true);
         target.OnStun_RPC(100, stunTime);
     }
 

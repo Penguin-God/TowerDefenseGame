@@ -5,8 +5,6 @@ using UnityEngine.AI;
 using Photon.Pun;
 using System;
 using System.Linq;
-using static UnityEngine.GraphicsBuffer;
-using static PlasticPipe.Server.MonitorStats;
 
 public enum UnitColor { Red, Blue, Yellow, Green, Orange, Violet, White, Black };
 public enum UnitClass { Swordman, Archer, Spearman, Mage }
@@ -268,8 +266,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public void ChangeWorldToMaster() => photonView.RPC(nameof(ChangeWorld), RpcTarget.MasterClient);
 
     WorldChangeController _worldChangeController;
-    // protected 강제임
-    [PunRPC]
+    
+    [PunRPC] // PunRPC라 protected 강제임
     protected void ChangeWorld()
     {
         Vector3 destination = _worldChangeController.ChangeWorld(gameObject);

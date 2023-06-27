@@ -35,7 +35,7 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
 
     [SerializeField] protected ChaseState _chaseState;
     public float EnemyDistance => Vector3.Distance(transform.position, chasePosition);
-    protected virtual Vector3 GetDestinationPos() => Vector3.zero;
+    protected virtual Vector3 GetDestinationPos() => TargetPosition;
     protected virtual ChaseState GetChaseState() => ChaseState.NoneTarget;
     protected virtual void SetChaseStatus(ChaseState state) { }
 
@@ -125,12 +125,6 @@ public class MeeleChaser : ChaseSystem
 
 public class RangeChaser : ChaseSystem
 {
-    protected override Vector3 GetDestinationPos()
-    {
-        Vector3 enemySpeed = _currentTarget.dir * 2;
-        return TargetPosition + enemySpeed;
-    }
-
     protected override void SetChaseStatus(ChaseState state)
     {
         switch (state)

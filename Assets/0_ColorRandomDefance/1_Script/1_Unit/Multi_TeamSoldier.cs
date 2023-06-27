@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using Photon.Pun;
 using System;
 using System.Linq;
+using static UnityEngine.GraphicsBuffer;
 
 public enum UnitColor { Red, Blue, Yellow, Green, Orange, Violet, White, Black };
 public enum UnitClass { Swordman, Archer, Spearman, Mage }
@@ -27,16 +28,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     [SerializeField] protected float stopDistanc;
 
-    public Transform target 
-    {
-        get
-        {
-            if (_targetManager.Target == null)
-                return null;
-            else
-                return _targetManager.Target.transform;
-        }
-    }
+    public Transform target => _targetManager.Target == null ? null : TargetEnemy.transform;
     protected Multi_Enemy TargetEnemy => _targetManager.Target;
 
     protected Multi_UnitPassive passive;
@@ -59,7 +51,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public virtual void SpecialAttack() => _state.StartAttack();
 
 
-    [SerializeField] protected TargetManager _targetManager;
+    [SerializeField] readonly protected TargetManager _targetManager = new TargetManager();
     protected UnitState _state;
     public bool EnterStroyWorld => _worldChangeController.EnterStoryWorld;
     public bool IsAttack => _state.UnitAttackState.IsAttack;
@@ -88,15 +80,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     protected virtual ChaseSystem AddCahseSystem() => gameObject.AddComponent<ChaseSystem>();
 
+    protected TargetFinder TargetFinder { get; private set; }
     public void Spawn(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo, MonsterManager monsterManager)
     {
         SetInfoToAll();
-        _targetManager = new TargetManager(_worldChangeController, transform, monsterManager);
-        _targetManager.OnChangedTarget -= SetNewTarget;
-        _targetManager.OnChangedTarget += SetNewTarget;
-        _targetManager.OnChangedTarget -= _chaseSystem.ChangedTarget;
-        _targetManager.OnChangedTarget += _chaseSystem.ChangedTarget;
-
+        TargetFinder = new TargetFinder(_worldChangeController, monsterManager, UsingID);
         SetInfo(flag, stat, damInfo);
         ChaseTarget();
         photonView.RPC(nameof(SetInfoToAll), RpcTarget.Others);
@@ -109,7 +97,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             = new WorldChangeController(Multi_Data.instance.GetWorldPosition(rpcable.UsingId), Multi_Data.instance.EnemyTowerWorldPositions[rpcable.UsingId]);
     }
 
-    void SetNewTarget(Multi_Enemy newTarget)
+    void SetNavStopState(Multi_Enemy newTarget)
     {
         if (gameObject.activeSelf == false) return;
         if (newTarget == null)
@@ -131,7 +119,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [PunRPC]
     protected void SetUnitInfo(UnitFlags flag, float speed)
     {
-        _unit = new Unit(flag, _unit == null ? new UnitDamageInfo() : _unit.DamageInfo); // 클라 입장에서 flag만 채우는 용도
+        _unit = new Unit(flag, _unit == null ? new UnitDamageInfo() : _unit.DamageInfo); // 클라에서 flag만 채우는 용도
         SetPassive();
         Speed = speed;
     }
@@ -211,7 +199,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
         if (PhotonNetwork.IsMasterClient == false) return;
-        _targetManager.UpdateTarget();
+        _targetManager.ChangedTarget(TargetFinder.FindTarget(transform.position));
+        SetNavStopState(TargetEnemy);
+        _chaseSystem.ChangedTarget(TargetEnemy);
     }
 
     public bool contactEnemy = false;
@@ -388,33 +378,16 @@ public class TargetManager
 {
     [SerializeField] Multi_Enemy _target;
     public Multi_Enemy Target => _target;
-    public event Action<Multi_Enemy> OnChangedTarget;
-
-    Transform _transform;
-    readonly TargetFinder _targetFinder; // 이거 외부에서 주입받기
-    public TargetManager(WorldChangeController worldChangeController, Transform transform, MonsterManager monsterManager)
-    {
-        _transform = transform;
-        _targetFinder = new TargetFinder(worldChangeController, monsterManager, (byte)transform.GetComponent<RPCable>().UsingId);
-    }
 
     public void Reset() => ChangedTarget(null);
 
-    public void UpdateTarget()
+    public void ChangedTarget(Multi_Enemy newTarget)
     {
-        var newTarget = _targetFinder.FindTarget(_transform.position);
-        if (_target != newTarget)
-            ChangedTarget(newTarget);
-    }
+        if (_target == newTarget) return;
 
-    public Multi_NormalEnemy[] GetProximateEnemys(int maxCount) => _targetFinder.GetProximateEnemys(_transform.position, maxCount);
-
-    void ChangedTarget(Multi_Enemy newTarget)
-    {
         if (_target != null)
             _target.OnDead -= ChangedTarget;
         _target = newTarget;
-        OnChangedTarget?.Invoke(newTarget);
         if (newTarget != null)
         {
             _target.OnDead -= ChangedTarget;

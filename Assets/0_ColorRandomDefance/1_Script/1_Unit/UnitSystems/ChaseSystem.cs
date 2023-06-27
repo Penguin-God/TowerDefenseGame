@@ -13,7 +13,7 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
     protected Vector3 TargetPosition => _currentTarget.transform.position;
     protected UnitChaseUseCase _unitChaseUseCase;
 
-    public virtual void ChangedTarget(Multi_Enemy newTarget)
+    public void ChangedTarget(Multi_Enemy newTarget)
     {
         if (newTarget == null)
         {

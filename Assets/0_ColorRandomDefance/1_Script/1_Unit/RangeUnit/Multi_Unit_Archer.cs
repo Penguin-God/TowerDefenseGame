@@ -79,6 +79,6 @@ public class Multi_Unit_Archer : Multi_RangeUnit
     Transform[] GetTargets()
     {
         if (TargetIsNormalEnemy == false) return new Transform[] { target };
-        return _targetManager.GetProximateEnemys(skillArrowTargetCount).Select(x => x.transform).ToArray();
+        return TargetFinder.GetProximateEnemys(transform.position, skillArrowTargetCount).Select(x => x.transform).ToArray();
     }
 }

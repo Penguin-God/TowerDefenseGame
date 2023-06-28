@@ -10,7 +10,7 @@ public abstract class UserSkill
     public UserSkill(SkillType skillType) => _skillType = skillType;
 
     public abstract void InitSkill();
-    float[] SkillDatas => Managers.ClientData.GetSkillLevelData(_skillType).BattleDatas;
+    protected float[] SkillDatas => Managers.ClientData.GetSkillLevelData(_skillType).BattleDatas;
     protected int[] IntSkillDatas => SkillDatas.Select(x => (int)x).ToArray();
     protected float SkillData => SkillDatas[0];
     protected int IntSkillData => (int)SkillData;
@@ -247,10 +247,12 @@ public class CombineMeteor : UserSkill
         _monsterManager = monsterManager;
         MeteorShotPoint = PlayerIdManager.Id == PlayerIdManager.MasterId ? new Vector3(0, 30, 0) : new Vector3(0, 30, 500);
         _meteorController = meteorController;
+        _attack = IntSkillDatas[0];
+        _stunTime = SkillDatas[1];
     }
 
-    int dam = 1000;
-    float time = 0.5f;
+    int _attack;
+    float _stunTime;
     
     public override void InitSkill()
     {
@@ -261,7 +263,7 @@ public class CombineMeteor : UserSkill
     {
         int score = CalculateRedScore(combineUnitFlag);
         if (score > 0)
-            _meteorController.ShotMeteor(FindMonster(), dam * score, time * score, MeteorShotPoint);
+            _meteorController.ShotMeteor(FindMonster(), _attack * score, _stunTime * score, MeteorShotPoint);
     }
     Multi_NormalEnemy FindMonster()
     {

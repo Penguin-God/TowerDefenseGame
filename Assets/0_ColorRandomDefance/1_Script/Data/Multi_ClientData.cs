@@ -115,6 +115,7 @@ public enum SkillType
     보스데미지증가,
     장사꾼,
     조합메테오,
+    네크로맨서,
 }
 
 public enum MoneyType

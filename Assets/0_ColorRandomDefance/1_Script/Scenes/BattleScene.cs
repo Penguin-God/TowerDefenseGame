@@ -14,7 +14,7 @@ public class BattleScene : BaseScene
         }
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
-
+        Managers.Data.Init();
         if(PhotonNetwork.IsMasterClient)
             GetComponent<PhotonView>().RPC(nameof(InitGame), RpcTarget.All);
     }

@@ -168,13 +168,16 @@ public class FoodHater : UserSkill
     public FoodHater(SkillType skillType) : base(skillType) { }
     int _rewardRate; // 얻는 고기가 몇 골드로 바뀌는가
     int _priceRate; // 기존에 고기로 팔던 상품을 몇 배의 골드로 바꿀건가
+    Multi_GameManager _game;
     public override void InitSkill()
     {
         _rewardRate = IntSkillDatas[0];
         _priceRate = IntSkillDatas[1];
-        Multi_GameManager.Instance.OnFoodChanged += FoodToGold;
-        if (Multi_GameManager.Instance.CurrencyManager.Food > 0)
-            FoodToGold(Multi_GameManager.Instance.CurrencyManager.Food);
+        _game = Multi_GameManager.Instance;
+
+        _game.OnFoodChanged += FoodToGold;
+        if (_game.CurrencyManager.Food > 0)
+            FoodToGold(_game.CurrencyManager.Food);
         ChangeShopPriceData();
     }
 
@@ -182,13 +185,13 @@ public class FoodHater : UserSkill
     {
         if (0 >= food) return;
 
-        if (Multi_GameManager.Instance.TryUseFood(food))
-            Multi_GameManager.Instance.AddGold(food * _rewardRate);
+        if (_game.TryUseFood(food))
+            _game.AddGold(food * _rewardRate);
     }
 
     void ChangeShopPriceData()
     {
-        Multi_GameManager.Instance.BattleData.GetAllShopPriceDatas()
+        _game.BattleData.GetAllShopPriceDatas()
                 .Where(x => x.CurrencyType == GameCurrencyType.Food)
                 .ToList()
                 .ForEach(FoodDataToGoldData);

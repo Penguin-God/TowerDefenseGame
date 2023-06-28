@@ -295,3 +295,29 @@ public class CombineMeteor : UserSkill
         }
     }
 }
+
+public class Necromancer : UserSkill
+{
+    readonly int NeedKillCountForSummon = 10;
+    int _currentKillCount;
+    public Necromancer(SkillType skillType) : base(skillType)
+    {
+        // _killCountForSummon = IntSkillData;
+
+    }
+
+    public override void InitSkill()
+    {
+           
+    }
+
+    void ResurrectOnKillCount()
+    {
+        _currentKillCount++;
+        if (_currentKillCount >= NeedKillCountForSummon)
+        {
+            // 스폰
+            _currentKillCount = 0;
+        }
+    }
+}

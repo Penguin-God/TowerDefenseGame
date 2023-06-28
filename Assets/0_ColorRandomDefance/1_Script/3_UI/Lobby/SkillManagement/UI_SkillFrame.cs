@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillFrame_UI : UI_Base
+public class UI_SkillFrame : UI_Base
 {
     enum Buttons
     {
@@ -49,6 +49,6 @@ public class SkillFrame_UI : UI_Base
         GetImage((int)Images.Skill_ImageButton).sprite = Managers.Resources.Load<Sprite>(_skillData.ImagePath);
 
         GetButton((int)Buttons.Skill_ImageButton).onClick.RemoveAllListeners();
-        GetButton((int)Buttons.Skill_ImageButton).onClick.AddListener(() => Managers.UI.ShowPopupUI<Skill_Info_UI>().SetInfo(_skillData));
+        GetButton((int)Buttons.Skill_ImageButton).onClick.AddListener(() => Managers.UI.ShowPopupUI<UI_SkillInfoWindow>().SetInfo(_skillData));
     }
 }

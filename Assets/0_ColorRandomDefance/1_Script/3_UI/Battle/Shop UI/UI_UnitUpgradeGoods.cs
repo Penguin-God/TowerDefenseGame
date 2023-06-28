@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_Goods : UI_Base
+public class UI_UnitUpgradeGoods : UI_Base
 {
     enum Texts
     {

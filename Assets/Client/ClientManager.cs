@@ -52,8 +52,8 @@ public class ClientManager : MonoBehaviour
     }
 
     // 버튼에서 사용 중
-    public void ShowSkillEquipUI() => Managers.UI.ShowPopupUI<SkillEquip_UI>().RefreshUI();
-    public void ShowSkillShopUI() => Managers.UI.ShowPopupUI<SkillShop_UI>().RefreshUI();
+    public void ShowSkillEquipUI() => Managers.UI.ShowPopupUI<UI_SkillManagementWindow>().RefreshUI();
+    public void ShowSkillShopUI() => Managers.UI.ShowPopupUI<UI_SkillShop>().RefreshUI();
 
     #region update Money
     public void UpdateMoney()

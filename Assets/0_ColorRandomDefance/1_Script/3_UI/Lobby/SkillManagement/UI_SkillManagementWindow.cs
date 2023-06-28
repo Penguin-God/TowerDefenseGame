@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillEquip_UI : UI_Popup
+public class UI_SkillManagementWindow : UI_Popup
 {
     enum GameObjects
     {
@@ -81,7 +81,7 @@ public class SkillEquip_UI : UI_Popup
         foreach (Transform item in frameParent)
             Destroy(item.gameObject);
         foreach (SkillType skillType in skills)
-            Managers.UI.MakeSubItem<SkillFrame_UI>(frameParent).SetInfo(skillType);
+            Managers.UI.MakeSubItem<UI_SkillFrame>(frameParent).SetInfo(skillType);
     }
 
     void RefreshEquipSkillFrame()

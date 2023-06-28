@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Skill_Info_UI : UI_Popup
+public class UI_SkillInfoWindow : UI_Popup
 {
     enum Images
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SkillGoods_UI : UI_Base
+public class UI_SkillGoods : UI_Base
 {
     enum Images
     {

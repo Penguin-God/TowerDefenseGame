@@ -57,7 +57,7 @@ public class UI_UnitUpgradeShop : UI_Popup
     }
 
     UnitUpgradeShopData _unitUpgradeShopData;
-    Dictionary<GoodsLocation, UI_Goods> _locationByGoods_UI = new Dictionary<GoodsLocation, UI_Goods>();
+    Dictionary<GoodsLocation, UI_UnitUpgradeGoods> _locationByGoods_UI = new Dictionary<GoodsLocation, UI_UnitUpgradeGoods>();
     Dictionary<GoodsLocation, UnitUpgradeGoodsData> _locationByGoods = new Dictionary<GoodsLocation, UnitUpgradeGoodsData>();
     readonly UnitUpgradeGoodsSelector _goodsSelector = new UnitUpgradeGoodsSelector();
     UnitUpgradeShopController _buyController;
@@ -75,7 +75,7 @@ public class UI_UnitUpgradeShop : UI_Popup
 
     void InitShopGoodsList()
     {
-        GetComponentsInChildren<UI_Goods>().ToList().ForEach(x => x._Init());
+        GetComponentsInChildren<UI_UnitUpgradeGoods>().ToList().ForEach(x => x._Init());
         SetLocationByGoodsDatas(new HashSet<UnitUpgradeGoodsData>());
     }
 
@@ -85,7 +85,7 @@ public class UI_UnitUpgradeShop : UI_Popup
         var goodsSet = _goodsSelector.SelectGoodsSetExcluding(excludingGoddsSet);
         _locationByGoods = locations.Zip(goodsSet, (location, goods) => new { location, goods }).ToDictionary(pair => pair.location, pair => pair.goods);
 
-        var goodsUIs = GetComponentsInChildren<UI_Goods>();
+        var goodsUIs = GetComponentsInChildren<UI_UnitUpgradeGoods>();
         _locationByGoods_UI = locations.Zip(goodsUIs, (location, goodsUI) => new { location, goodsUI }).ToDictionary(pair => pair.location, pair => pair.goodsUI);
         foreach (var item in _locationByGoods)
             _locationByGoods_UI[item.Key].Setup(item.Value, _buyController, _unitUpgradeShopData);

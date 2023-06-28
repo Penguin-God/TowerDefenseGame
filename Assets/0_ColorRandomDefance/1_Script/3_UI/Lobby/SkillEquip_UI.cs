@@ -87,7 +87,7 @@ public class SkillEquip_UI : UI_Popup
     void RefreshEquipSkillFrame()
     {
         DrawEquipSkillFrame(UserSkillClass.Main, Managers.ClientData.EquipSkillManager.MainSkill);
-        DrawEquipSkillFrame(UserSkillClass.Main, Managers.ClientData.EquipSkillManager.SubSkill);
+        DrawEquipSkillFrame(UserSkillClass.Sub, Managers.ClientData.EquipSkillManager.SubSkill);
     }
 
     void DrawEquipSkillFrame(UserSkillClass skillClass, SkillType skillType)

@@ -10,37 +10,36 @@ public class ContainerTests
     BattleDIContainer CreateContainer() => new BattleDIContainer(null);
 
     [Test]
-    public void AddAndGetService_Test1_IsSuccessful()
+    public void 컨테이너에_넣은건_찾을_수_있어야하고_없는건_예외_던져야_함()
     {
         // Arrange
         var test1Instance = new Test1("TestName");
-        var container = CreateContainer();
+        var sut = CreateContainer();
 
         // Act
-        container.AddService(test1Instance);
-        var retrievedInstance = container.GetService<Test1>();
+        sut.AddService(test1Instance);
+        var result = sut.GetService<Test1>();
 
         // Assert
-        Assert.Throws<InvalidOperationException>(() => container.GetService<Test2>());
-        Assert.IsNotNull(retrievedInstance);
-        Assert.AreEqual("TestName", retrievedInstance.Name);
+        Assert.IsNotNull(result);
+        Assert.AreEqual("TestName", result.Name);
+        Assert.Throws<InvalidOperationException>(() => sut.GetService<Test2>());
     }
 
     [Test]
-    public void AddAndGetService_Test2_IsSuccessful()
+    public void 매개변수_없는_생성자는_자동_생성_되야_함()
     {
         // Arrange
-        var test2Instance = new Test2(123);
-        var container = CreateContainer();
+        var sut = CreateContainer();
 
         // Act
-        container.AddService(test2Instance);
-        var retrievedInstance = container.GetService<Test2>();
+        sut.AddService<Test2>();
+        var result = sut.GetService<Test2>();
+        result.Number = 123;
 
         // Assert
-        Assert.Throws<InvalidOperationException>(() => container.GetService<Test1>());
-        Assert.IsNotNull(retrievedInstance);
-        Assert.AreEqual(123, retrievedInstance.Number);
+        Assert.IsNotNull(result);
+        Assert.AreEqual(123, result.Number);
     }
 }
 
@@ -53,5 +52,4 @@ public class Test1
 public class Test2
 {
     public int Number { get; set; }
-    public Test2(int number) => Number = number;
 }

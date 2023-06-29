@@ -12,6 +12,7 @@ public class BattleDIContainer
     public T GetComponent<T>() => _componenentContainer.GetComponent<T>();
 
     Dictionary<Type, object> _services = new Dictionary<Type, object>();
+    public T AddService<T>() where T : class, new() => AddService(new T());
     public T AddService<T>(T instance) where T : class
     {
         if (_services.ContainsKey(typeof(T)) == false)
@@ -37,7 +38,8 @@ public class MultiInitializer
     {
         var game = Multi_GameManager.Instance;
         var data = Managers.Data;
-        
+        var _dispatcher = container.AddService<BattleEventDispatcher>();
+
         // add
         AddMultiService<SwordmanGachaController, MasterSwordmanGachaController>(container);
         container.AddComponent<CurrencyManagerMediator>();

@@ -32,22 +32,20 @@ public class BattleDIContainer
 
 public class MultiInitializer
 {
-    BattleEventDispatcher _dispatcher = new BattleEventDispatcher();
-
     public void InjectionBattleDependency(BattleDIContainer container)
     {
         var game = Multi_GameManager.Instance;
         var data = Managers.Data;
-        var _dispatcher = container.AddService<BattleEventDispatcher>();
+        var dispatcher = container.AddService<BattleEventDispatcher>();
 
         // add
         AddMultiService<SwordmanGachaController, MasterSwordmanGachaController>(container);
         container.AddComponent<CurrencyManagerMediator>();
         container.AddComponent<UnitMaxCountController>();
         IMonsterManager monsterManagerProxy = container.AddComponent<MonsterManagerProxy>();
-        container.AddComponent<WinOrLossController>().Init(_dispatcher);
+        container.AddComponent<WinOrLossController>().Init(dispatcher);
         container.AddComponent<EffectInitializer>();
-        container.AddComponent<OpponentStatusSender>().Init(_dispatcher);
+        container.AddComponent<OpponentStatusSender>().Init(dispatcher);
         container.AddComponent<EnemySpawnNumManager>();
         container.AddComponent<MeteorController>();
         
@@ -55,7 +53,7 @@ public class MultiInitializer
         container.GetComponent<SwordmanGachaController>().Init(game, data.BattleDataContainer.UnitSummonData);
         container.GetComponent<CurrencyManagerMediator>().Init(game);
         container.GetComponent<UnitMaxCountController>().Init(null, game);
-        container.GetComponent<MonsterManagerProxy>().Init(_dispatcher);
+        container.GetComponent<MonsterManagerProxy>().Init(dispatcher);
 
         Multi_SpawnManagers.Instance.Init();
 
@@ -64,7 +62,7 @@ public class MultiInitializer
             var server = MultiServiceMidiator.Server;
             var monsterSpawnController = container.AddComponent<MonsterSpawnerContorller>();
 
-            monsterSpawnController.Injection(monsterManagerProxy, container.GetComponent<EnemySpawnNumManager>(),_dispatcher);
+            monsterSpawnController.Injection(monsterManagerProxy, container.GetComponent<EnemySpawnNumManager>(), dispatcher);
             container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
             container.GetComponent<UnitMaxCountController>().Init(server, game);
             Multi_SpawnManagers.NormalUnit.Init(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager);
@@ -73,7 +71,7 @@ public class MultiInitializer
         InitSound();
         Init_UI(container);
         game.Init(container.GetComponent<CurrencyManagerMediator>(), container.GetComponent<UnitMaxCountController>(), data.BattleDataContainer);
-        StageManager.Instance.Injection(_dispatcher);
+        StageManager.Instance.Injection(dispatcher);
         container.GetComponent<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(container));
         Done(container);
     }
@@ -83,7 +81,7 @@ public class MultiInitializer
         Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
 
         Managers.UI.ShowSceneUI<BattleButton_UI>().SetInfo(container.GetComponent<SwordmanGachaController>());
-        Managers.UI.ShowSceneUI<UI_Status>().SetInfo(_dispatcher);
+        Managers.UI.ShowSceneUI<UI_Status>().SetInfo(container.GetService<BattleEventDispatcher>());
 
         var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();
         enemySelector.SetInfo(container.GetComponent<EnemySpawnNumManager>());
@@ -105,7 +103,7 @@ public class MultiInitializer
 
     void Done(BattleDIContainer container)
     {
-        container.AddComponent<BattleReadyController>().EnterBattle(container.GetComponent<EnemySpawnNumManager>(), _dispatcher);
+        container.AddComponent<BattleReadyController>().EnterBattle(container.GetComponent<EnemySpawnNumManager>(), container.GetService<BattleEventDispatcher>());
     }
 
     void AddMultiService<TClient, TMaster> (BattleDIContainer container) where TClient : MonoBehaviour where TMaster : MonoBehaviour

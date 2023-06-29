@@ -38,9 +38,9 @@ public class MonsterManagerProxy : MonoBehaviourPun, IMonsterManager
 
         if (monster.UsingId != PlayerIdManager.ClientId) return;
         if(newCount > previousCount)
-            photonView.RPC(nameof(RPC_AddNormalMonster), RpcTarget.All, monster.GetComponent<PhotonView>().ViewID);
+            photonView.RPC(nameof(RPC_AddNormalMonster), RpcTarget.Others, monster.GetComponent<PhotonView>().ViewID);
         else
-            photonView.RPC(nameof(RPC_RemoveNormalMonster), RpcTarget.All, monster.GetComponent<PhotonView>().ViewID);
+            photonView.RPC(nameof(RPC_RemoveNormalMonster), RpcTarget.Others, monster.GetComponent<PhotonView>().ViewID);
     }
 
     [PunRPC] void NotifyNormalMonsterCountChange(byte playerId, byte count) => _eventDispatcher.NotifyMonsterCountChange(playerId, count);

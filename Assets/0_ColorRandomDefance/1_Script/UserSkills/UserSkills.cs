@@ -35,7 +35,7 @@ public class UserSkillFactory
             case SkillType.보스데미지증가: return new BossDamageUpgrade(skillType);
             case SkillType.장사꾼: return new DiscountMerchant(skillType);
             case SkillType.조합메테오: return new CombineMeteor(skillType, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>());
-            case SkillType.네크로맨서: return new Necromancer(skillType, null);
+            case SkillType.네크로맨서: return new Necromancer(skillType, container.GetService<BattleEventDispatcher>());
             default: return null;
         }
     }
@@ -297,7 +297,7 @@ public class CombineMeteor : UserSkill
     }
 }
 
-public class Necromancer : UserSkill // 부활한 것도 포함?
+public class Necromancer : UserSkill
 {
     readonly int NeedKillCountForSummon;
     int _currentKillCount;
@@ -310,7 +310,7 @@ public class Necromancer : UserSkill // 부활한 것도 포함?
 
     public override void InitSkill()
     {
-        _dispatcher.OnMonsterCountChanged += _ => ResurrectOnKillCount();
+        // _dispatcher.OnMonsterCountChanged += _ => ResurrectOnKillCount();
     }
 
     void ResurrectOnKillCount()

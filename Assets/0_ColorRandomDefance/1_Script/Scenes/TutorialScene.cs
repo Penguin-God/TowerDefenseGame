@@ -38,6 +38,6 @@ public class TutorialScene : BaseScene
         gameObject.AddComponent<Tutorial_Tower>();
         gameObject.AddComponent<Tutorial_Boss>();
         gameObject.AddComponent<Tutorial_Combine>();
-        gameObject.AddComponent<Tutorial_UserSkill>().Injection(container.GetService<SwordmanGachaController>());
+        gameObject.AddComponent<Tutorial_UserSkill>().Injection(container.GetComponent<SwordmanGachaController>());
     }
 }

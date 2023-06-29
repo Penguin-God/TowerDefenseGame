@@ -2,11 +2,31 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System;
 
-public class BattleDIContainer : MonoBehaviourPun
+public class BattleDIContainer
 {
-    public T AddService<T>() where T : MonoBehaviour => gameObject.AddComponent<T>();
-    public T GetService<T>() => GetComponent<T>();
+    GameObject _componenentContainer;
+    public BattleDIContainer(GameObject componenentContainer) => _componenentContainer = componenentContainer;
+    public T AddComponent<T>() where T : MonoBehaviour => _componenentContainer.AddComponent<T>();
+    public T GetComponent<T>() => _componenentContainer.GetComponent<T>();
+
+    Dictionary<Type, object> _services = new Dictionary<Type, object>();
+    public T AddService<T>(T instance) where T : class
+    {
+        if (_services.ContainsKey(typeof(T)) == false)
+            _services[typeof(T)] = instance;
+
+        return _services[typeof(T)] as T;
+    }
+
+    public T GetService<T>() where T : class
+    {
+        if (_services.ContainsKey(typeof(T)))
+            return _services[typeof(T)] as T;
+
+        throw new InvalidOperationException("Service of type " + typeof(T).Name + " not found.");
+    }
 }
 
 public class MultiInitializer
@@ -20,39 +40,39 @@ public class MultiInitializer
         
         // add
         AddMultiService<SwordmanGachaController, MasterSwordmanGachaController>(container);
-        container.AddService<CurrencyManagerMediator>();
-        container.AddService<UnitMaxCountController>();
-        IMonsterManager monsterManagerProxy = container.AddService<MonsterManagerProxy>();
-        container.AddService<WinOrLossController>().Init(_dispatcher);
-        container.AddService<EffectInitializer>();
-        container.AddService<OpponentStatusSender>().Init(_dispatcher);
-        container.AddService<EnemySpawnNumManager>();
-        container.AddService<MeteorController>();
+        container.AddComponent<CurrencyManagerMediator>();
+        container.AddComponent<UnitMaxCountController>();
+        IMonsterManager monsterManagerProxy = container.AddComponent<MonsterManagerProxy>();
+        container.AddComponent<WinOrLossController>().Init(_dispatcher);
+        container.AddComponent<EffectInitializer>();
+        container.AddComponent<OpponentStatusSender>().Init(_dispatcher);
+        container.AddComponent<EnemySpawnNumManager>();
+        container.AddComponent<MeteorController>();
         
         // set
-        container.GetService<SwordmanGachaController>().Init(game, data.BattleDataContainer.UnitSummonData);
-        container.GetService<CurrencyManagerMediator>().Init(game);
-        container.GetService<UnitMaxCountController>().Init(null, game);
-        container.GetService<MonsterManagerProxy>().Init(_dispatcher);
+        container.GetComponent<SwordmanGachaController>().Init(game, data.BattleDataContainer.UnitSummonData);
+        container.GetComponent<CurrencyManagerMediator>().Init(game);
+        container.GetComponent<UnitMaxCountController>().Init(null, game);
+        container.GetComponent<MonsterManagerProxy>().Init(_dispatcher);
 
         Multi_SpawnManagers.Instance.Init();
 
         if (PhotonNetwork.IsMasterClient)
         {
             var server = MultiServiceMidiator.Server;
-            var monsterSpawnController = container.AddService<MonsterSpawnerContorller>();
+            var monsterSpawnController = container.AddComponent<MonsterSpawnerContorller>();
 
-            monsterSpawnController.Injection(monsterManagerProxy, container.GetService<EnemySpawnNumManager>(),_dispatcher);
-            container.GetService<MasterSwordmanGachaController>().Init(server, container.GetService<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
-            container.GetService<UnitMaxCountController>().Init(server, game);
-            Multi_SpawnManagers.NormalUnit.Init(container.GetService<MonsterManagerProxy>().MultiMonsterManager);
+            monsterSpawnController.Injection(monsterManagerProxy, container.GetComponent<EnemySpawnNumManager>(),_dispatcher);
+            container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
+            container.GetComponent<UnitMaxCountController>().Init(server, game);
+            Multi_SpawnManagers.NormalUnit.Init(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager);
         }
 
         InitSound();
         Init_UI(container);
-        game.Init(container.GetService<CurrencyManagerMediator>(), container.GetService<UnitMaxCountController>(), data.BattleDataContainer);
+        game.Init(container.GetComponent<CurrencyManagerMediator>(), container.GetComponent<UnitMaxCountController>(), data.BattleDataContainer);
         StageManager.Instance.Injection(_dispatcher);
-        container.GetService<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(container));
+        container.GetComponent<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(container));
         Done(container);
     }
 
@@ -60,11 +80,11 @@ public class MultiInitializer
     {
         Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
 
-        Managers.UI.ShowSceneUI<BattleButton_UI>().SetInfo(container.GetService<SwordmanGachaController>());
+        Managers.UI.ShowSceneUI<BattleButton_UI>().SetInfo(container.GetComponent<SwordmanGachaController>());
         Managers.UI.ShowSceneUI<UI_Status>().SetInfo(_dispatcher);
 
         var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();
-        enemySelector.SetInfo(container.GetService<EnemySpawnNumManager>());
+        enemySelector.SetInfo(container.GetComponent<EnemySpawnNumManager>());
     }
 
     void InitSound()
@@ -83,14 +103,14 @@ public class MultiInitializer
 
     void Done(BattleDIContainer container)
     {
-        container.AddService<BattleReadyController>().EnterBattle(container.GetService<EnemySpawnNumManager>(), _dispatcher);
+        container.AddComponent<BattleReadyController>().EnterBattle(container.GetComponent<EnemySpawnNumManager>(), _dispatcher);
     }
 
     void AddMultiService<TClient, TMaster> (BattleDIContainer container) where TClient : MonoBehaviour where TMaster : MonoBehaviour
     {
         if (PhotonNetwork.IsMasterClient)
-            container.AddService<TMaster>();
+            container.AddComponent<TMaster>();
         else
-            container.AddService<TClient>();
+            container.AddComponent<TClient>();
     }
 }

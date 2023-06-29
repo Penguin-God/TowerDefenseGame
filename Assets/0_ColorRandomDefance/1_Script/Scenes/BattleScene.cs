@@ -5,6 +5,7 @@ using Photon.Pun;
 
 public class BattleScene : BaseScene
 {
+    BattleDIContainer _battleDIContainer;
     protected override void Init()
     {
         if (PhotonNetwork.InRoom == false)
@@ -14,17 +15,21 @@ public class BattleScene : BaseScene
         }
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
+
         Managers.Data.Init();
         if(PhotonNetwork.IsMasterClient)
             GetComponent<PhotonView>().RPC(nameof(InitGame), RpcTarget.All);
     }
+
+    public BattleDIContainer GetBattleContainer() => _battleDIContainer;
 
     [PunRPC]
     void InitGame()
     {
         MultiServiceMidiator.Instance.Init();
         Managers.Unit.Init(new UnitControllerAttacher().AttacherUnitController(MultiServiceMidiator.Instance.gameObject), Managers.Data);
-        new WorldInitializer(gameObject).Init();
+        _battleDIContainer = new BattleDIContainer(gameObject);
+        new WorldInitializer(_battleDIContainer).Init();
     }
 
     public override void Clear()
@@ -56,7 +61,12 @@ class WorldInitializer
     BattleDIContainer _battleDIContainer;
     public WorldInitializer(GameObject go)
     {
-        _battleDIContainer = go.AddComponent<BattleDIContainer>();
+        _battleDIContainer = new BattleDIContainer(go);
+    }
+
+    public WorldInitializer(BattleDIContainer container)
+    {
+        _battleDIContainer = container;
     }
 
     public void Init()
@@ -72,9 +82,9 @@ class WorldInitializer
 
     void InitMonoBehaviourContainer()
     {
-        _battleDIContainer.AddService<UnitClickController>();
-        _battleDIContainer.AddService<RewradController>();
-        _battleDIContainer.AddService<UnitColorChangerRpcHandler>();
+        _battleDIContainer.AddComponent<UnitClickController>();
+        _battleDIContainer.AddComponent<RewradController>();
+        _battleDIContainer.AddComponent<UnitColorChangerRpcHandler>();
     }
 
     void InitObjectPools()

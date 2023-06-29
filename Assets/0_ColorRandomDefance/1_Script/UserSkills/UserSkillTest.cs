@@ -17,7 +17,7 @@ public class UserSkillTest : MonoBehaviour
         new UserSkillShopUseCase().GetSkillExp(skillType, 1);
 
         _skillTypeByFlag[skillType] = true;
-        var container = FindObjectOfType<BattleDIContainer>();
+        var container = FindObjectOfType<BattleScene>().GetBattleContainer();
         var skill = UserSkillFactory.CreateUserSkill(skillType, container);
         skill.InitSkill();
         FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkill[] { skill });

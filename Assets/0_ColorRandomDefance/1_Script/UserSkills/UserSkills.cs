@@ -28,13 +28,14 @@ public class UserSkillFactory
             case SkillType.태극스킬: return new TaegeukController(skillType);
             case SkillType.검은유닛강화: return new BlackUnitUpgrade(skillType);
             case SkillType.노란기사강화: return new YellowSowrdmanUpgrade(skillType);
-            case SkillType.컬러마스터: return new ColorMaster(skillType, container.GetService<SwordmanGachaController>());
+            case SkillType.컬러마스터: return new ColorMaster(skillType, container.GetComponent<SwordmanGachaController>());
             case SkillType.상대색깔변경: return new ColorChange(skillType);
             case SkillType.고기혐오자: return new FoodHater(skillType);
             case SkillType.판매보상증가: return new SellUpgrade(skillType);
             case SkillType.보스데미지증가: return new BossDamageUpgrade(skillType);
             case SkillType.장사꾼: return new DiscountMerchant(skillType);
-            case SkillType.조합메테오: return new CombineMeteor(skillType, container.GetService<MeteorController>(), container.GetService<IMonsterManager>());
+            case SkillType.조합메테오: return new CombineMeteor(skillType, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>());
+            case SkillType.네크로맨서: return new Necromancer(skillType, null);
             default: return null;
         }
     }
@@ -296,19 +297,20 @@ public class CombineMeteor : UserSkill
     }
 }
 
-public class Necromancer : UserSkill
+public class Necromancer : UserSkill // 부활한 것도 포함?
 {
-    readonly int NeedKillCountForSummon = 10;
+    readonly int NeedKillCountForSummon;
     int _currentKillCount;
-    public Necromancer(SkillType skillType) : base(skillType)
+    BattleEventDispatcher _dispatcher;
+    public Necromancer(SkillType skillType, BattleEventDispatcher dispatcher) : base(skillType)
     {
-        // _killCountForSummon = IntSkillData;
-
+        NeedKillCountForSummon = IntSkillData;
+        _dispatcher = dispatcher;
     }
 
     public override void InitSkill()
     {
-           
+        _dispatcher.OnMonsterCountChanged += _ => ResurrectOnKillCount();
     }
 
     void ResurrectOnKillCount()
@@ -316,7 +318,7 @@ public class Necromancer : UserSkill
         _currentKillCount++;
         if (_currentKillCount >= NeedKillCountForSummon)
         {
-            // 스폰
+            Multi_SpawnManagers.NormalUnit.Spawn(UnitColor.Violet, UnitClass.Swordman);
             _currentKillCount = 0;
         }
     }

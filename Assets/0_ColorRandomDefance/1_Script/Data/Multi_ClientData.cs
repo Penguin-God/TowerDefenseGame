@@ -15,6 +15,7 @@ public class EquipSkillManager
 
     public SkillType MainSkill => _typeByClass[UserSkillClass.Main];
     public SkillType SubSkill => _typeByClass[UserSkillClass.Sub];
+    public bool AllSkillsEquipped => MainSkill != SkillType.None && SubSkill != SkillType.None;
 
     public event Action<UserSkillClass, SkillType> OnEquipSkillChanged = null;
 

@@ -77,13 +77,12 @@ public class ClientManager : MonoBehaviour
     {
         HammerText.text = "" + Hammer;
     }
+    #endregion
 
     public void ClientClickSound()
     {
         ClientClickAudioSource.Play();
     }
-    #endregion
-
 
     private void InitMoney()
     {

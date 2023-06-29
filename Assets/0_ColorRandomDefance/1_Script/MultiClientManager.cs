@@ -22,6 +22,11 @@ public class MultiClientManager : MonoBehaviourPunCallbacks
 
     void Connect()
     {
+        if(Managers.ClientData.EquipSkillManager.AllSkillsEquipped == false)
+        {
+            ConnectionInfoText.text = "스킬을 장착해주세요";
+            return;
+        }
         _gameMatchingButton.interactable = false;
 
         if (PhotonNetwork.IsConnected)

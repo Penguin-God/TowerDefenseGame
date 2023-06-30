@@ -51,6 +51,19 @@ public class ClientManager : MonoBehaviour
         }
     }
 
+    // 모바일을 위한 버튼 클릭 시 스킬 구매
+    public void MobileSkill()
+    {
+        ClientIron += 10000;
+        ClientWood += 10000;
+        ClientHammer += 10000;
+        InitMoney();
+        UpdateMoney();
+
+        foreach (SkillType type in Enum.GetValues(typeof(SkillType)))
+            new UserSkillShopUseCase().GetSkillExp(type, 1);
+    }
+
     // 버튼에서 사용 중
     public void ShowSkillEquipUI() => Managers.UI.ShowPopupUI<UI_SkillManagementWindow>().RefreshUI();
     public void ShowSkillShopUI() => Managers.UI.ShowPopupUI<UI_SkillShop>().RefreshUI();

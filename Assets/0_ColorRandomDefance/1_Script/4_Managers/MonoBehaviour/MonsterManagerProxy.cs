@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System;
-using System.Threading;
 
 public class MonsterManagerProxy : MonoBehaviourPun, IMonsterManager
 {

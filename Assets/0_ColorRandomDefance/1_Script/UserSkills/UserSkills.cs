@@ -310,7 +310,7 @@ public class Necromancer : UserSkill
 
     public override void InitSkill()
     {
-        // _dispatcher.OnMonsterCountChanged += _ => ResurrectOnKillCount();
+        _dispatcher.OnNormalMonsterDead += _ => ResurrectOnKillCount();
     }
 
     void ResurrectOnKillCount()
@@ -321,5 +321,6 @@ public class Necromancer : UserSkill
             Multi_SpawnManagers.NormalUnit.Spawn(UnitColor.Violet, UnitClass.Swordman);
             _currentKillCount = 0;
         }
+        Debug.Log(_currentKillCount);
     }
 }

@@ -7,7 +7,7 @@ public class BattleEventDispatcher
 {
     public event Action<int> OnMonsterCountChanged;
     public event Action<int> OnOpponentMonsterCountChange;
-    
+
     public void NotifyMonsterCountChange(byte playerId, int count)
     {
         if(playerId == PlayerIdManager.Id)
@@ -15,6 +15,9 @@ public class BattleEventDispatcher
         else
             OnOpponentMonsterCountChange?.Invoke(count);
     }
+
+    public event Action<Multi_NormalEnemy> OnNormalMonsterDead;
+    public void NotifyMonsterDead(Multi_NormalEnemy monster) => OnNormalMonsterDead?.Invoke(monster);
 
     public event Action<int> OnOpponentUnitCountChanged = null;
     public event Action<UnitClass, int> OnOpponentUnitCountChangedByClass;

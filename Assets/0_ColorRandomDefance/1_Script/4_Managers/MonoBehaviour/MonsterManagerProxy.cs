@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System;
+using System.Threading;
 
 public class MonsterManagerProxy : MonoBehaviourPun, IMonsterManager
 {
@@ -26,7 +27,7 @@ public class MonsterManagerProxy : MonoBehaviourPun, IMonsterManager
 
     // 지금은 마스터에서만 접근함
     public void AddNormalMonster(Multi_NormalEnemy monster) => ChangeMonsterList(monster, _multiMonsterManager.AddNormalMonster);
-    public void RemoveNormalMonster(Multi_NormalEnemy monster) => ChangeMonsterList(monster, _multiMonsterManager.RemoveNormalMonster);
+    public void RemoveNormalMonster(Multi_NormalEnemy monster) => ChangeMonsterList(monster, RemoveMonster);
 
     void ChangeMonsterList(Multi_NormalEnemy monster, Action<Multi_NormalEnemy> changeMonsterList)
     {
@@ -43,9 +44,22 @@ public class MonsterManagerProxy : MonoBehaviourPun, IMonsterManager
             photonView.RPC(nameof(RPC_RemoveNormalMonster), RpcTarget.Others, monster.GetComponent<PhotonView>().ViewID);
     }
 
+    void RemoveMonster(Multi_NormalEnemy monster)
+    {
+        _multiMonsterManager.RemoveNormalMonster(monster);
+        if(monster.UsingId == PlayerIdManager.MasterId)
+            _eventDispatcher.NotifyMonsterDead(monster);
+    }
+
     [PunRPC] void NotifyNormalMonsterCountChange(byte playerId, byte count) => _eventDispatcher.NotifyMonsterCountChange(playerId, count);
     [PunRPC] void RPC_AddNormalMonster(int viewId) => _monsterManager.AddNormalMonster(Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(viewId));
-    [PunRPC] void RPC_RemoveNormalMonster(int viewId) => _monsterManager.RemoveNormalMonster(Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(viewId));
+    [PunRPC] 
+    void RPC_RemoveNormalMonster(int viewId)
+    {
+        var monster = Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(viewId);
+        _monsterManager.RemoveNormalMonster(monster);
+        _eventDispatcher.NotifyMonsterDead(monster);
+    }
 }
 
 public class ServerMonsterManager

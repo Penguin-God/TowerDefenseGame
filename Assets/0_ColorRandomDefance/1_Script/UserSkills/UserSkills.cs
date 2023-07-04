@@ -35,7 +35,7 @@ public class UserSkillFactory
             case SkillType.보스데미지증가: return new BossDamageUpgrade(skillType);
             case SkillType.장사꾼: return new DiscountMerchant(skillType);
             case SkillType.조합메테오: return new CombineMeteor(skillType, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>());
-            case SkillType.네크로맨서: return new Necromancer(skillType, container.GetService<BattleEventDispatcher>());
+            case SkillType.네크로맨서: return new NecromancerController(skillType, container.GetService<BattleEventDispatcher>());
             default: return null;
         }
     }
@@ -297,14 +297,13 @@ public class CombineMeteor : UserSkill
     }
 }
 
-public class Necromancer : UserSkill
+public class NecromancerController : UserSkill
 {
-    readonly int NeedKillCountForSummon;
-    int _currentKillCount;
+    readonly Necromencer _necromencer;
     BattleEventDispatcher _dispatcher;
-    public Necromancer(SkillType skillType, BattleEventDispatcher dispatcher) : base(skillType)
+    public NecromancerController(SkillType skillType, BattleEventDispatcher dispatcher) : base(skillType)
     {
-        NeedKillCountForSummon = IntSkillData;
+        _necromencer = new Necromencer(IntSkillData);
         _dispatcher = dispatcher;
     }
 
@@ -315,12 +314,7 @@ public class Necromancer : UserSkill
 
     void ResurrectOnKillCount()
     {
-        _currentKillCount++;
-        if (_currentKillCount >= NeedKillCountForSummon)
-        {
+        if(_necromencer.TryResurrect())
             Multi_SpawnManagers.NormalUnit.Spawn(UnitColor.Violet, UnitClass.Swordman);
-            _currentKillCount = 0;
-        }
-        Debug.Log(_currentKillCount);
     }
 }

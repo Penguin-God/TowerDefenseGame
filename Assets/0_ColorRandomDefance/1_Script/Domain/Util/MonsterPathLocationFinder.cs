@@ -8,7 +8,7 @@ public class MonsterPathLocationFinder
 
     readonly Vector3[] Waypoints; // 웨이포인트 위치를 저장하는 리스트
 
-    public Vector3 GetTrapSpawnLocation()
+    public Vector3 CalculateMonsterPathLocation()
     {
         // 먼저, 랜덤한 웨이포인트를 하나 선택합니다.
         int index = Random.Range(0, Waypoints.Length);

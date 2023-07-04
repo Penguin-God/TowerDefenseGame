@@ -24,7 +24,7 @@ namespace UtilDomainTests
             for (int i = 0; i < 10; i++)
             {
                 // Act
-                Vector3 result = sut.GetTrapSpawnLocation();
+                Vector3 result = sut.CalculateMonsterPathLocation();
 
                 // Assert
                 // 반환된 위치가 모든 웨이포인트 사이에 있는지 확인합니다.

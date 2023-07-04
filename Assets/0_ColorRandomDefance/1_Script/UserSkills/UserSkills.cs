@@ -318,3 +318,28 @@ public class NecromancerController : UserSkill
             Multi_SpawnManagers.NormalUnit.Spawn(UnitColor.Violet, UnitClass.Swordman);
     }
 }
+
+public class SlowTrapSpawner : UserSkill
+{
+    readonly MonsterPathLocationFinder _locationFinder;
+    BattleEventDispatcher _dispatcher;
+    public SlowTrapSpawner(SkillType skillType, Transform[] wayPoints, BattleEventDispatcher dispatcher) : base(skillType)
+    {
+        _locationFinder = new MonsterPathLocationFinder(wayPoints.Select(x => x.position).ToArray());
+        _dispatcher = dispatcher;
+    }
+
+    public override void InitSkill()
+    {
+        _dispatcher.OnStageUp += _ => SpawnTrap();
+    }
+
+    const int SpawnCount = 2;
+    void SpawnTrap()
+    {
+        for (int i = 0; i < SpawnCount; i++)
+        {
+            // spawn, _locationFinder.CalculateMonsterPathLocation();
+        }
+    }
+}

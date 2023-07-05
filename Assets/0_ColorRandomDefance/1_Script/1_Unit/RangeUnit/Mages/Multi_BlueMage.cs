@@ -22,8 +22,6 @@ public class Multi_BlueMage : Multi_Unit_Mage
     protected override void PlaySkillSound() => PlaySound(EffectSoundType.BlueMageSkill);
 
     [SerializeField] List<Multi_NormalEnemy> _passiveTargets = new List<Multi_NormalEnemy>();
-
-
     void FixedUpdate()
     {
         foreach (var enemy in _passiveTargets)

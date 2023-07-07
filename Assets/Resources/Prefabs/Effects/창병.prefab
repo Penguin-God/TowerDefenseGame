@@ -24195,7 +24195,7 @@ GameObject:
   - component: {fileID: 400012}
   - component: {fileID: 114000013266958940}
   m_Layer: 0
-  m_Name: ElementalArrow
+  m_Name: "\uCC3D\uBCD1"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using static Codice.Client.Common.Connection.AskCredentialsToUser;
 
 public class Multi_Unit_Spearman : Multi_MeleeUnit
 {
@@ -54,15 +55,31 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     {
         base.SpecialAttack();
         animator.SetTrigger("isSpecialAttack");
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f);
+        Multi_Projectile mzWeapon = null;
+        if (UnitColor == UnitColor.Violet)
+        {
+            mzWeapon = _spearThower.CreateProjectile(new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags), SkillAttackWithPassive);
+            mzWeapon.gameObject.SetActive(true);
+            mzWeapon.GetComponent<RPCable>().SetRotate_RPC(new Vector3(0, 180, 0));
+        }
+        yield return new WaitForSeconds(0.5f);
 
         spear.SetActive(false);
         nav.isStopped = true;
 
         if (PhotonNetwork.IsMasterClient && target != null)
         {
-            Multi_Projectile weapon = _spearThower.Throw(transform.forward, SkillAttackWithPassive);
-            weapon.GetComponent<RPCable>().SetRotate_RPC(new Vector3(90, 0, 0));
+            if(UnitColor != UnitColor.Violet)
+            {
+                Multi_Projectile weapon = _spearThower.Throw(transform.forward, SkillAttackWithPassive);
+                weapon.GetComponent<RPCable>().SetRotate_RPC(new Vector3(90, 0, 0));
+            }
+            else
+            {
+                _spearThower.Throw(mzWeapon, transform.forward);
+                mzWeapon.GetComponent<RPCable>().SetRotate_RPC(new Vector3(0, 180, 0));
+            }
         }
 
         PlaySound(EffectSoundType.SpearmanSkill);

@@ -316,12 +316,14 @@ public class NecromancerController : UserSkill
     }
 
     readonly Vector3 EffectOffst = new Vector3(0, 0.6f, 0);
+    readonly UnitFlags ResurrectUnit = new UnitFlags(UnitColor.Violet, UnitClass.Swordman);
     void ResurrectOnKillCount()
     {
         if (_necromencer.TryResurrect())
         {
-            var unit = Multi_SpawnManagers.NormalUnit.RPCSpawn(new UnitFlags(UnitColor.Violet, UnitClass.Swordman), 0);
-            _effectSynchronizer.PlayOneShotEffect("PosionMagicCircle", unit.transform.position + EffectOffst);
+            var spawnPos = new WorldSpawnPositionCalculator(20, 0, 0, 0).CalculateWorldPostion(Multi_Data.instance.GetWorldPosition(PlayerIdManager.Id));
+            Multi_SpawnManagers.NormalUnit.Spawn(ResurrectUnit, spawnPos);
+            _effectSynchronizer.PlayOneShotEffect("PosionMagicCircle", spawnPos + EffectOffst);
             Managers.Sound.PlayEffect(EffectSoundType.YellowMageSkill);
         }
     }

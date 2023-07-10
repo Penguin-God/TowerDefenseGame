@@ -15,7 +15,8 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
         _multiMonsterManager = multiMonsterManager;
     }
 
-    public Multi_TeamSoldier Spawn(UnitColor color, UnitClass _class) => Spawn(new UnitFlags(color, _class));
+    public void Spawn(UnitFlags flag, Vector3 spawnPos) 
+        => photonView.RPC(nameof(RPCSpawn), RpcTarget.MasterClient, flag, spawnPos, Quaternion.identity, PlayerIdManager.Id);
     public Multi_TeamSoldier Spawn(UnitFlags flag) => Spawn(flag.ColorNumber, flag.ClassNumber);
     public Multi_TeamSoldier Spawn(int colorNum, int classNum) => Spawn(new UnitFlags(colorNum, classNum), PlayerIdManager.Id);
     public Multi_TeamSoldier Spawn(UnitFlags flag, byte id) => Spawn(flag, Vector3.zero, Quaternion.identity, id);

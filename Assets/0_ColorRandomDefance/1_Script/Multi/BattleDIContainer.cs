@@ -48,6 +48,7 @@ public class MultiInitializer
         container.AddComponent<OpponentStatusSender>().Init(dispatcher);
         container.AddComponent<EnemySpawnNumManager>();
         container.AddComponent<MeteorController>();
+        container.AddComponent<EffectSynchronizer>();
         
         // set
         container.GetComponent<SwordmanGachaController>().Init(game, data.BattleDataContainer.UnitSummonData);

@@ -24,7 +24,7 @@ public class WorldChangeController
 
     public void ChangeWorld(GameObject tpObject, Vector3 destination)
     {
-        Managers.Effect.PlayParticle("UnitTpEffect", tpObject.transform.position + (Vector3.up * 3));
+        Managers.Effect.PlayOneShotEffect("UnitTpEffect", tpObject.transform.position + (Vector3.up * 3));
         tpObject.SetActive(false);
         tpObject.transform.position = destination;
         tpObject.SetActive(true);

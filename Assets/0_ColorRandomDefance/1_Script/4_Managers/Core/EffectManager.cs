@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -40,7 +41,7 @@ public class EffectManager
         _targetByTrackers.Remove(target);
     }
     
-    public void PlayParticle(string name, Vector3 pos)
+    public void PlayOneShotEffect(string name, Vector3 pos)
     {
         ParticlePlug particle = LoadParticle(name);
         if (particle == null) return;
@@ -49,14 +50,8 @@ public class EffectManager
         particle.PlayParticle();
     }
 
-    public void ChangeMaterial(string name, MeshRenderer mesh)
-        => mesh.material = LoadMaterial(name);
-
     public void ChangeAllMaterial(string name, Transform transform)
         => transform.GetComponentInChildren<MeshRenderer>().material = LoadMaterial(name);
-
-    public void ChangeColor(byte r, byte g, byte b, Transform transform)
-        => transform.GetComponentInChildren<MeshRenderer>().material.color = new Color32(r, g, b, 255);
 
     GameObject LoadObject(string name) => Managers.Resources.Instantiate($"Effects/{name}");
     ParticlePlug LoadParticle(string name) => LoadObject(name).GetOrAddComponent<ParticlePlug>();

@@ -35,7 +35,8 @@ public class UserSkillFactory
             case SkillType.보스데미지증가: return new BossDamageUpgrade(skillType);
             case SkillType.장사꾼: return new DiscountMerchant(skillType);
             case SkillType.조합메테오: return new CombineMeteor(skillType, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>());
-            case SkillType.네크로맨서: return new NecromancerController(skillType, container.GetService<BattleEventDispatcher>());
+            case SkillType.네크로맨서: 
+                return new NecromancerController(skillType, container.GetService<BattleEventDispatcher>(), container.GetComponent<EffectSynchronizer>());
             default: return null;
         }
     }
@@ -300,11 +301,13 @@ public class CombineMeteor : UserSkill
 public class NecromancerController : UserSkill
 {
     readonly Necromencer _necromencer;
+    readonly EffectSynchronizer _effectSynchronizer;
     BattleEventDispatcher _dispatcher;
-    public NecromancerController(SkillType skillType, BattleEventDispatcher dispatcher) : base(skillType)
+    public NecromancerController(SkillType skillType, BattleEventDispatcher dispatcher, EffectSynchronizer effectSynchronizer) : base(skillType)
     {
         _necromencer = new Necromencer(IntSkillData);
         _dispatcher = dispatcher;
+        _effectSynchronizer = effectSynchronizer;
     }
 
     public override void InitSkill()
@@ -312,10 +315,15 @@ public class NecromancerController : UserSkill
         _dispatcher.OnNormalMonsterDead += _ => ResurrectOnKillCount();
     }
 
+    readonly Vector3 EffectOffst = new Vector3(0, 0.6f, 0);
     void ResurrectOnKillCount()
     {
-        if(_necromencer.TryResurrect())
-            Multi_SpawnManagers.NormalUnit.Spawn(UnitColor.Violet, UnitClass.Swordman);
+        if (_necromencer.TryResurrect())
+        {
+            var unit = Multi_SpawnManagers.NormalUnit.RPCSpawn(new UnitFlags(UnitColor.Violet, UnitClass.Swordman), 0);
+            _effectSynchronizer.PlayOneShotEffect("PosionMagicCircle", unit.transform.position + EffectOffst);
+            Managers.Sound.PlayEffect(EffectSoundType.YellowMageSkill);
+        }
     }
 }
 

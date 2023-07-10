@@ -310,9 +310,12 @@ public class NecromancerController : UserSkill
         _effectSynchronizer = effectSynchronizer;
     }
 
+    UI_UserSkillStatus statusUI;
     public override void InitSkill()
     {
         _dispatcher.OnNormalMonsterDead += _ => ResurrectOnKillCount();
+        statusUI = Managers.UI.ShowSceneUI<UI_UserSkillStatus>();
+        statusUI.Injction(_necromencer);
     }
 
     readonly Vector3 EffectOffst = new Vector3(0, 0.6f, 0);
@@ -326,6 +329,7 @@ public class NecromancerController : UserSkill
             _effectSynchronizer.PlayOneShotEffect("PosionMagicCircle", spawnPos + EffectOffst);
             Managers.Sound.PlayEffect(EffectSoundType.YellowMageSkill);
         }
+        statusUI.UpdateKillCount();
     }
 }
 

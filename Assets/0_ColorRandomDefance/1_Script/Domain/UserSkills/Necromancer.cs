@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Necromencer
 {
-    readonly int NeedKillCountForSummon;
+    public readonly int NeedKillCountForSummon;
     public int CurrentKillCount { get; private set; }
     public Necromencer(int needKillCount) => NeedKillCountForSummon = needKillCount;
 

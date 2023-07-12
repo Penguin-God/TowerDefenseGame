@@ -131,6 +131,7 @@ public enum SkillType
     장사꾼,
     조합메테오,
     네크로맨서,
+    마창사,
 }
 
 public enum MoneyType

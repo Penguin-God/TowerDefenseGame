@@ -42,13 +42,26 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     Multi_TeamSoldier RPCSpawn(UnitFlags flag, Vector3 spawnPos, Quaternion rotation, byte id)
     {
         var unit = Managers.Multi.Instantiater.PhotonInstantiate(PathBuilder.BuildUnitPath(flag), spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
-        unit.Spawn(flag, Managers.Data.Unit.UnitStatByFlag[flag].GetClone(), MultiServiceMidiator.Server.UnitDamageInfo(id, flag), _multiMonsterManager.GetMultiData(unit.UsingID));
+        unit.Injection(flag, Managers.Data.Unit.UnitStatByFlag[flag].GetClone(), MultiServiceMidiator.Server.UnitDamageInfo(id, flag), _multiMonsterManager.GetMultiData(unit.UsingID));
         MultiServiceMidiator.Server.AddUnit(unit);
         if (unit.UsingID == PlayerIdManager.MasterId)
             OnSpawn?.Invoke(unit);
         else
             photonView.RPC(nameof(RPC_CallbackSpawn), RpcTarget.Others, unit.GetComponent<PhotonView>().ViewID);
         return unit;
+    }
+
+    void InjectUnit(Multi_TeamSoldier unit, UnitStat stat, UnitDamageInfo damInfo)
+    {
+        unit.Injection(unit.UnitFlags, stat, damInfo, _multiMonsterManager.GetMultiData(unit.UsingID));
+        ThrowSpearData spearData;
+        if(unit.UnitClass == UnitClass.Spearman)
+        {
+            if(_multiEquipSkillData.GetData(unit.UsingID).MainSkill == SkillType.마창사)
+            {
+
+            }
+        }
     }
 
     [PunRPC]

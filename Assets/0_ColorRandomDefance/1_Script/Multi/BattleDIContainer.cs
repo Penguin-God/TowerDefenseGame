@@ -55,6 +55,7 @@ public class MultiInitializer
     void AddComponent(BattleDIContainer container)
     {
         AddMultiService<SwordmanGachaController, MasterSwordmanGachaController>(container);
+        new MultiServiceAttacher().AttacherUnitController(container);
         container.AddComponent<CurrencyManagerMediator>();
         container.AddComponent<UnitMaxCountController>();
         container.AddComponent<MonsterManagerProxy>();
@@ -97,7 +98,7 @@ public class MultiInitializer
         Init_UI(container);
         game.Init(container.GetComponent<CurrencyManagerMediator>(), container.GetComponent<UnitMaxCountController>(), data.BattleDataContainer);
         StageManager.Instance.Injection(dispatcher);
-        // TODO : 유닛 매니저 Init 여기로 옮기기
+        Managers.Unit.Init(container.GetComponent<UnitController>(), data.CombineConditionByUnitFalg);
     }
 
     void Init_UI(BattleDIContainer container)

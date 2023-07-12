@@ -34,10 +34,10 @@ public class UnitManager
     }
 
     UnitController _contoller;
-    public void Init(UnitController controller, DataManager data)
+    public void Init(UnitController controller, IReadOnlyDictionary<UnitFlags, CombineCondition> combineConditionByUnitFalg)
     {
         _contoller = controller;
-        _combineSystem = new UnitCombineSystem(data.CombineConditionByUnitFalg);
+        _combineSystem = new UnitCombineSystem(combineConditionByUnitFalg);
     }
 
     public void Clear()

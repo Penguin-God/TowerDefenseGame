@@ -27,7 +27,6 @@ public class BattleScene : BaseScene
     void InitGame()
     {
         MultiServiceMidiator.Instance.Init();
-        Managers.Unit.Init(new UnitControllerAttacher().AttacherUnitController(MultiServiceMidiator.Instance.gameObject), Managers.Data);
         _battleDIContainer = new BattleDIContainer(gameObject);
         new WorldInitializer(_battleDIContainer).Init();
     }

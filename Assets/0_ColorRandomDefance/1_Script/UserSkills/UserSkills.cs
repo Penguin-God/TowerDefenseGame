@@ -357,3 +357,15 @@ public class SlowTrapSpawner : UserSkill
         }
     }
 }
+
+public class MagicSpearman : UserSkill
+{
+    public MagicSpearman(SkillType skillType) : base(skillType)
+    {
+    }
+
+    public override void InitSkill()
+    {
+        
+    }
+}

@@ -4,6 +4,19 @@ using UnityEngine;
 using System;
 using System.Linq;
 
+
+public class EquipSkillData
+{
+    public SkillType MainSkill { get; private set; }
+    public SkillType SubSkill { get; private set; }
+
+    public EquipSkillData(SkillType main, SkillType sub)
+    {
+        MainSkill = main;
+        SubSkill = sub;
+    }
+}
+
 public class EquipSkillManager
 {
     Dictionary<UserSkillClass, SkillType> _typeByClass = new Dictionary<UserSkillClass, SkillType>()
@@ -13,6 +26,7 @@ public class EquipSkillManager
     };
     public IEnumerable<SkillType> EquipSkills => _typeByClass.Values;
 
+    public EquipSkillData EquipSkillData => new EquipSkillData(_typeByClass[UserSkillClass.Main], _typeByClass[UserSkillClass.Sub]);
     public SkillType MainSkill => _typeByClass[UserSkillClass.Main];
     public SkillType SubSkill => _typeByClass[UserSkillClass.Sub];
     public bool AllSkillsEquipped => MainSkill != SkillType.None && SubSkill != SkillType.None;
@@ -32,7 +46,7 @@ public class EquipSkillManager
     }
 }
 
-public class Multi_ClientData
+public class ClientDataManager
 {
     #region Money 구조체
     [Serializable]

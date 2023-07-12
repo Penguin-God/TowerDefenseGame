@@ -76,7 +76,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected virtual ChaseSystem AddCahseSystem() => gameObject.AddComponent<ChaseSystem>();
 
     protected TargetFinder TargetFinder { get; private set; }
-    public void Spawn(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo, MonsterManager monsterManager)
+    public void Injection(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo, MonsterManager monsterManager)
     {
         SetInfoToAll();
         TargetFinder = new TargetFinder(_worldChangeController, monsterManager, UsingID);

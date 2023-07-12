@@ -18,17 +18,17 @@ public class BattleScene : BaseScene
 
         Managers.Data.Init();
         if(PhotonNetwork.IsMasterClient)
-            GetComponent<PhotonView>().RPC(nameof(InitGame), RpcTarget.All);
+            GetComponent<PhotonView>().RPC(nameof(InitGame), RpcTarget.All, Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
     }
 
     public BattleDIContainer GetBattleContainer() => _battleDIContainer;
 
     [PunRPC]
-    void InitGame()
+    void InitGame(SkillType mainSkill, SkillType subSkill)
     {
         MultiServiceMidiator.Instance.Init();
         _battleDIContainer = new BattleDIContainer(gameObject);
-        new WorldInitializer(_battleDIContainer).Init();
+        new WorldInitializer(_battleDIContainer).Init(new EquipSkillData(mainSkill, subSkill));
     }
 
     public override void Clear()
@@ -68,9 +68,9 @@ class WorldInitializer
         _battleDIContainer = container;
     }
 
-    public void Init()
+    public void Init(EquipSkillData enemySKillData)
     {
-        new MultiInitializer().InjectionBattleDependency(_battleDIContainer);
+        new BattleDIContainerInitializer().InjectionBattleDependency(_battleDIContainer, enemySKillData);
 
         Managers.Camera.EnterBattleScene();
         InitMonoBehaviourContainer();

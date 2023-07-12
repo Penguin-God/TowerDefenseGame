@@ -29,8 +29,14 @@ public class UI_Status : UI_Scene
     }
 
     BattleEventDispatcher _dispatcher;
-
-    public void SetInfo(BattleEventDispatcher dispatcher) => _dispatcher = dispatcher;
+    MultiData<EquipSkillData> _multiEquipSkillData;
+    EquipSkillData MySkillData => _multiEquipSkillData.GetData(PlayerIdManager.Id);
+    EquipSkillData EnemySkillData => _multiEquipSkillData.GetData(PlayerIdManager.EnemyId);
+    public void Injection(BattleEventDispatcher dispatcher, MultiData<EquipSkillData> multiEquipSkillData)
+    {
+        _dispatcher = dispatcher;
+        _multiEquipSkillData = multiEquipSkillData;
+    }
 
     protected override void Init()
     {
@@ -139,11 +145,11 @@ public class UI_Status : UI_Scene
         }
     }
 
-    public void UpdateMySkillImage() => ChangeEquipSkillImages(Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
+    public void UpdateMySkillImage() => ChangeEquipSkillImages(MySkillData.MainSkill, MySkillData.SubSkill);
     void UpdateOtherSkillImage()
     {
-        if (Multi_GameManager.Instance.OtherPlayerData != null)
-            ChangeEquipSkillImages(Multi_GameManager.Instance.OtherPlayerData.MainSkill, Multi_GameManager.Instance.OtherPlayerData.SubSkill);
+        if (EnemySkillData != null)
+            ChangeEquipSkillImages(EnemySkillData.MainSkill, EnemySkillData.SubSkill);
         else
             ChangeEquipSkillImages(SkillType.None, SkillType.None);
     }

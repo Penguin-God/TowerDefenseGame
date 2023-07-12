@@ -28,6 +28,9 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         _skillSystem = new UnitRandomSkillSystem();
     }
 
+    ThrowSpearData _throwSpearData;
+    public void InjectSpearData(ThrowSpearData throwSpearData) => _throwSpearData = throwSpearData;
+
     [PunRPC]
     protected override void Attack() => _skillSystem.Attack(NormalAttack, SpecialAttack, _useSkillPercent);
     public override void NormalAttack() => StartCoroutine(nameof(SpaerAttack));
@@ -80,27 +83,27 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         animator.SetTrigger("isSpecialAttack");
         if(PhotonNetwork.IsMasterClient)
             StartCoroutine(Co_ShotSpear());
+
         yield return new WaitForSeconds(1f);
+
         spear.SetActive(false);
         nav.isStopped = true;
-
         PlaySound(EffectSoundType.SpearmanSkill);
 
         yield return new WaitForSeconds(0.5f);
+
         nav.isStopped = false;
         spear.SetActive(true);
-
         base.EndSkillAttack(_skillReboundTime);
     }
 
     IEnumerator Co_ShotSpear()
     {
-        ThrowSpearData data = new ThrowSpearData("", Vector3.zero, 2);
-        yield return new WaitForSeconds(data.WaitForVisibility);
-        var shotSpear = _spearThower.CreateProjectile(data.WeaponPath, SkillAttackWithPassive);
-        yield return new WaitForSeconds(1 - data.WaitForVisibility);
+        yield return new WaitForSeconds(_throwSpearData.WaitForVisibility);
+        var shotSpear = _spearThower.CreateProjectile(_throwSpearData.WeaponPath, SkillAttackWithPassive);
+        yield return new WaitForSeconds(1 - _throwSpearData.WaitForVisibility);
 
         _spearThower.Throw(shotSpear, transform.forward);
-        shotSpear.GetComponent<RPCable>().SetRotate_RPC(data.RotateVector);
+        shotSpear.GetComponent<RPCable>().SetRotate_RPC(_throwSpearData.RotateVector);
     }
 }

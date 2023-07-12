@@ -12,9 +12,9 @@ public class TutorialScene : BaseScene
 
         MultiServiceMidiator.Instance.Init();
         // Managers.Unit.Init(new UnitControllerAttacher().AttacherUnitController(MultiServiceMidiator.Instance.gameObject), Managers.Data);
-        new WorldInitializer(gameObject).Init();
+        new WorldInitializer(gameObject).Init(new EquipSkillData(SkillType.검은유닛강화, SkillType.판매보상증가));
         gameObject.AddComponent<Tutorial_AI>();
-        Multi_GameManager.Instance.CreateOtherPlayerData(SkillType.검은유닛강화, SkillType.판매보상증가);
+        // Multi_GameManager.Instance.CreateOtherPlayerData(SkillType.검은유닛강화, SkillType.판매보상증가);
 
         SetPlayerSkill();
         InitTutorial(gameObject.GetComponent<BattleDIContainer>());

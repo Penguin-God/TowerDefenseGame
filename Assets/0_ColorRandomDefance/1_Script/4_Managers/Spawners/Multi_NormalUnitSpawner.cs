@@ -10,9 +10,11 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     public event Action<Multi_TeamSoldier> OnSpawn = null;
 
     ServerMonsterManager _multiMonsterManager;
-    public void Init(ServerMonsterManager multiMonsterManager)
+    MultiData<EquipSkillData> _multiEquipSkillData;
+    public void Injection(ServerMonsterManager multiMonsterManager, MultiData<EquipSkillData> multiEquipSkillData)
     {
         _multiMonsterManager = multiMonsterManager;
+        _multiEquipSkillData = multiEquipSkillData;
     }
 
     public void Spawn(UnitFlags flag, Vector3 spawnPos) 

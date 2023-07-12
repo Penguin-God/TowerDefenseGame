@@ -28,7 +28,7 @@ public class Managers : MonoBehaviour
     Multi_SoundManager _sound = new();
     ResourcesManager _resources = new();
     PoolManager _pool = new();
-    Multi_ClientData _clientData = new();
+    ClientDataManager _clientData = new();
     Scene_Manager _scene = new();
     CameraManager _camera = new();
     EffectManager _effect = new();
@@ -40,7 +40,7 @@ public class Managers : MonoBehaviour
     public static Multi_SoundManager Sound => Instance._sound;
     public static ResourcesManager Resources => Instance._resources;
     public static PoolManager Pool => Instance._pool;
-    public static Multi_ClientData ClientData => Instance._clientData;
+    public static ClientDataManager ClientData => Instance._clientData;
     public static Scene_Manager Scene => Instance._scene;
     public static CameraManager Camera => Instance._camera;
     public static EffectManager Effect => Instance._effect;

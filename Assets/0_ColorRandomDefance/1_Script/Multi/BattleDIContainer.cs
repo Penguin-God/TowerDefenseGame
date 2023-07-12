@@ -32,49 +32,72 @@ public class BattleDIContainer
 
 public class MultiInitializer
 {
+    Multi_GameManager game;
+    DataManager data;
+    BattleEventDispatcher dispatcher;
     public void InjectionBattleDependency(BattleDIContainer container)
     {
-        var game = Multi_GameManager.Instance;
-        var data = Managers.Data;
-        var dispatcher = container.AddService<BattleEventDispatcher>();
+        game = Multi_GameManager.Instance;
+        data = Managers.Data;
+        dispatcher = container.AddService<BattleEventDispatcher>();
 
-        // add
+        AddComponent(container);
+        InitComponent(container);
+        Multi_SpawnManagers.Instance.Init();
+
+        InjectionOnlyMaster(container);
+
+        InitManagers(container);
+        container.GetComponent<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(container));
+        Done(container); // 꼭 마지막에 해야 하는 것들
+    }
+
+    void AddComponent(BattleDIContainer container)
+    {
         AddMultiService<SwordmanGachaController, MasterSwordmanGachaController>(container);
         container.AddComponent<CurrencyManagerMediator>();
         container.AddComponent<UnitMaxCountController>();
-        IMonsterManager monsterManagerProxy = container.AddComponent<MonsterManagerProxy>();
-        container.AddComponent<WinOrLossController>().Init(dispatcher);
+        container.AddComponent<MonsterManagerProxy>();
+        container.AddComponent<WinOrLossController>();
         container.AddComponent<EffectInitializer>();
-        container.AddComponent<OpponentStatusSender>().Init(dispatcher);
+        container.AddComponent<OpponentStatusSender>();
         container.AddComponent<EnemySpawnNumManager>();
         container.AddComponent<MeteorController>();
         container.AddComponent<EffectSynchronizer>();
-        
-        // set
+    }
+
+
+    void InitComponent(BattleDIContainer container)
+    {
+        container.GetComponent<WinOrLossController>().Init(dispatcher);
+        container.GetComponent<OpponentStatusSender>().Init(dispatcher);
         container.GetComponent<SwordmanGachaController>().Init(game, data.BattleDataContainer.UnitSummonData);
         container.GetComponent<CurrencyManagerMediator>().Init(game);
         container.GetComponent<UnitMaxCountController>().Init(null, game);
         container.GetComponent<MonsterManagerProxy>().Init(dispatcher);
+    }
 
-        Multi_SpawnManagers.Instance.Init();
 
-        if (PhotonNetwork.IsMasterClient)
-        {
-            var server = MultiServiceMidiator.Server;
-            var monsterSpawnController = container.AddComponent<MonsterSpawnerContorller>();
+    void InjectionOnlyMaster(BattleDIContainer container)
+    {
+        if (PhotonNetwork.IsMasterClient == false) return;
 
-            monsterSpawnController.Injection(monsterManagerProxy, container.GetComponent<EnemySpawnNumManager>(), dispatcher);
-            container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
-            container.GetComponent<UnitMaxCountController>().Init(server, game);
-            Multi_SpawnManagers.NormalUnit.Init(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager);
-        }
+        var server = MultiServiceMidiator.Server;
 
+        var monsterSpawnController = container.AddComponent<MonsterSpawnerContorller>();
+        monsterSpawnController.Injection(container.GetComponent<IMonsterManager>(), container.GetComponent<EnemySpawnNumManager>(), dispatcher);
+        container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
+        container.GetComponent<UnitMaxCountController>().Init(server, game);
+        Multi_SpawnManagers.NormalUnit.Init(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager);
+    }
+
+    void InitManagers(BattleDIContainer container)
+    {
         InitSound();
         Init_UI(container);
         game.Init(container.GetComponent<CurrencyManagerMediator>(), container.GetComponent<UnitMaxCountController>(), data.BattleDataContainer);
         StageManager.Instance.Injection(dispatcher);
-        container.GetComponent<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(container));
-        Done(container);
+        // TODO : 유닛 매니저 Init 여기로 옮기기
     }
 
     void Init_UI(BattleDIContainer container)

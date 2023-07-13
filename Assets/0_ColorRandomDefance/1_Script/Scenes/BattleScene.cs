@@ -17,18 +17,28 @@ public class BattleScene : BaseScene
         PhotonNetwork.SerializationRate = 30;
 
         Managers.Data.Init();
-        if(PhotonNetwork.IsMasterClient)
-            GetComponent<PhotonView>().RPC(nameof(InitGame), RpcTarget.All, Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
+        GetComponent<PhotonView>().RPC(nameof(SetEnemyData), RpcTarget.Others, Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+            InitGame();
+        else
+            StartCoroutine(Co_InitGame());
     }
 
     public BattleDIContainer GetBattleContainer() => _battleDIContainer;
 
-    [PunRPC]
-    void InitGame(SkillType mainSkill, SkillType subSkill)
+    EquipSkillData _equipSkillData = null;
+    [PunRPC] void SetEnemyData(SkillType mainSkill, SkillType subSkill) => _equipSkillData = new EquipSkillData(mainSkill, subSkill);
+
+    IEnumerator Co_InitGame()
+    {
+        yield return new WaitUntil(() => _equipSkillData != null);
+        InitGame();
+    }
+    void InitGame()
     {
         MultiServiceMidiator.Instance.Init();
         _battleDIContainer = new BattleDIContainer(gameObject);
-        new WorldInitializer(_battleDIContainer).Init(new EquipSkillData(mainSkill, subSkill));
+        new WorldInitializer(_battleDIContainer).Init(_equipSkillData);
     }
 
     public override void Clear()

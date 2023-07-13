@@ -52,5 +52,7 @@ public class ResourcesPathBuilder
         return $"Weapon/MageSkills/{effectName}";
     }
 
-    public string BuildMagicSpaerPath(UnitColor color) => $"Weapon/MagicSpear/{BuildUnitWeaponName(new UnitFlags(color, UnitClass.Spearman))}";
+    string GetColorText(UnitColor color) => Enum.GetName(typeof(UnitColor), color);
+
+    public string BuildMagicSpaerPath(UnitColor color) => $"Weapon/MagicSpear/{GetColorText(color)}_MagicSpear";
 }

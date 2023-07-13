@@ -37,6 +37,7 @@ public class UserSkillFactory
             case SkillType.조합메테오: return new CombineMeteor(skillType, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>());
             case SkillType.네크로맨서: 
                 return new NecromancerController(skillType, container.GetService<BattleEventDispatcher>(), container.GetComponent<EffectSynchronizer>());
+            case SkillType.마창사: return new MagicSpearman(skillType);
             default: return null;
         }
     }

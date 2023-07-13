@@ -155,7 +155,7 @@ PrefabInstance:
     - target: {fileID: 5133963920233867358, guid: 48eb0baa427242e4fbc98b3b304394f3,
         type: 3}
       propertyPath: m_Name
-      value: Red_Spear 1
+      value: Red_MagicSpear
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 48eb0baa427242e4fbc98b3b304394f3, type: 3}

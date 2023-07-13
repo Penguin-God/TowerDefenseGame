@@ -18,11 +18,9 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
     protected override void OnAwake()
     {
-        shotSpearData = new ProjectileData(new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags), transform, shotSpearData.SpawnTransform);
-
         _spearThower = gameObject.AddComponent<ProjectileThrowingUnit>();
-        _spearThower.SetInfo(new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags), shotSpearData.SpawnTransform);
-
+        _spearThower.SetInfo(_throwSpearData.WeaponPath, shotSpearData.SpawnTransform);
+        
         normalAttackSound = EffectSoundType.SpearmanAttack;
         _useSkillPercent = 30;
         _skillSystem = new UnitRandomSkillSystem();
@@ -53,7 +51,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     }
 
     public override void SpecialAttack() => StartCoroutine(nameof(Spearman_SpecialAttack));
-    IEnumerator Spearman_SpecialAttack()
+    IEnumerator _Spearman_SpecialAttack()
     {
         base.SpecialAttack();
         animator.SetTrigger("isSpecialAttack");
@@ -77,7 +75,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         base.EndSkillAttack(_skillReboundTime);
     }
 
-    IEnumerator _Spearman_SpecialAttack()
+    IEnumerator Spearman_SpecialAttack()
     {
         base.SpecialAttack();
         animator.SetTrigger("isSpecialAttack");

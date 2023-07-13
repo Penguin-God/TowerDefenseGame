@@ -27,6 +27,7 @@ public class ProjectileThrowingUnit : MonoBehaviourPun
     {
         var projectile = Managers.Multi.Instantiater.PhotonInstantiateInactive(weaponPath, PlayerIdManager.InVaildId).GetComponent<Multi_Projectile>();
         projectile.SetHitAction(onHit);
+
         return projectile;
     }
 

@@ -59,9 +59,9 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
         if (unit.UnitClass == UnitClass.Spearman)
         {
             ThrowSpearData spearData;
-            if (true) //_multiEquipSkillData.GetData(unit.UsingID).MainSkill == SkillType.마창사
-                spearData = new ThrowSpearData(pathBuilder.BuildMagicSpaerPath(unit.UnitColor), Vector3.up * 180, 0.1f);
-            else 
+            if (true) // _multiEquipSkillData.GetData(unit.UsingID).MainSkill == SkillType.마창사
+                spearData = new ThrowSpearData(pathBuilder.BuildMagicSpaerPath(unit.UnitColor), Vector3.up * 180, 0.1f, attackRate: 3f);
+            else
                 spearData = new ThrowSpearData(pathBuilder.BuildUnitWeaponPath(unit.UnitFlags), Vector3.right * 90, 1f);
             unit.GetComponent<Multi_Unit_Spearman>().InjectSpearData(spearData);
         }

@@ -299,11 +299,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
 
 
-    protected void NormalAttack(Multi_Enemy target) => Attack(target, GetAttack(), false, OnPassiveHit);
-    protected void SkillAttackWithPassive(Multi_Enemy target) => Attack(target, GetAttack(), true, OnPassiveHit);
-    int GetAttack() => TargetIsNormal ? Damage : BossDamage;
+    protected void NormalAttack(Multi_Enemy target) => Attack(target, CalaulateAttack(), false, OnPassiveHit);
+    protected void SkillAttackWithPassive(Multi_Enemy target) => Attack(target, CalaulateAttack(), true, OnPassiveHit);
+    protected int CalaulateAttack() => TargetIsNormal ? Damage : BossDamage;
 
     protected void SkillAttack(Multi_Enemy target, int attack) => Attack(target, attack, true, null);
+    protected void SkillAttackWithPassive(Multi_Enemy target, int attack) => SkillAttackWithSide(target, attack, OnPassiveHit);
     protected void SkillAttackWithSide(Multi_Enemy target, int attack, Action<Multi_Enemy> sideEffect) => Attack(target, attack, true, sideEffect);
 
     void Attack(Multi_Enemy target, int attack, bool isSkill, Action<Multi_Enemy> sideEffect)

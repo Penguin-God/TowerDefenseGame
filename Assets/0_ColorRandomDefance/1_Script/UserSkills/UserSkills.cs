@@ -37,7 +37,7 @@ public class UserSkillFactory
             case SkillType.조합메테오: return new CombineMeteor(skillType, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>());
             case SkillType.네크로맨서: 
                 return new NecromancerController(skillType, container.GetService<BattleEventDispatcher>(), container.GetComponent<EffectSynchronizer>());
-            case SkillType.마창사: return new MagicSpearman(skillType);
+            case SkillType.마창사: return new MagicSpearman(skillType, Managers.Data);
             default: return null;
         }
     }
@@ -361,9 +361,8 @@ public class SlowTrapSpawner : UserSkill
 
 public class MagicSpearman : UserSkill
 {
-    public MagicSpearman(SkillType skillType) : base(skillType)
-    {
-    }
+    readonly DataManager _dataManager;
+    public MagicSpearman(SkillType skillType, DataManager data) : base(skillType) => _dataManager = data;
 
     public override void InitSkill()
     {

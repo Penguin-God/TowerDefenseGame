@@ -98,7 +98,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     IEnumerator Co_ShotSpear()
     {
         yield return new WaitForSeconds(_throwSpearData.WaitForVisibility);
-        var shotSpear = _spearThower.CreateProjectile(_throwSpearData.WeaponPath, SkillAttackWithPassive);
+        var shotSpear = _spearThower.CreateProjectile(_throwSpearData.WeaponPath, monster => SkillAttackWithPassive(monster, Mathf.RoundToInt(CalaulateAttack() * _throwSpearData.AttackRate)));
         yield return new WaitForSeconds(1 - _throwSpearData.WaitForVisibility);
 
         _spearThower.Throw(shotSpear, transform.forward);

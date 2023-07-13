@@ -59,7 +59,7 @@ public class Multi_Projectile : MonoBehaviourPun
         OnHit = null;
         StopAllCoroutines();
         gameObject.SetActive(false);
-        if (PhotonNetwork.IsMasterClient == false && gameObject.GetComponent<Poolable>() != null)
+        if (PhotonNetwork.IsMasterClient && gameObject.GetComponent<Poolable>() != null)
             Managers.Pool.Push(gameObject.GetComponent<Poolable>());
     }
 

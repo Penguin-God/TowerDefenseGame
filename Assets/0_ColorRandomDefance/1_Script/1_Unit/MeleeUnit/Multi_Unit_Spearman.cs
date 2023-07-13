@@ -98,10 +98,16 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
     IEnumerator Co_ShotSpear()
     {
         yield return new WaitForSeconds(_throwSpearData.WaitForVisibility);
-        var shotSpear = _spearThower.CreateProjectile(_throwSpearData.WeaponPath, monster => SkillAttackWithPassive(monster, Mathf.RoundToInt(CalaulateAttack() * _throwSpearData.AttackRate)));
+        var shotSpear = Managers.Multi.Instantiater.PhotonInstantiate(_throwSpearData.WeaponPath, shotSpearData.SpawnTransform.position).GetComponent<Multi_Projectile>();
+        shotSpear.GetComponent<Collider>().enabled = false;
+        Quaternion lookDir = Quaternion.LookRotation(transform.forward);
+        shotSpear.GetComponent<RPCable>().SetRotation_RPC(lookDir);
         yield return new WaitForSeconds(1 - _throwSpearData.WaitForVisibility);
+        shotSpear.SetHitAction(monster => SkillAttackWithPassive(monster, Mathf.RoundToInt(CalaulateAttack() * _throwSpearData.AttackRate)));
+        shotSpear.GetComponent<Collider>().enabled = true;
 
         _spearThower.Throw(shotSpear, transform.forward);
-        shotSpear.GetComponent<RPCable>().SetRotate_RPC(_throwSpearData.RotateVector);
+        if(Vector3.zero != _throwSpearData.RotateVector)
+            shotSpear.GetComponent<RPCable>().SetRotate_RPC(_throwSpearData.RotateVector);
     }
 }

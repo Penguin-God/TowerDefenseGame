@@ -42,7 +42,8 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     Multi_TeamSoldier RPCSpawn(UnitFlags flag, Vector3 spawnPos, Quaternion rotation, byte id)
     {
         var unit = Managers.Multi.Instantiater.PhotonInstantiate(PathBuilder.BuildUnitPath(flag), spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
-        unit.Injection(flag, Managers.Data.Unit.UnitStatByFlag[flag].GetClone(), MultiServiceMidiator.Server.UnitDamageInfo(id, flag), _multiMonsterManager.GetMultiData(unit.UsingID));
+        InjectUnit(unit, Managers.Data.Unit.UnitStatByFlag[flag].GetClone(), MultiServiceMidiator.Server.UnitDamageInfo(id, flag));
+        // unit.Injection(flag, Managers.Data.Unit.UnitStatByFlag[flag].GetClone(), MultiServiceMidiator.Server.UnitDamageInfo(id, flag), _multiMonsterManager.GetMultiData(unit.UsingID));
         MultiServiceMidiator.Server.AddUnit(unit);
         if (unit.UsingID == PlayerIdManager.MasterId)
             OnSpawn?.Invoke(unit);
@@ -54,13 +55,15 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     void InjectUnit(Multi_TeamSoldier unit, UnitStat stat, UnitDamageInfo damInfo)
     {
         unit.Injection(unit.UnitFlags, stat, damInfo, _multiMonsterManager.GetMultiData(unit.UsingID));
-        ThrowSpearData spearData;
-        if(unit.UnitClass == UnitClass.Spearman)
+        var pathBuilder = new ResourcesPathBuilder();
+        if (unit.UnitClass == UnitClass.Spearman)
         {
-            if(_multiEquipSkillData.GetData(unit.UsingID).MainSkill == SkillType.마창사)
-            {
-
-            }
+            ThrowSpearData spearData;
+            if (_multiEquipSkillData.GetData(unit.UsingID).MainSkill == SkillType.마창사)
+                spearData = new ThrowSpearData(pathBuilder.BuildMagicSpaerPath(unit.UnitColor), Vector3.up * 180, 0.5f);
+            else 
+                spearData = new ThrowSpearData(pathBuilder.BuildUnitWeaponPath(unit.UnitFlags), Vector3.right * 90, 1f);
+            unit.GetComponent<Multi_Unit_Spearman>().InjectSpearData(spearData);
         }
     }
 

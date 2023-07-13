@@ -32,8 +32,9 @@ public class ResourcesPathBuilder
         {UnitClass.Spearman, "Spears" },
         {UnitClass.Mage, "MageBalls" },
     };
-    public string BuildUnitWeaponPath(UnitFlags flag)
-        => $"Weapon/{_unitClassByWeaponFolderName[flag.UnitClass]}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}{ _unitClassByWeaponName[flag.UnitClass]}";
+    public string BuildUnitWeaponPath(UnitFlags flag) => $"Weapon/{_unitClassByWeaponFolderName[flag.UnitClass]}/{BuildUnitWeaponName(flag)}";
+
+    string BuildUnitWeaponName(UnitFlags flag) => $"{Enum.GetName(typeof(UnitColor), flag.UnitColor)}{ _unitClassByWeaponName[flag.UnitClass]}";
 
     public string BuildMageSkillEffectPath(UnitColor unitColor)
     {
@@ -50,4 +51,6 @@ public class ResourcesPathBuilder
         }
         return $"Weapon/MageSkills/{effectName}";
     }
+
+    public string BuildMagicSpaerPath(UnitColor color) => $"Weapon/MagicSpear/{BuildUnitWeaponName(new UnitFlags(color, UnitClass.Spearman))}";
 }

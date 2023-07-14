@@ -40,12 +40,22 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
     protected virtual void SetChaseStatus(ChaseState state) { }
 
     [SerializeField] protected Vector3 chasePosition;
+    bool _chasedTower = false;
     public void MoveUpdate()
     {
         if (_currentTarget == null) return;
 
         UpdateState();
-        chasePosition = (_currentTarget.enemyType == EnemyType.Tower) ? ChaseTower() : GetDestinationPos();
+        if (_currentTarget.enemyType == EnemyType.Tower && _chasedTower == false)
+        {
+            chasePosition = ChaseTower();
+            _chasedTower = true;
+        }
+        else if(_currentTarget.enemyType != EnemyType.Tower)
+        {
+            chasePosition = GetDestinationPos();
+            _chasedTower = false;
+        }
         _nav.SetDestination(chasePosition);
     }
 

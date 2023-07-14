@@ -15,9 +15,22 @@ public class UnitClickController : MonoBehaviour
                 if (unit != null && unit.UsingID == PlayerIdManager.Id && Managers.Data.UnitWindowDataByUnitFlags.ContainsKey(unit.UnitFlags))
                 {
                     Managers.UI.ClosePopupUI();
+                    GetTrakerSroter().SettingUnitTrackers(unit.UnitFlags);
                     Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").Show(unit.UnitFlags);
                 }
             }
+        }
+    }
+
+    UnitTrakerSortByColor _sorter;
+    UnitTrakerSortByColor GetTrakerSroter()
+    {
+        if(_sorter != null) return _sorter;
+        else
+        {
+            var result = Managers.UI.GetSceneUI<BattleButton_UI>().GetComponentInChildren<UnitTrakerSortByColor>(true);
+            _sorter = result;
+            return result;
         }
     }
 }

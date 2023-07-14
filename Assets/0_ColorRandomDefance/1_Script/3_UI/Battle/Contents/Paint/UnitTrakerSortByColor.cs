@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class UnitTrakerSortByColor : UI_UnitTrackerParent
 {
-    protected override void SortTrackers(UnitFlags flag) => SortTrackers(flag.ColorNumber);
+    protected override void SortTrackers(UnitFlags flag) => SortTrackers(flag.UnitColor);
 
-    void SortTrackers(int colorNumber)
+    public void SortTrackers(UnitColor color)
     {
         for (int i = 0; i < transform.childCount; i++)
-            transform.GetChild(i).GetComponent<UI_UnitTracker>().SetInfo(new UnitFlags(colorNumber, i));
+            transform.GetChild(i).GetComponent<UI_UnitTracker>().SetInfo(new UnitFlags((int)color, i));
     }
 }

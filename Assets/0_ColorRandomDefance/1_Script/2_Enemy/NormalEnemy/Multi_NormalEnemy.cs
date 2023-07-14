@@ -94,6 +94,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         ResetColor();
         pointIndex = -1;
         transform.rotation = Quaternion.identity;
+        _slowSystem = null;
     }
 
     // TODO : 상태이상 구현 코드 줄일 방법 찾아보기

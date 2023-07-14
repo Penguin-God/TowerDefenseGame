@@ -43,7 +43,6 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     {
         var unit = Managers.Multi.Instantiater.PhotonInstantiate(PathBuilder.BuildUnitPath(flag), spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
         InjectUnit(unit, flag, Managers.Data.Unit.UnitStatByFlag[flag].GetClone(), MultiServiceMidiator.Server.UnitDamageInfo(id, flag));
-        // unit.Injection(flag, Managers.Data.Unit.UnitStatByFlag[flag].GetClone(), MultiServiceMidiator.Server.UnitDamageInfo(id, flag), _multiMonsterManager.GetMultiData(unit.UsingID));
         MultiServiceMidiator.Server.AddUnit(unit);
         if (unit.UsingID == PlayerIdManager.MasterId)
             OnSpawn?.Invoke(unit);

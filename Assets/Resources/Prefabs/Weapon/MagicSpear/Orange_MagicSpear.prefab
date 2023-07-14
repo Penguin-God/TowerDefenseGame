@@ -115,7 +115,7 @@ PrefabInstance:
     - target: {fileID: 7427250134281713360, guid: 9e7e35703ac4c034fa75f836e5e76093,
         type: 3}
       propertyPath: m_Name
-      value: Orange_Spear 1
+      value: Orange_MagicSpear
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9e7e35703ac4c034fa75f836e5e76093, type: 3}

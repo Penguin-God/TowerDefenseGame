@@ -19,7 +19,10 @@ public class BattleScene : BaseScene
         Managers.Data.Init();
         GetComponent<PhotonView>().RPC(nameof(SetEnemyData), RpcTarget.Others, Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
+        {
+            _equipSkillData = new EquipSkillData(SkillType.None, SkillType.None);
             InitGame();
+        }
         else
             StartCoroutine(Co_InitGame());
     }

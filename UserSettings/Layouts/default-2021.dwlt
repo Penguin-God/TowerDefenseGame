@@ -14,16 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PixelRect:
     serializedVersion: 2
-    x: 0
-    y: 43.2
-    width: 1536
-    height: 780.8
+    x: 275
+    y: 109
+    width: 1553
+    height: 884
   m_ShowMode: 4
-  m_Title: Game
-  m_RootView: {fileID: 9}
+  m_Title: Project
+  m_RootView: {fileID: 11}
   m_MinSize: {x: 875, y: 521}
   m_MaxSize: {x: 10000, y: 10000}
-  m_Maximized: 1
+  m_Maximized: 0
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -41,13 +41,13 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 725.6
-    height: 352.4
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 21}
+    width: 809
+    height: 402
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 22}
   m_Panes:
-  - {fileID: 21}
+  - {fileID: 22}
   m_Selected: 0
   m_LastSelected: 0
 --- !u!114 &3
@@ -64,17 +64,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Children:
   - {fileID: 2}
-  - {fileID: 5}
+  - {fileID: 7}
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 378.4
-    width: 1103.2
-    height: 352.4
+    y: 432
+    width: 1125
+    height: 402
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 55
+  controlID: 147
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -92,14 +92,14 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 725.6
-    height: 378.4
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 20}
+    width: 806
+    height: 432
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 21}
   m_Panes:
-  - {fileID: 20}
-  - {fileID: 16}
+  - {fileID: 21}
+  - {fileID: 17}
   m_Selected: 0
   m_LastSelected: 1
 --- !u!114 &5
@@ -117,20 +117,69 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 725.6
-    y: 0
-    width: 377.59998
-    height: 352.4
-  m_MinSize: {x: 102, y: 121}
-  m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 22}
+    x: 0
+    y: 417
+    width: 428
+    height: 417
+  m_MinSize: {x: 100, y: 100}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 23}
   m_Panes:
-  - {fileID: 17}
-  - {fileID: 22}
-  - {fileID: 14}
-  m_Selected: 1
+  - {fileID: 23}
+  m_Selected: 0
   m_LastSelected: 0
 --- !u!114 &6
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12010, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Children:
+  - {fileID: 10}
+  - {fileID: 5}
+  m_Position:
+    serializedVersion: 2
+    x: 1125
+    y: 0
+    width: 428
+    height: 834
+  m_MinSize: {x: 100, y: 200}
+  m_MaxSize: {x: 8096, y: 16192}
+  vertical: 1
+  controlID: 44
+--- !u!114 &7
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 12006, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: ProjectBrowser
+  m_EditorClassIdentifier: 
+  m_Children: []
+  m_Position:
+    serializedVersion: 2
+    x: 809
+    y: 0
+    width: 316
+    height: 402
+  m_MinSize: {x: 232, y: 271}
+  m_MaxSize: {x: 10002, y: 10021}
+  m_ActualView: {fileID: 18}
+  m_Panes:
+  - {fileID: 18}
+  m_Selected: 0
+  m_LastSelected: 0
+--- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,18 +194,18 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 725.6
+    x: 806
     y: 0
-    width: 377.59998
-    height: 378.4
-  m_MinSize: {x: 202, y: 221}
-  m_MaxSize: {x: 4002, y: 4021}
-  m_ActualView: {fileID: 19}
+    width: 319
+    height: 432
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 20}
   m_Panes:
-  - {fileID: 19}
+  - {fileID: 20}
   m_Selected: 0
   m_LastSelected: 0
---- !u!114 &7
+--- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -169,19 +218,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 12}
-  - {fileID: 8}
+  - {fileID: 14}
+  - {fileID: 6}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 30
-    width: 1536
-    height: 730.8
+    width: 1553
+    height: 834
   m_MinSize: {x: 300, y: 200}
   m_MaxSize: {x: 24288, y: 16192}
   vertical: 0
-  controlID: 53
---- !u!114 &8
+  controlID: 43
+--- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -196,19 +245,19 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 1103.2
+    x: 0
     y: 0
-    width: 432.80005
-    height: 730.8
-  m_MinSize: {x: 276, y: 71}
-  m_MaxSize: {x: 4001, y: 4021}
-  m_ActualView: {fileID: 18}
+    width: 428
+    height: 417
+  m_MinSize: {x: 275, y: 50}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_ActualView: {fileID: 19}
   m_Panes:
-  - {fileID: 18}
-  - {fileID: 15}
+  - {fileID: 19}
+  - {fileID: 16}
   m_Selected: 0
   m_LastSelected: 1
---- !u!114 &9
+--- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -221,22 +270,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 10}
-  - {fileID: 7}
-  - {fileID: 11}
+  - {fileID: 12}
+  - {fileID: 9}
+  - {fileID: 13}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1536
-    height: 780.8
+    width: 1553
+    height: 884
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
   m_UseTopView: 1
   m_TopViewHeight: 30
   m_UseBottomView: 1
   m_BottomViewHeight: 20
---- !u!114 &10
+--- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -253,12 +302,12 @@ MonoBehaviour:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1536
+    width: 1553
     height: 30
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
   m_LastLoadedLayoutName: 
---- !u!114 &11
+--- !u!114 &13
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -274,12 +323,12 @@ MonoBehaviour:
   m_Position:
     serializedVersion: 2
     x: 0
-    y: 760.8
-    width: 1536
+    y: 864
+    width: 1553
     height: 20
   m_MinSize: {x: 0, y: 0}
   m_MaxSize: {x: 0, y: 0}
---- !u!114 &12
+--- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -292,19 +341,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Children:
-  - {fileID: 13}
+  - {fileID: 15}
   - {fileID: 3}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1103.2
-    height: 730.8
+    width: 1125
+    height: 834
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 54
---- !u!114 &13
+  controlID: 17
+--- !u!114 &15
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -318,1382 +367,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Children:
   - {fileID: 4}
-  - {fileID: 6}
+  - {fileID: 8}
   m_Position:
     serializedVersion: 2
     x: 0
     y: 0
-    width: 1103.2
-    height: 378.4
+    width: 1125
+    height: 432
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 42
---- !u!114 &14
-MonoBehaviour:
-  m_ObjectHideFlags: 52
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 13401, guid: 0000000000000000e000000000000000, type: 0}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
-  m_TitleContent:
-    m_Text: Test Runner
-    m_Image: {fileID: 0}
-    m_Tooltip: 
-  m_Pos:
-    serializedVersion: 2
-    x: 725.60004
-    y: 452
-    width: 375.59998
-    height: 331.4
-  m_ViewDataDictionary: {fileID: 0}
-  m_OverlayCanvas:
-    m_LastAppliedPresetName: Default
-    m_SaveData: []
-  m_Spl:
-    ID: 285
-    splitterInitialOffset: 0
-    currentActiveSplitter: -1
-    realSizes:
-    - 195.2
-    - 65.59999
-    relativeSizes:
-    - 0.75
-    - 0.25
-    minSizes:
-    - 32
-    - 32
-    maxSizes:
-    - 0
-    - 0
-    lastTotalSize: 260.8
-    splitSize: 6
-    xOffset: 0
-    m_Version: 1
-    oldRealSizes: 
-    oldMinSizes: 
-    oldMaxSizes: 
-    oldSplitSize: 0
-  m_TestTypeToolbarIndex: 1
-  m_PlayModeTestListGUI:
-    m_Window: {fileID: 0}
-    m_NewResultList: []
-    m_ResultText: 
-    m_ResultStacktrace: 
-    m_TestListState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 
-      m_LastClickedID: 0
-      m_ExpandedIDs: 
-      m_RenameOverlay:
-        m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
-        m_EditFieldRect:
-          serializedVersion: 2
-          x: 0
-          y: 0
-          width: 0
-          height: 0
-        m_UserData: 0
-        m_IsWaitingForDelay: 0
-        m_IsRenaming: 0
-        m_OriginalEventType: 11
-        m_IsRenamingFilename: 0
-        m_ClientGUIView: {fileID: 0}
-      m_SearchString: 
-    m_TestRunnerUIFilter:
-      PassedHidden: 0
-      FailedHidden: 0
-      NotRunHidden: 0
-      m_SearchString: 
-      selectedCategoryMask: 0
-      availableCategories: []
-    m_SelectedOption: 0
-  m_EditModeTestListGUI:
-    m_Window: {fileID: 14}
-    m_NewResultList:
-    - id: 1000
-      uniqueId: "[\uCEEC\uB7EC\uB79C\uB364\uB514\uD39C\uC2A4][suite]"
-      name: "\uCEEC\uB7EC\uB79C\uB364\uB514\uD39C\uC2A4"
-      fullName: "\uCEEC\uB7EC\uB79C\uB364\uB514\uD39C\uC2A4"
-      resultStatus: 1
-      duration: 1.4491045
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 
-      parentUniqueId: 
-    - id: 1069
-      uniqueId: '[EditModeTests.dll][suite]'
-      name: EditModeTests.dll
-      fullName: C:/Users/parkj/Desktop/uniyt project/1.ColorRandomDefense/Library/ScriptAssemblies/EditModeTests.dll
-      resultStatus: 1
-      duration: 1.340938
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1000
-      parentUniqueId: "[\uCEEC\uB7EC\uB79C\uB364\uB514\uD39C\uC2A4][suite]"
-    - id: 1073
-      uniqueId: EditModeTests.dll/[EditModeTests][Tests][suite]
-      name: Tests
-      fullName: Tests
-      resultStatus: 1
-      duration: 1.1428852
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1069
-      parentUniqueId: '[EditModeTests.dll][suite]'
-    - id: 1019
-      uniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.ContainerTests][suite]
-      name: ContainerTests
-      fullName: Tests.ContainerTests
-      resultStatus: 1
-      duration: 0.0917529
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1073
-      parentUniqueId: EditModeTests.dll/[EditModeTests][Tests][suite]
-    - id: 1021
-      uniqueId: "EditModeTests.dll/Tests/ContainerTests/[EditModeTests][Tests.ContainerTests.\uB9E4\uAC1C\uBCC0\uC218_\uC5C6\uB294_\uC0DD\uC131\uC790\uB294_\uC790\uB3D9_\uC0DD\uC131_\uB418\uC57C_\uD568]"
-      name: "\uB9E4\uAC1C\uBCC0\uC218_\uC5C6\uB294_\uC0DD\uC131\uC790\uB294_\uC790\uB3D9_\uC0DD\uC131_\uB418\uC57C_\uD568"
-      fullName: "Tests.ContainerTests.\uB9E4\uAC1C\uBCC0\uC218_\uC5C6\uB294_\uC0DD\uC131\uC790\uB294_\uC790\uB3D9_\uC0DD\uC131_\uB418\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.0457357
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1019
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.ContainerTests][suite]
-    - id: 1020
-      uniqueId: "EditModeTests.dll/Tests/ContainerTests/[EditModeTests][Tests.ContainerTests.\uCEE8\uD14C\uC774\uB108\uC5D0_\uB123\uC740\uAC74_\uCC3E\uC744_\uC218_\uC788\uC5B4\uC57C\uD558\uACE0_\uC5C6\uB294\uAC74_\uC608\uC678_\uB358\uC838\uC57C_\uD568]"
-      name: "\uCEE8\uD14C\uC774\uB108\uC5D0_\uB123\uC740\uAC74_\uCC3E\uC744_\uC218_\uC788\uC5B4\uC57C\uD558\uACE0_\uC5C6\uB294\uAC74_\uC608\uC678_\uB358\uC838\uC57C_\uD568"
-      fullName: "Tests.ContainerTests.\uCEE8\uD14C\uC774\uB108\uC5D0_\uB123\uC740\uAC74_\uCC3E\uC744_\uC218_\uC788\uC5B4\uC57C\uD558\uACE0_\uC5C6\uB294\uAC74_\uC608\uC678_\uB358\uC838\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.0074854
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1019
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.ContainerTests][suite]
-    - id: 1022
-      uniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.DamageInfoManagerTests][suite]
-      name: DamageInfoManagerTests
-      fullName: Tests.DamageInfoManagerTests
-      resultStatus: 1
-      duration: 0.0760423
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1073
-      parentUniqueId: EditModeTests.dll/[EditModeTests][Tests][suite]
-    - id: 1025
-      uniqueId: EditModeTests.dll/Tests/DamageInfoManagerTests/[EditModeTests][Tests.DamageInfoManagerTests.AddBaseBossDamage]
-      name: AddBaseBossDamage
-      fullName: Tests.DamageInfoManagerTests.AddBaseBossDamage
-      resultStatus: 1
-      duration: 0.009669
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1022
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.DamageInfoManagerTests][suite]
-    - id: 1024
-      uniqueId: EditModeTests.dll/Tests/DamageInfoManagerTests/[EditModeTests][Tests.DamageInfoManagerTests.AddBaseDamage]
-      name: AddBaseDamage
-      fullName: Tests.DamageInfoManagerTests.AddBaseDamage
-      resultStatus: 1
-      duration: 0.0013403
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1022
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.DamageInfoManagerTests][suite]
-    - id: 1027
-      uniqueId: EditModeTests.dll/Tests/DamageInfoManagerTests/[EditModeTests][Tests.DamageInfoManagerTests.AddBossDamageRate]
-      name: AddBossDamageRate
-      fullName: Tests.DamageInfoManagerTests.AddBossDamageRate
-      resultStatus: 1
-      duration: 0.0012002
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1022
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.DamageInfoManagerTests][suite]
-    - id: 1026
-      uniqueId: EditModeTests.dll/Tests/DamageInfoManagerTests/[EditModeTests][Tests.DamageInfoManagerTests.AddDamageRate]
-      name: AddDamageRate
-      fullName: Tests.DamageInfoManagerTests.AddDamageRate
-      resultStatus: 1
-      duration: 0.0012431
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1022
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.DamageInfoManagerTests][suite]
-    - id: 1023
-      uniqueId: EditModeTests.dll/Tests/DamageInfoManagerTests/[EditModeTests][Tests.DamageInfoManagerTests.CreateStatManager]
-      name: CreateStatManager
-      fullName: Tests.DamageInfoManagerTests.CreateStatManager
-      resultStatus: 1
-      duration: 0.0018238
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1022
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.DamageInfoManagerTests][suite]
-    - id: 1028
-      uniqueId: "EditModeTests.dll/Tests/DamageInfoManagerTests/[EditModeTests][Tests.DamageInfoManagerTests.\uD37C\uC13C\uD2B8\uB791_\uAE61\uACF5_\uB458_\uB2E4_\uC99D\uAC00]"
-      name: "\uD37C\uC13C\uD2B8\uB791_\uAE61\uACF5_\uB458_\uB2E4_\uC99D\uAC00"
-      fullName: "Tests.DamageInfoManagerTests.\uD37C\uC13C\uD2B8\uB791_\uAE61\uACF5_\uB458_\uB2E4_\uC99D\uAC00"
-      resultStatus: 1
-      duration: 0.0011719
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1022
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.DamageInfoManagerTests][suite]
-    - id: 1029
-      uniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.MultiDataTests][suite]
-      name: MultiDataTests
-      fullName: Tests.MultiDataTests
-      resultStatus: 1
-      duration: 0.0337168
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1073
-      parentUniqueId: EditModeTests.dll/[EditModeTests][Tests][suite]
-    - id: 1031
-      uniqueId: "EditModeTests.dll/Tests/MultiDataTests/[EditModeTests][Tests.MultiDataTests.ID\uC5D0_\uC54C\uB9DE\uC740_\uC11C\uBE44\uC2A4\uB97C_\uC81C\uACF5\uD574\uC57C_\uD568]"
-      name: "ID\uC5D0_\uC54C\uB9DE\uC740_\uC11C\uBE44\uC2A4\uB97C_\uC81C\uACF5\uD574\uC57C_\uD568"
-      fullName: "Tests.MultiDataTests.ID\uC5D0_\uC54C\uB9DE\uC740_\uC11C\uBE44\uC2A4\uB97C_\uC81C\uACF5\uD574\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.0033094
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1029
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.MultiDataTests][suite]
-    - id: 1030
-      uniqueId: "EditModeTests.dll/Tests/MultiDataTests/[EditModeTests][Tests.MultiDataTests.\uC11C\uB85C_\uB2E4\uB978_\uAC1D\uCCB4\uB97C_\uC0DD\uC131\uD574\uC57C_\uD568]"
-      name: "\uC11C\uB85C_\uB2E4\uB978_\uAC1D\uCCB4\uB97C_\uC0DD\uC131\uD574\uC57C_\uD568"
-      fullName: "Tests.MultiDataTests.\uC11C\uB85C_\uB2E4\uB978_\uAC1D\uCCB4\uB97C_\uC0DD\uC131\uD574\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.0017136
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1029
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.MultiDataTests][suite]
-    - id: 1032
-      uniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.PresenterTests][suite]
-      name: PresenterTests
-      fullName: Tests.PresenterTests
-      resultStatus: 1
-      duration: 0.0727098
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1073
-      parentUniqueId: EditModeTests.dll/[EditModeTests][Tests][suite]
-    - id: 1037
-      uniqueId: "EditModeTests.dll/Tests/PresenterTests/[EditModeTests][Tests.PresenterTests.\uACE0\uAE30_\uD14D\uC2A4\uD2B8_\uC0DD\uC131]"
-      name: "\uACE0\uAE30_\uD14D\uC2A4\uD2B8_\uC0DD\uC131"
-      fullName: "Tests.PresenterTests.\uACE0\uAE30_\uD14D\uC2A4\uD2B8_\uC0DD\uC131"
-      resultStatus: 1
-      duration: 0.0014476
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1032
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.PresenterTests][suite]
-    - id: 1036
-      uniqueId: "EditModeTests.dll/Tests/PresenterTests/[EditModeTests][Tests.PresenterTests.\uACE8\uB4DC_\uD14D\uC2A4\uD2B8_\uC0DD\uC131]"
-      name: "\uACE8\uB4DC_\uD14D\uC2A4\uD2B8_\uC0DD\uC131"
-      fullName: "Tests.PresenterTests.\uACE8\uB4DC_\uD14D\uC2A4\uD2B8_\uC0DD\uC131"
-      resultStatus: 1
-      duration: 0.0008255
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1032
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.PresenterTests][suite]
-    - id: 1039
-      uniqueId: "EditModeTests.dll/Tests/PresenterTests/[EditModeTests][Tests.PresenterTests.\uC0C1\uB300_\uC0C9\uAE54_\uBCC0\uACBD_\uC2DC_\uB098\uC624\uB294_\uD14D\uC2A4\uD2B8_\uC0DD\uC131]"
-      name: "\uC0C1\uB300_\uC0C9\uAE54_\uBCC0\uACBD_\uC2DC_\uB098\uC624\uB294_\uD14D\uC2A4\uD2B8_\uC0DD\uC131"
-      fullName: "Tests.PresenterTests.\uC0C1\uB300_\uC0C9\uAE54_\uBCC0\uACBD_\uC2DC_\uB098\uC624\uB294_\uD14D\uC2A4\uD2B8_\uC0DD\uC131"
-      resultStatus: 1
-      duration: 0.0088238
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1032
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.PresenterTests][suite]
-    - id: 1035
-      uniqueId: "EditModeTests.dll/Tests/PresenterTests/[EditModeTests][Tests.PresenterTests.\uC7AC\uD654_\uC885\uB958\uC5D0_\uB530\uB77C_\uD14D\uC2A4\uD2B8_\uC0DD\uC131][suite]"
-      name: "\uC7AC\uD654_\uC885\uB958\uC5D0_\uB530\uB77C_\uD14D\uC2A4\uD2B8_\uC0DD\uC131"
-      fullName: "Tests.PresenterTests.\uC7AC\uD654_\uC885\uB958\uC5D0_\uB530\uB77C_\uD14D\uC2A4\uD2B8_\uC0DD\uC131"
-      resultStatus: 1
-      duration: 0.033743
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1032
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.PresenterTests][suite]
-    - id: 1033
-      uniqueId: "EditModeTests.dll/Tests/PresenterTests/\uC7AC\uD654_\uC885\uB958\uC5D0_\uB530\uB77C_\uD14D\uC2A4\uD2B8_\uC0DD\uC131/[EditModeTests][Tests.PresenterTests.\uC7AC\uD654_\uC885\uB958\uC5D0_\uB530\uB77C_\uD14D\uC2A4\uD2B8_\uC0DD\uC131(Gold,\"\uACE8\uB4DC
-        10\uC6D0\")]"
-      name: "\uC7AC\uD654_\uC885\uB958\uC5D0_\uB530\uB77C_\uD14D\uC2A4\uD2B8_\uC0DD\uC131(Gold,\"\uACE8\uB4DC
-        10\uC6D0\")"
-      fullName: "Tests.PresenterTests.\uC7AC\uD654_\uC885\uB958\uC5D0_\uB530\uB77C_\uD14D\uC2A4\uD2B8_\uC0DD\uC131(Gold,\"\uACE8\uB4DC
-        10\uC6D0\")"
-      resultStatus: 1
-      duration: 0.0011419
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1035
-      parentUniqueId: "EditModeTests.dll/Tests/PresenterTests/[EditModeTests][Tests.PresenterTests.\uC7AC\uD654_\uC885\uB958\uC5D0_\uB530\uB77C_\uD14D\uC2A4\uD2B8_\uC0DD\uC131][suite]"
-    - id: 1034
-      uniqueId: "EditModeTests.dll/Tests/PresenterTests/\uC7AC\uD654_\uC885\uB958\uC5D0_\uB530\uB77C_\uD14D\uC2A4\uD2B8_\uC0DD\uC131/[EditModeTests][Tests.PresenterTests.\uC7AC\uD654_\uC885\uB958\uC5D0_\uB530\uB77C_\uD14D\uC2A4\uD2B8_\uC0DD\uC131(Food,\"\uACE0\uAE30
-        10\uAC1C\")]"
-      name: "\uC7AC\uD654_\uC885\uB958\uC5D0_\uB530\uB77C_\uD14D\uC2A4\uD2B8_\uC0DD\uC131(Food,\"\uACE0\uAE30
-        10\uAC1C\")"
-      fullName: "Tests.PresenterTests.\uC7AC\uD654_\uC885\uB958\uC5D0_\uB530\uB77C_\uD14D\uC2A4\uD2B8_\uC0DD\uC131(Food,\"\uACE0\uAE30
-        10\uAC1C\")"
-      resultStatus: 1
-      duration: 0.0003594
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1035
-      parentUniqueId: "EditModeTests.dll/Tests/PresenterTests/[EditModeTests][Tests.PresenterTests.\uC7AC\uD654_\uC885\uB958\uC5D0_\uB530\uB77C_\uD14D\uC2A4\uD2B8_\uC0DD\uC131][suite]"
-    - id: 1038
-      uniqueId: "EditModeTests.dll/Tests/PresenterTests/[EditModeTests][Tests.PresenterTests.\uD558\uC580_\uC720\uB2DB_\uBCC0\uACBD_\uC2DC_\uB098\uC624\uB294_\uD14D\uC2A4\uD2B8_\uC0DD\uC131]"
-      name: "\uD558\uC580_\uC720\uB2DB_\uBCC0\uACBD_\uC2DC_\uB098\uC624\uB294_\uD14D\uC2A4\uD2B8_\uC0DD\uC131"
-      fullName: "Tests.PresenterTests.\uD558\uC580_\uC720\uB2DB_\uBCC0\uACBD_\uC2DC_\uB098\uC624\uB294_\uD14D\uC2A4\uD2B8_\uC0DD\uC131"
-      resultStatus: 1
-      duration: 0.0008154
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1032
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.PresenterTests][suite]
-    - id: 1040
-      uniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.ResourcesPathBuilderTests][suite]
-      name: ResourcesPathBuilderTests
-      fullName: Tests.ResourcesPathBuilderTests
-      resultStatus: 1
-      duration: 0.4834872
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1073
-      parentUniqueId: EditModeTests.dll/[EditModeTests][Tests][suite]
-    - id: 1043
-      uniqueId: EditModeTests.dll/Tests/ResourcesPathBuilderTests/[EditModeTests][Tests.ResourcesPathBuilderTests.BuildBossMonstersPath]
-      name: BuildBossMonstersPath
-      fullName: Tests.ResourcesPathBuilderTests.BuildBossMonstersPath
-      resultStatus: 1
-      duration: 0.0469436
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1040
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.ResourcesPathBuilderTests][suite]
-    - id: 1046
-      uniqueId: EditModeTests.dll/Tests/ResourcesPathBuilderTests/[EditModeTests][Tests.ResourcesPathBuilderTests.BuildMageSkillEffetPath]
-      name: BuildMageSkillEffetPath
-      fullName: Tests.ResourcesPathBuilderTests.BuildMageSkillEffetPath
-      resultStatus: 1
-      duration: 0.0845375
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1040
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.ResourcesPathBuilderTests][suite]
-    - id: 1042
-      uniqueId: EditModeTests.dll/Tests/ResourcesPathBuilderTests/[EditModeTests][Tests.ResourcesPathBuilderTests.BuildNormalMonstersPath]
-      name: BuildNormalMonstersPath
-      fullName: Tests.ResourcesPathBuilderTests.BuildNormalMonstersPath
-      resultStatus: 1
-      duration: 0.0277545
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1040
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.ResourcesPathBuilderTests][suite]
-    - id: 1045
-      uniqueId: EditModeTests.dll/Tests/ResourcesPathBuilderTests/[EditModeTests][Tests.ResourcesPathBuilderTests.BuildProjectilePath]
-      name: BuildProjectilePath
-      fullName: Tests.ResourcesPathBuilderTests.BuildProjectilePath
-      resultStatus: 1
-      duration: 0.1194911
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1040
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.ResourcesPathBuilderTests][suite]
-    - id: 1044
-      uniqueId: EditModeTests.dll/Tests/ResourcesPathBuilderTests/[EditModeTests][Tests.ResourcesPathBuilderTests.BuildTowersPath]
-      name: BuildTowersPath
-      fullName: Tests.ResourcesPathBuilderTests.BuildTowersPath
-      resultStatus: 1
-      duration: 0.1666901
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1040
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.ResourcesPathBuilderTests][suite]
-    - id: 1041
-      uniqueId: EditModeTests.dll/Tests/ResourcesPathBuilderTests/[EditModeTests][Tests.ResourcesPathBuilderTests.BuildUnitPath]
-      name: BuildUnitPath
-      fullName: Tests.ResourcesPathBuilderTests.BuildUnitPath
-      resultStatus: 1
-      duration: 0.0025235
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1040
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.ResourcesPathBuilderTests][suite]
-    - id: 1047
-      uniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.SpawnPositionCalculatorTests][suite]
-      name: SpawnPositionCalculatorTests
-      fullName: Tests.SpawnPositionCalculatorTests
-      resultStatus: 1
-      duration: 0.0327119
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1073
-      parentUniqueId: EditModeTests.dll/[EditModeTests][Tests][suite]
-    - id: 1048
-      uniqueId: "EditModeTests.dll/Tests/SpawnPositionCalculatorTests/[EditModeTests][Tests.SpawnPositionCalculatorTests.\uC6D4\uB4DC_\uC704\uCE58\uB294_\uC9C0\uC815\uD55C_\uBC94\uC704_\uC774\uB0B4\uC5D0_\uC704\uCE58\uB97C_\uBC18\uD55C\uD574\uC57C_\uD568]"
-      name: "\uC6D4\uB4DC_\uC704\uCE58\uB294_\uC9C0\uC815\uD55C_\uBC94\uC704_\uC774\uB0B4\uC5D0_\uC704\uCE58\uB97C_\uBC18\uD55C\uD574\uC57C_\uD568"
-      fullName: "Tests.SpawnPositionCalculatorTests.\uC6D4\uB4DC_\uC704\uCE58\uB294_\uC9C0\uC815\uD55C_\uBC94\uC704_\uC774\uB0B4\uC5D0_\uC704\uCE58\uB97C_\uBC18\uD55C\uD574\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.0054911
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1047
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.SpawnPositionCalculatorTests][suite]
-    - id: 1049
-      uniqueId: "EditModeTests.dll/Tests/SpawnPositionCalculatorTests/[EditModeTests][Tests.SpawnPositionCalculatorTests.\uC801\uAD70\uC758_\uC131_\uC704\uCE58\uB294_OffSet\uC774_\uC801\uC6A9\uB41C_\uC0C1\uD0DC\uC5D0\uC11C_\uC9C0\uC815\uD55C_\uBC94\uC704_\uB0B4\uC5D0_\uC704\uCE58\uB97C_\uBC18\uD658\uD574\uC57C_\uD568]"
-      name: "\uC801\uAD70\uC758_\uC131_\uC704\uCE58\uB294_OffSet\uC774_\uC801\uC6A9\uB41C_\uC0C1\uD0DC\uC5D0\uC11C_\uC9C0\uC815\uD55C_\uBC94\uC704_\uB0B4\uC5D0_\uC704\uCE58\uB97C_\uBC18\uD658\uD574\uC57C_\uD568"
-      fullName: "Tests.SpawnPositionCalculatorTests.\uC801\uAD70\uC758_\uC131_\uC704\uCE58\uB294_OffSet\uC774_\uC801\uC6A9\uB41C_\uC0C1\uD0DC\uC5D0\uC11C_\uC9C0\uC815\uD55C_\uBC94\uC704_\uB0B4\uC5D0_\uC704\uCE58\uB97C_\uBC18\uD658\uD574\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.0009576
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1047
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.SpawnPositionCalculatorTests][suite]
-    - id: 1050
-      uniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.TextValueSystemTests][suite]
-      name: TextValueSystemTests
-      fullName: Tests.TextValueSystemTests
-      resultStatus: 1
-      duration: 0.0390324
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1073
-      parentUniqueId: EditModeTests.dll/[EditModeTests][Tests][suite]
-    - id: 1053
-      uniqueId: "EditModeTests.dll/Tests/TextValueSystemTests/[EditModeTests][Tests.TextValueSystemTests.\uBAA8\uB4E0_\uD0A4\uB97C_\uC0DD\uC131\uD574\uC57C_\uD568]"
-      name: "\uBAA8\uB4E0_\uD0A4\uB97C_\uC0DD\uC131\uD574\uC57C_\uD568"
-      fullName: "Tests.TextValueSystemTests.\uBAA8\uB4E0_\uD0A4\uB97C_\uC0DD\uC131\uD574\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.0117513
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1050
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.TextValueSystemTests][suite]
-    - id: 1051
-      uniqueId: "EditModeTests.dll/Tests/TextValueSystemTests/[EditModeTests][Tests.TextValueSystemTests.\uC720\uB2DB_\uD50C\uB798\uADF8\uC5D0_\uB530\uB978_\uB370\uBBF8\uC9C0_\uD0A4\uB97C_\uC0DD\uC131\uD574\uC57C_\uD568]"
-      name: "\uC720\uB2DB_\uD50C\uB798\uADF8\uC5D0_\uB530\uB978_\uB370\uBBF8\uC9C0_\uD0A4\uB97C_\uC0DD\uC131\uD574\uC57C_\uD568"
-      fullName: "Tests.TextValueSystemTests.\uC720\uB2DB_\uD50C\uB798\uADF8\uC5D0_\uB530\uB978_\uB370\uBBF8\uC9C0_\uD0A4\uB97C_\uC0DD\uC131\uD574\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.0006206
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1050
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.TextValueSystemTests][suite]
-    - id: 1052
-      uniqueId: "EditModeTests.dll/Tests/TextValueSystemTests/[EditModeTests][Tests.TextValueSystemTests.\uD328\uC2DC\uBE0C\uB294_\uAC1C\uC218\uB9CC\uD07C\uC758_\uD0A4\uB97C_\uC0DD\uC131\uD574\uC57C_\uD568]"
-      name: "\uD328\uC2DC\uBE0C\uB294_\uAC1C\uC218\uB9CC\uD07C\uC758_\uD0A4\uB97C_\uC0DD\uC131\uD574\uC57C_\uD568"
-      fullName: "Tests.TextValueSystemTests.\uD328\uC2DC\uBE0C\uB294_\uAC1C\uC218\uB9CC\uD07C\uC758_\uD0A4\uB97C_\uC0DD\uC131\uD574\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.0013663
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1050
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.TextValueSystemTests][suite]
-    - id: 1054
-      uniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.UnitCombineTests][suite]
-      name: UnitCombineTests
-      fullName: Tests.UnitCombineTests
-      resultStatus: 1
-      duration: 0.058171
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1073
-      parentUniqueId: EditModeTests.dll/[EditModeTests][Tests][suite]
-    - id: 1056
-      uniqueId: EditModeTests.dll/Tests/UnitCombineTests/[EditModeTests][Tests.UnitCombineTests.CombineResultFalse]
-      name: CombineResultFalse
-      fullName: Tests.UnitCombineTests.CombineResultFalse
-      resultStatus: 1
-      duration: 0.0196332
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1054
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.UnitCombineTests][suite]
-    - id: 1055
-      uniqueId: EditModeTests.dll/Tests/UnitCombineTests/[EditModeTests][Tests.UnitCombineTests.CombineResultTrue]
-      name: CombineResultTrue
-      fullName: Tests.UnitCombineTests.CombineResultTrue
-      resultStatus: 1
-      duration: 0.0007949
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1054
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.UnitCombineTests][suite]
-    - id: 1058
-      uniqueId: "EditModeTests.dll/Tests/UnitCombineTests/[EditModeTests][Tests.UnitCombineTests.\uBCF4\uB77C_\uAE30\uC0AC\uB97C_\uB9CC\uB4E4\uAE30_\uC704\uD574\uC11C\uB294_\uBE68\uAC04_\uAE30\uC0AC\uC640_\uD30C\uB780_\uAE30\uC0AC\uAC00_\uD544\uC694\uD568]"
-      name: "\uBCF4\uB77C_\uAE30\uC0AC\uB97C_\uB9CC\uB4E4\uAE30_\uC704\uD574\uC11C\uB294_\uBE68\uAC04_\uAE30\uC0AC\uC640_\uD30C\uB780_\uAE30\uC0AC\uAC00_\uD544\uC694\uD568"
-      fullName: "Tests.UnitCombineTests.\uBCF4\uB77C_\uAE30\uC0AC\uB97C_\uB9CC\uB4E4\uAE30_\uC704\uD574\uC11C\uB294_\uBE68\uAC04_\uAE30\uC0AC\uC640_\uD30C\uB780_\uAE30\uC0AC\uAC00_\uD544\uC694\uD568"
-      resultStatus: 1
-      duration: 0.0074229
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1054
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.UnitCombineTests][suite]
-    - id: 1057
-      uniqueId: "EditModeTests.dll/Tests/UnitCombineTests/[EditModeTests][Tests.UnitCombineTests.\uC870\uD569\uD560_\uC218_\uC788\uB294_\uC720\uB2DB\uC740_2\uAC1C]"
-      name: "\uC870\uD569\uD560_\uC218_\uC788\uB294_\uC720\uB2DB\uC740_2\uAC1C"
-      fullName: "Tests.UnitCombineTests.\uC870\uD569\uD560_\uC218_\uC788\uB294_\uC720\uB2DB\uC740_2\uAC1C"
-      resultStatus: 1
-      duration: 0.0030196
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1054
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.UnitCombineTests][suite]
-    - id: 1059
-      uniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.UnitUpgradeShopTests][suite]
-      name: UnitUpgradeShopTests
-      fullName: Tests.UnitUpgradeShopTests
-      resultStatus: 1
-      duration: 0.1970923
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1073
-      parentUniqueId: EditModeTests.dll/[EditModeTests][Tests][suite]
-    - id: 1061
-      uniqueId: "EditModeTests.dll/Tests/UnitUpgradeShopTests/[EditModeTests][Tests.UnitUpgradeShopTests.\uC0C1\uD488\uC774_\uB79C\uB364\uD558\uAC8C_\uACE0\uB8E8_\uBF51\uD788\uB294\uC9C0_\uD655\uC778]"
-      name: "\uC0C1\uD488\uC774_\uB79C\uB364\uD558\uAC8C_\uACE0\uB8E8_\uBF51\uD788\uB294\uC9C0_\uD655\uC778"
-      fullName: "Tests.UnitUpgradeShopTests.\uC0C1\uD488\uC774_\uB79C\uB364\uD558\uAC8C_\uACE0\uB8E8_\uBF51\uD788\uB294\uC9C0_\uD655\uC778"
-      resultStatus: 1
-      duration: 0.0844217
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1059
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.UnitUpgradeShopTests][suite]
-    - id: 1060
-      uniqueId: "EditModeTests.dll/Tests/UnitUpgradeShopTests/[EditModeTests][Tests.UnitUpgradeShopTests.\uC720\uB2DB_\uC5C5\uADF8\uB808\uC774\uB4DC_\uC0C1\uC810\uC740_\uC11C\uB85C_\uB2E4\uB978_3\uAC1C\uC758_\uC0C1\uD488\uC744_\uC81C\uACF5\uD568]"
-      name: "\uC720\uB2DB_\uC5C5\uADF8\uB808\uC774\uB4DC_\uC0C1\uC810\uC740_\uC11C\uB85C_\uB2E4\uB978_3\uAC1C\uC758_\uC0C1\uD488\uC744_\uC81C\uACF5\uD568"
-      fullName: "Tests.UnitUpgradeShopTests.\uC720\uB2DB_\uC5C5\uADF8\uB808\uC774\uB4DC_\uC0C1\uC810\uC740_\uC11C\uB85C_\uB2E4\uB978_3\uAC1C\uC758_\uC0C1\uD488\uC744_\uC81C\uACF5\uD568"
-      resultStatus: 1
-      duration: 0.005169
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1059
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.UnitUpgradeShopTests][suite]
-    - id: 1062
-      uniqueId: "EditModeTests.dll/Tests/UnitUpgradeShopTests/[EditModeTests][Tests.UnitUpgradeShopTests.\uC81C\uC678\uD558\uACE0_\uC2F6\uC740_\uC0C1\uD488\uB4E4\uC740_\uBE7C\uACE0_\uC120\uD0DD\uD574\uC57C_\uD568]"
-      name: "\uC81C\uC678\uD558\uACE0_\uC2F6\uC740_\uC0C1\uD488\uB4E4\uC740_\uBE7C\uACE0_\uC120\uD0DD\uD574\uC57C_\uD568"
-      fullName: "Tests.UnitUpgradeShopTests.\uC81C\uC678\uD558\uACE0_\uC2F6\uC740_\uC0C1\uD488\uB4E4\uC740_\uBE7C\uACE0_\uC120\uD0DD\uD574\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.082606
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1059
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.UnitUpgradeShopTests][suite]
-    - id: 1063
-      uniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.UserSkillTests][suite]
-      name: UserSkillTests
-      fullName: Tests.UserSkillTests
-      resultStatus: 1
-      duration: 0.0395794
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1073
-      parentUniqueId: EditModeTests.dll/[EditModeTests][Tests][suite]
-    - id: 1067
-      uniqueId: "EditModeTests.dll/Tests/UserSkillTests/[EditModeTests][Tests.UserSkillTests.\uAC80\uC815_\uD558\uC580_\uC720\uB2DB\uC758_\uC601\uD5A5\uC740_\uBC1B\uC9C0_\uC54A\uC74C]"
-      name: "\uAC80\uC815_\uD558\uC580_\uC720\uB2DB\uC758_\uC601\uD5A5\uC740_\uBC1B\uC9C0_\uC54A\uC74C"
-      fullName: "Tests.UserSkillTests.\uAC80\uC815_\uD558\uC580_\uC720\uB2DB\uC758_\uC601\uD5A5\uC740_\uBC1B\uC9C0_\uC54A\uC74C"
-      resultStatus: 1
-      duration: 0.0073151
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1063
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.UserSkillTests][suite]
-    - id: 1066
-      uniqueId: "EditModeTests.dll/Tests/UserSkillTests/[EditModeTests][Tests.UserSkillTests.\uB2E4\uB978_\uD074\uB798\uC2A4\uC758_\uC601\uD5A5\uC740_\uBC1B\uC9C0_\uC54A\uC74C]"
-      name: "\uB2E4\uB978_\uD074\uB798\uC2A4\uC758_\uC601\uD5A5\uC740_\uBC1B\uC9C0_\uC54A\uC74C"
-      fullName: "Tests.UserSkillTests.\uB2E4\uB978_\uD074\uB798\uC2A4\uC758_\uC601\uD5A5\uC740_\uBC1B\uC9C0_\uC54A\uC74C"
-      resultStatus: 1
-      duration: 0.0009477
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1063
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.UserSkillTests][suite]
-    - id: 1064
-      uniqueId: "EditModeTests.dll/Tests/UserSkillTests/[EditModeTests][Tests.UserSkillTests.\uBE68\uAC04_\uD30C\uB780_\uC720\uB2DB\uB9CC_\uC788\uC73C\uBA74_\uD0DC\uADF9_\uCF1C\uC9D0]"
-      name: "\uBE68\uAC04_\uD30C\uB780_\uC720\uB2DB\uB9CC_\uC788\uC73C\uBA74_\uD0DC\uADF9_\uCF1C\uC9D0"
-      fullName: "Tests.UserSkillTests.\uBE68\uAC04_\uD30C\uB780_\uC720\uB2DB\uB9CC_\uC788\uC73C\uBA74_\uD0DC\uADF9_\uCF1C\uC9D0"
-      resultStatus: 1
-      duration: 0.0008065
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1063
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.UserSkillTests][suite]
-    - id: 1065
-      uniqueId: "EditModeTests.dll/Tests/UserSkillTests/[EditModeTests][Tests.UserSkillTests.\uBE68\uAC04_\uD30C\uB780_\uC774\uC678\uC758_\uC720\uB2DB\uC774_\uC788\uC73C\uBA74_\uD0DC\uADF9_\uAEBC\uC9D0]"
-      name: "\uBE68\uAC04_\uD30C\uB780_\uC774\uC678\uC758_\uC720\uB2DB\uC774_\uC788\uC73C\uBA74_\uD0DC\uADF9_\uAEBC\uC9D0"
-      fullName: "Tests.UserSkillTests.\uBE68\uAC04_\uD30C\uB780_\uC774\uC678\uC758_\uC720\uB2DB\uC774_\uC788\uC73C\uBA74_\uD0DC\uADF9_\uAEBC\uC9D0"
-      resultStatus: 1
-      duration: 0.0013294
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1063
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.UserSkillTests][suite]
-    - id: 1068
-      uniqueId: "EditModeTests.dll/Tests/UserSkillTests/[EditModeTests][Tests.UserSkillTests.\uC774\uC804_\uACB0\uACFC\uC640_\uBE44\uAD50\uD574\uC11C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568]"
-      name: "\uC774\uC804_\uACB0\uACFC\uC640_\uBE44\uAD50\uD574\uC11C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568"
-      fullName: "Tests.UserSkillTests.\uC774\uC804_\uACB0\uACFC\uC640_\uBE44\uAD50\uD574\uC11C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.0021813
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1063
-      parentUniqueId: EditModeTests.dll/Tests/[EditModeTests][Tests.UserSkillTests][suite]
-    - id: 1072
-      uniqueId: EditModeTests.dll/[EditModeTests][UnitDomainTests][suite]
-      name: UnitDomainTests
-      fullName: UnitDomainTests
-      resultStatus: 1
-      duration: 0.1020407
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1069
-      parentUniqueId: '[EditModeTests.dll][suite]'
-    - id: 1006
-      uniqueId: EditModeTests.dll/UnitDomainTests/[EditModeTests][UnitDomainTests.ChaseTests][suite]
-      name: ChaseTests
-      fullName: UnitDomainTests.ChaseTests
-      resultStatus: 1
-      duration: 0.0385522
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1072
-      parentUniqueId: EditModeTests.dll/[EditModeTests][UnitDomainTests][suite]
-    - id: 1010
-      uniqueId: "EditModeTests.dll/UnitDomainTests/ChaseTests/[EditModeTests][UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568][suite]"
-      name: "\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568"
-      fullName: "UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.0075494
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1006
-      parentUniqueId: EditModeTests.dll/UnitDomainTests/[EditModeTests][UnitDomainTests.ChaseTests][suite]
-    - id: 1007
-      uniqueId: "EditModeTests.dll/UnitDomainTests/ChaseTests/\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568/[EditModeTests][UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(19,Far)]"
-      name: "\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(19,Far)"
-      fullName: "UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(19,Far)"
-      resultStatus: 1
-      duration: 0.0018254
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1010
-      parentUniqueId: "EditModeTests.dll/UnitDomainTests/ChaseTests/[EditModeTests][UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568][suite]"
-    - id: 1008
-      uniqueId: "EditModeTests.dll/UnitDomainTests/ChaseTests/\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568/[EditModeTests][UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(14,Close)]"
-      name: "\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(14,Close)"
-      fullName: "UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(14,Close)"
-      resultStatus: 1
-      duration: 0.0002348
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1010
-      parentUniqueId: "EditModeTests.dll/UnitDomainTests/ChaseTests/[EditModeTests][UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568][suite]"
-    - id: 1009
-      uniqueId: "EditModeTests.dll/UnitDomainTests/ChaseTests/\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568/[EditModeTests][UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(3,Contact)]"
-      name: "\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(3,Contact)"
-      fullName: "UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(3,Contact)"
-      resultStatus: 1
-      duration: 0.0002126
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1010
-      parentUniqueId: "EditModeTests.dll/UnitDomainTests/ChaseTests/[EditModeTests][UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568][suite]"
-    - id: 1014
-      uniqueId: "EditModeTests.dll/UnitDomainTests/ChaseTests/[EditModeTests][UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568][suite]"
-      name: "\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568"
-      fullName: "UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.029007
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1006
-      parentUniqueId: EditModeTests.dll/UnitDomainTests/[EditModeTests][UnitDomainTests.ChaseTests][suite]
-    - id: 1011
-      uniqueId: "EditModeTests.dll/UnitDomainTests/ChaseTests/\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568/[EditModeTests][UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(18,-1.0f,FaceToFace)]"
-      name: "\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(18,-1.0f,FaceToFace)"
-      fullName: "UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(18,-1.0f,FaceToFace)"
-      resultStatus: 1
-      duration: 0.0008763
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1014
-      parentUniqueId: "EditModeTests.dll/UnitDomainTests/ChaseTests/[EditModeTests][UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568][suite]"
-    - id: 1012
-      uniqueId: "EditModeTests.dll/UnitDomainTests/ChaseTests/\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568/[EditModeTests][UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(25,-1.0f,Far)]"
-      name: "\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(25,-1.0f,Far)"
-      fullName: "UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(25,-1.0f,Far)"
-      resultStatus: 1
-      duration: 0.0002872
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1014
-      parentUniqueId: "EditModeTests.dll/UnitDomainTests/ChaseTests/[EditModeTests][UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568][suite]"
-    - id: 1013
-      uniqueId: "EditModeTests.dll/UnitDomainTests/ChaseTests/\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568/[EditModeTests][UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(14,1.0f,Close)]"
-      name: "\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(14,1.0f,Close)"
-      fullName: "UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568(14,1.0f,Close)"
-      resultStatus: 1
-      duration: 0.0001941
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1014
-      parentUniqueId: "EditModeTests.dll/UnitDomainTests/ChaseTests/[EditModeTests][UnitDomainTests.ChaseTests.\uAC70\uB9AC\uC640_\uBC29\uD5A5\uC5D0_\uB530\uB77C_\uC801\uC808\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568][suite]"
-    - id: 1015
-      uniqueId: EditModeTests.dll/UnitDomainTests/[EditModeTests][UnitDomainTests.UnitStateTests][suite]
-      name: UnitStateTests
-      fullName: UnitDomainTests.UnitStateTests
-      resultStatus: 1
-      duration: 0.0401582
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1072
-      parentUniqueId: EditModeTests.dll/[EditModeTests][UnitDomainTests][suite]
-    - id: 1016
-      uniqueId: "EditModeTests.dll/UnitDomainTests/UnitStateTests/[EditModeTests][UnitDomainTests.UnitStateTests.\uACF5\uACA9_\uC2DC_\uACF5\uACA9_\uC911\uC778_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568]"
-      name: "\uACF5\uACA9_\uC2DC_\uACF5\uACA9_\uC911\uC778_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568"
-      fullName: "UnitDomainTests.UnitStateTests.\uACF5\uACA9_\uC2DC_\uACF5\uACA9_\uC911\uC778_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.00061
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1015
-      parentUniqueId: EditModeTests.dll/UnitDomainTests/[EditModeTests][UnitDomainTests.UnitStateTests][suite]
-    - id: 1017
-      uniqueId: "EditModeTests.dll/UnitDomainTests/UnitStateTests/[EditModeTests][UnitDomainTests.UnitStateTests.\uACF5\uACA9_\uC900\uBE44_\uC2DC_\uACF5\uACA9_\uAC00\uB2A5\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568]"
-      name: "\uACF5\uACA9_\uC900\uBE44_\uC2DC_\uACF5\uACA9_\uAC00\uB2A5\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568"
-      fullName: "UnitDomainTests.UnitStateTests.\uACF5\uACA9_\uC900\uBE44_\uC2DC_\uACF5\uACA9_\uAC00\uB2A5\uD55C_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.0005983
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1015
-      parentUniqueId: EditModeTests.dll/UnitDomainTests/[EditModeTests][UnitDomainTests.UnitStateTests][suite]
-    - id: 1018
-      uniqueId: "EditModeTests.dll/UnitDomainTests/UnitStateTests/[EditModeTests][UnitDomainTests.UnitStateTests.\uACF5\uACA9\uC774_\uB05D\uB098\uBA74_\uCFE8\uB2E4\uC6B4_\uB300\uAE30_\uC911\uC778_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568]"
-      name: "\uACF5\uACA9\uC774_\uB05D\uB098\uBA74_\uCFE8\uB2E4\uC6B4_\uB300\uAE30_\uC911\uC778_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568"
-      fullName: "UnitDomainTests.UnitStateTests.\uACF5\uACA9\uC774_\uB05D\uB098\uBA74_\uCFE8\uB2E4\uC6B4_\uB300\uAE30_\uC911\uC778_\uC0C1\uD0DC\uB97C_\uBC18\uD658\uD574\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.0005649
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1015
-      parentUniqueId: EditModeTests.dll/UnitDomainTests/[EditModeTests][UnitDomainTests.UnitStateTests][suite]
-    - id: 1071
-      uniqueId: EditModeTests.dll/[EditModeTests][UserSkillDomainTests][suite]
-      name: UserSkillDomainTests
-      fullName: UserSkillDomainTests
-      resultStatus: 1
-      duration: 0.0513025
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1069
-      parentUniqueId: '[EditModeTests.dll][suite]'
-    - id: 1003
-      uniqueId: EditModeTests.dll/UserSkillDomainTests/[EditModeTests][UserSkillDomainTests.NecromancerTests][suite]
-      name: NecromancerTests
-      fullName: UserSkillDomainTests.NecromancerTests
-      resultStatus: 1
-      duration: 0.0059829
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1071
-      parentUniqueId: EditModeTests.dll/[EditModeTests][UserSkillDomainTests][suite]
-    - id: 1005
-      uniqueId: "EditModeTests.dll/UserSkillDomainTests/NecromancerTests/[EditModeTests][UserSkillDomainTests.NecromancerTests.\uBD80\uD65C_\uAC00\uB2A5_\uC2DC_\uCC38\uC744_\uBC18\uD658_\uD6C4_\uCE74\uC6B4\uD2B8_\uB9AC\uC14B\uD55C_\uB2E4\uC74C_\uB2E4\uC2DC_\uAC70\uC9D3\uC744_\uBC18\uD658\uD574\uC57C_\uD568]"
-      name: "\uBD80\uD65C_\uAC00\uB2A5_\uC2DC_\uCC38\uC744_\uBC18\uD658_\uD6C4_\uCE74\uC6B4\uD2B8_\uB9AC\uC14B\uD55C_\uB2E4\uC74C_\uB2E4\uC2DC_\uAC70\uC9D3\uC744_\uBC18\uD658\uD574\uC57C_\uD568"
-      fullName: "UserSkillDomainTests.NecromancerTests.\uBD80\uD65C_\uAC00\uB2A5_\uC2DC_\uCC38\uC744_\uBC18\uD658_\uD6C4_\uCE74\uC6B4\uD2B8_\uB9AC\uC14B\uD55C_\uB2E4\uC74C_\uB2E4\uC2DC_\uAC70\uC9D3\uC744_\uBC18\uD658\uD574\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.0015927
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1003
-      parentUniqueId: EditModeTests.dll/UserSkillDomainTests/[EditModeTests][UserSkillDomainTests.NecromancerTests][suite]
-    - id: 1004
-      uniqueId: "EditModeTests.dll/UserSkillDomainTests/NecromancerTests/[EditModeTests][UserSkillDomainTests.NecromancerTests.\uBD80\uD65C_\uC2DC\uB3C4_\uB584\uB9C8\uB2E4_\uCE74\uC6B4\uD2B8\uAC00_\uC99D\uAC00\uD558\uACE0_\uBABB\uD560_\uB54C\uB294_\uAC70\uC9D3\uC744_\uBC18\uD658\uD574\uC57C_\uD568]"
-      name: "\uBD80\uD65C_\uC2DC\uB3C4_\uB584\uB9C8\uB2E4_\uCE74\uC6B4\uD2B8\uAC00_\uC99D\uAC00\uD558\uACE0_\uBABB\uD560_\uB54C\uB294_\uAC70\uC9D3\uC744_\uBC18\uD658\uD574\uC57C_\uD568"
-      fullName: "UserSkillDomainTests.NecromancerTests.\uBD80\uD65C_\uC2DC\uB3C4_\uB584\uB9C8\uB2E4_\uCE74\uC6B4\uD2B8\uAC00_\uC99D\uAC00\uD558\uACE0_\uBABB\uD560_\uB54C\uB294_\uAC70\uC9D3\uC744_\uBC18\uD658\uD574\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.0006891
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1003
-      parentUniqueId: EditModeTests.dll/UserSkillDomainTests/[EditModeTests][UserSkillDomainTests.NecromancerTests][suite]
-    - id: 1070
-      uniqueId: EditModeTests.dll/[EditModeTests][UtilDomainTests][suite]
-      name: UtilDomainTests
-      fullName: UtilDomainTests
-      resultStatus: 1
-      duration: 0.0334979
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1069
-      parentUniqueId: '[EditModeTests.dll][suite]'
-    - id: 1001
-      uniqueId: EditModeTests.dll/UtilDomainTests/[EditModeTests][UtilDomainTests.MonsterLoactionFinderTests][suite]
-      name: MonsterLoactionFinderTests
-      fullName: UtilDomainTests.MonsterLoactionFinderTests
-      resultStatus: 1
-      duration: 0.0038666
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 1
-      categories: []
-      parentId: 1070
-      parentUniqueId: EditModeTests.dll/[EditModeTests][UtilDomainTests][suite]
-    - id: 1002
-      uniqueId: "EditModeTests.dll/UtilDomainTests/MonsterLoactionFinderTests/[EditModeTests][UtilDomainTests.MonsterLoactionFinderTests.\uBAAC\uC2A4\uD130\uB4E4\uC774_\uB2E4\uB2C8\uB294_\uACBD\uB85C_\uB0B4\uC5D0\uC11C_\uC704\uCE58\uB97C_\uCC3E\uC544\uC57C_\uD568]"
-      name: "\uBAAC\uC2A4\uD130\uB4E4\uC774_\uB2E4\uB2C8\uB294_\uACBD\uB85C_\uB0B4\uC5D0\uC11C_\uC704\uCE58\uB97C_\uCC3E\uC544\uC57C_\uD568"
-      fullName: "UtilDomainTests.MonsterLoactionFinderTests.\uBAAC\uC2A4\uD130\uB4E4\uC774_\uB2E4\uB2C8\uB294_\uACBD\uB85C_\uB0B4\uC5D0\uC11C_\uC704\uCE58\uB97C_\uCC3E\uC544\uC57C_\uD568"
-      resultStatus: 1
-      duration: 0.0020625
-      messages: 
-      output: 
-      stacktrace: 
-      notRunnable: 0
-      ignoredOrSkipped: 0
-      description: 
-      isSuite: 0
-      categories:
-      - Uncategorized
-      parentId: 1001
-      parentUniqueId: EditModeTests.dll/UtilDomainTests/[EditModeTests][UtilDomainTests.MonsterLoactionFinderTests][suite]
-    m_ResultText: NecromancerTests (0.006s)
-    m_ResultStacktrace: 
-    m_TestListState:
-      scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 605bfd62
-      m_LastClickedID: 1660771168
-      m_ExpandedIDs: cebc408a74076b9158207eacbc1b99b0f2ba4fba994987d9179ea6d9c5e2ece4ceb3900d0e830a1d306d0d2f86f75e32f5a419392917c44010f0c64e5cd8705027681655096d3f57b7906e5e605bfd62ffffff7f
-      m_RenameOverlay:
-        m_UserAcceptedRename: 0
-        m_Name: 
-        m_OriginalName: 
-        m_EditFieldRect:
-          serializedVersion: 2
-          x: 0
-          y: 0
-          width: 0
-          height: 0
-        m_UserData: 0
-        m_IsWaitingForDelay: 0
-        m_IsRenaming: 0
-        m_OriginalEventType: 11
-        m_IsRenamingFilename: 0
-        m_ClientGUIView: {fileID: 0}
-      m_SearchString: 
-    m_TestRunnerUIFilter:
-      PassedHidden: 0
-      FailedHidden: 0
-      NotRunHidden: 0
-      m_SearchString: 
-      selectedCategoryMask: 0
-      availableCategories:
-      - Uncategorized
---- !u!114 &15
+  controlID: 18
+--- !u!114 &16
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1721,7 +406,7 @@ MonoBehaviour:
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
---- !u!114 &16
+--- !u!114 &17
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1737,7 +422,7 @@ MonoBehaviour:
   m_MaxSize: {x: 2048, y: 2048}
   m_TitleContent:
     m_Text: Asset Store
-    m_Image: {fileID: -7444545952099596278, guid: 0000000000000000d000000000000000,
+    m_Image: {fileID: 357073275683767465, guid: 0000000000000000d000000000000000,
       type: 0}
     m_Tooltip: 
   m_Pos:
@@ -1750,7 +435,7 @@ MonoBehaviour:
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
---- !u!114 &17
+--- !u!114 &18
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1766,15 +451,15 @@ MonoBehaviour:
   m_MaxSize: {x: 10000, y: 10000}
   m_TitleContent:
     m_Text: Project
-    m_Image: {fileID: -5179483145760003458, guid: 0000000000000000d000000000000000,
+    m_Image: {fileID: -7501376956915960154, guid: 0000000000000000d000000000000000,
       type: 0}
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 725.60004
-    y: 452
-    width: 375.59998
-    height: 331.4
+    x: 1084
+    y: 571
+    width: 314
+    height: 381
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -1792,22 +477,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/0_ColorRandomDefance/2_Scenes
+    - Assets/Resources/Data/UnitData
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 16
   m_LastFolders:
-  - Assets/0_ColorRandomDefance/2_Scenes
+  - Assets/Resources/Data/UnitData
   m_LastFoldersGridSize: 16
-  m_LastProjectPath: C:\Users\parkj\Desktop\uniyt project\1.ColorRandomDefense
+  m_LastProjectPath: D:\Github_jangjo123\1.TowerDefenseGame
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: c09d0000
-    m_LastClickedID: 40384
-    m_ExpandedIDs: 00000000b09b0000b29b0000b49b0000b69b0000b89b0000ba9b0000bc9b0000be9b0000c09b0000c29b0000c49b0000c69b0000c89b0000ca9b0000cc9b0000ce9b0000d09b0000d29b0000d49b0000d69b0000d89b0000da9b0000dc9b0000de9b0000e09b0000e29b0000e49b0000e69b0000e89b0000ea9b0000ec9b0000ee9b0000f09b0000f29b0000f49b0000f69b0000f89b0000fa9b0000fc9b0000fe9b0000029c0000049c0000069c00000a9c00000c9c00000e9c0000109c0000129c0000149c0000189c0000de9d000000ca9a3b
+    m_SelectedIDs: 50670000
+    m_LastClickedID: 26448
+    m_ExpandedIDs: 000000000465000006650000086500000a6500000c6500000e65000010650000126500001465000016650000186500001a6500001c6500001e65000020650000226500002465000026650000286500002a6500002c6500002e65000030650000326500003465000036650000386500003a6500003c650000306700005267000000ca9a3bffffff7f
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1823,7 +508,7 @@ MonoBehaviour:
       m_IsRenaming: 0
       m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 5}
+      m_ClientGUIView: {fileID: 0}
     m_SearchString: 
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
@@ -1835,7 +520,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 00000000b09b0000b29b0000b49b0000b69b0000b89b0000ba9b0000bc9b0000be9b0000c09b0000c29b0000c49b0000c69b0000c89b0000ca9b0000cc9b0000ce9b0000d09b0000d29b0000d49b0000d69b0000d89b0000da9b0000dc9b0000de9b0000e09b0000e29b0000e49b0000e69b0000e89b0000ea9b0000ec9b0000ee9b0000f09b0000f29b0000f49b0000f69b0000f89b0000fa9b0000fc9b0000fe9b0000009c0000029c0000049c0000069c0000089c00000a9c00000c9c00000e9c0000109c0000129c0000149c0000169c0000189c0000
+    m_ExpandedIDs: 000000000465000006650000086500000a6500000c6500000e65000010650000126500001465000016650000186500001a6500001c6500001e65000020650000226500002465000026650000286500002a6500002c6500002e65000030650000326500003465000036650000386500003a6500003c650000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -1860,26 +545,26 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: 50ed0000
-    m_LastClickedInstanceID: 60752
-    m_HadKeyboardFocusLastEvent: 1
-    m_ExpandedInstanceIDs: c623000000000000
+    m_SelectedInstanceIDs: 
+    m_LastClickedInstanceID: 0
+    m_HadKeyboardFocusLastEvent: 0
+    m_ExpandedInstanceIDs: c6230000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: MultiClientManager
-      m_OriginalName: MultiClientManager
+      m_Name: 
+      m_OriginalName: 
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 2338
+      m_UserData: 0
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 0
+      m_OriginalEventType: 11
       m_IsRenamingFilename: 1
-      m_ClientGUIView: {fileID: 5}
+      m_ClientGUIView: {fileID: 7}
     m_CreateAssetUtility:
       m_EndAction: {fileID: 0}
       m_InstanceID: 0
@@ -1890,8 +575,8 @@ MonoBehaviour:
     m_ScrollPosition: {x: 0, y: 0}
     m_GridSize: 16
   m_SkipHiddenPackages: 0
-  m_DirectoriesAreaWidth: 171.40002
---- !u!114 &18
+  m_DirectoriesAreaWidth: 158
+--- !u!114 &19
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1907,15 +592,15 @@ MonoBehaviour:
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Inspector
-    m_Image: {fileID: -440750813802333266, guid: 0000000000000000d000000000000000,
+    m_Image: {fileID: -6905738622615590433, guid: 0000000000000000d000000000000000,
       type: 0}
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 1103.2001
-    y: 73.6
-    width: 431.80005
-    height: 709.8
+    x: 1400
+    y: 139
+    width: 427
+    height: 396
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -1933,7 +618,7 @@ MonoBehaviour:
   m_LockTracker:
     m_IsLocked: 0
   m_PreviewWindow: {fileID: 0}
---- !u!114 &19
+--- !u!114 &20
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1949,15 +634,15 @@ MonoBehaviour:
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Hierarchy
-    m_Image: {fileID: -3734745235275155857, guid: 0000000000000000d000000000000000,
+    m_Image: {fileID: -590624980919486359, guid: 0000000000000000d000000000000000,
       type: 0}
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 725.60004
-    y: 73.6
-    width: 375.59998
-    height: 357.4
+    x: 1081
+    y: 139
+    width: 317
+    height: 411
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -1965,9 +650,9 @@ MonoBehaviour:
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
-      m_SelectedIDs: 50ed0000
+      m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: a69afcffeac3fcff9459feff8ee5feff66eefeff16ceffff18ceffff0acfffff0afbfffff0a60000
+      m_ExpandedIDs: ee89ffff408affff88b3ffff4adaffff50daffff2ee1ffff08eaffff2cfbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -1983,7 +668,7 @@ MonoBehaviour:
         m_IsRenaming: 0
         m_OriginalEventType: 11
         m_IsRenamingFilename: 0
-        m_ClientGUIView: {fileID: 6}
+        m_ClientGUIView: {fileID: 8}
       m_SearchString: 
     m_ExpandedScenes: []
     m_CurrenRootInstanceID: 0
@@ -1991,7 +676,7 @@ MonoBehaviour:
       m_IsLocked: 0
     m_CurrentSortingName: TransformSorting
   m_WindowGUID: ef2ebdf6bc9e1b345804eeb3a343ad2a
---- !u!114 &20
+--- !u!114 &21
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2007,15 +692,15 @@ MonoBehaviour:
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Scene
-    m_Image: {fileID: 8634526014445323508, guid: 0000000000000000d000000000000000,
+    m_Image: {fileID: 2318424515335265636, guid: 0000000000000000d000000000000000,
       type: 0}
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 0
-    y: 73.6
-    width: 724.6
-    height: 357.4
+    x: 275
+    y: 139
+    width: 805
+    height: 411
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -2026,7 +711,7 @@ MonoBehaviour:
       collapsed: 0
       displayed: 1
       snapOffset: {x: 0, y: 0}
-      snapOffsetDelta: {x: -100, y: -25.600006}
+      snapOffsetDelta: {x: -101, y: -26}
       snapCorner: 3
       id: Tool Settings
       index: 0
@@ -2212,14 +897,14 @@ MonoBehaviour:
   m_OverrideSceneCullingMask: 6917529027641081856
   m_SceneIsLit: 1
   m_SceneLighting: 1
-  m_2DMode: 0
+  m_2DMode: 1
   m_isRotationLocked: 0
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: -2.1639855, y: -87.14981, z: 8.952788}
+    m_Target: {x: 370.91507, y: 316.1006, z: 3.0253234}
     speed: 2
-    m_Value: {x: -2.1639855, y: -87.14981, z: 8.952788}
+    m_Value: {x: 370.91507, y: 316.1006, z: 3.0253234}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -2248,17 +933,17 @@ MonoBehaviour:
       m_Size: {x: 0, y: 0}
     yGrid:
       m_Fade:
-        m_Target: 1
+        m_Target: 0
         speed: 2
-        m_Value: 1
+        m_Value: 0
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
       m_Size: {x: 1, y: 1}
     zGrid:
       m_Fade:
-        m_Target: 0
+        m_Target: 1
         speed: 2
-        m_Value: 0
+        m_Value: 1
       m_Color: {r: 0.5, g: 0.5, b: 0.5, a: 0.4}
       m_Pivot: {x: 0, y: 0, z: 0}
       m_Size: {x: 1, y: 1}
@@ -2266,17 +951,17 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.6695034, y: -0.00094054977, z: 0.0008251275, w: -0.7428188}
+    m_Target: {x: 0, y: 0, z: 0, w: 1}
     speed: 2
-    m_Value: {x: -0.669498, y: -0.00094054226, z: 0.00082512095, w: -0.7428128}
+    m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 67.98524
+    m_Target: 314.07083
     speed: 2
-    m_Value: 67.98524
+    m_Value: 314.07083
   m_Ortho:
-    m_Target: 0
+    m_Target: 1
     speed: 2
-    m_Value: 0
+    m_Value: 1
   m_CameraSettings:
     m_Speed: 1
     m_SpeedNormalized: 0.5
@@ -2297,7 +982,7 @@ MonoBehaviour:
   m_SceneVisActive: 1
   m_LastLockedObject: {fileID: 0}
   m_ViewIsLockedToObject: 0
---- !u!114 &21
+--- !u!114 &22
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2313,15 +998,15 @@ MonoBehaviour:
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Game
-    m_Image: {fileID: 4621777727084837110, guid: 0000000000000000d000000000000000,
+    m_Image: {fileID: -2087823869225018852, guid: 0000000000000000d000000000000000,
       type: 0}
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 0
-    y: 452
-    width: 724.6
-    height: 331.4
+    x: 275
+    y: 571
+    width: 808
+    height: 381
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
@@ -2332,7 +1017,7 @@ MonoBehaviour:
   m_ShowGizmos: 0
   m_TargetDisplay: 0
   m_ClearColor: {r: 0, g: 0, b: 0, a: 0}
-  m_TargetSize: {x: 800, y: 480}
+  m_TargetSize: {x: 1920, y: 1080}
   m_TextureFilterMode: 0
   m_TextureHideFlags: 61
   m_RenderIMGUI: 1
@@ -2341,16 +1026,16 @@ MonoBehaviour:
   m_VSyncEnabled: 0
   m_Gizmos: 0
   m_Stats: 0
-  m_SelectedSizes: 09000000000000000000000006000000000000000000000000000000000000000000000000000000
+  m_SelectedSizes: 00000000000000000000000006000000000000000000000000000000000000000000000000000000
   m_ZoomArea:
     m_HRangeLocked: 0
     m_VRangeLocked: 0
     hZoomLockedByDefault: 0
     vZoomLockedByDefault: 0
-    m_HBaseRangeMin: -320
-    m_HBaseRangeMax: 320
-    m_VBaseRangeMin: -192
-    m_VBaseRangeMax: 192
+    m_HBaseRangeMin: -960
+    m_HBaseRangeMax: 960
+    m_VBaseRangeMin: -540
+    m_VBaseRangeMax: 540
     m_HAllowExceedBaseRangeMin: 1
     m_HAllowExceedBaseRangeMax: 1
     m_VAllowExceedBaseRangeMin: 1
@@ -2368,29 +1053,29 @@ MonoBehaviour:
       serializedVersion: 2
       x: 0
       y: 21
-      width: 724.6
-      height: 310.4
-    m_Scale: {x: 0.80833334, y: 0.80833334}
-    m_Translation: {x: 362.3, y: 155.2}
+      width: 808
+      height: 360
+    m_Scale: {x: 0.33333334, y: 0.33333334}
+    m_Translation: {x: 404, y: 180}
     m_MarginLeft: 0
     m_MarginRight: 0
     m_MarginTop: 0
     m_MarginBottom: 0
     m_LastShownAreaInsideMargins:
       serializedVersion: 2
-      x: -448.20618
-      y: -192
-      width: 896.41235
-      height: 384
+      x: -1212
+      y: -540
+      width: 2424
+      height: 1080
     m_MinimalGUI: 1
-  m_defaultScale: 0.80833334
-  m_LastWindowPixelSize: {x: 905.75, y: 414.25}
+  m_defaultScale: 0.33333334
+  m_LastWindowPixelSize: {x: 808, y: 381}
   m_ClearInEditMode: 1
   m_NoCameraWarning: 1
   m_LowResolutionForAspectRatios: 01000001000000000000
   m_XRRenderMode: 0
   m_RenderTexture: {fileID: 0}
---- !u!114 &22
+--- !u!114 &23
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2406,15 +1091,15 @@ MonoBehaviour:
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
     m_Text: Console
-    m_Image: {fileID: -4950941429401207979, guid: 0000000000000000d000000000000000,
+    m_Image: {fileID: 111653112392082826, guid: 0000000000000000d000000000000000,
       type: 0}
     m_Tooltip: 
   m_Pos:
     serializedVersion: 2
-    x: 725.60004
-    y: 452
-    width: 375.59998
-    height: 331.4
+    x: 1400
+    y: 556
+    width: 427
+    height: 396
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default

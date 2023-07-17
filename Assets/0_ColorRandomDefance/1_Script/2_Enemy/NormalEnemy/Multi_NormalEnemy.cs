@@ -116,6 +116,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         OnSlow(new SlowSystem(slowPercent, slowTime));
     }
 
+    // 여기부터 시작하는 Slow도매인 로직 빼고 의존성 주입받게 한 다음에 스킬 추가되면 바꾸면 되는거 아님?
     void OnSlow(SlowSystem slowSystem)
     {
         if (IsSlow && _slowSystem.SlowPercent >= slowSystem.SlowPercent) return;

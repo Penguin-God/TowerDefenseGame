@@ -5,7 +5,7 @@ using Photon.Pun;
 
 public class NormalMonsterSpawner
 {
-    public Multi_NormalEnemy SpawnMonster(byte num, byte id, int stage)
+    public Multi_NormalEnemy SpawnMonster(byte num, byte id, int stage) // 썬콜 여기서 주입해버리면 될 듯?
     {
         var enemy = Managers.Multi.Instantiater.PhotonInstantiateInactive(new ResourcesPathBuilder().BuildMonsterPath(num), id).GetComponent<Multi_NormalEnemy>();
         NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];

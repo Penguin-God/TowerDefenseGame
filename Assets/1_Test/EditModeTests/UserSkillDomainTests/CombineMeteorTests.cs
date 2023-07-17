@@ -49,7 +49,25 @@ namespace UserSkillDomainTests
             var combineTargetFlag = new UnitFlags(0, classNum);
 
             // Act
-            int result = sut.CalculateRedScore(combineTargetFlag);
+            int result = sut.CalculateMeteorScore(combineTargetFlag);
+
+            // Assert
+            Assert.AreEqual(expected, result);
+        }
+
+        [Test]
+        [TestCase(3, 0, 1500)]
+        [TestCase(3, 10, 2500)]
+        [TestCase(20, 100, 20000)]
+        public void 점수와_스택에_따라_대미지가_계산되어야_함(int score, int stack, int expected)
+        {
+            // Arrange
+            const int DamagePerScore = 500;
+            const int DamagePerStack = 100;
+            var sut = CreateCombineMeteor();
+
+            // Act
+            int result = sut.CalculateMeteorDamage(score, DamagePerScore, stack, DamagePerStack);
 
             // Assert
             Assert.AreEqual(expected, result);

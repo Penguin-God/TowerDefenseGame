@@ -85,6 +85,7 @@ public class CombineCondition
         _targetUnitFlag = targetUnitFlag;
         _needCountByFlag = needCountByFlag;
     }
+    public CombineCondition() { } // 리플랙션 용 기본 생성자
 
     public UnitFlags TargetUnitFlag => _targetUnitFlag;
     public IReadOnlyDictionary<UnitFlags, int> NeedCountByFlag => _needCountByFlag;

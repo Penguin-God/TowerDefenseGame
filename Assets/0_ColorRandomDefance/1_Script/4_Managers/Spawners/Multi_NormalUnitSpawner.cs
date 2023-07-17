@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System;
+using Codice.CM.Common;
 
 public class Multi_NormalUnitSpawner : MonoBehaviourPun
 {
@@ -42,28 +43,13 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     Multi_TeamSoldier RPCSpawn(UnitFlags flag, Vector3 spawnPos, Quaternion rotation, byte id)
     {
         var unit = Managers.Multi.Instantiater.PhotonInstantiate(PathBuilder.BuildUnitPath(flag), spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
-        InjectUnit(unit, flag, Managers.Data.Unit.UnitStatByFlag[flag].GetClone(), MultiServiceMidiator.Server.UnitDamageInfo(id, flag));
+        unit.Injection(flag, Managers.Data.Unit.UnitStatByFlag[flag].GetClone(), MultiServiceMidiator.Server.UnitDamageInfo(id, flag), _multiMonsterManager.GetMultiData(unit.UsingID));
         MultiServiceMidiator.Server.AddUnit(unit);
         if (unit.UsingID == PlayerIdManager.MasterId)
             OnSpawn?.Invoke(unit);
         else
             photonView.RPC(nameof(RPC_CallbackSpawn), RpcTarget.Others, unit.GetComponent<PhotonView>().ViewID);
         return unit;
-    }
-
-    void InjectUnit(Multi_TeamSoldier unit, UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo)
-    {
-        unit.Injection(flag, stat, damInfo, _multiMonsterManager.GetMultiData(unit.UsingID));
-        var pathBuilder = new ResourcesPathBuilder();
-        if (unit.UnitClass == UnitClass.Spearman)
-        {
-            ThrowSpearData spearData;
-            if (_multiEquipSkillData.GetData(unit.UsingID).MainSkill == SkillType.마창사)
-                spearData = new ThrowSpearData(pathBuilder.BuildMagicSpaerPath(unit.UnitColor), Vector3.zero, 0.5f, attackRate: 3f);
-            else
-                spearData = new ThrowSpearData(pathBuilder.BuildUnitWeaponPath(unit.UnitFlags), Vector3.right * 90, 1f);
-            unit.GetComponent<Multi_Unit_Spearman>().InjectSpearData(spearData);
-        }
     }
 
     [PunRPC]

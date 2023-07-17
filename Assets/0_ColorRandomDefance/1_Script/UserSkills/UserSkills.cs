@@ -363,9 +363,6 @@ public class MagicSpearman : UserSkill
 {
     readonly DataManager _dataManager;
     public MagicSpearman(SkillType skillType, DataManager data) : base(skillType) => _dataManager = data;
-
     public override void InitSkill()
-    {
-        
-    }
+        => _dataManager.Unit.SetThrowSpearData(Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/MagicThrowSpearData").ChangeAttackRate(SkillData));
 }

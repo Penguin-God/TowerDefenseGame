@@ -113,6 +113,9 @@ public class DataManager
             return new List<float>();
         }
 
+        public ThrowSpearDataContainer SpearDataContainer { get; private set; }
+        public void SetThrowSpearData(ThrowSpearDataContainer newSpearData) => SpearDataContainer = newSpearData;
+
         Dictionary<UnitFlags, MageUnitStat> _mageStatByFlag = new Dictionary<UnitFlags, MageUnitStat>();
         public IReadOnlyDictionary<UnitFlags, MageUnitStat> MageStatByFlag => _mageStatByFlag;
 
@@ -122,6 +125,8 @@ public class DataManager
             _unitNameDataByFlag = _unitNameDataByUnitKoreaName.ToDictionary(x => x.Value.UnitFlags, x => x.Value);
             _mageStatByFlag = manager.MakeCsvDict<MageUnitStats, UnitFlags, MageUnitStat>("UnitData/MageUnitStat");
             _unitPassiveStatByFlag = manager.MakeCsvDict<UnitPassiveStats, UnitFlags, UnitPassiveStat>("UnitData/UnitPassiveStat");
+            SpearDataContainer = Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/NormalThrowSpearData").ChangeAttackRate(1f);
+            
             _unitStatByFlag = manager.MakeCsvDict<UnitStats, UnitFlags, UnitStat>("UnitData/UnitStat");
         }
 

@@ -255,6 +255,7 @@ public class CombineMeteorController : UserSkill
     readonly int DamagePerScore;
     readonly float StunTimePerScore;
     readonly int DamagePerStack;
+    UI_UserSkillStatus _stackUI;
     public CombineMeteorController(SkillType skillType, MeteorController meteorController, IMonsterManager monsterManager) : base(skillType) 
     {
         _combineMeteor = new CombineMeteor(new MeteorScoreData(SwordmanScore, ArcherScore, SpearmanScore), Managers.Data.CombineConditionByUnitFalg);
@@ -264,6 +265,8 @@ public class CombineMeteorController : UserSkill
         DamagePerScore = IntSkillDatas[0];
         StunTimePerScore = SkillDatas[1];
         DamagePerStack = IntSkillDatas[2];
+        _stackUI = Managers.UI.ShowSceneUI<UI_UserSkillStatus>();
+        UpdateStackText();
     }
 
     public override void InitSkill()
@@ -279,11 +282,12 @@ public class CombineMeteorController : UserSkill
         {
             _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(score), StunTimePerScore * score, MeteorShotPoint);
             _meteorStack += score;
+            UpdateStackText();
         }
     }
 
     int CalculateMeteorDamage(int combineScore) => _combineMeteor.CalculateMeteorDamage(combineScore, DamagePerScore, _meteorStack, DamagePerStack);
-
+    void UpdateStackText() => _stackUI.UpdateText(_meteorStack);
     Multi_NormalEnemy FindMonster()
     {
         var monsters = _monsterManager.GetNormalMonsters();
@@ -309,7 +313,7 @@ public class NecromancerController : UserSkill
     {
         _dispatcher.OnNormalMonsterDead += _ => ResurrectOnKillCount();
         statusUI = Managers.UI.ShowSceneUI<UI_UserSkillStatus>();
-        statusUI.Injction(_necromencer);
+        UpdateText();
     }
 
     readonly Vector3 EffectOffst = new Vector3(0, 0.6f, 0);
@@ -323,8 +327,10 @@ public class NecromancerController : UserSkill
             _effectSynchronizer.PlayOneShotEffect("PosionMagicCircle", spawnPos + EffectOffst);
             Managers.Sound.PlayEffect(EffectSoundType.YellowMageSkill);
         }
-        statusUI.UpdateKillCount();
+        UpdateText();
     }
+
+    void UpdateText() => statusUI.UpdateText($"{_necromencer.CurrentKillCount}/{_necromencer.NeedKillCountForSummon}");
 }
 
 public class SlowTrapSpawner : UserSkill

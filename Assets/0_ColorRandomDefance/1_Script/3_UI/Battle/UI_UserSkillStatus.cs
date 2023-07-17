@@ -6,18 +6,12 @@ using UnityEngine;
 public class UI_UserSkillStatus : UI_Scene
 {
     TextMeshProUGUI _text;
-    protected override void Init()
+    TextMeshProUGUI GetText()
     {
-        base.Init();
-        _text = GetComponentInChildren<TextMeshProUGUI>();
-        UpdateKillCount();
+        if(_text == null) _text = GetComponentInChildren<TextMeshProUGUI>();
+        return _text;
     }
 
-    Necromencer _necromencer;
-    public void Injction(Necromencer necromencer) => _necromencer = necromencer;
-
-    public void UpdateKillCount()
-    {
-        _text.text = $"{_necromencer.CurrentKillCount}/{_necromencer.NeedKillCountForSummon}";
-    }
+    public void UpdateText(int number) => UpdateText(number.ToString());
+    public void UpdateText(string text) => GetText().text = text;
 }

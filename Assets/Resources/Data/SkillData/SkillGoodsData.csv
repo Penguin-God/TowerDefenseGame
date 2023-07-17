@@ -4,7 +4,7 @@
 노란기사강화,Main,Iron,노란 기사 강화,노란기사 조합 골드 증가,Sprites/YellowSwordmanUpgrade,노란기사 조합 골드 1 -> {data},,,
 컬러마스터,Main,Iron,컬러 마스터,"유닛 뽑기 시 빨강, 파랑, 노랑, 주황, 초록, 보라 색깔의 기사를 소환할 수 있습니다.",Sprites/ColorMaster,,,,
 장사꾼,Main,Iron,장사꾼,유닛 업그레이드 상점의 가격이 변화합니다,Sprites/DiscountMerchant,리롤 비용 2 -> {data},유닛 공격력 증가 비용 2 -> {data},,
-조합메테오,Main,Iron,조합 메테오,"빨간 유닛을 조합에 사용 하면 메테오가 떨어집니다. 메테오의 성능은 조합에 사용된 유닛 하나당 기사 1점, 궁수 4점, 창병 20점을 합산해서 계산한 점수에 비례합니다.",Sprites/CombineMeteor,대미지 : 점수 * {data},스턴 시간 : 점수 * {data},,
+조합메테오,Main,Iron,조합 메테오,"빨간 유닛을 조합에 사용 하면 메테오가 떨어집니다. 메테오의 성능은 조합에 사용된 유닛 하나당 기사 1점, 궁수 4점, 창병 20점을 합산해서 계산한 점수에 비례하며 점수는 스택으로 쌓이며 스택당 대미지가 증가합니다.",Sprites/CombineMeteor,점수당 대미지 : {data},스턴 시간 : 점수 * {data},스택당 대미지 : {data},
 네크로맨서,Main,Iron,네크로맨서,적을 특정 수만큼 처치하면 보라 기사를 소환합니다,Sprites/Necromancer,필요 처치 수 : {data},,,
 마창사,Main,Iron,마창사,창병이 마법이 부여된 창을 날립니다,Sprites/MagicSpearman,창 대미지 {data}배 증가,,,
 ,,,,,,,,,

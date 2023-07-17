@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
-using Codice.Client.Common;
 
 public abstract class UserSkill
 {

@@ -9,10 +9,4 @@ public class Multi_ArcherEnemy : Multi_NormalEnemy
     {
         ChangeMaxSpeed(maxSpeed * 1.5f);
     }
-
-    public override void OnSlow(float slowPercent, float slowTime)
-    {
-        // slowPercent /= 2;
-        base.OnSlow(slowPercent, slowTime);
-    }
 }

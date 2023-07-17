@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using Codice.Client.Common;
 
 public abstract class UserSkill
 {
@@ -250,30 +251,39 @@ public class CombineMeteorController : UserSkill
     MeteorController _meteorController;
     readonly Vector3 MeteorShotPoint;
     IMonsterManager _monsterManager;
+
+    readonly int DamagePerScore;
+    readonly float StunTimePerScore;
+    readonly int DamagePerStack;
     public CombineMeteorController(SkillType skillType, MeteorController meteorController, IMonsterManager monsterManager) : base(skillType) 
     {
         _combineMeteor = new CombineMeteor(new MeteorScoreData(SwordmanScore, ArcherScore, SpearmanScore), Managers.Data.CombineConditionByUnitFalg);
         _monsterManager = monsterManager;
         MeteorShotPoint = PlayerIdManager.Id == PlayerIdManager.MasterId ? new Vector3(0, 30, 0) : new Vector3(0, 30, 500);
         _meteorController = meteorController;
-        _attack = IntSkillDatas[0];
-        _stunTime = SkillDatas[1];
+        DamagePerScore = IntSkillDatas[0];
+        StunTimePerScore = SkillDatas[1];
+        DamagePerStack = IntSkillDatas[2];
     }
 
-    int _attack;
-    float _stunTime;
-    
     public override void InitSkill()
     {
         Managers.Unit.OnCombine += ShotMeteor;
     }
 
+    int _meteorStack;
     void ShotMeteor(UnitFlags combineUnitFlag)
     {
-        int score = _combineMeteor.CalculateRedScore(combineUnitFlag);
+        int score = _combineMeteor.CalculateMeteorScore(combineUnitFlag);
         if (score > 0)
-            _meteorController.ShotMeteor(FindMonster(), _attack * score, _stunTime * score, MeteorShotPoint);
+        {
+            _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(score), StunTimePerScore * score, MeteorShotPoint);
+            _meteorStack += score;
+        }
     }
+
+    int CalculateMeteorDamage(int combineScore) => _combineMeteor.CalculateMeteorDamage(combineScore, DamagePerScore, _meteorStack, DamagePerStack);
+
     Multi_NormalEnemy FindMonster()
     {
         var monsters = _monsterManager.GetNormalMonsters();

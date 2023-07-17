@@ -12,7 +12,7 @@ public class Multi_ArcherEnemy : Multi_NormalEnemy
 
     public override void OnSlow(float slowPercent, float slowTime)
     {
-        slowPercent /= 2;
+        // slowPercent /= 2;
         base.OnSlow(slowPercent, slowTime);
     }
 }

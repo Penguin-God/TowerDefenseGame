@@ -34,7 +34,7 @@ public class UserSkillFactory
             case SkillType.판매보상증가: return new SellUpgrade(skillType);
             case SkillType.보스데미지증가: return new BossDamageUpgrade(skillType);
             case SkillType.장사꾼: return new DiscountMerchant(skillType);
-            case SkillType.조합메테오: return new CombineMeteor(skillType, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>());
+            case SkillType.조합메테오: return new CombineMeteorController(skillType, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>());
             case SkillType.네크로맨서: 
                 return new NecromancerController(skillType, container.GetService<BattleEventDispatcher>(), container.GetComponent<EffectSynchronizer>());
             case SkillType.마창사: return new MagicSpearman(skillType, Managers.Data);
@@ -240,12 +240,12 @@ public class DiscountMerchant : UserSkill
     }
 }
 
-public class CombineMeteor : UserSkill
+public class CombineMeteorController : UserSkill
 {
     MeteorController _meteorController;
     readonly Vector3 MeteorShotPoint;
     IMonsterManager _monsterManager;
-    public CombineMeteor(SkillType skillType, MeteorController meteorController, IMonsterManager monsterManager) : base(skillType) 
+    public CombineMeteorController(SkillType skillType, MeteorController meteorController, IMonsterManager monsterManager) : base(skillType) 
     {
         _monsterManager = monsterManager;
         MeteorShotPoint = PlayerIdManager.Id == PlayerIdManager.MasterId ? new Vector3(0, 30, 0) : new Vector3(0, 30, 500);

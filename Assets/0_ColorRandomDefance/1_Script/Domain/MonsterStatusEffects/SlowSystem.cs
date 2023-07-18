@@ -29,6 +29,7 @@ public class SpeedManager
 {
     public readonly float OriginSpeed;
     public float CurrentSpeed { get; private set; }
+    public bool IsSlow => OriginSpeed > CurrentSpeed;
     public SpeedManager(float originSpeed)
     {
         OriginSpeed = originSpeed;

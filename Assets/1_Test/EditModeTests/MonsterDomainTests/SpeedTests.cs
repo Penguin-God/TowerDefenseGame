@@ -50,5 +50,24 @@ namespace MonsterDomainTests
             // Assert
             Assert.AreEqual(OriginSpeed, sut.CurrentSpeed);
         }
+
+        [Test]
+        public void 슬로우_상태에_맞게_참과_거짓을_반환해야_함()
+        {
+            // Arrange
+            var sut = CreateSpeedManager();
+
+            // Act
+            sut.OnSlow(30); // Make it slower first
+
+            // Assert
+            Assert.IsTrue(sut.IsSlow);
+
+            // Act
+            sut.RestoreSpeed();
+
+            // Assert
+            Assert.IsFalse(sut.IsSlow);
+        }
     }
 }

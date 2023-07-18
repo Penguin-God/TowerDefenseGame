@@ -28,8 +28,8 @@ public class Multi_NormalEnemy : Multi_Enemy
     [PunRPC]
     protected override void RPC_OnDamage(int damage, bool isSkill)
     {
-        if (IsSlow)
-            damage += Mathf.RoundToInt(damage * (_slowSystem.SlowPercent / 100));
+        if (IsSlow && _slowData.SlowPercent > 0)
+            damage += Mathf.RoundToInt(damage * (_slowData.SlowPercent / 100));
         base.RPC_OnDamage(damage, isSkill);
     }
 
@@ -101,18 +101,16 @@ public class Multi_NormalEnemy : Multi_Enemy
         ResetColor();
         pointIndex = -1;
         transform.rotation = Quaternion.identity;
-        _slowSystem = null;
         _stunCount = 0;
     }
 
 
     protected SpeedManager _speedManager;
     public float Speed => IsStun ? 0 : _speedManager.CurrentSpeed;
+    public bool IsSlow => _speedManager.IsSlow;
     bool IsStun => _stunCount > 0;
     #region 상태이상 구현
 
-    SlowSystem _slowSystem = null;
-    public bool IsSlow => _slowSystem != null;
     [SerializeField] private Material freezeMat;
 
     int _stunCount = 0;
@@ -121,19 +119,22 @@ public class Multi_NormalEnemy : Multi_Enemy
     public override void OnSlow(float slowPercent, float slowTime)
     {
         if (IsDead || PhotonNetwork.IsMasterClient == false) return;
-        OnSlow(new SlowSystem(slowPercent, slowTime));
+        OnSlow(new SlowData(slowPercent, slowTime));
     }
 
     // 여기부터 시작하는 Slow도매인 로직 빼고 의존성 주입받게 한 다음에 스킬 추가되면 바꾸면 되는거 아님?
-    void OnSlow(SlowSystem slowSystem)
+    SlowData _slowData;
+    void OnSlow(SlowData slowData)
     {
-        if ((IsSlow && _slowSystem.SlowPercent >= slowSystem.SlowPercent) || 0 >= slowSystem.SlowTime) return;
-
-        _slowSystem = slowSystem;
-        ApplySlowToAll(slowSystem.SlowData);
+        if (SlowCondition(slowData))
+        {
+            _slowData = slowData;
+            ApplySlowToAll(slowData);
+        }
     }
 
-    protected void ApplySlowToAll(SlowData slowData) => photonView.RPC(nameof(ApplySlow), RpcTarget.All, (byte)slowData.SlowPercent, slowData.SlowTime);
+    bool SlowCondition(SlowData newSlowData) => newSlowData.SlowPercent >= _slowData.SlowPercent && newSlowData.SlowTime > 0;
+    void ApplySlowToAll(SlowData slowData) => photonView.RPC(nameof(ApplySlow), RpcTarget.All, (byte)slowData.SlowPercent, slowData.SlowTime);
 
     [PunRPC]
     protected void ApplySlow(byte slowRate, float slowTime)
@@ -161,8 +162,9 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         ChangeMat(originMat);
         ChangeColorToOrigin();
-        _slowSystem = null;
         _speedManager.RestoreSpeed();
+        ChangeVelocity(dir);
+        _slowData = new SlowData();
     }
 
     [PunRPC]
@@ -170,7 +172,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         if (PhotonNetwork.IsMasterClient == false) return;
 
-        OnSlow(new SlowSystem(100f, slowTime));
+        OnSlow(new SlowData(100f, slowTime));
         photonView.RPC(nameof(Mat_To_Freeze), RpcTarget.All);
     }
 

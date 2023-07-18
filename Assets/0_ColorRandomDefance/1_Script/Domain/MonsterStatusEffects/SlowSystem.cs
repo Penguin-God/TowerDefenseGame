@@ -14,17 +14,6 @@ public struct SlowData
     }
 }
 
-public class SlowSystem
-{
-    public readonly SlowData SlowData;
-    public float SlowPercent => SlowData.SlowPercent;
-    public float SlowTime => SlowData.SlowTime;
-
-    public SlowSystem(float slowPercent, float slowTime) => SlowData = new SlowData(slowPercent, slowTime);
-
-    public float ApplySlowToSpeed(float originalSpeed) => originalSpeed - originalSpeed * (SlowPercent / 100);
-}
-
 public class SpeedManager
 {
     public readonly float OriginSpeed;

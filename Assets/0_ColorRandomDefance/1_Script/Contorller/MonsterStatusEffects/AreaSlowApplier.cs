@@ -19,6 +19,7 @@ public class AreaSlowApplier : MonoBehaviour
         if (_targets.Contains(enemy) == false && enemy.IsSlow == false)
         {
             _targets.Add(enemy);
+            enemy.OnDead += _ => CancelSlow(enemy);
             enemy.OnSlow(_slowPercent, Mathf.Infinity);
         }
     }

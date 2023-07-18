@@ -24,3 +24,13 @@ public class SlowSystem
 
     public float ApplySlowToSpeed(float originalSpeed) => originalSpeed - originalSpeed * (SlowPercent / 100);
 }
+
+public class SpeedManager
+{
+    public readonly float OriginSpeed;
+    public float CurrentSpeed { get; private set; }
+    public SpeedManager(float originSpeed) => OriginSpeed = originSpeed;
+
+    public void OnSlow(float slowRate) => CurrentSpeed = OriginSpeed - (OriginSpeed * (slowRate / 100));
+    public void RestoreSpeed() => CurrentSpeed = OriginSpeed;
+}

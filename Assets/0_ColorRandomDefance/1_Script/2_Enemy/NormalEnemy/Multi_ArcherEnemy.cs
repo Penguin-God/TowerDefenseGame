@@ -1,12 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
 public class Multi_ArcherEnemy : Multi_NormalEnemy
 {
-    protected override void Passive()
-    {
-        ChangeMaxSpeed(maxSpeed * 1.5f);
-    }
+    const float SpeedUpRate = 1.5f;
+    protected override void Passive() => _speedManager = new SpeedManager(_speedManager.OriginSpeed * SpeedUpRate);
 }

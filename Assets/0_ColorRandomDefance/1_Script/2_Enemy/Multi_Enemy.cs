@@ -30,21 +30,6 @@ public class Multi_Enemy : MonoBehaviourPun
         hpSlider.value = newHp;
     }
 
-    [SerializeField] protected float maxSpeed = 0;
-    protected void ChangeMaxSpeed(float newMaxSpeed)
-    {
-        maxSpeed = newMaxSpeed;
-        ChangeSpeed(maxSpeed);
-    }
-    [SerializeField] protected float speed = 0;
-    public float Speed => speed;
-    protected virtual void ChangeSpeed(float newSpeed)
-    {
-        if (newSpeed > maxSpeed) newSpeed = maxSpeed;
-        speed = newSpeed;
-    }
-    
-
     bool isDead = true;
     public bool IsDead => isDead;
     public Slider hpSlider = null;
@@ -76,7 +61,6 @@ public class Multi_Enemy : MonoBehaviourPun
     {
         gameObject.SetActive(!_isDead);
         ChangeMaxHp(_hp);
-        ChangeMaxSpeed(_speed);
         isDead = _isDead;
     }
 

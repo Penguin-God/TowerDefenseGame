@@ -51,7 +51,7 @@ public class ProjectileThrowingUnit : MonoBehaviourPun
         else if(target.enemyType == EnemyType.Tower)
             path = pathCalculator.CalculatePath_To_StaticTarget(projectileData.Attacker.position, target.transform.position);
         else
-            path = pathCalculator.CalculatePath_To_MoveTarget(projectileData.Attacker.position, target.transform.position, target.Speed, target.dir);
+            path = pathCalculator.CalculatePath_To_MoveTarget(projectileData.Attacker.position, target.transform.position, (target as Multi_NormalEnemy).Speed, target.dir);
         Multi_Throw(projectileId, path);
     }
 

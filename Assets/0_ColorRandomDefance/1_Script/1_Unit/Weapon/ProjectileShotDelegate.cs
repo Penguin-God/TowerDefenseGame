@@ -32,15 +32,4 @@ public static class ProjectileShotDelegate
         UseWeapon.Shot(dir, hitAction);
         return UseWeapon;
     }
-
-    // 원거리 무기 발사
-    static Vector3 Get_ShootPath(Transform attacker, Multi_Enemy target)
-    {
-        if (target == null) return attacker.forward.normalized;
-
-        if (target.enemyType == EnemyType.Tower)
-            return new ShotPathCalculator().CalculatePath_To_StaticTarget(attacker.position, target.transform.position);
-        else
-            return new ShotPathCalculator().CalculatePath_To_MoveTarget(attacker.position, target.transform.position, target.Speed, target.dir);
-    }
 }

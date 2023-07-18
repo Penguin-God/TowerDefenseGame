@@ -17,15 +17,19 @@ public class Multi_Meteor : Multi_Projectile
     public void Shot(Multi_Enemy enemy, Vector3 enemyPos, Action<Multi_Enemy> hitAction)
     {
         explosionAction = hitAction;
-        Vector3 chasePos = enemyPos + ( (enemy != null) ? enemy.dir.normalized * enemy.Speed : Vector3.zero);
-        photonView.RPC(nameof(RPC_Shot), RpcTarget.All, (chasePos - transform.position).normalized);
+        photonView.RPC(nameof(RPC_Shot), RpcTarget.All, (CalculateShotPoint(enemy, enemyPos) - transform.position).normalized);
+    }
+
+    Vector3 CalculateShotPoint(Multi_Enemy enemy, Vector3 tempPos)
+    {
+        if (enemy == null || enemy.enemyType == EnemyType.Tower) return tempPos;
+        else return enemy.transform.position + enemy.dir.normalized * (enemy as Multi_NormalEnemy).Speed;
     }
 
     protected override void OnTriggerHit(Collider other)
     {
-        if (PhotonNetwork.IsMasterClient == false) return;
-
-        if (other.tag == "World") photonView.RPC(nameof(MeteorExplosion), RpcTarget.All);
+        if (PhotonNetwork.IsMasterClient && other.tag == "World")
+            photonView.RPC(nameof(MeteorExplosion), RpcTarget.All);
     }
 
     Renderer _renderer;

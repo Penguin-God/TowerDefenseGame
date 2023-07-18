@@ -153,6 +153,7 @@ MonoBehaviour:
   - ChangeWorldState
   - RPC_PlayOneShotEffect
   - SetEnemyData
+  - RestoreSpeed
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

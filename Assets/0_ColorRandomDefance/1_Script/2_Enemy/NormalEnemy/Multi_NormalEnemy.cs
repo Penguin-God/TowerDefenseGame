@@ -90,6 +90,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected override void ResetValue()
     {
         base.ResetValue();
+        _speedManager = null;
         isResurrection = false;
         spawnStage = 0;
         sternEffect.SetActive(false);
@@ -101,8 +102,9 @@ public class Multi_NormalEnemy : Multi_Enemy
     }
 
 
-    SpeedManager _speedManager;
-
+    protected SpeedManager _speedManager;
+    public float Speed => IsStun ? 0 : _speedManager.CurrentSpeed;
+    bool IsStun => queue_GetSturn.Count > 0;
     #region 상태이상 구현
 
     SlowSystem _slowSystem = null;
@@ -133,7 +135,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected void ApplySlow(byte slowRate, float slowTime)
     {
         _speedManager.OnSlow(slowRate);
-        _ChangeSpeed(_speedManager.CurrentSpeed);
+        ChangeVelocity(dir);
         ChangeColorToSlow();
         ApplySlowTime(slowTime);
     }
@@ -159,7 +161,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         _speedManager.RestoreSpeed();
 
         // 스턴 상태가 아니라면 속도 복구
-        if (queue_GetSturn.Count <= 0 && photonView.IsMine) Set_OriginSpeed_To_AllPlayer();
+        if (IsStun == false && PhotonNetwork.IsMasterClient) Set_OriginSpeed_To_AllPlayer();
     }
 
 
@@ -191,8 +193,8 @@ public class Multi_NormalEnemy : Multi_Enemy
         photonView.RPC(nameof(ShowSturnEffetc), RpcTarget.All);
         yield return new WaitForSeconds(stunTime);
 
-        if (queue_GetSturn.Count != 0) queue_GetSturn.Dequeue();
-        if (queue_GetSturn.Count == 0) photonView.RPC(nameof(ExitStun), RpcTarget.All);
+        if (IsStun) queue_GetSturn.Dequeue();
+        else photonView.RPC(nameof(ExitStun), RpcTarget.All);
     }
 
     [PunRPC]
@@ -209,14 +211,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     }
 
     [PunRPC] // sync : 동기화한다는 뜻의 동사
-    protected void SyncSpeed(float _speed) => _ChangeSpeed(_speed);
-
-    protected void _ChangeSpeed(float newSpeed)
-    {
-        base.ChangeSpeed(newSpeed);
-        //_speedManager = new SpeedManager(newSpeed);
-        ChangeVelocity(dir);
-    }
+    protected void SyncSpeed(float _speed) => ChangeVelocity(dir);
 
     // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기
     protected void Set_OriginSpeed_To_AllPlayer() => photonView.RPC(nameof(SyncSpeed), RpcTarget.All, _speedManager.CurrentSpeed);

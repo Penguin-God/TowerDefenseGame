@@ -13,6 +13,17 @@ namespace MonsterDomainTests
         SpeedManager CreateSpeedManager() => new SpeedManager(OriginSpeed);
 
         [Test]
+        public void 생성_시_원본과_현재_속도가_같아야_함()
+        {
+            // Arrange
+            var sut = CreateSpeedManager();
+
+            // Assert
+            Assert.AreEqual(100, sut.OriginSpeed);
+            Assert.AreEqual(100, sut.CurrentSpeed);
+        }
+
+        [Test]
         public void 슬로우_시_비율만큼_이속이_감소해야_함()
         {
             // Arrange

@@ -16,7 +16,7 @@ public struct SlowData
 
 public class SlowSystem
 {
-    readonly SlowData SlowData;
+    public readonly SlowData SlowData;
     public float SlowPercent => SlowData.SlowPercent;
     public float SlowTime => SlowData.SlowTime;
 
@@ -29,7 +29,11 @@ public class SpeedManager
 {
     public readonly float OriginSpeed;
     public float CurrentSpeed { get; private set; }
-    public SpeedManager(float originSpeed) => OriginSpeed = originSpeed;
+    public SpeedManager(float originSpeed)
+    {
+        OriginSpeed = originSpeed;
+        CurrentSpeed = originSpeed;
+    }
 
     public void OnSlow(float slowRate) => CurrentSpeed = OriginSpeed - (OriginSpeed * (slowRate / 100));
     public void RestoreSpeed() => CurrentSpeed = OriginSpeed;

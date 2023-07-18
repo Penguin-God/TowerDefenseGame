@@ -123,8 +123,8 @@ public class Multi_Enemy : MonoBehaviourPun
     // 상태 이상은 마스트에서 적용 후 다른 플레이어에게 동기화하는 방식
     public virtual void OnSlow(float slowPercent, float slowTime) { }
 
-    public void ExitSlow(RpcTarget _target) => photonView.RPC(nameof(ExitSlow), _target);
-    [PunRPC] protected virtual void ExitSlow() { }
+    public void ExitSlow(RpcTarget _target) => photonView.RPC(nameof(RestoreSpeed), _target);
+    [PunRPC] protected virtual void RestoreSpeed() { }
 
     public void OnFreeze_RPC(float _freezeTime) => photonView.RPC(nameof(OnFreeze), RpcTarget.MasterClient, _freezeTime);
     [PunRPC] protected virtual void OnFreeze(float slowTime) { } // 얼리는 스킬

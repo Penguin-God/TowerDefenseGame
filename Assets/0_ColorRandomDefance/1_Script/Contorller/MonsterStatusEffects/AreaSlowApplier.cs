@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class AreaSlowApplier : MonoBehaviour
 {
-    private float _slowPercent;
-    private List<Multi_NormalEnemy> _targets = new List<Multi_NormalEnemy>();
+    float _slowPercent;
+    List<Multi_NormalEnemy> _targets = new List<Multi_NormalEnemy>();
 
     public void SetInfo(float slowPer, float raduis)
     {
@@ -16,10 +16,10 @@ public class AreaSlowApplier : MonoBehaviour
 
     void ApplySlow(Multi_NormalEnemy enemy)
     {
-        if (!_targets.Contains(enemy) && !enemy.IsSlow)
+        if (_targets.Contains(enemy) == false && enemy.IsSlow == false)
         {
             _targets.Add(enemy);
-            enemy.OnSlow(_slowPercent, -1);
+            enemy.OnSlow(_slowPercent, Mathf.Infinity);
         }
     }
 
@@ -37,7 +37,7 @@ public class AreaSlowApplier : MonoBehaviour
         foreach (var monster in _targets)
         {
             if (monster.IsSlow == false)
-                monster.OnSlow(_slowPercent, -1);
+                monster.OnSlow(_slowPercent, Mathf.Infinity);
         }
     }
 

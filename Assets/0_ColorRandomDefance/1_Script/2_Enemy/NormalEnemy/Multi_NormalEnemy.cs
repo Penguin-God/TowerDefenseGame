@@ -39,6 +39,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected override void SetStatus(int _hp, float _speed, bool _isDead)
     {
         base.SetStatus(_hp, _speed, _isDead);
+        _speedManager = new SpeedManager(_speed);
         Passive();
         spawnStage = StageManager.Instance.CurrentStage;
         TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);
@@ -46,7 +47,6 @@ public class Multi_NormalEnemy : Multi_Enemy
         transform.position = _spawnPositons[UsingId];
         transform.rotation = Quaternion.identity;
         SetDirection();
-        _speedManager = new SpeedManager(_speed);
     }
 
     readonly Vector3[] _spawnPositons = new Vector3[]
@@ -66,10 +66,10 @@ public class Multi_NormalEnemy : Multi_Enemy
     void SetDirection() // 실제 이동을 위한 속도 설정
     {
         dir = (WayPoint.position - transform.position).normalized;
-        ChangeVelocity(dir, Speed);
+        ChangeVelocity(dir);
     }
 
-    void ChangeVelocity(Vector3 direction, float speed) => Rigidbody.velocity = direction * speed;
+    void ChangeVelocity(Vector3 direction) => Rigidbody.velocity = direction * _speedManager.CurrentSpeed;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -121,38 +121,37 @@ public class Multi_NormalEnemy : Multi_Enemy
     // 여기부터 시작하는 Slow도매인 로직 빼고 의존성 주입받게 한 다음에 스킬 추가되면 바꾸면 되는거 아님?
     void OnSlow(SlowSystem slowSystem)
     {
-        if (IsSlow && _slowSystem.SlowPercent >= slowSystem.SlowPercent) return;
+        if ((IsSlow && _slowSystem.SlowPercent >= slowSystem.SlowPercent) || 0 >= slowSystem.SlowTime) return;
 
         _slowSystem = slowSystem;
-        photonView.RPC(nameof(ApplySlow), RpcTarget.All, _slowSystem.ApplySlowToSpeed(maxSpeed));
-        if (_slowSystem.SlowTime > 0)
-        {
-            ApplySlowTime(_slowSystem.SlowTime);
-            _speedManager.OnSlow(_slowSystem.SlowPercent);
-        }
+        ApplySlowToAll(slowSystem.SlowData);
+    }
+
+    protected void ApplySlowToAll(SlowData slowData) => photonView.RPC(nameof(ApplySlow), RpcTarget.All, (byte)slowData.SlowPercent, slowData.SlowTime);
+
+    [PunRPC]
+    protected void ApplySlow(byte slowRate, float slowTime)
+    {
+        _speedManager.OnSlow(slowRate);
+        _ChangeSpeed(_speedManager.CurrentSpeed);
+        ChangeColorToSlow();
+        ApplySlowTime(slowTime);
     }
 
     void ApplySlowTime(float slowTime)
     {
-        StopCoroutine(nameof(Co_ExitSlow));
-        StartCoroutine(nameof(Co_ExitSlow), slowTime);
+        StopCoroutine(nameof(Co_RestoreSpeed));
+        StartCoroutine(nameof(Co_RestoreSpeed), slowTime);
     }
 
-    [PunRPC]
-    protected void ApplySlow(float slowSpeed)
-    {
-        ChangeSpeed(slowSpeed);
-        ChangeColorToSlow();
-    }
-
-    IEnumerator Co_ExitSlow(float slowTime)
+    IEnumerator Co_RestoreSpeed(float slowTime)
     {
         yield return new WaitForSeconds(slowTime);
-        photonView.RPC(nameof(ExitSlow), RpcTarget.All);
+        photonView.RPC(nameof(RestoreSpeed), RpcTarget.All);
     }
 
     [PunRPC]
-    protected override void ExitSlow()
+    protected override void RestoreSpeed()
     {
         ChangeMat(originMat);
         ChangeColorToOrigin();
@@ -210,16 +209,17 @@ public class Multi_NormalEnemy : Multi_Enemy
     }
 
     [PunRPC] // sync : 동기화한다는 뜻의 동사
-    protected void SyncSpeed(float _speed) => ChangeSpeed(_speed);
+    protected void SyncSpeed(float _speed) => _ChangeSpeed(_speed);
 
-    protected override void ChangeSpeed(float newSpeed)
+    protected void _ChangeSpeed(float newSpeed)
     {
         base.ChangeSpeed(newSpeed);
-        ChangeVelocity(dir, newSpeed);
+        //_speedManager = new SpeedManager(newSpeed);
+        ChangeVelocity(dir);
     }
 
     // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기
-    protected void Set_OriginSpeed_To_AllPlayer() => photonView.RPC(nameof(SyncSpeed), RpcTarget.All, maxSpeed);
+    protected void Set_OriginSpeed_To_AllPlayer() => photonView.RPC(nameof(SyncSpeed), RpcTarget.All, _speedManager.CurrentSpeed);
 
     #endregion
 }

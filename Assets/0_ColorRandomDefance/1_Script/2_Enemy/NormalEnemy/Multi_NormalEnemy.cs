@@ -46,6 +46,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         transform.position = _spawnPositons[UsingId];
         transform.rotation = Quaternion.identity;
         SetDirection();
+        _speedManager = new SpeedManager(_speed);
     }
 
     readonly Vector3[] _spawnPositons = new Vector3[]
@@ -65,8 +66,10 @@ public class Multi_NormalEnemy : Multi_Enemy
     void SetDirection() // 실제 이동을 위한 속도 설정
     {
         dir = (WayPoint.position - transform.position).normalized;
-        Rigidbody.velocity = dir * speed;
+        ChangeVelocity(dir, Speed);
     }
+
+    void ChangeVelocity(Vector3 direction, float speed) => Rigidbody.velocity = direction * speed;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -97,10 +100,9 @@ public class Multi_NormalEnemy : Multi_Enemy
         _slowSystem = null;
     }
 
-    // TODO : 상태이상 구현 코드 줄일 방법 찾아보기
-    /// <summary>
-    /// 상태이상 구현 표시
-    /// </summary>
+
+    SpeedManager _speedManager;
+
     #region 상태이상 구현
 
     SlowSystem _slowSystem = null;
@@ -124,7 +126,10 @@ public class Multi_NormalEnemy : Multi_Enemy
         _slowSystem = slowSystem;
         photonView.RPC(nameof(ApplySlow), RpcTarget.All, _slowSystem.ApplySlowToSpeed(maxSpeed));
         if (_slowSystem.SlowTime > 0)
+        {
             ApplySlowTime(_slowSystem.SlowTime);
+            _speedManager.OnSlow(_slowSystem.SlowPercent);
+        }
     }
 
     void ApplySlowTime(float slowTime)
@@ -152,6 +157,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         ChangeMat(originMat);
         ChangeColorToOrigin();
         _slowSystem = null;
+        _speedManager.RestoreSpeed();
 
         // 스턴 상태가 아니라면 속도 복구
         if (queue_GetSturn.Count <= 0 && photonView.IsMine) Set_OriginSpeed_To_AllPlayer();
@@ -209,7 +215,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected override void ChangeSpeed(float newSpeed)
     {
         base.ChangeSpeed(newSpeed);
-        Rigidbody.velocity = dir * Speed;
+        ChangeVelocity(dir, newSpeed);
     }
 
     // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기

@@ -69,7 +69,11 @@ public class Multi_NormalEnemy : Multi_Enemy
         ChangeVelocity(dir);
     }
 
-    void ChangeVelocity(Vector3 direction) => Rigidbody.velocity = direction * _speedManager.CurrentSpeed;
+    void ChangeVelocity(Vector3 direction)
+    {
+        if (IsStun) direction = Vector3.zero;
+        Rigidbody.velocity = direction * _speedManager.CurrentSpeed;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -94,24 +98,24 @@ public class Multi_NormalEnemy : Multi_Enemy
         isResurrection = false;
         spawnStage = 0;
         sternEffect.SetActive(false);
-        queue_GetSturn.Clear();
         ResetColor();
         pointIndex = -1;
         transform.rotation = Quaternion.identity;
         _slowSystem = null;
+        _stunCount = 0;
     }
 
 
     protected SpeedManager _speedManager;
     public float Speed => IsStun ? 0 : _speedManager.CurrentSpeed;
-    bool IsStun => queue_GetSturn.Count > 0;
+    bool IsStun => _stunCount > 0;
     #region 상태이상 구현
 
     SlowSystem _slowSystem = null;
     public bool IsSlow => _slowSystem != null;
     [SerializeField] private Material freezeMat;
 
-    private Queue<int> queue_GetSturn = new Queue<int>();
+    int _stunCount = 0;
     [SerializeField] private GameObject sternEffect;
 
     public override void OnSlow(float slowPercent, float slowTime)
@@ -159,11 +163,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         ChangeColorToOrigin();
         _slowSystem = null;
         _speedManager.RestoreSpeed();
-
-        // 스턴 상태가 아니라면 속도 복구
-        if (IsStun == false && PhotonNetwork.IsMasterClient) Set_OriginSpeed_To_AllPlayer();
     }
-
 
     [PunRPC]
     protected override void OnFreeze(float slowTime)
@@ -176,45 +176,36 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     [PunRPC] protected void Mat_To_Freeze() => ChangeMat(freezeMat);
 
-
     [PunRPC]
     protected override void OnStun(int stunPercent, float stunTime)
     {
         if (IsDead || PhotonNetwork.IsMasterClient == false) return;
         int random = UnityEngine.Random.Range(0, 100);
-        if (random < stunPercent) StartCoroutine(SternCoroutine(stunTime));
+        if (random < stunPercent) StartCoroutine(Co_Stun(stunTime));
     }
 
-
-    IEnumerator SternCoroutine(float stunTime)
+    IEnumerator Co_Stun(float stunTime)
     {
-        queue_GetSturn.Enqueue(-1);
-        photonView.RPC(nameof(SyncSpeed), RpcTarget.All, 0f);
-        photonView.RPC(nameof(ShowSturnEffetc), RpcTarget.All);
+        _stunCount++;
+        photonView.RPC(nameof(Stun), RpcTarget.All);
         yield return new WaitForSeconds(stunTime);
 
-        if (IsStun) queue_GetSturn.Dequeue();
-        else photonView.RPC(nameof(ExitStun), RpcTarget.All);
+        _stunCount--;
+        if(IsStun == false) photonView.RPC(nameof(ExitStun), RpcTarget.All);
     }
 
     [PunRPC]
     protected void ExitStun()
     {
         sternEffect.SetActive(false);
-        Set_OriginSpeed_To_AllPlayer();
+        ChangeVelocity(dir);
     }
 
     [PunRPC]
-    protected void ShowSturnEffetc()
+    protected void Stun()
     {
+        ChangeVelocity(Vector3.zero);
         sternEffect.SetActive(true);
     }
-
-    [PunRPC] // sync : 동기화한다는 뜻의 동사
-    protected void SyncSpeed(float _speed) => ChangeVelocity(dir);
-
-    // 나중에 이동 tralslate로 바꿔서 스턴이랑 이속 다르게 처리하는거 시도해보기
-    protected void Set_OriginSpeed_To_AllPlayer() => photonView.RPC(nameof(SyncSpeed), RpcTarget.All, _speedManager.CurrentSpeed);
-
     #endregion
 }

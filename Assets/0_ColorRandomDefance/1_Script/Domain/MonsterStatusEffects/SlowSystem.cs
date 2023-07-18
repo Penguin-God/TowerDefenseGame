@@ -25,6 +25,6 @@ public class SpeedManager
         CurrentSpeed = originSpeed;
     }
 
-    public void OnSlow(float slowRate) => CurrentSpeed = OriginSpeed - (OriginSpeed * (slowRate / 100));
+    public virtual void OnSlow(float slowRate) => CurrentSpeed = OriginSpeed - (OriginSpeed * (slowRate / 100));
     public void RestoreSpeed() => CurrentSpeed = OriginSpeed;
 }

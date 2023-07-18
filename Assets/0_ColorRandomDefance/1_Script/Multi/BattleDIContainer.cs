@@ -28,6 +28,8 @@ public class BattleDIContainer
 
         throw new InvalidOperationException("Service of type " + typeof(T).Name + " not found.");
     }
+
+    public MultiData<EquipSkillData> GetMultiSkillData() => GetService<MultiData<EquipSkillData>>();
 }
 
 public class BattleDIContainerInitializer
@@ -47,7 +49,7 @@ public class BattleDIContainerInitializer
         dispatcher = container.AddService<BattleEventDispatcher>();
 
         AddService(container);
-        InitService(container);
+        InjectService(container);
 
         InitManagers(container);
         InjectionOnlyMaster(container);
@@ -72,7 +74,7 @@ public class BattleDIContainerInitializer
     }
 
 
-    void InitService(BattleDIContainer container)
+    void InjectService(BattleDIContainer container)
     {
         container.GetComponent<WinOrLossController>().Init(dispatcher);
         container.GetComponent<OpponentStatusSender>().Init(dispatcher);
@@ -90,10 +92,11 @@ public class BattleDIContainerInitializer
         var server = MultiServiceMidiator.Server;
 
         var monsterSpawnController = container.AddComponent<MonsterSpawnerContorller>();
-        monsterSpawnController.Injection(container.GetComponent<IMonsterManager>(), container.GetComponent<EnemySpawnNumManager>(), dispatcher);
+        monsterSpawnController
+            .Injection(container.GetComponent<IMonsterManager>(), container.GetComponent<EnemySpawnNumManager>(), dispatcher, new NormalMonsterSpawner(container.GetMultiSkillData()));
         container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
         container.GetComponent<UnitMaxCountController>().Init(server, game);
-        Multi_SpawnManagers.NormalUnit.Injection(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager, container.GetService<MultiData<EquipSkillData>>());
+        Multi_SpawnManagers.NormalUnit.Injection(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager, container.GetMultiSkillData());
     }
 
     void InitManagers(BattleDIContainer container)

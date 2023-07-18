@@ -38,6 +38,7 @@ public class UserSkillFactory
             case SkillType.네크로맨서: 
                 return new NecromancerController(skillType, container.GetService<BattleEventDispatcher>(), container.GetComponent<EffectSynchronizer>());
             case SkillType.마창사: return new MagicSpearman(skillType, Managers.Data);
+            case SkillType.썬콜: return new Suncold(skillType);
             default: return null;
         }
     }
@@ -363,4 +364,13 @@ public class MagicSpearman : UserSkill
     public MagicSpearman(SkillType skillType, DataManager data) : base(skillType) => _dataManager = data;
     public override void InitSkill()
         => _dataManager.Unit.SetThrowSpearData(Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/MagicThrowSpearData").ChangeAttackRate(SkillData));
+}
+
+public class Suncold : UserSkill
+{
+    public Suncold(SkillType skillType) : base(skillType) { }
+    public override void InitSkill()
+    {
+
+    }
 }

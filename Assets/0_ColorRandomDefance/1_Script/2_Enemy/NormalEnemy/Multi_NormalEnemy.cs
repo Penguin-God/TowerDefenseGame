@@ -39,7 +39,6 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected override void SetStatus(int _hp, float _speed, bool _isDead)
     {
         base.SetStatus(_hp, _speed, _isDead);
-        _speedManager = new SpeedManager(_speed);
         Passive();
         spawnStage = StageManager.Instance.CurrentStage;
         TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);
@@ -48,6 +47,8 @@ public class Multi_NormalEnemy : Multi_Enemy
         transform.rotation = Quaternion.identity;
         SetDirection();
     }
+
+    public void Injection(SpeedManager speedManager) => SpeedManager = speedManager;
 
     readonly Vector3[] _spawnPositons = new Vector3[]
     {
@@ -72,7 +73,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     void ChangeVelocity(Vector3 direction)
     {
         if (IsStun) direction = Vector3.zero;
-        Rigidbody.velocity = direction * _speedManager.CurrentSpeed;
+        Rigidbody.velocity = direction * SpeedManager.CurrentSpeed;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -94,7 +95,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected override void ResetValue()
     {
         base.ResetValue();
-        _speedManager = null;
+        SpeedManager = null;
         isResurrection = false;
         spawnStage = 0;
         sternEffect.SetActive(false);
@@ -105,9 +106,9 @@ public class Multi_NormalEnemy : Multi_Enemy
     }
 
 
-    protected SpeedManager _speedManager;
-    public float Speed => IsStun ? 0 : _speedManager.CurrentSpeed;
-    public bool IsSlow => _speedManager.IsSlow;
+    protected SpeedManager SpeedManager { get; private set; }
+    public float Speed => IsStun ? 0 : SpeedManager.CurrentSpeed;
+    public bool IsSlow => SpeedManager.IsSlow;
     bool IsStun => _stunCount > 0;
     #region 상태이상 구현
 
@@ -139,7 +140,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     [PunRPC]
     protected void ApplySlow(byte slowRate, float slowTime)
     {
-        _speedManager.OnSlow(slowRate);
+        SpeedManager.OnSlow(slowRate); // 여기서 뒤짐
         ChangeVelocity(dir);
         ChangeColorToSlow();
         ApplySlowTime(slowTime);
@@ -162,7 +163,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         ChangeMat(originMat);
         ChangeColorToOrigin();
-        _speedManager.RestoreSpeed();
+        SpeedManager.RestoreSpeed();
         ChangeVelocity(dir);
         _slowData = new SlowData();
     }

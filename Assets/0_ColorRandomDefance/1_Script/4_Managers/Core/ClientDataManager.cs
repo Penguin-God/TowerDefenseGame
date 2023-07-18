@@ -132,6 +132,7 @@ public enum SkillType
     조합메테오,
     네크로맨서,
     마창사,
+    썬콜,
 }
 
 public enum MoneyType

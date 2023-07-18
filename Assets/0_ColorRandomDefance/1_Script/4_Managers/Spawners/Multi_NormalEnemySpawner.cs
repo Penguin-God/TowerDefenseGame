@@ -5,12 +5,19 @@ using Photon.Pun;
 
 public class NormalMonsterSpawner
 {
-    public Multi_NormalEnemy SpawnMonster(byte num, byte id, int stage) // 썬콜 여기서 주입해버리면 될 듯?
+    MultiData<EquipSkillData> _skillData;
+    public NormalMonsterSpawner(MultiData<EquipSkillData> skillData) => _skillData = skillData;
+
+    public Multi_NormalEnemy SpawnMonster(byte num, byte id, int stage)
     {
-        var enemy = Managers.Multi.Instantiater.PhotonInstantiateInactive(new ResourcesPathBuilder().BuildMonsterPath(num), id).GetComponent<Multi_NormalEnemy>();
+        var monster = Managers.Multi.Instantiater.PhotonInstantiateInactive(new ResourcesPathBuilder().BuildMonsterPath(num), id).GetComponent<Multi_NormalEnemy>();
+        Debug.Log(_skillData.GetData(id).MainSkill == SkillType.썬콜);
         NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];
-        enemy.SetStatus_RPC(data.Hp, data.Speed, false);
-        return enemy;
+        var speedManager
+            = (_skillData.GetData(id).MainSkill == SkillType.썬콜) ?  new SuncoldSpeedManager(data.Speed, monster, 100) : new SpeedManager(data.Speed);
+        monster.Injection(speedManager);
+        monster.SetStatus_RPC(data.Hp, data.Speed, false);
+        return monster;
     }
 }
 
@@ -39,11 +46,13 @@ public class MonsterSpawnerContorller : MonoBehaviour
     IMonsterManager _monsterManager = null;
     EnemySpawnNumManager _numManager;
     BattleEventDispatcher _dispatcher;
-    public void Injection(IMonsterManager monsterManager, EnemySpawnNumManager numManager, BattleEventDispatcher dispatcher)
+    NormalMonsterSpawner _monsterSpawner;
+    public void Injection(IMonsterManager monsterManager, EnemySpawnNumManager numManager, BattleEventDispatcher dispatcher, NormalMonsterSpawner monsterSpawner)
     {
         _monsterManager = monsterManager;
         _numManager = numManager;
         _dispatcher = dispatcher;
+        _monsterSpawner = monsterSpawner;
     }
 
     void Start()
@@ -64,7 +73,7 @@ public class MonsterSpawnerContorller : MonoBehaviour
     Multi_NormalEnemy SpawnMonsterToOther(int id, int stage) => SpawnNormalMonster(_numManager.GetSpawnEnemyNum(id), (byte)(id == 0 ? 1 : 0), stage);
     Multi_NormalEnemy SpawnNormalMonster(byte num, byte id, int stage)
     {
-        var monster = new NormalMonsterSpawner().SpawnMonster(num, id, stage);
+        var monster = _monsterSpawner.SpawnMonster(num, id, stage);
         _monsterManager.AddNormalMonster(monster);
         monster.OnDead += _ => _monsterManager.RemoveNormalMonster(monster); // event interface 맞추려는 람다식
         return monster;

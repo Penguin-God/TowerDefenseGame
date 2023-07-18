@@ -17,7 +17,7 @@ public class SuncoldSpeedManager : SpeedManager
         if (IsSlow)
         {
             _normalMonster.OnDamage(CalculateColdDamage(slowRate), isSkill: true);
-            // ¿Ã∆—∆Æ
+            Managers.Effect.PlayOneShotEffect("BlueLightning", _normalMonster.transform.position);
         }
         base.OnSlow(slowRate);
     }

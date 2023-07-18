@@ -73,7 +73,7 @@ public class Multi_Enemy : MonoBehaviourPun
         ChangeHp(currentHp - damage);
         photonView.RPC(nameof(RPC_UpdateHealth), RpcTarget.Others, currentHp);
 
-        if (currentHp <= 0 && !isDead)
+        if (currentHp <= 0 && isDead == false)
             photonView.RPC(nameof(RPC_Dead), RpcTarget.All);
     }
 
@@ -85,6 +85,7 @@ public class Multi_Enemy : MonoBehaviourPun
 
     public virtual void Dead()
     {
+        isDead = true;
         OnDeath?.Invoke();
         OnDead?.Invoke(this);
         OnDead = null;

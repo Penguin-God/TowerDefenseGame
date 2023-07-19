@@ -32,7 +32,7 @@ public class BattleScene : BaseScene
         var client = Managers.ClientData;
         var main = Managers.ClientData.EquipSkillManager.MainSkill;
         var sub = Managers.ClientData.EquipSkillManager.SubSkill;
-        GetComponent<PhotonView>().RPC(nameof(SetEnemyData), RpcTarget.Others, main, client.GetSkillLevel(main), sub, client.GetSkillLevel(sub));
+        GetComponent<PhotonView>().RPC(nameof(SetEnemyData), RpcTarget.Others, main, (byte)client.GetSkillLevel(main), sub, (byte)client.GetSkillLevel(sub));
     }
 
     public BattleDIContainer GetBattleContainer() => _battleDIContainer;

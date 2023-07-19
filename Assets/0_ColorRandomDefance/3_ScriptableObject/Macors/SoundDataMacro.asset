@@ -30,6 +30,8 @@ MonoBehaviour:
 
     GoodsBuySound,
 
+    LightningClip,
+
     Lose,
 
     NewStageClip,

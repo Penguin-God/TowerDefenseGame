@@ -140,10 +140,10 @@ public class Multi_NormalEnemy : Multi_Enemy
     [PunRPC]
     protected void ApplySlow(byte slowRate, float slowTime)
     {
-        SpeedManager.OnSlow(slowRate); // 여기서 뒤짐
         ChangeVelocity(dir);
         ChangeColorToSlow();
         ApplySlowTime(slowTime);
+        SpeedManager.OnSlow(slowRate); // 썬콜 때문에 마지막이어야 함
     }
 
     void ApplySlowTime(float slowTime)

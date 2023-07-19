@@ -37,25 +37,23 @@ public class BattleScene : BaseScene
 
     public BattleDIContainer GetBattleContainer() => _battleDIContainer;
 
-    EquipSkillData _equipSkillData = null;
     ActiveUserSkillDataContainer _activeUserSkillDataContainer;
     [PunRPC] 
     void SetEnemyData(SkillType mainSkill, byte mainLevel, SkillType subSkill, byte subLevel)
     {
-        _equipSkillData = new EquipSkillData(mainSkill, subSkill);
         _activeUserSkillDataContainer = new ActiveUserSkillDataContainer(mainSkill, mainLevel, subSkill, subLevel, Managers.Data);
     }
 
     IEnumerator Co_InitGame()
     {
-        yield return new WaitUntil(() => _equipSkillData != null);
+        yield return new WaitUntil(() => _activeUserSkillDataContainer != null);
         InitGame();
     }
     void InitGame()
     {
         MultiServiceMidiator.Instance.Init();
         _battleDIContainer = new BattleDIContainer(gameObject);
-        new WorldInitializer(_battleDIContainer).Init(_equipSkillData, _activeUserSkillDataContainer);
+        new WorldInitializer(_battleDIContainer).Init(_activeUserSkillDataContainer);
     }
 
     public override void Clear()
@@ -95,15 +93,16 @@ class WorldInitializer
         _battleDIContainer = container;
     }
 
-    public void Init(EquipSkillData enemySKillData, ActiveUserSkillDataContainer data)
+    public BattleDIContainer Init(ActiveUserSkillDataContainer data)
     {
-        new BattleDIContainerInitializer().InjectBattleDependency(_battleDIContainer, enemySKillData, data);
+        new BattleDIContainerInitializer().InjectBattleDependency(_battleDIContainer, data);
 
         Managers.Camera.EnterBattleScene();
         InitMonoBehaviourContainer();
         InitObjectPools();
         BindUnitEvent();
         InitEffect();
+        return _battleDIContainer;
     }
 
     void InitMonoBehaviourContainer()

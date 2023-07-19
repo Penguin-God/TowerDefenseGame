@@ -29,10 +29,10 @@ public class UI_Status : UI_Scene
     }
 
     BattleEventDispatcher _dispatcher;
-    MultiData<EquipSkillData> _multiEquipSkillData;
-    EquipSkillData MySkillData => _multiEquipSkillData.GetData(PlayerIdManager.Id);
-    EquipSkillData EnemySkillData => _multiEquipSkillData.GetData(PlayerIdManager.EnemyId);
-    public void Injection(BattleEventDispatcher dispatcher, MultiData<EquipSkillData> multiEquipSkillData)
+    MultiData<ActiveUserSkillDataContainer> _multiEquipSkillData;
+    ActiveUserSkillDataContainer MySkillData => _multiEquipSkillData.GetData(PlayerIdManager.Id);
+    ActiveUserSkillDataContainer EnemySkillData => _multiEquipSkillData.GetData(PlayerIdManager.EnemyId);
+    public void Injection(BattleEventDispatcher dispatcher, MultiData<ActiveUserSkillDataContainer> multiEquipSkillData)
     {
         _dispatcher = dispatcher;
         _multiEquipSkillData = multiEquipSkillData;

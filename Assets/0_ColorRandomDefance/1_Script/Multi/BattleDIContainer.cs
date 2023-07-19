@@ -29,7 +29,6 @@ public class BattleDIContainer
         throw new InvalidOperationException("Service of type " + typeof(T).Name + " not found.");
     }
 
-    public MultiData<EquipSkillData> GetMultiSkillData() => GetService<MultiData<EquipSkillData>>();
     public MultiData<ActiveUserSkillDataContainer> GetMultiActiveSkillData() => GetService<MultiData<ActiveUserSkillDataContainer>>();
 }
 
@@ -38,13 +37,8 @@ public class BattleDIContainerInitializer
     Multi_GameManager game;
     DataManager data;
     BattleEventDispatcher dispatcher;
-    public void InjectBattleDependency(BattleDIContainer container, EquipSkillData enemySkillData, ActiveUserSkillDataContainer enemyActiveSkillData)
+    public void InjectBattleDependency(BattleDIContainer container, ActiveUserSkillDataContainer enemyActiveSkillData)
     {
-        var skillData = new MultiData<EquipSkillData>();
-        skillData.SetData(PlayerIdManager.Id, Managers.ClientData.EquipSkillManager.EquipSkillData);
-        skillData.SetData(PlayerIdManager.EnemyId, enemySkillData);
-        container.AddService(skillData);
-
         game = Multi_GameManager.Instance;
         data = Managers.Data;
         dispatcher = container.AddService<BattleEventDispatcher>();
@@ -104,7 +98,7 @@ public class BattleDIContainerInitializer
             .Injection(container.GetComponent<IMonsterManager>(), container.GetComponent<EnemySpawnNumManager>(), dispatcher, new NormalMonsterSpawner(container.GetMultiActiveSkillData()));
         container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
         container.GetComponent<UnitMaxCountController>().Init(server, game);
-        Multi_SpawnManagers.NormalUnit.Injection(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager, container.GetMultiSkillData());
+        Multi_SpawnManagers.NormalUnit.Injection(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager);
     }
 
     void InitManagers(BattleDIContainer container)
@@ -122,7 +116,7 @@ public class BattleDIContainerInitializer
         Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
 
         Managers.UI.ShowSceneUI<BattleButton_UI>().SetInfo(container.GetComponent<SwordmanGachaController>());
-        Managers.UI.ShowSceneUI<UI_Status>().Injection(container.GetService<BattleEventDispatcher>(), container.GetService<MultiData<EquipSkillData>>());
+        Managers.UI.ShowSceneUI<UI_Status>().Injection(container.GetService<BattleEventDispatcher>(), container.GetMultiActiveSkillData());
 
         var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();
         enemySelector.SetInfo(container.GetComponent<EnemySpawnNumManager>());

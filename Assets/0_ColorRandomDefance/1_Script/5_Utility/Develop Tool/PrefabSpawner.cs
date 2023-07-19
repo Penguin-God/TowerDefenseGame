@@ -15,7 +15,8 @@ public class PrefabSpawner : MonoBehaviour
     BattleDIContainer _container;
     void Start()
     {
-        _container = FindObjectOfType<BattleScene>().GetBattleContainer();
+        if(FindObjectOfType<BattleScene>() != null)
+            _container = FindObjectOfType<BattleScene>().GetBattleContainer();
     }
 
     public void SpawnUnit(int colorNumber, int classNumber) => Multi_SpawnManagers.NormalUnit.Spawn(colorNumber, classNumber);

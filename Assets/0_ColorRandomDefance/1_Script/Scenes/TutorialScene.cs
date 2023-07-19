@@ -11,13 +11,11 @@ public class TutorialScene : BaseScene
         PhotonNetwork.JoinRandomRoom();
 
         MultiServiceMidiator.Instance.Init();
-        // Managers.Unit.Init(new UnitControllerAttacher().AttacherUnitController(MultiServiceMidiator.Instance.gameObject), Managers.Data);
-        new WorldInitializer(gameObject).Init(new EquipSkillData(SkillType.검은유닛강화, SkillType.판매보상증가), null);
+        var contaner = new WorldInitializer(gameObject).Init(new ActiveUserSkillDataContainer(SkillType.검은유닛강화, 1, SkillType.판매보상증가, 1, Managers.Data));
         gameObject.AddComponent<Tutorial_AI>();
-        // Multi_GameManager.Instance.CreateOtherPlayerData(SkillType.검은유닛강화, SkillType.판매보상증가);
-
-        SetPlayerSkill();
-        InitTutorial(gameObject.GetComponent<BattleDIContainer>());
+        
+        // SetPlayerSkill();
+        InitTutorial(contaner);
     }
 
     void SetPlayerSkill()

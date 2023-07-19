@@ -4,33 +4,6 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-
-public struct UserSkillData
-{
-    readonly UserSkillClass UserSkillClass;
-    readonly SkillType SkillType;
-
-    public UserSkillData(UserSkillClass userSkillClass, SkillType skillType)
-    {
-        UserSkillClass = userSkillClass;
-        SkillType = skillType;
-    }
-}
-
-public class EquipSkillData
-{
-    public SkillType MainSkill { get; private set; }
-    public SkillType SubSkill { get; private set; }
-
-    public EquipSkillData(SkillType main, SkillType sub)
-    {
-        MainSkill = main;
-        SubSkill = sub;
-    }
-
-    public bool IsEquipSkill(SkillType skillType) => MainSkill == skillType || SubSkill == skillType;
-}
-
 public class EquipSkillManager
 {
     Dictionary<UserSkillClass, SkillType> _typeByClass = new Dictionary<UserSkillClass, SkillType>()
@@ -40,7 +13,6 @@ public class EquipSkillManager
     };
     public IEnumerable<SkillType> EquipSkills => _typeByClass.Values;
 
-    public EquipSkillData EquipSkillData => new EquipSkillData(_typeByClass[UserSkillClass.Main], _typeByClass[UserSkillClass.Sub]);
     public SkillType MainSkill => _typeByClass[UserSkillClass.Main];
     public SkillType SubSkill => _typeByClass[UserSkillClass.Sub];
     public bool AllSkillsEquipped => MainSkill != SkillType.None && SubSkill != SkillType.None;

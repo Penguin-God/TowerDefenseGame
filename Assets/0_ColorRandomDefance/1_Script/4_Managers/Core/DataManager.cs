@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
-using System;
 
 public interface ILoader<Key, Value>
 {
@@ -209,5 +208,8 @@ public class DataManager
                 Debug.LogError($"유저 스킬 데이터 {skillType} : 로드 실패");
             return result;
         }
+
+        public UserSkillBattleData GetSkillBattleData(SkillType type, int level)
+            => new UserSkillBattleData(type, GetSkillGoodsData(type).SkillClass, GetSkillLevelData(type, level).BattleDatas);
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using System.Collections.ObjectModel;
 
 public class ActiveUserSkillDataContainer
 {
@@ -43,12 +44,30 @@ public abstract class UserSkill
 {
     SkillType _skillType;
     public UserSkill(SkillType skillType) => _skillType = skillType;
+    public UserSkill(UserSkillBattleData userSkillBattleData) { }
 
-    public abstract void InitSkill();
+    internal abstract void InitSkill();
     protected float[] SkillDatas => Managers.ClientData.GetSkillLevelData(_skillType).BattleDatas;
     protected int[] IntSkillDatas => SkillDatas.Select(x => (int)x).ToArray();
     protected float SkillData => SkillDatas[0];
     protected int IntSkillData => (int)SkillData;
+}
+
+public struct UserSkillBattleData
+{
+    public readonly SkillType SkillType;
+    public readonly UserSkillClass SkillClass;
+    public readonly IReadOnlyList<float> SkillDatas;
+    public float SkillData => SkillDatas[0];
+    public IReadOnlyList<int> IntSkillDatas => SkillDatas.Select(x => (int)x).ToArray();
+    public int IntSkillData => (int)SkillData;
+
+    public UserSkillBattleData(SkillType skillType, UserSkillClass skillClass, IReadOnlyList<float> skillDatas)
+    {
+        SkillType = skillType;
+        SkillClass = skillClass;
+        SkillDatas = skillDatas;
+    }
 }
 
 public class UserSkillFactory
@@ -77,6 +96,59 @@ public class UserSkillFactory
             default: return null;
         }
     }
+
+    IReadOnlyList<SkillType> SimpleSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>() 
+    {
+        SkillType.시작골드증가, SkillType.시작고기증가, SkillType.최대유닛증가, SkillType.노란기사강화, SkillType.컬러마스터, SkillType.보스데미지증가, SkillType.마창사, SkillType.썬콜 
+    });
+
+    public UserSkill ActiveSkill(SkillType skillType, BattleDIContainer container)
+    {
+        UserSkillBattleData skillBattleData = Managers.Data.UserSkill.GetSkillBattleData(skillType, 1);
+        if (SimpleSkills.Contains(skillType))
+        {
+            ActiveSimpleSkill(skillBattleData, container);
+            return null;
+        }
+        else
+            return ActiveComplexSkill(skillBattleData, container);
+    }
+
+    void ActiveSimpleSkill(UserSkillBattleData skillBattleData, BattleDIContainer container)
+    {
+        switch (skillBattleData.SkillType)
+        {
+            case SkillType.시작골드증가: Multi_GameManager.Instance.AddGold(skillBattleData.IntSkillData); break;
+            case SkillType.시작고기증가: Multi_GameManager.Instance.AddFood(skillBattleData.IntSkillData); break;
+            case SkillType.최대유닛증가: Multi_GameManager.Instance.IncreasedMaxUnitCount(skillBattleData.IntSkillData); break;
+            case SkillType.노란기사강화: Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = skillBattleData.IntSkillData; break;
+            case SkillType.컬러마스터: container.GetComponent<SwordmanGachaController>().ChangeUnitSummonMaxColor(UnitColor.Violet); break;
+            case SkillType.보스데미지증가: MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(skillBattleData.SkillData, UnitStatType.BossDamage); break;
+            case SkillType.마창사:
+                Managers.Data.Unit.SetThrowSpearData(Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/MagicThrowSpearData").ChangeAttackRate(skillBattleData.SkillData)); break;
+            case SkillType.썬콜: break; // 썬콜은 존재만 하면 스포너에서 알아서 할당함
+        }
+    }
+
+    UserSkill ActiveComplexSkill(UserSkillBattleData skillBattleData, BattleDIContainer container)
+    {
+        UserSkill result;
+        switch (skillBattleData.SkillType)
+        {
+            case SkillType.태극스킬: result = new TaegeukController(skillBattleData.SkillType); break;
+            case SkillType.검은유닛강화: result = new BlackUnitUpgrade(skillBattleData.SkillType); break;
+            case SkillType.상대색깔변경: result = new ColorChange(skillBattleData.SkillType); break;
+            case SkillType.고기혐오자: result = new FoodHater(skillBattleData.SkillType); break;
+            case SkillType.판매보상증가: result = new SellUpgrade(skillBattleData.SkillType); break;
+            case SkillType.장사꾼: result = new DiscountMerchant(skillBattleData.SkillType); break;
+            case SkillType.조합메테오: result = new CombineMeteorController(skillBattleData.SkillType, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>()); break;
+            case SkillType.네크로맨서:
+                result = new NecromancerController(skillBattleData.SkillType, container.GetService<BattleEventDispatcher>(), container.GetComponent<EffectSynchronizer>()); break;
+            default: result = null; break;
+        }
+        result.InitSkill();
+        return result;
+    }
 }
 
 // ================= 스킬 세부 구현 =====================
@@ -84,19 +156,19 @@ public class UserSkillFactory
 public class StartGold : UserSkill
 {
     public StartGold(SkillType skillType) : base(skillType) { }
-    public override void InitSkill() => Multi_GameManager.Instance.AddGold(IntSkillData);
+    internal override void InitSkill() => Multi_GameManager.Instance.AddGold(IntSkillData);
 }
 
 public class StartFood : UserSkill
 {
     public StartFood(SkillType skillType) : base(skillType) { }
-    public override void InitSkill() => Multi_GameManager.Instance.AddFood(IntSkillData);
+    internal override void InitSkill() => Multi_GameManager.Instance.AddFood(IntSkillData);
 }
 
 public class MaxUnit : UserSkill
 {
     public MaxUnit(SkillType skillType) : base(skillType) { }
-    public override void InitSkill() => Multi_GameManager.Instance.IncreasedMaxUnitCount(IntSkillData);
+    internal override void InitSkill() => Multi_GameManager.Instance.IncreasedMaxUnitCount(IntSkillData);
 }
 
 public class TaegeukController : UserSkill
@@ -106,7 +178,7 @@ public class TaegeukController : UserSkill
     public event Action<UnitClass, bool> OnTaegeukDamageChanged;
 
     int[] _taegeukDamages = new int[Enum.GetValues(typeof(UnitClass)).Length];
-    public override void InitSkill()
+    internal override void InitSkill()
     {
         Managers.Unit.OnUnitCountChangeByFlag += (flag, count) => CheckAndApplyTaegeuk(flag);
         _taegeukDamages = IntSkillDatas;
@@ -145,7 +217,7 @@ public class BlackUnitUpgrade : UserSkill
 
     public event Action<UnitFlags> OnBlackUnitReinforce;
     int[] _upgradeDamages;
-    public override void InitSkill()
+    internal override void InitSkill()
     {
         _upgradeDamages = IntSkillDatas;
         Managers.Unit.OnUnitCountChangeByFlag += UseSkill;
@@ -165,7 +237,7 @@ public class YellowSowrdmanUpgrade : UserSkill
 {
     public YellowSowrdmanUpgrade(SkillType skillType) : base(skillType) { }
     // 노란 기사 패시브 골드 변경
-    public override void InitSkill()
+    internal override void InitSkill()
         => Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = IntSkillData;
 }
 
@@ -174,7 +246,7 @@ public class ColorMaster : UserSkill
     SwordmanGachaController _swordmanGachaController;
     public ColorMaster(SkillType skillType, SwordmanGachaController swordmanGachaController) : base(skillType)
         => _swordmanGachaController = swordmanGachaController;
-    public override void InitSkill() => _swordmanGachaController.ChangeUnitSummonMaxColor(UnitColor.Violet);
+    internal override void InitSkill() => _swordmanGachaController.ChangeUnitSummonMaxColor(UnitColor.Violet);
 }
 
 public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
@@ -184,7 +256,7 @@ public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
     int[] _whiteUnitCounts = new int[4];
     public event Action<byte, byte> OnUnitColorChanaged; // 변하기 전 색깔, 변한 후 색깔
     SkillColorChanger colorChanger;
-    public override void InitSkill()
+    internal override void InitSkill()
     {
         Managers.Unit.OnUnitCountChangeByFlag += UseSkill;
         colorChanger = Managers.Multi.Instantiater.PhotonInstantiate("RPCObjects/SkillColorChanger", Vector3.one * 500).GetComponent<SkillColorChanger>();
@@ -208,7 +280,7 @@ public class FoodHater : UserSkill
     int _rewardRate; // 얻는 고기가 몇 골드로 바뀌는가
     int _priceRate; // 기존에 고기로 팔던 상품을 몇 배의 골드로 바꿀건가
     Multi_GameManager _game;
-    public override void InitSkill()
+    internal override void InitSkill()
     {
         _rewardRate = IntSkillDatas[0];
         _priceRate = IntSkillDatas[1];
@@ -246,7 +318,7 @@ public class FoodHater : UserSkill
 public class SellUpgrade : UserSkill
 {
     public SellUpgrade(SkillType skillType) : base(skillType) { }
-    public override void InitSkill()
+    internal override void InitSkill()
     {
         // 유닛 판매 보상 증가 (유닛별로 증가폭 별도)
         var sellRewardDatas = Multi_GameManager.Instance.BattleData.UnitSellRewardDatas;
@@ -258,13 +330,13 @@ public class SellUpgrade : UserSkill
 public class BossDamageUpgrade : UserSkill
 {
     public BossDamageUpgrade(SkillType skillType) : base(skillType) { }
-    public override void InitSkill() => MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(SkillData, UnitStatType.BossDamage);
+    internal override void InitSkill() => MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(SkillData, UnitStatType.BossDamage);
 }
 
 public class DiscountMerchant : UserSkill
 {
     public DiscountMerchant(SkillType skillType) : base(skillType) { }
-    public override void InitSkill()
+    internal override void InitSkill()
     {
         Multi_GameManager.Instance.BattleData
             .ShopPriceDataByUnitUpgradeData
@@ -304,7 +376,7 @@ public class CombineMeteorController : UserSkill
         UpdateStackText();
     }
 
-    public override void InitSkill()
+    internal override void InitSkill()
     {
         Managers.Unit.OnCombine += ShotMeteor;
     }
@@ -344,7 +416,7 @@ public class NecromancerController : UserSkill
     }
 
     UI_UserSkillStatus statusUI;
-    public override void InitSkill()
+    internal override void InitSkill()
     {
         _dispatcher.OnNormalMonsterDead += _ => ResurrectOnKillCount();
         statusUI = Managers.UI.ShowSceneUI<UI_UserSkillStatus>();
@@ -378,7 +450,7 @@ public class SlowTrapSpawner : UserSkill
         _dispatcher = dispatcher;
     }
 
-    public override void InitSkill()
+    internal override void InitSkill()
     {
         _dispatcher.OnStageUp += _ => SpawnTrap();
     }
@@ -397,7 +469,7 @@ public class MagicSpearman : UserSkill
 {
     readonly DataManager _dataManager;
     public MagicSpearman(SkillType skillType, DataManager data) : base(skillType) => _dataManager = data;
-    public override void InitSkill()
+    internal override void InitSkill()
         => _dataManager.Unit.SetThrowSpearData(Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/MagicThrowSpearData").ChangeAttackRate(SkillData));
 }
 
@@ -405,5 +477,5 @@ public class Suncold : UserSkill
 {
     public Suncold(SkillType skillType) : base(skillType) { }
     public int LightningDamagePerSlow { get; private set; }
-    public override void InitSkill() => LightningDamagePerSlow = IntSkillData;
+    internal override void InitSkill() => LightningDamagePerSlow = IntSkillData;
 }

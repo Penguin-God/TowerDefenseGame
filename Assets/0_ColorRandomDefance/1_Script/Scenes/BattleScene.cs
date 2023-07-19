@@ -72,9 +72,10 @@ class UserSkillInitializer
         {
             if (skillType == SkillType.None)
                 continue;
-            var userSkill = UserSkillFactory.CreateUserSkill(skillType, container);
-            userSkill.InitSkill();
-            userSkills.Add(userSkill);
+
+            var userSkill = new UserSkillFactory().ActiveSkill(skillType, container);
+            if(userSkill != null)
+                userSkills.Add(userSkill);
         }
         return userSkills;
     }

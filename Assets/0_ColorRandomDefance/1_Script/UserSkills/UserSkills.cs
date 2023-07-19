@@ -4,6 +4,41 @@ using UnityEngine;
 using System;
 using System.Linq;
 
+public class ActiveUserSkillDataContainer
+{
+    public readonly SkillType MainSkill;
+    public readonly int MainSkillLevle;
+    public readonly SkillType SubSkill;
+    public readonly int SubSkillLevle;
+    public readonly DataManager _data;
+
+    public ActiveUserSkillDataContainer(SkillType mainSkill, int mainSkillLevel,  SkillType subSkill, int subSkillLevle, DataManager data)
+    {
+        MainSkill = mainSkill;
+        MainSkillLevle = mainSkillLevel;
+        SubSkill = subSkill;
+        SubSkillLevle = subSkillLevle;
+        _data = data;
+    }
+
+    public bool ActiveEquipSkill(SkillType skill) => skill == MainSkill || skill == SubSkill;
+    public int GetFirstIntData(UserSkillClass skillClass)
+    {
+        if (skillClass == UserSkillClass.Main)
+            return (int)_data.UserSkill.GetSkillLevelData(MainSkill, MainSkillLevle).BattleDatas[0];
+        else if(skillClass == UserSkillClass.Sub)
+            return (int)_data.UserSkill.GetSkillLevelData(SubSkill, SubSkillLevle).BattleDatas[0];
+        return 0;
+    }
+
+    public static ActiveUserSkillDataContainer CreateSkillData(ClientDataManager client, DataManager data)
+    {
+        var main = Managers.ClientData.EquipSkillManager.MainSkill;
+        var sub = Managers.ClientData.EquipSkillManager.SubSkill;
+        return new ActiveUserSkillDataContainer(main, client.GetSkillLevel(main), sub, client.GetSkillLevel(sub), data);
+    }
+}
+
 public abstract class UserSkill
 {
     SkillType _skillType;
@@ -369,8 +404,6 @@ public class MagicSpearman : UserSkill
 public class Suncold : UserSkill
 {
     public Suncold(SkillType skillType) : base(skillType) { }
-    public override void InitSkill()
-    {
-
-    }
+    public int LightningDamagePerSlow { get; private set; }
+    public override void InitSkill() => LightningDamagePerSlow = IntSkillData;
 }

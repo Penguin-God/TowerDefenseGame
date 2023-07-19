@@ -8,6 +8,7 @@ EnemySelected,0.5,Effect/EnemySelected
 GetFood,1,Effect/GetFood
 GetPassiveGold,1,Effect/GetPassiveGold
 GoodsBuySound,1,Effect/GoodsBuySound
+LightningClip,0.5,Effect/LightningClip
 Lose,1,Effect/Lose
 NewStageClip,0.6,Effect/NewStageClip
 PopSound,1,Effect/PopSound

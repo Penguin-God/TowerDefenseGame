@@ -10,12 +10,12 @@ public class SoundDatasMacro : ScriptableObject
 {
     [SerializeField, TextArea] string _enumTexts;
 
-    string ReplacePath => Path.Combine(Application.dataPath, "0_Multi", "Resources", "SoundClips/").Replace("\\", "/");
-    string EffectRootPath => Path.Combine(Application.dataPath, "0_Multi", "Resources", "SoundClips", "Effect/");
+    string ReplacePath => Path.Combine(Application.dataPath, "Resources", "SoundClips/").Replace("\\", "/");
+    string EffectRootPath => Path.Combine(Application.dataPath, "Resources", "SoundClips", "Effect/");
     string BgmRootPath => Path.Combine(ReplacePath, "Bgm/");
 
-    string EffectFilePath => Path.Combine(Application.dataPath, "0_Multi", "Resources", "Data", "SoundData", "EffectSoundData.csv");
-    string BgmFilePath => Path.Combine(Application.dataPath, "0_Multi", "Resources", "Data", "SoundData", "BgmSoundData.csv");
+    string EffectFilePath => Path.Combine(Application.dataPath, "Resources", "Data", "SoundData", "EffectSoundData.csv");
+    string BgmFilePath => Path.Combine(Application.dataPath, "Resources", "Data", "SoundData", "BgmSoundData.csv");
 
     [ContextMenu("Save Effect Sound Csv File")]
     void SaveEffectSound() => SaveCsv("effectType", EffectRootPath, EffectFilePath, ".wav");

@@ -30,6 +30,7 @@ public class BattleDIContainer
     }
 
     public MultiData<EquipSkillData> GetMultiSkillData() => GetService<MultiData<EquipSkillData>>();
+    public MultiData<ActiveUserSkillDataContainer> GetMultiActiveSkillData() => GetService<MultiData<ActiveUserSkillDataContainer>>();
 }
 
 public class BattleDIContainerInitializer
@@ -37,7 +38,7 @@ public class BattleDIContainerInitializer
     Multi_GameManager game;
     DataManager data;
     BattleEventDispatcher dispatcher;
-    public void InjectionBattleDependency(BattleDIContainer container, EquipSkillData enemySkillData)
+    public void InjectBattleDependency(BattleDIContainer container, EquipSkillData enemySkillData, ActiveUserSkillDataContainer enemyActiveSkillData)
     {
         var skillData = new MultiData<EquipSkillData>();
         skillData.SetData(PlayerIdManager.Id, Managers.ClientData.EquipSkillManager.EquipSkillData);
@@ -47,6 +48,13 @@ public class BattleDIContainerInitializer
         game = Multi_GameManager.Instance;
         data = Managers.Data;
         dispatcher = container.AddService<BattleEventDispatcher>();
+
+        var avtiveSkillData = new MultiData<ActiveUserSkillDataContainer>();
+        var activeData = ActiveUserSkillDataContainer.CreateSkillData(Managers.ClientData, data);
+        avtiveSkillData.SetData(PlayerIdManager.Id, activeData);
+        avtiveSkillData.SetData(PlayerIdManager.EnemyId, enemyActiveSkillData);
+        container.AddService(avtiveSkillData);
+
 
         AddService(container);
         InjectService(container);
@@ -93,7 +101,7 @@ public class BattleDIContainerInitializer
 
         var monsterSpawnController = container.AddComponent<MonsterSpawnerContorller>();
         monsterSpawnController
-            .Injection(container.GetComponent<IMonsterManager>(), container.GetComponent<EnemySpawnNumManager>(), dispatcher, new NormalMonsterSpawner(container.GetMultiSkillData()));
+            .Injection(container.GetComponent<IMonsterManager>(), container.GetComponent<EnemySpawnNumManager>(), dispatcher, new NormalMonsterSpawner(container.GetMultiActiveSkillData()));
         container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
         container.GetComponent<UnitMaxCountController>().Init(server, game);
         Multi_SpawnManagers.NormalUnit.Injection(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager, container.GetMultiSkillData());

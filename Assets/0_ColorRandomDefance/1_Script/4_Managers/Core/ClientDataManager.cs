@@ -5,6 +5,18 @@ using System;
 using System.Linq;
 
 
+public struct UserSkillData
+{
+    readonly UserSkillClass UserSkillClass;
+    readonly SkillType SkillType;
+
+    public UserSkillData(UserSkillClass userSkillClass, SkillType skillType)
+    {
+        UserSkillClass = userSkillClass;
+        SkillType = skillType;
+    }
+}
+
 public class EquipSkillData
 {
     public SkillType MainSkill { get; private set; }
@@ -15,6 +27,8 @@ public class EquipSkillData
         MainSkill = main;
         SubSkill = sub;
     }
+
+    public bool IsEquipSkill(SkillType skillType) => MainSkill == skillType || SubSkill == skillType;
 }
 
 public class EquipSkillManager
@@ -74,8 +88,14 @@ public class ClientDataManager
 
 
     Dictionary<SkillType, int> _skillByLevel = new Dictionary<SkillType, int>();
+    public int GetSkillLevel(SkillType skillType)
+    {
+        if (_skillByLevel.TryGetValue(skillType, out int result))
+            return result;
+        else return 0;
+    }
     public IEnumerable<SkillType> HasSkills => _skillByLevel.Where(x => x.Value > 0).Select(x => x.Key);
-    public UserSkillLevelData GetSkillLevelData(SkillType skillType) => Managers.Data.UserSkill.GetSkillLevelData(skillType, _skillByLevel[skillType]);
+    public UserSkillLevelData GetSkillLevelData(SkillType skillType) => Managers.Data.UserSkill.GetSkillLevelData(skillType, GetSkillLevel(skillType));
 
     Dictionary<SkillType, int> _skillByExp = new Dictionary<SkillType, int>();
     public Dictionary<SkillType, int> SkillByExp => _skillByExp;

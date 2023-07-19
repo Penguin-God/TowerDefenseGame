@@ -17,20 +17,34 @@ public class BattleScene : BaseScene
         PhotonNetwork.SerializationRate = 30;
 
         Managers.Data.Init();
-        GetComponent<PhotonView>().RPC(nameof(SetEnemyData), RpcTarget.Others, Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
+        SendSkillData();
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
-            _equipSkillData = new EquipSkillData(SkillType.None, SkillType.None);
+            SetEnemyData(SkillType.None, 0, SkillType.None, 0);
             InitGame();
         }
         else
             StartCoroutine(Co_InitGame());
     }
 
+    void SendSkillData()
+    {
+        var client = Managers.ClientData;
+        var main = Managers.ClientData.EquipSkillManager.MainSkill;
+        var sub = Managers.ClientData.EquipSkillManager.SubSkill;
+        GetComponent<PhotonView>().RPC(nameof(SetEnemyData), RpcTarget.Others, main, client.GetSkillLevel(main), sub, client.GetSkillLevel(sub));
+    }
+
     public BattleDIContainer GetBattleContainer() => _battleDIContainer;
 
     EquipSkillData _equipSkillData = null;
-    [PunRPC] void SetEnemyData(SkillType mainSkill, SkillType subSkill) => _equipSkillData = new EquipSkillData(mainSkill, subSkill);
+    ActiveUserSkillDataContainer _activeUserSkillDataContainer;
+    [PunRPC] 
+    void SetEnemyData(SkillType mainSkill, byte mainLevel, SkillType subSkill, byte subLevel)
+    {
+        _equipSkillData = new EquipSkillData(mainSkill, subSkill);
+        _activeUserSkillDataContainer = new ActiveUserSkillDataContainer(mainSkill, mainLevel, subSkill, subLevel, Managers.Data);
+    }
 
     IEnumerator Co_InitGame()
     {
@@ -41,7 +55,7 @@ public class BattleScene : BaseScene
     {
         MultiServiceMidiator.Instance.Init();
         _battleDIContainer = new BattleDIContainer(gameObject);
-        new WorldInitializer(_battleDIContainer).Init(_equipSkillData);
+        new WorldInitializer(_battleDIContainer).Init(_equipSkillData, _activeUserSkillDataContainer);
     }
 
     public override void Clear()
@@ -81,9 +95,9 @@ class WorldInitializer
         _battleDIContainer = container;
     }
 
-    public void Init(EquipSkillData enemySKillData)
+    public void Init(EquipSkillData enemySKillData, ActiveUserSkillDataContainer data)
     {
-        new BattleDIContainerInitializer().InjectionBattleDependency(_battleDIContainer, enemySKillData);
+        new BattleDIContainerInitializer().InjectBattleDependency(_battleDIContainer, enemySKillData, data);
 
         Managers.Camera.EnterBattleScene();
         InitMonoBehaviourContainer();

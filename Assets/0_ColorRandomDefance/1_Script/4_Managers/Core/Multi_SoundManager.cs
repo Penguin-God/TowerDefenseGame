@@ -27,6 +27,7 @@ public enum EffectSoundType
     GetFood,
     GetPassiveGold,
     GoodsBuySound,
+    LightningClip,
     Lose,
     NewStageClip,
     PopSound,

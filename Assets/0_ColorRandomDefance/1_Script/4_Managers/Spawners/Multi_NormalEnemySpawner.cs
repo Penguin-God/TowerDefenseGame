@@ -5,20 +5,20 @@ using Photon.Pun;
 
 public class NormalMonsterSpawner
 {
-    MultiData<EquipSkillData> _skillData;
-    public NormalMonsterSpawner(MultiData<EquipSkillData> skillData) => _skillData = skillData;
+    MultiData<ActiveUserSkillDataContainer> _activeSkillData;
+    public NormalMonsterSpawner(MultiData<ActiveUserSkillDataContainer> skillData) => _activeSkillData = skillData;
 
     public Multi_NormalEnemy SpawnMonster(byte num, byte id, int stage)
     {
         var monster = Managers.Multi.Instantiater.PhotonInstantiateInactive(new ResourcesPathBuilder().BuildMonsterPath(num), id).GetComponent<Multi_NormalEnemy>();
-        Debug.Log(_skillData.GetData(id).MainSkill == SkillType.썬콜);
         NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];
-        var speedManager
-            = (_skillData.GetData(id).MainSkill == SkillType.썬콜) ?  new SuncoldSpeedManager(data.Speed, monster, 100) : new SpeedManager(data.Speed);
+        var speedManager = _activeSkillData.GetData(id).ActiveEquipSkill(SkillType.썬콜) ?  CreateSunCold(data.Speed, monster, _activeSkillData.GetData(id)) : new SpeedManager(data.Speed);
         monster.Injection(speedManager);
         monster.SetStatus_RPC(data.Hp, data.Speed, false);
         return monster;
     }
+
+    SuncoldSpeedManager CreateSunCold(float speed, Multi_NormalEnemy monster, ActiveUserSkillDataContainer data) => new SuncoldSpeedManager(speed, monster, (int)data.GetFirstIntData(UserSkillClass.Main));
 }
 
 public class EnemySpawnNumManager : MonoBehaviourPun

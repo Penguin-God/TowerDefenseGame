@@ -4,12 +4,12 @@ using UnityEngine;
 
 public struct SlowData
 {
-    public float SlowPercent { get; private set; }
+    public float SlowRate { get; private set; }
     public float SlowTime { get; private set; }
 
     public SlowData(float slowPercent, float slowTime)
     {
-        SlowPercent = slowPercent;
+        SlowRate = slowPercent;
         SlowTime = slowTime;
     }
 }

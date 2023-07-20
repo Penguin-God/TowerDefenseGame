@@ -28,17 +28,18 @@ public class Multi_NormalEnemy : Multi_Enemy
     [PunRPC]
     protected override void RPC_OnDamage(int damage, bool isSkill)
     {
-        if (IsSlow && _slowData.SlowPercent > 0)
-            damage += Mathf.RoundToInt(damage * (_slowData.SlowPercent / 100));
+        if (IsSlow && _slowData.SlowRate > 0)
+            damage += Mathf.RoundToInt(damage * (_slowData.SlowRate / 100));
         base.RPC_OnDamage(damage, isSkill);
     }
 
     protected virtual void Passive() { }
-
+    [SerializeField] float _speed;
     [PunRPC]
-    protected override void SetStatus(int _hp, float _speed, bool _isDead)
+    protected override void SetStatus(int _hp, float speed, bool _isDead)
     {
-        base.SetStatus(_hp, _speed, _isDead);
+        base.SetStatus(_hp, speed, _isDead);
+        _speed = speed;
         Passive();
         spawnStage = StageManager.Instance.CurrentStage;
         TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);
@@ -70,11 +71,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         ChangeVelocity(dir);
     }
 
-    void ChangeVelocity(Vector3 direction)
-    {
-        if (IsStun) direction = Vector3.zero;
-        Rigidbody.velocity = direction * SpeedManager.CurrentSpeed;
-    }
+    void ChangeVelocity(Vector3 direction) => Rigidbody.velocity = direction * Speed;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -103,13 +100,14 @@ public class Multi_NormalEnemy : Multi_Enemy
         pointIndex = -1;
         transform.rotation = Quaternion.identity;
         _stunCount = 0;
+        _speed = 0;
     }
 
-
     protected SpeedManager SpeedManager { get; private set; }
-    public float Speed => IsStun ? 0 : SpeedManager.CurrentSpeed;
+    public float Speed => IsStun ? 0 : _speed;
     public bool IsSlow => SpeedManager == null ? false : SpeedManager.IsSlow;
     bool IsStun => _stunCount > 0;
+    bool RPCSendable => IsDead == false && PhotonNetwork.IsMasterClient;
     #region 상태이상 구현
 
     [SerializeField] private Material freezeMat;
@@ -119,31 +117,33 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     public override void OnSlow(float slowPercent, float slowTime)
     {
-        if (IsDead || PhotonNetwork.IsMasterClient == false) return;
+        if (RPCSendable == false) return;
         OnSlow(new SlowData(slowPercent, slowTime));
     }
 
-    // 여기부터 시작하는 Slow도매인 로직 빼고 의존성 주입받게 한 다음에 스킬 추가되면 바꾸면 되는거 아님?
     SlowData _slowData;
     void OnSlow(SlowData slowData)
     {
         if (SlowCondition(slowData))
         {
             _slowData = slowData;
-            ApplySlowToAll(slowData);
+            SpeedManager.OnSlow(slowData.SlowRate);
+            ApplySlowToAll(slowData.SlowTime);
         }
     }
-
-    bool SlowCondition(SlowData newSlowData) => newSlowData.SlowPercent >= _slowData.SlowPercent && newSlowData.SlowTime > 0;
-    void ApplySlowToAll(SlowData slowData) => photonView.RPC(nameof(ApplySlow), RpcTarget.All, (byte)slowData.SlowPercent, slowData.SlowTime);
-
-    [PunRPC]
-    protected void ApplySlow(byte slowRate, float slowTime)
+    bool SlowCondition(SlowData newSlowData) => newSlowData.SlowRate >= _slowData.SlowRate && newSlowData.SlowTime > 0;
+    void ApplySlowToAll(float slowTime)
     {
+        if (RPCSendable == false) return;
+        photonView.RPC(nameof(ApplySlow), RpcTarget.All, SpeedManager.CurrentSpeed);
+        ApplySlowTime(slowTime);
+    }
+    [PunRPC]
+    protected void ApplySlow(float newSpeed)
+    {
+        _speed = newSpeed;
         ChangeVelocity(dir);
         ChangeColorToSlow();
-        ApplySlowTime(slowTime);
-        SpeedManager.OnSlow(slowRate); // 썬콜 때문에 마지막이어야 함
     }
 
     void ApplySlowTime(float slowTime)
@@ -155,15 +155,16 @@ public class Multi_NormalEnemy : Multi_Enemy
     IEnumerator Co_RestoreSpeed(float slowTime)
     {
         yield return new WaitForSeconds(slowTime);
+        SpeedManager.RestoreSpeed();
         photonView.RPC(nameof(RestoreSpeed), RpcTarget.All);
     }
 
     [PunRPC]
-    protected override void RestoreSpeed()
+    protected void RestoreSpeed(float originSpeed)
     {
         ChangeMat(originMat);
         ChangeColorToOrigin();
-        SpeedManager.RestoreSpeed();
+        _speed = originSpeed;
         ChangeVelocity(dir);
         _slowData = new SlowData();
     }
@@ -182,7 +183,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     [PunRPC]
     protected override void OnStun(int stunPercent, float stunTime)
     {
-        if (IsDead || PhotonNetwork.IsMasterClient == false) return;
+        if (RPCSendable == false) return;
         int random = UnityEngine.Random.Range(0, 100);
         if (random < stunPercent) StartCoroutine(Co_Stun(stunTime));
     }

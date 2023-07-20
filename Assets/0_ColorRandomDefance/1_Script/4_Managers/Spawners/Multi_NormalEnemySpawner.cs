@@ -7,18 +7,35 @@ public class NormalMonsterSpawner
 {
     MultiData<ActiveUserSkillDataContainer> _activeSkillData;
     public NormalMonsterSpawner(MultiData<ActiveUserSkillDataContainer> skillData) => _activeSkillData = skillData;
+    SpeedManagerCreater _speedManagerCreater;
+    public NormalMonsterSpawner(SpeedManagerCreater speedManagerCreater) => _speedManagerCreater = speedManagerCreater;
 
     public Multi_NormalEnemy SpawnMonster(byte num, byte id, int stage)
     {
         var monster = Managers.Multi.Instantiater.PhotonInstantiateInactive(new ResourcesPathBuilder().BuildMonsterPath(num), id).GetComponent<Multi_NormalEnemy>();
         NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];
-        var speedManager = _activeSkillData.GetData(id).ActiveEquipSkill(SkillType.썬콜) ?  CreateSunCold(data.Speed, monster, _activeSkillData.GetData(id)) : new SpeedManager(data.Speed);
-        monster.Injection(speedManager);
+        //var speedManager = _activeSkillData.GetData(id).ActiveEquipSkill(SkillType.썬콜) ?  CreateSunCold(data.Speed, monster, _activeSkillData.GetData(id)) : new SpeedManager(data.Speed);
+        monster.Injection(_speedManagerCreater.CreateSpeedManager(data.Speed, monster));
         monster.SetStatus_RPC(data.Hp, data.Speed, false);
         return monster;
     }
 
-    SuncoldSpeedManager CreateSunCold(float speed, Multi_NormalEnemy monster, ActiveUserSkillDataContainer data) => new SuncoldSpeedManager(speed, monster, (int)data.GetFirstIntData(UserSkillClass.Main));
+    SuncoldSpeedManager CreateSunCold(float speed, Multi_NormalEnemy monster, ActiveUserSkillDataContainer data) => new SuncoldSpeedManager(speed, monster, (int)data.GetFirstIntData(UserSkillClass.Main), null);
+}
+
+public class SpeedManagerCreater
+{
+    readonly BattleDIContainer _container;
+
+    public SpeedManagerCreater(BattleDIContainer container) => _container = container;
+
+    public SpeedManager CreateSpeedManager(float speed, Multi_NormalEnemy monster)
+    {
+        var skillData = _container.GetMultiActiveSkillData().GetData(monster.UsingId);
+        if (skillData.ActiveEquipSkill(SkillType.썬콜))
+            return new SuncoldSpeedManager(speed, monster, skillData.GetFirstIntData(UserSkillClass.Main), _container.GetComponent<MultiEffectManager>());
+        else return new SpeedManager(speed);
+    }
 }
 
 public class EnemySpawnNumManager : MonoBehaviourPun

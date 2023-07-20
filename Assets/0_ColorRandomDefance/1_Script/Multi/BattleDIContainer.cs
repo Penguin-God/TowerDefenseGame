@@ -73,6 +73,7 @@ public class BattleDIContainerInitializer
         container.AddComponent<EnemySpawnNumManager>();
         container.AddComponent<MeteorController>();
         container.AddComponent<EffectSynchronizer>();
+        container.AddComponent<MultiEffectManager>();
     }
 
 
@@ -84,6 +85,7 @@ public class BattleDIContainerInitializer
         container.GetComponent<CurrencyManagerMediator>().Init(game);
         container.GetComponent<UnitMaxCountController>().Init(null, game);
         container.GetComponent<MonsterManagerProxy>().Init(dispatcher);
+        container.GetComponent<MultiEffectManager>().Inject(Managers.Effect);
     }
 
 
@@ -93,9 +95,11 @@ public class BattleDIContainerInitializer
 
         var server = MultiServiceMidiator.Server;
 
-        var monsterSpawnController = container.AddComponent<MonsterSpawnerContorller>();
-        monsterSpawnController
-            .Injection(container.GetComponent<IMonsterManager>(), container.GetComponent<EnemySpawnNumManager>(), dispatcher, new NormalMonsterSpawner(container.GetMultiActiveSkillData()));
+        container.AddComponent<MonsterSpawnerContorller>().Injection(
+            container.GetComponent<IMonsterManager>(), container.GetComponent<EnemySpawnNumManager>(), dispatcher, 
+            new NormalMonsterSpawner(new SpeedManagerCreater(container))
+            );
+
         container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
         container.GetComponent<UnitMaxCountController>().Init(server, game);
         Multi_SpawnManagers.NormalUnit.Injection(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager);

@@ -39,13 +39,25 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected override void SetStatus(int _hp, float speed, bool _isDead)
     {
         base.SetStatus(_hp, speed, _isDead);
-        _speed = speed;
-        Passive();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Passive();
+            _speed = SpeedManager.OriginSpeed;
+            SetClientInfo(maxHp, _speed);
+        }
         spawnStage = StageManager.Instance.CurrentStage;
         TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);
         if(pointIndex == -1) pointIndex = 0;
         transform.position = _spawnPositons[UsingId];
         transform.rotation = Quaternion.identity;
+        SetDirection();
+    }
+
+    [PunRPC] 
+    protected void SetClientInfo(int hp, float speed)
+    {
+        ChangeMaxHp(hp);
+        _speed = speed;
         SetDirection();
     }
 
@@ -67,6 +79,7 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     void SetDirection() // 실제 이동을 위한 속도 설정
     {
+        if(IsDead) return;
         dir = (WayPoint.position - transform.position).normalized;
         ChangeVelocity(dir);
     }

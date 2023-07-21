@@ -5,8 +5,6 @@ using System.Linq;
 
 public class Multi_BossEnemy : Multi_NormalEnemy
 {
-    [SerializeField] int _level;
-
     protected override void Init()
     {
         base.Init();
@@ -16,13 +14,12 @@ public class Multi_BossEnemy : Multi_NormalEnemy
     public BossData BossData { get; private set; }
     public void Spawn(int level)
     {
-        _level = level;
-        BossData = Managers.Data.BossDataByLevel[_level];
+        BossData = Managers.Data.BossDataByLevel[level];
         SetStatus_RPC(BossData.Hp, BossData.Speed, false);
-        AggroUnit(); 
+        AggroUnit();
     }
 
-    void AggroUnit() 
+    void AggroUnit()
         => MultiServiceMidiator.Server.GetUnits(UsingId)
         .ToList()
         .ForEach(x => x.UpdateTarget());

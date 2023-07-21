@@ -46,7 +46,7 @@ public class Multi_NormalEnemy : Multi_Enemy
             photonView.RPC(nameof(SetClientInfo), RpcTarget.Others, maxHp, _speed);
         }
         spawnStage = StageManager.Instance.CurrentStage;
-        TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);
+        TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(UsingId);
         if(pointIndex == -1) pointIndex = 0;
         transform.position = _spawnPositons[UsingId];
         transform.rotation = Quaternion.identity;
@@ -61,7 +61,11 @@ public class Multi_NormalEnemy : Multi_Enemy
         SetDirection();
     }
 
-    public void Injection(SpeedManager speedManager) => SpeedManager = speedManager;
+    public void Injection(SpeedManager speedManager, NormalEnemyData monsterData)
+    {
+        SpeedManager = speedManager;
+        SetStatus(monsterData.Hp, monsterData.Speed, false);
+    }
 
     readonly Vector3[] _spawnPositons = new Vector3[]
     {

@@ -25,6 +25,9 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
         Spawn_RPC(PathBuilder.BuildBossMonsterPath(Random.Range(0, _spawnableObjectCount)), Vector3.zero, id);
     }
 
+    const int SpawnableObjectCount = 4;
+    string BulildBossPath() => PathBuilder.BuildBossMonsterPath(Random.Range(0, SpawnableObjectCount));
+
     [SerializeField] int bossLevel;
 
     [PunRPC]
@@ -36,5 +39,15 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
         SetPoolObj(enemy.gameObject);
         rpcOnSpawn?.RaiseEvent(id);
         return null;
+    }
+
+    public Multi_BossEnemy SpawnBoss(byte id, byte bossLevel)
+    {
+        var boss = Managers.Multi.Instantiater.PhotonInstantiateInactive(BulildBossPath(), id).GetComponent<Multi_BossEnemy>();
+        Multi_EnemyManager.Instance.SetSpawnBoss(id, boss);
+        boss.Spawn(bossLevel);
+        SetPoolObj(boss.gameObject);
+        rpcOnSpawn?.RaiseEvent(id);
+        return boss;
     }
 }

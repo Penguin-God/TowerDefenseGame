@@ -19,6 +19,13 @@ public class Multi_BossEnemy : Multi_NormalEnemy
         AggroUnit();
     }
 
+    public void Inject(BossData bossData, SpeedManager speedManager)
+    {
+        BossData = bossData;
+        base.Inject(speedManager, bossData.Hp);
+        AggroUnit();
+    }
+
     void AggroUnit()
         => MultiServiceMidiator.Server.GetUnits(UsingId)
         .ToList()

@@ -12,7 +12,7 @@ public class NormalMonsterSpawner
     {
         var monster = Managers.Multi.Instantiater.PhotonInstantiateInactive(new ResourcesPathBuilder().BuildMonsterPath(num), id).GetComponent<Multi_NormalEnemy>();
         NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];
-        monster.Injection(_speedManagerCreater.CreateSpeedManager(data.Speed, monster), data);
+        monster.Inject(_speedManagerCreater.CreateSpeedManager(data.Speed, monster), data.Hp);
         return monster;
     }
 }
@@ -58,12 +58,24 @@ public class MonsterSpawnerContorller : MonoBehaviour
     EnemySpawnNumManager _numManager;
     BattleEventDispatcher _dispatcher;
     NormalMonsterSpawner _monsterSpawner;
+    Multi_BossEnemySpawner _bossSpawner;
     public void Injection(IMonsterManager monsterManager, EnemySpawnNumManager numManager, BattleEventDispatcher dispatcher, NormalMonsterSpawner monsterSpawner)
     {
         _monsterManager = monsterManager;
         _numManager = numManager;
         _dispatcher = dispatcher;
         _monsterSpawner = monsterSpawner;
+    }
+
+    public void Injection(IMonsterManager monsterManager, EnemySpawnNumManager numManager, BattleEventDispatcher dispatcher, SpeedManagerCreater speedManagerCreater)
+    {
+        _monsterManager = monsterManager;
+        _numManager = numManager;
+        _dispatcher = dispatcher;
+        _monsterSpawner = new NormalMonsterSpawner(speedManagerCreater);
+        _bossSpawner = Multi_SpawnManagers.BossEnemy;
+        _bossSpawner.Inject(speedManagerCreater);
+
     }
 
     void Start()
@@ -114,7 +126,7 @@ public class MonsterSpawnerContorller : MonoBehaviour
     {
         if (IsBossStage(stage) == false) return;
         foreach (var id in PlayerIdManager.AllId)
-            Multi_SpawnManagers.BossEnemy.Spawn(id);
+            _bossSpawner.SpawnBoss(id, stage / 10);
     }
     bool IsBossStage(int stage) => stage % 10 == 0;
 

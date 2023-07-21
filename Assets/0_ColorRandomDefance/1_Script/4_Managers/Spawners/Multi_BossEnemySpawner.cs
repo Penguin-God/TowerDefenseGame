@@ -41,11 +41,14 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
         return null;
     }
 
-    public Multi_BossEnemy SpawnBoss(byte id, byte bossLevel)
+    SpeedManagerCreater _speedManagerCreater;
+    public void Inject(SpeedManagerCreater speedManagerCreater) => _speedManagerCreater = speedManagerCreater;
+    public Multi_BossEnemy SpawnBoss(byte id, int bossLevel)
     {
         var boss = Managers.Multi.Instantiater.PhotonInstantiateInactive(BulildBossPath(), id).GetComponent<Multi_BossEnemy>();
         Multi_EnemyManager.Instance.SetSpawnBoss(id, boss);
-        boss.Spawn(bossLevel);
+        var bossData = Managers.Data.BossDataByLevel[bossLevel];
+        boss.Inject(bossData, _speedManagerCreater.CreateSpeedManager(bossData.Speed, boss));
         SetPoolObj(boss.gameObject);
         rpcOnSpawn?.RaiseEvent(id);
         return boss;

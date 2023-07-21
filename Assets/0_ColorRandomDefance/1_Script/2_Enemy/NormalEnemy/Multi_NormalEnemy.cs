@@ -61,10 +61,10 @@ public class Multi_NormalEnemy : Multi_Enemy
         SetDirection();
     }
 
-    public void Injection(SpeedManager speedManager, NormalEnemyData monsterData)
+    public void Inject(SpeedManager speedManager, int hp)
     {
         SpeedManager = speedManager;
-        SetStatus(monsterData.Hp, monsterData.Speed, false);
+        photonView.RPC(nameof(SetStatus), RpcTarget.All, hp, SpeedManager.OriginSpeed, false);
     }
 
     readonly Vector3[] _spawnPositons = new Vector3[]

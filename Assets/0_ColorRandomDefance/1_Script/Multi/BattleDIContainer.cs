@@ -95,10 +95,8 @@ public class BattleDIContainerInitializer
 
         var server = MultiServiceMidiator.Server;
 
-        container.AddComponent<MonsterSpawnerContorller>().Injection(
-            container.GetComponent<IMonsterManager>(), container.GetComponent<EnemySpawnNumManager>(), dispatcher, 
-            new NormalMonsterSpawner(new SpeedManagerCreater(container))
-            );
+        container.AddComponent<MonsterSpawnerContorller>()
+            .Injection(container.GetComponent<IMonsterManager>(), container.GetComponent<EnemySpawnNumManager>(), dispatcher, new SpeedManagerCreater(container));
 
         container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
         container.GetComponent<UnitMaxCountController>().Init(server, game);

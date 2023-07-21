@@ -43,7 +43,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         {
             Passive();
             _speed = SpeedManager.OriginSpeed;
-            SetClientInfo(maxHp, _speed);
+            photonView.RPC(nameof(SetClientInfo), RpcTarget.Others, maxHp, _speed);
         }
         spawnStage = StageManager.Instance.CurrentStage;
         TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(gameObject);

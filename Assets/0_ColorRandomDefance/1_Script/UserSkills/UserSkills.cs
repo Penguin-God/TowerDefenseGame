@@ -388,14 +388,15 @@ public class SlowTrapSpawner : UserSkill
     internal override void InitSkill()
     {
         _dispatcher.OnStageUp += _ => SpawnTrap();
+        for (int i = 0; i < _traps.Length; i++)
+            _traps[i] = Managers.Multi.Instantiater.PhotonInstantiateInactive("", PlayerIdManager.Id);
     }
 
     const int SpawnCount = 2;
+    GameObject[] _traps = new GameObject[SpawnCount];
     void SpawnTrap()
     {
-        for (int i = 0; i < SpawnCount; i++)
-        {
-            // spawn, _locationFinder.CalculateMonsterPathLocation();
-        }
+        foreach (var trap in _traps)
+            trap.GetComponent<RPCable>().SetPosition_RPC(_locationFinder.CalculateMonsterPathLocation());
     }
 }

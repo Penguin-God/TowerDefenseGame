@@ -464,7 +464,6 @@ MonoBehaviour:
   spawnPositions:
   - {x: -45, y: 0, z: 35}
   - {x: -45, y: 0, z: 535}
-  bossLevel: 0
 --- !u!114 &685287359
 MonoBehaviour:
   m_ObjectHideFlags: 0

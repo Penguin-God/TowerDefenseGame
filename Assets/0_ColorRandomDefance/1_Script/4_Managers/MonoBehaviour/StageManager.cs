@@ -14,7 +14,6 @@ public class StageManager : SingletonPun<StageManager>
     WaitForSeconds StageWait;
 
     BattleEventDispatcher _dispatcher;
-
     public void Injection(BattleEventDispatcher dispatcher)
     {
         _dispatcher = dispatcher;
@@ -50,10 +49,9 @@ public class StageManager : SingletonPun<StageManager>
     {
         currentStage = stage;
         OnUpdateStage?.Invoke(stage);
-
+        _dispatcher.NotifyStageUp(stage);
         StartCoroutine(Co_Stage());
     }
-
 
     IEnumerator Co_Stage()
     {

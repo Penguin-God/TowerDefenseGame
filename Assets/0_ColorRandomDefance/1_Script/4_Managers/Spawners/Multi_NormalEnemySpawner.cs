@@ -70,16 +70,16 @@ public class MonsterSpawnerContorller : MonoBehaviour
     void Start()
     {
         if (PhotonNetwork.IsMasterClient == false) return;
-        StageManager.Instance.OnUpdateStage += SpawnMonsterOnStageChange; // normal
-        StageManager.Instance.OnUpdateStage += SpawnBossOnStageMultipleOfTen; // boss
+        _dispatcher.OnStageUp += SpawnMonsterOnStageChange; // normal
+        _dispatcher.OnStageUp += SpawnBossOnStageMultipleOfTen; // boss
         _dispatcher.OnGameStart += SpawnTowerOnStart; // tower
     }
 
     void SpawnMonsterOnStageChange(int stage)
     {
         if (IsBossStage(stage)) return;
-        StartCoroutine(Co_StageSpawn(0, stage));
-        StartCoroutine(Co_StageSpawn(1, stage));
+        foreach (var id in PlayerIdManager.AllId)
+            StartCoroutine(Co_StageSpawn(id, stage));
     }
 
     Multi_NormalEnemy SpawnMonsterToOther(int id, int stage) => SpawnNormalMonster(_numManager.GetSpawnEnemyNum(id), (byte)(id == 0 ? 1 : 0), stage);
@@ -117,12 +117,11 @@ public class MonsterSpawnerContorller : MonoBehaviour
         foreach (var id in PlayerIdManager.AllId)
             Multi_SpawnManagers.BossEnemy.Spawn(id);
     }
+    bool IsBossStage(int stage) => stage % 10 == 0;
 
     void SpawnTowerOnStart()
     {
         foreach (var id in PlayerIdManager.AllId)
             Multi_SpawnManagers.TowerEnemy.Spawn(id);
     }
-
-    bool IsBossStage(int stage) => stage % 10 == 0;
 }

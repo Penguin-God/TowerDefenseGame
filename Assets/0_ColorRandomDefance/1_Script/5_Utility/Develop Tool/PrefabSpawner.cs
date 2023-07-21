@@ -23,7 +23,7 @@ public class PrefabSpawner : MonoBehaviour
 
     public void SpawnUnit_ByClient(int colorNumber, int classNumber) => SpawnUnit_ByClientWolrd(colorNumber, classNumber);
 
-    public void SpawnNormalEnemy(byte _enemyNum) => new NormalMonsterSpawner(_container.GetMultiActiveSkillData()).SpawnMonster(_enemyNum, 0, StageManager.Instance.CurrentStage);
+    public void SpawnNormalEnemy(byte _enemyNum) => new NormalMonsterSpawner(new SpeedManagerCreater(_container));
 
     public void SpawnUnit_ByClientWolrd(int unitColorNumber, int unitClassNumber)
         => Multi_SpawnManagers.NormalUnit.Spawn(new UnitFlags(unitColorNumber, unitClassNumber), 1);

@@ -31,6 +31,7 @@ public static class PlayerIdManager
     public static byte InVaildId => 12; // 그냥 0하고 1만 아니면 전부 다 유효하지 않은 값임
     public static byte EnemyId => (byte)(Id == 0 ? 1 : 0);
     public static int MaxPlayerCount => 2;
+    public static IEnumerable<int> AllId => new int[] { 0, 1 };
 }
 
 public class Multi_Data : MonoBehaviour

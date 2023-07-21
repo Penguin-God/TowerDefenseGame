@@ -5,8 +5,6 @@ using Photon.Pun;
 
 public class NormalMonsterSpawner
 {
-    MultiData<ActiveUserSkillDataContainer> _activeSkillData;
-    public NormalMonsterSpawner(MultiData<ActiveUserSkillDataContainer> skillData) => _activeSkillData = skillData;
     SpeedManagerCreater _speedManagerCreater;
     public NormalMonsterSpawner(SpeedManagerCreater speedManagerCreater) => _speedManagerCreater = speedManagerCreater;
 
@@ -14,13 +12,10 @@ public class NormalMonsterSpawner
     {
         var monster = Managers.Multi.Instantiater.PhotonInstantiateInactive(new ResourcesPathBuilder().BuildMonsterPath(num), id).GetComponent<Multi_NormalEnemy>();
         NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];
-        //var speedManager = _activeSkillData.GetData(id).ActiveEquipSkill(SkillType.썬콜) ?  CreateSunCold(data.Speed, monster, _activeSkillData.GetData(id)) : new SpeedManager(data.Speed);
         monster.Injection(_speedManagerCreater.CreateSpeedManager(data.Speed, monster));
         monster.SetStatus_RPC(data.Hp, data.Speed, false);
         return monster;
     }
-
-    SuncoldSpeedManager CreateSunCold(float speed, Multi_NormalEnemy monster, ActiveUserSkillDataContainer data) => new SuncoldSpeedManager(speed, monster, (int)data.GetFirstIntData(UserSkillClass.Main), null);
 }
 
 public class SpeedManagerCreater
@@ -96,15 +91,16 @@ public class MonsterSpawnerContorller : MonoBehaviour
         return monster;
     }
 
-    [SerializeField] float _spawnDelayTime = 1.8f;
-    [SerializeField] int _stageSpawnCount = 15;
+    [SerializeField] const float SpawnDelayTime = 1.8f;
+    [SerializeField] const int StageSpawnCount = 15;
+    WaitForSeconds WaitSpawnDelay = new WaitForSeconds(SpawnDelayTime);
     IEnumerator Co_StageSpawn(byte id, int stage)
     {
-        for (int i = 0; i < _stageSpawnCount; i++)
+        for (int i = 0; i < StageSpawnCount; i++)
         {
             var enemy = SpawnMonsterToOther(id, stage);
             enemy.OnDead += (died) => ResurrectionMonsterToOther(enemy);
-            yield return new WaitForSeconds(_spawnDelayTime);
+            yield return WaitSpawnDelay;
         }
     }
 
@@ -118,14 +114,14 @@ public class MonsterSpawnerContorller : MonoBehaviour
     void SpawnBossOnStageMultipleOfTen(int stage)
     {
         if (IsBossStage(stage) == false) return;
-        Multi_SpawnManagers.BossEnemy.Spawn(0);
-        Multi_SpawnManagers.BossEnemy.Spawn(1);
+        foreach (var id in PlayerIdManager.AllId)
+            Multi_SpawnManagers.BossEnemy.Spawn(id);
     }
 
     void SpawnTowerOnStart()
     {
-        Multi_SpawnManagers.TowerEnemy.Spawn(0);
-        Multi_SpawnManagers.TowerEnemy.Spawn(1);
+        foreach (var id in PlayerIdManager.AllId)
+            Multi_SpawnManagers.TowerEnemy.Spawn(id);
     }
 
     bool IsBossStage(int stage) => stage % 10 == 0;

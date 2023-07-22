@@ -59,7 +59,7 @@ namespace ColorRandomApi.Controllers
             if (findResult == null)
                 return false;
 
-            findResult.UserName = player.UserName;
+            findResult.Name = player.Name;
             findResult.skills = player.skills;
             _context.SaveChanges();
 

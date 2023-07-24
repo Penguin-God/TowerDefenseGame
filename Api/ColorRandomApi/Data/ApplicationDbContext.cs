@@ -10,12 +10,15 @@ namespace ColorRandomApi.Data
     public class ApplicationDbContext : DbContext
     {
         public DbSet<Player> Players { get; set; }
-        public DbSet<Skill> Skills { get; set; }
+        public DbSet<Skills> Skills { get; set; }
 
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options): base(options)
         {
 
+        }
+
+        public ApplicationDbContext()
+        {
         }
     }
 }

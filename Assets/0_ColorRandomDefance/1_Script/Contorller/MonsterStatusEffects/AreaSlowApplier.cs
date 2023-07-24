@@ -29,7 +29,7 @@ public class AreaSlowApplier : MonoBehaviour
         if (_targets.Contains(enemy))
         {
             _targets.Remove(enemy);
-            enemy.ExitSlow(RpcTarget.All); // TODO : 나중에 동기화 마스터한테 옮기고 이게 맞는지 확인해보기
+            enemy.RestoreSpeedToAll();
         }
     }
 

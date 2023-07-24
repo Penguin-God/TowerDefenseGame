@@ -2,24 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public struct SlowData
-{
-    public float SlowRate { get; private set; }
-    public float SlowTime { get; private set; }
-
-    public SlowData(float slowPercent, float slowTime)
-    {
-        SlowRate = slowPercent;
-        SlowTime = slowTime;
-    }
-}
-
 public class SpeedManager
 {
     public float OriginSpeed { get; private set; }
     public float CurrentSpeed { get; private set; }
-    
-    public bool IsSlow => _applySlowRate > 0;
+    public float ApplySlowRate { get; private set; } // 적용된 슬로우
+    public bool IsSlow => ApplySlowRate > 0;
     public SpeedManager(float originSpeed) => ChangeOriginSpeed(originSpeed);
 
     public void ChangeOriginSpeed(float originSpeed)
@@ -29,16 +17,18 @@ public class SpeedManager
     }
     public void RestoreSpeed()
     {
-        _applySlowRate = 0;
+        ApplySlowRate = 0;
         CurrentSpeed = OriginSpeed;
     }
 
     public virtual void OnSlow(float slowRate)
     {
-        _applySlowRate = slowRate;
-        CurrentSpeed = CalculateSlowSpeed(slowRate);
+        if (SlowCondition(slowRate))
+        {
+            ApplySlowRate = slowRate;
+            CurrentSpeed = CalculateSlowSpeed(slowRate);
+        }
     }
-    float _applySlowRate; // 적용된 슬로우
-    public bool SlowCondition(float slowRate) => slowRate >= _applySlowRate - 0.1f; // float 오차 때문에 0.1 뺌
+    public bool SlowCondition(float slowRate) => slowRate >= ApplySlowRate - 0.1f; // float 오차 때문에 0.1 뺌
     float CalculateSlowSpeed(float slowRate) => OriginSpeed - (OriginSpeed * (slowRate / 100));
 }

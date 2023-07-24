@@ -42,15 +42,14 @@ public class ActiveUserSkillDataContainer
 
 public abstract class UserSkill
 {
-    SkillType _skillType;
-    public UserSkill(SkillType skillType) => _skillType = skillType;
-    public UserSkill(UserSkillBattleData userSkillBattleData) { }
+    protected UserSkillBattleData UserSkillBattleData { get; private set; }
+    public UserSkill(UserSkillBattleData userSkillBattleData) => UserSkillBattleData = userSkillBattleData;
 
     internal abstract void InitSkill();
-    protected float[] SkillDatas => Managers.ClientData.GetSkillLevelData(_skillType).BattleDatas;
-    protected int[] IntSkillDatas => SkillDatas.Select(x => (int)x).ToArray();
-    protected float SkillData => SkillDatas[0];
-    protected int IntSkillData => (int)SkillData;
+
+    protected int[] IntSkillDatas => UserSkillBattleData.IntSkillDatas;
+    protected float[] SkillDatas => UserSkillBattleData.SkillDatas.ToArray();
+    protected int IntSkillData => UserSkillBattleData.IntSkillData;
 }
 
 public struct UserSkillBattleData
@@ -59,7 +58,7 @@ public struct UserSkillBattleData
     public readonly UserSkillClass SkillClass;
     public readonly IReadOnlyList<float> SkillDatas;
     public float SkillData => SkillDatas[0];
-    public IReadOnlyList<int> IntSkillDatas => SkillDatas.Select(x => (int)x).ToArray();
+    public int[] IntSkillDatas => SkillDatas.Select(x => (int)x).ToArray();
     public int IntSkillData => (int)SkillData;
 
     public UserSkillBattleData(SkillType skillType, UserSkillClass skillClass, IReadOnlyList<float> skillDatas)
@@ -122,15 +121,15 @@ public class UserSkillFactory
         UserSkill result;
         switch (skillBattleData.SkillType)
         {
-            case SkillType.태극스킬: result = new TaegeukController(skillBattleData.SkillType); break;
-            case SkillType.검은유닛강화: result = new BlackUnitUpgrade(skillBattleData.SkillType); break;
-            case SkillType.상대색깔변경: result = new ColorChange(skillBattleData.SkillType); break;
-            case SkillType.고기혐오자: result = new FoodHater(skillBattleData.SkillType); break;
-            case SkillType.판매보상증가: result = new SellUpgrade(skillBattleData.SkillType); break;
-            case SkillType.장사꾼: result = new DiscountMerchant(skillBattleData.SkillType); break;
-            case SkillType.조합메테오: result = new CombineMeteorController(skillBattleData.SkillType, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>()); break;
+            case SkillType.태극스킬: result = new TaegeukController(skillBattleData); break;
+            case SkillType.검은유닛강화: result = new BlackUnitUpgrade(skillBattleData); break;
+            case SkillType.상대색깔변경: result = new ColorChange(skillBattleData); break;
+            case SkillType.고기혐오자: result = new FoodHater(skillBattleData); break;
+            case SkillType.판매보상증가: result = new SellUpgrade(skillBattleData); break;
+            case SkillType.장사꾼: result = new DiscountMerchant(skillBattleData); break;
+            case SkillType.조합메테오: result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>()); break;
             case SkillType.네크로맨서:
-                result = new NecromancerController(skillBattleData.SkillType, container.GetService<BattleEventDispatcher>(), container.GetComponent<EffectSynchronizer>()); break;
+                result = new NecromancerController(skillBattleData, container.GetService<BattleEventDispatcher>(), container.GetComponent<EffectSynchronizer>()); break;
             default: result = null; break;
         }
         result.InitSkill();
@@ -142,7 +141,7 @@ public class UserSkillFactory
 
 public class TaegeukController : UserSkill
 {
-    public TaegeukController(SkillType skillType) : base(skillType) { }
+    public TaegeukController(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
 
     public event Action<UnitClass, bool> OnTaegeukDamageChanged;
 
@@ -182,7 +181,7 @@ public class TaegeukController : UserSkill
 
 public class BlackUnitUpgrade : UserSkill
 {
-    public BlackUnitUpgrade(SkillType skillType) : base(skillType) { }
+    public BlackUnitUpgrade(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
 
     public event Action<UnitFlags> OnBlackUnitReinforce;
     int[] _upgradeDamages;
@@ -204,7 +203,7 @@ public class BlackUnitUpgrade : UserSkill
 
 public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
 {
-    public ColorChange(SkillType skillType) : base(skillType) { }
+    public ColorChange(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
 
     int[] _whiteUnitCounts = new int[4];
     public event Action<byte, byte> OnUnitColorChanaged; // 변하기 전 색깔, 변한 후 색깔
@@ -229,7 +228,8 @@ public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
 
 public class FoodHater : UserSkill
 {
-    public FoodHater(SkillType skillType) : base(skillType) { }
+    public FoodHater(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
+
     int _rewardRate; // 얻는 고기가 몇 골드로 바뀌는가
     int _priceRate; // 기존에 고기로 팔던 상품을 몇 배의 골드로 바꿀건가
     Multi_GameManager _game;
@@ -270,7 +270,7 @@ public class FoodHater : UserSkill
 
 public class SellUpgrade : UserSkill
 {
-    public SellUpgrade(SkillType skillType) : base(skillType) { }
+    public SellUpgrade(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
     internal override void InitSkill()
     {
         // 유닛 판매 보상 증가 (유닛별로 증가폭 별도)
@@ -282,7 +282,7 @@ public class SellUpgrade : UserSkill
 
 public class DiscountMerchant : UserSkill
 {
-    public DiscountMerchant(SkillType skillType) : base(skillType) { }
+    public DiscountMerchant(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
     internal override void InitSkill()
     {
         Multi_GameManager.Instance.BattleData
@@ -310,7 +310,7 @@ public class CombineMeteorController : UserSkill
     readonly float StunTimePerScore;
     readonly int DamagePerStack;
     UI_UserSkillStatus _stackUI;
-    public CombineMeteorController(SkillType skillType, MeteorController meteorController, IMonsterManager monsterManager) : base(skillType) 
+    public CombineMeteorController(UserSkillBattleData userSkillBattleData, MeteorController meteorController, IMonsterManager monsterManager) : base(userSkillBattleData) 
     {
         _combineMeteor = new CombineMeteor(new MeteorScoreData(SwordmanScore, ArcherScore, SpearmanScore), Managers.Data.CombineConditionByUnitFalg);
         _monsterManager = monsterManager;
@@ -355,7 +355,8 @@ public class NecromancerController : UserSkill
     readonly Necromencer _necromencer;
     readonly EffectSynchronizer _effectSynchronizer;
     BattleEventDispatcher _dispatcher;
-    public NecromancerController(SkillType skillType, BattleEventDispatcher dispatcher, EffectSynchronizer effectSynchronizer) : base(skillType)
+    public NecromancerController(UserSkillBattleData userSkillBattleData, BattleEventDispatcher dispatcher, EffectSynchronizer effectSynchronizer) 
+        : base(userSkillBattleData)
     {
         _necromencer = new Necromencer(IntSkillData);
         _dispatcher = dispatcher;
@@ -391,7 +392,7 @@ public class SlowTrapSpawner : UserSkill
 {
     readonly MonsterPathLocationFinder _locationFinder;
     BattleEventDispatcher _dispatcher;
-    public SlowTrapSpawner(SkillType skillType, Transform[] wayPoints, BattleEventDispatcher dispatcher) : base(skillType)
+    public SlowTrapSpawner(UserSkillBattleData userSkillBattleData, Transform[] wayPoints, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
     {
         _locationFinder = new MonsterPathLocationFinder(wayPoints.Select(x => x.position).ToArray());
         _dispatcher = dispatcher;

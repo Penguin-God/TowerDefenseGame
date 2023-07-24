@@ -77,16 +77,31 @@ public class UserSkillFactory
         SkillType.시작골드증가, SkillType.시작고기증가, SkillType.최대유닛증가, SkillType.노란기사강화, SkillType.컬러마스터, SkillType.보스데미지증가, SkillType.마창사, SkillType.썬콜 
     });
 
+    IReadOnlyList<SkillType> ComplexSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
+    {
+        SkillType.태극스킬, SkillType.검은유닛강화, SkillType.상대색깔변경, SkillType.고기혐오자, SkillType.판매보상증가, SkillType.장사꾼, SkillType.조합메테오,
+        SkillType.네크로맨서
+    });
+
+    IReadOnlyList<SkillType> ExistSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
+    {
+        SkillType.마창사, SkillType.썬콜 // 존재하기만 하면 알아서 작동하는 스킬들
+    });
+
     public UserSkill ActiveSkill(SkillType skillType, BattleDIContainer container)
     {
+        if (ExistSkills.Contains(skillType)) return null;
+
         UserSkillBattleData skillBattleData = Managers.Data.UserSkill.GetSkillBattleData(skillType, 1);
         if (SimpleSkills.Contains(skillType))
         {
             ActiveSimpleSkill(skillBattleData, container);
             return null;
         }
-        else
+        else if(ComplexSkills.Contains(skillType))
             return ActiveComplexSkill(skillBattleData, container);
+        Debug.LogError($"정의되지 않은 스킬 : {skillType}을 사용하려고 함");
+        return null;
     }
 
     void ActiveSimpleSkill(UserSkillBattleData skillBattleData, BattleDIContainer container)
@@ -99,9 +114,6 @@ public class UserSkillFactory
             case SkillType.노란기사강화: Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = skillBattleData.IntSkillData; break;
             case SkillType.컬러마스터: container.GetComponent<SwordmanGachaController>().ChangeUnitSummonMaxColor(UnitColor.Violet); break;
             case SkillType.보스데미지증가: MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(skillBattleData.SkillData, UnitStatType.BossDamage); break;
-            case SkillType.마창사:
-                Managers.Data.Unit.SetThrowSpearData(Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/MagicThrowSpearData").ChangeAttackRate(skillBattleData.SkillData)); break;
-            case SkillType.썬콜: break; // 썬콜은 존재만 하면 스포너에서 알아서 할당함
         }
     }
 

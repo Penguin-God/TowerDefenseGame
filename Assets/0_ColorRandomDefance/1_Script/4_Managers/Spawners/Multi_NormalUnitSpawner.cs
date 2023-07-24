@@ -10,7 +10,12 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     public event Action<Multi_TeamSoldier> OnSpawn = null;
 
     ServerMonsterManager _multiMonsterManager;
-    public void Injection(ServerMonsterManager multiMonsterManager) => _multiMonsterManager = multiMonsterManager;
+    MultiData<ActiveUserSkillDataContainer> _multiSkillData;
+    public void Injection(ServerMonsterManager multiMonsterManager, MultiData<ActiveUserSkillDataContainer> multiSkillData)
+    {
+        _multiMonsterManager = multiMonsterManager;
+        _multiSkillData = multiSkillData;
+    }
 
     public void Spawn(UnitFlags flag, Vector3 spawnPos) 
         => photonView.RPC(nameof(RPCSpawn), RpcTarget.MasterClient, flag, spawnPos, Quaternion.identity, PlayerIdManager.Id);
@@ -38,12 +43,26 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     {
         var unit = Managers.Multi.Instantiater.PhotonInstantiate(PathBuilder.BuildUnitPath(flag), spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
         unit.Injection(flag, Managers.Data.Unit.UnitStatByFlag[flag].GetClone(), MultiServiceMidiator.Server.UnitDamageInfo(id, flag), _multiMonsterManager.GetMultiData(unit.UsingID));
+        SetUnitData(unit);
         MultiServiceMidiator.Server.AddUnit(unit);
         if (unit.UsingID == PlayerIdManager.MasterId)
             OnSpawn?.Invoke(unit);
         else
             photonView.RPC(nameof(RPC_CallbackSpawn), RpcTarget.Others, unit.GetComponent<PhotonView>().ViewID);
         return unit;
+    }
+
+    void SetUnitData(Multi_TeamSoldier unit)
+    {
+        if(unit.UnitClass == UnitClass.Spearman)
+        {
+            ThrowSpearDataContainer throwSpearData;
+            if (_multiSkillData.GetData(unit.UsingID).MainSkill == SkillType.마창사)
+                throwSpearData = Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/MagicThrowSpearData");
+            else
+                throwSpearData = Managers.Data.Unit.SpearDataContainer;
+            unit.GetComponent<Multi_Unit_Spearman>().SetSpearData(throwSpearData);
+        }
     }
 
     [PunRPC]

@@ -10,8 +10,8 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     public event Action<Multi_TeamSoldier> OnSpawn = null;
 
     ServerMonsterManager _multiMonsterManager;
-    MultiData<ActiveUserSkillDataContainer> _multiSkillData;
-    public void Injection(ServerMonsterManager multiMonsterManager, MultiData<ActiveUserSkillDataContainer> multiSkillData)
+    MultiData<SkillBattleDataContainer> _multiSkillData;
+    public void Injection(ServerMonsterManager multiMonsterManager, MultiData<SkillBattleDataContainer> multiSkillData)
     {
         _multiMonsterManager = multiMonsterManager;
         _multiSkillData = multiSkillData;
@@ -57,8 +57,8 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
         if(unit.UnitClass == UnitClass.Spearman)
         {
             ThrowSpearDataContainer throwSpearData;
-            if (_multiSkillData.GetData(unit.UsingID).MainSkill == SkillType.마창사)
-                throwSpearData = Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/MagicThrowSpearData");
+            if (_multiSkillData.GetData(unit.UsingID).TruGetSkillData(SkillType.마창사, out var skillBattleData))
+                throwSpearData = Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/MagicThrowSpearData").ChangeAttackRate(skillBattleData.IntSkillData);
             else
                 throwSpearData = Managers.Data.Unit.SpearDataContainer;
             unit.GetComponent<Multi_Unit_Spearman>().SetSpearData(throwSpearData);

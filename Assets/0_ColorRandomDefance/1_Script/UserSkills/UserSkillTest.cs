@@ -19,7 +19,7 @@ public class UserSkillTest : MonoBehaviour
         _skillTypeByFlag[skillType] = true;
         var container = FindObjectOfType<BattleScene>().GetBattleContainer();
         var skill = new UserSkillFactory().ActiveSkill(skillType, container);
-        container.GetMultiActiveSkillData().SetData(0, new ActiveUserSkillDataContainer(skillType, 1, skillType, 1, Managers.Data));
+        container.GetMultiActiveSkillData().SetData(0, BattleSkillDataCreater.CreateSkillData(skillType, 1, skillType, 1, Managers.Data.UserSkill));
         if(skill != null)
             FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkill[] { skill });
     }

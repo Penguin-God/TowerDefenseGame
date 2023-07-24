@@ -29,10 +29,10 @@ public class UI_Status : UI_Scene
     }
 
     BattleEventDispatcher _dispatcher;
-    MultiData<ActiveUserSkillDataContainer> _multiEquipSkillData;
-    ActiveUserSkillDataContainer MySkillData => _multiEquipSkillData.GetData(PlayerIdManager.Id);
-    ActiveUserSkillDataContainer EnemySkillData => _multiEquipSkillData.GetData(PlayerIdManager.EnemyId);
-    public void Injection(BattleEventDispatcher dispatcher, MultiData<ActiveUserSkillDataContainer> multiEquipSkillData)
+    MultiData<SkillBattleDataContainer> _multiEquipSkillData;
+    SkillBattleDataContainer MySkillData => _multiEquipSkillData.GetData(PlayerIdManager.Id);
+    SkillBattleDataContainer EnemySkillData => _multiEquipSkillData.GetData(PlayerIdManager.EnemyId);
+    public void Injection(BattleEventDispatcher dispatcher, MultiData<SkillBattleDataContainer> multiEquipSkillData)
     {
         _dispatcher = dispatcher;
         _multiEquipSkillData = multiEquipSkillData;
@@ -145,11 +145,11 @@ public class UI_Status : UI_Scene
         }
     }
 
-    public void UpdateMySkillImage() => ChangeEquipSkillImages(MySkillData.MainSkill, MySkillData.SubSkill);
+    public void UpdateMySkillImage() => ChangeEquipSkillImages(MySkillData._MainSkill.SkillType, MySkillData._SubSkill.SkillType);
     void UpdateOtherSkillImage()
     {
         if (EnemySkillData != null)
-            ChangeEquipSkillImages(EnemySkillData.MainSkill, EnemySkillData.SubSkill);
+            ChangeEquipSkillImages(EnemySkillData._MainSkill.SkillType, EnemySkillData._SubSkill.SkillType);
         else
             ChangeEquipSkillImages(SkillType.None, SkillType.None);
     }

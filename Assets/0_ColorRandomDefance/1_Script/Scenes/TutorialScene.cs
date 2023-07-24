@@ -11,7 +11,8 @@ public class TutorialScene : BaseScene
         PhotonNetwork.JoinRandomRoom();
 
         MultiServiceMidiator.Instance.Init();
-        var contaner = new WorldInitializer(gameObject).Init(new ActiveUserSkillDataContainer(SkillType.검은유닛강화, 1, SkillType.판매보상증가, 1, Managers.Data));
+        var contaner = new WorldInitializer(gameObject)
+            .Init(BattleSkillDataCreater.CreateSkillData(SkillType.검은유닛강화, 1, SkillType.판매보상증가, 1, Managers.Data.UserSkill));
         gameObject.AddComponent<Tutorial_AI>();
         
         // SetPlayerSkill();

@@ -29,7 +29,7 @@ public class BattleDIContainer
         throw new InvalidOperationException("Service of type " + typeof(T).Name + " not found.");
     }
 
-    public MultiData<ActiveUserSkillDataContainer> GetMultiActiveSkillData() => GetService<MultiData<ActiveUserSkillDataContainer>>();
+    public MultiData<SkillBattleDataContainer> GetMultiActiveSkillData() => GetService<MultiData<SkillBattleDataContainer>>();
 }
 
 public class BattleDIContainerInitializer
@@ -37,15 +37,14 @@ public class BattleDIContainerInitializer
     Multi_GameManager game;
     DataManager data;
     BattleEventDispatcher dispatcher;
-    public void InjectBattleDependency(BattleDIContainer container, ActiveUserSkillDataContainer enemyActiveSkillData)
+    public void InjectBattleDependency(BattleDIContainer container, SkillBattleDataContainer enemyActiveSkillData)
     {
         game = Multi_GameManager.Instance;
         data = Managers.Data;
         dispatcher = container.AddService<BattleEventDispatcher>();
 
-        var avtiveSkillData = new MultiData<ActiveUserSkillDataContainer>();
-        var activeData = ActiveUserSkillDataContainer.CreateSkillData(Managers.ClientData, data);
-        avtiveSkillData.SetData(PlayerIdManager.Id, activeData);
+        var avtiveSkillData = new MultiData<SkillBattleDataContainer>();
+        avtiveSkillData.SetData(PlayerIdManager.Id, BattleSkillDataCreater.CreateSkillData(Managers.ClientData, data));
         avtiveSkillData.SetData(PlayerIdManager.EnemyId, enemyActiveSkillData);
         container.AddService(avtiveSkillData);
 

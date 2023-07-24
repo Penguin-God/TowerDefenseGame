@@ -5,38 +5,53 @@ using System;
 using System.Linq;
 using System.Collections.ObjectModel;
 
-public class ActiveUserSkillDataContainer
+public class SkillBattleDataContainer
 {
-    public readonly SkillType MainSkill;
-    public readonly int MainSkillLevle;
-    public readonly SkillType SubSkill;
-    public readonly int SubSkillLevle;
-    public readonly DataManager _data;
-
-    public ActiveUserSkillDataContainer(SkillType mainSkill, int mainSkillLevel,  SkillType subSkill, int subSkillLevle, DataManager data)
+    public readonly UserSkillBattleData _MainSkill;
+    public readonly UserSkillBattleData _SubSkill;
+    readonly IReadOnlyDictionary<SkillType, UserSkillBattleData> BattleDataBySKillType = new Dictionary<SkillType, UserSkillBattleData>();
+    public SkillBattleDataContainer() { }
+    internal SkillBattleDataContainer(UserSkillBattleData mainSKill, UserSkillBattleData subSkill)
     {
-        MainSkill = mainSkill;
-        MainSkillLevle = mainSkillLevel;
-        SubSkill = subSkill;
-        SubSkillLevle = subSkillLevle;
-        _data = data;
+        _MainSkill = mainSKill;
+        _SubSkill = subSkill;
+        BattleDataBySKillType = new Dictionary<SkillType, UserSkillBattleData>()
+        {
+            { _MainSkill.SkillType, _MainSkill},
+            { _SubSkill.SkillType, _SubSkill},
+        };
     }
 
-    public bool ActiveEquipSkill(SkillType skill) => skill == MainSkill || skill == SubSkill;
-    public int GetFirstIntData(UserSkillClass skillClass)
+    public bool TruGetSkillData(SkillType skill, out UserSkillBattleData result)
     {
-        if (skillClass == UserSkillClass.Main)
-            return (int)_data.UserSkill.GetSkillLevelData(MainSkill, MainSkillLevle).BattleDatas[0];
-        else if(skillClass == UserSkillClass.Sub)
-            return (int)_data.UserSkill.GetSkillLevelData(SubSkill, SubSkillLevle).BattleDatas[0];
-        return 0;
+        if (ContainSKill(skill))
+        {
+            result = BattleDataBySKillType[skill];
+            return true;
+        }
+        else
+        {
+            result = new UserSkillBattleData();
+            return false;
+        }
     }
+    public bool ContainSKill(SkillType skill) => BattleDataBySKillType.ContainsKey(skill);
+}
 
-    public static ActiveUserSkillDataContainer CreateSkillData(ClientDataManager client, DataManager data)
+public static class BattleSkillDataCreater
+{
+    public static SkillBattleDataContainer CreateSkillData(ClientDataManager client, DataManager data)
     {
         var main = Managers.ClientData.EquipSkillManager.MainSkill;
         var sub = Managers.ClientData.EquipSkillManager.SubSkill;
-        return new ActiveUserSkillDataContainer(main, client.GetSkillLevel(main), sub, client.GetSkillLevel(sub), data);
+        return CreateSkillData(main, client.GetSkillLevel(main), sub, client.GetSkillLevel(sub), data.UserSkill);
+    }
+
+    public static SkillBattleDataContainer CreateSkillData(SkillType mainSkill, int mainLevel, SkillType subSkill, int subLevel, DataManager.UserSkillData data)
+    {
+        var main = data.GetSkillBattleData(mainSkill, mainLevel);
+        var sub = data.GetSkillBattleData(subSkill, subLevel);
+        return new SkillBattleDataContainer(main, sub);
     }
 }
 

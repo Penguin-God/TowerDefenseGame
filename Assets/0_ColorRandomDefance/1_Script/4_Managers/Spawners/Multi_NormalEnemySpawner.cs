@@ -26,8 +26,8 @@ public class SpeedManagerCreater
     public SpeedManager CreateSpeedManager(float speed, Multi_NormalEnemy monster)
     {
         var skillData = _container.GetMultiActiveSkillData().GetData(monster.UsingId);
-        if (skillData.ActiveEquipSkill(SkillType.썬콜))
-            return new SuncoldSpeedManager(speed, monster, skillData.GetFirstIntData(UserSkillClass.Main), _container.GetComponent<MultiEffectManager>());
+        if (skillData.TruGetSkillData(SkillType.썬콜, out var skillBattleData))
+            return new SuncoldSpeedManager(speed, monster, skillBattleData.IntSkillData, _container.GetComponent<MultiEffectManager>());
         else return new SpeedManager(speed);
     }
 }

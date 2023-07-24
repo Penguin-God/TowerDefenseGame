@@ -20,7 +20,7 @@ public class BattleScene : BaseScene
         SendSkillData();
         if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
         {
-            SetEnemyData(SkillType.None, 0, SkillType.None, 0);
+            _activeUserSkillDataContainer = new SkillBattleDataContainer();
             InitGame();
         }
         else
@@ -37,11 +37,11 @@ public class BattleScene : BaseScene
 
     public BattleDIContainer GetBattleContainer() => _battleDIContainer;
 
-    ActiveUserSkillDataContainer _activeUserSkillDataContainer;
+    SkillBattleDataContainer _activeUserSkillDataContainer;
     [PunRPC] 
     void SetEnemyData(SkillType mainSkill, byte mainLevel, SkillType subSkill, byte subLevel)
     {
-        _activeUserSkillDataContainer = new ActiveUserSkillDataContainer(mainSkill, mainLevel, subSkill, subLevel, Managers.Data);
+        _activeUserSkillDataContainer = BattleSkillDataCreater.CreateSkillData(mainSkill, mainLevel, subSkill, subLevel, Managers.Data.UserSkill);
     }
 
     IEnumerator Co_InitGame()
@@ -94,7 +94,7 @@ class WorldInitializer
         _battleDIContainer = container;
     }
 
-    public BattleDIContainer Init(ActiveUserSkillDataContainer data)
+    public BattleDIContainer Init(SkillBattleDataContainer data)
     {
         new BattleDIContainerInitializer().InjectBattleDependency(_battleDIContainer, data);
 

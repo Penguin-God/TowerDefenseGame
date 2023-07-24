@@ -79,6 +79,9 @@ namespace MonsterDomainTests
             sut.OnSlow(30);
 
             Assert.AreEqual(expected, sut.SlowCondition(slowRate));
+
+            sut.RestoreSpeed();
+            Assert.IsTrue(sut.SlowCondition(slowRate));
         }
     }
 }

@@ -118,6 +118,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         transform.rotation = Quaternion.identity;
         _stunCount = 0;
         _speed = 0;
+        StopCoroutine(nameof(Co_RestoreSpeed));
     }
 
     protected SpeedManager SpeedManager { get; private set; }

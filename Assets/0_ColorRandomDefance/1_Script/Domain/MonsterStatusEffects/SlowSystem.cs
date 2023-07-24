@@ -18,6 +18,7 @@ public class SpeedManager
 {
     public float OriginSpeed { get; private set; }
     public float CurrentSpeed { get; private set; }
+    
     public bool IsSlow => OriginSpeed > CurrentSpeed;
     public SpeedManager(float originSpeed) => ChangeOriginSpeed(originSpeed);
 
@@ -26,7 +27,14 @@ public class SpeedManager
         OriginSpeed = originSpeed;
         CurrentSpeed = originSpeed;
     }
-
-    public virtual void OnSlow(float slowRate) => CurrentSpeed = OriginSpeed - (OriginSpeed * (slowRate / 100));
     public void RestoreSpeed() => CurrentSpeed = OriginSpeed;
+
+    public virtual void OnSlow(float slowRate)
+    {
+        _applySlowRate = slowRate;
+        CurrentSpeed = CalculateSlowSpeed(slowRate);
+    }
+    float _applySlowRate; // 적용된 슬로우
+    public bool SlowCondition(float slowRate) => slowRate >= _applySlowRate - 0.1f; // float 오차 때문에 0.1 뺌
+    float CalculateSlowSpeed(float slowRate) => OriginSpeed - (OriginSpeed * (slowRate / 100));
 }

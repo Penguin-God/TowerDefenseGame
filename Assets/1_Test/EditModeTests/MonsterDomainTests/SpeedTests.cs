@@ -59,15 +59,26 @@ namespace MonsterDomainTests
 
             // Act
             sut.OnSlow(30); // Make it slower first
-
             // Assert
             Assert.IsTrue(sut.IsSlow);
 
             // Act
             sut.RestoreSpeed();
-
             // Assert
             Assert.IsFalse(sut.IsSlow);
+        }
+
+        [Test]
+        [TestCase(40, true)]
+        [TestCase(30, true)]
+        [TestCase(20, false)]
+        public void 슬로우_조건은_새로운_슬로우가_현재_적용된_슬로우_이상이어야_참을_반환함(float slowRate, bool expected)
+        {
+            // Arrange
+            var sut = CreateSpeedManager();
+            sut.OnSlow(30);
+
+            Assert.AreEqual(expected, sut.SlowCondition(slowRate));
         }
     }
 }

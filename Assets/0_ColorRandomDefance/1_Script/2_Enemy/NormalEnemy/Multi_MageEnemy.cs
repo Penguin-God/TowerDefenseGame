@@ -11,7 +11,8 @@ public class Multi_MageEnemy : Multi_NormalEnemy
     {
         if (isSkill)
         {
-            photonView.RPC(nameof(DecreasedEffect), RpcTarget.All);
+            // TODO : 이팩트 더 방어가 되는 느낌으로 바꾸기
+            // photonView.RPC(nameof(DecreasedEffect), RpcTarget.All);
             damage -= Mathf.CeilToInt(damage * DAMAGE_REDUCTION_RATE * 0.01f);
         }
         base.RPC_OnDamage(damage, isSkill);

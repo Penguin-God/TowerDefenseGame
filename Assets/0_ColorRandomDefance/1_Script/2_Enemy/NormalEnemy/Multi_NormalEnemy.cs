@@ -28,8 +28,8 @@ public class Multi_NormalEnemy : Multi_Enemy
     [PunRPC]
     protected override void RPC_OnDamage(int damage, bool isSkill)
     {
-        if (IsSlow && _slowData.SlowRate > 0)
-            damage += Mathf.RoundToInt(damage * (_slowData.SlowRate / 100));
+        if (IsSlow) // 슬로우 시 추뎀
+            damage += Mathf.RoundToInt(damage * (SpeedManager.ApplySlowRate / 100));
         base.RPC_OnDamage(damage, isSkill);
     }
 
@@ -132,23 +132,13 @@ public class Multi_NormalEnemy : Multi_Enemy
     int _stunCount = 0;
     [SerializeField] private GameObject sternEffect;
 
-    public override void OnSlow(float slowPercent, float slowTime)
+    public override void OnSlow(float slowRate, float slowTime)
     {
         if (RPCSendable == false) return;
-        OnSlow(new SlowData(slowPercent, slowTime));
+        SpeedManager.OnSlow(slowRate);
+        ApplySlowToAll(slowTime);
     }
 
-    SlowData _slowData;
-    void OnSlow(SlowData slowData)
-    {
-        if (SlowCondition(slowData))
-        {
-            _slowData = slowData;
-            SpeedManager.OnSlow(slowData.SlowRate);
-            ApplySlowToAll(slowData.SlowTime);
-        }
-    }
-    bool SlowCondition(SlowData newSlowData) => newSlowData.SlowRate >= _slowData.SlowRate && newSlowData.SlowTime > 0;
     void ApplySlowToAll(float slowTime)
     {
         if (RPCSendable == false) return;
@@ -172,18 +162,22 @@ public class Multi_NormalEnemy : Multi_Enemy
     IEnumerator Co_RestoreSpeed(float slowTime)
     {
         yield return new WaitForSeconds(slowTime);
+        RestoreSpeedToAll();
+    }
+
+    public void RestoreSpeedToAll()
+    {
         SpeedManager.RestoreSpeed();
         photonView.RPC(nameof(RestoreSpeed), RpcTarget.All);
     }
 
     [PunRPC]
-    protected void RestoreSpeed(float originSpeed)
+    protected void RestoreSpeed() // rpc용 proteted
     {
         ChangeMat(originMat);
         ChangeColorToOrigin();
-        _speed = originSpeed;
+        _speed = SpeedManager.OriginSpeed;
         ChangeVelocity(dir);
-        _slowData = new SlowData();
     }
 
     [PunRPC]
@@ -191,7 +185,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         if (PhotonNetwork.IsMasterClient == false) return;
 
-        OnSlow(new SlowData(100f, slowTime));
+        OnSlow(100f, slowTime);
         photonView.RPC(nameof(Mat_To_Freeze), RpcTarget.All);
     }
 

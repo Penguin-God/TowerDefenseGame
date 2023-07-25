@@ -314,7 +314,7 @@ public class DiscountMerchant : UserSkill
 
 public class CombineMeteorController : UserSkill
 {
-    CombineMeteor _combineMeteor;
+    CombineMeteorCalculator _combineMeteor;
     const int SwordmanScore = 1;
     const int ArcherScore = 4;
     const int SpearmanScore = 20;
@@ -329,7 +329,7 @@ public class CombineMeteorController : UserSkill
     UI_UserSkillStatus _stackUI;
     public CombineMeteorController(UserSkillBattleData userSkillBattleData, MeteorController meteorController, IMonsterManager monsterManager) : base(userSkillBattleData) 
     {
-        _combineMeteor = new CombineMeteor(new MeteorScoreData(SwordmanScore, ArcherScore, SpearmanScore), Managers.Data.CombineConditionByUnitFalg);
+        _combineMeteor = new CombineMeteorCalculator(new MeteorStackData(SwordmanScore, ArcherScore, SpearmanScore), Managers.Data.CombineConditionByUnitFalg);
         _monsterManager = monsterManager;
         MeteorShotPoint = PlayerIdManager.Id == PlayerIdManager.MasterId ? new Vector3(0, 30, 0) : new Vector3(0, 30, 500);
         _meteorController = meteorController;
@@ -348,7 +348,7 @@ public class CombineMeteorController : UserSkill
     int _meteorStack;
     void ShotMeteor(UnitFlags combineUnitFlag)
     {
-        int score = _combineMeteor.CalculateMeteorScore(combineUnitFlag);
+        int score = _combineMeteor.CalculateMeteorStack(combineUnitFlag);
         if (score > 0)
         {
             _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(score), StunTimePerScore * score, MeteorShotPoint);

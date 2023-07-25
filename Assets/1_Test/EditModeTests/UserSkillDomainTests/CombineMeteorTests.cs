@@ -15,7 +15,7 @@ namespace UserSkillDomainTests
         UnitFlags RedSpearman = new UnitFlags(0, 2);
         UnitFlags RedMage = new UnitFlags(0, 3);
 
-        CombineMeteor CreateCombineMeteor()
+        CombineMeteorCalculator CreateCombineMeteor()
         {
             _combineConditionByUnitFlag = new Dictionary<UnitFlags, CombineCondition>()
             {
@@ -33,8 +33,8 @@ namespace UserSkillDomainTests
                 },
             };
 
-            var meteorScoreData = new MeteorScoreData(1, 4, 20);
-            var result = new CombineMeteor(meteorScoreData, _combineConditionByUnitFlag);
+            var meteorScoreData = new MeteorStackData(1, 4, 20);
+            var result = new CombineMeteorCalculator(meteorScoreData, _combineConditionByUnitFlag);
             return result;
         }
 
@@ -49,25 +49,26 @@ namespace UserSkillDomainTests
             var combineTargetFlag = new UnitFlags(0, classNum);
 
             // Act
-            int result = sut.CalculateMeteorScore(combineTargetFlag);
+            int result = sut.CalculateMeteorStack(combineTargetFlag);
 
             // Assert
             Assert.AreEqual(expected, result);
         }
 
+        const int DefaultDamage = 1000;
+        const int DamagePerStack = 3000;
+
         [Test]
-        [TestCase(3, 0, 1500)]
-        [TestCase(3, 10, 2500)]
-        [TestCase(20, 100, 20000)]
-        public void 점수와_스택에_따라_대미지가_계산되어야_함(int score, int stack, int expected)
+        [TestCase(0, DefaultDamage)]
+        [TestCase(10, 31000)]
+        [TestCase(50, 151000)]
+        public void 스택에_따라_대미지가_계산되어야_함(int stack, int expected)
         {
             // Arrange
-            const int DamagePerScore = 500;
-            const int DamagePerStack = 100;
-            var sut = CreateCombineMeteor();
+            var sut = new CombineMeteorCalculator(null, DefaultDamage, DamagePerStack);
 
             // Act
-            int result = sut.CalculateMeteorDamage(score, DamagePerScore, stack, DamagePerStack);
+            int result = sut.CalculateMeteorDamage(stack);
 
             // Assert
             Assert.AreEqual(expected, result);

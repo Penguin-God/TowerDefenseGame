@@ -2,24 +2,32 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CombineMeteor
+public class CombineMeteorCalculator
 {
-    readonly MeteorScoreData _meteorScoreData;
+    readonly MeteorStackData _meteorScoreData;
     readonly IReadOnlyDictionary<UnitFlags, CombineCondition> _combineConditionByUnitFalg;
-    
-    public CombineMeteor(MeteorScoreData meteorScoreData, IReadOnlyDictionary<UnitFlags, CombineCondition> combineConditionByUnitFalg)
+    readonly int DefaultDamage;
+    readonly int DamagePerStack;
+    public CombineMeteorCalculator(MeteorStackData meteorScoreData, IReadOnlyDictionary<UnitFlags, CombineCondition> combineConditionByUnitFalg)
     {
         _meteorScoreData = meteorScoreData;
         _combineConditionByUnitFalg = combineConditionByUnitFalg;
     }
-
-    public int CalculateMeteorScore(UnitFlags combineUnitFlag)
+    
+    public CombineMeteorCalculator(IReadOnlyDictionary<UnitFlags, CombineCondition> combineConditionByUnitFalg, int defaultDamage, int damagePerStack)
+    {
+        _combineConditionByUnitFalg = combineConditionByUnitFalg;
+        DamagePerStack = damagePerStack;
+        DefaultDamage = defaultDamage;
+    }
+    
+    public int CalculateMeteorStack(UnitFlags combineUnitFlag)
     {
         int result = 0;
         foreach (var flag in new UnitCombineSystem(_combineConditionByUnitFalg).GetNeedFlags(combineUnitFlag))
         {
             if (flag.UnitColor == UnitColor.Red)
-                result += _meteorScoreData.GetClassScore(flag.UnitClass);
+                result += _meteorScoreData.GetClassStack(flag.UnitClass);
         }
         return result;
     }
@@ -31,22 +39,24 @@ public class CombineMeteor
         result += stack * damagePerStack;
         return result;
     }
+
+    public int CalculateMeteorDamage(int stack) => DefaultDamage + (stack * DamagePerStack);
 }
 
-public struct MeteorScoreData
+public struct MeteorStackData
 {
     readonly int SwordmanScore;
     readonly int ArcherScore;
     readonly int SpearmanScore;
     
-    public MeteorScoreData(int swordmanScore, int archerScore, int spearmanScore)
+    public MeteorStackData(int swordmanScore, int archerScore, int spearmanScore)
     {
         SwordmanScore = swordmanScore;
         ArcherScore = archerScore;
         SpearmanScore = spearmanScore;
     }
 
-    public int GetClassScore(UnitClass unitClass)
+    public int GetClassStack(UnitClass unitClass)
     {
         switch (unitClass)
         {

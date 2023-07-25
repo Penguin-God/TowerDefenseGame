@@ -24,8 +24,7 @@ public class CombineMeteorStackManager
     public void SummonUnit() => SummonUnitCount = 0;
     public void AddCombineStack(UnitFlags combineUnitFlag)
     {
-        int addStack = new UnitCombineSystem(_combineConditionByUnitFalg)
-            .GetNeedFlags(combineUnitFlag)
+        int addStack = new UnitCombineSystem(_combineConditionByUnitFalg).GetNeedFlags(combineUnitFlag)
             .Where(x => x.UnitColor == UnitColor.Red)
             .Sum(x => _meteorStackData.GetClassStack(x.UnitClass));
         CurrentStack += addStack;

@@ -314,32 +314,28 @@ public class DiscountMerchant : UserSkill
 
 public class CombineMeteorController : UserSkill
 {
-    CombineMeteorCalculator _combineMeteor;
-    const int SwordmanScore = 1;
-    const int ArcherScore = 4;
-    const int SpearmanScore = 20;
+    const int SwordmanStack = 1;
+    const int ArcherStack = 4;
+    const int SpearmanStack = 20;
 
     MeteorController _meteorController;
     readonly Vector3 MeteorShotPoint;
     IMonsterManager _monsterManager;
 
-    readonly int DamagePerScore;
-    readonly float StunTimePerScore;
-    readonly int DamagePerStack;
     UI_UserSkillStatus _stackUI;
     readonly CombineMeteorStackManager _stackManager;
     public CombineMeteorController(UserSkillBattleData userSkillBattleData, MeteorController meteorController, IMonsterManager monsterManager) : base(userSkillBattleData) 
     {
-        var meteorStackData = new MeteorStackData(SwordmanScore, ArcherScore, SpearmanScore);
-        _combineMeteor = new CombineMeteorCalculator(meteorStackData, Managers.Data.CombineConditionByUnitFalg);
         _monsterManager = monsterManager;
         MeteorShotPoint = PlayerIdManager.Id == PlayerIdManager.MasterId ? new Vector3(0, 30, 0) : new Vector3(0, 30, 500);
         _meteorController = meteorController;
-        DamagePerScore = IntSkillDatas[0];
-        StunTimePerScore = SkillDatas[1];
+        DefaultDamage = IntSkillDatas[0];
+        StunTimePerStack = SkillDatas[1];
         DamagePerStack = IntSkillDatas[2];
+        var meteorStackData = new MeteorStackData(SwordmanStack, ArcherStack, SpearmanStack);
+        _stackManager = new CombineMeteorStackManager(Managers.Data.CombineConditionByUnitFalg, meteorStackData, IntSkillDatas[3]);
+        
         _stackUI = Managers.UI.ShowSceneUI<UI_UserSkillStatus>();
-        _stackManager = new CombineMeteorStackManager(Managers.Data.CombineConditionByUnitFalg, meteorStackData, 10);
         UpdateStackText();
     }
 
@@ -349,11 +345,12 @@ public class CombineMeteorController : UserSkill
     }
 
     int _meteorStack => _stackManager.CurrentStack;
+    readonly float StunTimePerStack;
     void ShotMeteor(UnitFlags combineUnitFlag)
     {
         if (HasRedUnit(combineUnitFlag)) return;
 
-        _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(), StunTimePerScore * _meteorStack, MeteorShotPoint);
+        _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(), StunTimePerStack * _meteorStack, MeteorShotPoint);
         _stackManager.AddCombineStack(combineUnitFlag);
         if(_stackManager.SummonUnitCount > 0)
         {
@@ -369,7 +366,9 @@ public class CombineMeteorController : UserSkill
     bool HasRedUnit(UnitFlags combineUnitFlag)
         => new UnitCombineSystem(Managers.Data.CombineConditionByUnitFalg).GetNeedFlags(combineUnitFlag).Where(x => x.UnitColor == UnitColor.Red).Count() > 0;
 
-    public int CalculateMeteorDamage() => 1000 + (_meteorStack * DamagePerStack);
+    readonly int DamagePerStack;
+    readonly int DefaultDamage;
+    public int CalculateMeteorDamage() => DefaultDamage + (_meteorStack * DamagePerStack);
     void UpdateStackText() => _stackUI.UpdateText(_meteorStack);
     Multi_NormalEnemy FindMonster()
     {

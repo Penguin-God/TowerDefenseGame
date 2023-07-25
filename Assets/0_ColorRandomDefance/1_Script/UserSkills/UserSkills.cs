@@ -348,16 +348,11 @@ public class CombineMeteorController : UserSkill
     int _meteorStack;
     void ShotMeteor(UnitFlags combineUnitFlag)
     {
-        int score = _combineMeteor.CalculateMeteorStack(combineUnitFlag);
-        if (score > 0)
-        {
-            _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(score), StunTimePerScore * score, MeteorShotPoint);
-            _meteorStack += score;
-            UpdateStackText();
-        }
+        _meteorController.ShotMeteor(FindMonster(), _combineMeteor.CalculateMeteorDamage(_meteorStack), StunTimePerScore * _meteorStack, MeteorShotPoint);
+        _meteorStack += _combineMeteor.CalculateMeteorStack(combineUnitFlag);
+        UpdateStackText();
     }
 
-    int CalculateMeteorDamage(int combineScore) => _combineMeteor.CalculateMeteorDamage(combineScore, DamagePerScore, _meteorStack, DamagePerStack);
     void UpdateStackText() => _stackUI.UpdateText(_meteorStack);
     Multi_NormalEnemy FindMonster()
     {

@@ -11,22 +11,24 @@ public class TutorialScene : BaseScene
         PhotonNetwork.JoinRandomRoom();
 
         MultiServiceMidiator.Instance.Init();
-        var contaner = new WorldInitializer(gameObject)
-            .Init(BattleSkillDataCreater.CreateSkillData(SkillType.검은유닛강화, 1, SkillType.판매보상증가, 1, Managers.Data.UserSkill));
+        var tutorialSKillData = CreateTutorialSKillData();
+        var container = new WorldInitializer(gameObject).Init(tutorialSKillData);
+        FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(container, tutorialSKillData.GetData(PlayerIdManager.Id)));
         gameObject.AddComponent<Tutorial_AI>();
         
         // SetPlayerSkill();
-        InitTutorial(contaner);
+        InitTutorial(container);
     }
 
-    void SetPlayerSkill()
+    MultiData<SkillBattleDataContainer> CreateTutorialSKillData()
     {
-        Managers.ClientData.GetExp(SkillType.태극스킬, 1);
-        Managers.ClientData.GetExp(SkillType.판매보상증가, 1);
-        Managers.ClientData.EquipSkillManager.ChangedEquipSkill(UserSkillClass.Main, SkillType.태극스킬);
-        Managers.ClientData.EquipSkillManager.ChangedEquipSkill(UserSkillClass.Sub, SkillType.판매보상증가);
-        FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(gameObject.GetComponent<BattleDIContainer>()));
+        var result = new MultiData<SkillBattleDataContainer>();
+        result.SetData(PlayerIdManager.Id, CreateSKillData(SkillType.태극스킬, SkillType.판매보상증가));
+        result.SetData(PlayerIdManager.EnemyId, CreateSKillData(SkillType.검은유닛강화, SkillType.판매보상증가));
+        return result;
     }
+
+    SkillBattleDataContainer CreateSKillData(SkillType main, SkillType sub) => BattleSkillDataCreater.CreateSkillData(main, 1, sub, 1, Managers.Data.UserSkill);
 
     void InitTutorial(BattleDIContainer container)
     {

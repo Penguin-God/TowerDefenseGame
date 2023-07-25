@@ -145,31 +145,29 @@ public class UI_Status : UI_Scene
         }
     }
 
-    public void UpdateMySkillImage() => ChangeEquipSkillImages(MySkillData._MainSkill.SkillType, MySkillData._SubSkill.SkillType);
+    public void UpdateMySkillImage() => ChangeEquipSkillImages(MySkillData.MainSkill.SkillType, MySkillData.SubSkill.SkillType);
     void UpdateOtherSkillImage()
     {
         if (EnemySkillData != null)
-            ChangeEquipSkillImages(EnemySkillData._MainSkill.SkillType, EnemySkillData._SubSkill.SkillType);
+            ChangeEquipSkillImages(EnemySkillData.MainSkill.SkillType, EnemySkillData.SubSkill.SkillType);
         else
             ChangeEquipSkillImages(SkillType.None, SkillType.None);
     }
 
     void ChangeEquipSkillImages(SkillType mainSkill, SkillType subSkill)
     {
-        if (mainSkill == SkillType.None)
-            GetImage((int)Images.MainSkill).color = new Color(1, 1, 1, 0);
-        else
-        {
-            GetImage((int)Images.MainSkill).sprite = Managers.Data.UserSkill.GetSkillGoodsData(mainSkill).ImageSprite;
-            GetImage((int)Images.MainSkill).color = new Color(1, 1, 1, 1);
-        }
+        ChangeSkill_Image(mainSkill, (int)Images.MainSkill);
+        ChangeSkill_Image(subSkill, (int)Images.SubSkill);
+    }
 
-        if (mainSkill == SkillType.None)
-            GetImage((int)Images.SubSkill).color = new Color(1, 1, 1, 0);
+    void ChangeSkill_Image(SkillType skill, int imageIndex)
+    {
+        if (skill == SkillType.None)
+            GetImage(imageIndex).color = new Color(1, 1, 1, 0);
         else
         {
-            GetImage((int)Images.SubSkill).sprite = Managers.Data.UserSkill.GetSkillGoodsData(subSkill).ImageSprite;
-            GetImage((int)Images.SubSkill).color = new Color(1, 1, 1, 1);
+            GetImage(imageIndex).sprite = Managers.Data.UserSkill.GetSkillGoodsData(skill).ImageSprite;
+            GetImage(imageIndex).color = new Color(1, 1, 1, 1);
         }
     }
 }

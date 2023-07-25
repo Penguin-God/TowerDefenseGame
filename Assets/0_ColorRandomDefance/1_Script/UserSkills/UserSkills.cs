@@ -7,26 +7,26 @@ using System.Collections.ObjectModel;
 
 public class SkillBattleDataContainer
 {
-    public readonly UserSkillBattleData _MainSkill;
-    public readonly UserSkillBattleData _SubSkill;
-    readonly IReadOnlyDictionary<SkillType, UserSkillBattleData> BattleDataBySKillType = new Dictionary<SkillType, UserSkillBattleData>();
-    public SkillBattleDataContainer() { }
-    internal SkillBattleDataContainer(UserSkillBattleData mainSKill, UserSkillBattleData subSkill)
+    public UserSkillBattleData MainSkill { get; private set; }
+    public UserSkillBattleData SubSkill{ get; private set; }
+    readonly Dictionary<UserSkillClass, UserSkillBattleData> BattleDataBySKillType = new Dictionary<UserSkillClass, UserSkillBattleData>();
+    public IEnumerable<SkillType> EquipSKills => BattleDataBySKillType.Values.Select(x => x.SkillType);
+
+    public void ChangeEquipSkill(UserSkillBattleData newData)
     {
-        _MainSkill = mainSKill;
-        _SubSkill = subSkill;
-        BattleDataBySKillType = new Dictionary<SkillType, UserSkillBattleData>()
+        BattleDataBySKillType[newData.SkillClass] = newData;
+        switch (newData.SkillClass)
         {
-            { _MainSkill.SkillType, _MainSkill},
-            { _SubSkill.SkillType, _SubSkill},
-        };
+            case UserSkillClass.Main: MainSkill = newData; break;
+            case UserSkillClass.Sub: SubSkill = newData; break;
+        }
     }
 
     public bool TruGetSkillData(SkillType skill, out UserSkillBattleData result)
     {
         if (ContainSKill(skill))
         {
-            result = BattleDataBySKillType[skill];
+            result = BattleDataBySKillType.Values.Where(x => x.SkillType == skill).FirstOrDefault();
             return true;
         }
         else
@@ -35,7 +35,7 @@ public class SkillBattleDataContainer
             return false;
         }
     }
-    public bool ContainSKill(SkillType skill) => BattleDataBySKillType.ContainsKey(skill);
+    public bool ContainSKill(SkillType skill) => BattleDataBySKillType.Values.Where(x => x.SkillType == skill).Count() > 0;
 }
 
 public static class BattleSkillDataCreater
@@ -49,9 +49,11 @@ public static class BattleSkillDataCreater
 
     public static SkillBattleDataContainer CreateSkillData(SkillType mainSkill, int mainLevel, SkillType subSkill, int subLevel, DataManager.UserSkillData data)
     {
-        var main = data.GetSkillBattleData(mainSkill, mainLevel);
-        var sub = data.GetSkillBattleData(subSkill, subLevel);
-        return new SkillBattleDataContainer(main, sub);
+        var result = new SkillBattleDataContainer();
+        if (mainSkill == SkillType.None || subSkill == SkillType.None) return result;
+        result.ChangeEquipSkill(data.GetSkillBattleData(mainSkill, mainLevel));
+        result.ChangeEquipSkill(data.GetSkillBattleData(subSkill, subLevel));
+        return result;
     }
 }
 

@@ -14,12 +14,10 @@ public class UserSkillTest : MonoBehaviour
 
     public void ActiveSkill(SkillType skillType)
     {
-        new UserSkillShopUseCase().GetSkillExp(skillType, 1);
-
         _skillTypeByFlag[skillType] = true;
         var container = FindObjectOfType<BattleScene>().GetBattleContainer();
         var skill = new UserSkillFactory().ActiveSkill(skillType, container);
-        container.GetMultiActiveSkillData().SetData(0, BattleSkillDataCreater.CreateSkillData(skillType, 1, skillType, 1, Managers.Data.UserSkill));
+        container.GetMultiActiveSkillData().GetData(PlayerIdManager.Id).ChangeEquipSkill(Managers.Data.UserSkill.GetSkillBattleData(skillType, 1));
         if(skill != null)
             FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkill[] { skill });
     }

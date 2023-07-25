@@ -37,17 +37,12 @@ public class BattleDIContainerInitializer
     Multi_GameManager game;
     DataManager data;
     BattleEventDispatcher dispatcher;
-    public void InjectBattleDependency(BattleDIContainer container, SkillBattleDataContainer enemyActiveSkillData)
+    public void InjectBattleDependency(BattleDIContainer container, MultiData<SkillBattleDataContainer> multiSKillData)
     {
         game = Multi_GameManager.Instance;
         data = Managers.Data;
         dispatcher = container.AddService<BattleEventDispatcher>();
-
-        var avtiveSkillData = new MultiData<SkillBattleDataContainer>();
-        avtiveSkillData.SetData(PlayerIdManager.Id, BattleSkillDataCreater.CreateSkillData(Managers.ClientData, data));
-        avtiveSkillData.SetData(PlayerIdManager.EnemyId, enemyActiveSkillData);
-        container.AddService(avtiveSkillData);
-
+        container.AddService(multiSKillData);
 
         AddService(container);
         InjectService(container);
@@ -55,7 +50,7 @@ public class BattleDIContainerInitializer
         InitManagers(container);
         InjectionOnlyMaster(container);
 
-        container.GetComponent<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(container));
+        container.GetComponent<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(container, multiSKillData.GetData(PlayerIdManager.Id)));
         Done(container); // 꼭 마지막에 해야 하는 것들
     }
 

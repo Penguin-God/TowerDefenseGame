@@ -5,7 +5,6 @@ using Photon.Pun;
 
 public class BattleScene : BaseScene
 {
-    BattleDIContainer _battleDIContainer;
     protected override void Init()
     {
         if (PhotonNetwork.InRoom == false)
@@ -17,43 +16,25 @@ public class BattleScene : BaseScene
         PhotonNetwork.SerializationRate = 30;
 
         Managers.Data.Init();
-        SendSkillData();
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 1)
-        {
-            _activeUserSkillDataContainer = new SkillBattleDataContainer();
-            InitGame();
-        }
-        else
-            StartCoroutine(Co_InitGame());
+        IMultiSkillDataCreater multiSkillDataCreater;
+        multiSkillDataCreater = PhotonNetwork.CurrentRoom.PlayerCount == 1 ? new TestBattleSkillDataCreater() : gameObject.AddComponent<MultiBattleSkillDataCreater>();
+        multiSkillDataCreater.CreateMultiSKillData();
+        StartCoroutine(Co_InitGame(multiSkillDataCreater));
     }
 
-    void SendSkillData()
-    {
-        var client = Managers.ClientData;
-        var main = Managers.ClientData.EquipSkillManager.MainSkill;
-        var sub = Managers.ClientData.EquipSkillManager.SubSkill;
-        GetComponent<PhotonView>().RPC(nameof(SetEnemyData), RpcTarget.Others, main, (byte)client.GetSkillLevel(main), sub, (byte)client.GetSkillLevel(sub));
-    }
-
+    BattleDIContainer _battleDIContainer;
     public BattleDIContainer GetBattleContainer() => _battleDIContainer;
 
-    SkillBattleDataContainer _activeUserSkillDataContainer;
-    [PunRPC] 
-    void SetEnemyData(SkillType mainSkill, byte mainLevel, SkillType subSkill, byte subLevel)
+    IEnumerator Co_InitGame(IMultiSkillDataCreater multiSkillDataCreater)
     {
-        _activeUserSkillDataContainer = BattleSkillDataCreater.CreateSkillData(mainSkill, mainLevel, subSkill, subLevel, Managers.Data.UserSkill);
+        yield return new WaitUntil(() => multiSkillDataCreater.SKillDataCreateDone());
+        InitGame(multiSkillDataCreater.GetMultiSkillData());
     }
-
-    IEnumerator Co_InitGame()
-    {
-        yield return new WaitUntil(() => _activeUserSkillDataContainer != null);
-        InitGame();
-    }
-    void InitGame()
+    void InitGame(MultiData<SkillBattleDataContainer> multiData)
     {
         MultiServiceMidiator.Instance.Init();
         _battleDIContainer = new BattleDIContainer(gameObject);
-        new WorldInitializer(_battleDIContainer).Init(_activeUserSkillDataContainer);
+        new WorldInitializer(_battleDIContainer).Init(multiData);
     }
 
     public override void Clear()
@@ -65,10 +46,10 @@ public class BattleScene : BaseScene
 
 class UserSkillInitializer
 {
-    public IEnumerable<UserSkill> InitUserSkill(BattleDIContainer container)
+    public IEnumerable<UserSkill> InitUserSkill(BattleDIContainer container, SkillBattleDataContainer skillData)
     {
         List<UserSkill> userSkills = new List<UserSkill>();
-        foreach (var skillType in Managers.ClientData.EquipSkillManager.EquipSkills)
+        foreach (var skillType in skillData.EquipSKills)
         {
             if (skillType == SkillType.None)
                 continue;
@@ -94,9 +75,9 @@ class WorldInitializer
         _battleDIContainer = container;
     }
 
-    public BattleDIContainer Init(SkillBattleDataContainer data)
+    public BattleDIContainer Init(MultiData<SkillBattleDataContainer> multiSkillData)
     {
-        new BattleDIContainerInitializer().InjectBattleDependency(_battleDIContainer, data);
+        new BattleDIContainerInitializer().InjectBattleDependency(_battleDIContainer, multiSkillData);
 
         Managers.Camera.EnterBattleScene();
         InitMonoBehaviourContainer();

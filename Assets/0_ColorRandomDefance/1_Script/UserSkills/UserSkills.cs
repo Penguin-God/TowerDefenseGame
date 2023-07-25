@@ -346,9 +346,10 @@ public class CombineMeteorController : UserSkill
 
     int _meteorStack => _stackManager.CurrentStack;
     readonly float StunTimePerStack;
+    UnitFlags RedSwordman = new UnitFlags(0, 0);
     void ShotMeteor(UnitFlags combineUnitFlag)
     {
-        if (HasRedUnit(combineUnitFlag)) return;
+        if (HasRedUnit(combineUnitFlag) == false) return;
 
         _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(), StunTimePerStack * _meteorStack, MeteorShotPoint);
         _stackManager.AddCombineStack(combineUnitFlag);
@@ -356,7 +357,8 @@ public class CombineMeteorController : UserSkill
         {
             for (int i = 0; i < _stackManager.SummonUnitCount; i++)
             {
-                // 유닛 스폰
+                var spawnPos = new WorldSpawnPositionCalculator(20, 0, 0, 0).CalculateWorldPostion(Multi_Data.instance.GetWorldPosition(PlayerIdManager.Id));
+                Multi_SpawnManagers.NormalUnit.Spawn(RedSwordman, spawnPos);
             }
             _stackManager.SummonUnit();
         }

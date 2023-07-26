@@ -125,6 +125,7 @@ public enum SkillType
     네크로맨서,
     마창사,
     썬콜,
+    덫,
 }
 
 public enum MoneyType

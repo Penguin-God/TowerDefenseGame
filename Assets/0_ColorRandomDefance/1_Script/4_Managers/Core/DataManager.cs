@@ -210,6 +210,13 @@ public class DataManager
         }
 
         public UserSkillBattleData GetSkillBattleData(SkillType type, int level)
-            => new UserSkillBattleData(type, GetSkillGoodsData(type).SkillClass, GetSkillLevelData(type, level).BattleDatas);
+        {
+            if (_typeByGoodsData.ContainsKey(type) == false)
+            {
+                Debug.LogError($"유저 스킬 데이터 {type} : 로드 실패");
+                return new UserSkillBattleData(type, UserSkillClass.Main, null);
+            }
+            return new UserSkillBattleData(type, GetSkillGoodsData(type).SkillClass, GetSkillLevelData(type, level).BattleDatas);
+        }
     }
 }

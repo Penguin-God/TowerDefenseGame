@@ -431,16 +431,18 @@ public class SlowTrapSpawner : UserSkill
 {
     readonly MonsterPathLocationFinder _locationFinder;
     BattleEventDispatcher _dispatcher;
-    readonly float DefaultSlowRate = 10;
-    readonly float SlowRatePerStage = 3;
-    readonly float MaxSlowRate = 70;
+    readonly float DefaultSlowRate;
+    readonly float SlowRatePerStage;
+    readonly float MaxSlowRate;
     const float TrapRange = 5f;
     readonly Vector3 Offset = new Vector3(0, 5, 0);
     public SlowTrapSpawner(UserSkillBattleData userSkillBattleData, Transform[] wayPoints, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
     {
         _locationFinder = new MonsterPathLocationFinder(wayPoints.Select(x => x.position).ToArray());
         _dispatcher = dispatcher;
-        //SlowRate = SkillDatas[0];
+        DefaultSlowRate = SkillDatas[0];
+        SlowRatePerStage = SkillDatas[1];
+        MaxSlowRate = SkillDatas[2];
     }
 
     internal override void InitSkill()
@@ -460,7 +462,6 @@ public class SlowTrapSpawner : UserSkill
             trap.GetComponent<RPCable>().SetPosition_RPC(_locationFinder.CalculateMonsterPathLocation() + Offset);
             trap.GetComponent<RPCable>().SetActive_RPC(true);
             trap.SetInfo(CalculateTrapSlow(stage), TrapRange);
-            Debug.Log(CalculateTrapSlow(stage));
         }
     }
 

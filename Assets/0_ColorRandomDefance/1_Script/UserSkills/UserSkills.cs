@@ -431,7 +431,9 @@ public class SlowTrapSpawner : UserSkill
 {
     readonly MonsterPathLocationFinder _locationFinder;
     BattleEventDispatcher _dispatcher;
-    readonly float SlowRate;
+    readonly float DefaultSlowRate = 10;
+    readonly float SlowRatePerStage = 3;
+    readonly float MaxSlowRate = 70;
     const float TrapRange = 5f;
     readonly Vector3 Offset = new Vector3(0, 5, 0);
     public SlowTrapSpawner(UserSkillBattleData userSkillBattleData, Transform[] wayPoints, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
@@ -443,21 +445,24 @@ public class SlowTrapSpawner : UserSkill
 
     internal override void InitSkill()
     {
-        _dispatcher.OnStageUp += _ => SpawnTrap();
+        _dispatcher.OnStageUp += SpawnTrap;
         for (int i = 0; i < _traps.Length; i++)
             _traps[i] = Managers.Multi.Instantiater.PhotonInstantiateInactive("SlowTrap", PlayerIdManager.Id).GetComponent<AreaSlowApplier>();
     }
 
     const int SpawnCount = 2;
     AreaSlowApplier[] _traps = new AreaSlowApplier[SpawnCount];
-    void SpawnTrap()
+    void SpawnTrap(int stage)
     {
         foreach (var trap in _traps)
         {
             trap.GetComponent<RPCable>().SetActive_RPC(false);
             trap.GetComponent<RPCable>().SetPosition_RPC(_locationFinder.CalculateMonsterPathLocation() + Offset);
             trap.GetComponent<RPCable>().SetActive_RPC(true);
-            trap.SetInfo(50, TrapRange);
+            trap.SetInfo(CalculateTrapSlow(stage), TrapRange);
+            Debug.Log(CalculateTrapSlow(stage));
         }
     }
+
+    float CalculateTrapSlow(int stage) => Mathf.Min(DefaultSlowRate + (stage * SlowRatePerStage), MaxSlowRate);
 }

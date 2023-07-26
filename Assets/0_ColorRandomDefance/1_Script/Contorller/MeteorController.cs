@@ -18,7 +18,7 @@ public class MeteorController : MonoBehaviourPun
     {
         if(target == null)
         {
-            print("target이 널임");
+            print("메테오 target이 널임");
             return;
         }
         photonView.RPC(nameof(RPC_ShotMeteor), RpcTarget.MasterClient, target.GetComponent<PhotonView>().ViewID, hitDamage, stunTime, spawnPos);

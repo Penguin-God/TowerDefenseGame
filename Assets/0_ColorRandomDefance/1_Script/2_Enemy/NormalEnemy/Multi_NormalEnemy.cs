@@ -35,6 +35,7 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     protected virtual void Passive() { }
     [SerializeField] float _speed;
+    [SerializeField] float _originSpeed;
     [PunRPC]
     protected override void SetStatus(int _hp, float speed, bool _isDead)
     {
@@ -58,6 +59,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         ChangeMaxHp(hp);
         _speed = speed;
+        _originSpeed = speed;
         SetDirection();
     }
 
@@ -172,12 +174,12 @@ public class Multi_NormalEnemy : Multi_Enemy
         photonView.RPC(nameof(RestoreSpeed), RpcTarget.All);
     }
 
-    [PunRPC]
-    protected void RestoreSpeed() // rpc용 proteted
+    [PunRPC] // rpc용 proteted
+    protected void RestoreSpeed()
     {
         ChangeMat(originMat);
         ChangeColorToOrigin();
-        _speed = SpeedManager.OriginSpeed;
+        _speed = _originSpeed;
         ChangeVelocity(dir);
     }
 

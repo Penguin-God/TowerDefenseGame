@@ -77,11 +77,8 @@ public class Multi_Enemy : MonoBehaviourPun
             photonView.RPC(nameof(RPC_Dead), RpcTarget.All);
     }
 
-    [PunRPC] // RPC 매서드라 protected임
-    protected void RPC_UpdateHealth(int _newHp) => ChangeHp(_newHp);
-
-    [PunRPC]
-    protected void RPC_Dead() => Dead();
+    [PunRPC] protected void RPC_UpdateHealth(int _newHp) => ChangeHp(_newHp);
+    [PunRPC] protected void RPC_Dead() => Dead();
 
     public virtual void Dead()
     {
@@ -107,9 +104,6 @@ public class Multi_Enemy : MonoBehaviourPun
 
     // 상태 이상은 마스트에서 적용 후 다른 플레이어에게 동기화하는 방식
     public virtual void OnSlow(float slowPercent, float slowTime) { }
-
-    public void OnFreeze_RPC(float _freezeTime) => photonView.RPC(nameof(OnFreeze), RpcTarget.MasterClient, _freezeTime);
-    [PunRPC] protected virtual void OnFreeze(float slowTime) { } // 얼리는 스킬
 
     public void OnStun_RPC(int _stunPercent, float _stunTime) => photonView.RPC(nameof(OnStun), RpcTarget.MasterClient, _stunPercent, _stunTime);
     [PunRPC] protected virtual void OnStun(int stunPercent, float stunTime) { }

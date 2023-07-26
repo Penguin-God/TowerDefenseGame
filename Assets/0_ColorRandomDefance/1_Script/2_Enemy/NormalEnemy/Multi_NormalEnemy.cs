@@ -40,22 +40,21 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected override void SetStatus(int _hp, float speed, bool _isDead)
     {
         base.SetStatus(_hp, speed, _isDead);
-        if (PhotonNetwork.IsMasterClient)
-        {
-            Passive();
-            _speed = SpeedManager.OriginSpeed;
-            photonView.RPC(nameof(SetClientInfo), RpcTarget.Others, maxHp, _speed);
-        }
         spawnStage = StageManager.Instance.CurrentStage;
         TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(UsingId);
         if(pointIndex == -1) pointIndex = 0;
         transform.position = _spawnPositons[UsingId];
         transform.rotation = Quaternion.identity;
-        SetDirection();
+        if (PhotonNetwork.IsMasterClient)
+        {
+            Passive();
+            _speed = SpeedManager.OriginSpeed;
+            photonView.RPC(nameof(SetInfo), RpcTarget.All, maxHp, _speed);
+        }
     }
 
     [PunRPC] 
-    protected void SetClientInfo(int hp, float speed)
+    protected void SetInfo(int hp, float speed)
     {
         ChangeMaxHp(hp);
         _speed = speed;
@@ -183,10 +182,10 @@ public class Multi_NormalEnemy : Multi_Enemy
         ChangeVelocity(dir);
     }
 
-    [PunRPC]
-    protected override void OnFreeze(float slowTime)
+
+    public void OnFreeze(float slowTime)
     {
-        if (PhotonNetwork.IsMasterClient == false) return;
+        if (RPCSendable == false) return;
 
         OnSlow(100f, slowTime);
         photonView.RPC(nameof(Mat_To_Freeze), RpcTarget.All);

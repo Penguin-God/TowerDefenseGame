@@ -19,7 +19,7 @@ public class Multi_BlueMage : Multi_Unit_Mage
     }
 
     protected override void MageSkile()
-        => SkillSpawn(transform.position + (Vector3.up * 2)).GetComponent<Multi_HitSkill>().SetHitActoin(enemy => enemy.OnFreeze_RPC(freezeTime));
+        => SkillSpawn(transform.position + (Vector3.up * 2)).GetComponent<Multi_HitSkill>().SetHitActoin(enemy => enemy.GetComponent<Multi_NormalEnemy>()?.OnFreeze(freezeTime));
 
     protected override void PlaySkillSound() => PlaySound(EffectSoundType.BlueMageSkill);
 }

@@ -147,7 +147,7 @@ public class UserSkillFactory
             case SkillType.조합메테오: 
                 result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>(), container.GetComponent<MultiEffectManager>()); break;
             case SkillType.네크로맨서:
-                result = new NecromancerController(skillBattleData, container.GetService<BattleEventDispatcher>(), container.GetComponent<EffectSynchronizer>()); break;
+                result = new NecromancerController(skillBattleData, container.GetService<BattleEventDispatcher>(), container.GetComponent<MultiEffectManager>()); break;
             default: result = null; break;
         }
         result.InitSkill();
@@ -389,16 +389,8 @@ public class CombineMeteorController : UserSkill
 public class NecromancerController : UserSkill
 {
     readonly Necromencer _necromencer;
-    readonly EffectSynchronizer _effectSynchronizer;
     BattleEventDispatcher _dispatcher;
     MultiEffectManager _multiEffectManager;
-    public NecromancerController(UserSkillBattleData userSkillBattleData, BattleEventDispatcher dispatcher, EffectSynchronizer effectSynchronizer) 
-        : base(userSkillBattleData)
-    {
-        _necromencer = new Necromencer(IntSkillData);
-        _dispatcher = dispatcher;
-        _effectSynchronizer = effectSynchronizer;
-    }
 
     public NecromancerController(UserSkillBattleData userSkillBattleData, BattleEventDispatcher dispatcher, MultiEffectManager multiEffectManager)
         : base(userSkillBattleData)
@@ -424,7 +416,7 @@ public class NecromancerController : UserSkill
         {
             var spawnPos = new WorldSpawnPositionCalculator(20, 0, 0, 0).CalculateWorldPostion(Multi_Data.instance.GetWorldPosition(PlayerIdManager.Id));
             Multi_SpawnManagers.NormalUnit.Spawn(ResurrectUnit, spawnPos);
-            _effectSynchronizer.PlayOneShotEffect("PosionMagicCircle", spawnPos + EffectOffst);
+            _multiEffectManager.PlayOneShotEffect("PosionMagicCircle", spawnPos + EffectOffst);
             Managers.Sound.PlayEffect(EffectSoundType.YellowMageSkill);
         }
         UpdateText();

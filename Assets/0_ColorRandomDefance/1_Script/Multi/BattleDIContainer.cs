@@ -66,7 +66,6 @@ public class BattleDIContainerInitializer
         container.AddComponent<OpponentStatusSender>();
         container.AddComponent<EnemySpawnNumManager>();
         container.AddComponent<MeteorController>();
-        container.AddComponent<EffectSynchronizer>();
         container.AddComponent<MultiEffectManager>();
     }
 

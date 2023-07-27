@@ -203,19 +203,7 @@ public class TaegeukController : UserSkill
 public class BlackUnitUpgrade : UserSkill
 {
     public BlackUnitUpgrade(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
-
-    public event Action<UnitFlags> OnBlackUnitReinforce;
-    internal override void InitSkill()
-    {
-        new UnitUpgradeHandler().UpgradeUnit(UnitColor.Black, IntSkillDatas);
-        Managers.Unit.OnUnitCountChangeByFlag += UseSkill;
-    }
-
-    void UseSkill(UnitFlags unitFlags, int count)
-    {
-        if (unitFlags.UnitColor != UnitColor.Black && count == 0) return;
-        OnBlackUnitReinforce?.Invoke(unitFlags);
-    }
+    internal override void InitSkill() => new UnitUpgradeHandler().UpgradeUnit(UnitColor.Black, IntSkillDatas);
 }
 
 public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경

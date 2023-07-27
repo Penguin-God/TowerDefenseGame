@@ -17,7 +17,11 @@ public class EffectInitializer : MonoBehaviourPun
 
             var blackUnitUp = skill as BlackUnitUpgrade;
             if (blackUnitUp != null)
-                blackUnitUp.OnBlackUnitReinforce += SetUnitTrackingEffects_RPC;
+                Managers.Unit.OnUnitCountChangeByFlag += TrackingBalckUnit;
+
+            //var pureBlood = skill as PureBlood;
+            //if (pureBlood != null)
+            //    Managers.Unit.OnUnitCountChangeByFlag += TrackingWhiteUnit;
         }
     }
 
@@ -37,7 +41,6 @@ public class EffectInitializer : MonoBehaviourPun
         else
         {
             List<Transform> targets = GetTeaguekUnits();
-            // targets.ForEach(x => Managers.Effect.StopTargetTracking(x));
             foreach (var target in targets)
             {
                 Managers.Effect.StopTargetTracking(target); // master
@@ -54,6 +57,18 @@ public class EffectInitializer : MonoBehaviourPun
         }
     }
 
+    void TrackingBalckUnit(UnitFlags flag, int count)
+    {
+        if (flag.UnitColor == UnitColor.Black && count > 0)
+            SetUnitTrackingEffects_RPC(flag);
+    }
+
+    void TrackingWhiteUnit(UnitFlags flag, int count)
+    {
+        if (flag.UnitColor == UnitColor.White && count > 0)
+            SetUnitTrackingEffects_RPC(flag);
+    }
+
     void SetUnitTrackingEffects_RPC(UnitFlags flag)
         => photonView.RPC(nameof(SetUnitTrackingEffects), RpcTarget.MasterClient, flag, PlayerIdManager.Id);
 
@@ -62,7 +77,6 @@ public class EffectInitializer : MonoBehaviourPun
     {
         var targets = MultiServiceMidiator.Server.GetUnits(id)
             .Where(x => x.UnitFlags == flag && Managers.Effect.TargetByTrackers.ContainsKey(x.transform) == false);
-
         foreach (var target in targets)
         {
             _unitReinforceEffectDrawer.SetUnitReinforceEffect(target);
@@ -88,7 +102,8 @@ class UnitReinforceEffectDrawer
     {
         {UnitColor.Red, new Color32(255, 44, 0, 255) },
         {UnitColor.Blue, new Color32(26, 251, 255, 255) },
-        { UnitColor.Black, new Color32(0, 0, 0, 255) },
+        {UnitColor.White, new Color32(255, 255, 255, 255) },
+        {UnitColor.Black, new Color32(0, 0, 0, 255) },
     };
 
     public void SetUnitReinforceEffect(Multi_TeamSoldier target)

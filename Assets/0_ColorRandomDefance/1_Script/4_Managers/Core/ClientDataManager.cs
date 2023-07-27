@@ -126,6 +126,7 @@ public enum SkillType
     마창사,
     썬콜,
     덫,
+    순혈주의자,
 }
 
 public enum MoneyType

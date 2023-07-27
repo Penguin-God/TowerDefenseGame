@@ -96,7 +96,7 @@ public class UserSkillFactory
     IReadOnlyList<SkillType> ComplexSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
     {
         SkillType.태극스킬, SkillType.검은유닛강화, SkillType.상대색깔변경, SkillType.고기혐오자, SkillType.판매보상증가, SkillType.장사꾼, SkillType.조합메테오,
-        SkillType.네크로맨서, SkillType.덫,
+        SkillType.네크로맨서, SkillType.덫, SkillType.순혈주의자,
     });
 
     IReadOnlyList<SkillType> ExistSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
@@ -147,9 +147,10 @@ public class UserSkillFactory
             case SkillType.조합메테오: 
                 result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>(), container.GetComponent<MultiEffectManager>()); break;
             case SkillType.네크로맨서:
-                result = new NecromancerController(skillBattleData, container.GetService<BattleEventDispatcher>(), container.GetComponent<MultiEffectManager>()); break;
+                result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>()); break;
             case SkillType.덫:
-                result = new SlowTrapSpawner(skillBattleData, Multi_Data.instance.GetEnemyTurnPoints(PlayerIdManager.Id) ,container.GetService<BattleEventDispatcher>()); break;
+                result = new SlowTrapSpawner(skillBattleData, Multi_Data.instance.GetEnemyTurnPoints(PlayerIdManager.Id) ,container.GetEventDispatcher()); break;
+            case SkillType.순혈주의자: result = new PureBlood(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance); break;
             default: result = null; break;
         }
         result.InitSkill();
@@ -466,4 +467,34 @@ public class SlowTrapSpawner : UserSkill
     }
 
     float CalculateTrapSlow(int stage) => Mathf.Min(DefaultSlowRate + (stage * SlowRatePerStage), MaxSlowRate);
+}
+
+public class PureBlood : UserSkill
+{
+    BattleEventDispatcher _dispatcher;
+    Multi_GameManager _game;
+    public PureBlood(UserSkillBattleData userSkillBattleData, BattleEventDispatcher dispatcher, Multi_GameManager game) : base(userSkillBattleData) 
+    {
+        _dispatcher = dispatcher;
+        _game = game;
+    }
+
+    public event Action<UnitFlags> OnWhiteUnitReinforce;
+    int[] _upgradeDamages;
+    const int RewardFoodWhenStageUp = 1;
+    internal override void InitSkill()
+    {
+        _upgradeDamages = IntSkillDatas;
+        Managers.Unit.OnUnitCountChangeByFlag += UseSkill;
+        _dispatcher.OnStageUp += _ => _game.AddFood(RewardFoodWhenStageUp);
+    }
+
+    void UseSkill(UnitFlags unitFlags, int count)
+    {
+        if (unitFlags.UnitColor != UnitColor.White && count == 0) return;
+
+        var flag = new UnitFlags(UnitColor.White, unitFlags.UnitClass);
+        MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(flag, _upgradeDamages[(int)unitFlags.UnitClass], UnitStatType.All);
+        OnWhiteUnitReinforce?.Invoke(flag);
+    }
 }

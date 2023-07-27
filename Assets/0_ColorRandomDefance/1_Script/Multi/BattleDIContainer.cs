@@ -30,6 +30,7 @@ public class BattleDIContainer
     }
 
     public MultiData<SkillBattleDataContainer> GetMultiActiveSkillData() => GetService<MultiData<SkillBattleDataContainer>>();
+    public BattleEventDispatcher GetEventDispatcher() => GetService<BattleEventDispatcher>();
 }
 
 public class BattleDIContainerInitializer

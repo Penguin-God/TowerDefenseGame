@@ -461,7 +461,7 @@ public class SlowTrapSpawner : UserSkill
             trap.GetComponent<RPCable>().SetActive_RPC(false);
             trap.GetComponent<RPCable>().SetPosition_RPC(_locationFinder.CalculateMonsterPathLocation() + Offset);
             trap.GetComponent<RPCable>().SetActive_RPC(true);
-            trap.SetInfo(CalculateTrapSlow(stage), TrapRange);
+            trap.Inject(CalculateTrapSlow(stage), TrapRange);
         }
     }
 

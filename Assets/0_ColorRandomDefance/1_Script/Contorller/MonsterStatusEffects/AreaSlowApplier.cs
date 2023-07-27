@@ -4,18 +4,27 @@ using UnityEngine;
 using Photon.Pun;
 using System.Linq;
 
-public class AreaSlowApplier : MonoBehaviour
+public class AreaSlowApplier : MonoBehaviourPun
 {
     [SerializeField] float _slowPercent;
     List<Multi_NormalEnemy> _targets = new List<Multi_NormalEnemy>();
 
-    public void SetInfo(float slowPer, float raduis)
+    public void Inject(float slowPer, float raduis)
+    {
+        if (PhotonNetwork.IsMasterClient)
+            SetInfo(slowPer, raduis);
+        else
+        {
+            photonView.RPC(nameof(SetInfo), RpcTarget.MasterClient, slowPer, raduis);
+            GetComponentInChildren<SphereCollider>().enabled = false;
+        }
+    }
+
+    [PunRPC]
+    void SetInfo(float slowPer, float raduis)
     {
         _slowPercent = slowPer;
         GetComponentInChildren<SphereCollider>().radius = raduis;
-
-        if (PhotonNetwork.IsMasterClient == false)
-            GetComponentInChildren<SphereCollider>().enabled = false;
     }
 
     void ApplySlow(Multi_NormalEnemy enemy)
@@ -39,21 +48,24 @@ public class AreaSlowApplier : MonoBehaviour
 
     void OnEnable()
     {
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
             StartCoroutine(Co_KeepSlowInRage());
     }
 
-    void OnDisable() => StopCoroutine(Co_KeepSlowInRage());
+    void OnDisable()
+    {
+        IEnumerable<Multi_NormalEnemy> targets = _targets.ToArray();
+        foreach (Multi_NormalEnemy target in targets)
+            CancelSlow(target);
+        StopCoroutine(Co_KeepSlowInRage());
+    }
 
     IEnumerator Co_KeepSlowInRage()
     {
         while (true)
         {
             foreach (var monster in _targets.Where(x => x.IsSlow == false))
-            {
-                print("??");
                 monster.OnSlow(_slowPercent, Mathf.Infinity);
-            }
             yield return null;
         }
     }

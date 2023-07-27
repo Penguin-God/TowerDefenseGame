@@ -136,7 +136,6 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     public override void OnSlow(float slowRate, float slowTime)
     {
-        print("니미");
         if (RPCSendable == false) return;
         SpeedManager.OnSlow(slowRate);
         ApplySlowToAll(slowTime);
@@ -145,9 +144,6 @@ public class Multi_NormalEnemy : Multi_Enemy
     void ApplySlowToAll(float slowTime)
     {
         if (RPCSendable == false) return;
-        print(SpeedManager.OriginSpeed);
-        print(SpeedManager.CurrentSpeed);
-        print(SpeedManager.IsSlow);
         photonView.RPC(nameof(ApplySlow), RpcTarget.All, SpeedManager.CurrentSpeed);
         ApplySlowTime(slowTime);
     }

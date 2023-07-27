@@ -12,7 +12,7 @@ public class Multi_BlueMage : Multi_Unit_Mage
         var passiveStats = Managers.Data.GetUnitPassiveStats(UnitFlags);
         if(PhotonNetwork.IsMasterClient)
         {
-            gameObject.AddComponent<AreaSlowApplier>().SetInfo(passiveStats[0], passiveStats[1]);
+            gameObject.AddComponent<AreaSlowApplier>().Inject(passiveStats[0], passiveStats[1]);
             OnPassiveHit += enemy => enemy.OnSlow(passiveStats[0], 0);
         }
         freezeTime = skillStats[0];

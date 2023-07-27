@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 using System.Collections.ObjectModel;
+using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public class SkillBattleDataContainer
 {
@@ -479,22 +480,59 @@ public class PureBlood : UserSkill
         _game = game;
     }
 
-    public event Action<UnitFlags> OnWhiteUnitReinforce;
-    int[] _upgradeDamages;
+    UnitUpgradeManager _unitUpgradeManager;
     const int RewardFoodWhenStageUp = 1;
     internal override void InitSkill()
     {
-        _upgradeDamages = IntSkillDatas;
-        Managers.Unit.OnUnitCountChangeByFlag += UseSkill;
+        _unitUpgradeManager = new UnitUpgradeManager(IntSkillDatas, UnitColor.White);
+        Managers.Unit.OnUnitCountChangeByFlag += _unitUpgradeManager.TryUpgradeUnit;
         _dispatcher.OnStageUp += _ => _game.AddFood(RewardFoodWhenStageUp);
     }
+}
 
-    void UseSkill(UnitFlags unitFlags, int count)
+public class UnitUpgradeManager
+{
+    public event Action<UnitFlags> OnUnitUpgrade;
+    readonly int[] _upgradeDamages;
+    readonly UnitColor UpgradeColor;
+    readonly UnitUpgradeStateManager _unitUpgradeStateManager = new UnitUpgradeStateManager();
+    public UnitUpgradeManager(int[] upgradeDamages, UnitColor upgradeColor)
     {
-        if (unitFlags.UnitColor != UnitColor.White && count == 0) return;
+        _upgradeDamages = upgradeDamages;
+        UpgradeColor = upgradeColor;
+    }
 
-        var flag = new UnitFlags(UnitColor.White, unitFlags.UnitClass);
-        MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(flag, _upgradeDamages[(int)unitFlags.UnitClass], UnitStatType.All);
-        OnWhiteUnitReinforce?.Invoke(flag);
+    public void TryUpgradeUnit(UnitFlags unitFlags, int count)
+    {
+        var state = _unitUpgradeStateManager.GetTaegeukState(unitFlags.UnitClass, count);
+        if (state.ChangeState == TaegeukStateChangeType.NoChange) return;
+        else if (state.ChangeState == TaegeukStateChangeType.AddNewUnit)
+        {
+            OnUnitUpgrade?.Invoke(unitFlags);
+            return;
+        }
+        MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(unitFlags, _upgradeDamages[(int)unitFlags.UnitClass], UnitStatType.All);
+        OnUnitUpgrade?.Invoke(unitFlags);
+    }
+}
+
+public class UnitUpgradeStateManager
+{
+    bool[] _currentUnitUpgradeFlags = new bool[Enum.GetValues(typeof(UnitClass)).Length];
+
+    public TaegeukState GetTaegeukState(UnitClass unitClass, int count)
+    {
+        bool prevFlag = _currentUnitUpgradeFlags[(int)unitClass];
+        bool newFlag = count > 0;
+        _currentUnitUpgradeFlags[(int)unitClass] = newFlag;
+
+        if (prevFlag && newFlag)
+            return new TaegeukState(TaegeukStateChangeType.AddNewUnit, newFlag);
+        else if (prevFlag && newFlag == false)
+            return new TaegeukState(TaegeukStateChangeType.TrueToFalse, newFlag);
+        else if (prevFlag == false && newFlag)
+            return new TaegeukState(TaegeukStateChangeType.FalseToTrue, newFlag);
+        else
+            return new TaegeukState(TaegeukStateChangeType.NoChange, newFlag);
     }
 }

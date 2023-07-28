@@ -158,6 +158,7 @@ MonoBehaviour:
   - ChangeOriginSpeed
   - SetClientInfo
   - SetInfo
+  - SetupTimer
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

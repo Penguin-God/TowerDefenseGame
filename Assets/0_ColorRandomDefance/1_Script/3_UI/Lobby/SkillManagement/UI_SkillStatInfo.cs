@@ -20,7 +20,7 @@ public class UI_SkillStatInfo : UI_Base
         {
             case SkillType.보스데미지증가: result += 1; break;
             case SkillType.태극스킬: result += Managers.Data.Unit.UnitStatByFlag[new UnitFlags(0, frameIndex)].Damage; break;
-            case SkillType.검은유닛강화: result += Managers.Data.Unit.UnitStatByFlag[new UnitFlags(7, frameIndex)].Damage; break;
+            case SkillType.흑의결속: result += Managers.Data.Unit.UnitStatByFlag[new UnitFlags(7, frameIndex)].Damage; break;
         }
         if (result >= 1000) return result.ToString("#,##0");
         else return result.ToString();

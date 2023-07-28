@@ -90,13 +90,13 @@ public class UserSkillFactory
 {
     IReadOnlyList<SkillType> SimpleSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>() 
     {
-        SkillType.시작골드증가, SkillType.시작고기증가, SkillType.최대유닛증가, SkillType.노란기사강화, SkillType.컬러마스터, SkillType.보스데미지증가, SkillType.마창사, SkillType.썬콜 
+        SkillType.시작골드증가, SkillType.시작고기증가, SkillType.최대유닛증가, SkillType.황금빛기사, SkillType.컬러마스터, SkillType.보스데미지증가, SkillType.마창사, SkillType.썬콜 
     });
 
     IReadOnlyList<SkillType> ComplexSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
     {
-        SkillType.태극스킬, SkillType.검은유닛강화, SkillType.상대색깔변경, SkillType.고기혐오자, SkillType.판매보상증가, SkillType.장사꾼, SkillType.조합메테오,
-        SkillType.네크로맨서, SkillType.덫, SkillType.순혈주의자,
+        SkillType.태극스킬, SkillType.흑의결속, SkillType.상대색깔변경, SkillType.고기혐오자, SkillType.판매보상증가, SkillType.장사꾼, SkillType.메테오,
+        SkillType.네크로맨서, SkillType.덫, SkillType.백의결속,
     });
 
     IReadOnlyList<SkillType> ExistSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
@@ -127,7 +127,7 @@ public class UserSkillFactory
             case SkillType.시작골드증가: Multi_GameManager.Instance.AddGold(skillBattleData.IntSkillData); break;
             case SkillType.시작고기증가: Multi_GameManager.Instance.AddFood(skillBattleData.IntSkillData); break;
             case SkillType.최대유닛증가: Multi_GameManager.Instance.IncreasedMaxUnitCount(skillBattleData.IntSkillData); break;
-            case SkillType.노란기사강화: Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = skillBattleData.IntSkillData; break;
+            case SkillType.황금빛기사: Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = skillBattleData.IntSkillData; break;
             case SkillType.컬러마스터: container.GetComponent<SwordmanGachaController>().ChangeUnitSummonMaxColor(UnitColor.Violet); break;
             case SkillType.보스데미지증가: MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(skillBattleData.SkillData, UnitStatType.BossDamage); break;
         }
@@ -139,18 +139,18 @@ public class UserSkillFactory
         switch (skillBattleData.SkillType)
         {
             case SkillType.태극스킬: result = new TaegeukController(skillBattleData); break;
-            case SkillType.검은유닛강화: result = new BlackUnitUpgrade(skillBattleData); break;
+            case SkillType.흑의결속: result = new BlackUnitUpgrade(skillBattleData); break;
             case SkillType.상대색깔변경: result = new ColorChange(skillBattleData); break;
             case SkillType.고기혐오자: result = new FoodHater(skillBattleData); break;
             case SkillType.판매보상증가: result = new SellUpgrade(skillBattleData); break;
             case SkillType.장사꾼: result = new DiscountMerchant(skillBattleData); break;
-            case SkillType.조합메테오: 
+            case SkillType.메테오: 
                 result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>(), container.GetComponent<MultiEffectManager>()); break;
             case SkillType.네크로맨서:
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>()); break;
             case SkillType.덫:
                 result = new SlowTrapSpawner(skillBattleData, Multi_Data.instance.GetEnemyTurnPoints(PlayerIdManager.Id) ,container.GetEventDispatcher()); break;
-            case SkillType.순혈주의자: result = new PureBlood(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance); break;
+            case SkillType.백의결속: result = new PureBlood(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance); break;
             default: result = null; break;
         }
         result.InitSkill();
@@ -478,7 +478,6 @@ public class PureBlood : UserSkill
 
     void GetFoodOnStageMultiple(int stage)
     {
-        Debug.Log(stage);
         if(stage % NeedUpStageForGetFood == 0)
             _game.AddFood(RewardFoodWhenStageUp);
     }

@@ -24,7 +24,7 @@ public class TutorialScene : BaseScene
     {
         var result = new MultiData<SkillBattleDataContainer>();
         result.SetData(PlayerIdManager.Id, CreateSKillData(SkillType.태극스킬, SkillType.판매보상증가));
-        result.SetData(PlayerIdManager.EnemyId, CreateSKillData(SkillType.검은유닛강화, SkillType.판매보상증가));
+        result.SetData(PlayerIdManager.EnemyId, CreateSKillData(SkillType.흑의결속, SkillType.판매보상증가));
         return result;
     }
 

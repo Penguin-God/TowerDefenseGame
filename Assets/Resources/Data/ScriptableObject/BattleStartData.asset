@@ -42,3 +42,4 @@ MonoBehaviour:
     _amount: 7
   - _currencyType: 1
     _amount: 20
+  WhiteUnitTime: 30

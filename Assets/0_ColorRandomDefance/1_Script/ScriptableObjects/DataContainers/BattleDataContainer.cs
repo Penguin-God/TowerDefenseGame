@@ -16,6 +16,7 @@ public class BattleDataContainer : ScriptableObject
     public CurrencyData MaxUnitIncreasePriceData;
     public CurrencyData[] UnitSellRewardDatas;
     public CurrencyData[] WhiteUnitPriceDatas;
+    public float WhiteUnitTime;
 
     public BattleDataContainer Clone()
     {
@@ -30,6 +31,7 @@ public class BattleDataContainer : ScriptableObject
         result.MaxUnitIncreasePriceData = MaxUnitIncreasePriceData.Cloen();
         result.UnitSellRewardDatas = UnitSellRewardDatas.ToArray();
         result.WhiteUnitPriceDatas = WhiteUnitPriceDatas.ToArray();
+        result.WhiteUnitTime = WhiteUnitTime;
         return result;
     }
 }

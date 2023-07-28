@@ -13,11 +13,14 @@ public class WhiteUnit : MonoBehaviourPun
     void OnEnable()
     {
         timer = Managers.Effect.TrackingToTarget("WhiteUnitTimer", transform, new Vector3(0, 4, 3)).GetComponent<Multi_WhiteUnitTimer>();
-        timer.Setup(transform, aliveTime);
+        if (GetComponent<RPCable>().UsingId == PlayerIdManager.Id)
+            photonView.RPC(nameof(SetupTimer), RpcTarget.All, Multi_GameManager.Instance.BattleData.BattleData.WhiteUnitTime);
 
         if (PhotonNetwork.IsMasterClient == false) return;
         timer.Slider.onValueChanged.AddListener(ChangedColor);
     }
+
+    [PunRPC] void SetupTimer(float time) => timer.Setup(transform, time);
 
     void OnDisable()
     {

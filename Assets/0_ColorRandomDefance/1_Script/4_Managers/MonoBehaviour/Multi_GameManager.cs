@@ -17,6 +17,7 @@ public enum GameCurrencyType
 public class BattleDataManager
 {
     [SerializeField] BattleDataContainer _battleData;
+    public BattleDataContainer BattleData => _battleData;
     [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
     public UnitUpgradeShopData UnitUpgradeShopData => _unitUpgradeShopData;
 

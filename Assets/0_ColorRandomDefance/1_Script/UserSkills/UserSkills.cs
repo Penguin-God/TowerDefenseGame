@@ -457,17 +457,30 @@ public class PureBlood : UserSkill
 {
     BattleEventDispatcher _dispatcher;
     Multi_GameManager _game;
+    readonly int[] _upgradeDamages;
+    readonly int NeedUpStageForGetFood;
+    readonly int RewardFoodWhenStageUp;
     public PureBlood(UserSkillBattleData userSkillBattleData, BattleEventDispatcher dispatcher, Multi_GameManager game) : base(userSkillBattleData) 
     {
         _dispatcher = dispatcher;
         _game = game;
+        _upgradeDamages = IntSkillDatas.Take(4).ToArray();
+        _game.BattleData.BattleData.WhiteUnitTime *= SkillDatas[4];
+        NeedUpStageForGetFood = IntSkillDatas[5];
+        RewardFoodWhenStageUp = IntSkillDatas[6];
     }
     
-    const int RewardFoodWhenStageUp = 1;
     internal override void InitSkill()
     {
-        new UnitUpgradeHandler().UpgradeUnit(UnitColor.White, IntSkillDatas);
-        _dispatcher.OnStageUp += _ => _game.AddFood(RewardFoodWhenStageUp);
+        new UnitUpgradeHandler().UpgradeUnit(UnitColor.White, _upgradeDamages);
+        _dispatcher.OnStageUp += GetFoodOnStageMultiple;
+    }
+
+    void GetFoodOnStageMultiple(int stage)
+    {
+        Debug.Log(stage);
+        if(stage % NeedUpStageForGetFood == 0)
+            _game.AddFood(RewardFoodWhenStageUp);
     }
 }
 

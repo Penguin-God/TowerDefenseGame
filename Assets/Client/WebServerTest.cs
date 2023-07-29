@@ -31,25 +31,25 @@ public class WebServerTest : MonoBehaviour
     //    //public Player Owner;
     //}
 
-    [Serializable]
     public class Player
     {
-        public int Id;
-        public int UserId;
-        public string UserName;
-        public List<Skill> skills;
-        public DateTime Date;
+        public int Id { get; set; }
+        public int UserId { get; set; }
+        public string Name { get; set; }
+        public DateTime Date { get; set; }
+
+        public ICollection<Skill> Skills { get; set; }
     }
 
-    [Serializable]
     public class Skill
     {
-        public int SkillId;
-        public int SkillName;
-        public int SkillExp;
-        public int SkillLevel;
-        //public int OwnerId { get; set; }
-        //public Player Owner { get; set; }
+        public int SkillId { get; set; }
+        public string SkillName { get; set; }
+        public int SkillExp { get; set; }
+        public int SkillLevel { get; set; }
+
+        public int OwnerId { get; set; }
+        public Player Owner { get; set; }
     }
 
     //public List<Skill> testObj = new List<Skill>() { new Skill { SkillName = "태극", SkillExp = 123 , Owner = new Player { UserName = 777777} }, new Skill { SkillName = "검유강", SkillExp = 11 } };
@@ -64,10 +64,10 @@ public class WebServerTest : MonoBehaviour
 
     private void Update()
     {
-        // 쓰기
+        // 쓰기  Skills = new List<Skill>() { new Skill() { SkillName = "태극", OwnerId = 1, SkillExp = 11, SkillLevel = 10 } }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Player player = new Player() { UserId = 12 ,UserName = "testest", skills = new List<Skill>() { new Skill() { SkillName = 1234} }, Date = DateTime.Now};
+            Player player = new Player() { UserId = 2 ,Name = "Gunal2", Skills = { new Skill() { SkillName = "태극2", OwnerId = 1, SkillExp = 11, SkillLevel = 10 } },Date = DateTime.Now};
             string jsonfile = JsonUtility.ToJson(player);
             print(jsonfile);
             StartCoroutine(Upload(jsonfile));

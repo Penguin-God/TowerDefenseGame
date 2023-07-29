@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ColorRandomApi.Migrations
 {
-    public partial class CRDDB : Migration
+    public partial class test : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -14,7 +14,7 @@ namespace ColorRandomApi.Migrations
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(nullable: false),
-                    UserName = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
@@ -28,26 +28,26 @@ namespace ColorRandomApi.Migrations
                 {
                     SkillId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    SkillName = table.Column<int>(nullable: false),
+                    SkillName = table.Column<string>(nullable: true),
                     SkillExp = table.Column<int>(nullable: false),
                     SkillLevel = table.Column<int>(nullable: false),
-                    PlayerId = table.Column<int>(nullable: true)
+                    OwnerId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Skills", x => x.SkillId);
                     table.ForeignKey(
-                        name: "FK_Skills_Players_PlayerId",
-                        column: x => x.PlayerId,
+                        name: "FK_Skills_Players_OwnerId",
+                        column: x => x.OwnerId,
                         principalTable: "Players",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Skills_PlayerId",
+                name: "IX_Skills_OwnerId",
                 table: "Skills",
-                column: "PlayerId");
+                column: "OwnerId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

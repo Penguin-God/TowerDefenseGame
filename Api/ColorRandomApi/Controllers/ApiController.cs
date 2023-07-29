@@ -60,7 +60,7 @@ namespace ColorRandomApi.Controllers
                 return false;
 
             findResult.Name = player.Name;
-            findResult.skills = player.skills;
+            findResult.Skills = player.Skills;
             _context.SaveChanges();
 
             return true;

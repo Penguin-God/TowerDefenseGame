@@ -29,11 +29,11 @@ namespace ColorRandomApi.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
-
-                    b.Property<string>("UserName")
-                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -47,7 +47,7 @@ namespace ColorRandomApi.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("PlayerId")
+                    b.Property<int>("OwnerId")
                         .HasColumnType("int");
 
                     b.Property<int>("SkillExp")
@@ -56,21 +56,23 @@ namespace ColorRandomApi.Migrations
                     b.Property<int>("SkillLevel")
                         .HasColumnType("int");
 
-                    b.Property<int>("SkillName")
-                        .HasColumnType("int");
+                    b.Property<string>("SkillName")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("SkillId");
 
-                    b.HasIndex("PlayerId");
+                    b.HasIndex("OwnerId");
 
                     b.ToTable("Skills");
                 });
 
             modelBuilder.Entity("SharedData.Models.Skill", b =>
                 {
-                    b.HasOne("SharedData.Models.Player", null)
-                        .WithMany("skills")
-                        .HasForeignKey("PlayerId");
+                    b.HasOne("SharedData.Models.Player", "Owner")
+                        .WithMany("Skills")
+                        .HasForeignKey("OwnerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

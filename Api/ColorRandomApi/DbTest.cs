@@ -40,25 +40,28 @@ namespace MMO_EFCore
 
             
 
-            Skills skills = new Skills()
+            Skill skills = new Skill()
             {
                 Owner = Gunal,
-                SkillsInven = { new Skill() {SkillName = "태극", SkillExp = 11, SkillLevel = 3 }, new Skill() { SkillName = "네크로맨서", SkillExp = 10, SkillLevel = 2} },
-                
+                SkillName = "태극 1",
+                SkillExp = 11,
+                SkillLevel = 3
             };
 
-            Skills skills2 = new Skills()
+            Skill skills2 = new Skill()
             {
                 Owner = Gunal,
-                SkillsInven = { new Skill() { SkillName = "태극2", SkillExp = 11, SkillLevel = 3 }, new Skill() { SkillName = "네크로맨서2", SkillExp = 10, SkillLevel = 2 } },
-
+                SkillName = "태극 2",
+                SkillExp = 13,
+                SkillLevel = 34
             };
 
-            Skills skills3 = new Skills()
+            Skill skills3 = new Skill()
             {
                 Owner = Gunal,
-                SkillsInven = { new Skill() { SkillName = "태극3", SkillExp = 11, SkillLevel = 3 }, new Skill() { SkillName = "네크로맨서3", SkillExp = 10, SkillLevel = 2 } },
-
+                SkillName = "태극 3",
+                SkillExp = 12,
+                SkillLevel = 5
             };
 
             db.Skills.Add(skills);
@@ -78,7 +81,7 @@ namespace MMO_EFCore
                     
                     if (skills.Owner != null)
                     {
-                        Console.WriteLine($"{skills.Owner},   {skills.SkillsInven}");
+                        Console.WriteLine($"{skills.Owner},   {skills.SkillName}");
 
                     }
 

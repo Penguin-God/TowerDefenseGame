@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 
 namespace SharedData.Models
@@ -9,10 +10,9 @@ namespace SharedData.Models
         public int Id { get; set; }
         public int UserId { get; set; }
         public string Name { get; set; }
-
-        public int SkillsId { get; set; }
-        public Skills skills { get; set; }
         public DateTime Date { get; set; }
+
+        public ICollection<Skill> Skills { get; set; }
     }
 
 

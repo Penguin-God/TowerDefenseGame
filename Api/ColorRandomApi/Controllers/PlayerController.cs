@@ -9,19 +9,19 @@ using System.Threading.Tasks;
 
 namespace ColorRandomApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("[controller]")]
     [ApiController]
-    public class ApiController : ControllerBase
+    public class PlayerController : ControllerBase
     {
         ApplicationDbContext _context;
 
-        public ApiController(ApplicationDbContext context)
+        public PlayerController(ApplicationDbContext context)
         {
             _context = context;
         }
 
         [HttpPost]
-        public Player AddSkill([FromBody] Player player)
+        public Player AddPlayer([FromBody] Player player)
         {
             _context.Players.Add(player);
             _context.SaveChanges();
@@ -38,6 +38,7 @@ namespace ColorRandomApi.Controllers
 
             return results;
         }
+
 
         [HttpGet("{id}")]
         public Player GetPlayers(int id)

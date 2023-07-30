@@ -5,6 +5,7 @@ using System.Text;
 
 namespace SharedData.Models
 {
+    [Serializable]
     public class Skill
     {
         public int SkillId { get; set; }

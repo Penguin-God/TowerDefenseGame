@@ -31,24 +31,29 @@ public class WebServerTest : MonoBehaviour
     //    //public Player Owner;
     //}
 
+    [Serializable]
     public class Player
     {
         public int Id { get; set; }
         public int UserId { get; set; }
         public string Name { get; set; }
+        public int Score { get; set; }
         public DateTime Date { get; set; }
 
-        public ICollection<Skill> Skills { get; set; }
+        public List<Skill> Skills { get; set; }
+
     }
 
+    [Serializable]
     public class Skill
     {
         public int SkillId { get; set; }
         public string SkillName { get; set; }
         public int SkillExp { get; set; }
         public int SkillLevel { get; set; }
-
+       
         public int OwnerId { get; set; }
+        public string OwnerName { get; set; }
         public Player Owner { get; set; }
     }
 
@@ -59,7 +64,7 @@ public class WebServerTest : MonoBehaviour
 
     void Start()
     {
-        StartCoroutine(GetTextID(1));
+        StartCoroutine(GetTextID("Player", 1));
     }
 
     private void Update()
@@ -67,24 +72,27 @@ public class WebServerTest : MonoBehaviour
         // 쓰기  Skills = new List<Skill>() { new Skill() { SkillName = "태극", OwnerId = 1, SkillExp = 11, SkillLevel = 10 } }
         if (Input.GetKeyDown(KeyCode.P))
         {
-            Player player = new Player() { UserId = 2 ,Name = "Gunal2", Skills = { new Skill() { SkillName = "태극2", OwnerId = 1, SkillExp = 11, SkillLevel = 10 } },Date = DateTime.Now};
-            string jsonfile = JsonUtility.ToJson(player);
-            print(jsonfile);
-            StartCoroutine(Upload(jsonfile));
+            AddPlayer("Gunal");
         }
 
         // 읽기
         if (Input.GetKeyDown(KeyCode.G))
         {
-            StartCoroutine(GetText());
+            StartCoroutine(GetText("Player"));
         }
     }
 
-    
-
-    IEnumerator Upload(string jsonfile)
+    public void AddPlayer(string playerName)
     {
-        using (UnityWebRequest request = UnityWebRequest.Post("https://localhost:44319/api/api", jsonfile))
+        Player player = new Player() {  UserId = 0, Name = playerName, Score = 0, Date = DateTime.Now, Skills = null };
+        string jsonfile = JsonUtility.ToJson(player);
+        print(jsonfile);
+        StartCoroutine(Upload("Player", jsonfile));
+    }
+
+    IEnumerator Upload(string controllor, string jsonfile)
+    {
+        using (UnityWebRequest request = UnityWebRequest.Post($"https://localhost:44319/{controllor}", jsonfile))
         {
             byte[] jsonToSend = new UTF8Encoding().GetBytes(jsonfile);
             request.uploadHandler = new UploadHandlerRaw(jsonToSend);
@@ -106,10 +114,10 @@ public class WebServerTest : MonoBehaviour
         }
     }
 
-    IEnumerator GetText()
+    IEnumerator GetText(string controllor)
     {
         Debug.Log("테스트 시작");
-        UnityWebRequest www = UnityWebRequest.Get("https://localhost:44319/api/api");
+        UnityWebRequest www = UnityWebRequest.Get($"https://localhost:44319/{controllor}");
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)
@@ -126,10 +134,10 @@ public class WebServerTest : MonoBehaviour
         }
     }
 
-    IEnumerator GetTextID(int Id)
+    IEnumerator GetTextID(string controllor, int Id)
     {
         Debug.Log("테스트 시작");
-        UnityWebRequest www = UnityWebRequest.Get($"https://localhost:44319/api/api");
+        UnityWebRequest www = UnityWebRequest.Get($"https://localhost:44319/{controllor}");
         yield return www.SendWebRequest();
 
         if (www.isNetworkError || www.isHttpError)

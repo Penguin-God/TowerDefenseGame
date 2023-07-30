@@ -5,6 +5,7 @@ using System.Text;
 
 namespace SharedData.Models
 {
+    [Serializable]
     public class Player
     {
         public int Id { get; set; }
@@ -13,7 +14,7 @@ namespace SharedData.Models
         public int Score { get; set; }
         public DateTime Date { get; set; }
 
-        public ICollection<Skill> Skills { get; set; }
+        public List<Skill> Skills { get; set; }
     }
 
 

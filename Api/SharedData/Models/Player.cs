@@ -12,6 +12,8 @@ namespace SharedData.Models
         public int UserId { get; set; }
         public string Name { get; set; }
         public int Score { get; set; }
+        public int Gold { get; set; }
+        public int Gem { get; set; }
         public DateTime Date { get; set; }
 
         public List<Skill> Skills { get; set; }

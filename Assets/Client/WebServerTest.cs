@@ -34,27 +34,28 @@ public class WebServerTest : MonoBehaviour
     [Serializable]
     public class Player
     {
-        public int Id { get; set; }
-        public int UserId { get; set; }
-        public string Name { get; set; }
-        public int Score { get; set; }
-        public DateTime Date { get; set; }
+        public int Id;
+        public int UserId;
+        public string Name;
+        public int Score;
+        public int Gold;
+        public int Gem;
+        public DateTime Date;
 
-        public List<Skill> Skills { get; set; }
+        public List<Skill> Skills;
 
     }
-
     [Serializable]
     public class Skill
     {
-        public int SkillId { get; set; }
-        public string SkillName { get; set; }
-        public int SkillExp { get; set; }
-        public int SkillLevel { get; set; }
-       
-        public int OwnerId { get; set; }
-        public string OwnerName { get; set; }
-        public Player Owner { get; set; }
+        public int SkillId;
+        public string SkillName;
+        public int SkillExp;
+        public int SkillLevel;
+
+        public int OwnerId;
+        public string OwnerName;
+        public Player Owner;
     }
 
     //public List<Skill> testObj = new List<Skill>() { new Skill { SkillName = "태극", SkillExp = 123 , Owner = new Player { UserName = 777777} }, new Skill { SkillName = "검유강", SkillExp = 11 } };
@@ -84,7 +85,7 @@ public class WebServerTest : MonoBehaviour
 
     public void AddPlayer(string playerName)
     {
-        Player player = new Player() {  UserId = 0, Name = playerName, Score = 0, Date = DateTime.Now, Skills = null };
+        Player player = new Player() {  UserId = 0, Name = playerName, Gold = 0, Gem = 0, Score = 0, Date = DateTime.Now, Skills = null };
         string jsonfile = JsonUtility.ToJson(player);
         print(jsonfile);
         StartCoroutine(Upload("Player", jsonfile));

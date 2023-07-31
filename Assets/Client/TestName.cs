@@ -15,6 +15,7 @@ public class TestName : MonoBehaviour
     {
         string playerName = nameInputField.text;
 
+        print("¿Ã∏ß:" + playerName);
         webServer.AddPlayer(playerName);
     }
 

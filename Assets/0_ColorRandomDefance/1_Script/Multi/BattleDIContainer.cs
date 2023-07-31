@@ -70,7 +70,6 @@ public class BattleDIContainerInitializer
         container.AddComponent<MultiEffectManager>();
     }
 
-
     void InjectService(BattleDIContainer container)
     {
         container.GetComponent<WinOrLossController>().Init(dispatcher);

@@ -26,17 +26,25 @@ public class SkillColorChanger : MonoBehaviourPun
 
     void ShowColorChageResultText(byte targetID, UnitFlags before, UnitFlags after)
     {
-        (string textToShowOnMaster, string textToShowOnClinet) showTexts =
-            (targetID == 0) ? (_textPresenter.GenerateTextShowToVictim(before, after), _textPresenter.GenerateTextShowToDisruptor(before, after))
-            : (_textPresenter.GenerateTextShowToDisruptor(before, after), _textPresenter.GenerateTextShowToVictim(before, after));
-        PopupText(showTexts.textToShowOnMaster);
-        photonView.RPC(nameof(PopupText), RpcTarget.Others, showTexts.textToShowOnClinet);
+        string changerText = _textPresenter.GenerateChangerText(before, after);
+        string affectedText = _textPresenter.GenerateAffectedText(before, after);
+
+        if (PlayerIdManager.IsMasterId(targetID))
+            RPC_ColorChangeResultText(affectedText, changerText);
+        else
+            RPC_ColorChangeResultText(changerText, affectedText);
+    }
+
+    void RPC_ColorChangeResultText(string toMaster, string toClient)
+    {
+        PopupText(toMaster);
+        photonView.RPC(nameof(PopupText), RpcTarget.Others, toClient);
     }
 
     // 인자로 넘겨준건 스킬을 적용시킬 타겟 ID라서 텍스트 띄우는 건 반대로 생각해야 됨
     void RPCFaildText(byte targetID)
     {
-        if (targetID == PlayerIdManager.MasterId)
+        if (PlayerIdManager.IsMasterId(targetID))
             photonView.RPC(nameof(ShowFaildText), RpcTarget.Others);
         else
             ShowFaildText();

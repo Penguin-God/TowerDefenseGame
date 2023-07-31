@@ -32,6 +32,7 @@ public static class PlayerIdManager
     public static byte EnemyId => (byte)(Id == 0 ? 1 : 0);
     public static int MaxPlayerCount => 2;
     public static IEnumerable<byte> AllId => new byte[] { 0, 1 };
+    public static bool IsMasterId(byte id) => id == MasterId;
 }
 
 public class Multi_Data : MonoBehaviour

@@ -8,11 +8,11 @@ public class UnitColorChangeTextPresenter
     public string GenerateColorChangeResultText(UnitFlags before, UnitFlags after) 
         => $"{DecorateBeforeKoreaName(before)} {DecorateAfterGetKoreaName(after)} 변경되었습니다";
 
-    public string GenerateTextShowToDisruptor(UnitFlags before, UnitFlags after)
+    public string GenerateChangerText(UnitFlags before, UnitFlags after)
         => $"스킬 사용으로 상대방의\n{GenerateColorChangeResultText(before, after)}";
 
-    public string GenerateTextShowToVictim(UnitFlags before, UnitFlags after)
-        => $"상대방의 스킬 사용으로 보유 중인\n{GenerateColorChangeResultText(before, after)}";
+    public string GenerateAffectedText(UnitFlags before, UnitFlags after)
+       => $"상대방의 스킬 사용으로 보유 중인\n{GenerateColorChangeResultText(before, after)}";
 
     string DecorateBeforeKoreaName(UnitFlags flag) => UnitPresenter.GetUnitName(flag) + (flag.UnitClass == UnitClass.Spearman ? "이" : "가");
     string DecorateAfterGetKoreaName(UnitFlags flag) => UnitPresenter.GetUnitName(flag) + (flag.UnitClass == UnitClass.Spearman ? "으로" : "로");

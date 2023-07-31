@@ -62,7 +62,7 @@ public struct UnitFlags : IEquatable<UnitFlags>
         get
         {
             List<UnitFlags> result = new List<UnitFlags>();
-            foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
+            foreach (UnitColor color in AllColors)
             {
                 foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
                     result.Add(new UnitFlags(color, unitClass));
@@ -70,8 +70,10 @@ public struct UnitFlags : IEquatable<UnitFlags>
             return result;
         }
     }
-
     public static IEnumerable<UnitFlags> NormalFlags => AllFlags.Where(x => SpecialColors.Contains(x.UnitColor) == false);
+
+    public static IEnumerable<UnitColor> AllColors => Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>();
+    public static IEnumerable<UnitColor> NormalColors => AllColors.Where(x => SpecialColors.Contains(x) == false);
     public static IEnumerable<UnitColor> SpecialColors => new UnitColor[] { UnitColor.White, UnitColor.Black };
 }
 

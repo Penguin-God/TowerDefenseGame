@@ -34,16 +34,12 @@ public class UnitColorChangerRpcHandler : MonoBehaviour
 
 public class UnitColorChanger
 {
-    readonly int MAX_COLOR_NUMBER = 6;
-    int GetRandomColor(int colorNum) => Util.GetRangeList(0, MAX_COLOR_NUMBER)
-        .Where(x => x != colorNum)
-        .ToList()
-        .GetRandom();
+    UnitColor GetRandomColor(UnitColor color) => UnitFlags.NormalColors.Where(x => x != color).ToList().GetRandom();
 
     // MasterOnly
     public UnitFlags ChangeUnitColor(Multi_TeamSoldier target)
     {
-        var newFlag = new UnitFlags(GetRandomColor(target.UnitFlags.ColorNumber), (int)target.UnitClass);
+        var newFlag = new UnitFlags(GetRandomColor(target.UnitColor), target.UnitClass);
         Multi_SpawnManagers.NormalUnit.Spawn(newFlag, target.transform.position, target.transform.rotation, target.UsingID);
         if(target.EnterStroyWorld) // 스폰된 얘가 맨 뒤에 있을 거니까 Last()의 월드를 바꿈. 좋은 코드는 아님
             MultiServiceMidiator.Server.GetUnits(target.UsingID).Where(x => x.UnitFlags == newFlag).Last().ChangeWorldStateToAll();

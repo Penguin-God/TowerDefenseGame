@@ -79,6 +79,8 @@ public class BattleDIContainerInitializer
         container.GetComponent<UnitMaxCountController>().Init(null, game);
         container.GetComponent<MonsterManagerProxy>().Init(dispatcher);
         container.GetComponent<MultiEffectManager>().Inject(Managers.Effect);
+
+        new UnitCombineNotifier(Managers.UI, Managers.Data.UnitNameDataByFlag).Init(Managers.Unit);
     }
 
 
@@ -108,8 +110,6 @@ public class BattleDIContainerInitializer
 
     void Init_UI(BattleDIContainer container)
     {
-        Managers.UI.ShowPopupUI<CombineResultText>("CombineResultText");
-
         Managers.UI.ShowSceneUI<BattleButton_UI>().SetInfo(container.GetComponent<SwordmanGachaController>());
         Managers.UI.ShowSceneUI<UI_Status>().Injection(container.GetService<BattleEventDispatcher>(), container.GetMultiActiveSkillData());
 

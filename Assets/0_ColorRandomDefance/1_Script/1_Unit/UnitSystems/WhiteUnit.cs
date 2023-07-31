@@ -45,8 +45,7 @@ public class WhiteUnit : MonoBehaviourPun
     [PunRPC]
     void ShowText(UnitFlags previousFlag, UnitFlags changeFlag)
     {
-        var ui = Managers.UI.ShowDefualtUI<UI_PopupText>();
-        ui.SetPosition(new Vector2(0, 120f));
-        ui.Show($"보유 중인 {new UnitColorChangeTextPresenter().GenerateColorChangeResultText(previousFlag, changeFlag)}", 2.5f);
+        string text = $"보유 중인 {new UnitColorChangeTextPresenter().GenerateColorChangeResultText(previousFlag, changeFlag)}";
+        Managers.UI.ShowDefualtUI<UI_PopupText>().ShowTextForTime(text);
     }
 }

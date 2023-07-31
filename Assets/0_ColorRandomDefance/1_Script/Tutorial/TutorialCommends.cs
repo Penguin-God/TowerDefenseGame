@@ -26,8 +26,7 @@ namespace TutorialCommends
         public void TutorialAction()
         {
             _textUI = Managers.UI.ShowDefualtUI<UI_PopupText>();
-            _textUI.SetPosition(new Vector2(0, 110));
-            _textUI.Show(_text, Color.white);
+            _textUI.ShowText(_text, Color.white);
             _textUI.GetComponent<Canvas>().sortingOrder = 3333; // 그냥 제일 높게
         }
         public void EndAction() => Object.Destroy(_textUI.gameObject);

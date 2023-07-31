@@ -25,7 +25,7 @@ public class UnitUpgradeShopController
         else
         {
             Managers.UI.ShowDefualtUI<UI_PopupText>()
-                .Show($"{new GameCurrencyPresenter().BuildCurrencyTypeText(priceData.CurrencyType)}가 부족해 구매할 수 없습니다.", 2f, Color.red);
+                .ShowTextForTime($"{new GameCurrencyPresenter().BuildCurrencyTypeText(priceData.CurrencyType)}가 부족해 구매할 수 없습니다.", Color.red);
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
     }
@@ -126,7 +126,7 @@ public class UI_UnitUpgradeShop : UI_Popup
         }
         else
         {
-            Managers.UI.ShowDefualtUI<UI_PopupText>().Show($"골드가 부족해 구매할 수 없습니다.", 2f, Color.red);
+            Managers.UI.ShowDefualtUI<UI_PopupText>().ShowTextForTime($"골드가 부족해 구매할 수 없습니다.", Color.red);
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
     }

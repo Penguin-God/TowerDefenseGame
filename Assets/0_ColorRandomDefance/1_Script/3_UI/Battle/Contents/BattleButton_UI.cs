@@ -62,7 +62,7 @@ public class BattleButton_UI : UI_Scene
     {
         if (Multi_GameManager.Instance.UnitOver)
         {
-            Managers.UI.ShowDefualtUI<UI_PopupText>().Show("유닛 공간이 부족해 소환할 수 없습니다.", 2f, Color.red);
+            Managers.UI.ShowDefualtUI<UI_PopupText>().ShowTextForTime("유닛 공간이 부족해 소환할 수 없습니다.", Color.red);
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
             return;
         }

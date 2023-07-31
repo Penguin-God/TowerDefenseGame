@@ -51,7 +51,7 @@ public class WinOrLossController : MonoBehaviourPun
     void ShowGameEndText(string msg)
     {
         var ui = Managers.UI.ShowDefualtUI<UI_PopupText>();
-        ui.Show(msg, 100f, Color.red);
+        ui.ShowTextForTime(msg, Color.red);
         ui.OnRaycastTarget();
     }
 

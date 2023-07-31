@@ -2,10 +2,12 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UI_PopupText : UI_Popup
+public class UI_PopupText : UI_Base
 {
     Text _text;
-    
+    const float TextShowTime = 2f;
+    readonly Vector2 TextPosition = new Vector2(0, 120f);
+
     protected override void Init()
     {
         base.Init();
@@ -13,27 +15,22 @@ public class UI_PopupText : UI_Popup
         _text.raycastTarget = false;
     }
 
-    public void Show(string text, Color color) => SetUI(text, color);
-    public void Show(string text, float showTime) => Show(text, showTime, new Color32(12, 9, 9, 255));
+    public void ShowText(string text, Color color) => SetUI(text, color);
+    public void ShowTextForTime(string text) => ShowTextForTime(text, new Color32(12, 9, 9, 255));
 
-    public void Show(string text, float showTime, Color32 textColor)
+    public void ShowTextForTime(string text, Color textColor)
     {
         StopAllCoroutines();
         SetUI(text, textColor);
-        StartCoroutine(Co_AfterDestory(showTime));
+        StartCoroutine(Co_AfterDestory(TextShowTime));
     }
 
     void SetUI(string text, Color32 textColor)
     {
         CheckInit();
-        _text.color = textColor;
         _text.text = text;
-    }
-
-    public void SetPosition(Vector2 pos)
-    {
-        CheckInit();
-        _text.GetComponent<RectTransform>().localPosition = pos;
+        _text.color = textColor;
+        _text.GetComponent<RectTransform>().localPosition = TextPosition;
     }
 
     public void OnRaycastTarget() // 이거는 나중에 배리어 UI를 따로 만들어야 함

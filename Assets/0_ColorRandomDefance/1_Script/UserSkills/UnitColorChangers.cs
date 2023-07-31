@@ -13,12 +13,13 @@ public class UnitColorChangerRpcHandler : MonoBehaviour
     }
 
     [PunRPC]
-    public static void ChangeUnitColor(int viewID)
+    public static UnitFlags ChangeUnitColorWithViewId(int viewID)
     {
         if (PhotonNetwork.IsMasterClient)
-            new UnitColorChanger().ChangeUnitColor(PhotonView.Find(viewID).GetComponent<Multi_TeamSoldier>());
+            return new UnitColorChanger().ChangeUnitColor(PhotonView.Find(viewID).GetComponent<Multi_TeamSoldier>());
         else
-            photonView.RPC(nameof(ChangeUnitColor), RpcTarget.MasterClient, viewID);
+            photonView.RPC(nameof(ChangeUnitColorWithViewId), RpcTarget.MasterClient, viewID);
+        return new UnitFlags(0, 0);
     }
 
     [PunRPC]

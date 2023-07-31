@@ -7,6 +7,7 @@ public class RPCable : MonoBehaviourPun
 {
     [SerializeField] int _usingId = -1;
     public int UsingId => _usingId;
+    public byte OwnerId => (byte)_usingId;
 
     public void SetId_RPC(byte id) => gameObject.GetComponent<PhotonView>().RPC("SetId", RpcTarget.All, id);
     [PunRPC] void SetId(byte id) => _usingId = id;

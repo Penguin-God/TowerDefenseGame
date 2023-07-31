@@ -155,7 +155,7 @@ PrefabInstance:
     - target: {fileID: 8312291580948720991, guid: 17057581913bf2a4598b207c8d04819b,
         type: 3}
       propertyPath: m_Name
-      value: Green_Spear 1
+      value: Green_MagicSpear
       objectReference: {fileID: 0}
     - target: {fileID: 8312291580948820351, guid: 17057581913bf2a4598b207c8d04819b,
         type: 3}

@@ -16,8 +16,8 @@ public class WhiteUnit : MonoBehaviourPun
         if (GetComponent<RPCable>().UsingId == PlayerIdManager.Id)
             photonView.RPC(nameof(SetupTimer), RpcTarget.All, Multi_GameManager.Instance.BattleData.BattleData.WhiteUnitTime);
 
-        if (PhotonNetwork.IsMasterClient == false) return;
-        timer.Slider.onValueChanged.AddListener(ChangedColor);
+        if (PhotonNetwork.IsMasterClient)
+            timer.Slider.onValueChanged.AddListener(ChangedColor);
     }
 
     [PunRPC] void SetupTimer(float time) => timer.Setup(transform, time);
@@ -31,6 +31,22 @@ public class WhiteUnit : MonoBehaviourPun
     public void ChangedColor(float value)
     {
         if(value <= 0)
-            UnitColorChangerRpcHandler.ChangeUnitColor(photonView.ViewID);
+        {
+            bool isMasterUnit = PlayerIdManager.IsMasterId(GetComponent<RPCable>().OwnerId);
+            UnitFlags previousFlag = GetComponent<Multi_TeamSoldier>().UnitFlags;
+            UnitFlags result = UnitColorChangerRpcHandler.ChangeUnitColorWithViewId(photonView.ViewID);
+            if (isMasterUnit)
+                ShowText(previousFlag, result);
+            else
+                photonView.RPC(nameof(ShowText), RpcTarget.Others, previousFlag, result);
+        }
+    }
+
+    [PunRPC]
+    void ShowText(UnitFlags previousFlag, UnitFlags changeFlag)
+    {
+        var ui = Managers.UI.ShowDefualtUI<UI_PopupText>();
+        ui.SetPosition(new Vector2(0, 120f));
+        ui.Show($"보유 중인 {new UnitColorChangeTextPresenter().GenerateColorChangeResultText(previousFlag, changeFlag)}", 2.5f);
     }
 }

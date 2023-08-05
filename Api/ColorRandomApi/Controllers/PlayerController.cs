@@ -23,6 +23,11 @@ namespace ColorRandomApi.Controllers
         [HttpPost]
         public Player AddPlayer([FromBody] Player player)
         {
+            if (_context.Players.Any(p => p.Name == player.Name))
+            {
+                return null;
+            }
+
             _context.Players.Add(player);
             _context.SaveChanges();
 
@@ -40,11 +45,31 @@ namespace ColorRandomApi.Controllers
         }
 
 
-        [HttpGet("{id}")]
-        public Player GetPlayers(int id)
+        //[HttpGet("{id}")]
+        //public Player GetPlayers(int id)
+        //{
+        //    Player result = _context.Players
+        //        .Where(item => item.Id == id)
+        //        .FirstOrDefault();
+
+        //    return result;
+        //}
+
+        [HttpGet("{name}")]
+        public Player GetPlayers(string name)
         {
+
+            if (_context.Players.Any(p => p.Name != name))
+            {
+                return null;
+            }
+
+            Player player = _context.Players
+                .Where(item => item.Name == name)
+                .FirstOrDefault();
+
             Player result = _context.Players
-                .Where(item => item.Id == id)
+                .Where(item => item.Id == player.Id)
                 .FirstOrDefault();
 
             return result;

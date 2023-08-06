@@ -20,7 +20,7 @@ public class WebServerTest : MonoBehaviour
         public int Score;
         public int Gold;
         public int Gem;
-        //public DateTime Date;
+        public DateTime Date;
 
         public List<Skill> Skills;
 
@@ -40,45 +40,45 @@ public class WebServerTest : MonoBehaviour
 
     Player playerData;
 
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            AddPlayer("Gunal");
-        }
+    //private void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.P))
+    //    {
+    //        AddPlayer("Gunal");
+    //    }
 
-        // 읽기
-        if (Input.GetKeyDown(KeyCode.G))
-        {
-            StartCoroutine(GetText("Player"));
-        }
-    }
+    //    // 읽기
+    //    if (Input.GetKeyDown(KeyCode.G))
+    //    {
+    //        StartCoroutine(GetText("Player"));
+    //    }
+    //}
 
     public void AddPlayer(string playerName)
     {
         Player player = new Player() {  UserId = 0, Name = playerName, Gold = 0, Gem = 0, Score = 0, Skills = null };
         string jsonfile = JsonUtility.ToJson(player);
-        print(jsonfile);
+        print("Add Player" + jsonfile);
         StartCoroutine(Upload("Player", jsonfile));
     }
 
     public Player GetPlayer(string playerName)
     {
         StartCoroutine(GetPlayerName("Player", playerName));
-        if (playerData == null)
-        {
-            Debug.Log("존재하지 않는 이름입니다.");
-            return null;
-        }
-        else
-        {
-            return playerData;
-        }
+
+        return playerData;
     }
 
     public void StartPlayer(string playerName)
     {
-        if (GetPlayer(playerName) == null)
+        StartCoroutine(CoStartPlayer(playerName));
+    }
+
+    IEnumerator CoStartPlayer(string playerName)
+    {
+        yield return StartCoroutine(GetPlayerName("Player", playerName));
+        
+        if (playerData == null)
         {
             Debug.Log("아이디를 생성합니다.");
             AddPlayer(playerName);
@@ -160,6 +160,7 @@ public class WebServerTest : MonoBehaviour
 
     IEnumerator GetPlayerName(string controllor, string name)
     {
+        playerData = null;
         UnityWebRequest www = UnityWebRequest.Get($"https://localhost:44319/{controllor}/{name}");
         yield return www.SendWebRequest();
 
@@ -169,13 +170,16 @@ public class WebServerTest : MonoBehaviour
         }
         else
         {
+            if (www.downloadHandler.text == "")
+                yield break;
 
+            
             string json = www.downloadHandler.text;
-            Debug.Log("파싱전" + www.downloadHandler.text);
-            playerData = JsonUtility.FromJson<Player>(json);
+            Debug.Log("파싱전" + json);
+            //playerData = JsonUtility.FromJson<Player>(json);
+            playerData = JsonConvert.DeserializeObject<Player>(json);
 
             Debug.Log(playerData.Name);
-
             // Show results as text
             //Debug.Log(www.downloadHandler.text);
             

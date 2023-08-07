@@ -48,8 +48,8 @@ MonoBehaviour:
   - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 500}
   enemyTowerWorldPositions:
-  - {x: 500, y: 0, z: 10}
-  - {x: 500, y: 0, z: 510}
+  - {x: 500, y: 0, z: 15}
+  - {x: 500, y: 0, z: 515}
   enemyTurnPointParents:
   - {fileID: 2833895161730734960}
   - {fileID: 2214251995894134257}

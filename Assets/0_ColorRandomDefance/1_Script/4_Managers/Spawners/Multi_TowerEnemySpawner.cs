@@ -4,14 +4,14 @@ using UnityEngine;
 using System;
 using Photon.Pun;
 
-public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
+public class Multi_TowerEnemySpawner : Multi_SpawnerBase
 {
     public event Action<Multi_EnemyTower> OnDead;
 
     public RPCAction rpcOnDead = new RPCAction();
     RPCData<int> _towerLevel = new RPCData<int>();
 
-    protected override void SetPoolObj(GameObject go)
+    protected override void SetSpawnObj(GameObject go)
     {
         var enemy = go.GetComponent<Multi_EnemyTower>();
         enemy.OnDeath += () => OnDead(enemy);
@@ -20,7 +20,7 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
 
     void AfterSpawn(Multi_EnemyTower tower)
     {
-        if (_spawnableObjectCount > tower.Level)
+        if (Resources.Load<GameObject>($"Prefabs/{PathBuilder.BuildEnemyTowerPath(tower.Level + 1)}") != null)
             StartCoroutine(Co_AfterSpawn(tower.GetComponent<RPCable>().UsingId));
     }
     IEnumerator Co_AfterSpawn(int id)
@@ -29,7 +29,7 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
         Spawn(id);
     }
 
-    public void Spawn(int id) => Spawn_RPC(PathBuilder.BuildEnemyTowerPath(_towerLevel.Get(id) + 1), spawnPositions[id], id);
+    public void Spawn(int id) => Spawn_RPC(PathBuilder.BuildEnemyTowerPath(_towerLevel.Get(id) + 1), Multi_Data.instance.EnemyTowerWorldPositions[id], id);
 
     [PunRPC]
     protected override GameObject BaseSpawn(string path, Vector3 spawnPos, Quaternion rotation, int id)
@@ -38,7 +38,7 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
         _towerLevel.Set(id, _towerLevel.Get(id) + 1);
         tower.Setinfo(_towerLevel.Get(id));
         tower.OnDead += died => AfterSpawn(tower);
-        SetPoolObj(tower.gameObject);
+        SetSpawnObj(tower.gameObject);
         Multi_EnemyManager.Instance.SetSpawnTower(id, tower);
         return null;
     }

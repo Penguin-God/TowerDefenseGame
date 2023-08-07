@@ -4,18 +4,10 @@ using UnityEngine;
 using Photon.Pun;
 using System;
 
-public abstract class Multi_SpawnerBase : MonoBehaviourPun, IInstantiater
+public abstract class Multi_SpawnerBase : MonoBehaviourPun
 {
     protected readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
-
-    [SerializeField] protected string _rootName;
-    public GameObject Instantiate(string path)
-    {
-        var result = Managers.Multi.Instantiater.Instantiate(path);
-        SetPoolObj(result);
-        return result;
-    }
-    protected virtual void SetPoolObj(GameObject go) { }
+    protected virtual void SetSpawnObj(GameObject go) { }
 
     protected void Spawn_RPC(string path, Vector3 spawnPos, int id) 
         => photonView.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Quaternion.identity, id);

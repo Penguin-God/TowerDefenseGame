@@ -387,10 +387,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rootName: TowerEnemys
   _spawnableObjectCount: 6
-  spawnCount: 2
-  spawnPositions:
-  - {x: 500, y: 0, z: 15}
-  - {x: 500, y: 0, z: 515}
 --- !u!114 &616192328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -460,10 +456,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _rootName: BossEnemys
   _spawnableObjectCount: 4
-  spawnCount: 2
-  spawnPositions:
-  - {x: -45, y: 0, z: 35}
-  - {x: -45, y: 0, z: 535}
 --- !u!114 &685287359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,11 +489,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BattleLevel
-      objectReference: {fileID: 0}
-    - target: {fileID: 2833895161616448442, guid: 3d434f65c39bbf44594982c4a9d7bc2b,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2833895161616448443, guid: 3d434f65c39bbf44594982c4a9d7bc2b,
         type: 3}
@@ -557,11 +544,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2833895161714866764, guid: 3d434f65c39bbf44594982c4a9d7bc2b,
-        type: 3}
-      propertyPath: offset.z
-      value: -10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d434f65c39bbf44594982c4a9d7bc2b, type: 3}

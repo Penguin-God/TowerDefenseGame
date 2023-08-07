@@ -4,14 +4,14 @@ using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
 
-public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
+public class Multi_BossEnemySpawner : Multi_SpawnerBase
 {
     public event Action<Multi_BossEnemy> OnDead;
 
     public RPCAction rpcOnSpawn = new RPCAction();
     public RPCAction rpcOnDead = new RPCAction();
 
-    protected override void SetPoolObj(GameObject go)
+    protected override void SetSpawnObj(GameObject go)
     {
         var enemy = go.GetComponent<Multi_BossEnemy>();
         enemy.OnDeath += () => OnDead(enemy);
@@ -29,7 +29,7 @@ public class Multi_BossEnemySpawner : Multi_EnemySpawnerBase
         Multi_EnemyManager.Instance.SetSpawnBoss(id, boss);
         var bossData = Managers.Data.BossDataByLevel[bossLevel];
         boss.Inject(bossData, _speedManagerCreater.CreateSpeedManager(bossData.Speed, boss));
-        SetPoolObj(boss.gameObject);
+        SetSpawnObj(boss.gameObject);
         rpcOnSpawn?.RaiseEvent(id);
         return boss;
     }

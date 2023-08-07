@@ -10,26 +10,23 @@ public class ProjectileThrowingUnit : MonoBehaviourPun
     public void SetInfo(string weaponPath, Transform weaponThrowPoint) => projectileData = new ProjectileData(weaponPath, transform, weaponThrowPoint);
     [SerializeField] Transform _weaponThrowPoint;
 
-    public Multi_Projectile FlatThrow(Transform target, Action<Multi_Enemy> onHit) 
-        => ThrowWithCalculator(nameof(CallFlat_Y_Throw), CreateProjectile(projectileData.WeaponPath, onHit), target);
-    public Multi_Projectile FlatThrow(string weaponPath, Transform target, Action<Multi_Enemy> onHit)
-        => ThrowWithCalculator(nameof(CallFlat_Y_Throw), CreateProjectile(weaponPath, onHit), target);
+    public Multi_Projectile FlatThrow(Transform target, Action<Multi_Enemy> onHit)  => CallThrow(CreateProjectile(projectileData.WeaponPath, onHit), target);
+    public Multi_Projectile FlatThrow(string weaponPath, Transform target, Action<Multi_Enemy> onHit) => CallThrow(CreateProjectile(weaponPath, onHit), target);
 
-    Multi_Projectile ThrowWithCalculator(string rpcName, Multi_Projectile projectile, Transform target)
-    {
-        print(target == null);
-        photonView.RPC(rpcName, RpcTarget.All, projectile.GetComponent<PhotonView>().ViewID, target.GetComponent<PhotonView>().ViewID);
-        return projectile;
-    }
-
-    public Multi_Projectile CreateProjectile(string weaponPath, Action<Multi_Enemy> onHit)
+    Multi_Projectile CreateProjectile(string weaponPath, Action<Multi_Enemy> onHit)
     {
         var projectile = Managers.Multi.Instantiater.PhotonInstantiateInactive(weaponPath, PlayerIdManager.InVaildId).GetComponent<Multi_Projectile>();
         projectile.SetHitAction(onHit);
         return projectile;
     }
 
-    public void Throw(Multi_Projectile projectile, Vector3 shotPath)  => photonView.RPC(nameof(Multi_Throw), RpcTarget.All, projectile.GetComponent<PhotonView>().ViewID, shotPath);
+    Multi_Projectile CallThrow(Multi_Projectile projectile, Transform target)
+    {
+        print(target == null);
+        photonView.RPC(nameof(CallFlat_Y_Throw), RpcTarget.All, projectile.GetComponent<PhotonView>().ViewID, target.GetComponent<PhotonView>().ViewID);
+        return projectile;
+    }
+
     [PunRPC] 
     void CallFlat_Y_Throw(int projectileId, int targetId)
     {
@@ -45,6 +42,7 @@ public class ProjectileThrowingUnit : MonoBehaviourPun
         else return new ThorwPathCalculator().CalculatePath_To_MoveTarget(projectileData.Attacker.position, target.transform.position, target.Speed, target.dir);
     }
 
+    public void Throw(Multi_Projectile projectile, Vector3 shotPath) => photonView.RPC(nameof(Multi_Throw), RpcTarget.All, projectile.GetComponent<PhotonView>().ViewID, shotPath);
     [PunRPC]
     void Multi_Throw(int projectileId, Vector3 shotPath)
     {

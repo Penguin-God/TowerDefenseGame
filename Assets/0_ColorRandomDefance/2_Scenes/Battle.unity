@@ -389,8 +389,8 @@ MonoBehaviour:
   _spawnableObjectCount: 6
   spawnCount: 2
   spawnPositions:
-  - {x: 500, y: 0, z: 10}
-  - {x: 500, y: 0, z: 510}
+  - {x: 500, y: 0, z: 15}
+  - {x: 500, y: 0, z: 515}
 --- !u!114 &616192328
 MonoBehaviour:
   m_ObjectHideFlags: 0

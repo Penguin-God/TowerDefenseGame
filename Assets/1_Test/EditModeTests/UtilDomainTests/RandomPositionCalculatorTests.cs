@@ -4,10 +4,26 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace Tests
+namespace UtilDomainTests
 {
-    public class SpawnPositionCalculatorTests
+    public class RandomPositionCalculatorTests
     {
+        [Test]
+        public void 랜덤한_위치는_지정한_범위_이내에서_값을_반한해야_함()
+        {
+            // Arrange
+            var worldPos = new Vector3(0, 0, 0);
+            var spawnRange = 10f;
+            var calculator = new RandomPositionCalculator();
+
+            // Act
+            var result = calculator.CalculateRandomPosInRange(worldPos, spawnRange);
+
+            // Assert
+            Assert.That(result.x, Is.InRange(-10f, 10f));
+            Assert.That(result.z, Is.InRange(-10f, 10f));
+        }
+
         [Test]
         public void 월드_위치는_지정한_범위_이내에_위치를_반한해야_함()
         {
@@ -33,6 +49,24 @@ namespace Tests
             var spawnRangeX = 10f;
             var spawnRangeZ = 10f;
             var calculator = new WorldSpawnPositionCalculator(0, offsetZ, spawnRangeX, spawnRangeZ);
+
+            // Act
+            var result = calculator.CalculateEnemyTowerPostion(towerPos);
+
+            // Assert
+            Assert.That(result.x, Is.InRange(-10f, 10f));
+            Assert.That(result.z, Is.InRange(-20f, 0f));
+        }
+
+        [Test]
+        public void 적군의_성_위치는_OffSet이_적용된_범위_내에_값을_반환해야_함()
+        {
+            // Arrange
+            var towerPos = new Vector3(0, 0, 0);
+            var offsetZ = -10f;
+            var spawnRangeX = 10f;
+            var spawnRangeZ = 10f;
+            var calculator = new TowerWorldSpawnPositionCalculator(offsetZ, spawnRangeX, spawnRangeZ);
 
             // Act
             var result = calculator.CalculateEnemyTowerPostion(towerPos);

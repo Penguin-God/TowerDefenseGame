@@ -36,7 +36,7 @@ public class Multi_TowerEnemySpawner : Multi_EnemySpawnerBase
     {
         Multi_EnemyTower tower = base.BaseSpawn(path, spawnPos, rotation, id).GetComponent<Multi_EnemyTower>();
         _towerLevel.Set(id, _towerLevel.Get(id) + 1);
-        tower.Spawn(_towerLevel.Get(id));
+        tower.Setinfo(_towerLevel.Get(id));
         tower.OnDead += died => AfterSpawn(tower);
         SetPoolObj(tower.gameObject);
         Multi_EnemyManager.Instance.SetSpawnTower(id, tower);

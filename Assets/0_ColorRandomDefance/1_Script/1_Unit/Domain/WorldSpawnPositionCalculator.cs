@@ -2,6 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class RandomPositionCalculator
+{
+    public Vector3 CalculateRandomPosInRange(Vector3 _pivot, float _range) => CalculateRandomPosInRange(_pivot, _range, _range);
+    public Vector3 CalculateRandomPosInRange(Vector3 _pivot, float _xRange, float _zRange)
+    {
+        float _x = Random.Range(_pivot.x - _xRange, _pivot.x + _xRange);
+        float _z = Random.Range(_pivot.z - _zRange, _pivot.z + _zRange);
+        Vector3 _randomPos = new Vector3(_x, _pivot.y, _z);
+        return _randomPos;
+    }
+}
+
 public class WorldSpawnPositionCalculator
 {
     readonly float WorldSpawnRange; // 정사각형
@@ -30,5 +42,23 @@ public class WorldSpawnPositionCalculator
         Vector3 _randomPos = new Vector3(_x, _pivot.y, _z);
         return _randomPos;
     }
+}
+
+public class TowerWorldSpawnPositionCalculator
+{
+    readonly float EnemyTowerOffsetZ;
+    readonly float EnemyTowerSpawnRange_X;
+    readonly float EnemyTowerSpawnRange_Z;
+    readonly RandomPositionCalculator _randomPositionCalculator = new RandomPositionCalculator();
+
+    public TowerWorldSpawnPositionCalculator(float enemyTowerOffsetZ, float enemyTowerSpawnRange_X, float enemyTowerSpawnRange_Z)
+    {
+        EnemyTowerOffsetZ = enemyTowerOffsetZ;
+        EnemyTowerSpawnRange_X = enemyTowerSpawnRange_X;
+        EnemyTowerSpawnRange_Z = enemyTowerSpawnRange_Z;
+    }
+
+    public Vector3 CalculateEnemyTowerPostion(Vector3 towerPos)
+        => _randomPositionCalculator.CalculateRandomPosInRange(new Vector3(towerPos.x, towerPos.y, towerPos.z + EnemyTowerOffsetZ), EnemyTowerSpawnRange_X, EnemyTowerSpawnRange_Z);
 }
 

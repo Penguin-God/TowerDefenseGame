@@ -10,7 +10,7 @@ public class Multi_EnemyTower : Multi_Enemy
     public int Level => _level;
     public BossData TowerData { get; private set; }
     
-    public void Spawn(int level)
+    public void Setinfo(int level)
     {
         enemyType = EnemyType.Tower;
         _level = level;

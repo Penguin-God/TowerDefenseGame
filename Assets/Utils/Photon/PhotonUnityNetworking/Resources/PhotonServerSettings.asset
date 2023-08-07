@@ -161,6 +161,7 @@ MonoBehaviour:
   - SetupTimer
   - ChangeUnitColorWithViewId
   - ShowText
+  - CallFlat_Y_Throw
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

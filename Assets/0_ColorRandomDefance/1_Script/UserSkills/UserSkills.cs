@@ -349,7 +349,7 @@ public class CombineMeteorController : UserSkill
         {
             for (int i = 0; i < _stackManager.SummonUnitCount; i++)
             {
-                var spawnPos = new WorldSpawnPositionCalculator(20, 0, 0, 0).CalculateWorldPostion(Multi_Data.instance.GetWorldPosition(PlayerIdManager.Id));
+                var spawnPos = SpawnPositionCalculator.CalculateWorldSpawnPostion();
                 Multi_SpawnManagers.NormalUnit.Spawn(RedSwordman, spawnPos);
                 _multiEffectManager.PlayOneShotEffect("RedSpawnMagicCircle", spawnPos + Vector3.up);
             }
@@ -401,7 +401,7 @@ public class NecromancerController : UserSkill
     {
         if (_necromencer.TryResurrect())
         {
-            var spawnPos = new WorldSpawnPositionCalculator(20, 0, 0, 0).CalculateWorldPostion(Multi_Data.instance.GetWorldPosition(PlayerIdManager.Id));
+            var spawnPos = SpawnPositionCalculator.CalculateWorldSpawnPostion();
             Multi_SpawnManagers.NormalUnit.Spawn(ResurrectUnit, spawnPos);
             _multiEffectManager.PlayOneShotEffect("PosionMagicCircle", spawnPos + EffectOffst);
             Managers.Sound.PlayEffect(EffectSoundType.YellowMageSkill);

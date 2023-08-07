@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class RandomPositionCalculator
 {
-    public Vector3 CalculateRandomPosInRange(Vector3 _pivot, float _range) => CalculateRandomPosInRange(_pivot, _range, _range);
-    public Vector3 CalculateRandomPosInRange(Vector3 _pivot, float _xRange, float _zRange)
+    public Vector3 CalculateRandomPosInRange(Vector3 pivot, float range) => CalculateRandomPosInRange(pivot, range, range);
+    public Vector3 CalculateRandomPosInRange(Vector3 pivot, float xRange, float zRange)
     {
-        float _x = Random.Range(_pivot.x - _xRange, _pivot.x + _xRange);
-        float _z = Random.Range(_pivot.z - _zRange, _pivot.z + _zRange);
-        Vector3 _randomPos = new Vector3(_x, _pivot.y, _z);
-        return _randomPos;
+        float x = Random.Range(pivot.x - xRange, pivot.x + xRange);
+        float z = Random.Range(pivot.z - zRange, pivot.z + zRange);
+        Vector3 randomPos = new Vector3(x, pivot.y, z);
+        return randomPos;
     }
 }
 

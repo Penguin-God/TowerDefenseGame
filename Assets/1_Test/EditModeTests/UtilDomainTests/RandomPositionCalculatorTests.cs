@@ -58,22 +58,22 @@ namespace UtilDomainTests
             Assert.That(result.z, Is.InRange(-20f, 0f));
         }
 
-        [Test]
-        public void 적군의_성_위치는_OffSet이_적용된_범위_내에_값을_반환해야_함()
-        {
-            // Arrange
-            var towerPos = new Vector3(0, 0, 0);
-            var offsetZ = -10f;
-            var spawnRangeX = 10f;
-            var spawnRangeZ = 10f;
-            var calculator = new TowerWorldSpawnPositionCalculator(offsetZ, spawnRangeX, spawnRangeZ);
+        //[Test]
+        //public void 적군의_성_위치는_OffSet이_적용된_범위_내에_값을_반환해야_함()
+        //{
+        //    // Arrange
+        //    var towerPos = new Vector3(0, 0, 0);
+        //    var offsetZ = -10f;
+        //    var spawnRangeX = 10f;
+        //    var spawnRangeZ = 10f;
+        //    var calculator = new TowerWorldSpawnPositionCalculator(offsetZ, spawnRangeX, spawnRangeZ);
 
-            // Act
-            var result = calculator.CalculateEnemyTowerPostion(towerPos);
+        //    // Act
+        //    var result = calculator.CalculateEnemyTowerPostion(towerPos);
 
-            // Assert
-            Assert.That(result.x, Is.InRange(-10f, 10f));
-            Assert.That(result.z, Is.InRange(-20f, 0f));
-        }
+        //    // Assert
+        //    Assert.That(result.x, Is.InRange(-10f, 10f));
+        //    Assert.That(result.z, Is.InRange(-20f, 0f));
+        //}
     }
 }

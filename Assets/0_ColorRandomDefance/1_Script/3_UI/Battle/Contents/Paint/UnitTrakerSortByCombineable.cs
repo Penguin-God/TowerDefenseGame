@@ -7,14 +7,12 @@ public class UnitTrakerSortByCombineable : UI_UnitTrackerParent
 {
     readonly int MAX_UI_COUNT = 4;
     protected override void SortTrackers(UnitFlags flag) => gameObject.SetActive(true);
-    void OnEnable() => SortTrakers(); // 상대 진영 갔다오면 자식 파괴되는 것 때문에 OnEnable에서 동작하도록 함
-
-    protected override void Init()
+    void OnEnable()
     {
-        base.Init();
-        Managers.Unit.OnUnitCountChange -= (count) => UpdateCombineableUnitFlags();
-        Managers.Unit.OnUnitCountChange += (count) => UpdateCombineableUnitFlags();
-    }
+        Managers.Unit.OnUnitCountChange -= UpdateCombineableUnitFlags;
+        Managers.Unit.OnUnitCountChange += UpdateCombineableUnitFlags;
+        SortTrakers(); // 상대 진영볼 때 조합식이 바뀌는 경우가 있어서 OnEnable에서 돌림
+    } 
 
     void SortTrakers()
     {
@@ -30,11 +28,11 @@ public class UnitTrakerSortByCombineable : UI_UnitTrackerParent
             .Where(x => UnitFlags.NormalFlags.Contains(x))
             .OrderBy(x => x.ClassNumber)
             .ThenBy(x => x.ColorNumber)
-            .Reverse() 
+            .Reverse()
             .Take(MAX_UI_COUNT)
             .Reverse();
 
-    void UpdateCombineableUnitFlags()
+    void UpdateCombineableUnitFlags(int count)
     {
         if (gameObject.activeSelf == false) return;
         SortTrakers();
@@ -46,5 +44,5 @@ public class UnitTrakerSortByCombineable : UI_UnitTrackerParent
             Destroy(child.gameObject);
     }
 
-    void OnDisable() => DestroyChilds();
+    void OnDisable() => Managers.Unit.OnUnitCountChange -= UpdateCombineableUnitFlags;
 }

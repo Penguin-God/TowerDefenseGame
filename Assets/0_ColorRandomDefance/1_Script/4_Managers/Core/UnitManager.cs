@@ -10,12 +10,14 @@ public class UnitManager
     public int CurrentUnitCount => _units.Count;
     public HashSet<UnitFlags> ExsitUnitFlags => new HashSet<UnitFlags>(_units.Select(x => x.UnitFlags));
 
-    public Action<int> OnUnitCountChange = null;
-    public Action<UnitFlags, int> OnUnitCountChangeByFlag = null;
-    public Action<UnitClass, int> OnUnitCountChangeByClass = null;
+    public event Action<UnitFlags> OnUnitAdd = null;
+    public event Action<int> OnUnitCountChange = null;
+    public event Action<UnitFlags, int> OnUnitCountChangeByFlag = null;
+    public event Action<UnitClass, int> OnUnitCountChangeByClass = null;
     public void AddUnit(Multi_TeamSoldier unit)
     {
         _units.Add(unit);
+        OnUnitAdd?.Invoke(unit.UnitFlags);
         NotifyChangeUnitCount(unit);
         unit.OnDead += RemoveUnit;
     }

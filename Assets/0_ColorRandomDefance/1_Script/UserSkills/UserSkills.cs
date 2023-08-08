@@ -333,29 +333,39 @@ public class CombineMeteorController : UserSkill
 
     internal override void InitSkill()
     {
-        Managers.Unit.OnCombine += ShotMeteor;
+        // Managers.Unit.OnCombine += ShotMeteor;
+        Managers.Unit.OnUnitAdd += ShotMeteor;
     }
 
     int _meteorStack => _stackManager.CurrentStack;
     readonly float StunTimePerStack;
     UnitFlags RedSwordman = new UnitFlags(0, 0);
+    //void ShotMeteor(UnitFlags combineUnitFlag)
+    //{
+    //    if (HasRedUnit(combineUnitFlag) == false) return;
+
+    //    _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(), StunTimePerStack * _meteorStack, MeteorShotPoint);
+    //    _stackManager.AddCombineStack(combineUnitFlag);
+    //    if (_stackManager.SummonUnitCount > 0)
+    //    {
+    //        for (int i = 0; i < _stackManager.SummonUnitCount; i++)
+    //        {
+    //            var spawnPos = SpawnPositionCalculator.CalculateWorldSpawnPostion();
+    //            Multi_SpawnManagers.NormalUnit.Spawn(RedSwordman, spawnPos);
+    //            _multiEffectManager.PlayOneShotEffect("RedSpawnMagicCircle", spawnPos + Vector3.up);
+    //        }
+    //        _stackManager.SummonUnit();
+    //    }
+    //    UpdateStackText();
+    //}
+
     void ShotMeteor(UnitFlags combineUnitFlag)
     {
-        if (HasRedUnit(combineUnitFlag) == false) return;
+        if (combineUnitFlag != RedSwordman) return;
 
         _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(), StunTimePerStack * _meteorStack, MeteorShotPoint);
-        _stackManager.AddCombineStack(combineUnitFlag);
-        if(_stackManager.SummonUnitCount > 0)
-        {
-            for (int i = 0; i < _stackManager.SummonUnitCount; i++)
-            {
-                var spawnPos = SpawnPositionCalculator.CalculateWorldSpawnPostion();
-                Multi_SpawnManagers.NormalUnit.Spawn(RedSwordman, spawnPos);
-                _multiEffectManager.PlayOneShotEffect("RedSpawnMagicCircle", spawnPos + Vector3.up);
-            }
-            _stackManager.SummonUnit();
-        }
-        UpdateStackText();
+        // _stackManager.AddCombineStack(combineUnitFlag);
+        // UpdateStackText();
     }
 
     bool HasRedUnit(UnitFlags combineUnitFlag)

@@ -367,6 +367,8 @@ public class CombineMeteorController : UserSkill
     void UpdateStackText() => _stackUI.UpdateText(_meteorStack);
     Multi_NormalEnemy FindMonster()
     {
+        if (Multi_EnemyManager.Instance.TryGetCurrentBoss(PlayerIdManager.Id, out Multi_BossEnemy boss)) return boss;
+
         var monsters = _monsterManager.GetNormalMonsters();
         if (monsters.Count == 0) return null;
         else return monsters[UnityEngine.Random.Range(0, monsters.Count)];

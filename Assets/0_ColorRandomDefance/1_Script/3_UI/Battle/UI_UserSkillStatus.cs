@@ -5,6 +5,12 @@ using UnityEngine;
 
 public class UI_UserSkillStatus : UI_Scene
 {
+    void Awake()
+    {
+        Managers.Camera.OnLookEnemyWorld += () => gameObject.SetActive(false);
+        Managers.Camera.OnLookMyWolrd += () => gameObject.SetActive(true);
+    }
+
     TextMeshProUGUI _text;
     TextMeshProUGUI GetText()
     {

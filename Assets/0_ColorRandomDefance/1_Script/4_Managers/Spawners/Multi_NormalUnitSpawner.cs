@@ -7,8 +7,7 @@ using System;
 public class Multi_NormalUnitSpawner : MonoBehaviourPun
 {
     readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
-    public event Action<Multi_TeamSoldier> OnSpawn = null;
-
+    
     ServerMonsterManager _multiMonsterManager;
     MultiData<SkillBattleDataContainer> _multiSkillData;
     public void Injection(ServerMonsterManager multiMonsterManager, MultiData<SkillBattleDataContainer> multiSkillData)
@@ -42,11 +41,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
         var unit = Managers.Multi.Instantiater.PhotonInstantiate(PathBuilder.BuildUnitPath(flag), spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
         unit.Injection(flag, Managers.Data.Unit.UnitStatByFlag[flag].GetClone(), MultiServiceMidiator.Server.UnitDamageInfo(id, flag), _multiMonsterManager.GetMultiData(unit.UsingID));
         SetUnitData(unit);
-        MultiServiceMidiator.Server.AddUnit(unit);
-        if (unit.UsingID == PlayerIdManager.MasterId)
-            OnSpawn?.Invoke(unit);
-        else
-            photonView.RPC(nameof(RPC_CallbackSpawn), RpcTarget.Others, unit.GetComponent<PhotonView>().ViewID);
+        AddUnitToManager(unit);
         return unit;
     }
 
@@ -63,6 +58,12 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
         }
     }
 
-    [PunRPC]
-    void RPC_CallbackSpawn(int viewID) => OnSpawn?.Invoke(Managers.Multi.GetPhotonViewTransfrom(viewID).GetComponent<Multi_TeamSoldier>());
+    void AddUnitToManager(Multi_TeamSoldier unit)
+    {
+        MultiServiceMidiator.Server.AddUnit(unit);
+        if (unit.UsingID == PlayerIdManager.MasterId) Managers.Unit.AddUnit(unit);
+        else photonView.RPC(nameof(AddUnit), RpcTarget.Others, unit.GetComponent<PhotonView>().ViewID);
+    }
+
+    [PunRPC] void AddUnit(int viewID) => Managers.Unit.AddUnit(Managers.Multi.GetPhotonViewComponent<Multi_TeamSoldier>(viewID));
 }

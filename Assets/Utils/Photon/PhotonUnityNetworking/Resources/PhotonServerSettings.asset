@@ -162,6 +162,8 @@ MonoBehaviour:
   - ChangeUnitColorWithViewId
   - ShowText
   - CallFlat_Y_Throw
+  - ThrowFlatY
+  - AddUnit
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

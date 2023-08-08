@@ -106,7 +106,6 @@ class WorldInitializer
 
     void BindUnitEvent()
     {
-        Multi_SpawnManagers.NormalUnit.OnSpawn += Managers.Unit.AddUnit;
         Managers.Unit.OnCombine += new UnitPassiveController().AddYellowSwordmanCombineGold;
     }
 

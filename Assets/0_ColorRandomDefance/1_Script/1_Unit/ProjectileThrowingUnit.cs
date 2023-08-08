@@ -10,7 +10,7 @@ public class ProjectileThrowingUnit : MonoBehaviourPun
     public void SetInfo(string weaponPath, Transform weaponThrowPoint) => projectileData = new ProjectileData(weaponPath, transform, weaponThrowPoint);
     [SerializeField] Transform _weaponThrowPoint;
 
-    public Multi_Projectile FlatThrow(Transform target, Action<Multi_Enemy> onHit)  => CallThrow(CreateProjectile(projectileData.WeaponPath, onHit), target);
+    public Multi_Projectile FlatThrow(Transform target, Action<Multi_Enemy> onHit) => FlatThrow(projectileData.WeaponPath, target, onHit);
     public Multi_Projectile FlatThrow(string weaponPath, Transform target, Action<Multi_Enemy> onHit) => CallThrow(CreateProjectile(weaponPath, onHit), target);
 
     Multi_Projectile CreateProjectile(string weaponPath, Action<Multi_Enemy> onHit)
@@ -23,31 +23,39 @@ public class ProjectileThrowingUnit : MonoBehaviourPun
     Multi_Projectile CallThrow(Multi_Projectile projectile, Transform target)
     {
         print(target == null);
-        photonView.RPC(nameof(CallFlat_Y_Throw), RpcTarget.All, projectile.GetComponent<PhotonView>().ViewID, target.GetComponent<PhotonView>().ViewID);
+        photonView.RPC(nameof(ThrowFlatY), RpcTarget.All, projectile.GetComponent<PhotonView>().ViewID, target.GetComponent<PhotonView>().ViewID);
         return projectile;
     }
 
-    [PunRPC] 
-    void CallFlat_Y_Throw(int projectileId, int targetId)
-    {
-        Vector3 path = CalculateThorwPath(Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(targetId));
-        path = new Vector3(path.x, 0, path.z);
-        Multi_Throw(projectileId, path);
-    }
-
-    Vector3 CalculateThorwPath(Multi_NormalEnemy target)
-    {
-        if (target == null) return projectileData.Attacker.forward.normalized;
-        else if (target.enemyType == EnemyType.Tower) return (target.transform.position - projectileData.Attacker.position).normalized;
-        else return new ThorwPathCalculator().CalculatePath_To_MoveTarget(projectileData.Attacker.position, target.transform.position, target.Speed, target.dir);
-    }
+    [PunRPC]
+    void ThrowFlatY(int projectileId, int targetId)
+        => new ProjectileThrower().ThrowFlatY(FindProjectileWithId(projectileId), Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(targetId), projectileData.SpawnPos, projectileData.Attacker);
 
     public void Throw(Multi_Projectile projectile, Vector3 shotPath) => photonView.RPC(nameof(Multi_Throw), RpcTarget.All, projectile.GetComponent<PhotonView>().ViewID, shotPath);
+    Multi_Projectile FindProjectileWithId(int id) => Managers.Multi.GetPhotonViewTransfrom(id).GetComponent<Multi_Projectile>();
     [PunRPC]
-    void Multi_Throw(int projectileId, Vector3 shotPath)
+    void Multi_Throw(int projectileId, Vector3 shotPath) => new ProjectileThrower().Thorw(FindProjectileWithId(projectileId), projectileData.SpawnPos, shotPath);
+}
+
+public class ProjectileThrower
+{
+    public void ThrowFlatY(Multi_Projectile projectile, Multi_Enemy target, Vector3 startPos, Transform attacker)
     {
-        var projectile = Managers.Multi.GetPhotonViewTransfrom(projectileId).GetComponent<Multi_Projectile>();
-        projectile.transform.position = projectileData.SpawnPos;
+        Vector3 path = CalculateThorwPath(target, attacker);
+        path = new Vector3(path.x, 0, path.z);
+        Thorw(projectile, startPos, path);
+    }
+
+    Vector3 CalculateThorwPath(Multi_Enemy target, Transform attacker)
+    {
+        if (target == null) return attacker.forward.normalized;
+        else if (target.enemyType == EnemyType.Tower) return (target.transform.position - attacker.position).normalized;
+        else return new ThorwPathCalculator().CalculatePath_To_MoveTarget(attacker.position, target.transform.position, target.GetComponent<Multi_NormalEnemy>().Speed, target.dir);
+    }
+
+    public void Thorw(Multi_Projectile projectile, Vector3 startPos, Vector3 shotPath)
+    {
+        projectile.transform.position = startPos;
         projectile.gameObject.SetActive(true);
         projectile.Throw(shotPath);
     }

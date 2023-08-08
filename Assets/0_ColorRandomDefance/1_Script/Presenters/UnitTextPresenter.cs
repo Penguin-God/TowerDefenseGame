@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitPresenter
+public static class UnitTextPresenter
 {
     public static string GetUnitName(UnitFlags flag) => $"{GetColorText(flag.UnitColor)} {GetClassText(flag.UnitClass)}";
 

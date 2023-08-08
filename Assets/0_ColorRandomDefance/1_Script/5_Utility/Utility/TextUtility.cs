@@ -18,13 +18,28 @@ public class UnitKeyBuilder
     string FlagToNumberText(UnitFlags flag) => $"{flag.ColorNumber}{flag.ClassNumber}";
 }
 
-public static class DatabaseUtility
+public static class TextUtility
 {
+    public static string RelpaceKeyToValue(string text)
+    {
+        foreach (var flag in UnitFlags.AllFlags)
+            text = UnitKeyToValue(text, flag);
+        return text;
+    }
+
+    public static string UnitKeyToValue(string text, UnitFlags flag)
+    {
+        foreach (var key in new UnitKeyBuilder().BuildAllKeys(flag, GetUnitPassiveCount(flag)))
+            text = text.Replace(key, GetValue(key));
+        return text;
+    }
+    static int GetUnitPassiveCount(UnitFlags flag) => Managers.Data.GetUnitPassiveStats(flag).Count();
+
     static string UnCapsuleKeyFormat(string key) => key.Substring(2, key.Length - 3);
 
-    public static float GetUnitPassiveStat(UnitFlags flag, int index) => Managers.Data.GetUnitPassiveStats(flag)[index];
+    static float GetUnitPassiveStat(UnitFlags flag, int index) => Managers.Data.GetUnitPassiveStats(flag)[index];
 
-    public static string GetValue(string key)
+    static string GetValue(string key)
     {
         var keyAttribute = UnCapsuleKeyFormat(key);
         if (keyAttribute.StartsWith("At"))
@@ -42,19 +57,4 @@ public static class DatabaseUtility
             return new UnitFlags(int.Parse(values[0]), int.Parse(values[1]));
         }
     }
-
-    public static string RelpaceKeyToValue(string text)
-    {
-        foreach (var flag in UnitFlags.AllFlags)
-            text = UnitKeyToValue(text, flag);
-        return text;
-    }
-
-    public static string UnitKeyToValue(string text, UnitFlags flag)
-    {
-        foreach (var key in new UnitKeyBuilder().BuildAllKeys(flag, GetUnitPassiveCount(flag)))
-            text = text.Replace(key, GetValue(key));
-        return text;
-    }
-    static int GetUnitPassiveCount(UnitFlags flag) => Managers.Data.GetUnitPassiveStats(flag).Count();
 }

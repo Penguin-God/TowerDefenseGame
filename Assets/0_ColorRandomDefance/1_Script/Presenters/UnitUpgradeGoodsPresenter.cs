@@ -17,7 +17,7 @@ public class UnitUpgradeGoodsPresenter
     public Color GetUnitColor(UnitColor unitColor) => Colors[unitColor];
 
     public string BuildGoodsText(UnitUpgradeGoodsData upgradeGoods, UnitUpgradeShopData data)
-        => $"{UnitPresenter.GetColorText(upgradeGoods.TargetColor)} 유닛 {GetUpgradeText(upgradeGoods.UpgradeType, data)} 증가";
+        => $"{UnitTextPresenter.GetColorText(upgradeGoods.TargetColor)} 유닛 {GetUpgradeText(upgradeGoods.UpgradeType, data)} 증가";
 
     string GetUpgradeText(UnitUpgradeType upgradeType, UnitUpgradeShopData data) => upgradeType == UnitUpgradeType.Value ? $" 공격력 {data.AddValue}" : $" 공격력 {data.UpScale}%";
 

@@ -47,5 +47,5 @@ public class WhiteUnitShop_UI : UI_Popup
     }
 
     string GetPriceText(int classNumber, CurrencyData data)
-        => $"{UnitPresenter.GetUnitName(new UnitFlags(WHITE_COLOR_NUMBER, classNumber))} : {new GameCurrencyPresenter().BuildCurrencyText(data)}";
+        => $"{UnitTextPresenter.GetUnitName(new UnitFlags(WHITE_COLOR_NUMBER, classNumber))} : {new GameCurrencyPresenter().BuildCurrencyText(data)}";
 }

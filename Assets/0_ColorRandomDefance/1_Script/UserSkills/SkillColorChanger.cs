@@ -52,6 +52,9 @@ public class SkillColorChanger : MonoBehaviourPun
 
     [PunRPC] void ShowFaildText() => PopupText(_textPresenter.ChangeFaildText);
 
-    [PunRPC]
-    void PopupText(string text) => Managers.UI.ShowDefualtUI<UI_PopupText>().ShowTextForTime(text);
+    [PunRPC] 
+    void PopupText(string text)
+    {
+        Managers.UI.ShowDefualtUI<UI_PopupText>().ShowTextForTime(text);
+    }
 }

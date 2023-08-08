@@ -10,7 +10,7 @@ public class UI_SkillStatInfo : UI_Base
     public void ShowSkillStat(SkillType skillType, int frameIndex)
     {
         string text = Managers.Data.UserSkill.GetSkillGoodsData(skillType).StatInfoFraems[frameIndex].Replace("{data}", GetSkillStat(skillType, frameIndex));
-        _statText.text = DatabaseUtility.RelpaceKeyToValue(text);
+        _statText.text = TextUtility.RelpaceKeyToValue(text);
     }
 
     string GetSkillStat(SkillType skillType, int frameIndex)

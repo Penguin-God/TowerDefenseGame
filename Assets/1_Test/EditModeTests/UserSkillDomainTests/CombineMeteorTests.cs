@@ -19,6 +19,10 @@ namespace UserSkillDomainTests
         {
             _combineConditionByUnitFlag = new Dictionary<UnitFlags, CombineCondition>()
             {
+                { // 파란 기사 3 = 파란 궁수
+                    new UnitFlags(1, 1),
+                    new CombineCondition(new UnitFlags(1, 1), new Dictionary<UnitFlags, int>(){ { new UnitFlags(1, 0), 3 }})
+                },
                 { // 빨간 기사 3 = 빨간 궁수
                     RedArcher,
                     new CombineCondition(RedArcher, new Dictionary<UnitFlags, int>(){ { RedSowrdman, 3 }})
@@ -39,14 +43,15 @@ namespace UserSkillDomainTests
         }
 
         [Test]
-        [TestCase(1, 3)]
-        [TestCase(2, 14)]
-        [TestCase(3, 68)]
-        public void 조합에_사용된_유닛에_맞게_스택이_쌓여야_함(int classNum, int expected)
+        [TestCase(1, 1, 0)]
+        [TestCase(0, 1, 3)]
+        [TestCase(0, 2, 14)]
+        [TestCase(0, 3, 68)]
+        public void 조합에_사용된_유닛에_맞게_스택이_쌓여야_함(int colorNum, int classNum, int expected)
         {
             // Arrange
             var sut = CreateCombineMeteorStatkManager();
-            var combineTargetFlag = new UnitFlags(0, classNum);
+            var combineTargetFlag = new UnitFlags(colorNum, classNum);
 
             // Act
             sut.AddCombineStack(combineTargetFlag);

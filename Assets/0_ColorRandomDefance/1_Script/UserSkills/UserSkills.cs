@@ -324,7 +324,7 @@ public class CombineMeteorController : UserSkill
         _stackManager = new CombineMeteorStackManager(Managers.Data.CombineConditionByUnitFalg, meteorStackData);
 
         _stackUI = Managers.UI.ShowSceneUI<UI_UserSkillStatus>();
-        UpdateStackText();
+        _stackUI.UpdateText(0);
     }
 
     internal override void InitSkill()
@@ -337,15 +337,11 @@ public class CombineMeteorController : UserSkill
     readonly float StunTimePerStack;
     void AddStack(UnitFlags combineUnitFlag)
     {
-        if (HasRedUnitInCombineParts(combineUnitFlag) == false) return;
         _stackManager.AddCombineStack(combineUnitFlag);
-        UpdateStackText();
+        _stackUI.UpdateText(MeteorStack);
     }
 
-    bool HasRedUnitInCombineParts(UnitFlags combineUnitFlag)
-        => new UnitCombineSystem(Managers.Data.CombineConditionByUnitFalg).GetNeedFlags(combineUnitFlag).Where(x => x.UnitColor == UnitColor.Red).Count() > 0;
-
-    UnitFlags RedSwordman = new UnitFlags(0, 0);
+    readonly UnitFlags RedSwordman = new UnitFlags(0, 0);
     void ShotMeteor(UnitFlags addUnitFlag)
     {
         if (addUnitFlag == RedSwordman)
@@ -355,7 +351,7 @@ public class CombineMeteorController : UserSkill
     readonly int DamagePerStack;
     readonly int DefaultDamage;
     public int CalculateMeteorDamage() => DefaultDamage + (MeteorStack * DamagePerStack);
-    void UpdateStackText() => _stackUI.UpdateText(MeteorStack);
+
     Multi_NormalEnemy FindMonster()
     {
         if (Multi_EnemyManager.Instance.TryGetCurrentBoss(PlayerIdManager.Id, out Multi_BossEnemy boss)) return boss;

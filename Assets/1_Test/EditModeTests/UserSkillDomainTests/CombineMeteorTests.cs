@@ -15,7 +15,6 @@ namespace UserSkillDomainTests
         UnitFlags RedSpearman = new UnitFlags(0, 2);
         UnitFlags RedMage = new UnitFlags(0, 3);
 
-
         CombineMeteorStackManager CreateCombineMeteorStatkManager()
         {
             _combineConditionByUnitFlag = new Dictionary<UnitFlags, CombineCondition>()
@@ -35,7 +34,7 @@ namespace UserSkillDomainTests
             };
 
             var meteorScoreData = new MeteorStackData(1, 4, 20);
-            var result = new CombineMeteorStackManager(_combineConditionByUnitFlag, meteorScoreData, 10);
+            var result = new CombineMeteorStackManager(_combineConditionByUnitFlag, meteorScoreData);
             return result;
         }
 
@@ -54,29 +53,6 @@ namespace UserSkillDomainTests
 
             // Assert
             Assert.AreEqual(expected, sut.CurrentStack);
-        }
-
-        [Test]
-        public void 쌓인_스택에_따라_소환_카운트가_쌓여야_함()
-        {
-            // Arrange
-            var sut = CreateCombineMeteorStatkManager();
-
-            // Act & Assert
-            sut.AddCombineStack(RedArcher);
-            Assert.AreEqual(0, sut.SummonUnitCount);
-
-            // Act & Assert
-            sut.AddCombineStack(RedSpearman);
-            Assert.AreEqual(1, sut.SummonUnitCount);
-
-            // Act & Assert
-            sut.SummonUnit();
-            Assert.AreEqual(0, sut.SummonUnitCount);
-
-            // Act & Assert
-            sut.AddCombineStack(RedMage);
-            Assert.AreEqual(7, sut.SummonUnitCount);
         }
     }
 }

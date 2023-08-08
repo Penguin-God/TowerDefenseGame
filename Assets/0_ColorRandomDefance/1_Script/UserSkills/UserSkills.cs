@@ -144,8 +144,7 @@ public class UserSkillFactory
             case SkillType.고기혐오자: result = new FoodHater(skillBattleData); break;
             case SkillType.판매보상증가: result = new SellUpgrade(skillBattleData); break;
             case SkillType.장사꾼: result = new DiscountMerchant(skillBattleData); break;
-            case SkillType.메테오: 
-                result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>(), container.GetComponent<MultiEffectManager>()); break;
+            case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>()); break;
             case SkillType.네크로맨서:
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>()); break;
             case SkillType.덫:
@@ -312,20 +311,17 @@ public class CombineMeteorController : UserSkill
 
     readonly CombineMeteorStackManager _stackManager;
     UI_UserSkillStatus _stackUI;
-    MultiEffectManager _multiEffectManager;
-    public CombineMeteorController(UserSkillBattleData userSkillBattleData, MeteorController meteorController, IMonsterManager monsterManager, MultiEffectManager multiEffectManager)
-        : base(userSkillBattleData) 
+    public CombineMeteorController(UserSkillBattleData userSkillBattleData, MeteorController meteorController, IMonsterManager monsterManager) : base(userSkillBattleData)
     {
         _monsterManager = monsterManager;
         MeteorShotPoint = PlayerIdManager.Id == PlayerIdManager.MasterId ? new Vector3(0, 30, 0) : new Vector3(0, 30, 500);
         _meteorController = meteorController;
-        _multiEffectManager = multiEffectManager;
 
         DefaultDamage = IntSkillDatas[0];
         StunTimePerStack = SkillDatas[1];
         DamagePerStack = IntSkillDatas[2];
         var meteorStackData = new MeteorStackData(SwordmanStack, ArcherStack, SpearmanStack);
-        _stackManager = new CombineMeteorStackManager(Managers.Data.CombineConditionByUnitFalg, meteorStackData, IntSkillDatas[3]);
+        _stackManager = new CombineMeteorStackManager(Managers.Data.CombineConditionByUnitFalg, meteorStackData);
 
         _stackUI = Managers.UI.ShowSceneUI<UI_UserSkillStatus>();
         UpdateStackText();
@@ -333,48 +329,33 @@ public class CombineMeteorController : UserSkill
 
     internal override void InitSkill()
     {
-        // Managers.Unit.OnCombine += ShotMeteor;
+        Managers.Unit.OnCombine += AddStack;
         Managers.Unit.OnUnitAdd += ShotMeteor;
     }
 
-    int _meteorStack => _stackManager.CurrentStack;
+    int MeteorStack => _stackManager.CurrentStack;
     readonly float StunTimePerStack;
-    UnitFlags RedSwordman = new UnitFlags(0, 0);
-    //void ShotMeteor(UnitFlags combineUnitFlag)
-    //{
-    //    if (HasRedUnit(combineUnitFlag) == false) return;
-
-    //    _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(), StunTimePerStack * _meteorStack, MeteorShotPoint);
-    //    _stackManager.AddCombineStack(combineUnitFlag);
-    //    if (_stackManager.SummonUnitCount > 0)
-    //    {
-    //        for (int i = 0; i < _stackManager.SummonUnitCount; i++)
-    //        {
-    //            var spawnPos = SpawnPositionCalculator.CalculateWorldSpawnPostion();
-    //            Multi_SpawnManagers.NormalUnit.Spawn(RedSwordman, spawnPos);
-    //            _multiEffectManager.PlayOneShotEffect("RedSpawnMagicCircle", spawnPos + Vector3.up);
-    //        }
-    //        _stackManager.SummonUnit();
-    //    }
-    //    UpdateStackText();
-    //}
-
-    void ShotMeteor(UnitFlags combineUnitFlag)
+    void AddStack(UnitFlags combineUnitFlag)
     {
-        if (combineUnitFlag != RedSwordman) return;
-
-        _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(), StunTimePerStack * _meteorStack, MeteorShotPoint);
-        // _stackManager.AddCombineStack(combineUnitFlag);
-        // UpdateStackText();
+        if (HasRedUnitInCombineParts(combineUnitFlag) == false) return;
+        _stackManager.AddCombineStack(combineUnitFlag);
+        UpdateStackText();
     }
 
-    bool HasRedUnit(UnitFlags combineUnitFlag)
+    bool HasRedUnitInCombineParts(UnitFlags combineUnitFlag)
         => new UnitCombineSystem(Managers.Data.CombineConditionByUnitFalg).GetNeedFlags(combineUnitFlag).Where(x => x.UnitColor == UnitColor.Red).Count() > 0;
+
+    UnitFlags RedSwordman = new UnitFlags(0, 0);
+    void ShotMeteor(UnitFlags addUnitFlag)
+    {
+        if (addUnitFlag == RedSwordman)
+            _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(), StunTimePerStack * MeteorStack, MeteorShotPoint);
+    }
 
     readonly int DamagePerStack;
     readonly int DefaultDamage;
-    public int CalculateMeteorDamage() => DefaultDamage + (_meteorStack * DamagePerStack);
-    void UpdateStackText() => _stackUI.UpdateText(_meteorStack);
+    public int CalculateMeteorDamage() => DefaultDamage + (MeteorStack * DamagePerStack);
+    void UpdateStackText() => _stackUI.UpdateText(MeteorStack);
     Multi_NormalEnemy FindMonster()
     {
         if (Multi_EnemyManager.Instance.TryGetCurrentBoss(PlayerIdManager.Id, out Multi_BossEnemy boss)) return boss;

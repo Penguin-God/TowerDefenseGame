@@ -1,17 +1,17 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class UI_PopupText : UI_Base
 {
-    Text _text;
+    TextMeshProUGUI _text;
     const float TextShowTime = 2f;
     readonly Vector2 TextPosition = new Vector2(0, 120f);
 
     protected override void Init()
     {
         base.Init();
-        _text = GetComponentInChildren<Text>();
+        _text = GetComponentInChildren<TextMeshProUGUI>();
         _text.raycastTarget = false;
     }
 

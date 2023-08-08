@@ -80,7 +80,7 @@ public class BattleDIContainerInitializer
         container.GetComponent<MonsterManagerProxy>().Init(dispatcher);
         container.GetComponent<MultiEffectManager>().Inject(Managers.Effect);
 
-        new UnitCombineNotifier(Managers.UI, Managers.Data.UnitNameDataByFlag).Init(Managers.Unit);
+        new UnitCombineNotifier(Managers.UI).Init(Managers.Unit);
     }
 
 

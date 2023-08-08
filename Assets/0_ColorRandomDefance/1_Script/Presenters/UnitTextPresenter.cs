@@ -5,6 +5,19 @@ using UnityEngine;
 public static class UnitTextPresenter
 {
     public static string GetUnitName(UnitFlags flag) => $"{GetColorText(flag.UnitColor)} {GetClassText(flag.UnitClass)}";
+    public static string GetUnitNameWithColor(UnitFlags flag) => $"<color={ColorCodeByUnitColor[flag.UnitColor]}>{GetUnitName(flag)}</color>";
+
+    static readonly IReadOnlyDictionary<UnitColor, string> ColorCodeByUnitColor = new Dictionary<UnitColor, string>()
+    {
+        {UnitColor.Red, "#FF0000" },
+        {UnitColor.Blue, "#0000FF" },
+        {UnitColor.Yellow, "#FFFF00" },
+        {UnitColor.Green, "#00FF00" },
+        {UnitColor.Orange, "#FFA500" },
+        {UnitColor.Violet, "#800080" },
+        {UnitColor.White, "#FFFFFF" },
+        {UnitColor.Black, "#000000" },
+    };
 
     static readonly IReadOnlyDictionary<UnitColor, string> ColorTexts = new Dictionary<UnitColor, string>()
     {

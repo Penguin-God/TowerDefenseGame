@@ -8,16 +8,13 @@ public class Multi_WhiteUnitTimer : MonoBehaviour
     private Slider slider;
     public Slider Slider => slider;
     
-    Transform _target;
-
     private void Awake()
     {
         slider = GetComponentInChildren<Slider>();
     }
 
-    public void Setup(Transform target, float aliveTime)
+    public void Setup(float aliveTime)
     {
-        _target = target;
         slider.maxValue = aliveTime;
         slider.value = aliveTime;
         StartCoroutine(Co_Timer());
@@ -27,8 +24,7 @@ public class Multi_WhiteUnitTimer : MonoBehaviour
     {
         slider.onValueChanged.RemoveAllListeners();
         StopAllCoroutines();
-        Managers.Effect.StopTargetTracking(_target);
-        _target = null;
+        Managers.Effect.CancleTracking(GetComponent<TargetTracker>());
     }
 
     IEnumerator Co_Timer()

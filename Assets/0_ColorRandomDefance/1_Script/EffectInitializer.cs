@@ -19,9 +19,9 @@ public class EffectInitializer : MonoBehaviourPun
             if (blackUnitUp != null)
                 Managers.Unit.OnUnitCountChangeByFlag += TrackingBalckUnit;
 
-            //var pureBlood = skill as PureBlood;
-            //if (pureBlood != null)
-            //    Managers.Unit.OnUnitCountChangeByFlag += TrackingWhiteUnit;
+            var bondofWhite = skill as PureBlood;
+            if (bondofWhite != null)
+                Managers.Unit.OnUnitCountChangeByFlag += TrackingWhiteUnit;
         }
     }
 
@@ -43,7 +43,7 @@ public class EffectInitializer : MonoBehaviourPun
             List<Transform> targets = GetTeaguekUnits();
             foreach (var target in targets)
             {
-                Managers.Effect.StopTargetTracking(target); // master
+                _unitReinforceEffectDrawer.CancleTracking(target); // master
                 photonView.RPC(nameof(StopTracking), RpcTarget.Others, target.GetComponent<PhotonView>().ViewID); // client
             }
         }
@@ -75,8 +75,8 @@ public class EffectInitializer : MonoBehaviourPun
     [PunRPC]
     void SetUnitTrackingEffects(UnitFlags flag, byte id)
     {
-        var targets = MultiServiceMidiator.Server.GetUnits(id)
-            .Where(x => x.UnitFlags == flag && Managers.Effect.TargetByTrackers.ContainsKey(x.transform) == false);
+        var targets = MultiServiceMidiator.Server.GetUnits(id).Where(x => x.UnitFlags == flag && _unitReinforceEffectDrawer.IsTracking(x.transform) == false);
+
         foreach (var target in targets)
         {
             _unitReinforceEffectDrawer.SetUnitReinforceEffect(target);
@@ -91,13 +91,14 @@ public class EffectInitializer : MonoBehaviourPun
     void SetUnitTrackingEffects_ByID(int viewID)
         => _unitReinforceEffectDrawer.SetUnitReinforceEffect(Managers.Multi.GetPhotonViewTransfrom(viewID).GetComponent<Multi_TeamSoldier>());
 
-    [PunRPC]
-    void StopTracking(int viewID)
-        => Managers.Effect.StopTargetTracking(Managers.Multi.GetPhotonViewTransfrom(viewID));
+    [PunRPC] void StopTracking(int viewID) => _unitReinforceEffectDrawer.CancleTracking(Managers.Multi.GetPhotonViewTransfrom(viewID));
 }
 
 class UnitReinforceEffectDrawer
 {
+    Dictionary<Transform, TargetTracker> _targetByTrackers = new Dictionary<Transform, TargetTracker>();
+    public bool IsTracking(Transform target) => _targetByTrackers.ContainsKey(target);
+
     Dictionary<UnitColor, Color32> _unitColorByColor = new Dictionary<UnitColor, Color32>()
     {
         {UnitColor.Red, new Color32(255, 44, 0, 255) },
@@ -108,12 +109,19 @@ class UnitReinforceEffectDrawer
 
     public void SetUnitReinforceEffect(Multi_TeamSoldier target)
     {
-        var tracker = Managers.Effect.TrackingToTarget(GetUnitTarckerName(target.UnitColor), target.transform, Vector3.zero);
+        var tracker = Managers.Effect.TrackingTarget(GetUnitTarckerName(target.UnitColor), target.transform, Vector3.zero);
+        _targetByTrackers.Add(target.transform, tracker);
         foreach (Transform effect in tracker.transform)
         {
             var main = effect.GetComponent<ParticleSystem>().main;
             main.startColor = new ParticleSystem.MinMaxGradient(_unitColorByColor[target.UnitColor]);
         }
+    }
+
+    public void CancleTracking(Transform target)
+    {
+        Managers.Effect.CancleTracking(_targetByTrackers[target.transform]);
+        _targetByTrackers.Remove(target.transform);
     }
 
     string GetUnitTarckerName(UnitColor unitColor)

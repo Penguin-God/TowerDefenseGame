@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4173261894394771505}
   - component: {fileID: 4173261894394771507}
   - component: {fileID: 4173261894394771504}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: TB_Barracks_Lvl4A_DoorA
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -239,7 +239,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 4173261894953364341}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4173261894953364338
 GameObject:
@@ -265,14 +265,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4173261894953364338}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 500, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4173261895970043329}
   - {fileID: 4173261895544664349}
   - {fileID: 4173261894819401804}
+  - {fileID: 4173261895970043329}
   - {fileID: 5664215711321367712}
   - {fileID: 6559734132414110246}
   - {fileID: 5348927460118879717}
@@ -304,7 +304,7 @@ GameObject:
   - component: {fileID: 4173261894966480698}
   - component: {fileID: 4173261894966480700}
   - component: {fileID: 4173261894966480701}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: TB_Barracks_Lvl4A_DoorB
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -469,7 +469,7 @@ Transform:
   - {fileID: 4173261894500741168}
   - {fileID: 4173261895567019677}
   m_Father: {fileID: 4173261894953364341}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4173261895567019674
 GameObject:
@@ -681,8 +681,8 @@ GameObject:
   - component: {fileID: 4173261895970043333}
   - component: {fileID: 4173261895970043330}
   - component: {fileID: 4173261895970043331}
-  - component: {fileID: 4173261895970043328}
-  m_Layer: 0
+  - component: {fileID: 8520390793416395975}
+  m_Layer: 16
   m_Name: UnitCountExpendShop_Shop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -704,7 +704,7 @@ Transform:
   - {fileID: 4173261894394771505}
   - {fileID: 4173261894966480698}
   m_Father: {fileID: 4173261894953364341}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &4173261895970043333
 MeshFilter:
@@ -769,7 +769,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 8.6979885, y: 8.830369, z: 8.943685}
   m_Center: {x: 0.000030517578, y: 4.414701, z: -0.12284731}
---- !u!114 &4173261895970043328
+--- !u!114 &8520390793416395975
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -778,10 +778,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4173261895970043198}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0f5d55264d460047bed00b8bcf1d02f, type: 3}
+  m_Script: {fileID: 11500000, guid: aad603f944a28df4c8a82eb15805b301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: InGameShop/UnitCountExpendShop_UI
+  ShowUI_Type: 3
+  OwnerId: 0
 --- !u!1 &4173261896111108646
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,10 +874,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4173261894953364341}
     m_Modifications:
+    - target: {fileID: 5423557692424150876, guid: b312da18f83dcc946ad4ed20c2122757,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 5423792003759390060, guid: b312da18f83dcc946ad4ed20c2122757,
         type: 3}
       propertyPath: m_Name
       value: BlackSoldierTower
+      objectReference: {fileID: 0}
+    - target: {fileID: 5423792003759390060, guid: b312da18f83dcc946ad4ed20c2122757,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5426545059870703798, guid: b312da18f83dcc946ad4ed20c2122757,
         type: 3}
@@ -933,7 +944,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4697902698064233546, guid: b312da18f83dcc946ad4ed20c2122757, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b312da18f83dcc946ad4ed20c2122757, type: 3}
 --- !u!4 &5348927460118879717 stripped
 Transform:
@@ -15790,12 +15802,23 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2168489007424078724, guid: f542439598e21254e8de0c166cc5fed8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
     - target: {fileID: 2168891862938804660, guid: f542439598e21254e8de0c166cc5fed8,
         type: 3}
       propertyPath: m_Name
       value: WhiteSoldierTower
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 2168891862938804660, guid: f542439598e21254e8de0c166cc5fed8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: -3433728876162894436, guid: f542439598e21254e8de0c166cc5fed8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f542439598e21254e8de0c166cc5fed8, type: 3}
 --- !u!4 &6559734132414110246 stripped
 Transform:
@@ -15814,6 +15837,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: RandomShop Tower
+      objectReference: {fileID: 0}
+    - target: {fileID: 2811778735658367449, guid: f5ddd90f6da75164eb1352c39ac678a8,
+        type: 3}
+      propertyPath: m_Layer
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 2811778735658657273, guid: f5ddd90f6da75164eb1352c39ac678a8,
         type: 3}
@@ -15870,7 +15898,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8606715031994265538, guid: f5ddd90f6da75164eb1352c39ac678a8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f5ddd90f6da75164eb1352c39ac678a8, type: 3}
 --- !u!4 &5664215711321367712 stripped
 Transform:

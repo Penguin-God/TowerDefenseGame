@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using System;
 using System.IO;
+using System.Net.NetworkInformation;
 
 public class BattleDIContainer
 {
@@ -70,6 +71,8 @@ public class BattleDIContainerInitializer
         container.AddComponent<EnemySpawnNumManager>();
         container.AddComponent<MeteorController>();
         container.AddComponent<MultiEffectManager>();
+        container.AddComponent<BuildingClickContoller>();
+
         container.AddService(new BattleUI_Mediator(Managers.UI));
     }
 
@@ -82,6 +85,7 @@ public class BattleDIContainerInitializer
         container.GetComponent<UnitMaxCountController>().Init(null, game);
         container.GetComponent<MonsterManagerProxy>().Init(dispatcher);
         container.GetComponent<MultiEffectManager>().Inject(Managers.Effect);
+        container.GetComponent<BuildingClickContoller>().Injection(container.GetService<BattleUI_Mediator>(), Managers.UI);
 
         new UnitCombineNotifier(Managers.UI).Init(Managers.Unit);
     }
@@ -117,6 +121,12 @@ public class BattleDIContainerInitializer
         Managers.UI.ShowSceneUI<UI_Status>().Injection(container.GetService<BattleEventDispatcher>(), container.GetMultiActiveSkillData());
         var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();
         enemySelector.SetInfo(container.GetComponent<EnemySpawnNumManager>());
+
+        var uiMediator = container.GetService<BattleUI_Mediator>();
+        uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_UnitUpgradeShop");
+        uiMediator.RegisterUI(BattleUI_Type.WhiteUnitShop, "InGameShop/WhiteUnitShop");
+        uiMediator.RegisterUI(BattleUI_Type.BalckUnitCombineTable, "InGameShop/BlackUnitShop");
+        uiMediator.RegisterUI(BattleUI_Type.UnitMaxCountExpendShop, "InGameShop/UnitCountExpendShop_UI");
     }
 
     void InitSound()

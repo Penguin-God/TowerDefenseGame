@@ -95,7 +95,7 @@ GameObject:
   - component: {fileID: 2192116467360569416}
   - component: {fileID: 2183860826016222196}
   - component: {fileID: 2170083592768810380}
-  - component: {fileID: -3433728876162894436}
+  - component: {fileID: 1882758379548700795}
   m_Layer: 0
   m_Name: WhiteSoldierTower
   m_TagString: Untagged
@@ -182,7 +182,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.1779227, y: 5.4715853, z: 6.1779227}
   m_Center: {x: 0.00000023841858, y: 2.7357922, z: -0.00000023841858}
---- !u!114 &-3433728876162894436
+--- !u!114 &1882758379548700795
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -191,7 +191,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 2168891862938804660}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0f5d55264d460047bed00b8bcf1d02f, type: 3}
+  m_Script: {fileID: 11500000, guid: aad603f944a28df4c8a82eb15805b301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: InGameShop/WhiteUnitShop
+  ShowUI_Type: 2
+  OwnerId: 0

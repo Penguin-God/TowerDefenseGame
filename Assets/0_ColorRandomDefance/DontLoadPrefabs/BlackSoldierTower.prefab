@@ -28,6 +28,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 7.866646, z: 0.000011444092}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5426545059870703798}
   m_RootOrder: 0
@@ -51,10 +52,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -79,6 +82,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &5423792003759390060
 GameObject:
   m_ObjectHideFlags: 0
@@ -91,7 +95,7 @@ GameObject:
   - component: {fileID: 5419989720594826384}
   - component: {fileID: 5409663621545056044}
   - component: {fileID: 5422881751330337108}
-  - component: {fileID: 4697902698064233546}
+  - component: {fileID: 2938879788632971282}
   m_Layer: 0
   m_Name: BlackSoldierTower
   m_TagString: Untagged
@@ -109,6 +113,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 15, y: 0, z: 20}
   m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5427068263495491946}
   m_Father: {fileID: 0}
@@ -133,10 +138,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -161,6 +168,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!65 &5422881751330337108
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -174,7 +182,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 6.1779227, y: 5.4715853, z: 6.1779227}
   m_Center: {x: 0.00000023841858, y: 2.7357922, z: -0.00000023841858}
---- !u!114 &4697902698064233546
+--- !u!114 &2938879788632971282
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -183,7 +191,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5423792003759390060}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0f5d55264d460047bed00b8bcf1d02f, type: 3}
+  m_Script: {fileID: 11500000, guid: aad603f944a28df4c8a82eb15805b301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: InGameShop/BlackUnitShop
+  ShowUI_Type: 1
+  OwnerId: 0

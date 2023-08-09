@@ -385,8 +385,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbc3410eb934e1a45b223db87e597e10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rootName: TowerEnemys
-  _spawnableObjectCount: 6
 --- !u!114 &616192328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,8 +452,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df3d1d413cd4fe341968cfd299b4fe0f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _rootName: BossEnemys
-  _spawnableObjectCount: 4
 --- !u!114 &685287359
 MonoBehaviour:
   m_ObjectHideFlags: 0

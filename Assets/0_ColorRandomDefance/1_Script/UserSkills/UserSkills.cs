@@ -143,7 +143,7 @@ public class UserSkillFactory
             case SkillType.상대색깔변경: result = new ColorChange(skillBattleData); break;
             case SkillType.고기혐오자: result = new FoodHater(skillBattleData); break;
             case SkillType.판매보상증가: result = new SellUpgrade(skillBattleData); break;
-            case SkillType.장사꾼: result = new Gambler(skillBattleData, container.GetService<BattleUI_Mediator>()); break;
+            case SkillType.장사꾼: result = new GamblerController(skillBattleData, container.GetService<BattleUI_Mediator>()); break;
             case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>()); break;
             case SkillType.네크로맨서:
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>()); break;
@@ -284,9 +284,9 @@ public class SellUpgrade : UserSkill
     }
 }
 
-public class Gambler : UserSkill
+public class GamblerController : UserSkill
 {
-    public Gambler(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator) : base(userSkillBattleData) 
+    public GamblerController(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator) : base(userSkillBattleData) 
     {
         uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_UnitUpgradeShopWithGamble");
     }

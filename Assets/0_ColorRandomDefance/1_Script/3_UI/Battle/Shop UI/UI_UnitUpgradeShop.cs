@@ -60,7 +60,7 @@ public class UI_UnitUpgradeShop : UI_Popup
     Dictionary<GoodsLocation, UI_UnitUpgradeGoods> _locationByGoods_UI = new Dictionary<GoodsLocation, UI_UnitUpgradeGoods>();
     Dictionary<GoodsLocation, UnitUpgradeGoodsData> _locationByGoods = new Dictionary<GoodsLocation, UnitUpgradeGoodsData>();
     readonly UnitUpgradeGoodsSelector _goodsSelector = new UnitUpgradeGoodsSelector();
-    UnitUpgradeShopController _buyController;
+    protected UnitUpgradeShopController _buyController;
     protected override void Init()
     {
         base.Init();

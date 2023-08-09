@@ -11,16 +11,17 @@ public class UI_UnitUpgradeShopWithGamble : UI_UnitUpgradeShop
     }
 
     int _goodsBuyStack;
-    int _gambleLevel;
     int NeedStackForGamble;
+    UI_GamblePanel _gamblePanel;
 
     protected override void Init()
     {
         base.Init();
         NeedStackForGamble = 10;
-        _gambleLevel = 1;
         _buyController.OnBuyGoods += _ => AddStack();
         Bind<GameObject>(typeof(GameObjects));
+        _gamblePanel = GetComponentInChildren<UI_GamblePanel>(true);
+        _gamblePanel.OnGamble += EndGamble;
     }
 
     void AddStack()
@@ -30,14 +31,19 @@ public class UI_UnitUpgradeShopWithGamble : UI_UnitUpgradeShop
         {
             ConfigureGamble();
             _goodsBuyStack = 0;
-            _gambleLevel++;
         }
     }
 
     void ConfigureGamble()
     {
-        // UI
+        GetObject((int)GameObjects.Goods).SetActive(false);
+        _gamblePanel.gameObject.SetActive(true);
+        _gamblePanel.SetupGamblePanel();
+    }
+
+    void EndGamble()
+    {
         GetObject((int)GameObjects.Goods).SetActive(true);
-        GetObject((int)GameObjects.GamblePanel).SetActive(true);
+        _gamblePanel.gameObject.SetActive(false);
     }
 }

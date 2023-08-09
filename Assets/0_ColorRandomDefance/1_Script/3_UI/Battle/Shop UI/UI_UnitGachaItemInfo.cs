@@ -6,6 +6,7 @@ using TMPro;
 
 public class UI_UnitGachaItemInfo : UI_Base
 {
+    [SerializeField] Sprite[] sprites;
     enum Images
     {
         UnitIcon,
@@ -19,12 +20,13 @@ public class UI_UnitGachaItemInfo : UI_Base
     protected override void Init()
     {
         Bind<Image>(typeof(Images));
-        Bind<TextMeshPro>(typeof(Texts));
+        Bind<TextMeshProUGUI>(typeof(Texts));
     }
 
     public void ShowInfo(UnitClass unitClass, double rate)
     {
-        GetImage((int)Images.UnitIcon).sprite = null;
+        CheckInit();
+        GetImage((int)Images.UnitIcon).sprite = sprites[(int)unitClass];
         GetTextMeshPro((int)Texts.RateText).text = rate.ToString();
     }
 }

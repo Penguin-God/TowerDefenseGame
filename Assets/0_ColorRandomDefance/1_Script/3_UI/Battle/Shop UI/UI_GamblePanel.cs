@@ -7,13 +7,19 @@ using UnityEngine.UI;
 
 public class UI_GamblePanel : UI_Base
 {
+    enum GameObjects
+    {
+        GachaItemParent,
+    }
+
     enum Buttons
     {
-        GachaButton
+        GachaButton,
     }
 
     protected override void Init()
     {
+        Bind<GameObject>(typeof(GameObjects));
         Bind<Button>(typeof(Buttons));
     }
 
@@ -22,9 +28,15 @@ public class UI_GamblePanel : UI_Base
 
     public void SetupGamblePanel()
     {
+        CheckInit();
+
         double[] rates = new double[] { 25, 25, 25, 25 };
+
+        foreach (Transform child in GetObject((int)GameObjects.GachaItemParent).transform)
+            Destroy(child.gameObject);
+
         for (int i = 0; i < rates.Length; i++)
-            Managers.UI.MakeSubItem<UI_UnitGachaItemInfo>(transform).ShowInfo((UnitClass)i, rates[i]);
+            Managers.UI.MakeSubItem<UI_UnitGachaItemInfo>(GetObject((int)GameObjects.GachaItemParent).transform).ShowInfo((UnitClass)i, rates[i]);
         
         GetButton((int)Buttons.GachaButton).onClick.RemoveAllListeners();
         GetButton((int)Buttons.GachaButton).onClick.AddListener(() => UnitGacha(rates));

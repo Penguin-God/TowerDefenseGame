@@ -34,7 +34,7 @@ public class Tutorial_Tower : TutorialController
     }
     void ChangeShopColliderEnable(bool isEnabled)
     {
-        FindObjectsOfType<ShopObject>()
+        FindObjectsOfType<ShopTriggerBuilding>()
             .Select(x => x.GetComponent<BoxCollider>())
             .ToList()
             .ForEach(x => x.enabled = isEnabled);

@@ -6,6 +6,7 @@ public static class UnitTextPresenter
 {
     public static string GetUnitName(UnitFlags flag) => $"{GetColorText(flag.UnitColor)} {GetClassText(flag.UnitClass)}";
     public static string GetUnitNameWithColor(UnitFlags flag) => $"<color={ColorCodeByUnitColor[flag.UnitColor]}>{GetUnitName(flag)}</color>";
+    public static string DecorateBefore(string text, UnitFlags flag) => text + (flag.UnitClass == UnitClass.Spearman ? "을" : "를");
 
     static readonly IReadOnlyDictionary<UnitColor, string> ColorCodeByUnitColor = new Dictionary<UnitColor, string>()
     {

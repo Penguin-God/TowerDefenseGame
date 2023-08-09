@@ -52,6 +52,7 @@ public class UI_GamblePanel : UI_Base
         OnGamble?.Invoke();
         if(rateTables.Length > _gambleLevel)
             _gambleLevel++;
+        Managers.UI.ShowDefualtUI<UI_PopupText>().ShowTextForTime($"{UnitTextPresenter.DecorateBefore(UnitTextPresenter.GetUnitNameWithColor(selectUnitFlag), selectUnitFlag)} »Ì¾Ò½À´Ï´Ù.");
         GetButton((int)Buttons.GachaButton).onClick.RemoveAllListeners();
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System;
+using System.IO;
 
 public class BattleDIContainer
 {
@@ -30,6 +31,7 @@ public class BattleDIContainer
     }
 
     public MultiData<SkillBattleDataContainer> GetMultiActiveSkillData() => GetService<MultiData<SkillBattleDataContainer>>();
+    public SkillBattleDataContainer GetSkillData(byte id) => GetMultiActiveSkillData().GetData(id);
     public BattleEventDispatcher GetEventDispatcher() => GetService<BattleEventDispatcher>();
 }
 
@@ -68,6 +70,7 @@ public class BattleDIContainerInitializer
         container.AddComponent<EnemySpawnNumManager>();
         container.AddComponent<MeteorController>();
         container.AddComponent<MultiEffectManager>();
+        container.AddService(new BattleUI_Mediator(Managers.UI));
     }
 
     void InjectService(BattleDIContainer container)
@@ -112,7 +115,6 @@ public class BattleDIContainerInitializer
     {
         Managers.UI.ShowSceneUI<BattleButton_UI>().SetInfo(container.GetComponent<SwordmanGachaController>());
         Managers.UI.ShowSceneUI<UI_Status>().Injection(container.GetService<BattleEventDispatcher>(), container.GetMultiActiveSkillData());
-
         var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();
         enemySelector.SetInfo(container.GetComponent<EnemySpawnNumManager>());
     }

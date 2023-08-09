@@ -143,7 +143,7 @@ public class UserSkillFactory
             case SkillType.상대색깔변경: result = new ColorChange(skillBattleData); break;
             case SkillType.고기혐오자: result = new FoodHater(skillBattleData); break;
             case SkillType.판매보상증가: result = new SellUpgrade(skillBattleData); break;
-            case SkillType.장사꾼: result = new DiscountMerchant(skillBattleData); break;
+            case SkillType.장사꾼: result = new Gambler(skillBattleData, container.GetService<BattleUI_Mediator>()); break;
             case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>()); break;
             case SkillType.네크로맨서:
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>()); break;
@@ -284,17 +284,19 @@ public class SellUpgrade : UserSkill
     }
 }
 
-public class DiscountMerchant : UserSkill
+public class Gambler : UserSkill
 {
-    public DiscountMerchant(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
+    public Gambler(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator) : base(userSkillBattleData) 
+    {
+        uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_UnitUpgradeShopWithGamble");
+    }
     internal override void InitSkill()
     {
         Multi_GameManager.Instance.BattleData
             .ShopPriceDataByUnitUpgradeData
             .Where(x => x.Key.UpgradeType == UnitUpgradeType.Value)
             .Select(x => x.Value)
-            .ToList()
-            .ForEach(x => x.ChangeAmount(0));
+            .ToList().ForEach(x => x.ChangeAmount(0));
         Multi_GameManager.Instance.BattleData.UnitUpgradeShopData.ResetPrice = IntSkillData;
     }
 }

@@ -95,7 +95,7 @@ public class UserSkillFactory
 
     IReadOnlyList<SkillType> ComplexSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
     {
-        SkillType.태극스킬, SkillType.흑의결속, SkillType.상대색깔변경, SkillType.고기혐오자, SkillType.판매보상증가, SkillType.장사꾼, SkillType.메테오,
+        SkillType.태극스킬, SkillType.흑의결속, SkillType.상대색깔변경, SkillType.고기혐오자, SkillType.장사꾼, SkillType.도박사, SkillType.메테오,
         SkillType.네크로맨서, SkillType.덫, SkillType.백의결속,
     });
 
@@ -142,8 +142,8 @@ public class UserSkillFactory
             case SkillType.흑의결속: result = new BlackUnitUpgrade(skillBattleData); break;
             case SkillType.상대색깔변경: result = new ColorChange(skillBattleData); break;
             case SkillType.고기혐오자: result = new FoodHater(skillBattleData); break;
-            case SkillType.판매보상증가: result = new SellUpgrade(skillBattleData); break;
-            case SkillType.장사꾼: result = new GamblerController(skillBattleData, container.GetService<BattleUI_Mediator>()); break;
+            case SkillType.장사꾼: result = new SellUpgrade(skillBattleData); break;
+            case SkillType.도박사: result = new GamblerController(skillBattleData, container.GetService<BattleUI_Mediator>()); break;
             case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>()); break;
             case SkillType.네크로맨서:
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>()); break;

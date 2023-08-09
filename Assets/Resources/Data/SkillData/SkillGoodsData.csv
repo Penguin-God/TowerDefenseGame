@@ -3,7 +3,7 @@
 흑의결속,Main,Iron,흑의 결속,검은유닛 쎄짐,Sprites/BlackUnitUpgrade,기사: {%At70} -> {data},궁수: {%At71} -> {data},창병: {%At72} -> {data},법사: {%At73} -> {data}
 황금빛기사,Main,Iron,황금빛 기사,노란기사 조합 골드 증가,Sprites/YellowSwordmanUpgrade,노란기사 조합 골드 1 -> {data},,,
 컬러마스터,Main,Iron,컬러 마스터,"유닛 뽑기 시 빨강, 파랑, 노랑, 주황, 초록, 보라 색깔의 기사를 소환할 수 있습니다.",Sprites/ColorMaster,,,,
-장사꾼,Main,Iron,장사꾼,유닛 업그레이드 상점의 가격이 변화합니다,Sprites/DiscountMerchant,리롤 비용 2 -> {data},유닛 공격력 증가 비용 2 -> {data},,
+도박사,Main,Iron,도박사,유닛 업그레이드 상점의 가격이 변화합니다,Sprites/DiscountMerchant,리롤 비용 2 -> {data},유닛 공격력 증가 비용 2 -> {data},,
 메테오,Main,Iron,메테오,빨간 기사를 소환하면 메테오가 떨어집니다. 메테오의 대미지는 빨간 유닛을 조합에 사용할 때마다 증가하는 스택에 비례하여 증가합니다.,Sprites/CombineMeteor,기본 대미지 : {data},스턴 시간 : 스택 * {data},스택당 추가 대미지 : {data},
 네크로맨서,Main,Iron,네크로맨서,적을 특정 수만큼 처치하면 보라 기사를 소환합니다,Sprites/Necromancer,필요 처치 수 : {data},,,
 마창사,Main,Iron,마창사,창병이 마법이 부여된 창을 날립니다,Sprites/MagicSpearman,창 대미지 {data}배 증가,,,
@@ -12,7 +12,7 @@
 ,,,,,,,,,
 ,,,,,,,,,
 고기혐오자,Sub,Iron,고기혐오자,"획득하는 모든 고기가 골드로 바뀝니다. 또한, 고기로 구매할 수 있는 물픔은 골드로 구매할 수 있도록 바뀝니다.",Sprites/FoodUpgrade,고기 획득 시 골드 변환 비율 {data},상점 물품 비율 변환{data},,
-판매보상증가,Sub,Iron,판매보상증가,유닛 판매 보상이 증가합니다.,Sprites/SellRewardUpgrade,기사: 1 -> {data},궁수: 4 -> {data},창병: 30 -> {data},법사: 80 -> {data}
+장사꾼,Sub,Iron,장사꾼,유닛 판매 보상이 증가합니다.,Sprites/SellRewardUpgrade,기사: 1 -> {data},궁수: 4 -> {data},창병: 30 -> {data},법사: 80 -> {data}
 보스데미지증가,Sub,Iron,보스데미지증가,모든 유닛의 보스 공격력이 증가합니다.,Sprites/BossDamageUpgrade,{data}배 증가,,,
 시작골드증가,Sub,Iron,시작 골드 증가,시작 골드가 증가합니다,Sprites/GoldUpgrade,{data}원 추가 획득,,,
 시작고기증가,Sub,Iron,시작 고기 증가,시작 고기가 증가합니다,Sprites/FoodUpgrade,{data}개 추가 획득,,,

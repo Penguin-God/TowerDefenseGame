@@ -23,8 +23,8 @@ public class TutorialScene : BaseScene
     MultiData<SkillBattleDataContainer> CreateTutorialSKillData()
     {
         var result = new MultiData<SkillBattleDataContainer>();
-        result.SetData(PlayerIdManager.Id, CreateSKillData(SkillType.태극스킬, SkillType.판매보상증가));
-        result.SetData(PlayerIdManager.EnemyId, CreateSKillData(SkillType.흑의결속, SkillType.판매보상증가));
+        result.SetData(PlayerIdManager.Id, CreateSKillData(SkillType.태극스킬, SkillType.장사꾼));
+        result.SetData(PlayerIdManager.EnemyId, CreateSKillData(SkillType.흑의결속, SkillType.장사꾼));
         return result;
     }
 

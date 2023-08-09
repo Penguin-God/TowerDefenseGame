@@ -54,5 +54,6 @@ public class UI_GamblePanel : UI_Base
             _gambleLevel++;
         Managers.UI.ShowDefualtUI<UI_PopupText>().ShowTextForTime($"{UnitTextPresenter.DecorateBefore(UnitTextPresenter.GetUnitNameWithColor(selectUnitFlag), selectUnitFlag)} »Ì¾Ò½À´Ï´Ù.");
         GetButton((int)Buttons.GachaButton).onClick.RemoveAllListeners();
+        Managers.Sound.PlayEffect(EffectSoundType.DrawSwordman);
     }
 }

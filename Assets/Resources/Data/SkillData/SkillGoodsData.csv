@@ -3,7 +3,7 @@
 흑의결속,Main,Iron,흑의 결속,검은유닛 쎄짐,Sprites/BlackUnitUpgrade,기사: {%At70} -> {data},궁수: {%At71} -> {data},창병: {%At72} -> {data},법사: {%At73} -> {data}
 황금빛기사,Main,Iron,황금빛 기사,노란기사 조합 골드 증가,Sprites/GoldenKnight,노란기사 조합 골드 1 -> {data},,,
 컬러마스터,Main,Iron,컬러 마스터,"유닛 뽑기 시 빨강, 파랑, 노랑, 주황, 초록, 보라 색깔의 기사를 소환할 수 있습니다.",Sprites/ColorMaster,,,,
-도박사,Main,Iron,도박사,유닛 업그레이드 상점의 가격이 변화합니다,Sprites/Gambler,리롤 비용 2 -> {data},유닛 공격력 증가 비용 2 -> {data},,
+도박사,Main,Iron,도박사,"유닛 업그레이드 상점의 가격이 변화하며, 특정 개수만큼 상품을 구매하면 도박이 열립니다.",Sprites/Gambler,리롤 비용 2 -> {data},유닛 공격력 증가 비용 2 -> {data},,
 메테오,Main,Iron,메테오,빨간 기사를 소환하면 메테오가 떨어집니다. 메테오의 대미지는 빨간 유닛을 조합에 사용할 때마다 증가하는 스택에 비례하여 증가합니다.,Sprites/CombineMeteor,기본 대미지 : {data},스턴 시간 : 스택 * {data},스택당 추가 대미지 : {data},
 네크로맨서,Main,Iron,네크로맨서,적을 특정 수만큼 처치하면 보라 기사를 소환합니다,Sprites/Necromancer,필요 처치 수 : {data},,,
 마창사,Main,Iron,마창사,창병이 마법이 부여된 창을 날립니다,Sprites/MagicSpearman,창 대미지 {data}배 증가,,,
@@ -11,11 +11,11 @@
 백의결속,Main,Iron,백의 결속,하얀 유닛이 강화되고 특정 스테이지마다 고기를 획득합니다.,Sprites/PureBoold,기사: {%At60} -> {data},궁수: {%At61} -> {data},창병: {%At62} -> {data},법사: {%At63} -> {data}
 ,,,,,,,,,
 ,,,,,,,,,
-고기혐오자,Sub,Iron,고기혐오자,"획득하는 모든 고기가 골드로 바뀝니다. 또한, 고기로 구매할 수 있는 물픔은 골드로 구매할 수 있도록 바뀝니다.",Sprites/FoodUpgrade,고기 획득 시 골드 변환 비율 {data},상점 물품 비율 변환{data},,
+마나불능,Sub,Iron,마나불능,"마나를 다룰 수 없게 되어 룬을 얻지 못하게 됩니다. 룬 대신 골드를 얻게 되며, 룬 상점은 골드를 사용하도록 바뀝니다.",Sprites/ManaImpotence,룬 획득 시 골드 변환 비율 {data},상점 물품 비율 변환{data},,
 장사꾼,Sub,Iron,장사꾼,유닛 판매 보상이 증가합니다.,Sprites/UnitMerchant,기사: 1 -> {data},궁수: 4 -> {data},창병: 30 -> {data},법사: 80 -> {data}
 거인학살자,Sub,Iron,거인 학살자,모든 유닛의 보스 공격력이 증가합니다.,Sprites/GiantSlayer,{data}배 증가,,,
 시작골드증가,Sub,Iron,시작 골드 증가,시작 골드가 증가합니다,Sprites/GoldUpgrade,{data}원 추가 획득,,,
-시작고기증가,Sub,Iron,시작 고기 증가,시작 고기가 증가합니다,Sprites/FoodUpgrade,{data}개 추가 획득,,,
+마나물약,Sub,Iron,마나 물약,마나 물약을 마셔 룬을 더 많이 소지하고 시작합니다,Sprites/ManaPotion,{data}개 추가 획득,,,
 최대유닛증가,Sub,Iron,시작 최대 유닛 증가,시작 최대 유닛이 증가합니다,Sprites/MaxUnitUpgrade,{data}칸 증가,,,
-상대색깔변경,Sub,Iron,상대색깔변경,하얀 유닛을 소환할 때마다 동일한 클래스의 상대 유닛 중 하나의 색깔이 무작위로 바뀝니다.,Sprites/ChangeColor,,,,
+마나변이,Sub,Iron,마나 변이,하얀 유닛을 소환할 때마다 동일한 클래스의 상대 유닛 중 하나의 마나 흐름을 어지럽혀 색깔을 무작위로 바꿉니다.,Sprites/ManaMutation,,,,
 덫,Sub,Iron,덫,맵에 적을 느려지게 하는 구체를 두 개 소환합니다,Sprites/SlowTrap,기본 슬로우 : {data},스테이지당 슬로우 : {data},최대 슬로우 : {data},

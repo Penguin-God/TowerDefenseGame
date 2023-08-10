@@ -488,4 +488,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _goldImage: {fileID: 21300000, guid: aebcbaf5d1d2146bf9ff69b1b95334d6, type: 3}
-  _foodImage: {fileID: 21300000, guid: 25b6b275757df4f589d23b542f236cb0, type: 3}
+  _foodImage: {fileID: 21300000, guid: 899c3a769121b5f42877e30d2a6d842f, type: 3}

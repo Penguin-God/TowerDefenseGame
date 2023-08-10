@@ -87,7 +87,7 @@ public class UI_Status : UI_Scene
             Managers.Camera.OnIsLookMyWolrd -= (lookMy) => GetObject((int)GameObjects.FoodBar).SetActive(lookMy);
             Managers.Camera.OnIsLookMyWolrd += (lookMy) => GetObject((int)GameObjects.FoodBar).SetActive(lookMy);
 
-            if (Managers.ClientData.EquipSkillManager.EquipSkills.Contains(SkillType.고기혐오자))
+            if (Managers.ClientData.EquipSkillManager.EquipSkills.Contains(SkillType.마나불능))
             {
                 return;
             }

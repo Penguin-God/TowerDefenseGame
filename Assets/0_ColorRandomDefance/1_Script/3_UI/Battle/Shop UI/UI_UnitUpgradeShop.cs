@@ -29,7 +29,7 @@ public class UnitUpgradeShopController
         }
         else
         {
-            _textController.ShowTextForTime($"{new GameCurrencyPresenter().BuildCurrencyTypeText(priceData.CurrencyType)}가 부족해 구매할 수 없습니다.", Color.red);
+            _textController.ShowTextForTime($"{new GameCurrencyPresenter().BuildCurrencyTypeText(priceData.CurrencyType)}이 부족해 구매할 수 없습니다.", Color.red);
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
     }

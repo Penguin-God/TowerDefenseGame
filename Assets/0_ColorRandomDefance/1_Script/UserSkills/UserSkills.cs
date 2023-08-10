@@ -90,13 +90,13 @@ public class UserSkillFactory
 {
     IReadOnlyList<SkillType> SimpleSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>() 
     {
-        SkillType.시작골드증가, SkillType.시작고기증가, SkillType.최대유닛증가, SkillType.황금빛기사, SkillType.컬러마스터, SkillType.거인학살자,
+        SkillType.시작골드증가, SkillType.마나물약, SkillType.최대유닛증가, SkillType.황금빛기사, SkillType.컬러마스터, SkillType.거인학살자,
         // SkillType.흑의결속,
     });
 
     IReadOnlyList<SkillType> ComplexSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
     {
-        SkillType.태극스킬, SkillType.상대색깔변경, SkillType.고기혐오자, SkillType.장사꾼, SkillType.도박사, SkillType.메테오,
+        SkillType.태극스킬, SkillType.마나변이, SkillType.마나불능, SkillType.장사꾼, SkillType.도박사, SkillType.메테오,
         SkillType.네크로맨서, SkillType.덫, SkillType.백의결속, SkillType.흑의결속,
     });
 
@@ -126,7 +126,7 @@ public class UserSkillFactory
         switch (skillBattleData.SkillType)
         {
             case SkillType.시작골드증가: Multi_GameManager.Instance.AddGold(skillBattleData.IntSkillData); break;
-            case SkillType.시작고기증가: Multi_GameManager.Instance.AddFood(skillBattleData.IntSkillData); break;
+            case SkillType.마나물약: Multi_GameManager.Instance.AddFood(skillBattleData.IntSkillData); break;
             case SkillType.최대유닛증가: Multi_GameManager.Instance.IncreasedMaxUnitCount(skillBattleData.IntSkillData); break;
             case SkillType.황금빛기사: Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = skillBattleData.IntSkillData; break;
             case SkillType.컬러마스터: container.GetComponent<SwordmanGachaController>().ChangeUnitSummonMaxColor(UnitColor.Violet); break;
@@ -142,8 +142,8 @@ public class UserSkillFactory
         {
             case SkillType.태극스킬: result = new TaegeukController(skillBattleData); break;
             case SkillType.흑의결속: result = new BlackUnitUpgrade(skillBattleData); break;
-            case SkillType.상대색깔변경: result = new ColorChange(skillBattleData, container.GetComponent<TextShowAndHideController>()); break;
-            case SkillType.고기혐오자: result = new FoodHater(skillBattleData); break;
+            case SkillType.마나변이: result = new ManaMutation(skillBattleData, container.GetComponent<TextShowAndHideController>()); break;
+            case SkillType.마나불능: result = new ManaImpotence(skillBattleData); break;
             case SkillType.장사꾼: result = new UnitMerchant(skillBattleData); break;
             case SkillType.도박사: result = new GamblerController(skillBattleData, container.GetService<BattleUI_Mediator>()); break;
             case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>()); break;
@@ -207,9 +207,9 @@ public class BlackUnitUpgrade : UserSkill
     internal override void InitSkill() => new UnitUpgradeHandler().UpgradeUnit(UnitColor.Black, IntSkillDatas);
 }
 
-public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
+public class ManaMutation : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
 {
-    public ColorChange(UserSkillBattleData userSkillBattleData, TextShowAndHideController textController) : base(userSkillBattleData) 
+    public ManaMutation(UserSkillBattleData userSkillBattleData, TextShowAndHideController textController) : base(userSkillBattleData) 
     {
         colorChanger = Managers.Multi.Instantiater.PhotonInstantiate("RPCObjects/SkillColorChanger", Vector3.one * 500).GetComponent<SkillColorChanger>();
         colorChanger.Inject(textController);
@@ -235,12 +235,12 @@ public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
     bool UnitCountIncreased(UnitFlags flag, int newCount) => newCount > _whiteUnitCounts[flag.ClassNumber];
 }
 
-public class FoodHater : UserSkill
+public class ManaImpotence : UserSkill
 {
-    public FoodHater(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
+    public ManaImpotence(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
 
-    int _rewardRate; // 얻는 고기가 몇 골드로 바뀌는가
-    int _priceRate; // 기존에 고기로 팔던 상품을 몇 배의 골드로 바꿀건가
+    int _rewardRate; // 얻는 룬이 몇 골드로 바뀌는가
+    int _priceRate; // 기존에 룬으로 팔던 상품을 몇 배의 골드로 바꿀건가
     Multi_GameManager _game;
     internal override void InitSkill()
     {
@@ -337,7 +337,8 @@ public class CombineMeteorController : UserSkill
     internal override void InitSkill()
     {
         Managers.Unit.OnCombine += AddStack;
-        Managers.Unit.OnUnitAdd += ShotMeteor;
+        Managers.Unit.OnCombine += CombineMeteor;
+        Managers.Unit.OnUnitAdd += MeteorWhenSpawnRedSwordman;
     }
 
     int MeteorStack => _stackManager.CurrentStack;
@@ -349,10 +350,17 @@ public class CombineMeteorController : UserSkill
     }
 
     readonly UnitFlags RedSwordman = new UnitFlags(0, 0);
-    void ShotMeteor(UnitFlags addUnitFlag)
+    void MeteorWhenSpawnRedSwordman(UnitFlags addUnitFlag)
     {
         if (addUnitFlag == RedSwordman)
             _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(), StunTimePerStack * MeteorStack, MeteorShotPoint);
+    }
+    void ShotMeteor() => _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(), StunTimePerStack * MeteorStack, MeteorShotPoint);
+
+    void CombineMeteor(UnitFlags combineUnitFlag)
+    {
+        if (new UnitCombineSystem(Managers.Data.CombineConditionByUnitFalg).GetNeedFlags(combineUnitFlag).Where(x => x.UnitColor == UnitColor.Red).Count() > 0)
+            ShotMeteor();
     }
 
     readonly int DamagePerStack;

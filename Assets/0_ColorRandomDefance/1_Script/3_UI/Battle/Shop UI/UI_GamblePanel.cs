@@ -26,7 +26,14 @@ public class UI_GamblePanel : UI_Base
         rateTables = Resources.Load<TextAsset>("Data/SkillData/GamblerUnitGachaRate").text.Split('\n').Skip(1).SkipLast(1).ToArray();
     }
 
-    double[] GetRates() => rateTables[_gambleLevel - 1].Split(',').Select(x => x.Trim()).Where(x => string.IsNullOrEmpty(x) == false).Select(x => double.Parse(x)).ToArray();
+    TextShowAndHideController _textController;
+    public void Inject(TextShowAndHideController textController) => _textController = textController;
+
+    double[] GetRates() => rateTables[_gambleLevel - 1]
+        .Split(',')
+        .Select(x => x.Trim())
+        .Where(x => string.IsNullOrEmpty(x) == false)
+        .Select(x => double.Parse(x)).ToArray();
 
     int _gambleLevel = 1;
     public event Action OnGamble = null;
@@ -52,7 +59,7 @@ public class UI_GamblePanel : UI_Base
         OnGamble?.Invoke();
         if(rateTables.Length > _gambleLevel)
             _gambleLevel++;
-        Managers.UI.ShowDefualtUI<UI_PopupText>().ShowTextForTime(BuildGameResultText(selectUnitFlag), new Vector2(0, 100));
+        _textController.ShowTextForTime(BuildGameResultText(selectUnitFlag), new Vector2(0, 100));
         GetButton((int)Buttons.GachaButton).onClick.RemoveAllListeners();
         Managers.Sound.PlayEffect(EffectSoundType.DrawSwordman);
     }

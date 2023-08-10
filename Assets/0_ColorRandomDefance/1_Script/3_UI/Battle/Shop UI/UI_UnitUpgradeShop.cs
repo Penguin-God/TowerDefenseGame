@@ -9,8 +9,13 @@ public class UnitUpgradeShopController
 {
     public event Action<UnitUpgradeGoodsData> OnBuyGoods;
     UnitUpgradeShopData _unitUpgradeShopData;
+    TextShowAndHideController _textController;
 
-    public UnitUpgradeShopController(UnitUpgradeShopData unitUpgradeShopData) => _unitUpgradeShopData = unitUpgradeShopData;
+    public UnitUpgradeShopController(UnitUpgradeShopData unitUpgradeShopData, TextShowAndHideController textController)
+    {
+        _unitUpgradeShopData = unitUpgradeShopData;
+        _textController = textController;
+    }
 
     public void Buy(UnitUpgradeGoodsData upgradeData)
     {
@@ -24,8 +29,7 @@ public class UnitUpgradeShopController
         }
         else
         {
-            Managers.UI.ShowDefualtUI<UI_PopupText>()
-                .ShowTextForTime($"{new GameCurrencyPresenter().BuildCurrencyTypeText(priceData.CurrencyType)}가 부족해 구매할 수 없습니다.", Color.red);
+            _textController.ShowTextForTime($"{new GameCurrencyPresenter().BuildCurrencyTypeText(priceData.CurrencyType)}가 부족해 구매할 수 없습니다.", Color.red);
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
     }
@@ -61,16 +65,24 @@ public class UI_UnitUpgradeShop : UI_Popup
     Dictionary<GoodsLocation, UnitUpgradeGoodsData> _locationByGoods = new Dictionary<GoodsLocation, UnitUpgradeGoodsData>();
     readonly UnitUpgradeGoodsSelector _goodsSelector = new UnitUpgradeGoodsSelector();
     protected UnitUpgradeShopController _buyController;
+    protected TextShowAndHideController _textController;
     protected override void Init()
     {
         base.Init();
         _unitUpgradeShopData = Multi_GameManager.Instance.BattleData.UnitUpgradeShopData;
-        _buyController = new UnitUpgradeShopController(_unitUpgradeShopData);
+        _buyController = new UnitUpgradeShopController(_unitUpgradeShopData, _textController);
 
         InitShopGoodsList();
         _buyController.OnBuyGoods += OnBuyGoods;
         Bind<Button>(typeof(Buttons));
         GetButton((int)Buttons.ResetButton).onClick.AddListener(ResetShop);
+    }
+
+    public bool IsInject { get; private set; } = false;
+    public void Inject(TextShowAndHideController textController)
+    {
+        _textController = textController;
+        IsInject = true;
     }
 
     void InitShopGoodsList()
@@ -126,7 +138,7 @@ public class UI_UnitUpgradeShop : UI_Popup
         }
         else
         {
-            Managers.UI.ShowDefualtUI<UI_PopupText>().ShowTextForTime($"골드가 부족해 구매할 수 없습니다.", Color.red);
+            _textController.ShowTextForTime($"골드가 부족해 구매할 수 없습니다.", Color.red);
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
     }

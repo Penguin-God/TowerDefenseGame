@@ -6,14 +6,16 @@ public class BuildingClickContoller : MonoBehaviour
 {
     BattleUI_Mediator _uiMediator;
     UI_Manager _uiManager;
-    public void Injection(BattleUI_Mediator uiMediator, UI_Manager uiManager)
+    TextShowAndHideController _textController;
+    public void Inject(BattleUI_Mediator uiMediator, UI_Manager uiManager, TextShowAndHideController textController)
     {
         _uiMediator = uiMediator;
         _uiManager = uiManager;
+        _textController = textController;
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0)) // 0은 왼쪽 마우스 버튼을 나타냅니다.
+        if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
@@ -23,10 +25,25 @@ public class BuildingClickContoller : MonoBehaviour
                 if (trigger != null && trigger.OwnerId == PlayerIdManager.Id)
                 {
                     _uiManager.ClosePopupUI();
-                    _uiMediator.ShowPopupUI(trigger.ShowUI_Type);
+                    ShowUI(trigger.ShowUI_Type);
                     // 사운드 필요한가?
                 }
             }
+        }
+    }
+
+    void ShowUI(BattleUI_Type type)
+    {
+        switch (type)
+        {
+            case BattleUI_Type.UnitUpgrdeShop:
+                var ui = _uiMediator.ShowPopupUI<UI_UnitUpgradeShop>(type);
+                if (ui.IsInject == false) 
+                    ui.Inject(_textController);
+                break;
+            case BattleUI_Type.BalckUnitCombineTable:
+            case BattleUI_Type.WhiteUnitShop:
+            case BattleUI_Type.UnitMaxCountExpendShop: _uiMediator.ShowPopupUI(type); break;
         }
     }
 }

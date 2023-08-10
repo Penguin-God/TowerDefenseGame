@@ -28,7 +28,9 @@ public class UI_UnitUpgradeShopWithGamble : UI_UnitUpgradeShop
         Bind<GameObject>(typeof(GameObjects));
         Bind<TextMeshProUGUI>(typeof(Texts));
         _gamblePanel = GetComponentInChildren<UI_GamblePanel>(true);
+        _gamblePanel.Inject(base._textController);
         _gamblePanel.OnGamble += EndGamble;
+
         GetTextMeshPro((int)Texts.GambleStackText).text = $"다음 도박까지 구매해야하는 상품 개수 : {NeedStackForGamble}";
     }
 

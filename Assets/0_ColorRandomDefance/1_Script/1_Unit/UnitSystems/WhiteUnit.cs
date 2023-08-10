@@ -10,6 +10,9 @@ public class WhiteUnit : MonoBehaviourPun
     [SerializeField] float aliveTime;
     Multi_WhiteUnitTimer timer = null;
 
+    TextShowAndHideController _textController;
+    void Awake() => _textController = FindObjectOfType<TextShowAndHideController>();
+
     void OnEnable()
     {
         timer = Managers.Effect.TrackingTarget("WhiteUnitTimer", transform, new Vector3(0, 4, 3)).GetComponent<Multi_WhiteUnitTimer>();
@@ -46,6 +49,6 @@ public class WhiteUnit : MonoBehaviourPun
     void ShowText(UnitFlags previousFlag, UnitFlags changeFlag)
     {
         string text = $"보유 중인 {new UnitColorChangeTextPresenter().GenerateColorChangeResultText(previousFlag, changeFlag)}";
-        Managers.UI.ShowDefualtUI<UI_PopupText>().ShowTextForTime(text);
+        _textController.ShowTextForTime(text);
     }
 }

@@ -36,9 +36,10 @@ public class BattleButton_UI : UI_Scene
         GetButton((int)Buttons.Create_Defenser_Button).onClick.AddListener(SommonUnit);
     }
 
-    public void SetInfo(SwordmanGachaController swordmanGachaController)
+    public void Inject(SwordmanGachaController swordmanGachaController, TextShowAndHideController textShowAndHideController)
     {
         _swordmanGachaController = swordmanGachaController;
+        _textShowAndHideController = textShowAndHideController;
     }
 
     void CameraPositionChanged()
@@ -58,11 +59,12 @@ public class BattleButton_UI : UI_Scene
     }
 
     SwordmanGachaController _swordmanGachaController;
+    TextShowAndHideController _textShowAndHideController;
     void SommonUnit()
     {
         if (Multi_GameManager.Instance.UnitOver)
         {
-            Managers.UI.ShowDefualtUI<UI_PopupText>().ShowTextForTime("유닛 공간이 부족해 소환할 수 없습니다.", Color.red);
+            _textShowAndHideController.ShowTextForTime("유닛 공간이 부족해 소환할 수 없습니다.", Color.red);
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
             return;
         }

@@ -72,22 +72,25 @@ public class BattleDIContainerInitializer
         container.AddComponent<MeteorController>();
         container.AddComponent<MultiEffectManager>();
         container.AddComponent<BuildingClickContoller>();
+        container.AddComponent<TextShowAndHideController>();
 
         container.AddService(new BattleUI_Mediator(Managers.UI));
     }
 
     void InjectService(BattleDIContainer container)
     {
-        container.GetComponent<WinOrLossController>().Init(dispatcher);
+        container.GetComponent<WinOrLossController>().Inject(dispatcher, container.GetComponent<TextShowAndHideController>());
         container.GetComponent<OpponentStatusSender>().Init(dispatcher);
         container.GetComponent<SwordmanGachaController>().Init(game, data.BattleDataContainer.UnitSummonData);
         container.GetComponent<CurrencyManagerMediator>().Init(game);
         container.GetComponent<UnitMaxCountController>().Init(null, game);
         container.GetComponent<MonsterManagerProxy>().Init(dispatcher);
         container.GetComponent<MultiEffectManager>().Inject(Managers.Effect);
-        container.GetComponent<BuildingClickContoller>().Injection(container.GetService<BattleUI_Mediator>(), Managers.UI);
+        container.GetComponent<BuildingClickContoller>()
+            .Inject(container.GetService<BattleUI_Mediator>(), Managers.UI, container.GetComponent<TextShowAndHideController>());
+        container.GetComponent<TextShowAndHideController>().Inject(Managers.UI);
 
-        new UnitCombineNotifier(Managers.UI).Init(Managers.Unit);
+        new UnitCombineNotifier(Managers.Unit, container.GetComponent<TextShowAndHideController>());
     }
 
 
@@ -117,7 +120,7 @@ public class BattleDIContainerInitializer
 
     void Init_UI(BattleDIContainer container)
     {
-        Managers.UI.ShowSceneUI<BattleButton_UI>().SetInfo(container.GetComponent<SwordmanGachaController>());
+        Managers.UI.ShowSceneUI<BattleButton_UI>().Inject(container.GetComponent<SwordmanGachaController>(), container.GetComponent<TextShowAndHideController>());
         Managers.UI.ShowSceneUI<UI_Status>().Injection(container.GetService<BattleEventDispatcher>(), container.GetMultiActiveSkillData());
         var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();
         enemySelector.SetInfo(container.GetComponent<EnemySpawnNumManager>());

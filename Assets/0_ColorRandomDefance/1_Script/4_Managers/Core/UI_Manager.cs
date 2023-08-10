@@ -45,7 +45,7 @@ public class UI_Manager
             SetSotingOrder(canvas);
     }
 
-    void SetSotingOrder(Canvas canvas)
+    public void SetSotingOrder(Canvas canvas)
     {
         canvas.sortingOrder = _order;
         _order++;

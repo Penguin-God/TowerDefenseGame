@@ -4,8 +4,9 @@ using Photon.Pun;
 
 public class WinOrLossController : MonoBehaviourPun
 {
-    public void Init(BattleEventDispatcher dispatcher)
+    public void Inject(BattleEventDispatcher dispatcher, TextShowAndHideController textController)
     {
+        _textController = textController;
         if (PhotonNetwork.IsMasterClient == false) return;
         dispatcher.OnMonsterCountChanged -= CheckMasterOver;
         dispatcher.OnMonsterCountChanged += CheckMasterOver;
@@ -48,11 +49,11 @@ public class WinOrLossController : MonoBehaviourPun
         StartCoroutine(Co_AfterReturnLobby());
     }
 
-    void ShowGameEndText(string msg)
+    TextShowAndHideController _textController;
+    void ShowGameEndText(string text)
     {
-        var ui = Managers.UI.ShowDefualtUI<UI_PopupText>();
-        ui.ShowTextForTime(msg, Color.red);
-        ui.OnRaycastTarget();
+        // UI 배리어
+        _textController.ShowText(text, Color.red);
     }
 
     IEnumerator Co_AfterReturnLobby()

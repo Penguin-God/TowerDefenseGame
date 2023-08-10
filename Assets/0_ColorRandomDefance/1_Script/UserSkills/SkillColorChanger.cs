@@ -6,7 +6,10 @@ using System.Linq;
 
 public class SkillColorChanger : MonoBehaviourPun
 {
+    TextShowAndHideController _textController;
     readonly UnitColorChangeTextPresenter _textPresenter = new UnitColorChangeTextPresenter();
+    public void Inject(TextShowAndHideController textController) => _textController = textController;
+
     public void ColorChangeSkill(UnitClass targetClass)
         => photonView.RPC(nameof(ColorChangeSkill), RpcTarget.MasterClient, PlayerIdManager.EnemyId, targetClass);
 
@@ -55,6 +58,6 @@ public class SkillColorChanger : MonoBehaviourPun
     [PunRPC] 
     void PopupText(string text)
     {
-        Managers.UI.ShowDefualtUI<UI_PopupText>().ShowTextForTime(text);
+        _textController.ShowTextForTime(text);
     }
 }

@@ -140,7 +140,7 @@ public class UserSkillFactory
         {
             case SkillType.태극스킬: result = new TaegeukController(skillBattleData); break;
             case SkillType.흑의결속: result = new BlackUnitUpgrade(skillBattleData); break;
-            case SkillType.상대색깔변경: result = new ColorChange(skillBattleData); break;
+            case SkillType.상대색깔변경: result = new ColorChange(skillBattleData, container.GetComponent<TextShowAndHideController>()); break;
             case SkillType.고기혐오자: result = new FoodHater(skillBattleData); break;
             case SkillType.장사꾼: result = new SellUpgrade(skillBattleData); break;
             case SkillType.도박사: result = new GamblerController(skillBattleData, container.GetService<BattleUI_Mediator>()); break;
@@ -207,7 +207,11 @@ public class BlackUnitUpgrade : UserSkill
 
 public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
 {
-    public ColorChange(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
+    public ColorChange(UserSkillBattleData userSkillBattleData, TextShowAndHideController textController) : base(userSkillBattleData) 
+    {
+        colorChanger = Managers.Multi.Instantiater.PhotonInstantiate("RPCObjects/SkillColorChanger", Vector3.one * 500).GetComponent<SkillColorChanger>();
+        colorChanger.Inject(textController);
+    }
 
     int[] _whiteUnitCounts = new int[4];
     public event Action<byte, byte> OnUnitColorChanaged; // 변하기 전 색깔, 변한 후 색깔
@@ -215,7 +219,6 @@ public class ColorChange : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
     internal override void InitSkill()
     {
         Managers.Unit.OnUnitCountChangeByFlag += UseSkill;
-        colorChanger = Managers.Multi.Instantiater.PhotonInstantiate("RPCObjects/SkillColorChanger", Vector3.one * 500).GetComponent<SkillColorChanger>();
     }
 
     void UseSkill(UnitFlags flag, int newCount)

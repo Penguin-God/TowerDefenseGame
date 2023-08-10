@@ -17,5 +17,6 @@ public class BattleUI_Mediator
     public BattleUI_Mediator(UI_Manager uiManager) => _uiManager = uiManager;
 
     public void RegisterUI(BattleUI_Type type, string path) => _pathBybattleUIType[type] = path;
+    public T ShowPopupUI<T>(BattleUI_Type type) where T : UI_Popup => _uiManager.ShowPopupUI<T>(_pathBybattleUIType[type]);
     public void ShowPopupUI(BattleUI_Type type) => _uiManager.ShowPopupUI<UI_Popup>(_pathBybattleUIType[type]);
 }

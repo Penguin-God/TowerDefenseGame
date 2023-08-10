@@ -59,7 +59,7 @@ public static class BattleSkillDataCreater
 
 public abstract class UserSkill
 {
-    protected UserSkillBattleData UserSkillBattleData { get; private set; }
+    public UserSkillBattleData UserSkillBattleData { get; private set; }
     public UserSkill(UserSkillBattleData userSkillBattleData) => UserSkillBattleData = userSkillBattleData;
 
     internal abstract void InitSkill();
@@ -90,13 +90,14 @@ public class UserSkillFactory
 {
     IReadOnlyList<SkillType> SimpleSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>() 
     {
-        SkillType.시작골드증가, SkillType.시작고기증가, SkillType.최대유닛증가, SkillType.황금빛기사, SkillType.컬러마스터, SkillType.보스데미지증가, SkillType.마창사, SkillType.썬콜 
+        SkillType.시작골드증가, SkillType.시작고기증가, SkillType.최대유닛증가, SkillType.황금빛기사, SkillType.컬러마스터, SkillType.보스데미지증가,
+        // SkillType.흑의결속,
     });
 
     IReadOnlyList<SkillType> ComplexSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
     {
-        SkillType.태극스킬, SkillType.흑의결속, SkillType.상대색깔변경, SkillType.고기혐오자, SkillType.장사꾼, SkillType.도박사, SkillType.메테오,
-        SkillType.네크로맨서, SkillType.덫, SkillType.백의결속,
+        SkillType.태극스킬, SkillType.상대색깔변경, SkillType.고기혐오자, SkillType.장사꾼, SkillType.도박사, SkillType.메테오,
+        SkillType.네크로맨서, SkillType.덫, SkillType.백의결속, SkillType.흑의결속,
     });
 
     IReadOnlyList<SkillType> ExistSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
@@ -130,6 +131,7 @@ public class UserSkillFactory
             case SkillType.황금빛기사: Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = skillBattleData.IntSkillData; break;
             case SkillType.컬러마스터: container.GetComponent<SwordmanGachaController>().ChangeUnitSummonMaxColor(UnitColor.Violet); break;
             case SkillType.보스데미지증가: MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(skillBattleData.SkillData, UnitStatType.BossDamage); break;
+            // case SkillType.흑의결속: new UnitUpgradeHandler().UpgradeUnit(UnitColor.Black, skillBattleData.IntSkillDatas); break;
         }
     }
 
@@ -142,14 +144,14 @@ public class UserSkillFactory
             case SkillType.흑의결속: result = new BlackUnitUpgrade(skillBattleData); break;
             case SkillType.상대색깔변경: result = new ColorChange(skillBattleData, container.GetComponent<TextShowAndHideController>()); break;
             case SkillType.고기혐오자: result = new FoodHater(skillBattleData); break;
-            case SkillType.장사꾼: result = new SellUpgrade(skillBattleData); break;
+            case SkillType.장사꾼: result = new UnitMerchant(skillBattleData); break;
             case SkillType.도박사: result = new GamblerController(skillBattleData, container.GetService<BattleUI_Mediator>()); break;
             case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>()); break;
             case SkillType.네크로맨서:
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>()); break;
             case SkillType.덫:
                 result = new SlowTrapSpawner(skillBattleData, Multi_Data.instance.GetEnemyTurnPoints(PlayerIdManager.Id) ,container.GetEventDispatcher()); break;
-            case SkillType.백의결속: result = new PureBlood(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance); break;
+            case SkillType.백의결속: result = new BondofWhite(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance); break;
             default: result = null; break;
         }
         result.InitSkill();
@@ -275,9 +277,9 @@ public class FoodHater : UserSkill
     }
 }
 
-public class SellUpgrade : UserSkill
+public class UnitMerchant : UserSkill
 {
-    public SellUpgrade(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
+    public UnitMerchant(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
     internal override void InitSkill()
     {
         // 유닛 판매 보상 증가 (유닛별로 증가폭 별도)
@@ -447,14 +449,14 @@ public class SlowTrapSpawner : UserSkill
     float CalculateTrapSlow(int stage) => Mathf.Min(DefaultSlowRate + (stage * SlowRatePerStage), MaxSlowRate);
 }
 
-public class PureBlood : UserSkill
+public class BondofWhite : UserSkill
 {
     BattleEventDispatcher _dispatcher;
     Multi_GameManager _game;
     readonly int[] _upgradeDamages;
     readonly int NeedUpStageForGetFood;
     readonly int RewardFoodWhenStageUp;
-    public PureBlood(UserSkillBattleData userSkillBattleData, BattleEventDispatcher dispatcher, Multi_GameManager game) : base(userSkillBattleData) 
+    public BondofWhite(UserSkillBattleData userSkillBattleData, BattleEventDispatcher dispatcher, Multi_GameManager game) : base(userSkillBattleData) 
     {
         _dispatcher = dispatcher;
         _game = game;

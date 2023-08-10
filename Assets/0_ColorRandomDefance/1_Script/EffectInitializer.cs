@@ -15,12 +15,10 @@ public class EffectInitializer : MonoBehaviourPun
             if (taegeuk != null)
                 taegeuk.OnTaegeukDamageChanged += TaeguekEffect_RPC;
 
-            var blackUnitUp = skill as BlackUnitUpgrade;
-            if (blackUnitUp != null)
+            if (skill.UserSkillBattleData.SkillType == SkillType.흑의결속)
                 Managers.Unit.OnUnitCountChangeByFlag += TrackingBalckUnit;
 
-            var bondofWhite = skill as PureBlood;
-            if (bondofWhite != null)
+            if (skill.UserSkillBattleData.SkillType == SkillType.백의결속)
                 Managers.Unit.OnUnitCountChangeByFlag += TrackingWhiteUnit;
         }
     }

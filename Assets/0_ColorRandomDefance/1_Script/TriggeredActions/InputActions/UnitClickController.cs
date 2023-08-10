@@ -6,18 +6,14 @@ public class UnitClickController : MonoBehaviour
 {
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (new InputHandler().MouseClickRayCastHit(out var hit))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            if (Physics.Raycast(ray, out var hit, Mathf.Infinity, LayerMask.GetMask("Unit")))
+            var unit = hit.collider.gameObject.GetComponentInParent<Multi_TeamSoldier>();
+            if (unit != null && unit.UsingID == PlayerIdManager.Id && Managers.Data.UnitWindowDataByUnitFlags.ContainsKey(unit.UnitFlags))
             {
-                var unit = hit.collider.gameObject.GetComponentInParent<Multi_TeamSoldier>();
-                if (unit != null && unit.UsingID == PlayerIdManager.Id && Managers.Data.UnitWindowDataByUnitFlags.ContainsKey(unit.UnitFlags))
-                {
-                    Managers.UI.ClosePopupUI();
-                    GetTrakerSroter().SettingUnitTrackers(unit.UnitFlags);
-                    Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").Show(unit.UnitFlags);
-                }
+                Managers.UI.ClosePopupUI();
+                GetTrakerSroter().SettingUnitTrackers(unit.UnitFlags);
+                Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").Show(unit.UnitFlags);
             }
         }
     }

@@ -15,19 +15,14 @@ public class BuildingClickContoller : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (new InputHandler().MouseClickRayCastHit(out var hit))
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-
-            if (Physics.Raycast(ray, out var hit, Mathf.Infinity, LayerMask.GetMask("ShopUITriggerBuilding")))
+            var trigger = hit.collider.gameObject.GetComponentInParent<ShopTriggerBuilding>();
+            if (trigger != null && trigger.OwnerId == PlayerIdManager.Id)
             {
-                var trigger = hit.collider.gameObject.GetComponentInParent<ShopTriggerBuilding>();
-                if (trigger != null && trigger.OwnerId == PlayerIdManager.Id)
-                {
-                    _uiManager.ClosePopupUI();
-                    ShowUI(trigger.ShowUI_Type);
-                    // 사운드 필요한가?
-                }
+                _uiManager.ClosePopupUI();
+                ShowUI(trigger.ShowUI_Type);
+                // 사운드 필요한가?
             }
         }
     }

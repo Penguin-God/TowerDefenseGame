@@ -97,7 +97,12 @@ public class UI_Manager
         }
     }
 
-    public T ShowDefualtUI<T>(string name = null) where T : UI_Base => ShowUI<T>("Default", name);
+    public T ShowDefualtUI<T>(string name = null) where T : UI_Base
+    {
+        T result = ShowUI<T>("Default", name);
+        SetSotingOrder(result.GetComponent<Canvas>());
+        return result;
+    }
     T ShowUI<T>(string uiType, string name = null, Func<string, GameObject> getObject = null, Transform parent = null) where T : UI_Base
     {
         if (string.IsNullOrEmpty(name)) name = typeof(T).Name;
@@ -108,7 +113,6 @@ public class UI_Manager
         go.gameObject.SetActive(true);
         return ui;
     }
-
 
     public void ClosePopupUI()
     {

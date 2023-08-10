@@ -52,8 +52,10 @@ public class UI_GamblePanel : UI_Base
         OnGamble?.Invoke();
         if(rateTables.Length > _gambleLevel)
             _gambleLevel++;
-        Managers.UI.ShowDefualtUI<UI_PopupText>().ShowTextForTime($"{UnitTextPresenter.DecorateBefore(UnitTextPresenter.GetUnitNameWithColor(selectUnitFlag), selectUnitFlag)} »Ì¾Ò½À´Ï´Ù.");
+        Managers.UI.ShowDefualtUI<UI_PopupText>().ShowTextForTime(BuildGameResultText(selectUnitFlag), new Vector2(0, 100));
         GetButton((int)Buttons.GachaButton).onClick.RemoveAllListeners();
         Managers.Sound.PlayEffect(EffectSoundType.DrawSwordman);
     }
+
+    string BuildGameResultText(UnitFlags flag) => $"{UnitTextPresenter.DecorateBefore(UnitTextPresenter.GetUnitNameWithColor(flag), flag)} »Ì¾Ò½À´Ï´Ù.";
 }

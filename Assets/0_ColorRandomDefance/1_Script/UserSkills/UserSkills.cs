@@ -90,7 +90,7 @@ public class UserSkillFactory
 {
     IReadOnlyList<SkillType> SimpleSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>() 
     {
-        SkillType.시작골드증가, SkillType.시작고기증가, SkillType.최대유닛증가, SkillType.황금빛기사, SkillType.컬러마스터, SkillType.보스데미지증가,
+        SkillType.시작골드증가, SkillType.시작고기증가, SkillType.최대유닛증가, SkillType.황금빛기사, SkillType.컬러마스터, SkillType.거인학살자,
         // SkillType.흑의결속,
     });
 
@@ -130,7 +130,7 @@ public class UserSkillFactory
             case SkillType.최대유닛증가: Multi_GameManager.Instance.IncreasedMaxUnitCount(skillBattleData.IntSkillData); break;
             case SkillType.황금빛기사: Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = skillBattleData.IntSkillData; break;
             case SkillType.컬러마스터: container.GetComponent<SwordmanGachaController>().ChangeUnitSummonMaxColor(UnitColor.Violet); break;
-            case SkillType.보스데미지증가: MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(skillBattleData.SkillData, UnitStatType.BossDamage); break;
+            case SkillType.거인학살자: MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(skillBattleData.SkillData, UnitStatType.BossDamage); break;
             // case SkillType.흑의결속: new UnitUpgradeHandler().UpgradeUnit(UnitColor.Black, skillBattleData.IntSkillDatas); break;
         }
     }

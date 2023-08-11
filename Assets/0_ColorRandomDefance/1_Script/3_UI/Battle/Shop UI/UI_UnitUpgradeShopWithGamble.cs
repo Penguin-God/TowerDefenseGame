@@ -23,7 +23,7 @@ public class UI_UnitUpgradeShopWithGamble : UI_UnitUpgradeShop
     protected override void Init()
     {
         base.Init();
-        NeedStackForGamble = 10;
+        NeedStackForGamble = 15;
         _buyController.OnBuyGoods += _ => AddStack();
         Bind<GameObject>(typeof(GameObjects));
         Bind<TextMeshProUGUI>(typeof(Texts));

@@ -142,7 +142,6 @@ public class UserSkillFactory
         {
             case SkillType.태극스킬: result = new TaegeukController(skillBattleData); break;
             case SkillType.흑의결속: result = new BlackUnitUpgrade(skillBattleData); break;
-            // case SkillType.마나변이: result = new ManaMutation(skillBattleData, container.GetComponent<TextShowAndHideController>()); break;
             case SkillType.마나변이: result = new ManaMutation(skillBattleData, container.GetComponent<SkillColorChanger>()); break;
             case SkillType.마나불능: result = new ManaImpotence(skillBattleData); break;
             case SkillType.장사꾼: result = new UnitMerchant(skillBattleData); break;
@@ -210,12 +209,6 @@ public class BlackUnitUpgrade : UserSkill
 
 public class ManaMutation : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
 {
-    public ManaMutation(UserSkillBattleData userSkillBattleData, TextShowAndHideController textController) : base(userSkillBattleData) 
-    {
-        _colorChanger = Managers.Multi.Instantiater.PhotonInstantiate("RPCObjects/SkillColorChanger", Vector3.one * 500).GetComponent<SkillColorChanger>();
-        _colorChanger.Inject(textController);
-    }
-
     int[] _whiteUnitCounts = new int[4];
     public event Action<byte, byte> OnUnitColorChanaged; // 변하기 전 색깔, 변한 후 색깔
     readonly SkillColorChanger _colorChanger;

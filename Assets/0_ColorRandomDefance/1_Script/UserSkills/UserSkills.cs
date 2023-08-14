@@ -10,7 +10,7 @@ public class SkillBattleDataContainer
     public UserSkillBattleData MainSkill { get; private set; }
     public UserSkillBattleData SubSkill{ get; private set; }
     readonly Dictionary<UserSkillClass, UserSkillBattleData> BattleDataBySKillType = new Dictionary<UserSkillClass, UserSkillBattleData>();
-    public IEnumerable<SkillType> EquipSKills => BattleDataBySKillType.Values.Select(x => x.SkillType);
+    public IEnumerable<SkillType> AllSKills => BattleDataBySKillType.Values.Select(x => x.SkillType);
 
     public void ChangeEquipSkill(UserSkillBattleData newData)
     {
@@ -142,7 +142,8 @@ public class UserSkillFactory
         {
             case SkillType.태극스킬: result = new TaegeukController(skillBattleData); break;
             case SkillType.흑의결속: result = new BlackUnitUpgrade(skillBattleData); break;
-            case SkillType.마나변이: result = new ManaMutation(skillBattleData, container.GetComponent<TextShowAndHideController>()); break;
+            // case SkillType.마나변이: result = new ManaMutation(skillBattleData, container.GetComponent<TextShowAndHideController>()); break;
+            case SkillType.마나변이: result = new ManaMutation(skillBattleData, container.GetComponent<SkillColorChanger>()); break;
             case SkillType.마나불능: result = new ManaImpotence(skillBattleData); break;
             case SkillType.장사꾼: result = new UnitMerchant(skillBattleData); break;
             case SkillType.도박사: result = new GamblerController(skillBattleData, container.GetService<BattleUI_Mediator>()); break;
@@ -211,13 +212,17 @@ public class ManaMutation : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
 {
     public ManaMutation(UserSkillBattleData userSkillBattleData, TextShowAndHideController textController) : base(userSkillBattleData) 
     {
-        colorChanger = Managers.Multi.Instantiater.PhotonInstantiate("RPCObjects/SkillColorChanger", Vector3.one * 500).GetComponent<SkillColorChanger>();
-        colorChanger.Inject(textController);
+        _colorChanger = Managers.Multi.Instantiater.PhotonInstantiate("RPCObjects/SkillColorChanger", Vector3.one * 500).GetComponent<SkillColorChanger>();
+        _colorChanger.Inject(textController);
     }
 
     int[] _whiteUnitCounts = new int[4];
     public event Action<byte, byte> OnUnitColorChanaged; // 변하기 전 색깔, 변한 후 색깔
-    SkillColorChanger colorChanger;
+    readonly SkillColorChanger _colorChanger;
+
+    public ManaMutation(UserSkillBattleData userSkillBattleData, SkillColorChanger colorChanger) : base(userSkillBattleData)
+        => _colorChanger = colorChanger;
+
     internal override void InitSkill()
     {
         Managers.Unit.OnUnitCountChangeByFlag += UseSkill;
@@ -228,7 +233,7 @@ public class ManaMutation : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직�
         if (flag.UnitColor != UnitColor.White) return;
 
         if (UnitCountIncreased(flag, newCount))
-            colorChanger.ColorChangeSkill(flag.UnitClass);
+            _colorChanger.ColorChangeSkill(flag.UnitClass);
         _whiteUnitCounts[flag.ClassNumber] = newCount;
     }
 

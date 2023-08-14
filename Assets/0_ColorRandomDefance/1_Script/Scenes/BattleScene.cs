@@ -49,7 +49,7 @@ class UserSkillInitializer
     public IEnumerable<UserSkill> InitUserSkill(BattleDIContainer container, SkillBattleDataContainer skillData)
     {
         List<UserSkill> userSkills = new List<UserSkill>();
-        foreach (var skillType in skillData.EquipSKills)
+        foreach (var skillType in skillData.AllSKills)
         {
             if (skillType == SkillType.None)
                 continue;

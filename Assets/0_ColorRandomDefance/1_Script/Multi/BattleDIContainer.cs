@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System;
-using System.IO;
-using System.Net.NetworkInformation;
+using System.Linq;
 
 public class BattleDIContainer
 {
@@ -54,7 +53,7 @@ public class BattleDIContainerInitializer
         InitManagers(container);
         InjectionOnlyMaster(container);
 
-        container.GetComponent<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(container, multiSKillData.GetData(PlayerIdManager.Id)));
+        InitSkill(container);
         Done(container); // 꼭 마지막에 해야 하는 것들
     }
 
@@ -144,6 +143,25 @@ public class BattleDIContainerInitializer
         Multi_SpawnManagers.TowerEnemy.rpcOnDead += () => sound.PlayEffect(EffectSoundType.TowerDieClip);
 
         StageManager.Instance.OnUpdateStage += (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);
+    }
+
+    void InitSkill(BattleDIContainer container)
+    {
+        MultiData<SkillBattleDataContainer> multiSkllData = container.GetMultiActiveSkillData();
+
+        var allPlayerSkillTypes = multiSkllData.Services.SelectMany(skillData => skillData.AllSKills).Distinct();
+
+        foreach (var skill in allPlayerSkillTypes)
+        {
+            switch (skill) 
+            {
+                case SkillType.마나변이:
+                    container.AddComponent<SkillColorChanger>().Inject(container.GetComponent<TextShowAndHideController>()); break;
+            }   
+        }
+
+        var mySkills = new UserSkillInitializer().InitUserSkill(container, multiSkllData.GetData(PlayerIdManager.Id));
+        container.GetComponent<EffectInitializer>().SettingEffect(mySkills);
     }
 
     void Done(BattleDIContainer container)

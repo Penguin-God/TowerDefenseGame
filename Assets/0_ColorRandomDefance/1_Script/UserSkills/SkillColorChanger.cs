@@ -16,7 +16,10 @@ public class SkillColorChanger : MonoBehaviourPun
     [PunRPC]
     void ColorChangeSkill(byte targetID, UnitClass targetClass)
     {
-        var target = MultiServiceMidiator.Server.GetUnits(targetID).Where(x => x.UnitClass == targetClass).FirstOrDefault();
+        var target = MultiServiceMidiator.Server
+            .GetUnits(targetID)
+            .Where(x => x.UnitClass == targetClass && UnitFlags.NormalColors.Contains(x.UnitColor))
+            .FirstOrDefault();
         if (target == null)
         {
             RPCFaildText(targetID);

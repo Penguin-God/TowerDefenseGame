@@ -74,7 +74,7 @@ public class EffectInitializer : MonoBehaviourPun
     void SetUnitTrackingEffects(UnitFlags flag, byte id)
     {
         var targets = MultiServiceMidiator.Server.GetUnits(id).Where(x => x.UnitFlags == flag && _unitReinforceEffectDrawer.IsTracking(x.transform) == false);
-
+        
         foreach (var target in targets)
         {
             _unitReinforceEffectDrawer.SetUnitReinforceEffect(target);
@@ -118,8 +118,9 @@ class UnitReinforceEffectDrawer
 
     public void CancleTracking(Transform target)
     {
-        Managers.Effect.CancleTracking(_targetByTrackers[target.transform]);
-        _targetByTrackers.Remove(target.transform);
+        if (IsTracking(target) == false) return;
+        Managers.Effect.CancleTracking(_targetByTrackers[target]);
+        _targetByTrackers.Remove(target);
     }
 
     string GetUnitTarckerName(UnitColor unitColor)

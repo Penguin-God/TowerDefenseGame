@@ -23,7 +23,6 @@ public class UI_UnitUpgradeShopWithGamble : UI_UnitUpgradeShop
     protected override void Init()
     {
         base.Init();
-        NeedStackForGamble = 15;
         _buyController.OnBuyGoods += _ => AddStack();
         Bind<GameObject>(typeof(GameObjects));
         Bind<TextMeshProUGUI>(typeof(Texts));
@@ -33,6 +32,8 @@ public class UI_UnitUpgradeShopWithGamble : UI_UnitUpgradeShop
 
         GetTextMeshPro((int)Texts.GambleStackText).text = $"다음 도박까지 구매해야하는 상품 개수 : {NeedStackForGamble}";
     }
+
+    public void SetNeedStackForGamble(int needStack) => NeedStackForGamble = needStack;
 
     void AddStack()
     {

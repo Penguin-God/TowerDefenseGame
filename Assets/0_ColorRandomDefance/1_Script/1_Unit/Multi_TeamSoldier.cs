@@ -21,6 +21,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     protected int Damage => _unit.DamageInfo.ApplyDamage;
     protected int BossDamage => _unit.DamageInfo.ApplyBossDamage;
+    public void UpdateDamageInfo(UnitDamageInfo newInfo) => _unit.UpdateDamageInfo(newInfo);
     public float Speed { get => _stat.Speed; set => _stat.SetSpeed(value); }
     public float AttackDelayTime { get => _stat.AttackDelayTime; set => _stat.SetAttDelayTime(value); }
     public float AttackRange => _stat.AttackRange;
@@ -57,6 +58,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     void Awake()
     {
+        // passive = UnitPassive.CreatePassive();
+
         // 변수 선언
         passive = GetComponent<Multi_UnitPassive>();
         rpcable = GetComponent<RPCable>();
@@ -118,9 +121,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         SetPassive();
         Speed = speed;
     }
-
-
-    public void UpdateDamageInfo(UnitDamageInfo newInfo) => _unit.UpdateDamageInfo(newInfo);
 
     void OnEnable()
     {

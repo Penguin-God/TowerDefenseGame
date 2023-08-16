@@ -2,7 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using Photon.Realtime;
+
+public enum UnitPassvieType
+{
+    Attack,
+    Upgrade,
+}
 
 abstract public class Multi_UnitPassive : MonoBehaviourPun
 {
@@ -15,4 +20,17 @@ abstract public class Multi_UnitPassive : MonoBehaviourPun
     protected abstract void ApplyData();
 
     public abstract void SetPassive(Multi_TeamSoldier _team);
+}
+
+public abstract class UnitPassive
+{
+    public readonly UnitPassvieType PassvieType;
+    public void DoUnitPassive(Unit unit) => CreatePassive(unit.UnitFlags).DoUnitPassive(unit);
+
+    protected abstract void DoPassive();
+
+    UnitPassive CreatePassive(UnitFlags unitFlags)
+    {
+        return null;
+    }
 }

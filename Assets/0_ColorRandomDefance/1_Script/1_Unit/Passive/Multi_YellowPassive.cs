@@ -8,7 +8,7 @@ public class Multi_YellowPassive : Multi_UnitPassive
     [SerializeField] int apply_AddGold;
     RPCable rpcable;
 
-    public override void SetPassive(Multi_TeamSoldier _team) 
+    public override void SetPassive(Multi_TeamSoldier _team)
     {
         rpcable = GetComponent<RPCable>();
         _team.OnPassiveHit -= enemy => Passive_Yellow(apply_AddGold, apply_GetGoldPercent);

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MonsterSpeedManager : MonoBehaviour
 {
-    protected SpeedManager SpeedManager { get; private set; }
+    public SpeedManager SpeedManager { get; private set; }
     public Action OnRestoreSpeed;
     public void SetSpeed(float originSpeed) => SpeedManager = new SpeedManager(originSpeed);
 
@@ -23,11 +23,14 @@ public class MonsterSpeedManager : MonoBehaviour
         StopCoroutine(nameof(Co_RestoreSpeed));
         StartCoroutine(nameof(Co_RestoreSpeed), slowTime);
     }
-
+    public void RestoreSpeed()
+    {
+        SpeedManager.RestoreSpeed();
+        OnRestoreSpeed?.Invoke();
+    }
     IEnumerator Co_RestoreSpeed(float slowTime)
     {
         yield return new WaitForSeconds(slowTime);
-        SpeedManager.RestoreSpeed();
-        OnRestoreSpeed?.Invoke();
+        RestoreSpeed();
     }
 }

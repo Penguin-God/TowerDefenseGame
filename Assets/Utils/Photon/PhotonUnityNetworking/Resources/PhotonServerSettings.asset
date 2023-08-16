@@ -164,6 +164,8 @@ MonoBehaviour:
   - CallFlat_Y_Throw
   - ThrowFlatY
   - AddUnit
+  - DecorateMonster
+  - InjectMonster
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

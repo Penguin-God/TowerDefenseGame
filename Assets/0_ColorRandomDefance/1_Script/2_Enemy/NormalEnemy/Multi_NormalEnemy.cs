@@ -64,8 +64,16 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     public void Inject(SpeedManager speedManager, int hp)
     {
-        SpeedManager = speedManager;
+        // SpeedManager = speedManager;
         photonView.RPC(nameof(SetStatus), RpcTarget.All, hp, SpeedManager.OriginSpeed, false);
+    }
+
+    public void Inject(int hp)
+    {
+        MonsterSpeedManager = GetComponent<MonsterSpeedManager>();
+        MonsterSpeedManager.OnRestoreSpeed -= RestoreSpeed;
+        MonsterSpeedManager.OnRestoreSpeed += RestoreSpeed;
+        SetStatus(hp, SpeedManager.OriginSpeed, false);
     }
 
     readonly Vector3[] _spawnPositons = new Vector3[]
@@ -110,7 +118,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected override void ResetValue()
     {
         base.ResetValue();
-        SpeedManager = null;
+        // SpeedManager = null;
         isResurrection = false;
         spawnStage = 0;
         sternEffect.SetActive(false);
@@ -119,10 +127,9 @@ public class Multi_NormalEnemy : Multi_Enemy
         transform.rotation = Quaternion.identity;
         _stunCount = 0;
         _speed = 0;
-        StopCoroutine(nameof(Co_RestoreSpeed));
     }
 
-    protected SpeedManager SpeedManager { get; private set; }
+    protected SpeedManager SpeedManager => MonsterSpeedManager.SpeedManager;
     protected MonsterSpeedManager MonsterSpeedManager { get; private set; }
 
     public float Speed => IsStun ? 0 : _speed;
@@ -139,40 +146,20 @@ public class Multi_NormalEnemy : Multi_Enemy
     public override void OnSlow(float slowRate, float slowTime)
     {
         if (RPCSendable == false) return;
-        SpeedManager.OnSlow(slowRate);
-        ApplySlowToAll(slowTime);
+        photonView.RPC(nameof(ApplySlow), RpcTarget.All, slowRate, slowTime);
     }
 
-    void ApplySlowToAll(float slowTime)
-    {
-        if (RPCSendable == false) return;
-        photonView.RPC(nameof(ApplySlow), RpcTarget.All, SpeedManager.CurrentSpeed);
-        ApplySlowTime(slowTime);
-    }
     [PunRPC]
-    protected void ApplySlow(float newSpeed)
+    protected void ApplySlow(float slowRate, float slowTime)
     {
-        _speed = newSpeed;
+        _speed = MonsterSpeedManager.OnSlow(slowRate, slowTime);
         ChangeVelocity(dir);
         ChangeColorToSlow();
-    }
-
-    void ApplySlowTime(float slowTime)
-    {
-        StopCoroutine(nameof(Co_RestoreSpeed));
-        StartCoroutine(nameof(Co_RestoreSpeed), slowTime);
-    }
-
-    IEnumerator Co_RestoreSpeed(float slowTime)
-    {
-        yield return new WaitForSeconds(slowTime);
-        RestoreSpeedToAll();
     }
 
     public void RestoreSpeedToAll()
     {
         if (RPCSendable == false) return;
-        SpeedManager.RestoreSpeed();
         photonView.RPC(nameof(RestoreSpeed), RpcTarget.All);
     }
 

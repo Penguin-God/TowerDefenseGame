@@ -3,24 +3,50 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class NormalMonsterSpawner
+public class NormalMonsterSpawner : MonoBehaviourPun
 {
     SpeedManagerCreater _speedManagerCreater;
     public NormalMonsterSpawner(SpeedManagerCreater speedManagerCreater) => _speedManagerCreater = speedManagerCreater;
+
+    MonsterDecorator _monsterDecorator;
+    public void Inject(MonsterDecorator monsterDecorator) => _monsterDecorator = monsterDecorator;
 
     public Multi_NormalEnemy SpawnMonster(byte num, byte id, int stage)
     {
         var monster = Managers.Multi.Instantiater.PhotonInstantiateInactive(new ResourcesPathBuilder().BuildMonsterPath(num), id).GetComponent<Multi_NormalEnemy>();
         NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];
-        monster.Inject(_speedManagerCreater.CreateSpeedManager(data.Speed, monster), data.Hp);
+        photonView.RPC(nameof(InjectMonster), RpcTarget.All, data.Hp, data.Speed, monster.GetComponent<PhotonView>().ViewID);
+        // monster.Inject(_speedManagerCreater.CreateMonsterSpeedManager(data.Speed, monster), data.Hp);
         return monster;
+    }
+
+    [PunRPC]
+    void InjectMonster(int hp, float speed, int viewId)
+    {
+        var monster = Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(viewId);
+        _monsterDecorator.DecorateSpeed(speed, monster);
+        monster.Inject(hp);
+    }
+}
+
+public class MonsterDecorator
+{
+    readonly BattleDIContainer _container;
+    public MonsterDecorator(BattleDIContainer container) => _container = container;
+
+    public void DecorateSpeed(float speed, Multi_NormalEnemy monster)
+    {
+        var skillData = _container.GetMultiActiveSkillData().GetData(monster.UsingId);
+        //if (skillData.TruGetSkillData(SkillType.썬콜, out var skillBattleData))
+        //    return new SuncoldSpeedManager(speed, monster, skillBattleData.IntSkillData, _container.GetComponent<MultiEffectManager>());
+        // else return new SpeedManager(speed);
+        monster.gameObject.GetOrAddComponent<MonsterSpeedManager>().SetSpeed(speed);
     }
 }
 
 public class SpeedManagerCreater
 {
     readonly BattleDIContainer _container;
-
     public SpeedManagerCreater(BattleDIContainer container) => _container = container;
 
     public SpeedManager CreateSpeedManager(float speed, Multi_NormalEnemy monster)
@@ -59,12 +85,15 @@ public class MonsterSpawnerContorller : MonoBehaviour
     BattleEventDispatcher _dispatcher;
     NormalMonsterSpawner _monsterSpawner;
     Multi_BossEnemySpawner _bossSpawner;
-    public void Injection(IMonsterManager monsterManager, EnemySpawnNumManager numManager, BattleEventDispatcher dispatcher, NormalMonsterSpawner monsterSpawner)
+
+    public void Inject(BattleDIContainer container)
     {
-        _monsterManager = monsterManager;
-        _numManager = numManager;
-        _dispatcher = dispatcher;
-        _monsterSpawner = monsterSpawner;
+        _monsterManager = container.GetComponent<IMonsterManager>();
+        _numManager = container.GetComponent<EnemySpawnNumManager>();
+        _dispatcher = container.GetEventDispatcher();
+        _monsterSpawner = container.GetComponent<NormalMonsterSpawner>();
+        _bossSpawner = Multi_SpawnManagers.BossEnemy;
+        // _bossSpawner.Inject(speedManagerCreater);
     }
 
     public void Injection(IMonsterManager monsterManager, EnemySpawnNumManager numManager, BattleEventDispatcher dispatcher, SpeedManagerCreater speedManagerCreater)
@@ -75,7 +104,6 @@ public class MonsterSpawnerContorller : MonoBehaviour
         _monsterSpawner = new NormalMonsterSpawner(speedManagerCreater);
         _bossSpawner = Multi_SpawnManagers.BossEnemy;
         _bossSpawner.Inject(speedManagerCreater);
-
     }
 
     void Start()

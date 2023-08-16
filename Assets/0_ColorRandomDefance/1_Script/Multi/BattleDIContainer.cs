@@ -72,6 +72,7 @@ public class BattleDIContainerInitializer
         container.AddComponent<MultiEffectManager>();
         container.AddComponent<BuildingClickContoller>();
         container.AddComponent<TextShowAndHideController>();
+        container.AddComponent<NormalMonsterSpawner>();
 
         container.AddService(new BattleUI_Mediator(Managers.UI));
     }
@@ -88,6 +89,7 @@ public class BattleDIContainerInitializer
         container.GetComponent<BuildingClickContoller>()
             .Inject(container.GetService<BattleUI_Mediator>(), Managers.UI, container.GetComponent<TextShowAndHideController>());
         container.GetComponent<TextShowAndHideController>().Inject(Managers.UI);
+        container.GetComponent<NormalMonsterSpawner>().Inject(new MonsterDecorator(container));
 
         new UnitCombineNotifier(Managers.Unit, container.GetComponent<TextShowAndHideController>());
     }
@@ -98,9 +100,9 @@ public class BattleDIContainerInitializer
         if (PhotonNetwork.IsMasterClient == false) return;
 
         var server = MultiServiceMidiator.Server;
-
-        container.AddComponent<MonsterSpawnerContorller>()
-            .Injection(container.GetComponent<IMonsterManager>(), container.GetComponent<EnemySpawnNumManager>(), dispatcher, new SpeedManagerCreater(container));
+        container.AddComponent<MonsterSpawnerContorller>().Inject(container);
+        //container.AddComponent<MonsterSpawnerContorller>()
+        //    .Injection(container.GetComponent<IMonsterManager>(), container.GetComponent<EnemySpawnNumManager>(), dispatcher, new SpeedManagerCreater(container));
 
         container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
         container.GetComponent<UnitMaxCountController>().Init(server, game);

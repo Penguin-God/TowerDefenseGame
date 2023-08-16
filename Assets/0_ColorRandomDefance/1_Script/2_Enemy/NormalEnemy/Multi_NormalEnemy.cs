@@ -123,6 +123,8 @@ public class Multi_NormalEnemy : Multi_Enemy
     }
 
     protected SpeedManager SpeedManager { get; private set; }
+    protected MonsterSpeedManager MonsterSpeedManager { get; private set; }
+
     public float Speed => IsStun ? 0 : _speed;
     public bool IsSlow => SpeedManager == null ? false : SpeedManager.IsSlow;
     bool IsStun => _stunCount > 0;

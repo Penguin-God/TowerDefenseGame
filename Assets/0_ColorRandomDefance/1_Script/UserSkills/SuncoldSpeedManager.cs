@@ -6,6 +6,7 @@ public class SuncoldSpeedManager : SpeedManager
 {
     Multi_NormalEnemy _normalMonster;
     readonly int DamagePerSlowRate;
+    readonly int[] SuncoldDamages;
     MultiEffectManager _effect;
     public SuncoldSpeedManager(float originSpeed, Multi_NormalEnemy normalMonster, int damagePerSlowRate, MultiEffectManager effect) : base(originSpeed)
     {
@@ -21,6 +22,17 @@ public class SuncoldSpeedManager : SpeedManager
             _effect.PlayOneShotEffect("BlueLightning", _normalMonster.transform.position + Vector3.up * 3);
             Managers.Sound.PlayEffect(EffectSoundType.LightningClip);
             _normalMonster.OnDamage(CalculateColdDamage(slowRate), isSkill: true);
+        }
+        base.OnSlow(slowRate);
+    }
+
+    public void OnSlow(float slowRate, UnitFlags flag)
+    {
+        if (IsSlow)
+        {
+            _effect.PlayOneShotEffect("BlueLightning", _normalMonster.transform.position + Vector3.up * 3);
+            Managers.Sound.PlayEffect(EffectSoundType.LightningClip);
+            _normalMonster.OnDamage(SuncoldDamages[flag.ClassNumber], isSkill: true);
         }
         base.OnSlow(slowRate);
     }

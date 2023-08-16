@@ -88,7 +88,7 @@ namespace ColorRandomApi.Controllers
         }
 
         [HttpDelete]
-        public bool DeletePlaer(int id)
+        public bool DeletePlayer(int id)
         {
             var findResult = _context.Players
                 .Where(x => x.Id == id)

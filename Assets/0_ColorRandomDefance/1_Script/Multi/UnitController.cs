@@ -68,22 +68,3 @@ public class ServerUnitController : UnitController
         Multi_SpawnManagers.NormalUnit.Spawn(targetFlag, id);
     }
 }
-
-public class UnitControllerAttacher
-{
-    public UnitController AttacherUnitController(GameObject gameObject)
-    {
-        if (PhotonNetwork.IsMasterClient)
-        {
-            var server = gameObject.AddComponent<ServerUnitController>();
-            server.Init(Managers.Data, MultiServiceMidiator.Server);
-            return server;
-        }
-        else
-        {
-            var client = gameObject.AddComponent<ClientUnitController>();
-            client.Init(Managers.Data, Managers.Unit);
-            return client;
-        }
-    }
-}

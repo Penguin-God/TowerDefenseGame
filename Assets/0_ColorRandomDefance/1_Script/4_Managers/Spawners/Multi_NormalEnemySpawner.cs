@@ -36,10 +36,9 @@ public class MonsterDecorator
     public void DecorateSpeed(float speed, Multi_NormalEnemy monster)
     {
         var skillData = _container.GetMultiActiveSkillData().GetData(monster.UsingId);
-        //if (skillData.TruGetSkillData(SkillType.썬콜, out var skillBattleData))
-        //    return new SuncoldSpeedManager(speed, monster, skillBattleData.IntSkillData, _container.GetComponent<MultiEffectManager>());
-        // else return new SpeedManager(speed);
-        monster.gameObject.GetOrAddComponent<MonsterSpeedManager>().SetSpeed(speed);
+        if (skillData.TruGetSkillData(SkillType.썬콜, out var skillBattleData))
+            monster.gameObject.GetOrAddComponent<SuncoldSpeedManager>().Init(speed, monster, skillBattleData.IntSkillDatas, _container.GetComponent<MultiEffectManager>());
+        else monster.gameObject.GetOrAddComponent<MonsterSpeedManager>().SetSpeed(speed);
     }
 }
 
@@ -47,14 +46,7 @@ public class SpeedManagerCreater
 {
     readonly BattleDIContainer _container;
     public SpeedManagerCreater(BattleDIContainer container) => _container = container;
-
-    public SpeedManager CreateSpeedManager(float speed, Multi_NormalEnemy monster)
-    {
-        var skillData = _container.GetMultiActiveSkillData().GetData(monster.UsingId);
-        if (skillData.TruGetSkillData(SkillType.썬콜, out var skillBattleData))
-            return new SuncoldSpeedManager(speed, monster, skillBattleData.IntSkillData, _container.GetComponent<MultiEffectManager>());
-        else return new SpeedManager(speed);
-    }
+    public SpeedManager CreateSpeedManager(float speed, Multi_NormalEnemy monster) => new SpeedManager(speed);
 }
 
 public class EnemySpawnNumManager : MonoBehaviourPun

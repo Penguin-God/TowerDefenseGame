@@ -86,6 +86,7 @@ public class WebServerTest : MonoBehaviour
         else
         {
             Debug.Log("초기화 진행");
+            // name = playerData.Name
         }
     }
 
@@ -175,7 +176,7 @@ public class WebServerTest : MonoBehaviour
 
             
             string json = www.downloadHandler.text;
-            Debug.Log("파싱전" + json);
+            //Debug.Log("파싱전" + json);
             //playerData = JsonUtility.FromJson<Player>(json);
             playerData = JsonConvert.DeserializeObject<Player>(json);
 

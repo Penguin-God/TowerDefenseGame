@@ -9,14 +9,13 @@ public class MonsterSpeedManager : MonoBehaviour
     public Action OnRestoreSpeed;
     public void SetSpeed(float originSpeed) => SpeedManager = new SpeedManager(originSpeed);
 
-    public float OnSlow(float slowRate, float slowTime)
+    public void OnSlow(float slowRate, float slowTime)
     {
         SpeedManager.OnSlow(slowRate);
         ApplySlowTime(slowTime);
-        return SpeedManager.CurrentSpeed;
     }
 
-    public virtual float OnSlow(float slowRate, float slowTime, UnitFlags flag) => OnSlow(slowRate, slowTime);
+    public virtual void OnSlow(float slowRate, float slowTime, UnitFlags flag) => OnSlow(slowRate, slowTime);
 
     void ApplySlowTime(float slowTime)
     {

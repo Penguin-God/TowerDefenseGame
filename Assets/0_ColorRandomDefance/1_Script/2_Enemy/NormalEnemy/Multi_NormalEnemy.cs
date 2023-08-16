@@ -34,8 +34,6 @@ public class Multi_NormalEnemy : Multi_Enemy
     }
 
     protected virtual void Passive() { }
-    [SerializeField] float _speed;
-    [SerializeField] float _originSpeed;
     [PunRPC]
     protected override void SetStatus(int _hp, float speed, bool _isDead)
     {
@@ -48,17 +46,14 @@ public class Multi_NormalEnemy : Multi_Enemy
         if (PhotonNetwork.IsMasterClient)
         {
             Passive();
-            _speed = SpeedManager.OriginSpeed;
-            photonView.RPC(nameof(SetInfo), RpcTarget.All, maxHp, _speed);
+            photonView.RPC(nameof(SetInfo), RpcTarget.All, maxHp);
         }
     }
 
     [PunRPC] 
-    protected void SetInfo(int hp, float speed)
+    protected void SetInfo(int hp)
     {
         ChangeMaxHp(hp);
-        _speed = speed;
-        _originSpeed = speed;
         SetDirection();
     }
 
@@ -118,7 +113,6 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected override void ResetValue()
     {
         base.ResetValue();
-        // SpeedManager = null;
         isResurrection = false;
         spawnStage = 0;
         sternEffect.SetActive(false);
@@ -126,13 +120,12 @@ public class Multi_NormalEnemy : Multi_Enemy
         pointIndex = -1;
         transform.rotation = Quaternion.identity;
         _stunCount = 0;
-        _speed = 0;
     }
 
     protected SpeedManager SpeedManager => MonsterSpeedManager.SpeedManager;
     protected MonsterSpeedManager MonsterSpeedManager { get; private set; }
 
-    public float Speed => IsStun ? 0 : _speed;
+    public float Speed => IsStun ? 0 : SpeedManager.CurrentSpeed;
     public bool IsSlow => SpeedManager == null ? false : SpeedManager.IsSlow;
     bool IsStun => _stunCount > 0;
     bool RPCSendable => IsDead == false && PhotonNetwork.IsMasterClient;
@@ -152,7 +145,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     [PunRPC]
     protected void ApplySlow(float slowRate, float slowTime)
     {
-        _speed = MonsterSpeedManager.OnSlow(slowRate, slowTime);
+        MonsterSpeedManager.OnSlow(slowRate, slowTime);
         ChangeVelocity(dir);
         ChangeColorToSlow();
     }
@@ -168,7 +161,6 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         ChangeMat(originMat);
         ChangeColorToOrigin();
-        _speed = _originSpeed;
         ChangeVelocity(dir);
     }
 

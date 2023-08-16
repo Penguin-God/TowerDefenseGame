@@ -16,7 +16,6 @@ public class NormalMonsterSpawner : MonoBehaviourPun
         var monster = Managers.Multi.Instantiater.PhotonInstantiateInactive(new ResourcesPathBuilder().BuildMonsterPath(num), id).GetComponent<Multi_NormalEnemy>();
         NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];
         photonView.RPC(nameof(InjectMonster), RpcTarget.All, data.Hp, data.Speed, monster.GetComponent<PhotonView>().ViewID);
-        // monster.Inject(_speedManagerCreater.CreateMonsterSpeedManager(data.Speed, monster), data.Hp);
         return monster;
     }
 

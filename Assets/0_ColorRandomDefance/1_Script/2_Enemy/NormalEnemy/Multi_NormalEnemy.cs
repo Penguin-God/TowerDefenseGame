@@ -136,20 +136,6 @@ public class Multi_NormalEnemy : Multi_Enemy
     int _stunCount = 0;
     [SerializeField] private GameObject sternEffect;
 
-    public override void OnSlowWithTime(float slowRate, float slowTime)
-    {
-        if (RPCSendable == false) return;
-        photonView.RPC(nameof(ApplySlowWithTime), RpcTarget.All, slowRate, slowTime);
-    }
-
-    [PunRPC]
-    protected void ApplySlowWithTime(float slowRate, float slowTime)
-    {
-        ChangeColorToSlow();
-        MonsterSpeedManager.OnSlowWithTime(slowRate, slowTime);
-        ChangeVelocity(dir);
-    }
-
     public void OnSlow(float slowRate)
     {
         if (RPCSendable == false) return;
@@ -191,13 +177,14 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         ResetColor();
         ChangeVelocity(dir);
+        MonsterSpeedManager.RestoreSpeed();
     }
 
-    public void OnFreeze(float slowTime)
+    public void OnFreeze(float slowTime, UnitFlags flag)
     {
         if (RPCSendable == false) return;
 
-        OnSlowWithTime(100f, slowTime);
+        OnSlowWithTime(100f, slowTime, flag);
         photonView.RPC(nameof(Mat_To_Freeze), RpcTarget.All);
     }
 

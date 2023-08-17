@@ -18,7 +18,7 @@ public class MonsterSpeedTests
     public IEnumerator 시간이_있는_슬로우는_후에_복구되어야_함()
     {
         var sut = CreateSpeedManager(5);
-        sut.OnSlowWithTime(10, 0.0001f);
+        sut.OnSlowWithTime(10, 0.0001f, new UnitFlags());
 
         Assert.AreEqual(4.5f, GetSpeed(sut));
         yield return new WaitForSeconds(0.001f);
@@ -43,7 +43,7 @@ public class MonsterSpeedTests
     {
         var sut = CreateSpeedManager(5);
 
-        sut.OnSlowWithTime(20, 0.0001f);
+        sut.OnSlowWithTime(20, 0.0001f, new UnitFlags());
         Assert.AreEqual(4f, GetSpeed(sut));
 
         sut.OnSlow(30);

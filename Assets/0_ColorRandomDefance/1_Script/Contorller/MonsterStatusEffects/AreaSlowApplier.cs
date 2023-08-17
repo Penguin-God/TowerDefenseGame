@@ -8,7 +8,7 @@ public class AreaSlowApplier : MonoBehaviourPun
 {
     [SerializeField] float _slowPercent;
     List<Multi_NormalEnemy> _targets = new List<Multi_NormalEnemy>();
-    MonsterSlower _movementSlower;
+
     public void Inject(float slowPer, float raduis)
     {
         if (PhotonNetwork.IsMasterClient)
@@ -29,11 +29,11 @@ public class AreaSlowApplier : MonoBehaviourPun
 
     void ApplySlow(Multi_NormalEnemy enemy)
     {
-        if (_targets.Contains(enemy) == false && enemy.IsSlow == false)
+        if (_targets.Contains(enemy) == false)
         {
             _targets.Add(enemy);
             enemy.OnDead += _ => CancelSlow(enemy);
-            enemy.OnSlowWithTime(_slowPercent, Mathf.Infinity);
+            enemy.OnSlow(_slowPercent);
         }
     }
 
@@ -54,9 +54,9 @@ public class AreaSlowApplier : MonoBehaviourPun
 
     void OnDisable()
     {
-        IEnumerable<Multi_NormalEnemy> targets = _targets.ToArray();
-        foreach (Multi_NormalEnemy target in targets)
-            CancelSlow(target);
+        foreach (Multi_NormalEnemy target in _targets)
+            target.RestoreSpeedToAll();
+        _targets.Clear();
         StopCoroutine(Co_KeepSlowInRage());
     }
 
@@ -65,7 +65,7 @@ public class AreaSlowApplier : MonoBehaviourPun
         while (true)
         {
             foreach (var monster in _targets.Where(x => x.IsSlow == false))
-                monster.OnSlowWithTime(_slowPercent, Mathf.Infinity);
+                monster.OnSlow(_slowPercent);
             yield return null;
         }
     }

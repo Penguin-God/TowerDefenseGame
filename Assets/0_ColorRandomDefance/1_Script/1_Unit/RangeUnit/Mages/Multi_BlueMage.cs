@@ -13,14 +13,12 @@ public class Multi_BlueMage : Multi_Unit_Mage
         if(PhotonNetwork.IsMasterClient)
         {
             gameObject.AddComponent<AreaSlowApplier>().Inject(passiveStats[0], passiveStats[1]);
-            // OnPassiveHit += enemy => enemy.OnSlow(passiveStats[0], 0);
-            OnPassiveHit += new MovementSlowerUnit(passiveStats[0], 0, UnitFlags).SlowToMovement;
+            OnPassiveHit += monster => monster.GetComponent<Multi_NormalEnemy>()?.OnSlowWithTime(passiveStats[0], 0, UnitFlags);
         }
         freezeTime = skillStats[0];
     }
 
-    protected override void MageSkile()
-        => SkillSpawn(transform.position + (Vector3.up * 2)).GetComponent<Multi_HitSkill>().SetHitActoin(enemy => enemy.GetComponent<Multi_NormalEnemy>()?.OnFreeze(freezeTime));
-
+    protected override void MageSkile() => SkillSpawn(transform.position + (Vector3.up * 2)).GetComponent<Multi_HitSkill>().SetHitActoin(FreezeMonster);
+    void FreezeMonster(Multi_Enemy monster) => monster.GetComponent<Multi_NormalEnemy>()?.OnFreeze(freezeTime, UnitFlags);
     protected override void PlaySkillSound() => PlaySound(EffectSoundType.BlueMageSkill);
 }

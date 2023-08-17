@@ -23,8 +23,7 @@ public class MonsterSpeedManager : MonoBehaviour
         ApplySlowRate = slowRate;
     }
 
-    public virtual void OnSlowWithTime(float slowRate, float slowTime, UnitFlags flag) => OnSlowWithTime(slowRate, slowTime);
-    public void OnSlowWithTime(float slowRate, float slowTime)
+    public virtual void OnSlowWithTime(float slowRate, float slowTime, UnitFlags flag)
     {
         OnSlow(slowRate);
         StartCoroutine(nameof(Co_RestoreSpeed), slowTime);
@@ -43,5 +42,9 @@ public class MonsterSpeedManager : MonoBehaviour
         OnRestoreSpeed?.Invoke();
     }
 
-    void OnDisable() => StopCoroutine(nameof(Co_RestoreSpeed));
+    void OnDisable()
+    {
+        StopCoroutine(nameof(Co_RestoreSpeed));
+        RestoreSpeed();
+    }
 }

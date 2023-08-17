@@ -9,28 +9,39 @@ public class MonsterSpeedManager : MonoBehaviour
     public Action OnRestoreSpeed;
     public void SetSpeed(float originSpeed) => SpeedManager = new SpeedManager(originSpeed);
 
-    public void OnSlow(float slowRate) => SpeedManager.OnSlow(slowRate);
-    public void OnSlowWithTime(float slowRate, float slowTime)
+    public float ApplySlowRate { get; private set; } // 적용된 슬로우
+    public bool IsSlow => ApplySlowRate > 0;
+
+    bool SlowCondition(float slowRate) => slowRate >= ApplySlowRate - 0.1f; // float 오차 때문에 0.1 뺌
+
+    public void OnSlow(float slowRate)
     {
-        OnSlow(slowRate);
-        ApplySlowTime(slowTime);
+        if (SlowCondition(slowRate) == false) return;
+
+        StopCoroutine(nameof(Co_RestoreSpeed));
+        SpeedManager.OnSlow(slowRate);
+        ApplySlowRate = slowRate;
     }
 
     public virtual void OnSlowWithTime(float slowRate, float slowTime, UnitFlags flag) => OnSlowWithTime(slowRate, slowTime);
-    void ApplySlowTime(float slowTime)
+    public void OnSlowWithTime(float slowRate, float slowTime)
     {
-        StopCoroutine(nameof(Co_RestoreSpeed));
+        OnSlow(slowRate);
         StartCoroutine(nameof(Co_RestoreSpeed), slowTime);
     }
-    public void RestoreSpeed()
-    {
-        SpeedManager.RestoreSpeed();
-        OnRestoreSpeed?.Invoke();
-    }
+
     IEnumerator Co_RestoreSpeed(float slowTime)
     {
         yield return new WaitForSeconds(slowTime);
         RestoreSpeed();
     }
-    void OnDisable() => StopAllCoroutines();
+
+    public void RestoreSpeed()
+    {
+        ApplySlowRate = 0;
+        SpeedManager.RestoreSpeed();
+        OnRestoreSpeed?.Invoke();
+    }
+
+    void OnDisable() => StopCoroutine(nameof(Co_RestoreSpeed));
 }

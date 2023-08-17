@@ -37,4 +37,33 @@ public class MonsterSpeedTests
         Assert.AreEqual(4f, GetSpeed(sut));
         yield return null;
     }
+
+    [UnityTest]
+    public IEnumerator 더_강한_슬로우가_적용되면_이전_슬로우_자동_복구는_취소되야_됨()
+    {
+        var sut = CreateSpeedManager(5);
+
+        sut.OnSlowWithTime(20, 0.0001f);
+        Assert.AreEqual(4f, GetSpeed(sut));
+
+        sut.OnSlow(30);
+        Assert.AreEqual(3.5f, GetSpeed(sut));
+        yield return new WaitForSeconds(0.001f);
+        Assert.AreEqual(3.5f, GetSpeed(sut));
+    }
+
+    [UnityTest]
+    public IEnumerator 슬로우가_적용_상태에_따라_관련_값이_바뀌어야_함()
+    {
+        var sut = CreateSpeedManager(5);
+
+        sut.OnSlow(30f);
+        Assert.AreEqual(30f, sut.ApplySlowRate);
+        Assert.IsTrue(sut.IsSlow);
+
+        sut.RestoreSpeed();
+        Assert.AreEqual(0, sut.ApplySlowRate);
+        Assert.IsFalse(sut.IsSlow);
+        yield return null;
+    }
 }

@@ -21,7 +21,7 @@ public class SpeedManager
         CurrentSpeed = OriginSpeed;
     }
 
-    public virtual void OnSlow(float slowRate)
+    public void OnSlow(float slowRate)
     {
         if (SlowCondition(slowRate))
         {

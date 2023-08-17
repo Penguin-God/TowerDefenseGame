@@ -16,7 +16,7 @@ public class SuncoldSpeedManager : MonsterSpeedManager
         _effect = effect;
     }
 
-    public override void OnSlow(float slowRate, float slowTime, UnitFlags flag)
+    public override void OnSlowWithTime(float slowRate, float slowTime, UnitFlags flag)
     {
         if (base.SpeedManager.IsSlow)
         {
@@ -26,7 +26,7 @@ public class SuncoldSpeedManager : MonsterSpeedManager
                 _normalMonster.OnDamage(SuncoldDamages[flag.ClassNumber], isSkill: true);
         }
         if(_normalMonster.IsDead == false)
-            base.OnSlow(slowRate, slowTime, flag);
+            base.OnSlowWithTime(slowRate, slowTime, flag);
     }
 
     int CalculateColdDamage(float slowRate) => Mathf.RoundToInt(Mathf.Pow(slowRate, 3) / 20); // 임시 계산 로직

@@ -18,7 +18,13 @@ public class MovementSlower
         SlowTime = slowTime;
     }
 
-    public virtual void SlowToMovement(Multi_Enemy enemy) => enemy.OnSlow(SlowRate, SlowTime);
+    public void SlowToMovement(Multi_Enemy monster)
+    {
+        var normalMonster = monster.GetComponent<Multi_NormalEnemy>();
+        if (normalMonster != null)
+            ApplySlow(normalMonster);
+    }
+    protected virtual void ApplySlow(Multi_NormalEnemy monster) => monster.OnSlow(SlowRate, SlowTime);
 }
 
 public class MovementSlowerUnit : MovementSlower
@@ -27,12 +33,7 @@ public class MovementSlowerUnit : MovementSlower
     public MovementSlowerUnit(float slowRate, float slowTime, UnitFlags flag) : base(slowRate, slowTime)
         => Flag = flag;
 
-    public override void SlowToMovement(Multi_Enemy monster)
-    {
-        var normalMonster = monster.GetComponent<Multi_NormalEnemy>();
-        if (normalMonster != null)
-            normalMonster.OnSlow(SlowRate, SlowTime, Flag);
-    }
+    protected override void ApplySlow(Multi_NormalEnemy monster) => monster.OnSlow(SlowRate, SlowTime, Flag);
 }
 
 public class StunAbility

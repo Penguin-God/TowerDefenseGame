@@ -151,7 +151,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     [PunRPC]
     protected void ApplySlow(float slowRate, float slowTime)
     {
-        MonsterSpeedManager.OnSlow(slowRate, slowTime);
+        MonsterSpeedManager.OnSlowWithTime(slowRate, slowTime);
         ChangeVelocity(dir);
         // ChangeColorToSlow();
     }
@@ -160,7 +160,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected void ApplySlowToAll(float slowRate, float slowTime, UnitFlags flag)
     {
         ChangeColorToSlow(); // 서순 무조건 지켜야됨
-        MonsterSpeedManager.OnSlow(slowRate, slowTime, flag);
+        MonsterSpeedManager.OnSlowWithTime(slowRate, slowTime, flag);
         ChangeVelocity(dir);
     }
 

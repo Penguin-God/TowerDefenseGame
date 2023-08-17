@@ -17,7 +17,7 @@ abstract public class Multi_UnitPassive : MonoBehaviourPun
         _stats = Managers.Data.GetUnitPassiveStats(flag);
         ApplyData();
     }
-    protected abstract void ApplyData();
+    protected virtual void ApplyData() { }
 
     public abstract void SetPassive(Multi_TeamSoldier _team);
 }

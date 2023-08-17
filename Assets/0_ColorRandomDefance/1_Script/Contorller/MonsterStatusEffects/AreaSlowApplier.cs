@@ -8,7 +8,7 @@ public class AreaSlowApplier : MonoBehaviourPun
 {
     [SerializeField] float _slowPercent;
     List<Multi_NormalEnemy> _targets = new List<Multi_NormalEnemy>();
-
+    MovementSlower _movementSlower;
     public void Inject(float slowPer, float raduis)
     {
         if (PhotonNetwork.IsMasterClient)

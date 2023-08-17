@@ -32,4 +32,6 @@ public class MonsterSpeedManager : MonoBehaviour
         yield return new WaitForSeconds(slowTime);
         RestoreSpeed();
     }
+
+    void OnDisable() => StopAllCoroutines();
 }

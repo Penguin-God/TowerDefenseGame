@@ -92,6 +92,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         ChangeVelocity(dir);
     }
 
+    [PunRPC] protected void UpdateVelocitySpeed(float speed) => Rigidbody.velocity = dir * speed;
     void ChangeVelocity(Vector3 direction) => Rigidbody.velocity = direction * Speed;
 
     private void OnTriggerEnter(Collider other)
@@ -140,6 +141,14 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         if (RPCSendable == false) return;
         photonView.RPC(nameof(ApplySlow), RpcTarget.All, slowRate, slowTime);
+    }
+
+    public void OnSlow(float slowRate, float slowTime, UnitFlags flag)
+    {
+        ChangeColorToSlow();
+        MonsterSpeedManager.OnSlow(slowRate, slowTime, flag);
+        if (RPCSendable)
+            photonView.RPC(nameof(UpdateVelocitySpeed), RpcTarget.All, MonsterSpeedManager.SpeedManager.CurrentSpeed);
     }
 
     [PunRPC]

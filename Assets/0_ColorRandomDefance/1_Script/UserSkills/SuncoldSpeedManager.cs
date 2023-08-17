@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class SuncoldSpeedManager : MonsterSpeedManager
 {
@@ -17,14 +18,16 @@ public class SuncoldSpeedManager : MonsterSpeedManager
 
     public override void OnSlow(float slowRate, float slowTime, UnitFlags flag)
     {
-        print(base.SpeedManager.IsSlow);
         if (base.SpeedManager.IsSlow)
         {
             _effect.PlayOneShotEffect("BlueLightning", _normalMonster.transform.position + Vector3.up * 3);
             Managers.Sound.PlayEffect(EffectSoundType.LightningClip);
-            _normalMonster.OnDamage(SuncoldDamages[flag.ClassNumber], isSkill: true);
+            print(SuncoldDamages[flag.ClassNumber]);
+            if (PhotonNetwork.IsMasterClient)
+                _normalMonster.OnDamage(SuncoldDamages[flag.ClassNumber], isSkill: true);
         }
-        base.OnSlow(slowRate, slowTime, flag);
+        if(_normalMonster.IsDead == false)
+            base.OnSlow(slowRate, slowTime, flag);
     }
 
     int CalculateColdDamage(float slowRate) => Mathf.RoundToInt(Mathf.Pow(slowRate, 3) / 20); // 임시 계산 로직

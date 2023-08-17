@@ -9,8 +9,8 @@ public class Ability
 
 public class MovementSlower
 {
-    readonly float SlowRate;
-    readonly float SlowTime;
+    protected readonly float SlowRate;
+    protected readonly float SlowTime;
 
     public MovementSlower(float slowRate, float slowTime)
     {
@@ -18,7 +18,21 @@ public class MovementSlower
         SlowTime = slowTime;
     }
 
-    public void SlowToMovement(Multi_Enemy enemy) => enemy.OnSlow(SlowRate, SlowTime);
+    public virtual void SlowToMovement(Multi_Enemy enemy) => enemy.OnSlow(SlowRate, SlowTime);
+}
+
+public class MovementSlowerUnit : MovementSlower
+{
+    readonly UnitFlags Flag;
+    public MovementSlowerUnit(float slowRate, float slowTime, UnitFlags flag) : base(slowRate, slowTime)
+        => Flag = flag;
+
+    public override void SlowToMovement(Multi_Enemy monster)
+    {
+        var normalMonster = monster.GetComponent<Multi_NormalEnemy>();
+        if (normalMonster != null)
+            normalMonster.OnSlow(SlowRate, SlowTime, Flag);
+    }
 }
 
 public class StunAbility

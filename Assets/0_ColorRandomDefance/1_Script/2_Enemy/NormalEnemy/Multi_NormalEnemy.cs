@@ -29,7 +29,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected override void RPC_OnDamage(int damage, bool isSkill)
     {
         if (IsSlow) // 슬로우 시 추뎀
-            damage += Mathf.RoundToInt(damage * (SpeedManager.ApplySlowRate / 100));
+            damage += Mathf.RoundToInt(damage * (MonsterSpeedManager.ApplySlowRate / 100));
         base.RPC_OnDamage(damage, isSkill);
     }
 
@@ -126,7 +126,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected MonsterSpeedManager MonsterSpeedManager { get; private set; }
 
     public float Speed => IsStun ? 0 : SpeedManager.CurrentSpeed;
-    public bool IsSlow => SpeedManager == null ? false : SpeedManager.IsSlow;
+    public bool IsSlow => MonsterSpeedManager.IsSlow;
     bool IsStun => _stunCount > 0;
     bool RPCSendable => IsDead == false && PhotonNetwork.IsMasterClient;
     #region 상태이상 구현

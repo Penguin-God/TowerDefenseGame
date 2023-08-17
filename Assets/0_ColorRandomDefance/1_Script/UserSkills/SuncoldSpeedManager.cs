@@ -18,7 +18,7 @@ public class SuncoldSpeedManager : MonsterSpeedManager
 
     public override void OnSlowWithTime(float slowRate, float slowTime, UnitFlags flag)
     {
-        if (base.SpeedManager.IsSlow)
+        if (base.IsSlow)
         {
             _effect.PlayOneShotEffect("BlueLightning", _normalMonster.transform.position + Vector3.up * 3);
             Managers.Sound.PlayEffect(EffectSoundType.LightningClip);

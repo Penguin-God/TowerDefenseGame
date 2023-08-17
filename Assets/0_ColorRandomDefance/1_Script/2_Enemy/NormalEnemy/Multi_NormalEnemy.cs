@@ -136,24 +136,38 @@ public class Multi_NormalEnemy : Multi_Enemy
     int _stunCount = 0;
     [SerializeField] private GameObject sternEffect;
 
-    public override void OnSlow(float slowRate, float slowTime)
+    public override void OnSlowWithTime(float slowRate, float slowTime)
     {
         if (RPCSendable == false) return;
-        photonView.RPC(nameof(ApplySlow), RpcTarget.All, slowRate, slowTime);
-    }
-
-    public void OnSlow(float slowRate, float slowTime, UnitFlags flag)
-    {
-        if (RPCSendable)
-            photonView.RPC(nameof(ApplySlowToAll), RpcTarget.All, slowRate, slowTime, flag);
+        photonView.RPC(nameof(ApplySlowWithTime), RpcTarget.All, slowRate, slowTime);
     }
 
     [PunRPC]
-    protected void ApplySlow(float slowRate, float slowTime)
+    protected void ApplySlowWithTime(float slowRate, float slowTime)
     {
+        ChangeColorToSlow();
         MonsterSpeedManager.OnSlowWithTime(slowRate, slowTime);
         ChangeVelocity(dir);
-        // ChangeColorToSlow();
+    }
+
+    public void OnSlow(float slowRate)
+    {
+        if (RPCSendable == false) return;
+        photonView.RPC(nameof(ApplySlow), RpcTarget.All, slowRate);
+    }
+
+    [PunRPC]
+    protected void ApplySlow(float slowRate)
+    {
+        ChangeColorToSlow();
+        MonsterSpeedManager.OnSlow(slowRate);
+        ChangeVelocity(dir);
+    }
+
+    public void OnSlowWithTime(float slowRate, float slowTime, UnitFlags flag)
+    {
+        if (RPCSendable)
+            photonView.RPC(nameof(ApplySlowToAll), RpcTarget.All, slowRate, slowTime, flag);
     }
 
     [PunRPC]
@@ -183,7 +197,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         if (RPCSendable == false) return;
 
-        OnSlow(100f, slowTime);
+        OnSlowWithTime(100f, slowTime);
         photonView.RPC(nameof(Mat_To_Freeze), RpcTarget.All);
     }
 

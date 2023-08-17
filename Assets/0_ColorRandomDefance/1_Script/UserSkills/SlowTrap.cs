@@ -13,6 +13,6 @@ public class SlowTrap : MonoBehaviour
         IEnumerable<Multi_NormalEnemy> enemiesInRange = Physics.OverlapSphere(transform.position, range, layerMask).Select(x => x.GetComponent<Multi_NormalEnemy>());
 
         foreach (var enemy in enemiesInRange)
-            enemy?.OnSlow(slowPercent, slowTime);
+            enemy?.OnSlowWithTime(slowPercent, slowTime);
     }
 }

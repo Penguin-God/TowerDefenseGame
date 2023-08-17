@@ -69,19 +69,17 @@ namespace MonsterDomainTests
         }
 
         [Test]
-        [TestCase(40, true)]
-        [TestCase(30, true)]
-        [TestCase(20, false)]
-        public void 슬로우_조건은_새로운_슬로우가_현재_적용된_슬로우_이상이어야_참을_반환함(float slowRate, bool expected)
+        [TestCase(40, 60)]
+        [TestCase(20, 70)]
+        public void 더_약한_슬로우는_적용되면_안됨(float slowRate, float expected)
         {
-            // Arrange
             var sut = CreateSpeedManager();
+
             sut.OnSlow(30);
+            Assert.AreEqual(70, sut.CurrentSpeed);
 
-            Assert.AreEqual(expected, sut.SlowCondition(slowRate));
-
-            sut.RestoreSpeed();
-            Assert.IsTrue(sut.SlowCondition(slowRate));
+            sut.OnSlow(slowRate);
+            Assert.AreEqual(expected, sut.CurrentSpeed);
         }
     }
 }

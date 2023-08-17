@@ -29,6 +29,6 @@ public class SpeedManager
             CurrentSpeed = CalculateSlowSpeed(slowRate);
         }
     }
-    public bool SlowCondition(float slowRate) => slowRate >= ApplySlowRate - 0.1f; // float 오차 때문에 0.1 뺌
+    bool SlowCondition(float slowRate) => slowRate >= ApplySlowRate - 0.1f; // float 오차 때문에 0.1 뺌
     float CalculateSlowSpeed(float slowRate) => OriginSpeed - (OriginSpeed * (slowRate / 100));
 }

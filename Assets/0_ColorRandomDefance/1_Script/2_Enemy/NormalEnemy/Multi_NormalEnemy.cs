@@ -92,7 +92,6 @@ public class Multi_NormalEnemy : Multi_Enemy
         ChangeVelocity(dir);
     }
 
-    [PunRPC] protected void UpdateVelocitySpeed(float speed) => Rigidbody.velocity = dir * speed;
     void ChangeVelocity(Vector3 direction) => Rigidbody.velocity = direction * Speed;
 
     private void OnTriggerEnter(Collider other)
@@ -145,10 +144,8 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     public void OnSlow(float slowRate, float slowTime, UnitFlags flag)
     {
-        ChangeColorToSlow();
-        MonsterSpeedManager.OnSlow(slowRate, slowTime, flag);
         if (RPCSendable)
-            photonView.RPC(nameof(UpdateVelocitySpeed), RpcTarget.All, MonsterSpeedManager.SpeedManager.CurrentSpeed);
+            photonView.RPC(nameof(ApplySlowToAll), RpcTarget.All, slowRate, slowTime, flag);
     }
 
     [PunRPC]
@@ -156,8 +153,18 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         MonsterSpeedManager.OnSlow(slowRate, slowTime);
         ChangeVelocity(dir);
-        ChangeColorToSlow();
+        // ChangeColorToSlow();
     }
+
+    [PunRPC]
+    protected void ApplySlowToAll(float slowRate, float slowTime, UnitFlags flag)
+    {
+        ChangeColorToSlow(); // 서순 무조건 지켜야됨
+        MonsterSpeedManager.OnSlow(slowRate, slowTime, flag);
+        ChangeVelocity(dir);
+    }
+
+    void ChangeColorToSlow() => ChangeColor(50, 175, 222, 1);
 
     public void RestoreSpeedToAll()
     {
@@ -165,14 +172,12 @@ public class Multi_NormalEnemy : Multi_Enemy
         photonView.RPC(nameof(RestoreSpeed), RpcTarget.All);
     }
 
-    [PunRPC] // rpc용 proteted
+    [PunRPC]
     protected void RestoreSpeed()
     {
-        ChangeMat(originMat);
-        ChangeColorToOrigin();
+        ResetColor();
         ChangeVelocity(dir);
     }
-
 
     public void OnFreeze(float slowTime)
     {

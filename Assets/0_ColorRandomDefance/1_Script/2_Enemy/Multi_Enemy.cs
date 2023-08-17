@@ -138,7 +138,7 @@ public class Multi_Enemy : MonoBehaviourPun
         if (queue_HoldingPoison.Count == 0) photonView.RPC(nameof(ChangeColorToOrigin), RpcTarget.All);
     }
 
-    void ChangeColor(byte r, byte g, byte b, byte a)
+    protected void ChangeColor(byte r, byte g, byte b, byte a)
     {
         Color32 _newColor = new Color32(r, g, b, a);
         foreach (MeshRenderer mesh in meshList)
@@ -147,7 +147,6 @@ public class Multi_Enemy : MonoBehaviourPun
 
     [PunRPC]
     protected void ChangeColorToPoison() => ChangeColor(141, 49, 231, 255);
-    protected void ChangeColorToSlow() => ChangeColor(50, 175, 222, 1);
     [PunRPC]
     protected void ChangeColorToOrigin() => ChangeColor(255, 255, 255, 255);
 

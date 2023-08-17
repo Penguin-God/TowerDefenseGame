@@ -22,7 +22,6 @@ public class SuncoldSpeedManager : MonsterSpeedManager
         {
             _effect.PlayOneShotEffect("BlueLightning", _normalMonster.transform.position + Vector3.up * 3);
             Managers.Sound.PlayEffect(EffectSoundType.LightningClip);
-            print(SuncoldDamages[flag.ClassNumber]);
             if (PhotonNetwork.IsMasterClient)
                 _normalMonster.OnDamage(SuncoldDamages[flag.ClassNumber], isSkill: true);
         }

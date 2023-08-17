@@ -22,7 +22,7 @@ public class MonsterSpeedManager : MonoBehaviour
         StopCoroutine(nameof(Co_RestoreSpeed));
         StartCoroutine(nameof(Co_RestoreSpeed), slowTime);
     }
-    public void RestoreSpeed()
+    void RestoreSpeed()
     {
         SpeedManager.RestoreSpeed();
         OnRestoreSpeed?.Invoke();

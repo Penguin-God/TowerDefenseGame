@@ -66,8 +66,8 @@ public class Multi_NormalEnemy : Multi_Enemy
     public void Inject(int hp)
     {
         MonsterSpeedManager = GetComponent<MonsterSpeedManager>();
-        MonsterSpeedManager.OnRestoreSpeed -= RestoreSpeed;
-        MonsterSpeedManager.OnRestoreSpeed += RestoreSpeed;
+        MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
+        MonsterSpeedManager.OnRestoreSpeed += ExitSlow;
         SetStatus(hp, SpeedManager.OriginSpeed, false);
     }
 
@@ -172,12 +172,12 @@ public class Multi_NormalEnemy : Multi_Enemy
         photonView.RPC(nameof(RestoreSpeed), RpcTarget.All);
     }
 
-    [PunRPC]
-    protected void RestoreSpeed()
+    [PunRPC] protected void RestoreSpeed() => MonsterSpeedManager.RestoreSpeed();
+
+    protected void ExitSlow()
     {
         ResetColor();
         ChangeVelocity(dir);
-        MonsterSpeedManager.RestoreSpeed();
     }
 
     public void OnFreeze(float slowTime, UnitFlags flag)

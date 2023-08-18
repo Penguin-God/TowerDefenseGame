@@ -12,7 +12,7 @@ public class SuncoldSpeedManager : MonsterSpeedManager
     {
         base.SetSpeed(originSpeed);
         _normalMonster = normalMonster;
-        SuncoldDamages = new int[] { 150, 1000, 10000, 100000 };
+        SuncoldDamages = damages;
         _effect = effect;
     }
 
@@ -28,6 +28,4 @@ public class SuncoldSpeedManager : MonsterSpeedManager
         if(_normalMonster.IsDead == false)
             base.OnSlowWithTime(slowRate, slowTime, flag);
     }
-
-    int CalculateColdDamage(float slowRate) => Mathf.RoundToInt(Mathf.Pow(slowRate, 3) / 20); // 임시 계산 로직
 }

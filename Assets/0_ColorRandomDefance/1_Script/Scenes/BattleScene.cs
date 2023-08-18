@@ -90,7 +90,6 @@ class WorldInitializer
     void InitMonoBehaviourContainer()
     {
         _battleDIContainer.AddComponent<UnitClickController>();
-        _battleDIContainer.AddComponent<RewradController>();
         _battleDIContainer.AddComponent<UnitColorChangerRpcHandler>();
     }
 

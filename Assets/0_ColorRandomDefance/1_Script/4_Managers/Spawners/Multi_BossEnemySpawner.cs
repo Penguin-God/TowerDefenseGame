@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
+using Photon.Pun;
 
 public class Multi_BossEnemySpawner : Multi_SpawnerBase
 {
@@ -14,23 +15,31 @@ public class Multi_BossEnemySpawner : Multi_SpawnerBase
     protected override void SetSpawnObj(GameObject go)
     {
         var enemy = go.GetComponent<Multi_BossEnemy>();
-        enemy.OnDeath += () => OnDead(enemy);
+        enemy.OnDeath += () => OnDead?.Invoke(enemy);
         enemy.OnDeath += () => rpcOnDead.RaiseEvent(enemy.UsingId);
     }
 
     const int SpawnableObjectCount = 4;
     string BulildBossPath() => PathBuilder.BuildBossMonsterPath(Random.Range(0, SpawnableObjectCount));
 
-    SpeedManagerCreater _speedManagerCreater;
-    public void Inject(SpeedManagerCreater speedManagerCreater) => _speedManagerCreater = speedManagerCreater;
+    MonsterDecorator _monsterDecorator;
+    public void Inject(MonsterDecorator monsterDecorator) => _monsterDecorator = monsterDecorator;
     public Multi_BossEnemy SpawnBoss(byte id, int bossLevel)
     {
         var boss = Managers.Multi.Instantiater.PhotonInstantiateInactive(BulildBossPath(), id).GetComponent<Multi_BossEnemy>();
         Multi_EnemyManager.Instance.SetSpawnBoss(id, boss);
-        var bossData = Managers.Data.BossDataByLevel[bossLevel];
-        boss.Inject(bossData, _speedManagerCreater.CreateSpeedManager(bossData.Speed, boss));
+        photonView.RPC(nameof(InjectMonster), RpcTarget.All, (byte)bossLevel, boss.GetComponent<PhotonView>().ViewID);
         SetSpawnObj(boss.gameObject);
         rpcOnSpawn?.RaiseEvent(id);
         return boss;
+    }
+
+    [PunRPC]
+    void InjectMonster(byte level, int viewId)
+    {
+        var monster = Managers.Multi.GetPhotonViewComponent<Multi_BossEnemy>(viewId);
+        var bossData = Managers.Data.BossDataByLevel[level];
+        _monsterDecorator.DecorateSpeed(bossData.Speed, monster);
+        monster.Inject(bossData);
     }
 }

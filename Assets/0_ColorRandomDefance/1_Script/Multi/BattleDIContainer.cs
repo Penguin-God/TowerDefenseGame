@@ -73,6 +73,8 @@ public class BattleDIContainerInitializer
         container.AddComponent<BuildingClickContoller>();
         container.AddComponent<TextShowAndHideController>();
         container.AddComponent<NormalMonsterSpawner>();
+        container.AddComponent<Multi_BossEnemySpawner>();
+        container.AddComponent<RewradController>();
 
         container.AddService(new BattleUI_Mediator(Managers.UI));
     }
@@ -90,6 +92,8 @@ public class BattleDIContainerInitializer
             .Inject(container.GetService<BattleUI_Mediator>(), Managers.UI, container.GetComponent<TextShowAndHideController>());
         container.GetComponent<TextShowAndHideController>().Inject(Managers.UI);
         container.GetComponent<NormalMonsterSpawner>().Inject(new MonsterDecorator(container));
+        container.GetComponent<Multi_BossEnemySpawner>().Inject(new MonsterDecorator(container));
+        container.GetComponent<RewradController>().Inject(container.GetComponent<Multi_BossEnemySpawner>());
 
         new UnitCombineNotifier(Managers.Unit, container.GetComponent<TextShowAndHideController>());
     }

@@ -5,9 +5,6 @@ using Photon.Pun;
 
 public class NormalMonsterSpawner : MonoBehaviourPun
 {
-    SpeedManagerCreater _speedManagerCreater;
-    public NormalMonsterSpawner(SpeedManagerCreater speedManagerCreater) => _speedManagerCreater = speedManagerCreater;
-
     MonsterDecorator _monsterDecorator;
     public void Inject(MonsterDecorator monsterDecorator) => _monsterDecorator = monsterDecorator;
 
@@ -44,9 +41,7 @@ public class MonsterDecorator
 
 public class SpeedManagerCreater
 {
-    readonly BattleDIContainer _container;
-    public SpeedManagerCreater(BattleDIContainer container) => _container = container;
-    public SpeedManager CreateSpeedManager(float speed, Multi_NormalEnemy monster) => new SpeedManager(speed);
+    public SpeedManagerCreater(BattleDIContainer container) { }
 }
 
 public class EnemySpawnNumManager : MonoBehaviourPun
@@ -84,17 +79,7 @@ public class MonsterSpawnerContorller : MonoBehaviour
         _dispatcher = container.GetEventDispatcher();
         _monsterSpawner = container.GetComponent<NormalMonsterSpawner>();
         _bossSpawner = Multi_SpawnManagers.BossEnemy;
-        // _bossSpawner.Inject(speedManagerCreater);
-    }
-
-    public void Injection(IMonsterManager monsterManager, EnemySpawnNumManager numManager, BattleEventDispatcher dispatcher, SpeedManagerCreater speedManagerCreater)
-    {
-        _monsterManager = monsterManager;
-        _numManager = numManager;
-        _dispatcher = dispatcher;
-        _monsterSpawner = new NormalMonsterSpawner(speedManagerCreater);
-        _bossSpawner = Multi_SpawnManagers.BossEnemy;
-        _bossSpawner.Inject(speedManagerCreater);
+        _bossSpawner = container.GetComponent<Multi_BossEnemySpawner>();
     }
 
     void Start()

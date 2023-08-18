@@ -57,12 +57,6 @@ public class Multi_NormalEnemy : Multi_Enemy
         SetDirection();
     }
 
-    public void Inject(SpeedManager speedManager, int hp)
-    {
-        // SpeedManager = speedManager;
-        photonView.RPC(nameof(SetStatus), RpcTarget.All, hp, SpeedManager.OriginSpeed, false);
-    }
-
     public void Inject(int hp)
     {
         MonsterSpeedManager = GetComponent<MonsterSpeedManager>();

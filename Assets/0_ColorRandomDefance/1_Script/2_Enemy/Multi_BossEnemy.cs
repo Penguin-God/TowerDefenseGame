@@ -12,10 +12,10 @@ public class Multi_BossEnemy : Multi_NormalEnemy
     }
 
     public BossData BossData { get; private set; }
-    public void Inject(BossData bossData, SpeedManager speedManager)
+    public void Inject(BossData bossData)
     {
         BossData = bossData;
-        base.Inject(speedManager, bossData.Hp);
+        base.Inject(bossData.Hp);
         AggroUnit();
     }
 

@@ -256,9 +256,15 @@ public class RewradController : MonoBehaviourPun
 
         if (PhotonNetwork.IsMasterClient)
         {
-            Multi_SpawnManagers.BossEnemy.OnDead += GetBossReward;
+            _bossSpawner.OnDead += GetBossReward;
             Multi_SpawnManagers.TowerEnemy.OnDead += GetTowerReward;
         }
+    }
+
+    Multi_BossEnemySpawner _bossSpawner;
+    public void Inject(Multi_BossEnemySpawner bossSpawner)
+    {
+        _bossSpawner = bossSpawner;
     }
 
     void GetBossReward(Multi_BossEnemy enemy)

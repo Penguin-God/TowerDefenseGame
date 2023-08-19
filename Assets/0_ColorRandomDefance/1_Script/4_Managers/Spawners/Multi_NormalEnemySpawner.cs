@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System.Linq;
 
 public class NormalMonsterSpawner : MonoBehaviourPun
 {
@@ -34,7 +35,8 @@ public class MonsterDecorator
     {
         var skillData = _container.GetMultiActiveSkillData().GetData(monster.UsingId);
         if (skillData.TruGetSkillData(SkillType.썬콜, out var skillBattleData))
-            AddComponent<SuncoldSpeedManager>(monster.gameObject).InJect(speed, monster, skillBattleData.IntSkillDatas, _container.GetComponent<MultiEffectManager>());
+            AddComponent<SuncoldSpeedManager>(monster.gameObject)
+                .InJect(speed, monster, skillBattleData.IntSkillDatas.Take(4).ToArray(), _container.GetComponent<MultiEffectManager>());
         else AddComponent<MonsterSpeedManager>(monster.gameObject).SetSpeed(speed);
     }
     T AddComponent<T>(GameObject gameObject) where T : MonoBehaviour

@@ -111,6 +111,7 @@ public class DataManager
                 return result.Stats;
             return new List<float>();
         }
+        public void ChangeStats(UnitFlags flag, float[] newStats) => _unitPassiveStatByFlag[flag].ChangeStats(newStats);
 
         public ThrowSpearDataContainer SpearDataContainer { get; private set; }
         public void SetThrowSpearData(ThrowSpearDataContainer newSpearData) => SpearDataContainer = newSpearData;

@@ -75,6 +75,8 @@ public struct UnitFlags : IEquatable<UnitFlags>
     public static IEnumerable<UnitColor> AllColors => Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>();
     public static IEnumerable<UnitColor> NormalColors => AllColors.Where(x => SpecialColors.Contains(x) == false);
     public static IEnumerable<UnitColor> SpecialColors => new UnitColor[] { UnitColor.White, UnitColor.Black };
+
+    public static IEnumerable<UnitClass> AllClass => Enum.GetValues(typeof(UnitClass)).Cast<UnitClass>();
 }
 
 [Serializable]
@@ -167,13 +169,14 @@ public class UnitStats : ICsvLoader<UnitFlags, UnitStat>
 
 
 [Serializable]
-public struct UnitPassiveStat
+public class UnitPassiveStat
 {
     [SerializeField] UnitFlags _flag;
     [SerializeField] float[] _stats;
 
     public UnitFlags Flag => _flag;
     public IReadOnlyList<float> Stats => _stats;
+    public void ChangeStats(float[] newStat) => _stats = newStat;
 }
 
 [Serializable]

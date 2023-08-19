@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 using System.Collections.ObjectModel;
+using System.Data;
 
 public class SkillBattleDataContainer
 {
@@ -97,12 +98,12 @@ public class UserSkillFactory
     IReadOnlyList<SkillType> ComplexSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
     {
         SkillType.태극스킬, SkillType.마나변이, SkillType.마나불능, SkillType.장사꾼, SkillType.도박사, SkillType.메테오,
-        SkillType.네크로맨서, SkillType.덫, SkillType.백의결속, SkillType.흑의결속,
+        SkillType.네크로맨서, SkillType.덫, SkillType.백의결속, SkillType.흑의결속, SkillType.썬콜,
     });
 
     IReadOnlyList<SkillType> ExistSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
     {
-        SkillType.마창사, SkillType.썬콜 // 존재하기만 하면 알아서 작동하는 스킬들
+        SkillType.마창사 // 존재하기만 하면 알아서 작동하는 스킬들
     });
 
     public UserSkill ActiveSkill(SkillType skillType, BattleDIContainer container)
@@ -152,6 +153,7 @@ public class UserSkillFactory
             case SkillType.덫:
                 result = new SlowTrapSpawner(skillBattleData, Multi_Data.instance.GetEnemyTurnPoints(PlayerIdManager.Id) ,container.GetEventDispatcher()); break;
             case SkillType.백의결속: result = new BondofWhite(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance); break;
+            case SkillType.썬콜: result = new Suncold(skillBattleData, Managers.Data); break;
             default: result = null; break;
         }
         result.InitSkill();
@@ -496,4 +498,22 @@ public class UnitUpgradeHandler
         foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
             MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(new UnitFlags(color, unitClass), upgradeDamages[(int)unitClass], UnitStatType.All);
     }
+}
+
+public class Suncold : UserSkill
+{
+    public Suncold(UserSkillBattleData userSkillBattleData, DataManager data) : base(userSkillBattleData) 
+    {
+        foreach (UnitClass unitClass in UnitFlags.AllClass)
+            data.Unit.ChangeStats(new UnitFlags(UnitColor.Blue, unitClass), GetNewStats(data, new UnitFlags(UnitColor.Blue, unitClass), SkillDatas[4]));
+    }
+
+    float[] GetNewStats(DataManager data, UnitFlags flag, float rate)
+    {
+        float[] result = data.GetUnitPassiveStats(flag).ToArray();
+        result[1] = result[1] * rate;
+        return result;
+    }
+
+    internal override void InitSkill() {}
 }

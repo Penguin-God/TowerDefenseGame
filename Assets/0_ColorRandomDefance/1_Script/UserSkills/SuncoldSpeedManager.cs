@@ -8,7 +8,7 @@ public class SuncoldSpeedManager : MonsterSpeedManager
     Multi_NormalEnemy _normalMonster;
     int[] SuncoldDamages;
     MultiEffectManager _effect;
-    public void Init(float originSpeed, Multi_NormalEnemy normalMonster, int[] damages, MultiEffectManager effect)
+    public void InJect(float originSpeed, Multi_NormalEnemy normalMonster, int[] damages, MultiEffectManager effect)
     {
         base.SetSpeed(originSpeed);
         _normalMonster = normalMonster;

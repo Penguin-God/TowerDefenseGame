@@ -50,7 +50,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         }
     }
 
-    [PunRPC] 
+    [PunRPC]
     protected void SetInfo(int hp)
     {
         ChangeMaxHp(hp);
@@ -114,6 +114,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         pointIndex = -1;
         transform.rotation = Quaternion.identity;
         _stunCount = 0;
+        Destroy(MonsterSpeedManager);
     }
 
     protected SpeedManager SpeedManager => MonsterSpeedManager.SpeedManager;

@@ -38,6 +38,7 @@ public class UI_Status : UI_Scene
         _multiEquipSkillData = multiEquipSkillData;
     }
 
+    UI_EquipSkillInfo _equipSkillInfo;
     protected override void Init()
     {
         base.Init();
@@ -45,6 +46,8 @@ public class UI_Status : UI_Scene
         Bind<GameObject>(typeof(GameObjects));
         Bind<Image>(typeof(Images));
         timerSlider = GetObject((int)GameObjects.TimerSlider).GetComponent<Slider>();
+        _equipSkillInfo = GetComponentInChildren<UI_EquipSkillInfo>();
+
 
         Init_UI();
         BindEvent(_dispatcher);
@@ -145,29 +148,37 @@ public class UI_Status : UI_Scene
         }
     }
 
-    public void UpdateMySkillImage() => ChangeEquipSkillImages(MySkillData.MainSkill.SkillType, MySkillData.SubSkill.SkillType);
+    void UpdateMySkillImage() => _equipSkillInfo.ChangeEquipSkillImages(MySkillData.MainSkill.SkillType, MySkillData.SubSkill.SkillType);
     void UpdateOtherSkillImage()
     {
         if (EnemySkillData != null)
-            ChangeEquipSkillImages(EnemySkillData.MainSkill.SkillType, EnemySkillData.SubSkill.SkillType);
+            _equipSkillInfo.ChangeEquipSkillImages(EnemySkillData.MainSkill.SkillType, EnemySkillData.SubSkill.SkillType);
         else
-            ChangeEquipSkillImages(SkillType.None, SkillType.None);
+            _equipSkillInfo.ChangeEquipSkillImages(SkillType.None, SkillType.None);
     }
+    //void UpdateMySkillImage() => ChangeEquipSkillImages(MySkillData.MainSkill.SkillType, MySkillData.SubSkill.SkillType);
+    //void UpdateOtherSkillImage()
+    //{
+    //    if (EnemySkillData != null)
+    //        ChangeEquipSkillImages(EnemySkillData.MainSkill.SkillType, EnemySkillData.SubSkill.SkillType);
+    //    else
+    //        ChangeEquipSkillImages(SkillType.None, SkillType.None);
+    //}
 
-    void ChangeEquipSkillImages(SkillType mainSkill, SkillType subSkill)
-    {
-        ChangeSkill_Image(mainSkill, (int)Images.MainSkill);
-        ChangeSkill_Image(subSkill, (int)Images.SubSkill);
-    }
+    //void ChangeEquipSkillImages(SkillType mainSkill, SkillType subSkill)
+    //{
+    //    ChangeSkill_Image(mainSkill, (int)Images.MainSkill);
+    //    ChangeSkill_Image(subSkill, (int)Images.SubSkill);
+    //}
 
-    void ChangeSkill_Image(SkillType skill, int imageIndex)
-    {
-        if (skill == SkillType.None)
-            GetImage(imageIndex).color = new Color(1, 1, 1, 0);
-        else
-        {
-            GetImage(imageIndex).sprite = Managers.Data.UserSkill.GetSkillGoodsData(skill).ImageSprite;
-            GetImage(imageIndex).color = new Color(1, 1, 1, 1);
-        }
-    }
+    //void ChangeSkill_Image(SkillType skill, int imageIndex)
+    //{
+    //    if (skill == SkillType.None)
+    //        GetImage(imageIndex).color = new Color(1, 1, 1, 0);
+    //    else
+    //    {
+    //        GetImage(imageIndex).sprite = Managers.Data.UserSkill.GetSkillGoodsData(skill).ImageSprite;
+    //        GetImage(imageIndex).color = new Color(1, 1, 1, 1);
+    //    }
+    //}
 }

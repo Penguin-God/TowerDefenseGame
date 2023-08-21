@@ -105,8 +105,6 @@ public class BattleDIContainerInitializer
 
         var server = MultiServiceMidiator.Server;
         container.AddComponent<MonsterSpawnerContorller>().Inject(container);
-        //container.AddComponent<MonsterSpawnerContorller>()
-        //    .Injection(container.GetComponent<IMonsterManager>(), container.GetComponent<EnemySpawnNumManager>(), dispatcher, new SpeedManagerCreater(container));
 
         container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
         container.GetComponent<UnitMaxCountController>().Init(server, game);
@@ -120,7 +118,7 @@ public class BattleDIContainerInitializer
         Init_UI(container);
         game.Init(container.GetComponent<CurrencyManagerMediator>(), container.GetComponent<UnitMaxCountController>(), data.BattleDataContainer, dispatcher);
         StageManager.Instance.Injection(dispatcher);
-        Managers.Unit.Init(container.GetComponent<UnitController>(), data.CombineConditionByUnitFalg);
+        Managers.Unit.Inject(container.GetComponent<UnitController>(), new UnitCombineSystem(data.CombineConditionByUnitFalg));
     }
 
     void Init_UI(BattleDIContainer container)

@@ -36,10 +36,10 @@ public class UnitManager
     }
 
     UnitController _contoller;
-    public void Init(UnitController controller, IReadOnlyDictionary<UnitFlags, CombineCondition> combineConditionByUnitFalg)
+    public void Inject(UnitController controller, UnitCombineSystem combineSystem)
     {
         _contoller = controller;
-        _combineSystem = new UnitCombineSystem(combineConditionByUnitFalg);
+        _combineSystem = combineSystem;
     }
 
     public void Clear()
@@ -55,6 +55,7 @@ public class UnitManager
     UnitCombineSystem _combineSystem;
     public event Action<UnitFlags> OnCombine = null;
     public event Action OnFailedCombine = null;
+    public event Action<IEnumerable<Multi_TeamSoldier>> OnCombineWithResouces;
     public IEnumerable<UnitFlags> CombineableUnitFlags => _combineSystem.GetCombinableUnitFalgs(GetUnitCount);
 
     public bool TryCombine(UnitFlags flag)

@@ -42,9 +42,5 @@ public class MonsterSpeedManager : MonoBehaviour
         OnRestoreSpeed?.Invoke();
     }
 
-    void OnDisable()
-    {
-        StopCoroutine(nameof(Co_RestoreSpeed));
-        RestoreSpeed();
-    }
+    void OnDestroy() => StopCoroutine(nameof(Co_RestoreSpeed));
 }

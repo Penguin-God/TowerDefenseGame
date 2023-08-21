@@ -35,11 +35,11 @@ public class MonsterDecorator
     {
         var skillData = _container.GetMultiActiveSkillData().GetData(monster.UsingId);
         if (skillData.TruGetSkillData(SkillType.썬콜, out var skillBattleData))
-            AddComponent<SuncoldSpeedManager>(monster.gameObject)
+            AddSppedManager<SuncoldSpeedManager>(monster.gameObject)
                 .InJect(speed, monster, skillBattleData.IntSkillDatas.Take(4).ToArray(), _container.GetComponent<MultiEffectManager>());
-        else AddComponent<MonsterSpeedManager>(monster.gameObject).SetSpeed(speed);
+        else AddSppedManager<MonsterSpeedManager>(monster.gameObject).SetSpeed(speed);
     }
-    T AddComponent<T>(GameObject gameObject) where T : MonoBehaviour
+    T AddSppedManager<T>(GameObject gameObject) where T : MonoBehaviour
     {
         if (gameObject.GetComponent<T>() != null)
             Object.Destroy(gameObject.GetComponent<T>());

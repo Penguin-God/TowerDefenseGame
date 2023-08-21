@@ -114,14 +114,16 @@ public class Multi_NormalEnemy : Multi_Enemy
         pointIndex = -1;
         transform.rotation = Quaternion.identity;
         _stunCount = 0;
+        MonsterSpeedManager.RestoreSpeed();
         Destroy(MonsterSpeedManager);
+        MonsterSpeedManager = null;
     }
 
     protected SpeedManager SpeedManager => MonsterSpeedManager.SpeedManager;
     protected MonsterSpeedManager MonsterSpeedManager { get; private set; }
 
     public float Speed => IsStun ? 0 : SpeedManager.CurrentSpeed;
-    public bool IsSlow => MonsterSpeedManager.IsSlow;
+    public bool IsSlow => MonsterSpeedManager == null ? false : MonsterSpeedManager.IsSlow;
     bool IsStun => _stunCount > 0;
     bool RPCSendable => IsDead == false && PhotonNetwork.IsMasterClient;
     #region 상태이상 구현

@@ -122,7 +122,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected SpeedManager SpeedManager => MonsterSpeedManager.SpeedManager;
     protected MonsterSpeedManager MonsterSpeedManager { get; private set; }
 
-    public float Speed => IsStun ? 0 : SpeedManager.CurrentSpeed;
+    public float Speed => IsStun || IsDead || MonsterSpeedManager == null ? 0 : SpeedManager.CurrentSpeed;
     public bool IsSlow => MonsterSpeedManager == null ? false : MonsterSpeedManager.IsSlow;
     bool IsStun => _stunCount > 0;
     bool RPCSendable => IsDead == false && PhotonNetwork.IsMasterClient;
@@ -149,8 +149,8 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     public void OnSlowWithTime(float slowRate, float slowTime, UnitFlags flag)
     {
-        if (RPCSendable)
-            photonView.RPC(nameof(ApplySlowToAll), RpcTarget.All, slowRate, slowTime, flag);
+        if (RPCSendable == false) return;
+        photonView.RPC(nameof(ApplySlowToAll), RpcTarget.All, slowRate, slowTime, flag);
     }
 
     [PunRPC]

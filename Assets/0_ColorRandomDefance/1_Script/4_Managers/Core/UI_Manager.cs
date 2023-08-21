@@ -111,6 +111,7 @@ public class UI_Manager
         T ui = go.GetOrAddComponent<T>();
         go.transform.SetParent(parent ?? Root); // ??는 parent == null ? parent : Root 랑 같음
         go.gameObject.SetActive(true);
+        ui.Setup();
         return ui;
     }
 

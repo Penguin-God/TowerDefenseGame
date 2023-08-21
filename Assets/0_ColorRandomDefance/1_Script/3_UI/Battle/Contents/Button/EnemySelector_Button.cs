@@ -18,11 +18,6 @@ public class EnemySelector_Button : UI_Base
         GetComponent<Button>().onClick.AddListener(() => action(this));
     }
 
-    public void StartSelectSpawnEnemy()
-    {
-        image.color = selectColor;
-    }
-
     void SelectSpawnEnemy()
     {
         image.color = selectColor;
@@ -37,7 +32,7 @@ public class EnemySelector_Button : UI_Base
     public void ShwoInfoWindow(float offsetY)
     {
         BackGround window = Managers.UI.ShowPopupUI<BackGround>("BackGround");
-        window.Setup();
+        // window.Setup();
         float screenScaleFactor = Screen.height / Managers.UI.UIScreenHeight;
         window.SetPosition(transform.position + new Vector3(0, offsetY * screenScaleFactor, 0));
         window.SetFontSize(27);

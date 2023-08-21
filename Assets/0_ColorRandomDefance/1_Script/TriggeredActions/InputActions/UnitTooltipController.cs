@@ -24,7 +24,6 @@ public class UnitTooltipController
     void ShowUnitTooltip(UI_UnitTracker tracker, float offSetX)
     {
         _currentWindow = Managers.UI.ShowDefualtUI<BackGround>();
-        _currentWindow.Setup();
         float screenWidthScaleFactor = Screen.width / Managers.UI.UIScreenWidth;
         _currentWindow.SetPosition(tracker.GetComponent<RectTransform>().position + new Vector3(offSetX * screenWidthScaleFactor, 0, 0));
         _currentWindow.SetFontSize(FONT_SIZE);

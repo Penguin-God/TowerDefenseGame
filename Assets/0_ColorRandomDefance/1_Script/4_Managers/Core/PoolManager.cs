@@ -81,11 +81,11 @@ public class PoolManager
     Dictionary<string, PoolGroup> _poolGroupByName = new Dictionary<string, PoolGroup>();
     Dictionary<string, Pool> _poolByName = new Dictionary<string, Pool>();
 
-    public void Init()
+    public void Init(string name)
     {
         if(_root == null)
         {
-            _root = new GameObject("Mulit PoolManager").transform;
+            _root = new GameObject(name).transform;
         }
     }
 

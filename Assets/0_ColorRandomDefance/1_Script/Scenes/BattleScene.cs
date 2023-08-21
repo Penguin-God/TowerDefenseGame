@@ -95,9 +95,9 @@ class WorldInitializer
 
     void InitObjectPools()
     {
-        Managers.Pool.Init();
+        Managers.Pool.Init("@PoolManager");
         if (PhotonNetwork.IsMasterClient == false) return;
-
+        // Managers.Pool.Init("@PoolManager");
         new UnitPoolInitializer().InitPool();
         new MonsterPoolInitializer().InitPool();
         new WeaponPoolInitializer().InitPool();

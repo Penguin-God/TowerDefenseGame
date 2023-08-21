@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,6 +19,11 @@ public class UI_UnitManagedWindow : UI_Popup
         UnitNameText,
     }
 
+    enum GameObjects
+    {
+        CombineUIParent,
+    }
+
     [SerializeField] UnitFlags _unitFlag;
     public UnitFlags UnitFlags => _unitFlag;
     UI_CombineButtonParent _combineButtonsParent;
@@ -27,6 +33,7 @@ public class UI_UnitManagedWindow : UI_Popup
         base.Init();
         Bind<Button>(typeof(Buttons));
         Bind<Text>(typeof(Texts));
+        Bind<GameObject>(typeof(GameObjects));
 
         GetButton((int)Buttons.UnitSellButton).onClick.AddListener(SellUnit);
         GetButton((int)Buttons.Unit_World_Changed_Button).onClick.AddListener(UnitWorldChanged);
@@ -46,9 +53,32 @@ public class UI_UnitManagedWindow : UI_Popup
             return;
         _unitFlag = flag;
         GetText((int)Texts.Unit_World_Changed_Text).text = (Managers.Camera.IsLookEnemyTower) ? "월드로" : "적군의 성으로";
-        GetText((int)Texts.Description).text = windowData.CombinationRecipe;
         GetText((int)Texts.UnitNameText).text = Managers.Data.UnitNameDataByFlag[_unitFlag].KoearName;
-        _combineButtonsParent.SettingCombineButtons(windowData.CombineUnitFlags);
+        CreateCombineUI(flag);
+        //GetText((int)Texts.Description).text = windowData.CombinationRecipe;
+        //_combineButtonsParent.SettingCombineButtons(windowData.CombineUnitFlags);
+
+    }
+
+    void CreateCombineUI(UnitFlags flag)
+    {
+        Transform parent = GetObject((int)GameObjects.CombineUIParent).transform;
+        foreach (Transform child in parent)
+            Destroy(child.gameObject);
+
+        var flags = new List<UnitFlags>();
+        if(Managers.Data.CombineConditionByUnitFalg.ContainsKey(flag))
+            flags.Add(flag);
+        flags.AddRange(
+            Managers.Data.CombineConditionByUnitFalg
+            .Values
+            .Where(x => x.NeedCountByFlag.Keys.Contains(flag))
+            .Select(x => x.TargetUnitFlag)
+            .Where(x => UnitFlags.NormalColors.Contains(x.UnitColor))
+            );
+
+        foreach (var combineTargetFlag in flags.OrderBy(x => x.ClassNumber))
+            Managers.UI.MakeSubItem<UI_UnitCombineInfoItem>(parent).SetInfo(combineTargetFlag);
     }
 
     void SellUnit()

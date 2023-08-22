@@ -15,7 +15,11 @@ public class UI_BattleButtonsWhitGambler : UI_BattleButtons
 
     LevelSystem _gamblerLevelSystem;
     int _addExpAmount;
-    public void Inject(LevelSystem levelSystem) => _gamblerLevelSystem = levelSystem;
+    public void Inject(LevelSystem levelSystem, int addExpAmount)
+    {
+        _gamblerLevelSystem = levelSystem;
+        _addExpAmount = addExpAmount;
+    }
 
     protected override void Init()
     {
@@ -70,14 +74,14 @@ public class UI_BattleButtonsWhitGambler : UI_BattleButtons
     void UpdateText()
     {
         _gambleLevelText.text = $"LV : {_gamblerLevelSystem.Level}";
-        _expStatusText.text = $"EXP : {_gamblerLevelSystem.Experience / _gamblerLevelSystem.NeedExperienceForLevelUp}";
+        _expStatusText.text = $"EXP : {_gamblerLevelSystem.Experience} / {_gamblerLevelSystem.NeedExperienceForLevelUp}";
     }
 
     protected override void GachaUnit()
     {
         var _game = Multi_GameManager.Instance;
         double[][] rates = new double[][] { new double[] { 100 }, new double[] { 30, 40, 30 } };
-        if (_game.UnitOver == false && _game.HasGold(5))
+        if (_game.UnitOver == false && _game.TryUseGold(5))
             UnitGacha(rates[_gamblerLevelSystem.Level - 1]);
     }
 

@@ -526,7 +526,7 @@ public class GamblerController : UserSkill
         _gambleLevelSystem = new LevelSystem(new int[] { 10, 20, 30, 40, 50, 60, 70, 80, 100, });
         uiMediator.RegisterUI(BattleUI_Type.BattleButtons, "UI_BattleButtonsWhitGambler");
         var ui = uiMediator.ShowSceneUI<UI_BattleButtonsWhitGambler>(BattleUI_Type.BattleButtons);
-        ui.Inject(_gambleLevelSystem);
+        ui.Inject(_gambleLevelSystem, 4);
         ui.gameObject.SetActive(false);
     }
 

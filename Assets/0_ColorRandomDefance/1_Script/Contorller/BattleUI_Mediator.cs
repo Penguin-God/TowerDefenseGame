@@ -16,16 +16,20 @@ public class BattleUI_Mediator
     readonly UI_Manager _uiManager;
     readonly Dictionary<BattleUI_Type, string> _pathBybattleUIType = new Dictionary<BattleUI_Type, string>();
     readonly BattleDIContainer _container;
-    public BattleUI_Mediator(UI_Manager uiManager) => _uiManager = uiManager;
+    public BattleUI_Mediator(UI_Manager uiManager, BattleDIContainer container)
+    {
+        _uiManager = uiManager;
+        _container = container;
+    }
 
-    public void RegisterUI<T>(BattleUI_Type type) => RegisterUI(type, nameof(T));
+    public void RegisterUI<T>(BattleUI_Type type) => RegisterUI(type, typeof(T).Name);
     public void RegisterUI(BattleUI_Type type, string path) => _pathBybattleUIType[type] = path;
     public T ShowPopupUI<T>(BattleUI_Type type) where T : UI_Popup => _uiManager.ShowPopupUI<T>(_pathBybattleUIType[type]);
     public void ShowPopupUI(BattleUI_Type type) => _uiManager.ShowPopupUI<UI_Popup>(_pathBybattleUIType[type]);
 
     public T ShowSceneUI<T>(BattleUI_Type type) where T : UI_Scene
     {
-        if(_uiManager.GetSceneUI<T>() != null)
+        if(_uiManager.GetSceneUI<T>() == null)
         {
             T ui = _uiManager.ShowSceneUI<T>(_pathBybattleUIType[type]);
             Inject_UI(ui, type);

@@ -75,8 +75,9 @@ public class BattleDIContainerInitializer
         container.AddComponent<NormalMonsterSpawner>();
         container.AddComponent<Multi_BossEnemySpawner>();
         container.AddComponent<RewradController>();
+        container.AddComponent<BattleStartController>();
 
-        container.AddService(new BattleUI_Mediator(Managers.UI));
+        container.AddService(new BattleUI_Mediator(Managers.UI, container));
     }
 
     void InjectService(BattleDIContainer container)
@@ -94,6 +95,7 @@ public class BattleDIContainerInitializer
         container.GetComponent<NormalMonsterSpawner>().Inject(new MonsterDecorator(container));
         container.GetComponent<Multi_BossEnemySpawner>().Inject(new MonsterDecorator(container));
         container.GetComponent<RewradController>().Inject(container.GetComponent<Multi_BossEnemySpawner>());
+        container.GetComponent<BattleStartController>().Inject(container.GetEventDispatcher(), container.GetService<BattleUI_Mediator>());
 
         new UnitCombineNotifier(Managers.Unit, container.GetComponent<TextShowAndHideController>());
     }
@@ -123,7 +125,7 @@ public class BattleDIContainerInitializer
 
     void Init_UI(BattleDIContainer container)
     {
-        Managers.UI.ShowSceneUI<UI_BattleButtons>().Inject(container.GetComponent<SwordmanGachaController>(), container.GetComponent<TextShowAndHideController>());
+        // Managers.UI.ShowSceneUI<UI_BattleButtons>().Inject(container.GetComponent<SwordmanGachaController>(), container.GetComponent<TextShowAndHideController>());
         Managers.UI.ShowSceneUI<UI_Status>().Injection(container.GetService<BattleEventDispatcher>(), container.GetMultiActiveSkillData());
         var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();
         enemySelector.SetInfo(container.GetComponent<EnemySpawnNumManager>());
@@ -133,6 +135,8 @@ public class BattleDIContainerInitializer
         uiMediator.RegisterUI(BattleUI_Type.WhiteUnitShop, "InGameShop/WhiteUnitShop");
         uiMediator.RegisterUI(BattleUI_Type.BalckUnitCombineTable, "InGameShop/BlackUnitShop");
         uiMediator.RegisterUI(BattleUI_Type.UnitMaxCountExpendShop, "InGameShop/UnitCountExpendShop_UI");
+
+        uiMediator.RegisterUI<UI_BattleButtons>(BattleUI_Type.BattleButtons);
     }
 
     void InitSound()
@@ -170,8 +174,7 @@ public class BattleDIContainerInitializer
 
     void Done(BattleDIContainer container)
     {
-        container.AddComponent<BattleReadyController>()
-            .EnterBattle(container.GetComponent<EnemySpawnNumManager>(), container.GetEventDispatcher(), container.GetMultiActiveSkillData().GetData(PlayerIdManager.EnemyId));
+        container.GetComponent<BattleStartController>().EnterBattle(container.GetComponent<EnemySpawnNumManager>(), container.GetMultiActiveSkillData().GetData(PlayerIdManager.EnemyId));
     }
 
     void AddMultiService<TClient, TMaster> (BattleDIContainer container) where TClient : MonoBehaviour where TMaster : MonoBehaviour

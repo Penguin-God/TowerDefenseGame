@@ -12,7 +12,6 @@ public class UI_BattleButtonsWhitGambler : UI_BattleButtons
     [SerializeField] Button _worldButton;
     [SerializeField] TextMeshProUGUI _gambleLevelText;
     [SerializeField] TextMeshProUGUI _expStatusText;
-    [SerializeField] Slider _expStatusBar;
 
     LevelSystem _gamblerLevelSystem;
     int _addExpAmount;
@@ -25,6 +24,8 @@ public class UI_BattleButtonsWhitGambler : UI_BattleButtons
         Managers.Camera.OnIsLookMyWolrd += OnWorldChange;
         _unitSummonSwichButton.onClick.AddListener(SwitchButtons);
         _addExpButton.onClick.AddListener(AddExp);
+        ApplyButtonEnable();
+        UpdateText();
     }
 
     void OnWorldChange(bool isLooyMy)
@@ -33,20 +34,17 @@ public class UI_BattleButtonsWhitGambler : UI_BattleButtons
             ToggleExpButton(isLooyMy);
     }
 
-    bool _isShowExpButton;
+    bool _isShowExpButton = false;
     void SwitchButtons()
     {
-        if (_isShowExpButton)
-        {
-            ToggleExpButton(false);
-            ToggleDefaultButton(true);
-        }
-        else
-        {
-            ToggleExpButton(true);
-            ToggleDefaultButton(false);
-        }
         _isShowExpButton = !_isShowExpButton;
+        ApplyButtonEnable();
+    }
+
+    void ApplyButtonEnable()
+    {
+        ToggleExpButton(_isShowExpButton);
+        ToggleDefaultButton(!_isShowExpButton);
     }
 
     void ToggleExpButton(bool isActive)
@@ -54,7 +52,6 @@ public class UI_BattleButtonsWhitGambler : UI_BattleButtons
         _gambleLevelText.gameObject.SetActive(isActive);
         _expStatusText.gameObject.SetActive(isActive);
         _addExpButton.gameObject.SetActive(isActive);
-        _expStatusBar.gameObject.SetActive(isActive);
     }
     
     void ToggleDefaultButton(bool isActive)
@@ -67,8 +64,13 @@ public class UI_BattleButtonsWhitGambler : UI_BattleButtons
     void AddExp()
     {
         _gamblerLevelSystem.AddExperience(_addExpAmount);
-        _gambleLevelText.text = _gamblerLevelSystem.Level.ToString();
-        _expStatusText.text = $"{_gamblerLevelSystem.Experience / _gamblerLevelSystem.NeedExperienceForLevelUp}";
+        UpdateText();
+    }
+
+    void UpdateText()
+    {
+        _gambleLevelText.text = $"LV : {_gamblerLevelSystem.Level}";
+        _expStatusText.text = $"EXP : {_gamblerLevelSystem.Experience / _gamblerLevelSystem.NeedExperienceForLevelUp}";
     }
 
     protected override void GachaUnit()

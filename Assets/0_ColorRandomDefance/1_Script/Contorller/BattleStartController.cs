@@ -3,17 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class BattleReadyController : MonoBehaviourPun
+public class BattleStartController : MonoBehaviourPun
 {
+    BattleEventDispatcher _dispatcher;
+    BattleUI_Mediator _uiMediator;
+    public void Inject(BattleEventDispatcher dispatcher, BattleUI_Mediator uiMediator)
+    {
+        _dispatcher = dispatcher;
+        _uiMediator = uiMediator;
+    }
+
     int _readyCount;
     UI_BattleStartController _battleStartControllerUI;
-    BattleEventDispatcher _dispatcher;
-    
-    public void EnterBattle(EnemySpawnNumManager manager, BattleEventDispatcher dispatcher, SkillBattleDataContainer enemySkillData)
+    public void EnterBattle(EnemySpawnNumManager manager, SkillBattleDataContainer enemySkillData)
     {
         _battleStartControllerUI = Managers.UI.ShowDefualtUI<UI_BattleStartController>();
         _battleStartControllerUI.EnterBattle(enemySkillData);
-        _dispatcher = dispatcher;
         foreach (var ui in Managers.UI.SceneUIs)
             ui.gameObject.SetActive(false);
         Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(true);
@@ -53,6 +58,7 @@ public class BattleReadyController : MonoBehaviourPun
         foreach (var ui in Managers.UI.SceneUIs)
             ui.gameObject.SetActive(true);
         Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(false);
+        _uiMediator.ShowSceneUI<UI_BattleButtons>(BattleUI_Type.BattleButtons);
         StartCoroutine(Co_NotifyGameStartEvent());
         _dispatcher.NotifyGameStart();
         Managers.Camera.OnIsLookMyWolrd += (isLookMy) => Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(!isLookMy);

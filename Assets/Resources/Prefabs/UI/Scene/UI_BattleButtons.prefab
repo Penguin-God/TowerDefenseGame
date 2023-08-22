@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 3662475881920722144}
   - component: {fileID: 7599149356521506524}
   m_Layer: 5
-  m_Name: BattleButton_UI
+  m_Name: UI_BattleButtons
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -412,7 +412,7 @@ GameObject:
   - component: {fileID: 6235879654345495059}
   - component: {fileID: 6235879654345495084}
   m_Layer: 5
-  m_Name: Create_Defenser_Button
+  m_Name: SummonUnitButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

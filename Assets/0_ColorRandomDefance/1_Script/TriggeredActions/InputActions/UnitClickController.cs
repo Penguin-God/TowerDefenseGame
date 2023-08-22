@@ -24,7 +24,7 @@ public class UnitClickController : MonoBehaviour
         if(_sorter != null) return _sorter;
         else
         {
-            var result = Managers.UI.GetSceneUI<BattleButton_UI>().GetComponentInChildren<UnitTrakerSortByColor>(true);
+            var result = Managers.UI.GetSceneUI<UI_BattleButtons>().GetComponentInChildren<UnitTrakerSortByColor>(true);
             _sorter = result;
             return result;
         }

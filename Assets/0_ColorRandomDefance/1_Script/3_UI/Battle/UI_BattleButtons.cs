@@ -3,17 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class BattleButton_UI : UI_Scene
+public class UI_BattleButtons : UI_Scene
 {
     enum GameObjects
     {
-        Create_Defenser_Button,
         Paint,
     }
 
     enum Buttons
     {
-        Create_Defenser_Button,
+        SummonUnitButton,
         StoryWolrd_EnterButton,
     }
 
@@ -29,11 +28,11 @@ public class BattleButton_UI : UI_Scene
         Bind<Text>(typeof(Texts));
         Bind<Button>(typeof(Buttons));
 
-        Managers.Camera.OnIsLookMyWolrd += (isLookMy) => GetObject((int)GameObjects.Create_Defenser_Button).SetActive(isLookMy);
+        Managers.Camera.OnIsLookMyWolrd += (isLookMy) => GetButton((int)Buttons.SummonUnitButton).gameObject.SetActive(isLookMy);
         Managers.Camera.OnIsLookMyWolrd += (isLookMy) => GetObject((int)GameObjects.Paint).SetActive(isLookMy);
 
         GetButton((int)Buttons.StoryWolrd_EnterButton).onClick.AddListener(CameraPositionChanged);
-        GetButton((int)Buttons.Create_Defenser_Button).onClick.AddListener(SommonUnit);
+        GetButton((int)Buttons.SummonUnitButton).onClick.AddListener(SommonUnit);
     }
 
     public void Inject(SwordmanGachaController swordmanGachaController, TextShowAndHideController textShowAndHideController)

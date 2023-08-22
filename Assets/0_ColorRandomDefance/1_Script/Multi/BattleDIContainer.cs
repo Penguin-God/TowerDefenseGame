@@ -123,7 +123,7 @@ public class BattleDIContainerInitializer
 
     void Init_UI(BattleDIContainer container)
     {
-        Managers.UI.ShowSceneUI<BattleButton_UI>().Inject(container.GetComponent<SwordmanGachaController>(), container.GetComponent<TextShowAndHideController>());
+        Managers.UI.ShowSceneUI<UI_BattleButtons>().Inject(container.GetComponent<SwordmanGachaController>(), container.GetComponent<TextShowAndHideController>());
         Managers.UI.ShowSceneUI<UI_Status>().Injection(container.GetService<BattleEventDispatcher>(), container.GetMultiActiveSkillData());
         var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();
         enemySelector.SetInfo(container.GetComponent<EnemySpawnNumManager>());

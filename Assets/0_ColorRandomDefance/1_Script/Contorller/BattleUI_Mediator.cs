@@ -8,6 +8,7 @@ public enum BattleUI_Type
     BalckUnitCombineTable,
     WhiteUnitShop,
     UnitMaxCountExpendShop,
+    BattleButtons,
 }
 
 public class BattleUI_Mediator
@@ -20,5 +21,5 @@ public class BattleUI_Mediator
     public T ShowPopupUI<T>(BattleUI_Type type) where T : UI_Popup => _uiManager.ShowPopupUI<T>(_pathBybattleUIType[type]);
     public void ShowPopupUI(BattleUI_Type type) => _uiManager.ShowPopupUI<UI_Popup>(_pathBybattleUIType[type]);
 
-
+    public T ShowSceneUI<T>(BattleUI_Type type) where T : UI_Scene => _uiManager.ShowSceneUI<T>(_pathBybattleUIType[type]);
 }

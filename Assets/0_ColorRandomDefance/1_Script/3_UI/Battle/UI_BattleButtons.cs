@@ -10,7 +10,7 @@ public class UI_BattleButtons : UI_Scene
         Paint,
     }
 
-    enum Buttons
+    protected enum Buttons
     {
         SummonUnitButton,
         StoryWolrd_EnterButton,
@@ -68,6 +68,11 @@ public class UI_BattleButtons : UI_Scene
             return;
         }
 
+        GachaUnit();
+    }
+
+    protected virtual void GachaUnit()
+    {
         if (_swordmanGachaController.TryDrawUnit())
             Managers.Sound.PlayEffect(EffectSoundType.DrawSwordman);
     }

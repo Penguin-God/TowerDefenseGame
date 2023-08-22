@@ -524,7 +524,10 @@ public class GamblerController : UserSkill
     public GamblerController(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator) : base(userSkillBattleData)
     {
         _gambleLevelSystem = new LevelSystem(new int[] { 10, 20, 30, 40, 50, 60, 70, 80, 100, });
-        // uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_UnitUpgradeShopWithGamble");
+        uiMediator.RegisterUI(BattleUI_Type.BattleButtons, "UI_BattleButtonsWhitGambler");
+        var ui = uiMediator.ShowSceneUI<UI_BattleButtonsWhitGambler>(BattleUI_Type.BattleButtons);
+        ui.Inject(_gambleLevelSystem);
+        ui.gameObject.SetActive(false);
     }
 
     internal override void InitSkill()

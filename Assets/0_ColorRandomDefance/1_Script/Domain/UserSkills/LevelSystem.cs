@@ -5,6 +5,7 @@ public class LevelSystem
 {
     public int Level { get; private set; }
     public int Experience { get; private set; }
+    public int NeedExperienceForLevelUp => ExperienceToNextLevel[Level - 1];
     public int[] ExperienceToNextLevel { get; private set; }
     public int MaxLevel => ExperienceToNextLevel.Length + 1;
     public bool IsMaxLevel => Level >= MaxLevel;
@@ -21,7 +22,7 @@ public class LevelSystem
 
         Experience += amount;
         // 경험치가 2레벨 이상 업할 수준으로 많이 얻을 수 있기에 while문 사용
-        while (Experience >= ExperienceToNextLevel[Level - 1])
+        while (Experience >= NeedExperienceForLevelUp)
         {
             LevelUp();
             if (IsMaxLevel) break;
@@ -30,7 +31,7 @@ public class LevelSystem
 
     void LevelUp()
     {
-        Experience -= ExperienceToNextLevel[Level - 1]; // 레벨업에 필요한 경험치를 차감합니다.
+        Experience -= NeedExperienceForLevelUp; // 레벨업에 필요한 경험치를 차감합니다.
         Level++;
         if (Level >= MaxLevel)
             Experience = 0;

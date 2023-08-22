@@ -1,18 +1,87 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
-public class UI_BattleButtonsWhitGambler : MonoBehaviour
+public class UI_BattleButtonsWhitGambler : UI_BattleButtons
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] Button _unitSummonSwichButton;
+    [SerializeField] Button _addExpButton;
+    [SerializeField] Button _worldButton;
+    [SerializeField] TextMeshProUGUI _gambleLevelText;
+    [SerializeField] TextMeshProUGUI _expStatusText;
+    [SerializeField] Slider _expStatusBar;
+
+    LevelSystem _gamblerLevelSystem;
+    int _addExpAmount;
+    public void Inject(LevelSystem levelSystem) => _gamblerLevelSystem = levelSystem;
+
+    protected override void Init()
     {
-        
+        base.Init();
+
+        Managers.Camera.OnIsLookMyWolrd += OnWorldChange;
+        _unitSummonSwichButton.onClick.AddListener(SwitchButtons);
+        _addExpButton.onClick.AddListener(AddExp);
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnWorldChange(bool isLooyMy)
     {
-        
+        if(_isShowExpButton)
+            ToggleExpButton(isLooyMy);
+    }
+
+    bool _isShowExpButton;
+    void SwitchButtons()
+    {
+        if (_isShowExpButton)
+        {
+            ToggleExpButton(false);
+            ToggleDefaultButton(true);
+        }
+        else
+        {
+            ToggleExpButton(true);
+            ToggleDefaultButton(false);
+        }
+        _isShowExpButton = !_isShowExpButton;
+    }
+
+    void ToggleExpButton(bool isActive)
+    {
+        _gambleLevelText.gameObject.SetActive(isActive);
+        _expStatusText.gameObject.SetActive(isActive);
+        _addExpButton.gameObject.SetActive(isActive);
+        _expStatusBar.gameObject.SetActive(isActive);
+    }
+    
+    void ToggleDefaultButton(bool isActive)
+    {
+        _worldButton.gameObject.SetActive(isActive);
+        GetButton((int)Buttons.SummonUnitButton).gameObject.SetActive(isActive);
+        GetButton((int)Buttons.StoryWolrd_EnterButton).gameObject.SetActive(isActive);
+    }
+
+    void AddExp()
+    {
+        _gamblerLevelSystem.AddExperience(_addExpAmount);
+        _gambleLevelText.text = _gamblerLevelSystem.Level.ToString();
+        _expStatusText.text = $"{_gamblerLevelSystem.Experience / _gamblerLevelSystem.NeedExperienceForLevelUp}";
+    }
+
+    protected override void GachaUnit()
+    {
+        var _game = Multi_GameManager.Instance;
+        double[][] rates = new double[][] { new double[] { 100 }, new double[] { 30, 40, 30 } };
+        if (_game.UnitOver == false && _game.HasGold(5))
+            UnitGacha(rates[_gamblerLevelSystem.Level - 1]);
+    }
+
+    void UnitGacha(double[] rates)
+    {
+        UnitFlags selectUnitFlag = new UnitFlags(UnitFlags.NormalColors.ToList().GetRandom(), (UnitClass)new GachaMachine().SelectIndex(rates));
+        Multi_SpawnManagers.NormalUnit.Spawn(selectUnitFlag);
     }
 }

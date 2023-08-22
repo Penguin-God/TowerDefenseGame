@@ -152,7 +152,7 @@ public class UserSkillFactory
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>()); break;
             case SkillType.덫:
                 result = new SlowTrapSpawner(skillBattleData, Multi_Data.instance.GetEnemyTurnPoints(PlayerIdManager.Id) ,container.GetEventDispatcher()); break;
-            case SkillType.백의결속: result = new BondofWhite(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance); break;
+            case SkillType.백의결속: result = new BondOfWhite(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance); break;
             case SkillType.썬콜: result = new Suncold(skillBattleData, Managers.Data); break;
             default: result = null; break;
         }
@@ -289,26 +289,26 @@ public class UnitMerchant : UserSkill
     }
 }
 
-public class GamblerController : UserSkill
-{
-    public GamblerController(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator) : base(userSkillBattleData) 
-    {
-        uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_UnitUpgradeShopWithGamble");
-        var ui = uiMediator.ShowPopupUI<UI_UnitUpgradeShopWithGamble>(BattleUI_Type.UnitUpgrdeShop);
-        ui.SetNeedStackForGamble(Multi_GameManager.Instance.BattleData.UnitUpgradeShopData.ResetPrice = IntSkillDatas[2]);
-        ui.gameObject.SetActive(false);
-    }
+//public class GamblerController : UserSkill
+//{
+//    public GamblerController(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator) : base(userSkillBattleData) 
+//    {
+//        uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_UnitUpgradeShopWithGamble");
+//        var ui = uiMediator.ShowPopupUI<UI_UnitUpgradeShopWithGamble>(BattleUI_Type.UnitUpgrdeShop);
+//        ui.SetNeedStackForGamble(IntSkillDatas[2]);
+//        ui.gameObject.SetActive(false);
+//    }
 
-    internal override void InitSkill()
-    {
-        Multi_GameManager.Instance.BattleData.UnitUpgradeShopData.ResetPrice = IntSkillDatas[0];
-        Multi_GameManager.Instance.BattleData
-            .ShopPriceDataByUnitUpgradeData
-            .Where(x => x.Key.UpgradeType == UnitUpgradeType.Value)
-            .Select(x => x.Value)
-            .ToList().ForEach(x => x.ChangeAmount(IntSkillDatas[1]));
-    }
-}
+//    internal override void InitSkill()
+//    {
+//        Multi_GameManager.Instance.BattleData.UnitUpgradeShopData.ResetPrice = IntSkillDatas[0];
+//        Multi_GameManager.Instance.BattleData
+//            .ShopPriceDataByUnitUpgradeData
+//            .Where(x => x.Key.UpgradeType == UnitUpgradeType.Value)
+//            .Select(x => x.Value)
+//            .ToList().ForEach(x => x.ChangeAmount(IntSkillDatas[1]));
+//    }
+//}
 
 public class CombineMeteorController : UserSkill
 {
@@ -461,14 +461,14 @@ public class SlowTrapSpawner : UserSkill
     float CalculateTrapSlow(int stage) => Mathf.Min(DefaultSlowRate + (stage * SlowRatePerStage), MaxSlowRate);
 }
 
-public class BondofWhite : UserSkill
+public class BondOfWhite : UserSkill
 {
     BattleEventDispatcher _dispatcher;
     Multi_GameManager _game;
     readonly int[] _upgradeDamages;
     readonly int NeedUpStageForGetFood;
     readonly int RewardFoodWhenStageUp;
-    public BondofWhite(UserSkillBattleData userSkillBattleData, BattleEventDispatcher dispatcher, Multi_GameManager game) : base(userSkillBattleData) 
+    public BondOfWhite(UserSkillBattleData userSkillBattleData, BattleEventDispatcher dispatcher, Multi_GameManager game) : base(userSkillBattleData) 
     {
         _dispatcher = dispatcher;
         _game = game;
@@ -516,4 +516,19 @@ public class Suncold : UserSkill
     }
 
     internal override void InitSkill() {}
+}
+
+public class GamblerController : UserSkill
+{
+    readonly LevelSystem _gambleLevelSystem;
+    public GamblerController(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator) : base(userSkillBattleData)
+    {
+        _gambleLevelSystem = new LevelSystem(new int[] { 10, 20, 30, 40, 50, 60, 70, 80, 100, });
+        // uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_UnitUpgradeShopWithGamble");
+    }
+
+    internal override void InitSkill()
+    {
+        
+    }
 }

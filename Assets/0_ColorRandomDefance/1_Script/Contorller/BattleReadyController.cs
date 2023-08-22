@@ -9,9 +9,10 @@ public class BattleReadyController : MonoBehaviourPun
     UI_BattleStartController _battleStartControllerUI;
     BattleEventDispatcher _dispatcher;
     
-    public void EnterBattle(EnemySpawnNumManager manager, BattleEventDispatcher dispatcher)
+    public void EnterBattle(EnemySpawnNumManager manager, BattleEventDispatcher dispatcher, SkillBattleDataContainer enemySkillData)
     {
         _battleStartControllerUI = Managers.UI.ShowDefualtUI<UI_BattleStartController>();
+        _battleStartControllerUI.EnterBattle(enemySkillData);
         _dispatcher = dispatcher;
         foreach (var ui in Managers.UI.SceneUIs)
             ui.gameObject.SetActive(false);

@@ -170,7 +170,8 @@ public class BattleDIContainerInitializer
 
     void Done(BattleDIContainer container)
     {
-        container.AddComponent<BattleReadyController>().EnterBattle(container.GetComponent<EnemySpawnNumManager>(), container.GetService<BattleEventDispatcher>());
+        container.AddComponent<BattleReadyController>()
+            .EnterBattle(container.GetComponent<EnemySpawnNumManager>(), container.GetEventDispatcher(), container.GetMultiActiveSkillData().GetData(PlayerIdManager.EnemyId));
     }
 
     void AddMultiService<TClient, TMaster> (BattleDIContainer container) where TClient : MonoBehaviour where TMaster : MonoBehaviour

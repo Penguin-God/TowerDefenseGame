@@ -9,10 +9,17 @@ public class UI_BattleStartController : UI_Base
 {
     [SerializeField] Button _readyButton;
 
-    protected override void Init()
+    //protected override void Init()
+    //{
+    //    _readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "소환할 몬스터를 선택해 주십시오";
+    //    _readyButton.enabled = false;
+    //}
+
+    public void EnterBattle(SkillBattleDataContainer enemySkillData)
     {
         _readyButton.GetComponentInChildren<TextMeshProUGUI>().text = "소환할 몬스터를 선택해 주십시오";
         _readyButton.enabled = false;
+        GetComponentInChildren<UI_EquipSkillInfo>().ChangeEquipSkillImages(enemySkillData.MainSkill.SkillType, enemySkillData.SubSkill.SkillType);
     }
 
     public void ActiveReadyButton(UnityAction onReady)

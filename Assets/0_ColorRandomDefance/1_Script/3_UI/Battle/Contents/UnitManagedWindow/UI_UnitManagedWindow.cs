@@ -14,7 +14,7 @@ public class UI_UnitManagedWindow : UI_Popup
 
     enum Texts
     {
-        Description,
+        // Description,
         Unit_World_Changed_Text,
         UnitNameText,
     }
@@ -26,7 +26,7 @@ public class UI_UnitManagedWindow : UI_Popup
 
     [SerializeField] UnitFlags _unitFlag;
     public UnitFlags UnitFlags => _unitFlag;
-    UI_CombineButtonParent _combineButtonsParent;
+    // UI_CombineButtonParent _combineButtonsParent;
 
     protected override void Init()
     {
@@ -37,7 +37,7 @@ public class UI_UnitManagedWindow : UI_Popup
 
         GetButton((int)Buttons.UnitSellButton).onClick.AddListener(SellUnit);
         GetButton((int)Buttons.Unit_World_Changed_Button).onClick.AddListener(UnitWorldChanged);
-        _combineButtonsParent = GetComponentInChildren<UI_CombineButtonParent>();
+        // _combineButtonsParent = GetComponentInChildren<UI_CombineButtonParent>();
     }
 
     public void Show(UnitFlags flags)

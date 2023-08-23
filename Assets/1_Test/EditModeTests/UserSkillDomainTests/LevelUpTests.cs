@@ -39,15 +39,18 @@ namespace UserSkillDomainTests
         }
 
         [Test]
-        public void 레벨업마다_이밴트를_쏴야_함()
+        public void 상황에_맞는_이밴트를_쏴야_함()
         {
             var sut = CreateLevelSystem();
-            int result = 0;
-            sut.OnLevelUp += (lv) => result = lv;
+            int level = 0;
+            int experience = 0;
+            sut.OnLevelUp += (lv) => level = lv;
+            sut.OnChangeExp += (exp) => experience = exp;
 
-            sut.AddExperience(100);
+            sut.AddExperience(150);
 
-            Assert.AreEqual(2, result);
+            Assert.AreEqual(2, level);
+            Assert.AreEqual(50, experience);
         }
     }
 }

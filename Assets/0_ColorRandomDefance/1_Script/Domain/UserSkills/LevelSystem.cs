@@ -6,7 +6,19 @@ public class LevelSystem
 {
     public int Level { get; private set; }
     public event Action<int> OnLevelUp;
-    public int Experience { get; private set; }
+
+    int _experience;
+    public int Experience
+    {
+        get => _experience;
+        private set
+        {
+            _experience = value;
+            OnChangeExp?.Invoke(_experience); // 경험치 변경 시 이벤트 호출
+        }
+    }
+    public event Action<int> OnChangeExp;
+
     public int NeedExperienceForLevelUp => ExperienceToNextLevel[Level - 1];
     public int[] ExperienceToNextLevel { get; private set; }
     public int MaxLevel => ExperienceToNextLevel.Length + 1;

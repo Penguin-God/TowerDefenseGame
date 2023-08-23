@@ -530,25 +530,33 @@ public struct GambleData
 public class GamblerController : UserSkill
 {
     readonly LevelSystem _gambleLevelSystem;
-    readonly int AddExpAmountWhenStageUp;
     readonly IReadOnlyList<GambleData> _gambleDatas;
     public GamblerController(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
     {
         _gambleDatas = CsvUtility.CsvToArray<GambleData>(Managers.Resources.Load<TextAsset>("Data/SkillData/GamblerData").text);
         _gambleLevelSystem = new LevelSystem(_gambleDatas.Select(x => x.NeedExpForLevelUp).ToArray());
         _gambleLevelSystem.OnLevelUp += GachaUnit;
+
+        ExpPrice = IntSkillDatas[0];
+        ExpAmount = IntSkillDatas[1];
+        AddExpAmountWhenStageUp = IntSkillDatas[2];
         dispatcher.OnStageUp += AddStageExp;
 
         uiMediator.RegisterUI(BattleUI_Type.BattleButtons, "UI_BattleButtonsWhitGambler");
         var ui = uiMediator.ShowUI(BattleUI_Type.BattleButtons).GetComponent<UI_Gambler>();
-        ui.Inject(_gambleLevelSystem, IntSkillDatas[0], IntSkillDatas[1]);
+        ui.Inject(_gambleLevelSystem, BuyExp);
         ui.gameObject.SetActive(false);
-        AddExpAmountWhenStageUp = IntSkillDatas[2];
     }
 
-    void AddStageExp(int stage)
+    readonly int AddExpAmountWhenStageUp;
+    void AddStageExp(int stage) => _gambleLevelSystem.AddExperience(AddExpAmountWhenStageUp);
+
+    readonly int ExpPrice;
+    readonly int ExpAmount;
+    void BuyExp()
     {
-        _gambleLevelSystem.AddExperience(AddExpAmountWhenStageUp);
+        if (Multi_GameManager.Instance.TryUseGold(ExpPrice))
+            _gambleLevelSystem.AddExperience(ExpAmount);
     }
 
     internal override void InitSkill() {}

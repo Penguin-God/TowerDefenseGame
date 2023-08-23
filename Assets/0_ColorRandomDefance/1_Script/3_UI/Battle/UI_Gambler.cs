@@ -2,10 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class UI_Gambler : UI_Base
 {
+    enum UI_State
+    {
+        Defautl,
+        Exp,
+        Gacha,
+    }
+
     enum GameObjects
     {
         SummonUnitButton,
@@ -14,7 +22,7 @@ public class UI_Gambler : UI_Base
     protected enum Buttons
     {
         UnitSummonSwichButton,
-        AddExpButton,
+        BuyExpButton,
     }
 
     enum Texts
@@ -23,14 +31,12 @@ public class UI_Gambler : UI_Base
         ExpStatusText,
     }
 
-    LevelSystem _gamblerLevelSystem;
-    int _expPrice;
-    int _addExpAmount;
-    public void Inject(LevelSystem levelSystem, int expPrice, int addExpAmount)
+    LevelSystem _gambleLevelSystem;
+    UnityAction _buyExp;
+    public void Inject(LevelSystem levelSystem, UnityAction buyExp)
     {
-        _gamblerLevelSystem = levelSystem;
-        _addExpAmount = addExpAmount;
-        _expPrice = expPrice;
+        _gambleLevelSystem = levelSystem;
+        _buyExp = buyExp;
     }
 
     protected override void Init()
@@ -40,55 +46,70 @@ public class UI_Gambler : UI_Base
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Button>(typeof(Buttons));
 
-        Managers.Camera.OnIsLookMyWolrd += OnWorldChange;
+        Managers.Camera.OnLookEnemyWorld += InActiveAllButtons;
+        Managers.Camera.OnLookMyWolrd += UpdateUIState;
 
-        _gamblerLevelSystem.OnChangeExp += _ => UpdateText();
-        GetButton((int)Buttons.UnitSummonSwichButton).onClick.AddListener(SwitchButtons);
-        GetButton((int)Buttons.AddExpButton).onClick.AddListener(AddExp);
-        ApplyButtonEnable();
+        GetTextMeshPro((int)Texts.GambleLevelText).raycastTarget = false;
+        GetTextMeshPro((int)Texts.ExpStatusText).raycastTarget = false;
+        _gambleLevelSystem.OnChangeExp += _ => UpdateText();
+
+        GetButton((int)Buttons.UnitSummonSwichButton).onClick.AddListener(SwitchExpDefault);
+        GetButton((int)Buttons.BuyExpButton).onClick.AddListener(_buyExp);
+        
         UpdateText();
+        UpdateUIState();
     }
 
-    void OnWorldChange(bool isLooyMy)
+    UI_State _currentState = UI_State.Defautl;
+    void ChangeState(UI_State state)
     {
-        if(_isShowExpButton)
-            ToggleExpButton(isLooyMy);
+        _currentState = state;
+        UpdateUIState();
     }
-
-    bool _isShowExpButton = false;
-    void SwitchButtons()
+    void UpdateUIState()
     {
-        _isShowExpButton = !_isShowExpButton;
-        ApplyButtonEnable();
+        switch (_currentState)
+        {
+            case UI_State.Defautl:
+                ToggleDefaultButton(true);
+                ToggleExpUI(false);
+                break;
+            case UI_State.Exp:
+                ToggleDefaultButton(false);
+                ToggleExpUI(true);
+                break;
+            case UI_State.Gacha:
+                break;
+        }
     }
 
-    void ApplyButtonEnable()
+    void SwitchExpDefault()
     {
-        ToggleExpButton(_isShowExpButton);
-        ToggleDefaultButton(!_isShowExpButton);
+        if (_currentState == UI_State.Defautl)
+            ChangeState(UI_State.Exp);
+        else if (_currentState == UI_State.Exp)
+            ChangeState(UI_State.Defautl);
     }
 
-    void ToggleExpButton(bool isActive)
+    void InActiveAllButtons()
+    {
+        GetButton((int)Buttons.UnitSummonSwichButton).gameObject.SetActive(false);
+        ToggleDefaultButton(false);
+        ToggleExpUI(false);
+    }
+
+    void ToggleExpUI(bool isActive)
     {
         GetTextMeshPro((int)Texts.GambleLevelText).gameObject.SetActive(isActive);
         GetTextMeshPro((int)Texts.ExpStatusText).gameObject.SetActive(isActive);
-        GetButton((int)Buttons.AddExpButton).gameObject.SetActive(isActive);
+        GetButton((int)Buttons.BuyExpButton).gameObject.SetActive(isActive);
     }
     
     void ToggleDefaultButton(bool isActive) => GetObject((int)GameObjects.SummonUnitButton).gameObject.SetActive(isActive);
 
-    void AddExp()
-    {
-        if (Multi_GameManager.Instance.TryUseGold(_expPrice))
-        {
-            _gamblerLevelSystem.AddExperience(_addExpAmount);
-            UpdateText();
-        }
-    }
-
     void UpdateText()
     {
-        GetTextMeshPro((int)Texts.GambleLevelText).text = $"LV : {_gamblerLevelSystem.Level}";
-        GetTextMeshPro((int)Texts.ExpStatusText).text = $"EXP : {_gamblerLevelSystem.Experience} / {_gamblerLevelSystem.NeedExperienceForLevelUp}";
+        GetTextMeshPro((int)Texts.GambleLevelText).text = $"LV : {_gambleLevelSystem.Level}";
+        GetTextMeshPro((int)Texts.ExpStatusText).text = $"EXP : {_gambleLevelSystem.Experience} / {_gambleLevelSystem.NeedExperienceForLevelUp}";
     }
 }

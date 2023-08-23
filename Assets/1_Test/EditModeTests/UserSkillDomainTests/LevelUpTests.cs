@@ -9,17 +9,21 @@ namespace UserSkillDomainTests
     public class LevelUpTests
     {
         LevelSystem CreateLevelSystem() => new LevelSystem(new int[] { 100, 200, 300 });
+        bool LevelUp(LevelSystem levelSystem) => levelSystem.LevelUp();
+        void AddExp(LevelSystem levelSystem, int amount) => levelSystem.AddExperience(amount);
 
         [Test]
-        [TestCase(20, 1, 20)]
-        [TestCase(150, 2, 50)]
-        [TestCase(340, 3, 40)]
-        public void 얻은_경험치에_맞게_레벨이_올라가야_함(int expAmount, int expectedLV, int expectedExp)
+        [TestCase(20, 1, 20, false)]
+        [TestCase(150, 2, 50, true)]
+        [TestCase(340, 2, 240, true)]
+        public void 얻은_경험치만큼_레벨업이_가능해야_함(int expAmount, int expectedLV, int expectedExp, bool isLevelUp)
         {
             var sut = CreateLevelSystem();
 
-            sut.AddExperience(expAmount);
+            AddExp(sut, expAmount);
+            bool result = LevelUp(sut);
 
+            Assert.AreEqual(isLevelUp, result);
             Assert.AreEqual(expectedLV, sut.Level);
             Assert.AreEqual(expectedExp, sut.Experience);
         }
@@ -29,11 +33,13 @@ namespace UserSkillDomainTests
         {
             var sut = CreateLevelSystem();
 
-            sut.AddExperience(1000);
-            Assert.AreEqual(4, sut.Level);
-            Assert.AreEqual(0, sut.Experience);
+            AddExp(sut, 1000);
+            LevelUp(sut);
+            LevelUp(sut);
+            Assert.AreEqual(3, sut.Level);
+            Assert.AreEqual(700, sut.Experience);
 
-            sut.AddExperience(1000);
+            LevelUp(sut);
             Assert.AreEqual(4, sut.Level);
             Assert.AreEqual(0, sut.Experience);
         }
@@ -42,15 +48,16 @@ namespace UserSkillDomainTests
         public void 상황에_맞는_이밴트를_쏴야_함()
         {
             var sut = CreateLevelSystem();
-            int level = 0;
+            
             int experience = 0;
-            sut.OnLevelUp += (lv) => level = lv;
             sut.OnChangeExp += (exp) => experience = exp;
+            AddExp(sut, 150);
+            Assert.AreEqual(150, experience);
 
-            sut.AddExperience(150);
-
+            int level = 0;
+            sut.OnLevelUp += (lv) => level = lv;
+            LevelUp(sut);
             Assert.AreEqual(2, level);
-            Assert.AreEqual(50, experience);
         }
     }
 }

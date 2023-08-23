@@ -33,22 +33,20 @@ public class LevelSystem
     public void AddExperience(int amount) // 경험치를 추가하고 레벨업을 확인합니다.
     {
         if (IsMaxLevel) return;
-
         Experience += amount;
-        // 경험치가 2레벨 이상 업할 수준으로 많이 얻을 수 있기에 while문 사용
-        while (Experience >= NeedExperienceForLevelUp)
-        {
-            LevelUp();
-            if (IsMaxLevel) break;
-        }
     }
 
-    void LevelUp()
+    bool LevelUpCondition => IsMaxLevel == false && Experience >= NeedExperienceForLevelUp;
+
+    public bool LevelUp()
     {
+        if (LevelUpCondition == false) return false;
+
         Experience -= NeedExperienceForLevelUp; // 레벨업에 필요한 경험치를 차감합니다.
         Level++;
         OnLevelUp?.Invoke(Level);
         if (Level >= MaxLevel)
             Experience = 0;
+        return true;
     }
 }

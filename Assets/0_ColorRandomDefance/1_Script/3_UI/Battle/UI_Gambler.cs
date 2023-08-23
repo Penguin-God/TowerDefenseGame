@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -17,6 +18,7 @@ public class UI_Gambler : UI_Base
     enum GameObjects
     {
         SummonUnitButton,
+        GachaUnitInfoParent,
     }
 
     protected enum Buttons
@@ -60,6 +62,12 @@ public class UI_Gambler : UI_Base
         UpdateUIState();
     }
 
+    void UpdateText()
+    {
+        GetTextMeshPro((int)Texts.GambleLevelText).text = $"LV : {_gambleLevelSystem.Level}";
+        GetTextMeshPro((int)Texts.ExpStatusText).text = $"EXP : {_gambleLevelSystem.Experience} / {_gambleLevelSystem.NeedExperienceForLevelUp}";
+    }
+
     UI_State _currentState = UI_State.Defautl;
     void ChangeState(UI_State state)
     {
@@ -79,6 +87,9 @@ public class UI_Gambler : UI_Base
                 ToggleExpUI(true);
                 break;
             case UI_State.Gacha:
+                ToggleDefaultButton(false);
+                ToggleExpUI(false);
+
                 break;
         }
     }
@@ -107,9 +118,10 @@ public class UI_Gambler : UI_Base
     
     void ToggleDefaultButton(bool isActive) => GetObject((int)GameObjects.SummonUnitButton).gameObject.SetActive(isActive);
 
-    void UpdateText()
+    void ShowGachaItemInfos()
     {
-        GetTextMeshPro((int)Texts.GambleLevelText).text = $"LV : {_gambleLevelSystem.Level}";
-        GetTextMeshPro((int)Texts.ExpStatusText).text = $"EXP : {_gambleLevelSystem.Experience} / {_gambleLevelSystem.NeedExperienceForLevelUp}";
+        foreach (Transform child in GetObject((int)GameObjects.GachaUnitInfoParent).transform)
+            Destroy(child.gameObject);
+
     }
 }

@@ -210,7 +210,7 @@ GameObject:
   - component: {fileID: 7609864651299669060}
   - component: {fileID: 942576931442618629}
   m_Layer: 5
-  m_Name: ItemInfoParent
+  m_Name: GachaUnitInfoParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

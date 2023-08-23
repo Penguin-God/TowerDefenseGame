@@ -563,9 +563,28 @@ public class GamblerController : UserSkill
 
     void GachaUnit(int gamblerLevel)
     {
-        // 가챠 부분 index랑 레벨 맞추고 현재 레벨 기준으로 뽑기 위해 -2 함
-        UnitFlags selectFlag = GetFlagTable()[new GachaMachine().SelectIndex(_gambleDatas[gamblerLevel - 2].GachaRates)].ToList().GetRandom();
+        //UnitFlags selectFlag = GetFlagTable()[new GachaMachine().SelectIndex(_gambleDatas[gamblerLevel - 1].GachaRates)].ToList().GetRandom();
+        //Multi_SpawnManagers.NormalUnit.Spawn(selectFlag);
+
+        IReadOnlyList<int> rates = CreateGachaTable(gamblerLevel).Keys.ToArray();
+        
+        int selectedIndex = new GachaMachine().SelectIndex(rates);
+        UnitFlags selectFlag = CreateGachaTable(gamblerLevel).Values.ElementAt(selectedIndex).ToList().GetRandom();
         Multi_SpawnManagers.NormalUnit.Spawn(selectFlag);
+    }
+
+    Dictionary<int, IEnumerable<UnitFlags>> CreateGachaTable(int gamblerLevel)
+    {
+        var result = new Dictionary<int, IEnumerable<UnitFlags>>();
+        IReadOnlyList<int> rates = _gambleDatas[gamblerLevel - 1].GachaRates;
+        var flagTable = GetFlagTable();
+
+        for (int i = 0; i < rates.Count; i++)
+        {
+            if (rates[i] != 0)
+                result.Add(rates[i], flagTable[i]);
+        }
+        return result;
     }
 
     IReadOnlyList<IEnumerable<UnitFlags>> GetFlagTable()
@@ -573,7 +592,7 @@ public class GamblerController : UserSkill
         var result = new List<IEnumerable<UnitFlags>>();
         Queue<UnitFlags> queue = new Queue<UnitFlags>(UnitFlags.NormalFlags.OrderBy(x => x.ClassNumber).ThenBy(x => x.ColorNumber));
         int unitSplitSize = 3;
-        int listCount = queue.Count / unitSplitSize - 1;
+        int listCount = queue.Count / unitSplitSize - 1; // 마지막 요소는 제외하기 위해 -1 씀
 
         for (int i = 0; i < listCount; i++)
         {

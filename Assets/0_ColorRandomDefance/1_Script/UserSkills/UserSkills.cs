@@ -146,7 +146,7 @@ public class UserSkillFactory
             case SkillType.마나변이: result = new ManaMutation(skillBattleData, container.GetComponent<SkillColorChanger>()); break;
             case SkillType.마나불능: result = new ManaImpotence(skillBattleData); break;
             case SkillType.장사꾼: result = new UnitMerchant(skillBattleData); break;
-            case SkillType.도박사: result = new GamblerController(skillBattleData, container.GetService<BattleUI_Mediator>()); break;
+            case SkillType.도박사: result = new GamblerController(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetEventDispatcher()); break;
             case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>()); break;
             case SkillType.네크로맨서:
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>()); break;
@@ -521,17 +521,32 @@ public class Suncold : UserSkill
 public class GamblerController : UserSkill
 {
     readonly LevelSystem _gambleLevelSystem;
-    public GamblerController(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator) : base(userSkillBattleData)
+    public GamblerController(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
     {
         _gambleLevelSystem = new LevelSystem(new int[] { 10, 20, 30, 40, 50, 60, 70, 80, 100, });
+        _gambleLevelSystem.OnLevelUp += GachaUnit;
+        dispatcher.OnStageUp += AddStageExp;
+
         uiMediator.RegisterUI(BattleUI_Type.BattleButtons, "UI_BattleButtonsWhitGambler");
         var ui = uiMediator.ShowSceneUI<UI_BattleButtonsWhitGambler>(BattleUI_Type.BattleButtons);
         ui.Inject(_gambleLevelSystem, 4);
         ui.gameObject.SetActive(false);
     }
 
+    void AddStageExp(int stage)
+    {
+        _gambleLevelSystem.AddExperience(5);
+    }
+
     internal override void InitSkill()
     {
         
+    }
+
+    void GachaUnit(int gamblerLevel)
+    {
+        double[][] rates = new double[][] { new double[] { 100 }, new double[] { 30, 40, 30 } };
+        var selectFlag = new UnitFlags(UnitFlags.NormalColors.ToList().GetRandom(), (UnitClass)new GachaMachine().SelectIndex(rates[gamblerLevel - 2]));
+        Multi_SpawnManagers.NormalUnit.Spawn(selectFlag);
     }
 }

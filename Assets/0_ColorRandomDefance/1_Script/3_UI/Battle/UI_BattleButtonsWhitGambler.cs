@@ -26,6 +26,8 @@ public class UI_BattleButtonsWhitGambler : UI_BattleButtons
         base.Init();
 
         Managers.Camera.OnIsLookMyWolrd += OnWorldChange;
+
+        _gamblerLevelSystem.OnChangeExp += _ => UpdateText();
         _unitSummonSwichButton.onClick.AddListener(SwitchButtons);
         _addExpButton.onClick.AddListener(AddExp);
         ApplyButtonEnable();
@@ -75,19 +77,5 @@ public class UI_BattleButtonsWhitGambler : UI_BattleButtons
     {
         _gambleLevelText.text = $"LV : {_gamblerLevelSystem.Level}";
         _expStatusText.text = $"EXP : {_gamblerLevelSystem.Experience} / {_gamblerLevelSystem.NeedExperienceForLevelUp}";
-    }
-
-    protected override void GachaUnit()
-    {
-        var _game = Multi_GameManager.Instance;
-        double[][] rates = new double[][] { new double[] { 100 }, new double[] { 30, 40, 30 } };
-        if (_game.UnitOver == false && _game.TryUseGold(5))
-            UnitGacha(rates[_gamblerLevelSystem.Level - 1]);
-    }
-
-    void UnitGacha(double[] rates)
-    {
-        UnitFlags selectUnitFlag = new UnitFlags(UnitFlags.NormalColors.ToList().GetRandom(), (UnitClass)new GachaMachine().SelectIndex(rates));
-        Multi_SpawnManagers.NormalUnit.Spawn(selectUnitFlag);
     }
 }

@@ -51,7 +51,7 @@ public class BattleUI_Mediator
             case BattleUI_Type.UnitMaxCountExpendShop:
                 break;
             case BattleUI_Type.BattleButtons: 
-                (ui as UI_BattleButtons).Inject(_container.GetComponent<SwordmanGachaController>(), _container.GetComponent<TextShowAndHideController>()); break;
+                ui.GetComponent<UI_BattleButtons>().Inject(_container.GetComponent<SwordmanGachaController>(), _container.GetComponent<TextShowAndHideController>()); break;
         }
     }
 }

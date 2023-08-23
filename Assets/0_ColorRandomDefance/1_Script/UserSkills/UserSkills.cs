@@ -528,7 +528,7 @@ public class GamblerController : UserSkill
         dispatcher.OnStageUp += AddStageExp;
 
         uiMediator.RegisterUI(BattleUI_Type.BattleButtons, "UI_BattleButtonsWhitGambler");
-        var ui = uiMediator.ShowSceneUI<UI_BattleButtonsWhitGambler>(BattleUI_Type.BattleButtons);
+        var ui = uiMediator.ShowSceneUI<UI_BattleButtons>(BattleUI_Type.BattleButtons).GetComponent<UI_Gambler>();
         ui.Inject(_gambleLevelSystem, 4);
         ui.gameObject.SetActive(false);
     }

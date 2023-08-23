@@ -27,7 +27,28 @@ public class BattleUI_Mediator
     public T ShowPopupUI<T>(BattleUI_Type type) where T : UI_Popup => _uiManager.ShowPopupUI<T>(_pathBybattleUIType[type]);
     public void ShowPopupUI(BattleUI_Type type) => _uiManager.ShowPopupUI<UI_Popup>(_pathBybattleUIType[type]);
 
+    // UI 풀링부터 고치고 작업하기
+    //public T _ShowPopupUI<T>(BattleUI_Type type) where T : UI_Popup
+    //{
+    //    bool uiExist = _uiManager.FindPopupUI<T>() != null;
+    //    T result = _uiManager.ShowPopupUI<T>(_pathBybattleUIType[type]);
+    //    if (uiExist == false)
+    //    {
+    //        if (result.GetComponent<UI_UnitUpgradeShop>() != null)
+    //            result.GetComponent<UI_BattleButtons>().Inject(_container.GetComponent<SwordmanGachaController>(), _container.GetComponent<TextShowAndHideController>());
+    //    }
 
+    //    return result;
+    //}
+
+    public GameObject ShowUI(BattleUI_Type type)
+    {
+        switch (type)
+        {
+            case BattleUI_Type.BattleButtons: return ShowSceneUI<UI_BattleButtons>(type).gameObject;
+        }
+        return null;
+    }
     public T ShowSceneUI<T>(BattleUI_Type type) where T : UI_Scene
     {
         bool uiExist = _uiManager.GetSceneUI<T>() != null;
@@ -39,14 +60,5 @@ public class BattleUI_Mediator
         }
 
         return result;
-    }
-
-    public GameObject ShowUI(BattleUI_Type type)
-    {
-        switch (type)
-        {
-            case BattleUI_Type.BattleButtons: return ShowSceneUI<UI_BattleButtons>(type).gameObject;
-        }
-        return null;
     }
 }

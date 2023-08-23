@@ -27,31 +27,26 @@ public class BattleUI_Mediator
     public T ShowPopupUI<T>(BattleUI_Type type) where T : UI_Popup => _uiManager.ShowPopupUI<T>(_pathBybattleUIType[type]);
     public void ShowPopupUI(BattleUI_Type type) => _uiManager.ShowPopupUI<UI_Popup>(_pathBybattleUIType[type]);
 
+
     public T ShowSceneUI<T>(BattleUI_Type type) where T : UI_Scene
     {
-        if(_uiManager.GetSceneUI<T>() == null)
+        bool uiExist = _uiManager.GetSceneUI<T>() != null;
+        T result = _uiManager.ShowSceneUI<T>(_pathBybattleUIType[type]);
+        if (uiExist == false)
         {
-            T ui = _uiManager.ShowSceneUI<T>(_pathBybattleUIType[type]);
-            Inject_UI(ui, type);
-            return ui;
+            if (result.GetComponent<UI_BattleButtons>() != null)
+                result.GetComponent<UI_BattleButtons>().Inject(_container.GetComponent<SwordmanGachaController>(), _container.GetComponent<TextShowAndHideController>());
         }
-        return _uiManager.ShowSceneUI<T>(_pathBybattleUIType[type]);
+
+        return result;
     }
 
-    void Inject_UI(UI_Base ui, BattleUI_Type uiType)
+    public GameObject ShowUI(BattleUI_Type type)
     {
-        switch (uiType)
+        switch (type)
         {
-            case BattleUI_Type.UnitUpgrdeShop:
-                break;
-            case BattleUI_Type.BalckUnitCombineTable:
-                break;
-            case BattleUI_Type.WhiteUnitShop:
-                break;
-            case BattleUI_Type.UnitMaxCountExpendShop:
-                break;
-            case BattleUI_Type.BattleButtons: 
-                ui.GetComponent<UI_BattleButtons>().Inject(_container.GetComponent<SwordmanGachaController>(), _container.GetComponent<TextShowAndHideController>()); break;
+            case BattleUI_Type.BattleButtons: return ShowSceneUI<UI_BattleButtons>(type).gameObject;
         }
+        return null;
     }
 }

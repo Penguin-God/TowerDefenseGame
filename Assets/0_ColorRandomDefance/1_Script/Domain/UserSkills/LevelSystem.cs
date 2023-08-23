@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
 public class LevelSystem
 {
     public int Level { get; private set; }
+    public event Action<int> OnLevelUp;
     public int Experience { get; private set; }
     public int NeedExperienceForLevelUp => ExperienceToNextLevel[Level - 1];
     public int[] ExperienceToNextLevel { get; private set; }
@@ -33,6 +35,7 @@ public class LevelSystem
     {
         Experience -= NeedExperienceForLevelUp; // 레벨업에 필요한 경험치를 차감합니다.
         Level++;
+        OnLevelUp?.Invoke(Level);
         if (Level >= MaxLevel)
             Experience = 0;
     }

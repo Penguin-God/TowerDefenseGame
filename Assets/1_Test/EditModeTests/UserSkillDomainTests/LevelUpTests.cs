@@ -37,5 +37,17 @@ namespace UserSkillDomainTests
             Assert.AreEqual(4, sut.Level);
             Assert.AreEqual(0, sut.Experience);
         }
+
+        [Test]
+        public void 레벨업마다_이밴트를_쏴야_함()
+        {
+            var sut = CreateLevelSystem();
+            int result = 0;
+            sut.OnLevelUp += (lv) => result = lv;
+
+            sut.AddExperience(100);
+
+            Assert.AreEqual(2, result);
+        }
     }
 }

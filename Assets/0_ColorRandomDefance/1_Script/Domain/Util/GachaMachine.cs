@@ -5,6 +5,7 @@ using System;
 
 public class GachaMachine
 {
+    public int SelectIndex(IReadOnlyList<int> rates) => SelectIndex(rates.Select(x => (double)x).ToArray());
     public int SelectIndex(double[] rates)
     {
         if(CheckRateSumIsOenHendred(rates)) throw new ArgumentException("»Æ∑¸¿« «’¿Ã 100¿Ã æ∆¥‘");

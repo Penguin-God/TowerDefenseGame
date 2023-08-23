@@ -518,35 +518,63 @@ public class Suncold : UserSkill
     internal override void InitSkill() {}
 }
 
+public struct GambleData
+{
+    [SerializeField] int _needExpForLevelUp;
+    public int NeedExpForLevelUp => _needExpForLevelUp;
+
+    [SerializeField] int[] _gachaRates;
+    public IReadOnlyList<int> GachaRates => _gachaRates;
+}
+
 public class GamblerController : UserSkill
 {
     readonly LevelSystem _gambleLevelSystem;
+    readonly int AddExpAmountWhenStageUp;
+    readonly IReadOnlyList<GambleData> _gambleDatas;
     public GamblerController(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
     {
-        _gambleLevelSystem = new LevelSystem(new int[] { 10, 20, 30, 40, 50, 60, 70, 80, 100, });
+        _gambleDatas = CsvUtility.CsvToArray<GambleData>(Managers.Resources.Load<TextAsset>("Data/SkillData/GamblerData").text);
+        _gambleLevelSystem = new LevelSystem(_gambleDatas.Select(x => x.NeedExpForLevelUp).ToArray());
         _gambleLevelSystem.OnLevelUp += GachaUnit;
         dispatcher.OnStageUp += AddStageExp;
 
         uiMediator.RegisterUI(BattleUI_Type.BattleButtons, "UI_BattleButtonsWhitGambler");
         var ui = uiMediator.ShowUI(BattleUI_Type.BattleButtons).GetComponent<UI_Gambler>();
-        ui.Inject(_gambleLevelSystem, 4);
+        ui.Inject(_gambleLevelSystem, IntSkillDatas[0], IntSkillDatas[1]);
         ui.gameObject.SetActive(false);
+        AddExpAmountWhenStageUp = IntSkillDatas[2];
     }
 
     void AddStageExp(int stage)
     {
-        _gambleLevelSystem.AddExperience(5);
+        _gambleLevelSystem.AddExperience(AddExpAmountWhenStageUp);
     }
 
-    internal override void InitSkill()
-    {
-        
-    }
+    internal override void InitSkill() {}
 
     void GachaUnit(int gamblerLevel)
     {
-        double[][] rates = new double[][] { new double[] { 100 }, new double[] { 30, 40, 30 } };
-        var selectFlag = new UnitFlags(UnitFlags.NormalColors.ToList().GetRandom(), (UnitClass)new GachaMachine().SelectIndex(rates[gamblerLevel - 2]));
+        // 가챠 부분 index랑 레벨 맞추고 현재 레벨 기준으로 뽑기 위해 -2 함
+        UnitFlags selectFlag = GetFlagTable()[new GachaMachine().SelectIndex(_gambleDatas[gamblerLevel - 2].GachaRates)].ToList().GetRandom();
         Multi_SpawnManagers.NormalUnit.Spawn(selectFlag);
+    }
+
+    IReadOnlyList<IEnumerable<UnitFlags>> GetFlagTable()
+    {
+        var result = new List<IEnumerable<UnitFlags>>();
+        Queue<UnitFlags> queue = new Queue<UnitFlags>(UnitFlags.NormalFlags.OrderBy(x => x.ClassNumber).ThenBy(x => x.ColorNumber));
+        int unitSplitSize = 3;
+        int listCount = queue.Count / unitSplitSize - 1;
+
+        for (int i = 0; i < listCount; i++)
+        {
+            var chunk = new List<UnitFlags>();
+            for (int j = 0; j < unitSplitSize && queue.Count > 0; j++)
+                chunk.Add(queue.Dequeue());
+            result.Add(chunk);
+        }
+        
+        return result;
     }
 }

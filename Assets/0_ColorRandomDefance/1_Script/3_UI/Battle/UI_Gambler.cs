@@ -24,11 +24,13 @@ public class UI_Gambler : UI_Base
     }
 
     LevelSystem _gamblerLevelSystem;
+    int _expPrice;
     int _addExpAmount;
-    public void Inject(LevelSystem levelSystem, int addExpAmount)
+    public void Inject(LevelSystem levelSystem, int expPrice, int addExpAmount)
     {
         _gamblerLevelSystem = levelSystem;
         _addExpAmount = addExpAmount;
+        _expPrice = expPrice;
     }
 
     protected override void Init()
@@ -77,7 +79,7 @@ public class UI_Gambler : UI_Base
 
     void AddExp()
     {
-        if (Multi_GameManager.Instance.TryUseGold(4))
+        if (Multi_GameManager.Instance.TryUseGold(_expPrice))
         {
             _gamblerLevelSystem.AddExperience(_addExpAmount);
             UpdateText();

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -35,10 +36,12 @@ public class UI_Gambler : UI_Base
 
     LevelSystem _gambleLevelSystem;
     UnityAction _buyExp;
-    public void Inject(LevelSystem levelSystem, UnityAction buyExp)
+    Func<int, IEnumerable<UnitGachaData>> _createGachaTable;
+    public void Inject(LevelSystem levelSystem, UnityAction buyExp, Func<int, IEnumerable<UnitGachaData>> createGachaTable)
     {
         _gambleLevelSystem = levelSystem;
         _buyExp = buyExp;
+        _createGachaTable = createGachaTable;
     }
 
     protected override void Init()
@@ -54,6 +57,7 @@ public class UI_Gambler : UI_Base
         GetTextMeshPro((int)Texts.GambleLevelText).raycastTarget = false;
         GetTextMeshPro((int)Texts.ExpStatusText).raycastTarget = false;
         _gambleLevelSystem.OnChangeExp += _ => UpdateText();
+        _gambleLevelSystem.OnChangeExp += _ => ChangeState(UI_State.Gacha);
 
         GetButton((int)Buttons.UnitSummonSwichButton).onClick.AddListener(SwitchExpDefault);
         GetButton((int)Buttons.BuyExpButton).onClick.AddListener(_buyExp);
@@ -76,20 +80,25 @@ public class UI_Gambler : UI_Base
     }
     void UpdateUIState()
     {
+
         switch (_currentState)
         {
             case UI_State.Defautl:
+                ToggleSwitchButton(true);
                 ToggleDefaultButton(true);
                 ToggleExpUI(false);
                 break;
             case UI_State.Exp:
+                ToggleSwitchButton(true);
                 ToggleDefaultButton(false);
                 ToggleExpUI(true);
                 break;
             case UI_State.Gacha:
                 ToggleDefaultButton(false);
                 ToggleExpUI(false);
-
+                ToggleSwitchButton(false);
+                ToggleGachaUI(true);
+                ShowGachaItemInfos();
                 break;
         }
     }
@@ -117,11 +126,25 @@ public class UI_Gambler : UI_Base
     }
     
     void ToggleDefaultButton(bool isActive) => GetObject((int)GameObjects.SummonUnitButton).gameObject.SetActive(isActive);
+    void ToggleSwitchButton(bool isActive) => GetButton((int)Buttons.UnitSummonSwichButton).gameObject.SetActive(isActive);
+    void ToggleGachaUI(bool isActive)
+    {
+        GetObject((int)GameObjects.GachaUnitInfoParent).SetActive(isActive);
+
+    }
 
     void ShowGachaItemInfos()
     {
+        DestoryItemInfo();
+
+        foreach (var item in _createGachaTable(_gambleLevelSystem.Level))
+            Managers.UI.MakeSubItem<UI_UnitGachaItemInfo>(GetObject((int)GameObjects.GachaUnitInfoParent).transform)
+                .ShowInfo(item.GachaUnitFalgItems.First().UnitClass, item.Rate);
+    }
+
+    void DestoryItemInfo()
+    {
         foreach (Transform child in GetObject((int)GameObjects.GachaUnitInfoParent).transform)
             Destroy(child.gameObject);
-
     }
 }

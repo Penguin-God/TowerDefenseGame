@@ -146,7 +146,8 @@ public class UserSkillFactory
             case SkillType.마나변이: result = new ManaMutation(skillBattleData, container.GetComponent<SkillColorChanger>()); break;
             case SkillType.마나불능: result = new ManaImpotence(skillBattleData); break;
             case SkillType.장사꾼: result = new UnitMerchant(skillBattleData); break;
-            case SkillType.도박사: result = new GamblerController(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetEventDispatcher()); break;
+            case SkillType.도박사: 
+                result = new GamblerController(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetEventDispatcher(), container.GetComponent<TextShowAndHideController>()); break;
             case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>()); break;
             case SkillType.네크로맨서:
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>()); break;
@@ -544,11 +545,13 @@ public class GamblerController : UserSkill
 {
     readonly LevelSystem _gambleLevelSystem;
     readonly IReadOnlyList<GambleData> _gambleDatas;
-    public GamblerController(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
+    readonly TextShowAndHideController _textController;
+    public GamblerController(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, BattleEventDispatcher dispatcher, TextShowAndHideController textController) : base(userSkillBattleData)
     {
         _gambleDatas = CsvUtility.CsvToArray<GambleData>(Managers.Resources.Load<TextAsset>("Data/SkillData/GamblerData").text);
         _gambleLevelSystem = new LevelSystem(_gambleDatas.Select(x => x.NeedExpForLevelUp).ToArray());
-        
+        _textController = textController;
+
         ExpPrice = IntSkillDatas[0];
         ExpAmount = IntSkillDatas[1];
         AddExpAmountWhenStageUp = IntSkillDatas[2];
@@ -576,19 +579,20 @@ public class GamblerController : UserSkill
     void GachaAndLevelUp()
     {
         Debug.Assert(_gambleLevelSystem.LevelUpCondition, "렙업이 불가능한데 뽑기를 시도함");
-        GachaUnit(_gambleLevelSystem.Level);
+
+        UnitFlags selectFlag = GachaUnit(_gambleLevelSystem.Level);
+        Multi_SpawnManagers.NormalUnit.Spawn(selectFlag);
+        _textController.ShowTextForTime(BuildGameResultText(selectFlag));
         _gambleLevelSystem.LevelUp();
     }
 
-    void GachaUnit(int gamblerLevel)
-    {
-        //UnitFlags selectFlag = GetFlagTable()[new GachaMachine().SelectIndex(_gambleDatas[gamblerLevel - 1].GachaRates)].ToList().GetRandom();
-        //Multi_SpawnManagers.NormalUnit.Spawn(selectFlag);
+    string BuildGameResultText(UnitFlags flag) => $"{UnitTextPresenter.DecorateBefore(UnitTextPresenter.GetUnitNameWithColor(flag), flag)} 뽑았습니다.";
 
+    UnitFlags GachaUnit(int gamblerLevel)
+    {
         var gachaTable = CreateGachaTable(gamblerLevel);
         int selectedIndex = new GachaMachine().SelectIndex(gachaTable.Select(x => x.Rate).ToArray());
-        UnitFlags selectFlag = gachaTable.Select(x => x.GachaUnitFalgItems).ElementAt(selectedIndex).ToList().GetRandom();
-        Multi_SpawnManagers.NormalUnit.Spawn(selectFlag);
+        return gachaTable.Select(x => x.GachaUnitFalgItems).ElementAt(selectedIndex).ToList().GetRandom();
     }
 
     IEnumerable<UnitGachaData> CreateGachaTable(int gamblerLevel)

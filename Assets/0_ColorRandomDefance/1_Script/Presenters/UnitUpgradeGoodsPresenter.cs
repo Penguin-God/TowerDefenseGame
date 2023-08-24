@@ -16,17 +16,11 @@ public class UnitUpgradeGoodsPresenter
     };
     public Color GetUnitColor(UnitColor unitColor) => Colors[unitColor];
 
-    public string BuildGoodsText(UnitUpgradeGoodsData upgradeGoods, UnitUpgradeShopData data)
-        => $"{UnitTextPresenter.GetColorText(upgradeGoods.TargetColor)} 유닛 {GetUpgradeText(upgradeGoods.UpgradeType, data)} 증가";
-
-    string GetUpgradeText(UnitUpgradeType upgradeType, UnitUpgradeShopData data) => upgradeType == UnitUpgradeType.Value ? $" 공격력 {data.AddValue}" : $" 공격력 {data.UpScale}%";
-
     static readonly IReadOnlyDictionary<GameCurrencyType, Color32> CurrencyColors = new Dictionary<GameCurrencyType, Color32>()
     {
         {GameCurrencyType.Gold, new Color32(255, 188, 0 , 255) },
         {GameCurrencyType.Food, new Color32(255, 104, 13 , 255) },
     };
-
     public Color CurrencyToColor(GameCurrencyType currency) => CurrencyColors[currency];
 
     public string BuildGoodsText(UnitUpgradeData upgradeGoods) => $"{UnitTextPresenter.GetColorText(upgradeGoods.TargetColor)} 유닛 {GetUpgradeText(upgradeGoods)} 증가";

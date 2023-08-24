@@ -27,11 +27,12 @@ public class UI_UnitUpgradeShop : UI_Popup
     {
         base.Init();
         _unitUpgradeShopData = Multi_GameManager.Instance.BattleData.UnitUpgradeShopData;
-        var buyController = new UnitUpgradeShopController(_unitUpgradeShopData, _textController);
 
-        GetComponentsInChildren<UI_UnitUpgradeGoods>().ToList().ForEach(x => x._Init(buyController));
-        GetComponentsInChildren<UI_UnitUpgradeGoods>().ToList().ForEach(x => x.OnBuyGoods += DisplayGoods);
-
+        foreach (var goods in GetComponentsInChildren<UI_UnitUpgradeGoods>())
+        {
+            goods._Init(new UnitUpgradeShopController(_textController));
+            goods.OnBuyGoods += DisplayGoods;
+        }
         SetLocationByGoodsDatas(new HashSet<UnitUpgradeGoodsData>());
         
         Bind<Button>(typeof(Buttons));

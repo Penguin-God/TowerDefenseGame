@@ -20,7 +20,6 @@ public class UI_UnitUpgradeShop : UI_Popup
     }
 
     UnitUpgradeShopData _unitUpgradeShopData;
-    Dictionary<GoodsLocation, UI_UnitUpgradeGoods> _locationByGoods_UI = new Dictionary<GoodsLocation, UI_UnitUpgradeGoods>();
     Dictionary<GoodsLocation, UnitUpgradeGoodsData> _locationByGoods = new Dictionary<GoodsLocation, UnitUpgradeGoodsData>();
     readonly UnitUpgradeGoodsSelector _goodsSelector = new UnitUpgradeGoodsSelector();
     protected TextShowAndHideController _textController;
@@ -52,10 +51,8 @@ public class UI_UnitUpgradeShop : UI_Popup
         var goodsSet = _goodsSelector.SelectGoodsSetExcluding(excludingGoddsSet);
         _locationByGoods = locations.Zip(goodsSet, (location, goods) => new { location, goods }).ToDictionary(pair => pair.location, pair => pair.goods);
 
-        var goodsUIs = GetComponentsInChildren<UI_UnitUpgradeGoods>();
-        _locationByGoods_UI = locations.Zip(goodsUIs, (location, goodsUI) => new { location, goodsUI }).ToDictionary(pair => pair.location, pair => pair.goodsUI);
         foreach (var item in _locationByGoods)
-            _locationByGoods_UI[item.Key].Setup(CreateGoodsData(item.Value));
+            GetComponentsInChildren<UI_UnitUpgradeGoods>().Where(x => x.GoodsLocation == item.Key).First().Setup(CreateGoodsData(item.Value));
     }
 
     UnitUpgradeData CreateGoodsData(UnitUpgradeGoodsData data)
@@ -66,31 +63,24 @@ public class UI_UnitUpgradeShop : UI_Popup
             return new UnitUpgradeData(data.UpgradeType, data.TargetColor, _unitUpgradeShopData.UpScale, _unitUpgradeShopData.UpScalePriceData);
     }
 
-    void DisplayGoods(UnitUpgradeGoodsData goods)
+    void DisplayGoods(UI_UnitUpgradeGoods goods)
     {
-        var buyLocation = _locationByGoods.First(x => x.Value.Equals(goods)).Key;
-        var newGoods = _goodsSelector.SelectGoodsExcluding(_locationByGoods.Where(x => x.Key != buyLocation).Select(x => x.Value));
-        StartCoroutine(Co_DisplayGoods(buyLocation, newGoods));
+        var newGoods = _goodsSelector.SelectGoodsExcluding(_locationByGoods.Where(x => x.Key != goods.GoodsLocation).Select(x => x.Value));
+        StartCoroutine(Co_DisplayGoods(goods, newGoods));
     }
 
-    void DisplayGoods(GoodsLocation goodsLocate)
+    IEnumerator Co_DisplayGoods(UI_UnitUpgradeGoods goods, UnitUpgradeGoodsData newGoods)
     {
-        var newGoods = _goodsSelector.SelectGoodsExcluding(_locationByGoods.Where(x => x.Key != goodsLocate).Select(x => x.Value));
-        StartCoroutine(Co_DisplayGoods(goodsLocate, newGoods));
-    }
-
-    IEnumerator Co_DisplayGoods(GoodsLocation buyLocation, UnitUpgradeGoodsData newGoods)
-    {
-        _locationByGoods_UI[buyLocation].gameObject.SetActive(false);
+        goods.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.2f);
-        ChangeGoods(buyLocation, newGoods);
-        _locationByGoods_UI[buyLocation].gameObject.SetActive(true);
+        ChangeGoods(goods, newGoods);
+        goods.gameObject.SetActive(true);
     }
 
-    void ChangeGoods(GoodsLocation buyLocation, UnitUpgradeGoodsData newGoods)
+    void ChangeGoods(UI_UnitUpgradeGoods goods, UnitUpgradeGoodsData newGoods)
     {
-        _locationByGoods[buyLocation] = newGoods;
-        _locationByGoods_UI[buyLocation].Setup(CreateGoodsData(newGoods));
+        _locationByGoods[goods.GoodsLocation] = newGoods;
+        goods.Setup(CreateGoodsData(newGoods));
     }
 
     void ResetShop()

@@ -28,7 +28,8 @@ public class UI_UnitUpgradeGoods : UI_Base
     }
 
     [SerializeField] GoodsLocation _goodsLocation;
-    public event Action<GoodsLocation> OnBuyGoods;
+    public GoodsLocation GoodsLocation => _goodsLocation;
+    public event Action<UI_UnitUpgradeGoods> OnBuyGoods;
     [SerializeField] Sprite _goldImage;
     [SerializeField] Sprite _foodImage;
     Sprite CurrencyToSprite(GameCurrencyType type) => type == GameCurrencyType.Gold ? _goldImage : _foodImage;
@@ -88,6 +89,6 @@ public class UI_UnitUpgradeGoods : UI_Base
     void BuyGoods(UnitUpgradeData upgradeData)
     {
         _buyController.Buy(upgradeData);
-        OnBuyGoods?.Invoke(_goodsLocation);
+        OnBuyGoods?.Invoke(this);
     }
 }

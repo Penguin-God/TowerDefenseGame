@@ -23,7 +23,7 @@ public class UI_UnitUpgradeShopWithGamble : UI_UnitUpgradeShop
     protected override void Init()
     {
         base.Init();
-        _buyController.OnBuyGoods += _ => AddStack();
+        // _buyController.OnBuyGoods += _ => AddStack();
         Bind<GameObject>(typeof(GameObjects));
         Bind<TextMeshProUGUI>(typeof(Texts));
         _gamblePanel = GetComponentInChildren<UI_GamblePanel>(true);

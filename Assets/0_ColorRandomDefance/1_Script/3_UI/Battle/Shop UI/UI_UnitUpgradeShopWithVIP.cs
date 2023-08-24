@@ -23,7 +23,6 @@ public class UI_UnitUpgradeShopWithVIP : UI_UnitUpgradeShop
     protected override void Init()
     {
         base.Init();
-        _buyController.OnBuyGoods += _ => AddStack();
         Bind<GameObject>(typeof(GameObjects));
         Bind<TextMeshProUGUI>(typeof(Texts));
 
@@ -58,7 +57,7 @@ public class SpecialShopInitializer
     {
         foreach(var goods in goodsParnet.GetComponentsInChildren<UI_BattleShopGoods>())
         {
-            goods.DisplayGoods();
+            // goods.DisplayGoods();
         }
     }
 }

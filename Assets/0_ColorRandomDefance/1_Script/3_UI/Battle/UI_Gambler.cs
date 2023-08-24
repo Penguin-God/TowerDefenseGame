@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+using static Multi_TeamSoldier;
 
 public class UI_Gambler : UI_Base
 {
@@ -51,8 +52,8 @@ public class UI_Gambler : UI_Base
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Button>(typeof(Buttons));
 
-        Managers.Camera.OnLookEnemyWorld += InActiveAllButtons;
-        Managers.Camera.OnLookMyWolrd += UpdateUIState;
+        Managers.Camera.OnLookEnemyWorld += InActiveAllUIs;
+        Managers.Camera.OnLookMyWolrd += OnLookMyWorld;
 
         GetTextMeshPro((int)Texts.GambleLevelText).raycastTarget = false;
         GetTextMeshPro((int)Texts.ExpStatusText).raycastTarget = false;
@@ -63,6 +64,7 @@ public class UI_Gambler : UI_Base
         GetButton((int)Buttons.BuyExpButton).onClick.AddListener(_buyExp);
         
         UpdateText();
+        InActiveAllUIs();
         UpdateUIState();
     }
 
@@ -75,27 +77,41 @@ public class UI_Gambler : UI_Base
     UI_State _currentState = UI_State.Defautl;
     void ChangeState(UI_State state)
     {
+        ExitState(_currentState);
         _currentState = state;
         UpdateUIState();
     }
+
+    void ExitState(UI_State state)
+    {
+        switch (state)
+        {
+            case UI_State.Defautl:
+                ToggleDefaultButton(false);
+                break;
+            case UI_State.Exp:
+                ToggleExpUI(false);
+                break;
+            case UI_State.Gacha:
+                ToggleGachaUI(false);
+                DestoryItemInfos();
+                break;
+        }
+    }
+
     void UpdateUIState()
     {
-
         switch (_currentState)
         {
             case UI_State.Defautl:
                 ToggleSwitchButton(true);
                 ToggleDefaultButton(true);
-                ToggleExpUI(false);
                 break;
             case UI_State.Exp:
                 ToggleSwitchButton(true);
-                ToggleDefaultButton(false);
                 ToggleExpUI(true);
                 break;
             case UI_State.Gacha:
-                ToggleDefaultButton(false);
-                ToggleExpUI(false);
                 ToggleSwitchButton(false);
                 ToggleGachaUI(true);
                 ShowGachaItemInfos();
@@ -111,11 +127,12 @@ public class UI_Gambler : UI_Base
             ChangeState(UI_State.Defautl);
     }
 
-    void InActiveAllButtons()
+    void InActiveAllUIs()
     {
-        GetButton((int)Buttons.UnitSummonSwichButton).gameObject.SetActive(false);
+        ToggleSwitchButton(false);
         ToggleDefaultButton(false);
         ToggleExpUI(false);
+        ToggleGachaUI(false);
     }
 
     void ToggleExpUI(bool isActive)
@@ -135,16 +152,26 @@ public class UI_Gambler : UI_Base
 
     void ShowGachaItemInfos()
     {
-        DestoryItemInfo();
+        DestoryItemInfos();
 
         foreach (var item in _createGachaTable(_gambleLevelSystem.Level))
             Managers.UI.MakeSubItem<UI_UnitGachaItemInfo>(GetObject((int)GameObjects.GachaUnitInfoParent).transform)
                 .ShowInfo(item.GachaUnitFalgItems.First().UnitClass, item.Rate);
     }
 
-    void DestoryItemInfo()
+    void DestoryItemInfos()
     {
         foreach (Transform child in GetObject((int)GameObjects.GachaUnitInfoParent).transform)
             Destroy(child.gameObject);
+    }
+
+    void OnLookMyWorld() => StartCoroutine(Co_OnLookMyWorld());
+    IEnumerator Co_OnLookMyWorld()
+    {
+        // 같은 오브젝트에 붙어있는 UI_BattleButtons 컴포넌트가 카메라 이동 시 UnitSommonButton을 조작하기에 여기서 추가 작업을 해야 됨
+        yield return null;
+        if(_currentState != UI_State.Defautl)
+            ToggleDefaultButton(false);
+        UpdateUIState();
     }
 }

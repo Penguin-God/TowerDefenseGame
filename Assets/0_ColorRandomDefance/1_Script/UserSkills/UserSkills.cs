@@ -627,3 +627,20 @@ public class GamblerController : UserSkill
         return result;
     }
 }
+
+
+public class VIP : UserSkill
+{
+    public VIP(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator) : base(userSkillBattleData)
+    {
+        uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_UnitUpgradeShopWithVIP");
+        // var ui = uiMediator.ShowPopupUI<UI_UnitUpgradeShopWithGamble>(BattleUI_Type.UnitUpgrdeShop);
+        //ui.SetNeedStackForGamble(IntSkillDatas[2]);
+        //ui.gameObject.SetActive(false);
+    }
+
+    internal override void InitSkill()
+    {
+
+    }
+}

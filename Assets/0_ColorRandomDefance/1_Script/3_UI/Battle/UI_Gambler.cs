@@ -6,7 +6,6 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
-using static Multi_TeamSoldier;
 
 public class UI_Gambler : UI_Base
 {
@@ -27,6 +26,7 @@ public class UI_Gambler : UI_Base
     {
         UnitSummonSwichButton,
         BuyExpButton,
+        UnitGachaButton,
     }
 
     enum Texts
@@ -37,12 +37,14 @@ public class UI_Gambler : UI_Base
 
     LevelSystem _gambleLevelSystem;
     UnityAction _buyExp;
+    UnityAction _gachaAndLevelUp;
     Func<int, IEnumerable<UnitGachaData>> _createGachaTable;
-    public void Inject(LevelSystem levelSystem, UnityAction buyExp, Func<int, IEnumerable<UnitGachaData>> createGachaTable)
+    public void Inject(LevelSystem levelSystem, UnityAction buyExp, Func<int, IEnumerable<UnitGachaData>> createGachaTable, UnityAction gachaAndLevelUp)
     {
         _gambleLevelSystem = levelSystem;
         _buyExp = buyExp;
         _createGachaTable = createGachaTable;
+        _gachaAndLevelUp = gachaAndLevelUp;
     }
 
     protected override void Init()
@@ -58,11 +60,14 @@ public class UI_Gambler : UI_Base
         GetTextMeshPro((int)Texts.GambleLevelText).raycastTarget = false;
         GetTextMeshPro((int)Texts.ExpStatusText).raycastTarget = false;
         _gambleLevelSystem.OnChangeExp += _ => UpdateText();
-        _gambleLevelSystem.OnChangeExp += _ => ChangeState(UI_State.Gacha);
+        _gambleLevelSystem.OnLevelUp += _ => UpdateText();
+        _gambleLevelSystem.OnChangeExp += _ => CheckGacha();
 
         GetButton((int)Buttons.UnitSummonSwichButton).onClick.AddListener(SwitchExpDefault);
         GetButton((int)Buttons.BuyExpButton).onClick.AddListener(_buyExp);
-        
+        GetButton((int)Buttons.UnitGachaButton).onClick.AddListener(_gachaAndLevelUp);
+        GetButton((int)Buttons.UnitGachaButton).onClick.AddListener(() => ChangeState(UI_State.Exp));
+
         UpdateText();
         InActiveAllUIs();
         UpdateUIState();
@@ -80,6 +85,12 @@ public class UI_Gambler : UI_Base
         ExitState(_currentState);
         _currentState = state;
         UpdateUIState();
+    }
+
+    void CheckGacha()
+    {
+        if (_gambleLevelSystem.LevelUpCondition)
+            ChangeState(UI_State.Gacha);
     }
 
     void ExitState(UI_State state)
@@ -147,7 +158,7 @@ public class UI_Gambler : UI_Base
     void ToggleGachaUI(bool isActive)
     {
         GetObject((int)GameObjects.GachaUnitInfoParent).SetActive(isActive);
-
+        GetButton((int)Buttons.UnitGachaButton).gameObject.SetActive(isActive);
     }
 
     void ShowGachaItemInfos()

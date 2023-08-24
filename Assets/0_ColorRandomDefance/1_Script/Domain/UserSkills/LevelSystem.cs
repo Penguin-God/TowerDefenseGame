@@ -15,7 +15,7 @@ public class LevelSystem
         private set
         {
             _experience = value;
-            OnChangeExp?.Invoke(_experience); // 경험치 변경 시 이벤트 호출
+            OnChangeExp?.Invoke(_experience);
         }
     }
     public event Action<int> OnChangeExp;
@@ -31,7 +31,7 @@ public class LevelSystem
         ExperienceToNextLevel = experienceToNextLevel;
     }
 
-    public void AddExperience(int amount) // 경험치를 추가하고 레벨업을 확인합니다.
+    public void AddExperience(int amount)
     {
         if (IsMaxLevel) return;
         Experience += amount;

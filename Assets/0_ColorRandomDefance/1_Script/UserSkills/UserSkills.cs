@@ -548,8 +548,7 @@ public class GamblerController : UserSkill
     {
         _gambleDatas = CsvUtility.CsvToArray<GambleData>(Managers.Resources.Load<TextAsset>("Data/SkillData/GamblerData").text);
         _gambleLevelSystem = new LevelSystem(_gambleDatas.Select(x => x.NeedExpForLevelUp).ToArray());
-        _gambleLevelSystem.OnLevelUp += GachaUnit;
-
+        
         ExpPrice = IntSkillDatas[0];
         ExpAmount = IntSkillDatas[1];
         AddExpAmountWhenStageUp = IntSkillDatas[2];
@@ -557,7 +556,7 @@ public class GamblerController : UserSkill
 
         uiMediator.RegisterUI(BattleUI_Type.BattleButtons, "UI_BattleButtonsWhitGambler");
         var ui = uiMediator.ShowUI(BattleUI_Type.BattleButtons).GetComponent<UI_Gambler>();
-        ui.Inject(_gambleLevelSystem, BuyExp, CreateGachaTable);
+        ui.Inject(_gambleLevelSystem, BuyExp, CreateGachaTable, GachaAndLevelUp);
         ui.gameObject.SetActive(false);
     }
 
@@ -573,6 +572,13 @@ public class GamblerController : UserSkill
     }
 
     internal override void InitSkill() {}
+
+    void GachaAndLevelUp()
+    {
+        Debug.Assert(_gambleLevelSystem.LevelUpCondition, "렙업이 불가능한데 뽑기를 시도함");
+        GachaUnit(_gambleLevelSystem.Level);
+        _gambleLevelSystem.LevelUp();
+    }
 
     void GachaUnit(int gamblerLevel)
     {

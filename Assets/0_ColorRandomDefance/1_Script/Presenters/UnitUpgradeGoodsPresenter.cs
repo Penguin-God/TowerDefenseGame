@@ -28,4 +28,7 @@ public class UnitUpgradeGoodsPresenter
     };
 
     public Color CurrencyToColor(GameCurrencyType currency) => CurrencyColors[currency];
+
+    public string BuildGoodsText(UnitUpgradeData upgradeGoods) => $"{UnitTextPresenter.GetColorText(upgradeGoods.TargetColor)} 유닛 {GetUpgradeText(upgradeGoods)} 증가";
+    string GetUpgradeText(UnitUpgradeData upgradeData) => $"공격력 {upgradeData.Value}" + (upgradeData.UpgradeType == UnitUpgradeType.Value ? "" : "%");
 }

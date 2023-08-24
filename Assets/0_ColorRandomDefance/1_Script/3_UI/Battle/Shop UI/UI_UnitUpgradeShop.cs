@@ -29,10 +29,12 @@ public class UI_UnitUpgradeShop : UI_Popup
         base.Init();
         _unitUpgradeShopData = Multi_GameManager.Instance.BattleData.UnitUpgradeShopData;
         var buyController = new UnitUpgradeShopController(_unitUpgradeShopData, _textController);
-        GetComponentsInChildren<UI_UnitUpgradeGoods>().ToList().ForEach(x => x._Init(buyController));
-        SetLocationByGoodsDatas(new HashSet<UnitUpgradeGoodsData>());
-        buyController.OnBuyGoods += DisplayGoods;
 
+        GetComponentsInChildren<UI_UnitUpgradeGoods>().ToList().ForEach(x => x._Init(buyController));
+        GetComponentsInChildren<UI_UnitUpgradeGoods>().ToList().ForEach(x => x.OnBuyGoods += DisplayGoods);
+
+        SetLocationByGoodsDatas(new HashSet<UnitUpgradeGoodsData>());
+        
         Bind<Button>(typeof(Buttons));
         GetButton((int)Buttons.ResetButton).onClick.AddListener(ResetShop);
     }
@@ -53,7 +55,15 @@ public class UI_UnitUpgradeShop : UI_Popup
         var goodsUIs = GetComponentsInChildren<UI_UnitUpgradeGoods>();
         _locationByGoods_UI = locations.Zip(goodsUIs, (location, goodsUI) => new { location, goodsUI }).ToDictionary(pair => pair.location, pair => pair.goodsUI);
         foreach (var item in _locationByGoods)
-            _locationByGoods_UI[item.Key].Setup(item.Value, _unitUpgradeShopData);
+            _locationByGoods_UI[item.Key].Setup(CreateGoodsData(item.Value));
+    }
+
+    UnitUpgradeData CreateGoodsData(UnitUpgradeGoodsData data)
+    {
+        if (data.UpgradeType == UnitUpgradeType.Value)
+            return new UnitUpgradeData(data.UpgradeType, data.TargetColor, _unitUpgradeShopData.AddValue, _unitUpgradeShopData.AddValuePriceData);
+        else
+            return new UnitUpgradeData(data.UpgradeType, data.TargetColor, _unitUpgradeShopData.UpScale, _unitUpgradeShopData.UpScalePriceData);
     }
 
     void DisplayGoods(UnitUpgradeGoodsData goods)
@@ -61,6 +71,12 @@ public class UI_UnitUpgradeShop : UI_Popup
         var buyLocation = _locationByGoods.First(x => x.Value.Equals(goods)).Key;
         var newGoods = _goodsSelector.SelectGoodsExcluding(_locationByGoods.Where(x => x.Key != buyLocation).Select(x => x.Value));
         StartCoroutine(Co_DisplayGoods(buyLocation, newGoods));
+    }
+
+    void DisplayGoods(GoodsLocation goodsLocate)
+    {
+        var newGoods = _goodsSelector.SelectGoodsExcluding(_locationByGoods.Where(x => x.Key != goodsLocate).Select(x => x.Value));
+        StartCoroutine(Co_DisplayGoods(goodsLocate, newGoods));
     }
 
     IEnumerator Co_DisplayGoods(GoodsLocation buyLocation, UnitUpgradeGoodsData newGoods)
@@ -74,7 +90,7 @@ public class UI_UnitUpgradeShop : UI_Popup
     void ChangeGoods(GoodsLocation buyLocation, UnitUpgradeGoodsData newGoods)
     {
         _locationByGoods[buyLocation] = newGoods;
-        _locationByGoods_UI[buyLocation].Setup(newGoods, _unitUpgradeShopData);
+        _locationByGoods_UI[buyLocation].Setup(CreateGoodsData(newGoods));
     }
 
     void ResetShop()

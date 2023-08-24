@@ -181,6 +181,7 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
             return false;
     }
 
+    public bool TryUseCurrency(CurrencyData currencyData) => TryUseCurrency(currencyData.CurrencyType, currencyData.Amount);
     public bool TryUseCurrency(GameCurrencyType currencyType, int quantity) => currencyType == GameCurrencyType.Gold ? TryUseGold(quantity) : TryUseFood(quantity);
 
     public bool UnitOver => Managers.Unit.CurrentUnitCount >= _battleData.MaxUnit;
@@ -237,6 +238,14 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
             IncrementUnitUpgradeValue(_addDamageValueByFlag, BattleData.UnitUpgradeShopData.AddValue, goodsData.TargetColor);
         else
             IncrementUnitUpgradeValue(_upScaleValueByFlag, BattleData.UnitUpgradeShopData.UpScale, goodsData.TargetColor);
+    }
+
+    public void IncrementUnitUpgradeValue(UnitUpgradeData goodsData)
+    {
+        if (goodsData.UpgradeType == UnitUpgradeType.Value)
+            IncrementUnitUpgradeValue(_addDamageValueByFlag, goodsData.Value, goodsData.TargetColor);
+        else
+            IncrementUnitUpgradeValue(_upScaleValueByFlag, goodsData.Value, goodsData.TargetColor);
     }
 
     void IncrementUnitUpgradeValue(Dictionary<UnitFlags, int> valueDict, int incrementValue, UnitColor color)

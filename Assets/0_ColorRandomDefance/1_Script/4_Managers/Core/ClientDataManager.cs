@@ -127,6 +127,7 @@ public enum SkillType
     썬콜,
     덫,
     백의결속,
+    VIP,
 }
 
 public enum MoneyType

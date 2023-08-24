@@ -98,7 +98,7 @@ public class UserSkillFactory
     IReadOnlyList<SkillType> ComplexSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
     {
         SkillType.태극스킬, SkillType.마나변이, SkillType.마나불능, SkillType.장사꾼, SkillType.도박사, SkillType.메테오,
-        SkillType.네크로맨서, SkillType.덫, SkillType.백의결속, SkillType.흑의결속, SkillType.썬콜,
+        SkillType.네크로맨서, SkillType.덫, SkillType.백의결속, SkillType.흑의결속, SkillType.썬콜, SkillType.VIP,
     });
 
     IReadOnlyList<SkillType> ExistSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
@@ -155,6 +155,7 @@ public class UserSkillFactory
                 result = new SlowTrapSpawner(skillBattleData, Multi_Data.instance.GetEnemyTurnPoints(PlayerIdManager.Id) ,container.GetEventDispatcher()); break;
             case SkillType.백의결속: result = new BondOfWhite(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance); break;
             case SkillType.썬콜: result = new Suncold(skillBattleData, Managers.Data); break;
+            case SkillType.VIP: result = new VIP(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetComponent<TextShowAndHideController>()); break;
             default: result = null; break;
         }
         result.InitSkill();
@@ -631,12 +632,12 @@ public class GamblerController : UserSkill
 
 public class VIP : UserSkill
 {
-    public VIP(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator) : base(userSkillBattleData)
+    public VIP(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, TextShowAndHideController textController) : base(userSkillBattleData)
     {
         uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_UnitUpgradeShopWithVIP");
-        // var ui = uiMediator.ShowPopupUI<UI_UnitUpgradeShopWithGamble>(BattleUI_Type.UnitUpgrdeShop);
-        //ui.SetNeedStackForGamble(IntSkillDatas[2]);
-        //ui.gameObject.SetActive(false);
+        var ui = uiMediator.ShowPopupUI(BattleUI_Type.UnitUpgrdeShop).GetComponent<UI_UnitUpgradeShopWithVIP>();
+        ui.Inject(textController, IntSkillData);
+        ui.gameObject.SetActive(false);
     }
 
     internal override void InitSkill()

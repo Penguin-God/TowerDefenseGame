@@ -9,6 +9,7 @@
 마창사,Main,Iron,마창사,창병이 마법이 부여된 창을 날립니다,Sprites/MagicSpearman,창 대미지 {data}배 증가,,,
 썬콜,Main,Iron,썬콜,슬로우가 이미 적용된 적에게 다시 슬로우를 입히면 번개로 적을 공격합니다,Sprites/SunCold,기사 대미지 : {data},궁수 대미지 : {data},창병 대미지 : {data},법사 대미지 : {data}
 백의결속,Main,Iron,백의 결속,하얀 유닛이 강화되고 특정 스테이지마다 고기를 획득합니다.,Sprites/PureBoold,기사: {%At60} -> {data},궁수: {%At61} -> {data},창병: {%At62} -> {data},법사: {%At63} -> {data}
+VIP,Main,Iron,VIP,,,,,,
 ,,,,,,,,,
 ,,,,,,,,,
 마나불능,Sub,Iron,마나불능,"마나를 다룰 수 없게 되어 룬을 얻지 못하게 됩니다. 룬 대신 골드를 얻게 되며, 룬 상점은 골드를 사용하도록 바뀝니다.",Sprites/ManaImpotence,룬 획득 시 골드 변환 비율 {data},상점 물품 비율 변환{data},,

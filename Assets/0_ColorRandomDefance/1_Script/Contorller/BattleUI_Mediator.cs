@@ -25,7 +25,7 @@ public class BattleUI_Mediator
     public void RegisterUI<T>(BattleUI_Type type) => RegisterUI(type, typeof(T).Name);
     public void RegisterUI(BattleUI_Type type, string path) => _pathBybattleUIType[type] = path;
     public T ShowPopupUI<T>(BattleUI_Type type) where T : UI_Popup => _uiManager.ShowPopupUI<T>(_pathBybattleUIType[type]);
-    public void ShowPopupUI(BattleUI_Type type) => _uiManager.ShowPopupUI<UI_Popup>(_pathBybattleUIType[type]);
+    public GameObject ShowPopupUI(BattleUI_Type type) => _uiManager.ShowPopupUI<UI_Popup>(_pathBybattleUIType[type]).gameObject;
 
     // UI 풀링부터 고치고 작업하기
     //public T _ShowPopupUI<T>(BattleUI_Type type) where T : UI_Popup

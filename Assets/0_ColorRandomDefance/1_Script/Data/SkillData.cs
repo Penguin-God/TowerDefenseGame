@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using System;
 
-[System.Serializable]
+[Serializable]
 public class UserSkillGoodsData
 {
     [SerializeField] SkillType _skillType;
@@ -27,7 +28,7 @@ public class UserSkillGoodsData
     public void SetLevelDatas(UserSkillLevelData[] newLevelDatas) => _levelDatas = newLevelDatas;
 }
 
-[System.Serializable]
+[Serializable]
 public class UserSkillLevelData
 {
     [SerializeField] SkillType _skillType;
@@ -56,4 +57,28 @@ public class UserSkillGoodsLoder : ICsvLoader<SkillType, UserSkillGoodsData>
 
     UserSkillLevelData[] LoadLevleData(string path)
         => CsvUtility.CsvToArray<UserSkillLevelData>(Managers.Resources.Load<TextAsset>($"Data/{path}").text).ToArray();
+}
+
+public enum BattleShopGoodsType
+{
+    Unit,
+    UnitUpgrade,
+
+}
+
+public struct VipoodsData
+{
+    [SerializeField] string _name;
+    [SerializeField] GoodsLocation _goodsLocation;
+    [SerializeField] CurrencyData _currencyData;
+    [SerializeField] string _infoText;
+    [SerializeField] BattleShopGoodsType _goodsType;
+    [SerializeField] float[] _goodsDatas;
+
+    public string Name => _name;
+    public GoodsLocation GoodsLocation => _goodsLocation;
+    public CurrencyData CurrencyData => _currencyData;
+    public string InfoText => _infoText;
+    public BattleShopGoodsType GoodsType => _goodsType;
+    public float[] GoodsDatas => _goodsDatas;
 }

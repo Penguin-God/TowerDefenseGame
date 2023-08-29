@@ -6,11 +6,21 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public struct ShopGoodsData
+[Serializable]
+public class GoodsSellData
 {
-    public CurrencyData GoodsPriceData;
-    public string GoodsName;
-    
+    [SerializeField] BattleShopGoodsType _goodsType;
+    [SerializeField] float[] _goodsDatas;
+
+    public GoodsSellData(BattleShopGoodsType goodsType, float[] datas)
+    {
+        _goodsType = goodsType; 
+        _goodsDatas = datas;
+    }
+    public GoodsSellData() { }
+
+    public BattleShopGoodsType GoodsType => _goodsType;
+    public float[] GoodsDatas => _goodsDatas;
 }
 
 public class UI_BattleShopGoods : UI_Base
@@ -33,32 +43,106 @@ public class UI_BattleShopGoods : UI_Base
 
     protected override void Init()
     {
-        Bind<TextMeshProUGUI>(typeof(Texts));
+        Bind<Text>(typeof(Texts));
         Bind<Image>(typeof(Images));
-        Bind<Button>(typeof(Buttons));
+        // Bind<Button>(typeof(Buttons));
+        _panelButton = GetComponent<Button>();
     }
 
-    internal void DisplayGoods(BattleShopGoodsData shopGoodsData)
+    GoodsBuyController _goodsBuyController;
+    [SerializeField] GoodsLocation _goodsLocation;
+    public Action<GoodsLocation> OnBuyGoods;
+    public void Inject(GoodsBuyController goodsBuyController)
     {
-        GetText((int)Texts.ProductNameText).text = shopGoodsData.Name;
-        GetText((int)Texts.PriceText).text = shopGoodsData.PriceData.Amount.ToString();
+        _goodsBuyController = goodsBuyController;
+    }
+
+    Button _panelButton;
+    internal void DisplayGoods(BattleShopGoodsData goodsData)
+    {
+        CheckInit();
+
+        GetText((int)Texts.ProductNameText).text = goodsData.Name;
+        GetText((int)Texts.PriceText).text = goodsData.PriceData.Amount.ToString();
         // GetImage((int)Images.CurrencyImage).sprite = CurrencyToSprite(priceData.CurrencyType);
 
-        GetButton((int)Buttons.PanelButton).onClick.RemoveAllListeners();
-        GetButton((int)Buttons.PanelButton).onClick.AddListener(() => ShowBuyWindow(new BuyActionFactory().CreateBuyAction()));
+        _panelButton.onClick.RemoveAllListeners();
+        _panelButton.onClick.AddListener(() => ShowBuyWindow(goodsData));
     }
 
-    void ShowBuyWindow(UnityAction action)
+    void ShowBuyWindow(BattleShopGoodsData goodsData)
     {
-        string qustionText = "";
-        Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo(qustionText, action);
+        string qustionText = "사쉴?";
+        Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo(qustionText, () => Buy(goodsData));
+    }
+
+    void Buy(BattleShopGoodsData goodsData)
+    {
+        if (_goodsBuyController.TryBuy(goodsData))
+            OnBuyGoods?.Invoke(_goodsLocation);
+    }
+}
+
+public class GoodsBuyController
+{
+    readonly Multi_GameManager _gameManager;
+    readonly BuyActionFactory _buyActionFactory;
+    readonly TextShowAndHideController _textController;
+
+    public GoodsBuyController(Multi_GameManager gameManager, BuyActionFactory buyActionFactory, TextShowAndHideController textController)
+    {
+        _gameManager = gameManager;
+        _buyActionFactory = buyActionFactory;
+        _textController = textController;
+    }
+
+    public bool TryBuy(BattleShopGoodsData data)
+    {
+        if (_gameManager.TryUseCurrency(data.PriceData))
+        {
+            Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
+            _buyActionFactory.CreateBuyAction(data.SellData).Invoke();
+            return true;
+        }
+        else
+        {
+            _textController.ShowTextForTime($"{new GameCurrencyPresenter().BuildCurrencyTypeText(data.PriceData.CurrencyType)}이 부족해 구매할 수 없습니다.", Color.red);
+            Managers.Sound.PlayEffect(EffectSoundType.Denger);
+            return false;
+        }
     }
 }
 
 public class BuyActionFactory
 {
-    public UnityAction CreateBuyAction()
+    readonly Multi_NormalUnitSpawner _unitSpawner;
+    readonly UnitUpgradeController _unitUpgradeController;
+    public BuyActionFactory(Multi_NormalUnitSpawner unitSpawner, UnitUpgradeController unitUpgradeController)
     {
-        return null;
+        _unitSpawner = unitSpawner;
+        _unitUpgradeController = unitUpgradeController;
+    }
+
+    public UnityAction CreateBuyAction(GoodsSellData sellData)
+    {
+        var convertor = new DataConvertUtili();
+        switch (sellData.GoodsType)
+        {
+            case BattleShopGoodsType.Unit: return () => SpawnUnit(convertor.ToUnitFlag(sellData.GoodsDatas));
+            case BattleShopGoodsType.UnitUpgrade: return () => UpgradeUnit(convertor.ToUnitUpgradeData(sellData.GoodsDatas));
+            default: Debug.LogError($"정의되지 않은 굿즈 타입 {sellData.GoodsType}"); return null;
+        }
+    }
+
+    void SpawnUnit(UnitFlags flag) => _unitSpawner.Spawn(flag);
+    void UpgradeUnit(UnitUpgradeData goods)
+    {
+        switch (goods.UpgradeType)
+        {
+            case UnitUpgradeType.Value:
+                _unitUpgradeController.AddUnitDamageValue(goods.TargetColor, goods.Value, UnitStatType.All); break;
+            case UnitUpgradeType.Scale:
+                _unitUpgradeController.ScaleUnitDamageValue(goods.TargetColor, goods.Value / 100f, UnitStatType.All); break;
+        }
     }
 }

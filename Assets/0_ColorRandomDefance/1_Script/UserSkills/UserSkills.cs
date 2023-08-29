@@ -155,7 +155,7 @@ public class UserSkillFactory
                 result = new SlowTrapSpawner(skillBattleData, Multi_Data.instance.GetEnemyTurnPoints(PlayerIdManager.Id) ,container.GetEventDispatcher()); break;
             case SkillType.백의결속: result = new BondOfWhite(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance); break;
             case SkillType.썬콜: result = new Suncold(skillBattleData, Managers.Data); break;
-            case SkillType.VIP: result = new VIP(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetComponent<TextShowAndHideController>()); break;
+            case SkillType.VIP: result = new VIP(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetService<GoodsBuyController>()); break;
             default: result = null; break;
         }
         result.InitSkill();
@@ -632,11 +632,11 @@ public class GamblerController : UserSkill
 
 public class VIP : UserSkill
 {
-    public VIP(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, TextShowAndHideController textController) : base(userSkillBattleData)
+    public VIP(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, GoodsBuyController buyController) : base(userSkillBattleData)
     {
         uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_UnitUpgradeShopWithVIP");
         var ui = uiMediator.ShowPopupUI(BattleUI_Type.UnitUpgrdeShop).GetComponent<UI_UnitUpgradeShopWithVIP>();
-        ui.Inject(textController, IntSkillData);
+        ui.Inject(buyController, IntSkillData);
         ui.gameObject.SetActive(false);
     }
 

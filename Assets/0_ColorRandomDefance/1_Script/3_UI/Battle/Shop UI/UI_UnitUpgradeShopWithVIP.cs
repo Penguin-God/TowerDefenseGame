@@ -9,7 +9,6 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
     {
         Goods,
         SpecialGoodsParent,
-
     }
 
     enum Texts
@@ -30,18 +29,22 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
 
         foreach (var goods in GetObject((int)GameObjects.Goods).GetComponentsInChildren<UI_UnitUpgradeGoods>())
             goods.OnBuyGoods += _ => AddStack();
+        InitSpecailShop();
+    }
 
-        foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_UnitUpgradeGoods>())
-            goods._Init(new UnitUpgradeShopController(_textController));
-        foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_UnitUpgradeGoods>())
+    void InitSpecailShop()
+    {
+        foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
+            goods.Inject(_buyController);
+        foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
             goods.OnBuyGoods += _ => ConfigureNormalShop();
     }
 
-    TextShowAndHideController _textController;
-    public void Inject(TextShowAndHideController textController, int needStack)
+    GoodsBuyController _buyController;
+    public void Inject(GoodsBuyController buyController, int needStack)
     {
         NeedStackForEnterSpecialShop = needStack;
-        _textController = textController;
+        _buyController = buyController;
     }
 
     void AddStack()
@@ -59,9 +62,9 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
     {
         GetTextMeshPro((int)Texts.SpecialShopStackText).gameObject.SetActive(false);
         GetObject((int)GameObjects.Goods).SetActive(false);
-        
-        foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_UnitUpgradeGoods>())
-            goods.Setup(new UnitUpgradeData(UnitUpgradeType.Scale, UnitColor.Orange, 50, new CurrencyData(GameCurrencyType.Food, 1)));
+
+        foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
+            goods.DisplayGoods(new BattleShopGoodsData("주황 유닛 강화", new CurrencyData(GameCurrencyType.Food, 1), "주황 유닛 강화를", new GoodsSellData(BattleShopGoodsType.UnitUpgrade, new float[] { 1, 4, 50 })));
         GetObject((int)GameObjects.SpecialGoodsParent).SetActive(true);
     }
 

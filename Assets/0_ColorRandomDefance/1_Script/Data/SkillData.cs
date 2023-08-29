@@ -66,19 +66,25 @@ public enum BattleShopGoodsType
 
 }
 
-public struct BattleShopGoodsData
+public class BattleShopGoodsData
 {
     [SerializeField] string _name;
-    [SerializeField] GoodsLocation _goodsLocation;
     [SerializeField] CurrencyData _priceData;
     [SerializeField] string _infoText;
-    [SerializeField] BattleShopGoodsType _goodsType;
-    [SerializeField] float[] _goodsDatas;
+    [SerializeField] GoodsSellData _sellData;
+
+    public BattleShopGoodsData(string name, CurrencyData priceData, string infoText, GoodsSellData sellData)
+    {
+        _name = name;
+        _priceData = priceData;
+        _infoText = infoText;
+        _sellData = sellData;
+    }
+
+    public BattleShopGoodsData() { }
 
     public string Name => _name;
-    public GoodsLocation GoodsLocation => _goodsLocation;
     public CurrencyData PriceData => _priceData;
     public string InfoText => _infoText;
-    public BattleShopGoodsType GoodsType => _goodsType;
-    public float[] GoodsDatas => _goodsDatas;
+    public GoodsSellData SellData => _sellData;
 }

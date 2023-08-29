@@ -78,6 +78,8 @@ public class BattleDIContainerInitializer
         container.AddComponent<BattleStartController>();
 
         container.AddService(new BattleUI_Mediator(Managers.UI, container));
+        var factory = new BuyActionFactory(Multi_SpawnManagers.NormalUnit, MultiServiceMidiator.UnitUpgrade);
+        container.AddService(new GoodsBuyController(game, factory, container.GetComponent<TextShowAndHideController>()));
     }
 
     void InjectService(BattleDIContainer container)

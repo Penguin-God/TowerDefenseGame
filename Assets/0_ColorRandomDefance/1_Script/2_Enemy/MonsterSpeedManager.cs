@@ -17,7 +17,6 @@ public class MonsterSpeedManager : MonoBehaviour
     public void OnSlow(float slowRate)
     {
         if (SlowCondition(slowRate) == false) return;
-
         StopCoroutine(nameof(Co_RestoreSpeed));
         SpeedManager.OnSlow(slowRate);
         ApplySlowRate = slowRate;

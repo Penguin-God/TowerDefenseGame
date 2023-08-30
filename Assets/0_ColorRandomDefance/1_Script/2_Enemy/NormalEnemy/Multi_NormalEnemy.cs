@@ -157,7 +157,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected void ApplySlowToAll(float slowRate, float slowTime, UnitFlags flag)
     {
         ChangeColorToSlow(); // 서순 무조건 지켜야됨
-        MonsterSpeedManager.OnSlowWithTime(slowRate, slowTime, flag);
+        MonsterSpeedManager?.OnSlowWithTime(slowRate, slowTime, flag);
         ChangeVelocity(dir);
     }
 

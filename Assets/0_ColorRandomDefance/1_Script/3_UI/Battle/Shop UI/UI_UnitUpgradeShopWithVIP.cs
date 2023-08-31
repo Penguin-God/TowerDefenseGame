@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.Linq;
+
+public enum BattleShopGoodsType
+{
+    Unit,
+    UnitUpgrade,
+}
 
 public class UI_UnitUpgradeShopWithVIP : UI_Base
 {
@@ -64,8 +71,15 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
         GetObject((int)GameObjects.Goods).SetActive(false);
 
         foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
-            goods.DisplayGoods(new BattleShopGoodsData("주황 유닛 강화", new CurrencyData(GameCurrencyType.Food, 1), "주황 유닛 강화를", new GoodsSellData(BattleShopGoodsType.UnitUpgrade, new float[] { 1, 4, 50 })));
+            goods.DisplayGoods(CreateGoods());
         GetObject((int)GameObjects.SpecialGoodsParent).SetActive(true);
+    }
+
+    BattleShopGoodsData CreateGoods()
+    {
+        string csv = Managers.Resources.Load<TextAsset>("Data/SkillData/VIPGoodsData").text;
+        BattleShopGoodsData data = CsvUtility.CsvToArray<BattleShopGoodsData>(csv).ToList().GetRandom();
+        return data;
     }
 
     void ConfigureNormalShop()

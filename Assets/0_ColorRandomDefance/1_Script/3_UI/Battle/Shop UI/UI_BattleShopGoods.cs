@@ -7,20 +7,13 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 [Serializable]
-public class GoodsSellData
+public struct GoodsData
 {
     [SerializeField] BattleShopGoodsType _goodsType;
-    [SerializeField] float[] _goodsDatas;
-
-    public GoodsSellData(BattleShopGoodsType goodsType, float[] datas)
-    {
-        _goodsType = goodsType; 
-        _goodsDatas = datas;
-    }
-    public GoodsSellData() { }
+    [SerializeField] float[] _datas;
 
     public BattleShopGoodsType GoodsType => _goodsType;
-    public float[] GoodsDatas => _goodsDatas;
+    public float[] Datas => _datas;
 }
 
 public class UI_BattleShopGoods : UI_Base
@@ -123,18 +116,19 @@ public class BuyActionFactory
         _unitUpgradeController = unitUpgradeController;
     }
 
-    public UnityAction CreateBuyAction(GoodsSellData sellData)
+    public UnityAction CreateBuyAction(GoodsData sellData)
     {
         var convertor = new DataConvertUtili();
         switch (sellData.GoodsType)
         {
-            case BattleShopGoodsType.Unit: return () => SpawnUnit(convertor.ToUnitFlag(sellData.GoodsDatas));
-            case BattleShopGoodsType.UnitUpgrade: return () => UpgradeUnit(convertor.ToUnitUpgradeData(sellData.GoodsDatas));
+            case BattleShopGoodsType.Unit: return () => SpawnUnit(convertor.ToUnitFlag(sellData.Datas));
+            case BattleShopGoodsType.UnitUpgrade: return () => UpgradeUnit(convertor.ToUnitUpgradeData(sellData.Datas));
             default: Debug.LogError($"정의되지 않은 굿즈 타입 {sellData.GoodsType}"); return null;
         }
     }
 
     void SpawnUnit(UnitFlags flag) => _unitSpawner.Spawn(flag);
+
     void UpgradeUnit(UnitUpgradeData goods)
     {
         switch (goods.UpgradeType)
@@ -142,7 +136,9 @@ public class BuyActionFactory
             case UnitUpgradeType.Value:
                 _unitUpgradeController.AddUnitDamageValue(goods.TargetColor, goods.Value, UnitStatType.All); break;
             case UnitUpgradeType.Scale:
-                _unitUpgradeController.ScaleUnitDamageValue(goods.TargetColor, goods.Value / 100f, UnitStatType.All); break;
+                _unitUpgradeController.ScaleUnitDamageValue(goods.TargetColor, goods.Value / 100f, UnitStatType.All);
+                Multi_GameManager.Instance.IncrementUnitUpgradeValue(goods);
+                break;
         }
     }
 }

@@ -59,32 +59,15 @@ public class UserSkillGoodsLoder : ICsvLoader<SkillType, UserSkillGoodsData>
         => CsvUtility.CsvToArray<UserSkillLevelData>(Managers.Resources.Load<TextAsset>($"Data/{path}").text).ToArray();
 }
 
-public enum BattleShopGoodsType
-{
-    Unit,
-    UnitUpgrade,
-
-}
-
-public class BattleShopGoodsData
+public struct BattleShopGoodsData
 {
     [SerializeField] string _name;
     [SerializeField] CurrencyData _priceData;
     [SerializeField] string _infoText;
-    [SerializeField] GoodsSellData _sellData;
-
-    public BattleShopGoodsData(string name, CurrencyData priceData, string infoText, GoodsSellData sellData)
-    {
-        _name = name;
-        _priceData = priceData;
-        _infoText = infoText;
-        _sellData = sellData;
-    }
-
-    public BattleShopGoodsData() { }
+    [SerializeField] GoodsData _sellData;
 
     public string Name => _name;
     public CurrencyData PriceData => _priceData;
     public string InfoText => _infoText;
-    public GoodsSellData SellData => _sellData;
+    public GoodsData SellData => _sellData;
 }

@@ -83,6 +83,7 @@ public class CurrencyData
         _currencyType = currencyType;
         _amount = amount;
     }
+    public CurrencyData() { } // 리플랙션용
 
     public CurrencyData Cloen() => new CurrencyData(CurrencyType, _amount);
 }

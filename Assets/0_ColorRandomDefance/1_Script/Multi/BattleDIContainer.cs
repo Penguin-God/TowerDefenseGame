@@ -76,9 +76,10 @@ public class BattleDIContainerInitializer
         container.AddComponent<Multi_BossEnemySpawner>();
         container.AddComponent<RewradController>();
         container.AddComponent<BattleStartController>();
+        container.AddComponent<Multi_NormalUnitSpawner>();
 
         container.AddService(new BattleUI_Mediator(Managers.UI, container));
-        var factory = new BuyActionFactory(Multi_SpawnManagers.NormalUnit, MultiServiceMidiator.UnitUpgrade);
+        var factory = new BuyActionFactory(container.GetComponent<Multi_NormalUnitSpawner>(), MultiServiceMidiator.UnitUpgrade);
         container.AddService(new GoodsBuyController(game, factory, container.GetComponent<TextShowAndHideController>()));
     }
 
@@ -112,7 +113,8 @@ public class BattleDIContainerInitializer
 
         container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
         container.GetComponent<UnitMaxCountController>().Init(server, game);
-        Multi_SpawnManagers.NormalUnit.Injection(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager, container.GetMultiActiveSkillData());
+        Multi_SpawnManagers.NormalUnit.ReceiveInject(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager, container.GetMultiActiveSkillData());
+        container.GetComponent<Multi_NormalUnitSpawner>().ReceiveInject(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager, container.GetMultiActiveSkillData());
     }
 
     void InitManagers(BattleDIContainer container)

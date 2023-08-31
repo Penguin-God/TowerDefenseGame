@@ -10,7 +10,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     
     ServerMonsterManager _multiMonsterManager;
     MultiData<SkillBattleDataContainer> _multiSkillData;
-    public void Injection(ServerMonsterManager multiMonsterManager, MultiData<SkillBattleDataContainer> multiSkillData)
+    public void ReceiveInject(ServerMonsterManager multiMonsterManager, MultiData<SkillBattleDataContainer> multiSkillData)
     {
         _multiMonsterManager = multiMonsterManager;
         _multiSkillData = multiSkillData;

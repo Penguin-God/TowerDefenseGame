@@ -7,9 +7,9 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-namespace Tests
+namespace UserSkillDomainTests
 {
-    public class UserSkillTests
+    public class TaeguekTests
     {
         readonly UnitFlags redSwordmanFlag = new UnitFlags(0, 0);
         readonly UnitFlags blueSwordmanFlag = new UnitFlags(1, 0);

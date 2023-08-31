@@ -6,7 +6,7 @@ using UnityEngine.TestTools;
 using System.Linq;
 using System;
 
-namespace Tests
+namespace ShopLogicTests
 {
     public class UnitUpgradeShopTests
     {

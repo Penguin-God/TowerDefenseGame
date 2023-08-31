@@ -6,13 +6,14 @@ using System;
 public class GoodsManager<T>
 {
     readonly HashSet<T> _savedGoods;
-    readonly HashSet<T> _useingGoods;
+    readonly HashSet<T> _useingGoods = new HashSet<T>();
     public GoodsManager(HashSet<T> initialGoods) => _savedGoods = initialGoods;
 
     public T GetRandomGoods()
     {
         T selectedGoods = _savedGoods.ToList().GetRandom();
         _savedGoods.Remove(selectedGoods);
+        _useingGoods.Add(selectedGoods);
         return selectedGoods;
     }
 

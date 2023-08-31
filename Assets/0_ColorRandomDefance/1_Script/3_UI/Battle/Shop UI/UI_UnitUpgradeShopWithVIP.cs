@@ -42,11 +42,11 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
     void InitSpecailShop()
     {
         foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
+        {
             goods.Inject(_buyController);
-        foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
             goods.OnBuyGoods += _ => ConfigureNormalShop();
-        foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
-            goods._OnBuyGoods += _goodsManager.AddBackGoods;
+            goods.OnBuyGoods += _ =>  _goodsManager.AddBackAllGoods();
+        }
     }
 
     GoodsBuyController _buyController;

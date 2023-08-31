@@ -21,8 +21,7 @@ public class NormalMonsterSpawner : MonoBehaviourPun
     void InjectMonster(int hp, float speed, int viewId)
     {
         var monster = Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(viewId);
-        _monsterDecorator.DecorateSpeed(speed, monster);
-        monster.Inject(hp);
+        monster.Inject(hp, _monsterDecorator.DecorateSpeed(speed, monster));
     }
 }
 
@@ -31,18 +30,20 @@ public class MonsterDecorator
     readonly BattleDIContainer _container;
     public MonsterDecorator(BattleDIContainer container) => _container = container;
 
-    public void DecorateSpeed(float speed, Multi_NormalEnemy monster)
+    readonly int UnitDamageCount = System.Enum.GetValues(typeof(UnitClass)).Length;
+    public MonsterSpeedManager DecorateSpeed(float speed, Multi_NormalEnemy monster)
     {
         var skillData = _container.GetMultiActiveSkillData().GetData(monster.UsingId);
         if (skillData.TruGetSkillData(SkillType.썬콜, out var skillBattleData))
             AddSppedManager<SuncoldSpeedManager>(monster.gameObject)
-                .InJect(speed, monster, skillBattleData.IntSkillDatas.Take(4).ToArray(), _container.GetComponent<MultiEffectManager>());
+                .InJect(speed, monster, skillBattleData.IntSkillDatas.Take(UnitDamageCount).ToArray(), _container.GetComponent<MultiEffectManager>());
         else AddSppedManager<MonsterSpeedManager>(monster.gameObject).SetSpeed(speed);
+        return monster.GetComponent<MonsterSpeedManager>();
     }
     T AddSppedManager<T>(GameObject gameObject) where T : MonoBehaviour
     {
-        if (gameObject.GetComponent<T>() != null)
-            Object.Destroy(gameObject.GetComponent<T>());
+        if (gameObject.GetComponent<MonsterSpeedManager>() != null)
+            Object.Destroy(gameObject.GetComponent<MonsterSpeedManager>());
         return gameObject.AddComponent<T>();
     }
 }

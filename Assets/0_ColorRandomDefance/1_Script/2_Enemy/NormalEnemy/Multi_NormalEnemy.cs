@@ -57,9 +57,9 @@ public class Multi_NormalEnemy : Multi_Enemy
         SetDirection();
     }
 
-    public void Inject(int hp)
+    public void Inject(int hp, MonsterSpeedManager monsterSpeedManager)
     {
-        MonsterSpeedManager = GetComponent<MonsterSpeedManager>();
+        MonsterSpeedManager = monsterSpeedManager;
         MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
         MonsterSpeedManager.OnRestoreSpeed += ExitSlow;
         SetStatus(hp, SpeedManager.OriginSpeed, false);
@@ -86,7 +86,10 @@ public class Multi_NormalEnemy : Multi_Enemy
         ChangeVelocity(dir);
     }
 
-    void ChangeVelocity(Vector3 direction) => Rigidbody.velocity = direction * Speed;
+    void ChangeVelocity(Vector3 direction)
+    {
+        Rigidbody.velocity = direction * Speed;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -115,8 +118,8 @@ public class Multi_NormalEnemy : Multi_Enemy
         transform.rotation = Quaternion.identity;
         _stunCount = 0;
         MonsterSpeedManager.RestoreSpeed();
+        MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
         Destroy(MonsterSpeedManager);
-        MonsterSpeedManager = null;
     }
 
     protected SpeedManager SpeedManager => MonsterSpeedManager.SpeedManager;
@@ -157,7 +160,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected void ApplySlowToAll(float slowRate, float slowTime, UnitFlags flag)
     {
         ChangeColorToSlow(); // 서순 무조건 지켜야됨
-        MonsterSpeedManager?.OnSlowWithTime(slowRate, slowTime, flag);
+        MonsterSpeedManager.OnSlowWithTime(slowRate, slowTime, flag);
         ChangeVelocity(dir);
     }
 

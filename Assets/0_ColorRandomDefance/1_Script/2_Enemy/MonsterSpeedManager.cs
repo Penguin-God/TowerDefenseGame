@@ -16,8 +16,8 @@ public class MonsterSpeedManager : MonoBehaviour
 
     public void OnSlow(float slowRate)
     {
-        if (SlowCondition(slowRate) == false) return;
-        StopCoroutine(nameof(Co_RestoreSpeed));
+        if (SlowCondition(slowRate) == false || gameObject == null) return;
+        StopAllCoroutines();
         SpeedManager.OnSlow(slowRate);
         ApplySlowRate = slowRate;
     }
@@ -41,5 +41,5 @@ public class MonsterSpeedManager : MonoBehaviour
         OnRestoreSpeed?.Invoke();
     }
 
-    void OnDestroy() => StopCoroutine(nameof(Co_RestoreSpeed));
+    void OnDisable() => StopAllCoroutines();
 }

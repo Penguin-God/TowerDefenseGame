@@ -45,13 +45,17 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
             goods.Inject(_buyController);
         foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
             goods.OnBuyGoods += _ => ConfigureNormalShop();
+        foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
+            goods._OnBuyGoods += _goodsManager.AddBackGoods;
     }
 
     GoodsBuyController _buyController;
-    public void Inject(GoodsBuyController buyController, int needStack)
+    GoodsManager<BattleShopGoodsData> _goodsManager;
+    public void ReceiveInject(GoodsBuyController buyController, GoodsManager<BattleShopGoodsData> goodsManager, int needStack)
     {
         NeedStackForEnterSpecialShop = needStack;
         _buyController = buyController;
+        _goodsManager = goodsManager;
     }
 
     void AddStack()
@@ -71,15 +75,8 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
         GetObject((int)GameObjects.Goods).SetActive(false);
 
         foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
-            goods.DisplayGoods(CreateGoods());
+            goods.DisplayGoods(_goodsManager.GetRandomGoods());
         GetObject((int)GameObjects.SpecialGoodsParent).SetActive(true);
-    }
-
-    BattleShopGoodsData CreateGoods()
-    {
-        string csv = Managers.Resources.Load<TextAsset>("Data/SkillData/VIPGoodsData").text;
-        BattleShopGoodsData data = CsvUtility.CsvToArray<BattleShopGoodsData>(csv).ToList().GetRandom();
-        return data;
     }
 
     void ConfigureNormalShop()

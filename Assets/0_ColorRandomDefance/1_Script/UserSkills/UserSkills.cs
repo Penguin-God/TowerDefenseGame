@@ -636,7 +636,9 @@ public class VIP : UserSkill
     {
         uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_UnitUpgradeShopWithVIP");
         var ui = uiMediator.ShowPopupUI(BattleUI_Type.UnitUpgrdeShop).GetComponent<UI_UnitUpgradeShopWithVIP>();
-        ui.Inject(buyController, IntSkillData);
+        string csv = Managers.Resources.Load<TextAsset>("Data/SkillData/VIPGoodsData").text;
+        var goodsManager = new GoodsManager<BattleShopGoodsData>(new HashSet<BattleShopGoodsData>(CsvUtility.CsvToArray<BattleShopGoodsData>(csv)));
+        ui.ReceiveInject(buyController, goodsManager, IntSkillData);
         ui.gameObject.SetActive(false);
     }
 

@@ -45,6 +45,7 @@ public class UI_BattleShopGoods : UI_Base
     GoodsBuyController _goodsBuyController;
     [SerializeField] GoodsLocation _goodsLocation;
     public Action<GoodsLocation> OnBuyGoods;
+    public Action<BattleShopGoodsData> _OnBuyGoods;
     public void Inject(GoodsBuyController goodsBuyController)
     {
         _goodsBuyController = goodsBuyController;
@@ -72,7 +73,10 @@ public class UI_BattleShopGoods : UI_Base
     void Buy(BattleShopGoodsData goodsData)
     {
         if (_goodsBuyController.TryBuy(goodsData))
+        {
             OnBuyGoods?.Invoke(_goodsLocation);
+            _OnBuyGoods?.Invoke(goodsData);
+        }
     }
 }
 

@@ -7,7 +7,7 @@ public class GoodsManager<T>
 {
     readonly HashSet<T> _savedGoods;
     readonly HashSet<T> _usingGoods = new HashSet<T>();
-    public GoodsManager(HashSet<T> initialGoods) => _savedGoods = initialGoods;
+    public GoodsManager(IEnumerable<T> initialGoods) => _savedGoods = new HashSet<T>(initialGoods);
 
     public T GetRandomGoods()
     {

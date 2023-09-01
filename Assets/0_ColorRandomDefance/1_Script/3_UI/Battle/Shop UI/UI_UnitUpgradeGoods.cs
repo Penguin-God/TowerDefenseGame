@@ -30,6 +30,7 @@ public class UI_UnitUpgradeGoods : UI_Base
     [SerializeField] GoodsLocation _goodsLocation;
     public GoodsLocation GoodsLocation => _goodsLocation;
     public event Action<UI_UnitUpgradeGoods> OnBuyGoods;
+    public UnitUpgradeData UpgradeData { get; private set; }
     [SerializeField] Sprite _goldImage;
     [SerializeField] Sprite _foodImage;
     Sprite CurrencyToSprite(GameCurrencyType type) => type == GameCurrencyType.Gold ? _goldImage : _foodImage;
@@ -40,7 +41,7 @@ public class UI_UnitUpgradeGoods : UI_Base
     public void Setup(UnitUpgradeData upgradeData)
     {
         var priceData = upgradeData.PriceData;
-
+        UpgradeData = upgradeData;
         GetText((int)Texts.ProductNameText).text = _goodsPresenter.BuildGoodsText(upgradeData);
         GetImage((int)Images.ColorPanel).color = _goodsPresenter.GetUnitColor(upgradeData.TargetColor);
         GetText((int)Texts.PriceText).color = _goodsPresenter.CurrencyToColor(priceData.CurrencyType);

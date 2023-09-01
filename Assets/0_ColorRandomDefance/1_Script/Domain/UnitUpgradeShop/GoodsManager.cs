@@ -6,45 +6,52 @@ using System;
 public class GoodsManager<T>
 {
     readonly HashSet<T> _savedGoods;
-    readonly HashSet<T> _useingGoods = new HashSet<T>();
+    readonly HashSet<T> _usingGoods = new HashSet<T>();
     public GoodsManager(HashSet<T> initialGoods) => _savedGoods = initialGoods;
 
     public T GetRandomGoods()
     {
+        if(_savedGoods.Count == 0)
+            throw new ArgumentException("남아있는 상품이 없는데 가져가려 함");
+
         T selectedGoods = _savedGoods.ToList().GetRandom();
         _savedGoods.Remove(selectedGoods);
-        _useingGoods.Add(selectedGoods);
+        _usingGoods.Add(selectedGoods);
         return selectedGoods;
     }
 
     public void AddBackAllGoods()
     {
-        foreach (var usedGood in _useingGoods.ToList()) // ToList는 foreach중 컬랙션 변경되면 에러나서 해둠
+        foreach (var usedGood in _usingGoods.ToList()) // ToList는 foreach중 컬랙션 변경되면 에러나서 해둠
             AddBackGoods(usedGood);
     }
     void AddBackGoods(T goods)
     {
         _savedGoods.Add(goods);
-        _useingGoods.Remove(goods);
+        _usingGoods.Remove(goods);
     }
 
     public T ChangeGoods(T currentGoods)
     {
-        if (_useingGoods.Contains(currentGoods) == false) 
+        if (_usingGoods.Contains(currentGoods) == false) 
             throw new ArgumentException("배치되지도 않은 상품을 바꾸려 함");
 
+        var result = GetRandomGoods();
         AddBackGoods(currentGoods);
-        return GetRandomGoods();
+        return result;
     }
 
     public IEnumerable<T> ChangeAllGoods()
     {
-        int originalCount = _useingGoods.Count;
-        AddBackAllGoods();
+        int useGoodsCount = _usingGoods.Count;
+        IEnumerable<T> savedUseList = new HashSet<T>(_usingGoods);
 
         List<T> newGoods = new List<T>();
-        for (int i = 0; i < originalCount; i++)
+        for (int i = 0; i < useGoodsCount; i++)
             newGoods.Add(GetRandomGoods());
+
+        foreach (var goods in savedUseList)
+            AddBackGoods(goods);
 
         return newGoods;
     }

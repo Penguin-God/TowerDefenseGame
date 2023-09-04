@@ -29,11 +29,16 @@ public class UI_BattleShopGoods : UI_Base
         CurrencyImage,
     }
 
+    enum Buttons
+    {
+        PanelButton
+    }
+
     protected override void Init()
     {
-        Bind<Text>(typeof(Texts));
+        Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Image>(typeof(Images));
-        _panelButton = GetComponent<Button>();
+        Bind<Button>(typeof(Buttons));
     }
 
     GoodsBuyController _goodsBuyController;
@@ -44,17 +49,16 @@ public class UI_BattleShopGoods : UI_Base
         _goodsBuyController = goodsBuyController;
     }
 
-    Button _panelButton;
     internal void DisplayGoods(BattleShopGoodsData goodsData)
     {
         CheckInit();
 
-        GetText((int)Texts.ProductNameText).text = goodsData.Name;
-        GetText((int)Texts.PriceText).text = goodsData.PriceData.Amount.ToString();
+        GetTextMeshPro((int)Texts.ProductNameText).text = goodsData.Name;
+        GetTextMeshPro((int)Texts.PriceText).text = goodsData.PriceData.Amount.ToString();
         GetImage((int)Images.CurrencyImage).sprite = new SpriteUtility().GetBattleCurrencyImage(goodsData.PriceData.CurrencyType);
 
-        _panelButton.onClick.RemoveAllListeners();
-        _panelButton.onClick.AddListener(() => ShowBuyWindow(goodsData));
+        GetButton((int)Buttons.PanelButton).onClick.RemoveAllListeners();
+        GetButton((int)Buttons.PanelButton).onClick.AddListener(() => ShowBuyWindow(goodsData));
     }
 
     void ShowBuyWindow(BattleShopGoodsData goodsData)

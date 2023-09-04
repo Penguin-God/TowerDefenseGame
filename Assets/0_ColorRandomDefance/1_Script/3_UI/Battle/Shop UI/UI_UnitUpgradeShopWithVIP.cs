@@ -36,6 +36,7 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
         foreach (var goods in GetObject((int)GameObjects.Goods).GetComponentsInChildren<UI_UnitUpgradeGoods>())
             goods.OnBuyGoods += _ => IncreaseGoodsBuyStack();
         InitSpecailShop();
+        ConfigureNormalShop();
     }
 
     void InitSpecailShop()
@@ -68,7 +69,7 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
         UpdateVipStatkText();
     }
 
-    void UpdateVipStatkText() => GetTextMeshPro((int)Texts.SpecialShopStackText).text = $"다음 특별 상점까지 구매해야하는 상품 개수 : {NeedStackForEnterSpecialShop}";
+    void UpdateVipStatkText() => GetTextMeshPro((int)Texts.SpecialShopStackText).text = $"다음 특별 상점까지 구매해야하는 상품 개수 : {NeedStackForEnterSpecialShop - _goodsBuyStack}";
 
     void ConfigureSpecialShop()
     {

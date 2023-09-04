@@ -273,7 +273,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: "\uC8FC\uD669 \uC720\uB2DB \uACF5\uACA9\uB825 20% \uC99D\uAC00"
 --- !u!1 &8670838556558409316
 GameObject:
   m_ObjectHideFlags: 0
@@ -488,5 +488,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _goodsLocation: 0
-  _goldImage: {fileID: 21300000, guid: aebcbaf5d1d2146bf9ff69b1b95334d6, type: 3}
-  _foodImage: {fileID: 21300000, guid: 899c3a769121b5f42877e30d2a6d842f, type: 3}

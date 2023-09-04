@@ -27,6 +27,7 @@ public class UI_BattleShopGoods : UI_Base
     enum Images
     {
         CurrencyImage,
+        ColorPanel,
     }
 
     enum Buttons
@@ -49,16 +50,32 @@ public class UI_BattleShopGoods : UI_Base
         _goodsBuyController = goodsBuyController;
     }
 
-    internal void DisplayGoods(BattleShopGoodsData goodsData)
+    internal void DecorateGoods(BattleShopGoodsData goodsData)
     {
         CheckInit();
 
         GetTextMeshPro((int)Texts.ProductNameText).text = goodsData.Name;
         GetTextMeshPro((int)Texts.PriceText).text = goodsData.PriceData.Amount.ToString();
+        
         GetImage((int)Images.CurrencyImage).sprite = new SpriteUtility().GetBattleCurrencyImage(goodsData.PriceData.CurrencyType);
+        SetPanelColor(goodsData.SellData);
 
         GetButton((int)Buttons.PanelButton).onClick.RemoveAllListeners();
         GetButton((int)Buttons.PanelButton).onClick.AddListener(() => ShowBuyWindow(goodsData));
+    }
+
+    void SetPanelColor(GoodsData goodsData)
+    {
+        UnitColor unitColor = UnitColor.Black;
+        var convertor = new DataConvertUtili();
+        switch (goodsData.GoodsType)
+        {
+            case BattleShopGoodsType.Unit:
+                unitColor = convertor.ToUnitFlag(goodsData.Datas).UnitColor; break;
+            case BattleShopGoodsType.UnitUpgrade:
+                unitColor = convertor.ToUnitUpgradeData(goodsData.Datas).TargetColor; break;
+        }
+        GetImage((int)Images.ColorPanel).color = new SpriteUtility().GetUnitColor(unitColor);
     }
 
     void ShowBuyWindow(BattleShopGoodsData goodsData)

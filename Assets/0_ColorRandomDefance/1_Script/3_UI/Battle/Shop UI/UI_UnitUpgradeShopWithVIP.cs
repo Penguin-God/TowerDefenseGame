@@ -76,7 +76,7 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
         ConfigureShop(isSpecialShop: true);
 
         foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
-            goods.DisplayGoods(_goodsManager.GetRandomGoods());   
+            goods.DecorateGoods(_goodsManager.GetRandomGoods());   
     }
 
     void ConfigureNormalShop() => ConfigureShop(isSpecialShop: false);

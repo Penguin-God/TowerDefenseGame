@@ -188,6 +188,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: RightGoods
       objectReference: {fileID: 0}
+    - target: {fileID: 5393178001772716635, guid: a4b458d5defa0cd4a925b537a1932963,
+        type: 3}
+      propertyPath: _goodsLocation
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8383725174017654956, guid: a4b458d5defa0cd4a925b537a1932963,
         type: 3}
       propertyPath: m_Pivot.x
@@ -471,6 +476,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MiddleGoods
+      objectReference: {fileID: 0}
+    - target: {fileID: 5393178001772716635, guid: a4b458d5defa0cd4a925b537a1932963,
+        type: 3}
+      propertyPath: _goodsLocation
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8383725174017654956, guid: a4b458d5defa0cd4a925b537a1932963,
         type: 3}

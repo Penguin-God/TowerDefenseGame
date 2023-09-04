@@ -8,6 +8,7 @@ public class MonsterSpeedManager : MonoBehaviour
     public SpeedManager SpeedManager { get; private set; }
     public Action OnRestoreSpeed;
     public void SetSpeed(float originSpeed) => SpeedManager = new SpeedManager(originSpeed);
+    public void ReceiveInject(SpeedManager speedManager) => SpeedManager = speedManager;
 
     public float ApplySlowRate { get; private set; } // 적용된 슬로우
     public bool IsSlow => ApplySlowRate > 0;

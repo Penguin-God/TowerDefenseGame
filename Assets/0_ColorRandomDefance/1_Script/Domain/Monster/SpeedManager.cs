@@ -30,6 +30,8 @@ public class SpeedManager
             ApplySlowRate = slowRate;
         }
     }
+    public virtual void OnSlow(float slowRaet, UnitFlags flag) => OnSlow(slowRaet);
+
     bool SlowCondition(float slowRate) => slowRate >= ApplySlowRate - 0.1f; // float 오차 때문에 0.1 뺌
     float CalculateSlowSpeed(float slowRate) => OriginSpeed - (OriginSpeed * (slowRate / 100));
 }

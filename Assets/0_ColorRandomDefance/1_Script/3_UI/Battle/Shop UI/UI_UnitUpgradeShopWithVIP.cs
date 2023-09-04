@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-using System.Linq;
 
 public enum BattleShopGoodsType
 {
@@ -32,10 +31,10 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
         Bind<GameObject>(typeof(GameObjects));
         Bind<TextMeshProUGUI>(typeof(Texts));
 
-        GetTextMeshPro((int)Texts.SpecialShopStackText).text = $"다음 특별 상점까지 구매해야하는 상품 개수 : {NeedStackForEnterSpecialShop}";
+        UpdateVipStatkText();
 
         foreach (var goods in GetObject((int)GameObjects.Goods).GetComponentsInChildren<UI_UnitUpgradeGoods>())
-            goods.OnBuyGoods += _ => AddStack();
+            goods.OnBuyGoods += _ => IncreaseGoodsBuyStack();
         InitSpecailShop();
     }
 
@@ -58,7 +57,7 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
         _goodsManager = goodsManager;
     }
 
-    void AddStack()
+    void IncreaseGoodsBuyStack()
     {
         _goodsBuyStack++;
         if (_goodsBuyStack >= NeedStackForEnterSpecialShop)
@@ -66,23 +65,25 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
             ConfigureSpecialShop();
             _goodsBuyStack = 0;
         }
-        GetTextMeshPro((int)Texts.SpecialShopStackText).text = $"다음 도박까지 구매해야하는 상품 개수 : {NeedStackForEnterSpecialShop - _goodsBuyStack}";
+        UpdateVipStatkText();
     }
+
+    void UpdateVipStatkText() => GetTextMeshPro((int)Texts.SpecialShopStackText).text = $"다음 특별 상점까지 구매해야하는 상품 개수 : {NeedStackForEnterSpecialShop}";
 
     void ConfigureSpecialShop()
     {
-        GetTextMeshPro((int)Texts.SpecialShopStackText).gameObject.SetActive(false);
-        GetObject((int)GameObjects.Goods).SetActive(false);
+        ConfigureShop(isSpecialShop: true);
 
         foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
-            goods.DisplayGoods(_goodsManager.GetRandomGoods());
-        GetObject((int)GameObjects.SpecialGoodsParent).SetActive(true);
+            goods.DisplayGoods(_goodsManager.GetRandomGoods());   
     }
 
-    void ConfigureNormalShop()
+    void ConfigureNormalShop() => ConfigureShop(isSpecialShop: false);
+    void ConfigureShop(bool isSpecialShop)
     {
-        GetTextMeshPro((int)Texts.SpecialShopStackText).gameObject.SetActive(true);
-        GetObject((int)GameObjects.Goods).SetActive(true);
-        GetObject((int)GameObjects.SpecialGoodsParent).SetActive(false);
+        GetTextMeshPro((int)Texts.SpecialShopStackText).gameObject.SetActive(!isSpecialShop);
+        GetObject((int)GameObjects.Goods).SetActive(!isSpecialShop);
+
+        GetObject((int)GameObjects.SpecialGoodsParent).SetActive(isSpecialShop);
     }
 }

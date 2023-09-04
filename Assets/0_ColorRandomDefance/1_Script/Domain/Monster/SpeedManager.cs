@@ -22,13 +22,15 @@ public class SpeedManager
         ApplySlowRate = 0;
     }
 
-    public void OnSlow(float slowRate)
+    public bool OnSlow(float slowRate)
     {
         if (SlowCondition(slowRate))
         {
             CurrentSpeed = CalculateSlowSpeed(slowRate);
             ApplySlowRate = slowRate;
+            return true;
         }
+        else return false;
     }
     public virtual void OnSlow(float slowRaet, UnitFlags flag) => OnSlow(slowRaet);
 

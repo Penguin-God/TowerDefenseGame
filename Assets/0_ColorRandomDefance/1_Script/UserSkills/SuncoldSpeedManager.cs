@@ -3,29 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class SuncoldSpeedManager : MonsterSpeedSystem
+public class SuncoldSpeedManager : SpeedManager
 {
-    Multi_NormalEnemy _normalMonster;
-    int[] SuncoldDamages;
-    MultiEffectManager _effect;
-    public void InJect(float originSpeed, Multi_NormalEnemy normalMonster, int[] damages, MultiEffectManager effect)
+    readonly Multi_NormalEnemy _normalMonster;
+    readonly int[] _suncoldDamages;
+    readonly MultiEffectManager _effect;
+    public SuncoldSpeedManager(float originSpeed, Multi_NormalEnemy normalMonster, int[] damages, MultiEffectManager effect) : base(originSpeed)
     {
-        base.SetSpeed(originSpeed);
         _normalMonster = normalMonster;
-        SuncoldDamages = damages;
+        _suncoldDamages = damages;
         _effect = effect;
     }
 
-    public override void OnSlowWithTime(float slowRate, float slowTime, UnitFlags flag)
+    public override void OnSlow(float slowRate, UnitFlags flag)
     {
         if (base.IsSlow)
         {
             _effect.PlayOneShotEffect("BlueLightning", _normalMonster.transform.position + Vector3.up * 3);
             Managers.Sound.PlayEffect(EffectSoundType.LightningClip);
             if (PhotonNetwork.IsMasterClient)
-                _normalMonster.OnDamage(SuncoldDamages[flag.ClassNumber], isSkill: true);
+                _normalMonster.OnDamage(_suncoldDamages[flag.ClassNumber], isSkill: true);
         }
-        if(_normalMonster.IsDead == false)
-            base.OnSlowWithTime(slowRate, slowTime, flag);
+        if (_normalMonster.IsDead == false)
+            base.OnSlow(slowRate);
     }
 }

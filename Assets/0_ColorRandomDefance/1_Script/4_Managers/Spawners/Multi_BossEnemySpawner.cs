@@ -39,7 +39,7 @@ public class Multi_BossEnemySpawner : Multi_SpawnerBase
     {
         var monster = Managers.Multi.GetPhotonViewComponent<Multi_BossEnemy>(viewId);
         var bossData = Managers.Data.BossDataByLevel[level];
-        _monsterDecorator.DecorateSpeed(bossData.Speed, monster);
+        _monsterDecorator.DecorateSpeedSystem(bossData.Speed, monster);
         monster.Inject(bossData);
     }
 }

@@ -11,16 +11,12 @@ public class MonsterSpeedSystem : MonoBehaviour
     public void ReceiveInject(SpeedManager speedManager) => SpeedManager = speedManager;
 
     public float ApplySlowRate => SpeedManager.ApplySlowRate;
-    public bool IsSlow => ApplySlowRate > 0;
-
-    bool SlowCondition(float slowRate) => slowRate >= ApplySlowRate - 0.1f; // float 오차 때문에 0.1 뺌
+    public bool IsSlow => SpeedManager.IsSlow;
 
     public void OnSlow(float slowRate)
     {
-        if (SlowCondition(slowRate) == false) return;
-
-        StopAllCoroutines();
-        SpeedManager.OnSlow(slowRate);
+        if (SpeedManager.OnSlow(slowRate))
+            StopAllCoroutines();
     }
 
     public virtual void OnSlowWithTime(float slowRate, float slowTime, UnitFlags flag)

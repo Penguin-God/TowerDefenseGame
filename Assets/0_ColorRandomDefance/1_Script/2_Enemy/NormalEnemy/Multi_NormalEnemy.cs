@@ -57,14 +57,6 @@ public class Multi_NormalEnemy : Multi_Enemy
         SetDirection();
     }
 
-    public void Inject(int hp, MonsterSpeedSystem monsterSpeedManager)
-    {
-        MonsterSpeedManager = monsterSpeedManager;
-        MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
-        MonsterSpeedManager.OnRestoreSpeed += ExitSlow;
-        SetStatus(hp, SpeedManager.OriginSpeed, false);
-    }
-
     public void Inject(int hp)
     {
         MonsterSpeedManager = gameObject.GetOrAddComponent<MonsterSpeedSystem>();

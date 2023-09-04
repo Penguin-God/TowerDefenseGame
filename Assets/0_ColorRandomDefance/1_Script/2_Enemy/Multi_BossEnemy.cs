@@ -15,7 +15,7 @@ public class Multi_BossEnemy : Multi_NormalEnemy
     public void Inject(BossData bossData)
     {
         BossData = bossData;
-        base.Inject(bossData.Hp, GetComponent<MonsterSpeedSystem>());
+        base.Inject(bossData.Hp);
         AggroUnit();
     }
 

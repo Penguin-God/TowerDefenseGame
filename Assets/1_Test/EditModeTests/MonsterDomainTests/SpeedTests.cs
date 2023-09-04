@@ -62,11 +62,8 @@ namespace MonsterDomainTests
         {
             var sut = CreateSpeedManager();
 
-            sut.OnSlow(20);
-            Assert.AreEqual(80f, GetSpeed(sut));
-
-            sut.OnSlow(15);
-            Assert.AreEqual(80f, GetSpeed(sut));
+            Assert.IsTrue(sut.OnSlow(20));
+            Assert.IsFalse(sut.OnSlow(15));
         }
     }
 }

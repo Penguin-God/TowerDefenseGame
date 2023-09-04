@@ -80,7 +80,7 @@ public class UI_BattleShopGoods : UI_Base
 
     void ShowBuyWindow(BattleShopGoodsData goodsData)
     {
-        string qustionText = "사쉴?";
+        string qustionText = $"{goodsData.Name}{goodsData.InfoText} 구매하시겠습니까?";
         Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo(qustionText, () => Buy(goodsData));
     }
 

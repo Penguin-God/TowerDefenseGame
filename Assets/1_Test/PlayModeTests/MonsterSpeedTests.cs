@@ -39,7 +39,7 @@ public class MonsterSpeedTests
     }
 
     [UnityTest]
-    public IEnumerator 더_강한_슬로우가_적용되면_이전_슬로우_자동_복구는_취소되야_됨()
+    public IEnumerator 더_강한_슬로우가_적용되면_이전_슬로우의_자동_복구는_취소되야_됨()
     {
         var sut = CreateSpeedManager(5);
 
@@ -53,7 +53,7 @@ public class MonsterSpeedTests
     }
 
     [UnityTest]
-    public IEnumerator 슬로우가_적용_상태에_따라_관련_값이_바뀌어야_함()
+    public IEnumerator 슬로우_적용_상태에_따라_관련_값이_바뀌어야_함()
     {
         var sut = CreateSpeedManager(5);
 

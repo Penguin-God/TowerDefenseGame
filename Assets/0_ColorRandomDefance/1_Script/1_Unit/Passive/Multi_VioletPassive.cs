@@ -17,7 +17,7 @@ public class Multi_VioletPassive : Multi_UnitPassive
     void Passive_Violet(Multi_Enemy _enemy)
     {
         _enemy.OnStun_RPC(apply_SturnPercent, apply_StrunTime);
-        _enemy.OnPoison_RPC(apply_PoisonTickCount, apply_MaxPoisonDamage);
+        _enemy.OnPoison_RPC(apply_PoisonTickCount, apply_MaxPoisonDamage, isSkill: true);
     }
 
     protected override void ApplyData()

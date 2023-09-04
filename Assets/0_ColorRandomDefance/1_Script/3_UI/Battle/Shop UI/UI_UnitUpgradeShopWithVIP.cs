@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public enum BattleShopGoodsType
@@ -15,11 +16,17 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
     {
         Goods,
         SpecialGoodsParent,
+        ResetBackgound,
     }
 
     enum Texts
     {
         SpecialShopStackText
+    }
+
+    enum Buttons
+    {
+        ResetButton,
     }
 
     int _goodsBuyStack;
@@ -30,6 +37,7 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
         base.Init();
         Bind<GameObject>(typeof(GameObjects));
         Bind<TextMeshProUGUI>(typeof(Texts));
+        Bind<Button>(typeof(Buttons));
 
         UpdateVipStatkText();
 
@@ -53,7 +61,8 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
     GoodsManager<BattleShopGoodsData> _goodsManager;
     public void ReceiveInject(GoodsBuyController buyController, GoodsManager<BattleShopGoodsData> goodsManager, int needStack)
     {
-        NeedStackForEnterSpecialShop = needStack;
+        // NeedStackForEnterSpecialShop = needStack;
+        NeedStackForEnterSpecialShop = 3;
         _buyController = buyController;
         _goodsManager = goodsManager;
     }
@@ -84,6 +93,7 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
     {
         GetTextMeshPro((int)Texts.SpecialShopStackText).gameObject.SetActive(!isSpecialShop);
         GetObject((int)GameObjects.Goods).SetActive(!isSpecialShop);
+        GetObject((int)GameObjects.ResetBackgound).SetActive(!isSpecialShop);
 
         GetObject((int)GameObjects.SpecialGoodsParent).SetActive(isSpecialShop);
     }

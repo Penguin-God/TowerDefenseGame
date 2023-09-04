@@ -318,6 +318,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 297715712078862740, guid: 0c7a23b7e92911a4fa903f5b49667615,
+        type: 3}
+      propertyPath: m_Name
+      value: ResetBackgound
+      objectReference: {fileID: 0}
     - target: {fileID: 1851800193802447926, guid: 0c7a23b7e92911a4fa903f5b49667615,
         type: 3}
       propertyPath: m_Name

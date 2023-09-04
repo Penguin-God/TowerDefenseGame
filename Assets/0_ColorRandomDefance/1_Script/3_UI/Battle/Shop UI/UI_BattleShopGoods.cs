@@ -29,16 +29,10 @@ public class UI_BattleShopGoods : UI_Base
         CurrencyImage,
     }
 
-    enum Buttons
-    {
-        PanelButton,
-    }
-
     protected override void Init()
     {
         Bind<Text>(typeof(Texts));
         Bind<Image>(typeof(Images));
-        // Bind<Button>(typeof(Buttons));
         _panelButton = GetComponent<Button>();
     }
 
@@ -57,7 +51,7 @@ public class UI_BattleShopGoods : UI_Base
 
         GetText((int)Texts.ProductNameText).text = goodsData.Name;
         GetText((int)Texts.PriceText).text = goodsData.PriceData.Amount.ToString();
-        // GetImage((int)Images.CurrencyImage).sprite = CurrencyToSprite(priceData.CurrencyType);
+        GetImage((int)Images.CurrencyImage).sprite = new SpriteUtility().GetBattleCurrencyImage(goodsData.PriceData.CurrencyType);
 
         _panelButton.onClick.RemoveAllListeners();
         _panelButton.onClick.AddListener(() => ShowBuyWindow(goodsData));

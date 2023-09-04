@@ -31,10 +31,6 @@ public class UI_UnitUpgradeGoods : UI_Base
     public GoodsLocation GoodsLocation => _goodsLocation;
     public event Action<UI_UnitUpgradeGoods> OnBuyGoods;
     public UnitUpgradeData UpgradeData { get; private set; }
-    [SerializeField] Sprite _goldImage;
-    [SerializeField] Sprite _foodImage;
-    Sprite CurrencyToSprite(GameCurrencyType type) => type == GameCurrencyType.Gold ? _goldImage : _foodImage;
-
     readonly UnitUpgradeGoodsPresenter _goodsPresenter = new UnitUpgradeGoodsPresenter();
     UnitUpgradeShopController _buyController;
 
@@ -42,11 +38,12 @@ public class UI_UnitUpgradeGoods : UI_Base
     {
         var priceData = upgradeData.PriceData;
         UpgradeData = upgradeData;
+        var spriteUtil = new SpriteUtility();
         GetText((int)Texts.ProductNameText).text = _goodsPresenter.BuildGoodsText(upgradeData);
-        GetImage((int)Images.ColorPanel).color = _goodsPresenter.GetUnitColor(upgradeData.TargetColor);
-        GetText((int)Texts.PriceText).color = _goodsPresenter.CurrencyToColor(priceData.CurrencyType);
+        GetImage((int)Images.ColorPanel).color = spriteUtil.GetUnitColor(upgradeData.TargetColor);
+        GetText((int)Texts.PriceText).color = spriteUtil.CurrencyToColor(priceData.CurrencyType);
         GetText((int)Texts.PriceText).text = priceData.Amount.ToString();
-        GetImage((int)Images.CurrencyImage).sprite = CurrencyToSprite(priceData.CurrencyType);
+        GetImage((int)Images.CurrencyImage).sprite = spriteUtil.GetBattleCurrencyImage(priceData.CurrencyType);
 
         showPanelButton.onClick.RemoveAllListeners();
         showPanelButton.onClick.AddListener(() => ShowBuyWindow(upgradeData));

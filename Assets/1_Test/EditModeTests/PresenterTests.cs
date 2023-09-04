@@ -10,7 +10,7 @@ namespace Tests
     {
         [Test]
         [TestCase(GameCurrencyType.Gold, "골드 10원")]
-        [TestCase(GameCurrencyType.Food, "룬 10개")]
+        [TestCase(GameCurrencyType.Rune, "룬 10개")]
         public void 재화_종류에_따라_텍스트_생성(GameCurrencyType currencyType, string expected)
         {
             var sut = new GameCurrencyPresenter();

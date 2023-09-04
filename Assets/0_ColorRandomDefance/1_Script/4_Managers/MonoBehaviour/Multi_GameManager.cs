@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 public enum GameCurrencyType
 {
     Gold,
-    Food,
+    Rune,
 }
 
 [Serializable]

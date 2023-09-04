@@ -267,7 +267,7 @@ public class ManaImpotence : UserSkill
     void ChangeShopPriceData()
     {
         _game.BattleData.GetAllShopPriceDatas()
-                .Where(x => x.CurrencyType == GameCurrencyType.Food)
+                .Where(x => x.CurrencyType == GameCurrencyType.Rune)
                 .ToList()
                 .ForEach(FoodDataToGoldData);
     }

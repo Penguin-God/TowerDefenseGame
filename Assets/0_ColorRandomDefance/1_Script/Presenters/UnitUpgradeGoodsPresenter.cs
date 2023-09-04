@@ -19,7 +19,7 @@ public class UnitUpgradeGoodsPresenter
     static readonly IReadOnlyDictionary<GameCurrencyType, Color32> CurrencyColors = new Dictionary<GameCurrencyType, Color32>()
     {
         {GameCurrencyType.Gold, new Color32(255, 188, 0 , 255) },
-        {GameCurrencyType.Food, new Color32(255, 104, 13 , 255) },
+        {GameCurrencyType.Rune, new Color32(255, 104, 13 , 255) },
     };
     public Color CurrencyToColor(GameCurrencyType currency) => CurrencyColors[currency];
 

@@ -8,7 +8,7 @@ public class GameCurrencyPresenter
 
     string BuildCurrencyText(GameCurrencyType currencyType, int amount)  => IsGold(currencyType) ? BuildGoldText(amount) : BuildFoodText(amount);
     string BuildGoldText(int amount) => $"{BuildCurrencyTypeText(GameCurrencyType.Gold)} {amount}원";
-    string BuildFoodText(int amount) => $"{BuildCurrencyTypeText(GameCurrencyType.Food)} {amount}개";
+    string BuildFoodText(int amount) => $"{BuildCurrencyTypeText(GameCurrencyType.Rune)} {amount}개";
     public string BuildCurrencyTypeText(GameCurrencyType currencyType) => IsGold(currencyType) ? "골드" : "룬";
 
     bool IsGold(GameCurrencyType currencyType) => currencyType == GameCurrencyType.Gold;

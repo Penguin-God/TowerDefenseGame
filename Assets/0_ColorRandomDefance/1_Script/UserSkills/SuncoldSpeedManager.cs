@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class SuncoldSpeedManager : MonsterSpeedManager
+public class SuncoldSpeedManager : MonsterSpeedSystem
 {
     Multi_NormalEnemy _normalMonster;
     int[] SuncoldDamages;

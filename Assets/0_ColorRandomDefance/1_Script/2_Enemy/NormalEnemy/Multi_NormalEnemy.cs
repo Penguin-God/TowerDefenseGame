@@ -57,9 +57,17 @@ public class Multi_NormalEnemy : Multi_Enemy
         SetDirection();
     }
 
-    public void Inject(int hp, MonsterSpeedManager monsterSpeedManager)
+    public void Inject(int hp, MonsterSpeedSystem monsterSpeedManager)
     {
         MonsterSpeedManager = monsterSpeedManager;
+        MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
+        MonsterSpeedManager.OnRestoreSpeed += ExitSlow;
+        SetStatus(hp, SpeedManager.OriginSpeed, false);
+    }
+
+    public void Inject(int hp)
+    {
+        MonsterSpeedManager = gameObject.GetOrAddComponent<MonsterSpeedSystem>();
         MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
         MonsterSpeedManager.OnRestoreSpeed += ExitSlow;
         SetStatus(hp, SpeedManager.OriginSpeed, false);
@@ -119,11 +127,10 @@ public class Multi_NormalEnemy : Multi_Enemy
         _stunCount = 0;
         MonsterSpeedManager.RestoreSpeed();
         MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
-        Destroy(MonsterSpeedManager);
     }
 
     protected SpeedManager SpeedManager => MonsterSpeedManager.SpeedManager;
-    protected MonsterSpeedManager MonsterSpeedManager { get; private set; }
+    protected MonsterSpeedSystem MonsterSpeedManager { get; private set; }
 
     public float Speed => IsStun || IsDead || MonsterSpeedManager == null ? 0 : SpeedManager.CurrentSpeed;
     public bool IsSlow => MonsterSpeedManager == null ? false : MonsterSpeedManager.IsSlow;

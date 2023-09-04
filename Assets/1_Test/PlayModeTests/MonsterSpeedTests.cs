@@ -6,13 +6,13 @@ using UnityEngine.TestTools;
 
 public class MonsterSpeedTests
 {
-    MonsterSpeedManager CreateSpeedManager(float speed)
+    MonsterSpeedSystem CreateSpeedManager(float speed)
     {
-        var result = new GameObject("speed").AddComponent<MonsterSpeedManager>();
+        var result = new GameObject("speed").AddComponent<MonsterSpeedSystem>();
         result.SetSpeed(speed);
         return result;
     }
-    float GetSpeed(MonsterSpeedManager manager) => manager.SpeedManager.CurrentSpeed;
+    float GetSpeed(MonsterSpeedSystem manager) => manager.SpeedManager.CurrentSpeed;
     
     [UnityTest]
     public IEnumerator 시간이_있는_슬로우는_후에_복구되어야_함()

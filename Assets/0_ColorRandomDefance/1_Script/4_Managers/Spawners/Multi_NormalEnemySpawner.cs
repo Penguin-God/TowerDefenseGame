@@ -21,7 +21,9 @@ public class NormalMonsterSpawner : MonoBehaviourPun
     void InjectMonster(int hp, float speed, int viewId)
     {
         var monster = Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(viewId);
-        monster.Inject(hp, _monsterDecorator.DecorateSpeed(speed, monster));
+        // monster.Inject(hp, _monsterDecorator.DecorateSpeed(speed, monster));
+        _monsterDecorator.DecorateSpeedSystem(speed, monster);
+        monster.Inject(hp);
     }
 }
 
@@ -31,20 +33,29 @@ public class MonsterDecorator
     public MonsterDecorator(BattleDIContainer container) => _container = container;
 
     readonly int UnitDamageCount = System.Enum.GetValues(typeof(UnitClass)).Length;
-    public MonsterSpeedManager DecorateSpeed(float speed, Multi_NormalEnemy monster)
+    public MonsterSpeedSystem DecorateSpeed(float speed, Multi_NormalEnemy monster)
     {
         var skillData = _container.GetMultiActiveSkillData().GetData(monster.UsingId);
         if (skillData.TruGetSkillData(SkillType.썬콜, out var skillBattleData))
             AddSppedManager<SuncoldSpeedManager>(monster.gameObject)
                 .InJect(speed, monster, skillBattleData.IntSkillDatas.Take(UnitDamageCount).ToArray(), _container.GetComponent<MultiEffectManager>());
-        else AddSppedManager<MonsterSpeedManager>(monster.gameObject).SetSpeed(speed);
-        return monster.GetComponent<MonsterSpeedManager>();
+        else AddSppedManager<MonsterSpeedSystem>(monster.gameObject).SetSpeed(speed);
+        return monster.GetComponent<MonsterSpeedSystem>();
     }
     T AddSppedManager<T>(GameObject gameObject) where T : MonoBehaviour
     {
-        if (gameObject.GetComponent<MonsterSpeedManager>() != null)
-            Object.Destroy(gameObject.GetComponent<MonsterSpeedManager>());
+        if (gameObject.GetComponent<MonsterSpeedSystem>() != null)
+            Object.Destroy(gameObject.GetComponent<MonsterSpeedSystem>());
         return gameObject.AddComponent<T>();
+    }
+
+    public void DecorateSpeedSystem(float speed, Multi_NormalEnemy monster)
+    {
+        var skillData = _container.GetMultiActiveSkillData().GetData(monster.UsingId);
+        var speedSystem = monster.gameObject.GetOrAddComponent<MonsterSpeedSystem>();
+        if (skillData.TruGetSkillData(SkillType.썬콜, out var skillBattleData))
+            speedSystem.ReceiveInject(new SuncoldSpeedSystem(speed, monster, skillBattleData.IntSkillDatas.Take(UnitDamageCount).ToArray(), _container.GetComponent<MultiEffectManager>()));
+        else speedSystem.ReceiveInject(new SpeedManager(speed));
     }
 }
 

@@ -32,7 +32,8 @@ public class UI_BattleShopGoods : UI_Base
 
     enum Buttons
     {
-        PanelButton
+        PanelButton,
+        ChangeGoodsButton,
     }
 
     protected override void Init()
@@ -40,19 +41,26 @@ public class UI_BattleShopGoods : UI_Base
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Image>(typeof(Images));
         Bind<Button>(typeof(Buttons));
+
+        GetButton((int)Buttons.ChangeGoodsButton).onClick.AddListener(() => _changeGoods.Invoke(_goodsLocation, _currentDisplayGoodsData));
     }
 
     GoodsBuyController _goodsBuyController;
     [SerializeField] GoodsLocation _goodsLocation;
-    public Action<GoodsLocation> OnBuyGoods;
-    public void Inject(GoodsBuyController goodsBuyController)
+    public GoodsLocation GoodsLocation => _goodsLocation;
+    public event Action<GoodsLocation> OnBuyGoods;
+    Action<GoodsLocation, BattleShopGoodsData> _changeGoods;
+    BattleShopGoodsData _currentDisplayGoodsData;
+    public void Inject(GoodsBuyController goodsBuyController, Action<GoodsLocation, BattleShopGoodsData> changeGoods)
     {
         _goodsBuyController = goodsBuyController;
+        _changeGoods = changeGoods;
     }
 
     internal void DecorateGoods(BattleShopGoodsData goodsData)
     {
         CheckInit();
+        _currentDisplayGoodsData = goodsData;
 
         GetTextMeshPro((int)Texts.ProductNameText).text = goodsData.Name;
         GetTextMeshPro((int)Texts.PriceText).text = goodsData.PriceData.Amount.ToString();

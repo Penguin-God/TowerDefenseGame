@@ -612,6 +612,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: LeftGoods
       objectReference: {fileID: 0}
+    - target: {fileID: 6604220785207852963, guid: a4b458d5defa0cd4a925b537a1932963,
+        type: 3}
+      propertyPath: m_Name
+      value: ChangeGoodsButton
+      objectReference: {fileID: 0}
     - target: {fileID: 8383725174017654956, guid: a4b458d5defa0cd4a925b537a1932963,
         type: 3}
       propertyPath: m_Pivot.x

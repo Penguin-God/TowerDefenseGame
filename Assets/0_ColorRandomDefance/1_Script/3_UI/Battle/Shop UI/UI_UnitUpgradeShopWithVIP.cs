@@ -31,7 +31,8 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
 
     int _goodsBuyStack;
     int NeedStackForEnterSpecialShop;
-    
+
+    Dictionary<GoodsLocation, UI_BattleShopGoods> _goodsByLocation = new Dictionary<GoodsLocation, UI_BattleShopGoods>();
     protected override void Init()
     {
         base.Init();
@@ -51,9 +52,10 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
     {
         foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
         {
-            goods.Inject(_buyController);
+            goods.Inject(_buyController, ChangeGoods);
             goods.OnBuyGoods += _ => ConfigureNormalShop();
             goods.OnBuyGoods += _ =>  _goodsManager.AddBackAllGoods();
+            _goodsByLocation.Add(goods.GoodsLocation, goods);
         }
     }
 
@@ -79,6 +81,12 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
     }
 
     void UpdateVipStatkText() => GetTextMeshPro((int)Texts.SpecialShopStackText).text = $"다음 특별 상점까지 구매해야하는 상품 개수 : {NeedStackForEnterSpecialShop - _goodsBuyStack}";
+
+    void ChangeGoods(GoodsLocation goodsLocation, BattleShopGoodsData goodsData)
+    {
+        var newGoods = _goodsManager.ChangeGoods(goodsData);
+        _goodsByLocation[goodsLocation].DecorateGoods(newGoods);
+    }
 
     void ConfigureSpecialShop()
     {

@@ -25,8 +25,8 @@ public class UI_BattleShop : UI_Popup
         base.Init();
         _unitUpgradeShopData = Multi_GameManager.Instance.BattleData.UnitUpgradeShopData;
         _goodsManager = new GoodsManager<UnitUpgradeGoodsData>(new UnitUpgradeGoodsSelector().GetAllGoods());
-        InitGoods();
-        // __InitGoods();
+        //InitGoods();
+        __InitGoods();
 
         Bind<Button>(typeof(Buttons));
         GetButton((int)Buttons.ResetButton).onClick.AddListener(ResetShop);
@@ -64,6 +64,8 @@ public class UI_BattleShop : UI_Popup
         {
             goods.Inject(_buyController);
             goods.OnBuyGoods += DisplayGoods;
+            goods.DisplayGoods(GoodsManager.GetRandomGoods());
+            _goodsByLocation.Add(goods.GoodsLocation, goods);
         }
     }
     Dictionary<GoodsLocation, UI_BattleShopGoods> _goodsByLocation = new Dictionary<GoodsLocation, UI_BattleShopGoods>();

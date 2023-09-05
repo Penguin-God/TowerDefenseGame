@@ -93,7 +93,7 @@ public class BattleDIContainerInitializer
         container.GetComponent<MonsterManagerProxy>().Init(dispatcher);
         container.GetComponent<MultiEffectManager>().Inject(Managers.Effect);
         container.GetComponent<BuildingClickContoller>()
-            .Inject(container.GetService<BattleUI_Mediator>(), Managers.UI, container.GetComponent<TextShowAndHideController>());
+            .Inject(container.GetService<BattleUI_Mediator>(), Managers.UI, container.GetComponent<TextShowAndHideController>(), container.GetService<GoodsBuyController>());
         container.GetComponent<TextShowAndHideController>().Inject(Managers.UI);
         container.GetComponent<NormalMonsterSpawner>().Inject(new MonsterDecorator(container));
         container.GetComponent<Multi_BossEnemySpawner>().Inject(new MonsterDecorator(container));

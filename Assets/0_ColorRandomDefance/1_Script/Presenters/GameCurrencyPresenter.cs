@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class GameCurrencyPresenter
 {
@@ -10,6 +9,7 @@ public class GameCurrencyPresenter
     string BuildGoldText(int amount) => $"{BuildCurrencyTypeText(GameCurrencyType.Gold)} {amount}원";
     string BuildFoodText(int amount) => $"{BuildCurrencyTypeText(GameCurrencyType.Rune)} {amount}개";
     public string BuildCurrencyTypeText(GameCurrencyType currencyType) => IsGold(currencyType) ? "골드" : "룬";
+    public string BuildCurrencyTextWithEnd(GameCurrencyType currencyType) => IsGold(currencyType) ? "골드가" : "룬이";
 
     bool IsGold(GameCurrencyType currencyType) => currencyType == GameCurrencyType.Gold;
 }

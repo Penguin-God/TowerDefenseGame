@@ -82,18 +82,14 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
 
     void UpdateVipStatkText() => GetTextMeshPro((int)Texts.SpecialShopStackText).text = $"다음 특별 상점까지 구매해야하는 상품 개수 : {NeedStackForEnterSpecialShop - _goodsBuyStack}";
 
-    void ChangeGoods(GoodsLocation goodsLocation, BattleShopGoodsData goodsData)
-    {
-        var newGoods = _goodsManager.ChangeGoods(goodsData);
-        _goodsByLocation[goodsLocation].DecorateGoods(newGoods);
-    }
+    BattleShopGoodsData ChangeGoods(GoodsLocation goodsLocation, BattleShopGoodsData prveiousGoodsData) => _goodsManager.ChangeGoods(prveiousGoodsData);
 
     void ConfigureSpecialShop()
     {
         ConfigureShop(isSpecialShop: true);
 
         foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
-            goods.DecorateGoods(_goodsManager.GetRandomGoods());   
+            goods.InitGoods(_goodsManager.GetRandomGoods());
     }
 
     void ConfigureNormalShop() => ConfigureShop(isSpecialShop: false);

@@ -42,7 +42,7 @@ public class UI_BattleShopGoods : UI_Base
         Bind<Image>(typeof(Images));
         Bind<Button>(typeof(Buttons));
 
-        GetButton((int)Buttons.ChangeGoodsButton).onClick.AddListener(() => _changeGoods.Invoke(_goodsLocation, _currentDisplayGoodsData));
+        GetButton((int)Buttons.ChangeGoodsButton).onClick.AddListener(ChangeGoods);
     }
 
     GoodsBuyController _goodsBuyController;
@@ -50,16 +50,29 @@ public class UI_BattleShopGoods : UI_Base
     public GoodsLocation GoodsLocation => _goodsLocation;
     public event Action<GoodsLocation> OnBuyGoods;
     Action<GoodsLocation, BattleShopGoodsData> _changeGoods;
+    Func<GoodsLocation, BattleShopGoodsData, BattleShopGoodsData> _getChangeGoods;
     BattleShopGoodsData _currentDisplayGoodsData;
-    public void Inject(GoodsBuyController goodsBuyController, Action<GoodsLocation, BattleShopGoodsData> changeGoods)
+    public void Inject(GoodsBuyController goodsBuyController, Func<GoodsLocation, BattleShopGoodsData, BattleShopGoodsData> changeGoods)
     {
         _goodsBuyController = goodsBuyController;
-        _changeGoods = changeGoods;
+        _getChangeGoods = changeGoods;
     }
 
-    internal void DecorateGoods(BattleShopGoodsData goodsData)
+    public void InitGoods(BattleShopGoodsData goodsData)
     {
         CheckInit();
+        DisplayGoods(goodsData);
+        GetButton((int)Buttons.ChangeGoodsButton).gameObject.SetActive(true);
+    }
+
+    void ChangeGoods()
+    {
+        DisplayGoods(_getChangeGoods.Invoke(_goodsLocation, _currentDisplayGoodsData));
+        GetButton((int)Buttons.ChangeGoodsButton).gameObject.SetActive(false);
+    }
+
+    void DisplayGoods(BattleShopGoodsData goodsData)
+    {
         _currentDisplayGoodsData = goodsData;
 
         GetTextMeshPro((int)Texts.ProductNameText).text = goodsData.Name;
@@ -124,7 +137,7 @@ public class GoodsBuyController
         }
         else
         {
-            _textController.ShowTextForTime($"{new GameCurrencyPresenter().BuildCurrencyTypeText(data.PriceData.CurrencyType)}이 부족해 구매할 수 없습니다.", Color.red);
+            _textController.ShowTextForTime($"{new GameCurrencyPresenter().BuildCurrencyTextWithEnd(data.PriceData.CurrencyType)} 부족해 구매할 수 없습니다.", Color.red);
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
             return false;
         }

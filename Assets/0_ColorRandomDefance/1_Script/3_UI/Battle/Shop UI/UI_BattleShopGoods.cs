@@ -11,6 +11,13 @@ public struct GoodsData
     [SerializeField] BattleShopGoodsType _goodsType;
     [SerializeField] float[] _datas;
 
+    public GoodsData Clone(BattleShopGoodsType battleShopGoodsType, float[] datas)
+    {
+        _goodsType = battleShopGoodsType;
+        _datas = datas;
+        return this;
+    }
+
     public BattleShopGoodsType GoodsType => _goodsType;
     public float[] Datas => _datas;
 }
@@ -32,7 +39,6 @@ public class UI_BattleShopGoods : UI_Base
     enum Buttons
     {
         PanelButton,
-        ChangeGoodsButton,
     }
 
     protected override void Init()
@@ -40,38 +46,22 @@ public class UI_BattleShopGoods : UI_Base
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Image>(typeof(Images));
         Bind<Button>(typeof(Buttons));
-
-        GetButton((int)Buttons.ChangeGoodsButton).onClick.AddListener(ChangeGoods);
     }
 
     GoodsBuyController _goodsBuyController;
     [SerializeField] GoodsLocation _goodsLocation;
     public GoodsLocation GoodsLocation => _goodsLocation;
     public event Action<GoodsLocation> OnBuyGoods;
-    Func<GoodsLocation, BattleShopGoodsData, BattleShopGoodsData> _getChangeGoods;
-    BattleShopGoodsData _currentDisplayGoodsData;
-    public void Inject(GoodsBuyController goodsBuyController, Func<GoodsLocation, BattleShopGoodsData, BattleShopGoodsData> changeGoods)
+    public BattleShopGoodsData CurrentDisplayGoodsData { get; private set; }
+    public void Inject(GoodsBuyController goodsBuyController)
     {
         _goodsBuyController = goodsBuyController;
-        _getChangeGoods = changeGoods;
     }
 
-    public void InitGoods(BattleShopGoodsData goodsData)
+    public void DisplayGoods(BattleShopGoodsData goodsData)
     {
         CheckInit();
-        DisplayGoods(goodsData);
-        GetButton((int)Buttons.ChangeGoodsButton).gameObject.SetActive(true);
-    }
-
-    void ChangeGoods()
-    {
-        DisplayGoods(_getChangeGoods.Invoke(_goodsLocation, _currentDisplayGoodsData));
-        GetButton((int)Buttons.ChangeGoodsButton).gameObject.SetActive(false);
-    }
-
-    void DisplayGoods(BattleShopGoodsData goodsData)
-    {
-        _currentDisplayGoodsData = goodsData;
+        CurrentDisplayGoodsData = goodsData;
 
         GetTextMeshPro((int)Texts.ProductNameText).text = goodsData.Name;
         GetTextMeshPro((int)Texts.PriceText).text = goodsData.PriceData.Amount.ToString();

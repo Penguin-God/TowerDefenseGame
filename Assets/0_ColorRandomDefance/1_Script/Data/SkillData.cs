@@ -66,6 +66,15 @@ public struct BattleShopGoodsData
     [SerializeField] string _infoText;
     [SerializeField] GoodsData _sellData;
 
+    public BattleShopGoodsData Clone(string name, CurrencyData priceData, string info, GoodsData goodsData)
+    {
+        _name = name;
+        _priceData = priceData;
+        _infoText = info;
+        _sellData = goodsData;
+        return this;
+    }
+
     public string Name => _name;
     public CurrencyData PriceData => _priceData;
     public string InfoText => _infoText;

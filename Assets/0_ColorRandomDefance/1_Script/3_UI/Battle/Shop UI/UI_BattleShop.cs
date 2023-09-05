@@ -26,6 +26,7 @@ public class UI_BattleShop : UI_Popup
         _unitUpgradeShopData = Multi_GameManager.Instance.BattleData.UnitUpgradeShopData;
         _goodsManager = new GoodsManager<UnitUpgradeGoodsData>(new UnitUpgradeGoodsSelector().GetAllGoods());
         InitGoods();
+        // __InitGoods();
 
         Bind<Button>(typeof(Buttons));
         GetButton((int)Buttons.ResetButton).onClick.AddListener(ResetShop);
@@ -34,6 +35,14 @@ public class UI_BattleShop : UI_Popup
     public bool IsInject { get; private set; } = false;
     public void Inject(TextShowAndHideController textController)
     {
+        _textController = textController;
+        IsInject = true;
+    }
+
+    GoodsBuyController _buyController;
+    public void Inject(GoodsBuyController buyController, TextShowAndHideController textController)
+    {
+        _buyController = buyController;
         _textController = textController;
         IsInject = true;
     }
@@ -47,12 +56,29 @@ public class UI_BattleShop : UI_Popup
             goods.Setup(CreateGoodsData(_goodsManager.GetRandomGoods()));
         }
     }
-    UnitUpgradeData CreateGoodsData(UnitUpgradeGoodsData data)
+
+    void __InitGoods()
     {
-        if (data.UpgradeType == UnitUpgradeType.Value)
-            return new UnitUpgradeData(data.UpgradeType, data.TargetColor, _unitUpgradeShopData.AddValue, _unitUpgradeShopData.AddValuePriceData);
-        else
-            return new UnitUpgradeData(data.UpgradeType, data.TargetColor, _unitUpgradeShopData.UpScale, _unitUpgradeShopData.UpScalePriceData);
+        GoodsManager = new GoodsManager<BattleShopGoodsData>(new UnitUpgradeGoodsSelector().GetAllGoods().Select(x => CreateShopGoodsData(x)));
+        foreach (var goods in GetComponentsInChildren<UI_BattleShopGoods>())
+        {
+            goods.Inject(_buyController);
+            goods.OnBuyGoods += DisplayGoods;
+        }
+    }
+    Dictionary<GoodsLocation, UI_BattleShopGoods> _goodsByLocation = new Dictionary<GoodsLocation, UI_BattleShopGoods>();
+    GoodsManager<BattleShopGoodsData> GoodsManager = new GoodsManager<BattleShopGoodsData>(new BattleShopGoodsData[] { });
+    void DisplayGoods(GoodsLocation location)
+    {
+        StartCoroutine(Co_DisplayGoods(_goodsByLocation[location], GoodsManager.ChangeGoods(_goodsByLocation[location].CurrentDisplayGoodsData)));
+    }
+
+    IEnumerator Co_DisplayGoods(UI_BattleShopGoods goods, BattleShopGoodsData newGoods)
+    {
+        goods.gameObject.SetActive(false);
+        yield return new WaitForSeconds(0.2f);
+        goods.DisplayGoods(newGoods);
+        goods.gameObject.SetActive(true);
     }
 
     void DisplayGoods(UI_UnitUpgradeGoods goods)
@@ -68,6 +94,21 @@ public class UI_BattleShop : UI_Popup
         goods.gameObject.SetActive(true);
     }
 
+    readonly UnitUpgradeGoodsPresenter _goodsPresenter = new UnitUpgradeGoodsPresenter();
+    BattleShopGoodsData CreateShopGoodsData(UnitUpgradeGoodsData unitUpgradeData)
+    {
+        var unitUpgradeGoodsData = CreateGoodsData(unitUpgradeData);
+        var datas = new float[] { (float)unitUpgradeGoodsData.UpgradeType, (float)unitUpgradeGoodsData.TargetColor, unitUpgradeGoodsData.Value };
+        return new BattleShopGoodsData().Clone(_goodsPresenter.BuildGoodsText(unitUpgradeGoodsData), unitUpgradeGoodsData.PriceData, "를", new GoodsData().Clone(BattleShopGoodsType.UnitUpgrade, datas));
+    }
+
+    UnitUpgradeData CreateGoodsData(UnitUpgradeGoodsData data)
+    {
+        if (data.UpgradeType == UnitUpgradeType.Value)
+            return new UnitUpgradeData(data.UpgradeType, data.TargetColor, _unitUpgradeShopData.AddValue, _unitUpgradeShopData.AddValuePriceData);
+        else
+            return new UnitUpgradeData(data.UpgradeType, data.TargetColor, _unitUpgradeShopData.UpScale, _unitUpgradeShopData.UpScalePriceData);
+    }
 
     void ResetShop()
     {

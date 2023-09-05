@@ -32,7 +32,7 @@ public class BuildingClickContoller : MonoBehaviour
         switch (type)
         {
             case BattleUI_Type.UnitUpgrdeShop:
-                var ui = _uiMediator.ShowPopupUI<UI_UnitUpgradeShop>(type);
+                var ui = _uiMediator.ShowPopupUI<UI_BattleShop>(type);
                 if (ui.IsInject == false) 
                     ui.Inject(_textController);
                 break;

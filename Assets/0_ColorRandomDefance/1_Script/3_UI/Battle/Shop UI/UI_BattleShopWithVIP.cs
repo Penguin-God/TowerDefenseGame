@@ -10,7 +10,7 @@ public enum BattleShopGoodsType
     UnitUpgrade,
 }
 
-public class UI_UnitUpgradeShopWithVIP : UI_Base
+public class UI_BattleShopWithVIP : UI_Base
 {
     enum GameObjects
     {

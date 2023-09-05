@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class UI_UnitUpgradeShopWithGamble : UI_UnitUpgradeShop
+public class UI_UnitUpgradeShopWithGamble : UI_BattleShop
 {
     enum GameObjects
     {

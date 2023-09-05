@@ -11,7 +11,7 @@ public enum GoodsLocation
     Right,
 }
 
-public class UI_UnitUpgradeShop : UI_Popup
+public class UI_BattleShop : UI_Popup
 {
     enum Buttons
     {

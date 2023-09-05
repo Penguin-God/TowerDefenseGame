@@ -55,7 +55,7 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
     {
         foreach (GoodsLocation location in Enum.GetValues(typeof(GoodsLocation)))
         {
-            string csv = Managers.Resources.Load<TextAsset>($"Data/SkillData/{Enum.GetName(typeof(GoodsLocation), location)}").text;
+            string csv = Managers.Resources.Load<TextAsset>($"Data/SkillData/VipDatas/{Enum.GetName(typeof(GoodsLocation), location)}").text;
             var goodsManager = new GoodsManager<BattleShopGoodsData>(CsvUtility.CsvToArray<BattleShopGoodsData>(csv));
             _goodsManagerByLocation.Add(location, goodsManager);
         }
@@ -68,6 +68,7 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
             goods.Inject(_buyController, ChangeGoods);
             goods.OnBuyGoods += _ => ConfigureNormalShop();
             goods.OnBuyGoods += _ =>  _goodsManager.AddBackAllGoods();
+            goods.OnBuyGoods += _ => _goodsManagerByLocation[goods.GoodsLocation].AddBackAllGoods();
             _goodsByLocation.Add(goods.GoodsLocation, goods);
         }
     }
@@ -95,14 +96,17 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
 
     void UpdateVipStatkText() => GetTextMeshPro((int)Texts.SpecialShopStackText).text = $"다음 특별 상점까지 구매해야하는 상품 개수 : {NeedStackForEnterSpecialShop - _goodsBuyStack}";
 
-    BattleShopGoodsData ChangeGoods(GoodsLocation goodsLocation, BattleShopGoodsData prveiousGoodsData) => _goodsManager.ChangeGoods(prveiousGoodsData);
+    BattleShopGoodsData ChangeGoods(GoodsLocation goodsLocation, BattleShopGoodsData prveiousGoodsData) => _goodsManagerByLocation[goodsLocation].ChangeGoods(prveiousGoodsData);
 
     void ConfigureSpecialShop()
     {
         ConfigureShop(isSpecialShop: true);
 
+        //foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
+        //    goods.InitGoods(_goodsManager.GetRandomGoods());
+
         foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
-            goods.InitGoods(_goodsManager.GetRandomGoods());
+            goods.InitGoods(_goodsManagerByLocation[goods.GoodsLocation].GetRandomGoods());
     }
 
     void ConfigureNormalShop() => ConfigureShop(isSpecialShop: false);

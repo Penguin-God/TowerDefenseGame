@@ -48,10 +48,13 @@ public class UI_BattleShopWithVIP : UI_Base
     {
         foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
         {
-            goods.Inject(_buyController, ChangeGoods);
+            goods.Inject(_buyController);
             goods.OnBuyGoods += _ => ConfigureNormalShop();
             goods.OnBuyGoods += _ => GetGoodsManager(goods.GoodsLocation).AddBackAllGoods();
         }
+
+        foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_GoodsChangeController>())
+            goods.Inject(ChangeGoods);
     }
 
     int _goodsBuyStack;
@@ -87,7 +90,7 @@ public class UI_BattleShopWithVIP : UI_Base
         ConfigureShop(isSpecialShop: true);
 
         foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
-            goods.InitGoods(GetGoodsManager(goods.GoodsLocation).GetRandomGoods());
+            goods.DisplayGoods(GetGoodsManager(goods.GoodsLocation).GetRandomGoods());
     }
 
     void ConfigureNormalShop() => ConfigureShop(isSpecialShop: false);

@@ -24,26 +24,23 @@ public class UI_BattleShop : UI_Popup
     }
 
     UnitUpgradeShopData _unitUpgradeShopData;
-    GoodsManager<UnitUpgradeGoodsData> _goodsManager;
     protected override void Init()
     {
         base.Init();
         Bind<Button>(typeof(Buttons));
         Bind<GameObject>(typeof(GameObjects));
 
-        GetButton((int)Buttons.ResetButton).onClick.AddListener(ResetShop);
+        GetButton((int)Buttons.ResetButton).onClick.AddListener(BuyShopReset);
 
         _unitUpgradeShopData = Multi_GameManager.Instance.BattleData.UnitUpgradeShopData;
-        _goodsManager = new GoodsManager<UnitUpgradeGoodsData>(new UnitUpgradeGoodsSelector().GetAllGoods());
         InitGoods();
     }
 
     public bool IsInject { get; private set; } = false;
     GoodsBuyController _buyController;
-    public void Inject(GoodsBuyController buyController, TextShowAndHideController textController)
+    public void Inject(GoodsBuyController buyController)
     {
         _buyController = buyController;
-        _textController = textController;
         IsInject = true;
     }
 
@@ -89,26 +86,13 @@ public class UI_BattleShop : UI_Popup
             return new UnitUpgradeData(data.UpgradeType, data.TargetColor, _unitUpgradeShopData.UpScale, _unitUpgradeShopData.UpScalePriceData);
     }
 
-    void ResetShop()
+    string ShopChangeText => $"{_unitUpgradeShopData.ResetPrice}골드를 지불하여 상점을 초기화하시겠습니까?";
+    void BuyShopReset() => _buyController.ShowBuyWindow(ShopChangeText, new CurrencyData(GameCurrencyType.Gold, _unitUpgradeShopData.ResetPrice), ChangeAllGoods);
+    void ChangeAllGoods()
     {
-        Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo($"{_unitUpgradeShopData.ResetPrice}골드를 지불하여 상점을 초기화하시겠습니까?", BuyShopReset);
-        Managers.Sound.PlayEffect(EffectSoundType.ShopGoodsClick);
-    }
-    protected TextShowAndHideController _textController;
-    void BuyShopReset()
-    {
-        if (Multi_GameManager.Instance.TryUseGold(_unitUpgradeShopData.ResetPrice))
-        {
-            var newGoodsList = GoodsManager.ChangeAllGoods().ToArray();
-            var goodsList = GetComponentsInChildren<UI_BattleShopGoods>();
-            for (int i = 0; i < newGoodsList.Length; i++)
-                goodsList[i].DisplayGoods(newGoodsList[i]);
-            Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
-        }
-        else
-        {
-            _textController.ShowTextForTime($"골드가 부족해 구매할 수 없습니다.", Color.red);
-            Managers.Sound.PlayEffect(EffectSoundType.Denger);
-        }
+        var newGoodsList = GoodsManager.ChangeAllGoods().ToArray();
+        var goodsList = GetComponentsInChildren<UI_BattleShopGoods>();
+        for (int i = 0; i < newGoodsList.Length; i++)
+            goodsList[i].DisplayGoods(newGoodsList[i]);
     }
 }

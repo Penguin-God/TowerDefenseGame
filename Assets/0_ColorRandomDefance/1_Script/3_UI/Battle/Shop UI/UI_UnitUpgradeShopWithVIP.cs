@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 public enum BattleShopGoodsType
 {
@@ -33,6 +34,7 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
     int NeedStackForEnterSpecialShop;
 
     Dictionary<GoodsLocation, UI_BattleShopGoods> _goodsByLocation = new Dictionary<GoodsLocation, UI_BattleShopGoods>();
+    Dictionary<GoodsLocation, GoodsManager<BattleShopGoodsData>> _goodsManagerByLocation = new Dictionary<GoodsLocation, GoodsManager<BattleShopGoodsData>>();
     protected override void Init()
     {
         base.Init();
@@ -46,6 +48,17 @@ public class UI_UnitUpgradeShopWithVIP : UI_Base
             goods.OnBuyGoods += _ => IncreaseGoodsBuyStack();
         InitSpecailShop();
         ConfigureNormalShop();
+        InitGoodsManger();
+    }
+
+    void InitGoodsManger()
+    {
+        foreach (GoodsLocation location in Enum.GetValues(typeof(GoodsLocation)))
+        {
+            string csv = Managers.Resources.Load<TextAsset>($"Data/SkillData/{Enum.GetName(typeof(GoodsLocation), location)}").text;
+            var goodsManager = new GoodsManager<BattleShopGoodsData>(CsvUtility.CsvToArray<BattleShopGoodsData>(csv));
+            _goodsManagerByLocation.Add(location, goodsManager);
+        }
     }
 
     void InitSpecailShop()

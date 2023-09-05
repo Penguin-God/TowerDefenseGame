@@ -79,7 +79,7 @@ public class BattleDIContainerInitializer
         container.AddComponent<Multi_NormalUnitSpawner>();
 
         container.AddService(new BattleUI_Mediator(Managers.UI, container));
-        var factory = new BuyActionFactory(container.GetComponent<Multi_NormalUnitSpawner>(), MultiServiceMidiator.UnitUpgrade);
+        var factory = new BuyAction(container.GetComponent<Multi_NormalUnitSpawner>(), MultiServiceMidiator.UnitUpgrade);
         container.AddService(new GoodsBuyController(game, factory, container.GetComponent<TextShowAndHideController>()));
     }
 

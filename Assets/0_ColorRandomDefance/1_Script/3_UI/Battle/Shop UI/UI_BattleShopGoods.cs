@@ -70,7 +70,7 @@ public class UI_BattleShopGoods : UI_Base
         SetPanelColor(goodsData.SellData);
 
         GetButton((int)Buttons.PanelButton).onClick.RemoveAllListeners();
-        GetButton((int)Buttons.PanelButton).onClick.AddListener(() => ShowBuyWindow(goodsData));
+        GetButton((int)Buttons.PanelButton).onClick.AddListener(() => _goodsBuyController.ShowBuyWindow(goodsData, () => OnSuccessBuy(goodsData)));
     }
 
     void SetPanelColor(GoodsData goodsData)
@@ -87,17 +87,5 @@ public class UI_BattleShopGoods : UI_Base
         GetImage((int)Images.ColorPanel).color = new SpriteUtility().GetUnitColor(unitColor);
     }
 
-    void ShowBuyWindow(BattleShopGoodsData goodsData)
-    {
-        string qustionText = $"{goodsData.Name}{goodsData.InfoText} 구매하시겠습니까?";
-        Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo(qustionText, () => Buy(goodsData));
-    }
-
-    void Buy(BattleShopGoodsData goodsData)
-    {
-        if (_goodsBuyController.TryBuy(goodsData))
-        {
-            OnBuyGoods?.Invoke(_goodsLocation);
-        }
-    }
+    void OnSuccessBuy(BattleShopGoodsData goodsData) => OnBuyGoods?.Invoke(_goodsLocation);
 }

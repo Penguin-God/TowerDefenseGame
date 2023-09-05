@@ -16,6 +16,28 @@ public class GoodsBuyController
         _textController = textController;
     }
 
+    public void ShowBuyWindow(BattleShopGoodsData data, Action successAct)
+    {
+        successAct += () => _buyActionFactory.Do(data.SellData);
+        ShowBuyWindow($"{data.Name}{data.InfoText} 구매하시겠습니까?", data.PriceData, successAct);
+    }
+    public void ShowBuyWindow(string qustionText, CurrencyData priceData, Action successAct) 
+        => Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo(qustionText, () => DoBuy(priceData, successAct));
+
+    void DoBuy(CurrencyData priceData, Action successAct)
+    {
+        if (_gameManager.TryUseCurrency(priceData))
+        {
+            Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
+            successAct?.Invoke();
+        }
+        else
+        {
+            _textController.ShowTextForTime($"{new GameCurrencyPresenter().BuildCurrencyTextWithEnd(priceData.CurrencyType)} 부족해 구매할 수 없습니다.", Color.red);
+            Managers.Sound.PlayEffect(EffectSoundType.Denger);
+        }
+    }
+
     public bool TryBuy(BattleShopGoodsData data)
     {
         if (_gameManager.TryUseCurrency(data.PriceData))

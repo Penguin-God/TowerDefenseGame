@@ -636,10 +636,20 @@ public class VIP : UserSkill
     {
         uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_UnitUpgradeShopWithVIP");
         var ui = uiMediator.ShowPopupUI(BattleUI_Type.UnitUpgrdeShop).GetComponent<UI_UnitUpgradeShopWithVIP>();
-        string csv = Managers.Resources.Load<TextAsset>("Data/SkillData/VIPGoodsData").text;
-        var goodsManager = new GoodsManager<BattleShopGoodsData>(new HashSet<BattleShopGoodsData>(CsvUtility.CsvToArray<BattleShopGoodsData>(csv)));
-        ui.ReceiveInject(buyController, goodsManager, IntSkillData);
+        ui.ReceiveInject(buyController, CreateGoodsManger(), IntSkillData);
         ui.gameObject.SetActive(false);
+    }
+
+    Dictionary<GoodsLocation, GoodsManager<BattleShopGoodsData>> CreateGoodsManger()
+    {
+        var result = new Dictionary<GoodsLocation, GoodsManager<BattleShopGoodsData>>();
+        foreach (GoodsLocation location in Enum.GetValues(typeof(GoodsLocation)))
+        {
+            string csv = Managers.Resources.Load<TextAsset>($"Data/SkillData/VipDatas/{Enum.GetName(typeof(GoodsLocation), location)}").text;
+            var goodsManager = new GoodsManager<BattleShopGoodsData>(CsvUtility.CsvToArray<BattleShopGoodsData>(csv));
+            result.Add(location, goodsManager);
+        }
+        return result;
     }
 
     internal override void InitSkill()

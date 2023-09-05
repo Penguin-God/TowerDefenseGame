@@ -12,6 +12,7 @@ public class SpriteUtility
         {UnitColor.Green, new Color32(98, 221, 189, 100) },
         {UnitColor.Orange, new Color32(249, 160, 58, 100) },
         {UnitColor.Violet, new Color32(108, 36, 188, 100) },
+        {UnitColor.White, new Color32(255, 255, 255, 100) },
     };
     public Color GetUnitColor(UnitColor unitColor) => UnitColors[unitColor];
 

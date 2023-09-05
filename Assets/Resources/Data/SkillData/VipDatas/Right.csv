@@ -1,0 +1,11 @@
+﻿_name,_priceData,_currencyType,_amount,_priceData,_infoText,_sellData,_goodsType,_datas,_datas,_datas,_datas,_sellData
+초록 유닛 공격력 50% 강화,,Rune,1,,를,,UnitUpgrade,1,3,50,,
+주황 유닛 공격력 50% 강화,,Rune,1,,를,,UnitUpgrade,1,4,50,,
+보라 유닛 공격력 50% 강화,,Rune,1,,를,,UnitUpgrade,1,5,50,,
+주황 창병,,Gold,100,,을,,Unit,3,2,,,
+초록 창병,,Gold,100,,을,,Unit,4,2,,,
+보라 창병,,Gold,100,,을,,Unit,5,2,,,
+빨간 마법사,,Gold,150,,를,,Unit,0,3,,,
+파란 마법사,,Gold,150,,를,,Unit,1,3,,,
+노란 마법사,,Gold,150,,를,,Unit,2,3,,,
+하얀 마법사,,Gold,200,,를,,Unit,2,3,,,

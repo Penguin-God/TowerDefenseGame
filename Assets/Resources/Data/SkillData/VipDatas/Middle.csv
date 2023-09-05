@@ -1,0 +1,8 @@
+﻿_name,_priceData,_currencyType,_amount,_priceData,_infoText,_sellData,_goodsType,_datas,_datas,_datas,_datas,_sellData
+빨간 유닛 공격력 50% 강화,,Rune,1,,를,,UnitUpgrade,1,0,50,,
+파란 유닛 공격력 50% 강화,,Rune,1,,를,,UnitUpgrade,1,1,50,,
+노란 유닛 공격력 50% 강화,,Rune,1,,를,,UnitUpgrade,1,2,50,,
+빨간 창병,,Gold,50,,을,,Unit,0,2,,,
+파란 창병,,Gold,50,,을,,Unit,1,2,,,
+노란 창병,,Gold,50,,을,,Unit,2,2,,,
+하얀 창병,,Gold,70,,을,,Unit,6,2,,,

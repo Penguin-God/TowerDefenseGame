@@ -38,9 +38,11 @@ public class UI_BattleShop : UI_Popup
 
     public bool IsInject { get; private set; } = false;
     GoodsBuyController _buyController;
-    public void Inject(GoodsBuyController buyController)
+    BuyAction _buyAction;
+    public void Inject(GoodsBuyController buyController, BuyAction buyAction)
     {
         _buyController = buyController;
+        _buyAction = buyAction;
         IsInject = true;
     }
 
@@ -49,14 +51,14 @@ public class UI_BattleShop : UI_Popup
         GoodsManager = new GoodsManager<BattleShopGoodsData>(new UnitUpgradeGoodsSelector().GetAllGoods().Select(x => CreateShopGoodsData(x)));
         foreach (var goods in GetObject((int)GameObjects.GoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
         {
-            goods.Inject(_buyController);
+            goods.Inject(_buyController, _buyAction);
             goods.OnBuyGoods += DisplayGoods;
             goods.DisplayGoods(GoodsManager.GetRandomGoods());
             _goodsByLocation.Add(goods.GoodsLocation, goods);
         }
     }
     Dictionary<GoodsLocation, UI_BattleShopGoods> _goodsByLocation = new Dictionary<GoodsLocation, UI_BattleShopGoods>();
-    GoodsManager<BattleShopGoodsData> GoodsManager = new GoodsManager<BattleShopGoodsData>(new BattleShopGoodsData[] { });
+    GoodsManager<BattleShopGoodsData> GoodsManager;
     void DisplayGoods(GoodsLocation location)
     {
         StartCoroutine(Co_DisplayGoods(_goodsByLocation[location], GoodsManager.ChangeGoods(_goodsByLocation[location].CurrentDisplayGoodsData)));

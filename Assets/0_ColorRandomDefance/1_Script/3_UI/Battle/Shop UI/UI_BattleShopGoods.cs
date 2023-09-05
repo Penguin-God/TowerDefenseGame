@@ -48,14 +48,17 @@ public class UI_BattleShopGoods : UI_Base
         Bind<Button>(typeof(Buttons));
     }
 
-    GoodsBuyController _goodsBuyController;
+    
     [SerializeField] GoodsLocation _goodsLocation;
     public GoodsLocation GoodsLocation => _goodsLocation;
     public event Action<GoodsLocation> OnBuyGoods;
     public BattleShopGoodsData CurrentDisplayGoodsData { get; private set; }
-    public void Inject(GoodsBuyController goodsBuyController)
+    GoodsBuyController _goodsBuyController;
+    BuyAction _buyActionFactory;
+    public void Inject(GoodsBuyController goodsBuyController, BuyAction buyActionFactory)
     {
         _goodsBuyController = goodsBuyController;
+        _buyActionFactory = buyActionFactory;
     }
 
     public void DisplayGoods(BattleShopGoodsData goodsData)
@@ -70,7 +73,7 @@ public class UI_BattleShopGoods : UI_Base
         SetPanelColor(goodsData.SellData);
 
         GetButton((int)Buttons.PanelButton).onClick.RemoveAllListeners();
-        GetButton((int)Buttons.PanelButton).onClick.AddListener(() => _goodsBuyController.ShowBuyWindow(goodsData, () => OnSuccessBuy(goodsData)));
+        GetButton((int)Buttons.PanelButton).onClick.AddListener(TryBuy);
     }
 
     void SetPanelColor(GoodsData goodsData)
@@ -87,5 +90,12 @@ public class UI_BattleShopGoods : UI_Base
         GetImage((int)Images.ColorPanel).color = new SpriteUtility().GetUnitColor(unitColor);
     }
 
-    void OnSuccessBuy(BattleShopGoodsData goodsData) => OnBuyGoods?.Invoke(_goodsLocation);
+    void TryBuy()
+        => _goodsBuyController.ShowBuyWindow($"{CurrentDisplayGoodsData.Name}{CurrentDisplayGoodsData.InfoText} 구매하시겠습니까?", CurrentDisplayGoodsData.PriceData, OnSuccessBuy);
+    void OnSuccessBuy()
+    {
+        OnBuyGoods?.Invoke(_goodsLocation);
+        _buyActionFactory.Do(CurrentDisplayGoodsData.SellData);
+    }
+
 }

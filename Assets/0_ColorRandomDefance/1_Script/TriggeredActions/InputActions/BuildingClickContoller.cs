@@ -6,14 +6,15 @@ public class BuildingClickContoller : MonoBehaviour
 {
     BattleUI_Mediator _uiMediator;
     UI_Manager _uiManager;
-    TextShowAndHideController _textController;
     GoodsBuyController _buyController;
-    public void Inject(BattleUI_Mediator uiMediator, UI_Manager uiManager, TextShowAndHideController textController, GoodsBuyController buyController)
+    BuyAction _buyAction;
+    public void Inject(BattleUI_Mediator uiMediator, UI_Manager uiManager, BuyAction buyAction, GoodsBuyController buyController)
     {
         _uiMediator = uiMediator;
         _uiManager = uiManager;
-        _textController = textController;
+        _buyAction = buyAction;
         _buyController = buyController;
+
     }
     void Update()
     {
@@ -36,7 +37,7 @@ public class BuildingClickContoller : MonoBehaviour
             case BattleUI_Type.UnitUpgrdeShop:
                 var ui = _uiMediator.ShowPopupUI<UI_BattleShop>(type);
                 if (ui.IsInject == false) 
-                    ui.Inject(_buyController);
+                    ui.Inject(_buyController, _buyAction);
                 break;
             case BattleUI_Type.BalckUnitCombineTable:
             case BattleUI_Type.WhiteUnitShop:

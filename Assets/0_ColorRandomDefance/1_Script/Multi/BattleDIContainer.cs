@@ -79,8 +79,9 @@ public class BattleDIContainerInitializer
         container.AddComponent<Multi_NormalUnitSpawner>();
 
         container.AddService(new BattleUI_Mediator(Managers.UI, container));
-        var factory = new BuyAction(container.GetComponent<Multi_NormalUnitSpawner>(), MultiServiceMidiator.UnitUpgrade);
-        container.AddService(new GoodsBuyController(game, factory, container.GetComponent<TextShowAndHideController>()));
+
+        container.AddService(new BuyAction(container.GetComponent<Multi_NormalUnitSpawner>(), MultiServiceMidiator.UnitUpgrade));
+        container.AddService(new GoodsBuyController(game, container.GetComponent<TextShowAndHideController>()));
     }
 
     void InjectService(BattleDIContainer container)
@@ -93,7 +94,7 @@ public class BattleDIContainerInitializer
         container.GetComponent<MonsterManagerProxy>().Init(dispatcher);
         container.GetComponent<MultiEffectManager>().Inject(Managers.Effect);
         container.GetComponent<BuildingClickContoller>()
-            .Inject(container.GetService<BattleUI_Mediator>(), Managers.UI, container.GetComponent<TextShowAndHideController>(), container.GetService<GoodsBuyController>());
+            .Inject(container.GetService<BattleUI_Mediator>(), Managers.UI, container.GetService<BuyAction>(), container.GetService<GoodsBuyController>());
         container.GetComponent<TextShowAndHideController>().Inject(Managers.UI);
         container.GetComponent<NormalMonsterSpawner>().Inject(new MonsterDecorator(container));
         container.GetComponent<Multi_BossEnemySpawner>().Inject(new MonsterDecorator(container));

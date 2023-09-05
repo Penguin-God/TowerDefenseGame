@@ -48,7 +48,7 @@ public class UI_BattleShopWithVIP : UI_Base
     {
         foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
         {
-            goods.Inject(_buyController);
+            goods.Inject(_buyController, _buyActionFactory);
             goods.OnBuyGoods += _ => ConfigureNormalShop();
             goods.OnBuyGoods += _ => GetGoodsManager(goods.GoodsLocation).AddBackAllGoods();
         }
@@ -60,14 +60,16 @@ public class UI_BattleShopWithVIP : UI_Base
     int _goodsBuyStack;
     int NeedStackForEnterSpecialShop;
     GoodsBuyController _buyController;
+    BuyAction _buyActionFactory;
     Dictionary<GoodsLocation, GoodsManager<BattleShopGoodsData>> _goodsManagerByLocation;
     GoodsManager<BattleShopGoodsData> GetGoodsManager(GoodsLocation location) => _goodsManagerByLocation[location];
-    public void ReceiveInject(GoodsBuyController buyController, Dictionary<GoodsLocation, GoodsManager<BattleShopGoodsData>> goodsManagerByLocation, int needStack)
+    public void ReceiveInject(GoodsBuyController buyController, BuyAction buyActionFactory, Dictionary<GoodsLocation, GoodsManager<BattleShopGoodsData>> goodsManagerByLocation, int needStack)
     {
-        // NeedStackForEnterSpecialShop = needStack;
         NeedStackForEnterSpecialShop = 3;
         _buyController = buyController;
+        _buyActionFactory = buyActionFactory;
         _goodsManagerByLocation = goodsManagerByLocation;
+        // NeedStackForEnterSpecialShop = needStack;
     }
 
     void IncreaseGoodsBuyStack()

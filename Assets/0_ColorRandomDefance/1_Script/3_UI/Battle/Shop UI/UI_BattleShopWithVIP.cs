@@ -14,7 +14,7 @@ public class UI_BattleShopWithVIP : UI_Base
 {
     enum GameObjects
     {
-        Goods,
+        GoodsParent,
         SpecialGoodsParent,
         ResetBackgound,
     }
@@ -38,7 +38,7 @@ public class UI_BattleShopWithVIP : UI_Base
 
         UpdateVipStatkText();
 
-        foreach (var goods in GetObject((int)GameObjects.Goods).GetComponentsInChildren<UI_UnitUpgradeGoods>())
+        foreach (var goods in GetObject((int)GameObjects.GoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
             goods.OnBuyGoods += _ => IncreaseGoodsBuyStack();
         InitSpecailShop();
         ConfigureNormalShop();
@@ -97,7 +97,7 @@ public class UI_BattleShopWithVIP : UI_Base
     void ConfigureShop(bool isSpecialShop)
     {
         GetTextMeshPro((int)Texts.SpecialShopStackText).gameObject.SetActive(!isSpecialShop);
-        GetObject((int)GameObjects.Goods).SetActive(!isSpecialShop);
+        GetObject((int)GameObjects.GoodsParent).SetActive(!isSpecialShop);
         GetObject((int)GameObjects.ResetBackgound).SetActive(!isSpecialShop);
 
         GetObject((int)GameObjects.SpecialGoodsParent).SetActive(isSpecialShop);

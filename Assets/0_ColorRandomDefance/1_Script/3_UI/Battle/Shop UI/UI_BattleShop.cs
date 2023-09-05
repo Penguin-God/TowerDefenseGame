@@ -13,6 +13,11 @@ public enum GoodsLocation
 
 public class UI_BattleShop : UI_Popup
 {
+    enum GameObjects
+    {
+        GoodsParent,
+    }
+
     enum Buttons
     {
         ResetButton,
@@ -23,22 +28,17 @@ public class UI_BattleShop : UI_Popup
     protected override void Init()
     {
         base.Init();
+        Bind<Button>(typeof(Buttons));
+        Bind<GameObject>(typeof(GameObjects));
+
+        GetButton((int)Buttons.ResetButton).onClick.AddListener(ResetShop);
+
         _unitUpgradeShopData = Multi_GameManager.Instance.BattleData.UnitUpgradeShopData;
         _goodsManager = new GoodsManager<UnitUpgradeGoodsData>(new UnitUpgradeGoodsSelector().GetAllGoods());
-        //InitGoods();
-        __InitGoods();
-
-        Bind<Button>(typeof(Buttons));
-        GetButton((int)Buttons.ResetButton).onClick.AddListener(ResetShop);
+        InitGoods();
     }
 
     public bool IsInject { get; private set; } = false;
-    public void Inject(TextShowAndHideController textController)
-    {
-        _textController = textController;
-        IsInject = true;
-    }
-
     GoodsBuyController _buyController;
     public void Inject(GoodsBuyController buyController, TextShowAndHideController textController)
     {
@@ -49,18 +49,8 @@ public class UI_BattleShop : UI_Popup
 
     void InitGoods()
     {
-        foreach (var goods in GetComponentsInChildren<UI_UnitUpgradeGoods>())
-        {
-            goods._Init(new UnitUpgradeShopController(_textController));
-            goods.OnBuyGoods += DisplayGoods;
-            goods.Setup(CreateGoodsData(_goodsManager.GetRandomGoods()));
-        }
-    }
-
-    void __InitGoods()
-    {
         GoodsManager = new GoodsManager<BattleShopGoodsData>(new UnitUpgradeGoodsSelector().GetAllGoods().Select(x => CreateShopGoodsData(x)));
-        foreach (var goods in GetComponentsInChildren<UI_BattleShopGoods>())
+        foreach (var goods in GetObject((int)GameObjects.GoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
         {
             goods.Inject(_buyController);
             goods.OnBuyGoods += DisplayGoods;
@@ -80,19 +70,6 @@ public class UI_BattleShop : UI_Popup
         goods.gameObject.SetActive(false);
         yield return new WaitForSeconds(0.2f);
         goods.DisplayGoods(newGoods);
-        goods.gameObject.SetActive(true);
-    }
-
-    void DisplayGoods(UI_UnitUpgradeGoods goods)
-    {
-        StartCoroutine(Co_DisplayGoods(goods, _goodsManager.ChangeGoods(new UnitUpgradeGoodsData(goods.UpgradeData.UpgradeType, goods.UpgradeData.TargetColor))));
-    }
-
-    IEnumerator Co_DisplayGoods(UI_UnitUpgradeGoods goods, UnitUpgradeGoodsData newGoods)
-    {
-        goods.gameObject.SetActive(false);
-        yield return new WaitForSeconds(0.2f);
-        goods.Setup(CreateGoodsData(newGoods));
         goods.gameObject.SetActive(true);
     }
 
@@ -122,10 +99,10 @@ public class UI_BattleShop : UI_Popup
     {
         if (Multi_GameManager.Instance.TryUseGold(_unitUpgradeShopData.ResetPrice))
         {
-            var newGoodsList = _goodsManager.ChangeAllGoods().ToArray();
-            var goodsList = GetComponentsInChildren<UI_UnitUpgradeGoods>();
+            var newGoodsList = GoodsManager.ChangeAllGoods().ToArray();
+            var goodsList = GetComponentsInChildren<UI_BattleShopGoods>();
             for (int i = 0; i < newGoodsList.Length; i++)
-                goodsList[i].Setup(CreateGoodsData(newGoodsList[i]));
+                goodsList[i].DisplayGoods(newGoodsList[i]);
             Managers.Sound.PlayEffect(EffectSoundType.GoodsBuySound);
         }
         else

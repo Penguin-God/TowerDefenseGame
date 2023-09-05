@@ -634,7 +634,7 @@ public class VIP : UserSkill
 {
     public VIP(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, GoodsBuyController buyController) : base(userSkillBattleData)
     {
-        uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_UnitUpgradeShopWithVIP");
+        uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_BattleShopWithVIP");
         var ui = uiMediator.ShowPopupUI(BattleUI_Type.UnitUpgrdeShop).GetComponent<UI_BattleShopWithVIP>();
         ui.ReceiveInject(buyController, CreateGoodsManger(), IntSkillData);
         ui.gameObject.SetActive(false);

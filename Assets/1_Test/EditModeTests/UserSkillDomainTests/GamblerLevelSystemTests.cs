@@ -30,9 +30,9 @@ namespace UserSkillDomainTests
             Assert.AreEqual(3, sut.Level);
 
             sut.AddExperience(350);
-            Assert.AreEqual(350, sut.Experince);
+            Assert.AreEqual(350, sut.Experience);
             LevelUp(sut);
-            Assert.AreEqual(50, sut.Experince);
+            Assert.AreEqual(50, sut.Experience);
             Assert.AreEqual(3, sut.Level);
         }
     }

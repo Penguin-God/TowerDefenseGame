@@ -35,16 +35,19 @@ public class UI_Gambler : UI_Base
         ExpStatusText,
     }
 
+    GamblerLevelSystem GamblerLevelSystem { get; set; }
     LevelSystem _gambleLevelSystem;
     UnityAction _buyExp;
     UnityAction _gachaAndLevelUp;
-    Func<int, IEnumerable<UnitGachaData>> _createGachaTable;
-    public void Inject(LevelSystem levelSystem, UnityAction buyExp, Func<int, IEnumerable<UnitGachaData>> createGachaTable, UnityAction gachaAndLevelUp)
+    Func<IEnumerable<UnitGachaData>> _createGachaTable;
+    Func<int[]> _getRates;
+    public void Inject(LevelSystem levelSystem, UnityAction buyExp, Func<int[]> getRates, UnityAction gachaAndLevelUp)
     {
         _gambleLevelSystem = levelSystem;
         _buyExp = buyExp;
-        _createGachaTable = createGachaTable;
+        _getRates = getRates;
         _gachaAndLevelUp = gachaAndLevelUp;
+        GamblerLevelSystem = new GamblerLevelSystem(levelSystem);
     }
 
     protected override void Init()
@@ -60,8 +63,11 @@ public class UI_Gambler : UI_Base
         GetTextMeshPro((int)Texts.GambleLevelText).raycastTarget = false;
         GetTextMeshPro((int)Texts.ExpStatusText).raycastTarget = false;
         _gambleLevelSystem.OnChangeExp += _ => UpdateText();
-        _gambleLevelSystem.OnLevelUp += _ => UpdateText();
-        _gambleLevelSystem.OnChangeExp += _ => CheckGacha();
+        _gambleLevelSystem.OnLevelUp += _ => UpdateText(); // 레벨 업 로직 딴데 있어서 일단 있어야 함
+        _gambleLevelSystem.OnChangeExp += _ => ToGachaWindow();
+
+        GamblerLevelSystem.OnChangeExp += UpdateText;
+        GamblerLevelSystem.OnOverExp += ToGachaWindow;
 
         GetButton((int)Buttons.UnitSummonSwichButton).onClick.AddListener(SwitchExpDefault);
         GetButton((int)Buttons.BuyExpButton).onClick.AddListener(_buyExp);
@@ -87,7 +93,7 @@ public class UI_Gambler : UI_Base
         UpdateUIState();
     }
 
-    void CheckGacha()
+    void ToGachaWindow()
     {
         if (_gambleLevelSystem.LevelUpCondition)
             ChangeState(UI_State.Gacha);
@@ -165,7 +171,7 @@ public class UI_Gambler : UI_Base
     {
         DestoryItemInfos();
 
-        foreach (var item in _createGachaTable(_gambleLevelSystem.Level))
+        foreach (var item in new GachaTableBuilder().CreateGachaTable(_getRates.Invoke()))
             Managers.UI.MakeSubItem<UI_UnitGachaItemInfo>(GetObject((int)GameObjects.GachaUnitInfoParent).transform)
                 .ShowInfo(item.GachaUnitFalgItems.First().UnitClass, item.Rate);
     }
@@ -177,9 +183,9 @@ public class UI_Gambler : UI_Base
     }
 
     void OnLookMyWorld() => StartCoroutine(Co_OnLookMyWorld());
+    // 같은 오브젝트에 붙어있는 UI_BattleButtons 컴포넌트가 카메라 이동 시 UnitSommonButton의 활성화 상태를 조작하기에 여기서 추가 작업을 해야 됨
     IEnumerator Co_OnLookMyWorld()
     {
-        // 같은 오브젝트에 붙어있는 UI_BattleButtons 컴포넌트가 카메라 이동 시 UnitSommonButton을 조작하기에 여기서 추가 작업을 해야 됨
         yield return null;
         if(_currentState != UI_State.Defautl)
             ToggleDefaultButton(false);

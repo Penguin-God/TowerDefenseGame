@@ -560,7 +560,7 @@ public class GamblerController : UserSkill
 
         uiMediator.RegisterUI(BattleUI_Type.BattleButtons, "UI_BattleButtonsWhitGambler");
         var ui = uiMediator.ShowUI(BattleUI_Type.BattleButtons).GetComponent<UI_Gambler>();
-        ui.Inject(_gambleLevelSystem, BuyExp, CreateGachaTable, GachaAndLevelUp);
+        ui.Inject(_gambleLevelSystem, BuyExp, GetRates, GachaAndLevelUp);
         ui.gameObject.SetActive(false);
     }
 
@@ -581,7 +581,7 @@ public class GamblerController : UserSkill
     {
         Debug.Assert(_gambleLevelSystem.LevelUpCondition, "렙업이 불가능한데 뽑기를 시도함");
 
-        UnitFlags selectFlag = GachaUnit(_gambleLevelSystem.Level);
+        UnitFlags selectFlag = GachaUnit();
         Multi_SpawnManagers.NormalUnit.Spawn(selectFlag);
         _textController.ShowTextForTime(BuildGameResultText(selectFlag));
         _gambleLevelSystem.LevelUp();
@@ -589,44 +589,14 @@ public class GamblerController : UserSkill
 
     string BuildGameResultText(UnitFlags flag) => $"{UnitTextPresenter.DecorateBefore(UnitTextPresenter.GetUnitNameWithColor(flag), flag)} 뽑았습니다.";
 
-    UnitFlags GachaUnit(int gamblerLevel)
+    UnitFlags GachaUnit()
     {
-        var gachaTable = CreateGachaTable(gamblerLevel);
+        var gachaTable = new GachaTableBuilder().CreateGachaTable(GetRates());
         int selectedIndex = new GachaMachine().SelectIndex(gachaTable.Select(x => x.Rate).ToArray());
         return gachaTable.Select(x => x.GachaUnitFalgItems).ElementAt(selectedIndex).ToList().GetRandom();
     }
 
-    IEnumerable<UnitGachaData> CreateGachaTable(int gamblerLevel)
-    {
-        var result = new List<UnitGachaData>();
-        IReadOnlyList<int> rates = _gambleDatas[gamblerLevel - 1].GachaRates;
-        var flagTable = GetFlagTable();
-
-        for (int i = 0; i < rates.Count; i++)
-        {
-            if (rates[i] != 0)
-                result.Add(new UnitGachaData(rates[i], flagTable[i]));
-        }
-        return result;
-    }
-
-    IReadOnlyList<IEnumerable<UnitFlags>> GetFlagTable()
-    {
-        var result = new List<IEnumerable<UnitFlags>>();
-        Queue<UnitFlags> queue = new Queue<UnitFlags>(UnitFlags.NormalFlags.OrderBy(x => x.ClassNumber).ThenBy(x => x.ColorNumber));
-        int unitSplitSize = 3;
-        int listCount = queue.Count / unitSplitSize - 1; // 마지막 요소(초록, 주황, 보라 법사)는 제외하기 위해 -1 씀
-
-        for (int i = 0; i < listCount; i++)
-        {
-            var chunk = new List<UnitFlags>();
-            for (int j = 0; j < unitSplitSize && queue.Count > 0; j++)
-                chunk.Add(queue.Dequeue());
-            result.Add(chunk);
-        }
-        
-        return result;
-    }
+    int[] GetRates() => _gambleDatas[_gambleLevelSystem.Level - 1].GachaRates.ToArray();
 }
 
 

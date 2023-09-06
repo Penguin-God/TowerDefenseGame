@@ -6,7 +6,8 @@ public class LevelSystem
 {
     public int Level { get; private set; }
     public event Action<int> OnLevelUp;
-    public bool LevelUpCondition => IsMaxLevel == false && Experience >= NeedExperienceForLevelUp;
+    public bool LevelUpCondition => IsMaxLevel == false && IsExpOver;
+    public bool IsExpOver => Experience >= NeedExperienceForLevelUp;
 
     int _experience;
     public int Experience

@@ -7,21 +7,24 @@ using UnityEngine;
 public class GamblerController
 {
     public GamblerLevelSystem LevelSystem { get; private set; }
-    readonly int ExpPrice;
+    Multi_GameManager _game;
     readonly IReadOnlyList<GambleData> _gambleDatas;
-    public GamblerController(int expPrice, IReadOnlyList<GambleData> gambleDatas)
+    public GamblerController(IReadOnlyList<GambleData> gambleDatas, Multi_GameManager game)
     {
-        ExpPrice = expPrice;
         _gambleDatas = gambleDatas;
         LevelSystem = new GamblerLevelSystem(new LevelSystem(_gambleDatas.Select(x => x.NeedExpForLevelUp).ToArray()));
+        _game = game;
     }
 
     public event Action<UnitFlags> OnGamble;
-    public void BuyExp(int amount)
+
+    public void BuyExp(int price, int amount)
     {
-        if (Multi_GameManager.Instance.TryUseGold(ExpPrice))
-            LevelSystem.AddExperience(amount);
+        if (_game.TryUseGold(price))
+            AddExp(amount);
     }
+
+    public void AddExp(int amount) => LevelSystem.AddExperience(amount);
 
     public void GambleAndLevelUp()
     {

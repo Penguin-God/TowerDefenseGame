@@ -544,58 +544,62 @@ public struct UnitGachaData
 
 public class GambleInitializer : UserSkill
 {
-    readonly LevelSystem _gambleLevelSystem;
+    // readonly LevelSystem _gambleLevelSystem;
     readonly IReadOnlyList<GambleData> _gambleDatas;
-    readonly TextShowAndHideController _textController;
+    // readonly TextShowAndHideController _textController;
     public GambleInitializer(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, BattleEventDispatcher dispatcher, TextShowAndHideController textController) : base(userSkillBattleData)
     {
         _gambleDatas = CsvUtility.CsvToArray<GambleData>(Managers.Resources.Load<TextAsset>("Data/SkillData/GamblerData").text);
-        _gambleLevelSystem = new LevelSystem(_gambleDatas.Select(x => x.NeedExpForLevelUp).ToArray());
-        _textController = textController;
+        // _gambleLevelSystem = new LevelSystem(_gambleDatas.Select(x => x.NeedExpForLevelUp).ToArray());
+        // _textController = textController;
 
-        ExpPrice = IntSkillDatas[0];
-        ExpAmount = IntSkillDatas[1];
-        AddExpAmountWhenStageUp = IntSkillDatas[2];
-        dispatcher.OnStageUp += AddStageExp;
+        var gamblerController = new GamblerController(_gambleDatas, Multi_GameManager.Instance);
+        gamblerController.OnGamble += flag => textController.ShowTextForTime(BuildGameResultText(flag));
+        dispatcher.OnStageUp += _ => gamblerController.AddExp(IntSkillDatas[2]);
 
+        //ExpPrice = IntSkillDatas[0];
+        //ExpAmount = IntSkillDatas[1];
+        // AddExpAmountWhenStageUp = IntSkillDatas[2];
+        
         uiMediator.RegisterUI(BattleUI_Type.BattleButtons, "UI_BattleButtonsWhitGambler");
         var ui = uiMediator.ShowUI(BattleUI_Type.BattleButtons).GetComponent<UI_Gambler>();
-        ui.Inject(_gambleLevelSystem, BuyExp, GetRates, GachaAndLevelUp);
+        // ui.Inject(_gambleLevelSystem, BuyExp, GetRates, GachaAndLevelUp);
+        ui.Inject(gamblerController, IntSkillDatas[0], IntSkillDatas[1]);
         ui.gameObject.SetActive(false);
     }
     internal override void InitSkill() { }
 
-    readonly int AddExpAmountWhenStageUp;
-    void AddStageExp(int stage) => _gambleLevelSystem.AddExperience(AddExpAmountWhenStageUp);
+    //readonly int AddExpAmountWhenStageUp;
+    //void AddStageExp(int stage) => _gambleLevelSystem.AddExperience(AddExpAmountWhenStageUp);
 
-    readonly int ExpPrice;
-    readonly int ExpAmount;
-    void BuyExp()
-    {
-        if (Multi_GameManager.Instance.TryUseGold(ExpPrice))
-            _gambleLevelSystem.AddExperience(ExpAmount);
-    }
+    //readonly int ExpPrice;
+    //readonly int ExpAmount;
+    //void BuyExp()
+    //{
+    //    if (Multi_GameManager.Instance.TryUseGold(ExpPrice))
+    //        _gambleLevelSystem.AddExperience(ExpAmount);
+    //}
 
-    void GachaAndLevelUp()
-    {
-        Debug.Assert(_gambleLevelSystem.LevelUpCondition, "렙업이 불가능한데 뽑기를 시도함");
+    //void GachaAndLevelUp()
+    //{
+    //    Debug.Assert(_gambleLevelSystem.LevelUpCondition, "렙업이 불가능한데 뽑기를 시도함");
 
-        UnitFlags selectFlag = GachaUnit();
-        Multi_SpawnManagers.NormalUnit.Spawn(selectFlag);
-        _textController.ShowTextForTime(BuildGameResultText(selectFlag));
-        _gambleLevelSystem.LevelUp();
-    }
+    //    UnitFlags selectFlag = GachaUnit();
+    //    Multi_SpawnManagers.NormalUnit.Spawn(selectFlag);
+    //    _textController.ShowTextForTime(BuildGameResultText(selectFlag));
+    //    _gambleLevelSystem.LevelUp();
+    //}
 
     string BuildGameResultText(UnitFlags flag) => $"{UnitTextPresenter.DecorateBefore(UnitTextPresenter.GetUnitNameWithColor(flag), flag)} 뽑았습니다.";
 
-    UnitFlags GachaUnit()
-    {
-        var gachaTable = new GachaTableBuilder().CreateGachaTable(GetRates());
-        int selectedIndex = new GachaMachine().SelectIndex(gachaTable.Select(x => x.Rate).ToArray());
-        return gachaTable.Select(x => x.GachaUnitFalgItems).ElementAt(selectedIndex).ToList().GetRandom();
-    }
+    //UnitFlags GachaUnit()
+    //{
+    //    var gachaTable = new GachaTableBuilder().CreateGachaTable(GetRates());
+    //    int selectedIndex = new GachaMachine().SelectIndex(gachaTable.Select(x => x.Rate).ToArray());
+    //    return gachaTable.Select(x => x.GachaUnitFalgItems).ElementAt(selectedIndex).ToList().GetRandom();
+    //}
 
-    int[] GetRates() => _gambleDatas[_gambleLevelSystem.Level - 1].GachaRates.ToArray();
+    // int[] GetRates() => _gambleDatas[_gambleLevelSystem.Level - 1].GachaRates.ToArray();
 }
 
 

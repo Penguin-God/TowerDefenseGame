@@ -291,27 +291,6 @@ public class UnitMerchant : UserSkill
     }
 }
 
-//public class GamblerController : UserSkill
-//{
-//    public GamblerController(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator) : base(userSkillBattleData) 
-//    {
-//        uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_UnitUpgradeShopWithGamble");
-//        var ui = uiMediator.ShowPopupUI<UI_UnitUpgradeShopWithGamble>(BattleUI_Type.UnitUpgrdeShop);
-//        ui.SetNeedStackForGamble(IntSkillDatas[2]);
-//        ui.gameObject.SetActive(false);
-//    }
-
-//    internal override void InitSkill()
-//    {
-//        Multi_GameManager.Instance.BattleData.UnitUpgradeShopData.ResetPrice = IntSkillDatas[0];
-//        Multi_GameManager.Instance.BattleData
-//            .ShopPriceDataByUnitUpgradeData
-//            .Where(x => x.Key.UpgradeType == UnitUpgradeType.Value)
-//            .Select(x => x.Value)
-//            .ToList().ForEach(x => x.ChangeAmount(IntSkillDatas[1]));
-//    }
-//}
-
 public class CombineMeteorController : UserSkill
 {
     const int SwordmanStack = 1;
@@ -520,28 +499,6 @@ public class Suncold : UserSkill
     internal override void InitSkill() {}
 }
 
-public struct GambleData
-{
-    [SerializeField] int _needExpForLevelUp;
-    public int NeedExpForLevelUp => _needExpForLevelUp;
-
-    [SerializeField] int[] _gachaRates;
-    public IReadOnlyList<int> GachaRates => _gachaRates;
-}
-
-public struct UnitGachaData
-{
-    public int Rate { get; private set; }
-    public IEnumerable<UnitFlags> GachaUnitFalgItems { get; private set; }
-
-    public UnitGachaData(int rate, IEnumerable<UnitFlags> unitFlags)
-    {
-        Rate = rate;
-        GachaUnitFalgItems = unitFlags;
-    }
-}
-
-
 public class GambleInitializer : UserSkill
 {
     public GambleInitializer(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, BattleEventDispatcher dispatcher, TextShowAndHideController textController) : base(userSkillBattleData)
@@ -591,8 +548,14 @@ public class VIP : UserSkill
         return result;
     }
 
-    internal override void InitSkill()
-    {
+    internal override void InitSkill() {}
 
-    }
+    //    internal override void InitSkill()
+    //    {
+    //        Multi_GameManager.Instance.BattleData
+    //            .ShopPriceDataByUnitUpgradeData
+    //            .Where(x => x.Key.UpgradeType == UnitUpgradeType.Value)
+    //            .Select(x => x.Value)
+    //            .ToList().ForEach(x => x.ChangeAmount(0));
+    //    }
 }

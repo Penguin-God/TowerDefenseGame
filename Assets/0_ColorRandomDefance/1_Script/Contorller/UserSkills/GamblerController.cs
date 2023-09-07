@@ -4,6 +4,27 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public struct GambleData
+{
+    [SerializeField] int _needExpForLevelUp;
+    public int NeedExpForLevelUp => _needExpForLevelUp;
+
+    [SerializeField] int[] _gachaRates;
+    public IReadOnlyList<int> GachaRates => _gachaRates;
+}
+
+public struct UnitGachaData
+{
+    public int Rate { get; private set; }
+    public IEnumerable<UnitFlags> GachaUnitFalgItems { get; private set; }
+
+    public UnitGachaData(int rate, IEnumerable<UnitFlags> unitFlags)
+    {
+        Rate = rate;
+        GachaUnitFalgItems = unitFlags;
+    }
+}
+
 public class GamblerController
 {
     public GamblerLevelSystem LevelSystem { get; private set; }

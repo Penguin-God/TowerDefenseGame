@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class UI_Gambler : UI_Base
@@ -35,19 +34,6 @@ public class UI_Gambler : UI_Base
         ExpStatusText,
     }
 
-    
-    // LevelSystem _gambleLevelSystem;
-    //UnityAction _buyExp;
-    //UnityAction _gachaAndLevelUp;
-    //Func<int[]> _getRates;
-    //public void Inject(LevelSystem levelSystem, UnityAction buyExp, Func<int[]> getRates, UnityAction gachaAndLevelUp)
-    //{
-    //    _gambleLevelSystem = levelSystem;
-    //    _buyExp = buyExp;
-    //    _getRates = getRates;
-    //    _gachaAndLevelUp = gachaAndLevelUp;
-    //}
-
     GamblerController _gamblerController;
     GamblerLevelSystem GamblerLevelSystem => _gamblerController.LevelSystem;
     int _expPrice;
@@ -71,21 +57,15 @@ public class UI_Gambler : UI_Base
 
         GetTextMeshPro((int)Texts.GambleLevelText).raycastTarget = false;
         GetTextMeshPro((int)Texts.ExpStatusText).raycastTarget = false;
-        //_gambleLevelSystem.OnChangeExp += _ => UpdateText();
-        //_gambleLevelSystem.OnLevelUp += _ => UpdateText(); // 레벨 업 로직 딴데 있어서 일단 있어야 함
-        //_gambleLevelSystem.OnChangeExp += _ => ToGachaWindow();
         
-        GamblerLevelSystem.OnChangeExp += _UpdateText;
+        GamblerLevelSystem.OnChangeExp += UpdateText;
         GamblerLevelSystem.OnOverExp += () => ChangeState(UI_State.Gacha);
 
         GetButton((int)Buttons.UnitSummonSwichButton).onClick.AddListener(SwitchExpDefault);
         GetButton((int)Buttons.BuyExpButton).onClick.AddListener(BuyExp);
-        //GetButton((int)Buttons.UnitGachaButton).onClick.AddListener(_gachaAndLevelUp);
-        //GetButton((int)Buttons.UnitGachaButton).onClick.AddListener(() => ChangeState(UI_State.Exp));
         GetButton((int)Buttons.UnitGachaButton).onClick.AddListener(GambleAndLevelUp);
 
-        // UpdateText();
-        _UpdateText();
+        UpdateText();
         InActiveAllUIs();
         UpdateUIState();
     }
@@ -93,23 +73,17 @@ public class UI_Gambler : UI_Base
     void GambleAndLevelUp()
     {
         _gamblerController.GambleAndLevelUp();
-        _UpdateText();
+        UpdateText();
         ChangeState(UI_State.Exp);
     }
 
     void BuyExp() => _gamblerController.BuyExp(_expPrice, _expAmount);
 
-    void _UpdateText()
+    void UpdateText()
     {
         GetTextMeshPro((int)Texts.GambleLevelText).text = $"LV : {GamblerLevelSystem.Level}";
         GetTextMeshPro((int)Texts.ExpStatusText).text = $"EXP : {GamblerLevelSystem.Experience} / {GamblerLevelSystem.NeedExperienceForLevelUp}";
     }
-
-    //void UpdateText()
-    //{
-    //    GetTextMeshPro((int)Texts.GambleLevelText).text = $"LV : {_gambleLevelSystem.Level}";
-    //    GetTextMeshPro((int)Texts.ExpStatusText).text = $"EXP : {_gambleLevelSystem.Experience} / {_gambleLevelSystem.NeedExperienceForLevelUp}";
-    //}
 
     UI_State _currentState = UI_State.Defautl;
     void ChangeState(UI_State state)
@@ -118,12 +92,6 @@ public class UI_Gambler : UI_Base
         _currentState = state;
         UpdateUIState();
     }
-
-    //void ToGachaWindow()
-    //{
-    //    if (_gambleLevelSystem.LevelUpCondition)
-    //        ChangeState(UI_State.Gacha);
-    //}
 
     void ExitState(UI_State state)
     {

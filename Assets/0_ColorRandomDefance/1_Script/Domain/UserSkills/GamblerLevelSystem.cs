@@ -34,7 +34,7 @@ public class GamblerLevelSystem
         Experience += amount;
         _levelSystem.AddExperience(amount);
         
-        if (_levelSystem.IsExpOver)
+        if (IsOverExp)
             OnOverExp?.Invoke();
     }
 

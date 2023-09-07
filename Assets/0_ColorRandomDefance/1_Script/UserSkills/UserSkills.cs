@@ -148,7 +148,6 @@ public class UserSkillFactory
             case SkillType.장사꾼: result = new UnitMerchant(skillBattleData); break;
             case SkillType.도박사: 
                 result = new GambleInitializer(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetEventDispatcher(), container.GetComponent<TextShowAndHideController>()); break;
-            // case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>()); break;
             case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetComponent<SkillMeteorController>()); break;
             case SkillType.네크로맨서:
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>()); break;
@@ -298,28 +297,8 @@ public class CombineMeteorController : UserSkill
     const int ArcherStack = 4;
     const int SpearmanStack = 20;
 
-    MeteorController _meteorController;
-    readonly Vector3 MeteorShotPoint;
-    IMonsterManager _monsterManager;
-
     readonly CombineMeteorStackManager _stackManager;
     UI_UserSkillStatus _stackUI;
-    public CombineMeteorController(UserSkillBattleData userSkillBattleData, MeteorController meteorController, IMonsterManager monsterManager) : base(userSkillBattleData)
-    {
-        _monsterManager = monsterManager;
-        MeteorShotPoint = PlayerIdManager.Id == PlayerIdManager.MasterId ? new Vector3(0, 30, 0) : new Vector3(0, 30, 500);
-        _meteorController = meteorController;
-
-        DefaultDamage = IntSkillDatas[0];
-        StunTimePerStack = SkillDatas[1];
-        DamagePerStack = IntSkillDatas[2];
-        var meteorStackData = new MeteorStackData(SwordmanStack, ArcherStack, SpearmanStack);
-        _stackManager = new CombineMeteorStackManager(Managers.Data.CombineConditionByUnitFalg, meteorStackData);
-
-        _stackUI = Managers.UI.ShowSceneUI<UI_UserSkillStatus>();
-        _stackUI.UpdateText(0);
-    }
-
     SkillMeteorController _skillMeteorController;
     public CombineMeteorController(UserSkillBattleData userSkillBattleData, SkillMeteorController meteorController) : base(userSkillBattleData)
     {
@@ -363,20 +342,10 @@ public class CombineMeteorController : UserSkill
             ShotMeteor();
     }
 
-    // void ShotMeteor() => _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(), StunTimePerStack * MeteorStack, MeteorShotPoint);
     void ShotMeteor() => _skillMeteorController.ShotMeteor(PlayerIdManager.Id, CalculateMeteorDamage(), StunTimePerStack * MeteorStack);
     readonly int DamagePerStack;
     readonly int DefaultDamage;
     public int CalculateMeteorDamage() => DefaultDamage + (MeteorStack * DamagePerStack);
-
-    Multi_NormalEnemy FindMonster()
-    {
-        if (Multi_EnemyManager.Instance.TryGetCurrentBoss(PlayerIdManager.Id, out Multi_BossEnemy boss)) return boss;
-
-        var monsters = _monsterManager.GetNormalMonsters();
-        if (monsters.Count == 0) return null;
-        else return monsters[UnityEngine.Random.Range(0, monsters.Count)];
-    }
 }
 
 public class NecromancerController : UserSkill

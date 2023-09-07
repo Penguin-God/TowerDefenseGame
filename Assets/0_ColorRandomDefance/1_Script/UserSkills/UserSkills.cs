@@ -147,7 +147,7 @@ public class UserSkillFactory
             case SkillType.마나불능: result = new ManaImpotence(skillBattleData); break;
             case SkillType.장사꾼: result = new UnitMerchant(skillBattleData); break;
             case SkillType.도박사: 
-                result = new GamblerController(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetEventDispatcher(), container.GetComponent<TextShowAndHideController>()); break;
+                result = new GambleInitializer(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetEventDispatcher(), container.GetComponent<TextShowAndHideController>()); break;
             case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>()); break;
             case SkillType.네크로맨서:
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>()); break;
@@ -542,12 +542,12 @@ public struct UnitGachaData
 }
 
 
-public class GamblerController : UserSkill
+public class GambleInitializer : UserSkill
 {
     readonly LevelSystem _gambleLevelSystem;
     readonly IReadOnlyList<GambleData> _gambleDatas;
     readonly TextShowAndHideController _textController;
-    public GamblerController(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, BattleEventDispatcher dispatcher, TextShowAndHideController textController) : base(userSkillBattleData)
+    public GambleInitializer(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, BattleEventDispatcher dispatcher, TextShowAndHideController textController) : base(userSkillBattleData)
     {
         _gambleDatas = CsvUtility.CsvToArray<GambleData>(Managers.Resources.Load<TextAsset>("Data/SkillData/GamblerData").text);
         _gambleLevelSystem = new LevelSystem(_gambleDatas.Select(x => x.NeedExpForLevelUp).ToArray());
@@ -563,6 +563,7 @@ public class GamblerController : UserSkill
         ui.Inject(_gambleLevelSystem, BuyExp, GetRates, GachaAndLevelUp);
         ui.gameObject.SetActive(false);
     }
+    internal override void InitSkill() { }
 
     readonly int AddExpAmountWhenStageUp;
     void AddStageExp(int stage) => _gambleLevelSystem.AddExperience(AddExpAmountWhenStageUp);
@@ -574,8 +575,6 @@ public class GamblerController : UserSkill
         if (Multi_GameManager.Instance.TryUseGold(ExpPrice))
             _gambleLevelSystem.AddExperience(ExpAmount);
     }
-
-    internal override void InitSkill() {}
 
     void GachaAndLevelUp()
     {

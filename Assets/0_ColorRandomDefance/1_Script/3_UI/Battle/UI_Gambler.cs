@@ -39,7 +39,6 @@ public class UI_Gambler : UI_Base
     LevelSystem _gambleLevelSystem;
     UnityAction _buyExp;
     UnityAction _gachaAndLevelUp;
-    Func<IEnumerable<UnitGachaData>> _createGachaTable;
     Func<int[]> _getRates;
     public void Inject(LevelSystem levelSystem, UnityAction buyExp, Func<int[]> getRates, UnityAction gachaAndLevelUp)
     {
@@ -49,6 +48,9 @@ public class UI_Gambler : UI_Base
         _gachaAndLevelUp = gachaAndLevelUp;
         GamblerLevelSystem = new GamblerLevelSystem(levelSystem);
     }
+
+    GamblerController _gamblerController;
+    public void Inject(GamblerController gamblerController) => _gamblerController = gamblerController;
 
     protected override void Init()
     {
@@ -65,7 +67,7 @@ public class UI_Gambler : UI_Base
         _gambleLevelSystem.OnChangeExp += _ => UpdateText();
         _gambleLevelSystem.OnLevelUp += _ => UpdateText(); // 레벨 업 로직 딴데 있어서 일단 있어야 함
         _gambleLevelSystem.OnChangeExp += _ => ToGachaWindow();
-
+        
         GamblerLevelSystem.OnChangeExp += UpdateText;
         GamblerLevelSystem.OnOverExp += ToGachaWindow;
 

@@ -19,7 +19,7 @@ public class GamblerLevelSystem
     }
     public event Action OnChangeExp;
 
-    bool IsOverExp => Experience >= _levelSystem.NeedExperienceForLevelUp;
+    public bool IsOverExp => Experience >= _levelSystem.NeedExperienceForLevelUp;
     public event Action OnOverExp;
 
     int MaxLevel => _levelSystem.MaxLevel - 1;

@@ -338,9 +338,8 @@ public class CombineMeteorController : UserSkill
     void MeteorWhenSpawnRedSwordman(UnitFlags addUnitFlag)
     {
         if (addUnitFlag == RedSwordman)
-            _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(), StunTimePerStack * MeteorStack, MeteorShotPoint);
+            ShotMeteor();
     }
-    void ShotMeteor() => _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(), StunTimePerStack * MeteorStack, MeteorShotPoint);
 
     void CombineMeteor(UnitFlags combineUnitFlag)
     {
@@ -348,6 +347,7 @@ public class CombineMeteorController : UserSkill
             ShotMeteor();
     }
 
+    void ShotMeteor() => _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(), StunTimePerStack * MeteorStack, MeteorShotPoint);
     readonly int DamagePerStack;
     readonly int DefaultDamage;
     public int CalculateMeteorDamage() => DefaultDamage + (MeteorStack * DamagePerStack);

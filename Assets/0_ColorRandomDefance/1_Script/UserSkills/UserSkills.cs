@@ -550,7 +550,7 @@ public class GambleInitializer : UserSkill
         
         var gamblerController = new GamblerController(gambleDatas, Multi_GameManager.Instance);
         gamblerController.OnGamble += flag => textController.ShowTextForTime(BuildGameResultText(flag));
-        dispatcher.OnStageUp += _ => gamblerController.AddExp(IntSkillDatas[2]);
+        dispatcher.OnStageUp += stage => AddExpWhepStageUp(stage, IntSkillDatas[2], gamblerController);
 
         uiMediator.RegisterUI(BattleUI_Type.BattleButtons, "UI_BattleButtonsWhitGambler");
         var ui = uiMediator.ShowUI(BattleUI_Type.BattleButtons).GetComponent<UI_Gambler>();
@@ -558,6 +558,13 @@ public class GambleInitializer : UserSkill
         ui.gameObject.SetActive(false);
     }
     internal override void InitSkill() { }
+
+    void AddExpWhepStageUp(int stage, int epxAmount, GamblerController gamblerController)
+    {
+        if (stage > 1)
+            gamblerController.AddExp(epxAmount);
+    }
+
     string BuildGameResultText(UnitFlags flag) => $"{UnitTextPresenter.DecorateBefore(UnitTextPresenter.GetUnitNameWithColor(flag), flag)} 뽑았습니다.";
 }
 

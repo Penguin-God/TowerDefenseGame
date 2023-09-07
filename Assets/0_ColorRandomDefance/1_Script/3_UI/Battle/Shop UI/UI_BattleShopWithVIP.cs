@@ -65,11 +65,10 @@ public class UI_BattleShopWithVIP : UI_Base
     GoodsManager<BattleShopGoodsData> GetGoodsManager(GoodsLocation location) => _goodsManagerByLocation[location];
     public void ReceiveInject(GoodsBuyController buyController, BuyAction buyActionFactory, Dictionary<GoodsLocation, GoodsManager<BattleShopGoodsData>> goodsManagerByLocation, int needStack)
     {
-        NeedStackForEnterSpecialShop = 3;
         _buyController = buyController;
         _buyActionFactory = buyActionFactory;
         _goodsManagerByLocation = goodsManagerByLocation;
-        // NeedStackForEnterSpecialShop = needStack;
+        NeedStackForEnterSpecialShop = needStack;
     }
 
     void IncreaseGoodsBuyStack()

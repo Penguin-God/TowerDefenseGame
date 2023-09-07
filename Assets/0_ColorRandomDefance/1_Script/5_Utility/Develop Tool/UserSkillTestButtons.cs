@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UserSkillTest : MonoBehaviour
+public class UserSkillTestButtons : MonoBehaviour
 {
     Dictionary<SkillType, bool> _skillTypeByFlag = new Dictionary<SkillType, bool>();
     

@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEditor;
 using System;
 
-[CustomEditor(typeof(UserSkillTest))]
+[CustomEditor(typeof(UserSkillTestButtons))]
 public class UserSkillTesterDrawer : Editor
 {
-    UserSkillTest userSkillTest;
+    UserSkillTestButtons userSkillTest;
     private void OnEnable()
     {
-        userSkillTest = (UserSkillTest)target;
+        userSkillTest = (UserSkillTestButtons)target;
     }
 
     public override void OnInspectorGUI()

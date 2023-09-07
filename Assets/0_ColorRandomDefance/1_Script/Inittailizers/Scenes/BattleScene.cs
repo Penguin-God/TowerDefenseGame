@@ -44,24 +44,6 @@ public class BattleScene : BaseScene
     }
 }
 
-class UserSkillInitializer
-{
-    public IEnumerable<UserSkill> InitUserSkill(BattleDIContainer container, SkillBattleDataContainer skillData)
-    {
-        List<UserSkill> userSkills = new List<UserSkill>();
-        foreach (var skillType in skillData.AllSKills)
-        {
-            if (skillType == SkillType.None)
-                continue;
-
-            var userSkill = new UserSkillFactory().ActiveSkill(skillType, container);
-            if(userSkill != null)
-                userSkills.Add(userSkill);
-        }
-        return userSkills;
-    }
-}
-
 class WorldInitializer
 {
     BattleDIContainer _battleDIContainer;

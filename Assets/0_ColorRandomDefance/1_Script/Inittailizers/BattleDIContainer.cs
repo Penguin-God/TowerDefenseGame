@@ -159,7 +159,6 @@ public class BattleDIContainerInitializer
     void InitSkill(BattleDIContainer container)
     {
         MultiData<SkillBattleDataContainer> multiSkllData = container.GetMultiActiveSkillData();
-
         var allPlayerSkillTypes = multiSkllData.Services.SelectMany(skillData => skillData.AllSKills).Distinct();
 
         foreach (var skill in allPlayerSkillTypes)

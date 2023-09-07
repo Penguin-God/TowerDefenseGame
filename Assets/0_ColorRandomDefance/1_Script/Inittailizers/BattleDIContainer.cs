@@ -158,21 +158,14 @@ public class BattleDIContainerInitializer
 
     void InitSkill(BattleDIContainer container)
     {
+        var skillInitializer = new UserSkillInitializer();
+
         MultiData<SkillBattleDataContainer> multiSkllData = container.GetMultiActiveSkillData();
         var allPlayerSkillTypes = multiSkllData.Services.SelectMany(skillData => skillData.AllSKills).Distinct();
+        foreach (var skillType in allPlayerSkillTypes)
+            skillInitializer.AddSkillDependency(container, skillType);
 
-        foreach (var skill in allPlayerSkillTypes)
-        {
-            switch (skill) 
-            {
-                case SkillType.마나변이:
-                    container.AddComponent<SkillColorChanger>().Inject(container.GetComponent<TextShowAndHideController>()); break;
-                case SkillType.메테오:
-                    container.AddComponent<SkillMeteorController>().RecevieInject(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager, Multi_EnemyManager.Instance); break;
-            }
-        }
-
-        var mySkills = new UserSkillInitializer().InitUserSkill(container, multiSkllData.GetData(PlayerIdManager.Id));
+        var mySkills = skillInitializer.InitUserSkill(container, multiSkllData.GetData(PlayerIdManager.Id));
         container.GetComponent<EffectInitializer>().SettingEffect(mySkills);
     }
 

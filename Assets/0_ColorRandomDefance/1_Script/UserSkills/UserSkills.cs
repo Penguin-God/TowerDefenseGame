@@ -148,7 +148,8 @@ public class UserSkillFactory
             case SkillType.장사꾼: result = new UnitMerchant(skillBattleData); break;
             case SkillType.도박사: 
                 result = new GambleInitializer(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetEventDispatcher(), container.GetComponent<TextShowAndHideController>()); break;
-            case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>()); break;
+            // case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetComponent<MeteorController>(), container.GetComponent<IMonsterManager>()); break;
+            case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetComponent<SkillMeteorController>()); break;
             case SkillType.네크로맨서:
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>()); break;
             case SkillType.덫:
@@ -319,6 +320,21 @@ public class CombineMeteorController : UserSkill
         _stackUI.UpdateText(0);
     }
 
+    SkillMeteorController _skillMeteorController;
+    public CombineMeteorController(UserSkillBattleData userSkillBattleData, SkillMeteorController meteorController) : base(userSkillBattleData)
+    {
+        _skillMeteorController = meteorController;
+
+        DefaultDamage = IntSkillDatas[0];
+        StunTimePerStack = SkillDatas[1];
+        DamagePerStack = IntSkillDatas[2];
+        var meteorStackData = new MeteorStackData(SwordmanStack, ArcherStack, SpearmanStack);
+        _stackManager = new CombineMeteorStackManager(Managers.Data.CombineConditionByUnitFalg, meteorStackData);
+
+        _stackUI = Managers.UI.ShowSceneUI<UI_UserSkillStatus>();
+        _stackUI.UpdateText(0);
+    }
+
     internal override void InitSkill()
     {
         Managers.Unit.OnCombine += AddStack;
@@ -347,7 +363,8 @@ public class CombineMeteorController : UserSkill
             ShotMeteor();
     }
 
-    void ShotMeteor() => _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(), StunTimePerStack * MeteorStack, MeteorShotPoint);
+    // void ShotMeteor() => _meteorController.ShotMeteor(FindMonster(), CalculateMeteorDamage(), StunTimePerStack * MeteorStack, MeteorShotPoint);
+    void ShotMeteor() => _skillMeteorController.ShotMeteor(PlayerIdManager.Id, CalculateMeteorDamage(), StunTimePerStack * MeteorStack);
     readonly int DamagePerStack;
     readonly int DefaultDamage;
     public int CalculateMeteorDamage() => DefaultDamage + (MeteorStack * DamagePerStack);

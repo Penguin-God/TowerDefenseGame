@@ -11,27 +11,26 @@ public class SkillMeteorController : MonoBehaviourPun
         _meteorController = gameObject.AddComponent<MeteorController>();
     }
 
-    IMonsterManager _monsterManager;
+    ServerMonsterManager _monsterManager;
     Multi_EnemyManager _enemyManager;
-    Vector3 _spawnPos;
-    public void RecevieInject(IMonsterManager monsterManager, Multi_EnemyManager enemyManager, Vector3 spawnPos)
+    public void RecevieInject(ServerMonsterManager monsterManager, Multi_EnemyManager enemyManager)
     {
         _monsterManager = monsterManager;
         _enemyManager = enemyManager;
-        _spawnPos = spawnPos;
     }
 
-    public void ShotMeteor(int damage, float stunTime) => photonView.RPC(nameof(RPC_ShotMeteor), RpcTarget.MasterClient, damage, stunTime);
+    public void ShotMeteor(byte id, int damage, float stunTime) => photonView.RPC(nameof(RPC_ShotMeteor), RpcTarget.MasterClient, id, damage, stunTime);
 
     [PunRPC]
-    void RPC_ShotMeteor(int damage, float stunTime) => _meteorController.ShotMeteor(FindMonster(), damage, stunTime, _spawnPos);
+    void RPC_ShotMeteor(byte id, int damage, float stunTime) => _meteorController.ShotMeteor(FindMonster(id), damage, stunTime, GetSpawnPos(id));
 
-    Multi_NormalEnemy FindMonster()
+    Multi_NormalEnemy FindMonster(byte id)
     {
-        if (_enemyManager.TryGetCurrentBoss(PlayerIdManager.Id, out Multi_BossEnemy boss)) return boss;
+        if (_enemyManager.TryGetCurrentBoss(id, out Multi_BossEnemy boss)) return boss;
 
-        var monsters = _monsterManager.GetNormalMonsters();
+        var monsters = _monsterManager.GetNormalMonsters(id);
         if (monsters.Count == 0) return null;
         else return monsters[Random.Range(0, monsters.Count)];
     }
+    Vector3 GetSpawnPos(byte id) => PlayerIdManager.IsMasterId(id) ? new Vector3(0, 30, 0) : new Vector3(0, 30, 500);
 }

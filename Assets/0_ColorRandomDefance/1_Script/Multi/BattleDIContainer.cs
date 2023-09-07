@@ -68,7 +68,6 @@ public class BattleDIContainerInitializer
         container.AddComponent<EffectInitializer>();
         container.AddComponent<OpponentStatusSender>();
         container.AddComponent<EnemySpawnNumManager>();
-        container.AddComponent<MeteorController>();
         container.AddComponent<MultiEffectManager>();
         container.AddComponent<BuildingClickContoller>();
         container.AddComponent<TextShowAndHideController>();
@@ -169,7 +168,10 @@ public class BattleDIContainerInitializer
             {
                 case SkillType.마나변이:
                     container.AddComponent<SkillColorChanger>().Inject(container.GetComponent<TextShowAndHideController>()); break;
-            }   
+                case SkillType.메테오:
+                    // container.AddComponent<MeteorController>(); break;
+                    container.AddComponent<SkillMeteorController>().RecevieInject(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager, Multi_EnemyManager.Instance); break;
+            }
         }
 
         var mySkills = new UserSkillInitializer().InitUserSkill(container, multiSkllData.GetData(PlayerIdManager.Id));

@@ -4,9 +4,16 @@ using UnityEngine;
 
 public class UnitClickController : MonoBehaviour
 {
+    int unitLayerMask;
+
+    void Start()
+    {
+        unitLayerMask = 1 << LayerMask.NameToLayer("Unit");
+    }
+
     void Update()
     {
-        if (new InputHandler().MouseClickRayCastHit(out var hit))
+        if (new InputHandler().MouseClickRayCastHit(out var hit, unitLayerMask))
         {
             var unit = hit.collider.gameObject.GetComponentInParent<Multi_TeamSoldier>();
             if (unit != null && unit.UsingID == PlayerIdManager.Id && Managers.Data.UnitWindowDataByUnitFlags.ContainsKey(unit.UnitFlags))

@@ -77,16 +77,24 @@ public class UI_BattleShop : UI_Popup
     {
         var unitUpgradeGoodsData = CreateGoodsData(unitUpgradeData);
         var datas = new float[] { (float)unitUpgradeGoodsData.UpgradeType, (float)unitUpgradeGoodsData.TargetColor, unitUpgradeGoodsData.Value };
-        return new BattleShopGoodsData().Clone(_goodsPresenter.BuildGoodsText(unitUpgradeGoodsData), unitUpgradeGoodsData.PriceData, "를", new GoodsData().Clone(BattleShopGoodsType.UnitUpgrade, datas));
+        return new BattleShopGoodsData().Clone(
+            name: _goodsPresenter.BuildGoodsText(unitUpgradeGoodsData), 
+            priceData: GetUnitUpgradePriceData(unitUpgradeData.UpgradeType), 
+            info: "를", 
+            new GoodsData().Clone(BattleShopGoodsType.UnitUpgrade, datas)
+            );
     }
 
     UnitUpgradeData CreateGoodsData(UnitUpgradeGoodsData data)
     {
         if (data.UpgradeType == UnitUpgradeType.Value)
-            return new UnitUpgradeData(data.UpgradeType, data.TargetColor, _unitUpgradeShopData.AddValue, _unitUpgradeShopData.AddValuePriceData);
+            return new UnitUpgradeData(data.UpgradeType, data.TargetColor, _unitUpgradeShopData.AddValue);
         else
-            return new UnitUpgradeData(data.UpgradeType, data.TargetColor, _unitUpgradeShopData.UpScale, _unitUpgradeShopData.UpScalePriceData);
+            return new UnitUpgradeData(data.UpgradeType, data.TargetColor, _unitUpgradeShopData.UpScale);
     }
+
+    CurrencyData GetUnitUpgradePriceData(UnitUpgradeType type)
+        => type == UnitUpgradeType.Value ? _unitUpgradeShopData.AddValuePriceData : _unitUpgradeShopData.UpScalePriceData;
 
     string ShopChangeText => $"{_unitUpgradeShopData.ResetPrice}골드를 지불하여 상점을 초기화하시겠습니까?";
     void BuyShopReset() => _buyController.ShowBuyWindow(ShopChangeText, new CurrencyData(GameCurrencyType.Gold, _unitUpgradeShopData.ResetPrice), ChangeAllGoods);

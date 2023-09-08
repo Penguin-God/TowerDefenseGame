@@ -14,7 +14,7 @@ public class DataConvertUtili
     public UnitUpgradeData ToUnitUpgradeData(float[] datas)
     {
         int[] upgradeDatas = ToInts(datas, 3);
-        return new UnitUpgradeData((UnitUpgradeType)upgradeDatas[0], (UnitColor)upgradeDatas[1], upgradeDatas[2], null);
+        return new UnitUpgradeData((UnitUpgradeType)upgradeDatas[0], (UnitColor)upgradeDatas[1], upgradeDatas[2]);
     }
 
     int[] ToInts(float[] datas, int useCount)

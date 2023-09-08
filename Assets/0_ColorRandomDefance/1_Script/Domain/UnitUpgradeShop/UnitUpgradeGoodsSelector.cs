@@ -23,28 +23,6 @@ public struct UnitUpgradeGoodsData
 
 public class UnitUpgradeGoodsSelector
 {
-    readonly int GOODS_COUNT = 3;
-    public IEnumerable<UnitUpgradeGoodsData> SelectGoodsSet() => SelectGoodsSet(GetAllGoods());
-
-    public UnitUpgradeGoodsData SelectGoodsExcluding(IEnumerable<UnitUpgradeGoodsData> excludeGoods)
-        => SelectGoodsSetExcluding(excludeGoods).First();
-
-    public IEnumerable<UnitUpgradeGoodsData> SelectGoodsSetExcluding(IEnumerable<UnitUpgradeGoodsData> excludeGoods)
-        => SelectGoodsSet(GetAllGoods().Except(excludeGoods));
-
-    IEnumerable<UnitUpgradeGoodsData> SelectGoodsSet(IEnumerable<UnitUpgradeGoodsData> targetGoods)
-    {
-        var allGoods = targetGoods.ToList();
-        var result = new List<UnitUpgradeGoodsData>();
-        for (int i = 0; i < GOODS_COUNT; i++)
-        {
-            int randNum = UnityEngine.Random.Range(0, allGoods.Count);
-            result.Add(allGoods[randNum]);
-            allGoods.RemoveAt(randNum);
-        }
-        return result;
-    }
-
     public IEnumerable<UnitUpgradeGoodsData> GetAllGoods()
         => Enum.GetValues(typeof(UnitUpgradeType))
         .Cast<UnitUpgradeType>()

@@ -121,21 +121,6 @@ public class CurrencyManager : IBattleCurrencyManager
     }
 }
 
-public class OtherPlayerData
-{
-    public OtherPlayerData(SkillType mainSkill, SkillType subSkill)
-    {
-        _mainSkill = mainSkill;
-        _subSkill = subSkill;
-    }
-
-    SkillType _mainSkill;
-    SkillType _subSkill;
-
-    public SkillType MainSkill => _mainSkill;
-    public SkillType SubSkill => _subSkill;
-}
-
 public class Multi_GameManager : SingletonPun<Multi_GameManager>
 {
     [SerializeField] BattleDataManager _battleData = new BattleDataManager();
@@ -187,12 +172,6 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
 
     public bool UnitOver => Managers.Unit.CurrentUnitCount >= _battleData.MaxUnit;
 
-    OtherPlayerData _otherPlayerData;
-    public OtherPlayerData OtherPlayerData => _otherPlayerData;
-
-    [PunRPC]
-    public void CreateOtherPlayerData(SkillType mainSkill, SkillType subSkill) => _otherPlayerData = new OtherPlayerData(mainSkill, subSkill);
-
     UnitMaxCountController _unitMaxCountController;
     public void IncreasedMaxUnitCount(int amount) => _unitMaxCountController.IncreasedMaxUnitCount(amount);
 
@@ -209,9 +188,6 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
         AddFood(_battleDataContainer.Food);
         _unitMaxCountController = unitMaxCountController;
         dispatcher.OnGameStart += () => IncreasedMaxUnitCount(_battleDataContainer.MaxUnit);
-
-        if (PhotonNetwork.IsConnected)
-            photonView.RPC(nameof(CreateOtherPlayerData), RpcTarget.Others, Managers.ClientData.EquipSkillManager.MainSkill, Managers.ClientData.EquipSkillManager.SubSkill);
 
         _addDamageValueByFlag = UnitFlags.NormalFlags.ToDictionary(x => x, x => 0);
         _upScaleValueByFlag = UnitFlags.NormalFlags.ToDictionary(x => x, x => 0);
@@ -232,14 +208,6 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     public int GetUnitUpgradeShopAddDamageValue(UnitFlags flag) => _addDamageValueByFlag[flag];
     Dictionary<UnitFlags, int> _upScaleValueByFlag;
     public int GetUnitUpgradeShopUpScaleValue(UnitFlags flag) => _upScaleValueByFlag[flag];
-
-    public void IncrementUnitUpgradeValue(UnitUpgradeGoodsData goodsData)
-    {
-        if (goodsData.UpgradeType == UnitUpgradeType.Value)
-            IncrementUnitUpgradeValue(_addDamageValueByFlag, BattleData.UnitUpgradeShopData.AddValue, goodsData.TargetColor);
-        else
-            IncrementUnitUpgradeValue(_upScaleValueByFlag, BattleData.UnitUpgradeShopData.UpScale, goodsData.TargetColor);
-    }
 
     public void IncrementUnitUpgradeValue(UnitUpgradeData goodsData)
     {

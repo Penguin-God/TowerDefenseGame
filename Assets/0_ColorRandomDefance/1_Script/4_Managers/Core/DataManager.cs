@@ -85,13 +85,6 @@ public class DataManager
         return loder.MakeDict(Managers.Resources.Load<TextAsset>($"Data/{path}").text);
     }
 
-    Loader LoadJson<Loader, Key, Value>(string path) where Loader : ILoader<Key, Value>
-    {
-        TextAsset textAsset = Managers.Resources.Load<TextAsset>($"Data/{path}");
-        return JsonUtility.FromJson<Loader>(textAsset.text);
-    }
-
-
     public class UnitData
     {
         Dictionary<string, UnitNameData> _unitNameDataByUnitKoreaName = new Dictionary<string, UnitNameData>();
@@ -145,12 +138,19 @@ public class DataManager
         Dictionary<UnitFlags, CombineCondition> _combineConditionByUnitFalg = new Dictionary<UnitFlags, CombineCondition>();
         public IReadOnlyDictionary<UnitFlags, CombineCondition> CombineConditionByUnitFalg => _combineConditionByUnitFalg;
 
+        //public IReadOnlyList<CombineCondition> CombineConditions { get; set; }
+        //public IEnumerable<IReadOnlyDictionary<UnitFlags, int>> GetNeedFlagsForCombine(UnitFlags targetFlag) 
+        //    => CombineConditions
+        //    .Where(x => x.TargetUnitFlag == targetFlag)
+        //    .Select(x => x.NeedCountByFlag);
+
         // 유닛 창 정보
         Dictionary<UnitFlags, UI_UnitWindowData> _unitWindowDataByUnitFlags = new Dictionary<UnitFlags, UI_UnitWindowData>();
         public IReadOnlyDictionary<UnitFlags, UI_UnitWindowData> UnitWindowDataByUnitFlags => _unitWindowDataByUnitFlags;
 
         public void Init(DataManager manager)
         {
+            //CombineConditions = manager.LoadData<CombineCondition>("UnitData/CombineConditionData").ToArray();
             _combineConditionByUnitFalg = manager.MakeCsvDict<CombineConditions, UnitFlags, CombineCondition>("UnitData/CombineConditionData");
             _unitWindowDataByUnitFlags = manager.MakeCsvDict<UI_UnitWindowDatas, UnitFlags, UI_UnitWindowData>("UIData/UI_UnitWindowData");
         }

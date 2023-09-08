@@ -46,22 +46,38 @@ public class UI_BattleShop : UI_Popup
         IsInject = true;
     }
 
+    GoodsManager<BattleShopGoodsData> _goodsManager;
+    Dictionary<GoodsLocation, UI_BattleShopGoods> _goodsByLocation = new Dictionary<GoodsLocation, UI_BattleShopGoods>();
     void InitGoods()
     {
-        GoodsManager = new GoodsManager<BattleShopGoodsData>(new UnitUpgradeGoodsSelector().GetAllGoods().Select(x => CreateShopGoodsData(x)));
+        _goodsManager = new GoodsManager<BattleShopGoodsData>(GenerateUnitUpgradeDatas());
+
         foreach (var goods in GetObject((int)GameObjects.GoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
         {
             goods.Inject(_buyController, _buyAction);
             goods.OnBuyGoods += DisplayGoods;
-            goods.DisplayGoods(GoodsManager.GetRandomGoods());
+            goods.DisplayGoods(_goodsManager.GetRandomGoods());
             _goodsByLocation.Add(goods.GoodsLocation, goods);
         }
     }
-    Dictionary<GoodsLocation, UI_BattleShopGoods> _goodsByLocation = new Dictionary<GoodsLocation, UI_BattleShopGoods>();
-    GoodsManager<BattleShopGoodsData> GoodsManager;
+
+    IEnumerable<BattleShopGoodsData> GenerateUnitUpgradeDatas()
+    => Multi_GameManager.Instance.BattleData.ShopPriceDataByUnitUpgradeData.Select(x => CreateShopGoodsData(x.Key, x.Value));
+
+    BattleShopGoodsData CreateShopGoodsData(UnitUpgradeData unitUpgradeData, CurrencyData priceData)
+    {
+        var datas = new float[] { (float)unitUpgradeData.UpgradeType, (float)unitUpgradeData.TargetColor, unitUpgradeData.Value };
+        return new BattleShopGoodsData().Clone(
+            name: new UnitUpgradeGoodsPresenter().BuildGoodsText(unitUpgradeData),
+            priceData,
+            info: "를",
+            new GoodsData().Clone(BattleShopGoodsType.UnitUpgrade, datas)
+            );
+    }
+
     void DisplayGoods(GoodsLocation location)
     {
-        StartCoroutine(Co_DisplayGoods(_goodsByLocation[location], GoodsManager.ChangeGoods(_goodsByLocation[location].CurrentDisplayGoodsData)));
+        StartCoroutine(Co_DisplayGoods(_goodsByLocation[location], _goodsManager.ChangeGoods(_goodsByLocation[location].CurrentDisplayGoodsData)));
     }
 
     IEnumerator Co_DisplayGoods(UI_BattleShopGoods goods, BattleShopGoodsData newGoods)
@@ -72,35 +88,11 @@ public class UI_BattleShop : UI_Popup
         goods.gameObject.SetActive(true);
     }
 
-    readonly UnitUpgradeGoodsPresenter _goodsPresenter = new UnitUpgradeGoodsPresenter();
-    BattleShopGoodsData CreateShopGoodsData(UnitUpgradeGoodsData unitUpgradeData)
-    {
-        var unitUpgradeGoodsData = CreateGoodsData(unitUpgradeData);
-        var datas = new float[] { (float)unitUpgradeGoodsData.UpgradeType, (float)unitUpgradeGoodsData.TargetColor, unitUpgradeGoodsData.Value };
-        return new BattleShopGoodsData().Clone(
-            name: _goodsPresenter.BuildGoodsText(unitUpgradeGoodsData), 
-            priceData: GetUnitUpgradePriceData(unitUpgradeData.UpgradeType), 
-            info: "를", 
-            new GoodsData().Clone(BattleShopGoodsType.UnitUpgrade, datas)
-            );
-    }
-
-    UnitUpgradeData CreateGoodsData(UnitUpgradeGoodsData data)
-    {
-        if (data.UpgradeType == UnitUpgradeType.Value)
-            return new UnitUpgradeData(data.UpgradeType, data.TargetColor, _unitUpgradeShopData.AddValue);
-        else
-            return new UnitUpgradeData(data.UpgradeType, data.TargetColor, _unitUpgradeShopData.UpScale);
-    }
-
-    CurrencyData GetUnitUpgradePriceData(UnitUpgradeType type)
-        => type == UnitUpgradeType.Value ? _unitUpgradeShopData.AddValuePriceData : _unitUpgradeShopData.UpScalePriceData;
-
     string ShopChangeText => $"{_unitUpgradeShopData.ResetPrice}골드를 지불하여 상점을 초기화하시겠습니까?";
     void BuyShopReset() => _buyController.ShowBuyWindow(ShopChangeText, new CurrencyData(GameCurrencyType.Gold, _unitUpgradeShopData.ResetPrice), ChangeAllGoods);
     void ChangeAllGoods()
     {
-        var newGoodsList = GoodsManager.ChangeAllGoods().ToArray();
+        var newGoodsList = _goodsManager.ChangeAllGoods().ToArray();
         var goodsList = GetComponentsInChildren<UI_BattleShopGoods>();
         for (int i = 0; i < newGoodsList.Length; i++)
             goodsList[i].DisplayGoods(newGoodsList[i]);

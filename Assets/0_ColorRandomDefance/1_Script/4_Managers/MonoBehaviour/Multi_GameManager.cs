@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using System;
 using System.Linq;
 using Photon.Pun;
@@ -27,7 +26,7 @@ public class BattleDataManager
         UnitSummonData = startData.UnitSummonData;
 
         _unitUpgradeShopData = unitUpgradeShopData.Clone();
-        ShopPriceDataByUnitUpgradeData = new UnitUpgradeGoodsSelector().GetAllGoods()
+        ShopPriceDataByUnitUpgradeData = new UnitUpgradeDataGenerator().GenerateAllUnitUpgradeDatas(_unitUpgradeShopData.AddValue, _unitUpgradeShopData.UpScale)
             .ToDictionary(x => x, x => x.UpgradeType == UnitUpgradeType.Value ? _unitUpgradeShopData.AddValuePriceData.Cloen() : _unitUpgradeShopData.UpScalePriceData.Cloen());
     }
 
@@ -45,7 +44,7 @@ public class BattleDataManager
     public IReadOnlyList<CurrencyData> WhiteUnitShopPriceDatas => _battleData.WhiteUnitPriceDatas;
     public CurrencyData MaxUnitIncreasePriceData => _battleData.MaxUnitIncreasePriceData;
 
-    public IReadOnlyDictionary<UnitUpgradeGoodsData, CurrencyData> ShopPriceDataByUnitUpgradeData;
+    public IReadOnlyDictionary<UnitUpgradeData, CurrencyData> ShopPriceDataByUnitUpgradeData { get; private set; }
     public IEnumerable<CurrencyData> GetAllShopPriceDatas() 
         => ShopPriceDataByUnitUpgradeData.Values
             .Concat(WhiteUnitShopPriceDatas)

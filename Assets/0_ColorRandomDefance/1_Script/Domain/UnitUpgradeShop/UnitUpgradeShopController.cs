@@ -1,6 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
+public enum UnitUpgradeType
+{
+    Value,
+    Scale,
+}
+
 public struct UnitUpgradeData
 {
     public UnitUpgradeType UpgradeType { get; private set; }

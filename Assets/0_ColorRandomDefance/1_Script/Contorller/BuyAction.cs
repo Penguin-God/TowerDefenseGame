@@ -33,9 +33,8 @@ public class BuyAction
             case UnitUpgradeType.Value:
                 _unitUpgradeController.AddUnitDamageValue(goods.TargetColor, goods.Value, UnitStatType.All); break;
             case UnitUpgradeType.Scale:
-                _unitUpgradeController.ScaleUnitDamageValue(goods.TargetColor, goods.Value / Percentage, UnitStatType.All);
-                Multi_GameManager.Instance.IncrementUnitUpgradeValue(goods);
-                break;
+                _unitUpgradeController.ScaleUnitDamageValue(goods.TargetColor, goods.Value / Percentage, UnitStatType.All); break;
         }
+        Multi_GameManager.Instance.IncrementUnitUpgradeValue(goods);
     }
 }

@@ -34,12 +34,12 @@ MonoBehaviour:
   - _currencyType: 0
     _amount: 60
   WhiteUnitPriceDatas:
-  - _currencyType: 0
-    _amount: 15
-  - _currencyType: 0
-    _amount: 30
-  - _currencyType: 0
-    _amount: 105
-  - _currencyType: 0
-    _amount: 300
+  - _currencyType: 1
+    _amount: 1
+  - _currencyType: 1
+    _amount: 2
+  - _currencyType: 1
+    _amount: 7
+  - _currencyType: 1
+    _amount: 20
   WhiteUnitTime: 30

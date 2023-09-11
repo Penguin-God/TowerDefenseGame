@@ -29,6 +29,21 @@ public class UI_BattleShopWithVIP : UI_Base
         ResetButton,
     }
 
+    int _goodsBuyStack;
+    int NeedStackForEnterSpecialShop;
+    SpecialShopBuyController _buyController;
+    BuyAction _buyActionFactory;
+    Dictionary<GoodsLocation, GoodsManager<BattleShopGoodsData>> _goodsManagerByLocation;
+    GoodsManager<BattleShopGoodsData> GetGoodsManager(GoodsLocation location) => _goodsManagerByLocation[location];
+
+    public void ReceiveInject(SpecialShopBuyController buyController, BuyAction buyActionFactory, Dictionary<GoodsLocation, GoodsManager<BattleShopGoodsData>> goodsManagerByLocation, int needStack)
+    {
+        _buyController = buyController;
+        _buyActionFactory = buyActionFactory;
+        _goodsManagerByLocation = goodsManagerByLocation;
+        NeedStackForEnterSpecialShop = needStack;
+    }
+
     protected override void Init()
     {
         base.Init();
@@ -55,20 +70,6 @@ public class UI_BattleShopWithVIP : UI_Base
 
         foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_GoodsChangeController>())
             goods.Inject(ChangeGoods);
-    }
-
-    int _goodsBuyStack;
-    int NeedStackForEnterSpecialShop;
-    GoodsBuyController _buyController;
-    BuyAction _buyActionFactory;
-    Dictionary<GoodsLocation, GoodsManager<BattleShopGoodsData>> _goodsManagerByLocation;
-    GoodsManager<BattleShopGoodsData> GetGoodsManager(GoodsLocation location) => _goodsManagerByLocation[location];
-    public void ReceiveInject(GoodsBuyController buyController, BuyAction buyActionFactory, Dictionary<GoodsLocation, GoodsManager<BattleShopGoodsData>> goodsManagerByLocation, int needStack)
-    {
-        _buyController = buyController;
-        _buyActionFactory = buyActionFactory;
-        _goodsManagerByLocation = goodsManagerByLocation;
-        NeedStackForEnterSpecialShop = needStack;
     }
 
     void IncreaseGoodsBuyStack()

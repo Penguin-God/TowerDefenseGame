@@ -14,7 +14,17 @@ public class GoodsBuyController
         _textController = textController;
     }
 
-    public void ShowBuyWindow(string qustionText, CurrencyData priceData, Action successAct) 
+    public virtual void TryBuy(string qustionText, CurrencyData priceData, Action successAct)
+    {
+        if(0 >= priceData.Amount)
+        {
+            DoBuy(priceData, successAct);
+            return;
+        }
+        ShowBuyWindow(qustionText, priceData, successAct);
+    }
+
+    protected void ShowBuyWindow(string qustionText, CurrencyData priceData, Action successAct) 
         => Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo(qustionText, () => DoBuy(priceData, successAct));
 
     void DoBuy(CurrencyData priceData, Action successAct)

@@ -89,7 +89,7 @@ public class UI_BattleShop : UI_Popup
     }
 
     string ShopChangeText => $"{_unitUpgradeShopData.ResetPrice}골드를 지불하여 상점을 초기화하시겠습니까?";
-    void BuyShopReset() => _buyController.ShowBuyWindow(ShopChangeText, new CurrencyData(GameCurrencyType.Gold, _unitUpgradeShopData.ResetPrice), ChangeAllGoods);
+    void BuyShopReset() => _buyController.TryBuy(ShopChangeText, new CurrencyData(GameCurrencyType.Gold, _unitUpgradeShopData.ResetPrice), ChangeAllGoods);
     void ChangeAllGoods()
     {
         var newGoodsList = _goodsManager.ChangeAllGoods().ToArray();

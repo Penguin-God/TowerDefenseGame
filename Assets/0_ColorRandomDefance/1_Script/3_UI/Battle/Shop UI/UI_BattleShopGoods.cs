@@ -91,11 +91,10 @@ public class UI_BattleShopGoods : UI_Base
     }
 
     void TryBuy()
-        => _goodsBuyController.ShowBuyWindow($"{CurrentDisplayGoodsData.Name}{CurrentDisplayGoodsData.InfoText} 구매하시겠습니까?", CurrentDisplayGoodsData.PriceData, OnSuccessBuy);
+        => _goodsBuyController.TryBuy($"{CurrentDisplayGoodsData.Name}{CurrentDisplayGoodsData.InfoText} 구매하시겠습니까?", CurrentDisplayGoodsData.PriceData, OnSuccessBuy);
     void OnSuccessBuy()
     {
         OnBuyGoods?.Invoke(_goodsLocation);
         _buyActionFactory.Do(CurrentDisplayGoodsData.SellData);
     }
-
 }

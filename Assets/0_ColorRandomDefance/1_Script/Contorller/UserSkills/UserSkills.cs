@@ -155,7 +155,8 @@ public class UserSkillFactory
                 result = new SlowTrapSpawner(skillBattleData, Multi_Data.instance.GetEnemyTurnPoints(PlayerIdManager.Id) ,container.GetEventDispatcher()); break;
             case SkillType.백의결속: result = new BondOfWhite(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance); break;
             case SkillType.썬콜: result = new Suncold(skillBattleData, Managers.Data); break;
-            case SkillType.VIP: result = new VIP(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetService<GoodsBuyController>(), container.GetService<BuyAction>()); break;
+            // case SkillType.VIP: result = new VIP(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetService<GoodsBuyController>(), container.GetService<BuyAction>()); break;
+            case SkillType.VIP: result = new VIP(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetComponent<TextShowAndHideController>(), container.GetService<BuyAction>()); break;
             default: result = null; break;
         }
         result.InitSkill();
@@ -514,11 +515,11 @@ public class GambleInitializer : UserSkill
 
 public class VIP : UserSkill
 {
-    public VIP(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, GoodsBuyController buyController, BuyAction buyAction) : base(userSkillBattleData)
+    public VIP(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, TextShowAndHideController textController, BuyAction buyAction) : base(userSkillBattleData)
     {
         uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_BattleShopWithVIP");
         var ui = uiMediator.ShowPopupUI(BattleUI_Type.UnitUpgrdeShop).GetComponent<UI_BattleShopWithVIP>();
-        ui.ReceiveInject(buyController, buyAction, CreateGoodsManger(), IntSkillDatas[0]);
+        ui.ReceiveInject(new SpecialShopBuyController(Multi_GameManager.Instance, textController), buyAction, CreateGoodsManger(), IntSkillDatas[0]);
         ui.gameObject.SetActive(false);
 
         UnitAttackAddUpgradeGoodsToFree();

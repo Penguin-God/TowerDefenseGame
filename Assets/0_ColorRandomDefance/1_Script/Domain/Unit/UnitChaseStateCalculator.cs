@@ -15,11 +15,11 @@ public enum ChaseState
     Kiss,
 }
 
-public class UnitChaseUseCase
+public class UnitChaseStateCalculator
 {
     float _range;
     const float ContactDistance = 4f;
-    public UnitChaseUseCase(float range) => _range = range;
+    public UnitChaseStateCalculator(float range) => _range = range;
 
     public ChaseState CalculateChaseState(Vector3 chaserPos, Vector3 targetPos, Vector3 chaserDir, Vector3 targetDir)
     {

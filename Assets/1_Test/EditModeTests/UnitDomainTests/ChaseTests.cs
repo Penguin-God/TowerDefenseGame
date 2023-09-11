@@ -9,7 +9,7 @@ namespace UnitDomainTests
     public class ChaseTests
     {
         const float Range = 20f;
-        UnitChaseUseCase CreateSut() => new UnitChaseUseCase(Range);
+        UnitChaseStateCalculator CreateSut() => new UnitChaseStateCalculator(Range);
 
         [Test]
         [TestCase(19, ChaseState.Far)]

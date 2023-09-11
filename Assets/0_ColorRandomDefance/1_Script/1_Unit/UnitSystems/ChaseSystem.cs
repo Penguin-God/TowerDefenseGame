@@ -11,7 +11,7 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
 
     public Multi_Enemy _currentTarget = null;
     protected Vector3 TargetPosition => _currentTarget.transform.position;
-    protected UnitChaseUseCase _unitChaseUseCase;
+    protected UnitChaseStateCalculator _unitChaseUseCase;
 
     public void ChangedTarget(Multi_Enemy newTarget)
     {
@@ -29,7 +29,7 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
     {
         _nav = GetComponent<NavMeshAgent>();
         _unit = GetComponent<Multi_TeamSoldier>();
-        _unitChaseUseCase = new UnitChaseUseCase(_unit.AttackRange);
+        _unitChaseUseCase = new UnitChaseStateCalculator(_unit.AttackRange);
         photonView.ObservedComponents.Add(this);
     }
 
@@ -77,7 +77,8 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
         }
     }
 
-    Vector3 _prevSendChasePosition;
+    // 이거 외부로 빼기
+    Vector3 _prevSendChasePosition; 
     ChaseState _prevSendState;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
@@ -101,7 +102,7 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
 public class MeeleChaser : ChaseSystem
 {
     protected override Vector3 GetDestinationPos()
-        => new UnitChaseUseCase(_unit.AttackRange).CalculateDestinationPos(_chaseState, TargetPosition, _currentTarget.dir);
+        => new UnitChaseStateCalculator(_unit.AttackRange).CalculateDestinationPos(_chaseState, TargetPosition, _currentTarget.dir);
 
     protected override void SetChaseStatus(ChaseState state)
     {
@@ -126,7 +127,7 @@ public class MeeleChaser : ChaseSystem
 
     protected override ChaseState GetChaseState()
     {
-        var state = new UnitChaseUseCase(_unit.AttackRange).CalculateChaseState(transform.position, chasePosition, transform.forward, _currentTarget.dir);
+        var state = new UnitChaseStateCalculator(_unit.AttackRange).CalculateChaseState(transform.position, chasePosition, transform.forward, _currentTarget.dir);
         if (state == ChaseState.FaceToFace && (_unit.MonsterIsForward() || _unit.IsAttack)) return ChaseState.Lock;
         else return state;
     }

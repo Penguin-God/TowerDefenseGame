@@ -124,7 +124,7 @@ public class BattleDIContainerInitializer
         Init_UI(container);
         game.Init(container.GetComponent<CurrencyManagerMediator>(), container.GetComponent<UnitMaxCountController>(), data.BattleDataContainer, dispatcher);
         StageManager.Instance.Injection(dispatcher);
-        Managers.Unit.Inject(container.GetComponent<UnitController>(), new UnitCombineSystem(data.CombineConditionByUnitFalg));
+        Managers.Unit.Inject(container.GetComponent<UnitCombiner>(), new UnitCombineSystem(data.CombineConditionByUnitFalg));
     }
 
     void Init_UI(BattleDIContainer container)

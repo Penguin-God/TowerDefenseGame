@@ -58,8 +58,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     void Awake()
     {
-        // passive = UnitPassive.CreatePassive();
-
         // 변수 선언
         passive = GetComponent<Multi_UnitPassive>();
         rpcable = GetComponent<RPCable>();
@@ -137,7 +135,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     void ChaseTarget()
     {
         nav.enabled = true;
-        // UpdateTarget();
         StopAllCoroutines();
         if (PhotonNetwork.IsMasterClient)
             StartCoroutine(nameof(NavCoroutine));
@@ -216,14 +213,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     bool VaildTargetCondition() => target != null && _targetManager.Target.IsDead == false && _chaseSystem._currentTarget != null && TargetEnemy.UsingId == UsingID;
 
     public bool MonsterIsForward() => Physics.RaycastAll(transform.position + Vector3.up, transform.forward, AttackRange).Select(x => x.transform).Contains(target);
-
-    // 최적화 할 때 쓸지도?
-    //int ReturnLayerMask(GameObject targetObject) // 인자의 layer를 반환하는 함수
-    //{
-    //    int layer = targetObject.layer;
-    //    string layerName = LayerMask.LayerToName(layer);
-    //    return 1 << LayerMask.NameToLayer(layerName);
-    //}
 
     bool isRPC; // RPC딜레이 때문에 공격 2번 이상하는 버그 방지 변수
 

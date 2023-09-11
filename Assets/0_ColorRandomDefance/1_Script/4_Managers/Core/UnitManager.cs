@@ -35,8 +35,8 @@ public class UnitManager
         OnUnitCountChangeByClass?.Invoke(unit.UnitClass, FindUnits(x => x.UnitClass == unit.UnitClass).Count());
     }
 
-    UnitController _contoller;
-    public void Inject(UnitController controller, UnitCombineSystem combineSystem)
+    UnitCombiner _contoller;
+    public void Inject(UnitCombiner controller, UnitCombineSystem combineSystem)
     {
         _contoller = controller;
         _combineSystem = combineSystem;

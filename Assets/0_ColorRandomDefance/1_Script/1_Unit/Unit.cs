@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
+public enum UnitState
+{
+    Idle,
+    Move,
+    Attack,
+    Die,
+}
+
 [Serializable]
 public class Unit
 {
@@ -18,4 +26,8 @@ public class Unit
         _unitFlags = flag;
         _damageInfo = damageInfo;
     }
+
+    UnitState _unitState;
+    public void ChangeState(UnitState newState) => _unitState = newState;
+    public void Dead() => ChangeState(UnitState.Die);
 }

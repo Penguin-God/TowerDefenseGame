@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using System.Linq;
 
-public abstract class UnitController : MonoBehaviourPun
+public abstract class UnitCombiner : MonoBehaviourPun
 {
     protected UnitCombineSystem _combineSystem;
     protected void Init(DataManager data)
@@ -28,7 +28,7 @@ public abstract class UnitController : MonoBehaviourPun
     protected abstract void Combine(UnitFlags targetFlag, byte id);
 }
 
-public class ClientUnitController : UnitController
+public class ClientUnitController : UnitCombiner
 {
     UnitManager _unit;
     public void Init(DataManager data, UnitManager unit)
@@ -43,7 +43,7 @@ public class ClientUnitController : UnitController
     protected override void Combine(UnitFlags targetFlag, byte id) => photonView.RPC(nameof(Combine), RpcTarget.MasterClient, targetFlag, id);
 }
 
-public class ServerUnitController : UnitController
+public class ServerUnitController : UnitCombiner
 {
     ServerManager _server;
 

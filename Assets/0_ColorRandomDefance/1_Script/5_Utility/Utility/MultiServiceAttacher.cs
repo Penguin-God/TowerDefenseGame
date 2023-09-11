@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MultiServiceAttacher
 {
-    public UnitController AttacherUnitController(BattleDIContainer container)
+    public UnitCombiner AttacherUnitController(BattleDIContainer container)
     {
         if (PhotonNetwork.IsMasterClient)
         {

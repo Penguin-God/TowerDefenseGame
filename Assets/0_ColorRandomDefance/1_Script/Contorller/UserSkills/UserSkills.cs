@@ -92,13 +92,12 @@ public class UserSkillFactory
     IReadOnlyList<SkillType> SimpleSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>() 
     {
         SkillType.시작골드증가, SkillType.마나물약, SkillType.최대유닛증가, SkillType.황금빛기사, SkillType.컬러마스터, SkillType.거인학살자,
-        // SkillType.흑의결속,
     });
 
     IReadOnlyList<SkillType> ComplexSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
     {
         SkillType.태극스킬, SkillType.마나변이, SkillType.마나불능, SkillType.장사꾼, SkillType.도박사, SkillType.메테오,
-        SkillType.네크로맨서, SkillType.덫, SkillType.백의결속, SkillType.흑의결속, SkillType.썬콜, SkillType.VIP,
+        SkillType.네크로맨서, SkillType.덫, SkillType.백의결속, SkillType.흑의결속, SkillType.썬콜, SkillType.VIP, SkillType.부익부,
     });
 
     IReadOnlyList<SkillType> ExistSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
@@ -132,7 +131,6 @@ public class UserSkillFactory
             case SkillType.황금빛기사: Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = skillBattleData.IntSkillData; break;
             case SkillType.컬러마스터: container.GetComponent<SwordmanGachaController>().ChangeUnitSummonMaxColor(UnitColor.Violet); break;
             case SkillType.거인학살자: MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(skillBattleData.SkillData, UnitStatType.BossDamage); break;
-            // case SkillType.흑의결속: new UnitUpgradeHandler().UpgradeUnit(UnitColor.Black, skillBattleData.IntSkillDatas); break;
         }
     }
 
@@ -155,8 +153,8 @@ public class UserSkillFactory
                 result = new SlowTrapSpawner(skillBattleData, Multi_Data.instance.GetEnemyTurnPoints(PlayerIdManager.Id) ,container.GetEventDispatcher()); break;
             case SkillType.백의결속: result = new BondOfWhite(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance); break;
             case SkillType.썬콜: result = new Suncold(skillBattleData, Managers.Data); break;
-            // case SkillType.VIP: result = new VIP(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetService<GoodsBuyController>(), container.GetService<BuyAction>()); break;
             case SkillType.VIP: result = new VIP(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetComponent<TextShowAndHideController>(), container.GetService<BuyAction>()); break;
+            case SkillType.부익부: result = new RichGetRicher(skillBattleData, container.GetEventDispatcher()); break;
             default: result = null; break;
         }
         result.InitSkill();
@@ -548,4 +546,26 @@ public class VIP : UserSkill
     }
 
     internal override void InitSkill() {}
+}
+
+
+public class RichGetRicher : UserSkill
+{
+    readonly int GoldForInterest = 10;
+    public RichGetRicher(UserSkillBattleData userSkillBattleData, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
+    {
+        dispatcher.OnStageUp += stage => PayInterest(stage, IntSkillDatas[0], IntSkillDatas[1]);
+    }
+
+    void PayInterest(int stage, int interestGoldRate, int maxInterestGold)
+    {
+        if (stage == 1) return;
+
+        // 스테이지 증가마다 10골드 주는거 때문에 뺌. 이게 싫으면 스테이지 골드 지급하는 곳을 건드려햐 함.
+        int interestApplicableGold = Mathf.Min(Multi_GameManager.Instance.Gold - 10, maxInterestGold);
+        int interest = interestApplicableGold / GoldForInterest * interestGoldRate;
+        Multi_GameManager.Instance.AddGold(interest);
+    }
+
+    internal override void InitSkill() { }
 }

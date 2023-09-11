@@ -128,6 +128,7 @@ public enum SkillType
     덫,
     백의결속,
     VIP,
+    부익부,
 }
 
 public enum MoneyType

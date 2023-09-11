@@ -20,3 +20,4 @@ VIP,Main,Iron,VIP,상점의 몇몇 상품 가격이 변경되며 특정 개수�
 최대유닛증가,Sub,Iron,시작 최대 유닛 증가,시작 최대 유닛이 증가합니다,Sprites/MaxUnitUpgrade,{data}칸 증가,,,
 마나변이,Sub,Iron,마나 변이,하얀 유닛을 소환할 때마다 동일한 클래스의 상대 유닛 중 하나의 마나 흐름을 어지럽혀 색깔을 무작위로 바꿉니다.,Sprites/ManaMutation,,,,
 덫,Sub,Iron,덫,맵에 적을 느려지게 하는 구체를 두 개 소환합니다,Sprites/SlowTrap,기본 슬로우 : {data},스테이지당 슬로우 : {data},최대 슬로우 : {data},
+부익부,Sub,Iron,부익부,10골드 당 이자를 지급받습니다,Sprites/GoldUpgrade,10골드 당 받는 이자 : {data},최대 적용 가능 이자 : {50},,

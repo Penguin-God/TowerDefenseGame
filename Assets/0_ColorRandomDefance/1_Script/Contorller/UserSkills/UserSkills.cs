@@ -562,7 +562,7 @@ public class RichGetRicher : UserSkill
         if (stage == 1) return;
 
         // 스테이지 증가마다 10골드 주는거 때문에 뺌. 이게 싫으면 스테이지 골드 지급하는 곳을 건드려햐 함.
-        int interestApplicableGold = Mathf.Min(Multi_GameManager.Instance.Gold - 10, maxInterestGold);
+        int interestApplicableGold = Mathf.Min(Multi_GameManager.Instance.Gold, maxInterestGold);
         int interest = interestApplicableGold / GoldForInterest * interestGoldRate;
         Multi_GameManager.Instance.AddGold(interest);
     }

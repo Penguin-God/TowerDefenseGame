@@ -234,12 +234,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
 
     bool CheckTargetUpdateCondition => target == null || (TargetIsNormal && (enemyDistance > stopDistanc * 2 || target.GetComponent<Multi_Enemy>().IsDead));
-    protected void EndAttack()
-    {
-        _state.EndAttack(AttackDelayTime);
-        if (CheckTargetUpdateCondition) UpdateTarget();
-    }
-
+    protected void EndAttack() => EndSkillAttack(AttackDelayTime);
     protected void EndSkillAttack(float coolTime)
     {
         _state.EndAttack(coolTime);

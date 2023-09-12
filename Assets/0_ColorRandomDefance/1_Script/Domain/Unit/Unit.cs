@@ -21,6 +21,8 @@ public class Unit
     public UnitDamageInfo DamageInfo => _damageInfo;
     public void UpdateDamageInfo(UnitDamageInfo newInfo) => _damageInfo = newInfo;
 
+    public float CoolDown;
+
     public Unit(UnitFlags flag, UnitDamageInfo damageInfo)
     {
         _unitFlags = flag;

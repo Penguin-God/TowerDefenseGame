@@ -1,24 +1,32 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UnitAttackController : MonoBehaviour
+public abstract class UnitAttackController : MonoBehaviour
 {
-    MonsterAttacker attacker = new MonsterAttacker();
+    Unit _unit;
 
-    public void Attack()
+    void Attack(Multi_Enemy target, bool isSkill, Action<Multi_Enemy> sideEffect = null)
     {
+        if (target == null) return;
+        target.OnDamage(CalaulateDamage(target), isSkill);
+        sideEffect?.Invoke(target);
+    }
+    int CalaulateDamage(Multi_Enemy target) => target.enemyType == EnemyType.Normal ? _unit.DamageInfo.ApplyDamage : _unit.DamageInfo.ApplyBossDamage;
 
+    public void Attack() => StartCoroutine(Co_AttackTemplate());
+    IEnumerator Co_AttackTemplate()
+    {
+        _unit.ChangeState(UnitState.Attack);
+        yield return StartCoroutine(Co_Attack());
+        StartCoroutine(Co_AttackCoolDown(_unit.CoolDown));
     }
 
-    protected void StartAttack()
-    {
-        // AfterPlaySound(normalAttackSound, normalAttakc_AudioDelay);
-    }
+    protected abstract IEnumerator Co_Attack();
 
     public void EndAttack(float coolTime)
     {
-        // _unitAttackState = _unitAttackState.AttackDone();
         StartCoroutine(Co_AttackCoolDown(coolTime));
     }
 
@@ -26,10 +34,5 @@ public class UnitAttackController : MonoBehaviour
     {
         yield return new WaitForSeconds(coolTime);
         // ReadyAttack();
-    }
-
-    protected void EndSkillAttack(float coolTime)
-    {
-
     }
 }

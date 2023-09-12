@@ -66,7 +66,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         originObstacleType = nav.obstacleAvoidanceType;
 
         _state = gameObject.AddComponent<UnitState>();
-        _chaseSystem = AddCahseSystem();
     }
 
     void Start()
@@ -74,9 +73,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         OnAwake(); // 유닛별 세팅
     }
 
-    protected virtual ChaseSystem AddCahseSystem() => gameObject.AddComponent<ChaseSystem>();
-
     protected MonsterFinder TargetFinder { get; private set; }
+    protected UnitAttacker UnitAttacker { get; private set; }
     public void Injection(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo, MonsterManager monsterManager)
     {
         SetInfoToAll();
@@ -107,7 +105,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     {
         _stat = stat;
         _unit = new Unit(flag, damInfo);
-
+        UnitAttacker = new UnitAttacker(_unit);
         SetUnitInfo(flag, Speed);
         photonView.RPC(nameof(SetUnitInfo), RpcTarget.Others, flag, Speed);
     }
@@ -257,6 +255,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     void Attack(Multi_Enemy target, int attack, bool isSkill, Action<Multi_Enemy> sideEffect)
     {
+        if (target == null) return;
         target.OnDamage(attack, isSkill);
         sideEffect?.Invoke(target);
     }

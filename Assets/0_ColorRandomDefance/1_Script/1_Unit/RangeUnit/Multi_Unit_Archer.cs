@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using System.Linq;
 
-public class Multi_Unit_Archer : Multi_RangeUnit
+public class Multi_Unit_Archer : Multi_TeamSoldier
 {
     [Header("아처 변수")]
     [SerializeField] ProjectileData arrawData;
@@ -18,6 +18,7 @@ public class Multi_Unit_Archer : Multi_RangeUnit
 
     protected override void OnAwake()
     {
+        _chaseSystem = gameObject.AddComponent<RangeChaser>();
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
         _thrower = gameObject.AddComponent<ProjectileThrowingUnit>();
         _thrower.SetInfo(new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags), arrawData.SpawnTransform);

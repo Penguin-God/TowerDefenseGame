@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Multi_Unit_Mage : Multi_RangeUnit
+public class Multi_Unit_Mage : Multi_TeamSoldier
 {
     [Header("메이지 변수")]
     [SerializeField] MageUnitStat mageStat;
@@ -17,6 +17,7 @@ public class Multi_Unit_Mage : Multi_RangeUnit
     protected ManaSystem manaSystem;
     protected override void OnAwake()
     {
+        _chaseSystem = gameObject.AddComponent<RangeChaser>();
         LoadMageStat();
         SetMageAwake();
 

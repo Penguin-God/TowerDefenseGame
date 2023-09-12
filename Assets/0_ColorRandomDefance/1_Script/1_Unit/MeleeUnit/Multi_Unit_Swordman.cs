@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Multi_Unit_Swordman : Multi_MeleeUnit
+public class Multi_Unit_Swordman : Multi_TeamSoldier
 {
     [Header("기사 변수")]
     [SerializeField] GameObject trail;
-
+    
     protected override void OnAwake()
     {
         normalAttackSound = EffectSoundType.SwordmanAttack;
+        _chaseSystem = gameObject.AddComponent<MeeleChaser>();
     }
 
     [PunRPC]
@@ -27,7 +28,7 @@ public class Multi_Unit_Swordman : Multi_MeleeUnit
         yield return new WaitForSeconds(0.3f);
         if (photonView.IsMine)
         {
-            HitMeeleAttack();
+            base.NormalAttack(TargetEnemy);
         }
         trail.SetActive(false);
 

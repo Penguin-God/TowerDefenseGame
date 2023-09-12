@@ -19,7 +19,7 @@ public class SwordmanAttackActor : MonoBehaviour, IUnitAttackActor
         yield return new WaitForSeconds(0.8f);
         _trail.SetActive(true);
         yield return new WaitForSeconds(0.3f);
-        _unitAttacker.Attack(target);
+        // s_unitAttacker.NormalAttack(target);
         _trail.SetActive(false);
     }
 }

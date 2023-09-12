@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Multi_Unit_Spearman : Multi_MeleeUnit
+public class Multi_Unit_Spearman : Multi_TeamSoldier
 {
     [Header("창병 변수")]
 
@@ -18,6 +18,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
 
     protected override void OnAwake()
     {
+        _chaseSystem = gameObject.AddComponent<MeeleChaser>();
         _spearThower = gameObject.AddComponent<ProjectileThrowingUnit>();
         _spearThower.SetInfo(_throwSpearData.WeaponPath, shotSpearData.SpawnTransform);
         
@@ -47,7 +48,7 @@ public class Multi_Unit_Spearman : Multi_MeleeUnit
         yield return new WaitForSeconds(0.3f);
         if (PhotonNetwork.IsMasterClient)
         {
-            HitMeeleAttack();
+            base.NormalAttack(TargetEnemy);
         }
         yield return new WaitForSeconds(0.3f);
         trail.SetActive(false);

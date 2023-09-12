@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class BattleEventDispatcher
 {
@@ -35,5 +34,6 @@ public class BattleEventDispatcher
     public void NotifyGameStart() => OnGameStart?.Invoke();
 
     public event Action<int> OnStageUp = null;
+    public event Action<int> OnStageUpExcludingFirst = null;
     public void NotifyStageUp(int stage) => OnStageUp?.Invoke(stage);
 }

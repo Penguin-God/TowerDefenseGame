@@ -54,7 +54,6 @@ public class BattleDIContainerInitializer
         InjectionOnlyMaster(container);
 
         InitSkill(container);
-        Done(container); // 꼭 마지막에 해야 하는 것들
     }
 
     void AddService(BattleDIContainer container)
@@ -64,43 +63,28 @@ public class BattleDIContainerInitializer
         container.AddComponent<CurrencyManagerMediator>();
         container.AddComponent<UnitMaxCountController>();
         container.AddComponent<MonsterManagerProxy>();
-        container.AddComponent<WinOrLossController>();
-        container.AddComponent<EffectInitializer>();
-        container.AddComponent<OpponentStatusSender>();
         container.AddComponent<EnemySpawnNumManager>();
         container.AddComponent<MultiEffectManager>();
-        container.AddComponent<BuildingClickContoller>();
         container.AddComponent<TextShowAndHideController>();
         container.AddComponent<NormalMonsterSpawner>();
         container.AddComponent<Multi_BossEnemySpawner>();
-        container.AddComponent<RewradController>();
-        container.AddComponent<BattleStartController>();
         container.AddComponent<Multi_NormalUnitSpawner>();
 
         container.AddService(new BattleUI_Mediator(Managers.UI, container));
-
         container.AddService(new BuyAction(container.GetComponent<Multi_NormalUnitSpawner>(), MultiServiceMidiator.UnitUpgrade));
         container.AddService(new GoodsBuyController(game, container.GetComponent<TextShowAndHideController>()));
     }
 
     void InjectService(BattleDIContainer container)
     {
-        container.GetComponent<WinOrLossController>().Inject(dispatcher, container.GetComponent<TextShowAndHideController>());
-        container.GetComponent<OpponentStatusSender>().Init(dispatcher);
         container.GetComponent<SwordmanGachaController>().Init(game, data.BattleDataContainer.UnitSummonData);
         container.GetComponent<CurrencyManagerMediator>().Init(game);
         container.GetComponent<UnitMaxCountController>().Init(null, game);
         container.GetComponent<MonsterManagerProxy>().Init(dispatcher);
         container.GetComponent<MultiEffectManager>().Inject(Managers.Effect);
-        container.GetComponent<BuildingClickContoller>()
-            .Inject(container.GetService<BattleUI_Mediator>(), Managers.UI, container.GetService<BuyAction>(), container.GetService<GoodsBuyController>());
         container.GetComponent<TextShowAndHideController>().Inject(Managers.UI);
         container.GetComponent<NormalMonsterSpawner>().Inject(new MonsterDecorator(container));
         container.GetComponent<Multi_BossEnemySpawner>().Inject(new MonsterDecorator(container));
-        container.GetComponent<RewradController>().Inject(container.GetComponent<Multi_BossEnemySpawner>());
-        container.GetComponent<BattleStartController>().Inject(container.GetEventDispatcher(), container.GetService<BattleUI_Mediator>());
-
-        new UnitCombineNotifier(Managers.Unit, container.GetComponent<TextShowAndHideController>());
     }
 
 
@@ -153,7 +137,7 @@ public class BattleDIContainerInitializer
         Multi_SpawnManagers.BossEnemy.rpcOnDead += () => sound.PlayEffect(EffectSoundType.BossDeadClip);
         Multi_SpawnManagers.TowerEnemy.rpcOnDead += () => sound.PlayEffect(EffectSoundType.TowerDieClip);
 
-        StageManager.Instance.OnUpdateStage += (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);
+        dispatcher.OnStageUp += (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);
     }
 
     void InitSkill(BattleDIContainer container)
@@ -166,12 +150,7 @@ public class BattleDIContainerInitializer
             skillInitializer.AddSkillDependency(container, skillType);
 
         var mySkills = skillInitializer.InitUserSkill(container, multiSkllData.GetData(PlayerIdManager.Id));
-        container.GetComponent<EffectInitializer>().SettingEffect(mySkills);
-    }
-
-    void Done(BattleDIContainer container)
-    {
-        container.GetComponent<BattleStartController>().EnterBattle(container.GetComponent<EnemySpawnNumManager>(), container.GetMultiActiveSkillData().GetData(PlayerIdManager.EnemyId));
+        container.AddComponent<EffectInitializer>().SettingEffect(mySkills);
     }
 
     void AddMultiService<TClient, TMaster> (BattleDIContainer container) where TClient : MonoBehaviour where TMaster : MonoBehaviour

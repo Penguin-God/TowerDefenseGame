@@ -35,6 +35,7 @@ public class BattleScene : BaseScene
         MultiServiceMidiator.Instance.Init();
         _battleDIContainer = new BattleDIContainer(gameObject);
         new WorldInitializer(_battleDIContainer).Init(multiData);
+        GetComponentInChildren<GameReactionInitailizer>().InitReaction(_battleDIContainer);
     }
 
     public override void Clear()
@@ -61,6 +62,7 @@ class WorldInitializer
     {
         new BattleDIContainerInitializer().InjectBattleDependency(_battleDIContainer, multiSkillData);
 
+        
         Managers.Camera.EnterBattleScene();
         InitMonoBehaviourContainer();
         InitObjectPools();
@@ -71,7 +73,6 @@ class WorldInitializer
 
     void InitMonoBehaviourContainer()
     {
-        _battleDIContainer.AddComponent<UnitClickController>();
         _battleDIContainer.AddComponent<UnitColorChangerRpcHandler>();
     }
 
@@ -79,7 +80,7 @@ class WorldInitializer
     {
         Managers.Pool.Init("@PoolManager");
         if (PhotonNetwork.IsMasterClient == false) return;
-        // Managers.Pool.Init("@PoolManager");
+        
         new UnitPoolInitializer().InitPool();
         new MonsterPoolInitializer().InitPool();
         new WeaponPoolInitializer().InitPool();

@@ -3,7 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class UnitAttackController : MonoBehaviour
+public interface IUnitAttackActor
+{
+    IEnumerator Do(Multi_Enemy target);
+    float AttackCoolTime { get; }
+}
+
+public class UnitAttackController : MonoBehaviour
 {
     Unit _unit;
 
@@ -15,19 +21,12 @@ public abstract class UnitAttackController : MonoBehaviour
     }
     int CalaulateDamage(Multi_Enemy target) => target.enemyType == EnemyType.Normal ? _unit.DamageInfo.ApplyDamage : _unit.DamageInfo.ApplyBossDamage;
 
-    public void Attack() => StartCoroutine(Co_AttackTemplate());
-    IEnumerator Co_AttackTemplate()
+    public void Attack(IUnitAttackActor unitAction, Multi_Enemy target) => StartCoroutine(Co_AttackTemplate(unitAction, target));
+    IEnumerator Co_AttackTemplate(IUnitAttackActor unitAction, Multi_Enemy target)
     {
         _unit.ChangeState(UnitState.Attack);
-        yield return StartCoroutine(Co_Attack());
-        StartCoroutine(Co_AttackCoolDown(_unit.CoolDown));
-    }
-
-    protected abstract IEnumerator Co_Attack();
-
-    public void EndAttack(float coolTime)
-    {
-        StartCoroutine(Co_AttackCoolDown(coolTime));
+        yield return StartCoroutine(unitAction.Do(target));
+        StartCoroutine(Co_AttackCoolDown(unitAction.AttackCoolTime));
     }
 
     IEnumerator Co_AttackCoolDown(float coolTime)

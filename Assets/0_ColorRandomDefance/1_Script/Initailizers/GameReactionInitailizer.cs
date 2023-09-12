@@ -14,7 +14,7 @@ public class GameReactionInitailizer : MonoBehaviour
         gameObject.AddComponent<BuildingClickContoller>()
             .Inject(container.GetService<BattleUI_Mediator>(), Managers.UI, container.GetService<BuyAction>(), container.GetService<GoodsBuyController>());
         gameObject.AddComponent<BattleRewardHandler>()
-            .Inject(container.GetEventDispatcher(), container.GetComponent<Multi_BossEnemySpawner>(), new DefaultGoldDataGetter(Multi_GameManager.Instance.BattleData.BattleData));
+            .Inject(container.GetEventDispatcher(), container.GetComponent<Multi_BossEnemySpawner>(), new StageUpGoldRewardCalculator(Multi_GameManager.Instance.BattleData.StageUpGold));
         GameStart(container);
     }
 

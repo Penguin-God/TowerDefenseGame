@@ -9,7 +9,7 @@ public class BattleRewardHandler : MonoBehaviourPun
     void Start()
     {
         _gameManager = Multi_GameManager.Instance;
-        _dispatcher.OnStageUpExcludingFirst += _stage => _gameManager.AddGold(_gameManager.BattleData.StageUpGold);
+        _dispatcher.OnStageUpExcludingFirst += _stage => _gameManager.AddGold(_stageUpGoldRewardCalculator.CalculateGold());
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -20,10 +20,12 @@ public class BattleRewardHandler : MonoBehaviourPun
 
     Multi_BossEnemySpawner _bossSpawner;
     BattleEventDispatcher _dispatcher;
-    public void Inject(BattleEventDispatcher dispatcher, Multi_BossEnemySpawner bossSpawner)
+    IStageUpGoldRewardCalculator _stageUpGoldRewardCalculator;
+    public void Inject(BattleEventDispatcher dispatcher, Multi_BossEnemySpawner bossSpawner, IStageUpGoldRewardCalculator stageUpGoldRewardCalculator)
     {
         _bossSpawner = bossSpawner;
         _dispatcher = dispatcher;
+        _stageUpGoldRewardCalculator = stageUpGoldRewardCalculator;
     }
 
     void GetBossReward(Multi_BossEnemy enemy)
@@ -50,4 +52,16 @@ public class BattleRewardHandler : MonoBehaviourPun
         _gameManager.AddGold(gold);
         _gameManager.AddFood(food);
     }
+}
+
+public interface IStageUpGoldRewardCalculator
+{
+    int CalculateGold();
+}
+
+public class DefaultGoldDataGetter : IStageUpGoldRewardCalculator
+{
+    BattleDataContainer _battleDataContainer;
+    public DefaultGoldDataGetter(BattleDataContainer battleDataContainer) => _battleDataContainer = battleDataContainer;
+    public int CalculateGold() => _battleDataContainer.StageUpGold;
 }

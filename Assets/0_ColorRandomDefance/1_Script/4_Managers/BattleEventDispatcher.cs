@@ -35,5 +35,10 @@ public class BattleEventDispatcher
 
     public event Action<int> OnStageUp = null;
     public event Action<int> OnStageUpExcludingFirst = null;
-    public void NotifyStageUp(int stage) => OnStageUp?.Invoke(stage);
+    public void NotifyStageUp(int stage)
+    {
+        if(stage > 1)
+            OnStageUpExcludingFirst?.Invoke(stage);
+        OnStageUp?.Invoke(stage);
+    }
 }

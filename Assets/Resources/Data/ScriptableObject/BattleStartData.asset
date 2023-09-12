@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bfeca4236701d046a137ff4dcc63043, type: 3}
   m_Name: BattleStartData
   m_EditorClassIdentifier: 
-  Gold: 15
+  Gold: 25
   Food: 1
   StageUpGold: 10
   MaxUnit: 10

@@ -492,7 +492,7 @@ public class GambleInitializer : UserSkill
         
         var gamblerController = new GamblerController(gambleDatas, Multi_GameManager.Instance);
         gamblerController.OnGamble += flag => textController.ShowTextForTime(BuildGameResultText(flag));
-        dispatcher.OnStageUp += stage => AddExpWhepStageUp(stage, IntSkillDatas[2], gamblerController);
+        dispatcher.OnStageUpExcludingFirst += _ => gamblerController.AddExp(IntSkillDatas[2]);
 
         uiMediator.RegisterUI(BattleUI_Type.BattleButtons, "UI_BattleButtonsWhitGambler");
         var ui = uiMediator.ShowUI(BattleUI_Type.BattleButtons).GetComponent<UI_Gambler>();
@@ -500,13 +500,6 @@ public class GambleInitializer : UserSkill
         ui.gameObject.SetActive(false);
     }
     internal override void InitSkill() { }
-
-    void AddExpWhepStageUp(int stage, int epxAmount, GamblerController gamblerController)
-    {
-        if (stage > 1)
-            gamblerController.AddExp(epxAmount);
-    }
-
     string BuildGameResultText(UnitFlags flag) => $"{UnitTextPresenter.DecorateBefore(UnitTextPresenter.GetUnitNameWithColor(flag), flag)} 뽑았습니다.";
 }
 
@@ -554,13 +547,11 @@ public class RichGetRicher : UserSkill
     readonly int GoldForInterest = 10;
     public RichGetRicher(UserSkillBattleData userSkillBattleData, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
     {
-        dispatcher.OnStageUp += stage => PayInterest(stage, IntSkillDatas[0], IntSkillDatas[1]);
+        dispatcher.OnStageUpExcludingFirst += _ => PayInterest(IntSkillDatas[0], IntSkillDatas[1]);
     }
 
-    void PayInterest(int stage, int interestGoldRate, int maxInterestGold)
+    void PayInterest(int interestGoldRate, int maxInterestGold)
     {
-        if (stage == 1) return;
-
         // 스테이지 증가마다 10골드 주는거 때문에 뺌. 이게 싫으면 스테이지 골드 지급하는 곳을 건드려햐 함.
         int interestApplicableGold = Mathf.Min(Multi_GameManager.Instance.Gold, maxInterestGold);
         int interest = interestApplicableGold / GoldForInterest * interestGoldRate;

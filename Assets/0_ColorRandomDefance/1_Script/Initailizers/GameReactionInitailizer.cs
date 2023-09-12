@@ -13,7 +13,7 @@ public class GameReactionInitailizer : MonoBehaviour
         gameObject.AddComponent<OpponentStatusSender>().Init(container.GetEventDispatcher());
         gameObject.AddComponent<BuildingClickContoller>()
             .Inject(container.GetService<BattleUI_Mediator>(), Managers.UI, container.GetService<BuyAction>(), container.GetService<GoodsBuyController>());
-        gameObject.AddComponent<RewradController>().Inject(container.GetComponent<Multi_BossEnemySpawner>());
+        gameObject.AddComponent<BattleRewardHandler>().Inject(container.GetEventDispatcher(), container.GetComponent<Multi_BossEnemySpawner>());
         GameStart(container);
     }
 

@@ -63,8 +63,8 @@ public class UI_Status : UI_Scene
 
     void BindEvent(BattleEventDispatcher dispatcher)
     {
-        StageManager.Instance.OnUpdateStage -= UpdateStage;
-        StageManager.Instance.OnUpdateStage += UpdateStage;
+        dispatcher.OnStageUp -= UpdateStage;
+        dispatcher.OnStageUp += UpdateStage;
 
         Bind_Events();
 

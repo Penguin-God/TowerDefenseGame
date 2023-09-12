@@ -19,7 +19,7 @@ public class UserSkillTestButtons : MonoBehaviour
         var container = FindObjectOfType<BattleScene>().GetBattleContainer();
 
         skillInitializer.AddSkillDependency(container, skillType); // 인터페이스 못 맞춰서 이렇게 하긴 했는데 진짜 별로임.
-        var skill = new UserSkillFactory().ActiveSkill(skillType, container);
+        var skill = new UserSkillActor().ActiveSkill(skillType, container);
 
         container.GetMultiActiveSkillData().GetData(PlayerIdManager.Id).ChangeEquipSkill(Managers.Data.UserSkill.GetSkillBattleData(skillType, 1));
         if(skill != null)

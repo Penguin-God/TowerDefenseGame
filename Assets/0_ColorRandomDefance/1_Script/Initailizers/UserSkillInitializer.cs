@@ -11,7 +11,7 @@ public class UserSkillInitializer
             if (skillType == SkillType.None)
                 continue;
 
-            var userSkill = new UserSkillFactory().ActiveSkill(skillType, container);
+            var userSkill = new UserSkillActor().ActiveSkill(skillType, container);
             if (userSkill != null)
                 userSkills.Add(userSkill);
         }

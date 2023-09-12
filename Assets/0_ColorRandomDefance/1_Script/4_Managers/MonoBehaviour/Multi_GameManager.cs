@@ -131,7 +131,6 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
         _currencyManager.Gold = amount;
         OnGoldChanged?.Invoke(_currencyManager.Gold);
     }
-    public int Gold => _currencyManager.Gold;
 
 
     public event Action<int> OnFoodChanged;

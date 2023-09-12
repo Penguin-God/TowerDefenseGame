@@ -69,6 +69,7 @@ public class BattleDIContainerInitializer
         container.AddComponent<NormalMonsterSpawner>();
         container.AddComponent<Multi_BossEnemySpawner>();
         container.AddComponent<Multi_NormalUnitSpawner>();
+        container.AddComponent<BattleRewardHandler>();
 
         container.AddService(new BattleUI_Mediator(Managers.UI, container));
         container.AddService(new BuyAction(container.GetComponent<Multi_NormalUnitSpawner>(), MultiServiceMidiator.UnitUpgrade));
@@ -85,6 +86,8 @@ public class BattleDIContainerInitializer
         container.GetComponent<TextShowAndHideController>().Inject(Managers.UI);
         container.GetComponent<NormalMonsterSpawner>().Inject(new MonsterDecorator(container));
         container.GetComponent<Multi_BossEnemySpawner>().Inject(new MonsterDecorator(container));
+        container.GetComponent<BattleRewardHandler>()
+            .Inject(container.GetEventDispatcher(), container.GetComponent<Multi_BossEnemySpawner>(), new StageUpGoldRewardCalculator(data.BattleDataContainer.StageUpGold));
     }
 
 

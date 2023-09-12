@@ -5,17 +5,21 @@ using UnityEngine;
 public class RichGetRicherController : StageUpGoldRewardCalculator
 {
     const int GoldForInterest = 10;
-    IBattleCurrencyManager _currencyManager;
-
-    public RichGetRicherController(int rewradGold, IBattleCurrencyManager currencyManager) : base(rewradGold)
-        => _currencyManager = currencyManager;
+    readonly IBattleCurrencyManager _currencyManager;
+    readonly int _interestGoldRate;
+    readonly int _maxInterestGold;
+    public RichGetRicherController(int rewradGold, int interestGoldRate, int maxInterestGold,  IBattleCurrencyManager currencyManager) : base(rewradGold)
+    {
+        _currencyManager = currencyManager;
+        _interestGoldRate = interestGoldRate;
+        _maxInterestGold = maxInterestGold;
+    }
 
     public override int CalculateRewradGold() => base.CalculateRewradGold() + CalculateInterest();
 
     int CalculateInterest()
     {
-        //int interestApplicableGold = Mathf.Min(_currencyManager.Gold, maxInterestGold);
-        //return interestApplicableGold / GoldForInterest * interestGoldRate;
-        return 0;
+        int interestApplicableGold = Mathf.Min(_currencyManager.Gold, _maxInterestGold);
+        return interestApplicableGold / GoldForInterest * _interestGoldRate;
     }
 }

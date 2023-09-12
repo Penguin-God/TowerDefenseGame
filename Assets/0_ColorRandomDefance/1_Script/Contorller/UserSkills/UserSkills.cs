@@ -87,7 +87,7 @@ public struct UserSkillBattleData
     }
 }
 
-public class UserSkillFactory
+public class UserSkillActor
 {
     IReadOnlyList<SkillType> SimpleSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>() 
     {
@@ -154,7 +154,7 @@ public class UserSkillFactory
             case SkillType.백의결속: result = new BondOfWhite(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance); break;
             case SkillType.썬콜: result = new Suncold(skillBattleData, Managers.Data); break;
             case SkillType.VIP: result = new VIP(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetComponent<TextShowAndHideController>(), container.GetService<BuyAction>()); break;
-            case SkillType.부익부: result = new RichGetRicher(skillBattleData, container.GetEventDispatcher()); break;
+            case SkillType.부익부: result = new RichGetRicherHandler(skillBattleData, container.GetComponent<BattleRewardHandler>(), container.GetComponent<CurrencyManagerMediator>()); break;
             default: result = null; break;
         }
         result.InitSkill();
@@ -542,20 +542,12 @@ public class VIP : UserSkill
 }
 
 
-public class RichGetRicher : UserSkill
+public class RichGetRicherHandler : UserSkill
 {
-    readonly int GoldForInterest = 10;
-    public RichGetRicher(UserSkillBattleData userSkillBattleData, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
+    public RichGetRicherHandler(UserSkillBattleData userSkillBattleData, BattleRewardHandler rewardHandler, CurrencyManagerMediator currency) : base(userSkillBattleData)
     {
-        dispatcher.OnStageUpExcludingFirst += _ => PayInterest(IntSkillDatas[0], IntSkillDatas[1]);
-    }
-
-    void PayInterest(int interestGoldRate, int maxInterestGold)
-    {
-        // 스테이지 증가마다 10골드 주는거 때문에 뺌. 이게 싫으면 스테이지 골드 지급하는 곳을 건드려햐 함.
-        int interestApplicableGold = Mathf.Min(Multi_GameManager.Instance.Gold, maxInterestGold);
-        int interest = interestApplicableGold / GoldForInterest * interestGoldRate;
-        Multi_GameManager.Instance.AddGold(interest);
+        var richgetRicher = new RichGetRicherController(Multi_GameManager.Instance.BattleData.StageUpGold, IntSkillDatas[0], IntSkillDatas[1], currency);
+        rewardHandler.ChangeStageRewradCalculator(richgetRicher);
     }
 
     internal override void InitSkill() { }

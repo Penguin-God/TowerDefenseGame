@@ -21,6 +21,7 @@ public class BattleRewardHandler : MonoBehaviourPun
     Multi_BossEnemySpawner _bossSpawner;
     BattleEventDispatcher _dispatcher;
     StageUpGoldRewardCalculator _stageUpGoldRewardCalculator;
+    public void ChangeStageRewradCalculator(StageUpGoldRewardCalculator newCalculator) => _stageUpGoldRewardCalculator = newCalculator;
     public void Inject(BattleEventDispatcher dispatcher, Multi_BossEnemySpawner bossSpawner, StageUpGoldRewardCalculator stageUpGoldRewardCalculator)
     {
         _bossSpawner = bossSpawner;

@@ -1,23 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System;
 
 public class ResourcesPathBuilder
 {
-    static Dictionary<int, string> _numberByName = new Dictionary<int, string>()
+    static Dictionary<int, string> _numberByMonsterName = new Dictionary<int, string>()
     {
         {3, "Swordman" },
         {0, "Archer" },
         {2, "Spearman" },
         {1, "Mage" },
     };
-    public string BuildMonsterPath(int monsterNumber) => $"Enemy/Normal/Enemy_{_numberByName[monsterNumber]} 1";
-    public string BuildBossMonsterPath(int monsterNumber) => $"Enemy/Boss/Boss_Enemy_{_numberByName[monsterNumber]} 1";
+    public string BuildMonsterPath(int monsterNumber) => $"Enemy/Normal/Enemy_{_numberByMonsterName[monsterNumber]} 1";
+    public string BuildBossMonsterPath(int monsterNumber) => $"Enemy/Boss/Boss_Enemy_{_numberByMonsterName[monsterNumber]} 1";
     public string BuildEnemyTowerPath(int towerLevel) => $"Enemy/Tower/Lvl{towerLevel}_Twoer";
 
     public string BuildUnitPath(UnitFlags flag)
-        => $"Unit/{Enum.GetName(typeof(UnitClass), flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}_{Enum.GetName(typeof(UnitClass), flag.UnitClass)} 1";
+    {
+        if(flag.UnitClass == UnitClass.Archer)
+            return $"Unit/{GetClassName(flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}{GetClassName(flag.UnitClass)}";
+        else
+            return $"Unit/{GetClassName(flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}_{GetClassName(flag.UnitClass)} 1";
+    }
+    string GetClassName(UnitClass unitClass) => Enum.GetName(typeof(UnitClass), unitClass);
 
     static Dictionary<UnitClass, string> _unitClassByWeaponName = new Dictionary<UnitClass, string>()
     {

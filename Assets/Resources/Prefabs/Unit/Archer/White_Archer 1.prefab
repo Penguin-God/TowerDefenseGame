@@ -513,7 +513,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &677298355195616117
 Transform:
   m_ObjectHideFlags: 0
@@ -589,6 +589,7 @@ MonoBehaviour:
       _baseBossDamage: 0
       _damageRate: 0
       _bossDamageRate: 0
+    CoolDown: 0
   _stat:
     _flag:
       _colorNumber: 0
@@ -601,14 +602,11 @@ MonoBehaviour:
   stopDistanc: 5
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0
-  _targetManager:
-    _target: {fileID: 0}
   contactEnemy: 0
   arrawData:
     weaponPath: 
     attacker: {fileID: 677298355195616117}
     spawnTransform: {fileID: 677298353708877286}
-  skillArrowCount: 3
   _useSkillPercent: 0
   _skillReboundTime: 0.5
 --- !u!114 &-8746836687991847486

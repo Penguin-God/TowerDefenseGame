@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 298940350712295409}
   - component: {fileID: 298940350712295408}
   - component: {fileID: 860783141728918354}
-  - component: {fileID: 1153026733}
   - component: {fileID: 6651087845108253985}
   - component: {fileID: -1315786142726229913}
   - component: {fileID: 5023698059270700154}
@@ -34,6 +33,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8071277156752018833}
   - {fileID: 887000689540309179}
@@ -78,21 +78,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1153026733
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 298940350712295422}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96a0233801a3d6f4c8020cdf9f5d6b72, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  apply_SturnPercent: 0
-  apply_StrunTime: 0
-  apply_MaxPoisonDamage: 0
 --- !u!114 &6651087845108253985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,8 +111,6 @@ MonoBehaviour:
   stopDistanc: 5
   normalAttackSound: 0
   normalAttakc_AudioDelay: 0.7
-  _targetManager:
-    _target: {fileID: 0}
   contactEnemy: 0
   mageStat:
     _flag:
@@ -143,10 +126,8 @@ MonoBehaviour:
   magicLight: {fileID: 1428039913201168918}
   energyBallTransform: {fileID: 1428039914236047671}
   mageSkillCoolDownTime: 2
-  percent: 0
-  count: 0
-  delay: 0
-  maxDamage: 0
+  poisonCount: 0
+  _damRate: 0
 --- !u!114 &-1315786142726229913
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,6 +221,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.3, y: 2.5, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8071146163105398713}
   m_RootOrder: 0
@@ -303,6 +285,7 @@ Light:
   m_UseColorTemperature: 0
   m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
   m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
 --- !u!1 &1428039914236047664
@@ -331,6 +314,7 @@ Transform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.89543533, y: 2, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8071277156752018833}
   m_RootOrder: 0
@@ -363,6 +347,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.89543533, y: 1.4107137, z: -0.00000019700467}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1428039913201168917}
   m_Father: {fileID: 8071277156752018833}
@@ -387,10 +372,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -415,6 +402,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &8073192741477021859
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,6 +433,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1428039914236047671}
   - {fileID: 8071146163105398713}
@@ -470,10 +459,12 @@ MeshRenderer:
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -498,9 +489,10 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!95 &8073192741477021858
 Animator:
-  serializedVersion: 3
+  serializedVersion: 4
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -513,6 +505,7 @@ Animator:
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1

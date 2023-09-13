@@ -12,7 +12,13 @@ public class UnitPassiveCreator
     public IUnitAttackPassive CreatePassive(UnitFlags flag)
     {
         IReadOnlyList<float> passiveDatas = _data.GetUnitPassiveStats(flag);
-        switch (flag.UnitColor) 
+
+        if (flag == new UnitFlags(UnitColor.Blue, UnitClass.Mage))
+            return new MonsterSlower(0, 0);
+        else if (flag == new UnitFlags(UnitColor.Yellow, UnitClass.Swordman))
+            return null;
+
+        switch (flag.UnitColor)
         {
             case UnitColor.Blue: return new MonsterSlower((int)passiveDatas[0], (int)passiveDatas[1]);
             case UnitColor.Yellow: return new GoldenAttacker((int)passiveDatas[0], (int)passiveDatas[1]);

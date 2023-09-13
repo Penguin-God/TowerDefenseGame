@@ -9,12 +9,13 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
     [Header("아처 변수")]
     [SerializeField] ProjectileData arrawData;
     ProjectileThrowingUnit _thrower;
-    [SerializeField] int skillArrowTargetCount = 3;
     private GameObject trail;
 
     [SerializeField] int _useSkillPercent;
     [SerializeField] float _skillReboundTime;
     [SerializeField] UnitRandomSkillSystem _skillSystem;
+
+    ArcherArrowShoter _archerArrowShoter;
 
     protected override void OnAwake()
     {
@@ -27,6 +28,7 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
         normalAttackSound = EffectSoundType.ArcherAttack;
         _useSkillPercent = 30;
         _skillSystem = new UnitRandomSkillSystem();
+        _archerArrowShoter = new ArcherArrowShoter(TargetFinder, _thrower);
     }
 
     [PunRPC]
@@ -56,30 +58,42 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
         base.SpecialAttack();
         trail.SetActive(false);
 
-        if (PhotonNetwork.IsMasterClient)
-            ShotSkill();
+        if (PhotonNetwork.IsMasterClient && target != null)
+            _archerArrowShoter.ShotSkill(TargetEnemy, SkillAttackWithPassive);
 
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
 
         base.EndSkillAttack(_skillReboundTime);
     }
+}
 
-    void ShotSkill()
+public class ArcherArrowShoter
+{
+    const int ArrowCount = 3;
+    readonly MonsterFinder _monsterFinder;
+    ProjectileThrowingUnit _thrower;
+    public ArcherArrowShoter(MonsterFinder monsterFinder, ProjectileThrowingUnit thrower)
     {
-        Transform[] targetArray = GetTargets();
+        _monsterFinder = monsterFinder;
+        _thrower = thrower;
+    }
+
+    public void ShotSkill(Multi_Enemy currentTarget, System.Action<Multi_Enemy> action)
+    {
+        Transform[] targetArray = GetTargets(currentTarget);
         if (targetArray == null || targetArray.Length == 0) return;
 
-        for (int i = 0; i < skillArrowTargetCount; i++)
+        for (int i = 0; i < ArrowCount; i++)
         {
             int targetIndex = i % targetArray.Length;
-            _thrower.FlatThrow(targetArray[targetIndex], SkillAttackWithPassive);
+            _thrower.FlatThrow(targetArray[targetIndex], action);
         }
     }
 
-    Transform[] GetTargets()
+    Transform[] GetTargets(Multi_Enemy currentTarget)
     {
-        if (TargetIsNormal == false) return new Transform[] { target };
-        return TargetFinder.GetProximateEnemys(transform.position, skillArrowTargetCount).Select(x => x.transform).ToArray();
+        if (currentTarget.enemyType != EnemyType.Normal) return new Transform[] { currentTarget.transform };
+        return _monsterFinder.GetProximateEnemys(currentTarget.transform.position, ArrowCount).Select(x => x.transform).ToArray();
     }
 }

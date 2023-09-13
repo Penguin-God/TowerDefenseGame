@@ -17,7 +17,7 @@ public class ResourcesPathBuilder
 
     public string BuildUnitPath(UnitFlags flag)
     {
-        if(flag.UnitClass == UnitClass.Archer)
+        if(flag.UnitClass == UnitClass.Archer || flag.UnitClass == UnitClass.Swordman)
             return $"Unit/{GetClassName(flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}{GetClassName(flag.UnitClass)}";
         else
             return $"Unit/{GetClassName(flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}_{GetClassName(flag.UnitClass)} 1";

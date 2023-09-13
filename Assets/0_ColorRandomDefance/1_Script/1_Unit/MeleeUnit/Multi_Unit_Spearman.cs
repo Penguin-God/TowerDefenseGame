@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using System;
 
 public class Multi_Unit_Spearman : Multi_TeamSoldier
 {
     [Header("창병 변수")]
 
     [SerializeField] ProjectileData shotSpearData;
-    ProjectileThrowingUnit _spearThower;
     [SerializeField] GameObject trail;
     [SerializeField] GameObject spear; // 평타칠 때 쓰는 창
 
@@ -19,20 +19,22 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
     protected override void OnAwake()
     {
         _chaseSystem = gameObject.AddComponent<MeeleChaser>();
-        _spearThower = gameObject.AddComponent<ProjectileThrowingUnit>();
-        _spearThower.SetInfo(_throwSpearData.WeaponPath, shotSpearData.SpawnTransform);
         
         normalAttackSound = EffectSoundType.SpearmanAttack;
         _useSkillPercent = 30;
         _skillSystem = new UnitRandomSkillSystem();
     }
-
+    SpearShoter _spearShoter;
     ThrowSpearData _throwSpearData;
     public void SetSpearData(ThrowSpearDataContainer throwSpearData)
     {
         var bulider = new ResourcesPathBuilder();
         string spearPath = throwSpearData.IsMagic ? bulider.BuildMagicSpaerPath(UnitColor) : bulider.BuildUnitWeaponPath(UnitFlags);
         _throwSpearData = new ThrowSpearData(spearPath, throwSpearData.RotateVector, throwSpearData.WaitForVisibilityTime, throwSpearData.AttackRate);
+
+        var spearThower = gameObject.GetOrAddComponent<ProjectileThrowingUnit>();
+        spearThower.SetInfo(_throwSpearData.WeaponPath, shotSpearData.SpawnTransform);
+        _spearShoter = new SpearShoter(_throwSpearData, spearThower);
     }
 
     [PunRPC]
@@ -63,9 +65,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         base.SpecialAttack();
         animator.SetTrigger("isSpecialAttack");
         if(PhotonNetwork.IsMasterClient)
-            StartCoroutine(Co_ShotSpear());
-
-        yield return new WaitForSeconds(1f);
+            yield return StartCoroutine(_spearShoter.Co_ShotSpear(transform, shotSpearData.SpawnTransform.position, SpearHitAction()));
 
         spear.SetActive(false);
         nav.isStopped = true;
@@ -78,28 +78,42 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         base.EndSkillAttack(_skillReboundTime);
     }
 
-    IEnumerator Co_ShotSpear()
+    Action<Multi_Enemy> SpearHitAction() => (monster) => SkillAttackWithPassive(monster, Mathf.RoundToInt(CalaulateAttack() * _throwSpearData.AttackRate));
+}
+
+public class SpearShoter
+{
+    ThrowSpearData _throwSpearData;
+    ProjectileThrowingUnit _spearThower;
+
+    public SpearShoter(ThrowSpearData throwSpearData, ProjectileThrowingUnit spearThower)
     {
-        yield return new WaitForSeconds(_throwSpearData.WaitForVisibility);
-        var shotSpear = CreateThorwSpear();
-        yield return new WaitForSeconds(1 - _throwSpearData.WaitForVisibility);
-        ThrowSpear(shotSpear);
+        _throwSpearData = throwSpearData;
+        _spearThower = spearThower;
     }
 
-    Multi_Projectile CreateThorwSpear()
+    public IEnumerator Co_ShotSpear(Transform transform, Vector3 spawnPos, Action<Multi_Enemy> action)
     {
-        var shotSpear = Managers.Multi.Instantiater.PhotonInstantiate(_throwSpearData.WeaponPath, shotSpearData.SpawnTransform.position).GetComponent<Multi_Projectile>();
+        yield return new WaitForSeconds(_throwSpearData.WaitForVisibility);
+        var shotSpear = CreateThorwSpear(transform.forward, spawnPos);
+        yield return new WaitForSeconds(1 - _throwSpearData.WaitForVisibility);
+        ThrowSpear(shotSpear, transform.forward, action);
+    }
+
+    Multi_Projectile CreateThorwSpear(Vector3 forward, Vector3 spawnPos)
+    {
+        var shotSpear = Managers.Multi.Instantiater.PhotonInstantiate(_throwSpearData.WeaponPath, spawnPos).GetComponent<Multi_Projectile>();
         shotSpear.GetComponent<Collider>().enabled = false;
-        Quaternion lookDir = Quaternion.LookRotation(transform.forward);
+        Quaternion lookDir = Quaternion.LookRotation(forward);
         shotSpear.GetComponent<RPCable>().SetRotation_RPC(lookDir);
         return shotSpear;
     }
 
-    void ThrowSpear(Multi_Projectile shotSpear)
+    void ThrowSpear(Multi_Projectile shotSpear, Vector3 forward, System.Action<Multi_Enemy> action)
     {
-        shotSpear.SetHitAction(monster => SkillAttackWithPassive(monster, Mathf.RoundToInt(CalaulateAttack() * _throwSpearData.AttackRate)));
+        shotSpear.SetHitAction(action);
         shotSpear.GetComponent<Collider>().enabled = true;
-        _spearThower.Throw(shotSpear, transform.forward);
+        _spearThower.Throw(shotSpear, forward);
         if (Vector3.zero != _throwSpearData.RotateVector)
             shotSpear.GetComponent<RPCable>().SetRotate_RPC(_throwSpearData.RotateVector);
     }

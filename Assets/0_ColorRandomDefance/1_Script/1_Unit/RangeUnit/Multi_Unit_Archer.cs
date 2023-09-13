@@ -43,7 +43,7 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
         trail.SetActive(false);
         if (PhotonNetwork.IsMasterClient && target != null && Chaseable)
         {
-            _thrower.FlatThrow(target, base.NormalAttack);
+            _thrower.FlatThrow(target, ArcherNormalAttack);
         }
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
@@ -59,12 +59,21 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
         trail.SetActive(false);
 
         if (PhotonNetwork.IsMasterClient && target != null)
-            _archerArrowShoter.ShotSkill(TargetEnemy, SkillAttackWithPassive);
+            _archerArrowShoter.ShotSkill(TargetEnemy, SkillAttack);
 
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
 
         base.EndSkillAttack(_skillReboundTime);
+    }
+
+    void ArcherNormalAttack(Multi_Enemy target) => Attack(target, false);
+    void SkillAttack(Multi_Enemy target) => Attack(target, true);
+    void Attack(Multi_Enemy target, bool isSkill)
+    {
+        if (target == null) return;
+        target.OnDamage(CalculateAttack(), isSkill);
+        new UnitPassiveCreator(Managers.Data).CreatePassive(UnitFlags).DoUnitPassive(this, target);
     }
 }
 

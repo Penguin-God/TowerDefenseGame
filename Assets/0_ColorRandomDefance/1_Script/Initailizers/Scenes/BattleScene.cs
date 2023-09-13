@@ -88,7 +88,7 @@ class WorldInitializer
 
     void BindUnitEvent()
     {
-        Managers.Unit.OnCombine += new UnitPassiveController().AddYellowSwordmanCombineGold;
+        Managers.Unit.OnCombine += new UnitPassiveHandler().AddYellowSwordmanCombineGold;
     }
 
     void InitEffect()

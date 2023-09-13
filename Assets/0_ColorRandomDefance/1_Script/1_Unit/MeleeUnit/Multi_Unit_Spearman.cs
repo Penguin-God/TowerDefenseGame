@@ -78,7 +78,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         base.EndSkillAttack(_skillReboundTime);
     }
 
-    Action<Multi_Enemy> SpearHitAction() => (monster) => SkillAttackWithPassive(monster, Mathf.RoundToInt(CalaulateAttack() * _throwSpearData.AttackRate));
+    Action<Multi_Enemy> SpearHitAction() => (monster) => SkillAttackWithPassive(monster, Mathf.RoundToInt(CalculateAttack() * _throwSpearData.AttackRate));
 }
 
 public class SpearShoter

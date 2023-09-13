@@ -245,9 +245,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     protected bool TargetIsNormal => target != null && TargetEnemy.enemyType == EnemyType.Normal;
 
-    protected void NormalAttack(Multi_Enemy target) => Attack(target, CalaulateAttack(), false, OnPassiveHit);
-    protected void SkillAttackWithPassive(Multi_Enemy target) => Attack(target, CalaulateAttack(), true, OnPassiveHit);
-    protected int CalaulateAttack() => TargetIsNormal ? Damage : BossDamage;
+    protected void NormalAttack(Multi_Enemy target) => Attack(target, CalculateAttack(), false, OnPassiveHit);
+    protected void SkillAttackWithPassive(Multi_Enemy target) => Attack(target, CalculateAttack(), true, OnPassiveHit);
+    protected int CalculateAttack() => TargetIsNormal ? Damage : BossDamage;
 
     protected void SkillAttack(Multi_Enemy target, int attack) => Attack(target, attack, true, null);
     protected void SkillAttackWithPassive(Multi_Enemy target, int attack) => SkillAttackWithSide(target, attack, OnPassiveHit);

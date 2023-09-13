@@ -27,17 +27,9 @@ public class Multi_Unit_Swordman : Multi_TeamSoldier
         trail.SetActive(true);
         yield return new WaitForSeconds(0.3f);
         if (photonView.IsMine)
-            ArcherNormalAttack(TargetEnemy);
+            UnitAttacker.NormalAttack(TargetEnemy);
         trail.SetActive(false);
 
         EndAttack();
-    }
-
-    void ArcherNormalAttack(Multi_Enemy target) => Attack(target, false);
-    void Attack(Multi_Enemy target, bool isSkill)
-    {
-        if (target == null) return;
-        target.OnDamage(CalculateAttack(), isSkill);
-        new UnitPassiveCreator(Managers.Data).CreatePassive(UnitFlags)?.DoUnitPassive(Unit, target);
     }
 }

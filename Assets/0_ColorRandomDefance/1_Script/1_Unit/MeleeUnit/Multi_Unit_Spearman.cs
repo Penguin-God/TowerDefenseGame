@@ -49,7 +49,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         trail.SetActive(true);
         yield return new WaitForSeconds(0.3f);
         if (PhotonNetwork.IsMasterClient)
-            ArcherNormalAttack(TargetEnemy);
+            UnitAttacker.NormalAttack(TargetEnemy);
         yield return new WaitForSeconds(0.3f);
         trail.SetActive(false);
 
@@ -76,14 +76,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         base.EndSkillAttack(_skillReboundTime);
     }
 
-    void ArcherNormalAttack(Multi_Enemy target) => Attack(target, CalculateAttack(), false);
-    void SpearmanSkillAttack(Multi_Enemy target) => Attack(target, Mathf.RoundToInt(CalculateAttack() * _throwSpearData.AttackRate), true);
-    void Attack(Multi_Enemy target, int attack, bool isSkill)
-    {
-        if (target == null) return;
-        target.OnDamage(attack, isSkill);
-        new UnitPassiveCreator(Managers.Data).CreatePassive(UnitFlags)?.DoUnitPassive(Unit, target);
-    }
+    void SpearmanSkillAttack(Multi_Enemy target) => UnitAttacker.SkillAttack(target, Mathf.RoundToInt(CalculateAttack() * _throwSpearData.AttackRate));
 }
 
 public class SpearShoter

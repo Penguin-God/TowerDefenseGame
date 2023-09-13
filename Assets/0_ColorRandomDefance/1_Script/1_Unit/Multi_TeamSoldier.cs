@@ -32,7 +32,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public Transform target => _targetManager.Target == null ? null : TargetEnemy.transform;
     protected Multi_Enemy TargetEnemy => _targetManager.Target;
 
-    protected Multi_UnitPassive passive;
     protected NavMeshAgent nav;
     private ObstacleAvoidanceType originObstacleType;
     protected Animator animator;
@@ -40,8 +39,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public byte UsingID => (byte)rpcable.UsingId;
     [SerializeField] protected EffectSoundType normalAttackSound;
     public float normalAttakc_AudioDelay;
-
-    public Action<Multi_Enemy> OnPassiveHit;
 
     public event Action<Multi_TeamSoldier> OnDead;
 
@@ -60,7 +57,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     void Awake()
     {
         // 변수 선언
-        passive = GetComponent<Multi_UnitPassive>();
         rpcable = GetComponent<RPCable>();
         animator = GetComponentInChildren<Animator>();
         nav = GetComponent<NavMeshAgent>();
@@ -115,7 +111,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected void SetUnitInfo(UnitFlags flag, float speed)
     {
         _unit = new Unit(flag, _unit == null ? new UnitDamageInfo() : _unit.DamageInfo, new UnitSpot()); // 클라에서 flag만 채우는 용도
-        SetPassive();
         Speed = speed;
     }
 
@@ -144,19 +139,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         StopAllCoroutines();
         ResetAiStateValue();
     }
-    
-    [PunRPC]
-    protected void SetPassive()
-    {
-        if (passive == null) return;
-
-        if (OnPassiveHit != null)
-            OnPassiveHit = null;
-
-        passive.LoadStat(UnitFlags);
-        passive.SetPassive(this);
-    }
-
 
     public void Dead() => photonView.RPC(nameof(RPC_Dead), RpcTarget.All);
 
@@ -233,6 +215,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
 
     bool CheckTargetUpdateCondition => target == null || (TargetIsNormal && (enemyDistance > stopDistanc * 2 || target.GetComponent<Multi_Enemy>().IsDead));
+    bool TargetIsNormal => target != null && TargetEnemy.enemyType == EnemyType.Normal;
     protected void EndAttack() => EndSkillAttack(AttackDelayTime);
     protected void EndSkillAttack(float coolTime)
     {
@@ -243,18 +226,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [SerializeField] protected float enemyDistance => _chaseSystem.EnemyDistance;
     readonly float CHASE_RANGE = 150f;
     protected bool Chaseable => CHASE_RANGE > enemyDistance; // 거리가 아닌 다른 조건(IsDead 등)으로 바꾸기
-
-    protected bool TargetIsNormal => target != null && TargetEnemy.enemyType == EnemyType.Normal;
-
-
-    protected void SkillAttack(Multi_Enemy target, int attack) => Attack(target, attack, true, null);
-
-    void Attack(Multi_Enemy target, int attack, bool isSkill, Action<Multi_Enemy> sideEffect)
-    {
-        if (target == null) return;
-        target.OnDamage(attack, isSkill);
-        sideEffect?.Invoke(target);
-    }
 
     public void ChangeWorldToMaster() => photonView.RPC(nameof(ChangeWorld), RpcTarget.MasterClient);
 

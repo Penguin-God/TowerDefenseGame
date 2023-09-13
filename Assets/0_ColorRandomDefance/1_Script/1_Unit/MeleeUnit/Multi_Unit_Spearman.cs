@@ -82,7 +82,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
     {
         if (target == null) return;
         target.OnDamage(attack, isSkill);
-        new UnitPassiveCreator(Managers.Data).CreatePassive(UnitFlags)?.DoUnitPassive(this, target);
+        new UnitPassiveCreator(Managers.Data).CreatePassive(UnitFlags)?.DoUnitPassive(Unit, target);
     }
 }
 

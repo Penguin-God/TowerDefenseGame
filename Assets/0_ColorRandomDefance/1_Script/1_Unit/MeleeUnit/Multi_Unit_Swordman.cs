@@ -38,6 +38,6 @@ public class Multi_Unit_Swordman : Multi_TeamSoldier
     {
         if (target == null) return;
         target.OnDamage(CalculateAttack(), isSkill);
-        new UnitPassiveCreator(Managers.Data).CreatePassive(UnitFlags)?.DoUnitPassive(this, target);
+        new UnitPassiveCreator(Managers.Data).CreatePassive(UnitFlags)?.DoUnitPassive(Unit, target);
     }
 }

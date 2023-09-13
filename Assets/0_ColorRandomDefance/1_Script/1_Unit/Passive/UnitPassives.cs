@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface IUnitAttackPassive
 {
-    void DoUnitPassive(Multi_TeamSoldier unit, Multi_Enemy target);
+    void DoUnitPassive(Unit unit, Multi_Enemy target);
 }
 
 public class MonsterSlower : IUnitAttackPassive
@@ -18,7 +18,7 @@ public class MonsterSlower : IUnitAttackPassive
         SlowTime = slowTime;
     }
 
-    public void DoUnitPassive(Multi_TeamSoldier unit, Multi_Enemy target) => target.GetComponent<Multi_NormalEnemy>()?.OnSlowWithTime(SlowRate, SlowTime, unit.UnitFlags);
+    public void DoUnitPassive(Unit unit, Multi_Enemy target) => target.GetComponent<Multi_NormalEnemy>()?.OnSlowWithTime(SlowRate, SlowTime, unit.UnitFlags);
 }
 
 public class GoldenAttacker : IUnitAttackPassive
@@ -32,12 +32,12 @@ public class GoldenAttacker : IUnitAttackPassive
         GainGold = gainGold;
     }
 
-    public void DoUnitPassive(Multi_TeamSoldier unit, Multi_Enemy target)
+    public void DoUnitPassive(Unit unit, Multi_Enemy target)
     {
         int random = Random.Range(0, 100);
         if (random < GoldGainRate)
         {
-            Multi_GameManager.Instance.AddGold_RPC(GainGold, unit.UsingID);
+            Multi_GameManager.Instance.AddGold_RPC(GainGold, unit.UnitSpot.WorldId);
             Managers.Sound.PlayEffect(EffectSoundType.GetPassiveGold);
         }
     }
@@ -58,7 +58,7 @@ public class PosionAndStunActor : IUnitAttackPassive
         MaxPoisonDamage = maxPoisonDamage;
     }
 
-    public void DoUnitPassive(Multi_TeamSoldier unit, Multi_Enemy target)
+    public void DoUnitPassive(Unit unit, Multi_Enemy target)
     {
         target.OnStun_RPC(SturnPercent, StrunTime);
         target.OnPoison_RPC(PoisonTickCount, MaxPoisonDamage, isSkill: true);

@@ -12,6 +12,7 @@ public enum UnitClass { Swordman, Archer, Spearman, Mage }
 public class Multi_TeamSoldier : MonoBehaviourPun
 {
     [SerializeField] Unit _unit;
+    public Unit Unit => _unit;
     public UnitFlags UnitFlags => _unit.UnitFlags;
 
     public UnitClass UnitClass => UnitFlags.UnitClass;
@@ -104,7 +105,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     void SetInfo(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo)
     {
         _stat = stat;
-        _unit = new Unit(flag, damInfo);
+        _unit = new Unit(flag, damInfo, new UnitSpot(UsingID, true));
         UnitAttacker = new UnitAttacker(_unit);
         SetUnitInfo(flag, Speed);
         photonView.RPC(nameof(SetUnitInfo), RpcTarget.Others, flag, Speed);
@@ -113,7 +114,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [PunRPC]
     protected void SetUnitInfo(UnitFlags flag, float speed)
     {
-        _unit = new Unit(flag, _unit == null ? new UnitDamageInfo() : _unit.DamageInfo); // 클라에서 flag만 채우는 용도
+        _unit = new Unit(flag, _unit == null ? new UnitDamageInfo() : _unit.DamageInfo, new UnitSpot()); // 클라에서 flag만 채우는 용도
         SetPassive();
         Speed = speed;
     }

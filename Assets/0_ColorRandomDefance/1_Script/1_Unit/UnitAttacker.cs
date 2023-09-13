@@ -8,10 +8,10 @@ public class UnitAttacker
     public UnitAttacker(Unit unit) => _unit = unit;
 
     // 스킬일 때는 더 높은 대미지였나?
-    int CalculrateDamage(EnemyType type) => type == EnemyType.Normal ? _unit.DamageInfo.ApplyDamage : _unit.DamageInfo.ApplyBossDamage;
+    public int CalculateDamage(EnemyType type) => type == EnemyType.Normal ? _unit.DamageInfo.ApplyDamage : _unit.DamageInfo.ApplyBossDamage;
 
-    public void NormalAttack(Multi_Enemy target) => Attack(target, CalculrateDamage(target.enemyType), false);
-    public void SkillAttack(Multi_Enemy target) => Attack(target, CalculrateDamage(target.enemyType), true);
+    public void NormalAttack(Multi_Enemy target) => Attack(target, CalculateDamage(target.enemyType), false);
+    public void SkillAttack(Multi_Enemy target) => Attack(target, CalculateDamage(target.enemyType), true);
     public void SkillAttack(Multi_Enemy target, int damage) => Attack(target, damage, true);
     void Attack(Multi_Enemy target, int damage, bool isSkill)
     {

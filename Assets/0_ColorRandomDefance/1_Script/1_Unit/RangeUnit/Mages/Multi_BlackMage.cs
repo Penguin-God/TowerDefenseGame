@@ -23,5 +23,5 @@ public class Multi_BlackMage : Multi_Unit_Mage
     }
     protected override void PlaySkillSound() => PlaySound(EffectSoundType.BlackMageSkill);
 
-    void OnSkillHit(Multi_Enemy enemy) => base.SkillAttack(enemy, CalculateSkillDamage(_damRate));
+    void OnSkillHit(Multi_Enemy enemy) => UnitAttacker.SkillAttack(enemy, CalculateSkillDamage(_damRate));
 }

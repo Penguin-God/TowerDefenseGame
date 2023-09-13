@@ -76,7 +76,8 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         base.EndSkillAttack(_skillReboundTime);
     }
 
-    void SpearmanSkillAttack(Multi_Enemy target) => UnitAttacker.SkillAttack(target, Mathf.RoundToInt(CalculateAttack() * _throwSpearData.AttackRate));
+    void SpearmanSkillAttack(Multi_Enemy target) => UnitAttacker.SkillAttack(target, CalculateSpearDamage(target.enemyType));
+    int CalculateSpearDamage(EnemyType enemyType) => Mathf.RoundToInt(UnitAttacker.CalculateDamage(enemyType) * _throwSpearData.AttackRate);
 }
 
 public class SpearShoter

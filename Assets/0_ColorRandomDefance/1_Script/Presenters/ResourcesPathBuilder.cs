@@ -2,6 +2,17 @@
 using System.Collections.Generic;
 using System;
 
+public enum SkillEffectType
+{
+    Meteor,
+    IceCloud,
+    YellowMagicCircle,
+    GreenEnergyBall,
+    BlackEnergyBall,
+    OrangeWater,
+    Posion,
+}
+
 public class ResourcesPathBuilder
 {
     static Dictionary<int, string> _numberByMonsterName = new Dictionary<int, string>()
@@ -53,6 +64,22 @@ public class ResourcesPathBuilder
             case UnitColor.Orange: effectName = "OrangeMage SkillEffect 1"; break;
             case UnitColor.Violet: effectName = "MagePosionEffect 1"; break;
             case UnitColor.Black: effectName = "BlackMageSkileBall 1"; break;
+        }
+        return $"Weapon/MageSkills/{effectName}";
+    }
+
+    public string BuildEffectPath(SkillEffectType effectType)
+    {
+        string effectName = "";
+        switch (effectType)
+        {
+            case SkillEffectType.Meteor: effectName = "Meteor 1"; break;
+            case SkillEffectType.IceCloud: effectName = "IceCloud 1"; break;
+            case SkillEffectType.YellowMagicCircle: effectName = "Yellow Skile Object 1"; break;
+            case SkillEffectType.GreenEnergyBall: effectName = "GreenMage BounceBall 1"; break;
+            case SkillEffectType.BlackEnergyBall: effectName = "BlackMageSkileBall 1"; break;
+            case SkillEffectType.OrangeWater: effectName = "OrangeMage SkillEffect 1"; break;
+            case SkillEffectType.Posion: effectName = "MagePosionEffect 1"; break;
         }
         return $"Weapon/MageSkills/{effectName}";
     }

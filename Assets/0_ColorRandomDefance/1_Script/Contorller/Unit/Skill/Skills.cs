@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Skills : MonoBehaviour
+public interface IUnitSkill
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    void DoSkill();
+}
 
-    // Update is called once per frame
-    void Update()
+public class GainGold : IUnitSkill
+{
+    readonly int AddGold;
+    public GainGold(int addGold) => AddGold = addGold;
+
+    // protected override void PlaySkillSound() => AfterPlaySound(EffectSoundType.BlackMageSkill, 0.5f);
+    public void DoSkill()
     {
-        
+        // SkillSpawn(transform.position + (Vector3.up * 0.6f));
+        // Multi_GameManager.Instance.AddGold_RPC(AddGold, rpcable.UsingId);
     }
 }

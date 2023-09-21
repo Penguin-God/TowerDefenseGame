@@ -14,11 +14,13 @@ public class ManaSystem : MonoBehaviourPun
     public void LockMana() => manaIsLock = true;
     public void ReleaseMana() => manaIsLock = false;
 
-    public bool IsManaFull => _currentMana >= _maxMana;
+    public bool IsManaFull => _manaUseCase.IsManaFull;
 
     private Slider manaSlider;
+    ManaUseCase _manaUseCase;
     public void SetInfo(int maxMana, int addMana)
     {
+        _manaUseCase = new ManaUseCase(maxMana);
         canvasRectTransform = transform.GetComponentInChildren<RectTransform>();
         manaSlider = transform.GetComponentInChildren<Slider>();
 
@@ -34,21 +36,22 @@ public class ManaSystem : MonoBehaviourPun
     public void AddMana_RPC()
     {
         if (manaIsLock) return;
-        photonView.RPC("AddMana", RpcTarget.All);
+        photonView.RPC(nameof(AddMana), RpcTarget.All);
     }
 
     [PunRPC]
     void AddMana()
     {
-        _currentMana += _addMana;
+        _currentMana = _manaUseCase.AddMana(_addMana);
         manaSlider.value = _currentMana;
     }
 
-    public void ClearMana_RPC() => photonView.RPC("ClearMana", RpcTarget.All);
+    public void ClearMana_RPC() => photonView.RPC(nameof(ClearMana), RpcTarget.All);
     [PunRPC]
     void ClearMana()
     {
         _currentMana = 0;
+        _manaUseCase.ClearMana();
         manaSlider.value = 0;
     }
 

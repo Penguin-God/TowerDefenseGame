@@ -234,7 +234,6 @@ MonoBehaviour:
     _speed: 0
     _attackRange: 0
   stopDistanc: 5
-  normalAttackSound: 0
   normalAttakc_AudioDelay: 0.7
   contactEnemy: 0
   mageStat:

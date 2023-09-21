@@ -7,8 +7,7 @@ using System;
 public class Multi_Unit_Spearman : Multi_TeamSoldier
 {
     [Header("창병 변수")]
-
-    [SerializeField] ProjectileData shotSpearData;
+    [SerializeField] Transform spearShotPoint;
     [SerializeField] GameObject trail;
     [SerializeField] GameObject spear; // 평타칠 때 쓰는 창
 
@@ -33,7 +32,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         _throwSpearData = new ThrowSpearData(spearPath, throwSpearData.RotateVector, throwSpearData.WaitForVisibilityTime, throwSpearData.AttackRate);
 
         var spearThower = gameObject.GetOrAddComponent<ProjectileThrowingUnit>();
-        spearThower.SetInfo(_throwSpearData.WeaponPath, shotSpearData.SpawnTransform);
+        spearThower.SetInfo(_throwSpearData.WeaponPath, spearShotPoint);
         _spearShoter = new SpearShoter(_throwSpearData, spearThower);
     }
 
@@ -63,7 +62,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         base.SpecialAttack();
         animator.SetTrigger("isSpecialAttack");
         if(PhotonNetwork.IsMasterClient)
-            yield return StartCoroutine(_spearShoter.Co_ShotSpear(transform, shotSpearData.SpawnTransform.position, SpearmanSkillAttack));
+            yield return StartCoroutine(_spearShoter.Co_ShotSpear(transform, spearShotPoint.position, SpearmanSkillAttack));
 
         spear.SetActive(false);
         nav.isStopped = true;

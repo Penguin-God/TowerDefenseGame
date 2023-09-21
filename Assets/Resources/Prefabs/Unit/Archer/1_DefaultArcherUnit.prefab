@@ -365,7 +365,6 @@ MonoBehaviour:
       _baseBossDamage: 0
       _damageRate: 0
       _bossDamageRate: 0
-    CoolDown: 0
   _stat:
     _flag:
       _colorNumber: 0
@@ -376,9 +375,9 @@ MonoBehaviour:
     _speed: 0
     _attackRange: 0
   stopDistanc: 5
-  normalAttackSound: 0
   normalAttakc_AudioDelay: 0
   contactEnemy: 0
+  arrowShotPoint: {fileID: 1242346496465952324}
   arrawData:
     weaponPath: 
     attacker: {fileID: 1242346495604130007}

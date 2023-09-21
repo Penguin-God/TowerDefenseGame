@@ -37,7 +37,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected Animator animator;
     protected RPCable rpcable;
     public byte UsingID => (byte)rpcable.UsingId;
-    [SerializeField] protected EffectSoundType normalAttackSound;
+    protected EffectSoundType normalAttackSound;
     public float normalAttakc_AudioDelay;
 
     public event Action<Multi_TeamSoldier> OnDead;

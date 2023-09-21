@@ -4,7 +4,6 @@ using UnityEngine;
 using System;
 using Random = UnityEngine.Random;
 
-[Serializable]
 public class UnitRandomSkillSystem
 {
     public bool Attack(Action normalAct, Action skillAct, int rate)

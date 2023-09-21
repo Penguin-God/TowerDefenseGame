@@ -7,13 +7,13 @@ using System.Linq;
 public class Multi_Unit_Archer : Multi_TeamSoldier
 {
     [Header("아처 변수")]
-    [SerializeField] ProjectileData arrawData;
+    [SerializeField] Transform arrowShotPoint;
     ProjectileThrowingUnit _thrower;
     private GameObject trail;
 
     [SerializeField] int _useSkillPercent;
     [SerializeField] float _skillReboundTime;
-    [SerializeField] UnitRandomSkillSystem _skillSystem;
+    UnitRandomSkillSystem _skillSystem;
 
     ArcherArrowShoter _archerArrowShoter;
 
@@ -22,9 +22,8 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
         _chaseSystem = gameObject.AddComponent<RangeChaser>();
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
         _thrower = gameObject.AddComponent<ProjectileThrowingUnit>();
-        _thrower.SetInfo(new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags), arrawData.SpawnTransform);
+        _thrower.SetInfo(new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags), arrowShotPoint);
 
-        arrawData = new ProjectileData(new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags), transform, arrawData.SpawnTransform);
         normalAttackSound = EffectSoundType.ArcherAttack;
         _useSkillPercent = 30;
         _skillSystem = new UnitRandomSkillSystem();

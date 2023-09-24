@@ -24,7 +24,7 @@ public class UnitAttackController : MonoBehaviour
     public void Attack(IUnitAttackActor unitAction, Multi_Enemy target) => StartCoroutine(Co_AttackTemplate(unitAction, target));
     IEnumerator Co_AttackTemplate(IUnitAttackActor unitAction, Multi_Enemy target)
     {
-        _unit.ChangeState(UnitState.Attack);
+        // _unit.ChangeState(UnitState.Attack);
         yield return StartCoroutine(unitAction.Do(target));
         StartCoroutine(Co_AttackCoolDown(unitAction.AttackCoolTime));
     }

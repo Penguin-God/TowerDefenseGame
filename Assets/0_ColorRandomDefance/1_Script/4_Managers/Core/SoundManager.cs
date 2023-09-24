@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using System.Linq;
 
 public enum SoundType
 {
@@ -57,7 +56,7 @@ public enum EffectSoundType
     YellowMageSkill,
 }
 
-public class Multi_SoundManager
+public class SoundManager
 {
     AudioSource[] _sources;
     Dictionary<string, AudioClip> _clipByPath = new Dictionary<string, AudioClip>();

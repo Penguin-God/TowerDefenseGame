@@ -6,6 +6,7 @@ using System;
 public class CameraManager
 {
     Camera currentCamera;
+    ObjectSpot _cameraSpot;
 
     int _lookWorld_Id;
     public int LookWorld_Id => _lookWorld_Id;

@@ -101,7 +101,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     void SetInfo(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo)
     {
         _stat = stat;
-        _unit = new Unit(flag, damInfo, new UnitSpot(UsingID, true));
+        _unit = new Unit(flag, damInfo, new ObjectSpot(UsingID, true));
         UnitAttacker = new UnitAttacker(_unit);
         SetUnitInfo(flag, Speed);
         photonView.RPC(nameof(SetUnitInfo), RpcTarget.Others, flag, Speed);
@@ -110,7 +110,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [PunRPC]
     protected void SetUnitInfo(UnitFlags flag, float speed)
     {
-        _unit = new Unit(flag, _unit == null ? new UnitDamageInfo() : _unit.DamageInfo, new UnitSpot()); // 클라에서 flag만 채우는 용도
+        _unit = new Unit(flag, _unit == null ? new UnitDamageInfo() : _unit.DamageInfo, new ObjectSpot()); // 클라에서 flag만 채우는 용도
         Speed = speed;
     }
 

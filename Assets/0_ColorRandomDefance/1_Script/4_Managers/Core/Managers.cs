@@ -25,7 +25,7 @@ public class Managers : MonoBehaviour
 
     DataManager _data = new();
     UI_Manager _ui = new();
-    Multi_SoundManager _sound = new();
+    SoundManager _sound = new();
     ResourcesManager _resources = new();
     PoolManager _pool = new();
     ClientDataManager _clientData = new();
@@ -37,7 +37,7 @@ public class Managers : MonoBehaviour
 
     public static DataManager Data => Instance._data;
     public static UI_Manager UI => Instance._ui;
-    public static Multi_SoundManager Sound => Instance._sound;
+    public static SoundManager Sound => Instance._sound;
     public static ResourcesManager Resources => Instance._resources;
     public static PoolManager Pool => Instance._pool;
     public static ClientDataManager ClientData => Instance._clientData;

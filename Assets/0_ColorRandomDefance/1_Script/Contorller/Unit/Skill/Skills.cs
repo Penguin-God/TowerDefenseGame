@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IUnitSkill
+public abstract class UnitSkillController
 {
-    void DoSkill();
+    public abstract void DoSkill();
+    protected void PlaySkillSound(EffectSoundType type) => Managers.Sound.PlayEffect(type);
 }
 
-public class GainGold : IUnitSkill
+public class GainGoldController : UnitSkillController
 {
     readonly int AddGold;
-    public GainGold(int addGold) => AddGold = addGold;
+    public GainGoldController(int addGold) => AddGold = addGold;
 
-    // protected override void PlaySkillSound() => AfterPlaySound(EffectSoundType.BlackMageSkill, 0.5f);
-    public void DoSkill()
+    public override void DoSkill()
     {
         // SkillSpawn(transform.position + (Vector3.up * 0.6f));
         // Multi_GameManager.Instance.AddGold_RPC(AddGold, rpcable.UsingId);

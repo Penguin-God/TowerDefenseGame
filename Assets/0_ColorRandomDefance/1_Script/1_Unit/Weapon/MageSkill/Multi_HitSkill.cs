@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using Photon.Pun;
 
-public class Multi_HitSkill : MonoBehaviourPun
+public class Multi_HitSkill : MonoBehaviour
 {
     private void Awake() => sphereCollider = GetComponent<SphereCollider>();
 
@@ -13,13 +13,11 @@ public class Multi_HitSkill : MonoBehaviourPun
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!photonView.IsMine) return;
+        if (PhotonNetwork.IsMasterClient == false) return;
 
-        if (other.GetComponentInParent<Multi_Enemy>() != null)
-        {
-            if (OnHitSkile != null)
-                OnHitSkile(other.GetComponentInParent<Multi_Enemy>());
-        }
+        var monster = other.GetComponentInParent<Multi_Enemy>();
+        if (monster != null)
+            OnHitSkile?.Invoke(monster);
     }
 
     [SerializeField] protected SphereCollider sphereCollider;

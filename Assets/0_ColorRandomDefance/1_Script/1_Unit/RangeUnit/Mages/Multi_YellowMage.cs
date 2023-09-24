@@ -5,7 +5,6 @@ using UnityEngine;
 public class Multi_YellowMage : Multi_Unit_Mage
 {
     [SerializeField] int addGold;
-
     public override void SetMageAwake()
     {
         addGold = (int)skillStats[0];
@@ -14,7 +13,9 @@ public class Multi_YellowMage : Multi_Unit_Mage
     protected override void PlaySkillSound() => AfterPlaySound(EffectSoundType.BlackMageSkill, 0.5f);
     protected override void MageSkile()
     {
-        SkillSpawn(transform.position + (Vector3.up * 0.6f));
+        SkillSpawn(GetCircleSpawnPos());
+        // Managers.Effect.PlayOneShotEffect("YellowMagicCircle", GetCircleSpawnPos());
         Multi_GameManager.Instance.AddGold_RPC(addGold, rpcable.UsingId);
     }
+    Vector3 GetCircleSpawnPos() => transform.position + (Vector3.up * 0.6f);
 }

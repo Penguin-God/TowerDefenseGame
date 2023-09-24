@@ -68,6 +68,13 @@ namespace Tests
             }
         }
 
+        [Test]
+        public void BuildEffetPathTests()
+        {
+            foreach (SkillEffectType type in Enum.GetValues(typeof(SkillEffectType)))
+                AssertResourcesLoad(_pathBuilder.BuildEffectPath(type));
+        }
+
         void AssertResourcesLoad(string path) => Assert.NotNull(Resources.Load<GameObject>($"Prefabs/{path}"));
     }
 }

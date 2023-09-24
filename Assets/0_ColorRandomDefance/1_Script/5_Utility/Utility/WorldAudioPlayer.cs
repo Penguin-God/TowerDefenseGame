@@ -4,8 +4,17 @@ using UnityEngine;
 
 public class WorldAudioPlayer
 {
-    public void PlayObjectEffectSound(ObjectSpot objectSpot)
+    CameraController _cameraController;
+    SoundManager _soundManager;
+    public WorldAudioPlayer(CameraController cameraController, SoundManager soundManager)
     {
-        
+        _cameraController = cameraController;
+        _soundManager = soundManager;
+    }
+
+    public void PlayObjectEffectSound(ObjectSpot objectSpot, EffectSoundType soundType, float volumn = -1f)
+    {
+        if(objectSpot == _cameraController.CameraSpot)
+            _soundManager.PlayEffect(soundType, volumn);
     }
 }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class CameraManager
+public class CameraController
 {
     Camera currentCamera;
-    ObjectSpot _cameraSpot;
+    public ObjectSpot CameraSpot { get; private set; }
 
     int _lookWorld_Id;
     public int LookWorld_Id => _lookWorld_Id;
@@ -34,6 +34,8 @@ public class CameraManager
             {new Vector3(0, 100, 438), new Vector3(500, 100, 438) },
         };
 
+        CameraSpot = new ObjectSpot(PlayerIdManager.Id, true);
+
         _isLookEnemyTower = false;
         currentCamera = Camera.main;
         _lookWorld_Id = PlayerIdManager.Id;
@@ -50,18 +52,21 @@ public class CameraManager
 
     public void LookWorldChanged()
     {
+        CameraSpot = CameraSpot.ChangeWorldId();
         _lookWorld_Id = (_lookWorld_Id == 0) ? 1 : 0;
         UpdateCameraPosition();
     }
 
     public void LookEnemyTower()
     {
+        CameraSpot = new ObjectSpot(CameraSpot.WorldId, false);
         _isLookEnemyTower = true;
         UpdateCameraPosition();
     }
 
     public void LookWorld()
     {
+        CameraSpot = new ObjectSpot(CameraSpot.WorldId, true);
         _isLookEnemyTower = false;
         UpdateCameraPosition();
     }

@@ -74,6 +74,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected UnitAttacker UnitAttacker { get; private set; }
     public void Injection(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo, MonsterManager monsterManager)
     {
+        worldAudioPlayer = new WorldAudioPlayer(Managers.Camera, Managers.Sound);
         SetInfoToAll();
         TargetFinder = new MonsterFinder(_worldChangeController, monsterManager, UsingID);
         SetInfo(flag, stat, damInfo);
@@ -235,7 +236,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected void ChangeWorld()
     {
         Vector3 destination = _worldChangeController.ChangeWorld(gameObject);
-        base.photonView.RPC(nameof(MoveToPos), RpcTarget.Others, destination);
+        base.photonView.RPC(nameof(MoveToOtherWorld), RpcTarget.Others, destination);
         RPC_PlayTpSound();
         _state.ReadyAttack();
         SettingNav(_worldChangeController.EnterStoryWorld);
@@ -249,7 +250,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
 
     [PunRPC]
-    protected void MoveToPos(Vector3 pos) => _worldChangeController.ChangeWorld(gameObject, pos);
+    protected void MoveToOtherWorld(Vector3 pos)
+    {
+        _worldChangeController.ChangeWorld(gameObject, pos);
+        Unit.ChangeWolrd();
+    }
 
     public void ChangeWorldStateToAll() => photonView.RPC(nameof(ChangeWorldState), RpcTarget.All);
     [PunRPC] protected void ChangeWorldState() => _worldChangeController.EnterStoryWorld = !_worldChangeController.EnterStoryWorld;
@@ -263,7 +268,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
 
     [PunRPC] protected void PlayTpSound() => Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
-
+    
     protected void AfterPlaySound(EffectSoundType type, float delayTime) => StartCoroutine(Co_AfterPlaySound(type, delayTime));
 
     IEnumerator Co_AfterPlaySound(EffectSoundType type, float delayTime)
@@ -271,14 +276,17 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         yield return new WaitForSeconds(delayTime);
         PlaySound(type);
     }
-    protected void PlaySound(EffectSoundType type, float volumn = -1)
-    {
-        if(SoundCondition())
-            Managers.Sound.PlayEffect(type, volumn);
 
-        bool SoundCondition()
-            => rpcable.UsingId == Managers.Camera.LookWorld_Id && EnterStroyWorld == Managers.Camera.IsLookEnemyTower;
-    }
+    WorldAudioPlayer worldAudioPlayer;
+    protected void PlaySound(EffectSoundType type, float volumn = -1) => worldAudioPlayer.PlayObjectEffectSound(Unit.UnitSpot, type, volumn);
+    //protected void PlaySound(EffectSoundType type, float volumn = -1)
+    //{
+    //    if(SoundCondition())
+    //        Managers.Sound.PlayEffect(type, volumn);
+
+    //    bool SoundCondition()
+    //        => rpcable.UsingId == Managers.Camera.LookWorld_Id && EnterStroyWorld == Managers.Camera.IsLookEnemyTower;
+    //}
 
     [Serializable]
     public class UnitState : MonoBehaviour

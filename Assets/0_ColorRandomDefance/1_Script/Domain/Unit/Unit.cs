@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Unity.Android.Types;
 
 public enum UnitState
 {
@@ -23,6 +22,7 @@ public class Unit
     public void UpdateDamageInfo(UnitDamageInfo newInfo) => _damageInfo = newInfo;
 
     public ObjectSpot UnitSpot { get; private set; }
+    public void ChangeWolrd() => UnitSpot = UnitSpot.ChangeWorldType();
     public Unit(UnitFlags flag, UnitDamageInfo damageInfo, ObjectSpot unitSpot)
     {
         _unitFlags = flag;

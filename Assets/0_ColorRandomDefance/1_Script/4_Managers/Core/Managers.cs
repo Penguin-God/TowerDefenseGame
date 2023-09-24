@@ -30,7 +30,7 @@ public class Managers : MonoBehaviour
     PoolManager _pool = new();
     ClientDataManager _clientData = new();
     Scene_Manager _scene = new();
-    CameraManager _camera = new();
+    CameraController _camera = new();
     EffectManager _effect = new();
     MultiManager _multi = new();
     UnitManager _unit = new();
@@ -42,7 +42,7 @@ public class Managers : MonoBehaviour
     public static PoolManager Pool => Instance._pool;
     public static ClientDataManager ClientData => Instance._clientData;
     public static Scene_Manager Scene => Instance._scene;
-    public static CameraManager Camera => Instance._camera;
+    public static CameraController Camera => Instance._camera;
     public static EffectManager Effect => Instance._effect;
     public static MultiManager Multi => Instance._multi;
     public static UnitManager Unit => Instance._unit;

@@ -38,7 +38,8 @@ public class Multi_BounceEnergyball : MonoBehaviourPun, IPunObservable
         if (PhotonNetwork.IsMasterClient == false || collision.gameObject.tag != "Structures") return;
 
         Vector3 dir = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
-        Managers.Sound.PlayEffect_If(EffectSoundType.MageBallBonce, () => _renderer.isVisible);
+        if(_renderer.isVisible)
+            Managers.Sound.PlayEffect(EffectSoundType.MageBallBonce);
 
         speed += acceleration;
         rpcable.SetVelocity_RPC(dir * speed);

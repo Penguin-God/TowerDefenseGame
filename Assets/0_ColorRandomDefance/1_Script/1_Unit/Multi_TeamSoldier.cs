@@ -273,7 +273,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
     protected void PlaySound(EffectSoundType type, float volumn = -1)
     {
-        Managers.Sound.PlayEffect_If(type, SoundCondition, volumn);
+        if(SoundCondition())
+            Managers.Sound.PlayEffect(type, volumn);
 
         bool SoundCondition()
             => rpcable.UsingId == Managers.Camera.LookWorld_Id && EnterStroyWorld == Managers.Camera.IsLookEnemyTower;

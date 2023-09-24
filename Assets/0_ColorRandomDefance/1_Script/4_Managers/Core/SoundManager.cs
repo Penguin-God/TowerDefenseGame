@@ -94,12 +94,6 @@ public class SoundManager
         _audioSource.Play();
     }
 
-    public void PlayEffect_If(EffectSoundType sound, Func<bool> condition, float volumeScale = -1)
-    {
-        if (condition())
-            PlayEffect(sound, volumeScale);
-    }
-
     public void PlayEffect(EffectSoundType sound, float volumeScale = -1)
     {
         float applyVolumn = (volumeScale < 0) ? Managers.Data.EffectBySound[sound].Volumn : volumeScale;

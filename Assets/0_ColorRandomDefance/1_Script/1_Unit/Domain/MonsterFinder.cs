@@ -5,22 +5,23 @@ using UnityEngine;
 
 public class MonsterFinder
 {
-    readonly WorldChangeController _worldChangeController;
     readonly MonsterManager _monsterManager;
     readonly int OwnerId = -1;
 
-    public MonsterFinder(WorldChangeController worldChangeController, MonsterManager monsterManager, byte owerId)
+    public MonsterFinder(MonsterManager monsterManager, byte owerId)
     {
-        _worldChangeController = worldChangeController;
         _monsterManager = monsterManager;
         OwnerId = owerId;
     }
 
-    public Multi_Enemy FindTarget(Vector3 finderPos)
+    public Multi_Enemy FindTarget(bool isInDefenseWorld, Vector3 finderPos)
     {
-        if (_worldChangeController.EnterStoryWorld) return Multi_EnemyManager.Instance.GetCurrnetTower(OwnerId);
-        else if (Multi_EnemyManager.Instance.TryGetCurrentBoss(OwnerId, out Multi_BossEnemy boss)) return boss;
-        else return GetProximateNormalMonster(finderPos);
+        if (isInDefenseWorld)
+        {
+            if (Multi_EnemyManager.Instance.TryGetCurrentBoss(OwnerId, out Multi_BossEnemy boss)) return boss;
+            else return GetProximateNormalMonster(finderPos);
+        }
+        else return Multi_EnemyManager.Instance.GetCurrnetTower(OwnerId);
     }
 
     Multi_NormalEnemy GetProximateNormalMonster(Vector3 finderPos) => GetProximateEnemys(finderPos, 1).FirstOrDefault();

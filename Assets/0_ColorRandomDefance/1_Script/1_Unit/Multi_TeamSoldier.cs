@@ -14,6 +14,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [SerializeField] Unit _unit;
     public Unit Unit => _unit;
     public UnitFlags UnitFlags => _unit.UnitFlags;
+    public bool IsInDefenseWorld => Unit.UnitSpot.IsInDefenseWorld;
 
     public UnitClass UnitClass => UnitFlags.UnitClass;
     public UnitColor UnitColor => UnitFlags.UnitColor;
@@ -50,7 +51,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     [SerializeField] readonly protected TargetManager _targetManager = new TargetManager();
     protected UnitState _state;
-    public bool EnterStroyWorld => _worldChangeController.EnterStoryWorld;
+    // public bool EnterStroyWorld => _worldChangeController.EnterStoryWorld;
     public bool IsAttack => _state.UnitAttackState.IsAttack;
     protected ChaseSystem _chaseSystem;
 
@@ -75,18 +76,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public void Injection(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo, MonsterManager monsterManager)
     {
         worldAudioPlayer = new WorldAudioPlayer(Managers.Camera, Managers.Sound);
-        SetInfoToAll();
-        TargetFinder = new MonsterFinder(_worldChangeController, monsterManager, UsingID);
+        TargetFinder = new MonsterFinder(monsterManager, UsingID);
         SetInfo(flag, stat, damInfo);
         ChaseTarget();
-        photonView.RPC(nameof(SetInfoToAll), RpcTarget.Others);
-    }
-
-    [PunRPC]
-    protected void SetInfoToAll()
-    {
-        _worldChangeController
-            = new WorldChangeController(Multi_Data.instance.GetWorldPosition(rpcable.UsingId), Multi_Data.instance.EnemyTowerWorldPositions[rpcable.UsingId]);
     }
 
     void SetNavStopState(Multi_Enemy newTarget)
@@ -167,7 +159,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
         if (PhotonNetwork.IsMasterClient == false) return;
-        _targetManager.ChangedTarget(TargetFinder.FindTarget(transform.position));
+        _targetManager.ChangedTarget(TargetFinder.FindTarget(IsInDefenseWorld, transform.position));
         SetNavStopState(TargetEnemy);
         _chaseSystem.ChangedTarget(TargetEnemy);
     }
@@ -227,71 +219,44 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [SerializeField] protected float enemyDistance => _chaseSystem.EnemyDistance;
     readonly float CHASE_RANGE = 150f;
     protected bool Chaseable => CHASE_RANGE > enemyDistance; // 거리가 아닌 다른 조건(IsDead 등)으로 바꾸기
-
-    WorldChangeController _worldChangeController;
-    // public void ChangeWorldToMaster() => photonView.RPC(nameof(ChangeWorld), RpcTarget.MasterClient);
-    public void ChangeWorldToMaster() => photonView.RPC(nameof(ChangeWorld), RpcTarget.All);
-    //[PunRPC] // PunRPC라 protected 강제임
-    //protected void ChangeWorld()
-    //{
-    //    Vector3 destination = _worldChangeController.ChangeWorld(gameObject);
-    //    base.photonView.RPC(nameof(MoveToOtherWorld), RpcTarget.Others, destination);
-    //    RPC_PlayTpSound();
-    //    _state.ReadyAttack();
-    //    SettingNav(_worldChangeController.EnterStoryWorld);
-
-    //    UpdateTarget();
-    //    void SettingNav(bool enterStroyWorld)
-    //    {
-    //        if(enterStroyWorld) nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-    //        else nav.obstacleAvoidanceType = originObstacleType;
-    //    }
-    //}
+    public void ChangeUnitWorld() => photonView.RPC(nameof(ChangeWorld), RpcTarget.All);
 
     [PunRPC] // PunRPC라 protected 강제임
     protected void ChangeWorld()
     {
         PlaySound(EffectSoundType.UnitTp);
+        Managers.Effect.PlayOneShotEffect("UnitTpEffect", gameObject.transform.position + (Vector3.up * 3));
+        gameObject.SetActive(false);
         if (PhotonNetwork.IsMasterClient)
         {
             Vector3 destination = GetTpPos();
             base.photonView.RPC(nameof(MoveToOtherWorld), RpcTarget.All, destination);
             _state.ReadyAttack();
-            SettingNav(_worldChangeController.EnterStoryWorld);
             UpdateTarget();
         }
-        
-        void SettingNav(bool enterStroyWorld)
+        gameObject.SetActive(true);
+        SettingNav();
+
+        void SettingNav()
         {
-            if (enterStroyWorld) nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance;
-            else nav.obstacleAvoidanceType = originObstacleType;
+            if (IsInDefenseWorld) nav.obstacleAvoidanceType = originObstacleType;
+            else nav.obstacleAvoidanceType = ObstacleAvoidanceType.NoObstacleAvoidance; // 적군의 성이면 충돌 대충 검사
         }
     }
-    // Multi_Data.instance.GetWorldPosition(rpcable.UsingId), Multi_Data.instance.EnemyTowerWorldPositions[rpcable.UsingId]
-    Vector3 GetTpPos() => Unit.UnitSpot.IsInDefenseWorld ?
+    Vector3 GetTpPos() => IsInDefenseWorld ?
         SpawnPositionCalculator.CalculateTowerWolrdSpawnPostion(Multi_Data.instance.EnemyTowerWorldPositions[Unit.UnitSpot.WorldId])
         : SpawnPositionCalculator.CalculateWorldSpawnPostion(Multi_Data.instance.GetWorldPosition(Unit.UnitSpot.WorldId));
 
     [PunRPC]
-    protected void MoveToOtherWorld(Vector3 pos)
+    protected void MoveToOtherWorld(Vector3 destination)
     {
-        _worldChangeController.ChangeWorld(gameObject, pos);
-        Unit.ChangeWolrd();
+        gameObject.transform.position = destination;
+        Unit.ChangeWolrd(); // 얘는 서순상 여기서 실행되야 해서 RPC안에 넣음
     }
 
     public void ChangeWorldStateToAll() => photonView.RPC(nameof(ChangeWorldState), RpcTarget.All);
-    [PunRPC] protected void ChangeWorldState() => _worldChangeController.EnterStoryWorld = !_worldChangeController.EnterStoryWorld;
+    [PunRPC] protected void ChangeWorldState() => Unit.ChangeWolrd();  //_worldChangeController.EnterStoryWorld = !_worldChangeController.EnterStoryWorld;
 
-    //void RPC_PlayTpSound() // 보는 쪽에서만 소리가 들려야 하므로 복잡해보이는 이 로직이 맞음. 카메라 로직으로 빼서 클라에서 돌리기
-    //{
-    //    if (rpcable.UsingId == PlayerIdManager.Id)
-    //        Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
-    //    else
-    //        base.photonView.RPC(nameof(PlayTpSound), RpcTarget.Others);
-    //}
-
-    // [PunRPC] protected void PlayTpSound() => Managers.Sound.PlayEffect(EffectSoundType.UnitTp);
-    
     protected void AfterPlaySound(EffectSoundType type, float delayTime) => StartCoroutine(Co_AfterPlaySound(type, delayTime));
 
     IEnumerator Co_AfterPlaySound(EffectSoundType type, float delayTime)
@@ -302,14 +267,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     WorldAudioPlayer worldAudioPlayer;
     protected void PlaySound(EffectSoundType type, float volumn = -1) => worldAudioPlayer.PlayObjectEffectSound(Unit.UnitSpot, type, volumn);
-    //protected void PlaySound(EffectSoundType type, float volumn = -1)
-    //{
-    //    if(SoundCondition())
-    //        Managers.Sound.PlayEffect(type, volumn);
-
-    //    bool SoundCondition()
-    //        => rpcable.UsingId == Managers.Camera.LookWorld_Id && EnterStroyWorld == Managers.Camera.IsLookEnemyTower;
-    //}
 
     [Serializable]
     public class UnitState : MonoBehaviour

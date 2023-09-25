@@ -39,7 +39,7 @@ public class UI_UnitTracker : UI_Base
 
     void OnDisable()
     {
-        if(Managers.Unit != null)
+        if(Application.isPlaying && Managers.Unit != null)
             Managers.Unit.OnUnitCountChangeByFlag -= TrackUnitCount;
     }
 

@@ -9,7 +9,7 @@ public class Managers : MonoBehaviour
     {
         get
         {
-            if (instance == null)
+            if (instance == null && Application.isPlaying)
             {
                 instance = FindObjectOfType<Managers>();
                 if (instance == null)

@@ -90,6 +90,5 @@ public class UI_UnitManagedWindow : UI_Popup
         }
     }
 
-    void UnitWorldChanged()
-        => Managers.Unit.FindUnit((unit) => unit.UnitFlags == _unitFlag && unit.EnterStroyWorld == Managers.Camera.IsLookEnemyTower)?.ChangeWorldToMaster();
+    void UnitWorldChanged() => Managers.Unit.FindUnit((unit) => unit.UnitFlags == _unitFlag && unit.Unit.UnitSpot == Managers.Camera.CameraSpot)?.ChangeUnitWorld();
 }

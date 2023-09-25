@@ -38,7 +38,9 @@ public class MonsterDecorator
         var skillData = _container.GetMultiActiveSkillData().GetData(monster.UsingId);
         var speedSystem = monster.gameObject.GetOrAddComponent<MonsterSpeedSystem>();
         if (skillData.TruGetSkillData(SkillType.썬콜, out var skillBattleData))
-            speedSystem.ReceiveInject(new SuncoldSpeedManager(speed, monster, skillBattleData.IntSkillDatas.Take(UnitDamageCount).ToArray(), _container.GetComponent<MultiEffectManager>()));
+            speedSystem.ReceiveInject(
+                new SuncoldSpeedManager(speed, monster, skillBattleData.IntSkillDatas.Take(UnitDamageCount).ToArray(), _container.GetComponent<MultiEffectManager>(), _container.GetService<WorldAudioPlayer>())
+                );
         else speedSystem.ReceiveInject(new SpeedManager(speed));
     }
 }

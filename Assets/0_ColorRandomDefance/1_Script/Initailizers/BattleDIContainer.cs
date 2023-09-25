@@ -74,6 +74,7 @@ public class BattleDIContainerInitializer
         container.AddService(new BattleUI_Mediator(Managers.UI, container));
         container.AddService(new BuyAction(container.GetComponent<Multi_NormalUnitSpawner>(), MultiServiceMidiator.UnitUpgrade));
         container.AddService(new GoodsBuyController(game, container.GetComponent<TextShowAndHideController>()));
+        container.AddService(new WorldAudioPlayer(Managers.Camera, Managers.Sound));
     }
 
     void InjectService(BattleDIContainer container)

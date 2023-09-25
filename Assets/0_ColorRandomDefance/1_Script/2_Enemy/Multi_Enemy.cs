@@ -38,6 +38,7 @@ public class Multi_Enemy : MonoBehaviourPun
     public Vector3 dir = Vector3.zero;
 
     RPCable rpcable;
+    public ObjectSpot MonsterSpot;
     public byte UsingId => rpcable == null ? (byte)GetComponent<RPCable>().UsingId : (byte)rpcable.UsingId;
     protected MeshRenderer[] meshList;
     [SerializeField] protected Material originMat;
@@ -62,6 +63,10 @@ public class Multi_Enemy : MonoBehaviourPun
         gameObject.SetActive(!_isDead);
         ChangeMaxHp(_hp);
         isDead = _isDead;
+        if(enemyType == EnemyType.Tower)
+            MonsterSpot = new ObjectSpot(UsingId, false);
+        else
+            MonsterSpot = new ObjectSpot(UsingId, true);
     }
 
     public void OnDamage(int damage, bool isSkill = false) => photonView.RPC(nameof(RPC_OnDamage), RpcTarget.MasterClient, damage, isSkill);

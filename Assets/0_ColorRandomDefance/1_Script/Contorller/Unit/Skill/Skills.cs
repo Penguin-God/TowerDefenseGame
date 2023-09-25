@@ -11,7 +11,7 @@ public abstract class UnitSkillController
 public class GainGoldController : UnitSkillController
 {
     readonly int AddGold;
-    public GainGoldController(int addGold) => AddGold = addGold;
+    public GainGoldController(Unit unit, int addGold) => AddGold = addGold;
 
     public override void DoSkill()
     {

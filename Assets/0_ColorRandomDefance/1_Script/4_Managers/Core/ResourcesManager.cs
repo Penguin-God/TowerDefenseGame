@@ -19,7 +19,7 @@ public class ResourcesManager : IInstantiater
     }
 
     public GameObject Instantiate(string path) => Instantiate(path, null);
-    public GameObject Instantiate(string path, Transform parent = null)
+    public GameObject Instantiate(string path, Transform parent)
     {
         path = GetPrefabPath(path);
         if (Managers.Pool.TryGetPoolObejct(GetPathName(path), out GameObject poolGo))
@@ -30,6 +30,22 @@ public class ResourcesManager : IInstantiater
 
         var original = Load<GameObject>(path);
         GameObject go = Object.Instantiate(original, parent);
+        go.name = original.name;
+        return go;
+    }
+
+    public GameObject Instantiate(string path, Vector3 spawnPos)
+    {
+        path = GetPrefabPath(path);
+        if (Managers.Pool.TryGetPoolObejct(GetPathName(path), out GameObject poolGo))
+        {
+            poolGo.transform.position = spawnPos;
+            poolGo.SetActive(true);
+            return poolGo;
+        }
+
+        var original = Load<GameObject>(path);
+        GameObject go = Object.Instantiate(original, spawnPos, original.transform.rotation);
         go.name = original.name;
         return go;
     }

@@ -10,12 +10,9 @@ public class Multi_YellowMage : Multi_Unit_Mage
         addGold = (int)skillStats[0];
     }
 
-    protected override void PlaySkillSound() => AfterPlaySound(EffectSoundType.BlackMageSkill, 0.5f);
-    protected override void MageSkile()
+    void OnEnable()
     {
-        SkillSpawn(GetCircleSpawnPos());
-        // Managers.Effect.PlayOneShotEffect("YellowMagicCircle", GetCircleSpawnPos());
-        Multi_GameManager.Instance.AddGold_RPC(addGold, rpcable.UsingId);
+        _unitSkillController = new GainGoldController(transform, addGold, UsingID);
     }
-    Vector3 GetCircleSpawnPos() => transform.position + (Vector3.up * 0.6f);
+    protected override void PlaySkillSound() => AfterPlaySound(EffectSoundType.BlackMageSkill, 0.5f);
 }

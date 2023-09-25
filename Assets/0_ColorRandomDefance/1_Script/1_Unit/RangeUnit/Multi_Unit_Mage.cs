@@ -75,15 +75,16 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     }
 
     [SerializeField] float mageSkillCoolDownTime;
+    protected UnitSkillController _unitSkillController = null;
     public override void SpecialAttack()
     {
         base.SpecialAttack();
         manaSystem?.ClearMana_RPC();
-        if (PhotonNetwork.IsMasterClient)
-        {
+        if (_unitSkillController != null)
+            _unitSkillController.DoSkill();
+        else if (PhotonNetwork.IsMasterClient)
             MageSkile();
-        }
-        
+
         PlaySkillSound();
         StartCoroutine(Co_EndSkillAttack(mageSkillCoolDownTime)); // 임시방편
     }

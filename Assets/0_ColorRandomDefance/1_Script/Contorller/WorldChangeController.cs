@@ -14,13 +14,14 @@ public class WorldChangeController
     }
 
     public bool EnterStoryWorld { get; set; }
-    public Vector3 ChangeWorld(GameObject tpObject)
-    {
-        Vector3 destination = EnterStoryWorld ? SpawnPositionCalculator.CalculateWorldSpawnPostion(WorldPos) : SpawnPositionCalculator.CalculateTowerWolrdSpawnPostion(EnemyTowerPos);
-        ChangeWorld(tpObject, destination);
-        return destination;
-    }
-
+    //public Vector3 ChangeWorld(GameObject tpObject)
+    //{
+    //    Vector3 destination = EnterStoryWorld ? SpawnPositionCalculator.CalculateWorldSpawnPostion(WorldPos) : SpawnPositionCalculator.CalculateTowerWolrdSpawnPostion(EnemyTowerPos);
+    //    ChangeWorld(tpObject, destination);
+    //    return destination;
+    //}
+    // public Vector3 GetTpPos() => EnterStoryWorld ? SpawnPositionCalculator.CalculateWorldSpawnPostion(WorldPos) : SpawnPositionCalculator.CalculateTowerWolrdSpawnPostion(EnemyTowerPos);
+    
     public void ChangeWorld(GameObject tpObject, Vector3 destination)
     {
         Managers.Effect.PlayOneShotEffect("UnitTpEffect", tpObject.transform.position + (Vector3.up * 3));

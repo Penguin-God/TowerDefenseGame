@@ -170,6 +170,7 @@ MonoBehaviour:
   - ApplySlowToAll
   - ApplySlowWithTime
   - SetEnemySkillData
+  - MoveToOtherWorld
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

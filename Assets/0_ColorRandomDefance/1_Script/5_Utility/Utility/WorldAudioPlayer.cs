@@ -14,7 +14,7 @@ public class WorldAudioPlayer
 
     public void PlayObjectEffectSound(ObjectSpot objectSpot, EffectSoundType soundType, float volumn = -1f)
     {
-        if(objectSpot == _cameraController.CameraSpot)
+        if (objectSpot == _cameraController.CameraSpot)
             _soundManager.PlayEffect(soundType, volumn);
     }
 }

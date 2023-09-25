@@ -51,7 +51,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     [SerializeField] readonly protected TargetManager _targetManager = new TargetManager();
     protected UnitState _state;
-    // public bool EnterStroyWorld => _worldChangeController.EnterStoryWorld;
     public bool IsAttack => _state.UnitAttackState.IsAttack;
     protected ChaseSystem _chaseSystem;
 
@@ -75,7 +74,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected UnitAttacker UnitAttacker { get; private set; }
     public void Injection(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo, MonsterManager monsterManager)
     {
-        worldAudioPlayer = new WorldAudioPlayer(Managers.Camera, Managers.Sound);
         TargetFinder = new MonsterFinder(monsterManager, UsingID);
         SetInfo(flag, stat, damInfo);
         ChaseTarget();
@@ -103,6 +101,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [PunRPC]
     protected void SetUnitInfo(UnitFlags flag, float speed)
     {
+        worldAudioPlayer = new WorldAudioPlayer(Managers.Camera, Managers.Sound);
         _unit = new Unit(flag, _unit == null ? new UnitDamageInfo() : _unit.DamageInfo, new ObjectSpot(UsingID, true)); // 클라에서 flag만 채우는 용도
         Speed = speed;
     }
@@ -226,7 +225,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     {
         PlaySound(EffectSoundType.UnitTp);
         Managers.Effect.PlayOneShotEffect("UnitTpEffect", gameObject.transform.position + (Vector3.up * 3));
-        gameObject.SetActive(false);
         if (PhotonNetwork.IsMasterClient)
         {
             Vector3 destination = GetTpPos();
@@ -234,7 +232,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             _state.ReadyAttack();
             UpdateTarget();
         }
-        gameObject.SetActive(true);
         SettingNav();
 
         void SettingNav()
@@ -250,12 +247,14 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [PunRPC]
     protected void MoveToOtherWorld(Vector3 destination)
     {
+        gameObject.SetActive(false);
         gameObject.transform.position = destination;
+        gameObject.SetActive(true);
         Unit.ChangeWolrd(); // 얘는 서순상 여기서 실행되야 해서 RPC안에 넣음
     }
 
     public void ChangeWorldStateToAll() => photonView.RPC(nameof(ChangeWorldState), RpcTarget.All);
-    [PunRPC] protected void ChangeWorldState() => Unit.ChangeWolrd();  //_worldChangeController.EnterStoryWorld = !_worldChangeController.EnterStoryWorld;
+    [PunRPC] protected void ChangeWorldState() => Unit.ChangeWolrd();
 
     protected void AfterPlaySound(EffectSoundType type, float delayTime) => StartCoroutine(Co_AfterPlaySound(type, delayTime));
 

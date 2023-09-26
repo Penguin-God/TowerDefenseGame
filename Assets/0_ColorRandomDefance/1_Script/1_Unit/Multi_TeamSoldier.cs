@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using Photon.Pun;
 using System;
 using System.Linq;
+using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public enum UnitColor { Red, Blue, Yellow, Green, Orange, Violet, White, Black };
 public enum UnitClass { Swordman, Archer, Spearman, Mage }
@@ -86,6 +87,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         TargetFinder = new MonsterFinder(monsterManager, UsingID);
         _unit = unit;
         UnitAttacker = new UnitAttacker(_unit);
+        photonView.RPC(nameof(SetUnitInfo), RpcTarget.Others, _unit.UnitFlags, Speed);
         ChaseTarget();
     }
 
@@ -111,8 +113,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [PunRPC]
     protected void SetUnitInfo(UnitFlags flag, float speed)
     {
-        _unit = new Unit(flag, _unit == null ? new UnitDamageInfo() : _unit.DamageInfo, new ObjectSpot(UsingID, true)); // 클라에서 flag만 채우는 용도
-        // Speed = speed;
+        var stat = new UnitStats(new UnitDamageInfo(), 0, 0, 0, speed);
+        _unit = new Unit(flag, stat, new ObjectSpot(UsingID, true)); // 클라에서 speed랑 flag만 채우는 용도
     }
 
     void OnEnable()

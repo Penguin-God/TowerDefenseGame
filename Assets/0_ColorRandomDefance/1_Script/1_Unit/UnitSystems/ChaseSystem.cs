@@ -11,8 +11,7 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
 
     public Multi_Enemy _currentTarget = null;
     protected Vector3 TargetPosition => _currentTarget.transform.position;
-    protected UnitChaseStateCalculator _unitChaseUseCase;
-
+    
     public void ChangedTarget(Multi_Enemy newTarget)
     {
         if (newTarget == null)
@@ -29,7 +28,6 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
     {
         _nav = GetComponent<NavMeshAgent>();
         _unit = GetComponent<Multi_TeamSoldier>();
-        _unitChaseUseCase = new UnitChaseStateCalculator(_unit.AttackRange);
         photonView.ObservedComponents.Add(this);
     }
 

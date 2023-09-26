@@ -81,6 +81,14 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         ChaseTarget();
     }
 
+    public void Injection(Unit unit, MonsterManager monsterManager)
+    {
+        TargetFinder = new MonsterFinder(monsterManager, UsingID);
+        _unit = unit;
+        UnitAttacker = new UnitAttacker(_unit);
+        ChaseTarget();
+    }
+
     void SetNavStopState(Multi_Enemy newTarget)
     {
         if (gameObject.activeSelf == false) return;

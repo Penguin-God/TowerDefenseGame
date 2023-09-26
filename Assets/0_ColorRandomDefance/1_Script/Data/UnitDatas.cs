@@ -161,7 +161,7 @@ public class UnitStat
 
 
 [Serializable]
-public class UnitStats : ICsvLoader<UnitFlags, UnitStat>
+public class UnitStatLoder : ICsvLoader<UnitFlags, UnitStat>
 {
     public Dictionary<UnitFlags, UnitStat> MakeDict(string csv)
         => CsvUtility.CsvToArray<UnitStat>(csv).ToDictionary(x => x.Flag, x => x);

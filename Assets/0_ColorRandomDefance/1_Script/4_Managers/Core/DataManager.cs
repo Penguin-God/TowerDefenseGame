@@ -120,7 +120,7 @@ public class DataManager
             _unitPassiveStatByFlag = manager.MakeCsvDict<UnitPassiveStats, UnitFlags, UnitPassiveStat>("UnitData/UnitPassiveStat");
             SpearDataContainer = Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/NormalThrowSpearData").ChangeAttackRate(1f);
             
-            _unitStatByFlag = manager.MakeCsvDict<UnitStats, UnitFlags, UnitStat>("UnitData/UnitStat");
+            _unitStatByFlag = manager.MakeCsvDict<UnitStatLoder, UnitFlags, UnitStat>("UnitData/UnitStat");
         }
 
         public void Clear()

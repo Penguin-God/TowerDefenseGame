@@ -14,22 +14,21 @@ public class UnitFiller
         _monsterManager = monsterManager;
     }
 
-    public void FillUnit(Multi_TeamSoldier unit, UnitFlags flag)
+    public void FillUnit(Multi_TeamSoldier unit, UnitFlags flag, UnitDamageInfo damInfo)
     {
-        unit.Injection(new Unit(flag, CreateUnitStats(flag, unit.UsingID), new ObjectSpot(unit.UsingID, true)), _monsterManager);
+        unit.Injection(new Unit(flag, CreateUnitStats(flag, damInfo)), _monsterManager);
         SetUnitData(unit);
     }
 
-    UnitStats CreateUnitStats(UnitFlags flag, byte id)
+    UnitStats CreateUnitStats(UnitFlags flag, UnitDamageInfo damInfo)
     {
         UnitStat stat = Managers.Data.Unit.UnitStatByFlag[flag].GetClone();
-        UnitDamageInfo damInfo = MultiServiceMidiator.Server.UnitDamageInfo(id, flag);
         return new UnitStats(damInfo, stat.AttackDelayTime, 1f, stat.AttackRange, stat.Speed);
     }
 
     void SetUnitData(Multi_TeamSoldier unit)
     {
-        if (unit.UnitClass == UnitClass.Spearman)
+        if (_skillData != null && unit.UnitClass == UnitClass.Spearman)
         {
             ThrowSpearDataContainer throwSpearData;
             if (_skillData.TruGetSkillData(SkillType.마창사, out var skillBattleData))
@@ -96,9 +95,22 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     Multi_TeamSoldier RPCSpawn(UnitFlags flag, Vector3 spawnPos, Quaternion rotation, byte id)
     {
         var unit = Managers.Multi.Instantiater.PhotonInstantiate(PathBuilder.BuildUnitPath(flag), spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
-        new UnitFiller(_multiSkillData.GetData(unit.UsingID), _multiMonsterManager.GetMultiData(unit.UsingID)).FillUnit(unit, flag);
+        FillUnit(unit, flag);
         AddUnitToManager(unit);
         return unit;
+    }
+
+    void FillUnit(Multi_TeamSoldier unit, UnitFlags flag)
+    {
+        new UnitFiller(_multiSkillData.GetData(unit.UsingID), _multiMonsterManager.GetMultiData(unit.UsingID)).FillUnit(unit, flag, MultiServiceMidiator.Server.UnitDamageInfo(unit.UsingID, flag));
+        photonView.RPC(nameof(FillOtherUnit), RpcTarget.Others, unit.GetComponent<PhotonView>().ViewID, flag);
+    }
+
+    [PunRPC] 
+    void FillOtherUnit(int viewID, UnitFlags flag)
+    {
+        var unit = Managers.Multi.GetPhotonViewComponent<Multi_TeamSoldier>(viewID);
+        new UnitFiller(null, null).FillUnit(unit, flag, new UnitDamageInfo(0, 0));
     }
 
     void AddUnitToManager(Multi_TeamSoldier unit)

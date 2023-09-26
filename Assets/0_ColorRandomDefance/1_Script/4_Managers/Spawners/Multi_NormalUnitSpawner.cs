@@ -32,6 +32,9 @@ public class UnitFiller
                 throwSpearData = Managers.Data.Unit.SpearDataContainer;
             unit.GetComponent<Multi_Unit_Spearman>().SetSpearData(throwSpearData);
         }
+
+        if(unit.UnitClass == UnitClass.Mage)
+            unit.GetComponent<Multi_Unit_Mage>().InjectSkillController(CreateMageSkillController(unit));
     }
 
     UnitSkillController CreateMageSkillController(Multi_TeamSoldier mage)
@@ -61,11 +64,6 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     UnitFiller _unitFiller;
     ServerMonsterManager _multiMonsterManager;
     MultiData<SkillBattleDataContainer> _multiSkillData;
-    public void ReceiveInject(ServerMonsterManager multiMonsterManager, MultiData<SkillBattleDataContainer> multiSkillData)
-    {
-        _multiMonsterManager = multiMonsterManager;
-        _multiSkillData = multiSkillData;
-    }
 
     public void ReceiveInject(BattleDIContainer container)
     {

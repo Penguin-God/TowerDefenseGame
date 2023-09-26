@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 
 public enum SkillEffectType
 {
@@ -30,9 +31,12 @@ public class ResourcesPathBuilder
     {
         if(flag.UnitClass == UnitClass.Archer || flag.UnitClass == UnitClass.Swordman || flag.UnitClass == UnitClass.Spearman)
             return $"Unit/{GetClassName(flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}{GetClassName(flag.UnitClass)}";
+        else if(flag.UnitClass == UnitClass.Mage && NewMages.Contains( flag.UnitColor))
+            return $"Unit/{GetClassName(flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}{GetClassName(flag.UnitClass)}";
         else
             return $"Unit/{GetClassName(flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}_{GetClassName(flag.UnitClass)} 1";
     }
+    IReadOnlyList<UnitColor> NewMages = new List<UnitColor>() { UnitColor.Yellow };
     string GetClassName(UnitClass unitClass) => Enum.GetName(typeof(UnitClass), unitClass);
 
     static Dictionary<UnitClass, string> _unitClassByWeaponName = new Dictionary<UnitClass, string>()

@@ -11,7 +11,7 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     [SerializeField] protected ProjectileData skillData;
 
     [SerializeField] GameObject magicLight;
-    [SerializeField] Transform energyBallTransform;
+    [SerializeField] Transform energyBallShotPoint;
     protected ProjectileThrowingUnit _energyBallThower;
 
     protected ManaSystem manaSystem;
@@ -24,7 +24,7 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
         var pathBuilder = new ResourcesPathBuilder();
         skillData = new ProjectileData(pathBuilder.BuildMageSkillEffectPath(UnitFlags.UnitColor), transform, skillData.SpawnTransform);
         _energyBallThower = gameObject.AddComponent<ProjectileThrowingUnit>();
-        _energyBallThower.SetInfo(pathBuilder.BuildUnitWeaponPath(UnitFlags), energyBallTransform);
+        _energyBallThower.SetInfo(pathBuilder.BuildUnitWeaponPath(UnitFlags), energyBallShotPoint);
         normalAttackSound = EffectSoundType.MageAttack;
     }
 
@@ -41,7 +41,7 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
 
     // 법사 고유의 Awake 대체 가상 함수
     public virtual void SetMageAwake() { }
-
+    public void InjectSkillController(UnitSkillController unitSkillController) => _unitSkillController = unitSkillController;
     bool Skillable => manaSystem != null && manaSystem.IsManaFull;
 
     [PunRPC]

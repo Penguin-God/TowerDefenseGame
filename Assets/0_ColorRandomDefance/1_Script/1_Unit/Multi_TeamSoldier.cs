@@ -24,9 +24,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected int Damage => _unit.DamageInfo.ApplyDamage;
     protected int BossDamage => _unit.DamageInfo.ApplyBossDamage;
     public void UpdateDamageInfo(UnitDamageInfo newInfo) => _unit.UpdateDamageInfo(newInfo);
-    public float Speed { get => _stat.Speed; set => _stat.SetSpeed(value); }
-    public float AttackDelayTime { get => _stat.AttackDelayTime; set => _stat.SetAttDelayTime(value); }
-    public float AttackRange => _stat.AttackRange;
+    public float Speed => Unit.Stats.Speed; // { get => _stat.Speed; set => _stat.SetSpeed(value); }
+    public float AttackDelayTime { get => Unit.Stats.AttackDelayTime; set => Unit.Stats.AttackDelayTime = value; }
+    public float AttackRange => Unit.Stats.AttackRange;// _stat.AttackRange;
 
     [SerializeField] protected float stopDistanc;
 
@@ -112,7 +112,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected void SetUnitInfo(UnitFlags flag, float speed)
     {
         _unit = new Unit(flag, _unit == null ? new UnitDamageInfo() : _unit.DamageInfo, new ObjectSpot(UsingID, true)); // 클라에서 flag만 채우는 용도
-        Speed = speed;
+        // Speed = speed;
     }
 
     void OnEnable()

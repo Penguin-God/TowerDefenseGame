@@ -5,11 +5,18 @@ using Photon.Pun;
 
 public class UnitFiller
 {
-    SkillBattleDataContainer _skillData;
-    MonsterManager _monsterManager;
-    public void FillUnit(Multi_TeamSoldier unit, UnitFlags flag, byte worldId)
+    readonly SkillBattleDataContainer _skillData;
+    readonly MonsterManager _monsterManager;
+
+    public UnitFiller(SkillBattleDataContainer skillData, MonsterManager monsterManager)
     {
-        unit.Injection(new Unit(flag, CreateUnitStats(flag, worldId), new ObjectSpot(worldId, true)), _monsterManager);
+        _skillData = skillData;
+        _monsterManager = monsterManager;
+    }
+
+    public void FillUnit(Multi_TeamSoldier unit, UnitFlags flag)
+    {
+        unit.Injection(new Unit(flag, CreateUnitStats(flag, unit.UsingID), new ObjectSpot(unit.UsingID, true)), _monsterManager);
         SetUnitData(unit);
     }
 
@@ -68,7 +75,6 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
 
     public void Spawn(UnitFlags flag, Vector3 spawnPos) 
         => photonView.RPC(nameof(RPCSpawn), RpcTarget.MasterClient, flag, spawnPos, Quaternion.identity, PlayerIdManager.Id);
-    public Multi_TeamSoldier Spawn(UnitColor color, UnitClass unitClass) => Spawn((int)color, (int)unitClass);
     public Multi_TeamSoldier Spawn(UnitFlags flag) => Spawn(flag.ColorNumber, flag.ClassNumber);
     public Multi_TeamSoldier Spawn(int colorNum, int classNum) => Spawn(new UnitFlags(colorNum, classNum), PlayerIdManager.Id);
     public Multi_TeamSoldier Spawn(UnitFlags flag, byte id) => Spawn(flag, Vector3.zero, Quaternion.identity, id);
@@ -90,8 +96,9 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     Multi_TeamSoldier RPCSpawn(UnitFlags flag, Vector3 spawnPos, Quaternion rotation, byte id)
     {
         var unit = Managers.Multi.Instantiater.PhotonInstantiate(PathBuilder.BuildUnitPath(flag), spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
-        unit.Injection(flag, Managers.Data.Unit.UnitStatByFlag[flag].GetClone(), MultiServiceMidiator.Server.UnitDamageInfo(id, flag), _multiMonsterManager.GetMultiData(unit.UsingID));
-        SetUnitData(unit);
+        new UnitFiller(_multiSkillData.GetData(unit.UsingID), _multiMonsterManager.GetMultiData(unit.UsingID)).FillUnit(unit, flag);
+        //unit.Injection(flag, Managers.Data.Unit.UnitStatByFlag[flag].GetClone(), MultiServiceMidiator.Server.UnitDamageInfo(id, flag), _multiMonsterManager.GetMultiData(unit.UsingID));
+        //SetUnitData(unit);
         AddUnitToManager(unit);
         return unit;
     }

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 using Photon.Pun;
 using System;
 using System.Linq;
-using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
+using UnityEditor.Graphs;
 
 public enum UnitColor { Red, Blue, Yellow, Green, Orange, Violet, White, Black };
 public enum UnitClass { Swordman, Archer, Spearman, Mage }
@@ -15,7 +15,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [SerializeField] Unit _unit;
     public Unit Unit => _unit;
     public UnitFlags UnitFlags => _unit.UnitFlags;
-    public bool IsInDefenseWorld => Unit.UnitSpot.IsInDefenseWorld;
+
+    public ObjectSpot Spot { get; private set; }
+    public bool IsInDefenseWorld => Spot.IsInDefenseWorld;
 
     public UnitClass UnitClass => UnitFlags.UnitClass;
     public UnitColor UnitColor => UnitFlags.UnitColor;
@@ -75,17 +77,18 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     protected MonsterFinder TargetFinder { get; private set; }
     protected UnitAttacker UnitAttacker { get; private set; }
-    public void Injection(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo, MonsterManager monsterManager)
-    {
-        TargetFinder = new MonsterFinder(monsterManager, UsingID);
-        SetInfo(flag, stat, damInfo);
-        ChaseTarget();
-    }
+    //public void Injection(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo, MonsterManager monsterManager)
+    //{
+    //    TargetFinder = new MonsterFinder(monsterManager, UsingID);
+    //    SetInfo(flag, stat, damInfo);
+    //    ChaseTarget();
+    //}
 
     public void Injection(Unit unit, MonsterManager monsterManager)
     {
         TargetFinder = new MonsterFinder(monsterManager, UsingID);
         _unit = unit;
+        Spot = new ObjectSpot(UsingID, true);
         UnitAttacker = new UnitAttacker(_unit);
         photonView.RPC(nameof(SetUnitInfo), RpcTarget.Others, _unit.UnitFlags, Speed);
         ChaseTarget();
@@ -101,14 +104,14 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
 
     // MasterOnly
-    void SetInfo(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo)
-    {
-        _stat = stat;
-        _unit = new Unit(flag, damInfo, new ObjectSpot(UsingID, true));
-        UnitAttacker = new UnitAttacker(_unit);
-        SetUnitInfo(flag, Speed);
-        photonView.RPC(nameof(SetUnitInfo), RpcTarget.Others, flag, Speed);
-    }
+    //void SetInfo(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo)
+    //{
+    //    _stat = stat;
+    //    _unit = new Unit(flag, damInfo, new ObjectSpot(UsingID, true));
+    //    UnitAttacker = new UnitAttacker(_unit);
+    //    SetUnitInfo(flag, Speed);
+    //    photonView.RPC(nameof(SetUnitInfo), RpcTarget.Others, flag, Speed);
+    //}
 
     [PunRPC]
     protected void SetUnitInfo(UnitFlags flag, float speed)
@@ -252,8 +255,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         }
     }
     Vector3 GetTpPos() => IsInDefenseWorld ?
-        SpawnPositionCalculator.CalculateTowerWolrdSpawnPostion(Multi_Data.instance.EnemyTowerWorldPositions[Unit.UnitSpot.WorldId])
-        : SpawnPositionCalculator.CalculateWorldSpawnPostion(Multi_Data.instance.GetWorldPosition(Unit.UnitSpot.WorldId));
+        SpawnPositionCalculator.CalculateTowerWolrdSpawnPostion(Multi_Data.instance.EnemyTowerWorldPositions[Spot.WorldId])
+        : SpawnPositionCalculator.CalculateWorldSpawnPostion(Multi_Data.instance.GetWorldPosition(Spot.WorldId));
 
     [PunRPC]
     protected void MoveToOtherWorld(Vector3 destination)
@@ -261,11 +264,13 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         gameObject.SetActive(false);
         gameObject.transform.position = destination;
         gameObject.SetActive(true);
-        Unit.ChangeWolrd(); // 얘는 서순상 여기서 실행되야 해서 RPC안에 넣음
+        ChangeWolrd(); // 얘는 서순상 여기서 실행되야 해서 RPC안에 넣음
     }
 
     public void ChangeWorldStateToAll() => photonView.RPC(nameof(ChangeWorldState), RpcTarget.All);
-    [PunRPC] protected void ChangeWorldState() => Unit.ChangeWolrd();
+    [PunRPC] protected void ChangeWorldState() => ChangeWolrd();
+
+    void ChangeWolrd() => Spot = Spot.ChangeWorldType();
 
     protected void AfterPlaySound(EffectSoundType type, float delayTime) => StartCoroutine(Co_AfterPlaySound(type, delayTime));
 
@@ -276,7 +281,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
 
     WorldAudioPlayer worldAudioPlayer;
-    protected void PlaySound(EffectSoundType type, float volumn = -1) => worldAudioPlayer.PlayObjectEffectSound(Unit.UnitSpot, type, volumn);
+    protected void PlaySound(EffectSoundType type, float volumn = -1) => worldAudioPlayer.PlayObjectEffectSound(Spot, type, volumn);
 
     [Serializable]
     public class UnitState : MonoBehaviour

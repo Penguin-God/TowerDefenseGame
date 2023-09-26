@@ -41,19 +41,19 @@ public class Unit
     public void UpdateDamageInfo(UnitDamageInfo newInfo) => _damageInfo = newInfo;
 
     public ObjectSpot UnitSpot { get; private set; }
-    public void ChangeWolrd() => UnitSpot = UnitSpot.ChangeWorldType();
-    public Unit(UnitFlags flag, UnitDamageInfo damageInfo, ObjectSpot unitSpot)
-    {
-        _unitFlags = flag;
-        _damageInfo = damageInfo;
-        UnitSpot = unitSpot;
-    }
+    //public void ChangeWolrd() => UnitSpot = UnitSpot.ChangeWorldType();
+    //public Unit(UnitFlags flag, UnitDamageInfo damageInfo, ObjectSpot unitSpot)
+    //{
+    //    _unitFlags = flag;
+    //    _damageInfo = damageInfo;
+    //    UnitSpot = unitSpot;
+    //}
 
     public Unit(UnitFlags flag, UnitStats unitStats, ObjectSpot unitSpot)
     {
         _unitFlags = flag;
         Stats = unitStats;
         _damageInfo = unitStats.DamageInfo;
-        UnitSpot = unitSpot;
+        // UnitSpot = unitSpot;
     }
 }

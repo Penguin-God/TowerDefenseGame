@@ -90,5 +90,5 @@ public class UI_UnitManagedWindow : UI_Popup
         }
     }
 
-    void UnitWorldChanged() => Managers.Unit.FindUnit((unit) => unit.UnitFlags == _unitFlag && unit.Unit.UnitSpot == Managers.Camera.CameraSpot)?.ChangeUnitWorld();
+    void UnitWorldChanged() => Managers.Unit.FindUnit((unit) => unit.UnitFlags == _unitFlag && unit.Spot.IsInDefenseWorld == Managers.Camera.CameraSpot.IsInDefenseWorld)?.ChangeUnitWorld();
 }

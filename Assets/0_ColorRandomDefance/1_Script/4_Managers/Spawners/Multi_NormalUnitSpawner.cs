@@ -97,23 +97,8 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     {
         var unit = Managers.Multi.Instantiater.PhotonInstantiate(PathBuilder.BuildUnitPath(flag), spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
         new UnitFiller(_multiSkillData.GetData(unit.UsingID), _multiMonsterManager.GetMultiData(unit.UsingID)).FillUnit(unit, flag);
-        //unit.Injection(flag, Managers.Data.Unit.UnitStatByFlag[flag].GetClone(), MultiServiceMidiator.Server.UnitDamageInfo(id, flag), _multiMonsterManager.GetMultiData(unit.UsingID));
-        //SetUnitData(unit);
         AddUnitToManager(unit);
         return unit;
-    }
-
-    void SetUnitData(Multi_TeamSoldier unit)
-    {
-        if(unit.UnitClass == UnitClass.Spearman)
-        {
-            ThrowSpearDataContainer throwSpearData;
-            if (_multiSkillData.GetData(unit.UsingID).TruGetSkillData(SkillType.마창사, out var skillBattleData))
-                throwSpearData = Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/MagicThrowSpearData").ChangeAttackRate(skillBattleData.IntSkillData);
-            else
-                throwSpearData = Managers.Data.Unit.SpearDataContainer;
-            unit.GetComponent<Multi_Unit_Spearman>().SetSpearData(throwSpearData);
-        }
     }
 
     void AddUnitToManager(Multi_TeamSoldier unit)

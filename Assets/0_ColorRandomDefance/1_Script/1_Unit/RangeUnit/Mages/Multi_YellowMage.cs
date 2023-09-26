@@ -10,9 +10,5 @@ public class Multi_YellowMage : Multi_Unit_Mage
         addGold = (int)skillStats[0];
     }
 
-    void OnEnable()
-    {
-        // _unitSkillController = new GainGoldController(transform, addGold, UsingID);
-    }
     protected override void PlaySkillSound() => AfterPlaySound(EffectSoundType.BlackMageSkill, 0.5f);
 }

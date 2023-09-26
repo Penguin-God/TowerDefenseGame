@@ -5,7 +5,6 @@ using UnityEngine.AI;
 using Photon.Pun;
 using System;
 using System.Linq;
-using UnityEditor.Graphs;
 
 public enum UnitColor { Red, Blue, Yellow, Green, Orange, Violet, White, Black };
 public enum UnitClass { Swordman, Archer, Spearman, Mage }
@@ -77,12 +76,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     protected MonsterFinder TargetFinder { get; private set; }
     protected UnitAttacker UnitAttacker { get; private set; }
-    //public void Injection(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo, MonsterManager monsterManager)
-    //{
-    //    TargetFinder = new MonsterFinder(monsterManager, UsingID);
-    //    SetInfo(flag, stat, damInfo);
-    //    ChaseTarget();
-    //}
 
     public void Injection(Unit unit, MonsterManager monsterManager)
     {
@@ -90,7 +83,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         _unit = unit;
         Spot = new ObjectSpot(UsingID, true);
         UnitAttacker = new UnitAttacker(_unit, UsingID);
-        photonView.RPC(nameof(SetUnitInfo), RpcTarget.Others, _unit.UnitFlags, Speed);
         ChaseTarget();
     }
 
@@ -101,23 +93,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             nav.isStopped = true;
         else
             nav.isStopped = false;
-    }
-
-    // MasterOnly
-    //void SetInfo(UnitFlags flag, UnitStat stat, UnitDamageInfo damInfo)
-    //{
-    //    _stat = stat;
-    //    _unit = new Unit(flag, damInfo, new ObjectSpot(UsingID, true));
-    //    UnitAttacker = new UnitAttacker(_unit);
-    //    SetUnitInfo(flag, Speed);
-    //    photonView.RPC(nameof(SetUnitInfo), RpcTarget.Others, flag, Speed);
-    //}
-
-    [PunRPC]
-    protected void SetUnitInfo(UnitFlags flag, float speed)
-    {
-        var stat = new UnitStats(new UnitDamageInfo(), 0, 0, 0, speed);
-        _unit = new Unit(flag, stat, new ObjectSpot(UsingID, true)); // 클라에서 speed랑 flag만 채우는 용도
     }
 
     void OnEnable()

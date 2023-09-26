@@ -14,7 +14,6 @@ public class UI_UnitManagedWindow : UI_Popup
 
     enum Texts
     {
-        // Description,
         Unit_World_Changed_Text,
         UnitNameText,
     }
@@ -26,7 +25,6 @@ public class UI_UnitManagedWindow : UI_Popup
 
     [SerializeField] UnitFlags _unitFlag;
     public UnitFlags UnitFlags => _unitFlag;
-    // UI_CombineButtonParent _combineButtonsParent;
 
     protected override void Init()
     {
@@ -37,7 +35,6 @@ public class UI_UnitManagedWindow : UI_Popup
 
         GetButton((int)Buttons.UnitSellButton).onClick.AddListener(SellUnit);
         GetButton((int)Buttons.Unit_World_Changed_Button).onClick.AddListener(UnitWorldChanged);
-        // _combineButtonsParent = GetComponentInChildren<UI_CombineButtonParent>();
     }
 
     public void Show(UnitFlags flags)
@@ -55,9 +52,6 @@ public class UI_UnitManagedWindow : UI_Popup
         GetText((int)Texts.Unit_World_Changed_Text).text = (Managers.Camera.IsLookEnemyTower) ? "월드로" : "적군의 성으로";
         GetText((int)Texts.UnitNameText).text = Managers.Data.UnitNameDataByFlag[_unitFlag].KoearName;
         CreateCombineUI(flag);
-        //GetText((int)Texts.Description).text = windowData.CombinationRecipe;
-        //_combineButtonsParent.SettingCombineButtons(windowData.CombineUnitFlags);
-
     }
 
     void CreateCombineUI(UnitFlags flag)

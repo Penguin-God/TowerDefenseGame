@@ -4,7 +4,12 @@ using System.Collections.Generic;
 public class UnitAttacker
 {
     readonly Unit _unit;
-    public UnitAttacker(Unit unit) => _unit = unit;
+    readonly byte OwnerId;
+    public UnitAttacker(Unit unit, byte ownerId)
+    {
+        _unit = unit;
+        OwnerId = ownerId;
+    }
 
     // 스킬일 때는 더 높은 대미지였나?
     public int CalculateDamage(EnemyType type) => type == EnemyType.Normal ? _unit.DamageInfo.ApplyDamage : _unit.DamageInfo.ApplyBossDamage;
@@ -21,6 +26,6 @@ public class UnitAttacker
     {
         if (target == null) return;
         target.OnDamage(damage, isSkill);
-        new UnitPassiveCreator(Managers.Data).CreatePassive(_unit.UnitFlags)?.DoUnitPassive(_unit, target);
+        new UnitPassiveCreator(Managers.Data).CreatePassive(_unit.UnitFlags, OwnerId)?.DoUnitPassive(target);
     }
 }

@@ -89,7 +89,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         TargetFinder = new MonsterFinder(monsterManager, UsingID);
         _unit = unit;
         Spot = new ObjectSpot(UsingID, true);
-        UnitAttacker = new UnitAttacker(_unit);
+        UnitAttacker = new UnitAttacker(_unit, UsingID);
         photonView.RPC(nameof(SetUnitInfo), RpcTarget.Others, _unit.UnitFlags, Speed);
         ChaseTarget();
     }

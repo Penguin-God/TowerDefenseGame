@@ -102,8 +102,10 @@ public class BattleDIContainerInitializer
 
         container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
         container.GetComponent<UnitMaxCountController>().Init(server, game);
-        Multi_SpawnManagers.NormalUnit.ReceiveInject(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager, container.GetMultiActiveSkillData());
-        container.GetComponent<Multi_NormalUnitSpawner>().ReceiveInject(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager, container.GetMultiActiveSkillData());
+
+        //container.GetComponent<Multi_NormalUnitSpawner>()
+        //    .ReceiveInject(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager, container.GetMultiActiveSkillData());
+
     }
 
     void InitManagers(BattleDIContainer container)
@@ -114,6 +116,9 @@ public class BattleDIContainerInitializer
         game.Init(container.GetComponent<CurrencyManagerMediator>(), container.GetComponent<UnitMaxCountController>(), data.BattleDataContainer, dispatcher);
         StageManager.Instance.Injection(dispatcher);
         Managers.Unit.Inject(container.GetComponent<UnitCombiner>(), new UnitCombineSystem(data.CombineConditionByUnitFalg));
+        // 지금 컨트롤러랑 싱글턴 병행 중
+        Multi_SpawnManagers.NormalUnit.ReceiveInject(container);
+        container.GetComponent<Multi_NormalUnitSpawner>().ReceiveInject(container);
     }
 
     void Init_UI(BattleDIContainer container)

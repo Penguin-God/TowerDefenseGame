@@ -5,19 +5,14 @@ using Photon.Pun;
 
 public class UnitFiller
 {
-    readonly SkillBattleDataContainer _skillData;
-    readonly MonsterManager _monsterManager;
+    readonly BattleDIContainer _container;
 
-    public UnitFiller(SkillBattleDataContainer skillData, MonsterManager monsterManager)
-    {
-        _skillData = skillData;
-        _monsterManager = monsterManager;
-    }
+    public UnitFiller(BattleDIContainer container) => _container = container;
 
-    public void FillUnit(Multi_TeamSoldier unit, UnitFlags flag, UnitDamageInfo damInfo)
+    public void FillUnit(Multi_TeamSoldier unit, UnitFlags flag, UnitDamageInfo damInfo, MonsterManager monsterManager, SkillBattleDataContainer skillData)
     {
-        unit.Injection(new Unit(flag, CreateUnitStats(flag, damInfo)), _monsterManager);
-        SetUnitData(unit);
+        unit.Injection(new Unit(flag, CreateUnitStats(flag, damInfo)), monsterManager);
+        SetUnitData(unit, skillData);
     }
 
     UnitStats CreateUnitStats(UnitFlags flag, UnitDamageInfo damInfo)
@@ -26,12 +21,12 @@ public class UnitFiller
         return new UnitStats(damInfo, stat.AttackDelayTime, 1f, stat.AttackRange, stat.Speed);
     }
 
-    void SetUnitData(Multi_TeamSoldier unit)
+    void SetUnitData(Multi_TeamSoldier unit, SkillBattleDataContainer skillData)
     {
-        if (_skillData != null && unit.UnitClass == UnitClass.Spearman)
+        if (skillData != null && unit.UnitClass == UnitClass.Spearman)
         {
             ThrowSpearDataContainer throwSpearData;
-            if (_skillData.TruGetSkillData(SkillType.마창사, out var skillBattleData))
+            if (skillData.TruGetSkillData(SkillType.마창사, out var skillBattleData))
                 throwSpearData = Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/MagicThrowSpearData").ChangeAttackRate(skillBattleData.IntSkillData);
             else
                 throwSpearData = Managers.Data.Unit.SpearDataContainer;
@@ -39,7 +34,7 @@ public class UnitFiller
         }
     }
 
-    public static UnitSkillController CreateMageSkillController(Multi_TeamSoldier mage, BattleDIContainer battleDIContainer)
+    UnitSkillController CreateMageSkillController(Multi_TeamSoldier mage)
     {
         IReadOnlyList<float> skillStats = null;
         if (Managers.Data.MageStatByFlag.TryGetValue(mage.UnitFlags, out MageUnitStat stat))
@@ -49,7 +44,7 @@ public class UnitFiller
         {
             case UnitColor.Red: return null;
             case UnitColor.Blue: return null;
-            case UnitColor.Yellow: return new GainGoldController(mage.transform, (int)skillStats[0], mage.UsingID, battleDIContainer.GetComponent<WorldAudioPlayer>());
+            case UnitColor.Yellow: return new GainGoldController(mage.transform, (int)skillStats[0], mage.UsingID, _container.GetComponent<WorldAudioPlayer>());
             case UnitColor.Green: return null;
             case UnitColor.Orange: return null;
             case UnitColor.Violet: return null;
@@ -63,13 +58,20 @@ public class UnitFiller
 public class Multi_NormalUnitSpawner : MonoBehaviourPun
 {
     readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
-    
+    UnitFiller _unitFiller;
     ServerMonsterManager _multiMonsterManager;
     MultiData<SkillBattleDataContainer> _multiSkillData;
     public void ReceiveInject(ServerMonsterManager multiMonsterManager, MultiData<SkillBattleDataContainer> multiSkillData)
     {
         _multiMonsterManager = multiMonsterManager;
         _multiSkillData = multiSkillData;
+    }
+
+    public void ReceiveInject(BattleDIContainer container)
+    {
+        _unitFiller = new UnitFiller(container);
+        _multiSkillData = container.GetMultiActiveSkillData();
+        _multiMonsterManager = container.GetComponent<MonsterManagerProxy>().MultiMonsterManager;
     }
 
     public void Spawn(UnitFlags flag, Vector3 spawnPos) 
@@ -102,15 +104,16 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
 
     void FillUnit(Multi_TeamSoldier unit, UnitFlags flag)
     {
-        new UnitFiller(_multiSkillData.GetData(unit.UsingID), _multiMonsterManager.GetMultiData(unit.UsingID)).FillUnit(unit, flag, MultiServiceMidiator.Server.UnitDamageInfo(unit.UsingID, flag));
+        _unitFiller.FillUnit(unit, flag, MultiServiceMidiator.Server.UnitDamageInfo(unit.UsingID, flag),
+            _multiMonsterManager.GetMultiData(unit.UsingID), _multiSkillData.GetData(unit.UsingID));
         photonView.RPC(nameof(FillOtherUnit), RpcTarget.Others, unit.GetComponent<PhotonView>().ViewID, flag);
     }
 
-    [PunRPC] 
+    [PunRPC]
     void FillOtherUnit(int viewID, UnitFlags flag)
     {
         var unit = Managers.Multi.GetPhotonViewComponent<Multi_TeamSoldier>(viewID);
-        new UnitFiller(null, null).FillUnit(unit, flag, new UnitDamageInfo(0, 0));
+        _unitFiller.FillUnit(unit, flag, new UnitDamageInfo(0, 0), null, null);
     }
 
     void AddUnitToManager(Multi_TeamSoldier unit)

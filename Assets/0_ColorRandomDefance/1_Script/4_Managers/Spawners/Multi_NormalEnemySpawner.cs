@@ -39,7 +39,7 @@ public class MonsterDecorator
         var speedSystem = monster.gameObject.GetOrAddComponent<MonsterSpeedSystem>();
         if (skillData.TruGetSkillData(SkillType.썬콜, out var skillBattleData))
             speedSystem.ReceiveInject(
-                new SuncoldSpeedManager(speed, monster, skillBattleData.IntSkillDatas.Take(UnitDamageCount).ToArray(), _container.GetComponent<MultiEffectManager>(), _container.GetService<WorldAudioPlayer>())
+                new SuncoldSpeedManager(speed, monster, skillBattleData.IntSkillDatas.Take(UnitDamageCount).ToArray(), _container.GetComponent<MultiEffectManager>(), _container.GetComponent<WorldAudioPlayer>())
                 );
         else speedSystem.ReceiveInject(new SpeedManager(speed));
     }

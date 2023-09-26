@@ -67,4 +67,24 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     }
 
     [PunRPC] void AddUnit(int viewID) => Managers.Unit.AddUnit(Managers.Multi.GetPhotonViewComponent<Multi_TeamSoldier>(viewID));
+
+    public static UnitSkillController CreateMageSkillController(Multi_TeamSoldier mage, BattleDIContainer battleDIContainer)
+    {
+        IReadOnlyList<float> skillStats = null;
+        if (Managers.Data.MageStatByFlag.TryGetValue(mage.UnitFlags, out MageUnitStat stat))
+            skillStats = stat.SkillStats;
+
+        switch (mage.UnitColor)
+        {
+            case UnitColor.Red: return null;
+            case UnitColor.Blue: return null;
+            case UnitColor.Yellow: return new GainGoldController(mage.transform, (int)skillStats[0], mage.UsingID, battleDIContainer.GetComponent<WorldAudioPlayer>());
+            case UnitColor.Green: return null;
+            case UnitColor.Orange: return null;
+            case UnitColor.Violet: return null;
+            case UnitColor.White: return null;
+            case UnitColor.Black: return null;
+            default: return null;
+        }
+    }
 }

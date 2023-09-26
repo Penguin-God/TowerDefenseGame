@@ -61,6 +61,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         animator = GetComponentInChildren<Animator>();
         nav = GetComponent<NavMeshAgent>();
         originObstacleType = nav.obstacleAvoidanceType;
+        worldAudioPlayer = gameObject.AddComponent<WorldAudioPlayer>();
+        worldAudioPlayer.ReceiveInject(Managers.Camera, Managers.Sound);
 
         _state = gameObject.AddComponent<UnitState>();
     }
@@ -101,7 +103,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [PunRPC]
     protected void SetUnitInfo(UnitFlags flag, float speed)
     {
-        worldAudioPlayer = new WorldAudioPlayer(Managers.Camera, Managers.Sound);
         _unit = new Unit(flag, _unit == null ? new UnitDamageInfo() : _unit.DamageInfo, new ObjectSpot(UsingID, true)); // 클라에서 flag만 채우는 용도
         Speed = speed;
     }

@@ -70,11 +70,11 @@ public class BattleDIContainerInitializer
         container.AddComponent<Multi_BossEnemySpawner>();
         container.AddComponent<Multi_NormalUnitSpawner>();
         container.AddComponent<BattleRewardHandler>();
+        container.AddComponent<WorldAudioPlayer>();
 
         container.AddService(new BattleUI_Mediator(Managers.UI, container));
         container.AddService(new BuyAction(container.GetComponent<Multi_NormalUnitSpawner>(), MultiServiceMidiator.UnitUpgrade));
         container.AddService(new GoodsBuyController(game, container.GetComponent<TextShowAndHideController>()));
-        container.AddService(new WorldAudioPlayer(Managers.Camera, Managers.Sound));
     }
 
     void InjectService(BattleDIContainer container)
@@ -89,6 +89,7 @@ public class BattleDIContainerInitializer
         container.GetComponent<Multi_BossEnemySpawner>().Inject(new MonsterDecorator(container));
         container.GetComponent<BattleRewardHandler>()
             .Inject(container.GetEventDispatcher(), container.GetComponent<Multi_BossEnemySpawner>(), new StageUpGoldRewardCalculator(data.BattleDataContainer.StageUpGold));
+        container.GetComponent<WorldAudioPlayer>().ReceiveInject(Managers.Camera, Managers.Sound);
     }
 
 

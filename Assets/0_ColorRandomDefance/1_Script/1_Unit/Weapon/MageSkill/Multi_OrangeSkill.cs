@@ -5,15 +5,19 @@ using Photon.Pun;
 
 public class Multi_OrangeSkill : MonoBehaviour
 {
-    private void Awake()
+    void Awake()
     {
         _renderer = gameObject.GetOrAddComponent<MeshRenderer>();
         audioSource = GetComponent<AudioSource>();
         ps = GetComponent<ParticleSystem>();
     }
 
-    public void OnSkile(Multi_Enemy enemy, int damage, int count, float percent)
-        => StartCoroutine(Co_OrangeSkile(count, enemy, damage, percent));
+    WorldAudioPlayer _worldAudioPlayer;
+    public void OnSkile(Multi_Enemy enemy, int damage, int count, float percent, WorldAudioPlayer worldAudioPlayer)
+    {
+        _worldAudioPlayer = worldAudioPlayer;
+        StartCoroutine(Co_OrangeSkile(count, enemy, damage, percent));
+    }
 
     ParticleSystem ps = null;
     IEnumerator Co_OrangeSkile(int count, Multi_Enemy enemy, int damage, float percent)
@@ -30,30 +34,29 @@ public class Multi_OrangeSkill : MonoBehaviour
 
     void OrangeMageSkill(Multi_Enemy enemy, int damage, float percent)
     {
-        OnSkillEffect(enemy.transform.position);
+        OnSkillEffect(enemy.transform.position, enemy.MonsterSpot);
         
         if (PhotonNetwork.IsMasterClient)
         {
-            int _applyDamage = damage + Mathf.RoundToInt(enemy.currentHp / 100 * percent);
+            int _applyDamage = damage + MathUtil.CalculatePercentage(enemy.currentHp, percent);
             enemy.OnDamage(_applyDamage, isSkill: true);
         }
     }
 
     Renderer _renderer;
-    void OnSkillEffect(Vector3  targetPos)
+    void OnSkillEffect(Vector3 targetPos, ObjectSpot objectSpot)
     {
         transform.position = targetPos;
         ps.Play();
-        OrangePlayAudio();
+        OrangePlayAudio(objectSpot);
     }
 
     AudioSource audioSource;
     [SerializeField] AudioClip audioClip;
-    void OrangePlayAudio()
+    void OrangePlayAudio(ObjectSpot objectSpot)
     {
-        if (_renderer.isVisible == false) return; // 문제
-        // 찾은 클립이 0.6초부터 소리가 나와서 그때부터 재생함. 이거 때문에 얘는 사운드매니저 안 씀
+        // 찾은 클립이 0.6초부터 소리가 나와서 그때부터 재생함.
         audioSource.time = 0.6f;
-        audioSource.Play();
+        _worldAudioPlayer.PlayObjectEffectSound(objectSpot, audioSource);
     }
 }

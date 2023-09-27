@@ -12,10 +12,18 @@ public class WorldAudioPlayer : MonoBehaviour
         _soundManager = soundManager;
     }
 
+    bool PlayCondition(ObjectSpot objectSpot) => objectSpot == _cameraController.CameraSpot;
+
     public void PlayObjectEffectSound(ObjectSpot objectSpot, EffectSoundType soundType, float volumn = -1f)
     {
-        if (objectSpot == _cameraController.CameraSpot)
+        if (PlayCondition(objectSpot))
             _soundManager.PlayEffect(soundType, volumn);
+    }
+
+    public void PlayObjectEffectSound(ObjectSpot objectSpot, AudioSource audioSource)
+    {
+        if (PlayCondition(objectSpot))
+            audioSource.Play();
     }
 
     public void AfterPlaySound(EffectSoundType soundType, float delayTime) => StartCoroutine(Co_AfterPlaySound(soundType, delayTime));

@@ -2,7 +2,6 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static Codice.Client.Common.Servers.RecentlyUsedServers;
 
 public abstract class UnitSkillController
 {
@@ -53,13 +52,15 @@ public class MagicFountainController : UnitSkillController
 {
     readonly int AttackCount;
     readonly float HpRate;
+    readonly WorldAudioPlayer _audioPlayer;
 
-    public MagicFountainController(int attackCount, float damageRate)
+    public MagicFountainController(int attackCount, float damageRate, WorldAudioPlayer audioPlayer)
     {
         AttackCount = attackCount;
         HpRate = damageRate;
+        _audioPlayer = audioPlayer;
     }
 
     public override void DoSkill(Multi_TeamSoldier unit)
-        => SpawnSkill(SkillEffectType.OrangeWater, unit.target.position).GetComponent<Multi_OrangeSkill>().OnSkile(unit.target.GetComponent<Multi_Enemy>(), unit.BossDamage, AttackCount, HpRate);
+        => SpawnSkill(SkillEffectType.OrangeWater, unit.target.position).GetComponent<Multi_OrangeSkill>().OnSkile(unit.target.GetComponent<Multi_Enemy>(), unit.BossDamage, AttackCount, HpRate, _audioPlayer);
 }

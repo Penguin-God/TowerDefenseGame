@@ -14,6 +14,6 @@ public class Multi_OrangeMage : Multi_Unit_Mage
         percent = skillStats[1];
     }
 
-    protected override void MageSkile()
-        => SkillSpawn(Vector3.zero).GetComponent<Multi_OrangeSkill>().OnSkile(TargetEnemy, BossDamage, count, percent);
+    //protected override void MageSkile()
+    //    => SkillSpawn(Vector3.zero).GetComponent<Multi_OrangeSkill>().OnSkile(TargetEnemy, BossDamage, count, percent);
 }

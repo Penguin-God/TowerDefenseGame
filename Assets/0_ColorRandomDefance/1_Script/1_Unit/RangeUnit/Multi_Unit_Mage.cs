@@ -80,8 +80,9 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     {
         base.SpecialAttack();
         manaSystem?.ClearMana_RPC();
-        if (_unitSkillController != null)
-            _unitSkillController.DoSkill(this);
+        if (_unitSkillController != null && PhotonNetwork.IsMasterClient)
+            photonView.RPC(nameof(DoSkill), RpcTarget.All, target.GetComponent<PhotonView>().ViewID);
+            // _unitSkillController.DoSkill(this);
         else if (PhotonNetwork.IsMasterClient)
             MageSkile();
 
@@ -93,6 +94,13 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     {
         yield return new WaitForSeconds(skillTime);
         base.EndSkillAttack(0);
+    }
+
+    [PunRPC] 
+    void DoSkill(int targetId)
+    {
+        _targetManager.ChangedTarget(Managers.Multi.GetPhotonViewComponent<Multi_Enemy>(targetId));
+        _unitSkillController.DoSkill(this);
     }
 
     protected GameObject SkillSpawn(Vector3 spawnPos) => WeaponSpawner.Spawn(skillData.WeaponPath, spawnPos);

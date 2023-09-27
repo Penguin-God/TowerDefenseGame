@@ -12,6 +12,21 @@ public enum UnitStatType
     All,
 }
 
+public class MultiUnitUpgradeController
+{
+
+}
+
+public class _ServerUnitUpgradeController : MultiUnitUpgradeController
+{
+
+}
+
+public class ClienUnitUpgradeController : MultiUnitUpgradeController
+{
+
+}
+
 public class UnitUpgradeController : MonoBehaviourPun
 {
     UnitDamageInfoManager _unitDamageManager;

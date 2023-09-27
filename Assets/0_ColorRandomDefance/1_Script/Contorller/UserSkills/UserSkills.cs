@@ -556,7 +556,7 @@ public class LegendKnight : UserSkill
     {
         foreach (UnitFlags flag in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => new UnitFlags(x, UnitClass.Swordman)))
         {
-            // ApplyDamage에 하는거 맞나?
+            // ApplyDamage에 하는거 맞나? 특별 유닛은 제외였나?
             MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(flag, GetUnitDamInfo(flag).ApplyDamage * IntSkillData, UnitStatType.Damage);
             MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(flag, GetUnitDamInfo(flag).ApplyBossDamage * IntSkillData, UnitStatType.BossDamage);
         }

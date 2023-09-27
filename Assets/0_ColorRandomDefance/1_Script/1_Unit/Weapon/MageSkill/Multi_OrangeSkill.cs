@@ -7,7 +7,6 @@ public class Multi_OrangeSkill : MonoBehaviour
 {
     void Awake()
     {
-        _renderer = gameObject.GetOrAddComponent<MeshRenderer>();
         audioSource = GetComponent<AudioSource>();
         ps = GetComponent<ParticleSystem>();
     }
@@ -43,7 +42,6 @@ public class Multi_OrangeSkill : MonoBehaviour
         }
     }
 
-    Renderer _renderer;
     void OnSkillEffect(Vector3 targetPos, ObjectSpot objectSpot)
     {
         transform.position = targetPos;

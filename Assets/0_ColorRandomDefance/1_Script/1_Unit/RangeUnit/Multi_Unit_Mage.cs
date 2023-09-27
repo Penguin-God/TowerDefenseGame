@@ -82,7 +82,6 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
         manaSystem?.ClearMana_RPC();
         if (_unitSkillController != null && PhotonNetwork.IsMasterClient)
             photonView.RPC(nameof(DoSkill), RpcTarget.All, target.GetComponent<PhotonView>().ViewID);
-            // _unitSkillController.DoSkill(this);
         else if (PhotonNetwork.IsMasterClient)
             MageSkile();
 

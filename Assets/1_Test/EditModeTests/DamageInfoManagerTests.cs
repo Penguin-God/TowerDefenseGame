@@ -9,91 +9,88 @@ namespace Tests
 {
     public class DamageInfoManagerTests
     {
+        const int DefaultDamage = 100;
         Dictionary<UnitFlags, UnitDamageInfo> CreateDamageInfos()
         {
             var damageInfoByFlag = new Dictionary<UnitFlags, UnitDamageInfo>();
             foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
             {
                 foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
-                    damageInfoByFlag.Add(new UnitFlags(color, unitClass), new UnitDamageInfo(0, 0));
+                    damageInfoByFlag.Add(new UnitFlags(color, unitClass), new UnitDamageInfo(DefaultDamage, DefaultDamage));
             }
             return damageInfoByFlag;
         }
+        UnitDamageInfoManager CreateInfoManager() => new UnitDamageInfoManager(CreateDamageInfos());
+        int GetRedSwordmanDamage(UnitDamageInfoManager manager) => manager.GetUnitDamage(RedSwordman);
+        int GetRedSwordmanBossDamage(UnitDamageInfoManager manager) => manager.GetUnitBossDamage(RedSwordman);
         UnitFlags RedSwordman => new UnitFlags(0, 0);
 
         [Test]
         public void CreateStatManager()
         {
-            var manager = new UnitDamageInfoManager(CreateDamageInfos());
+            var manager = CreateInfoManager();
 
             // 모든 유닛 정보가 잘 가져와지는지 확인
             foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
             {
                 foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
                 {
-                    Assert.AreEqual(0, manager.GetUnitDamage(new UnitFlags(color, unitClass)));
-                    Assert.AreEqual(0, manager.GetUnitBossDamage(new UnitFlags(color, unitClass)));
+                    Assert.AreEqual(DefaultDamage, manager.GetUnitDamage(new UnitFlags(color, unitClass)));
+                    Assert.AreEqual(DefaultDamage, manager.GetUnitBossDamage(new UnitFlags(color, unitClass)));
                 }
             }
         }
 
         [Test]
-        public void AddBaseDamage()
+        [TestCase(50, 0, 150, 100)]
+        [TestCase(0, 50, 100, 150)]
+        [TestCase(50, 50, 150, 150)]
+        public void 합_증가는_원본_대미지에_더하기로_적용됨(int damValue, int bossDamValue, int dam, int bossDam)
         {
-            var manager = new UnitDamageInfoManager(CreateDamageInfos());
+            var manager = CreateInfoManager();
 
-            manager.AddDamage(RedSwordman, 300);
+            manager.AddDamage(RedSwordman, damValue);
+            manager.AddBossDamage(RedSwordman, bossDamValue);
 
-            Assert.AreEqual(300, manager.GetUnitDamage(RedSwordman));
+            Assert.AreEqual(dam, GetRedSwordmanDamage(manager));
+            Assert.AreEqual(bossDam, GetRedSwordmanBossDamage(manager));
         }
 
         [Test]
-        public void AddBaseBossDamage()
+        [TestCase(0.5f, 0, 150, 100)]
+        [TestCase(0f, 0.5f, 100, 150)]
+        [TestCase(0.5f, 0.5f, 150, 150)]
+        public void 퍼센트_증가는_원본_대미지에_배율로_적용됨(float damRate, float bossDamRate, int dam, int bossDam)
         {
-            var manager = new UnitDamageInfoManager(CreateDamageInfos());
+            var manager = CreateInfoManager();
 
-            manager.AddBossDamage(RedSwordman, 300);
+            manager.IncreaseDamageRate(RedSwordman, damRate);
+            manager.IncreaseBossDamageRate(RedSwordman, bossDamRate);
 
-            Assert.AreEqual(300, manager.GetUnitBossDamage(RedSwordman));
+            Assert.AreEqual(dam, GetRedSwordmanDamage(manager));
+            Assert.AreEqual(bossDam, GetRedSwordmanBossDamage(manager));
         }
 
         [Test]
-        public void AddDamageRate()
+        public void 퍼센트_증가는_합적용임()
         {
-            var infos = CreateDamageInfos();
-            infos[RedSwordman] = new UnitDamageInfo(100, 0);
-            var manager = new UnitDamageInfoManager(infos);
-
-            manager.IncreaseDamageRate(RedSwordman, 0.5f);
-
-            Assert.AreEqual(150, manager.GetUnitDamage(RedSwordman));
-        }
-
-        [Test]
-        public void AddBossDamageRate()
-        {
-            var infos = CreateDamageInfos();
-            infos[RedSwordman] = new UnitDamageInfo(0, 100);
-            var manager = new UnitDamageInfoManager(infos);
+            var manager = CreateInfoManager();
 
             manager.IncreaseBossDamageRate(RedSwordman, 0.5f);
+            manager.IncreaseBossDamageRate(RedSwordman, 0.5f);
 
-            Assert.AreEqual(150, manager.GetUnitBossDamage(RedSwordman));
+            Assert.AreEqual(200, GetRedSwordmanBossDamage(manager));
         }
 
         [Test]
-        public void 퍼센트랑_깡공_둘_다_증가()
+        public void 퍼센트랑_깡공_둘_다_증가_시_추가된_기본_대미지도_배율이_적용되야_함()
         {
-            var infos = CreateDamageInfos();
-            infos[RedSwordman] = new UnitDamageInfo(100, 100);
-            var manager = new UnitDamageInfoManager(infos);
+            var manager = CreateInfoManager();
 
             manager.AddDamage(RedSwordman, 100);
             manager.IncreaseDamageRate(RedSwordman, 0.5f);
-            manager.AddDamage(RedSwordman, 100);
-            manager.IncreaseDamageRate(RedSwordman, 0.5f);
 
-            Assert.AreEqual(600, manager.GetUnitDamage(RedSwordman));
+            Assert.AreEqual(300, GetRedSwordmanDamage(manager));
         }
     }
 }

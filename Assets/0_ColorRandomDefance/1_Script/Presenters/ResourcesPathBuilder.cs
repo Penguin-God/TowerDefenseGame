@@ -11,7 +11,7 @@ public enum SkillEffectType
     GreenEnergyBall,
     BlackEnergyBall,
     OrangeWater,
-    Posion,
+    PosionCloud,
 }
 
 public class ResourcesPathBuilder
@@ -36,7 +36,7 @@ public class ResourcesPathBuilder
         else
             return $"Unit/{GetClassName(flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}_{GetClassName(flag.UnitClass)} 1";
     }
-    IReadOnlyList<UnitColor> NewMages = new List<UnitColor>() { UnitColor.Yellow };
+    IReadOnlyList<UnitColor> NewMages = new List<UnitColor>() { UnitColor.Yellow, UnitColor.Violet };
     string GetClassName(UnitClass unitClass) => Enum.GetName(typeof(UnitClass), unitClass);
 
     static Dictionary<UnitClass, string> _unitClassByWeaponName = new Dictionary<UnitClass, string>()
@@ -77,15 +77,15 @@ public class ResourcesPathBuilder
         string effectName = "";
         switch (effectType)
         {
-            case SkillEffectType.Meteor: effectName = "Meteor 1"; break;
-            case SkillEffectType.IceCloud: effectName = "IceCloud 1"; break;
-            case SkillEffectType.YellowMagicCircle: effectName = "Yellow Skile Object 1"; break;
-            case SkillEffectType.GreenEnergyBall: effectName = "GreenMage BounceBall 1"; break;
-            case SkillEffectType.BlackEnergyBall: effectName = "BlackMageSkileBall 1"; break;
-            case SkillEffectType.OrangeWater: effectName = "OrangeMage SkillEffect 1"; break;
-            case SkillEffectType.Posion: effectName = "MagePosionEffect 1"; break;
+            case SkillEffectType.Meteor: // effectName = "Meteor 1"; break;
+            case SkillEffectType.IceCloud: // effectName = "IceCloud 1"; break;
+            case SkillEffectType.YellowMagicCircle: effectName = "YellowMagicCircle"; break;
+            case SkillEffectType.GreenEnergyBall: // effectName = "GreenMage BounceBall 1"; break;
+            case SkillEffectType.BlackEnergyBall: // effectName = "BlackMageSkileBall 1"; break;
+            case SkillEffectType.OrangeWater: // effectName = "OrangeMage SkillEffect 1"; break;
+            case SkillEffectType.PosionCloud: effectName = "PosionCloud"; break;
         }
-        return $"Weapon/MageSkills/{effectName}";
+        return $"Effects/{effectName}";
     }
 
     string GetColorText(UnitColor color) => Enum.GetName(typeof(UnitColor), color);

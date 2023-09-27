@@ -5,9 +5,10 @@ using UnityEngine;
 
 public abstract class UnitSkillController
 {
-    public abstract void DoSkill();
+    public abstract void DoSkill(Unit unit, Multi_Enemy target);
     protected void PlaySkillSound(EffectSoundType type) => Managers.Sound.PlayEffect(type);
     protected GameObject SpawnSkill(SkillEffectType type, Vector3 spawnPos) => Managers.Resources.Instantiate(new ResourcesPathBuilder().BuildEffectPath(type), spawnPos);
+    protected int CalculateSkillDamage(Unit unit, float rate) => Mathf.RoundToInt(Mathf.Max(unit.DamageInfo.ApplyDamage, unit.DamageInfo.ApplyBossDamage) * rate);
 }
 
 public class GainGoldController : UnitSkillController
@@ -25,11 +26,33 @@ public class GainGoldController : UnitSkillController
         _worldAudioPlayer = worldAudioPlayer;
     }
 
-    public override void DoSkill()
+    public override void DoSkill(Unit unit, Multi_Enemy target)
     {
         _worldAudioPlayer.AfterPlaySound(EffectSoundType.BlueMageSkill, 0.5f);
         SpawnSkill(SkillEffectType.YellowMagicCircle, _transform.position + OffSet);
         if(PhotonNetwork.IsMasterClient)
             Multi_GameManager.Instance.AddGold_RPC(AddGold, OwerId);
+    }
+}
+
+public class PoisonCloudController : UnitSkillController
+{
+    readonly int PoisonCount;
+    readonly float DamageRate;
+    Vector3 Offset = new Vector3(0, 2, 0);
+
+    public PoisonCloudController(int poisonCount, float damageRate)
+    {
+        PoisonCount = poisonCount;
+        DamageRate = damageRate;
+    }
+
+    Unit _unit;
+    void Poison(Multi_Enemy target) => target.OnPoison_RPC(PoisonCount, CalculateSkillDamage(_unit, DamageRate), true);
+    public override void DoSkill(Unit unit, Multi_Enemy target)
+    {
+        PlaySkillSound(EffectSoundType.VioletMageSkill);
+        _unit = unit;
+        SpawnSkill(SkillEffectType.PosionCloud, target.transform.position + Offset).GetComponent<Multi_HitSkill>().SetHitActoin(Poison);
     }
 }

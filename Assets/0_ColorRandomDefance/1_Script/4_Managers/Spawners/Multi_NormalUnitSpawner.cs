@@ -50,8 +50,7 @@ public class UnitFiller
             case UnitColor.Yellow: return new GainGoldController(mage.transform, (int)skillStats[0], mage.UsingID, _container.GetComponent<WorldAudioPlayer>());
             case UnitColor.Green: return null;
             case UnitColor.Orange: return null;
-            case UnitColor.Violet: return null;
-            case UnitColor.White: return null;
+            case UnitColor.Violet: return new PoisonCloudController((int)skillStats[0], skillStats[1]);
             case UnitColor.Black: return null;
             default: return null;
         }

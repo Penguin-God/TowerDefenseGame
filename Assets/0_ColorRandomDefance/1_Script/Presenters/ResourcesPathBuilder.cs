@@ -36,7 +36,7 @@ public class ResourcesPathBuilder
         else
             return $"Unit/{GetClassName(flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}_{GetClassName(flag.UnitClass)} 1";
     }
-    IReadOnlyList<UnitColor> NewMages = new List<UnitColor>() { UnitColor.Yellow, UnitColor.Violet };
+    IReadOnlyList<UnitColor> NewMages = new List<UnitColor>() { UnitColor.Yellow, UnitColor.Violet, UnitColor.Orange };
     string GetClassName(UnitClass unitClass) => Enum.GetName(typeof(UnitClass), unitClass);
 
     static Dictionary<UnitClass, string> _unitClassByWeaponName = new Dictionary<UnitClass, string>()
@@ -82,7 +82,7 @@ public class ResourcesPathBuilder
             case SkillEffectType.YellowMagicCircle: effectName = "YellowMagicCircle"; break;
             case SkillEffectType.GreenEnergyBall: // effectName = "GreenMage BounceBall 1"; break;
             case SkillEffectType.BlackEnergyBall: // effectName = "BlackMageSkileBall 1"; break;
-            case SkillEffectType.OrangeWater: // effectName = "OrangeMage SkillEffect 1"; break;
+            case SkillEffectType.OrangeWater: effectName = "OrangeFountain"; break;
             case SkillEffectType.PosionCloud: effectName = "PosionCloud"; break;
         }
         return $"Effects/{effectName}";

@@ -2,6 +2,7 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Codice.Client.Common.Servers.RecentlyUsedServers;
 
 public abstract class UnitSkillController
 {
@@ -46,4 +47,19 @@ public class PoisonCloudController : UnitSkillController
         _unit = unit.Unit;
         SpawnSkill(SkillEffectType.PosionCloud, unit.target.position + Offset).GetComponent<Multi_HitSkill>().SetHitActoin(Poison);
     }
+}
+
+public class MagicFountainController : UnitSkillController
+{
+    readonly int AttackCount;
+    readonly float HpRate;
+
+    public MagicFountainController(int attackCount, float damageRate)
+    {
+        AttackCount = attackCount;
+        HpRate = damageRate;
+    }
+
+    public override void DoSkill(Multi_TeamSoldier unit)
+        => SpawnSkill(SkillEffectType.OrangeWater, unit.target.position).GetComponent<Multi_OrangeSkill>().OnSkile(unit.target.GetComponent<Multi_Enemy>(), unit.BossDamage, AttackCount, HpRate);
 }

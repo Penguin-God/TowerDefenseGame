@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 
-public class Multi_OrangeSkill : MonoBehaviourPun
+public class Multi_OrangeSkill : MonoBehaviour
 {
     private void Awake()
     {
@@ -13,10 +13,7 @@ public class Multi_OrangeSkill : MonoBehaviourPun
     }
 
     public void OnSkile(Multi_Enemy enemy, int damage, int count, float percent)
-    {
-        Debug.Assert(PhotonNetwork.IsMasterClient, "게스트가... 스킬을?");
-        StartCoroutine(Co_OrangeSkile(count, enemy, damage, percent));
-    }
+        => StartCoroutine(Co_OrangeSkile(count, enemy, damage, percent));
 
     ParticleSystem ps = null;
     IEnumerator Co_OrangeSkile(int count, Multi_Enemy enemy, int damage, float percent)
@@ -25,25 +22,27 @@ public class Multi_OrangeSkill : MonoBehaviourPun
         {
             if (enemy == null || enemy.IsDead) yield break;
             OrangeMageSkill(enemy, damage, percent);
-            yield return new WaitForSeconds(ps.main.startDelayMultiplier + 0.1f);
+            yield return new WaitForSeconds(0.4f);
         }
 
-        Managers.Multi.Instantiater.PhotonDestroy(gameObject);
+        Managers.Resources.Destroy(gameObject);
     }
 
     void OrangeMageSkill(Multi_Enemy enemy, int damage, float percent)
     {
-        photonView.RPC("OnSkillEffect", RpcTarget.All, enemy.transform.position);
-
-        int _applyDamage = damage + Mathf.RoundToInt(enemy.currentHp / 100 * percent);
-        enemy.OnDamage(_applyDamage, isSkill:true);
+        OnSkillEffect(enemy.transform.position);
+        
+        if (PhotonNetwork.IsMasterClient)
+        {
+            int _applyDamage = damage + Mathf.RoundToInt(enemy.currentHp / 100 * percent);
+            enemy.OnDamage(_applyDamage, isSkill: true);
+        }
     }
 
     Renderer _renderer;
-    [PunRPC]
-    void OnSkillEffect(Vector3  _pos)
+    void OnSkillEffect(Vector3  targetPos)
     {
-        transform.position = _pos;
+        transform.position = targetPos;
         ps.Play();
         OrangePlayAudio();
     }
@@ -52,7 +51,7 @@ public class Multi_OrangeSkill : MonoBehaviourPun
     [SerializeField] AudioClip audioClip;
     void OrangePlayAudio()
     {
-        if (_renderer.isVisible == false) return;
+        if (_renderer.isVisible == false) return; // 문제
         // 찾은 클립이 0.6초부터 소리가 나와서 그때부터 재생함. 이거 때문에 얘는 사운드매니저 안 씀
         audioSource.time = 0.6f;
         audioSource.Play();

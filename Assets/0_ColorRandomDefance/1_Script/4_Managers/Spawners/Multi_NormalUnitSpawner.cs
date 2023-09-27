@@ -49,7 +49,7 @@ public class UnitFiller
             case UnitColor.Blue: return null;
             case UnitColor.Yellow: return new GainGoldController((int)skillStats[0]);
             case UnitColor.Green: return null;
-            case UnitColor.Orange: return null;
+            case UnitColor.Orange: return new MagicFountainController((int)skillStats[0], skillStats[1]);
             case UnitColor.Violet: return new PoisonCloudController((int)skillStats[0], skillStats[1]);
             case UnitColor.Black: return null;
             default: return null;

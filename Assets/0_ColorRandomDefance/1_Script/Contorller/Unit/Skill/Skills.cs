@@ -1,6 +1,7 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public abstract class UnitSkillController
@@ -63,4 +64,20 @@ public class MagicFountainController : UnitSkillController
 
     public override void DoSkill(Multi_TeamSoldier unit)
         => SpawnSkill(SkillEffectType.OrangeWater, unit.target.position).GetComponent<Multi_OrangeSkill>().OnSkile(unit.target.GetComponent<Multi_Enemy>(), unit.BossDamage, AttackCount, HpRate, _audioPlayer);
+}
+
+public class MultiVectorShotController : UnitSkillController
+{
+    float DamageRate;
+    const int ShotCount = 8;
+
+    void AttackMonster(Multi_Enemy enemy) => enemy.OnDamage(CalculateSkillDamage(_unit, DamageRate), isSkill: true);
+    Unit _unit;
+    public override void DoSkill(Multi_TeamSoldier unit)
+    {
+        PlaySkillSound(unit, EffectSoundType.BlackMageSkill);
+        _unit = unit.Unit;
+        foreach (Vector3 dir in MathUtil.CalculateDirections(ShotCount).Select(x => new Vector3(x.x, 2, x.y)))
+            SpawnSkill(SkillEffectType.BlackEnergyBall, unit.transform.position).GetComponent<Multi_Projectile>().Shot(dir, AttackMonster);
+    }
 }

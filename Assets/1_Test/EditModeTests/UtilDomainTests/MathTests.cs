@@ -46,7 +46,7 @@ public class MathTests
         };
 
         // Act
-        Vector2[] actualDirections = MathUtil.CalculateDirections(numberOfDirections);
+        var actualDirections = MathUtil.CalculateDirections(numberOfDirections);
 
         // Assert
         for (int i = 0; i < numberOfDirections; i++)
@@ -77,7 +77,7 @@ public class MathTests
         };
 
         // Act
-        Vector2[] actualPositions = MathUtil.CalculateCirclePositions(numberOfPositions, distanceFromCenter);
+        var actualPositions = MathUtil.CalculateCirclePositions(numberOfPositions, distanceFromCenter);
 
         // Assert
         for (int i = 0; i < numberOfPositions; i++)

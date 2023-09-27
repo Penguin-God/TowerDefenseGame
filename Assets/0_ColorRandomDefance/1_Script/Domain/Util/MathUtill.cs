@@ -6,7 +6,7 @@ public static class MathUtil
     public static float CalculatePercentage(float total, float percent) => (total * percent) / 100f;
     public static int CalculatePercentage(int total, float percent) => Mathf.RoundToInt(CalculatePercentage((float)total, percent));
 
-    public static Vector2[] CalculateDirections(int dirCount)
+    public static IReadOnlyList<Vector2> CalculateDirections(int dirCount)
     {
         Vector2[] directions = new Vector2[dirCount];
         float angleStep = 360f / dirCount;
@@ -20,7 +20,7 @@ public static class MathUtil
         return directions;
     }
 
-    public static Vector2[] CalculateCirclePositions(int positionCount, float radius)
+    public static IReadOnlyList<Vector2> CalculateCirclePositions(int positionCount, float radius)
     {
         Vector2[] startingPositions = new Vector2[positionCount];
         float angleStep = 360f / positionCount;

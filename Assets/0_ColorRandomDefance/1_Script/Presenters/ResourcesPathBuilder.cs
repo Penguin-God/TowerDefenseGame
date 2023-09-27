@@ -81,7 +81,7 @@ public class ResourcesPathBuilder
             case SkillEffectType.IceCloud: // effectName = "IceCloud 1"; break;
             case SkillEffectType.YellowMagicCircle: effectName = "YellowMagicCircle"; break;
             case SkillEffectType.GreenEnergyBall: // effectName = "GreenMage BounceBall 1"; break;
-            case SkillEffectType.BlackEnergyBall: // effectName = "BlackMageSkileBall 1"; break;
+            case SkillEffectType.BlackEnergyBall: effectName = "BlackEnergyBall"; break;
             case SkillEffectType.OrangeWater: effectName = "OrangeFountain"; break;
             case SkillEffectType.PosionCloud: effectName = "PosionCloud"; break;
         }

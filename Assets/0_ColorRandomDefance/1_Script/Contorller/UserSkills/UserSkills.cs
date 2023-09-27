@@ -63,7 +63,7 @@ public abstract class UserSkill
     public UserSkillBattleData UserSkillBattleData { get; private set; }
     public UserSkill(UserSkillBattleData userSkillBattleData) => UserSkillBattleData = userSkillBattleData;
 
-    internal abstract void InitSkill();
+    internal virtual void InitSkill() { }
 
     protected int[] IntSkillDatas => UserSkillBattleData.IntSkillDatas;
     protected float[] SkillDatas => UserSkillBattleData.SkillDatas.ToArray();
@@ -480,8 +480,6 @@ public class Suncold : UserSkill
         result[1] = result[1] * rate;
         return result;
     }
-
-    internal override void InitSkill() {}
 }
 
 public class GambleInitializer : UserSkill
@@ -499,7 +497,6 @@ public class GambleInitializer : UserSkill
         ui.Inject(gamblerController, IntSkillDatas[0], IntSkillDatas[1]);
         ui.gameObject.SetActive(false);
     }
-    internal override void InitSkill() { }
     string BuildGameResultText(UnitFlags flag) => $"{UnitTextPresenter.DecorateBefore(UnitTextPresenter.GetUnitNameWithColor(flag), flag)} 뽑았습니다.";
 }
 
@@ -537,8 +534,6 @@ public class VIP : UserSkill
             .Select(x => x.Value)
             .ToList().ForEach(x => x.ChangeAmount(0));
     }
-
-    internal override void InitSkill() {}
 }
 
 
@@ -549,6 +544,4 @@ public class RichGetRicherHandler : UserSkill
         var richgetRicher = new RichGetRicherController(Multi_GameManager.Instance.BattleData.StageUpGold, IntSkillDatas[0], IntSkillDatas[1], currency);
         rewardHandler.ChangeStageRewradCalculator(richgetRicher);
     }
-
-    internal override void InitSkill() { }
 }

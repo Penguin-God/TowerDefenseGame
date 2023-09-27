@@ -247,7 +247,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     void ChangeWolrd() => Spot = Spot.ChangeWorldType();
 
-    protected void AfterPlaySound(EffectSoundType type, float delayTime) => StartCoroutine(Co_AfterPlaySound(type, delayTime));
+    public void AfterPlaySound(EffectSoundType type, float delayTime) => StartCoroutine(Co_AfterPlaySound(type, delayTime));
 
     IEnumerator Co_AfterPlaySound(EffectSoundType type, float delayTime)
     {

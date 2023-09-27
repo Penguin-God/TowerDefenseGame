@@ -81,7 +81,7 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
         base.SpecialAttack();
         manaSystem?.ClearMana_RPC();
         if (_unitSkillController != null)
-            _unitSkillController.DoSkill(Unit, TargetEnemy);
+            _unitSkillController.DoSkill(this);
         else if (PhotonNetwork.IsMasterClient)
             MageSkile();
 

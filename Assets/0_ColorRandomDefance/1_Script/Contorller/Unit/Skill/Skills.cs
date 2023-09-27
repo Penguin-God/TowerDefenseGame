@@ -5,8 +5,8 @@ using UnityEngine;
 
 public abstract class UnitSkillController
 {
-    public abstract void DoSkill(Unit unit, Multi_Enemy target);
-    protected void PlaySkillSound(EffectSoundType type) => Managers.Sound.PlayEffect(type);
+    public abstract void DoSkill(Multi_TeamSoldier unit);
+    protected void PlaySkillSound(Multi_TeamSoldier unit, EffectSoundType type, float delay = 0) => unit.AfterPlaySound(type, delay);
     protected GameObject SpawnSkill(SkillEffectType type, Vector3 spawnPos) => Managers.Resources.Instantiate(new ResourcesPathBuilder().BuildEffectPath(type), spawnPos);
     protected int CalculateSkillDamage(Unit unit, float rate) => Mathf.RoundToInt(Mathf.Max(unit.DamageInfo.ApplyDamage, unit.DamageInfo.ApplyBossDamage) * rate);
 }
@@ -14,24 +14,15 @@ public abstract class UnitSkillController
 public class GainGoldController : UnitSkillController
 {
     readonly int AddGold;
-    readonly Transform _transform;
-    readonly byte OwerId;
-    readonly WorldAudioPlayer _worldAudioPlayer;
     readonly Vector3 OffSet = new Vector3(0, 0.6f, 0);
-    public GainGoldController(Transform transform, int addGold, byte owerId, WorldAudioPlayer worldAudioPlayer)
-    {
-        AddGold = addGold;
-        _transform = transform;
-        OwerId = owerId;
-        _worldAudioPlayer = worldAudioPlayer;
-    }
+    public GainGoldController(int addGold) => AddGold = addGold;
 
-    public override void DoSkill(Unit unit, Multi_Enemy target)
+    public override void DoSkill(Multi_TeamSoldier unit)
     {
-        _worldAudioPlayer.AfterPlaySound(EffectSoundType.BlueMageSkill, 0.5f);
-        SpawnSkill(SkillEffectType.YellowMagicCircle, _transform.position + OffSet);
+        PlaySkillSound(unit, EffectSoundType.BlueMageSkill, delay: 0.5f);
+        SpawnSkill(SkillEffectType.YellowMagicCircle, unit.transform.position + OffSet);
         if(PhotonNetwork.IsMasterClient)
-            Multi_GameManager.Instance.AddGold_RPC(AddGold, OwerId);
+            Multi_GameManager.Instance.AddGold_RPC(AddGold, unit.Spot.WorldId);
     }
 }
 
@@ -49,10 +40,10 @@ public class PoisonCloudController : UnitSkillController
 
     Unit _unit;
     void Poison(Multi_Enemy target) => target.OnPoison_RPC(PoisonCount, CalculateSkillDamage(_unit, DamageRate), true);
-    public override void DoSkill(Unit unit, Multi_Enemy target)
+    public override void DoSkill(Multi_TeamSoldier unit)
     {
-        PlaySkillSound(EffectSoundType.VioletMageSkill);
-        _unit = unit;
-        SpawnSkill(SkillEffectType.PosionCloud, target.transform.position + Offset).GetComponent<Multi_HitSkill>().SetHitActoin(Poison);
+        PlaySkillSound(unit, EffectSoundType.VioletMageSkill);
+        _unit = unit.Unit;
+        SpawnSkill(SkillEffectType.PosionCloud, unit.target.position + Offset).GetComponent<Multi_HitSkill>().SetHitActoin(Poison);
     }
 }

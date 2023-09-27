@@ -52,6 +52,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3801694106188951163, guid: b96817ec0b407ee48b8ee049bf262ec3,
+        type: 3}
+      propertyPath: mageSkillCoolDownTime
+      value: 2.5
+      objectReference: {fileID: 0}
     - target: {fileID: 6109000016361938838, guid: b96817ec0b407ee48b8ee049bf262ec3,
         type: 3}
       propertyPath: m_RootOrder

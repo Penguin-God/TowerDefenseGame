@@ -304,6 +304,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 705653f68370b9b4b864cd0871bd5330, type: 2}
+    - target: {fileID: 3801694106188951163, guid: b96817ec0b407ee48b8ee049bf262ec3,
+        type: 3}
+      propertyPath: mageSkillCoolDownTime
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6109000016361938838, guid: b96817ec0b407ee48b8ee049bf262ec3,
         type: 3}
       propertyPath: m_RootOrder

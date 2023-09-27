@@ -504,8 +504,8 @@ MonoBehaviour:
     _attackDelayTime: 0
     _speed: 0
     _attackRange: 0
-  stopDistanc: 0
-  normalAttakc_AudioDelay: 0
+  stopDistanc: 5
+  normalAttakc_AudioDelay: 0.7
   contactEnemy: 0
   mageStat:
     _flag:

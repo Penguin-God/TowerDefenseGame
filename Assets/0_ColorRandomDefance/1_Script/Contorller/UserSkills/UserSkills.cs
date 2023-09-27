@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Data;
+using UnityEngine.Rendering;
 
 public class SkillBattleDataContainer
 {
@@ -98,6 +99,7 @@ public class UserSkillActor
     {
         SkillType.태극스킬, SkillType.마나변이, SkillType.마나불능, SkillType.장사꾼, SkillType.도박사, SkillType.메테오,
         SkillType.네크로맨서, SkillType.덫, SkillType.백의결속, SkillType.흑의결속, SkillType.썬콜, SkillType.VIP, SkillType.부익부,
+        SkillType.전설의기사,
     });
 
     IReadOnlyList<SkillType> ExistSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
@@ -155,6 +157,7 @@ public class UserSkillActor
             case SkillType.썬콜: result = new Suncold(skillBattleData, Managers.Data); break;
             case SkillType.VIP: result = new VIP(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetComponent<TextShowAndHideController>(), container.GetService<BuyAction>()); break;
             case SkillType.부익부: result = new RichGetRicherHandler(skillBattleData, container.GetComponent<BattleRewardHandler>(), container.GetComponent<CurrencyManagerMediator>()); break;
+            case SkillType.전설의기사: result = new LegendKnight(skillBattleData); break;
             default: result = null; break;
         }
         result.InitSkill();
@@ -544,4 +547,20 @@ public class RichGetRicherHandler : UserSkill
         var richgetRicher = new RichGetRicherController(Multi_GameManager.Instance.BattleData.StageUpGold, IntSkillDatas[0], IntSkillDatas[1], currency);
         rewardHandler.ChangeStageRewradCalculator(richgetRicher);
     }
+}
+
+
+public class LegendKnight : UserSkill
+{
+    public LegendKnight(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) 
+    {
+        foreach (UnitFlags flag in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => new UnitFlags(x, UnitClass.Swordman)))
+        {
+            // ApplyDamage에 하는거 맞나?
+            MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(flag, GetUnitDamInfo(flag).ApplyDamage * 4, UnitStatType.Damage);
+            MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(flag, GetUnitDamInfo(flag).ApplyBossDamage * 4, UnitStatType.BossDamage);
+        }
+    }
+
+    UnitDamageInfo GetUnitDamInfo(UnitFlags flag) => MultiServiceMidiator.Server.UnitDamageInfo(PlayerIdManager.Id, flag);
 }

@@ -129,6 +129,7 @@ public enum SkillType
     백의결속,
     VIP,
     부익부,
+    전설의기사,
 }
 
 public enum MoneyType

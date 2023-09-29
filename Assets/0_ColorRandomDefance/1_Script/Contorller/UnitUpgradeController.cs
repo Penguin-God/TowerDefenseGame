@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Photon.Pun;
 using System.Linq;
 using System;
@@ -10,21 +9,6 @@ public enum UnitStatType
     Damage,
     BossDamage,
     All,
-}
-
-public class MultiUnitUpgradeController
-{
-
-}
-
-public class _ServerUnitUpgradeController : MultiUnitUpgradeController
-{
-
-}
-
-public class ClienUnitUpgradeController : MultiUnitUpgradeController
-{
-
 }
 
 public class UnitUpgradeController : MonoBehaviourPun

@@ -35,18 +35,18 @@ public static class PlayerIdManager
     public static bool IsMasterId(byte id) => id == MasterId;
 }
 
-public class Multi_Data : MonoBehaviour
+public class MultiData : MonoBehaviour
 {
-    private static Multi_Data m_instance;
-    public static Multi_Data instance
+    private static MultiData m_instance;
+    public static MultiData instance
     {
         get
         {
             if (m_instance == null)
             {
-                m_instance = FindObjectOfType<Multi_Data>();
+                m_instance = FindObjectOfType<MultiData>();
                 if (m_instance == null)
-                    m_instance = new GameObject("multi").AddComponent<Multi_Data>();
+                    m_instance = new GameObject("multi").AddComponent<MultiData>();
             }
             return m_instance;
         }

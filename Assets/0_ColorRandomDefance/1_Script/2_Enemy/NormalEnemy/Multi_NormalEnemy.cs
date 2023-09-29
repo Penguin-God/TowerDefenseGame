@@ -39,7 +39,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         base.SetStatus(_hp, speed, _isDead);
         spawnStage = StageManager.Instance.CurrentStage;
-        TurnPoints = Multi_Data.instance.GetEnemyTurnPoints(UsingId);
+        TurnPoints = MultiData.instance.GetEnemyTurnPoints(UsingId);
         if(pointIndex == -1) pointIndex = 0;
         transform.position = _spawnPositons[UsingId];
         transform.rotation = Quaternion.identity;

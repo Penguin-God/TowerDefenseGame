@@ -173,6 +173,8 @@ MonoBehaviour:
   - MoveToOtherWorld
   - FillOtherUnit
   - DoSkill
+  - AddUnitDamageValue
+  - ScaleUnitDamageValue
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

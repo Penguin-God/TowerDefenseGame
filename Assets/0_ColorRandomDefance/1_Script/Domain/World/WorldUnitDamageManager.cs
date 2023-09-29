@@ -9,7 +9,7 @@ public class WorldUnitDamageManager
     UnitDamageInfoManager GetDamageManager(byte worldId) => _worldDamageData.GetData(worldId);
     public WorldUnitDamageManager(MultiData<UnitDamageInfoManager> worldDamageData) => _worldDamageData = worldDamageData;
 
-    public void GetUnitDamageInfo(UnitFlags flag, byte worldId) => GetDamageManager(worldId).GetDamageInfo(flag);
+    public UnitDamageInfo GetUnitDamageInfo(UnitFlags flag, byte worldId) => GetDamageManager(worldId).GetDamageInfo(flag);
 
     public void AddUnitDamageValue(Func<UnitFlags, bool> condition, int value, UnitStatType changeStatType, byte id)
     {

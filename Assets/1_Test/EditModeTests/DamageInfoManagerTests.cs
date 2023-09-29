@@ -4,22 +4,14 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 using System;
+using System.Linq;
 
 namespace Tests
 {
     public class DamageInfoManagerTests
     {
         const int DefaultDamage = 100;
-        Dictionary<UnitFlags, UnitDamageInfo> CreateDamageInfos()
-        {
-            var damageInfoByFlag = new Dictionary<UnitFlags, UnitDamageInfo>();
-            foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
-            {
-                foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
-                    damageInfoByFlag.Add(new UnitFlags(color, unitClass), new UnitDamageInfo(DefaultDamage, DefaultDamage));
-            }
-            return damageInfoByFlag;
-        }
+        Dictionary<UnitFlags, UnitDamageInfo> CreateDamageInfos() => UnitFlags.AllFlags.ToDictionary(x => x, x => new UnitDamageInfo(DefaultDamage, DefaultDamage));
         UnitDamageInfoManager CreateInfoManager() => new UnitDamageInfoManager(CreateDamageInfos());
         int GetRedSwordmanDamage(UnitDamageInfoManager manager) => manager.GetUnitDamage(RedSwordman);
         int GetRedSwordmanBossDamage(UnitDamageInfoManager manager) => manager.GetUnitBossDamage(RedSwordman);

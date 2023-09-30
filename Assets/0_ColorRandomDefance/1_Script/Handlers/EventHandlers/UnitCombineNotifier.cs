@@ -4,7 +4,7 @@ using System.Collections.Generic;
 public class UnitCombineNotifier
 {
     readonly TextShowAndHideController _textController;
-    public UnitCombineNotifier(UnitManager unitManager, TextShowAndHideController textController)
+    public UnitCombineNotifier(UnitControllerManager unitManager, TextShowAndHideController textController)
     {
         _textController = textController;
         unitManager.OnCombine += ShowCombineSuccessText;

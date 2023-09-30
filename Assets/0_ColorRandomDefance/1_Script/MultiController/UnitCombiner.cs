@@ -30,8 +30,8 @@ public abstract class UnitCombiner : MonoBehaviourPun
 
 public class ClientUnitController : UnitCombiner
 {
-    UnitManager _unit;
-    public void Init(DataManager data, UnitManager unit)
+    UnitControllerManager _unit;
+    public void Init(DataManager data, UnitControllerManager unit)
     {
         base.Init(data);
         _unit = unit;

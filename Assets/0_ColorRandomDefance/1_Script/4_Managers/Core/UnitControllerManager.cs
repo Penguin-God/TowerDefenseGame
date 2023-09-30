@@ -4,7 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 
-public class UnitManager
+public class UnitControllerManager
 {
     readonly List<Multi_TeamSoldier> _units = new List<Multi_TeamSoldier>();
     public int CurrentUnitCount => _units.Count;

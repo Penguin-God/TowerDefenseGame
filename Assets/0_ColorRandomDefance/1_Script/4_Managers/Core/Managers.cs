@@ -33,7 +33,7 @@ public class Managers : MonoBehaviour
     CameraController _camera = new();
     EffectManager _effect = new();
     MultiManager _multi = new();
-    UnitManager _unit = new();
+    UnitControllerManager _unit = new();
 
     public static DataManager Data => Instance._data;
     public static UI_Manager UI => Instance._ui;
@@ -45,7 +45,7 @@ public class Managers : MonoBehaviour
     public static CameraController Camera => Instance._camera;
     public static EffectManager Effect => Instance._effect;
     public static MultiManager Multi => Instance._multi;
-    public static UnitManager Unit => Instance._unit;
+    public static UnitControllerManager Unit => Instance._unit;
 
 
     void Init()

@@ -16,20 +16,23 @@ public class MultiUnitDamageManagerController : MonoBehaviourPun
 
     public void AddUnitDamageValue(UnitColor color, int value, UnitStatType changeStatType)
     {
-        // _unitDamageInfoChanger.AddUnitDamageValue(_unitDamageManager, (flag) => flag.UnitColor == color, value, changeStatType);
-        photonView.RPC(nameof(AddUnitDamageValueWithColor_RPC), RpcTarget.MasterClient, Id, (byte)color, value, changeStatType);
+        AddUnitDamageValueWithColor((byte)color, value, changeStatType, Id);
+        if (PhotonNetwork.IsMasterClient == false)
+            photonView.RPC(nameof(AddUnitDamageValueWithColor), RpcTarget.MasterClient, (byte)color, value, changeStatType, Id);
     }
 
     public void ScaleUnitDamageValue(UnitColor color, float value, UnitStatType changeStatType)
     {
-        // _unitDamageInfoChanger.ScaleUnitDamageValue(_unitDamageManager, (flag) => flag.UnitColor == color, value, changeStatType);
-        photonView.RPC(nameof(ScaleUnitDamageValueWithColor_RPC), RpcTarget.MasterClient, Id, (byte)color, value, changeStatType);
+        ScaleUnitDamageValueWithColor((byte)color, value, changeStatType, Id);
+        if (PhotonNetwork.IsMasterClient == false)
+            photonView.RPC(nameof(ScaleUnitDamageValueWithColor), RpcTarget.MasterClient, (byte)color, value, changeStatType, Id);
     }
 
     public void ScaleUnitDamageValue(float value, UnitStatType changeStatType)
     {
-        // _unitDamageInfoChanger.ScaleUnitDamageValue(_unitDamageManager, (x) => true, value, changeStatType);
-        photonView.RPC(nameof(ScaleUnitDamageValueWithAll_RPC), RpcTarget.MasterClient, Id, value, changeStatType);
+        ScaleAllUnitDamageValueWith(value, changeStatType, Id);
+        if (PhotonNetwork.IsMasterClient == false)
+            photonView.RPC(nameof(ScaleAllUnitDamageValueWith), RpcTarget.MasterClient, value, changeStatType, Id);
     }
 
     [PunRPC]

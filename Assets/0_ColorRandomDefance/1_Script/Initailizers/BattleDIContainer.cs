@@ -31,7 +31,6 @@ public class BattleDIContainer
     }
 
     public MultiData<SkillBattleDataContainer> GetMultiActiveSkillData() => GetService<MultiData<SkillBattleDataContainer>>();
-    public SkillBattleDataContainer GetSkillData(byte id) => GetMultiActiveSkillData().GetData(id);
     public BattleEventDispatcher GetEventDispatcher() => GetService<BattleEventDispatcher>();
 }
 
@@ -71,7 +70,9 @@ public class BattleDIContainerInitializer
         container.AddComponent<Multi_NormalUnitSpawner>();
         container.AddComponent<BattleRewardHandler>();
         container.AddComponent<WorldAudioPlayer>();
+        container.AddComponent<MultiUnitStatController>();
 
+        container.AddService(new MultiData<UnitManager>());
         container.AddService(new BattleUI_Mediator(Managers.UI, container));
         container.AddService(new BuyAction(container.GetComponent<Multi_NormalUnitSpawner>(), MultiServiceMidiator.UnitUpgrade));
         container.AddService(new GoodsBuyController(game, container.GetComponent<TextShowAndHideController>()));
@@ -90,8 +91,14 @@ public class BattleDIContainerInitializer
         container.GetComponent<BattleRewardHandler>()
             .Inject(container.GetEventDispatcher(), container.GetComponent<Multi_BossEnemySpawner>(), new StageUpGoldRewardCalculator(data.BattleDataContainer.StageUpGold));
         container.GetComponent<WorldAudioPlayer>().ReceiveInject(Managers.Camera, Managers.Sound);
+        container.GetComponent<MultiUnitStatController>().DependencyInject(new UnitStatController(CreateUnitStatManager(), container.GetService<MultiData<UnitManager>>()));
     }
 
+    WorldUnitDamageManager CreateUnitStatManager()
+    {
+        var multiUnitStat = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(new Dictionary<UnitFlags, UnitDamageInfo>(Managers.Data.Unit.DamageInfoByFlag)));
+        return new WorldUnitDamageManager(multiUnitStat);
+    }
 
     void InjectionOnlyMaster(BattleDIContainer container)
     {

@@ -63,12 +63,14 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     UnitFiller _unitFiller;
     ServerMonsterManager _multiMonsterManager;
     MultiData<SkillBattleDataContainer> _multiSkillData;
+    BattleEventDispatcher _dispatcher;
 
     public void ReceiveInject(BattleDIContainer container)
     {
         _unitFiller = new UnitFiller(container);
         _multiSkillData = container.GetMultiActiveSkillData();
         _multiMonsterManager = container.GetComponent<MonsterManagerProxy>().MultiMonsterManager;
+        _dispatcher = container.GetEventDispatcher();
     }
 
     public void Spawn(UnitFlags flag, Vector3 spawnPos) 
@@ -96,6 +98,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
         var unit = Managers.Multi.Instantiater.PhotonInstantiate(PathBuilder.BuildUnitPath(flag), spawnPos, rotation, id).GetComponent<Multi_TeamSoldier>();
         FillUnit(unit, flag);
         AddUnitToManager(unit);
+        _dispatcher.NotifyUnitSpawn(unit);
         return unit;
     }
 
@@ -120,5 +123,11 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
         else photonView.RPC(nameof(AddUnit), RpcTarget.Others, unit.GetComponent<PhotonView>().ViewID);
     }
 
-    [PunRPC] void AddUnit(int viewID) => Managers.Unit.AddUnit(Managers.Multi.GetPhotonViewComponent<Multi_TeamSoldier>(viewID));
+    [PunRPC]
+    void AddUnit(int viewID)
+    {
+        var unit = Managers.Multi.GetPhotonViewComponent<Multi_TeamSoldier>(viewID);
+        Managers.Unit.AddUnit(unit);
+        _dispatcher.NotifyUnitSpawn(unit);
+    }
 }

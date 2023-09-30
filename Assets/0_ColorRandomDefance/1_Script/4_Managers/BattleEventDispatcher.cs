@@ -41,4 +41,7 @@ public class BattleEventDispatcher
             OnStageUpExcludingFirst?.Invoke(stage);
         OnStageUp?.Invoke(stage);
     }
+
+    public event Action<Multi_TeamSoldier> OnUnitSpawn;
+    public void NotifyUnitSpawn(Multi_TeamSoldier unit) => OnUnitSpawn?.Invoke(unit);
 }

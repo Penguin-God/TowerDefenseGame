@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using Photon.Pun;
 using System;
 
-public class MultiUnitDamageManagerController : MonoBehaviourPun
+public class MultiUnitStatController : MonoBehaviourPun
 {
-    WorldUnitDamageManager worldUnitDamageManager;
+    UnitStatController _unitStatCotroller;
+    public void DependencyInject(UnitStatController worldUnitDamageManager) => _unitStatCotroller = worldUnitDamageManager;
+
     byte Id => PlayerIdManager.Id;
     public void AddUnitDamageValue(UnitFlags flag, int value, UnitStatType changeStatType)
     {
@@ -36,32 +38,14 @@ public class MultiUnitDamageManagerController : MonoBehaviourPun
     }
 
     [PunRPC]
-    void AddUnitDamageValue(UnitFlags flag, int value, UnitStatType changeStatType, byte id)
-    {
-        worldUnitDamageManager.AddUnitDamageValue(flag, value, changeStatType, id);
-        // UpdateCurrentUnitDamageInfo(id, flag);
-    }
+    void AddUnitDamageValue(UnitFlags flag, int value, UnitStatType changeStatType, byte id) => _unitStatCotroller.AddUnitDamageValue(flag, value, changeStatType, id);
 
     [PunRPC]
-    void AddUnitDamageValueWithColor(byte color, int value, UnitStatType changeStatType, byte id)
-    {
-        Func<UnitFlags, bool> conditon = (flag) => flag.UnitColor == (UnitColor)color;
-        worldUnitDamageManager.AddUnitDamageValue(conditon, value, changeStatType, id);
-        // UpdateCurrentUnitDamageInfo(id, conditon);
-    }
+    void AddUnitDamageValueWithColor(byte color, int value, UnitStatType changeStatType, byte id) => _unitStatCotroller.AddUnitDamageValueWithColor((UnitColor)color, value, changeStatType, id);
 
     [PunRPC]
-    void ScaleUnitDamageValueWithColor(byte color, float value, UnitStatType changeStatType, byte id)
-    {
-        Func<UnitFlags, bool> conditon = (flag) => flag.UnitColor == (UnitColor)color;
-        worldUnitDamageManager.ScaleUnitDamageValue(conditon, value, changeStatType, id);
-        // UpdateCurrentUnitDamageInfo(id, conditon);
-    }
+    void ScaleUnitDamageValueWithColor(byte color, float value, UnitStatType changeStatType, byte id) => _unitStatCotroller.ScaleUnitDamageValueWithColor((UnitColor)color, value, changeStatType, id);
 
     [PunRPC]
-    void ScaleAllUnitDamageValueWith(float value, UnitStatType changeStatType, byte id)
-    {
-        worldUnitDamageManager.ScaleUnitDamageValue((x) => true, value, changeStatType, id);
-        // UpdateCurrentUnitDamageInfo(id, (x) => true);
-    }
+    void ScaleAllUnitDamageValueWith(float value, UnitStatType changeStatType, byte id) => _unitStatCotroller.ScaleAllUnitDamageValueWith(value, changeStatType, id);
 }

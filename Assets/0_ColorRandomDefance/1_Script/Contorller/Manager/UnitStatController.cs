@@ -12,6 +12,8 @@ public class UnitStatController
         _worldUnitManager = unitManager;
     }
 
+    public UnitDamageInfo GetDamageInfo(UnitFlags flag, byte id) => _worldUnitDamageManager.GetUnitDamageInfo(flag, id);
+
     public void AddUnitDamageValue(UnitFlags flag, int value, UnitStatType changeStatType, byte id)
     {
         _worldUnitDamageManager.AddUnitDamageValue(flag, value, changeStatType, id);

@@ -40,7 +40,7 @@ public class UnitTooltipController
         result.Append(TextUtility.UnitKeyToValue(Managers.Data.UnitWindowDataByUnitFlags[flag].Description, flag));
         result.AppendLine();
         result.AppendLine();
-        var damInfo = MultiServiceMidiator.UnitUpgrade.GetUnitDamageInfo(flag);
+        var damInfo = new UnitDamageInfo(); // MultiServiceMidiator.UnitUpgrade.GetUnitDamageInfo(flag);
         result.Append($"일반 몬스터 공격력 : {damInfo.ApplyDamage}");
         result.AppendLine();
         result.Append($"보스 몬스터 공격력 : {damInfo.ApplyBossDamage}");

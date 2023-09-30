@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
-using System;
 
 public class MultiUnitStatController : MonoBehaviourPun
 {
     UnitStatController _unitStatCotroller;
     public void DependencyInject(UnitStatController worldUnitDamageManager) => _unitStatCotroller = worldUnitDamageManager;
+    public UnitDamageInfo GetDamageInfo(UnitFlags flag) => _unitStatCotroller.GetDamageInfo(flag, Id);
 
     byte Id => PlayerIdManager.Id;
     public void AddUnitDamageValue(UnitFlags flag, int value, UnitStatType changeStatType)

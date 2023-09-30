@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Photon.Pun;
 using System;
 using System.Linq;
@@ -9,16 +8,12 @@ public class MultiServiceMidiator : SingletonPun<MultiServiceMidiator>
 {
     // 마스터 전용
     static ServerManager _server;
-    static UnitUpgradeController _unitUpgrade;
-    
     public static ServerManager Server => _server;
-    public static UnitUpgradeController UnitUpgrade => _unitUpgrade;
     
     public override void Init()
     {
         base.Init();
         _server = new ServerManager(Managers.Data.Unit.DamageInfoByFlag);
-        _unitUpgrade = (PhotonNetwork.IsMasterClient) ? gameObject.AddComponent<ServerUnitUpgradeController>() : gameObject.AddComponent<UnitUpgradeController>();
     }
 }
 

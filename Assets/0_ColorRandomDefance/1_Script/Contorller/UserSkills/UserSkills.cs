@@ -5,7 +5,6 @@ using System;
 using System.Linq;
 using System.Collections.ObjectModel;
 using System.Data;
-using UnityEngine.Rendering;
 
 public class SkillBattleDataContainer
 {
@@ -132,7 +131,7 @@ public class UserSkillActor
             case SkillType.최대유닛증가: Multi_GameManager.Instance.IncreasedMaxUnitCount(skillBattleData.IntSkillData); break;
             case SkillType.황금빛기사: Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = skillBattleData.IntSkillData; break;
             case SkillType.컬러마스터: container.GetComponent<SwordmanGachaController>().ChangeUnitSummonMaxColor(UnitColor.Violet); break;
-            case SkillType.거인학살자: MultiServiceMidiator.UnitUpgrade.ScaleUnitDamageValue(skillBattleData.SkillData, UnitStatType.BossDamage); break;
+            case SkillType.거인학살자: container.GetComponent<MultiUnitStatController>().ScaleUnitDamageValue(skillBattleData.SkillData, UnitStatType.BossDamage); break;
         }
     }
 
@@ -141,8 +140,8 @@ public class UserSkillActor
         UserSkill result;
         switch (skillBattleData.SkillType)
         {
-            case SkillType.태극스킬: result = new TaegeukController(skillBattleData); break;
-            case SkillType.흑의결속: result = new BlackUnitUpgrade(skillBattleData); break;
+            case SkillType.태극스킬: result = new TaegeukController(skillBattleData, container.GetComponent<MultiUnitStatController>()); break;
+            case SkillType.흑의결속: result = new BlackUnitUpgrade(skillBattleData, container.GetComponent<MultiUnitStatController>()); break;
             case SkillType.마나변이: result = new ManaMutation(skillBattleData, container.GetComponent<SkillColorChanger>()); break;
             case SkillType.마나불능: result = new ManaImpotence(skillBattleData); break;
             case SkillType.장사꾼: result = new UnitMerchant(skillBattleData); break;
@@ -153,11 +152,11 @@ public class UserSkillActor
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>()); break;
             case SkillType.덫:
                 result = new SlowTrapSpawner(skillBattleData, MultiData.instance.GetEnemyTurnPoints(PlayerIdManager.Id) ,container.GetEventDispatcher()); break;
-            case SkillType.백의결속: result = new BondOfWhite(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance); break;
+            case SkillType.백의결속: result = new BondOfWhite(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance, container.GetComponent<MultiUnitStatController>()); break;
             case SkillType.썬콜: result = new Suncold(skillBattleData, Managers.Data); break;
             case SkillType.VIP: result = new VIP(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetComponent<TextShowAndHideController>(), container.GetService<BuyAction>()); break;
             case SkillType.부익부: result = new RichGetRicherHandler(skillBattleData, container.GetComponent<BattleRewardHandler>(), container.GetComponent<CurrencyManagerMediator>()); break;
-            case SkillType.전설의기사: result = new LegendKnight(skillBattleData); break;
+            case SkillType.전설의기사: result = new LegendKnight(skillBattleData, container.GetComponent<MultiUnitStatController>()); break;
             default: result = null; break;
         }
         result.InitSkill();
@@ -169,18 +168,17 @@ public class UserSkillActor
 
 public class TaegeukController : UserSkill
 {
-    public TaegeukController(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
-
     public event Action<UnitClass, bool> OnTaegeukDamageChanged;
-
     int[] _taegeukDamages = new int[Enum.GetValues(typeof(UnitClass)).Length];
-    internal override void InitSkill()
+    readonly TaegeukStateManager _taegeukStateManager = new TaegeukStateManager();
+    readonly MultiUnitStatController _statController;
+    public TaegeukController(UserSkillBattleData userSkillBattleData, MultiUnitStatController statController) : base(userSkillBattleData) 
     {
+        _statController = statController;
         Managers.Unit.OnUnitCountChangeByFlag += (flag, count) => CheckAndApplyTaegeuk(flag);
         _taegeukDamages = IntSkillDatas;
     }
 
-    readonly TaegeukStateManager _taegeukStateManager = new TaegeukStateManager();
     void CheckAndApplyTaegeuk(UnitFlags unitFlag)
     {
         var unitClass = unitFlag.UnitClass;
@@ -202,15 +200,18 @@ public class TaegeukController : UserSkill
         SetTaeguekUnitStat(UnitColor.Red);
         SetTaeguekUnitStat(UnitColor.Blue);
 
-        void SetTaeguekUnitStat(UnitColor unitColor)
-            => MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatType.All);
+        // void SetTaeguekUnitStat(UnitColor unitColor) => MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatType.All);
+        void SetTaeguekUnitStat(UnitColor unitColor) => _statController.AddUnitDamageValue(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatType.All);
     }
 }
 
 public class BlackUnitUpgrade : UserSkill
 {
-    public BlackUnitUpgrade(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
-    internal override void InitSkill() => new UnitUpgradeHandler().UpgradeUnit(UnitColor.Black, IntSkillDatas);
+    public BlackUnitUpgrade(UserSkillBattleData userSkillBattleData, MultiUnitStatController statController) : base(userSkillBattleData) 
+    {
+        new UnitStatHandler(statController).UpgradeUnit(UnitColor.Black, IntSkillDatas);
+    }
+    // internal override void InitSkill() => new UnitStatHandler().UpgradeUnit(UnitColor.Black, IntSkillDatas);
 }
 
 public class ManaMutation : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
@@ -437,7 +438,7 @@ public class BondOfWhite : UserSkill
     readonly int[] _upgradeDamages;
     readonly int NeedUpStageForGetFood;
     readonly int RewardFoodWhenStageUp;
-    public BondOfWhite(UserSkillBattleData userSkillBattleData, BattleEventDispatcher dispatcher, Multi_GameManager game) : base(userSkillBattleData) 
+    public BondOfWhite(UserSkillBattleData userSkillBattleData, BattleEventDispatcher dispatcher, Multi_GameManager game, MultiUnitStatController statController) : base(userSkillBattleData) 
     {
         _dispatcher = dispatcher;
         _game = game;
@@ -445,11 +446,8 @@ public class BondOfWhite : UserSkill
         _game.BattleData.BattleData.WhiteUnitTime *= SkillDatas[4];
         NeedUpStageForGetFood = IntSkillDatas[5];
         RewardFoodWhenStageUp = IntSkillDatas[6];
-    }
-    
-    internal override void InitSkill()
-    {
-        new UnitUpgradeHandler().UpgradeUnit(UnitColor.White, _upgradeDamages);
+
+        new UnitStatHandler(statController).UpgradeUnit(UnitColor.White, _upgradeDamages);
         _dispatcher.OnStageUp += GetFoodOnStageMultiple;
     }
 
@@ -460,12 +458,14 @@ public class BondOfWhite : UserSkill
     }
 }
 
-public class UnitUpgradeHandler
+public class UnitStatHandler
 {
+    readonly MultiUnitStatController _statController;
+    public UnitStatHandler(MultiUnitStatController statController) => _statController = statController;
     public void UpgradeUnit(UnitColor color, int[] upgradeDamages)
     {
         foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
-            MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(new UnitFlags(color, unitClass), upgradeDamages[(int)unitClass], UnitStatType.All);
+            _statController.AddUnitDamageValue(new UnitFlags(color, unitClass), upgradeDamages[(int)unitClass], UnitStatType.All);
     }
 }
 
@@ -552,15 +552,13 @@ public class RichGetRicherHandler : UserSkill
 
 public class LegendKnight : UserSkill
 {
-    public LegendKnight(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) 
+    public LegendKnight(UserSkillBattleData userSkillBattleData, MultiUnitStatController statController) : base(userSkillBattleData) 
     {
         foreach (UnitFlags flag in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => new UnitFlags(x, UnitClass.Swordman)))
         {
             // ApplyDamage에 하는거 맞나? 특별 유닛은 제외였나?
-            MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(flag, GetUnitDamInfo(flag).ApplyDamage * IntSkillData, UnitStatType.Damage);
-            MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(flag, GetUnitDamInfo(flag).ApplyBossDamage * IntSkillData, UnitStatType.BossDamage);
+            statController.AddUnitDamageValue(flag, statController.GetDamageInfo(flag).ApplyDamage * IntSkillData, UnitStatType.Damage);
+            statController.AddUnitDamageValue(flag, statController.GetDamageInfo(flag).ApplyBossDamage * IntSkillData, UnitStatType.BossDamage);
         }
     }
-
-    UnitDamageInfo GetUnitDamInfo(UnitFlags flag) => MultiServiceMidiator.Server.UnitDamageInfo(PlayerIdManager.Id, flag);
 }

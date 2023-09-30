@@ -175,6 +175,9 @@ MonoBehaviour:
   - DoSkill
   - AddUnitDamageValue
   - ScaleUnitDamageValue
+  - AddUnitDamageValueWithColor
+  - ScaleAllUnitDamageValueWith
+  - ScaleUnitDamageValueWithColor
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

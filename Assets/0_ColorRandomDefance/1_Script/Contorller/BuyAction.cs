@@ -5,11 +5,18 @@ using UnityEngine;
 public class BuyAction
 {
     readonly Multi_NormalUnitSpawner _unitSpawner;
-    readonly UnitUpgradeController _unitUpgradeController;
-    public BuyAction(Multi_NormalUnitSpawner unitSpawner, UnitUpgradeController unitUpgradeController)
+    // readonly UnitUpgradeController _unitUpgradeController;
+    readonly MultiUnitStatController _unitStatController;
+    //public BuyAction(Multi_NormalUnitSpawner unitSpawner, UnitUpgradeController unitUpgradeController)
+    //{
+    //    _unitSpawner = unitSpawner;
+    //    _unitUpgradeController = unitUpgradeController;
+    //}
+
+    public BuyAction(Multi_NormalUnitSpawner unitSpawner, MultiUnitStatController unitStatController)
     {
         _unitSpawner = unitSpawner;
-        _unitUpgradeController = unitUpgradeController;
+        _unitStatController = unitStatController;
     }
 
     public void Do(GoodsData sellData)
@@ -31,9 +38,9 @@ public class BuyAction
         switch (goods.UpgradeType)
         {
             case UnitUpgradeType.Value:
-                _unitUpgradeController.AddUnitDamageValue(goods.TargetColor, goods.Value, UnitStatType.All); break;
+                _unitStatController.AddUnitDamageValue(goods.TargetColor, goods.Value, UnitStatType.All); break;
             case UnitUpgradeType.Scale:
-                _unitUpgradeController.ScaleUnitDamageValue(goods.TargetColor, goods.Value / Percentage, UnitStatType.All); break;
+                _unitStatController.ScaleUnitDamageValue(goods.TargetColor, goods.Value / Percentage, UnitStatType.All); break;
         }
         Multi_GameManager.Instance.IncrementUnitUpgradeValue(goods);
     }

@@ -64,6 +64,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     ServerMonsterManager _multiMonsterManager;
     MultiData<SkillBattleDataContainer> _multiSkillData;
     BattleEventDispatcher _dispatcher;
+    UnitStatController _statController;
 
     public void ReceiveInject(BattleDIContainer container)
     {
@@ -71,6 +72,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
         _multiSkillData = container.GetMultiActiveSkillData();
         _multiMonsterManager = container.GetComponent<MonsterManagerProxy>().MultiMonsterManager;
         _dispatcher = container.GetEventDispatcher();
+        _statController = container.GetService<UnitStatController>();
     }
 
     public void Spawn(UnitFlags flag, Vector3 spawnPos) 
@@ -104,8 +106,9 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
 
     void FillUnit(Multi_TeamSoldier unit, UnitFlags flag)
     {
-        _unitFiller.FillUnit(unit, flag, MultiServiceMidiator.Server.UnitDamageInfo(unit.UsingID, flag),
-            _multiMonsterManager.GetMultiData(unit.UsingID), _multiSkillData.GetData(unit.UsingID));
+        // _unitFiller.FillUnit(unit, flag, MultiServiceMidiator.Server.UnitDamageInfo(unit.UsingID, flag), _multiMonsterManager.GetMultiData(unit.UsingID), _multiSkillData.GetData(unit.UsingID));
+        byte id = unit.UsingID;
+        _unitFiller.FillUnit(unit, flag, _statController.GetDamageInfo(flag, id), _multiMonsterManager.GetMultiData(id), _multiSkillData.GetData(id));
         photonView.RPC(nameof(FillOtherUnit), RpcTarget.Others, unit.GetComponent<PhotonView>().ViewID, flag);
     }
 

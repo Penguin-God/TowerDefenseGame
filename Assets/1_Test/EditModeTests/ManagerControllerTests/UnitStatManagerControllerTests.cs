@@ -18,9 +18,8 @@ public class UnitStatManagerControllerTests
         result.AddObject(CreateUnit(0, 1));
         return result;
     }
-
-    Dictionary<UnitFlags, UnitDamageInfo> CreateDamageInfos() => UnitFlags.AllFlags.ToDictionary(x => x, x => new UnitDamageInfo(DefaultDamage, DefaultDamage));
-    WorldUnitDamageManager CreateWorldDamageManager() => new WorldUnitDamageManager(new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(CreateDamageInfos())));
+    Dictionary<UnitFlags, UnitDamageInfo> DamageInfos = UnitFlags.AllFlags.ToDictionary(x => x, x => new UnitDamageInfo(DefaultDamage, DefaultDamage));
+    WorldUnitDamageManager CreateWorldDamageManager() => new WorldUnitDamageManager(new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(DamageInfos)));
     readonly UnitFlags RedSwordman = new UnitFlags(0, 0);
 
     [Test]

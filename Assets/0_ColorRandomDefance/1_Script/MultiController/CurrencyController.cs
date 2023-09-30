@@ -10,7 +10,7 @@ public class CurrencyManagerMediator : MonoBehaviourPun, IBattleCurrencyManager
 
     public void Init(Multi_GameManager game)
     {
-        _multiCurrencyManager = MultiDataFactory.CreateMultiData<CurrencyManager>();
+        _multiCurrencyManager = WorldDataFactory.CreateWorldData<CurrencyManager>();
         _game = game;
     }
 

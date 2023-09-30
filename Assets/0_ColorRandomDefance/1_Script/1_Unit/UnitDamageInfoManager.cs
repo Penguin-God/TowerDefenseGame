@@ -40,12 +40,12 @@ public struct UnitDamageInfo
 
 public class UnitDamageInfoManager
 {
-    readonly Dictionary<UnitFlags, UnitDamageInfo> _damageInfoByFlag = new Dictionary<UnitFlags, UnitDamageInfo>();
-    public UnitDamageInfoManager(Dictionary<UnitFlags, UnitDamageInfo> originDamages)
+    readonly Dictionary<UnitFlags, UnitDamageInfo> _damageInfoByFlag;
+    public UnitDamageInfoManager(IReadOnlyDictionary<UnitFlags, UnitDamageInfo> originDamages)
     {
         int unitAllCount = Enum.GetValues(typeof(UnitColor)).Length * Enum.GetValues(typeof(UnitClass)).Length;
         Debug.Assert(originDamages.Count == unitAllCount, "유닛 스탯의 카운트가 올바르지 않음");
-        _damageInfoByFlag = originDamages;
+        _damageInfoByFlag = new Dictionary<UnitFlags, UnitDamageInfo>(originDamages);
     }
 
     public UnitDamageInfo GetDamageInfo(UnitFlags flag) => _damageInfoByFlag[flag];

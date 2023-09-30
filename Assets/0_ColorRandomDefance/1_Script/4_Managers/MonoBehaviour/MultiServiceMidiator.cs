@@ -26,7 +26,7 @@ public class MultiServiceMidiator : SingletonPun<MultiServiceMidiator>
 public class MultiData<T>
 {
     T[] _services = new T[PlayerIdManager.MaxPlayerCount];
-    public MultiData() => _services = new T[PlayerIdManager.MaxPlayerCount];
+    public MultiData() { }
     public MultiData(Func<T> createService) => _services = _services.Select(x => createService()).ToArray();
 
     public T GetData(byte id) => _services[id];
@@ -34,7 +34,7 @@ public class MultiData<T>
     public IEnumerable<T> Services => _services;
 }
 
-public static class MultiDataFactory
+public static class WorldDataFactory
 {
-    public static MultiData<T> CreateMultiData<T>() where T : new() => new MultiData<T>(() => new T());
+    public static MultiData<T> CreateWorldData<T>() where T : new() => new MultiData<T>(() => new T());
 }

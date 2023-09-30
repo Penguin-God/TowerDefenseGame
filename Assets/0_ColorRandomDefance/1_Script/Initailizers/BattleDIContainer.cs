@@ -72,7 +72,7 @@ public class BattleDIContainerInitializer
         container.AddComponent<WorldAudioPlayer>();
         container.AddComponent<MultiUnitStatController>();
 
-        container.AddService(new MultiData<UnitManager>());
+        container.AddService(WorldDataFactory.CreateWorldData<UnitManager>());
         container.AddService(new BattleUI_Mediator(Managers.UI, container));
         container.AddService(new BuyAction(container.GetComponent<Multi_NormalUnitSpawner>(), MultiServiceMidiator.UnitUpgrade));
         container.AddService(new GoodsBuyController(game, container.GetComponent<TextShowAndHideController>()));
@@ -96,7 +96,7 @@ public class BattleDIContainerInitializer
 
     WorldUnitDamageManager CreateUnitStatManager()
     {
-        var multiUnitStat = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(new Dictionary<UnitFlags, UnitDamageInfo>(Managers.Data.Unit.DamageInfoByFlag)));
+        var multiUnitStat = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(Managers.Data.Unit.DamageInfoByFlag));
         return new WorldUnitDamageManager(multiUnitStat);
     }
 

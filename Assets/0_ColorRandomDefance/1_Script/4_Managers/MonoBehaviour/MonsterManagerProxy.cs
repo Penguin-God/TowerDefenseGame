@@ -64,7 +64,7 @@ public class MonsterManagerProxy : MonoBehaviourPun, IMonsterManager
 public class ServerMonsterManager
 {
     MultiData<MonsterManager> _mulitMonsterManager;
-    public ServerMonsterManager() => _mulitMonsterManager = MultiDataFactory.CreateMultiData<MonsterManager>();
+    public ServerMonsterManager() => _mulitMonsterManager = WorldDataFactory.CreateWorldData<MonsterManager>();
 
     public MonsterManager GetMultiData(byte id) => _mulitMonsterManager.GetData(id);
     public void AddNormalMonster(Multi_NormalEnemy monster) => GetMultiData(monster.UsingId).AddNormalMonster(monster);

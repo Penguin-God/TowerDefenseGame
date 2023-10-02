@@ -147,6 +147,10 @@ public class BattleDIContainerInitializer
         uiMediator.RegisterUI(BattleUI_Type.UnitMaxCountExpendShop, "InGameShop/UnitCountExpendShop_UI");
 
         uiMediator.RegisterUI<UI_BattleButtons>(BattleUI_Type.BattleButtons);
+        var paint = uiMediator.ShowSceneUI<UI_BattleButtons>(BattleUI_Type.BattleButtons).GetComponentInChildren<UI_Paint>();
+        foreach (var item in paint.GetComponentsInChildren<UI_UnitTrackerParent>(true))
+            item.DependencyInject(container.GetService<UnitStatController>());
+        Managers.UI.GetSceneUI<UI_BattleButtons>().gameObject.SetActive(false);
     }
 
     void InitSound()

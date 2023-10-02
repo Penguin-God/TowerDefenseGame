@@ -23,6 +23,5 @@ public class UI_UnitTrackerSetterTrigger : UI_Base
         _unitTrackerParent.SettingUnitTrackers(_flag); // UnitFlags만 줘야됨
     }
 
-    T GetOrInChildrenComponent<T>()
-        => GetComponent<T>() != null ? GetComponent<T>() : GetComponentInChildren<T>();
+    T GetOrInChildrenComponent<T>() => GetComponent<T>() != null ? GetComponent<T>() : GetComponentInChildren<T>();
 }

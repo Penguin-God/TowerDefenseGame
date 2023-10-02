@@ -5,6 +5,7 @@ using Photon.Pun;
 public class MultiUnitStatController : MonoBehaviourPun
 {
     UnitStatController _unitStatCotroller;
+    public UnitStatController UnitStatController => _unitStatCotroller;
     public void DependencyInject(UnitStatController worldUnitDamageManager) => _unitStatCotroller = worldUnitDamageManager;
     public UnitDamageInfo GetDamageInfo(UnitFlags flag) => _unitStatCotroller.GetDamageInfo(flag, Id);
 

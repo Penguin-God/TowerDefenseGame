@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class UnitTooltipController
 {
+    readonly UnitStatController _unitStatController;
+    public UnitTooltipController(UnitStatController unitStatController) => _unitStatController = unitStatController;
+
     readonly float OFFSET_X = 150f;
     readonly float DELAY_TIME = 0.5f;
     readonly int FONT_SIZE = 16;
@@ -40,13 +43,13 @@ public class UnitTooltipController
         result.Append(TextUtility.UnitKeyToValue(Managers.Data.UnitWindowDataByUnitFlags[flag].Description, flag));
         result.AppendLine();
         result.AppendLine();
-        var damInfo = new UnitDamageInfo(); // MultiServiceMidiator.UnitUpgrade.GetUnitDamageInfo(flag);
+        var damInfo = _unitStatController.GetDamageInfo(flag, PlayerIdManager.Id); new UnitDamageInfo(); // MultiServiceMidiator.UnitUpgrade.GetUnitDamageInfo(flag);
         result.Append($"일반 몬스터 공격력 : {damInfo.ApplyDamage}");
         result.AppendLine();
         result.Append($"보스 몬스터 공격력 : {damInfo.ApplyBossDamage}");
         result.AppendLine();
-        var game = Multi_GameManager.Instance;
-        result.Append($"적용된 상점 강화 : 대미지 {game.GetUnitUpgradeShopAddDamageValue(flag)} 증가 및 대미지 {game.GetUnitUpgradeShopUpScaleValue(flag)}% 증가");
+        // var game = Multi_GameManager.Instance;
+        result.Append($"적용된 상점 강화 : 대미지 {_unitStatController.GetUnitUpgradeValue(flag)} 증가 및 대미지 {_unitStatController.GetUnitUpgradeScale(flag)}% 증가");
         return result.ToString();
     }
 

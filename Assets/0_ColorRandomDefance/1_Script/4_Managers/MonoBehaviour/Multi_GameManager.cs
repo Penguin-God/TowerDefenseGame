@@ -187,9 +187,6 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
         AddFood(_battleDataContainer.Food);
         _unitMaxCountController = unitMaxCountController;
         dispatcher.OnGameStart += () => IncreasedMaxUnitCount(_battleDataContainer.MaxUnit);
-
-        _addDamageValueByFlag = UnitFlags.NormalFlags.ToDictionary(x => x, x => 0);
-        _upScaleValueByFlag = UnitFlags.NormalFlags.ToDictionary(x => x, x => 0);
     }
 
     [PunRPC]
@@ -200,25 +197,5 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
             AddGold(_addGold);
         else
             photonView.RPC(nameof(AddGold), RpcTarget.Others, _addGold);
-    }
-
-
-    Dictionary<UnitFlags, int> _addDamageValueByFlag;
-    public int GetUnitUpgradeShopAddDamageValue(UnitFlags flag) => _addDamageValueByFlag[flag];
-    Dictionary<UnitFlags, int> _upScaleValueByFlag;
-    public int GetUnitUpgradeShopUpScaleValue(UnitFlags flag) => _upScaleValueByFlag[flag];
-
-    public void IncrementUnitUpgradeValue(UnitUpgradeData goodsData)
-    {
-        if (goodsData.UpgradeType == UnitUpgradeType.Value)
-            IncrementUnitUpgradeValue(_addDamageValueByFlag, goodsData.Value, goodsData.TargetColor);
-        else
-            IncrementUnitUpgradeValue(_upScaleValueByFlag, goodsData.Value, goodsData.TargetColor);
-    }
-
-    void IncrementUnitUpgradeValue(Dictionary<UnitFlags, int> valueDict, int incrementValue, UnitColor color)
-    {
-        foreach (var flag in valueDict.Keys.Where(x => x.UnitColor == color).ToList())
-            valueDict[flag] += incrementValue;
     }
 }

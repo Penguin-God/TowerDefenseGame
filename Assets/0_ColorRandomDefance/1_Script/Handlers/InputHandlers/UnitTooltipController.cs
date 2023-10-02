@@ -43,12 +43,11 @@ public class UnitTooltipController
         result.Append(TextUtility.UnitKeyToValue(Managers.Data.UnitWindowDataByUnitFlags[flag].Description, flag));
         result.AppendLine();
         result.AppendLine();
-        var damInfo = _unitStatController.GetDamageInfo(flag, PlayerIdManager.Id); new UnitDamageInfo(); // MultiServiceMidiator.UnitUpgrade.GetUnitDamageInfo(flag);
+        var damInfo = _unitStatController.GetDamageInfo(flag, PlayerIdManager.Id); new UnitDamageInfo();
         result.Append($"일반 몬스터 공격력 : {damInfo.ApplyDamage}");
         result.AppendLine();
         result.Append($"보스 몬스터 공격력 : {damInfo.ApplyBossDamage}");
         result.AppendLine();
-        // var game = Multi_GameManager.Instance;
         result.Append($"적용된 상점 강화 : 대미지 {_unitStatController.GetUnitUpgradeValue(flag)} 증가 및 대미지 {_unitStatController.GetUnitUpgradeScale(flag)}% 증가");
         return result.ToString();
     }

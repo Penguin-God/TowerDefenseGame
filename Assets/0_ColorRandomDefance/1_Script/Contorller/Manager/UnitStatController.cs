@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+public enum UnitStatType
+{
+    Damage,
+    BossDamage,
+    All,
+}
+
 public class UnitStatController
 {
     readonly WorldUnitDamageManager _worldUnitDamageManager;

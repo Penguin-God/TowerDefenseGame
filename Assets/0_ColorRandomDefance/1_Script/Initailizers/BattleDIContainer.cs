@@ -115,10 +115,6 @@ public class BattleDIContainerInitializer
 
         container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
         container.GetComponent<UnitMaxCountController>().Init(server, game);
-
-        //container.GetComponent<Multi_NormalUnitSpawner>()
-        //    .ReceiveInject(container.GetComponent<MonsterManagerProxy>().MultiMonsterManager, container.GetMultiActiveSkillData());
-
     }
 
     void InitManagers(BattleDIContainer container)

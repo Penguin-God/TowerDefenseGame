@@ -34,7 +34,6 @@ public class BuyAction
             case UnitUpgradeType.Value: AddValue(goods); break;
             case UnitUpgradeType.Scale: UpScale(goods); break;
         }
-        // Multi_GameManager.Instance.IncrementUnitUpgradeValue(goods);
     }
 
     void AddValue(UnitUpgradeData goods)

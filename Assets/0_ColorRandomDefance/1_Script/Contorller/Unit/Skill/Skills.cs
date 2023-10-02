@@ -70,6 +70,7 @@ public class MultiVectorShotController : UnitSkillController
 {
     float DamageRate;
     const int ShotCount = 8;
+    public MultiVectorShotController(float damageRate) => DamageRate = damageRate;
 
     void AttackMonster(Multi_Enemy enemy) => enemy.OnDamage(CalculateSkillDamage(_unit, DamageRate), isSkill: true);
     Unit _unit;
@@ -78,6 +79,10 @@ public class MultiVectorShotController : UnitSkillController
         PlaySkillSound(unit, EffectSoundType.BlackMageSkill);
         _unit = unit.Unit;
         foreach (Vector3 dir in MathUtil.CalculateDirections(ShotCount).Select(x => new Vector3(x.x, 2, x.y)))
-            SpawnSkill(SkillEffectType.BlackEnergyBall, unit.transform.position).GetComponent<Multi_Projectile>().Shot(dir, AttackMonster);
+        {
+            Vector3 applyDir = dir.normalized;
+            applyDir = new Vector3(applyDir.x, 0, applyDir.z);
+            SpawnSkill(SkillEffectType.BlackEnergyBall, unit.transform.position).GetComponent<Multi_Projectile>().AttackShot(applyDir, AttackMonster);
+        }
     }
 }

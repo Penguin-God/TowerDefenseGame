@@ -51,7 +51,7 @@ public class UnitFiller
             case UnitColor.Green: return null;
             case UnitColor.Orange: return new MagicFountainController((int)skillStats[0], skillStats[1], _container.GetComponent<WorldAudioPlayer>());
             case UnitColor.Violet: return new PoisonCloudController((int)skillStats[0], skillStats[1]);
-            case UnitColor.Black: return null;
+            case UnitColor.Black: return new MultiVectorShotController(skillStats[0]);
             default: return null;
         }
     }

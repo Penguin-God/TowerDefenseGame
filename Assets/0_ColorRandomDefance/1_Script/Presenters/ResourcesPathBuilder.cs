@@ -36,7 +36,7 @@ public class ResourcesPathBuilder
         else
             return $"Unit/{GetClassName(flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}_{GetClassName(flag.UnitClass)} 1";
     }
-    IReadOnlyList<UnitColor> NewMages = new List<UnitColor>() { UnitColor.Yellow, UnitColor.Violet, UnitColor.Orange };
+    IReadOnlyList<UnitColor> NewMages = new List<UnitColor>() { UnitColor.Yellow, UnitColor.Violet, UnitColor.Orange, UnitColor.Black };
     string GetClassName(UnitClass unitClass) => Enum.GetName(typeof(UnitClass), unitClass);
 
     static Dictionary<UnitClass, string> _unitClassByWeaponName = new Dictionary<UnitClass, string>()

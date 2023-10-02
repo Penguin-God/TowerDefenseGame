@@ -48,6 +48,12 @@ public class Multi_Projectile : MonoBehaviourPun
         transform.rotation = lookDir;
     }
 
+    public void AttackShot(Vector3 dir, Action<Multi_Enemy> hitAction)
+    {
+        OnHit = hitAction;
+        RPC_Shot(dir);
+    }
+
     IEnumerator Co_Inactive(float delayTime)
     {
         yield return new WaitForSeconds(delayTime);
@@ -65,14 +71,13 @@ public class Multi_Projectile : MonoBehaviourPun
 
     protected virtual void OnTriggerHit(Collider other) 
     {
+        if(PhotonNetwork.IsMasterClient == false) return;
+
         Multi_Enemy enemy = other.GetComponentInParent<Multi_Enemy>(); // 콜라이더가 자식한테 있음
         if (enemy == null) return;
 
-        if (PhotonNetwork.IsMasterClient)
-        {
-            OnHit?.Invoke(enemy);
-        }
-        if(isAOE == false)
+        OnHit?.Invoke(enemy);
+        if (isAOE == false)
             ReturnObjet();
     }
 

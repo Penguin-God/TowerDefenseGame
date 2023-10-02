@@ -136,17 +136,13 @@ public class BattleDIContainerInitializer
         var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();
         enemySelector.SetInfo(container.GetComponent<EnemySpawnNumManager>());
 
+        // 절대 여기서 Show를 해서는 안 되!! 이유는 skill에서 바꿀 수도 있음
         var uiMediator = container.GetService<BattleUI_Mediator>();
         uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_BattleShop");
         uiMediator.RegisterUI(BattleUI_Type.WhiteUnitShop, "InGameShop/WhiteUnitShop");
         uiMediator.RegisterUI(BattleUI_Type.BalckUnitCombineTable, "InGameShop/BlackUnitShop");
         uiMediator.RegisterUI(BattleUI_Type.UnitMaxCountExpendShop, "InGameShop/UnitCountExpendShop_UI");
-
         uiMediator.RegisterUI<UI_BattleButtons>(BattleUI_Type.BattleButtons);
-        var paint = uiMediator.ShowSceneUI<UI_BattleButtons>(BattleUI_Type.BattleButtons).GetComponentInChildren<UI_Paint>();
-        foreach (var item in paint.GetComponentsInChildren<UI_UnitTrackerParent>(true))
-            item.DependencyInject(container.GetService<UnitStatController>());
-        Managers.UI.GetSceneUI<UI_BattleButtons>().gameObject.SetActive(false);
     }
 
     void InitSound()

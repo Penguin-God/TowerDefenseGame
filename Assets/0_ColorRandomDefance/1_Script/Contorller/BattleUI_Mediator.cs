@@ -49,6 +49,7 @@ public class BattleUI_Mediator
         }
         return null;
     }
+
     public T ShowSceneUI<T>(BattleUI_Type type) where T : UI_Scene
     {
         bool uiExist = _uiManager.GetSceneUI<T>() != null;
@@ -56,7 +57,12 @@ public class BattleUI_Mediator
         if (uiExist == false)
         {
             if (result.GetComponent<UI_BattleButtons>() != null)
+            {
                 result.GetComponent<UI_BattleButtons>().Inject(_container.GetComponent<SwordmanGachaController>(), _container.GetComponent<TextShowAndHideController>());
+                var paint = result.GetComponentInChildren<UI_Paint>();
+                foreach (var item in paint.GetComponentsInChildren<UI_UnitTrackerParent>(true))
+                    item.DependencyInject(_container.GetService<UnitStatController>());
+            }
         }
 
         return result;

@@ -9,10 +9,7 @@ public class ManaSystem : MonoBehaviourPun
     [SerializeField] int _maxMana;
     [SerializeField] int _addMana;
     [SerializeField] int _currentMana;
-
     [SerializeField] bool manaIsLock = false;
-    public void LockMana() => manaIsLock = true;
-    public void ReleaseMana() => manaIsLock = false;
 
     public bool IsManaFull => _manaUseCase.IsManaFull;
 
@@ -53,6 +50,15 @@ public class ManaSystem : MonoBehaviourPun
         _currentMana = 0;
         _manaUseCase.ClearMana();
         manaSlider.value = 0;
+    }
+
+    public void LockManaForDuration(float duration) => StartCoroutine(Co_LockManaForDuration(duration));
+
+    IEnumerator Co_LockManaForDuration(float duration)
+    {
+        manaIsLock = true;
+        yield return new WaitForSeconds(duration);
+        manaIsLock = false;
     }
 
     private RectTransform canvasRectTransform;

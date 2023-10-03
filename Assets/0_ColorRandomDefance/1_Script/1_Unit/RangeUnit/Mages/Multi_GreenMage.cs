@@ -19,7 +19,7 @@ public class Multi_GreenMage : Multi_Unit_Mage
     protected override void MageSkile()
     {
         StartCoroutine(Co_GreenMageSkile());
-        StartCoroutine(Co_FixMana());
+        manaSystem.LockManaForDuration(manaLockTime);
     }
 
     protected override void PlaySkillSound() => PlaySound(EffectSoundType.MageAttack, 0.6f);
@@ -33,12 +33,5 @@ public class Multi_GreenMage : Multi_Unit_Mage
 
         yield return new WaitForSeconds(0.5f);
         nav.isStopped = false;
-    }
-
-    IEnumerator Co_FixMana() // 공 튕기는 동안에는 마나 충전 못하게 하기
-    {
-        base.manaSystem.LockMana();
-        yield return new WaitForSeconds(manaLockTime); // skillCoolDownTime을 마나 제한 시간으로 사용
-        base.manaSystem.ReleaseMana();
     }
 }

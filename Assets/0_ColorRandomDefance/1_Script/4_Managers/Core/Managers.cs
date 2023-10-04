@@ -26,8 +26,8 @@ public class Managers : MonoBehaviour
     DataManager _data = new();
     UI_Manager _ui = new();
     SoundManager _sound = new();
-    ResourcesManager _resources = new();
-    PoolManager _pool = new();
+    ResourcesManager _resources;
+    PoolManager _pool;
     ClientDataManager _clientData = new();
     Scene_Manager _scene = new();
     CameraController _camera = new();
@@ -50,6 +50,8 @@ public class Managers : MonoBehaviour
 
     void Init()
     {
+        _pool = new PoolManager("@PoolManager");
+        _resources = new ResourcesManager(_pool);
         _data.Init();
         _clientData.Init();
         _sound.Init(transform);

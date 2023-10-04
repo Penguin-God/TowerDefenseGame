@@ -82,13 +82,7 @@ public class PoolManager
     Dictionary<string, PoolGroup> _poolGroupByName = new Dictionary<string, PoolGroup>();
     Dictionary<string, Pool> _poolByName = new Dictionary<string, Pool>();
 
-    public void Init(string name)
-    {
-        if(_root == null)
-        {
-            _root = new GameObject(name).transform;
-        }
-    }
+    public PoolManager(string name) => _root = new GameObject(name).transform;
 
     public Transform CreatePool(string path, int count, IInstantiater instantiater)
     {

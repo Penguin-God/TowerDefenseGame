@@ -11,7 +11,7 @@ public class ResourcesManager : IInstantiater
         {
             string goPath = path.Substring(path.IndexOf('/') + 1);
             
-            GameObject go = Managers.Pool.GetOriginal(goPath);
+            GameObject go = _poolManager.GetOriginal(goPath);
             if (go != null) return go as T;
         }
 
@@ -21,7 +21,6 @@ public class ResourcesManager : IInstantiater
 
     readonly PoolManager _poolManager;
     public ResourcesManager(PoolManager poolManager) => _poolManager = poolManager;
-    public ResourcesManager() { }
 
     public GameObject Instantiate(string path) => Instantiate(GetPrefabPath(path), Vector3.zero);
 
@@ -35,7 +34,7 @@ public class ResourcesManager : IInstantiater
 
     GameObject CreateObject(string path)
     {
-        if (Managers.Pool.TryGetPoolObejct(path.Split('/').Last(), out GameObject poolGo))
+        if (_poolManager.TryGetPoolObejct(path.Split('/').Last(), out GameObject poolGo))
             return poolGo;
 
         GameObject result = Object.Instantiate(Load<GameObject>(path), Vector3.zero, Load<GameObject>(path).transform.rotation);
@@ -48,7 +47,7 @@ public class ResourcesManager : IInstantiater
     public void Destroy(GameObject go)
     {
         if (go.GetComponent<Poolable>() != null)
-            Managers.Pool.Push(go);
+            _poolManager.Push(go);
         else
             Object.Destroy(go);
     }

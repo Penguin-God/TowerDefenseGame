@@ -78,7 +78,6 @@ class WorldInitializer
 
     void InitObjectPools()
     {
-        Managers.Pool.Init("@PoolManager");
         if (PhotonNetwork.IsMasterClient == false) return;
         
         new UnitPoolInitializer().InitPool();

@@ -23,6 +23,8 @@ public class UnitFiller
 
     void SetUnitData(Multi_TeamSoldier unit, SkillBattleDataContainer skillData)
     {
+        new UnitPassiveCreator(Managers.Data).AttachedPassive(unit.gameObject, unit.UnitFlags);
+
         if (skillData != null && unit.UnitClass == UnitClass.Spearman)
         {
             ThrowSpearDataContainer throwSpearData;
@@ -106,7 +108,6 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
 
     void FillUnit(Multi_TeamSoldier unit, UnitFlags flag)
     {
-        // _unitFiller.FillUnit(unit, flag, MultiServiceMidiator.Server.UnitDamageInfo(unit.UsingID, flag), _multiMonsterManager.GetMultiData(unit.UsingID), _multiSkillData.GetData(unit.UsingID));
         byte id = unit.UsingID;
         _unitFiller.FillUnit(unit, flag, _statController.GetDamageInfo(flag, id), _multiMonsterManager.GetMultiData(id), _multiSkillData.GetData(id));
         photonView.RPC(nameof(FillOtherUnit), RpcTarget.Others, unit.GetComponent<PhotonView>().ViewID, flag);

@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
 public class Multi_BlueMage : Multi_Unit_Mage
 {
@@ -9,11 +8,6 @@ public class Multi_BlueMage : Multi_Unit_Mage
     [SerializeField] float freezeTime;
     public override void SetMageAwake()
     {
-        var passiveStats = Managers.Data.GetUnitPassiveStats(UnitFlags);
-        if(PhotonNetwork.IsMasterClient)
-        {
-            gameObject.AddComponent<AreaSlowApplier>().Inject(passiveStats[0], passiveStats[1]);
-        }
         freezeTime = skillStats[0];
     }
 

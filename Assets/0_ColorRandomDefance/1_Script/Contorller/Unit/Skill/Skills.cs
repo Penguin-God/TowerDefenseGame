@@ -98,3 +98,21 @@ public class IceCloudController : UnitSkillController
         void FreezeMonster(Multi_Enemy monster) => monster.GetComponent<Multi_NormalEnemy>()?.OnFreeze(FreezeTime, unit.UnitFlags);
     }
 }
+
+public class MeteorShotController : UnitSkillController
+{
+    readonly float DamRate;
+    readonly float StunTime;
+    readonly MeteorController _meteorController;
+    readonly Vector3 Offset = new Vector3(0, 30, 3);
+
+    public MeteorShotController(float damRate, float stunTime, MeteorController meteorController)
+    {
+        DamRate = damRate;
+        StunTime = stunTime;
+        _meteorController = meteorController;
+    }
+
+    public override void DoSkill(Multi_TeamSoldier unit) 
+        => _meteorController.ShotMeteor(unit.target.GetComponent<Multi_Enemy>(), CalculateSkillDamage(unit.Unit, DamRate), StunTime, unit.transform.position + Offset);
+}

@@ -71,6 +71,7 @@ public class BattleDIContainerInitializer
         container.AddComponent<BattleRewardHandler>();
         container.AddComponent<WorldAudioPlayer>();
         container.AddComponent<MultiUnitStatController>();
+        container.AddComponent<MeteorController>();
 
         container.AddService(WorldDataFactory.CreateWorldData<UnitManager>());
         foreach (var manager in container.GetService<MultiData<UnitManager>>().Services)

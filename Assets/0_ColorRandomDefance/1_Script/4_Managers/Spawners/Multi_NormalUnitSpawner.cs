@@ -48,7 +48,7 @@ public class UnitFiller
         switch (mage.UnitColor)
         {
             case UnitColor.Red: return null;
-            case UnitColor.Blue: return null;
+            case UnitColor.Blue: return new IceCloudController((int)skillStats[0]);
             case UnitColor.Yellow: return new GainGoldController((int)skillStats[0]);
             case UnitColor.Green: return null;
             case UnitColor.Orange: return new MagicFountainController((int)skillStats[0], skillStats[1], _container.GetComponent<WorldAudioPlayer>());

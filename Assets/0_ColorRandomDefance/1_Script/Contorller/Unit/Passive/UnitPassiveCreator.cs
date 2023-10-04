@@ -34,5 +34,7 @@ public class UnitPassiveCreator
 
         if (flag == new UnitFlags(UnitColor.Blue, UnitClass.Mage))
             obj.GetOrAddComponent<AreaSlowApplier>().Inject(passiveDatas[0], passiveDatas[1]);
+        else if (flag == new UnitFlags(UnitColor.Red, UnitClass.Mage))
+            obj.GetOrAddComponent<AreaSlowApplier>().Inject(passiveDatas[0], passiveDatas[1]);
     }
 }

@@ -83,3 +83,18 @@ public class MultiVectorShotController : UnitSkillController
             SpawnSkill(SkillEffectType.BlackEnergyBall, unit.transform.position + Offset).GetComponent<Multi_Projectile>().AttackShot(dir.normalized, AttackMonster);
     }
 }
+
+public class IceCloudController : UnitSkillController
+{
+    readonly float FreezeTime;
+    readonly Vector3 Offset = new Vector3(0, 2, 0);
+    public IceCloudController(float freezeTime) => FreezeTime = freezeTime;
+
+    public override void DoSkill(Multi_TeamSoldier unit)
+    {
+        PlaySkillSound(unit, EffectSoundType.BlueMageSkill);
+        SpawnSkill(SkillEffectType.IceCloud, unit.transform.position + Offset).GetComponent<Multi_HitSkill>().SetHitActoin(FreezeMonster);
+
+        void FreezeMonster(Multi_Enemy monster) => monster.GetComponent<Multi_NormalEnemy>()?.OnFreeze(FreezeTime, unit.UnitFlags);
+    }
+}

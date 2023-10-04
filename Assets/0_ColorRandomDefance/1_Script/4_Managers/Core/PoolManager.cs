@@ -130,6 +130,8 @@ public class PoolManager
         else return _poolByName[name];
     }
 
+    public bool ContainsPool(string name) => _poolByName.ContainsKey(name);
+
     public bool TryGetPoolObejct(string name, out GameObject poolGo)
     {
         Pool pool = FindPool(name);

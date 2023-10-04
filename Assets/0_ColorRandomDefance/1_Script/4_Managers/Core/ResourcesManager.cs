@@ -19,7 +19,10 @@ public class ResourcesManager : IInstantiater
         return Resources.Load<T>(path);
     }
 
-    PoolManager PoolManager => Managers.Pool;
+    readonly PoolManager _poolManager;
+    public ResourcesManager(PoolManager poolManager) => _poolManager = poolManager;
+    public ResourcesManager() { }
+
     public GameObject Instantiate(string path) => Instantiate(GetPrefabPath(path), Vector3.zero);
 
     public GameObject Instantiate(string path, Vector3 spawnPos)
@@ -36,8 +39,8 @@ public class ResourcesManager : IInstantiater
             return poolGo;
 
         GameObject result = Object.Instantiate(Load<GameObject>(path), Vector3.zero, Load<GameObject>(path).transform.rotation);
-        if (result.GetComponent<Poolable>() != null && PoolManager.ContainsPool(result.name) == false)
-            PoolManager.CreatePool(result.name, 0, null, this);
+        if (result.GetComponent<Poolable>() != null && _poolManager.ContainsPool(result.name) == false)
+            _poolManager.CreatePool(path, 0, this);
         return result;
     }
     string GetPrefabPath(string path) => path.Contains("Prefabs/") ? path : $"Prefabs/{path}";

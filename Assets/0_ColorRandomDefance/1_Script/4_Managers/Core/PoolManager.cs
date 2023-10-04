@@ -23,7 +23,7 @@ public class Pool
 {
     public Transform Root { get; set; } = null;
     public GameObject Original { get; private set; }
-    public string Path { get; private set;}
+    readonly string Path;
     public string Name => Path.Split('/').Last();
 
     Queue<Poolable> poolStack = new Queue<Poolable>();
@@ -88,6 +88,14 @@ public class PoolManager
         {
             _root = new GameObject(name).transform;
         }
+    }
+
+    public Transform CreatePool(string path, int count, IInstantiater instantiater)
+    {
+        Pool pool = new Pool(path, count, instantiater);
+        pool.Root.SetParent(_root);
+        _poolByName.Add(pool.Name, pool);
+        return pool.Root;
     }
 
     public Transform CreatePool(string path, int count, Transform root = null, IInstantiater instantiater = null)

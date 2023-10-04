@@ -19,70 +19,18 @@ public class PoolGroup
     }
 }
 
-public class ObjectPool
-{
-    public readonly Transform Root;
-    Queue<Poolable> _pool = new Queue<Poolable>();
-    readonly string Path;
-    public string ObjectName => Path.Split('/').Last();
-    readonly IInstantiater _instantiater;
-    public ObjectPool(string path, int count, IInstantiater instantiater)
-    {
-        Path = path;
-        _instantiater = instantiater;
-        Root = new GameObject($"{ObjectName}_Root").transform;
-        for (int i = 0; i < count; i++)
-            Push(CreateObject());
-    }
-
-    Poolable CreateObject()
-    {
-        var go = _instantiater.Instantiate(Path);
-        go.SetActive(false);
-        go.transform.SetParent(Root);
-        go.name = ObjectName;
-
-        Poolable poolable = go.GetOrAddComponent<Poolable>();
-        poolable.Path = Path;
-
-        return poolable;
-    }
-
-    public void Push(Poolable poolable)
-    {
-        if (poolable == null) return;
-
-        poolable.transform.SetParent(Root);
-        poolable.IsUsing = false;
-        _pool.Enqueue(poolable);
-    }
-
-    public Poolable Pop()
-    {
-        Poolable poolable;
-
-        if (_pool.Count > 0) poolable = _pool.Dequeue();
-        else poolable = CreateObject();
-
-        poolable.transform.SetParent(null);
-        poolable.IsUsing = true;
-        return poolable;
-    }
-}
-
 public class Pool
 {
     public Transform Root { get; set; } = null;
     public GameObject Original { get; private set; }
     public string Path { get; private set;}
-    public string Name => Path.Split('/')[Path.Split('/').Length - 1];
+    public string Name => Path.Split('/').Last();
 
-    Stack<Poolable> poolStack = new Stack<Poolable>();
-    public int Count => poolStack.Count;
+    Queue<Poolable> poolStack = new Queue<Poolable>();
 
     IInstantiater _instantiater;
 
-    public void Init(string path, int count, IInstantiater instantiater = null)
+    public Pool(string path, int count, IInstantiater instantiater)
     {
         Path = path;
         _instantiater = instantiater;
@@ -111,14 +59,14 @@ public class Pool
 
         poolable.transform.SetParent(Root);
         poolable.IsUsing = false;
-        poolStack.Push(poolable);
+        poolStack.Enqueue(poolable);
     }
 
     public Poolable Pop()
     {
         Poolable poolable;
 
-        if (poolStack.Count > 0) poolable = poolStack.Pop();
+        if (poolStack.Count > 0) poolable = poolStack.Dequeue();
         else poolable = CreateObject();
 
         poolable.transform.SetParent(null);
@@ -144,8 +92,7 @@ public class PoolManager
 
     public Transform CreatePool(string path, int count, Transform root = null, IInstantiater instantiater = null)
     {
-        Pool pool = new Pool();
-        pool.Init(path, count, instantiater);
+        Pool pool = new Pool(path, count, instantiater);
         if (root == null) pool.Root.SetParent(_root);
         else pool.Root.SetParent(root);
         _poolByName.Add(pool.Name, pool);

@@ -12,8 +12,8 @@ namespace UtilDomainTests
         [Test]
         public void 풀_생성_테스트()
         {
-            var sut = new ObjectPool("A/B/C", 0, null);
-            Assert.AreEqual("C", sut.ObjectName);
+            var sut = new Pool("A/B/C", 0, null);
+            Assert.AreEqual("C", sut.Name);
         }
     }
 }

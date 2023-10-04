@@ -34,150 +34,90 @@ MonoBehaviour:
   RunInBackground: 1
   StartInOfflineMode: 0
   RpcList:
+  - AddFood
   - AddGold
   - AddMana
+  - AddReadyCount
+  - AddUnit
+  - AddUnitDamageValue
+  - AddUnitDamageValueWithColor
+  - ApplySlow
+  - ApplySlowToAll
   - Attack
   - BaseSpawn
-  - ChangeColor
+  - BattleStart
+  - ChangeColorToOrigin
+  - ChangeColorToPoison
   - ChangeUnitColor
-  - ChangeUnitStat
+  - ChangeUnitColorWithViewId
+  - ChangeUnitSummonMaxColor
+  - ChangeWorld
+  - ChangeWorldState
   - ClearMana
   - ClickRpc
-  - ClineStateUpdate
   - ColorChangeSkill
   - Combine
-  - CreateOtherPlayerData
   - DecreasedEffect
   - DestroyRpc
   - DestroySpaceship
+  - DoSkill
+  - DrawUnit
   - EnterBattle
-  - ExitSlow
   - ExitStun
+  - FillOtherUnit
   - Fire
+  - GameEnd
   - GetReward
-  - LoadStat
+  - IncreasedMaxUnitCount
+  - InjectMonster
+  - Mat_To_Freeze
   - MeteorExplosion
-  - MoveToPos
-  - OnFreeze
+  - MoveToOtherWorld
+  - Multi_Throw
+  - NotifyNormalMonsterCountChange
+  - OnOpponentUnitCountChange
+  - OnOpponentUnitMaxCountChange
   - OnPoison
-  - OnSkillEffect
-  - OnSlow
   - OnStun
+  - OverrideFood
+  - OverrideGold
+  - OverrideMaxCount
   - PlayParticle
-  - PlayTpSound
   - PopupText
   - RespawnSpaceship
+  - RestoreSpeed
+  - RPC_AddNormalMonster
+  - RPC_Dead
   - RPC_OnDamage
-  - RPC_OnStart
+  - RPC_RemoveNormalMonster
   - RPC_Shot
+  - RPC_ShotMeteor
   - RPC_UpdateHealth
+  - RPCSpawn
+  - ScaleAllUnitDamageValueWith
+  - ScaleUnitDamageValueWithColor
   - SetActive
   - SetClientSpawnNumber
-  - SetEnterStroyWorld
+  - SetEnemySkillData
   - SetId
-  - SetNavSpeed
-  - SetPassive
+  - SetInfo
+  - SetLevelText
   - SetPosition
   - SetRotate
   - SetRotation
   - SetStatus
   - SetUnitTrackingEffects
   - SetUnitTrackingEffects_ByID
+  - SetupTimer
   - SetVelocity
   - ShowFaildText
-  - ShowSturnEffetc
-  - SpawnUnit
+  - ShowText
   - StopTracking
-  - SyncSpeed
+  - Stun
   - TaeguekEffect
-  - UnitDead
-  - UnitWorldChanged
   - UpdateStage
-  - UpdateUnitMax
-  - Win
-  - RPCSpawn
-  - ChangeColorToOrigin
-  - ChangeColorToPoison
-  - ChangeColorToSlow
-  - ApplySlow
-  - ChangeUnitStatWithColor
-  - ChangeUnitStatWithFlag
-  - Shot
-  - Throw
-  - UnitStatChange
-  - ChangeWorld
-  - RPC_CallbackSpawn
-  - RPC_Dead
-  - ChangeUnitDamageValue_RPC
-  - ScaleUnitDamageValue_RPC
-  - AddUnitDamageValue_RPC
-  - AddUnitDamageValueWithColor_RPC
-  - ScaleUnitDamageValueWithColor_RPC
-  - ScaleUnitDamageValueWithAll_RPC
-  - SetUnitInfo
-  - Dead
-  - Mat_To_Freeze
-  - SetLevelText
-  - AddReadyCount
-  - BattleStart
-  - FlatThrow
-  - SyncFlatThrow
-  - SyncThrow
-  - TryDrawUnit
-  - DrawUnit
-  - AddFood
   - UseFood
   - UseGold
-  - SetGold
-  - SyncFood
-  - SyncGold
-  - OverrideGold
-  - OverrideFood
-  - IncreasedMaxUnitCount
-  - OverrideMaxCount
-  - AddNormalMonster
-  - NotifyNormalMonsterCountChange
-  - GameEnd
-  - ChangeUnitSummonData
-  - ChangeUnitSummonMaxColor
-  - OnOpponentUnitCountChange
-  - OnOpponentUnitMaxCountChange
-  - InitGame
-  - CallFlatThrow
-  - CallThrow
-  - Multi_Throw
-  - RPC_AddNormalMonster
-  - RPC_RemoveNormalMonster
-  - RPC_ShotMeteor
-  - SetInfoToAll
-  - ChangeWorldState
-  - RPC_PlayOneShotEffect
-  - SetEnemyData
-  - RestoreSpeed
-  - Stun
-  - ChangeOriginSpeed
-  - SetClientInfo
-  - SetInfo
-  - SetupTimer
-  - ChangeUnitColorWithViewId
-  - ShowText
-  - CallFlat_Y_Throw
-  - ThrowFlatY
-  - AddUnit
-  - DecorateMonster
-  - InjectMonster
-  - UpdateVelocitySpeed
-  - ApplySlowToAll
-  - ApplySlowWithTime
-  - SetEnemySkillData
-  - MoveToOtherWorld
-  - FillOtherUnit
-  - DoSkill
-  - AddUnitDamageValue
-  - ScaleUnitDamageValue
-  - AddUnitDamageValueWithColor
-  - ScaleAllUnitDamageValueWith
-  - ScaleUnitDamageValueWithColor
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

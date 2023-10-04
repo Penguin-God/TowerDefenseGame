@@ -30,30 +30,9 @@ public class ProjectileThrowingUnit : MonoBehaviourPun
     public void Throw(Multi_Projectile projectile, Vector3 shotPath) => photonView.RPC(nameof(Multi_Throw), RpcTarget.All, projectile.GetComponent<PhotonView>().ViewID, shotPath);
     Multi_Projectile FindProjectileWithId(int id) => Managers.Multi.GetPhotonViewTransfrom(id).GetComponent<Multi_Projectile>();
     [PunRPC]
-    void Multi_Throw(int projectileId, Vector3 shotPath) => new ProjectileThrower().Thorw(FindProjectileWithId(projectileId), projectileData.SpawnPos, shotPath);
+    void Multi_Throw(int projectileId, Vector3 shotPath) => Thorw(FindProjectileWithId(projectileId), projectileData.SpawnPos, shotPath);
 
-
-    // 최적화는 되지만 가끔씩 null 크래쉬나는 코드
-    //Multi_Projectile CallThrow(Multi_Projectile projectile, Transform target)
-    //{
-    //    photonView.RPC(nameof(ThrowFlatY), RpcTarget.All, projectile.GetComponent<PhotonView>().ViewID, target.GetComponent<PhotonView>().ViewID);
-    //    return projectile;
-    //}
-    //[PunRPC]
-    //void ThrowFlatY(int projectileId, int targetId)
-    //    => new ProjectileThrower().ThrowFlatY(FindProjectileWithId(projectileId), Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(targetId), projectileData.SpawnPos, projectileData.Attacker);
-}
-
-public class ProjectileThrower
-{
-    public void ThrowFlatY(Multi_Projectile projectile, Multi_Enemy target, Vector3 startPos, Transform attacker)
-    {
-        Vector3 path = new ThorwPathCalculator().CalculateThorwPath_To_Monster(target, attacker);
-        path = new Vector3(path.x, 0, path.z);
-        Thorw(projectile, startPos, path);
-    }
-
-    public void Thorw(Multi_Projectile projectile, Vector3 startPos, Vector3 shotPath)
+    void Thorw(Multi_Projectile projectile, Vector3 startPos, Vector3 shotPath)
     {
         projectile.transform.position = startPos;
         projectile.gameObject.SetActive(true);

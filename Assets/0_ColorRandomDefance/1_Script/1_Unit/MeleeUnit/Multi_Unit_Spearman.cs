@@ -15,6 +15,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
     [SerializeField] float _skillReboundTime;
     [SerializeField] UnitRandomSkillSystem _skillSystem;
 
+    ProjectileThrowingUnit _spearThower;
     protected override void OnAwake()
     {
         _chaseSystem = gameObject.AddComponent<MeeleChaser>();
@@ -22,6 +23,9 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         normalAttackSound = EffectSoundType.SpearmanAttack;
         _useSkillPercent = 30;
         _skillSystem = new UnitRandomSkillSystem();
+
+        _spearThower = gameObject.GetOrAddComponent<ProjectileThrowingUnit>();
+        _spearThower.SetInfo(_throwSpearData.WeaponPath, spearShotPoint);
     }
     SpearShoter _spearShoter;
     ThrowSpearData _throwSpearData;
@@ -31,9 +35,10 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         string spearPath = throwSpearData.IsMagic ? bulider.BuildMagicSpaerPath(UnitColor) : bulider.BuildUnitWeaponPath(UnitFlags);
         _throwSpearData = new ThrowSpearData(spearPath, throwSpearData.RotateVector, throwSpearData.WaitForVisibilityTime, throwSpearData.AttackRate);
 
-        var spearThower = gameObject.GetOrAddComponent<ProjectileThrowingUnit>();
-        spearThower.SetInfo(_throwSpearData.WeaponPath, spearShotPoint);
-        _spearShoter = new SpearShoter(_throwSpearData, spearThower);
+        if(_spearThower == null)
+            _spearThower = gameObject.GetOrAddComponent<ProjectileThrowingUnit>();
+        _spearThower.SetInfo(_throwSpearData.WeaponPath, spearShotPoint);
+        _spearShoter = new SpearShoter(_throwSpearData, _spearThower);
     }
 
     [PunRPC]
@@ -107,7 +112,7 @@ public class SpearShoter
         return shotSpear;
     }
 
-    void ThrowSpear(Multi_Projectile shotSpear, Vector3 forward, System.Action<Multi_Enemy> action)
+    void ThrowSpear(Multi_Projectile shotSpear, Vector3 forward, Action<Multi_Enemy> action)
     {
         shotSpear.SetHitAction(action);
         shotSpear.GetComponent<Collider>().enabled = true;

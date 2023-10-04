@@ -147,7 +147,7 @@ public class UserSkillActor
             case SkillType.장사꾼: result = new UnitMerchant(skillBattleData); break;
             case SkillType.도박사: 
                 result = new GambleInitializer(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetEventDispatcher(), container.GetComponent<TextShowAndHideController>()); break;
-            case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetComponent<SkillMeteorController>()); break;
+            case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetService<SkillMeteorController>()); break;
             case SkillType.네크로맨서:
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>()); break;
             case SkillType.덫:

@@ -1,28 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
-public class SkillMeteorController : MonoBehaviourPun
+public class SkillMeteorController
 {
     MeteorController _meteorController;
-    void Start()
-    {
-        _meteorController = gameObject.AddComponent<MeteorController>();
-    }
-
     ServerMonsterManager _monsterManager;
     Multi_EnemyManager _enemyManager;
-    public void RecevieInject(ServerMonsterManager monsterManager, Multi_EnemyManager enemyManager)
+    public void DependencyInject(MeteorController meteorController, ServerMonsterManager monsterManager, Multi_EnemyManager enemyManager)
     {
+        _meteorController = meteorController;
         _monsterManager = monsterManager;
         _enemyManager = enemyManager;
     }
 
-    public void ShotMeteor(byte id, int damage, float stunTime) => photonView.RPC(nameof(RPC_ShotMeteor), RpcTarget.MasterClient, id, damage, stunTime);
-
-    [PunRPC]
-    void RPC_ShotMeteor(byte id, int damage, float stunTime) => _meteorController.ShotMeteor(FindMonster(id), damage, stunTime, GetSpawnPos(id));
+    public void ShotMeteor(byte id, int damage, float stunTime) => _meteorController.ShotMeteor(FindMonster(id), damage, stunTime, GetSpawnPos(id));
 
     Multi_NormalEnemy FindMonster(byte id)
     {

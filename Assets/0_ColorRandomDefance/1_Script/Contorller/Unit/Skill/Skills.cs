@@ -113,6 +113,9 @@ public class MeteorShotController : UnitSkillController
         _meteorController = meteorController;
     }
 
-    public override void DoSkill(Multi_TeamSoldier unit) 
-        => _meteorController.ShotMeteor(unit.target.GetComponent<Multi_Enemy>(), CalculateSkillDamage(unit.Unit, DamRate), StunTime, unit.transform.position + Offset);
+    public override void DoSkill(Multi_TeamSoldier unit)
+    {
+        if(PhotonNetwork.IsMasterClient)
+            _meteorController.ShotMeteor(unit.target.GetComponent<Multi_Enemy>(), CalculateSkillDamage(unit.Unit, DamRate), StunTime, unit.transform.position + Offset);
+    }
 }

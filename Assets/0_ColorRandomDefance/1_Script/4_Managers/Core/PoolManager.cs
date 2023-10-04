@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using ExitGames.Client.Photon;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public interface IInstantiater
@@ -14,6 +16,57 @@ public class PoolGroup
     public void Init(string rootName)
     {
         Root = new GameObject($"{rootName}_Root").transform;
+    }
+}
+
+public class ObjectPool
+{
+    public readonly Transform Root;
+    Queue<Poolable> _pool = new Queue<Poolable>();
+    readonly string Path;
+    public string ObjectName => Path.Split('/').Last();
+    readonly IInstantiater _instantiater;
+    public ObjectPool(string path, int count, IInstantiater instantiater)
+    {
+        Path = path;
+        _instantiater = instantiater;
+        Root = new GameObject($"{ObjectName}_Root").transform;
+        for (int i = 0; i < count; i++)
+            Push(CreateObject());
+    }
+
+    Poolable CreateObject()
+    {
+        var go = _instantiater.Instantiate(Path);
+        go.SetActive(false);
+        go.transform.SetParent(Root);
+        go.name = ObjectName;
+
+        Poolable poolable = go.GetOrAddComponent<Poolable>();
+        poolable.Path = Path;
+
+        return poolable;
+    }
+
+    public void Push(Poolable poolable)
+    {
+        if (poolable == null) return;
+
+        poolable.transform.SetParent(Root);
+        poolable.IsUsing = false;
+        _pool.Enqueue(poolable);
+    }
+
+    public Poolable Pop()
+    {
+        Poolable poolable;
+
+        if (_pool.Count > 0) poolable = _pool.Dequeue();
+        else poolable = CreateObject();
+
+        poolable.transform.SetParent(null);
+        poolable.IsUsing = true;
+        return poolable;
     }
 }
 
@@ -160,5 +213,58 @@ public class PoolManager
             _poolByName.Clear();
             _poolGroupByName.Clear();
         }
+    }
+}
+
+public class ObjectPoolManager
+{
+    Dictionary<string, Queue<GameObject>> _poolDictionary = new Dictionary<string, Queue<GameObject>>();
+
+    // 오브젝트 풀을 생성하거나 가져옵니다.
+    public Queue<GameObject> GetOrCreatePool(string prefabName, GameObject prefab, int initialSize = 5)
+    {
+        if (_poolDictionary.ContainsKey(prefabName) == false)
+        {
+            Queue<GameObject> newPool = new Queue<GameObject>();
+
+            for (int i = 0; i < initialSize; i++)
+            {
+                GameObject obj = GameObject.Instantiate(prefab);
+                obj.SetActive(false);
+                newPool.Enqueue(obj);
+            }
+
+            _poolDictionary.Add(prefabName, newPool);
+        }
+
+        return _poolDictionary[prefabName];
+    }
+
+    // 오브젝트를 풀에서 가져옵니다.
+    public GameObject GetObjectFromPool(string prefabName, GameObject prefab, Vector3 position, Quaternion rotation)
+    {
+        Queue<GameObject> pool = GetOrCreatePool(prefabName, prefab);
+
+        if (pool.Count == 0)
+        {
+            GameObject obj = GameObject.Instantiate(prefab, position, rotation);
+            obj.SetActive(false);
+            pool.Enqueue(obj);
+        }
+
+        GameObject pooledObject = pool.Dequeue();
+        pooledObject.transform.position = position;
+        pooledObject.transform.rotation = rotation;
+        pooledObject.SetActive(true);
+
+        return pooledObject;
+    }
+
+    // 오브젝트를 풀에 반환합니다.
+    public void ReturnObjectToPool(string prefabName, GameObject obj)
+    {
+        obj.SetActive(false);
+        Debug.Assert(_poolDictionary.ContainsKey(prefabName), $"오브젝트의 풀 {prefabName}을 찾을 수 없음");
+        _poolDictionary[prefabName].Enqueue(obj);
     }
 }

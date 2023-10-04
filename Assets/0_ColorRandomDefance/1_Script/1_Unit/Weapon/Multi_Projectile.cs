@@ -65,7 +65,7 @@ public class Multi_Projectile : MonoBehaviourPun
         OnHit = null;
         StopAllCoroutines();
         gameObject.SetActive(false);
-        if (PhotonNetwork.IsMasterClient && gameObject.GetComponent<Poolable>() != null)
+        if (PhotonNetwork.IsMasterClient && gameObject.GetComponent<Poolable>() != null) // PhotonNetwork.IsMasterClient 는 검은 법사 스킬 때문
             Managers.Pool.Push(gameObject.GetComponent<Poolable>());
     }
 

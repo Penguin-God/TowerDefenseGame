@@ -67,7 +67,6 @@ class WorldInitializer
         InitMonoBehaviourContainer();
         InitObjectPools();
         BindUnitEvent();
-        InitEffect();
         return _battleDIContainer;
     }
 
@@ -83,23 +82,11 @@ class WorldInitializer
         new UnitPoolInitializer().InitPool();
         new MonsterPoolInitializer().InitPool();
         new WeaponPoolInitializer().InitPool();
+        new EffectPoolInitializer().InitPool();
     }
 
     void BindUnitEvent()
     {
         Managers.Unit.OnCombine += new UnitPassiveHandler().AddYellowSwordmanCombineGold;
-    }
-
-    void InitEffect()
-    {
-        foreach (var data in CsvUtility.CsvToArray<EffectData>(Managers.Resources.Load<TextAsset>("Data/EffectData").text))
-        {
-            switch (data.EffectType)
-            {
-                case EffectType.GameObject:
-                    Managers.Pool.CreatePool_InGroup(data.Path, 3, "Effects");
-                    break;
-            }
-        }
     }
 }

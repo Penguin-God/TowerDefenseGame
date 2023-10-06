@@ -33,7 +33,7 @@ public class UnitPoolInitializer : PhotonObjectPoolInitializerBase
     protected override string PoolGroupName => "Units";
     public override void InitPool()
     {
-        int[] poolCounts = new int[] { 5, 4, 3, 2 };
+        int[] poolCounts = new int[] { 4, 2, 1, 0 };
         CreatePool(UnitClass.Swordman, poolCounts[0]);
         CreatePool(UnitClass.Archer, poolCounts[1]);
         CreatePool(UnitClass.Spearman, poolCounts[2]);
@@ -49,7 +49,7 @@ public class UnitPoolInitializer : PhotonObjectPoolInitializerBase
 
 public class MonsterPoolInitializer : PhotonObjectPoolInitializerBase
 {
-    readonly int POOL_OBJECT_COUNT = 50;
+    readonly int POOL_OBJECT_COUNT = 20;
     protected override string PoolGroupName => "NormalEnemys";
     public override void InitPool()
     {
@@ -68,8 +68,8 @@ public class WeaponPoolInitializer : PhotonObjectPoolInitializerBase
     {
         var unitClassByWeaponPoolingCount = new Dictionary<UnitClass, int>()
         {
-            { UnitClass.Archer, 20 },
-            { UnitClass.Spearman, 2 },
+            { UnitClass.Archer, 5 },
+            { UnitClass.Spearman, 1 },
             { UnitClass.Mage, 0 },
         };
 
@@ -83,6 +83,21 @@ public class WeaponPoolInitializer : PhotonObjectPoolInitializerBase
         {
             if (color == UnitColor.White) continue;
             CreatePoolGroup(PathBuilder.BuildMageSkillEffectPath(color), 0);
+        }
+    }
+}
+
+public class EffectPoolInitializer
+{
+    protected string PoolGroupName => "Effects";
+    public void InitPool()
+    {
+        foreach (var data in CsvUtility.CsvToArray<EffectData>(Managers.Resources.Load<TextAsset>("Data/EffectData").text))
+        {
+            switch (data.EffectType)
+            {
+                case EffectType.GameObject: Managers.Pool.CreatePool_InGroup(data.Path, 2, PoolGroupName); break;
+            }
         }
     }
 }

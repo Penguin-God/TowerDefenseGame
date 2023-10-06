@@ -43,7 +43,7 @@ public class Multi_Enemy : MonoBehaviourPun
     protected MeshRenderer[] meshList;
     [SerializeField] protected Material originMat;
 
-    public event Action OnDeath = null;
+    public event Action OnDeath = null; // 레거시
     public event Action<Multi_Enemy> OnDead = null;
 
     private void Awake()

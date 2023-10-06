@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using Photon.Pun;
 using System;
 
@@ -70,4 +69,29 @@ public class ServerMonsterManager
     public void AddNormalMonster(Multi_NormalEnemy monster) => GetMultiData(monster.UsingId).AddNormalMonster(monster);
     public void RemoveNormalMonster(Multi_NormalEnemy monster) => GetMultiData(monster.UsingId).RemoveNormalMonster(monster);
     public IReadOnlyList<Multi_NormalEnemy> GetNormalMonsters(byte id) => GetMultiData(id).GetNormalMonsters();
+}
+
+
+public class MonsterManagerController
+{
+    readonly WorldObjectManager<Multi_NormalEnemy> _normalMonsterManager = new();
+
+    BattleEventDispatcher _eventDispatcher;
+    public MonsterManagerController(BattleEventDispatcher eventDispatcher) => _eventDispatcher = eventDispatcher;
+
+    public void AddNormalMonster(Multi_NormalEnemy monster)
+    {
+        _normalMonsterManager.AddObject(monster, monster.UsingId);
+        NotifyNormalMonsterCountChange(monster);
+    }
+    public void RemoveNormalMonster(Multi_NormalEnemy monster)
+    {
+        _normalMonsterManager.RemoveObject(monster, monster.UsingId);
+        NotifyNormalMonsterCountChange(monster);
+        if (monster.UsingId == PlayerIdManager.Id) // 지금은 담당 월드의 몬스터가 죽은 경우만 알림
+            _eventDispatcher.NotifyMonsterDead(monster);
+    }
+
+    void NotifyNormalMonsterCountChange(Multi_NormalEnemy monster) 
+        => _eventDispatcher.NotifyMonsterCountChange(monster.UsingId, _normalMonsterManager.GetCount(monster.UsingId));
 }

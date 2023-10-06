@@ -7,7 +7,12 @@ using System.Linq;
 public class NormalMonsterSpawner : MonoBehaviourPun
 {
     MonsterDecorator _monsterDecorator;
-    public void Inject(MonsterDecorator monsterDecorator) => _monsterDecorator = monsterDecorator;
+    MonsterManagerController _monsterManagerController;
+    public void Inject(MonsterDecorator monsterDecorator, MonsterManagerController monsterManagerController)
+    {
+        _monsterDecorator = monsterDecorator;
+        _monsterManagerController = monsterManagerController;
+    }
 
     public Multi_NormalEnemy SpawnMonster(byte num, byte id, int stage)
     {
@@ -23,6 +28,8 @@ public class NormalMonsterSpawner : MonoBehaviourPun
         var monster = Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(viewId);
         _monsterDecorator.DecorateSpeedSystem(speed, monster);
         monster.Inject(hp);
+        _monsterManagerController.AddNormalMonster(monster);
+        monster.OnDead += _ => _monsterManagerController.RemoveNormalMonster(monster);
     }
 }
 

@@ -33,7 +33,7 @@ public class MonsterManagerProxy : MonoBehaviourPun, IMonsterManager
         changeMonsterList?.Invoke(monster);
 
         byte newCount = (byte)_multiMonsterManager.GetNormalMonsters(monster.UsingId).Count;
-        photonView.RPC(nameof(NotifyNormalMonsterCountChange), RpcTarget.All, monster.UsingId, newCount);
+        // photonView.RPC(nameof(NotifyNormalMonsterCountChange), RpcTarget.All, monster.UsingId, newCount);
 
         if (monster.UsingId != PlayerIdManager.ClientId) return;
         if(newCount > previousCount)

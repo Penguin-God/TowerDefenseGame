@@ -13,9 +13,7 @@ GameObject:
   - component: {fileID: 5831825776667280578}
   - component: {fileID: 8993614869493741920}
   - component: {fileID: -1697755095933554915}
-  - component: {fileID: -2968666561141231667}
   - component: {fileID: 1450509886485553548}
-  - component: {fileID: -5680485445141292488}
   - component: {fileID: 5617797800857711499}
   m_Layer: 14
   m_Name: OrangeArrowTrail 1
@@ -209,28 +207,6 @@ MonoBehaviour:
   isAOE: 0
   aliveTime: 5
   _speed: 50
---- !u!114 &-2968666561141231667
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5831825776667280579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &1450509886485553548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,19 +221,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUsing: 0
   Path: 
---- !u!114 &-5680485445141292488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5831825776667280579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _usingId: -1
 --- !u!114 &5617797800857711499
 MonoBehaviour:
   m_ObjectHideFlags: 0

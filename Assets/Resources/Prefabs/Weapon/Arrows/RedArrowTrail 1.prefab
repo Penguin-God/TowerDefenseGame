@@ -13,9 +13,7 @@ GameObject:
   - component: {fileID: 3693878150325891986}
   - component: {fileID: 6249201231340732101}
   - component: {fileID: 495424499276256317}
-  - component: {fileID: 9150580501825127940}
   - component: {fileID: -6815528248954548471}
-  - component: {fileID: 8659979298611208075}
   - component: {fileID: -540913369148750484}
   m_Layer: 14
   m_Name: RedArrowTrail 1
@@ -209,28 +207,6 @@ MonoBehaviour:
   isAOE: 0
   aliveTime: 5
   _speed: 50
---- !u!114 &9150580501825127940
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3693878150325891987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &-6815528248954548471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,19 +221,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUsing: 0
   Path: 
---- !u!114 &8659979298611208075
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3693878150325891987}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _usingId: -1
 --- !u!114 &-540913369148750484
 MonoBehaviour:
   m_ObjectHideFlags: 0

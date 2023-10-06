@@ -27,7 +27,7 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
         normalAttackSound = EffectSoundType.ArcherAttack;
         _useSkillPercent = 30;
         _skillSystem = new UnitRandomSkillSystem();
-        _archerArrowShoter = new ArcherArrowShoter(TargetFinder, _thrower);
+        _archerArrowShoter = new ArcherArrowShoter(TargetFinder, _thrower, arrowShotPoint, GetWeaponPath());
     }
 
     [PunRPC]
@@ -40,10 +40,9 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
 
         nav.isStopped = true;
         trail.SetActive(false);
-        if (PhotonNetwork.IsMasterClient && target != null && Chaseable)
-        {
-            _thrower.FlatThrow(target, UnitAttacker.NormalAttack);
-        }
+        //if (PhotonNetwork.IsMasterClient && target != null && Chaseable)
+        //    _thrower.FlatThrow(target, UnitAttacker.NormalAttack);
+        Managers.Resources.Instantiate(GetWeaponPath(), arrowShotPoint.position).GetComponent<Multi_Projectile>().AttackShot(GetDir(TargetEnemy), UnitAttacker.NormalAttack);
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
 
@@ -65,6 +64,9 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
 
         base.EndSkillAttack(_skillReboundTime);
     }
+
+    Vector3 GetDir(Multi_Enemy target) => new ThorwPathCalculator().CalculateThorwPath_To_Monster(target, transform);
+    string GetWeaponPath() => $"Prefabs/{new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags)}";
 }
 
 public class ArcherArrowShoter
@@ -72,10 +74,14 @@ public class ArcherArrowShoter
     const int ArrowCount = 3;
     readonly MonsterFinder _monsterFinder;
     ProjectileThrowingUnit _thrower;
-    public ArcherArrowShoter(MonsterFinder monsterFinder, ProjectileThrowingUnit thrower)
+    Transform _shotPoint;
+    readonly string Path;
+    public ArcherArrowShoter(MonsterFinder monsterFinder, ProjectileThrowingUnit thrower, Transform shotPoint, string path)
     {
         _monsterFinder = monsterFinder;
         _thrower = thrower;
+        _shotPoint = shotPoint;
+        Path = path;
     }
 
     public void ShotSkill(Multi_Enemy currentTarget, System.Action<Multi_Enemy> action)
@@ -86,11 +92,12 @@ public class ArcherArrowShoter
         for (int i = 0; i < ArrowCount; i++)
         {
             int targetIndex = i % targetArray.Length;
-            _thrower.FlatThrow(targetArray[targetIndex], action);
+            Managers.Resources.Instantiate(Path, _shotPoint.position).GetComponent<Multi_Projectile>().AttackShot(GetDir(targetArray[targetIndex].GetComponent<Multi_Enemy>()), action);
         }
     }
 
-    Transform[] GetTargets(Multi_Enemy currentTarget)
+    Vector3 GetDir(Multi_Enemy target) => new ThorwPathCalculator().CalculateThorwPath_To_Monster(target, _shotPoint);
+    Transform[] GetTargets(Multi_Enemy currentTarget) // 게스트에서도 이걸 찾을 수 있어야 함
     {
         if (currentTarget.enemyType != EnemyType.Normal) return new Transform[] { currentTarget.transform };
         return _monsterFinder.GetProximateEnemys(currentTarget.transform.position, ArrowCount).Select(x => x.transform).ToArray();

@@ -77,12 +77,12 @@ class WorldInitializer
 
     void InitObjectPools()
     {
+        new WeaponPoolCreator().InitPool();
         if (PhotonNetwork.IsMasterClient == false) return;
         
         new UnitPoolInitializer().InitPool();
         new MonsterPoolInitializer().InitPool();
         new WeaponPoolInitializer().InitPool();
-        new WeaponPoolCreator().InitPool();
         new EffectPoolInitializer().InitPool();
     }
 

@@ -13,9 +13,7 @@ GameObject:
   - component: {fileID: 8803622629685511836}
   - component: {fileID: 8019922735224408715}
   - component: {fileID: 6247638253032676432}
-  - component: {fileID: -1148506460504076785}
   - component: {fileID: 337415070791255766}
-  - component: {fileID: 4179024372499507260}
   - component: {fileID: -424866026706504050}
   m_Layer: 14
   m_Name: VioletArrowTrail 1
@@ -209,28 +207,6 @@ MonoBehaviour:
   isAOE: 0
   aliveTime: 5
   _speed: 50
---- !u!114 &-1148506460504076785
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8803622629685511837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &337415070791255766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,19 +221,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUsing: 0
   Path: 
---- !u!114 &4179024372499507260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8803622629685511837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _usingId: -1
 --- !u!114 &-424866026706504050
 MonoBehaviour:
   m_ObjectHideFlags: 0

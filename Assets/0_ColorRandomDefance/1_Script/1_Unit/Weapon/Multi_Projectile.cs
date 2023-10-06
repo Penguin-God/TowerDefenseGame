@@ -72,9 +72,9 @@ public class Multi_Projectile : MonoBehaviourPun
     protected virtual void OnTriggerHit(Collider other) 
     {
         if(PhotonNetwork.IsMasterClient == false) return;
-
-        Multi_Enemy enemy = other.GetComponentInParent<Multi_Enemy>(); // 콜라이더가 자식한테 있음
-        if (enemy == null) return;
+        // 컴포넌트가 부모에게 있음
+        if(other.transform.parent.TryGetComponent<Multi_Enemy>(out var enemy) == false)
+            return;
 
         OnHit?.Invoke(enemy);
         if (isAOE == false)

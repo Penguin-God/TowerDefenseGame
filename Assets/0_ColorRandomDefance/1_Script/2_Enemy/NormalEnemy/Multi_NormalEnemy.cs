@@ -43,9 +43,10 @@ public class Multi_NormalEnemy : Multi_Enemy
         if(pointIndex == -1) pointIndex = 0;
         transform.position = _spawnPositons[UsingId];
         transform.rotation = Quaternion.identity;
+        Passive();
         if (PhotonNetwork.IsMasterClient)
         {
-            Passive();
+            // Passive();
             photonView.RPC(nameof(SetInfo), RpcTarget.All, maxHp);
         }
     }

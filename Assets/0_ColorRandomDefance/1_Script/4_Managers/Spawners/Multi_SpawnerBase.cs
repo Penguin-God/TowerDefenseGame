@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System;
+using System.Linq;
 
 public abstract class Multi_SpawnerBase : MonoBehaviourPun
 {
@@ -68,7 +69,7 @@ public class WeaponPoolInitializer : PhotonObjectPoolInitializerBase
     {
         var unitClassByWeaponPoolingCount = new Dictionary<UnitClass, int>()
         {
-            { UnitClass.Archer, 5 },
+            // { UnitClass.Archer, 5 },
             { UnitClass.Spearman, 1 },
             { UnitClass.Mage, 0 },
         };
@@ -79,12 +80,31 @@ public class WeaponPoolInitializer : PhotonObjectPoolInitializerBase
                 CreatePoolGroup(PathBuilder.BuildUnitWeaponPath(new UnitFlags(color, classCountPair.Key)), classCountPair.Value);
         }
 
+        CreateMageSkillPool();
+    }
+
+    void CreateMageSkillPool()
+    {
         foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
         {
             if (color == UnitColor.White) continue;
             CreatePoolGroup(PathBuilder.BuildMageSkillEffectPath(color), 0);
         }
     }
+}
+
+public class WeaponPoolCreator
+{
+    public void InitPool() => CreateWeaponsPool();
+    string PoolGroupName => "Weapons";
+
+    void CreateWeaponsPool()
+    {
+        foreach (string path in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => CreatePath(new UnitFlags(x, UnitClass.Archer))))
+            Managers.Pool.CreatePool_InGroup(path, 5, PoolGroupName);
+    }
+
+    string CreatePath(UnitFlags flag) => $"Prefabs/{new ResourcesPathBuilder().BuildUnitWeaponPath(flag)}";
 }
 
 public class EffectPoolInitializer

@@ -83,15 +83,7 @@ public class PoolManager
 
     public PoolManager(string name) => _root = new GameObject(name).transform;
 
-    public Transform CreatePool(string path, int count, IInstantiater instantiater)
-    {
-        Pool pool = new Pool(path, count, instantiater);
-        pool.Root.SetParent(_root);
-        _poolByName.Add(pool.Name, pool);
-        return pool.Root;
-    }
-
-    public Transform CreatePool(string path, int count, Transform root = null, IInstantiater instantiater = null)
+    public Transform CreatePool(string path, int count, IInstantiater instantiater, Transform root = null)
     {
         Pool pool = new Pool(path, count, instantiater);
         if (root == null) pool.Root.SetParent(_root);
@@ -103,16 +95,16 @@ public class PoolManager
     public Transform CreatePool_InGroup(string path, int count, string groupName, IInstantiater instantiater = null)
     {
         PoolGroup poolGroup;
-        if (_poolGroupByName.TryGetValue(groupName, out poolGroup))
-            return CreatePool(path, count, poolGroup.Root, instantiater);
+        if(_poolGroupByName.ContainsKey(groupName))
+            poolGroup = _poolGroupByName[groupName];
         else // 없으면 새로운 풀 그룹 생성
         {
             poolGroup = new PoolGroup();
             poolGroup.Init(groupName);
             poolGroup.Root.SetParent(_root);
             _poolGroupByName.Add(groupName, poolGroup);
-            return CreatePool(path, count, poolGroup.Root, instantiater);
         }
+        return CreatePool(path, count, instantiater, poolGroup.Root);
     }
 
     public void Push(Poolable poolable) => Push(poolable.gameObject);

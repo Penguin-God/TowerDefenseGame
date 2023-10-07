@@ -25,8 +25,8 @@ public class UserSkillInitializer
             case SkillType.마나변이:
                 container.AddComponent<SkillColorChanger>().Inject(container.GetComponent<TextShowAndHideController>()); break;
             case SkillType.메테오:
-                container.AddService<SkillMeteorController>()
-                    .DependencyInject(container.GetComponent<MeteorController>(), container.GetComponent<MonsterManagerProxy>().MultiMonsterManager, Multi_EnemyManager.Instance); break;
+                container.AddService<SkillMeteorController>().DependencyInject(container.GetComponent<MeteorController>(), container.GetService<MonsterManagerController>(), Multi_EnemyManager.Instance);
+                break;
         }
     }
 }

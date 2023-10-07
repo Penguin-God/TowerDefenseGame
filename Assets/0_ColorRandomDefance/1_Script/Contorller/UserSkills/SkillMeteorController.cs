@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class SkillMeteorController
 {
     MeteorController _meteorController;
-    ServerMonsterManager _monsterManager;
+    MonsterManagerController _monsterManager;
     Multi_EnemyManager _enemyManager;
-    public void DependencyInject(MeteorController meteorController, ServerMonsterManager monsterManager, Multi_EnemyManager enemyManager)
+    public void DependencyInject(MeteorController meteorController, MonsterManagerController monsterManager, Multi_EnemyManager enemyManager)
     {
         _meteorController = meteorController;
         _monsterManager = monsterManager;
@@ -20,7 +21,7 @@ public class SkillMeteorController
     {
         if (_enemyManager.TryGetCurrentBoss(id, out Multi_BossEnemy boss)) return boss;
 
-        var monsters = _monsterManager.GetNormalMonsters(id);
+        var monsters = _monsterManager.GetNormalMonsters(id).ToList();
         if (monsters.Count == 0) return null;
         else return monsters[Random.Range(0, monsters.Count)];
     }

@@ -74,7 +74,6 @@ public class EnemySpawnNumManager : MonoBehaviourPun
 
 public class MonsterSpawnerContorller : MonoBehaviour
 {
-    IMonsterManager _monsterManager = null;
     EnemySpawnNumManager _numManager;
     BattleEventDispatcher _dispatcher;
     NormalMonsterSpawner _monsterSpawner;
@@ -82,7 +81,6 @@ public class MonsterSpawnerContorller : MonoBehaviour
 
     public void Inject(BattleDIContainer container)
     {
-        _monsterManager = container.GetComponent<IMonsterManager>();
         _numManager = container.GetComponent<EnemySpawnNumManager>();
         _dispatcher = container.GetEventDispatcher();
         _monsterSpawner = container.GetComponent<NormalMonsterSpawner>();
@@ -106,13 +104,7 @@ public class MonsterSpawnerContorller : MonoBehaviour
     }
 
     Multi_NormalEnemy SpawnMonsterToOther(int id, int stage) => SpawnNormalMonster(_numManager.GetSpawnEnemyNum(id), (byte)(id == 0 ? 1 : 0), stage);
-    Multi_NormalEnemy SpawnNormalMonster(byte num, byte id, int stage)
-    {
-        var monster = _monsterSpawner.SpawnMonster(num, id, stage);
-        _monsterManager.AddNormalMonster(monster);
-        monster.OnDead += _ => _monsterManager.RemoveNormalMonster(monster); // event interface 맞추려는 람다식
-        return monster;
-    }
+    Multi_NormalEnemy SpawnNormalMonster(byte num, byte id, int stage) => _monsterSpawner.SpawnMonster(num, id, stage);
 
     [SerializeField] const float SpawnDelayTime = 1.8f;
     [SerializeField] const int StageSpawnCount = 15;

@@ -5,15 +5,8 @@ using UnityEngine;
 
 public class MonsterFinder
 {
-    readonly MonsterManager _monsterManager;
     readonly MonsterManagerController _monsterManagerController;
     readonly byte WorldId = 255;
-
-    public MonsterFinder(MonsterManager monsterManager, byte worldId)
-    {
-        _monsterManager = monsterManager;
-        WorldId = worldId;
-    }
 
     public MonsterFinder(MonsterManagerController monsterManagerController, byte worldId)
     {
@@ -34,5 +27,4 @@ public class MonsterFinder
     Multi_NormalEnemy GetProximateNormalMonster(Vector3 finderPos) => GetProximateEnemys(finderPos, 1).FirstOrDefault();
     public Multi_NormalEnemy[] GetProximateEnemys(Vector3 finderPos, int maxCount)
         => _monsterManagerController.GetNormalMonsters(WorldId).OrderBy(x => Vector3.Distance(finderPos, x.transform.position)).Take(maxCount).ToArray();
-    // => _monsterManager.GetNormalMonsters().OrderBy(x => Vector3.Distance(finderPos, x.transform.position)).Take(maxCount).ToArray();
 }

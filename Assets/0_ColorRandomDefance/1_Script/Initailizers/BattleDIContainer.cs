@@ -61,7 +61,6 @@ public class BattleDIContainerInitializer
         new MultiServiceAttacher().AttacherUnitController(container);
         container.AddComponent<CurrencyManagerMediator>();
         container.AddComponent<UnitMaxCountController>();
-        container.AddComponent<MonsterManagerProxy>();
         container.AddComponent<EnemySpawnNumManager>();
         container.AddComponent<MultiEffectManager>();
         container.AddComponent<TextShowAndHideController>();
@@ -91,7 +90,6 @@ public class BattleDIContainerInitializer
         container.GetComponent<SwordmanGachaController>().Init(game, data.BattleDataContainer.UnitSummonData);
         container.GetComponent<CurrencyManagerMediator>().Init(game);
         container.GetComponent<UnitMaxCountController>().Init(null, game);
-        container.GetComponent<MonsterManagerProxy>().Init(dispatcher);
         container.GetComponent<MultiEffectManager>().Inject(Managers.Effect);
         container.GetComponent<TextShowAndHideController>().Inject(Managers.UI);
         container.GetComponent<NormalMonsterSpawner>().Inject(new MonsterDecorator(container), container.GetService<MonsterManagerController>());

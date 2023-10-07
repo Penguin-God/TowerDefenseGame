@@ -63,7 +63,6 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
 {
     readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
     UnitFiller _unitFiller;
-    ServerMonsterManager _multiMonsterManager;
     MonsterManagerController _monsterManagerController;
     MultiData<SkillBattleDataContainer> _multiSkillData;
     BattleEventDispatcher _dispatcher;
@@ -73,7 +72,6 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     {
         _unitFiller = new UnitFiller(container);
         _multiSkillData = container.GetMultiActiveSkillData();
-        _multiMonsterManager = container.GetComponent<MonsterManagerProxy>().MultiMonsterManager;
         _monsterManagerController = container.GetService<MonsterManagerController>();
         _dispatcher = container.GetEventDispatcher();
         _statController = container.GetService<UnitStatController>();

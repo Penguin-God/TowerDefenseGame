@@ -40,13 +40,11 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
 
         nav.isStopped = true;
         trail.SetActive(false);
-        //if (PhotonNetwork.IsMasterClient && target != null && Chaseable)
-        //    _thrower.FlatThrow(target, UnitAttacker.NormalAttack);
         Managers.Resources.Instantiate(GetWeaponPath(), arrowShotPoint.position).GetComponent<Multi_Projectile>().AttackShot(GetDir(TargetEnemy), UnitAttacker.NormalAttack);
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
-
         nav.isStopped = false;
+
         EndAttack();
     }
 
@@ -54,11 +52,9 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
     IEnumerator Special_ArcherAttack()
     {
         base.SpecialAttack();
+
         trail.SetActive(false);
-
-        if (PhotonNetwork.IsMasterClient && target != null)
-            _archerArrowShoter.ShotSkill(TargetEnemy, UnitAttacker.SkillAttack);
-
+        _archerArrowShoter.ShotSkill(TargetEnemy, UnitAttacker.SkillAttack);
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
 
@@ -87,6 +83,7 @@ public class ArcherArrowShoter
     public void ShotSkill(Multi_Enemy currentTarget, System.Action<Multi_Enemy> action)
     {
         Transform[] targetArray = GetTargets(currentTarget);
+        Debug.Log(targetArray.Length);
         if (targetArray == null || targetArray.Length == 0) return;
 
         for (int i = 0; i < ArrowCount; i++)
@@ -99,7 +96,9 @@ public class ArcherArrowShoter
     Vector3 GetDir(Multi_Enemy target) => new ThorwPathCalculator().CalculateThorwPath_To_Monster(target, _shotPoint);
     Transform[] GetTargets(Multi_Enemy currentTarget) // 게스트에서도 이걸 찾을 수 있어야 함
     {
-        if (currentTarget.enemyType != EnemyType.Normal) return new Transform[] { currentTarget.transform };
-        return _monsterFinder.GetProximateEnemys(currentTarget.transform.position, ArrowCount).Select(x => x.transform).ToArray();
+        // PhotonNetwork.IsMasterClient 이건 타겟 공유 전 임시
+        if (PhotonNetwork.IsMasterClient && currentTarget.enemyType != EnemyType.Normal) return new Transform[] { currentTarget.transform };
+        // return _monsterFinder.GetProximateEnemys(currentTarget.transform.position, ArrowCount).Select(x => x.transform).ToArray(); // currentTarget 기준으로 한 게 맞나?
+        return _monsterFinder.GetProximateEnemys(_shotPoint.position, ArrowCount).Select(x => x.transform).ToArray();
     }
 }

@@ -13,6 +13,7 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
 
     [SerializeField] int _useSkillPercent;
     [SerializeField] float _skillReboundTime;
+    RandomExcuteSkillController _attackExcuter;
     ArcherArrowShoter _archerArrowShoter;
 
     protected override void OnAwake()
@@ -23,22 +24,13 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
         _thrower.SetInfo(new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags), arrowShotPoint);
 
         normalAttackSound = EffectSoundType.ArcherAttack;
+        _attackExcuter = gameObject.AddComponent<RandomExcuteSkillController>();
+        _attackExcuter.DependencyInject(NormalAttack, SpecialAttack);
         _useSkillPercent = 30;
         _archerArrowShoter = new ArcherArrowShoter(TargetFinder, _thrower, arrowShotPoint, GetWeaponPath());
     }
 
-    protected override void AttackToAll()
-    {
-        bool isSkill = _useSkillPercent > Random.Range(0, 101);
-        photonView.RPC(nameof(Attack), RpcTarget.All, isSkill);
-    }
-
-    [PunRPC]
-    void Attack(bool isSkill)
-    {
-        if (isSkill) NormalAttack();
-        else SpecialAttack();
-    }
+    protected override void AttackToAll() => _attackExcuter.RandomAttack(_useSkillPercent);
 
     public override void NormalAttack() => StartCoroutine(nameof(ArrowAttack));
     IEnumerator ArrowAttack()

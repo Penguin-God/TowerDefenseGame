@@ -13,6 +13,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
 
     [SerializeField] int _useSkillPercent;
     [SerializeField] float _skillReboundTime;
+    RandomExcuteSkillController _attackExcuter;
     ProjectileThrowingUnit _spearThower;
     protected override void OnAwake()
     {
@@ -20,6 +21,9 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         
         normalAttackSound = EffectSoundType.SpearmanAttack;
         _useSkillPercent = 30;
+
+        _attackExcuter = gameObject.AddComponent<RandomExcuteSkillController>();
+        _attackExcuter.DependencyInject(NormalAttack, SpecialAttack);
 
         _spearThower = gameObject.GetOrAddComponent<ProjectileThrowingUnit>();
         _spearThower.SetInfo(_throwSpearData.WeaponPath, spearShotPoint);
@@ -38,18 +42,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         _spearShoter = new SpearShoter(_throwSpearData, _spearThower);
     }
 
-    protected override void AttackToAll()
-    {
-        bool isSkill = _useSkillPercent > UnityEngine.Random.Range(0, 101);
-        photonView.RPC(nameof(Attack), RpcTarget.All, isSkill);
-    }
-
-    [PunRPC]
-    void Attack(bool isSkill)
-    {
-        if (isSkill) NormalAttack();
-        else SpecialAttack();
-    }
+    protected override void AttackToAll() => _attackExcuter.RandomAttack(_useSkillPercent);
 
     public override void NormalAttack() => StartCoroutine(nameof(SpaerAttack));
     IEnumerator SpaerAttack()

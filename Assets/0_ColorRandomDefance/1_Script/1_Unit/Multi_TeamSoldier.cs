@@ -182,10 +182,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     {
         if (isRPC) return;
         isRPC = true;
-        photonView.RPC(nameof(Attack), RpcTarget.All);
+        AttackToAll();
         isRPC = false;
     }
 
+    protected virtual void AttackToAll() => photonView.RPC(nameof(Attack), RpcTarget.All);
     [PunRPC]
     protected virtual void Attack() { }
 

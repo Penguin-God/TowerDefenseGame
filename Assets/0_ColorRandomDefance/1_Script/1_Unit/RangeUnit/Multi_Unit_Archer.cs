@@ -13,8 +13,6 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
 
     [SerializeField] int _useSkillPercent;
     [SerializeField] float _skillReboundTime;
-    UnitRandomSkillSystem _skillSystem;
-
     ArcherArrowShoter _archerArrowShoter;
 
     protected override void OnAwake()
@@ -26,12 +24,21 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
 
         normalAttackSound = EffectSoundType.ArcherAttack;
         _useSkillPercent = 30;
-        _skillSystem = new UnitRandomSkillSystem();
         _archerArrowShoter = new ArcherArrowShoter(TargetFinder, _thrower, arrowShotPoint, GetWeaponPath());
     }
 
+    protected override void AttackToAll()
+    {
+        bool isSkill = _useSkillPercent > Random.Range(0, 101);
+        photonView.RPC(nameof(Attack), RpcTarget.All, isSkill);
+    }
+
     [PunRPC]
-    protected override void Attack() => _skillSystem.Attack(NormalAttack, SpecialAttack, _useSkillPercent);
+    void Attack(bool isSkill)
+    {
+        if (isSkill) NormalAttack();
+        else SpecialAttack();
+    }
 
     public override void NormalAttack() => StartCoroutine(nameof(ArrowAttack));
     IEnumerator ArrowAttack()
@@ -83,7 +90,6 @@ public class ArcherArrowShoter
     public void ShotSkill(Multi_Enemy currentTarget, System.Action<Multi_Enemy> action)
     {
         Transform[] targetArray = GetTargets(currentTarget);
-        Debug.Log(targetArray.Length);
         if (targetArray == null || targetArray.Length == 0) return;
 
         for (int i = 0; i < ArrowCount; i++)
@@ -94,10 +100,9 @@ public class ArcherArrowShoter
     }
 
     Vector3 GetDir(Multi_Enemy target) => new ThorwPathCalculator().CalculateThorwPath_To_Monster(target, _shotPoint);
-    Transform[] GetTargets(Multi_Enemy currentTarget) // 게스트에서도 이걸 찾을 수 있어야 함
+    Transform[] GetTargets(Multi_Enemy currentTarget)
     {
-        // PhotonNetwork.IsMasterClient 이건 타겟 공유 전 임시
-        if (PhotonNetwork.IsMasterClient && currentTarget.enemyType != EnemyType.Normal) return new Transform[] { currentTarget.transform };
+        if (currentTarget.enemyType != EnemyType.Normal) return new Transform[] { currentTarget.transform };
         // return _monsterFinder.GetProximateEnemys(currentTarget.transform.position, ArrowCount).Select(x => x.transform).ToArray(); // currentTarget 기준으로 한 게 맞나?
         return _monsterFinder.GetProximateEnemys(_shotPoint.position, ArrowCount).Select(x => x.transform).ToArray();
     }

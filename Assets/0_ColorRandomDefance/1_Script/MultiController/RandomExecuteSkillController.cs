@@ -15,16 +15,12 @@ public class RandomExcuteSkillController : MonoBehaviourPun
         _skillAct = skillAct;
     }
 
-    public void RandomAttack(int skillRate)
-    {
-        bool isSkill = skillRate > UnityEngine.Random.Range(0, 101);
-        photonView.RPC(nameof(Attack), RpcTarget.All, isSkill);
-    }
+    public void RandomAttack(int skillRate) => photonView.RPC(nameof(Attack), RpcTarget.All, MathUtil.GetRandomBoolByRate(skillRate));
 
     [PunRPC]
     void Attack(bool isSkill)
     {
-        if (isSkill) _normalAct.Invoke();
-        else _skillAct.Invoke();
+        if (isSkill) _skillAct.Invoke();
+        else _normalAct.Invoke();
     }
 }

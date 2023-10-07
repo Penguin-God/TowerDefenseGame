@@ -37,15 +37,15 @@ namespace UtilDomainTests
 
             Vector2[] expectedDirections =
             {
-            new Vector2(1f, 0f), // 0도
-            new Vector2(0.7071f, 0.7071f), // 45도
-            new Vector2(0f, 1f), // 90도
-            new Vector2(-0.7071f, 0.7071f), // 135도
-            new Vector2(-1f, 0f), // 180도
-            new Vector2(-0.7071f, -0.7071f), // 225도
-            new Vector2(0f, -1f), // 270도
-            new Vector2(0.7071f, -0.7071f) // 315도
-        };
+                new Vector2(1f, 0f), // 0도
+                new Vector2(0.7071f, 0.7071f), // 45도
+                new Vector2(0f, 1f), // 90도
+                new Vector2(-0.7071f, 0.7071f), // 135도
+                new Vector2(-1f, 0f), // 180도
+                new Vector2(-0.7071f, -0.7071f), // 225도
+                new Vector2(0f, -1f), // 270도
+                new Vector2(0.7071f, -0.7071f) // 315도
+            };
 
             // Act
             var actualDirections = MathUtil.CalculateDirections(numberOfDirections);
@@ -68,15 +68,15 @@ namespace UtilDomainTests
 
             Vector2[] expectedPositions =
             {
-            new Vector2(1f, 0f), // 0도
-            new Vector2(0.7071f, 0.7071f), // 45도
-            new Vector2(0f, 1f), // 90도
-            new Vector2(-0.7071f, 0.7071f), // 135도
-            new Vector2(-1f, 0f), // 180도
-            new Vector2(-0.7071f, -0.7071f), // 225도
-            new Vector2(0f, -1f), // 270도
-            new Vector2(0.7071f, -0.7071f) // 315도
-        };
+                new Vector2(1f, 0f), // 0도
+                new Vector2(0.7071f, 0.7071f), // 45도
+                new Vector2(0f, 1f), // 90도
+                new Vector2(-0.7071f, 0.7071f), // 135도
+                new Vector2(-1f, 0f), // 180도
+                new Vector2(-0.7071f, -0.7071f), // 225도
+                new Vector2(0f, -1f), // 270도
+                new Vector2(0.7071f, -0.7071f) // 315도
+            };
 
             // Act
             var actualPositions = MathUtil.CalculateCirclePositions(numberOfPositions, distanceFromCenter);
@@ -87,6 +87,24 @@ namespace UtilDomainTests
                 Assert.That(expectedPositions[i].x, Is.EqualTo(actualPositions[i].x).Within(delta));
                 Assert.That(expectedPositions[i].y, Is.EqualTo(actualPositions[i].y).Within(delta));
             }
+        }
+
+        [Test]
+        public void 성공_확률에_맞게_Bool을_반환해야_함()
+        {
+            int targetProbability = 30;
+            int tryCount = 1000;
+            int successCount = 0;
+            float delta = 0.02f;
+
+            for (int i = 0; i < tryCount; i++)
+            {
+                if (MathUtil.GetRandomBoolByRate(targetProbability))
+                    successCount++;
+            }
+
+            float calculatedProbability = (float)successCount / tryCount;
+            Assert.That(targetProbability / 100f, Is.EqualTo(calculatedProbability).Within(delta));
         }
     }
 }

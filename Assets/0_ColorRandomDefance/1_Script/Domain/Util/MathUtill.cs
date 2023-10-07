@@ -36,5 +36,5 @@ public static class MathUtil
         return startingPositions;
     }
 
-
+    public static bool GetRandomBoolByRate(int rate) => rate > Random.Range(0, 101);
 }

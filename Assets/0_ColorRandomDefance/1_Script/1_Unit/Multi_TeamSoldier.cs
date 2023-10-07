@@ -51,7 +51,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public virtual void SpecialAttack() => _state.StartAttack();
 
 
-    [SerializeField] readonly protected TargetManager _targetManager = new TargetManager();
+    [SerializeField] protected TargetManager _targetManager = new TargetManager();
     protected UnitState _state;
     public bool IsAttack => _state.UnitAttackState.IsAttack;
     protected ChaseSystem _chaseSystem;
@@ -111,8 +111,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     {
         nav.enabled = true;
         StopAllCoroutines();
-        if (PhotonNetwork.IsMasterClient)
-            StartCoroutine(nameof(NavCoroutine));
+        // if (PhotonNetwork.IsMasterClient)
+        StartCoroutine(nameof(NavCoroutine));
     }
 
     void OnDisable()
@@ -146,8 +146,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
-        if (PhotonNetwork.IsMasterClient == false) return;
         _targetManager.ChangedTarget(TargetFinder.FindTarget(IsInDefenseWorld, transform.position));
+        if (PhotonNetwork.IsMasterClient == false) return;
         SetNavStopState(TargetEnemy);
         _chaseSystem.ChangedTarget(TargetEnemy);
     }
@@ -155,8 +155,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public bool contactEnemy = false;
     IEnumerator NavCoroutine()
     {
-        if (PhotonNetwork.IsMasterClient == false) yield break;
-        
         while (true)
         {
             yield return null;
@@ -165,6 +163,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
                 UpdateTarget();
                 continue;
             }
+
+            if (PhotonNetwork.IsMasterClient == false) continue;
 
             _chaseSystem.MoveUpdate();
             if ((contactEnemy || MonsterIsForward()) && _state.UnitAttackState.IsAttackable)

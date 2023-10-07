@@ -77,7 +77,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected MonsterFinder TargetFinder { get; private set; }
     protected UnitAttacker UnitAttacker { get; private set; }
 
-    public void Injection(Unit unit, MonsterManager monsterManager)
+    public void Injection(Unit unit, MonsterManagerController monsterManager)
     {
         TargetFinder = new MonsterFinder(monsterManager, UsingID);
         _unit = unit;

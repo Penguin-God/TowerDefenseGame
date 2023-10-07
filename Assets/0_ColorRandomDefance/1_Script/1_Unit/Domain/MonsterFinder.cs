@@ -6,25 +6,33 @@ using UnityEngine;
 public class MonsterFinder
 {
     readonly MonsterManager _monsterManager;
-    readonly int OwnerId = -1;
+    readonly MonsterManagerController _monsterManagerController;
+    readonly byte WorldId = 255;
 
-    public MonsterFinder(MonsterManager monsterManager, byte owerId)
+    public MonsterFinder(MonsterManager monsterManager, byte worldId)
     {
         _monsterManager = monsterManager;
-        OwnerId = owerId;
+        WorldId = worldId;
+    }
+
+    public MonsterFinder(MonsterManagerController monsterManagerController, byte worldId)
+    {
+        _monsterManagerController = monsterManagerController;
+        WorldId = worldId;
     }
 
     public Multi_Enemy FindTarget(bool isInDefenseWorld, Vector3 finderPos)
     {
         if (isInDefenseWorld)
         {
-            if (Multi_EnemyManager.Instance.TryGetCurrentBoss(OwnerId, out Multi_BossEnemy boss)) return boss;
+            if (Multi_EnemyManager.Instance.TryGetCurrentBoss(WorldId, out Multi_BossEnemy boss)) return boss;
             else return GetProximateNormalMonster(finderPos);
         }
-        else return Multi_EnemyManager.Instance.GetCurrnetTower(OwnerId);
+        else return Multi_EnemyManager.Instance.GetCurrnetTower(WorldId);
     }
 
     Multi_NormalEnemy GetProximateNormalMonster(Vector3 finderPos) => GetProximateEnemys(finderPos, 1).FirstOrDefault();
     public Multi_NormalEnemy[] GetProximateEnemys(Vector3 finderPos, int maxCount)
-        => _monsterManager.GetNormalMonsters().OrderBy(x => Vector3.Distance(finderPos, x.transform.position)).Take(maxCount).ToArray();
+        => _monsterManagerController.GetNormalMonsters(WorldId).OrderBy(x => Vector3.Distance(finderPos, x.transform.position)).Take(maxCount).ToArray();
+    // => _monsterManager.GetNormalMonsters().OrderBy(x => Vector3.Distance(finderPos, x.transform.position)).Take(maxCount).ToArray();
 }

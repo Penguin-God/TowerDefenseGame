@@ -9,7 +9,7 @@ public class UnitFiller
 
     public UnitFiller(BattleDIContainer container) => _container = container;
 
-    public void FillUnit(Multi_TeamSoldier unit, UnitFlags flag, UnitDamageInfo damInfo, MonsterManager monsterManager, SkillBattleDataContainer skillData)
+    public void FillUnit(Multi_TeamSoldier unit, UnitFlags flag, UnitDamageInfo damInfo, MonsterManagerController monsterManager, SkillBattleDataContainer skillData)
     {
         unit.Injection(new Unit(flag, CreateUnitStats(flag, damInfo)), monsterManager);
         SetUnitData(unit, skillData);
@@ -64,6 +64,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
     UnitFiller _unitFiller;
     ServerMonsterManager _multiMonsterManager;
+    MonsterManagerController _monsterManagerController;
     MultiData<SkillBattleDataContainer> _multiSkillData;
     BattleEventDispatcher _dispatcher;
     UnitStatController _statController;
@@ -73,6 +74,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
         _unitFiller = new UnitFiller(container);
         _multiSkillData = container.GetMultiActiveSkillData();
         _multiMonsterManager = container.GetComponent<MonsterManagerProxy>().MultiMonsterManager;
+        _monsterManagerController = container.GetService<MonsterManagerController>();
         _dispatcher = container.GetEventDispatcher();
         _statController = container.GetService<UnitStatController>();
     }
@@ -109,7 +111,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     void FillUnit(Multi_TeamSoldier unit, UnitFlags flag)
     {
         byte id = unit.UsingID;
-        _unitFiller.FillUnit(unit, flag, _statController.GetDamageInfo(flag, id), _multiMonsterManager.GetMultiData(id), _multiSkillData.GetData(id));
+        _unitFiller.FillUnit(unit, flag, _statController.GetDamageInfo(flag, id), _monsterManagerController, _multiSkillData.GetData(id));
         photonView.RPC(nameof(FillOtherUnit), RpcTarget.Others, unit.GetComponent<PhotonView>().ViewID, flag);
     }
 
@@ -117,7 +119,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     void FillOtherUnit(int viewID, UnitFlags flag)
     {
         var unit = Managers.Multi.GetPhotonViewComponent<Multi_TeamSoldier>(viewID);
-        _unitFiller.FillUnit(unit, flag, new UnitDamageInfo(0, 0), null, null);
+        _unitFiller.FillUnit(unit, flag, new UnitDamageInfo(0, 0), _monsterManagerController, null);
     }
 
     void AddUnitToManager(Multi_TeamSoldier unit)

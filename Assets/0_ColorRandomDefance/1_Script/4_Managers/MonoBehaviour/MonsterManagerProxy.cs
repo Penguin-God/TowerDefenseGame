@@ -49,7 +49,7 @@ public class MonsterManagerProxy : MonoBehaviourPun, IMonsterManager
             _eventDispatcher.NotifyMonsterDead(monster);
     }
 
-    [PunRPC] void NotifyNormalMonsterCountChange(byte playerId, byte count) => _eventDispatcher.NotifyMonsterCountChange(playerId, count);
+    // [PunRPC] void NotifyNormalMonsterCountChange(byte playerId, byte count) => _eventDispatcher.NotifyMonsterCountChange(playerId, count);
     [PunRPC] void RPC_AddNormalMonster(int viewId) => _monsterManager.AddNormalMonster(Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(viewId));
     [PunRPC] 
     void RPC_RemoveNormalMonster(int viewId)
@@ -91,6 +91,8 @@ public class MonsterManagerController
         if (monster.UsingId == PlayerIdManager.Id) // 지금은 담당 월드의 몬스터가 죽은 경우만 알림
             _eventDispatcher.NotifyMonsterDead(monster);
     }
+
+    public IEnumerable<Multi_NormalEnemy> GetNormalMonsters(byte id) => _normalMonsterManager.GetList(id);
 
     void NotifyNormalMonsterCountChange(Multi_NormalEnemy monster) 
         => _eventDispatcher.NotifyMonsterCountChange(monster.UsingId, _normalMonsterManager.GetCount(monster.UsingId));

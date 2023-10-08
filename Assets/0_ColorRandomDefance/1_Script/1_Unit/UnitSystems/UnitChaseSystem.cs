@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using Photon.Pun;
 
-public class ChaseSystem : MonoBehaviourPun, IPunObservable
+public class UnitChaseSystem : MonoBehaviour
 {
     protected Multi_TeamSoldier _unit { get; private set; }
     protected NavMeshAgent _nav { get; private set; }
@@ -28,10 +27,11 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
     {
         _nav = GetComponent<NavMeshAgent>();
         _unit = GetComponent<Multi_TeamSoldier>();
-        photonView.ObservedComponents.Add(this);
+        // photonView.ObservedComponents.Add(this);
     }
 
     [SerializeField] protected ChaseState _chaseState;
+    public ChaseState ChaseState => _chaseState;
     public float EnemyDistance => Vector3.Distance(transform.position, chasePosition);
     protected virtual Vector3 GetDestinationPos() => TargetPosition;
     protected virtual ChaseState GetChaseState() => ChaseState.NoneTarget;
@@ -65,9 +65,10 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
             return transform.position;
     }
 
-    void UpdateState()
+    void UpdateState() => ChangeState(GetChaseState());
+
+    public void ChangeState(ChaseState newState)
     {
-        var newState = GetChaseState();
         if (_chaseState != newState)
         {
             _chaseState = newState;
@@ -76,28 +77,29 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
     }
 
     // 이거 외부로 빼기
-    Vector3 _prevSendChasePosition; 
-    ChaseState _prevSendState;
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting)
-        {
-            //stream.SendNext(chasePosition);
-            _prevSendChasePosition = chasePosition;
-            stream.SendNext((byte)_chaseState);
-            _prevSendState = _chaseState;
-        }
-        else
-        {
-            //_nav.SetDestination((Vector3)stream.ReceiveNext());
-            _chaseState = (ChaseState)(byte)stream.ReceiveNext();
-            SetChaseStatus(_chaseState);
-            _nav.isStopped = _chaseState == ChaseState.NoneTarget;
-        }
-    }
+    //Vector3 _prevSendChasePosition; 
+    //ChaseState _prevSendState;
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting)
+    //    {
+    //        //stream.SendNext(chasePosition);
+    //        _prevSendChasePosition = chasePosition;
+    //        stream.SendNext((byte)_chaseState);
+    //        _prevSendState = _chaseState;
+    //    }
+    //    else
+    //    {
+    //        //_nav.SetDestination((Vector3)stream.ReceiveNext());
+    //        ChangeState((ChaseState)(byte)stream.ReceiveNext());
+    //        //_chaseState = (ChaseState)(byte)stream.ReceiveNext();
+    //        //SetChaseStatus(_chaseState);
+    //        _nav.isStopped = _chaseState == ChaseState.NoneTarget;
+    //    }
+    //}
 }
 
-public class MeeleChaser : ChaseSystem
+public class MeeleChaser : UnitChaseSystem
 {
     protected override Vector3 GetDestinationPos()
         => new UnitChaseStateCalculator(_unit.AttackRange).CalculateDestinationPos(_chaseState, TargetPosition, _currentTarget.dir);
@@ -132,7 +134,7 @@ public class MeeleChaser : ChaseSystem
 }
 
 
-public class RangeChaser : ChaseSystem
+public class RangeChaser : UnitChaseSystem
 {
     protected override void SetChaseStatus(ChaseState state)
     {

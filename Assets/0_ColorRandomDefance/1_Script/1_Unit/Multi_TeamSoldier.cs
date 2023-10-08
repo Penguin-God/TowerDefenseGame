@@ -54,7 +54,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [SerializeField] protected TargetManager _targetManager = new TargetManager();
     protected UnitState _state;
     public bool IsAttack => _state.UnitAttackState.IsAttack;
-    protected ChaseSystem _chaseSystem;
+    protected UnitChaseSystem _chaseSystem;
 
     void Awake()
     {
@@ -72,6 +72,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     void Start()
     {
         OnAwake(); // 유닛별 세팅
+        gameObject.AddComponent<UnitStateSync>();
     }
 
     protected MonsterFinder TargetFinder { get; private set; }

@@ -14,9 +14,7 @@ GameObject:
   - component: {fileID: 160267958500443098}
   - component: {fileID: 6882846347223654767}
   - component: {fileID: -3321045500531550803}
-  - component: {fileID: -6821947858357736759}
   - component: {fileID: -535646171046782127}
-  - component: {fileID: 5557815146433519866}
   - component: {fileID: -9004294172468718766}
   m_Layer: 14
   m_Name: Green_Spear 1
@@ -135,28 +133,6 @@ MonoBehaviour:
   isAOE: 1
   aliveTime: 5
   _speed: 50
---- !u!114 &-6821947858357736759
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5780081832526976392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &-535646171046782127
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,19 +147,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUsing: 0
   Path: 
---- !u!114 &5557815146433519866
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5780081832526976392}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _usingId: -1
 --- !u!114 &-9004294172468718766
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -25,7 +25,7 @@ public class UnitFiller
     {
         new UnitPassiveCreator(Managers.Data).AttachedPassive(unit.gameObject, unit.UnitFlags);
 
-        if (skillData != null && unit.UnitClass == UnitClass.Spearman)
+        if (unit.UnitClass == UnitClass.Spearman)
         {
             ThrowSpearDataContainer throwSpearData;
             if (skillData.TruGetSkillData(SkillType.마창사, out var skillBattleData))
@@ -117,7 +117,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     void FillOtherUnit(int viewID, UnitFlags flag)
     {
         var unit = Managers.Multi.GetPhotonViewComponent<Multi_TeamSoldier>(viewID);
-        _unitFiller.FillUnit(unit, flag, new UnitDamageInfo(0, 0), _monsterManagerController, null);
+        _unitFiller.FillUnit(unit, flag, new UnitDamageInfo(0, 0), _monsterManagerController, _multiSkillData.GetData(unit.UsingID));
     }
 
     void AddUnitToManager(Multi_TeamSoldier unit)

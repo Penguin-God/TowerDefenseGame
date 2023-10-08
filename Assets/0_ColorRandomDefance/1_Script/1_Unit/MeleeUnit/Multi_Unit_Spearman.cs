@@ -67,8 +67,8 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
     {
         base.SpecialAttack();
         animator.SetTrigger("isSpecialAttack");
-        if(PhotonNetwork.IsMasterClient)
-            yield return StartCoroutine(_spearShoter.Co_ShotSpear(transform, spearShotPoint.position, SpearmanSkillAttack));
+        //if(PhotonNetwork.IsMasterClient)
+        yield return StartCoroutine(_spearShoter.Co_ShotSpear(transform, spearShotPoint.position, SpearmanSkillAttack));
 
         spear.SetActive(false);
         nav.isStopped = true;
@@ -121,7 +121,8 @@ public class SpearShoter
     {
         shotSpear.SetHitAction(action);
         shotSpear.GetComponent<Collider>().enabled = true;
-        _spearThower.Throw(shotSpear, forward);
+        shotSpear.AttackShot(forward, action);
+        // _spearThower.Throw(shotSpear, forward);
         //if (Vector3.zero != _throwSpearData.RotateVector)
         //    shotSpear.GetComponent<RPCable>().SetRotate_RPC(_throwSpearData.RotateVector);
         shotSpear.transform.Rotate(_throwSpearData.RotateVector);

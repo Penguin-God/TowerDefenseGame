@@ -14,9 +14,7 @@ GameObject:
   - component: {fileID: 1886392799566611575}
   - component: {fileID: 5156756621800662722}
   - component: {fileID: -8959718834177707183}
-  - component: {fileID: -2506987200627013211}
   - component: {fileID: -7737160711020220519}
-  - component: {fileID: -610592708970402464}
   - component: {fileID: -886691606113488867}
   m_Layer: 14
   m_Name: Orange_Spear 1
@@ -135,28 +133,6 @@ MonoBehaviour:
   isAOE: 1
   aliveTime: 5
   _speed: 50
---- !u!114 &-2506987200627013211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5197799757681758757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &-7737160711020220519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,19 +147,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUsing: 0
   Path: 
---- !u!114 &-610592708970402464
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5197799757681758757}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _usingId: -1
 --- !u!114 &-886691606113488867
 MonoBehaviour:
   m_ObjectHideFlags: 0

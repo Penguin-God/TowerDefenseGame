@@ -70,7 +70,7 @@ public class WeaponPoolInitializer : PhotonObjectPoolInitializerBase
         var unitClassByWeaponPoolingCount = new Dictionary<UnitClass, int>()
         {
             // { UnitClass.Archer, 5 },
-            { UnitClass.Spearman, 1 },
+            // { UnitClass.Spearman, 1 },
             { UnitClass.Mage, 0 },
         };
 
@@ -102,6 +102,9 @@ public class WeaponPoolCreator
     {
         foreach (string path in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => CreatePath(new UnitFlags(x, UnitClass.Archer))))
             Managers.Pool.CreatePool_InGroup(path, 5, PoolGroupName);
+
+        foreach (string path in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => CreatePath(new UnitFlags(x, UnitClass.Spearman))))
+            Managers.Pool.CreatePool_InGroup(path, 1, PoolGroupName);
     }
 
     string CreatePath(UnitFlags flag) => $"Prefabs/{new ResourcesPathBuilder().BuildUnitWeaponPath(flag)}";

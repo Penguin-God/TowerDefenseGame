@@ -6,7 +6,7 @@ using UnityEngine;
 public class ThrowSpearDataContainer : ScriptableObject
 {
     [SerializeField] bool _isMagic;
-    public bool IsMagic { get => _isMagic; private set => _isMagic = value; }
+    public bool IsMagicSpear { get => _isMagic; private set => _isMagic = value; }
 
     [SerializeField] Vector3 _rotateVector;
     public Vector3 RotateVector { get => _rotateVector; private set => _rotateVector = value; }

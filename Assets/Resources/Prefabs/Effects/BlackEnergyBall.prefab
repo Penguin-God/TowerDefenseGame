@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 368700781664296200}
   - component: {fileID: 4129381612886106695}
   - component: {fileID: 4092839075240782941}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: BlackEnergyBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}

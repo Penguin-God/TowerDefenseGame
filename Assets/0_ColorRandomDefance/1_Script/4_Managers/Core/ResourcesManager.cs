@@ -34,7 +34,7 @@ public class ResourcesManager
 
     GameObject CreateObject(string path)
     {
-        GameObject prefab = Load<GameObject>(path);
+        GameObject prefab = Load<GameObject>(GetPrefabPath(path));
         if (_poolManager.TryGetPoolObejct(path.Split('/').Last(), out GameObject poolGo))
             return poolGo;
         else if (prefab.GetComponent<Poolable>() != null && _poolManager.ContainsPool(prefab.name) == false)

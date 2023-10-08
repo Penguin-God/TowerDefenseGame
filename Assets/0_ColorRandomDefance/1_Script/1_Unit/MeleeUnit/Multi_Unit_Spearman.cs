@@ -33,7 +33,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
     public void SetSpearData(ThrowSpearDataContainer throwSpearData)
     {
         var bulider = new ResourcesPathBuilder();
-        string spearPath = throwSpearData.IsMagic ? bulider.BuildMagicSpaerPath(UnitColor) : bulider.BuildUnitWeaponPath(UnitFlags);
+        string spearPath = throwSpearData.IsMagicSpear ? bulider.BuildMagicSpaerPath(UnitColor) : bulider.BuildUnitWeaponPath(UnitFlags);
         _throwSpearData = new ThrowSpearData(spearPath, throwSpearData.RotateVector, throwSpearData.WaitForVisibilityTime, throwSpearData.AttackRate);
 
         if(_spearThower == null)
@@ -106,10 +106,14 @@ public class SpearShoter
 
     Multi_Projectile CreateThorwSpear(Vector3 forward, Vector3 spawnPos)
     {
-        var shotSpear = Managers.Multi.Instantiater.PhotonInstantiate(_throwSpearData.WeaponPath, spawnPos).GetComponent<Multi_Projectile>();
+        // var shotSpear = Managers.Multi.Instantiater.PhotonInstantiate(_throwSpearData.WeaponPath, spawnPos).GetComponent<Multi_Projectile>();
+        // shotSpear.GetComponent<Collider>().enabled = false;
+        // Quaternion lookDir = Quaternion.LookRotation(forward);
+        // shotSpear.GetComponent<RPCable>().SetRotation_RPC(lookDir);
+
+        var shotSpear = Managers.Resources.Instantiate(_throwSpearData.WeaponPath, spawnPos).GetComponent<Multi_Projectile>();
         shotSpear.GetComponent<Collider>().enabled = false;
-        Quaternion lookDir = Quaternion.LookRotation(forward);
-        shotSpear.GetComponent<RPCable>().SetRotation_RPC(lookDir);
+        shotSpear.transform.rotation = Quaternion.LookRotation(forward);
         return shotSpear;
     }
 
@@ -118,7 +122,8 @@ public class SpearShoter
         shotSpear.SetHitAction(action);
         shotSpear.GetComponent<Collider>().enabled = true;
         _spearThower.Throw(shotSpear, forward);
-        if (Vector3.zero != _throwSpearData.RotateVector)
-            shotSpear.GetComponent<RPCable>().SetRotate_RPC(_throwSpearData.RotateVector);
+        //if (Vector3.zero != _throwSpearData.RotateVector)
+        //    shotSpear.GetComponent<RPCable>().SetRotate_RPC(_throwSpearData.RotateVector);
+        shotSpear.transform.Rotate(_throwSpearData.RotateVector);
     }
 }

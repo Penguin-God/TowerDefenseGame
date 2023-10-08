@@ -86,15 +86,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         ChaseTarget();
     }
 
-    void SetNavStopState(Multi_Enemy newTarget)
-    {
-        if (gameObject.activeSelf == false) return;
-        if (newTarget == null)
-            nav.isStopped = true;
-        else
-            nav.isStopped = false;
-    }
-
     void OnEnable()
     {
         if (animator != null)
@@ -147,9 +138,18 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
         _targetManager.ChangedTarget(TargetFinder.FindTarget(IsInDefenseWorld, transform.position));
-        if (PhotonNetwork.IsMasterClient == false) return;
-        SetNavStopState(TargetEnemy);
+        // if (PhotonNetwork.IsMasterClient == false) return;
+        SetNavStopState();
         _chaseSystem.ChangedTarget(TargetEnemy);
+    }
+
+    void SetNavStopState()
+    {
+        if (gameObject.activeSelf == false) return;
+        if (target == null)
+            nav.isStopped = true;
+        else
+            nav.isStopped = false;
     }
 
     public bool contactEnemy = false;
@@ -164,9 +164,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun
                 continue;
             }
 
+            _chaseSystem.MoveUpdate();
             if (PhotonNetwork.IsMasterClient == false) continue;
 
-            _chaseSystem.MoveUpdate();
             if ((contactEnemy || MonsterIsForward()) && _state.UnitAttackState.IsAttackable)
                 UnitAttack();
         }

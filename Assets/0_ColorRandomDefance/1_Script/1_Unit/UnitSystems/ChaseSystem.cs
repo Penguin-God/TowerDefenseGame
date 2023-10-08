@@ -82,14 +82,14 @@ public class ChaseSystem : MonoBehaviourPun, IPunObservable
     {
         if (stream.IsWriting)
         {
-            stream.SendNext(chasePosition);
+            //stream.SendNext(chasePosition);
             _prevSendChasePosition = chasePosition;
             stream.SendNext((byte)_chaseState);
             _prevSendState = _chaseState;
         }
         else
         {
-            _nav.SetDestination((Vector3)stream.ReceiveNext());
+            //_nav.SetDestination((Vector3)stream.ReceiveNext());
             _chaseState = (ChaseState)(byte)stream.ReceiveNext();
             SetChaseStatus(_chaseState);
             _nav.isStopped = _chaseState == ChaseState.NoneTarget;

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ResourcesManager : IInstantiater
+public class ResourcesManager
 {
     public T Load<T>(string path) where T : Object
     {
@@ -34,13 +34,12 @@ public class ResourcesManager : IInstantiater
 
     GameObject CreateObject(string path)
     {
+        GameObject prefab = Load<GameObject>(path);
         if (_poolManager.TryGetPoolObejct(path.Split('/').Last(), out GameObject poolGo))
             return poolGo;
-
-        GameObject result = Object.Instantiate(Load<GameObject>(path), Vector3.zero, Load<GameObject>(path).transform.rotation);
-        if (result.GetComponent<Poolable>() != null && _poolManager.ContainsPool(result.name) == false)
-            _poolManager.CreatePool(path, 0, this);
-        return result;
+        else if (prefab.GetComponent<Poolable>() != null && _poolManager.ContainsPool(prefab.name) == false)
+            return _poolManager.CreatePool(path, 1).Pop().gameObject;
+        else return Object.Instantiate(prefab, Vector3.zero, prefab.transform.rotation);
     }
     string GetPrefabPath(string path) => path.Contains("Prefabs/") ? path : $"Prefabs/{path}";
 

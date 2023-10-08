@@ -83,16 +83,16 @@ public class PoolManager
 
     public PoolManager(string name) => _root = new GameObject(name).transform;
 
-    public Transform CreatePool(string path, int count, IInstantiater instantiater, Transform root = null)
+    public Pool CreatePool(string path, int count, IInstantiater instantiater = null, Transform root = null)
     {
         Pool pool = new Pool(path, count, instantiater);
         if (root == null) pool.Root.SetParent(_root);
         else pool.Root.SetParent(root);
         _poolByName.Add(pool.Name, pool);
-        return pool.Root;
+        return pool;
     }
 
-    public Transform CreatePool_InGroup(string path, int count, string groupName, IInstantiater instantiater = null)
+    public void CreatePool_InGroup(string path, int count, string groupName, IInstantiater instantiater = null)
     {
         PoolGroup poolGroup;
         if(_poolGroupByName.ContainsKey(groupName))
@@ -104,7 +104,7 @@ public class PoolManager
             poolGroup.Root.SetParent(_root);
             _poolGroupByName.Add(groupName, poolGroup);
         }
-        return CreatePool(path, count, instantiater, poolGroup.Root);
+        CreatePool(path, count, instantiater, poolGroup.Root);
     }
 
     public void Push(Poolable poolable) => Push(poolable.gameObject);
@@ -155,58 +155,5 @@ public class PoolManager
             _poolByName.Clear();
             _poolGroupByName.Clear();
         }
-    }
-}
-
-public class ObjectPoolManager
-{
-    Dictionary<string, Queue<GameObject>> _poolDictionary = new Dictionary<string, Queue<GameObject>>();
-
-    // 오브젝트 풀을 생성하거나 가져옵니다.
-    public Queue<GameObject> GetOrCreatePool(string prefabName, GameObject prefab, int initialSize = 5)
-    {
-        if (_poolDictionary.ContainsKey(prefabName) == false)
-        {
-            Queue<GameObject> newPool = new Queue<GameObject>();
-
-            for (int i = 0; i < initialSize; i++)
-            {
-                GameObject obj = GameObject.Instantiate(prefab);
-                obj.SetActive(false);
-                newPool.Enqueue(obj);
-            }
-
-            _poolDictionary.Add(prefabName, newPool);
-        }
-
-        return _poolDictionary[prefabName];
-    }
-
-    // 오브젝트를 풀에서 가져옵니다.
-    public GameObject GetObjectFromPool(string prefabName, GameObject prefab, Vector3 position, Quaternion rotation)
-    {
-        Queue<GameObject> pool = GetOrCreatePool(prefabName, prefab);
-
-        if (pool.Count == 0)
-        {
-            GameObject obj = GameObject.Instantiate(prefab, position, rotation);
-            obj.SetActive(false);
-            pool.Enqueue(obj);
-        }
-
-        GameObject pooledObject = pool.Dequeue();
-        pooledObject.transform.position = position;
-        pooledObject.transform.rotation = rotation;
-        pooledObject.SetActive(true);
-
-        return pooledObject;
-    }
-
-    // 오브젝트를 풀에 반환합니다.
-    public void ReturnObjectToPool(string prefabName, GameObject obj)
-    {
-        obj.SetActive(false);
-        Debug.Assert(_poolDictionary.ContainsKey(prefabName), $"오브젝트의 풀 {prefabName}을 찾을 수 없음");
-        _poolDictionary[prefabName].Enqueue(obj);
     }
 }

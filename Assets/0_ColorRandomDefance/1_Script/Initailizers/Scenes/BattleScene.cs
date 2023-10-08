@@ -12,9 +12,7 @@ public class BattleScene : BaseScene
             print("방에 없누 ㅋㅋ");
             return;
         }
-        PhotonNetwork.SendRate = 60;
-        PhotonNetwork.SerializationRate = 30;
-
+        
         Managers.Data.Init();
         IMultiSkillDataCreater multiSkillDataCreater;
         multiSkillDataCreater = PhotonNetwork.CurrentRoom.PlayerCount == 1 ? new TestBattleSkillDataCreater() : gameObject.AddComponent<MultiBattleSkillDataCreater>();

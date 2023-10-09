@@ -7,11 +7,18 @@ using System;
 public class Multi_Meteor : Multi_Projectile
 {
     const string expolsionPath = "Prefabs/Weapon/MageSkills/Meteor_Explosion";
+    readonly string ExpolsionPath = new ResourcesPathBuilder().BuildEffectPath(SkillEffectType.MeteorExplosion);
     Action<Multi_Enemy> explosionAction = null;
 
     void Start()
     {
         _renderer = gameObject.GetOrAddComponent<MeshRenderer>();
+    }
+
+    public void Shot(Vector3 dir, Action<Multi_Enemy> hitAction)
+    {
+        explosionAction = hitAction;
+        RPC_Shot(dir);
     }
 
     public void Shot(Multi_Enemy enemy, Vector3 enemyPos, Action<Multi_Enemy> hitAction)
@@ -28,8 +35,10 @@ public class Multi_Meteor : Multi_Projectile
 
     protected override void OnTriggerHit(Collider other)
     {
-        if (PhotonNetwork.IsMasterClient && other.tag == "World")
-            photonView.RPC(nameof(MeteorExplosion), RpcTarget.All);
+        //if (PhotonNetwork.IsMasterClient && other.tag == "World")
+        //    photonView.RPC(nameof(MeteorExplosion), RpcTarget.All);
+        if (other.tag == "World")
+            MeteorExplosion();
     }
 
     Renderer _renderer;
@@ -40,11 +49,13 @@ public class Multi_Meteor : Multi_Projectile
         {
             if(_renderer.isVisible)
                 Managers.Sound.PlayEffect(EffectSoundType.MeteorExplosion);
-            Managers.Multi.Instantiater.PhotonInstantiate(expolsionPath, transform.position).GetComponent<Multi_HitSkill>().SetHitActoin(explosionAction);
+            // Managers.Multi.Instantiater.PhotonInstantiate(expolsionPath, transform.position).GetComponent<Multi_HitSkill>().SetHitActoin(explosionAction);
+            Managers.Resources.Instantiate(ExpolsionPath, transform.position).GetComponent<Multi_HitSkill>().SetHitActoin(explosionAction);
             explosionAction = null;
         }
 
         Rigidbody.velocity = Vector3.zero;
-        Managers.Multi.Instantiater.PhotonDestroy(gameObject);
+        // Managers.Multi.Instantiater.PhotonDestroy(gameObject);
+        Managers.Resources.Destroy(gameObject);
     }
 }

@@ -20,7 +20,7 @@ public class Multi_HitSkill : MonoBehaviour
             OnHitSkile?.Invoke(monster);
     }
 
-    [SerializeField] protected SphereCollider sphereCollider;
+    SphereCollider sphereCollider;
     [SerializeField] private float activeDelayTime; // 콜라이더가 켜지기 전 공격 대기 시간
     [SerializeField] private float hitTime; // 콜라이더가 켜져 있는 시간
 

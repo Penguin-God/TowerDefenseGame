@@ -6,6 +6,7 @@ using System.Linq;
 public enum SkillEffectType
 {
     Meteor,
+    MeteorExplosion,
     IceCloud,
     YellowMagicCircle,
     GreenEnergyBall,
@@ -77,7 +78,8 @@ public class ResourcesPathBuilder
         string effectName = "";
         switch (effectType)
         {
-            case SkillEffectType.Meteor: // effectName = "Meteor 1"; break;
+            case SkillEffectType.Meteor: effectName = "Meteor"; break;
+            case SkillEffectType.MeteorExplosion: effectName = "MeteorExplosion"; break;
             case SkillEffectType.IceCloud: effectName = "IceCloud"; break;
             case SkillEffectType.YellowMagicCircle: effectName = "YellowMagicCircle"; break;
             case SkillEffectType.GreenEnergyBall: // effectName = "GreenMage BounceBall 1"; break;

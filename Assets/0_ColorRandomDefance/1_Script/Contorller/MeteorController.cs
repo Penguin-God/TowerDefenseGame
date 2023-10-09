@@ -34,13 +34,20 @@ public class MeteorController : MonoBehaviourPun
 
     IEnumerator Co_ShotMeteor(Multi_Enemy target, Action<Multi_Enemy> hitAction, Vector3 spawnPos)
     {
-        var meteor = WeaponSpawner.Spawn(MeteorPath, spawnPos).GetComponent<Multi_Meteor>();
+        var meteor = Managers.Resources.Instantiate(new ResourcesPathBuilder().BuildEffectPath(SkillEffectType.Meteor), spawnPos).GetComponent<Multi_Meteor>();
+        //var meteor = WeaponSpawner.Spawn(MeteorPath, spawnPos).GetComponent<Multi_Meteor>();
         Vector3 tempPos = target.transform.position;
         yield return new WaitForSeconds(1f);
+        meteor.Shot(CalculateShotPoint(spawnPos, target, tempPos), hitAction);
+        //if (target.IsDead)
+        //    meteor.Shot(null, tempPos, hitAction);
+        //else
+        //    meteor.Shot(target, target.transform.position, hitAction);
+    }
 
-        if (target.IsDead)
-            meteor.Shot(null, tempPos, hitAction);
-        else
-            meteor.Shot(target, target.transform.position, hitAction);
+    Vector3 CalculateShotPoint(Vector3 meteorPos, Multi_Enemy enemy, Vector3 tempPos)
+    {
+        if (enemy == null || enemy.enemyType == EnemyType.Tower) return tempPos;
+        else return (enemy.transform.position + enemy.dir.normalized * (enemy as Multi_NormalEnemy).Speed - meteorPos).normalized;
     }
 }

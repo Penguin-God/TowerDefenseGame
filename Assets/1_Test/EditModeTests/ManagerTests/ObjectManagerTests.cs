@@ -4,43 +4,46 @@ using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
 
-public class ObjectManagerTests
+namespace ManagerTests
 {
-    ObjectManager<int> CreateManager() => new ObjectManager<int>();
-
-    [Test]
-    public void AddObject_AddsElementToList()
+    public class ObjectManagerTests
     {
-        // Arrange
-        var sut = CreateManager();
-        
-        // Act
-        sut.AddObject(5);
+        ObjectManager<int> CreateManager() => new ObjectManager<int>();
 
-        // Assert
-        Assert.AreEqual(1, sut.Count);
-        Assert.AreEqual(5, sut.List[0]);
+        [Test]
+        public void AddObject_AddsElementToList()
+        {
+            // Arrange
+            var sut = CreateManager();
 
-        // Act
-        sut.AddObject(2);
+            // Act
+            sut.AddObject(5);
 
-        // Assert
-        Assert.AreEqual(2, sut.List.Count);
-        Assert.AreEqual(2, sut.List[1]);
-    }
+            // Assert
+            Assert.AreEqual(1, sut.Count);
+            Assert.AreEqual(5, sut.List[0]);
 
-    [Test]
-    public void RemoveObject_RemovesElementFromList()
-    {
-        // Arrange
-        int elementToAdd = 5;
-        var sut = CreateManager();
-        sut.AddObject(elementToAdd);
+            // Act
+            sut.AddObject(2);
 
-        // Act
-        sut.RemoveObject(elementToAdd);
+            // Assert
+            Assert.AreEqual(2, sut.List.Count);
+            Assert.AreEqual(2, sut.List[1]);
+        }
 
-        // Assert
-        Assert.AreEqual(0, sut.Count);
+        [Test]
+        public void RemoveObject_RemovesElementFromList()
+        {
+            // Arrange
+            int elementToAdd = 5;
+            var sut = CreateManager();
+            sut.AddObject(elementToAdd);
+
+            // Act
+            sut.RemoveObject(elementToAdd);
+
+            // Assert
+            Assert.AreEqual(0, sut.Count);
+        }
     }
 }

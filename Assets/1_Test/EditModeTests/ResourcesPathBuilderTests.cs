@@ -75,6 +75,7 @@ namespace Tests
                 AssertResourcesLoad(_pathBuilder.BuildEffectPath(type));
         }
 
-        void AssertResourcesLoad(string path) => Assert.NotNull(Resources.Load<GameObject>($"Prefabs/{path}"));
+        void AssertResourcesLoad(string path) => Assert.NotNull(Resources.Load<GameObject>(GetPrefabPath(path)));
+        string GetPrefabPath(string path) => path.Contains("Prefabs/") ? path : $"Prefabs/{path}";
     }
 }

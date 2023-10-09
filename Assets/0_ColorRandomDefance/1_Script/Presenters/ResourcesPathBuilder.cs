@@ -69,7 +69,7 @@ public class ResourcesPathBuilder
             case UnitColor.Violet: effectName = "MagePosionEffect 1"; break;
             case UnitColor.Black: effectName = "BlackMageSkileBall 1"; break;
         }
-        return $"Weapon/MageSkills/{effectName}";
+        return $"Prefabs/Weapon/MageSkills/{effectName}";
     }
 
     public string BuildEffectPath(SkillEffectType effectType)

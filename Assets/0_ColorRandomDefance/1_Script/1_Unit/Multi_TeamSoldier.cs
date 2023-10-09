@@ -106,7 +106,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     void OnDisable()
     {
         StopAllCoroutines();
-        ResetAiStateValue();
+        ResetValue();
     }
 
     public void Dead() => photonView.RPC(nameof(RPC_Dead), RpcTarget.All);
@@ -121,7 +121,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         _state.Dead();
     }
 
-    void ResetAiStateValue()
+    protected virtual void ResetValue()
     {
         _targetManager.Reset();
         contactEnemy = false;

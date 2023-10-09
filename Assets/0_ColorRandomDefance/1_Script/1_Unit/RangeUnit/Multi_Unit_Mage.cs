@@ -92,6 +92,12 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
         base.EndSkillAttack(0);
     }
 
+    protected override void ResetValue()
+    {
+        base.ResetValue();
+        manaSystem.ClearMana_RPC();
+    }
+
     [PunRPC] 
     void DoSkill(int targetId)
     {

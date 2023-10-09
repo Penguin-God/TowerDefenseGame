@@ -46,8 +46,7 @@ public class Multi_Projectile : MonoBehaviourPun
     {
         OnHit = null;
         StopAllCoroutines();
-        if (PhotonNetwork.IsMasterClient) // PhotonNetwork.IsMasterClient 는 검은 법사 스킬 때문
-            Managers.Resources.Destroy(gameObject);
+        Managers.Resources.Destroy(gameObject);
     }
 
     protected virtual void OnTriggerHit(Collider other) 

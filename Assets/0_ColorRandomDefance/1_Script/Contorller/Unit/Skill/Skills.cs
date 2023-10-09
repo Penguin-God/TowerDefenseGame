@@ -73,14 +73,13 @@ public class MultiVectorShotController : UnitSkillController
     readonly Vector3 Offset = new Vector3(0, 2, 0);
     public MultiVectorShotController(float damageRate) => DamageRate = damageRate;
 
-    void AttackMonster(Multi_Enemy enemy) => enemy.OnDamage(CalculateSkillDamage(_unit, DamageRate), isSkill: true);
-    Unit _unit;
     public override void DoSkill(Multi_TeamSoldier unit)
     {
         PlaySkillSound(unit, EffectSoundType.BlackMageSkill);
-        _unit = unit.Unit;
         foreach (Vector3 dir in MathUtil.CalculateDirections(ShotCount).Select(x => new Vector3(x.x, 0, x.y)))
             SpawnSkill(SkillEffectType.BlackEnergyBall, unit.transform.position + Offset).GetComponent<Multi_Projectile>().AttackShot(dir.normalized, AttackMonster);
+
+        void AttackMonster(Multi_Enemy enemy) => enemy.OnDamage(CalculateSkillDamage(unit.Unit, DamageRate), isSkill: true);
     }
 }
 

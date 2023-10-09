@@ -85,7 +85,7 @@ public class ResourcesPathBuilder
             case SkillEffectType.OrangeWater: effectName = "OrangeFountain"; break;
             case SkillEffectType.PosionCloud: effectName = "PosionCloud"; break;
         }
-        return $"Prefabs/Effects/{effectName}";
+        return $"Prefabs/Effects/MageSkillEffect/{effectName}";
     }
 
     string GetColorText(UnitColor color) => Enum.GetName(typeof(UnitColor), color);

@@ -71,7 +71,7 @@ public class WeaponPoolInitializer : PhotonObjectPoolInitializerBase
         {
             // { UnitClass.Archer, 5 },
             // { UnitClass.Spearman, 1 },
-            { UnitClass.Mage, 0 },
+            // { UnitClass.Mage, 0 },
         };
 
         foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
@@ -105,6 +105,9 @@ public class WeaponPoolCreator
 
         foreach (string path in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => CreatePath(new UnitFlags(x, UnitClass.Spearman))))
             Managers.Pool.CreatePool_InGroup(path, 1, PoolGroupName);
+
+        foreach (string path in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => CreatePath(new UnitFlags(x, UnitClass.Mage))))
+            Managers.Pool.CreatePool_InGroup(path, 0, PoolGroupName);
     }
 
     string CreatePath(UnitFlags flag) => $"Prefabs/{new ResourcesPathBuilder().BuildUnitWeaponPath(flag)}";

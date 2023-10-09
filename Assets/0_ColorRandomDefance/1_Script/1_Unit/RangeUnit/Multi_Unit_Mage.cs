@@ -60,12 +60,15 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
         yield return new WaitForSeconds(0.7f);
         magicLight.SetActive(true);
 
-        // TODO : 딱 공격하려는 순간에 적이 죽어버리면 공격을 안함. 이건 판정 문제인데 그냥 target위치를 기억해서 거기다가 던지는게 나은듯
-        if (PhotonNetwork.IsMasterClient && target != null && Chaseable)
-        {
-            _energyBallThower.FlatThrow(target, UnitAttacker.NormalAttack);
+        Managers.Resources.Instantiate(GetWeaponPath(), energyBallShotPoint.position).GetComponent<Multi_Projectile>().AttackShot(GetDir(), UnitAttacker.NormalAttack);
+        if (PhotonNetwork.IsMasterClient)
             manaSystem?.AddMana_RPC();
-        }
+
+        //if (PhotonNetwork.IsMasterClient && target != null && Chaseable)
+        //{
+        //    _energyBallThower.FlatThrow(target, UnitAttacker.NormalAttack);
+        //    manaSystem?.AddMana_RPC();
+        //}
 
         yield return new WaitForSeconds(0.5f);
         magicLight.SetActive(false);
@@ -73,6 +76,8 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
 
         base.EndAttack();
     }
+    string GetWeaponPath() => new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags);
+    Vector3 GetDir() => new ThorwPathCalculator().CalculateThorwPath_To_Monster(TargetEnemy, transform);
 
     [SerializeField] float mageSkillCoolDownTime;
     protected UnitSkillController _unitSkillController = null;

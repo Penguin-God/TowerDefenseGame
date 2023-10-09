@@ -9661,10 +9661,8 @@ GameObject:
   - component: {fileID: 3052143345438960134}
   - component: {fileID: 7978505018228843328}
   - component: {fileID: 8343587423111548515}
-  - component: {fileID: 3052143345438668325}
   - component: {fileID: 3052143345438668327}
   - component: {fileID: 1421877303204269461}
-  - component: {fileID: 348176262795641593}
   m_Layer: 14
   m_Name: YellowMageBall 1
   m_TagString: Untagged
@@ -9718,28 +9716,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 116
   m_CollisionDetection: 0
---- !u!114 &3052143345438668325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3052143345438668326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ObservedComponentsFoldoutOpen: 1
-  Group: 0
-  prefixField: -1
-  Synchronization: 3
-  OwnershipTransfer: 0
-  observableSearch: 2
-  ObservedComponents: []
-  sceneViewId: 0
-  InstantiationId: 0
-  isRuntimeInstantiated: 0
 --- !u!114 &3052143345438668327
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9769,16 +9745,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUsing: 0
   Path: 
---- !u!114 &348176262795641593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3052143345438668326}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 907965e21fbd37f42a8bda8073fc69a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _usingId: -1

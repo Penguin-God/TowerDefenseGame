@@ -17,7 +17,7 @@ public class Multi_Meteor : Multi_Projectile
     public void Shot(Vector3 dir, Action<Multi_Enemy> hitAction)
     {
         explosionAction = hitAction;
-        RPC_Shot(dir);
+        Shot(dir);
     }
 
     protected override void OnTriggerHit(Collider other)

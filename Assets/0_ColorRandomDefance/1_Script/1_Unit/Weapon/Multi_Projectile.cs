@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using Photon.Pun;
 
-public class Multi_Projectile : MonoBehaviourPun
+public class Multi_Projectile : MonoBehaviour
 {
     [SerializeField] bool isAOE; // area of effect : 범위(광역) 공격
     [SerializeField] float aliveTime = 5f;
@@ -22,10 +22,9 @@ public class Multi_Projectile : MonoBehaviourPun
         StartCoroutine(Co_Inactive(aliveTime));
     }
 
-    [PunRPC]
-    protected void RPC_Shot(Vector3 dir)
+    protected void Shot(Vector3 dir)
     {
-        Rigidbody.velocity = dir * _speed;
+        Rigidbody.velocity = dir.normalized * _speed;
         Quaternion lookDir = Quaternion.LookRotation(dir);
         transform.rotation = lookDir;
     }
@@ -33,7 +32,7 @@ public class Multi_Projectile : MonoBehaviourPun
     public void AttackShot(Vector3 dir, Action<Multi_Enemy> hitAction)
     {
         OnHit = hitAction;
-        RPC_Shot(dir);
+        Shot(dir);
     }
 
     IEnumerator Co_Inactive(float delayTime)
@@ -59,7 +58,7 @@ public class Multi_Projectile : MonoBehaviourPun
         if (isAOE == false) ReturnObjet();
     }
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         OnTriggerHit(other);
     }

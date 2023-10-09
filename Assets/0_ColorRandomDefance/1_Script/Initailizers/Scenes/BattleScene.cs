@@ -80,7 +80,6 @@ class WorldInitializer
         
         new UnitPoolInitializer().InitPool();
         new MonsterPoolInitializer().InitPool();
-        new WeaponPoolInitializer().InitPool();
         new EffectPoolInitializer().InitPool();
     }
 

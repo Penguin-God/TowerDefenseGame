@@ -8,7 +8,6 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
 {
     [Header("아처 변수")]
     [SerializeField] Transform arrowShotPoint;
-    ProjectileThrowingUnit _thrower;
     private GameObject trail;
 
     [SerializeField] int _useSkillPercent;
@@ -20,14 +19,12 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
     {
         _chaseSystem = gameObject.AddComponent<RangeChaser>();
         trail = GetComponentInChildren<TrailRenderer>().gameObject;
-        _thrower = gameObject.AddComponent<ProjectileThrowingUnit>();
-        _thrower.SetInfo(new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags), arrowShotPoint);
-
+        
         normalAttackSound = EffectSoundType.ArcherAttack;
         _attackExcuter = gameObject.AddComponent<RandomExcuteSkillController>();
         _attackExcuter.DependencyInject(NormalAttack, SpecialAttack);
         _useSkillPercent = 30;
-        _archerArrowShoter = new ArcherArrowShoter(TargetFinder, _thrower, arrowShotPoint, GetWeaponPath());
+        _archerArrowShoter = new ArcherArrowShoter(TargetFinder, arrowShotPoint, GetWeaponPath());
     }
 
     protected override void AttackToAll() => _attackExcuter.RandomAttack(_useSkillPercent);
@@ -68,13 +65,11 @@ public class ArcherArrowShoter
 {
     const int ArrowCount = 3;
     readonly MonsterFinder _monsterFinder;
-    ProjectileThrowingUnit _thrower;
     Transform _shotPoint;
     readonly string Path;
-    public ArcherArrowShoter(MonsterFinder monsterFinder, ProjectileThrowingUnit thrower, Transform shotPoint, string path)
+    public ArcherArrowShoter(MonsterFinder monsterFinder, Transform shotPoint, string path)
     {
         _monsterFinder = monsterFinder;
-        _thrower = thrower;
         _shotPoint = shotPoint;
         Path = path;
     }

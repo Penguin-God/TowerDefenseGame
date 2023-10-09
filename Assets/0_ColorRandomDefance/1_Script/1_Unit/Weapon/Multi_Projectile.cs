@@ -12,7 +12,7 @@ public class Multi_Projectile : MonoBehaviourPun
     protected Rigidbody Rigidbody = null;
     protected Action<Multi_Enemy> OnHit = null;
 
-    private void Awake()
+    void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
     }
@@ -21,24 +21,6 @@ public class Multi_Projectile : MonoBehaviourPun
     {
         StartCoroutine(Co_Inactive(aliveTime));
     }
-
-    public void SetHitAction(Action<Multi_Enemy> hitAction) => OnHit = hitAction;
-
-    public void Throw(Vector3 dir)
-    {
-        Rigidbody.velocity = dir * _speed;
-        Quaternion lookDir = Quaternion.LookRotation(dir);
-        transform.rotation = lookDir;
-    }
-
-    public void Shot(Vector3 dir, Action<Multi_Enemy> hitAction)
-    {
-        OnHit = hitAction;
-        photonView.RPC(nameof(RPC_Shot), RpcTarget.All, dir.x, dir.z);
-    }
-
-    [PunRPC]
-    void RPC_Shot(float x, float z) => RPC_Shot(new Vector3(x, 0, z));
 
     [PunRPC]
     protected void RPC_Shot(Vector3 dir)
@@ -64,15 +46,13 @@ public class Multi_Projectile : MonoBehaviourPun
     {
         OnHit = null;
         StopAllCoroutines();
-        // gameObject.SetActive(false);
-        //  && gameObject.GetComponent<Poolable>() != null
         if (PhotonNetwork.IsMasterClient) // PhotonNetwork.IsMasterClient 는 검은 법사 스킬 때문
             Managers.Resources.Destroy(gameObject);
     }
 
     protected virtual void OnTriggerHit(Collider other) 
     {
-        if(PhotonNetwork.IsMasterClient == false) return;
+        if(PhotonNetwork.IsMasterClient == false || other.transform.parent == null) return;
         // 컴포넌트가 부모에게 있음
         if(other.transform.parent.TryGetComponent<Multi_Enemy>(out var enemy) == false)
             return;

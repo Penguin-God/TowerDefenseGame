@@ -21,14 +21,11 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public UnitClass UnitClass => UnitFlags.UnitClass;
     public UnitColor UnitColor => UnitFlags.UnitColor;
 
-    [SerializeField] UnitStat _stat;
-
     protected int Damage => _unit.DamageInfo.ApplyDamage;
     public int BossDamage => _unit.DamageInfo.ApplyBossDamage;
-    public void UpdateDamageInfo(UnitDamageInfo newInfo) => _unit.UpdateDamageInfo(newInfo);
-    public float Speed => Unit.Stats.Speed; // { get => _stat.Speed; set => _stat.SetSpeed(value); }
+    public float Speed => Unit.Stats.Speed;
     public float AttackDelayTime { get => Unit.Stats.AttackDelayTime; set => Unit.Stats.AttackDelayTime = value; }
-    public float AttackRange => Unit.Stats.AttackRange;// _stat.AttackRange;
+    public float AttackRange => Unit.Stats.AttackRange;
 
     [SerializeField] protected float stopDistanc;
 
@@ -103,7 +100,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     {
         nav.enabled = true;
         StopAllCoroutines();
-        // if (PhotonNetwork.IsMasterClient)
         StartCoroutine(nameof(NavCoroutine));
     }
 
@@ -139,7 +135,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
         _targetManager.ChangedTarget(TargetFinder.FindTarget(IsInDefenseWorld, transform.position));
-        // if (PhotonNetwork.IsMasterClient == false) return;
         SetNavStopState();
         _chaseSystem.ChangedTarget(TargetEnemy);
     }

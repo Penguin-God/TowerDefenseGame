@@ -60,50 +60,11 @@ public class MonsterPoolInitializer : PhotonObjectPoolInitializerBase
 
 }
 
-public class WeaponPoolInitializer : PhotonObjectPoolInitializerBase
-{
-    public override void InitPool() => CreateWeaponsPool();
-    protected override string PoolGroupName => "Weapons";
-
-    void CreateWeaponsPool()
-    {
-        var unitClassByWeaponPoolingCount = new Dictionary<UnitClass, int>()
-        {
-            // { UnitClass.Archer, 5 },
-            // { UnitClass.Spearman, 1 },
-            // { UnitClass.Mage, 0 },
-        };
-
-        foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
-        {
-            foreach (var classCountPair in unitClassByWeaponPoolingCount)
-                CreatePoolGroup(PathBuilder.BuildUnitWeaponPath(new UnitFlags(color, classCountPair.Key)), classCountPair.Value);
-        }
-
-        CreateMageSkillPool();
-    }
-
-    void CreateMageSkillPool()
-    {
-        foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
-        {
-            if (color == UnitColor.White) continue;
-            CreatePoolGroup(PathBuilder.BuildMageSkillEffectPath(color), 0);
-        }
-    }
-}
-
 public class WeaponPoolCreator
 {
     string PoolGroupName => "Weapons";
     public void InitPool()
     {
-        //foreach (string path in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => CreatePath(new UnitFlags(x, UnitClass.Archer))))
-        //    Managers.Pool.CreatePool_InGroup(path, 5, PoolGroupName);
-
-        //foreach (string path in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => CreatePath(new UnitFlags(x, UnitClass.Spearman))))
-        //    Managers.Pool.CreatePool_InGroup(path, 1, PoolGroupName);
-
         CreateWeaponPool(UnitClass.Archer, 5);
         CreateWeaponPool(UnitClass.Spearman, 1);
         CreateWeaponPool(UnitClass.Mage, 0);

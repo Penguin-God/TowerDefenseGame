@@ -1,44 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
-using System;
-
-public class ProjectileThrowingUnit : MonoBehaviourPun
-{
-    ProjectileData projectileData;
-    public void SetInfo(string weaponPath, Transform weaponThrowPoint) => projectileData = new ProjectileData(weaponPath, transform, weaponThrowPoint);
-    [SerializeField] Transform _weaponThrowPoint;
-
-    public Multi_Projectile FlatThrow(Transform target, Action<Multi_Enemy> onHit) => FlatThrow(projectileData.WeaponPath, target, onHit);
-    public Multi_Projectile FlatThrow(string weaponPath, Transform target, Action<Multi_Enemy> onHit) => CallThrow(CreateProjectile(weaponPath, onHit), target);
-
-    Multi_Projectile CreateProjectile(string weaponPath, Action<Multi_Enemy> onHit)
-    {
-        var projectile = Managers.Multi.Instantiater.PhotonInstantiateInactive(weaponPath, PlayerIdManager.InVaildId).GetComponent<Multi_Projectile>();
-        projectile.SetHitAction(onHit);
-        return projectile;
-    }
-
-    Multi_Projectile CallThrow(Multi_Projectile projectile, Transform target)
-    {
-        Multi_Enemy targetMonster = target == null ? null : target.GetComponent<Multi_Enemy>();
-        Throw(projectile, new ThorwPathCalculator().CalculateThorwPath_To_Monster(targetMonster, projectileData.Attacker));
-        return projectile;
-    }
-
-    public void Throw(Multi_Projectile projectile, Vector3 shotPath) => photonView.RPC(nameof(Multi_Throw), RpcTarget.All, projectile.GetComponent<PhotonView>().ViewID, shotPath);
-    Multi_Projectile FindProjectileWithId(int id) => Managers.Multi.GetPhotonViewTransfrom(id).GetComponent<Multi_Projectile>();
-    [PunRPC]
-    void Multi_Throw(int projectileId, Vector3 shotPath) => Thorw(FindProjectileWithId(projectileId), projectileData.SpawnPos, shotPath);
-
-    void Thorw(Multi_Projectile projectile, Vector3 startPos, Vector3 shotPath)
-    {
-        projectile.transform.position = startPos;
-        projectile.gameObject.SetActive(true);
-        projectile.Throw(shotPath);
-    }
-}
 
 public class ThorwPathCalculator
 {

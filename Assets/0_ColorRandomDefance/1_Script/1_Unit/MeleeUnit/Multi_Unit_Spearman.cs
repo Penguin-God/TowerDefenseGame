@@ -99,7 +99,7 @@ public class SpearShoter
 
     void ThrowSpear(Multi_Projectile shotSpear, Vector3 forward, Action<Multi_Enemy> action)
     {
-        shotSpear.SetHitAction(action);
+        // shotSpear.SetHitAction(action);
         shotSpear.GetComponent<Collider>().enabled = true;
         shotSpear.AttackShot(forward, action);
         shotSpear.transform.Rotate(_throwSpearData.RotateVector);

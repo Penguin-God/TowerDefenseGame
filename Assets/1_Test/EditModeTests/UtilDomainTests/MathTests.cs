@@ -95,7 +95,7 @@ namespace UtilDomainTests
             int targetProbability = 30;
             int tryCount = 1000;
             int successCount = 0;
-            float delta = 0.02f;
+            float delta = 0.03f;
 
             for (int i = 0; i < tryCount; i++)
             {

@@ -95,22 +95,27 @@ public class WeaponPoolInitializer : PhotonObjectPoolInitializerBase
 
 public class WeaponPoolCreator
 {
-    public void InitPool() => CreateWeaponsPool();
     string PoolGroupName => "Weapons";
-
-    void CreateWeaponsPool()
+    public void InitPool()
     {
-        foreach (string path in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => CreatePath(new UnitFlags(x, UnitClass.Archer))))
-            Managers.Pool.CreatePool_InGroup(path, 5, PoolGroupName);
+        //foreach (string path in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => CreatePath(new UnitFlags(x, UnitClass.Archer))))
+        //    Managers.Pool.CreatePool_InGroup(path, 5, PoolGroupName);
 
-        foreach (string path in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => CreatePath(new UnitFlags(x, UnitClass.Spearman))))
-            Managers.Pool.CreatePool_InGroup(path, 1, PoolGroupName);
+        //foreach (string path in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => CreatePath(new UnitFlags(x, UnitClass.Spearman))))
+        //    Managers.Pool.CreatePool_InGroup(path, 1, PoolGroupName);
 
-        foreach (string path in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => CreatePath(new UnitFlags(x, UnitClass.Mage))))
-            Managers.Pool.CreatePool_InGroup(path, 0, PoolGroupName);
+        CreateWeaponPool(UnitClass.Archer, 5);
+        CreateWeaponPool(UnitClass.Spearman, 1);
+        CreateWeaponPool(UnitClass.Mage, 0);
     }
 
-    string CreatePath(UnitFlags flag) => $"Prefabs/{new ResourcesPathBuilder().BuildUnitWeaponPath(flag)}";
+    void CreateWeaponPool(UnitClass unitClass, int count)
+    {
+        foreach (string path in UnitFlags.AllColors.Select(CreatePath))
+            Managers.Pool.CreatePool_InGroup(path, count, PoolGroupName);
+
+        string CreatePath(UnitColor color) => $"Prefabs/{new ResourcesPathBuilder().BuildUnitWeaponPath(new UnitFlags(color, unitClass))}";
+    }
 }
 
 public class EffectPoolInitializer

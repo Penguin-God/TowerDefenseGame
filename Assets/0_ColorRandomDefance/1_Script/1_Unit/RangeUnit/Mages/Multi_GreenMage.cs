@@ -14,7 +14,8 @@ public class Multi_GreenMage : Multi_Unit_Mage
     }
 
     void OnSkillHit(Multi_Enemy enemy) => UnitAttacker.SkillAttack(enemy, CalculateSkillDamage(_damRate));
-    void ShootSkill() => _energyBallThower.FlatThrow(new ResourcesPathBuilder().BuildMageSkillEffectPath(UnitFlags.UnitColor), target, OnSkillHit);
+    void ShootSkill() => ShotEnergyBall(new ResourcesPathBuilder().BuildMageSkillEffectPath(UnitFlags.UnitColor), OnSkillHit); 
+    //_energyBallThower.FlatThrow(new ResourcesPathBuilder().BuildMageSkillEffectPath(UnitFlags.UnitColor), target, OnSkillHit);
 
     protected override void MageSkile()
     {

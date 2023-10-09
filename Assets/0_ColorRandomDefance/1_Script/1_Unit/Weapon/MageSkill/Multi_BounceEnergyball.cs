@@ -1,53 +1,54 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 
-public class Multi_BounceEnergyball : MonoBehaviourPun, IPunObservable
+public class Multi_BounceEnergyball : MonoBehaviour // , IPunObservable
 {
     [SerializeField] float speed;
     [SerializeField] float acceleration;
 
-    float originSpeed;
+    float currentSpeed;
     Vector3 lastVelocity;
     Rigidbody rigid;
-    RPCable rpcable;
+    // RPCable rpcable;
 
     void Awake()
     {
         rigid = GetComponent<Rigidbody>();
-        rpcable = gameObject.GetOrAddComponent<RPCable>();
+        // rpcable = gameObject.GetOrAddComponent<RPCable>();
         _renderer = gameObject.GetOrAddComponent<MeshRenderer>();
-        originSpeed = speed;
+        currentSpeed = speed;
     }
 
     void OnDisable()
     {
-        speed = originSpeed;
+        currentSpeed = speed;
     }
 
-    private void Update()
+    void Update()
     {
-        if (PhotonNetwork.IsMasterClient == false) return;
+        // if (PhotonNetwork.IsMasterClient == false) return;
         lastVelocity = rigid.velocity;
     }
 
     Renderer _renderer;
     private void OnCollisionEnter(Collision collision)
     {
-        if (PhotonNetwork.IsMasterClient == false || collision.gameObject.tag != "Structures") return;
+        // if (PhotonNetwork.IsMasterClient == false || collision.gameObject.tag != "Structures") return;
+        if (collision.gameObject.tag != "Structures") return;
 
-        Vector3 dir = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal);
+        Vector3 dir = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal).normalized;
         if(_renderer.isVisible)
             Managers.Sound.PlayEffect(EffectSoundType.MageBallBonce);
 
-        speed += acceleration;
-        rpcable.SetVelocity_RPC(dir * speed);
+        currentSpeed += acceleration;
+        rigid.velocity = dir * currentSpeed;
+        // rpcable.SetVelocity_RPC(dir * currentSpeed);
     }
 
-    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    {
-        if (stream.IsWriting) stream.SendNext(transform.position);
-        else transform.position = (Vector3)stream.ReceiveNext();
-    }
+    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    //{
+    //    if (stream.IsWriting) stream.SendNext(transform.position);
+    //    else transform.position = (Vector3)stream.ReceiveNext();
+    //}
 }

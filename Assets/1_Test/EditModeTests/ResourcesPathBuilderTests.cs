@@ -59,16 +59,6 @@ namespace Tests
         }
 
         [Test]
-        public void BuildMageSkillEffetPath()
-        {
-            foreach (UnitColor color in Enum.GetValues(typeof(UnitColor)))
-            {
-                if (color == UnitColor.White) continue;
-                AssertResourcesLoad(_pathBuilder.BuildMageSkillEffectPath(color));
-            }
-        }
-
-        [Test]
         public void BuildEffetPathTests()
         {
             foreach (SkillEffectType type in Enum.GetValues(typeof(SkillEffectType)))

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: -6445906457577590054}
   - component: {fileID: 5900419894401818784}
   m_Layer: 15
-  m_Name: GreenMage BounceBall 1
+  m_Name: GreenMageBounceBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

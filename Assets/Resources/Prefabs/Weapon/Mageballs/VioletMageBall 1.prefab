@@ -4838,6 +4838,7 @@ GameObject:
   - component: {fileID: 7317387149127552314}
   - component: {fileID: 764653912475919693}
   - component: {fileID: 6312583149238634909}
+  - component: {fileID: 2766126049754952843}
   m_Layer: 14
   m_Name: VioletMageBall 1
   m_TagString: Untagged
@@ -4904,7 +4905,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAOE: 1
-  aliveTime: 5
   _speed: 50
 --- !u!114 &6312583149238634909
 MonoBehaviour:
@@ -4920,6 +4920,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUsing: 0
   Path: 
+--- !u!114 &2766126049754952843
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 764653912475919692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7556d4d3453b6e449ce7da340817196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aliveTime: 4
 --- !u!1 &764653912475919694
 GameObject:
   m_ObjectHideFlags: 0

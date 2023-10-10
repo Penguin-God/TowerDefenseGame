@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -8959718834177707183}
   - component: {fileID: -7737160711020220519}
   - component: {fileID: -886691606113488867}
+  - component: {fileID: 2560050979914691608}
   m_Layer: 14
   m_Name: Orange_Spear 1
   m_TagString: Attack
@@ -131,7 +132,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAOE: 1
-  aliveTime: 5
   _speed: 50
 --- !u!114 &-7737160711020220519
 MonoBehaviour:
@@ -159,6 +159,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2252a23f0142a094f9ef9b9e904152fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2560050979914691608
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5197799757681758757}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7556d4d3453b6e449ce7da340817196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aliveTime: 4
 --- !u!1 &8102074434860236580
 GameObject:
   m_ObjectHideFlags: 0

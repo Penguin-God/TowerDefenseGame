@@ -156,6 +156,7 @@ GameObject:
   - component: {fileID: -3843602943283153426}
   - component: {fileID: 5293563423686961678}
   - component: {fileID: 459185661442881532}
+  - component: {fileID: -1271393089752177979}
   m_Layer: 14
   m_Name: Yellow_Spear 1
   m_TagString: Attack
@@ -271,7 +272,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAOE: 1
-  aliveTime: 5
   _speed: 50
 --- !u!114 &5293563423686961678
 MonoBehaviour:
@@ -299,3 +299,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2252a23f0142a094f9ef9b9e904152fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-1271393089752177979
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4136844629629309540}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7556d4d3453b6e449ce7da340817196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aliveTime: 4

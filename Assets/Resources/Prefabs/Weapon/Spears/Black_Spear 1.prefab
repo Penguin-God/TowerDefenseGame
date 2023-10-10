@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -3393536760803221977}
   - component: {fileID: -832114583849046858}
   - component: {fileID: 7492905317009973694}
+  - component: {fileID: 4614374755487582234}
   m_Layer: 14
   m_Name: Black_Spear 1
   m_TagString: Attack
@@ -131,7 +132,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAOE: 1
-  aliveTime: 5
   _speed: 50
 --- !u!114 &-832114583849046858
 MonoBehaviour:
@@ -159,6 +159,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2252a23f0142a094f9ef9b9e904152fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &4614374755487582234
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1089945524570101919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7556d4d3453b6e449ce7da340817196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aliveTime: 4
 --- !u!1 &3995345140710552990
 GameObject:
   m_ObjectHideFlags: 0

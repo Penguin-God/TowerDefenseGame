@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2089364922720424669}
   - component: {fileID: 5003480418987747995}
   - component: {fileID: 2881021713790114798}
+  - component: {fileID: 5795930893896398792}
   m_Layer: 14
   m_Name: BlueMageBall 1
   m_TagString: Untagged
@@ -79,7 +80,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAOE: 1
-  aliveTime: 5
   _speed: 50
 --- !u!114 &2881021713790114798
 MonoBehaviour:
@@ -95,6 +95,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsUsing: 0
   Path: 
+--- !u!114 &5795930893896398792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5003480418987747992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7556d4d3453b6e449ce7da340817196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aliveTime: 4
 --- !u!1 &5003480418987747994
 GameObject:
   m_ObjectHideFlags: 0

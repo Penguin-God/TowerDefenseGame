@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2508455601675930923}
   - component: {fileID: -6445906457577590054}
   - component: {fileID: 5900419894401818784}
+  - component: {fileID: 4834632234538600708}
   m_Layer: 15
   m_Name: GreenMageBounceBall
   m_TagString: Untagged
@@ -81,7 +82,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isAOE: 1
-  aliveTime: 5
   _speed: 50
 --- !u!114 &2508455601675930923
 MonoBehaviour:
@@ -124,6 +124,19 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 5.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4834632234538600708
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3393117671410220457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7556d4d3453b6e449ce7da340817196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aliveTime: 5
 --- !u!1 &3393117671410220459
 GameObject:
   m_ObjectHideFlags: 0

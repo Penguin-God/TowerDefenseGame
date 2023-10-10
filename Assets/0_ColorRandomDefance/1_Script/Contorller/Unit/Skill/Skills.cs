@@ -63,7 +63,7 @@ public class MagicFountainController : UnitSkillController
     }
 
     public override void DoSkill(Multi_TeamSoldier unit)
-        => SpawnSkill(SkillEffectType.OrangeWater, unit.target.position).GetComponent<Multi_OrangeSkill>().OnSkile(unit.target.GetComponent<Multi_Enemy>(), unit.BossDamage, AttackCount, HpRate, _audioPlayer);
+        => SpawnSkill(SkillEffectType.OrangeWater, unit.target.position).GetComponent<Multi_OrangeSkill>().OnSkile(unit.TargetEnemy, unit.BossDamage, AttackCount, HpRate, _audioPlayer);
 }
 
 public class MultiVectorShotController : UnitSkillController

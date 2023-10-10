@@ -61367,6 +61367,8 @@ GameObject:
   - component: {fileID: 6181139580846477413}
   - component: {fileID: 3809104377124569506}
   - component: {fileID: 6269822335907625528}
+  - component: {fileID: 4185505583886565676}
+  - component: {fileID: 9117309369952140825}
   m_Layer: 0
   m_Name: PosionCloud
   m_TagString: Untagged
@@ -66120,9 +66122,35 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcfc1bb3451f4d24e81332f5415fe319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereCollider: {fileID: 0}
   activeDelayTime: 0
   hitTime: 1.4
+--- !u!114 &4185505583886565676
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6269822335907625535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7556d4d3453b6e449ce7da340817196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aliveTime: 1.7
+--- !u!114 &9117309369952140825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6269822335907625535}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1 &6269885218212461721
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,7 +30,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     [SerializeField] protected float stopDistanc;
 
     public Transform target => _targetManager.Target == null ? null : TargetEnemy.transform;
-    protected Multi_Enemy TargetEnemy => _targetManager.Target;
+    public Multi_Enemy TargetEnemy => _targetManager.Target;
 
     protected NavMeshAgent nav;
     private ObstacleAvoidanceType originObstacleType;

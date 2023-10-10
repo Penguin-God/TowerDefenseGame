@@ -4661,6 +4661,7 @@ GameObject:
   - component: {fileID: 6267666989465855364}
   - component: {fileID: 7395946078919531223}
   - component: {fileID: -135969851839057063}
+  - component: {fileID: 7822921371988463186}
   m_Layer: 0
   m_Name: OrangeFountain
   m_TagString: Untagged
@@ -9473,6 +9474,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioClip: {fileID: 8300000, guid: ce839c0dc1d6135468aa253fab1834b5, type: 3}
+--- !u!114 &7822921371988463186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6070129563677219890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
 --- !u!1 &6070213659934198414
 GameObject:
   m_ObjectHideFlags: 0

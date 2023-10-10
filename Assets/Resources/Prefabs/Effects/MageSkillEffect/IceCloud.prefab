@@ -23954,6 +23954,8 @@ GameObject:
   - component: {fileID: 4270540001386718265}
   - component: {fileID: 4270540001386718264}
   - component: {fileID: 4270540001386718211}
+  - component: {fileID: 9068353319046411437}
+  - component: {fileID: 2860005722902519712}
   m_Layer: 0
   m_Name: IceCloud
   m_TagString: Untagged
@@ -28813,6 +28815,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fcfc1bb3451f4d24e81332f5415fe319, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sphereCollider: {fileID: 0}
   activeDelayTime: 0.2
   hitTime: 1.3
+--- !u!114 &9068353319046411437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4270540001386718210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 18f5afaddac3de847a009167400a9815, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsUsing: 0
+  Path: 
+--- !u!114 &2860005722902519712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4270540001386718210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7556d4d3453b6e449ce7da340817196, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aliveTime: 2

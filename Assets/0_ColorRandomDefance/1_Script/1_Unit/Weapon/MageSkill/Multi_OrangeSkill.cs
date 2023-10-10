@@ -23,7 +23,7 @@ public class Multi_OrangeSkill : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            if (enemy == null || enemy.IsDead) yield break;
+            if (enemy == null || enemy.IsDead) break;
             OrangeMageSkill(enemy, damage, percent);
             yield return new WaitForSeconds(0.4f);
         }

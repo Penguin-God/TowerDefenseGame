@@ -27,7 +27,7 @@ public class UnitTooltipController
     void ShowUnitTooltip(UI_UnitTracker tracker, float offSetX)
     {
         _currentWindow = Managers.UI.ShowDefualtUI<BackGround>();
-        float screenWidthScaleFactor = Screen.width / Managers.UI.UIScreenWidth;
+        float screenWidthScaleFactor = Screen.width / Managers.UI.UIScreenWidth; // 플레이어 스크린 크기 대비 설정한 UI 비율
         _currentWindow.SetPosition(tracker.GetComponent<RectTransform>().position + new Vector3(offSetX * screenWidthScaleFactor, 0, 0));
         _currentWindow.SetFontSize(FONT_SIZE);
         _currentWindow.SetSize(WINDOW_SIZE);

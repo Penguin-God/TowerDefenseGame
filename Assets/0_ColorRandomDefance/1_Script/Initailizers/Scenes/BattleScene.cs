@@ -39,7 +39,6 @@ public class BattleScene : BaseScene
     public override void Clear()
     {
         EventIdManager.Clear();
-        Managers.Pool.Clear();
     }
 }
 
@@ -60,7 +59,6 @@ class WorldInitializer
     {
         new BattleDIContainerInitializer().InjectBattleDependency(_battleDIContainer, multiSkillData);
 
-        
         Managers.Camera.EnterBattleScene();
         InitMonoBehaviourContainer();
         InitObjectPools();
@@ -75,12 +73,16 @@ class WorldInitializer
 
     void InitObjectPools()
     {
-        new WeaponPoolCreator().InitPool();
+        var poolManager = new PoolManager("@PoolManager");
+        Managers.Resources.DependencyInject(poolManager);
+        Managers.Multi.DependencyInject(poolManager);
+
+        new WeaponPoolCreator().InitPool(poolManager);
         if (PhotonNetwork.IsMasterClient == false) return;
         
-        new UnitPoolInitializer().InitPool();
-        new MonsterPoolInitializer().InitPool();
-        new EffectPoolInitializer().InitPool();
+        new UnitPoolInitializer(poolManager).InitPool();
+        new MonsterPoolInitializer(poolManager).InitPool();
+        new EffectPoolInitializer().InitPool(poolManager);
     }
 
     void BindUnitEvent()

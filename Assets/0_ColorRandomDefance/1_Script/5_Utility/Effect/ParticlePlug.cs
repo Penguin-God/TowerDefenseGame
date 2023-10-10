@@ -19,9 +19,10 @@ public class ParticlePlug : MonoBehaviour
     IEnumerator Co_InAvtive(float time)
     {
         yield return new WaitForSeconds(time);
-        if (GetComponent<Poolable>() == null)
-            Destroy(gameObject);
-        else
-            Managers.Pool.Push(gameObject);
+        Managers.Resources.Destroy(gameObject);
+        //if (GetComponent<Poolable>() == null)
+        //    Destroy(gameObject);
+        //else
+        //    Managers.Pool.Push(gameObject);
     }
 }

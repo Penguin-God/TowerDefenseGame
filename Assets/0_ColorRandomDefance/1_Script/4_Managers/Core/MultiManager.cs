@@ -3,12 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using System.Linq;
-using System;
-using System.IO;
 
 public class MultiManager
 {
-    MultiInstantiater _multiInstantiater = new MultiInstantiater();
+    MultiInstantiater _multiInstantiater;
     public MultiInstantiater Instantiater => _multiInstantiater;
 
     public Transform GetPhotonViewTransfrom(int viewID)
@@ -16,10 +14,15 @@ public class MultiManager
         return PhotonView.Find(viewID).transform;
     }
 
+    public void DependencyInject(PoolManager poolManager) => _multiInstantiater = new MultiInstantiater(poolManager);
+
     public T GetPhotonViewComponent<T>(int viewID) => GetPhotonViewTransfrom(viewID).GetComponent<T>();
 
     public class MultiInstantiater : IInstantiater
     {
+        PoolManager _poolManager;
+        public MultiInstantiater(PoolManager poolManager) => _poolManager= poolManager;
+
         public GameObject Instantiate(string path) // interface
         {
             path = GetPrefabPath(path);
@@ -29,10 +32,6 @@ public class MultiManager
             return go;
         }
 
-        public GameObject PhotonInstantiate(string path) => PhotonInstantiate(path, Vector3.zero, -1);
-
-        public GameObject PhotonInstantiate(string path, Vector3 spawnPos, int id = -1)  => PhotonInstantiate(path, spawnPos, Quaternion.identity, id);
-        
         public GameObject PhotonInstantiate(string path, Vector3 spawnPos, Quaternion spawnRot, int id = -1)
             => PhotonInstantiate(path, spawnPos, spawnRot, true, (byte)(id == -1 ? PlayerIdManager.InVaildId : id));
 
@@ -41,7 +40,7 @@ public class MultiManager
         GameObject PhotonInstantiate(string path, Vector3 spawnPos, Quaternion spawnRot, bool activeFlag, byte id)
         {
             path = GetPrefabPath(path);
-            var result = Managers.Pool.TryGetPoolObejct(GetPathName(path), out GameObject poolGo) ? poolGo : Instantiate(path);
+            var result = _poolManager.TryGetPoolObejct(GetPathName(path), out GameObject poolGo) ? poolGo : Instantiate(path);
             var rpc = result.GetComponent<RPCable>();
             if (spawnPos != Vector3.zero) rpc.SetPosition_RPC(spawnPos);
             if (spawnRot != Quaternion.identity) rpc.SetRotate_RPC(spawnRot.eulerAngles);
@@ -65,7 +64,7 @@ public class MultiManager
             if (go.GetComponent<Poolable>() != null)
             {
                 go.GetComponent<RPCable>().SetActive_RPC(false);
-                Managers.Pool.Push(go.GetComponent<Poolable>());
+                _poolManager.Push(go.GetComponent<Poolable>());
             }
             else
                 PhotonNetwork.Destroy(go);

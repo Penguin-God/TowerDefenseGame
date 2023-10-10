@@ -11,7 +11,7 @@ public class PoolingTests
     public IEnumerator Poolable을_소유한_객체의_풀이_없을_시_풀을_생성해야_함()
     {
         var poolManager = new PoolManager("@PoolManager");
-        var sut = new ResourcesManager(poolManager);
+        var sut = CreateResourcesManager(poolManager);
 
         Assert.NotNull(sut.Instantiate(TestObjectPath));
         yield return null;
@@ -24,10 +24,17 @@ public class PoolingTests
     {
         var poolManager = new PoolManager("@PoolManager");
         poolManager.CreatePool(TestObjectPath, 0);
-        var sut = new ResourcesManager(poolManager);
+        var sut = CreateResourcesManager(poolManager);
 
         yield return null;
         
         Assert.NotNull(sut.Instantiate(TestObjectPath));
+    }
+
+    ResourcesManager CreateResourcesManager(PoolManager poolManager)
+    {
+        var result = new ResourcesManager();
+        result.DependencyInject(poolManager);
+        return result;
     }
 }

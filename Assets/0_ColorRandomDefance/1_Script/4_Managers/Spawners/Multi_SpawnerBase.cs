@@ -21,16 +21,18 @@ public abstract class Multi_SpawnerBase : MonoBehaviourPun
 public abstract class PhotonObjectPoolInitializerBase : IInstantiater
 {
     protected readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
-
+    readonly PoolManager _poolManager;
+    public PhotonObjectPoolInitializerBase(PoolManager poolManager) => _poolManager = poolManager;
     public abstract void InitPool();
     protected abstract string PoolGroupName { get; }
-    protected void CreatePoolGroup(string path, int count) => Managers.Pool.CreatePool_InGroup(path, count, PoolGroupName, this);
-
+    protected void CreatePoolGroup(string path, int count) => _poolManager.CreatePool_InGroup(path, count, PoolGroupName, this);
     public GameObject Instantiate(string path) => Managers.Multi.Instantiater.Instantiate(path);
 }
 
 public class UnitPoolInitializer : PhotonObjectPoolInitializerBase
 {
+    public UnitPoolInitializer(PoolManager poolManager) : base(poolManager) {}
+
     protected override string PoolGroupName => "Units";
     public override void InitPool()
     {
@@ -51,6 +53,8 @@ public class UnitPoolInitializer : PhotonObjectPoolInitializerBase
 public class MonsterPoolInitializer : PhotonObjectPoolInitializerBase
 {
     readonly int POOL_OBJECT_COUNT = 20;
+    public MonsterPoolInitializer(PoolManager poolManager) : base(poolManager) {}
+
     protected override string PoolGroupName => "NormalEnemys";
     public override void InitPool()
     {
@@ -63,8 +67,10 @@ public class MonsterPoolInitializer : PhotonObjectPoolInitializerBase
 public class WeaponPoolCreator
 {
     string PoolGroupName => "Weapons";
-    public void InitPool()
+    PoolManager _poolManager;
+    public void InitPool(PoolManager poolManager)
     {
+        _poolManager = poolManager;
         CreateWeaponPool(UnitClass.Archer, 5);
         CreateWeaponPool(UnitClass.Spearman, 1);
         CreateWeaponPool(UnitClass.Mage, 0);
@@ -73,7 +79,7 @@ public class WeaponPoolCreator
     void CreateWeaponPool(UnitClass unitClass, int count)
     {
         foreach (string path in UnitFlags.AllColors.Select(CreatePath))
-            Managers.Pool.CreatePool_InGroup(path, count, PoolGroupName);
+            _poolManager.CreatePool_InGroup(path, count, PoolGroupName);
 
         string CreatePath(UnitColor color) => $"Prefabs/{new ResourcesPathBuilder().BuildUnitWeaponPath(new UnitFlags(color, unitClass))}";
     }
@@ -82,14 +88,12 @@ public class WeaponPoolCreator
 public class EffectPoolInitializer
 {
     protected string PoolGroupName => "Effects";
-    public void InitPool()
+    public void InitPool(PoolManager poolManager)
     {
         foreach (var data in CsvUtility.CsvToArray<EffectData>(Managers.Resources.Load<TextAsset>("Data/EffectData").text))
         {
-            switch (data.EffectType)
-            {
-                case EffectType.GameObject: Managers.Pool.CreatePool_InGroup(data.Path, 2, PoolGroupName); break;
-            }
+            if(data.EffectType == EffectType.GameObject)
+                poolManager.CreatePool_InGroup(data.Path, 2, PoolGroupName);
         }
     }
 }

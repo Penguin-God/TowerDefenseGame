@@ -146,14 +146,4 @@ public class PoolManager
         if (_poolByName.TryGetValue(name, out Pool pool)) return pool.Original;
         else return null;
     }
-
-    public void Clear()
-    {
-        if(_root != null)
-        {
-            _root = null;
-            _poolByName.Clear();
-            _poolGroupByName.Clear();
-        }
-    }
 }

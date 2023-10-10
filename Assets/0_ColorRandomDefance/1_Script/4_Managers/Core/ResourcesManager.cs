@@ -19,8 +19,8 @@ public class ResourcesManager
         return Resources.Load<T>(path);
     }
 
-    readonly PoolManager _poolManager;
-    public ResourcesManager(PoolManager poolManager) => _poolManager = poolManager;
+    PoolManager _poolManager;
+    public void DependencyInject(PoolManager poolManager) => _poolManager = poolManager;
 
     public GameObject Instantiate(string path) => Instantiate(GetPrefabPath(path), Vector3.zero);
 

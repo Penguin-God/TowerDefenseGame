@@ -26,8 +26,7 @@ public class Managers : MonoBehaviour
     DataManager _data = new();
     UI_Manager _ui = new();
     SoundManager _sound = new();
-    ResourcesManager _resources;
-    PoolManager _pool;
+    ResourcesManager _resources = new();
     ClientDataManager _clientData = new();
     Scene_Manager _scene = new();
     CameraController _camera = new();
@@ -39,7 +38,6 @@ public class Managers : MonoBehaviour
     public static UI_Manager UI => Instance._ui;
     public static SoundManager Sound => Instance._sound;
     public static ResourcesManager Resources => Instance._resources;
-    public static PoolManager Pool => Instance._pool;
     public static ClientDataManager ClientData => Instance._clientData;
     public static Scene_Manager Scene => Instance._scene;
     public static CameraController Camera => Instance._camera;
@@ -50,8 +48,7 @@ public class Managers : MonoBehaviour
 
     void Init()
     {
-        _pool = new PoolManager("@PoolManager");
-        _resources = new ResourcesManager(_pool);
+        _resources.DependencyInject(new PoolManager("@PoolManager"));
         _data.Init();
         _clientData.Init();
         _sound.Init(transform);

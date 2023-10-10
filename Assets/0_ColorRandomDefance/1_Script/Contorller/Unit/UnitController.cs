@@ -4,10 +4,10 @@ using UnityEngine;
 
 public abstract class UnitController : MonoBehaviour
 {
-    UnitAttackController _attackController;
+    __UnitAttackController _attackController;
     void Awake()
     {
-        _attackController = GetComponent<UnitAttackController>();
+        _attackController = GetComponent<__UnitAttackController>();
     }
 
     public void Attack()

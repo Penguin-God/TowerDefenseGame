@@ -9,7 +9,7 @@ public interface IUnitAttackActor
     float AttackCoolTime { get; }
 }
 
-public class UnitAttackController : MonoBehaviour
+public class __UnitAttackController : MonoBehaviour
 {
     Unit _unit;
 

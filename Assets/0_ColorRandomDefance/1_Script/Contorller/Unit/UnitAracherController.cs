@@ -7,10 +7,10 @@ public class UnitAracherController : MonoBehaviour
     object attack;
     object skillattack;
 
-    UnitAttackController attaker;
+    __UnitAttackController attaker;
     void Awake()
     {
-        attaker = GetComponent<UnitAttackController>();
+        attaker = GetComponent<__UnitAttackController>();
     }
 
     object GetAttackCommend() => null;

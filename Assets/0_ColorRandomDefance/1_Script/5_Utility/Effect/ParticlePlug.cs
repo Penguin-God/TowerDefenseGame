@@ -20,9 +20,5 @@ public class ParticlePlug : MonoBehaviour
     {
         yield return new WaitForSeconds(time);
         Managers.Resources.Destroy(gameObject);
-        //if (GetComponent<Poolable>() == null)
-        //    Destroy(gameObject);
-        //else
-        //    Managers.Pool.Push(gameObject);
     }
 }

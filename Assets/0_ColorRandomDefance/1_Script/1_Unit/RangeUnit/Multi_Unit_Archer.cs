@@ -22,14 +22,14 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
         
         normalAttackSound = EffectSoundType.ArcherAttack;
         _attackExcuter = gameObject.AddComponent<RandomExcuteSkillController>();
-        _attackExcuter.DependencyInject(NormalAttack, SpecialAttack);
+        _attackExcuter.DependencyInject(NormalAttack, SpecialArcherAttack);
         _useSkillPercent = 30;
         _archerArrowShoter = new ArcherArrowShoter(TargetFinder, arrowShotPoint, GetWeaponPath());
     }
 
     protected override void AttackToAll() => _attackExcuter.RandomAttack(_useSkillPercent);
 
-    public override void NormalAttack() => StartCoroutine(nameof(ArrowAttack));
+    protected override void NormalAttack() => StartCoroutine(nameof(ArrowAttack));
     IEnumerator ArrowAttack()
     {
         base.StartAttack();
@@ -41,20 +41,20 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
         trail.SetActive(true);
         nav.isStopped = false;
 
-        EndAttack();
+        base.EndAttack();
     }
 
-    public override void SpecialAttack() => StartCoroutine(Special_ArcherAttack());
+    void SpecialArcherAttack() => StartCoroutine(Special_ArcherAttack());
     IEnumerator Special_ArcherAttack()
     {
-        base.SpecialAttack();
+        DoAttack();
 
         trail.SetActive(false);
         _archerArrowShoter.ShotSkill(TargetEnemy, UnitAttacker.SkillAttack);
         yield return new WaitForSeconds(1f);
         trail.SetActive(true);
 
-        base.EndSkillAttack(_skillReboundTime);
+        base.EndAttack(_skillReboundTime);
     }
 
     Vector3 GetDir(Multi_Enemy target) => new ThorwPathCalculator().CalculateThorwPath_To_Monster(target, transform);

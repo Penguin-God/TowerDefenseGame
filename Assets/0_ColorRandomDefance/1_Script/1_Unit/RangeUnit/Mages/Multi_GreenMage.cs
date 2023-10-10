@@ -16,7 +16,7 @@ public class Multi_GreenMage : Multi_Unit_Mage
     void OnSkillHit(Multi_Enemy enemy) => UnitAttacker.SkillAttack(enemy, CalculateSkillDamage(_damRate));
     void ShootSkill() => ShotEnergyBall(new ResourcesPathBuilder().BuildEffectPath(SkillEffectType.BounceBall), OnSkillHit);
 
-    protected override void MageSkile()
+    protected override void _MageSkile()
     {
         StartCoroutine(Co_GreenMageSkile());
         manaSystem.LockManaForDuration(manaLockTime);

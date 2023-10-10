@@ -22,7 +22,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         _useSkillPercent = 30;
 
         _attackExcuter = gameObject.AddComponent<RandomExcuteSkillController>();
-        _attackExcuter.DependencyInject(NormalAttack, SpecialAttack);
+        _attackExcuter.DependencyInject(NormalAttack, ShotSpear);
     }
     SpearShoter _spearShoter;
     ThrowSpearData _throwSpearData;
@@ -36,7 +36,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
 
     protected override void AttackToAll() => _attackExcuter.RandomAttack(_useSkillPercent);
 
-    public override void NormalAttack() => StartCoroutine(nameof(SpaerAttack));
+    protected override void NormalAttack() => StartCoroutine(nameof(SpaerAttack));
     IEnumerator SpaerAttack()
     {
         base.StartAttack();
@@ -53,11 +53,10 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         EndAttack();
     }
 
-    public override void SpecialAttack() => StartCoroutine(nameof(Spearman_SpecialAttack));
-
-    IEnumerator Spearman_SpecialAttack()
+    void ShotSpear() => StartCoroutine(nameof(Co_ShotSpear));
+    IEnumerator Co_ShotSpear()
     {
-        base.SpecialAttack();
+        base.DoAttack();
         animator.SetTrigger("isSpecialAttack");
         yield return StartCoroutine(_spearShoter.Co_ShotSpear(transform, spearShotPoint, SpearmanSkillAttack));
 
@@ -69,7 +68,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
 
         nav.isStopped = false;
         spear.SetActive(true);
-        base.EndSkillAttack(_skillReboundTime);
+        base.EndAttack(_skillReboundTime);
     }
 
     void SpearmanSkillAttack(Multi_Enemy target) => UnitAttacker.SkillAttack(target, CalculateSpearDamage(target.enemyType));

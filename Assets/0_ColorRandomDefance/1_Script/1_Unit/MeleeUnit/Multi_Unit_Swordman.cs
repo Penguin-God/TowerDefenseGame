@@ -14,10 +14,7 @@ public class Multi_Unit_Swordman : Multi_TeamSoldier
         _chaseSystem = gameObject.AddComponent<MeeleChaser>();
     }
 
-    [PunRPC]
-    protected override void Attack() => NormalAttack();
-
-    public override void NormalAttack() => StartCoroutine(nameof(SwordAttack));
+    [PunRPC] protected override void Attack() => StartCoroutine(nameof(SwordAttack));
 
     IEnumerator SwordAttack()
     {

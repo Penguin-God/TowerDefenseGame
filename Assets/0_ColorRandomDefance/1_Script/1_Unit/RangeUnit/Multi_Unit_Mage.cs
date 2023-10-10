@@ -43,7 +43,7 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     [PunRPC]
     protected override void Attack()
     {
-        if (Skillable) SpecialAttack();
+        if (Skillable) MageSkile();
         else StartCoroutine(nameof(MageAttack));
     }
 
@@ -73,14 +73,14 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
 
     [SerializeField] float mageSkillCoolDownTime;
     protected UnitSkillController _unitSkillController = null;
-    public override void SpecialAttack()
+    void MageSkile()
     {
-        base.SpecialAttack();
+        DoAttack();
         manaSystem?.ClearMana_RPC();
         if (_unitSkillController != null && PhotonNetwork.IsMasterClient)
             photonView.RPC(nameof(DoSkill), RpcTarget.All, target.GetComponent<PhotonView>().ViewID);
         else
-            MageSkile();
+            _MageSkile();
 
         PlaySkillSound();
         StartCoroutine(Co_EndSkillAttack(mageSkillCoolDownTime)); // 임시방편
@@ -89,7 +89,7 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     IEnumerator Co_EndSkillAttack(float skillTime)
     {
         yield return new WaitForSeconds(skillTime);
-        base.EndSkillAttack(0);
+        base.EndAttack(0);
     }
 
     protected override void ResetValue()
@@ -105,6 +105,6 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
         _unitSkillController.DoSkill(this);
     }
     protected int CalculateSkillDamage(float rate) => Mathf.RoundToInt(Mathf.Max(Damage, BossDamage) * rate);
-    protected virtual void MageSkile() { }
+    protected virtual void _MageSkile() { }
     protected virtual void PlaySkillSound() { }
 }

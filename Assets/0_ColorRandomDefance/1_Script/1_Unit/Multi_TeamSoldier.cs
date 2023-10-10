@@ -44,10 +44,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     // 가상 함수
     protected virtual void OnAwake() { } // 유닛마다 다른 Awake 세팅
-    public virtual void NormalAttack() { } // 유닛들의 고유한 공격
-    public virtual void SpecialAttack() => _state.StartAttack();
-
-
+    protected virtual void NormalAttack() { } // 유닛들의 고유한 공격
+    
     [SerializeField] protected TargetManager _targetManager = new TargetManager();
     protected UnitState _state;
     public bool IsAttack => _state.UnitAttackState.IsAttack;
@@ -188,14 +186,15 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     protected void StartAttack()
     {
-        _state.StartAttack();
+        DoAttack();
         AfterPlaySound(normalAttackSound, normalAttakc_AudioDelay);
     }
+    protected void DoAttack() => _state.StartAttack();
 
     bool CheckTargetUpdateCondition => target == null || (TargetIsNormal && (enemyDistance > stopDistanc * 2 || target.GetComponent<Multi_Enemy>().IsDead));
     bool TargetIsNormal => target != null && TargetEnemy.enemyType == EnemyType.Normal;
-    protected void EndAttack() => EndSkillAttack(AttackDelayTime);
-    protected void EndSkillAttack(float coolTime)
+    protected void EndAttack() => EndAttack(AttackDelayTime);
+    protected void EndAttack(float coolTime)
     {
         _state.EndAttack(coolTime);
         if (CheckTargetUpdateCondition) UpdateTarget();
@@ -203,7 +202,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     [SerializeField] protected float enemyDistance => _chaseSystem.EnemyDistance;
     readonly float CHASE_RANGE = 150f;
-    protected bool Chaseable => CHASE_RANGE > enemyDistance; // 거리가 아닌 다른 조건(IsDead 등)으로 바꾸기
     public void ChangeUnitWorld() => photonView.RPC(nameof(ChangeWorld), RpcTarget.All);
 
     [PunRPC] // PunRPC라 protected 강제임

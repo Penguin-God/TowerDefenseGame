@@ -3,6 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using System.Globalization;
+
+public enum UnitType
+{
+    Low,
+    High,
+    Special,
+}
 
 [Serializable]
 public struct UnitFlags : IEquatable<UnitFlags>
@@ -77,6 +85,21 @@ public struct UnitFlags : IEquatable<UnitFlags>
     public static IEnumerable<UnitColor> SpecialColors => new UnitColor[] { UnitColor.White, UnitColor.Black };
 
     public static IEnumerable<UnitClass> AllClass => Enum.GetValues(typeof(UnitClass)).Cast<UnitClass>();
+    public static UnitType GetUnitType(UnitColor color)
+    {
+        switch (color)
+        {
+            case UnitColor.Red:
+            case UnitColor.Blue:
+            case UnitColor.Yellow: return UnitType.Low;
+            case UnitColor.Green:
+            case UnitColor.Orange:
+            case UnitColor.Violet: return UnitType.High;
+            case UnitColor.White:
+            case UnitColor.Black: return UnitType.Special;
+            default: return UnitType.Low;
+        }
+    }
 }
 
 [Serializable]

@@ -182,6 +182,7 @@ GameObject:
   - component: {fileID: -8162979948257466600}
   - component: {fileID: -7205522883378660782}
   - component: {fileID: -2702251284952043832}
+  - component: {fileID: 8769874498639527189}
   m_Layer: 9
   m_Name: 1_DefaultSwordMan
   m_TagString: Untagged
@@ -264,19 +265,10 @@ MonoBehaviour:
       _baseBossDamage: 0
       _damageRate: 0
       _bossDamageRate: 0
-    CoolDown: 0
-  _stat:
-    _flag:
-      _colorNumber: 0
-      _classNumber: 0
-    _damage: 0
-    _bossDamage: 0
-    _attackDelayTime: 0
-    _speed: 0
-    _attackRange: 0
   stopDistanc: 5
-  normalAttackSound: 22
   normalAttakc_AudioDelay: 0.7
+  _targetManager:
+    _target: {fileID: 0}
   contactEnemy: 0
   trail: {fileID: 8416693383700321331}
 --- !u!114 &-8162979948257466600
@@ -329,6 +321,19 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &8769874498639527189
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8416693383471264509}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4a1e9acde2cc3a47b128a07f719c33c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _trail: {fileID: 8416693383700321331}
 --- !u!1 &8416693383498809585
 GameObject:
   m_ObjectHideFlags: 0

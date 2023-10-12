@@ -15,7 +15,7 @@ public class Multi_Unit_Swordman : Multi_TeamSoldier
         normalAttackSound = EffectSoundType.SwordmanAttack;
         _chaseSystem = gameObject.AddComponent<MeeleChaser>();
         _unitAttackControllerTemplate = gameObject.GetComponent<SwordmanAttackController>();
-        _unitAttackControllerTemplate.DependencyInject(animator, "isSword", _state);
+        _unitAttackControllerTemplate.DependencyInject(animator, "isSword", _state, Unit);
         _unitAttackControllerTemplate.GetComponent<SwordmanAttackController>().RecevieInject(this);
     }
 

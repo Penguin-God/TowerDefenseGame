@@ -7,18 +7,25 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
     Animator _animator;
     string AnimationName;
     Multi_TeamSoldier.UnitState _unitState;
-    public void DependencyInject(Animator animator, string animationName, Multi_TeamSoldier.UnitState unitState)
+    protected Unit _unit;
+    public void DependencyInject(Animator animator, string animationName, Multi_TeamSoldier.UnitState unitState, Unit unit)
     {
         _animator = animator;
         AnimationName = animationName;
         _unitState = unitState;
+        _unit = unit;
     }
 
     float _attackSpeed;
+    void DoAnima(float animaSpeed)
+    {
+        if(_animator == null ) return;
+        _animator.speed = animaSpeed;
+        _animator.SetTrigger(AnimationName);
+    }
     public void DoAttack(float attackSpeed, float coolDownTime)
     {
-        _animator.speed = attackSpeed;
-        _animator.SetTrigger(AnimationName);
+        DoAnima(attackSpeed);
         _attackSpeed = attackSpeed;
         StartCoroutine(Co_DoAttack(coolDownTime));
     }

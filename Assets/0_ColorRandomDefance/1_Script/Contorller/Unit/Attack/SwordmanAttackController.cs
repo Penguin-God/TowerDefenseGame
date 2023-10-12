@@ -5,10 +5,10 @@ using UnityEngine;
 public class SwordmanAttackController : UnitAttackControllerTemplate
 {
     [SerializeField] GameObject _trail;
-    Multi_TeamSoldier _unit;
+    Multi_TeamSoldier _unitController;
     public void RecevieInject(Multi_TeamSoldier unit)
     {
-        _unit = unit;
+        _unitController = unit;
     }
 
     protected override IEnumerator Co_Attack()
@@ -16,7 +16,7 @@ public class SwordmanAttackController : UnitAttackControllerTemplate
         yield return WatiSecond(0.8f);
         _trail.SetActive(true);
         yield return WatiSecond(0.3f);
-        _unit._NormalAttack();
+        _unitController._NormalAttack();
         _trail.SetActive(false);
     }
 }

@@ -346,6 +346,7 @@ GameObject:
   - component: {fileID: -3299586339930958907}
   - component: {fileID: -3570838270171858624}
   - component: {fileID: 3801694106188951163}
+  - component: {fileID: 1293965425612215043}
   m_Layer: 9
   m_Name: 1_DefaultMage
   m_TagString: Untagged
@@ -495,17 +496,11 @@ MonoBehaviour:
       _baseBossDamage: 0
       _damageRate: 0
       _bossDamageRate: 0
-  _stat:
-    _flag:
-      _colorNumber: 0
-      _classNumber: 0
-    _damage: 0
-    _bossDamage: 0
-    _attackDelayTime: 0
-    _speed: 0
-    _attackRange: 0
   stopDistanc: 5
   normalAttakc_AudioDelay: 0.7
+  _targetManager:
+    _target: {fileID: 0}
+  _state: {fileID: 0}
   contactEnemy: 0
   mageStat:
     _flag:
@@ -514,13 +509,23 @@ MonoBehaviour:
     _maxMana: 0
     _addMana: 0
     _skillStats: []
-  skillData:
-    weaponPath: 
-    attacker: {fileID: 0}
-    spawnTransform: {fileID: 0}
   magicLight: {fileID: 4841617210835731057}
   energyBallShotPoint: {fileID: 4841617211874935120}
   mageSkillCoolDownTime: 0
+--- !u!114 &1293965425612215043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6109000016361938841}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ced980ea206c9240b9df8b5c8c8d8f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _magicLight: {fileID: 4841617210835731057}
+  _shotPoint: {fileID: 4841617211874935120}
 --- !u!1001 &3672980968573503513
 PrefabInstance:
   m_ObjectHideFlags: 0

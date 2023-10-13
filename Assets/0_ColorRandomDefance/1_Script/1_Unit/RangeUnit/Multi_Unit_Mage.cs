@@ -14,14 +14,16 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     [SerializeField] Transform energyBallShotPoint;
 
     protected ManaSystem manaSystem;
+    MageAttackerController _normalAttacker;
+
     protected override void OnAwake()
     {
         _chaseSystem = gameObject.AddComponent<RangeChaser>();
         LoadMageStat();
         SetMageAwake();
 
-        var pathBuilder = new ResourcesPathBuilder();
         normalAttackSound = EffectSoundType.MageAttack;
+        _normalAttacker = new UnitAttackControllerGenerator().GenerateMageAattacker(this, manaSystem, ShotEnergyBall);
     }
 
     void LoadMageStat()
@@ -44,7 +46,8 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     protected override void Attack()
     {
         if (Skillable) MageSkile();
-        else StartCoroutine(nameof(MageAttack));
+        // else StartCoroutine(nameof(MageAttack));
+        else _normalAttacker.DoAttack(1, AttackDelayTime);
     }
 
     protected IEnumerator MageAttack()
@@ -67,6 +70,8 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
         base.EndAttack();
     }
 
+    void ShotEnergyBall(Vector3 pos) => ShotEnergyBall(GetWeaponPath(), UnitAttacker.NormalAttack, pos);
+    protected void ShotEnergyBall(string path, Action<Multi_Enemy> hit, Vector3 shotPos) => Managers.Resources.Instantiate(path, shotPos).GetComponent<Multi_Projectile>().AttackShot(GetDir(), hit);
     protected void ShotEnergyBall(string path, Action<Multi_Enemy> hit) => Managers.Resources.Instantiate(path, energyBallShotPoint.position).GetComponent<Multi_Projectile>().AttackShot(GetDir(), hit);
     string GetWeaponPath() => new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags);
     Vector3 GetDir() => new ThorwPathCalculator().CalculateThorwPath_To_Monster(TargetEnemy, transform);

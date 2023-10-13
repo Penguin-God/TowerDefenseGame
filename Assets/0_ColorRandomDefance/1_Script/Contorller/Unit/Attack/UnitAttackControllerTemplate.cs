@@ -46,7 +46,7 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
 
 public class UnitAttackControllerGenerator
 {
-    T GenerateTemplate<T>(Multi_TeamSoldier unit) where T : UnitAttackControllerTemplate
+    public static T GenerateTemplate<T>(Multi_TeamSoldier unit) where T : UnitAttackControllerTemplate
     {
         var result = unit.GetComponent<T>();
         result.DependencyInject(unit._state, unit.Unit);
@@ -85,6 +85,13 @@ public class UnitAttackControllerGenerator
     {
         var result = GenerateTemplate<SpearmanSkillAttackController>(unit);
         result.Inject(spearShoter, shotPoint, act);
+        return result;
+    }
+
+    public MageAttackerController GenerateMageAattacker(Multi_TeamSoldier unit, ManaSystem manaSystem, Action<Vector3> shotEnergyball)
+    {
+        var result = GenerateTemplate<MageAttackerController>(unit);
+        result.Inject(manaSystem, shotEnergyball);
         return result;
     }
 }

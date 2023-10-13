@@ -1,8 +1,10 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
+using static UnityEngine.UI.CanvasScaler;
 
 public abstract class UnitSkillController
 {
@@ -115,3 +117,24 @@ public class MeteorShotController : UnitSkillController
     public override void DoSkill(Multi_TeamSoldier unit)
         => _meteorController.ShotMeteor(unit.target.GetComponent<Multi_Enemy>(), CalculateSkillDamage(unit.Unit, DamRate), StunTime, unit.transform.position + Offset);
 }
+
+public class ShotBounceBall : UnitSkillController
+{
+    readonly BounceBallShotController _bounceBallShotController;
+    public ShotBounceBall(float damRate, float manaLockTime, ManaSystem manaSystem, BounceBallShotController bounceBallShotController, Multi_TeamSoldier unit)
+    {
+        _bounceBallShotController = bounceBallShotController;
+        _bounceBallShotController.Inject(manaSystem, ShotBounceBall);
+        _bounceBallShotController.SetSkillData(manaLockTime);
+
+        void ShotBounceBall(Vector3 shotPos) => SpawnSkill(SkillEffectType.BounceBall, shotPos).GetComponent<Multi_Projectile>().AttackShot(GetDir(), OnSkillHit);
+        void OnSkillHit(Multi_Enemy enemy) => unit.UnitAttacker.SkillAttack(enemy, CalculateSkillDamage(unit.Unit, damRate));
+        Vector3 GetDir() => new ThorwPathCalculator().CalculateThorwPath_To_Monster(unit.TargetEnemy, unit.transform);
+    }
+
+    public override void DoSkill(Multi_TeamSoldier unit)
+    {
+        _bounceBallShotController.DoAttack(1, 2f);
+        PlaySkillSound(unit, EffectSoundType.BlueMageSkill, delay: 0.6f);
+    }
+} 

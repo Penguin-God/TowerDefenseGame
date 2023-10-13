@@ -50,7 +50,7 @@ public class UnitFiller
             case UnitColor.Red: return new MeteorShotController(skillStats[0], skillStats[1], _container.GetComponent<MeteorController>());
             case UnitColor.Blue: return new IceCloudController((int)skillStats[0]);
             case UnitColor.Yellow: return new GainGoldController((int)skillStats[0]);
-            case UnitColor.Green: return null;
+            case UnitColor.Green: return new ShotBounceBall(skillStats[0], skillStats[1], mage.GetComponent<ManaSystem>(), UnitAttackControllerGenerator.GenerateTemplate<BounceBallShotController>(mage), mage);
             case UnitColor.Orange: return new MagicFountainController((int)skillStats[0], skillStats[1], _container.GetComponent<WorldAudioPlayer>());
             case UnitColor.Violet: return new PoisonCloudController((int)skillStats[0], skillStats[1]);
             case UnitColor.Black: return new MultiVectorShotController(skillStats[0]);

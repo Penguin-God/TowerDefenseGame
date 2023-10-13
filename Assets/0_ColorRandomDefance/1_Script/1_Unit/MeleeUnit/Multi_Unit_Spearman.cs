@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Photon.Pun;
 using System;
 
 public class Multi_Unit_Spearman : Multi_TeamSoldier
@@ -13,6 +12,8 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
 
     [SerializeField] int _useSkillPercent;
     [SerializeField] float _skillReboundTime;
+    SpearmanAttackController _normalAttackController;
+    SpearmanSkillAttackController _skillAttackContrller;
     RandomExcuteSkillController _attackExcuter;
     protected override void OnAwake()
     {
@@ -21,8 +22,12 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         normalAttackSound = EffectSoundType.SpearmanAttack;
         _useSkillPercent = 30;
 
+        var attackerGenerator = new UnitAttackControllerGenerator();
+        _normalAttackController = attackerGenerator.GenerateSpearmanAttcker(this);
+        _skillAttackContrller = attackerGenerator.GenerateSpearmanSkillAttcker(this, _spearShoter, spearShotPoint, SpearmanSkillAttack);
+
         _attackExcuter = gameObject.AddComponent<RandomExcuteSkillController>();
-        _attackExcuter.DependencyInject(NormalAttack, ShotSpear);
+        _attackExcuter.DependencyInject(Normal, SpecialAttack);
     }
     SpearShoter _spearShoter;
     ThrowSpearData _throwSpearData;
@@ -34,42 +39,45 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         _spearShoter = new SpearShoter(_throwSpearData);
     }
 
+    void Normal() => _normalAttackController.DoAttack(1, AttackDelayTime);
+    void SpecialAttack() => _skillAttackContrller.DoAttack(1, _skillReboundTime);
+
     protected override void AttackToAll() => _attackExcuter.RandomAttack(_useSkillPercent);
 
-    protected override void NormalAttack() => StartCoroutine(nameof(SpaerAttack));
-    IEnumerator SpaerAttack()
-    {
-        base.StartAttack();
+    // protected override void NormalAttack() => StartCoroutine(nameof(SpaerAttack));
+    //IEnumerator SpaerAttack()
+    //{
+    //    base.StartAttack();
 
-        animator.SetTrigger("isAttack");
-        yield return new WaitForSeconds(0.55f);
-        trail.SetActive(true);
-        yield return new WaitForSeconds(0.3f);
-        if (PhotonNetwork.IsMasterClient)
-            UnitAttacker.NormalAttack(TargetEnemy);
-        yield return new WaitForSeconds(0.3f);
-        trail.SetActive(false);
+    //    animator.SetTrigger("isAttack");
+    //    yield return new WaitForSeconds(0.55f);
+    //    trail.SetActive(true);
+    //    yield return new WaitForSeconds(0.3f);
+    //    if (PhotonNetwork.IsMasterClient)
+    //        UnitAttacker.NormalAttack(TargetEnemy);
+    //    yield return new WaitForSeconds(0.3f);
+    //    trail.SetActive(false);
 
-        EndAttack();
-    }
+    //    EndAttack();
+    //}
 
-    void ShotSpear() => StartCoroutine(nameof(Co_ShotSpear));
-    IEnumerator Co_ShotSpear()
-    {
-        base.DoAttack();
-        animator.SetTrigger("isSpecialAttack");
-        yield return StartCoroutine(_spearShoter.Co_ShotSpear(transform, spearShotPoint, SpearmanSkillAttack));
+    // void ShotSpear() => StartCoroutine(nameof(Co_ShotSpear));
+    //IEnumerator Co_ShotSpear()
+    //{
+    //    base.DoAttack();
+    //    animator.SetTrigger("isSpecialAttack");
+    //    yield return StartCoroutine(_spearShoter.Co_ShotSpear(transform, spearShotPoint, SpearmanSkillAttack));
 
-        spear.SetActive(false);
-        nav.isStopped = true;
-        PlaySound(EffectSoundType.SpearmanSkill);
+    //    spear.SetActive(false);
+    //    nav.isStopped = true;
+    //    PlaySound(EffectSoundType.SpearmanSkill);
 
-        yield return new WaitForSeconds(0.5f);
+    //    yield return new WaitForSeconds(0.5f);
 
-        nav.isStopped = false;
-        spear.SetActive(true);
-        base.EndAttack(_skillReboundTime);
-    }
+    //    nav.isStopped = false;
+    //    spear.SetActive(true);
+    //    base.EndAttack(_skillReboundTime);
+    //}
 
     void SpearmanSkillAttack(Multi_Enemy target) => UnitAttacker.SkillAttack(target, CalculateSpearDamage(target.enemyType));
     int CalculateSpearDamage(EnemyType enemyType) => Mathf.RoundToInt(UnitAttacker.CalculateDamage(enemyType) * _throwSpearData.AttackRate);

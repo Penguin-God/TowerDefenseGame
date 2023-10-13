@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -45,9 +46,9 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
 
 public class UnitAttackControllerGenerator
 {
-    T GenerateTemplate<T>(Multi_TeamSoldier unit)
+    T GenerateTemplate<T>(Multi_TeamSoldier unit) where T : UnitAttackControllerTemplate
     {
-        var result = unit.GetComponent<UnitAttackControllerTemplate>();
+        var result = unit.GetComponent<T>();
         result.DependencyInject(unit._state, unit.Unit);
         return result.GetComponent<T>();
     }
@@ -70,6 +71,20 @@ public class UnitAttackControllerGenerator
     {
         var result = GenerateTemplate<ArcherSpecialAttackController>(unit);
         result.Inject(archerArrowShoter, unit, unit.UnitAttacker);
+        return result;
+    }
+
+    public SpearmanAttackController GenerateSpearmanAttcker(Multi_TeamSoldier unit)
+    {
+        var result = GenerateTemplate<SpearmanAttackController>(unit);
+        result.Inject(unit);
+        return result;
+    }
+
+    public SpearmanSkillAttackController GenerateSpearmanSkillAttcker(Multi_TeamSoldier unit, SpearShoter spearShoter, Transform shotPoint, Action<Multi_Enemy> act)
+    {
+        var result = GenerateTemplate<SpearmanSkillAttackController>(unit);
+        result.Inject(spearShoter, shotPoint, act);
         return result;
     }
 }

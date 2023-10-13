@@ -5,13 +5,17 @@ using UnityEngine;
 public abstract class UnitAttackControllerTemplate : MonoBehaviour
 {
     Animator _animator;
-    string AnimationName;
+    protected virtual string AnimationName { get; }
     Multi_TeamSoldier.UnitState _unitState;
     protected Unit _unit;
-    public void DependencyInject(Animator animator, string animationName, Multi_TeamSoldier.UnitState unitState, Unit unit)
+
+    protected virtual void Awake()
     {
-        _animator = animator;
-        AnimationName = animationName;
+        _animator = GetComponentInChildren<Animator>();
+    }
+
+    public void DependencyInject(Multi_TeamSoldier.UnitState unitState, Unit unit)
+    {
         _unitState = unitState;
         _unit = unit;
     }
@@ -37,4 +41,35 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
     }
     protected abstract IEnumerator Co_Attack();
     protected WaitForSeconds WatiSecond(float second) => new WaitForSeconds(second / _attackSpeed);
+}
+
+public class UnitAttackControllerGenerator
+{
+    T GenerateTemplate<T>(Multi_TeamSoldier unit)
+    {
+        var result = unit.GetComponent<UnitAttackControllerTemplate>();
+        result.DependencyInject(unit._state, unit.Unit);
+        return result.GetComponent<T>();
+    }
+
+    public SwordmanAttackController GenerateSwordmanAttacker(Multi_TeamSoldier unit)
+    {
+        var result = GenerateTemplate<SwordmanAttackController>(unit);
+        result.RecevieInject(unit);
+        return result;
+    }
+
+    public ArcherNormalAttackController GenerateArcherAttacker(Multi_TeamSoldier unit, Transform shotPoint)
+    {
+        var result = GenerateTemplate<ArcherNormalAttackController>(unit);
+        result.Inject(shotPoint, unit, unit.UnitAttacker);
+        return result;
+    }
+
+    public ArcherSpecialAttackController GenerateArcherSkillAttcker(Multi_TeamSoldier unit, ArcherArrowShoter archerArrowShoter)
+    {
+        var result = GenerateTemplate<ArcherSpecialAttackController>(unit);
+        result.Inject(archerArrowShoter, unit, unit.UnitAttacker);
+        return result;
+    }
 }

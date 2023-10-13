@@ -10,8 +10,9 @@ public class ArcherNormalAttackController : UnitAttackControllerTemplate
     Transform _arrowShotPoint;
     Multi_TeamSoldier _unitController;
     UnitAttacker _attacker;
-    void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         _nav = GetComponent<NavMeshAgent>();
     }
 

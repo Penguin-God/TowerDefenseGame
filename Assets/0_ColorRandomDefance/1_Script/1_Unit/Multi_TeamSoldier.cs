@@ -47,7 +47,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected virtual void NormalAttack() { } // 유닛들의 고유한 공격
     
     [SerializeField] protected TargetManager _targetManager = new TargetManager();
-    protected UnitState _state;
+    public UnitState _state;
     public bool IsAttack => _state.UnitAttackState.IsAttack;
     protected UnitChaseSystem _chaseSystem;
 
@@ -71,7 +71,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
 
     protected MonsterFinder TargetFinder { get; private set; }
-    protected UnitAttacker UnitAttacker { get; private set; }
+    public UnitAttacker UnitAttacker { get; private set; }
 
     public void Injection(Unit unit, MonsterManagerController monsterManager)
     {

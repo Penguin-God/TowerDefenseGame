@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SwordmanAttackController : UnitAttackControllerTemplate
 {
+    protected override string AnimationName => "isSword";
     [SerializeField] GameObject _trail;
     Multi_TeamSoldier _unitController;
     public void RecevieInject(Multi_TeamSoldier unit)

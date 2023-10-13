@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using System;
 
 public class Multi_Unit_Mage : Multi_TeamSoldier
 {
@@ -20,7 +19,6 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     {
         _chaseSystem = gameObject.AddComponent<RangeChaser>();
         LoadMageStat();
-        SetMageAwake();
 
         normalAttackSound = EffectSoundType.MageAttack;
         _normalAttacker = new UnitAttackControllerGenerator().GenerateMageAattacker(this, manaSystem, ShotEnergyBall);
@@ -37,8 +35,6 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
         }
     }
 
-    // 법사 고유의 Awake 대체 가상 함수
-    public virtual void SetMageAwake() { }
     public void InjectSkillController(UnitSkillController unitSkillController) => _unitSkillController = unitSkillController;
     bool Skillable => manaSystem != null && manaSystem.IsManaFull;
 
@@ -46,33 +42,10 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     protected override void Attack()
     {
         if (Skillable) MageSkile();
-        // else StartCoroutine(nameof(MageAttack));
         else _normalAttacker.DoAttack(1, AttackDelayTime);
     }
 
-    protected IEnumerator MageAttack()
-    {
-        base.StartAttack();
-
-        nav.isStopped = true;
-        animator.SetTrigger("isAttack");
-        yield return new WaitForSeconds(0.7f);
-        magicLight.SetActive(true);
-
-        ShotEnergyBall(GetWeaponPath(), UnitAttacker.NormalAttack);
-        if (PhotonNetwork.IsMasterClient)
-            manaSystem?.AddMana_RPC();
-
-        yield return new WaitForSeconds(0.5f);
-        magicLight.SetActive(false);
-        nav.isStopped = false;
-
-        base.EndAttack();
-    }
-
-    void ShotEnergyBall(Vector3 pos) => ShotEnergyBall(GetWeaponPath(), UnitAttacker.NormalAttack, pos);
-    protected void ShotEnergyBall(string path, Action<Multi_Enemy> hit, Vector3 shotPos) => Managers.Resources.Instantiate(path, shotPos).GetComponent<Multi_Projectile>().AttackShot(GetDir(), hit);
-    protected void ShotEnergyBall(string path, Action<Multi_Enemy> hit) => Managers.Resources.Instantiate(path, energyBallShotPoint.position).GetComponent<Multi_Projectile>().AttackShot(GetDir(), hit);
+    void ShotEnergyBall(Vector3 pos) => Managers.Resources.Instantiate(GetWeaponPath(), pos).GetComponent<Multi_Projectile>().AttackShot(GetDir(), UnitAttacker.NormalAttack);
     string GetWeaponPath() => new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags);
     Vector3 GetDir() => new ThorwPathCalculator().CalculateThorwPath_To_Monster(TargetEnemy, transform);
 
@@ -82,12 +55,7 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     {
         DoAttack();
         manaSystem?.ClearMana_RPC();
-        if (_unitSkillController != null && PhotonNetwork.IsMasterClient)
-            photonView.RPC(nameof(DoSkill), RpcTarget.All, target.GetComponent<PhotonView>().ViewID);
-        else
-            _MageSkile();
-
-        PlaySkillSound();
+        photonView.RPC(nameof(DoSkill), RpcTarget.All, target.GetComponent<PhotonView>().ViewID);
         StartCoroutine(Co_EndSkillAttack(mageSkillCoolDownTime)); // 임시방편
     }
     
@@ -109,7 +77,4 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
         _targetManager.ChangedTarget(Managers.Multi.GetPhotonViewComponent<Multi_Enemy>(targetId));
         _unitSkillController.DoSkill(this);
     }
-    protected int CalculateSkillDamage(float rate) => Mathf.RoundToInt(Mathf.Max(Damage, BossDamage) * rate);
-    protected virtual void _MageSkile() { }
-    protected virtual void PlaySkillSound() { }
 }

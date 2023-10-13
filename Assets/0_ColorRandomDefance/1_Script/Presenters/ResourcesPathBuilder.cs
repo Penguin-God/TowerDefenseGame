@@ -28,16 +28,7 @@ public class ResourcesPathBuilder
     public string BuildBossMonsterPath(int monsterNumber) => $"Enemy/Boss/Boss_Enemy_{_numberByMonsterName[monsterNumber]} 1";
     public string BuildEnemyTowerPath(int towerLevel) => $"Enemy/Tower/Lvl{towerLevel}_Twoer";
 
-    public string BuildUnitPath(UnitFlags flag)
-    {
-        if(flag.UnitClass == UnitClass.Archer || flag.UnitClass == UnitClass.Swordman || flag.UnitClass == UnitClass.Spearman)
-            return $"Unit/{GetClassName(flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}{GetClassName(flag.UnitClass)}";
-        else if(flag.UnitClass == UnitClass.Mage && NewMages.Contains( flag.UnitColor))
-            return $"Unit/{GetClassName(flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}{GetClassName(flag.UnitClass)}";
-        else
-            return $"Unit/{GetClassName(flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}_{GetClassName(flag.UnitClass)} 1";
-    }
-    IReadOnlyList<UnitColor> NewMages = new List<UnitColor>() { UnitColor.Yellow, UnitColor.Violet, UnitColor.Orange, UnitColor.Black, UnitColor.Blue, UnitColor.Red, UnitColor.White, UnitColor.Green};
+    public string BuildUnitPath(UnitFlags flag) => $"Unit/{GetClassName(flag.UnitClass)}/{Enum.GetName(typeof(UnitColor), flag.UnitColor)}{GetClassName(flag.UnitClass)}";
     string GetClassName(UnitClass unitClass) => Enum.GetName(typeof(UnitClass), unitClass);
 
     static Dictionary<UnitClass, string> _unitClassByWeaponName = new Dictionary<UnitClass, string>()

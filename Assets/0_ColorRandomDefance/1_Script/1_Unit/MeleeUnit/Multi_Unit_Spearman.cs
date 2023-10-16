@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class Multi_Unit_Spearman : Multi_TeamSoldier
 {
@@ -18,21 +17,19 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         normalAttackSound = EffectSoundType.SpearmanAttack;
         _useSkillPercent = 30;
 
-        var attackerGenerator = new UnitAttackControllerGenerator();
-        _normalAttackController = attackerGenerator.GenerateSpearmanAttcker(this);
-        _skillAttackContrller = attackerGenerator.GenerateSpearmanSkillAttcker(this, _spearShoter, SpearmanSkillAttack);
-
+        _normalAttackController = new UnitAttackControllerGenerator().GenerateSpearmanAttcker(this);
+        
         _attackExcuter = gameObject.AddComponent<RandomExcuteSkillController>();
         _attackExcuter.DependencyInject(Normal, SpecialAttack);
     }
-    SpearShoter _spearShoter;
+
     ThrowSpearData _throwSpearData;
-    public void SetSpearData(ThrowSpearDataContainer throwSpearData)
+    public void SetSpearData(ThrowSpearData throwSpearData)
     {
-        var bulider = new ResourcesPathBuilder();
-        string spearPath = throwSpearData.IsMagicSpear ? bulider.BuildMagicSpaerPath(UnitColor) : bulider.BuildUnitWeaponPath(UnitFlags);
-        _throwSpearData = new ThrowSpearData(spearPath, throwSpearData.RotateVector, throwSpearData.WaitForVisibilityTime, throwSpearData.AttackRate);
-        _spearShoter = new SpearShoter(_throwSpearData);
+        _throwSpearData = throwSpearData;
+        if(_skillAttackContrller == null)
+            _skillAttackContrller = UnitAttackControllerGenerator.GenerateTemplate<SpearmanSkillAttackController>(this);
+        _skillAttackContrller.ChangeSpearData(_throwSpearData, SkillAttack);
     }
 
     void Normal() => _normalAttackController.DoAttack(AttackDelayTime);
@@ -40,45 +37,6 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
 
     protected override void AttackToAll() => _attackExcuter.RandomAttack(_useSkillPercent);
 
-    void SpearmanSkillAttack(Multi_Enemy target) => UnitAttacker.SkillAttack(target, CalculateSpearDamage(target.enemyType));
+    void SkillAttack(Multi_Enemy target) => UnitAttacker.SkillAttack(target, CalculateSpearDamage(target.enemyType));
     int CalculateSpearDamage(EnemyType enemyType) => Mathf.RoundToInt(UnitAttacker.CalculateDamage(enemyType) * _throwSpearData.AttackRate);
-}
-
-public class SpearShoter
-{
-    readonly ThrowSpearData _throwSpearData;
-    public SpearShoter(ThrowSpearData throwSpearData) => _throwSpearData = throwSpearData;
-
-    public IEnumerator Co_ShotSpear(Transform transform, Transform shotPoint, Action<Multi_Enemy> action)
-    {
-        yield return new WaitForSeconds(_throwSpearData.WaitForVisibility);
-        var shotSpear = CreateSpear(transform.forward, shotPoint.position);
-        SetTrail(shotSpear, false); // 트레일 늘어지는거 방지
-        yield return new WaitForSeconds(1 - _throwSpearData.WaitForVisibility);
-        SetTrail(shotSpear, true);
-        shotSpear.transform.position = shotPoint.position;
-        ThrowSpear(shotSpear, transform.forward, action);
-    }
-
-    Multi_Projectile CreateSpear(Vector3 forward, Vector3 spawnPos)
-    {
-        var shotSpear = Managers.Resources.Instantiate(_throwSpearData.WeaponPath, spawnPos).GetComponent<Multi_Projectile>();
-        shotSpear.GetComponent<Collider>().enabled = false;
-        shotSpear.transform.rotation = Quaternion.LookRotation(forward);
-        return shotSpear;
-    }
-
-    void SetTrail(Component spear, bool isActive)
-    {
-        var trail = spear.GetComponentInChildren<TrailRenderer>();
-        if(trail != null)
-            trail.enabled = isActive;
-    }
-
-    void ThrowSpear(Multi_Projectile shotSpear, Vector3 forward, Action<Multi_Enemy> action)
-    {
-        shotSpear.GetComponent<Collider>().enabled = true;
-        shotSpear.AttackShot(forward, action);
-        shotSpear.transform.Rotate(_throwSpearData.RotateVector);
-    }
 }

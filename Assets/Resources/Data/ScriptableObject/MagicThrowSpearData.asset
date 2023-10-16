@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd60906d3804d94bad37c4d355d2135, type: 3}
   m_Name: MagicThrowSpearData
   m_EditorClassIdentifier: 
-  _isMagic: 1
-  _rotateVector: {x: 0, y: 0, z: 0}
-  _waitForVisibilityTime: 0.5
-  _attackRate: 3
+  RotateVector: {x: 0, y: 0, z: 0}
+  WaitForVisibilityTime: 0.5

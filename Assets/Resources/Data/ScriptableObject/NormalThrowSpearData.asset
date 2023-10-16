@@ -12,7 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4dd60906d3804d94bad37c4d355d2135, type: 3}
   m_Name: NormalThrowSpearData
   m_EditorClassIdentifier: 
-  _isMagic: 0
-  _rotateVector: {x: 90, y: 0, z: 0}
-  _waitForVisibilityTime: 1
-  _attackRate: 1
+  RotateVector: {x: 90, y: 0, z: 0}
+  WaitForVisibilityTime: 1

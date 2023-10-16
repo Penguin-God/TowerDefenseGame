@@ -658,9 +658,6 @@ MonoBehaviour:
     _target: {fileID: 0}
   _state: {fileID: 0}
   contactEnemy: 0
-  spearShotPoint: {fileID: 6545951238342133010}
-  trail: {fileID: 3353236591455031401}
-  spear: {fileID: 3977966170949877692}
   _useSkillPercent: 0
   _skillReboundTime: 0.4
 --- !u!114 &-4000719447876258652
@@ -738,5 +735,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56bc4bee432d0c44abff72682c2ca31f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _spear: {fileID: 211848693352355080}
+  _spear: {fileID: 3977966170949877692}
   _shotPoint: {fileID: 6545951238342133010}

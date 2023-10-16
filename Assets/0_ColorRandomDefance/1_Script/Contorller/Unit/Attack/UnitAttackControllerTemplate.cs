@@ -40,7 +40,7 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
     }
     protected abstract IEnumerator Co_Attack();
     protected WaitForSeconds WaitSecond(float second) => new WaitForSeconds(CalculateDelayTime(second));
-    float CalculateDelayTime(float delay) => delay / _unit.Stats.AttackSpeed;
+    protected float CalculateDelayTime(float delay) => delay / _unit.Stats.AttackSpeed;
 }
 
 public class UnitAttackControllerGenerator
@@ -77,13 +77,6 @@ public class UnitAttackControllerGenerator
     {
         var result = GenerateTemplate<SpearmanAttackController>(unit);
         result.Inject(unit);
-        return result;
-    }
-
-    public SpearmanSkillAttackController GenerateSpearmanSkillAttcker(Multi_TeamSoldier unit, SpearShoter spearShoter, Action<Multi_Enemy> act)
-    {
-        var result = GenerateTemplate<SpearmanSkillAttackController>(unit);
-        result.Inject(spearShoter, act);
         return result;
     }
 

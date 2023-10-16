@@ -27,15 +27,21 @@ public class UnitFiller
 
         if (unit.UnitClass == UnitClass.Spearman)
         {
-            ThrowSpearDataContainer throwSpearData;
+            ThrowSpearData throwSpearData;
             if (skillData.TruGetSkillData(SkillType.마창사, out var skillBattleData))
-                throwSpearData = Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/MagicThrowSpearData").ChangeAttackRate(skillBattleData.IntSkillData);
+            {
+                var data = Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/MagicThrowSpearData");
+                throwSpearData = new ThrowSpearData(new ResourcesPathBuilder().BuildMagicSpaerPath(unit.UnitColor), data.RotateVector, data.WaitForVisibilityTime, skillBattleData.IntSkillData);
+            }
             else
-                throwSpearData = Managers.Data.Unit.SpearDataContainer;
+            {
+                var data = Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/NormalThrowSpearData");
+                throwSpearData = new ThrowSpearData(new ResourcesPathBuilder().BuildUnitWeaponPath(unit.UnitFlags), data.RotateVector, data.WaitForVisibilityTime);
+            }
             unit.GetComponent<Multi_Unit_Spearman>().SetSpearData(throwSpearData);
         }
 
-        if(unit.UnitClass == UnitClass.Mage)
+        if (unit.UnitClass == UnitClass.Mage)
             unit.GetComponent<Multi_Unit_Mage>().InjectSkillController(CreateMageSkillController(unit));
     }
 

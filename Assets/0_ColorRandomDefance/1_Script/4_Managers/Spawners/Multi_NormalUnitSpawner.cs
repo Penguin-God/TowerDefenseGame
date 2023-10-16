@@ -17,8 +17,8 @@ public class UnitFiller
 
     UnitStats CreateUnitStats(UnitFlags flag, UnitDamageInfo damInfo)
     {
-        UnitStat stat = Managers.Data.Unit.UnitStatByFlag[flag].GetClone();
-        return new UnitStats(damInfo, stat.AttackDelayTime, 1f, stat.AttackRange, stat.Speed);
+        UnitStatData stat = Managers.Data.Unit.UnitStatByFlag[flag];
+        return new UnitStats(damInfo, stat.AttackDelayTime, stat.AttackSpeed, stat.AttackRange, stat.Speed);
     }
 
     void SetUnitData(Multi_TeamSoldier unit, SkillBattleDataContainer skillData)

@@ -149,11 +149,12 @@ public class UnitNameDatas : ICsvLoader<string, UnitNameData>
 }
 
 [Serializable]
-public class UnitStat
+public class UnitStatData
 {
     [SerializeField] UnitFlags _flag;
     [SerializeField] int _damage;
     [SerializeField] int _bossDamage;
+    [SerializeField] float _attackSpeed;
     [SerializeField] float _attackDelayTime;
     [SerializeField] float _speed;
     [SerializeField] float _attackRange;
@@ -161,35 +162,11 @@ public class UnitStat
     public UnitFlags Flag => _flag;
     public int Damage => _damage;
     public int BossDamage => _bossDamage;
+    public float AttackSpeed => _attackSpeed;
     public float AttackDelayTime => _attackDelayTime;
     public float Speed => _speed;
     public float AttackRange => _attackRange;
-
-    public void SetAttDelayTime(float attackDelayTime) => _attackDelayTime = attackDelayTime;
-    public void SetSpeed(float speed) => _speed = speed;
-    public void SetAttackRange(float attackRange) => _attackRange = attackRange;
-
-    public UnitStat GetClone()
-    {
-        var result = new UnitStat();
-        result._flag = _flag;
-        result._damage = _damage;
-        result._bossDamage = _bossDamage;
-        result._attackDelayTime = _attackDelayTime;
-        result._speed = _speed;
-        result._attackRange = _attackRange;
-        return result;
-    }
 }
-
-
-[Serializable]
-public class UnitStatLoder : ICsvLoader<UnitFlags, UnitStat>
-{
-    public Dictionary<UnitFlags, UnitStat> MakeDict(string csv)
-        => CsvUtility.CsvToArray<UnitStat>(csv).ToDictionary(x => x.Flag, x => x);
-}
-
 
 [Serializable]
 public class UnitPassiveStat

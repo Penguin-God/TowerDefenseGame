@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public interface ILoader<Key, Value>
-{
-    Dictionary<Key, Value> MakeDict();
-    void LoadCSV(TextAsset csv);
-}
-
 public interface ICsvLoader<Key, Value>
 {
     Dictionary<Key, Value> MakeDict(string csv);
@@ -77,7 +71,7 @@ public class DataManager
         _enemy.Clear();
     }
 
-    IEnumerable<T> LoadData<T>(string path) => CsvUtility.CsvToArray<T>(Managers.Resources.Load<TextAsset>($"Data/{path}").text);
+    public IEnumerable<T> LoadData<T>(string path) => CsvUtility.CsvToArray<T>(Managers.Resources.Load<TextAsset>($"Data/{path}").text);
 
     Dictionary<Key, Value> MakeCsvDict<ICsvLoader, Key, Value>(string path) where ICsvLoader : ICsvLoader<Key, Value>, new()
     {
@@ -93,8 +87,8 @@ public class DataManager
         Dictionary<UnitFlags, UnitNameData> _unitNameDataByFlag = new Dictionary<UnitFlags, UnitNameData>();
         public IReadOnlyDictionary<UnitFlags, UnitNameData> UnitNameDataByFlag => _unitNameDataByFlag;
 
-        Dictionary<UnitFlags, UnitStat> _unitStatByFlag = new Dictionary<UnitFlags, UnitStat>();
-        public IReadOnlyDictionary<UnitFlags, UnitStat> UnitStatByFlag => _unitStatByFlag;
+        Dictionary<UnitFlags, UnitStatData> _unitStatByFlag = new Dictionary<UnitFlags, UnitStatData>();
+        public IReadOnlyDictionary<UnitFlags, UnitStatData> UnitStatByFlag => _unitStatByFlag;
         public Dictionary<UnitFlags, UnitDamageInfo> DamageInfoByFlag => UnitStatByFlag.ToDictionary(x => x.Key, x => new UnitDamageInfo(x.Value.Damage, x.Value.BossDamage));
 
         Dictionary<UnitFlags, UnitPassiveStat> _unitPassiveStatByFlag = new Dictionary<UnitFlags, UnitPassiveStat>();
@@ -107,7 +101,7 @@ public class DataManager
         public void ChangeStats(UnitFlags flag, float[] newStats) => _unitPassiveStatByFlag[flag].ChangeStats(newStats);
 
         public ThrowSpearDataContainer SpearDataContainer { get; private set; }
-        public void SetThrowSpearData(ThrowSpearDataContainer newSpearData) => SpearDataContainer = newSpearData;
+        // public void SetThrowSpearData(ThrowSpearDataContainer newSpearData) => SpearDataContainer = newSpearData;
 
         Dictionary<UnitFlags, MageUnitStat> _mageStatByFlag = new Dictionary<UnitFlags, MageUnitStat>();
         public IReadOnlyDictionary<UnitFlags, MageUnitStat> MageStatByFlag => _mageStatByFlag;
@@ -119,8 +113,8 @@ public class DataManager
             _mageStatByFlag = manager.MakeCsvDict<MageUnitStats, UnitFlags, MageUnitStat>("UnitData/MageUnitStat");
             _unitPassiveStatByFlag = manager.MakeCsvDict<UnitPassiveStats, UnitFlags, UnitPassiveStat>("UnitData/UnitPassiveStat");
             SpearDataContainer = Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/NormalThrowSpearData").ChangeAttackRate(1f);
-            
-            _unitStatByFlag = manager.MakeCsvDict<UnitStatLoder, UnitFlags, UnitStat>("UnitData/UnitStat");
+
+            _unitStatByFlag = manager.LoadData<UnitStatData>("UnitData/UnitStat").ToDictionary(x => x.Flag, x => x); 
         }
 
         public void Clear()
@@ -138,19 +132,12 @@ public class DataManager
         Dictionary<UnitFlags, CombineCondition> _combineConditionByUnitFalg = new Dictionary<UnitFlags, CombineCondition>();
         public IReadOnlyDictionary<UnitFlags, CombineCondition> CombineConditionByUnitFalg => _combineConditionByUnitFalg;
 
-        //public IReadOnlyList<CombineCondition> CombineConditions { get; set; }
-        //public IEnumerable<IReadOnlyDictionary<UnitFlags, int>> GetNeedFlagsForCombine(UnitFlags targetFlag) 
-        //    => CombineConditions
-        //    .Where(x => x.TargetUnitFlag == targetFlag)
-        //    .Select(x => x.NeedCountByFlag);
-
         // 유닛 창 정보
         Dictionary<UnitFlags, UI_UnitWindowData> _unitWindowDataByUnitFlags = new Dictionary<UnitFlags, UI_UnitWindowData>();
         public IReadOnlyDictionary<UnitFlags, UI_UnitWindowData> UnitWindowDataByUnitFlags => _unitWindowDataByUnitFlags;
 
         public void Init(DataManager manager)
         {
-            //CombineConditions = manager.LoadData<CombineCondition>("UnitData/CombineConditionData").ToArray();
             _combineConditionByUnitFalg = manager.MakeCsvDict<CombineConditions, UnitFlags, CombineCondition>("UnitData/CombineConditionData");
             _unitWindowDataByUnitFlags = manager.MakeCsvDict<UI_UnitWindowDatas, UnitFlags, UI_UnitWindowData>("UIData/UI_UnitWindowData");
         }

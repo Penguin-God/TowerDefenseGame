@@ -11,6 +11,7 @@ public enum UnitState
     Die,
 }
 
+[Serializable]
 public class UnitStats
 {
     public readonly UnitDamageInfo DamageInfo;

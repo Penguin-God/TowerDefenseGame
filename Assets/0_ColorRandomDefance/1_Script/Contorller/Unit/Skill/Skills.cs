@@ -1,10 +1,8 @@
 using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using UnityEngine;
-using static UnityEngine.UI.CanvasScaler;
 
 public abstract class UnitSkillController
 {
@@ -134,7 +132,7 @@ public class ShotBounceBall : UnitSkillController
 
     public override void DoSkill(Multi_TeamSoldier unit)
     {
-        _bounceBallShotController.DoAttack(1, 2f);
+        _bounceBallShotController.DoAttack(2f);
         PlaySkillSound(unit, EffectSoundType.BlueMageSkill, delay: 0.6f);
     }
 } 

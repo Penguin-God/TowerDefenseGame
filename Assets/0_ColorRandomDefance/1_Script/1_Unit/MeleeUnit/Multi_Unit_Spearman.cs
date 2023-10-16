@@ -39,8 +39,8 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         _spearShoter = new SpearShoter(_throwSpearData);
     }
 
-    void Normal() => _normalAttackController.DoAttack(1, AttackDelayTime);
-    void SpecialAttack() => _skillAttackContrller.DoAttack(1, _skillReboundTime);
+    void Normal() => _normalAttackController.DoAttack(AttackDelayTime);
+    void SpecialAttack() => _skillAttackContrller.DoAttack(_skillReboundTime);
 
     protected override void AttackToAll() => _attackExcuter.RandomAttack(_useSkillPercent);
 

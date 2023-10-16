@@ -42,7 +42,7 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     protected override void Attack()
     {
         if (Skillable) MageSkile();
-        else _normalAttacker.DoAttack(1, AttackDelayTime);
+        else _normalAttacker.DoAttack(AttackDelayTime);
     }
 
     void ShotEnergyBall(Vector3 pos) => Managers.Resources.Instantiate(GetWeaponPath(), pos).GetComponent<Multi_Projectile>().AttackShot(GetDir(), UnitAttacker.NormalAttack);

@@ -26,8 +26,8 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
         _useSkillPercent = 30;
     }
 
-    void Normal() => _normalAttackController.DoAttack(1, AttackDelayTime);
-    void SpecialAttack() => _specialAttackController.DoAttack(1, _skillReboundTime);
+    void Normal() => _normalAttackController.DoAttack(AttackDelayTime);
+    void SpecialAttack() => _specialAttackController.DoAttack(_skillReboundTime);
 
     protected override void AttackToAll() => _attackExcuter.RandomAttack(_useSkillPercent);
     string GetWeaponPath() => $"Prefabs/{new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags)}";

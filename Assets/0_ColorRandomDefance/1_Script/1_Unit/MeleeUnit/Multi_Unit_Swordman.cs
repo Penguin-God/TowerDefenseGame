@@ -16,5 +16,5 @@ public class Multi_Unit_Swordman : Multi_TeamSoldier
         _unitAttackControllerTemplate = new UnitAttackControllerGenerator().GenerateSwordmanAttacker(this);
     }
 
-    [PunRPC] protected override void Attack() => _unitAttackControllerTemplate.DoAttack(1, AttackDelayTime); // StartCoroutine(nameof(SwordAttack));
+    [PunRPC] protected override void Attack() => _unitAttackControllerTemplate.DoAttack(AttackDelayTime);
 }

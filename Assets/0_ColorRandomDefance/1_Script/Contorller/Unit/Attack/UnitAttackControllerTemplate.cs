@@ -21,27 +21,26 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
         _unit = unit;
     }
 
-    float _attackSpeed;
-    void DoAnima(float animaSpeed)
+    void DoAnima()
     {
         if(_animator == null ) return;
-        _animator.speed = animaSpeed;
+        _animator.speed = _unit.Stats.AttackSpeed;
         _animator.SetTrigger(AnimationName);
     }
-    public void DoAttack(float attackSpeed, float coolDownTime)
+    public void DoAttack(float coolDownTime)
     {
-        DoAnima(attackSpeed);
-        _attackSpeed = attackSpeed;
+        DoAnima();
         StartCoroutine(Co_DoAttack(coolDownTime));
     }
     IEnumerator Co_DoAttack(float coolDownTime)
     {
         _unitState.StartAttack();
         yield return StartCoroutine(Co_Attack());
-        _unitState.EndAttack(coolDownTime);
+        _unitState.EndAttack(CalculateDelayTime(coolDownTime));
     }
     protected abstract IEnumerator Co_Attack();
-    protected WaitForSeconds WatiSecond(float second) => new WaitForSeconds(second / _attackSpeed);
+    protected WaitForSeconds WatiSecond(float second) => new WaitForSeconds(CalculateDelayTime(second));
+    float CalculateDelayTime(float delay) => delay / _unit.Stats.AttackSpeed;
 }
 
 public class UnitAttackControllerGenerator

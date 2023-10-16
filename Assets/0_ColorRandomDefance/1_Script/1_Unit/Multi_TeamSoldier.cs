@@ -20,11 +20,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     public UnitClass UnitClass => UnitFlags.UnitClass;
     public UnitColor UnitColor => UnitFlags.UnitColor;
-
-    protected int Damage => _unit.DamageInfo.ApplyDamage;
+    
     public int BossDamage => _unit.DamageInfo.ApplyBossDamage;
     public float Speed => Unit.Stats.Speed;
-    public float AttackDelayTime { get => Unit.Stats.AttackDelayTime; set => Unit.Stats.AttackDelayTime = value; }
+    public float AttackDelayTime => Unit.Stats.AttackDelayTime;
     public float AttackRange => Unit.Stats.AttackRange;
 
     [SerializeField] protected float stopDistanc;
@@ -44,7 +43,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     // 가상 함수
     protected virtual void OnAwake() { } // 유닛마다 다른 Awake 세팅
-    protected virtual void NormalAttack() { } // 유닛들의 고유한 공격
     
     [SerializeField] protected TargetManager _targetManager = new TargetManager();
     public UnitState _state;

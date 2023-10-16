@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class AreaAttackSpeedBuffProvider : MonoBehaviour
 {
-    [SerializeField] float _attackDelayRate;
-    [SerializeField] List<Multi_TeamSoldier> _passiveTargets = new List<Multi_TeamSoldier>();
+    float _buffAmount;
+    List<Multi_TeamSoldier> _passiveTargets = new List<Multi_TeamSoldier>();
 
-    public void DependecyInject(float radius, float delayRate)
+    public void DependecyInject(float radius, float buffAmount)
     {
-        GetComponentInChildren<SphereCollider>().radius = radius;
-        _attackDelayRate = delayRate;
+        GetComponent<SphereCollider>().radius = radius;
+        _buffAmount = buffAmount;
     }
 
     void OnTriggerEnter(Collider other)
@@ -18,20 +18,18 @@ public class AreaAttackSpeedBuffProvider : MonoBehaviour
         var unit = other.GetComponentInParent<Multi_TeamSoldier>();
         if (unit != null && _passiveTargets.Contains(unit) == false)
         {
-            Change_Unit_AttackCollDown(unit, _attackDelayRate);
+            unit.Unit.Stats.AttackSpeed += _buffAmount;
             _passiveTargets.Add(unit);
         }
     }
 
-    void OnTriggerExit(Collider other) // redPassive.get_DownDelayWeigh 의 역수 곱해서 공속 되돌림
+    void OnTriggerExit(Collider other)
     {
         var unit = other.GetComponentInParent<Multi_TeamSoldier>();
         if (unit != null && _passiveTargets.Contains(unit))
         {
-            Change_Unit_AttackCollDown(unit, (1 / _attackDelayRate));
+            unit.Unit.Stats.AttackSpeed -= _buffAmount;
             _passiveTargets.Remove(unit);
         }
     }
-
-    void Change_Unit_AttackCollDown(Multi_TeamSoldier _unit, float rate) => _unit.AttackDelayTime *= rate;
 }

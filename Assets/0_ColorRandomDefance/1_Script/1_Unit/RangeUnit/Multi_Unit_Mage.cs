@@ -19,8 +19,6 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     {
         _chaseSystem = gameObject.AddComponent<RangeChaser>();
         LoadMageStat();
-
-        normalAttackSound = EffectSoundType.MageAttack;
         _normalAttacker = new UnitAttackControllerGenerator().GenerateMageAattacker(this, manaSystem, ShotEnergyBall);
     }
 
@@ -55,7 +53,8 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     {
         DoAttack();
         manaSystem?.ClearMana_RPC();
-        photonView.RPC(nameof(DoSkill), RpcTarget.All, target.GetComponent<PhotonView>().ViewID);
+        _unitSkillController.DoSkill(this);
+        // photonView.RPC(nameof(DoSkill), RpcTarget.All, target.GetComponent<PhotonView>().ViewID);
         StartCoroutine(Co_EndSkillAttack(mageSkillCoolDownTime)); // 임시방편
     }
     
@@ -71,10 +70,10 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
         manaSystem.ClearMana_RPC();
     }
 
-    [PunRPC] 
-    void DoSkill(int targetId)
-    {
-        _targetManager.ChangedTarget(Managers.Multi.GetPhotonViewComponent<Multi_Enemy>(targetId));
-        _unitSkillController.DoSkill(this);
-    }
+    //[PunRPC] 
+    //void DoSkill(int targetId)
+    //{
+    //    _targetManager.ChangedTarget(Managers.Multi.GetPhotonViewComponent<Multi_Enemy>(targetId));
+    //    _unitSkillController.DoSkill(this);
+    //}
 }

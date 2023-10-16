@@ -20,7 +20,7 @@ public class ArcherSpecialAttackController : UnitAttackControllerTemplate
     {
         _trail.gameObject.SetActive(false);
         _archerArrowShoter.ShotSkill(_unitController.TargetEnemy, _attacker.SkillAttack);
-        yield return new WaitForSeconds(1f);
+        yield return WaitSecond(1f);
         _trail.gameObject.SetActive(true);
     }
 }

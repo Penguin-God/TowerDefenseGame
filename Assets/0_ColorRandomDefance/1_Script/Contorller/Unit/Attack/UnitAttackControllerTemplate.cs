@@ -39,7 +39,7 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
         _unitState.EndAttack(CalculateDelayTime(coolDownTime));
     }
     protected abstract IEnumerator Co_Attack();
-    protected WaitForSeconds WatiSecond(float second) => new WaitForSeconds(CalculateDelayTime(second));
+    protected WaitForSeconds WaitSecond(float second) => new WaitForSeconds(CalculateDelayTime(second));
     float CalculateDelayTime(float delay) => delay / _unit.Stats.AttackSpeed;
 }
 
@@ -80,10 +80,10 @@ public class UnitAttackControllerGenerator
         return result;
     }
 
-    public SpearmanSkillAttackController GenerateSpearmanSkillAttcker(Multi_TeamSoldier unit, SpearShoter spearShoter, Transform shotPoint, Action<Multi_Enemy> act)
+    public SpearmanSkillAttackController GenerateSpearmanSkillAttcker(Multi_TeamSoldier unit, SpearShoter spearShoter, Action<Multi_Enemy> act)
     {
         var result = GenerateTemplate<SpearmanSkillAttackController>(unit);
-        result.Inject(spearShoter, shotPoint, act);
+        result.Inject(spearShoter, act);
         return result;
     }
 

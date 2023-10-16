@@ -14,9 +14,9 @@ public class SwordmanAttackController : UnitAttackControllerTemplate
 
     protected override IEnumerator Co_Attack()
     {
-        yield return WatiSecond(0.8f);
+        yield return WaitSecond(0.8f);
         _trail.SetActive(true);
-        yield return WatiSecond(0.3f);
+        yield return WaitSecond(0.3f);
         _unitController._NormalAttack();
         _trail.SetActive(false);
     }

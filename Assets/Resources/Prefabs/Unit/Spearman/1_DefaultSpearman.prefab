@@ -739,3 +739,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _spear: {fileID: 211848693352355080}
+  _shotPoint: {fileID: 6545951238342133010}

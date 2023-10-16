@@ -28,14 +28,14 @@ public class MageAttackerController : UnitAttackControllerTemplate
     protected override IEnumerator Co_Attack()
     {
         _nav.isStopped = true;
-        yield return new WaitForSeconds(0.7f);
+        yield return WaitSecond(0.7f);
         _magicLight.SetActive(true);
 
         _shotEnergyball?.Invoke(_shotPoint.position);
         if (PhotonNetwork.IsMasterClient)
             _manaSystem.AddMana_RPC();
 
-        yield return new WaitForSeconds(0.5f);
+        yield return WaitSecond(0.5f);
         _magicLight.SetActive(false);
         _nav.isStopped = false;
     }

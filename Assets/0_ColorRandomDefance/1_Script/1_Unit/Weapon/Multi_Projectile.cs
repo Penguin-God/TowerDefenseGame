@@ -30,10 +30,11 @@ public class Multi_Projectile : MonoBehaviour
 
     protected virtual void OnTriggerHit(Collider other)
     {
-        if (other.transform.parent == null) return;
+        // 컴포넌트가 부모에게 있을 수도 있음
+        var enemy = other.transform.GetComponentInParent<Multi_Enemy>();
+        if (enemy == null && other.transform.TryGetComponent(out enemy) == false)
+            return;
 
-        // 컴포넌트가 부모에게 있음
-        if (other.transform.parent.TryGetComponent<Multi_Enemy>(out var enemy) == false) return;
         if (PhotonNetwork.IsMasterClient) OnHit?.Invoke(enemy);
         if (isAOE == false) GetComponent<AutoDestoryAfterSecond>().ReturnObjet();
     }

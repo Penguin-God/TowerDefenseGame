@@ -7,7 +7,7 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
 {
     Animator _animator;
     protected virtual string AnimationName { get; }
-    Multi_TeamSoldier.UnitState _unitState;
+    UnitState _unitState;
     protected Unit _unit;
 
     protected virtual void Awake()
@@ -15,7 +15,7 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
     }
 
-    public void DependencyInject(Multi_TeamSoldier.UnitState unitState, Unit unit)
+    public void DependencyInject(UnitState unitState, Unit unit)
     {
         _unitState = unitState;
         _unit = unit;
@@ -41,6 +41,7 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
     protected abstract IEnumerator Co_Attack();
     protected WaitForSeconds WaitSecond(float second) => new WaitForSeconds(CalculateDelayTime(second));
     protected float CalculateDelayTime(float delay) => delay / _unit.Stats.AttackSpeed;
+    protected void PlaySound() { }
 }
 
 public class UnitAttackControllerGenerator

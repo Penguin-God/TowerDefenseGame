@@ -255,33 +255,33 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     WorldAudioPlayer worldAudioPlayer;
     protected void PlaySound(EffectSoundType type, float volumn = -1) => worldAudioPlayer.PlayObjectEffectSound(Spot, type, volumn);
+}
 
-    [Serializable]
-    public class UnitState : MonoBehaviour
+[Serializable]
+public class UnitState : MonoBehaviour
+{
+    UnitAttackState _unitAttackState = new UnitAttackState();
+    public UnitAttackState UnitAttackState => _unitAttackState;
+
+    void Awake()
     {
-        UnitAttackState _unitAttackState = new UnitAttackState();
-        public UnitAttackState UnitAttackState => _unitAttackState;
+        ReadyAttack();
+    }
 
-        void Awake()
-        {
-            ReadyAttack();
-        }
+    public void Dead() => ReadyAttack();
+    public void ReadyAttack() => _unitAttackState = _unitAttackState.ReadyAttack();
+    public void StartAttack() => _unitAttackState = _unitAttackState.DoAttack();
 
-        public void Dead() => ReadyAttack();
-        public void ReadyAttack() => _unitAttackState = _unitAttackState.ReadyAttack();
-        public void StartAttack() => _unitAttackState = _unitAttackState.DoAttack();
- 
-        public void EndAttack(float coolTime)
-        {
-            _unitAttackState = _unitAttackState.AttackDone();
-            StartCoroutine(Co_AttackCoolDown(coolTime));
-        }
+    public void EndAttack(float coolTime)
+    {
+        _unitAttackState = _unitAttackState.AttackDone();
+        StartCoroutine(Co_AttackCoolDown(coolTime));
+    }
 
-        IEnumerator Co_AttackCoolDown(float coolTime)
-        {
-            yield return new WaitForSeconds(coolTime);
-            ReadyAttack();
-        }
+    IEnumerator Co_AttackCoolDown(float coolTime)
+    {
+        yield return new WaitForSeconds(coolTime);
+        ReadyAttack();
     }
 }
 

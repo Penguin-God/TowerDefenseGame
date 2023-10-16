@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public enum UnitState
-{
-    Idle,
-    Move,
-    Attack,
-    Die,
-}
+//public enum UnitState
+//{
+//    Idle,
+//    Move,
+//    Attack,
+//    Die,
+//}
 
 [Serializable]
 public class UnitStats

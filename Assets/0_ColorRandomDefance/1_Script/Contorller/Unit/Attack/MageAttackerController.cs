@@ -29,6 +29,7 @@ public class MageAttackerController : UnitAttackControllerTemplate
     {
         _nav.isStopped = true;
         yield return WaitSecond(0.7f);
+        PlaySound(EffectSoundType.MageAttack);
         _magicLight.SetActive(true);
 
         _shotEnergyball?.Invoke(_shotPoint.position);

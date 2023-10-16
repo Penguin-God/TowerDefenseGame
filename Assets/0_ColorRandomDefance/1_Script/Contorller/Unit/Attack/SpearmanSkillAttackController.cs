@@ -31,7 +31,7 @@ public class SpearmanSkillAttackController : UnitAttackControllerTemplate
 
         _spear.SetActive(false);
         _nav.isStopped = true;
-        // PlaySound(EffectSoundType.SpearmanSkill);
+        PlaySound(EffectSoundType.SpearmanSkill);
 
         yield return WaitSecond(0.5f);
         _nav.isStopped = false;

@@ -13,6 +13,6 @@ public class BounceBallShotController : MageAttackerController
     protected override IEnumerator Co_Attack()
     {
         _manaSystem.LockManaForDuration(_manaLockTime);
-        yield return StartCoroutine( base.Co_Attack());
+        yield return StartCoroutine(base.Co_Attack());
     }
 }

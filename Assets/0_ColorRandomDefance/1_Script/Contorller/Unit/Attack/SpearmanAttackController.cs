@@ -12,6 +12,7 @@ public class SpearmanAttackController : UnitAttackControllerTemplate
     protected override IEnumerator Co_Attack()
     {
         yield return WaitSecond(0.55f);
+        PlaySound(EffectSoundType.SpearmanAttack);
         _trail.SetActive(true);
         yield return WaitSecond(0.3f);
         _unitController._NormalAttack();

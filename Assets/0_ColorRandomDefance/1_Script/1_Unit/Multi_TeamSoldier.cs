@@ -36,9 +36,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected Animator animator;
     protected RPCable rpcable;
     public byte UsingID => (byte)rpcable.UsingId;
-    protected EffectSoundType normalAttackSound;
-    public float normalAttakc_AudioDelay;
-
     public event Action<Multi_TeamSoldier> OnDead;
 
     // 가상 함수
@@ -187,16 +184,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             UnitAttacker.NormalAttack(TargetEnemy);
     }
 
-    protected void StartAttack()
-    {
-        DoAttack();
-        AfterPlaySound(normalAttackSound, normalAttakc_AudioDelay);
-    }
     protected void DoAttack() => _state.StartAttack();
 
     bool CheckTargetUpdateCondition => target == null || (TargetIsNormal && (enemyDistance > stopDistanc * 2 || target.GetComponent<Multi_Enemy>().IsDead));
     bool TargetIsNormal => target != null && TargetEnemy.enemyType == EnemyType.Normal;
-    protected void EndAttack() => EndAttack(AttackDelayTime);
     protected void EndAttack(float coolTime)
     {
         _state.EndAttack(coolTime);
@@ -254,7 +245,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
 
     WorldAudioPlayer worldAudioPlayer;
-    protected void PlaySound(EffectSoundType type, float volumn = -1) => worldAudioPlayer.PlayObjectEffectSound(Spot, type, volumn);
+    void PlaySound(EffectSoundType type, float volumn = -1) => worldAudioPlayer.PlayObjectEffectSound(Spot, type, volumn);
 }
 
 [Serializable]

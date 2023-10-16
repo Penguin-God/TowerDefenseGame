@@ -13,8 +13,6 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
     protected override void OnAwake()
     {
         _chaseSystem = gameObject.AddComponent<MeeleChaser>();
-        
-        normalAttackSound = EffectSoundType.SpearmanAttack;
         _useSkillPercent = 30;
 
         _normalAttackController = new UnitAttackControllerGenerator().GenerateSpearmanAttcker(this);

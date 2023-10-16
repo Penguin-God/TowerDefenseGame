@@ -5,13 +5,9 @@ using Photon.Pun;
 
 public class Multi_Unit_Swordman : Multi_TeamSoldier
 {
-    [Header("기사 변수")]
-    [SerializeField] GameObject trail;
-
     UnitAttackControllerTemplate _unitAttackControllerTemplate;
     protected override void OnAwake()
     {
-        normalAttackSound = EffectSoundType.SwordmanAttack;
         _chaseSystem = gameObject.AddComponent<MeeleChaser>();
         _unitAttackControllerTemplate = new UnitAttackControllerGenerator().GenerateSwordmanAttacker(this);
     }

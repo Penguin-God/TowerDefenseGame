@@ -16,7 +16,7 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
     protected override void OnAwake()
     {
         _chaseSystem = gameObject.AddComponent<RangeChaser>();
-        normalAttackSound = EffectSoundType.ArcherAttack;
+        // normalAttackSound = EffectSoundType.ArcherAttack;
 
         var attackerGenerator = new UnitAttackControllerGenerator();
         _normalAttackController = attackerGenerator.GenerateArcherAttacker(this, arrowShotPoint);

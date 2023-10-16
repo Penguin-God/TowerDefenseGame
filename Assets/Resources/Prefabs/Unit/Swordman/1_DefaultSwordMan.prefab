@@ -269,6 +269,7 @@ MonoBehaviour:
   normalAttakc_AudioDelay: 0.7
   _targetManager:
     _target: {fileID: 0}
+  _state: {fileID: 0}
   contactEnemy: 0
   trail: {fileID: 8416693383700321331}
 --- !u!114 &-8162979948257466600

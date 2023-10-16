@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 7089078730595631161}
   m_Layer: 14
   m_Name: Violet_Spear 1
-  m_TagString: Attack
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

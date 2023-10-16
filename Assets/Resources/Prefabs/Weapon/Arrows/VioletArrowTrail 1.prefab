@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 6659480338311939033}
   m_Layer: 14
   m_Name: VioletArrowTrail 1
-  m_TagString: Attack
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

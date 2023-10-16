@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 4614374755487582234}
   m_Layer: 14
   m_Name: Black_Spear 1
-  m_TagString: Attack
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

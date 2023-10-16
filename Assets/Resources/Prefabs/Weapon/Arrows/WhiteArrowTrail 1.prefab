@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 8830672518274584656}
   m_Layer: 14
   m_Name: WhiteArrowTrail 1
-  m_TagString: Attack
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

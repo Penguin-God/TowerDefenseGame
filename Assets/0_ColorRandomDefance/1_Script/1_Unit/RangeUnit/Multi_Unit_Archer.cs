@@ -16,8 +16,7 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
     protected override void OnAwake()
     {
         _chaseSystem = gameObject.AddComponent<RangeChaser>();
-        // normalAttackSound = EffectSoundType.ArcherAttack;
-
+        
         var attackerGenerator = new UnitAttackControllerGenerator();
         _normalAttackController = attackerGenerator.GenerateArcherAttacker(this, arrowShotPoint);
         _specialAttackController = attackerGenerator.GenerateArcherSkillAttcker(this, new ArcherArrowShoter(TargetFinder, arrowShotPoint, GetWeaponPath()));
@@ -48,6 +47,7 @@ public class ArcherArrowShoter
 
     public void ShotSkill(Multi_Enemy currentTarget, System.Action<Multi_Enemy> action)
     {
+        if(currentTarget == null) return;
         Transform[] targetArray = GetTargets(currentTarget);
         if (targetArray == null || targetArray.Length == 0) return;
 

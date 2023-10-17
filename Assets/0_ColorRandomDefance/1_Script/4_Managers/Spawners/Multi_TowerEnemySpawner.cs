@@ -39,7 +39,14 @@ public class Multi_TowerEnemySpawner : Multi_SpawnerBase
         tower.Setinfo(_towerLevel.Get(id));
         tower.OnDead += died => AfterSpawn(tower);
         SetSpawnObj(tower.gameObject);
-        Multi_EnemyManager.Instance.SetSpawnTower(id, tower);
+        photonView.RPC(nameof(SetAA), RpcTarget.All, tower.GetComponent<PhotonView>().ViewID);
         return null;
+    }
+
+    [PunRPC] 
+    void SetAA(int id)
+    {
+        var tower = Managers.Multi.GetPhotonViewComponent<Multi_EnemyTower>(id);
+        Multi_EnemyManager.Instance.SetSpawnTower(tower.UsingId, tower);
     }
 }

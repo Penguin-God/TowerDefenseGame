@@ -27,7 +27,6 @@ public class Multi_BossEnemySpawner : Multi_SpawnerBase
     public Multi_BossEnemy SpawnBoss(byte id, int bossLevel)
     {
         var boss = Managers.Multi.Instantiater.PhotonInstantiateInactive(BulildBossPath(), id).GetComponent<Multi_BossEnemy>();
-        Multi_EnemyManager.Instance.SetSpawnBoss(id, boss);
         photonView.RPC(nameof(InjectMonster), RpcTarget.All, (byte)bossLevel, boss.GetComponent<PhotonView>().ViewID);
         SetSpawnObj(boss.gameObject);
         rpcOnSpawn?.RaiseEvent(id);
@@ -39,6 +38,7 @@ public class Multi_BossEnemySpawner : Multi_SpawnerBase
     {
         var monster = Managers.Multi.GetPhotonViewComponent<Multi_BossEnemy>(viewId);
         var bossData = Managers.Data.BossDataByLevel[level];
+        Multi_EnemyManager.Instance.SetSpawnBoss(monster.UsingId, monster);
         _monsterDecorator.DecorateSpeedSystem(bossData.Speed, monster);
         monster.Inject(bossData);
     }

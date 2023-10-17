@@ -61,7 +61,7 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     IEnumerator Co_EndSkillAttack(float skillTime)
     {
         yield return new WaitForSeconds(skillTime);
-        base.EndAttack(0);
+        base.EndAttack();
     }
 
     protected override void ResetValue()

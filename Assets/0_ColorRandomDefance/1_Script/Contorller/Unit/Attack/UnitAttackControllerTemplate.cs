@@ -10,7 +10,7 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
     WorldAudioPlayer _worldAudioPlayer;
     ObjectSpot _objectSpot;
 
-    UnitState _unitState;
+    UnitStateManager _unitState;
     protected Unit _unit;
 
     protected virtual void Awake()
@@ -19,7 +19,7 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
         _worldAudioPlayer = GetComponent<WorldAudioPlayer>();
     }
 
-    public void DependencyInject(UnitState unitState, Unit unit, ObjectSpot objectSpot)
+    public void DependencyInject(UnitStateManager unitState, Unit unit, ObjectSpot objectSpot)
     {
         _unitState = unitState;
         _unit = unit;
@@ -41,8 +41,11 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
     {
         _unitState.StartAttack();
         yield return StartCoroutine(Co_Attack());
-        _unitState.EndAttack(CalculateDelayTime(coolDownTime));
+        _unitState.EndAttack();
+        yield return new WaitForSeconds(CalculateDelayTime(coolDownTime));
+        _unitState.ReadyAttack();
     }
+
     protected abstract IEnumerator Co_Attack();
     protected WaitForSeconds WaitSecond(float second) => new WaitForSeconds(CalculateDelayTime(second));
     protected float CalculateDelayTime(float delay) => delay / _unit.Stats.AttackSpeed;

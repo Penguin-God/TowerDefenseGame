@@ -15,7 +15,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public Unit Unit => _unit;
     public UnitFlags UnitFlags => _unit.UnitFlags;
 
-    public ObjectSpot Spot { get; private set; }
+    public ObjectSpot Spot => _state.Spot;
     public bool IsInDefenseWorld => Spot.IsInDefenseWorld;
 
     public UnitClass UnitClass => UnitFlags.UnitClass;
@@ -42,7 +42,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected virtual void OnAwake() { } // 유닛마다 다른 Awake 세팅
     
     [SerializeField] protected TargetManager _targetManager = new TargetManager();
-    public UnitState _state;
+    public UnitStateManager _state;
     public bool IsAttack => _state.UnitAttackState.IsAttack;
     protected UnitChaseSystem _chaseSystem;
 
@@ -55,8 +55,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         originObstacleType = nav.obstacleAvoidanceType;
         worldAudioPlayer = gameObject.AddComponent<WorldAudioPlayer>();
         worldAudioPlayer.ReceiveInject(Managers.Camera, Managers.Sound);
-
-        _state = gameObject.AddComponent<UnitState>();
     }
 
     void Start()
@@ -72,7 +70,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     {
         TargetFinder = new MonsterFinder(monsterManager, UsingID);
         _unit = unit;
-        Spot = new ObjectSpot(UsingID, true);
+        _state = new UnitStateManager(new ObjectSpot(UsingID, true));
         UnitAttacker = new UnitAttacker(_unit, UsingID);
         ChaseTarget();
     }
@@ -188,9 +186,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     bool CheckTargetUpdateCondition => target == null || (TargetIsNormal && (enemyDistance > stopDistanc * 2 || target.GetComponent<Multi_Enemy>().IsDead));
     bool TargetIsNormal => target != null && TargetEnemy.enemyType == EnemyType.Normal;
-    protected void EndAttack(float coolTime)
+    protected void EndAttack()
     {
-        _state.EndAttack(coolTime);
+        _state.EndAttack();
         if (CheckTargetUpdateCondition) UpdateTarget();
     }
 
@@ -205,9 +203,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         Managers.Effect.PlayOneShotEffect("UnitTpEffect", gameObject.transform.position + (Vector3.up * 3));
         if (PhotonNetwork.IsMasterClient)
         {
-            Vector3 destination = GetTpPos();
-            base.photonView.RPC(nameof(MoveToOtherWorld), RpcTarget.All, destination);
-            _state.ReadyAttack();
+            base.photonView.RPC(nameof(MoveToOtherWorld), RpcTarget.All, GetTpPos());
             UpdateTarget();
         }
         SettingNav();
@@ -228,13 +224,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         gameObject.SetActive(false);
         gameObject.transform.position = destination;
         gameObject.SetActive(true);
-        ChangeWolrd(); // 얘는 서순상 여기서 실행되야 해서 RPC안에 넣음
+        _state.ChangeWorld(); // 얘는 서순상 여기서 실행되야 해서 RPC안에 넣음
+        // ChangeWolrd(); 
     }
 
     public void ChangeWorldStateToAll() => photonView.RPC(nameof(ChangeWorldState), RpcTarget.All);
-    [PunRPC] protected void ChangeWorldState() => ChangeWolrd();
-
-    void ChangeWolrd() => Spot = Spot.ChangeWorldType();
+    [PunRPC] protected void ChangeWorldState() => _state.ChangeWorld();
 
     public void AfterPlaySound(EffectSoundType type, float delayTime) => StartCoroutine(Co_AfterPlaySound(type, delayTime));
 
@@ -248,30 +243,21 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     void PlaySound(EffectSoundType type, float volumn = -1) => worldAudioPlayer.PlayObjectEffectSound(Spot, type, volumn);
 }
 
-[Serializable]
-public class UnitState : MonoBehaviour
+public class UnitStateManager
 {
-    UnitAttackState _unitAttackState = new UnitAttackState();
+    UnitAttackState _unitAttackState = new UnitAttackState(true, false);
     public UnitAttackState UnitAttackState => _unitAttackState;
 
-    void Awake()
-    {
-        ReadyAttack();
-    }
+    public ObjectSpot Spot { get; private set; }
+    public UnitStateManager(ObjectSpot spot) => Spot = spot;
 
     public void Dead() => ReadyAttack();
     public void ReadyAttack() => _unitAttackState = _unitAttackState.ReadyAttack();
     public void StartAttack() => _unitAttackState = _unitAttackState.DoAttack();
-
-    public void EndAttack(float coolTime)
+    public void EndAttack() => _unitAttackState = _unitAttackState.AttackDone();
+    public void ChangeWorld()
     {
-        _unitAttackState = _unitAttackState.AttackDone();
-        StartCoroutine(Co_AttackCoolDown(coolTime));
-    }
-
-    IEnumerator Co_AttackCoolDown(float coolTime)
-    {
-        yield return new WaitForSeconds(coolTime);
+        Spot = Spot.ChangeWorldType();
         ReadyAttack();
     }
 }

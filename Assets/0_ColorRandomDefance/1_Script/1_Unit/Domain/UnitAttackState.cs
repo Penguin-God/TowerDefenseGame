@@ -7,7 +7,7 @@ public struct UnitAttackState
     public bool IsAttackable { get; private set; }
     public bool IsAttack { get; private set; }
 
-    UnitAttackState(bool isAttackable, bool isAttack)
+    public UnitAttackState(bool isAttackable, bool isAttack)
     {
         IsAttackable = isAttackable;
         IsAttack = isAttack;

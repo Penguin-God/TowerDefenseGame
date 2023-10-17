@@ -30,7 +30,7 @@ MageAttack,0.35,Effect/Unit/MageAttack
 MageBallBonce,0.5,Effect/Unit/MageBallBonce
 MeteorExplosion,0.3,Effect/Unit/MeteorExplosion
 RedMageSkill,0.2,Effect/Unit/RedMageSkill
-SpearmanAttack,0.5,Effect/Unit/SpearmanAttack
+SpearmanAttack,0.7,Effect/Unit/SpearmanAttack
 SpearmanSkill,0.35,Effect/Unit/SpearmanSkill
 SwordmanAttack,0.5,Effect/Unit/SwordmanAttack
 VioletMageSkill,0.2,Effect/Unit/VioletMageSkill

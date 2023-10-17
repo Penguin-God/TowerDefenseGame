@@ -8,8 +8,7 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
     Animator _animator;
     protected virtual string AnimationName { get; }
     WorldAudioPlayer _worldAudioPlayer;
-    ObjectSpot _objectSpot;
-
+    
     UnitStateManager _unitState;
     protected Unit _unit;
 
@@ -19,11 +18,10 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
         _worldAudioPlayer = GetComponent<WorldAudioPlayer>();
     }
 
-    public void DependencyInject(UnitStateManager unitState, Unit unit, ObjectSpot objectSpot)
+    public void DependencyInject(UnitStateManager unitState, Unit unit)
     {
         _unitState = unitState;
         _unit = unit;
-        _objectSpot = objectSpot;
     }
 
     void DoAnima()
@@ -49,7 +47,7 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
     protected abstract IEnumerator Co_Attack();
     protected WaitForSeconds WaitSecond(float second) => new WaitForSeconds(CalculateDelayTime(second));
     protected float CalculateDelayTime(float delay) => delay / _unit.Stats.AttackSpeed;
-    protected void PlaySound(EffectSoundType soundType) => _worldAudioPlayer.PlayObjectEffectSound(_objectSpot, soundType);
+    protected void PlaySound(EffectSoundType soundType) => _worldAudioPlayer.PlayObjectEffectSound(_unitState.Spot, soundType);
 }
 
 public class UnitAttackControllerGenerator
@@ -57,7 +55,7 @@ public class UnitAttackControllerGenerator
     public static T GenerateTemplate<T>(Multi_TeamSoldier unit) where T : UnitAttackControllerTemplate
     {
         var result = unit.GetComponent<T>();
-        result.DependencyInject(unit._state, unit.Unit, unit.Spot);
+        result.DependencyInject(unit._state, unit.Unit);
         return result.GetComponent<T>();
     }
 

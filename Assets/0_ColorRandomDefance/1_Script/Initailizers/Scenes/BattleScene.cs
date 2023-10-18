@@ -57,11 +57,11 @@ class WorldInitializer
 
     public BattleDIContainer Init(MultiData<SkillBattleDataContainer> multiSkillData)
     {
+        InitObjectPools();
         new BattleDIContainerInitializer().InjectBattleDependency(_battleDIContainer, multiSkillData);
 
         Managers.Camera.EnterBattleScene();
         InitMonoBehaviourContainer();
-        InitObjectPools();
         BindUnitEvent();
         return _battleDIContainer;
     }

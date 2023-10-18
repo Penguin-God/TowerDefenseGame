@@ -36,7 +36,7 @@ public class Unit
     [SerializeField] UnitFlags _unitFlags;
     public UnitFlags UnitFlags => _unitFlags;
 
-    public readonly UnitStats Stats;
+    public UnitStats Stats;
     [SerializeField] UnitDamageInfo _damageInfo;
     public UnitDamageInfo DamageInfo => _damageInfo;
     public void UpdateDamageInfo(UnitDamageInfo newInfo) => _damageInfo = newInfo;

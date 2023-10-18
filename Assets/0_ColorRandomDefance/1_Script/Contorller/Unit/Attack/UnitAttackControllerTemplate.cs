@@ -40,7 +40,7 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
         _unitState.StartAttack();
         yield return StartCoroutine(Co_Attack());
         _unitState.EndAttack();
-        yield return new WaitForSeconds(CalculateDelayTime(coolDownTime));
+        yield return WaitSecond(coolDownTime);
         _unitState.ReadyAttack();
     }
 

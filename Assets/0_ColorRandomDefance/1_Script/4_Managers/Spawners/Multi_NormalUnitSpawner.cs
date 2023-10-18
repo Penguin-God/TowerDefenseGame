@@ -12,6 +12,7 @@ public class UnitFiller
     public void FillUnit(Multi_TeamSoldier unit, UnitFlags flag, UnitDamageInfo damInfo, MonsterManagerController monsterManager, SkillBattleDataContainer skillData)
     {
         unit.Injection(new Unit(flag, CreateUnitStats(flag, damInfo)), monsterManager);
+        UnitAttackControllerGenerator.GenerateTemplate<UnitAttackControllerTemplate>(unit);
         SetUnitData(unit, skillData);
     }
 

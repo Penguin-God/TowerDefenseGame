@@ -225,7 +225,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         gameObject.transform.position = destination;
         gameObject.SetActive(true);
         _state.ChangeWorld(); // 얘는 서순상 여기서 실행되야 해서 RPC안에 넣음
-        // ChangeWolrd(); 
     }
 
     public void ChangeWorldStateToAll() => photonView.RPC(nameof(ChangeWorldState), RpcTarget.All);
@@ -252,8 +251,8 @@ public class UnitStateManager
     public UnitStateManager(ObjectSpot spot) => Spot = spot;
 
     public void Dead() => ReadyAttack();
-    public void ReadyAttack() => _unitAttackState = _unitAttackState.ReadyAttack();
     public void StartAttack() => _unitAttackState = _unitAttackState.DoAttack();
+    public void ReadyAttack() => _unitAttackState = _unitAttackState.ReadyAttack();
     public void EndAttack() => _unitAttackState = _unitAttackState.AttackDone();
     public void ChangeWorld()
     {

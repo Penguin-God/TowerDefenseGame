@@ -32,4 +32,11 @@ public class AreaAttackSpeedBuffProvider : MonoBehaviour
             _passiveTargets.Remove(unit);
         }
     }
+
+    void OnDisable()
+    {
+        foreach (var target in _passiveTargets)
+            target.Unit.Stats.AttackSpeed -= _buffAmount;
+        _passiveTargets.Clear();
+    }
 }

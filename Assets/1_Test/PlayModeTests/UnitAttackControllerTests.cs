@@ -8,6 +8,13 @@ public class UnitAttackControllerTests
 {
     UnitAttackState CreateAttackState(bool isAttackable, bool isAttack) => new UnitAttackState(isAttackable, isAttack);
 
+    TestAttacker CreateAttacker(UnitStateManager unitStateManager, float attSpeed)
+    {
+        var result = new GameObject("Attacker").AddComponent<TestAttacker>();
+        result.DependencyInject(unitStateManager, new Unit(new UnitFlags(), new UnitStats(new UnitDamageInfo(), 0, attackSpeed: attSpeed, 0, 0)));
+        return result;
+    }
+
     [UnityTest]
     public IEnumerator 유닛_공격은_정해진_시간에_따라_상태가_바뀌어야_함()
     {
@@ -17,9 +24,8 @@ public class UnitAttackControllerTests
 
     public IEnumerator 유닛_공격은_공속에_따라_상태가_바뀌어야_함(float _attackSpeed, float coolDown, float firstDelay, float secondDelay)
     {
-        var sut = new GameObject("Attacker").AddComponent<TestAttacker>();
         var stateManager = new UnitStateManager(new ObjectSpot());
-        sut.DependencyInject(stateManager, new Unit(new UnitFlags(), new UnitStats(new UnitDamageInfo(), 0, attackSpeed: _attackSpeed, 0, 0)));
+        var sut = CreateAttacker(stateManager, _attackSpeed);
         sut.DoAttack(coolDown);
         Assert.AreEqual(stateManager.UnitAttackState, CreateAttackState(false, true));
         yield return new WaitForSeconds(firstDelay);

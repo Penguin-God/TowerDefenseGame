@@ -29,15 +29,13 @@ public class UI_Manager
         }
     }
 
-    public void SetCanvas(GameObject go, bool sort)
+    public void SetCanvas(GameObject go)
     {
         Canvas canvas = go.GetOrAddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.overrideSorting = true; // canvas안의 canvas가 부모 관계없이 독립적인 sort값을 가지게 하는 옵션
         go.GetOrAddComponent<GraphicRaycaster>();
         SetCanvasSacle(go);
-        if (sort)
-            SetSotingOrder(canvas);
     }
 
     void SetCanvasSacle(GameObject go)
@@ -47,7 +45,6 @@ public class UI_Manager
         canvasScaler.referenceResolution = new Vector2(UIScreenWidth, UIScreenHeight);
         canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
     }
-
 
     public void SetSotingOrder(Canvas canvas)
     {
@@ -113,10 +110,9 @@ public class UI_Manager
         if (string.IsNullOrEmpty(name)) name = typeof(T).Name;
         string path = $"UI/{uiType}/{name}";
         GameObject go = getObject == null ? Managers.Resources.Instantiate(path) : getObject(path);
-        T ui = go.GetOrAddComponent<T>();
-        go.transform.SetParent(parent ?? Root); // ??는 parent == null ? parent : Root 랑 같음
+        go.transform.SetParent(parent ?? Root); // ??는 parent == null ? null : Root 랑 같음
         go.gameObject.SetActive(true);
-        return ui;
+        return go.GetOrAddComponent<T>();
     }
 
     public void ClosePopupUI()

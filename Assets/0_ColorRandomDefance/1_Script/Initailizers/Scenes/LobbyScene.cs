@@ -10,6 +10,7 @@ public class LobbyScene : BaseScene
         Screen.SetResolution(1920, 1080, true);
         _isFullScreen = true;
         Managers.Resources.DependencyInject(new PoolManager("@PoolManager"));
+        Managers.Sound.StopBgm();
     }
 
     void Update()

@@ -93,6 +93,7 @@ public class SoundManager
         _audioSource.clip = _clip;
         _audioSource.Play();
     }
+    public void StopBgm() => _sources[(int)SoundType.Bgm].Stop();
 
     public void PlayEffect(EffectSoundType sound, float volumeScale = -1)
     {

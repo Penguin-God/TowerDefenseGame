@@ -35,15 +35,19 @@ public class UI_Manager
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.overrideSorting = true; // canvas안의 canvas가 부모 관계없이 독립적인 sort값을 가지게 하는 옵션
         go.GetOrAddComponent<GraphicRaycaster>();
+        SetCanvasSacle(go);
+        if (sort)
+            SetSotingOrder(canvas);
+    }
 
-        CanvasScaler canvasScaler = go.GetOrAddComponent<CanvasScaler>();
+    void SetCanvasSacle(GameObject go)
+    {
+        var canvasScaler = go.GetOrAddComponent<CanvasScaler>();
         canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         canvasScaler.referenceResolution = new Vector2(UIScreenWidth, UIScreenHeight);
         canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
-
-        if(sort)
-            SetSotingOrder(canvas);
     }
+
 
     public void SetSotingOrder(Canvas canvas)
     {
@@ -100,6 +104,7 @@ public class UI_Manager
     public T ShowDefualtUI<T>(string name = null) where T : UI_Base
     {
         T result = ShowUI<T>("Default", name);
+        SetCanvasSacle(result.gameObject);
         SetSotingOrder(result.GetComponent<Canvas>());
         return result;
     }

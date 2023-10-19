@@ -54,7 +54,6 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
         DoAttack();
         manaSystem?.ClearMana_RPC();
         _unitSkillController.DoSkill(this);
-        // photonView.RPC(nameof(DoSkill), RpcTarget.All, target.GetComponent<PhotonView>().ViewID);
         StartCoroutine(Co_EndSkillAttack(mageSkillCoolDownTime)); // 임시방편
     }
     
@@ -69,11 +68,4 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
         base.ResetValue();
         manaSystem.ClearMana_RPC();
     }
-
-    //[PunRPC] 
-    //void DoSkill(int targetId)
-    //{
-    //    _targetManager.ChangedTarget(Managers.Multi.GetPhotonViewComponent<Multi_Enemy>(targetId));
-    //    _unitSkillController.DoSkill(this);
-    //}
 }

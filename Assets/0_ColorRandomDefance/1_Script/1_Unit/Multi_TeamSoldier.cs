@@ -160,7 +160,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
 
     bool VaildTargetCondition() => target != null && _targetManager.Target.IsDead == false && _chaseSystem._currentTarget != null && TargetEnemy.UsingId == UsingID;
-
     public bool MonsterIsForward() => Physics.RaycastAll(transform.position + Vector3.up, transform.forward, AttackRange).Select(x => x.transform).Contains(target);
 
     bool isRPC; // RPC딜레이 때문에 공격 2번 이상하는 버그 방지 변수
@@ -188,7 +187,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     bool TargetIsNormal => target != null && TargetEnemy.enemyType == EnemyType.Normal;
     protected void EndAttack()
     {
-        _state.EndAttack();
+        _state.ReadyAttack();
         if (CheckTargetUpdateCondition) UpdateTarget();
     }
 
@@ -242,6 +241,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     void PlaySound(EffectSoundType type, float volumn = -1) => worldAudioPlayer.PlayObjectEffectSound(Spot, type, volumn);
 }
 
+[Serializable]
 public class UnitStateManager
 {
     UnitAttackState _unitAttackState = new UnitAttackState(true, false);

@@ -27,7 +27,6 @@ public class UnitChaseSystem : MonoBehaviour
     {
         _nav = GetComponent<NavMeshAgent>();
         _unit = GetComponent<Multi_TeamSoldier>();
-        // photonView.ObservedComponents.Add(this);
     }
 
     [SerializeField] protected ChaseState _chaseState;
@@ -75,28 +74,6 @@ public class UnitChaseSystem : MonoBehaviour
             SetChaseStatus(_chaseState);
         }
     }
-
-    // 이거 외부로 빼기
-    //Vector3 _prevSendChasePosition; 
-    //ChaseState _prevSendState;
-    //public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
-    //{
-    //    if (stream.IsWriting)
-    //    {
-    //        //stream.SendNext(chasePosition);
-    //        _prevSendChasePosition = chasePosition;
-    //        stream.SendNext((byte)_chaseState);
-    //        _prevSendState = _chaseState;
-    //    }
-    //    else
-    //    {
-    //        //_nav.SetDestination((Vector3)stream.ReceiveNext());
-    //        ChangeState((ChaseState)(byte)stream.ReceiveNext());
-    //        //_chaseState = (ChaseState)(byte)stream.ReceiveNext();
-    //        //SetChaseStatus(_chaseState);
-    //        _nav.isStopped = _chaseState == ChaseState.NoneTarget;
-    //    }
-    //}
 }
 
 public class MeeleChaser : UnitChaseSystem

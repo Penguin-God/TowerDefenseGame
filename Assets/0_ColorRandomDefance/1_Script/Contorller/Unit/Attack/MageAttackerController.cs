@@ -1,4 +1,3 @@
-using Photon.Pun;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -29,12 +28,11 @@ public class MageAttackerController : UnitAttackControllerTemplate
     {
         _nav.isStopped = true;
         yield return WaitSecond(0.7f);
+
         PlaySound(EffectSoundType.MageAttack);
         _magicLight.SetActive(true);
-
         _shotEnergyball?.Invoke(_shotPoint.position);
-        if (PhotonNetwork.IsMasterClient)
-            _manaSystem.AddMana_RPC();
+        _manaSystem.AddMana();
 
         yield return WaitSecond(0.5f);
         _magicLight.SetActive(false);

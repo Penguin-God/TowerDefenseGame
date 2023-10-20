@@ -25,7 +25,7 @@ public class MageSkillAttackController : UnitAttackControllerTemplate
     protected override IEnumerator Co_Attack()
     {
         _nav.isStopped = true;
-        _manaSystem.ClearMana_RPC();
+        _manaSystem.ClearMana();
         _unitSkillController.DoSkill(GetComponent<Multi_TeamSoldier>());
         yield return new WaitForSeconds(_skillCastingTime);
         _nav.isStopped = false;

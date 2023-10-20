@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
 
-public class ManaSystem : MonoBehaviourPun
+public class ManaSystem : MonoBehaviour
 {
-    [SerializeField] int _maxMana;
-    [SerializeField] int _addMana;
-    [SerializeField] int _currentMana;
-    [SerializeField] bool manaIsLock = false;
-
+    [SerializeField] int _addManaAmount;
     public bool IsManaFull => _manaUseCase.IsManaFull;
 
     private Slider manaSlider;
@@ -18,36 +13,16 @@ public class ManaSystem : MonoBehaviourPun
     public void SetInfo(int maxMana, int addMana)
     {
         _manaUseCase = new ManaUseCase(maxMana);
-        canvasRectTransform = transform.GetComponentInChildren<RectTransform>();
         manaSlider = transform.GetComponentInChildren<Slider>();
 
-        _maxMana = maxMana;
-        _addMana = addMana;
+        _addManaAmount = addMana;
         manaSlider.maxValue = maxMana;
-        manaSlider.value = _currentMana;
-
-        StopAllCoroutines();
-        StartCoroutine(Co_SetCanvas());
     }
 
-    public void AddMana_RPC()
-    {
-        if (manaIsLock) return;
-        photonView.RPC(nameof(AddMana), RpcTarget.All);
-    }
+    public void AddMana() => manaSlider.value = _manaUseCase.AddMana(_addManaAmount);
 
-    [PunRPC]
-    void AddMana()
+    public void ClearMana()
     {
-        _currentMana = _manaUseCase.AddMana(_addMana);
-        manaSlider.value = _currentMana;
-    }
-
-    public void ClearMana_RPC() => photonView.RPC(nameof(ClearMana), RpcTarget.All);
-    [PunRPC]
-    void ClearMana()
-    {
-        _currentMana = 0;
         _manaUseCase.ClearMana();
         manaSlider.value = 0;
     }
@@ -56,19 +31,8 @@ public class ManaSystem : MonoBehaviourPun
 
     IEnumerator Co_LockManaForDuration(float duration)
     {
-        manaIsLock = true;
+        _manaUseCase.LockMana();
         yield return new WaitForSeconds(duration);
-        manaIsLock = false;
-    }
-
-    private RectTransform canvasRectTransform;
-    Vector3 sliderDir = new Vector3(90, 0, 0);
-    IEnumerator Co_SetCanvas()
-    {
-        while (true)
-        {
-            canvasRectTransform.rotation = Quaternion.Euler(sliderDir);
-            yield return null;
-        }
+        _manaUseCase.ReleaseMana();
     }
 }

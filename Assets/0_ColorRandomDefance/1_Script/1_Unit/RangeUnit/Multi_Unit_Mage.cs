@@ -9,7 +9,7 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     [SerializeField] GameObject magicLight;
     [SerializeField] Transform energyBallShotPoint;
 
-    protected ManaSystem manaSystem;
+    ManaSystem _manaSystem;
     MageAttackerController _normalAttacker;
     MageSkillAttackController _skillController;
 
@@ -17,21 +17,24 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     {
         _chaseSystem = gameObject.AddComponent<RangeChaser>();
         LoadMageStat();
-        _normalAttacker = new UnitAttackControllerGenerator().GenerateMageAattacker(this, manaSystem, ShotEnergyBall);
-        _skillController = UnitAttackControllerGenerator.GenerateMageSkillController(this, manaSystem, _unitSkillController, mageSkillCoolDownTime);
+        _normalAttacker = new UnitAttackControllerGenerator().GenerateMageAattacker(this, _manaSystem, ShotEnergyBall);
+        _skillController = UnitAttackControllerGenerator.GenerateMageSkillController(this, _manaSystem, _unitSkillController, mageSkillCoolDownTime);
+
+        canvasRectTransform = transform.GetComponentInChildren<RectTransform>();
+        StartCoroutine(Co_SetCanvas());
     }
 
     void LoadMageStat()
     {
         if (Managers.Data.MageStatByFlag.TryGetValue(UnitFlags, out MageUnitStat stat))
         {
-            manaSystem = GetComponent<ManaSystem>();
-            manaSystem?.SetInfo(stat.MaxMana, stat.AddMana);
+            _manaSystem = GetComponent<ManaSystem>();
+            _manaSystem.SetInfo(stat.MaxMana, stat.AddMana);
         }
     }
 
     public void InjectSkillController(UnitSkillController unitSkillController) => _unitSkillController = unitSkillController;
-    bool Skillable => manaSystem != null && manaSystem.IsManaFull;
+    bool Skillable => _manaSystem != null && _manaSystem.IsManaFull;
 
     [PunRPC]
     protected override void Attack()
@@ -50,6 +53,17 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     protected override void ResetValue()
     {
         base.ResetValue();
-        manaSystem.ClearMana_RPC();
+        _manaSystem.ClearMana();
+    }
+
+    RectTransform canvasRectTransform;
+    Vector3 sliderDir = new Vector3(90, 0, 0);
+    IEnumerator Co_SetCanvas()
+    {
+        while (true)
+        {
+            canvasRectTransform.rotation = Quaternion.Euler(sliderDir);
+            yield return null;
+        }
     }
 }

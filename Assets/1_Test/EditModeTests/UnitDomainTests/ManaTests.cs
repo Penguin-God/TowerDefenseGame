@@ -39,5 +39,16 @@ namespace UnitDomainTests
 
             Assert.Zero(AddMana(manaUseCase, 0));
         }
+
+        [Test]
+        public void 마나가_잠겨_있으면_충전되면_안_됨()
+        {
+            var manaUseCase = CreateManaUseCase(100);
+            manaUseCase.LockMana();
+            Assert.Zero(AddMana(manaUseCase, 50));
+
+            manaUseCase.ReleaseMana();
+            Assert.AreEqual(50, AddMana(manaUseCase, 50));
+        }
     }
 }

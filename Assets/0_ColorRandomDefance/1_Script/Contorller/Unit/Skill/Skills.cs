@@ -121,14 +121,12 @@ public class ShotBounceBall : UnitSkillController
     readonly BounceBallShotController _bounceBallShotController;
     public ShotBounceBall(float damRate, float manaLockTime, Multi_TeamSoldier unit)
     {
-        _bounceBallShotController = UnitAttackControllerGenerator.GenerateTemplate<BounceBallShotController>(unit);
-        _bounceBallShotController.Inject(unit.GetComponent<ManaSystem>(), ShotBounceBall);
-        _bounceBallShotController.SetSkillData(manaLockTime);
+        _bounceBallShotController = unit.GetComponent<BounceBallShotController>();
+        _bounceBallShotController.DependencyInject(manaLockTime, ShotBounceBall);
 
         void ShotBounceBall(Vector3 shotPos) => SpawnSkill(SkillEffectType.BounceBall, shotPos).GetComponent<Multi_Projectile>().AttackShot(GetDir(), OnSkillHit);
         void OnSkillHit(Multi_Enemy enemy) => unit.UnitAttacker.SkillAttack(enemy, CalculateSkillDamage(unit.Unit, damRate));
         Vector3 GetDir() => new ThorwPathCalculator().CalculateThorwPath_To_Monster(unit.TargetEnemy, unit.transform);
     }
-
-    public override void DoSkill(Multi_TeamSoldier unit) => _bounceBallShotController.DoAttack(0);
+    public override void DoSkill(Multi_TeamSoldier unit) => _bounceBallShotController.DoSkill();
 }

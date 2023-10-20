@@ -26,12 +26,17 @@ public class MageAttackerController : UnitAttackControllerTemplate
 
     protected override IEnumerator Co_Attack()
     {
+        yield return StartCoroutine(Co_ShotBounceBall(_shotEnergyball));
+    }
+
+    public IEnumerator Co_ShotBounceBall(Action<Vector3> shotEnergyball)
+    {
         _nav.isStopped = true;
         yield return WaitSecond(0.7f);
 
         PlaySound(EffectSoundType.MageAttack);
         _magicLight.SetActive(true);
-        _shotEnergyball?.Invoke(_shotPoint.position);
+        shotEnergyball.Invoke(_shotPoint.position);
         _manaSystem.AddMana();
 
         yield return WaitSecond(0.5f);

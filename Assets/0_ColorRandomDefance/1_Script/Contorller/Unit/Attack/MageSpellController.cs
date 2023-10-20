@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MageSkillAttackController : UnitAttackControllerTemplate
+public class MageSpellController : UnitAttackControllerTemplate
 {
     protected override void Awake()
     {

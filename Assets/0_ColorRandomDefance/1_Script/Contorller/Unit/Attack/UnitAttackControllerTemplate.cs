@@ -94,9 +94,9 @@ public class UnitAttackControllerGenerator
         return result;
     }
 
-    public static MageSkillAttackController GenerateMageSkillController(Multi_TeamSoldier unit, ManaSystem manaSystem, UnitSkillController unitSkillController, float skillCastingTime)
+    public static MageSpellController GenerateMageSkillController(Multi_TeamSoldier unit, ManaSystem manaSystem, UnitSkillController unitSkillController, float skillCastingTime)
     {
-        var result = GenerateTemplate<MageSkillAttackController>(unit);
+        var result = GenerateTemplate<MageSpellController>(unit);
         result.DependencyInject(manaSystem, unitSkillController, skillCastingTime);
         return result;
     }

@@ -25,7 +25,7 @@ PrefabInstance:
     - target: {fileID: 3801694106188951163, guid: b96817ec0b407ee48b8ee049bf262ec3,
         type: 3}
       propertyPath: mageSkillCoolDownTime
-      value: 1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 6109000016361938838, guid: b96817ec0b407ee48b8ee049bf262ec3,
         type: 3}

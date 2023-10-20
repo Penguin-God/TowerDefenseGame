@@ -11,7 +11,7 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
 
     ManaSystem _manaSystem;
     MageAttackerController _normalAttacker;
-    MageSkillAttackController _skillController;
+    MageSpellController _skillController;
 
     protected override void OnAwake()
     {

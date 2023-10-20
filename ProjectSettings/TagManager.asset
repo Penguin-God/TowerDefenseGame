@@ -12,6 +12,32 @@ TagManager:
   - Structures
   - Arrow
   - Bullet
+  - GreenSpearman
+  - RedSpearman
+  - OrangeSwordman
+  - RedArcher
+  - BlueMage
+  - GreenArcher
+  - YellowSwordman
+  - VioletSpearman
+  - BlackSpearman
+  - YellowMage
+  - BlueArcher
+  - GreenMage
+  - VioletSwordman
+  - RedMage
+  - YellowSpearman
+  - OrangeArcher
+  - OrangeMage
+  - WhiteSpearman
+  - GreenSwordman
+  - VioletArcher
+  - RedSwordman
+  - BlueSpearman
+  - YellowArcher
+  - OrangeSpearman
+  - VioletMage
+  - BlueSwordman
   layers:
   - Default
   - TransparentFX
@@ -20,13 +46,13 @@ TagManager:
   - Water
   - UI
   - 
-  - 
+  - Monster
   - Boss
   - Unit
-  - SowrdmanEnemy
-  - ArcherEnemy
-  - SpearmanEnemy
-  - MageEnemy
+  - Wall
+  - 
+  - 
+  - 
   - Weapon
   - Skill
   - ShopUITriggerBuilding

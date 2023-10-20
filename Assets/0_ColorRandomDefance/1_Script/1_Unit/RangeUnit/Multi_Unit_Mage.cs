@@ -6,28 +6,30 @@ using Photon.Pun;
 public class Multi_Unit_Mage : Multi_TeamSoldier
 {
     [Header("메이지 변수")]
-    [SerializeField] MageUnitStat mageStat;
-    protected IReadOnlyList<float> skillStats;
+    //[SerializeField] MageUnitStat mageStat;
+    //protected IReadOnlyList<float> skillStats;
     
     [SerializeField] GameObject magicLight;
     [SerializeField] Transform energyBallShotPoint;
 
     protected ManaSystem manaSystem;
     MageAttackerController _normalAttacker;
+    MageSkillAttackController _skillController;
 
     protected override void OnAwake()
     {
         _chaseSystem = gameObject.AddComponent<RangeChaser>();
         LoadMageStat();
         _normalAttacker = new UnitAttackControllerGenerator().GenerateMageAattacker(this, manaSystem, ShotEnergyBall);
+        _skillController = UnitAttackControllerGenerator.GenerateMageSkillController(this, manaSystem, _unitSkillController, mageSkillCoolDownTime);
     }
 
     void LoadMageStat()
     {
         if (Managers.Data.MageStatByFlag.TryGetValue(UnitFlags, out MageUnitStat stat))
         {
-            mageStat = stat;
-            skillStats = mageStat.SkillStats;
+            // mageStat = stat;
+            // skillStats = mageStat.SkillStats;
             manaSystem = GetComponent<ManaSystem>();
             manaSystem?.SetInfo(stat.MaxMana, stat.AddMana);
         }
@@ -39,7 +41,8 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     [PunRPC]
     protected override void Attack()
     {
-        if (Skillable) MageSkile();
+        // if (Skillable) MageSkile();
+        if (Skillable) _skillController.DoAttack(0);
         else _normalAttacker.DoAttack(AttackDelayTime);
     }
 

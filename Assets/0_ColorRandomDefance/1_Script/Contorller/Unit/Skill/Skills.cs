@@ -119,10 +119,10 @@ public class MeteorShotController : UnitSkillController
 public class ShotBounceBall : UnitSkillController
 {
     readonly BounceBallShotController _bounceBallShotController;
-    public ShotBounceBall(float damRate, float manaLockTime, ManaSystem manaSystem, BounceBallShotController bounceBallShotController, Multi_TeamSoldier unit)
+    public ShotBounceBall(float damRate, float manaLockTime, Multi_TeamSoldier unit)
     {
-        _bounceBallShotController = bounceBallShotController;
-        _bounceBallShotController.Inject(manaSystem, ShotBounceBall);
+        _bounceBallShotController = UnitAttackControllerGenerator.GenerateTemplate<BounceBallShotController>(unit);
+        _bounceBallShotController.Inject(unit.GetComponent<ManaSystem>(), ShotBounceBall);
         _bounceBallShotController.SetSkillData(manaLockTime);
 
         void ShotBounceBall(Vector3 shotPos) => SpawnSkill(SkillEffectType.BounceBall, shotPos).GetComponent<Multi_Projectile>().AttackShot(GetDir(), OnSkillHit);
@@ -130,9 +130,5 @@ public class ShotBounceBall : UnitSkillController
         Vector3 GetDir() => new ThorwPathCalculator().CalculateThorwPath_To_Monster(unit.TargetEnemy, unit.transform);
     }
 
-    public override void DoSkill(Multi_TeamSoldier unit)
-    {
-        _bounceBallShotController.DoAttack(2f);
-        PlaySkillSound(unit, EffectSoundType.BlueMageSkill, delay: 0.6f);
-    }
-} 
+    public override void DoSkill(Multi_TeamSoldier unit) => _bounceBallShotController.DoAttack(0);
+}

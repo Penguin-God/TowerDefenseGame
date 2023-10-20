@@ -56,7 +56,7 @@ public class UnitAttackControllerGenerator
     {
         var result = unit.GetComponent<T>();
         result.DependencyInject(unit._state, unit.Unit);
-        return result.GetComponent<T>();
+        return result;
     }
 
     public SwordmanAttackController GenerateSwordmanAttacker(Multi_TeamSoldier unit)
@@ -91,6 +91,13 @@ public class UnitAttackControllerGenerator
     {
         var result = GenerateTemplate<MageAttackerController>(unit);
         result.Inject(manaSystem, shotEnergyball);
+        return result;
+    }
+
+    public static MageSkillAttackController GenerateMageSkillController(Multi_TeamSoldier unit, ManaSystem manaSystem, UnitSkillController unitSkillController, float skillCastingTime)
+    {
+        var result = GenerateTemplate<MageSkillAttackController>(unit);
+        result.DependencyInject(manaSystem, unitSkillController, skillCastingTime);
         return result;
     }
 }

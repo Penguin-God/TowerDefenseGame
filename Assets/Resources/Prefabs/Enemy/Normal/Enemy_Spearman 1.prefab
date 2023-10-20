@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 454306427}
   - component: {fileID: 440151867}
   - component: {fileID: 440243867}
-  m_Layer: 12
+  m_Layer: 7
   m_Name: Sturn_Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4726,7 +4726,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8692699529522113789}
-  m_Layer: 12
+  m_Layer: 7
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4764,7 +4764,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8692699530051610425}
   - component: {fileID: 8692699530051610424}
-  m_Layer: 12
+  m_Layer: 7
   m_Name: Hp Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4856,7 +4856,7 @@ GameObject:
   - component: {fileID: 8692699530118700147}
   - component: {fileID: 8692699530118700144}
   - component: {fileID: 8692699530118700145}
-  m_Layer: 12
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4956,7 +4956,7 @@ GameObject:
   - component: {fileID: 8692699530200457620}
   - component: {fileID: 8692699530200457622}
   - component: {fileID: 8692699530200457623}
-  m_Layer: 12
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5032,7 +5032,7 @@ GameObject:
   - component: {fileID: 8692699530337282074}
   - component: {fileID: 8692699530337282076}
   - component: {fileID: 8692699530337282077}
-  m_Layer: 12
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5111,7 +5111,7 @@ GameObject:
   - component: {fileID: 1003421122827511954}
   - component: {fileID: 3599090150047730426}
   - component: {fileID: -5390361776377319365}
-  m_Layer: 12
+  m_Layer: 7
   m_Name: Enemy_Spearman 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5235,7 +5235,7 @@ GameObject:
   - component: {fileID: 8695623892369360920}
   - component: {fileID: 8707475424841046118}
   - component: {fileID: 8714619647142658172}
-  m_Layer: 12
+  m_Layer: 7
   m_Name: TB_Soldier_Spearman_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5318,7 +5318,7 @@ GameObject:
   - component: {fileID: 8695404260430084910}
   - component: {fileID: 8707061973728589296}
   - component: {fileID: 8714653286835068868}
-  m_Layer: 12
+  m_Layer: 7
   m_Name: TB_Soldier_Spearman_Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5402,7 +5402,7 @@ GameObject:
   - component: {fileID: 8706773089808713460}
   - component: {fileID: 8715424553676188114}
   - component: {fileID: 8692699529629337180}
-  m_Layer: 12
+  m_Layer: 7
   m_Name: TB_Soldier_Spearman_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5502,7 +5502,7 @@ GameObject:
   - component: {fileID: 8697493929497987498}
   - component: {fileID: 8708440393375092976}
   - component: {fileID: 8714847481862636002}
-  m_Layer: 12
+  m_Layer: 7
   m_Name: TB_Soldier_Spearman_Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -6,10 +6,10 @@ public class Multi_BounceEnergyball : MonoBehaviour
 {
     [SerializeField] float speed;
     [SerializeField] float acceleration;
-
     float currentSpeed;
     Vector3 lastVelocity;
     Rigidbody rigid;
+    Renderer _renderer;
 
     void Awake()
     {
@@ -23,21 +23,21 @@ public class Multi_BounceEnergyball : MonoBehaviour
         currentSpeed = speed;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         lastVelocity = rigid.velocity;
     }
 
-    Renderer _renderer;
-    private void OnCollisionEnter(Collision collision)
+
+    void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag != "Structures") return;
 
-        Vector3 dir = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal).normalized;
-        if(_renderer.isVisible)
-            Managers.Sound.PlayEffect(EffectSoundType.MageBallBonce);
+        if (_renderer.isVisible) Managers.Sound.PlayEffect(EffectSoundType.MageBallBonce);
 
+        Vector3 dir = Vector3.Reflect(lastVelocity.normalized, collision.contacts[0].normal).normalized;
         currentSpeed += acceleration;
         rigid.velocity = dir * currentSpeed;
+        transform.position += dir * 0.1f;
     }
 }

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1420947265}
   - component: {fileID: 1420947268}
   - component: {fileID: 1420947267}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Sturn_Effect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4731,7 +4731,7 @@ GameObject:
   - component: {fileID: 7294292858541085654}
   - component: {fileID: 8687368539569618543}
   - component: {fileID: -3208935118240853678}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Enemy_Archer 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4854,7 +4854,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7536897028187312706}
   - component: {fileID: 7536897028187312705}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Hp Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4945,7 +4945,7 @@ GameObject:
   - component: {fileID: 7536897028262576245}
   - component: {fileID: 7536897028262576243}
   - component: {fileID: 7536897028262576244}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5022,7 +5022,7 @@ GameObject:
   - component: {fileID: 7536897028497779046}
   - component: {fileID: 7536897028497779047}
   - component: {fileID: 7536897028497779032}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5120,7 +5120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7536897028865058421}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5159,7 +5159,7 @@ GameObject:
   - component: {fileID: 7536897028981607360}
   - component: {fileID: 7536897028981607374}
   - component: {fileID: 7536897028981607375}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5236,7 +5236,7 @@ GameObject:
   - component: {fileID: 7557270087368101722}
   - component: {fileID: 7551659547658573872}
   - component: {fileID: 1536430543819091092}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: TB_Soldier_Archer_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5336,7 +5336,7 @@ GameObject:
   - component: {fileID: 7536358827924476918}
   - component: {fileID: 7561225505730878868}
   - component: {fileID: 7551448911403554356}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: TB_Soldier_Archer_Leg_R
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5419,7 +5419,7 @@ GameObject:
   - component: {fileID: 7536365749778130890}
   - component: {fileID: 7561319560395922300}
   - component: {fileID: 7551131130937862532}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: TB_Soldier_Archer_Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5502,7 +5502,7 @@ GameObject:
   - component: {fileID: 7532591539215776482}
   - component: {fileID: 7560736577434478672}
   - component: {fileID: 7550798656929533096}
-  m_Layer: 11
+  m_Layer: 7
   m_Name: TB_Soldier_Archer_Leg_L
   m_TagString: Untagged
   m_Icon: {fileID: 0}

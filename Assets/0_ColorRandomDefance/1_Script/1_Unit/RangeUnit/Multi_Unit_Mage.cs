@@ -6,9 +6,6 @@ using Photon.Pun;
 public class Multi_Unit_Mage : Multi_TeamSoldier
 {
     [Header("메이지 변수")]
-    //[SerializeField] MageUnitStat mageStat;
-    //protected IReadOnlyList<float> skillStats;
-    
     [SerializeField] GameObject magicLight;
     [SerializeField] Transform energyBallShotPoint;
 
@@ -28,8 +25,6 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     {
         if (Managers.Data.MageStatByFlag.TryGetValue(UnitFlags, out MageUnitStat stat))
         {
-            // mageStat = stat;
-            // skillStats = mageStat.SkillStats;
             manaSystem = GetComponent<ManaSystem>();
             manaSystem?.SetInfo(stat.MaxMana, stat.AddMana);
         }
@@ -41,7 +36,6 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     [PunRPC]
     protected override void Attack()
     {
-        // if (Skillable) MageSkile();
         if (Skillable) _skillController.DoAttack(0);
         else _normalAttacker.DoAttack(AttackDelayTime);
     }
@@ -51,21 +45,8 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     Vector3 GetDir() => new ThorwPathCalculator().CalculateThorwPath_To_Monster(TargetEnemy, transform);
 
     [SerializeField] float mageSkillCoolDownTime;
-    protected UnitSkillController _unitSkillController = null;
-    void MageSkile()
-    {
-        DoAttack();
-        manaSystem?.ClearMana_RPC();
-        _unitSkillController.DoSkill(this);
-        StartCoroutine(Co_EndSkillAttack(mageSkillCoolDownTime)); // 임시방편
-    }
+    UnitSkillController _unitSkillController = null;
     
-    IEnumerator Co_EndSkillAttack(float skillTime)
-    {
-        yield return new WaitForSeconds(skillTime);
-        base.EndAttack();
-    }
-
     protected override void ResetValue()
     {
         base.ResetValue();

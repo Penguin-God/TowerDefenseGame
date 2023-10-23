@@ -21,17 +21,15 @@ public class UI_GoodsChangeController : UI_Base
         GetButton((int)Buttons.ChangeGoodsButton).onClick.AddListener(ChangeGoods);
     }
 
-    public void Inject(Func<GoodsLocation, BattleShopGoodsData, BattleShopGoodsData> getNewGoods) => _getNewGoods = getNewGoods;
-
+    public void DependencyInject(Func<GoodsLocation, BattleShopGoodsData, BattleShopGoodsData> getNewGoods) => _getNewGoods = getNewGoods;
+    public void ActiveButton()
+    {
+        if(_initDone)
+            GetButton((int)Buttons.ChangeGoodsButton).gameObject.SetActive(true);
+    }
     void ChangeGoods()
     {
         _goods.DisplayGoods(_getNewGoods.Invoke(_goods.GoodsLocation, _goods.CurrentDisplayGoodsData));
         GetButton((int)Buttons.ChangeGoodsButton).gameObject.SetActive(false);
-    }
-
-    void OnEnable()
-    {
-        if(_initDone)
-            GetButton((int)Buttons.ChangeGoodsButton).gameObject.SetActive(true);
     }
 }

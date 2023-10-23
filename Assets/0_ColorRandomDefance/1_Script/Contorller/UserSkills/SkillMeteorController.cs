@@ -15,7 +15,12 @@ public class SkillMeteorController
         _enemyManager = enemyManager;
     }
 
-    public void ShotMeteor(byte id, int damage, float stunTime) => _meteorController.ShotMeteorToAll(FindMonster(id), damage, stunTime, GetSpawnPos(id));
+    public void ShotMeteor(byte id, int damage, float stunTime)
+    {
+        var target = FindMonster(id);
+        if (target == null) return;
+        _meteorController.ShotMeteorToAll(target, damage, stunTime, GetSpawnPos(id));
+    }
 
     Multi_NormalEnemy FindMonster(byte id)
     {

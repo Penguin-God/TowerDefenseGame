@@ -14,25 +14,12 @@ public class MeteorController : MonoBehaviourPun
         target.OnStun_RPC(100, stunTime);
     }
 
-    public void ShotMeteorToAll(Multi_Enemy target, int hitDamage, float stunTime, Vector3 spawnPos)
-    {
-        if(target == null)
-        {
-            print("메테오 target이 널임");
-            return;
-        }
-        photonView.RPC(nameof(RPC_ShotMeteor), RpcTarget.All, target.GetComponent<PhotonView>().ViewID, hitDamage, stunTime, spawnPos);
-    }
+    public void ShotMeteorToAll(Multi_Enemy target, int hitDamage, float stunTime, Vector3 spawnPos) 
+        => photonView.RPC(nameof(RPC_ShotMeteor), RpcTarget.All, target.GetComponent<PhotonView>().ViewID, hitDamage, stunTime, spawnPos);
 
     public void ShotMeteor(Multi_Enemy target, int hitDamage, float stunTime, Vector3 spawnPos)
     {
-        if (target == null)
-        {
-            print("메테오 target이 널임");
-            return;
-        }
-
-        StartCoroutine(Co_ShotMeteor(target, HitAction, spawnPos));
+        ShotMeteor(target, HitAction, spawnPos);
 
         void HitAction(Multi_Enemy target)
         {
@@ -46,20 +33,9 @@ public class MeteorController : MonoBehaviourPun
     {
         var target = Managers.Multi.GetPhotonViewComponent<Multi_Enemy>(viewId);
         Action<Multi_Enemy> hitAction = (_) => HitAction(_, hitDamage, stunTime);
-        StartCoroutine(Co_ShotMeteor(target, hitAction, spawnPos));
+        ShotMeteor(target, hitAction, spawnPos);
     }
 
-    IEnumerator Co_ShotMeteor(Multi_Enemy target, Action<Multi_Enemy> hitAction, Vector3 spawnPos)
-    {
-        var meteor = Managers.Resources.Instantiate(MeteorPath, spawnPos).GetComponent<Multi_Meteor>();
-        Vector3 tempPos = target.transform.position;
-        yield return new WaitForSeconds(1f);
-        meteor.Shot(CalculateShotPoint(spawnPos, target, tempPos), hitAction);
-    }
-
-    Vector3 CalculateShotPoint(Vector3 meteorPos, Multi_Enemy enemy, Vector3 tempPos)
-    {
-        if (enemy == null || enemy.enemyType == EnemyType.Tower) return tempPos;
-        else return (enemy.transform.position + enemy.dir.normalized * (enemy as Multi_NormalEnemy).Speed - meteorPos).normalized;
-    }
+    void ShotMeteor(Multi_Enemy target, Action<Multi_Enemy> hitAction, Vector3 spawnPos)
+        => Managers.Resources.Instantiate(MeteorPath, spawnPos).GetComponent<Multi_Meteor>().ShotMeteor(target, hitAction);
 }

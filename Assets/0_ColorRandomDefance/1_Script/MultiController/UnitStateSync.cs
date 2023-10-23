@@ -10,7 +10,7 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
         photonView.ObservedComponents.Add(this);
         _unitChaseSystem = gameObject.AddComponent<UnitChaseSystem>();
         _masterRotationY = transform.eulerAngles.y;
-        //_masterPos = transform.position;
+        _masterPos = transform.position;
     }
 
     UnitChaseSystem _unitChaseSystem;
@@ -20,16 +20,16 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
         {
             stream.SendNext((byte)_unitChaseSystem.ChaseState);
             stream.SendNext(transform.eulerAngles.y);
-            //stream.SendNext(transform.position.x);
-            //stream.SendNext(transform.position.z);
+            stream.SendNext(transform.position.x);
+            stream.SendNext(transform.position.z);
         }
         else
         {
             _unitChaseSystem.ChangeState((ChaseState)(byte)stream.ReceiveNext());
             _masterRotationY = (float)stream.ReceiveNext();
-            //float x = (float)stream.ReceiveNext();
-            //float z = (float)stream.ReceiveNext();
-            //_masterPos = new Vector3(x, 0, z);
+            float x = (float)stream.ReceiveNext();
+            float z = (float)stream.ReceiveNext();
+            _masterPos = new Vector3(x, 0, z);
         }
     }
 
@@ -50,7 +50,7 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, newY, transform.eulerAngles.z);
         }
 
-        //if(Vector3.Distance(transform.position, _masterPos) > 1)
-        //    transform.position = Vector3.Lerp(transform.position, _masterPos, Time.deltaTime * PositionLerpSpeed);
+        if (Vector3.Distance(transform.position, _masterPos) > 1)
+            transform.position = Vector3.Lerp(transform.position, _masterPos, Time.deltaTime * PositionLerpSpeed);
     }
 }

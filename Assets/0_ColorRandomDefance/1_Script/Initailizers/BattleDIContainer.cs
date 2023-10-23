@@ -98,6 +98,7 @@ public class BattleDIContainerInitializer
             .Inject(container.GetEventDispatcher(), container.GetComponent<Multi_BossEnemySpawner>(), new StageUpGoldRewardCalculator(data.BattleDataContainer.StageUpGold));
         container.GetComponent<WorldAudioPlayer>().ReceiveInject(Managers.Camera, Managers.Sound);
         container.GetComponent<MultiUnitStatController>().DependencyInject(container.GetService<UnitStatController>());
+        container.GetComponent<MeteorController>().DepencyInject(container.GetComponent<WorldAudioPlayer>());
     }
 
     WorldUnitDamageManager CreateUnitStatManager()

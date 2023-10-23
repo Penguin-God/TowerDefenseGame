@@ -8,7 +8,7 @@ public class Multi_Meteor : MonoBehaviour
     [SerializeField] float _speed = 50;
 
     readonly string ExpolsionPath = new ResourcesPathBuilder().BuildEffectPath(SkillEffectType.MeteorExplosion);
-    Action<Multi_Enemy> explosionAction = null;
+    Action<Multi_Enemy> _explosionAction = null;
     Rigidbody _rigid;
     
     void Awake()
@@ -16,14 +16,19 @@ public class Multi_Meteor : MonoBehaviour
         _rigid = GetComponent<Rigidbody>();
     }
 
-    public void ShotMeteor(Multi_Enemy target, Action<Multi_Enemy> hitAction)
+    WorldAudioPlayer _audioPlayer;
+    ObjectSpot _spot;
+    public void DependencyInject(Action<Multi_Enemy> hitAction, WorldAudioPlayer audioPlayer, ObjectSpot spot)
     {
-        explosionAction = hitAction;
-        StartCoroutine(Co_ShotMeteor(target));
+        _explosionAction = hitAction;
+        _audioPlayer = audioPlayer;
+        _spot = spot;
     }
+    public void ShotMeteor(Multi_Enemy target) => StartCoroutine(Co_ShotMeteor(target));
     IEnumerator Co_ShotMeteor(Multi_Enemy target)
     {
-        Managers.Sound.PlayEffect(EffectSoundType.RedMageSkill);
+        //Managers.Sound.PlayEffect(EffectSoundType.RedMageSkill);
+        _audioPlayer.PlayObjectEffectSound(_spot, EffectSoundType.RedMageSkill);
         Vector3 tempPos = target.transform.position;
         yield return new WaitForSeconds(1f);
         Shot(CalculateShotPath(target, tempPos));
@@ -50,14 +55,13 @@ public class Multi_Meteor : MonoBehaviour
             MeteorExplosion();
     }
 
-
     void MeteorExplosion() // 메테오 폭발
     {
-        if (explosionAction != null)
+        if (_explosionAction != null)
         {
-            Managers.Sound.PlayEffect(EffectSoundType.MeteorExplosion);
-            Managers.Resources.Instantiate(ExpolsionPath, transform.position).GetComponent<Multi_HitSkill>().SetHitActoin(explosionAction);
-            explosionAction = null;
+            _audioPlayer.PlayObjectEffectSound(_spot, EffectSoundType.MeteorExplosion);
+            Managers.Resources.Instantiate(ExpolsionPath, transform.position).GetComponent<Multi_HitSkill>().SetHitActoin(_explosionAction);
+            _explosionAction = null;
         }
 
         _rigid.velocity = Vector3.zero;

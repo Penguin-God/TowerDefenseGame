@@ -7,6 +7,12 @@ using Photon.Pun;
 public class MeteorController : MonoBehaviourPun
 {
     readonly string MeteorPath = new ResourcesPathBuilder().BuildEffectPath(SkillEffectType.Meteor);
+    WorldAudioPlayer _audioPlayer;
+
+    public void DepencyInject(WorldAudioPlayer audioPlayer)
+    {
+        _audioPlayer = audioPlayer;
+    }
 
     void HitAction(Multi_Enemy target, int hitDamage, float stunTime)
     {
@@ -17,9 +23,9 @@ public class MeteorController : MonoBehaviourPun
     public void ShotMeteorToAll(Multi_Enemy target, int hitDamage, float stunTime, Vector3 spawnPos) 
         => photonView.RPC(nameof(RPC_ShotMeteor), RpcTarget.All, target.GetComponent<PhotonView>().ViewID, hitDamage, stunTime, spawnPos);
 
-    public void ShotMeteor(Multi_Enemy target, int hitDamage, float stunTime, Vector3 spawnPos)
+    public void ShotMeteor(Multi_Enemy target, int hitDamage, float stunTime, Vector3 spawnPos, ObjectSpot spot)
     {
-        ShotMeteor(target, HitAction, spawnPos);
+        ShotMeteor(target, HitAction, spawnPos, spot);
 
         void HitAction(Multi_Enemy target)
         {
@@ -29,13 +35,17 @@ public class MeteorController : MonoBehaviourPun
     }
 
     [PunRPC]
-    void RPC_ShotMeteor(int viewId, int hitDamage, float stunTime, Vector3 spawnPos)
+    void RPC_ShotMeteor(int viewId, int hitDamage, float stunTime, Vector3 spawnPos, byte worldId)
     {
         var target = Managers.Multi.GetPhotonViewComponent<Multi_Enemy>(viewId);
         Action<Multi_Enemy> hitAction = (_) => HitAction(_, hitDamage, stunTime);
-        ShotMeteor(target, hitAction, spawnPos);
+        ShotMeteor(target, hitAction, spawnPos, new ObjectSpot(worldId, true));
     }
 
-    void ShotMeteor(Multi_Enemy target, Action<Multi_Enemy> hitAction, Vector3 spawnPos)
-        => Managers.Resources.Instantiate(MeteorPath, spawnPos).GetComponent<Multi_Meteor>().ShotMeteor(target, hitAction);
+    void ShotMeteor(Multi_Enemy target, Action<Multi_Enemy> hitAction, Vector3 spawnPos, ObjectSpot spot)
+    {
+        var meteor = Managers.Resources.Instantiate(MeteorPath, spawnPos).GetComponent<Multi_Meteor>();
+        meteor.DependencyInject(hitAction, _audioPlayer, spot);
+        meteor.ShotMeteor(target);
+    }
 }

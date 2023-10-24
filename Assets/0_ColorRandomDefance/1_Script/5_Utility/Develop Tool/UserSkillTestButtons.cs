@@ -12,16 +12,21 @@ public class UserSkillTestButtons : MonoBehaviour
             _skillTypeByFlag.Add(item, false);
     }
 
+    BattleDIContainer _container;
+    public void DependencyInject(BattleDIContainer container)
+    {
+        _container = container;
+    }
+
     public void ActiveSkill(SkillType skillType)
     {
         _skillTypeByFlag[skillType] = true;
         var skillInitializer = new UserSkillInitializer();
-        var container = FindObjectOfType<BattleScene>().GetBattleContainer();
 
-        skillInitializer.AddSkillDependency(container, skillType); // 인터페이스 못 맞춰서 이렇게 하긴 했는데 진짜 별로임.
-        var skill = new UserSkillActor().ActiveSkill(skillType, container);
+        skillInitializer.AddSkillDependency(_container, skillType); // 인터페이스 못 맞춰서 이렇게 하긴 했는데 진짜 별로임.
+        var skill = new UserSkillActor().ActiveSkill(skillType, _container);
 
-        container.GetMultiActiveSkillData().GetData(PlayerIdManager.Id).ChangeEquipSkill(Managers.Data.UserSkill.GetSkillBattleData(skillType, 1));
+        _container.GetMultiActiveSkillData().GetData(PlayerIdManager.Id).ChangeEquipSkill(Managers.Data.UserSkill.GetSkillBattleData(skillType, 1));
         if(skill != null)
             FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkill[] { skill });
     }

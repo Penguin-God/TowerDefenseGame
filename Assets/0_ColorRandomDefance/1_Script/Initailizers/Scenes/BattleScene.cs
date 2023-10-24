@@ -20,9 +20,6 @@ public class BattleScene : BaseScene
         StartCoroutine(Co_InitGame(multiSkillDataCreater));
     }
 
-    BattleDIContainer _battleDIContainer;
-    public BattleDIContainer GetBattleContainer() => _battleDIContainer;
-
     IEnumerator Co_InitGame(IMultiSkillDataCreater multiSkillDataCreater)
     {
         yield return new WaitUntil(() => multiSkillDataCreater.SKillDataCreateDone());
@@ -31,9 +28,10 @@ public class BattleScene : BaseScene
     void InitGame(MultiData<SkillBattleDataContainer> multiData)
     {
         MultiServiceMidiator.Instance.Init();
-        _battleDIContainer = new BattleDIContainer(gameObject);
-        new WorldInitializer(_battleDIContainer).Init(multiData);
-        GetComponentInChildren<GameReactionInitailizer>().InitReaction(_battleDIContainer);
+        var battleDIContainer = new BattleDIContainer(gameObject);
+        new WorldInitializer(battleDIContainer).Init(multiData);
+        GetComponentInChildren<GameReactionInitailizer>().InitReaction(battleDIContainer);
+        FindObjectOfType<InspectorHelperInitailzer>().Set(battleDIContainer);
     }
 
     public override void Clear()

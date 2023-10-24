@@ -78,6 +78,7 @@ public class BattleDIContainerInitializer
             dispatcher.OnUnitSpawn += unit => manager.AddObject(unit.Unit);
             dispatcher.OnUnitSpawn += unit => unit.OnDead += unit => manager.RemoveObject(unit.Unit);
         }
+
         container.AddService(new UnitStatController(CreateUnitStatManager(), container.GetService<MultiData<UnitManager>>()));
         container.AddService(new BattleUI_Mediator(Managers.UI, container));
         container.AddService(new BuyAction(container.GetComponent<Multi_NormalUnitSpawner>(), container.GetComponent<MultiUnitStatController>()));

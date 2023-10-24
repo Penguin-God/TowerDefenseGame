@@ -20,5 +20,5 @@ public class WorldUnitManager
         // event
     }
 
-    public IEnumerable GetUnits(byte worldId) => _units.GetList(worldId);
+    public IEnumerable<Multi_TeamSoldier> GetUnits(byte worldId) => _units.GetList(worldId);
 }

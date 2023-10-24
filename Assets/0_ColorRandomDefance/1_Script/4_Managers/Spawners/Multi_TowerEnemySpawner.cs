@@ -6,16 +6,16 @@ using Photon.Pun;
 
 public class Multi_TowerEnemySpawner : Multi_SpawnerBase
 {
+    protected readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
     public event Action<Multi_EnemyTower> OnDead;
 
     public RPCAction rpcOnDead = new RPCAction();
     RPCData<int> _towerLevel = new RPCData<int>();
 
-    protected override void SetSpawnObj(GameObject go)
+    void SetTower(Multi_EnemyTower tower)
     {
-        var enemy = go.GetComponent<Multi_EnemyTower>();
-        enemy.OnDeath += () => OnDead(enemy);
-        enemy.OnDeath += () => rpcOnDead.RaiseEvent(enemy.UsingId);
+        tower.OnDeath += () => OnDead(tower);
+        tower.OnDeath += () => rpcOnDead.RaiseEvent(tower.UsingId);
     }
 
     void AfterSpawn(Multi_EnemyTower tower)
@@ -38,7 +38,7 @@ public class Multi_TowerEnemySpawner : Multi_SpawnerBase
         _towerLevel.Set(id, _towerLevel.Get(id) + 1);
         tower.Setinfo(_towerLevel.Get(id));
         tower.OnDead += died => AfterSpawn(tower);
-        SetSpawnObj(tower.gameObject);
+        SetTower(tower);
         photonView.RPC(nameof(SetAA), RpcTarget.All, tower.GetComponent<PhotonView>().ViewID);
         return null;
     }

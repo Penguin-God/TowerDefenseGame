@@ -5,20 +5,19 @@ using System;
 using Random = UnityEngine.Random;
 using Photon.Pun;
 
-public class Multi_BossEnemySpawner : Multi_SpawnerBase
+public class Multi_BossEnemySpawner : MonoBehaviourPun
 {
     public event Action<Multi_BossEnemy> OnDead;
     public RPCAction rpcOnDead = new RPCAction();
 
-    protected override void SetSpawnObj(GameObject go)
+    void SetBossEvent(Multi_BossEnemy boss)
     {
-        var enemy = go.GetComponent<Multi_BossEnemy>();
-        enemy.OnDeath += () => OnDead?.Invoke(enemy);
-        enemy.OnDeath += () => rpcOnDead.RaiseEvent(enemy.UsingId);
+        boss.OnDeath += () => OnDead?.Invoke(boss);
+        boss.OnDeath += () => rpcOnDead.RaiseEvent(boss.UsingId);
     }
 
     const int SpawnableObjectCount = 4;
-    string BulildBossPath() => PathBuilder.BuildBossMonsterPath(Random.Range(0, SpawnableObjectCount));
+    string BulildBossPath() => new ResourcesPathBuilder().BuildBossMonsterPath(Random.Range(0, SpawnableObjectCount));
 
     MonsterDecorator _monsterDecorator;
     public void Inject(MonsterDecorator monsterDecorator) => _monsterDecorator = monsterDecorator;
@@ -26,7 +25,7 @@ public class Multi_BossEnemySpawner : Multi_SpawnerBase
     {
         var boss = Managers.Multi.Instantiater.PhotonInstantiateInactive(BulildBossPath(), id).GetComponent<Multi_BossEnemy>();
         photonView.RPC(nameof(InjectMonster), RpcTarget.All, (byte)bossLevel, boss.GetComponent<PhotonView>().ViewID);
-        SetSpawnObj(boss.gameObject);
+        SetBossEvent(boss);
         return boss;
     }
 

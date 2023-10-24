@@ -7,9 +7,6 @@ using System.Linq;
 
 public abstract class Multi_SpawnerBase : MonoBehaviourPun
 {
-    protected readonly ResourcesPathBuilder PathBuilder = new ResourcesPathBuilder();
-    protected virtual void SetSpawnObj(GameObject go) { }
-
     protected void Spawn_RPC(string path, Vector3 spawnPos, int id) 
         => photonView.RPC("BaseSpawn", RpcTarget.MasterClient, path, spawnPos, Quaternion.identity, id);
 

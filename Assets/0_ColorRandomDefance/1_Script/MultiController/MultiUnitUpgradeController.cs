@@ -49,4 +49,10 @@ public class MultiUnitStatController : MonoBehaviourPun
 
     [PunRPC]
     void ScaleAllUnitDamageValueWith(float value, UnitStatType changeStatType, byte id) => _unitStatCotroller.ScaleAllUnitDamageValueWith(value, changeStatType, id);
+
+    void ToMaster(string methodName, params object[] objects) // 시도해봅시다
+    {
+        if (PhotonNetwork.IsMasterClient) return;
+        
+    }
 }

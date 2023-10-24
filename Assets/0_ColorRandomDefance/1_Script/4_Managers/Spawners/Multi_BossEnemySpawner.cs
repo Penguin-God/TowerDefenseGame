@@ -8,13 +8,6 @@ using Photon.Pun;
 public class Multi_BossEnemySpawner : MonoBehaviourPun
 {
     public event Action<Multi_BossEnemy> OnDead;
-    public RPCAction rpcOnDead = new RPCAction();
-
-    void SetBossEvent(Multi_BossEnemy boss)
-    {
-        boss.OnDeath += () => OnDead?.Invoke(boss);
-        boss.OnDeath += () => rpcOnDead.RaiseEvent(boss.UsingId);
-    }
 
     const int SpawnableObjectCount = 4;
     string BulildBossPath() => new ResourcesPathBuilder().BuildBossMonsterPath(Random.Range(0, SpawnableObjectCount));
@@ -25,7 +18,7 @@ public class Multi_BossEnemySpawner : MonoBehaviourPun
     {
         var boss = Managers.Multi.Instantiater.PhotonInstantiateInactive(BulildBossPath(), id).GetComponent<Multi_BossEnemy>();
         photonView.RPC(nameof(InjectMonster), RpcTarget.All, (byte)bossLevel, boss.GetComponent<PhotonView>().ViewID);
-        SetBossEvent(boss);
+        boss.OnDeath += () => OnDead?.Invoke(boss);
         return boss;
     }
 

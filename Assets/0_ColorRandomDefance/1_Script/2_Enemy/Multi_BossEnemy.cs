@@ -19,6 +19,16 @@ public class Multi_BossEnemy : Multi_NormalEnemy
         AggroUnit();
     }
 
+    public override void Dead()
+    {
+        base.Dead();
+        if(PlayerIdManager.Id == UsingId)
+        {
+            Managers.Sound.PlayBgm(BgmType.Default);
+            Managers.Sound.PlayEffect(EffectSoundType.BossDeadClip);
+        }
+    }
+
     void AggroUnit()
         => MultiServiceMidiator.Server.GetUnits(UsingId)
         .ToList()

@@ -154,11 +154,6 @@ public class BattleDIContainerInitializer
     {
         var sound = Managers.Sound;
         Managers.Sound.PlayBgm(BgmType.Default);
-
-        var bossSpawner = container.GetComponent<Multi_BossEnemySpawner>();
-        bossSpawner.rpcOnDead += () => sound.PlayBgm(BgmType.Default);
-        bossSpawner.rpcOnDead += () => sound.PlayEffect(EffectSoundType.BossDeadClip);
-
         Multi_SpawnManagers.TowerEnemy.rpcOnDead += () => sound.PlayEffect(EffectSoundType.TowerDieClip);
 
         dispatcher.OnStageUp += (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);

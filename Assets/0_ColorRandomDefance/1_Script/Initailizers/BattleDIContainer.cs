@@ -114,7 +114,7 @@ public class BattleDIContainerInitializer
     void InitManagers(BattleDIContainer container)
     {
         Multi_SpawnManagers.Instance.Init();
-        InitSound();
+        InitSound(container);
         Init_UI(container);
         game.Init(container.GetComponent<CurrencyManagerMediator>(), container.GetComponent<UnitMaxCountController>(), data.BattleDataContainer, dispatcher);
         StageManager.Instance.Injection(dispatcher);
@@ -150,15 +150,15 @@ public class BattleDIContainerInitializer
         uiMediator.RegisterUI<UI_BattleButtons>(BattleUI_Type.BattleButtons);
     }
 
-    void InitSound()
+    void InitSound(BattleDIContainer container)
     {
         var sound = Managers.Sound;
         Managers.Sound.PlayBgm(BgmType.Default);
 
-        Multi_SpawnManagers.BossEnemy.rpcOnSpawn += () => sound.PlayBgm(BgmType.Boss);
-        Multi_SpawnManagers.BossEnemy.rpcOnDead += () => sound.PlayBgm(BgmType.Default);
+        var bossSpawner = container.GetComponent<Multi_BossEnemySpawner>();
+        bossSpawner.rpcOnDead += () => sound.PlayBgm(BgmType.Default);
+        bossSpawner.rpcOnDead += () => sound.PlayEffect(EffectSoundType.BossDeadClip);
 
-        Multi_SpawnManagers.BossEnemy.rpcOnDead += () => sound.PlayEffect(EffectSoundType.BossDeadClip);
         Multi_SpawnManagers.TowerEnemy.rpcOnDead += () => sound.PlayEffect(EffectSoundType.TowerDieClip);
 
         dispatcher.OnStageUp += (stage) => sound.PlayEffect(EffectSoundType.NewStageClip);

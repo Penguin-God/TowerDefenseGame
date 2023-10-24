@@ -8,8 +8,6 @@ using Photon.Pun;
 public class Multi_BossEnemySpawner : Multi_SpawnerBase
 {
     public event Action<Multi_BossEnemy> OnDead;
-
-    public RPCAction rpcOnSpawn = new RPCAction();
     public RPCAction rpcOnDead = new RPCAction();
 
     protected override void SetSpawnObj(GameObject go)
@@ -29,7 +27,6 @@ public class Multi_BossEnemySpawner : Multi_SpawnerBase
         var boss = Managers.Multi.Instantiater.PhotonInstantiateInactive(BulildBossPath(), id).GetComponent<Multi_BossEnemy>();
         photonView.RPC(nameof(InjectMonster), RpcTarget.All, (byte)bossLevel, boss.GetComponent<PhotonView>().ViewID);
         SetSpawnObj(boss.gameObject);
-        rpcOnSpawn?.RaiseEvent(id);
         return boss;
     }
 
@@ -39,6 +36,8 @@ public class Multi_BossEnemySpawner : Multi_SpawnerBase
         var monster = Managers.Multi.GetPhotonViewComponent<Multi_BossEnemy>(viewId);
         var bossData = Managers.Data.BossDataByLevel[level];
         Multi_EnemyManager.Instance.SetSpawnBoss(monster.UsingId, monster);
+        Managers.Sound.PlayBgm(BgmType.Boss);
+
         _monsterDecorator.DecorateSpeedSystem(bossData.Speed, monster);
         monster.Inject(bossData);
     }

@@ -84,7 +84,6 @@ public class MonsterSpawnerContorller : MonoBehaviour
         _numManager = container.GetComponent<EnemySpawnNumManager>();
         _dispatcher = container.GetEventDispatcher();
         _monsterSpawner = container.GetComponent<NormalMonsterSpawner>();
-        _bossSpawner = Multi_SpawnManagers.BossEnemy;
         _bossSpawner = container.GetComponent<Multi_BossEnemySpawner>();
     }
 

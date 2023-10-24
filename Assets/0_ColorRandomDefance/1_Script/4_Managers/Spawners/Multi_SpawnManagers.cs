@@ -19,17 +19,14 @@ public class Multi_SpawnManagers : MonoBehaviourPun
         }
     }
 
-    Multi_BossEnemySpawner _bossEnemy;
     Multi_TowerEnemySpawner _towerEnemy;
     Multi_NormalUnitSpawner _normalUnit;
 
-    public static Multi_BossEnemySpawner BossEnemy => Instance._bossEnemy;
     public static Multi_TowerEnemySpawner TowerEnemy => Instance._towerEnemy;
     public static Multi_NormalUnitSpawner NormalUnit => Instance._normalUnit;
 
     public void Init()
     {
-        _bossEnemy = GetOrAddChildComponent<Multi_BossEnemySpawner>();
         _towerEnemy = GetOrAddChildComponent<Multi_TowerEnemySpawner>();
         _normalUnit = GetOrAddChildComponent<Multi_NormalUnitSpawner>();
     }

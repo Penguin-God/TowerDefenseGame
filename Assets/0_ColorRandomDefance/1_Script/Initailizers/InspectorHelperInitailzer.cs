@@ -8,7 +8,7 @@ public class InspectorHelperInitailzer : MonoBehaviour
 
     public void Set(BattleDIContainer container)
     {
-        Get<PrefabSpawner>().DependencyInject(container.GetUnitSpanwer());
+        Get<PrefabSpawner>().DependencyInject(container.GetUnitSpanwer(), container.GetComponent<Multi_BossEnemySpawner>());
         Get<UserSkillTestButtons>().DependencyInject(container);
     }
 }

@@ -43,19 +43,21 @@ public class MasterSwordmanGachaController : SwordmanGachaController
     CurrencyManagerMediator _currencyManagerMediator;
     ServerManager _serverManager;
     MultiData<UnitSummonData> _multiUnitSummonData;
+    Multi_NormalUnitSpawner _unitSpawner;
 
-    public void Init(ServerManager serverManager, CurrencyManagerMediator currencyManagerMediator, UnitSummonData unitSummonData)
+    public void Init(ServerManager serverManager, CurrencyManagerMediator currencyManagerMediator, UnitSummonData unitSummonData, Multi_NormalUnitSpawner unitSpawner)
     {
         _multiUnitSummonData = new MultiData<UnitSummonData>(() => unitSummonData);
         _serverManager = serverManager;
         _currencyManagerMediator = currencyManagerMediator;
+        _unitSpawner = unitSpawner;
     }
 
     [PunRPC]
     protected override void DrawUnit(byte id)
     {
         if (_serverManager.GetUnitstData(id).UnitOver() == false && _currencyManagerMediator.TryUseGold(SummonPrice(id), id))
-            Multi_SpawnManagers.NormalUnit.RPCSpawn(new UnitFlags(SummonUnitColor(id), UnitClass.Swordman), id);
+            _unitSpawner.RPCSpawn(new UnitFlags(SummonUnitColor(id), UnitClass.Swordman), id);
     }
 
     UnitColor SummonUnitColor(byte id) => _multiUnitSummonData.GetData(id).SelectColor();

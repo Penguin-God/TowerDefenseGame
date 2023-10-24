@@ -146,10 +146,10 @@ public class UserSkillActor
             case SkillType.마나불능: result = new ManaImpotence(skillBattleData); break;
             case SkillType.장사꾼: result = new UnitMerchant(skillBattleData); break;
             case SkillType.도박사: 
-                result = new GambleInitializer(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetEventDispatcher(), container.GetComponent<TextShowAndHideController>()); break;
+                result = new GambleInitializer(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetEventDispatcher(), container.GetComponent<TextShowAndHideController>(), container.GetUnitSpanwer()); break;
             case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetService<SkillMeteorController>()); break;
             case SkillType.네크로맨서:
-                result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>()); break;
+                result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>(), container.GetUnitSpanwer()); break;
             case SkillType.덫:
                 result = new SlowTrapSpawner(skillBattleData, MultiData.instance.GetEnemyTurnPoints(PlayerIdManager.Id) ,container.GetEventDispatcher()); break;
             case SkillType.백의결속: result = new BondOfWhite(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance, container.GetComponent<MultiUnitStatController>()); break;
@@ -354,15 +354,16 @@ public class CombineMeteorController : UserSkill
 public class NecromancerController : UserSkill
 {
     readonly Necromencer _necromencer;
-    BattleEventDispatcher _dispatcher;
-    MultiEffectManager _multiEffectManager;
-
-    public NecromancerController(UserSkillBattleData userSkillBattleData, BattleEventDispatcher dispatcher, MultiEffectManager multiEffectManager)
+    readonly BattleEventDispatcher _dispatcher;
+    readonly MultiEffectManager _multiEffectManager;
+    readonly Multi_NormalUnitSpawner _unitSpanwer;
+    public NecromancerController(UserSkillBattleData userSkillBattleData, BattleEventDispatcher dispatcher, MultiEffectManager multiEffectManager, Multi_NormalUnitSpawner unitSpanwer)
         : base(userSkillBattleData)
     {
         _necromencer = new Necromencer(IntSkillData);
         _dispatcher = dispatcher;
         _multiEffectManager = multiEffectManager;
+        _unitSpanwer = unitSpanwer;
     }
 
     UI_UserSkillStatus statusUI;
@@ -380,7 +381,7 @@ public class NecromancerController : UserSkill
         if (_necromencer.TryResurrect())
         {
             var spawnPos = SpawnPositionCalculator.CalculateWorldSpawnPostion();
-            Multi_SpawnManagers.NormalUnit.Spawn(ResurrectUnit, spawnPos);
+            _unitSpanwer.Spawn(ResurrectUnit, spawnPos);
             _multiEffectManager.PlayOneShotEffect("PosionMagicCircle", spawnPos + EffectOffst);
             Managers.Sound.PlayEffect(EffectSoundType.YellowMageSkill);
         }
@@ -487,11 +488,12 @@ public class Suncold : UserSkill
 
 public class GambleInitializer : UserSkill
 {
-    public GambleInitializer(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, BattleEventDispatcher dispatcher, TextShowAndHideController textController) : base(userSkillBattleData)
+    public GambleInitializer(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, BattleEventDispatcher dispatcher, TextShowAndHideController textController, Multi_NormalUnitSpawner unitSpawner) 
+        : base(userSkillBattleData)
     {
         IReadOnlyList<GambleData> gambleDatas = CsvUtility.CsvToArray<GambleData>(Managers.Resources.Load<TextAsset>("Data/SkillData/GamblerData").text);
         
-        var gamblerController = new GamblerController(gambleDatas, Multi_GameManager.Instance);
+        var gamblerController = new GamblerController(gambleDatas, Multi_GameManager.Instance, unitSpawner);
         gamblerController.OnGamble += flag => textController.ShowTextForTime(BuildGameResultText(flag));
         dispatcher.OnStageUpExcludingFirst += _ => gamblerController.AddExp(IntSkillDatas[2]);
 

@@ -61,14 +61,8 @@ class WorldInitializer
         new BattleDIContainerInitializer().InjectBattleDependency(_battleDIContainer, multiSkillData);
 
         Managers.Camera.EnterBattleScene();
-        InitMonoBehaviourContainer();
         BindUnitEvent();
         return _battleDIContainer;
-    }
-
-    void InitMonoBehaviourContainer()
-    {
-        _battleDIContainer.AddComponent<UnitColorChangerRpcHandler>();
     }
 
     void InitObjectPools()

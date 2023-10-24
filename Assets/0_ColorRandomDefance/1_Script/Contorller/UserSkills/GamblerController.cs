@@ -30,11 +30,13 @@ public class GamblerController
     public GamblerLevelSystem LevelSystem { get; private set; }
     Multi_GameManager _game;
     readonly IReadOnlyList<GambleData> _gambleDatas;
-    public GamblerController(IReadOnlyList<GambleData> gambleDatas, Multi_GameManager game)
+    readonly Multi_NormalUnitSpawner _unitSpawner;
+    public GamblerController(IReadOnlyList<GambleData> gambleDatas, Multi_GameManager game, Multi_NormalUnitSpawner unitSpawner)
     {
         _gambleDatas = gambleDatas;
         LevelSystem = new GamblerLevelSystem(new LevelSystem(_gambleDatas.Select(x => x.NeedExpForLevelUp).ToArray()));
         _game = game;
+        _unitSpawner = unitSpawner;
     }
 
     public event Action<UnitFlags> OnGamble;
@@ -52,7 +54,7 @@ public class GamblerController
         Debug.Assert(LevelSystem.IsOverExp, "경험치가 부족한데 뽑기를 시도함");
 
         UnitFlags selectFlag = GambleUnit();
-        Multi_SpawnManagers.NormalUnit.Spawn(selectFlag);
+        _unitSpawner.Spawn(selectFlag);
         LevelSystem.LevelUp();
     }
 

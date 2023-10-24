@@ -32,6 +32,7 @@ public class BattleDIContainer
 
     public MultiData<SkillBattleDataContainer> GetMultiActiveSkillData() => GetService<MultiData<SkillBattleDataContainer>>();
     public BattleEventDispatcher GetEventDispatcher() => GetService<BattleEventDispatcher>();
+    public Multi_NormalUnitSpawner GetUnitSpanwer() => GetComponent<Multi_NormalUnitSpawner>();
 }
 
 public class BattleDIContainerInitializer
@@ -71,6 +72,7 @@ public class BattleDIContainerInitializer
         container.AddComponent<WorldAudioPlayer>();
         container.AddComponent<MultiUnitStatController>();
         container.AddComponent<MeteorController>();
+        container.AddComponent<UnitColorChangerRpcHandler>();
 
         container.AddService(WorldDataFactory.CreateWorldData<UnitManager>());
         foreach (var manager in container.GetService<MultiData<UnitManager>>().Services)
@@ -81,7 +83,7 @@ public class BattleDIContainerInitializer
 
         container.AddService(new UnitStatController(CreateUnitStatManager(), container.GetService<MultiData<UnitManager>>()));
         container.AddService(new BattleUI_Mediator(Managers.UI, container));
-        container.AddService(new BuyAction(container.GetComponent<Multi_NormalUnitSpawner>(), container.GetComponent<MultiUnitStatController>()));
+        container.AddService(new BuyAction(container.GetUnitSpanwer(), container.GetComponent<MultiUnitStatController>()));
         container.AddService(new GoodsBuyController(game, container.GetComponent<TextShowAndHideController>()));
         container.AddService(new MonsterManagerController(dispatcher));
     }
@@ -100,23 +102,13 @@ public class BattleDIContainerInitializer
         container.GetComponent<WorldAudioPlayer>().ReceiveInject(Managers.Camera, Managers.Sound);
         container.GetComponent<MultiUnitStatController>().DependencyInject(container.GetService<UnitStatController>());
         container.GetComponent<MeteorController>().DepencyInject(container.GetComponent<WorldAudioPlayer>());
+        container.GetComponent<UnitColorChangerRpcHandler>().DependencyInject(container.GetUnitSpanwer());
     }
 
     WorldUnitDamageManager CreateUnitStatManager()
     {
         var multiUnitStat = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(Managers.Data.Unit.DamageInfoByFlag));
         return new WorldUnitDamageManager(multiUnitStat);
-    }
-
-    void InjectionOnlyMaster(BattleDIContainer container)
-    {
-        if (PhotonNetwork.IsMasterClient == false) return;
-
-        var server = MultiServiceMidiator.Server;
-        container.AddComponent<MonsterSpawnerContorller>().Inject(container);
-
-        container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData);
-        container.GetComponent<UnitMaxCountController>().Init(server, game);
     }
 
     void InitManagers(BattleDIContainer container)
@@ -129,7 +121,18 @@ public class BattleDIContainerInitializer
         Managers.Unit.Inject(container.GetComponent<UnitCombiner>(), new UnitCombineSystem(data.CombineConditionByUnitFalg));
         // 지금 컨트롤러랑 싱글턴 병행 중
         Multi_SpawnManagers.NormalUnit.ReceiveInject(container);
-        container.GetComponent<Multi_NormalUnitSpawner>().ReceiveInject(container);
+        container.GetUnitSpanwer().ReceiveInject(container);
+    }
+
+    void InjectionOnlyMaster(BattleDIContainer container)
+    {
+        if (PhotonNetwork.IsMasterClient == false) return;
+
+        var server = MultiServiceMidiator.Server;
+        container.AddComponent<MonsterSpawnerContorller>().Inject(container);
+
+        container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData, container.GetUnitSpanwer());
+        container.GetComponent<UnitMaxCountController>().Init(server, game);
     }
 
     void Init_UI(BattleDIContainer container)

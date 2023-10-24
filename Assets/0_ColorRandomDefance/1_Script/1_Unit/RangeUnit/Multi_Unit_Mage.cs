@@ -53,7 +53,7 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     protected override void ResetValue()
     {
         base.ResetValue();
-        _manaSystem.ClearMana();
+        _manaSystem?.ClearMana();
     }
 
     RectTransform canvasRectTransform;

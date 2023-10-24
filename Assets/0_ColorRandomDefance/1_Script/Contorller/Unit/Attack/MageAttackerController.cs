@@ -37,7 +37,7 @@ public class MageAttackerController : UnitAttackControllerTemplate
         PlaySound(EffectSoundType.MageAttack);
         _magicLight.SetActive(true);
         shotEnergyball.Invoke(_shotPoint.position);
-        _manaSystem.AddMana();
+        _manaSystem?.AddMana(); // 하얀 법사는 null임
 
         yield return WaitSecond(0.5f);
         _magicLight.SetActive(false);

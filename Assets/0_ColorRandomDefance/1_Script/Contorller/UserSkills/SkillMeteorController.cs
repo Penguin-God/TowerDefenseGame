@@ -19,7 +19,7 @@ public class SkillMeteorController
     {
         var target = FindMonster(id);
         if (target == null) return;
-        _meteorController.ShotMeteorToAll(target, damage, stunTime, GetSpawnPos(id));
+        _meteorController.ShotMeteorToAll(target, damage, stunTime, GetSpawnPos(id), id);
     }
 
     Multi_NormalEnemy FindMonster(byte id)

@@ -20,8 +20,8 @@ public class MeteorController : MonoBehaviourPun
         target.OnStun_RPC(100, stunTime);
     }
 
-    public void ShotMeteorToAll(Multi_Enemy target, int hitDamage, float stunTime, Vector3 spawnPos) 
-        => photonView.RPC(nameof(RPC_ShotMeteor), RpcTarget.All, target.GetComponent<PhotonView>().ViewID, hitDamage, stunTime, spawnPos);
+    public void ShotMeteorToAll(Multi_Enemy target, int hitDamage, float stunTime, Vector3 spawnPos, byte id)
+        => photonView.RPC(nameof(RPC_ShotMeteor), RpcTarget.All, target.GetComponent<PhotonView>().ViewID, hitDamage, stunTime, spawnPos, id);
 
     public void ShotMeteor(Multi_Enemy target, int hitDamage, float stunTime, Vector3 spawnPos, ObjectSpot spot)
     {

@@ -99,18 +99,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b96817ec0b407ee48b8ee049bf262ec3, type: 3}
---- !u!1 &2730548884114758449 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4841617210835731057, guid: b96817ec0b407ee48b8ee049bf262ec3,
-    type: 3}
-  m_PrefabInstance: {fileID: 7409611667169335616}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &2730548885147539472 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4841617211874935120, guid: b96817ec0b407ee48b8ee049bf262ec3,
-    type: 3}
-  m_PrefabInstance: {fileID: 7409611667169335616}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &3608436257135003353 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6109000016361938841, guid: b96817ec0b407ee48b8ee049bf262ec3,
@@ -129,5 +117,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40d86e5c328a7c64fb997107522ca2a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _magicLight: {fileID: 2730548884114758449}
-  _shotPoint: {fileID: 2730548885147539472}

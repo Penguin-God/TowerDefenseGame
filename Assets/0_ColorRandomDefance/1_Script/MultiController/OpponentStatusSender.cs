@@ -9,7 +9,7 @@ public class OpponentStatusSender : MonoBehaviourPun
     public void Init(BattleEventDispatcher dispatcher)
     {
         _dispatcher = dispatcher;
-        Managers.Unit.OnUnitCountChangeByClass += SendUnitCountDataToOpponent;
+        _dispatcher.OnUnitCountChangeByClass += SendUnitCountDataToOpponent;
         Multi_GameManager.Instance.BattleData.OnMaxUnitChanged += SendUnitMaxCountDataToOpponent;
     }
 

@@ -31,9 +31,12 @@ public class UnitManagerController
 
     void NotifyChangeUnitCount(Multi_TeamSoldier unit)
     {
-        _dispatcher.NotifyUnitCountChange(WorldUnitManager.GetUnitCount(unit.UsingID, x => true));
-        _dispatcher.NotifyUnitCountChangeWithFlag(unit.UnitFlags, WorldUnitManager.GetUnitCount(unit.UsingID, x => x.UnitFlags == unit.UnitFlags));
-        _dispatcher.NotifyUnitCountChangeWithClass(unit.UnitClass, WorldUnitManager.GetUnitCount(unit.UsingID, x => x.UnitFlags.UnitClass == unit.UnitClass));
+        if(unit.UsingID == PlayerIdManager.Id)
+        {
+            _dispatcher.NotifyUnitCountChange(WorldUnitManager.GetUnitCount(unit.UsingID, x => true));
+            _dispatcher.NotifyUnitCountChangeWithFlag(unit.UnitFlags, WorldUnitManager.GetUnitCount(unit.UsingID, x => x.UnitFlags == unit.UnitFlags));
+            _dispatcher.NotifyUnitCountChangeWithClass(unit.UnitClass, WorldUnitManager.GetUnitCount(unit.UsingID, x => x.UnitFlags.UnitClass == unit.UnitClass));
+        }
     }
 
     Multi_TeamSoldier GetUnit(Unit unit) => _unitControllers.Where(x => x.Unit == unit).FirstOrDefault();

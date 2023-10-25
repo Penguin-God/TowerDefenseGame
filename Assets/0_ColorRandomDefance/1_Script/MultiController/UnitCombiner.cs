@@ -28,8 +28,8 @@ public class CombineaAAAAA // ÀÌ°É ¸ÖÆ¼·Î °¨½Î¸é µÊ
 
     void Combine(UnitFlags targetFlag, byte id)
     {
-        foreach (var needFlag in _combineSystem.GetNeedFlags(targetFlag))
-            _worldUnitManager.GetUnits(id).Where(x => x.UnitFlags == needFlag).First().Dead();
+        //foreach (var needFlag in _combineSystem.GetNeedFlags(targetFlag))
+        //    _worldUnitManager.GetUnits(id).Where(x => x.UnitFlags == needFlag).First().Dead();
 
         Multi_SpawnManagers.NormalUnit.Spawn(targetFlag, id);
     }

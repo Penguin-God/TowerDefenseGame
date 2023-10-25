@@ -74,14 +74,8 @@ public class BattleDIContainerInitializer
         container.AddComponent<MeteorController>();
         container.AddComponent<UnitColorChangerRpcHandler>();
 
-        container.AddService(WorldDataFactory.CreateWorldData<UnitManager>());
-        foreach (var manager in container.GetService<MultiData<UnitManager>>().Services)
-        {
-            dispatcher.OnUnitSpawn += unit => manager.AddObject(unit.Unit);
-            dispatcher.OnUnitSpawn += unit => unit.OnDead += unit => manager.RemoveObject(unit.Unit);
-        }
-
-        container.AddService(new UnitStatController(CreateUnitStatManager(), container.GetService<MultiData<UnitManager>>()));
+        container.AddService<WorldUnitManager>();
+        container.AddService(new UnitStatController(CreateUnitStatManager(), container.GetService<WorldUnitManager>()));
         container.AddService(new BattleUI_Mediator(Managers.UI, container));
         container.AddService(new BuyAction(container.GetUnitSpanwer(), container.GetComponent<MultiUnitStatController>()));
         container.AddService(new GoodsBuyController(game, container.GetComponent<TextShowAndHideController>()));

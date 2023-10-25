@@ -38,7 +38,7 @@ public class BuyAction
 
     void AddValue(UnitUpgradeData goods)
     {
-        _unitStatController.AddUnitDamageValue(goods.TargetColor, goods.Value, UnitStatType.All);
+        _unitStatController.AddUnitDamage(goods.TargetColor, goods.Value, UnitStatType.All);
         foreach (var flag in UnitFlags.AllClass.Select(x => new UnitFlags(goods.TargetColor, x)))
             _unitStatController.UnitStatController.AddUnitUpgradeValue(flag, goods.Value);
     }
@@ -46,7 +46,7 @@ public class BuyAction
     void UpScale(UnitUpgradeData goods)
     {
         const float Percentage = 100f;
-        _unitStatController.ScaleUnitDamageValue(goods.TargetColor, goods.Value / Percentage, UnitStatType.All);
+        _unitStatController.ScaleUnitDamage(goods.TargetColor, goods.Value / Percentage, UnitStatType.All);
         foreach (var flag in UnitFlags.AllClass.Select(x => new UnitFlags(goods.TargetColor, x)))
             _unitStatController.UnitStatController.AddUnitUpgradeScale(flag, goods.Value);
     }

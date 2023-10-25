@@ -29,7 +29,7 @@ public class UnitStatController
 
     public UnitDamageInfo GetDamageInfo(UnitFlags flag, byte id) => _worldUnitDamageManager.GetUnitDamageInfo(flag, id);
 
-    public void AddUnitDamageValue(UnitFlags flag, int value, UnitStatType changeStatType, byte id)
+    public void AddUnitDamageWithFlag(UnitFlags flag, int value, UnitStatType changeStatType, byte id)
     {
         _worldUnitDamageManager.AddUnitDamageValue(flag, value, changeStatType, id);
         UpdateCurrentUnitDamage(id);
@@ -47,7 +47,7 @@ public class UnitStatController
         UpdateCurrentUnitDamage(id);
     }
 
-    public void ScaleAllUnitDamageValueWith(float value, UnitStatType changeStatType, byte id)
+    public void ScaleAllUnitDamage(float value, UnitStatType changeStatType, byte id)
     {
         _worldUnitDamageManager.ScaleUnitDamageValue((x) => true, value, changeStatType, id);
         UpdateCurrentUnitDamage(id);

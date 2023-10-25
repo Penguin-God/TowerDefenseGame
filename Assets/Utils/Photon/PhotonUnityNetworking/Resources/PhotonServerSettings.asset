@@ -119,6 +119,10 @@ MonoBehaviour:
   - UseFood
   - UseGold
   - SetAA
+  - AddUnitDamageWithColor
+  - AddUnitDamageWithFlag
+  - ScaleAllUnitDamage
+  - ScaleUnitDamageWithColor
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Photon.Pun;
 
 public class MultiUnitStatController : MonoBehaviourPun
@@ -10,49 +11,46 @@ public class MultiUnitStatController : MonoBehaviourPun
     public UnitDamageInfo GetDamageInfo(UnitFlags flag) => _unitStatCotroller.GetDamageInfo(flag, Id);
 
     byte Id => PlayerIdManager.Id;
-    public void AddUnitDamageValue(UnitFlags flag, int value, UnitStatType changeStatType)
+    public void AddUnitDamage(UnitFlags flag, int value, UnitStatType changeStatType)
     {
-        AddUnitDamageValue(flag, value, changeStatType, Id);
-        if (PhotonNetwork.IsMasterClient == false)
-            photonView.RPC(nameof(AddUnitDamageValue), RpcTarget.MasterClient, flag, value, changeStatType, Id);
+        AddUnitDamageWithFlag(flag, value, changeStatType, Id);
+        ClientToMaster(nameof(AddUnitDamage), changeStatType, Id, flag, value);
     }
 
-    public void AddUnitDamageValue(UnitColor color, int value, UnitStatType changeStatType)
+    public void AddUnitDamage(UnitColor color, int value, UnitStatType changeStatType)
     {
-        AddUnitDamageValueWithColor((byte)color, value, changeStatType, Id);
-        if (PhotonNetwork.IsMasterClient == false)
-            photonView.RPC(nameof(AddUnitDamageValueWithColor), RpcTarget.MasterClient, (byte)color, value, changeStatType, Id);
+        AddUnitDamageWithColor((byte)color, value, changeStatType, Id);
+        ClientToMaster(nameof(AddUnitDamageWithColor), changeStatType, Id, (byte)color, value);
     }
 
-    public void ScaleUnitDamageValue(UnitColor color, float value, UnitStatType changeStatType)
+    public void ScaleUnitDamage(UnitColor color, float value, UnitStatType changeStatType)
     {
-        ScaleUnitDamageValueWithColor((byte)color, value, changeStatType, Id);
-        if (PhotonNetwork.IsMasterClient == false)
-            photonView.RPC(nameof(ScaleUnitDamageValueWithColor), RpcTarget.MasterClient, (byte)color, value, changeStatType, Id);
+        ScaleUnitDamageWithColor((byte)color, value, changeStatType, Id);
+        ClientToMaster(nameof(ScaleUnitDamageWithColor), changeStatType, Id, (byte)color, value);
     }
 
-    public void ScaleUnitDamageValue(float value, UnitStatType changeStatType)
+    public void ScaleAllUnitDamage(float value, UnitStatType changeStatType)
     {
-        ScaleAllUnitDamageValueWith(value, changeStatType, Id);
-        if (PhotonNetwork.IsMasterClient == false)
-            photonView.RPC(nameof(ScaleAllUnitDamageValueWith), RpcTarget.MasterClient, value, changeStatType, Id);
+        ScaleAllUnitDamage(value, changeStatType, Id);
+        ClientToMaster(nameof(ScaleAllUnitDamage), changeStatType, Id, value);
     }
 
     [PunRPC]
-    void AddUnitDamageValue(UnitFlags flag, int value, UnitStatType changeStatType, byte id) => _unitStatCotroller.AddUnitDamageValue(flag, value, changeStatType, id);
+    void AddUnitDamageWithFlag(UnitFlags flag, int value, UnitStatType changeStatType, byte id) => _unitStatCotroller.AddUnitDamageWithFlag(flag, value, changeStatType, id);
 
     [PunRPC]
-    void AddUnitDamageValueWithColor(byte color, int value, UnitStatType changeStatType, byte id) => _unitStatCotroller.AddUnitDamageValueWithColor((UnitColor)color, value, changeStatType, id);
+    void AddUnitDamageWithColor(byte color, int value, UnitStatType changeStatType, byte id) => _unitStatCotroller.AddUnitDamageValueWithColor((UnitColor)color, value, changeStatType, id);
 
     [PunRPC]
-    void ScaleUnitDamageValueWithColor(byte color, float value, UnitStatType changeStatType, byte id) => _unitStatCotroller.ScaleUnitDamageValueWithColor((UnitColor)color, value, changeStatType, id);
+    void ScaleUnitDamageWithColor(byte color, float value, UnitStatType changeStatType, byte id) => _unitStatCotroller.ScaleUnitDamageValueWithColor((UnitColor)color, value, changeStatType, id);
 
     [PunRPC]
-    void ScaleAllUnitDamageValueWith(float value, UnitStatType changeStatType, byte id) => _unitStatCotroller.ScaleAllUnitDamageValueWith(value, changeStatType, id);
+    void ScaleAllUnitDamage(float value, UnitStatType changeStatType, byte id) => _unitStatCotroller.ScaleAllUnitDamage(value, changeStatType, id);
 
-    void ToMaster(string methodName, params object[] objects) // 시도해봅시다
+    void ClientToMaster(string methodName, UnitStatType changeStatType, byte id, params object[] objects) // 시도해봅시다
     {
         if (PhotonNetwork.IsMasterClient) return;
-        
+        object[] parmeters = objects.Concat(new object[] { changeStatType, id }).ToArray();
+        photonView.RPC(methodName, RpcTarget.MasterClient, parmeters);
     }
 }

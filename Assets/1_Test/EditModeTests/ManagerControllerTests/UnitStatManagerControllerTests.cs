@@ -32,7 +32,7 @@ public class UnitStatManagerControllerTests
         int value = 300;
 
         // Act
-        sut.AddUnitDamageValue(RedSwordman, value, UnitStatType.Damage, Id);
+        sut.AddUnitDamageWithFlag(RedSwordman, value, UnitStatType.Damage, Id);
 
         // Assert
         Assert.AreEqual(400, worldUnitManager.GetData(Id).FindUnit(RedSwordman).DamageInfo.ApplyDamage);

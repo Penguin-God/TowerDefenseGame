@@ -131,7 +131,7 @@ public class UserSkillActor
             case SkillType.최대유닛증가: Multi_GameManager.Instance.IncreasedMaxUnitCount(skillBattleData.IntSkillData); break;
             case SkillType.황금빛기사: Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = skillBattleData.IntSkillData; break;
             case SkillType.컬러마스터: container.GetComponent<SwordmanGachaController>().ChangeUnitSummonMaxColor(UnitColor.Violet); break;
-            case SkillType.거인학살자: container.GetComponent<MultiUnitStatController>().ScaleUnitDamageValue(skillBattleData.SkillData, UnitStatType.BossDamage); break;
+            case SkillType.거인학살자: container.GetComponent<MultiUnitStatController>().ScaleAllUnitDamage(skillBattleData.SkillData, UnitStatType.BossDamage); break;
         }
     }
 
@@ -201,7 +201,7 @@ public class TaegeukController : UserSkill
         SetTaeguekUnitStat(UnitColor.Blue);
 
         // void SetTaeguekUnitStat(UnitColor unitColor) => MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatType.All);
-        void SetTaeguekUnitStat(UnitColor unitColor) => _statController.AddUnitDamageValue(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatType.All);
+        void SetTaeguekUnitStat(UnitColor unitColor) => _statController.AddUnitDamage(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatType.All);
     }
 }
 
@@ -466,7 +466,7 @@ public class UnitStatHandler
     public void UpgradeUnit(UnitColor color, int[] upgradeDamages)
     {
         foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
-            _statController.AddUnitDamageValue(new UnitFlags(color, unitClass), upgradeDamages[(int)unitClass], UnitStatType.All);
+            _statController.AddUnitDamage(new UnitFlags(color, unitClass), upgradeDamages[(int)unitClass], UnitStatType.All);
     }
 }
 
@@ -559,8 +559,8 @@ public class LegendKnight : UserSkill
         foreach (UnitFlags flag in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => new UnitFlags(x, UnitClass.Swordman)))
         {
             // ApplyDamage에 하는거 맞나? 특별 유닛은 제외였나?
-            statController.AddUnitDamageValue(flag, statController.GetDamageInfo(flag).ApplyDamage * IntSkillData, UnitStatType.Damage);
-            statController.AddUnitDamageValue(flag, statController.GetDamageInfo(flag).ApplyBossDamage * IntSkillData, UnitStatType.BossDamage);
+            statController.AddUnitDamage(flag, statController.GetDamageInfo(flag).ApplyDamage * IntSkillData, UnitStatType.Damage);
+            statController.AddUnitDamage(flag, statController.GetDamageInfo(flag).ApplyBossDamage * IntSkillData, UnitStatType.BossDamage);
         }
     }
 }

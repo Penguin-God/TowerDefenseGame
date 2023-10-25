@@ -7,7 +7,7 @@ using System.Linq;
 public class CombineaAAAAA // ÀÌ°É ¸ÖÆ¼·Î °¨½Î¸é µÊ
 {
     protected UnitCombineSystem _combineSystem;
-    WorldUnitManager _worldUnitManager;
+    UnitManagerController _unitManager;
     protected void Init(DataManager data)
     {
         _combineSystem = new UnitCombineSystem(data.CombineConditionByUnitFalg);
@@ -23,13 +23,13 @@ public class CombineaAAAAA // ÀÌ°É ¸ÖÆ¼·Î °¨½Î¸é µÊ
         return false;
     }
 
-    public bool CanCombine(UnitFlags targetFlag, byte id)
-        => _combineSystem.CheckCombineable(targetFlag, _worldUnitManager.GetUnits(id).Select(x => x.UnitFlags));
+    public bool CanCombine(UnitFlags targetFlag, byte id) => _combineSystem.CheckCombineable(targetFlag, _unitManager.WorldUnitManager.GetUnitFlags(id));
 
     void Combine(UnitFlags targetFlag, byte id)
     {
-        //foreach (var needFlag in _combineSystem.GetNeedFlags(targetFlag))
-        //    _worldUnitManager.GetUnits(id).Where(x => x.UnitFlags == needFlag).First().Dead();
+        foreach (var needFlag in _combineSystem.GetNeedFlags(targetFlag))
+            _unitManager.GetUnit(id, needFlag).Dead();
+            // _worldUnitManager.GetUnits(id).Where(x => x.UnitFlags == needFlag).First().Dead();
 
         Multi_SpawnManagers.NormalUnit.Spawn(targetFlag, id);
     }

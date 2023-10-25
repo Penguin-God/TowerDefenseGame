@@ -17,5 +17,6 @@ public class WorldUnitManager
     }
 
     public IEnumerable<Unit> GetUnits(byte worldId) => _units.GetList(worldId);
-    public Unit FindUnit(byte worldId, UnitFlags flag) => GetUnits(worldId).Where(x => x.UnitFlags == flag).FirstOrDefault();
+    public IEnumerable<UnitFlags> GetUnitFlags(byte worldId) => GetUnits(worldId).Select(x => x.UnitFlags);
+    public Unit GetUnit(byte worldId, UnitFlags flag) => GetUnits(worldId).Where(x => x.UnitFlags == flag).FirstOrDefault();
 }

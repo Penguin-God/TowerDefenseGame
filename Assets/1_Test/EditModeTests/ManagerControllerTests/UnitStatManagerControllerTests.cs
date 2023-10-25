@@ -39,9 +39,9 @@ public class UnitStatManagerControllerTests
         sut.AddUnitDamageWithFlag(RedSwordman, value, UnitStatType.Damage, Id);
 
         // Assert
-        Assert.AreEqual(400, worldUnitManager.FindUnit(Id, RedSwordman).DamageInfo.ApplyDamage);
-        Assert.AreEqual(DefaultDamage, worldUnitManager.FindUnit(Id, new UnitFlags(0, 1)).DamageInfo.ApplyDamage);
-        Assert.AreEqual(DefaultDamage, worldUnitManager.FindUnit(OtherId, RedSwordman).DamageInfo.ApplyDamage);
+        Assert.AreEqual(400, worldUnitManager.GetUnit(Id, RedSwordman).DamageInfo.ApplyDamage);
+        Assert.AreEqual(DefaultDamage, worldUnitManager.GetUnit(Id, new UnitFlags(0, 1)).DamageInfo.ApplyDamage);
+        Assert.AreEqual(DefaultDamage, worldUnitManager.GetUnit(OtherId, RedSwordman).DamageInfo.ApplyDamage);
 
         Assert.AreEqual(400, worldUnitDamageManager.GetUnitDamageInfo(RedSwordman, Id).ApplyDamage);
         Assert.AreEqual(DefaultDamage, worldUnitDamageManager.GetUnitDamageInfo(RedSwordman, OtherId).ApplyDamage);

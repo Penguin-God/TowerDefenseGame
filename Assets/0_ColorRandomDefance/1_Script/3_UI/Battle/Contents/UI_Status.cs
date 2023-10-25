@@ -103,10 +103,12 @@ public class UI_Status : UI_Scene
         {
             var myCountDisplay = GetObject((int)GameObjects.MyCount).GetComponent<UI_ObjectCountDisplay>();
 
-            Managers.Unit.OnUnitCountChange += myCountDisplay.UpdateCurrentUnitText;
-            Multi_GameManager.Instance.BattleData.OnMaxUnitChanged += myCountDisplay.UpdateMaxUnitCount;
-            Managers.Unit.OnUnitCountChangeByClass += myCountDisplay.UpdateUnitClassByCount;
+            // Managers.Unit.OnUnitCountChange += myCountDisplay.UpdateCurrentUnitText;
+            // Managers.Unit.OnUnitCountChangeByClass += myCountDisplay.UpdateUnitClassByCount;
+            dispatcher.OnUnitCountChange += myCountDisplay.UpdateCurrentUnitText;
+            dispatcher.OnUnitCountChangeByClass += myCountDisplay.UpdateUnitClassByCount;
 
+            Multi_GameManager.Instance.BattleData.OnMaxUnitChanged += myCountDisplay.UpdateMaxUnitCount;
             dispatcher.OnMonsterCountChanged += myCountDisplay.UpdateMonsterCountText;
 
 

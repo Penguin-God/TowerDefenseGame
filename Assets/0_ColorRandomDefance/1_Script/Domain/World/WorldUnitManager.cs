@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
+using System;
 
 public class WorldUnitManager
 {
@@ -19,4 +19,5 @@ public class WorldUnitManager
     public IEnumerable<Unit> GetUnits(byte worldId) => _units.GetList(worldId);
     public IEnumerable<UnitFlags> GetUnitFlags(byte worldId) => GetUnits(worldId).Select(x => x.UnitFlags);
     public Unit GetUnit(byte worldId, UnitFlags flag) => GetUnits(worldId).Where(x => x.UnitFlags == flag).FirstOrDefault();
+    public int GetUnitCount(byte worldId, Func<Unit, bool> condition) => GetUnits(worldId).Where(condition).Count();
 }

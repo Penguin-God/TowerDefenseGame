@@ -147,7 +147,7 @@ public class UserSkillActor
             case SkillType.장사꾼: result = new UnitMerchant(skillBattleData); break;
             case SkillType.도박사: 
                 result = new GambleInitializer(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetEventDispatcher(), container.GetComponent<TextShowAndHideController>(), container.GetUnitSpanwer()); break;
-            case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetService<SkillMeteorController>()); break;
+            case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetService<SkillMeteorController>(), container.GetEventDispatcher()); break;
             case SkillType.네크로맨서:
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>(), container.GetUnitSpanwer()); break;
             case SkillType.덫:
@@ -200,7 +200,6 @@ public class TaegeukController : UserSkill
         SetTaeguekUnitStat(UnitColor.Red);
         SetTaeguekUnitStat(UnitColor.Blue);
 
-        // void SetTaeguekUnitStat(UnitColor unitColor) => MultiServiceMidiator.UnitUpgrade.AddUnitDamageValue(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatType.All);
         void SetTaeguekUnitStat(UnitColor unitColor) => _statController.AddUnitDamage(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatType.All);
     }
 }
@@ -211,7 +210,6 @@ public class BlackUnitUpgrade : UserSkill
     {
         new UnitStatHandler(statController).UpgradeUnit(UnitColor.Black, IntSkillDatas);
     }
-    // internal override void InitSkill() => new UnitStatHandler().UpgradeUnit(UnitColor.Black, IntSkillDatas);
 }
 
 public class ManaMutation : UserSkill // 하얀 유닛을 뽑을 때 뽑은 직업과 같은 상대 유닛의 색깔을 다른 색깔로 변경
@@ -303,7 +301,7 @@ public class CombineMeteorController : UserSkill
     readonly CombineMeteorStackManager _stackManager;
     UI_UserSkillStatus _stackUI;
     SkillMeteorController _skillMeteorController;
-    public CombineMeteorController(UserSkillBattleData userSkillBattleData, SkillMeteorController meteorController) : base(userSkillBattleData)
+    public CombineMeteorController(UserSkillBattleData userSkillBattleData, SkillMeteorController meteorController, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
     {
         _skillMeteorController = meteorController;
 
@@ -315,13 +313,15 @@ public class CombineMeteorController : UserSkill
 
         _stackUI = Managers.UI.ShowSceneUI<UI_UserSkillStatus>();
         _stackUI.UpdateText(0);
+
+        dispatcher.OnUnitSpawn += MeteorWhenSpawnRedSwordman;
     }
 
     internal override void InitSkill()
     {
         Managers.Unit.OnCombine += AddStack;
         Managers.Unit.OnCombine += CombineMeteor;
-        Managers.Unit.OnUnitAdd += MeteorWhenSpawnRedSwordman;
+        // Managers.Unit.OnUnitAdd += MeteorWhenSpawnRedSwordman;
     }
 
     int MeteorStack => _stackManager.CurrentStack;
@@ -333,9 +333,9 @@ public class CombineMeteorController : UserSkill
     }
 
     readonly UnitFlags RedSwordman = new UnitFlags(0, 0);
-    void MeteorWhenSpawnRedSwordman(UnitFlags addUnitFlag)
+    void MeteorWhenSpawnRedSwordman(Multi_TeamSoldier spawnUnit)
     {
-        if (addUnitFlag == RedSwordman)
+        if (spawnUnit.UnitFlags == RedSwordman)
             ShotMeteor();
     }
 

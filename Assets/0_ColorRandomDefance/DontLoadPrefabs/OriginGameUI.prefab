@@ -3952,7 +3952,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8988424949719793518}
-  - component: {fileID: 1908644791798295088}
   m_Layer: 0
   m_Name: CombineButtons
   m_TagString: Untagged
@@ -3982,21 +3981,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1908644791798295088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2156719635987715366}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8a4340665ef2a56459379f51fe8b159d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _combineButtons:
-  - {fileID: 5389889277780104491}
-  - {fileID: 471115282914625124}
 --- !u!1 &2217402392734255180
 GameObject:
   m_ObjectHideFlags: 0

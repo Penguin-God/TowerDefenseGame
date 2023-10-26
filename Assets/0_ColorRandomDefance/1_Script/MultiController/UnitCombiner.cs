@@ -4,34 +4,50 @@ using UnityEngine;
 using Photon.Pun;
 using System.Linq;
 
-public class CombineaAAAAA // 이걸 멀티로 감싸면 됨
+public class UnitCombineController : MonoBehaviourPun
 {
-    protected UnitCombineSystem _combineSystem;
+    UnitCombineSystem _combineSystem;
     UnitManagerController _unitManager;
-    protected void Init(DataManager data)
+    Multi_NormalUnitSpawner _spawner;
+    BattleEventDispatcher _dispatcher;
+    UnitCombineNotifier _combineResultNotifier;
+    public void DependencyInject
+        (UnitCombineSystem combineSystem, UnitManagerController unitManager, Multi_NormalUnitSpawner spawner, BattleEventDispatcher dispatcher, UnitCombineNotifier combineResultNotifier)
     {
-        _combineSystem = new UnitCombineSystem(data.CombineConditionByUnitFalg);
+        _unitManager = unitManager;
+        _spawner = spawner;
+        _combineSystem = combineSystem;
+        _dispatcher = dispatcher;
+        _combineResultNotifier = combineResultNotifier;
     }
 
     public bool TryCombine(UnitFlags targetFlag, byte id)
     {
         if (CanCombine(targetFlag, id))
         {
-            Combine(targetFlag, PlayerIdManager.Id);
+            photonView.RPC(nameof(Combine), RpcTarget.MasterClient, targetFlag, id);
+            // 클라에서 이밴트 호출하는게 과연 보안상 괜찮은지는 미지수
+            _combineResultNotifier.ShowCombineSuccessText(targetFlag);
             return true;
         }
-        return false;
+        else
+        {
+            _combineResultNotifier.ShowCombineFaliedText();
+            return false;
+        }
     }
 
     public bool CanCombine(UnitFlags targetFlag, byte id) => _combineSystem.CheckCombineable(targetFlag, _unitManager.WorldUnitManager.GetUnitFlags(id));
 
+    [PunRPC]
     void Combine(UnitFlags targetFlag, byte id)
     {
+        if (CanCombine(targetFlag, id)) return;
+
         foreach (var needFlag in _combineSystem.GetNeedFlags(targetFlag))
             _unitManager.GetUnit(id, needFlag).Dead();
-            // _worldUnitManager.GetUnits(id).Where(x => x.UnitFlags == needFlag).First().Dead();
 
-        Multi_SpawnManagers.NormalUnit.Spawn(targetFlag, id);
+        _spawner.Spawn(targetFlag, id);
     }
 }
 

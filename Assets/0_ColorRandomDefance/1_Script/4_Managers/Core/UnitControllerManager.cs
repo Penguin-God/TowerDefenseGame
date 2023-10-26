@@ -50,7 +50,6 @@ public class UnitControllerManager
     UnitCombineSystem _combineSystem;
     public event Action<UnitFlags> OnCombine = null;
     public event Action OnFailedCombine = null;
-    public event Action<IEnumerable<Multi_TeamSoldier>> OnCombineWithResouces;
     public IEnumerable<UnitFlags> CombineableUnitFlags => _combineSystem.GetCombinableUnitFalgs(GetUnitCount);
 
     public bool TryCombine(UnitFlags flag)

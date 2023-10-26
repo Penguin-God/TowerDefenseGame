@@ -10,10 +10,12 @@ public class UnitCombineNotifier
         unitManager.OnCombine += ShowCombineSuccessText;
         unitManager.OnFailedCombine += ShowCombineFaliedText;
     }
-    
+
+    public UnitCombineNotifier(TextShowAndHideController textController) => _textController = textController;
+
     void ShowText(string text) => _textController.ShowTextForTime(text);
-    void ShowCombineSuccessText(UnitFlags flag) => ShowText($"{UnitTextPresenter.GetUnitNameWithColor(flag)} 조합 성공!!");
+    public void ShowCombineSuccessText(UnitFlags flag) => ShowText($"{UnitTextPresenter.GetUnitNameWithColor(flag)} 조합 성공!!");
 
     const string FailedText = "조합에 필요한 재료가 부족합니다";
-    void ShowCombineFaliedText() => ShowText(FailedText);
+    public void ShowCombineFaliedText() => ShowText(FailedText);
 }

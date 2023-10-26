@@ -52,4 +52,7 @@ public class BattleEventDispatcher
 
     public event Action<Multi_TeamSoldier> OnUnitSpawn;
     public void NotifyUnitSpawn(Multi_TeamSoldier unit) => OnUnitSpawn?.Invoke(unit);
+
+    public event Action<UnitFlags> OnCombine = null;
+    public void NotifyUnitCombine(UnitFlags flag) => OnCombine?.Invoke(flag);
 }

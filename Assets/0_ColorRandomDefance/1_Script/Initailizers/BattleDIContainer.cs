@@ -40,8 +40,10 @@ public class BattleDIContainerInitializer
     Multi_GameManager game;
     DataManager data;
     BattleEventDispatcher dispatcher;
+    BattleDIContainer _container;
     public void InjectBattleDependency(BattleDIContainer container, MultiData<SkillBattleDataContainer> multiSKillData)
     {
+        _container = container;
         game = Multi_GameManager.Instance;
         data = Managers.Data;
         dispatcher = container.AddService<BattleEventDispatcher>();
@@ -55,6 +57,12 @@ public class BattleDIContainerInitializer
 
         InitSkill(container);
     }
+
+    void Add<T>() where T : MonoBehaviour => _container.AddComponent<T>();
+    void Add<T>(T service) where T : class => _container.AddService(service);
+
+    T GetCom<T>() => _container.GetComponent<T>();
+    T GetService<T>() where T : class => _container.GetService<T>();
 
     void AddService(BattleDIContainer container)
     {
@@ -73,7 +81,9 @@ public class BattleDIContainerInitializer
         container.AddComponent<MultiUnitStatController>();
         container.AddComponent<MeteorController>();
         container.AddComponent<UnitColorChangerRpcHandler>();
+        Add<UnitCombineController>();
 
+        Add(new UnitCombineSystem(data.CombineConditionByUnitFalg));
         container.AddService(new UnitManagerController(dispatcher));
         container.AddService(new UnitStatController(CreateUnitStatManager(), container.GetService<UnitManagerController>().WorldUnitManager));
         container.AddService(new BattleUI_Mediator(Managers.UI, container));
@@ -97,6 +107,9 @@ public class BattleDIContainerInitializer
         container.GetComponent<MultiUnitStatController>().DependencyInject(container.GetService<UnitStatController>());
         container.GetComponent<MeteorController>().DepencyInject(container.GetComponent<WorldAudioPlayer>());
         container.GetComponent<UnitColorChangerRpcHandler>().DependencyInject(container.GetUnitSpanwer());
+        GetCom<UnitCombineController>().DependencyInject
+            (GetService<UnitCombineSystem>(), GetService<UnitManagerController>(), GetCom<Multi_NormalUnitSpawner>(), container.GetEventDispatcher(),
+            new UnitCombineNotifier(GetCom<TextShowAndHideController>()));
     }
 
     WorldUnitDamageManager CreateUnitStatManager()

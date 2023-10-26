@@ -7,7 +7,7 @@ using System.Linq;
 public class EffectInitializer : MonoBehaviourPun
 {
     UnitReinforceEffectDrawer _unitReinforceEffectDrawer = new UnitReinforceEffectDrawer();
-    public void SettingEffect(IEnumerable<UserSkill> userSkills)
+    public void SettingEffect(IEnumerable<UserSkill> userSkills, BattleEventDispatcher dispatcher)
     {
         foreach (var skill in userSkills)
         {
@@ -16,10 +16,10 @@ public class EffectInitializer : MonoBehaviourPun
                 taegeuk.OnTaegeukDamageChanged += TaeguekEffect_RPC;
 
             if (skill.UserSkillBattleData.SkillType == SkillType.흑의결속)
-                Managers.Unit.OnUnitCountChangeByFlag += TrackingBalckUnit;
+                dispatcher.OnUnitSpawn += TrackingBalckUnit;
 
             if (skill.UserSkillBattleData.SkillType == SkillType.백의결속)
-                Managers.Unit.OnUnitCountChangeByFlag += TrackingWhiteUnit;
+                dispatcher.OnUnitSpawn += TrackingWhiteUnit;
         }
     }
 
@@ -55,16 +55,16 @@ public class EffectInitializer : MonoBehaviourPun
         }
     }
 
-    void TrackingBalckUnit(UnitFlags flag, int count)
+    void TrackingBalckUnit(Multi_TeamSoldier unit)
     {
-        if (flag.UnitColor == UnitColor.Black && count > 0)
-            SetUnitTrackingEffects_RPC(flag);
+        if (unit.UnitColor == UnitColor.Black)
+            SetUnitTrackingEffects_RPC(unit.UnitFlags);
     }
 
-    void TrackingWhiteUnit(UnitFlags flag, int count)
+    void TrackingWhiteUnit(Multi_TeamSoldier unit)
     {
-        if (flag.UnitColor == UnitColor.White && count > 0)
-            SetUnitTrackingEffects_RPC(flag);
+        if (unit.UnitColor == UnitColor.White)
+            SetUnitTrackingEffects_RPC(unit.UnitFlags);
     }
 
     void SetUnitTrackingEffects_RPC(UnitFlags flag)

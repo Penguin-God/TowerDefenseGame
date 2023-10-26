@@ -10,14 +10,11 @@ public class UnitControllerManager
     public int CurrentUnitCount => _units.Count;
     public HashSet<UnitFlags> ExsitUnitFlags => new HashSet<UnitFlags>(_units.Select(x => x.UnitFlags));
 
-    public event Action<UnitFlags> OnUnitAdd = null;
     public event Action<int> OnUnitCountChange = null;
     public event Action<UnitFlags, int> OnUnitCountChangeByFlag = null;
-    public event Action<UnitClass, int> OnUnitCountChangeByClass = null;
     public void AddUnit(Multi_TeamSoldier unit)
     {
         _units.Add(unit);
-        OnUnitAdd?.Invoke(unit.UnitFlags);
         NotifyChangeUnitCount(unit);
         unit.OnDead += RemoveUnit;
     }
@@ -32,7 +29,6 @@ public class UnitControllerManager
     {
         OnUnitCountChange?.Invoke(_units.Count);
         OnUnitCountChangeByFlag?.Invoke(unit.UnitFlags, FindUnits(x => x.UnitFlags == unit.UnitFlags).Count());
-        OnUnitCountChangeByClass?.Invoke(unit.UnitClass, FindUnits(x => x.UnitClass == unit.UnitClass).Count());
     }
 
     UnitCombiner _contoller;
@@ -47,7 +43,6 @@ public class UnitControllerManager
         _units.Clear();
         OnUnitCountChange = null;
         OnUnitCountChangeByFlag = null;
-        OnUnitCountChangeByClass = null;
         OnCombine = null;
         OnFailedCombine = null;
     }

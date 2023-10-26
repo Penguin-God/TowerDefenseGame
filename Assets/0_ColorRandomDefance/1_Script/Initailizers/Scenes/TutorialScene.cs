@@ -13,7 +13,7 @@ public class TutorialScene : BaseScene
         MultiServiceMidiator.Instance.Init();
         var tutorialSKillData = CreateTutorialSKillData();
         var container = new WorldInitializer(gameObject).Init(tutorialSKillData);
-        FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(container, tutorialSKillData.GetData(PlayerIdManager.Id)));
+        FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkillInitializer().InitUserSkill(container, tutorialSKillData.GetData(PlayerIdManager.Id)), container.GetEventDispatcher());
         gameObject.AddComponent<Tutorial_AI>();
         
         // SetPlayerSkill();

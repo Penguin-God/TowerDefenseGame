@@ -14,11 +14,11 @@ public class SwordmanAttackController : UnitAttackControllerTemplate
 
     protected override IEnumerator Co_Attack()
     {
-        yield return WaitSecond(0.7f);
+        yield return WaitForAttackSpeed(0.7f);
         PlaySound(EffectSoundType.SwordmanAttack);
-        yield return WaitSecond(0.1f);
+        yield return WaitForAttackSpeed(0.1f);
         _trail.SetActive(true);
-        yield return WaitSecond(0.3f);
+        yield return WaitForAttackSpeed(0.3f);
         _unitController._NormalAttack();
         _trail.SetActive(false);
     }

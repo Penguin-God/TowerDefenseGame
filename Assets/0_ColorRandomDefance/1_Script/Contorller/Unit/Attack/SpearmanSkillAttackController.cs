@@ -33,17 +33,17 @@ public class SpearmanSkillAttackController : UnitAttackControllerTemplate
         _nav.isStopped = true;
         PlaySound(EffectSoundType.SpearmanSkill);
 
-        yield return WaitSecond(0.5f);
+        yield return new WaitForSeconds(0.5f);
         _nav.isStopped = false;
         _spear.SetActive(true);
     }
 
     IEnumerator Co_ShotSpear()
     {
-        yield return WaitSecond(_throwSpearData.WaitForVisibility);
+        yield return new WaitForSeconds(_throwSpearData.WaitForVisibility);
         var shotSpear = CreateSpear();
         SetTrail(shotSpear, false); // 트레일 늘어지는거 방지
-        yield return WaitSecond(CalculateDelayTime(1) - _throwSpearData.WaitForVisibility);
+        yield return new WaitForSeconds(CalculateDelayTime(1) - _throwSpearData.WaitForVisibility);
         SetTrail(shotSpear, true);
         ThrowSpear(shotSpear);
     }

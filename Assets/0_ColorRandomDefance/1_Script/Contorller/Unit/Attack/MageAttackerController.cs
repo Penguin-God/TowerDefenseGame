@@ -32,14 +32,14 @@ public class MageAttackerController : UnitAttackControllerTemplate
     public IEnumerator Co_ShotBounceBall(Action<Vector3> shotEnergyball)
     {
         _nav.isStopped = true;
-        yield return WaitSecond(0.7f);
+        yield return WaitForAttackSpeed(0.7f);
 
         PlaySound(EffectSoundType.MageAttack);
         _magicLight.SetActive(true);
         shotEnergyball.Invoke(_shotPoint.position);
         _manaSystem?.AddMana(); // 하얀 법사는 null임
 
-        yield return WaitSecond(0.5f);
+        yield return WaitForAttackSpeed(0.5f);
         _magicLight.SetActive(false);
         _nav.isStopped = false;
     }

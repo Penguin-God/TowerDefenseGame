@@ -40,12 +40,12 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
         _unitState.StartAttack();
         yield return StartCoroutine(Co_Attack());
         _unitState.EndAttack();
-        yield return WaitSecond(coolDownTime);
+        yield return WaitForAttackSpeed(coolDownTime);
         _unitState.ReadyAttack();
     }
 
     protected abstract IEnumerator Co_Attack();
-    protected WaitForSeconds WaitSecond(float second) => new WaitForSeconds(CalculateDelayTime(second));
+    protected WaitForSeconds WaitForAttackSpeed(float second) => new WaitForSeconds(CalculateDelayTime(second));
     protected float CalculateDelayTime(float delay) => delay / _unit.Stats.AttackSpeed;
     protected void PlaySound(EffectSoundType soundType) => _worldAudioPlayer.PlayObjectEffectSound(_unitState.Spot, soundType);
 }

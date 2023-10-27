@@ -39,6 +39,6 @@ public class TestAttacker : UnitAttackControllerTemplate
 {
     protected override IEnumerator Co_Attack()
     {
-        yield return WaitSecond(0.01f);
+        yield return WaitForAttackSpeed(0.01f);
     }
 }

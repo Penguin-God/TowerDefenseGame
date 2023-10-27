@@ -21,7 +21,7 @@ public class ArcherSpecialAttackController : UnitAttackControllerTemplate
         _trail.gameObject.SetActive(false);
         _archerArrowShoter.ShotSkill(_unitController.TargetEnemy, _attacker.SkillAttack);
         PlaySound(EffectSoundType.ArcherAttack);
-        yield return WaitSecond(1f);
+        yield return new WaitForSeconds(1f);
         _trail.gameObject.SetActive(true);
     }
 }

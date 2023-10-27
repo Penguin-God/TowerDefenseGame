@@ -545,9 +545,9 @@ public class LegendKnight : UserSkill
 {
     public LegendKnight(UserSkillBattleData userSkillBattleData, MultiUnitStatController statController) : base(userSkillBattleData) 
     {
-        foreach (UnitFlags flag in Enum.GetValues(typeof(UnitColor)).Cast<UnitColor>().Select(x => new UnitFlags(x, UnitClass.Swordman)))
+        foreach (UnitFlags flag in UnitFlags.NormalColors.Select(x => new UnitFlags(x, UnitClass.Swordman)))
         {
-            // ApplyDamage에 하는거 맞나? 특별 유닛은 제외였나?
+            // 배율 증가가 아니라 기본 고정 대미지를 5배 증가시키는 거임
             statController.AddUnitDamage(flag, statController.GetDamageInfo(flag).ApplyDamage * IntSkillData, UnitStatType.Damage);
             statController.AddUnitDamage(flag, statController.GetDamageInfo(flag).ApplyBossDamage * IntSkillData, UnitStatType.BossDamage);
         }

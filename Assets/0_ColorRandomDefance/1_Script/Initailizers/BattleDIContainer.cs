@@ -61,8 +61,19 @@ public class BattleDIContainerInitializer
     void Add<T>() where T : MonoBehaviour => _container.AddComponent<T>();
     void Add<T>(T service) where T : class => _container.AddService(service);
 
-    T GetCom<T>() => _container.GetComponent<T>();
-    T GetService<T>() where T : class => _container.GetService<T>();
+    T Get<T>() where T : class
+    {
+        if (typeof(T).IsInterface)
+        {
+            Debug.LogError("인터페이스는 GetComponent 써야 함");
+            return null;
+        }
+
+        if (typeof(MonoBehaviour).IsAssignableFrom(typeof(T)))
+            return _container.GetComponent<T>();
+        else
+            return _container.GetService<T>();
+    }
 
     void AddService(BattleDIContainer container)
     {
@@ -81,7 +92,7 @@ public class BattleDIContainerInitializer
         container.AddComponent<MultiUnitStatController>();
         container.AddComponent<MeteorController>();
         container.AddComponent<UnitColorChangerRpcHandler>();
-        Add<UnitCombineController>();
+        Add<UnitCombineMultiController>();
 
         Add(new UnitCombineSystem(data.CombineConditionByUnitFalg));
         container.AddService(new UnitManagerController(dispatcher));
@@ -107,9 +118,9 @@ public class BattleDIContainerInitializer
         container.GetComponent<MultiUnitStatController>().DependencyInject(container.GetService<UnitStatController>());
         container.GetComponent<MeteorController>().DepencyInject(container.GetComponent<WorldAudioPlayer>());
         container.GetComponent<UnitColorChangerRpcHandler>().DependencyInject(container.GetUnitSpanwer());
-        GetCom<UnitCombineController>().DependencyInject
-            (GetService<UnitCombineSystem>(), GetService<UnitManagerController>(), GetCom<Multi_NormalUnitSpawner>(), container.GetEventDispatcher(),
-            new UnitCombineNotifier(GetCom<TextShowAndHideController>()));
+        Get<UnitCombineMultiController>().DependencyInject
+            (Get<UnitCombineSystem>(), Get<UnitManagerController>(), Get<Multi_NormalUnitSpawner>(), container.GetEventDispatcher(),
+            new UnitCombineNotifier(Get<TextShowAndHideController>()));
     }
 
     WorldUnitDamageManager CreateUnitStatManager()
@@ -148,12 +159,22 @@ public class BattleDIContainerInitializer
         var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();
         enemySelector.SetInfo(container.GetComponent<EnemySpawnNumManager>());
 
-        // 절대 여기서 Show를 해서는 안 되!! 이유는 skill에서 바꿀 수도 있음
         var uiMediator = container.GetService<BattleUI_Mediator>();
-        uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_BattleShop");
+        
         uiMediator.RegisterUI(BattleUI_Type.WhiteUnitShop, "InGameShop/WhiteUnitShop");
         uiMediator.RegisterUI(BattleUI_Type.BalckUnitCombineTable, "InGameShop/BlackUnitShop");
+
+        var shop = uiMediator.ShowPopupUI(BattleUI_Type.BalckUnitCombineTable).GetComponentInChildren<BalckUnitShop_UI>();
+        shop.DependencyInject(Get<UnitCombineMultiController>());
+        shop.transform.parent.gameObject.SetActive(false);
+
         uiMediator.RegisterUI(BattleUI_Type.UnitMaxCountExpendShop, "InGameShop/UnitCountExpendShop_UI");
+
+        Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").DepencyInject(Get<UnitCombineMultiController>());
+        Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").gameObject.SetActive(false);
+
+        // 얘들은 절대 여기서 Show를 해서는 안 되!! 이유는 skill에서 바꿀 수도 있음
+        uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_BattleShop");
         uiMediator.RegisterUI<UI_BattleButtons>(BattleUI_Type.BattleButtons);
     }
 

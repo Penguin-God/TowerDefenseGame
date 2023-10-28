@@ -9,12 +9,12 @@ public class UI_UnitCombineInfoItem : UI_Base
     [SerializeField] TextMeshProUGUI _combineRecipeText;
     [SerializeField] Button _combineButton;
 
-    public void SetInfo(UnitFlags flag)
+    public void SetInfo(UnitFlags flag, UnitCombineMultiController combineController)
     {
         _combineRecipeText.text = BuildRecipeText(flag);
         _combineButton.GetComponentInChildren<TextMeshProUGUI>().text = Managers.Data.UnitNameDataByFlag[flag].KoearName;
         _combineButton.onClick.RemoveAllListeners();
-        _combineButton.onClick.AddListener(() => Managers.Unit.TryCombine(flag));
+        _combineButton.onClick.AddListener(() => combineController.TryCombine(flag));
     }
 
     string BuildRecipeText(UnitFlags targetFlag)

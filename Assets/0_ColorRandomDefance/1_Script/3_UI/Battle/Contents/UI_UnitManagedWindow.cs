@@ -37,6 +37,9 @@ public class UI_UnitManagedWindow : UI_Popup
         GetButton((int)Buttons.Unit_World_Changed_Button).onClick.AddListener(UnitWorldChanged);
     }
 
+    UnitCombineMultiController _combineContoller;
+    public void DepencyInject(UnitCombineMultiController combineContoller)  => _combineContoller = combineContoller;
+
     public void Show(UnitFlags flags)
     {
         CheckInit();
@@ -72,7 +75,7 @@ public class UI_UnitManagedWindow : UI_Popup
             );
 
         foreach (var combineTargetFlag in flags.OrderBy(x => x.ClassNumber))
-            Managers.UI.MakeSubItem<UI_UnitCombineInfoItem>(parent).SetInfo(combineTargetFlag);
+            Managers.UI.MakeSubItem<UI_UnitCombineInfoItem>(parent).SetInfo(combineTargetFlag, _combineContoller);
     }
 
     void SellUnit()

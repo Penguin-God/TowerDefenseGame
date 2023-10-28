@@ -4,53 +4,6 @@ using UnityEngine;
 using Photon.Pun;
 using System.Linq;
 
-public class UnitCombineController : MonoBehaviourPun
-{
-    UnitCombineSystem _combineSystem;
-    UnitManagerController _unitManager;
-    Multi_NormalUnitSpawner _spawner;
-    BattleEventDispatcher _dispatcher;
-    UnitCombineNotifier _combineResultNotifier;
-    public void DependencyInject
-        (UnitCombineSystem combineSystem, UnitManagerController unitManager, Multi_NormalUnitSpawner spawner, BattleEventDispatcher dispatcher, UnitCombineNotifier combineResultNotifier)
-    {
-        _unitManager = unitManager;
-        _spawner = spawner;
-        _combineSystem = combineSystem;
-        _dispatcher = dispatcher;
-        _combineResultNotifier = combineResultNotifier;
-    }
-
-    public bool TryCombine(UnitFlags targetFlag, byte id)
-    {
-        if (CanCombine(targetFlag, id))
-        {
-            photonView.RPC(nameof(Combine), RpcTarget.MasterClient, targetFlag, id);
-            // 클라에서 이밴트 호출하는게 과연 보안상 괜찮은지는 미지수
-            _combineResultNotifier.ShowCombineSuccessText(targetFlag);
-            return true;
-        }
-        else
-        {
-            _combineResultNotifier.ShowCombineFaliedText();
-            return false;
-        }
-    }
-
-    public bool CanCombine(UnitFlags targetFlag, byte id) => _combineSystem.CheckCombineable(targetFlag, _unitManager.WorldUnitManager.GetUnitFlags(id));
-
-    [PunRPC]
-    void Combine(UnitFlags targetFlag, byte id)
-    {
-        if (CanCombine(targetFlag, id)) return;
-
-        foreach (var needFlag in _combineSystem.GetNeedFlags(targetFlag))
-            _unitManager.GetUnit(id, needFlag).Dead();
-
-        _spawner.Spawn(targetFlag, id);
-    }
-}
-
 public abstract class UnitCombiner : MonoBehaviourPun
 {
     protected UnitCombineSystem _combineSystem;
@@ -63,7 +16,7 @@ public abstract class UnitCombiner : MonoBehaviourPun
     {
         if (CanCombine(targetFlag))
         {
-            Combine(targetFlag, PlayerIdManager.Id);
+            _Combine(targetFlag, PlayerIdManager.Id);
             return true;
         }
         return false;
@@ -72,7 +25,7 @@ public abstract class UnitCombiner : MonoBehaviourPun
     public abstract bool CanCombine(UnitFlags targetFlag);
 
     [PunRPC]
-    protected abstract void Combine(UnitFlags targetFlag, byte id);
+    protected abstract void _Combine(UnitFlags targetFlag, byte id);
 }
 
 public class ClientUnitController : UnitCombiner
@@ -87,7 +40,7 @@ public class ClientUnitController : UnitCombiner
     public override bool CanCombine(UnitFlags targetFlag) => _combineSystem.CheckCombineable(targetFlag, _unit.GetUnitCount);
 
     [PunRPC]
-    protected override void Combine(UnitFlags targetFlag, byte id) => photonView.RPC(nameof(Combine), RpcTarget.MasterClient, targetFlag, id);
+    protected override void _Combine(UnitFlags targetFlag, byte id) => photonView.RPC(nameof(_Combine), RpcTarget.MasterClient, targetFlag, id);
 }
 
 public class ServerUnitController : UnitCombiner
@@ -104,7 +57,7 @@ public class ServerUnitController : UnitCombiner
         => _combineSystem.CheckCombineable(targetFlag, _server.GetUnits(PlayerIdManager.MasterId).Select(x => x.UnitFlags));
 
     [PunRPC]
-    protected override void Combine(UnitFlags targetFlag, byte id)
+    protected override void _Combine(UnitFlags targetFlag, byte id)
     {
         if(_combineSystem.CheckCombineable(targetFlag, _server.GetUnits(id).Select(x => x.UnitFlags)) == false)
             return;

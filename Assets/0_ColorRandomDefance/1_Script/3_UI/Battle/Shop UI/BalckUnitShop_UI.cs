@@ -13,6 +13,9 @@ public class BalckUnitShop_UI : UI_Popup
         BlackMageCombineButton,
     }
 
+    UnitCombineMultiController _combineController;
+    public void DependencyInject(UnitCombineMultiController combineController) => _combineController = combineController;
+
     protected override void Init()
     {
         Bind<Button>(typeof(Buttons));
@@ -22,10 +25,9 @@ public class BalckUnitShop_UI : UI_Popup
         GetButton((int)Buttons.BlackMageCombineButton).onClick.AddListener(() => TryCombineBlackUnit(3));
     }
 
-    readonly int BALCK_NUMBER = 7;
     void TryCombineBlackUnit(int classNumber)
     {
-        if(Managers.Unit.TryCombine(new UnitFlags(BALCK_NUMBER, classNumber)))
+        if (_combineController.TryCombine(new UnitFlags(UnitColor.Black, (UnitClass)classNumber)))
             Managers.UI.ClosePopupUI();
     }
 }

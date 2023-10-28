@@ -57,7 +57,8 @@ public abstract class UnitAttackController : UnitAttackControllerTemplate
     protected override void EndAttack()
     {
         base.EndAttack();
-        _animator.speed = 1;
+        if(_animator != null)
+            _animator.speed = 1;
     }
 
     protected override WaitForSeconds WaitSecond(float second) => new WaitForSeconds(CalculateDelayTime(second));

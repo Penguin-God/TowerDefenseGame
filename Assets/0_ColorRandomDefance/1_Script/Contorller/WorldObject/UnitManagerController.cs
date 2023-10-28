@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-
 public class UnitManagerController
 {
     public readonly WorldUnitManager WorldUnitManager;
@@ -39,6 +38,6 @@ public class UnitManagerController
         }
     }
 
-    Multi_TeamSoldier GetUnit(Unit unit) => _unitControllers.Where(x => x.Unit == unit).FirstOrDefault();
-    public Multi_TeamSoldier GetUnit(byte id, UnitFlags flag) => GetUnit(WorldUnitManager.GetUnit(id, flag));
+    // Multi_TeamSoldier GetUnit(Unit unit) => _unitControllers.Where(x => x.Unit == unit).FirstOrDefault();
+    public Multi_TeamSoldier GetUnit(byte id, UnitFlags flag) => _unitControllers.Where(x => x.UnitFlags == flag && x.UsingID == id).FirstOrDefault();
 }

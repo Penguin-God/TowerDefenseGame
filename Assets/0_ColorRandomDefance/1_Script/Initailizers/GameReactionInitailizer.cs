@@ -7,7 +7,7 @@ public class GameReactionInitailizer : MonoBehaviour
 {
     public void InitReaction(BattleDIContainer container)
     {
-        new UnitCombineNotifier(Managers.Unit, container.GetComponent<TextShowAndHideController>());
+        container.GetEventDispatcher().OnUnitCombine += new UnitPassiveHandler().AddYellowSwordmanCombineGold;
         gameObject.AddComponent<UnitClickController>();
         gameObject.AddComponent<WinOrLossController>().Inject(container.GetEventDispatcher(), container.GetComponent<TextShowAndHideController>());
         gameObject.AddComponent<OpponentStatusSender>().Init(container.GetEventDispatcher());

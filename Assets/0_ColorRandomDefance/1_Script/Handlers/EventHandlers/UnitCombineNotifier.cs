@@ -4,13 +4,6 @@ using System.Collections.Generic;
 public class UnitCombineNotifier
 {
     readonly TextShowAndHideController _textController;
-    public UnitCombineNotifier(UnitControllerManager unitManager, TextShowAndHideController textController)
-    {
-        _textController = textController;
-        unitManager.OnCombine += ShowCombineSuccessText;
-        unitManager.OnFailedCombine += ShowCombineFaliedText;
-    }
-
     public UnitCombineNotifier(TextShowAndHideController textController) => _textController = textController;
 
     void ShowText(string text) => _textController.ShowTextForTime(text);

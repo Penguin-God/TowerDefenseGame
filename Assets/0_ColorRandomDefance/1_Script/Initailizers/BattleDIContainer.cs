@@ -78,7 +78,6 @@ public class BattleDIContainerInitializer
     void AddService(BattleDIContainer container)
     {
         AddMultiService<SwordmanGachaController, MasterSwordmanGachaController>(container);
-        new MultiServiceAttacher().AttacherUnitController(container);
         container.AddComponent<CurrencyManagerMediator>();
         container.AddComponent<UnitMaxCountController>();
         container.AddComponent<EnemySpawnNumManager>();
@@ -136,7 +135,7 @@ public class BattleDIContainerInitializer
         Init_UI(container);
         game.Init(container.GetComponent<CurrencyManagerMediator>(), container.GetComponent<UnitMaxCountController>(), data.BattleDataContainer, dispatcher);
         StageManager.Instance.Injection(dispatcher);
-        Managers.Unit.Inject(container.GetComponent<UnitCombiner>(), new UnitCombineSystem(data.CombineConditionByUnitFalg));
+        Managers.Unit.Inject(new UnitCombineSystem(data.CombineConditionByUnitFalg));
         // 지금 컨트롤러랑 싱글턴 병행 중
         Multi_SpawnManagers.NormalUnit.ReceiveInject(container);
         container.GetUnitSpanwer().ReceiveInject(container);

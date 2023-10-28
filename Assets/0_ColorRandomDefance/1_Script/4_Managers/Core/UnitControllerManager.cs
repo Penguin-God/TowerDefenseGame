@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System;
 using System.Linq;
 
@@ -31,36 +30,17 @@ public class UnitControllerManager
         OnUnitCountChangeByFlag?.Invoke(unit.UnitFlags, FindUnits(x => x.UnitFlags == unit.UnitFlags).Count());
     }
 
-    UnitCombiner _contoller;
-    public void Inject(UnitCombiner controller, UnitCombineSystem combineSystem)
-    {
-        _contoller = controller;
-        _combineSystem = combineSystem;
-    }
+    public void Inject(UnitCombineSystem combineSystem) => _combineSystem = combineSystem;
 
     public void Clear()
     {
         _units.Clear();
         OnUnitCountChange = null;
         OnUnitCountChangeByFlag = null;
-        OnCombine = null;
-        OnFailedCombine = null;
     }
 
     UnitCombineSystem _combineSystem;
-    public event Action<UnitFlags> OnCombine = null;
-    public event Action OnFailedCombine = null;
     public IEnumerable<UnitFlags> CombineableUnitFlags => _combineSystem.GetCombinableUnitFalgs(GetUnitCount);
-
-    public bool TryCombine(UnitFlags flag)
-    {
-        var result = _contoller.TryCombine(flag);
-        if (result)
-            OnCombine?.Invoke(flag);
-        else
-            OnFailedCombine?.Invoke();
-        return result;
-    }
 
     public Multi_TeamSoldier FindUnit(UnitFlags flag) => FindUnit(x => x.UnitFlags == flag);
     public bool TryFindUnit(Func<Multi_TeamSoldier, bool> condition, out Multi_TeamSoldier result)

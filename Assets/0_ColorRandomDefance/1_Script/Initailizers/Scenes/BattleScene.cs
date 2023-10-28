@@ -59,7 +59,6 @@ class WorldInitializer
         new BattleDIContainerInitializer().InjectBattleDependency(_battleDIContainer, multiSkillData);
 
         Managers.Camera.EnterBattleScene();
-        BindUnitEvent();
         return _battleDIContainer;
     }
 
@@ -75,10 +74,5 @@ class WorldInitializer
         new UnitPoolInitializer(poolManager).InitPool();
         new MonsterPoolInitializer(poolManager).InitPool();
         new EffectPoolInitializer().InitPool(poolManager);
-    }
-
-    void BindUnitEvent()
-    {
-        Managers.Unit.OnCombine += new UnitPassiveHandler().AddYellowSwordmanCombineGold;
     }
 }

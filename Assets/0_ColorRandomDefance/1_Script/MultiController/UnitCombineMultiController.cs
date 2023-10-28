@@ -27,6 +27,7 @@ public class UnitCombineMultiController : MonoBehaviourPun
         {
             photonView.RPC(nameof(Combine), RpcTarget.MasterClient, targetFlag, id);
             // 클라에서 이벤트 호출하는게 과연 보안상 괜찮은지는 미지수
+            _dispatcher.NotifyUnitCombine(targetFlag);
             _combineResultNotifier.ShowCombineSuccessText(targetFlag);
             return true;
         }

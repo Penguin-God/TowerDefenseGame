@@ -304,13 +304,8 @@ public class CombineMeteorController : UserSkill
         _stackUI.UpdateText(0);
 
         dispatcher.OnUnitSpawn += MeteorWhenSpawnRedSwordman;
-    }
-
-    internal override void InitSkill()
-    {
-        Managers.Unit.OnCombine += AddStack;
-        Managers.Unit.OnCombine += CombineMeteor;
-        // Managers.Unit.OnUnitAdd += MeteorWhenSpawnRedSwordman;
+        dispatcher.OnUnitCombine += AddStack;
+        dispatcher.OnUnitCombine += CombineMeteor;
     }
 
     int MeteorStack => _stackManager.CurrentStack;

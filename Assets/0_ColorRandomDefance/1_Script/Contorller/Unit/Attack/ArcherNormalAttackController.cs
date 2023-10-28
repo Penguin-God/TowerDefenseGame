@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class ArcherNormalAttackController : UnitAttackControllerTemplate
+public class ArcherNormalAttackController : UnitAttackController
 {
     [SerializeField] TrailRenderer _trail;
     NavMeshAgent _nav;
@@ -29,7 +29,7 @@ public class ArcherNormalAttackController : UnitAttackControllerTemplate
         _trail.gameObject.SetActive(false);
         Managers.Resources.Instantiate(ArrowPath, _arrowShotPoint.position).GetComponent<Multi_Projectile>().AttackShot(GetDir(), _attacker.NormalAttack);
         PlaySound(EffectSoundType.ArcherAttack);
-        yield return WaitForAttackSpeed(1f);
+        yield return WaitSecond(1f);
         _trail.gameObject.SetActive(true);
         _nav.isStopped = false;
     }

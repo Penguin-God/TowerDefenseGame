@@ -5,7 +5,7 @@ using UnityEngine;
 
 public abstract class UnitAttackControllerTemplate : MonoBehaviour
 {
-    Animator _animator;
+    protected Animator _animator;
     protected virtual string AnimationName { get; }
     WorldAudioPlayer _worldAudioPlayer;
     
@@ -24,30 +24,44 @@ public abstract class UnitAttackControllerTemplate : MonoBehaviour
         _unit = unit;
     }
 
-    void DoAnima()
-    {
-        if(_animator == null ) return;
-        _animator.speed = _unit.Stats.AttackSpeed;
-        _animator.SetTrigger(AnimationName);
-    }
+    protected virtual void DoAnima() => _animator.SetTrigger(AnimationName);
     public void DoAttack(float coolDownTime)
     {
-        DoAnima();
+        if (_animator != null) DoAnima();
         StartCoroutine(Co_DoAttack(coolDownTime));
     }
     IEnumerator Co_DoAttack(float coolDownTime)
     {
         _unitState.StartAttack();
         yield return StartCoroutine(Co_Attack());
-        _unitState.EndAttack();
-        yield return WaitForAttackSpeed(coolDownTime);
+        EndAttack();
+        yield return WaitSecond(coolDownTime);
         _unitState.ReadyAttack();
     }
 
+    protected virtual void EndAttack() => _unitState.EndAttack();
+
     protected abstract IEnumerator Co_Attack();
-    protected WaitForSeconds WaitForAttackSpeed(float second) => new WaitForSeconds(CalculateDelayTime(second));
-    protected float CalculateDelayTime(float delay) => delay / _unit.Stats.AttackSpeed;
+    protected virtual WaitForSeconds WaitSecond(float second) => new WaitForSeconds(second);
     protected void PlaySound(EffectSoundType soundType) => _worldAudioPlayer.PlayObjectEffectSound(_unitState.Spot, soundType);
+}
+
+public abstract class UnitAttackController : UnitAttackControllerTemplate
+{
+    protected override void DoAnima()
+    {
+        _animator.speed = _unit.Stats.AttackSpeed;
+        base.DoAnima();
+    }
+
+    protected override void EndAttack()
+    {
+        base.EndAttack();
+        _animator.speed = 1;
+    }
+
+    protected override WaitForSeconds WaitSecond(float second) => new WaitForSeconds(CalculateDelayTime(second));
+    float CalculateDelayTime(float delay) => delay / _unit.Stats.AttackSpeed;
 }
 
 public class UnitAttackControllerGenerator

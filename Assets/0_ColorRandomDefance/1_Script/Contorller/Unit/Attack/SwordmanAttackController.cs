@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordmanAttackController : UnitAttackControllerTemplate
+public class SwordmanAttackController : UnitAttackController
 {
     protected override string AnimationName => "isSword";
     [SerializeField] GameObject _trail;
@@ -14,11 +14,11 @@ public class SwordmanAttackController : UnitAttackControllerTemplate
 
     protected override IEnumerator Co_Attack()
     {
-        yield return WaitForAttackSpeed(0.7f);
+        yield return WaitSecond(0.7f);
         PlaySound(EffectSoundType.SwordmanAttack);
-        yield return WaitForAttackSpeed(0.1f);
+        yield return WaitSecond(0.1f);
         _trail.SetActive(true);
-        yield return WaitForAttackSpeed(0.3f);
+        yield return WaitSecond(0.3f);
         _unitController._NormalAttack();
         _trail.SetActive(false);
     }

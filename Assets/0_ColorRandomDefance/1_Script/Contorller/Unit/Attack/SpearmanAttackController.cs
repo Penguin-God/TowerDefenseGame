@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpearmanAttackController : UnitAttackControllerTemplate
+public class SpearmanAttackController : UnitAttackController
 {
     protected override string AnimationName => "isAttack";
     Multi_TeamSoldier _unitController;
@@ -11,12 +11,12 @@ public class SpearmanAttackController : UnitAttackControllerTemplate
     [SerializeField] GameObject _trail;
     protected override IEnumerator Co_Attack()
     {
-        yield return WaitForAttackSpeed(0.55f);
+        yield return WaitSecond(0.55f);
         PlaySound(EffectSoundType.SpearmanAttack);
         _trail.SetActive(true);
-        yield return WaitForAttackSpeed(0.3f);
+        yield return WaitSecond(0.3f);
         _unitController._NormalAttack();
-        yield return WaitForAttackSpeed(0.3f);
+        yield return WaitSecond(0.3f);
         _trail.SetActive(false);
     }
 }

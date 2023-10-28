@@ -43,7 +43,7 @@ public class SpearmanSkillAttackController : UnitAttackControllerTemplate
         yield return new WaitForSeconds(_throwSpearData.WaitForVisibility);
         var shotSpear = CreateSpear();
         SetTrail(shotSpear, false); // 트레일 늘어지는거 방지
-        yield return new WaitForSeconds(CalculateDelayTime(1) - _throwSpearData.WaitForVisibility);
+        yield return new WaitForSeconds(1 - _throwSpearData.WaitForVisibility);
         SetTrail(shotSpear, true);
         ThrowSpear(shotSpear);
     }

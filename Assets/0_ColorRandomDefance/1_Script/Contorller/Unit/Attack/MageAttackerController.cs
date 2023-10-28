@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class MageAttackerController : UnitAttackControllerTemplate
+public class MageAttackerController : UnitAttackController
 {
     protected override string AnimationName => "isAttack";
     NavMeshAgent _nav;
@@ -32,14 +32,14 @@ public class MageAttackerController : UnitAttackControllerTemplate
     public IEnumerator Co_ShotBounceBall(Action<Vector3> shotEnergyball)
     {
         _nav.isStopped = true;
-        yield return WaitForAttackSpeed(0.7f);
+        yield return WaitSecond(0.7f);
 
         PlaySound(EffectSoundType.MageAttack);
         _magicLight.SetActive(true);
         shotEnergyball.Invoke(_shotPoint.position);
         _manaSystem?.AddMana(); // 하얀 법사는 null임
 
-        yield return WaitForAttackSpeed(0.5f);
+        yield return WaitSecond(0.5f);
         _magicLight.SetActive(false);
         _nav.isStopped = false;
     }

@@ -172,7 +172,9 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     public bool UnitOver => Managers.Unit.CurrentUnitCount >= _battleData.MaxUnit;
 
     UnitMaxCountController _unitMaxCountController;
-    public void IncreasedMaxUnitCount(int amount) => _unitMaxCountController.IncreasedMaxUnitCount(amount);
+    MultiBattleDataController _multiBattleDataController;
+    // public void IncreasedMaxUnitCount(int amount) => _unitMaxCountController.IncreasedMaxUnitCount(amount);
+    public void IncreasedMaxUnitCount(int amount) => _multiBattleDataController.IncreasedMaxUnitCount(amount);
 
     [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
     [SerializeField] BattleDataContainer _battleDataContainer;
@@ -186,6 +188,19 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
         AddGold(_battleDataContainer.Gold);
         AddFood(_battleDataContainer.Food);
         _unitMaxCountController = unitMaxCountController;
+        dispatcher.OnGameStart += () => IncreasedMaxUnitCount(_battleDataContainer.MaxUnit);
+    }
+
+    public void Init(IBattleCurrencyManager currencyManager, MultiBattleDataController multiBattleDataController, BattleDataContainer battleDataContainer, BattleEventDispatcher dispatcher)
+    {
+        base.Init();
+
+        _currencyManager = currencyManager;
+        _battleDataContainer = battleDataContainer;
+        _battleData.Init(_battleDataContainer, _unitUpgradeShopData);
+        AddGold(_battleDataContainer.Gold);
+        AddFood(_battleDataContainer.Food);
+        _multiBattleDataController = multiBattleDataController;
         dispatcher.OnGameStart += () => IncreasedMaxUnitCount(_battleDataContainer.MaxUnit);
     }
 

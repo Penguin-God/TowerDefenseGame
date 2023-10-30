@@ -91,6 +91,7 @@ public class BattleDIContainerInitializer
         container.AddComponent<MultiUnitStatController>();
         container.AddComponent<MeteorController>();
         container.AddComponent<UnitColorChangerRpcHandler>();
+        Add<MultiBattleDataController>();
         Add<UnitCombineMultiController>();
 
         Add(new UnitCombineSystem(data.CombineConditionByUnitFalg));
@@ -133,7 +134,8 @@ public class BattleDIContainerInitializer
         Multi_SpawnManagers.Instance.Init();
         InitSound(container);
         Init_UI(container);
-        game.Init(container.GetComponent<CurrencyManagerMediator>(), container.GetComponent<UnitMaxCountController>(), data.BattleDataContainer, dispatcher);
+        // game.Init(container.GetComponent<CurrencyManagerMediator>(), container.GetComponent<UnitMaxCountController>(), data.BattleDataContainer, dispatcher);
+        game.Init(container.GetComponent<CurrencyManagerMediator>(), Get<MultiBattleDataController>(), data.BattleDataContainer, dispatcher);
         StageManager.Instance.Injection(dispatcher);
         Managers.Unit.Inject(new UnitCombineSystem(data.CombineConditionByUnitFalg));
         // 지금 컨트롤러랑 싱글턴 병행 중

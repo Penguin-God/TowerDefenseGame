@@ -5,4 +5,5 @@ using UnityEngine;
 public class BattleData
 {
     public int MaxUnitCount;
+    public UnitSummonData UnitSummonData;
 }

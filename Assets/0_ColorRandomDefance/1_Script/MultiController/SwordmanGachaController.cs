@@ -41,14 +41,16 @@ public class SwordmanGachaController : MonoBehaviourPun
 public class MasterSwordmanGachaController : SwordmanGachaController
 {
     CurrencyManagerMediator _currencyManagerMediator;
-    ServerManager _serverManager;
+    MultiBattleDataController _multiBattleDataController { get; set; }
+    WorldUnitManager _worldUnitManager;
     MultiData<UnitSummonData> _multiUnitSummonData;
     Multi_NormalUnitSpawner _unitSpawner;
 
-    public void Init(ServerManager serverManager, CurrencyManagerMediator currencyManagerMediator, UnitSummonData unitSummonData, Multi_NormalUnitSpawner unitSpawner)
+    public void Init(MultiBattleDataController multiBattleDataController, WorldUnitManager worldUnitManager, CurrencyManagerMediator currencyManagerMediator, UnitSummonData unitSummonData, Multi_NormalUnitSpawner unitSpawner)
     {
         _multiUnitSummonData = new MultiData<UnitSummonData>(() => unitSummonData);
-        _serverManager = serverManager;
+        _worldUnitManager = worldUnitManager;
+        _multiBattleDataController = multiBattleDataController;
         _currencyManagerMediator = currencyManagerMediator;
         _unitSpawner = unitSpawner;
     }
@@ -56,7 +58,7 @@ public class MasterSwordmanGachaController : SwordmanGachaController
     [PunRPC]
     protected override void DrawUnit(byte id)
     {
-        if (_serverManager.GetUnitstData(id).UnitOver() == false && _currencyManagerMediator.TryUseGold(SummonPrice(id), id))
+        if (_multiBattleDataController.GetData(id).MaxUnitCount > _worldUnitManager.GetUnitCount(id) && _currencyManagerMediator.TryUseGold(SummonPrice(id), id))
             _unitSpawner.RPCSpawn(new UnitFlags(SummonUnitColor(id), UnitClass.Swordman), id);
     }
 

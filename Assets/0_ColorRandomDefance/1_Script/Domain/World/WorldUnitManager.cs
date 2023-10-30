@@ -20,4 +20,5 @@ public class WorldUnitManager
     public IEnumerable<UnitFlags> GetUnitFlags(byte worldId) => GetUnits(worldId).Select(x => x.UnitFlags);
     public Unit GetUnit(byte worldId, UnitFlags flag) => GetUnits(worldId).Where(x => x.UnitFlags == flag).FirstOrDefault();
     public int GetUnitCount(byte worldId, Func<Unit, bool> condition) => GetUnits(worldId).Where(condition).Count();
+    public int GetUnitCount(byte worldId) => GetUnitCount(worldId, _ => true);
 }

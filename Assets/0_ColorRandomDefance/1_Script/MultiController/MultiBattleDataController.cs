@@ -6,7 +6,7 @@ using UnityEngine;
 public class MultiBattleDataController : MonoBehaviourPun
 {
     readonly MultiData<BattleData> _battleDatas = WorldDataFactory.CreateWorldData<BattleData>();
-    BattleData GetData(byte id) => _battleDatas.GetData(id);
+    public BattleData GetData(byte id) => _battleDatas.GetData(id);
     public void IncreasedMaxUnitCount(int amount)
     {
         GetData(PlayerIdManager.Id).MaxUnitCount += amount;

@@ -79,7 +79,6 @@ public class BattleDIContainerInitializer
     {
         AddMultiService<SwordmanGachaController, MasterSwordmanGachaController>(container);
         container.AddComponent<CurrencyManagerMediator>();
-        container.AddComponent<UnitMaxCountController>();
         container.AddComponent<EnemySpawnNumManager>();
         container.AddComponent<MultiEffectManager>();
         container.AddComponent<TextShowAndHideController>();
@@ -107,7 +106,6 @@ public class BattleDIContainerInitializer
     {
         container.GetComponent<SwordmanGachaController>().Init(game, data.BattleDataContainer.UnitSummonData);
         container.GetComponent<CurrencyManagerMediator>().Init(game);
-        container.GetComponent<UnitMaxCountController>().Init(null, game);
         container.GetComponent<MultiEffectManager>().Inject(Managers.Effect);
         container.GetComponent<TextShowAndHideController>().Inject(Managers.UI);
         container.GetComponent<NormalMonsterSpawner>().Inject(new MonsterDecorator(container), container.GetService<MonsterManagerController>());
@@ -150,8 +148,8 @@ public class BattleDIContainerInitializer
         var server = MultiServiceMidiator.Server;
         container.AddComponent<MonsterSpawnerContorller>().Inject(container);
 
-        container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData, container.GetUnitSpanwer());
-        container.GetComponent<UnitMaxCountController>().Init(server, game);
+        Get<MasterSwordmanGachaController>().Init(Get<MultiBattleDataController>(), Get<UnitManagerController>().WorldUnitManager, Get<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData, container.GetUnitSpanwer());
+        // container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData, container.GetUnitSpanwer());
     }
 
     void Init_UI(BattleDIContainer container)

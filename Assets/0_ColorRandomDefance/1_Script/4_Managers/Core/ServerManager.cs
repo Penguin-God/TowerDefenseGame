@@ -4,11 +4,9 @@ using System.Collections.Generic;
 public class UnitsData
 {
     public int CurrentUnitCount { get; private set; }
-    public int MaxUnitCount;
     public List<Multi_TeamSoldier> _units = new List<Multi_TeamSoldier>();
     public IReadOnlyList<Multi_TeamSoldier> Units => _units;
-    public bool UnitOver() => CurrentUnitCount >= MaxUnitCount;
-
+    
     public void AddUnit(Multi_TeamSoldier unit)
     {
         _units.Add(unit);
@@ -32,5 +30,4 @@ public class ServerManager
     }
 
     readonly MultiData<UnitsData> _unitsData = new MultiData<UnitsData>(() => new UnitsData());
-    public UnitsData GetUnitstData(byte id) => _unitsData.GetData(id);
 }

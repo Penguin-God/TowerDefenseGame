@@ -11,13 +11,13 @@ public class UnitCombineMultiController : MonoBehaviourPun
     BattleEventDispatcher _dispatcher;
     UnitCombineNotifier _combineResultNotifier;
     public void DependencyInject
-        (UnitCombineSystem combineSystem, UnitManagerController unitManager, Multi_NormalUnitSpawner spawner, BattleEventDispatcher dispatcher, UnitCombineNotifier combineResultNotifier)
+        (UnitCombineSystem combineSystem, UnitManagerController unitManager, Multi_NormalUnitSpawner spawner, BattleEventDispatcher dispatcher, TextShowAndHideController textController)
     {
         _unitManager = unitManager;
         _spawner = spawner;
         _combineSystem = combineSystem;
         _dispatcher = dispatcher;
-        _combineResultNotifier = combineResultNotifier;
+        _combineResultNotifier = new UnitCombineNotifier(textController);
     }
 
     public bool TryCombine(UnitFlags targetFlag) => TryCombine(targetFlag, PlayerIdManager.Id);

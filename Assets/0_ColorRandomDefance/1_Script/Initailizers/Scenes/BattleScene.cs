@@ -27,7 +27,6 @@ public class BattleScene : BaseScene
     }
     void InitGame(MultiData<SkillBattleDataContainer> multiData)
     {
-        MultiServiceMidiator.Instance.Init();
         var battleDIContainer = new BattleDIContainer(gameObject);
         new WorldInitializer(battleDIContainer).Init(multiData);
         GetComponentInChildren<GameReactionInitailizer>().InitReaction(battleDIContainer);

@@ -145,6 +145,7 @@ public class BattleDIContainerInitializer
         container.AddService(new BuyAction(container.GetUnitSpanwer(), container.GetComponent<MultiUnitStatController>()));
         container.AddService(new GoodsBuyController(game, container.GetComponent<TextShowAndHideController>()));
         container.AddService(new MonsterManagerController(dispatcher));
+        container.AddService(new MonsterDecorator(container));
     }
 
     void InjectService(BattleDIContainer container)
@@ -155,9 +156,11 @@ public class BattleDIContainerInitializer
         container.GetComponent<WorldAudioPlayer>().DependencyInject(Managers.Camera, Managers.Sound);
         container.GetComponent<BattleRewardHandler>()
             .DependencyInject(container.GetEventDispatcher(), container.GetComponent<Multi_BossEnemySpawner>(), new StageUpGoldRewardCalculator(data.BattleDataContainer.StageUpGold));
-        container.GetComponent<NormalMonsterSpawner>().DependencyInject(new MonsterDecorator(container), container.GetService<MonsterManagerController>());
-        container.GetComponent<Multi_BossEnemySpawner>().DependencyInject(new MonsterDecorator(container));
+        //container.GetComponent<NormalMonsterSpawner>().DependencyInject(new MonsterDecorator(container), container.GetService<MonsterManagerController>());
+        //container.GetComponent<Multi_BossEnemySpawner>().DependencyInject(new MonsterDecorator(container));
 
+        container.Inject<NormalMonsterSpawner>();
+        container.Inject<Multi_BossEnemySpawner>();
         container.Inject<MultiUnitStatController>();
         container.Inject<MeteorController>();
         container.Inject<UnitColorChangerRpcHandler>();

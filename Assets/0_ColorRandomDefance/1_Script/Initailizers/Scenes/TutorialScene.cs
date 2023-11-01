@@ -10,7 +10,6 @@ public class TutorialScene : BaseScene
         PhotonNetwork.OfflineMode = true;
         PhotonNetwork.JoinRandomRoom();
 
-        MultiServiceMidiator.Instance.Init();
         var tutorialSKillData = CreateTutorialSKillData();
         var container = new WorldInitializer(gameObject).Init(tutorialSKillData);
         FindObjectOfType<EffectInitializer>()

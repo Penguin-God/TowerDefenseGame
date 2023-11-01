@@ -54,7 +54,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         nav = GetComponent<NavMeshAgent>();
         originObstacleType = nav.obstacleAvoidanceType;
         worldAudioPlayer = gameObject.AddComponent<WorldAudioPlayer>();
-        worldAudioPlayer.ReceiveInject(Managers.Camera, Managers.Sound);
+        worldAudioPlayer.DependencyInject(Managers.Camera, Managers.Sound);
     }
 
     void Start()

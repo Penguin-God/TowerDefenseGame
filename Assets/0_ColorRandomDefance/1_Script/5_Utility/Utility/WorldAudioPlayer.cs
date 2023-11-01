@@ -6,7 +6,7 @@ public class WorldAudioPlayer : MonoBehaviour
 {
     CameraController _cameraController;
     SoundManager _soundManager;
-    public void ReceiveInject(CameraController cameraController, SoundManager soundManager)
+    public void DependencyInject(CameraController cameraController, SoundManager soundManager)
     {
         _cameraController = cameraController;
         _soundManager = soundManager;

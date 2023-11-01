@@ -117,20 +117,15 @@ public class BattleDIContainerInitializer
         container.GetComponent<SwordmanGachaController>().Init(game, data.BattleDataContainer.UnitSummonData);
         container.GetComponent<CurrencyManagerMediator>().Init(game);
         container.GetComponent<MultiEffectManager>().Inject(Managers.Effect);
-        container.GetComponent<TextShowAndHideController>().Inject(Managers.UI);
-        container.GetComponent<NormalMonsterSpawner>().Inject(new MonsterDecorator(container), container.GetService<MonsterManagerController>());
-        container.GetComponent<Multi_BossEnemySpawner>().Inject(new MonsterDecorator(container));
+        container.GetComponent<WorldAudioPlayer>().DependencyInject(Managers.Camera, Managers.Sound);
         container.GetComponent<BattleRewardHandler>()
-            .Inject(container.GetEventDispatcher(), container.GetComponent<Multi_BossEnemySpawner>(), new StageUpGoldRewardCalculator(data.BattleDataContainer.StageUpGold));
-        container.GetComponent<WorldAudioPlayer>().ReceiveInject(Managers.Camera, Managers.Sound);
-        container.GetComponent<MultiUnitStatController>().DependencyInject(container.GetService<UnitStatController>());
-        container.GetComponent<MeteorController>().DepencyInject(container.GetComponent<WorldAudioPlayer>());
+            .DependencyInject(container.GetEventDispatcher(), container.GetComponent<Multi_BossEnemySpawner>(), new StageUpGoldRewardCalculator(data.BattleDataContainer.StageUpGold));
+        container.GetComponent<NormalMonsterSpawner>().DependencyInject(new MonsterDecorator(container), container.GetService<MonsterManagerController>());
+        container.GetComponent<Multi_BossEnemySpawner>().DependencyInject(new MonsterDecorator(container));
 
-        container.GetComponent<UnitColorChangerRpcHandler>().DependencyInject(container.GetUnitSpanwer());
-
-        //Get<UnitCombineMultiController>().DependencyInject
-        //    (Get<UnitCombineSystem>(), Get<UnitManagerController>(), Get<Multi_NormalUnitSpawner>(), container.GetEventDispatcher(),
-        //    new UnitCombineNotifier(Get<TextShowAndHideController>()));
+        Inject<MultiUnitStatController>();
+        Inject<MeteorController>();
+        Inject<UnitColorChangerRpcHandler>();
         Inject<UnitCombineMultiController>();
     }
 
@@ -179,7 +174,6 @@ public class BattleDIContainerInitializer
         Multi_SpawnManagers.Instance.Init();
         InitSound(container);
         Init_UI(container);
-        // game.Init(container.GetComponent<CurrencyManagerMediator>(), container.GetComponent<UnitMaxCountController>(), data.BattleDataContainer, dispatcher);
         game.Init(container.GetComponent<CurrencyManagerMediator>(), Get<MultiBattleDataController>(), data.BattleDataContainer, dispatcher);
         StageManager.Instance.Injection(dispatcher);
         Managers.Unit.Inject(new UnitCombineSystem(data.CombineConditionByUnitFalg));
@@ -192,11 +186,8 @@ public class BattleDIContainerInitializer
     {
         if (PhotonNetwork.IsMasterClient == false) return;
 
-        var server = MultiServiceMidiator.Server;
         container.AddComponent<MonsterSpawnerContorller>().Inject(container);
-
         Get<MasterSwordmanGachaController>().Init(Get<MultiBattleDataController>(), Get<UnitManagerController>().WorldUnitManager, Get<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData, container.GetUnitSpanwer());
-        // container.GetComponent<MasterSwordmanGachaController>().Init(server, container.GetComponent<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData, container.GetUnitSpanwer());
     }
 
     void Init_UI(BattleDIContainer container)

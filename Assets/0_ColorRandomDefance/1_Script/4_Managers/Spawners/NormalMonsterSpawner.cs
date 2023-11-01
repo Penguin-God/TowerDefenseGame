@@ -8,7 +8,7 @@ public class NormalMonsterSpawner : MonoBehaviourPun
 {
     MonsterDecorator _monsterDecorator;
     MonsterManagerController _monsterManagerController;
-    public void Inject(MonsterDecorator monsterDecorator, MonsterManagerController monsterManagerController)
+    public void DependencyInject(MonsterDecorator monsterDecorator, MonsterManagerController monsterManagerController)
     {
         _monsterDecorator = monsterDecorator;
         _monsterManagerController = monsterManagerController;

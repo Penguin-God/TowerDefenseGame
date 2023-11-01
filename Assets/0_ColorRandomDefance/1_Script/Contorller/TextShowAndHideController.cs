@@ -9,10 +9,9 @@ public class TextShowAndHideController : MonoBehaviour
     const float TextShowTime = 2f;
     readonly Color32 TextColor = new Color32(12, 9, 9, 255);
     readonly Vector2 TextPosition = new Vector2(0, 50);
-    public void Inject(UI_Manager ui)
+    void Awake()
     {
-        _uiManager = ui;
-        _textUI = ui.ShowDefualtUI<UI_PopupText>();
+        _textUI = Managers.UI.ShowDefualtUI<UI_PopupText>();
         _textUI.gameObject.SetActive(false);
     }
 
@@ -23,7 +22,7 @@ public class TextShowAndHideController : MonoBehaviour
 
     void ShowText(string text, Color textColor, Vector2 textPosition)
     {
-        _uiManager.SetSotingOrder(_textUI.GetComponent<Canvas>());
+        Managers.UI.SetSotingOrder(_textUI.GetComponent<Canvas>());
         _textUI.gameObject.SetActive(true);
         _textUI.ShowText(text, textColor, textPosition);
     }

@@ -9,7 +9,7 @@ public class MeteorController : MonoBehaviourPun
     readonly string MeteorPath = new ResourcesPathBuilder().BuildEffectPath(SkillEffectType.Meteor);
     WorldAudioPlayer _audioPlayer;
 
-    public void DepencyInject(WorldAudioPlayer audioPlayer)
+    public void DependencyInject(WorldAudioPlayer audioPlayer)
     {
         _audioPlayer = audioPlayer;
     }

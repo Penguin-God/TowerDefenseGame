@@ -13,7 +13,7 @@ public class Multi_BossEnemySpawner : MonoBehaviourPun
     string BulildBossPath() => new ResourcesPathBuilder().BuildBossMonsterPath(Random.Range(0, SpawnableObjectCount));
 
     MonsterDecorator _monsterDecorator;
-    public void Inject(MonsterDecorator monsterDecorator) => _monsterDecorator = monsterDecorator;
+    public void DependencyInject(MonsterDecorator monsterDecorator) => _monsterDecorator = monsterDecorator;
     public Multi_BossEnemy SpawnBoss(byte id, int bossLevel)
     {
         var boss = Managers.Multi.Instantiater.PhotonInstantiateInactive(BulildBossPath(), id).GetComponent<Multi_BossEnemy>();

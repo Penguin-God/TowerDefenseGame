@@ -7,8 +7,13 @@ using System.Linq;
 public class SkillColorChanger : MonoBehaviourPun
 {
     TextShowAndHideController _textController;
+    WorldUnitManager _worldUnitManager;
     readonly UnitColorChangeTextPresenter _textPresenter = new UnitColorChangeTextPresenter();
-    public void Inject(TextShowAndHideController textController) => _textController = textController;
+    public void DependencyInject(TextShowAndHideController textController, WorldUnitManager worldUnitManager)
+    {
+        _textController = textController;
+        _worldUnitManager = worldUnitManager;
+    }
 
     public void ColorChangeSkill(UnitClass targetClass)
         => photonView.RPC(nameof(ColorChangeSkill), RpcTarget.MasterClient, PlayerIdManager.EnemyId, targetClass);
@@ -16,17 +21,16 @@ public class SkillColorChanger : MonoBehaviourPun
     [PunRPC]
     void ColorChangeSkill(byte targetID, UnitClass targetClass)
     {
-        var target = MultiServiceMidiator.Server
-            .GetUnits(targetID)
-            .Where(x => x.UnitClass == targetClass && UnitFlags.NormalColors.Contains(x.UnitColor))
-            .FirstOrDefault();
+        Unit[] targets = _worldUnitManager.GetUnits(targetID, x => x.UnitFlags.UnitClass == targetClass && UnitFlags.NormalColors.Contains(x.UnitFlags.UnitColor)).ToArray();
+        Unit target = targets[Random.Range(0, targets.Length)];
+
         if (target == null)
         {
             RPCFaildText(targetID);
             return;
         }
 
-        var resultFlag = UnitColorChangerRpcHandler.ChangeUnitColor(targetID, target.UnitFlags);
+        UnitFlags resultFlag = UnitColorChangerRpcHandler.ChangeUnitColor(targetID, target.UnitFlags);
         ShowColorChageResultText(targetID, target.UnitFlags, resultFlag);
     }
 

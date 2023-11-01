@@ -43,6 +43,40 @@ public class BattleDIContainer
     public MultiData<SkillBattleDataContainer> GetMultiActiveSkillData() => GetService<MultiData<SkillBattleDataContainer>>();
     public BattleEventDispatcher GetEventDispatcher() => GetService<BattleEventDispatcher>();
     public Multi_NormalUnitSpawner GetUnitSpanwer() => GetComponent<Multi_NormalUnitSpawner>();
+
+    object Get(Type type)
+    {
+        if (type.IsInterface)
+        {
+            Debug.LogError("인터페이스는 GetComponent 써야 함");
+            return null;
+        }
+
+        if (typeof(MonoBehaviour).IsAssignableFrom(type))
+            return GetComponent(type);
+        else
+            return GetService(type);
+    }
+
+    public void Inject<T>() => Inject(typeof(T));
+    public void Inject(Type type)
+    {
+        object instance = Get(type);
+        var methodInfo = instance.GetType().GetMethod("DependencyInject", BindingFlags.Instance | BindingFlags.Public);
+
+        if (methodInfo == null)
+        {
+            Debug.Log("null임");
+            return;
+        }
+
+        var parameters = methodInfo.GetParameters();
+        object[] args = new object[parameters.Length];
+
+        for (int i = 0; i < parameters.Length; i++)
+            args[i] = Get(parameters[i].ParameterType);
+        methodInfo.Invoke(instance, args);
+    }
 }
 
 public class BattleDIContainerInitializer
@@ -104,8 +138,9 @@ public class BattleDIContainerInitializer
         Add<UnitCombineMultiController>();
 
         Add(new UnitCombineSystem(data.CombineConditionByUnitFalg));
-        container.AddService(new UnitManagerController(dispatcher));
-        container.AddService(new UnitStatController(CreateUnitStatManager(), container.GetService<UnitManagerController>().WorldUnitManager));
+        container.AddService(new WorldUnitManager());
+        container.AddService(new UnitManagerController(dispatcher, Get<WorldUnitManager>()));
+        container.AddService(new UnitStatController(CreateUnitStatManager(), Get<WorldUnitManager>()));
         container.AddService(new BattleUI_Mediator(Managers.UI, container));
         container.AddService(new BuyAction(container.GetUnitSpanwer(), container.GetComponent<MultiUnitStatController>()));
         container.AddService(new GoodsBuyController(game, container.GetComponent<TextShowAndHideController>()));
@@ -123,44 +158,10 @@ public class BattleDIContainerInitializer
         container.GetComponent<NormalMonsterSpawner>().DependencyInject(new MonsterDecorator(container), container.GetService<MonsterManagerController>());
         container.GetComponent<Multi_BossEnemySpawner>().DependencyInject(new MonsterDecorator(container));
 
-        Inject<MultiUnitStatController>();
-        Inject<MeteorController>();
-        Inject<UnitColorChangerRpcHandler>();
-        Inject<UnitCombineMultiController>();
-    }
-
-    object Get(Type type)
-    {
-        if (type.IsInterface)
-        {
-            Debug.LogError("인터페이스는 GetComponent 써야 함");
-            return null;
-        }
-
-        if (typeof(MonoBehaviour).IsAssignableFrom(type))
-            return _container.GetComponent(type);
-        else
-            return _container.GetService(type);
-    }
-
-    public void Inject<T>() => Inject(typeof(T));
-    public void Inject(Type type)
-    {
-        object instance = Get(type);
-        var methodInfo = instance.GetType().GetMethod("DependencyInject", BindingFlags.Instance | BindingFlags.Public);
-
-        if (methodInfo == null)
-        {
-            Debug.Log("null임");
-            return;
-        }
-        
-        var parameters = methodInfo.GetParameters();
-        object[] args = new object[parameters.Length];
-
-        for (int i = 0; i < parameters.Length; i++)
-            args[i] = Get(parameters[i].ParameterType);
-        methodInfo.Invoke(instance, args);
+        container.Inject<MultiUnitStatController>();
+        container.Inject<MeteorController>();
+        container.Inject<UnitColorChangerRpcHandler>();
+        container.Inject<UnitCombineMultiController>();
     }
 
     WorldUnitDamageManager CreateUnitStatManager()
@@ -187,7 +188,7 @@ public class BattleDIContainerInitializer
         if (PhotonNetwork.IsMasterClient == false) return;
 
         container.AddComponent<MonsterSpawnerContorller>().Inject(container);
-        Get<MasterSwordmanGachaController>().Init(Get<MultiBattleDataController>(), Get<UnitManagerController>().WorldUnitManager, Get<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData, container.GetUnitSpanwer());
+        Get<MasterSwordmanGachaController>().Init(Get<MultiBattleDataController>(), Get<WorldUnitManager>(), Get<CurrencyManagerMediator>(), data.BattleDataContainer.UnitSummonData, container.GetUnitSpanwer());
     }
 
     void Init_UI(BattleDIContainer container)

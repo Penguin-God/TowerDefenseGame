@@ -7,12 +7,10 @@ public class SkillMeteorController
 {
     MeteorController _meteorController;
     MonsterManagerController _monsterManager;
-    Multi_EnemyManager _enemyManager;
-    public void DependencyInject(MeteorController meteorController, MonsterManagerController monsterManager, Multi_EnemyManager enemyManager)
+    public SkillMeteorController(MeteorController meteorController, MonsterManagerController monsterManager)
     {
         _meteorController = meteorController;
         _monsterManager = monsterManager;
-        _enemyManager = enemyManager;
     }
 
     public void ShotMeteor(byte id, int damage, float stunTime)
@@ -24,7 +22,7 @@ public class SkillMeteorController
 
     Multi_NormalEnemy FindMonster(byte id)
     {
-        if (_enemyManager.TryGetCurrentBoss(id, out Multi_BossEnemy boss)) return boss;
+        if (Multi_EnemyManager.Instance.TryGetCurrentBoss(id, out Multi_BossEnemy boss)) return boss;
 
         var monsters = _monsterManager.GetNormalMonsters(id).ToList();
         if (monsters.Count == 0) return null;

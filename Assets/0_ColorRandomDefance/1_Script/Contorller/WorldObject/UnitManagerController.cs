@@ -5,10 +5,10 @@ public class UnitManagerController
 {
     public readonly WorldUnitManager WorldUnitManager;
     HashSet<Multi_TeamSoldier> _unitControllers = new HashSet<Multi_TeamSoldier>();
-    BattleEventDispatcher _dispatcher;
-    public UnitManagerController(BattleEventDispatcher dispatcher)
+    readonly BattleEventDispatcher _dispatcher;
+    public UnitManagerController(BattleEventDispatcher dispatcher, WorldUnitManager worldUnitManager)
     {
-        WorldUnitManager = new WorldUnitManager();
+        WorldUnitManager = worldUnitManager;
         _dispatcher = dispatcher;
         _dispatcher.OnUnitSpawn += AddUnit;
     }
@@ -38,6 +38,5 @@ public class UnitManagerController
         }
     }
 
-    // Multi_TeamSoldier GetUnit(Unit unit) => _unitControllers.Where(x => x.Unit == unit).FirstOrDefault();
     public Multi_TeamSoldier GetUnit(byte id, UnitFlags flag) => _unitControllers.Where(x => x.UnitFlags == flag && x.UsingID == id).FirstOrDefault();
 }

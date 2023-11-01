@@ -39,4 +39,5 @@ public class UnitManagerController
     }
 
     public Multi_TeamSoldier GetUnit(byte id, UnitFlags flag) => _unitControllers.Where(x => x.UnitFlags == flag && x.UsingID == id).FirstOrDefault();
+    public IEnumerable<Multi_TeamSoldier> GetUnits(byte id) => _unitControllers.Where(x => x.UsingID == id);
 }

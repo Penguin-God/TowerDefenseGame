@@ -140,7 +140,7 @@ public class UserSkillActor
         UserSkill result;
         switch (skillBattleData.SkillType)
         {
-            case SkillType.태극스킬: result = new TaegeukController(skillBattleData, container.GetComponent<MultiUnitStatController>()); break;
+            case SkillType.태극스킬: result = new TaegeukController(skillBattleData, container.GetComponent<MultiUnitStatController>(), container.GetEventDispatcher()); break;
             case SkillType.흑의결속: result = new BlackUnitUpgrade(skillBattleData, container.GetComponent<MultiUnitStatController>()); break;
             case SkillType.마나변이: result = new ManaMutation(skillBattleData, container.GetComponent<SkillColorChanger>(), container.GetEventDispatcher()); break;
             case SkillType.마나불능: result = new ManaImpotence(skillBattleData); break;
@@ -172,10 +172,10 @@ public class TaegeukController : UserSkill
     int[] _taegeukDamages = new int[Enum.GetValues(typeof(UnitClass)).Length];
     readonly TaegeukStateManager _taegeukStateManager = new TaegeukStateManager();
     readonly MultiUnitStatController _statController;
-    public TaegeukController(UserSkillBattleData userSkillBattleData, MultiUnitStatController statController) : base(userSkillBattleData) 
+    public TaegeukController(UserSkillBattleData userSkillBattleData, MultiUnitStatController statController, BattleEventDispatcher battleEventDispatcher) : base(userSkillBattleData) 
     {
         _statController = statController;
-        Managers.Unit.OnUnitCountChangeByFlag += (flag, count) => CheckAndApplyTaegeuk(flag);
+        battleEventDispatcher.OnUnitCountChangeByFlag += (flag, _) => CheckAndApplyTaegeuk(flag);
         _taegeukDamages = IntSkillDatas;
     }
 

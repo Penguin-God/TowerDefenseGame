@@ -235,7 +235,7 @@ public class BattleDIContainerInitializer
             skillInitializer.AddSkillDependency(container, skillType);
 
         var mySkills = skillInitializer.InitUserSkill(container, multiSkllData.GetData(PlayerIdManager.Id));
-        container.AddComponent<EffectInitializer>().SettingEffect(mySkills, container.GetEventDispatcher());
+        container.AddComponent<EffectInitializer>().SettingEffect(mySkills, container.GetEventDispatcher(), container.GetService<UnitManagerController>());
     }
 
     void AddMultiService<TClient, TMaster> (BattleDIContainer container) where TClient : MonoBehaviour where TMaster : MonoBehaviour

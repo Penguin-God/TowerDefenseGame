@@ -7,8 +7,11 @@ using System.Linq;
 public class EffectInitializer : MonoBehaviourPun
 {
     UnitReinforceEffectDrawer _unitReinforceEffectDrawer = new UnitReinforceEffectDrawer();
-    public void SettingEffect(IEnumerable<UserSkill> userSkills, BattleEventDispatcher dispatcher)
+    UnitManagerController _unitManagerController;
+    public void SettingEffect(IEnumerable<UserSkill> userSkills, BattleEventDispatcher dispatcher, UnitManagerController unitManagerController)
     {
+        _unitManagerController = unitManagerController;
+
         foreach (var skill in userSkills)
         {
             var taegeuk = skill as TaegeukController;
@@ -50,7 +53,7 @@ public class EffectInitializer : MonoBehaviourPun
         {
             List<Transform> targets = new List<Transform>();
             foreach (var flag in TeaguekFlags)
-                targets = targets.Concat(MultiServiceMidiator.Server.GetUnits(id).Where(x => x.UnitFlags == flag).Select(x => x.transform)).ToList();
+                targets = targets.Concat(_unitManagerController.GetUnits(id).Where(x => x.UnitFlags == flag).Select(x => x.transform)).ToList();
             return targets;
         }
     }
@@ -73,8 +76,8 @@ public class EffectInitializer : MonoBehaviourPun
     [PunRPC]
     void SetUnitTrackingEffects(UnitFlags flag, byte id)
     {
-        var targets = MultiServiceMidiator.Server.GetUnits(id).Where(x => x.UnitFlags == flag && _unitReinforceEffectDrawer.IsTracking(x.transform) == false);
-        
+        var targets = _unitManagerController.GetUnits(id).Where(x => x.UnitFlags == flag && _unitReinforceEffectDrawer.IsTracking(x.transform) == false);
+
         foreach (var target in targets)
         {
             _unitReinforceEffectDrawer.SetUnitReinforceEffect(target);

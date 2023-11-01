@@ -11,7 +11,12 @@ public class WhiteUnit : MonoBehaviourPun
     Multi_WhiteUnitTimer timer = null;
 
     TextShowAndHideController _textController;
-    void Awake() => _textController = FindObjectOfType<TextShowAndHideController>();
+    UnitColorChangerRpcHandler _unitColorChanger;
+    void Awake()
+    {
+        _textController = FindObjectOfType<TextShowAndHideController>();
+        _unitColorChanger = FindObjectOfType<UnitColorChangerRpcHandler>();
+    }
 
     void OnEnable()
     {
@@ -37,7 +42,7 @@ public class WhiteUnit : MonoBehaviourPun
         {
             bool isMasterUnit = PlayerIdManager.IsMasterId(GetComponent<RPCable>().OwnerId);
             UnitFlags previousFlag = GetComponent<Multi_TeamSoldier>().UnitFlags;
-            UnitFlags result = UnitColorChangerRpcHandler.ChangeUnitColorWithViewId(photonView.ViewID);
+            UnitFlags result = _unitColorChanger.ChangeUnitColorWithViewId(photonView.ViewID);
             if (isMasterUnit)
                 ShowText(previousFlag, result);
             else

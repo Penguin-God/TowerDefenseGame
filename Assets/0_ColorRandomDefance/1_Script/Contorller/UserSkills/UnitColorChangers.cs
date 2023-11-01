@@ -4,59 +4,42 @@ using UnityEngine;
 using Photon.Pun;
 using System.Linq;
 
-public class UnitColorChangerRpcHandler : MonoBehaviour
+public class UnitColorChangerRpcHandler : MonoBehaviourPun
 {
-    static PhotonView photonView;
-    void Awake()
+    Multi_NormalUnitSpawner _unitSpawner;
+    UnitManagerController _unitManagerController;
+    public void DependencyInject(Multi_NormalUnitSpawner unitSpawner, UnitManagerController unitManagerController)
     {
-        photonView = GetComponent<PhotonView>();
-    }
-
-    static UnitColorChanger _unitColorChanger;
-    public void DependencyInject(Multi_NormalUnitSpawner unitSpawner)
-    {
-        _unitColorChanger = new UnitColorChanger(unitSpawner);
+        _unitSpawner = unitSpawner;
+        _unitManagerController = unitManagerController;
     }
 
     [PunRPC]
-    public static UnitFlags ChangeUnitColorWithViewId(int viewID)
+    public UnitFlags ChangeUnitColorWithViewId(int viewID)
     {
         if (PhotonNetwork.IsMasterClient)
-            return _unitColorChanger.ChangeUnitColor(PhotonView.Find(viewID).GetComponent<Multi_TeamSoldier>());
+            return ChangeUnitColor(PhotonView.Find(viewID).GetComponent<Multi_TeamSoldier>());
         else
             photonView.RPC(nameof(ChangeUnitColorWithViewId), RpcTarget.MasterClient, viewID);
         return new UnitFlags(0, 0);
     }
 
     [PunRPC]
-    public static UnitFlags ChangeUnitColor(byte id, UnitFlags unitFlag)
+    public UnitFlags ChangeUnitColor(byte id, UnitFlags unitFlag)
     {
         if (PhotonNetwork.IsMasterClient)
-            return _unitColorChanger.ChangeUnitColor(MultiServiceMidiator.Server.GetUnits(id).Where(x => x.UnitClass == unitFlag.UnitClass).FirstOrDefault());
+            return ChangeUnitColor(_unitManagerController.GetUnit(id, unitFlag));
         else
             photonView.RPC(nameof(ChangeUnitColor), RpcTarget.MasterClient, id, unitFlag);
         return new UnitFlags(0, 0);
     }
-}
 
-public class UnitColorChanger
-{
-    readonly Multi_NormalUnitSpawner _unitSpawner;
-    public UnitColorChanger(Multi_NormalUnitSpawner unitSpawner)
+    UnitFlags GetChangeFlag(UnitFlags origin) => new UnitFlags(UnitFlags.NormalColors.Where(x => x != origin.UnitColor).ToList().GetRandom(), origin.UnitClass);
+    UnitFlags ChangeUnitColor(Multi_TeamSoldier target)
     {
-        _unitSpawner = unitSpawner;
-    }
-
-    UnitColor GetRandomColor(UnitColor color) => UnitFlags.NormalColors.Where(x => x != color).ToList().GetRandom();
-
-    // MasterOnly
-    public UnitFlags ChangeUnitColor(Multi_TeamSoldier target)
-    {
-        var newFlag = new UnitFlags(GetRandomColor(target.UnitColor), target.UnitClass);
-        _unitSpawner.Spawn(newFlag, target.transform.position, target.transform.rotation, target.UsingID);
-        if(target.IsInDefenseWorld == false) // 스폰된 얘가 맨 뒤에 있을 거니까 Last()의 월드를 바꿈. 좋은 코드는 아님
-            MultiServiceMidiator.Server.GetUnits(target.UsingID).Where(x => x.UnitFlags == newFlag).Last().ChangeWorldStateToAll();
+        var newUnit = _unitSpawner.RPCSpawn(GetChangeFlag(target.UnitFlags), target.transform.position, target.transform.rotation, target.UsingID);
+        if (target.IsInDefenseWorld == false) newUnit.ChangeWorldStateToAll();
         target.Dead();
-        return newFlag;
+        return newUnit.UnitFlags;
     }
 }

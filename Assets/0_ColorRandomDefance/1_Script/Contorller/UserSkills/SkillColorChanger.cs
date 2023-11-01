@@ -8,11 +8,13 @@ public class SkillColorChanger : MonoBehaviourPun
 {
     TextShowAndHideController _textController;
     WorldUnitManager _worldUnitManager;
+    UnitColorChangerRpcHandler _unitColorChanger;
     readonly UnitColorChangeTextPresenter _textPresenter = new UnitColorChangeTextPresenter();
-    public void DependencyInject(TextShowAndHideController textController, WorldUnitManager worldUnitManager)
+    public void DependencyInject(TextShowAndHideController textController, WorldUnitManager worldUnitManager, UnitColorChangerRpcHandler unitColorChanger)
     {
         _textController = textController;
         _worldUnitManager = worldUnitManager;
+        _unitColorChanger = unitColorChanger;
     }
 
     public void ColorChangeSkill(UnitClass targetClass)
@@ -22,15 +24,15 @@ public class SkillColorChanger : MonoBehaviourPun
     void ColorChangeSkill(byte targetID, UnitClass targetClass)
     {
         Unit[] targets = _worldUnitManager.GetUnits(targetID, x => x.UnitFlags.UnitClass == targetClass && UnitFlags.NormalColors.Contains(x.UnitFlags.UnitColor)).ToArray();
-        Unit target = targets[Random.Range(0, targets.Length)];
 
-        if (target == null)
+        if (targets == null || targets.Length == 0)
         {
             RPCFaildText(targetID);
             return;
         }
 
-        UnitFlags resultFlag = UnitColorChangerRpcHandler.ChangeUnitColor(targetID, target.UnitFlags);
+        Unit target = targets[Random.Range(0, targets.Length)];
+        UnitFlags resultFlag = _unitColorChanger.ChangeUnitColor(targetID, target.UnitFlags);
         ShowColorChageResultText(targetID, target.UnitFlags, resultFlag);
     }
 

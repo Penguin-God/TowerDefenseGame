@@ -1,13 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class UnitKeyBuilder
 {
-    public string BuildAttackKey(UnitFlags flag) => FormatKey(BuildUnitKey("At", flag));
+    public string BuildAttackKey(UnitFlags flag) => FormatKey(BuildUnitKey("At", flag)); // Attakc
 
-    public string BuildBossAttackKey(UnitFlags flag) => FormatKey(BuildUnitKey("BAt", flag));
+    public string BuildBossAttackKey(UnitFlags flag) => FormatKey(BuildUnitKey("BAt", flag)); // BossAttack
 
     public IEnumerable<string> BuildPassiveKeys(UnitFlags flag, int passiveCount) => Enumerable.Range(0, passiveCount).Select(i => FormatKey($"{BuildUnitKey("Pa", flag)}{i}"));
 
@@ -37,23 +36,28 @@ public static class TextUtility
 
     static string UnCapsuleKeyFormat(string key) => key.Substring(2, key.Length - 3);
 
-    static float GetUnitPassiveStat(UnitFlags flag, int index) => Managers.Data.GetUnitPassiveStats(flag)[index];
+    static float GetUnitPassiveStat(UnitFlags flag, int index)
+    {
+        if(flag.UnitColor == UnitColor.Red && index == 1)
+            return Managers.Data.GetUnitPassiveStats(flag)[index] * 100;
+        return Managers.Data.GetUnitPassiveStats(flag)[index];
+    }
 
     static string GetValue(string key)
     {
         var keyAttribute = UnCapsuleKeyFormat(key);
         if (keyAttribute.StartsWith("At"))
-            return Managers.Data.Unit.UnitStatByFlag[GetFlag(keyAttribute, 2)].Damage.ToString("#,##0");
+            return Managers.Data.Unit.UnitStatByFlag[KeyToFlag(keyAttribute, "At")].Damage.ToString("#,##0");
         if (keyAttribute.StartsWith("BAt"))
-            return Managers.Data.Unit.UnitStatByFlag[GetFlag(keyAttribute, 3)].BossDamage.ToString("#,##0");
+            return Managers.Data.Unit.UnitStatByFlag[KeyToFlag(keyAttribute, "BAt")].BossDamage.ToString("#,##0");
         else if (keyAttribute.StartsWith("Pa"))
-            return GetUnitPassiveStat(GetFlag(keyAttribute, 2), int.Parse(keyAttribute[4].ToString())).ToString("#,##0");
+            return GetUnitPassiveStat(KeyToFlag(keyAttribute, "Pa"), int.Parse(keyAttribute[4].ToString())).ToString("#,##0");
 
         return "";
 
-        UnitFlags GetFlag(string key, int skipIndex)
+        UnitFlags KeyToFlag(string key, string keyType)
         {
-            string[] values = key.Skip(skipIndex).Select(x => x.ToString()).ToArray();
+            string[] values = key.Skip(keyType.Length).Select(x => x.ToString()).ToArray();
             return new UnitFlags(int.Parse(values[0]), int.Parse(values[1]));
         }
     }

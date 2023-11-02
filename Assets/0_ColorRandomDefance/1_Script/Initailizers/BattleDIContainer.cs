@@ -140,7 +140,7 @@ public class BattleDIContainerInitializer
         Add(new UnitCombineSystem(data.CombineConditionByUnitFalg));
         container.AddService(new WorldUnitManager());
         container.AddService(new UnitManagerController(dispatcher, Get<WorldUnitManager>()));
-        container.AddService(new UnitStatController(CreateUnitStatManager(), Get<WorldUnitManager>()));
+        container.AddService(new UnitStatController(new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(Managers.Data.Unit.DamageInfoByFlag)), Get<WorldUnitManager>()));
         container.AddService(new BattleUI_Mediator(Managers.UI, container));
         container.AddService(new BuyAction(container.GetUnitSpanwer(), container.GetComponent<MultiUnitStatController>()));
         container.AddService(new GoodsBuyController(game, container.GetComponent<TextShowAndHideController>()));
@@ -156,8 +156,6 @@ public class BattleDIContainerInitializer
         container.GetComponent<WorldAudioPlayer>().DependencyInject(Managers.Camera, Managers.Sound);
         container.GetComponent<BattleRewardHandler>()
             .DependencyInject(container.GetEventDispatcher(), container.GetComponent<Multi_BossEnemySpawner>(), new StageUpGoldRewardCalculator(data.BattleDataContainer.StageUpGold));
-        //container.GetComponent<NormalMonsterSpawner>().DependencyInject(new MonsterDecorator(container), container.GetService<MonsterManagerController>());
-        //container.GetComponent<Multi_BossEnemySpawner>().DependencyInject(new MonsterDecorator(container));
 
         container.Inject<NormalMonsterSpawner>();
         container.Inject<Multi_BossEnemySpawner>();
@@ -165,12 +163,6 @@ public class BattleDIContainerInitializer
         container.Inject<MeteorController>();
         container.Inject<UnitColorChangerRpcHandler>();
         container.Inject<UnitCombineMultiController>();
-    }
-
-    WorldUnitDamageManager CreateUnitStatManager()
-    {
-        var multiUnitStat = new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(Managers.Data.Unit.DamageInfoByFlag));
-        return new WorldUnitDamageManager(multiUnitStat);
     }
 
     void InitManagers(BattleDIContainer container)

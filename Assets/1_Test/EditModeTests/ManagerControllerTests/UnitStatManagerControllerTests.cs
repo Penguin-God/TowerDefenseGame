@@ -12,7 +12,8 @@ public class UnitStatManagerControllerTests
     const byte OtherId = 1;
     Unit CreateUnit(UnitFlags flag) => new Unit(flag, new UnitStats(new UnitDamageInfo(DefaultDamage, DefaultDamage), 0, 0, 0, 0));
     Dictionary<UnitFlags, UnitDamageInfo> DamageInfos = UnitFlags.AllFlags.ToDictionary(x => x, x => new UnitDamageInfo(DefaultDamage, DefaultDamage));
-    WorldUnitDamageManager CreateWorldDamageManager() => new WorldUnitDamageManager(new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(DamageInfos)));
+    MultiData<UnitDamageInfoManager> CreateInfoManagers() => new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(DamageInfos));
+
     readonly UnitFlags RedSwordman = new UnitFlags(0, 0);
     readonly UnitFlags RedArcher = new UnitFlags(0, 1);
     readonly UnitFlags BlueSwordman = new UnitFlags(1, 0);
@@ -29,23 +30,18 @@ public class UnitStatManagerControllerTests
         return result;
     }
 
-    WorldUnitDamageManager _worldUnitDamageManager;
     WorldUnitManager _worldUnitManager;
-
+    UnitStatController sut;
     [SetUp]
     public void Setup()
     {
-        Debug.Log("@@");
-        _worldUnitDamageManager = CreateWorldDamageManager();
         _worldUnitManager = CreateWorldUnitManager();
+        sut = new UnitStatController(CreateInfoManagers(), _worldUnitManager);
     }
 
     [Test]
     public void 대미지가_올라가면_같은ID_저장소의_데이터와_스폰된_유닛의_값이_같이_올라가야_함()
     {
-        // Arrange
-        var sut = new UnitStatController(_worldUnitDamageManager, _worldUnitManager);
-        
         // Act
         sut.AddUnitDamage(RedSwordman, 300, UnitStatType.Damage, Id);
 
@@ -57,9 +53,6 @@ public class UnitStatManagerControllerTests
     [Test]
     public void 조건에_맞는_유닛_스탯만_강화되야_함()
     {
-        // Arrange
-        var sut = new UnitStatController(_worldUnitDamageManager, _worldUnitManager);
-        
         // Act
         sut.AddUnitDamageWithColor(UnitColor.Red, 300, UnitStatType.Damage, Id);
 
@@ -77,13 +70,13 @@ public class UnitStatManagerControllerTests
         AssertUnitDamage(100, BlueSwordman);
     }
 
-    void AssertUnitDamage(int upgradeDamage, UnitFlags flags)
+    void AssertUnitDamage(int upgradeDamage, UnitFlags flag)
     {
-        Assert.AreEqual(upgradeDamage, _worldUnitDamageManager.GetUnitDamageInfo(flags, Id).ApplyDamage);
-        Assert.AreEqual(upgradeDamage, _worldUnitManager.GetUnit(Id, flags).DamageInfo.ApplyDamage);
-        Assert.AreEqual(upgradeDamage, _worldUnitManager.GetUnit(Id, flags).DamageInfo.ApplyDamage);
+        Assert.AreEqual(upgradeDamage, sut.GetDamageInfo(flag, Id).ApplyDamage);
+        Assert.AreEqual(upgradeDamage, _worldUnitManager.GetUnit(Id, flag).DamageInfo.ApplyDamage);
+        Assert.AreEqual(upgradeDamage, _worldUnitManager.GetUnit(Id, flag).DamageInfo.ApplyDamage);
 
-        Assert.AreEqual(DefaultDamage, _worldUnitDamageManager.GetUnitDamageInfo(flags, OtherId).ApplyDamage);
-        Assert.AreEqual(DefaultDamage, _worldUnitManager.GetUnit(OtherId, flags).DamageInfo.ApplyDamage);
+        Assert.AreEqual(DefaultDamage, sut.GetDamageInfo(flag, OtherId).ApplyDamage);
+        Assert.AreEqual(DefaultDamage, _worldUnitManager.GetUnit(OtherId, flag).DamageInfo.ApplyDamage);
     }
 }

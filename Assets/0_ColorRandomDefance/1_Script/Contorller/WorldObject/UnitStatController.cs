@@ -21,23 +21,20 @@ public class UnitStatController
 
     MultiData<UnitDamageInfoManager> _unitDamageManagers;
     UnitDamageInfoManager GetInfoManager(byte id) => _unitDamageManagers.GetData(id);
-    readonly WorldUnitDamageManager _worldUnitDamageManager;
-    WorldUnitManager _worldUnitManager;
-    public UnitStatController(WorldUnitDamageManager worldUnitDamageManager, WorldUnitManager unitManager)
+
+    readonly WorldUnitManager _worldUnitManager;
+
+    public UnitStatController(MultiData<UnitDamageInfoManager> unitDamageManagers, WorldUnitManager unitManager)
     {
-        _worldUnitDamageManager = worldUnitDamageManager;
+        _unitDamageManagers = unitDamageManagers;
         _worldUnitManager = unitManager;
     }
 
-    // public UnitDamageInfo GetDamageInfo(UnitFlags flag, byte id) => _worldUnitDamageManager.GetUnitDamageInfo(flag, id);
     public UnitDamageInfo GetDamageInfo(UnitFlags flag, byte id) => GetInfoManager(id).GetDamageInfo(flag);
 
     public void AddUnitDamage(UnitFlags flag, int value, UnitStatType changeStatType, byte id)
     {
         GetInfoManager(id).AddDamage(flag, value, changeStatType);
-
-        _worldUnitDamageManager.AddUnitDamageValue(flag, value, changeStatType, id);
-        AddUnitUpgradeValue(flag, value);
         UpdateCurrentUnitDamage(id);
     }
 
@@ -53,24 +50,19 @@ public class UnitStatController
     public void ScaleUnitDamageWithColor(UnitColor color, float value, UnitStatType changeStatType, byte id)
         => ScaleUnitDamageValue(flag => SameColor(flag, color), value, changeStatType, id);
 
-    public void ScaleAllUnitDamage(float value, UnitStatType changeStatType, byte id)
-        => ScaleUnitDamageValue(_ => true, value, changeStatType, id);
+    public void ScaleAllUnitDamage(float value, UnitStatType changeStatType, byte id) => ScaleUnitDamageValue(_ => true, value, changeStatType, id);
 
     public void ScaleUnitDamageValue(Func<UnitFlags, bool> condition, float value, UnitStatType changeStatType, byte id)
     {
         foreach (var flag in UnitFlags.AllFlags.Where(condition))
-        {
             GetInfoManager(id).ScaleDamage(flag, value, changeStatType);
-            _worldUnitDamageManager.ScaleUnitDamageValue(flag, value, changeStatType, id);
-            AddUnitUpgradeScale(flag, Mathf.RoundToInt(value * 100));
-        }
         UpdateCurrentUnitDamage(id);
     }
 
     void UpdateCurrentUnitDamage(byte id)
     {
         foreach (var unit in _worldUnitManager.GetUnits(id))
-            unit.UpdateDamageInfo(_worldUnitDamageManager.GetUnitDamageInfo(unit.UnitFlags, id));
+            unit.UpdateDamageInfo(GetDamageInfo(unit.UnitFlags, id));
     }
 
 

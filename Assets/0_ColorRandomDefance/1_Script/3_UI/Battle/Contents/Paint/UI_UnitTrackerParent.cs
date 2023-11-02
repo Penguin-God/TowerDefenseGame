@@ -13,7 +13,7 @@ public class UI_UnitTrackerParent : UI_Base
 
     UnitStatController _unitStatController;
     public void DependencyInject(UnitStatController unitStatController) => _unitStatController = unitStatController;
-    protected override void Init() => new UnitTooltipController(_unitStatController).SetMouseOverAction(GetComponentsInChildren<UI_UnitTracker>());
+    protected override void Init() => new UnitTooltipController(_unitStatController.GetInfoManager(PlayerIdManager.Id)).SetMouseOverAction(GetComponentsInChildren<UI_UnitTracker>());
 
     public void SettingUnitTrackers(UnitFlags flag)
     {

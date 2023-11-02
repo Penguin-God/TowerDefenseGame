@@ -20,7 +20,7 @@ public class UnitStatController
     public int GetUnitUpgradeScale(UnitFlags flag) => _upgradeInfoByFlag[flag].y;
 
     MultiData<UnitDamageInfoManager> _unitDamageManagers;
-    UnitDamageInfoManager GetInfoManager(byte id) => _unitDamageManagers.GetData(id);
+    public UnitDamageInfoManager GetInfoManager(byte id) => _unitDamageManagers.GetData(id);
 
     readonly WorldUnitManager _worldUnitManager;
 

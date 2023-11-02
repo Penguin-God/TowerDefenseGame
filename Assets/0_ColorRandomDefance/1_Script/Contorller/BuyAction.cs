@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class BuyAction
@@ -31,23 +30,14 @@ public class BuyAction
     {
         switch (goods.UpgradeType)
         {
-            case UnitUpgradeType.Value: AddValue(goods); break;
+            case UnitUpgradeType.Value: _unitStatController.AddUnitDamage(goods.TargetColor, goods.Value, UnitStatType.All); break;
             case UnitUpgradeType.Scale: UpScale(goods); break;
         }
-    }
-
-    void AddValue(UnitUpgradeData goods)
-    {
-        _unitStatController.AddUnitDamage(goods.TargetColor, goods.Value, UnitStatType.All);
-        foreach (var flag in UnitFlags.AllClass.Select(x => new UnitFlags(goods.TargetColor, x)))
-            _unitStatController.UnitStatController.AddUnitUpgradeValue(flag, goods.Value);
     }
 
     void UpScale(UnitUpgradeData goods)
     {
         const float Percentage = 100f;
         _unitStatController.ScaleUnitDamage(goods.TargetColor, goods.Value / Percentage, UnitStatType.All);
-        foreach (var flag in UnitFlags.AllClass.Select(x => new UnitFlags(goods.TargetColor, x)))
-            _unitStatController.UnitStatController.AddUnitUpgradeScale(flag, goods.Value);
     }
 }

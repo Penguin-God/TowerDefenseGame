@@ -6,7 +6,6 @@ using Photon.Pun;
 public class MultiUnitStatController : MonoBehaviourPun
 {
     UnitStatController _unitStatCotroller;
-    public UnitStatController UnitStatController => _unitStatCotroller;
     public void DependencyInject(UnitStatController worldUnitDamageManager) => _unitStatCotroller = worldUnitDamageManager;
     public UnitDamageInfo GetDamageInfo(UnitFlags flag) => _unitStatCotroller.GetDamageInfo(flag, Id);
 
@@ -47,7 +46,7 @@ public class MultiUnitStatController : MonoBehaviourPun
     [PunRPC]
     void ScaleAllUnitDamage(float value, UnitStatType changeStatType, byte id) => _unitStatCotroller.ScaleAllUnitDamage(value, changeStatType, id);
 
-    void ClientToMaster(string methodName, UnitStatType changeStatType, byte id, params object[] objects) // 시도해봅시다
+    void ClientToMaster(string methodName, UnitStatType changeStatType, byte id, params object[] objects)
     {
         if (PhotonNetwork.IsMasterClient) return;
         object[] parmeters = objects.Concat(new object[] { changeStatType, id }).ToArray();

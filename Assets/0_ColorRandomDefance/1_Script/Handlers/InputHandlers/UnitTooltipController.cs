@@ -6,8 +6,8 @@ using UnityEngine;
 
 public class UnitTooltipController
 {
-    readonly UnitStatController _unitStatController;
-    public UnitTooltipController(UnitStatController unitStatController) => _unitStatController = unitStatController;
+    readonly UnitDamageInfoManager _damageInfoManager;
+    public UnitTooltipController(UnitDamageInfoManager damageInfoManager) => _damageInfoManager = damageInfoManager;
 
     readonly float OFFSET_X = 150f;
     readonly float DELAY_TIME = 0.5f;
@@ -43,12 +43,16 @@ public class UnitTooltipController
         result.Append(TextUtility.UnitKeyToValue(Managers.Data.UnitWindowDataByUnitFlags[flag].Description, flag));
         result.AppendLine();
         result.AppendLine();
-        var damInfo = _unitStatController.GetDamageInfo(flag, PlayerIdManager.Id); new UnitDamageInfo();
-        result.Append($"일반 몬스터 공격력 : {damInfo.ApplyDamage}");
+        UnitDamageInfo upgradeInfo = _damageInfoManager.GetUpgradeInfo(flag);
+        result.Append($"일반 몬스터 공격력 : {upgradeInfo.ApplyDamage}");
         result.AppendLine();
-        result.Append($"보스 몬스터 공격력 : {damInfo.ApplyBossDamage}");
+        result.Append($"보스 몬스터 공격력 : {upgradeInfo.ApplyBossDamage}");
         result.AppendLine();
-        result.Append($"적용된 상점 강화 : 대미지 {_unitStatController.GetUnitUpgradeValue(flag)} 증가 및 대미지 {_unitStatController.GetUnitUpgradeScale(flag)}% 증가");
+        result.Append("적용된 강화");
+        result.AppendLine();
+        result.Append($"공격력 {upgradeInfo.BaseDamage} 증가 및 {Mathf.RoundToInt(upgradeInfo.DamageRate * 100)}% 증가.");
+        result.AppendLine();
+        result.Append($"보스 공격력 {upgradeInfo.BaseBossDamage} 증가 및 {Mathf.RoundToInt(upgradeInfo.BossDamageRate * 100)}% 증가");
         return result.ToString();
     }
 

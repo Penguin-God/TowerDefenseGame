@@ -19,7 +19,8 @@ public class UnitStatController
     public int GetUnitUpgradeValue(UnitFlags flag) => _upgradeInfoByFlag[flag].x;
     public int GetUnitUpgradeScale(UnitFlags flag) => _upgradeInfoByFlag[flag].y;
 
-    MultiData<WorldUnitDamageManager> _worldUnitDamageManagers;
+    MultiData<UnitDamageInfoManager> _unitDamageManagers;
+    UnitDamageInfoManager GetInfoManager(byte id) => _unitDamageManagers.GetData(id);
     readonly WorldUnitDamageManager _worldUnitDamageManager;
     WorldUnitManager _worldUnitManager;
     public UnitStatController(WorldUnitDamageManager worldUnitDamageManager, WorldUnitManager unitManager)
@@ -28,10 +29,13 @@ public class UnitStatController
         _worldUnitManager = unitManager;
     }
 
-    public UnitDamageInfo GetDamageInfo(UnitFlags flag, byte id) => _worldUnitDamageManager.GetUnitDamageInfo(flag, id);
+    // public UnitDamageInfo GetDamageInfo(UnitFlags flag, byte id) => _worldUnitDamageManager.GetUnitDamageInfo(flag, id);
+    public UnitDamageInfo GetDamageInfo(UnitFlags flag, byte id) => GetInfoManager(id).GetDamageInfo(flag);
 
     public void AddUnitDamage(UnitFlags flag, int value, UnitStatType changeStatType, byte id)
     {
+        GetInfoManager(id).AddDamage(flag, value, changeStatType);
+
         _worldUnitDamageManager.AddUnitDamageValue(flag, value, changeStatType, id);
         AddUnitUpgradeValue(flag, value);
         UpdateCurrentUnitDamage(id);
@@ -56,6 +60,7 @@ public class UnitStatController
     {
         foreach (var flag in UnitFlags.AllFlags.Where(condition))
         {
+            GetInfoManager(id).ScaleDamage(flag, value, changeStatType);
             _worldUnitDamageManager.ScaleUnitDamageValue(flag, value, changeStatType, id);
             AddUnitUpgradeScale(flag, Mathf.RoundToInt(value * 100));
         }

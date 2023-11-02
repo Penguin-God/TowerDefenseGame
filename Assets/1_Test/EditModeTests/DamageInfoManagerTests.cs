@@ -46,6 +46,8 @@ namespace Tests
 
             Assert.AreEqual(dam, GetRedSwordmanDamage(manager));
             Assert.AreEqual(bossDam, GetRedSwordmanBossDamage(manager));
+            Assert.AreEqual(damValue, manager.GetUpgradeInfo(RedSwordman).BaseDamage);
+            Assert.AreEqual(bossDamValue, manager.GetUpgradeInfo(RedSwordman).BaseBossDamage);
         }
 
         [Test]
@@ -61,6 +63,8 @@ namespace Tests
 
             Assert.AreEqual(dam, GetRedSwordmanDamage(manager));
             Assert.AreEqual(bossDam, GetRedSwordmanBossDamage(manager));
+            Assert.AreEqual(damRate, manager.GetUpgradeInfo(RedSwordman).DamageRate);
+            Assert.AreEqual(bossDamRate, manager.GetUpgradeInfo(RedSwordman).BossDamageRate);
         }
 
         [Test]
@@ -72,6 +76,7 @@ namespace Tests
             manager.IncreaseBossDamageRate(RedSwordman, 0.5f);
 
             Assert.AreEqual(200, GetRedSwordmanBossDamage(manager));
+            Assert.AreEqual(1, manager.GetUpgradeInfo(RedSwordman).BossDamageRate);
         }
 
         [Test]

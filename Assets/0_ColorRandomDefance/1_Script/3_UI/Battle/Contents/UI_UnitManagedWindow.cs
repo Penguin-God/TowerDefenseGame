@@ -38,7 +38,7 @@ public class UI_UnitManagedWindow : UI_Popup
     }
 
     UnitCombineMultiController _combineContoller;
-    public void DepencyInject(UnitCombineMultiController combineContoller)  => _combineContoller = combineContoller;
+    public void DependencyInject(UnitCombineMultiController combineContoller)  => _combineContoller = combineContoller;
 
     public void Show(UnitFlags flags)
     {

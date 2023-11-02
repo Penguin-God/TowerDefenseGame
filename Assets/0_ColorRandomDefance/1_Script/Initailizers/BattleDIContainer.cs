@@ -59,9 +59,10 @@ public class BattleDIContainer
     }
 
     public void Inject<T>() => Inject(typeof(T));
-    public void Inject(Type type)
+    public void Inject(Type type) => Inject(Get(type));
+
+    public void Inject(object instance)
     {
-        object instance = Get(type);
         var methodInfo = instance.GetType().GetMethod("DependencyInject", BindingFlags.Instance | BindingFlags.Public);
 
         if (methodInfo == null)
@@ -203,8 +204,10 @@ public class BattleDIContainerInitializer
 
         uiMediator.RegisterUI(BattleUI_Type.UnitMaxCountExpendShop, "InGameShop/UnitCountExpendShop_UI");
 
-        Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").DepencyInject(Get<UnitCombineMultiController>());
+        var unitWindow = Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow");
+        container.Inject(unitWindow);
         Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").gameObject.SetActive(false);
+        // Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").DepencyInject(Get<UnitCombineMultiController>());
 
         // 얘들은 절대 여기서 Show를 해서는 안 되!! 이유는 skill에서 바꿀 수도 있음
         uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_BattleShop");

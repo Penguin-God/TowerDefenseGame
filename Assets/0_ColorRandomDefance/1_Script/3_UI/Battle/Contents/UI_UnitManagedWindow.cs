@@ -82,8 +82,10 @@ public class UI_UnitManagedWindow : UI_Popup
     {
         if (Managers.Unit.TryFindUnit((unit) => unit.UnitFlags == _unitFlag, out var findUnit))
         {
+            int amount = Multi_GameManager.Instance.BattleData.UnitSellRewardDatas[(int)findUnit.UnitClass].Amount;
+            if (UnitFlags.GetUnitType(findUnit.UnitColor) == UnitType.High) amount *= 2;
+            Multi_GameManager.Instance.AddGold(amount);
             findUnit.Dead();
-            Multi_GameManager.Instance.AddGold(Multi_GameManager.Instance.BattleData.UnitSellRewardDatas[(int)findUnit.UnitClass].Amount);
         }
     }
 

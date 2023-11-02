@@ -32,7 +32,7 @@ MonoBehaviour:
   - _currencyType: 0
     _amount: 20
   - _currencyType: 0
-    _amount: 60
+    _amount: 80
   WhiteUnitPriceDatas:
   - _currencyType: 1
     _amount: 1

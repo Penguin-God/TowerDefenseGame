@@ -123,6 +123,8 @@ MonoBehaviour:
   - AddUnitDamageWithFlag
   - ScaleAllUnitDamage
   - ScaleUnitDamageWithColor
+  - _Combine
+  - RPC_IncreasedMaxUnitCount
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

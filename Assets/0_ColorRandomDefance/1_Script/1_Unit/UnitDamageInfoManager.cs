@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using System.Linq;
 
 [Serializable]
 public struct UnitDamageInfo
@@ -41,6 +42,7 @@ public struct UnitDamageInfo
 public class UnitDamageInfoManager
 {
     readonly Dictionary<UnitFlags, UnitDamageInfo> _damageInfoByFlag;
+
     public UnitDamageInfoManager(IReadOnlyDictionary<UnitFlags, UnitDamageInfo> originDamages)
     {
         int unitAllCount = Enum.GetValues(typeof(UnitColor)).Length * Enum.GetValues(typeof(UnitClass)).Length;

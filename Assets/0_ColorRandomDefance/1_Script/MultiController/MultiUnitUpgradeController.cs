@@ -36,13 +36,13 @@ public class MultiUnitStatController : MonoBehaviourPun
     }
 
     [PunRPC]
-    void AddUnitDamageWithFlag(UnitFlags flag, int value, UnitStatType changeStatType, byte id) => _unitStatCotroller.AddUnitDamageWithFlag(flag, value, changeStatType, id);
+    void AddUnitDamageWithFlag(UnitFlags flag, int value, UnitStatType changeStatType, byte id) => _unitStatCotroller.AddUnitDamage(flag, value, changeStatType, id);
 
     [PunRPC]
-    void AddUnitDamageWithColor(byte color, int value, UnitStatType changeStatType, byte id) => _unitStatCotroller.AddUnitDamageValueWithColor((UnitColor)color, value, changeStatType, id);
+    void AddUnitDamageWithColor(byte color, int value, UnitStatType changeStatType, byte id) => _unitStatCotroller.AddUnitDamageWithColor((UnitColor)color, value, changeStatType, id);
 
     [PunRPC]
-    void ScaleUnitDamageWithColor(byte color, float value, UnitStatType changeStatType, byte id) => _unitStatCotroller.ScaleUnitDamageValueWithColor((UnitColor)color, value, changeStatType, id);
+    void ScaleUnitDamageWithColor(byte color, float value, UnitStatType changeStatType, byte id) => _unitStatCotroller.ScaleUnitDamageWithColor((UnitColor)color, value, changeStatType, id);
 
     [PunRPC]
     void ScaleAllUnitDamage(float value, UnitStatType changeStatType, byte id) => _unitStatCotroller.ScaleAllUnitDamage(value, changeStatType, id);

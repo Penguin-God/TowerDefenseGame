@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using System;
 
 public enum UnitStatType
 {
@@ -18,6 +19,7 @@ public class UnitStatController
     public int GetUnitUpgradeValue(UnitFlags flag) => _upgradeInfoByFlag[flag].x;
     public int GetUnitUpgradeScale(UnitFlags flag) => _upgradeInfoByFlag[flag].y;
 
+    MultiData<WorldUnitDamageManager> _worldUnitDamageManagers;
     readonly WorldUnitDamageManager _worldUnitDamageManager;
     WorldUnitManager _worldUnitManager;
     public UnitStatController(WorldUnitDamageManager worldUnitDamageManager, WorldUnitManager unitManager)
@@ -28,35 +30,44 @@ public class UnitStatController
 
     public UnitDamageInfo GetDamageInfo(UnitFlags flag, byte id) => _worldUnitDamageManager.GetUnitDamageInfo(flag, id);
 
-    public void AddUnitDamageWithFlag(UnitFlags flag, int value, UnitStatType changeStatType, byte id)
+    public void AddUnitDamage(UnitFlags flag, int value, UnitStatType changeStatType, byte id)
     {
         _worldUnitDamageManager.AddUnitDamageValue(flag, value, changeStatType, id);
+        AddUnitUpgradeValue(flag, value);
         UpdateCurrentUnitDamage(id);
     }
 
-    public void AddUnitDamageValueWithColor(UnitColor color, int value, UnitStatType changeStatType, byte id)
+    public void AddUnitDamageWithColor(UnitColor color, int value, UnitStatType changeStatType, byte id)
+        => AddUnitDamageValue(flag => SameColor(flag, color), value, changeStatType, id);
+
+    public void AddUnitDamageValue(Func<UnitFlags, bool> condition, int value, UnitStatType changeStatType, byte id)
     {
-        _worldUnitDamageManager.AddUnitDamageValue(flag => SameColor(flag, color), value, changeStatType, id);
-        UpdateCurrentUnitDamage(id);
+        foreach (var flag in UnitFlags.AllFlags.Where(condition))
+            AddUnitDamage(flag, value, changeStatType, id);
     }
 
-    public void ScaleUnitDamageValueWithColor(UnitColor color, float value, UnitStatType changeStatType, byte id)
-    {
-        _worldUnitDamageManager.ScaleUnitDamageValue(flag => SameColor(flag, color), value, changeStatType, id);
-        UpdateCurrentUnitDamage(id);
-    }
+    public void ScaleUnitDamageWithColor(UnitColor color, float value, UnitStatType changeStatType, byte id)
+        => ScaleUnitDamageValue(flag => SameColor(flag, color), value, changeStatType, id);
 
     public void ScaleAllUnitDamage(float value, UnitStatType changeStatType, byte id)
+        => ScaleUnitDamageValue(_ => true, value, changeStatType, id);
+
+    public void ScaleUnitDamageValue(Func<UnitFlags, bool> condition, float value, UnitStatType changeStatType, byte id)
     {
-        _worldUnitDamageManager.ScaleUnitDamageValue((x) => true, value, changeStatType, id);
+        foreach (var flag in UnitFlags.AllFlags.Where(condition))
+        {
+            _worldUnitDamageManager.ScaleUnitDamageValue(flag, value, changeStatType, id);
+            AddUnitUpgradeScale(flag, Mathf.RoundToInt(value * 100));
+        }
         UpdateCurrentUnitDamage(id);
     }
-
-    bool SameColor(UnitFlags flag, UnitColor color) => flag.UnitColor == color;
 
     void UpdateCurrentUnitDamage(byte id)
     {
         foreach (var unit in _worldUnitManager.GetUnits(id))
             unit.UpdateDamageInfo(_worldUnitDamageManager.GetUnitDamageInfo(unit.UnitFlags, id));
     }
+
+
+    bool SameColor(UnitFlags flag, UnitColor color) => flag.UnitColor == color;
 }

@@ -5,7 +5,8 @@ using System.Linq;
 
 public class MultiData<T>
 {
-    T[] _services = new T[PlayerIdManager.MaxPlayerCount];
+    const int MaxPlayerCount = 2;
+    T[] _services = new T[MaxPlayerCount];
     public MultiData() { }
     public MultiData(Func<T> createService) => _services = _services.Select(x => createService()).ToArray();
 

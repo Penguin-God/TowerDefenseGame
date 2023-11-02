@@ -36,11 +36,10 @@ MonoBehaviour:
   RpcList:
   - AddFood
   - AddGold
-  - AddMana
   - AddReadyCount
   - AddUnit
-  - AddUnitDamageValue
-  - AddUnitDamageValueWithColor
+  - AddUnitDamageWithColor
+  - AddUnitDamageWithFlag
   - ApplySlow
   - ApplySlowToAll
   - Attack
@@ -53,14 +52,12 @@ MonoBehaviour:
   - ChangeUnitSummonMaxColor
   - ChangeWorld
   - ChangeWorldState
-  - ClearMana
   - ClickRpc
   - ColorChangeSkill
   - Combine
   - DecreasedEffect
   - DestroyRpc
   - DestroySpaceship
-  - DoSkill
   - DrawUnit
   - EnterBattle
   - ExitStun
@@ -68,34 +65,28 @@ MonoBehaviour:
   - Fire
   - GameEnd
   - GetReward
-  - IncreasedMaxUnitCount
   - InjectMonster
   - Mat_To_Freeze
-  - MeteorExplosion
   - MoveToOtherWorld
-  - Multi_Throw
-  - NotifyNormalMonsterCountChange
   - OnOpponentUnitCountChange
   - OnOpponentUnitMaxCountChange
   - OnPoison
   - OnStun
   - OverrideFood
   - OverrideGold
-  - OverrideMaxCount
   - PlayParticle
   - PopupText
   - RespawnSpaceship
   - RestoreSpeed
-  - RPC_AddNormalMonster
   - RPC_Dead
+  - RPC_IncreasedMaxUnitCount
   - RPC_OnDamage
-  - RPC_RemoveNormalMonster
-  - RPC_Shot
   - RPC_ShotMeteor
   - RPC_UpdateHealth
   - RPCSpawn
-  - ScaleAllUnitDamageValueWith
-  - ScaleUnitDamageValueWithColor
+  - ScaleAllUnitDamage
+  - ScaleUnitDamageWithColor
+  - SetAA
   - SetActive
   - SetClientSpawnNumber
   - SetEnemySkillData
@@ -118,13 +109,6 @@ MonoBehaviour:
   - UpdateStage
   - UseFood
   - UseGold
-  - SetAA
-  - AddUnitDamageWithColor
-  - AddUnitDamageWithFlag
-  - ScaleAllUnitDamage
-  - ScaleUnitDamageWithColor
-  - _Combine
-  - RPC_IncreasedMaxUnitCount
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

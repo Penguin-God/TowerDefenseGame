@@ -17,16 +17,12 @@ namespace WorldLogicTests
         const byte otherId = 1;
 
         [Test]
-        public void 조건에_맞는_유닛의_조건에_맞는_스탯만_강화되야_함()
+        public void 조건에_맞는_스탯만_강화되야_함()
         {
             var sut = CreateWorldDamageManager();
-
-            sut.AddUnitDamageValue(x => x.UnitColor == UnitColor.Red, 100, UnitStatType.Damage, 0);
+            sut.AddUnitDamageValue(new UnitFlags(0, 0), 100, UnitStatType.Damage, 0);
 
             AssertUnitDamage(sut, new UnitFlags(0, 0), 200);
-            AssertUnitDamage(sut, new UnitFlags(0, 1), 200);
-            AssertUnitDamage(sut, new UnitFlags(0, 2), 200);
-            AssertUnitDamage(sut, new UnitFlags(0, 3), 200);
         }
 
         void AssertUnitDamage(WorldUnitDamageManager sut, UnitFlags unitFlags, int damage)

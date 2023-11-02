@@ -13,7 +13,12 @@ public class Multi_BossEnemySpawner : MonoBehaviourPun
     string BulildBossPath() => new ResourcesPathBuilder().BuildBossMonsterPath(Random.Range(0, SpawnableObjectCount));
 
     MonsterDecorator _monsterDecorator;
-    public void DependencyInject(MonsterDecorator monsterDecorator) => _monsterDecorator = monsterDecorator;
+    UnitManagerController _unitManagerController;
+    public void DependencyInject(MonsterDecorator monsterDecorator, UnitManagerController unitManagerController)
+    {
+        _monsterDecorator = monsterDecorator;
+        _unitManagerController = unitManagerController;
+    }
     public Multi_BossEnemy SpawnBoss(byte id, int bossLevel)
     {
         var boss = Managers.Multi.Instantiater.PhotonInstantiateInactive(BulildBossPath(), id).GetComponent<Multi_BossEnemy>();
@@ -31,6 +36,6 @@ public class Multi_BossEnemySpawner : MonoBehaviourPun
         Managers.Sound.PlayBgm(BgmType.Boss);
 
         _monsterDecorator.DecorateSpeedSystem(bossData.Speed, monster);
-        monster.Inject(bossData);
+        monster.Inject(bossData, _unitManagerController);
     }
 }

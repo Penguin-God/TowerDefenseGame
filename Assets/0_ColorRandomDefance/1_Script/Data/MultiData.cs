@@ -3,14 +3,6 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 
-public class MultiServiceMidiator : SingletonPun<MultiServiceMidiator>
-{
-    // 마스터 전용
-    static ServerManager _server = new ServerManager();
-    public static ServerManager Server => _server;
-}
-
-
 public class MultiData<T>
 {
     T[] _services = new T[PlayerIdManager.MaxPlayerCount];

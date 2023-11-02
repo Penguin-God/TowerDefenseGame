@@ -12,11 +12,11 @@ public class Multi_BossEnemy : Multi_NormalEnemy
     }
 
     public BossData BossData { get; private set; }
-    public void Inject(BossData bossData)
+    public void Inject(BossData bossData, UnitManagerController unitManagerController)
     {
         BossData = bossData;
         base.Inject(bossData.Hp);
-        AggroUnit();
+        AggroUnit(unitManagerController);
     }
 
     public override void Dead()
@@ -29,8 +29,8 @@ public class Multi_BossEnemy : Multi_NormalEnemy
         }
     }
 
-    void AggroUnit()
-        => MultiServiceMidiator.Server.GetUnits(UsingId)
+    void AggroUnit(UnitManagerController unitManagerController)
+        => unitManagerController.GetUnits(UsingId)
         .ToList()
         .ForEach(x => x.UpdateTarget());
 }

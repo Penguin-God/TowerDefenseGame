@@ -129,7 +129,6 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
 
     void AddUnitToManager(Multi_TeamSoldier unit)
     {
-        MultiServiceMidiator.Server.AddUnit(unit);
         if (unit.UsingID == PlayerIdManager.MasterId) Managers.Unit.AddUnit(unit);
         else photonView.RPC(nameof(AddUnit), RpcTarget.Others, unit.GetComponent<PhotonView>().ViewID);
     }

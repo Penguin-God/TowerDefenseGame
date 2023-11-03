@@ -189,8 +189,8 @@ public class BattleDIContainerInitializer
         var uiMediator = container.GetService<BattleUI_Mediator>();
         
         uiMediator.RegisterUI(BattleUI_Type.WhiteUnitShop, "InGameShop/WhiteUnitShop");
-        uiMediator.RegisterUI(BattleUI_Type.BalckUnitCombineTable, "InGameShop/BlackUnitShop");
 
+        uiMediator.RegisterUI(BattleUI_Type.BalckUnitCombineTable, "InGameShop/BlackUnitShop");
         var shop = uiMediator.ShowPopupUI(BattleUI_Type.BalckUnitCombineTable).GetComponentInChildren<BalckUnitShop_UI>();
         shop.DependencyInject(Get<UnitCombineMultiController>());
         shop.transform.parent.gameObject.SetActive(false);
@@ -200,8 +200,7 @@ public class BattleDIContainerInitializer
         var unitWindow = Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow");
         container.Inject(unitWindow);
         Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").gameObject.SetActive(false);
-        // Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").DepencyInject(Get<UnitCombineMultiController>());
-
+        
         // 얘들은 절대 여기서 Show를 해서는 안 되!! 이유는 skill에서 바꿀 수도 있음
         uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_BattleShop");
         uiMediator.RegisterUI<UI_BattleButtons>(BattleUI_Type.BattleButtons);

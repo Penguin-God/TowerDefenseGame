@@ -5,28 +5,6 @@ using System;
 using System.Linq;
 
 [Serializable]
-public struct UI_UnitTrackerData
-{
-    [SerializeField] UnitFlags _UnitFlags;
-    [SerializeField] Sprite _icon;
-    [SerializeField] Color _backGroundColor;
-    [SerializeField] string _unitClassName;
-
-    public UI_UnitTrackerData(UnitFlags unitNum, Sprite icon, Color color, string unitClassName)
-    {
-        _UnitFlags = unitNum;
-        _icon = icon;
-        _backGroundColor = color;
-        _unitClassName = unitClassName;
-    }
-
-    public UnitFlags UnitFlags => _UnitFlags;
-    public Sprite Icon => _icon;
-    public Color BackGroundColor => _backGroundColor;
-    public string UnitClassName => _unitClassName;
-}
-
-[Serializable]
 public class UI_UnitWindowData
 {
     [SerializeField] UnitFlags _unitFlags;

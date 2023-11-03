@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class UI_UnitTracker : UI_Base
 {
@@ -13,13 +14,13 @@ public class UI_UnitTracker : UI_Base
 
     [SerializeField] UnitFlags unitFlags;
     public UnitFlags UnitFlags => unitFlags;
-    [SerializeField] Text countText;
+    [SerializeField] TextMeshProUGUI countText;
     [SerializeField] string _unitClassName;
     UnitTrakerDataModel _dataModel;
 
     void Awake()
     {
-        countText = GetComponentInChildren<Text>();
+        countText = GetComponentInChildren<TextMeshProUGUI>();
     }
 
     protected override void Init()

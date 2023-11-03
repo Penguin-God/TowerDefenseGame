@@ -24,14 +24,7 @@ public class BattleDIContainer
         return _services[typeof(T)] as T;
     }
 
-    public T GetService<T>() where T : class
-    {
-        if (_services.ContainsKey(typeof(T)))
-            return _services[typeof(T)] as T;
-
-        throw new InvalidOperationException("Service of type " + typeof(T).Name + " not found.");
-    }
-
+    public T GetService<T>() where T : class => GetService(typeof(T)) as T;
     public object GetService(Type type)
     {
         if (_services.ContainsKey(type))

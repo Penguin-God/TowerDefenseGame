@@ -59,7 +59,8 @@ public class BattleUI_Mediator
             if (result.GetComponent<UI_BattleButtons>() != null)
             {
                 result.GetComponent<UI_BattleButtons>().Inject(_container.GetComponent<SwordmanGachaController>(), _container.GetComponent<TextShowAndHideController>());
-                result.GetComponentInChildren<UI_Paint>().DependencyInject(_container.GetService<UnitStatController>());
+                _container.Inject(result.GetComponentInChildren<UI_Paint>());
+                // result.GetComponentInChildren<UI_Paint>().DependencyInject(_container.GetService<UnitStatController>());
             }
         }
 

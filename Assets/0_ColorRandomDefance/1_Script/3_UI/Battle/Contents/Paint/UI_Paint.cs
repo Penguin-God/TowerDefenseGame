@@ -35,7 +35,6 @@ public class UI_Paint : UI_Scene
 
     Transform _trackerParent;
     GridLayoutGroup _layoutGroup;
-    UnitTrakerSortByCombineable _combineSorter;
     protected override void Init()
     {
         base.Init();
@@ -53,7 +52,6 @@ public class UI_Paint : UI_Scene
         for (int i = 0; i < UnitFlags.AllClass.Count(); i++)
             SetSortAction(GameObjects.UnitByDefault, i, SortByClass);
 
-        _combineSorter = GetComponentInChildren<UnitTrakerSortByCombineable>();
         GetButton((int)Buttons.CombineableButton).onClick.AddListener(SortByCombineable);
 
         UpdateUI(SortType.Default);
@@ -98,6 +96,25 @@ public class UI_Paint : UI_Scene
             CreateTracker(new UnitFlags(unitColor, (UnitClass)classNumber));
     }
 
+    void SortByCombineables()
+    {
+        _layoutGroup.startCorner = GridLayoutGroup.Corner.LowerLeft;
+        _layoutGroup.padding.top = 230;
+
+        var combineableUnitFalgs = Managers.Unit.CombineableUnitFlags;
+        foreach (var unitFlag in SortUnitFlags(combineableUnitFalgs))
+            CreateTracker(unitFlag);
+    }
+
+    const int MAX_COMBINABLE_TRACKER_COUNT = 4;
+    IEnumerable<UnitFlags> SortUnitFlags(IEnumerable<UnitFlags> flags)
+        => flags
+            .Where(x => UnitFlags.NormalFlags.Contains(x))
+            .OrderByDescending(x => x.ClassNumber)
+            .ThenByDescending(x => x.ColorNumber)
+            .Take(MAX_COMBINABLE_TRACKER_COUNT)
+            .Reverse();
+
     void CreateTracker(UnitFlags flag)
     {
         var tracker = Managers.UI.MakeSubItem<UI_UnitTracker>(_trackerParent);
@@ -111,14 +128,14 @@ public class UI_Paint : UI_Scene
             Destroy(item.gameObject);
 
         GetObject((int)GameObjects.ColorButtons).SetActive(false);
-        _combineSorter.enabled = false;
         GetObject((int)GameObjects.UnitByDefault).gameObject.SetActive(false);
         switch (type)
         {
             case SortType.Default: GetObject((int)GameObjects.UnitByDefault).gameObject.SetActive(true); break;
             case SortType.Color: break;
             case SortType.Class: break;
-            case SortType.Combineable: _layoutGroup.startCorner = GridLayoutGroup.Corner.LowerLeft; _layoutGroup.padding.top = 230; _combineSorter.enabled = true; break;
+            case SortType.Combineable: SortByCombineables(); break; 
+                // _layoutGroup.startCorner = GridLayoutGroup.Corner.LowerLeft; _layoutGroup.padding.top = 230; _combineSorter.enabled = true; break;
         }
     }
 }

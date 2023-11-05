@@ -21,6 +21,8 @@ public class LookWorldChangedButton : UI_Scene
     void ChangeLookWorld()
     {
         Managers.Camera.LookWorldChanged();
+        if (Managers.Camera.CameraSpot.IsInDefenseWorld == false)
+            Managers.Camera.LookWorld();
         Managers.Sound.PlayEffect(EffectSoundType.PopSound);
         if (Managers.Camera.LookWorld_Id == PlayerIdManager.Id)
         {

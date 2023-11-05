@@ -28,6 +28,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2856724636391985371}
   m_RootOrder: 0
@@ -60,6 +61,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -85,7 +87,6 @@ GameObject:
   - component: {fileID: 7225387103768642123}
   - component: {fileID: 7225387103768642121}
   - component: {fileID: 7225387103768642122}
-  - component: {fileID: 6261963055064577234}
   - component: {fileID: 8595300365617583013}
   m_Layer: 5
   m_Name: YellowPaintButtonBackGround
@@ -104,6 +105,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7225387104044950974}
   m_Father: {fileID: 7225387105161235753}
@@ -137,6 +139,7 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: 4487b6501f1381549872ae22738916a3, type: 2}
   m_Color: {r: 0.9019608, g: 0.9019608, b: 0, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -151,22 +154,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6261963055064577234
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7225387103768642116}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitTrackerParent: {fileID: 0}
-  _flag:
-    _colorNumber: 0
-    _classNumber: 0
 --- !u!114 &8595300365617583013
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,6 +168,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -221,7 +209,6 @@ GameObject:
   - component: {fileID: 7225387103776076507}
   - component: {fileID: 7225387103776076505}
   - component: {fileID: 7225387103776076506}
-  - component: {fileID: 1337171047945894812}
   - component: {fileID: 4130579187465243030}
   m_Layer: 5
   m_Name: OrangePaintButtonBackGround
@@ -240,6 +227,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7225387104682960738}
   m_Father: {fileID: 7225387105161235753}
@@ -273,6 +261,7 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: 4487b6501f1381549872ae22738916a3, type: 2}
   m_Color: {r: 1, g: 0.3137255, b: 0, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -287,22 +276,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &1337171047945894812
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7225387103776076500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitTrackerParent: {fileID: 0}
-  _flag:
-    _colorNumber: 0
-    _classNumber: 0
 --- !u!114 &4130579187465243030
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -317,6 +290,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -358,7 +332,6 @@ GameObject:
   - component: {fileID: 7225387103779262388}
   - component: {fileID: 7225387103779262389}
   - component: {fileID: 4621960725148775363}
-  - component: {fileID: 5993633612450732933}
   m_Layer: 5
   m_Name: RedPaintButtonBackGround
   m_TagString: Untagged
@@ -376,6 +349,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7225387105331948066}
   m_Father: {fileID: 7225387105161235753}
@@ -409,6 +383,7 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: 4487b6501f1381549872ae22738916a3, type: 2}
   m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -437,6 +412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -466,22 +442,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &5993633612450732933
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7225387103779262391}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitTrackerParent: {fileID: 0}
-  _flag:
-    _colorNumber: 0
-    _classNumber: 0
 --- !u!1 &7225387104044950975
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,6 +470,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7225387103768642123}
   m_RootOrder: 0
@@ -542,6 +503,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -567,7 +529,6 @@ GameObject:
   - component: {fileID: 7225387104263421826}
   - component: {fileID: 7225387104263421824}
   - component: {fileID: 7225387104263421825}
-  - component: {fileID: 3636834323702282898}
   - component: {fileID: 7693312031151697699}
   m_Layer: 5
   m_Name: GreenPaintButtonBackGround
@@ -586,6 +547,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7225387104586527428}
   m_Father: {fileID: 7225387105161235753}
@@ -619,6 +581,7 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: 4487b6501f1381549872ae22738916a3, type: 2}
   m_Color: {r: 0, g: 1, b: 0, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -633,22 +596,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &3636834323702282898
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7225387104263421827}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitTrackerParent: {fileID: 0}
-  _flag:
-    _colorNumber: 0
-    _classNumber: 0
 --- !u!114 &7693312031151697699
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -663,6 +610,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -720,6 +668,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7225387105588026992}
   m_RootOrder: 0
@@ -752,6 +701,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -794,6 +744,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7225387104263421826}
   m_RootOrder: 0
@@ -826,6 +777,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -868,6 +820,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7225387103776076507}
   m_RootOrder: 0
@@ -900,6 +853,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -942,6 +896,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7225387105062467908}
   m_RootOrder: 0
@@ -974,6 +929,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1016,6 +972,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7225387105564114510}
   m_RootOrder: 0
@@ -1048,6 +1005,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1073,7 +1031,6 @@ GameObject:
   - component: {fileID: 7225387105062467908}
   - component: {fileID: 7225387105062467913}
   - component: {fileID: 7225387105062467914}
-  - component: {fileID: 2367268469703328492}
   - component: {fileID: 5800481731627552010}
   m_Layer: 5
   m_Name: ClassButtonBackGround
@@ -1092,6 +1049,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7225387104841305421}
   m_Father: {fileID: 7225387105161235753}
@@ -1125,6 +1083,7 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: 4487b6501f1381549872ae22738916a3, type: 2}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1139,22 +1098,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2367268469703328492
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7225387105062467909}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitTrackerParent: {fileID: 0}
-  _flag:
-    _colorNumber: 0
-    _classNumber: 0
 --- !u!114 &5800481731627552010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1169,6 +1112,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1226,6 +1170,7 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7225387103779262390}
   - {fileID: 7225387105564114510}
@@ -1266,6 +1211,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1308,6 +1254,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 7225387103779262390}
   m_RootOrder: 0
@@ -1340,6 +1287,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1365,7 +1313,6 @@ GameObject:
   - component: {fileID: 7225387105564114510}
   - component: {fileID: 7225387105564114508}
   - component: {fileID: 7225387105564114509}
-  - component: {fileID: 2384331620600849565}
   - component: {fileID: 7048610888668828767}
   m_Layer: 5
   m_Name: BluePaintButtonBackGround
@@ -1384,6 +1331,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7225387104889957141}
   m_Father: {fileID: 7225387105161235753}
@@ -1417,6 +1365,7 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: 4487b6501f1381549872ae22738916a3, type: 2}
   m_Color: {r: 0, g: 0, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1431,22 +1380,6 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2384331620600849565
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7225387105564114511}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitTrackerParent: {fileID: 0}
-  _flag:
-    _colorNumber: 0
-    _classNumber: 0
 --- !u!114 &7048610888668828767
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1461,6 +1394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1502,7 +1436,6 @@ GameObject:
   - component: {fileID: 7225387105588026998}
   - component: {fileID: 7225387105588026999}
   - component: {fileID: 3091553279299368219}
-  - component: {fileID: 3730060525541476041}
   m_Layer: 5
   m_Name: VioletPaintButtonBackGround
   m_TagString: Untagged
@@ -1520,6 +1453,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7225387104300678054}
   m_Father: {fileID: 7225387105161235753}
@@ -1553,6 +1487,7 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: 4487b6501f1381549872ae22738916a3, type: 2}
   m_Color: {r: 0.78431374, g: 0, b: 1, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1581,6 +1516,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1610,22 +1546,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &3730060525541476041
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7225387105588026993}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c62e4c8827346b449811286302ada9cc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _unitTrackerParent: {fileID: 0}
-  _flag:
-    _colorNumber: 0
-    _classNumber: 0
 --- !u!1 &8047831394469072420
 GameObject:
   m_ObjectHideFlags: 0
@@ -1655,6 +1575,7 @@ RectTransform:
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4043751730983439875}
   m_Father: {fileID: 7225387105161235753}
@@ -1688,6 +1609,7 @@ MonoBehaviour:
   m_Material: {fileID: 2100000, guid: 4487b6501f1381549872ae22738916a3, type: 2}
   m_Color: {r: 0.47058824, g: 0.47058824, b: 0.47058824, a: 1}
   m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1716,6 +1638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 3
+    m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}

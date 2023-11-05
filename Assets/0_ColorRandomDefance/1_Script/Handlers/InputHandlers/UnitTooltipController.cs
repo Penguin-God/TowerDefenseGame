@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -13,14 +12,13 @@ public class UnitTooltipController
     readonly float DELAY_TIME = 0.5f;
     readonly int FONT_SIZE = 16;
     readonly Vector2 WINDOW_SIZE = new Vector2(250, 200);
-    public void SetMouseOverAction(IEnumerable<UI_UnitTracker> uis)
+
+    public void SetMouseOverAction(UI_UnitTracker tracker)
     {
-        uis.ToList().ForEach(x => {
-            var mouseOverHandler = x.gameObject.AddComponent<MouseOverHandler>();
-            mouseOverHandler.SetDelayTime(DELAY_TIME);
-            mouseOverHandler.OnPointerEnterDelayedEvent += () => ShowUnitTooltip(x, OFFSET_X);
-            mouseOverHandler.OnPointerExitEvent += CloseWindow;
-        });
+        var mouseOverHandler = tracker.gameObject.AddComponent<MouseOverHandler>();
+        mouseOverHandler.SetDelayTime(DELAY_TIME);
+        mouseOverHandler.OnPointerEnterDelayedEvent += () => ShowUnitTooltip(tracker, OFFSET_X);
+        mouseOverHandler.OnPointerExitEvent += CloseWindow;
     }
 
     BackGround _currentWindow;

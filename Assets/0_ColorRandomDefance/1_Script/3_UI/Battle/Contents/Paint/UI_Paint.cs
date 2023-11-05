@@ -29,8 +29,9 @@ public class UI_Paint : UI_Scene
         CombineableButton,
     }
 
-    [SerializeField] GameObject _currentUnitTracker;
-    public GameObject CurrentUnitTracker { get => _currentUnitTracker; set => _currentUnitTracker = value; }
+
+    UnitStatController _unitStatController;
+    public void DependencyInject(UnitStatController unitStatController) => _unitStatController = unitStatController;
 
     Transform _trackerParent;
     GridLayoutGroup _layoutGroup;
@@ -82,7 +83,7 @@ public class UI_Paint : UI_Scene
         UpdateUI(SortType.Color);
 
         foreach (var unitClass in UnitFlags.AllClass)
-            Managers.UI.MakeSubItem<UI_UnitTracker>(_trackerParent).SetInfo(new UnitFlags((UnitColor)colorNumber, unitClass));
+            CreateTracker(new UnitFlags((UnitColor)colorNumber, unitClass));
     }
 
     void SortByClass(int classNumber)
@@ -94,7 +95,14 @@ public class UI_Paint : UI_Scene
         UpdateUI(SortType.Class);
 
         foreach (var unitColor in UnitFlags.NormalColors)
-            Managers.UI.MakeSubItem<UI_UnitTracker>(_trackerParent).SetInfo(new UnitFlags(unitColor, (UnitClass)classNumber));
+            CreateTracker(new UnitFlags(unitColor, (UnitClass)classNumber));
+    }
+
+    void CreateTracker(UnitFlags flag)
+    {
+        var tracker = Managers.UI.MakeSubItem<UI_UnitTracker>(_trackerParent);
+        tracker.SetInfo(flag);
+        new UnitTooltipController(_unitStatController.GetInfoManager(PlayerIdManager.Id)).SetMouseOverAction(tracker);
     }
 
     void UpdateUI(SortType type)

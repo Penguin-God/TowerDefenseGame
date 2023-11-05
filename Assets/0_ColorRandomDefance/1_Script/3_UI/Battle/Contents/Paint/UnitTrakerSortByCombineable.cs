@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class UnitTrakerSortByCombineable : UI_UnitTrackerParent
+public class UnitTrakerSortByCombineable : MonoBehaviour
 {
     readonly int MAX_UI_COUNT = 4;
-    protected override void SortTrackers(UnitFlags flag) => gameObject.SetActive(true);
     void OnEnable()
     {
         Managers.Unit.OnUnitCountChange -= UpdateCombineableUnitFlags;

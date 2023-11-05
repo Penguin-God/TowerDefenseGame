@@ -19,21 +19,12 @@ public class UnitClickController : MonoBehaviour
             if (unit != null && unit.UsingID == PlayerIdManager.Id && Managers.Data.UnitWindowDataByUnitFlags.ContainsKey(unit.UnitFlags))
             {
                 Managers.UI.ClosePopupUI();
-                GetTrakerSroter().SettingUnitTrackers(unit.UnitFlags);
+                // GetTrakerSroter().SettingUnitTrackers(unit.UnitFlags);
+                SrotByTargetColor(unit.UnitFlags);
                 Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").Show(unit.UnitFlags);
             }
         }
     }
 
-    UnitTrakerSortByColor _sorter;
-    UnitTrakerSortByColor GetTrakerSroter()
-    {
-        if(_sorter != null) return _sorter;
-        else
-        {
-            var result = Managers.UI.GetSceneUI<UI_BattleButtons>().GetComponentInChildren<UnitTrakerSortByColor>(true);
-            _sorter = result;
-            return result;
-        }
-    }
+    void SrotByTargetColor(UnitFlags flag) => Managers.UI.GetSceneUI<UI_BattleButtons>().GetComponentInChildren<UI_Paint>().SortByColor(flag.ColorNumber);
 }

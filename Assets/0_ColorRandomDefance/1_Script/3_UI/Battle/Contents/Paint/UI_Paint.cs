@@ -31,8 +31,19 @@ public class UI_Paint : UI_Scene
 
 
     UnitStatController _unitStatController;
-    public void DependencyInject(UnitStatController unitStatController) => _unitStatController = unitStatController;
+    BattleEventDispatcher _dispatcher;
+    WorldUnitManager _worldUnitManager;
+    UnitCombineSystem _combineSystem;
+    public void DependencyInject(UnitStatController unitStatController, BattleEventDispatcher dispatcher, WorldUnitManager worldUnitManager, UnitCombineSystem combineSystem)
+    {
+        _unitStatController = unitStatController;
+        _dispatcher = dispatcher;
+        _worldUnitManager = worldUnitManager;
+        _combineSystem = combineSystem;
+    }
 
+    SortType _currentSortType = SortType.Default;
+    List<UI_UnitTracker> _currentTrackers = new List<UI_UnitTracker>();
     Transform _trackerParent;
     GridLayoutGroup _layoutGroup;
     protected override void Init()
@@ -54,7 +65,8 @@ public class UI_Paint : UI_Scene
 
         GetButton((int)Buttons.CombineableButton).onClick.AddListener(SortByCombineable);
 
-        UpdateUI(SortType.Default);
+        _dispatcher.OnUnitCountChangeByFlag += (flag, _) => UpdateUI(flag);
+        UpdateUI(_currentSortType);
     }
 
     void SetSortAction(GameObjects ojects, int childIndex, UnityAction<int> action)
@@ -101,7 +113,7 @@ public class UI_Paint : UI_Scene
         _layoutGroup.startCorner = GridLayoutGroup.Corner.LowerLeft;
         _layoutGroup.padding.top = 230;
 
-        var combineableUnitFalgs = Managers.Unit.CombineableUnitFlags;
+        var combineableUnitFalgs = _combineSystem.GetCombinableUnitFalgs(_worldUnitManager.GetUnitFlags(PlayerIdManager.Id));  // Managers.Unit.CombineableUnitFlags;
         foreach (var unitFlag in SortUnitFlags(combineableUnitFalgs))
             CreateTracker(unitFlag);
     }
@@ -118,14 +130,36 @@ public class UI_Paint : UI_Scene
     void CreateTracker(UnitFlags flag)
     {
         var tracker = Managers.UI.MakeSubItem<UI_UnitTracker>(_trackerParent);
-        tracker.SetInfo(flag);
+        tracker.SetInfo(flag, _worldUnitManager);
         new UnitTooltipController(_unitStatController.GetInfoManager(PlayerIdManager.Id)).SetMouseOverAction(tracker);
+        _currentTrackers.Add(tracker);
+
     }
+
+    void UpdateUI(UnitFlags flag)
+    {
+        switch (_currentSortType)
+        {
+            // case SortType.Default: UpdateDefaultCount(); break;
+            case SortType.Color: 
+            case SortType.Class: UpdateTrackersCount(flag); break;
+            case SortType.Combineable: UpdateUI(SortType.Combineable); break;
+        }
+    }
+
+    void UpdateDefaultCount()
+    {
+        foreach (var tracker in _currentTrackers)
+            tracker.UpdateUnitCountText(_worldUnitManager.GetUnitCount(PlayerIdManager.Id, unit => unit.UnitFlags.UnitClass == tracker.UnitFlags.UnitClass));
+    }
+
+    void UpdateTrackersCount(UnitFlags flag) => _currentTrackers.FirstOrDefault(x => x.UnitFlags == flag)?.UpdateUnitCountText();
 
     void UpdateUI(SortType type)
     {
         foreach (Transform item in _trackerParent)
             Destroy(item.gameObject);
+        _currentTrackers.Clear();
 
         GetObject((int)GameObjects.ColorButtons).SetActive(false);
         GetObject((int)GameObjects.UnitByDefault).gameObject.SetActive(false);
@@ -134,8 +168,10 @@ public class UI_Paint : UI_Scene
             case SortType.Default: GetObject((int)GameObjects.UnitByDefault).gameObject.SetActive(true); break;
             case SortType.Color: break;
             case SortType.Class: break;
-            case SortType.Combineable: SortByCombineables(); break; 
+            case SortType.Combineable: SortByCombineables(); break;
                 // _layoutGroup.startCorner = GridLayoutGroup.Corner.LowerLeft; _layoutGroup.padding.top = 230; _combineSorter.enabled = true; break;
         }
+        if(type != _currentSortType)
+            _currentSortType = type;
     }
 }

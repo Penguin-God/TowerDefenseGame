@@ -31,46 +31,31 @@ public class UI_UnitTracker : UI_Base
         Bind<Image>(typeof(Images));
     }
 
-    void OnEnable()
-    {
-        Managers.Unit.OnUnitCountChangeByFlag -= TrackUnitCount;
-        Managers.Unit.OnUnitCountChangeByFlag += TrackUnitCount;
-        SetUnitCountText(Managers.Unit.GetUnitCount(unitFlags));
-    }
-
-    void OnDisable()
-    {
-        if(Application.isPlaying && Managers.Unit != null)
-            Managers.Unit.OnUnitCountChangeByFlag -= TrackUnitCount;
-    }
-
-    public void SetInfo(UnitFlags flag)
-    {
-        gameObject.SetActive(false);
-        ApplyData(flag);
-        gameObject.SetActive(true); // OnEnalbe() 실행
-    }
-
-    void ApplyData(UnitFlags flag)
+    WorldUnitManager _worldUnitManager;
+    public void SetInfo(UnitFlags flag, WorldUnitManager worldUnitManager)
     {
         if (_initDone == false)
         {
             Init();
             _initDone = true;
         }
+
+        _worldUnitManager = worldUnitManager;
+        ApplyData(flag);
+    }
+
+    void ApplyData(UnitFlags flag)
+    {
         unitFlags = flag;
         var data = _dataModel.BuildUnitTrackerData(unitFlags);
         GetImage((int)Images.BackGround).color = data.BackGroundColor;
         GetImage((int)Images.Icon).sprite = data.Icon;
         _unitClassName = data.UnitClassName;
+        UpdateUnitCountText();
     }
 
-    void TrackUnitCount(UnitFlags unitFlag, int count)
-    {
-        if (unitFlag == unitFlags)
-            SetUnitCountText(count);
-    }
-    void SetUnitCountText(int count) => countText.text = $"{_unitClassName} : {count}";
+    public void UpdateUnitCountText() => UpdateUnitCountText(_worldUnitManager.GetUnitCount(PlayerIdManager.Id, unit => unit.UnitFlags == unitFlags));
+    public void UpdateUnitCountText(int count) => countText.text = $"{_unitClassName} : {count}";
 
     void OnClicked()
     {

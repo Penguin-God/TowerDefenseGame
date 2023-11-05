@@ -35,6 +35,7 @@ public class UnitManagerController
             _dispatcher.NotifyUnitCountChange(WorldUnitManager.GetUnitCount(unit.UsingID));
             _dispatcher.NotifyUnitCountChangeWithFlag(unit.UnitFlags, WorldUnitManager.GetUnitCount(unit.UsingID, x => x.UnitFlags == unit.UnitFlags));
             _dispatcher.NotifyUnitCountChangeWithClass(unit.UnitClass, WorldUnitManager.GetUnitCount(unit.UsingID, x => x.UnitFlags.UnitClass == unit.UnitClass));
+            _dispatcher.NotifyUnitListChange(WorldUnitManager.GetUnitFlags(unit.UsingID));
         }
     }
 

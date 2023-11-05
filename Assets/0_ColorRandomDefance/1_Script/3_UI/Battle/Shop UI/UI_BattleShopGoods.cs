@@ -69,7 +69,7 @@ public class UI_BattleShopGoods : UI_Base
         GetTextMeshPro((int)Texts.ProductNameText).text = goodsData.Name;
         GetTextMeshPro((int)Texts.PriceText).text = goodsData.PriceData.Amount.ToString();
         
-        GetImage((int)Images.CurrencyImage).sprite = new SpriteUtility().GetBattleCurrencyImage(goodsData.PriceData.CurrencyType);
+        GetImage((int)Images.CurrencyImage).sprite = SpriteUtility.GetBattleCurrencyImage(goodsData.PriceData.CurrencyType);
         SetPanelColor(goodsData.SellData);
 
         GetButton((int)Buttons.PanelButton).onClick.RemoveAllListeners();
@@ -87,7 +87,8 @@ public class UI_BattleShopGoods : UI_Base
             case BattleShopGoodsType.UnitUpgrade:
                 unitColor = convertor.ToUnitUpgradeData(goodsData.Datas).TargetColor; break;
         }
-        GetImage((int)Images.ColorPanel).color = new SpriteUtility().GetUnitColor(unitColor);
+        Color32 goodsColor = SpriteUtility.GetUnitColor(unitColor);
+        GetImage((int)Images.ColorPanel).color = new Color32(goodsColor.r, goodsColor.g, goodsColor.b, 100);
     }
 
     void TryBuy()

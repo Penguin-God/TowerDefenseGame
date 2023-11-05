@@ -47,10 +47,10 @@ public class UI_UnitTracker : UI_Base
     void ApplyData(UnitFlags flag)
     {
         unitFlags = flag;
-        var data = _dataModel.BuildUnitTrackerData(unitFlags);
-        GetImage((int)Images.BackGround).color = data.BackGroundColor;
-        GetImage((int)Images.Icon).sprite = data.Icon;
-        _unitClassName = data.UnitClassName;
+        // var data = _dataModel.BuildUnitTrackerData(unitFlags);
+        GetImage((int)Images.BackGround).color = SpriteUtility.GetUnitColor(unitFlags.UnitColor);  // data.BackGroundColor;
+        GetImage((int)Images.Icon).sprite = SpriteUtility.GetUnitClassIcon(unitFlags.UnitClass);// data.Icon;
+        _unitClassName = UnitTextPresenter.GetClassText(UnitFlags.UnitClass);
         UpdateUnitCountText();
     }
 

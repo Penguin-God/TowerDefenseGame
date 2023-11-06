@@ -5,11 +5,6 @@ using UnityEngine.UI;
 
 public class UI_BattleButtons : UI_Scene
 {
-    enum GameObjects
-    {
-        Paint,
-    }
-
     enum Buttons
     {
         SummonUnitButton,
@@ -24,18 +19,15 @@ public class UI_BattleButtons : UI_Scene
     protected override void Init()
     {
         base.Init();
-        Bind<GameObject>(typeof(GameObjects));
         Bind<Text>(typeof(Texts));
         Bind<Button>(typeof(Buttons));
 
         Managers.Camera.OnIsLookMyWolrd += (isLookMy) => GetButton((int)Buttons.SummonUnitButton).gameObject.SetActive(isLookMy);
-        Managers.Camera.OnIsLookMyWolrd += (isLookMy) => GetObject((int)GameObjects.Paint).SetActive(isLookMy);
-
         GetButton((int)Buttons.StoryWolrd_EnterButton).onClick.AddListener(CameraPositionChanged);
         GetButton((int)Buttons.SummonUnitButton).onClick.AddListener(SommonUnit);
     }
 
-    public void Inject(SwordmanGachaController swordmanGachaController, TextShowAndHideController textShowAndHideController)
+    public void DependencyInject(SwordmanGachaController swordmanGachaController, TextShowAndHideController textShowAndHideController)
     {
         _swordmanGachaController = swordmanGachaController;
         _textShowAndHideController = textShowAndHideController;

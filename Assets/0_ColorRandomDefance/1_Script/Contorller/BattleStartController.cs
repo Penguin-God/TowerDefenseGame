@@ -59,6 +59,7 @@ public class BattleStartController : MonoBehaviourPun
             ui.gameObject.SetActive(true);
         Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(false);
         _uiMediator.ShowSceneUI<UI_BattleButtons>(BattleUI_Type.BattleButtons);
+        _uiMediator.ShowSceneUI<UI_Paint>(BattleUI_Type.Paint);
         StartCoroutine(Co_NotifyGameStartEvent());
         _dispatcher.NotifyGameStart();
         Managers.Camera.OnIsLookMyWolrd += (isLookMy) => Managers.UI.GetSceneUI<UI_EnemySelector>().gameObject.SetActive(!isLookMy);

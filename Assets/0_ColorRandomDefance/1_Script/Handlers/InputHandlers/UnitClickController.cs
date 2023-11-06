@@ -26,5 +26,5 @@ public class UnitClickController : MonoBehaviour
         }
     }
 
-    void SrotByTargetColor(UnitFlags flag) => Managers.UI.GetSceneUI<UI_BattleButtons>().GetComponentInChildren<UI_Paint>().SortByColor(flag.ColorNumber);
+    void SrotByTargetColor(UnitFlags flag) => Managers.UI.GetSceneUI<UI_Paint>().SortByColor(flag.ColorNumber);
 }

@@ -188,7 +188,7 @@ public class BattleDIContainerInitializer
         var uiMediator = container.GetService<BattleUI_Mediator>();
         
         uiMediator.RegisterUI(BattleUI_Type.WhiteUnitShop, "InGameShop/WhiteUnitShop");
-
+        uiMediator.RegisterUI(BattleUI_Type.Paint, "Paint");
         uiMediator.RegisterUI(BattleUI_Type.BalckUnitCombineTable, "InGameShop/BlackUnitShop");
         var shop = uiMediator.ShowPopupUI(BattleUI_Type.BalckUnitCombineTable).GetComponentInChildren<BalckUnitShop_UI>();
         shop.DependencyInject(Get<UnitCombineMultiController>());

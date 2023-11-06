@@ -9,6 +9,7 @@ public enum BattleUI_Type
     WhiteUnitShop,
     UnitMaxCountExpendShop,
     BattleButtons,
+    Paint,
 }
 
 public class BattleUI_Mediator
@@ -56,12 +57,10 @@ public class BattleUI_Mediator
         T result = _uiManager.ShowSceneUI<T>(_pathBybattleUIType[type]);
         if (uiExist == false)
         {
-            if (result.GetComponent<UI_BattleButtons>() != null)
-            {
-                result.GetComponent<UI_BattleButtons>().Inject(_container.GetComponent<SwordmanGachaController>(), _container.GetComponent<TextShowAndHideController>());
-                _container.Inject(result.GetComponentInChildren<UI_Paint>());
-                // result.GetComponentInChildren<UI_Paint>().DependencyInject(_container.GetService<UnitStatController>());
-            }
+            if (result.TryGetComponent<UI_BattleButtons>(out var buttons))
+                _container.Inject(buttons);
+            else if(result.TryGetComponent<UI_Paint>(out var paint))
+                _container.Inject(paint);
         }
 
         return result;

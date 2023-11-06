@@ -54,6 +54,8 @@ public class UI_Paint : UI_Scene
         _trackerParent = GetObject((int)GameObjects.TrackerParent).transform;
         _layoutGroup = _trackerParent.GetComponent<GridLayoutGroup>();
 
+        Managers.Camera.OnIsLookMyWolrd += (isLookMy) => gameObject.SetActive(isLookMy);
+
         GetObject((int)GameObjects.PaintButton).GetComponent<Button>().onClick.AddListener(ChangePaintRootActive);
         GetButton((int)Buttons.ClassButton).onClick.AddListener(() => SwitchSortType(SortType.Default));
 

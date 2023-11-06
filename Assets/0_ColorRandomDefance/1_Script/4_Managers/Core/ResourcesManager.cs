@@ -19,6 +19,8 @@ public class ResourcesManager
         return Resources.Load<T>(path);
     }
 
+    public T[] LoadCsv<T>(string path) => CsvUtility.CsvToArray<T>(Load<TextAsset>($"Data/{path}").text);
+
     PoolManager _poolManager;
     public void DependencyInject(PoolManager poolManager) => _poolManager = poolManager;
 

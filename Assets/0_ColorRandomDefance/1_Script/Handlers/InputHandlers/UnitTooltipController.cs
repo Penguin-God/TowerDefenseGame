@@ -19,7 +19,8 @@ public class UnitTooltipController
         {
             UnitFlags flag = tracker.UnitFlags;
             var result = new StringBuilder();
-            result.Append(TextUtility.UnitKeyToValue(Managers.Data.UnitWindowDataByUnitFlags[flag].Description, flag));
+            string unitDescription = Managers.Resources.LoadCsv<UI_UnitWindowData>("UIData/UI_UnitWindowData").First(x => x.UnitFlags == flag).Description;
+            result.Append(TextUtility.UnitKeyToValue(unitDescription, flag));
             result.AppendLine();
             result.AppendLine();
             UnitDamageInfo damageInfo = _damageInfoManager.GetDamageInfo(flag);
@@ -39,16 +40,6 @@ public class UnitTooltipController
     }
 }
 
-[Serializable]
-public struct UnitJobTooltipData
-{
-    [SerializeField] UnitClass _unitClass;
-    [SerializeField] string _text;
-
-    public UnitClass UnitClass => _unitClass;
-    public string Text => _text;
-}
-
 public class UnitJobTooltipController
 {
     readonly MouseroverTooltipHandler _tooltipHandler = new();
@@ -56,8 +47,7 @@ public class UnitJobTooltipController
     {
         _tooltipHandler.SetMouseOverAction(tracker.GetComponent<RectTransform>(), BuildUnitDescrtion);
 
-        string BuildUnitDescrtion() 
-            => CsvUtility.CsvToArray<UnitJobTooltipData>(Managers.Resources.Load<TextAsset>("Data/UIData/UI_UnitJobTooltipData").text).First(x => x.UnitClass == tracker.UnitFlags.UnitClass).Text;
+        string BuildUnitDescrtion() => Managers.Resources.LoadCsv<UnitJobTooltipData>("UIData/UI_UnitJobTooltipData").First(x => x.UnitClass == tracker.UnitFlags.UnitClass).Text;
     }
 }
 

@@ -49,8 +49,7 @@ public class UI_UnitManagedWindow : UI_Popup
 
     void SetInfo(UnitFlags flag)
     {
-        if (Managers.Data.UnitWindowDataByUnitFlags.TryGetValue(flag, out var windowData) == false)
-            return;
+        if (UnitFlags.NormalFlags.Contains(flag) == false) return;
         _unitFlag = flag;
         GetText((int)Texts.Unit_World_Changed_Text).text = (Managers.Camera.IsLookEnemyTower) ? "월드로" : "적군의 성으로";
         GetText((int)Texts.UnitNameText).text = Managers.Data.UnitNameDataByFlag[_unitFlag].KoearName;

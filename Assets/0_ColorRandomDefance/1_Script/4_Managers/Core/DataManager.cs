@@ -19,12 +19,8 @@ public class DataManager
     UserSkillData _userSkill = new UserSkillData();
     public UserSkillData UserSkill => _userSkill;
 
-    #region UI Data
     // 조합 조건
     public IReadOnlyDictionary<UnitFlags, CombineCondition> CombineConditionByUnitFalg => _ui.CombineConditionByUnitFalg;
-    // 유닛 창 정보
-    public IReadOnlyDictionary<UnitFlags, UI_UnitWindowData> UnitWindowDataByUnitFlags => _ui.UnitWindowDataByUnitFlags;
-    #endregion
 
     #region Unit Data
     public IReadOnlyDictionary<string, UnitNameData> UnitNameDataByUnitKoreaName => _unit.UnitNameDataByUnitKoreaName;
@@ -128,20 +124,14 @@ public class DataManager
         Dictionary<UnitFlags, CombineCondition> _combineConditionByUnitFalg = new Dictionary<UnitFlags, CombineCondition>();
         public IReadOnlyDictionary<UnitFlags, CombineCondition> CombineConditionByUnitFalg => _combineConditionByUnitFalg;
 
-        // 유닛 창 정보
-        Dictionary<UnitFlags, UI_UnitWindowData> _unitWindowDataByUnitFlags = new Dictionary<UnitFlags, UI_UnitWindowData>();
-        public IReadOnlyDictionary<UnitFlags, UI_UnitWindowData> UnitWindowDataByUnitFlags => _unitWindowDataByUnitFlags;
-
         public void Init(DataManager manager)
         {
             _combineConditionByUnitFalg = manager.MakeCsvDict<CombineConditions, UnitFlags, CombineCondition>("UnitData/CombineConditionData");
-            _unitWindowDataByUnitFlags = manager.MakeCsvDict<UI_UnitWindowDatas, UnitFlags, UI_UnitWindowData>("UIData/UI_UnitWindowData");
         }
 
         public void Clear()
         {
             _combineConditionByUnitFalg.Clear();
-            _unitWindowDataByUnitFlags.Clear();
         }
     }
 

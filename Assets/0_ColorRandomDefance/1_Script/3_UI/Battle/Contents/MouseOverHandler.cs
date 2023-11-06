@@ -13,7 +13,7 @@ public class MouseOverHandler : MonoBehaviour, IPointerEnterHandler, IPointerExi
     public event Action OnPointerEnterEvent;
     public event Action OnPointerEnterDelayedEvent;
     public event Action OnPointerExitEvent;
-
+    
     public void OnPointerEnter(PointerEventData eventData)
     {
         OnPointerEnterEvent?.Invoke();
@@ -32,9 +32,14 @@ public class MouseOverHandler : MonoBehaviour, IPointerEnterHandler, IPointerExi
         OnPointerExitEvent?.Invoke();
     }
 
-    private IEnumerator ShowTooltipDelayed()
+    IEnumerator ShowTooltipDelayed()
     {
         yield return new WaitForSeconds(_tooltipDelay);
         OnPointerEnterDelayedEvent?.Invoke();
+    }
+
+    void OnDisable()
+    {
+        OnPointerExitEvent?.Invoke();
     }
 }

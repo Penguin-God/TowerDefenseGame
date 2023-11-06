@@ -27,6 +27,7 @@ public class UnitTooltipController
             result.AppendLine();
             result.Append($"보스 몬스터 공격력 : {damageInfo.ApplyBossDamage}");
             result.AppendLine();
+            result.AppendLine();
             result.Append("적용된 강화");
             result.AppendLine();
             UnitDamageInfo upgradeInfo = _damageInfoManager.GetUpgradeInfo(flag);

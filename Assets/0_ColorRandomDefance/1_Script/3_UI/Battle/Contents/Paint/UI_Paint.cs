@@ -90,6 +90,7 @@ public class UI_Paint : UI_Scene
             var tracker = CreateTracker(new UnitFlags(UnitColor.Black, unitClass));
             tracker.UpdateUnitCountText(_worldUnitManager.GetUnitCount(PlayerIdManager.Id, unit => unit.UnitFlags.UnitClass == tracker.UnitFlags.UnitClass));
             tracker.GetComponent<Button>().onClick.AddListener(() => SortByClass(unitClass));
+            new UnitJobTooltipController().SetMouseOverAction(tracker);
         }
     }
 
@@ -101,7 +102,7 @@ public class UI_Paint : UI_Scene
         SwitchSortType(SortType.Color);
 
         foreach (var unitClass in UnitFlags.AllClass)
-            CreateTracker(new UnitFlags((UnitColor)colorNumber, unitClass));
+            CreateUnitTracker(new UnitFlags((UnitColor)colorNumber, unitClass));
     }
 
     void SortByClass(UnitClass unitClass)
@@ -113,7 +114,7 @@ public class UI_Paint : UI_Scene
         SwitchSortType(SortType.Class);
 
         foreach (var unitColor in UnitFlags.NormalColors)
-            CreateTracker(new UnitFlags(unitColor, unitClass));
+            CreateUnitTracker(new UnitFlags(unitColor, unitClass));
     }
 
     void SortByCombineables()
@@ -123,7 +124,7 @@ public class UI_Paint : UI_Scene
 
         var combineableUnitFalgs = _combineSystem.GetCombinableUnitFalgs(_worldUnitManager.GetUnitFlags(PlayerIdManager.Id));
         foreach (var unitFlag in SortUnitFlags(combineableUnitFalgs))
-            CreateTracker(unitFlag);
+            CreateUnitTracker(unitFlag);
     }
 
     const int MAX_COMBINABLE_TRACKER_COUNT = 4;
@@ -139,8 +140,14 @@ public class UI_Paint : UI_Scene
     {
         var tracker = Managers.UI.MakeSubItem<UI_UnitTracker>(_trackerParent);
         tracker.SetInfo(flag, _worldUnitManager);
-        new UnitTooltipController(_unitStatController.GetInfoManager(PlayerIdManager.Id)).SetMouseOverAction(tracker);
         _currentTrackers.Add(tracker);
+        return tracker;
+    }
+
+    UI_UnitTracker CreateUnitTracker(UnitFlags flag)
+    {
+        var tracker = CreateTracker(flag);
+        new UnitTooltipController(_unitStatController.GetInfoManager(PlayerIdManager.Id)).SetMouseOverAction(tracker);
         return tracker;
     }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 
@@ -37,6 +38,16 @@ public class UnitTooltipController
     }
 }
 
+[Serializable]
+public struct UnitJobTooltipData
+{
+    [SerializeField] UnitClass _unitClass;
+    [SerializeField] string _text;
+
+    public UnitClass UnitClass => _unitClass;
+    public string Text => _text;
+}
+
 public class UnitJobTooltipController
 {
     readonly MouseroverTooltipHandler _tooltipHandler = new();
@@ -44,12 +55,8 @@ public class UnitJobTooltipController
     {
         _tooltipHandler.SetMouseOverAction(tracker.GetComponent<RectTransform>(), BuildUnitDescrtion);
 
-        string BuildUnitDescrtion()
-        {
-            var result = new StringBuilder();
-            // result.Append(TextUtility.UnitKeyToValue(Managers.Data.UnitWindowDataByUnitFlags[flag].Description, flag));
-            return result.ToString();
-        }
+        string BuildUnitDescrtion() 
+            => CsvUtility.CsvToArray<UnitJobTooltipData>(Managers.Resources.Load<TextAsset>("Data/UIData/UI_UnitJobTooltipData").text).First(x => x.UnitClass == tracker.UnitFlags.UnitClass).Text;
     }
 }
 

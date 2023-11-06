@@ -55,34 +55,32 @@ public class UI_Paint : UI_Scene
         _layoutGroup = _trackerParent.GetComponent<GridLayoutGroup>();
 
         GetObject((int)GameObjects.PaintButton).GetComponent<Button>().onClick.AddListener(ChangePaintRootActive);
-        GetButton((int)Buttons.ClassButton).onClick.AddListener(SortDefault);
+        GetButton((int)Buttons.ClassButton).onClick.AddListener(() => SwitchSortType(SortType.Default));
 
         for (int i = 0; i < UnitFlags.NormalColors.Count(); i++)
             SetSortAction(GameObjects.ColorButtons, i, SortByColor);
 
-        GetButton((int)Buttons.CombineableButton).onClick.AddListener(SortByCombineable);
+        GetButton((int)Buttons.CombineableButton).onClick.AddListener(() => SwitchSortType(SortType.Combineable));
 
-        _dispatcher.OnUnitCountChangeByFlag += (flag, _) => UpdateUI(flag);
-        UpdateUI(_currentSortType);
+        _dispatcher.OnUnitCountChangeByFlag += (flag, _) => OnChangeUnitCount(flag);
+        SwitchSortType(_currentSortType);
+
+
+        // 중첩 함수
+        void SetSortAction(GameObjects ojects, int childIndex, UnityAction<int> action)
+        {
+            GetObject((int)ojects).transform.GetChild(childIndex).GetComponent<Button>().onClick.AddListener(() => action(childIndex));
+        }
+
+        void ChangePaintRootActive()
+        {
+            GetObject((int)GameObjects.ColorButtons).SetActive(!GetObject((int)GameObjects.ColorButtons).activeSelf);
+            Managers.Sound.PlayEffect(EffectSoundType.PopSound_2);
+        }
     }
 
-    void SetSortAction(GameObjects ojects, int childIndex, UnityAction<int> action)
-    {
-        GetObject((int)ojects).transform.GetChild(childIndex).GetComponent<Button>().onClick.AddListener(() => action(childIndex));
-    }
 
-    void ChangePaintRootActive()
-    {
-        GetObject((int)GameObjects.ColorButtons).SetActive(!GetObject((int)GameObjects.ColorButtons).activeSelf);
-        Managers.Sound.PlayEffect(EffectSoundType.PopSound_2);
-    }
-
-
-    void SortByCombineable() => UpdateUI(SortType.Combineable);
-
-    void SortDefault() => UpdateUI(SortType.Default);
-
-    void __SortDefault()
+    void SortDefault()
     {
         _layoutGroup.constraint = GridLayoutGroup.Constraint.Flexible;
         _layoutGroup.startCorner = GridLayoutGroup.Corner.UpperLeft;
@@ -100,7 +98,7 @@ public class UI_Paint : UI_Scene
         _layoutGroup.constraint = GridLayoutGroup.Constraint.Flexible;
         _layoutGroup.startCorner = GridLayoutGroup.Corner.UpperLeft;
         _layoutGroup.padding.top = 0;
-        UpdateUI(SortType.Color);
+        SwitchSortType(SortType.Color);
 
         foreach (var unitClass in UnitFlags.AllClass)
             CreateTracker(new UnitFlags((UnitColor)colorNumber, unitClass));
@@ -112,7 +110,7 @@ public class UI_Paint : UI_Scene
         _layoutGroup.constraintCount = 3;
         _layoutGroup.startCorner = GridLayoutGroup.Corner.UpperLeft;
         _layoutGroup.padding.top = 70;
-        UpdateUI(SortType.Class);
+        SwitchSortType(SortType.Class);
 
         foreach (var unitColor in UnitFlags.NormalColors)
             CreateTracker(new UnitFlags(unitColor, unitClass));
@@ -146,14 +144,14 @@ public class UI_Paint : UI_Scene
         return tracker;
     }
 
-    void UpdateUI(UnitFlags flag)
+    void OnChangeUnitCount(UnitFlags flag)
     {
         switch (_currentSortType)
         {
             case SortType.Default: UpdateDefaultCount(); break;
             case SortType.Color: 
             case SortType.Class: UpdateTrackersCount(flag); break;
-            case SortType.Combineable: UpdateUI(SortType.Combineable); break;
+            case SortType.Combineable: SwitchSortType(SortType.Combineable); break;
         }
     }
 
@@ -165,7 +163,7 @@ public class UI_Paint : UI_Scene
 
     void UpdateTrackersCount(UnitFlags flag) => _currentTrackers.FirstOrDefault(x => x.UnitFlags == flag)?.UpdateUnitCountText();
 
-    void UpdateUI(SortType type)
+    void SwitchSortType(SortType type)
     {
         foreach (Transform item in _trackerParent)
             Destroy(item.gameObject);
@@ -174,7 +172,7 @@ public class UI_Paint : UI_Scene
         GetObject((int)GameObjects.ColorButtons).SetActive(false);
         switch (type)
         {
-            case SortType.Default: __SortDefault(); break;
+            case SortType.Default: SortDefault(); break;
             case SortType.Color: break;
             case SortType.Class: break;
             case SortType.Combineable: SortByCombineables(); break;

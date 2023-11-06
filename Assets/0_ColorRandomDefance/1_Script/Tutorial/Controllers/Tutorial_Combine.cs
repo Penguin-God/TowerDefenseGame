@@ -18,5 +18,6 @@ public class Tutorial_Combine : TutorialController
         AddUnitHighLightCommend("조합에 성공했습니다. 축하합니다!", UnitClass.Archer);
     }
 
-    protected override bool TutorialStartCondition() => Managers.Unit.CombineableUnitFlags.Any(x => x.UnitClass == UnitClass.Archer);
+    // protected override bool TutorialStartCondition() => Managers.Unit.CombineableUnitFlags.Any(x => x.UnitClass == UnitClass.Archer);
+    protected override bool TutorialStartCondition() => false; // 싱글턴 대신 주입받아서 쓰기
 }

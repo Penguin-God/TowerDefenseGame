@@ -166,7 +166,6 @@ public class BattleDIContainerInitializer
         Init_UI(container);
         game.Init(container.GetComponent<CurrencyManagerMediator>(), Get<MultiBattleDataController>(), data.BattleDataContainer, dispatcher);
         StageManager.Instance.Injection(dispatcher);
-        Managers.Unit.Inject(new UnitCombineSystem(data.CombineConditionByUnitFalg));
         // 지금 컨트롤러랑 싱글턴 병행 중
         Multi_SpawnManagers.NormalUnit.ReceiveInject(container);
         container.GetUnitSpanwer().ReceiveInject(container);

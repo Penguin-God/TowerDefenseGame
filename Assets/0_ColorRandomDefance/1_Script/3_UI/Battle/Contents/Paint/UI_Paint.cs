@@ -123,7 +123,7 @@ public class UI_Paint : UI_Scene
         _layoutGroup.startCorner = GridLayoutGroup.Corner.LowerLeft;
         _layoutGroup.padding.top = 230;
 
-        var combineableUnitFalgs = _combineSystem.GetCombinableUnitFalgs(_worldUnitManager.GetUnitFlags(PlayerIdManager.Id));  // Managers.Unit.CombineableUnitFlags;
+        var combineableUnitFalgs = _combineSystem.GetCombinableUnitFalgs(_worldUnitManager.GetUnitFlags(PlayerIdManager.Id));
         foreach (var unitFlag in SortUnitFlags(combineableUnitFalgs))
             CreateTracker(unitFlag);
     }

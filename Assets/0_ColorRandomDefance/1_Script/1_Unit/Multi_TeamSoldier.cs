@@ -126,8 +126,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
         _targetManager.ChangedTarget(TargetFinder.FindTarget(IsInDefenseWorld, transform.position));
-        SetNavStopState();
         _chaseSystem.ChangedTarget(TargetEnemy);
+        // SetNavStopState();
     }
 
     void SetNavStopState()
@@ -181,18 +181,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             UnitAttacker.NormalAttack(TargetEnemy);
     }
 
-    protected void DoAttack() => _state.StartAttack();
-
-    bool CheckTargetUpdateCondition => target == null || (TargetIsNormal && (enemyDistance > stopDistanc * 2 || target.GetComponent<Multi_Enemy>().IsDead));
-    bool TargetIsNormal => target != null && TargetEnemy.enemyType == EnemyType.Normal;
-    protected void EndAttack()
-    {
-        _state.ReadyAttack();
-        if (CheckTargetUpdateCondition) UpdateTarget();
-    }
-
-    [SerializeField] protected float enemyDistance => _chaseSystem.EnemyDistance;
-    readonly float CHASE_RANGE = 150f;
     public void ChangeUnitWorld() => photonView.RPC(nameof(ChangeWorld), RpcTarget.All);
 
     [PunRPC] // PunRPC라 protected 강제임

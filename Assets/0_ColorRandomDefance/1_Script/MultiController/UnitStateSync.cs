@@ -9,6 +9,10 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
     {
         photonView.ObservedComponents.Add(this);
         _unitChaseSystem = gameObject.AddComponent<UnitChaseSystem>();
+    }
+
+    void OnEnable()
+    {
         _masterRotationY = transform.eulerAngles.y;
         _masterPos = transform.position;
     }

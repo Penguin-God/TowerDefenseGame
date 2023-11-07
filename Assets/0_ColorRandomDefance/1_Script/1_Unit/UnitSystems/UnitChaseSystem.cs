@@ -118,26 +118,17 @@ public class RangeChaser : UnitChaseSystem
         switch (state)
         {
             case ChaseState.Chase:
-                if (_nav.updatePosition == false)
-                    ReleaseMove();
+                ReleaseMove();
                 _nav.speed = _unit.Speed;
                 break;
-            case ChaseState.Lock:
-                LockMove();
-                break;
+            case ChaseState.Lock: LockMove(); break;
         }
     }
 
-    void LockMove()
-    {
-        if (_nav.updatePosition == false) return;
-        _nav.updatePosition = false;
-    }
+    void LockMove() => _nav.updatePosition = false;
 
     void ReleaseMove()
     {
-        if (_nav.updatePosition == true) return;
-
         ResetNavPosition();
         _nav.updatePosition = true;
     }

@@ -571,8 +571,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyNumber: 0
-  enemyInfoText: "\uC774\uB3D9\uC18D\uB3C4\uAC00 1.5\uBC30 \uB192\uACE0, \uC2AC\uB85C\uC6B0\uC5D0
-    \uB300\uD55C \uBC18\uAC10\uC744 \uAC00\uC9D1\uB2C8\uB2E4."
+  enemyInfoText: "\uC774\uB3D9 \uC18D\uB3C4\uAC00 1.5\uBC30 \uB192\uC2B5\uB2C8\uB2E4."
 --- !u!1 &2854591254611957865
 GameObject:
   m_ObjectHideFlags: 0
@@ -612,7 +611,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 36, y: 25}
+  m_AnchoredPosition: {x: 35.999996, y: 25}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &4031627546799093539
@@ -724,7 +723,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyNumber: 2
   enemyInfoText: "\uD3C9\uD0C0 \uACF5\uACA9\uC5D0 \uB300\uD55C \uBC18\uAC10\uC744
-    \uAC00\uC9D1\uB2C8\uB2E4,"
+    \uAC00\uC9D1\uB2C8\uB2E4."
 --- !u!1 &4860550530223730873
 GameObject:
   m_ObjectHideFlags: 0

@@ -88,7 +88,7 @@ public class UI_BattleShopGoods : UI_Base
                 unitColor = convertor.ToUnitUpgradeData(goodsData.Datas).TargetColor; break;
         }
         Color32 goodsColor = SpriteUtility.GetUnitColor(unitColor);
-        GetImage((int)Images.ColorPanel).color = new Color32(goodsColor.r, goodsColor.g, goodsColor.b, 100);
+        GetImage((int)Images.ColorPanel).color = new Color32(goodsColor.r, goodsColor.g, goodsColor.b, 120);
     }
 
     void TryBuy()

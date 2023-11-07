@@ -7,12 +7,12 @@ public static class SpriteUtility
 {
     static readonly IReadOnlyDictionary<UnitColor, Color32> UnitColors = new Dictionary<UnitColor, Color32>()
     {
-        {UnitColor.Red, new Color32(221, 34, 22, 255) },
-        {UnitColor.Blue, new Color32(30, 30, 244, 255) },
-        {UnitColor.Yellow, new Color32(230, 230, 40, 255) },
-        {UnitColor.Green, new Color32(12, 221, 12, 255) },
-        {UnitColor.Orange, new Color32(249, 100, 22, 255) },
-        {UnitColor.Violet, new Color32(188, 36, 233, 255) },
+        {UnitColor.Red, new Color32(240, 34, 22, 255) },
+        {UnitColor.Blue, new Color32(20, 20, 244, 255) },
+        {UnitColor.Yellow, new Color32(245, 210, 0, 255) },
+        {UnitColor.Green, new Color32(12, 241, 12, 255) },
+        {UnitColor.Orange, new Color32(220, 78, 15, 255) },
+        {UnitColor.Violet, new Color32(180, 20, 230, 255) },
         {UnitColor.White, new Color32(255, 255, 255, 255) },
         {UnitColor.Black, new Color32(0, 0, 0, 255) },
     };

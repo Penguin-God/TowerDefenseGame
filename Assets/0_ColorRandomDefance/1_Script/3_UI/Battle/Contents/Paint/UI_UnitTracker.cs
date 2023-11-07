@@ -16,8 +16,7 @@ public class UI_UnitTracker : UI_Base
     public UnitFlags UnitFlags => unitFlags;
     [SerializeField] TextMeshProUGUI countText;
     [SerializeField] string _unitClassName;
-    UnitTrakerDataModel _dataModel;
-
+    
     void Awake()
     {
         countText = GetComponentInChildren<TextMeshProUGUI>();
@@ -26,7 +25,6 @@ public class UI_UnitTracker : UI_Base
     protected override void Init()
     {
         GetComponentInChildren<Button>().onClick.AddListener(OnClicked);
-        _dataModel = GetComponentInParent<UnitTrakerDataModel>();
 
         Bind<Image>(typeof(Images));
     }
@@ -47,9 +45,8 @@ public class UI_UnitTracker : UI_Base
     void ApplyData(UnitFlags flag)
     {
         unitFlags = flag;
-        // var data = _dataModel.BuildUnitTrackerData(unitFlags);
-        GetImage((int)Images.BackGround).color = SpriteUtility.GetUnitColor(unitFlags.UnitColor);  // data.BackGroundColor;
-        GetImage((int)Images.Icon).sprite = SpriteUtility.GetUnitClassIcon(unitFlags.UnitClass);// data.Icon;
+        GetImage((int)Images.BackGround).color = SpriteUtility.GetUnitColor(unitFlags.UnitColor);
+        GetImage((int)Images.Icon).sprite = SpriteUtility.GetUnitClassIcon(unitFlags.UnitClass);
         _unitClassName = UnitTextPresenter.GetClassText(UnitFlags.UnitClass);
         UpdateUnitCountText();
     }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -60,7 +61,10 @@ public class UI_Paint : UI_Scene
         GetButton((int)Buttons.ClassButton).onClick.AddListener(() => SwitchSortType(SortType.Default));
 
         for (int i = 0; i < UnitFlags.NormalColors.Count(); i++)
+        {
+            GetObject((int)GameObjects.ColorButtons).transform.GetChild(i).GetComponent<Image>().color = SpriteUtility.GetUnitColor((UnitColor)i);
             SetSortAction(GameObjects.ColorButtons, i, SortByColor);
+        }
 
         GetButton((int)Buttons.CombineableButton).onClick.AddListener(() => SwitchSortType(SortType.Combineable));
 

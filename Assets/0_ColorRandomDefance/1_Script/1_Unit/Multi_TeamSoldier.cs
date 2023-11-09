@@ -122,11 +122,27 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
-        _targetManager.ChangedTarget(TargetFinder.FindTarget(IsInDefenseWorld, transform.position));
-        _chaseSystem.ChangedTarget(TargetEnemy);
+        if (PhotonNetwork.IsMasterClient == false) return;
+
+        var monster = TargetFinder.FindTarget(IsInDefenseWorld, transform.position);
+        if (monster != null && monster.IsDead == false)
+            photonView.RPC(nameof(ChangeTarget), RpcTarget.All, monster.GetComponent<PhotonView>().ViewID);
+
+        //_targetManager.ChangedTarget(TargetFinder.FindTarget(IsInDefenseWorld, transform.position));
+        //_chaseSystem.ChangedTarget(TargetEnemy);
     }
 
-    
+    [PunRPC]
+    protected void ChangeTarget(int viewId)
+    {
+        var target = Managers.Multi.GetPhotonViewComponent<Multi_Enemy>(viewId);
+        if (target == null) return;
+
+        _targetManager.ChangedTarget(target);
+        target.OnDeath += UpdateTarget;
+        _chaseSystem?.ChangedTarget(target);
+    }
+
     IEnumerator NavCoroutine()
     {
         const float CONTACT_DISTANCE = 4f;
@@ -243,18 +259,6 @@ public class TargetManager
 {
     [SerializeField] Multi_Enemy _target;
     public Multi_Enemy Target => _target;
-
     public void Reset() => ChangedTarget(null);
-
-    public void ChangedTarget(Multi_Enemy newTarget)
-    {
-        if (_target != null)
-            _target.OnDead -= ChangedTarget;
-        _target = newTarget;
-        if (newTarget != null)
-        {
-            _target.OnDead -= ChangedTarget;
-            _target.OnDead += ChangedTarget;
-        }
-    }
+    public void ChangedTarget(Multi_Enemy newTarget) => _target = newTarget;
 }

@@ -115,11 +115,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected virtual void ResetValue()
     {
         _targetManager.Reset();
-        contactEnemy = false;
-
         if (animator != null)
             animator.enabled = false;
-
         nav.enabled = false;
     }
 
@@ -127,21 +124,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     {
         _targetManager.ChangedTarget(TargetFinder.FindTarget(IsInDefenseWorld, transform.position));
         _chaseSystem.ChangedTarget(TargetEnemy);
-        // SetNavStopState();
     }
 
-    void SetNavStopState()
-    {
-        if (gameObject.activeSelf == false) return;
-        if (target == null)
-            nav.isStopped = true;
-        else
-            nav.isStopped = false;
-    }
-
-    public bool contactEnemy = false;
+    
     IEnumerator NavCoroutine()
     {
+        const float CONTACT_DISTANCE = 4f;
         while (true)
         {
             yield return null;
@@ -154,8 +142,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             _chaseSystem.MoveUpdate();
             if (PhotonNetwork.IsMasterClient == false) continue;
 
-            if ((contactEnemy || MonsterIsForward()) && _state.UnitAttackState.IsAttackable)
+            if ((ContactTarget() || MonsterIsForward()) && _state.UnitAttackState.IsAttackable)
                 UnitAttack();
+
+            bool ContactTarget() => CONTACT_DISTANCE >= Vector3.Distance(target.position, transform.position);
         }
     }
 
@@ -163,7 +153,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public bool MonsterIsForward() => Physics.RaycastAll(transform.position + Vector3.up, transform.forward, AttackRange).Select(x => x.transform).Contains(target);
 
     bool isRPC; // RPC딜레이 때문에 공격 2번 이상하는 버그 방지 변수
-
     void UnitAttack()
     {
         if (isRPC) return;
@@ -175,7 +164,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     protected virtual void AttackToAll() => photonView.RPC(nameof(Attack), RpcTarget.All);
     [PunRPC]
     protected virtual void Attack() { }
-    public void _NormalAttack()
+    public void NormalAttack()
     {
         if(PhotonNetwork.IsMasterClient)
             UnitAttacker.NormalAttack(TargetEnemy);
@@ -259,8 +248,6 @@ public class TargetManager
 
     public void ChangedTarget(Multi_Enemy newTarget)
     {
-        if (_target == newTarget) return;
-
         if (_target != null)
             _target.OnDead -= ChangedTarget;
         _target = newTarget;

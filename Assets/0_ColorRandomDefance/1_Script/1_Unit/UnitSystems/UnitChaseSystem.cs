@@ -85,20 +85,19 @@ public class MeeleChaser : UnitChaseSystem
     {
         switch (state)
         {
-            case ChaseState.Far: ChangeNavState(_unit.Speed, 500, 40, false); break;
-            case ChaseState.Close: ChangeNavState(10, 500, 20, false); break;
+            case ChaseState.Far: ChangeNavState(_unit.Speed, 500, 40); break;
+            case ChaseState.Close: ChangeNavState(10, 500, 20); break;
             case ChaseState.Contact:
-            case ChaseState.InRange: ChangeNavState(5, 200, 20, true); break;
-            case ChaseState.FaceToFace: ChangeNavState(15, 500, 20, false); break;
-            case ChaseState.Lock: ChangeNavState(1, 2, 5, true); break;
+            case ChaseState.InRange: ChangeNavState(5, 200, 20); break;
+            case ChaseState.FaceToFace: ChangeNavState(15, 500, 20); break;
+            case ChaseState.Lock: ChangeNavState(1, 2, 5); break;
         }
 
-        void ChangeNavState(float speed, float angularSpeed, float acceleration, bool isContact)
+        void ChangeNavState(float speed, float angularSpeed, float acceleration)
         {
             _nav.speed = speed;
             _nav.angularSpeed = angularSpeed;
             _nav.acceleration = acceleration;
-            _unit.contactEnemy = isContact;
         }
     }
 

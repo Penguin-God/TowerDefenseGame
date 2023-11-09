@@ -19,7 +19,7 @@ public class SwordmanAttackController : UnitAttackController
         yield return WaitSecond(0.1f);
         _trail.SetActive(true);
         yield return WaitSecond(0.3f);
-        _unitController._NormalAttack();
+        _unitController.NormalAttack();
         _trail.SetActive(false);
     }
 }

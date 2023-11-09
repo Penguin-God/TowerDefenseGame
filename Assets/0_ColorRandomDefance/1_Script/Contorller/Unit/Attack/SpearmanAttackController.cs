@@ -15,7 +15,7 @@ public class SpearmanAttackController : UnitAttackController
         PlaySound(EffectSoundType.SpearmanAttack);
         _trail.SetActive(true);
         yield return WaitSecond(0.3f);
-        _unitController._NormalAttack();
+        _unitController.NormalAttack();
         yield return WaitSecond(0.3f);
         _trail.SetActive(false);
     }

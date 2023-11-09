@@ -13,7 +13,7 @@ public class MultiUnitStatController : MonoBehaviourPun
     public void AddUnitDamage(UnitFlags flag, int value, UnitStatType changeStatType)
     {
         AddUnitDamageWithFlag(flag, value, changeStatType, Id);
-        ClientToMaster(nameof(AddUnitDamage), changeStatType, Id, flag, value);
+        ClientToMaster(nameof(AddUnitDamageWithFlag), changeStatType, Id, flag, value);
     }
 
     public void AddUnitDamage(UnitColor color, int value, UnitStatType changeStatType)

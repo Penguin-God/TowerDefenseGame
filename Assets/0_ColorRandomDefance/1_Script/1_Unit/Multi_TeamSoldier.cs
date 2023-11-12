@@ -122,14 +122,14 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
-        if (PhotonNetwork.IsMasterClient == false) return;
+        //if (PhotonNetwork.IsMasterClient == false) return;
 
-        var monster = TargetFinder.FindTarget(IsInDefenseWorld, transform.position);
-        if (monster != null && monster.IsDead == false)
-            photonView.RPC(nameof(ChangeTarget), RpcTarget.All, monster.GetComponent<PhotonView>().ViewID);
+        //var monster = TargetFinder.FindTarget(IsInDefenseWorld, transform.position);
+        //if (monster != null && monster.IsDead == false)
+        //    photonView.RPC(nameof(ChangeTarget), RpcTarget.All, monster.GetComponent<PhotonView>().ViewID);
 
-        //_targetManager.ChangedTarget(TargetFinder.FindTarget(IsInDefenseWorld, transform.position));
-        //_chaseSystem.ChangedTarget(TargetEnemy);
+        _targetManager.ChangedTarget(TargetFinder.FindTarget(IsInDefenseWorld, transform.position));
+        _chaseSystem.ChangedTarget(TargetEnemy);
     }
 
     [PunRPC]

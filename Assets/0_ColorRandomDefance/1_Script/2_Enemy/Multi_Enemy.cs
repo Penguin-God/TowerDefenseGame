@@ -19,7 +19,6 @@ public class Multi_Enemy : MonoBehaviourPun
     protected void ChangeMaxHp(int newMaxHp)
     {
         maxHp = newMaxHp;
-        hpSlider.maxValue = newMaxHp;
         ChangeHp(newMaxHp); // maxHp 갱신되면 currentHp도 같이 풀로 채워짐
     }
     public int currentHp = 0;
@@ -27,7 +26,7 @@ public class Multi_Enemy : MonoBehaviourPun
     {
         if (newHp > maxHp) newHp = maxHp;
         currentHp = newHp;
-        hpSlider.value = newHp;
+        hpSlider.value = CalculateHealthByte();
     }
 
     bool isDead = true;
@@ -45,7 +44,7 @@ public class Multi_Enemy : MonoBehaviourPun
 
     public event Action OnDeath = null; // 레거시
     public event Action<Multi_Enemy> OnDead = null;
-
+    
     private void Awake()
     {
         rpcable = GetComponent<RPCable>();
@@ -67,6 +66,8 @@ public class Multi_Enemy : MonoBehaviourPun
             MonsterSpot = new ObjectSpot(UsingId, false);
         else
             MonsterSpot = new ObjectSpot(UsingId, true);
+        hpSlider.maxValue = byte.MaxValue;
+        _currentHpByte = byte.MaxValue;
     }
 
     public void OnDamage(int damage, bool isSkill = false) => photonView.RPC(nameof(RPC_OnDamage), RpcTarget.MasterClient, damage, isSkill);
@@ -76,13 +77,27 @@ public class Multi_Enemy : MonoBehaviourPun
         if (PhotonNetwork.IsMasterClient == false) return;
 
         ChangeHp(currentHp - damage);
-        photonView.RPC(nameof(RPC_UpdateHealth), RpcTarget.Others, currentHp);
-
         if (currentHp <= 0 && isDead == false)
+        {
             photonView.RPC(nameof(RPC_Dead), RpcTarget.All);
+            return;
+        }
+
+        if (_currentHpByte != CalculateHealthByte())
+        {
+            _currentHpByte = CalculateHealthByte();
+            photonView.RPC(nameof(UpdateHpBar), RpcTarget.Others, _currentHpByte);
+        }
     }
 
-    [PunRPC] protected void RPC_UpdateHealth(int _newHp) => ChangeHp(_newHp);
+    byte _currentHpByte;
+
+    // [PunRPC] protected void RPC_UpdateHealth(int _newHp) => ChangeHp(_newHp);
+
+    [PunRPC] protected void UpdateHpBar(byte hpByte) => hpSlider.value = hpByte;
+
+    public byte CalculateHealthByte() => new MonsterHpByteConvertor().CalculateHealthByte(currentHp, maxHp);
+
     [PunRPC] protected void RPC_Dead() => Dead();
 
     public virtual void Dead()

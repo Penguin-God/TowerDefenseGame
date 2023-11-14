@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UI_UnitIcon : UI_Base
@@ -21,4 +23,6 @@ public class UI_UnitIcon : UI_Base
         GetImage((int)Images.BackGround).color = SpriteUtility.GetUnitColor(flag.UnitColor);
         GetImage((int)Images.Icon).sprite = SpriteUtility.GetUnitClassIcon(flag.UnitClass);
     }
+
+    public void BindClickEvent(Action action) => BindEvnet(GetImage((int)Images.BackGround).gameObject, _ => action());
 }

@@ -14,12 +14,13 @@ public class UI_UnitTracker : UI_Base
 
     [SerializeField] UnitFlags unitFlags;
     public UnitFlags UnitFlags => unitFlags;
-    [SerializeField] TextMeshProUGUI countText;
-    [SerializeField] string _unitClassName;
+    TextMeshProUGUI _countText;
+    UI_UnitIcon _unitIcon;
     
     void Awake()
     {
-        countText = GetComponentInChildren<TextMeshProUGUI>();
+        _countText = GetComponentInChildren<TextMeshProUGUI>();
+        _unitIcon = GetComponentInChildren<UI_UnitIcon>();
     }
 
     protected override void Init()
@@ -45,14 +46,12 @@ public class UI_UnitTracker : UI_Base
     void ApplyData(UnitFlags flag)
     {
         unitFlags = flag;
-        GetImage((int)Images.BackGround).color = SpriteUtility.GetUnitColor(unitFlags.UnitColor);
-        GetImage((int)Images.Icon).sprite = SpriteUtility.GetUnitClassIcon(unitFlags.UnitClass);
-        _unitClassName = UnitTextPresenter.GetClassText(UnitFlags.UnitClass);
+        _unitIcon.SetUnitIcon(unitFlags);
         UpdateUnitCountText();
     }
 
     public void UpdateUnitCountText() => UpdateUnitCountText(_worldUnitManager.GetUnitCount(PlayerIdManager.Id, unit => unit.UnitFlags == unitFlags));
-    public void UpdateUnitCountText(int count) => countText.text = $"{_unitClassName} : {count}";
+    public void UpdateUnitCountText(int count) => _countText.text = $"{UnitTextPresenter.GetClassText(UnitFlags.UnitClass)} : {count}";
 
     void OnClicked()
     {

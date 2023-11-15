@@ -16,7 +16,7 @@ public class Multi_EnemyTower : Multi_Enemy
         _level = level;
         photonView.RPC(nameof(SetLevelText), RpcTarget.All, level);
         TowerData = Managers.Data.TowerDataByLevel[_level];
-        SetStatus_RPC(TowerData.Hp, TowerData.Speed, false);
+        SetStatus_RPC(TowerData.Hp, false);
     }
 
     [PunRPC]

@@ -54,10 +54,10 @@ public class Multi_Enemy : MonoBehaviourPun
 
     protected virtual void Init() { }
 
-    protected void SetStatus_RPC(int _hp, float _speed, bool _isDead) => photonView.RPC(nameof(SetStatus), RpcTarget.All, _hp, _speed, _isDead);
+    protected void SetStatus_RPC(int _hp, bool _isDead) => photonView.RPC(nameof(SetStatus), RpcTarget.All, _hp, _isDead);
 
     [PunRPC]
-    protected virtual void SetStatus(int _hp, float _speed, bool _isDead)
+    protected virtual void SetStatus(int _hp, bool _isDead)
     {
         hpSlider.maxValue = byte.MaxValue;
         _currentHpByte = byte.MaxValue;
@@ -73,6 +73,8 @@ public class Multi_Enemy : MonoBehaviourPun
     }
 
     public void OnDamage(int damage, bool isSkill = false) => photonView.RPC(nameof(RPC_OnDamage), RpcTarget.MasterClient, damage, isSkill);
+
+    byte _currentHpByte;
     [PunRPC]
     protected virtual void RPC_OnDamage(int damage, bool isSkill)
     {
@@ -81,7 +83,7 @@ public class Multi_Enemy : MonoBehaviourPun
         ChangeHp(currentHp - damage);
         if (currentHp <= 0 && isDead == false)
         {
-            photonView.RPC(nameof(RPC_Dead), RpcTarget.All);
+            photonView.RPC(nameof(Dead), RpcTarget.All);
             return;
         }
 
@@ -92,16 +94,11 @@ public class Multi_Enemy : MonoBehaviourPun
         }
     }
 
-    byte _currentHpByte;
-
-    // [PunRPC] protected void RPC_UpdateHealth(int _newHp) => ChangeHp(_newHp);
-
     [PunRPC] protected void UpdateHpBar(byte hpByte) => hpSlider.value = hpByte;
 
     public byte CalculateHealthByte() => new MonsterHpByteConvertor().CalculateHealthByte(currentHp, maxHp);
 
-    [PunRPC] protected void RPC_Dead() => Dead();
-
+    [PunRPC]
     public virtual void Dead()
     {
         isDead = true;
@@ -114,8 +111,9 @@ public class Multi_Enemy : MonoBehaviourPun
 
     protected virtual void ResetValue()
     {
-        SetStatus(0, 0, true);
+        SetStatus(0, true);
         queue_HoldingPoison.Clear();
+        ResetColor();
     }
 
     protected void ResetColor()

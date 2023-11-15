@@ -22,13 +22,13 @@ public class Multi_BossEnemySpawner : MonoBehaviourPun
     public Multi_BossEnemy SpawnBoss(byte id, int bossLevel)
     {
         var boss = Managers.Multi.Instantiater.PhotonInstantiateInactive(BulildBossPath(), id).GetComponent<Multi_BossEnemy>();
-        photonView.RPC(nameof(InjectMonster), RpcTarget.All, (byte)bossLevel, boss.GetComponent<PhotonView>().ViewID);
+        photonView.RPC(nameof(InjectBoss), RpcTarget.All, (byte)bossLevel, boss.GetComponent<PhotonView>().ViewID);
         boss.OnDeath += () => OnDead?.Invoke(boss);
         return boss;
     }
 
     [PunRPC]
-    void InjectMonster(byte level, int viewId)
+    void InjectBoss(byte level, int viewId)
     {
         var monster = Managers.Multi.GetPhotonViewComponent<Multi_BossEnemy>(viewId);
         var bossData = Managers.Data.BossDataByLevel[level];

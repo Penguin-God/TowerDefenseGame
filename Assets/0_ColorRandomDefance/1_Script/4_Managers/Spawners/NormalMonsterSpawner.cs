@@ -17,17 +17,17 @@ public class NormalMonsterSpawner : MonoBehaviourPun
     public Multi_NormalEnemy SpawnMonster(byte num, byte id, int stage)
     {
         var monster = Managers.Multi.Instantiater.PhotonInstantiateInactive(new ResourcesPathBuilder().BuildMonsterPath(num), id).GetComponent<Multi_NormalEnemy>();
-        NormalEnemyData data = Managers.Data.NormalEnemyDataByStage[stage];
-        photonView.RPC(nameof(InjectMonster), RpcTarget.All, data.Hp, data.Speed, monster.GetComponent<PhotonView>().ViewID);
+        photonView.RPC(nameof(InjectMonster), RpcTarget.All,(byte)stage, monster.GetComponent<PhotonView>().ViewID);
         return monster;
     }
 
     [PunRPC]
-    void InjectMonster(int hp, float speed, int viewId)
+    void InjectMonster(byte stage, int viewId)
     {
         var monster = Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(viewId);
-        _monsterDecorator.DecorateSpeedSystem(speed, monster);
-        monster.Inject(hp);
+        NormalEnemyData monsterData = Managers.Data.NormalEnemyDataByStage[stage];
+        _monsterDecorator.DecorateSpeedSystem(monsterData.Speed, monster);
+        monster.Inject(monsterData.Hp);
         _monsterManagerController.AddNormalMonster(monster);
         monster.OnDead += _ => _monsterManagerController.RemoveNormalMonster(monster);
     }

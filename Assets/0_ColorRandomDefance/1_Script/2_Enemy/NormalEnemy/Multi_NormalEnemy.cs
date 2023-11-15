@@ -34,10 +34,9 @@ public class Multi_NormalEnemy : Multi_Enemy
     }
 
     protected virtual void Passive() { }
-    [PunRPC]
-    protected override void SetStatus(int _hp, float speed, bool _isDead)
+    
+    void SetStatus()
     {
-        base.SetStatus(_hp, speed, _isDead);
         spawnStage = StageManager.Instance.CurrentStage;
         TurnPoints = MultiData.instance.GetEnemyTurnPoints(UsingId);
         if(pointIndex == -1) pointIndex = 0;
@@ -45,10 +44,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         transform.rotation = Quaternion.identity;
         Passive();
         if (PhotonNetwork.IsMasterClient)
-        {
-            // Passive();
             photonView.RPC(nameof(SetInfo), RpcTarget.All, maxHp);
-        }
     }
 
     [PunRPC]
@@ -63,7 +59,8 @@ public class Multi_NormalEnemy : Multi_Enemy
         MonsterSpeedManager = gameObject.GetOrAddComponent<MonsterSpeedSystem>();
         MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
         MonsterSpeedManager.OnRestoreSpeed += ExitSlow;
-        SetStatus(hp, SpeedManager.OriginSpeed, false);
+        SetStatus(hp, false);
+        SetStatus();
     }
 
     readonly Vector3[] _spawnPositons = new Vector3[]
@@ -101,20 +98,12 @@ public class Multi_NormalEnemy : Multi_Enemy
         }
     }
 
-    public override void Dead()
-    {
-        base.Dead();
-        gameObject.SetActive(false);
-        transform.position = new Vector3(500, 500, 500);
-    }
-
     protected override void ResetValue()
     {
         base.ResetValue();
         isResurrection = false;
         spawnStage = 0;
         sternEffect.SetActive(false);
-        ResetColor();
         pointIndex = -1;
         transform.rotation = Quaternion.identity;
         _stunCount = 0;
@@ -176,7 +165,7 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     protected void ExitSlow()
     {
-        ResetColor();
+        ResetColor(); // 얼어있을 수도 있이느 Mat도 바꾸는 ResetColor() 사용
         ChangeVelocity(dir);
     }
 

@@ -147,7 +147,7 @@ public class UserSkillActor
             case SkillType.장사꾼: result = new UnitMerchant(skillBattleData); break;
             case SkillType.도박사: 
                 result = new GambleInitializer(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetEventDispatcher(), container.GetComponent<TextShowAndHideController>(), container.GetUnitSpanwer()); break;
-            case SkillType.메테오: result = new CombineMeteorController(skillBattleData, container.GetService<SkillMeteorController>(), container.GetEventDispatcher()); break;
+            case SkillType.메테오: result = new SkillMeteorHandler(skillBattleData, container.GetService<SkillMeteorController>(), container.GetEventDispatcher()); break;
             case SkillType.네크로맨서:
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>(), container.GetUnitSpanwer()); break;
             case SkillType.덫:
@@ -281,7 +281,7 @@ public class UnitMerchant : UserSkill
     }
 }
 
-public class CombineMeteorController : UserSkill
+public class SkillMeteorHandler : UserSkill
 {
     const int SwordmanStack = 1;
     const int ArcherStack = 4;
@@ -290,7 +290,7 @@ public class CombineMeteorController : UserSkill
     readonly CombineMeteorStackManager _stackManager;
     UI_UserSkillStatus _stackUI;
     SkillMeteorController _skillMeteorController;
-    public CombineMeteorController(UserSkillBattleData userSkillBattleData, SkillMeteorController meteorController, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
+    public SkillMeteorHandler(UserSkillBattleData userSkillBattleData, SkillMeteorController meteorController, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
     {
         _skillMeteorController = meteorController;
 
@@ -319,7 +319,7 @@ public class CombineMeteorController : UserSkill
     readonly UnitFlags RedSwordman = new UnitFlags(0, 0);
     void MeteorWhenSpawnRedSwordman(Multi_TeamSoldier spawnUnit)
     {
-        if (spawnUnit.UnitFlags == RedSwordman)
+        if (spawnUnit.UnitFlags == RedSwordman && PlayerIdManager.Id == spawnUnit.UsingID)
             ShotMeteor();
     }
 

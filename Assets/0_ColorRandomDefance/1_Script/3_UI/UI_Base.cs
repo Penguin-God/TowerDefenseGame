@@ -60,13 +60,13 @@ public abstract class UI_Base : MonoBehaviour
     protected Button GetButton(int index) => Get<Button>(index);
     protected Image GetImage(int index) => Get<Image>(index);
 
-    public static void BindEvnet(GameObject go, Action<PointerEventData> action, UI_Event type = UI_Event.Click)
+    public void BindEvnet(GameObject go, Action<PointerEventData> action, UI_Event type = UI_Event.Click)
     {
         UI_EventHandler handler = go.GetOrAddComponent<UI_EventHandler>();
         BindEvnet(handler, action, type);
     }
 
-    public static void BindEvnets(GameObject[] gos, Action<PointerEventData> action, UI_Event type = UI_Event.Click)
+    public void BindEvnets(GameObject[] gos, Action<PointerEventData> action, UI_Event type = UI_Event.Click)
     {
         for (int i = 0; i < gos.Length; i++)
         {
@@ -75,7 +75,7 @@ public abstract class UI_Base : MonoBehaviour
         }
     }
 
-    public static void BindEvnet(UI_EventHandler handler, Action<PointerEventData> action, UI_Event eventType = UI_Event.Click)
+    public void BindEvnet(UI_EventHandler handler, Action<PointerEventData> action, UI_Event eventType = UI_Event.Click)
     {
         switch (eventType)
         {

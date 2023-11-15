@@ -112,6 +112,8 @@ MonoBehaviour:
   - ChangeTarget
   - UpdateHpBar
   - Dead
+  - InjectBoss
+  - Inject
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

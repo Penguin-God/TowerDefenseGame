@@ -27,7 +27,7 @@ public class NormalMonsterSpawner : MonoBehaviourPun
         var monster = Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(viewId);
         NormalEnemyData monsterData = Managers.Data.NormalEnemyDataByStage[stage];
         _monsterDecorator.DecorateSpeedSystem(monsterData.Speed, monster);
-        monster.Inject(monsterData.Hp);
+        monster.Inject(stage);
         _monsterManagerController.AddNormalMonster(monster);
         monster.OnDead += _ => _monsterManagerController.RemoveNormalMonster(monster);
     }

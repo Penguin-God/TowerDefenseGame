@@ -35,20 +35,21 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     protected virtual void Passive() { }
     
-    void SetStatus()
+    void SetStatus(int stage)
     {
-        spawnStage = StageManager.Instance.CurrentStage;
+        spawnStage = stage;
+        SetStatus(Managers.Data.NormalEnemyDataByStage[stage].Hp, false);
+
         TurnPoints = MultiData.instance.GetEnemyTurnPoints(UsingId);
-        if(pointIndex == -1) pointIndex = 0;
+        if (pointIndex == -1) pointIndex = 0;
         transform.position = _spawnPositons[UsingId];
         transform.rotation = Quaternion.identity;
+
         Passive();
-        if (PhotonNetwork.IsMasterClient)
-            photonView.RPC(nameof(SetInfo), RpcTarget.All, maxHp);
+        SetInfo(maxHp);
     }
 
-    [PunRPC]
-    protected void SetInfo(int hp)
+    void SetInfo(int hp)
     {
         ChangeMaxHp(hp);
         SetDirection();
@@ -60,7 +61,14 @@ public class Multi_NormalEnemy : Multi_Enemy
         MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
         MonsterSpeedManager.OnRestoreSpeed += ExitSlow;
         SetStatus(hp, false);
-        SetStatus();
+    }
+
+    public void Inject(byte stage)
+    {
+        MonsterSpeedManager = gameObject.GetOrAddComponent<MonsterSpeedSystem>();
+        MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
+        MonsterSpeedManager.OnRestoreSpeed += ExitSlow;
+        SetStatus(stage);
     }
 
     readonly Vector3[] _spawnPositons = new Vector3[]

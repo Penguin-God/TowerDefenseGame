@@ -83,7 +83,6 @@ public class UI_Paint : UI_Scene
             var tracker = CreateTracker(new UnitFlags(UnitColor.Black, unitClass));
             tracker.UpdateUnitCountText(_worldUnitManager.GetUnitCount(PlayerIdManager.Id, unit => unit.UnitFlags.UnitClass == tracker.UnitFlags.UnitClass));
             tracker.GetComponent<Button>().onClick.AddListener(() => SortByClass(unitClass));
-            tracker.GetComponent<Button>().onClick.AddListener(() => GetObject((int)GameObjects.PaintBackGround).SetActive(true));
             new UnitJobTooltipController().SetMouseOverAction(tracker);
         }
     }
@@ -91,6 +90,7 @@ public class UI_Paint : UI_Scene
     public void SortByClass(UnitClass unitClass)
     {
         SwitchSortType(SortType.Class);
+        GetObject((int)GameObjects.PaintBackGround).SetActive(true);
         _layoutGroup.constraint = GridLayoutGroup.Constraint.FixedRowCount;
         _layoutGroup.constraintCount = 3;
 

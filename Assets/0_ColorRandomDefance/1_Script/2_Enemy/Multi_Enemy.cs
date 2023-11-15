@@ -54,10 +54,8 @@ public class Multi_Enemy : MonoBehaviourPun
 
     protected virtual void Init() { }
 
-    protected void SetStatus_RPC(int _hp, bool _isDead) => photonView.RPC(nameof(SetStatus), RpcTarget.All, _hp, _isDead);
-
     [PunRPC]
-    protected virtual void SetStatus(int _hp, bool _isDead)
+    protected void SetStatus(int _hp, bool _isDead)
     {
         hpSlider.maxValue = byte.MaxValue;
         _currentHpByte = byte.MaxValue;
@@ -163,10 +161,8 @@ public class Multi_Enemy : MonoBehaviourPun
             mesh.material.color = _newColor;
     }
 
-    [PunRPC]
-    protected void ChangeColorToPoison() => ChangeColor(141, 49, 231, 255);
-    [PunRPC]
-    protected void ChangeColorToOrigin() => ChangeColor(255, 255, 255, 255);
+    [PunRPC] protected void ChangeColorToPoison() => ChangeColor(141, 49, 231, 255);
+    [PunRPC] protected void ChangeColorToOrigin() => ChangeColor(255, 255, 255, 255);
 
     protected void ChangeMat(Material mat)
     {

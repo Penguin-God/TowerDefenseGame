@@ -15,8 +15,14 @@ public class Multi_BossEnemy : Multi_NormalEnemy
     public void Inject(BossData bossData, UnitManagerController unitManagerController)
     {
         BossData = bossData;
-        base.Inject(bossData.Hp);
+        Inject(bossData.Hp);
         AggroUnit(unitManagerController);
+    }
+
+    void Inject(int hp)
+    {
+        SetSpeed();
+        SetStatus(hp, false);
     }
 
     public override void Dead()

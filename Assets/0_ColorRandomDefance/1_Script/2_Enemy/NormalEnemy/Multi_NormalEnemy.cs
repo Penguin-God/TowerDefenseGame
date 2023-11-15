@@ -34,48 +34,42 @@ public class Multi_NormalEnemy : Multi_Enemy
     }
 
     protected virtual void Passive() { }
-    
-    void SetStatus(int stage)
-    {
-        spawnStage = stage;
-        SetStatus(Managers.Data.NormalEnemyDataByStage[stage].Hp, false);
-
-        TurnPoints = MultiData.instance.GetEnemyTurnPoints(UsingId);
-        if (pointIndex == -1) pointIndex = 0;
-        transform.position = _spawnPositons[UsingId];
-        transform.rotation = Quaternion.identity;
-
-        Passive();
-        SetInfo(maxHp);
-    }
-
-    void SetInfo(int hp)
-    {
-        ChangeMaxHp(hp);
-        SetDirection();
-    }
-
-    public void Inject(int hp)
-    {
-        MonsterSpeedManager = gameObject.GetOrAddComponent<MonsterSpeedSystem>();
-        MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
-        MonsterSpeedManager.OnRestoreSpeed += ExitSlow;
-        SetStatus(hp, false);
-    }
-
-    public void Inject(byte stage)
-    {
-        MonsterSpeedManager = gameObject.GetOrAddComponent<MonsterSpeedSystem>();
-        MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
-        MonsterSpeedManager.OnRestoreSpeed += ExitSlow;
-        SetStatus(stage);
-    }
 
     readonly Vector3[] _spawnPositons = new Vector3[]
     {
         new Vector3(-45, 0, 35),
         new Vector3(-45, 0, 535),
     };
+
+    void SetStatus(int stage)
+    {
+        spawnStage = stage;
+        SetStatus(Managers.Data.NormalEnemyDataByStage[stage].Hp, false);
+        Passive();
+    }
+
+    void Go()
+    {
+        TurnPoints = MultiData.instance.GetEnemyTurnPoints(UsingId);
+        pointIndex = 0;
+        transform.position = _spawnPositons[UsingId];
+        transform.rotation = Quaternion.identity;
+        SetDirection();
+    }
+
+    public void Inject(byte stage)
+    {
+        SetSpeed();
+        SetStatus(stage);
+        Go();
+    }
+
+    protected void SetSpeed()
+    {
+        MonsterSpeedManager = gameObject.GetComponent<MonsterSpeedSystem>();
+        MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
+        MonsterSpeedManager.OnRestoreSpeed += ExitSlow;
+    }
 
     void Turn()
     {
@@ -87,7 +81,6 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     void SetDirection() // 실제 이동을 위한 속도 설정
     {
-        if(IsDead) return;
         dir = (WayPoint.position - transform.position).normalized;
         ChangeVelocity(dir);
     }

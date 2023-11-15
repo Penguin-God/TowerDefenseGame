@@ -59,15 +59,17 @@ public class Multi_Enemy : MonoBehaviourPun
     [PunRPC]
     protected virtual void SetStatus(int _hp, float _speed, bool _isDead)
     {
-        gameObject.SetActive(!_isDead);
+        hpSlider.maxValue = byte.MaxValue;
+        _currentHpByte = byte.MaxValue;
         ChangeMaxHp(_hp);
+
         isDead = _isDead;
-        if(enemyType == EnemyType.Tower)
+        gameObject.SetActive(!_isDead);
+
+        if (enemyType == EnemyType.Tower)
             MonsterSpot = new ObjectSpot(UsingId, false);
         else
             MonsterSpot = new ObjectSpot(UsingId, true);
-        hpSlider.maxValue = byte.MaxValue;
-        _currentHpByte = byte.MaxValue;
     }
 
     public void OnDamage(int damage, bool isSkill = false) => photonView.RPC(nameof(RPC_OnDamage), RpcTarget.MasterClient, damage, isSkill);

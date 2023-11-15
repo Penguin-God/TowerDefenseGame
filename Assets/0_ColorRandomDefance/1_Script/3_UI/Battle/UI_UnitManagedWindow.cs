@@ -88,5 +88,6 @@ public class UI_UnitManagedWindow : UI_Popup
         }
     }
 
-    void UnitWorldChanged() => Managers.Unit.FindUnit((unit) => unit.UnitFlags == _unitFlag && unit.Spot.IsInDefenseWorld == Managers.Camera.CameraSpot.IsInDefenseWorld)?.ChangeUnitWorld();
+    void UnitWorldChanged() 
+        => Managers.Unit.FindUnit((unit) => unit.UnitFlags == _unitFlag && unit.Spot.IsInDefenseWorld == Managers.Camera.CameraSpot.IsInDefenseWorld)?.ChangeUnitWorld();
 }

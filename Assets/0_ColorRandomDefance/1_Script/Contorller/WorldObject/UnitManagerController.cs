@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+
 public class UnitManagerController
 {
     public readonly WorldUnitManager WorldUnitManager;
@@ -36,4 +38,10 @@ public class UnitManagerController
 
     public Multi_TeamSoldier GetUnit(byte id, UnitFlags flag) => _unitControllers.Where(x => x.UnitFlags == flag && x.UsingID == id).FirstOrDefault();
     public IEnumerable<Multi_TeamSoldier> GetUnits(byte id) => _unitControllers.Where(x => x.UsingID == id);
+
+    public bool TryFindUnit(byte id, Func<Multi_TeamSoldier, bool> condition, out Multi_TeamSoldier result)
+    {
+        result = GetUnits(id).Where(condition).FirstOrDefault();
+        return result != null;
+    }
 }

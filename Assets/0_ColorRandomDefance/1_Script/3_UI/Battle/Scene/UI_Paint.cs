@@ -74,6 +74,7 @@ public class UI_Paint : UI_Scene
 
     void SortDefault()
     {
+        Managers.UI.ClosePopupUI();
         SwitchSortType(SortType.Default);
         _layoutGroup.constraint = GridLayoutGroup.Constraint.Flexible;
         GetObject((int)GameObjects.PaintBackGround).SetActive(false);
@@ -87,6 +88,7 @@ public class UI_Paint : UI_Scene
         }
     }
 
+
     public void SortByClass(UnitClass unitClass)
     {
         SwitchSortType(SortType.Class);
@@ -95,8 +97,21 @@ public class UI_Paint : UI_Scene
         _layoutGroup.constraintCount = 3;
 
         foreach (var unitColor in UnitFlags.NormalColors)
-            new UnitTooltipController(_unitStatController.GetInfoManager(PlayerIdManager.Id)).SetMouseOverAction(CreateTracker(new UnitFlags(unitColor, unitClass)));
+        {
+            var tracker = CreateTracker(new UnitFlags(unitColor, unitClass));
+            tracker.GetComponent<Button>().onClick.AddListener(ShowUnitControlButtons);
+
+            void ShowUnitControlButtons()
+            {
+                Managers.UI.ClosePopupUI();
+                var buttons = Managers.UI.ShowPopupUI<UI_UnitContolWindow>();
+                buttons.SetButtonAction(new UnitFlags(unitColor, unitClass));
+                float screenWidthScaleFactor = Screen.width / Managers.UI.UIScreenWidth; // 플레이어 스크린 크기 대비 설정한 UI 비율
+                buttons.SetPositioin(tracker.GetComponent<RectTransform>().position + new Vector3(80f * screenWidthScaleFactor, 0, 0)); 
+            }
+        }
     }
+
 
     UI_UnitTracker CreateTracker(UnitFlags flag)
     {

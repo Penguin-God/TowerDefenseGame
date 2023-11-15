@@ -196,6 +196,10 @@ public class BattleDIContainerInitializer
 
         uiMediator.RegisterUI(BattleUI_Type.UnitMaxCountExpendShop, "InGameShop/UnitCountExpendShop_UI");
 
+        var unitBtns = Managers.UI.ShowPopupUI<UI_UnitContolWindow>();
+        container.Inject(unitBtns);
+        unitBtns.gameObject.SetActive(false);
+
         var unitWindow = Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow");
         container.Inject(unitWindow);
         Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").gameObject.SetActive(false);

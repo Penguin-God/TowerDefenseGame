@@ -48,7 +48,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         Passive();
     }
 
-    void Go()
+    protected void Go()
     {
         TurnPoints = MultiData.instance.GetEnemyTurnPoints(UsingId);
         pointIndex = 0;

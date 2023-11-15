@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using Photon.Pun;
 
 public class Multi_BossEnemy : Multi_NormalEnemy
 {
@@ -16,6 +17,7 @@ public class Multi_BossEnemy : Multi_NormalEnemy
     {
         BossData = bossData;
         Inject(bossData.Hp);
+        Go();
         AggroUnit(unitManagerController);
     }
 
@@ -25,6 +27,7 @@ public class Multi_BossEnemy : Multi_NormalEnemy
         SetStatus(hp, false);
     }
 
+    [PunRPC]
     public override void Dead()
     {
         base.Dead();

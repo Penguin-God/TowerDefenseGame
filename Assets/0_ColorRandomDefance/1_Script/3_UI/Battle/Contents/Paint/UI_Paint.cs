@@ -9,40 +9,31 @@ public class UI_Paint : UI_Scene
     enum SortType
     {
         Default,
-        Color,
         Class,
-        Combineable,
     }
 
     enum GameObjects
     {
         TrackerParent,
-        ColorButtons,
-        PaintButton,
         PaintBackGround,
     }
 
     enum Buttons
     {
-        ClassButton,
-        CombineableButton,
         PaintButton,
     }
-
 
     UnitStatController _unitStatController;
     BattleEventDispatcher _dispatcher;
     WorldUnitManager _worldUnitManager;
-    UnitCombineSystem _combineSystem;
-    public void DependencyInject(UnitStatController unitStatController, BattleEventDispatcher dispatcher, WorldUnitManager worldUnitManager, UnitCombineSystem combineSystem)
+    public void DependencyInject(UnitStatController unitStatController, BattleEventDispatcher dispatcher, WorldUnitManager worldUnitManager)
     {
         _unitStatController = unitStatController;
         _dispatcher = dispatcher;
         _worldUnitManager = worldUnitManager;
-        _combineSystem = combineSystem;
     }
 
-    SortType _currentSortType = SortType.Default;
+    SortType _currentSortType;
     List<UI_UnitTracker> _currentTrackers = new List<UI_UnitTracker>();
     Transform _trackerParent;
     GridLayoutGroup _layoutGroup;
@@ -56,43 +47,37 @@ public class UI_Paint : UI_Scene
         _layoutGroup = _trackerParent.GetComponent<GridLayoutGroup>();
 
         Managers.Camera.OnIsLookMyWolrd += (isLookMy) => gameObject.SetActive(isLookMy);
-
-        // GetObject((int)GameObjects.PaintButton).GetComponent<Button>().onClick.AddListener(ChangePaintRootActive);
-        GetButton((int)Buttons.ClassButton).onClick.AddListener(() => SwitchSortType(SortType.Default));
-
-        //for (int i = 0; i < UnitFlags.NormalColors.Count(); i++)
-        //{
-        //    GetObject((int)GameObjects.ColorButtons).transform.GetChild(i).GetComponent<Image>().color = SpriteUtility.GetUnitColor((UnitColor)i);
-        //    SetSortAction(GameObjects.ColorButtons, i, SortByColor);
-        //}
-
-        // GetButton((int)Buttons.CombineableButton).onClick.AddListener(() => SwitchSortType(SortType.Combineable));
-
+        GetButton((int)Buttons.PaintButton).onClick.AddListener(SortDefault);
         _dispatcher.OnUnitCountChangeByFlag += (flag, _) => OnChangeUnitCount(flag);
-        SwitchSortType(_currentSortType);
 
-
-        GetButton((int)Buttons.PaintButton).onClick.AddListener(() => SwitchSortType(SortType.Default));
+        SortDefault();
 
         // 중첩 함수
-        //void SetSortAction(GameObjects ojects, int childIndex, UnityAction<int> action)
-        //{
-        //    GetObject((int)ojects).transform.GetChild(childIndex).GetComponent<Button>().onClick.AddListener(() => action(childIndex));
-        //}
+        void OnChangeUnitCount(UnitFlags flag)
+        {
+            switch (_currentSortType)
+            {
+                case SortType.Default: UpdateDefaultCount(); break;
+                case SortType.Class: UpdateTrackersCount(flag); break;
+            }
 
-        //void ChangePaintRootActive()
-        //{
-        //    GetObject((int)GameObjects.ColorButtons).SetActive(!GetObject((int)GameObjects.ColorButtons).activeSelf);
-        //    Managers.Sound.PlayEffect(EffectSoundType.PopSound_2);
-        //}
+            void UpdateDefaultCount()
+            {
+                foreach (var tracker in _currentTrackers)
+                    tracker.UpdateUnitCountText(_worldUnitManager.GetUnitCount(PlayerIdManager.Id, unit => unit.UnitFlags.UnitClass == tracker.UnitFlags.UnitClass));
+            }
+
+            void UpdateTrackersCount(UnitFlags flag) => _currentTrackers.FirstOrDefault(x => x.UnitFlags == flag)?.UpdateUnitCountText();
+        }
     }
 
 
     void SortDefault()
     {
+        SwitchSortType(SortType.Default);
         _layoutGroup.constraint = GridLayoutGroup.Constraint.Flexible;
-
         GetObject((int)GameObjects.PaintBackGround).SetActive(false);
+
         foreach (var unitClass in UnitFlags.AllClass)
         {
             var tracker = CreateTracker(new UnitFlags(UnitColor.Black, unitClass));
@@ -103,46 +88,15 @@ public class UI_Paint : UI_Scene
         }
     }
 
-    //public void SortByColor(int colorNumber)
-    //{
-    //    _layoutGroup.constraint = GridLayoutGroup.Constraint.Flexible;
-    //    _layoutGroup.startCorner = GridLayoutGroup.Corner.UpperLeft;
-    //    _layoutGroup.padding.top = 0;
-    //    SwitchSortType(SortType.Color);
-
-    //    foreach (var unitClass in UnitFlags.AllClass)
-    //        CreateUnitTracker(new UnitFlags((UnitColor)colorNumber, unitClass));
-    //}
-
     public void SortByClass(UnitClass unitClass)
     {
+        SwitchSortType(SortType.Class);
         _layoutGroup.constraint = GridLayoutGroup.Constraint.FixedRowCount;
         _layoutGroup.constraintCount = 3;
 
-        SwitchSortType(SortType.Class);
-
         foreach (var unitColor in UnitFlags.NormalColors)
-            CreateUnitTracker(new UnitFlags(unitColor, unitClass));
+            new UnitTooltipController(_unitStatController.GetInfoManager(PlayerIdManager.Id)).SetMouseOverAction(CreateTracker(new UnitFlags(unitColor, unitClass)));
     }
-
-    //void SortByCombineables()
-    //{
-    //    _layoutGroup.startCorner = GridLayoutGroup.Corner.LowerLeft;
-    //    _layoutGroup.padding.top = 230;
-
-    //    var combineableUnitFalgs = _combineSystem.GetCombinableUnitFalgs(_worldUnitManager.GetUnitFlags(PlayerIdManager.Id));
-    //    foreach (var unitFlag in SortUnitFlags(combineableUnitFalgs))
-    //        CreateUnitTracker(unitFlag);
-    //}
-
-    //const int MAX_COMBINABLE_TRACKER_COUNT = 4;
-    //IEnumerable<UnitFlags> SortUnitFlags(IEnumerable<UnitFlags> flags)
-    //    => flags
-    //        .Where(x => UnitFlags.NormalFlags.Contains(x))
-    //        .OrderByDescending(x => x.ClassNumber)
-    //        .ThenByDescending(x => x.ColorNumber)
-    //        .Take(MAX_COMBINABLE_TRACKER_COUNT)
-    //        .Reverse();
 
     UI_UnitTracker CreateTracker(UnitFlags flag)
     {
@@ -152,46 +106,17 @@ public class UI_Paint : UI_Scene
         return tracker;
     }
 
-    UI_UnitTracker CreateUnitTracker(UnitFlags flag)
-    {
-        var tracker = CreateTracker(flag);
-        new UnitTooltipController(_unitStatController.GetInfoManager(PlayerIdManager.Id)).SetMouseOverAction(tracker);
-        return tracker;
-    }
-
-    void OnChangeUnitCount(UnitFlags flag)
-    {
-        switch (_currentSortType)
-        {
-            case SortType.Default: UpdateDefaultCount(); break;
-            case SortType.Color: 
-            case SortType.Class: UpdateTrackersCount(flag); break;
-            case SortType.Combineable: SwitchSortType(SortType.Combineable); break;
-        }
-    }
-
-    void UpdateDefaultCount()
-    {
-        foreach (var tracker in _currentTrackers)
-            tracker.UpdateUnitCountText(_worldUnitManager.GetUnitCount(PlayerIdManager.Id, unit => unit.UnitFlags.UnitClass == tracker.UnitFlags.UnitClass));
-    }
-
-    void UpdateTrackersCount(UnitFlags flag) => _currentTrackers.FirstOrDefault(x => x.UnitFlags == flag)?.UpdateUnitCountText();
-
-    void SwitchSortType(SortType type)
+    void ClearTrackers()
     {
         foreach (Transform item in _trackerParent)
             Destroy(item.gameObject);
         _currentTrackers.Clear();
+    }
 
-        GetObject((int)GameObjects.ColorButtons).SetActive(false);
-        switch (type)
-        {
-            case SortType.Default: SortDefault(); break;
-            //case SortType.Color: break;
-            //case SortType.Class: break;
-            // case SortType.Combineable: SortByCombineables(); break;
-        }
+    void SwitchSortType(SortType type)
+    {
+        ClearTrackers();
+
         if(type != _currentSortType)
             _currentSortType = type;
     }

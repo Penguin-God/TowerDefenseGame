@@ -84,7 +84,7 @@ public class UI_Paint : UI_Scene
             var tracker = CreateTracker(new UnitFlags(UnitColor.Black, unitClass));
             tracker.UpdateUnitCountText(_worldUnitManager.GetUnitCount(PlayerIdManager.Id, unit => unit.UnitFlags.UnitClass == tracker.UnitFlags.UnitClass));
             tracker.GetComponent<Button>().onClick.AddListener(() => SortByClass(unitClass));
-            new UnitJobTooltipController().SetMouseOverAction(tracker);
+            // new UnitJobTooltipController().SetMouseOverAction(tracker);
         }
     }
 

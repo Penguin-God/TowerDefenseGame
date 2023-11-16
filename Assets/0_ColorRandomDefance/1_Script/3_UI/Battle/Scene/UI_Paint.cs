@@ -99,17 +99,21 @@ public class UI_Paint : UI_Scene
         foreach (var unitColor in UnitFlags.NormalColors)
         {
             var tracker = CreateTracker(new UnitFlags(unitColor, unitClass));
-            tracker.GetComponent<Button>().onClick.AddListener(ShowUnitControlButtons);
-
-            void ShowUnitControlButtons()
-            {
-                Managers.UI.ClosePopupUI();
-                var buttons = Managers.UI.ShowPopupUI<UI_UnitContolWindow>();
-                buttons.SetButtonAction(new UnitFlags(unitColor, unitClass));
-                float screenWidthScaleFactor = Screen.width / Managers.UI.UIScreenWidth; // 플레이어 스크린 크기 대비 설정한 UI 비율
-                buttons.SetPositioin(tracker.GetComponent<RectTransform>().position + new Vector3(80f * screenWidthScaleFactor, 0, 0)); 
-            }
+            tracker.GetComponent<Button>().onClick.AddListener(() => ShowUnitControlButtons(tracker));
         }
+    }
+
+    public void ClickTracker(UnitFlags flag) => ShowUnitControlButtons(_currentTrackers.FirstOrDefault(x => x.UnitFlags == flag));
+
+    void ShowUnitControlButtons(UI_UnitTracker tracker)
+    {
+        if (tracker == null) return;
+
+        Managers.UI.ClosePopupUI();
+        var buttons = Managers.UI.ShowPopupUI<UI_UnitContolWindow>();
+        buttons.SetButtonAction(tracker.UnitFlags);
+        float screenWidthScaleFactor = Screen.width / Managers.UI.UIScreenWidth; // 플레이어 스크린 크기 대비 설정한 UI 비율
+        buttons.SetPositioin(tracker.GetComponent<RectTransform>().position + new Vector3(80f * screenWidthScaleFactor, 0, 0));
     }
 
 

@@ -20,11 +20,16 @@ public class UnitClickController : MonoBehaviour
             if (unit != null && unit.UsingID == PlayerIdManager.Id && UnitFlags.NormalFlags.Contains(unit.UnitFlags))
             {
                 Managers.UI.ClosePopupUI();
-                SrotByTargetColor(unit.UnitFlags);
-                Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").Show(unit.UnitFlags);
+                Managers.UI.GetSceneUI<UI_Paint>().SortByClass(unit.UnitClass);
+                StartCoroutine(Co_ShowUnitButtons(unit.UnitFlags)); // 정렬 시간 때문에 코루틴으로 한 프레임 대기
+                //Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").Show(unit.UnitFlags);
             }
         }
     }
 
-    void SrotByTargetColor(UnitFlags flag) => Managers.UI.GetSceneUI<UI_Paint>().SortByClass(flag.UnitClass);
+    IEnumerator Co_ShowUnitButtons(UnitFlags flag)
+    {
+        yield return null;
+        Managers.UI.GetSceneUI<UI_Paint>().ClickTracker(flag);
+    }
 }

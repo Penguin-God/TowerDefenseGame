@@ -40,7 +40,6 @@ public class ClientDataManager
     {
         public string Name;
         public int Id;
-        public const string path = "MoneyData";
 
         public int Amount;
 
@@ -50,7 +49,6 @@ public class ClientDataManager
         }
     }
     #endregion
-
     Dictionary<MoneyType, Money> moneyByType = new Dictionary<MoneyType, Money>();
     public IReadOnlyDictionary<MoneyType, Money> MoneyByType => moneyByType;
 

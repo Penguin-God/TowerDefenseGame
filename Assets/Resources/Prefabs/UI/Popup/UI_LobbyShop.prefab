@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 6216525313398775766}
   - component: {fileID: 5957160818373884737}
   m_Layer: 5
-  m_Name: UI_SkillShop
+  m_Name: UI_LobbyShop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

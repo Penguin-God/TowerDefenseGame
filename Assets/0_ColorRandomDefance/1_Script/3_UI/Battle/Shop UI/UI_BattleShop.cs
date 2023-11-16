@@ -36,14 +36,12 @@ public class UI_BattleShop : UI_Popup
         InitGoods();
     }
 
-    public bool IsInject { get; private set; } = false;
     GoodsBuyController _buyController;
     BuyAction _buyAction;
-    public void Inject(GoodsBuyController buyController, BuyAction buyAction)
+    public void DependencyInject(GoodsBuyController buyController, BuyAction buyAction)
     {
         _buyController = buyController;
         _buyAction = buyAction;
-        IsInject = true;
     }
 
     GoodsManager<BattleShopGoodsData> _goodsManager;

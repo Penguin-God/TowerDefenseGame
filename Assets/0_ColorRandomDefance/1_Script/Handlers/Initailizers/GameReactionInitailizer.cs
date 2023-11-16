@@ -11,8 +11,9 @@ public class GameReactionInitailizer : MonoBehaviour
         gameObject.AddComponent<UnitClickController>();
         gameObject.AddComponent<WinOrLossController>().Inject(container.GetEventDispatcher(), container.GetComponent<TextShowAndHideController>());
         gameObject.AddComponent<OpponentStatusSender>().Init(container.GetEventDispatcher());
-        gameObject.AddComponent<BuildingClickContoller>()
-            .Inject(container.GetService<BattleUI_Mediator>(), Managers.UI, container.GetService<BuyAction>(), container.GetService<GoodsBuyController>());
+        container.Inject(gameObject.AddComponent<BuildingClickContoller>());
+        //gameObject.AddComponent<BuildingClickContoller>()
+        //    .Inject(container.GetService<BattleUI_Mediator>(), container.GetService<BuyAction>(), container.GetService<GoodsBuyController>());
         GameStart(container);
     }
 

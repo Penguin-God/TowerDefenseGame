@@ -5,17 +5,8 @@ using UnityEngine;
 public class BuildingClickContoller : MonoBehaviour
 {
     BattleUI_Mediator _uiMediator;
-    UI_Manager _uiManager;
-    GoodsBuyController _buyController;
-    BuyAction _buyAction;
-    public void Inject(BattleUI_Mediator uiMediator, UI_Manager uiManager, BuyAction buyAction, GoodsBuyController buyController)
-    {
-        _uiMediator = uiMediator;
-        _uiManager = uiManager;
-        _buyAction = buyAction;
-        _buyController = buyController;
+    public void DependencyInject(BattleUI_Mediator uiMediator) => _uiMediator = uiMediator;
 
-    }
     void Update()
     {
         if (new InputHandler().MouseClickRayCastHit(out var hit))
@@ -23,7 +14,7 @@ public class BuildingClickContoller : MonoBehaviour
             var trigger = hit.collider.gameObject.GetComponentInParent<ShopTriggerBuilding>();
             if (trigger != null && trigger.OwnerId == PlayerIdManager.Id)
             {
-                _uiManager.ClosePopupUI();
+                Managers.UI.ClosePopupUI();
                 ShowUI(trigger.ShowUI_Type);
                 // 사운드 필요한가?
             }
@@ -34,12 +25,8 @@ public class BuildingClickContoller : MonoBehaviour
     {
         switch (type)
         {
-            case BattleUI_Type.UnitUpgrdeShop:
-                var ui = _uiMediator.ShowPopupUI<UI_BattleShop>(type);
-                if (ui.IsInject == false) 
-                    ui.Inject(_buyController, _buyAction);
-                break;
-            case BattleUI_Type.BalckUnitCombineTable:
+            case BattleUI_Type.UnitUpgrdeShop: _uiMediator.ShowPopupUI<UI_BattleShop>(type); break;
+            case BattleUI_Type.BalckUnitCombineTable: _uiMediator.ShowPopupUI<BalckUnitShop_UI>(type); break;
             case BattleUI_Type.WhiteUnitShop:
             case BattleUI_Type.UnitMaxCountExpendShop: _uiMediator.ShowPopupUI(type); break;
         }

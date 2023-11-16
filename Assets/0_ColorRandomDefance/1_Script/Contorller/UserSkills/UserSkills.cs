@@ -482,7 +482,7 @@ public class GambleInitializer : UserSkill
         dispatcher.OnStageUpExcludingFirst += _ => gamblerController.AddExp(IntSkillDatas[2]);
 
         uiMediator.RegisterUI(BattleUI_Type.BattleButtons, "UI_BattleButtonsWhitGambler");
-        var ui = uiMediator.ShowUI(BattleUI_Type.BattleButtons).GetComponent<UI_Gambler>();
+        var ui = uiMediator.ShowSceneUI<UI_BattleButtons>(BattleUI_Type.BattleButtons).GetComponent<UI_Gambler>();
         ui.Inject(gamblerController, IntSkillDatas[0], IntSkillDatas[1]);
         ui.gameObject.SetActive(false);
     }
@@ -499,7 +499,6 @@ public class VIP : UserSkill
         ui.ReceiveInject(new SpecialShopBuyController(Multi_GameManager.Instance, textController), buyAction, CreateGoodsManger(), IntSkillDatas[0]);
         ui.gameObject.SetActive(false);
 
-        // Multi_GameManager.Instance.BattleData.UnitUpgradeShopData.ResetPrice = IntSkillDatas[1];
         ChangeAttackGoodsPrice(IntSkillDatas[2]);
     }
 

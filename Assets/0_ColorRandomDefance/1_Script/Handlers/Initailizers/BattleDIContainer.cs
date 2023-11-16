@@ -60,7 +60,7 @@ public class BattleDIContainer
 
         if (methodInfo == null)
         {
-            Debug.Log("null임");
+            Debug.Log("DependencyInject 함수 없음");
             return;
         }
 
@@ -68,7 +68,11 @@ public class BattleDIContainer
         object[] args = new object[parameters.Length];
 
         for (int i = 0; i < parameters.Length; i++)
+        {
+            if(Get(parameters[i].ParameterType) == null)
+                Debug.Log($"이 타입 {parameters[i].ParameterType}의 객체를 컨테이너에서 못 찾음");
             args[i] = Get(parameters[i].ParameterType);
+        }
         methodInfo.Invoke(instance, args);
     }
 }
@@ -135,7 +139,7 @@ public class BattleDIContainerInitializer
         container.AddService(new WorldUnitManager());
         container.AddService(new UnitManagerController(dispatcher, Get<WorldUnitManager>()));
         container.AddService(new UnitStatController(new MultiData<UnitDamageInfoManager>(() => new UnitDamageInfoManager(Managers.Data.Unit.DamageInfoByFlag)), Get<WorldUnitManager>()));
-        container.AddService(new BattleUI_Mediator(Managers.UI, container));
+        container.AddService(new BattleUI_Mediator(container));
         container.AddService(new BuyAction(container.GetUnitSpanwer(), container.GetComponent<MultiUnitStatController>()));
         container.AddService(new GoodsBuyController(game, container.GetComponent<TextShowAndHideController>()));
         container.AddService(new MonsterManagerController(dispatcher));
@@ -185,28 +189,11 @@ public class BattleDIContainerInitializer
         var enemySelector = Managers.UI.ShowSceneUI<UI_EnemySelector>();
         enemySelector.SetInfo(container.GetComponent<EnemySpawnNumManager>());
 
-        var uiMediator = container.GetService<BattleUI_Mediator>();
-        
-        uiMediator.RegisterUI(BattleUI_Type.WhiteUnitShop, "InGameShop/WhiteUnitShop");
-        uiMediator.RegisterUI(BattleUI_Type.Paint, "Paint");
-        uiMediator.RegisterUI(BattleUI_Type.BalckUnitCombineTable, "InGameShop/BlackUnitShop");
-        var shop = uiMediator.ShowPopupUI(BattleUI_Type.BalckUnitCombineTable).GetComponentInChildren<BalckUnitShop_UI>();
-        shop.DependencyInject(Get<UnitCombineMultiController>());
-        shop.transform.parent.gameObject.SetActive(false);
+        container.GetService<BattleUI_Mediator>().RegisterDefaultUI();
 
-        uiMediator.RegisterUI(BattleUI_Type.UnitMaxCountExpendShop, "InGameShop/UnitCountExpendShop_UI");
-
-        var unitBtns = Managers.UI.ShowPopupUI<UI_UnitContolWindow>();
-        container.Inject(unitBtns);
-        unitBtns.gameObject.SetActive(false);
-
-        var unitWindow = Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow");
-        container.Inject(unitWindow);
-        Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").gameObject.SetActive(false);
-        
-        // 얘들은 절대 여기서 Show를 해서는 안 되!! 이유는 skill에서 바꿀 수도 있음
-        uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_BattleShop");
-        uiMediator.RegisterUI<UI_BattleButtons>(BattleUI_Type.BattleButtons);
+        //var unitWindow = Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow");
+        //container.Inject(unitWindow);
+        //Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").gameObject.SetActive(false);
     }
 
     void InitSound(BattleDIContainer container)

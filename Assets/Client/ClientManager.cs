@@ -27,29 +27,29 @@ public class ClientManager : MonoBehaviour
         UpdateHammerText(ClientHammer);
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A)) // a 누르면 돈복사
-        {
-            ClientIron += 10000;
-            ClientWood += 10000;
-            ClientHammer += 10000;
-            InitMoney();
-            UpdateMoney();
-        }
+    //void Update()
+    //{
+    //    if (Input.GetKeyDown(KeyCode.A)) // a 누르면 돈복사
+    //    {
+    //        ClientIron += 10000;
+    //        ClientWood += 10000;
+    //        ClientHammer += 10000;
+    //        InitMoney();
+    //        UpdateMoney();
+    //    }
 
-        if (Input.GetKeyDown(KeyCode.S)) // 돈복사 후 모든 스킬 구매
-        {
-            ClientIron += 10000;
-            ClientWood += 10000;
-            ClientHammer += 10000;
-            InitMoney();
-            UpdateMoney();
+    //    if (Input.GetKeyDown(KeyCode.S)) // 돈복사 후 모든 스킬 구매
+    //    {
+    //        ClientIron += 10000;
+    //        ClientWood += 10000;
+    //        ClientHammer += 10000;
+    //        InitMoney();
+    //        UpdateMoney();
 
-            foreach (SkillType type in Enum.GetValues(typeof(SkillType)))
-                new UserSkillShopUseCase().GetSkillExp(type, 1);
-        }
-    }
+    //        foreach (SkillType type in Enum.GetValues(typeof(SkillType)))
+    //            new UserSkillShopUseCase().GetSkillExp(type, 1);
+    //    }
+    //}
 
     // 모바일을 위한 버튼 클릭 시 스킬 구매
     public void MobileSkill()

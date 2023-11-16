@@ -8,11 +8,14 @@ public class LobbyScene : BaseScene
     {
         var container = new BattleDIContainer(gameObject);
         container.AddService(new PlayerManager("PenguinGod", 0, 0));
+        container.AddComponent<GameMatchmaker>();
 
-        // Screen.SetResolution(1920, 1080, true);
+        Screen.SetResolution(1920, 1080, true);
         _isFullScreen = true;
         Managers.Resources.DependencyInject(new PoolManager("@PoolManager"));
         Managers.Sound.StopBgm(); // 로비 BGM 뭐하지?
+
+        Managers.UI.ShowSceneUI<UI_Lobby>().DependencyInject(container);
     }
 
     bool _isFullScreen;

@@ -4,11 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 
-public class MultiClientManager : MonoBehaviourPunCallbacks
+public class GameMatchmaker : MonoBehaviourPunCallbacks
 {
     private string GameVersion = "1";
-    public Text ConnectionInfoText;
+    public TextMeshProUGUI ConnectionInfoText;
     public Button _gameMatchingButton;
 
     private bool _isLobby = true;
@@ -16,6 +17,13 @@ public class MultiClientManager : MonoBehaviourPunCallbacks
     {
         PhotonNetwork.GameVersion = GameVersion;
         PhotonNetwork.Disconnect();
+    }
+
+    public void SetInfo(TextMeshProUGUI text, Button button)
+    {
+        _gameMatchingButton = button;
+        ConnectionInfoText = text;
+
         _gameMatchingButton.onClick.AddListener(Connect);
         ConnectionInfoText.text = "매치 상태";
     }

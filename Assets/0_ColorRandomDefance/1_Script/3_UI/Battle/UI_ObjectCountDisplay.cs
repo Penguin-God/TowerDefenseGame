@@ -70,6 +70,6 @@ public class UI_ObjectCountDisplay : UI_Base
             Managers.Sound.PlayEffect(EffectSoundType.Denger);
         }
         else text.color = Color.white;
-        text.text = $"{count}/{Multi_GameManager.Instance.BattleData.MaxEnemyCount}";
+        text.text = $"{count}/{Multi_GameManager.Instance.BattleData.MaxMonsterCount}";
     }
 }

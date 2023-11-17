@@ -22,7 +22,7 @@ public class WhiteUnit : MonoBehaviourPun
     {
         timer = Managers.Effect.TrackingTarget("WhiteUnitTimer", transform, new Vector3(0, 4, 3)).GetComponent<Multi_WhiteUnitTimer>();
         if (GetComponent<RPCable>().UsingId == PlayerIdManager.Id) // 하얀 유닛의 주인의 WhiteUnitTime을 사용해야 되서 RPC 씀
-            photonView.RPC(nameof(SetupTimer), RpcTarget.All, Multi_GameManager.Instance.BattleData.BattleData.WhiteUnitTime);
+            photonView.RPC(nameof(SetupTimer), RpcTarget.All, Multi_GameManager.Instance.BattleData.WhiteUnitTime);
 
         if (PhotonNetwork.IsMasterClient)
             timer.Slider.onValueChanged.AddListener(ChangedColor);

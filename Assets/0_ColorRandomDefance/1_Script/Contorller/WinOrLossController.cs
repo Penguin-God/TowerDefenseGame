@@ -27,7 +27,7 @@ public class WinOrLossController : MonoBehaviourPun
             photonView.RPC(nameof(GameEnd), RpcTarget.All, PlayerIdManager.ClientId);
     }
 
-    bool CheckGameOver(int monsterCount) => monsterCount >= Multi_GameManager.Instance.BattleData.MaxEnemyCount;
+    bool CheckGameOver(int monsterCount) => monsterCount >= Multi_GameManager.Instance.BattleData.MaxMonsterCount;
 
 
     [PunRPC]

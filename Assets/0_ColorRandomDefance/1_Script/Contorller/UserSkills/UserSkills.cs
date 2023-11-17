@@ -428,7 +428,7 @@ public class BondOfWhite : UserSkill
         _dispatcher = dispatcher;
         _game = game;
         _upgradeDamages = IntSkillDatas.Take(4).ToArray();
-        _game.BattleData.BattleData.WhiteUnitTime *= SkillDatas[4];
+        _game.BattleData.WhiteUnitTime *= SkillDatas[4];
         NeedUpStageForGetFood = IntSkillDatas[5];
         RewardFoodWhenStageUp = IntSkillDatas[6];
 

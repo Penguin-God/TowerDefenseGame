@@ -10,7 +10,7 @@ public class BattleDataContainer : ScriptableObject
     public int Food;
     public int StageUpGold;
     public int MaxUnit;
-    public int MaxEnemy;
+    public int MaxMonsterCount;
     public UnitSummonData UnitSummonData;
     public int YellowKnightCombineGold;
     public CurrencyData MaxUnitIncreasePriceData;
@@ -20,7 +20,6 @@ public class BattleDataContainer : ScriptableObject
     public int StageMonsetSpawnCount;
     public float MonsterSpawnDelayTime;
     public float StageBreakTime;
-    public float StageTime => (StageMonsetSpawnCount * MonsterSpawnDelayTime) + StageBreakTime;
 
     public BattleDataContainer Clone()
     {
@@ -29,7 +28,7 @@ public class BattleDataContainer : ScriptableObject
         result.Food = Food;
         result.StageUpGold = StageUpGold;
         result.MaxUnit = MaxUnit;
-        result.MaxEnemy = MaxEnemy;
+        result.MaxMonsterCount = MaxMonsterCount;
         result.UnitSummonData = UnitSummonData;
         result.YellowKnightCombineGold = YellowKnightCombineGold;
         result.MaxUnitIncreasePriceData = MaxUnitIncreasePriceData.Cloen();

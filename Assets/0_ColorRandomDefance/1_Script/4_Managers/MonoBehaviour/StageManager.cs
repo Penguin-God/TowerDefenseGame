@@ -29,7 +29,7 @@ public class StageManager : SingletonPun<StageManager>
         if (PhotonNetwork.IsMasterClient == false) return;
 
         _dispatcher.OnGameStart += UpdateStage;
-        StageWait = new WaitForSeconds(Multi_GameManager.Instance.BattleData.BattleData.StageTime);
+        StageWait = new WaitForSeconds(Multi_GameManager.Instance.BattleData.StageTime);
     }
 
     void OnDestroy()

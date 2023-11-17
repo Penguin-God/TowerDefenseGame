@@ -16,7 +16,7 @@ MonoBehaviour:
   Food: 1
   StageUpGold: 10
   MaxUnit: 10
-  MaxEnemy: 50
+  MaxMonsterCount: 50
   UnitSummonData:
     SummonPrice: 5
     SummonMaxColor: 2

@@ -45,7 +45,7 @@ public class PoisonCloudController : UnitSkillController
     {
         PlaySkillSound(unit, EffectSoundType.VioletMageSkill);
         _unit = unit.Unit;
-        SpawnSkill(SkillEffectType.PosionCloud, unit.target.position + Offset).GetComponent<Multi_HitSkill>().SetHitActoin(Poison);
+        SpawnSkill(SkillEffectType.PosionCloud, unit.target.position + Offset).GetComponent<Multi_HitSkill>().SetHitActoin(Poison); // ¹ö±×³²
     }
 }
 

@@ -7,7 +7,6 @@ using Photon.Pun;
 public class StageManager : SingletonPun<StageManager>
 {
     public event Action<int> OnUpdateStage;
-    public readonly float STAGE_TIME = 32.5f;
     [SerializeField] int currentStage = 0;
     public int CurrentStage => currentStage;
 
@@ -30,7 +29,7 @@ public class StageManager : SingletonPun<StageManager>
         if (PhotonNetwork.IsMasterClient == false) return;
 
         _dispatcher.OnGameStart += UpdateStage;
-        StageWait = new WaitForSeconds(STAGE_TIME);
+        StageWait = new WaitForSeconds(Multi_GameManager.Instance.BattleData.BattleData.StageTime);
     }
 
     void OnDestroy()
@@ -38,7 +37,7 @@ public class StageManager : SingletonPun<StageManager>
         OnUpdateStage = null;
     }
 
-    void UpdateStage() 
+    void UpdateStage()
     {
         currentStage++;
         photonView.RPC(nameof(UpdateStage), RpcTarget.All, currentStage);

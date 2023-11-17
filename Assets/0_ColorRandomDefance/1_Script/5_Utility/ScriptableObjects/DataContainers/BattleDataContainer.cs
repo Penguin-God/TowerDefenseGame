@@ -17,6 +17,10 @@ public class BattleDataContainer : ScriptableObject
     public CurrencyData[] UnitSellRewardDatas;
     public CurrencyData[] WhiteUnitPriceDatas;
     public float WhiteUnitTime;
+    public int StageMonsetSpawnCount;
+    public float MonsterSpawnDelayTime;
+    public float StageBreakTime;
+    public float StageTime => (StageMonsetSpawnCount * MonsterSpawnDelayTime) + StageBreakTime;
 
     public BattleDataContainer Clone()
     {
@@ -32,6 +36,9 @@ public class BattleDataContainer : ScriptableObject
         result.UnitSellRewardDatas = UnitSellRewardDatas.ToArray();
         result.WhiteUnitPriceDatas = WhiteUnitPriceDatas.ToArray();
         result.WhiteUnitTime = WhiteUnitTime;
+        result.StageMonsetSpawnCount = StageMonsetSpawnCount;
+        result.MonsterSpawnDelayTime = MonsterSpawnDelayTime;
+        result.StageBreakTime = StageBreakTime;
         return result;
     }
 }

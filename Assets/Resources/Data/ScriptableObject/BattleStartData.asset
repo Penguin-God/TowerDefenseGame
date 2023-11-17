@@ -43,3 +43,6 @@ MonoBehaviour:
   - _currencyType: 1
     _amount: 20
   WhiteUnitTime: 30
+  StageMonsetSpawnCount: 10
+  MonsterSpawnDelayTime: 1.5
+  StageBreakTime: 3

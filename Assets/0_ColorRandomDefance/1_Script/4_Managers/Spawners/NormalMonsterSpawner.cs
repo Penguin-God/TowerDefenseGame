@@ -105,12 +105,10 @@ public class MonsterSpawnerContorller : MonoBehaviour
     Multi_NormalEnemy SpawnMonsterToOther(int id, int stage) => SpawnNormalMonster(_numManager.GetSpawnEnemyNum(id), (byte)(id == 0 ? 1 : 0), stage);
     Multi_NormalEnemy SpawnNormalMonster(byte num, byte id, int stage) => _monsterSpawner.SpawnMonster(num, id, stage);
 
-    [SerializeField] const float SpawnDelayTime = 1.8f;
-    [SerializeField] const int StageSpawnCount = 15;
-    WaitForSeconds WaitSpawnDelay = new WaitForSeconds(SpawnDelayTime);
+    WaitForSeconds WaitSpawnDelay = new WaitForSeconds(Multi_GameManager.Instance.BattleData.BattleData.MonsterSpawnDelayTime);
     IEnumerator Co_StageSpawn(byte id, int stage)
     {
-        for (int i = 0; i < StageSpawnCount; i++)
+        for (int i = 0; i < Multi_GameManager.Instance.BattleData.BattleData.StageMonsetSpawnCount; i++)
         {
             var enemy = SpawnMonsterToOther(id, stage);
             enemy.OnDead += (died) => ResurrectionMonsterToOther(enemy);

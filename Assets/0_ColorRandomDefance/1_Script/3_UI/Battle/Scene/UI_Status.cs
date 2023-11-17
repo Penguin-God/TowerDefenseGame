@@ -135,7 +135,7 @@ public class UI_Status : UI_Scene
     void UpdateStage(int stageNumber)
     {
         StopAllCoroutines();
-        timerSlider.maxValue = StageManager.Instance.STAGE_TIME;
+        timerSlider.maxValue = Multi_GameManager.Instance.BattleData.BattleData.StageTime; //StageManager.Instance.STAGE_TIME;
         timerSlider.value = timerSlider.maxValue;
         GetText((int)Texts.StageText).text = $"Stage {stageNumber} : " ;
         StartCoroutine(Co_UpdateTimer());

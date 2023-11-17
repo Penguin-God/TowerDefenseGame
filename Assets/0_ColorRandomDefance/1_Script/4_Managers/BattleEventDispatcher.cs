@@ -58,4 +58,7 @@ public class BattleEventDispatcher
 
     public event Action<UnitFlags> OnUnitCombine = null;
     public void NotifyUnitCombine(UnitFlags flag) => OnUnitCombine?.Invoke(flag);
+
+    public event Action<int> OnMaxUnitCountChange = null;
+    public void NotifyMaxUnitCountChange(int count) => OnMaxUnitCountChange?.Invoke(count);
 }

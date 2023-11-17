@@ -68,6 +68,6 @@ public class BattleStartController : MonoBehaviourPun
     IEnumerator Co_NotifyGameStartEvent()
     {
         yield return new WaitForSeconds(0.05f); // 시간 커플링 때문에 딜레이 줌
-        Multi_GameManager.Instance.BattleData.MaxUnit += 0;
+        _dispatcher.NotifyMaxUnitCountChange(Multi_GameManager.Instance.BattleData.MaxUnit);
     }
 }

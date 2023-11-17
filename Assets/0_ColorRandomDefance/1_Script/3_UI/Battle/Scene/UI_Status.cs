@@ -108,7 +108,7 @@ public class UI_Status : UI_Scene
             dispatcher.OnUnitCountChange += myCountDisplay.UpdateCurrentUnitText;
             dispatcher.OnUnitCountChangeByClass += myCountDisplay.UpdateUnitClassByCount;
 
-            Multi_GameManager.Instance.BattleData.OnMaxUnitChanged += myCountDisplay.UpdateMaxUnitCount;
+            _dispatcher.OnMaxUnitCountChange += myCountDisplay.UpdateMaxUnitCount;
             dispatcher.OnMonsterCountChanged += myCountDisplay.UpdateMonsterCountText;
 
 

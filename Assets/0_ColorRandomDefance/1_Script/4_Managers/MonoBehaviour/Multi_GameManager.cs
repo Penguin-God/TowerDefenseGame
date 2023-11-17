@@ -5,6 +5,7 @@ using System;
 using System.Linq;
 using Photon.Pun;
 using Random = UnityEngine.Random;
+using UnityEngine.UIElements;
 
 public enum GameCurrencyType
 {
@@ -13,25 +14,33 @@ public enum GameCurrencyType
 }
 
 [Serializable]
-public class BattleDataManager
+public class BattleDataController
 {
     [SerializeField] BattleDataContainer _battleData;
     public BattleDataContainer BattleData => _battleData;
     [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
     public UnitUpgradeShopData UnitUpgradeShopData => _unitUpgradeShopData;
-
-    public void Init(BattleDataContainer startData, UnitUpgradeShopData unitUpgradeShopData)
+    BattleEventDispatcher _dispatcher;
+    public void Init(BattleDataContainer startData, UnitUpgradeShopData unitUpgradeShopData, BattleEventDispatcher dispatcher)
     {
         _battleData = startData.Clone();
         UnitSummonData = startData.UnitSummonData;
+        _dispatcher = dispatcher;
+
+        MaxUnit = startData.MaxUnit;
 
         _unitUpgradeShopData = unitUpgradeShopData.Clone();
         ShopPriceDataByUnitUpgradeData = new UnitUpgradeDataGenerator().GenerateAllUnitUpgradeDatas(_unitUpgradeShopData.AddValue, _unitUpgradeShopData.UpScale)
             .ToDictionary(x => x, x => x.UpgradeType == UnitUpgradeType.Value ? _unitUpgradeShopData.AddValuePriceData.Cloen() : _unitUpgradeShopData.UpScalePriceData.Cloen());
     }
 
-    public event Action<int> OnMaxUnitChanged = null;
-    public int MaxUnit { get => _battleData.MaxUnit; set { _battleData.MaxUnit = value; OnMaxUnitChanged?.Invoke(_battleData.MaxUnit); } }
+    public int MaxUnit { get; private set; }
+    public void ChangeMaxUnit(int count)
+    {
+        MaxUnit = count;
+        _dispatcher.NotifyMaxUnitCountChange(MaxUnit);
+    }
+
     public int MaxEnemyCount => _battleData.MaxEnemy;
     public int StageUpGold { get => _battleData.StageUpGold; set => _battleData.StageUpGold = value; }
     public int YellowKnightRewardGold { get => _battleData.YellowKnightCombineGold; set => _battleData.YellowKnightCombineGold = value; }
@@ -122,8 +131,8 @@ public class CurrencyManager : IBattleCurrencyManager
 
 public class Multi_GameManager : SingletonPun<Multi_GameManager>
 {
-    [SerializeField] BattleDataManager _battleData = new BattleDataManager();
-    public BattleDataManager BattleData => _battleData;
+    [SerializeField] BattleDataController _battleData = new BattleDataController();
+    public BattleDataController BattleData => _battleData;
     
     public event Action<int> OnGoldChanged;
     public void UpdateGold(int amount)
@@ -182,7 +191,7 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
 
         _currencyManager = currencyManager;
         _battleDataContainer = battleDataContainer;
-        _battleData.Init(_battleDataContainer, _unitUpgradeShopData);
+        _battleData.Init(_battleDataContainer, _unitUpgradeShopData, dispatcher);
         AddGold(_battleDataContainer.Gold);
         AddFood(_battleDataContainer.Food);
         _multiBattleDataController = multiBattleDataController;

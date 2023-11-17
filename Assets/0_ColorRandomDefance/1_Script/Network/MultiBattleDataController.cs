@@ -10,7 +10,7 @@ public class MultiBattleDataController : MonoBehaviourPun
     public void IncreasedMaxUnitCount(int amount)
     {
         GetData(PlayerIdManager.Id).MaxUnitCount += amount;
-        Multi_GameManager.Instance.BattleData.MaxUnit = GetData(PlayerIdManager.Id).MaxUnitCount;
+        Multi_GameManager.Instance.BattleData.ChangeMaxUnit(GetData(PlayerIdManager.Id).MaxUnitCount);
         if (PhotonNetwork.IsMasterClient == false)
             photonView.RPC(nameof(RPC_IncreasedMaxUnitCount), RpcTarget.MasterClient, (byte)amount, PlayerIdManager.Id);
     }

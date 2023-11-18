@@ -74,6 +74,7 @@ public class UI_UnitOperater : UI_Base
                 var icon = Managers.UI.MakeSubItem<UI_UnitIcon>(GetObject((int)GameObjects.UnitIconsParent).transform);
                 icon.SetUnitIcon(unitFlag);
                 icon.BindClickEvent(Do);
+                icon.BindClickEvent(ShowOperableUnits);
 
                 void Do() => _operationHandler.Do(unitFlag);
             }

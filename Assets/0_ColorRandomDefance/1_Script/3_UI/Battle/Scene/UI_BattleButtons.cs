@@ -48,11 +48,11 @@ public class UI_BattleButtons : UI_Scene
         // GetObject((int)GameObjects.CombineObject).SetActive(false);
     }
 
-    public void DependencyInject(SwordmanGachaController swordmanGachaController, TextShowAndHideController textShowAndHideController, WorldUnitManager worldUnitManager, UnitCombineMultiController combineController, BattleEventDispatcher dispatcher)
+    public void DependencyInject(SwordmanGachaController swordmanGachaController, TextShowAndHideController textShowAndHideController, UnitManagerController unitManagerController, UnitCombineMultiController combineController, BattleEventDispatcher dispatcher)
     {
         _swordmanGachaController = swordmanGachaController;
         _textShowAndHideController = textShowAndHideController;
-        GetComponentInChildren<UI_UnitOperationsHub>().DependencyInject(worldUnitManager, combineController, dispatcher);
+        GetComponentInChildren<UI_UnitOperationsHub>().DependencyInject(unitManagerController, combineController, dispatcher);
     }
 
     void ChangeText(Texts textType, string text) => GetTextMeshPro((int)textType).text = text;

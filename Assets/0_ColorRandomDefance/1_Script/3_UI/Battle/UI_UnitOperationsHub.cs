@@ -20,19 +20,19 @@ public class UI_UnitOperationsHub : UI_Base
         foreach (GameObjects type in Enum.GetValues(typeof(GameObjects)))
         {
             var operater = GetObject((int)type).GetComponent<UI_UnitOperater>();
-            operater.DependencyInject(CreateOperater(type), _worldUnitManager);
+            operater.DependencyInject(CreateOperater(type), _unitManagerController.WorldUnitManager);
             operater.BindOperateEvent(() => ChangeCurrnetOperater(operater));
         }
 
         _dispatcher.OnUnitCountChange += _ => UpdateOperater();
     }
 
-    WorldUnitManager _worldUnitManager;
+    UnitManagerController _unitManagerController;
     UnitCombineMultiController _combineController;
     BattleEventDispatcher _dispatcher;
-    public void DependencyInject(WorldUnitManager worldUnitManager, UnitCombineMultiController combineController, BattleEventDispatcher dispatcher)
+    public void DependencyInject(UnitManagerController unitManagerController, UnitCombineMultiController combineController, BattleEventDispatcher dispatcher)
     {
-        _worldUnitManager = worldUnitManager;
+        _unitManagerController = unitManagerController;
         _combineController = combineController;
         _dispatcher = dispatcher;
     }
@@ -41,9 +41,9 @@ public class UI_UnitOperationsHub : UI_Base
     {
         switch (gameObjects)
         {
-            case GameObjects.Seller:
-            case GameObjects.WroldMover:
-            case GameObjects.TowerMover:
+            case GameObjects.Seller: return new UnitSellHandler(_unitManagerController);
+            case GameObjects.WroldMover: return new UnitWolrdMoveHandler(_unitManagerController);
+            case GameObjects.TowerMover: return new UnitTowerMoveHandler(_unitManagerController);
             case GameObjects.Combiner: return new UnitCombineHandler(_combineController);
             default: return null;
         }

@@ -12,7 +12,7 @@ public class UI_BattleButtons : UI_Scene
         SummonUnitButton,
         StoryWolrd_EnterButton,
         WorldChangeButton,
-        CombinButton,
+        // CombinButton,
     }
 
     enum Texts
@@ -21,43 +21,38 @@ public class UI_BattleButtons : UI_Scene
         WorldDestinationText,
     }
 
-    enum GameObjects
-    {
-        CombineObject,
-        CombineButtonsParent,
-        CombineImpossibleText,
-    }
+    //enum GameObjects
+    //{
+    //    CombineObject,
+    //    CombineButtonsParent,
+    //    CombineImpossibleText,
+    //}
 
     protected override void Init()
     {
         base.Init();
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Button>(typeof(Buttons));
-        Bind<GameObject>(typeof(GameObjects));
+        // Bind<GameObject>(typeof(GameObjects));
 
         Managers.Camera.OnIsLookMyWolrd += (isLookMy) => GetButton((int)Buttons.SummonUnitButton).gameObject.SetActive(isLookMy);
         GetButton((int)Buttons.StoryWolrd_EnterButton).onClick.AddListener(CameraPositionChanged);
         GetButton((int)Buttons.SummonUnitButton).onClick.AddListener(SommonUnit);
         GetButton((int)Buttons.WorldChangeButton).onClick.AddListener(ChangeWorld);
-        GetButton((int)Buttons.CombinButton).onClick.AddListener(ClickCombineButton);
 
-        uI_UnitOperater = GetComponentInChildren<UI_UnitOperater>();
-        uI_UnitOperater.DependencyInject(_unitCombineHandler, _worldUnitManager);
-        _dispatcher.OnUnitCountChange += _ => uI_UnitOperater.ShowOperableUnits(); // SortByCombineables(_unitCombineHandler);
-        GetObject((int)GameObjects.CombineObject).SetActive(false);
+        // GetButton((int)Buttons.CombinButton).onClick.AddListener(ClickCombineButton);
+
+        // uI_UnitOperater = GetComponentInChildren<UI_UnitOperater>();
+        // uI_UnitOperater.DependencyInject(_unitCombineHandler, _worldUnitManager);
+        // _dispatcher.OnUnitCountChange += _ => uI_UnitOperater.ShowOperableUnits(); // SortByCombineables(_unitCombineHandler);
+        // GetObject((int)GameObjects.CombineObject).SetActive(false);
     }
 
-    WorldUnitManager _worldUnitManager;
-    BattleEventDispatcher _dispatcher;
-    UnitCombineHandler _unitCombineHandler;
-    UI_UnitOperater uI_UnitOperater;
     public void DependencyInject(SwordmanGachaController swordmanGachaController, TextShowAndHideController textShowAndHideController, WorldUnitManager worldUnitManager, UnitCombineMultiController combineController, BattleEventDispatcher dispatcher)
     {
-        _unitCombineHandler = new UnitCombineHandler(combineController);
         _swordmanGachaController = swordmanGachaController;
         _textShowAndHideController = textShowAndHideController;
-        _worldUnitManager = worldUnitManager;
-        _dispatcher = dispatcher;
+        GetComponentInChildren<UI_UnitOperationsHub>().DependencyInject(worldUnitManager, combineController, dispatcher);
     }
 
     void ChangeText(Texts textType, string text) => GetTextMeshPro((int)textType).text = text;
@@ -120,16 +115,16 @@ public class UI_BattleButtons : UI_Scene
             Managers.Sound.PlayEffect(EffectSoundType.DrawSwordman);
     }
 
-    void ClickCombineButton()
-    {
-        if (GetObject((int)GameObjects.CombineObject).activeSelf)
-            GetObject((int)GameObjects.CombineObject).SetActive(false);
-        else
-        {
-            GetObject((int)GameObjects.CombineObject).SetActive(true);
-            // uI_UnitOperater.ShowOperableUnits();
-        }
-    }
+    //void ClickCombineButton()
+    //{
+    //    if (GetObject((int)GameObjects.CombineObject).activeSelf)
+    //        GetObject((int)GameObjects.CombineObject).SetActive(false);
+    //    else
+    //    {
+    //        GetObject((int)GameObjects.CombineObject).SetActive(true);
+    //        // uI_UnitOperater.ShowOperableUnits();
+    //    }
+    //}
 
     //void SortByCombineables(IUnitOperationHandler operationHandler)
     //{

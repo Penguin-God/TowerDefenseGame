@@ -1,14 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class UI_UnitOperater : UI_Base
 {
     enum Buttons
     {
-        OperateButton,
+        OperateControlButton,
     }
 
     enum GameObjects
@@ -17,13 +19,20 @@ public class UI_UnitOperater : UI_Base
         OperateImpossibleText,
     }
 
-    protected override void Init()
+    void Awake()
     {
         Bind<Button>(typeof(Buttons));
+    }
+
+    protected override void Init()
+    {
         Bind<GameObject>(typeof(GameObjects));
 
-        GetButton((int)Buttons.OperateButton).onClick.AddListener(ShowOperableUnits);
+        BindOperateEvent(ToggleUnitIcons);
+        HideIcons();
     }
+    
+    public void BindOperateEvent(UnityAction action) => GetButton((int)Buttons.OperateControlButton).onClick.AddListener(action);
 
     IUnitOperationHandler _operationHandler;
     WorldUnitManager _worldUnitManager;
@@ -33,8 +42,23 @@ public class UI_UnitOperater : UI_Base
         _worldUnitManager = worldUnitManager;
     }
 
+    void ToggleUnitIcons()
+    {
+        if(GetObject((int)GameObjects.UnitIconsParent).activeSelf)
+            HideIcons(); 
+        else
+            ShowOperableUnits();
+    }
+
+    public void HideIcons()
+    {
+        GetObject((int)GameObjects.OperateImpossibleText).SetActive(false);
+        GetObject((int)GameObjects.UnitIconsParent).SetActive(false);
+    }
+
     public void ShowOperableUnits()
     {
+        GetObject((int)GameObjects.UnitIconsParent).SetActive(true);
         foreach (Transform child in GetObject((int)GameObjects.UnitIconsParent).transform)
             Managers.Resources.Destroy(child.gameObject);
 
@@ -61,10 +85,4 @@ public class UI_UnitOperater : UI_Base
             .OrderByDescending(x => x.ClassNumber)
             .ThenByDescending(x => x.ColorNumber)
             .Reverse();
-
-    public void HideIcons()
-    {
-        GetObject((int)GameObjects.OperateImpossibleText).SetActive(false);
-        GetObject((int)GameObjects.UnitIconsParent).SetActive(false);
-    }
 }

@@ -24,7 +24,7 @@ public class UI_UnitOperationsHub : UI_Base
             operater.BindOperateEvent(() => ChangeCurrnetOperater(operater));
         }
 
-        _dispatcher.OnUnitCountChange += _ => _currentOperater?.ShowOperableUnits();
+        _dispatcher.OnUnitCountChange += _ => UpdateOperater();
     }
 
     WorldUnitManager _worldUnitManager;
@@ -55,5 +55,11 @@ public class UI_UnitOperationsHub : UI_Base
         if(_currentOperater == operater) return;
         _currentOperater?.HideIcons();
         _currentOperater = operater;
+    }
+
+    void UpdateOperater()
+    {
+        if(_currentOperater != null && _currentOperater.IsActiveIcons)
+            _currentOperater.ShowOperableUnits();
     }
 }

@@ -16,4 +16,3 @@ public class UnitCombineHandler : IUnitOperationHandler
     public void Do(UnitFlags flag) => _combineController.TryCombine(flag);
     public IEnumerable<UnitFlags> GetOperableUnits(IEnumerable<UnitFlags> units) => _combineController.CombineSystem.GetCombinableUnitFalgs(units);
 }
-

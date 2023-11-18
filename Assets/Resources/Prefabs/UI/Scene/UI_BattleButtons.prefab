@@ -305,7 +305,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lookMyWorldIcon: {fileID: 21300000, guid: 531ec83020de24b7f80dd45b4fca5db6, type: 3}
   lookEnemyWorldIcon: {fileID: 21300000, guid: 431680e4c1d544238a4745d795cc0ac9, type: 3}
-  _combineButtonsParnet: {fileID: 8843848581489310441}
 --- !u!1 &3262872582606088945
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,6 +453,7 @@ GameObject:
   - component: {fileID: 933184707129124889}
   - component: {fileID: 2786715077467714749}
   - component: {fileID: 4386858229476402484}
+  - component: {fileID: 1758171221951108212}
   m_Layer: 5
   m_Name: CombinButton
   m_TagString: Untagged
@@ -565,6 +565,18 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1758171221951108212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3716460706396997723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 566f81fffe457734f972a382285e48f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6235879654123043572
 GameObject:
   m_ObjectHideFlags: 0

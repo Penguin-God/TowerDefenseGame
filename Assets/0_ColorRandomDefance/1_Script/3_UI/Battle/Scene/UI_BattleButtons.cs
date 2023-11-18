@@ -40,21 +40,19 @@ public class UI_BattleButtons : UI_Scene
         GetButton((int)Buttons.SummonUnitButton).onClick.AddListener(SommonUnit);
         GetButton((int)Buttons.WorldChangeButton).onClick.AddListener(ChangeWorld);
         GetButton((int)Buttons.CombinButton).onClick.AddListener(ClickCombineButton);
-        _dispatcher.OnUnitCountChange += _ => SortByCombineables();
+        _dispatcher.OnUnitCountChange += _ => SortByCombineables(_unitCombineHandler);
         GetObject((int)GameObjects.CombineObject).SetActive(false);
     }
 
     WorldUnitManager _worldUnitManager;
-    UnitCombineSystem _combineSystem;
-    UnitCombineMultiController _combineController;
     BattleEventDispatcher _dispatcher;
-    public void DependencyInject(SwordmanGachaController swordmanGachaController, TextShowAndHideController textShowAndHideController, WorldUnitManager worldUnitManager, UnitCombineSystem combineSystem, UnitCombineMultiController combineController, BattleEventDispatcher dispatcher)
+    UnitCombineHandler _unitCombineHandler;
+    public void DependencyInject(SwordmanGachaController swordmanGachaController, TextShowAndHideController textShowAndHideController, WorldUnitManager worldUnitManager, UnitCombineMultiController combineController, BattleEventDispatcher dispatcher)
     {
+        _unitCombineHandler = new UnitCombineHandler(combineController);
         _swordmanGachaController = swordmanGachaController;
         _textShowAndHideController = textShowAndHideController;
         _worldUnitManager = worldUnitManager;
-        _combineSystem = combineSystem;
-        _combineController = combineController;
         _dispatcher = dispatcher;
     }
 
@@ -125,17 +123,17 @@ public class UI_BattleButtons : UI_Scene
         else
         {
             GetObject((int)GameObjects.CombineObject).SetActive(true);
-            SortByCombineables();
+            SortByCombineables(_unitCombineHandler);
         }
     }
 
-    [SerializeField] Transform _combineButtonsParnet;
-    void SortByCombineables()
+    void SortByCombineables(IUnitOperationHandler operationHandler)
     {
         foreach (Transform child in GetObject((int)GameObjects.CombineButtonsParent).transform)
             Managers.Resources.Destroy(child.gameObject);
 
-        var combineableUnitFalgs = _combineSystem.GetCombinableUnitFalgs(_worldUnitManager.GetUnitFlags(PlayerIdManager.Id));
+        // _combineSystem.GetCombinableUnitFalgs(_worldUnitManager.GetUnitFlags(PlayerIdManager.Id));
+        var combineableUnitFalgs = operationHandler.GetOperableUnits(_worldUnitManager.GetUnitFlags(PlayerIdManager.Id));
         if (combineableUnitFalgs.Count() > 0)
         {
             GetObject((int)GameObjects.CombineImpossibleText).SetActive(false);
@@ -143,7 +141,9 @@ public class UI_BattleButtons : UI_Scene
             {
                 var icon = Managers.UI.MakeSubItem<UI_UnitIcon>(GetObject((int)GameObjects.CombineButtonsParent).transform);
                 icon.SetUnitIcon(unitFlag);
-                icon.BindClickEvent(() => _combineController.TryCombine(unitFlag));
+                icon.BindClickEvent(Do);
+
+                void Do() => operationHandler.Do(unitFlag);
             }
         }
         else

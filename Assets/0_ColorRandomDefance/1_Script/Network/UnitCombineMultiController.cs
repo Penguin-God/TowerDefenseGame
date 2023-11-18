@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class UnitCombineMultiController : MonoBehaviourPun
 {
-    UnitCombineSystem _combineSystem;
+    public UnitCombineSystem CombineSystem { get; private set; }
     UnitManagerController _unitManager;
     Multi_NormalUnitSpawner _spawner;
     BattleEventDispatcher _dispatcher;
@@ -15,7 +15,7 @@ public class UnitCombineMultiController : MonoBehaviourPun
     {
         _unitManager = unitManager;
         _spawner = spawner;
-        _combineSystem = combineSystem;
+        CombineSystem = combineSystem;
         _dispatcher = dispatcher;
         _combineResultNotifier = new UnitCombineNotifier(textController);
     }
@@ -38,14 +38,14 @@ public class UnitCombineMultiController : MonoBehaviourPun
         }
     }
 
-    public bool CanCombine(UnitFlags targetFlag, byte id) => _combineSystem.CheckCombineable(targetFlag, _unitManager.WorldUnitManager.GetUnitFlags(id));
+    public bool CanCombine(UnitFlags targetFlag, byte id) => CombineSystem.CheckCombineable(targetFlag, _unitManager.WorldUnitManager.GetUnitFlags(id));
 
     [PunRPC]
     void Combine(UnitFlags targetFlag, byte id)
     {
         if (CanCombine(targetFlag, id) == false) return;
 
-        foreach (var needFlag in _combineSystem.GetNeedFlags(targetFlag))
+        foreach (var needFlag in CombineSystem.GetNeedFlags(targetFlag))
             _unitManager.GetUnit(id, needFlag).Dead();
 
         _spawner.Spawn(targetFlag, id);

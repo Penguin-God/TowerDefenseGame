@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using Photon.Pun;
 using System;
 using System.Linq;
+using static Codice.Client.BaseCommands.BranchExplorer.Layout.BrExLayout;
 
 public enum UnitColor { Red, Blue, Yellow, Green, Orange, Violet, White, Black };
 public enum UnitClass { Swordman, Archer, Spearman, Mage }
@@ -166,7 +167,16 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
 
     bool VaildTargetCondition() => target != null && _targetManager.Target.IsDead == false && _chaseSystem._currentTarget != null && TargetEnemy.UsingId == UsingID;
-    public bool MonsterIsForward() => Physics.RaycastAll(transform.position + Vector3.up, transform.forward, AttackRange).Select(x => x.transform).Contains(target);
+    Vector3 GetBoxSize() => new Vector3(5, 5, 5);
+    public bool MonsterIsForward() => Physics.BoxCastAll(transform.position + Vector3.up * 2, GetBoxSize() / 2, transform.forward, transform.rotation, AttackRange).Select(x => x.transform).Contains(target);
+    //Physics.RaycastAll(transform.position + Vector3.up, transform.forward, AttackRange).Select(x => x.transform).Contains(target);
+
+    void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube((transform.position + Vector3.up * 2) + (transform.forward * AttackRange), GetBoxSize());
+        Gizmos.DrawWireCube(transform.position, GetBoxSize());
+    }
 
     bool isRPC; // RPC딜레이 때문에 공격 2번 이상하는 버그 방지 변수
     void UnitAttack()

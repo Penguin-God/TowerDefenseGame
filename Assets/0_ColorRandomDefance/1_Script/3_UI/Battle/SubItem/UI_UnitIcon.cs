@@ -19,8 +19,14 @@ public class UI_UnitIcon : UI_Base
     public void SetUnitIcon(UnitFlags flag)
     {
         CheckInit();
-        GetImage((int)Images.BackGround).color = SpriteUtility.GetUnitColor(flag.UnitColor);
+        SetBGColor(flag.UnitColor);
         GetImage((int)Images.Icon).sprite = SpriteUtility.GetUnitClassIcon(flag.UnitClass);
+    }
+
+    public void SetBGColor(UnitColor color)
+    {
+        CheckInit();
+        GetImage((int)Images.BackGround).color = SpriteUtility.GetUnitColor(color);
     }
 
     public void BindClickEvent(Action action) => BindEvnet(GetImage((int)Images.BackGround).gameObject, _ => action());

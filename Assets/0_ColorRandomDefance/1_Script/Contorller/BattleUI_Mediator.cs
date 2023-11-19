@@ -41,7 +41,7 @@ public class BattleUI_Mediator
         RegisterUI(BattleUI_Type.WhiteUnitShop, "InGameShop/WhiteUnitShop");
         RegisterUI(BattleUI_Type.BalckUnitCombineTable, "InGameShop/BlackUnitShop");
         RegisterUI(BattleUI_Type.UnitMaxCountExpendShop, "InGameShop/UnitCountExpendShop_UI");
-        RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_BattleShop");
+        RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_BattleShop"); // 여기 새걸로 바꾸면 됨
         RegisterAndShow<UI_UnitContolWindow>(BattleUI_Type.UnitContolWindow);
 
         RegisterUI(BattleUI_Type.Paint, "Paint");

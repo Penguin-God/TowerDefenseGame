@@ -87,6 +87,5 @@ public class UI_UnitOperater : UI_Base
         => flags
             .Where(x => UnitFlags.NormalFlags.Contains(x))
             .OrderByDescending(x => x.ClassNumber)
-            .ThenByDescending(x => x.ColorNumber)
-            .Reverse();
+            .ThenByDescending(x => x.ColorNumber);
 }

@@ -47,7 +47,7 @@ public class UI_Paint : UI_Scene
 
         _trackerParent = GetObject((int)GameObjects.TrackerParent).transform;
         _layoutGroup = _trackerParent.GetComponent<GridLayoutGroup>();
-
+        
         Managers.Camera.OnIsLookMyWolrd += (isLookMy) => gameObject.SetActive(isLookMy);
         GetButton((int)Buttons.PaintButton).onClick.AddListener(SortDefault);
         _dispatcher.OnUnitCountChangeByFlag += (flag, _) => OnChangeUnitCount(flag);
@@ -79,6 +79,7 @@ public class UI_Paint : UI_Scene
         Managers.UI.ClosePopupUI();
         SwitchSortType(SortType.Default);
         _layoutGroup.constraint = GridLayoutGroup.Constraint.Flexible;
+        _layoutGroup.padding.right = 0;
         GetObject((int)GameObjects.PaintBackGround).SetActive(false);
 
         foreach (var unitClass in UnitFlags.AllClass)
@@ -97,11 +98,12 @@ public class UI_Paint : UI_Scene
         GetObject((int)GameObjects.PaintBackGround).SetActive(true);
         _layoutGroup.constraint = GridLayoutGroup.Constraint.FixedRowCount;
         _layoutGroup.constraintCount = 3;
+        _layoutGroup.padding.right = 80;
 
         foreach (var unitColor in UnitFlags.NormalColors)
         {
             var tracker = CreateTracker(new UnitFlags(unitColor, unitClass));
-            tracker.GetComponent<Button>().onClick.AddListener(() => ShowUnitControlButtons(tracker));
+            // tracker.GetComponent<Button>().onClick.AddListener(() => ShowUnitControlButtons(tracker));
         }
     }
 

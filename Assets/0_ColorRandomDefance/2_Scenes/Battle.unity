@@ -751,11 +751,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _battleData:
-    _battleData: {fileID: 0}
     _unitUpgradeShopData: {fileID: 0}
     UnitSummonData:
       SummonPrice: 0
       SummonMaxColor: 0
+    YellowKnightRewardGold: 0
+    WhiteUnitTime: 0
+    StageMonsetSpawnCount: 0
+    MonsterSpawnDelayTime: 0
+    StageBreakTime: 0
   _unitUpgradeShopData: {fileID: 11400000, guid: a6e4dad3ae580fe4fa7257e539e00505,
     type: 2}
   _battleDataContainer: {fileID: 11400000, guid: ca5675c0898f78e409d3b3ddc5391ee5,

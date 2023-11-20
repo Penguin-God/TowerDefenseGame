@@ -13,12 +13,6 @@ public enum UnitStatType
 
 public class UnitStatController
 {
-    readonly Dictionary<UnitFlags, Vector2Int> _upgradeInfoByFlag = UnitFlags.AllFlags.ToDictionary(x => x, x => new Vector2Int());
-    public void AddUnitUpgradeValue(UnitFlags flag, int value) => _upgradeInfoByFlag[flag] += new Vector2Int(value, 0);
-    public void AddUnitUpgradeScale(UnitFlags flag, int value) => _upgradeInfoByFlag[flag] += new Vector2Int(0, value);
-    public int GetUnitUpgradeValue(UnitFlags flag) => _upgradeInfoByFlag[flag].x;
-    public int GetUnitUpgradeScale(UnitFlags flag) => _upgradeInfoByFlag[flag].y;
-
     MultiData<UnitDamageInfoManager> _unitDamageManagers;
     public UnitDamageInfoManager GetInfoManager(byte id) => _unitDamageManagers.GetData(id);
 

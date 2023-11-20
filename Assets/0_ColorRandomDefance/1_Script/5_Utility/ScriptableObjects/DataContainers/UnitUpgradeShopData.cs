@@ -7,11 +7,11 @@ public class UnitUpgradeShopData : ScriptableObject
 {
     public int AddValue;
     public CurrencyData AddValuePriceData;
-    public UnitUpgradeGoodsData AddData => new UnitUpgradeGoodsData(UnitUpgradeType.Value, AddValue, AddValuePriceData);
+    public UnitUpgradeGoodsData AddData => new (UnitUpgradeType.Value, AddValue, AddValuePriceData);
 
     public int UpScale;
     public CurrencyData UpScalePriceData;
-    public UnitUpgradeGoodsData ScaleData => new UnitUpgradeGoodsData(UnitUpgradeType.Scale, UpScale, UpScalePriceData);
+    public UnitUpgradeGoodsData ScaleData => new (UnitUpgradeType.Scale, UpScale, UpScalePriceData);
 
     public int MaxUpgradeLevel;
     public int ResetPrice;

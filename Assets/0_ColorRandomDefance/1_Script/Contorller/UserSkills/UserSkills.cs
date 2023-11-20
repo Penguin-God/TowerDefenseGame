@@ -200,7 +200,8 @@ public class TaegeukController : UserSkill
         SetTaeguekUnitStat(UnitColor.Red);
         SetTaeguekUnitStat(UnitColor.Blue);
 
-        void SetTaeguekUnitStat(UnitColor unitColor) => _statController.AddUnitDamage(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatType.All);
+        // void SetTaeguekUnitStat(UnitColor unitColor) => _statController.AddUnitDamage(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatType.All);
+        void SetTaeguekUnitStat(UnitColor unitColor) => _statController.UpgradeUnitDamage(new UnitFlags(unitColor, unitClass), applyDamage, UnitStatUpgradeType.Values);
     }
 }
 
@@ -450,7 +451,8 @@ public class UnitStatHandler
     public void UpgradeUnit(UnitColor color, int[] upgradeDamages)
     {
         foreach (UnitClass unitClass in Enum.GetValues(typeof(UnitClass)))
-            _statController.AddUnitDamage(new UnitFlags(color, unitClass), upgradeDamages[(int)unitClass], UnitStatType.All);
+            _statController.UpgradeUnitDamage(new UnitFlags(color, unitClass), upgradeDamages[(int)unitClass], UnitStatUpgradeType.Values);
+        // _statController.AddUnitDamage(new UnitFlags(color, unitClass), upgradeDamages[(int)unitClass], UnitStatType.All);
     }
 }
 
@@ -542,8 +544,10 @@ public class LegendKnight : UserSkill
         foreach (UnitFlags flag in UnitFlags.NormalColors.Select(x => new UnitFlags(x, UnitClass.Swordman)))
         {
             // 배율 증가가 아니라 기본 고정 대미지를 5배 증가시키는 거임
-            statController.AddUnitDamage(flag, statController.GetDamageInfo(flag).ApplyDamage * IntSkillData, UnitStatType.Damage);
-            statController.AddUnitDamage(flag, statController.GetDamageInfo(flag).ApplyBossDamage * IntSkillData, UnitStatType.BossDamage);
+            //statController.AddUnitDamage(flag, statController.GetDamageInfo(flag).ApplyDamage * IntSkillData, UnitStatType.Damage);
+            //statController.AddUnitDamage(flag, statController.GetDamageInfo(flag).ApplyBossDamage * IntSkillData, UnitStatType.BossDamage);
+            statController.UpgradeUnitDamage(flag, statController.GetDamageInfo(flag).ApplyDamage * IntSkillData, UnitStatUpgradeType.Dam);
+            statController.UpgradeUnitDamage(flag, statController.GetDamageInfo(flag).ApplyBossDamage * IntSkillData, UnitStatUpgradeType.BossDam);
         }
     }
 }

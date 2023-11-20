@@ -3,6 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using Photon.Pun;
 
+public enum UnitStatUpgradeType
+{
+    Values,
+    Dam,
+    BossDam,
+    Rates,
+    BossDamRate,
+}
+
 public class MultiUnitStatController : MonoBehaviourPun
 {
     UnitStatController _unitStatCotroller;
@@ -10,6 +19,14 @@ public class MultiUnitStatController : MonoBehaviourPun
     public UnitDamageInfo GetDamageInfo(UnitFlags flag) => _unitStatCotroller.GetDamageInfo(flag, Id);
 
     byte Id => PlayerIdManager.Id;
+
+    public void UpgradeUnitDamage(UnitFlags flag, int value, UnitStatUpgradeType upgradeType)
+    {
+        UpgradeUnitDamage(flag, value, upgradeType, Id);
+        if(PhotonNetwork.IsMasterClient == false)
+            photonView.RPC(nameof(UpgradeUnitDamage), RpcTarget.MasterClient, flag, value, upgradeType, Id);
+    }
+
     public void AddUnitDamage(UnitFlags flag, int value, UnitStatType changeStatType)
     {
         AddUnitDamageWithFlag(flag, value, changeStatType, Id);
@@ -32,6 +49,25 @@ public class MultiUnitStatController : MonoBehaviourPun
     {
         ScaleAllUnitDamage(value, changeStatType, Id);
         ClientToMaster(nameof(ScaleAllUnitDamage), changeStatType, Id, value);
+    }
+
+    [PunRPC]
+    void UpgradeUnitDamage(UnitFlags flag, int value, UnitStatUpgradeType type, byte id)
+    {
+        _unitStatCotroller.UpgradeUnitDamage(x => x == flag, CraeteUpgardeInfo(value, type), id);
+    }
+
+    UnitDamageInfo CraeteUpgardeInfo(int value, UnitStatUpgradeType type)
+    {
+        switch (type)
+        {
+            case UnitStatUpgradeType.Values: return new UnitDamageInfo(dam: value, bossDam: value, damRate: 0);
+            case UnitStatUpgradeType.Dam: return new UnitDamageInfo(dam: value);
+            case UnitStatUpgradeType.BossDam: return new UnitDamageInfo(bossDam: value);
+            case UnitStatUpgradeType.Rates: return new UnitDamageInfo(damRate: value / 100f, bossDamRate: value / 100f);
+            case UnitStatUpgradeType.BossDamRate: return new UnitDamageInfo(bossDamRate: value / 100f);
+            default: return new UnitDamageInfo();
+        }
     }
 
     [PunRPC]

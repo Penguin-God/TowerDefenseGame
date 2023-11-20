@@ -26,6 +26,13 @@ public class UnitStatController
 
     public UnitDamageInfo GetDamageInfo(UnitFlags flag, byte id) => GetInfoManager(id).GetDamageInfo(flag);
 
+    public void UpgradeUnitDamage(Func<UnitFlags, bool> upgradeCondition, UnitDamageInfo info, byte id)
+    {
+        foreach (var flag in UnitFlags.AllFlags.Where(upgradeCondition))
+            GetInfoManager(id).UpgradeDamageInfo(flag, info);
+        UpdateCurrentUnitDamage(id);
+    }
+
     public void AddUnitDamage(UnitFlags flag, int value, UnitStatType changeStatType, byte id)
     {
         GetInfoManager(id).AddDamage(flag, value, changeStatType);

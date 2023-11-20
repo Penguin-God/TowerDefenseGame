@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 [Serializable]
 public struct UnitDamageInfo
@@ -79,10 +80,11 @@ public class UnitDamageInfoManager
     public UnitDamageInfo GetDamageInfo(UnitFlags flag) => _damageInfoByFlag[flag];
     public int GetUnitDamage(UnitFlags flag) => GetDamageInfo(flag).ApplyDamage;
     public int GetUnitBossDamage(UnitFlags flag) => GetDamageInfo(flag).ApplyBossDamage;
-    public void AddDamage(UnitFlags flag, int addValue) => _damageInfoByFlag[flag] = _damageInfoByFlag[flag].AddDamage(addValue);
-    public void AddBossDamage(UnitFlags flag, int addValue) => _damageInfoByFlag[flag] = _damageInfoByFlag[flag].AddBossDamage(addValue);
-    public void IncreaseDamageRate(UnitFlags flag, float increaseValue) => _damageInfoByFlag[flag] = _damageInfoByFlag[flag].IncreaseDamageRate(increaseValue);
-    public void IncreaseBossDamageRate(UnitFlags flag, float increaseValue) => _damageInfoByFlag[flag] = _damageInfoByFlag[flag].IncreaseBossDamageRate(increaseValue);
+    public void AddDamage(UnitFlags flag, int addValue) => _damageInfoByFlag[flag] += new UnitDamageInfo(dam: addValue); // _damageInfoByFlag[flag].AddDamage(addValue);
+    public void AddBossDamage(UnitFlags flag, int addValue) => _damageInfoByFlag[flag] += new UnitDamageInfo(bossDam: addValue); // _damageInfoByFlag[flag].AddBossDamage(addValue);
+    public void IncreaseDamageRate(UnitFlags flag, float increaseValue) => _damageInfoByFlag[flag] += new UnitDamageInfo(damRate: increaseValue); //_damageInfoByFlag[flag].IncreaseDamageRate(increaseValue);
+    public void IncreaseBossDamageRate(UnitFlags flag, float increaseValue) => _damageInfoByFlag[flag] += new UnitDamageInfo(bossDamRate: increaseValue); //_damageInfoByFlag[flag].IncreaseBossDamageRate(increaseValue);
+    public void UpgradeDamageInfo(UnitFlags flag, UnitDamageInfo damageInfo) => _damageInfoByFlag[flag] += damageInfo;
 
     public void AddDamage(UnitFlags flag, int value, UnitStatType changeStatType)
     {

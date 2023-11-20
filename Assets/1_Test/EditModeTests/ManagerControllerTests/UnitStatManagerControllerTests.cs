@@ -70,6 +70,22 @@ public class UnitStatManagerControllerTests
         AssertUnitDamage(100, BlueSwordman);
     }
 
+    [Test]
+    [TestCase(100, 100, 0, 0, 200, 200)]
+    [TestCase(100, 100, 0.5f, 0.5f, 300, 300)]
+    [TestCase(100, 0, 0.5f, 0, 300, 100)]
+    [TestCase(0, 0, 0, 0.5f, 100, 150)]
+    public void 조건에_맞는_스탯만_강화되야_함(int dam, int bossDam, float damRate, float bossDamRate, int expectDam, int expectBossDam)
+    {
+        var sut = new UnitDamageInfoManager(DamageInfos);
+
+        sut.UpgradeDamageInfo(RedSwordman, new UnitDamageInfo(dam, bossDam, damRate, bossDamRate));
+
+        var result = sut.GetDamageInfo(RedSwordman);
+        Assert.AreEqual(expectDam, result.ApplyDamage);
+        Assert.AreEqual(expectBossDam, result.ApplyBossDamage);
+    }
+
     void AssertUnitDamage(int upgradeDamage, UnitFlags flag)
     {
         Assert.AreEqual(upgradeDamage, sut.GetDamageInfo(flag, Id).ApplyDamage);

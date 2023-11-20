@@ -79,4 +79,13 @@ public class UnitStatManagerControllerTests
         Assert.AreEqual(DefaultDamage, sut.GetDamageInfo(flag, OtherId).ApplyDamage);
         Assert.AreEqual(DefaultDamage, _worldUnitManager.GetUnit(OtherId, flag).DamageInfo.ApplyDamage);
     }
+
+    [Test]
+    public void UnitDamageInfo_구조체끼리는_더할_수_있음()
+    {
+        var a = new UnitDamageInfo(2, 2, 1, 1);
+        var b = new UnitDamageInfo(0, 3, 2, 0.1f);
+        var result = a + b;
+        Assert.AreEqual(new UnitDamageInfo(2, 5, 3, 1.1f), result);
+    }
 }

@@ -28,7 +28,7 @@ public struct UnitDamageInfo
     public int ApplyDamage => Mathf.RoundToInt(_baseDamage * _damageRate);
     public int ApplyBossDamage => Mathf.RoundToInt(_baseBossDamage * _bossDamageRate);
 
-    public UnitDamageInfo(int dam, int bossDam, float damRate, float bossDamRate)
+    public UnitDamageInfo(int dam = 0, int bossDam = 0, float damRate = 0, float bossDamRate = 0)
     {
         _baseDamage = dam;
         _baseBossDamage = bossDam;
@@ -40,6 +40,15 @@ public struct UnitDamageInfo
     public UnitDamageInfo AddBossDamage(int addValue) => new UnitDamageInfo(_baseDamage, _baseBossDamage + addValue, _damageRate, _bossDamageRate);
     public UnitDamageInfo IncreaseDamageRate(float increaseValue) => new UnitDamageInfo(_baseDamage, _baseBossDamage, _damageRate + increaseValue, _bossDamageRate);
     public UnitDamageInfo IncreaseBossDamageRate(float increaseValue) => new UnitDamageInfo(_baseDamage, _baseBossDamage, _damageRate, _bossDamageRate + increaseValue);
+
+    public static UnitDamageInfo operator +(UnitDamageInfo a, UnitDamageInfo b)
+    {
+        a._baseDamage += b._baseDamage;
+        a._baseBossDamage += b._baseBossDamage;
+        a._damageRate += b._damageRate;
+        a._bossDamageRate += b._bossDamageRate;
+        return a;
+    }
 }
 
 public class UnitDamageInfoManager

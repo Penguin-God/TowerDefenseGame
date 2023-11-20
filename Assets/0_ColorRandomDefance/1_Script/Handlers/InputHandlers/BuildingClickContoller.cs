@@ -25,7 +25,7 @@ public class BuildingClickContoller : MonoBehaviour
     {
         switch (type)
         {
-            case BattleUI_Type.UnitUpgrdeShop: _uiMediator.ShowPopupUI<UI_BattleShop>(type); break;
+            case BattleUI_Type.UnitUpgrdeShop: _uiMediator.ShowPopupUI<UI_UnitUpgradeShop>(type); break; // _uiMediator.ShowPopupUI<UI_UnitUpgradeShop>(type); break; 
             case BattleUI_Type.BalckUnitCombineTable: _uiMediator.ShowPopupUI<BalckUnitShop_UI>(type); break;
             case BattleUI_Type.WhiteUnitShop:
             case BattleUI_Type.UnitMaxCountExpendShop: _uiMediator.ShowPopupUI(type); break;

@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class UI_UnitUpgradeShop : UI_Popup
 {
-    [SerializeField] Transform _goodsParent;
+    enum GameObjects
+    {
+        GoldGoodsParent,
+        RunGoodsParent,
+    }
 
     protected override void Init()
     {
-        CreateGoods();
+        base.Init();
+        Bind<GameObject>(typeof(GameObjects));
+
+        CreateGoods(GetObject((int)GameObjects.GoldGoodsParent).transform);
+        CreateGoods(GetObject((int)GameObjects.RunGoodsParent).transform);
     }
 
     MultiUnitStatController _statController;
@@ -17,12 +25,12 @@ public class UI_UnitUpgradeShop : UI_Popup
         _statController = statController;
     }
 
-    void CreateGoods()
+    void CreateGoods(Transform goodsParent)
     {
-        foreach (Transform child in _goodsParent)
+        foreach (Transform child in goodsParent)
             Destroy(child.gameObject);
         
         foreach (var color in UnitFlags.NormalColors)
-            Managers.UI.MakeSubItem<UI_UnitUpgradeIcon>(_goodsParent).FillGoods(color, new UnitUpgradeData(UnitUpgradeType.Value, color, 250), _statController, 5);
+            Managers.UI.MakeSubItem<UI_UnitUpgradeIcon>(goodsParent).FillGoods(color, new UnitUpgradeData(UnitUpgradeType.Value, color, 250), _statController, 5);
     }
 }

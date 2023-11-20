@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 5882726498948532911}
   - component: {fileID: 7747824726409195314}
   - component: {fileID: 5778574251523313040}
+  - component: {fileID: 8167542728584091103}
   m_Layer: 5
   m_Name: UI_UnitUpgradeIcon
   m_TagString: Untagged
@@ -136,6 +137,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 452f9c50a4ea4794fba4a6657cd7976c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8167542728584091103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4944882557854859302}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18a556a4ba9d9b4792be6244340819a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6696715269153126558

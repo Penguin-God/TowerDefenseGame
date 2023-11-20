@@ -9,9 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5738456062958969628}
-  - component: {fileID: 232703937330356777}
   m_Layer: 5
-  m_Name: UI_UnitUpgradeShop
+  m_Name: UI_UnitUpgradeGoodsDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -39,18 +38,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 350, y: 0}
   m_Pivot: {x: 0, y: 0.5}
---- !u!114 &232703937330356777
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 749836665654783746}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d18a556a4ba9d9b4792be6244340819a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2562136857135673490
 GameObject:
   m_ObjectHideFlags: 0

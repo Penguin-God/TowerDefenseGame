@@ -12,12 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c8abf4048d056de4daf1bae866e2aacc, type: 3}
   m_Name: UnitUpgradeShopData
   m_EditorClassIdentifier: 
-  AddValue: 50
+  AddValue: 250
   AddValuePriceData:
     _currencyType: 0
-    _amount: 2
-  UpScale: 20
+    _amount: 5
+  UpScale: 25
   UpScalePriceData:
     _currencyType: 1
-    _amount: 1
+    _amount: 2
+  MaxUpgradeLevel: 5
   ResetPrice: 3

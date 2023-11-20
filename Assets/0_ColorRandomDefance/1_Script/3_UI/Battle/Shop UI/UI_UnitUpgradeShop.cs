@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UI_UnitUpgradeShop : UI_Popup
@@ -7,30 +8,42 @@ public class UI_UnitUpgradeShop : UI_Popup
     enum GameObjects
     {
         GoldGoodsParent,
-        RunGoodsParent,
+        RuneGoodsParent,
+    }
+
+    enum Texts
+    {
+        ValueUpgradeInfoText,
+        ScaleUpgradeInfoText,
     }
 
     protected override void Init()
     {
         base.Init();
         Bind<GameObject>(typeof(GameObjects));
+        Bind<TextMeshProUGUI>(typeof(Texts));
 
-        CreateGoods(GetObject((int)GameObjects.GoldGoodsParent).transform, UnitUpgradeType.Value, 250, new CurrencyData(GameCurrencyType.Gold, 5));
-        CreateGoods(GetObject((int)GameObjects.RunGoodsParent).transform, UnitUpgradeType.Scale, 25, new CurrencyData(GameCurrencyType.Rune, 2));
+        CreateGoods(GetObject((int)GameObjects.GoldGoodsParent).transform, _unitUpgradeDataUseCase.AddData);
+        CreateGoods(GetObject((int)GameObjects.RuneGoodsParent).transform, _unitUpgradeDataUseCase.ScaleData);
+
+        GetTextMeshPro((int)Texts.ValueUpgradeInfoText).text = UnitUpgradeGoodsPresenter.BuildUpgradeInfoText(_unitUpgradeDataUseCase.AddData);
+        GetTextMeshPro((int)Texts.ScaleUpgradeInfoText).text = UnitUpgradeGoodsPresenter.BuildUpgradeInfoText(_unitUpgradeDataUseCase.ScaleData);
     }
 
     MultiUnitStatController _statController;
-    public void DependencyInject(MultiUnitStatController statController)
+    UnitUpgradeDataUseCase _unitUpgradeDataUseCase;
+    public void DependencyInject(MultiUnitStatController statController, UnitUpgradeDataUseCase unitUpgradeDataUseCase)
     {
         _statController = statController;
+        _unitUpgradeDataUseCase = unitUpgradeDataUseCase;
     }
 
-    void CreateGoods(Transform goodsParent, UnitUpgradeType unitUpgradeType, int value, CurrencyData currencyData)
+    void CreateGoods(Transform goodsParent, UnitUpgradeGoodsData unitUpgradeGoodsData)
     {
         foreach (Transform child in goodsParent)
             Destroy(child.gameObject);
 
         foreach (var color in UnitFlags.NormalColors)
-            Managers.UI.MakeSubItem<UI_UnitUpgradeIcon>(goodsParent).FillGoods(color, new UnitUpgradeGoodsData(new UnitUpgradeData(unitUpgradeType, color, value), currencyData), _statController, 5);
+            Managers.UI.MakeSubItem<UI_UnitUpgradeIcon>(goodsParent).FillGoods(color, unitUpgradeGoodsData, _statController, _unitUpgradeDataUseCase.UpgradeMaxLevel);
     }
 }

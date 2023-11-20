@@ -66,7 +66,7 @@ public class UI_BattleShop : UI_Popup
     {
         var datas = new float[] { (float)unitUpgradeData.UpgradeType, (float)unitUpgradeData.TargetColor, unitUpgradeData.Value };
         return new BattleShopGoodsData().Clone(
-            name: new UnitUpgradeGoodsPresenter().BuildGoodsText(unitUpgradeData),
+            name: UnitUpgradeGoodsPresenter.BuildGoodsText(unitUpgradeData),
             priceData,
             info: "를",
             new GoodsData().Clone(BattleShopGoodsType.UnitUpgrade, datas)

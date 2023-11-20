@@ -144,6 +144,9 @@ public class BattleDIContainerInitializer
         container.AddService(new GoodsBuyController(game, container.GetComponent<TextShowAndHideController>()));
         container.AddService(new MonsterManagerController(dispatcher));
         container.AddService(new MonsterDecorator(container));
+
+        var upgradeData = Resources.Load<UnitUpgradeShopData>("Data/ScriptableObject/UnitUpgradeShopData");
+        container.AddService(new UnitUpgradeDataUseCase(upgradeData.AddData, upgradeData.ScaleData, upgradeData.MaxUpgradeLevel));
     }
 
     void InjectService(BattleDIContainer container)

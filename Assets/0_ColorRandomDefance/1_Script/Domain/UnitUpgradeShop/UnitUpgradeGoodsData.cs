@@ -23,12 +23,14 @@ public struct UnitUpgradeData
 
 public struct UnitUpgradeGoodsData
 {
-    public readonly UnitUpgradeData UpgradeData;
+    public readonly UnitUpgradeType UpgradeType;
+    public readonly int Value;
     public readonly CurrencyData Price;
-
-    public UnitUpgradeGoodsData(UnitUpgradeData upgradeData, CurrencyData price)
+    
+    public UnitUpgradeGoodsData(UnitUpgradeType upgradeType, int value, CurrencyData price)
     {
-        UpgradeData = upgradeData;
+        UpgradeType = upgradeType;
+        Value = value;
         Price = price;
     }
 }

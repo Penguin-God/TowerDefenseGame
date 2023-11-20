@@ -7,9 +7,13 @@ public class UnitUpgradeShopData : ScriptableObject
 {
     public int AddValue;
     public CurrencyData AddValuePriceData;
+    public UnitUpgradeGoodsData AddData => new UnitUpgradeGoodsData(UnitUpgradeType.Value, AddValue, AddValuePriceData);
+
     public int UpScale;
-    public float ApplyUpScale => UpScale / 100f;
     public CurrencyData UpScalePriceData;
+    public UnitUpgradeGoodsData ScaleData => new UnitUpgradeGoodsData(UnitUpgradeType.Scale, UpScale, UpScalePriceData);
+
+    public int MaxUpgradeLevel;
     public int ResetPrice;
 
     public UnitUpgradeShopData Clone()
@@ -19,6 +23,7 @@ public class UnitUpgradeShopData : ScriptableObject
         result.AddValuePriceData = AddValuePriceData.Cloen();
         result.UpScale = UpScale;
         result.UpScalePriceData = UpScalePriceData.Cloen();
+        result.MaxUpgradeLevel = MaxUpgradeLevel;
         result.ResetPrice = ResetPrice;
         return result;
     }

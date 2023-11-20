@@ -198,18 +198,17 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
     public void IncreasedMaxUnitCount(int amount) => _multiBattleDataController.IncreasedMaxUnitCount(amount);
 
     [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
-    [SerializeField] BattleDataContainer _battleDataContainer;
+    public UnitUpgradeShopData UnitUpgradeShopData => _unitUpgradeShopData.Clone();
     public void Init(IBattleCurrencyManager currencyManager, MultiBattleDataController multiBattleDataController, BattleDataContainer battleDataContainer, BattleEventDispatcher dispatcher)
     {
         base.Init();
 
         _currencyManager = currencyManager;
-        _battleDataContainer = battleDataContainer;
-        _battleData.Init(_battleDataContainer, _unitUpgradeShopData, dispatcher);
-        AddGold(_battleDataContainer.Gold);
-        AddFood(_battleDataContainer.Food);
+        _battleData.Init(battleDataContainer, _unitUpgradeShopData, dispatcher);
+        AddGold(battleDataContainer.Gold);
+        AddFood(battleDataContainer.Food);
         _multiBattleDataController = multiBattleDataController;
-        dispatcher.OnGameStart += () => IncreasedMaxUnitCount(_battleDataContainer.MaxUnit);
+        dispatcher.OnGameStart += () => IncreasedMaxUnitCount(battleDataContainer.MaxUnit);
     }
 
     [PunRPC]

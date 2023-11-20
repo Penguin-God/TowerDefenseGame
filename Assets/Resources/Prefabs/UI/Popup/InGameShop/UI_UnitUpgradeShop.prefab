@@ -723,6 +723,11 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6819069428416679428, guid: 63b90672ed4c47c4f911e065c9e6f1ae,
+        type: 3}
+      propertyPath: m_Name
+      value: ValueUpgradeInfoText
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63b90672ed4c47c4f911e065c9e6f1ae, type: 3}
 --- !u!224 &5467669685698236106 stripped
@@ -836,7 +841,7 @@ PrefabInstance:
     - target: {fileID: 2562136857135673490, guid: 63b90672ed4c47c4f911e065c9e6f1ae,
         type: 3}
       propertyPath: m_Name
-      value: RunGoodsParent
+      value: RuneGoodsParent
       objectReference: {fileID: 0}
     - target: {fileID: 4280421487449212519, guid: 63b90672ed4c47c4f911e065c9e6f1ae,
         type: 3}
@@ -1037,6 +1042,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819069428416679428, guid: 63b90672ed4c47c4f911e065c9e6f1ae,
+        type: 3}
+      propertyPath: m_Name
+      value: ScaleUpgradeInfoText
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63b90672ed4c47c4f911e065c9e6f1ae, type: 3}

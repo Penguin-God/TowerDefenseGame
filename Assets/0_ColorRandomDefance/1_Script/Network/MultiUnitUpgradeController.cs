@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,18 +21,32 @@ public class MultiUnitStatController : MonoBehaviourPun
 
     byte Id => PlayerIdManager.Id;
 
-    public void UpgradeUnitDamage(UnitFlags flag, int value, UnitStatUpgradeType upgradeType)
+    public void UpgradeUnitDamage(UnitFlags flag, int value, UnitStatUpgradeType upgradeType) // 여기서 DamInfo 받기
     {
         UpgradeUnitDamage(flag, value, upgradeType, Id);
         if(PhotonNetwork.IsMasterClient == false)
             photonView.RPC(nameof(UpgradeUnitDamage), RpcTarget.MasterClient, flag, value, upgradeType, Id);
     }
 
-    public void AddUnitDamage(UnitFlags flag, int value, UnitStatType changeStatType)
+    public void UpgradeUnitDamage(UnitColor color, int value, UnitStatUpgradeType upgradeType)
     {
-        AddUnitDamageWithFlag(flag, value, changeStatType, Id);
-        ClientToMaster(nameof(AddUnitDamageWithFlag), changeStatType, Id, flag, value);
+        UpgradeUnitDamage(color, value, upgradeType, Id);
+        if (PhotonNetwork.IsMasterClient == false)
+            photonView.RPC(nameof(UpgradeUnitDamage), RpcTarget.MasterClient, color, value, upgradeType, Id);
     }
+
+    public void UpgradeUnitDamage(int value, UnitStatUpgradeType upgradeType)
+    {
+        UpgradeUnitDamage(value, upgradeType, Id);
+        if (PhotonNetwork.IsMasterClient == false)
+            photonView.RPC(nameof(UpgradeUnitDamage), RpcTarget.MasterClient, value, upgradeType, Id);
+    }
+
+    //public void AddUnitDamage(UnitFlags flag, int value, UnitStatType changeStatType)
+    //{
+    //    AddUnitDamageWithFlag(flag, value, changeStatType, Id);
+    //    ClientToMaster(nameof(AddUnitDamageWithFlag), changeStatType, Id, flag, value);
+    //}
 
     public void AddUnitDamage(UnitColor color, int value, UnitStatType changeStatType)
     {
@@ -51,12 +66,11 @@ public class MultiUnitStatController : MonoBehaviourPun
         ClientToMaster(nameof(ScaleAllUnitDamage), changeStatType, Id, value);
     }
 
-    [PunRPC]
-    void UpgradeUnitDamage(UnitFlags flag, int value, UnitStatUpgradeType type, byte id)
-    {
-        _unitStatCotroller.UpgradeUnitDamage(x => x == flag, CraeteUpgardeInfo(value, type), id);
-    }
+    [PunRPC] void UpgradeUnitDamage(UnitFlags flag, int value, UnitStatUpgradeType type, byte id) => UpgradeUnitDamage(x => x == flag, value, type, id);
+    [PunRPC] void UpgradeUnitDamage(UnitColor color, int value, UnitStatUpgradeType type, byte id) => UpgradeUnitDamage(x => x.UnitColor == color, value, type, id);
+    [PunRPC] void UpgradeUnitDamage(int value, UnitStatUpgradeType type, byte id) => UpgradeUnitDamage(x => true, value, type, id);
 
+    void UpgradeUnitDamage(Func<UnitFlags, bool> conditoin, int value, UnitStatUpgradeType type, byte id) => _unitStatCotroller.UpgradeUnitDamage(conditoin, CraeteUpgardeInfo(value, type), id);
     UnitDamageInfo CraeteUpgardeInfo(int value, UnitStatUpgradeType type)
     {
         switch (type)
@@ -70,8 +84,8 @@ public class MultiUnitStatController : MonoBehaviourPun
         }
     }
 
-    [PunRPC]
-    void AddUnitDamageWithFlag(UnitFlags flag, int value, UnitStatType changeStatType, byte id) => _unitStatCotroller.AddUnitDamage(flag, value, changeStatType, id);
+    //[PunRPC]
+    //void AddUnitDamageWithFlag(UnitFlags flag, int value, UnitStatType changeStatType, byte id) => _unitStatCotroller.AddUnitDamage(flag, value, changeStatType, id);
 
     [PunRPC]
     void AddUnitDamageWithColor(byte color, int value, UnitStatType changeStatType, byte id) => _unitStatCotroller.AddUnitDamageWithColor((UnitColor)color, value, changeStatType, id);

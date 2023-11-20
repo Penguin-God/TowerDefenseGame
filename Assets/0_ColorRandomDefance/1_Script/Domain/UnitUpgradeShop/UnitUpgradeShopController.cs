@@ -20,3 +20,15 @@ public struct UnitUpgradeData
         Value = value;
     }
 }
+
+public struct UnitUpgradeGoodsData
+{
+    public readonly UnitUpgradeData UpgradeData;
+    public readonly CurrencyData Price;
+
+    public UnitUpgradeGoodsData(UnitUpgradeData upgradeData, CurrencyData price)
+    {
+        UpgradeData = upgradeData;
+        Price = price;
+    }
+}

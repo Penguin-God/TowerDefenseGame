@@ -18,7 +18,7 @@ public class UI_UnitUpgradeIcon : UI_Base
         _upgradeButton = GetComponentInChildren<Button>();
     }
 
-    public void FillGoods(UnitColor color, UnitUpgradeData upgradeData, MultiUnitStatController statController, int maxLevel)
+    public void FillGoods(UnitColor color, UnitUpgradeGoodsData goodsData, MultiUnitStatController statController, int maxLevel)
     {
         CheckInit();
         _unitIcon.SetBGColor(color);
@@ -30,13 +30,13 @@ public class UI_UnitUpgradeIcon : UI_Base
         {
             if (IsMaxUpgrade()) return;
 
-            if (Multi_GameManager.Instance.TryUseGold(5))
+            if (Multi_GameManager.Instance.TryUseCurrency(goodsData.Price))
             {
                 const float Percentage = 100f;
-                switch (upgradeData.UpgradeType)
+                switch (goodsData.UpgradeData.UpgradeType)
                 {
-                    case UnitUpgradeType.Value: statController.AddUnitDamage(upgradeData.TargetColor, upgradeData.Value, UnitStatType.All); break;
-                    case UnitUpgradeType.Scale: statController.ScaleUnitDamage(upgradeData.TargetColor, upgradeData.Value / Percentage, UnitStatType.All); break;
+                    case UnitUpgradeType.Value: statController.AddUnitDamage(goodsData.UpgradeData.TargetColor, goodsData.UpgradeData.Value, UnitStatType.All); break;
+                    case UnitUpgradeType.Scale: statController.ScaleUnitDamage(goodsData.UpgradeData.TargetColor, goodsData.UpgradeData.Value / Percentage, UnitStatType.All); break;
                 }
                 _upgradeLevel++;
                 UpdateLevelText();

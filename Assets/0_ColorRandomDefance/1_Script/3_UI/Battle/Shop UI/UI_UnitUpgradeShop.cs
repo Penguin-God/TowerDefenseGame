@@ -15,8 +15,8 @@ public class UI_UnitUpgradeShop : UI_Popup
         base.Init();
         Bind<GameObject>(typeof(GameObjects));
 
-        CreateGoods(GetObject((int)GameObjects.GoldGoodsParent).transform);
-        CreateGoods(GetObject((int)GameObjects.RunGoodsParent).transform);
+        CreateGoods(GetObject((int)GameObjects.GoldGoodsParent).transform, UnitUpgradeType.Value, 250, new CurrencyData(GameCurrencyType.Gold, 5));
+        CreateGoods(GetObject((int)GameObjects.RunGoodsParent).transform, UnitUpgradeType.Scale, 25, new CurrencyData(GameCurrencyType.Rune, 2));
     }
 
     MultiUnitStatController _statController;
@@ -25,12 +25,12 @@ public class UI_UnitUpgradeShop : UI_Popup
         _statController = statController;
     }
 
-    void CreateGoods(Transform goodsParent)
+    void CreateGoods(Transform goodsParent, UnitUpgradeType unitUpgradeType, int value, CurrencyData currencyData)
     {
         foreach (Transform child in goodsParent)
             Destroy(child.gameObject);
-        
+
         foreach (var color in UnitFlags.NormalColors)
-            Managers.UI.MakeSubItem<UI_UnitUpgradeIcon>(goodsParent).FillGoods(color, new UnitUpgradeData(UnitUpgradeType.Value, color, 250), _statController, 5);
+            Managers.UI.MakeSubItem<UI_UnitUpgradeIcon>(goodsParent).FillGoods(color, new UnitUpgradeGoodsData(new UnitUpgradeData(unitUpgradeType, color, value), currencyData), _statController, 5);
     }
 }

@@ -23,7 +23,6 @@ public class UI_BattleShop : UI_Popup
         ResetButton,
     }
 
-    UnitUpgradeShopData _unitUpgradeShopData;
     protected override void Init()
     {
         base.Init();
@@ -32,7 +31,6 @@ public class UI_BattleShop : UI_Popup
 
         GetButton((int)Buttons.ResetButton).onClick.AddListener(BuyShopReset);
 
-        _unitUpgradeShopData = Multi_GameManager.Instance.BattleData.UnitUpgradeShopData;
         InitGoods();
     }
 
@@ -86,8 +84,9 @@ public class UI_BattleShop : UI_Popup
         goods.gameObject.SetActive(true);
     }
 
-    string ShopChangeText => $"{_unitUpgradeShopData.ResetPrice}골드를 지불하여 상점을 초기화하시겠습니까?";
-    void BuyShopReset() => _buyController.TryBuy(ShopChangeText, new CurrencyData(GameCurrencyType.Gold, _unitUpgradeShopData.ResetPrice), ChangeAllGoods);
+    const int ResetPrice = 3;
+    string ShopChangeText => $"{ResetPrice}골드를 지불하여 상점을 초기화하시겠습니까?";
+    void BuyShopReset() => _buyController.TryBuy(ShopChangeText, new CurrencyData(GameCurrencyType.Gold, ResetPrice), ChangeAllGoods);
     void ChangeAllGoods()
     {
         var newGoodsList = _goodsManager.ChangeAllGoods().ToArray();

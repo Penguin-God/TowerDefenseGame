@@ -13,9 +13,7 @@ public class BattleDataContainer : ScriptableObject
     public int MaxMonsterCount;
     public UnitSummonData UnitSummonData;
     public int YellowKnightCombineGold;
-    public CurrencyData MaxUnitIncreasePriceData;
     public CurrencyData[] UnitSellRewardDatas;
-    public CurrencyData[] WhiteUnitPriceDatas;
     public float WhiteUnitTime;
     public int StageMonsetSpawnCount;
     public float MonsterSpawnDelayTime;
@@ -31,9 +29,7 @@ public class BattleDataContainer : ScriptableObject
         result.MaxMonsterCount = MaxMonsterCount;
         result.UnitSummonData = UnitSummonData;
         result.YellowKnightCombineGold = YellowKnightCombineGold;
-        result.MaxUnitIncreasePriceData = MaxUnitIncreasePriceData.Cloen();
         result.UnitSellRewardDatas = UnitSellRewardDatas.ToArray();
-        result.WhiteUnitPriceDatas = WhiteUnitPriceDatas.ToArray();
         result.WhiteUnitTime = WhiteUnitTime;
         result.StageMonsetSpawnCount = StageMonsetSpawnCount;
         result.MonsterSpawnDelayTime = MonsterSpawnDelayTime;

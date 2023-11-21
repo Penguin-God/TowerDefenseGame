@@ -7,5 +7,5 @@ public static class UnitUpgradeGoodsPresenter
     static string GetUpgradeText(UnitUpgradeData upgradeData) => $"공격력 {upgradeData.Value}" + (upgradeData.UpgradeType == UnitUpgradeType.Value ? "" : "%");
 
     public static string BuildAddUpgradeText(UnitUpgradeGoodsData upgradeGoodsData) => $"{new GameCurrencyPresenter().BuildCurrencyText(upgradeGoodsData.Price)} {upgradeGoodsData.UpgradeInfo.BaseDamage} 증가";
-    public static string BuildScaleUpgradeText(UnitUpgradeGoodsData upgradeGoodsData) => $"{new GameCurrencyPresenter().BuildCurrencyText(upgradeGoodsData.Price)} {upgradeGoodsData.UpgradeInfo.DamageRate}% 증가";
+    public static string BuildScaleUpgradeText(UnitUpgradeGoodsData upgradeGoodsData) => $"{new GameCurrencyPresenter().BuildCurrencyText(upgradeGoodsData.Price)} {upgradeGoodsData.UpgradeInfo.DamageRate * 100}% 증가";
 }

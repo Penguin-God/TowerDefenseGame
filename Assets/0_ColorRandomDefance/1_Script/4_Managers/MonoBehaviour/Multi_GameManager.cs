@@ -15,10 +15,8 @@ public enum GameCurrencyType
 [Serializable]
 public class BattleDataController
 {
-    [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
-    public UnitUpgradeShopData UnitUpgradeShopData => _unitUpgradeShopData;
     BattleEventDispatcher _dispatcher;
-    public void Init(BattleDataContainer startData, UnitUpgradeShopData unitUpgradeShopData, BattleEventDispatcher dispatcher)
+    public void Init(BattleDataContainer startData, BattleEventDispatcher dispatcher)
     {
         UnitSummonData = startData.UnitSummonData;
         _dispatcher = dispatcher;
@@ -28,14 +26,7 @@ public class BattleDataController
         StageUpGold = startData.StageUpGold;
         YellowKnightRewardGold = startData.YellowKnightCombineGold;
         WhiteUnitTime = startData.WhiteUnitTime;
-
         UnitSellRewardDatas = startData.UnitSellRewardDatas.Select(x => x.Cloen()).ToArray();
-        WhiteUnitShopPriceDatas = startData.WhiteUnitPriceDatas.Select(x => x.Cloen()).ToList();
-        MaxUnitIncreasePriceData = startData.MaxUnitIncreasePriceData.Cloen();
-
-        _unitUpgradeShopData = unitUpgradeShopData.Clone();
-        //ShopPriceDataByUnitUpgradeData = new UnitUpgradeDataGenerator().GenerateAllUnitUpgradeDatas(_unitUpgradeShopData.AddValue, _unitUpgradeShopData.UpScale)
-        //    .ToDictionary(x => x, x => x.UpgradeType == UnitUpgradeType.Value ? _unitUpgradeShopData.AddValuePriceData.Cloen() : _unitUpgradeShopData.UpScalePriceData.Cloen());
 
         StageMonsetSpawnCount = startData.StageMonsetSpawnCount;
         MonsterSpawnDelayTime = startData.MonsterSpawnDelayTime;
@@ -57,15 +48,7 @@ public class BattleDataController
 
     public IReadOnlyList<CurrencyData> UnitSellRewardDatas { get; private set; }
 
-    // 상점
-    public IReadOnlyList<CurrencyData> WhiteUnitShopPriceDatas { get; private set; }
-    public CurrencyData MaxUnitIncreasePriceData { get; private set; }
-
     public IReadOnlyDictionary<UnitUpgradeData, CurrencyData> ShopPriceDataByUnitUpgradeData { get; private set; }
-    //public IEnumerable<CurrencyData> GetAllShopPriceDatas() 
-    //    => ShopPriceDataByUnitUpgradeData.Values
-    //        .Concat(WhiteUnitShopPriceDatas)
-    //        .Concat(new CurrencyData[] { MaxUnitIncreasePriceData });
 
     // 스테이지
     public int StageMonsetSpawnCount;
@@ -194,13 +177,12 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
 
     public bool UnitOver => Managers.Unit.CurrentUnitCount >= _battleData.MaxUnit;
 
-    [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
     public void Init(IBattleCurrencyManager currencyManager, MultiBattleDataController multiBattleDataController, BattleDataContainer battleDataContainer, BattleEventDispatcher dispatcher)
     {
         base.Init();
 
         _currencyManager = currencyManager;
-        _battleData.Init(battleDataContainer, _unitUpgradeShopData, dispatcher);
+        _battleData.Init(battleDataContainer, dispatcher);
         AddGold(battleDataContainer.Gold);
         AddFood(battleDataContainer.Food);
         dispatcher.OnGameStart += () => multiBattleDataController.IncreasedMaxUnitCount(battleDataContainer.MaxUnit);

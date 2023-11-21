@@ -8,7 +8,7 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
     void Awake()
     {
         photonView.ObservedComponents.Add(this);
-        _unitChaseSystem = gameObject.AddComponent<UnitChaseSystem>();
+        _unitChaseSystem = GetComponent<UnitChaseSystem>();
     }
 
     void OnEnable()

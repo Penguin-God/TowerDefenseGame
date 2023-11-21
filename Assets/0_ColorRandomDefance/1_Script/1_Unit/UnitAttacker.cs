@@ -26,6 +26,6 @@ public class UnitAttacker
     {
         if (target == null) return;
         target.OnDamage(damage, isSkill);
-        new UnitPassiveCreator(Managers.Data).CreateAttackPassive(_unit.UnitFlags, OwnerId)?.DoUnitPassive(target);
+        new UnitPassiveCreator(Managers.Data).CreateAttackPassive(_unit, OwnerId)?.DoUnitPassive(target);
     }
 }

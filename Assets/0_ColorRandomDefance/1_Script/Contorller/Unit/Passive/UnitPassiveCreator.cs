@@ -10,20 +10,20 @@ public class UnitPassiveCreator
         _data = data;
     }
 
-    public IUnitAttackPassive CreateAttackPassive(UnitFlags flag, byte ownerId)
+    public IUnitAttackPassive CreateAttackPassive(Unit unit, byte ownerId)
     {
-        IReadOnlyList<float> passiveDatas = _data.GetUnitPassiveStats(flag);
+        IReadOnlyList<float> passiveDatas = _data.GetUnitPassiveStats(unit.UnitFlags);
 
-        if (flag == new UnitFlags(UnitColor.Blue, UnitClass.Mage))
-            return new MonsterSlower(0, 0, flag);
-        else if (flag == new UnitFlags(UnitColor.Yellow, UnitClass.Swordman))
+        if (unit.UnitFlags == new UnitFlags(UnitColor.Blue, UnitClass.Mage))
+            return new MonsterSlower(0, 0, unit.UnitFlags);
+        else if (unit.UnitFlags == new UnitFlags(UnitColor.Yellow, UnitClass.Swordman))
             return null;
 
-        switch (flag.UnitColor)
+        switch (unit.UnitFlags.UnitColor)
         {
-            case UnitColor.Blue: return new MonsterSlower((int)passiveDatas[0], (int)passiveDatas[1], flag);
+            case UnitColor.Blue: return new MonsterSlower((int)passiveDatas[0], (int)passiveDatas[1], unit.UnitFlags);
             case UnitColor.Yellow: return new GoldenAttacker((int)passiveDatas[0], (int)passiveDatas[1], ownerId);
-            case UnitColor.Violet: return new PosionAndStunActor((int)passiveDatas[0], passiveDatas[1], (int)passiveDatas[2], (int)passiveDatas[3]);
+            case UnitColor.Violet: return new PosionAndStunActor((int)passiveDatas[0], passiveDatas[1], (int)passiveDatas[2], passiveDatas[3], unit);
             default: return null;
         }
     }

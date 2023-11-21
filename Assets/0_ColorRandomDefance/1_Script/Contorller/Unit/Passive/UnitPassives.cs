@@ -20,7 +20,7 @@ public class MonsterSlower : IUnitAttackPassive
         Flag = flag;
     }
 
-    public void DoUnitPassive( Multi_Enemy target) => target.GetComponent<Multi_NormalEnemy>()?.OnSlowWithTime(SlowRate, SlowTime, Flag);
+    public void DoUnitPassive(Multi_Enemy target) => target.GetComponent<Multi_NormalEnemy>()?.OnSlowWithTime(SlowRate, SlowTime, Flag);
 }
 
 public class GoldenAttacker : IUnitAttackPassive
@@ -35,7 +35,7 @@ public class GoldenAttacker : IUnitAttackPassive
         OwnerId = ownerId;
     }
 
-    public void DoUnitPassive( Multi_Enemy target)
+    public void DoUnitPassive(Multi_Enemy target)
     {
         int random = Random.Range(0, 100);
         if (random < GoldGainRate)
@@ -51,19 +51,27 @@ public class PosionAndStunActor : IUnitAttackPassive
     readonly int SturnPercent;
     readonly float StrunTime;
     readonly int PoisonTickCount;
-    readonly int MaxPoisonDamage;
+    readonly float PosionDamageRate;
+    readonly Unit _unit;
 
-    public PosionAndStunActor(int sturnPercent, float strunTime, int poisonTickCount, int maxPoisonDamage)
+    public PosionAndStunActor(int sturnPercent, float strunTime, int poisonTickCount, float posionDamageRate, Unit unit)
     {
         SturnPercent = sturnPercent;
         StrunTime = strunTime;
         PoisonTickCount = poisonTickCount;
-        MaxPoisonDamage = maxPoisonDamage;
+        PosionDamageRate = posionDamageRate;
+        _unit = unit;
     }
 
-    public void DoUnitPassive( Multi_Enemy target)
+    public void DoUnitPassive(Multi_Enemy target)
     {
         target.OnStun_RPC(SturnPercent, StrunTime);
-        target.OnPoison_RPC(PoisonTickCount, MaxPoisonDamage, isSkill: true);
+        target.OnPoison_RPC(PoisonTickCount, CalculatePosionDamage(target.enemyType), isSkill: true);
+    }
+
+    int CalculatePosionDamage(EnemyType enemyType)
+    {
+        if (EnemyType.Normal == enemyType) return Mathf.RoundToInt(_unit.DamageInfo.ApplyDamage * PosionDamageRate);
+        else return Mathf.RoundToInt(_unit.DamageInfo.ApplyBossDamage * PosionDamageRate);
     }
 }

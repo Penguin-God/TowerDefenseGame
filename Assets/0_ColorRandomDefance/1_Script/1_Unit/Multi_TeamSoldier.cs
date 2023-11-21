@@ -5,7 +5,6 @@ using UnityEngine.AI;
 using Photon.Pun;
 using System;
 using System.Linq;
-using static Codice.Client.BaseCommands.BranchExplorer.Layout.BrExLayout;
 
 public enum UnitColor { Red, Blue, Yellow, Green, Orange, Violet, White, Black };
 public enum UnitClass { Swordman, Archer, Spearman, Mage }

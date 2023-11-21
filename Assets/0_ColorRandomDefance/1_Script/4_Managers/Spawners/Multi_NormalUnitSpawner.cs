@@ -124,7 +124,7 @@ public class Multi_NormalUnitSpawner : MonoBehaviourPun
     void FillOtherUnit(int viewID, UnitFlags flag)
     {
         var unit = Managers.Multi.GetPhotonViewComponent<Multi_TeamSoldier>(viewID);
-        _unitFiller.FillUnit(unit, flag, new UnitDamageInfo(0, 0), _monsterManagerController, _multiSkillData.GetData(unit.UsingID));
+        _unitFiller.FillUnit(unit, flag, new UnitDamageInfo(), _monsterManagerController, _multiSkillData.GetData(unit.UsingID));
     }
 
     void AddUnitToManager(Multi_TeamSoldier unit)

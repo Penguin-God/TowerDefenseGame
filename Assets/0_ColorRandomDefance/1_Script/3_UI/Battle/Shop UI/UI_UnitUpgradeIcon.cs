@@ -35,8 +35,9 @@ public class UI_UnitUpgradeIcon : UI_Base
                 const float Percentage = 100f;
                 switch (goodsData.UpgradeType)
                 {
-                    case UnitUpgradeType.Value: statController.AddUnitDamage(color, goodsData.Value, UnitStatType.All); break;
-                    case UnitUpgradeType.Scale: statController.ScaleUnitDamage(color, goodsData.Value / Percentage, UnitStatType.All); break;
+                    // case UnitUpgradeType.Value: statController.AddUnitDamage(color, goodsData.Value, UnitStatType.All); break;
+                    case UnitUpgradeType.Value: statController.AddUnitDamage(color, UnitDamageInfo.CreateDamageInfo(goodsData.Value)); break;
+                    case UnitUpgradeType.Scale: statController.ScaleUnitDamage(color, UnitDamageInfo.CreateRateInfo( goodsData.Value / Percentage)); break;
                 }
                 _upgradeLevel++;
                 UpdateLevelText();

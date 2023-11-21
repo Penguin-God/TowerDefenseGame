@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 [Serializable]
 public struct UnitDamageInfo
@@ -36,6 +35,11 @@ public struct UnitDamageInfo
         _damageRate = damRate;
         _bossDamageRate = bossDamRate;
     }
+
+    public static UnitDamageInfo CreateDamageInfo(int dam) => CreateDamageInfo(dam, dam);
+    public static UnitDamageInfo CreateDamageInfo(int dam, int bossDam) => new UnitDamageInfo(dam, bossDam, 0, 0);
+    public static UnitDamageInfo CreateRateInfo(float rate) => new UnitDamageInfo(0, 0, rate, rate);
+    public static UnitDamageInfo CreateUpgradeInfo(int dam = 0, int bossDam = 0, float damRate = 0, float bossDamRate = 0) => new UnitDamageInfo(dam, bossDam, damRate, bossDamRate);
 
     public UnitDamageInfo AddDamage(int addValue) => new UnitDamageInfo(_baseDamage + addValue, _baseBossDamage, _damageRate, _bossDamageRate);
     public UnitDamageInfo AddBossDamage(int addValue) => new UnitDamageInfo(_baseDamage, _baseBossDamage + addValue, _damageRate, _bossDamageRate);

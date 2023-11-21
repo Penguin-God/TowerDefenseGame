@@ -30,7 +30,8 @@ public class BuyAction
     {
         switch (goods.UpgradeType)
         {
-            case UnitUpgradeType.Value: _unitStatController.AddUnitDamage(goods.TargetColor, goods.Value, UnitStatType.All); break;
+            // case UnitUpgradeType.Value: _unitStatController.AddUnitDamage(goods.TargetColor, goods.Value, UnitStatType.All); break;
+            case UnitUpgradeType.Value: _unitStatController.AddUnitDamage(goods.TargetColor, UnitDamageInfo.CreateDamageInfo(goods.Value)); break;
             case UnitUpgradeType.Scale: UpScale(goods); break;
         }
     }
@@ -38,6 +39,7 @@ public class BuyAction
     void UpScale(UnitUpgradeData goods)
     {
         const float Percentage = 100f;
-        _unitStatController.ScaleUnitDamage(goods.TargetColor, goods.Value / Percentage, UnitStatType.All);
+        // _unitStatController.ScaleUnitDamage(goods.TargetColor, goods.Value / Percentage, UnitStatType.All);
+        _unitStatController.ScaleUnitDamage(goods.TargetColor, UnitDamageInfo.CreateRateInfo(goods.Value / Percentage));
     }
 }

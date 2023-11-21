@@ -34,8 +34,8 @@ public class BattleDataController
         MaxUnitIncreasePriceData = startData.MaxUnitIncreasePriceData.Cloen();
 
         _unitUpgradeShopData = unitUpgradeShopData.Clone();
-        ShopPriceDataByUnitUpgradeData = new UnitUpgradeDataGenerator().GenerateAllUnitUpgradeDatas(_unitUpgradeShopData.AddValue, _unitUpgradeShopData.UpScale)
-            .ToDictionary(x => x, x => x.UpgradeType == UnitUpgradeType.Value ? _unitUpgradeShopData.AddValuePriceData.Cloen() : _unitUpgradeShopData.UpScalePriceData.Cloen());
+        //ShopPriceDataByUnitUpgradeData = new UnitUpgradeDataGenerator().GenerateAllUnitUpgradeDatas(_unitUpgradeShopData.AddValue, _unitUpgradeShopData.UpScale)
+        //    .ToDictionary(x => x, x => x.UpgradeType == UnitUpgradeType.Value ? _unitUpgradeShopData.AddValuePriceData.Cloen() : _unitUpgradeShopData.UpScalePriceData.Cloen());
 
         StageMonsetSpawnCount = startData.StageMonsetSpawnCount;
         MonsterSpawnDelayTime = startData.MonsterSpawnDelayTime;

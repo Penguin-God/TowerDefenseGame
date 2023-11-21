@@ -146,7 +146,7 @@ public class BattleDIContainerInitializer
         container.AddService(new MonsterDecorator(container));
 
         var upgradeData = Resources.Load<UnitUpgradeShopData>("Data/ScriptableObject/UnitUpgradeShopData");
-        container.AddService(new UnitUpgradeDataUseCase(upgradeData.AddData, upgradeData.ScaleData, upgradeData.MaxUpgradeLevel));
+        container.AddService(upgradeData.CreateDataUseCase());
     }
 
     void InjectService(BattleDIContainer container)

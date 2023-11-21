@@ -114,6 +114,8 @@ MonoBehaviour:
   - Dead
   - InjectBoss
   - Inject
+  - UpgradeUnitDamage
+  - ScaleUnitDamage
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

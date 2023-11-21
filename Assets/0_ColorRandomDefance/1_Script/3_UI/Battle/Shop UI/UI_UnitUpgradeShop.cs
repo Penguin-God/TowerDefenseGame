@@ -31,8 +31,8 @@ public class UI_UnitUpgradeShop : UI_Popup
     }
 
     MultiUnitStatController _statController;
-    UnitUpgradeDataUseCase _unitUpgradeDataUseCase;
-    public void DependencyInject(MultiUnitStatController statController, UnitUpgradeDataUseCase unitUpgradeDataUseCase)
+    ShopDataUseCase _unitUpgradeDataUseCase;
+    public void DependencyInject(MultiUnitStatController statController, ShopDataUseCase unitUpgradeDataUseCase)
     {
         _statController = statController;
         _unitUpgradeDataUseCase = unitUpgradeDataUseCase;

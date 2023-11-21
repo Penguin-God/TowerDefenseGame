@@ -16,13 +16,13 @@ public class UnitAttackControllerTests
     }
 
     [UnityTest]
-    public IEnumerator 유닛_공격은_정해진_시간에_따라_상태가_바뀌어야_함()
+    public IEnumerator 유닛_공격에_따라_상태가_바뀌어야_함()
     {
-        yield return 유닛_공격은_공속에_따라_상태가_바뀌어야_함(1, 0.02f, 0.021f, 0.021f);
-        yield return 유닛_공격은_공속에_따라_상태가_바뀌어야_함(2, 0.02f, 0.011f, 0.011f);
+        yield return 유닛_공격에_따라_상태가_바뀌어야_함(1, 0.02f, 0.021f, 0.021f);
+        yield return 유닛_공격에_따라_상태가_바뀌어야_함(2, 0.02f, 0.011f, 0.011f);
     }
 
-    public IEnumerator 유닛_공격은_공속에_따라_상태가_바뀌어야_함(float _attackSpeed, float coolDown, float firstDelay, float secondDelay)
+    public IEnumerator 유닛_공격에_따라_상태가_바뀌어야_함(float _attackSpeed, float coolDown, float firstDelay, float secondDelay)
     {
         var stateManager = new UnitStateManager(new ObjectSpot());
         var sut = CreateAttacker(stateManager, _attackSpeed);
@@ -35,7 +35,7 @@ public class UnitAttackControllerTests
     }
 }
 
-public class TestAttacker : UnitAttackControllerTemplate
+public class TestAttacker : UnitAttackController
 {
     protected override IEnumerator Co_Attack()
     {

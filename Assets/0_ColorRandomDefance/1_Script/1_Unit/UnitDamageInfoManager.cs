@@ -41,11 +41,6 @@ public struct UnitDamageInfo
     public static UnitDamageInfo CreateRateInfo(float rate) => new UnitDamageInfo(0, 0, rate, rate);
     public static UnitDamageInfo CreateUpgradeInfo(int dam = 0, int bossDam = 0, float damRate = 0, float bossDamRate = 0) => new UnitDamageInfo(dam, bossDam, damRate, bossDamRate);
 
-    public UnitDamageInfo AddDamage(int addValue) => new UnitDamageInfo(_baseDamage + addValue, _baseBossDamage, _damageRate, _bossDamageRate);
-    public UnitDamageInfo AddBossDamage(int addValue) => new UnitDamageInfo(_baseDamage, _baseBossDamage + addValue, _damageRate, _bossDamageRate);
-    public UnitDamageInfo IncreaseDamageRate(float increaseValue) => new UnitDamageInfo(_baseDamage, _baseBossDamage, _damageRate + increaseValue, _bossDamageRate);
-    public UnitDamageInfo IncreaseBossDamageRate(float increaseValue) => new UnitDamageInfo(_baseDamage, _baseBossDamage, _damageRate, _bossDamageRate + increaseValue);
-
     public static UnitDamageInfo operator +(UnitDamageInfo a, UnitDamageInfo b)
     {
         a._baseDamage += b._baseDamage;
@@ -84,35 +79,9 @@ public class UnitDamageInfoManager
     public UnitDamageInfo GetDamageInfo(UnitFlags flag) => _damageInfoByFlag[flag];
     public int GetUnitDamage(UnitFlags flag) => GetDamageInfo(flag).ApplyDamage;
     public int GetUnitBossDamage(UnitFlags flag) => GetDamageInfo(flag).ApplyBossDamage;
-    public void AddDamage(UnitFlags flag, int addValue) => _damageInfoByFlag[flag] += new UnitDamageInfo(dam: addValue); // _damageInfoByFlag[flag].AddDamage(addValue);
-    public void AddBossDamage(UnitFlags flag, int addValue) => _damageInfoByFlag[flag] += new UnitDamageInfo(bossDam: addValue); // _damageInfoByFlag[flag].AddBossDamage(addValue);
-    public void IncreaseDamageRate(UnitFlags flag, float increaseValue) => _damageInfoByFlag[flag] += new UnitDamageInfo(damRate: increaseValue); //_damageInfoByFlag[flag].IncreaseDamageRate(increaseValue);
-    public void IncreaseBossDamageRate(UnitFlags flag, float increaseValue) => _damageInfoByFlag[flag] += new UnitDamageInfo(bossDamRate: increaseValue); //_damageInfoByFlag[flag].IncreaseBossDamageRate(increaseValue);
+    public void AddDamage(UnitFlags flag, int addValue) => _damageInfoByFlag[flag] += new UnitDamageInfo(dam: addValue);
+    public void AddBossDamage(UnitFlags flag, int addValue) => _damageInfoByFlag[flag] += new UnitDamageInfo(bossDam: addValue);
+    public void IncreaseDamageRate(UnitFlags flag, float increaseValue) => _damageInfoByFlag[flag] += new UnitDamageInfo(damRate: increaseValue);
+    public void IncreaseBossDamageRate(UnitFlags flag, float increaseValue) => _damageInfoByFlag[flag] += new UnitDamageInfo(bossDamRate: increaseValue);
     public void UpgradeDamageInfo(UnitFlags flag, UnitDamageInfo damageInfo) => _damageInfoByFlag[flag] += damageInfo;
-
-    public void AddDamage(UnitFlags flag, int value, UnitStatType changeStatType)
-    {
-        switch (changeStatType)
-        {
-            case UnitStatType.Damage: AddDamage(flag, value); break;
-            case UnitStatType.BossDamage: AddBossDamage(flag, value); break;
-            case UnitStatType.All:
-                AddDamage(flag, value);
-                AddBossDamage(flag, value);
-                break;
-        }
-    }
-
-    public void ScaleDamage(UnitFlags flag, float value, UnitStatType changeStatType)
-    {
-        switch (changeStatType)
-        {
-            case UnitStatType.Damage: IncreaseDamageRate(flag, value); break;
-            case UnitStatType.BossDamage: IncreaseBossDamageRate(flag, value); break;
-            case UnitStatType.All:
-                IncreaseDamageRate(flag, value);
-                IncreaseBossDamageRate(flag, value);
-                break;
-        }
-    }
 }

@@ -38,36 +38,37 @@ public class UnitStatManagerControllerTests
         _worldUnitManager = CreateWorldUnitManager();
         sut = new UnitStatController(CreateInfoManagers(), _worldUnitManager);
     }
+    bool SameRedSwordman(UnitFlags flag) => flag == RedSwordman;
+    void UpgradeRedSwordman(UnitDamageInfo info) => sut.UpgradeUnitDamage(SameRedSwordman, info, Id);
 
     [Test]
-    public void 대미지가_올라가면_같은ID_저장소의_데이터와_스폰된_유닛의_값이_같이_올라가야_함()
+    public void 조건에_맞는_유닛만_강화되야_함()
     {
         // Act
-        sut.AddUnitDamage(RedSwordman, 300, UnitStatType.Damage, Id);
+        UpgradeRedSwordman(new UnitDamageInfo(dam: 300));
 
         // Assert
         AssertUnitDamage(400, RedSwordman);
-        AssertUnitDamage(DefaultDamage, RedArcher);
-    }
-
-    [Test]
-    public void 조건에_맞는_유닛_스탯만_강화되야_함()
-    {
-        // Act
-        sut.AddUnitDamageWithColor(UnitColor.Red, 300, UnitStatType.Damage, Id);
-
-        // Assert
-        AssertUnitDamage(400, RedSwordman);
-        AssertUnitDamage(400, RedArcher);
+        AssertUnitDamage(100, RedArcher);
         AssertUnitDamage(100, BlueSwordman);
 
         // Act
-        sut.ScaleUnitDamageWithColor(UnitColor.Red, 0.5f, UnitStatType.Damage, Id);
+        UpgradeRedSwordman(new UnitDamageInfo(damRate: 0.5f));
 
         // Assert
         AssertUnitDamage(600, RedSwordman);
-        AssertUnitDamage(600, RedArcher);
+        AssertUnitDamage(100, RedArcher);
         AssertUnitDamage(100, BlueSwordman);
+    }
+
+    void AssertUnitDamage(int upgradeDamage, UnitFlags flag)
+    {
+        Assert.AreEqual(upgradeDamage, sut.GetDamageInfo(flag, Id).ApplyDamage);
+        Assert.AreEqual(upgradeDamage, _worldUnitManager.GetUnit(Id, flag).DamageInfo.ApplyDamage);
+        Assert.AreEqual(upgradeDamage, _worldUnitManager.GetUnit(Id, flag).DamageInfo.ApplyDamage);
+
+        Assert.AreEqual(DefaultDamage, sut.GetDamageInfo(flag, OtherId).ApplyDamage);
+        Assert.AreEqual(DefaultDamage, _worldUnitManager.GetUnit(OtherId, flag).DamageInfo.ApplyDamage);
     }
 
     [Test]
@@ -84,16 +85,6 @@ public class UnitStatManagerControllerTests
         var result = sut.GetDamageInfo(RedSwordman);
         Assert.AreEqual(expectDam, result.ApplyDamage);
         Assert.AreEqual(expectBossDam, result.ApplyBossDamage);
-    }
-
-    void AssertUnitDamage(int upgradeDamage, UnitFlags flag)
-    {
-        Assert.AreEqual(upgradeDamage, sut.GetDamageInfo(flag, Id).ApplyDamage);
-        Assert.AreEqual(upgradeDamage, _worldUnitManager.GetUnit(Id, flag).DamageInfo.ApplyDamage);
-        Assert.AreEqual(upgradeDamage, _worldUnitManager.GetUnit(Id, flag).DamageInfo.ApplyDamage);
-
-        Assert.AreEqual(DefaultDamage, sut.GetDamageInfo(flag, OtherId).ApplyDamage);
-        Assert.AreEqual(DefaultDamage, _worldUnitManager.GetUnit(OtherId, flag).DamageInfo.ApplyDamage);
     }
 
     [Test]

@@ -504,9 +504,10 @@ public class VIP : UserSkill
         ui.ReceiveInject(new SpecialShopBuyController(Multi_GameManager.Instance, textController), buyAction, CreateGoodsManger(), IntSkillDatas[0]);
         ui.gameObject.SetActive(false);
 
-        ChangeAttackGoodsPrice(IntSkillDatas[2]);
+        // ChangeAttackGoodsPrice(IntSkillDatas[2]);
     }
 
+    // 위치(좌, 중, 우)별 상품 생성
     Dictionary<GoodsLocation, GoodsManager<BattleShopGoodsData>> CreateGoodsManger()
     {
         var result = new Dictionary<GoodsLocation, GoodsManager<BattleShopGoodsData>>();
@@ -519,14 +520,14 @@ public class VIP : UserSkill
         return result;
     }
 
-    void ChangeAttackGoodsPrice(int price)
-    {
-        Multi_GameManager.Instance.BattleData
-            .ShopPriceDataByUnitUpgradeData
-            .Where(x => x.Key.UpgradeType == UnitUpgradeType.Value)
-            .Select(x => x.Value)
-            .ToList().ForEach(x => x.ChangeAmount(price));
-    }
+    //void ChangeAttackGoodsPrice(int price)
+    //{
+    //    Multi_GameManager.Instance.BattleData
+    //        .ShopPriceDataByUnitUpgradeData
+    //        .Where(x => x.Key.UpgradeType == UnitUpgradeType.Value)
+    //        .Select(x => x.Value)
+    //        .ToList().ForEach(x => x.ChangeAmount(price));
+    //}
 }
 
 

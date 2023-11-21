@@ -32,12 +32,10 @@ public class UI_UnitUpgradeIcon : UI_Base
 
             if (Multi_GameManager.Instance.TryUseCurrency(goodsData.Price))
             {
-                const float Percentage = 100f;
                 switch (goodsData.UpgradeType)
                 {
-                    // case UnitUpgradeType.Value: statController.AddUnitDamage(color, goodsData.Value, UnitStatType.All); break;
-                    case UnitUpgradeType.Value: statController.AddUnitDamage(color, UnitDamageInfo.CreateDamageInfo(goodsData.Value)); break;
-                    case UnitUpgradeType.Scale: statController.ScaleUnitDamage(color, UnitDamageInfo.CreateRateInfo( goodsData.Value / Percentage)); break;
+                    case UnitUpgradeType.Value: statController.AddUnitDamage(color, goodsData.UpgradeInfo); break;
+                    case UnitUpgradeType.Scale: statController.ScaleUnitDamage(color, goodsData.UpgradeInfo); break;
                 }
                 _upgradeLevel++;
                 UpdateLevelText();

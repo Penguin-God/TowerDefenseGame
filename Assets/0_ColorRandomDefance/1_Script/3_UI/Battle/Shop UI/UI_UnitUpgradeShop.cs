@@ -26,8 +26,8 @@ public class UI_UnitUpgradeShop : UI_Popup
         CreateGoods(GetObject((int)GameObjects.GoldGoodsParent).transform, _unitUpgradeDataUseCase.AddData);
         CreateGoods(GetObject((int)GameObjects.RuneGoodsParent).transform, _unitUpgradeDataUseCase.ScaleData);
 
-        GetTextMeshPro((int)Texts.ValueUpgradeInfoText).text = UnitUpgradeGoodsPresenter.BuildUpgradeInfoText(_unitUpgradeDataUseCase.AddData);
-        GetTextMeshPro((int)Texts.ScaleUpgradeInfoText).text = UnitUpgradeGoodsPresenter.BuildUpgradeInfoText(_unitUpgradeDataUseCase.ScaleData);
+        GetTextMeshPro((int)Texts.ValueUpgradeInfoText).text = UnitUpgradeGoodsPresenter.BuildAddUpgradeText(_unitUpgradeDataUseCase.AddData);
+        GetTextMeshPro((int)Texts.ScaleUpgradeInfoText).text = UnitUpgradeGoodsPresenter.BuildScaleUpgradeText(_unitUpgradeDataUseCase.ScaleData);
     }
 
     MultiUnitStatController _statController;

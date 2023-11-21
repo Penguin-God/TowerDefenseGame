@@ -62,10 +62,10 @@ public class BattleDataController
     public CurrencyData MaxUnitIncreasePriceData { get; private set; }
 
     public IReadOnlyDictionary<UnitUpgradeData, CurrencyData> ShopPriceDataByUnitUpgradeData { get; private set; }
-    public IEnumerable<CurrencyData> GetAllShopPriceDatas() 
-        => ShopPriceDataByUnitUpgradeData.Values
-            .Concat(WhiteUnitShopPriceDatas)
-            .Concat(new CurrencyData[] { MaxUnitIncreasePriceData });
+    //public IEnumerable<CurrencyData> GetAllShopPriceDatas() 
+    //    => ShopPriceDataByUnitUpgradeData.Values
+    //        .Concat(WhiteUnitShopPriceDatas)
+    //        .Concat(new CurrencyData[] { MaxUnitIncreasePriceData });
 
     // 스테이지
     public int StageMonsetSpawnCount;
@@ -194,11 +194,7 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
 
     public bool UnitOver => Managers.Unit.CurrentUnitCount >= _battleData.MaxUnit;
 
-    MultiBattleDataController _multiBattleDataController;
-    public void IncreasedMaxUnitCount(int amount) => _multiBattleDataController.IncreasedMaxUnitCount(amount);
-
     [SerializeField] UnitUpgradeShopData _unitUpgradeShopData;
-    public UnitUpgradeShopData UnitUpgradeShopData => _unitUpgradeShopData.Clone();
     public void Init(IBattleCurrencyManager currencyManager, MultiBattleDataController multiBattleDataController, BattleDataContainer battleDataContainer, BattleEventDispatcher dispatcher)
     {
         base.Init();
@@ -207,8 +203,7 @@ public class Multi_GameManager : SingletonPun<Multi_GameManager>
         _battleData.Init(battleDataContainer, _unitUpgradeShopData, dispatcher);
         AddGold(battleDataContainer.Gold);
         AddFood(battleDataContainer.Food);
-        _multiBattleDataController = multiBattleDataController;
-        dispatcher.OnGameStart += () => IncreasedMaxUnitCount(battleDataContainer.MaxUnit);
+        dispatcher.OnGameStart += () => multiBattleDataController.IncreasedMaxUnitCount(battleDataContainer.MaxUnit);
     }
 
     [PunRPC]

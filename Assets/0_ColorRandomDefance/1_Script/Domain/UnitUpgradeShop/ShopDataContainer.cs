@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class ShopDataUseCase
+public class ShopDataContainer
 {
     public readonly UnitUpgradeGoodsData AddData;
     public readonly UnitUpgradeGoodsData ScaleData;
@@ -11,7 +11,7 @@ public class ShopDataUseCase
     public readonly CurrencyData MaxUnitIncreasePriceData;
     public readonly CurrencyData[] UnitSellRewardDatas;
     public readonly CurrencyData[] WhiteUnitPriceDatas;
-    public ShopDataUseCase(UnitUpgradeGoodsData addData, UnitUpgradeGoodsData scaleData, int upgradeMaxLevel, 
+    public ShopDataContainer(UnitUpgradeGoodsData addData, UnitUpgradeGoodsData scaleData, int upgradeMaxLevel, 
         CurrencyData unitIncreasePrice, IEnumerable<CurrencyData> unitSellRewardDatas, IEnumerable<CurrencyData> whiteUnitPriceDatas)
     {
         AddData = addData;

@@ -16,7 +16,7 @@ public class BuildingClickContoller : MonoBehaviour
             {
                 Managers.UI.ClosePopupUI();
                 ShowUI(trigger.ShowUI_Type);
-                // 사운드 필요한가?
+                // 사운드 필요한가? ㅇㅇ
             }
         }
     }
@@ -25,10 +25,10 @@ public class BuildingClickContoller : MonoBehaviour
     {
         switch (type)
         {
-            case BattleUI_Type.UnitUpgrdeShop: _uiMediator.ShowPopupUI<UI_UnitUpgradeShop>(type); break; // _uiMediator.ShowPopupUI<UI_UnitUpgradeShop>(type); break; 
+            case BattleUI_Type.UnitUpgrdeShop: _uiMediator.ShowPopupUI<UI_UnitUpgradeShop>(type); break;
             case BattleUI_Type.BalckUnitCombineTable: _uiMediator.ShowPopupUI<BalckUnitShop_UI>(type); break;
-            case BattleUI_Type.WhiteUnitShop:
-            case BattleUI_Type.UnitMaxCountExpendShop: _uiMediator.ShowPopupUI(type); break;
+            case BattleUI_Type.WhiteUnitShop: _uiMediator.ShowPopupUI<UI_WhiteUnitShop>(type); break;
+            case BattleUI_Type.UnitMaxCountExpendShop: _uiMediator.ShowPopupUI<UI_UnitCountExpendShop>(type); break;
         }
     }
 }

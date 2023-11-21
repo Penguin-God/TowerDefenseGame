@@ -20,7 +20,7 @@ MonoBehaviour:
   UpScalePriceData:
     _currencyType: 1
     _amount: 2
-  _maxUpgradeLevel: 0
+  _maxUpgradeLevel: 5
   _maxUnitIncreasePriceData:
     _currencyType: 1
     _amount: 1

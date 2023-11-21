@@ -128,11 +128,10 @@ public class UserSkillActor
         {
             case SkillType.시작골드증가: Multi_GameManager.Instance.AddGold(skillBattleData.IntSkillData); break;
             case SkillType.마나물약: Multi_GameManager.Instance.AddFood(skillBattleData.IntSkillData); break;
-            case SkillType.최대유닛증가: Multi_GameManager.Instance.IncreasedMaxUnitCount(skillBattleData.IntSkillData); break;
+            case SkillType.최대유닛증가: container.GetComponent<MultiBattleDataController>().IncreasedMaxUnitCount(skillBattleData.IntSkillData); break;
             case SkillType.황금빛기사: Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = skillBattleData.IntSkillData; break;
             case SkillType.컬러마스터: container.GetComponent<SwordmanGachaController>().ChangeUnitSummonMaxColor(UnitColor.Violet); break;
             case SkillType.거인학살자: container.GetComponent<MultiUnitStatController>().ScaleAllUnitDamage(new UnitDamageInfo(bossDamRate: skillBattleData.SkillData)); break;
-                //container.GetComponent<MultiUnitStatController>().ScaleAllUnitDamage(skillBattleData.SkillData, UnitStatType.BossDamage); break;
         }
     }
 
@@ -144,7 +143,7 @@ public class UserSkillActor
             case SkillType.태극스킬: result = new TaegeukController(skillBattleData, container.GetComponent<MultiUnitStatController>(), container.GetEventDispatcher()); break;
             case SkillType.흑의결속: result = new BlackUnitUpgrade(skillBattleData, container.GetComponent<MultiUnitStatController>()); break;
             case SkillType.마나변이: result = new ManaMutation(skillBattleData, container.GetComponent<SkillColorChanger>(), container.GetEventDispatcher()); break;
-            case SkillType.마나불능: result = new ManaImpotence(skillBattleData); break;
+            case SkillType.마나불능: result = new ManaImpotence(skillBattleData, container.GetService<ShopDataContainer>()); break;
             case SkillType.장사꾼: result = new UnitMerchant(skillBattleData); break;
             case SkillType.도박사: 
                 result = new GambleInitializer(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetEventDispatcher(), container.GetComponent<TextShowAndHideController>(), container.GetUnitSpanwer()); break;
@@ -230,10 +229,14 @@ public class ManaMutation : UserSkill
 
 public class ManaImpotence : UserSkill
 {
-    public ManaImpotence(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
+    public ManaImpotence(UserSkillBattleData userSkillBattleData, ShopDataContainer shopDataUseCase) : base(userSkillBattleData) 
+    {
+        _shopDataUseCase = shopDataUseCase;
+    }
 
     int _rewardRate; // 얻는 룬이 몇 골드로 바뀌는가
     int _priceRate; // 기존에 룬으로 팔던 상품을 몇 배의 골드로 바꿀건가
+    readonly ShopDataContainer _shopDataUseCase;
     Multi_GameManager _game;
     internal override void InitSkill()
     {
@@ -257,7 +260,8 @@ public class ManaImpotence : UserSkill
 
     void ChangeShopPriceData()
     {
-        _game.BattleData.GetAllShopPriceDatas()
+        // _game.BattleData.GetAllShopPriceDatas()
+        _shopDataUseCase.GetAllShopPriceDatas()
                 .Where(x => x.CurrencyType == GameCurrencyType.Rune)
                 .ToList()
                 .ForEach(FoodDataToGoldData);

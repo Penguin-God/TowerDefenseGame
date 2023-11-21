@@ -18,7 +18,7 @@ public class UnitUpgradeShopData : ScriptableObject
     [SerializeField] CurrencyData[] _unitSellRewardDatas;
     [SerializeField] CurrencyData[] _whiteUnitPriceDatas;
 
-    public ShopDataUseCase CreateDataUseCase() => new(AddData, ScaleData, _maxUpgradeLevel, _maxUnitIncreasePriceData, _unitSellRewardDatas, _whiteUnitPriceDatas);
+    public ShopDataContainer CreateDataUseCase() => new(AddData, ScaleData, _maxUpgradeLevel, _maxUnitIncreasePriceData, _unitSellRewardDatas, _whiteUnitPriceDatas);
 
     public int ResetPrice;
     public UnitUpgradeShopData Clone()

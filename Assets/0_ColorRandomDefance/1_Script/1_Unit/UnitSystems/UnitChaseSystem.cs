@@ -8,7 +8,7 @@ public class UnitChaseSystem : MonoBehaviour
     protected Multi_TeamSoldier _unit { get; private set; }
     protected NavMeshAgent _nav { get; private set; }
 
-    public Multi_Enemy _currentTarget = null;
+    protected Multi_Enemy _currentTarget = null;
     protected Vector3 TargetPosition => _currentTarget.transform.position;
     
     public void ChangedTarget(Multi_Enemy newTarget)
@@ -17,9 +17,11 @@ public class UnitChaseSystem : MonoBehaviour
         {
             _currentTarget = null;
             _chaseState = ChaseState.NoneTarget;
+            _nav.isStopped = true;
             return;
         }
 
+        _nav.isStopped = false;
         _currentTarget = newTarget;
     }
 

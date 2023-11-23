@@ -9,6 +9,7 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
     {
         photonView.ObservedComponents.Add(this);
         _unitChaseSystem = GetComponent<UnitChaseSystem>();
+        _unit = GetComponent<Multi_TeamSoldier>();
     }
 
     void OnEnable()
@@ -18,6 +19,7 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
     }
 
     UnitChaseSystem _unitChaseSystem;
+    Multi_TeamSoldier _unit;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -26,6 +28,7 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
             stream.SendNext(transform.eulerAngles.y);
             stream.SendNext(transform.position.x);
             stream.SendNext(transform.position.z);
+            stream.SendNext(_unit.TargetEnemy == null ? 0 : _unit.TargetEnemy.GetComponent<PhotonView>().ViewID);
         }
         else
         {
@@ -34,6 +37,7 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
             float x = (float)stream.ReceiveNext();
             float z = (float)stream.ReceiveNext();
             _masterPos = new Vector3(x, 0, z);
+            _targetId = (int)stream.ReceiveNext();
         }
     }
 
@@ -42,6 +46,7 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
     const float Delta = 10f;
     float _masterRotationY;
     Vector3 _masterPos;
+    int _targetId = -1;
     void Update()
     {
         if (PhotonNetwork.IsMasterClient) return;
@@ -54,7 +59,10 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, newY, transform.eulerAngles.z);
         }
 
-        if (Vector3.Distance(transform.position, _masterPos) > 1)
+        if (Vector3.Distance(transform.position, _masterPos) > 2)
             transform.position = Vector3.Lerp(transform.position, _masterPos, Time.deltaTime * PositionLerpSpeed);
+
+        if (_targetId > 0) _unit.ChangeTarget(_targetId);
+        else _unit.SetNull();
     }
 }

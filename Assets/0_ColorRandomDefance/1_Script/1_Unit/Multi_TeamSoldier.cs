@@ -31,7 +31,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     public Transform target => _targetManager.Target == null ? null : TargetEnemy.transform;
     public Multi_Enemy TargetEnemy => _targetManager.Target;
 
-    protected NavMeshAgent nav;
+    NavMeshAgent nav;
     private ObstacleAvoidanceType originObstacleType;
     protected Animator animator;
     protected RPCable rpcable;
@@ -89,7 +89,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     void ChaseTarget()
     {
-        nav.enabled = true;
         StopAllCoroutines();
         StartCoroutine(nameof(NavCoroutine));
     }
@@ -117,30 +116,34 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         _targetManager.Reset();
         if (animator != null)
             animator.enabled = false;
-        nav.enabled = false;
     }
 
     public void UpdateTarget() // 가장 가까운 거리에 있는 적으로 타겟을 바꿈
     {
-        //if (PhotonNetwork.IsMasterClient == false) return;
-
-        //var monster = TargetFinder.FindTarget(IsInDefenseWorld, transform.position);
-        //if (monster != null && monster.IsDead == false)
-        //    photonView.RPC(nameof(ChangeTarget), RpcTarget.All, monster.GetComponent<PhotonView>().ViewID);
+        if (PhotonNetwork.IsMasterClient == false) return;
 
         _targetManager.ChangedTarget(TargetFinder.FindTarget(IsInDefenseWorld, transform.position));
         _chaseSystem.ChangedTarget(TargetEnemy);
     }
 
-    [PunRPC]
-    protected void ChangeTarget(int viewId)
+    public void ChangeTarget(int viewId)
     {
-        var target = Managers.Multi.GetPhotonViewComponent<Multi_Enemy>(viewId);
-        if (target == null) return;
+        var view = PhotonView.Find(viewId);
+        if (view == null) SetNull();
+        else
+        {
+            var target = view.GetComponent<Multi_Enemy>();
+            if (target == TargetEnemy) return;
+            _targetManager.ChangedTarget(target);
+            target.OnDeath += UpdateTarget;
+            _chaseSystem?.ChangedTarget(target);
+        }
+    }
 
-        _targetManager.ChangedTarget(target);
-        target.OnDeath += UpdateTarget;
-        _chaseSystem?.ChangedTarget(target);
+    public void SetNull()
+    {
+        _targetManager.ChangedTarget(null);
+        _chaseSystem?.ChangedTarget(null);
     }
 
     IEnumerator NavCoroutine()
@@ -165,11 +168,10 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         }
     }
 
-    bool VaildTargetCondition() => target != null && _targetManager.Target.IsDead == false && _chaseSystem._currentTarget != null && TargetEnemy.UsingId == UsingID;
+    bool VaildTargetCondition() => target != null && _targetManager.Target.IsDead == false && TargetEnemy.UsingId == UsingID;
     Vector3 GetBoxSize() => new Vector3(5, 5, 5);
     public bool MonsterIsForward() => Physics.BoxCastAll(transform.position + Vector3.up * 2, GetBoxSize() / 2, transform.forward, transform.rotation, AttackRange).Select(x => x.transform).Contains(target);
-    //Physics.RaycastAll(transform.position + Vector3.up, transform.forward, AttackRange).Select(x => x.transform).Contains(target);
-
+    
     void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

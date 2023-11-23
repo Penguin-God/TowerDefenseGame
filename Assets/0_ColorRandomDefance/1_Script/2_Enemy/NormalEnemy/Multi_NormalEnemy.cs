@@ -108,6 +108,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         pointIndex = -1;
         transform.rotation = Quaternion.identity;
         _stunCount = 0;
+        _isStun = false;
         MonsterSpeedManager.RestoreSpeed();
         MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
     }

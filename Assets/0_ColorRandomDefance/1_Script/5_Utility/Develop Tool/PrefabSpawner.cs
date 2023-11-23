@@ -6,10 +6,12 @@ public class PrefabSpawner : MonoBehaviour
 {
     Multi_NormalUnitSpawner _unitSpawner;
     Multi_BossEnemySpawner _bossSpawner;
-    public void DependencyInject(Multi_NormalUnitSpawner unitSpawner, Multi_BossEnemySpawner bossSpawner)
+    MonsterSpawnerContorller _monsterSpawnerContorller;
+    public void DependencyInject(Multi_NormalUnitSpawner unitSpawner, Multi_BossEnemySpawner bossSpawner, MonsterSpawnerContorller monsterSpawnerContorller)
     {
         _unitSpawner = unitSpawner;
         _bossSpawner = bossSpawner;
+        _monsterSpawnerContorller = monsterSpawnerContorller;
     }
 
     public void SpawnUnit(UnitFlags flag) => SpawnUnit(flag, 0);
@@ -20,5 +22,11 @@ public class PrefabSpawner : MonoBehaviour
     {
         foreach (var id in PlayerIdManager.AllId)
             _bossSpawner.SpawnBoss(id, bossLevel);
+    }
+
+    public void StopSpawnMonster()
+    {
+        StageManager.Instance.StopAllCoroutines();
+        _monsterSpawnerContorller.StopAllCoroutines();
     }
 }

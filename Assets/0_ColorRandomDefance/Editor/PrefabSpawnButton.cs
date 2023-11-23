@@ -14,6 +14,7 @@ public class PrefabSpawnButton : Editor
 
         DrawUnitSpawnButton(_spawner);
         DrawEnemySpawnButton(_spawner);
+        DrawStopSpawnMonsterButton(_spawner);
     }
 
     bool showButton = true;
@@ -56,5 +57,12 @@ public class PrefabSpawnButton : Editor
             string buttonName = $"레벨 {i + 1} 보스 소환";
             if (GUILayout.Button(buttonName)) _spawner.SpawnBoss(i + 1);
         }
+    }
+
+    void DrawStopSpawnMonsterButton(PrefabSpawner spawner)
+    {
+        EditorGUILayout.Space(20);
+        if (GUILayout.Button("몬스터 소환 중지"))
+            spawner.StopSpawnMonster();
     }
 }

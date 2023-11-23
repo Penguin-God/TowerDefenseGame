@@ -65,7 +65,7 @@ public class PosionAndStunActor : IUnitAttackPassive
 
     public void DoUnitPassive(Multi_Enemy target)
     {
-        target.OnStun_RPC(SturnPercent, StrunTime);
+        target.GetComponent<Multi_NormalEnemy>()?.OnStun_RPC(SturnPercent, StrunTime);
         target.OnPoison_RPC(PoisonTickCount, CalculatePosionDamage(target.enemyType), isSkill: true);
     }
 

@@ -17,7 +17,7 @@ public class MeteorController : MonoBehaviourPun
     void HitAction(Multi_Enemy target, int hitDamage, float stunTime)
     {
         target.OnDamage(hitDamage, isSkill:true);
-        target.OnStun_RPC(100, stunTime);
+        target.GetComponent<Multi_NormalEnemy>()?.OnStun_RPC(100, stunTime);
     }
 
     public void ShotMeteorToAll(Multi_Enemy target, int hitDamage, float stunTime, Vector3 spawnPos, byte id)
@@ -30,7 +30,7 @@ public class MeteorController : MonoBehaviourPun
         void HitAction(Multi_Enemy target)
         {
             target.OnDamage(hitDamage, isSkill: true);
-            target.OnStun_RPC(100, stunTime);
+            target.GetComponent<Multi_NormalEnemy>()?.OnStun_RPC(100, stunTime);
         }
     }
 

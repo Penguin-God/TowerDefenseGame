@@ -180,8 +180,9 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     [PunRPC] protected void Mat_To_Freeze() => ChangeMat(freezeMat);
 
+    public void OnStun_RPC(int _stunPercent, float _stunTime) => photonView.RPC(nameof(OnStun), RpcTarget.MasterClient, _stunPercent, _stunTime);
     [PunRPC]
-    protected override void OnStun(int stunPercent, float stunTime)
+    protected void OnStun(int stunPercent, float stunTime)
     {
         if (RPCSendable == false) return;
         int random = UnityEngine.Random.Range(0, 100);

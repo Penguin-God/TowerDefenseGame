@@ -115,15 +115,15 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected SpeedManager SpeedManager => MonsterSpeedManager.SpeedManager;
     protected MonsterSpeedSystem MonsterSpeedManager { get; private set; }
 
-    public float Speed => IsStun || IsDead || MonsterSpeedManager == null ? 0 : SpeedManager.CurrentSpeed;
-    public bool IsSlow => MonsterSpeedManager == null ? false : MonsterSpeedManager.IsSlow;
-    bool IsStun => _stunCount > 0;
+    public float Speed => _isStun || IsDead || MonsterSpeedManager == null ? 0 : SpeedManager.CurrentSpeed;
     bool RPCSendable => IsDead == false && PhotonNetwork.IsMasterClient;
-    #region 상태이상 구현
 
+    #region 상태이상 구현
     [SerializeField] private Material freezeMat;
+    public bool IsSlow => MonsterSpeedManager == null ? false : MonsterSpeedManager.IsSlow;
 
     int _stunCount = 0;
+    bool _isStun = false;
     [SerializeField] private GameObject sternEffect;
 
     public void OnSlow(float slowRate)
@@ -196,7 +196,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         yield return new WaitForSeconds(stunTime);
 
         _stunCount--;
-        if(IsStun == false) photonView.RPC(nameof(ExitStun), RpcTarget.All);
+        if(_stunCount <= 0) photonView.RPC(nameof(ExitStun), RpcTarget.All);
     }
 
     [PunRPC]
@@ -204,11 +204,13 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         sternEffect.SetActive(false);
         ChangeVelocity(dir);
+        _isStun = false;
     }
 
     [PunRPC]
     protected void Stun()
     {
+        _isStun = true;
         ChangeVelocity(Vector3.zero);
         sternEffect.SetActive(true);
     }

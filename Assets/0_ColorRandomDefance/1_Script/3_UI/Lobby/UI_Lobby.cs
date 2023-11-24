@@ -35,8 +35,14 @@ public class UI_Lobby : UI_Scene
     BattleDIContainer _container;
     public void DependencyInject(BattleDIContainer container) => _container = container;
 
+    void ShowPopup<T>() where T : UI_Popup
+    {
+        var ui = Managers.UI.ShowPopupUI<T>();
+        _container.Inject(ui);
+    }
+
     public void ShowSkillWindow() => Managers.UI.ShowPopupUI<UI_SkillManagementWindow>().RefreshUI();
-    public void ShowShop() => Managers.UI.ShowPopupUI<UI_SkillShop>("UI_LobbyShop");
+    public void ShowShop() => ShowPopup<UI_LobbyShop>();
 
     void GetAllSkill()
     {

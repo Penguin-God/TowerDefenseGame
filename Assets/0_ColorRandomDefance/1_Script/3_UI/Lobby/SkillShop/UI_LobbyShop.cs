@@ -10,7 +10,7 @@ public enum SkillBoxType
     전설상자,
 }
 
-public class UI_SkillShop : UI_Popup
+public class UI_LobbyShop : UI_Popup
 {
     enum GameObjects
     {
@@ -32,6 +32,9 @@ public class UI_SkillShop : UI_Popup
 
     void CreateBoxGoods()
     {
+        foreach (Transform child in GetObject((int)GameObjects.BoxGoodsParnet).transform)
+            Destroy(child.gameObject);
+
         foreach (SkillBoxType item in Enum.GetValues(typeof(SkillBoxType)))
             Managers.UI.MakeSubItem<UI_SkillBoxGoods>(GetObject((int)GameObjects.BoxGoodsParnet).transform).DependencyInject(item, _skillDrawUseCase);
     }

@@ -6,15 +6,6 @@ using System.Linq;
 
 public class Drawing : MonoBehaviour
 {
-    public enum BoxType
-    {
-        None,
-        무료상자,
-        기본상자,
-        고급상자,
-        전설상자,
-    }
-
     public List<int> NumberChoice()
     {
         List<int> nums = new List<int>();
@@ -78,10 +69,10 @@ public class Drawing : MonoBehaviour
 
     public void TestButton()
     {
-        OpenBox(BoxType.전설상자);
+        OpenBox(SkillBoxType.전설상자);
     }
 
-    public void OpenBox(BoxType boxType)
+    public void OpenBox(SkillBoxType boxType)
     {
         List<int> itemCountList = NumberChoice();
         List<int> selectedSkills = DrawingSkills();

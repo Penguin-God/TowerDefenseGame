@@ -24,7 +24,7 @@ public class SkillDrawerTests
             {  UserSkillClass.Main, new SkillType[]{ SkillType.흑의결속, SkillType.태극스킬} },
             {  UserSkillClass.Sub, new SkillType[]{ SkillType.시작골드증가, SkillType.거인학살자} }
         };
-        SkillDrawer drawer = new SkillDrawer(skillDatas);
+        SkillDrawer drawer = new(skillDatas);
         var drawInfos = new List<SkillDrawInfo>
         {
             new SkillDrawInfo(UserSkillClass.Main, 1, 10),

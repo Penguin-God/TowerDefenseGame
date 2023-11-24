@@ -10,16 +10,20 @@ public class SkillDrawContrllerTests
     [Test]
     public void 뽑기를_하면_유저_데이터가_갱신되고_영속성_저장도_해야_됨()
     {
-        PlayerDataManager playerDataManager = new();
+        PlayerDataManager playerDataManager = new(new UserInfo("aa", new Dictionary<SkillType, PlayerOwnedSkillInfo>()));
         TestPersistence persistence = new();
-        var sut = new SkillDrawUseCase(null, playerDataManager, persistence);
+        SkillDrawer skillDrawer = new(new Dictionary<UserSkillClass, IReadOnlyList<SkillType>>() { { UserSkillClass.Main, new SkillType[] { SkillType.흑의결속 } } });
+        var sut = new SkillDrawUseCase(skillDrawer, playerDataManager, persistence);
 
-        var result = sut.DrawSkills(null).FirstOrDefault();
+        var drawInfos = new List<SkillDrawInfo>
+        {
+            new SkillDrawInfo(UserSkillClass.Main, 1, 10),
+        };
+        var result = sut.DrawSkills(drawInfos).FirstOrDefault();
 
         
-        Assert.IsTrue(playerDataManager.UserInfo.SkillDatas.Any(x => x.SkillType == result.SkillType));
-        var skillData = playerDataManager.UserInfo.SkillDatas.FirstOrDefault();
-        Assert.AreEqual(skillData.SkillType, result.SkillType);
+        Assert.IsTrue(playerDataManager.UserInfo.HasSkill(result.SkillType));
+        var skillData = playerDataManager.UserInfo.GetSkillInfo(result.SkillType);
         Assert.AreEqual(skillData.HasAmount, result.Amount);
 
         // 영속성 저장 실행되었는지만 체크

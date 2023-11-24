@@ -21,7 +21,9 @@ public class SkillDrawUseCase
     public IEnumerable<SkillDrawResultInfo> DrawSkills(IEnumerable<SkillDrawInfo> drawInfos)
     {
         var result = _skillDrawer.DrawSkills(drawInfos);
-        
+        foreach (var resultInfo in result)
+            _playerDataManager.UserInfo.AddSkill(resultInfo.SkillType, resultInfo.Amount);
+        _dataPersistence.Save(_playerDataManager.UserInfo);
         return result;
     }
 }

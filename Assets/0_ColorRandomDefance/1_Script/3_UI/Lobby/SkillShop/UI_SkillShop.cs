@@ -6,13 +6,13 @@ public class UI_SkillShop : UI_Popup
 {
     enum GameObjects
     {
-        SkillGoodsParent,
+        ScrollView,
     }
 
     protected override void Init()
     {
         base.Init();
-        Bind<GameObject>(typeof(GameObjects));
+        // Bind<GameObject>(typeof(GameObjects));
     }
 
     public void RefreshUI()
@@ -23,7 +23,7 @@ public class UI_SkillShop : UI_Popup
             _initDone = true;
         }
 
-        var goodsParent = GetObject((int)GameObjects.SkillGoodsParent).transform;
+        var goodsParent = GetObject((int)GameObjects.ScrollView).transform;
         foreach (Transform item in goodsParent)
             Destroy(item.gameObject);
 

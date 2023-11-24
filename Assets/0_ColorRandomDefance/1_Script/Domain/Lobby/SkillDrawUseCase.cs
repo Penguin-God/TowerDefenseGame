@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public interface IDataPersistence
 {
-    void Save(UserInfo userInfo);
+    void Save(PlayerDataManager playerData);
 }
 
 public class SkillDrawUseCase
@@ -22,8 +22,8 @@ public class SkillDrawUseCase
     {
         var result = _skillDrawer.DrawSkills(drawInfos);
         foreach (var resultInfo in result)
-            _playerDataManager.UserInfo.AddSkill(resultInfo.SkillType, resultInfo.Amount);
-        _dataPersistence.Save(_playerDataManager.UserInfo);
+            _playerDataManager.SkillInventroy.AddSkill(resultInfo.SkillType, resultInfo.Amount);
+        _dataPersistence.Save(_playerDataManager);
         return result;
     }
 }

@@ -16,16 +16,10 @@ public readonly struct PlayerOwnedSkillInfo
     public PlayerOwnedSkillInfo AddAmount(int amount) => new PlayerOwnedSkillInfo(Level, HasAmount + amount);
 }
 
-public struct UserInfo
+public struct SkillInventroy
 {
-    public string Name;
     readonly Dictionary<SkillType, PlayerOwnedSkillInfo> _skillDatas;
-    
-    public UserInfo(string name, Dictionary<SkillType, PlayerOwnedSkillInfo> skillDatas)
-    {
-        Name = name;
-        _skillDatas = skillDatas;
-    }
+    public SkillInventroy(Dictionary<SkillType, PlayerOwnedSkillInfo> skillDatas) => _skillDatas = skillDatas;
 
     public bool HasSkill(SkillType type) => _skillDatas.ContainsKey(type);
     public void AddSkill(SkillType type, int amount)

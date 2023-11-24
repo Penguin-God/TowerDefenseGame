@@ -10,7 +10,7 @@ public class SkillDrawContrllerTests
     [Test]
     public void 뽑기를_하면_유저_데이터가_갱신되고_영속성_저장도_해야_됨()
     {
-        PlayerDataManager playerDataManager = new(new UserInfo("aa", new Dictionary<SkillType, PlayerOwnedSkillInfo>()));
+        PlayerDataManager playerDataManager = new(new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>()));
         TestPersistence persistence = new();
         SkillDrawer skillDrawer = new(new Dictionary<UserSkillClass, IReadOnlyList<SkillType>>() { { UserSkillClass.Main, new SkillType[] { SkillType.흑의결속 } } });
         var sut = new SkillDrawUseCase(skillDrawer, playerDataManager, persistence);
@@ -22,11 +22,11 @@ public class SkillDrawContrllerTests
         var result = sut.DrawSkills(drawInfos).FirstOrDefault();
 
         
-        Assert.IsTrue(playerDataManager.UserInfo.HasSkill(result.SkillType));
-        var skillData = playerDataManager.UserInfo.GetSkillInfo(result.SkillType);
+        Assert.IsTrue(playerDataManager.SkillInventroy.HasSkill(result.SkillType));
+        var skillData = playerDataManager.SkillInventroy.GetSkillInfo(result.SkillType);
         Assert.AreEqual(skillData.HasAmount, result.Amount);
 
-        // 영속성 저장 실행되었는지만 체크
+        // 영속성 저장은 실행되었는지만 체크
         Assert.IsTrue(persistence.IsExecute);
     }
 }
@@ -34,5 +34,5 @@ public class SkillDrawContrllerTests
 public class TestPersistence : IDataPersistence
 {
     public bool IsExecute = false;
-    public void Save(UserInfo userInfo) => IsExecute = true;
+    public void Save(PlayerDataManager playerData) => IsExecute = true;
 }

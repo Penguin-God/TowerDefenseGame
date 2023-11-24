@@ -4,9 +4,9 @@ using System.Linq;
 
 public class PlayerDataManager
 {
-    public UserInfo UserInfo { get; private set; }
-    public PlayerDataManager(UserInfo userInfo)
+    public SkillInventroy SkillInventroy { get; private set; }
+    public PlayerDataManager(SkillInventroy skillInventroy)
     {
-        UserInfo = userInfo;
+        SkillInventroy = skillInventroy;
     }
 }

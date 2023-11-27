@@ -77,7 +77,7 @@ public class MultiVectorShotController : UnitSkillController
     {
         PlaySkillSound(unit, EffectSoundType.BlackMageSkill);
         foreach (Vector3 dir in MathUtil.CalculateDirections(ShotCount).Select(x => new Vector3(x.x, 0, x.y)))
-            SpawnSkill(SkillEffectType.BlackEnergyBall, unit.transform.position + Offset).GetComponent<Multi_Projectile>().AttackShot(dir.normalized, AttackMonster);
+            SpawnSkill(SkillEffectType.BlackEnergyBall, unit.transform.position + Offset).GetComponent<UnitProjectile>().AttackShot(dir.normalized, AttackMonster);
 
         void AttackMonster(Multi_Enemy enemy) => enemy.OnDamage(CalculateSkillDamage(unit.Unit, DamageRate), isSkill: true);
     }
@@ -127,7 +127,7 @@ public class ShotBounceBall : UnitSkillController
         _bounceBallShotController = unit.GetComponent<BounceBallShotController>();
         _bounceBallShotController.DependencyInject(manaLockTime, ShotBounceBall);
 
-        void ShotBounceBall(Vector3 shotPos) => SpawnSkill(SkillEffectType.BounceBall, shotPos).GetComponent<Multi_Projectile>().AttackShot(GetDir(), OnSkillHit);
+        void ShotBounceBall(Vector3 shotPos) => SpawnSkill(SkillEffectType.BounceBall, shotPos).GetComponent<UnitProjectile>().AttackShot(GetDir(), OnSkillHit);
         void OnSkillHit(Multi_Enemy enemy) => unit.UnitAttacker.SkillAttack(enemy, CalculateSkillDamage(unit.Unit, damRate));
         Vector3 GetDir() => new ThorwPathCalculator().CalculateThorwPath_To_Monster(unit.TargetEnemy, unit.transform);
     }

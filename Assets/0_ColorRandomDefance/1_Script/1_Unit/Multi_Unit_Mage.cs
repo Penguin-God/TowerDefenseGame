@@ -43,7 +43,7 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
         else _normalAttacker.DoAttack(AttackDelayTime);
     }
 
-    void ShotEnergyBall(Vector3 pos) => Managers.Resources.Instantiate(GetWeaponPath(), pos).GetComponent<Multi_Projectile>().AttackShot(GetDir(), UnitAttacker.NormalAttack);
+    void ShotEnergyBall(Vector3 pos) => Managers.Resources.Instantiate(GetWeaponPath(), pos).GetComponent<UnitProjectile>().AttackShot(GetDir(), UnitAttacker.NormalAttack);
     string GetWeaponPath() => new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags);
     Vector3 GetDir() => new ThorwPathCalculator().CalculateThorwPath_To_Monster(TargetEnemy, transform);
 

@@ -27,7 +27,7 @@ public class ArcherNormalAttackController : UnitAttackController
     {
         _nav.isStopped = true;
         _trail.gameObject.SetActive(false);
-        Managers.Resources.Instantiate(ArrowPath, _arrowShotPoint.position).GetComponent<Multi_Projectile>().AttackShot(GetDir(), _attacker.NormalAttack);
+        Managers.Resources.Instantiate(ArrowPath, _arrowShotPoint.position).GetComponent<UnitProjectile>().AttackShot(GetDir(), _attacker.NormalAttack);
         PlaySound(EffectSoundType.ArcherAttack);
         yield return WaitSecond(1f);
         _trail.gameObject.SetActive(true);

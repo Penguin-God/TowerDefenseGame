@@ -48,9 +48,9 @@ public class SpearmanSkillAttackController : UnitAttackControllerTemplate
         ThrowSpear(shotSpear);
     }
 
-    Multi_Projectile CreateSpear()
+    UnitProjectile CreateSpear()
     {
-        var shotSpear = Managers.Resources.Instantiate(_throwSpearData.WeaponPath, _shotPoint.position).GetComponent<Multi_Projectile>();
+        var shotSpear = Managers.Resources.Instantiate(_throwSpearData.WeaponPath, _shotPoint.position).GetComponent<UnitProjectile>();
         shotSpear.GetComponent<Collider>().enabled = false;
         shotSpear.transform.rotation = Quaternion.LookRotation(transform.forward);
         foreach (var particle in shotSpear.GetComponentsInChildren<ParticleSystem>())
@@ -68,7 +68,7 @@ public class SpearmanSkillAttackController : UnitAttackControllerTemplate
             trail.enabled = isActive;
     }
 
-    void ThrowSpear(Multi_Projectile shotSpear)
+    void ThrowSpear(UnitProjectile shotSpear)
     {
         shotSpear.transform.position = _shotPoint.position;
         shotSpear.GetComponent<Collider>().enabled = true;

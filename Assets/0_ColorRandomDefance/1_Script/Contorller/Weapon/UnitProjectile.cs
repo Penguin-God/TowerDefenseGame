@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 using Photon.Pun;
 
-public class Multi_Projectile : MonoBehaviour
+public class UnitProjectile : MonoBehaviour
 {
     [SerializeField] bool isAOE; // area of effect : 범위(광역) 공격
     [SerializeField] protected int _speed;
@@ -35,8 +35,11 @@ public class Multi_Projectile : MonoBehaviour
         if (enemy == null && other.transform.TryGetComponent(out enemy) == false)
             return;
 
-        if (PhotonNetwork.IsMasterClient) OnHit?.Invoke(enemy);
-        if (isAOE == false) GetComponent<AutoDestoryAfterSecond>().ReturnObjet();
+        if (PhotonNetwork.IsMasterClient) 
+            OnHit?.Invoke(enemy);
+
+        if (isAOE == false) 
+            GetComponent<AutoDestoryAfterSecond>().ReturnObjet();
     }
 
     void OnDisable() => OnHit = null;

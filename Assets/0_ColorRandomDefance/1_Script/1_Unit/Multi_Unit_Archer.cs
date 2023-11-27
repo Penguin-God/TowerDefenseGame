@@ -54,7 +54,7 @@ public class ArcherArrowShoter
         for (int i = 0; i < ArrowCount; i++)
         {
             int targetIndex = i % targetArray.Length;
-            Managers.Resources.Instantiate(Path, _shotPoint.position).GetComponent<Multi_Projectile>().AttackShot(GetDir(targetArray[targetIndex].GetComponent<Multi_Enemy>()), action);
+            Managers.Resources.Instantiate(Path, _shotPoint.position).GetComponent<UnitProjectile>().AttackShot(GetDir(targetArray[targetIndex].GetComponent<Multi_Enemy>()), action);
         }
     }
 

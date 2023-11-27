@@ -7,12 +7,13 @@ using Photon.Pun;
 public class UnitProjectile : MonoBehaviour
 {
     [SerializeField] bool isAOE; // area of effect : 범위(광역) 공격
-    [SerializeField] protected int _speed;
+    protected int _speed = 50;
     Rigidbody Rigidbody = null;
     Action<Multi_Enemy> OnHit = null;
     void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
+        _speed = 50;
     }
 
     void Shot(Vector3 dir)

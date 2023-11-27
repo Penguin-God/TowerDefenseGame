@@ -110,6 +110,7 @@ MonoBehaviour:
   - UpgradeUnitDamage
   - UseFood
   - UseGold
+  - ProjectileShot
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

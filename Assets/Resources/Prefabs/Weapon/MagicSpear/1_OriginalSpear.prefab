@@ -14483,8 +14483,8 @@ GameObject:
   - component: {fileID: 8510490244605230477}
   - component: {fileID: 8510490244604797352}
   - component: {fileID: 8510490244604797354}
-  - component: {fileID: 8510490244604797365}
   - component: {fileID: 4409692563317450790}
+  - component: {fileID: 6576210096843183768}
   m_Layer: 0
   m_Name: 1_OriginalSpear
   m_TagString: Untagged
@@ -14539,20 +14539,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 7, y: 6, z: 40}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8510490244604797365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8510490244604797357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fea2ea37883d6e546bc40c02f2c0f523, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isAOE: 1
-  _speed: 50
 --- !u!114 &4409692563317450790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14566,3 +14552,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   aliveTime: 4
+--- !u!114 &6576210096843183768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8510490244604797357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a46196b041ff04f9ce0ae7d6ca52c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isAOE: 1
+  _speed: 50

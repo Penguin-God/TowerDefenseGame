@@ -3,18 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using System;
+using Photon.Pun;
 
 public class SpearmanSkillAttackController : UnitAttackControllerTemplate
 {
     protected override string AnimationName => "isSpecialAttack";
 
     NavMeshAgent _nav;
+    UnitProjectileSync _projectileSync;
     [SerializeField] GameObject _spear;
     [SerializeField] Transform _shotPoint;
     protected override void Awake()
     {
         base.Awake();
         _nav = GetComponent<NavMeshAgent>();
+        _projectileSync = gameObject.AddComponent<UnitProjectileSync>();
     }
 
     ThrowSpearData _throwSpearData;
@@ -42,6 +45,7 @@ public class SpearmanSkillAttackController : UnitAttackControllerTemplate
     {
         yield return new WaitForSeconds(_throwSpearData.WaitForVisibility);
         var shotSpear = CreateSpear();
+        _projectileSync.RegisterSyncProjectile(shotSpear, _attack, _throwSpearData.RotateVector);
         SetTrail(shotSpear, false); // 트레일 늘어지는거 방지
         yield return new WaitForSeconds(1 - _throwSpearData.WaitForVisibility);
         SetTrail(shotSpear, true);
@@ -72,7 +76,9 @@ public class SpearmanSkillAttackController : UnitAttackControllerTemplate
     {
         shotSpear.transform.position = _shotPoint.position;
         shotSpear.GetComponent<Collider>().enabled = true;
-        shotSpear.AttackShot(transform.forward, _attack);
-        shotSpear.transform.Rotate(_throwSpearData.RotateVector);
+        if(PhotonNetwork.IsMasterClient)
+            _projectileSync.SyncProjectileShot(transform.forward);
+        // shotSpear.AttackShot(transform.forward, _attack);
+        // shotSpear.transform.Rotate(_throwSpearData.RotateVector);
     }
 }

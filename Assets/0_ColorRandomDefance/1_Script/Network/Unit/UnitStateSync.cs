@@ -47,7 +47,7 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
     const float RotationLerpSpeed = 0.8f;
     const float PositionLerpSpeed = 0.4f;
     const float AngleDelta = 5f;
-    const float PositionDelta = 5f;
+    const float PositionDelta = 2f;
     float _masterRotationY;
     Vector3 _masterPos;
     int _targetId = -1;
@@ -59,7 +59,6 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
         float currentRotationY = transform.eulerAngles.y;
         if (Mathf.Abs(_masterRotationY - currentRotationY) > AngleDelta)
         {
-            // print("방향 보간");
             float newY = Mathf.LerpAngle(currentRotationY, _masterRotationY, Time.deltaTime * RotationLerpSpeed);
             transform.eulerAngles = new Vector3(transform.eulerAngles.x, newY, transform.eulerAngles.z);
         }
@@ -67,8 +66,8 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
         if (Vector3.Distance(transform.position, _masterPos) > PositionDelta)
             transform.position = Vector3.Lerp(transform.position, _masterPos, Time.deltaTime * PositionLerpSpeed);
 
-        //if (Vector3.Distance(transform.position, _masterPos) > PositionDelta)
-        //    print("위치 보간");
+        if (Vector3.Distance(transform.position, _masterPos) > PositionDelta)
+            print("위치 보간");
 
         // 이거 사용하려면 유닛에서 isStopped 건드리는 부분 고려해야 함.
         //if (Vector3.Distance(transform.position, _masterPos) > PositionDelta)

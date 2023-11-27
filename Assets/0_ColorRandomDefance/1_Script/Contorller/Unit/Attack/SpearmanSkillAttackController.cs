@@ -17,7 +17,7 @@ public class SpearmanSkillAttackController : UnitAttackControllerTemplate
     {
         base.Awake();
         _nav = GetComponent<NavMeshAgent>();
-        _projectileSync = gameObject.AddComponent<UnitProjectileSync>();
+        _projectileSync = GetComponent<UnitProjectileSync>();
     }
 
     ThrowSpearData _throwSpearData;
@@ -30,7 +30,7 @@ public class SpearmanSkillAttackController : UnitAttackControllerTemplate
 
     protected override IEnumerator Co_Attack()
     {
-        yield return StartCoroutine(Co_ShotSpear());
+        yield return StartCoroutine(Co_ShotSpear()); //new WaitForSeconds(PreparationTime); 
 
         _spear.SetActive(false);
         _nav.isStopped = true;
@@ -41,15 +41,20 @@ public class SpearmanSkillAttackController : UnitAttackControllerTemplate
         _spear.SetActive(true);
     }
 
+    // 쏘는 부분 자체를 따로 빼야됨
+    const float PreparationTime = 0.9f;
+
     IEnumerator Co_ShotSpear()
     {
         yield return new WaitForSeconds(_throwSpearData.WaitForVisibility);
         var shotSpear = CreateSpear();
         _projectileSync.RegisterSyncProjectile(shotSpear, _attack, _throwSpearData.RotateVector);
         SetTrail(shotSpear, false); // 트레일 늘어지는거 방지
-        yield return new WaitForSeconds(1 - _throwSpearData.WaitForVisibility);
+        yield return new WaitForSeconds(PreparationTime - _throwSpearData.WaitForVisibility);
+        yield return new WaitForSeconds(0.1f);
         SetTrail(shotSpear, true);
-        ThrowSpear(shotSpear);
+        if (PhotonNetwork.IsMasterClient)
+            _projectileSync.SyncProjectileShot(transform.forward);
     }
 
     UnitProjectile CreateSpear()
@@ -70,15 +75,5 @@ public class SpearmanSkillAttackController : UnitAttackControllerTemplate
         var trail = spear.GetComponentInChildren<TrailRenderer>();
         if (trail != null)
             trail.enabled = isActive;
-    }
-
-    void ThrowSpear(UnitProjectile shotSpear)
-    {
-        shotSpear.transform.position = _shotPoint.position;
-        shotSpear.GetComponent<Collider>().enabled = true;
-        if(PhotonNetwork.IsMasterClient)
-            _projectileSync.SyncProjectileShot(transform.forward);
-        // shotSpear.AttackShot(transform.forward, _attack);
-        // shotSpear.transform.Rotate(_throwSpearData.RotateVector);
     }
 }

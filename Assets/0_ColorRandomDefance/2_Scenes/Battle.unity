@@ -751,7 +751,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _battleData:
-    _unitUpgradeShopData: {fileID: 0}
     UnitSummonData:
       SummonPrice: 0
       SummonMaxColor: 0
@@ -760,10 +759,6 @@ MonoBehaviour:
     StageMonsetSpawnCount: 0
     MonsterSpawnDelayTime: 0
     StageBreakTime: 0
-  _unitUpgradeShopData: {fileID: 11400000, guid: a6e4dad3ae580fe4fa7257e539e00505,
-    type: 2}
-  _battleDataContainer: {fileID: 11400000, guid: ca5675c0898f78e409d3b3ddc5391ee5,
-    type: 2}
 --- !u!1 &1712762048
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,24 +895,6 @@ MonoBehaviour:
   sceneViewId: 46
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!1 &1897597088 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2833895163327310852, guid: 3d434f65c39bbf44594982c4a9d7bc2b,
-    type: 3}
-  m_PrefabInstance: {fileID: 834029009}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1897597093
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1897597088}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa5a3215d0df9c24b83fe3367fbc9b01, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1821374131405553
 GameObject:
   m_ObjectHideFlags: 0

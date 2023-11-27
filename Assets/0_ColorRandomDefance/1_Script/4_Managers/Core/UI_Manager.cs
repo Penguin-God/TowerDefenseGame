@@ -43,8 +43,9 @@ public class UI_Manager
         var canvasScaler = go.GetOrAddComponent<CanvasScaler>();
         canvasScaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
         canvasScaler.referenceResolution = new Vector2(UIScreenWidth, UIScreenHeight);
-        canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
-        canvasScaler.matchWidthOrHeight = 1;
+        canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.Expand;
+        // canvasScaler.screenMatchMode = CanvasScaler.ScreenMatchMode.MatchWidthOrHeight;
+        // canvasScaler.matchWidthOrHeight = 1;
     }
 
     public void SetSotingOrder(Canvas canvas)

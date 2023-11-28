@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-using Photon.Pun;
 
 public class Multi_HitSkill : MonoBehaviour
 {
@@ -11,10 +10,8 @@ public class Multi_HitSkill : MonoBehaviour
     event Action<Multi_Enemy> OnHitSkile;
     public void SetHitActoin(Action<Multi_Enemy> action) => OnHitSkile = action;
 
-    private void OnTriggerEnter(Collider other)
+    void OnTriggerEnter(Collider other)
     {
-        if (PhotonNetwork.IsMasterClient == false) return;
-
         var monster = other.GetComponentInParent<Multi_Enemy>();
         if (monster != null)
             OnHitSkile?.Invoke(monster);

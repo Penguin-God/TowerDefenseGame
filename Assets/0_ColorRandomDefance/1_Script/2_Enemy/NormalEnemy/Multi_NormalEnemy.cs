@@ -173,13 +173,11 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     public void OnFreeze(float slowTime, UnitFlags flag)
     {
+        ChangeMat(freezeMat);
         if (RPCSendable == false) return;
 
         OnSlowWithTime(100f, slowTime, flag);
-        photonView.RPC(nameof(Mat_To_Freeze), RpcTarget.All);
     }
-
-    [PunRPC] protected void Mat_To_Freeze() => ChangeMat(freezeMat);
 
     public void OnStun_RPC(int _stunPercent, float _stunTime) => photonView.RPC(nameof(OnStun), RpcTarget.MasterClient, _stunPercent, _stunTime);
     [PunRPC]

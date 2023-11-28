@@ -108,15 +108,15 @@ public class Multi_NormalEnemy : Multi_Enemy
         pointIndex = -1;
         transform.rotation = Quaternion.identity;
         _stunCount = 0;
-        _isStun = false;
         MonsterSpeedManager.RestoreSpeed();
         MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
+        StopAllCoroutines();
     }
 
     protected SpeedManager SpeedManager => MonsterSpeedManager.SpeedManager;
     protected MonsterSpeedSystem MonsterSpeedManager { get; private set; }
 
-    public float Speed => _isStun || IsDead || MonsterSpeedManager == null ? 0 : SpeedManager.CurrentSpeed;
+    public float Speed => IsStun || IsDead || MonsterSpeedManager == null ? 0 : SpeedManager.CurrentSpeed;
     bool RPCSendable => IsDead == false && PhotonNetwork.IsMasterClient;
 
     #region 상태이상 구현
@@ -124,7 +124,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     public bool IsSlow => MonsterSpeedManager == null ? false : MonsterSpeedManager.IsSlow;
 
     int _stunCount = 0;
-    bool _isStun = false;
+    bool IsStun => _stunCount > 0;
     [SerializeField] private GameObject sternEffect;
 
     public void OnSlow(float slowRate)
@@ -179,35 +179,37 @@ public class Multi_NormalEnemy : Multi_Enemy
         OnSlowWithTime(100f, slowTime, flag);
     }
 
-    public void OnStun(float stunTime)
+    public void OnStunToAll(float stunTime)
     {
         if (RPCSendable == false) return;
-        StartCoroutine(Co_Stun(stunTime));
+        photonView.RPC(nameof(OnStun), RpcTarget.All, stunTime);
     }
 
+    [PunRPC]
+    public void OnStun(float stunTime)
+    {
+        if (IsDead) return;
+        StartCoroutine(Co_Stun(stunTime));
+    }
 
     IEnumerator Co_Stun(float stunTime)
     {
         _stunCount++;
-        photonView.RPC(nameof(Stun), RpcTarget.All);
+        Stun();
         yield return new WaitForSeconds(stunTime);
 
         _stunCount--;
-        if(_stunCount <= 0) photonView.RPC(nameof(ExitStun), RpcTarget.All);
+        if (IsStun == false) ExitStun();
     }
 
-    [PunRPC]
-    protected void ExitStun()
+    void ExitStun()
     {
-        _isStun = false;
         sternEffect.SetActive(false);
         ChangeVelocity(dir);
     }
 
-    [PunRPC]
-    protected void Stun()
+    void Stun()
     {
-        _isStun = true;
         ChangeVelocity(Vector3.zero);
         sternEffect.SetActive(true);
     }

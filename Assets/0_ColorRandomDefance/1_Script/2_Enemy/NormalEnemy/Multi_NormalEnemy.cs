@@ -179,14 +179,12 @@ public class Multi_NormalEnemy : Multi_Enemy
         OnSlowWithTime(100f, slowTime, flag);
     }
 
-    public void OnStun_RPC(int _stunPercent, float _stunTime) => photonView.RPC(nameof(OnStun), RpcTarget.MasterClient, _stunPercent, _stunTime);
-    [PunRPC]
-    protected void OnStun(int stunPercent, float stunTime)
+    public void OnStun(float stunTime)
     {
         if (RPCSendable == false) return;
-        int random = UnityEngine.Random.Range(0, 100);
-        if (random < stunPercent) StartCoroutine(Co_Stun(stunTime));
+        StartCoroutine(Co_Stun(stunTime));
     }
+
 
     IEnumerator Co_Stun(float stunTime)
     {
@@ -201,9 +199,9 @@ public class Multi_NormalEnemy : Multi_Enemy
     [PunRPC]
     protected void ExitStun()
     {
+        _isStun = false;
         sternEffect.SetActive(false);
         ChangeVelocity(dir);
-        _isStun = false;
     }
 
     [PunRPC]

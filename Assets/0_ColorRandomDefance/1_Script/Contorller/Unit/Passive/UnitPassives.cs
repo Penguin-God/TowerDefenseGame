@@ -1,3 +1,4 @@
+using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -65,7 +66,8 @@ public class PosionAndStunActor : IUnitAttackPassive
 
     public void DoUnitPassive(Multi_Enemy target)
     {
-        target.GetComponent<Multi_NormalEnemy>()?.OnStun_RPC(SturnPercent, StrunTime);
+        if(PhotonNetwork.IsMasterClient && MathUtil.GetRandomBoolByRate(SturnPercent))
+            target.GetComponent<Multi_NormalEnemy>()?.OnStun(StrunTime);
         target.OnPoison_RPC(PoisonTickCount, CalculatePosionDamage(target.enemyType), isSkill: true);
     }
 

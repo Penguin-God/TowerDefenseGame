@@ -53,7 +53,7 @@ public class SlowTests
         AssertSpeedState(7, true);
         yield return null;
 
-        _sut.ExitCurrentSlow();
+        _sut.ExitInfinitySlow();
         AssertSpeedState(10, false);
     }
 
@@ -99,7 +99,7 @@ public class SlowTests
         ApplySlow(CreateDurationSlow(10));
 
         AssertSpeedState(7, true);
-        _sut.ExitCurrentSlow();
+        _sut.ExitInfinitySlow();
         AssertSpeedState(8, true);
         yield return null;
     }

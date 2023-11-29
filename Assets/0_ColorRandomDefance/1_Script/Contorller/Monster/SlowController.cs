@@ -24,57 +24,63 @@ public class SlowController : MonoBehaviour
         if (_slowDuration > 0)
         {
             _slowDuration -= Time.deltaTime;
-            if (_slowDuration <= 0)
-            {
-                _slowDuration = 0;
-                _speedManager.RestoreSpeed();
-                if (_currentInfinitySlow.IsVaild) _speedManager.OnSlow(_currentInfinitySlow.Intensity);
-                else ExitCurrentSlow();
-            }
+            if (_slowDuration <= 0) ExitDurationSlow();
         }
     }
 
+    void ExitCurrentSlow(ref Slow currentSlow, Slow otherSlow)
+    {
+        currentSlow = Slow.InVaildSlow();
+        _speedManager.RestoreSpeed();
+        // 현재 슬로우 나간다고 끝이 아님. 예를 들어 시간 슬로우가 끝나도 장판 안에 있으면 범위 슬로우가 들어가야 함.
+        if (otherSlow.IsVaild) UpdateApplySlow(otherSlow);
+        else ExitApplySlow();
+    }
+
+    void ExitDurationSlow()
+    {
+        _slowDuration = 0;
+        ExitCurrentSlow(ref _currentDurationSlow, _currentInfinitySlow);
+    }
+
+    public void ExitInfinitySlow() => ExitCurrentSlow(ref _currentInfinitySlow, _currentDurationSlow);
+
+
     public void ApplyNewSlow(Slow slow)
     {
-        if (slow.IsInfinity)
-        {
-            if (NewSlowIsStrong(_currentInfinitySlow))
-            {
-                _currentInfinitySlow = slow;
-                if(_currentInfinitySlow.Intensity > _currentApplySlow.Intensity)
-                    UpdateApplySlow(_currentInfinitySlow);
-            }
-        }
-        else
-        {
-            if (NewSlowIsStrong(_currentDurationSlow))
-            {
-                _currentDurationSlow = slow;
-                _slowDuration = slow.Duration;
-                if (_currentDurationSlow.Intensity > _currentApplySlow.Intensity)
-                    UpdateApplySlow(slow);
-            }
-        }
+        if (slow.IsInfinity) 
+            UpdateCurrentSlow(ref _currentInfinitySlow, slow);
+        else if(UpdateCurrentSlow(ref _currentDurationSlow, slow))
+            _slowDuration = slow.Duration;
+    }
 
-        bool NewSlowIsStrong(Slow currentSlow) => slow.Intensity >= currentSlow.Intensity;
+    bool UpdateCurrentSlow(ref Slow currentSlow, Slow newSlow)
+    {
+        if (newSlow.Intensity >= currentSlow.Intensity)
+        {
+            currentSlow = newSlow;
+            if (currentSlow.Intensity > _currentApplySlow.Intensity)
+                UpdateApplySlow(currentSlow);
+            return true;
+        }
+        else return false;
     }
 
     void UpdateApplySlow(Slow slow)
     {
+        if (slow.IsVaild == false)
+        {
+            Debug.LogError("왜 유효하지 않은 슬로우를 준거야");
+            return;
+        }
+
         _speedManager.RestoreSpeed();
         _currentApplySlow = slow;
-        _slowDuration = _currentApplySlow.Duration;
         _speedManager.OnSlow(_currentApplySlow.Intensity);
     }
 
-    public void ExitCurrentSlow()
+    void ExitApplySlow()
     {
-        if (_currentApplySlow.IsInfinity)
-        {
-            _currentInfinitySlow = Slow.InVaildSlow();
-            _speedManager.RestoreSpeed();
-            if (_slowDuration > 0) UpdateApplySlow(_currentDurationSlow);
-            else _currentApplySlow = Slow.InVaildSlow();
-        }
+        _currentApplySlow = Slow.InVaildSlow();
     }
 }

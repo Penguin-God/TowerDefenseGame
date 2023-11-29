@@ -16,15 +16,9 @@ public class Multi_BossEnemy : Multi_NormalEnemy
     public void Inject(BossData bossData, UnitManagerController unitManagerController)
     {
         BossData = bossData;
-        Inject(bossData.Hp);
+        SetStatus(bossData.Hp, false);
         Go();
         AggroUnit(unitManagerController);
-    }
-
-    void Inject(int hp)
-    {
-        SetSpeed();
-        SetStatus(hp, false);
     }
 
     [PunRPC]

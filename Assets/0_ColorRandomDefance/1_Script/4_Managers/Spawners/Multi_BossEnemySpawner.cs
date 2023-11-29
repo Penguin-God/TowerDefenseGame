@@ -12,9 +12,9 @@ public class Multi_BossEnemySpawner : MonoBehaviourPun
     const int SpawnableObjectCount = 4;
     string BulildBossPath() => new ResourcesPathBuilder().BuildBossMonsterPath(Random.Range(0, SpawnableObjectCount));
 
-    MonsterDecorator _monsterDecorator;
+    SpeedManagerCreator _monsterDecorator;
     UnitManagerController _unitManagerController;
-    public void DependencyInject(MonsterDecorator monsterDecorator, UnitManagerController unitManagerController)
+    public void DependencyInject(SpeedManagerCreator monsterDecorator, UnitManagerController unitManagerController)
     {
         _monsterDecorator = monsterDecorator;
         _unitManagerController = unitManagerController;
@@ -35,7 +35,7 @@ public class Multi_BossEnemySpawner : MonoBehaviourPun
         Multi_EnemyManager.Instance.SetSpawnBoss(monster.UsingId, monster);
         Managers.Sound.PlayBgm(BgmType.Boss);
 
-        _monsterDecorator.DecorateSpeedSystem(bossData.Speed, monster);
+        _monsterDecorator.CeateSpeedManager(bossData.Speed, monster);
         monster.Inject(bossData, _unitManagerController);
     }
 }

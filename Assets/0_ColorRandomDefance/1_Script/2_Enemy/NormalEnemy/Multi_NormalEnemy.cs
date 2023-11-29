@@ -23,6 +23,8 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         Rigidbody = GetComponent<Rigidbody>();
         enemyType = EnemyType.Normal;
+        // JInject써서 부활시키자
+        // MonsterSpeedManager.OnRestoreSpeed += ExitSlow;
     }
 
     [PunRPC]
@@ -57,18 +59,18 @@ public class Multi_NormalEnemy : Multi_Enemy
         SetDirection();
     }
 
-    public void Inject(byte stage)
+    public void Inject(byte stage, SpeedManager speedManager)
     {
-        SetSpeed();
-        SetStatus(stage);
-        Go();
-    }
+        SpeedManager = speedManager;
 
-    protected void SetSpeed()
-    {
-        MonsterSpeedManager = gameObject.GetComponent<MonsterSpeedSystem>();
+        // JInject써서 없애자
+        MonsterSpeedManager = gameObject.GetOrAddComponent<MonsterSpeedSystem>();
         MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
         MonsterSpeedManager.OnRestoreSpeed += ExitSlow;
+
+        MonsterSpeedManager.ReceiveInject(SpeedManager);
+        SetStatus(stage);
+        Go();
     }
 
     void Turn()
@@ -109,13 +111,13 @@ public class Multi_NormalEnemy : Multi_Enemy
         transform.rotation = Quaternion.identity;
         _stunCount = 0;
         MonsterSpeedManager.RestoreSpeed();
+        SpeedManager = null;
         MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
         StopAllCoroutines();
     }
 
-    protected SpeedManager SpeedManager => MonsterSpeedManager.SpeedManager;
-    protected MonsterSpeedSystem MonsterSpeedManager { get; private set; }
-
+    protected SpeedManager SpeedManager;
+    MonsterSpeedSystem MonsterSpeedManager;
     public float Speed => IsStun || IsDead || MonsterSpeedManager == null ? 0 : SpeedManager.CurrentSpeed;
     bool RPCSendable => IsDead == false && PhotonNetwork.IsMasterClient;
 

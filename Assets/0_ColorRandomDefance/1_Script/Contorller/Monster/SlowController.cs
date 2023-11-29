@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class SlowController : MonoBehaviour
     float _slowDuration;
 
     SpeedManager _speedManager;
+    public event Action OnExitSlow = null;
     public void DependencyInject(SpeedManager speedManager) => _speedManager = speedManager;
 
     void Update()
@@ -82,5 +84,6 @@ public class SlowController : MonoBehaviour
     void ExitApplySlow()
     {
         _currentApplySlow = Slow.InVaildSlow();
+        OnExitSlow?.Invoke();
     }
 }

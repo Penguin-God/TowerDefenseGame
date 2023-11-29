@@ -41,7 +41,7 @@ public class SlowTests
 
         // Assert
         AssertSpeedState(7, true);
-        yield return new WaitForSeconds(0.0011f);
+        yield return null;
         AssertSpeedState(10, false);
     }
 
@@ -87,7 +87,7 @@ public class SlowTests
 
         // Assert
         AssertSpeedState(7, true);
-        yield return new WaitForSeconds(0.0011f);
+        yield return null;
         AssertSpeedState(9, true);
     }
 
@@ -115,5 +115,26 @@ public class SlowTests
 
         AssertSpeedState(9, true);
         yield return null;
+    }
+
+    [UnityTest]
+    public IEnumerator 슬로우가_모두_끝나면_이밴트를_알려야_함()
+    {
+        bool eventFlag = false;
+        _sut.OnExitSlow += () => eventFlag = true;
+
+        ApplySlow(CreateDurationSlow(30));
+        ApplySlow(Slow.CreateInfinitySlow(10));
+        yield return null;
+
+        Assert.IsFalse(eventFlag);
+
+        _sut.ExitInfinitySlow();
+        Assert.IsTrue(eventFlag);
+        eventFlag = false;
+
+        ApplySlow(CreateDurationSlow(30));
+        yield return null;
+        Assert.IsTrue(eventFlag);
     }
 }

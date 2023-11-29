@@ -13,9 +13,16 @@ public class SlowTests
     [SetUp]
     public void SetUp()
     {
-        var controller = new GameObject().AddComponent<SlowController>();
+        _sut = new GameObject().AddComponent<SlowController>();
         _speedManager = new(Speed);
-        controller.DependencyInject(_speedManager);
+        _sut.DependencyInject(_speedManager);
+    }
+
+    [TearDown]
+    public void End()
+    {
+        Object.Destroy(_sut.gameObject);
+        _speedManager = null;
     }
 
     Slow CreateDurationSlow(float intensity) => Slow.CreateDurationSlow(intensity, 0.001f);
@@ -26,10 +33,10 @@ public class SlowTests
         _sut.ApplyNewSlow(CreateDurationSlow(30));
 
         // Assert
-        Assert.AreEqual(_speedManager.CurrentSpeed, 7f);
+        Assert.AreEqual(7f, _speedManager.CurrentSpeed);
         Assert.IsTrue(_speedManager.IsSlow);
         yield return new WaitForSeconds(0.0011f);
-        Assert.AreEqual(_speedManager.CurrentSpeed, 10f);
+        Assert.AreEqual(10f, _speedManager.CurrentSpeed);
         Assert.IsFalse(_speedManager.IsSlow);
     }
 
@@ -38,21 +45,23 @@ public class SlowTests
     {
         _sut.ApplyNewSlow(Slow.CreateInfinitySlow(30));
 
-        Assert.AreEqual(_speedManager.CurrentSpeed, 7f);
+        Assert.AreEqual(7f, _speedManager.CurrentSpeed);
         Assert.IsTrue(_speedManager.IsSlow);
         yield return null;
 
         _sut.ExitSlow();
-        Assert.AreEqual(_speedManager.CurrentSpeed, 10f);
+        Assert.AreEqual(10f, _speedManager.CurrentSpeed);
         Assert.IsTrue(_speedManager.IsSlow);
     }
 
     [UnityTest]
     public IEnumerator 슬로우_중첩_시_더_강한_슬로우가_적용되어야_함()
     {
-        yield return 슬로우_중첩_시_더_강한_슬로우가_적용되어야_함(CreateDurationSlow(30), CreateDurationSlow(60), 4);
+        yield return 슬로우_중첩_시_더_강한_슬로우가_적용되어야_함(CreateDurationSlow(30), CreateDurationSlow(50), 5);
+        End();
         yield return 슬로우_중첩_시_더_강한_슬로우가_적용되어야_함(CreateDurationSlow(30), Slow.CreateInfinitySlow(60), 4);
-        yield return 슬로우_중첩_시_더_강한_슬로우가_적용되어야_함(Slow.CreateInfinitySlow(20), Slow.CreateInfinitySlow(60), 4);
+        End();
+        yield return 슬로우_중첩_시_더_강한_슬로우가_적용되어야_함(Slow.CreateInfinitySlow(20), Slow.CreateInfinitySlow(70), 3);
     }
 
     IEnumerator 슬로우_중첩_시_더_강한_슬로우가_적용되어야_함(Slow slow1, Slow slow2, float expected)
@@ -61,8 +70,8 @@ public class SlowTests
         _sut.ApplyNewSlow(slow1);
         _sut.ApplyNewSlow(slow2);
         
-        yield return null;
         Assert.AreEqual(expected, _speedManager.CurrentSpeed);
+        yield return null;
     }
 
     [UnityTest]
@@ -72,10 +81,10 @@ public class SlowTests
         _sut.ApplyNewSlow(Slow.CreateInfinitySlow(10));
 
         // Assert
-        Assert.AreEqual(_speedManager.CurrentSpeed, 7f);
+        Assert.AreEqual(7f, _speedManager.CurrentSpeed);
         Assert.IsTrue(_speedManager.IsSlow);
         yield return new WaitForSeconds(0.0011f);
-        Assert.AreEqual(_speedManager.CurrentSpeed, 9f);
+        Assert.AreEqual(9f, _speedManager.CurrentSpeed);
         Assert.IsTrue(_speedManager.IsSlow);
     }
 }

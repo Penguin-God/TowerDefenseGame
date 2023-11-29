@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Slow
+public readonly struct Slow
 {
     public readonly float Intensity;
     public readonly float Duration;
@@ -14,6 +14,9 @@ public class Slow
         IsInfinity = isInfinity;
     }
 
-    public static Slow CreateDurationSlow(float intensity, float duration) => new Slow(intensity, duration, false);
-    public static Slow CreateInfinitySlow(float intensity) => new Slow(intensity, float.PositiveInfinity, true);
+    public bool IsVaild => Intensity > 0;
+
+    public static Slow CreateDurationSlow(float intensity, float duration) => new(intensity, duration, false);
+    public static Slow CreateInfinitySlow(float intensity) => new(intensity, float.PositiveInfinity, true);
+    public static Slow InVaildSlow() => new(-1, -1, false);
 }

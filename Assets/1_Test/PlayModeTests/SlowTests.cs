@@ -49,7 +49,7 @@ public class SlowTests
         Assert.IsTrue(_speedManager.IsSlow);
         yield return null;
 
-        _sut.ExitSlow();
+        _sut.ExitCurrentSlow();
         Assert.AreEqual(10f, _speedManager.CurrentSpeed);
         Assert.IsTrue(_speedManager.IsSlow);
     }
@@ -86,5 +86,19 @@ public class SlowTests
         yield return new WaitForSeconds(0.0011f);
         Assert.AreEqual(9f, _speedManager.CurrentSpeed);
         Assert.IsTrue(_speedManager.IsSlow);
+    }
+
+    [UnityTest]
+    public IEnumerator 범위_슬로우가_끝나고_지속_슬로우_시간이_남아있다면_그게_적용되어야_함()
+    {
+        _sut.ApplyNewSlow(Slow.CreateInfinitySlow(30));
+        _sut.ApplyNewSlow(CreateDurationSlow(10));
+
+        Assert.AreEqual(7f, _speedManager.CurrentSpeed);
+        Assert.IsTrue(_speedManager.IsSlow);
+        _sut.ExitCurrentSlow();
+        Assert.AreEqual(9f, _speedManager.CurrentSpeed);
+        Assert.IsTrue(_speedManager.IsSlow);
+        yield return null;
     }
 }

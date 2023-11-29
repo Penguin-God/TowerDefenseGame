@@ -28,7 +28,7 @@ public class SlowController : MonoBehaviour
                 _slowDuration = 0;
                 _speedManager.RestoreSpeed();
                 if (_currentInfinitySlow.IsVaild) _speedManager.OnSlow(_currentInfinitySlow.Intensity);
-                else ExitSlow();
+                else ExitCurrentSlow();
             }
         }
     }
@@ -61,7 +61,7 @@ public class SlowController : MonoBehaviour
         _speedManager.OnSlow(_currentApplySlow.Intensity);
     }
 
-    public void ExitSlow()
+    public void ExitCurrentSlow()
     {
         
     }

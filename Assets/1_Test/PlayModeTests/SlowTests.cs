@@ -51,7 +51,7 @@ public class SlowTests
 
         _sut.ExitCurrentSlow();
         Assert.AreEqual(10f, _speedManager.CurrentSpeed);
-        Assert.IsTrue(_speedManager.IsSlow);
+        Assert.IsFalse(_speedManager.IsSlow);
     }
 
     [UnityTest]

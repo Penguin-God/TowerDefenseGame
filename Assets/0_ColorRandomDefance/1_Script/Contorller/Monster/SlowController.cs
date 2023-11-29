@@ -5,6 +5,7 @@ using UnityEngine;
 public class SlowController : MonoBehaviour
 {
     Slow _currentInfinitySlow = Slow.InVaildSlow();
+    Slow _currentDurationSlow = Slow.InVaildSlow();
     Slow _currentApplySlow = Slow.InVaildSlow();
     float _slowDuration;
 
@@ -44,8 +45,9 @@ public class SlowController : MonoBehaviour
                     UpdateApplySlow(_currentInfinitySlow);
             }
         }
-        else if(_currentApplySlow.IsInfinity == false || _currentApplySlow.IsVaild == false)
+        else
         {
+            _currentDurationSlow = slow;
             if (NewSlowIsStrong(_currentApplySlow))
                 UpdateApplySlow(slow);
         }
@@ -63,6 +65,12 @@ public class SlowController : MonoBehaviour
 
     public void ExitCurrentSlow()
     {
-        
+        if (_currentApplySlow.IsInfinity)
+        {
+            _currentInfinitySlow = Slow.InVaildSlow();
+            _speedManager.RestoreSpeed();
+            if (_slowDuration > 0) UpdateApplySlow(_currentDurationSlow);
+            else _currentApplySlow = Slow.InVaildSlow();
+        }
     }
 }

@@ -47,12 +47,16 @@ public class SlowController : MonoBehaviour
         }
         else
         {
-            _currentDurationSlow = slow;
-            if (NewSlowIsStrong(_currentApplySlow))
-                UpdateApplySlow(slow);
+            if (NewSlowIsStrong(_currentDurationSlow))
+            {
+                _currentDurationSlow = slow;
+                _slowDuration = slow.Duration;
+                if (_currentDurationSlow.Intensity > _currentApplySlow.Intensity)
+                    UpdateApplySlow(slow);
+            }
         }
 
-        bool NewSlowIsStrong(Slow currentSlow) => slow.Intensity > currentSlow.Intensity;
+        bool NewSlowIsStrong(Slow currentSlow) => slow.Intensity >= currentSlow.Intensity;
     }
 
     void UpdateApplySlow(Slow slow)

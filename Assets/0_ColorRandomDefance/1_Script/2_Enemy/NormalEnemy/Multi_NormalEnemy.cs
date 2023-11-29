@@ -169,7 +169,7 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     protected void ExitSlow()
     {
-        ResetColor(); // 얼어있을 수도 있이느 Mat도 바꾸는 ResetColor() 사용
+        ResetColor(); // 얼어있을 수도 있으니 Mat도 바꾸는 ResetColor() 사용
         ChangeVelocity(dir);
     }
 

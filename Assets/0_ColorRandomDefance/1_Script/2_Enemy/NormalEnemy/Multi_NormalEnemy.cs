@@ -140,21 +140,10 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     public void OnSlow(float slowRate)
     {
-        //if (RPCSendable == false) return;
-        //photonView.RPC(nameof(ApplySlow), RpcTarget.All, slowRate);
-
         if (IsDead) return;
         ChangeColorToSlow();
 
         if (PhotonNetwork.IsMasterClient == false) return;
-        MonsterSpeedManager.OnSlow(slowRate);
-        ChangeVelocity(dir);
-    }
-
-    [PunRPC]
-    protected void ApplySlow(float slowRate)
-    {
-        ChangeColorToSlow();
         MonsterSpeedManager.OnSlow(slowRate);
         ChangeVelocity(dir);
     }
@@ -165,17 +154,6 @@ public class Multi_NormalEnemy : Multi_Enemy
         ChangeColorToSlow();
 
         if (PhotonNetwork.IsMasterClient == false) return;
-        MonsterSpeedManager.OnSlowWithTime(slowRate, slowTime, flag);
-        ChangeVelocity(dir);
-        // photonView.RPC(nameof(ApplySlowToAll), RpcTarget.All, slowRate, slowTime, flag);
-    }
-
-    [PunRPC]
-    protected void ApplySlowToAll(float slowRate, float slowTime, UnitFlags flag)
-    {
-        // ChangeColorToSlow();
-
-        // 서순 무조건 지켜야됨
         MonsterSpeedManager.OnSlowWithTime(slowRate, slowTime, flag);
         ChangeVelocity(dir);
     }

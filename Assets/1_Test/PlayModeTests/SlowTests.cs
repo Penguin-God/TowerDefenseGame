@@ -30,7 +30,7 @@ public class SlowTests
     void AssertSpeedState(float speed, bool isSlow)
     {
         Assert.AreEqual(speed, _speedManager.CurrentSpeed);
-        Assert.AreEqual(isSlow, _speedManager.IsSlow);
+        Assert.AreEqual(isSlow, _sut.IsSlow);
     }
 
 

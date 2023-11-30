@@ -11,6 +11,7 @@ public class SlowController : MonoBehaviour
     float _slowDuration;
 
     SpeedManager _speedManager;
+    public bool IsSlow => _currentApplySlow.IsVaild;
     public event Action OnExitSlow = null;
     public void DependencyInject(SpeedManager speedManager) => _speedManager = speedManager;
 

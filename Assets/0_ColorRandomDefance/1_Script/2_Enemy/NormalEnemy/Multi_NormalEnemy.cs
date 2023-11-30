@@ -25,15 +25,13 @@ public class Multi_NormalEnemy : Multi_Enemy
         Rigidbody = GetComponent<Rigidbody>();
         enemyType = EnemyType.Normal;
         gameObject.AddComponent<MonsterStateSync>();
-        // JInject써서 부활시키자
-        // MonsterSpeedManager.OnRestoreSpeed += ExitSlow;
     }
 
     [PunRPC]
     protected override void RPC_OnDamage(int damage, bool isSkill)
     {
         if (IsSlow) // 슬로우 시 추뎀
-            damage += Mathf.RoundToInt(damage * (MonsterSpeedManager.ApplySlowRate / 100));
+            damage += Mathf.RoundToInt(damage * (SpeedManager.ApplySlowRate / 100));
         base.RPC_OnDamage(damage, isSkill);
     }
 
@@ -71,6 +69,21 @@ public class Multi_NormalEnemy : Multi_Enemy
         MonsterSpeedManager.OnRestoreSpeed += ExitSlow;
 
         MonsterSpeedManager.ReceiveInject(SpeedManager);
+        SetStatus(stage);
+        Go();
+    }
+
+    MonsterSlowController _monsterSlowController;
+    public SlowController SlowController { get; private set; }
+    public void Inject(byte stage, MonsterSlowController monsterSlowController, SpeedManager speedManager)
+    {
+        _monsterSlowController = monsterSlowController;
+        SpeedManager = speedManager;
+        SlowController = GetComponent<SlowController>();
+        SlowController.DependencyInject(SpeedManager);
+        SlowController.OnExitSlow -= ExitSlow;
+        SlowController.OnExitSlow += ExitSlow;
+
         SetStatus(stage);
         Go();
     }
@@ -118,9 +131,9 @@ public class Multi_NormalEnemy : Multi_Enemy
         pointIndex = -1;
         transform.rotation = Quaternion.identity;
         _stunCount = 0;
-        MonsterSpeedManager.RestoreSpeed();
+        // MonsterSpeedManager.RestoreSpeed();
         SpeedManager = null;
-        MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
+        // MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
         ResetColor();
         StopAllCoroutines();
     }
@@ -144,7 +157,8 @@ public class Multi_NormalEnemy : Multi_Enemy
         ChangeColorToSlow();
 
         if (PhotonNetwork.IsMasterClient == false) return;
-        MonsterSpeedManager.OnSlow(slowRate);
+        // MonsterSpeedManager.OnSlow(slowRate);
+        _monsterSlowController.Slow(Slow.CreateInfinitySlow(slowRate));
         ChangeVelocity(dir);
     }
 
@@ -154,7 +168,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         ChangeColorToSlow();
 
         if (PhotonNetwork.IsMasterClient == false) return;
-        MonsterSpeedManager.OnSlowWithTime(slowRate, slowTime, flag);
+        _monsterSlowController.Slow(Slow.CreateDurationSlow(slowRate, slowTime), flag);
         ChangeVelocity(dir);
     }
 
@@ -166,7 +180,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         photonView.RPC(nameof(RestoreSpeed), RpcTarget.All);
     }
 
-    [PunRPC] protected void RestoreSpeed() => MonsterSpeedManager.RestoreSpeed();
+    [PunRPC] protected void RestoreSpeed() => SpeedManager.RestoreSpeed();
     [PunRPC] protected void RestoreColor() => ResetColor();
 
     protected void ExitSlow()

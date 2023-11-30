@@ -26,7 +26,8 @@ public class NormalMonsterSpawner : MonoBehaviourPun
     {
         var monster = Managers.Multi.GetPhotonViewComponent<Multi_NormalEnemy>(viewId);
         NormalEnemyData monsterData = Managers.Data.NormalEnemyDataByStage[stage];
-        monster.Inject(stage, _monsterDecorator.CeateSpeedManager(monsterData.Speed, monster));
+        // monster.Inject(stage, _monsterDecorator.CeateSpeedManager(monsterData.Speed, monster));
+        monster.Inject(stage, _monsterDecorator.CreateSlowController(monster), new SpeedManager(monsterData.Speed));
         _monsterManagerController.AddNormalMonster(monster);
         monster.OnDead += _ => _monsterManagerController.RemoveNormalMonster(monster);
     }
@@ -45,6 +46,15 @@ public class SpeedManagerCreator
         if (skillData.TruGetSkillData(SkillType.썬콜, out var skillBattleData))
             return new SuncoldSpeedManager(speed, monster, skillBattleData.IntSkillDatas.Take(UnitDamageCount).ToArray(), _container.GetComponent<MultiEffectManager>(), _container.GetComponent<WorldAudioPlayer>());
         else return new SpeedManager(speed);
+    }
+
+    public MonsterSlowController CreateSlowController(Multi_NormalEnemy monster)
+    {
+        var skillData = _container.GetMultiActiveSkillData().GetData(monster.UsingId);
+        var slowController = monster.gameObject.GetOrAddComponent<SlowController>();
+        if (skillData.TruGetSkillData(SkillType.썬콜, out var skillBattleData))
+            return new SunColdMonsterSlowController(slowController, monster, skillBattleData.IntSkillDatas.Take(UnitDamageCount).ToArray(), _container.GetComponent<MultiEffectManager>(), _container.GetComponent<WorldAudioPlayer>());
+        else return new MonsterSlowController(slowController);
     }
 }
 

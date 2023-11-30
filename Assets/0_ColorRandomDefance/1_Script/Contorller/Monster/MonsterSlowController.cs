@@ -1,11 +1,12 @@
 using Photon.Pun;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class MonsterSlowController
 {
-    readonly SlowController _slowController;
+    readonly protected SlowController _slowController;
     public MonsterSlowController(SlowController slowController) => _slowController = slowController;
 
     public void Slow(Slow slow) => OnSlow(slow);
@@ -17,16 +18,14 @@ public class MonsterSlowController
 public class SunColdMonsterSlowController : MonsterSlowController
 {
     readonly Multi_NormalEnemy _normalMonster;
-    readonly SpeedManager _speedManager;
     readonly int[] _suncoldDamages;
     readonly MultiEffectManager _effect;
     readonly WorldAudioPlayer _audioPlayer;
 
-    public SunColdMonsterSlowController(SlowController slowController, SpeedManager speedManager, Multi_NormalEnemy normalMonster, int[] damages, 
+    public SunColdMonsterSlowController(SlowController slowController, Multi_NormalEnemy normalMonster, int[] damages, 
         MultiEffectManager effect, WorldAudioPlayer audioPlayer) : base(slowController)
     {
         _normalMonster = normalMonster;
-        _speedManager = speedManager;
         _suncoldDamages = damages;
         _effect = effect;
         _audioPlayer = audioPlayer;
@@ -34,7 +33,7 @@ public class SunColdMonsterSlowController : MonsterSlowController
 
     public override void Slow(Slow slow, UnitFlags flag)
     {
-        if (_speedManager.IsSlow)
+        if (_slowController.IsSlow)
         {
             _effect.PlayOneShotEffect("BlueLightning", _normalMonster.transform.position + Vector3.up * 3);
             _audioPlayer.PlayObjectEffectSound(_normalMonster.MonsterSpot, EffectSoundType.LightningClip);

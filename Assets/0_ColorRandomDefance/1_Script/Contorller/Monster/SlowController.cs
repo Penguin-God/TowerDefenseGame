@@ -87,4 +87,12 @@ public class SlowController : MonoBehaviour
         _currentApplySlow = Slow.InVaildSlow();
         OnExitSlow?.Invoke();
     }
+
+    void OnEnable()
+    {
+        _currentInfinitySlow = Slow.InVaildSlow();
+        _currentDurationSlow = Slow.InVaildSlow();
+        _currentApplySlow = Slow.InVaildSlow();
+        _slowDuration = 0;
+    }
 }

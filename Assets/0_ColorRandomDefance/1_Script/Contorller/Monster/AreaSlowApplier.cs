@@ -11,11 +11,8 @@ public class AreaSlowApplier : MonoBehaviourPun
 
     public void Inject(float slowPer, float raduis)
     {
-        SetInfo(slowPer, raduis);
-        //if (PhotonNetwork.IsMasterClient)
-        //    SetInfo(slowPer, raduis);
-        //else
-        //    photonView.RPC(nameof(SetInfo), RpcTarget.MasterClient, slowPer, raduis);
+        _slowPercent = slowPer;
+        GetComponentInChildren<SphereCollider>().radius = raduis;
     }
 
     [PunRPC]
@@ -30,17 +27,17 @@ public class AreaSlowApplier : MonoBehaviourPun
         if (_targets.Contains(enemy) == false)
         {
             _targets.Add(enemy);
-            enemy.OnDead += _ => CancelSlow(enemy);
+            enemy.OnDead += _ => ExitSlow(enemy);
             enemy.OnSlow(_slowPercent);
         }
     }
 
-    void CancelSlow(Multi_NormalEnemy enemy)
+    void ExitSlow(Multi_NormalEnemy enemy)
     {
         if (_targets.Contains(enemy))
         {
             _targets.Remove(enemy);
-            enemy.RestoreSpeedToAll();
+            enemy.SlowController.ExitInfinitySlow();
         }
     }
 
@@ -49,7 +46,7 @@ public class AreaSlowApplier : MonoBehaviourPun
     void OnDisable()
     {
         foreach (Multi_NormalEnemy target in _targets)
-            target.RestoreSpeedToAll();
+            target.SlowController.ExitInfinitySlow();
         _targets.Clear();
         StopCoroutine(Co_KeepSlowInRage());
     }
@@ -75,6 +72,6 @@ public class AreaSlowApplier : MonoBehaviourPun
     {
         var enemy = other.GetComponentInParent<Multi_NormalEnemy>();
         if (enemy != null)
-            CancelSlow(enemy);
+            ExitSlow(enemy);
     }
 }

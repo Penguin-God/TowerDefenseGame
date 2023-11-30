@@ -118,12 +118,12 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     protected SpeedManager SpeedManager;
     MonsterSpeedSystem MonsterSpeedManager;
-    public float Speed => IsStun || IsDead || MonsterSpeedManager == null ? 0 : SpeedManager.CurrentSpeed;
+    public float Speed => IsStun || IsDead || SpeedManager == null ? 0 : SpeedManager.CurrentSpeed;
     bool RPCSendable => IsDead == false && PhotonNetwork.IsMasterClient;
 
     #region 상태이상 구현
     [SerializeField] private Material freezeMat;
-    public bool IsSlow => MonsterSpeedManager == null ? false : MonsterSpeedManager.IsSlow;
+    public bool IsSlow => SpeedManager == null ? false : SpeedManager.IsSlow;
 
     int _stunCount = 0;
     bool IsStun => _stunCount > 0;

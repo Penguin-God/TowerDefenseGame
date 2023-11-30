@@ -23,6 +23,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         Rigidbody = GetComponent<Rigidbody>();
         enemyType = EnemyType.Normal;
+        gameObject.AddComponent<MonsterStateSync>();
         // JInject써서 부활시키자
         // MonsterSpeedManager.OnRestoreSpeed += ExitSlow;
     }
@@ -86,6 +87,8 @@ public class Multi_NormalEnemy : Multi_Enemy
         dir = (WayPoint.position - transform.position).normalized;
         ChangeVelocity(dir);
     }
+
+    public void ChangeVelocity(float speed) => Rigidbody.velocity = dir * Speed;
 
     void ChangeVelocity(Vector3 direction)
     {

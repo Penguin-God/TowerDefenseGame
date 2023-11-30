@@ -36,8 +36,9 @@ public class UnitProjectile : MonoBehaviour
         if (enemy == null && other.transform.TryGetComponent(out enemy) == false)
             return;
 
-        if (PhotonNetwork.IsMasterClient) 
-            OnHit?.Invoke(enemy);
+        //if (PhotonNetwork.IsMasterClient) 
+        //    OnHit?.Invoke(enemy);
+        OnHit?.Invoke(enemy);
 
         if (isAOE == false) 
             GetComponent<AutoDestoryAfterSecond>().ReturnObjet();

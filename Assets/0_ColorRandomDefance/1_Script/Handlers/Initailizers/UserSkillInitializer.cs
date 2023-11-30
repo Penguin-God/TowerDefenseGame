@@ -27,6 +27,7 @@ public class UserSkillInitializer
                 container.Inject<SkillColorChanger>(); break;
             case SkillType.¸ÞÅ×¿À:
                 container.AddService(new SkillMeteorController(container.GetComponent<MeteorController>(), container.GetService<MonsterManagerController>())); break;
+            case SkillType.µ£: container.AddComponent<TrapCreator>(); break;
         }
     }
 }

@@ -25,7 +25,8 @@ public class UnitAttacker
     void Attack(Multi_Enemy target, int damage, bool isSkill)
     {
         if (target == null) return;
-        target.OnDamage(damage, isSkill);
+        if(PlayerIdManager.IsMasterId(PlayerIdManager.Id))
+            target.OnDamage(damage, isSkill);
         new UnitPassiveCreator(Managers.Data).CreateAttackPassive(_unit, OwnerId)?.DoUnitPassive(target);
     }
 }

@@ -112,6 +112,9 @@ MonoBehaviour:
   - UseGold
   - ProjectileShot
   - MatToFreeze
+  - RestoreColor
+  - SpawnTrap
+  - CreateTrap
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

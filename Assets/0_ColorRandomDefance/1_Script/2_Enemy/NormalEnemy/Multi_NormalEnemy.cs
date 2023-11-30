@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
+using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public class Multi_NormalEnemy : Multi_Enemy
 {
@@ -88,7 +89,11 @@ public class Multi_NormalEnemy : Multi_Enemy
         ChangeVelocity(dir);
     }
 
-    public void ChangeVelocity(float speed) => Rigidbody.velocity = dir * Speed;
+    public void ChangeVelocity(float speed)
+    {
+        SpeedManager.ChangeSpeed(speed);
+        Rigidbody.velocity = dir * speed;
+    }
 
     void ChangeVelocity(Vector3 direction)
     {
@@ -116,6 +121,7 @@ public class Multi_NormalEnemy : Multi_Enemy
         MonsterSpeedManager.RestoreSpeed();
         SpeedManager = null;
         MonsterSpeedManager.OnRestoreSpeed -= ExitSlow;
+        ResetColor();
         StopAllCoroutines();
     }
 
@@ -134,8 +140,15 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     public void OnSlow(float slowRate)
     {
-        if (RPCSendable == false) return;
-        photonView.RPC(nameof(ApplySlow), RpcTarget.All, slowRate);
+        //if (RPCSendable == false) return;
+        //photonView.RPC(nameof(ApplySlow), RpcTarget.All, slowRate);
+
+        if (IsDead) return;
+        ChangeColorToSlow();
+
+        if (PhotonNetwork.IsMasterClient == false) return;
+        MonsterSpeedManager.OnSlow(slowRate);
+        ChangeVelocity(dir);
     }
 
     [PunRPC]
@@ -148,14 +161,21 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     public void OnSlowWithTime(float slowRate, float slowTime, UnitFlags flag)
     {
-        if (RPCSendable == false) return;
-        photonView.RPC(nameof(ApplySlowToAll), RpcTarget.All, slowRate, slowTime, flag);
+        if(IsDead) return;
+        ChangeColorToSlow();
+
+        if (PhotonNetwork.IsMasterClient == false) return;
+        MonsterSpeedManager.OnSlowWithTime(slowRate, slowTime, flag);
+        ChangeVelocity(dir);
+        // photonView.RPC(nameof(ApplySlowToAll), RpcTarget.All, slowRate, slowTime, flag);
     }
 
     [PunRPC]
     protected void ApplySlowToAll(float slowRate, float slowTime, UnitFlags flag)
     {
-        ChangeColorToSlow(); // 서순 무조건 지켜야됨
+        // ChangeColorToSlow();
+
+        // 서순 무조건 지켜야됨
         MonsterSpeedManager.OnSlowWithTime(slowRate, slowTime, flag);
         ChangeVelocity(dir);
     }
@@ -169,9 +189,12 @@ public class Multi_NormalEnemy : Multi_Enemy
     }
 
     [PunRPC] protected void RestoreSpeed() => MonsterSpeedManager.RestoreSpeed();
+    [PunRPC] protected void RestoreColor() => ResetColor();
 
     protected void ExitSlow()
     {
+        if (PhotonNetwork.IsMasterClient)
+            photonView.RPC(nameof(RestoreColor), RpcTarget.Others);
         ResetColor(); // 얼어있을 수도 있으니 Mat도 바꾸는 ResetColor() 사용
         ChangeVelocity(dir);
     }

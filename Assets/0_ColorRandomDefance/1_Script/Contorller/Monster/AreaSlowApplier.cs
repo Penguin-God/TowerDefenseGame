@@ -11,13 +11,11 @@ public class AreaSlowApplier : MonoBehaviourPun
 
     public void Inject(float slowPer, float raduis)
     {
-        if (PhotonNetwork.IsMasterClient)
-            SetInfo(slowPer, raduis);
-        else
-        {
-            photonView.RPC(nameof(SetInfo), RpcTarget.MasterClient, slowPer, raduis);
-            GetComponentInChildren<SphereCollider>().enabled = false;
-        }
+        SetInfo(slowPer, raduis);
+        //if (PhotonNetwork.IsMasterClient)
+        //    SetInfo(slowPer, raduis);
+        //else
+        //    photonView.RPC(nameof(SetInfo), RpcTarget.MasterClient, slowPer, raduis);
     }
 
     [PunRPC]
@@ -46,11 +44,7 @@ public class AreaSlowApplier : MonoBehaviourPun
         }
     }
 
-    void OnEnable()
-    {
-        if (PhotonNetwork.IsMasterClient)
-            StartCoroutine(Co_KeepSlowInRage());
-    }
+    void OnEnable() => StartCoroutine(Co_KeepSlowInRage());
 
     void OnDisable()
     {

@@ -151,7 +151,8 @@ public class UserSkillActor
             case SkillType.네크로맨서:
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>(), container.GetUnitSpanwer()); break;
             case SkillType.덫:
-                result = new SlowTrapSpawner(skillBattleData, MultiData.instance.GetEnemyTurnPoints(PlayerIdManager.Id) ,container.GetEventDispatcher()); break;
+                // result = new SlowTrapSpawner(skillBattleData, MultiData.instance.GetEnemyTurnPoints(PlayerIdManager.Id) ,container.GetEventDispatcher()); break;
+                result = new SlowTrapSpawner(skillBattleData, container.GetComponent<TrapCreator>(), container.GetEventDispatcher()); break;
             case SkillType.백의결속: result = new BondOfWhite(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance, container.GetComponent<MultiUnitStatController>()); break;
             case SkillType.썬콜: result = new Suncold(skillBattleData, Managers.Data); break;
             case SkillType.VIP: result = new VIP(skillBattleData, container.GetService<BattleUI_Mediator>(), container.GetComponent<TextShowAndHideController>(), container.GetService<BuyAction>()); break;
@@ -398,25 +399,38 @@ public class SlowTrapSpawner : UserSkill
         MaxSlowRate = SkillDatas[2];
     }
 
-    internal override void InitSkill()
+    readonly TrapCreator _trapCreator;
+    public SlowTrapSpawner(UserSkillBattleData userSkillBattleData, TrapCreator trapCreator, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
     {
-        _dispatcher.OnStageUp += SpawnTrap;
-        for (int i = 0; i < _traps.Length; i++)
-            _traps[i] = Managers.Multi.Instantiater.PhotonInstantiateInactive("SlowTrap", PlayerIdManager.Id).GetComponent<AreaSlowApplier>();
+        _trapCreator = trapCreator;
+        _trapCreator.CreateTraps(SpawnCount, PlayerIdManager.Id);
+        dispatcher.OnStageUp += SpawnTrap;
+        DefaultSlowRate = SkillDatas[0];
+        SlowRatePerStage = SkillDatas[1];
+        MaxSlowRate = SkillDatas[2];
     }
+
+    //internal override void InitSkill()
+    //{
+    //    _dispatcher.OnStageUp += SpawnTrap;
+    //    for (int i = 0; i < _traps.Length; i++)
+    //        _traps[i] = Managers.Multi.Instantiater.PhotonInstantiateInactive("SlowTrap", PlayerIdManager.Id).GetComponent<AreaSlowApplier>();
+    //}
 
     const int SpawnCount = 2;
     AreaSlowApplier[] _traps = new AreaSlowApplier[SpawnCount];
-    void SpawnTrap(int stage)
-    {
-        foreach (var trap in _traps)
-        {
-            trap.GetComponent<RPCable>().SetActive_RPC(false);
-            trap.GetComponent<RPCable>().SetPosition_RPC(_locationFinder.CalculateMonsterPathLocation() + Offset);
-            trap.GetComponent<RPCable>().SetActive_RPC(true);
-            trap.Inject(CalculateTrapSlow(stage), TrapRange);
-        }
-    }
+    //void SpawnTrap(int stage)
+    //{
+    //    foreach (var trap in _traps)
+    //    {
+    //        trap.GetComponent<RPCable>().SetActive_RPC(false);
+    //        trap.GetComponent<RPCable>().SetPosition_RPC(_locationFinder.CalculateMonsterPathLocation() + Offset);
+    //        trap.GetComponent<RPCable>().SetActive_RPC(true);
+    //        trap.Inject(CalculateTrapSlow(stage), TrapRange);
+    //    }
+    //}
+
+    void SpawnTrap(int stage) => _trapCreator.SpawnTraps(CalculateTrapSlow(stage), PlayerIdManager.Id);
 
     float CalculateTrapSlow(int stage) => Mathf.Min(DefaultSlowRate + (stage * SlowRatePerStage), MaxSlowRate);
 }

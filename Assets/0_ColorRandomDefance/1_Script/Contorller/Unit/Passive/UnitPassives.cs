@@ -38,6 +38,8 @@ public class GoldenAttacker : IUnitAttackPassive
 
     public void DoUnitPassive(Multi_Enemy target)
     {
+        if (PhotonNetwork.IsMasterClient == false) return;
+
         int random = Random.Range(0, 100);
         if (random < GoldGainRate)
         {
@@ -66,7 +68,9 @@ public class PosionAndStunActor : IUnitAttackPassive
 
     public void DoUnitPassive(Multi_Enemy target)
     {
-        if(PhotonNetwork.IsMasterClient && MathUtil.GetRandomBoolByRate(SturnPercent))
+        if (PhotonNetwork.IsMasterClient == false) return;
+
+        if (MathUtil.GetRandomBoolByRate(SturnPercent))
             target.GetComponent<Multi_NormalEnemy>()?.OnStunToAll(StrunTime);
         target.OnPoison_RPC(PoisonTickCount, CalculatePosionDamage(target.enemyType), isSkill: true);
     }

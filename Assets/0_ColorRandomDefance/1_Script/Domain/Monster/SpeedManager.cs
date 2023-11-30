@@ -15,6 +15,12 @@ public class SpeedManager
         OriginSpeed = originSpeed;
         CurrentSpeed = originSpeed;
     }
+    public void ChangeSpeed(float speed)
+    {
+        if(speed > OriginSpeed)
+            speed = OriginSpeed;
+        CurrentSpeed = speed;
+    }
     public void RestoreSpeed()
     {
         CurrentSpeed = OriginSpeed;

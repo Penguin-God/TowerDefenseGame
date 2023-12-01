@@ -12,7 +12,7 @@ public class SlowController : MonoBehaviour
 
     SpeedManager _speedManager;
     public bool IsSlow => _currentApplySlow.IsVaild;
-    public event Action OnExitSlow = null;
+    public event Action<bool> OnChangeSpped = null;
     public void DependencyInject(SpeedManager speedManager) => _speedManager = speedManager;
 
     void Update()
@@ -48,7 +48,6 @@ public class SlowController : MonoBehaviour
 
     public void ExitInfinitySlow() => ExitCurrentSlow(ref _currentInfinitySlow, _currentDurationSlow);
 
-
     public void ApplyNewSlow(Slow slow)
     {
         if (slow.IsInfinity) 
@@ -73,19 +72,20 @@ public class SlowController : MonoBehaviour
     {
         if (slow.IsVaild == false)
         {
-            Debug.LogError("왜 유효하지 않은 슬로우를 준거야");
+            Debug.LogError($"왜 유효하지 않은 슬로우를 준거야 : {slow.Intensity}");
             return;
         }
 
         _speedManager.RestoreSpeed();
         _currentApplySlow = slow;
         _speedManager.OnSlow(_currentApplySlow.Intensity);
+        OnChangeSpped?.Invoke(IsSlow);
     }
 
     void ExitApplySlow()
     {
         _currentApplySlow = Slow.InVaildSlow();
-        OnExitSlow?.Invoke();
+        OnChangeSpped?.Invoke(IsSlow);
     }
 
     void OnEnable()

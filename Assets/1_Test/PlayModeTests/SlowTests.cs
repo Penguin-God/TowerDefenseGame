@@ -118,23 +118,19 @@ public class SlowTests
     }
 
     [UnityTest]
-    public IEnumerator 슬로우가_모두_끝나면_이밴트를_알려야_함()
+    public IEnumerator 속도_변경_시_슬로우_상태를_포함한_이밴트를_알려야_함()
     {
         bool eventFlag = false;
-        _sut.OnExitSlow += () => eventFlag = true;
+        _sut.OnChangeSpped += isSlow => eventFlag = isSlow;
 
         ApplySlow(CreateDurationSlow(30));
         ApplySlow(Slow.CreateInfinitySlow(10));
+        Assert.IsTrue(eventFlag);
+        
         yield return null;
-
-        Assert.IsFalse(eventFlag);
+        Assert.IsTrue(eventFlag);
 
         _sut.ExitInfinitySlow();
-        Assert.IsTrue(eventFlag);
-        eventFlag = false;
-
-        ApplySlow(CreateDurationSlow(30));
-        yield return null;
-        Assert.IsTrue(eventFlag);
+        Assert.IsFalse(eventFlag);
     }
 }

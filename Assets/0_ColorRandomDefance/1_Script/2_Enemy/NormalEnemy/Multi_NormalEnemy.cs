@@ -65,10 +65,11 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         _monsterSlowController = monsterSlowController;
         SpeedManager = speedManager;
+
         SlowController = GetComponent<SlowController>();
         SlowController.DependencyInject(SpeedManager);
-        SlowController.OnExitSlow -= ExitSlow;
-        SlowController.OnExitSlow += ExitSlow;
+        SlowController.OnChangeSpped -= ApplySlowEffect;
+        SlowController.OnChangeSpped += ApplySlowEffect;
 
         SetStatus(stage);
         Go();
@@ -159,19 +160,26 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     [PunRPC] protected void RestoreColor() => ResetColor();
 
-    void ExitSlow()
+    void ApplySlowEffect(bool isSlow)
     {
-        if (PhotonNetwork.IsMasterClient)
-            photonView.RPC(nameof(RestoreColor), RpcTarget.Others);
-        ResetColor(); // 얼어있을 수도 있으니 Mat도 바꾸는 ResetColor() 사용
+        if(SpeedManager.CurrentSpeed > 0) ResetColor();
+
+        if (isSlow) ChangeColorToSlow();
+        else
+        {
+            ResetColor();
+            if (PhotonNetwork.IsMasterClient)
+                photonView.RPC(nameof(RestoreColor), RpcTarget.Others);
+        }
         ChangeVelocity(dir);
     }
 
     public void OnFreeze(float slowTime, UnitFlags flag)
     {
+        if (IsDead) return;
         ChangeMat(freezeMat);
-        if (RPCSendable == false) return;
 
+        if (PhotonNetwork.IsMasterClient == false) return;
         OnSlowWithTime(100f, slowTime, flag);
     }
 

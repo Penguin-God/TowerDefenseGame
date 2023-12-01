@@ -23,7 +23,7 @@ public class SpeedManager
     }
     public void RestoreSpeed()
     {
-        CurrentSpeed = OriginSpeed;
+        ChangeSpeed(OriginSpeed);
         ApplySlowRate = 0;
     }
 
@@ -31,7 +31,7 @@ public class SpeedManager
     {
         if (SlowCondition(slowRate))
         {
-            CurrentSpeed = CalculateSlowSpeed(slowRate);
+            ChangeSpeed(CalculateSlowSpeed(slowRate));
             ApplySlowRate = slowRate;
             return true;
         }

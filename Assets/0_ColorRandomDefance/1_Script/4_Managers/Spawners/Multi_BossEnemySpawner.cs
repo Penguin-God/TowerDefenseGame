@@ -34,8 +34,6 @@ public class Multi_BossEnemySpawner : MonoBehaviourPun
         var bossData = Managers.Data.BossDataByLevel[level];
         Multi_EnemyManager.Instance.SetSpawnBoss(monster.UsingId, monster);
         Managers.Sound.PlayBgm(BgmType.Boss);
-
-        _monsterDecorator.CeateSpeedManager(bossData.Speed, monster);
-        monster.Inject(bossData, _unitManagerController);
+        monster.Inject(bossData, _unitManagerController, _monsterDecorator.CreateSlowController(monster), new SpeedManager(bossData.Speed));
     }
 }

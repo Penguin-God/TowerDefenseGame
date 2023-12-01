@@ -13,10 +13,10 @@ public class Multi_BossEnemy : Multi_NormalEnemy
     }
 
     public BossData BossData { get; private set; }
-    public void Inject(BossData bossData, UnitManagerController unitManagerController)
+    public void Inject(BossData bossData, UnitManagerController unitManagerController, MonsterSlowController monsterSlowController, SpeedManager speedManager)
     {
         BossData = bossData;
-        SetStatus(bossData.Hp, false);
+        Inject(bossData.Hp, monsterSlowController, speedManager);
         Go();
         AggroUnit(unitManagerController);
     }

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-using static Unity.IO.LowLevel.Unsafe.AsyncReadManagerMetrics;
 
 public class Multi_NormalEnemy : Multi_Enemy
 {
@@ -31,7 +30,7 @@ public class Multi_NormalEnemy : Multi_Enemy
     protected override void RPC_OnDamage(int damage, bool isSkill)
     {
         if (IsSlow) // 슬로우 시 추뎀
-            damage += Mathf.RoundToInt(damage * (SpeedManager.ApplySlowRate / 100));
+            damage += Mathf.RoundToInt(damage * (SlowController.SlowIntensity / 100));
         base.RPC_OnDamage(damage, isSkill);
     }
 
@@ -63,6 +62,14 @@ public class Multi_NormalEnemy : Multi_Enemy
     public SlowController SlowController { get; private set; }
     public void Inject(byte stage, MonsterSlowController monsterSlowController, SpeedManager speedManager)
     {
+        spawnStage = stage;
+        Inject(Managers.Data.NormalEnemyDataByStage[stage].Hp, monsterSlowController, speedManager);
+        Passive();
+        Go();
+    }
+
+    public void Inject(int hp, MonsterSlowController monsterSlowController, SpeedManager speedManager)
+    {
         _monsterSlowController = monsterSlowController;
         SpeedManager = speedManager;
 
@@ -71,7 +78,8 @@ public class Multi_NormalEnemy : Multi_Enemy
         SlowController.OnChangeSpped -= ApplySlowEffect;
         SlowController.OnChangeSpped += ApplySlowEffect;
 
-        SetStatus(stage);
+        SetStatus(hp, false);
+        Passive();
         Go();
     }
 
@@ -124,13 +132,11 @@ public class Multi_NormalEnemy : Multi_Enemy
     }
 
     protected SpeedManager SpeedManager;
-    MonsterSpeedSystem MonsterSpeedManager;
     public float Speed => IsStun || IsDead || SpeedManager == null ? 0 : SpeedManager.CurrentSpeed;
-    bool RPCSendable => IsDead == false && PhotonNetwork.IsMasterClient;
 
     #region 상태이상 구현
     [SerializeField] private Material freezeMat;
-    public bool IsSlow => SpeedManager == null ? false : SpeedManager.IsSlow;
+    public bool IsSlow => SlowController.IsSlow;
 
     int _stunCount = 0;
     bool IsStun => _stunCount > 0;
@@ -185,7 +191,7 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     public void OnStunToAll(float stunTime)
     {
-        if (RPCSendable == false) return;
+        if (IsDead || PhotonNetwork.IsMasterClient == false) return;
         photonView.RPC(nameof(OnStun), RpcTarget.All, stunTime);
     }
 

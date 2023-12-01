@@ -6,12 +6,16 @@ using UnityEngine;
 public class SlowController : MonoBehaviour
 {
     Slow _currentInfinitySlow = Slow.InVaildSlow();
+
     Slow _currentDurationSlow = Slow.InVaildSlow();
-    Slow _currentApplySlow = Slow.InVaildSlow();
     float _slowDuration;
 
-    SpeedManager _speedManager;
+    Slow _currentApplySlow = Slow.InVaildSlow();
     public bool IsSlow => _currentApplySlow.IsVaild;
+    public float SlowIntensity => _currentApplySlow.Intensity;
+    
+
+    SpeedManager _speedManager;
     public event Action<bool> OnChangeSpped = null;
     public void DependencyInject(SpeedManager speedManager) => _speedManager = speedManager;
 
@@ -78,9 +82,11 @@ public class SlowController : MonoBehaviour
 
         _speedManager.RestoreSpeed();
         _currentApplySlow = slow;
-        _speedManager.OnSlow(_currentApplySlow.Intensity);
+        _speedManager.ChangeSpeed(CalculateSlowSpeed(_speedManager.OriginSpeed, _currentApplySlow.Intensity));
         OnChangeSpped?.Invoke(IsSlow);
     }
+
+    float CalculateSlowSpeed(float originSpeed, float slowIntensity) => originSpeed - (originSpeed * (slowIntensity / 100));
 
     void ExitApplySlow()
     {

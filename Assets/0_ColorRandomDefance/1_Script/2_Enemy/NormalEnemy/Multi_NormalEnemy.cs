@@ -64,8 +64,6 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         spawnStage = stage;
         Inject(Managers.Data.NormalEnemyDataByStage[stage].Hp, monsterSlowController, speedManager);
-        Passive();
-        Go();
     }
 
     public void Inject(int hp, MonsterSlowController monsterSlowController, SpeedManager speedManager)

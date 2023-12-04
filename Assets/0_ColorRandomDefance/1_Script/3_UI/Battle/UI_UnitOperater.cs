@@ -28,11 +28,11 @@ public class UI_UnitOperater : UI_Base
     {
         Bind<GameObject>(typeof(GameObjects));
 
-        BindOperateEvent(ToggleUnitIcons);
+        BindOperateClickEvent(ToggleUnitIcons);
         HideIcons();
     }
     
-    public void BindOperateEvent(UnityAction action) => GetButton((int)Buttons.OperateControlButton).onClick.AddListener(action);
+    public void BindOperateClickEvent(UnityAction action) => GetButton((int)Buttons.OperateControlButton).onClick.AddListener(action);
 
     IUnitOperationHandler _operationHandler;
     WorldUnitManager _worldUnitManager;
@@ -74,13 +74,21 @@ public class UI_UnitOperater : UI_Base
                 var icon = Managers.UI.MakeSubItem<UI_UnitIcon>(GetObject((int)GameObjects.UnitIconsParent).transform);
                 icon.SetUnitIcon(unitFlag);
                 icon.BindClickEvent(Do);
-                icon.BindClickEvent(ShowOperableUnits);
+                icon.BindClickEvent(UpdateOperableUnits);
 
                 void Do() => _operationHandler.Do(unitFlag);
             }
         }
         else
             GetObject((int)GameObjects.OperateImpossibleText).SetActive(true);
+    }
+
+    public void UpdateOperableUnits() => StartCoroutine(Co_UpdateOperableUnits());
+    IEnumerator Co_UpdateOperableUnits()
+    {
+        HideIcons();
+        yield return new WaitForSeconds(0.2f);
+        ShowOperableUnits();
     }
 
     IEnumerable<UnitFlags> SortUnitFlags(IEnumerable<UnitFlags> flags)

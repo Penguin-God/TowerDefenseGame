@@ -21,7 +21,7 @@ public class UI_UnitOperationsHub : UI_Base
         {
             var operater = GetObject((int)type).GetComponent<UI_UnitOperater>();
             operater.DependencyInject(CreateOperater(type), _unitManagerController.WorldUnitManager);
-            operater.BindOperateEvent(() => ChangeCurrnetOperater(operater));
+            operater.BindOperateClickEvent(() => ChangeCurrnetOperater(operater));
         }
 
         _dispatcher.OnUnitCountChange += _ => UpdateOperater();
@@ -57,9 +57,5 @@ public class UI_UnitOperationsHub : UI_Base
         _currentOperater = operater;
     }
 
-    void UpdateOperater()
-    {
-        if(_currentOperater != null && _currentOperater.IsActiveIcons)
-            _currentOperater.ShowOperableUnits();
-    }
+    void UpdateOperater() => _currentOperater?.UpdateOperableUnits();
 }

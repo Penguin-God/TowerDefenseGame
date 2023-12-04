@@ -28,7 +28,11 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
     void Normal() => _normalAttackController.DoAttack(AttackDelayTime);
     void SpecialAttack() => _specialAttackController.DoAttack(_skillReboundTime);
 
-    protected override void AttackToAll() => _attackExcuter.RandomAttack(_useSkillPercent);
+    protected override void AttackToAll() // => _attackExcuter.RandomAttack(_useSkillPercent);
+    {
+        _attackExcuter.RandomAttack(_useSkillPercent);
+        print("히히 화살 발사");
+    }
     string GetWeaponPath() => $"Prefabs/{new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags)}";
 }
 
@@ -54,11 +58,12 @@ public class ArcherArrowShoter
         for (int i = 0; i < ArrowCount; i++)
         {
             int targetIndex = i % targetArray.Length;
-            Managers.Resources.Instantiate(Path, _shotPoint.position).GetComponent<UnitProjectile>().AttackShot(GetDir(targetArray[targetIndex].GetComponent<Multi_Enemy>()), action);
+            Managers.Resources.Instantiate(Path, _shotPoint.position).GetComponent<UnitProjectile>().AttackShot(GetDir(targetArray[targetIndex]), action);
+            Debug.Log($"연발 화살 방향 : {GetDir(targetArray[targetIndex])}");
         }
     }
 
-    Vector3 GetDir(Multi_Enemy target) => new ThorwPathCalculator().CalculateThorwPath_To_Monster(target, _shotPoint);
+    Vector3 GetDir(Transform target) => new ThorwPathCalculator().CalculateThorwPath_To_Monster(target.GetComponent<Multi_Enemy>(), _shotPoint);
     Transform[] GetTargets(Multi_Enemy currentTarget)
     {
         if (currentTarget.enemyType != EnemyType.Normal) return new Transform[] { currentTarget.transform };

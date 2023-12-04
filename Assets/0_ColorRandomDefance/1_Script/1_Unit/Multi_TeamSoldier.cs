@@ -189,12 +189,9 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     }
 
     protected virtual void AttackToAll() => photonView.RPC(nameof(Attack), RpcTarget.All);
-    [PunRPC]
-    protected virtual void Attack() { }
+    [PunRPC] protected virtual void Attack() { }
     public void NormalAttack()
     {
-        //if(PhotonNetwork.IsMasterClient)
-        //    UnitAttacker.NormalAttack(TargetEnemy);
         UnitAttacker.NormalAttack(TargetEnemy);
     }
 

@@ -27,7 +27,6 @@ public class MonsterStateSync : MonoBehaviourPun, IPunObservable
         }
         else
         {
-            print("속도 받음");
             _monster.ChangeVelocity((float)stream.ReceiveNext());
         }
     }

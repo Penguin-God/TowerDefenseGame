@@ -2,7 +2,6 @@ using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class UnitStateSync : MonoBehaviourPun, IPunObservable
 {
@@ -11,7 +10,6 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
         photonView.ObservedComponents.Add(this);
         _unitChaseSystem = GetComponent<UnitChaseSystem>();
         _unit = GetComponent<Multi_TeamSoldier>();
-        _agent = GetComponent<NavMeshAgent>();
     }
 
     void OnEnable()
@@ -22,7 +20,6 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
 
     UnitChaseSystem _unitChaseSystem;
     Multi_TeamSoldier _unit;
-    NavMeshAgent _agent;
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)
@@ -66,14 +63,8 @@ public class UnitStateSync : MonoBehaviourPun, IPunObservable
         if (Vector3.Distance(transform.position, _masterPos) > PositionDelta)
             transform.position = Vector3.Lerp(transform.position, _masterPos, Time.deltaTime * PositionLerpSpeed);
 
-        if (Vector3.Distance(transform.position, _masterPos) > PositionDelta)
-            print("위치 보간");
-
-        // 이거 사용하려면 유닛에서 isStopped 건드리는 부분 고려해야 함.
         //if (Vector3.Distance(transform.position, _masterPos) > PositionDelta)
-        //    _agent.isStopped = true;
-        //else
-        //    _agent.isStopped = false;
+        //    print("위치 보간");
 
         if (_targetId > 0) _unit.ChangeTarget(_targetId);
         else _unit.SetNull();

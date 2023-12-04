@@ -1,7 +1,7 @@
-using Photon.Pun;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class MonsterSlowController
 {
@@ -34,7 +34,7 @@ public class SunColdMonsterSlowController : MonsterSlowController
     {
         if (_slowController.IsSlow)
         {
-            _effect.PlayOneShotEffect("BlueLightning", _normalMonster.transform.position + Vector3.up * 3);
+            _effect.PlayParticle("BlueLightning", _normalMonster.transform.position + Vector3.up * 3);
             _audioPlayer.PlayObjectEffectSound(_normalMonster.MonsterSpot, EffectSoundType.LightningClip);
             if (PhotonNetwork.IsMasterClient)
                 _normalMonster.OnDamage(_suncoldDamages[flag.ClassNumber], isSkill: true);

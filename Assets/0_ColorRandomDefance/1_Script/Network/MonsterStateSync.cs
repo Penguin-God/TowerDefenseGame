@@ -18,7 +18,7 @@ public class MonsterStateSync : MonoBehaviourPun, IPunObservable
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (_monster.IsDead || SpeedIsSame()) return;
+        if (_monster.IsDead) return; // || SpeedIsSame()
 
         if (stream.IsWriting)
         {

@@ -144,9 +144,9 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         if (IsDead) return;
         ChangeColorToSlow();
+        _monsterSlowController.Slow(Slow.CreateInfinitySlow(slowRate));
 
         if (PhotonNetwork.IsMasterClient == false) return;
-        _monsterSlowController.Slow(Slow.CreateInfinitySlow(slowRate));
         ChangeVelocity(dir);
     }
 
@@ -154,9 +154,9 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         if(IsDead) return;
         ChangeColorToSlow();
+        _monsterSlowController.Slow(Slow.CreateDurationSlow(slowRate, slowTime), flag);
 
         if (PhotonNetwork.IsMasterClient == false) return;
-        _monsterSlowController.Slow(Slow.CreateDurationSlow(slowRate, slowTime), flag);
         ChangeVelocity(dir);
     }
 

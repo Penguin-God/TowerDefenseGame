@@ -28,8 +28,16 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     [SerializeField] protected float stopDistanc;
 
-    public Transform target => _targetManager.Target == null ? null : TargetEnemy.transform;
-    public Multi_Enemy TargetEnemy => _targetManager.Target;
+    [SerializeField] Multi_Enemy _targetEnemy;
+    public Multi_Enemy TargetEnemy => _targetEnemy;
+    void ChangedTarget(Multi_Enemy target)
+    {
+        _targetEnemy = target;
+        OnTargetChanged?.Invoke(target);
+    }
+    public event Action<Multi_Enemy> OnTargetChanged;
+    public Vector3 TargetPositoin => TargetEnemy.transform.position;
+
 
     NavMeshAgent nav;
     private ObstacleAvoidanceType originObstacleType;
@@ -40,8 +48,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     // 가상 함수
     protected virtual void OnAwake() { } // 유닛마다 다른 Awake 세팅
-    
-    [SerializeField] protected TargetManager _targetManager = new TargetManager();
     public UnitStateManager _state;
     public bool IsAttack => _state.UnitAttackState.IsAttack;
     protected UnitChaseSystem _chaseSystem;
@@ -113,7 +119,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
 
     protected virtual void ResetValue()
     {
-        _targetManager.Reset();
         if (animator != null)
             animator.enabled = false;
     }
@@ -122,8 +127,7 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     {
         if (PhotonNetwork.IsMasterClient == false) return;
 
-        _targetManager.ChangedTarget(TargetFinder.FindTarget(IsInDefenseWorld, transform.position));
-        _chaseSystem.ChangedTarget(TargetEnemy);
+        ChangedTarget(TargetFinder.FindTarget(IsInDefenseWorld, transform.position));
     }
 
     public void ChangeTarget(int viewId)
@@ -134,17 +138,12 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         {
             var target = view.GetComponent<Multi_Enemy>();
             if (target == TargetEnemy) return;
-            _targetManager.ChangedTarget(target);
+            ChangedTarget(target);
             target.OnDeath += UpdateTarget;
-            _chaseSystem?.ChangedTarget(target);
         }
     }
 
-    public void SetNull()
-    {
-        _targetManager.ChangedTarget(null);
-        _chaseSystem?.ChangedTarget(null);
-    }
+    public void SetNull() => ChangedTarget(null);
 
     IEnumerator NavCoroutine()
     {
@@ -164,13 +163,14 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             if ((ContactTarget() || MonsterIsForward()) && _state.UnitAttackState.IsAttackable)
                 UnitAttack();
 
-            bool ContactTarget() => CONTACT_DISTANCE >= Vector3.Distance(target.position, transform.position);
+            bool ContactTarget() => CONTACT_DISTANCE >= Vector3.Distance(TargetPositoin, transform.position);
         }
     }
 
-    bool VaildTargetCondition() => target != null && _targetManager.Target.IsDead == false && TargetEnemy.UsingId == UsingID;
+    bool VaildTargetCondition() => TargetEnemy != null && TargetEnemy.IsDead == false && TargetEnemy.UsingId == UsingID;
     Vector3 GetBoxSize() => new Vector3(5, 5, 5);
-    public bool MonsterIsForward() => Physics.BoxCastAll(transform.position + Vector3.up * 2, GetBoxSize() / 2, transform.forward, transform.rotation, AttackRange).Select(x => x.transform).Contains(target);
+    public bool MonsterIsForward()
+        => Physics.BoxCastAll(transform.position + Vector3.up * 2, GetBoxSize() / 2, transform.forward, transform.rotation, AttackRange).Select(x => x.transform).Contains(TargetEnemy.transform);
     
     void OnDrawGizmos()
     {
@@ -261,13 +261,4 @@ public class UnitStateManager
         Spot = Spot.ChangeWorldType();
         ReadyAttack();
     }
-}
-
-[Serializable]
-public class TargetManager
-{
-    [SerializeField] Multi_Enemy _target;
-    public Multi_Enemy Target => _target;
-    public void Reset() => ChangedTarget(null);
-    public void ChangedTarget(Multi_Enemy newTarget) => _target = newTarget;
 }

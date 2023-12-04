@@ -8,27 +8,26 @@ public class UnitChaseSystem : MonoBehaviour
     protected Multi_TeamSoldier _unit { get; private set; }
     protected NavMeshAgent _nav { get; private set; }
 
-    protected Multi_Enemy _currentTarget = null;
+    protected Multi_Enemy _currentTarget => _unit.TargetEnemy;
     protected Vector3 TargetPosition => _currentTarget.transform.position;
     
-    public void ChangedTarget(Multi_Enemy newTarget)
+    void UpdateChaseState(Multi_Enemy newTarget)
     {
         if (newTarget == null)
         {
-            _currentTarget = null;
             _chaseState = ChaseState.NoneTarget;
             _nav.isStopped = true;
-            return;
         }
-
-        _nav.isStopped = false;
-        _currentTarget = newTarget;
+        else
+            _nav.isStopped = false;
     }
 
     void Awake()
     {
         _nav = GetComponent<NavMeshAgent>();
         _unit = GetComponent<Multi_TeamSoldier>();
+        _unit.OnTargetChanged -= UpdateChaseState;
+        _unit.OnTargetChanged += UpdateChaseState;
     }
 
     [SerializeField] protected ChaseState _chaseState;

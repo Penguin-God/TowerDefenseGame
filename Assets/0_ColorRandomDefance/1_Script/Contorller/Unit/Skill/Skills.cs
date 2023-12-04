@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.Assertions.Must;
 
 public abstract class UnitSkillController
 {
@@ -39,13 +40,14 @@ public class PoisonCloudController : UnitSkillController
         DamageRate = damageRate;
     }
 
-    Unit _unit;
-    void Poison(Multi_Enemy target) => target.OnPoison_RPC(PoisonCount, CalculateSkillDamage(_unit, DamageRate), true);
     public override void DoSkill(Multi_TeamSoldier unit)
     {
+        if (unit.TargetEnemy == null) return;
+
         PlaySkillSound(unit, EffectSoundType.VioletMageSkill);
-        _unit = unit.Unit;
-        SpawnSkill(SkillEffectType.PosionCloud, unit.target.position + Offset).GetComponent<Multi_HitSkill>().SetHitActoin(Poison); // ¹ö±×³²
+        SpawnSkill(SkillEffectType.PosionCloud, unit.TargetPositoin + Offset).GetComponent<Multi_HitSkill>().SetHitActoin(Poison);
+
+        void Poison(Multi_Enemy target) => target.OnPoison_RPC(PoisonCount, CalculateSkillDamage(unit.Unit, DamageRate), true);
     }
 }
 
@@ -63,7 +65,7 @@ public class MagicFountainController : UnitSkillController
     }
 
     public override void DoSkill(Multi_TeamSoldier unit)
-        => SpawnSkill(SkillEffectType.OrangeWater, unit.target.position).GetComponent<Multi_OrangeSkill>().OnSkile(unit.TargetEnemy, unit.BossDamage, AttackCount, HpRate, _audioPlayer);
+        => SpawnSkill(SkillEffectType.OrangeWater, unit.TargetPositoin).GetComponent<Multi_OrangeSkill>().OnSkile(unit.TargetEnemy, unit.BossDamage, AttackCount, HpRate, _audioPlayer);
 }
 
 public class MultiVectorShotController : UnitSkillController
@@ -114,8 +116,8 @@ public class MeteorShotController : UnitSkillController
 
     public override void DoSkill(Multi_TeamSoldier unit)
     {
-        if (unit.target == null) return;
-        _meteorController.ShotMeteor(unit.target.GetComponent<Multi_Enemy>(), CalculateSkillDamage(unit.Unit, DamRate), StunTime, unit.transform.position + Offset, unit.Spot);
+        if (unit.TargetEnemy == null) return;
+        _meteorController.ShotMeteor(unit.TargetEnemy, CalculateSkillDamage(unit.Unit, DamRate), StunTime, unit.transform.position + Offset, unit.Spot);
     }
 }
 

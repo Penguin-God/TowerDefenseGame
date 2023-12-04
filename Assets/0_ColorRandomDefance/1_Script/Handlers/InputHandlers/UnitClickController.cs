@@ -27,9 +27,9 @@ public class UnitClickController : MonoBehaviour
         //}
     }
 
-    IEnumerator Co_ShowUnitButtons(UnitFlags flag)
-    {
-        yield return null;
-        Managers.UI.GetSceneUI<UI_Paint>().ClickTracker(flag);
-    }
+    //IEnumerator Co_ShowUnitButtons(UnitFlags flag)
+    //{
+    //    yield return null;
+    //    Managers.UI.GetSceneUI<UI_Paint>().ClickTracker(flag);
+    //}
 }

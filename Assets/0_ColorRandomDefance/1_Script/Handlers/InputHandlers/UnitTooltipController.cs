@@ -53,7 +53,7 @@ public class UnitJobTooltipController
 
 public class MouseroverTooltipHandler
 {
-    readonly float OFFSET_X = 150f;
+    readonly float OFFSET_X = -150f;
     readonly float DELAY_TIME = 0.2f;
     readonly int FONT_SIZE = 16;
     readonly Vector2 WINDOW_SIZE = new(250, 200);

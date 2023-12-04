@@ -27,9 +27,9 @@ public class UI_Paint : UI_Scene
     BattleUI_Mediator _uiMediator;
     BattleEventDispatcher _dispatcher;
     WorldUnitManager _worldUnitManager;
-    public void DependencyInject(BattleUI_Mediator uiMediator, BattleEventDispatcher dispatcher, WorldUnitManager worldUnitManager)
+    public void DependencyInject(UnitStatController unitStatController, BattleUI_Mediator uiMediator, BattleEventDispatcher dispatcher, WorldUnitManager worldUnitManager)
     {
-        // _unitStatController = unitStatController;
+        _unitStatController = unitStatController;
         _uiMediator = uiMediator;
         _dispatcher = dispatcher;
         _worldUnitManager = worldUnitManager;
@@ -87,12 +87,11 @@ public class UI_Paint : UI_Scene
             var tracker = CreateTracker(new UnitFlags(UnitColor.Black, unitClass));
             tracker.UpdateUnitCountText(_worldUnitManager.GetUnitCount(PlayerIdManager.Id, unit => unit.UnitFlags.UnitClass == tracker.UnitFlags.UnitClass));
             tracker.GetComponent<Button>().onClick.AddListener(() => SortByClass(unitClass));
-            // new UnitJobTooltipController().SetMouseOverAction(tracker);
+            new UnitJobTooltipController().SetMouseOverAction(tracker);
         }
     }
 
-
-    public void SortByClass(UnitClass unitClass)
+    void SortByClass(UnitClass unitClass)
     {
         SwitchSortType(SortType.Class);
         GetObject((int)GameObjects.PaintBackGround).SetActive(true);
@@ -103,23 +102,9 @@ public class UI_Paint : UI_Scene
         foreach (var unitColor in UnitFlags.NormalColors)
         {
             var tracker = CreateTracker(new UnitFlags(unitColor, unitClass));
-            // tracker.GetComponent<Button>().onClick.AddListener(() => ShowUnitControlButtons(tracker));
+            new UnitTooltipController(_unitStatController.GetInfoManager(PlayerIdManager.Id)).SetMouseOverAction(tracker);
         }
     }
-
-    public void ClickTracker(UnitFlags flag) => ShowUnitControlButtons(_currentTrackers.FirstOrDefault(x => x.UnitFlags == flag));
-
-    void ShowUnitControlButtons(UI_UnitTracker tracker)
-    {
-        if (tracker == null) return;
-
-        Managers.UI.ClosePopupUI();
-        var buttons = _uiMediator.ShowPopupUI<UI_UnitContolWindow>(BattleUI_Type.UnitContolWindow); // Managers.UI.ShowPopupUI<UI_UnitContolWindow>();
-        buttons.SetButtonAction(tracker.UnitFlags);
-        float screenWidthScaleFactor = Screen.width / Managers.UI.UIScreenWidth; // 플레이어 스크린 크기 대비 설정한 UI 비율
-        buttons.SetPositioin(tracker.GetComponent<RectTransform>().position + new Vector3(80f * screenWidthScaleFactor, 0, 0));
-    }
-
 
     UI_UnitTracker CreateTracker(UnitFlags flag)
     {

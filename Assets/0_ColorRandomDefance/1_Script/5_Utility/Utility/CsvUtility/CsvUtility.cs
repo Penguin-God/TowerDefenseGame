@@ -219,7 +219,6 @@ public static class CsvUtility
         string[] GetFieldValues(int count, List<string> cells)
         {
             List<string> result = new List<string>();
-
             for (int i = 0; i < count; i++)
             {
                 string value = cells[0];

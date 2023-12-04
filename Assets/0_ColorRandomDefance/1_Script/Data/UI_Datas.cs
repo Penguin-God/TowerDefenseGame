@@ -20,5 +20,5 @@ public struct UnitJobTooltipData
     [SerializeField] string _text;
 
     public UnitClass UnitClass => _unitClass;
-    public string Text => _text;
+    public string Text => _text.Replace("\\n", "\n");
 }

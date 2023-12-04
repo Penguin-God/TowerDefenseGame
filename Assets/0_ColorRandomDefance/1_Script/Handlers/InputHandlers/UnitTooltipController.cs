@@ -47,7 +47,8 @@ public class UnitJobTooltipController
     {
         _tooltipHandler.SetMouseOverAction(tracker.GetComponent<RectTransform>(), BuildUnitDescrtion);
 
-        string BuildUnitDescrtion() => Managers.Resources.LoadCsv<UnitJobTooltipData>("UIData/UI_UnitJobTooltipData").First(x => x.UnitClass == tracker.UnitFlags.UnitClass).Text;
+        string BuildUnitDescrtion()
+            => Managers.Resources.LoadCsv<UnitJobTooltipData>("UIData/UI_UnitJobTooltipData").First(x => x.UnitClass == tracker.UnitFlags.UnitClass).Text;
     }
 }
 

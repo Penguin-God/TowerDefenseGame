@@ -43,7 +43,7 @@ public class SpeedManagerCreator
         var skillData = _container.GetMultiActiveSkillData().GetData(monster.UsingId);
         var slowController = monster.gameObject.GetOrAddComponent<SlowController>();
         if (skillData.TruGetSkillData(SkillType.썬콜, out var skillBattleData))
-            return new SunColdMonsterSlowController(slowController, monster, skillBattleData.IntSkillDatas.Take(UnitDamageCount).ToArray(), _container.GetComponent<MultiEffectManager>(), _container.GetComponent<WorldAudioPlayer>());
+            return new SunColdMonsterSlowController(slowController, monster, skillBattleData.IntSkillDatas.Take(UnitDamageCount).ToArray(), _container.GetComponent<WorldAudioPlayer>());
         else return new MonsterSlowController(slowController);
     }
 }

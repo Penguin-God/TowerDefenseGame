@@ -152,6 +152,7 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     public void OnSlowWithTime(float slowRate, float slowTime, UnitFlags flag)
     {
+        _monsterSlowController.SlowEffect();
         if(IsDead) return;
         ChangeColorToSlow();
         _monsterSlowController.Slow(Slow.CreateDurationSlow(slowRate, slowTime), flag);
@@ -162,19 +163,12 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     void ChangeColorToSlow() => ChangeColor(50, 175, 222, 1);
 
-    [PunRPC] protected void RestoreColor() => ResetColor();
-
     void ApplySlowEffect(bool isSlow)
     {
         if(SpeedManager.CurrentSpeed > 0) ResetColor();
 
         if (isSlow) ChangeColorToSlow();
-        else
-        {
-            ResetColor();
-            if (PhotonNetwork.IsMasterClient)
-                photonView.RPC(nameof(RestoreColor), RpcTarget.Others);
-        }
+        else ResetColor();
         ChangeVelocity(dir);
     }
 
@@ -182,8 +176,6 @@ public class Multi_NormalEnemy : Multi_Enemy
     {
         if (IsDead) return;
         ChangeMat(freezeMat);
-
-        if (PhotonNetwork.IsMasterClient == false) return;
         OnSlowWithTime(100f, slowTime, flag);
     }
 

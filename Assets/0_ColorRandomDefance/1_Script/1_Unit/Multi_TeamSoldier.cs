@@ -34,6 +34,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
     {
         _targetEnemy = target;
         OnTargetChanged?.Invoke(target);
+        if(target != null)
+            target.OnDead += _ => SetNull();
     }
     public event Action<Multi_Enemy> OnTargetChanged;
     public Vector3 TargetPositoin => TargetEnemy.transform.position;
@@ -139,7 +141,6 @@ public class Multi_TeamSoldier : MonoBehaviourPun
             var target = view.GetComponent<Multi_Enemy>();
             if (target == TargetEnemy) return;
             ChangedTarget(target);
-            target.OnDeath += UpdateTarget;
         }
     }
 

@@ -7,16 +7,20 @@ using UnityEngine.TestTools;
 
 public class SkillDrawContrllerTests
 {
+    UserSkill CreateSkill(SkillType skill, UserSkillClass _class) => new (skill, _class);
+
     [Test]
     public void 뽑기를_하면_유저_데이터가_갱신되고_영속성_저장도_해야_됨()
     {
         // Arrange
         PlayerDataManager playerDataManager = new(new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>()));
         TestPersistence persistence = new();
-        var skillDatas = new Dictionary<UserSkillClass, IReadOnlyList<SkillType>>()
+        var skillDatas = new UserSkill[]
         {
-            {  UserSkillClass.Main, new SkillType[]{ SkillType.흑의결속, SkillType.태극스킬} },
-            {  UserSkillClass.Sub, new SkillType[]{ SkillType.시작골드증가, SkillType.거인학살자} }
+            CreateSkill(  SkillType.태극스킬, UserSkillClass.Main),
+            CreateSkill(  SkillType.흑의결속, UserSkillClass.Main),
+            CreateSkill(  SkillType.시작골드증가, UserSkillClass.Sub),
+            CreateSkill(  SkillType.거인학살자, UserSkillClass.Sub),
         };
         SkillDrawer skillDrawer = new(skillDatas);
         var drawInfos = new List<SkillDrawInfo>

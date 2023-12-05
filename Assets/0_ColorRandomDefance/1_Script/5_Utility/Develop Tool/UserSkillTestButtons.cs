@@ -28,6 +28,6 @@ public class UserSkillTestButtons : MonoBehaviour
 
         _container.GetMultiActiveSkillData().GetData(PlayerIdManager.Id).ChangeEquipSkill(Managers.Data.UserSkill.GetSkillBattleData(skillType, 1));
         if(skill != null)
-            FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkill[] { skill }, _container.GetEventDispatcher(), _container.GetService<UnitManagerController>());
+            FindObjectOfType<EffectInitializer>().SettingEffect(new UserSkillController[] { skill }, _container.GetEventDispatcher(), _container.GetService<UnitManagerController>());
     }
 }

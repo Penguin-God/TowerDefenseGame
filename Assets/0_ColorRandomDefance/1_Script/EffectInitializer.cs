@@ -8,7 +8,7 @@ public class EffectInitializer : MonoBehaviourPun
 {
     UnitReinforceEffectDrawer _unitReinforceEffectDrawer = new UnitReinforceEffectDrawer();
     UnitManagerController _unitManagerController;
-    public void SettingEffect(IEnumerable<UserSkill> userSkills, BattleEventDispatcher dispatcher, UnitManagerController unitManagerController)
+    public void SettingEffect(IEnumerable<UserSkillController> userSkills, BattleEventDispatcher dispatcher, UnitManagerController unitManagerController)
     {
         _unitManagerController = unitManagerController;
 

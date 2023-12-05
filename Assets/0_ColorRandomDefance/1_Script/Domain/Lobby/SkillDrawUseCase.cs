@@ -23,7 +23,7 @@ public class SkillDrawUseCase
         var result = _skillDrawer.DrawSkills(drawInfos);
         foreach (var resultInfo in result)
             _playerDataManager.SkillInventroy.AddSkill(resultInfo.SkillType, resultInfo.Amount);
-        _dataPersistence.Save(_playerDataManager);
+        _dataPersistence?.Save(_playerDataManager);
         return result;
     }
 }

@@ -5,6 +5,17 @@ using System.Linq;
 using System;
 
 [Serializable]
+public struct UserSkillData
+{
+    [SerializeField] SkillType _skillType;
+    [SerializeField] UserSkillClass _skillClass;
+
+    public SkillType SkillType => _skillType;
+    public UserSkillClass SkillClass => _skillClass;
+    public UserSkill CreateUserSkill() => new UserSkill(_skillType, _skillClass);
+}
+
+[Serializable]
 public class UserSkillGoodsData
 {
     [SerializeField] SkillType _skillType;

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class LobbyScene : BaseScene
@@ -9,9 +10,9 @@ public class LobbyScene : BaseScene
         var container = new BattleDIContainer(gameObject);
         container.AddComponent<GameMatchmaker>();
 
-        // 여기 null 부분 채우기
         container.AddService(new PlayerDataManager(new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>())));
-        container.AddService(new SkillDrawer(null));
+        IEnumerable<UserSkill> userSkillDatas = Managers.Resources.LoadCsv<UserSkillData>("SkillData/UserSkillData").Select(x => x.CreateUserSkill());
+        container.AddService(new SkillDrawer(userSkillDatas));
         container.AddService(new SkillDrawUseCase(container.GetService<SkillDrawer>(), container.GetService<PlayerDataManager>(), null));
 
         // Screen.SetResolution(1920, 1080, true);

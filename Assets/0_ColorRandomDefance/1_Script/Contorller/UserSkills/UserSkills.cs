@@ -58,10 +58,10 @@ public static class BattleSkillDataCreater
     }
 }
 
-public abstract class UserSkill
+public abstract class UserSkillController
 {
     public UserSkillBattleData UserSkillBattleData { get; private set; }
-    public UserSkill(UserSkillBattleData userSkillBattleData) => UserSkillBattleData = userSkillBattleData;
+    public UserSkillController(UserSkillBattleData userSkillBattleData) => UserSkillBattleData = userSkillBattleData;
 
     internal virtual void InitSkill() { }
 
@@ -106,7 +106,7 @@ public class UserSkillActor
         SkillType.마창사 // 존재하기만 하면 알아서 작동하는 스킬들
     });
 
-    public UserSkill ActiveSkill(SkillType skillType, BattleDIContainer container)
+    public UserSkillController ActiveSkill(SkillType skillType, BattleDIContainer container)
     {
         if (ExistSkills.Contains(skillType)) return null;
 
@@ -135,9 +135,9 @@ public class UserSkillActor
         }
     }
 
-    UserSkill ActiveComplexSkill(UserSkillBattleData skillBattleData, BattleDIContainer container)
+    UserSkillController ActiveComplexSkill(UserSkillBattleData skillBattleData, BattleDIContainer container)
     {
-        UserSkill result;
+        UserSkillController result;
         switch (skillBattleData.SkillType)
         {
             case SkillType.태극스킬: result = new TaegeukController(skillBattleData, container.GetComponent<MultiUnitStatController>(), container.GetEventDispatcher()); break;
@@ -167,7 +167,7 @@ public class UserSkillActor
 
 // ================= 스킬 세부 구현 =====================
 
-public class TaegeukController : UserSkill
+public class TaegeukController : UserSkillController
 {
     public event Action<UnitClass, bool> OnTaegeukDamageChanged;
     int[] _taegeukDamages = new int[Enum.GetValues(typeof(UnitClass)).Length];
@@ -205,7 +205,7 @@ public class TaegeukController : UserSkill
     }
 }
 
-public class BlackUnitUpgrade : UserSkill
+public class BlackUnitUpgrade : UserSkillController
 {
     public BlackUnitUpgrade(UserSkillBattleData userSkillBattleData, MultiUnitStatController statController) : base(userSkillBattleData) 
     {
@@ -213,7 +213,7 @@ public class BlackUnitUpgrade : UserSkill
     }
 }
 
-public class ManaMutation : UserSkill
+public class ManaMutation : UserSkillController
 {
     public ManaMutation(UserSkillBattleData userSkillBattleData, SkillColorChanger colorChanger, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
     {
@@ -228,7 +228,7 @@ public class ManaMutation : UserSkill
     }
 }
 
-public class ManaImpotence : UserSkill
+public class ManaImpotence : UserSkillController
 {
     public ManaImpotence(UserSkillBattleData userSkillBattleData, ShopDataContainer shopDataUseCase) : base(userSkillBattleData) 
     {
@@ -275,7 +275,7 @@ public class ManaImpotence : UserSkill
     }
 }
 
-public class UnitMerchant : UserSkill
+public class UnitMerchant : UserSkillController
 {
     public UnitMerchant(UserSkillBattleData userSkillBattleData) : base(userSkillBattleData) { }
     internal override void InitSkill()
@@ -287,7 +287,7 @@ public class UnitMerchant : UserSkill
     }
 }
 
-public class SkillMeteorHandler : UserSkill
+public class SkillMeteorHandler : UserSkillController
 {
     const int SwordmanStack = 1;
     const int ArcherStack = 4;
@@ -341,7 +341,7 @@ public class SkillMeteorHandler : UserSkill
     public int CalculateMeteorDamage() => DefaultDamage + (MeteorStack * DamagePerStack);
 }
 
-public class NecromancerController : UserSkill
+public class NecromancerController : UserSkillController
 {
     readonly Necromencer _necromencer;
     readonly BattleEventDispatcher _dispatcher;
@@ -381,7 +381,7 @@ public class NecromancerController : UserSkill
     void UpdateText() => statusUI.UpdateText($"{_necromencer.CurrentKillCount}/{_necromencer.NeedKillCountForSummon}");
 }
 
-public class SlowTrapSpawner : UserSkill
+public class SlowTrapSpawner : UserSkillController
 {
     readonly MonsterPathLocationFinder _locationFinder;
     BattleEventDispatcher _dispatcher;
@@ -435,7 +435,7 @@ public class SlowTrapSpawner : UserSkill
     float CalculateTrapSlow(int stage) => Mathf.Min(DefaultSlowRate + (stage * SlowRatePerStage), MaxSlowRate);
 }
 
-public class BondOfWhite : UserSkill
+public class BondOfWhite : UserSkillController
 {
     BattleEventDispatcher _dispatcher;
     Multi_GameManager _game;
@@ -473,7 +473,7 @@ public class UnitStatHandler
     }
 }
 
-public class Suncold : UserSkill
+public class Suncold : UserSkillController
 {
     public Suncold(UserSkillBattleData userSkillBattleData, DataManager data) : base(userSkillBattleData) 
     {
@@ -489,7 +489,7 @@ public class Suncold : UserSkill
     }
 }
 
-public class GambleInitializer : UserSkill
+public class GambleInitializer : UserSkillController
 {
     public GambleInitializer(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, BattleEventDispatcher dispatcher, TextShowAndHideController textController, Multi_NormalUnitSpawner unitSpawner) 
         : base(userSkillBattleData)
@@ -509,7 +509,7 @@ public class GambleInitializer : UserSkill
 }
 
 
-public class VIP : UserSkill
+public class VIP : UserSkillController
 {
     public VIP(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, TextShowAndHideController textController, BuyAction buyAction) : base(userSkillBattleData)
     {
@@ -545,7 +545,7 @@ public class VIP : UserSkill
 }
 
 
-public class RichGetRicherHandler : UserSkill
+public class RichGetRicherHandler : UserSkillController
 {
     public RichGetRicherHandler(UserSkillBattleData userSkillBattleData, BattleRewardHandler rewardHandler, CurrencyManagerMediator currency) : base(userSkillBattleData)
     {
@@ -555,7 +555,7 @@ public class RichGetRicherHandler : UserSkill
 }
 
 
-public class LegendKnight : UserSkill
+public class LegendKnight : UserSkillController
 {
     public LegendKnight(UserSkillBattleData userSkillBattleData, MultiUnitStatController statController) : base(userSkillBattleData) 
     {

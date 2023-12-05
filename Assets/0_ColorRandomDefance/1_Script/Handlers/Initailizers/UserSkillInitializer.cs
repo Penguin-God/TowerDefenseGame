@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 public class UserSkillInitializer
 {
-    public IEnumerable<UserSkill> InitUserSkill(BattleDIContainer container, SkillBattleDataContainer skillData)
+    public IEnumerable<UserSkillController> InitUserSkill(BattleDIContainer container, SkillBattleDataContainer skillData)
     {
-        List<UserSkill> userSkills = new List<UserSkill>();
+        List<UserSkillController> userSkills = new List<UserSkillController>();
         foreach (var skillType in skillData.AllSKills)
         {
             if (skillType == SkillType.None)

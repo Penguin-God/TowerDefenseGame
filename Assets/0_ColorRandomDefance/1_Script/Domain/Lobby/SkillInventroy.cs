@@ -30,4 +30,5 @@ public struct SkillInventroy
             _skillDatas.Add(type, new PlayerOwnedSkillInfo(level: 1, amount));
     }
     public PlayerOwnedSkillInfo GetSkillInfo(SkillType type) => _skillDatas[type];
+    public IEnumerable<SkillType> GetAllHasSkills() => _skillDatas.Keys;
 }

@@ -39,6 +39,12 @@ public class UI_SkillManagementWindow : UI_Popup
         Managers.ClientData.EquipSkillManager.OnEquipSkillChanged += DrawEquipSkillFrame;
     }
 
+    PlayerDataManager _playerDataManager;
+    public void DependencyInject(PlayerDataManager playerDataManager)
+    {
+        _playerDataManager = playerDataManager;
+    }
+
     void OnDestroy()
     {
         Managers.ClientData.EquipSkillManager.OnEquipSkillChanged -= DrawEquipSkillFrame;
@@ -46,11 +52,7 @@ public class UI_SkillManagementWindow : UI_Popup
 
     public void RefreshUI()
     {
-        if (_initDone == false)
-        {
-            Init();
-            _initDone = true;
-        }
+        CheckInit();
 
         ChangeTab(UserSkillClass.Main);
         RefreshEquipSkillFrame();
@@ -72,7 +74,7 @@ public class UI_SkillManagementWindow : UI_Popup
                 break;
         }
         
-        DrawSkillImages(Managers.ClientData.HasSkills.Where(x => Managers.Data.UserSkill.GetSkillGoodsData(x).SkillClass == skillClass));
+        DrawSkillImages(_playerDataManager.SkillInventroy.GetAllHasSkills().Where(x => Managers.Data.UserSkill.GetSkillGoodsData(x).SkillClass == skillClass));
     }
 
     void DrawSkillImages(IEnumerable<SkillType> skills)
@@ -80,6 +82,7 @@ public class UI_SkillManagementWindow : UI_Popup
         var frameParent = GetObject((int)GameObjects.HasSkillFramesParent).transform;
         foreach (Transform item in frameParent)
             Destroy(item.gameObject);
+
         foreach (SkillType skillType in skills)
             Managers.UI.MakeSubItem<UI_SkillFrame>(frameParent).SetInfo(skillType);
     }

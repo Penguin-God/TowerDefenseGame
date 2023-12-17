@@ -39,17 +39,16 @@ public class PurchaseManager
 public class BoxPurchaseOperator : IPurchaseOperator
 {
     readonly SkillDrawer _skillDrawer;
-    public BoxPurchaseOperator(SkillDrawer skillDrawer) => _skillDrawer = skillDrawer;
+    readonly IEnumerable<SkillDrawInfo> _drawInfos;
+    public BoxPurchaseOperator(SkillDrawer skillDrawer, IEnumerable<SkillDrawInfo> drawInfos)
+    {
+        _skillDrawer = skillDrawer;
+        _drawInfos = drawInfos;
+    }
 
     public void SuccessPurchase(PlayerDataManager playerDataManager)
     {
-        var drawInfos = new List<SkillDrawInfo>
-        {
-            new SkillDrawInfo(UserSkillClass.Main, 1, 10),
-            new SkillDrawInfo(UserSkillClass.Main, 20, 40),
-            new SkillDrawInfo(UserSkillClass.Sub, 30, 80),
-        };
-        var result = _skillDrawer.DrawSkills(drawInfos);
+        var result = _skillDrawer.DrawSkills(_drawInfos);
         playerDataManager.AddSkills(result);
     }
 }

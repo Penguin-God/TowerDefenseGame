@@ -1,0 +1,4 @@
+﻿_boxType,_moneyType,_amount,_skillDatas,_skillClass,_min,_max,_skillDatas,_skillClass,_min,_max,_skillDatas,_skillClass,_min,_max,_skillDatas,_skillClass,_min,_max,_skillDatas,_skillClass,_min,_max,_skillDatas
+희귀상자,Gem,100,,Main,2,5,,Sub,2,5,,Sub,3,7,,,,,,,,,
+고급상자,Gem,300,,Main,2,5,,Main,2,5,,Sub,3,7,,Sub,3,7,,,,,
+전설상자,Gem,1000,,Main,2,5,,Main,3,7,,Main,3,7,,Sub,3,7,,Sub,4,9,

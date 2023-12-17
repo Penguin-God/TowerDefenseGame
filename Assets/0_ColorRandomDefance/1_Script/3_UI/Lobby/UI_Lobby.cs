@@ -16,6 +16,8 @@ public class UI_Lobby : UI_Scene
     enum Texts
     {
         TestText,
+        GoldText,
+        GemText,
     }
 
     protected override void Init()
@@ -27,6 +29,10 @@ public class UI_Lobby : UI_Scene
         GetButton((int)Buttons.OpenSkillButton).onClick.AddListener(ShowSkillWindow);
 
         _container.GetComponent<GameMatchmaker>().SetInfo(GetTextMeshPro((int)Texts.TestText), GetButton((int)Buttons.GameStartButton));
+
+        var playerData = _container.GetService<PlayerDataManager>();
+        playerData.OnGoldAmountChanged += amount => GetTextMeshPro((int)Texts.GoldText).text = amount.ToString();
+        playerData.OnGemAmountChanged += amount => GetTextMeshPro((int)Texts.GemText).text = amount.ToString();
     }
 
     BattleDIContainer _container;

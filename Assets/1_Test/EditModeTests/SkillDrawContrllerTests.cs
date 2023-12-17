@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using NUnit.Framework;
 using UnityEngine;
 using UnityEngine.TestTools;
@@ -13,7 +12,7 @@ public class SkillDrawContrllerTests
     public void 뽑기를_하면_유저_데이터가_갱신되고_영속성_저장도_해야_됨()
     {
         // Arrange
-        PlayerDataManager playerDataManager = new(new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>()));
+        PlayerDataManager playerDataManager = new(new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>()), 0, 0);
         TestPersistence persistence = new();
         var skillDatas = new UserSkill[]
         {

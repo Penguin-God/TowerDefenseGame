@@ -16,13 +16,15 @@ public class UI_SkillBoxGoods : UI_Base
     }
 
     PurchaseManager _purchaseManager;
-    public void DependencyInject(PurchaseManager purchaseManager)
+    MoneyData _price;
+    public void DependencyInject(PurchaseManager purchaseManager, MoneyData price)
     {
         _purchaseManager = purchaseManager;
+        _price = price;
     }
 
     void Buy()
     {
-        _purchaseManager.Purchase(PlayerMoneyType.Gem, 1000);
+        _purchaseManager.Purchase(_price);
     }
 }

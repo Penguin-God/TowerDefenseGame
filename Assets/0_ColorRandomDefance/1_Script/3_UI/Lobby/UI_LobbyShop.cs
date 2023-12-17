@@ -44,9 +44,12 @@ public class UI_LobbyShop : UI_Popup
             Destroy(child.gameObject);
 
         foreach (SkillBoxType item in Enum.GetValues(typeof(SkillBoxType)))
-            Managers.UI.MakeSubItem<UI_SkillBoxGoods>(GetObject((int)GameObjects.BoxGoodsParnet).transform).DependencyInject(new PurchaseManager(new BoxPurchaseOperator(_skillDrawer), _playerDataManager));
+            MakeGoods(new PurchaseManager(new BoxPurchaseOperator(_skillDrawer), _playerDataManager), new MoneyData(PlayerMoneyType.Gem, 1000));
 
-        //foreach (var item in moneyDatas)
-            
+        foreach (var moneyData in moneyDatas)
+            MakeGoods(new PurchaseManager(new GoldPurchaseOperator(moneyData.x), _playerDataManager), new MoneyData(PlayerMoneyType.Gem, moneyData.y));
     }
+
+    void MakeGoods(PurchaseManager purchaseManager, MoneyData moneyData) 
+        => Managers.UI.MakeSubItem<UI_SkillBoxGoods>(GetObject((int)GameObjects.BoxGoodsParnet).transform).DependencyInject(purchaseManager, moneyData);
 }

@@ -13,16 +13,15 @@ public class SkillDrawContrllerTests
         PlayerDataManager playerDataManager = new(new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>()), 0, 0);
 
         const int GetAmount = 7;
-        var drawInfos = new List<SkillDrawResultInfo>
+        var drawInfos = new List<SkillAmountData>
         {
-            new SkillDrawResultInfo(SkillType.태극스킬, GetAmount),
-            new SkillDrawResultInfo(SkillType.흑의결속, GetAmount),
-            new SkillDrawResultInfo(SkillType.거인학살자, GetAmount),
+            new SkillAmountData(SkillType.태극스킬, GetAmount),
+            new SkillAmountData(SkillType.흑의결속, GetAmount),
+            new SkillAmountData(SkillType.거인학살자, GetAmount),
         };
 
         // Act
-        var sut = new SkillDrawUseCase(drawInfos);
-        sut.GiveProduct(playerDataManager);
+        playerDataManager.AddSkills(drawInfos);
 
         // Assert
         AssertSkill(SkillType.태극스킬);

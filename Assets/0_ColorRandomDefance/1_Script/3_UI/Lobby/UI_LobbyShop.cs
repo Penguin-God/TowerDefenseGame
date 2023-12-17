@@ -23,11 +23,12 @@ public class UI_LobbyShop : UI_Popup
         Bind<GameObject>(typeof(GameObjects));
         CreateBoxGoods();
     }
-
-    SkillDrawUseCase _skillDrawUseCase;
-    public void DependencyInject(SkillDrawUseCase skillDrawUseCase)
+    PlayerDataManager _playerDataManager;
+    SkillDrawer _skillDrawer;
+    public void DependencyInject(PlayerDataManager playerDataManager, SkillDrawer skillDrawer)
     {
-        _skillDrawUseCase = skillDrawUseCase;
+        _playerDataManager = playerDataManager;
+        _skillDrawer = skillDrawer;
     }
 
     void CreateBoxGoods()
@@ -35,7 +36,7 @@ public class UI_LobbyShop : UI_Popup
         foreach (Transform child in GetObject((int)GameObjects.BoxGoodsParnet).transform)
             Destroy(child.gameObject);
 
-        //foreach (SkillBoxType item in Enum.GetValues(typeof(SkillBoxType)))
-        //    Managers.UI.MakeSubItem<UI_SkillBoxGoods>(GetObject((int)GameObjects.BoxGoodsParnet).transform).DependencyInject(item, _skillDrawUseCase);
+        foreach (SkillBoxType item in Enum.GetValues(typeof(SkillBoxType)))
+            Managers.UI.MakeSubItem<UI_SkillBoxGoods>(GetObject((int)GameObjects.BoxGoodsParnet).transform).DependencyInject(_skillDrawer, _playerDataManager);
     }
 }

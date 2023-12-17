@@ -28,6 +28,14 @@ public struct SkillInventroy
         else
             _skillDatas.Add(type, new PlayerOwnedSkillInfo(level: 1, amount));
     }
+
+    public void AddSkill(SkillAmountData data)
+    {
+        if (HasSkill(data.SkillType))
+            _skillDatas[data.SkillType] = _skillDatas[data.SkillType].AddAmount(data.Amount);
+        else
+            _skillDatas.Add(data.SkillType, new PlayerOwnedSkillInfo(level: 1, data.Amount));
+    }
     public PlayerOwnedSkillInfo GetSkillInfo(SkillType type) => _skillDatas[type];
     public IEnumerable<SkillType> GetAllHasSkills() => _skillDatas.Keys;
 }

@@ -22,12 +22,12 @@ public readonly struct SkillDrawInfo
     }
 }
 
-public readonly struct SkillDrawResultInfo
+public readonly struct SkillAmountData
 {
     public readonly SkillType SkillType;
     public readonly int Amount;
 
-    public SkillDrawResultInfo(SkillType skillType, int amount)
+    public SkillAmountData(SkillType skillType, int amount)
     {
         SkillType = skillType;
         Amount = amount;
@@ -51,9 +51,9 @@ public class SkillDrawer
     IEnumerable<UserSkill> _userSkillDatas;
     public SkillDrawer(IEnumerable<UserSkill> userSkillDatas) => _userSkillDatas = userSkillDatas;
 
-    public IEnumerable<SkillDrawResultInfo> DrawSkills(IEnumerable<SkillDrawInfo> drawInfos)
+    public IEnumerable<SkillAmountData> DrawSkills(IEnumerable<SkillDrawInfo> drawInfos)
     {
-        List<SkillDrawResultInfo> result = new();
+        List<SkillAmountData> result = new();
         foreach (var info in drawInfos)
         {
             IReadOnlyList<SkillType> drawableSkills
@@ -64,7 +64,7 @@ public class SkillDrawer
                 .ToList();
             SkillType drawSkill = drawableSkills[Random.Range(0, drawableSkills.Count)];
             int drawAmount = Random.Range(info.MinCount, info.MaxCount + 1);
-            result.Add(new SkillDrawResultInfo(drawSkill, drawAmount));
+            result.Add(new SkillAmountData(drawSkill, drawAmount));
         }
         return result;
     }

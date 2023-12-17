@@ -15,41 +15,25 @@ public class UI_SkillBoxGoods : UI_Base
         GetComponent<Button>().onClick.AddListener(Buy);
     }
 
-    SkillBoxType _skillBoxType;
-    BuyUseCase _buyUseCase;
-    public void DependencyInject(SkillBoxType skillBoxType, BuyUseCase buyUseCase)
+    SkillDrawer _skillDrawer;
+    PlayerDataManager _playerDataManager;
+    public void DependencyInject(SkillDrawer skillDrawer, PlayerDataManager playerDataManager)
     {
-        _skillBoxType = skillBoxType;
-        _buyUseCase = buyUseCase;
+        _skillDrawer = skillDrawer;
+        _playerDataManager = playerDataManager;
     }
 
     void Buy()
     {
-        var drawInfos = new List<SkillDrawInfo>
-        {
-            new SkillDrawInfo(UserSkillClass.Main, 1, 10),
-            new SkillDrawInfo(UserSkillClass.Main, 20, 40),
-            new SkillDrawInfo(UserSkillClass.Sub, 30, 80),
-        };
-    }
+        if (_playerDataManager.UseMoney(PlayerMoneyType.Gem, 1000) == false) return;
 
-    public IEnumerable<SkillDrawInfo> GetDrawInfo()
-    {
         var drawInfos = new List<SkillDrawInfo>
         {
             new SkillDrawInfo(UserSkillClass.Main, 1, 10),
             new SkillDrawInfo(UserSkillClass.Main, 20, 40),
             new SkillDrawInfo(UserSkillClass.Sub, 30, 80),
         };
-        return drawInfos;
-        switch (_skillBoxType)
-        {
-            case SkillBoxType.희귀상자:
-                break;
-            case SkillBoxType.고급상자:
-                break;
-            case SkillBoxType.전설상자:
-                break;
-        }
+        var result = _skillDrawer.DrawSkills(drawInfos);
+        _playerDataManager.AddSkills(result);
     }
 }

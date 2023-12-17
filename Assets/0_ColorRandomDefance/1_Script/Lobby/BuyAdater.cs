@@ -1,14 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-public class SkillDrawUseCase : IProductGiver
+public class BuyAdater
 {
-    readonly IEnumerable<SkillDrawResultInfo> _resultInfos;
-    public SkillDrawUseCase(IEnumerable<SkillDrawResultInfo> resultInfos) => _resultInfos = resultInfos;
+    readonly IEnumerable<SkillAmountData> _resultInfos;
+    public BuyAdater(IEnumerable<SkillAmountData> resultInfos) => _resultInfos = resultInfos;
 
     public void GiveProduct(PlayerDataManager playerDataManager)
     {
+        // »Ì±â
         foreach (var resultInfo in _resultInfos)
             playerDataManager.SkillInventroy.AddSkill(resultInfo.SkillType, resultInfo.Amount);
+        Debug.Log("±×¸®±â");
     }
 }

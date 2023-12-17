@@ -31,12 +31,22 @@ public class UI_LobbyShop : UI_Popup
         _skillDrawer = skillDrawer;
     }
 
+    IEnumerable<Vector2Int> moneyDatas = new Vector2Int[]
+    {
+        new Vector2Int(1000, 100),
+        new Vector2Int(2000, 200),
+        new Vector2Int(3000, 300),
+    };
+
     void CreateBoxGoods()
     {
         foreach (Transform child in GetObject((int)GameObjects.BoxGoodsParnet).transform)
             Destroy(child.gameObject);
 
         foreach (SkillBoxType item in Enum.GetValues(typeof(SkillBoxType)))
-            Managers.UI.MakeSubItem<UI_SkillBoxGoods>(GetObject((int)GameObjects.BoxGoodsParnet).transform).DependencyInject(_skillDrawer, _playerDataManager);
+            Managers.UI.MakeSubItem<UI_SkillBoxGoods>(GetObject((int)GameObjects.BoxGoodsParnet).transform).DependencyInject(new PurchaseManager(new BoxPurchaseOperator(_skillDrawer), _playerDataManager));
+
+        //foreach (var item in moneyDatas)
+            
     }
 }

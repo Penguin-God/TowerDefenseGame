@@ -13,40 +13,36 @@ public class SkillDrawContrllerTests
     {
         // Arrange
         PlayerDataManager playerDataManager = new(new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>()), 0, 0);
-        TestPersistence persistence = new();
         var skillDatas = new UserSkill[]
         {
-            CreateSkill(  SkillType.태극스킬, UserSkillClass.Main),
-            CreateSkill(  SkillType.흑의결속, UserSkillClass.Main),
-            CreateSkill(  SkillType.시작골드증가, UserSkillClass.Sub),
-            CreateSkill(  SkillType.거인학살자, UserSkillClass.Sub),
+            CreateSkill(SkillType.태극스킬, UserSkillClass.Main),
+            CreateSkill(SkillType.흑의결속, UserSkillClass.Main),
+            CreateSkill(SkillType.거인학살자, UserSkillClass.Sub),
         };
+        
         SkillDrawer skillDrawer = new(skillDatas);
+        const int GetAmount = 7;
         var drawInfos = new List<SkillDrawInfo>
         {
-            new SkillDrawInfo(UserSkillClass.Main, 1, 10),
-            new SkillDrawInfo(UserSkillClass.Main, 20, 40),
-            new SkillDrawInfo(UserSkillClass.Sub, 30, 80),
+            new SkillDrawInfo(UserSkillClass.Main, GetAmount, GetAmount),
+            new SkillDrawInfo(UserSkillClass.Main, GetAmount, GetAmount),
+            new SkillDrawInfo(UserSkillClass.Sub, GetAmount, GetAmount),
         };
 
         // Act
-        var sut = new SkillDrawUseCase(skillDrawer, playerDataManager, persistence);
+        var sut = new SkillDrawUseCase(skillDrawer, drawInfos);
+        sut.GiveProduct(playerDataManager);
 
         // Assert
-        foreach (var resultInfo in sut.DrawSkills(drawInfos))
-        {
-            Assert.IsTrue(playerDataManager.SkillInventroy.HasSkill(resultInfo.SkillType));
-            var skillData = playerDataManager.SkillInventroy.GetSkillInfo(resultInfo.SkillType);
-            Assert.AreEqual(skillData.HasAmount, resultInfo.Amount);
-        }
-        
-        // 영속성 저장은 실행되었는지만 체크
-        Assert.IsTrue(persistence.IsExecute);
-    }
-}
+        AssertSkill(SkillType.태극스킬);
+        AssertSkill(SkillType.흑의결속);
+        AssertSkill(SkillType.거인학살자);
 
-public class TestPersistence : IDataPersistence
-{
-    public bool IsExecute = false;
-    public void Save(PlayerDataManager playerData) => IsExecute = true;
+        void AssertSkill(SkillType skillType)
+        {
+            Assert.IsTrue(playerDataManager.SkillInventroy.HasSkill(skillType));
+            var skillData = playerDataManager.SkillInventroy.GetSkillInfo(skillType);
+            Assert.AreEqual(skillData.HasAmount, GetAmount);
+        }
+    }
 }

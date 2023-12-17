@@ -1,8 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 using System;
-using System.Linq;
 
 public class EquipSkillManager
 {
@@ -34,28 +32,8 @@ public class EquipSkillManager
 
 public class ClientDataManager
 {
-    #region Money 구조체
-    [Serializable]
-    public class Money
-    {
-        public string Name;
-        public int Id;
-
-        public int Amount;
-
-        public void SetAmount(int newAmount)
-        {
-            Amount = newAmount;
-        }
-    }
-    #endregion
-    Dictionary<MoneyType, Money> moneyByType = new Dictionary<MoneyType, Money>();
-    public IReadOnlyDictionary<MoneyType, Money> MoneyByType => moneyByType;
-
-
     EquipSkillManager _equipSkillManager = new EquipSkillManager();
     public EquipSkillManager EquipSkillManager => _equipSkillManager;
-
 
     Dictionary<SkillType, int> _skillByLevel = new Dictionary<SkillType, int>();
     public int GetSkillLevel(SkillType skillType)
@@ -64,7 +42,6 @@ public class ClientDataManager
             return result;
         else return 0;
     }
-    public IEnumerable<SkillType> HasSkills => _skillByLevel.Where(x => x.Value > 0).Select(x => x.Key);
     public UserSkillLevelData GetSkillLevelData(SkillType skillType) => Managers.Data.UserSkill.GetSkillLevelData(skillType, GetSkillLevel(skillType));
 
     Dictionary<SkillType, int> _skillByExp = new Dictionary<SkillType, int>();
@@ -86,9 +63,7 @@ public class ClientDataManager
         return true;
     }
 
-    bool CanUpgrade(SkillType skill)
-        => moneyByType[Managers.Data.UserSkill.GetSkillGoodsData(skill).MoneyType].Amount >= GetSkillLevelData(skill).Price
-           && _skillByExp[skill] >= GetSkillLevelData(skill).Exp;
+    bool CanUpgrade(SkillType skill) => _skillByExp[skill] >= GetSkillLevelData(skill).Exp;
 
     public void Init()
     {
@@ -98,9 +73,6 @@ public class ClientDataManager
             _skillByLevel.Add(type, 0);
             _skillByExp.Add(type, 0);
         }
-
-        List<Money> moneyData = CsvUtility.CsvToArray<Money>(Resources.Load<TextAsset>("Data/ClientData/MoneyData").text).ToList();
-        moneyByType = moneyData.ToDictionary(x => (MoneyType)Enum.ToObject(typeof(MoneyType), x.Id), x => x);
     }
 }
 
@@ -130,51 +102,8 @@ public enum SkillType
     전설의기사,
 }
 
-public enum MoneyType
-{
-    Iron = 1,
-    Wood = 2,
-    Hammer = 3,
-}
-
 public enum UserSkillClass
 {
     Main,
     Sub,
-}
-
-public class UserSkillShopUseCase
-{
-    public void GetSkillExp(SkillType skillType, int getQuantity)
-    {
-        if (skillType == SkillType.None) return;
-        Managers.ClientData.GetExp(skillType, getQuantity);
-    }
-
-    public void BuyUserSkill(SkillType skillType)
-    {
-        var skillData = Managers.Data.UserSkill.GetSkillGoodsData(skillType);
-        // TODO : 나중에 가격 정하기
-        if (Managers.ClientData.MoneyByType[skillData.MoneyType].Amount >= 10)
-        {
-            Managers.ClientData.MoneyByType[skillData.MoneyType].Amount -= 10;
-
-            GetSkillExp(skillType, 1);
-        }
-    }
-}
-
-class MoneyPresenter
-{
-    public string GetKoreaText(MoneyType moneyType)
-    {
-        switch (moneyType)
-        {
-            case MoneyType.Iron: return "철";
-            case MoneyType.Wood: return "나무";
-            case MoneyType.Hammer: return "망치";
-        }
-
-        return "";
-    }
 }

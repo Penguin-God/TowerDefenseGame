@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -9,7 +8,6 @@ public class UI_Lobby : UI_Scene
 {
     enum Buttons
     {
-        GetSkillButton,
         OpenShopButton,
         OpenSkillButton,
         GameStartButton,
@@ -25,7 +23,6 @@ public class UI_Lobby : UI_Scene
         Bind<Button>(typeof(Buttons));
         Bind<TextMeshProUGUI>(typeof(Texts));
 
-        GetButton((int)Buttons.GetSkillButton).onClick.AddListener(GetAllSkill);
         GetButton((int)Buttons.OpenShopButton).onClick.AddListener(ShowShop);
         GetButton((int)Buttons.OpenSkillButton).onClick.AddListener(ShowSkillWindow);
 
@@ -44,10 +41,4 @@ public class UI_Lobby : UI_Scene
 
     void ShowSkillWindow() => ShowPopup<UI_SkillManagementWindow>().RefreshUI();
     void ShowShop() => ShowPopup<UI_LobbyShop>();
-
-    void GetAllSkill()
-    {
-        foreach (SkillType type in Enum.GetValues(typeof(SkillType)))
-            new UserSkillShopUseCase().GetSkillExp(type, 1);
-    }
 }

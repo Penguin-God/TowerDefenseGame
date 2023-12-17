@@ -20,7 +20,6 @@ public class UserSkillGoodsData
 {
     [SerializeField] SkillType _skillType;
     [SerializeField] UserSkillClass _skillClass;
-    [SerializeField] MoneyType _moneyType;
     [SerializeField] string _skillName;
     [SerializeField] string _description;
     [SerializeField] string _imagePath;
@@ -29,7 +28,6 @@ public class UserSkillGoodsData
 
     public SkillType SkillType => _skillType;
     public UserSkillClass SkillClass => _skillClass;
-    public MoneyType MoneyType => _moneyType;
     public string SkillName => _skillName;
     public string Description => _description;
     public string ImagePath => _imagePath;

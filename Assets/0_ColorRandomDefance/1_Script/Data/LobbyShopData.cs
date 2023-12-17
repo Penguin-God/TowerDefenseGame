@@ -26,3 +26,14 @@ public class BoxProductData
     public MoneyData GetPriceData() => new(_moneyType, _amount);
     public IEnumerable<SkillDrawInfo> GetDrawInfos() => _skillDatas.Select(x => x.GetDrawInfo());
 }
+
+
+[Serializable]
+public struct GoldProductData
+{
+    [SerializeField] int _goldAmount;
+    [SerializeField] int _gemPrice;
+
+    public int GetGoldAmount() => _goldAmount;
+    public MoneyData GetPriceData() => new(PlayerMoneyType.Gem, _gemPrice);
+}

@@ -31,13 +31,6 @@ public class UI_LobbyShop : UI_Popup
         _skillDrawer = skillDrawer;
     }
 
-    IEnumerable<Vector2Int> moneyDatas = new Vector2Int[]
-    {
-        new Vector2Int(1000, 100),
-        new Vector2Int(2000, 200),
-        new Vector2Int(3000, 300),
-    };
-
     void CreateBoxGoods()
     {
         foreach (Transform child in GetObject((int)GameObjects.BoxGoodsParnet).transform)
@@ -47,8 +40,9 @@ public class UI_LobbyShop : UI_Popup
         foreach (var boxData in boxDatas)
             MakeGoods(new BoxPurchaseOperator(_skillDrawer, boxData.GetDrawInfos()), boxData.GetPriceData(), Enum.GetName(typeof(SkillBoxType), boxData.BoxType));
 
-        foreach (var moneyData in moneyDatas)
-            MakeGoods(new GoldPurchaseOperator(moneyData.x), new MoneyData(PlayerMoneyType.Gem, moneyData.y), new MoneyPersenter().GetMoneyText(new MoneyData(PlayerMoneyType.Gold, moneyData.x)));
+        var goldDatas = Managers.Resources.LoadCsv<GoldProductData>("LobbyShopData/GoldData");
+        foreach (var goldData in goldDatas)
+            MakeGoods(new GoldPurchaseOperator(goldData.GetGoldAmount()), goldData.GetPriceData(), new MoneyPersenter().GetMoneyText(new MoneyData(PlayerMoneyType.Gold, goldData.GetGoldAmount())));
     }
 
     void MakeGoods(IPurchaseOperator purchase, MoneyData moneyData, string productName) 

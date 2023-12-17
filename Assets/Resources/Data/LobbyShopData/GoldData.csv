@@ -1,8 +1,4 @@
-﻿_effectType,_name,_path
-GameObject,BalckableUnitReingForceEffect,Prefabs/Effects/BalckableUnitReingForceEffect
-GameObject,StunEffect,Prefabs/Effects/StunEffect
-GameObject,UnitReinForceEffect,Prefabs/Effects/UnitReinForceEffect
-GameObject,UnitTpEffect,Prefabs/Effects/UnitTpEffect
-GameObject,WhiteUnitTimer,Prefabs/Effects/WhiteUnitTimer
-Material,FreezeEnemy,Materials/FreezeEnemy
-Material,Gray,Materials/Gray
+﻿_goldAmount,_gemPrice
+1000,100
+3500,300
+13000,1000

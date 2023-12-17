@@ -12,15 +12,25 @@ public class UI_SkillBoxGoods : UI_Base
 
     protected override void Init()
     {
-        GetComponent<Button>().onClick.AddListener(() => _skillDrawUseCase.DrawSkills(GetDrawInfo()));
+        GetComponent<Button>().onClick.AddListener(Buy);
     }
 
     SkillBoxType _skillBoxType;
-    SkillDrawUseCase _skillDrawUseCase;
-    public void DependencyInject(SkillBoxType skillBoxType, SkillDrawUseCase skillDrawUseCase)
+    BuyUseCase _buyUseCase;
+    public void DependencyInject(SkillBoxType skillBoxType, BuyUseCase buyUseCase)
     {
         _skillBoxType = skillBoxType;
-        _skillDrawUseCase = skillDrawUseCase;
+        _buyUseCase = buyUseCase;
+    }
+
+    void Buy()
+    {
+        var drawInfos = new List<SkillDrawInfo>
+        {
+            new SkillDrawInfo(UserSkillClass.Main, 1, 10),
+            new SkillDrawInfo(UserSkillClass.Main, 20, 40),
+            new SkillDrawInfo(UserSkillClass.Sub, 30, 80),
+        };
     }
 
     public IEnumerable<SkillDrawInfo> GetDrawInfo()

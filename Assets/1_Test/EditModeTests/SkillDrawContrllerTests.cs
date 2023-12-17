@@ -6,31 +6,22 @@ using UnityEngine.TestTools;
 
 public class SkillDrawContrllerTests
 {
-    UserSkill CreateSkill(SkillType skill, UserSkillClass _class) => new (skill, _class);
-
     [Test]
     public void 뽑기를_하면_유저_데이터가_갱신되고_영속성_저장도_해야_됨()
     {
         // Arrange
         PlayerDataManager playerDataManager = new(new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>()), 0, 0);
-        var skillDatas = new UserSkill[]
-        {
-            CreateSkill(SkillType.태극스킬, UserSkillClass.Main),
-            CreateSkill(SkillType.흑의결속, UserSkillClass.Main),
-            CreateSkill(SkillType.거인학살자, UserSkillClass.Sub),
-        };
-        
-        SkillDrawer skillDrawer = new(skillDatas);
+
         const int GetAmount = 7;
-        var drawInfos = new List<SkillDrawInfo>
+        var drawInfos = new List<SkillDrawResultInfo>
         {
-            new SkillDrawInfo(UserSkillClass.Main, GetAmount, GetAmount),
-            new SkillDrawInfo(UserSkillClass.Main, GetAmount, GetAmount),
-            new SkillDrawInfo(UserSkillClass.Sub, GetAmount, GetAmount),
+            new SkillDrawResultInfo(SkillType.태극스킬, GetAmount),
+            new SkillDrawResultInfo(SkillType.흑의결속, GetAmount),
+            new SkillDrawResultInfo(SkillType.거인학살자, GetAmount),
         };
 
         // Act
-        var sut = new SkillDrawUseCase(skillDrawer, drawInfos);
+        var sut = new SkillDrawUseCase(drawInfos);
         sut.GiveProduct(playerDataManager);
 
         // Assert

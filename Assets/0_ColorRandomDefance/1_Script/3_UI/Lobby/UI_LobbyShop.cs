@@ -44,12 +44,25 @@ public class UI_LobbyShop : UI_Popup
             Destroy(child.gameObject);
 
         foreach (SkillBoxType item in Enum.GetValues(typeof(SkillBoxType)))
-            MakeGoods(new PurchaseManager(new BoxPurchaseOperator(_skillDrawer), _playerDataManager), new MoneyData(PlayerMoneyType.Gem, 1000));
+            MakeGoods(new BoxPurchaseOperator(_skillDrawer), new MoneyData(PlayerMoneyType.Gem, 1000), Enum.GetName(typeof(SkillBoxType), item));
 
         foreach (var moneyData in moneyDatas)
-            MakeGoods(new PurchaseManager(new GoldPurchaseOperator(moneyData.x), _playerDataManager), new MoneyData(PlayerMoneyType.Gem, moneyData.y));
+            MakeGoods(new GoldPurchaseOperator(moneyData.x), new MoneyData(PlayerMoneyType.Gem, moneyData.y), new MoneyPersenter().GetMoneyText(new MoneyData(PlayerMoneyType.Gold, moneyData.x)));
     }
 
-    void MakeGoods(PurchaseManager purchaseManager, MoneyData moneyData) 
-        => Managers.UI.MakeSubItem<UI_SkillBoxGoods>(GetObject((int)GameObjects.BoxGoodsParnet).transform).DependencyInject(purchaseManager, moneyData);
+    void MakeGoods(IPurchaseOperator purchase, MoneyData moneyData, string productName) 
+        => Managers.UI.MakeSubItem<UI_SkillBoxGoods>(GetObject((int)GameObjects.BoxGoodsParnet).transform).DependencyInject(new PurchaseManager(purchase, _playerDataManager), moneyData, productName);
+}
+
+public class MoneyPersenter
+{
+    public string GetMoneyText(MoneyData price)
+    {
+        switch (price.MoneyType)
+        {
+            case PlayerMoneyType.Gold: return $"골드 {price.Amount}원";
+            case PlayerMoneyType.Gem: return $"젬 {price.Amount}개";
+            default: return "";
+        }
+    }
 }

@@ -46,7 +46,7 @@ public class UI_SkillFrame : UI_Base
         GetButton((int)Buttons.EquipButton).onClick.RemoveAllListeners();
         GetButton((int)Buttons.EquipButton).onClick.AddListener(() => Managers.ClientData.EquipSkillManager.ChangedEquipSkill(_skillData.SkillClass, _skillData.SkillType));
 
-        GetImage((int)Images.Skill_ImageButton).sprite = Managers.Resources.Load<Sprite>(_skillData.ImagePath);
+        GetImage((int)Images.Skill_ImageButton).sprite = SpriteUtility.GetSkillImage(_skillData.SkillType);
 
         GetButton((int)Buttons.Skill_ImageButton).onClick.RemoveAllListeners();
         GetButton((int)Buttons.Skill_ImageButton).onClick.AddListener(() => Managers.UI.ShowPopupUI<UI_SkillInfoWindow>().SetInfo(_skillData));

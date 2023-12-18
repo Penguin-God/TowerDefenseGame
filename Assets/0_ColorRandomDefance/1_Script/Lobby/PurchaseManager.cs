@@ -50,6 +50,7 @@ public class BoxPurchaseOperator : IPurchaseOperator
     {
         var result = _skillDrawer.DrawSkills(_drawInfos);
         playerDataManager.AddSkills(result);
+        Managers.UI.ShowPopupUI<UI_NotifySkillDrawWindow>().ShowSkillsInfo(result);
     }
 }
 

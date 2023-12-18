@@ -55,7 +55,7 @@ public class UI_SkillInfoWindow : UI_Popup
 
         GetText((int)Texts.SkillName).text = _skillData.SkillName;
         GetText((int)Texts.SkillExplaneText).text = _skillData.Description;
-        GetImage((int)Images.Skill_Image).sprite = Managers.Resources.Load<Sprite>(_skillData.ImagePath);
+        GetImage((int)Images.Skill_Image).sprite = SpriteUtility.GetSkillImage(_skillData.SkillType);
 
         var levelData = Managers.ClientData.GetSkillLevelData(_skillData.SkillType);
         GetText((int)Texts.Exp_Text).text = $"{Managers.ClientData.SkillByExp[_skillData.SkillType]} / {levelData.Exp}";

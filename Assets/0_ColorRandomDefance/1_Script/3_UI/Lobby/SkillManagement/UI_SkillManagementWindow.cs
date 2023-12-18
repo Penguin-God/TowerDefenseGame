@@ -115,8 +115,6 @@ public class UI_SkillManagementWindow : UI_Popup
         }
 
         image.color = new Color(1, 1, 1, 1);
-        image.sprite = GetSkillImage(skillType);
+        image.sprite = SpriteUtility.GetSkillImage(skillType);
     }
-
-    Sprite GetSkillImage(SkillType skillType) => Managers.Resources.Load<Sprite>(Managers.Data.UserSkill.GetSkillGoodsData(skillType).ImagePath);
 }

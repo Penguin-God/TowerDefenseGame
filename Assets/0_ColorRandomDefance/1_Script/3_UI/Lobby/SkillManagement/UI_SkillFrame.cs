@@ -26,33 +26,29 @@ public class UI_SkillFrame : UI_Base
         Bind<Text>(typeof(Texts));
         Bind<Button>(typeof(Buttons));
         Bind<Image>(typeof(Images));
-        _initDone = true;
-        RefreshUI();
     }
 
-    UserSkillGoodsData _skillData = null;
     SkillUpgradeUseCase _skillUpgradeUseCase;
-    PlayerDataManager _playerDataManager;
-    public void SetInfo(SkillType skill, SkillUpgradeUseCase skillUpgradeUseCase, PlayerDataManager playerDataManager)
+    SkillInfoPresenter _skillInfoPresenter;
+    public void SetInfo(SkillInfoPresenter skillInfoPresenter, SkillUpgradeUseCase skillUpgradeUseCase)
     {
-        _skillData = Managers.Data.UserSkill.GetSkillGoodsData(skill);
+        _skillInfoPresenter = skillInfoPresenter;
         _skillUpgradeUseCase = skillUpgradeUseCase;
-        _playerDataManager = playerDataManager;
         RefreshUI();
     }
 
     void RefreshUI()
     {
-        if (_initDone == false || _skillData == null) return;
+        CheckInit();
 
-        GetText((int)Texts.NameText).text = _skillData.SkillName;
+        GetText((int)Texts.NameText).text = _skillInfoPresenter.GetSkillName();
 
         GetButton((int)Buttons.EquipButton).onClick.RemoveAllListeners();
-        GetButton((int)Buttons.EquipButton).onClick.AddListener(() => Managers.ClientData.EquipSkillManager.ChangedEquipSkill(_skillData.SkillClass, _skillData.SkillType));
+        GetButton((int)Buttons.EquipButton).onClick.AddListener(() => Managers.ClientData.EquipSkillManager.ChangedEquipSkill(_skillInfoPresenter.GetSkillClass(), _skillInfoPresenter.SkillType));
 
-        GetImage((int)Images.Skill_ImageButton).sprite = SpriteUtility.GetSkillImage(_skillData.SkillType);
+        GetImage((int)Images.Skill_ImageButton).sprite = _skillInfoPresenter.GetSkillImage();
 
         GetButton((int)Buttons.Skill_ImageButton).onClick.RemoveAllListeners();
-        GetButton((int)Buttons.Skill_ImageButton).onClick.AddListener(() => Managers.UI.ShowPopupUI<UI_SkillInfoWindow>().SetInfo(_skillData, _skillUpgradeUseCase, _playerDataManager));
+        GetButton((int)Buttons.Skill_ImageButton).onClick.AddListener(() => Managers.UI.ShowPopupUI<UI_SkillInfoWindow>().Show(_skillInfoPresenter, _skillUpgradeUseCase));
     }
 }

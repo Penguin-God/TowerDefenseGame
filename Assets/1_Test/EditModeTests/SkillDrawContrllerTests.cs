@@ -10,7 +10,7 @@ public class SkillDrawContrllerTests
     public void 뽑기를_하면_유저_데이터가_갱신되고_영속성_저장도_해야_됨()
     {
         // Arrange
-        PlayerDataManager playerDataManager = new(new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>()), 0, 0);
+        var sut = new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>());
 
         const int GetAmount = 7;
         var drawInfos = new List<SkillAmountData>
@@ -21,7 +21,7 @@ public class SkillDrawContrllerTests
         };
 
         // Act
-        playerDataManager.AddSkills(drawInfos);
+        sut.AddSkills(drawInfos);
 
         // Assert
         AssertSkill(SkillType.태극스킬);
@@ -30,8 +30,8 @@ public class SkillDrawContrllerTests
 
         void AssertSkill(SkillType skillType)
         {
-            Assert.IsTrue(playerDataManager.SkillInventroy.HasSkill(skillType));
-            var skillData = playerDataManager.SkillInventroy.GetSkillInfo(skillType);
+            Assert.IsTrue(sut.HasSkill(skillType));
+            var skillData = sut.GetSkillInfo(skillType);
             Assert.AreEqual(skillData.HasAmount, GetAmount);
         }
     }

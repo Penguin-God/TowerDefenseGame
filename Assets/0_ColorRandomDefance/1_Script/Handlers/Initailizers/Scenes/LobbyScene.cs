@@ -10,11 +10,13 @@ public class LobbyScene : BaseScene
         var container = new BattleDIContainer(gameObject);
         container.AddComponent<GameMatchmaker>();
 
-        container.AddService(new PlayerDataManager(new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>()), 0, 0));
+        container.AddService(new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>()));
+        container.AddService(new PlayerDataManager(container.GetService<SkillInventroy>(), 0, 0));
         IEnumerable<UserSkill> userSkillDatas = Managers.Resources.LoadCsv<UserSkillData>("SkillData/UserSkillData").Select(x => x.CreateUserSkill());
         container.AddService(new SkillDrawer(userSkillDatas));
 
-        container.AddService(new SkillUpgradeUseCase(container.GetService<PlayerDataManager>(), Managers.Resources.LoadCsv<SkillUpgradeData>("SkillData/SkillUpgradeData")));
+        container.AddService(new SkillDataGetter(Managers.Resources.LoadCsv<SkillUpgradeData>("SkillData/SkillUpgradeData"), container.GetService<SkillInventroy>()));
+        container.AddService(new SkillUpgradeUseCase(container.GetService<SkillDataGetter>(), container.GetService<PlayerDataManager>()));
 
         // Screen.SetResolution(1920, 1080, true);
         // _isFullScreen = true;

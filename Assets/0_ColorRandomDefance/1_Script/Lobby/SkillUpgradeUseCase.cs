@@ -1,29 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 public class SkillUpgradeUseCase
 {
+    readonly SkillDataGetter _skillDataGetter;
     readonly PlayerDataManager _playerDataManager;
-    readonly IEnumerable<SkillUpgradeData> _skillUpgradeDatas;
-    public SkillUpgradeUseCase(PlayerDataManager playerDataManager, IEnumerable<SkillUpgradeData> skillUpgradeDatas)
+    public SkillUpgradeUseCase(SkillDataGetter skillDataGetter, PlayerDataManager playerDataManager)
     {
+        _skillDataGetter = skillDataGetter;
         _playerDataManager = playerDataManager;
-        _skillUpgradeDatas = skillUpgradeDatas;
     }
 
-    SkillUpgradeData GetSkillUpgradeData(SkillType skillType) => _skillUpgradeDatas.First(x => x.Level == GetSkillOwnedInfo(skillType).Level);
-    PlayerOwnedSkillInfo GetSkillOwnedInfo(SkillType skillType) => _playerDataManager.SkillInventroy.GetSkillInfo(skillType);
     public bool CanUpgrade(SkillType skillType)
     {
-        var upgradeData = GetSkillUpgradeData(skillType);
-        return GetSkillOwnedInfo(skillType).HasAmount >= upgradeData.NeedExp && _playerDataManager.HasGold(upgradeData.NeedGold);
+        var upgradeData = _skillDataGetter.GetSkillUpgradeData(skillType);
+        return _skillDataGetter.GetSkillExp(skillType) > upgradeData.NeedExp && _playerDataManager.HasGold(upgradeData.NeedGold);
     }
 
     public void Upgrade(SkillType skillType)
     {
         if (CanUpgrade(skillType) == false) return;
-        var upgradeData = GetSkillUpgradeData(skillType);
+        var upgradeData = _skillDataGetter.GetSkillUpgradeData(skillType);
         _playerDataManager.TryUseGold(upgradeData.NeedGold);
         _playerDataManager.SkillInventroy.LevelUpSkill(skillType, upgradeData.NeedExp);
     }

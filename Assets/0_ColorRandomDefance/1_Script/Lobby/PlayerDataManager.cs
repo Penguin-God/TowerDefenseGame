@@ -48,11 +48,6 @@ public class PlayerDataManager
     }
 
     public SkillInventroy SkillInventroy { get; private set; }
-    public void AddSkills(IEnumerable<SkillAmountData> datas)
-    {
-        foreach (var data in datas)
-            SkillInventroy.AddSkill(data);
-    }
     public PlayerDataManager(SkillInventroy skillInventroy, int gold, int gem)
     {
         SkillInventroy = skillInventroy;

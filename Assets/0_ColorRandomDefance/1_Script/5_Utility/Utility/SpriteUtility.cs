@@ -28,6 +28,6 @@ public static class SpriteUtility
     public static Color CurrencyToColor(GameCurrencyType currency) => CurrencyColors[currency];
 
     public static Sprite GetBattleCurrencyImage(GameCurrencyType gameCurrencyType) => LoadImage(gameCurrencyType == GameCurrencyType.Gold ? "Gold" : "Rune");
-    public static Sprite GetSkillImage(SkillType skillType) => LoadImage(Managers.Data.UserSkill.GetSkillGoodsData(skillType).ImagePath);
+    public static Sprite GetSkillImage(SkillType skillType) => LoadImage(Managers.Data.UserSkill.GetSkillGoodsData(skillType).ImageName);
     static Sprite LoadImage(string imagePath) => Resources.Load<Sprite>($"Sprites/{imagePath}");
 }

@@ -15,7 +15,7 @@ public readonly struct PlayerOwnedSkillInfo
     public PlayerOwnedSkillInfo AddAmount(int amount) => new PlayerOwnedSkillInfo(Level, HasAmount + amount);
 }
 
-public struct SkillInventroy
+public class SkillInventroy
 {
     readonly Dictionary<SkillType, PlayerOwnedSkillInfo> _skillDatas;
     public SkillInventroy(Dictionary<SkillType, PlayerOwnedSkillInfo> skillDatas) => _skillDatas = skillDatas;
@@ -29,6 +29,12 @@ public struct SkillInventroy
         else
             _skillDatas.Add(data.SkillType, new PlayerOwnedSkillInfo(level: 1, data.Amount));
     }
+    public void AddSkills(IEnumerable<SkillAmountData> datas)
+    {
+        foreach (var data in datas)
+            AddSkill(data);
+    }
+
     public void LevelUpSkill(SkillType skillType, int useAmount)
     {
         var skillInfo = GetSkillInfo(skillType);

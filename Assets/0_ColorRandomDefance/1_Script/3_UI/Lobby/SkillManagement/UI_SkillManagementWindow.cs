@@ -39,11 +39,13 @@ public class UI_SkillManagementWindow : UI_Popup
         Managers.ClientData.EquipSkillManager.OnEquipSkillChanged += DrawEquipSkillFrame;
     }
 
-    PlayerDataManager _playerDataManager;
+    SkillInventroy _skillInvertory;
+    SkillDataGetter _skillDataGetter;
     SkillUpgradeUseCase _skillUpgradeUseCase;
-    public void DependencyInject(PlayerDataManager playerDataManager, SkillUpgradeUseCase skillUpgradeUseCase)
+    public void DependencyInject(SkillInventroy skillInvertory, SkillDataGetter skillDataGetter, SkillUpgradeUseCase skillUpgradeUseCase)
     {
-        _playerDataManager = playerDataManager;
+        _skillInvertory = skillInvertory;
+        _skillDataGetter = skillDataGetter;
         _skillUpgradeUseCase = skillUpgradeUseCase;
     }
 
@@ -76,7 +78,7 @@ public class UI_SkillManagementWindow : UI_Popup
                 break;
         }
         
-        DrawSkillImages(_playerDataManager.SkillInventroy.GetAllHasSkills().Where(x => Managers.Data.UserSkill.GetSkillGoodsData(x).SkillClass == skillClass));
+        DrawSkillImages(_skillInvertory.GetAllHasSkills().Where(x => Managers.Data.UserSkill.GetSkillGoodsData(x).SkillClass == skillClass));
     }
 
     void DrawSkillImages(IEnumerable<SkillType> skills)
@@ -86,7 +88,7 @@ public class UI_SkillManagementWindow : UI_Popup
             Destroy(item.gameObject);
 
         foreach (SkillType skillType in skills)
-            Managers.UI.MakeSubItem<UI_SkillFrame>(frameParent).SetInfo(skillType, _skillUpgradeUseCase, _playerDataManager);
+            Managers.UI.MakeSubItem<UI_SkillFrame>(frameParent).SetInfo(new SkillInfoPresenter(skillType, _skillDataGetter), _skillUpgradeUseCase);
     }
 
     void RefreshEquipSkillFrame()

@@ -49,7 +49,7 @@ public class BoxPurchaseOperator : IPurchaseOperator
 
     public void SuccessPurchase(PlayerDataManager playerDataManager)
     {
-        var result = _skillDrawer.DrawSkills(_drawInfos);
+        var result = _skillDrawer.DrawSkills(_drawInfos); // 뽑는거랑 주는거 분리해야 함
         playerDataManager.AddSkills(result);
         Managers.UI.ShowPopupUI<UI_NotifySkillDrawWindow>().ShowSkillsInfo(result);
     }

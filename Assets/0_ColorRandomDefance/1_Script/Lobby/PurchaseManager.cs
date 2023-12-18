@@ -28,11 +28,12 @@ public class PurchaseManager
         _playerDataManager = playerDataManager;
     }
 
-    public void Purchase(MoneyData price)
+    public bool Purchase(MoneyData price)
     {
-        if (_playerDataManager.UseMoney(price) == false) return;
+        if (_playerDataManager.UseMoney(price) == false) return false;
         
         _purchase.SuccessPurchase(_playerDataManager);
+        return true;
     }
 }
 

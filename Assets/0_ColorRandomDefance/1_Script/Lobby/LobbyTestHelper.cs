@@ -18,8 +18,8 @@ public class LobbyTestHelper : MonoBehaviour
         var playerData = _container.GetService<PlayerDataManager>();
         if (Input.GetKeyDown(KeyCode.M))
         {
-            playerData.AddGold(500);
-            playerData.AddGem(100);
+            playerData.AddGold(1000);
+            playerData.AddGem(500);
         }
     }
 

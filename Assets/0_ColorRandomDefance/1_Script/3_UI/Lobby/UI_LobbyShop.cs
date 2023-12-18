@@ -21,7 +21,7 @@ public class UI_LobbyShop : UI_Popup
     {
         base.Init();
         Bind<GameObject>(typeof(GameObjects));
-        CreateBoxGoods();
+        CreateProducts();
     }
     PlayerDataManager _playerDataManager;
     SkillDrawer _skillDrawer;
@@ -31,7 +31,7 @@ public class UI_LobbyShop : UI_Popup
         _skillDrawer = skillDrawer;
     }
 
-    void CreateBoxGoods()
+    void CreateProducts()
     {
         foreach (Transform child in GetObject((int)GameObjects.BoxGoodsParnet).transform)
             Destroy(child.gameObject);
@@ -46,17 +46,25 @@ public class UI_LobbyShop : UI_Popup
     }
 
     void MakeGoods(IPurchaseOperator purchase, MoneyData moneyData, string productName) 
-        => Managers.UI.MakeSubItem<UI_SkillBoxGoods>(GetObject((int)GameObjects.BoxGoodsParnet).transform).DependencyInject(new PurchaseManager(purchase, _playerDataManager), moneyData, productName);
+        => Managers.UI.MakeSubItem<UI_ShopProduct>(GetObject((int)GameObjects.BoxGoodsParnet).transform).DependencyInject(new PurchaseManager(purchase, _playerDataManager), moneyData, productName);
 }
 
 public class MoneyPersenter
 {
-    public string GetMoneyText(MoneyData price)
+    public string GetMoneyText(MoneyData price) => $"{GetMoneyTypeText(price.MoneyType)} {price.Amount}{GetTextByType(price.MoneyType, "원", "개")}";
+    public string GetMoneyTextWithSuffix(MoneyData price) => $"{GetMoneyText(price)}{GetAmountSuffix(price.MoneyType)}";
+
+    public string GetMoneyTypeText(PlayerMoneyType moneyType) => GetTextByType(moneyType, "골드", "젬");
+    public string TypeTextWithSuffix(PlayerMoneyType moneyType) => $"{GetMoneyTypeText(moneyType)}{GetTypeSuffix(moneyType)}";
+
+    string GetTypeSuffix(PlayerMoneyType moneyType) => GetTextByType(moneyType, "가", "이");
+    string GetAmountSuffix(PlayerMoneyType moneyType) => GetTextByType(moneyType, "을", "를");
+    string GetTextByType(PlayerMoneyType type, string goldText, string gemText)
     {
-        switch (price.MoneyType)
+        switch (type)
         {
-            case PlayerMoneyType.Gold: return $"골드 {price.Amount}원";
-            case PlayerMoneyType.Gem: return $"젬 {price.Amount}개";
+            case PlayerMoneyType.Gold: return goldText;
+            case PlayerMoneyType.Gem: return gemText;
             default: return "";
         }
     }

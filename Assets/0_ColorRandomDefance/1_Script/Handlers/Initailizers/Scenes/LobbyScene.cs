@@ -14,6 +14,7 @@ public class LobbyScene : BaseScene
         IEnumerable<UserSkill> userSkillDatas = Managers.Resources.LoadCsv<UserSkillData>("SkillData/UserSkillData").Select(x => x.CreateUserSkill());
         container.AddService(new SkillDrawer(userSkillDatas));
 
+        container.AddService(new SkillUpgradeUseCase(container.GetService<PlayerDataManager>(), Managers.Resources.LoadCsv<SkillUpgradeData>("SkillData/SkillUpgradeData")));
         // Screen.SetResolution(1920, 1080, true);
         // _isFullScreen = true;
         // Managers.Resources.DependencyInject(new PoolManager("@PoolManager"));

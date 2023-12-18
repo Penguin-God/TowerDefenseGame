@@ -89,3 +89,16 @@ public struct BattleShopGoodsData
     public string InfoText => _infoText;
     public GoodsData SellData => _sellData;
 }
+
+
+[Serializable]
+public struct SkillUpgradeData
+{
+    [SerializeField] int _level;
+    [SerializeField] int _needExp;
+    [SerializeField] int _needGold;
+
+    public int Level => _level;
+    public int NeedExp => _needExp;
+    public int NeedGold => _needGold;
+}

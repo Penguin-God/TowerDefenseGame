@@ -21,13 +21,6 @@ public struct SkillInventroy
     public SkillInventroy(Dictionary<SkillType, PlayerOwnedSkillInfo> skillDatas) => _skillDatas = skillDatas;
 
     public bool HasSkill(SkillType type) => _skillDatas.ContainsKey(type);
-    public void AddSkill(SkillType type, int amount)
-    {
-        if (HasSkill(type))
-            _skillDatas[type] = _skillDatas[type].AddAmount(amount);
-        else
-            _skillDatas.Add(type, new PlayerOwnedSkillInfo(level: 1, amount));
-    }
 
     public void AddSkill(SkillAmountData data)
     {
@@ -36,6 +29,18 @@ public struct SkillInventroy
         else
             _skillDatas.Add(data.SkillType, new PlayerOwnedSkillInfo(level: 1, data.Amount));
     }
-    public PlayerOwnedSkillInfo GetSkillInfo(SkillType type) => _skillDatas[type];
+    public void LevelUpSkill(SkillType skillType, int useAmount)
+    {
+        var skillInfo = GetSkillInfo(skillType);
+        if (0 >= skillInfo.Level || useAmount > GetSkillInfo(skillType).HasAmount) return;
+        _skillDatas[skillType] = new PlayerOwnedSkillInfo(skillInfo.Level + 1, skillInfo.HasAmount - useAmount);
+    }
+
+    public PlayerOwnedSkillInfo GetSkillInfo(SkillType type)
+    {
+        if (_skillDatas.TryGetValue(type, out var result))
+            return new PlayerOwnedSkillInfo();
+        return result;
+    }
     public IEnumerable<SkillType> GetAllHasSkills() => _skillDatas.Keys;
 }

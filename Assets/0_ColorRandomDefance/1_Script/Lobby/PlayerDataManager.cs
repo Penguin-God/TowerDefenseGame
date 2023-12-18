@@ -23,6 +23,7 @@ public class PlayerDataManager
     public void AddGold(int amount) => AddMoney(_gold, amount);
     public void AddGem(int amount) => AddMoney(_gem, amount);
 
+    public bool HasGold(int amount) => _gold.Has(amount);
     public bool UseMoney(MoneyData moneyData) => UseMoney(moneyData.MoneyType, moneyData.Amount);
     public bool UseMoney(PlayerMoneyType type, int amount)
     {

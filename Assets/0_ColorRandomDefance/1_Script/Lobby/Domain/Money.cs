@@ -14,10 +14,10 @@ public class Money
     public Money(int amount) => Amount = amount;
 
     public void Add(int amount) => ChangeAmount(Amount + amount);
-
+    public bool Has(int amount) => Amount >= amount;
     public void Subtract(int amount)
     {
-        if (Amount < amount) return;
+        if (Has(amount) == false) return;
         ChangeAmount(Amount - amount);
     }
 }

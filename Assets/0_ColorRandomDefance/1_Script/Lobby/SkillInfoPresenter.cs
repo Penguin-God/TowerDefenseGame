@@ -18,6 +18,8 @@ public class SkillInfoPresenter
     public string GetSkillDescription() => Managers.Data.UserSkill.GetSkillGoodsData(SkillType).Description;
     public UserSkillClass GetSkillClass() => Managers.Data.UserSkill.GetSkillGoodsData(SkillType).SkillClass;
     public Sprite GetSkillImage() => SpriteUtility.GetSkillImage(SkillType);
+    public int GetSkillLevel() => _skillDataGetter.GetSkillLevel(SkillType);
+    public int GetGoldForUpgrade() => _skillDataGetter.GetSkillUpgradeData(SkillType).NeedGold;
     public string GetExpGaugeText() => $"{_skillDataGetter.GetSkillExp(SkillType)} / {_skillDataGetter.GetNeedLevelUpExp(SkillType)}";
     public float GetExpGaugeAmount() => (float)_skillDataGetter.GetSkillExp(SkillType) / _skillDataGetter.GetNeedLevelUpExp(SkillType);
 }

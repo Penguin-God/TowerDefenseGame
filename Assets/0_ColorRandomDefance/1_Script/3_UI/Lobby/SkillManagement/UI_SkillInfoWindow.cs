@@ -17,6 +17,8 @@ public class UI_SkillInfoWindow : UI_Popup
         SkillName,
         SkillExplaneText,
         Exp_Text,
+        LevelText,
+        GoldText,
     }
 
     enum Buttons
@@ -56,10 +58,11 @@ public class UI_SkillInfoWindow : UI_Popup
         GetTextMeshPro((int)Texts.SkillExplaneText).text = _skillInfoPresenter.GetSkillDescription();
         GetImage((int)Images.Skill_Image).sprite = _skillInfoPresenter.GetSkillImage();
 
-        // var levelData = Managers.Data.UserSkill.GetSkillLevelData(_skillData.SkillType, _skillInventroy.GetSkillInfo(_skillData.SkillType).Level);
+        GetTextMeshPro((int)Texts.LevelText).text = _skillInfoPresenter.GetSkillLevel().ToString();
         GetTextMeshPro((int)Texts.Exp_Text).text = _skillInfoPresenter.GetExpGaugeText();
         GetImage((int)Images.FillMask).fillAmount = _skillInfoPresenter.GetExpGaugeAmount();
 
+        GetTextMeshPro((int)Texts.GoldText).text = $"X{_skillInfoPresenter.GetGoldForUpgrade()}";
         GetButton((int)Buttons.UpgradeButton).onClick.RemoveAllListeners();
         GetButton((int)Buttons.UpgradeButton).onClick.AddListener(UpgradeSkill);
         ShowSkillStat();
@@ -67,8 +70,10 @@ public class UI_SkillInfoWindow : UI_Popup
 
     void UpgradeSkill()
     {
+        print("@");
         if (_skillUpgradeUseCase.CanUpgrade(_skillInfoPresenter.SkillType))
         {
+            print("s");
             _skillUpgradeUseCase.Upgrade(_skillInfoPresenter.SkillType);
             RefreshUI();
         }

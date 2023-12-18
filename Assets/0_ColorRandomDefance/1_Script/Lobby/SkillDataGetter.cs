@@ -14,7 +14,7 @@ public class SkillDataGetter
     }
 
     public SkillUpgradeData GetSkillUpgradeData(SkillType skillType) => GetSkillUpgradeData(GetSkillLevel(skillType));
-    public SkillUpgradeData GetSkillUpgradeData(int level) => SkillUpgradeDatas.First(x => x.Level == level);
+    public SkillUpgradeData GetSkillUpgradeData(int level) => SkillUpgradeDatas.First(x => x.Level == level); // 만렙 예외처리하기
 
     public int GetSkillLevel(SkillType skillType) => _skillInventroy.GetSkillInfo(skillType).Level;
     public int GetSkillExp(SkillType skillType) => _skillInventroy.GetSkillInfo(skillType).HasAmount;

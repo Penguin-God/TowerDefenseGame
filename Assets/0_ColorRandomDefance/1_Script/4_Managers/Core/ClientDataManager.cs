@@ -45,25 +45,25 @@ public class ClientDataManager
     public UserSkillLevelData GetSkillLevelData(SkillType skillType) => Managers.Data.UserSkill.GetSkillLevelData(skillType, GetSkillLevel(skillType));
 
     Dictionary<SkillType, int> _skillByExp = new Dictionary<SkillType, int>();
-    public Dictionary<SkillType, int> SkillByExp => _skillByExp;
-    public void GetExp(SkillType skill, int getQuantity)
-    {
-        if (_skillByLevel[skill] == 0)
-            _skillByLevel[skill]++;
+    // public Dictionary<SkillType, int> SkillByExp => _skillByExp;
+    //public void GetExp(SkillType skill, int getQuantity)
+    //{
+    //    if (_skillByLevel[skill] == 0)
+    //        _skillByLevel[skill]++;
 
-        _skillByExp[skill] += getQuantity;
-    }
+    //    _skillByExp[skill] += getQuantity;
+    //}
 
-    public bool UpgradeSkill(SkillType skill)
-    {
-        if (CanUpgrade(skill) == false) return false;
+    //public bool UpgradeSkill(SkillType skill)
+    //{
+    //    if (CanUpgrade(skill) == false) return false;
 
-        _skillByExp[skill] -= GetSkillLevelData(skill).Exp;
-        _skillByLevel[skill]++;
-        return true;
-    }
+    //    _skillByExp[skill] -= GetSkillLevelData(skill).Exp;
+    //    _skillByLevel[skill]++;
+    //    return true;
+    //}
 
-    bool CanUpgrade(SkillType skill) => _skillByExp[skill] >= GetSkillLevelData(skill).Exp;
+    // bool CanUpgrade(SkillType skill) => _skillByExp[skill] >= GetSkillLevelData(skill).Exp;
 
     public void Init()
     {

@@ -40,9 +40,11 @@ public class UI_SkillManagementWindow : UI_Popup
     }
 
     PlayerDataManager _playerDataManager;
-    public void DependencyInject(PlayerDataManager playerDataManager)
+    SkillUpgradeUseCase _skillUpgradeUseCase;
+    public void DependencyInject(PlayerDataManager playerDataManager, SkillUpgradeUseCase skillUpgradeUseCase)
     {
         _playerDataManager = playerDataManager;
+        _skillUpgradeUseCase = skillUpgradeUseCase;
     }
 
     void OnDestroy()
@@ -84,7 +86,7 @@ public class UI_SkillManagementWindow : UI_Popup
             Destroy(item.gameObject);
 
         foreach (SkillType skillType in skills)
-            Managers.UI.MakeSubItem<UI_SkillFrame>(frameParent).SetInfo(skillType);
+            Managers.UI.MakeSubItem<UI_SkillFrame>(frameParent).SetInfo(skillType, _skillUpgradeUseCase, _playerDataManager);
     }
 
     void RefreshEquipSkillFrame()

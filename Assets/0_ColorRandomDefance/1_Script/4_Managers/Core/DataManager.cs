@@ -163,18 +163,14 @@ public class DataManager
     public class UserSkillData
     {
         public Dictionary<SkillType, UserSkillGoodsData> _typeByGoodsData;
-        public IEnumerable<UserSkillGoodsData> AllSkills => _typeByGoodsData.Values;
+        IEnumerable<UserSkillLevelData> _userSkillLevelDatas;
         public void Init(DataManager manager)
         {
             _typeByGoodsData = manager.MakeCsvDict<UserSkillGoodsLoder, SkillType, UserSkillGoodsData>("SkillData/SkillGoodsData");
+            _userSkillLevelDatas = Managers.Resources.LoadCsv<UserSkillLevelData>("SkillData/SkillLevelData");
         }
 
-        public UserSkillLevelData GetSkillLevelData(SkillType type, int level)
-        {
-            if (_typeByGoodsData.TryGetValue(type, out UserSkillGoodsData data) == false)
-                Debug.LogError($"유저 스킬 배틀 데이터 {type} : {level} 로드 실패");
-            return data.LevelDatas[level - 1];
-        }
+        public UserSkillLevelData GetSkillLevelData(SkillType type, int level) => _userSkillLevelDatas.First(x => x.SkillType == type && x.Level == level);
 
         public UserSkillGoodsData GetSkillGoodsData(SkillType skillType)
         {

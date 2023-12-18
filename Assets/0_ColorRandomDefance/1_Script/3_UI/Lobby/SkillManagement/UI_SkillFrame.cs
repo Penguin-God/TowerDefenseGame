@@ -31,9 +31,13 @@ public class UI_SkillFrame : UI_Base
     }
 
     UserSkillGoodsData _skillData = null;
-    public void SetInfo(SkillType skill)
+    SkillUpgradeUseCase _skillUpgradeUseCase;
+    PlayerDataManager _playerDataManager;
+    public void SetInfo(SkillType skill, SkillUpgradeUseCase skillUpgradeUseCase, PlayerDataManager playerDataManager)
     {
         _skillData = Managers.Data.UserSkill.GetSkillGoodsData(skill);
+        _skillUpgradeUseCase = skillUpgradeUseCase;
+        _playerDataManager = playerDataManager;
         RefreshUI();
     }
 
@@ -49,6 +53,6 @@ public class UI_SkillFrame : UI_Base
         GetImage((int)Images.Skill_ImageButton).sprite = SpriteUtility.GetSkillImage(_skillData.SkillType);
 
         GetButton((int)Buttons.Skill_ImageButton).onClick.RemoveAllListeners();
-        GetButton((int)Buttons.Skill_ImageButton).onClick.AddListener(() => Managers.UI.ShowPopupUI<UI_SkillInfoWindow>().SetInfo(_skillData));
+        GetButton((int)Buttons.Skill_ImageButton).onClick.AddListener(() => Managers.UI.ShowPopupUI<UI_SkillInfoWindow>().SetInfo(_skillData, _skillUpgradeUseCase, _playerDataManager));
     }
 }

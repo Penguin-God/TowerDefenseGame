@@ -10,8 +10,6 @@ public struct UserSkillData
     [SerializeField] SkillType _skillType;
     [SerializeField] UserSkillClass _skillClass;
 
-    public SkillType SkillType => _skillType;
-    public UserSkillClass SkillClass => _skillClass;
     public UserSkill CreateUserSkill() => new UserSkill(_skillType, _skillClass);
 }
 
@@ -33,8 +31,6 @@ public class UserSkillGoodsData
     public string ImagePath => _imagePath;
     public Sprite ImageSprite => Managers.Resources.Load<Sprite>(_imagePath);
     public IReadOnlyList<string> StatInfoFraems => _statInfoFraems;
-    public UserSkillLevelData[] LevelDatas => _levelDatas;
-    public void SetLevelDatas(UserSkillLevelData[] newLevelDatas) => _levelDatas = newLevelDatas;
 }
 
 [Serializable]
@@ -48,7 +44,6 @@ public class UserSkillLevelData
 
     public SkillType SkillType => _skillType;
     public int Level => _level;
-    public int Price => _price;
     public int Exp => _exp;
     public float[] BattleDatas => _battleDatas;
 }
@@ -59,8 +54,6 @@ public class UserSkillGoodsLoder : ICsvLoader<SkillType, UserSkillGoodsData>
     {
         var skillDatas = CsvUtility.CsvToList<UserSkillGoodsData>(csv);
         var skillLevelDatas = LoadLevleData("SkillData/SkillLevelData");
-        foreach (var item in skillDatas)
-            item.SetLevelDatas(skillLevelDatas.Where(x => x.SkillType == item.SkillType).ToArray());
         return skillDatas.ToDictionary(x => x.SkillType, x => x);
     }
 

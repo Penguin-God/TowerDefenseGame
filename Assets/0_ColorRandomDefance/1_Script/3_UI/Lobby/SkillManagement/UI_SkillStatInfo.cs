@@ -15,6 +15,7 @@ public class UI_SkillStatInfo : UI_Base
 
     string GetSkillStat(SkillType skillType, int frameIndex)
     {
+        return "±∏«ˆ«ÿ¡‡";
         float result = Managers.ClientData.GetSkillLevelData(skillType).BattleDatas[frameIndex];
         switch (skillType)
         {

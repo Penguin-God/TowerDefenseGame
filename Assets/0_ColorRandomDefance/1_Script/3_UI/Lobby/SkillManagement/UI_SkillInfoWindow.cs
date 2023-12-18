@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -8,7 +9,6 @@ public class UI_SkillInfoWindow : UI_Popup
 {
     enum Images
     {
-        Barrier,
         Skill_Image,
         FillMask,
     }
@@ -35,16 +35,20 @@ public class UI_SkillInfoWindow : UI_Popup
         base.Init();
 
         Bind<Image>(typeof(Images));
-        Bind<Text>(typeof(Texts));
+        Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Button>(typeof(Buttons));
         Bind<GameObject>(typeof(GameObjects));
         _initDone = true;
         RefreshUI();
     }
 
-    public void SetInfo(UserSkillGoodsData newData)
+    SkillUpgradeUseCase _skillUpgradeUseCase;
+    PlayerDataManager _playerDataManager;
+    public void SetInfo(UserSkillGoodsData newData, SkillUpgradeUseCase skillUpgradeUseCase, PlayerDataManager playerDataManager)
     {
         _skillData = newData;
+        _skillUpgradeUseCase = skillUpgradeUseCase;
+        _playerDataManager = playerDataManager;
         RefreshUI();
     }
 
@@ -53,13 +57,13 @@ public class UI_SkillInfoWindow : UI_Popup
     {
         if (_initDone == false || _skillData == null) return;
 
-        GetText((int)Texts.SkillName).text = _skillData.SkillName;
-        GetText((int)Texts.SkillExplaneText).text = _skillData.Description;
+        GetTextMeshPro((int)Texts.SkillName).text = _skillData.SkillName;
+        GetTextMeshPro((int)Texts.SkillExplaneText).text = _skillData.Description;
         GetImage((int)Images.Skill_Image).sprite = SpriteUtility.GetSkillImage(_skillData.SkillType);
 
-        var levelData = Managers.ClientData.GetSkillLevelData(_skillData.SkillType);
-        GetText((int)Texts.Exp_Text).text = $"{Managers.ClientData.SkillByExp[_skillData.SkillType]} / {levelData.Exp}";
-        GetImage((int)Images.FillMask).fillAmount = (float)Managers.ClientData.SkillByExp[_skillData.SkillType] / levelData.Exp;
+        var levelData = Managers.Data.UserSkill.GetSkillLevelData(_skillData.SkillType, _playerDataManager.SkillInventroy.GetSkillInfo(_skillData.SkillType).Level);
+        GetTextMeshPro((int)Texts.Exp_Text).text = $"{_playerDataManager.SkillInventroy.GetSkillInfo(_skillData.SkillType).HasAmount} / {levelData.Exp}";
+        GetImage((int)Images.FillMask).fillAmount = (float)_playerDataManager.SkillInventroy.GetSkillInfo(_skillData.SkillType).HasAmount / levelData.Exp;
 
         GetButton((int)Buttons.UpgradeButton).onClick.RemoveAllListeners();
         GetButton((int)Buttons.UpgradeButton).onClick.AddListener(UpgradeSkill);
@@ -70,8 +74,11 @@ public class UI_SkillInfoWindow : UI_Popup
     {
         if (_skillData == null) return;
 
-        if (Managers.ClientData.UpgradeSkill(_skillData.SkillType))
+        if (_skillUpgradeUseCase.CanUpgrade(_skillData.SkillType))
+        {
+            _skillUpgradeUseCase.Upgrade(_skillData.SkillType);
             RefreshUI();
+        }
     }
 
     void ShowSkillStat()

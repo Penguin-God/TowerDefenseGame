@@ -38,7 +38,7 @@ public struct SkillInventroy
 
     public PlayerOwnedSkillInfo GetSkillInfo(SkillType type)
     {
-        if (_skillDatas.TryGetValue(type, out var result))
+        if (_skillDatas.TryGetValue(type, out var result) == false)
             return new PlayerOwnedSkillInfo();
         return result;
     }

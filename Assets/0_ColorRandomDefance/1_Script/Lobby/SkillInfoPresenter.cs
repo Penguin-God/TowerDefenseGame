@@ -20,6 +20,7 @@ public class SkillInfoPresenter
     public UserSkillClass GetSkillClass() => GetSkillData().SkillClass;
     public Sprite GetSkillImage() => SpriteUtility.GetSkillImage(SkillType);
     public int GetSkillLevel() => _skillDataGetter.GetSkillLevel(SkillType);
+    public bool SkillIsMax() => _skillDataGetter.SkillIsMax(SkillType);
     public int GetGoldForUpgrade() => _skillDataGetter.GetSkillUpgradeData(SkillType).NeedGold;
     public string GetExpGaugeText() => $"{_skillDataGetter.GetSkillExp(SkillType)} / {_skillDataGetter.GetNeedLevelUpExp(SkillType)}";
     public float GetExpGaugeAmount() => (float)_skillDataGetter.GetSkillExp(SkillType) / _skillDataGetter.GetNeedLevelUpExp(SkillType);
@@ -41,6 +42,8 @@ public class SkillInfoPresenter
 
     string GetUpgradeStatText(int index)
     {
+        if (SkillIsMax()) return "";
+
         float currentStat = GetUnitStats(GetSkillLevel())[index];
         float nextStat = GetUnitStats(GetSkillLevel() + 1)[index];
         float delta = (float)Math.Round(nextStat - currentStat, 2);

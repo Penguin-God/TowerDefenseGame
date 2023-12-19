@@ -13,6 +13,8 @@ public class SkillUpgradeUseCase
 
     public bool CanUpgrade(SkillType skillType)
     {
+        if(_skillDataGetter.SkillIsMax(skillType)) return false;
+
         var upgradeData = _skillDataGetter.GetSkillUpgradeData(skillType);
         return _skillDataGetter.GetSkillExp(skillType) > upgradeData.NeedExp && _playerDataManager.HasGold(upgradeData.NeedGold);
     }

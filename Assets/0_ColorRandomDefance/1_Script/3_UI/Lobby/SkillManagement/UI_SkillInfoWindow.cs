@@ -70,8 +70,11 @@ public class UI_SkillInfoWindow : UI_Popup
 
     void SetUpgradeButton()
     {
-        if (_skillUpgradeUseCase.CanUpgrade(_skillInfoPresenter.SkillType))
+        if( _skillInfoPresenter.SkillIsMax())
+            GetButton((int)Buttons.UpgradeButton).gameObject.SetActive(false);
+        else if (_skillUpgradeUseCase.CanUpgrade(_skillInfoPresenter.SkillType))
         {
+            GetButton((int)Buttons.UpgradeButton).gameObject.SetActive(true);
             GetButton((int)Buttons.UpgradeButton).image.color = new Color(1, 1, 1, 1);
             GetButton((int)Buttons.UpgradeButton).enabled = true;
             GetButton((int)Buttons.UpgradeButton).onClick.RemoveAllListeners();
@@ -79,6 +82,7 @@ public class UI_SkillInfoWindow : UI_Popup
         }
         else
         {
+            GetButton((int)Buttons.UpgradeButton).gameObject.SetActive(true);
             GetButton((int)Buttons.UpgradeButton).image.color = new Color(1, 1, 1, 0.6f);
             GetButton((int)Buttons.UpgradeButton).enabled = false;
         }

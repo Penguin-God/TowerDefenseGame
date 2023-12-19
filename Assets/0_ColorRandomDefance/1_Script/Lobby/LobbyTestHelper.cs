@@ -52,7 +52,7 @@ public class LobbyTestHelper : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S))
         {
             foreach (SkillType skillType in System.Enum.GetValues(typeof(SkillType)).Cast<SkillType>().Where(x => x != SkillType.None))
-                _playerData.SkillInventroy.AddSkill(new SkillAmountData(skillType, 1));
+                _playerData.SkillInventroy.AddSkill(new SkillAmountData(skillType, 10));
         }
     }
 }

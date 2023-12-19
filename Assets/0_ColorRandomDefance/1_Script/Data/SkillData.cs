@@ -33,7 +33,7 @@ public class UserSkillGoodsData
 }
 
 [Serializable]
-public class UserSkillLevelData
+public struct UserSkillLevelData
 {
     [SerializeField] SkillType _skillType;
     [SerializeField] int _level;

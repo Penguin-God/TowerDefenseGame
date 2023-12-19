@@ -22,4 +22,8 @@ public class SkillInfoPresenter
     public int GetGoldForUpgrade() => _skillDataGetter.GetSkillUpgradeData(SkillType).NeedGold;
     public string GetExpGaugeText() => $"{_skillDataGetter.GetSkillExp(SkillType)} / {_skillDataGetter.GetNeedLevelUpExp(SkillType)}";
     public float GetExpGaugeAmount() => (float)_skillDataGetter.GetSkillExp(SkillType) / _skillDataGetter.GetNeedLevelUpExp(SkillType);
+    public IEnumerable<string> GetSkillStatTexts()
+    {
+        return new string[] { "2", "4", "5", "6" };
+    }
 }

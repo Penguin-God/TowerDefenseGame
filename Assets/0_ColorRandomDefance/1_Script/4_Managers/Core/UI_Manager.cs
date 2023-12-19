@@ -62,6 +62,15 @@ public class UI_Manager
         return ui;
     }
 
+    public GameObject MakeSubItem(Transform parent, string name)
+    {
+        var ui = Managers.Resources.Instantiate($"UI/SubItem/{name}");
+        ui.transform.SetParent(parent);
+        ui.transform.localScale = Vector3.one;
+        ui.transform.localPosition = ui.transform.position;
+        return ui;
+    }
+
     public T ShowSceneUI<T>(string name = null) where T : UI_Scene
     {
         var cash = GetSceneUI<T>();

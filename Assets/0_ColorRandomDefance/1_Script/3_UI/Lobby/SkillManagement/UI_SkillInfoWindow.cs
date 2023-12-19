@@ -63,18 +63,31 @@ public class UI_SkillInfoWindow : UI_Popup
         GetImage((int)Images.FillMask).fillAmount = _skillInfoPresenter.GetExpGaugeAmount();
 
         GetTextMeshPro((int)Texts.GoldText).text = $"X{_skillInfoPresenter.GetGoldForUpgrade()}";
-        GetButton((int)Buttons.UpgradeButton).onClick.RemoveAllListeners();
-        GetButton((int)Buttons.UpgradeButton).onClick.AddListener(UpgradeSkill);
+
+        SetUpgradeButton();
         ShowSkillStat();
+    }
+
+    void SetUpgradeButton()
+    {
+        if (_skillUpgradeUseCase.CanUpgrade(_skillInfoPresenter.SkillType))
+        {
+            GetButton((int)Buttons.UpgradeButton).image.color = new Color(1, 1, 1, 1);
+            GetButton((int)Buttons.UpgradeButton).enabled = true;
+            GetButton((int)Buttons.UpgradeButton).onClick.RemoveAllListeners();
+            GetButton((int)Buttons.UpgradeButton).onClick.AddListener(UpgradeSkill);
+        }
+        else
+        {
+            GetButton((int)Buttons.UpgradeButton).image.color = new Color(1, 1, 1, 0.6f);
+            GetButton((int)Buttons.UpgradeButton).enabled = false;
+        }
     }
 
     void UpgradeSkill()
     {
-        if (_skillUpgradeUseCase.CanUpgrade(_skillInfoPresenter.SkillType))
-        {
-            _skillUpgradeUseCase.Upgrade(_skillInfoPresenter.SkillType);
-            RefreshUI();
-        }
+        _skillUpgradeUseCase.Upgrade(_skillInfoPresenter.SkillType);
+        RefreshUI();
     }
 
     void ShowSkillStat()

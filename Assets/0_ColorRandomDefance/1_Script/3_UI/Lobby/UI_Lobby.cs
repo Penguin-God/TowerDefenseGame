@@ -28,7 +28,7 @@ public class UI_Lobby : UI_Scene
         GetButton((int)Buttons.OpenShopButton).onClick.AddListener(ShowShop);
         GetButton((int)Buttons.OpenSkillButton).onClick.AddListener(ShowSkillWindow);
 
-        _container.GetComponent<GameMatchmaker>().SetInfo(GetTextMeshPro((int)Texts.TestText), GetButton((int)Buttons.GameStartButton));
+        _container.GetComponent<GameMatchmaker>().SetInfo(GetTextMeshPro((int)Texts.TestText), GetButton((int)Buttons.GameStartButton), _container.GetService<EquipSkillManager>());
 
         var playerData = _container.GetService<PlayerDataManager>();
         playerData.OnGoldAmountChanged += amount => GetTextMeshPro((int)Texts.GoldText).text = amount.ToString();

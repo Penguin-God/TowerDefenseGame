@@ -31,27 +31,29 @@ public class UI_SkillManagementWindow : UI_Popup
         Bind<Image>(typeof(Images));
         Bind<Button>(typeof(Buttons));
 
-        GetButton((int)Buttons.UnEquipButton).onClick.AddListener(Managers.ClientData.EquipSkillManager.AllUnEquip);
+        GetButton((int)Buttons.UnEquipButton).onClick.AddListener(_equipSkillManager.AllUnEquip);
         GetButton((int)Buttons.MainTabBtn).onClick.AddListener(() => ChangeTab(UserSkillClass.Main));
         GetButton((int)Buttons.SubTabBtn).onClick.AddListener(() => ChangeTab(UserSkillClass.Sub));
 
-        Managers.ClientData.EquipSkillManager.OnEquipSkillChanged -= DrawEquipSkillFrame;
-        Managers.ClientData.EquipSkillManager.OnEquipSkillChanged += DrawEquipSkillFrame;
+        _equipSkillManager.OnEquipSkillChanged -= DrawEquipSkillFrame;
+        _equipSkillManager.OnEquipSkillChanged += DrawEquipSkillFrame;
     }
 
     SkillInventroy _skillInvertory;
+    EquipSkillManager _equipSkillManager;
     SkillDataGetter _skillDataGetter;
     SkillUpgradeUseCase _skillUpgradeUseCase;
-    public void DependencyInject(SkillInventroy skillInvertory, SkillDataGetter skillDataGetter, SkillUpgradeUseCase skillUpgradeUseCase)
+    public void DependencyInject(SkillInventroy skillInvertory, SkillDataGetter skillDataGetter, SkillUpgradeUseCase skillUpgradeUseCase, EquipSkillManager equipSkillManager)
     {
         _skillInvertory = skillInvertory;
         _skillDataGetter = skillDataGetter;
         _skillUpgradeUseCase = skillUpgradeUseCase;
+        _equipSkillManager = equipSkillManager;
     }
 
     void OnDestroy()
     {
-        Managers.ClientData.EquipSkillManager.OnEquipSkillChanged -= DrawEquipSkillFrame;
+        _equipSkillManager.OnEquipSkillChanged -= DrawEquipSkillFrame;
     }
 
     public void RefreshUI()
@@ -88,13 +90,13 @@ public class UI_SkillManagementWindow : UI_Popup
             Destroy(item.gameObject);
 
         foreach (SkillType skillType in skills)
-            Managers.UI.MakeSubItem<UI_SkillFrame>(frameParent).SetInfo(new SkillInfoPresenter(skillType, _skillDataGetter), _skillUpgradeUseCase);
+            Managers.UI.MakeSubItem<UI_SkillFrame>(frameParent).SetInfo(new SkillInfoPresenter(skillType, _skillDataGetter), _skillUpgradeUseCase, _equipSkillManager);
     }
 
     void RefreshEquipSkillFrame()
     {
-        DrawEquipSkillFrame(UserSkillClass.Main, Managers.ClientData.EquipSkillManager.MainSkill);
-        DrawEquipSkillFrame(UserSkillClass.Sub, Managers.ClientData.EquipSkillManager.SubSkill);
+        DrawEquipSkillFrame(UserSkillClass.Main, _equipSkillManager.MainSkill);
+        DrawEquipSkillFrame(UserSkillClass.Sub, _equipSkillManager.SubSkill);
     }
 
     void DrawEquipSkillFrame(UserSkillClass skillClass, SkillType skillType)

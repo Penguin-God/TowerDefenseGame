@@ -19,10 +19,12 @@ public class GameMatchmaker : MonoBehaviourPunCallbacks
         PhotonNetwork.Disconnect();
     }
 
-    public void SetInfo(TextMeshProUGUI text, Button button)
+    EquipSkillManager _equipSkillManager;
+    public void SetInfo(TextMeshProUGUI text, Button button, EquipSkillManager equipSkillManager)
     {
         _gameMatchingButton = button;
         ConnectionInfoText = text;
+        _equipSkillManager = equipSkillManager;
 
         _gameMatchingButton.onClick.AddListener(Connect);
         ConnectionInfoText.text = "매치 상태";
@@ -30,7 +32,7 @@ public class GameMatchmaker : MonoBehaviourPunCallbacks
 
     void Connect()
     {
-        if(Managers.ClientData.EquipSkillManager.AllSkillsEquipped == false)
+        if(_equipSkillManager.AllSkillsEquipped == false)
         {
             ConnectionInfoText.text = "스킬을 장착해주세요";
             return;

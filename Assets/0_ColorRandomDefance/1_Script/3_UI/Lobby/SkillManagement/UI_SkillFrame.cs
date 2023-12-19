@@ -30,10 +30,12 @@ public class UI_SkillFrame : UI_Base
 
     SkillUpgradeUseCase _skillUpgradeUseCase;
     SkillInfoPresenter _skillInfoPresenter;
-    public void SetInfo(SkillInfoPresenter skillInfoPresenter, SkillUpgradeUseCase skillUpgradeUseCase)
+    EquipSkillManager _equipSkillManager;
+    public void SetInfo(SkillInfoPresenter skillInfoPresenter, SkillUpgradeUseCase skillUpgradeUseCase, EquipSkillManager equipSkillManager)
     {
         _skillInfoPresenter = skillInfoPresenter;
         _skillUpgradeUseCase = skillUpgradeUseCase;
+        _equipSkillManager = equipSkillManager;
         RefreshUI();
     }
 
@@ -44,7 +46,7 @@ public class UI_SkillFrame : UI_Base
         GetText((int)Texts.NameText).text = _skillInfoPresenter.GetSkillName();
 
         GetButton((int)Buttons.EquipButton).onClick.RemoveAllListeners();
-        GetButton((int)Buttons.EquipButton).onClick.AddListener(() => Managers.ClientData.EquipSkillManager.ChangedEquipSkill(_skillInfoPresenter.GetSkillClass(), _skillInfoPresenter.SkillType));
+        GetButton((int)Buttons.EquipButton).onClick.AddListener(() => _equipSkillManager.ChangedEquipSkill(_skillInfoPresenter.GetSkillClass(), _skillInfoPresenter.SkillType));
 
         GetImage((int)Images.Skill_ImageButton).sprite = _skillInfoPresenter.GetSkillImage();
 

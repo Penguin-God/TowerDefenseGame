@@ -42,7 +42,7 @@ public class ClientDataManager
             return result;
         else return 0;
     }
-    public UserSkillLevelData GetSkillLevelData(SkillType skillType) => Managers.Data.UserSkill.GetSkillLevelData(skillType, GetSkillLevel(skillType));
+    // public UserSkillLevelData GetSkillLevelData(SkillType skillType) => Managers.Data.UserSkill.GetSkillLevelData(skillType, GetSkillLevel(skillType));
 
     Dictionary<SkillType, int> _skillByExp = new Dictionary<SkillType, int>();
     // public Dictionary<SkillType, int> SkillByExp => _skillByExp;

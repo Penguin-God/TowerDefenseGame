@@ -17,7 +17,7 @@ public class LobbyScene : BaseScene
 
         container.AddService(new SkillDataGetter(Managers.Resources.LoadCsv<SkillUpgradeData>("SkillData/SkillUpgradeData"), Managers.Resources.LoadCsv<UserSkillLevelData>("SkillData/SkillLevelData"), container.GetService<SkillInventroy>()));
         container.AddService(new SkillUpgradeUseCase(container.GetService<SkillDataGetter>(), container.GetService<PlayerDataManager>()));
-
+        container.AddService(new EquipSkillManager());
         // Screen.SetResolution(1920, 1080, true);
         // _isFullScreen = true;
         // Managers.Resources.DependencyInject(new PoolManager("@PoolManager"));

@@ -243,8 +243,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -40, y: 140}
+  m_AnchoredPosition: {x: 0, y: 35}
+  m_SizeDelta: {x: -40, y: 230}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5397794214437041125
 CanvasRenderer:
@@ -270,12 +270,12 @@ MonoBehaviour:
     m_Left: 0
     m_Right: 0
     m_Top: 0
-    m_Bottom: 120
+    m_Bottom: 0
   m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
-  m_CellSize: {x: 140, y: 40}
-  m_Spacing: {x: 0, y: 0}
+  m_CellSize: {x: 220, y: 50}
+  m_Spacing: {x: 0, y: 10}
   m_Constraint: 0
   m_ConstraintCount: 2
 --- !u!1 &4969050614863662477
@@ -1300,7 +1300,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: -0.000015258789, y: -50}
+  m_AnchoredPosition: {x: -0.000015258789, y: -20}
   m_SizeDelta: {x: 160, y: 35}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &5027590103879371987
@@ -2223,6 +2223,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_SkillStatInfo (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6947532306663003811, guid: edb30a1f01ceca946876e1f852f73bf2,
+        type: 3}
+      propertyPath: m_text
+      value: "\uBC95\uC0AC: 10,000,000 -> 20,000,000"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edb30a1f01ceca946876e1f852f73bf2, type: 3}
 --- !u!224 &8501318046695028654 stripped
@@ -2347,6 +2352,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UI_SkillStatInfo (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947532306663003811, guid: edb30a1f01ceca946876e1f852f73bf2,
+        type: 3}
+      propertyPath: m_text
+      value: "\uBC95\uC0AC: 10,000,000 -> 20,000,000"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edb30a1f01ceca946876e1f852f73bf2, type: 3}
@@ -2598,6 +2608,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI_SkillStatInfo
       objectReference: {fileID: 0}
+    - target: {fileID: 6947532306663003811, guid: edb30a1f01ceca946876e1f852f73bf2,
+        type: 3}
+      propertyPath: m_text
+      value: "\uBC95\uC0AC: 10,000,000 -> 20,000,000"
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edb30a1f01ceca946876e1f852f73bf2, type: 3}
 --- !u!224 &4118399952182129784 stripped
@@ -2722,6 +2737,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: UI_SkillStatInfo (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6947532306663003811, guid: edb30a1f01ceca946876e1f852f73bf2,
+        type: 3}
+      propertyPath: m_text
+      value: "\uBC95\uC0AC: 10,000,000 -> 20,000,000"
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: edb30a1f01ceca946876e1f852f73bf2, type: 3}

@@ -1,8 +1,7 @@
-using log4net.Core;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using WebSocketSharp;
 
 public class SkillInfoPresenter
 {
@@ -31,8 +30,8 @@ public class SkillInfoPresenter
         for (int i = 0; i < statTexts.Count; i++)
         {
             string text = statTexts[i].Replace("{data}", StatToText(GetUnitStats(GetSkillLevel())[i], i));
-            if (string.IsNullOrEmpty(GetAddUpgradeText(i)) == false)
-                text += GetAddUpgradeText(i);
+            if (string.IsNullOrEmpty(GetUpgradeStatText(i)) == false)
+                text += GetUpgradeStatText(i);
             result.Add(TextUtility.RelpaceKeyToValue(text));
         }
         return result;
@@ -40,13 +39,15 @@ public class SkillInfoPresenter
 
     float[] GetUnitStats(int level) => Managers.Data.UserSkill.GetSkillLevelData(SkillType, level).BattleDatas;
 
-    string GetAddUpgradeText(int index)
+    string GetUpgradeStatText(int index)
     {
         float currentStat = GetUnitStats(GetSkillLevel())[index];
         float nextStat = GetUnitStats(GetSkillLevel() + 1)[index];
+        float delta = (float)Math.Round(nextStat - currentStat, 2);
+        if (0.001f >= Mathf.Abs(delta)) return "";
 
-        if (currentStat + 0.01f >= nextStat) return "";
-        return $"<color=#00ff00> + {nextStat - currentStat}</color>";
+        string changeSign = delta > 0 ? "+" : "-";
+        return $"<color=#00ff00> {changeSign} {Mathf.Abs(delta)}</color>";
     }
 
     string StatToText(float stat, int index)

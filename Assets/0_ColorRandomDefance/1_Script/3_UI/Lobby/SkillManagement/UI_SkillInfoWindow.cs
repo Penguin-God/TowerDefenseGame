@@ -82,10 +82,6 @@ public class UI_SkillInfoWindow : UI_Popup
         foreach (Transform child in GetObject((int)GameObjects.SkillStatInfoRoot).transform)
             Destroy(child.gameObject);
 
-        //if (_skillData.StatInfoFraems == null || _skillData.StatInfoFraems.Count() == 0) return;
-        //for (int i = 0; i < _skillData.StatInfoFraems.Count(); i++)
-        //  Managers.UI.MakeSubItem<UI_SkillStatInfo>(GetObject((int)GameObjects.SkillStatInfoRoot).transform).ShowSkillStat(_skillData.SkillType, i);
-
         foreach (string text in _skillInfoPresenter.GetSkillStatTexts())
             Managers.UI.MakeSubItem(GetObject((int)GameObjects.SkillStatInfoRoot).transform, "UI_SkillStatInfo").GetComponentInChildren<TextMeshProUGUI>().text = text;
     }

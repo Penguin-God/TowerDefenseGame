@@ -37,13 +37,10 @@ public class UserSkillLevelData
 {
     [SerializeField] SkillType _skillType;
     [SerializeField] int _level;
-    [SerializeField] int _price;
-    [SerializeField] int _exp;
     [SerializeField] float[] _battleDatas;
 
     public SkillType SkillType => _skillType;
     public int Level => _level;
-    public int Exp => _exp;
     public float[] BattleDatas => _battleDatas;
 }
 

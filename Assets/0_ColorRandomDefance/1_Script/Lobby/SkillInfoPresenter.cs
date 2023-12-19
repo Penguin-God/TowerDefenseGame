@@ -1,6 +1,8 @@
+using log4net.Core;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using WebSocketSharp;
 
 public class SkillInfoPresenter
 {
@@ -28,12 +30,24 @@ public class SkillInfoPresenter
         IReadOnlyList<string> statTexts = GetSkillData().StatInfoFraems;
         for (int i = 0; i < statTexts.Count; i++)
         {
-            string text = statTexts[i].Replace("{data}", StatToText(Managers.Data.UserSkill.GetSkillLevelData(SkillType, GetSkillLevel()).BattleDatas[i], i));
+            string text = statTexts[i].Replace("{data}", StatToText(GetUnitStats(GetSkillLevel())[i], i));
+            if (string.IsNullOrEmpty(GetAddUpgradeText(i)) == false)
+                text += GetAddUpgradeText(i);
             result.Add(TextUtility.RelpaceKeyToValue(text));
         }
         return result;
     }
 
+    float[] GetUnitStats(int level) => Managers.Data.UserSkill.GetSkillLevelData(SkillType, level).BattleDatas;
+
+    string GetAddUpgradeText(int index)
+    {
+        float currentStat = GetUnitStats(GetSkillLevel())[index];
+        float nextStat = GetUnitStats(GetSkillLevel() + 1)[index];
+
+        if (currentStat + 0.01f >= nextStat) return "";
+        return $"<color=#00ff00> + {nextStat - currentStat}</color>";
+    }
 
     string StatToText(float stat, int index)
     {

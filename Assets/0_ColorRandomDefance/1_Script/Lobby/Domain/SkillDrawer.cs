@@ -56,6 +56,7 @@ public class SkillDrawer
         List<SkillAmountData> result = new();
         foreach (var info in drawInfos)
         {
+            // 동일한 클래스이면서 이미 뽑은 스킬은 제외
             IReadOnlyList<SkillType> drawableSkills
                 = _userSkillDatas
                 .Where(x => info.SkillClass == x.SkillClass)

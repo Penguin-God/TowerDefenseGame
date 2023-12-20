@@ -177,14 +177,13 @@ public class SkillViewr
         var hasSkills = skillPresenter.GetHasSkills(userSkillClass);
         AddLineCount(hasSkills);
         AddItems(hasSkills);
-        if(hasSkills.Count() % 4 != 0) AddScroll(ItemSize.y);
+        if (hasSkills.Count() % 4 != 0) AddScroll(ItemSize.y);
         var divider = AddDivider();
 
         var dontHasSkills = skillPresenter.GetDontHasSkills(userSkillClass);
         AddLineCount(dontHasSkills);
         AddItems(dontHasSkills);
-        if (dontHasSkills.Count() % 4 == 0) _itemLineCount--;
-        _content.sizeDelta = new Vector2(_content.sizeDelta.x, _itemLineCount * ItemSize.y + divider.sizeDelta.y);
+        _content.sizeDelta = new Vector2(_content.sizeDelta.x, (_itemLineCount * ItemSize.y) + (divider.sizeDelta.y * 3));
     }
 
     void AddLineCount(IEnumerable<SkillType> skills) => _itemLineCount += skills.Count() / 4 + 1;
@@ -203,6 +202,7 @@ public class SkillViewr
                 AddScroll(ItemSize.y);
             }
         }
+        if (skills.Count() % 4 == 0) _itemLineCount--;
     }
 
     void AddItem(SkillType skill, float xPos)
@@ -220,11 +220,12 @@ public class SkillViewr
     RectTransform AddDivider()
     {
         var divider = CreateItem(Managers.Resources.Load<GameObject>("Prefabs/UI/Divider")).GetComponent<RectTransform>();
+        AddScroll(divider.sizeDelta.y);
         divider.anchoredPosition = new Vector2(0, _currentY);
         divider.anchorMax = new Vector2(0, 1);
         divider.anchorMin = new Vector2(0, 1);
         divider.pivot = new Vector2(0, 1);
-        AddScroll(divider.sizeDelta.y);
+        AddScroll(divider.sizeDelta.y * 2);
         return divider;
     }
     void AddScroll(float y) => _currentY -= y;

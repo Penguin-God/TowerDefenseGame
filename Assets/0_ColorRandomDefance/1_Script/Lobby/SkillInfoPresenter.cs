@@ -20,10 +20,21 @@ public class SkillInfoPresenter
     public UserSkillClass GetSkillClass() => GetSkillData().SkillClass;
     public Sprite GetSkillImage() => SpriteUtility.GetSkillImage(SkillType);
     public int GetSkillLevel() => _skillDataGetter.GetSkillLevel(SkillType);
+    public bool IsSkillAtLevelBoundary() => SkillIsMax() || IsHasSkill() == false;
     public bool SkillIsMax() => _skillDataGetter.SkillIsMax(SkillType);
+    public bool IsHasSkill() => GetSkillLevel() > 0;
     public int GetGoldForUpgrade() => _skillDataGetter.GetSkillUpgradeData(SkillType).NeedGold;
-    public string GetExpGaugeText() => $"{_skillDataGetter.GetSkillExp(SkillType)} / {_skillDataGetter.GetNeedLevelUpExp(SkillType)}";
-    public float GetExpGaugeAmount() => (float)_skillDataGetter.GetSkillExp(SkillType) / _skillDataGetter.GetNeedLevelUpExp(SkillType);
+    public string GetExpGaugeText()
+    {
+        if (IsSkillAtLevelBoundary()) return "";
+        return $"{_skillDataGetter.GetSkillExp(SkillType)} / {_skillDataGetter.GetNeedLevelUpExp(SkillType)}";
+    }
+    public float GetExpGaugeAmount()
+    {
+        if (IsHasSkill() == false) return 0;
+        else if (SkillIsMax()) return 1;
+        return (float)_skillDataGetter.GetSkillExp(SkillType) / _skillDataGetter.GetNeedLevelUpExp(SkillType);
+    }
     public IEnumerable<string> GetSkillStatTexts()
     {
         var result = new List<string>();
@@ -38,11 +49,15 @@ public class SkillInfoPresenter
         return result;
     }
 
-    float[] GetUnitStats(int level) => Managers.Data.UserSkill.GetSkillLevelData(SkillType, level).BattleDatas;
+    float[] GetUnitStats(int level)
+    {
+        if (level == 0) level = 1;
+        return Managers.Data.UserSkill.GetSkillLevelData(SkillType, level).BattleDatas;
+    }
 
     string GetUpgradeStatText(int index)
     {
-        if (SkillIsMax()) return "";
+        if (IsSkillAtLevelBoundary()) return "";
 
         float currentStat = GetUnitStats(GetSkillLevel())[index];
         float nextStat = GetUnitStats(GetSkillLevel() + 1)[index];

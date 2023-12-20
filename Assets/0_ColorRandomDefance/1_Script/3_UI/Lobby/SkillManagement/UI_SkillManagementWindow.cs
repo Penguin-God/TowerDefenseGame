@@ -175,18 +175,21 @@ public class SkillViewr
     public void ViewSkills(UserSkillClass userSkillClass, SkillPresenter skillPresenter)
     {
         var hasSkills = skillPresenter.GetHasSkills(userSkillClass);
-        AddLineCount(hasSkills);
-        AddItems(hasSkills);
+        DisplaySkills(hasSkills);
         if (hasSkills.Count() % 4 != 0) AddScroll(ItemSize.y);
+
         var divider = AddDivider();
 
-        var dontHasSkills = skillPresenter.GetDontHasSkills(userSkillClass);
-        AddLineCount(dontHasSkills);
-        AddItems(dontHasSkills);
+        DisplaySkills(skillPresenter.GetDontHasSkills(userSkillClass));
+
         _content.sizeDelta = new Vector2(_content.sizeDelta.x, (_itemLineCount * ItemSize.y) + (divider.sizeDelta.y * 3));
     }
 
-    void AddLineCount(IEnumerable<SkillType> skills) => _itemLineCount += skills.Count() / 4 + 1;
+    void DisplaySkills(IEnumerable<SkillType> skills)
+    {
+        _itemLineCount += skills.Count() / 4 + 1;
+        AddItems(skills);
+    }
 
     public void AddItems(IEnumerable<SkillType> skills)
     {
@@ -210,9 +213,7 @@ public class SkillViewr
         var item = Managers.UI.MakeSubItem<UI_SkillFrame>(_content);
         item.SetInfo(new SkillInfoPresenter(skill, _skillDataGetter), _skillUpgradeUseCase, _equipSkillManager);
         var rect = item.GetComponent<RectTransform>();
-        rect.anchorMax = new Vector2(0, 1);
-        rect.anchorMin = new Vector2(0, 1);
-        rect.pivot = new Vector2(0, 1);
+        SetRect(rect);
         rect.sizeDelta = ItemSize;
         rect.anchoredPosition = new Vector2(xPos, _currentY);
     }
@@ -222,11 +223,16 @@ public class SkillViewr
         var divider = CreateItem(Managers.Resources.Load<GameObject>("Prefabs/UI/Divider")).GetComponent<RectTransform>();
         AddScroll(divider.sizeDelta.y);
         divider.anchoredPosition = new Vector2(0, _currentY);
-        divider.anchorMax = new Vector2(0, 1);
-        divider.anchorMin = new Vector2(0, 1);
-        divider.pivot = new Vector2(0, 1);
+        SetRect(divider);
         AddScroll(divider.sizeDelta.y * 2);
         return divider;
+    }
+
+    void SetRect(RectTransform rect)
+    {
+        rect.anchorMax = new Vector2(0, 1);
+        rect.anchorMin = new Vector2(0, 1);
+        rect.pivot = new Vector2(0, 1);
     }
     void AddScroll(float y) => _currentY -= y;
 

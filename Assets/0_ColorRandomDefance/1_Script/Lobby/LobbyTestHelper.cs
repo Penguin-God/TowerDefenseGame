@@ -19,6 +19,7 @@ public class LobbyTestHelper : MonoBehaviour
         SetScreen();
         AddAllSkill();
         ChangeScore();
+        LogData();
     }
 
     void ShowMeTheMoney()
@@ -61,5 +62,10 @@ public class LobbyTestHelper : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.W)) _playerData.ChangeScore(100);
         if (Input.GetKeyDown(KeyCode.L)) _playerData.ChangeScore(-100);
+    }
+
+    void LogData()
+    {
+        if (Input.GetKeyDown(KeyCode.D)) new PlayerPrefabsPersistenceManager().Save(_playerData);
     }
 }

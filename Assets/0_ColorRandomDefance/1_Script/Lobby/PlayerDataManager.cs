@@ -10,8 +10,8 @@ public enum PlayerMoneyType
 
 public class PlayerDataManager
 {
-    readonly Money _gold;
-    readonly Money _gem;
+    public readonly Money Gold;
+    public readonly Money Gem;
 
     public event Action<int> OnGoldAmountChanged;
     public event Action<int> OnGemAmountChanged;
@@ -19,10 +19,10 @@ public class PlayerDataManager
     void NotifyGoldChange(int amount) => OnGoldAmountChanged?.Invoke(amount);
     void NotifyGemChange(int amount) => OnGemAmountChanged?.Invoke(amount);
 
-    public void AddGold(int amount) => AddMoney(_gold, amount);
-    public void AddGem(int amount) => AddMoney(_gem, amount);
+    public void AddGold(int amount) => AddMoney(Gold, amount);
+    public void AddGem(int amount) => AddMoney(Gem, amount);
 
-    public bool HasGold(int amount) => _gold.Has(amount);
+    public bool HasGold(int amount) => Gold.Has(amount);
     public bool UseMoney(MoneyData moneyData) => UseMoney(moneyData.MoneyType, moneyData.Amount);
     public bool UseMoney(PlayerMoneyType type, int amount)
     {
@@ -33,8 +33,8 @@ public class PlayerDataManager
             default: return false;
         }
     }
-    public bool TryUseGold(int amount) => UseMoney(_gold, amount);
-    public bool TryUseGem(int amount) => UseMoney(_gem, amount);
+    public bool TryUseGold(int amount) => UseMoney(Gold, amount);
+    public bool TryUseGem(int amount) => UseMoney(Gem, amount);
 
     void AddMoney(Money money, int amount) => money.Add(amount);
 
@@ -58,10 +58,10 @@ public class PlayerDataManager
     public PlayerDataManager(SkillInventroy skillInventroy, int gold, int gem)
     {
         SkillInventroy = skillInventroy;
-        _gold = new Money(gold);
-        _gem = new Money(gem);
+        Gold = new Money(gold);
+        Gem = new Money(gem);
 
-        _gold.OnAmountChange += NotifyGoldChange;
-        _gem.OnAmountChange += NotifyGemChange;
+        Gold.OnAmountChange += NotifyGoldChange;
+        Gem.OnAmountChange += NotifyGemChange;
     }
 }

@@ -11,13 +11,16 @@ public class SerializablePlayerData
     public int GemAmount;
     public int Score;
     public SerializableSkillData[] SkillDatas;
-
+    public SkillType EquipMainSKill;
+    public SkillType EquipSubSKill;
     public SerializablePlayerData(PlayerDataManager manager)
     {
         GoldAmount = manager.Gold.Amount;
         GemAmount = manager.Gem.Amount;
         Score = manager.Score;
         SkillDatas = CreateSkillDatas(manager.SkillInventroy).ToArray();
+        EquipMainSKill = manager.EquipSkillManager.MainSkill;
+        EquipSubSKill = manager.EquipSkillManager.SubSkill;
     }
 
     List<SerializableSkillData> CreateSkillDatas(SkillInventroy inventory)
@@ -62,11 +65,11 @@ public class PlayerPrefabsLoder
 {
     public PlayerDataManager Load()
     {
-        if (PlayerPrefs.HasKey("PlayerData") == false) return new PlayerDataManager(new(new()), 0, 0, 0);
+        if (PlayerPrefs.HasKey("PlayerData") == false) return new PlayerDataManager(new(new()), 0, 0, 0, SkillType.None, SkillType.None);
 
         string json = PlayerPrefs.GetString("PlayerData");
         var data = JsonUtility.FromJson<SerializablePlayerData>(json);
-        return new PlayerDataManager(CreateSkillInventroy(data.SkillDatas), data.GoldAmount, data.GemAmount, data.Score);
+        return new PlayerDataManager(CreateSkillInventroy(data.SkillDatas), data.GoldAmount, data.GemAmount, data.Score, data.EquipMainSKill, data.EquipSubSKill);
     }
 
     SkillInventroy CreateSkillInventroy(IEnumerable<SerializableSkillData> skillDatas) 

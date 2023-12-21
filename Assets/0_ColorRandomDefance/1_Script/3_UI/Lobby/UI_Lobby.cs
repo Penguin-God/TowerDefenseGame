@@ -29,7 +29,7 @@ public class UI_Lobby : UI_Scene
         GetButton((int)Buttons.OpenShopButton).onClick.AddListener(ShowShop);
         GetButton((int)Buttons.OpenSkillButton).onClick.AddListener(ShowSkillWindow);
 
-        _container.GetComponent<GameMatchmaker>().SetInfo(GetTextMeshPro((int)Texts.TestText), GetButton((int)Buttons.GameStartButton), _container.GetService<EquipSkillManager>());
+        _container.GetComponent<GameMatchmaker>().SetInfo(GetTextMeshPro((int)Texts.TestText), GetButton((int)Buttons.GameStartButton), _container.GetService<PlayerDataManager>());
 
         var playerData = _container.GetService<PlayerDataManager>();
         GetTextMeshPro((int)Texts.GoldText).text = playerData.Gold.Amount.ToString();

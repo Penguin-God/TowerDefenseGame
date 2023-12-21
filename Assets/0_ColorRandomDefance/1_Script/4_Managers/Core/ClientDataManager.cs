@@ -9,6 +9,13 @@ public class EquipSkillManager
         {UserSkillClass.Main, SkillType.None},
         {UserSkillClass.Sub, SkillType.None},
     };
+
+    public EquipSkillManager(SkillType main, SkillType sub)
+    {
+        ChangedEquipSkill(UserSkillClass.Main, main);
+        ChangedEquipSkill(UserSkillClass.Sub, sub);
+    }
+
     public IEnumerable<SkillType> EquipSkills => _typeByClass.Values;
 
     public SkillType MainSkill => _typeByClass[UserSkillClass.Main];
@@ -32,7 +39,7 @@ public class EquipSkillManager
 
 public class ClientDataManager
 {
-    EquipSkillManager _equipSkillManager = new EquipSkillManager();
+    EquipSkillManager _equipSkillManager = new EquipSkillManager(SkillType.None, SkillType.None);
     public EquipSkillManager EquipSkillManager => _equipSkillManager;
 
     Dictionary<SkillType, int> _skillByLevel = new Dictionary<SkillType, int>();

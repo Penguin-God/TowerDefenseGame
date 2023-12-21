@@ -39,11 +39,14 @@ public class PlayerDataManager
     }
 
     public SkillInventroy SkillInventroy { get; private set; }
-    public PlayerDataManager(SkillInventroy skillInventroy, int gold, int gem, int score)
+    public EquipSkillManager EquipSkillManager { get; private set; }
+
+    public PlayerDataManager(SkillInventroy skillInventroy, int gold, int gem, int score, SkillType equipMain, SkillType subMain)
     {
         SkillInventroy = skillInventroy;
         Gold = new Money(gold);
         Gem = new Money(gem);
         Score = score;
+        EquipSkillManager = new EquipSkillManager(equipMain, subMain);
     }
 }

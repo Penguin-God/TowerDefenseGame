@@ -32,29 +32,32 @@ public class UI_SkillManagementWindow : UI_Popup
         Bind<Image>(typeof(Images));
         Bind<Button>(typeof(Buttons));
 
-        GetButton((int)Buttons.UnEquipButton).onClick.AddListener(_equipSkillManager.AllUnEquip);
+        GetButton((int)Buttons.UnEquipButton).onClick.AddListener(EquipSkillManager.AllUnEquip);
         GetButton((int)Buttons.MainTabBtn).onClick.AddListener(() => ChangeTab(UserSkillClass.Main));
         GetButton((int)Buttons.SubTabBtn).onClick.AddListener(() => ChangeTab(UserSkillClass.Sub));
 
-        _equipSkillManager.OnEquipSkillChanged -= DrawEquipSkillFrame;
-        _equipSkillManager.OnEquipSkillChanged += DrawEquipSkillFrame;
+        EquipSkillManager.OnEquipSkillChanged -= DrawEquipSkillFrame;
+        EquipSkillManager.OnEquipSkillChanged += DrawEquipSkillFrame;
     }
 
-    SkillInventroy _skillInvertory;
-    EquipSkillManager _equipSkillManager;
+    PlayerDataManager _playerDataManager;
+    //SkillInventroy _skillInvertory;
+    //EquipSkillManager _equipSkillManager;
+    EquipSkillManager EquipSkillManager => _playerDataManager.EquipSkillManager;
     SkillDataGetter _skillDataGetter;
     SkillUpgradeUseCase _skillUpgradeUseCase;
-    public void DependencyInject(SkillInventroy skillInvertory, SkillDataGetter skillDataGetter, SkillUpgradeUseCase skillUpgradeUseCase, EquipSkillManager equipSkillManager)
+    public void DependencyInject(PlayerDataManager playerDataManager, SkillDataGetter skillDataGetter, SkillUpgradeUseCase skillUpgradeUseCase)
     {
-        _skillInvertory = skillInvertory;
+        _playerDataManager = playerDataManager;
+        //_skillInvertory = skillInvertory;
         _skillDataGetter = skillDataGetter;
         _skillUpgradeUseCase = skillUpgradeUseCase;
-        _equipSkillManager = equipSkillManager;
+        //_equipSkillManager = equipSkillManager;
     }
 
     void OnDestroy()
     {
-        _equipSkillManager.OnEquipSkillChanged -= DrawEquipSkillFrame;
+        EquipSkillManager.OnEquipSkillChanged -= DrawEquipSkillFrame;
     }
 
     public void RefreshUI()
@@ -90,13 +93,14 @@ public class UI_SkillManagementWindow : UI_Popup
         foreach (Transform item in frameParent)
             Destroy(item.gameObject);
 
-        new SkillViewr(frameParent.GetComponent<RectTransform>(), new Vector2(120, 200), _skillDataGetter, _skillUpgradeUseCase, _equipSkillManager).ViewSkills(skillClass, new SkillPresenter(_skillInvertory));
+        new SkillViewr(frameParent.GetComponent<RectTransform>(), 
+            new Vector2(120, 200), _skillDataGetter, _skillUpgradeUseCase, EquipSkillManager).ViewSkills(skillClass, new SkillPresenter(_playerDataManager.SkillInventroy));
     }
 
     void RefreshEquipSkillFrame()
     {
-        DrawEquipSkillFrame(UserSkillClass.Main, _equipSkillManager.MainSkill);
-        DrawEquipSkillFrame(UserSkillClass.Sub, _equipSkillManager.SubSkill);
+        DrawEquipSkillFrame(UserSkillClass.Main, EquipSkillManager.MainSkill);
+        DrawEquipSkillFrame(UserSkillClass.Sub, EquipSkillManager.SubSkill);
     }
 
     void DrawEquipSkillFrame(UserSkillClass skillClass, SkillType skillType)

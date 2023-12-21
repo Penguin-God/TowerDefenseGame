@@ -16,6 +16,7 @@ public class BattleScene : BaseScene
         Managers.Data.Init();
         IMultiSkillDataCreater multiSkillDataCreater;
         multiSkillDataCreater = PhotonNetwork.CurrentRoom.PlayerCount == 1 ? new TestBattleSkillDataCreater() : gameObject.AddComponent<MultiBattleSkillDataCreater>();
+
         multiSkillDataCreater.CreateMultiSKillData();
         StartCoroutine(Co_InitGame(multiSkillDataCreater));
     }

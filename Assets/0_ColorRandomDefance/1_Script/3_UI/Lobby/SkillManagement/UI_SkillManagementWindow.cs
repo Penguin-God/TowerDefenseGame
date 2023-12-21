@@ -41,18 +41,14 @@ public class UI_SkillManagementWindow : UI_Popup
     }
 
     PlayerDataManager _playerDataManager;
-    //SkillInventroy _skillInvertory;
-    //EquipSkillManager _equipSkillManager;
     EquipSkillManager EquipSkillManager => _playerDataManager.EquipSkillManager;
     SkillDataGetter _skillDataGetter;
     SkillUpgradeUseCase _skillUpgradeUseCase;
     public void DependencyInject(PlayerDataManager playerDataManager, SkillDataGetter skillDataGetter, SkillUpgradeUseCase skillUpgradeUseCase)
     {
         _playerDataManager = playerDataManager;
-        //_skillInvertory = skillInvertory;
         _skillDataGetter = skillDataGetter;
         _skillUpgradeUseCase = skillUpgradeUseCase;
-        //_equipSkillManager = equipSkillManager;
     }
 
     void OnDestroy()

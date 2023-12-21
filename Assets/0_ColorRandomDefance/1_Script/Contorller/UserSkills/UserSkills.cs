@@ -39,25 +39,6 @@ public class SkillBattleDataContainer
     public bool ContainSKill(SkillType skill) => BattleDataBySKillType.Values.Where(x => x.SkillType == skill).Count() > 0;
 }
 
-public static class BattleSkillDataCreater
-{
-    public static SkillBattleDataContainer CreateSkillData(ClientDataManager client, DataManager data)
-    {
-        var main = Managers.ClientData.EquipSkillManager.MainSkill;
-        var sub = Managers.ClientData.EquipSkillManager.SubSkill;
-        return CreateSkillData(main, client.GetSkillLevel(main), sub, client.GetSkillLevel(sub), data.UserSkill);
-    }
-
-    public static SkillBattleDataContainer CreateSkillData(SkillType mainSkill, int mainLevel, SkillType subSkill, int subLevel, DataManager.UserSkillData data)
-    {
-        var result = new SkillBattleDataContainer();
-        if (mainSkill == SkillType.None || subSkill == SkillType.None) return result;
-        result.ChangeEquipSkill(data.GetSkillBattleData(mainSkill, mainLevel));
-        result.ChangeEquipSkill(data.GetSkillBattleData(subSkill, subLevel));
-        return result;
-    }
-}
-
 public abstract class UserSkillController
 {
     public UserSkillBattleData UserSkillBattleData { get; private set; }

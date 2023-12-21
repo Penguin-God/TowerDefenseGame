@@ -20,16 +20,16 @@ public class MultiBattleSkillDataCreater : MonoBehaviour, IMultiSkillDataCreater
 
     public void CreateMultiSKillData()
     {
-        _multiSkillData.SetData(PlayerIdManager.Id, BattleSkillDataCreater.CreateSkillData(Managers.ClientData, Managers.Data));
+        _multiSkillData.SetData(PlayerIdManager.Id, BattleSkillDataCreater.CreateSkillData(new PlayerPrefabsLoder().Load(), Managers.Data));
         SendSkillData();
     }
 
     void SendSkillData()
     {
-        var client = Managers.ClientData;
-        var main = Managers.ClientData.EquipSkillManager.MainSkill;
-        var sub = Managers.ClientData.EquipSkillManager.SubSkill;
-        GetComponent<PhotonView>().RPC(nameof(SetEnemySkillData), RpcTarget.OthersBuffered, main, client.GetSkillLevel(main), sub, client.GetSkillLevel(sub));
+        var data = new PlayerPrefabsLoder().Load();
+        var main = data.EquipSkillManager.MainSkill;
+        var sub = data .EquipSkillManager.SubSkill;
+        GetComponent<PhotonView>().RPC(nameof(SetEnemySkillData), RpcTarget.OthersBuffered, main, data.SkillInventroy.GetSkillInfo(main).Level, sub, data.SkillInventroy.GetSkillInfo(sub).Level);
     }
 
     [PunRPC]
@@ -49,7 +49,26 @@ public class TestBattleSkillDataCreater : IMultiSkillDataCreater
 
     public void CreateMultiSKillData()
     {
-        _multiSkillData.SetData(PlayerIdManager.Id, BattleSkillDataCreater.CreateSkillData(Managers.ClientData, Managers.Data));
+        _multiSkillData.SetData(PlayerIdManager.Id, BattleSkillDataCreater.CreateSkillData(new PlayerPrefabsLoder().Load(), Managers.Data));
         _multiSkillData.SetData(PlayerIdManager.EnemyId, new SkillBattleDataContainer());
+    }
+}
+
+public static class BattleSkillDataCreater
+{
+    public static SkillBattleDataContainer CreateSkillData(PlayerDataManager playerDataManager, DataManager data)
+    {
+        var main = playerDataManager.EquipSkillManager.MainSkill;
+        var sub = playerDataManager.EquipSkillManager.SubSkill;
+        return CreateSkillData(main, playerDataManager.SkillInventroy.GetSkillInfo(main).Level, sub, playerDataManager.SkillInventroy.GetSkillInfo(sub).Level, data.UserSkill);
+    }
+
+    public static SkillBattleDataContainer CreateSkillData(SkillType mainSkill, int mainLevel, SkillType subSkill, int subLevel, DataManager.UserSkillData data)
+    {
+        var result = new SkillBattleDataContainer();
+        if (mainSkill == SkillType.None || subSkill == SkillType.None) return result;
+        result.ChangeEquipSkill(data.GetSkillBattleData(mainSkill, mainLevel));
+        result.ChangeEquipSkill(data.GetSkillBattleData(subSkill, subLevel));
+        return result;
     }
 }

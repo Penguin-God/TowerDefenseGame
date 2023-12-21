@@ -50,7 +50,6 @@ public class Managers : MonoBehaviour
     {
         _resources.DependencyInject(new PoolManager("@PoolManager"));
         _data.Init();
-        _clientData.Init();
         _sound.Init(transform);
     }
 

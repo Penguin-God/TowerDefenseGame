@@ -42,16 +42,16 @@ public class ClientDataManager
     EquipSkillManager _equipSkillManager = new EquipSkillManager(SkillType.None, SkillType.None);
     public EquipSkillManager EquipSkillManager => _equipSkillManager;
 
-    Dictionary<SkillType, int> _skillByLevel = new Dictionary<SkillType, int>();
-    public int GetSkillLevel(SkillType skillType)
-    {
-        if (_skillByLevel.TryGetValue(skillType, out int result))
-            return result;
-        else return 0;
-    }
+    //Dictionary<SkillType, int> _skillByLevel = new Dictionary<SkillType, int>();
+    //public int GetSkillLevel(SkillType skillType)
+    //{
+    //    if (_skillByLevel.TryGetValue(skillType, out int result))
+    //        return result;
+    //    else return 0;
+    //}
     // public UserSkillLevelData GetSkillLevelData(SkillType skillType) => Managers.Data.UserSkill.GetSkillLevelData(skillType, GetSkillLevel(skillType));
 
-    Dictionary<SkillType, int> _skillByExp = new Dictionary<SkillType, int>();
+    //Dictionary<SkillType, int> _skillByExp = new Dictionary<SkillType, int>();
     // public Dictionary<SkillType, int> SkillByExp => _skillByExp;
     //public void GetExp(SkillType skill, int getQuantity)
     //{
@@ -72,15 +72,15 @@ public class ClientDataManager
 
     // bool CanUpgrade(SkillType skill) => _skillByExp[skill] >= GetSkillLevelData(skill).Exp;
 
-    public void Init()
-    {
-        foreach (SkillType type in Enum.GetValues(typeof(SkillType)))
-        {
-            if (type == SkillType.None) continue;
-            _skillByLevel.Add(type, 0);
-            _skillByExp.Add(type, 0);
-        }
-    }
+    //public void Init()
+    //{
+    //    foreach (SkillType type in Enum.GetValues(typeof(SkillType)))
+    //    {
+    //        if (type == SkillType.None) continue;
+    //        _skillByLevel.Add(type, 0);
+    //        _skillByExp.Add(type, 0);
+    //    }
+    //}
 }
 
 public enum SkillType

@@ -26,7 +26,7 @@ public class UserSkillGoodsData
     public SkillType SkillType => _skillType;
     public UserSkillClass SkillClass => _skillClass;
     public string SkillName => _skillName;
-    public string Description => _description;
+    public string Description => _description.Replace('+', ',').Replace("\\n", "\n");
     public string ImageName => _imagePath;
     public Sprite ImageSprite => Managers.Resources.Load<Sprite>(_imagePath);
     public IReadOnlyList<string> StatInfoFraems => _statInfoFraems;

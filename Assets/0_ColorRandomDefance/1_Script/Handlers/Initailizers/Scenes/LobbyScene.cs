@@ -11,7 +11,7 @@ public class LobbyScene : BaseScene
         container.AddComponent<GameMatchmaker>();
 
         container.AddService(new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>()));
-        container.AddService(new PlayerDataManager(container.GetService<SkillInventroy>(), 0, 0));
+        container.AddService(new PlayerDataManager(container.GetService<SkillInventroy>(), 0, 0, 0));
         IEnumerable<UserSkill> userSkillDatas = Managers.Resources.LoadCsv<UserSkillData>("SkillData/UserSkillData").Select(x => x.CreateUserSkill());
         container.AddService(new SkillDrawer(userSkillDatas));
 

@@ -55,11 +55,12 @@ public class PlayerDataManager
     }
 
     public SkillInventroy SkillInventroy { get; private set; }
-    public PlayerDataManager(SkillInventroy skillInventroy, int gold, int gem)
+    public PlayerDataManager(SkillInventroy skillInventroy, int gold, int gem, int score)
     {
         SkillInventroy = skillInventroy;
         Gold = new Money(gold);
         Gem = new Money(gem);
+        ChangeScore(Score);
 
         Gold.OnAmountChange += NotifyGoldChange;
         Gem.OnAmountChange += NotifyGemChange;

@@ -87,19 +87,18 @@ public class UserSkillActor
         SkillType.마창사 // 존재하기만 하면 알아서 작동하는 스킬들
     });
 
-    public UserSkillController ActiveSkill(SkillType skillType, BattleDIContainer container)
+    public UserSkillController ActiveSkill(UserSkillBattleData skillData, BattleDIContainer container)
     {
-        if (ExistSkills.Contains(skillType)) return null;
+        if (ExistSkills.Contains(skillData.SkillType)) return null;
 
-        UserSkillBattleData skillBattleData = Managers.Data.UserSkill.GetSkillBattleData(skillType, 1);
-        if (SimpleSkills.Contains(skillType))
+        if (SimpleSkills.Contains(skillData.SkillType))
         {
-            ActiveSimpleSkill(skillBattleData, container);
+            ActiveSimpleSkill(skillData, container);
             return null;
         }
-        else if(ComplexSkills.Contains(skillType))
-            return ActiveComplexSkill(skillBattleData, container);
-        Debug.LogError($"정의되지 않은 스킬 : {skillType}을 사용하려고 함");
+        else if (ComplexSkills.Contains(skillData.SkillType))
+            return ActiveComplexSkill(skillData, container);
+        Debug.LogError($"정의되지 않은 스킬 : {skillData}을 사용하려고 함");
         return null;
     }
 

@@ -1,21 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 public class UserSkillInitializer
 {
     public IEnumerable<UserSkillController> InitUserSkill(BattleDIContainer container, SkillBattleDataContainer skillData)
     {
-        List<UserSkillController> userSkills = new List<UserSkillController>();
-        foreach (var skillType in skillData.AllSKills)
-        {
-            if (skillType == SkillType.None)
-                continue;
-
-            var userSkill = new UserSkillActor().ActiveSkill(skillType, container);
-            if (userSkill != null)
-                userSkills.Add(userSkill);
-        }
-        return userSkills;
+        List<UserSkillController> userSkills = new ();
+        userSkills.Add(new UserSkillActor().ActiveSkill(skillData.MainSkill, container));
+        userSkills.Add(new UserSkillActor().ActiveSkill(skillData.SubSkill, container));
+        return userSkills.Where(x => x != null);
     }
 
     public void AddSkillDependency(BattleDIContainer container, SkillType skillType)

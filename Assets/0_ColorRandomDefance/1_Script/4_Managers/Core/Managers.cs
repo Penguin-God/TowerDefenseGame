@@ -27,7 +27,6 @@ public class Managers : MonoBehaviour
     UI_Manager _ui = new();
     SoundManager _sound = new();
     ResourcesManager _resources = new();
-    ClientDataManager _clientData = new();
     Scene_Manager _scene = new();
     CameraController _camera = new();
     EffectManager _effect = new();
@@ -38,7 +37,6 @@ public class Managers : MonoBehaviour
     public static UI_Manager UI => Instance._ui;
     public static SoundManager Sound => Instance._sound;
     public static ResourcesManager Resources => Instance._resources;
-    public static ClientDataManager ClientData => Instance._clientData;
     public static Scene_Manager Scene => Instance._scene;
     public static CameraController Camera => Instance._camera;
     public static EffectManager Effect => Instance._effect;

@@ -193,10 +193,6 @@ public class BattleDIContainerInitializer
         enemySelector.SetInfo(container.GetComponent<EnemySpawnNumManager>());
 
         container.GetService<BattleUI_Mediator>().RegisterDefaultUI();
-
-        //var unitWindow = Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow");
-        //container.Inject(unitWindow);
-        //Managers.UI.ShowPopupUI<UI_UnitManagedWindow>("UnitManagedWindow").gameObject.SetActive(false);
     }
 
     void InitSound(BattleDIContainer container)
@@ -216,6 +212,12 @@ public class BattleDIContainerInitializer
         var allPlayerSkillTypes = multiSkllData.Services.SelectMany(skillData => skillData.AllSKills).Distinct();
         foreach (var skillType in allPlayerSkillTypes)
             skillInitializer.AddSkillDependency(container, skillType);
+
+        if(multiSkllData.GetData(PlayerIdManager.Id).SubSkill.SkillType != SkillType.마나불능)
+        {
+            Multi_GameManager.Instance.OnFoodChanged -= Managers.UI.GetSceneUI<UI_Status>().UpdateRuneText;
+            Multi_GameManager.Instance.OnFoodChanged += Managers.UI.GetSceneUI<UI_Status>().UpdateRuneText;
+        }
 
         var mySkills = skillInitializer.InitUserSkill(container, multiSkllData.GetData(PlayerIdManager.Id));
         container.AddComponent<EffectInitializer>().SettingEffect(mySkills, container.GetEventDispatcher(), container.GetService<UnitManagerController>());

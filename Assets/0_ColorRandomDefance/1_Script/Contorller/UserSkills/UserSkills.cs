@@ -227,8 +227,7 @@ public class ManaImpotence : UserSkillController
         _game = Multi_GameManager.Instance;
 
         _game.OnFoodChanged += FoodToGold;
-        if (_game.CurrencyManager.Food > 0)
-            FoodToGold(_game.CurrencyManager.Food);
+        FoodToGold(_game.CurrencyManager.Food);
         ChangeShopPriceData();
     }
 
@@ -242,7 +241,6 @@ public class ManaImpotence : UserSkillController
 
     void ChangeShopPriceData()
     {
-        // _game.BattleData.GetAllShopPriceDatas()
         _shopDataUseCase.GetAllShopPriceDatas()
                 .Where(x => x.CurrencyType == GameCurrencyType.Rune)
                 .ToList()

@@ -29,7 +29,7 @@ public class UI_EquipSkillInfo : UI_Base
             GetImage(imageIndex).color = new Color(1, 1, 1, 0);
         else
         {
-            GetImage(imageIndex).sprite = Managers.Data.UserSkill.GetSkillGoodsData(skill).ImageSprite;
+            GetImage(imageIndex).sprite = SpriteUtility.GetSkillImage(skill);
             GetImage(imageIndex).color = new Color(1, 1, 1, 1);
         }
     }

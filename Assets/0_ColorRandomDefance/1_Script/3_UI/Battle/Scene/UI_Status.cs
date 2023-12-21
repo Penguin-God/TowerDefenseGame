@@ -57,7 +57,7 @@ public class UI_Status : UI_Scene
     {
         UpdateStage(1);
         GetText((int)Texts.GoldText).text = Multi_GameManager.Instance.CurrencyManager.Gold.ToString();
-        GetText((int)Texts.FoodText).text = Multi_GameManager.Instance.CurrencyManager.Food.ToString();
+        UpdateRuneText(Multi_GameManager.Instance.CurrencyManager.Food);
         UpdateMySkillImage();
     }
 
@@ -89,22 +89,12 @@ public class UI_Status : UI_Scene
         {
             Managers.Camera.OnIsLookMyWolrd -= (lookMy) => GetObject((int)GameObjects.FoodBar).SetActive(lookMy);
             Managers.Camera.OnIsLookMyWolrd += (lookMy) => GetObject((int)GameObjects.FoodBar).SetActive(lookMy);
-
-            if (Managers.ClientData.EquipSkillManager.EquipSkills.Contains(SkillType.마나불능))
-            {
-                return;
-            }
-
-            Multi_GameManager.Instance.OnFoodChanged -= (food) => GetText((int)Texts.FoodText).text = food.ToString();
-            Multi_GameManager.Instance.OnFoodChanged += (food) => GetText((int)Texts.FoodText).text = food.ToString();
         }
 
         void BindMyCountEvent()
         {
             var myCountDisplay = GetObject((int)GameObjects.MyCount).GetComponent<UI_ObjectCountDisplay>();
 
-            // Managers.Unit.OnUnitCountChange += myCountDisplay.UpdateCurrentUnitText;
-            // Managers.Unit.OnUnitCountChangeByClass += myCountDisplay.UpdateUnitClassByCount;
             dispatcher.OnUnitCountChange += myCountDisplay.UpdateCurrentUnitText;
             dispatcher.OnUnitCountChangeByClass += myCountDisplay.UpdateUnitClassByCount;
 
@@ -135,7 +125,7 @@ public class UI_Status : UI_Scene
     void UpdateStage(int stageNumber)
     {
         StopAllCoroutines();
-        timerSlider.maxValue = Multi_GameManager.Instance.BattleData.StageTime; //StageManager.Instance.STAGE_TIME;
+        timerSlider.maxValue = Multi_GameManager.Instance.BattleData.StageTime;
         timerSlider.value = timerSlider.maxValue;
         GetText((int)Texts.StageText).text = $"Stage {stageNumber} : " ;
         StartCoroutine(Co_UpdateTimer());
@@ -148,6 +138,12 @@ public class UI_Status : UI_Scene
             yield return null;
             timerSlider.value -= Time.deltaTime;
         }
+    }
+
+    public void UpdateRuneText(int rune)
+    {
+        if (GetText((int)Texts.FoodText) != null)
+            GetText((int)Texts.FoodText).text = rune.ToString();
     }
 
     void UpdateMySkillImage() => _equipSkillInfo.ChangeEquipSkillImages(MySkillData.MainSkill.SkillType, MySkillData.SubSkill.SkillType);

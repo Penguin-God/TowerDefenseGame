@@ -10,14 +10,12 @@ public class LobbyScene : BaseScene
         var container = new BattleDIContainer(gameObject);
         container.AddComponent<GameMatchmaker>();
 
-        // container.AddService(new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>()));
-        // container.AddService(new PlayerDataManager(container.GetService<SkillInventroy>(), 0, 0, 0));
         container.AddService(new PlayerPrefabsLoder().Load());
         container.AddService(container.GetService<PlayerDataManager>().SkillInventroy);
-        IEnumerable<UserSkill> userSkillDatas = Managers.Resources.LoadCsv<UserSkillData>("SkillData/UserSkillData").Select(x => x.CreateUserSkill());
+        IEnumerable<UserSkill> userSkillDatas = LoadSkillData<UserSkillData>("UserSkillData").Select(x => x.CreateUserSkill());
         container.AddService(new SkillDrawer(userSkillDatas));
 
-        container.AddService(new SkillDataGetter(Managers.Resources.LoadCsv<SkillUpgradeData>("SkillData/SkillUpgradeData"), Managers.Resources.LoadCsv<UserSkillLevelData>("SkillData/SkillLevelData"), container.GetService<PlayerDataManager>().SkillInventroy));
+        container.AddService(new SkillDataGetter(LoadSkillData<SkillUpgradeData>("SkillUpgradeData"), LoadSkillData<UserSkillLevelData>("SkillLevelData"), container.GetService<PlayerDataManager>().SkillInventroy));
         container.AddService(new SkillUpgradeUseCase(container.GetService<SkillDataGetter>(), container.GetService<PlayerDataManager>()));
         container.AddService(new EquipSkillManager());
         // Screen.SetResolution(1920, 1080, true);

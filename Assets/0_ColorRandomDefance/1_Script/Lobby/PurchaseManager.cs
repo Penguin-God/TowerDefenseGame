@@ -22,17 +22,20 @@ public class PurchaseManager
 {
     readonly IPurchaseOperator _purchase;
     readonly PlayerDataManager _playerDataManager;
-    public PurchaseManager(IPurchaseOperator purchase, PlayerDataManager playerDataManager)
+    readonly IPlayerDataPersistence _playerDataPersistence;
+    public PurchaseManager(IPurchaseOperator purchase, PlayerDataManager playerDataManager, IPlayerDataPersistence playerDataPersistence)
     {
         _purchase = purchase;
         _playerDataManager = playerDataManager;
+        _playerDataPersistence = playerDataPersistence;
     }
 
     public bool Purchase(MoneyData price)
     {
         if (_playerDataManager.UseMoney(price) == false) return false;
-        
+
         _purchase.SuccessPurchase(_playerDataManager);
+        _playerDataPersistence.Save(_playerDataManager);
         return true;
     }
 }

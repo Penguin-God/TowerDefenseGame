@@ -46,7 +46,8 @@ public class UI_LobbyShop : UI_Popup
     }
 
     void MakeGoods(IPurchaseOperator purchase, MoneyData moneyData, string productName) 
-        => Managers.UI.MakeSubItem<UI_ShopProduct>(GetObject((int)GameObjects.BoxGoodsParnet).transform).DependencyInject(new PurchaseManager(purchase, _playerDataManager), moneyData, productName);
+        => Managers.UI.MakeSubItem<UI_ShopProduct>(GetObject((int)GameObjects.BoxGoodsParnet).transform)
+        .DependencyInject(new PurchaseManager(purchase, _playerDataManager, new PlayerPrefabsSaver()), moneyData, productName);
 }
 
 public class MoneyPersenter

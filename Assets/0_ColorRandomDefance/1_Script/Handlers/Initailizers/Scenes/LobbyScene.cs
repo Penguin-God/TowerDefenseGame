@@ -26,6 +26,7 @@ public class LobbyScene : BaseScene
         Managers.UI.ShowSceneUI<UI_Lobby>().DependencyInject(container);
 
         gameObject.AddComponent<LobbyTestHelper>().SetContainer(container);
+        gameObject.AddComponent<GameSaver>().SetData(container.GetService<PlayerDataManager>());
     }
 
     IEnumerable<T> LoadSkillData<T>(string path) => Managers.Resources.LoadCsv<T>($"SkillData/{path}");

@@ -18,6 +18,7 @@ public class LobbyTestHelper : MonoBehaviour
         ShowMeTheMoney();
         SetScreen();
         AddAllSkill();
+        ChangeScore();
     }
 
     void ShowMeTheMoney()
@@ -54,5 +55,11 @@ public class LobbyTestHelper : MonoBehaviour
             foreach (SkillType skillType in System.Enum.GetValues(typeof(SkillType)).Cast<SkillType>().Where(x => x != SkillType.None))
                 _playerData.SkillInventroy.AddSkill(new SkillAmountData(skillType, 10));
         }
+    }
+
+    void ChangeScore()
+    {
+        if (Input.GetKeyDown(KeyCode.W)) _playerData.ChangeScore(100);
+        if (Input.GetKeyDown(KeyCode.L)) _playerData.ChangeScore(-100);
     }
 }

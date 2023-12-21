@@ -19,7 +19,6 @@ public class PlayerDataManager
     void NotifyGoldChange(int amount) => OnGoldAmountChanged?.Invoke(amount);
     void NotifyGemChange(int amount) => OnGemAmountChanged?.Invoke(amount);
 
-
     public void AddGold(int amount) => AddMoney(_gold, amount);
     public void AddGem(int amount) => AddMoney(_gem, amount);
 
@@ -45,6 +44,14 @@ public class PlayerDataManager
 
         money.Subtract(amount);
         return true;
+    }
+
+    public int Score { get; private set; }
+    public Action<int> OnChangeScore;
+    public void ChangeScore(int changeAmount)
+    {
+        Score = UnityEngine.Mathf.Max(0, Score + changeAmount);
+        OnChangeScore?.Invoke(Score);
     }
 
     public SkillInventroy SkillInventroy { get; private set; }

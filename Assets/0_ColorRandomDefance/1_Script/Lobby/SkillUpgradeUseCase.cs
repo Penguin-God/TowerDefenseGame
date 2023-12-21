@@ -16,14 +16,14 @@ public class SkillUpgradeUseCase
         if(_skillDataGetter.SkillIsMax(skillType)) return false;
 
         var upgradeData = _skillDataGetter.GetSkillUpgradeData(skillType);
-        return _skillDataGetter.GetSkillExp(skillType) > upgradeData.NeedExp && _playerDataManager.HasGold(upgradeData.NeedGold);
+        return _skillDataGetter.GetSkillExp(skillType) > upgradeData.NeedExp && _playerDataManager.Gold.Has(upgradeData.NeedGold);
     }
 
     public void Upgrade(SkillType skillType)
     {
         if (CanUpgrade(skillType) == false) return;
         var upgradeData = _skillDataGetter.GetSkillUpgradeData(skillType);
-        _playerDataManager.TryUseGold(upgradeData.NeedGold);
+        _playerDataManager.Gold.Subtract(upgradeData.NeedGold);
         _playerDataManager.SkillInventroy.LevelUpSkill(skillType, upgradeData.NeedExp);
     }
 }

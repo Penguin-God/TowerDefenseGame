@@ -32,8 +32,12 @@ public class UI_Lobby : UI_Scene
         _container.GetComponent<GameMatchmaker>().SetInfo(GetTextMeshPro((int)Texts.TestText), GetButton((int)Buttons.GameStartButton), _container.GetService<EquipSkillManager>());
 
         var playerData = _container.GetService<PlayerDataManager>();
-        playerData.OnGoldAmountChanged += amount => GetTextMeshPro((int)Texts.GoldText).text = amount.ToString();
-        playerData.OnGemAmountChanged += amount => GetTextMeshPro((int)Texts.GemText).text = amount.ToString();
+        GetTextMeshPro((int)Texts.GoldText).text = playerData.Gold.Amount.ToString();
+        GetTextMeshPro((int)Texts.GemText).text = playerData.Gem.Amount.ToString();
+        GetTextMeshPro((int)Texts.ScoreText).text = playerData.Score.ToString();
+
+        playerData.Gold.OnAmountChange += amount => GetTextMeshPro((int)Texts.GoldText).text = amount.ToString();
+        playerData.Gem.OnAmountChange += amount => GetTextMeshPro((int)Texts.GemText).text = amount.ToString();
         playerData.OnChangeScore += amount => GetTextMeshPro((int)Texts.ScoreText).text = amount.ToString();
     }
 

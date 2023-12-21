@@ -26,8 +26,8 @@ public class LobbyTestHelper : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.M))
         {
-            _playerData.AddGold(1000);
-            _playerData.AddGem(500);
+            _playerData.Gold.Add(1000);
+            _playerData.Gem.Add(500);
         }
     }
 

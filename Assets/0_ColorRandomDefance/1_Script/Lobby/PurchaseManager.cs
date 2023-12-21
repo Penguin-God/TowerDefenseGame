@@ -65,7 +65,7 @@ public class GoldPurchaseOperator : IPurchaseOperator
         
     public void SuccessPurchase(PlayerDataManager playerDataManager)
     {
-        playerDataManager.AddGold(GainGold);
+        playerDataManager.Gold.Add(GainGold);
         Managers.UI.ShowPopupUI<UI_NotifyWindow>().SetMessage("구매가 완료되었습니다");   
     }
 }

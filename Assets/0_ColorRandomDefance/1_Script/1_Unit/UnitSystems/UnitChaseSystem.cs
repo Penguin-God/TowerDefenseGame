@@ -13,6 +13,8 @@ public class UnitChaseSystem : MonoBehaviour
     
     void UpdateChaseState(Multi_Enemy newTarget)
     {
+        if (gameObject.activeSelf == false) return;
+
         if (newTarget == null)
         {
             _chaseState = ChaseState.NoneTarget;

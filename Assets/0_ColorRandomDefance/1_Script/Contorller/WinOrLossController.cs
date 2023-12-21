@@ -39,11 +39,15 @@ public class WinOrLossController : MonoBehaviourPun
             Win();
     }
 
-    void Win() => GameEnd("승리");
-    void Lose() => GameEnd("패배");
+    void Win() => GameEnd("승리 점수 +10", 10);
+    void Lose() => GameEnd("패배 점수 -10", -10);
 
-    public void GameEnd(string message)
+    public void GameEnd(string message, int score)
     {
+        var data = new PlayerPrefabsLoder().Load();
+        data.ChangeScore(score);
+        new PlayerPrefabsSaver().Save(data);
+
         ShowGameEndText(message);
         Time.timeScale = 0;
         StartCoroutine(Co_AfterReturnLobby());

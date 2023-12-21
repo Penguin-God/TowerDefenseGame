@@ -52,11 +52,9 @@ public class PlayerPrefabsSaver : IPlayerDataPersistence
     public void Save(PlayerDataManager playerData)
     {
         var data = new SerializablePlayerData(playerData);
-        // string json = JsonUtility.ToJson(data);
         string json = JsonUtility.ToJson(data, true);
-        Debug.Log(json);
-        //PlayerPrefs.SetString("PlayerData", json);
-        //PlayerPrefs.Save();
+        PlayerPrefs.SetString("PlayerData", json);
+        PlayerPrefs.Save();
     }
 }
 

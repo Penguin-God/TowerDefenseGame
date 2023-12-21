@@ -66,6 +66,10 @@ public class LobbyTestHelper : MonoBehaviour
 
     void LogData()
     {
-        if (Input.GetKeyDown(KeyCode.D)) new PlayerPrefabsSaver().Save(_playerData);
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            new PlayerPrefabsSaver().Save(_playerData);
+            Debug.Log("¿˙¿Â");
+        }
     }
 }

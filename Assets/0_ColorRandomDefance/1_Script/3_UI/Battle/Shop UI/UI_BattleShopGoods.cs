@@ -5,6 +5,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum GoodsLocation
+{
+    Left,
+    Middle,
+    Right,
+}
+
 [Serializable]
 public struct GoodsData
 {

@@ -7,8 +7,8 @@ using System.Linq;
 public class TrapCreator : MonoBehaviourPun
 {
     MonsterPathLocationFinder _locationFinder;
-    readonly Vector3 Offset = new Vector3(0, 5, 0);
-    const float TrapRange = 5f;
+    readonly Vector3 Offset = new Vector3(0, 6, 0);
+    const float TrapRange = 5;
 
     void Awake()
     {
@@ -18,7 +18,6 @@ public class TrapCreator : MonoBehaviourPun
 
     public void CreateTraps(int trapCount, byte id)
     {
-
         photonView.RPC(nameof(CreateTrap), RpcTarget.All, id, (byte)trapCount);
     }
 

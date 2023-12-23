@@ -370,21 +370,9 @@ public class NecromancerController : UserSkillController
 
 public class SlowTrapSpawner : UserSkillController
 {
-    readonly MonsterPathLocationFinder _locationFinder;
-    BattleEventDispatcher _dispatcher;
     readonly float DefaultSlowRate;
     readonly float SlowRatePerStage;
     readonly float MaxSlowRate;
-    const float TrapRange = 5f;
-    readonly Vector3 Offset = new Vector3(0, 5, 0);
-    public SlowTrapSpawner(UserSkillBattleData userSkillBattleData, Transform[] wayPoints, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
-    {
-        _locationFinder = new MonsterPathLocationFinder(wayPoints.Select(x => x.position).ToArray());
-        _dispatcher = dispatcher;
-        DefaultSlowRate = SkillDatas[0];
-        SlowRatePerStage = SkillDatas[1];
-        MaxSlowRate = SkillDatas[2];
-    }
 
     readonly TrapCreator _trapCreator;
     public SlowTrapSpawner(UserSkillBattleData userSkillBattleData, TrapCreator trapCreator, BattleEventDispatcher dispatcher) : base(userSkillBattleData)
@@ -397,28 +385,8 @@ public class SlowTrapSpawner : UserSkillController
         MaxSlowRate = SkillDatas[2];
     }
 
-    //internal override void InitSkill()
-    //{
-    //    _dispatcher.OnStageUp += SpawnTrap;
-    //    for (int i = 0; i < _traps.Length; i++)
-    //        _traps[i] = Managers.Multi.Instantiater.PhotonInstantiateInactive("SlowTrap", PlayerIdManager.Id).GetComponent<AreaSlowApplier>();
-    //}
-
     const int SpawnCount = 2;
-    AreaSlowApplier[] _traps = new AreaSlowApplier[SpawnCount];
-    //void SpawnTrap(int stage)
-    //{
-    //    foreach (var trap in _traps)
-    //    {
-    //        trap.GetComponent<RPCable>().SetActive_RPC(false);
-    //        trap.GetComponent<RPCable>().SetPosition_RPC(_locationFinder.CalculateMonsterPathLocation() + Offset);
-    //        trap.GetComponent<RPCable>().SetActive_RPC(true);
-    //        trap.Inject(CalculateTrapSlow(stage), TrapRange);
-    //    }
-    //}
-
     void SpawnTrap(int stage) => _trapCreator.SpawnTraps(CalculateTrapSlow(stage), PlayerIdManager.Id);
-
     float CalculateTrapSlow(int stage) => Mathf.Min(DefaultSlowRate + (stage * SlowRatePerStage), MaxSlowRate);
 }
 

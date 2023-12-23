@@ -170,7 +170,7 @@ public class DataManager
             _userSkillLevelDatas = Managers.Resources.LoadCsv<UserSkillLevelData>("SkillData/SkillLevelData");
         }
 
-        public UserSkillLevelData GetSkillLevelData(SkillType type, int level) => _userSkillLevelDatas.First(x => x.SkillType == type && x.Level == level);
+        public UserSkillLevelData GetSkillLevelData(SkillType type, int level) => _userSkillLevelDatas.FirstOrDefault(x => x.SkillType == type && x.Level == level);
 
         public UserSkillGoodsData GetSkillGoodsData(SkillType skillType)
         {

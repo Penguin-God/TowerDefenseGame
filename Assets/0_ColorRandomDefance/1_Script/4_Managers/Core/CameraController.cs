@@ -25,6 +25,7 @@ public class CameraController
     public event Action<bool> OnIsLookMyWolrd;
     public event Action OnLookMyWolrd;
     public event Action OnLookEnemyWorld;
+    public event Action<bool, bool> OnChangeCamera;
 
     public void EnterBattleScene()
     {
@@ -45,6 +46,7 @@ public class CameraController
     void UpdateCameraPosition()
     {
         currentCamera.transform.position = positions[_lookWorld_Id, lookTowerId];
+        OnChangeCamera?.Invoke(_lookWorld_Id == PlayerIdManager.Id, !IsLookEnemyTower);
         OnIsLookMyWolrd?.Invoke(_lookWorld_Id == PlayerIdManager.Id);
         if (_lookWorld_Id == PlayerIdManager.Id) OnLookMyWolrd?.Invoke();
         else OnLookEnemyWorld?.Invoke();

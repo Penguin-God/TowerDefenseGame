@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,20 +9,17 @@ public class UI_Gambler : UI_Base
 {
     enum UI_State
     {
-        Defautl,
         Exp,
         Gacha,
     }
 
     enum GameObjects
     {
-        SummonUnitButton,
         GachaUnitInfoParent,
     }
 
     protected enum Buttons
     {
-        UnitSummonSwichButton,
         BuyExpButton,
         UnitGachaButton,
     }
@@ -52,8 +48,7 @@ public class UI_Gambler : UI_Base
         Bind<TextMeshProUGUI>(typeof(Texts));
         Bind<Button>(typeof(Buttons));
 
-        Managers.Camera.OnLookEnemyWorld += InActiveAllUIs;
-        Managers.Camera.OnLookMyWolrd += OnLookMyWorld;
+        Managers.Camera.OnChangeCamera += SetGambleUI;
 
         GetTextMeshPro((int)Texts.GambleLevelText).raycastTarget = false;
         GetTextMeshPro((int)Texts.ExpStatusText).raycastTarget = false;
@@ -61,7 +56,6 @@ public class UI_Gambler : UI_Base
         GamblerLevelSystem.OnChangeExp += UpdateText;
         GamblerLevelSystem.OnOverExp += () => ChangeState(UI_State.Gacha);
 
-        GetButton((int)Buttons.UnitSummonSwichButton).onClick.AddListener(SwitchExpDefault);
         GetButton((int)Buttons.BuyExpButton).onClick.AddListener(BuyExp);
         GetButton((int)Buttons.UnitGachaButton).onClick.AddListener(GambleAndLevelUp);
 
@@ -85,7 +79,7 @@ public class UI_Gambler : UI_Base
         GetTextMeshPro((int)Texts.ExpStatusText).text = $"EXP : {GamblerLevelSystem.Experience} / {GamblerLevelSystem.NeedExperienceForLevelUp}";
     }
 
-    UI_State _currentState = UI_State.Defautl;
+    UI_State _currentState;
     void ChangeState(UI_State state)
     {
         ExitState(_currentState);
@@ -97,9 +91,6 @@ public class UI_Gambler : UI_Base
     {
         switch (state)
         {
-            case UI_State.Defautl:
-                ToggleDefaultButton(false);
-                break;
             case UI_State.Exp:
                 ToggleExpUI(false);
                 break;
@@ -114,34 +105,18 @@ public class UI_Gambler : UI_Base
     {
         switch (_currentState)
         {
-            case UI_State.Defautl:
-                ToggleSwitchButton(true);
-                ToggleDefaultButton(true);
-                break;
             case UI_State.Exp:
-                ToggleSwitchButton(true);
                 ToggleExpUI(true);
                 break;
             case UI_State.Gacha:
-                ToggleSwitchButton(false);
                 ToggleGachaUI(true);
                 ShowGachaItemInfos();
                 break;
         }
     }
 
-    void SwitchExpDefault()
-    {
-        if (_currentState == UI_State.Defautl)
-            ChangeState(UI_State.Exp);
-        else if (_currentState == UI_State.Exp)
-            ChangeState(UI_State.Defautl);
-    }
-
     void InActiveAllUIs()
     {
-        ToggleSwitchButton(false);
-        ToggleDefaultButton(false);
         ToggleExpUI(false);
         ToggleGachaUI(false);
     }
@@ -152,9 +127,7 @@ public class UI_Gambler : UI_Base
         GetTextMeshPro((int)Texts.ExpStatusText).gameObject.SetActive(isActive);
         GetButton((int)Buttons.BuyExpButton).gameObject.SetActive(isActive);
     }
-    
-    void ToggleDefaultButton(bool isActive) => GetObject((int)GameObjects.SummonUnitButton).gameObject.SetActive(isActive);
-    void ToggleSwitchButton(bool isActive) => GetButton((int)Buttons.UnitSummonSwichButton).gameObject.SetActive(isActive);
+
     void ToggleGachaUI(bool isActive)
     {
         GetObject((int)GameObjects.GachaUnitInfoParent).SetActive(isActive);
@@ -176,13 +149,9 @@ public class UI_Gambler : UI_Base
             Destroy(child.gameObject);
     }
 
-    void OnLookMyWorld() => StartCoroutine(Co_OnLookMyWorld());
-    // 같은 오브젝트에 붙어있는 UI_BattleButtons 컴포넌트가 카메라 이동 시 UnitSommonButton의 활성화 상태를 조작하기에 여기서 추가 작업을 해야 됨
-    IEnumerator Co_OnLookMyWorld()
+    void SetGambleUI(bool lookMy, bool lookBattleWorld)
     {
-        yield return null;
-        if(_currentState != UI_State.Defautl)
-            ToggleDefaultButton(false);
-        UpdateUIState();
+        if (lookMy && lookBattleWorld) UpdateUIState();
+        else InActiveAllUIs();
     }
 }

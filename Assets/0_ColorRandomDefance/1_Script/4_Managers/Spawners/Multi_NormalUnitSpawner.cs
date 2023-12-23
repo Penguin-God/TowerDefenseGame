@@ -32,7 +32,7 @@ public class UnitFiller
             if (skillData.TruGetSkillData(SkillType.마창사, out var skillBattleData))
             {
                 var data = Managers.Resources.Load<ThrowSpearDataContainer>("Data/ScriptableObject/MagicThrowSpearData");
-                throwSpearData = new ThrowSpearData(new ResourcesPathBuilder().BuildMagicSpaerPath(unit.UnitColor), data.RotateVector, data.WaitForVisibilityTime, skillBattleData.IntSkillData);
+                throwSpearData = new ThrowSpearData(new ResourcesPathBuilder().BuildMagicSpaerPath(unit.UnitColor), data.RotateVector, data.WaitForVisibilityTime, skillBattleData.SkillDatas[0]);
             }
             else
             {

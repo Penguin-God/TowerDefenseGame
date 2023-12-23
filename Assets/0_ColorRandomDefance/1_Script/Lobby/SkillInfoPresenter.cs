@@ -65,14 +65,17 @@ public class SkillInfoPresenter
         if (0.001f >= Mathf.Abs(delta)) return "";
 
         string changeSign = delta > 0 ? "+" : "-";
-        return $"<color=#00ff00> {changeSign} {Mathf.Abs(delta)}</color>";
+        return $"<color=#00ff00> {changeSign} {StatToText(Mathf.Abs(delta), index)}</color>";
     }
 
     string StatToText(float stat, int index)
     {
         switch (SkillType)
         {
-            case SkillType.거인학살자: stat += 1; break;
+            case SkillType.거인학살자: stat = (float)Math.Round(stat * 100); break;
+            case SkillType.마창사: stat = Mathf.Abs((float)Math.Round(stat * 100) - 100); break;
+            case SkillType.황금빛기사: if(index == 1) stat = (float)Math.Round(stat * 100); break;
+            case SkillType.전설의기사: stat = (float)Math.Round(stat * 100); break;
             case SkillType.태극스킬: stat += Managers.Data.Unit.UnitStatByFlag[new UnitFlags(0, index)].Damage; break;
             case SkillType.흑의결속: stat += Managers.Data.Unit.UnitStatByFlag[new UnitFlags(7, index)].Damage; break;
         }

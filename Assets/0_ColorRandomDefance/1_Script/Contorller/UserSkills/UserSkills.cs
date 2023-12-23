@@ -72,14 +72,14 @@ public class UserSkillActor
 {
     IReadOnlyList<SkillType> SimpleSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>() 
     {
-        SkillType.시작골드증가, SkillType.마나물약, SkillType.최대유닛증가, SkillType.황금빛기사, SkillType.컬러마스터, SkillType.거인학살자,
+        SkillType.시작골드증가, SkillType.마나물약, SkillType.최대유닛증가, SkillType.컬러마스터, SkillType.거인학살자,
     });
 
     IReadOnlyList<SkillType> ComplexSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
     {
         SkillType.태극스킬, SkillType.마나변이, SkillType.마나불능, SkillType.장사꾼, SkillType.도박사, SkillType.메테오,
         SkillType.네크로맨서, SkillType.덫, SkillType.백의결속, SkillType.흑의결속, SkillType.썬콜, SkillType.VIP, SkillType.부익부,
-        SkillType.전설의기사,
+        SkillType.전설의기사, SkillType.황금빛기사,
     });
 
     IReadOnlyList<SkillType> ExistSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
@@ -109,7 +109,7 @@ public class UserSkillActor
             case SkillType.시작골드증가: Multi_GameManager.Instance.AddGold(skillBattleData.IntSkillData); break;
             case SkillType.마나물약: Multi_GameManager.Instance.AddFood(skillBattleData.IntSkillData); break;
             case SkillType.최대유닛증가: container.GetComponent<MultiBattleDataController>().IncreasedMaxUnitCount(skillBattleData.IntSkillData); break;
-            case SkillType.황금빛기사: Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = skillBattleData.IntSkillData; break;
+            // case SkillType.황금빛기사: Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = skillBattleData.IntSkillData; break;
             case SkillType.컬러마스터: container.GetComponent<SwordmanGachaController>().ChangeUnitSummonMaxColor(UnitColor.Violet); break;
             case SkillType.거인학살자: container.GetComponent<MultiUnitStatController>().ScaleAllUnitDamage(new UnitDamageInfo(bossDamRate: skillBattleData.SkillData)); break;
         }
@@ -122,6 +122,7 @@ public class UserSkillActor
         {
             case SkillType.태극스킬: result = new TaegeukController(skillBattleData, container.GetComponent<MultiUnitStatController>(), container.GetEventDispatcher()); break;
             case SkillType.흑의결속: result = new BlackUnitUpgrade(skillBattleData, container.GetComponent<MultiUnitStatController>()); break;
+            case SkillType.황금빛기사: result = new GoldenKnight(skillBattleData, container.GetComponent<MultiUnitStatController>()); break;
             case SkillType.마나변이: result = new ManaMutation(skillBattleData, container.GetComponent<SkillColorChanger>(), container.GetEventDispatcher()); break;
             case SkillType.마나불능: result = new ManaImpotence(skillBattleData, container.GetService<ShopDataContainer>()); break;
             case SkillType.장사꾼: result = new UnitMerchant(skillBattleData); break;
@@ -131,7 +132,6 @@ public class UserSkillActor
             case SkillType.네크로맨서:
                 result = new NecromancerController(skillBattleData, container.GetEventDispatcher(), container.GetComponent<MultiEffectManager>(), container.GetUnitSpanwer()); break;
             case SkillType.덫:
-                // result = new SlowTrapSpawner(skillBattleData, MultiData.instance.GetEnemyTurnPoints(PlayerIdManager.Id) ,container.GetEventDispatcher()); break;
                 result = new SlowTrapSpawner(skillBattleData, container.GetComponent<TrapCreator>(), container.GetEventDispatcher()); break;
             case SkillType.백의결속: result = new BondOfWhite(skillBattleData, container.GetEventDispatcher(), Multi_GameManager.Instance, container.GetComponent<MultiUnitStatController>()); break;
             case SkillType.썬콜: result = new Suncold(skillBattleData, Managers.Data); break;
@@ -190,6 +190,15 @@ public class BlackUnitUpgrade : UserSkillController
     public BlackUnitUpgrade(UserSkillBattleData userSkillBattleData, MultiUnitStatController statController) : base(userSkillBattleData) 
     {
         new UnitStatHandler(statController).UpgradeUnit(UnitColor.Black, IntSkillDatas);
+    }
+}
+
+public class GoldenKnight : UserSkillController
+{
+    public GoldenKnight(UserSkillBattleData userSkillBattleData, MultiUnitStatController statController) : base(userSkillBattleData)
+    {
+        Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = userSkillBattleData.IntSkillData;
+        statController.ScaleUnitDamage(UnitColor.Yellow, UnitDamageInfo.CreateRateInfo(UserSkillBattleData.SkillDatas[1]));
     }
 }
 

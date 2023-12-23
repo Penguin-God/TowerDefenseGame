@@ -14,9 +14,9 @@ public class UI_UnitUpgradeShopWithVip : UI_Base
 {
     enum GameObjects
     {
-        GoodsParent,
-        SpecialGoodsParent,
-        ResetBackgound,
+        GoldShop,
+        RunShop,
+        VIPShop,
     }
 
     enum Texts
@@ -47,8 +47,6 @@ public class UI_UnitUpgradeShopWithVip : UI_Base
 
         UpdateVipStatkText();
 
-        //foreach (var goods in GetObject((int)GameObjects.GoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
-        //    goods.OnBuyGoods += _ => IncreaseGoodsBuyStack();
         GetComponent<UI_UnitUpgradeShop>().OnUpgradeUnit += IncreaseGoodsBuyStack;
         InitSpecailShop();
         ConfigureNormalShop();
@@ -56,14 +54,14 @@ public class UI_UnitUpgradeShopWithVip : UI_Base
 
     void InitSpecailShop()
     {
-        foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
+        foreach (var goods in GetAllGoods())
         {
             goods.Inject(_buyController, _buyActionFactory);
             goods.OnBuyGoods += _ => ConfigureNormalShop();
             goods.OnBuyGoods += _ => GetGoodsManager(goods.GoodsLocation).AddBackAllGoods();
         }
 
-        foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_GoodsChangeController>())
+        foreach (var goods in GetAllGoodsControllers())
             goods.DependencyInject(ChangeGoods);
     }
 
@@ -82,14 +80,17 @@ public class UI_UnitUpgradeShopWithVip : UI_Base
 
     BattleShopGoodsData ChangeGoods(GoodsLocation goodsLocation, BattleShopGoodsData prveiousGoodsData) => GetGoodsManager(goodsLocation).ChangeGoods(prveiousGoodsData);
 
+    IEnumerable<UI_BattleShopGoods> GetAllGoods() => GetObject((int)GameObjects.VIPShop).GetComponentsInChildren<UI_BattleShopGoods>();
+    IEnumerable<UI_GoodsChangeController> GetAllGoodsControllers() => GetObject((int)GameObjects.VIPShop).GetComponentsInChildren<UI_GoodsChangeController>();
+
     void ConfigureSpecialShop()
     {
         ConfigureShop(isSpecialShop: true);
 
-        foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_BattleShopGoods>())
+        foreach (var goods in GetAllGoods())
             goods.DisplayGoods(GetGoodsManager(goods.GoodsLocation).GetRandomGoods());
 
-        foreach (var goods in GetObject((int)GameObjects.SpecialGoodsParent).GetComponentsInChildren<UI_GoodsChangeController>())
+        foreach (var goods in GetAllGoodsControllers())
             goods.ActiveButton();
     }
 
@@ -97,9 +98,9 @@ public class UI_UnitUpgradeShopWithVip : UI_Base
     void ConfigureShop(bool isSpecialShop)
     {
         GetTextMeshPro((int)Texts.StackText).gameObject.SetActive(!isSpecialShop);
-        GetObject((int)GameObjects.GoodsParent).SetActive(!isSpecialShop);
-        GetObject((int)GameObjects.ResetBackgound).SetActive(!isSpecialShop);
+        GetObject((int)GameObjects.GoldShop).SetActive(!isSpecialShop);
+        GetObject((int)GameObjects.RunShop).SetActive(!isSpecialShop);
 
-        GetObject((int)GameObjects.SpecialGoodsParent).SetActive(isSpecialShop);
+        GetObject((int)GameObjects.VIPShop).SetActive(isSpecialShop);
     }
 }

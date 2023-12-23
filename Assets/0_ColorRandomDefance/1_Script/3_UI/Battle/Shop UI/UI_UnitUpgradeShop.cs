@@ -53,6 +53,4 @@ public class UI_UnitUpgradeShop : UI_Popup
             item.OnUpgradeUnit += NotifyUnitUpgrade;
         }
     }
-
-
 }

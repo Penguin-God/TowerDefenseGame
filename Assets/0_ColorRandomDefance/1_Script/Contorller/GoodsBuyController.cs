@@ -25,7 +25,7 @@ public class GoodsBuyController
     }
 
     protected void ShowBuyWindow(string qustionText, CurrencyData priceData, Action successAct) 
-        => Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfo(qustionText, () => DoBuy(priceData, successAct));
+        => Managers.UI.ShowPopupUI<UI_ComfirmPopup>("UI_ComfirmPopup2").SetInfoWithClose(qustionText, () => DoBuy(priceData, successAct));
 
     void DoBuy(CurrencyData priceData, Action successAct)
     {

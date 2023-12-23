@@ -35,9 +35,10 @@ public class Tutorial_UserSkill : TutorialController
     protected override bool TutorialStartCondition() => CheckOnTeaguke();
     bool CheckYellowSowrdmanClick()
     {
-        var window = Managers.UI.FindPopupUI<UI_UnitManagedWindow>();
-        if (window == null) return false;
-        return window.UnitFlags == yellowSowrdmanFlag;
+        return false;
+        //var window = Managers.UI.FindPopupUI<UI_UnitManagedWindow>();
+        //if (window == null) return false;
+        //return window.UnitFlags == yellowSowrdmanFlag;
     }
     bool CheckOnTeaguke() 
         => _taegeukStateManager.GetTaegeukState(UnitClass.Swordman, Managers.Unit.ExsitUnitFlags).ChangeState == TaegeukStateChangeType.TrueToFalse

@@ -28,9 +28,10 @@ public class Tutorial_Tower : TutorialController
     protected override bool TutorialStartCondition() => Managers.Camera.IsLookEnemyTower && Managers.Camera.IsLookOtherWolrd == false;
     bool CheckOrangeSowrdmanClick()
     {
-        var window = Managers.UI.FindPopupUI<UI_UnitManagedWindow>();
-        if (window == null) return false;
-        return window.UnitFlags == orangeSowrdmanFlag;
+        return false;
+        //var window = Managers.UI.FindPopupUI<UI_UnitManagedWindow>();
+        //if (window == null) return false;
+        //return window.UnitFlags == orangeSowrdmanFlag;
     }
     void ChangeShopColliderEnable(bool isEnabled)
     {

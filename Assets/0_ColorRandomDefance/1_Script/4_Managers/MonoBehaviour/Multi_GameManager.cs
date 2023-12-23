@@ -31,6 +31,7 @@ public class BattleDataController
         StageMonsetSpawnCount = startData.StageMonsetSpawnCount;
         MonsterSpawnDelayTime = startData.MonsterSpawnDelayTime;
         StageBreakTime = startData.StageBreakTime;
+        MonsterResurrectionDelayTime = startData.MonsterResurrectionDelayTime;
     }
 
     public int MaxUnit { get; private set; }
@@ -48,12 +49,11 @@ public class BattleDataController
 
     public IReadOnlyList<CurrencyData> UnitSellRewardDatas { get; private set; }
 
-    public IReadOnlyDictionary<UnitUpgradeData, CurrencyData> ShopPriceDataByUnitUpgradeData { get; private set; }
-
     // 스테이지
     public int StageMonsetSpawnCount;
     public float MonsterSpawnDelayTime;
     public float StageBreakTime;
+    public float MonsterResurrectionDelayTime;
     public float StageTime => (StageMonsetSpawnCount * MonsterSpawnDelayTime) + StageBreakTime;
 }
 

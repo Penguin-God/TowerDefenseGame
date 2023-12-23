@@ -68,6 +68,18 @@ public class EnemySpawnNumManager : MonoBehaviourPun
     public void SetClientSpawnNumber(byte num) => _spawnEnemyNums[1] = num;
 }
 
+public readonly struct SpawnData
+{
+    public readonly int OwnerId;
+    public readonly int Stage;
+
+    public SpawnData(int ownerId, int stage)
+    {
+        OwnerId = ownerId;
+        Stage = stage; 
+    }
+}
+
 public class MonsterSpawnerContorller : MonoBehaviour
 {
     EnemySpawnNumManager _numManager;
@@ -89,6 +101,7 @@ public class MonsterSpawnerContorller : MonoBehaviour
         _dispatcher.OnStageUp += SpawnMonsterOnStageChange; // normal
         _dispatcher.OnStageUp += SpawnBossOnStageMultipleOfTen; // boss
         _dispatcher.OnGameStart += SpawnTowerOnStart; // tower
+        StartCoroutine(Co_ResurrectionUpdate());
     }
 
     void SpawnMonsterOnStageChange(int stage)
@@ -112,11 +125,25 @@ public class MonsterSpawnerContorller : MonoBehaviour
         }
     }
 
+    Queue<SpawnData> _resurrectionQueue = new Queue<SpawnData>();
     void ResurrectionMonsterToOther(Multi_NormalEnemy enemy)
     {
         if (enemy.IsResurrection) return;
-        var spawnEnemy = SpawnMonsterToOther(enemy.UsingId, enemy.SpawnStage);
-        spawnEnemy.Resurrection();
+        _resurrectionQueue.Enqueue(new SpawnData(enemy.UsingId, enemy.SpawnStage));
+    }
+
+    IEnumerator Co_ResurrectionUpdate()
+    {
+        while (true)
+        {
+            yield return null;
+            if (_resurrectionQueue.Count == 0) continue;
+
+            var spawnData = _resurrectionQueue.Dequeue();
+            var spawnEnemy = SpawnMonsterToOther(spawnData.OwnerId, spawnData.Stage);
+            spawnEnemy.Resurrection();
+            yield return new WaitForSeconds(Multi_GameManager.Instance.BattleData.MonsterResurrectionDelayTime);
+        }
     }
 
     void SpawnBossOnStageMultipleOfTen(int stage)

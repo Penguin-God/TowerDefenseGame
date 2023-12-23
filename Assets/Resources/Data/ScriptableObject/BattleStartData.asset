@@ -34,3 +34,4 @@ MonoBehaviour:
   StageMonsetSpawnCount: 13
   MonsterSpawnDelayTime: 1.5
   StageBreakTime: 2
+  MonsterResurrectionDelayTime: 0.1

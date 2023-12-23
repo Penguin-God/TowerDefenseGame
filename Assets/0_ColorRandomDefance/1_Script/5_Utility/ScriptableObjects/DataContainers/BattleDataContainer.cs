@@ -18,6 +18,7 @@ public class BattleDataContainer : ScriptableObject
     public int StageMonsetSpawnCount;
     public float MonsterSpawnDelayTime;
     public float StageBreakTime;
+    public float MonsterResurrectionDelayTime;
 
     public BattleDataContainer Clone()
     {
@@ -34,6 +35,7 @@ public class BattleDataContainer : ScriptableObject
         result.StageMonsetSpawnCount = StageMonsetSpawnCount;
         result.MonsterSpawnDelayTime = MonsterSpawnDelayTime;
         result.StageBreakTime = StageBreakTime;
+        result.MonsterResurrectionDelayTime = MonsterResurrectionDelayTime;
         return result;
     }
 }

@@ -58,7 +58,7 @@ public class UI_BattleShop : UI_Popup
     }
 
     IEnumerable<BattleShopGoodsData> GenerateUnitUpgradeDatas()
-    => Multi_GameManager.Instance.BattleData.ShopPriceDataByUnitUpgradeData.Select(x => CreateShopGoodsData(x.Key, x.Value));
+        => Multi_GameManager.Instance.BattleData.ShopPriceDataByUnitUpgradeData.Select(x => CreateShopGoodsData(x.Key, x.Value));
 
     BattleShopGoodsData CreateShopGoodsData(UnitUpgradeData unitUpgradeData, CurrencyData priceData)
     {

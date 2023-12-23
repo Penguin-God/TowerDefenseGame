@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -32,6 +33,8 @@ public class UI_UnitUpgradeShop : UI_Popup
 
     MultiUnitStatController _statController;
     ShopDataContainer _unitUpgradeDataUseCase;
+    public event Action OnUpgradeUnit;
+    void NotifyUnitUpgrade() => OnUpgradeUnit?.Invoke();
     public void DependencyInject(MultiUnitStatController statController, ShopDataContainer unitUpgradeDataUseCase)
     {
         _statController = statController;
@@ -44,6 +47,12 @@ public class UI_UnitUpgradeShop : UI_Popup
             Destroy(child.gameObject);
 
         foreach (var color in UnitFlags.NormalColors)
-            Managers.UI.MakeSubItem<UI_UnitUpgradeIcon>(goodsParent).FillGoods(color, unitUpgradeGoodsData, _statController, _unitUpgradeDataUseCase.UpgradeMaxLevel);
+        {
+            var item = Managers.UI.MakeSubItem<UI_UnitUpgradeIcon>(goodsParent);
+            item.FillGoods(color, unitUpgradeGoodsData, _statController, _unitUpgradeDataUseCase.UpgradeMaxLevel);
+            item.OnUpgradeUnit += NotifyUnitUpgrade;
+        }
     }
+
+
 }

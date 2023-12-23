@@ -491,12 +491,10 @@ public class VIP : UserSkillController
 {
     public VIP(UserSkillBattleData userSkillBattleData, BattleUI_Mediator uiMediator, TextShowAndHideController textController, BuyAction buyAction) : base(userSkillBattleData)
     {
-        uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_BattleShopWithVIP");
-        var ui = uiMediator.ShowPopupUI(BattleUI_Type.UnitUpgrdeShop).GetComponent<UI_BattleShopWithVIP>();
+        uiMediator.RegisterUI(BattleUI_Type.UnitUpgrdeShop, "InGameShop/UI_UnitUpgradeShopWithVip");
+        var ui = uiMediator.ShowPopupUI(BattleUI_Type.UnitUpgrdeShop).GetComponent<UI_UnitUpgradeShopWithVip>();
         ui.ReceiveInject(new SpecialShopBuyController(Multi_GameManager.Instance, textController), buyAction, CreateGoodsManger(), IntSkillDatas[0]);
         ui.gameObject.SetActive(false);
-
-        // ChangeAttackGoodsPrice(IntSkillDatas[2]);
     }
 
     // 위치(좌, 중, 우)별 상품 생성
@@ -511,15 +509,6 @@ public class VIP : UserSkillController
         }
         return result;
     }
-
-    //void ChangeAttackGoodsPrice(int price)
-    //{
-    //    Multi_GameManager.Instance.BattleData
-    //        .ShopPriceDataByUnitUpgradeData
-    //        .Where(x => x.Key.UpgradeType == UnitUpgradeType.Value)
-    //        .Select(x => x.Value)
-    //        .ToList().ForEach(x => x.ChangeAmount(price));
-    //}
 }
 
 

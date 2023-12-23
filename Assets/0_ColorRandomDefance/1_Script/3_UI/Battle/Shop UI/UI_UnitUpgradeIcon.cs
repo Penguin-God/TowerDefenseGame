@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -11,6 +12,7 @@ public class UI_UnitUpgradeIcon : UI_Base
     Button _upgradeButton;
     int _upgradeLevel = 1;
     int MaxLevel;
+    public event Action OnUpgradeUnit;
     protected override void Init()
     {
         _unitIcon = GetComponent<UI_UnitIcon>();
@@ -22,24 +24,28 @@ public class UI_UnitUpgradeIcon : UI_Base
     {
         CheckInit();
         _unitIcon.SetBGColor(color);
-        _upgradeButton.onClick.AddListener(UpgradeUnit);
+        _upgradeButton.onClick.AddListener(TryUpgradeUnit);
         MaxLevel = maxLevel;
         UpdateLevelText();
 
-        void UpgradeUnit()
+        void TryUpgradeUnit()
         {
             if (IsMaxUpgrade()) return;
 
             if (Multi_GameManager.Instance.TryUseCurrency(goodsData.Price))
+                UpgradeUnit();
+        }
+
+        void UpgradeUnit()
+        {
+            switch (goodsData.UpgradeType)
             {
-                switch (goodsData.UpgradeType)
-                {
-                    case UnitUpgradeType.Value: statController.AddUnitDamage(color, goodsData.UpgradeInfo); break;
-                    case UnitUpgradeType.Scale: statController.ScaleUnitDamage(color, goodsData.UpgradeInfo); break;
-                }
-                _upgradeLevel++;
-                UpdateLevelText();
+                case UnitUpgradeType.Value: statController.AddUnitDamage(color, goodsData.UpgradeInfo); break;
+                case UnitUpgradeType.Scale: statController.ScaleUnitDamage(color, goodsData.UpgradeInfo); break;
             }
+            OnUpgradeUnit.Invoke();
+            _upgradeLevel++;
+            UpdateLevelText();
         }
     }
 

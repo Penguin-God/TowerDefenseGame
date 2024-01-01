@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -17,9 +16,7 @@ public class LobbyScene : BaseScene
 
         container.AddService(new SkillDataGetter(LoadSkillData<SkillUpgradeData>("SkillUpgradeData"), LoadSkillData<UserSkillLevelData>("SkillLevelData"), container.GetService<PlayerDataManager>().SkillInventroy));
         container.AddService(new SkillUpgradeUseCase(container.GetService<SkillDataGetter>(), container.GetService<PlayerDataManager>()));
-        
-        // Screen.SetResolution(1920, 1080, true);
-        // _isFullScreen = true;
+
         // Managers.Resources.DependencyInject(new PoolManager("@PoolManager"));
         Managers.Sound.StopBgm(); // 로비 BGM 뭐하지?
 
@@ -27,6 +24,8 @@ public class LobbyScene : BaseScene
 
         gameObject.AddComponent<LobbyTestHelper>().SetContainer(container);
         gameObject.AddComponent<GameSaver>().SetData(container.GetService<PlayerDataManager>());
+
+        new IAPController().Purchase("1000_gems");
     }
 
     IEnumerable<T> LoadSkillData<T>(string path) => Managers.Resources.LoadCsv<T>($"SkillData/{path}");

@@ -189,8 +189,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         isRPC = false;
     }
 
-    protected virtual void AttackToAll() => photonView.RPC(nameof(Attack), RpcTarget.All);
-    [PunRPC] protected virtual void Attack() { }
+    protected virtual void AttackToAll() { } // => photonView.RPC(nameof(Attack), RpcTarget.All);
+    // [PunRPC] protected virtual void Attack() { }
     public void NormalAttack()
     {
         UnitAttacker.NormalAttack(TargetEnemy);

@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Linq;
 
 public class Multi_Unit_Archer : Multi_TeamSoldier
@@ -28,10 +26,10 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
     void Normal() => _normalAttackController.DoAttack(AttackDelayTime);
     void SpecialAttack() => _specialAttackController.DoAttack(_skillReboundTime);
 
-    protected override void AttackToAll() // => _attackExcuter.RandomAttack(_useSkillPercent);
+    protected override void AttackToAll()
     {
         _attackExcuter.RandomAttack(_useSkillPercent);
-        print("히히 화살 발사");
+        print("이건 화살이라고 합니다");
     }
     string GetWeaponPath() => $"Prefabs/{new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags)}";
 }

@@ -36,8 +36,10 @@ public class Multi_Unit_Mage : Multi_TeamSoldier
     public void InjectSkillController(UnitSkillController unitSkillController) => _unitSkillController = unitSkillController;
     bool Skillable => _manaSystem != null && _manaSystem.IsManaFull;
 
+    protected override void AttackToAll() => photonView.RPC(nameof(Attack), RpcTarget.All);
+
     [PunRPC]
-    protected override void Attack()
+    protected void Attack()
     {
         if (Skillable) _skillController.DoAttack(0);
         else _normalAttacker.DoAttack(AttackDelayTime);

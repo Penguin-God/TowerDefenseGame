@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Photon.Pun;
+﻿using Photon.Pun;
 
 public class Multi_Unit_Swordman : Multi_TeamSoldier
 {
@@ -12,5 +9,7 @@ public class Multi_Unit_Swordman : Multi_TeamSoldier
         _unitAttackControllerTemplate = new UnitAttackControllerGenerator().GenerateSwordmanAttacker(this);
     }
 
-    [PunRPC] protected override void Attack() => _unitAttackControllerTemplate.DoAttack(AttackDelayTime);
+    protected override void AttackToAll() => photonView.RPC(nameof(Attack), RpcTarget.All);
+
+    [PunRPC] protected void Attack() => _unitAttackControllerTemplate.DoAttack(AttackDelayTime);
 }

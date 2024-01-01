@@ -36,7 +36,7 @@ public class UI_UnitOperater : UI_Base
 
     IUnitOperationHandler _operationHandler;
     WorldUnitManager _worldUnitManager;
-    public bool IsActiveIcons { get; private set; }
+    bool _isActiveIcons;
     public void DependencyInject(IUnitOperationHandler operationHandler, WorldUnitManager worldUnitManager)
     {
         _operationHandler = operationHandler;
@@ -45,7 +45,7 @@ public class UI_UnitOperater : UI_Base
 
     void ToggleUnitIcons()
     {
-        if(IsActiveIcons)
+        if(_isActiveIcons)
             HideIcons(); 
         else
             ShowOperableUnits();
@@ -55,13 +55,13 @@ public class UI_UnitOperater : UI_Base
     {
         GetObject((int)GameObjects.OperateImpossibleText).SetActive(false);
         GetObject((int)GameObjects.UnitIconsParent).SetActive(false);
-        IsActiveIcons = false;
+        _isActiveIcons = false;
     }
 
     public void ShowOperableUnits()
     {
         GetObject((int)GameObjects.UnitIconsParent).SetActive(true);
-        IsActiveIcons = true;
+        _isActiveIcons = true;
         foreach (Transform child in GetObject((int)GameObjects.UnitIconsParent).transform)
             Managers.Resources.Destroy(child.gameObject);
 
@@ -83,7 +83,11 @@ public class UI_UnitOperater : UI_Base
             GetObject((int)GameObjects.OperateImpossibleText).SetActive(true);
     }
 
-    public void UpdateOperableUnits() => StartCoroutine(Co_UpdateOperableUnits());
+    public void UpdateOperableUnits()
+    {
+        if (_isActiveIcons == false) return;
+        StartCoroutine(Co_UpdateOperableUnits());
+    }
     IEnumerator Co_UpdateOperableUnits()
     {
         HideIcons();

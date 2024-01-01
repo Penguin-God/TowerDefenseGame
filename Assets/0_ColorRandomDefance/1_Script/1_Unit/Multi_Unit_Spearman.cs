@@ -16,7 +16,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
         _normalAttackController = new UnitAttackControllerGenerator().GenerateSpearmanAttcker(this);
         
         _attackExcuter = gameObject.AddComponent<RandomExcuteSkillController>();
-        _attackExcuter.DependencyInject(Normal, SpecialAttack);
+        _attackExcuter.DependencyInject(Normal, SpecialAttack, new AttackCounter(3));
     }
 
     ThrowSpearData _throwSpearData;

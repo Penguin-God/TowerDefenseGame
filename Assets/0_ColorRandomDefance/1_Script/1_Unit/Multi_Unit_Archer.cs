@@ -19,7 +19,7 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
         _normalAttackController = attackerGenerator.GenerateArcherAttacker(this, arrowShotPoint);
         _specialAttackController = attackerGenerator.GenerateArcherSkillAttcker(this, new ArcherArrowShoter(TargetFinder, arrowShotPoint, GetWeaponPath()));
         _attackExcuter = gameObject.AddComponent<RandomExcuteSkillController>();
-        _attackExcuter.DependencyInject(Normal, SpecialAttack);
+        _attackExcuter.DependencyInject(Normal, SpecialAttack, new AttackCounter(3));
         _useSkillPercent = 30;
     }
 

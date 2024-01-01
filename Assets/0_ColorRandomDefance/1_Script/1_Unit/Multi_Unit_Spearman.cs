@@ -7,7 +7,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
     [SerializeField] float _skillReboundTime;
     SpearmanAttackController _normalAttackController;
     SpearmanSkillAttackController _skillAttackContrller;
-    RandomExcuteSkillController _attackExcuter;
+    NetworkAttackController _attackExcuter;
     protected override void OnAwake()
     {
         _chaseSystem = gameObject.AddComponent<MeeleChaser>();
@@ -15,7 +15,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
 
         _normalAttackController = new UnitAttackControllerGenerator().GenerateSpearmanAttcker(this);
         
-        _attackExcuter = gameObject.AddComponent<RandomExcuteSkillController>();
+        _attackExcuter = gameObject.AddComponent<NetworkAttackController>();
         _attackExcuter.DependencyInject(Normal, SpecialAttack, new AttackCounter(3));
     }
 
@@ -31,7 +31,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
     void Normal() => _normalAttackController.DoAttack(AttackDelayTime);
     void SpecialAttack() => _skillAttackContrller.DoAttack(_skillReboundTime);
 
-    protected override void AttackToAll() => _attackExcuter.RandomAttack(_useSkillPercent);
+    protected override void AttackToAll() => _attackExcuter.NetworkAttack(_useSkillPercent);
 
     void SkillAttack(Multi_Enemy target) => UnitAttacker.SkillAttack(target, CalculateSpearDamage(target.enemyType));
     int CalculateSpearDamage(EnemyType enemyType) => Mathf.RoundToInt(UnitAttacker.CalculateDamage(enemyType) * _throwSpearData.AttackRate);

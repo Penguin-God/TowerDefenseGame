@@ -1,7 +1,7 @@
 using Photon.Pun;
 using System;
 
-public class RandomExcuteSkillController : MonoBehaviourPun
+public class NetworkAttackController : MonoBehaviourPun
 {
     Action _normalAct;
     Action _skillAct;
@@ -14,16 +14,7 @@ public class RandomExcuteSkillController : MonoBehaviourPun
         _attackCounter = attackCounter;
     }
 
-    //public void RandomAttack(int skillRate) => photonView.RPC(nameof(Attack), RpcTarget.All, MathUtil.GetRandomBoolByRate(skillRate));
-
-    //[PunRPC]
-    //void Attack(bool isSkill)
-    //{
-    //    if (isSkill) _skillAct.Invoke();
-    //    else _normalAct.Invoke();
-    //}
-
-    public void RandomAttack(int skillRate)
+    public void NetworkAttack(int skillRate)
     {
         if (PhotonNetwork.IsMasterClient == false) return;
 

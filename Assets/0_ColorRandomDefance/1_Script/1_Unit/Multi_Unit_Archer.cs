@@ -8,7 +8,7 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
 
     [SerializeField] int _useSkillPercent;
     [SerializeField] float _skillReboundTime;
-    RandomExcuteSkillController _attackExcuter;
+    NetworkAttackController _attackExcuter;
     ArcherNormalAttackController _normalAttackController;
     ArcherSpecialAttackController _specialAttackController;
     protected override void OnAwake()
@@ -18,7 +18,7 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
         var attackerGenerator = new UnitAttackControllerGenerator();
         _normalAttackController = attackerGenerator.GenerateArcherAttacker(this, arrowShotPoint);
         _specialAttackController = attackerGenerator.GenerateArcherSkillAttcker(this, new ArcherArrowShoter(TargetFinder, arrowShotPoint, GetWeaponPath()));
-        _attackExcuter = gameObject.AddComponent<RandomExcuteSkillController>();
+        _attackExcuter = gameObject.AddComponent<NetworkAttackController>();
         _attackExcuter.DependencyInject(Normal, SpecialAttack, new AttackCounter(3));
         _useSkillPercent = 30;
     }
@@ -28,7 +28,7 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
 
     protected override void AttackToAll()
     {
-        _attackExcuter.RandomAttack(_useSkillPercent);
+        _attackExcuter.NetworkAttack(_useSkillPercent);
         print("이건 화살이라고 합니다");
     }
     string GetWeaponPath() => $"Prefabs/{new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags)}";

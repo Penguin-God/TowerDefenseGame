@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using Photon.Pun;
@@ -189,8 +188,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         isRPC = false;
     }
 
-    protected virtual void AttackToAll() { } // => photonView.RPC(nameof(Attack), RpcTarget.All);
-    // [PunRPC] protected virtual void Attack() { }
+    protected virtual void AttackToAll() { }
+
     public void NormalAttack()
     {
         UnitAttacker.NormalAttack(TargetEnemy);

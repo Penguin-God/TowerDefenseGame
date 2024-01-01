@@ -3,7 +3,6 @@
 public class Multi_Unit_Spearman : Multi_TeamSoldier
 {
     [Header("창병 변수")]
-    [SerializeField] int _useSkillPercent;
     [SerializeField] float _skillReboundTime;
     SpearmanAttackController _normalAttackController;
     SpearmanSkillAttackController _skillAttackContrller;
@@ -11,8 +10,6 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
     protected override void OnAwake()
     {
         _chaseSystem = gameObject.AddComponent<MeeleChaser>();
-        _useSkillPercent = 30;
-
         _normalAttackController = new UnitAttackControllerGenerator().GenerateSpearmanAttcker(this);
         
         _attackExcuter = gameObject.AddComponent<NetworkAttackController>();
@@ -31,7 +28,7 @@ public class Multi_Unit_Spearman : Multi_TeamSoldier
     void Normal() => _normalAttackController.DoAttack(AttackDelayTime);
     void SpecialAttack() => _skillAttackContrller.DoAttack(_skillReboundTime);
 
-    protected override void AttackToAll() => _attackExcuter.NetworkAttack(_useSkillPercent);
+    protected override void AttackToAll() => _attackExcuter.NetworkAttack();
 
     void SkillAttack(Multi_Enemy target) => UnitAttacker.SkillAttack(target, CalculateSpearDamage(target.enemyType));
     int CalculateSpearDamage(EnemyType enemyType) => Mathf.RoundToInt(UnitAttacker.CalculateDamage(enemyType) * _throwSpearData.AttackRate);

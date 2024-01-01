@@ -6,7 +6,6 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
     [Header("아처 변수")]
     [SerializeField] Transform arrowShotPoint;
 
-    [SerializeField] int _useSkillPercent;
     [SerializeField] float _skillReboundTime;
     NetworkAttackController _attackExcuter;
     ArcherNormalAttackController _normalAttackController;
@@ -20,7 +19,6 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
         _specialAttackController = attackerGenerator.GenerateArcherSkillAttcker(this, new ArcherArrowShoter(TargetFinder, arrowShotPoint, GetWeaponPath()));
         _attackExcuter = gameObject.AddComponent<NetworkAttackController>();
         _attackExcuter.DependencyInject(Normal, SpecialAttack, new AttackCounter(3));
-        _useSkillPercent = 30;
     }
 
     void Normal() => _normalAttackController.DoAttack(AttackDelayTime);
@@ -28,7 +26,7 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
 
     protected override void AttackToAll()
     {
-        _attackExcuter.NetworkAttack(_useSkillPercent);
+        _attackExcuter.NetworkAttack();
         print("이건 화살이라고 합니다");
     }
     string GetWeaponPath() => $"Prefabs/{new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags)}";

@@ -14,7 +14,7 @@ public class NetworkAttackController : MonoBehaviourPun
         _attackCounter = attackCounter;
     }
 
-    public void NetworkAttack(int skillRate)
+    public void NetworkAttack()
     {
         if (PhotonNetwork.IsMasterClient == false) return;
 

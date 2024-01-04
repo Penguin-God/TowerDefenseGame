@@ -5,23 +5,6 @@ using UnityEngine.Purchasing;
 
 public class IAPController : IStoreListener
 {
-    //public const string ProductGold = "gold"; // Consumable
-    //public const string ProductGem = "gem"; // Consumable
-    //public const string ProductSkill = "skill"; // Unconsumable
-    //public const string ProductSubscription = "sub"; // Subscription
-
-    //private const string _iOS_GoldId = "com.studio.app.gold"; // google play 개발자 포털에서 정하기
-    //private const string _android_GoldId = "com.studio.app.gold";
-
-    //private const string _iOS_GemId = "com.studio.app.gem"; // google play 개발자 포털에서 정하기
-    //private const string _android_GemId = "com.studio.app.gem";
-
-    //private const string _iOS_SkillId = "com.studio.app.skill";
-    //private const string _android_SkillId = "com.studio.app.skill";
-
-    //private const string _iOS_Subscription = "com.studio.app.sub";
-    //private const string _android_Subscription= "com.studio.app.sub";
-
     private IStoreController storeController; // 구매 과정을 제어하는 함수 제공
     private IExtensionProvider storeExtensionProvider; // 여러 플랫폼을 위한 확장 처리를 제공
 
@@ -29,8 +12,10 @@ public class IAPController : IStoreListener
 
     Dictionary<string, int> _gemAmountById = new Dictionary<string, int>();
 
-    public IAPController(IEnumerable<IAP_ProductData> datas)
+    readonly PlayerDataManager _playerDataManager;
+    public IAPController(IEnumerable<IAP_ProductData> datas, PlayerDataManager playerDataManager)
     {
+        _playerDataManager = playerDataManager;
         _gemAmountById = datas.ToDictionary(x => x.ProductId, x => x.GemAmount);
         InitUnityIAP(_gemAmountById.Keys);
     }
@@ -70,34 +55,8 @@ public class IAPController : IStoreListener
     {
         Debug.Log($"구매 성공 - ID : {args.purchasedProduct.definition.id}"); // 구매한 상품의 아이디
 
-        //if (args.purchasedProduct.definition.id == ProductGold)
-        //{
-        //    Debug.Log("골드 증가");
-        //}
-        //else if (args.purchasedProduct.definition.id == ProductSkill)
-        //{
-        //    Debug.Log("스킬 보유량 증가");
-        //}
-        //else if (args.purchasedProduct.definition.id == ProductSubscription)
-        //{
-        //    Debug.Log("구독 서비스 시작");
-        //}
-
         if(_gemAmountById.TryGetValue(args.purchasedProduct.definition.id, out int amount))
             GiveGemsToUser(amount);
-
-        //if (args.purchasedProduct.definition.id == "100_gems")
-        //{
-        //    GiveGemsToUser(100);
-        //}
-        //else if (args.purchasedProduct.definition.id == "500_gems")
-        //{
-        //    GiveGemsToUser(500);
-        //}
-        //else if (args.purchasedProduct.definition.id == "1000_gems")
-        //{
-        //    GiveGemsToUser(1000);
-        //}
 
         return PurchaseProcessingResult.Complete;
     }
@@ -110,7 +69,7 @@ public class IAPController : IStoreListener
 
     void GiveGemsToUser(int gem)
     {
-        Debug.Log($"젬 {gem}개 획득");
+        _playerDataManager.Gem.Add(gem);
     }
 
     public void Purchase(string productId) // 구매 시도

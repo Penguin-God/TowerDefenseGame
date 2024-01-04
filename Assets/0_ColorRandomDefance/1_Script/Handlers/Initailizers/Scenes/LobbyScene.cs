@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public class LobbyScene : BaseScene
 {
@@ -17,8 +16,7 @@ public class LobbyScene : BaseScene
         container.AddService(new SkillDataGetter(LoadSkillData<SkillUpgradeData>("SkillUpgradeData"), LoadSkillData<UserSkillLevelData>("SkillLevelData"), container.GetService<PlayerDataManager>().SkillInventroy));
         container.AddService(new SkillUpgradeUseCase(container.GetService<SkillDataGetter>(), container.GetService<PlayerDataManager>()));
 
-        container.AddService(new IAPController(Managers.Resources.LoadCsv<IAP_ProductData>("LobbyShopData/IAPData")));
-        container.GetService<IAPController>().Purchase("100_gems");
+        container.AddService(new IAPController(Managers.Resources.LoadCsv<IAP_ProductData>("LobbyShopData/IAPData"), container.GetService<PlayerDataManager>()));
 
         // Managers.Resources.DependencyInject(new PoolManager("@PoolManager"));
         Managers.Sound.StopBgm(); // 로비 BGM 뭐하지?

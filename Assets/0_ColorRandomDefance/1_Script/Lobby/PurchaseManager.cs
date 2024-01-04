@@ -73,3 +73,20 @@ public class GoldPurchaseOperator : IPurchaseOperator
     }
 }
 
+
+public class IAP_PurchaseOperator : IPurchaseOperator
+{
+    readonly string ProductId;
+    readonly IAPController _iapController;
+    public IAP_PurchaseOperator(string id, IAPController iapController)
+    {
+        ProductId = id;
+        _iapController = iapController;
+    }
+
+    public void SuccessPurchase(PlayerDataManager playerDataManager)
+    {
+        _iapController.Purchase(ProductId);
+        Managers.UI.ShowPopupUI<UI_NotifyWindow>().SetMessage("구매가 완료되었습니다");
+    }
+}

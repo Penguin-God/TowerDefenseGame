@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Purchasing;
 
@@ -25,56 +27,23 @@ public class IAPController : IStoreListener
 
     bool IsInitialized => storeController != null && storeExtensionProvider != null;
 
-    public IAPController()
+    Dictionary<string, int> _gemAmountById = new Dictionary<string, int>();
+
+    public IAPController(IEnumerable<IAP_ProductData> datas)
     {
-        InitUnityIAP();
+        _gemAmountById = datas.ToDictionary(x => x.ProductId, x => x.GemAmount);
+        InitUnityIAP(_gemAmountById.Keys);
     }
 
-    void InitUnityIAP()
+    void InitUnityIAP(IEnumerable<string> ids)
     {
         if (IsInitialized) return;
 
         var builder = ConfigurationBuilder.Instance(StandardPurchasingModule.Instance());
 
-        // builder.AddProduct(
-        //     ProductGold, ProductType.Consumable,
-        //     new IDs()
-        //     {
-        //         { _iOS_GoldId, AppleAppStore.Name},
-        //         {_android_GoldId, GooglePlay.Name }
-        //     }
-        //);
+        foreach (string id in ids)
+            AddProduct(id);
 
-        // builder.AddProduct(
-        //     ProductGem, ProductType.Consumable,
-        //     new IDs()
-        //     {
-        //         { _iOS_GemId, AppleAppStore.Name},
-        //         {_android_GemId, GooglePlay.Name }
-        //     }
-        //);
-
-        // builder.AddProduct(
-        //     ProductSkill, ProductType.NonConsumable,
-        //     new IDs()
-        //     {
-        //         { _iOS_SkillId, AppleAppStore.Name},
-        //         {_android_SkillId, GooglePlay.Name }
-        //     }
-        //);
-
-        // builder.AddProduct(
-        //     ProductSkill, ProductType.Subscription,
-        //     new IDs()
-        //     {
-        //         { _iOS_Subscription, AppleAppStore.Name},
-        //         {_android_Subscription, GooglePlay.Name }
-        //     }
-        //);
-
-        AddProduct("100_gems");
-        AddProduct("500_gems");
-        AddProduct("1000_gems");
         UnityPurchasing.Initialize(this, builder);
 
         void AddProduct(string playStroreId) => builder.AddProduct(playStroreId, ProductType.Consumable, new IDs() { { $"android_{playStroreId}", GooglePlay.Name } });
@@ -114,18 +83,21 @@ public class IAPController : IStoreListener
         //    Debug.Log("구독 서비스 시작");
         //}
 
-        if (args.purchasedProduct.definition.id == "100_gems")
-        {
-            GiveGemsToUser(100);
-        }
-        else if (args.purchasedProduct.definition.id == "500_gems")
-        {
-            GiveGemsToUser(500);
-        }
-        else if (args.purchasedProduct.definition.id == "1000_gems")
-        {
-            GiveGemsToUser(1000);
-        }
+        if(_gemAmountById.TryGetValue(args.purchasedProduct.definition.id, out int amount))
+            GiveGemsToUser(amount);
+
+        //if (args.purchasedProduct.definition.id == "100_gems")
+        //{
+        //    GiveGemsToUser(100);
+        //}
+        //else if (args.purchasedProduct.definition.id == "500_gems")
+        //{
+        //    GiveGemsToUser(500);
+        //}
+        //else if (args.purchasedProduct.definition.id == "1000_gems")
+        //{
+        //    GiveGemsToUser(1000);
+        //}
 
         return PurchaseProcessingResult.Complete;
     }

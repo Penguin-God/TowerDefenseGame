@@ -37,3 +37,15 @@ public struct GoldProductData
     public int GetGoldAmount() => _goldAmount;
     public MoneyData GetPriceData() => new(PlayerMoneyType.Gem, _gemPrice);
 }
+
+[Serializable]
+public struct IAP_ProductData
+{
+    [SerializeField] int _gemAmount;
+    [SerializeField] string _productId;
+    [SerializeField] string _krw;
+
+    public int GemAmount => _gemAmount;
+    public string ProductId => _productId;
+    public string KRW => _krw;
+}

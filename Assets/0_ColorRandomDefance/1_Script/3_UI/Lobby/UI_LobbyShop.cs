@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
 
 public enum SkillBoxType
@@ -25,10 +23,12 @@ public class UI_LobbyShop : UI_Popup
     }
     PlayerDataManager _playerDataManager;
     SkillDrawer _skillDrawer;
-    public void DependencyInject(PlayerDataManager playerDataManager, SkillDrawer skillDrawer)
+    IAPController _iapController;
+    public void DependencyInject(PlayerDataManager playerDataManager, SkillDrawer skillDrawer, IAPController iapController)
     {
         _playerDataManager = playerDataManager;
         _skillDrawer = skillDrawer;
+        _iapController = iapController;
     }
 
     void CreateProducts()
@@ -41,6 +41,10 @@ public class UI_LobbyShop : UI_Popup
             MakeGoods(new BoxPurchaseOperator(_skillDrawer, boxData.GetDrawInfos()), boxData.GetPriceData(), Enum.GetName(typeof(SkillBoxType), boxData.BoxType));
 
         var goldDatas = Managers.Resources.LoadCsv<GoldProductData>("LobbyShopData/GoldData");
+        foreach (var goldData in goldDatas)
+            MakeGoods(new GoldPurchaseOperator(goldData.GetGoldAmount()), goldData.GetPriceData(), new MoneyPersenter().GetMoneyText(new MoneyData(PlayerMoneyType.Gold, goldData.GetGoldAmount())));
+
+        var iapDatas = Managers.Resources.LoadCsv<IAP_ProductData>("LobbyShopData/IAPData");
         foreach (var goldData in goldDatas)
             MakeGoods(new GoldPurchaseOperator(goldData.GetGoldAmount()), goldData.GetPriceData(), new MoneyPersenter().GetMoneyText(new MoneyData(PlayerMoneyType.Gold, goldData.GetGoldAmount())));
     }

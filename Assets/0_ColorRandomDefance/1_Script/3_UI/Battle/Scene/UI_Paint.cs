@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,7 +46,9 @@ public class UI_Paint : UI_Scene
 
         _trackerParent = GetObject((int)GameObjects.TrackerParent).transform;
         _layoutGroup = _trackerParent.GetComponent<GridLayoutGroup>();
-        
+        _unitTooltip = Managers.UI.ShowDefualtUI<BackGround>();
+        _unitTooltip.gameObject.SetActive(false);
+
         Managers.Camera.OnIsLookMyWolrd += (isLookMy) => gameObject.SetActive(isLookMy);
         GetButton((int)Buttons.PaintButton).onClick.AddListener(SortDefault);
         _dispatcher.OnUnitCountChangeByFlag += (flag, _) => OnChangeUnitCount(flag);
@@ -74,6 +75,7 @@ public class UI_Paint : UI_Scene
     }
 
 
+    BackGround _unitTooltip;
     void SortDefault()
     {
         Managers.UI.ClosePopupUI();
@@ -87,7 +89,7 @@ public class UI_Paint : UI_Scene
             var tracker = CreateTracker(new UnitFlags(UnitColor.Black, unitClass));
             tracker.UpdateUnitCountText(_worldUnitManager.GetUnitCount(PlayerIdManager.Id, unit => unit.UnitFlags.UnitClass == tracker.UnitFlags.UnitClass));
             tracker.GetComponent<Button>().onClick.AddListener(() => SortByClass(unitClass));
-            new UnitJobTooltipController().SetMouseOverAction(tracker);
+            new UnitJobTooltipController().SetMouseOverAction(tracker, _unitTooltip);
         }
     }
 
@@ -102,7 +104,7 @@ public class UI_Paint : UI_Scene
         foreach (var unitColor in UnitFlags.NormalColors)
         {
             var tracker = CreateTracker(new UnitFlags(unitColor, unitClass));
-            new UnitTooltipController(_unitStatController.GetInfoManager(PlayerIdManager.Id)).SetMouseOverAction(tracker);
+            new UnitTooltipController(_unitStatController.GetInfoManager(PlayerIdManager.Id)).SetMouseOverAction(tracker, _unitTooltip);
         }
     }
 

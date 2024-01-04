@@ -45,13 +45,13 @@ public class UI_LobbyShop : UI_Popup
             MakeGoods(new GoldPurchaseOperator(goldData.GetGoldAmount()), goldData.GetPriceData(), new MoneyPersenter().GetMoneyText(new MoneyData(PlayerMoneyType.Gold, goldData.GetGoldAmount())));
 
         var iapDatas = Managers.Resources.LoadCsv<IAP_ProductData>("LobbyShopData/IAPData");
-        foreach (var goldData in goldDatas)
-            MakeGoods(new GoldPurchaseOperator(goldData.GetGoldAmount()), goldData.GetPriceData(), new MoneyPersenter().GetMoneyText(new MoneyData(PlayerMoneyType.Gold, goldData.GetGoldAmount())));
+        foreach (var iapData in iapDatas)
+            MakeGoods(new IAP_PurchaseOperator(iapData.ProductId, _iapController), new MoneyData(), new MoneyPersenter().GetMoneyText(new MoneyData(PlayerMoneyType.Gem, iapData.GemAmount)));
     }
 
     void MakeGoods(IPurchaseOperator purchase, MoneyData moneyData, string productName) 
         => Managers.UI.MakeSubItem<UI_ShopProduct>(GetObject((int)GameObjects.BoxGoodsParnet).transform)
-        .DependencyInject(new PurchaseManager(purchase, _playerDataManager, new PlayerPrefabsSaver()), moneyData, productName);
+            .DependencyInject(new PurchaseManager(purchase, _playerDataManager, new PlayerPrefabsSaver()), moneyData, productName);
 }
 
 public class MoneyPersenter

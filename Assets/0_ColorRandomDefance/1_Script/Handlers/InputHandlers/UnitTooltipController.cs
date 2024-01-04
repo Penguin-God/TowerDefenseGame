@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using UnityEngine;
@@ -11,9 +9,9 @@ public class UnitTooltipController
     readonly MouseroverTooltipHandler _tooltipHandler = new();
     public UnitTooltipController(UnitDamageInfoManager damageInfoManager) => _damageInfoManager = damageInfoManager;
 
-    public void SetMouseOverAction(UI_UnitTracker tracker)
+    public void SetMouseOverAction(UI_UnitTracker tracker, BackGround backGround)
     {
-        _tooltipHandler.SetMouseOverAction(tracker.GetComponent<RectTransform>(), BuildUnitDescrtion);
+        _tooltipHandler.SetMouseOverAction(tracker.GetComponent<RectTransform>(), BuildUnitDescrtion, backGround);
 
         string BuildUnitDescrtion()
         {
@@ -43,9 +41,9 @@ public class UnitTooltipController
 public class UnitJobTooltipController
 {
     readonly MouseroverTooltipHandler _tooltipHandler = new();
-    public void SetMouseOverAction(UI_UnitTracker tracker)
+    public void SetMouseOverAction(UI_UnitTracker tracker, BackGround backGround)
     {
-        _tooltipHandler.SetMouseOverAction(tracker.GetComponent<RectTransform>(), BuildUnitDescrtion);
+        _tooltipHandler.SetMouseOverAction(tracker.GetComponent<RectTransform>(), BuildUnitDescrtion, backGround);
 
         string BuildUnitDescrtion()
             => Managers.Resources.LoadCsv<UnitJobTooltipData>("UIData/UI_UnitJobTooltipData").First(x => x.UnitClass == tracker.UnitFlags.UnitClass).Text;
@@ -59,31 +57,23 @@ public class MouseroverTooltipHandler
     readonly int FONT_SIZE = 16;
     readonly Vector2 WINDOW_SIZE = new(250, 200);
 
-    public void SetMouseOverAction(RectTransform ui, Func<string> textBuilder)
+    public void SetMouseOverAction(RectTransform ui, Func<string> textBuilder, BackGround backGround)
     {
         var mouseOverHandler = ui.gameObject.GetOrAddComponent<MouseOverHandler>();
         mouseOverHandler.SetDelayTime(DELAY_TIME);
-        mouseOverHandler.OnPointerEnterDelayedEvent += () => ShowUnitTooltip(ui, textBuilder?.Invoke());
-        mouseOverHandler.OnPointerExitEvent += CloseWindow;
+        mouseOverHandler.OnPointerEnterDelayedEvent += () => ShowUnitTooltip(ui, textBuilder?.Invoke(), backGround);
+        mouseOverHandler.OnPointerExitEvent += () => backGround.gameObject.SetActive(false);
     }
 
-    BackGround _currentWindow;
-    void ShowUnitTooltip(RectTransform ui, string text)
+    void ShowUnitTooltip(RectTransform ui, string text, BackGround backGround)
     {
-        _currentWindow = Managers.UI.ShowDefualtUI<BackGround>();
+        backGround.gameObject.SetActive(true);
         float screenWidthScaleFactor = Screen.width / Managers.UI.UIScreenWidth; // 플레이어 스크린 크기 대비 설정한 UI 비율
-        _currentWindow.SetPosition(ui.position + new Vector3(OFFSET_X * screenWidthScaleFactor, 0, 0));
-        _currentWindow.SetFontSize(FONT_SIZE);
-        _currentWindow.SetSize(WINDOW_SIZE);
-        _currentWindow.SetAnchor(TMPro.TextAlignmentOptions.MidlineLeft);
-        _currentWindow.SetLineSpace(11f);
-        _currentWindow.SetText(text);
-        _currentWindow.gameObject.SetActive(true);
-    }
-
-    void CloseWindow()
-    {
-        if (_currentWindow != null)
-            Managers.Resources.Destroy(_currentWindow.gameObject);
+        backGround.SetPosition(ui.position + new Vector3(OFFSET_X * screenWidthScaleFactor, 0, 0));
+        backGround.SetFontSize(FONT_SIZE);
+        backGround.SetSize(WINDOW_SIZE);
+        backGround.SetAnchor(TMPro.TextAlignmentOptions.MidlineLeft);
+        backGround.SetLineSpace(11f);
+        backGround.SetText(text);
     }
 }

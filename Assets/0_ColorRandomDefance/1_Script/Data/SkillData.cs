@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using System;
@@ -35,13 +34,9 @@ public class UserSkillGoodsData
 [Serializable]
 public struct UserSkillLevelData
 {
-    [SerializeField] SkillType _skillType;
-    [SerializeField] int _level;
-    [SerializeField] float[] _battleDatas;
-
-    public SkillType SkillType => _skillType;
-    public int Level => _level;
-    public float[] BattleDatas => _battleDatas;
+    public SkillType SkillType;
+    public int Level;
+    public float[] BattleDatas;
 }
 
 public class UserSkillGoodsLoder : ICsvLoader<SkillType, UserSkillGoodsData>
@@ -83,11 +78,7 @@ public struct BattleShopGoodsData
 [Serializable]
 public struct SkillUpgradeData
 {
-    [SerializeField] int _level;
-    [SerializeField] int _needExp;
-    [SerializeField] int _needGold;
-
-    public int Level => _level;
-    public int NeedExp => _needExp;
-    public int NeedGold => _needGold;
+    public int Level;
+    public int NeedExp;
+    public int NeedGold;
 }

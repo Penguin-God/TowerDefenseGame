@@ -13,7 +13,7 @@ public class LobbyScene : BaseScene
         IEnumerable<UserSkill> userSkillDatas = LoadSkillData<UserSkillData>("UserSkillData").Select(x => x.CreateUserSkill());
         container.AddService(new SkillDrawer(userSkillDatas));
 
-        container.AddService(new SkillDataGetter(LoadSkillData<SkillUpgradeData>("SkillUpgradeData"), LoadSkillData<UserSkillLevelData>("SkillLevelData"), container.GetService<PlayerDataManager>().SkillInventroy));
+        container.AddService(new SkillDataGetter(LoadSkillData<SkillUpgradeData>("SkillUpgradeData"), container.GetService<PlayerDataManager>().SkillInventroy));
         container.AddService(new SkillUpgradeUseCase(container.GetService<SkillDataGetter>(), container.GetService<PlayerDataManager>()));
 
         container.AddService(new IAPController(Managers.Resources.LoadCsv<IAP_ProductData>("LobbyShopData/IAPData"), container.GetService<PlayerDataManager>()));

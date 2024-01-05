@@ -46,5 +46,5 @@ public struct IAP_ProductData
 
     public int GemAmount => _gemAmount;
     public string ProductId => _productId;
-    public string KRW => _krw;
+    public string KRW => _krw.Replace('+', ',');
 }

@@ -8,7 +8,7 @@ public class LobbyScene : BaseScene
         var container = new BattleDIContainer(gameObject);
         container.AddComponent<GameMatchmaker>();
 
-        container.AddService(new PlayerPrefabsLoder().Load());
+        container.AddService(LoadPlayerData());
         container.AddService(container.GetService<PlayerDataManager>().SkillInventroy);
         IEnumerable<UserSkill> userSkillDatas = LoadSkillData<UserSkillData>("UserSkillData").Select(x => x.CreateUserSkill());
         container.AddService(new SkillDrawer(userSkillDatas));
@@ -29,4 +29,22 @@ public class LobbyScene : BaseScene
     }
 
     IEnumerable<T> LoadSkillData<T>(string path) => Managers.Resources.LoadCsv<T>($"SkillData/{path}");
+
+    PlayerDataManager LoadPlayerData()
+    {
+        if (new PlayerPrefabsLoder().Load(out var result))
+            return result;
+        else
+        {
+            var inventory = new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>());
+            inventory.AddSkill(SkillType.네크로맨서);
+            inventory.AddSkill(SkillType.태극스킬);
+            inventory.AddSkill(SkillType.마나물약);
+            inventory.AddSkill(SkillType.마나변이);
+            inventory.AddSkill(SkillType.컬러마스터);
+            inventory.AddSkill(SkillType.최대유닛증가);
+            inventory.AddSkill(SkillType.거인학살자);
+            return new PlayerDataManager(inventory, 0, 0, 0, SkillType.None, SkillType.None);
+        }
+    }
 }

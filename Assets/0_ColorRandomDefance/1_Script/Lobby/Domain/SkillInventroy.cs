@@ -21,6 +21,7 @@ public class SkillInventroy
 
     public bool HasSkill(SkillType type) => _skillDatas.ContainsKey(type);
 
+    public void AddSkill(SkillType skillType) => AddSkill(new SkillAmountData(skillType, 1));
     public void AddSkill(SkillAmountData data)
     {
         if (HasSkill(data.SkillType))

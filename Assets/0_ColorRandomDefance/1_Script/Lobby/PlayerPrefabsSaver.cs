@@ -63,13 +63,21 @@ public class PlayerPrefabsSaver : IPlayerDataPersistence
 
 public class PlayerPrefabsLoder
 {
-    public PlayerDataManager Load()
+    public bool Load(out PlayerDataManager playerData)
     {
-        if (PlayerPrefs.HasKey("PlayerData") == false) return new PlayerDataManager(new(new()), 0, 0, 0, SkillType.None, SkillType.None);
+        playerData = null;
+        if (PlayerPrefs.HasKey("PlayerData") == false) return false;
 
         string json = PlayerPrefs.GetString("PlayerData");
         var data = JsonUtility.FromJson<SerializablePlayerData>(json);
-        return new PlayerDataManager(CreateSkillInventroy(data.SkillDatas), data.GoldAmount, data.GemAmount, data.Score, data.EquipMainSKill, data.EquipSubSKill);
+        playerData = new PlayerDataManager(CreateSkillInventroy(data.SkillDatas), data.GoldAmount, data.GemAmount, data.Score, data.EquipMainSKill, data.EquipSubSKill);
+        return true; 
+    }
+
+    public PlayerDataManager Load()
+    {
+        Load(out var result);
+        return result;
     }
 
     SkillInventroy CreateSkillInventroy(IEnumerable<SerializableSkillData> skillDatas) 

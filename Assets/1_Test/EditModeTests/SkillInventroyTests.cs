@@ -44,7 +44,6 @@ public class SkillInventroyTests
         const int MaxLevel = 5;
         var inventory = new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>() { { SkillType.ÅÂ±Ø½ºÅ³, new PlayerOwnedSkillInfo(level, 0) } });
         var skillUpgradeDatas = Enumerable.Repeat(new SkillUpgradeData(), MaxLevel - 1);
-
         var sut = new SkillDataGetter(skillUpgradeDatas, inventory);
 
         Assert.AreEqual(expected, sut.SkillIsMax(SkillType.ÅÂ±Ø½ºÅ³));

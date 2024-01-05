@@ -24,7 +24,7 @@ public class UI_ShopProduct : UI_Base
 
     PurchaseManager _purchaseManager;
     MoneyData _price;
-    string _productName;
+    string _buyText;
     readonly MoneyPersenter _moneyPersenter = new();
 
     public void SetPurchaseManager(PurchaseManager purchaseManager) => _purchaseManager = purchaseManager;
@@ -35,19 +35,19 @@ public class UI_ShopProduct : UI_Base
         _price = price;
         GetImage((int)Images.PriceImage).sprite = _moneyPersenter.GetMoneySprite(price.MoneyType);
 
-        Refresh(price.Amount.ToString(), productName);
+        Refresh(price.Amount.ToString(), $"{_moneyPersenter.GetMoneyTextWithSuffix(_price)} 지불하여 {productName} 구매하시겠습니까?", productName);
     }
-    public void InActivePriceImage() => GetImage((int)Images.PriceImage).gameObject.SetActive(false);
-    public void Refresh(string priceText, string productName)
+    public void InActivePriceImage() => GetImage((int)Images.PriceImage).gameObject.SetActive(false); 
+    public void Refresh(string priceText, string buyText, string productName)
     {
         CheckInit();
-        _productName = productName;
+        _buyText = buyText;
 
         GetTextMeshPro((int)Texts.ProductText).text = productName;
         GetTextMeshPro((int)Texts.PriceText).text = priceText;
     }
 
-    void ComfirmBuy() => Managers.UI.ShowPopupUI<UI_ComfirmPopup>().SetInfo($"{_moneyPersenter.GetMoneyTextWithSuffix(_price)} 지불하여 {_productName}을 구매하시겠습니까?", TryBuy);
+    void ComfirmBuy() => Managers.UI.ShowPopupUI<UI_ComfirmPopup>().SetInfo(_buyText, TryBuy);
 
     void TryBuy()
     {

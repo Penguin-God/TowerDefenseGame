@@ -40,7 +40,7 @@ public class UI_LobbyShop : UI_Popup
         foreach (var boxData in boxDatas)
         {
             var product = MakeGoods(new BoxPurchaseOperator(_skillDrawer, boxData.GetDrawInfos()));
-            product.Refresh(boxData.GetPriceData(), Enum.GetName(typeof(SkillBoxType), boxData.BoxType));
+            product.Refresh(boxData.GetPriceData(), $"{Enum.GetName(typeof(SkillBoxType), boxData.BoxType)}를");
         }
             
 
@@ -48,7 +48,7 @@ public class UI_LobbyShop : UI_Popup
         foreach (var goldData in goldDatas)
         {
             var product = MakeGoods(new GoldPurchaseOperator(goldData.GetGoldAmount()));
-            product.Refresh(goldData.GetPriceData(), new MoneyPersenter().GetMoneyText(new MoneyData(PlayerMoneyType.Gold, goldData.GetGoldAmount())));
+            product.Refresh(goldData.GetPriceData(), $"{new MoneyPersenter().GetMoneyText(new MoneyData(PlayerMoneyType.Gold, goldData.GetGoldAmount()))}을");
         }
             
 
@@ -56,7 +56,8 @@ public class UI_LobbyShop : UI_Popup
         foreach (var iapData in iapDatas)
         {
             var product = MakeGoods(new IAP_PurchaseOperator(iapData.ProductId, _iapController));
-            product.Refresh(iapData.KRW, new MoneyPersenter().GetMoneyText(new MoneyData(PlayerMoneyType.Gem, iapData.GemAmount)));
+            string productName = $"{new MoneyPersenter().GetMoneyText(new MoneyData(PlayerMoneyType.Gem, iapData.GemAmount))}를";
+            product.Refresh(iapData.KRW, $"{productName} 구매하시겠습니까?", productName);
             product.InActivePriceImage();
         }
     }

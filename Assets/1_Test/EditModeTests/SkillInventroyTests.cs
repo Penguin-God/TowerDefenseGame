@@ -50,8 +50,28 @@ public class SkillInventroyTests
     }
 
     [Test]
-    public void 최대로_가질_수_있는_스킬의_수량을_계산해야_함()
+    [TestCase(1, 0, 30)]
+    [TestCase(1, 10, 20)]
+    [TestCase(1, 30, 0)]
+    [TestCase(3, 0, 24)]
+    [TestCase(4, 5, 11)]
+    [TestCase(5, 0, 0)]
+    public void 현재_가질_수_있는_스킬의_수량을_계산해야_함(int level, int hasAmount, int expected)
     {
+        var skillUpgradeDatas = new SkillUpgradeData[]
+        {
+            CreateUpgradeData(1, 2),
+            CreateUpgradeData(2, 4),
+            CreateUpgradeData(3, 8),
+            CreateUpgradeData(4, 16),
+        };
+        var inventory = new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>() { { SkillType.태극스킬, new PlayerOwnedSkillInfo(level, hasAmount) } });
+        var sut = new SkillDataGetter(skillUpgradeDatas, inventory);
 
+        var result = sut.CalculateHasableExpAmount(SkillType.태극스킬);
+
+        Assert.AreEqual(expected, result);
     }
+
+    SkillUpgradeData CreateUpgradeData(int level, int needExp) => new() {Level = level, NeedExp = needExp};
 }

@@ -38,7 +38,7 @@ public class SkillDrawTests
             CreateUpgradeData(3, 8),
             CreateUpgradeData(4, 16),
         };
-        var sut = new SkillDrawController(AllSkills, new SkillDataGetter(skillUpgradeDatas, inventory), new SkillRewardData(300, 200));
+        var sut = new SkillDrawController(AllSkills, new SkillDataGetter(skillUpgradeDatas, inventory, null), new SkillRewardData(300, 200));
 
         var result = sut.DrawSkills(new SkillDrawInfo[] { new SkillDrawInfo(UserSkillClass.Main, 3, 3)});
 

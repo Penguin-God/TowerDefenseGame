@@ -167,7 +167,7 @@ public class DataManager
         public void Init(DataManager manager)
         {
             _typeByGoodsData = manager.MakeCsvDict<UserSkillGoodsLoder, SkillType, UserSkillGoodsData>("SkillData/SkillGoodsData");
-            _userSkillLevelDatas = Managers.Resources.LoadCsv<UserSkillLevelData>("SkillData/SkillLevelData");
+            _userSkillLevelDatas = Managers.Resources.LoadCsv<UserSkillLevelData>("SkillData/SkillBattleData");
         }
 
         public UserSkillLevelData GetSkillLevelData(SkillType type, int level) => _userSkillLevelDatas.FirstOrDefault(x => x.SkillType == type && x.Level == level);

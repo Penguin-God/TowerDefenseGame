@@ -41,10 +41,10 @@ public class SkillInventroyTests
     [TestCase(3, false)]
     public void 스킬_관련_데이터를_반환해야_함(int level, bool expected)
     {
-        const int MaxLevel = 5;
+        const int MAX_LEVEL = 5;
         var inventory = new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>() { { SkillType.태극스킬, new PlayerOwnedSkillInfo(level, 0) } });
-        var skillUpgradeDatas = Enumerable.Repeat(new SkillUpgradeData(), MaxLevel - 1);
-        var sut = new SkillDataGetter(skillUpgradeDatas, inventory);
+        var skillUpgradeDatas = Enumerable.Repeat(new SkillUpgradeData(), MAX_LEVEL - 1);
+        var sut = new SkillDataGetter(skillUpgradeDatas, inventory, new SkillLevelData[] { new SkillLevelData() { SkillType = SkillType.태극스킬, MinLevel = 1, MaxLevel = MAX_LEVEL } });
 
         Assert.AreEqual(expected, sut.SkillIsMax(SkillType.태극스킬));
     }
@@ -66,7 +66,7 @@ public class SkillInventroyTests
             CreateUpgradeData(4, 16),
         };
         var inventory = new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>() { { SkillType.태극스킬, new PlayerOwnedSkillInfo(level, hasAmount) } });
-        var sut = new SkillDataGetter(skillUpgradeDatas, inventory);
+        var sut = new SkillDataGetter(skillUpgradeDatas, inventory, new SkillLevelData[] { });
 
         var result = sut.CalculateHasableExpAmount(SkillType.태극스킬);
 

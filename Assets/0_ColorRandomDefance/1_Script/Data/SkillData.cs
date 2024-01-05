@@ -44,7 +44,7 @@ public class UserSkillGoodsLoder : ICsvLoader<SkillType, UserSkillGoodsData>
     public Dictionary<SkillType, UserSkillGoodsData> MakeDict(string csv)
     {
         var skillDatas = CsvUtility.CsvToList<UserSkillGoodsData>(csv);
-        var skillLevelDatas = LoadLevleData("SkillData/SkillLevelData");
+        var skillLevelDatas = LoadLevleData("SkillData/SkillBattleData");
         return skillDatas.ToDictionary(x => x.SkillType, x => x);
     }
 
@@ -81,4 +81,12 @@ public struct SkillUpgradeData
     public int Level;
     public int NeedExp;
     public int NeedGold;
+}
+
+[Serializable]
+public struct SkillLevelData
+{
+    public SkillType SkillType;
+    public int MinLevel;
+    public int MaxLevel;
 }

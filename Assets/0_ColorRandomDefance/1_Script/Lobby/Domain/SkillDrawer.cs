@@ -47,8 +47,8 @@ public readonly struct UserSkill
 
 public class SkillDrawer
 {
-    IEnumerable<UserSkill> _userSkillDatas;
-    public SkillDrawer(IEnumerable<UserSkill> userSkillDatas) => _userSkillDatas = userSkillDatas;
+    IEnumerable<UserSkill> _drawableSkills;
+    public SkillDrawer(IEnumerable<UserSkill> userSkillDatas) => _drawableSkills = userSkillDatas;
 
     public IEnumerable<SkillAmountData> DrawSkills(IEnumerable<SkillDrawInfo> drawInfos)
     {
@@ -57,14 +57,17 @@ public class SkillDrawer
         {
             // 동일한 클래스이면서 이미 뽑은 스킬은 제외
             IReadOnlyList<SkillType> drawableSkills
-                = _userSkillDatas
+                = _drawableSkills
                 .Where(x => info.SkillClass == x.SkillClass)
                 .Select(x => x.SkillType)
                 .Except(result.Select(x => x.SkillType))
                 .ToList();
-            SkillType drawSkill = drawableSkills[Random.Range(0, drawableSkills.Count)];
+
             int drawAmount = Random.Range(info.MinCount, info.MaxCount + 1);
-            result.Add(new SkillAmountData(drawSkill, drawAmount));
+            if (drawableSkills.Count == 0)
+                result.Add(new SkillAmountData(SkillType.None, drawAmount));
+            else
+                result.Add(new SkillAmountData(drawableSkills[Random.Range(0, drawableSkills.Count)], drawAmount));
         }
         return result;
     }

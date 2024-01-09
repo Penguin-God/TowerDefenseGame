@@ -29,7 +29,6 @@ public class SkillDrawController
 {
     readonly IEnumerable<UserSkill> AllUserSkills;
     readonly SkillDataGetter _skillDataGetter;
-    readonly SkillDrawer _skillDrawer = new SkillDrawer(null);
     readonly SkillRewardData SkillRewardData;
     public SkillDrawController(IEnumerable<UserSkill> allUserSkills, SkillDataGetter skillDataGetter, SkillRewardData skillRewardData)
     {
@@ -40,7 +39,10 @@ public class SkillDrawController
 
     public SkillDrawResultData DrawSkills(IEnumerable<SkillDrawInfo> drawInfos)
     {
-        return new SkillDrawResultData(_skillDrawer.DrawSkills(drawInfos), 0);
+        int rewardGold = 0;
+        // 뽑기 전 만렙인 경우 Main, Sub 남은 숫자별로 골드 더함. 안에서 None뱉기
+        // 뽑은 후 EXP별로 골드 더하기. 비교 후 큰만큼
+        return new SkillDrawResultData(new SkillDrawer(GetDrawableSkills()).DrawSkills(drawInfos), rewardGold);
     }
 
     IEnumerable<UserSkill> GetDrawableSkills() => AllUserSkills.Where(x => _skillDataGetter.GetSkillExp(x.SkillType) > 0);

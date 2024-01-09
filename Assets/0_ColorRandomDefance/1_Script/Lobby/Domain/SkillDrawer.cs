@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Random = UnityEngine.Random;
 
@@ -33,6 +34,18 @@ public readonly struct SkillAmountData
     }
 }
 
+public readonly struct SkillDrawResult
+{
+    public readonly UserSkill Skill;
+    public readonly int Amount;
+
+    public SkillDrawResult(UserSkill skill, int amount)
+    {
+        Skill = skill;
+        Amount = amount;
+    }
+}
+
 public readonly struct UserSkill
 {
     public readonly SkillType SkillType;
@@ -50,9 +63,9 @@ public class SkillDrawer
     IEnumerable<UserSkill> _drawableSkills;
     public SkillDrawer(IEnumerable<UserSkill> userSkillDatas) => _drawableSkills = userSkillDatas;
 
-    public IEnumerable<SkillAmountData> DrawSkills(IEnumerable<SkillDrawInfo> drawInfos)
+    public IEnumerable<SkillDrawResult> DrawSkills(IEnumerable<SkillDrawInfo> drawInfos)
     {
-        List<SkillAmountData> result = new();
+        List<SkillDrawResult> result = new();
         foreach (var info in drawInfos)
         {
             // 동일한 클래스이면서 이미 뽑은 스킬은 제외
@@ -60,14 +73,14 @@ public class SkillDrawer
                 = _drawableSkills
                 .Where(x => info.SkillClass == x.SkillClass)
                 .Select(x => x.SkillType)
-                .Except(result.Select(x => x.SkillType))
+                .Except(result.Select(x => x.Skill.SkillType))
                 .ToList();
 
             int drawAmount = Random.Range(info.MinCount, info.MaxCount + 1);
             if (drawableSkills.Count == 0)
-                result.Add(new SkillAmountData(SkillType.None, drawAmount));
+                result.Add(new SkillDrawResult(new UserSkill(SkillType.None, UserSkillClass.Main), drawAmount));
             else
-                result.Add(new SkillAmountData(drawableSkills[Random.Range(0, drawableSkills.Count)], drawAmount));
+                result.Add(new SkillDrawResult(new UserSkill(drawableSkills[Random.Range(0, drawableSkills.Count)], info.SkillClass), drawAmount));
         }
         return result;
     }

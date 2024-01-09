@@ -51,9 +51,9 @@ public class BoxPurchaseOperator : IPurchaseOperator
 
     public void SuccessPurchase(PlayerDataManager playerDataManager)
     {
-        var result = _skillDrawer.DrawSkills(_drawInfos);
-        playerDataManager.SkillInventroy.AddSkills(result);
-        Managers.UI.ShowPopupUI<UI_NotifySkillDrawWindow>().ShowSkillsInfo(result);
+        //var result = _skillDrawer.DrawSkills(_drawInfos);
+        //playerDataManager.SkillInventroy.AddSkills(result);
+        //Managers.UI.ShowPopupUI<UI_NotifySkillDrawWindow>().ShowSkillsInfo(result);
     }
 }
 

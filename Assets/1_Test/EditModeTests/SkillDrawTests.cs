@@ -36,7 +36,7 @@ public class SkillDrawTests
     [TestCase(2, 10, 10, 9000)]
     public void 뽑기가_초과되면_보상으로_골드를_지급해야_함(int mainCount, int mainAmount, int subAmount, int expected)
     {
-        var inventory = CreateInventory(태극Lv: 3, 흑결LV: 5, 마나LV:3);
+        var inventory = CreateInventory(태극Lv: 3, 흑결LV: 5, 마나LV:3, 거학LV:5);
         inventory.AddSkill(new SkillAmountData(SkillType.태극스킬, mainAmount));
         inventory.AddSkill(new SkillAmountData(SkillType.마나물약, subAmount));
         var skillUpgradeDatas = new SkillUpgradeData[]
@@ -46,8 +46,8 @@ public class SkillDrawTests
             CreateUpgradeData(3, 8),
             CreateUpgradeData(4, 16),
         };
-        var drawInfos = new SkillDrawInfo[] { new SkillDrawInfo(UserSkillClass.Sub, 20, 20) };
-        drawInfos.Concat(Enumerable.Repeat(new SkillDrawInfo(UserSkillClass.Main, 20, 20), mainCount));
+        IEnumerable<SkillDrawInfo> drawInfos = new SkillDrawInfo[] { new SkillDrawInfo(UserSkillClass.Sub, 20, 20) };
+        drawInfos = drawInfos.Concat(Enumerable.Repeat(new SkillDrawInfo(UserSkillClass.Main, 20, 20), mainCount));
 
         var sut = new SkillDrawController(AllSkills, new SkillDataGetter(skillUpgradeDatas, inventory, new SkillLevelData[] { }), new SkillRewardData(300, 200));
 

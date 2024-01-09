@@ -23,6 +23,12 @@ public readonly struct SkillRewardData
         MainSkillReward = mainSkillReward;
         SubSkillReward = subSkillReward;
     }
+
+    public int CalculateOverGold(UserSkillClass skillClass, int amount)
+    {
+        if(skillClass == UserSkillClass.Main) return MainSkillReward * amount;
+        else return SubSkillReward * amount;
+    }
 }
 
 public class SkillDrawController
@@ -39,11 +45,27 @@ public class SkillDrawController
 
     public SkillDrawResultData DrawSkills(IEnumerable<SkillDrawInfo> drawInfos)
     {
+        List<SkillAmountData> drawSkills = new List<SkillAmountData>();
         int rewardGold = 0;
-        // 뽑기 전 만렙인 경우 Main, Sub 남은 숫자별로 골드 더함. 안에서 None뱉기
-        // 뽑은 후 EXP별로 골드 더하기. 비교 후 큰만큼
-        return new SkillDrawResultData(new SkillDrawer(GetDrawableSkills()).DrawSkills(drawInfos), rewardGold);
+        foreach (var drawResult in new SkillDrawer(GetDrawableSkills()).DrawSkills(drawInfos))
+        {
+            if (drawResult.Skill.SkillType == SkillType.None) rewardGold += SkillRewardData.CalculateOverGold(drawResult.Skill.SkillClass, drawResult.Amount);
+            else if(ChcekOverAmount(drawResult, out int overAmount))
+            {
+                rewardGold += SkillRewardData.CalculateOverGold(drawResult.Skill.SkillClass, overAmount);
+                drawSkills.Add(new SkillAmountData(drawResult.Skill.SkillType, _skillDataGetter.CalculateHasableExpAmount(drawResult.Skill.SkillType)));
+            }
+            else
+                drawSkills.Add(new SkillAmountData(drawResult.Skill.SkillType, drawResult.Amount));
+        }
+        return new SkillDrawResultData(drawSkills, rewardGold);
     }
 
-    IEnumerable<UserSkill> GetDrawableSkills() => AllUserSkills.Where(x => _skillDataGetter.GetSkillExp(x.SkillType) > 0);
+    bool ChcekOverAmount(SkillDrawResult result, out int overAmount)
+    {
+        overAmount = result.Amount - _skillDataGetter.CalculateHasableExpAmount(result.Skill.SkillType);
+        return overAmount > 0;
+    }
+
+    IEnumerable<UserSkill> GetDrawableSkills() => AllUserSkills.Where(x => _skillDataGetter.CalculateHasableExpAmount(x.SkillType) > 0);
 }

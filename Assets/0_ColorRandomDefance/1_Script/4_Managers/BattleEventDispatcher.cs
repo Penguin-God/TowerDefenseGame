@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -7,7 +6,9 @@ public class BattleEventDispatcher
 {
     public event Action<int> OnMonsterCountChanged;
     public event Action<int> OnOpponentMonsterCountChange;
+    public event Action<int, int> OnAnyMonsterCountChanged;
 
+    public void NotifyAnyMonsterCountChange(int masterCount, int clientCount) => OnAnyMonsterCountChanged?.Invoke(masterCount, clientCount);
     public void NotifyMonsterCountChange(byte playerId, int count)
     {
         if(playerId == PlayerIdManager.Id)

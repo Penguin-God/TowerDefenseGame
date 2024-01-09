@@ -22,26 +22,17 @@ public class WinOrLossController : MonoBehaviourPun
     {
         _textController = textController;
         if (PhotonNetwork.IsMasterClient == false) return;
-        dispatcher.OnMonsterCountChanged -= CheckMasterOver;
-        dispatcher.OnMonsterCountChanged += CheckMasterOver;
 
-        dispatcher.OnOpponentMonsterCountChange -= CheckClientOver;
-        dispatcher.OnOpponentMonsterCountChange += CheckClientOver;
+        dispatcher.OnAnyMonsterCountChanged += CheckGameOver;
     }
 
-    void CheckMasterOver(int monsterCount)
+    void CheckGameOver(int masterCount, int clientCount)
     {
-        if (CheckGameOver(monsterCount))
-            photonView.RPC(nameof(GameEnd), RpcTarget.All, PlayerIdManager.MasterId);
-    }
+        if(CheckGameOver(masterCount)) photonView.RPC(nameof(GameEnd), RpcTarget.All, PlayerIdManager.MasterId);
+        else if(CheckGameOver(clientCount)) photonView.RPC(nameof(GameEnd), RpcTarget.All, PlayerIdManager.ClientId);
 
-    void CheckClientOver(int monsterCount)
-    {
-        if (CheckGameOver(monsterCount))
-            photonView.RPC(nameof(GameEnd), RpcTarget.All, PlayerIdManager.ClientId);
+        bool CheckGameOver(int count) => count >= Multi_GameManager.Instance.BattleData.MaxMonsterCount;
     }
-
-    bool CheckGameOver(int monsterCount) => monsterCount >= Multi_GameManager.Instance.BattleData.MaxMonsterCount;
 
 
     [PunRPC]
@@ -73,10 +64,10 @@ public class WinOrLossController : MonoBehaviourPun
 
     string BuildMessage(bool win, GameRewardData rewardData)
     {
-        if (win)
-            return $"승리!! 점수 +{rewardData.Score}, 골드 {rewardData.Gold}원 획득, 젬 {rewardData.Gem}개 획득";
-        else
-            return $"패배 점수 {rewardData.Score}, 골드 {rewardData.Gold}원 획득, 젬 {rewardData.Gem}개 획득";
+        if (win) return $"승리!! 점수 +{BuildDataText()}";
+        else return $"패배 점수 {BuildDataText()}";
+
+        string BuildDataText() => $"{rewardData.Score}, 골드 {rewardData.Gold}원 획득, 젬 {rewardData.Gem}개 획득";
     }
 
     TextShowAndHideController _textController;

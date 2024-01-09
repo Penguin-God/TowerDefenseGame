@@ -41,19 +41,21 @@ public class PurchaseManager
 
 public class BoxPurchaseOperator : IPurchaseOperator
 {
-    readonly SkillDrawer _skillDrawer;
     readonly IEnumerable<SkillDrawInfo> _drawInfos;
-    public BoxPurchaseOperator(SkillDrawer skillDrawer, IEnumerable<SkillDrawInfo> drawInfos)
+    readonly SkillDrawController _skillDrawController;
+
+    public BoxPurchaseOperator(SkillDrawController skillDrawController, IEnumerable<SkillDrawInfo> drawInfos)
     {
-        _skillDrawer = skillDrawer;
+        _skillDrawController = skillDrawController;
         _drawInfos = drawInfos;
     }
 
     public void SuccessPurchase(PlayerDataManager playerDataManager)
     {
-        //var result = _skillDrawer.DrawSkills(_drawInfos);
-        //playerDataManager.SkillInventroy.AddSkills(result);
-        //Managers.UI.ShowPopupUI<UI_NotifySkillDrawWindow>().ShowSkillsInfo(result);
+        var result = _skillDrawController.DrawSkills(_drawInfos);
+        playerDataManager.SkillInventroy.AddSkills(result.DrawSkills);
+        playerDataManager.Gold.Add(result.RewardGoldWhenDrawOver);
+        Managers.UI.ShowPopupUI<UI_NotifySkillDrawWindow>().ShowSkillsInfo(result);
     }
 }
 

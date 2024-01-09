@@ -22,9 +22,9 @@ public class UI_LobbyShop : UI_Popup
         CreateProducts();
     }
     PlayerDataManager _playerDataManager;
-    SkillDrawer _skillDrawer;
+    SkillDrawController _skillDrawer;
     IAPController _iapController;
-    public void DependencyInject(PlayerDataManager playerDataManager, SkillDrawer skillDrawer, IAPController iapController)
+    public void DependencyInject(PlayerDataManager playerDataManager, SkillDrawController skillDrawer, IAPController iapController)
     {
         _playerDataManager = playerDataManager;
         _skillDrawer = skillDrawer;

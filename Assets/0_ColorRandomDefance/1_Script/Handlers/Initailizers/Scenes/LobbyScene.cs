@@ -11,10 +11,11 @@ public class LobbyScene : BaseScene
         container.AddService(LoadPlayerData());
         container.AddService(container.GetService<PlayerDataManager>().SkillInventroy);
         IEnumerable<UserSkill> userSkillDatas = LoadSkillData<UserSkillData>("UserSkillData").Select(x => x.CreateUserSkill());
-        container.AddService(new SkillDrawer(userSkillDatas));
+
 
         container.AddService(new SkillDataGetter(LoadSkillData<SkillUpgradeData>("SkillUpgradeData"), container.GetService<PlayerDataManager>().SkillInventroy, LoadSkillData<SkillLevelData>("SkillLevelData")));
         container.AddService(new SkillUpgradeUseCase(container.GetService<SkillDataGetter>(), container.GetService<PlayerDataManager>()));
+        container.AddService(new SkillDrawController(userSkillDatas, container.GetService<SkillDataGetter>(), new SkillRewardData(300, 200))); // TODO : 하드코딩 치우기
 
         container.AddService(new IAPController(Managers.Resources.LoadCsv<IAP_ProductData>("LobbyShopData/IAPData"), container.GetService<PlayerDataManager>()));
 

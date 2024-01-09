@@ -72,7 +72,7 @@ public class UserSkillActor
 {
     IReadOnlyList<SkillType> SimpleSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>() 
     {
-        SkillType.시작골드증가, SkillType.마나물약, SkillType.최대유닛증가, SkillType.컬러마스터, SkillType.거인학살자,
+        SkillType.마나물약, SkillType.최대유닛증가, SkillType.컬러마스터, SkillType.거인학살자,
     });
 
     IReadOnlyList<SkillType> ComplexSkills = new ReadOnlyCollection<SkillType>(new List<SkillType>()
@@ -106,10 +106,8 @@ public class UserSkillActor
     {
         switch (skillBattleData.SkillType)
         {
-            case SkillType.시작골드증가: Multi_GameManager.Instance.AddGold(skillBattleData.IntSkillData); break;
             case SkillType.마나물약: Multi_GameManager.Instance.AddFood(skillBattleData.IntSkillData); break;
             case SkillType.최대유닛증가: container.GetComponent<MultiBattleDataController>().IncreasedMaxUnitCount(skillBattleData.IntSkillData); break;
-            // case SkillType.황금빛기사: Multi_GameManager.Instance.BattleData.YellowKnightRewardGold = skillBattleData.IntSkillData; break;
             case SkillType.컬러마스터: container.GetComponent<SwordmanGachaController>().ChangeUnitSummonMaxColor(UnitColor.Violet); break;
             case SkillType.거인학살자: container.GetComponent<MultiUnitStatController>().ScaleAllUnitDamage(new UnitDamageInfo(bossDamRate: skillBattleData.SkillData)); break;
         }

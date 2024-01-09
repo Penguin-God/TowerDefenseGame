@@ -1,11 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
-
-public enum SkillType
+﻿public enum SkillType
 {
     None,
-    시작골드증가,
     마나물약,
     최대유닛증가,
     태극스킬,

@@ -26,5 +26,9 @@ public class SkillDataGetter
     public bool SkillIsMax(SkillType skillType) => GetSkillLevel(skillType) >= SkillLevelDatas[skillType].MaxLevel;
 
     // 현재 레벨에서 만렙까지 필요한 스킬 개수 뺴기 - 보유한 스킬 개수
-    public int CalculateHasableExpAmount(SkillType skillType) => SkillUpgradeDatas.Skip(GetSkillLevel(skillType) - 1).Sum(x => x.NeedExp) - GetSkillExp(skillType);
+    public int CalculateHasableExpAmount(SkillType skillType)
+    {
+        if(SkillIsMax(skillType)) return 0;
+        return SkillUpgradeDatas.Skip(GetSkillLevel(skillType) - 1).Sum(x => x.NeedExp) - GetSkillExp(skillType);
+    }
 }

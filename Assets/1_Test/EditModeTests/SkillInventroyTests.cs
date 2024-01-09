@@ -6,6 +6,14 @@ using UnityEngine.TestTools;
 
 public class SkillInventroyTests
 {
+    readonly IEnumerable<SkillLevelData> SkillLevelDatas = new SkillLevelData[]
+    {
+        CreateLevelData(SkillType.태극스킬, 5),
+        CreateLevelData(SkillType.컬러마스터, 1),
+    };
+
+    static SkillLevelData CreateLevelData(SkillType skillType, int maxLevel) => new SkillLevelData() { SkillType = skillType, MinLevel = 1, MaxLevel = maxLevel };
+
     [Test]
     public void 스킬을_넣으면_인벤토리에_저장되어야_함()
     {
@@ -41,12 +49,16 @@ public class SkillInventroyTests
     [TestCase(3, false)]
     public void 스킬_관련_데이터를_반환해야_함(int level, bool expected)
     {
-        const int MAX_LEVEL = 5;
-        var inventory = new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>() { { SkillType.태극스킬, new PlayerOwnedSkillInfo(level, 0) } });
-        var skillUpgradeDatas = Enumerable.Repeat(new SkillUpgradeData(), MAX_LEVEL - 1);
-        var sut = new SkillDataGetter(skillUpgradeDatas, inventory, new SkillLevelData[] { new SkillLevelData() { SkillType = SkillType.태극스킬, MinLevel = 1, MaxLevel = MAX_LEVEL } });
+        var inventory = new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>() 
+        { 
+            { SkillType.태극스킬, new PlayerOwnedSkillInfo(level, 0) },
+            { SkillType.컬러마스터, new PlayerOwnedSkillInfo(level, 1) },
+        });
+        var skillUpgradeDatas = Enumerable.Repeat(new SkillUpgradeData(), 4);
+        var sut = new SkillDataGetter(skillUpgradeDatas, inventory, SkillLevelDatas);
 
         Assert.AreEqual(expected, sut.SkillIsMax(SkillType.태극스킬));
+        Assert.IsTrue(sut.SkillIsMax(SkillType.컬러마스터));
     }
 
     [Test]
@@ -65,12 +77,17 @@ public class SkillInventroyTests
             CreateUpgradeData(3, 8),
             CreateUpgradeData(4, 16),
         };
-        var inventory = new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>() { { SkillType.태극스킬, new PlayerOwnedSkillInfo(level, hasAmount) } });
-        var sut = new SkillDataGetter(skillUpgradeDatas, inventory, new SkillLevelData[] { });
+        var inventory = new SkillInventroy(new Dictionary<SkillType, PlayerOwnedSkillInfo>() 
+        { 
+            { SkillType.태극스킬, new PlayerOwnedSkillInfo(level, hasAmount) },
+            { SkillType.컬러마스터, new PlayerOwnedSkillInfo(1, 1) },
+        });
+        var sut = new SkillDataGetter(skillUpgradeDatas, inventory, SkillLevelDatas);
 
         var result = sut.CalculateHasableExpAmount(SkillType.태극스킬);
 
         Assert.AreEqual(expected, result);
+        Assert.Zero(sut.CalculateHasableExpAmount(SkillType.컬러마스터));
     }
 
     SkillUpgradeData CreateUpgradeData(int level, int needExp) => new() {Level = level, NeedExp = needExp};

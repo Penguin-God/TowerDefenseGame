@@ -1,4 +1,4 @@
-﻿_boxType,_moneyType,_amount,_skillDatas,_skillClass,_min,_max,_skillDatas,_skillClass,_min,_max,_skillDatas,_skillClass,_min,_max,_skillDatas,_skillClass,_min,_max,_skillDatas,_skillClass,_min,_max,_skillDatas
-희귀상자,Gem,100,,Main,2,5,,Sub,2,5,,Sub,3,7,,,,,,,,,
-고급상자,Gem,300,,Main,2,5,,Main,2,5,,Sub,3,7,,Sub,3,7,,,,,
-전설상자,Gem,1000,,Main,2,5,,Main,3,7,,Main,3,7,,Sub,3,7,,Sub,4,9,
+﻿_boxType,_moneyType,_amount,_skillDatas,_skillClass,_min,_max,_skillDatas,_skillClass,_min,_max,_skillDatas,_skillClass,_min,_max,_skillDatas,_skillClass,_min,_max,_skillDatas,_skillClass,_min,_max,_skillDatas,_skillClass,_min,_max,_skillDatas,_skillClass,_min,_max,_skillDatas
+희귀상자,Gem,100,,Main,1,2,,Sub,1,2,,,,,,,,,,,,,,,,,,,,,
+고급상자,Gem,300,,Main,4,6,,Main,4,6,,Sub,4,6,,Sub,4,6,,,,,,,,,,,,,
+전설상자,Gem,1000,,Main,3,4,,Main,5,7,,Main,9,14,,Main,13,20,,Sub,5,7,,Sub,8,11,,Sub,12,17,

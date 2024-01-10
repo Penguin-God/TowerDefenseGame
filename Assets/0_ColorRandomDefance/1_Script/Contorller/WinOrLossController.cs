@@ -58,8 +58,8 @@ public class WinOrLossController : MonoBehaviourPun
 
     GameRewardData CreateRewardData(bool win)
     {
-        if (win) return new GameRewardData(10, 500, 5);
-        else return new GameRewardData(-10, 200, 1);
+        if (win) return new GameRewardData(score: 10, gold: 600, gem: 80);
+        else return new GameRewardData(score: -10, gold: 100, gem: 0);
     }
 
     string BuildMessage(bool win, GameRewardData rewardData)

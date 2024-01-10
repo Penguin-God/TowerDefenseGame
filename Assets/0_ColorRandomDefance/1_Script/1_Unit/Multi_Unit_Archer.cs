@@ -24,11 +24,7 @@ public class Multi_Unit_Archer : Multi_TeamSoldier
     void Normal() => _normalAttackController.DoAttack(AttackDelayTime);
     void SpecialAttack() => _specialAttackController.DoAttack(_skillReboundTime);
 
-    protected override void AttackToAll()
-    {
-        _attackExcuter.NetworkAttack();
-        print("이건 화살이라고 합니다");
-    }
+    protected override void AttackToAll() => _attackExcuter.NetworkAttack();
     string GetWeaponPath() => $"Prefabs/{new ResourcesPathBuilder().BuildUnitWeaponPath(UnitFlags)}";
 }
 
@@ -55,7 +51,6 @@ public class ArcherArrowShoter
         {
             int targetIndex = i % targetArray.Length;
             Managers.Resources.Instantiate(Path, _shotPoint.position).GetComponent<UnitProjectile>().AttackShot(GetDir(targetArray[targetIndex]), action);
-            Debug.Log($"연발 화살 방향 : {GetDir(targetArray[targetIndex])}");
         }
     }
 

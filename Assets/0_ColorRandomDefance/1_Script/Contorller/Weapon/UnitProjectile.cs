@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System;
+﻿using System;
 using UnityEngine;
-using Photon.Pun;
 
 public class UnitProjectile : MonoBehaviour
 {
@@ -36,8 +33,6 @@ public class UnitProjectile : MonoBehaviour
         if (enemy == null && other.transform.TryGetComponent(out enemy) == false)
             return;
 
-        //if (PhotonNetwork.IsMasterClient) 
-        //    OnHit?.Invoke(enemy);
         OnHit?.Invoke(enemy);
 
         if (isAOE == false) 

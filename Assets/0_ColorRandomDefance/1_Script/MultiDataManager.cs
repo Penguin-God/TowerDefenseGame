@@ -5,46 +5,19 @@ using Photon.Pun;
 using ExitGames.Client.Photon;
 using System;
 
-class CustomUnitFlagsType
-{
-    public static byte[] Serialize(object obj)
-    {
-        UnitFlags flag = (UnitFlags)obj;
-        byte buffer = (byte)((flag.ColorNumber << 4) | flag.ClassNumber);
-        return BitConverter.GetBytes(buffer);
-    }
 
-    public static object DeSerialize(byte[] bytes)
-    {
-        byte buffer = bytes[0];
-        UnitFlags flag = new UnitFlags(buffer >> 4, buffer & 0xF);
-        return flag;
-    }
-}
-
-public static class PlayerIdManager
+public class MultiDataManager : MonoBehaviour
 {
-    public static byte Id => (byte)(PhotonNetwork.IsMasterClient ? 0 : 1);
-    public static byte MasterId => 0;
-    public static byte ClientId => 1;
-    public static byte InVaildId => 12; // 그냥 0하고 1만 아니면 전부 다 유효하지 않은 값임
-    public static byte EnemyId => (byte)(Id == 0 ? 1 : 0);
-    public static IEnumerable<byte> AllId => new byte[] { 0, 1 };
-    public static bool IsMasterId(byte id) => id == MasterId;
-}
-
-public class MultiData : MonoBehaviour
-{
-    private static MultiData m_instance;
-    public static MultiData instance
+    private static MultiDataManager m_instance;
+    public static MultiDataManager instance
     {
         get
         {
             if (m_instance == null)
             {
-                m_instance = FindObjectOfType<MultiData>();
+                m_instance = FindObjectOfType<MultiDataManager>();
                 if (m_instance == null)
-                    m_instance = new GameObject("multi").AddComponent<MultiData>();
+                    m_instance = new GameObject("multi").AddComponent<MultiDataManager>();
             }
             return m_instance;
         }
@@ -80,3 +53,32 @@ public class MultiData : MonoBehaviour
         return _result;
     }
 }
+
+class CustomUnitFlagsType
+{
+    public static byte[] Serialize(object obj)
+    {
+        UnitFlags flag = (UnitFlags)obj;
+        byte buffer = (byte)((flag.ColorNumber << 4) | flag.ClassNumber);
+        return BitConverter.GetBytes(buffer);
+    }
+
+    public static object DeSerialize(byte[] bytes)
+    {
+        byte buffer = bytes[0];
+        UnitFlags flag = new UnitFlags(buffer >> 4, buffer & 0xF);
+        return flag;
+    }
+}
+
+public static class PlayerIdManager
+{
+    public static byte Id => (byte)(PhotonNetwork.IsMasterClient ? 0 : 1);
+    public static byte MasterId => 0;
+    public static byte ClientId => 1;
+    public static byte InVaildId => 12; // 그냥 0하고 1만 아니면 전부 다 유효하지 않은 값임
+    public static byte EnemyId => (byte)(Id == 0 ? 1 : 0);
+    public static IEnumerable<byte> AllId => new byte[] { 0, 1 };
+    public static bool IsMasterId(byte id) => id == MasterId;
+}
+

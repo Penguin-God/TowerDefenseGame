@@ -12,7 +12,7 @@ public class TrapCreator : MonoBehaviourPun
 
     void Awake()
     {
-        _locationFinder = new MonsterPathLocationFinder(MultiData.instance.GetEnemyTurnPoints(PlayerIdManager.Id).Select(x => x.position).ToArray());
+        _locationFinder = new MonsterPathLocationFinder(MultiDataManager.instance.GetEnemyTurnPoints(PlayerIdManager.Id).Select(x => x.position).ToArray());
         _traps = new MultiData<AreaSlowApplier[]>();
     }
 

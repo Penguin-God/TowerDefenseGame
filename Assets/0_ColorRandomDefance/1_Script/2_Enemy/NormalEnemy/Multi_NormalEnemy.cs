@@ -51,7 +51,7 @@ public class Multi_NormalEnemy : Multi_Enemy
 
     protected void Go()
     {
-        TurnPoints = MultiData.instance.GetEnemyTurnPoints(UsingId);
+        TurnPoints = MultiDataManager.instance.GetEnemyTurnPoints(UsingId);
         pointIndex = 0;
         transform.position = _spawnPositons[UsingId];
         transform.rotation = Quaternion.identity;

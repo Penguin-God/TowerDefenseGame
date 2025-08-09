@@ -92,7 +92,7 @@ public class WebServerTest : MonoBehaviour
 
     IEnumerator Upload(string controllor, string jsonfile)
     {
-        using (UnityWebRequest request = UnityWebRequest.Post($"https://localhost:44319/{controllor}", jsonfile))
+        using (UnityWebRequest request = UnityWebRequest.PostWwwForm($"https://localhost:44319/{controllor}", jsonfile))
         {
             byte[] jsonToSend = new UTF8Encoding().GetBytes(jsonfile);
             request.uploadHandler = new UploadHandlerRaw(jsonToSend);

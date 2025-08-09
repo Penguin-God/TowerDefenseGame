@@ -216,8 +216,8 @@ public class Multi_TeamSoldier : MonoBehaviourPun
         }
     }
     Vector3 GetTpPos() => IsInDefenseWorld ?
-        SpawnPositionCalculator.CalculateTowerWolrdSpawnPostion(MultiData.instance.EnemyTowerWorldPositions[Spot.WorldId])
-        : SpawnPositionCalculator.CalculateWorldSpawnPostion(MultiData.instance.GetWorldPosition(Spot.WorldId));
+        SpawnPositionCalculator.CalculateTowerWolrdSpawnPostion(MultiDataManager.instance.EnemyTowerWorldPositions[Spot.WorldId])
+        : SpawnPositionCalculator.CalculateWorldSpawnPostion(MultiDataManager.instance.GetWorldPosition(Spot.WorldId));
 
     [PunRPC]
     protected void MoveToOtherWorld(Vector3 destination)

@@ -7,7 +7,7 @@ public static class SpawnPositionCalculator
     const float WolrdRange = 10f;
     static readonly RandomPositionCalculator _randomPositionCalculator = new RandomPositionCalculator();
     public static Vector3 CalculateWorldSpawnPostion() => CalculateWorldSpawnPostion(PlayerIdManager.Id);
-    public static Vector3 CalculateWorldSpawnPostion(byte id) => CalculateWorldSpawnPostion(MultiData.instance.GetWorldPosition(id));
+    public static Vector3 CalculateWorldSpawnPostion(byte id) => CalculateWorldSpawnPostion(MultiDataManager.instance.GetWorldPosition(id));
     public static Vector3 CalculateWorldSpawnPostion(Vector3 pivot) => _randomPositionCalculator.CalculateRandomPosInRange(pivot, WolrdRange);
 
 
